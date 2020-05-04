@@ -1,0 +1,10 @@
+geoserver/geodata/
+pipeline/data/
+
+.vscode
+.vscode/*
+
+geoserver/
+*.zip
+
+Dockerfile
