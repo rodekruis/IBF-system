@@ -7,6 +7,6 @@ Backend services of the IBF-system.
 
 ## Setup
 
-The `FbF-Date-pipeline`-folder is the backend that was built and used for the FBF Zambia product. (copied from repository: https://github.com/rodekruis/FbF-Data-pipeline)
+The [FbF-Date-pipeline](./FbF-Data-pipeline/) folder is the backend that was built and used for the FBF Zambia product. (copied from repository: https://github.com/rodekruis/FbF-Data-pipeline)
 
 It will need to be improved and made more generic for other countries, disaster-types. But this will be the starting point.
