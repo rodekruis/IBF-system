@@ -1,6 +1,6 @@
 # Flood skill assessment
 
-Framework to assess if and which meterological data (river discharge, rainfall, etc.) is of sufficient quality to be included in the trigger model. The assessment is based on how well a model which uses metereological data can predict past floods. The model performance is measured by several indicators: False Alarm Rate (FAR), Probability Of Detection (POD), Critical Success Index (CSI).
+Framework to assess if and which meterological data (river discharge, rainfall, etc.) is of sufficient quality to be included in the trigger model. The assessment is based on how well a statistical model which uses metereological data can predict past floods. The model performance is measured by several indicators: False Alarm Rate (FAR), Probability Of Detection (POD), Critical Success Index (CSI).
 
 Current version uses historical river discharge (source: Glofas) and rainfall data (source: CHIRPS).
 
