@@ -1,4 +1,4 @@
-# Introduction
+# Flood trigger model
 This repository contains  scripts for the different steps involved in Impact based forecasting(IBF) model development 
 The scripts avilable in this repo grouped into the fowllowing catgories. Geo spatial data needed for running the scripts are stored in 510geonode server. For running the scripts please check  Geo_setting.R for name of variables for retriving data from 510geonode server.
 
