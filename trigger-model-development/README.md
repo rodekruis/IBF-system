@@ -8,8 +8,8 @@ Development of trigger models for IBF-system.
 ## Setup
 
 This folder contains content for various disaster types. For now:
-1. flood
-2. drought
+1. [Flood](./flood/)
+2. [Drought](./drought/)
    
 They will use shared code (in the future) and shared setup (for now) as much as possible.
 
