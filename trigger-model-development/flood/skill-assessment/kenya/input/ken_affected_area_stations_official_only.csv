@@ -1,0 +1,48 @@
+pcode,name,Impact_data,Glofas_st,Glofas_st2,Glofas_st3,Glofas_st4,Total_Glofas,mountainuous,close_to_lake,Affected_noGlofas,
+KE030,Baringo,1,,,,,0,,,,1
+KE036,Bomet,1,,,,,0,,,,1
+KE039,Bungoma,1,F0031,,,,1,,,,0
+KE040,Busia,1,F0031,,,,1,,,,0
+KE028,Elgeyo-Marakwet,1,,,,,0,,,,1
+KE014,Embu,1,G5299,,,,1,,,,0
+KE007,Garissa,1,G5305,G5208,G5210,,3,,,,0
+KE043,Homa Bay,1,,,,,0,,,,1
+KE011,Isiolo,1,G5210,G5208,G5198,G5197,4,,,,0
+KE034,Kajiado,1,,,,,0,,,,1
+KE037,Kakamega,1,F0031,,,,1,,,,0
+KE035,Kericho,1,,,,,0,,,,1
+KE022,Kiambu,1,,,,,0,,,,1
+KE003,Kilifi,1,G5332,G5326,G5305,,3,,,,0
+KE020,Kirinyaga,1,,,,,0,,,,1
+KE045,Kisii,1,,,,,0,,,,1
+KE042,Kisumu,1,,,,,0,,,,1
+KE015,Kitui,1,G5299,,,,1,,,,0
+KE002,Kwale,1,,,,,0,,,,1
+KE031,Laikipia,1,,,,,0,,,,1
+KE005,Lamu,1,G5332,G5326,G5305,,3,,,,0
+KE016,Machakos,1,G5299,,,,1,,,,0
+KE017,Makueni,1,,,,,0,,,,1
+KE009,Mandera,1,,,,,0,,,,1
+KE010,Marsabit,1,G5173,G5170,G5171,,3,,,,0
+KE012,Meru,1,,,,,0,,,,1
+KE044,Migori,1,,,,,0,,,,1
+KE001,Mombasa,1,,,,,0,,,,1
+KE021,Murang'a,1,,,,,0,,,,1
+KE047,Nairobi,1,,,,,0,,,,1
+KE032,Nakuru,1,,,,,0,,,,1
+KE029,Nandi,1,,,,,0,,,,1
+KE033,Narok,1,,,,,0,,,,1
+KE046,Nyamira,1,,,,,0,,,,1
+KE018,Nyandarua,1,,,,,0,,,,1
+KE019,Nyeri,1,,,,,0,,,,1
+KE025,Samburu,1,,,,,0,,,,1
+KE041,Siaya,1,F0031,,,,1,,,,0
+KE006,Taita Taveta,1,,,,,0,,,,1
+KE004,Tana River,1,G5332,G5326,G5305,,3,,,,0
+KE013,Tharaka-Nithi,1,G5299,,,,1,,,,0
+KE026,Trans Nzoia,1,,,,,0,,,,1
+KE023,Turkana,1,G5170,G5171,,,2,,,,0
+KE027,Uasin Gishu,1,,,,,0,,,,1
+KE038,Vihiga,1,,,,,0,,,,1
+KE008,Wajir,1,G5210,G5208,,,2,,,,0
+KE024,West Pokot,1,,,,,0,,,,1

@@ -1,0 +1,7 @@
+*.vscode
+*settings.cfg
+*~
+*__pycache__
+*.spyproject
+**rainfall
+**catchment

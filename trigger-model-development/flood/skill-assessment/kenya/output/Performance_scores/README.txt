@@ -1,0 +1,1 @@
+Results from the Glofas Model performance will be created here: Shapefile of the results, table in .csv and maps

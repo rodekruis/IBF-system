@@ -1,0 +1,10 @@
+*.Rproj.user
+*.Rhistory
+*.RData
+*.Ruserdata
+*.tif.gz
+*.tif
+.Rproj.user
+*.grd
+*.gri
+*shiny_explorer_input.csv

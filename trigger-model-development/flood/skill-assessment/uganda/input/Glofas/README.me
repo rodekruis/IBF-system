@@ -1,0 +1,2 @@
+SAVE HERE the Glofas NetCDF Grid of Uganda : 
+Raw data are in Team : https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/%5BCTRY%5D%20Uganda/2-%20IBF%20FLOOD%20UGANDA/FLOOD%20INDICATORS%20ANALYSIS/GLOFAS_ANALYSIS/uga_glofas_all.nc
