@@ -1,5 +1,5 @@
-# Drought_IBF
-Code for drought impact forecasting.
+# Drought skill assessment
+Various code to assess if and which meterological data (NDVI, SPEI, etc.) is of sufficient quality to be included in the trigger model. The assessment is based on how well a statistical model which uses metereological data can predict past droughts. The model performance is measured by several indicators: False Alarm Rate (FAR), Probability Of Detection (POD), Critical Success Index (CSI).
 
 Directory structure:
 * GoogleEarthEngine: access and download satellite data from Google Earth Engine
