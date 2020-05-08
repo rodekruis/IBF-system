@@ -3,7 +3,7 @@
 Structured in three consecutive steps:
 1. [impact-data](./impact-data/)
 
-   analyse, filter and aggregate impact data of the specific disaster type
+   analyse, filter and aggregate impact data of floods
 2. [skill-assessment](./skill-assessment/)
 
    evaluate if and which meterological data (river discharge, rainfall, etc.) is of sufficient quality to be included in the trigger model
