@@ -1,12 +1,12 @@
-# IBF_TriggerModel_Flood V1.2
+# Flood skill assessment
 
-Initial version of Trigger Model methodology for floods, using global datasets. The objetive is to assess the predictability of historical floods impact (YES/NO)  recorded per district in a country, using global datasets.
+Framework to assess if and which meterological data (river discharge, rainfall, etc.) is of sufficient quality to be included in the trigger model.
 
-VERSION V1.2 :  Uses river discharge data (source: Glofas) and rainfall data (source: CHIRPS).
+Now assesses historical river discharge (source: Glofas) and rainfall data (source: CHIRPS).
 
 ## Directory Structure
 -   `scripts` model and visualization scripts
--   `africa` global input data for all Africa (Glofas virtual station, Hydroshed ...)
+-   `africa` global input data for all Africa (Glofas virtual station, Hydroshed, etc.)
 -   `uganda`, `kenya`... input and output data per country
 
 ## Setup
