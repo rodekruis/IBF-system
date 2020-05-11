@@ -270,7 +270,7 @@ Impact_hazard_catalog<- glofas_district_matrix  %>%
   full_join(impact_data_df %>%mutate(Date=as.Date(Date,format="%d/%m/%Y")),by=c("Date","name"))
 
 ###### write Impact hazard catalog to file 
-write.table(Impact_hazard_catalog, file = "C:/Users/ATeklesadik/OneDrive - Rode Kruis/Documents/documents/Flood_impact_models/dashboard/catalog_view_kenya/data/Impact_Hazard_catalog.csv", append = FALSE, quote = TRUE, sep = ";",
+write.table(Impact_hazard_catalog, file = "dashboard/catalog_view_uganda/data/Impact_Hazard_catalog.csv", append = FALSE, quote = TRUE, sep = ";",
             eol = "\n", na = "NA", dec = ".", row.names = FALSE,
             col.names = TRUE, qmethod = c("escape", "double"),
             fileEncoding = "")
