@@ -5,7 +5,7 @@ from datetime import date, timedelta
 ## SETTINGS ##
 ##############
 
-GLOFAS_DUMMY = False
+GLOFAS_DUMMY = True
 OVERWRITE_DUMMY = False
 EMAIL_NOTIFICATION = True
 EMAIL_WITHOUT_TRIGGER = True
