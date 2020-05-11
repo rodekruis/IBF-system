@@ -83,7 +83,7 @@ impact_data1_R %>% st_set_geometry(impact_data1_R$geometry)
 #---------------------- annimation risk map -------------------------------
 tmap_mode(mode = "plot")
 
-m1<-tm_shape(admin3) + tm_borders(lwd = .5,col='#bdbdbd') +
+m1<-tm_shape(admin2) + tm_borders(lwd = .5,col='#bdbdbd') +
   tm_shape(impact_data1_w_ts) + tm_polygons(col = "PplAffc", name='W_NAME',
                                         palette=c('#fef0d9','#fdd49e','#fdbb84','#fc8d59','#e34a33','#b30000'),
                                         breaks=c(0,5,1000,5000,20000,50000,90000),colorNA=NULL,
@@ -93,7 +93,7 @@ m1<-tm_shape(admin3) + tm_borders(lwd = .5,col='#bdbdbd') +
   tm_facets(along = "year",free.coords = FALSE) +
   tm_format("World_wide")
 #save annimation to file 
-tmap_animation(m1, filename="Uganda_impact.gif", width=1600, delay=60)
+tmap_animation(m1, filename="../output/uganda/Uganda_impact.gif", width=1600, delay=60)
 
 #---------------------- visualize risk data This are potential maps for EAP -------------------------------
 par(mfrow = c(1,3),mar=c(6.5, 4.5, 5.15, 2.25)+0.2)
