@@ -200,30 +200,7 @@ def plot_dist(data,target,drought_var):
 
 
 def visualize_droughts_uganda(data, model, year, season, selected_features,
-                              label_name, path_to_shapefile='../'):
-
-    drought_count = data[['year', 'Season', label_name]].groupby(['year', 'Season']).sum().rename(
-        columns={label_name: 'drought_count'}).reset_index()
-    drought_count['date'] = drought_count.apply(lambda x: date(x.year,
-                                                               int(x.Season.split('_')[1]), 1),
-                                                axis=1)
-    drought_count[['date', 'drought_count']].plot(x='date', marker='o',
-                                                  color='darkorange',
-                                                  figsize=(5, 1.2),
-                                                  legend=False, )
-    ax = plt.gca()
-    date_1 = date(year, int(season.split('_')[0]), 1)
-    date_2 = date(year, int(season.split('_')[1]), 1)
-    ax.axvspan(date_1, date_2, alpha=0.5, color='grey')
-    plt.ylabel('drought count')
-    plt.xlabel('')
-    plt.ylim([-0.5, 20])
-    plt.yticks(range(0, 20, 5));
-    if season == '6_7':
-        title = 'June-July ' + str(year)
-    if season == '11_12':
-        title = 'November-December ' + str(year)
-    plt.title(title);
+                              label_name, path_to_shapefile='../', cmap='jet'):
 
     gdf_country = gpd.read_file(get_country_shapefile(path=path_to_shapefile,
                                                       country='Uganda',
@@ -251,11 +228,16 @@ def visualize_droughts_uganda(data, model, year, season, selected_features,
                     edgecolor="black", figsize=(6, 6))
         ax = plt.gca()
         geoplot.choropleth(temp_1, hue=temp_1['score'],
-                           cmap='jet', norm=norm, legend=True, ax=ax, zorder=0);
+                           cmap=cmap, norm=norm, legend=True, ax=ax, zorder=0);
     else:
         geoplot.choropleth(temp_1, hue=temp_1['score'],
-                           cmap='jet', norm=norm, legend=True, zorder=0,
+                           cmap=cmap, norm=norm, legend=True, zorder=0,
                            figsize=(6, 6));
+    if season == '6_7':
+        title = 'June-July ' + str(year)
+    if season == '11_12':
+        title = 'November-December ' + str(year)
+    plt.title(title);
 
     return
 
@@ -326,12 +308,12 @@ def prepare_monitor_data(data, monitor_features, monitor_model,
     return normal_data
 
 
-def monitor_plot(monitor_data, montor_date, district_col='District',date_col='date',
-                 label_col=None, path_to_shapefile='../'):
+def monitor_plot(monitor_data, monitor_date, district_col='District',date_col='date',
+                 label_col=None, path_to_shapefile='../',cmap='jet'):
 
-    month = montor_date.month
+    month = monitor_date.month
 
-    year = montor_date.year
+    year = monitor_date.year
 
     select_date = date(year, month, 1).strftime("%Y-%m-%d")
 
@@ -367,12 +349,13 @@ def monitor_plot(monitor_data, montor_date, district_col='District',date_col='da
                     edgecolor="black", figsize=(6, 6))
         ax = plt.gca()
         geoplot.choropleth(temp_1, hue=temp_1['score'],
-                           cmap='jet', norm=norm, legend=True, ax=ax, zorder=0);
+                           cmap=cmap, norm=norm, legend=True, ax=ax, zorder=0);
     else:
         geoplot.choropleth(temp_1, hue=temp_1['score'],
-                           cmap='jet', norm=norm, legend=True, zorder=0,
+                           cmap=cmap, norm=norm, legend=True, zorder=0,
                            figsize=(6, 6));
-    plt.title(select_date);
+
+    plt.title(monitor_date.strftime("%B %Y"));
 
     return
 
