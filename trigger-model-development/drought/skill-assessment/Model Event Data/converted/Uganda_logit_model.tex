@@ -1,0 +1,1188 @@
+% A latex document created by ipypublish
+% outline: ipypublish.templates.outline_schemas\latex_outline.latex.j2
+% with segments:
+% - standard-standard_packages: with standard nbconvert packages
+% - standard-standard_definitions: with standard nbconvert definitions
+% - ipypublish-doc_article: with the main ipypublish article setup
+% - ipypublish-front_pages: with the main ipypublish title and contents page setup
+% - ipypublish-biblio_natbib: with the main ipypublish bibliography
+% - ipypublish-contents_output: with the main ipypublish content
+% - ipypublish-contents_framed_code: with the input code wrapped and framed
+% - ipypublish-glossary: with the main ipypublish glossary
+%
+%%%%%%%%%%%% DOCCLASS
+
+\documentclass[10pt,parskip=half,
+toc=sectionentrywithdots,
+bibliography=totocnumbered,
+captions=tableheading,numbers=noendperiod]{scrartcl}
+
+%%%%%%%%%%%%
+
+%%%%%%%%%%%% PACKAGES
+
+\usepackage[T1]{fontenc} % Nicer default font (+ math font) than Computer Modern for most use cases
+\usepackage{mathpazo}
+\usepackage{graphicx}
+\usepackage[skip=3pt]{caption}
+\usepackage{adjustbox} % Used to constrain images to a maximum size
+\usepackage[table]{xcolor} % Allow colors to be defined
+\usepackage{enumerate} % Needed for markdown enumerations to work
+\usepackage{amsmath} % Equations
+\usepackage{amssymb} % Equations
+\usepackage{textcomp} % defines textquotesingle
+% Hack from http://tex.stackexchange.com/a/47451/13684:
+\AtBeginDocument{%
+    \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+}
+\usepackage{upquote} % Upright quotes for verbatim code
+\usepackage{eurosym} % defines \euro
+\usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+\usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+\usepackage{fancyvrb} % verbatim replacement that allows latex
+\usepackage{grffile} % extends the file name processing of package graphics
+                        % to support a larger range
+% The hyperref package gives us a pdf with properly built
+% internal navigation ('pdf bookmarks' for the table of contents,
+% internal cross-reference links, web links for URLs, etc.)
+\usepackage{hyperref}
+\usepackage{longtable} % longtable support required by pandoc >1.10
+\usepackage{booktabs}  % table support for pandoc > 1.12.2
+\usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+\usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                            % normalem makes italics be italics, not underlines
+
+\usepackage{translations}
+\usepackage{microtype} % improves the spacing between words and letters
+\usepackage{placeins} % placement of figures
+% could use \usepackage[section]{placeins} but placing in subsection in command section
+% Places the float at precisely the location in the LaTeX code (with H)
+\usepackage{float}
+\usepackage[colorinlistoftodos,obeyFinal,textwidth=.8in]{todonotes} % to mark to-dos
+% number figures, tables and equations by section
+% fix for new versions of texlive (see https://tex.stackexchange.com/a/425603/107738)
+\let\counterwithout\relax
+\let\counterwithin\relax
+\usepackage{chngcntr}
+% header/footer
+\usepackage[footsepline=0.25pt]{scrlayer-scrpage}
+
+% bibliography formatting
+\usepackage[numbers, square, super, sort&compress]{natbib}
+% hyperlink doi's
+\usepackage{doi}
+
+    % define a code float
+    \usepackage{newfloat} % to define a new float types
+    \DeclareFloatingEnvironment[
+        fileext=frm,placement={!ht},
+        within=section,name=Code]{codecell}
+    \DeclareFloatingEnvironment[
+        fileext=frm,placement={!ht},
+        within=section,name=Text]{textcell}
+    \DeclareFloatingEnvironment[
+        fileext=frm,placement={!ht},
+        within=section,name=Text]{errorcell}
+
+    \usepackage{listings} % a package for wrapping code in a box
+    \usepackage[framemethod=tikz]{mdframed} % to fram code
+
+%%%%%%%%%%%%
+
+%%%%%%%%%%%% DEFINITIONS
+
+% Pygments definitions
+
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+% ANSI colors
+\definecolor{ansi-black}{HTML}{3E424D}
+\definecolor{ansi-black-intense}{HTML}{282C36}
+\definecolor{ansi-red}{HTML}{E75C58}
+\definecolor{ansi-red-intense}{HTML}{B22B31}
+\definecolor{ansi-green}{HTML}{00A250}
+\definecolor{ansi-green-intense}{HTML}{007427}
+\definecolor{ansi-yellow}{HTML}{DDB62B}
+\definecolor{ansi-yellow-intense}{HTML}{B27D12}
+\definecolor{ansi-blue}{HTML}{208FFB}
+\definecolor{ansi-blue-intense}{HTML}{0065CA}
+\definecolor{ansi-magenta}{HTML}{D160C4}
+\definecolor{ansi-magenta-intense}{HTML}{A03196}
+\definecolor{ansi-cyan}{HTML}{60C6C8}
+\definecolor{ansi-cyan-intense}{HTML}{258F8F}
+\definecolor{ansi-white}{HTML}{C5C1B4}
+\definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+% commands and environments needed by pandoc snippets
+% extracted from the output of `pandoc -s`
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
+
+% Additional commands for more recent versions of Pandoc
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+\newcommand{\ImportTok}[1]{{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+\newcommand{\BuiltInTok}[1]{{#1}}
+\newcommand{\ExtensionTok}[1]{{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+
+% Define a nice break command that doesn't care if a line doesn't already
+% exist.
+\def\br{\hspace*{\fill} \\* }
+
+% Math Jax compatability definitions
+\def\gt{>}
+\def\lt{<}
+
+\setcounter{secnumdepth}{5}
+
+% Colors for the hyperref package
+\definecolor{urlcolor}{rgb}{0,.145,.698}
+\definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+\definecolor{citecolor}{rgb}{.12,.54,.11}
+
+\DeclareTranslationFallback{Author}{Author}
+\DeclareTranslation{Portuges}{Author}{Autor}
+
+\DeclareTranslationFallback{List of Codes}{List of Codes}
+\DeclareTranslation{Catalan}{List of Codes}{Llista de Codis}
+\DeclareTranslation{Danish}{List of Codes}{Liste over Koder}
+\DeclareTranslation{German}{List of Codes}{Liste der Codes}
+\DeclareTranslation{Spanish}{List of Codes}{Lista de C\'{o}digos}
+\DeclareTranslation{French}{List of Codes}{Liste des Codes}
+\DeclareTranslation{Italian}{List of Codes}{Elenco dei Codici}
+\DeclareTranslation{Dutch}{List of Codes}{Lijst van Codes}
+\DeclareTranslation{Portuges}{List of Codes}{Lista de C\'{o}digos}
+
+\DeclareTranslationFallback{Supervisors}{Supervisors}
+\DeclareTranslation{Catalan}{Supervisors}{Supervisors}
+\DeclareTranslation{Danish}{Supervisors}{Vejledere}
+\DeclareTranslation{German}{Supervisors}{Vorgesetzten}
+\DeclareTranslation{Spanish}{Supervisors}{Supervisores}
+\DeclareTranslation{French}{Supervisors}{Superviseurs}
+\DeclareTranslation{Italian}{Supervisors}{Le autorit\`{a} di vigilanza}
+\DeclareTranslation{Dutch}{Supervisors}{supervisors}
+\DeclareTranslation{Portuguese}{Supervisors}{Supervisores}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily,
+    breakatwhitespace=false,
+    keepspaces=true,
+    numbers=left,
+    numbersep=10pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    breaklines=true,
+    literate={\-}{}{0\discretionary{-}{}{-}},
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+\lstset{style=mystyle}
+
+\surroundwithmdframed[
+  hidealllines=true,
+  backgroundcolor=backcolour,
+  innerleftmargin=0pt,
+  innerrightmargin=0pt,
+  innertopmargin=0pt,
+  innerbottommargin=0pt]{lstlisting}
+
+%%%%%%%%%%%%
+
+%%%%%%%%%%%% MARGINS
+
+ % Used to adjust the document margins
+\usepackage{geometry}
+\geometry{tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in,
+nohead,includefoot,footskip=25pt}
+% you can use showframe option to check the margins visually
+%%%%%%%%%%%%
+
+%%%%%%%%%%%% COMMANDS
+
+% ensure new section starts on new page
+\addtokomafont{section}{\clearpage}
+
+% Prevent overflowing lines due to hard-to-break entities
+\sloppy
+
+% Setup hyperref package
+\hypersetup{
+    breaklinks=true,  % so long urls are correctly broken across lines
+    colorlinks=true,
+    urlcolor=urlcolor,
+    linkcolor=linkcolor,
+    citecolor=citecolor,
+    }
+
+% ensure figures are placed within subsections
+\makeatletter
+\AtBeginDocument{%
+    \expandafter\renewcommand\expandafter\subsection\expandafter
+    {\expandafter\@fb@secFB\subsection}%
+    \newcommand\@fb@secFB{\FloatBarrier
+    \gdef\@fb@afterHHook{\@fb@topbarrier \gdef\@fb@afterHHook{}}}%
+    \g@addto@macro\@afterheading{\@fb@afterHHook}%
+    \gdef\@fb@afterHHook{}%
+}
+\makeatother
+
+% number figures, tables and equations by section
+\counterwithout{figure}{section}
+\counterwithout{table}{section}
+\counterwithout{equation}{section}
+\makeatletter
+\@addtoreset{table}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{equation}{section}
+\makeatother
+\renewcommand\thetable{\thesection.\arabic{table}}
+\renewcommand\thefigure{\thesection.\arabic{figure}}
+\renewcommand\theequation{\thesection.\arabic{equation}}
+
+    % set global options for float placement
+    \makeatletter
+        \providecommand*\setfloatlocations[2]{\@namedef{fps@#1}{#2}}
+    \makeatother
+
+% align captions to left (indented)
+\captionsetup{justification=raggedright,
+singlelinecheck=false,format=hang,labelfont={it,bf}}
+
+% shift footer down so space between separation line
+\ModifyLayer[addvoffset=.6ex]{scrheadings.foot.odd}
+\ModifyLayer[addvoffset=.6ex]{scrheadings.foot.even}
+\ModifyLayer[addvoffset=.6ex]{scrheadings.foot.oneside}
+\ModifyLayer[addvoffset=.6ex]{plain.scrheadings.foot.odd}
+\ModifyLayer[addvoffset=.6ex]{plain.scrheadings.foot.even}
+\ModifyLayer[addvoffset=.6ex]{plain.scrheadings.foot.oneside}
+\pagestyle{scrheadings}
+\clearscrheadfoot{}
+\ifoot{\leftmark}
+\renewcommand{\sectionmark}[1]{\markleft{\thesection\ #1}}
+\ofoot{\pagemark}
+\cfoot{}
+
+%%%%%%%%%%%%
+
+%%%%%%%%%%%% FINAL HEADER MATERIAL
+
+% clereref must be loaded after anything that changes the referencing system
+\usepackage{cleveref}
+\creflabelformat{equation}{#2#1#3}
+
+% make the code float work with cleverref
+\crefname{codecell}{code}{codes}
+\Crefname{codecell}{code}{codes}
+% make the text float work with cleverref
+\crefname{textcell}{text}{texts}
+\Crefname{textcell}{text}{texts}
+% make the text float work with cleverref
+\crefname{errorcell}{error}{errors}
+\Crefname{errorcell}{error}{errors}
+
+%%%%%%%%%%%%
+
+\begin{document}
+
+    \begin{titlepage}
+  \begin{flushright}
+    \includegraphics[width=0.7\textwidth]{Uganda_logit_model_files/510logo.png}
+  \end{flushright}
+
+  \begin{center}
+
+  \vspace*{1cm}
+
+  \Huge\textbf{Predicting Droughts in Uganda}
+
+  \vspace{0.5cm}\LARGE{from meteorological satalite data}
+
+  \vspace{1.5cm}
+
+  \begin{minipage}{0.8\textwidth}
+    \begin{center}
+    \begin{minipage}{0.39\textwidth}
+    \begin{flushleft} \Large
+    \emph{\GetTranslation{Author}:}\\Behrouz Eslami and Misha Klein\\\href{mailto:behrooz.eslami@gmail.com}{behrooz.eslami@gmail.com}
+    \end{flushleft}
+    \end{minipage}
+    \hspace{\fill}
+    \begin{minipage}{0.39\textwidth}
+    \begin{flushright} \Large
+    \end{flushright}
+    \end{minipage}
+    \end{center}
+  \end{minipage}
+
+  \vfill
+
+  \begin{minipage}{0.8\textwidth}
+  \begin{center}
+  \end{center}
+  \end{minipage}
+
+  \vspace{0.8cm}
+
+  \vspace{0.4cm}
+
+  \today
+
+  \end{center}
+  \end{titlepage}
+
+    \begingroup
+    \let\cleardoublepage\relax
+    \let\clearpage\relax
+    \endgroup
+
+\hypertarget{summary}{%
+\section{Summary}\label{summary}}
+
+Here we train and optimize a logistic regression model to predict the
+occurrence of droughts in Uganda based of meteorological data. The
+precipitation and the \textbf{E}nhanced \textbf{V}egitation
+\textbf{I}ndex (EVI) turn out to be the most important drought
+predictors among all the meteorological quantities that we studied,
+implying that the drought reports are triggered by both the hydrological
+and agricultural factors. The model is able to capture 70 percent of the
+reported droughts in our historical data. Based on our model, we derive
+a ``drought score'' which would serve as a potentially useful metric to
+monitor and predict droughts in Uganda.
+
+\hypertarget{data-collection}{%
+\section{Data collection}\label{data-collection}}
+
+Our aim is to construct a model to predict the occurrence of droughts in
+Uganda, using meteorological satellite data. The meteorological
+parameters that serve as drought indicators, and to which we refer as
+\textbf{features}, are collected using the
+\href{https://developers.google.com/earth-engine/python_install}{Google
+Earth engine} by this
+\href{https://github.com/rodekruis/Drought_IBF/blob/master/GoogleEarthEngine/GEE_get_data.py}{python
+script}, and are listed bellow
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MOD13A2}{\textbf{NDVI:}}
+  \emph{`\textbf{\emph{N}}ormalized \textbf{\emph{D}}ifference
+  \textbf{\emph{V}}egitation \textbf{\emph{I}}ndex'} (scale by
+  0.0001).\\
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MOD13A2}{\textbf{EVI:}}
+  \emph{`\textbf{\emph{E}}nhanced \textbf{\emph{V}}egitation
+  \textbf{\emph{I}}ndex'} (scale by 0.0001).
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/TRMM_3B43V7\#bands}{\textbf{precipitation:}}:
+  Rainfall in mm/hrs. Name in our dataset:
+  `\texttt{precipitation\ per\ hour\ v1}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/JAXA_GPM_L3_GSMaP_v6_operational}{\textbf{hourlyPrecipRate:}}
+  Rainfall measured in mm/hrs. Name in our dataset:
+  `\texttt{precipitation\ per\ hour\ v2}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MOD11A1}{\textbf{LST\_Day\_1km:}}
+  Land surface temperature during daytime in 50 Kelvins. Name in our
+  dataset: `\texttt{surface\ temperature\ daytime}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MOD11A1}{\textbf{LST\_Night\_1km:}}
+  Land surface temperature during daytime in 50 Kelvins. Name in our
+  dataset: `\texttt{surface\ temperature\ nighttime}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{Evap\_tavg:}}
+  Evapotranspiration measured in kg m\^{}\{-2\} s\^{}\{-1\}. Name in our
+  dataset: `\texttt{evapotranspiration}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{Rainf\_f\_tavg:}}
+  Precipitation rate measured in kg m\^{}\{-2\} s\^{}\{-1\} Name in our
+  dataset: `\texttt{rainfall}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{SoilMoi00\_10cm\_tavg:}}
+  Soil moisture (0 - 10 cm underground) in m\^{}3 m-3. Name in our
+  dataset: `\texttt{SoilMoisture00\ 10cm}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{SoilMoi10\_40cm\_tavg:}}
+  Soil moisture (10 - 40 cm underground) in m\^{}3 m-3. Name in our
+  dataset: `\texttt{SoilMoisture10\ 40cm}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{SoilMoi40\_100cm\_tavg:}}
+  Soil moisture (40 - 100 cm underground) in m\^{}3 m-3. Name in our
+  dataset: `\texttt{SoilMoisture40\ 100cm}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{SoilMoi100\_200cm\_tavg:}}
+  Soil moisture (100 - 200 cm underground) in m\^{}3 m-3. Name in our
+  dataset: `\texttt{SoilMoisture100\ 200cm}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{SoilTemp00\_10cm\_tavg:}}
+  Soil temperature (0 - 10 cm underground) in K. Name in our dataset:
+  `\texttt{SoilTemperature00\ 10cm}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{SoilTemp10\_40cm\_tavg:}}
+  Soil temperature (10 - 40 cm underground) in K. Name in our dataset:
+  `\texttt{SoilTemperature10\ 40cm}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{SoilTemp40\_100cm\_tavg:}}
+  Soil temperature (40 - 100 cm underground) in K. Name in our dataset:
+  `\texttt{SoilTemperature40\ 100cm}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{SoilTemp100\_200cm\_tavg:}}
+  Soil temperature (100 - 200 cm underground) in K. Name in our dataset:
+  `\texttt{SoilTemperature100\ 200cm}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{Tair\_f\_tavg:}}
+  Near surface air temperature in K. Name in our dataset:
+  `\texttt{air\ temperature}'.
+\item
+  \href{https://developers.google.com/earth-engine/datasets/catalog/NASA_FLDAS_NOAH01_C_GL_M_V001}{\textbf{Wind\_f\_tavg:}}
+  Near surface wind speed in m/s. Name in our dataset:
+  `\texttt{wind\ speed}'.\\
+\item
+  \href{https://spei.csic.es/}{\textbf{SPEI} columns:} We calculated the
+  \emph{`\textbf{\emph{S}}tandardized
+  \textbf{\emph{P}}recipitation-\textbf{\emph{E}}vapotranspiration
+  \textbf{\emph{I}}ndex'} from the columns `\texttt{rainfall}' and
+  `\texttt{evapotranspiration}' in our dataset, using the published
+  \href{https://spei.csic.es/tools.html}{R package}. We have used
+  different \emph{scale} parameters from 1 to 12 months, generating the
+  columns `\texttt{SPEI\ 1month}' to `\texttt{SPEI\ 12month}'. The R
+  script to perform this calculation can be find
+  \href{https://github.com/rodekruis/Drought_IBF/blob/master/Model\%20Event\%20Data/SPEI_satellite/calc_SPEI.R}{here}.
+\end{itemize}
+
+All features were averaged over each district (i.e.~admin. level 1), and
+either averaged or summed in successive one-month intervals (see the
+\href{https://github.com/rodekruis/Drought_IBF/blob/master/GoogleEarthEngine/GEE_get_data.py}{python
+script} for details).
+
+The target variable that we are trying to predict, to which we refer to
+as the \textbf{label}, is the occurrence of droughts at a certain time
+point/period in a particular district. This would be a binary
+(i.e.~Boolean) variable, taking the value `True' when a drought has
+occurred, and `False' when no drought is reported. This information
+comes from two different sources, the Red Cross desinventar and news
+articles, both can be found
+\href{https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde\%20\%20documenten/Forms/AllItems.aspx?RootFolder=\%2Fsites\%2F510\%2DCRAVK\%2D510\%2FGedeelde\%20\%20documenten\%2F\%5BCTRY\%5D\%20Uganda\%2F2\%2D\%20IBF\%20DROUGHT\%20UGANDA\%2FDROUGHT\%20EVENTS\%20\%26\%20IMPACT\%20ANALYSIS\&FolderCTID=0x012000D122CA8FA5B68345A13A32EDAA653915}{here}.
+We chose to build the label variable by combining the two sources
+together. This is represented by the column `\texttt{drought\ reported}'
+in the dataset.
+
+We merged all the features and labels into a single dataset using this
+\href{https://github.com/rodekruis/Drought_IBF/blob/master/Model\%20Event\%20Data/combining\%20satellite\%20data\%20with\%20desinventar\%20events\%20and\%20news\%20article\%20events\%20.ipynb}{Jupyter
+notebook}. The resultant dataset can be found
+\href{https://github.com/rodekruis/Drought_IBF/blob/master/Model\%20Event\%20Data/datasets/Droughts_satelite_and_events.csv}{here}.
+Each row of the dataset corresponds to a unique pair of date and
+district.
+
+\hypertarget{data-preprocessing}{%
+\section{Data preprocessing}\label{data-preprocessing}}
+
+We consider the bimodal
+\href{https://fews.net/east-africa/uganda}{agricultural calendar for
+Uganda} (Figure \ref{fig:calendar}, top panel) which has two harvest
+seasons per year: the first one during June and July, and the second one
+in November and December.
+
+\begin{figure}[]
+\hypertarget{fig:calendar}{%
+\begin{center}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight},width=1.0\linewidth}{./pictures/seasonal-calendar-uganda.png}
+\end{center}
+\caption{agricultural calendar for Uganda}\label{fig:calendar}
+}
+\end{figure}
+
+We set as our goal to predict whether or not a drought occurs within
+each harvest season, based on the meteorological data in the three-month
+period preceding the season. To this end we redefine the label variable
+to have the value \texttt{True} if a drought is reported in any of the
+two months of the season, and \texttt{False} otherwise. We also average
+all the meteorological data, except SPEI, over the preceding three-month
+period and use them as features for our model. For SPEI we use the
+column `\texttt{SPEI\ 3month}' and take the data points that correspond
+to the three-month period before each harvest season. We then normalize
+all features except \texttt{SPEI} per district and season. This means
+that for any given district and season, we calculate the mean and the
+standard deviation of each feature during all years, and then
+standardize the feature by subtracting the mean and dividing by the
+standard deviation. The \texttt{SPEI} feature is already normalized by
+construction.\\
+The transformed dataset can be downloaded from
+\href{https://github.com/rodekruis/Drought_IBF/blob/master/Model\%20Event\%20Data/datasets/Uganda_seasonal_normalized.csv}{here}.
+Each row is indicated by a unique triple of district, year and season.
+The first harvest season is indicated by \texttt{6\_7} and the second
+one by \texttt{11\_12}.
+
+As a final step of preparing the training data, we decided to only keep
+those rows in the dataset that correspond to either a year with a
+reported drought or a year preceding/following a drought. This will
+potentially reduce the noise in the data due to the droughts that have
+actually happened but remained unreported.
+
+\hypertarget{data-exploration}{%
+\section{Data exploration}\label{data-exploration}}
+
+\hypertarget{correlations-among-the-features}{%
+\subsection{Correlations among the
+features}\label{correlations-among-the-features}}
+
+Many of the features in our dataset are strongly correlated. To
+investigate this, we used a
+\href{https://scikit-learn.org/stable/modules/biclustering.html}{biclustering
+algorithm} to divide the features into three separate groups. Features
+within a group correlate strongly with each other, while the correlation
+between features from different groups is weaker. Figure \ref{corr_mat}
+Shows the resultant correlation matrix, where the colors represent the
+absolute value of the correlation coefficient. We can see that the soil
+moisture and soil temperature features all correlate strongly with each
+other, as expected. Vegetation indices EVI and NDVI correlate well with
+each other, with air and surface temperatures, and with the soil
+temperature (but not with the soil moisture). Surprisingly the features
+related to precipitation, namely `\texttt{rainfall}',
+`\texttt{precipitation\_per\_hour\_v1}' and
+`\texttt{precipitation\_per\_hour\_v2}', do not correlate well with each
+other. The reason for this is not clear for us.
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.4\paperheight}{Uganda_logit_model_files/output_15_0.png}\end{center}\caption{Correlations matrix for all pairs of features. The colors represent the
+absolute value of the correlation coefficient.}\label{corr_mat}\end{figure}
+
+The correlation plots among the features within each of the three groups
+are shown in Figures \ref{pairplot1} to \ref{pairplot3}.
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.55\paperheight}{Uganda_logit_model_files/output_17_0.png}\end{center}\caption{Correlation plots for the features in group 1. The points are colored
+based on their label values.}\label{pairplot1}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.55\paperheight}{Uganda_logit_model_files/output_18_0.png}\end{center}\caption{Correlation plots for the features in group 2. The points are colored
+based on their label values.}\label{pairplot2}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.55\paperheight}{Uganda_logit_model_files/output_19_0.png}\end{center}\caption{Correlation plots for the features in group 3. The points are colored
+based on their label values.}\label{pairplot3}\end{figure}
+
+\hypertarget{correlation-with-the-target}{%
+\subsection{Correlation with the
+target}\label{correlation-with-the-target}}
+
+Figures \ref{fig_dist1} to \ref{fig_dist19} show the distribution of
+each feature separately for `\texttt{drought\ reported\ =False}' (blue)
+and `\texttt{drought\ reported\ =\ True}' (orange). The medians of the
+distributions, as well as the absolute values of the difference between
+them, are reported in Table \ref{tlabe_median}. The features are ranked
+in descending order according to the difference in medians. From Table
+\ref{tlabe_median} it is clear that the features that are related to
+precipitation, either directly or indirectly, are important drought
+predictors.
+
+\begin{table}[H]
+\caption{The median values of the features grouped by the label. The column
+`difference' shows the absolute values of the difference between the two
+groups.}\label{tlabe_median}
+\centering
+\begin{adjustbox}{max width=\textwidth}\rowcolors{2}{gray!20}{white}
+\begin{tabular}{llrrr}
+\toprule
+{} &                        feature &  no drought &  yes drought &  difference \\
+\midrule
+0  &            SoilMoisture00 10cm &    0.280299 &    -0.570226 &    0.850525 \\
+1  &      precipitation per hour v2 &    0.063213 &    -0.698218 &    0.761430 \\
+2  &            SoilMoisture10 40cm &    0.216020 &    -0.530722 &    0.746742 \\
+3  &           SoilMoisture40 100cm &    0.203412 &    -0.531513 &    0.734925 \\
+4  &             evapotranspiration &    0.044880 &    -0.602795 &    0.647675 \\
+5  &                       rainfall &    0.158049 &    -0.486975 &    0.645024 \\
+6  &       SoilTemperature100 200cm &   -0.268359 &     0.320006 &    0.588365 \\
+7  &        SoilTemperature40 100cm &   -0.224721 &     0.361192 &    0.585913 \\
+8  &         SoilTemperature10 40cm &   -0.211171 &     0.302455 &    0.513625 \\
+9  &         SoilTemperature00 10cm &   -0.144578 &     0.340174 &    0.484752 \\
+10 &                            EVI &    0.214773 &    -0.196214 &    0.410986 \\
+11 &                    SPEI 3month &    0.211545 &    -0.192696 &    0.404242 \\
+12 &                     wind speed &   -0.024963 &     0.329311 &    0.354275 \\
+13 &      precipitation per hour v1 &   -0.240641 &    -0.549282 &    0.308641 \\
+14 &                           NDVI &    0.141345 &    -0.127157 &    0.268502 \\
+15 &          SoilMoisture100 200cm &   -0.036950 &    -0.292951 &    0.256001 \\
+16 &    surface temperature daytime &   -0.092329 &     0.155518 &    0.247847 \\
+17 &                air temperature &   -0.153588 &     0.028358 &    0.181946 \\
+18 &  surface temperature nighttime &    0.090008 &     0.235946 &    0.145938 \\
+\bottomrule
+\end{tabular}
+
+\end{adjustbox}
+\end{table}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_23_0.png}\end{center}\caption{Distribution of `\texttt{SoilMoisture00\ 10cm}' separated by the label
+values.}\label{fig_dist1}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_24_0.png}\end{center}\caption{Distribution of `\texttt{precipitation\ per\ hour\ v2}' separated by the
+label values.}\label{fig_dist2}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_25_0.png}\end{center}\caption{Distribution of `\texttt{SoilMoisture10\ 40cm}' separated by the label
+values.}\label{fig_dist3}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_26_0.png}\end{center}\caption{Distribution of `\texttt{SoilMoisture40\ 100cm}' separated by the label
+values.}\label{fig_dist4}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_27_0.png}\end{center}\caption{Distribution of `\texttt{evapotranspiration}' separated by the label
+values.}\label{fig_dist5}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_28_0.png}\end{center}\caption{Distribution of `\texttt{rainfall}' separated by the label values.}\label{fig_dist6}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_29_0.png}\end{center}\caption{Distribution of `\texttt{SoilTemperature100\ 200cm}' separated by the
+label values.}\label{fig_dist7}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_30_0.png}\end{center}\caption{Distribution of `\texttt{SoilTemperature40\ 100cm}' separated by the
+label values.}\label{fig_dist8}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_31_0.png}\end{center}\caption{Distribution of `\texttt{SoilTemperature10\ 40cm}' separated by the
+label values.}\label{fig_dist9}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_32_0.png}\end{center}\caption{Distribution of `\texttt{SoilTemperature00\ 10cm}' separated by the
+label values.}\label{fig_dist10}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_33_0.png}\end{center}\caption{Distribution of `\texttt{EVI}' separated by the label values.}\label{fig_dist11}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_34_0.png}\end{center}\caption{Distribution of `\texttt{SPEI\ 3month}' separated by the label values.}\label{fig_dist12}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_35_0.png}\end{center}\caption{Distribution of `\texttt{wind\ speed}' separated by the label values.}\label{fig_dist13}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_36_0.png}\end{center}\caption{Distribution of `\texttt{precipitation\ per\ hour\ v1}' separated by the
+label values.}\label{fig_dist14}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_37_0.png}\end{center}\caption{Distribution of `\texttt{NDVI}' separated by the label values.}\label{fig_dist15}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_38_0.png}\end{center}\caption{Distribution of `\texttt{SoilMoisture100\ 200cm}' separated by the label
+values.}\label{fig_dist16}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_39_0.png}\end{center}\caption{Distribution of `\texttt{surface\ temperature\ daytime}' separated by
+the label values.}\label{fig_dist17}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_40_0.png}\end{center}\caption{Distribution of `\texttt{air\ temperature}' separated by the label
+values.}\label{fig_dist18}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_41_0.png}\end{center}\caption{Distribution of `\texttt{surface\ temperature\ nighttime}' separated by
+the label values.}\label{fig_dist19}\end{figure}
+
+\hypertarget{fitting-and-optimizing-a-logistic-regression-model}{%
+\section{Fitting and optimizing a Logistic Regression
+model}\label{fitting-and-optimizing-a-logistic-regression-model}}
+
+We train a
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html}{logistic
+regression classifier} with
+\href{https://scikit-learn.org/stable/auto_examples/linear_model/plot_logistic_l1_l2_sparsity.html}{\(l_1\)
+penalty} to predict the occurrence of droughts in Uganda. Our goal is to
+separate the rows of the dataset into two classes: a positive class
+which represents the occurrence of a drought,
+(\texttt{drought\ =\ True}), and a negative class where the model
+predicts that no drought will occur (\texttt{drought\ =\ False}). It is
+important to note that the population of the positive class
+\(n^{pos}= 65\) in our training data is about 5 times smaller the
+population of the negative class \(n^{neg}= 297\). The negative class is
+therefore largely overrepresented, and a model trained on such data will
+be biased towards predicting the negative class correctly, without
+caring so much about capturing the positive class. Since having a good
+predicting power for the positive class is equally important for us, we
+need to correct for this imbalance in the class populations. We do this
+by assigning unequal weights \(W^{pos}\) and \(W^{neg}\) to the positive
+and the negative classes, which are inversely proportional to the class
+populations:
+
+\begin{equation}\label{eqn_wpos}
+W^{pos}=\frac{\frac{1}{n^{pos}}}{\frac{1}{n^{pos}}+\frac{1}{n^{neg}}},
+\end{equation}
+
+and
+
+\begin{equation}\label{eqn_wneg}
+W^{neg}=\frac{\frac{1}{n^{neg}}}{\frac{1}{n^{pos}}+\frac{1}{n^{neg}}}.
+\end{equation}
+
+Feeding these weights into the logistic regression model guarantees that
+both classes are represented equally when the model is trained on the
+data.
+
+The \(l_1\) penalty in the logistic regression model is associated with
+a regularization parameter \(C\), which tunes the model complexity by
+controlling the number of features that are included in the model. In
+the framework of logistic regression, the contribution of each feature
+is determined by a coefficient, and a zero coefficient means that the
+corresponding feature does not enter the model. The regularization
+parameter determines how many of these coefficients are different from
+zero. Figure \ref{fig_l1} shows the model coefficients for all features
+as a function of the regularization parameter \(C\). We can see that for
+large values of \(C\) all coefficients are non-zero. As \(C\) decreases,
+the coefficients gradually shrink to zero.
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.27\paperheight}{Uganda_logit_model_files/output_50_0.png}\end{center}\caption{Model coefficients for all features as a function of the regularization
+parameter \(C\).}\label{fig_l1}\end{figure}
+
+Choosing an appropriate value for the regularization parameter is
+important, as this systematically eliminates unimportant and redundant
+features, so that only the most important features remain in the model.
+We performed
+\href{https://towardsdatascience.com/why-and-how-to-cross-validate-a-model-d6424b45261f}{3-fold
+cross-validation} to find the best value for \(C\), where we used the
+average \href{https://en.wikipedia.org/wiki/F1_score}{F1 score} as the
+goodness of fit measure. The average F1 score is given by the weighted
+sum of the F1 scores for the positive and negative classes:
+
+\begin{equation}\label{eqn_F}
+F1=W^{pos}F1^{pos}+W^{neg}F1^{neg},
+\end{equation}
+
+Where \(F1^{pos}\) and \(F1^{neg}\) are the F1 scores for the positive
+and negative classes, and \(W^{pos}\) and \(W^{neg}\) are given by
+equations \ref{eqn_wpos} and \ref{eqn_wneg} respectively.
+
+To be sure that the outcome of the cross-validation is robust and
+generalizable, we repeated the procedure 10 times where we randomly
+shuffled the data before each round of cross-validation. The outcome is
+demonstrated in Figure \ref{fig_cv}, where the curves in pail colors
+show the cross-validation average F1 scores as a function of \(C\) for
+each round of shuffling, and the mean of all these curves is shown in
+dark black. The training average F1 score is also shown in the Figure
+(dashed-dot curve, green).
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.22\paperheight}{Uganda_logit_model_files/output_55_0.png}\end{center}\caption{Average F1 score as a function of the regularization parameter \(C\).
+The curves in pail colors show the cross-validation average F1 scores
+after randomly shuffling the data, and their mean is shown in dark
+black. The dashed-dot curve (green) corresponds to the average F1 score
+for the training data. The blue and red vertical dashed lines indicate
+\(C=0.09\) and \(C=0.23\) respectively.}\label{fig_cv}\end{figure}
+
+Looking at the dark black curve in Figure \ref{fig_cv}, it is clear that
+for \(C<0.09\) (blue vertical dashed line) the cross-validation F1 score
+rapidly grows by increasing \(C\). For values between 0.09 and 0.23 (red
+vertical dashed line), the cross-validation average F1 score remains
+relatively constant around 0.42, and the same happens for the training
+average F1 score (see dashed-dot curve, green). For \(C>0.23\), although
+the training score continues to grow and saturates at 0.57, the
+cross-validation score always remain below the training scores and
+quickly saturates at 0.48 after a mild increase. This implies that for
+values of \(C>0.23\) the model stops to nicely generalize to new data.
+In other words, the model would have the tendency to overfit to the
+training data.
+
+\begin{table}[H]
+\caption{Nonzero model coefficients for \(C=0.3\). The model overfits to the
+training data.}\label{tab_overfit}
+\centering
+\begin{adjustbox}{max width=\textwidth}\rowcolors{2}{gray!20}{white}
+\begin{tabular}{lr}
+\toprule
+{} &  coefficients \\
+feature                   &               \\
+\midrule
+precipitation per hour v2 &         -0.45 \\
+EVI                       &         -0.27 \\
+SoilMoisture100 200cm     &          0.07 \\
+air temperature           &         -0.04 \\
+evapotranspiration        &         -0.02 \\
+\bottomrule
+\end{tabular}
+
+\end{adjustbox}
+\end{table}
+
+In the case of our drought model, detecting the overfitting is rather
+easy, as it leads to intuitively nonsensical models. See, for example,
+the model coefficients for \(C=0.3\) which are listed in Table
+\ref{tab_overfit}. The coefficient for precipitation is negative, which
+makes sense, as the precipitation should anticorrelate with droughts.
+However, the positive coefficient for soil moisture and the negative
+coefficient for air temperature do not make sense intuitively,
+indicating that the model is fine-tuning itself to the training data. We
+find that we get more and more of such nonsensical coefficients as we
+increase \(C\) further. Since we inferred from Figure \ref{fig_cv} that
+the model tends to overfit for \(C>0.23\), and the data in Table
+\ref{tab_overfit} confirms that the overfitting already happens for
+values as small as 0.3, In the rest of this analysis we use the optimal
+value of \(C=0.23\) for the regularization parameter.
+
+\hypertarget{model-evaluation}{%
+\section{Model evaluation}\label{model-evaluation}}
+
+A logistic regression model produces a score as a linear combination of
+the features, where the contribution of each feature is determined by
+its associated coefficient. Table \ref{tab_coefs} lists the nonzero
+coefficients for our optimal drought model with \(C=0.23\).
+Interestingly, only two features,
+`\texttt{precipitation\ per\ hour\ v2}' and `\texttt{EVI}', enter the
+optimal model, implying that the drought reports are triggered by both
+the hydrological and agricultural factors. According to Table
+\ref{tab_coefs}, the score produced by our optimal drought model can
+therefore be written as
+
+\begin{equation}\label{eqn_score}
+\textrm{score}=-0.38\,\times\,\textrm{'precipitation per hour v2'}-0.23\,\times\,\textrm{'EVI'}.
+\end{equation}
+
+\begin{table}[H]
+\caption{Nonzero model coefficients for the optimal model with \(C=0.23\).}\label{tab_coefs}
+\centering
+\begin{adjustbox}{max width=\textwidth}\rowcolors{2}{gray!20}{white}
+\begin{tabular}{lr}
+\toprule
+{} &  coefficients \\
+feature                   &               \\
+\midrule
+precipitation per hour v2 &         -0.38 \\
+EVI                       &         -0.23 \\
+\bottomrule
+\end{tabular}
+
+\end{adjustbox}
+\end{table}
+
+Note that, as mentioned earlier, in equation \ref{eqn_score} both
+features are normalized per district and per season. The score can be
+positive or negative, and is a measure for the likelihood of droughts.
+The more positive the score is, the higher is the chance that a drought
+occurs. Figure \ref{fig_score} shows the distribution of this ``drought
+score'' separately for `\texttt{drought\ reported\ =False}' (blue) and
+`\texttt{drought\ reported\ =\ True}' (orange), confirming that the
+score correlates with the target.
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.17\paperheight}{Uganda_logit_model_files/output_65_0.png}\end{center}\caption{Distribution of the drought score separated by the label values.}\label{fig_score}\end{figure}
+
+The \href{https://en.wikipedia.org/wiki/Confusion_matrix}{confusion
+matrix} and the accuracy associated with the optimal model, as well as
+\href{https://en.wikipedia.org/wiki/Precision_and_recall}{precision,
+recall} and the F1 scores for positive and negative classes, are given
+in Text \ref{tab_confusion}. The model reaches the overall accuracy of
+60\%, and has an impressive recall of \textasciitilde{} 70\% for the
+positive class (which means that the model captures 70\% of the reported
+droughts). On the other hand, the precision for the positive class is
+rather low: about \%25. This is partially due to the overrepresentation
+of the negative class, which leads to many false positives, and lowers
+the precision for the positive class as well as the recall for the
+negative class. We note however that there is a rather high chance that
+an actual drought in Uganda remains unreported. We therefore expect that
+the number of false positives presented in Text \ref{tab_confusion} is
+an overestimation. The actual predictive power of the model can only be
+assessed after testing it in the field.
+
+\begin{textcell}[H]
+\caption{Confusion matrix, accuracy, and the goodness of fit metrics for the
+optimal model.}
+\label{tab_confusion}
+\begin{lstlisting}[aboveskip=5pt,basicstyle=\small,belowskip=5pt,breakindent=0pt,language={},numbers=none,postbreak={},xrightmargin=7pt]
+                 Confusion matrix
+                 Score positive    Score negative
+Actual positive        45                20
+Actual negative       127               170
+
+Accuracy  0.59
+
+           Positive      Negative
+Num case       65           297
+Precision    0.26          0.89
+Recall       0.69          0.57
+F-score      0.38          0.70
+
+Weighted Average F-score  0.44
+
+\end{lstlisting}\end{textcell}
+
+To have a baseline with which we can compare the performance of our
+model, we consider a ``random model'' which classifies the data by
+``coin flipping'': irrespective to the features values, the model
+assigns \texttt{True} and \texttt{False} labels to the data points with
+equal probability. Text \ref{tab_random} lists the fit quality metrics
+for such a random model (averaged over 100 runs). We see that our model
+clearly outperforms the random model in every aspect, especially in the
+case of the positive class.
+
+\begin{textcell}[H]
+\caption{Goodness of fit metrics for a random model.}
+\label{tab_random}
+\begin{lstlisting}[aboveskip=5pt,basicstyle=\small,belowskip=5pt,breakindent=0pt,language={},numbers=none,postbreak={},xrightmargin=7pt]
+           Positive      Negative
+Precision    0.18          0.82
+Recall       0.50          0.50
+F_score      0.26          0.62
+
+\end{lstlisting}\end{textcell}
+
+Figures \ref{fig_pr} and \ref{fig_roc} show the
+\href{https://acutecaretesting.org/en/articles/precision-recall-curves-what-are-they-and-how-are-they-used}{precision-recall
+curve} and the
+\href{https://en.wikipedia.org/wiki/Receiver_operating_characteristic}{receiver
+operating characteristic (ROC)} for the optimal model. The area under
+the ROC curve
+(\href{https://towardsdatascience.com/understanding-auc-roc-curve-68b2303cc9c5}{auc})
+is a metric commonly used to assess the predictive power of binary
+classifiers. A perfect classifier has an auc of one, while for a random
+classifier auc equals 0.5. Our model reaches auc of 0.7.
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.2\paperheight}{Uganda_logit_model_files/output_71_0.png}\end{center}\caption{Precision-recall curve for the optimal model.}\label{fig_pr}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.2\paperheight}{Uganda_logit_model_files/output_72_0.png}\end{center}\caption{receiver operating characteristic for the optimal model.}\label{fig_roc}\end{figure}
+
+\hypertarget{drought-prediction-successes-and-failures}{%
+\section{Drought prediction: successes and
+failures}\label{drought-prediction-successes-and-failures}}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.2\paperheight}{Uganda_logit_model_files/output_74_0.png}\end{center}\caption{Number of reported droughts in Uganda during each harvest season between
+2000 and 2019. Major droughts are highlighted in blue (Related to
+Figures \ref{fig_map2009} to \ref{fig_map2013b}).}\label{fig_droughtcount_seasonal}\end{figure}
+
+Figure \ref{fig_droughtcount_seasonal} shows the number of reported
+droughts in Uganda during each harvest season between 2000 and 2019.
+Specifically, a large number of reports have been appeared in June-July
+2009. Figure \ref{fig_map2009} shows the distribution of our drought
+score (equation \ref{eqn_score}) over the whole contry during this
+period: the score is generally positive and large. Conversely, in the
+same harvest season at 2010 no drought has been reported, and Figure
+\ref{fig_map2010} shows that the score is clearly lower. The model
+similarly captures the reported droughts (highlighted in Figure
+\ref{fig_droughtcount_seasonal}) in 2000 (Figure \ref{fig_map2000}),
+2011 (Figure \ref{fig_map2011}) and 2016 (Figure \ref{fig_map2016}).
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.3\paperheight}{Uganda_logit_model_files/output_76_0.png}\end{center}\caption{Model scores for Uganda districts in the first harvest season in 2009.
+The colorbar is capped at +/- 0.6. Stars mark districts in which a
+drought has been reported. The model successfully captures the droughts.}\label{fig_map2009}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.3\paperheight}{Uganda_logit_model_files/output_77_0.png}\end{center}\caption{Model scores for Uganda districts in the first harvest season in 2010.
+The colorbar is capped at +/- 0.6. No drought has been reported, and the
+model scores are generally lower compared to the same period in 2009
+(see Figure \ref{fig_map2009}).}\label{fig_map2010}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.3\paperheight}{Uganda_logit_model_files/output_78_0.png}\end{center}\caption{Model scores for Uganda districts in the first harvest season in 2000.
+The colorbar is capped at +/- 0.6. Stars mark districts in which a
+drought has been reported. The model successfully captures the droughts.}\label{fig_map2000}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.3\paperheight}{Uganda_logit_model_files/output_79_0.png}\end{center}\caption{Model scores for Uganda districts in the first harvest season in 2011.
+The colorbar is capped at +/- 0.6. Stars mark districts in which a
+drought has been reported. The model successfully captures the droughts.}\label{fig_map2011}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.3\paperheight}{Uganda_logit_model_files/output_80_0.png}\end{center}\caption{Model scores for Uganda districts in the second harvest season in 2016.
+The colorbar is capped at +/- 0.6. Stars mark districts in which a
+drought has been reported. The model successfully captures the droughts.}\label{fig_map2016}\end{figure}
+
+One notable exception is the period of June-July 2013 where the model
+fails drastically (see Figure \ref{fig_map2013a}): it produces a low
+score anywhere within the country while seven droughts has bin reported.
+In an attempt to rationalize this, we slightly modified the drought
+score: instead of considering the three-month period preceding June
+2013, we calculated the score over the period of May to June 2013. As
+Figure \ref{fig_map2013b} shows, this modification improves the model
+performance in this particular instance. We therefore suggest that the
+failure of the model might be due to an unusually rapid change in the
+meteorological factors.
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.3\paperheight}{Uganda_logit_model_files/output_82_0.png}\end{center}\caption{Model scores for Uganda districts in the first harvest season in 2013.
+The colorbar is capped at +/- 0.6. Stars mark districts in which a
+drought has been reported. The model fails to capture the droughts.}\label{fig_map2013a}\end{figure}
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.3\paperheight}{Uganda_logit_model_files/output_84_0.png}\end{center}\caption{The same as \ref{fig_map2013a}, but the score is calculated by averaging
+the features over the three-month period of May-July 20013. The model
+performance is improved.}\label{fig_map2013b}\end{figure}
+
+\hypertarget{generalizing-the-model-towards-a-drought-monitoring-tool}{%
+\section{Generalizing the model towards a drought-monitoring
+tool}\label{generalizing-the-model-towards-a-drought-monitoring-tool}}
+
+Finally, we looked into the potential of our model as a
+drought-monitoring tool. To this end, we generalize our drought score in
+such a way that it can be calculated continuously over time, instead of
+being limited to just a three-month period prior to any harvest season.
+This is done by averaging the features using a sliding temporal window
+with a period of three months, normalizing them per month and district
+as described in section \ref{data-collection}, and calculating the
+drought score using equation \ref{eqn_score}.
+
+\begin{figure}[H]\begin{center}\adjustimage{max size={0.9\linewidth}{0.9\paperheight},height=0.2\paperheight}{Uganda_logit_model_files/output_88_0.png}\end{center}\caption{Number of droughts in Uganda during each month between 2000 and 2019.
+Orange curve: number of reported droughts. Blue cure: predicted number
+of droughts by thresholding the draught score at zero. Some instances of
+successful performance of the model are highlighted in blue.}\label{fig_droughtcount}\end{figure}
+
+Figure \ref{fig_droughtcount} shows the total number of reported
+droughts in Uganda (orange curve), for every month between 2000 and
+2019, compared with our model prediction (blue curve) obtained by
+thresholding the score at zero (i.e.~positive score: drought occurs;
+negative score: drought does not occur). As expected from the large
+number of false positives in Text \ref{tab_confusion}, our model
+generally overestimates the number of droughts. Notably, however, there
+are distinct time points where the model predicts a ``global drought''
+in Uganda, where 100 or more districts out of the 120 districts of
+Uganda (i.e.~more than 80\%) simultaneously have positive drought
+scores. Interestingly, in many cases these predicted global droughts
+coincide with a large number of reported droughts (several examples are
+highlighted in blue in Figure \ref{fig_droughtcount}). We therefore
+suggest that these timepoints are of particular importance where our
+drought score, if implemented in a drought monitoring tool, can serve as
+an warning for extensive droughts in Uganda. A crude example of such a
+monitoring system is implemented in the end of this
+\href{https://github.com/rodekruis/Drought_IBF/blob/master/Model\%20Event\%20Data/Uganda_logit_model.ipynb}{Jupyter
+notebook} (see Figures \ref{fig_monitor} and \ref{fig_monitor_2}), where
+users can explore the distribution of the drought score at any date they
+chose, along with any reported drought if exists.
+
+\begin{figure}[H]
+\hypertarget{fig_monitor}{%
+\begin{center}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight},width=0.6\linewidth}{./pictures/drought_monitor_date.png}
+\end{center}
+\caption{A crude example of a simple drought monitor with a date picker.}\label{fig_monitor}
+}
+\end{figure}
+
+\begin{figure}[H]
+\hypertarget{fig_monitor_2}{%
+\begin{center}
+\adjustimage{max size={0.9\linewidth}{0.9\paperheight},width=0.6\linewidth}{./pictures/drought_monitor_slider.png}
+\end{center}
+\caption{Another example of a drought monitor with a date slider.}\label{fig_monitor_2}
+}
+\end{figure}
+
+\hypertarget{resources}{%
+\section{Resources}\label{resources}}
+
+This report has been generated from a
+\href{https://github.com/rodekruis/Drought_IBF/blob/master/Model\%20Event\%20Data/Uganda_logit_model.ipynb}{Jupyter
+notebook}. All the associated
+\href{https://github.com/rodekruis/Drought_IBF/tree/master/Model\%20Event\%20Data/datasets}{datasets},
+\href{https://github.com/rodekruis/Drought_IBF/blob/master/Model\%20Event\%20Data/drought_ibf_utility.py}{python
+scrips} and the
+\href{https://github.com/rodekruis/Drought_IBF/blob/master/Model\%20Event\%20Data/converted/Uganda_logit_model.tex}{\LaTeX source
+file} of this report can be accessed via the
+\href{https://github.com/rodekruis/Drought_IBF/tree/master/Model\%20Event\%20Data}{Rodekruis
+GitHub}.
+
+\end{document}
