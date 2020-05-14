@@ -170,7 +170,7 @@ admin2 <- admin2 %>%filter(st_is_valid(geometry))
 #admin3 <- admin3 %>%filter(st_is_valid(geometry))
 #admin3 <- st_transform(admin3, st_crs(crs1))
 impact_data1_1 <- impact_data %>%
-  mutate(date = as.Date(Date_st, format="%Y/%m/%d"),flood = 1) #%>% dplyr::select(-Region)
+  mutate(date = as.Date(Date, format="%Y/%m/%d"),flood = 1) #%>% dplyr::select(-Region)
 
 #---------------------- aggregate IMpact data for admin 2 admin 1 -------------------------------
 # to do define impact columns in setting file in Ethiopian Case Crop.Damages, Lost.Cattle,Affected 
@@ -203,8 +203,8 @@ admin_centroid_pts <- impact_data_ts %>% mutate(cent_lon=map_dbl(geometry, ~st_c
 
 # convert to simple dataframe
 admin_centroid_pts <- st_as_sf(admin_centroid_pts, coords = c("cent_lon","cent_lat"), crs=4326, remove = FALSE) %>%  select(name)
-admin_centroid_pts = st_transform(admin_centroid_pts, 4326)
-uga_glofas_st = st_transform(uga_glofas_st, 4326)
+admin_centroid_pts <- st_transform(admin_centroid_pts, 4326)
+uga_glofas_st <- st_transform(uga_glofas_st, 4326)
 
 
 # find the first nearest neighbor rainfall station station for each centroid,  maximum 
@@ -218,7 +218,17 @@ glofas_stations_in_affected_areas <- glofas_stations_in_affected_areas  %>% dist
 #hyd_stations_in_affected_areas<-st_join(admin_centroid_pts, eth_hydro_st, st_nn, k = 2,maxdist = 30000)%>% st_set_geometry(NULL)%>% select(Zone,station) %>% filter(station !='NA')
 #hyd_stations_in_affected_areas<-hyd_stations_in_affected_areas  %>% distinct(County,station,.keep_all = TRUE)
 
-glofas_stations_in_affected_areas <- read.csv(paste0(getwd(),'/input/uga_affected_area_stations.csv'))
+glofas_stations_in_affected_areas <- read.csv(paste0(getwd(),'/input/uga_affected_area_stations.csv'), stringsAsFactors = F)
+
+filter_on_column <- function(data, column){
+  data %>% filter(Impact_data == 1 & (! is.na(eval(parse(text=column))) & ! eval(parse(text=column)) == "")) %>% 
+    select(name, station = !!column)
+}
+glofas_stations_in_affected_areas_filtered <- 
+  bind_rows(filter_on_column(data = glofas_stations_in_affected_areas, column = "Glofas_st"),
+          filter_on_column(data = glofas_stations_in_affected_areas, column = "Glofas_st2"),
+          filter_on_column(data = glofas_stations_in_affected_areas, column = "Glofas_st3"),
+          filter_on_column(data = glofas_stations_in_affected_areas, column = "Glofas_st4"))
 
 #---------------------- vistualize stations and risk areas -------------------------------
 
@@ -243,8 +253,7 @@ tm_shape(impact_data_district) + tm_polygons(col = "flood", name='name',
 #---------------------- read glofas data hazard ------------------------------- 
 
 glofas_data <- prep_glofas_data() 
-glofas_data <- glofas_data %>% filter (station %in% c(as.character(glofas_stations_in_affected_areas$Glofas_st), 
-                                                       as.character(glofas_stations_in_affected_areas$Glofas_st2)))
+glofas_data <- glofas_data %>% filter (station %in% glofas_stations_in_affected_areas_filtered$station)
 
 fill_glofas_data_<-fill_glofas_data(glofas_data)
 
@@ -255,8 +264,7 @@ make_glofas_district_matrix <- function(glofas_data,glofas_stations_in_affected_
   return(glofas_data)
 }
 
-glofas_stations_in_affected_areas <- glofas_stations_in_affected_areas %>% mutate(station = as.character(Glofas_st))
-glofas_district_matrix<- make_glofas_district_matrix(fill_glofas_data_,glofas_stations_in_affected_areas)
+glofas_district_matrix <- make_glofas_district_matrix(fill_glofas_data_,glofas_stations_in_affected_areas_filtered)
 
 #rainfall_district_matrix<- make_rainfall_district_matrix(rainfall_df,NAM_stations_in_affected_zones) %>% rename(rain_station=Name)
 #data_matrix<-rainfall_district_matrix %>% full_join(glofas_district_matrix %>% select(-year),by=c("Date","Zone"))
