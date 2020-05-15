@@ -12,26 +12,38 @@ plot_swi <- function(swi, impact_df, threshold){
 
 plot_rainfall_glofas <- function(rainfall, glofas, impact_df, rainfall_threshold, glofas_threshold, has_glofas){
   if (has_glofas) {
-    p1 <- ggplot(rainfall, aes(x=date, y = rainfall)) + geom_line(col='lightblue') +
-      ylab("avg. rainfall (mm)") +
-      geom_hline(yintercept = rainfall_threshold) +
-      geom_vline(data = impact_df, aes(xintercept = as.numeric(date)), col="red") +
-      scale_y_continuous(trans = "reverse")
+    max_rain = max(rainfall$rainfall, na.rm=T)
+    max_glofas = max(glofas$dis, na.rm=T)
 
-    p2 <- ggplot(glofas, aes(x=date, y = dis)) + geom_line(col='orange') +
-      ylab("station discharge") +
-      geom_vline(data = impact_df, aes(xintercept = as.numeric(date)), col="red") +
-      geom_hline(yintercept = glofas_threshold)
+    p1 <- plot_ly(rainfall) %>%
+      add_lines(x=~date, y=~rainfall) %>%
+      add_segments(x=~min(date), xend=~max(date), y = rainfall_threshold, yend=rainfall_threshold, line=list(color="black")) %>%
+      layout(yaxis=list(title="Rainfal (mm)", autorange="reversed"), showlegend=FALSE)
 
-    p3 <- subplot(ggplotly(p1), ggplotly(p2), nrows = 2, titleY=TRUE)
+    p2 <- plot_ly(glofas) %>%
+      add_lines(x=~date, y=~dis, line=list(color="green")) %>%
+      add_segments(x=~min(date), xend=~max(date), y = glofas_threshold, yend=glofas_threshold, line=list(color="black")) %>%
+      layout(yaxis=list(title="Station Discharge"), showlegend=FALSE)
+
+    for(date in as.character(impact_df$date)) {
+      p1 <- p1 %>%
+        add_segments(x=date ,xend=date, y=0, yend=max_rain, line=list(color="red"))
+
+      p2 <- p2 %>%
+        add_segments(x=date ,xend=date, y=0, yend=max_glofas, line=list(color="red"))
+    }
+
+    p3 <- subplot(p1, p2, nrows=2)
   } else {
-    p3 <- ggplot(rainfall, aes(x=date, y = rainfall)) + geom_line(col='lightblue') +
-      ylab("avg. rainfall (mm)") +
-      geom_hline(yintercept = rainfall_threshold) +
-      geom_vline(data = impact_df, aes(xintercept = as.numeric(date)), col="red") +
-      scale_y_continuous(trans = "reverse")
+    p3 <- plot_ly(rainfall) %>%
+      add_lines(x=~date, y=~rainfall) %>%
+      add_segments(x=~min(date), xend=~max(date), y = rainfall_threshold, yend=rainfall_threshold, line=list(color="black")) %>%
+      layout(yaxis=list(title="Rainfal (mm)", autorange="reversed"), showlegend=FALSE)
 
-    p3 <- ggplotly(p3)
+    for(date in as.character(impact_df$date)) {
+      p3 <- p3 %>%
+        add_segments(x=date ,xend=date, y=0, yend=max_rain, line=list(color="red"))
+    }
   }
 
   return(p3)
