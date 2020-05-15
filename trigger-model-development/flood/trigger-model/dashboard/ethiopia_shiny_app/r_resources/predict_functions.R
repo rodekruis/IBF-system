@@ -50,7 +50,6 @@ predict_with_glofas_and_rainfall <- function(all_days, rainfall, glofas, impact_
         false_alarm_ratio = round(triggered_in_vain/protocol_triggered, 2)
       )
   } else if (nrow(rainfall) == 0 & has_glofas){
-    print("eeeeeeeeeeee")
     glofas %>%
       left_join(impact_df %>% dplyr::select(date) %>% mutate(flood = TRUE), by = "date") %>%
       mutate(
