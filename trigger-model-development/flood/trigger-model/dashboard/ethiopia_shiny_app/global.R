@@ -87,6 +87,6 @@ floods_per_wereda <- df_impact_raw %>%
   ungroup()
 
 eth_admin3 <- eth_admin3 %>%
-  left_join(floods_per_wereda %>% dplyr::select(pcode, n_floods), by = c("WOR_P_CODE" = "pcode"))
+  left_join(floods_per_wereda %>% dplyr::select(pcode, n_floods), by = c("WOR_P_CODE" = "pcode")) %>% filter(!is.na(n_floods))
 
 flood_palette <- colorNumeric(palette = "YlOrRd", domain = floods_per_wereda$n_floods)
