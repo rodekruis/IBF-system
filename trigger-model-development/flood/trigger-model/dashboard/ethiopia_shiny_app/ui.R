@@ -23,6 +23,7 @@ ui_tab_main <- tabItem(
       uiOutput("rainfall_slider"),
       uiOutput("glofas_dropdown"),
       uiOutput("glofas_slider"),
+      uiOutput("glofas_var_selector"),
       uiOutput("result_html")
     ),
     column(

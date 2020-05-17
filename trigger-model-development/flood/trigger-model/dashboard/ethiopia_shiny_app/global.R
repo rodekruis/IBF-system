@@ -20,9 +20,6 @@ glofas_raw <- read_csv("data/GLOFAS_fill_allstation.csv") %>% rename(date = time
 glofas_mapping <- read.csv("data/Eth_affected_area_stations.csv", stringsAsFactors = F)
 point_rainfall <- read_csv('data/Impact_Hazard_catalog.csv') %>% clean_names()
 
-# Used to join against
-all_days <- tibble(date = seq(min(df_impact_raw$date, na.rm=T) - 60, max(df_impact_raw$date, na.rm=T) + 60, by="days"))
-
 # Clean impact and keep relevant columns
 df_impact_raw <- ethiopia_impact %>%
   clean_names() %>%
@@ -32,6 +29,9 @@ df_impact_raw <- ethiopia_impact %>%
   dplyr::select(region, zone, wereda, pcode, date) %>%
   unique() %>%
   arrange(pcode, date)
+
+# Used to join against
+all_days <- tibble(date = seq(min(df_impact_raw$date, na.rm=T) - 60, max(df_impact_raw$date, na.rm=T) + 60, by="days"))
 
 # Clean GLOFAS mapping
 glofas_mapping <- glofas_mapping %>%
@@ -51,11 +51,11 @@ glofas_raw <- glofas_raw %>%
 
 glofas_raw <- expand.grid(all_days$date, unique(glofas_raw$station)) %>%
   rename(date = Var1, station = Var2) %>%
-  left_join(glofas_raw %>% dplyr::select(date, dis, station), by = c("date", "station")) %>% arrange(station, date) %>%
+  left_join(glofas_raw %>% dplyr::select(date, dis, dis_3, dis_7, station), by = c("date", "station")) %>% arrange(station, date) %>%
   arrange(station, date) %>%
   group_by(station) %>%
-  fill(dis, .direction="down") %>%
-  fill(dis, .direction="up") %>%
+  fill(dis, dis_3, dis_7, .direction="down") %>%
+  fill(dis, dis_3, dis_7, .direction="up") %>%
   ungroup()
 
 rainfall_raw <- point_rainfall %>%

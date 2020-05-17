@@ -10,9 +10,9 @@ plot_swi <- function(swi, impact_df, threshold){
   return(p)
 }
 
-plot_rainfall_glofas <- function(rainfall, glofas, impact_df, rainfall_threshold, glofas_threshold, has_glofas){
+plot_rainfall_glofas <- function(rainfall, glofas, impact_df, rainfall_threshold, glofas_threshold, has_glofas, glofas_variable){
+  max_rain = max(rainfall$rainfall, na.rm=T)
   if (has_glofas) {
-    max_rain = max(rainfall$rainfall, na.rm=T)
     max_glofas = max(glofas$dis, na.rm=T)
 
     p1 <- plot_ly(rainfall) %>%
@@ -21,9 +21,9 @@ plot_rainfall_glofas <- function(rainfall, glofas, impact_df, rainfall_threshold
       layout(yaxis=list(title="Rainfal (mm)", autorange="reversed"), showlegend=FALSE)
 
     p2 <- plot_ly(glofas) %>%
-      add_lines(x=~date, y=~dis, line=list(color="green")) %>%
+      add_lines(x=~date, y=as.formula(paste0('~', glofas_variable)), line=list(color="green")) %>%
       add_segments(x=~min(date), xend=~max(date), y = glofas_threshold, yend=glofas_threshold, line=list(color="black")) %>%
-      layout(yaxis=list(title="Station Discharge"), showlegend=FALSE)
+      layout(yaxis=list(title=paste0("Station", glofas_variable)), showlegend=FALSE)
 
     for(date in as.character(impact_df$date)) {
       p1 <- p1 %>%
