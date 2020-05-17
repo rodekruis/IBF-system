@@ -22,7 +22,7 @@ predict_with_swi <- function(all_days, swi_raw, df_impact_raw, selected_pcode, t
     )
 }
 
-predict_with_glofas_and_rainfall <- function(all_days, rainfall, glofas, impact_df, rainfall_threshold, glofas_threshold, has_glofas, day_range=30) {
+predict_with_glofas_and_rainfall <- function(all_days, rainfall, glofas, impact_df, rainfall_threshold, glofas_threshold, has_glofas, glofas_variable, day_range=30) {
   rainfall <- rainfall %>%
     filter(!is.na(rainfall))
 
@@ -34,6 +34,7 @@ predict_with_glofas_and_rainfall <- function(all_days, rainfall, glofas, impact_
         row_id = row_number(),
         flood = replace_na(flood, FALSE),
         rainfall = replace_na(rainfall, 0),
+        dis = !!sym(glofas_variable),  # name the selected glofas variable discharge
         dis = replace_na(dis, 0),
 
         # Create peak ranges for combined glofas and rainfall
@@ -68,7 +69,7 @@ predict_with_glofas_and_rainfall <- function(all_days, rainfall, glofas, impact_
       mutate(
         row_id = row_number(),
         flood = replace_na(flood, FALSE),
-        rainfall = replace_na(rainfall, 0),
+        dis = !!sym(glofas_variable),
         dis = replace_na(dis, 0),
 
         # Create peak ranges for glofas

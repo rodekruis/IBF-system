@@ -49,7 +49,8 @@ server <- function(input, output) {
       impact_df(),
       input$rainfall_threshold,
       input$glofas_threshold,
-      isolate(has_glofas()))
+      isolate(has_glofas()),
+      input$glofas_variable)
     p
   })
 
@@ -58,7 +59,8 @@ server <- function(input, output) {
     req(input$rainfall_threshold)
     req((input$glofas_threshold | !has_glofas()))
 
-    predict_with_glofas_and_rainfall(all_days, rainfall(), glofas(), impact_df(), input$rainfall_threshold, input$glofas_threshold, isolate(has_glofas()))
+    predict_with_glofas_and_rainfall(all_days, rainfall(), glofas(), impact_df(), input$rainfall_threshold,
+                                     input$glofas_threshold, isolate(has_glofas()), input$glofas_variable)
   })
 
   floods_val <- reactive({result_table() %>% pull(floods)})
@@ -100,6 +102,14 @@ server <- function(input, output) {
       sliderInput("glofas_threshold", "Select Glofas Station Threshold: ", min=0,
                   max = round(max(isolate(glofas())$dis, na.rm=T)),
                   value=round(quantile(glofas()$dis, 0.95, na.rm=T)))
+    } else {
+      NULL
+    }
+  })
+
+  output$glofas_var_selector <- renderUI({
+    if(isolate(has_glofas())) {
+      selectInput("glofas_variable", "Select discharge variable", choices = c("dis", "dis_3", "dis_7"), selected = "dis")
     } else {
       NULL
     }

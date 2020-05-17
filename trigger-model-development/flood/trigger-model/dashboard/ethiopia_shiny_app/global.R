@@ -51,11 +51,11 @@ glofas_raw <- glofas_raw %>%
 
 glofas_raw <- expand.grid(all_days$date, unique(glofas_raw$station)) %>%
   rename(date = Var1, station = Var2) %>%
-  left_join(glofas_raw %>% dplyr::select(date, dis, station), by = c("date", "station")) %>% arrange(station, date) %>%
+  left_join(glofas_raw %>% dplyr::select(date, dis, dis_3, dis_7, station), by = c("date", "station")) %>% arrange(station, date) %>%
   arrange(station, date) %>%
   group_by(station) %>%
-  fill(dis, .direction="down") %>%
-  fill(dis, .direction="up") %>%
+  fill(dis, dis_3, dis_7, .direction="down") %>%
+  fill(dis, dis_3, dis_7, .direction="up") %>%
   ungroup()
 
 rainfall_raw <- point_rainfall %>%
