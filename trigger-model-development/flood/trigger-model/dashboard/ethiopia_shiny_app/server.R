@@ -22,7 +22,7 @@ server <- function(input, output) {
 
   impact_df <- reactive({
     df_impact_raw %>%
-      filter(pcode == isolate(selected_pcode()),
+      filter(pcode == selected_pcode(),
              date >= isolate(input$dateRange[1]),
              date <= isolate(input$dateRange[2]))
   })
@@ -46,7 +46,7 @@ server <- function(input, output) {
     p <- plot_rainfall_glofas(
       isolate(rainfall()),
       isolate(glofas()),
-      isolate(impact_df()),
+      impact_df(),
       input$rainfall_threshold,
       input$glofas_threshold,
       isolate(has_glofas()))

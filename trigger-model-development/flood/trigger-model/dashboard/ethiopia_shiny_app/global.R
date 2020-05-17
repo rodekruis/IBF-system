@@ -20,9 +20,6 @@ glofas_raw <- read_csv("data/GLOFAS_fill_allstation.csv") %>% rename(date = time
 glofas_mapping <- read.csv("data/Eth_affected_area_stations.csv", stringsAsFactors = F)
 point_rainfall <- read_csv('data/Impact_Hazard_catalog.csv') %>% clean_names()
 
-# Used to join against
-all_days <- tibble(date = seq(min(df_impact_raw$date, na.rm=T) - 60, max(df_impact_raw$date, na.rm=T) + 60, by="days"))
-
 # Clean impact and keep relevant columns
 df_impact_raw <- ethiopia_impact %>%
   clean_names() %>%
@@ -32,6 +29,9 @@ df_impact_raw <- ethiopia_impact %>%
   dplyr::select(region, zone, wereda, pcode, date) %>%
   unique() %>%
   arrange(pcode, date)
+
+# Used to join against
+all_days <- tibble(date = seq(min(df_impact_raw$date, na.rm=T) - 60, max(df_impact_raw$date, na.rm=T) + 60, by="days"))
 
 # Clean GLOFAS mapping
 glofas_mapping <- glofas_mapping %>%
