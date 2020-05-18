@@ -17,4 +17,4 @@ This is the repository for the IBF-system. It includes 3 main components.
 
 ## System design (draft)
 
-![IBF-system design (draft)](../IBF-system/blob/master/ibf-system-design.PNG)
+![IBF-system design (draft)](./ibf-system-design.PNG)
