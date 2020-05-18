@@ -48,8 +48,10 @@ FROM "IBF-pipeline-output".waterpoints
 --;
 
 
-DROP FUNCTION IF EXISTS "IBF-pipeline-output".usp_fbf_geodata(varchar,varchar);
-CREATE OR REPLACE FUNCTION "IBF-pipeline-output".usp_fbf_geodata(country varchar, table_name varchar, OUT result json) AS $func$
+
+
+DROP FUNCTION IF EXISTS "IBF-pipeline-output".usp_fbf_geodata(varchar, varchar, varchar);
+CREATE OR REPLACE FUNCTION "IBF-pipeline-output".usp_fbf_geodata(country varchar, schema_name varchar, table_name varchar, OUT result json) AS $func$
 	BEGIN
 	EXECUTE format('
 		SELECT row_to_json(featcoll)
@@ -59,22 +61,22 @@ CREATE OR REPLACE FUNCTION "IBF-pipeline-output".usp_fbf_geodata(country varchar
 				SELECT ''Feature'' As type
 					,ST_AsGeoJSON(tbl.geom)::json As geometry
 					,row_to_json((SELECT l FROM (SELECT tbl.*) As l)) As properties
-				FROM %s_fbf.%s As tbL
-				)  As feat 
+				FROM %s.%s As tbL
+				)  As feat
 			)  As featcoll
-		;',country,table_name)
+		;',schema_name, table_name)
 	INTO result;
 	END
 $func$ LANGUAGE plpgsql;
 
-DROP FUNCTION IF EXISTS "IBF-pipeline-output".usp_fbf_data(varchar, varchar);
-CREATE OR REPLACE FUNCTION "IBF-pipeline-output".usp_fbf_data(country varchar, table_name varchar, OUT result json) AS $func$
+DROP FUNCTION IF EXISTS "IBF-pipeline-output".usp_fbf_data(varchar, varchar, varchar);
+CREATE OR REPLACE FUNCTION "IBF-pipeline-output".usp_fbf_data(country varchar, schema_name varchar, table_name varchar, OUT result json) AS $func$
 	BEGIN
 	EXECUTE format('select array_to_json(array_agg(tbl))
 			from (
 			select *
-			from "%s_fbf".%s
-			) tbl;',country,table_name)
+			from %s.%s
+			) tbl;',schema_name,table_name)
 	INTO result;
 	END
 $func$ LANGUAGE plpgsql;
