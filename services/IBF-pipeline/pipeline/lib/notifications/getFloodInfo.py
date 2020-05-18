@@ -13,8 +13,8 @@ def getFloodInfo():
             ,lead_time
             ,case when fc_prob>=0.8 then 'Maximum alert' when fc_prob>=0.7 then 'Medium alert' when fc_prob>=0.6 then 'Minimum alert' end as fc_prob
         from
-            zmb_fbf.data_adm2 t0
-        left join "ZMB_datamodel"."Geo_level2" t1 on
+            "IBF-pipeline-output".data_adm2 t0
+        left join "IBF-static-input"."ZMB_Geo_level2" t1 on
             t0.pcode = t1.pcode_level2
         where
             current_prev = 'Current'

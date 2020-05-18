@@ -1,30 +1,24 @@
 from datetime import date, timedelta
 
+###################
+## MAIN SETTINGS ##
+###################
 
-##############
-## SETTINGS ##
-##############
-
-GLOFAS_DUMMY = False
-OVERWRITE_DUMMY = False
-EMAIL_NOTIFICATION = True
-EMAIL_WITHOUT_TRIGGER = True
+# Change this date only in case of testing
+CURRENT_DATE=date.today()
+# CURRENT_DATE=date.today() - timedelta(days=1)
 
 FORECASTS_STEPS = {
     "short": 3,
     "long": 7
 }
+
 TRIGGER_RP_COLNAME = '10yr_threshold'
 TRIGGER_LEVELS = {
     "minimum": 0.6,
     "medium": 0.7,
     "maximum": 0.8
 }
-
-CURRENT_DATE=date.today()
-# CURRENT_DATE=date.today() - timedelta(days=1)
-
-NUMBER_OF_HISTORIC_FORECASTS = 3
 
 # Datasetname : multiplication-factor
 EXPOSURE_DATA_SOURCES = {
@@ -42,10 +36,8 @@ EXPOSURE_DATA_SOURCES = {
 ## DB SETTINGS ##
 #################
 LOCAL_DB = True
-
-# Connection-settings in secrets.py'
-SCHEMA_NAME = 'zmb_fbf'
-
+SCHEMA_NAME = 'IBF-pipeline-output'
+# Other connection-settings in secrets.py
 
 ###################
 ## PATH SETTINGS ##
@@ -65,12 +57,29 @@ DISTRICT_MAPPING = PIPELINE_DATA+'input/Glofas_station_per_district.csv'
 
     
 
+#########################
+## INPUT DATA SETTINGS ##
+#########################
 
-
-# Use Dummy Glofas data (for testing purposes) or not
+# Glofas input
 GLOFAS_FTP = 'data-portal.ecmwf.int/ZambiaRedcross_glofas_point/'
+GLOFAS_DUMMY = False
+OVERWRITE_DUMMY = False
 
-# Logging settings
+####################
+## EMAIL SETTINGS ##
+####################
+
+# Notification email
+EMAIL_NOTIFICATION = True
+EMAIL_WITHOUT_TRIGGER = True
+
+# Notification email (only if hard-coded alternative for mailchimp is used)
+EMAIL_LIST_HARDCODE = [
+    'jannisvisser@redcross.nl'
+]
+
+# Logging email settings
 LOGGING = True  # If false send email on error
 LOGGLY_LINK = "https://rodekruis.loggly.com/"
 FROM_EMAIL = "support@510.global"
@@ -80,7 +89,4 @@ LOGGING_TO_EMAIL_ADDRRESSES = [
     "JannisVisser@redcross.nl"
 ]
 
-# FLOOD NOTIFICATION SETTINGS
-EMAIL_LIST_HARDCODE = [
-    'jannisvisser@redcross.nl'
-]
+

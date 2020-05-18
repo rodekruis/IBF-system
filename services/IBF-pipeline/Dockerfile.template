@@ -22,11 +22,11 @@ RUN python3 -m pip install pip --upgrade
 RUN python3 -m pip install wheel
 
 # copy files
-RUN mkdir --parents /home/fbf/
-WORKDIR /home/fbf/pipeline/
+RUN mkdir --parents /home/ibf/
+WORKDIR /home/ibf/pipeline/
 
 # install dependencies
-COPY pipeline/requirements.txt /home/fbf/pipeline/
+COPY pipeline/requirements.txt /home/ibf/pipeline/
 RUN pip install -r requirements.txt
 
 # set up cronjob
