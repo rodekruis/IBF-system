@@ -3,7 +3,7 @@
 This repository consists of 2 parts.
 
 1. Data pipeline: This is a series of scripts (which will be run daily) which extracts all input data (static + dynamic), transforms them to create flood extents and calculated affected population, and loads the output to locations where they can be served to the dashoard.
-2. Geoserver: Geoserver is one of the locations where output of the data-pipeline is served: namely the raster-files.
+2. Geoserver: Geoserver is one of the locations where output of the data-pipeline is served: namely the raster-files. Geoserver can subsequently serve these raster-files to the frontend through WMS-services.
 
 ## Prerequisites
 
@@ -15,15 +15,14 @@ This repository consists of 2 parts.
 1. Clone this directory to `<your_local_directory>`/IBF-pipeline/
 2. Change `/pipeline/secrets.py.template` to `secrets.py` and fill in the necessary passwords.
 3. Find 2 data-zips in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/%5BPRJ%5D%20FbF%20-%20Zambia%20-%20(PMF,%20RPII)/Developers/Data/ and unzip geodata.zip and data.zip respectively to replace folders /geoserver/geodata/ and /pipeline/data/.
-4. NOTE on 2 data-folders: it might conceptually be more logical to have all data (input + calculations) in one place together (/pipeline/data). From there we would (after all calculations) serve all raster data (input + calculations) to Geoserver, by copying it to the designated geoserver-datafolder (and server all other data by uploading it to Postgres). However, we deemed it redundant to have this copying-step in between and store the raster data in 2 places. Instead we put all raster (input + calculations) immediately in the geoserver-datafolder.  
+4. NOTE on 2 data-folders: it might conceptually be more logical to have all data (input + output) in one place together (/pipeline/data). From there we would (after all calculations) serve all raster data (input + output) to Geoserver (such that it can be served as WMS to frontend), by copying it to the designated geoserver-datafolder (all other data is uploaded to Postgres and from there served to frontend through API). However, we deemed it redundant to have this copying-step in between and store the raster data in 2 places. Instead we put all raster (input + output) immediately in its correct geoserver-datafolder location.
 
 ## Set up Data pipeline
 
 1. Build Docker image (from root folder) and run container with volume
-
 ```
 docker build . -t ibf-pipeline
-docker run --net=host --name=ibf-pipeline -v ${PWD}:/home/fbf --restart always -it ibf-pipeline
+docker run --net=host --name=ibf-pipeline -v ${PWD}:/home/ibf --restart always -it ibf-pipeline
 ```
 
 2. Within container run setup: this will a.o. upload static data to the database.
@@ -42,16 +41,14 @@ python3 runCron.py
 
 ```
 crontab -e (to open file)
-*/15 * * * * <your_local_directory>/FbF-Data-pipeline/cronjob.sh (add this line at end of file)
+*/15 * * * * <your_local_directory>/IBF-pipeline/cronjob.sh (add this line at end of file)
 ```
 
 ## Setup geoserver
-
+This step is only needed when working with a frontend.
 1. Unzip geoserver data folder (described above)
 2. `docker run --name "geoserver" -p 8081:8080 -v $HOME/FbF-Data-pipeline/geoserver:/opt/geoserver/data_dir --restart always kartoza/geoserver`
 3. To restart it later `docker container start geoserver`
-
-
 
 ### Logging loggly and SMTPHandler for logging (OPTIONAL)
  1. Create a gmail account add to EMAIL_USERNAME in settings.py add your password to secrets.py 
