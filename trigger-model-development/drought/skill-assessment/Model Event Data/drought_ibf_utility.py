@@ -17,6 +17,26 @@ import matplotlib.colors as colors
 Main Functions
 '''
 
+def plot_droughts_per_district(data, label_col='drought reported', district_col='District', path='../', country='Uganda',
+                               admin_level=1):
+    droughts_per_district = data[[district_col, label_col]].groupby(district_col).sum().reset_index()
+    gdf_country = gpd.read_file(get_country_shapefile(path=path, country=country, admin_level=admin_level), crs='')
+
+    gdf_country.rename(columns={'ADM1_EN': district_col}, inplace=True)
+    gdf_country['centroid'] = gdf_country.centroid
+
+    droughts_per_district = gdf_country[[district_col, 'geometry', 'centroid']].merge(droughts_per_district,
+                                                                                      on=district_col)
+    droughts_per_district.set_geometry('centroid', drop=True, inplace=True)
+    droughts_per_district = droughts_per_district[droughts_per_district[label_col] > 0]
+
+    geoplot.polyplot(gdf_country)
+    ax = plt.gca()
+    geoplot.pointplot(droughts_per_district, scale=label_col, color='darkred', marker='o',
+                      limits=(2, 14), legend=True, legend_values=[1, 3, 6, 9, 12],
+                      ax=ax)
+    return
+
 def prepare_Uganda_data(phath='./datasets/',
                         filename='Droughts_satelite_and_events.csv',
                         output_filename='Uganda_seasonal_normalized.csv',
@@ -268,10 +288,44 @@ def make_monitor_model(training_data, selected_features, label_name, C):
 
     return monitor_model
 
+def prepare_dmp_data(path_to_DMP='./datasets/Uganda_DMP_data.csv'):
+
+    dmp_data = pd.read_csv(path_to_DMP, index_col=False)
+    dmp_data.date = pd.to_datetime(dmp_data.date, infer_datetime_format=True)
+    dmp_data.rename(columns={'district': 'District'}, inplace=True)
+    dmp_data['delta DMP'] = dmp_data.DMP.max() - dmp_data.DMP
+
+    averaged_data = pd.DataFrame()
+    groups = dmp_data.groupby('District')
+    for name, group in groups:
+        sorted_group = group[['date', 'delta DMP']].sort_values('date').reset_index(drop=True)
+        averaged_group = sorted_group[['delta DMP']].rolling(window=3).mean()
+        averaged_group['date'] = sorted_group['date']
+        averaged_group['District'] = name
+        averaged_group = averaged_group[['District', 'date', 'delta DMP']]
+        averaged_group.dropna(inplace=True)
+        averaged_data = pd.concat([averaged_data, averaged_group], axis=0)
+    averaged_data.reset_index(inplace=True, drop=True)
+    averaged_data['month'] = averaged_data['date'].dt.month
+    averaged_data['year'] = averaged_data['date'].dt.year
+
+    normal_dmp_data = normalize_data(dmp_data,
+                                     ids_list=['District', 'year', 'month', 'date'],
+                                     grouping=['District', 'month'])
+    normal_dmp_data = normal_dmp_data[['District', 'year', 'month', 'date', 'delta DMP']]
+
+    normal_dmp_data.sort_values(['District', 'year'], inplace=True)
+    month_shift = 1
+    normal_dmp_data = normal_dmp_data[['District', 'date', 'delta DMP']]
+    normal_dmp_data['date'] = normal_dmp_data['date'] + pd.DateOffset(months=month_shift)
+
+    return normal_dmp_data
 
 def prepare_monitor_data(data, monitor_features, monitor_model,
                          date_col='date', district_col='District',
-                         label_col=None):
+                         label_col=None,path_to_DMP=None,
+                         path_to_shapefile='../'):
+
     data[date_col] = pd.to_datetime(data[date_col],
                                     infer_datetime_format=True)
     raw_data = data.copy()
@@ -302,14 +356,29 @@ def prepare_monitor_data(data, monitor_features, monitor_model,
         monitor_model.coef_.T)).ravel() + monitor_model.intercept_
     normal_data['drought_predicted'] = normal_data['score'] > 0
     normal_data[date_col] = normal_data[date_col] + pd.DateOffset(months=month_shift)
+
     if label_col is not None:
         normal_data = normal_data.merge(data[[date_col,district_col, label_col]],
                                         on=[date_col,district_col])
+    if path_to_DMP is not None:
+        normal_dmp_data = prepare_dmp_data(path_to_DMP)
+        normal_data = normal_data.merge(normal_dmp_data, on=[date_col,district_col], how='outer')
+
+    gdf_country = gpd.read_file(get_country_shapefile(path=path_to_shapefile,
+                                                      country='Uganda',
+                                                      admin_level=1), crs='')
+    gdf_country.rename(columns={'ADM1_EN': district_col}, inplace=True)
+    gdf_country = gdf_country[[district_col,'geometry']]
+    gdf_country['centroid'] = gdf_country.centroid
+
+    normal_data = gdf_country.merge(normal_data,on=district_col)
+
     return normal_data
 
 
-def monitor_plot(monitor_data, monitor_date, district_col='District',date_col='date',
-                 label_col=None, path_to_shapefile='../',cmap='jet'):
+
+def monitor_plot(monitor_data, monitor_date,date_col='date',
+                 label_col=None,cmap='jet'):
 
     month = monitor_date.month
 
@@ -317,29 +386,17 @@ def monitor_plot(monitor_data, monitor_date, district_col='District',date_col='d
 
     select_date = date(year, month, 1).strftime("%Y-%m-%d")
 
-    part_data = monitor_data[monitor_data[date_col] == select_date].copy()
+    temp_1 = monitor_data[monitor_data[date_col] == select_date].copy()
 
-    if part_data.empty:
+    if (temp_1['score'].isna().sum() > 0) | (temp_1.empty):
         print('Data is not available.')
         return
 
-    gdf_country = gpd.read_file(get_country_shapefile(path=path_to_shapefile,
-                                                      country='Uganda',
-                                                      admin_level=1), crs='')
-
-    gdf_country.rename(columns={'ADM1_EN': district_col}, inplace=True)
-    gdf_country_points = gdf_country.copy()
-    gdf_country_points['geometry'] = gdf_country_points.centroid
-
-    temp_1 = gdf_country[[district_col, 'geometry']].merge(part_data[[district_col,
-                                                                      'score']],
-                                                           on=district_col)
     temp_2 = pd.DataFrame()
 
     if label_col is not None:
-        temp_2 = gdf_country_points[[district_col, 'geometry']].merge(part_data[[district_col,
-                                                                                 label_col]],
-                                                                      on=district_col)
+        temp_2 = temp_1.copy()
+        temp_2['geometry'] = temp_2.centroid
         temp_2 = temp_2[temp_2[label_col]]
 
     norm = colors.Normalize(vmin=-0.6, vmax=0.6)
@@ -357,6 +414,63 @@ def monitor_plot(monitor_data, monitor_date, district_col='District',date_col='d
 
     plt.title(monitor_date.strftime("%B %Y"));
 
+    return
+
+
+def plot_score_DMP_correlation(monitor_data, district_col='District', cmap='jet'):
+
+    corrs = []
+    districts = []
+
+    grouped = monitor_data[[district_col, 'score', 'delta DMP']].dropna().groupby(district_col)
+
+    for name, group in grouped:
+        corrs.append(group[['score', 'delta DMP']].corr().values[0, 1])
+        districts.append(name)
+
+    corr_data = pd.DataFrame()
+    corr_data[district_col] = districts
+    corr_data['Correlation'] = corrs
+
+    corr_data = monitor_data[[district_col, 'geometry']].drop_duplicates().merge(corr_data, on=district_col)
+
+    geoplot.choropleth(corr_data, hue=corr_data['Correlation'], cmap=cmap, legend=True)
+    plt.title(r'Correlation between the drought score and normalized $\Delta$DMP')
+
+    return corr_data
+
+def monitor_plot_dmp(monitor_data, monitor_date, date_col='date', cmap='jet'):
+    month = monitor_date.month
+
+    year = monitor_date.year
+
+    select_date = date(year, month, 1).strftime("%Y-%m-%d")
+
+    temp = monitor_data[monitor_data[date_col] == select_date].copy()
+
+    temp = temp[['geometry', 'score', 'delta DMP']].dropna()
+
+    if (temp.empty):
+        print('Data is not available.')
+        return
+    f, axs = plt.subplots(1, 2, figsize=(13, 6))
+
+    norm1 = colors.Normalize(vmin=-0.6, vmax=0.6)
+    geoplot.choropleth(temp, hue=temp['score'], cmap=cmap, norm=norm1, legend=True,ax=axs[0])
+    axs[0].title.set_text('score (' + monitor_date.strftime("%B %Y") + ')')
+
+    norm2 = colors.Normalize(vmin=-0.6, vmax=0.6)
+    geoplot.choropleth(temp, hue=temp['delta DMP'], cmap=cmap, norm=norm2, legend=True,ax=axs[1])
+    axs[1].title.set_text(r'normalized $\Delta$DMP (' + monitor_date.strftime("%B %Y") + ')')
+
+    return
+
+
+def plot_timeseries(data, district_name, variables=['score', 'delta DMP'], date_col='date', district_col='District'):
+    data[data[district_col] == district_name].dropna().set_index(date_col)[variables].plot()
+    cor = data[data[district_col] == district_name].dropna().set_index(date_col)[variables].corr().values[1,0]
+    plt.title(district_name + ' - correlation: %' + str(int(round(cor, 2) * 100)));
+    plt.legend(['score', r'normalized $\Delta$DMP'], bbox_to_anchor=(1.01, 1));
     return
 
 def fit_random_model(y, p=0.5):
@@ -396,7 +510,6 @@ def fit_random_model(y, p=0.5):
             col + '_Negative'])
 
     return metric_mean, metric_std
-
 
 '''
 Helper Functions 
