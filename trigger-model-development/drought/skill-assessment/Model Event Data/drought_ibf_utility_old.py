@@ -101,26 +101,19 @@ def prepare_Uganda_data(phath='./datasets/',
 
 
 
-def optimize_Logreg_model(data, selected_features, label_name, C_array,
-                          train_years = [2000,2012],
-                          val_years = [2012,2016]):
-
+def fit_Logreg_model(data, selected_features, label_name, C_array,
+                     n_splits=2, shuffle=True, shuffle_seed=10):
     reduced_data = reduce_data(data, label_name)
 
     X = reduced_data[selected_features]
 
     y = reduced_data[label_name]
 
-    train_ind = np.array(reduced_data[(reduced_data.year >= train_years[0]) & ((reduced_data.year < train_years[1]))].index)
-    val_ind = np.array(reduced_data[(reduced_data.year >= val_years[0]) & ((reduced_data.year < val_years[1]))].index)
+    n_pos = len(y[y == True])
+    n_neg = len(y[y == False])
 
-    y_train = reduced_data[(reduced_data.year >= train_years[0]) & ((reduced_data.year < train_years[1]))][label_name]
-
-    n_pos = len(y_train[y_train == True])
-    n_neg = len(y_train[y_train == False])
-
-    W_neg = (1.0 / n_neg)
-    W_pos = (1.0 / n_pos)
+    W_neg = (1.0 / n_neg) / (1.0 / n_pos + 1.0 / n_neg)
+    W_pos = (1.0 / n_pos) / (1.0 / n_pos + 1.0 / n_neg)
 
     Weights = {True: W_pos, False: W_neg}
 
@@ -133,9 +126,15 @@ def optimize_Logreg_model(data, selected_features, label_name, C_array,
 
     param_grid = {'C': C_array}
 
-    scoring = sklm.make_scorer(positive_fscore)
+    scoring = sklm.make_scorer(weighted_fscore)
 
-    cv = ((train_ind, val_ind),)
+    random_state = shuffle_seed
+    if not shuffle:
+        random_state = None
+
+    cv = ms.KFold(n_splits=n_splits,
+                  shuffle=shuffle,
+                  random_state=random_state)
 
     GS = ms.GridSearchCV(estimator=opt_model,
                          param_grid=param_grid,
@@ -149,44 +148,33 @@ def optimize_Logreg_model(data, selected_features, label_name, C_array,
 
     opt_model.C = best_param
 
-    test_scores = GS.cv_results_['mean_test_score']
+    mean_test_scores = GS.cv_results_['mean_test_score']
 
-    return opt_model, test_scores
+    std_test_scores = GS.cv_results_['std_test_score']
 
-def predict_Logreg_model(data, selected_features, label_name, C, confusion_matrix=True,drop_zero_coefs=True):
+    return X, y, opt_model, mean_test_scores, std_test_scores
 
-    reduced_data = reduce_data(data, label_name)
 
-    X = reduced_data[selected_features]
 
-    y = reduced_data[label_name]
 
-    n_pos = len(y[y == True])
-    n_neg = len(y[y == False])
 
-    W_neg = (1.0 / n_neg)
-    W_pos = (1.0 / n_pos)
 
-    Weights = {True: W_pos, False: W_neg}
 
-    model = LogisticRegression(C=C,class_weight=Weights,
-                               penalty='l1',fit_intercept=True,
-                               solver='liblinear',
-                               random_state=0)
+def predict_Logreg_model(model, X, y, C, confusion_matrix=True):
 
+    label_name = y.name
+
+    model.C = C
     model.fit(X, y)
     y_pred = model.predict(X)
 
     coefs = pd.DataFrame()
     coefs['feature'] = X.columns
     coefs['coef'] = model.coef_.ravel()
-
-    if drop_zero_coefs:
-        coefs = coefs[coefs.coef.abs() >= 10**(-2)]
-        coefs['abs_coef'] = coefs['coef'].abs()
-        coefs.sort_values('abs_coef', ascending=False, inplace=True, axis=0)
-        coefs = coefs[['feature', 'coef']]
-
+    coefs['abs_coef'] = coefs['coef'].abs()
+    coefs.sort_values('abs_coef', ascending=False, inplace=True, axis=0)
+    coefs = coefs[['feature', 'coef']]
+    coefs = coefs[coefs.coef.abs()>0]
     coefs.rename(columns={'coef':'coefficients'},inplace=True)
 
     predictions = pd.DataFrame()
@@ -204,10 +192,12 @@ def predict_Logreg_model(data, selected_features, label_name, C, confusion_matri
 
     if confusion_matrix:
         print_metrics(y, y_pred)
+        print('\n')
+        print('Weighted Average F-score  %0.2f' % weighted_fscore(y, y_pred))
 
-    return coefs, predictions, pr, roc, auc, model
+    return coefs, predictions, pr, roc, auc
 
-def predict_Logreg_model_split(data, year_split, selected_features, label_name, C, confusion_matrix=True):
+def predict_Logreg_model_split(model, data, year_split, selected_features, label_name, C, confusion_matrix=True):
 
     reduced_data = reduce_data(data, label_name)
 
@@ -220,19 +210,7 @@ def predict_Logreg_model_split(data, year_split, selected_features, label_name, 
     X_test = test[selected_features]
     y_test = test[label_name]
 
-    n_pos = len(y_train[y_train == True])
-    n_neg = len(y_train[y_train == False])
-
-    W_neg = (1.0 / n_neg)
-    W_pos = (1.0 / n_pos)
-
-    Weights = {True: W_pos, False: W_neg}
-
-    model = LogisticRegression(C=C, class_weight=Weights,
-                               penalty='l1', fit_intercept=True,
-                               solver='liblinear',
-                               random_state=0)
-
+    model.C = C
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
 
@@ -242,7 +220,7 @@ def predict_Logreg_model_split(data, year_split, selected_features, label_name, 
     coefs['abs_coef'] = coefs['coef'].abs()
     coefs.sort_values('abs_coef', ascending=False, inplace=True, axis=0)
     coefs = coefs[['feature', 'coef']]
-    coefs = coefs[coefs.coef.abs() >= 10**(-2)]
+    coefs = coefs[coefs.coef.abs()>0]
     coefs.rename(columns={'coef':'coefficients'},inplace=True)
 
     predictions = pd.DataFrame()
@@ -260,6 +238,8 @@ def predict_Logreg_model_split(data, year_split, selected_features, label_name, 
 
     if confusion_matrix:
         print_metrics(y_test, y_pred)
+        print('\n')
+        print('Weighted Average F-score  %0.2f' % weighted_fscore(y_test, y_pred))
 
     return coefs, predictions, pr, roc, auc
 
@@ -350,8 +330,8 @@ def make_monitor_model(training_data, selected_features, label_name, C):
     n_pos = len(y[y == True])
     n_neg = len(y[y == False])
 
-    W_neg = (1.0 / n_neg)
-    W_pos = (1.0 / n_pos)
+    W_neg = (1.0 / n_neg) / (1.0 / n_pos + 1.0 / n_neg)
+    W_pos = (1.0 / n_pos) / (1.0 / n_pos + 1.0 / n_neg)
 
     Weights = {True: W_pos, False: W_neg}
 
