@@ -15,4 +15,4 @@ Options:
   --help           Show this message and exit.
 ```
 Example:
-``` python get_impact_data.py --country=Uganda disaster=flood```
+``` python get_impact_data.py --country=Uganda --disaster=flood```
