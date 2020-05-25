@@ -17,4 +17,4 @@ Options:
 Example:
 ``` python get_impact_data.py --country=Uganda --disaster=flood```
 
-Contact/support: [Jacopo Margutti](jmargutti@redcross.nl)
+Contact/support: Jacopo Margutti [jmargutti@redcross.nl](mailto:jmargutti@redcross.nl)
