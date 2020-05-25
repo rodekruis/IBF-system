@@ -12,12 +12,13 @@ source('r_resources/predict_functions.R')
 
 # swi <- read.csv("data/ethiopia_admin3_swi_all.csv", stringsAsFactors = F, colClasses = c("character", "character", "numeric", "numeric", "numeric"))
 ethiopia_impact <- read.csv("data/Eth_impact_data2.csv", stringsAsFactors = F, sep=";")
-rainfall_raw <- read_csv("data/ethiopia_admin3_rainfall.csv")
+# rainfall_raw <- read_csv("data/ethiopia_admin3_rainfall.csv")  # CHIRPS, kept for legacy
 eth_admin3 <- sf::read_sf("shapes/ETH_adm3_mapshaper.shp")
 eth_admin3 <- st_transform(eth_admin3, crs = "+proj=longlat +datum=WGS84")
 
 glofas_raw <- read_csv("data/GLOFAS_fill_allstation.csv") %>% rename(date = time)
 glofas_mapping <- read.csv("data/Eth_affected_area_stations.csv", stringsAsFactors = F)
+point_rainfall <- read_csv('data/Impact_Hazard_catalog.csv') %>% clean_names()
 
 # Clean impact and keep relevant columns
 df_impact_raw <- ethiopia_impact %>%
@@ -28,6 +29,9 @@ df_impact_raw <- ethiopia_impact %>%
   dplyr::select(region, zone, wereda, pcode, date) %>%
   unique() %>%
   arrange(pcode, date)
+
+# Used to join against
+all_days <- tibble(date = seq(min(df_impact_raw$date, na.rm=T) - 60, max(df_impact_raw$date, na.rm=T) + 60, by="days"))
 
 # Clean GLOFAS mapping
 glofas_mapping <- glofas_mapping %>%
@@ -45,17 +49,28 @@ glofas_raw <- glofas_raw %>%
     date >= min(df_impact_raw$date, na.rm=T) - 60,
     date <= max(df_impact_raw$date, na.rm=T) + 60)
 
-# Used to join against
-all_days <- tibble(date = seq(min(df_impact_raw$date, na.rm=T) - 60, max(df_impact_raw$date, na.rm=T) + 60, by="days"))
+glofas_raw <- expand.grid(all_days$date, unique(glofas_raw$station)) %>%
+  rename(date = Var1, station = Var2) %>%
+  left_join(glofas_raw %>% dplyr::select(date, dis, dis_3, dis_7, station), by = c("date", "station")) %>% arrange(station, date) %>%
+  arrange(station, date) %>%
+  group_by(station) %>%
+  fill(dis, dis_3, dis_7, .direction="down") %>%
+  fill(dis, dis_3, dis_7, .direction="up") %>%
+  ungroup()
 
-# Clean rainfall
-rainfall_raw <- rainfall_raw %>%
-  mutate(pcode = str_pad(pcode, 6, "left", 0)) %>%
-  filter(
-    date >= min(df_impact_raw$date, na.rm=T) - 60,
-    date <= max(df_impact_raw$date, na.rm=T) + 60)
+rainfall_raw <- point_rainfall %>%
+  left_join(df_impact_raw %>% dplyr::select(pcode, zone), by = "zone") %>%
+  group_by(pcode, date) %>%
+  summarise(rainfall = mean(rainfall, na.rm=T))
 
-# # Clean SWI data
+# Clean rainfall - CHIRPS, kept for legacy
+# rainfall_raw <- rainfall_raw %>%
+#   mutate(pcode = str_pad(pcode, 6, "left", 0)) %>%
+#   filter(
+#     date >= min(df_impact_raw$date, na.rm=T) - 60,
+#     date <= max(df_impact_raw$date, na.rm=T) + 60)
+
+# # SWI, kept for legacy
 # swi_raw <- swi %>%
 #   mutate(date = ymd(date))
 #
@@ -72,6 +87,6 @@ floods_per_wereda <- df_impact_raw %>%
   ungroup()
 
 eth_admin3 <- eth_admin3 %>%
-  left_join(floods_per_wereda %>% dplyr::select(pcode, n_floods), by = c("WOR_P_CODE" = "pcode"))
+  left_join(floods_per_wereda %>% dplyr::select(pcode, n_floods), by = c("WOR_P_CODE" = "pcode")) %>% filter(!is.na(n_floods))
 
 flood_palette <- colorNumeric(palette = "YlOrRd", domain = floods_per_wereda$n_floods)

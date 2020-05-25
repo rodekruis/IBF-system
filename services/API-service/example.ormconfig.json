@@ -1,0 +1,18 @@
+{
+  "type": "postgres",
+  "host": "geonode-database.postgres.database.azure.com",
+  "port": 5432,
+  "username": "geonodeadmin@geonode-database",
+  "password": "<password>",
+  "database": "geonode",
+  "schema": "IBF-pipeline-output",
+  "entities": [
+    "src/**/**.entity{.ts,.js}"
+  ],
+  "dropSchema": false,
+  "synchronize": false,
+  "logging": [
+    "query"
+  ],
+  "logger": "file"
+}

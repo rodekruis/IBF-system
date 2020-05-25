@@ -14,3 +14,7 @@ This is the repository for the IBF-system. It includes 3 main components.
 3. [Interfaces (frontend)](./interfaces/)
   - Visualization of model results through dashboards
   - Dashboards might move from read-only to write-applications, where users can also add (secondary) data through an interface 
+
+## System design (draft)
+
+![IBF-system design (draft)](./ibf-system-design.PNG)
