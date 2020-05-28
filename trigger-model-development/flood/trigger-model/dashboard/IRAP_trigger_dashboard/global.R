@@ -120,7 +120,6 @@ rainfall_raw <- point_rainfall %>%
 # # SWI, kept for legacy
 # swi_raw <- swi %>%
 #   mutate(date = ymd(date))
-#
 # swi_raw <- swi_raw %>%
 #   gather(depth, swi, -pcode, -date)
 
