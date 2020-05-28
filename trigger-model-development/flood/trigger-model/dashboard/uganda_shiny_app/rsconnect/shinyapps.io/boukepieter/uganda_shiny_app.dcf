@@ -1,0 +1,10 @@
+name: uganda_shiny_app
+title:
+username:
+account: boukepieter
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2369781
+bundleId: 3199897
+url: https://boukepieter.shinyapps.io/uganda_shiny_app/
+when: 1590663936.13797
