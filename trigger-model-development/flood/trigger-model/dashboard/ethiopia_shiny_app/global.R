@@ -6,24 +6,34 @@ library(plotly)
 library(shinydashboard)
 library(sf)
 library(leaflet)
+library(readr)
 
 source('r_resources/plot_functions.R')
 source('r_resources/predict_functions.R')
 
 # swi <- read.csv("data/ethiopia_admin3_swi_all.csv", stringsAsFactors = F, colClasses = c("character", "character", "numeric", "numeric", "numeric"))
-ethiopia_impact <- read.csv("data/Eth_impact_data2.csv", stringsAsFactors = F, sep=";")
+#ethiopia_impact <- read.csv("data/Eth_impact_data2.csv", stringsAsFactors = F, sep=";")
+
+ethiopia_impact <- read_delim("data/Ethiopia_impact3.csv", ",", escape_double = FALSE, trim_ws = TRUE)
+
+
+
+
 # rainfall_raw <- read_csv("data/ethiopia_admin3_rainfall.csv")  # CHIRPS, kept for legacy
-eth_admin3 <- sf::read_sf("shapes/ETH_adm3_mapshaper.shp")
+#eth_admin3 <- sf::read_sf("shapes/ETH_adm3_mapshaper.shp")  
+eth_admin3 <- sf::read_sf("shapes/ETH_Admin3_2019.shp") 
 eth_admin3 <- st_transform(eth_admin3, crs = "+proj=longlat +datum=WGS84")
 
-glofas_raw <- read_csv("data/GLOFAS_fill_allstation.csv") %>% rename(date = time)
-glofas_mapping <- read.csv("data/Eth_affected_area_stations.csv", stringsAsFactors = F)
+glofas_raw <- read_csv("data/GLOFAS_fill_allstation_.csv") %>% rename(date = time)
+glofas_mapping <- read.csv("data/Eth_affected_area_stations2.csv", stringsAsFactors = F)
 point_rainfall <- read_csv('data/Impact_Hazard_catalog.csv') %>% clean_names()
+
+rp_glofas_station <- read_csv('data/rp_glofas_station.csv') %>% clean_names()
+
 
 # Clean impact and keep relevant columns
 df_impact_raw <- ethiopia_impact %>%
   clean_names() %>%
-  rename(region = i_region) %>%
   mutate(date = dmy(date),
          pcode = str_pad(as.character(pcode), 6, "left", "0")) %>%
   dplyr::select(region, zone, wereda, pcode, date) %>%
@@ -37,15 +47,15 @@ all_days <- tibble(date = seq(min(df_impact_raw$date, na.rm=T) - 60, max(df_impa
 glofas_mapping <- glofas_mapping %>%
   dplyr::select(-Z_NAME) %>%
   gather(station_i, station_name, -W_NAME) %>%
-  filter(!is.na(station_name)) %>%
+  dplyr::filter(!is.na(station_name)) %>%
   dplyr::select(-station_i) %>%
   left_join(ethiopia_impact %>% dplyr::select(Wereda, pcode) %>% unique(), by = c("W_NAME" = "Wereda")) %>%
   mutate(pcode = str_pad(as.character(pcode), 6, "left", "0")) %>%
-  filter(!is.na(pcode))
+  dplyr::filter(!is.na(pcode))
 
 # Clean glofas
 glofas_raw <- glofas_raw %>%
-  filter(
+  dplyr::filter(
     date >= min(df_impact_raw$date, na.rm=T) - 60,
     date <= max(df_impact_raw$date, na.rm=T) + 60)
 
@@ -87,6 +97,10 @@ floods_per_wereda <- df_impact_raw %>%
   ungroup()
 
 eth_admin3 <- eth_admin3 %>%
+<<<<<<< Updated upstream
   left_join(floods_per_wereda %>% dplyr::select(pcode, n_floods), by = c("WOR_P_CODE" = "pcode")) %>% filter(!is.na(n_floods))
+=======
+  left_join(floods_per_wereda %>% dplyr::select(pcode, n_floods), by = c("Pcode" = "pcode")) %>% dplyr::filter(!is.na(n_floods))
+>>>>>>> Stashed changes
 
 flood_palette <- colorNumeric(palette = "YlOrRd", domain = floods_per_wereda$n_floods)
