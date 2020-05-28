@@ -167,6 +167,9 @@ admin1 <- admin1 %>%filter(st_is_valid(geometry))
 impact_data <- impact_data %>%filter(st_is_valid(geometry))
 admin2 <- admin2 %>%filter(st_is_valid(geometry))
 
+write.csv(impact_data, "c:/Users/BOttow/Documents/IBF-system/trigger-model-development/flood/trigger-model/dashboard/uganda_shiny_app/data/Eth_impact_data.csv", row.names = F)
+writeOGR(admin2, )
+
 #admin3 <- admin3 %>%filter(st_is_valid(geometry))
 #admin3 <- st_transform(admin3, st_crs(crs1))
 impact_data1_1 <- impact_data %>%
@@ -257,9 +260,9 @@ glofas_data <- glofas_data %>% filter (station %in% glofas_stations_in_affected_
 
 fill_glofas_data_<-fill_glofas_data(glofas_data)
 
-make_glofas_district_matrix <- function(glofas_data,glofas_stations_in_affected_areas) {
+make_glofas_district_matrix <- function(glofas_data,glofas_stations) {
   glofas_data <- glofas_data %>% 
-    left_join(glofas_stations_in_affected_areas, by="station") %>% filter(name !='Na')  %>% # spread(station, dis_3day) %>%  mutate(district = toupper(Z_NAME)) %>%
+    left_join(glofas_stations, by="station") %>% filter(name !='Na')  %>% # spread(station, dis_3day) %>%  mutate(district = toupper(Z_NAME)) %>%
     arrange(name, date)%>% rename(Date=date)  
   return(glofas_data)
 }
