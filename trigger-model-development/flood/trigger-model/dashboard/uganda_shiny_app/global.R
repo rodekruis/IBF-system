@@ -16,7 +16,7 @@ uga_impact <- read.csv("data/uga_impact_data.csv", stringsAsFactors = F, sep=";"
 uga_admin <- sf::read_sf("shapes/uga_admbnda_adm1_UBOS_v2.shp")
 uga_admin <- st_transform(uga_admin, crs = "+proj=longlat +datum=WGS84")
 
-glofas_raw <- read_csv("data/GLOFAS_fill_allstation2.csv",
+glofas_raw <- read_csv("data/GLOFAS_fill_allstation.csv",
                        col_types = cols(time = col_date(format = "%Y-%m-%d"), station = col_character(), .default = col_double())) %>% rename(date = time)
 glofas_mapping <- read.csv("data/uga_affected_area_stations.csv", stringsAsFactors = F)
 ########
