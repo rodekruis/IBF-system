@@ -18,7 +18,7 @@ uga_admin <- st_transform(uga_admin, crs = "+proj=longlat +datum=WGS84")
 
 glofas_raw <- read_csv("data/GLOFAS_fill_allstation.csv",
                        col_types = cols(time = col_date(format = "%Y-%m-%d"), station = col_character(), .default = col_double())) %>% rename(date = time)
-glofas_mapping <- read.csv("data/uga_affected_area_stations.csv", stringsAsFactors = F)
+glofas_mapping <- read.csv("data/uga_affected_area_stations.csv", stringsAsFactors = F, sep=";")
 ########
 # glofas_mapping <- read.csv("data/Eth_affected_area_stations.csv", stringsAsFactors = F)
 # ethiopia_impact <- read.csv("data/Eth_impact_data2.csv", stringsAsFactors = F, sep=";")
@@ -55,7 +55,7 @@ glofas_raw <- glofas_raw %>%
     date <= max(df_impact_raw$date, na.rm=T) + 60)
 
 # Used to join against
-all_days <- tibble(date = seq(min(df_impact_raw$date, na.rm=T) - 60, max(df_impact_raw$date, na.rm=T) + 60, by="days"))
+all_days <- tibble(date = seq(dmy("01-01-1999") - 60, max(df_impact_raw$date, na.rm=T) + 60, by="days"))
 
 # Clean rainfall
 # rainfall_raw <- rainfall_raw %>%
