@@ -1,5 +1,5 @@
 header <- dashboardHeader(
-  title = "FBF Ethiopia",
+  title = "IARP FBF Trigger dashboard",
   # Trick to put logo in the corner
   tags$li(div(
     class="logo_div",
@@ -51,7 +51,11 @@ ui <- dashboardPage(
       menuItem("Main Tab", tabName = "tab_main"),
       dateRangeInput('dateRange',
                      label = 'Select date range:',
-                     start = min(df_impact_raw$date, na.rm=T), end = max(df_impact_raw$date, na.rm=T))
+                     start = min(df_impact_raw$date, na.rm=T), end = max(df_impact_raw$date, na.rm=T)),
+      radioButtons("country", "Country:",
+                   c("Ethiopia" = 1,
+                     "Kenya" = 2,
+                     "Uganda" = 3))
     )
   ),
   body

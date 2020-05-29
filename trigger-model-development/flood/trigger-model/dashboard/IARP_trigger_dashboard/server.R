@@ -1,5 +1,4 @@
 server <- function(input, output) {
-
   selected_pcode <- reactiveVal("020104")
   has_glofas <- reactiveVal(TRUE)
 
@@ -11,24 +10,26 @@ server <- function(input, output) {
       filter(date >= isolate(input$dateRange[1]), date <= isolate(input$dateRange[2]))
   })
 
+  country <- reactive({as.numeric(input$country)})
+
   rainfall <- reactive({
-    rainfall_raw %>%
+    rainfall_raw[[country()]] %>%
       filter(
         pcode == selected_pcode(),
         date >= isolate(input$dateRange[1]),
         date <= isolate(input$dateRange[2])
       )
   })
-  
+
   rp_glofas <- reactive({
     req(input$glofas_station_selected)
-    
+
     rp_glofas_station %>%
       filter(station == input$glofas_station_selected)
   })
 
   impact_df <- reactive({
-    df_impact_raw %>%
+    df_impact_raw[[country()]] %>%
       filter(pcode == selected_pcode(),
              date >= isolate(input$dateRange[1]),
              date <= isolate(input$dateRange[2]))
@@ -92,13 +93,13 @@ server <- function(input, output) {
   })
 
   output$glofas_dropdown <- renderUI({
-    station_options <- glofas_mapping %>%
+    station_options <- glofas_mapping[[country()]] %>%
       filter(pcode == selected_pcode()) %>%
       pull(station_name) %>% unique()
 
     if (length(station_options) > 0) {
       has_glofas(TRUE)
-      selectInput("glofas_station_selected", "Select Glofas Station: ", choices=station_options)
+      selectInput("glofas_station_selected", "Select Glofas Station: ", choices = station_options)
     } else {
       has_glofas(FALSE)
       HTML("<h3> No Glofas stations available for this region </h3> <br />")
@@ -132,13 +133,14 @@ server <- function(input, output) {
   output$impact_map <- renderLeaflet({
     leaflet() %>%
       addProviderTiles(providers$OpenStreetMap) %>%
-      addPolygons(data = eth_admin3, label=~W_NAME, layerId=~Pcode, col=~flood_palette(n_floods), fillOpacity=0.8, opacity = 1, weight=1.2)
+      addPolygons(data = admin[[country()]], label=admin[[country()]] %>% pull(label[[country()]]),
+                  layerId=admin[[country()]] %>% pull(layerId[[country()]]),
+                  col=~flood_palette(n_floods), fillOpacity=0.8, opacity = 1, weight=1.2)
   })
 
   observeEvent(input$impact_map_shape_click, {
     event <- input$impact_map_shape_click
-    woreda_pcode <- event$id
-    selected_pcode(woreda_pcode)
+    selected_pcode(event$id)
 
     if (is.null(event$id)) { return() }  # Do nothing if it is a random click
 

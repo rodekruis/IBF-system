@@ -11,90 +11,103 @@ library(httr)
 
 source('r_resources/plot_functions.R')
 source('r_resources/predict_functions.R')
-source('r_resources/Geo_settings.R')
+source('r_resources/geo_settings.R')
+source('r_resources/misc_functions.R')
 
 #---------------------- setting -------------------------------
 
 settings <- country_settings
 url<- parse_url(url_geonode)
 
-Country="Ethiopia"
-for (elm in  names(eval(parse(text=paste("settings$",Country,sep=""))))){
-  url$query <- list(service = "WFS",version = "2.0.0",request = "GetFeature",
-                    typename = eval(parse(text=paste("settings$",Country,"$",elm,sep=""))),
-                    outputFormat = "application/json")
-  request <- build_url(url)
-  data_read <- st_read(request)
-  assign(paste0(Country,"_",elm),data_read)
+country="ethiopia"
+for (elm in  names(eval(parse(text=paste("settings$",country,sep=""))))){
+  assign(paste0(country,"_",elm), download.features.geonode(country, elm))
 }
 
-Country="Kenya"
-for (elm in  names(eval(parse(text=paste("settings$",Country,sep=""))))){
-  url$query <- list(service = "WFS",version = "2.0.0",request = "GetFeature",
-                    typename = eval(parse(text=paste("settings$",Country,"$",elm,sep=""))),
-                    outputFormat = "application/json")
-  request <- build_url(url)
-  data_read <- st_read(request)
-  assign(paste0(Country,"_",elm),data_read)
+country="kenya"
+for (elm in  names(eval(parse(text=paste("settings$",country,sep=""))))){
+  assign(paste0(country,"_",elm), download.features.geonode(country, elm))
 }
 
-Country="Uganda"
-for (elm in  names(eval(parse(text=paste("settings$",Country,sep=""))))){
-  url$query <- list(service = "WFS",version = "2.0.0",request = "GetFeature",
-                    typename = eval(parse(text=paste("settings$",Country,"$",elm,sep=""))),
-                    outputFormat = "application/json")
-  request <- build_url(url)
-  data_read <- st_read(request)
-  assign(paste0(Country,"_",elm),data_read)
+country="uganda"
+for (elm in  names(eval(parse(text=paste("settings$",country,sep=""))))){
+  assign(paste0(country,"_",elm), download.features.geonode(country, elm))
 }
 
+admin <- list(ethiopia_admin3, kenya_admin1, uganda_admin2)
 # swi <- read.csv("data/ethiopia_admin3_swi_all.csv", stringsAsFactors = F, colClasses = c("character", "character", "numeric", "numeric", "numeric"))
 #ethiopia_impact <- read.csv("data/Eth_impact_data2.csv", stringsAsFactors = F, sep=";")
 
 ethiopia_impact <- read_delim("data/Ethiopia_impact.csv", ",", escape_double = FALSE, trim_ws = TRUE)
+uganda_impact <- read_delim("data/uga_impactdata_master.csv", ",", escape_double = FALSE, trim_ws = TRUE)
 
 
-
-
-# to be replaced by data imorted from Geonode 
-eth_admin3 <- Ethiopia_admin3
-eth_admin3 <- sf::read_sf("shapes/ETH_Admin3_2019.shp") 
-eth_admin3 <- st_transform(eth_admin3, crs = "+proj=longlat +datum=WGS84")
+# to be replaced by data imorted from Geonode
+#eth_admin3 <- sf::read_sf("shapes/ETH_Admin3_2019.shp")
+for (n in range(1,length(admin))){
+  admin[[n]] <- st_transform(admin[[n]], crs = "+proj=longlat +datum=WGS84")
+}
 
 glofas_raw <- read_csv("data/GLOFAS_fill_allstation_.csv") %>% rename(date = time)
-glofas_mapping <- read.csv("data/Eth_affected_area_stations2.csv", stringsAsFactors = F)
-point_rainfall <- read_csv('data/Impact_Hazard_catalog.csv') %>% clean_names()
+glofas_mapping <- list()
+glofas_mapping[[1]] <- read.csv("data/Eth_affected_area_stations2.csv", stringsAsFactors = F)
+glofas_mapping[[2]] <- NA
+glofas_mapping[[3]] <- read.csv("data/uga_affected_area_stations.csv", stringsAsFactors = F)
+rainfall_raw <- list()
+rainfall_raw[[1]] <- read_csv('data/Impact_Hazard_catalog.csv') %>% clean_names()
+rainfall_raw[[2]] <- NA
+rainfall_raw[[3]] <- NA
 
 rp_glofas_station <- read_csv('data/rp_glofas_station.csv') %>% clean_names()
 
 
 # Clean impact and keep relevant columns
-df_impact_raw <- ethiopia_impact %>%
+df_impact_raw <- list()
+df_impact_raw[[1]] <- ethiopia_impact %>%
   clean_names() %>%
   mutate(date = dmy(date),
-         pcode = str_pad(as.character(pcode), 6, "left", "0")) %>%
-  dplyr::select(region, zone, wereda, pcode, date) %>%
+         pcode = str_pad(as.character(pcode), 6, "left", "0"),
+         admin = wereda) %>%
+  dplyr::select(admin, zone, pcode, date) %>%
+  unique() %>%
+  arrange(pcode, date)
+df_impact_raw[[2]] <- NA
+df_impact_raw[[3]] <- uganda_impact %>%
+  clean_names() %>%
+  mutate(date = dmy(date_event),
+         pcode = adm2_pcode,
+         admin = adm2_name) %>%
+  dplyr::select(admin, pcode, date) %>%
   unique() %>%
   arrange(pcode, date)
 
 # Used to join against
-all_days <- tibble(date = seq(min(df_impact_raw$date, na.rm=T) - 60, max(df_impact_raw$date, na.rm=T) + 60, by="days"))
+all_days <- tibble(date = seq(min(c(df_impact_raw[[1]]$date, df_impact_raw[[3]]$date), na.rm=T) - 60,
+                              max(c(df_impact_raw[[1]]$date, df_impact_raw[[3]]$date), na.rm=T) + 60, by="days"))
 
 # Clean GLOFAS mapping
-glofas_mapping <- glofas_mapping %>%
+glofas_mapping[[1]] <- glofas_mapping[[1]] %>%
   dplyr::select(-Z_NAME) %>%
   gather(station_i, station_name, -W_NAME) %>%
   dplyr::filter(!is.na(station_name)) %>%
-  dplyr::select(-station_i) %>%
-  left_join(ethiopia_impact %>% dplyr::select(Wereda, pcode) %>% unique(), by = c("W_NAME" = "Wereda")) %>%
+  dplyr::mutate(admin = W_NAME) %>%
+  dplyr::select(admin, station_name) %>%
+  left_join(df_impact_raw[[1]] %>% dplyr::select(admin, pcode) %>% unique(), by = c("admin" = "admin")) %>%
   mutate(pcode = str_pad(as.character(pcode), 6, "left", "0")) %>%
   dplyr::filter(!is.na(pcode))
+
+glofas_mapping[[3]] <- glofas_mapping[[3]] %>%
+  dplyr::select(name, pcode, Glofas_st, Glofas_st2, Glofas_st3, Glofas_st4) %>%
+  gather(station_i, station_name, -name, -pcode) %>%
+  dplyr::filter(!is.na(station_name) & station_name != "") %>%
+  dplyr::mutate(admin = name) %>%
+  dplyr::select(admin, station_name, pcode)
 
 # Clean glofas
 glofas_raw <- glofas_raw %>%
   dplyr::filter(
-    date >= min(df_impact_raw$date, na.rm=T) - 60,
-    date <= max(df_impact_raw$date, na.rm=T) + 60)
+    date >= min(all_days$date),
+    date <= max(all_days$date))
 
 glofas_raw <- expand.grid(all_days$date, unique(glofas_raw$station)) %>%
   rename(date = Var1, station = Var2) %>%
@@ -105,8 +118,8 @@ glofas_raw <- expand.grid(all_days$date, unique(glofas_raw$station)) %>%
   fill(dis, dis_3, dis_7, .direction="up") %>%
   ungroup()
 
-rainfall_raw <- point_rainfall %>%
-  left_join(df_impact_raw %>% dplyr::select(pcode, zone), by = "zone") %>%
+rainfall_raw[[1]] <- rainfall_raw[[1]] %>%
+  left_join(df_impact_raw[[1]] %>% dplyr::select(pcode, zone), by = "zone") %>%
   group_by(pcode, date) %>%
   summarise(rainfall = mean(rainfall, na.rm=T))
 
@@ -125,15 +138,23 @@ rainfall_raw <- point_rainfall %>%
 #   gather(depth, swi, -pcode, -date)
 
 # Determine floods per Wereda for map
-floods_per_wereda <- df_impact_raw %>%
-  group_by(region, wereda, pcode) %>%
-  summarise(
-    n_floods = n()
-  ) %>%
-  arrange(-n_floods) %>%
-  ungroup()
 
-eth_admin3 <- eth_admin3 %>%
-  left_join(floods_per_wereda %>% dplyr::select(pcode, n_floods), by = c("Pcode" = "pcode")) %>% dplyr::filter(!is.na(n_floods))
+admin[[1]] <- admin[[1]] %>%
+  left_join(summarize_floods(df_impact_raw[[1]]) %>%
+              dplyr::select(pcode, n_floods), by = c("ADM3_PCODE" = "pcode")) %>%
+  dplyr::filter(!is.na(n_floods))
+
+admin[[3]] <- admin[[3]] %>%
+  left_join(summarize_floods(df_impact_raw[[3]]) %>%
+              dplyr::select(pcode, n_floods), by = c("ADM2_PCODE" = "pcode")) %>%
+  dplyr::filter(!is.na(n_floods))
 
 flood_palette <- colorNumeric(palette = "YlOrRd", domain = floods_per_wereda$n_floods)
+label <- list()
+label[[1]] <- "ADM3_EN"
+label[[2]] <- NA
+label[[3]] <- "ADM2_EN"
+layerId <- list()
+layerId[[1]] <- "ADM3_PCODE"
+layerId[[2]] <- NA
+layerId[[3]] <- "ADM2_PCODE"
