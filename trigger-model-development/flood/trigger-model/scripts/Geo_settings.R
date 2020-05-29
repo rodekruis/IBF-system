@@ -14,7 +14,7 @@ country_settings <- list(
                     "admin3"="geonode:eth_admin3_2019"),
   "general_basin" = list("basins_africa"="geonode:IRAB_BASIn_lev6", 
                          "rivers"="geonode:af_riv_15s_v1"), 
-  "general_geo" = list("glofas_st"="geonode:glofas_stations_africa"),
+  "general_geo" = list("glofas_st"="geonode:glofas_st"),
   "kenya" = list( "impact_data"="geonode:geolocation_of_impact",
                   "admin2"="geonode:ken_adm2_iebc",
                   "admin1"="geonode:ken_adm1_iebc")
