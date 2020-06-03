@@ -23,7 +23,7 @@ plot_rainfall_glofas <- function(rainfall, glofas, impact_df, rainfall_threshold
     p2 <- plot_ly(glofas) %>%
       add_lines(x=~date, y=as.formula(paste0('~', glofas_variable)), line=list(color="rgb(98, 211, 234)")) %>%
       add_segments(x=~min(date), xend=~max(date), y = glofas_threshold, yend=glofas_threshold, line=list(color="black")) %>%
-      add_segments(x=~min(date), xend=~max(date), y = rp_glofas$q20, yend=rp_glofas$q10, name = 'q10', line=list(color="rgb(253, 130, 155)", width = 2,dash = "dot")) %>%
+      add_segments(x=~min(date), xend=~max(date), y = rp_glofas$q10, yend=rp_glofas$q10, name = 'q10', line=list(color="rgb(253, 130, 155)", width = 2,dash = "dot")) %>%
       add_segments(x=~min(date), xend=~max(date), y = rp_glofas$q50, yend=rp_glofas$q50, name = 'q50', line=list(color="rgb(205, 12, 24)",width = 2, dash = "dash")) %>%
       layout(yaxis=list(title=paste0("Station", glofas_variable)), showlegend=FALSE)
 
