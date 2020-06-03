@@ -1,0 +1,12 @@
+name: IARP_trigger_dashboard
+title: IARP_trigger_dashboard
+username:
+account: 510ibf
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2403499
+bundleId: 3224779
+url: https://510ibf.shinyapps.io/IARP_trigger_dashboard/
+when: 1591211617.14157
+asMultiple: FALSE
+asStatic: FALSE

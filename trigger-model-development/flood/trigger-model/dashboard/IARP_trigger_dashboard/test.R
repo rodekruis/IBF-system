@@ -14,7 +14,10 @@ selected_highdate <- "2018-04-05"
 rainfall_threshold <- 2
 glofas_threshold <- 864
 
-setwd('dashboard/ethiopia_shiny_app')
+#st_write(obj=ethiopia_admin3, dsn="shapes/eth_adminboundaries_3.shp")
+
+#setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+#setwd('dashboard/ethiopia_shiny_app')
 
 source('r_resources/plot_functions.R')
 source('r_resources/predict_functions.R')
