@@ -1,0 +1,600 @@
+"","Region","Zone","Wereda","pcode","Date","directely affected","Indirectly Affected","Affected","Deaths","Injured","Crop Damages","Lost Cattle","Relocated","Houses Destroyed"
+"1","SNNPR","Hadiya","Shashogo",70204,"24/07/2012",NA,1272,1272,NA,NA,2189,0,NA,NA
+"2","OROMIA","Arsi","Tena",40813,"31/01/2010",NA,4150,4150,NA,NA,NA,16,NA,NA
+"3","OROMIA","East Shewa","Fentale",40701,"24/08/2010",NA,9000,9000,NA,NA,NA,0,900,NA
+"4","OROMIA","West Arsi","Shashemene Zuria",41712,"24/08/2010",NA,5000,5000,NA,NA,NA,0,NA,NA
+"5","OROMIA","West Shewa","Tikur Enchini",40509,"24/08/2010",NA,NA,NA,1,NA,NA,26,NA,NA
+"6","OROMIA","Arsi","Golocha",40803,"18/08/2010",NA,8000,8000,NA,NA,NA,5,NA,NA
+"7","SNNPR","Sidama","Aleta Wendo",70405,"01/01/2010",NA,1844,1844,NA,NA,NA,4,NA,NA
+"8","OROMIA","Borena","Miyo",41216,"01/04/2010",NA,350,350,NA,NA,101,0,NA,NA
+"9","OROMIA","Borena","Miyo",41216,"01/04/2010",NA,1200,1200,NA,NA,NA,0,NA,NA
+"10","OROMIA","Borena","Moyale (Oromia)",41210,"01/04/2010",NA,9700,9700,NA,NA,324,0,1937,NA
+"11","OROMIA","Borena","Yabelo",41207,"01/03/2010",NA,9200,9200,NA,NA,2644,54,2213,NA
+"12","OROMIA","West Guji","Abaya",41213,"01/05/2010",NA,4600,4600,NA,NA,678,0,NA,NA
+"13","OROMIA","East Welega","Jimma Arjo",40214,"01/08/2010",NA,NA,NA,2,NA,66,35,NA,NA
+"14","OROMIA","Jima","Limu Kosa",40402,"01/07/2010",NA,NA,NA,NA,NA,119,0,NA,NA
+"15","Amhara","West Gojam","Yilmana Densa",30703,"01/08/2010",NA,16,16,NA,NA,NA,0,NA,NA
+"16","SNNPR","Yem Sp. Wer.","Yem SP woreda",71201,"01/08/2004",NA,NA,NA,2,NA,NA,0,NA,NA
+"17","SNNPR","South Omo","Hamer",70704,"01/08/2010",NA,6250,6250,NA,NA,NA,0,NA,NA
+"18","SNNPR","South Omo","Kuraz (Dasenech)",70706,"01/08/2010",NA,5000,5000,NA,NA,NA,0,NA,NA
+"19","SNNPR","Gamugofa","Dita",71008,"01/08/2010",NA,NA,NA,NA,NA,21,3,NA,NA
+"20","Gambella","Agnewak","Itang",120207,"01/08/2010",NA,15000,15000,NA,NA,NA,0,NA,NA
+"21","Gambella","Nuwer","Wantawo",120104,"01/08/2010",NA,3750,3750,NA,NA,NA,0,NA,NA
+"22","Amhara","North Wello","Mersa Town",30397,"22/08/2010",NA,NA,0,NA,NA,NA,NA,NA,NA
+"23","Gambella","Nuwer","Akobo",120101,"01/08/2010",NA,2500,2500,NA,NA,NA,0,NA,NA
+"24","Gambella","Nuwer","Jikawo",120103,"01/08/2010",NA,6250,6250,NA,NA,NA,0,NA,NA
+"25","Gambella","Nuwer","Lare",120102,"01/08/2010",NA,5000,5000,NA,NA,NA,0,NA,NA
+"26","Amhara","Oromia","Kemisie Town",31006,"01/08/2010",NA,1139,1139,NA,NA,NA,0,NA,NA
+"27","Amhara","North Shewa","Menze Mama Midir",30509,"01/08/2010",NA,8,8,NA,NA,NA,0,8,NA
+"28","Amhara","South Wello","Were ilu",30415,"01/08/2010",NA,8444,8444,NA,NA,55,0,NA,NA
+"29","Tigray","Eastern Tigray","Wukro Town",10309,"01/08/2010",NA,557,557,NA,NA,NA,0,NA,NA
+"30","Amhara","Wag Himra","Sekota",30802,"01/08/2010",NA,NA,NA,NA,NA,21,0,NA,NA
+"31","Amhara","Wag Himra","Zequala",30801,"01/08/2010",NA,505,505,NA,NA,87,460,NA,NA
+"32","Amhara","Central Gondar","West Belesa",30116,"01/08/2010",NA,505,505,NA,NA,NA,0,505,110
+"33","Tigray","Central Tigray","Werei Leke",10203,"01/08/2006",NA,NA,NA,NA,NA,491,12,NA,24
+"34","Amhara","South Wello","Worebabu",40111,"01/08/2010",NA,10183,10183,NA,NA,229,27,NA,NA
+"35","Amhara","West Gojam","Bure Town",30710,"01/08/2010",NA,1960,1960,NA,NA,521,0,NA,NA
+"36","Tigray","North Western Tigray","Welkait",10502,"01/07/2010",NA,125,125,NA,NA,75,0,NA,NA
+"37","Amhara","South Wello","Wegde",30416,"30/11/2007",NA,1,1,1,NA,NA,28,NA,NA
+"38","Amhara","South Wello","Wegde",30416,"30/11/2007",NA,1,1,1,NA,NA,28,NA,NA
+"39","Amhara","South Wello","Wegde",30416,"07/09/2006",NA,828,828,NA,NA,710,177,135,NA
+"40","Amhara","Central Gondar","Dembia",30111,"01/08/2010",NA,NA,NA,NA,NA,124,0,NA,NA
+"41","Amhara","Central Gondar","wegera",30109,"20/08/2011",NA,NA,0,NA,NA,NA,NA,NA,NA
+"42","OROMIA","Borena","Teltale",41212,"01/04/2010",NA,3000,3000,NA,NA,16003,12,1050,NA
+"43","Amhara","South Wello","Thehulederie",30405,"01/08/2004",NA,NA,NA,2,1,NA,0,NA,NA
+"44","Amhara","South Wello","Kalu",30407,"01/08/2010",NA,8107,8107,NA,NA,873,4,232,13
+"45","Amhara","South Wello","Kalu",30407,"01/08/2010",NA,2750,2750,NA,NA,189,37,NA,NA
+"46","Amhara","South Wello","Kalu",30407,"01/08/2010",NA,NA,NA,NA,NA,125,57,NA,NA
+"47","Amhara","Central Gondar","Takusa",30121,"07/09/2008",NA,22,22,NA,NA,NA,0,NA,NA
+"48","Tigray","Western Tigray","Tahtay Adiyabo",10101,"01/08/2010",NA,2952,2952,NA,NA,NA,0,NA,NA
+"49","Tigray","Western Tigray","Tahtay Adiyabo",10101,"01/07/2010",NA,2200,2200,NA,NA,875,12,NA,NA
+"50","Amhara","South Wello","Kutaber",30403,"01/08/2010",NA,7891,7891,NA,NA,382,1,NA,NA
+"51","Amhara","South Wello","Tenta",30402,"01/08/2010",NA,3645,3645,NA,NA,223,8,NA,NA
+"52","Amhara","South Wello","Mekdela",30401,"01/08/2010",NA,726,726,NA,NA,60,0,NA,NA
+"53","Amhara","South Wello","Jama",30414,"01/08/2010",NA,6,6,NA,NA,NA,4,6,NA
+"54","Amhara","South Wello","Albuko",30408,"01/08/2010",NA,28150,28150,NA,NA,4089,88,249,NA
+"55","Amhara","North Wello","Delanta",30306,"01/08/2010",NA,12686,12686,NA,NA,1470,65,39,NA
+"56","SNNPR","Silte","Selti",72002,"07/09/2006",NA,3120,3120,NA,NA,NA,0,NA,NA
+"57","SNNPR","Silte","Selti",72002,"06/12/2006",NA,NA,NA,NA,NA,NA,121,3120,984
+"58","Tigray","Western Tigray","shire",10108,"01/08/2010",NA,999,999,NA,NA,NA,0,NA,NA
+"59","Amhara","South Wello","Ambasel",30404,"01/08/2010",NA,77853,77853,NA,NA,2716,19,805,NA
+"60","Amhara","South Gonder","Dera (Amhara)",40602,"01/08/2010",NA,18641,18641,NA,NA,2726,316,NA,79
+"61","Amhara","South Gonder","Libokemekem",30202,"01/08/2010",NA,NA,NA,NA,NA,387,62,NA,NA
+"62","Amhara","South Gonder","Fogera",30203,"01/08/2010",NA,NA,NA,NA,NA,1164,64,NA,NA
+"63","Amhara","West Gojam","Bure Town",30710,"01/08/2010",NA,1960,1960,NA,NA,NA,0,NA,NA
+"64","Amhara","South Wello","Kalu",30407,"01/08/2010",NA,8540,8540,NA,NA,972,45,726,NA
+"65","SNNPR","Sidama","Shashogo",70204,"07/09/2006",NA,1540,1540,NA,NA,NA,0,NA,NA
+"66","Amhara","North Shewa","Kewet",30512,"01/08/2010",NA,1495,1495,NA,NA,110,3,NA,NA
+"67","Amhara","North Wello","Wadla",30305,"01/08/2010",NA,1336,1336,NA,NA,116,9,NA,NA
+"68","SNNPR","Hadiya","Shashogo",70204,"07/09/2006",NA,7500,7500,NA,NA,NA,0,NA,NA
+"69","Amhara","North Wello","Bugna",30301,"01/08/2010",NA,4462,4462,NA,NA,1004,28,50,NA
+"70","Amhara","North Wello","Wadla",30305,"01/08/2010",NA,18935,18935,NA,NA,1866,23,3,NA
+"71","SNNPR","Hadiya","Shashogo",70204,"06/12/2006",NA,NA,NA,2,NA,5066,0,8258,NA
+"72","Amhara","North Wello","Raya Kobo",30302,"01/08/2010",NA,494,494,NA,NA,NA,0,494,NA
+"73","Amhara","North Wello","Raya Kobo",30302,"01/08/2010",NA,5728,5728,NA,NA,493,14,47,44
+"74","Amhara","North Wello","Habru",30308,"01/08/2010",NA,37796,37796,NA,NA,5064,72,2919,NA
+"75","Amhara","North Wello","Habru",30308,"01/08/2010",NA,31255,31255,NA,NA,3422,58,2624,NA
+"76","SNNPR","Hadiya","Shashogo",70204,"07/09/2005",NA,17,17,NA,NA,5.4,0,NA,NA
+"77","Afar","Afar Zone 5","Dewe",20503,"29/07/2010",NA,1000,1000,NA,NA,NA,0,NA,NA
+"78","Amhara","Oromia","Artuma Fursi",31004,"01/08/2010",NA,7560,7560,NA,NA,1202,3,5883,NA
+"79","Afar","Afar Zone 5","Samurobi Gele'alo",20502,"29/07/2010",NA,1000,1000,NA,NA,NA,0,NA,NA
+"80","Afar","Afar Zone 5","Samurobi Gele'alo",20502,"29/07/2010",NA,1100,1100,NA,NA,346,0,NA,NA
+"81","Tigray","Southern Tigray","Alamata",10407,"01/08/2010",NA,5363,5363,NA,NA,NA,0,NA,NA
+"82","Tigray","Southern Tigray","Alamata",10407,"01/08/2010",NA,18384,18384,NA,NA,NA,0,NA,NA
+"83","Afar","Afar Zone 5","Samurobi Gele'alo",20502,"07/09/2006",NA,NA,NA,NA,NA,NA,660,NA,NA
+"84","Afar","Afar Zone 5","Samurobi Gele'alo",20502,"07/09/2006",NA,NA,NA,NA,NA,NA,550,NA,NA
+"85","Afar","Afar Zone 5","Samurobi Gele'alo",20502,"07/09/2006",NA,NA,NA,NA,NA,NA,620,NA,NA
+"86","Afar","Afar Zone 5","Samurobi Gele'alo",20502,"07/09/2006",NA,NA,NA,NA,NA,NA,450,NA,NA
+"87","Afar","Afar Zone 5","Samurobi Gele'alo",20502,"07/09/2006",NA,NA,NA,NA,NA,NA,400,NA,NA
+"88","Amhara","West Gojam","Semen Achefer",30701,"01/08/2010",NA,250,250,NA,NA,NA,0,NA,NA
+"89","Tigray","Southern Tigray","Enderta",10602,"01/08/2010",NA,395,395,NA,NA,37,8,NA,NA
+"90","SNNPR","South Omo","selamgo",70701,"07/09/2007",NA,25000,25000,NA,NA,NA,0,NA,NA
+"91","Tigray","Southern Tigray","Seharti Samre",10601,"01/07/2010",NA,980,980,NA,NA,404,49,NA,NA
+"92","Tigray","Central Tigray","Degua Temben",10604,"01/08/2010",NA,130,130,NA,NA,5,0,NA,NA
+"93","Amhara","Wag Himra","Sahila",30806,"20/03/2009",NA,NA,NA,NA,NA,NA,14,NA,NA
+"94","Tigray","Eastern Tigray","Saesi Tsesada Amba",10303,"01/08/2010",NA,7950,7950,NA,NA,530,0,NA,NA
+"95","Tigray","Eastern Tigray","Saesi Tsesada Amba",10303,"01/08/2006",NA,NA,NA,6,NA,NA,0,NA,NA
+"96","Tigray","Central Tigray","Nader Adet",10207,"01/08/2010",NA,9120,9120,NA,NA,727,0,NA,NA
+"97","Tigray","Central Tigray","Tahtay Maychew",10206,"01/07/2010",NA,3550,3550,NA,NA,208,0,NA,NA
+"98","Tigray","Western Tigray","Tahtay Koraro",10104,"01/07/2010",NA,4735,4735,NA,NA,569,33,NA,NA
+"99","Tigray","Western Tigray","Medebay Zana",10103,"01/07/2010",NA,2145,2145,NA,NA,225,0,NA,NA
+"100","Tigray","Western Tigray","Medebay Zana",10103,"01/07/2010",NA,3020,3020,NA,NA,202,0,NA,NA
+"101","Tigray","Central Tigray","Kola Temben",10208,"01/06/2010",NA,4450,4450,NA,NA,573,96,NA,NA
+"102","Tigray","Eastern Tigray","Erob",10302,"01/07/2010",NA,755,755,NA,NA,14,17,NA,NA
+"103","Tigray","Southern Tigray","Ofla",10408,"01/07/2010",NA,39705,39705,7,NA,2583,45,85,NA
+"104","Tigray","Southern Tigray","Mychew /Town/",10206,"01/08/2010",NA,853,853,NA,NA,NA,0,NA,NA
+"105","Tigray","North Western Tigray","Kafta Humera",10501,"01/07/2010",NA,1385,1385,NA,NA,3534,0,NA,NA
+"106","Tigray","Southern Tigray","Mychew /Town/",10206,"01/08/2010",NA,1264,1264,NA,NA,NA,0,NA,NA
+"107","Somali","Afder","west Imi",50805,"07/09/2006",NA,41000,41000,7,2,NA,0,NA,NA
+"108","Tigray","Southern Tigray","Endamehoni",10405,"01/08/2010",NA,41950,41950,NA,NA,2226,107,NA,NA
+"109","Tigray","Southern Tigray","Raya Azebo",10406,"01/07/2010",NA,10255,10255,NA,NA,250,303,1362,NA
+"110","Tigray","Central Tigray","Adwa",10204,"01/07/2010",NA,1410,1410,NA,NA,NA,0,94,NA
+"111","Tigray","Eastern Tigray","Hawzen",10305,"01/07/2010",NA,3630,3630,NA,NA,78,0,NA,NA
+"112","Tigray","Eastern Tigray","Hawzen",10305,"30/11/2010",NA,10135,10135,NA,NA,1177,0,NA,NA
+"113","Tigray","Southern Tigray","Alamata",10407,"21/12/2010",NA,11885,11885,2,NA,2416,202,9875,NA
+"114","Somali","Afder","west Imi",50805,"07/09/2005",NA,66,66,NA,NA,NA,0,3000,NA
+"115","Somali","Afder","West Imi",50805,"22/04/2005",NA,13415,13415,55,NA,NA,14128,NA,900
+"116","Amhara","Central Gondar","West Belesa",30117,"01/06/2004",NA,NA,NA,2,NA,NA,0,NA,NA
+"117","Afar","Afar Zone 4","Ewa",20402,"28/08/2010",NA,1200,1200,NA,NA,NA,0,NA,NA
+"118","Amhara","Central Gondar","West Belesa",30117,"01/08/2004",NA,1100,1100,NA,NA,112,0,NA,NA
+"119","SNNPR","Gamugofa","Mierab Abaya",71005,"22/06/2007",NA,NA,NA,NA,NA,179,45,500,NA
+"120","SNNPR","Gamugofa","Mierab Abaya",71005,"07/09/2007",NA,470,470,NA,NA,400,108,470,NA
+"121","SNNPR","Gamugofa","Mierab Abaya",71005,"07/09/2006",NA,300,300,NA,NA,NA,0,NA,NA
+"122","SNNPR","Gamugofa","Mierab Abaya",71005,"03/12/2003",NA,NA,NA,NA,NA,120,0,300,NA
+"123","OROMIA","East Shewa","Metta",41009,"01/04/2010",NA,1800,1800,NA,NA,3467,0,630,NA
+"124","Afar","Afar Zone 1","Chifra",20106,"15/08/2010",NA,600,600,NA,NA,NA,0,NA,NA
+"125","Afar","Afar Zone 1","Chifra",20106,"28/07/2010",NA,18600,18600,NA,NA,865,0,18600,NA
+"126","Afar","Afar Zone 1","Chifra",20106,"14/08/2010",NA,15630,15630,NA,NA,160,0,15630,NA
+"127","Afar","Afar Zone 1","Chifra",20106,"22/07/2010",NA,11500,11500,NA,NA,1642,0,11500,NA
+"128","Tigray","Central Tigray","Mereb Lehe",10201,"01/08/2010",NA,5772,5772,NA,NA,NA,0,NA,NA
+"129","Tigray","Central Tigray","Mereb Lehe",10201,"01/08/2010",NA,15810,15810,NA,NA,1054,72,NA,NA
+"130","OROMIA","Bale","Agarfa",41104,"01/07/2010",NA,4000,4000,NA,NA,NA,0,NA,NA
+"131","Amhara","North Shewa","Merhabete",30502,"01/08/2010",NA,1697,1697,NA,NA,50,0,NA,NA
+"132","OROMIA","East Shewa","Adama",40703,"01/07/2010",NA,5000,5000,NA,NA,NA,0,1750,NA
+"133","OROMIA","East Shewa","Boset",40702,"01/07/2010",NA,4000,4000,NA,NA,NA,0,NA,NA
+"134","OROMIA","East Shewa","Haro Maya",41006,"01/04/2010",NA,NA,NA,NA,NA,187,0,NA,NA
+"135","OROMIA","East Shewa","Kombolcha",41001,"01/04/2010",NA,NA,NA,NA,NA,63,0,NA,NA
+"136","Amhara","East Gojam","Michakel",30609,"01/08/2005",NA,NA,NA,NA,NA,239,0,NA,NA
+"137","OROMIA","East Shewa","Girawa",41016,"01/04/2010",NA,5000,5000,NA,NA,616,0,NA,NA
+"138","Amhara","East Gojam","Michakel",30609,"01/08/2005",NA,NA,NA,NA,NA,NA,0,NA,34
+"139","OROMIA","East Shewa","Bedeno",41013,"01/04/2010",NA,1700,1700,NA,NA,49,0,NA,NA
+"140","Amhara","East Gojam","Michakel",30609,"01/08/2005",NA,2315,2315,NA,NA,775,0,NA,27
+"141","OROMIA","East Shewa","Deder",41011,"01/04/2010",NA,2000,2000,NA,NA,195,0,NA,NA
+"142","OROMIA","East Shewa","Goro Gutu",41010,"01/04/2010",NA,3000,3000,NA,NA,185,0,1050,NA
+"143","OROMIA","Arsi","Tena",40813,"01/08/2010",NA,4150,4150,NA,NA,206,16,NA,NA
+"144","Amhara","South Wello","Legehida",30420,"01/08/2010",NA,366,366,NA,NA,713,0,NA,NA
+"145","OROMIA","West Arsi","Shashemene Zuria",41712,"01/08/2010",NA,5000,5000,NA,NA,95,0,NA,NA
+"146","Amhara","South Wello","Legehida",30420,"01/08/2010",NA,381,381,NA,NA,51,0,NA,NA
+"147","OROMIA","West Arsi","Adaba",41710,"01/08/2010",NA,22000,22000,NA,NA,459,3,7700,NA
+"148","OROMIA","West Arsi","Dodola",41707,"01/08/2010",NA,NA,NA,NA,NA,NA,10,NA,NA
+"149","OROMIA","Arsi","Shirka",40814,"01/08/2010",NA,2500,2500,NA,NA,240,0,875,NA
+"150","OROMIA","West Guji","Gelana (West Guji)",41217,"01/04/2010",NA,14000,14000,NA,NA,3173,0,988,NA
+"151","OROMIA","Bale","Lege Hida",41107,"01/07/2010",NA,4500,4500,NA,NA,NA,0,NA,NA
+"152","Amhara","Central Gondar","Lay Armacho",30108,"01/08/2004",NA,NA,NA,NA,NA,268,48,NA,NA
+"153","SNNPR","Silte","Lanfuro",72003,"07/09/2006",NA,300,300,NA,NA,NA,0,NA,NA
+"154","Tigray","North Western Tigray","Kafta Humera",10501,"01/06/2004",NA,NA,NA,2,NA,NA,0,NA,NA
+"155","SNNPR","Silte","Lanfuro",72003,"06/12/2006",NA,NA,NA,NA,NA,18.4,49,300,60
+"156","SNNPR","Silte","Lanfuro",72003,"01/05/2003",NA,NA,NA,NA,NA,128,333,NA,NA
+"157","Tigray","Southern Tigray","Raya Azebo",10406,"07/09/2007",NA,87,87,NA,NA,NA,0,NA,NA
+"158","Tigray","Southern Tigray","Raya Azebo",10406,"01/08/2006",NA,NA,NA,NA,NA,NA,0,NA,24
+"159","Tigray","Southern Tigray","Raya Azebo",10406,"01/09/2004",NA,50,50,NA,NA,NA,0,NA,NA
+"160","Tigray","Southern Tigray","Raya Azebo",10406,"01/09/2004",NA,1875,1875,NA,NA,1087,0,NA,NA
+"161","Tigray","Southern Tigray","Raya Azebo",10406,"07/09/2001",NA,NA,NA,NA,NA,200,0,NA,NA
+"162","Tigray","Southern Tigray","Ofla",10408,"01/08/2004",NA,NA,NA,NA,NA,176,0,NA,NA
+"163","SNNPR","South Omo","Kuraz (Dasenech)",70706,"07/09/2006",NA,10000,10000,125,NA,NA,0,NA,NA
+"164","Tigray","Southern Tigray","Alamata",10407,"07/09/2007",NA,1400,1400,NA,NA,NA,0,NA,NA
+"165","Tigray","Southern Tigray","Alamata",10407,"01/09/2003",NA,NA,NA,NA,NA,NA,0,2000,NA
+"166","Tigray","Southern Tigray","Alamata",10407,"11/08/2001",NA,1027,1027,NA,NA,NA,0,162,NA
+"167","SNNPR","South Omo","Kuraz (Dasenech)",70706,"07/09/2006",NA,15748,15748,NA,NA,NA,0,NA,NA
+"168","Tigray","Western Tigray","Medebay Zana",10103,"01/08/2004",NA,NA,NA,NA,NA,176,0,NA,NA
+"169","SNNPR","South Omo","Kuraz (Dasenech)",70706,"06/12/2006",NA,5000,5000,NA,NA,NA,96,NA,NA
+"170","SNNPR","South Omo","Kuraz (Dasenech)",70706,"07/09/2005",NA,5000,5000,NA,NA,NA,96,NA,NA
+"171","Tigray","Eastern Tigray","Hawzen",10305,"01/08/2005",NA,3400,3400,NA,NA,815,3,NA,NA
+"172","SNNPR","South Omo","Kuraz (Dasenech)",70706,"07/09/2001",NA,NA,NA,6,NA,NA,0,NA,NA
+"173","Tigray","Central Tigray","Laelay Maychew",10205,"01/08/2004",NA,NA,NA,1,NA,85,0,NA,28
+"174","Tigray","Central Tigray","Adwa",10204,"01/08/2004",NA,NA,NA,4,NA,NA,0,NA,NA
+"175","SNNPR","South Omo","Kuraz (Dasenech)",70706,"11/12/2001",NA,NA,NA,NA,NA,NA,53,NA,NA
+"176","SNNPR","South Omo","Kuraz (Dasenech)",70706,"07/09/2001",NA,NA,NA,12,NA,NA,0,NA,NA
+"177","SNNPR","South Omo","Kuraz (Dasenech)",70706,"07/09/2007",NA,28000,28000,NA,NA,NA,0,NA,NA
+"178","Somali","Doolo","Warder",50704,"05/12/2005",NA,8000,8000,1,NA,NA,0,NA,NA
+"179","Somali","Siti","Shinile",50103,"07/09/2000",NA,NA,NA,NA,NA,NA,0,1000,NA
+"180","Somali","Siti","Erer",130105,"07/09/2000",NA,NA,NA,5,NA,377,300,1820,NA
+"181","Somali","Siti","Ayisha",50101,"06/12/2006",NA,3000,3000,NA,NA,NA,500,NA,19
+"182","Somali","Liben","Filtu",50901,"07/09/2005",NA,6225,6225,NA,NA,NA,260,NA,NA
+"183","Somali","Liben","Filtu",50901,"07/09/2005",NA,6225,6225,5,NA,NA,818,NA,NA
+"184","Somali","Liben","Filtu",50901,"01/05/2002",NA,NA,NA,NA,NA,NA,0,2500,NA
+"185","Somali","Liben","Dolo Odo",50902,"30/11/2003",NA,10000,10000,NA,NA,NA,0,NA,NA
+"186","Somali","Liben","Dolo Odo",50902,"07/09/2005",NA,46700,46700,6,NA,NA,0,NA,NA
+"187","Somali","Liben","Dolo Odo",50902,"05/12/2005",NA,NA,NA,6,NA,NA,0,NA,NA
+"188","Somali","Liben","Dolo Odo",50902,"07/09/2005",NA,150000,150000,6,NA,NA,259,NA,NA
+"189","Somali","Korahe","Kebridehar",50502,"07/09/2005",NA,NA,NA,1,NA,NA,0,NA,105
+"190","Somali","Korahe","Kebridehar",50502,"07/09/2006",NA,3500,3500,2,NA,NA,0,NA,33
+"191","Somali","Korahe","Kebridehar",50502,"05/12/2005",NA,4800,4800,2,NA,NA,2365,NA,NA
+"192","Somali","Korahe","Kebridehar",50502,"07/09/2005",NA,NA,NA,NA,NA,NA,0,NA,200
+"193","Somali","Fafan","Jijiga",50204,"25/04/2005",NA,NA,NA,NA,NA,NA,0,NA,200
+"194","Somali","Fafan","Gursum",41003,"07/09/2005",NA,550,550,4,NA,NA,900,NA,NA
+"195","Somali","Shebelle","Mustahil",50606,"06/12/2006",NA,361600,361600,80,NA,NA,0,NA,NA
+"196","Somali","Shebelle","Mustahil",50606,"07/09/2003",NA,91050,91050,64,NA,NA,5900,6350,880
+"197","Somali","Shebelle","Mustahil",50606,"07/09/2003",NA,1e+05,1e+05,64,NA,NA,0,NA,NA
+"198","Somali","Shebelle","Mustahil",50606,"08/08/2007",NA,32000,32000,2,4,4770,361,32000,NA
+"199","Somali","Shebelle","Mustahil",50606,"07/09/2006",NA,NA,NA,NA,NA,NA,0,NA,300
+"200","Somali","Shebelle","Mustahil",50606,"07/09/2006",NA,74000,74000,4,8,NA,0,NA,NA
+"201","Somali","Shebelle","Mustahil",50606,"07/09/2005",NA,NA,NA,4,NA,NA,0,NA,300
+"202","Somali","Shebelle","Mustahil",50606,"07/09/2005",NA,16449,16449,14,NA,5400,4534,NA,NA
+"203","Somali","Shebelle","Kelafo",50605,"05/12/2005",NA,40000,40000,66,NA,NA,0,NA,NA
+"204","Somali","Shebelle","Kelafo",50605,"07/09/2003",NA,110000,110000,NA,NA,NA,0,NA,NA
+"205","Somali","Shebelle","Kelafo",50605,"07/09/2006",NA,NA,NA,NA,NA,NA,0,NA,108
+"206","Somali","Shebelle","Kelafo",50605,"07/09/2006",NA,88540,88540,29,2,NA,0,NA,NA
+"207","Somali","Shebelle","Kelafo",50605,"07/09/2006",NA,NA,NA,2,1,3200,392,8539,NA
+"208","Somali","Shebelle","Kelafo",50605,"07/09/2005",NA,9574,9574,29,NA,5969,23440,NA,34
+"209","SNNPR","Wolayita","Kindo Koyisha",70606,"07/09/2006",NA,4035,4035,NA,NA,NA,0,NA,NA
+"210","Somali","Shebelle","Gode",50604,"07/09/2006",NA,5650,5650,10,NA,NA,333,NA,NA
+"211","Somali","Shebelle","Ferfer",50607,"07/09/2006",NA,13514,13514,NA,NA,NA,0,NA,NA
+"212","Somali","Shebelle","Ferfer",50607,"07/09/2005",NA,18500,18500,5,NA,NA,0,NA,NA
+"213","Somali","Fefan","Kebribeyah",50206,"27/04/2005",NA,NA,NA,16,NA,NA,0,NA,108
+"214","Somali","Fefan","Kebribeyah",50206,"05/12/2005",NA,24550,24550,53,NA,2500,27638,125000,5600
+"215","Gambella","Agnewak","Jore",120204,"01/08/2010",NA,1250,1250,NA,NA,NA,0,NA,NA
+"216","Somali","Degehabur","Gashamo",50304,"07/09/2005",NA,105000,105000,NA,NA,NA,0,NA,NA
+"217","Somali","Degehabur","Degehabur",50302,"05/12/2005",NA,10000,10000,10,NA,NA,3125,NA,NA
+"218","Gambella","Agnewak","Jore",120204,"07/09/2006",NA,NA,NA,NA,NA,1650,1245,30915,NA
+"219","Amhara","Oromia","Jilye Tumuga",31003,"30/11/2007",NA,NA,NA,NA,NA,50,60,NA,NA
+"220","Amhara","Oromia","Jilye Tumuga",31003,"30/11/2007",NA,NA,NA,NA,NA,50,60,NA,NA
+"221","Amhara","Oromia","Jilye Tumuga",31003,"07/09/2006",NA,500,500,1,NA,273,0,739,NA
+"222","OROMIA","South West Shoa","Illu Galan",40500,"01/07/2010",NA,14600,14600,NA,NA,950,0,NA,NA
+"223","Harari","Harar","Sofi",130101,"07/09/2005",NA,NA,NA,NA,NA,1835,0,NA,NA
+"224","Harari","Harar","Sofi",130101,"07/09/2005",NA,NA,NA,NA,NA,148,0,NA,NA
+"225","Harari","Harar","Sofi",130101,"07/09/2005",NA,NA,NA,NA,NA,115,0,NA,NA
+"226","Somali","Liben","Guradamole",50801,"05/12/2005",NA,23000,23000,16,NA,NA,0,NA,NA
+"227","Somali","Liben","Guradamole",50801,"07/09/2005",NA,NA,NA,NA,NA,NA,0,NA,20
+"228","Harari","Harar","Sofi",130101,"07/09/2005",NA,NA,NA,NA,NA,74.5,0,NA,NA
+"229","Harari","Harar","Sofi",130101,"07/09/2005",NA,NA,NA,NA,NA,71,0,NA,NA
+"230","Harari","Harar","Sofi",130101,"07/09/2005",NA,NA,NA,NA,NA,3.5,0,NA,NA
+"231","Harari","Harar","Sofi",130101,"07/09/2005",NA,NA,NA,NA,NA,1.5,0,NA,NA
+"232","Harari","Harar","Sofi",130101,"22/06/2001",NA,40,40,NA,NA,NA,0,NA,NA
+"233","Harari","Harar","Sofi",130101,"22/06/2001",NA,5,5,NA,NA,NA,0,NA,NA
+"234","Tigray","North Western Tigray","Humera /Town/",10501,"01/08/2010",NA,6909,6909,NA,NA,NA,0,NA,NA
+"235","Tigray","North Western Tigray","Humera /Town/",10501,"07/09/2007",NA,462,462,NA,NA,NA,0,NA,NA
+"236","Tigray","North Western Tigray","Humera /Town/",10501,"01/08/2006",NA,NA,NA,NA,NA,NA,0,400,NA
+"237","Tigray","Southern Tigray","Hintalo Wajirat",10603,"01/07/2010",NA,1140,1140,NA,NA,769,0,NA,NA
+"238","Tigray","Southern Tigray","Hintalo Wajirat",10603,"01/07/2010",NA,2495,2495,NA,NA,NA,0,161,NA
+"239","SNNPR","Wolayita","Sodo Zuria",70605,"07/09/2006",NA,1363,1363,NA,NA,NA,0,NA,NA
+"240","SNNPR","Wolayita","Sodo Zuria",70605,"07/09/2005",NA,1363,1363,NA,NA,600,0,NA,17
+"241","SNNPR","Wolayita","Sodo Zuria",70605,"05/12/2005",NA,NA,NA,NA,NA,631,0,1363,17
+"242","SNNPR","Wolayita","Ofa",70607,"07/09/2006",NA,6240,6240,NA,NA,NA,0,NA,NA
+"243","SNNPR","Wolayita","Ofa",70607,"01/08/2005",NA,70,70,1,NA,20,0,NA,NA
+"244","SNNPR","Wolayita","Ofa",70607,"01/08/2004",NA,NA,NA,NA,NA,160,0,NA,NA
+"245","SNNPR","Wolayita","Ofa",70607,"01/04/2004",NA,NA,NA,NA,NA,284,0,NA,109
+"246","SNNPR","Wolayita","Ofa",70607,"02/12/2002",NA,NA,NA,NA,NA,402,0,NA,NA
+"247","SNNPR","Wolayita","Humbo",70604,"07/12/2007",NA,6768,6768,NA,NA,364,3,3270,654
+"248","SNNPR","Wolayita","Humbo",70604,"07/09/2006",NA,7885,7885,NA,NA,NA,0,NA,NA
+"249","SNNPR","Wolayita","Humbo",70604,"06/12/2006",NA,NA,NA,NA,NA,435,0,1075,NA
+"250","SNNPR","Wolayita","Humbo",70604,"07/09/2005",NA,6755,6755,2,NA,1017,0,NA,NA
+"251","SNNPR","Wolayita","Humbo",70604,"05/12/2005",NA,NA,NA,2,NA,1017,1525,6755,NA
+"252","SNNPR","Wolayita","Damot Sore",70609,"07/09/2008",NA,12000,12000,NA,NA,200,0,NA,NA
+"253","SNNPR","Wolayita","Damot Sore",70609,"07/09/2007",NA,6000,6000,NA,NA,400,0,NA,NA
+"254","SNNPR","Wolayita","Damot Sore",70609,"07/09/2006",NA,650,650,NA,NA,39,0,NA,NA
+"255","SNNPR","Wolayita","Damot Sore",70609,"07/09/2006",NA,860,860,NA,NA,10,0,NA,NA
+"256","SNNPR","Wolayita","Damot Sore",70609,"07/09/2005",NA,1000,1000,12,NA,150,40,4,NA
+"257","SNNPR","Wolayita","Damot Sore",70609,"07/09/2004",NA,NA,NA,NA,NA,80,0,NA,NA
+"258","SNNPR","Wolayita","Damot Sore",70609,"07/09/2002",NA,400,400,NA,NA,15,0,NA,NA
+"259","Somali","Fefan","Harshin",50207,"07/09/2005",NA,3050,3050,NA,NA,NA,0,NA,25
+"260","Tigray","Eastern Tigray","Gulo Meheda",10301,"01/08/2010",NA,806,806,NA,NA,115,0,NA,NA
+"261","Amhara","North Wello","Guba Lafto",30307,"01/08/2010",NA,26142,26142,NA,NA,1783,9,NA,NA
+"262","SNNPR","South Omo","Male",70707,"07/09/2007",NA,30000,30000,NA,NA,NA,0,NA,NA
+"263","Amhara","Central Gondar","Gonder Zuria",30110,"01/08/2010",NA,200,200,NA,NA,155,0,NA,NA
+"264","Amhara","Central Gondar","Gondar Zuria",30110,"07/09/2007",NA,NA,NA,NA,NA,NA,11,NA,NA
+"265","Amhara","Central Gondar","Gondar Zuria",30110,"07/09/2006",NA,2810,2810,NA,NA,NA,29,3529,NA
+"266","Amhara","Central Gondar","Gondar Zuria",30110,"01/12/2006",NA,NA,NA,NA,NA,1500,0,NA,NA
+"267","Amhara","Central Gondar","Gondar Zuria",30110,"06/12/2006",NA,1533,1533,NA,NA,NA,39,437,NA
+"268","OROMIA","Bale","Gololcha Bale",41105,"01/07/2010",NA,5000,5000,NA,NA,NA,0,NA,NA
+"269","OROMIA","Bale","Gololcha Bale",41105,"07/09/2008",NA,1803,1803,NA,NA,NA,0,NA,NA
+"270","OROMIA","Bale","Gololcha Bale",41105,"07/09/2007",NA,11882,11882,NA,NA,2409,0,NA,NA
+"271","SNNPR","South Omo","Hamer",70704,"07/09/2007",NA,809,809,NA,NA,NA,0,NA,NA
+"272","SNNPR","South Omo","Hamer",70704,"07/09/2007",NA,943,943,NA,NA,NA,0,NA,NA
+"273","SNNPR","South Omo","Hamer",70704,"07/09/2007",NA,845,845,NA,NA,NA,0,NA,NA
+"274","SNNPR","South Omo","Hamer",70704,"07/09/2007",NA,1263,1263,NA,NA,NA,0,NA,NA
+"275","SNNPR","South Omo","Hamer",70704,"07/09/2007",NA,1417,1417,NA,NA,NA,0,NA,NA
+"276","SNNPR","South Omo","Hamer",70704,"07/09/2007",NA,1420,1420,NA,NA,NA,0,NA,NA
+"277","SNNPR","South Omo","Hamer",70704,"07/09/2007",NA,20000,20000,NA,NA,NA,0,NA,NA
+"278","SNNPR","South Omo","Hamer",70704,"07/09/2007",NA,1843,1843,NA,NA,NA,0,NA,NA
+"279","SNNPR","South Omo","Hamer",70704,"07/09/2007",NA,1843,1843,NA,NA,NA,0,NA,NA
+"280","SNNPR","South Omo","Hamer",70704,"07/09/2007",NA,1843,1843,NA,NA,NA,0,NA,NA
+"281","SNNPR","South Omo","Hamer",70704,"07/09/2002",NA,NA,NA,NA,NA,40,0,NA,NA
+"282","SNNPR","South Omo","Gelila",70703,"07/09/2007",NA,15000,15000,NA,NA,NA,0,NA,NA
+"283","OROMIA","Arsi","Golocha",40803,"16/04/2005",NA,NA,NA,NA,NA,NA,0,NA,20
+"284","Afar","Afar Zone 3","Gewane",20303,"10/08/2012",5000,NA,5000,NA,NA,NA,NA,NA,NA
+"285","OROMIA","Bale","Gasera",41106,"01/07/2010",NA,9300,9300,NA,NA,NA,0,NA,NA
+"286","Tigray","Eastern Tigray","Ganta Afshum",10304,"01/08/2010",NA,8310,8310,NA,NA,277,0,NA,NA
+"287","Gambella","Agnewak","Gambella Town",120202,"07/09/2000",NA,6,6,NA,NA,NA,0,61592,NA
+"288","OROMIA","East Shewa","Fientale",40701,"01/08/2010",NA,9000,9000,NA,NA,46,0,900,NA
+"289","OROMIA","East Shewa","Fientale",40701,"07/09/2007",NA,560,560,NA,NA,NA,0,NA,NA
+"290","OROMIA","East Shewa","Fientale",40701,"20/04/2007",NA,560,560,NA,NA,31,0,NA,NA
+"291","SNNPR","Gurage","Enemor Ener",70111,"01/08/2005",NA,NA,NA,NA,NA,381,0,NA,NA
+"292","SNNPR","Gurage","Enemor Ener",70111,"01/08/2004",NA,6000,6000,1,NA,487,3,NA,NA
+"293","Amhara","East Gojam","Enebse Sarmder",30604,"01/08/2010",NA,9910,9910,NA,NA,528,464,NA,NA
+"294","Amhara","North Shewa","Eferatana Gidem",30508,"16/05/2009",NA,124,124,NA,NA,NA,13,124,39
+"295","Amhara","North Shewa","Eferatana Gidem",30508,"01/08/2007",NA,NA,NA,NA,NA,195,0,NA,14
+"296","Amhara","North Shewa","Eferatana Gidem",30508,"07/09/2006",NA,77,77,NA,NA,135.15,17,NA,NA
+"297","Amhara","North Shewa","Eferatana Gidem",30508,"12/08/2006",NA,77,77,NA,NA,3.01,0,77,NA
+"298","Amhara","North Shewa","Eferatana Gidem",30508,"07/09/2000",NA,NA,NA,2,NA,NA,0,NA,NA
+"299","Somali","Shebelle","East Imey",50601,"02/11/2015",102000,NA,102000,5,NA,NA,10000,NA,NA
+"300","Amhara","Central Gondar","East Belesa",30117,"01/08/2010",NA,1134,1134,NA,NA,540,31,NA,NA
+"301","Afar","Afar Zone 3","Dulecha",20304,"07/09/2006",NA,4443,4443,NA,NA,NA,332,4000,NA
+"302","Afar","Afar Zone 3","Dulecha",20304,"01/08/2006",NA,4000,4000,NA,NA,NA,0,NA,NA
+"303","Dire Dawa","Dire Dawa urban","Addis Ketema (Dire Dawa)",150109,"06/12/2006",NA,NA,NA,371,228,NA,0,NA,1685
+"304","Dire Dawa","Dire Dawa urban","Addis Ketema (Dire Dawa)",150109,"07/09/2005",NA,NA,NA,32,NA,NA,0,NA,NA
+"305","SNNPR","South Omo","Gelila",70703,"05/08/2002",NA,NA,NA,3,NA,NA,0,NA,NA
+"306","Dire Dawa","Dire Dawa urban","Addis Ketema (Dire Dawa)",150109,"20/05/2005",NA,NA,NA,27,NA,NA,0,NA,NA
+"307","Dire Dawa","Dire Dawa urban","Addis Ketema (Dire Dawa)",150109,"20/05/2005",NA,NA,NA,32,NA,NA,0,NA,NA
+"308","Amhara","Oromia","Dewa Harewa",31001,"07/09/2006",NA,2219,2219,NA,NA,509,0,739,NA
+"309","SNNPR","Silte","Sankura",72006,"01/07/2004",NA,1920,1920,1,NA,1063,348,NA,NA
+"310","Amhara","Oromia","Dewa Harewa",31001,"07/09/2006",NA,4125,4125,NA,NA,NA,0,NA,NA
+"311","Amhara","Oromia","Dewa Harewa",31001,"07/09/2006",NA,2645,2645,NA,NA,1441,178,2645,638
+"312","Amhara","South Wello","Dessie Zuria",30409,"01/08/2010",NA,27687,27687,NA,NA,1735,2,14,NA
+"313","Amhara","South Wello","Dessie Zuria",30409,"01/06/2004",NA,NA,NA,4,10,NA,0,NA,NA
+"314","Amhara","South Wello","Dessie City Adm.",30409,"01/08/2010",NA,8421,8421,NA,NA,478,17,55,NA
+"315","SNNPR","Sidama","Dara",70406,"07/09/2007",NA,3240,3240,NA,NA,NA,0,NA,NA
+"316","SNNPR","Sidama","Dara",70406,"07/09/2007",NA,3240,3240,NA,NA,NA,0,NA,NA
+"317","SNNPR","Sidama","Dara",70406,"07/09/2007",NA,2470,2470,NA,NA,NA,0,NA,NA
+"318","SNNPR","Sidama","Dara",70406,"07/12/2007",NA,3240,3240,NA,NA,370,0,NA,100
+"319","SNNPR","Sidama","Dara",70406,"01/05/2004",NA,NA,NA,2,NA,1040,0,NA,NA
+"320","SNNPR","Sidama","Dale",70404,"07/09/2006",NA,2580,2580,NA,NA,NA,0,NA,NA
+"321","SNNPR","Sidama","Dale",70404,"07/09/2006",NA,3600,3600,NA,NA,NA,0,NA,NA
+"322","SNNPR","Sidama","Dale",70404,"06/12/2006",NA,NA,NA,2,1,NA,8,NA,25
+"323","SNNPR","Gamugofa","Deramalo",71009,"07/09/2006",NA,1658,1658,NA,NA,NA,0,NA,NA
+"324","Amhara","East Gojam","Debay Tilatgen",30607,"01/08/2004",NA,NA,NA,NA,NA,1800,0,NA,380
+"325","Amhara","North Welo","Dawunt",30311,"01/08/2010",NA,9260,9260,NA,NA,1250,416,15,NA
+"326","Somali","Shebelle","Danan",50603,"07/09/2006",NA,NA,NA,NA,NA,NA,0,5000,NA
+"327","Somali","Shebelle","Danan",50603,"07/09/2006",NA,8250,8250,3,NA,NA,0,NA,NA
+"328","Somali","Shebelle","Danan",50603,"07/09/2006",NA,8250,8250,NA,NA,NA,0,NA,NA
+"329","Somali","Shebelle","Danan",50603,"07/09/2006",NA,NA,NA,NA,NA,NA,80,NA,3
+"330","Somali","Shebelle","Danan",50603,"07/09/2005",NA,3500,3500,1,NA,3116,384,NA,28
+"331","Afar","Afar Zone 2","Dalol",20206,"15/08/2010",NA,2420,2420,NA,NA,NA,0,NA,NA
+"332","Afar","Afar Zone 2","Dalol",20206,"25/08/2010",NA,1850,1850,NA,NA,NA,0,NA,NA
+"333","SNNPR","Kefa","Decha",70908,"07/09/2007",NA,11,11,NA,NA,NA,0,NA,NA
+"334","Afar","Afar Zone 2","Dalol",20206,"25/08/2010",NA,1800,1800,NA,NA,NA,25,1800,NA
+"335","Afar","Afar Zone 2","Dalol",20206,"07/09/2007",NA,320,320,NA,NA,NA,0,NA,NA
+"336","Afar","Afar Zone 2","Dalol",20206,"07/12/2007",NA,6000,6000,NA,NA,NA,0,NA,NA
+"337","SNNPR","Gurage","Sodo",70105,"06/12/2006",NA,NA,NA,NA,NA,NA,0,358,NA
+"338","SNNPR","Gurage","Muhur Na Aklil",70112,"06/12/2006",NA,NA,NA,NA,NA,NA,0,143,NA
+"339","SNNPR","Gurage","Meskan",70106,"07/09/2005",NA,NA,NA,NA,NA,NA,0,NA,50
+"340","SNNPR","Gurage","Mareko",70107,"07/12/2007",NA,5560,5560,NA,NA,NA,1710,1255,2
+"341","SNNPR","Gode","Kelafo",50605,"27/05/2003",NA,91050,91050,NA,NA,NA,0,NA,NA
+"342","SNNPR","Gedeo","Yirgachefe",70502,"01/05/2004",NA,510,510,NA,NA,NA,0,NA,NA
+"343","SNNPR","Gedeo","Yirgachefe",70502,"01/05/2004",NA,NA,NA,NA,NA,69,0,NA,NA
+"344","SNNPR","Gedeo","Wenago",70501,"01/04/2004",NA,NA,NA,NA,NA,400,0,NA,NA
+"345","SNNPR","Gedeo","Dila Zuria",70505,"07/12/2007",NA,NA,NA,NA,NA,2145,2,20989,2
+"346","SNNPR","Gedeo","Bule",70504,"07/09/2005",NA,NA,NA,NA,NA,1,0,NA,NA
+"347","SNNPR","Gedeo","Bule",70504,"07/09/2005",NA,NA,NA,NA,NA,36,0,555,NA
+"348","SNNPR","Gedeo","Bule",70504,"01/05/2004",NA,NA,NA,NA,NA,6.5,0,NA,NA
+"349","SNNPR","Gamugofa","Kucha",71003,"07/09/2005",NA,7720,7720,2,NA,NA,1525,NA,NA
+"350","Afar","Afar Zone 5","Bure Mudaytu",20305,"15/08/2010",NA,4120,4120,NA,NA,NA,125,4120,NA
+"351","Afar","Afar Zone 4","Bure Mudaytu",20305,"15/08/2010",NA,5000,5000,NA,NA,NA,0,NA,NA
+"352","Afar","Afar Zone 3","Bure Mudaytu",20305,"15/08/2010",NA,3670,3670,NA,NA,NA,0,NA,NA
+"353","Afar","Afar Zone 3","Bure Mudaytu",20305,"24/08/2007",NA,4300,4300,NA,NA,NA,0,4300,NA
+"354","SNNPR","Gamugofa","Kucha",71003,"03/12/2003",NA,NA,NA,5,1,NA,0,400,15
+"355","SNNPR","Gamugofa","Kemba",71012,"07/09/2005",NA,4,4,NA,NA,NA,0,NA,NA
+"356","SNNPR","Gamugofa","Kemba",71012,"03/12/2003",NA,NA,NA,1,NA,50,0,20,3
+"357","SNNPR","Gamugofa","Dita",71008,"03/12/2003",NA,NA,NA,11,5,924,201,7381,136
+"358","Afar","Afar Zone 3","Bure Mudaytu",20305,"01/08/2006",NA,10000,10000,NA,NA,NA,219,NA,NA
+"359","SNNPR","Gamugofa","Chencha",71007,"03/12/2003",NA,NA,NA,NA,5,289,8,346,57
+"360","SNNPR","Gamugofa","Bonke",71013,"07/12/2007",NA,NA,NA,5,NA,606,0,2205,NA
+"361","SNNPR","Gamugofa","Bonke",71013,"07/09/2007",NA,445,445,NA,NA,945,55,445,89
+"362","SNNPR","Gamugofa","Bonke",71013,"07/09/2006",NA,NA,NA,NA,NA,300,144,NA,NA
+"363","SNNPR","Gamugofa","Bonke",71013,"07/09/2004",NA,NA,NA,NA,NA,NA,0,500,NA
+"364","OROMIA","East Shewa","bora",40710,"01/08/2010",NA,5000,5000,1,NA,500,235,2000,NA
+"365","SNNPR","South Omo","Bena Tsemai",70705,"07/09/2007",NA,25000,25000,NA,NA,NA,0,NA,NA
+"366","SNNPR","South Omo","Bena Tsemai",70705,"07/09/2007",NA,2020,2020,NA,NA,93.5,0,NA,NA
+"367","SNNPR","South Omo","Bena Tsemai",70705,"07/09/2007",NA,1045,1045,NA,NA,45,0,NA,NA
+"368","SNNPR","South Omo","Bena Tsemai",70705,"07/09/2007",NA,825,825,NA,NA,35,0,NA,NA
+"369","SNNPR","South Omo","Bena Tsemai",70705,"07/09/2007",NA,4168,4168,NA,NA,NA,0,NA,NA
+"370","SNNPR","South Omo","Bena Tsemai",70705,"07/09/2002",NA,3500,3500,NA,NA,NA,0,NA,NA
+"371","SNNPR","Gamugofa","Kucha",71003,"07/09/2002",NA,400,400,5,NA,NA,201,NA,NA
+"372","SNNPR","Gamugofa","Dita",71008,"07/09/2002",NA,7381,7381,NA,NA,NA,0,NA,NA
+"373","SNNPR","Gamugofa","Bonke",71013,"07/09/2002",NA,1519,1519,NA,NA,NA,0,NA,NA
+"374","SNNPR","Basketo Sp. Wer","Basketo",71801,"06/12/2006",NA,NA,NA,NA,NA,4425,0,330,NA
+"375","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"17/06/2007",NA,NA,NA,4,NA,2861,87,NA,NA
+"376","SNNPR","Dawuro","Mareka",71702,"01/05/2004",NA,NA,NA,NA,NA,220,0,NA,NA
+"377","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"17/06/2007",NA,NA,NA,4,NA,NA,87,NA,NA
+"378","SNNPR","Amaro Sp. Wer.","Amaro",71302,"07/09/2009",NA,1752,1752,NA,NA,252.5,0,NA,NA
+"379","SNNPR","Amaro Sp. Wer.","Amaro",71302,"07/09/2009",NA,1148,1148,NA,NA,68.4,0,NA,NA
+"380","SNNPR","Amaro Sp. Wer.","Amaro",71302,"07/09/2009",NA,1676,1676,NA,NA,30,0,NA,NA
+"381","SNNPR","Amaro Sp. Wer.","Amaro",71302,"07/09/2009",NA,636,636,1,NA,20.2,0,NA,NA
+"382","SNNPR","Amaro Sp. Wer.","Amaro",71302,"07/09/2009",NA,473,473,NA,NA,12.6,0,NA,NA
+"383","SNNPR","Amaro Sp. Wer.","Amaro",71302,"07/09/2009",NA,271,271,NA,NA,12.3,0,NA,NA
+"384","SNNPR","Amaro Sp. Wer.","Amaro",71302,"07/09/2009",NA,1158,1158,NA,NA,12.25,0,NA,NA
+"385","SNNPR","Amaro Sp. Wer.","Amaro",71302,"07/09/2009",NA,394,394,NA,NA,6.8,0,NA,NA
+"386","SNNPR","Amaro Sp. Wer.","Amaro",71302,"07/09/2009",NA,60,60,NA,NA,1.7,0,NA,NA
+"387","SNNPR","Amaro Sp. Wer.","Amaro",71302,"19/02/2008",NA,7,7,1,NA,0.25,0,NA,NA
+"388","SNNPR","Amaro Sp. Wer.","Amaro",71302,"07/09/2006",NA,4140,4140,NA,NA,NA,0,NA,NA
+"389","SNNPR","Amaro Sp. Wer.","Amaro",71302,"05/12/2005",NA,NA,NA,6,NA,240,23,4140,46
+"390","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"07/09/2007",NA,10000,10000,NA,NA,NA,0,NA,NA
+"391","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,115.56,8,NA,NA
+"392","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,9,8,NA,4
+"393","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,39,39,2,NA,NA,14,NA,2
+"394","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,7282,17,NA,NA
+"395","OROMIA","Bale","Ginir",41108,"07/09/2007",NA,NA,NA,NA,NA,592,0,NA,NA
+"396","OROMIA","Arsi","Robe",40812,"07/09/2007",NA,NA,NA,NA,NA,160,0,NA,NA
+"397","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,2353.5,4,NA,NA
+"398","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,4,26,NA,2
+"399","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,2.83,4,NA,NA
+"400","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,45.66,8,NA,16
+"401","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,19.1,4,NA,NA
+"402","OROMIA","West Shewa","Cheliya",40505,"01/05/2003",NA,NA,NA,NA,NA,NA,12,NA,NA
+"403","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,124.5,5,NA,NA
+"404","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,2,2,NA,NA
+"405","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,NA,21,NA,NA
+"406","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,0.05,4,NA,NA
+"407","OROMIA","West Hararge","Daro Lebu",40909,"01/08/2004",NA,NA,NA,2,NA,NA,0,NA,NA
+"408","OROMIA","West Arsi","Siraro",41701,"01/04/2003",NA,NA,NA,3,NA,890,190,NA,NA
+"409","OROMIA","West Arsi","Adaba",41710,"17/03/2007",NA,NA,NA,3,NA,NA,0,NA,NA
+"410","OROMIA","West Arsi","Adaba",41710,"21/03/2007",NA,NA,NA,3,NA,NA,0,NA,NA
+"411","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,3.5,1,NA,NA
+"412","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"30/11/2007",NA,NA,NA,NA,NA,501,7,NA,NA
+"413","OROMIA","North Shewa","Dera",40602,"01/09/2001",NA,NA,NA,3,NA,NA,0,NA,NA
+"414","OROMIA","North Shewa","Dera",40602,"01/09/2001",NA,NA,NA,3,NA,NA,0,NA,NA
+"415","SNNPR","South Omo","Bako Gazer (Debub Ari)",70702,"02/12/2001",NA,40,40,NA,NA,NA,16,NA,NA
+"416","OROMIA","Jima","Kersa",41008,"07/09/2002",NA,NA,NA,NA,NA,494,0,NA,NA
+"417","OROMIA","Jima","Gera",40408,"01/04/2002",NA,625,625,NA,NA,40,0,NA,125
+"418","OROMIA","Jima","Dedo",40410,"01/06/2004",NA,NA,NA,NA,NA,450,0,NA,NA
+"419","OROMIA","Illubabur","Gechi",40306,"18/05/2004",NA,NA,NA,NA,NA,NA,0,NA,22
+"420","OROMIA","Illubabur","Darimu",40301,"07/09/2007",NA,NA,NA,NA,NA,807,0,NA,NA
+"421","Amhara","West Gojam","Bahirdar Zuria",30702,"14/08/2008",NA,NA,NA,NA,NA,400,0,NA,NA
+"422","Amhara","West Gojam","Bahirdar Zuria",30702,"07/09/2006",NA,2642,2642,1,NA,293.5,0,NA,NA
+"423","Amhara","West Gojam","Bahirdar Zuria",30702,"01/08/2010",NA,6,6,NA,NA,636,0,NA,NA
+"424","OROMIA","East Shewa","Dugda",40707,"07/09/2005",NA,70000,70000,1,NA,NA,0,NA,NA
+"425","Benishangul Gumz","Asosa","Assosa",60303,"07/09/2005",NA,NA,NA,2,NA,NA,0,NA,NA
+"426","OROMIA","East Shewa","Dugda",40707,"07/09/2007",NA,5549,5549,NA,NA,654,0,NA,417
+"427","Tigray","Western Tigray","Asegede Tsimbila",10105,"01/08/2010",NA,4380,4380,NA,NA,NA,0,NA,NA
+"428","Afar","Afar Zone 1","Asayita",20103,"20/01/2008",NA,493,493,NA,NA,22,0,NA,NA
+"429","OROMIA","East Shewa","Meta",41009,"07/09/2007",NA,NA,NA,3,NA,2915,0,NA,NA
+"430","OROMIA","East Shewa","Meta",41009,"01/08/2007",NA,27500,27500,NA,NA,1000,0,NA,NA
+"431","OROMIA","East Shewa","Meta",41009,"01/04/2002",NA,NA,NA,3,NA,NA,26,NA,12
+"432","Afar","Afar Zone 1","Asayita",20103,"07/09/2007",NA,NA,NA,NA,NA,200,0,NA,NA
+"433","OROMIA","East Shewa","Kurfa Chele",41007,"07/09/2007",NA,NA,NA,NA,NA,208,0,NA,NA
+"434","OROMIA","East Shewa","Kombolcha",41001,"07/09/2007",NA,NA,NA,NA,NA,504,0,NA,NA
+"435","OROMIA","East Shewa","Kombolcha",41001,"25/08/2006",NA,NA,NA,NA,NA,NA,0,100,394
+"436","OROMIA","East Shewa","Kersa",41008,"07/09/2007",NA,NA,NA,NA,NA,854,0,NA,NA
+"437","Afar","Afar Zone 1","Asayita",20103,"07/09/2006",NA,24700,24700,NA,NA,NA,0,NA,NA
+"438","Afar","Afar Zone 1","Asayita",20103,"07/09/2006",NA,56300,56300,NA,NA,33305,169,NA,NA
+"439","OROMIA","East Shewa","Goro Gutu",41010,"07/09/2007",NA,NA,NA,NA,NA,854,0,NA,NA
+"440","OROMIA","East Shewa","Girawa",41016,"01/08/2005",NA,NA,NA,NA,NA,170,0,NA,20
+"441","OROMIA","East Shewa","Girawa",41016,"01/08/2006",NA,61000,61000,8,NA,2000,0,217,NA
+"442","OROMIA","East Shewa","Girawa",41016,"01/04/2003",NA,NA,NA,NA,NA,180,36,NA,96
+"443","OROMIA","East Shewa","Deder",41011,"01/04/2003",NA,NA,NA,NA,NA,252,31,NA,9
+"444","Afar","Afar Zone 1","Asayita",20103,"05/12/2005",NA,8700,8700,NA,NA,NA,0,NA,NA
+"445","Afar","Afar Zone 1","Asayita",20103,"01/07/2003",NA,NA,NA,NA,NA,NA,3381,NA,NA
+"446","OROMIA","East Shewa","Bedeno",41013,"07/09/2007",NA,NA,NA,NA,NA,230,0,NA,NA
+"447","OROMIA","East Shewa","Bedeno",41013,"14/05/2005",NA,NA,NA,NA,NA,4.14,0,NA,NA
+"448","Afar","Afar Zone 1","Asayita",20103,"01/07/2003",NA,NA,NA,NA,NA,NA,3381,NA,NA
+"449","OROMIA","Borena","Moyale (Oromia)",41210,"07/09/2006",NA,NA,NA,NA,NA,NA,0,NA,NA
+"450","OROMIA","Borena","Arero",41208,"01/04/2002",NA,NA,NA,1,2,NA,0,NA,12
+"451","OROMIA","West Guji","Abaya",41213,"07/09/2005",NA,NA,NA,NA,NA,NA,0,NA,19
+"452","OROMIA","Bale","Seweyna",41118,"28/04/2005",NA,2,2,NA,NA,NA,12,NA,NA
+"453","OROMIA","Bale","Seweyna",41118,"01/10/2001",NA,NA,NA,2,2,NA,0,NA,NA
+"454","OROMIA","Bale","Lege Hida",30420,"07/09/2008",NA,1530,1530,NA,NA,NA,0,NA,NA
+"455","SNNPR","Gamugofa","Arba Minch Town Adm",71016,"07/09/2007",NA,370,370,NA,NA,NA,0,135,10
+"456","SNNPR","Gamugofa","Arba Minch Town Adm",71016,"07/09/2006",NA,24800,24800,NA,NA,NA,0,NA,NA
+"457","OROMIA","Bale","Ginir",41108,"07/09/2007",NA,NA,NA,NA,NA,592,0,NA,NA
+"458","OROMIA","Bale","Gasera",41106,"07/09/2008",NA,5525,5525,NA,NA,NA,0,NA,NA
+"459","OROMIA","Bale","Dawe Ketchen",41121,"17/08/2001",NA,NA,NA,NA,NA,NA,0,400,NA
+"460","OROMIA","Arsi","Hitosa",40807,"07/09/2007",NA,NA,NA,NA,NA,333,0,NA,NA
+"461","SNNPR","Gamugofa","Arba Minch Town Adm",71016,"07/09/2005",NA,22000,22000,NA,NA,NA,0,NA,NA
+"462","SNNPR","Gamugofa","Arba Minch Town Adm",71016,"05/12/2005",NA,NA,NA,NA,NA,5311,447,18650,67
+"463","OROMIA","Arsi","Sire",40820,"07/09/2003",NA,NA,NA,NA,NA,429,0,NA,NA
+"464","OROMIA","Arsi","Seru",40811,"07/09/2008",NA,3300,3300,NA,NA,NA,0,NA,NA
+"465","OROMIA","Arsi","Robe",40812,"07/09/2008",NA,8402,8402,NA,NA,NA,0,NA,NA
+"466","OROMIA","Arsi","Robe",40812,"01/06/2004",NA,2070,2070,NA,NA,344,0,NA,NA
+"467","SNNPR","Gamugofa","Arba Minch Town Adm",71016,"07/09/2005",NA,12000,12000,NA,NA,NA,0,NA,NA
+"468","SNNPR","Gamugofa","Arba Minch Town Adm",71016,"03/12/2003",NA,NA,NA,NA,NA,1213,0,7917,10
+"469","SNNPR","Gamugofa","Arba Minch Town Adm",71016,"01/10/2001",NA,NA,NA,NA,NA,NA,0,2500,NA
+"470","Amhara","North Shewa","Antsokiya Gemza",30507,"07/09/2006",NA,3020,3020,NA,NA,NA,0,NA,NA
+"471","Amhara","North Shewa","Antsokiya Gemza",30507,"24/06/2008",NA,814,814,NA,NA,NA,0,NA,NA
+"472","Amhara","North Shewa","Antsokiya Gemza",30507,"07/09/2007",NA,183,183,NA,NA,NA,0,183,NA
+"473","Amhara","North Shewa","Antsokiya Gemza",30507,"07/09/2006",NA,NA,NA,NA,NA,NA,0,490,NA
+"474","Amhara","North Shewa","Antsokiya Gemza",30507,"07/09/2006",NA,24430,24430,NA,NA,NA,3,77,NA
+"475","Amhara","North Shewa","Antsokiya Gemza",30507,"07/09/2006",NA,NA,NA,NA,NA,62422,84,NA,NA
+"476","Amhara","North Shewa","Antsokiya",30507,"01/08/2010",NA,130,130,NA,NA,NA,0,130,NA
+"477","Amhara","Awi","Ankasha",30903,"01/12/2006",NA,6000,6000,NA,NA,1800,0,NA,NA
+"478","Amhara","South Wello","Ambasel",30404,"22/08/2010",NA,NA,0,NA,NA,1368,NA,NA,NA
+"479","Amhara","Central Gondar","Alfa",30115,"01/06/2004",NA,NA,NA,1,NA,NA,154,NA,NA
+"480","Tigray","Southern Tigray","Alage",10404,"01/03/2004",NA,NA,NA,NA,NA,NA,63,NA,NA
+"481","SNNPR","Alaba Sp.","Alaba",72101,"07/09/2006",NA,17973,17973,NA,NA,NA,0,NA,NA
+"482","SNNPR","Alaba Sp.","Alaba",72101,"07/09/2006",NA,NA,NA,NA,NA,798,395,4073,658
+"483","Gambella","Nuwer","Lare",120102,"22/11/2007",NA,132,132,NA,NA,NA,0,14346,NA
+"484","SNNPR","Alaba Sp.","Alaba",72101,"06/12/2006",NA,NA,NA,1,NA,NA,140,3000,NA
+"485","SNNPR","Alaba Sp.","Alaba",72101,"04/12/2004",NA,NA,NA,NA,NA,1805.52,1106,8634,109
+"486","Gambella","Nuwer","Lare",120102,"07/09/2008",NA,NA,NA,NA,NA,1923.86,341,13004,NA
+"487","Tigray","Central Tigray","Ahieferom",10202,"01/08/2010",NA,1400,1400,NA,NA,56,0,NA,NA
+"488","Gambella","Etang Special","Itang",120207,"07/09/2007",NA,NA,NA,NA,NA,2617.19,747,50264,NA
+"489","Gambella","Agnewak","Gog",120203,"07/09/2001",NA,5,5,NA,NA,110,421,21733,NA
+"490","OROMIA","East Shewa","Adamitulu Jido Kombolcha",40708,"01/04/2002",NA,NA,NA,4,NA,NA,43,NA,NA
+"491","Gambella","Etang Special","Itang",120207,"07/09/2007",NA,41,41,NA,NA,NA,0,27143,NA
+"492","Gambella","Etang Special","Itang",120207,"22/11/2007",NA,209,209,NA,NA,NA,0,8785,NA
+"493","Amhara","South Wello","Borena / Debresina",30412,"01/08/2010",NA,1189,1189,NA,NA,119,0,NA,NA
+"494","Benishangul Gumz","Asosa","Menge",60301,"19/09/2000",NA,NA,NA,NA,NA,NA,500,NA,200
+"495","Amhara","West Gojam","Semen Achefer",30701,"14/08/2008",NA,NA,NA,NA,NA,786,0,NA,NA
+"496","Amhara","West Gojam","Mecha",30704,"07/09/2006",NA,351,351,1,NA,NA,0,53,NA
+"497","Amhara","Wag Himra","Sekota",30802,"07/01/2008",NA,NA,NA,NA,NA,NA,96,NA,NA
+"498","Amhara","Wag Himra","Sekota",30802,"07/09/2006",NA,5809,5809,NA,NA,NA,0,NA,NA
+"499","Amhara","Wag Himra","Dehana",30803,"17/11/2008",NA,NA,NA,NA,NA,53,0,NA,NA
+"500","Amhara","Wag Himra","Dehana",30803,"07/09/2006",NA,1482,1482,NA,NA,NA,0,NA,NA
+"501","Amhara","South Wello","Sayint",30411,"16/07/2000",NA,1,1,1,NA,NA,0,NA,NA
+"502","Amhara","South Wello","Kalu",30407,"07/09/2006",NA,7174,7174,NA,NA,NA,0,18,NA
+"503","Amhara","South Wello","Jama",30414,"01/06/2004",NA,NA,NA,1,NA,NA,28,NA,NA
+"504","Amhara","South Wello","Jama",30414,"01/06/2004",NA,75,75,NA,NA,122,0,375,NA
+"505","Amhara","South Wello","Albuko",30408,"01/03/2004",NA,NA,NA,NA,NA,NA,19,NA,NA
+"506","Amhara","South Gonder","Semada",30207,"01/08/2006",NA,NA,NA,2,NA,34,0,NA,NA
+"507","Amhara","South Gonder","Libokemekem",30202,"07/09/2007",NA,1127,1127,NA,NA,NA,0,1127,NA
+"508","Amhara","South Gonder","Libokemekem",30202,"07/09/2006",NA,NA,NA,2,NA,NA,600,NA,NA
+"509","Amhara","South Gonder","Libokemekem",30202,"07/09/2006",NA,10000,10000,NA,NA,NA,0,NA,NA
+"510","Amhara","South Gonder","Libokemekem",30202,"07/09/2006",NA,20821,20821,1,NA,2441,2790,3134,NA
+"511","Amhara","South Gonder","Libokemekem",30202,"07/09/2000",NA,10234,10234,NA,NA,NA,0,NA,NA
+"512","Amhara","South Gonder","Fogera",30203,"07/09/2006",NA,2964,2964,NA,NA,NA,0,NA,NA
+"513","Amhara","South Gonder","Fogera",30203,"01/08/2006",NA,NA,NA,NA,NA,NA,0,4430,NA
+"514","Amhara","South Gonder","Fogera",30203,"07/09/2006",NA,43127,43127,NA,NA,4240,210,9313,NA
+"515","Amhara","South Gonder","Fogera",30203,"07/09/2000",NA,13178,13178,NA,NA,NA,0,NA,NA
+"516","Amhara","South Gonder","Farta",30204,"07/09/2008",NA,NA,NA,NA,NA,86,0,NA,NA
+"517","Amhara","South Gonder","Farta",30204,"01/06/2004",NA,NA,NA,2,NA,NA,7,NA,1
+"518","Amhara","South Gonder","Dera (Amhara)",40602,"01/08/2007",NA,NA,NA,NA,NA,NA,0,3620,NA
+"519","Amhara","South Gonder","Dera (Amhara)",40602,"18/02/2008",NA,NA,NA,NA,NA,NA,23,NA,NA
+"520","Amhara","South Gonder","Dera (Amhara)",40602,"07/09/2007",NA,NA,NA,NA,NA,308.2,0,NA,NA
+"521","Amhara","South Gonder","Dera (Amhara)",40602,"07/09/2006",NA,7482,7482,NA,NA,206.5,4,NA,NA
+"522","Amhara","South Gonder","Dera (Amhara)",40602,"01/08/2006",NA,NA,NA,2,NA,NA,0,NA,NA
+"523","Amhara","South Gonder","Dera (Amhara)",40602,"01/07/2003",NA,NA,NA,NA,NA,NA,3100,NA,NA
+"524","Amhara","South Gonder","Dera (Amhara)",40602,"01/07/2003",NA,NA,NA,NA,NA,NA,3100,NA,NA
+"525","Amhara","South Gonder","Dera (Amhara)",40602,"07/09/2000",NA,386,386,NA,NA,NA,0,NA,NA
+"526","Amhara","Oromia","Artuma Fursi",31004,"07/09/2006",NA,2755,2755,NA,NA,4150,1354,4951,NA
+"527","Amhara","Oromia","Artuma Fursi",31004,"07/09/2007",NA,587,587,NA,NA,NA,0,NA,NA
+"528","Amhara","North Wello","Raya Kobo",30302,"01/08/2006",NA,NA,NA,NA,NA,NA,100,60,12
+"529","Amhara","North Wello","Raya Kobo",30302,"14/11/2007",NA,2288,2288,NA,NA,306.75,0,2288,NA
+"530","Amhara","North Wello","Raya Kobo",30302,"07/09/2006",NA,102,102,NA,NA,NA,0,56,NA
+"531","Amhara","North Wello","Raya Kobo",30302,"23/08/2006",NA,87,87,NA,NA,NA,0,87,NA
+"532","Amhara","North Wello","Habru",30308,"07/09/2007",NA,2,2,NA,NA,NA,0,NA,NA
+"533","Amhara","North Wello","Bugna",30301,"01/08/2005",NA,NA,NA,2,NA,NA,0,NA,NA
+"534","Amhara","North Shewa","Ensaro",30503,"15/09/2008",NA,NA,NA,1,1,NA,0,NA,NA
+"535","Amhara","West Gondar","Metema",30113,"07/09/2006",NA,966,966,1,NA,398,17,NA,NA
+"536","Amhara","West Gondar","Metema",30113,"01/10/2001",NA,NA,NA,NA,NA,570,0,NA,NA
+"537","Amhara","Central Gondar","Dembia",30111,"07/01/2008",NA,NA,NA,NA,NA,400,0,NA,15
+"538","Amhara","Central Gondar","Dembia",30111,"01/08/2007",NA,NA,NA,2,NA,1600,0,NA,NA
+"539","Amhara","Central Gondar","Dembia",30111,"07/09/2006",NA,23860,23860,1,NA,192.14,0,NA,NA
+"540","Amhara","Central Gondar","Dembia",30111,"01/07/2001",NA,1130,1130,NA,NA,NA,0,NA,NA
+"541","Amhara","Central Gondar","Dembia",30111,"01/07/2001",NA,1130,1130,NA,NA,NA,0,NA,NA
+"542","Amhara","North Gondar","Dabat",30105,"01/08/2005",NA,NA,NA,NA,NA,1035,52,NA,NA
+"543","Amhara","East Gojam","Goncha Siso Enebse",30603,"01/07/2004",NA,NA,NA,3,NA,NA,0,NA,NA
+"544","Amhara","East Gojam","Goncha Siso Enebse",30603,"01/07/2004",NA,NA,NA,3,NA,NA,0,NA,NA
+"545","Amhara","East Gojam","Dejen",30613,"07/09/2006",NA,288,288,NA,NA,701.75,953,2219,NA
+"546","Amhara","East Gojam","Bibugn",30601,"01/06/2004",NA,NA,NA,3,5,NA,0,NA,4
+"547","Afar","Afar Zone 4","Ewa",20402,"07/09/2007",NA,NA,NA,NA,NA,NA,0,NA,70
+"548","Afar","Afar Zone 3","Gewane",20303,"24/08/2007",NA,12000,12000,NA,NA,900,30,NA,NA
+"549","Afar","Afar Zone 3","Gewane",20303,"01/08/2007",NA,NA,NA,NA,NA,800,30,12000,NA
+"550","Afar","Afar Zone 3","Gewane",20303,"07/09/2006",NA,10294,10294,2,NA,NA,15,NA,NA
+"551","Afar","Afar Zone 1","Dubti",20101,"07/09/2006",NA,7000,7000,NA,NA,NA,0,NA,NA
+"552","Afar","Afar Zone 1","Dubti",20101,"30/11/2005",NA,4000,4000,NA,NA,1000,0,NA,NA
+"553","Afar","Afar Zone 1","Dubti",20101,"07/09/2005",NA,42000,42000,NA,NA,NA,0,NA,NA
+"554","Afar","Afar Zone 1","Dubti",20101,"14/04/2004",NA,21847,21847,NA,NA,NA,123,NA,NA
+"555","Afar","Afar Zone 1","Dubti",20101,"07/09/2003",NA,38,38,NA,NA,15,500,NA,NA
+"556","Afar","Afar Zone 1","Dubti",20101,"13/04/2002",NA,4000,4000,NA,NA,NA,0,1000,NA
+"557","Afar","Afar Zone 1","Afambo",20104,"07/09/2007",NA,1500,1500,NA,NA,295,0,1500,NA
+"558","Afar","Afar Zone 1","Afambo",20104,"07/09/2003",NA,NA,NA,NA,NA,NA,0,14200,NA
+"559","Afar","Afar Zone 3","Awash Fentale",20302,"07/09/2007",NA,1149,1149,NA,NA,NA,1246,1149,NA
+"560","Afar","Afar Zone 3","Amibara",20301,"07/12/2007",NA,200,200,NA,NA,NA,0,NA,NA
+"561","Afar","Afar Zone 3","Amibara",20301,"07/09/2006",NA,13200,13200,NA,NA,NA,0,NA,NA
+"562","Afar","Afar Zone 3","Amibara",20301,"01/08/2006",NA,6000,6000,NA,NA,NA,160,NA,NA
+"563","Afar","Afar Zone 1","Dubti",20101,"07/09/2005",NA,25000,25000,NA,NA,NA,0,NA,NA
+"564","Afar","Afar Zone 1","Mile",20105,"07/09/2008",NA,5000,5000,NA,NA,NA,0,NA,NA
+"565","Afar","Afar Zone 1","Mile",20105,"07/09/2007",NA,1275,1275,NA,NA,NA,0,1275,NA
+"566","Afar","Afar Zone 1","Mile",20105,"13/07/2006",NA,6375,6375,NA,NA,NA,5524,NA,NA
+"567","Afar","Afar Zone 1","Mile",20105,"01/04/2004",NA,NA,NA,4,NA,NA,3170,NA,NA
+"568","Afar","Afar Zone 1","Elidar",20102,"07/12/2007",NA,620,620,NA,NA,NA,0,NA,NA
+"569","Afar","Afar Zone 1","Elidar",20102,"27/09/2006",NA,620,620,NA,18,NA,0,NA,NA
+"570","Afar","Afar Zone 1","Dubti",20101,"07/09/2007",NA,NA,NA,NA,NA,100,0,NA,NA
+"571","Afar","Afar Zone 1","Dubti",20101,"07/12/2007",NA,4000,4000,NA,NA,NA,0,NA,NA
+"572","Amhara","North Wello","Mersa Town",30397,"22/08/2010",NA,NA,0,5,19,3745,NA,NA,NA
+"573","Amhara","South Wello","kalu",30407,"20/08/2011",NA,NA,0,20,NA,NA,NA,NA,NA
+"574","Amhara","Central Gondar","Dembia",30111,"20/08/2011",NA,NA,0,NA,NA,NA,NA,NA,NA
+"575","Amhara","Central Gondar","Gonder Zuria",30110,"20/08/2011",NA,NA,0,NA,NA,NA,NA,NA,NA
+"576","Somali","Shebelle","Mustahil",50606,"21/08/2011",NA,NA,0,NA,NA,NA,NA,NA,NA
+"577","Tigray","Western Tigray","Alamata",10407,"22/08/2011",NA,NA,0,NA,NA,NA,NA,NA,NA
+"578","Somali","Shebelle","Kelafo",50605,"02/05/2012",702,NA,702,NA,NA,NA,NA,NA,NA
+"579","Somali","Shebelle","Mustahil",50606,"03/05/2012",30,NA,30,NA,NA,NA,NA,NA,NA
+"580","Somali","Korahe","Kebridehar",50502,"25/04/2012",NA,NA,0,NA,NA,NA,NA,NA,NA
+"581","Somali","Korahe","Shekosh",50501,"26/04/2012",330,NA,330,NA,NA,NA,NA,NA,NA
+"582","SNNPR","sidama","loka abaya",70414,"01/05/2013",650,NA,650,NA,NA,NA,NA,NA,NA
+"583","SNNPR","Wolayita","Humbo",70604,"02/05/2013",650,NA,650,NA,NA,NA,NA,NA,NA
+"584","OROMIA","East Hararge","Adhaki",11068,"03/05/2013",400,NA,400,NA,NA,NA,NA,NA,NA
+"585","OROMIA","West Hararge","Adigrat Town",10308,"04/05/2013",400,NA,400,NA,NA,NA,NA,NA,NA
+"586","Tigray","Central Tigray","Adwa",10204,"05/05/2013",400,NA,400,NA,NA,NA,NA,NA,NA
+"587","Somali","Shebelle","Mustahil",50606,"31/10/2015",102000,NA,102000,5,NA,NA,10000,NA,NA
+"588","Somali","Shebelle","Kelafo",50605,"01/11/2015",102000,NA,102000,5,NA,NA,10000,NA,NA
+"589","OROMIA","East Hararge","Ayder",11067,"02/04/2018",NA,NA,0,NA,NA,NA,NA,NA,NA
+"590","Tigray","South Eastern","Dega Temben",10604,"03/04/2018",NA,NA,0,NA,NA,NA,NA,NA,NA
+"591","OROMIA","East Shewa","Endamehoni",10405,"04/04/2018",NA,NA,0,NA,NA,NA,NA,NA,NA
+"592","OROMIA","West Hararge","Enderta",10602,"05/04/2018",NA,NA,0,NA,NA,NA,NA,NA,NA
+"593","OROMIA","Arsi","Robe",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"594","Somali","Afder","West Imi",50805,"05/04/2018",NA,NA,165000,NA,NA,12911,NA,NA,NA
+"595","Somali","Fafan","Kebribeyah",50502,"05/04/2018",NA,NA,165000,NA,NA,12911,NA,NA,NA
+"596","Somali","Liben","Filtu",50901,"05/04/2018",NA,NA,165000,NA,NA,12911,NA,NA,NA
+"597","Somali","Siti","Shinile",50103,"05/04/2018",NA,NA,165000,NA,NA,12911,NA,NA,NA
+"598","Somali","Shebelle","Ferfer",50607,"05/04/2018",NA,NA,165000,NA,NA,12911,NA,NA,NA
+"599","Somali","Doolo","Warder",50704,"05/04/2018",NA,NA,165000,NA,NA,12911,NA,NA,NA
