@@ -1,16 +1,19 @@
 server <- function(input, output) {
   selected_pcode <- reactiveVal("020104")
   has_glofas <- reactiveVal(TRUE)
+  country <- reactive({
+    cat(input$country)
+    as.numeric(input$country)
+    })
 
   glofas <- reactive({
     req(input$glofas_station_selected)
-
+    cat(input$glofas_station_selected)
     glofas_raw %>%
       filter(station == input$glofas_station_selected) %>%
       filter(date >= isolate(input$dateRange[1]), date <= isolate(input$dateRange[2]))
   })
 
-  country <- reactive({as.numeric(input$country)})
 
   rainfall <- reactive({
     rainfall_raw[[country()]] %>%
@@ -131,6 +134,7 @@ server <- function(input, output) {
   })
 
   output$impact_map <- renderLeaflet({
+    flood_palette <- colorNumeric(palette = "YlOrRd", domain = admin[[country()]]$n_floods)
     leaflet() %>%
       addProviderTiles(providers$OpenStreetMap) %>%
       addPolygons(data = admin[[country()]], label=admin[[country()]] %>% pull(label[[country()]]),
@@ -141,6 +145,7 @@ server <- function(input, output) {
   observeEvent(input$impact_map_shape_click, {
     event <- input$impact_map_shape_click
     selected_pcode(event$id)
+    cat(event$id)
 
     if (is.null(event$id)) { return() }  # Do nothing if it is a random click
 

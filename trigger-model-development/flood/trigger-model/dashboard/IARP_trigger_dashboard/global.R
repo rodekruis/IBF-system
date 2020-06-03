@@ -122,6 +122,7 @@ rainfall_raw[[1]] <- rainfall_raw[[1]] %>%
   left_join(df_impact_raw[[1]] %>% dplyr::select(pcode, zone), by = "zone") %>%
   group_by(pcode, date) %>%
   summarise(rainfall = mean(rainfall, na.rm=T))
+rainfall_raw[[3]] <- rainfall_raw[[1]] %>% mutate(rainfall = NA)
 
 # Clean rainfall - CHIRPS, kept for legacy
 # rainfall_raw <- rainfall_raw %>%
@@ -149,7 +150,6 @@ admin[[3]] <- admin[[3]] %>%
               dplyr::select(pcode, n_floods), by = c("ADM2_PCODE" = "pcode")) %>%
   dplyr::filter(!is.na(n_floods))
 
-flood_palette <- colorNumeric(palette = "YlOrRd", domain = floods_per_wereda$n_floods)
 label <- list()
 label[[1]] <- "ADM3_EN"
 label[[2]] <- NA

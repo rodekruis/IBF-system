@@ -51,7 +51,7 @@ ui <- dashboardPage(
       menuItem("Main Tab", tabName = "tab_main"),
       dateRangeInput('dateRange',
                      label = 'Select date range:',
-                     start = min(df_impact_raw$date, na.rm=T), end = max(df_impact_raw$date, na.rm=T)),
+                     start = min(df_impact_raw[[1]]$date, na.rm=T), end = max(df_impact_raw[[1]]$date, na.rm=T)),
       radioButtons("country", "Country:",
                    c("Ethiopia" = 1,
                      "Kenya" = 2,
