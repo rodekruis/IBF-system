@@ -49,6 +49,7 @@ predict_with_glofas_and_rainfall <- function(all_days, rainfall, glofas, impact_
         either_peak_end_range = dplyr::lag(either_peak_end, day_range),  # Count events day_range amount of days after the trigger as the same peak
         either_peak_end_range = replace_na(either_peak_end_range, FALSE),
         either_in_peak_range = cumsum(either_peak_start_range) > cumsum(either_peak_end_range), # Combine peaks within the same range into a single peak
+        flood_in_which_peak = cumsum(either_peak_start_range) * flood * either_in_peak_range,
 
         # Check when protocol is triggered and whether floods are forecasted correctly
         protocol_triggered = either_in_peak_range & !dplyr::lag(either_in_peak_range),  # Counts number of times protocol is triggered
@@ -59,7 +60,7 @@ predict_with_glofas_and_rainfall <- function(all_days, rainfall, glofas, impact_
         floods_correct = sum(flood_correct),
         floods_incorrect = floods - floods_correct,
         protocol_triggered = sum(protocol_triggered, na.rm=T),
-        triggered_in_vain = protocol_triggered - floods_correct,
+        triggered_in_vain = protocol_triggered - (length(unique(flood_in_which_peak)) - 1),
         detection_ratio = round(floods_correct / floods, 2),
         false_alarm_ratio = round(triggered_in_vain/protocol_triggered, 2)
       )
@@ -82,6 +83,7 @@ predict_with_glofas_and_rainfall <- function(all_days, rainfall, glofas, impact_
         glofas_peak_end_range = dplyr::lag(glofas_peak_end, day_range),  # Draw range around peak
         glofas_peak_end_range = replace_na(glofas_peak_end_range, FALSE),
         glofas_in_peak_range = cumsum(glofas_peak_start_range) > cumsum(glofas_peak_end_range), # Combine peaks within the same range into a single peak
+        flood_in_which_peak = cumsum(glofas_peak_start_range) * flood * glofas_in_peak_range,
 
         # Check when protocol is triggered and whether floods are forecasted correctly
         protocol_triggered = glofas_in_peak_range & !dplyr::lag(glofas_in_peak_range),  # Counts number of times protocol is triggered
@@ -92,7 +94,7 @@ predict_with_glofas_and_rainfall <- function(all_days, rainfall, glofas, impact_
         floods_correct = sum(flood_correct),
         floods_incorrect = floods - floods_correct,
         protocol_triggered = sum(protocol_triggered, na.rm=T),
-        triggered_in_vain = protocol_triggered - floods_correct,
+        triggered_in_vain = protocol_triggered - (length(unique(flood_in_which_peak)) - 1),
         detection_ratio = round(floods_correct / floods, 2),
         false_alarm_ratio = round(triggered_in_vain/protocol_triggered, 2)
       )
@@ -114,6 +116,7 @@ predict_with_glofas_and_rainfall <- function(all_days, rainfall, glofas, impact_
         rainfall_peak_end_range = dplyr::lag(rainfall_peak_end, day_range),  # Draw range around peak
         rainfall_peak_end_range = replace_na(rainfall_peak_end_range, FALSE),
         rainfall_in_peak_range = cumsum(rainfall_peak_start_range) > cumsum(rainfall_peak_end_range), # Combine peaks within the same range into a single peak
+        flood_in_which_peak = cumsum(rainfall_peak_start_range) * flood * rainfall_in_peak_range,
 
         # Check when protocol is triggered and whether floods are forecasted correctly
         protocol_triggered = rainfall_in_peak_range & !dplyr::lag(rainfall_in_peak_range),  # Counts number of times protocol is triggered
@@ -124,7 +127,7 @@ predict_with_glofas_and_rainfall <- function(all_days, rainfall, glofas, impact_
         floods_correct = sum(flood_correct),
         floods_incorrect = floods - floods_correct,
         protocol_triggered = sum(protocol_triggered, na.rm=T),
-        triggered_in_vain = protocol_triggered - floods_correct,
+        triggered_in_vain = protocol_triggered - (length(unique(flood_in_which_peak)) - 1),
         detection_ratio = round(floods_correct / floods, 2),
         false_alarm_ratio = round(triggered_in_vain/protocol_triggered, 2)
       )
