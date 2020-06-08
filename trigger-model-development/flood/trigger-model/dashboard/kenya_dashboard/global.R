@@ -49,9 +49,7 @@ rp_glofas_station <- read_csv('data/rp_glofas_station.csv') %>% clean_names()
 
 Kenya_impact <- read.csv("data/Kenya_impact.csv",sep=";")
 
-df_impact_raw <- Kenya_impact %>% left_join(kenya_admin1, by = c("County"="ADM1_EN"))  %>%
-  clean_names() %>%
-  mutate(date = ymd(date_recorded), pcode = str_pad(as.character(adm1_pcode), 5, "left", "0")) %>%
+df_impact_raw <-   mutate(date = ymd(date_recorded), pcode = str_pad(as.character(adm1_pcode), 5, "left", "0")) %>%
   dplyr::select(pcode,county, sub_county, ward, date) %>%
   unique() %>%
   arrange(date)
@@ -61,7 +59,8 @@ all_days <- tibble(date = seq(min(df_impact_raw$date, na.rm=T) - 60, max(df_impa
 
 # Clean GLOFAS mapping
 glofas_mapping <- glofas_mapping %>%
-  left_join(df_impact_raw %>% dplyr::select(county, pcode) %>% unique(), by = "county") %>%
+  left_join(df_impact_raw %>% dplyr::select(county, pcode) %>% 
+  unique(), by = "county") %>%
   dplyr::filter(!is.na(pcode))
 
 

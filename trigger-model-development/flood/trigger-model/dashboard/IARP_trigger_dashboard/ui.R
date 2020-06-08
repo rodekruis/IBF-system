@@ -46,7 +46,7 @@ body <- dashboardBody(
 ui <- dashboardPage(
   header,
   dashboardSidebar(
-    collapsed=T,
+    collapsed=F,
     sidebarMenu(
       menuItem("Main Tab", tabName = "tab_main"),
       dateRangeInput('dateRange',
