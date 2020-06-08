@@ -143,7 +143,7 @@ server <- function(input, output) {
       addLegend("topleft",pal = flood_palette,
                 values = admin[[country()]]$n_floods,
                 title = "Number of reported Floods\n imapct (2000-2020)",
-                labFormat = labelFormat(prefix = "# reported floods "),
+                #labFormat = labelFormat(prefix = "# reported floods "),
                 opacity = 1)
   })
 
