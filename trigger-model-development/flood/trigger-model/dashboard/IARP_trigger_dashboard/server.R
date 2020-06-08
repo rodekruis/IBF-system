@@ -139,7 +139,12 @@ server <- function(input, output) {
       addProviderTiles(providers$OpenStreetMap) %>%
       addPolygons(data = admin[[country()]], label=admin[[country()]] %>% pull(label[[country()]]),
                   layerId=admin[[country()]] %>% pull(layerId[[country()]]),
-                  col=~flood_palette(n_floods), fillOpacity=0.8, opacity = 1, weight=1.2)
+                  col=~flood_palette(n_floods), fillOpacity=0.8, opacity = 1, weight=1.2) %>% 
+      addLegend("topleft",pal = flood_palette,
+                values = admin[[country()]]$n_floods,
+                title = "Number of reported Floods\n imapct (2000-2020)",
+                labFormat = labelFormat(prefix = "# reported floods "),
+                opacity = 1)
   })
 
   observeEvent(input$impact_map_shape_click, {
