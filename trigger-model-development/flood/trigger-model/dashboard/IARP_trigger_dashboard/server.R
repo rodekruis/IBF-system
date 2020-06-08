@@ -102,7 +102,7 @@ server <- function(input, output) {
 
     if (length(station_options) > 0) {
       has_glofas(TRUE)
-      selectInput("glofas_station_selected", "Select Glofas Station: ", choices = station_options)
+      selectInput("glofas_station_selected", "Select A GLOFAS Station: ", choices = station_options)
     } else {
       has_glofas(FALSE)
       HTML("<h3> No Glofas stations available for this region </h3> <br />")
@@ -111,7 +111,7 @@ server <- function(input, output) {
 
   output$glofas_slider <- renderUI({
     if(isolate(has_glofas())) {
-      sliderInput("glofas_threshold", "Select Glofas Station Threshold: ", min=0,
+      sliderInput("glofas_threshold", "Select a Threshold for The GLOFAS Station in(cms): ", min=0,
                   max = round(max(isolate(glofas())$dis, na.rm=T)),
                   value=round(quantile(glofas()$dis, 0.95, na.rm=T)))
     } else {
@@ -121,14 +121,14 @@ server <- function(input, output) {
 
   output$glofas_var_selector <- renderUI({
     if(isolate(has_glofas())) {
-      selectInput("glofas_variable", "Select discharge variable", choices = c("dis", "dis_3", "dis_7"), selected = "dis")
+      selectInput("glofas_variable", "Select lead time(dis=0,dis_3=3 days or dis_7=7 days) discharge variable", choices = c("dis", "dis_3", "dis_7"), selected = "dis")
     } else {
       NULL
     }
   })
 
   output$rainfall_slider <- renderUI({
-    sliderInput("rainfall_threshold", "Select Rainfall Threshold: ", min=0,
+    sliderInput("rainfall_threshold", "Select Rainfall Threshold (in mm): ", min=0,
                 max = round(max(isolate(rainfall())$rainfall, na.rm=T)),
                 value=round(quantile(isolate(rainfall())$rainfall, 0.99, na.rm=T)))
   })
