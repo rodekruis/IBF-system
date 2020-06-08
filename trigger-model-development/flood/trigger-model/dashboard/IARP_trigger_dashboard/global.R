@@ -49,7 +49,7 @@ admin <- list(ethiopia_admin3, kenya_admin1, uganda_admin2)
 
 ethiopia_impact <- read_delim("data/Ethiopia_impact.csv", ",", escape_double = FALSE, trim_ws = TRUE)
 uganda_impact <- read_delim("data/uga_impactdata_master.csv", ",", escape_double = FALSE, trim_ws = TRUE)
-kenya_impact <- read_delim("data/ken_impactdata_master1.csv", ";", escape_double = FALSE, trim_ws = TRUE)
+kenya_impact <- read_delim("data/ken_impactdata_master.csv", ";", escape_double = FALSE, trim_ws = TRUE)
 
 # to be replaced by data imorted from Geonode
 #eth_admin3 <- sf::read_sf("shapes/ETH_Admin3_2019.shp")
