@@ -1,0 +1,15 @@
+# Don't format HTML, waiting for https://github.com/prettier/prettier/pull/6644 to be possible
+*.html
+
+
+# Imported from .gitignore:
+/.ionic
+/.sass-cache
+/.sourcemaps
+/.versions
+/coverage
+/dist
+/node_modules
+/platforms
+/plugins
+/www
