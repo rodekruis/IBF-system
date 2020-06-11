@@ -3,6 +3,7 @@
 ...
 
 - [Setup development environment](#setup-development-environment)
+- [Configuration](#configuration)
 - [Getting Started](#getting-started)
 - [Documentation](#documentation)
 
@@ -25,6 +26,14 @@ See [Documentation](#documentation).
 
 ```sh
 npm install
+```
+
+## Configuration
+
+Set the required configuration values in the `.env` file, by using the provided [`example.env`](example.env):
+
+```sh
+cp example.env .env
 ```
 
 ## Getting Started
