@@ -23,13 +23,13 @@ url<- parse_url(url_geonode)
 # for (elm in  names(eval(parse(text=paste("settings$",country,sep=""))))){
 #   assign(paste0(country,"_",elm), download.features.geonode(country, elm))
 # }
-# 
-# 
+#
+#
 # country="kenya"
 # for (elm in  names(eval(parse(text=paste("settings$",country,sep=""))))){
 #   assign(paste0(country,"_",elm), download.features.geonode(country, elm))
 # }
-# 
+#
 # country="uganda"
 # for (elm in  names(eval(parse(text=paste("settings$",country,sep=""))))){
 #   assign(paste0(country,"_",elm), download.features.geonode(country, elm))
@@ -48,14 +48,16 @@ admin <- list(ethiopia_admin3, kenya_admin1, uganda_admin2)
 #ethiopia_impact <- read.csv("data/Eth_impact_data2.csv", stringsAsFactors = F, sep=";")
 
 ethiopia_impact <- read_delim("data/Ethiopia_impact.csv", ",", escape_double = FALSE, trim_ws = TRUE)
-uganda_impact <- read_delim("data/uga_impactdata_master.csv", ",", escape_double = FALSE, trim_ws = TRUE)
+#uganda_impact <- read_delim("data/uga_impactdata_master.csv", ",", escape_double = FALSE, trim_ws = TRUE)
+uganda_impact <- read_delim("data/uga_impactdata_v2.csv", ",", escape_double = FALSE, trim_ws = TRUE)
+uganda_impact <- uganda_impact %>% filter(data_quality_score > 0)
 kenya_impact <- read_delim("data/ken_impactdata_master.csv", ";", escape_double = FALSE, trim_ws = TRUE)
 
 # to be replaced by data imorted from Geonode
 #eth_admin3 <- sf::read_sf("shapes/ETH_Admin3_2019.shp")
- 
 
- 
+
+
 
 
 for (n in range(1,length(admin))){
@@ -121,7 +123,7 @@ glofas_mapping[[1]] <- glofas_mapping[[1]] %>%
   mutate(pcode = str_pad(as.character(pcode), 6, "left", "0")) %>%
   dplyr::filter(!is.na(pcode))
 
-glofas_mapping[[2]] <- glofas_mapping[[2]] %>% 
+glofas_mapping[[2]] <- glofas_mapping[[2]] %>%
   left_join(kenya_impact  %>% dplyr::select(County, adm2_pcode) %>%  unique(), by = "County") %>%
   dplyr::mutate(admin = County,station_name=station,pcode=adm2_pcode) %>%
   dplyr::select(admin, station_name, pcode)
