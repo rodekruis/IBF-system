@@ -3,7 +3,7 @@ header <- dashboardHeader(
   # Trick to put logo in the corner
   tags$li(div(
     class="logo_div",
-    img(src = 'https://www.510.global/wp-content/uploads/2017/07/510-LOGO-WEBSITE-01.png',#'510logo.png', 
+    img(src = 'https://www.510.global/wp-content/uploads/2017/07/510-LOGO-WEBSITE-01.png',#'510logo.png',
         title = "logo", height = "44px")),
     class = "dropdown")
 )
@@ -13,7 +13,8 @@ ui_tab_main <- tabItem(
   fluidRow(
     column(
       width = 12,
-      leafletOutput("impact_map", height=600)
+      leafletOutput("impact_map", height=600),
+      h3(textOutput("selected_district"))
     )
   ),
   fluidRow(
