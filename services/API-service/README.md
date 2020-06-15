@@ -74,3 +74,20 @@ This applications uses [JSON Web Token](https://jwt.io/) (JWT) to handle authent
 ## Swagger API docs
 
 We use the NestJS swagger module for API documentation. [NestJS Swagger](https://github.com/nestjs/swagger) - [swagger.io](https://swagger.io/)
+
+## API specification
+
+- /stations/:countryCode/:currentPrev/:leadTime
+    - input: 
+        - countryCode [ZMB] > currently not used, as data is ZMB-only. Will need to change when working with multi-country datamodel
+        - currentPrev ['Current', 'Prev'] > represents today/yesterdays forecast. For testing always use 'Current'.
+        - leadTime ['3-day', '7-day'] > represents whether a trigger is forecasted 3 / 7 days from now.
+    - output:
+        - stationCode
+        - stationName
+        - geom (coordinates)
+        - trigger_level > water-discharge level above which flood is predicted
+        - fc > avg forecasted water-discharge level
+        - fc_trigger [0, 1] > is trigger passed yes or no. can theoretically differ from fc > trigger_level, because actually 51 ensembles are run. fc_trigger = 1 if at least 60% of these 51 ensembles exceed trigger
+        - fc_perc > = fc / trigger_level
+        - fc_prob > percentage of 51 ensembles that exceeded trigger-level
