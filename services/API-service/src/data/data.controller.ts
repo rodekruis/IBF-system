@@ -43,4 +43,20 @@ export class DataController {
       params.tableName,
     );
   }
+
+  @ApiOperation({ title: 'Get live glofas station data' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiImplicitParam({ name: 'currentPrev', required: true, type: 'string' })
+  @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
+  @Get('stations/:countryCode/:currentPrev/:leadTime')
+  public async getStations(
+    @User('id') userId: number,
+    @Param() params,
+  ): Promise<string> {
+    return await this.dataService.getStations(
+      params.countryCode,
+      params.currentPrev,
+      params.leadTime,
+    );
+  }
 }
