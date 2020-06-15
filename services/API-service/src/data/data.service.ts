@@ -30,6 +30,28 @@ export class DataService {
     return result[0].usp_fbf_geodata;
   }
 
+  public async getStations(
+    countryCode: string,
+    currentPrev: string,
+    leadTime: string,
+  ): Promise<string> {
+    const query =
+      'select dgsv.* \
+		  , dfps.fc \
+      , dfps.fc_trigger \
+      , dfps.fc_perc \
+      , dfps.fc_prob \
+    from "IBF-pipeline-output".dashboard_glofas_stations_v2 dgsv \
+    left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code \
+    where 0 = 0 \
+    and current_prev = $1 \
+    and lead_time = $2';
+
+    const result = await this.manager.query(query, [currentPrev, leadTime]);
+    console.log(result.length);
+    return result;
+  }
+
   private formQuery(schema, functionName, country, tableName): string {
     const query =
       'select "IBF-pipeline-output".' +
