@@ -48,7 +48,6 @@ export class DataService {
     and lead_time = $2';
 
     const result = await this.manager.query(query, [currentPrev, leadTime]);
-    console.log(result.length);
     return result;
   }
 
