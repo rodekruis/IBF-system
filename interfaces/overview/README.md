@@ -1,4 +1,4 @@
-# the-dashboard-app
+# The "overview" dashboard/app
 
 ...
 
