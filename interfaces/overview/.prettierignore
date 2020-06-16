@@ -1,0 +1,11 @@
+# Imported from .gitignore:
+/.ionic
+/.sass-cache
+/.sourcemaps
+/.versions
+/coverage
+/dist
+/node_modules
+/platforms
+/plugins
+/www
