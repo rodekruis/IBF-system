@@ -22,6 +22,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/map/map.module').then((m) => m.MapPageModule),
   },
+  {
+    path: 'overview',
+    loadChildren: () =>
+      import('./pages/overview/overview.module').then(
+        (m) => m.OverviewPageModule,
+      ),
+  },
 ];
 
 @NgModule({
