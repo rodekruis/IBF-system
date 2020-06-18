@@ -1,7 +1,63 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>overview</ion-title>
+    <ion-buttons slot="start">
+      <ion-button href="/" title="Home">
+        <ion-icon name="home" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Overview
+    </ion-title>
+    <ion-row slot="end">
+      <ion-col>
+        [UserState]
+      </ion-col>
+      <ion-col size="auto">
+        [Logo]
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-grid class="page-structure">
+    <ion-row>
+      <ion-col class="debug-container ion-padding">
+        [Timeline]
+      </ion-col>
+    </ion-row>
+    <ion-row class="page-structure--content">
+      <ion-col
+        sizeXs="12"
+        sizeMd="1"
+        sizeLg="1"
+        sizeXl="2"
+        class="debug-container debug-placeholder"
+      >
+        <ion-note>[ Chat ]</ion-note>
+      </ion-col>
+      <ion-col
+        sizeXs="12"
+        sizeMd="4"
+        sizeLg="4"
+        sizeXl="3"
+        class="debug-container debug-placeholder"
+      >
+        <ion-note>
+          [ Matrix ]
+        </ion-note>
+      </ion-col>
+      <ion-col
+        sizeXs="12"
+        sizeMd="7"
+        sizeLg="7"
+        sizeXl="7"
+        class="debug-container debug-placeholder"
+      >
+        <ion-note>
+          [ Map ]
+        </ion-note>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
