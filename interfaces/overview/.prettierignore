@@ -9,3 +9,6 @@
 /platforms
 /plugins
 /www
+
+# Don't reorder imports for polyfills:
+src/polyfills.ts
