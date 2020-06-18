@@ -6,17 +6,22 @@ name: "CI for interface: Overview"
 on:
   push:
     branches: [ master ]
+    paths: 'interfaces/overview/**'
   pull_request:
     branches: [ master ]
+    paths: 'interfaces/overview/**'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [14.x]
+
+    defaults:
+      run:
+        working-directory: 'interfaces/overview'
 
     steps:
     - uses: actions/checkout@v2
