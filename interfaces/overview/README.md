@@ -62,4 +62,3 @@ Documentation of the tools and libraries used.
 
   - API Documentation: <https://v9.angular.io/api>
   - Used by Angular, RxJS: <https://rxjs.dev/guide/overview>
-
