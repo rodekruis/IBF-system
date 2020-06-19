@@ -73,8 +73,8 @@ glofas_mapping[[2]] <- read.csv("data/kenya_affected_area_stations.csv", strings
 glofas_mapping[[3]] <- read.csv("data/uga_affected_area_stations.csv", stringsAsFactors = F)
 rainfall_raw <- list()
 rainfall_raw[[1]] <- read_csv('data/Impact_Hazard_catalog.csv') %>% clean_names()
-rainfall_raw[[2]] <- NA
-rainfall_raw[[3]] <- NA
+rainfall_raw[[2]] <- read_csv('data/WRF_kenya_2000-2010.csv') %>% clean_names()
+rainfall_raw[[3]] <- read_csv('data/WRF_uganda_2000-2010.csv') %>% clean_names()
 
 rp_glofas_station <- read_csv('data/rp_glofas_station.csv') %>% clean_names()
 
@@ -154,8 +154,12 @@ rainfall_raw[[1]] <- rainfall_raw[[1]] %>%
   left_join(df_impact_raw[[1]] %>% dplyr::select(pcode, zone), by = "zone") %>%
   group_by(pcode, date) %>%
   summarise(rainfall = mean(rainfall, na.rm=T))
-rainfall_raw[[3]] <- rainfall_raw[[1]] %>% mutate(rainfall = NA)
-rainfall_raw[[2]] <- rainfall_raw[[1]] %>% mutate(rainfall = NA)
+rainfall_raw[[3]] <- rainfall_raw[[3]] %>% mutate(date = dmy(time)) %>% dplyr::select(-time) %>%
+  gather(name, rainfall, -date) %>%
+  left_join(df_impact_raw[[3]] %>% mutate(name = tolower(admin)) %>% dplyr::select(name, pcode), by = "name")
+rainfall_raw[[2]] <- rainfall_raw[[2]] %>% mutate(date = dmy(time)) %>% dplyr::select(-time) %>%
+  gather(name, rainfall, -date) %>%
+  left_join(df_impact_raw[[2]] %>% mutate(name = tolower(admin)) %>% dplyr::select(name, pcode), by = "name")
 
 # Clean rainfall - CHIRPS, kept for legacy
 # rainfall_raw <- rainfall_raw %>%
