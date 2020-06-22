@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared.module';
@@ -10,7 +11,7 @@ describe('OverviewPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OverviewPage],
-      imports: [IonicModule.forRoot(), SharedModule],
+      imports: [IonicModule.forRoot(), SharedModule, HttpClientModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(OverviewPage);

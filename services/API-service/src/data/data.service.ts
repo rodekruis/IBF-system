@@ -40,11 +40,11 @@ export class DataService {
       ' select dgsv.station_code as code \
       , dgsv.station_name as name \
       , dgsv.geom \
-      , dgsv.trigger_level \
-		  , dfps.fc \
-      , dfps.fc_trigger \
-      , dfps.fc_perc \
-      , dfps.fc_prob \
+      , dgsv.trigger_level as "triggerLevel" \
+		  , dfps.fc as "forecastLevel" \
+      , dfps.fc_trigger as "triggerInd" \
+      , dfps.fc_perc as "triggerPerc" \
+      , dfps.fc_prob as "triggerProb" \
     from "IBF-pipeline-output".dashboard_glofas_stations_v2 dgsv \
     left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code \
     where 0 = 0 \
