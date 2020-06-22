@@ -11,8 +11,8 @@ import { LoginPage } from './login.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule,
     SharedModule,
+    LoginPageRoutingModule,
   ],
   declarations: [LoginPage],
 })

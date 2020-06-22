@@ -4,4 +4,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content class="ion-padding">
+  <div>
+    <ion-button
+      type="button"
+      color="tertiary"
+      (click)="toggleFirstLayer()"
+      [fill]="mapService.state.layers[0].active ? 'solid' : 'outline'"
+    >
+      Toggle first layer
+    </ion-button>
+  </div>
+  <hr />
+  <app-map style="outline: 1px solid hotpink;"></app-map>
+</ion-content>
