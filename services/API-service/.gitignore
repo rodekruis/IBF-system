@@ -15,9 +15,7 @@ node_modules
 .idea
 
 #config files
-ormconfig.json
-src/secrets.ts
-Dockerfile
+.env
 
 # code testing coverage
 coverage

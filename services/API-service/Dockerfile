@@ -2,17 +2,17 @@ FROM ubuntu:16.04
 
 ARG uid=1000
 RUN apt-get update && \
-  apt-get install -y \
-  curl \
-  build-essential \
-  pkg-config \
-  cmake \
-  libssl-dev \
-  libsqlite3-dev \
-  libzmq3-dev \
-  libncursesw5-dev \
-  software-properties-common \
-  apt-transport-https
+    apt-get install -y \
+    curl \
+    build-essential \
+    pkg-config \
+    cmake \
+    libssl-dev \
+    libsqlite3-dev \
+    libzmq3-dev \
+    libncursesw5-dev \
+    software-properties-common \
+    apt-transport-https
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
@@ -21,7 +21,7 @@ RUN mkdir --parents /home/ibf/api-service/
 WORKDIR /home/ibf/api-service/
 
 # Install dependencies
-COPY package*.json ./
+COPY . ./
 RUN npm ci
 
 # Prepare configurations
@@ -35,4 +35,4 @@ ENV NODE_ENV="${NODE_ENV}"
 # CMD ["npm", "run", "start:dev"]
 
 # Regular:
-# CMD ["npm", "start"]
+CMD ["npm", "start"]
