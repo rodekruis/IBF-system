@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MapService } from 'src/app/services/map.service';
 import { Station } from 'src/app/models/station.model';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-map-page',
@@ -9,7 +9,7 @@ import { Station } from 'src/app/models/station.model';
 })
 export class MapPage implements OnInit {
   public stations: Station[] = [];
-  
+
   constructor(public mapService: MapService) {}
 
   ngOnInit() {}
@@ -27,9 +27,11 @@ export class MapPage implements OnInit {
   private async getStations() {
     const countryCode = 'ZMB';
     const currentPrev = 'Current';
-    const leadTime = '3-day'
-    this.stations = await this.mapService.getStations(countryCode, currentPrev, leadTime);
+    const leadTime = '3-day';
+    this.stations = await this.mapService.getStations(
+      countryCode,
+      currentPrev,
+      leadTime,
+    );
   }
-
-
 }
