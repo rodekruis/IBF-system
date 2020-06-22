@@ -37,4 +37,14 @@ export class MapService {
 
   constructor() {}
 
+  private getLayerIndexById(id: string): number {
+    return this.state.layers.findIndex((layer: Layer) => {
+      return layer.id === id;
+    });
+  }
+
+  public setLayerState(id: string, state: boolean): void {
+    const layerIndex = this.getLayerIndexById(id);
+    this.state.layers[layerIndex].active = state;
+  }
 }

@@ -1,0 +1,16 @@
+<pre>
+MatrixComponent:
+</pre>
+<ng-container *ngFor="let layer of layers">
+  <label>
+    <input
+      type="checkbox"
+      [name]="layer.id"
+      [checked]="layer.active ? 'true' : null"
+      (change)="updateLayer(layer.id, $event.target.checked)"
+    />
+    &nbsp;
+    <code>{{ layer.type }} </code>: {{ layer.id }}
+  </label>
+  <br />
+</ng-container>
