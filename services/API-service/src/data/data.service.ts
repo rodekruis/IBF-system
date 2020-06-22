@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
+import { Station } from 'src/models/station.model';
 
 @Injectable()
 export class DataService {
@@ -34,9 +35,12 @@ export class DataService {
     countryCode: string,
     currentPrev: string,
     leadTime: string,
-  ): Promise<string> {
+  ): Promise<Station[]> {
     const query =
-      'select dgsv.* \
+      ' select dgsv.station_code as code \
+      , dgsv.station_name as name \
+      , dgsv.geom \
+      , dgsv.trigger_level \
 		  , dfps.fc \
       , dfps.fc_trigger \
       , dfps.fc_perc \
@@ -45,9 +49,13 @@ export class DataService {
     left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code \
     where 0 = 0 \
     and current_prev = $1 \
-    and lead_time = $2';
+    and lead_time = $2 \
+    ';
 
-    const result = await this.manager.query(query, [currentPrev, leadTime]);
+    const result: Station[] = await this.manager.query(query, [
+      currentPrev,
+      leadTime,
+    ]);
     return result;
   }
 
