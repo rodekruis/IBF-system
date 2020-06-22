@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { MatrixComponent } from './matrix.component';
@@ -9,7 +10,7 @@ describe('MatrixComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MatrixComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), HttpClientModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MatrixComponent);
