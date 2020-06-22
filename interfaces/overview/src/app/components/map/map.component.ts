@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Layer, MapService } from 'src/app/services/map.service';
 import { Station } from 'src/app/models/station.model';
+import { Layer, MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-map',

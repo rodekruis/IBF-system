@@ -1,17 +1,16 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-import { JwtService } from './jwt.service';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Station } from '../models/station.model';
+import { JwtService } from './jwt.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private jwtService: JwtService, private http: HttpClient) { }
+  constructor(private jwtService: JwtService, private http: HttpClient) {}
 
   private showSecurity(anonymous: boolean) {
     return anonymous ? '🌐' : '🔐';
@@ -95,9 +94,14 @@ export class ApiService {
     );
   }
 
-  getStations(countryCode: string, currentPrev: string, leadTime: string): Promise<Station[]> {
-    return this.get(environment.url_ibf_api, `/stations/${countryCode}/${currentPrev}/${leadTime}`)
-      .toPromise();
+  getStations(
+    countryCode: string,
+    currentPrev: string,
+    leadTime: string,
+  ): Promise<Station[]> {
+    return this.get(
+      environment.url_ibf_api,
+      `/stations/${countryCode}/${currentPrev}/${leadTime}`,
+    ).toPromise();
   }
-
 }

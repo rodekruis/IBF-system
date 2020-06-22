@@ -33,12 +33,10 @@ export class MapService {
         id: 'admin-boundries-level-1',
         active: true,
       },
-    ] as Layer[]
+    ] as Layer[],
   };
 
-  constructor(
-    private apiService: ApiService
-  ) { }
+  constructor(private apiService: ApiService) {}
 
   private getLayerIndexById(id: string): number {
     return this.state.layers.findIndex((layer: Layer) => {
@@ -51,7 +49,15 @@ export class MapService {
     this.state.layers[layerIndex].active = state;
   }
 
-  public async getStations(countryCode: string, currentPrev: string, leadTime: string) {
-    return await this.apiService.getStations(countryCode, currentPrev, leadTime);
+  public async getStations(
+    countryCode: string,
+    currentPrev: string,
+    leadTime: string,
+  ) {
+    return await this.apiService.getStations(
+      countryCode,
+      currentPrev,
+      leadTime,
+    );
   }
 }
