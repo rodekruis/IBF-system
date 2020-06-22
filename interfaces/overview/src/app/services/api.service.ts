@@ -84,7 +84,7 @@ export class ApiService {
     console.log('ApiService : login()');
 
     return this.post(
-      environment.url_ibf_api,
+      environment.api_url,
       '/user/login',
       {
         email,
@@ -100,7 +100,7 @@ export class ApiService {
     leadTime: string,
   ): Promise<Station[]> {
     return this.get(
-      environment.url_ibf_api,
+      environment.api_url,
       `/stations/${countryCode}/${currentPrev}/${leadTime}`,
     ).toPromise();
   }
