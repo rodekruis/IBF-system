@@ -14,14 +14,21 @@ export class MapPage implements OnInit {
 
   ngOnInit() {}
 
-  public async toggleFirstLayer() {
+  public toggleFirstLayer() {
     const newState = !this.mapService.state.layers[0].active;
     this.mapService.state.layers[0].active = newState;
     if (newState) {
-      this.stations = await this.mapService.getStations();
+      this.getStations();
     } else {
       this.stations = [];
     }
+  }
+
+  private async getStations() {
+    const countryCode = 'ZMB';
+    const currentPrev = 'Current';
+    const leadTime = '3-day'
+    this.stations = await this.mapService.getStations(countryCode, currentPrev, leadTime);
   }
 
 

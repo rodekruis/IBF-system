@@ -49,10 +49,9 @@ export class MapService {
   public async setLayerState(id: string, state: boolean): Promise<void> {
     const layerIndex = this.getLayerIndexById(id);
     this.state.layers[layerIndex].active = state;
-    await this.getStations();
   }
 
-  public async getStations() {
-    return await this.apiService.getStations('ZMB', 'Current', '3-day');
+  public async getStations(countryCode: string, currentPrev: string, leadTime: string) {
+    return await this.apiService.getStations(countryCode, currentPrev, leadTime);
   }
 }
