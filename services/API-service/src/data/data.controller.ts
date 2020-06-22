@@ -1,14 +1,9 @@
-import { RolesGuard } from '../roles.guard';
-import { Get, Post, Body, Param, Controller, UseGuards } from '@nestjs/common';
+import { Get, Param, Controller } from '@nestjs/common';
 import { DataService } from './data.service';
 
-import {
-  ApiUseTags,
-  ApiBearerAuth,
-  ApiOperation,
-  ApiImplicitParam,
-} from '@nestjs/swagger';
+import { ApiUseTags, ApiOperation, ApiImplicitParam } from '@nestjs/swagger';
 import { User } from '../user/user.decorator';
+import { Station } from 'src/models/station.model';
 
 @ApiUseTags('data')
 @Controller()
@@ -52,7 +47,7 @@ export class DataController {
   public async getStations(
     @User('id') userId: number,
     @Param() params,
-  ): Promise<string> {
+  ): Promise<Station[]> {
     return await this.dataService.getStations(
       params.countryCode,
       params.currentPrev,

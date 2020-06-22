@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared.module';
@@ -10,7 +11,7 @@ describe('MapPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MapPage],
-      imports: [IonicModule.forRoot(), SharedModule],
+      imports: [IonicModule.forRoot(), SharedModule, HttpClientModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MapPage);
