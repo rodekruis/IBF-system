@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 
   // APIs
-  url_ibf_api: 'http://localhost:3000/api',
+  api_url: 'http://localhost:3000/api',
 };
 
 /*
