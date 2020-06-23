@@ -41,6 +41,12 @@ server <- function(input, output) {
              date >= isolate(input$dateRange[1]),
              date <= isolate(input$dateRange[2]))
   })
+  extra_impact_df <- reactive({
+    df_extra_impact[[country()]] %>%
+      filter(pcode == selected_pcode(),
+             date >= isolate(input$dateRange[1]),
+             date <= isolate(input$dateRange[2]))
+  })
 
   # swi <- reactive({
   #   swi_raw %>%
@@ -62,6 +68,7 @@ server <- function(input, output) {
       isolate(rainfall()),
       isolate(glofas()),
       impact_df(),
+      extra_impact_df(),
       input$rainfall_threshold,
       input$glofas_threshold,
       isolate(has_glofas()),

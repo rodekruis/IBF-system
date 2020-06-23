@@ -51,6 +51,7 @@ ethiopia_impact <- read_delim("data/Ethiopia_impact.csv", ",", escape_double = F
 #uganda_impact <- read_delim("data/uga_impactdata_master.csv", ",", escape_double = FALSE, trim_ws = TRUE)
 uganda_impact <- read_delim("data/uga_impactdata_v2.csv", ",", escape_double = FALSE, trim_ws = TRUE)
 uganda_impact <- uganda_impact %>% filter(data_quality_score > 0)
+uganda_extra_impact <- read_delim("data/uga_impactdata_dref_appeal.csv", ",", escape_double = FALSE, trim_ws = TRUE)
 kenya_impact <- read_delim("data/ken_impactdata_master.csv", ";", escape_double = FALSE, trim_ws = TRUE)
 
 # to be replaced by data imorted from Geonode
@@ -107,6 +108,20 @@ df_impact_raw[[3]] <- uganda_impact %>%
   dplyr::select(admin, pcode, date) %>%
   unique() %>%
   arrange(pcode, date)
+
+df_extra_impact <- list()
+df_extra_impact[[1]] <- NA
+df_extra_impact[[2]] <- NA
+df_extra_impact[[3]] <- uganda_extra_impact %>%
+  clean_names() %>%
+  mutate(date = dmy(date_event),
+         pcode = adm2_pcode,
+         admin = adm2_name) %>%
+  dplyr::select(admin, pcode, date) %>%
+  unique() %>%
+  arrange(pcode, date)
+df_extra_impact[[1]] <- df_extra_impact[[3]] # dummy data
+df_extra_impact[[2]] <- df_extra_impact[[3]] # dummy data
 
 # Used to join against
 all_days <- tibble(date = seq(min(c(df_impact_raw[[1]]$date, df_impact_raw[[2]]$date, df_impact_raw[[3]]$date), na.rm=T) - 60,
