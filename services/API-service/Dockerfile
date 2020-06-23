@@ -1,38 +1,25 @@
-FROM ubuntu:16.04
+FROM node:10-alpine
 
-ARG uid=1000
-RUN apt-get update && \
-    apt-get install -y \
-    curl \
-    build-essential \
-    pkg-config \
-    cmake \
-    libssl-dev \
-    libsqlite3-dev \
-    libzmq3-dev \
-    libncursesw5-dev \
-    software-properties-common \
-    apt-transport-https
+RUN apk update && apk add python make g++ git
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
-RUN apt-get install -y nodejs
+RUN mkdir --parents /home/ibf/api-service/node_modules && chown -R node:node /home/ibf/api-service
 
-RUN mkdir --parents /home/ibf/api-service/
 WORKDIR /home/ibf/api-service/
 
 # Install dependencies
-COPY . ./
+COPY package*.json ./
+
+USER node
+
 RUN npm ci
 
 # Prepare configurations
-COPY tsconfig.json ./
+COPY --chown=node:node . .
 
 # Possible environments: development | staging | production
 ARG NODE_ENV=development
 ENV NODE_ENV="${NODE_ENV}"
 
-# With live-reload during development:
-# CMD ["npm", "run", "start:dev"]
+EXPOSE 3000
 
-# Regular:
 CMD ["npm", "start"]
