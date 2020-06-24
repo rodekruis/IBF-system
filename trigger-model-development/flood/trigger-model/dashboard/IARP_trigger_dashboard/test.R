@@ -7,6 +7,7 @@ library(shinydashboard)
 library(sf)
 library(leaflet)
 library(readr)
+
 selected_pcode <- "020104"
 selected_station <- "G1045"
 selected_lowdate <- "2000-07-19"
@@ -16,21 +17,21 @@ glofas_threshold <- 864
 
 #st_write(obj=ethiopia_admin3, dsn="shapes/eth_adminboundaries_3.shp")
 
-#setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 #setwd('dashboard/ethiopia_shiny_app')
 
 source('r_resources/plot_functions.R')
 source('r_resources/predict_functions.R')
 
+
+rp_glofas <-rp_glofas_station %>%  filter(station == selected_station)
+
 glofas <-glofas_raw %>%
     filter(station == selected_station) %>%
     filter(date >= selected_lowdate, date <= selected_highdate)
 
-rainfall <- rainfall_raw %>%
-    filter(
-      pcode == selected_pcode,
-      date >= selected_lowdate,
-      date <= selected_highdate)
+rainfall <- rainfall_raw[[1]]%>%    filter(      pcode == selected_pcode,
+      date >= selected_lowdate,      date <= selected_highdate)
 
 
 # Clean impact and keep relevant columns
@@ -42,7 +43,7 @@ df_impact_raw <- ethiopia_impact %>%
   unique() %>%
   arrange(pcode, date)
 
-impact_df <- df_impact_raw %>%
+impact_df <- df_impact_raw[[1]] %>%
     filter(pcode == selected_pcode,
            date >= selected_lowdate,
            date <= selected_highdate)
@@ -50,7 +51,7 @@ impact_df <- df_impact_raw %>%
 
 
 # Used to join against
-all_days <- tibble(date = seq(min(df_impact_raw$date, na.rm=T) - 60, max(df_impact_raw$date, na.rm=T) + 60, by="days"))
+all_days <- tibble(date = seq(min(df_impact_raw[[1]]$date, na.rm=T) - 60, max(df_impact_raw[[1]]$date, na.rm=T) + 60, by="days"))
 
 # Clean GLOFAS mapping
 glofas_mapping <- glofas_mapping %>%
