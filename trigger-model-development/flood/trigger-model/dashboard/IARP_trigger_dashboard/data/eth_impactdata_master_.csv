@@ -1,0 +1,802 @@
+disaster_type;country;adm1_name;adm2_name;adm3_pcode;adm3_name;Date;Data_quality_score;ifrc_source;directely affected;Indirectly Affected;Affected;people_dead;people_Injured;Crop Damages;Lost Cattle;people_displaced;house_destroyed;livestock_lost;lost_crops_ha
+flood;ethiopia;OROMIA;West Guji;41213;Abaya;01-05-2010;0;other;NA;4600;4600;NA;NA;678;0;NA;NA;0;678
+flood;ethiopia;OROMIA;West guji;41513;Abaya;01-10-2019;6;other;;3230;;;;300.85;;;;;
+flood;ethiopia;OROMIA;West Guji;41213;Abaya;07-09-2005;;other;NA;NA;NA;NA;NA;NA;0;NA;19;0;NA
+flood;ethiopia;OROMIA;West arsi;41710;Adaba;01-10-2019;6;other;;1060;;;;235;;;;;
+flood;ethiopia;OROMIA;West Arsi;41710;Adaba;17-03-2007;;other;NA;NA;NA;3;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;West Arsi;41710;Adaba;21-03-2007;;other;NA;NA;NA;3;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;West Arsi;41710;Adaba;01-08-2010;;other;NA;22000;22000;NA;NA;459;3;7700;NA;3;459
+flood;ethiopia;Somali;Shebelle;50602;Adadle;01-10-2019;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Shebelle;50602;Adadle;23-04-2005;6;IFRC;235418(regional total);;;40(zonal);;;;;;;
+flood;ethiopia;OROMIA;East Shewa;40703;Adama;01-07-2010;0;other;NA;5000;5000;NA;NA;NA;0;1750;NA;0;NA
+flood;ethiopia;OROMIA;East shoa;40703;Adama;01-09-2019;6;other;54;;;;;8 kebele farm land;;;;;
+flood;ethiopia;OROMIA;East Shewa;40708;Adamitulu Jido Kombolcha;01-04-2002;;other;NA;NA;NA;4;NA;NA;43;NA;NA;43;NA
+flood;ethiopia;Dire Dawa;Dire Dawa urban;150109;Addis Ketema (Dire Dawa);20-05-2005;;other;NA;NA;NA;27;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Dire Dawa;Dire Dawa urban;150109;Addis Ketema (Dire Dawa);20-05-2005;;other;NA;NA;NA;32;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Dire Dawa;Dire Dawa urban;150109;Addis Ketema (Dire Dawa);07-09-2005;;other;NA;NA;NA;32;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Dire Dawa;Dire Dawa urban;150109;Addis Ketema (Dire Dawa);06-12-2006;;other;NA;NA;NA;371;228;NA;0;NA;1685;0;NA
+flood;ethiopia;OROMIA;East Hararge;11068;Adhaki;03-05-2013;5;other;400;NA;400;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;OROMIA;West Hararge;10308;Adigrat Town;04-05-2013;5;other;400;NA;400;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Amhara;North Gonder;30101;Adirkay;01-10-2019;6;other;742;;;;;289.05;;;;;
+flood;ethiopia;Tigray;Central Tigray;10204;Adwa;01-07-2010;0;other;NA;1410;1410;NA;NA;NA;0;94;NA;0;NA
+flood;ethiopia;Tigray;Central Tigray;10204;Adwa;05-05-2013;1;other;400;NA;400;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Tigray;Central Tigray;10204;Adwa;01-08-2004;;other;NA;NA;NA;4;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 1;20104;Afambo;13-09-2017;6;other;;;;;;;;;;;
+;ethiopia;Afar;Afar Zone 1;20104;Afambo;01-09-2014;6;other;;;;;;;;;;;
+;ethiopia;Afar;Afar Zone 1;20104;Afambo;01-09-2010;6;IFRC;;;;;;;;;;;
+flood;ethiopia;Afar;Afar Zone 1;20104;Afambo;07-09-2003;5;other;NA;NA;NA;NA;NA;NA;0;14200;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 1;20104;Afambo;01-09-2006;6;other;;;;;;;;;;;
+flood;ethiopia;Afar;Afar Zone 1;20104;Afambo;07-09-2007;5;other;NA;1500;1500;NA;NA;295;0;1500;NA;0;295
+flood;ethiopia;OROMIA;Bale;41104;Agarfa;01-07-2010;0;other;NA;4000;4000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;Central Tigray;10202;Ahieferom;01-08-2010;;other;NA;1400;1400;NA;NA;56;0;NA;NA;0;56
+flood;ethiopia;OROMIA;West Shoa;40511;Ajera ;09-08-2017;6;IFRC;527;;;;;;;;;;
+flood;ethiopia;Anuak;Gambela;120101;Akobo;21-08-2008;6;other;;;;;;;;;;;
+flood;ethiopia;Gambella;Nuwer;120101;Akobo;01-08-2010;;other;NA;2500;2500;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Alaba Sp.;72101;Alaba;04-12-2004;;other;NA;NA;NA;NA;NA;1805.52;1106;8634;109;1106;1805.52
+flood;ethiopia;SNNPR;Alaba Sp.;72101;Alaba;07-09-2006;;other;NA;17973;17973;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Alaba Sp.;72101;Alaba;07-09-2006;;other;NA;NA;NA;NA;NA;798;395;4073;658;395;798
+flood;ethiopia;SNNPR;Alaba Sp.;72101;Alaba;06-12-2006;;other;NA;NA;NA;1;NA;NA;140;3000;NA;140;NA
+flood;ethiopia;Tigray;Southern Tigray;10404;Alage;01-03-2004;;other;NA;NA;NA;NA;NA;NA;63;NA;NA;63;NA
+flood;ethiopia;Tigray;Southern Tigray;10407;Alamata;21-12-2010;0;other;NA;11885;11885;2;NA;2416;202;9875;NA;202;2416
+flood;ethiopia;Tigray;Western Tigray;10407;Alamata;22-08-2011;1;other;NA;NA;0;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Tigray;Southern Tigray;10407;Alamata;11-08-2001;;other;NA;1027;1027;NA;NA;NA;0;162;NA;0;NA
+flood;ethiopia;Tigray;Southern Tigray;10407;Alamata;01-09-2003;;other;NA;NA;NA;NA;NA;NA;0;2000;NA;0;NA
+flood;ethiopia;Tigray;Southern Tigray;10407;Alamata;07-09-2007;;other;NA;1400;1400;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;Southern Tigray;10407;Alamata;01-08-2010;;other;NA;5363;5363;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;Southern Tigray;10407;Alamata;01-08-2010;;other;NA;18384;18384;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Wello;30408;Albuko;01-03-2004;;other;NA;NA;NA;NA;NA;NA;19;NA;NA;19;NA
+flood;ethiopia;Amhara;South Wello;30408;Albuko;01-08-2010;;other;NA;28150;28150;NA;NA;4089;88;249;NA;88;4089
+flood;ethiopia;SNNPR;Sidama;70405;Aleta Wendo;01-01-2010;0;other;NA;1844;1844;NA;NA;NA;4;NA;NA;4;NA
+flood;ethiopia;Amhara;Central Gondar;30115;Alfa;01-06-2004;;other;NA;NA;NA;1;NA;NA;154;NA;NA;154;NA
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;07-09-2009;0;other;NA;1148;1148;NA;NA;68.4;0;NA;NA;0;68.4
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;07-09-2009;0;other;NA;1676;1676;NA;NA;30;0;NA;NA;0;30
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;07-09-2009;0;other;NA;636;636;1;NA;20.2;0;NA;NA;0;20.2
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;07-09-2009;0;other;NA;473;473;NA;NA;12.6;0;NA;NA;0;12.6
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;07-09-2009;0;other;NA;271;271;NA;NA;12.3;0;NA;NA;0;12.3
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;07-09-2009;0;other;NA;1158;1158;NA;NA;12.25;0;NA;NA;0;12.25
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;07-09-2009;0;other;NA;394;394;NA;NA;6.8;0;NA;NA;0;6.8
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;07-09-2009;0;other;NA;60;60;NA;NA;1.7;0;NA;NA;0;1.7
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;05-12-2005;;other;NA;NA;NA;6;NA;240;23;4140;46;23;240
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;07-09-2006;;other;NA;4140;4140;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;19-02-2008;;other;NA;7;7;1;NA;0.25;0;NA;NA;0;0.25
+flood;ethiopia;SNNPR;Amaro Sp. Wer.;71302;Amaro;07-09-2009;;other;NA;1752;1752;NA;NA;252.5;0;NA;NA;0;252.5
+flood;ethiopia;Amhara;South Wello;30404;Ambasel;22-08-2010;5;IFRC;NA;77853;77853;NA;NA;2716;19;805;NA;19;2716
+flood;ethiopia;Amhara;South Wello;30404;Ambasel;22-08-2010;0;other;NA;NA;0;NA;NA;1368;NA;NA;NA;NA;1368
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;01-09-2003;6;other;NA;28.392;28.392;NA;NA;NA;NA;NA;NA;na;NA
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;01-09-2005;6;other;NA;28.392;28.392;NA;NA;NA;NA;NA;NA;na;NA
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;01-08-2006;0;other;NA;6000;6000;NA;NA;NA;160;NA;NA;160;NA
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;07-09-2006;5;other;NA;13200;13200;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;07-12-2007;0;other;NA;200;200;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;01-09-2008;6;other;NA;28.392;28.392;NA;NA;NA;NA;NA;NA;na;NA
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;01-09-2010;6;other;NA;28.392;28.392;NA;NA;NA;NA;NA;NA;na;NA
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;01-08-2011;6;other;NA;200;200;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;01-10-2013;6;other;NA;28.392;28.392;NA;NA;NA;NA;NA;NA;na;NA
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;10-10-2014;6;other;NA;28.392;28.392;NA;NA;NA;NA;NA;NA;na;NA
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;01-09-2016;6;other;NA;28.392;28.392;NA;NA;NA;NA;NA;NA;na;NA
+flood;ethiopia;Afar;Afar Zone 3;20301;Amibara;01-08-2017;6;other;NA;28.392;28.392;NA;NA;NA;NA;NA;NA;na;NA
+flood;ethiopia;Afar;Zone 3;20301;Amibara;09-08-2017;6;IFRC;;;;;;;;;;;
+flood;ethiopia;Amhara;North Shewa;30513;Angolela tera;01-09-2019;6;other;;;;8;;;;;;;
+flood;ethiopia;Amhara;Awi;30903;Ankasha;01-12-2006;;other;NA;6000;6000;NA;NA;1800;0;NA;NA;0;1800
+flood;ethiopia;Amhara;North Shewa;30507;Antsokiya;01-08-2010;;other;NA;130;130;NA;NA;NA;0;130;NA;0;NA
+flood;ethiopia;Amhara;North Shewa;30507;Antsokiya Gemza;07-09-2006;;other;NA;3020;3020;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;North Shewa;30507;Antsokiya Gemza;07-09-2006;;other;NA;NA;NA;NA;NA;NA;0;490;NA;0;NA
+flood;ethiopia;Amhara;North Shewa;30507;Antsokiya Gemza;07-09-2006;;other;NA;24430;24430;NA;NA;NA;3;77;NA;3;NA
+flood;ethiopia;Amhara;North Shewa;30507;Antsokiya Gemza;07-09-2006;;other;NA;NA;NA;NA;NA;62422;84;NA;NA;84;62422
+flood;ethiopia;Amhara;North Shewa;30507;Antsokiya Gemza;07-09-2007;;other;NA;183;183;NA;NA;NA;0;183;NA;0;NA
+flood;ethiopia;Amhara;North Shewa;30507;Antsokiya Gemza;24-06-2008;;other;NA;814;814;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;01-10-2001;0;other;NA;NA;NA;NA;NA;NA;0;2500;NA;0;NA
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;03-12-2003;0;other;NA;NA;NA;NA;NA;1213;0;7917;10;0;1213
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;19-04-2005;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;07-09-2005;0;other;NA;22000;22000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;07-09-2005;0;other;NA;12000;12000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;05-12-2005;0;other;NA;NA;NA;NA;NA;5311;447;18650;67;447;5311
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;03-06-2006;6;IFRC;NA;;;;;;;;;;
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;07-09-2006;0;IFRC;NA;24800;24800;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;30-05-2007;6;IFRC;NA;;;;;;;;;;
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;07-09-2007;0;IFRC;NA;370;370;NA;NA;NA;0;135;10;0;NA
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;09-04-2013;6;other;;;;;;;;;;;
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;13-10-2014;7;other;;;;;;;;;;;
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;27-04-2016;6;other;;;;;;;;;;;
+flood;ethiopia;SNNPR;Gamugofa;71016;Arba Minch Town Adm;17-06-2016;1;other;;;;;;;;;;;
+flood;ethiopia;SNNPR;Gamo;71015;Arba minch Zuria;02-03-2020;6;other; 14,ooo;;;;;NA;;;;NA;
+flood;ethiopia;SNNPR;Gofa;71015;Arbaminch Zuria;01-04-2005;6;IFRC;18,650;;;;;3,911;;;;;
+flood;ethiopia;OROMIA;Borena;41208;Arero;01-04-2002;;other;NA;NA;NA;1;2;NA;0;NA;12;0;NA
+flood;ethiopia;Amhara;Oromia;31004;Artuma Fursi;22-08-2010;5;other;NA;7560;7560;NA;NA;1202;3;5883;NA;3;1202
+flood;ethiopia;Amhara;Oromia;31004;Artuma Fursi;07-09-2006;;other;NA;2755;2755;NA;NA;4150;1354;4951;NA;1354;4150
+flood;ethiopia;Amhara;Oromia;31004;Artuma Fursi;07-09-2007;;other;NA;587;587;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;North Shewa;30514;Asagrt;01-10-2019;6;other;239;;;;;22.5;;;;;
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;01-09-2001;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;01-07-2003;0;other;NA;NA;NA;NA;NA;NA;3381;NA;NA;3381;NA
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;01-07-2003;;other;NA;NA;NA;NA;NA;NA;3381;NA;NA;3381;NA
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;05-09-2005;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;05-12-2005;0;other;NA;8700;8700;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;07-09-2006;0;other;NA;24700;24700;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;07-09-2006;5;other;NA;56300;56300;NA;NA;33305;169;NA;NA;169;33305
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;07-09-2007;5;IFRC;NA;NA;NA;NA;NA;200;0;NA;NA;0;200
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;20-01-2008;0;other;NA;493;493;NA;NA;22;0;NA;NA;0;22
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;01-09-2008;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;01-08-2009;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;05-09-2010;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;01-08-2013;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;01-10-2013;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20103;Asayita;09-09-2017;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Tigray;Western Tigray;10105;Asegede Tsimbila;01-08-2010;;other;NA;4380;4380;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Arsi;40802;Aseko;01-10-2019;6;other;;;;;;528;;;;;
+flood;ethiopia;Benishangul Gumz;Asosa;60303;Assosa;07-09-2005;;other;NA;NA;NA;2;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 3;20302;Awash Fentale;01-09-2005;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 3;20302;Awash Fentale;01-09-2006;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 3;20302;Awash Fentale;07-09-2007;5;IFRC;NA;1149;1149;NA;NA;NA;1246;1149;NA;1246;NA
+flood;ethiopia;Afar;Afar Zone 3;20302;Awash Fentale;09-09-2008;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 3;20302;Awash Fentale;01-09-2010;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 3;20302;Awash Fentale;07-10-2013;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Zone 4;20401;Awra;01-04-2019;6;other;30;;;;;;230;;;;
+flood;ethiopia;OROMIA;East Hararge;11067;Ayder;02-04-2018;;other;NA;NA;0;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Somali;Siti;50101;Ayisha;24-05-2006;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Siti;50101;Ayisha;06-12-2006;0;other;NA;3000;3000;NA;NA;NA;500;NA;19;500;NA
+flood;ethiopia;Somali;Siti;50101;Ayisha;21-04-2016;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Siti;50101;Ayisha;24-04-2018;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Fafen;50401;Babile;01-10-2019;6;other;;;;;;;;;;;
+flood;ethiopia;Amhara;West Gojam;30702;Bahir Dar Zuria;18-08-2006;6;IFRC;2425;;;;;;;;;;
+flood;ethiopia;Amhara;West Gojam;30702;Bahirdar Zuria;07-09-2006;;other;NA;2642;2642;1;NA;293.5;0;NA;NA;0;293.5
+flood;ethiopia;Amhara;West Gojam;30702;Bahirdar Zuria;14-08-2008;;other;NA;NA;NA;NA;NA;400;0;NA;NA;0;400
+flood;ethiopia;Amhara;West Gojam;30702;Bahirdar Zuria;01-08-2010;;other;NA;6;6;NA;NA;636;0;NA;NA;0;636
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);17-06-2007;;other;NA;NA;NA;4;NA;2861;87;NA;NA;87;2861
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);17-06-2007;0;other;NA;NA;NA;4;NA;NA;87;NA;NA;87;NA
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);02-12-2001;;other;NA;40;40;NA;NA;NA;16;NA;NA;16;NA
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);07-09-2007;;other;NA;10000;10000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;115.56;8;NA;NA;8;115.56
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;9;8;NA;4;8;9
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;39;39;2;NA;NA;14;NA;2;14;NA
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;7282;17;NA;NA;17;7282
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;2353.5;4;NA;NA;4;2353.5
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;4;26;NA;2;26;4
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;2.83;4;NA;NA;4;2.83
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;45.66;8;NA;16;8;45.66
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;19.1;4;NA;NA;4;19.1
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;124.5;5;NA;NA;5;124.5
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;2;2;NA;NA;2;2
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;NA;21;NA;NA;21;NA
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;0.05;4;NA;NA;4;0.05
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;3.5;1;NA;NA;1;3.5
+flood;ethiopia;SNNPR;South Omo;70702;Bako Gazer (Debub Ari);30-11-2007;;other;NA;NA;NA;NA;NA;501;7;NA;NA;7;501
+flood;ethiopia;SNNPR;Basketo Sp. Wer;71801;Basketo;06-12-2006;;other;NA;NA;NA;NA;NA;4425;0;330;NA;0;4425
+flood;ethiopia;OROMIA;East Shewa;41013;Bedeno;14-05-2005;;other;NA;NA;NA;NA;NA;4.14;0;NA;NA;0;4.14
+flood;ethiopia;OROMIA;East Shewa;41013;Bedeno;07-09-2007;;other;NA;NA;NA;NA;NA;230;0;NA;NA;0;230
+flood;ethiopia;OROMIA;East Shewa;41013;Bedeno;01-04-2010;;other;NA;1700;1700;NA;NA;49;0;NA;NA;0;49
+flood;ethiopia;SNNPR;South Omo;70705;Bena Tsemai;07-09-2002;;other;NA;3500;3500;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70705;Bena Tsemai;07-09-2007;;other;NA;25000;25000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70705;Bena Tsemai;07-09-2007;;other;NA;2020;2020;NA;NA;93.5;0;NA;NA;0;93.5
+flood;ethiopia;SNNPR;South Omo;70705;Bena Tsemai;07-09-2007;;other;NA;1045;1045;NA;NA;45;0;NA;NA;0;45
+flood;ethiopia;SNNPR;South Omo;70705;Bena Tsemai;07-09-2007;;other;NA;825;825;NA;NA;35;0;NA;NA;0;35
+flood;ethiopia;SNNPR;South Omo;70705;Bena Tsemai;07-09-2007;;other;NA;4168;4168;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;East Gojam;30601;Bibugn;01-06-2004;;other;NA;NA;NA;3;5;NA;0;NA;4;0;NA
+flood;ethiopia;OROMIA;East wollega;40205;Boneya Boshe;01-10-2019;6;other;;1280;;;;97;;;;;
+flood;ethiopia;SNNPR;Gamugofa;71013;Bonke;07-09-2002;;other;NA;1519;1519;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Gamugofa;71013;Bonke;07-09-2004;;other;NA;NA;NA;NA;NA;NA;0;500;NA;0;NA
+flood;ethiopia;SNNPR;Gamugofa;71013;Bonke;07-09-2006;;other;NA;NA;NA;NA;NA;300;144;NA;NA;144;300
+flood;ethiopia;SNNPR;Gamugofa;71013;Bonke;07-09-2007;;other;NA;445;445;NA;NA;945;55;445;89;55;945
+flood;ethiopia;SNNPR;Gamugofa;71013;Bonke;07-12-2007;;other;NA;NA;NA;5;NA;606;0;2205;NA;0;606
+flood;ethiopia;OROMIA;East Shewa;40710;bora;01-08-2010;;other;NA;5000;5000;1;NA;500;235;2000;NA;235;500
+flood;ethiopia;OROMIA;East Shoa;40710;Bora ;01-09-2019;6;other;219;;;;;4 kebele farm land;;;;;
+flood;ethiopia;Amhara;South Wello;30412;Borena - Debresina;01-08-2010;;other;NA;1189;1189;NA;NA;119;0;NA;NA;0;119
+flood;ethiopia;OROMIA;East Shewa;40702;Boset;01-07-2010;0;other;NA;4000;4000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;East shoa;40702;Boset;01-09-2019;6;other;154;;;;;6 kebele farm land;;;;;
+flood;ethiopia;Amhara;North Wello;30301;Bugna;01-08-2005;;other;NA;NA;NA;2;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;North Wello;30301;Bugna;01-08-2010;;other;NA;4462;4462;NA;NA;1004;28;50;NA;28;1004
+flood;ethiopia;SNNPR;Gedeo;70504;Bule;01-05-2004;;other;NA;NA;NA;NA;NA;6.5;0;NA;NA;0;6.5
+flood;ethiopia;SNNPR;Gedeo;70504;Bule;07-09-2005;;other;NA;NA;NA;NA;NA;1;0;NA;NA;0;1
+flood;ethiopia;SNNPR;Gedeo;70504;Bule;07-09-2005;;other;NA;NA;NA;NA;NA;36;0;555;NA;0;36
+flood;ethiopia;Afar;Afar Zone 3;20305;Bure Mudaytu;01-09-2005;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 3;20305;Bure Mudaytu;01-08-2006;5;other;NA;10000;10000;NA;NA;NA;219;NA;NA;219;NA
+flood;ethiopia;Afar;Afar Zone 3;20305;Bure Mudaytu;24-08-2007;5;IFRC;NA;30000;30000;NA;NA;NA;0;30000;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 3;20305;Bure Mudaytu;01-09-2008;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 3;20305;Bure Mudaytu;22-09-2010;5;other;NA;3670;3670;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 3;20305;Bure Mudaytu;07-10-2013;6;other;NA;NA;NA;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 5;20305;Bure Mudaytu;15-08-2010;;other;NA;4120;4120;NA;NA;NA;125;4120;NA;125;NA
+flood;ethiopia;Afar;Afar Zone 4;20305;Bure Mudaytu;15-08-2010;;other;NA;5000;5000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;West Gojam;30710;Bure Town;01-08-2010;;other;NA;1960;1960;NA;NA;521;0;NA;NA;0;521
+flood;ethiopia;Amhara;West Gojam;30710;Bure Town;01-08-2010;;other;NA;1960;1960;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;West Shewa;40505;Cheliya;01-05-2003;;other;NA;NA;NA;NA;NA;NA;12;NA;NA;12;NA
+flood;ethiopia;SNNPR;Gamugofa;71007;Chencha;03-12-2003;;other;NA;NA;NA;NA;5;289;8;346;57;8;289
+flood;ethiopia;Somali;Afder;50802;Chereti;01-10-2019;6;other;;;;;;;;;;;
+flood;ethiopia;Afar;Afar Zone 1;20106;Chifra;22-07-2010;0;other;NA;11500;11500;NA;NA;1642;0;11500;NA;0;1642
+flood;ethiopia;Afar;Afar Zone 1;20106;Chifra;28-07-2010;0;other;NA;18600;18600;NA;NA;865;0;18600;NA;0;865
+flood;ethiopia;Afar;Afar Zone 1;20106;Chifra;14-08-2010;;other;NA;15630;15630;NA;NA;160;0;15630;NA;0;160
+flood;ethiopia;Afar;Afar Zone 1;20106;Chifra;15-08-2010;;other;NA;600;600;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Arsi;40809;chole;04-05-2016;6;IFRC;405;;;;;;;;17;;
+flood;ethiopia;OROMIA;Arsi;40809;Chole;01-04-2016;6;IFRC;405;;;;;;;;;;
+flood;ethiopia;;OROMIA;40809;chole;24-04-2016;6;other;Arsi;;;;;;;;;;
+flood;ethiopia;Amhara;North Gonder;30105;Dabat;01-10-2019;6;other;2600;;;;;306;;;;;
+flood;ethiopia;Amhara;North Gondar;30105;Dabat;01-08-2005;;other;NA;NA;NA;NA;NA;1035;52;NA;NA;52;1035
+flood;ethiopia;SNNPR;Sidama;70404;Dale;01-04-2005;6;IFRC;10360;;;;;2,000;;;;;
+flood;ethiopia;SNNPR;Sidama;70404;Dale;07-09-2006;;other;NA;2580;2580;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Sidama;70404;Dale;07-09-2006;;other;NA;3600;3600;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Sidama;70404;Dale;06-12-2006;;other;NA;NA;NA;2;1;NA;8;NA;25;8;NA
+flood;ethiopia;SNNPR;Silte;72005;Dalocha;18-09-2019;6;other;325;;;;;17;;;;;
+flood;ethiopia;Afar;Afar Zone 2;20206;Dalol;07-09-2007;;other;NA;320;320;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 2;20206;Dalol;07-12-2007;;other;NA;6000;6000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 2;20206;Dalol;15-08-2010;;other;NA;2420;2420;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 2;20206;Dalol;25-08-2010;;other;NA;1850;1850;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 2;20206;Dalol;25-08-2010;;other;NA;1800;1800;NA;NA;NA;25;1800;NA;25;NA
+flood;ethiopia;SNNPR;Wolayita;70609;Damot Sore;07-09-2002;;other;NA;400;400;NA;NA;15;0;NA;NA;0;15
+flood;ethiopia;SNNPR;Wolayita;70609;Damot Sore;07-09-2004;;other;NA;NA;NA;NA;NA;80;0;NA;NA;0;80
+flood;ethiopia;SNNPR;Wolayita;70609;Damot Sore;07-09-2005;;other;NA;1000;1000;12;NA;150;40;4;NA;40;150
+flood;ethiopia;SNNPR;Wolayita;70609;Damot Sore;07-09-2006;;other;NA;650;650;NA;NA;39;0;NA;NA;0;39
+flood;ethiopia;SNNPR;Wolayita;70609;Damot Sore;07-09-2006;;other;NA;860;860;NA;NA;10;0;NA;NA;0;10
+flood;ethiopia;SNNPR;Wolayita;70609;Damot Sore;07-09-2007;;other;NA;6000;6000;NA;NA;400;0;NA;NA;0;400
+flood;ethiopia;SNNPR;Wolayita;70609;Damot Sore;07-09-2008;;other;NA;12000;12000;NA;NA;200;0;NA;NA;0;200
+flood;ethiopia;Somali;Shebelle;50603;Danan;07-09-2005;1;other;NA;3500;3500;1;NA;3116;384;NA;28;384;3116
+flood;ethiopia;Somali;Shebelle;50603;Danan;07-09-2006;0;other;NA;NA;NA;NA;NA;NA;0;5000;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50603;Danan;07-09-2006;0;other;NA;8250;8250;3;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50603;Danan;07-09-2006;5;other;NA;8250;8250;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50603;Danan;07-09-2006;0;other;NA;NA;NA;NA;NA;NA;80;NA;3;80;NA
+flood;ethiopia;Somali;Shebelle;50603;Danan;24-04-2018;6;other;;;;;;;;;;;
+flood;ethiopia;;Somali;50603;Danan;20-04-2013;6;other;Shebelle;;50603;;;;;;;;
+flood;ethiopia;;Somali;50603;Danan;20-04-2013;6;other;Shebelle;;50603;;;;;;;;
+flood;ethiopia;SNNPR;Sidama;70406;Dara;01-05-2004;;other;NA;NA;NA;2;NA;1040;0;NA;NA;0;1040
+flood;ethiopia;SNNPR;Sidama;70406;Dara;07-09-2007;;other;NA;3240;3240;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Sidama;70406;Dara;07-09-2007;;other;NA;3240;3240;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Sidama;70406;Dara;07-09-2007;;other;NA;2470;2470;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Sidama;70406;Dara;07-12-2007;;other;NA;3240;3240;NA;NA;370;0;NA;100;0;370
+flood;ethiopia;OROMIA;Illubabur;40301;Darimu;07-09-2007;;other;NA;NA;NA;NA;NA;807;0;NA;NA;0;807
+flood;ethiopia;OROMIA;West Hararge;40909;Daro Lebu;01-08-2004;;other;NA;NA;NA;2;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Bale;41121;Dawe Ketchen;17-08-2001;;other;NA;NA;NA;NA;NA;NA;0;400;NA;0;NA
+flood;ethiopia;Amhara;North Wello;30311;Dawunt;01-08-2010;;other;NA;9260;9260;NA;NA;1250;416;15;NA;416;1250
+flood;ethiopia;Amhara;East Gojam;30607;Debay Tilatgen;01-08-2004;;other;NA;NA;NA;NA;NA;1800;0;NA;380;0;1800
+flood;ethiopia;SNNPR;Kefa;70908;Decha;07-09-2007;;other;NA;11;11;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;East Shewa;41011;Deder;01-04-2003;;other;NA;NA;NA;NA;NA;252;31;NA;9;31;252
+flood;ethiopia;OROMIA;East Shewa;41011;Deder;01-04-2010;;other;NA;2000;2000;NA;NA;195;0;NA;NA;0;195
+flood;ethiopia;OROMIA;Jima;40410;Dedo;01-06-2004;;other;NA;NA;NA;NA;NA;450;0;NA;NA;0;450
+flood;ethiopia;Tigray;South Eastern;10604;Dega Temben;03-04-2018;;other;NA;NA;0;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Somali;Degehabur;50302;Degehabur;01-05-2002;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Degehabur;50302;Degehabur;04-04-2013;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Degehabur;50302;Degehabur;28-04-2011;6;other;;;;;;;;;;;
+;ethiopia;Somali;Degehabur;50302;Degehabur;13-10-2008;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Degehabur;50302;Degehabur;05-12-2005;0;other;NA;10000;10000;10;NA;NA;3125;NA;NA;3125;NA
+flood;ethiopia;Tigray;Central Tigray;10604;Degua Temben;01-08-2010;;other;NA;130;130;NA;NA;5;0;NA;NA;0;5
+flood;ethiopia;Amhara;Wag Himra;30803;Dehana;07-09-2006;;other;NA;1482;1482;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;Wag Himra;30803;Dehana;17-11-2008;;other;NA;NA;NA;NA;NA;53;0;NA;NA;0;53
+flood;ethiopia;Amhara;East Gojam;30613;Dejen;07-09-2006;;other;NA;288;288;NA;NA;701.75;953;2219;NA;953;701.75
+flood;ethiopia;Amhara;North Wello;30306;Delanta;01-08-2010;;other;NA;12686;12686;NA;NA;1470;65;39;NA;65;1470
+flood;ethiopia;Amhara;Central Gondar;30111;Dembia;01-07-2001;0;other;NA;1130;1130;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;Central Gondar;30111;Dembia;20-08-2011;5;other;NA;NA;0;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Amhara;Central Gonder;31111;Dembia;18-08-2006;6;IFRC;17,385;;;;;;;;;;
+flood;ethiopia;Amhara;Central Gondar;30111;Dembia;01-07-2001;;other;NA;1130;1130;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;Central Gondar;30111;Dembia;07-09-2006;;other;NA;23860;23860;1;NA;192.14;0;NA;NA;0;192.14
+flood;ethiopia;Amhara;Central Gondar;30111;Dembia;01-08-2007;;other;NA;NA;NA;2;NA;1600;0;NA;NA;0;1600
+flood;ethiopia;Amhara;Central Gondar;30111;Dembia;07-01-2008;;other;NA;NA;NA;NA;NA;400;0;NA;15;0;400
+flood;ethiopia;Amhara;Central Gondar;30111;Dembia;01-08-2010;;other;NA;NA;NA;NA;NA;124;0;NA;NA;0;124
+flood;ethiopia;Amhara;Central Gonder;31125;Dembiya;01-10-2019;6;other;3030;;;;;234;;;31;;
+flood;ethiopia;OROMIA;North Shewa;40602;Dera;01-09-2001;0;other;NA;NA;NA;3;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;North Shewa;40602;Dera;01-09-2001;;other;NA;NA;NA;3;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Gonder;40602;Dera (Amhara);07-09-2000;;other;NA;386;386;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Gonder;40602;Dera (Amhara);01-07-2003;;other;NA;NA;NA;NA;NA;NA;3100;NA;NA;3100;NA
+flood;ethiopia;Amhara;South Gonder;40602;Dera (Amhara);01-07-2003;;other;NA;NA;NA;NA;NA;NA;3100;NA;NA;3100;NA
+flood;ethiopia;Amhara;South Gonder;40602;Dera (Amhara);01-08-2006;;other;NA;NA;NA;2;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Gonder;40602;Dera (Amhara);07-09-2006;;other;NA;7482;7482;NA;NA;206.5;4;NA;NA;4;206.5
+flood;ethiopia;Amhara;South Gonder;40602;Dera (Amhara);01-08-2007;;other;NA;NA;NA;NA;NA;NA;0;3620;NA;0;NA
+flood;ethiopia;Amhara;South Gonder;40602;Dera (Amhara);07-09-2007;;other;NA;NA;NA;NA;NA;308.2;0;NA;NA;0;308.2
+flood;ethiopia;Amhara;South Gonder;40602;Dera (Amhara);18-02-2008;;other;NA;NA;NA;NA;NA;NA;23;NA;NA;23;NA
+flood;ethiopia;Amhara;South Gonder;40602;Dera (Amhara);01-08-2010;;other;NA;18641;18641;NA;NA;2726;316;NA;79;316;2726
+flood;ethiopia;SNNPR;Gamugofa;71009;Deramalo;07-09-2006;;other;NA;1658;1658;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Wello;30409;Dessie City Adm.;01-08-2010;;other;NA;8421;8421;NA;NA;478;17;55;NA;17;478
+flood;ethiopia;Amhara;South Wello;30409;Dessie Zuria;01-06-2004;;other;NA;NA;NA;4;10;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Wello;30409;Dessie Zuria;01-08-2010;;other;NA;27687;27687;NA;NA;1735;2;14;NA;2;1735
+flood;ethiopia;Amhara;Oromia;31001;Dewa Harewa;07-09-2006;;other;NA;2219;2219;NA;NA;509;0;739;NA;0;509
+flood;ethiopia;Amhara;Oromia;31001;Dewa Harewa;07-09-2006;;other;NA;4125;4125;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;Oromia;31001;Dewa Harewa;07-09-2006;;other;NA;2645;2645;NA;NA;1441;178;2645;638;178;1441
+flood;ethiopia;Afar;Afar Zone 5;20503;Dewe;29-07-2010;0;other;NA;1000;1000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Gedeo;70505;Dila Zuria;07-12-2007;;other;NA;NA;NA;NA;NA;2145;2;20989;2;2;2145
+flood;ethiopia;Gambela;Agnuwa;120205;Dima;01-10-2019;6;other;4,090;;;;;1,133.30;;;;;
+flood;ethiopia;;;150102;Dire Dawa;06-08-2006;6;other;;;;250;;;;10000;;;
+flood;ethiopia;;;150102;Dire Dawa;12-04-2007;6;other;;;;;;;;;;;
+flood;ethiopia;Dire Dawa;;150102;Diredawa;08-05-2006;6;other;3,000;;;200;;NA;;;;NA;
+flood;ethiopia;Dire Dawa;;150102;Diredawa;24-04-2020;6;other;;;;4;;;;;;;
+flood;ethiopia;SNNPR;Gamugofa;71008;Dita;07-09-2002;;other;NA;7381;7381;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Gamugofa;71008;Dita;03-12-2003;;other;NA;NA;NA;11;5;924;201;7381;136;201;924
+flood;ethiopia;SNNPR;Gamugofa;71008;Dita;01-08-2010;;other;NA;NA;NA;NA;NA;21;3;NA;NA;3;21
+flood;ethiopia;OROMIA;West Arsi;41707;Dodola;01-08-2010;;other;NA;NA;NA;NA;NA;NA;10;NA;NA;10;NA
+flood;ethiopia;OROMIA;Arsi;40805;Dodota;01-09-2019;6;other;960;;;;;25;;;;;
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;10-01-2019;6;other;9,374 HHs;;;;;4,006;;;;730;
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;24-04-2018;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;08-05-2003;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;30-11-2003;0;other;NA;10000;10000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;01-05-2010;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;07-09-2005;0;other;NA;46700;46700;6;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;07-09-2005;0;other;NA;150000;150000;6;NA;NA;259;NA;NA;259;NA
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;30-11-2006;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;07-05-2016;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;10-11-2008;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;30-11-2014;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Liben;50902;Dolo Odo;05-12-2005;0;other;NA;NA;NA;6;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Liben;50902;Dolo odo;01-10-2019;6;other;;;;;;;;;;;
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;10-08-2001;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;13-04-2002;7;other;NA;4000;4000;NA;NA;NA;0;1000;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;01-09-2003;5;other;NA;38;38;NA;NA;15;500;NA;NA;500;15
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;14-04-2004;0;other;NA;21847;21847;NA;NA;NA;123;NA;NA;123;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;07-09-2005;5;other;NA;42000;42000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;07-09-2005;0;other;NA;25000;25000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;30-11-2005;0;other;NA;4000;4000;NA;NA;1000;0;NA;NA;0;1000
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;07-09-2006;5;other;NA;7000;7000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;07-09-2007;5;IFRC;NA;NA;NA;NA;NA;100;0;NA;NA;0;100
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;07-12-2007;0;other;NA;4000;4000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;01-09-2008;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;01-08-2009;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;24-08-2010;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;01-08-2011;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;01-08-2013;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;01-10-2013;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;01-09-2014;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;01-08-2016;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;09-05-2016;7;other;NA;671;671;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 1;20101;Dubti;08-09-2017;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;OROMIA;East Shewa;40707;Dugda;07-09-2005;;other;NA;70000;70000;1;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;East Shewa;40707;Dugda;07-09-2007;;other;NA;5549;5549;NA;NA;654;0;NA;417;0;654
+flood;ethiopia;Afar;Afar Zone 3;20304;Dulecha;01-09-2005;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 3;20304;Dulecha;29-08-2006;5;other;NA;4000;4000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 3;20304;Dulecha;07-09-2006;0;other;NA;4443;4443;NA;NA;NA;332;4000;NA;332;NA
+flood;ethiopia;Afar;Afar Zone 3;20304;Dulecha;01-08-2008;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;332;NA
+flood;ethiopia;Afar;Afar Zone 3;20304;Dulecha;01-09-2010;6;other;NA;NA;NA;NA;NA;NA;NA;NA;NA;332;NA
+flood;ethiopia;Afar;Afar Zone 3;20304;Dulecha;01-10-2013;6;other;NA;28.392;28.392;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Afar;Afar Zone 3;20304;Dulecha;10-10-2014;6;other;NA;28.392;28.392;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Amhara;Central Gondar;30117;East Belesa;01-08-2010;;other;NA;1134;1134;NA;NA;540;31;NA;NA;31;540
+flood;ethiopia;Somali;Shebelle;50601;East Imey;02-11-2015;;other;102000;NA;102000;5;NA;NA;10000;NA;NA;10000;NA
+flood;ethiopia;;Somali;50601;East Imey;20-04-2013;6;other;Shebelle;;50601;;;;;;;;
+flood;ethiopia;Somali;Afder;50601;East Imi;24-04-2018;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Shebelle;50601;East Immi;23-04-2005;6;IFRC;235418(regional total);;;40(zonal);;;;;;;
+flood;ethiopia;Amhara;North Shewa;30508;Eferatana Gidem;07-09-2000;;other;NA;NA;NA;2;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;North Shewa;30508;Eferatana Gidem;12-08-2006;;other;NA;77;77;NA;NA;3.01;0;77;NA;0;3.01
+flood;ethiopia;Amhara;North Shewa;30508;Eferatana Gidem;07-09-2006;;other;NA;77;77;NA;NA;135.15;17;NA;NA;17;135.15
+flood;ethiopia;Amhara;North Shewa;30508;Eferatana Gidem;01-08-2007;;other;NA;NA;NA;NA;NA;195;0;NA;14;0;195
+flood;ethiopia;Amhara;North Shewa;30508;Eferatana Gidem;16-05-2009;;other;NA;124;124;NA;NA;NA;13;124;39;13;NA
+flood;ethiopia;OROMIA;West Shoa;40511;Ejere;04-08-2006;6;IFRC;;;;;;;;;;;
+flood;ethiopia;OROMIA;West Shoa;40511;Ejere;04-08-2006;6;other;1000;;;12;;NA;;;;NA;
+flood;ethiopia;Afar;Afar Zone 1;20102;Elidar;27-09-2006;;other;NA;620;620;NA;18;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 1;20102;Elidar;07-12-2007;;other;NA;620;620;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;West Shoa;40500;Elu Gelan;01-10-2019;6;other;150;;;;;56;;;30;;
+flood;ethiopia;Somali;Nogob;51002;Elweyni;01-10-2019;6;other;;;;;;;;;;;
+flood;ethiopia;OROMIA;East Shewa;10405;Endamehoni;04-04-2018;;other;NA;NA;0;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Tigray;Southern Tigray;10405;Endamehoni;01-08-2010;;other;NA;41950;41950;NA;NA;2226;107;NA;NA;107;2226
+flood;ethiopia;OROMIA;West Hararge;10602;Enderta;05-04-2018;;other;NA;NA;0;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Tigray;Southern Tigray;10602;Enderta;01-08-2010;;other;NA;395;395;NA;NA;37;8;NA;NA;8;37
+flood;ethiopia;Amhara;East Gojam;30604;Enebse Sarmder;01-08-2010;;other;NA;9910;9910;NA;NA;528;464;NA;NA;464;528
+flood;ethiopia;SNNPR;Gurage;70111;Enemor Ener;01-08-2004;;other;NA;6000;6000;1;NA;487;3;NA;NA;3;487
+flood;ethiopia;SNNPR;Gurage;70111;Enemor Ener;01-08-2005;;other;NA;NA;NA;NA;NA;381;0;NA;NA;0;381
+flood;ethiopia;Amhara;North Shewa;30503;Ensaro;15-09-2008;;other;NA;NA;NA;1;1;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Siti;130105;Erer;07-09-2000;;other;NA;NA;NA;5;NA;377;300;1820;NA;300;377
+flood;ethiopia;Tigray;Eastern Tigray;10302;Erob;01-07-2010;0;other;NA;755;755;NA;NA;14;17;NA;NA;17;14
+flood;ethiopia;Afar;Zone 4;20402;Ewa;01-04-2019;6;other;20;;;;;;200;;;;
+flood;ethiopia;Afar;Afar Zone 4;20402;Ewa;07-09-2007;;other;NA;NA;NA;NA;NA;NA;0;NA;70;0;NA
+flood;ethiopia;Afar;Afar Zone 4;20402;Ewa;28-08-2010;;other;NA;1200;1200;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Gonder;30204;Farta;01-06-2004;;other;NA;NA;NA;2;NA;NA;7;NA;1;7;NA
+flood;ethiopia;Amhara;South Gonder;30204;Farta;07-09-2008;;other;NA;NA;NA;NA;NA;86;0;NA;NA;0;86
+flood;ethiopia;OROMIA;East shoa;40701;Fentale;01-09-2019;6;other;537;;;;;8 kebele farm land;;;;;
+flood;ethiopia;OROMIA;East Shewa;40701;Fentale;24-08-2010;;other;NA;9000;9000;NA;NA;NA;0;900;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50607;Ferfer;24-04-2018;6;other;;;;;;;;;;;
+;;;;;;;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Shebelle;50607;Ferfer;07-09-2005;;other;NA;18500;18500;5;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50607;Ferfer;07-09-2006;;other;NA;13514;13514;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50607;Ferfer;05-04-2018;;other;NA;NA;165000;NA;NA;12911;NA;NA;NA;NA;12911
+flood;ethiopia;;Somali;50607;Ferfer;20-04-2013;6;other;Shebelle;;;;;;;;;;
+flood;ethiopia;OROMIA;East Shewa;40701;Fientale;20-04-2007;;other;NA;560;560;NA;NA;31;0;NA;NA;0;31
+flood;ethiopia;OROMIA;East Shewa;40701;Fientale;07-09-2007;;other;NA;560;560;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;East Shewa;40701;Fientale;01-08-2010;;other;NA;9000;9000;NA;NA;46;0;900;NA;0;46
+flood;ethiopia;Somali;Liben;50901;Filtu;24-04-2018;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Liben;50901;Filtu;01-05-2002;;other;NA;NA;NA;NA;NA;NA;0;2500;NA;0;NA
+flood;ethiopia;Somali;Liben;50901;Filtu;07-09-2005;;other;NA;6225;6225;NA;NA;NA;260;NA;NA;260;NA
+flood;ethiopia;Somali;Liben;50901;Filtu;07-09-2005;;other;NA;6225;6225;5;NA;NA;818;NA;NA;818;NA
+flood;ethiopia;Somali;Liben;50901;Filtu;05-04-2018;;other;NA;NA;165000;NA;NA;12911;NA;NA;NA;NA;12911
+flood;ethiopia;Amhara;South Gonder;30203;Fogera;07-09-2000;;other;NA;13178;13178;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Gonder;30203;Fogera;01-08-2006;;other;NA;NA;NA;NA;NA;NA;0;4430;NA;0;NA
+flood;ethiopia;Amhara;South Gonder;30203;Fogera;07-09-2006;;other;NA;2964;2964;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Gonder;30203;Fogera;07-09-2006;;other;NA;43127;43127;NA;NA;4240;210;9313;NA;210;4240
+flood;ethiopia;Amhara;South Gonder;30203;Fogera;01-08-2010;;other;NA;NA;NA;NA;NA;1164;64;NA;NA;64;1164
+flood;ethiopia;Gambela;Agnuwa;120202;Gambela Zuria;01-10-2019;6;other;4,090;;;;;1,133.30;;;;;
+flood;ethiopia;Gambela;Agnewak;120206;Gambella Town;01-10-2019;6;other;4,090;;;;;;;;;;
+flood;ethiopia;Gambela;Agnewak;120206;Gambella Town;02-10-2019;6;other;1,405;;;;;NA;;;;NA;
+flood;ethiopia;Gambella;Agnewak;120202;Gambella Town;07-09-2000;;other;NA;6;6;NA;NA;NA;0;61592;NA;0;NA
+flood;ethiopia;Tigray;Eastern Tigray;10304;Ganta Afshum;01-08-2010;;other;NA;8310;8310;NA;NA;277;0;NA;NA;0;277
+flood;ethiopia;OROMIA;Bale;41106;Gasera;01-07-2010;0;other;NA;9300;9300;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Bale;41106;Gasera;07-09-2008;;other;NA;5525;5525;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Degehabur;50304;Gashamo;07-09-2005;;other;NA;105000;105000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Illubabur;40306;Gechi;18-05-2004;;other;NA;NA;NA;NA;NA;NA;0;NA;22;0;NA
+flood;ethiopia;Afar;Zone 3;20305;Gelalu;01-08-2019;6;other;230;;;;;;;;;;
+flood;ethiopia;Afar;Zone 3;20305;Gelalu;01-09-2019;6;other;;;;;;;;;;;
+flood;ethiopia;OROMIA;West Guji;41217;Gelana (West Guji);01-04-2010;;other;NA;14000;14000;NA;NA;3173;0;988;NA;0;3173
+flood;ethiopia;SNNPR;South Omo;70703;Gelila;05-08-2002;;other;NA;NA;NA;3;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70703;Gelila;07-09-2007;;other;NA;15000;15000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Jima;40408;Gera;01-04-2002;;other;NA;625;625;NA;NA;40;0;NA;125;0;40
+flood;ethiopia;Afar;Afar Zone 3;20303;Gewane;07-09-2006;5;other;NA;10294;10294;2;NA;NA;15;NA;NA;15;NA
+flood;ethiopia;Afar;Afar Zone 3;20303;Gewane;01-08-2007;1;other;NA;NA;NA;NA;NA;800;30;12000;NA;30;800
+flood;ethiopia;Afar;Afar Zone 3;20303;Gewane;24-08-2007;5;IFRC;NA;12000;12000;NA;NA;900;30;NA;NA;30;900
+flood;ethiopia;Afar;Afar Zone 3;20303;Gewane;10-08-2012;5;other;5000;NA;5000;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;OROMIA;Bale;41108;Ginir;07-09-2007;;other;NA;NA;NA;NA;NA;592;0;NA;NA;0;592
+flood;ethiopia;OROMIA;Bale;41108;Ginir;07-09-2007;;other;NA;NA;NA;NA;NA;592;0;NA;NA;0;592
+flood;ethiopia;OROMIA;East Shewa;41016;Girawa;01-04-2003;;other;NA;NA;NA;NA;NA;180;36;NA;96;36;180
+flood;ethiopia;OROMIA;East Shewa;41016;Girawa;01-08-2005;;other;NA;NA;NA;NA;NA;170;0;NA;20;0;170
+flood;ethiopia;OROMIA;East Shewa;41016;Girawa;01-08-2006;;other;NA;61000;61000;8;NA;2000;0;217;NA;0;2000
+flood;ethiopia;OROMIA;East Shewa;41016;Girawa;01-04-2010;;other;NA;5000;5000;NA;NA;616;0;NA;NA;0;616
+flood;ethiopia;SNNPR;Gofa;71505;Gizegofa;01-08-2019;6;other;58;;;;;;;;;;
+flood;ethiopia;Somali;Shabelle;50604;Gode;25-04-2005;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Shebelle;50604;Gode;23-04-2005;6;IFRC;235418(regional total);;;40(zonal);;;;;;;
+flood;ethiopia;Somali;Shebelle;50604;Gode;02-05-2012;6;other;702 HH;;;;;NA;;;;NA;
+flood;ethiopia;Somali;Shebelle;50604;Gode;24-04-2018;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Shebelle;50604;Gode;07-09-2006;;other;NA;5650;5650;10;NA;NA;333;NA;NA;333;NA
+flood;ethiopia;;Somali;50604;Gode;20-04-2013;6;other;Shebelle;;50604;;;;;;;;
+flood;ethiopia;;Somali;50604;Gode;20-04-2013;6;other;Shebelle;;;;;;;;;;
+flood;ethiopia;Gambella;Agnewak;120203;Gog;07-09-2001;;other;NA;5;5;NA;NA;110;421;21733;NA;421;110
+flood;ethiopia;Gambela;Agnuwa;120203;Goge;01-08-2019;6;other;;;;;;;;;;;
+flood;ethiopia;Gambela;Agnuwa;120203;Goge;01-10-2019;6;other;4,090;;;;;1,133.30;;;;;
+flood;ethiopia;OROMIA;Arsi;40803;Golocha;16-04-2005;;other;NA;NA;NA;NA;NA;NA;0;NA;20;0;NA
+flood;ethiopia;OROMIA;Arsi;40803;Golocha;18-08-2010;;other;NA;8000;8000;NA;NA;NA;5;NA;NA;5;NA
+flood;ethiopia;OROMIA;Arsi;40803;Gololcha;01-04-2016;6;IFRC;2,850;;;;;;;;;;
+flood;ethiopia;;OROMIA;40803;Gololcha;24-04-2016;6;other;Arsi;;40811;;;;;;;;
+flood;ethiopia;OROMIA;Bale;41105;Gololcha Bale;01-07-2010;0;other;NA;5000;5000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Bale;41105;Gololcha Bale;07-09-2007;;other;NA;11882;11882;NA;NA;2409;0;NA;NA;0;2409
+flood;ethiopia;OROMIA;Bale;41105;Gololcha Bale;07-09-2008;;other;NA;1803;1803;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;East Gojam;30603;Goncha Siso Enebse;01-07-2004;;other;NA;NA;NA;3;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;East Gojam;30603;Goncha Siso Enebse;01-07-2004;;other;NA;NA;NA;3;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;Central Gondar;30110;Gondar Zuria;07-09-2006;;other;NA;2810;2810;NA;NA;NA;29;3529;NA;29;NA
+flood;ethiopia;Amhara;Central Gondar;30110;Gondar Zuria;01-12-2006;;other;NA;NA;NA;NA;NA;1500;0;NA;NA;0;1500
+flood;ethiopia;Amhara;Central Gondar;30110;Gondar Zuria;06-12-2006;;other;NA;1533;1533;NA;NA;NA;39;437;NA;39;NA
+flood;ethiopia;Amhara;Central Gondar;30110;Gondar Zuria;07-09-2007;;other;NA;NA;NA;NA;NA;NA;11;NA;NA;11;NA
+flood;ethiopia;Amhara;Central Gondar;30110;Gonder Zuria;20-08-2011;5;other;NA;NA;0;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Amhara;Central Gondar;30110;Gonder Zuria;01-08-2010;;other;NA;200;200;NA;NA;155;0;NA;NA;0;155
+flood;ethiopia;OROMIA;East Shewa;41010;Goro Gutu;07-09-2007;;other;NA;NA;NA;NA;NA;854;0;NA;NA;0;854
+flood;ethiopia;OROMIA;East Shewa;41010;Goro Gutu;01-04-2010;;other;NA;3000;3000;NA;NA;185;0;1050;NA;0;185
+flood;ethiopia;Amhara;North Wello;30307;Guba Lafto;01-08-2010;;other;NA;26142;26142;NA;NA;1783;9;NA;NA;9;1783
+flood;ethiopia;Tigray;Eastern Tigray;10301;Gulo Meheda;01-08-2010;;other;NA;806;806;NA;NA;115;0;NA;NA;0;115
+flood;ethiopia;Somali;Liben;50801;Guradamole;07-09-2005;;other;NA;NA;NA;NA;NA;NA;0;NA;20;0;NA
+flood;ethiopia;Somali;Liben;50801;Guradamole;05-12-2005;;other;NA;23000;23000;16;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Fafan;41003;Gursum;07-09-2005;;other;NA;550;550;4;NA;NA;900;NA;NA;900;NA
+flood;ethiopia;;Somali;41003;Gursum;20-04-2013;6;other;Fafan;;41003;;;;;;;;
+flood;ethiopia;OROMIA;East wollega;40213;guto gida;01-10-2019;6;other;;4120;;;;25;;;;;
+flood;ethiopia;Amhara;North Wello;30308;Habru;07-09-2007;;other;NA;2;2;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;North Wello;30308;Habru;01-08-2010;;other;NA;37796;37796;NA;NA;5064;72;2919;NA;72;5064
+flood;ethiopia;Amhara;North Wello;30308;Habru;01-08-2010;;other;NA;31255;31255;NA;NA;3422;58;2624;NA;58;3422
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;07-09-2002;0;other;NA;NA;NA;NA;NA;40;0;NA;NA;0;40
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;07-09-2007;5;other;NA;809;809;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;07-09-2007;5;other;NA;943;943;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;07-09-2007;5;other;NA;845;845;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;07-09-2007;5;other;NA;1263;1263;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;07-09-2007;5;other;NA;1417;1417;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;07-09-2007;5;other;NA;1420;1420;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;07-09-2007;5;other;NA;20000;20000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;07-09-2007;5;other;NA;1843;1843;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;07-09-2007;5;other;NA;1843;1843;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;07-09-2007;5;other;NA;1843;1843;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70704;Hamer;01-08-2010;0;other;NA;6250;6250;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;East Shewa;41006;Haro Maya;01-04-2010;;other;NA;NA;NA;NA;NA;187;0;NA;NA;0;187
+flood;ethiopia;Somali;Fefan;50207;Harshin;07-09-2005;;other;NA;3050;3050;NA;NA;NA;0;NA;25;0;NA
+flood;ethiopia;;Fefan;50207;Harshin;20-04-2013;6;other;Fefan;;50207;;;;;;;;
+flood;ethiopia;OROMIA;West Harerge;40915;Hawi Gudena;01-04-2016;6;IFRC;641;;;;;;;;;;
+flood;ethiopia;OROMIA;West Harerge;40915;hawi gudina;04-05-2016;6;IFRC;;;;8;;;;;;3,179;
+flood;ethiopia;Tigray;Eastern Tigray;10305;Hawzen;01-07-2010;0;other;NA;3630;3630;NA;NA;78;0;NA;NA;0;78
+flood;ethiopia;Tigray;Eastern Tigray;10305;Hawzen;30-11-2010;0;other;NA;10135;10135;NA;NA;1177;0;NA;NA;0;1177
+flood;ethiopia;Tigray;Eastern Tigray;10305;Hawzen;01-08-2005;;other;NA;3400;3400;NA;NA;815;3;NA;NA;3;815
+flood;ethiopia;Tigray;Southern Tigray;10603;Hintalo Wajirat;01-07-2010;0;other;NA;1140;1140;NA;NA;769;0;NA;NA;0;769
+flood;ethiopia;Tigray;Southern Tigray;10603;Hintalo Wajirat;01-07-2010;0;other;NA;2495;2495;NA;NA;NA;0;161;NA;0;NA
+flood;ethiopia;OROMIA;Arsi;40807;Hitosa;07-09-2007;;other;NA;NA;NA;NA;NA;333;0;NA;NA;0;333
+flood;ethiopia;SNNPR;Wolayita;70604;Humbo;02-05-2013;5;other;650;NA;650;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;SNNPR;Wolayta;70604;Humbo;07-06-2019;6;other;57;;;;;104.5;;;;;
+flood;ethiopia;SNNPR;Wolayta;70604;Humbo;01-04-2005;6;IFRC;24,633;;;;;2,552;;;;;
+flood;ethiopia;SNNPR;Wolayita;70604;Humbo;07-09-2005;;other;NA;6755;6755;2;NA;1017;0;NA;NA;0;1017
+flood;ethiopia;SNNPR;Wolayita;70604;Humbo;05-12-2005;;other;NA;NA;NA;2;NA;1017;1525;6755;NA;1525;1017
+flood;ethiopia;SNNPR;Wolayita;70604;Humbo;07-09-2006;;other;NA;7885;7885;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Wolayita;70604;Humbo;06-12-2006;;other;NA;NA;NA;NA;NA;435;0;1075;NA;0;435
+flood;ethiopia;SNNPR;Wolayita;70604;Humbo;07-12-2007;;other;NA;6768;6768;NA;NA;364;3;3270;654;3;364
+flood;ethiopia;Tigray;North Western Tigray;10501;Humera -Town-;01-08-2006;;other;NA;NA;NA;NA;NA;NA;0;400;NA;0;NA
+flood;ethiopia;Tigray;North Western Tigray;10501;Humera -Town-;07-09-2007;;other;NA;462;462;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;North Western Tigray;10501;Humera -Town-;01-08-2010;;other;NA;6909;6909;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;South West Shoa;40500;Illu Galan;01-07-2010;0;other;NA;14600;14600;NA;NA;950;0;NA;NA;0;950
+flood;ethiopia;Anuak;Gambela;120207;Itang;21-08-2008;6;other;;;;;;;;;;;
+flood;ethiopia;Gambela;Agnuwa;120407;Itang;01-10-2019;6;other;4,090;;;;;1,133.30;;;;;
+flood;ethiopia;Gambella;Etang Special;120207;Itang;07-09-2007;;other;NA;NA;NA;NA;NA;2617.19;747;50264;NA;747;2617.19
+flood;ethiopia;Gambella;Etang Special;120207;Itang;07-09-2007;;other;NA;41;41;NA;NA;NA;0;27143;NA;0;NA
+flood;ethiopia;Gambella;Etang Special;120207;Itang;22-11-2007;;other;NA;209;209;NA;NA;NA;0;8785;NA;0;NA
+flood;ethiopia;Gambella;Agnewak;120207;Itang;01-08-2010;;other;NA;15000;15000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South wello;30414;Jama;01-09-2019;6;other;;;;;;469;;;;;
+flood;ethiopia;Amhara;South Wello;30414;Jama;01-06-2004;;other;NA;NA;NA;1;NA;NA;28;NA;NA;28;NA
+flood;ethiopia;Amhara;South Wello;30414;Jama;01-06-2004;;other;NA;75;75;NA;NA;122;0;375;NA;0;122
+flood;ethiopia;Amhara;South Wello;30414;Jama;01-08-2010;;other;NA;6;6;NA;NA;NA;4;6;NA;4;NA
+flood;ethiopia;OROMIA;Arsi;40804;Jeju;01-09-2019;6;other;424;;;;;128;;;;;
+flood;ethiopia;Somali;Fafan;50204;Jijiga;25-04-2005;5;other;NA;NA;NA;NA;NA;NA;0;NA;200;0;NA
+flood;ethiopia;Somali;Shebelle;50204;Jijiga;04-04-2016;6;other;;;;;;;;;;;
+flood;ethiopia;;Fafan;50204;Jijiga;20-04-2013;6;other;Fafan;;50204;;;;;;;;
+flood;ethiopia;;Shebelle;50204;Jijiga;20-04-2013;6;other;Shebelle;;;;;;;;;;
+flood;ethiopia;Gambella;Nuwer;120103;Jikawo;01-08-2010;;other;NA;6250;6250;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;Oromia;31003;Jilye Tumuga;07-09-2006;;other;NA;500;500;1;NA;273;0;739;NA;0;273
+flood;ethiopia;Amhara;Oromia;31003;Jilye Tumuga;30-11-2007;;other;NA;NA;NA;NA;NA;50;60;NA;NA;60;50
+flood;ethiopia;Amhara;Oromia;31003;Jilye Tumuga;30-11-2007;;other;NA;NA;NA;NA;NA;50;60;NA;NA;60;50
+flood;ethiopia;OROMIA;Jima;40418;Jima Town;09-08-2017;6;IFRC;150;;;;;;;;;;
+flood;ethiopia;OROMIA;East Welega;40214;Jimma Arjo;01-08-2010;;other;NA;NA;NA;2;NA;66;35;NA;NA;35;66
+flood;ethiopia;Gambela;Agnuwa;120204;jore;01-08-2019;6;other;;;;;;;;;;;
+flood;ethiopia;Gambela;Agnuwa;120204;Jore;01-10-2019;6;other;4,090;;;;;1,133.30;;;;;
+flood;ethiopia;Gambella;Agnewak;120204;Jore;07-09-2006;;other;NA;NA;NA;NA;NA;1650;1245;30915;NA;1245;1650
+flood;ethiopia;Gambella;Agnewak;120204;Jore;01-08-2010;;other;NA;1250;1250;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;North Western Tigray;10501;Kafta Humera;01-07-2010;0;other;NA;1385;1385;NA;NA;3534;0;NA;NA;0;3534
+flood;ethiopia;Tigray;North Western Tigray;10501;Kafta Humera;01-06-2004;;other;NA;NA;NA;2;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Wello;30407;kalu;20-08-2011;5;other;NA;NA;0;20;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Amhara;South Wello;30407;Kalu;07-09-2006;;other;NA;7174;7174;NA;NA;NA;0;18;NA;0;NA
+flood;ethiopia;Amhara;South Wello;30407;Kalu;01-08-2010;;other;NA;8107;8107;NA;NA;873;4;232;13;4;873
+flood;ethiopia;Amhara;South Wello;30407;Kalu;01-08-2010;;other;NA;2750;2750;NA;NA;189;37;NA;NA;37;189
+flood;ethiopia;Amhara;South Wello;30407;Kalu;01-08-2010;;other;NA;NA;NA;NA;NA;125;57;NA;NA;57;125
+flood;ethiopia;Amhara;South Wello;30407;Kalu;01-08-2010;;other;NA;8540;8540;NA;NA;972;45;726;NA;45;972
+flood;ethiopia;Somali;Fefan;50206;Kebribeyah;27-04-2005;5;other;NA;NA;NA;16;NA;NA;0;NA;108;0;NA
+flood;ethiopia;Somali;Fefan;50206;Kebribeyah;05-12-2005;;other;NA;24550;24550;53;NA;2500;27638;125000;5600;27638;2500
+flood;ethiopia;Somali;Fafan;50502;Kebribeyah;05-04-2018;;other;NA;NA;165000;NA;NA;12911;NA;NA;NA;NA;12911
+flood;ethiopia;;Somali;50206;Kebribeyah;20-04-2013;6;other;Fafan;;50206;;;;;;;;
+flood;ethiopia;Somali;Korahe;50502;Kebridehar;25-04-2012;5;other;NA;NA;0;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Somali;Korahe;50502;Kebridehar;07-09-2005;;other;NA;NA;NA;1;NA;NA;0;NA;105;0;NA
+flood;ethiopia;Somali;Korahe;50502;Kebridehar;07-09-2005;;other;NA;NA;NA;NA;NA;NA;0;NA;200;0;NA
+flood;ethiopia;Somali;Korahe;50502;Kebridehar;05-12-2005;;other;NA;4800;4800;2;NA;NA;2365;NA;NA;2365;NA
+flood;ethiopia;Somali;Korahe;50502;Kebridehar;07-09-2006;;other;NA;3500;3500;2;NA;NA;0;NA;33;0;NA
+flood;ethiopia;SNNPR;Gode;50605;Kelafo;27-05-2003;;other;NA;91050;91050;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;01-09-2019;6;other;320;;;;;785;;;;1478;
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;01-10-2019;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;23-04-2005;6;IFRC;235418(regional total);;;40(zonal);;;;;;;
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;07-09-2003;;other;NA;110000;110000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;07-09-2005;;other;NA;9574;9574;29;NA;5969;23440;NA;34;23440;5969
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;05-12-2005;;other;NA;40000;40000;66;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;07-09-2006;;other;NA;NA;NA;NA;NA;NA;0;NA;108;0;NA
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;07-09-2006;;other;NA;88540;88540;29;2;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;07-09-2006;;other;NA;NA;NA;2;1;3200;392;8539;NA;392;3200
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;02-05-2012;;other;702;NA;702;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;01-11-2015;;other;102000;NA;102000;5;NA;NA;10000;NA;NA;10000;NA
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;20-04-2013;6;other;Shebelle;;50605;;;;;;;;
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;24-04-2018;6;other;;;;;;;;;;;
+flood;ethiopia;SNNPR;Gamugofa;71012;Kemba;03-12-2003;;other;NA;NA;NA;1;NA;50;0;20;3;0;50
+flood;ethiopia;SNNPR;Gamugofa;71012;Kemba;07-09-2005;;other;NA;4;4;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;Oromia;31006;Kemisie Town;22-08-2010;5;other;NA;1139;1139;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Jima;41008;Kersa;07-09-2002;;other;NA;NA;NA;NA;NA;494;0;NA;NA;0;494
+flood;ethiopia;OROMIA;East Shewa;41008;Kersa;07-09-2007;;other;NA;NA;NA;NA;NA;854;0;NA;NA;0;854
+flood;ethiopia;Amhara;North Shewa;30512;Kewet;01-08-2010;;other;NA;1495;1495;NA;NA;110;3;NA;NA;3;110
+flood;ethiopia;SNNPR;Wolayita;70606;Kindo Koyisha;07-09-2006;;other;NA;4035;4035;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Wolayita;70606;Kindo Koyisha;01-05-2016;6;other;;;;;;;;;;;
+flood;ethiopia;OROMIA;Eastern wolega;40217;Kiremu;31-08-2019;6;other;510;;;;;79;;;;;
+flood;ethiopia;Tigray;Central Tigray;10208;Kola Temben;01-06-2010;0;other;NA;4450;4450;NA;NA;573;96;NA;NA;96;573
+flood;ethiopia;OROMIA;East Shewa;41001;Kombolcha;25-08-2006;;other;NA;NA;NA;NA;NA;NA;0;100;394;0;NA
+flood;ethiopia;OROMIA;East Shewa;41001;Kombolcha;07-09-2007;;other;NA;NA;NA;NA;NA;504;0;NA;NA;0;504
+flood;ethiopia;OROMIA;East Shewa;41001;Kombolcha;01-04-2010;;other;NA;NA;NA;NA;NA;63;0;NA;NA;0;63
+flood;ethiopia;SNNPR;konta;41001;Konta;15-04-2019;6;other;;273;;;;289;;;;;
+flood;ethiopia;SNNPR;Gamugofa;71003;Kucha;07-09-2002;;other;NA;400;400;5;NA;NA;201;NA;NA;201;NA
+flood;ethiopia;SNNPR;Gamugofa;71003;Kucha;03-12-2003;;other;NA;NA;NA;5;1;NA;0;400;15;0;NA
+flood;ethiopia;SNNPR;Gamugofa;71003;Kucha;07-09-2005;;other;NA;7720;7720;2;NA;NA;1525;NA;NA;1525;NA
+flood;ethiopia;SNNPR;South Omo;70706;Kuraz (Dasenech);07-09-2001;3;other;NA;NA;NA;6;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70706;Kuraz (Dasenech);07-09-2001;3;other;NA;NA;NA;12;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70706;Kuraz (Dasenech);11-12-2001;0;other;NA;NA;NA;NA;NA;NA;53;NA;NA;53;NA
+flood;ethiopia;SNNPR;South Omo;70706;Kuraz (Dasenech);07-09-2005;0;other;NA;5000;5000;NA;NA;NA;96;NA;NA;96;NA
+flood;ethiopia;SNNPR;South Omo;70706;Kuraz (Dasenech);17-05-2006;6;other;;;;;;;;;;;
+flood;ethiopia;SNNAP;South Omo;70706;Kuraz (Dasenech);18-08-2006;6;other;;;;354;;;;5000;;;
+flood;ethiopia;SNNPR;South Omo;70706;Kuraz (Dasenech);07-09-2006;0;other;NA;10000;10000;125;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70706;Kuraz (Dasenech);07-09-2006;0;other;NA;15748;15748;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70706;Kuraz (Dasenech);06-12-2006;0;other;NA;5000;5000;NA;NA;NA;96;NA;NA;96;NA
+flood;ethiopia;SNNPR;South Omo;70706;Kuraz (Dasenech);07-09-2007;1;other;NA;28000;28000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;South Omo;70706;Kuraz (Dasenech);08-05-2010;6;other;;;;;;;;;;;
+flood;ethiopia;SNNPR;South Omo;70706;Kuraz (Dasenech);01-08-2010;0;other;NA;5000;5000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;East Shewa;41007;Kurfa Chele;07-09-2007;;other;NA;NA;NA;NA;NA;208;0;NA;NA;0;208
+flood;ethiopia;Amhara;South Wello;30403;Kutaber;01-08-2010;;other;NA;7891;7891;NA;NA;382;1;NA;NA;1;382
+flood;ethiopia;Tigray;Central Tigray;10205;Laelay Maychew;01-08-2004;;other;NA;NA;NA;1;NA;85;0;NA;28;0;85
+flood;ethiopia;OROMIA;kelem wolega;41811;Lalokile;03-09-2019;6;other;465;;;;;45;;;;;
+flood;ethiopia;SNNPR;Silte;72003;Lanfuro;01-05-2003;;other;NA;NA;NA;NA;NA;128;333;NA;NA;333;128
+flood;ethiopia;SNNPR;Silte;72003;Lanfuro;07-09-2006;;other;NA;300;300;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Silte;72003;Lanfuro;06-12-2006;;other;NA;NA;NA;NA;NA;18.4;49;300;60;49;18.4
+flood;ethiopia;Gambella;Nuwer;120102;Lare;22-11-2007;;other;NA;132;132;NA;NA;NA;0;14346;NA;0;NA
+flood;ethiopia;Anuak;Gambela;120102;Lare;21-08-2008;6;other;;;;;;;;;;;
+flood;ethiopia;Gambella;Nuwer;120102;Lare;07-09-2008;;other;NA;NA;NA;NA;NA;1923.86;341;13004;NA;341;1923.86
+flood;ethiopia;Gambella;Nuer;120102;Lare;04-07-2010;6;other;;;;;;;;;;;
+flood;ethiopia;Gambella;Nuwer;120102;Lare;01-08-2010;;other;NA;5000;5000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Gambela;Nuer;120102;Lare;01-08-2019;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;korah;50596;Lasdhankayre;01-10-2019;6;other;;;;;;;;;;;
+flood;ethiopia;Amhara;Central Gondar;30108;Lay Armacho;01-08-2004;;other;NA;NA;NA;NA;NA;268;48;NA;NA;48;268
+flood;ethiopia;OROMIA;Bale;30420;Lege Hida;07-09-2008;;other;NA;1530;1530;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Bale;41107;Lege Hida;01-07-2010;0;other;NA;4500;4500;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Wello;30420;Legehida;01-08-2010;;other;NA;366;366;NA;NA;713;0;NA;NA;0;713
+flood;ethiopia;Amhara;South Wello;30420;Legehida;01-08-2010;;other;NA;381;381;NA;NA;51;0;NA;NA;0;51
+flood;ethiopia;OROMIA;East shoa;40711;Liben Chukala;15-08-2019;6;other;1356;;;;;4 kebele farm land;;;;;
+flood;ethiopia;Amhara;South Gonder;30202;Libokemekem;07-09-2000;;other;NA;10234;10234;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Gonder;30202;Libokemekem;07-09-2006;;other;NA;NA;NA;2;NA;NA;600;NA;NA;600;NA
+flood;ethiopia;Amhara;South Gonder;30202;Libokemekem;07-09-2006;;other;NA;10000;10000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;South Gonder;30202;Libokemekem;07-09-2006;;other;NA;20821;20821;1;NA;2441;2790;3134;NA;2790;2441
+flood;ethiopia;Amhara;South Gonder;30202;Libokemekem;07-09-2007;;other;NA;1127;1127;NA;NA;NA;0;1127;NA;0;NA
+flood;ethiopia;Amhara;South Gonder;30202;Libokemekem;01-08-2010;;other;NA;NA;NA;NA;NA;387;62;NA;NA;62;387
+flood;ethiopia;OROMIA;Arsi;40818;Limu bilbilo;01-10-2019;6;other;765;;;;;129;;;;;
+flood;ethiopia;OROMIA;Jima;40402;Limu Kosa;01-07-2010;0;other;NA;NA;NA;NA;NA;119;0;NA;NA;0;119
+flood;ethiopia;SNNPR;sidama;70414;loka abaya;01-05-2013;5;other;650;NA;650;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;SNNPR;South Omo;70707;Male;07-09-2007;;other;NA;30000;30000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Dawuro;71702;Mareka;01-05-2004;;other;NA;NA;NA;NA;NA;220;0;NA;NA;0;220
+flood;ethiopia;SNNPR;Gurage;70107;Mareko;07-12-2007;;other;NA;5560;5560;NA;NA;NA;1710;1255;2;1710;NA
+flood;ethiopia;Amhara;West Gojam;30704;Mecha;07-09-2006;;other;NA;351;351;1;NA;NA;0;53;NA;0;NA
+flood;ethiopia;Tigray;Western Tigray;10103;Medebay Zana;01-08-2004;;other;NA;NA;NA;NA;NA;176;0;NA;NA;0;176
+flood;ethiopia;Tigray;Western Tigray;10103;Medebay Zana;01-07-2010;0;other;NA;2145;2145;NA;NA;225;0;NA;NA;0;225
+flood;ethiopia;Tigray;Western Tigray;10103;Medebay Zana;01-07-2010;0;other;NA;3020;3020;NA;NA;202;0;NA;NA;0;202
+flood;ethiopia;Amhara;South Wello;30401;Mekdela;01-08-2010;;other;NA;726;726;NA;NA;60;0;NA;NA;0;60
+flood;ethiopia;Gambela;Nuer;120105;Mekoy;01-08-2019;6;other;;;;;;;;;;;
+flood;ethiopia;SNNPR;Gofa;71501;Melokoza;01-10-2019;6;other;1330;;;1;;204;;;217;;
+flood;ethiopia;OROMIA;Jima;40490;mencho;07-09-2019;6;other;;;;;;35;2;;;;
+flood;ethiopia;Benishangul Gumz;Asosa;60301;Menge;19-09-2000;;other;NA;NA;NA;NA;NA;NA;500;NA;200;500;NA
+flood;ethiopia;Amhara;North Shewa;30509;Menze Mama Midir;01-08-2010;;other;NA;8;8;NA;NA;NA;0;8;NA;0;NA
+flood;ethiopia;Tigray;Central Tigray;10201;Mereb Lehe;01-08-2010;;other;NA;5772;5772;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;Central Tigray;10201;Mereb Lehe;01-08-2010;;other;NA;15810;15810;NA;NA;1054;72;NA;NA;72;1054
+flood;ethiopia;Amhara;North Shewa;30502;Merhabete;01-08-2010;;other;NA;1697;1697;NA;NA;50;0;NA;NA;0;50
+flood;ethiopia;Amhara;North Wello;30397;Mersa Town;22-08-2010;0;other;NA;NA;0;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Amhara;North Wello;30397;Mersa Town;22-08-2010;5;IFRC;NA;NA;0;5;19;3745;NA;NA;NA;NA;3745
+flood;ethiopia;SNNPR;Gurage;70106;Meskan;07-09-2005;;other;NA;NA;NA;NA;NA;NA;0;NA;50;0;NA
+flood;ethiopia;OROMIA;East Shewa;41009;Meta;01-04-2002;;other;NA;NA;NA;3;NA;NA;26;NA;12;26;NA
+flood;ethiopia;OROMIA;East Shewa;41009;Meta;01-08-2007;;other;NA;27500;27500;NA;NA;1000;0;NA;NA;0;1000
+flood;ethiopia;OROMIA;East Shewa;41009;Meta;07-09-2007;;other;NA;NA;NA;3;NA;2915;0;NA;NA;0;2915
+flood;ethiopia;OROMIA;west shoa;40514;Metarobi;01-10-2019;6;other;579;;;;;135.5;;;;;
+flood;ethiopia;Amhara;West Gondar;30113;Metema;01-10-2001;;other;NA;NA;NA;NA;NA;570;0;NA;NA;0;570
+flood;ethiopia;Amhara;West Gondar;30113;Metema;07-09-2006;;other;NA;966;966;1;NA;398;17;NA;NA;17;398
+flood;ethiopia;OROMIA;East Shewa;41009;Metta;01-04-2010;;other;NA;1800;1800;NA;NA;3467;0;630;NA;0;3467
+flood;ethiopia;Amhara;East Gojam;30609;Michakel;01-08-2005;;other;NA;NA;NA;NA;NA;239;0;NA;NA;0;239
+flood;ethiopia;Amhara;East Gojam;30609;Michakel;01-08-2005;;other;NA;NA;NA;NA;NA;NA;0;NA;34;0;NA
+flood;ethiopia;Amhara;East Gojam;30609;Michakel;01-08-2005;;other;NA;2315;2315;NA;NA;775;0;NA;27;0;775
+flood;ethiopia;SNNPR;Gamugofa;71005;Mierab Abaya;03-12-2003;;other;NA;NA;NA;NA;NA;120;0;300;NA;0;120
+flood;ethiopia;SNNPR;Gamugofa;71005;Mierab Abaya;07-09-2006;;other;NA;300;300;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Gamugofa;71005;Mierab Abaya;22-06-2007;;other;NA;NA;NA;NA;NA;179;45;500;NA;45;179
+flood;ethiopia;SNNPR;Gamugofa;71005;Mierab Abaya;07-09-2007;;other;NA;470;470;NA;NA;400;108;470;NA;108;400
+flood;ethiopia;Afar;Afar Zone 1;20105;Mile;01-04-2004;;other;NA;NA;NA;4;NA;NA;3170;NA;NA;3170;NA
+flood;ethiopia;Afar;Afar Zone 1;20105;Mile;13-07-2006;;other;NA;6375;6375;NA;NA;NA;5524;NA;NA;5524;NA
+flood;ethiopia;Afar;Afar Zone 1;20105;Mile;07-09-2007;;other;NA;1275;1275;NA;NA;NA;0;1275;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 1;20105;Mile;07-09-2008;;other;NA;5000;5000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Borena;41216;Miyo;01-04-2010;;other;NA;350;350;NA;NA;101;0;NA;NA;0;101
+flood;ethiopia;OROMIA;Borena;41216;Miyo;01-04-2010;;other;NA;1200;1200;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;North Shewa;30504;Moret and Juru;01-10-2019;6;other;;188;;;;5675;;;;;
+flood;ethiopia;OROMIA;Borena;41210;Moyale (Oromia);07-09-2006;;other;NA;NA;NA;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Borena;41210;Moyale (Oromia);14-04-2010;5;other;NA;9700;9700;NA;NA;324;0;1937;NA;0;324
+flood;ethiopia;SNNPR;Gurage;70112;Muhur Na Aklil;06-12-2006;;other;NA;NA;NA;NA;NA;NA;0;143;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;07-09-2003;;other;NA;91050;91050;64;NA;NA;5900;6350;880;5900;NA
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;07-09-2003;;other;NA;1.00E+05;1.00E+05;64;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;07-09-2005;;other;NA;NA;NA;4;NA;NA;0;NA;300;0;NA
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;07-09-2005;;other;NA;16449;16449;14;NA;5400;4534;NA;NA;4534;5400
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;07-09-2006;;other;NA;NA;NA;NA;NA;NA;0;NA;300;0;NA
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;07-09-2006;;other;NA;74000;74000;4;8;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;06-12-2006;;other;NA;361600;361600;80;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;08-08-2007;;other;NA;32000;32000;2;4;4770;361;32000;NA;361;4770
+flood;ethiopia;;Somali;50606;Mustahil;12-08-2011;6;other;Shebelle;;50606;;;;;;;;
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;21-08-2011;1;other;NA;NA;0;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;03-05-2012;5;other;30;NA;30;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;;Somali;50606;Mustahil;20-04-2013;6;other;Shebelle;;50606;;;;;;;;
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;31-10-2015;5;other;102000;NA;102000;5;NA;NA;10000;NA;NA;10000;NA
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;24-04-2018;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Shabelle;50606;Mustahil;01-09-2019;6;other;2035;;;;;1833;;;;3448;
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;01-10-2019;6;other;;;;;;;;;;;
+flood;ethiopia;Somali;Shebelle;50606;Mustahil;23-04-2005;6;IFRC;235418(regional total);;;40(zonal);;;;;;;
+flood;ethiopia;Tigray;Southern Tigray;10206;Mychew -Town-;01-08-2010;;other;NA;853;853;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;Southern Tigray;10206;Mychew -Town-;01-08-2010;;other;NA;1264;1264;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;Central Tigray;10207;Nader Adet;01-08-2010;;other;NA;9120;9120;NA;NA;727;0;NA;NA;0;727
+flood;ethiopia;Benshangul;Asosa;60306;Odabildig;01-10-2019;6;other;;;;;;2144.7;;;;;
+flood;ethiopia;SNNPR;Wolayita;70607;Ofa;02-12-2002;;other;NA;NA;NA;NA;NA;402;0;NA;NA;0;402
+flood;ethiopia;SNNPR;Wolayita;70607;Ofa;01-04-2004;;other;NA;NA;NA;NA;NA;284;0;NA;109;0;284
+flood;ethiopia;SNNPR;Wolayita;70607;Ofa;01-08-2004;;other;NA;NA;NA;NA;NA;160;0;NA;NA;0;160
+flood;ethiopia;SNNPR;Wolayita;70607;Ofa;01-08-2005;;other;NA;70;70;1;NA;20;0;NA;NA;0;20
+flood;ethiopia;SNNPR;Wolayita;70607;Ofa;07-09-2006;;other;NA;6240;6240;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;Southern Tigray;10408;Ofla;01-08-2004;;other;NA;NA;NA;NA;NA;176;0;NA;NA;0;176
+flood;ethiopia;Tigray;Southern Tigray;10408;Ofla;01-07-2010;0;other;NA;39705;39705;7;NA;2583;45;85;NA;45;2583
+flood;ethiopia;Tigray;Southern Tigray;10406;Raya Azebo;07-09-2001;;other;NA;NA;NA;NA;NA;200;0;NA;NA;0;200
+flood;ethiopia;Tigray;Southern Tigray;10406;Raya Azebo;01-09-2004;;other;NA;50;50;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;Southern Tigray;10406;Raya Azebo;01-09-2004;;other;NA;1875;1875;NA;NA;1087;0;NA;NA;0;1087
+flood;ethiopia;Tigray;Southern Tigray;10406;Raya Azebo;01-08-2006;;other;NA;NA;NA;NA;NA;NA;0;NA;24;0;NA
+flood;ethiopia;Tigray;Southern Tigray;10406;Raya Azebo;07-09-2007;;other;NA;87;87;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;Southern Tigray;10406;Raya Azebo;01-07-2010;0;other;NA;10255;10255;NA;NA;250;303;1362;NA;303;250
+flood;ethiopia;Amhara;North Wello;30302;Raya Kobo;01-08-2006;;other;NA;NA;NA;NA;NA;NA;100;60;12;100;NA
+flood;ethiopia;Amhara;North Wello;30302;Raya Kobo;23-08-2006;;other;NA;87;87;NA;NA;NA;0;87;NA;0;NA
+flood;ethiopia;Amhara;North Wello;30302;Raya Kobo;07-09-2006;;other;NA;102;102;NA;NA;NA;0;56;NA;0;NA
+flood;ethiopia;Amhara;North Wello;30302;Raya Kobo;14-11-2007;;other;NA;2288;2288;NA;NA;306.75;0;2288;NA;0;306.75
+flood;ethiopia;Amhara;North Wello;30302;Raya Kobo;01-08-2010;;other;NA;494;494;NA;NA;NA;0;494;NA;0;NA
+flood;ethiopia;Amhara;North Wello;30302;Raya Kobo;01-08-2010;;other;NA;5728;5728;NA;NA;493;14;47;44;14;493
+flood;ethiopia;OROMIA;Arsi;40812;Robe;01-06-2004;;other;NA;2070;2070;NA;NA;344;0;NA;NA;0;344
+flood;ethiopia;OROMIA;Arsi;40812;Robe;07-09-2007;;other;NA;NA;NA;NA;NA;160;0;NA;NA;0;160
+flood;ethiopia;OROMIA;Arsi;40812;Robe;07-09-2008;;other;NA;8402;8402;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Finfine zuria;42006;Sabata Awas;04-08-2006;6;IFRC;;;;;;;;;;;
+flood;ethiopia;Tigray;Eastern Tigray;10303;Saesi Tsesada Amba;01-08-2006;;other;NA;NA;NA;6;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;Eastern Tigray;10303;Saesi Tsesada Amba;01-08-2010;;other;NA;7950;7950;NA;NA;530;0;NA;NA;0;530
+flood;ethiopia;Amhara;Wag Himra;30806;Sahila;20-03-2009;;other;NA;NA;NA;NA;NA;NA;14;NA;NA;14;NA
+flood;ethiopia;Afar;Zone 5;20502;Samurobi;01-10-2019;6;other;500;;;;;15;;;700;2092;
+flood;ethiopia;Afar;Afar Zone 5;20502;Samurobi Gele'alo;07-09-2006;;other;NA;NA;NA;NA;NA;NA;660;NA;NA;660;NA
+flood;ethiopia;Afar;Afar Zone 5;20502;Samurobi Gele'alo;07-09-2006;;other;NA;NA;NA;NA;NA;NA;550;NA;NA;550;NA
+flood;ethiopia;Afar;Afar Zone 5;20502;Samurobi Gele'alo;07-09-2006;;other;NA;NA;NA;NA;NA;NA;620;NA;NA;620;NA
+flood;ethiopia;Afar;Afar Zone 5;20502;Samurobi Gele'alo;07-09-2006;;other;NA;NA;NA;NA;NA;NA;450;NA;NA;450;NA
+flood;ethiopia;Afar;Afar Zone 5;20502;Samurobi Gele'alo;07-09-2006;;other;NA;NA;NA;NA;NA;NA;400;NA;NA;400;NA
+flood;ethiopia;Afar;Afar Zone 5;20502;Samurobi Gele'alo;29-07-2010;0;other;NA;1000;1000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Afar;Afar Zone 5;20502;Samurobi Gele'alo;29-07-2010;0;other;NA;1100;1100;NA;NA;346;0;NA;NA;0;346
+flood;ethiopia;SNNPR;Silte;72006;Sankura;01-07-2004;;other;NA;1920;1920;1;NA;1063;348;NA;NA;348;1063
+flood;ethiopia;Amhara;South Wello;30411;Sayint;16-07-2000;;other;NA;1;1;1;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Finfine zuria;42006;Sebeta ;09-08-2017;6;IFRC;460;;;;;;;;;;
+flood;ethiopia;OROMIA;Finfine zuria;42006;Sebeta Hawas;01-09-2019;6;other;776;;;;;;;;;;
+flood;ethiopia;Tigray;Southern Tigray;10601;Seharti Samre;01-07-2010;0;other;NA;980;980;NA;NA;404;49;NA;NA;49;404
+flood;ethiopia;Amhara;Wag Himra;30802;Sekota;07-09-2006;;other;NA;5809;5809;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;Wag Himra;30802;Sekota;07-01-2008;;other;NA;NA;NA;NA;NA;NA;96;NA;NA;96;NA
+flood;ethiopia;Amhara;Wag Himra;30802;Sekota;01-08-2010;;other;NA;NA;NA;NA;NA;21;0;NA;NA;0;21
+flood;ethiopia;SNNPR;South Omo;70701;selamgo;07-09-2007;;other;NA;25000;25000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Silte;72002;Selti;07-09-2006;;other;NA;3120;3120;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Silte;72002;Selti;06-12-2006;;other;NA;NA;NA;NA;NA;NA;121;3120;984;121;NA
+flood;ethiopia;Amhara;South Gonder;30207;Semada;01-08-2006;;other;NA;NA;NA;2;NA;34;0;NA;NA;0;34
+flood;ethiopia;Amhara;West Gojam;30701;Semen Achefer;14-08-2008;;other;NA;NA;NA;NA;NA;786;0;NA;NA;0;786
+flood;ethiopia;Amhara;West Gojam;30701;Semen Achefer;01-08-2010;;other;NA;250;250;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Arsi;40811;Seru;07-09-2008;;other;NA;3300;3300;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;;OROMIA;40811;Seru;24-04-2016;6;other;Arsi;;;;;;;;;;
+flood;ethiopia;OROMIA;Arsi;40811;seru;04-05-2016;6;IFRC;1500;;;;;;;;;;
+flood;ethiopia;OROMIA;Arsi;40811;Seru;01-04-2016;6;IFRC;1,463;;;;;;;;;;
+flood;ethiopia;OROMIA;Bale;41118;Seweyna;01-10-2001;;other;NA;NA;NA;2;2;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Bale;41118;Seweyna;28-04-2005;;other;NA;2;2;NA;NA;NA;12;NA;NA;12;NA
+flood;ethiopia;SNNPR;Hadiya;70204;Shashego;01-10-2019;6;other;14261;;;;;1722;;;;;
+flood;ethiopia;SNNPR;Hadiya;70204;Shashego;10-03-2019;6;other;14,261;;;;;1,772;;;;NA;
+flood;ethiopia;OROMIA;West Arsi;41712;Shashemene Zuria;01-08-2010;;other;NA;5000;5000;NA;NA;95;0;NA;NA;0;95
+flood;ethiopia;OROMIA;West Arsi;41712;Shashemene Zuria;24-08-2010;;other;NA;5000;5000;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Hadiya;70204;Shashogo;07-09-2005;;other;NA;17;17;NA;NA;5.4;0;NA;NA;0;5.4
+flood;ethiopia;SNNPR;Sidama;70204;Shashogo;07-09-2006;;other;NA;1540;1540;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Hadiya;70204;Shashogo;07-09-2006;;other;NA;7500;7500;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Hadiya;70204;Shashogo;06-12-2006;;other;NA;NA;NA;2;NA;5066;0;8258;NA;0;5066
+flood;ethiopia;SNNPR;Hadiya;70204;Shashogo;24-07-2012;;other;NA;1272;1272;NA;NA;2189;0;NA;NA;0;2189
+flood;ethiopia;Somali;Korahe;50501;Shekosh;26-04-2012;1;other;330;NA;330;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Somali;Siti;50103;Shinile;07-09-2000;;other;NA;NA;NA;NA;NA;NA;0;1000;NA;0;NA
+flood;ethiopia;Somali;Siti;50103;Shinile;05-04-2018;;other;NA;NA;165000;NA;NA;12911;NA;NA;NA;NA;12911
+flood;ethiopia;Somali;Siti;50103;Shinile;24-04-2018;6;other;;;;;;;;;;;
+flood;ethiopia;Tigray;Western Tigray;10108;shire;01-08-2010;;other;NA;999;999;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Arsi;40814;Shirka;01-08-2010;;other;NA;2500;2500;NA;NA;240;0;875;NA;0;240
+flood;ethiopia;SNNPR;Silte ;72002;Silte;15-04-2019;6;other;5630;;;6;;;;;;;
+flood;ethiopia;OROMIA;West Arsi;41701;Siraro;01-04-2003;;other;NA;NA;NA;3;NA;890;190;NA;NA;190;890
+flood;ethiopia;OROMIA;Arsi;40820;Sire;07-09-2003;;other;NA;NA;NA;NA;NA;429;0;NA;NA;0;429
+flood;ethiopia;SNNPR;Gurage;70105;Sodo;06-12-2006;;other;NA;NA;NA;NA;NA;NA;0;358;NA;0;NA
+flood;ethiopia;SNNPR;Wolayita;70605;Sodo Zuria;07-09-2005;;other;NA;1363;1363;NA;NA;600;0;NA;17;0;600
+flood;ethiopia;SNNPR;Wolayita;70605;Sodo Zuria;05-12-2005;;other;NA;NA;NA;NA;NA;631;0;1363;17;0;631
+flood;ethiopia;SNNPR;Wolayita;70605;Sodo Zuria;07-09-2006;;other;NA;1363;1363;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Wolayta;70605;Sodo Zuria;01-04-2005;6;IFRC;17,545;;;;;1,154;;;;;
+flood;ethiopia;Harari;Harar;130101;Sofi;22-06-2001;;other;NA;40;40;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Harari;Harar;130101;Sofi;22-06-2001;0;other;NA;5;5;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Harari;Harar;130101;Sofi;07-09-2005;;other;NA;NA;NA;NA;NA;1835;0;NA;NA;0;1835
+flood;ethiopia;Harari;Harar;130101;Sofi;07-09-2005;;other;NA;NA;NA;NA;NA;148;0;NA;NA;0;148
+flood;ethiopia;Harari;Harar;130101;Sofi;07-09-2005;;other;NA;NA;NA;NA;NA;115;0;NA;NA;0;115
+flood;ethiopia;Harari;Harar;130101;Sofi;07-09-2005;;other;NA;NA;NA;NA;NA;74.5;0;NA;NA;0;74.5
+flood;ethiopia;Harari;Harar;130101;Sofi;07-09-2005;;other;NA;NA;NA;NA;NA;71;0;NA;NA;0;71
+flood;ethiopia;Harari;Harar;130101;Sofi;07-09-2005;;other;NA;NA;NA;NA;NA;3.5;0;NA;NA;0;3.5
+flood;ethiopia;Harari;Harar;130101;Sofi;07-09-2005;;other;NA;NA;NA;NA;NA;1.5;0;NA;NA;0;1.5
+flood;ethiopia;SNNPR;Hadiya;70206;Soro;01-10-2019;6;other;542;;;;;51;;;24;;
+flood;ethiopia;Tigray;Western Tigray;10101;Tahtay Adiyabo;01-07-2010;0;other;NA;2200;2200;NA;NA;875;12;NA;NA;12;875
+flood;ethiopia;Tigray;Western Tigray;10101;Tahtay Adiyabo;01-08-2010;;other;NA;2952;2952;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Tigray;Western Tigray;10104;Tahtay Koraro;01-07-2010;0;other;NA;4735;4735;NA;NA;569;33;NA;NA;33;569
+flood;ethiopia;Tigray;Central Tigray;10206;Tahtay Maychew;01-07-2010;0;other;NA;3550;3550;NA;NA;208;0;NA;NA;0;208
+flood;ethiopia;Amhara;Central Gondar;30121;Takusa;07-09-2008;;other;NA;22;22;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Borena;41212;Teltale;01-04-2010;;other;NA;3000;3000;NA;NA;16003;12;1050;NA;12;16003
+flood;ethiopia;OROMIA;Arsi;40813;Tena;31-01-2010;0;other;NA;4150;4150;NA;NA;NA;16;NA;NA;16;NA
+flood;ethiopia;OROMIA;Arsi;40813;Tena;01-08-2010;;other;NA;4150;4150;NA;NA;206;16;NA;NA;16;206
+flood;ethiopia;Amhara;South Wello;30402;Tenta;01-08-2010;;other;NA;3645;3645;NA;NA;223;8;NA;NA;8;223
+flood;ethiopia;Amhara;South Wello;30405;Thehulederie;01-08-2004;;other;NA;NA;NA;2;1;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;West Shewa;40509;Tikur Enchini;24-08-2010;;other;NA;NA;NA;1;NA;NA;26;NA;NA;26;NA
+flood;ethiopia;Amhara;North Wello;30305;Wadla;01-08-2010;;other;NA;1336;1336;NA;NA;116;9;NA;NA;9;116
+flood;ethiopia;Amhara;North Wello;30305;Wadla;01-08-2010;;other;NA;18935;18935;NA;NA;1866;23;3;NA;23;1866
+flood;ethiopia;OROMIA;East wollega;40216;wama gelo;01-10-2019;6;other;;1105;;;;655;;;;;
+flood;ethiopia;Gambella;Nuwer;120104;Wantawo;01-08-2010;;other;NA;3750;3750;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Doolo;50704;Warder;05-12-2005;;other;NA;8000;8000;1;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Doolo;50704;Warder;05-04-2018;;other;NA;NA;165000;NA;NA;12911;NA;NA;NA;NA;12911
+flood;ethiopia;Somali;Shebelle;50805;Weast Immi;23-04-2005;6;IFRC;235418(regional total);;;40(zonal);;;;;;;
+flood;ethiopia;Amhara;South Wello;30416;Wegde;07-09-2006;;other;NA;828;828;NA;NA;710;177;135;NA;177;710
+flood;ethiopia;Amhara;South Wello;30416;Wegde;30-11-2007;;other;NA;1;1;1;NA;NA;28;NA;NA;28;NA
+flood;ethiopia;Amhara;South Wello;30416;Wegde;30-11-2007;;other;NA;1;1;1;NA;NA;28;NA;NA;28;NA
+flood;ethiopia;Amhara;Central Gondar;30109;wegera;20-08-2011;1;other;NA;NA;0;NA;NA;NA;NA;NA;NA;NA;NA
+flood;ethiopia;Tigray;North Western Tigray;10502;Welkait;01-07-2010;0;other;NA;125;125;NA;NA;75;0;NA;NA;0;75
+flood;ethiopia;SNNPR;Gedeo;70501;Wenago;01-04-2004;;other;NA;NA;NA;NA;NA;400;0;NA;NA;0;400
+flood;ethiopia;Amhara;South Wello;30415;Were ilu;01-08-2010;;other;NA;8444;8444;NA;NA;55;0;NA;NA;0;55
+flood;ethiopia;Amhara;South Wello;30415;were Ilu;01-09-2019;6;other;;;;;;260;;;;;
+flood;ethiopia;Tigray;Central Tigray;10203;Werei Leke;01-08-2006;;other;NA;NA;NA;NA;NA;491;12;NA;24;12;491
+flood;ethiopia;SNNPR;Gamo;71005;West Abaya;29-09-2011;6;other;;;;;;;;;;;
+flood;ethiopia;Amhara;Central Gondar;30117;West Belesa;01-06-2004;;other;NA;NA;NA;2;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;Central Gondar;30117;West Belesa;01-08-2004;;other;NA;1100;1100;NA;NA;112;0;NA;NA;0;112
+flood;ethiopia;Amhara;Central Gondar;30116;West Belesa;01-08-2010;;other;NA;505;505;NA;NA;NA;0;505;110;0;NA
+flood;ethiopia;Somali;Afder;50805;West Imi;22-04-2005;5;other;NA;13415;13415;55;NA;NA;14128;NA;900;14128;NA
+flood;ethiopia;Somali;Afder;50805;west Imi;07-09-2005;;other;NA;66;66;NA;NA;NA;0;3000;NA;0;NA
+flood;ethiopia;Somali;Afder;50805;west Imi;07-09-2006;;other;NA;41000;41000;7;2;NA;0;NA;NA;0;NA
+flood;ethiopia;Somali;Afder;50805;West Imi;05-04-2018;;other;NA;NA;165000;NA;NA;12911;NA;NA;NA;NA;12911
+flood;ethiopia;Somali;Afder;50805;west Imi;24-04-2018;6;other;;;;;;;;;;;
+flood;ethiopia;Amhara;South Wello;40111;Worebabu;01-08-2010;;other;NA;10183;10183;NA;NA;229;27;NA;NA;27;229
+flood;ethiopia;Tigray;Eastern Tigray;10309;Wukro Town;01-08-2010;;other;NA;557;557;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;OROMIA;Borena;41207;Yabelo;26-03-2010;5;other;NA;9200;9200;NA;NA;2644;54;2213;NA;54;2644
+flood;ethiopia;OROMIA;North Shewa;40614;Yayagulele;04-09-2019;6;other;1505;;;;;224;;;;;
+flood;ethiopia;SNNPR;Yem Sp. Wer.;71201;Yem SP woreda;01-08-2004;;other;NA;NA;NA;2;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;Amhara;West Gojam;30703;Yilmana Densa;01-08-2010;;other;NA;16;16;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Gedeo;70502;Yirgachefe;01-05-2004;;other;NA;510;510;NA;NA;NA;0;NA;NA;0;NA
+flood;ethiopia;SNNPR;Gedeo;70502;Yirgachefe;01-05-2004;;other;NA;NA;NA;NA;NA;69;0;NA;NA;0;69
+flood;ethiopia;Amhara;Wag Himra;30801;Zequala;01-08-2010;;other;NA;505;505;NA;NA;87;460;NA;NA;460;87
+flood;ethiopia;Somali;Shebelle;50605;Kelafo;02-11-2008;6;other;36888;;;;;;;;;;

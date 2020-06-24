@@ -36,10 +36,13 @@ url<- parse_url(url_geonode)
 # }
 
 ethiopia_admin3 <- sf::read_sf("shapes/eth_adminboundaries_3.shp")
-kenya_admin1 <- sf::read_sf("shapes/ken_adminboundaries_2.shp")
+
 uganda_admin2 <- sf::read_sf("shapes/uga_adminboundaries_1.shp")
 
-kenya_admin1<-kenya_admin1 %>% dplyr::mutate(ADM2_PCODE=ADM1_PCODE,ADM2_EN=ADM1_EN)
+#kenya_admin1<-sf::read_sf("shapes/ken_adminboundaries_2.shp") %>% dplyr::mutate(ADM2_PCODE=ADM1_PCODE,ADM2_EN=ADM1_EN)
+kenya_admin1 <- sf::read_sf("shapes/ken_adminboundaries_3.shp") %>% 
+  dplyr::mutate(ADM3_PCODE=ADM2_PCODE,ADM3_EN=ADM2_EN) %>% dplyr::select(ADM3_PCODE,ADM3_EN)
+
 
 
 
@@ -47,18 +50,34 @@ admin <- list(ethiopia_admin3, kenya_admin1, uganda_admin2)
 # swi <- read.csv("data/ethiopia_admin3_swi_all.csv", stringsAsFactors = F, colClasses = c("character", "character", "numeric", "numeric", "numeric"))
 #ethiopia_impact <- read.csv("data/Eth_impact_data2.csv", stringsAsFactors = F, sep=";")
 
-ethiopia_impact <- read_delim("data/Ethiopia_impact.csv", ",", escape_double = FALSE, trim_ws = TRUE)
+ethiopia_impact <- read_delim("data/eth_impactdata_master_.csv", ";", escape_double = FALSE, trim_ws = TRUE)%>%
+  dplyr::mutate(score=ifelse(is.na(Data_quality_score),99,Data_quality_score))%>%
+  dplyr::filter(score != 0)
+
+#ethiopia_impact <- read_delim("data/Ethiopia_impact.csv", ",", escape_double = FALSE, trim_ws = TRUE)
 #uganda_impact <- read_delim("data/uga_impactdata_master.csv", ",", escape_double = FALSE, trim_ws = TRUE)
+
 uganda_impact <- read_delim("data/uga_impactdata_v2.csv", ",", escape_double = FALSE, trim_ws = TRUE)
 uganda_impact <- uganda_impact %>% filter(data_quality_score > 0)
+
+#
 uganda_extra_impact <- read_delim("data/uga_impactdata_dref_appeal.csv", ",", escape_double = FALSE, trim_ws = TRUE)
-kenya_impact <- read_delim("data/ken_impactdata_master.csv", ";", escape_double = FALSE, trim_ws = TRUE)
+#kenya_extra_impact <- read_delim("data/ken_impactdata_dref_appeal.csv", ",", escape_double = FALSE, trim_ws = TRUE)
+#ethiopia_extra_impact <- read_delim("data/eth_impactdata_dref_appeal.csv", ",", escape_double = FALSE, trim_ws = TRUE)
+
+
+
+#kenya_impact <- read_delim("data/ken_impactdata_master.csv", ";", escape_double = FALSE, trim_ws = TRUE)
+
+
+kenya_impact <- read_delim("data/ken_impactdata_master_.csv", ";", escape_double = FALSE, trim_ws = TRUE)%>%
+  filter(	ADM3_PCODE != '#N-A') %>% dplyr::select(-adm2_name)
+
+
+#>>>>>>> Stashed changes
 
 # to be replaced by data imorted from Geonode
 #eth_admin3 <- sf::read_sf("shapes/ETH_Admin3_2019.shp")
-
-
-
 
 
 for (n in range(1,length(admin))){
@@ -70,11 +89,36 @@ glofas_raw <- read_csv("data/GLOFAS_fill_allstation_.csv") %>% rename(date = tim
 glofas_mapping <- list()
 
 glofas_mapping[[1]] <- read.csv("data/Eth_affected_area_stations2.csv", stringsAsFactors = F)
-glofas_mapping[[2]] <- read.csv("data/kenya_affected_area_stations.csv", stringsAsFactors = F)
+
+#glofas_mapping[[2]] <- read.csv("data/kenya_affected_area_stations.csv", stringsAsFactors = F)
+
+########## per sub county 
+kenya_mapp<- read.csv("data/kenya_affected_area_stations.csv", stringsAsFactors = F) %>% mutate(ADM2_EN=County)
+
+glofas_mapping[[2]] <-  read.csv("data/ken_adm3.csv", stringsAsFactors = F) %>% 
+  left_join(kenya_mapp,by='ADM2_EN')  %>% dplyr::select(ADM3_EN,ADM3_PCODE,station)  %>% drop_na()
+
+
 glofas_mapping[[3]] <- read.csv("data/uga_affected_area_stations.csv", stringsAsFactors = F)
+
+
+
+
 rainfall_raw <- list()
 rainfall_raw[[1]] <- read_csv('data/Impact_Hazard_catalog.csv') %>% clean_names()
-rainfall_raw[[2]] <- read_csv('data/WRF_kenya_2000-2010.csv') %>% clean_names()
+#rainfall_raw[[2]] <- read_csv('data/WRF_kenya_2000-2010.csv') %>% clean_names()
+
+#use the data calculated for counties to sub_counties
+kenya_rain_county<-read_csv('data/WRF_kenya_2000-2010.csv') %>% gather("name","rainfall",-time)
+
+kenya_rain_sub_county<-  read.csv("data/ken_adm3.csv", stringsAsFactors = F)%>%
+  dplyr::mutate(name=ADM2_EN,pcode=ADM3_PCODE)%>% 
+  left_join(kenya_rain_county,by='name') %>% dplyr::select(pcode,name,time,rainfall)%>% 
+  drop_na()
+
+
+
+rainfall_raw[[2]]<-kenya_rain_sub_county
 rainfall_raw[[3]] <- read_csv('data/WRF_uganda_2000-2010.csv') %>% clean_names()
 
 rp_glofas_station <- read_csv('data/rp_glofas_station.csv') %>% clean_names()
@@ -85,20 +129,26 @@ df_impact_raw <- list()
 df_impact_raw[[1]] <- ethiopia_impact %>%
   clean_names() %>%
   mutate(date = dmy(date),
-         pcode = str_pad(as.character(pcode), 6, "left", "0"),
-         admin = wereda) %>%
-  dplyr::select(admin, zone, pcode, date) %>%
-  unique() %>%
-  arrange(pcode, date)
-df_impact_raw[[2]] <-kenya_impact %>%
-  clean_names() %>%
-  mutate(date = ymd(date_recorded),
-         pcode = adm2_pcode,
-         admin = adm2_name) %>%
-  dplyr::select(admin, pcode, date) %>%
+         pcode = str_pad(as.character(adm3_pcode), 6, "left", "0"),
+         zone = adm2_name,
+         admin = adm3_name) %>%
+  dplyr::select(admin, zone, pcode,ifrc_source, date) %>%
   unique() %>%
   arrange(pcode, date)
 
+ethiopia_extra_impact <- df_impact_raw[[1]] %>% dplyr::filter(ifrc_source == 'IFRC')
+
+
+df_impact_raw[[2]] <-kenya_impact %>%
+  clean_names() %>%
+  mutate(date = dmy(date_recorded),
+         pcode = adm3_pcode,
+         admin = adm3_name) %>%
+  dplyr::select(admin, pcode,data_source, date) %>%
+  unique() %>%
+  arrange(pcode, date)
+
+kenya_extra_impact <- df_impact_raw[[2]] %>% dplyr::filter(data_source == 'dref')
 
 df_impact_raw[[3]] <- uganda_impact %>%
   clean_names() %>%
@@ -110,8 +160,18 @@ df_impact_raw[[3]] <- uganda_impact %>%
   arrange(pcode, date)
 
 df_extra_impact <- list()
-df_extra_impact[[1]] <- NA
-df_extra_impact[[2]] <- NA
+#df_extra_impact[[1]] <- NA
+#df_extra_impact[[2]] <- NA
+
+df_extra_impact[[1]] <- ethiopia_extra_impact %>%
+  dplyr::select(admin, pcode, date) %>%
+  unique() %>%
+  arrange(pcode, date)
+df_extra_impact[[2]] <- kenya_extra_impact %>%
+  dplyr::select(admin, pcode, date) %>%
+  unique() %>%
+  arrange(pcode, date)
+
 df_extra_impact[[3]] <- uganda_extra_impact %>%
   clean_names() %>%
   mutate(date = dmy(date_event),
@@ -120,8 +180,9 @@ df_extra_impact[[3]] <- uganda_extra_impact %>%
   dplyr::select(admin, pcode, date) %>%
   unique() %>%
   arrange(pcode, date)
-df_extra_impact[[1]] <- df_extra_impact[[3]] # dummy data
-df_extra_impact[[2]] <- df_extra_impact[[3]] # dummy data
+
+#df_extra_impact[[1]] <- df_extra_impact[[3]] # dummy data
+#df_extra_impact[[2]] <- df_extra_impact[[3]] # dummy data
 
 # Used to join against
 all_days <- tibble(date = seq(min(c(df_impact_raw[[1]]$date, df_impact_raw[[2]]$date, df_impact_raw[[3]]$date), na.rm=T) - 60,
@@ -138,10 +199,17 @@ glofas_mapping[[1]] <- glofas_mapping[[1]] %>%
   mutate(pcode = str_pad(as.character(pcode), 6, "left", "0")) %>%
   dplyr::filter(!is.na(pcode))
 
-glofas_mapping[[2]] <- glofas_mapping[[2]] %>%
-  left_join(kenya_impact  %>% dplyr::select(County, adm2_pcode) %>%  unique(), by = "County") %>%
-  dplyr::mutate(admin = County,station_name=station,pcode=adm2_pcode) %>%
+
+#per sub county 
+glofas_mapping[[2]] <- glofas_mapping[[2]] %>% 
+  left_join(kenya_impact  %>% dplyr::select(adm3_name, ADM3_PCODE) %>%  unique(), by = "ADM3_PCODE") %>%
+  dplyr::mutate(admin = adm3_name,station_name=station,pcode=ADM3_PCODE) %>%
   dplyr::select(admin, station_name, pcode)
+
+# glofas_mapping[[2]] <- glofas_mapping[[2]] %>%
+#   left_join(kenya_impact  %>% dplyr::select(County, adm2_pcode) %>%  unique(), by = "County") %>%
+#   dplyr::mutate(admin = County,station_name=station,pcode=adm2_pcode) %>%
+#   dplyr::select(admin, station_name, pcode)
 
 glofas_mapping[[3]] <- glofas_mapping[[3]] %>%
   dplyr::select(name, pcode, Glofas_st, Glofas_st2, Glofas_st3, Glofas_st4) %>%
@@ -169,12 +237,17 @@ rainfall_raw[[1]] <- rainfall_raw[[1]] %>%
   left_join(df_impact_raw[[1]] %>% dplyr::select(pcode, zone), by = "zone") %>%
   group_by(pcode, date) %>%
   summarise(rainfall = mean(rainfall, na.rm=T))
+
 rainfall_raw[[3]] <- rainfall_raw[[3]] %>% mutate(date = dmy(time)) %>% dplyr::select(-time) %>%
   gather(name, rainfall, -date) %>%
   left_join(df_impact_raw[[3]] %>% mutate(name = tolower(admin)) %>% dplyr::select(name, pcode), by = "name")
-rainfall_raw[[2]] <- rainfall_raw[[2]] %>% mutate(date = dmy(time)) %>% dplyr::select(-time) %>%
-  gather(name, rainfall, -date) %>%
-  left_join(df_impact_raw[[2]] %>% mutate(name = tolower(admin)) %>% dplyr::select(name, pcode), by = "name")
+
+# rainfall_raw[[2]] <- rainfall_raw[[2]] %>% mutate(date = dmy(time)) %>% dplyr::select(-time) %>%
+#   gather(name, rainfall, -date) %>%
+#   left_join(df_impact_raw[[2]] %>% mutate(name = tolower(admin)) %>% dplyr::select(name, pcode), by = "name")
+
+rainfall_raw[[2]] <- rainfall_raw[[2]] %>% mutate(date = dmy(time)) %>% dplyr::select(-time)
+#%>%  left_join(df_impact_raw[[2]] %>% mutate(name = tolower(admin)) %>% dplyr::select(name, pcode), by = "name")
 
 # Clean rainfall - CHIRPS, kept for legacy
 # rainfall_raw <- rainfall_raw %>%
@@ -199,7 +272,7 @@ admin[[1]] <- admin[[1]] %>%
 
 admin[[2]] <- admin[[2]] %>%
   left_join(summarize_floods(df_impact_raw[[2]]) %>%
-              dplyr::select(pcode, n_floods), by = c("ADM2_PCODE" = "pcode")) %>%
+              dplyr::select(pcode, n_floods), by = c("ADM3_PCODE" = "pcode")) %>%
   dplyr::filter(!is.na(n_floods))
 
 admin[[3]] <- admin[[3]] %>%
@@ -209,9 +282,9 @@ admin[[3]] <- admin[[3]] %>%
 
 label <- list()
 label[[1]] <- "ADM3_EN"
-label[[2]] <- "ADM2_EN"
+label[[2]] <- "ADM3_EN"
 label[[3]] <- "ADM2_EN"
 layerId <- list()
 layerId[[1]] <- "ADM3_PCODE"
-layerId[[2]] <- "ADM2_PCODE"
+layerId[[2]] <- "ADM3_PCODE"
 layerId[[3]] <- "ADM2_PCODE"
