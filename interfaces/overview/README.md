@@ -57,8 +57,8 @@ Documentation of the tools and libraries used.
   - Available components: <https://ionicframework.com/docs/components>
   - Icons: <https://ionicons.com/>
 
-- [Angular v9](https://v9.angular.io/docs)  
+- [Angular v10](https://v10.angular.io/docs)  
   This front-end framework gives us a structure to create components that can be connected, combined, share data and can be delivered as a web-app.
 
-  - API Documentation: <https://v9.angular.io/api>
+  - API Documentation: <https://10.angular.io/api>
   - Used by Angular, RxJS: <https://rxjs.dev/guide/overview>
