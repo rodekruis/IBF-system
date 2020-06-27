@@ -15,6 +15,52 @@ selected_highdate <- "2018-04-05"
 rainfall_threshold <- 2
 glofas_threshold <- 864
 
+
+rollmax(glofas$dis, k = 21)
+#[1]  0.13677590  0.12419375  0.22781866  0.17661827  0.51935576  0.08137071 -0.29009330 -0.43751774
+rollapply(df1$Value, width = 3, FUN = mean)
+#[1]  0
+
+glofas_variable='dis_7'
+glofas_variable2='dis'
+
+  
+  
+
+plot_ly(glofas) %>%
+  add_lines(x=~date, y=as.formula(paste0('~', glofas_variable)), line=list(color="rgb(98, 211, 234)"),legendgroup = 'group1', name='rainfaall') %>%
+  add_lines(x=~date, y=as.formula(paste0('~', glofas_variable2)), line=list(color="rgb(116, 169, 207)"),legendgroup = 'group1', name='Glofas Discharge') %>%
+  add_segments(x=~min(date), xend=~max(date), y = glofas_threshold, yend=glofas_threshold, line=list(color="black"),legendgroup = 'group1', name='selected Threshold') %>%
+  add_segments(x=date ,xend=date, y=0, yend=1500, name = 'Impact event',line=list(color="rgb(255, 153, 0)",width = 4),legendgroup = 'group1', name='reported impact') %>%
+  add_segments(x=~min(date), xend=~max(date), y = rp_glofas$q10, yend=rp_glofas$q10, name = 'q10', line=list(color="rgb(253, 130, 155)", width = 2,dash = "dot"),legendgroup = 'group1', name='Q10') %>%
+  add_segments(x=~min(date), xend=~max(date), y = rp_glofas$q50, yend=rp_glofas$q50, name = 'q50', line=list(color="rgb(205, 12, 24)",width = 2, dash = "dash"),legendgroup = 'group1', name='Q50') %>%
+  layout(yaxis=list(title=paste0("Station", glofas_variable)), showlegend=TRUE)
+
+
+p2 <- ggplot(rainfall) +
+  aes(x = date, y = rainfall, color = 'red') +
+  geom_line()
+
+
+p<-ggplot(glofas) +
+  geom_line(x=~date, y=as.formula(paste0('~', glofas_variable)), line=list(color="rgb(98, 211, 234)"), name='rainfaall') %>%
+  geom_line(x=~date, y=as.formula(paste0('~', glofas_variable2)), line=list(color="rgb(116, 169, 207)"), name='Glofas Discharge') %>%
+  geom_hline(x=~min(date), xend=~max(date), y = glofas_threshold, yend=glofas_threshold, line=list(color="black"), name='selected Threshold') %>%
+  geom_vline(x=date ,xend=date, y=0, yend=1500, name = 'Impact event',line=list(color="rgb(255, 153, 0)",width = 4), name='reported impact') %>%
+  geom_hline(x=~min(date), xend=~max(date), y = rp_glofas$q10, yend=rp_glofas$q10, name = 'q10', line=list(color="rgb(253, 130, 155)", width = 2,dash = "dot"), name='Q10') %>%
+  geom_hline(x=~min(date), xend=~max(date), y = rp_glofas$q50, yend=rp_glofas$q50, name = 'q50', line=list(color="rgb(205, 12, 24)",width = 2, dash = "dash"),name='Q50') %>%
+  layout(yaxis=list(title=paste0("Station", glofas_variable)), showlegend=TRUE)
+
+
+p<-ggplot(data=glofas,aes(x=date, y=dis)) +
+  geom_line()+
+  geom_line(data=glofas,aes(x=date, y=dis_7))+
+  geom_vline(xintercept=as.Date(impact_df$date)[[1]])+#(x=date, y=1200))+
+  geom_vline(xintercept=as.Date(impact_df$date)[[2]])#(x=date, y=1200))+
+  #geom_line(data=glofas,aes(x=date, y=dis_7))
+fig <- ggplotly(p)
+fig
+
 #st_write(obj=ethiopia_admin3, dsn="shapes/eth_adminboundaries_3.shp")
 
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
@@ -32,6 +78,12 @@ glofas <-glofas_raw %>%
 
 rainfall <- rainfall_raw[[1]]%>%    filter(      pcode == selected_pcode,
       date >= selected_lowdate,      date <= selected_highdate)
+
+
+
+
+
+
 
 
 # Clean impact and keep relevant columns

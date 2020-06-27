@@ -132,7 +132,10 @@ server <- function(input, output) {
 
   output$glofas_var_selector <- renderUI({
     if(isolate(has_glofas())) {
-      selectInput("glofas_variable", "Select lead time(dis=0,dis_3=3 days or dis_7=7 days) discharge variable", choices = c("dis", "dis_3", "dis_7"), selected = "dis")
+      selectInput("glofas_variable",
+                  "Select lead time(dis=0,dis_3=3 days or dis_7=7 days) discharge variable",
+                  choices = c("dis", "dis_3", "dis_7"),
+                  selected = "dis")
     } else {
       NULL
     }

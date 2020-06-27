@@ -8,6 +8,7 @@ library(sf)
 library(leaflet)
 library(readr)
 library(httr)
+library(zoo)
 
 source('r_resources/plot_functions.R')
 source('r_resources/predict_functions.R')
@@ -15,6 +16,8 @@ source('r_resources/Geo_settings.R')
 source('r_resources/misc_functions.R')
 
 #---------------------- setting -------------------------------
+
+
 
 settings <- country_settings
 url<- parse_url(url_geonode)
@@ -84,7 +87,18 @@ for (n in range(1,length(admin))){
   admin[[n]] <- st_transform(admin[[n]], crs = "+proj=longlat +datum=WGS84")
 }
 
-glofas_raw <- read_csv("data/GLOFAS_fill_allstation_.csv") %>% rename(date = time)
+
+glofas_date_window=14
+
+glofas_raw <- read_csv("data/GLOFAS_fill_allstation_.csv") %>% 
+  rename(date = time) %>% 
+  group_by(station) %>%
+  mutate(q50=quantile(dis,probs=.5, names = FALSE),
+         q95=quantile(dis,probs=.95, names = FALSE),
+          dis = rollapplyr(data = dis, width = glofas_date_window,FUN=max,align="center",fill = NA,na.rm = TRUE),
+          dis_3 = rollapplyr(data = dis_3, width = glofas_date_window,FUN=max,align="center",fill = NA,na.rm = TRUE),
+          dis_7 = rollapplyr(data = dis_7, width = glofas_date_window,FUN=max,align="center",fill = NA,na.rm = TRUE))%>%  ungroup()
+
 
 glofas_mapping <- list()
 
@@ -226,7 +240,7 @@ glofas_raw <- glofas_raw %>%
 
 glofas_raw <- expand.grid(all_days$date, unique(glofas_raw$station)) %>%
   rename(date = Var1, station = Var2) %>%
-  left_join(glofas_raw %>% dplyr::select(date, dis, dis_3, dis_7, station), by = c("date", "station")) %>% arrange(station, date) %>%
+  left_join(glofas_raw %>% dplyr::select(date, dis, dis_3, dis_7,q50,q95, station), by = c("date", "station")) %>% arrange(station, date) %>%
   arrange(station, date) %>%
   group_by(station) %>%
   fill(dis, dis_3, dis_7, .direction="down") %>%
