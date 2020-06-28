@@ -45,12 +45,17 @@ Example of impact-hazard analysis for a single event(hazard is based on NAM rain
 ![Example of impact-hazard analysis for a single event(hazard is based on NAM RAINFALL Data) Ethiopia](https://github.com/rodekruis/Flood_impact_models/blob/master/output/hazard_impact_ethiopia_rainfall.PNG)
 
 ## 3. Trigger model development
+Based on impact-hazard catalog developed in the above step a ![script](https://github.com/rodekruis/IBF-system/blob/master/trigger-model-development/flood/trigger-model/dashboard/IARP_trigger_dashboard/r_resources/trigger_table.R )is developed to generate a trigger table 
+the table is generated for a set of predefined trigger ranges and lead times, which can be modified by the user. For generating the first version of the trigger table we used lead time 3 days and 7 days. Five values for trigger threshold, Q10,Q50,Q70,Q90 and Q95, were defined to generate the first version of the trigger table. For calculating the trigger table we made the following assumptions
+- a time window of two weeks was selected when checking Glofas peak values against reported impact incidents(this is to consider uncertainty in impact data reporting date)
+- after a trigger value is passed, any other event in a time window of 3 weeks is considered the same event as the first one 
+- the above assumptions can be adjusted easily if needed  
+
 Here we build a trigger model based on data from Impact-hazard catalogue    
 ## 4. Visualization of trigger model
-easy visualization of the IBF model results for descion makers ds for 
-## 5. Intervention maps (combining vulnerability index with exposure and hazard maps )
-Geo spatial data needed for running the scripts are stored in 510geonode server. For running the scripts check list of variables in Geo_setting.R
-    
+easy visualization of the IBF model results for descion makers 
+https://510ibf.shinyapps.io/IARP_trigger_dashboard/
+
     
 ### Notes      
 To run catchment extractor script addtional data is needed - this can be found in the following link https://rodekruis.sharepoint.com/:f:/s/510-CRAVK-510/EhG4P2uRQRZKjZiJlo7YMYwBs5sqYxzcHmElbF4GtCGF6Q?e=g2mdMV
