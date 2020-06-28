@@ -5,9 +5,9 @@ account: 510ibf
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2403499
-bundleId: 3318600
+bundleId: 3323148
 url: https://510ibf.shinyapps.io/IARP_trigger_dashboard/
-when: 1593158048.42487
+when: 1593268312.94566
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: test.R
