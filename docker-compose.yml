@@ -5,6 +5,13 @@ services:
         build: ./services/API-service
         ports:
             - 3000:3000
+        environment:
+            - DB_TYPE=${DB_TYPE}
+            - DB_HOST=${DB_HOST}
+            - DB_PORT=${DB_PORT}
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
         volumes:
             - api-service-root:/home/ibf/api-service
 
