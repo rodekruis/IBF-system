@@ -62,3 +62,9 @@ Documentation of the tools and libraries used.
 
   - API Documentation: <https://10.angular.io/api>
   - Used by Angular, RxJS: <https://rxjs.dev/guide/overview>
+
+- [Leaflet v1.6](https://leafletjs.com/)
+  A library for maps with multiple interactive layers.
+  - API Documentation: <https://leafletjs.com/reference-1.6.0.html>
+  - Angular component(s) used:
+    - `ngx-leaflet`: <https://github.com/Asymmetrik/ngx-leaflet>
