@@ -23,9 +23,9 @@ Create the Docker image from the Dockerfile in this folder through:
 
     docker build -t ibf-api-service .
 
-Start the app Docker container through (NOTE: you have to change 'C:/github/IBF-system' to your own path for the repository-root IBF-system folder):
+Start the app Docker container through:
 
-    docker run --name=ibf-api-service -v C:/github/IBF-system/services/API-service:/home/ibf/api-service -p 3000:3000 -it ibf-api-service
+    docker run --name=ibf-api-service -p 3000:3000 -it ibf-api-service
 
 If you've already created the container before and just want to start again:
 

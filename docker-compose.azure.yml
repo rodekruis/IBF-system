@@ -2,7 +2,6 @@ version: "3.8"
 
 services:
     ibf-api-service:
-        build: ./services/API-service
         image: gulfaraz/ibf-api-service
         ports:
             - 80:3000
@@ -18,7 +17,6 @@ services:
             - api-web-interface-root:/home/ibf/api-service/dist
 
     ibf-web-interface:
-        build: ./interfaces/overview
         image: gulfaraz/ibf-web-interface
         volumes:
             - api-web-interface-root:/home/node/app/www
