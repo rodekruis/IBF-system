@@ -17,6 +17,7 @@ services:
             - api-web-interface-root:/home/ibf/api-service/dist
 
     ibf-web-interface:
+        command: npm start
         image: gulfaraz/ibf-web-interface
         volumes:
             - api-web-interface-root:/home/node/app/www
