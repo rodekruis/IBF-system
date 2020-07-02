@@ -7,5 +7,8 @@ export const environment = {
 
   // API:
   api_url: '${process.env.NG_API_URL}',
+
+  // Feature-flags:
+  useMockData: ${process.env.NG_USE_MOCK_DATA || false},
 };
 `;
