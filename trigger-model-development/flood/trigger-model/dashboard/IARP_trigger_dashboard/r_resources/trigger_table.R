@@ -215,6 +215,8 @@ glofas_mapping <- list()
 
 glofas_mapping[[1]] <- read.csv("data/Eth_affected_area_stations2.csv", stringsAsFactors = F)
 
+
+
 ################################ TRIGGER TABLE KENYA ##################
 ########## per sub county 
 kenya_mapp<- read.csv("data/kenya_affected_area_stations.csv", stringsAsFactors = F) %>% mutate(ADM2_EN=County)

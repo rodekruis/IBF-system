@@ -1,10 +1,18 @@
 server <- function(input, output) {
   selected_pcode <- reactiveVal("020104")
   has_glofas <- reactiveVal(TRUE)
-  country <- reactive({
+  
+  country1 <- reactive({
     cat(input$country)
     as.numeric(input$country)
     })
+  country <- reactive({
+    req(input$country)
+    as.numeric(input$country)*as.numeric(input$Level)
+  })
+  
+  
+  
 
   glofas <- reactive({
     req(input$glofas_station_selected)
