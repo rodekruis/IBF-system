@@ -89,7 +89,7 @@ export class ApiService {
 
     return this.post(
       environment.api_url,
-      '/user/login',
+      'user/login',
       {
         email,
         password,
@@ -105,7 +105,7 @@ export class ApiService {
   ): Promise<Station[]> {
     return this.get(
       environment.api_url,
-      `/stations/${countryCode}/${currentPrev}/${leadTime}`,
+      `stations/${countryCode}/${currentPrev}/${leadTime}`,
     ).toPromise();
   }
 }
