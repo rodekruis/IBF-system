@@ -13,3 +13,6 @@ environment.prod.ts
 /platforms
 /plugins
 /www
+
+# Assets generated/included during build
+src/assets/leaflet
