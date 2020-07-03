@@ -30,6 +30,11 @@
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
               },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "assets/leaflet"
+              },
               "src/manifest.webmanifest"
             ],
             "styles": [
