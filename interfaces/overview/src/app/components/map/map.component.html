@@ -6,6 +6,7 @@ layers: {{ layers | json }}
 <div
   leaflet
   [leafletOptions]="leafletOptions"
+  [leafletLayersControl]="leafletLayersControl"
   (leafletMapReady)="onMapReady($event)"
   class="leaflet--map"
 ></div>
