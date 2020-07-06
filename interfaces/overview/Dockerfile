@@ -16,4 +16,4 @@ COPY --chown=node:node . .
 
 EXPOSE 4200
 
-RUN npm run build --prod
+RUN npm run build -- --prod
