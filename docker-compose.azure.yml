@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
     ibf-api-service:
-        image: gulfaraz/ibf-api-service
+        image: rodekruis/ibf-api-service
         ports:
             - 80:3000
         environment:
@@ -14,14 +14,14 @@ services:
             - DB_PASSWORD=${DB_PASSWORD}
         volumes:
             - api-service-root:/home/ibf/api-service
-            - api-web-interface-root:/home/ibf/api-service/dist
+            - web-interface-root:/home/ibf/api-service/dist
 
     ibf-web-interface:
         command: npm start
-        image: gulfaraz/ibf-web-interface
+        image: rodekruis/ibf-web-interface
         volumes:
-            - api-web-interface-root:/home/node/app/www
+            - web-interface-root:/home/node/app/www
 
 volumes:
     api-service-root:
-    api-web-interface-root:
+    web-interface-root:
