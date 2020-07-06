@@ -12,3 +12,19 @@ export class Station extends Poi {
   triggerPerc: number;
   triggerProb: number;
 }
+
+export class GeoJson {
+  type: string;
+  features: GeoJsonFeature[];
+}
+
+export class GeoJsonFeature {
+  type: string;
+  geometry: Geometry;
+  properties: any;
+}
+
+export class Geometry {
+  type: string;
+  coordinates: number[];
+}

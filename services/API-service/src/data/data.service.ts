@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
-import { Station } from 'src/models/station.model';
+import { Station, GeoJson, GeoJsonFeature } from 'src/models/station.model';
+import { type } from 'os';
 
 @Injectable()
 export class DataService {
@@ -35,28 +37,42 @@ export class DataService {
     countryCode: string,
     currentPrev: string,
     leadTime: string,
-  ): Promise<Station[]> {
+  ): Promise<GeoJson> {
     const query =
-      ' select dgsv.station_code as code \
-      , dgsv.station_name as name \
-      , dgsv.geom \
-      , dgsv.trigger_level as "triggerLevel" \
-		  , dfps.fc as "forecastLevel" \
-      , dfps.fc_trigger as "triggerInd" \
-      , dfps.fc_perc as "triggerPerc" \
-      , dfps.fc_prob as "triggerProb" \
-    from "IBF-pipeline-output".dashboard_glofas_stations_v2 dgsv \
-    left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code \
+      ' select * \
+    from "IBF-API"."Glofas_stations" \
     where 0 = 0 \
     and current_prev = $1 \
     and lead_time = $2 \
     ';
 
-    const result: Station[] = await this.manager.query(query, [
+    const rawResult: Station[] = await this.manager.query(query, [
       currentPrev,
       leadTime,
     ]);
+
+    const result = this.toGeojson(rawResult);
+
     return result;
+  }
+
+  private toGeojson(rawResult): GeoJson {
+    console.log(rawResult);
+    const geoJSON: GeoJson = {
+      type: 'FeatureCollection',
+      features: [],
+    };
+    rawResult.forEach((i): void => {
+      const feature: GeoJsonFeature = {
+        type: 'Feature',
+        geometry: i.geom,
+        properties: {},
+      };
+      delete i.geom;
+      feature.properties = i;
+      geoJSON.features.push(feature);
+    });
+    return geoJSON;
   }
 
   private formQuery(schema, functionName, country, tableName): string {
