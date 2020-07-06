@@ -3,7 +3,7 @@ import { DataService } from './data.service';
 
 import { ApiUseTags, ApiOperation, ApiImplicitParam } from '@nestjs/swagger';
 import { User } from '../user/user.decorator';
-import { Station } from 'src/models/station.model';
+import { Station, GeoJson } from 'src/models/station.model';
 
 @ApiUseTags('data')
 @Controller()
@@ -47,7 +47,7 @@ export class DataController {
   public async getStations(
     @User('id') userId: number,
     @Param() params,
-  ): Promise<Station[]> {
+  ): Promise<GeoJson> {
     return await this.dataService.getStations(
       params.countryCode,
       params.currentPrev,
