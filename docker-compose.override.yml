@@ -6,6 +6,8 @@ services:
         # command: ["npm", "run", "start"]
         volumes:
             - ./services/API-service:/home/ibf/api-service
+        ports:
+            - 3000:3000
 
     ibf-web-interface:
         command: ["npm", "run", "start"]

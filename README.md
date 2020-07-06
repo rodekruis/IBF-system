@@ -44,7 +44,6 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up # for dev
 
 These commands will install the IBF-system with listeners at,
 
-1. [localhost](http://localhost) for the web server (via nginx)
-2. [localhost:3000](http://localhost:3000) for the API service
-3. \*development only - [localhost:4200](http://localhost:4200) for the web
-   interface (via nodejs)
+1. [localhost](http://localhost) for the web server
+2. \*development only - [localhost:4200](http://localhost:4200) for the web
+   interface

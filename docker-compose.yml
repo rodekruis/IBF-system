@@ -3,8 +3,9 @@ version: "3.8"
 services:
     ibf-api-service:
         build: ./services/API-service
+        image: rodekruis/ibf-api-service
         ports:
-            - 3000:3000
+            - 80:3000
         environment:
             - DB_TYPE=${DB_TYPE}
             - DB_HOST=${DB_HOST}
@@ -14,31 +15,14 @@ services:
             - DB_PASSWORD=${DB_PASSWORD}
         volumes:
             - api-service-root:/home/ibf/api-service
+            - web-interface-root:/home/ibf/api-service/dist
 
     ibf-web-interface:
         build: ./interfaces/overview
+        image: rodekruis/ibf-web-interface
         volumes:
-            - api-web-interface-root:/home/node/app/www
-        networks:
-            - web-interface-network
-
-    nginx:
-        image: nginx
-        ports:
-            - 80:80
-        volumes:
-            - api-web-interface-root:/var/www/ibf-web-interface
-            - ./nginx/ibf-web-interface.conf:/etc/nginx/conf.d/default.conf
-        depends_on:
-            - ibf-web-interface
-        networks:
-            - web-interface-network
-        restart: unless-stopped
+            - web-interface-root:/home/node/app/www
 
 volumes:
     api-service-root:
-    api-web-interface-root:
-
-networks:
-    web-interface-network:
-        driver: bridge
+    web-interface-root:
