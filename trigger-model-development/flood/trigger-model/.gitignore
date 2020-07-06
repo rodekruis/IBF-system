@@ -9,3 +9,6 @@
 *.gri
 *shiny_explorer_input.csv
 *.kml
+output
+raw_data
+shapes
