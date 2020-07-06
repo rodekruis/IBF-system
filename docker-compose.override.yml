@@ -2,8 +2,10 @@ version: "3.8"
 
 services:
     ibf-api-service:
-        # command: ["npm", "run", "start:dev"]
-        command: ["npm", "run", "start"]
+        command: ["npm", "run", "start:dev"]
+        # command: ["npm", "run", "start"]
+        volumes:
+            - ./services/API-service:/home/ibf/api-service
         ports:
             - 3000:3000
 
@@ -11,3 +13,5 @@ services:
         command: ["npm", "run", "start"]
         ports:
             - 4200:4200
+        volumes:
+            - ./interfaces/overview:/home/node/app/www
