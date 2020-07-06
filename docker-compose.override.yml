@@ -4,6 +4,8 @@ services:
     ibf-api-service:
         # command: ["npm", "run", "start:dev"]
         command: ["npm", "run", "start"]
+        ports:
+            - 3000:3000
 
     ibf-web-interface:
         command: ["npm", "run", "start"]
