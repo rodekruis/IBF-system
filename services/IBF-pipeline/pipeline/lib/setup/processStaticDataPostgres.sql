@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_glofas_stations_v2;
+DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_glofas_stations_v2 CASCADE;
 SELECT station_code
 	, station_name
 	, "10yr_threshold" as trigger_level
@@ -6,7 +6,7 @@ SELECT station_code
 INTO "IBF-pipeline-output".dashboard_glofas_stations_v2
 FROM "IBF-pipeline-output".glofas_stations
 ;
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_redcross_branches;
+DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_redcross_branches CASCADE;
 SELECT  "BRANCH" branch_name
 	, "PROVINCE" province
 	, "PRESIDENT" president
@@ -17,14 +17,14 @@ INTO "IBF-pipeline-output".dashboard_redcross_branches
 FROM "IBF-pipeline-output".redcross_branches
 ;
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_poi_healthsites;
+DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_poi_healthsites CASCADE;
 SELECT name
 			,type
 			,st_SetSrid(st_MakePoint("Y", "X"), 4326) as geom
 INTO "IBF-pipeline-output".dashboard_poi_healthsites
 FROM "IBF-pipeline-output".healthsites;
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_poi_waterpoints;
+DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_poi_waterpoints CASCADE;
 SELECT water_tech
 	,activity_id
 			,st_SetSrid(st_MakePoint(lat_deg, lon_deg), 4326) as geom
