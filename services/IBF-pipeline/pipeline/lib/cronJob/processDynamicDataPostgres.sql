@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_forecast_per_station;
+DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_forecast_per_station CASCADE;
 SELECT t0.station_code
 	,t0.station_name
 	,t0.trigger_level
@@ -47,7 +47,7 @@ ON t3.station = t0.station_code
 where to_date(date,'yyyy-mm-dd') >= current_date - 1
 ;
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_forecast_per_district;
+DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_forecast_per_district CASCADE;
 select case when length(cast(pcode as varchar)) = 3 then '0' || cast(pcode as varchar) else cast(pcode as varchar) end as pcode
 	,case when lead_time = '3-day' then "station_code_3day" when lead_time = '7-day' then "station_code_7day" end as station_code
 	,lead_time
@@ -61,7 +61,7 @@ LEFT JOIN "IBF-pipeline-output".dashboard_forecast_per_station  t1
 ON (t1.lead_time = '7-day' and t0."station_code_7day" = t1.station_code) OR (t1.lead_time = '3-day' and t0."station_code_3day" = t1.station_code)
 ;
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_calculated_affected_adm3;
+DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_calculated_affected_adm3 CASCADE;
 select *
 ,cattle_affected * 1 +
 goat_affected * 0.1 + 
@@ -127,7 +127,7 @@ group by 1,2,3,4
 ) bb
 ;
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm3;
+DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm3 CASCADE;
 select t1.*
 	,fc_trigger
 	,fc_trigger2
@@ -139,7 +139,7 @@ left join "IBF-pipeline-output".dashboard_forecast_per_district t2
 	ON t0.pcode_parent = t2.pcode and t1.current_prev = t2.current_prev and t1.lead_time = t2.lead_time
 ;
 
-drop table if exists "IBF-pipeline-output".help_table;
+drop table if exists "IBF-pipeline-output".help_table CASCADE;
 select 'Current' as current_prev
 ,'3-day' as lead_time
 into "IBF-pipeline-output".help_table
@@ -155,7 +155,7 @@ select 'Previous' as current_prev
 ;
 
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm2;
+DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm2 CASCADE;
 select t0.pcode
 	,t3.date
 	,t0a.current_prev
@@ -198,7 +198,7 @@ group by 1,2,3,4
 ON t0.pcode = t3.pcode_level2 and t0a.lead_time = t3.lead_time and t0a.current_prev = t3.current_prev
 ;
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm1;
+DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm1 CASCADE;
 select t1.fc_trigger,t1.fc_trigger2
 	,t2.*
 into "IBF-pipeline-output".data_adm1
