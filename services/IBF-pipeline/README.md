@@ -22,7 +22,7 @@ This repository consists of 2 parts.
 1. Build Docker image (from root folder) and run container with volume
 ```
 docker build . -t ibf-pipeline
-docker run --net=host --name=ibf-pipeline -v /home/ibf --restart always -it ibf-pipeline
+docker run --net=host --name=ibf-pipeline -v ${PWD}:/home/ibf --restart always -it ibf-pipeline
 ```
 
 2. Within container run setup: this will a.o. upload static data to the database.
