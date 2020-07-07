@@ -24,8 +24,6 @@ RUN python3 -m pip install wheel
 # copy files
 RUN mkdir --parents /home/ibf/
 WORKDIR /home/ibf/pipeline/
-ADD pipeline /home/ibf/pipeline
-ADD geoserver /home/ibf/geoserver
 
 # install dependencies
 COPY pipeline/requirements.txt /home/ibf/pipeline/
