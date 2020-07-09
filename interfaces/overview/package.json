@@ -12,7 +12,7 @@
     "ng": "ng",
     "prebuild": "npm run set-env-variables",
     "set-env-variables": "node ./_set-env-variabes.js",
-    "start": "ng serve --host=0.0.0.0 --disable-host-check",
+    "start": "ng serve --port=0 --host=0.0.0.0 --disable-host-check",
     "test:dev": "ng test",
     "test:only": "ng test --no-watch --browsers=ChromeHeadless",
     "test": "npm run lint && npm run test:only"
