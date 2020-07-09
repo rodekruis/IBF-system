@@ -5,11 +5,16 @@
 *.sublime-workspace
 
 
+# Configuration, secrets, etc:
+.env
+
+
 # R specific:
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+
 
 # Generic ignored files:
 *~
