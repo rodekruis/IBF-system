@@ -1,10 +1,32 @@
-geoserver/geodata/
-pipeline/data/
-
+# IDE / Editors
 .vscode
-.vscode/*
+.idea
+*.sublime-project
+*.sublime-workspace
 
+
+# Configuration, secrets, etc:
+.env
+Dockerfile
+
+
+# Local data files
+pipeline/data/
 geoserver/
 *.zip
 
-Dockerfile
+
+# Generated files
+dist
+coverage
+
+
+# External code
+node_modules
+
+
+# Logs / Cache / temporary files
+logs
+*.log
+npm-debug.log*
+.npm
