@@ -1,18 +1,37 @@
-# Build Configuration/secrets:
+# IDE / Editors
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+
+# Configuration, secrets, etc:
 .env
 environment.prod.ts
 
-# Default ignore-rules set by Ionic/Angular:
-/.ionic
-/.sass-cache
-/.sourcemaps
-/.versions
-/coverage
-/dist
-/node_modules
-/platforms
-/plugins
-/www
 
-# Assets generated/included during build
+# Assets ONLY included during build
 src/assets/leaflet
+
+
+# Generated files
+dist
+coverage
+platforms
+plugins
+www
+
+
+# External code
+node_modules
+
+
+# Logs / Cache / temporary files
+logs
+*.log
+npm-debug.log*
+.npm
+.ionic
+.sass-cache
+.sourcemaps
+.versions
