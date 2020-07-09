@@ -26,7 +26,7 @@
     "@angular/router": "~10.0.3",
     "@angular/service-worker": "~10.0.3",
     "@asymmetrik/ngx-leaflet": "^7.0.1",
-    "@auth0/angular-jwt": "^4.2.0",
+    "@auth0/angular-jwt": "^5.0.1",
     "@ionic/angular": "^5.2.3",
     "dotenv": "^8.2.0",
     "leaflet": "^1.6.0",
