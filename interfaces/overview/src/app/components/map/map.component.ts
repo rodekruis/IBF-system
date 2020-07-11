@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import {
+  geoJSON,
   icon,
+  IconOptions,
   latLng,
   LatLng,
-  layerGroup,
   Map,
   MapOptions,
   marker,
   tileLayer,
 } from 'leaflet';
+import { Station } from 'src/app/models/station.model';
 import { MapService } from 'src/app/services/map.service';
 import { IbfLayer } from 'src/app/types/ibf-layer';
+import { IbfLayerName } from 'src/app/types/ibf-layer-name';
+import { IbfLayerType } from 'src/app/types/ibf-layer-type';
 
 @Component({
   selector: 'app-map',
@@ -19,6 +23,7 @@ import { IbfLayer } from 'src/app/types/ibf-layer';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
+  private map: Map;
   public layers: IbfLayer[];
 
   // Define our base layers so we can reference them multiple times
@@ -38,14 +43,17 @@ export class MapComponent implements OnInit {
     },
   );
 
-  private defaultIcon = icon({
+  private iconDefault: IconOptions = {
     iconSize: [25, 41],
     iconAnchor: [13, 41],
-    iconUrl: 'assets/leaflet/marker-icon.png',
-    iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
-  });
-
-  private testMarkers;
+    iconUrl: 'assets/markers/default.png',
+    iconRetinaUrl: 'assets/markers/default-2x.png',
+  };
+  private iconWarning: IconOptions = {
+    ...this.iconDefault,
+    iconUrl: 'assets/markers/warning.png',
+    iconRetinaUrl: 'assets/markers/warning-2x.png',
+  };
 
   public leafletOptions: MapOptions = {
     zoom: 5,
@@ -61,36 +69,79 @@ export class MapComponent implements OnInit {
   };
 
   constructor(private mapService: MapService) {
-    this.layers = this.mapService.state.layers;
     this.leafletOptions.center = latLng(this.mapService.state.center);
   }
 
   ngOnInit() {}
 
-  onMapReady(map: Map) {
+  async onMapReady(map: Map) {
+    this.map = map;
+
     // Trigger a resize to fill the container-element:
     window.dispatchEvent(new UIEvent('resize'));
 
-    this.debugPutMarkersOnTheMap(map);
+    await this.mapService.loadData();
+    this.layers = this.createLayers(this.mapService.state.layers);
+    this.addLayersToMap();
   }
 
-  private createMarker(markerTitle: string, markerLatLng: LatLng) {
-    return marker(markerLatLng, {
-      title: markerTitle,
-      icon: this.defaultIcon,
+  private createLayers(layers: IbfLayer[]) {
+    return layers.map((layer) => {
+      if (!layer.active) {
+        return;
+      }
+
+      if (layer.type === IbfLayerType.point) {
+        layer.leafletLayer = this.createPointLayer(layer);
+      }
+
+      return layer;
     });
   }
-  private createMarkerLayer(markers: any[]) {
-    return layerGroup(markers);
+
+  private addLayersToMap() {
+    this.layers.forEach((layer) => {
+      this.leafletLayersControl.overlays[layer.name] = layer.leafletLayer;
+      this.map.addLayer(layer.leafletLayer);
+    });
   }
 
-  private debugPutMarkersOnTheMap(map: Map) {
-    const testMarkers = this.createMarkerLayer([
-      this.createMarker('test marker 1', latLng(-14, 27)),
-      this.createMarker('test marker 2', latLng(-15, 28)),
-    ]);
+  private createPointLayer(layer: IbfLayer) {
+    if (!layer.data) {
+      return;
+    }
+    return geoJSON(layer.data, {
+      pointToLayer: (geoJsonPoint: GeoJSON.Feature, latlng: LatLng) => {
+        switch (layer.name) {
+          case IbfLayerName.waterStations:
+            return this.createMarkerStation(
+              geoJsonPoint.properties as Station,
+              latlng,
+            );
+          default:
+            return this.createMarkerDefault(latlng);
+        }
+      },
+    });
+  }
 
-    this.leafletLayersControl.overlays['test markers'] = testMarkers;
-    map.addLayer(testMarkers);
+  private createMarkerDefault(markerLatLng: LatLng) {
+    return marker(markerLatLng, {
+      icon: icon(this.iconDefault),
+    });
+  }
+
+  private createMarkerStation(markerProperties: Station, markerLatLng: LatLng) {
+    const markerTitle = markerProperties.stationName;
+    let markerIcon = this.iconDefault;
+
+    if (markerProperties.forecastLevel > markerProperties.triggerLevel) {
+      markerIcon = this.iconWarning;
+    }
+
+    return marker(markerLatLng, {
+      title: markerTitle,
+      icon: icon(markerIcon),
+    });
   }
 }
