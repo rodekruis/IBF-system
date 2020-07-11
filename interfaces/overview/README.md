@@ -6,6 +6,7 @@
 - [Configuration](#configuration)
 - [Getting Started](#getting-started)
 - [Documentation](#documentation)
+- [Other resources](#other-resources)
 
 ## Setup development environment
 
@@ -68,3 +69,8 @@ Documentation of the tools and libraries used.
   - API Documentation: <https://leafletjs.com/reference-1.6.0.html>
   - Angular component(s) used:
     - `ngx-leaflet`: <https://github.com/Asymmetrik/ngx-leaflet>
+
+## Other resources
+
+- Leaflet Markers  
+  For easily exchangeable marker-images, see: <https://github.com/pointhi/leaflet-color-markers>

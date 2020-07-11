@@ -8,8 +8,10 @@ export default {
         coordinates: [23.09930992, -13.54325008],
       },
       properties: {
-        station_name: 'ZambeziBoma',
-        station_code: 'G5652',
+        stationName: 'ZambeziBoma',
+        stationCode: 'G5652',
+        triggerLevel: 9000,
+        forecastLevel: 9001,
       },
     },
     {
@@ -19,8 +21,10 @@ export default {
         coordinates: [27.81529045, -15.45269012],
       },
       properties: {
-        station_name: 'Shibuyunji',
-        station_code: 'G1343',
+        stationName: 'Shibuyunji',
+        stationCode: 'G1343',
+        triggerLevel: 9000,
+        forecastLevel: 8000,
       },
     },
   ],

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LatLngLiteral } from 'leaflet';
 import { IbfLayer } from 'src/app/types/ibf-layer';
+import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
 import { environment } from 'src/environments/environment';
 import { ApiService } from './api.service';
@@ -24,14 +25,27 @@ export class MapService {
     this.state.center.lng = environment.initialLng;
   }
 
-  private getLayerIndexById(id: string): number {
-    return this.state.layers.findIndex((layer: Layer) => {
-      return layer.id === id;
+  public async loadData() {
+    this.addLayer({
+      name: IbfLayerName.waterStations,
+      type: IbfLayerType.point,
+      active: true,
+      data: await this.getStations(),
     });
   }
 
-  public async setLayerState(id: string, state: boolean): Promise<void> {
-    const layerIndex = this.getLayerIndexById(id);
+  private addLayer({ name, type, active, data }) {
+    this.state.layers.push({ name, type, active, data });
+  }
+
+  private getLayerIndexById(name: string): number {
+    return this.state.layers.findIndex((layer: IbfLayer) => {
+      return layer.name === name;
+    });
+  }
+
+  public async setLayerState(name: string, state: boolean): Promise<void> {
+    const layerIndex = this.getLayerIndexById(name);
     this.state.layers[layerIndex].active = state;
   }
 
