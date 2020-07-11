@@ -9,6 +9,9 @@ import { JwtService } from './jwt.service';
   providedIn: 'root',
 })
 export class ApiService {
+  private enableLogging = false;
+  private log = this.enableLogging ? console.log : () => {};
+
   constructor(private jwtService: JwtService, private http: HttpClient) {}
 
   private showSecurity(anonymous: boolean) {
@@ -37,7 +40,7 @@ export class ApiService {
     anonymous: boolean = true,
   ): Observable<any> {
     const security = this.showSecurity(anonymous);
-    console.log(`ApiService GET: ${security} ${endpoint}${path}`);
+    this.log(`ApiService GET: ${security} ${endpoint}${path}`);
 
     return this.http
       .get(endpoint + path, {
@@ -45,7 +48,7 @@ export class ApiService {
       })
       .pipe(
         tap((response) =>
-          console.log(
+          this.log(
             `ApiService GET: ${security} ${endpoint}${path}`,
             `\nResponse:`,
             response,
@@ -61,7 +64,7 @@ export class ApiService {
     anonymous: boolean = false,
   ): Observable<any> {
     const security = this.showSecurity(anonymous);
-    console.log(`ApiService POST: ${security} ${endpoint}${path}`, body);
+    this.log(`ApiService POST: ${security} ${endpoint}${path}`, body);
 
     return this.http
       .post(endpoint + path, body, {
@@ -69,7 +72,7 @@ export class ApiService {
       })
       .pipe(
         tap((response) =>
-          console.log(
+          this.log(
             `ApiService POST: ${security} ${endpoint}${path}:`,
             body,
             `\nResponse:`,
