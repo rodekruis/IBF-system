@@ -49,7 +49,6 @@ export class MapComponent implements OnInit {
 
   public leafletOptions: MapOptions = {
     zoom: 5,
-    center: latLng(-12.823, 29.268),
     layers: [this.hotTileLayer],
   };
 
@@ -63,6 +62,7 @@ export class MapComponent implements OnInit {
 
   constructor(private mapService: MapService) {
     this.layers = this.mapService.state.layers;
+    this.leafletOptions.center = latLng(this.mapService.state.center);
   }
 
   ngOnInit() {}

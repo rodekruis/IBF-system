@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LatLngLiteral } from 'leaflet';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
 import { ApiService } from './api.service';
@@ -8,6 +9,10 @@ import { ApiService } from './api.service';
 })
 export class MapService {
   public state = {
+    center: {
+      lat: 0,
+      lng: 0,
+    } as LatLngLiteral,
     layers: [] as IbfLayer[],
   };
 
