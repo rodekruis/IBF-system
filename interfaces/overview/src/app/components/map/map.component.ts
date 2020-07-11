@@ -10,8 +10,8 @@ import {
   marker,
   tileLayer,
 } from 'leaflet';
-import { Station } from 'src/app/models/station.model';
-import { Layer, MapService } from 'src/app/services/map.service';
+import { MapService } from 'src/app/services/map.service';
+import { IbfLayer } from 'src/app/types/ibf-layer';
 
 @Component({
   selector: 'app-map',
@@ -19,8 +19,7 @@ import { Layer, MapService } from 'src/app/services/map.service';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  public layers: Layer[];
-  public stations: Station[];
+  public layers: IbfLayer[];
 
   // Define our base layers so we can reference them multiple times
   private hotTileLayer = tileLayer(
