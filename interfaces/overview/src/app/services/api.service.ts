@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Station } from '../models/station.model';
 import { JwtService } from './jwt.service';
 
 @Injectable({
@@ -102,7 +101,7 @@ export class ApiService {
     countryCode: string,
     currentPrev: string,
     leadTime: string,
-  ): Promise<Station[]> {
+  ): Promise<[]> {
     return this.get(
       environment.api_url,
       `stations/${countryCode}/${currentPrev}/${leadTime}`,
