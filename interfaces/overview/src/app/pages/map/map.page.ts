@@ -16,14 +16,9 @@ export class MapPage implements OnInit {
   public toggleFirstLayer() {
     const newState = !this.mapService.state.layers[0].active;
     this.mapService.state.layers[0].active = newState;
-    if (newState) {
-      this.getStations();
-    } else {
-      this.stations = [];
-    }
   }
 
-  private async getStations() {
+  public async getStations() {
     const countryCode = 'ZMB';
     const currentPrev = 'Current';
     const leadTime = '3-day';
