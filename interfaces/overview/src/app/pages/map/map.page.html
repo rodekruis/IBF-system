@@ -13,17 +13,14 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div>
+  <div class="ion-margin-vertical">
     <ion-button
-      type="button"
       color="tertiary"
       (click)="toggleFirstLayer()"
-      [fill]="mapService.state.layers[0].active ? 'solid' : 'outline'"
+      [fill]="mapService.state.layers[0]?.active ? 'solid' : 'outline'"
     >
       Toggle first layer
     </ion-button>
   </div>
-  <hr />
   <app-map style="outline: 1px solid hotpink;"></app-map>
-  <pre *ngIf="stations.length">stations: {{ stations | json }}</pre>
 </ion-content>
