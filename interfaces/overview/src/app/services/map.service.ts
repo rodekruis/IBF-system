@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { LatLngLiteral } from 'leaflet';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
+import { environment } from 'src/environments/environment';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -9,6 +10,7 @@ import { ApiService } from './api.service';
 })
 export class MapService {
   public state = {
+    countryCode: '',
     center: {
       lat: 0,
       lng: 0,
@@ -16,7 +18,11 @@ export class MapService {
     layers: [] as IbfLayer[],
   };
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {
+    this.state.countryCode = environment.defaultCountryCode;
+    this.state.center.lat = environment.initialLat;
+    this.state.center.lng = environment.initialLng;
+  }
 
   private getLayerIndexById(id: string): number {
     return this.state.layers.findIndex((layer: Layer) => {
@@ -30,12 +36,11 @@ export class MapService {
   }
 
   public async getStations(
-    countryCode: string,
-    currentPrev: string,
-    leadTime: string,
+    currentPrev: string = 'Current',
+    leadTime: string = '3-day',
   ) {
     return await this.apiService.getStations(
-      countryCode,
+      this.state.countryCode,
       currentPrev,
       leadTime,
     );

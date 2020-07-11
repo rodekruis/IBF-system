@@ -19,13 +19,8 @@ export class MapPage implements OnInit {
   }
 
   public async getStations() {
-    const countryCode = 'ZMB';
     const currentPrev = 'Current';
     const leadTime = '3-day';
-    this.stations = await this.mapService.getStations(
-      countryCode,
-      currentPrev,
-      leadTime,
-    );
+    this.stations = await this.mapService.getStations(currentPrev, leadTime);
   }
 }
