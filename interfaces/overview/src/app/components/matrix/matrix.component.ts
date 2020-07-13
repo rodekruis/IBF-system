@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Layer, MapService } from 'src/app/services/map.service';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-matrix',
@@ -7,15 +7,11 @@ import { Layer, MapService } from 'src/app/services/map.service';
   styleUrls: ['./matrix.component.scss'],
 })
 export class MatrixComponent implements OnInit {
-  public layers: Layer[];
-
-  constructor(private mapService: MapService) {
-    this.layers = this.mapService.state.layers;
-  }
+  constructor(public mapService: MapService) {}
 
   ngOnInit() {}
 
-  public updateLayer(id: string, state: boolean): void {
-    this.mapService.setLayerState(id, state);
+  public updateLayer(name: string, state: boolean): void {
+    this.mapService.setLayerState(name, state);
   }
 }
