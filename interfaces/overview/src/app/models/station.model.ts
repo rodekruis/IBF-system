@@ -1,9 +1,7 @@
+// tslint:disable: variable-name
 export class Station {
-  stationName: string;
-  stationCode: string;
-  triggerLevel: number;
-  forecastLevel: number;
-  triggerInd: number;
-  triggerPerc: number;
-  triggerProb: number;
+  station_name: string;
+  station_code: string;
+  trigger_level: number;
+  fc: number;
 }

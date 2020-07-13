@@ -138,10 +138,10 @@ export class MapComponent implements OnInit {
     markerProperties: Station,
     markerLatLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.stationName;
+    const markerTitle = markerProperties.station_name;
     let markerIcon = this.iconDefault;
 
-    if (markerProperties.forecastLevel > markerProperties.triggerLevel) {
+    if (markerProperties.fc > markerProperties.trigger_level) {
       markerIcon = this.iconWarning;
     }
 
