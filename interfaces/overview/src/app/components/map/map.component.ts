@@ -68,7 +68,7 @@ export class MapComponent implements OnInit {
     overlays: {},
   };
 
-  constructor(private mapService: MapService) {
+  constructor(public mapService: MapService) {
     this.leafletOptions.center = latLng(this.mapService.state.center);
   }
 
@@ -81,8 +81,10 @@ export class MapComponent implements OnInit {
     window.dispatchEvent(new UIEvent('resize'));
 
     await this.mapService.loadData();
-    this.layers = this.createLayers(this.mapService.state.layers);
-    this.addLayersToMap();
+    this.mapService.state.layers = this.createLayers(
+      this.mapService.state.layers,
+    );
+    this.addToLayersControl();
   }
 
   private createLayers(layers: IbfLayer[]) {
@@ -99,10 +101,9 @@ export class MapComponent implements OnInit {
     });
   }
 
-  private addLayersToMap() {
-    this.layers.forEach((layer) => {
+  private addToLayersControl(): void {
+    this.mapService.state.layers.forEach((layer) => {
       this.leafletLayersControl.overlays[layer.name] = layer.leafletLayer;
-      this.map.addLayer(layer.leafletLayer);
     });
   }
 
