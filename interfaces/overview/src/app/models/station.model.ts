@@ -4,4 +4,5 @@ export class Station {
   station_code: string;
   trigger_level: number;
   fc: number;
+  fc_trigger: string;
 }
