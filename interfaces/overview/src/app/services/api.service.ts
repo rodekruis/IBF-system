@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Station } from '../models/station.model';
 import { JwtService } from './jwt.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
+  private enableLogging = false;
+  private log = this.enableLogging ? console.log : () => {};
+
   constructor(private jwtService: JwtService, private http: HttpClient) {}
 
   private showSecurity(anonymous: boolean) {
@@ -38,7 +40,7 @@ export class ApiService {
     anonymous: boolean = true,
   ): Observable<any> {
     const security = this.showSecurity(anonymous);
-    console.log(`ApiService GET: ${security} ${endpoint}${path}`);
+    this.log(`ApiService GET: ${security} ${endpoint}${path}`);
 
     return this.http
       .get(endpoint + path, {
@@ -46,7 +48,7 @@ export class ApiService {
       })
       .pipe(
         tap((response) =>
-          console.log(
+          this.log(
             `ApiService GET: ${security} ${endpoint}${path}`,
             `\nResponse:`,
             response,
@@ -62,7 +64,7 @@ export class ApiService {
     anonymous: boolean = false,
   ): Observable<any> {
     const security = this.showSecurity(anonymous);
-    console.log(`ApiService POST: ${security} ${endpoint}${path}`, body);
+    this.log(`ApiService POST: ${security} ${endpoint}${path}`, body);
 
     return this.http
       .post(endpoint + path, body, {
@@ -70,7 +72,7 @@ export class ApiService {
       })
       .pipe(
         tap((response) =>
-          console.log(
+          this.log(
             `ApiService POST: ${security} ${endpoint}${path}:`,
             body,
             `\nResponse:`,
@@ -102,7 +104,7 @@ export class ApiService {
     countryCode: string,
     currentPrev: string,
     leadTime: string,
-  ): Promise<Station[]> {
+  ): Promise<[]> {
     return this.get(
       environment.api_url,
       `stations/${countryCode}/${currentPrev}/${leadTime}`,

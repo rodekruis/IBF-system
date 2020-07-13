@@ -10,5 +10,10 @@ export const environment = {
 
   // Feature-flags:
   useMockData: ${process.env.NG_USE_MOCK_DATA || false},
+
+  // Configuration/initial data:
+  defaultCountryCode: '${process.env.NG_DEFAULT_COUNTRY_CODE}',
+  initialLat: ${process.env.NG_INITIAL_LAT || 0},
+  initialLng: ${process.env.NG_INITIAL_LNG || 0},
 };
 `;

@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { MapService } from 'src/app/services/map.service';
@@ -8,16 +9,11 @@ describe('OverviewPage', () => {
   let component: OverviewPage;
   let fixture: ComponentFixture<OverviewPage>;
 
-  const mockMapService = jasmine.createSpyObj('MapService', ['state']);
-  mockMapService.state.and.returnValue({
-    layers: [],
-  });
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OverviewPage],
-      imports: [IonicModule.forRoot(), SharedModule],
-      providers: [{ provide: MapService, useValue: mockMapService }],
+      imports: [IonicModule.forRoot(), SharedModule, HttpClientTestingModule],
+      providers: [{ provide: MapService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(OverviewPage);
