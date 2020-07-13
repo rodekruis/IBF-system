@@ -25,11 +25,7 @@ services:
             - web-interface-root:/home/node/app/www
 
     ibf-geoserver:
-        image: "kartoza/geoserver"
-        volumes:
-            - ./services/IBF-pipeline/geoserver:/opt/geoserver/data_dir
-        ports:
-            - 8081:8080
+        image: kartoza/geoserver
         restart: unless-stopped
 
 volumes:
