@@ -80,7 +80,7 @@ export class MapComponent implements OnInit {
     this.map = map;
 
     // Trigger a resize to fill the container-element:
-    window.dispatchEvent(new UIEvent('resize'));
+    window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 200);
 
     await this.mapService.loadData();
     this.mapService.state.layers = this.createLayers(
