@@ -6,9 +6,11 @@ import {
   IconOptions,
   latLng,
   LatLng,
+  Layer,
   Map,
   MapOptions,
   marker,
+  Marker,
   tileLayer,
 } from 'leaflet';
 import { Station } from 'src/app/models/station.model';
@@ -87,7 +89,7 @@ export class MapComponent implements OnInit {
     this.addToLayersControl();
   }
 
-  private createLayers(layers: IbfLayer[]) {
+  private createLayers(layers: IbfLayer[]): IbfLayer[] {
     return layers.map((layer) => {
       if (!layer.active) {
         return;
@@ -107,7 +109,7 @@ export class MapComponent implements OnInit {
     });
   }
 
-  private createPointLayer(layer: IbfLayer) {
+  private createPointLayer(layer: IbfLayer): Layer {
     if (!layer.data) {
       return;
     }
@@ -126,13 +128,16 @@ export class MapComponent implements OnInit {
     });
   }
 
-  private createMarkerDefault(markerLatLng: LatLng) {
+  private createMarkerDefault(markerLatLng: LatLng): Marker {
     return marker(markerLatLng, {
       icon: icon(this.iconDefault),
     });
   }
 
-  private createMarkerStation(markerProperties: Station, markerLatLng: LatLng) {
+  private createMarkerStation(
+    markerProperties: Station,
+    markerLatLng: LatLng,
+  ): Marker {
     const markerTitle = markerProperties.stationName;
     let markerIcon = this.iconDefault;
 
