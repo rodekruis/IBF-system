@@ -10,6 +10,7 @@ export const environment = {
 
   // Feature-flags:
   useMockData: false,
+  useServiceWorker: false,
 
   // Configuration/initial data:
   defaultCountryCode: 'ZMB',
