@@ -59,14 +59,11 @@ export class MapComponent implements OnInit {
 
   public leafletOptions: MapOptions = {
     zoom: 5,
-    layers: [this.hotTileLayer],
+    layers: [this.osmTileLayer],
   };
 
   public leafletLayersControl: LeafletControlLayersConfig = {
-    baseLayers: {
-      'OpenStreetMap default': this.osmTileLayer,
-      'Humanitairian OpenStreetMap': this.hotTileLayer,
-    },
+    baseLayers: {},
     overlays: {},
   };
 
@@ -141,7 +138,7 @@ export class MapComponent implements OnInit {
     const markerTitle = markerProperties.station_name;
     let markerIcon = this.iconDefault;
 
-    if (markerProperties.fc > markerProperties.trigger_level) {
+    if (markerProperties.fc_trigger === '1') {
       markerIcon = this.iconWarning;
     }
 
