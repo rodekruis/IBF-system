@@ -1,10 +1,6 @@
-export class Poi {
-  code: string;
-  name: string;
-  geom: string;
-}
-
-export class Station extends Poi {
+export class Station {
+  stationName: string;
+  stationCode: string;
   triggerLevel: number;
   forecastLevel: number;
   triggerInd: number;

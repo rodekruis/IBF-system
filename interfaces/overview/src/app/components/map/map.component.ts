@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import {
+  geoJSON,
   icon,
+  IconOptions,
   latLng,
   LatLng,
-  layerGroup,
+  Layer,
   Map,
   MapOptions,
   marker,
+  Marker,
   tileLayer,
 } from 'leaflet';
 import { Station } from 'src/app/models/station.model';
-import { Layer, MapService } from 'src/app/services/map.service';
+import { MapService } from 'src/app/services/map.service';
+import { IbfLayer } from 'src/app/types/ibf-layer';
+import { IbfLayerName } from 'src/app/types/ibf-layer-name';
+import { IbfLayerType } from 'src/app/types/ibf-layer-type';
 
 @Component({
   selector: 'app-map',
@@ -19,8 +25,8 @@ import { Layer, MapService } from 'src/app/services/map.service';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  public layers: Layer[];
-  public stations: Station[];
+  private map: Map;
+  public layers: IbfLayer[];
 
   // Define our base layers so we can reference them multiple times
   private hotTileLayer = tileLayer(
@@ -39,18 +45,20 @@ export class MapComponent implements OnInit {
     },
   );
 
-  private defaultIcon = icon({
+  private iconDefault: IconOptions = {
     iconSize: [25, 41],
     iconAnchor: [13, 41],
-    iconUrl: 'assets/leaflet/marker-icon.png',
-    iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
-  });
-
-  private testMarkers;
+    iconUrl: 'assets/markers/default.png',
+    iconRetinaUrl: 'assets/markers/default-2x.png',
+  };
+  private iconWarning: IconOptions = {
+    ...this.iconDefault,
+    iconUrl: 'assets/markers/warning.png',
+    iconRetinaUrl: 'assets/markers/warning-2x.png',
+  };
 
   public leafletOptions: MapOptions = {
     zoom: 5,
-    center: latLng(-12.823, 29.268),
     layers: [this.hotTileLayer],
   };
 
@@ -62,36 +70,84 @@ export class MapComponent implements OnInit {
     overlays: {},
   };
 
-  constructor(private mapService: MapService) {
-    this.layers = this.mapService.state.layers;
+  constructor(public mapService: MapService) {
+    this.leafletOptions.center = latLng(this.mapService.state.center);
   }
 
   ngOnInit() {}
 
-  onMapReady(map: Map) {
-    // Trigger a resize to fill the container-element:
-    window.dispatchEvent(new UIEvent('resize'));
+  async onMapReady(map: Map) {
+    this.map = map;
 
-    this.debugPutMarkersOnTheMap(map);
+    // Trigger a resize to fill the container-element:
+    window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 200);
+
+    await this.mapService.loadData();
+    this.mapService.state.layers = this.createLayers(
+      this.mapService.state.layers,
+    );
+    this.addToLayersControl();
   }
 
-  private createMarker(markerTitle: string, markerLatLng: LatLng) {
-    return marker(markerLatLng, {
-      title: markerTitle,
-      icon: this.defaultIcon,
+  private createLayers(layers: IbfLayer[]): IbfLayer[] {
+    return layers.map((layer) => {
+      if (!layer.active) {
+        return;
+      }
+
+      if (layer.type === IbfLayerType.point) {
+        layer.leafletLayer = this.createPointLayer(layer);
+      }
+
+      return layer;
     });
   }
-  private createMarkerLayer(markers: any[]) {
-    return layerGroup(markers);
+
+  private addToLayersControl(): void {
+    this.mapService.state.layers.forEach((layer) => {
+      this.leafletLayersControl.overlays[layer.name] = layer.leafletLayer;
+    });
   }
 
-  private debugPutMarkersOnTheMap(map: Map) {
-    const testMarkers = this.createMarkerLayer([
-      this.createMarker('test marker 1', latLng(-14, 27)),
-      this.createMarker('test marker 2', latLng(-15, 28)),
-    ]);
+  private createPointLayer(layer: IbfLayer): Layer {
+    if (!layer.data) {
+      return;
+    }
+    return geoJSON(layer.data, {
+      pointToLayer: (geoJsonPoint: GeoJSON.Feature, latlng: LatLng) => {
+        switch (layer.name) {
+          case IbfLayerName.waterStations:
+            return this.createMarkerStation(
+              geoJsonPoint.properties as Station,
+              latlng,
+            );
+          default:
+            return this.createMarkerDefault(latlng);
+        }
+      },
+    });
+  }
 
-    this.leafletLayersControl.overlays['test markers'] = testMarkers;
-    map.addLayer(testMarkers);
+  private createMarkerDefault(markerLatLng: LatLng): Marker {
+    return marker(markerLatLng, {
+      icon: icon(this.iconDefault),
+    });
+  }
+
+  private createMarkerStation(
+    markerProperties: Station,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.stationName;
+    let markerIcon = this.iconDefault;
+
+    if (markerProperties.forecastLevel > markerProperties.triggerLevel) {
+      markerIcon = this.iconWarning;
+    }
+
+    return marker(markerLatLng, {
+      title: markerTitle,
+      icon: icon(markerIcon),
+    });
   }
 }
