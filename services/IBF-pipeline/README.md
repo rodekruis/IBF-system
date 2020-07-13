@@ -19,10 +19,10 @@ This repository consists of 2 parts.
 
 ## Set up Data pipeline
 
-1. Build Docker image (from root folder) and run container with volume
+1. Build Docker image (from the IBF-pipeline root folder) and run container with volume. ${PWD} should take automatically your Present Working Directory as the local folder to attach the volume though; if this fails, you can always replace it by the literal path (e.g. "C:/IBF-system/services/IBF-pipeline:/home/ibf" instead of "${PWD}:/home/ibf")
 ```
 docker build . -t ibf-pipeline
-docker run --net=host --name=ibf-pipeline -v /home/ibf --restart always -it ibf-pipeline
+docker run --net=host --name=ibf-pipeline -v ${PWD}:/home/ibf --restart always -it ibf-pipeline
 ```
 
 2. Within container run setup: this will a.o. upload static data to the database.
