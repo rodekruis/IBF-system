@@ -4,6 +4,8 @@ services:
     ibf-api-service:
         command: ["npm", "run", "start:dev"]
         # command: ["npm", "run", "start"]
+        environment: 
+            - NODE_ENV=development
         volumes:
             - ./services/API-service:/home/ibf/api-service
         ports:

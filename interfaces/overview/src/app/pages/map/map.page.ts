@@ -20,7 +20,7 @@ export class MapPage implements OnInit {
 
   public async getStations() {
     const currentPrev = 'Current';
-    const leadTime = '3-day';
+    const leadTime = '7-day';
     this.stations = await this.mapService.getStations(currentPrev, leadTime);
   }
 }
