@@ -5,9 +5,19 @@ import { AppController } from './app.controller';
 import { UserModule } from './user/user.module';
 import { DataModule } from './data/data.module';
 import { HealthModule } from './health.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), UserModule, DataModule, HealthModule],
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'dist'),
+    }),
+    TypeOrmModule.forRoot(),
+    UserModule,
+    DataModule,
+    HealthModule,
+  ],
   controllers: [AppController],
   providers: [],
 })
