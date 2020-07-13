@@ -1,24 +1,25 @@
-# Logs
-logs
-*.log
-.DS_Store
-
-npm-debug.log*
-
-# Dependency directory
-node_modules
-
-# Optional npm cache directory
-.npm
-
-#IDEs
+# IDE / Editors
+.vscode
 .idea
+*.sublime-project
+*.sublime-workspace
 
-#config files
+
+# Configuration, secrets, etc:
 .env
 
-# code testing coverage
+
+# Generated files
+dist
 coverage
 
-# generated assets
-dist
+
+# External code
+node_modules
+
+
+# Logs / Cache / temporary files
+logs
+*.log
+npm-debug.log*
+.npm

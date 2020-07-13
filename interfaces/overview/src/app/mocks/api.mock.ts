@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
-import { Station } from '../models/station.model';
+import mockStationsGeoJSON from './stations.geojson.mock.data';
 
 /**
  * Mock API:
@@ -36,18 +36,7 @@ export const MockApi = {
 ///////////////////////////////////////////////////////////////////////////////
 
 function returnAllStations() {
-  const body: Station[] = [
-    {
-      code: '',
-      name: '',
-      geom: '',
-      forecastLevel: 1,
-      triggerInd: 1,
-      triggerLevel: 1,
-      triggerPerc: 1,
-      triggerProb: 1,
-    },
-  ];
+  const body = mockStationsGeoJSON;
 
   return of(new HttpResponse({ status: 200, body }));
 }

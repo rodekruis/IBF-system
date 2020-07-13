@@ -23,7 +23,7 @@ const optionalMockDataModule =
     }),
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
+      enabled: environment.production && environment.useServiceWorker,
     }),
     ...optionalMockDataModule,
   ],

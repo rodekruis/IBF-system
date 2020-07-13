@@ -1,13 +1,7 @@
-export class Poi {
-  code: string;
-  name: string;
-  geom: string;
-}
-
-export class Station extends Poi {
-  triggerLevel: number;
-  forecastLevel: number;
-  triggerInd: number;
-  triggerPerc: number;
-  triggerProb: number;
+// tslint:disable: variable-name
+export class Station {
+  station_name: string;
+  station_code: string;
+  trigger_level: number;
+  fc: number;
 }
