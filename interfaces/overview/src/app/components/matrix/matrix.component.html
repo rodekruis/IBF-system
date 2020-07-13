@@ -5,12 +5,12 @@ MatrixComponent:
   <label>
     <input
       type="checkbox"
-      [name]="layer.id"
+      [name]="layer.name"
       [checked]="layer.active ? 'true' : null"
-      (change)="updateLayer(layer.id, $event.target.checked)"
+      (change)="updateLayer(layer.name, $event.target.checked)"
     />
     &nbsp;
-    <code>{{ layer.type }} </code>: {{ layer.id }}
+    <code>{{ layer.type }} </code>: {{ layer.name }}
   </label>
   <br />
 </ng-container>
