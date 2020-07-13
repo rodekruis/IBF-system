@@ -16,10 +16,6 @@ RUN npm ci
 # Prepare configurations
 COPY --chown=node:node . .
 
-# Possible environments: development | staging | production
-ARG NODE_ENV=development
-ENV NODE_ENV="${NODE_ENV}"
-
 EXPOSE 3000
 
 CMD ["npm", "start"]

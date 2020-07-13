@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 
   // APIs
-  api_url: '',
+  api_url: 'http://localhost:3000/api/',
 
   // Feature-flags:
   useMockData: false,

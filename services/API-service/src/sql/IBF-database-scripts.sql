@@ -3,12 +3,13 @@
 --They are kept explicitly here in the repository for documentation 
 
 --create view
+drop view if exists "IBF-API"."Glofas_stations";
 create or replace view "IBF-API"."Glofas_stations" as
 select dfps.current_prev
 		,dfps.lead_time
 		,dgsv.station_code
 		,dgsv.station_name
-		,dgsv.geom
+		,ST_AsGeoJSON(dgsv.geom)::json As geom
 		,dgsv.trigger_level
 	  , dfps.fc
       , dfps.fc_trigger

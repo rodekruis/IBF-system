@@ -57,22 +57,32 @@ export class DataService {
   }
 
   private toGeojson(rawResult): GeoJson {
-    console.log(rawResult);
-    const geoJSON: GeoJson = {
+    const geoJson: GeoJson = {
       type: 'FeatureCollection',
       features: [],
     };
     rawResult.forEach((i): void => {
-      const feature: GeoJsonFeature = {
+      let feature: GeoJsonFeature = {
         type: 'Feature',
         geometry: i.geom,
         properties: {},
       };
       delete i.geom;
       feature.properties = i;
-      geoJSON.features.push(feature);
+      feature = this.switchLatLon(feature);
+      geoJson.features.push(feature);
     });
-    return geoJSON;
+
+    return geoJson;
+  }
+
+  private switchLatLon(feature): GeoJsonFeature {
+    if (feature.geometry) {
+      const temp = feature.geometry.coordinates[0];
+      feature.geometry.coordinates[0] = feature.geometry.coordinates[1];
+      feature.geometry.coordinates[1] = temp;
+    }
+    return feature;
   }
 
   private formQuery(schema, functionName, country, tableName): string {
