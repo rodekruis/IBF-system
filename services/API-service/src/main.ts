@@ -10,7 +10,7 @@ async function bootstrap(): Promise<void> {
   app.setGlobalPrefix('api');
 
   const options = new DocumentBuilder()
-    .setTitle('121 - PA-accounts-service')
+    .setTitle('IBF - API-service')
     .setDescription('API description')
     .setVersion('1.0')
     .setBasePath('api')
