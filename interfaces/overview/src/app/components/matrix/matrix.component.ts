@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MapService } from 'src/app/services/map.service';
-import { IbfLayer } from 'src/app/types/ibf-layer';
 
 @Component({
   selector: 'app-matrix',
@@ -8,11 +7,7 @@ import { IbfLayer } from 'src/app/types/ibf-layer';
   styleUrls: ['./matrix.component.scss'],
 })
 export class MatrixComponent implements OnInit {
-  public layers: IbfLayer[];
-
-  constructor(private mapService: MapService) {
-    this.layers = this.mapService.state.layers;
-  }
+  constructor(public mapService: MapService) {}
 
   ngOnInit() {}
 
