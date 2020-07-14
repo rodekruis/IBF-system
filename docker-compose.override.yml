@@ -6,6 +6,7 @@ services:
         # command: ["npm", "run", "start"]
         environment:
             - NODE_ENV=development
+            - NG_PRODUCTION=false
         volumes:
             - ./services/API-service:/home/ibf/api-service
         ports:
