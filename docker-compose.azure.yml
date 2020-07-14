@@ -23,6 +23,9 @@ services:
         volumes:
             - web-interface-root:/home/node/app/www
 
+    ibf-geoserver:
+        image: kartoza/geoserver
+
 volumes:
     api-service-root:
     web-interface-root:

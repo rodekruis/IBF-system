@@ -47,8 +47,9 @@ crontab -e (to open file)
 ## Setup geoserver
 This step is only needed when working with a frontend.
 1. Unzip geoserver data folder (described above)
-2. `docker run --name "geoserver" -p 8081:8080 -v $HOME/FbF-Data-pipeline/geoserver:/opt/geoserver/data_dir --restart always kartoza/geoserver`
-3. To restart it later `docker container start geoserver`
+2. `docker run --name "geoserver" -p 8081:8080 -v ${PWD}/geoserver:/opt/geoserver/data_dir --restart always kartoza/geoserver`
+3. Visit at http://localhost:8081/geoserver/web
+4. Default credentials are admin/geoserver
 
 ### Logging loggly and SMTPHandler for logging (OPTIONAL)
  1. Create a gmail account add to EMAIL_USERNAME in settings.py add your password to secrets.py 
