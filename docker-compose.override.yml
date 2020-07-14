@@ -17,7 +17,7 @@ services:
         ports:
             - 4200:4200
         volumes:
-            - ./interfaces/overview:/home/node/app/www
+            - ./interfaces/overview:/home/node/app
 
     ibf-geoserver:
         ports:
