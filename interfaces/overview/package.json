@@ -15,7 +15,7 @@
     "prestart": "npm install --no-optional --no-audit --no-fund",
     "serve:static": "cp www/index.html www/404.html && npx http-server www/ -c-1",
     "set-env-variables": "node ./_set-env-variabes.js",
-    "start": "ng serve --port=0 --host=0.0.0.0 --disable-host-check",
+    "start": "ng serve --port=4200 --host=0.0.0.0 --disable-host-check",
     "start:prod": "npm run build:prod && npm run serve:static",
     "test:dev": "ng test",
     "test:only": "ng test --no-watch --browsers=ChromeHeadless",
