@@ -29,6 +29,14 @@ services:
     ibf-web-interface:
         build: ./interfaces/overview
         image: rodekruis/ibf-web-interface
+        environment:
+            - NG_PRODUCTION=true
+            - NG_API_URL=${NG_API_URL}
+            - NG_USE_MOCK_DATA=${NG_USE_MOCK_DATA}
+            - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
+            - NG_DEFAULT_COUNTRY_CODE=${NG_DEFAULT_COUNTRY_CODE}
+            - NG_INITIAL_LAT=${NG_INITIAL_LAT}
+            - NG_INITIAL_LNG=${NG_INITIAL_LNG}
         volumes:
             - web-interface-root:/home/node/app/www
 
