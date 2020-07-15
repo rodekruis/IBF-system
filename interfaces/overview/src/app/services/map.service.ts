@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import center from '@turf/center';
+import { containsNumber } from '@turf/invariant';
 import { LatLngLiteral } from 'leaflet';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
@@ -21,8 +23,6 @@ export class MapService {
 
   constructor(private apiService: ApiService) {
     this.state.countryCode = environment.defaultCountryCode;
-    this.state.center.lat = environment.initialLat;
-    this.state.center.lng = environment.initialLng;
   }
 
   public async loadData() {
@@ -35,6 +35,13 @@ export class MapService {
   }
 
   private addLayer({ name, type, active, data }) {
+    const layerCenterCoordinates = center(data).geometry.coordinates;
+    this.state.center = containsNumber(layerCenterCoordinates)
+      ? ({
+          lng: layerCenterCoordinates[0],
+          lat: layerCenterCoordinates[1],
+        } as LatLngLiteral)
+      : this.state.center;
     this.state.layers.push({ name, type, active, data });
   }
 
