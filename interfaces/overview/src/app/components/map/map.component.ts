@@ -80,6 +80,7 @@ export class MapComponent implements OnInit {
     window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 200);
 
     await this.mapService.loadData();
+    map.panTo(this.mapService.state.center);
     this.mapService.state.layers = this.createLayers(
       this.mapService.state.layers,
     );

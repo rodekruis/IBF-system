@@ -14,7 +14,5 @@ export const environment = {
 
   // Configuration/initial data:
   defaultCountryCode: '${process.env.NG_DEFAULT_COUNTRY_CODE}',
-  initialLat: ${process.env.NG_INITIAL_LAT || 0},
-  initialLng: ${process.env.NG_INITIAL_LNG || 0},
 };
 `;

@@ -6,7 +6,5 @@ docker build \
 --build-arg NG_USE_MOCK_DATA=${NG_USE_MOCK_DATA} \
 --build-arg NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER} \
 --build-arg NG_DEFAULT_COUNTRY_CODE=${NG_DEFAULT_COUNTRY_CODE} \
---build-arg NG_INITIAL_LAT=${NG_INITIAL_LAT} \
---build-arg NG_INITIAL_LNG=${NG_INITIAL_LNG} \
 -t ${IMAGE_NAME} \
 .
