@@ -14,6 +14,4 @@ export const environment = {
 
   // Configuration/initial data:
   defaultCountryCode: 'ZMB',
-  initialLat: -12.823,
-  initialLng: 29.268,
 };
