@@ -20,8 +20,6 @@ services:
             - NG_USE_MOCK_DATA=${NG_USE_MOCK_DATA}
             - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
             - NG_DEFAULT_COUNTRY_CODE=${NG_DEFAULT_COUNTRY_CODE}
-            - NG_INITIAL_LAT=${NG_INITIAL_LAT}
-            - NG_INITIAL_LNG=${NG_INITIAL_LNG}
         volumes:
             - api-service-root:/home/ibf/api-service
             - web-interface-root:/home/ibf/api-service/www
@@ -35,8 +33,6 @@ services:
             - NG_USE_MOCK_DATA=${NG_USE_MOCK_DATA}
             - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
             - NG_DEFAULT_COUNTRY_CODE=${NG_DEFAULT_COUNTRY_CODE}
-            - NG_INITIAL_LAT=${NG_INITIAL_LAT}
-            - NG_INITIAL_LNG=${NG_INITIAL_LNG}
         volumes:
             - web-interface-root:/home/node/app/www
 
