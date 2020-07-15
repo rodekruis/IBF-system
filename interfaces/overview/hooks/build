@@ -8,5 +8,5 @@ docker build \
 --build-arg NG_DEFAULT_COUNTRY_CODE=${NG_DEFAULT_COUNTRY_CODE} \
 --build-arg NG_INITIAL_LAT=${NG_INITIAL_LAT} \
 --build-arg NG_INITIAL_LNG=${NG_INITIAL_LNG} \
--t latest \
+-t ${IMAGE_NAME} \
 .

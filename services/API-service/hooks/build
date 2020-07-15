@@ -2,5 +2,5 @@
 
 docker build \
 --build-arg NODE_ENV=${NODE_ENV} \
--t latest \
+-t ${IMAGE_NAME} \
 .
