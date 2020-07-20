@@ -2,15 +2,15 @@
 MatrixComponent:
 </pre>
 <ng-container *ngFor="let layer of mapService.state.layers">
-  <label>
-    <input
-      type="checkbox"
-      [name]="layer.name"
-      [checked]="layer.active ? 'true' : null"
-      (change)="updateLayer(layer.name, $event.target.checked)"
-    />
-    &nbsp;
-    <code>{{ layer.type }} </code>: {{ layer.name }}
-  </label>
-  <br />
+    <label>
+        <input
+            type="checkbox"
+            [name]="layer.name"
+            [checked]="layer.active ? 'true' : null"
+            (change)="updateLayer(layer.name, $event.target.checked)"
+        />
+        &nbsp;
+        <code>{{ layer.type }} </code>: {{ layer.name }}
+    </label>
+    <br />
 </ng-container>

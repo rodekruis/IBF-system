@@ -3,15 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+    production: false,
 
-  // APIs
-  api_url: 'http://localhost:3000/api/',
+    // APIs
+    api_url: "http://localhost:3000/api/",
 
-  // Feature-flags:
-  useMockData: false,
-  useServiceWorker: false,
+    // Feature-flags:
+    useMockData: false,
+    useServiceWorker: false,
 
-  // Configuration/initial data:
-  defaultCountryCode: 'ZMB',
+    // Configuration/initial data:
+    defaultCountryCode: "ZMB",
 };
