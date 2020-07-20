@@ -138,7 +138,7 @@ export class MapComponent implements OnInit {
     return geoJSON(layer.data, {
       style: this.mapService.setAdminRegionStyle(
         layer.data,
-        'population_affected',
+        this.mapService.state.defaultColorProperty,
       ),
     });
   }

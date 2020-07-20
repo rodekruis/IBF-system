@@ -19,6 +19,7 @@ export class MapService {
       lng: 0,
     } as LatLngLiteral,
     layers: [] as IbfLayer[],
+    defaultColorProperty: 'population_affected',
   };
 
   constructor(private apiService: ApiService) {
