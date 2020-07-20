@@ -114,19 +114,19 @@ export class MapService {
         adminRegionFillColor = this.state.defaultColor;
     }
     return adminRegionFillColor;
-  }
+  };
 
   getAdminRegionFillOpacity = (adminRegion) => {
     return this.state.defaultFillOpacity;
-  }
+  };
 
   getAdminRegionWeight = (adminRegion) => {
     return this.state.defaultWeight;
-  }
+  };
 
   getAdminRegionColor = (adminRegion) => {
     return this.state.defaultColor;
-  }
+  };
 
   public setAdminRegionStyle = (adminRegions, colorProperty) => {
     const colorPropertyValues = adminRegions.features
@@ -155,5 +155,5 @@ export class MapService {
         color,
       };
     };
-  }
+  };
 }
