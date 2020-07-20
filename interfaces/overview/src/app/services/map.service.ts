@@ -6,6 +6,7 @@ import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
 import { environment } from 'src/environments/environment';
+import { quantile } from 'src/shared/utils';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -20,6 +21,10 @@ export class MapService {
     } as LatLngLiteral,
     layers: [] as IbfLayer[],
     defaultColorProperty: 'population_affected',
+    colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
+    defaultColor: '#969696',
+    defaultFillOpacity: 0.8,
+    defaultWeight: 1,
   };
 
   constructor(private apiService: ApiService) {
@@ -87,30 +92,67 @@ export class MapService {
     );
   }
 
-  getAdminRegionFillColor = (adminRegion, colorProperty) => {
-    return adminRegion.properties[colorProperty] > 10000 ? 'red' : 'green';
+  getAdminRegionFillColor = (colorPropertyValue, colorThreshold) => {
+    let adminRegionFillColor = this.state.defaultColor;
+    switch (true) {
+      case colorPropertyValue < colorThreshold['0.2']:
+        adminRegionFillColor = this.state.colorGradient[0];
+        break;
+      case colorPropertyValue < colorThreshold['0.4']:
+        adminRegionFillColor = this.state.colorGradient[1];
+        break;
+      case colorPropertyValue < colorThreshold['0.6']:
+        adminRegionFillColor = this.state.colorGradient[2];
+        break;
+      case colorPropertyValue < colorThreshold['0.8']:
+        adminRegionFillColor = this.state.colorGradient[3];
+        break;
+      case colorPropertyValue > colorThreshold['0.8']:
+        adminRegionFillColor = this.state.colorGradient[4];
+        break;
+      default:
+        adminRegionFillColor = this.state.defaultColor;
+    }
+    return adminRegionFillColor;
   };
 
   getAdminRegionFillOpacity = (adminRegion) => {
-    return 0.2;
+    return this.state.defaultFillOpacity;
   };
 
   getAdminRegionWeight = (adminRegion) => {
-    return 1;
+    return this.state.defaultWeight;
+  };
+
+  getAdminRegionColor = (adminRegion) => {
+    return this.state.defaultColor;
   };
 
   public setAdminRegionStyle = (adminRegions, colorProperty) => {
+    const colorPropertyValues = adminRegions.features
+      .map((feature) => feature.properties[colorProperty])
+      .filter((v, i, a) => a.indexOf(v) === i);
+
+    const colorThreshold = {
+      '0.2': quantile(colorPropertyValues, 0.2),
+      '0.4': quantile(colorPropertyValues, 0.4),
+      '0.6': quantile(colorPropertyValues, 0.6),
+      '0.8': quantile(colorPropertyValues, 0.8),
+    };
+
     return (adminRegion) => {
       const fillColor = this.getAdminRegionFillColor(
-        adminRegion,
-        colorProperty,
+        adminRegion.properties[colorProperty],
+        colorThreshold,
       );
       const fillOpacity = this.getAdminRegionFillOpacity(adminRegion);
       const weight = this.getAdminRegionWeight(adminRegion);
+      const color = this.getAdminRegionColor(adminRegion);
       return {
-        color: fillColor,
+        fillColor: fillColor,
         fillOpacity: fillOpacity,
         weight: weight,
+        color: color,
       };
     };
   };
