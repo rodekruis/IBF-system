@@ -1,6 +1,6 @@
-import { HttpResponse } from "@angular/common/http";
-import { of } from "rxjs";
-import mockStationsGeoJSON from "./stations.geojson.mock.data";
+import { HttpResponse } from '@angular/common/http';
+import { of } from 'rxjs';
+import mockStationsGeoJSON from './stations.geojson.mock.data';
 
 /**
  * Mock API:
@@ -23,12 +23,12 @@ import mockStationsGeoJSON from "./stations.geojson.mock.data";
  *
  */
 export const MockApi = {
-    GET: {
-        stations: { handler: returnAllStations },
-    },
-    POST: {
-        "user/login": { handler: returnLogin },
-    },
+  GET: {
+    stations: { handler: returnAllStations },
+  },
+  POST: {
+    'user/login': { handler: returnLogin },
+  },
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,9 +36,9 @@ export const MockApi = {
 ///////////////////////////////////////////////////////////////////////////////
 
 function returnAllStations() {
-    const body = mockStationsGeoJSON;
+  const body = mockStationsGeoJSON;
 
-    return of(new HttpResponse({ status: 200, body }));
+  return of(new HttpResponse({ status: 200, body }));
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -46,6 +46,6 @@ function returnAllStations() {
 ///////////////////////////////////////////////////////////////////////////////
 
 function returnLogin() {
-    const body = "";
-    return of(new HttpResponse({ status: 200, body }));
+  const body = '';
+  return of(new HttpResponse({ status: 200, body }));
 }

@@ -1,48 +1,48 @@
 <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
-    <input
-        type="submit"
-        hidden
-        [disabled]="!loginForm.form.valid"
-    /><!-- Include hidden submit-button to enable "enter"-key to trigger ngSubmit -->
+  <input
+    type="submit"
+    hidden
+    [disabled]="!loginForm.form.valid"
+  /><!-- Include hidden submit-button to enable "enter"-key to trigger ngSubmit -->
 
-    <ion-item>
-        <ion-label position="stacked">
-            e-mail
-        </ion-label>
-        <ion-input
-            [(ngModel)]="model.email"
-            name="email"
-            type="email"
-            required
-            inputmode="email"
-            pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
-            autocomplete="email username"
-            clearInput="true"
-        ></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label position="stacked">
-            password
-        </ion-label>
-        <ion-input
-            [(ngModel)]="model.password"
-            name="password"
-            type="password"
-            required
-            autocomplete="current-password"
-            minlength="4"
-            clearInput="true"
-            clearOnEdit="false"
-        ></ion-input>
-    </ion-item>
+  <ion-item>
+    <ion-label position="stacked">
+      e-mail
+    </ion-label>
+    <ion-input
+      [(ngModel)]="model.email"
+      name="email"
+      type="email"
+      required
+      inputmode="email"
+      pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
+      autocomplete="email username"
+      clearInput="true"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">
+      password
+    </ion-label>
+    <ion-input
+      [(ngModel)]="model.password"
+      name="password"
+      type="password"
+      required
+      autocomplete="current-password"
+      minlength="4"
+      clearInput="true"
+      clearOnEdit="false"
+    ></ion-input>
+  </ion-item>
 
-    <ion-button
-        buttonType="button"
-        type="submit"
-        expand="block"
-        [disabled]="!loginForm.form.valid"
-    >
-        log in
-        <ion-icon slot="end" name="enter"></ion-icon>
-    </ion-button>
+  <ion-button
+    buttonType="button"
+    type="submit"
+    expand="block"
+    [disabled]="!loginForm.form.valid"
+  >
+    log in
+    <ion-icon slot="end" name="enter"></ion-icon>
+  </ion-button>
 </form>
