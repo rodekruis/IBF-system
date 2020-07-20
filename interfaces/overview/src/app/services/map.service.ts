@@ -114,19 +114,19 @@ export class MapService {
         adminRegionFillColor = this.state.defaultColor;
     }
     return adminRegionFillColor;
-  };
+  }
 
   getAdminRegionFillOpacity = (adminRegion) => {
     return this.state.defaultFillOpacity;
-  };
+  }
 
   getAdminRegionWeight = (adminRegion) => {
     return this.state.defaultWeight;
-  };
+  }
 
   getAdminRegionColor = (adminRegion) => {
     return this.state.defaultColor;
-  };
+  }
 
   public setAdminRegionStyle = (adminRegions, colorProperty) => {
     const colorPropertyValues = adminRegions.features
@@ -134,10 +134,10 @@ export class MapService {
       .filter((v, i, a) => a.indexOf(v) === i);
 
     const colorThreshold = {
-      '0.2': quantile(colorPropertyValues, 0.2),
-      '0.4': quantile(colorPropertyValues, 0.4),
-      '0.6': quantile(colorPropertyValues, 0.6),
-      '0.8': quantile(colorPropertyValues, 0.8),
+      0.2: quantile(colorPropertyValues, 0.2),
+      0.4: quantile(colorPropertyValues, 0.4),
+      0.6: quantile(colorPropertyValues, 0.6),
+      0.8: quantile(colorPropertyValues, 0.8),
     };
 
     return (adminRegion) => {
@@ -149,11 +149,11 @@ export class MapService {
       const weight = this.getAdminRegionWeight(adminRegion);
       const color = this.getAdminRegionColor(adminRegion);
       return {
-        fillColor: fillColor,
-        fillOpacity: fillOpacity,
-        weight: weight,
-        color: color,
+        fillColor,
+        fillOpacity,
+        weight,
+        color,
       };
     };
-  };
+  }
 }
