@@ -33,6 +33,32 @@ export class DataService {
     return result[0].usp_fbf_geodata;
   }
 
+  public async getAdminAreaData(
+    countryCode: string,
+    adminLevel: number,
+    currentPrev: string,
+    leadTime: string,
+  ): Promise<GeoJson> {
+    const query =
+      ' select * \
+    from "IBF-API"."Admin_area_data' +
+      adminLevel +
+      '" \
+    where 0 = 0 \
+    and current_prev = $1 \
+    and lead_time = $2 \
+    ';
+
+    const rawResult: Station[] = await this.manager.query(query, [
+      currentPrev,
+      leadTime,
+    ]);
+
+    const result = this.toGeojson(rawResult);
+
+    return result;
+  }
+
   public async getStations(
     countryCode: string,
     currentPrev: string,
