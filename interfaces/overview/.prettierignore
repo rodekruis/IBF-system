@@ -12,3 +12,4 @@
 
 # Don't reorder imports for polyfills:
 src/polyfills.ts
+README.md

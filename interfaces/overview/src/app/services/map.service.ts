@@ -107,7 +107,11 @@ export class MapService {
       );
       const fillOpacity = this.getAdminRegionFillOpacity(adminRegion);
       const weight = this.getAdminRegionWeight(adminRegion);
-      return { color: fillColor, fillOpacity: fillOpacity, weight: weight };
+      return {
+        color: fillColor,
+        fillOpacity: fillOpacity,
+        weight: weight,
+      };
     };
   };
 }
