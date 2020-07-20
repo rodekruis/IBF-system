@@ -63,8 +63,8 @@ DISTRICT_MAPPING = PIPELINE_DATA+'input/Glofas_station_per_district.csv'
 
 # Glofas input
 GLOFAS_FTP = 'data-portal.ecmwf.int/ZambiaRedcross_glofas_point/'
-GLOFAS_DUMMY = False
-OVERWRITE_DUMMY = False
+GLOFAS_DUMMY = True
+OVERWRITE_DUMMY = True
 
 ####################
 ## EMAIL SETTINGS ##

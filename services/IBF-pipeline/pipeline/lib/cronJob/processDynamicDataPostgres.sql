@@ -1,4 +1,5 @@
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_forecast_per_station CASCADE;
+truncate table "IBF-pipeline-output".dashboard_forecast_per_station;
+insert into "IBF-pipeline-output".dashboard_forecast_per_station
 SELECT t0.station_code
 	,t0.station_name
 	,t0.trigger_level
@@ -12,7 +13,6 @@ SELECT t0.station_code
 	,t0.geom
 	,other_lead_time_trigger
 	,case when t3.station is null then 0 else 1 end as station_used
-INTO "IBF-pipeline-output".dashboard_forecast_per_station 
 FROM "IBF-pipeline-output".dashboard_glofas_stations_v2 t0
 LEFT JOIN "IBF-pipeline-output".triggers_rp_per_station_short t1
 ON t0.station_code = t1.station_code
