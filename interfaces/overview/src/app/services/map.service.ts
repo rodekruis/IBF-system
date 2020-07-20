@@ -32,6 +32,12 @@ export class MapService {
       active: true,
       data: await this.getStations(),
     });
+    this.addLayer({
+      name: IbfLayerName.adminRegions,
+      type: IbfLayerType.shape,
+      active: true,
+      data: await this.getAdminRegions(),
+    });
   }
 
   private addLayer({ name, type, active, data }) {
@@ -66,4 +72,41 @@ export class MapService {
       leadTime,
     );
   }
+
+  public async getAdminRegions(
+    adminLevel: number = 2,
+    currentPrev: string = 'Current',
+    leadTime: string = '7-day',
+  ) {
+    return await this.apiService.getAdminRegions(
+      this.state.countryCode,
+      adminLevel,
+      currentPrev,
+      leadTime,
+    );
+  }
+
+  getAdminRegionFillColor = (adminRegion, colorProperty) => {
+    return adminRegion.properties[colorProperty] > 10000 ? 'red' : 'green';
+  };
+
+  getAdminRegionFillOpacity = (adminRegion) => {
+    return 0.2;
+  };
+
+  getAdminRegionWeight = (adminRegion) => {
+    return 1;
+  };
+
+  public setAdminRegionStyle = (adminRegions, colorProperty) => {
+    return (adminRegion) => {
+      const fillColor = this.getAdminRegionFillColor(
+        adminRegion,
+        colorProperty,
+      );
+      const fillOpacity = this.getAdminRegionFillOpacity(adminRegion);
+      const weight = this.getAdminRegionWeight(adminRegion);
+      return { color: fillColor, fillOpacity: fillOpacity, weight: weight };
+    };
+  };
 }
