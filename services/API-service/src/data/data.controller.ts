@@ -39,7 +39,7 @@ export class DataController {
     );
   }
 
-  @ApiOperation({ title: 'Get live glofas station data' })
+  @ApiOperation({ title: 'Get station location + trigger data' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'currentPrev', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
@@ -50,6 +50,21 @@ export class DataController {
   ): Promise<GeoJson> {
     return await this.dataService.getStations(
       params.countryCode,
+      params.currentPrev,
+      params.leadTime,
+    );
+  }
+
+  @ApiOperation({ title: 'Get admin-area shape data' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiImplicitParam({ name: 'currentPrev', required: true, type: 'string' })
+  @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
+  @Get('admin-area-data/:countryCode/:adminLevel/:currentPrev/:leadTime')
+  public async getAdminAreaData(@Param() params): Promise<GeoJson> {
+    return await this.dataService.getAdminAreaData(
+      params.countryCode,
+      params.adminLevel,
       params.currentPrev,
       params.leadTime,
     );
