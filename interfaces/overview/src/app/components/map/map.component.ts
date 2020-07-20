@@ -97,6 +97,10 @@ export class MapComponent implements OnInit {
         layer.leafletLayer = this.createPointLayer(layer);
       }
 
+      if (layer.name === IbfLayerName.adminRegions) {
+        layer.leafletLayer = this.createAdminRegionsLayer(layer);
+      }
+
       return layer;
     });
   }
@@ -123,6 +127,19 @@ export class MapComponent implements OnInit {
             return this.createMarkerDefault(latlng);
         }
       },
+    });
+  }
+
+  private createAdminRegionsLayer(layer: IbfLayer): Layer {
+    if (!layer.data) {
+      return;
+    }
+
+    return geoJSON(layer.data, {
+      style: this.mapService.setAdminRegionStyle(
+        layer.data,
+        this.mapService.state.defaultColorProperty,
+      ),
     });
   }
 

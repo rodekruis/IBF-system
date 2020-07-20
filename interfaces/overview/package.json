@@ -9,7 +9,7 @@
     "e2e": "ng e2e",
     "fix:syntax": "npm run lint:syntax -- --write",
     "lint:syntax": "prettier --check \"**/*.{md,js,ts,scss,html}\" ",
-    "lint": "npm run lint:syntax && ng lint",
+    "lint": "npm run lint:syntax",
     "ng": "ng",
     "prebuild": "npm run set-env-variables",
     "prestart": "npm install --no-optional --no-audit --no-fund",

@@ -110,4 +110,16 @@ export class ApiService {
       `stations/${countryCode}/${currentPrev}/${leadTime}`,
     ).toPromise();
   }
+
+  getAdminRegions(
+    countryCode: string,
+    adminLevel: number,
+    currentPrev: string,
+    leadTime: string,
+  ): Promise<[]> {
+    return this.get(
+      environment.api_url,
+      `admin-area-data/${countryCode}/${adminLevel}/${currentPrev}/${leadTime}`,
+    ).toPromise();
+  }
 }
