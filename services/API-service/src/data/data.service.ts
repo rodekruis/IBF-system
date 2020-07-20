@@ -95,20 +95,10 @@ export class DataService {
       };
       delete i.geom;
       feature.properties = i;
-      feature = this.switchLatLon(feature);
       geoJson.features.push(feature);
     });
 
     return geoJson;
-  }
-
-  private switchLatLon(feature): GeoJsonFeature {
-    if (feature.geometry) {
-      const temp = feature.geometry.coordinates[0];
-      feature.geometry.coordinates[0] = feature.geometry.coordinates[1];
-      feature.geometry.coordinates[1] = temp;
-    }
-    return feature;
   }
 
   private formQuery(schema, functionName, country, tableName): string {

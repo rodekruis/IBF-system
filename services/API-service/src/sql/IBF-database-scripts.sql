@@ -9,7 +9,7 @@ select dfps.current_prev
 		,dfps.lead_time
 		,dgsv.station_code
 		,dgsv.station_name
-		,ST_AsGeoJSON(dgsv.geom)::json As geom
+		,ST_AsGeoJSON(ST_FlipCoordinates(dgsv.geom))::json As geom
 		,dgsv.trigger_level
 	  , dfps.fc
       , dfps.fc_trigger
@@ -33,6 +33,7 @@ from "IBF-static-input"."ZMB_Geo_level1" zgl
 left join "IBF-pipeline-output".data_adm1 d1 on zgl.pcode_level1 = d1.pcode
 where d1.date is not null
 ;
+--select * from "IBF-API"."Admin_area_data1"
 
 drop view if exists "IBF-API"."Admin_area_data2";
 create or replace view "IBF-API"."Admin_area_data2" as 
@@ -46,6 +47,7 @@ from "IBF-static-input"."ZMB_Geo_level2" zgl
 left join "IBF-pipeline-output".data_adm2 d2 on zgl.pcode_level2 = d2.pcode
 where d2.date is not null
 ;
+--select * from "IBF-API"."Admin_area_data2"
 
 drop view if exists "IBF-API"."Admin_area_data3";
 create or replace view "IBF-API"."Admin_area_data3" as 
@@ -59,9 +61,6 @@ from "IBF-static-input"."ZMB_Geo_level3" zgl
 left join "IBF-pipeline-output".data_adm3 d3 on zgl.pcode_level3 = d3.pcode
 where d3.date is not null
 ;
-
---select * from "IBF-API"."Admin_area_data1"
---select * from "IBF-API"."Admin_area_data2"
 --select * from "IBF-API"."Admin_area_data3"
 
 
