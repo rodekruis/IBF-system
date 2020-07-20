@@ -53,8 +53,8 @@ export class MapComponent implements OnInit {
   };
   private iconWarning: IconOptions = {
     ...this.iconDefault,
-    iconUrl: 'assets/markers/warning.png',
-    iconRetinaUrl: 'assets/markers/warning-2x.png',
+    iconUrl: 'assets/markers/alert.svg',
+    iconRetinaUrl: 'assets/markers/alert.svg',
   };
 
   public leafletOptions: MapOptions = {
