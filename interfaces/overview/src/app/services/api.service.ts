@@ -1,125 +1,125 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { JwtService } from './jwt.service';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
+import { environment } from "src/environments/environment";
+import { JwtService } from "./jwt.service";
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: "root",
 })
 export class ApiService {
-  private enableLogging = false;
-  private log = this.enableLogging ? console.log : () => {};
+    private enableLogging = false;
+    private log = this.enableLogging ? console.log : () => {};
 
-  constructor(private jwtService: JwtService, private http: HttpClient) {}
+    constructor(private jwtService: JwtService, private http: HttpClient) {}
 
-  private showSecurity(anonymous: boolean) {
-    return anonymous ? '🌐' : '🔐';
-  }
-
-  private createHeaders(anonymous: boolean = false): HttpHeaders {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    });
-
-    if (!anonymous) {
-      return headers.set(
-        'Authorization',
-        `Token ${this.jwtService.getToken()}`,
-      );
+    private showSecurity(anonymous: boolean) {
+        return anonymous ? "🌐" : "🔐";
     }
 
-    return headers;
-  }
+    private createHeaders(anonymous: boolean = false): HttpHeaders {
+        const headers = new HttpHeaders({
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        });
 
-  get(
-    endpoint: string,
-    path: string,
-    anonymous: boolean = true,
-  ): Observable<any> {
-    const security = this.showSecurity(anonymous);
-    this.log(`ApiService GET: ${security} ${endpoint}${path}`);
+        if (!anonymous) {
+            return headers.set(
+                "Authorization",
+                `Token ${this.jwtService.getToken()}`
+            );
+        }
 
-    return this.http
-      .get(endpoint + path, {
-        headers: this.createHeaders(anonymous),
-      })
-      .pipe(
-        tap((response) =>
-          this.log(
-            `ApiService GET: ${security} ${endpoint}${path}`,
-            `\nResponse:`,
-            response,
-          ),
-        ),
-      );
-  }
+        return headers;
+    }
 
-  post(
-    endpoint: string,
-    path: string,
-    body: object,
-    anonymous: boolean = false,
-  ): Observable<any> {
-    const security = this.showSecurity(anonymous);
-    this.log(`ApiService POST: ${security} ${endpoint}${path}`, body);
+    get(
+        endpoint: string,
+        path: string,
+        anonymous: boolean = true
+    ): Observable<any> {
+        const security = this.showSecurity(anonymous);
+        this.log(`ApiService GET: ${security} ${endpoint}${path}`);
 
-    return this.http
-      .post(endpoint + path, body, {
-        headers: this.createHeaders(anonymous),
-      })
-      .pipe(
-        tap((response) =>
-          this.log(
-            `ApiService POST: ${security} ${endpoint}${path}:`,
-            body,
-            `\nResponse:`,
-            response,
-          ),
-        ),
-      );
-  }
+        return this.http
+            .get(endpoint + path, {
+                headers: this.createHeaders(anonymous),
+            })
+            .pipe(
+                tap(response =>
+                    this.log(
+                        `ApiService GET: ${security} ${endpoint}${path}`,
+                        `\nResponse:`,
+                        response
+                    )
+                )
+            );
+    }
 
-  /////////////////////////////////////////////////////////////////////////////
-  // API-endpoints:
-  /////////////////////////////////////////////////////////////////////////////
+    post(
+        endpoint: string,
+        path: string,
+        body: object,
+        anonymous: boolean = false
+    ): Observable<any> {
+        const security = this.showSecurity(anonymous);
+        this.log(`ApiService POST: ${security} ${endpoint}${path}`, body);
 
-  login(email: string, password: string): Observable<any> {
-    console.log('ApiService : login()');
+        return this.http
+            .post(endpoint + path, body, {
+                headers: this.createHeaders(anonymous),
+            })
+            .pipe(
+                tap(response =>
+                    this.log(
+                        `ApiService POST: ${security} ${endpoint}${path}:`,
+                        body,
+                        `\nResponse:`,
+                        response
+                    )
+                )
+            );
+    }
 
-    return this.post(
-      environment.api_url,
-      'user/login',
-      {
-        email,
-        password,
-      },
-      true,
-    );
-  }
+    /////////////////////////////////////////////////////////////////////////////
+    // API-endpoints:
+    /////////////////////////////////////////////////////////////////////////////
 
-  getStations(
-    countryCode: string,
-    currentPrev: string,
-    leadTime: string,
-  ): Promise<[]> {
-    return this.get(
-      environment.api_url,
-      `stations/${countryCode}/${currentPrev}/${leadTime}`,
-    ).toPromise();
-  }
+    login(email: string, password: string): Observable<any> {
+        console.log("ApiService : login()");
 
-  getAdminRegions(
-    countryCode: string,
-    adminLevel: number,
-    currentPrev: string,
-    leadTime: string,
-  ): Promise<[]> {
-    return this.get(
-      environment.api_url,
-      `admin-area-data/${countryCode}/${adminLevel}/${currentPrev}/${leadTime}`,
-    ).toPromise();
-  }
+        return this.post(
+            environment.api_url,
+            "user/login",
+            {
+                email,
+                password,
+            },
+            true
+        );
+    }
+
+    getStations(
+        countryCode: string,
+        currentPrev: string,
+        leadTime: string
+    ): Promise<[]> {
+        return this.get(
+            environment.api_url,
+            `stations/${countryCode}/${currentPrev}/${leadTime}`
+        ).toPromise();
+    }
+
+    getAdminRegions(
+        countryCode: string,
+        adminLevel: number,
+        currentPrev: string,
+        leadTime: string
+    ): Promise<[]> {
+        return this.get(
+            environment.api_url,
+            `admin-area-data/${countryCode}/${adminLevel}/${currentPrev}/${leadTime}`
+        ).toPromise();
+    }
 }

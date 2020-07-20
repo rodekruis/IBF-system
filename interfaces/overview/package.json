@@ -8,7 +8,7 @@
     "build:prod": "npm run build -- --prod",
     "e2e": "ng e2e",
     "fix:syntax": "npm run lint:syntax -- --write",
-    "lint:syntax": "prettier --check \"**/*.{md,js,ts,scss,html}\" ",
+    "lint:syntax": "prettier --check \"**/*.{md,js,ts,scss,html}\" --config ./.prettierrc",
     "lint": "npm run lint:syntax && ng lint",
     "ng": "ng",
     "prebuild": "npm run set-env-variables",
