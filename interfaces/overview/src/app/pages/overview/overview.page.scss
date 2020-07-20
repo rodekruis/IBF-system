@@ -1,21 +1,21 @@
 .debug-container {
-    outline: 1px dashed hotpink;
+  outline: 1px dashed hotpink;
 }
 .debug-placeholder {
-    display: flex;
+  display: flex;
 
-    > * {
-        margin: auto;
-    }
+  > * {
+    margin: auto;
+  }
 }
 
 // The lay-out of the `ion-content`-area of the page/screen
 .page-structure {
-    min-height: 100%;
-    display: flex;
-    flex-flow: column nowrap;
+  min-height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
 }
 // The `ion-row` that should fill the height of the page/screen:
 .page-structure--content {
-    flex-grow: 1;
+  flex-grow: 1;
 }
