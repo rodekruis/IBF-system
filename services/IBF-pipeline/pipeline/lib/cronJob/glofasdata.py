@@ -13,7 +13,8 @@ import urllib.error
 import tarfile
 import time
 from lib.logging.logglySetup import logger
-from settings import CURRENT_DATE, GLOFAS_FTP, PIPELINE_DATA, PIPELINE_OUTPUT, GLOFAS_DUMMY, OVERWRITE_DUMMY, WATERSTATIONS_TRIGGERS, TRIGGER_RP_COLNAME, TRIGGER_LEVELS
+from settings import CURRENT_DATE, GLOFAS_FTP, PIPELINE_DATA, PIPELINE_OUTPUT, GLOFAS_DUMMY, OVERWRITE_DUMMY, \
+    WATERSTATIONS_TRIGGERS, TRIGGER_RP_COLNAME, TRIGGER_LEVELS, GLOFAS_FILENAME
 from secrets import GLOFAS_USER, GLOFAS_PW
 
 
@@ -66,7 +67,7 @@ class GlofasData:
 
     def makeFtpRequest(self):
         current_date = CURRENT_DATE.strftime('%Y%m%d')
-        filename = 'glofas_pointdata_ZambiaRedcross_' + current_date + '00.tar.gz'
+        filename = GLOFAS_FILENAME + '_' + current_date + '00.tar.gz'
         ftp_path = 'ftp://'+GLOFAS_USER+':'+GLOFAS_PW + '@' + GLOFAS_FTP
         urllib.request.urlretrieve(ftp_path + filename,
                                    self.inputPath + filename)
@@ -85,7 +86,7 @@ class GlofasData:
         df_thresholds = pd.read_csv(
             WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
         df_thresholds = df_thresholds.set_index("station_code", drop=False)
-        
+
         stations = []
         for i in range(0, len(files)):
             logging.info("Extracting glofas data from %s", i)
@@ -93,7 +94,7 @@ class GlofasData:
             station = {}
             station['code'] = files[i].split(
                 '_')[2] if GLOFAS_DUMMY == False else files[i].split('_')[4]
-            
+
             data = xr.open_dataset(Filename)
 
             # Get threshold for this specific station
