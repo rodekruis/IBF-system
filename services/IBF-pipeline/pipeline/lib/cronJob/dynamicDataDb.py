@@ -1,10 +1,11 @@
 import psycopg2
-from sqlalchemy import create_engine
+from psycopg2 import sql as psql
+from sqlalchemy import create_engine, text
 import pandas as pd
 
 from lib.logging.logglySetup import logger
 from lib.setup.setupConnection  import get_db
-from settings import SCHEMA_NAME, PIPELINE_OUTPUT, CURRENT_DATE
+from settings import SCHEMA_NAME, PIPELINE_OUTPUT, CURRENT_DATE, CALCULATE_EXPOSURE, CRA_FILENAME
 from secrets import DB_SETTINGS
 
 class DatabaseManager:
@@ -19,21 +20,22 @@ class DatabaseManager:
         lizardFolder = PIPELINE_OUTPUT + "lizard/"
         self.tableJson = {
             "triggers_rp_per_station_" + fcStep: triggerFolder + 'triggers_rp_'+fcStep + ".json"
-            ,"calculated_affected_"  + fcStep: affectedFolder + 'affected_'+fcStep + ".json"
             #,"lizard_output": lizardFolder + 'lizard_output.json'
         }
+        if CALCULATE_EXPOSURE:
+            self.tableJson["calculated_affected_" + fcStep] = affectedFolder + 'affected_'+fcStep + ".json"
 
     def upload(self):
         for table, jsonData in self.tableJson.items():
             self.uploadDynamicToDb(table, jsonData)
-    
+
     def upload_lizard(self):
         table = "lizard_output"
         lizardFolder = PIPELINE_OUTPUT + "lizard/"
         jsonData = lizardFolder + 'lizard_output.json'
         self.uploadDynamicToDb(table, jsonData)
 
-        
+
     def uploadDynamicToDb(self, table, jsonData):
         logger.info("Uploading from %s to %s", table, jsonData)
         #Load (static) threshold values per station and add date-column
@@ -50,25 +52,33 @@ class DatabaseManager:
             self.con.close()
         except psycopg2.ProgrammingError as e:
             logger.info(e)
-        
+
         #Append new data for current date
-        df.to_sql(table , self.engine,if_exists='append',schema=SCHEMA_NAME)
+        df.to_sql(table, self.engine, if_exists='append', schema=SCHEMA_NAME)
         print(table+' uploaded')
 
     def processDynamicDataDb(self):
-        sql_file = open('lib/cronJob/processDynamicDataPostgres.sql', 'r', encoding='utf-8')
-        sql = sql_file.read()
+        sql_file = open('lib/cronJob/processDynamicDataPostgresTrigger.sql', 'r', encoding='utf-8')
+        sql_trigger = sql_file.read()
         sql_file.close()
+        if CALCULATE_EXPOSURE:
+            sql_file = open('lib/cronJob/processDynamicDataPostgresExposure.sql', 'r', encoding='utf-8')
+            sql_exposure = sql_file.read()
+            sql_file.close()
         try:
             self.con, self.cur, self.db = get_db()
-            self.cur.execute(sql)
+            self.cur.execute(sql_trigger)
+            if CALCULATE_EXPOSURE:
+                self.cur.execute(psql.SQL(sql_exposure).format(
+                    psql.Identifier("IBF-static-input", CRA_FILENAME + "_3"),
+                    psql.Identifier("IBF-static-input", CRA_FILENAME + "_2"),
+                    psql.Identifier("IBF-static-input", CRA_FILENAME + "_1")))
             self.con.commit()
             self.con.close()
             print('SQL EXECUTED')
         except psycopg2.ProgrammingError as e:
             logger.info(e)
             print('SQL FAILED', e)
-
 
 
 
