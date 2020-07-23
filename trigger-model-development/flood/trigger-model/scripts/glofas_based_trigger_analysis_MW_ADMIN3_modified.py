@@ -157,28 +157,12 @@ df_total = df_total.merge(df_event[['date_event', 'adm3_name', 'adm3_pcode', 'fl
             .drop(columns=['date_event', 'adm3_name', 'adm3_pcode'])
     
 df_total['flood'] = df_total['flood'].fillna(0)
-    # df_flow['Q50_pred'] = 0
-    # df_flow['Q80_pred'] = 0
-    # df_flow['Q90_pred'] = 0
-    
+  
+### check if discharge crossed the thresholds, if yes count as 1, else 0  
 df_total['Q50_pred']=np.where((df_total['Max_2wks'] >= df_total['Q50']), 1, 0)
 df_total['Q80_pred']=np.where((df_total['Max_2wks'] >= df_total['Q80']), 1, 0)
 df_total['Q90_pred']=np.where((df_total['Max_2wks'] >= df_total['Q90']), 1, 0)
-    
-#     # for i in range(len(df_flow)+1):
-#     #     try:
-#     #         # if df_flow.loc[i, 'flood'] == 1:
-#     #         flow_in_window = df_flow.loc[i-date_window:i+date_window, 'Max_2wks']                        
-#     #         if any(j >= df_flow.loc[i, 'Q50'] for j in flow_in_window):
-#     #             df_flow.loc[i,'Q50_pred'] = 1
-#     #         if any(j >= df_flow.loc[i, 'Q80'] for j in flow_in_window):
-#     #             df_flow.loc[i,'Q80_pred'] = 1
-#     #         if any(j >= df_flow.loc[i, 'Q90'] for j in flow_in_window):
-#     #             df_flow.loc[i,'Q90_pred'] = 1    
-#     #     except:
-#     #         continue
-    
-#     df_total = df_total.append(df_flow)
+
 
 ###### Plot per district discharge and events (per station)
 for district in np.unique(df_total['Dist_PCODE']):
