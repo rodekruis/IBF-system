@@ -30,15 +30,31 @@ def normalize(df):
 
 # read and filter duplicate events/ events within 3 wks
 def get_impact_data(impactfile):
+    '''
+    Read impact database in a csv file and return the database into a DataFrame
+    Within an admin3, the script also filter duplicate event (same day in the same admin3)
+    and event that occured within 3 weeks after the previous one.
+    
+    Parameters
+    ----------
+    impactfile : directory and filename as string
+        Example: 'C:/IBF/impactdata.csv'
+
+    Returns
+    -------
+    df_event_filtered : pandas DataFrame
+
+    '''
     df_event = pd.DataFrame(impactfile).dropna(axis = 'columns', how = 'all')
     df_event['date_event'] = pd.to_datetime(df_event['date_event'])
     df_event['date_event'] = df_event['date_event'].dt.date
     df_event = df_event.dropna(subset=['adm2_pcode', 'adm3_pcode'])
     # df_event['adm3_name'] = df_event[['adm3_name']].apply(lambda x: x.str.strip())
     df_event.drop_duplicates(subset=['adm3_pcode', 'date_event'], keep='first', inplace=True)
-    df_event['flood'] = 1
+    df_event['flood'] = 1   # set observed events: 1, no event: 0
     df_event_filtered = pd.DataFrame()
     
+    # Filter event that occurs within 3 weeks after a previous one
     for district in np.unique(df_event['adm3_pcode'].astype(str)):
         df_event1 = df_event[df_event['adm3_pcode']==district].sort_values(by='date_event', ascending=True).reset_index()
         for i in df_event1.index:
@@ -97,13 +113,11 @@ glofas_st = gpd.sjoin(glofas_st_shape, adm_shp, how='inner', op='intersects')\
 flood_events = pd.read_csv(mypath + '/raw_data/malawi/malawi_impactdata_flood.csv', encoding='latin-1')  # load impact data
 df_event = get_impact_data(flood_events)
 
-affected_adm3 = np.unique(df_event['adm3_pcode'].astype(str))
-
 df_total = pd.DataFrame()
 date_window = 14
     
 ################### set up dataframe station-discharge 
-for pcode in affected_adm3:
+for pcode in np.unique(df_event['adm3_pcode'].astype(str)):
     df_event1 = df_event[df_event['adm3_pcode']==pcode]
     # df_event1.index = df_event1['date_event']
     df_flow = pd.DataFrame()
@@ -165,6 +179,8 @@ df_total['Q90_pred']=np.where((df_total['Max_2wks'] >= df_total['Q90']), 1, 0)
 #     #         continue
     
 #     df_total = df_total.append(df_flow)
+
+###### Plot per district discharge and events (per station)
 for district in np.unique(df_total['Dist_PCODE']):
     df_event1 = df_event[df_event['adm3_pcode']==district]
     # df_event1.index = df_event1['date_event']
@@ -197,8 +213,8 @@ for quantile in quantiles:
     perf['quantile'] = quantile
     performance_scores = performance_scores.append(perf)
     
-# adding the number of flood impact data per district
-floods_per_district = df_event.groupby('adm3_pcode')['flood'].count()
+##### export results into csv file
+floods_per_district = df_event.groupby('adm3_pcode')['flood'].count()  ### count number of events per district
 performance_scores = pd.merge(floods_per_district, performance_scores, how='left', left_on='adm3_pcode', right_on='Dist_PCODE')
 performance_scores = performance_scores.rename(columns={ 'flood': 'nb_event'}).dropna(0)
 performance_scores = performance_scores[['Dist_PCODE','Stations','nb_event','quantile', 'pod','far','pofd','csi']]
