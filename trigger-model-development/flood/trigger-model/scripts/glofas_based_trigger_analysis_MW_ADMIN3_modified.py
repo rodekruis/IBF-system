@@ -55,8 +55,8 @@ def get_impact_data(impactfile):
     df_event_filtered = pd.DataFrame()
     
     # Filter event that occurs within 3 weeks after a previous one
-    for district in np.unique(df_event['adm3_pcode'].astype(str)):
-        df_event1 = df_event[df_event['adm3_pcode']==district].sort_values(by='date_event', ascending=True).reset_index()
+    for taa in np.unique(df_event['adm3_pcode'].astype(str)):
+        df_event1 = df_event[df_event['adm3_pcode']==taa].sort_values(by='date_event', ascending=True).reset_index()
         for i in df_event1.index:
             if i+1 > df_event1.index.max():
                 break
@@ -107,7 +107,7 @@ glofas_st_shape = gpd.read_file(mypath + '/shapes/malawi/glofas_stations/glofas_
 # station_list = pd.DataFrame()
 glofas_st = gpd.sjoin(glofas_st_shape, adm_shp, how='inner', op='intersects')\
                 .filter(['ID','geometry','ADM3_EN','ADM3_PCODE'])\
-                .rename(columns={'ID':'Stations', 'ADM3_EN': 'District', 'ADM3_PCODE': 'Dist_PCODE'})
+                .rename(columns={'ID':'Stations', 'ADM3_EN': 'TAA', 'ADM3_PCODE': 'TAA_PCODE'})
 
 ################### READ IMPACT DATA
 flood_events = pd.read_csv(mypath + '/raw_data/malawi/malawi_impactdata_flood.csv', encoding='latin-1')  # load impact data
@@ -122,8 +122,8 @@ for pcode in np.unique(df_event['adm3_pcode'].astype(str)):
     # df_event1.index = df_event1['date_event']
     df_flow = pd.DataFrame()
     
-    ## extract discharge of each station in the district
-    for ele in glofas_st[glofas_st['Dist_PCODE']==pcode]['Stations']:
+    ## extract discharge of each station in the taa
+    for ele in glofas_st[glofas_st['TAA_PCODE']==pcode]['Stations']:
         try:
             st_lon = glofas_st[glofas_st['Stations']==ele]['geometry'].centroid.x
             st_lat = glofas_st[glofas_st['Stations']==ele]['geometry'].centroid.y
@@ -133,7 +133,7 @@ for pcode in np.unique(df_event['adm3_pcode'].astype(str)):
             df_flow['Time'] = df_flow['Time'].dt.date
             df_flow = df_flow.melt('Time', var_name='Stations', value_name='Dis')
             df_flow['Max_2wks'] = df_flow['Dis'].rolling(date_window, min_periods=3, center=True).max()
-            # df_flow['District'] = pcode
+            # df_flow['TAA'] = pcode
             df_total = df_total.append(df_flow)
         except:
             continue
@@ -149,10 +149,10 @@ df_total['Q50'] = df_total['Stations'].map(flow_Q50['Dis'])
 df_total['Q80'] = df_total['Stations'].map(flow_Q80['Dis'])
 df_total['Q90'] = df_total['Stations'].map(flow_Q90['Dis'])
 
-df_total = df_total.merge(glofas_st[['Stations', 'District', 'Dist_PCODE']], \
+df_total = df_total.merge(glofas_st[['Stations', 'TAA', 'TAA_PCODE']], \
                           on='Stations', how='left')
 df_total = df_total.merge(df_event[['date_event', 'adm3_name', 'adm3_pcode', 'flood']], \
-              left_on=['Time', 'Dist_PCODE'], \
+              left_on=['Time', 'TAA_PCODE'], \
               right_on=['date_event', 'adm3_pcode'], how='left')\
             .drop(columns=['date_event', 'adm3_name', 'adm3_pcode'])
     
@@ -164,12 +164,12 @@ df_total['Q80_pred']=np.where((df_total['Max_2wks'] >= df_total['Q80']), 1, 0)
 df_total['Q90_pred']=np.where((df_total['Max_2wks'] >= df_total['Q90']), 1, 0)
 
 
-###### Plot per district discharge and events (per station)
-for district in np.unique(df_total['Dist_PCODE']):
-    df_event1 = df_event[df_event['adm3_pcode']==district]
+###### Plot per taa discharge and events (per station)
+for taa in np.unique(df_total['TAA_PCODE']):
+    df_event1 = df_event[df_event['adm3_pcode']==taa]
     # df_event1.index = df_event1['date_event']
-    df_flow = df_total[df_total['Dist_PCODE']==district]
-    districtname = df_total[df_total['Dist_PCODE']==district]['District'].iloc[0]
+    df_flow = df_total[df_total['TAA_PCODE']==taa]
+    taaname = df_total[df_total['TAA_PCODE']==taa]['TAA'].iloc[0]
     ## plot discharge and flood events
     fig = plt.figure(figsize=(16, 10))
     ax1 = fig.add_subplot(1, 1, 1)
@@ -184,23 +184,23 @@ for district in np.unique(df_total['Dist_PCODE']):
     
     ax1.set_xlabel('Time (year)', fontsize=16)
     ax1.set_ylabel('Flow (m3/s)', fontsize=16)
-    ax1.set_title('Glofas Test for %s' %districtname, fontsize=20, bbox=dict(facecolor='red', alpha=0.5))
-    fig.savefig(mypath + '/output/malawi/glofas_analysis/flow_impact_%s.png' %districtname)
+    ax1.set_title('Glofas Test for %s' %taaname, fontsize=20, bbox=dict(facecolor='red', alpha=0.5))
+    fig.savefig(mypath + '/output/malawi/glofas_analysis/flow_impact_%s.png' %taaname)
 
 
 ############# CALCULATE PERFORMANCE
-performance_scores = pd.DataFrame()#columns=['district','station', 'pod','far','pofd','csi'])
+performance_scores = pd.DataFrame()#columns=['taa','station', 'pod','far','pofd','csi'])
 quantiles = ['Q50_pred', 'Q80_pred', 'Q90_pred']
 
 for quantile in quantiles:
-    perf = df_total.groupby(['Dist_PCODE', 'Stations']).apply(lambda row: calc_performance_scores(row['flood'], row[quantile])).reset_index()
+    perf = df_total.groupby(['TAA_PCODE', 'Stations']).apply(lambda row: calc_performance_scores(row['flood'], row[quantile])).reset_index()
     perf['quantile'] = quantile
     performance_scores = performance_scores.append(perf)
     
 ##### export results into csv file
-floods_per_district = df_event.groupby('adm3_pcode')['flood'].count()  ### count number of events per district
-performance_scores = pd.merge(floods_per_district, performance_scores, how='left', left_on='adm3_pcode', right_on='Dist_PCODE')
+floods_per_taa = df_event.groupby('adm3_pcode')['flood'].count()  ### count number of events per taa
+performance_scores = pd.merge(floods_per_taa, performance_scores, how='left', left_on='adm3_pcode', right_on='TAA_PCODE')
 performance_scores = performance_scores.rename(columns={ 'flood': 'nb_event'}).dropna(0)
-performance_scores = performance_scores[['Dist_PCODE','Stations','nb_event','quantile', 'pod','far','pofd','csi']]
+performance_scores = performance_scores[['TAA_PCODE','Stations','nb_event','quantile', 'pod','far','pofd','csi']]
 
 performance_scores.to_csv(mypath + '/output/malawi/glofas_analysis/mwi_glofas_performance_score.csv', index=False)

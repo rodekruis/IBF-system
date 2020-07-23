@@ -29,39 +29,39 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 # sources
 mypath = str(Path(os.getcwd()).parent)
 model_performance = mypath + '/output/malawi/glofas_analysis/mwi_glofas_performance_score.csv'
-district_mwi = mypath + '/shapes/malawi/mwi_adm_nso_20181016_shp/mwi_admbnda_adm3_nso_20181016.shp'
+taa_mwi = mypath + '/shapes/malawi/mwi_adm_nso_20181016_shp/mwi_admbnda_adm3_nso_20181016.shp'
 
 #%% 
-# Open the district admin 1 sapefile
-district = gpd.read_file(district_mwi)
+# Open the taa admin 1 sapefile
+taa = gpd.read_file(taa_mwi)
 #open the csv file with performance results of the model
 model_perf = pd.read_csv(model_performance)
 
-# find the best station to use per district based on the lowest FAR values
-best = model_perf.groupby(['Dist_PCODE', 'quantile'])['far'].transform(min)==model_perf['far']
+# find the best station to use per taa based on the lowest FAR values
+best = model_perf.groupby(['TAA_PCODE', 'quantile'])['far'].transform(min)==model_perf['far']
 model_perf_best= model_perf[best]
 
-# lower case the district column in both file and merge
-# district['ADM3_EN']= district['ADM3_EN'].str.lower()
-# model_perf_best['District']= model_perf_best['District'].str.lower()
+# lower case the taa column in both file and merge
+# taa['ADM3_EN']= taa['ADM3_EN'].str.lower()
+# model_perf_best['TAA']= model_perf_best['TAA'].str.lower()
 
-merged_perf= district.set_index('ADM3_PCODE').join(model_perf_best.set_index('Dist_PCODE')) 
+merged_perf= taa.set_index('ADM3_PCODE').join(model_perf_best.set_index('TAA_PCODE')) 
 merged_perf.to_file(mypath + '/output/malawi/performance_scores/perf_mwi_v111.shp')
 
-#%%  create a figure with the number of flood event recorded per district
+#%%  create a figure with the number of flood event recorded per taa
 fig, ax=plt.subplots(1,figsize=(10,10))
 divider = make_axes_locatable(ax)
 cax = divider.append_axes("right", size="5%", pad=0.2)
 
 merged_perf.plot(ax=ax, color='lightgrey', edgecolor='grey')
-ax.set_title('Number of recorded flood event per district', fontsize= 14)
+ax.set_title('Number of recorded flood event per TAA', fontsize= 14)
 cmap = cm.get_cmap('jet', 10)
 #cmap = cm.get_cmap('gist_ncar_r', 10)
 
 perfdrop= merged_perf.dropna(subset=['nb_event'])
 perfdrop.plot(ax=ax,column='nb_event', legend= True,vmin=1,vmax=10, cmap=cmap, cax=cax)
 
-fig.savefig(mypath + '/output/malawi/performance_scores/Nb_event_district.png')
+fig.savefig(mypath + '/output/malawi/performance_scores/Nb_event_taa.png')
 
 #%% 
 #choose the quantile to plot 
@@ -99,7 +99,7 @@ for quantile in quantiles:
     
     ax4.set_title('Critical Success Index (CSI)', fontsize= 16)
     merged_perf.plot(ax=ax4, color='lightgrey', edgecolor='grey')
-    perf_quantile.plot(ax=ax4,column='pod', legend= True, vmin=0, vmax=1, cmap='coolwarm_r', cax=cax4)
+    perf_quantile.plot(ax=ax4,column='csi', legend= True, vmin=0, vmax=1, cmap='coolwarm_r', cax=cax4)
     
 
     fig.savefig(mypath + '/output/malawi/performance_scores/Malawi_v111_%s.png' %quantile)
