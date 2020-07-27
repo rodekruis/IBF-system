@@ -5,7 +5,7 @@ import pandas as pd
 
 from lib.logging.logglySetup import logger
 from lib.setup.setupConnection  import get_db
-from settings import SCHEMA_NAME, PIPELINE_OUTPUT, CURRENT_DATE, CALCULATE_EXPOSURE, CRA_FILENAME
+from settings import SCHEMA_NAME, PIPELINE_OUTPUT, CURRENT_DATE, CALCULATE_EXPOSURE, CRA_FILENAME, COUNTRY_CODE
 from secrets import DB_SETTINGS
 
 class DatabaseManager:
@@ -19,11 +19,11 @@ class DatabaseManager:
         affectedFolder = PIPELINE_OUTPUT + "calculated_affected/"
         lizardFolder = PIPELINE_OUTPUT + "lizard/"
         self.tableJson = {
-            "triggers_rp_per_station_" + fcStep: triggerFolder + 'triggers_rp_'+fcStep + ".json"
+            "triggers_rp_per_station_" + fcStep: triggerFolder + 'triggers_rp_' + fcStep + '_' + COUNTRY_CODE + ".json"
             #,"lizard_output": lizardFolder + 'lizard_output.json'
         }
         if CALCULATE_EXPOSURE:
-            self.tableJson["calculated_affected_" + fcStep] = affectedFolder + 'affected_'+fcStep + ".json"
+            self.tableJson["calculated_affected_" + fcStep] = affectedFolder + 'affected_' + fcStep + '_' + COUNTRY_CODE + ".json"
 
     def upload(self):
         for table, jsonData in self.tableJson.items():
@@ -42,11 +42,12 @@ class DatabaseManager:
         df = pd.read_json(jsonData, orient='records')
         current_date = CURRENT_DATE.strftime('%Y-%m-%d')
         df['date']=current_date
+        df['country_code']=COUNTRY_CODE
 
         #Delete existing entries with same date
         try:
             self.con, self.cur, self.db = get_db()
-            sql = "DELETE FROM "+SCHEMA_NAME+"."+table+" WHERE date=\'"+current_date+"\'"
+            sql = "DELETE FROM "+SCHEMA_NAME+"."+table+" WHERE date=\'"+current_date+"\' AND country_code=\'"+COUNTRY_CODE+"\'"
             self.cur.execute(sql)
             self.con.commit()
             self.con.close()
