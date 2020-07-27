@@ -100,10 +100,7 @@ export class ApiService {
     );
   }
 
-  getStations(
-    countryCode: string,
-    leadTime: string,
-  ): Promise<[]> {
+  getStations(countryCode: string, leadTime: string): Promise<[]> {
     return this.get(
       environment.api_url,
       `stations/${countryCode}/${leadTime}`,

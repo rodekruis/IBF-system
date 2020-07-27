@@ -68,13 +68,8 @@ export class MapService {
     this.state.layers[layerIndex].active = state;
   }
 
-  public async getStations(
-    leadTime: string = '7-day',
-  ) {
-    return await this.apiService.getStations(
-      this.state.countryCode,
-      leadTime,
-    );
+  public async getStations(leadTime: string = '7-day') {
+    return await this.apiService.getStations(this.state.countryCode, leadTime);
   }
 
   public async getAdminRegions(
