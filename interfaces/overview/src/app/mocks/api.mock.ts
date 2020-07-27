@@ -12,7 +12,7 @@ import mockStationsGeoJSON from './stations.geojson.mock.data';
  *
  *   GET: {
  *     stations: { handler: returnAllStations },
- *     'stations/ZMB/Current/5-day': { handler: returnStationsFor5Day },
+ *     'stations/ZMB/7-day': { handler: returnStationsFor7Day },
  *   }
  *
  * Handlers:

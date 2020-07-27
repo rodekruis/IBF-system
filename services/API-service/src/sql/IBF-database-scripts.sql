@@ -6,7 +6,6 @@
 drop view if exists "IBF-API"."Glofas_stations";
 create or replace view "IBF-API"."Glofas_stations" as
 select dfps.country_code
-		,dfps.current_prev
 		,dfps.lead_time
 		,dgsv.station_code
 		,dgsv.station_name
@@ -18,6 +17,7 @@ select dfps.country_code
       , dfps.fc_prob
 from "IBF-pipeline-output".dashboard_glofas_stations dgsv
 left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code and dgsv.country_code = dfps.country_code
+where current_prev = 'Current'
 ;
 --select * from "IBF-API"."Glofas_stations"
 
@@ -56,6 +56,7 @@ from (
 	from public.uga_admin2
 ) geo
 left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode_level2 = d2.pcode
+where current_prev = 'Current'
 --where d2.date is not null
 ;
 --select * from "IBF-API"."Admin_area_data2" where country_code = 'UGA'
