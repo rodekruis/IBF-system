@@ -1,6 +1,8 @@
+--drop table "IBF-pipeline-output".dashboard_forecast_per_station cascade;
 truncate table "IBF-pipeline-output".dashboard_forecast_per_station;
 insert into "IBF-pipeline-output".dashboard_forecast_per_station
-SELECT t0.station_code
+SELECT t0.country_code
+	,t0.station_code
 	,t0.station_name
 	,t0.trigger_level
 	,date
@@ -13,9 +15,11 @@ SELECT t0.station_code
 	,t0.geom
 	,other_lead_time_trigger
 	,case when t3.station is null then 0 else 1 end as station_used
-FROM "IBF-pipeline-output".dashboard_glofas_stations_v2 t0
+--into "IBF-pipeline-output".dashboard_forecast_per_station
+FROM "IBF-pipeline-output".dashboard_glofas_stations t0
 LEFT JOIN "IBF-pipeline-output".triggers_rp_per_station_short t1
 ON t0.station_code = t1.station_code
+AND t0.country_code = t1.country_code
 LEFT JOIN (select to_date(date,'yyyy-mm-dd') as current_prev, max(fc_long_trigger) as other_lead_time_trigger from "IBF-pipeline-output".triggers_rp_per_station_long group by 1) t2
 ON to_date(date,'yyyy-mm-dd') = t2.current_prev
 LEFT JOIN (select "station_code_3day" as station from "IBF-pipeline-output".waterstation_per_district group by 1) t3
@@ -24,7 +28,8 @@ where to_date(date,'yyyy-mm-dd') >= current_date - 1
 
 UNION ALL
 
-SELECT t0.station_code
+SELECT t0.country_code
+	,t0.station_code
 	,t0.station_name
 	,t0.trigger_level
 	,date
@@ -37,17 +42,19 @@ SELECT t0.station_code
 	,t0.geom
 	,other_lead_time_trigger
 	,case when t3.station is null then 0 else 1 end as station_used
-FROM "IBF-pipeline-output".dashboard_glofas_stations_v2 t0
+FROM "IBF-pipeline-output".dashboard_glofas_stations t0
 LEFT JOIN "IBF-pipeline-output".triggers_rp_per_station_long t1
 ON t0.station_code = t1.station_code
+AND t0.country_code = t1.country_code
 LEFT JOIN (select to_date(date,'yyyy-mm-dd') as current_prev, max(fc_short_trigger) as other_lead_time_trigger from "IBF-pipeline-output".triggers_rp_per_station_short group by 1) t2
 ON to_date(date,'yyyy-mm-dd') = t2.current_prev
 LEFT JOIN (select "station_code_7day" as station from "IBF-pipeline-output".waterstation_per_district group by 1) t3
 ON t3.station = t0.station_code
 where to_date(date,'yyyy-mm-dd') >= current_date - 1
 ;
+--select * from "IBF-pipeline-output".dashboard_forecast_per_station
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_forecast_per_district CASCADE;
+DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_forecast_per_district;
 select case when length(cast(pcode as varchar)) = 3 then '0' || cast(pcode as varchar) else cast(pcode as varchar) end as pcode
 	,case when lead_time = '3-day' then "station_code_3day" when lead_time = '7-day' then "station_code_7day" end as station_code
 	,lead_time

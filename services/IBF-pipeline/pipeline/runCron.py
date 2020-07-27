@@ -14,7 +14,7 @@ def main():
 
     try:
         storeHistoric()
-        for fcStep, days in FORECASTS_STEPS.items():
+        for fcStep, days in LEAD_TIMES.items():
             fc = Forecast(fcStep, days)
             # fc.lizardData.process()
             # fc.db.upload_lizard()
