@@ -32,6 +32,9 @@ EXPOSURE_DATA_SOURCES = {
     "livestock/Sheep": 1,
 }
 
+CALCULATE_EXTENT = True
+CALCULATE_EXPOSURE = True
+
 #################
 ## DB SETTINGS ##
 #################
@@ -63,8 +66,12 @@ DISTRICT_MAPPING = PIPELINE_DATA+'input/Glofas_station_per_district.csv'
 
 # Glofas input
 GLOFAS_FTP = 'data-portal.ecmwf.int/ZambiaRedcross_glofas_point/'
+GLOFAS_FILENAME = 'glofas_pointdata_ZambiaRedcross'
 GLOFAS_DUMMY = True
 OVERWRITE_DUMMY = True
+
+# CRA input
+CRA_FILENAME = 'ZMB_CRA_Indicators'
 
 ####################
 ## EMAIL SETTINGS ##
