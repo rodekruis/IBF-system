@@ -13,8 +13,7 @@ import urllib.error
 import tarfile
 import time
 from lib.logging.logglySetup import logger
-from settings import CURRENT_DATE, GLOFAS_FTP, PIPELINE_DATA, PIPELINE_OUTPUT, GLOFAS_DUMMY, OVERWRITE_DUMMY, \
-    WATERSTATIONS_TRIGGERS, TRIGGER_RP_COLNAME, TRIGGER_LEVELS, GLOFAS_FILENAME
+from settings import *
 from secrets import GLOFAS_USER, GLOFAS_PW
 
 
@@ -25,9 +24,9 @@ class GlofasData:
         self.days = days
         self.inputPath = PIPELINE_DATA+'input/glofas/'
         self.extractedGlofasPath = PIPELINE_OUTPUT + \
-            'glofas_extraction/glofas_forecast_' + self.fcStep + '.json'
+            'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
-            'triggers_rp_per_station/triggers_rp_' + self.fcStep + '.json'
+            'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
 
     def process(self):
         self.removeOldGlofasData()
@@ -122,10 +121,12 @@ class GlofasData:
                     if OVERWRITE_DUMMY == True:
                         if self.fcStep == 'short':
                             discharge = 0
-                        elif station['code'] == 'G1361':
+                        elif station['code'] == 'G1361': # ZMB dummy flood station 1
                             discharge = 8000
-                        elif station['code'] == 'G1328':
+                        elif station['code'] == 'G1328': # ZMB dummy flood station 2
                             discharge = 9000
+                        elif station['code'] == 'G6106': # UGA dummy flood station
+                            discharge = 200
                         else:
                             discharge = 0
 
