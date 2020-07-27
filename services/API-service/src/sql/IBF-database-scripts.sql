@@ -5,7 +5,8 @@
 --create view
 drop view if exists "IBF-API"."Glofas_stations";
 create or replace view "IBF-API"."Glofas_stations" as
-select dfps.current_prev
+select dfps.country_code
+		,dfps.current_prev
 		,dfps.lead_time
 		,dgsv.station_code
 		,dgsv.station_name
@@ -15,8 +16,8 @@ select dfps.current_prev
       , dfps.fc_trigger
       , dfps.fc_perc
       , dfps.fc_prob
-from "IBF-pipeline-output".dashboard_glofas_stations_v2 dgsv
-left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code
+from "IBF-pipeline-output".dashboard_glofas_stations dgsv
+left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code and dgsv.country_code = dfps.country_code
 ;
 --select * from "IBF-API"."Glofas_stations"
 

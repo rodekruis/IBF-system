@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_calculated_affected_adm3 CASCADE;
+DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_calculated_affected_adm3;
 select *
 ,cattle_affected * 1 +
 goat_affected * 0.1 +
@@ -64,7 +64,7 @@ group by 1,2,3,4
 ) bb
 ;
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm3 CASCADE;
+DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm3;
 select t1.*
 	,fc_trigger
 	,fc_trigger2
@@ -76,7 +76,7 @@ left join "IBF-pipeline-output".dashboard_forecast_per_district t2
 	ON t0.pcode_parent = t2.pcode and t1.current_prev = t2.current_prev and t1.lead_time = t2.lead_time
 ;
 
-drop table if exists "IBF-pipeline-output".help_table CASCADE;
+drop table if exists "IBF-pipeline-output".help_table;
 select 'Current' as current_prev
 ,'3-day' as lead_time
 into "IBF-pipeline-output".help_table
@@ -92,7 +92,7 @@ select 'Previous' as current_prev
 ;
 
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm2 CASCADE;
+DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm2;
 select t0.pcode
 	,t3.date
 	,t0a.current_prev
@@ -135,7 +135,7 @@ group by 1,2,3,4
 ON t0.pcode = t3.pcode_level2 and t0a.lead_time = t3.lead_time and t0a.current_prev = t3.current_prev
 ;
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm1 CASCADE;
+DROP TABLE IF EXISTS "IBF-pipeline-output".data_adm1;
 select t1.fc_trigger,t1.fc_trigger2
 	,t2.*
 into "IBF-pipeline-output".data_adm1

@@ -22,7 +22,7 @@ def uploadStaticToDb(table, folder_file):
     #print(df)
 
     #Append new data for current date
-    df.to_sql(table,engine,if_exists='replace',schema=SCHEMA_NAME)
+    df.to_sql(table,engine,if_exists='replace',schema=SCHEMA_NAME_INPUT)
     print(table+' uploaded')
 
 def processStaticDataDb():
