@@ -68,26 +68,18 @@ export class MapService {
     this.state.layers[layerIndex].active = state;
   }
 
-  public async getStations(
-    currentPrev: string = 'Current',
-    leadTime: string = '7-day',
-  ) {
-    return await this.apiService.getStations(
-      this.state.countryCode,
-      currentPrev,
-      leadTime,
-    );
+  public async getStations(leadTime: string = '7-day') {
+    return await this.apiService.getStations(this.state.countryCode, leadTime);
   }
 
   public async getAdminRegions(
     adminLevel: number = 2,
-    currentPrev: string = 'Current',
     leadTime: string = '7-day',
   ) {
     return await this.apiService.getAdminRegions(
-      this.state.countryCode,
+      // this.state.countryCode,
+      'ZMB', // For now statically return ZMB
       adminLevel,
-      currentPrev,
       leadTime,
     );
   }
