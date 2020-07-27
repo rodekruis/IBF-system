@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import {
   geoJSON,
@@ -13,6 +13,7 @@ import {
   Marker,
   tileLayer,
 } from 'leaflet';
+import { Subscription } from 'rxjs';
 import { Station } from 'src/app/models/station.model';
 import { MapService } from 'src/app/services/map.service';
 import { IbfLayer } from 'src/app/types/ibf-layer';
@@ -24,8 +25,9 @@ import { IbfLayerType } from 'src/app/types/ibf-layer-type';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnDestroy {
   private map: Map;
+  private layerSubscription: Subscription;
   public layers: IbfLayer[];
 
   // Define our base layers so we can reference them multiple times
@@ -68,10 +70,31 @@ export class MapComponent implements OnInit {
   };
 
   constructor(public mapService: MapService) {
+    this.layerSubscription = this.mapService
+      .getLayers()
+      .subscribe((newLayer) => {
+        if (newLayer) {
+          const newLayerIndex = this.layers.findIndex(
+            (layer) => layer.name === newLayer.name,
+          );
+          newLayer = this.createLayer(newLayer);
+          if (newLayerIndex >= 0) {
+            this.layers.splice(newLayerIndex, 1, newLayer);
+          } else {
+            this.layers.push(newLayer);
+          }
+        } else {
+          this.layers = [];
+        }
+        this.addToLayersControl();
+        this.map.panTo(this.mapService.state.center);
+      });
     this.leafletOptions.center = latLng(this.mapService.state.center);
   }
 
-  ngOnInit() {}
+  ngOnDestroy() {
+    this.layerSubscription.unsubscribe();
+  }
 
   async onMapReady(map: Map) {
     this.map = map;
@@ -80,33 +103,22 @@ export class MapComponent implements OnInit {
     window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 200);
 
     await this.mapService.loadData();
-    map.panTo(this.mapService.state.center);
-    this.mapService.state.layers = this.createLayers(
-      this.mapService.state.layers,
-    );
-    this.addToLayersControl();
   }
 
-  private createLayers(layers: IbfLayer[]): IbfLayer[] {
-    return layers.map((layer) => {
-      if (!layer.active) {
-        return;
-      }
+  private createLayer(layer: IbfLayer): IbfLayer {
+    if (layer.type === IbfLayerType.point) {
+      layer.leafletLayer = this.createPointLayer(layer);
+    }
 
-      if (layer.type === IbfLayerType.point) {
-        layer.leafletLayer = this.createPointLayer(layer);
-      }
+    if (layer.name === IbfLayerName.adminRegions) {
+      layer.leafletLayer = this.createAdminRegionsLayer(layer);
+    }
 
-      if (layer.name === IbfLayerName.adminRegions) {
-        layer.leafletLayer = this.createAdminRegionsLayer(layer);
-      }
-
-      return layer;
-    });
+    return layer;
   }
 
   private addToLayersControl(): void {
-    this.mapService.state.layers.forEach((layer) => {
+    this.layers.forEach((layer) => {
       this.leafletLayersControl.overlays[layer.name] = layer.leafletLayer;
     });
   }
