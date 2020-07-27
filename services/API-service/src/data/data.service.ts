@@ -70,11 +70,13 @@ export class DataService {
     where 0 = 0 \
     and current_prev = $1 \
     and lead_time = $2 \
+    and country_code = $3 \
     ';
 
     const rawResult: Station[] = await this.manager.query(query, [
       currentPrev,
       leadTime,
+      countryCode,
     ]);
 
     const result = this.toGeojson(rawResult);
