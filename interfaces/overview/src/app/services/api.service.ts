@@ -100,26 +100,21 @@ export class ApiService {
     );
   }
 
-  getStations(
-    countryCode: string,
-    currentPrev: string,
-    leadTime: string,
-  ): Promise<[]> {
+  getStations(countryCode: string, leadTime: string): Promise<[]> {
     return this.get(
       environment.api_url,
-      `stations/${countryCode}/${currentPrev}/${leadTime}`,
+      `stations/${countryCode}/${leadTime}`,
     ).toPromise();
   }
 
   getAdminRegions(
     countryCode: string,
     adminLevel: number,
-    currentPrev: string,
     leadTime: string,
   ): Promise<[]> {
     return this.get(
       environment.api_url,
-      `admin-area-data/${countryCode}/${adminLevel}/${currentPrev}/${leadTime}`,
+      `admin-area-data/${countryCode}/${adminLevel}/${leadTime}`,
     ).toPromise();
   }
 }

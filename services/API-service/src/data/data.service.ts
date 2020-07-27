@@ -36,7 +36,6 @@ export class DataService {
   public async getAdminAreaData(
     countryCode: string,
     adminLevel: number,
-    currentPrev: string,
     leadTime: string,
   ): Promise<GeoJson> {
     const query =
@@ -45,13 +44,11 @@ export class DataService {
       adminLevel +
       '" \
     where 0 = 0 \
-    and current_prev = $1 \
-    and lead_time = $2 \
-    and country_code = $3 \
+    and lead_time = $1 \
+    and country_code = $2 \
     ';
 
     const rawResult: Station[] = await this.manager.query(query, [
-      currentPrev,
       leadTime,
       countryCode,
     ]);
@@ -63,20 +60,17 @@ export class DataService {
 
   public async getStations(
     countryCode: string,
-    currentPrev: string,
     leadTime: string,
   ): Promise<GeoJson> {
     const query =
       ' select * \
     from "IBF-API"."Glofas_stations" \
     where 0 = 0 \
-    and current_prev = $1 \
-    and lead_time = $2 \
-    and country_code = $3 \
+    and lead_time = $1 \
+    and country_code = $2 \
     ';
 
     const rawResult: Station[] = await this.manager.query(query, [
-      currentPrev,
       leadTime,
       countryCode,
     ]);
