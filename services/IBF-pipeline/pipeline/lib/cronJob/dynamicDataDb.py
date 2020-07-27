@@ -47,7 +47,7 @@ class DatabaseManager:
         #Delete existing entries with same date
         try:
             self.con, self.cur, self.db = get_db()
-            sql = "DELETE FROM "+SCHEMA_NAME+"."+table+" WHERE date=\'"+current_date+"\' AND country_code=\'"+COUNTRY_CODE+"\'"
+            sql = "DELETE FROM \""+SCHEMA_NAME+"\"."+table+" WHERE date=\'"+current_date+"\' AND country_code=\'"+COUNTRY_CODE+"\'"
             self.cur.execute(sql)
             self.con.commit()
             self.con.close()

@@ -13,5 +13,5 @@ export const environment = {
   useServiceWorker: false,
 
   // Configuration/initial data:
-  defaultCountryCode: 'ZMB',
+  defaultCountryCode: 'UGA',
 };
