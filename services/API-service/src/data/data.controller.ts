@@ -41,16 +41,14 @@ export class DataController {
 
   @ApiOperation({ title: 'Get station location + trigger data' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @ApiImplicitParam({ name: 'currentPrev', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
-  @Get('stations/:countryCode/:currentPrev/:leadTime')
+  @Get('stations/:countryCode/:leadTime')
   public async getStations(
     @User('id') userId: number,
     @Param() params,
   ): Promise<GeoJson> {
     return await this.dataService.getStations(
       params.countryCode,
-      params.currentPrev,
       params.leadTime,
     );
   }
@@ -58,14 +56,12 @@ export class DataController {
   @ApiOperation({ title: 'Get admin-area shape data' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiImplicitParam({ name: 'currentPrev', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
-  @Get('admin-area-data/:countryCode/:adminLevel/:currentPrev/:leadTime')
+  @Get('admin-area-data/:countryCode/:adminLevel/:leadTime')
   public async getAdminAreaData(@Param() params): Promise<GeoJson> {
     return await this.dataService.getAdminAreaData(
       params.countryCode,
       params.adminLevel,
-      params.currentPrev,
       params.leadTime,
     );
   }
