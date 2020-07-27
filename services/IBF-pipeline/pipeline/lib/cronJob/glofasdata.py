@@ -184,7 +184,9 @@ class GlofasData:
             fc = float(row['fc_'+self.fcStep])
             trigger = int(row['fc_'+self.fcStep+'_trigger'])
             if trigger == 1:
-                if fc >= row['20yr_threshold']:
+                if COUNTRY_CODE == 'UGA':
+                    return_period = 25
+                elif fc >= row['20yr_threshold']:
                     return_period = 20
                 elif fc >= row['10yr_threshold']:
                     return_period = 10
