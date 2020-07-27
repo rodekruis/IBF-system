@@ -19,8 +19,10 @@ def main():
             # fc.lizardData.process()
             # fc.db.upload_lizard()
             fc.glofasData.process()
-            fc.floodExtent.calculate()
-            fc.floodExtent.callAllExposure()
+            if CALCULATE_EXTENT:
+                fc.floodExtent.calculate()
+            if CALCULATE_EXTENT and CALCULATE_EXPOSURE:
+                fc.floodExtent.callAllExposure()
             fc.db.upload()
         fc.db.processDynamicDataDb()
         notify()
