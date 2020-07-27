@@ -82,7 +82,8 @@ export class MapService {
     leadTime: string = '7-day',
   ) {
     return await this.apiService.getAdminRegions(
-      this.state.countryCode,
+      // this.state.countryCode,
+      'ZMB', // For now statically return ZMB
       adminLevel,
       leadTime,
     );
