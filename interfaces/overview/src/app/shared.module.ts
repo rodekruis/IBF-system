@@ -10,7 +10,17 @@ import { TimelineComponent } from './components/timeline/timeline.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, LeafletModule],
-  declarations: [LoginFormComponent, MapComponent, MatrixComponent, TimelineComponent],
-  exports: [LoginFormComponent, MapComponent, MatrixComponent, TimelineComponent],
+  declarations: [
+    LoginFormComponent,
+    MapComponent,
+    MatrixComponent,
+    TimelineComponent,
+  ],
+  exports: [
+    LoginFormComponent,
+    MapComponent,
+    MatrixComponent,
+    TimelineComponent,
+  ],
 })
 export class SharedModule {}
