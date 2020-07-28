@@ -1,5 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { TimelineService } from 'src/app/services/timeline.service';
 import { TimelineComponent } from './timeline.component';
 
 describe('TimelineComponent', () => {
@@ -9,7 +11,8 @@ describe('TimelineComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TimelineComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), HttpClientTestingModule],
+      providers: [{ provide: TimelineService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TimelineComponent);
