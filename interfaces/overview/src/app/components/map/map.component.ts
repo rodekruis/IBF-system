@@ -28,7 +28,7 @@ import { IbfLayerType } from 'src/app/types/ibf-layer-type';
 export class MapComponent implements OnDestroy {
   private map: Map;
   private layerSubscription: Subscription;
-  public layers: IbfLayer[];
+  public layers: IbfLayer[] = [];
 
   // Define our base layers so we can reference them multiple times
   private hotTileLayer = tileLayer(
