@@ -178,9 +178,9 @@ for taa in np.unique(df_total['TAA_PCODE']):
     # event_date = df_event1['date_event']
     for index in df_event1['date_event']:#.iteritems():
         ax1.axvline(x=index, color='y', linestyle='--')
-    # plt.axhline(y=flow_Q50.Dis.min(), color='r', linestyle=':')
-    # plt.axhline(y=flow_Q80.Dis.min(), color='r', linestyle=':')
-    # plt.axhline(y=flow_Q90.Dis.min(), color='r', linestyle=':')
+    plt.axhline(y=df_flow.Q50.iloc[0], color='r', linestyle=':')
+    plt.axhline(y=df_flow.Q80.iloc[0], color='r', linestyle=':')
+    plt.axhline(y=df_flow.Q90.iloc[0], color='r', linestyle=':')
     
     ax1.set_xlabel('Time (year)', fontsize=16)
     ax1.set_ylabel('Flow (m3/s)', fontsize=16)

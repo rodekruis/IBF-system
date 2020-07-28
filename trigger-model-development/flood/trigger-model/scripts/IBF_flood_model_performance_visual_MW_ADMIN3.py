@@ -89,11 +89,11 @@ for quantile in quantiles:
     merged_perf.plot(ax=ax1, color='lightgrey', edgecolor='grey')
     perf_quantile.plot(ax=ax1,column='far', legend= True, vmin=0, vmax=1, cmap='coolwarm', cax=cax1)
     
-    ax2.set_title('Proability of Detection (POD)', fontsize= 16)
+    ax2.set_title('Probability of Detection (POD)', fontsize= 16)
     merged_perf.plot(ax=ax2, color='lightgrey', edgecolor='grey')
     perf_quantile.plot(ax=ax2,column='pod', legend= True, vmin=0, vmax=1, cmap='coolwarm_r', cax=cax2)
     
-    ax3.set_title('Proability of False Detection (POFD)', fontsize= 16)
+    ax3.set_title('Probability of False Detection (POFD)', fontsize= 16)
     merged_perf.plot(ax=ax3, color='lightgrey', edgecolor='grey')
     perf_quantile.plot(ax=ax3,column='pofd', legend= True, vmin=0, vmax=1, cmap='coolwarm', cax=cax3)
     
