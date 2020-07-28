@@ -1,4 +1,29 @@
+# IDE / Editors
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+
+# Configuration, secrets, etc:
+.env
+
+
+# R specific:
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+
+
+# Generic ignored files:
+*~
+*.sw[mnpcod]
+.tmp
+*.tmp
+*.tmp.*
+.DS_Store
+Thumbs.db
+UserInterfaceState.xcuserstate
+$RECYCLE.BIN/
+*.log*

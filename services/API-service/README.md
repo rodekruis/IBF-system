@@ -12,10 +12,10 @@ Switch to the repository folder
 
     cd services/API-service/
 
-Copy a few secret files and get the right passwords from someone who knows:
+Set the environment variables with the right values from someone who knows:
 
-    cp src/example.secrets.ts src/secrets.ts
-    cp example.ormconfig.json ormconfig.json
+    cp example.env .env
+    source .env
 
 ## Start application locally
 
@@ -23,9 +23,9 @@ Create the Docker image from the Dockerfile in this folder through:
 
     docker build -t ibf-api-service .
 
-Start the app Docker container through (NOTE: you have to change 'C:/github/IBF-system' to your own path for the repository-root IBF-system folder):
+Start the app Docker container through:
 
-    docker run --name=ibf-api-service -v C:/github/IBF-system/services/API-service:/home/ibf/api-service -p 3000:3000 -it ibf-api-service
+    docker run --name=ibf-api-service -p 3000:3000 -it ibf-api-service
 
 If you've already created the container before and just want to start again:
 
@@ -78,16 +78,16 @@ We use the NestJS swagger module for API documentation. [NestJS Swagger](https:/
 ## API specification
 
 - /stations/:countryCode/:currentPrev/:leadTime
-    - input: 
-        - countryCode [ZMB] > currently not used, as data is ZMB-only. Will need to change when working with multi-country datamodel
-        - currentPrev ['Current', 'Prev'] > represents today/yesterdays forecast. For testing always use 'Current'.
-        - leadTime ['3-day', '7-day'] > represents whether a trigger is forecasted 3 / 7 days from now.
-    - output:
-        - stationCode
-        - stationName
-        - geom (coordinates)
-        - trigger_level > water-discharge level above which flood is predicted
-        - fc > avg forecasted water-discharge level
-        - fc_trigger [0, 1] > is trigger passed yes or no. can theoretically differ from fc > trigger_level, because actually 51 ensembles are run. fc_trigger = 1 if at least 60% of these 51 ensembles exceed trigger
-        - fc_perc > = fc / trigger_level
-        - fc_prob > percentage of 51 ensembles that exceeded trigger-level
+  - input:
+    - countryCode [ZMB] > currently not used, as data is ZMB-only. Will need to change when working with multi-country datamodel
+    - currentPrev ['Current', 'Prev'] > represents today/yesterdays forecast. For testing always use 'Current'.
+    - leadTime ['3-day', '7-day'] > represents whether a trigger is forecasted 3 / 7 days from now.
+  - output:
+    - stationCode
+    - stationName
+    - geom (coordinates)
+    - trigger_level > water-discharge level above which flood is predicted
+    - fc > avg forecasted water-discharge level
+    - fc_trigger [0, 1] > is trigger passed yes or no. can theoretically differ from fc > trigger_level, because actually 51 ensembles are run. fc_trigger = 1 if at least 60% of these 51 ensembles exceed trigger
+    - fc_perc > = fc / trigger_level
+    - fc_prob > percentage of 51 ensembles that exceeded trigger-level

@@ -1,5 +1,51 @@
 from datetime import date, timedelta
 
+
+##########################
+## DEVELOPMENT SETTINGS ##
+##########################
+
+# Disable these temporarily to run only the trigger-model part
+CALCULATE_EXTENT = False
+CALCULATE_EXPOSURE = False
+
+# Use dummy-data and/or overwrite real data
+GLOFAS_DUMMY = False
+OVERWRITE_DUMMY = True
+
+
+######################
+## COUNTRY SETTINGS ##
+######################
+
+# For now indicate 1 country. Ultimately we might want to loop over multiple included countries?
+COUNTRY_CODE='UGA' #'ZMB'/'UGA'
+
+SETTINGS = {
+    "ZMB": {
+        "trigger_levels": 'Glofas_station_locations_with_trigger_levels.csv',
+        'district_mapping': 'Glofas_station_per_district.csv',
+        'trigger_colname': '10yr_threshold',
+        'CRA_filename': 'ZMB_CRA_Indicators',
+        'lead_times': {
+            "short": 3,
+            "long": 7
+        },
+    },
+    "UGA": {
+        "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
+        'district_mapping': 'Glofas_station_per_district_uga.csv',
+        'trigger_colname': '5yr_threshold',
+        'CRA_filename': 'ZMB_CRA_Indicators',
+        'lead_times': {
+            "long": 7
+        },
+    },
+}
+COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
+
+
+
 ###################
 ## MAIN SETTINGS ##
 ###################
@@ -8,12 +54,9 @@ from datetime import date, timedelta
 CURRENT_DATE=date.today()
 # CURRENT_DATE=date.today() - timedelta(days=1)
 
-FORECASTS_STEPS = {
-    "short": 3,
-    "long": 7
-}
+LEAD_TIMES = COUNTRY_SETTINGS['lead_times']
 
-TRIGGER_RP_COLNAME = '10yr_threshold'
+TRIGGER_RP_COLNAME = COUNTRY_SETTINGS['trigger_colname']
 TRIGGER_LEVELS = {
     "minimum": 0.6,
     "medium": 0.7,
@@ -32,10 +75,12 @@ EXPOSURE_DATA_SOURCES = {
     "livestock/Sheep": 1,
 }
 
+
+
 #################
 ## DB SETTINGS ##
 #################
-LOCAL_DB = True
+SCHEMA_NAME_INPUT = 'IBF-static-input'
 SCHEMA_NAME = 'IBF-pipeline-output'
 # Other connection-settings in secrets.py
 
@@ -50,10 +95,10 @@ PIPELINE_INPUT = PIPELINE_DATA + 'input/'
 PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'
 PIPELINE_TEMP = PIPELINE_DATA + 'temp/'
 
-WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + \
-    "Glofas_station_locations_with_trigger_levels.csv"
+WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + COUNTRY_SETTINGS['trigger_levels']
+DISTRICT_MAPPING = PIPELINE_INPUT + COUNTRY_SETTINGS['district_mapping']
+
 VECTOR_DISTRICT_DATA = PIPELINE_DATA + 'input/vector/ZMB_adm2_mapshaper_new103_pcode.shp'
-DISTRICT_MAPPING = PIPELINE_DATA+'input/Glofas_station_per_district.csv'
 
     
 
@@ -63,16 +108,18 @@ DISTRICT_MAPPING = PIPELINE_DATA+'input/Glofas_station_per_district.csv'
 
 # Glofas input
 GLOFAS_FTP = 'data-portal.ecmwf.int/ZambiaRedcross_glofas_point/'
-GLOFAS_DUMMY = False
-OVERWRITE_DUMMY = False
+GLOFAS_FILENAME = 'glofas_pointdata_ZambiaRedcross'
+
+# CRA input
+CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename']
 
 ####################
 ## EMAIL SETTINGS ##
 ####################
 
 # Notification email
-EMAIL_NOTIFICATION = True
-EMAIL_WITHOUT_TRIGGER = True
+EMAIL_NOTIFICATION = False
+EMAIL_WITHOUT_TRIGGER = False
 
 # Notification email (only if hard-coded alternative for mailchimp is used)
 EMAIL_LIST_HARDCODE = [

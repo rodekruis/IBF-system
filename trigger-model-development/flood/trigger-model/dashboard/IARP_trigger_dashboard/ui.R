@@ -53,10 +53,10 @@ ui <- dashboardPage(
       dateRangeInput('dateRange',
                      label = 'Select date range:',
                      start = min(df_impact_raw[[1]]$date, na.rm=T), end = max(df_impact_raw[[1]]$date, na.rm=T)),
-      radioButtons("country", "Country:",
-                   c("Ethiopia" = 1,
-                     "Kenya" = 2,
-                     "Uganda" = 3))
+      
+      radioButtons("country", "Country:", c("Ethiopia" = 1, "Kenya" = 2, "Uganda" = 3)),
+      selectInput("Level", "Select Admin Level (only Kenya):", c("Sub county"=1, "Ward"=10),selected="level3")
+      
     )
   ),
   body

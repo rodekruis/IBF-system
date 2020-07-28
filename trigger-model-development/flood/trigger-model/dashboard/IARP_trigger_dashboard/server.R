@@ -1,10 +1,18 @@
 server <- function(input, output) {
   selected_pcode <- reactiveVal("020104")
   has_glofas <- reactiveVal(TRUE)
-  country <- reactive({
+  
+  country1 <- reactive({
     cat(input$country)
     as.numeric(input$country)
     })
+  country <- reactive({
+    req(input$country)
+    as.numeric(input$country)*as.numeric(input$Level)
+  })
+  
+  
+  
 
   glofas <- reactive({
     req(input$glofas_station_selected)
@@ -41,6 +49,12 @@ server <- function(input, output) {
              date >= isolate(input$dateRange[1]),
              date <= isolate(input$dateRange[2]))
   })
+  extra_impact_df <- reactive({
+    df_extra_impact[[country()]] %>%
+      filter(pcode == selected_pcode(),
+             date >= isolate(input$dateRange[1]),
+             date <= isolate(input$dateRange[2]))
+  })
 
   # swi <- reactive({
   #   swi_raw %>%
@@ -62,6 +76,7 @@ server <- function(input, output) {
       isolate(rainfall()),
       isolate(glofas()),
       impact_df(),
+      extra_impact_df(),
       input$rainfall_threshold,
       input$glofas_threshold,
       isolate(has_glofas()),
@@ -125,7 +140,10 @@ server <- function(input, output) {
 
   output$glofas_var_selector <- renderUI({
     if(isolate(has_glofas())) {
-      selectInput("glofas_variable", "Select lead time(dis=0,dis_3=3 days or dis_7=7 days) discharge variable", choices = c("dis", "dis_3", "dis_7"), selected = "dis")
+      selectInput("glofas_variable",
+                  "Select lead time(dis=0,dis_3=3 days or dis_7=7 days) discharge variable",
+                  choices = c("dis", "dis_3", "dis_7"),
+                  selected = "dis")
     } else {
       NULL
     }

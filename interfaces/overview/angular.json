@@ -30,6 +30,11 @@
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
               },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "assets/leaflet"
+              },
               "src/manifest.webmanifest"
             ],
             "styles": [
@@ -38,6 +43,9 @@
               },
               {
                 "input": "src/global.scss"
+              },
+              {
+                "input": "./node_modules/leaflet/dist/leaflet.css"
               }
             ],
             "scripts": []
@@ -132,7 +140,9 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {

@@ -13,7 +13,7 @@ import urllib.error
 import tarfile
 import time
 from lib.logging.logglySetup import logger
-from settings import CURRENT_DATE, GLOFAS_FTP, PIPELINE_DATA, PIPELINE_OUTPUT, GLOFAS_DUMMY, OVERWRITE_DUMMY, WATERSTATIONS_TRIGGERS, TRIGGER_RP_COLNAME, TRIGGER_LEVELS
+from settings import *
 from secrets import GLOFAS_USER, GLOFAS_PW
 
 
@@ -24,9 +24,9 @@ class GlofasData:
         self.days = days
         self.inputPath = PIPELINE_DATA+'input/glofas/'
         self.extractedGlofasPath = PIPELINE_OUTPUT + \
-            'glofas_extraction/glofas_forecast_' + self.fcStep + '.json'
+            'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
-            'triggers_rp_per_station/triggers_rp_' + self.fcStep + '.json'
+            'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
 
     def process(self):
         self.removeOldGlofasData()
@@ -66,7 +66,7 @@ class GlofasData:
 
     def makeFtpRequest(self):
         current_date = CURRENT_DATE.strftime('%Y%m%d')
-        filename = 'glofas_pointdata_ZambiaRedcross_' + current_date + '00.tar.gz'
+        filename = GLOFAS_FILENAME + '_' + current_date + '00.tar.gz'
         ftp_path = 'ftp://'+GLOFAS_USER+':'+GLOFAS_PW + '@' + GLOFAS_FTP
         urllib.request.urlretrieve(ftp_path + filename,
                                    self.inputPath + filename)
@@ -85,7 +85,7 @@ class GlofasData:
         df_thresholds = pd.read_csv(
             WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
         df_thresholds = df_thresholds.set_index("station_code", drop=False)
-        
+
         stations = []
         for i in range(0, len(files)):
             logging.info("Extracting glofas data from %s", i)
@@ -93,7 +93,7 @@ class GlofasData:
             station = {}
             station['code'] = files[i].split(
                 '_')[2] if GLOFAS_DUMMY == False else files[i].split('_')[4]
-            
+
             data = xr.open_dataset(Filename)
 
             # Get threshold for this specific station
@@ -121,10 +121,12 @@ class GlofasData:
                     if OVERWRITE_DUMMY == True:
                         if self.fcStep == 'short':
                             discharge = 0
-                        elif station['code'] == 'G1361':
+                        elif station['code'] == 'G1361': # ZMB dummy flood station 1
                             discharge = 8000
-                        elif station['code'] == 'G1328':
+                        elif station['code'] == 'G1328': # ZMB dummy flood station 2
                             discharge = 9000
+                        elif station['code'] == 'G6106': # UGA dummy flood station
+                            discharge = 200
                         else:
                             discharge = 0
 
@@ -182,7 +184,9 @@ class GlofasData:
             fc = float(row['fc_'+self.fcStep])
             trigger = int(row['fc_'+self.fcStep+'_trigger'])
             if trigger == 1:
-                if fc >= row['20yr_threshold']:
+                if COUNTRY_CODE == 'UGA':
+                    return_period = 25
+                elif fc >= row['20yr_threshold']:
                     return_period = 20
                 elif fc >= row['10yr_threshold']:
                     return_period = 10

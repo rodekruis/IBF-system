@@ -1,6 +1,7 @@
 from lib.setup.createSchema import createSchema
 from lib.setup.createSubFolders import createSubFolders
 from lib.setup.staticDataDb import uploadStaticToDb, processStaticDataDb
+from settings import *
 
 from lib.logging.logglySetup import logger
 
@@ -12,8 +13,8 @@ def main():
     
     #Postgres database
     createSchema()
-    uploadStaticToDb('glofas_stations','Glofas_station_locations_with_trigger_levels.csv')
-    uploadStaticToDb('waterstation_per_district','Glofas_station_per_district.csv')
+    uploadStaticToDb(COUNTRY_CODE + '_glofas_stations', COUNTRY_SETTINGS['trigger_levels'])
+    uploadStaticToDb(COUNTRY_CODE + '_waterstation_per_district',COUNTRY_SETTINGS['district_mapping'])
     uploadStaticToDb('metadata_fbf_zambia','metadata_fbf_zambia.csv')
     uploadStaticToDb('pcode_mapping_wards_new_distcode','pcode_mapping_wards_new_distcode.csv')
     uploadStaticToDb('redcross_branches','points/RedCross_branches.csv')

@@ -1,1 +1,0 @@
-Results from the Glofas Analysis will be crdeated in this folder : discharge historical time serie per district

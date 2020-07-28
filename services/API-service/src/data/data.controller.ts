@@ -1,14 +1,9 @@
-import { RolesGuard } from '../roles.guard';
-import { Get, Post, Body, Param, Controller, UseGuards } from '@nestjs/common';
+import { Get, Param, Controller } from '@nestjs/common';
 import { DataService } from './data.service';
 
-import {
-  ApiUseTags,
-  ApiBearerAuth,
-  ApiOperation,
-  ApiImplicitParam,
-} from '@nestjs/swagger';
+import { ApiUseTags, ApiOperation, ApiImplicitParam } from '@nestjs/swagger';
 import { User } from '../user/user.decorator';
+import { Station, GeoJson } from 'src/models/station.model';
 
 @ApiUseTags('data')
 @Controller()
@@ -44,18 +39,29 @@ export class DataController {
     );
   }
 
-  @ApiOperation({ title: 'Get live glofas station data' })
+  @ApiOperation({ title: 'Get station location + trigger data' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @ApiImplicitParam({ name: 'currentPrev', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
-  @Get('stations/:countryCode/:currentPrev/:leadTime')
+  @Get('stations/:countryCode/:leadTime')
   public async getStations(
     @User('id') userId: number,
     @Param() params,
-  ): Promise<string> {
+  ): Promise<GeoJson> {
     return await this.dataService.getStations(
       params.countryCode,
-      params.currentPrev,
+      params.leadTime,
+    );
+  }
+
+  @ApiOperation({ title: 'Get admin-area shape data' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
+  @Get('admin-area-data/:countryCode/:adminLevel/:leadTime')
+  public async getAdminAreaData(@Param() params): Promise<GeoJson> {
+    return await this.dataService.getAdminAreaData(
+      params.countryCode,
+      params.adminLevel,
       params.leadTime,
     );
   }

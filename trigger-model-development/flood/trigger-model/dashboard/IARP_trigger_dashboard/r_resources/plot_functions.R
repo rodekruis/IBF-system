@@ -10,7 +10,7 @@ plot_swi <- function(swi, impact_df, threshold){
   return(p)
 }
 
-plot_rainfall_glofas <- function(rainfall, glofas, impact_df, rainfall_threshold, glofas_threshold, has_glofas, glofas_variable,rp_glofas){
+plot_rainfall_glofas <- function(rainfall, glofas, impact_df, extra_impact_df, rainfall_threshold, glofas_threshold, has_glofas, glofas_variable,rp_glofas){
   max_rain = max(rainfall$rainfall, na.rm=T)
   if (has_glofas) {
     max_glofas = max(glofas$dis, na.rm=T)
@@ -23,8 +23,10 @@ plot_rainfall_glofas <- function(rainfall, glofas, impact_df, rainfall_threshold
     p2 <- plot_ly(glofas) %>%
       add_lines(x=~date, y=as.formula(paste0('~', glofas_variable)), line=list(color="rgb(98, 211, 234)")) %>%
       add_segments(x=~min(date), xend=~max(date), y = glofas_threshold, yend=glofas_threshold, line=list(color="black")) %>%
-      add_segments(x=~min(date), xend=~max(date), y = rp_glofas$q10, yend=rp_glofas$q10, name = 'q10', line=list(color="rgb(253, 130, 155)", width = 2,dash = "dot")) %>%
-      add_segments(x=~min(date), xend=~max(date), y = rp_glofas$q50, yend=rp_glofas$q50, name = 'q50', line=list(color="rgb(205, 12, 24)",width = 2, dash = "dash")) %>%
+      add_segments(x=~min(date), xend=~max(date), y = ~mean(q50), yend=~mean(q50), name = 'q50', line=list(color="rgb(253, 130, 155)", width = 2,dash = "dot")) %>%
+      add_segments(x=~min(date), xend=~max(date),  y = ~mean(q95), yend=~mean(q95), name = 'q95', line=list(color="rgb(205, 12, 24)",width = 2, dash = "dash")) %>%
+      #add_segments(x=~min(date), xend=~max(date), y = rp_glofas$q10, yend=rp_glofas$q10, name = 'q10', line=list(color="rgb(253, 130, 155)", width = 2,dash = "dot")) %>%
+      #add_segments(x=~min(date), xend=~max(date), y = rp_glofas$q50, yend=rp_glofas$q50, name = 'q50', line=list(color="rgb(205, 12, 24)",width = 2, dash = "dash")) %>%
       layout(yaxis=list(title=paste0("Station", glofas_variable)), showlegend=FALSE)
 
     for(date in as.character(impact_df$date)) {
@@ -33,6 +35,14 @@ plot_rainfall_glofas <- function(rainfall, glofas, impact_df, rainfall_threshold
 
       p2 <- p2 %>%
         add_segments(x=date ,xend=date, y=0, yend=max_glofas,name = 'Impact event', line=list(color="rgb(255, 153, 0)",width = 4))
+    }
+
+    for(date in as.character(extra_impact_df$date)) {
+      p1 <- p1 %>%
+        add_segments(x=date ,xend=date, y=0, yend=max_rain, name = 'Extra Impact event',line=list(color="rgb(128, 0, 128)",width = 4))
+
+      p2 <- p2 %>%
+        add_segments(x=date ,xend=date, y=0, yend=max_glofas,name = 'Extra Impact event', line=list(color="rgb(128, 0, 128)",width = 4))
     }
 
     p3 <- subplot(p1, p2, nrows=2)
@@ -46,6 +56,11 @@ plot_rainfall_glofas <- function(rainfall, glofas, impact_df, rainfall_threshold
       p3 <- p3 %>%
         add_segments(x=date ,xend=date, y=0, yend=max_rain, line=list(color="rgb(255, 153, 0)",width = 4))
     }
+    for(date in as.character(extra_impact_df$date)) {
+      p3 <- p3 %>%
+        add_segments(x=date ,xend=date, y=0, yend=max_rain, line=list(color="rgb(128, 0, 128)",width = 4))
+      }
+
   }
 
   return(p3)

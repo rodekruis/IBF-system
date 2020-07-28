@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
+import { Station, GeoJson, GeoJsonFeature } from 'src/models/station.model';
+import { type } from 'os';
 
 @Injectable()
 export class DataService {
@@ -30,25 +33,70 @@ export class DataService {
     return result[0].usp_fbf_geodata;
   }
 
+  public async getAdminAreaData(
+    countryCode: string,
+    adminLevel: number,
+    leadTime: string,
+  ): Promise<GeoJson> {
+    const query =
+      ' select * \
+    from "IBF-API"."Admin_area_data' +
+      adminLevel +
+      '" \
+    where 0 = 0 \
+    and lead_time = $1 \
+    and country_code = $2 \
+    ';
+
+    const rawResult: Station[] = await this.manager.query(query, [
+      leadTime,
+      countryCode,
+    ]);
+
+    const result = this.toGeojson(rawResult);
+
+    return result;
+  }
+
   public async getStations(
     countryCode: string,
-    currentPrev: string,
     leadTime: string,
-  ): Promise<string> {
+  ): Promise<GeoJson> {
     const query =
-      'select dgsv.* \
-		  , dfps.fc \
-      , dfps.fc_trigger \
-      , dfps.fc_perc \
-      , dfps.fc_prob \
-    from "IBF-pipeline-output".dashboard_glofas_stations_v2 dgsv \
-    left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code \
+      ' select * \
+    from "IBF-API"."Glofas_stations" \
     where 0 = 0 \
-    and current_prev = $1 \
-    and lead_time = $2';
+    and lead_time = $1 \
+    and country_code = $2 \
+    ';
 
-    const result = await this.manager.query(query, [currentPrev, leadTime]);
+    const rawResult: Station[] = await this.manager.query(query, [
+      leadTime,
+      countryCode,
+    ]);
+
+    const result = this.toGeojson(rawResult);
+
     return result;
+  }
+
+  private toGeojson(rawResult): GeoJson {
+    const geoJson: GeoJson = {
+      type: 'FeatureCollection',
+      features: [],
+    };
+    rawResult.forEach((i): void => {
+      let feature: GeoJsonFeature = {
+        type: 'Feature',
+        geometry: i.geom,
+        properties: {},
+      };
+      delete i.geom;
+      feature.properties = i;
+      geoJson.features.push(feature);
+    });
+
+    return geoJson;
   }
 
   private formQuery(schema, functionName, country, tableName): string {

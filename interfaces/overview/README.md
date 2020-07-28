@@ -6,6 +6,7 @@
 - [Configuration](#configuration)
 - [Getting Started](#getting-started)
 - [Documentation](#documentation)
+- [Other resources](#other-resources)
 
 ## Setup development environment
 
@@ -57,8 +58,19 @@ Documentation of the tools and libraries used.
   - Available components: <https://ionicframework.com/docs/components>
   - Icons: <https://ionicons.com/>
 
-- [Angular v9](https://v9.angular.io/docs)  
+- [Angular v10](https://v10.angular.io/docs)  
   This front-end framework gives us a structure to create components that can be connected, combined, share data and can be delivered as a web-app.
 
-  - API Documentation: <https://v9.angular.io/api>
+  - API Documentation: <https://10.angular.io/api>
   - Used by Angular, RxJS: <https://rxjs.dev/guide/overview>
+
+- [Leaflet v1.6](https://leafletjs.com/)
+  A library for maps with multiple interactive layers.
+  - API Documentation: <https://leafletjs.com/reference-1.6.0.html>
+  - Angular component(s) used:
+    - `ngx-leaflet`: <https://github.com/Asymmetrik/ngx-leaflet>
+
+## Other resources
+
+- Leaflet Markers  
+  For easily exchangeable marker-images, see: <https://github.com/pointhi/leaflet-color-markers>

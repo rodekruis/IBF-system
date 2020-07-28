@@ -1,0 +1,15 @@
+# Build Configuration/secrets:
+.env
+environment.prod.ts
+
+# Default ignore-rules set by Ionic/Angular:
+/.ionic
+/.sass-cache
+/.sourcemaps
+/.versions
+/coverage
+/dist
+/node_modules
+/platforms
+/plugins
+/www
