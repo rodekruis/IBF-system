@@ -10,7 +10,7 @@ import { IbfLayer } from 'src/app/types/ibf-layer';
 })
 export class MatrixComponent implements OnDestroy {
   private layerSubscription: Subscription;
-  public layers: IbfLayer[];
+  public layers: IbfLayer[] = [];
 
   constructor(public mapService: MapService) {
     this.layerSubscription = this.mapService
