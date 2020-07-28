@@ -7,7 +7,7 @@ import { MapService } from 'src/app/services/map.service';
 })
 export class TimelineService {
   public state = {
-    selectedTimeStepButtonValue: '0-day',
+    selectedTimeStepButtonValue: '7-day',
     today: moment(),
     dateFormat: 'DD/MM',
     timeStepButtons: [],
@@ -23,7 +23,7 @@ export class TimelineService {
         dateString: this.state.today.format(this.state.dateFormat),
         value: '0-day',
         alert: false,
-        disabled: false,
+        disabled: true,
       },
       {
         dateString: this.state.today
@@ -50,7 +50,7 @@ export class TimelineService {
           .format(this.state.dateFormat),
         value: '3-day',
         alert: true,
-        disabled: false,
+        disabled: true,
       },
       {
         dateString: this.state.today
