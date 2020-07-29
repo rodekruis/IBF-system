@@ -91,7 +91,7 @@ export class TimelineService {
     ];
   }
 
-  private handleTimeStepButtonClick(timeStepButtonValue) {
+  public handleTimeStepButtonClick(timeStepButtonValue) {
     this.state.selectedTimeStepButtonValue = timeStepButtonValue;
     this.mapService.loadData(this.state.selectedTimeStepButtonValue, undefined);
   }
