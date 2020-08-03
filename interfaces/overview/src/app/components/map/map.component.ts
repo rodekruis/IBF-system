@@ -4,7 +4,6 @@ import {
   geoJSON,
   icon,
   IconOptions,
-  latLng,
   LatLng,
   Layer,
   Map,
@@ -87,9 +86,8 @@ export class MapComponent implements OnDestroy {
           this.layers = [];
         }
         this.addToLayersControl();
-        this.map.panTo(this.mapService.state.center);
+        this.map.fitBounds(this.mapService.state.bounds);
       });
-    this.leafletOptions.center = latLng(this.mapService.state.center);
   }
 
   ngOnDestroy() {
