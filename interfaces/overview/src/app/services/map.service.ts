@@ -41,12 +41,14 @@ export class MapService {
       type: IbfLayerType.point,
       active: true,
       data: await this.getStations(leadTime),
-      viewCenter: true,
+      viewCenter: false,
     });
     this.addLayer({
       name: IbfLayerName.adminRegions,
       type: IbfLayerType.shape,
+      active: true,
       data: await this.getAdminRegionsStatic(adminLevel),
+      viewCenter: true,
     });
   }
 
@@ -92,7 +94,7 @@ export class MapService {
         type: this.layers[layerIndex].type,
         active: state,
         data: this.layers[layerIndex].data,
-        viewCenter: true,
+        viewCenter: false,
       });
     } else {
       throw `Layer '${name}' does not exist`;
