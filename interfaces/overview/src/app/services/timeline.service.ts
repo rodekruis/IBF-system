@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { MapService } from 'src/app/services/map.service';
-import { ApiService } from './api.service';
 import { environment } from 'src/environments/environment';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +16,7 @@ export class TimelineService {
     timeStepButtons: [],
   };
 
-  constructor(
-    private mapService: MapService,
-    private apiService: ApiService
-  ) {
+  constructor(private mapService: MapService, private apiService: ApiService) {
     this.state.countryCode = environment.defaultCountryCode;
     this.loadTimeStepButtons();
   }
@@ -92,7 +89,7 @@ export class TimelineService {
           .add(7, 'days')
           .format(this.state.dateFormat),
         value: '7-day',
-        alert: (await this.getTrigger('7-day')),
+        alert: await this.getTrigger('7-day'),
         disabled: false,
       },
     ];
@@ -104,7 +101,10 @@ export class TimelineService {
   }
 
   private async getTrigger(leadTime): Promise<any> {
-    const trigger = await this.apiService.getTriggerPerLeadtime(this.state.countryCode, leadTime);
+    const trigger = await this.apiService.getTriggerPerLeadtime(
+      this.state.countryCode,
+      leadTime,
+    );
     return trigger === 1;
   }
 }
