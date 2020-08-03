@@ -1,27 +1,34 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { MapService } from 'src/app/services/map.service';
+import { ApiService } from './api.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TimelineService {
   public state = {
+    countryCode: '',
     selectedTimeStepButtonValue: '7-day',
     today: moment(),
     dateFormat: 'DD/MM',
     timeStepButtons: [],
   };
 
-  constructor(private mapService: MapService) {
+  constructor(
+    private mapService: MapService,
+    private apiService: ApiService
+  ) {
+    this.state.countryCode = environment.defaultCountryCode;
     this.loadTimeStepButtons();
   }
 
-  private loadTimeStepButtons() {
+  private async loadTimeStepButtons() {
     this.state.timeStepButtons = [
       {
         dateString: this.state.today.format(this.state.dateFormat),
-        value: '0-day',
+        value: 'Today',
         alert: false,
         disabled: true,
       },
@@ -40,7 +47,7 @@ export class TimelineService {
           .add(2, 'days')
           .format(this.state.dateFormat),
         value: '2-day',
-        alert: true,
+        alert: false,
         disabled: true,
       },
       {
@@ -49,7 +56,7 @@ export class TimelineService {
           .add(3, 'days')
           .format(this.state.dateFormat),
         value: '3-day',
-        alert: true,
+        alert: false,
         disabled: true,
       },
       {
@@ -58,7 +65,7 @@ export class TimelineService {
           .add(4, 'days')
           .format(this.state.dateFormat),
         value: '4-day',
-        alert: true,
+        alert: false,
         disabled: true,
       },
       {
@@ -85,7 +92,7 @@ export class TimelineService {
           .add(7, 'days')
           .format(this.state.dateFormat),
         value: '7-day',
-        alert: false,
+        alert: (await this.getTrigger('7-day')),
         disabled: false,
       },
     ];
@@ -94,5 +101,10 @@ export class TimelineService {
   public handleTimeStepButtonClick(timeStepButtonValue) {
     this.state.selectedTimeStepButtonValue = timeStepButtonValue;
     this.mapService.loadData(this.state.selectedTimeStepButtonValue, undefined);
+  }
+
+  private async getTrigger(leadTime): Promise<any> {
+    const trigger = await this.apiService.getTriggerPerLeadtime(this.state.countryCode, leadTime);
+    return trigger === 1;
   }
 }
