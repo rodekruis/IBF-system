@@ -35,7 +35,7 @@ export class TimelineService {
           .add(1, 'days')
           .format(this.state.dateFormat),
         value: '1-day',
-        alert: false,
+        alert: await this.getTrigger('1-day'),
         disabled: true,
       },
       {
@@ -44,7 +44,7 @@ export class TimelineService {
           .add(2, 'days')
           .format(this.state.dateFormat),
         value: '2-day',
-        alert: false,
+        alert: await this.getTrigger('2-day'),
         disabled: true,
       },
       {
@@ -53,8 +53,8 @@ export class TimelineService {
           .add(3, 'days')
           .format(this.state.dateFormat),
         value: '3-day',
-        alert: false,
-        disabled: true,
+        alert: await this.getTrigger('3-day'),
+        disabled: false,
       },
       {
         dateString: this.state.today
@@ -62,7 +62,7 @@ export class TimelineService {
           .add(4, 'days')
           .format(this.state.dateFormat),
         value: '4-day',
-        alert: false,
+        alert: await this.getTrigger('4-day'),
         disabled: true,
       },
       {
@@ -71,7 +71,7 @@ export class TimelineService {
           .add(5, 'days')
           .format(this.state.dateFormat),
         value: '5-day',
-        alert: false,
+        alert: await this.getTrigger('5-day'),
         disabled: true,
       },
       {
@@ -80,7 +80,7 @@ export class TimelineService {
           .add(6, 'days')
           .format(this.state.dateFormat),
         value: '6-day',
-        alert: false,
+        alert: await this.getTrigger('6-day'),
         disabled: true,
       },
       {

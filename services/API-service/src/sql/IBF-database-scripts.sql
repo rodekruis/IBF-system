@@ -2,6 +2,7 @@
 --These views/functions are stored in Postgres and called from
 --They are kept explicitly here in the repository for documentation 
 
+
 --create view
 drop view if exists "IBF-API"."Glofas_stations";
 create or replace view "IBF-API"."Glofas_stations" as
@@ -20,6 +21,14 @@ left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.stat
 where current_prev = 'Current'
 ;
 --select * from "IBF-API"."Glofas_stations"
+
+drop view if exists "IBF-API"."Trigger_per_lead_time_NEW";
+create or replace view "IBF-API"."Trigger_per_lead_time_NEW" as 
+select *
+from "IBF-pipeline-output".dashboard_triggers_per_day
+where current_prev = 'Current'
+;
+--select * from "IBF-API"."Trigger_per_lead_time"
 
 drop view if exists "IBF-API"."Trigger_per_lead_time";
 create or replace view "IBF-API"."Trigger_per_lead_time" as 
