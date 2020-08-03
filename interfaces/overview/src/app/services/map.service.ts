@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import center from '@turf/center';
 import { containsNumber } from '@turf/invariant';
 import { LatLngLiteral } from 'leaflet';
+import { Observable, Subject } from 'rxjs';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
@@ -13,13 +14,15 @@ import { ApiService } from './api.service';
   providedIn: 'root',
 })
 export class MapService {
+  private layerSubject = new Subject<IbfLayer>();
+  private layers = [] as IbfLayer[];
+
   public state = {
     countryCode: '',
     center: {
       lat: 0,
       lng: 0,
     } as LatLngLiteral,
-    layers: [] as IbfLayer[],
     defaultColorProperty: 'population_affected',
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
@@ -31,41 +34,71 @@ export class MapService {
     this.state.countryCode = environment.defaultCountryCode;
   }
 
-  public async loadData() {
+  public async loadData(leadTime: string = '7-day', adminLevel: number = 2) {
+    this.removeLayers();
     this.addLayer({
       name: IbfLayerName.waterStations,
       type: IbfLayerType.point,
       active: true,
-      data: await this.getStations(),
+      data: await this.getStations(leadTime),
+      viewCenter: true,
     });
     this.addLayer({
       name: IbfLayerName.adminRegions,
       type: IbfLayerType.shape,
       active: true,
-      data: await this.getAdminRegions(),
+      data: await this.getAdminRegions(adminLevel, leadTime),
+      viewCenter: false,
     });
   }
 
-  private addLayer({ name, type, active, data }) {
-    const layerCenterCoordinates = center(data).geometry.coordinates;
-    this.state.center = containsNumber(layerCenterCoordinates)
-      ? ({
-          lng: layerCenterCoordinates[0],
-          lat: layerCenterCoordinates[1],
-        } as LatLngLiteral)
-      : this.state.center;
-    this.state.layers.push({ name, type, active, data });
+  private addLayer({ name, type, active, data, viewCenter }) {
+    if (viewCenter) {
+      const layerCenterCoordinates = center(data).geometry.coordinates;
+      this.state.center = containsNumber(layerCenterCoordinates)
+        ? ({
+            lng: layerCenterCoordinates[0],
+            lat: layerCenterCoordinates[1],
+          } as LatLngLiteral)
+        : this.state.center;
+    }
+    const newLayer = { name, type, active, data };
+    this.layerSubject.next(newLayer);
+    const layerIndex = this.getLayerIndexById(name);
+    if (layerIndex >= 0) {
+      this.layers.splice(layerIndex, 1, newLayer);
+    } else {
+      this.layers.push(newLayer);
+    }
+  }
+
+  private removeLayers() {
+    this.layerSubject.next();
+  }
+
+  getLayers(): Observable<IbfLayer> {
+    return this.layerSubject.asObservable();
   }
 
   private getLayerIndexById(name: string): number {
-    return this.state.layers.findIndex((layer: IbfLayer) => {
+    return this.layers.findIndex((layer: IbfLayer) => {
       return layer.name === name;
     });
   }
 
   public async setLayerState(name: string, state: boolean): Promise<void> {
     const layerIndex = this.getLayerIndexById(name);
-    this.state.layers[layerIndex].active = state;
+    if (layerIndex >= 0) {
+      this.addLayer({
+        name: this.layers[layerIndex].name,
+        type: this.layers[layerIndex].type,
+        active: state,
+        data: this.layers[layerIndex].data,
+        viewCenter: true,
+      });
+    } else {
+      throw `Layer '${name}' does not exist`;
+    }
   }
 
   public async getStations(leadTime: string = '7-day') {

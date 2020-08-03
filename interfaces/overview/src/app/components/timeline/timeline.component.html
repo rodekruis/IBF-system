@@ -1,0 +1,22 @@
+<div>
+  <ion-button
+    *ngFor="let timeStepButton of timelineService.state.timeStepButtons"
+    class="app-timeline-button"
+    disabled="{{ timeStepButton.disabled }}"
+    color="{{
+      timeStepButton.alert
+        ? 'danger'
+        : timeStepButton.value == timelineService.state.timeStepButtons[0].value
+        ? 'primary'
+        : 'dark'
+    }}"
+    fill="{{
+      timeStepButton.value == timelineService.state.selectedTimeStepButtonValue
+        ? 'solid'
+        : 'outline'
+    }}"
+    (click)="timelineService.handleTimeStepButtonClick(timeStepButton.value)"
+  >
+    {{ timeStepButton.dateString }}<br />{{ timeStepButton.value }}</ion-button
+  >
+</div>
