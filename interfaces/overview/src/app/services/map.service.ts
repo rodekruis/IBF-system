@@ -19,11 +19,10 @@ export class MapService {
 
   public state = {
     countryCode: '',
-    center: {
-      lat: 0,
-      lng: 0,
-    } as LatLngLiteral,
-    defaultColorProperty: 'population_affected',
+    bounds: [
+      [-20, -20],
+      [20, 20],
+    ] as LatLngBoundsLiteral,
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
     defaultFillOpacity: 0.8,
@@ -54,13 +53,13 @@ export class MapService {
 
   private addLayer({ name, type, active, data, viewCenter }) {
     if (viewCenter) {
-      const layerCenterCoordinates = center(data).geometry.coordinates;
-      this.state.center = containsNumber(layerCenterCoordinates)
-        ? ({
-            lng: layerCenterCoordinates[0],
-            lat: layerCenterCoordinates[1],
-          } as LatLngLiteral)
-        : this.state.center;
+      const layerBounds = bbox(data);
+      this.state.bounds = containsNumber(layerBounds)
+        ? ([
+            [layerBounds[1], layerBounds[0]],
+            [layerBounds[3], layerBounds[2]],
+          ] as LatLngBoundsLiteral)
+        : this.state.bounds;
     }
     const newLayer = { name, type, active, data };
     this.layerSubject.next(newLayer);
