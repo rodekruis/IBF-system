@@ -53,6 +53,17 @@ export class DataController {
     );
   }
 
+  @ApiOperation({ title: 'Get trigger data per lead-time' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
+  @Get('triggers/:countryCode/:leadTime')
+  public async getTriggerPerLeadtime(@Param() params): Promise<number> {
+    return await this.dataService.getTriggerPerLeadtime(
+      params.countryCode,
+      params.leadTime,
+    );
+  }
+
   @ApiOperation({ title: 'Get admin-area shape data' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })

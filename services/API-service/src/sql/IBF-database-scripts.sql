@@ -21,6 +21,17 @@ where current_prev = 'Current'
 ;
 --select * from "IBF-API"."Glofas_stations"
 
+drop view if exists "IBF-API"."Trigger_per_lead_time";
+create or replace view "IBF-API"."Trigger_per_lead_time" as 
+select country_code
+		,lead_time
+		,max(fc_trigger) as fc_trigger
+from "IBF-pipeline-output".dashboard_forecast_per_station
+where current_prev = 'Current'
+group by 1,2
+;
+--select * from "IBF-API"."Trigger_per_lead_time"
+
 
 drop view if exists "IBF-API"."Admin_area_data1";
 create or replace view "IBF-API"."Admin_area_data1" as 
