@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import center from '@turf/center';
+import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
-import { LatLngLiteral } from 'leaflet';
+import { LatLngBoundsLiteral } from 'leaflet';
 import { Observable, Subject } from 'rxjs';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
