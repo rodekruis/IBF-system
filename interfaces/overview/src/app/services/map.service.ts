@@ -45,9 +45,7 @@ export class MapService {
     this.addLayer({
       name: IbfLayerName.adminRegions,
       type: IbfLayerType.shape,
-      active: false,
-      data: await this.getAdminRegions(adminLevel, leadTime),
-      viewCenter: false,
+      data: await this.getAdminRegionsStatic(adminLevel),
     });
   }
 
@@ -104,15 +102,10 @@ export class MapService {
     return await this.apiService.getStations(this.state.countryCode, leadTime);
   }
 
-  public async getAdminRegions(
-    adminLevel: number = 2,
-    leadTime: string = '7-day',
-  ) {
-    return await this.apiService.getAdminRegions(
-      // this.state.countryCode,
-      'ZMB', // For now statically return ZMB
+  public async getAdminRegionsStatic(adminLevel: number = 2) {
+    return await this.apiService.getAdminRegionsStatic(
+      this.state.countryCode,
       adminLevel,
-      leadTime,
     );
   }
 
@@ -154,7 +147,7 @@ export class MapService {
 
   public setAdminRegionStyle = (adminRegions, colorProperty) => {
     const colorPropertyValues = adminRegions.features
-      .map((feature) => feature.properties[colorProperty])
+      .map((feature) => feature.properties.indicators[colorProperty])
       .filter((v, i, a) => a.indexOf(v) === i);
 
     const colorThreshold = {
@@ -166,7 +159,7 @@ export class MapService {
 
     return (adminRegion) => {
       const fillColor = this.getAdminRegionFillColor(
-        adminRegion.properties[colorProperty],
+        adminRegion.properties.indicators[colorProperty],
         colorThreshold,
       );
       const fillOpacity = this.getAdminRegionFillOpacity(adminRegion);
