@@ -76,4 +76,15 @@ export class DataController {
       params.leadTime,
     );
   }
+
+  @ApiOperation({ title: 'Get admin-area shape data' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })
+  @Get('admin-static/:countryCode/:adminLevel')
+  public async getAdminAreaStaticData(@Param() params): Promise<GeoJson> {
+    return await this.dataService.getAdminAreaStaticData(
+      params.countryCode,
+      params.adminLevel,
+    );
+  }
 }
