@@ -46,7 +46,7 @@ export class MapService {
     this.addLayer({
       name: IbfLayerName.adminRegions,
       type: IbfLayerType.shape,
-      active: true,
+      active: false,
       data: await this.getAdminRegions(adminLevel, leadTime),
       viewCenter: false,
     });

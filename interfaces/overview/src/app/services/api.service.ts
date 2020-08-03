@@ -107,6 +107,13 @@ export class ApiService {
     ).toPromise();
   }
 
+  getTriggerPerLeadtime(countryCode: string, leadTime: string): Promise<number> {
+    return this.get(
+      environment.api_url,
+      `triggers/${countryCode}/${leadTime}`,
+    ).toPromise();
+  }
+
   getAdminRegions(
     countryCode: string,
     adminLevel: number,
