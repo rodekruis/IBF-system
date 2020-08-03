@@ -1,4 +1,4 @@
 export enum IbfLayerName {
-  waterStations = 'water-stations',
+  glofasStations = 'glofas-stations',
   adminRegions = 'admin-regions',
 }

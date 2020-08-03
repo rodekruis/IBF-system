@@ -130,7 +130,7 @@ export class MapComponent implements OnDestroy {
     return geoJSON(layer.data, {
       pointToLayer: (geoJsonPoint: GeoJSON.Feature, latlng: LatLng) => {
         switch (layer.name) {
-          case IbfLayerName.waterStations:
+          case IbfLayerName.glofasStations:
             return this.createMarkerStation(
               geoJsonPoint.properties as Station,
               latlng,

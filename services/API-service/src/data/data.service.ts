@@ -80,6 +80,23 @@ export class DataService {
     return result;
   }
 
+  public async getTriggerPerLeadtime(
+    countryCode: string,
+    leadTime: string,
+  ): Promise<number> {
+    const query =
+      ' select * \
+    from "IBF-API"."Trigger_per_lead_time" \
+    where 0 = 0 \
+    and lead_time = $1 \
+    and country_code = $2 \
+    ';
+
+    const result = await this.manager.query(query, [leadTime, countryCode]);
+
+    return result[0].fc_trigger;
+  }
+
   private toGeojson(rawResult): GeoJson {
     const geoJson: GeoJson = {
       type: 'FeatureCollection',

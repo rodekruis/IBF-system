@@ -37,7 +37,7 @@ export class MapService {
   public async loadData(leadTime: string = '7-day', adminLevel: number = 2) {
     this.removeLayers();
     this.addLayer({
-      name: IbfLayerName.waterStations,
+      name: IbfLayerName.glofasStations,
       type: IbfLayerType.point,
       active: true,
       data: await this.getStations(leadTime),
@@ -46,7 +46,7 @@ export class MapService {
     this.addLayer({
       name: IbfLayerName.adminRegions,
       type: IbfLayerType.shape,
-      active: true,
+      active: false,
       data: await this.getAdminRegions(adminLevel, leadTime),
       viewCenter: false,
     });
