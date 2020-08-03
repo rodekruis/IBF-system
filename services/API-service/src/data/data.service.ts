@@ -58,6 +58,26 @@ export class DataService {
     return result;
   }
 
+  public async getAdminAreaStaticData(
+    countryCode: string,
+    adminLevel: number,
+  ): Promise<GeoJson> {
+    const query =
+      ' select * \
+    from "IBF-API"."Admin_area_static_level' +
+      adminLevel +
+      '" \
+    where 0 = 0 \
+    and country_code = $1 \
+    ';
+
+    const rawResult: Station[] = await this.manager.query(query, [countryCode]);
+
+    const result = this.toGeojson(rawResult);
+
+    return result;
+  }
+
   public async getStations(
     countryCode: string,
     leadTime: string,

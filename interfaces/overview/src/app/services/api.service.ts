@@ -127,4 +127,11 @@ export class ApiService {
       `admin-area-data/${countryCode}/${adminLevel}/${leadTime}`,
     ).toPromise();
   }
+
+  getAdminRegionsStatic(countryCode: string, adminLevel: number): Promise<[]> {
+    return this.get(
+      environment.api_url,
+      `admin-static/${countryCode}/${adminLevel}`,
+    ).toPromise();
+  }
 }

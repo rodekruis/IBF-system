@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import center from '@turf/center';
+import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
-import { LatLngLiteral } from 'leaflet';
+import { LatLngBoundsLiteral } from 'leaflet';
 import { Observable, Subject } from 'rxjs';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
@@ -19,11 +19,11 @@ export class MapService {
 
   public state = {
     countryCode: '',
-    center: {
-      lat: 0,
-      lng: 0,
-    } as LatLngLiteral,
-    defaultColorProperty: 'population_affected',
+    bounds: [
+      [-20, -20],
+      [20, 20],
+    ] as LatLngBoundsLiteral,
+    defaultColorProperty: 'population',
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
     defaultFillOpacity: 0.8,
@@ -41,26 +41,26 @@ export class MapService {
       type: IbfLayerType.point,
       active: true,
       data: await this.getStations(leadTime),
-      viewCenter: true,
+      viewCenter: false,
     });
     this.addLayer({
       name: IbfLayerName.adminRegions,
       type: IbfLayerType.shape,
-      active: false,
-      data: await this.getAdminRegions(adminLevel, leadTime),
-      viewCenter: false,
+      active: true,
+      data: await this.getAdminRegionsStatic(adminLevel),
+      viewCenter: true,
     });
   }
 
   private addLayer({ name, type, active, data, viewCenter }) {
     if (viewCenter) {
-      const layerCenterCoordinates = center(data).geometry.coordinates;
-      this.state.center = containsNumber(layerCenterCoordinates)
-        ? ({
-            lng: layerCenterCoordinates[0],
-            lat: layerCenterCoordinates[1],
-          } as LatLngLiteral)
-        : this.state.center;
+      const layerBounds = bbox(data);
+      this.state.bounds = containsNumber(layerBounds)
+        ? ([
+            [layerBounds[1], layerBounds[0]],
+            [layerBounds[3], layerBounds[2]],
+          ] as LatLngBoundsLiteral)
+        : this.state.bounds;
     }
     const newLayer = { name, type, active, data };
     this.layerSubject.next(newLayer);
@@ -94,7 +94,7 @@ export class MapService {
         type: this.layers[layerIndex].type,
         active: state,
         data: this.layers[layerIndex].data,
-        viewCenter: true,
+        viewCenter: false,
       });
     } else {
       throw `Layer '${name}' does not exist`;
@@ -105,15 +105,10 @@ export class MapService {
     return await this.apiService.getStations(this.state.countryCode, leadTime);
   }
 
-  public async getAdminRegions(
-    adminLevel: number = 2,
-    leadTime: string = '7-day',
-  ) {
-    return await this.apiService.getAdminRegions(
-      // this.state.countryCode,
-      'ZMB', // For now statically return ZMB
+  public async getAdminRegionsStatic(adminLevel: number = 2) {
+    return await this.apiService.getAdminRegionsStatic(
+      this.state.countryCode,
       adminLevel,
-      leadTime,
     );
   }
 
@@ -155,7 +150,7 @@ export class MapService {
 
   public setAdminRegionStyle = (adminRegions, colorProperty) => {
     const colorPropertyValues = adminRegions.features
-      .map((feature) => feature.properties[colorProperty])
+      .map((feature) => feature.properties.indicators[colorProperty])
       .filter((v, i, a) => a.indexOf(v) === i);
 
     const colorThreshold = {
@@ -167,7 +162,7 @@ export class MapService {
 
     return (adminRegion) => {
       const fillColor = this.getAdminRegionFillColor(
-        adminRegion.properties[colorProperty],
+        adminRegion.properties.indicators[colorProperty],
         colorThreshold,
       );
       const fillOpacity = this.getAdminRegionFillOpacity(adminRegion);
