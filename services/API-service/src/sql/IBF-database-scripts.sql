@@ -46,6 +46,28 @@ where d1.date is not null
 ;
 --select * from "IBF-API"."Admin_area_data1"
 
+drop view if exists "IBF-API"."Admin_area_static_level2";
+create or replace view "IBF-API"."Admin_area_static_level2" as 
+select country_code
+	,geo.pcode_level2 as temp
+	,geo."name"
+	,geo.pcode_level1
+	,ST_AsGeoJSON(geo.geom)::json As geom
+	,coalesce(uga.properties,zmb.properties) as indicators
+from (
+	select cast('ZMB' as varchar) as country_code
+			,*
+	from "IBF-static-input"."ZMB_Geo_level2" zmb
+	union all
+	select cast('UGA' as varchar) as country_code
+			,*
+	from "IBF-static-input"."UGA_Geo_level2" uga
+) geo
+left join (select pcode, row_to_json(t.*) As properties from "IBF-static-input"."UGA_CRA_Indicators_2" t) uga on geo.pcode_level2 = uga.pcode and geo.country_code = 'UGA'
+left join (select pcode, row_to_json(t.*) As properties from "IBF-static-input"."ZMB_CRA_Indicators_2" t) zmb on geo.pcode_level2 = zmb.pcode and geo.country_code = 'ZMB'
+;
+--select * from "IBF-API"."Admin_area_static_level2" where country_code = 'UGA'
+
 drop view if exists "IBF-API"."Admin_area_data2";
 create or replace view "IBF-API"."Admin_area_data2" as 
 select country_code
@@ -60,14 +82,11 @@ from (
 	from "IBF-static-input"."ZMB_Geo_level2" zmb
 	union all
 	select cast('UGA' as varchar) as country_code
-			,pcode as pcode_level2
-			,name 
-			,adm1pcode as pcode_level1
-			,the_geom as geom
-	from public.uga_admin2
+			,*
+	from "IBF-static-input"."UGA_Geo_level2" uga
 ) geo
 left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode_level2 = d2.pcode
-where current_prev = 'Current'
+--where current_prev = 'Current'
 --where d2.date is not null
 ;
 --select * from "IBF-API"."Admin_area_data2" where country_code = 'UGA'
