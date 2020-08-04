@@ -18,9 +18,7 @@ Lisanne van Brussel, lisanne.van.brussel@vodw.ey.com
 Below, the technical workflow with all data and scripts used to create the GlofAS station selection tool can found.
 In the next chapters of this README, a more detailed description of the data and scripts will be given. Be aware that the description is an high-over description, more details can be found in the project document `project_document_glofas_station_selection_tool.pdf` or within the scripts itself.
 
-![Figure 1: Technical workflow](https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/technical_workflow.png)
 
-Figure 1: Technical workflow
 ![Figure 1: Technical workflow](pictures/technical_workflow.png)
 
 ### 2. Download GloFAS discharge data 
