@@ -3,6 +3,8 @@
 # Documentation for Red Cross Netherlands regarding the GloFAS station selection tool (Uganda)
 This document dives into the data and scripts used to build the GloFAS station selection tool. This tool is a Dash webapp that can be used to tdermine which districts are connected to (GloFAS) stations, to specify the exact flood-prone areas (FloodScan data), and can be used as a starting point for optimising station locations. This project focussed on Uganda only, but the tool can easily be extended with other countries.
 
+Because of the storage size, data is not uploaded to this repo. All data we refer to in this documentation and in the code is saved in the EY-VODW/RedCross teams. Jacopo/Bouke/Aklilu do have access to this.
+
 <u> Authors: </u> <br>
 Janno Bannink, janno.bannink@vodw.ey.com <br>
 Lisanne van Brussel, lisanne.van.brussel@vodw.ey.com
