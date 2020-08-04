@@ -20,6 +20,9 @@ In the next chapters of this README, a more detailed description of the data and
 
 ![Figure 1: Technical workflow](https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/technical_workflow.png)
 
+Figure 1: Schematic overview of the pipeline
+![Figure 1: Schematic overview of the pipeline](pictures/technical_workflow.png))
+
 ### 2. Download GloFAS discharge data 
 `download_merge_glofas.py` can be used to download worldwide GloFAS discharge data for the years/months specified in the script. One should have an account (with personal key) at the Climate Data Store (CDS) or Atmosphere Data Store (ADS) to do so. Running this script will download the data and saves a `.nc` file for each month of GloFAS data.
 
