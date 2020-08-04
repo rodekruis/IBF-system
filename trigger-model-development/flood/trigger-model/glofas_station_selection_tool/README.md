@@ -114,10 +114,11 @@ GloFas provides a gridded dataset at a 0.1Â° resolution. The GloFAS Station Se
 
 For each grid cell, GloFAS provides the coordinates of the middle (e.g. lon: 29.55, lat: 1.55). However, knowing that GloFAS uses a 0.1° grid, the boundaries of each grid cell extent to .05° degrees in all four directions from the middle. Resulting in a polygon with the following coordinates: xmin: 29.5, xmax: 29.6, ymin: 1.5, ymax: 1.6). 
 
-Using the example in figure 2, the middle is indicated by a yellow point. The (black) boundaries extent .05Â° from that middle point. Creating a GloFAS grid requires starting (xmin, ymin) to start at a .1Â° interval. 
+Using the example in figure 2, the middle is indicated by a yellow point. The (black) boundaries extent .05Â° from that middle point. Creating a GloFAS grid requires starting (xmin, ymin) to start at a .1° interval. 
 
 ![Figure 2: Grid layout](https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/grid_layout.jpg)
-[Interfaces (frontend)](./interfaces/)
+
+![IBF-system design (draft)](./system-design/ibf-system-design.PNG)
 
 To create a grid using Qgis (version: 3.1.10), select 'Vector' -> 'Research tools'-> 'Create Grid'. 
 Which brings up the menu shown below. For the grid of Uganda, Grid type was set to 'Rectangle (Polygon)', which makes the eventual grid clickable, Grid Extent was set to the bounding box of Uganda (xmin: 29.5, xmax: 35.2, ymin: -1.5, ymax: 4.3). Moreover, the horizontal and veritcal spacing were set to .1Â° degrees and the Grid CRS was set to Default EPSG:4326 - WGS 84. Lastly, one can select the desired location (ie folder) for the shp file of the grid. 
