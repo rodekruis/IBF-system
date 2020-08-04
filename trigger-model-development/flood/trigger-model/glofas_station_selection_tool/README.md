@@ -18,8 +18,7 @@ Lisanne van Brussel, lisanne.van.brussel@vodw.ey.com
 Below, the technical workflow with all data and scripts used to create the GlofAS station selection tool can found.
 In the next chapters of this README, a more detailed description of the data and scripts will be given. Be aware that the description is an high-over description, more details can be found in the project document `project_document_glofas_station_selection_tool.pdf` or within the scripts itself.
 
-![Figure 1: Technical workflow]
-(https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/technical_workflow.png)
+![Figure 1: Technical workflow](https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/technical_workflow.png)
 
 ### 2. Download GloFAS discharge data 
 `download_merge_glofas.py` can be used to download worldwide GloFAS discharge data for the years/months specified in the script. One should have an account (with personal key) at the Climate Data Store (CDS) or Atmosphere Data Store (ADS) to do so. Running this script will download the data and saves a `.nc` file for each month of GloFAS data.
@@ -117,17 +116,14 @@ For each grid cell, GloFAS provides the coordinates of the middle (e.g. lon: 29.
 
 Using the example in figure 2, the middle is indicated by a yellow point. The (black) boundaries extent .05Â° from that middle point. Creating a GloFAS grid requires starting (xmin, ymin) to start at a .1Â° interval. 
 
-![Figure 2: Grid layout]
-(https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/grid_layout.jpg)
+![Figure 2: Grid layout](https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/grid_layout.jpg)
 
 To create a grid using Qgis (version: 3.1.10), select 'Vector' -> 'Research tools'-> 'Create Grid'. 
 Which brings up the menu shown below. For the grid of Uganda, Grid type was set to 'Rectangle (Polygon)', which makes the eventual grid clickable, Grid Extent was set to the bounding box of Uganda (xmin: 29.5, xmax: 35.2, ymin: -1.5, ymax: 4.3). Moreover, the horizontal and veritcal spacing were set to .1Â° degrees and the Grid CRS was set to Default EPSG:4326 - WGS 84. Lastly, one can select the desired location (ie folder) for the shp file of the grid. 
 
-![Figure 3: Qgis create grid]
-(https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/create_a_grid.jpg)
+![Figure 3: Qgis create grid](https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/create_a_grid.jpg)
 
  
 The given settings result in a grid layer for Uganda, shown below. This grid is (virtually) identical to the grid GloFAS uses to determine the water discharge per m3. By saving the grid to a shapefile and loading it to the GSS tool the clickable overlay is created. 
 
-![Figure 4: Uganda grid]
-(https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/grid_uganda.jpg)
+![Figure 4: Uganda grid](https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/grid_uganda.jpg)
