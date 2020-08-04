@@ -51,14 +51,12 @@ There are four `.py` scripts that together read, transform and save the data : <
 
 Once the settings in `0_config.py` are modified, the classes `01_cls_read_data.py` and `02_cls_transform_data.py` can be used. However, make sure that the path specified in the first lines within both scrips is right. This should be the path of the scripts.
 
-
 #### Output files
 * `df_uganda_discharge_10yr.csv` : Daily GloFAS discharge data (2010-2019) of all grid cells within Uganda.
 * `df_uganda_percentages_10yr_95_percentile.csv` : Data with percentages of overlap of extreme discharge days of a cell and its adjacent (neighbouring) cells.
 * Shapefiles as `.json`:
     * rivers_hydroshed_cliped_uga.json
     * uga_adminboundaries_1.json
-
 
 ### 4. GloFAS station selection tool / Interactive map
 
@@ -69,7 +67,6 @@ Once the settings in `0_config.py` are modified, the classes `01_cls_read_data.p
 * `Rivers and admin boundaries jsons`: the to json transformed shapefiles with the river network and admin boundaries (districts) of Uganda. These will be saved when running `1_read_transform_save_data.py`. 
 * `GloFAS discharge data and percentage overlap data`: File with the GloFAS discharge data of 2010-2019 and all grid cells of Uganda (`df_uganda_discharge_10yr.csv`). File with the percentage of overlap of extreme discharge days of a cell and its adjacent (neighbouring) cells (`df_uganda_percentage_10yr_95percentile.csv`). These files will be saved when running `1_read_transform_save_data.py`. 
 
-
 #### Script `2_interactive_map.py`
 The script that creates the GloFAS station selection tool is `2_interactive_map.py`. It contains several functions for the app to function correctly. The required functions are listed below. Documentation and explanation on these functions can be found within the script.
 
@@ -78,13 +75,11 @@ The script that creates the GloFAS station selection tool is `2_interactive_map.
 * `get_flood_polygons`
 * `get_districts`
 * `get_color`
-  
 
 #### Output
 When runninb the script in its entirety it will deploy the app on a local development server. The GloFAS station selection tool can be accessed by copy-pasting 'http://127.0.0.1:8050/' in your (Chrome) browser. 
 
 When the tool is deployed and running in your browser you will see a map, several sliders and buttons and an empty linegraph. The following section will describe the function of each of these features: 
-
 
 ##### <u> Map </u>
 Contains several layers:
@@ -104,28 +99,21 @@ Once you have chosen a grid cell, and adjusted the sliders to your preference yo
 
 Lastly, on the right side of the map you will see the GloFAS discharge of the particular cell in the available time period. The red line within this graph indicates the 95 percentile. Whenever the discharge is above the red line, the discharge within that cell is considered 'extreme'. Using your mouse it is possible to see the exact values from an exact date. Moreover, it is possible to zoom-in to a particular area of the graph. 
 
-
 ### 5. Creating a grid 
-
 GloFas provides a gridded dataset at a 0.1Â° resolution. The GloFAS Station Selection (GSS) tool uses an identical grid as an overlay. There are several ways to generate this grid. The following section contains a description of the approach we took to replicate the GloFAS grid using Qgis.
 
-
 ##### <u> Creating a GloFAS grid in Qgis </u>
-
 For each grid cell, GloFAS provides the coordinates of the middle (e.g. lon: 29.55, lat: 1.55). However, knowing that GloFAS uses a 0.1° grid, the boundaries of each grid cell extent to .05° degrees in all four directions from the middle. Resulting in a polygon with the following coordinates: xmin: 29.5, xmax: 29.6, ymin: 1.5, ymax: 1.6). 
 
 Using the example in figure 2, the middle is indicated by a yellow point. The (black) boundaries extent .05Â° from that middle point. Creating a GloFAS grid requires starting (xmin, ymin) to start at a .1° interval. 
 
 ![Figure 2: Grid layout](https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/grid_layout.jpg)
 
-![IBF-system design (draft)](./system-design/ibf-system-design.PNG)
-
 To create a grid using Qgis (version: 3.1.10), select 'Vector' -> 'Research tools'-> 'Create Grid'. 
 Which brings up the menu shown below. For the grid of Uganda, Grid type was set to 'Rectangle (Polygon)', which makes the eventual grid clickable, Grid Extent was set to the bounding box of Uganda (xmin: 29.5, xmax: 35.2, ymin: -1.5, ymax: 4.3). Moreover, the horizontal and veritcal spacing were set to .1Â° degrees and the Grid CRS was set to Default EPSG:4326 - WGS 84. Lastly, one can select the desired location (ie folder) for the shp file of the grid. 
 
 ![Figure 3: Qgis create grid](https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/create_a_grid.jpg)
 
- 
 The given settings result in a grid layer for Uganda, shown below. This grid is (virtually) identical to the grid GloFAS uses to determine the water discharge per m3. By saving the grid to a shapefile and loading it to the GSS tool the clickable overlay is created. 
 
 ![Figure 4: Uganda grid](https://github.com/lvanbrussel/IBF-system/tree/master/trigger-model-development/flood/trigger-model/glofas_station_selection_tool/pictures/grid_uganda.jpg)
