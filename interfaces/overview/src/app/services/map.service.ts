@@ -18,7 +18,6 @@ export class MapService {
   private layers = [] as IbfLayer[];
 
   public state = {
-    countryCode: '',
     bounds: [
       [-20, -20],
       [20, 20],
@@ -30,24 +29,26 @@ export class MapService {
     defaultWeight: 1,
   };
 
-  constructor(private apiService: ApiService) {
-    this.state.countryCode = environment.defaultCountryCode;
-  }
+  constructor(private apiService: ApiService) {}
 
-  public async loadData(leadTime: string = '7-day', adminLevel: number = 2) {
+  public async loadData(
+    countryCode: string = environment.defaultCountryCode,
+    leadTime: string = '7-day',
+    adminLevel: number = 2,
+  ) {
     this.removeLayers();
     this.addLayer({
       name: IbfLayerName.glofasStations,
       type: IbfLayerType.point,
       active: true,
-      data: await this.getStations(leadTime),
+      data: await this.getStations(countryCode, leadTime),
       viewCenter: false,
     });
     this.addLayer({
       name: IbfLayerName.adminRegions,
       type: IbfLayerType.shape,
       active: true,
-      data: await this.getAdminRegionsStatic(adminLevel),
+      data: await this.getAdminRegionsStatic(countryCode, adminLevel),
       viewCenter: true,
     });
   }
@@ -101,15 +102,18 @@ export class MapService {
     }
   }
 
-  public async getStations(leadTime: string = '7-day') {
-    return await this.apiService.getStations(this.state.countryCode, leadTime);
+  public async getStations(
+    countryCode: string = environment.defaultCountryCode,
+    leadTime: string = '7-day',
+  ) {
+    return await this.apiService.getStations(countryCode, leadTime);
   }
 
-  public async getAdminRegionsStatic(adminLevel: number = 2) {
-    return await this.apiService.getAdminRegionsStatic(
-      this.state.countryCode,
-      adminLevel,
-    );
+  public async getAdminRegionsStatic(
+    countryCode: string = environment.defaultCountryCode,
+    adminLevel: number = 2,
+  ) {
+    return await this.apiService.getAdminRegionsStatic(countryCode, adminLevel);
   }
 
   getAdminRegionFillColor = (colorPropertyValue, colorThreshold) => {

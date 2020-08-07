@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { Country } from 'src/app/models/country.model';
 import { MapService } from 'src/app/services/map.service';
 import { environment } from 'src/environments/environment';
 import { ApiService } from './api.service';
@@ -14,11 +15,24 @@ export class TimelineService {
     today: moment(),
     dateFormat: 'DD/MM',
     timeStepButtons: [],
+    countries: [],
   };
 
   constructor(private mapService: MapService, private apiService: ApiService) {
-    this.state.countryCode = environment.defaultCountryCode;
-    this.loadTimeStepButtons();
+    this.state.countries = [
+      {
+        code: 'UGA',
+        name: 'Uganda',
+        forecast: ['7-day'],
+      },
+      {
+        code: 'ZMB',
+        name: 'Zambia',
+        forecast: ['3-day', '7-day'],
+      },
+    ] as Country[];
+
+    this.selectCountry(environment.defaultCountryCode);
   }
 
   private async loadTimeStepButtons() {
@@ -27,7 +41,7 @@ export class TimelineService {
         dateString: this.state.today.format(this.state.dateFormat),
         value: 'Today',
         alert: false,
-        disabled: true,
+        disabled: await this.getForecast('Today'),
       },
       {
         dateString: this.state.today
@@ -36,7 +50,7 @@ export class TimelineService {
           .format(this.state.dateFormat),
         value: '1-day',
         alert: await this.getTrigger('1-day'),
-        disabled: true,
+        disabled: await this.getForecast('1-day'),
       },
       {
         dateString: this.state.today
@@ -45,7 +59,7 @@ export class TimelineService {
           .format(this.state.dateFormat),
         value: '2-day',
         alert: await this.getTrigger('2-day'),
-        disabled: true,
+        disabled: await this.getForecast('2-day'),
       },
       {
         dateString: this.state.today
@@ -54,7 +68,7 @@ export class TimelineService {
           .format(this.state.dateFormat),
         value: '3-day',
         alert: await this.getTrigger('3-day'),
-        disabled: false,
+        disabled: await this.getForecast('3-day'),
       },
       {
         dateString: this.state.today
@@ -63,7 +77,7 @@ export class TimelineService {
           .format(this.state.dateFormat),
         value: '4-day',
         alert: await this.getTrigger('4-day'),
-        disabled: true,
+        disabled: await this.getForecast('4-day'),
       },
       {
         dateString: this.state.today
@@ -72,7 +86,7 @@ export class TimelineService {
           .format(this.state.dateFormat),
         value: '5-day',
         alert: await this.getTrigger('5-day'),
-        disabled: true,
+        disabled: await this.getForecast('5-day'),
       },
       {
         dateString: this.state.today
@@ -81,7 +95,7 @@ export class TimelineService {
           .format(this.state.dateFormat),
         value: '6-day',
         alert: await this.getTrigger('6-day'),
-        disabled: true,
+        disabled: await this.getForecast('6-day'),
       },
       {
         dateString: this.state.today
@@ -90,14 +104,48 @@ export class TimelineService {
           .format(this.state.dateFormat),
         value: '7-day',
         alert: await this.getTrigger('7-day'),
-        disabled: false,
+        disabled: await this.getForecast('7-day'),
       },
     ];
   }
 
   public handleTimeStepButtonClick(timeStepButtonValue) {
     this.state.selectedTimeStepButtonValue = timeStepButtonValue;
-    this.mapService.loadData(this.state.selectedTimeStepButtonValue, undefined);
+    this.mapService.loadData(
+      this.state.countryCode,
+      this.state.selectedTimeStepButtonValue,
+      undefined,
+    );
+  }
+
+  public handleCountryChange($event) {
+    this.selectCountry($event.detail.value);
+  }
+
+  public selectCountry(countryCode) {
+    this.state.countryCode = countryCode;
+
+    const countryIndex = this.state.countries.findIndex(
+      (country) => country.code === countryCode,
+    );
+    const countryForecasts =
+      countryIndex >= 0 ? this.state.countries[countryIndex].forecast : [];
+
+    this.loadTimeStepButtons();
+    this.handleTimeStepButtonClick(countryForecasts[0]);
+  }
+
+  private async getForecast(leadTime): Promise<any> {
+    return await new Promise((resolve) => {
+      const countryIndex = this.state.countries.findIndex(
+        (country) => country.code === this.state.countryCode,
+      );
+
+      const countryForecasts =
+        countryIndex >= 0 ? this.state.countries[countryIndex].forecast : [];
+
+      resolve(countryForecasts.indexOf(leadTime) < 0);
+    });
   }
 
   private async getTrigger(leadTime): Promise<any> {
