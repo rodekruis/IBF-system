@@ -31,12 +31,10 @@ export class MapService {
 
   constructor(private apiService: ApiService) {}
 
-  public async loadData(
+  public async loadStationLayer(
     countryCode: string = environment.defaultCountryCode,
     leadTime: string = '7-day',
-    adminLevel: number = 2,
   ) {
-    this.removeLayers();
     this.addLayer({
       name: IbfLayerName.glofasStations,
       type: IbfLayerType.point,
@@ -44,6 +42,12 @@ export class MapService {
       data: await this.getStations(countryCode, leadTime),
       viewCenter: false,
     });
+  }
+
+  public async loadAdminRegionLayer(
+    countryCode: string = environment.defaultCountryCode,
+    adminLevel: number = 2,
+  ) {
     this.addLayer({
       name: IbfLayerName.adminRegions,
       type: IbfLayerType.shape,
