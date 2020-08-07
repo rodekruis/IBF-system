@@ -111,10 +111,9 @@ export class TimelineService {
 
   public handleTimeStepButtonClick(timeStepButtonValue) {
     this.state.selectedTimeStepButtonValue = timeStepButtonValue;
-    this.mapService.loadData(
+    this.mapService.loadStationLayer(
       this.state.countryCode,
       this.state.selectedTimeStepButtonValue,
-      undefined,
     );
   }
 
@@ -131,6 +130,7 @@ export class TimelineService {
     const countryForecasts =
       countryIndex >= 0 ? this.state.countries[countryIndex].forecast : [];
 
+    this.mapService.loadAdminRegionLayer(countryCode);
     this.loadTimeStepButtons();
     this.handleTimeStepButtonClick(countryForecasts[0]);
   }
