@@ -131,6 +131,7 @@ export class TimelineService {
       countryIndex >= 0 ? this.state.countries[countryIndex].forecast : [];
 
     this.mapService.loadAdminRegionLayer(countryCode);
+    this.mapService.loadFloodExtentLayer(countryCode);
     this.loadTimeStepButtons();
     this.handleTimeStepButtonClick(countryForecasts[0]);
   }
