@@ -106,15 +106,14 @@ export class DataService {
   ): Promise<number> {
     const query =
       ' select * \
-    from "IBF-API"."Trigger_per_lead_time" \
+    from "IBF-API"."Trigger_per_lead_time_NEW" \
     where 0 = 0 \
-    and lead_time = $1 \
-    and country_code = $2 \
+    and country_code = $1 \
     ';
 
-    const result = await this.manager.query(query, [leadTime, countryCode]);
+    const result = await this.manager.query(query, [countryCode]);
 
-    return result[0].fc_trigger;
+    return result[0][leadTime[0]];
   }
 
   private toGeojson(rawResult): GeoJson {

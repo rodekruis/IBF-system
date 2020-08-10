@@ -1,3 +1,14 @@
+--drop table if exists "IBF-pipeline-output".dashboard_triggers_per_day;
+truncate table "IBF-pipeline-output".dashboard_triggers_per_day;
+insert into "IBF-pipeline-output".dashboard_triggers_per_day
+select country_code 
+	,case when date_part('day',age(current_date,to_date(date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
+	,"1","2","3","4","5","6","7"
+--into "IBF-pipeline-output".dashboard_triggers_per_day
+from "IBF-pipeline-output".triggers_per_day tpd
+where to_date(date,'yyyy-mm-dd') >= current_date - 1
+;
+
 --drop table "IBF-pipeline-output".dashboard_forecast_per_station cascade;
 truncate table "IBF-pipeline-output".dashboard_forecast_per_station;
 insert into "IBF-pipeline-output".dashboard_forecast_per_station
