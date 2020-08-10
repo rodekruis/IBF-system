@@ -18,6 +18,7 @@ import { MapService } from 'src/app/services/map.service';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
+import { IbfLayerWMS } from 'src/app/types/ibf-layer-wms';
 
 @Component({
   selector: 'app-map',
@@ -28,15 +29,6 @@ export class MapComponent implements OnDestroy {
   private map: Map;
   private layerSubscription: Subscription;
   public layers: IbfLayer[] = [];
-
-  // Define our base layers so we can reference them multiple times
-  private hotTileLayer = tileLayer(
-    'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-    {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
-    },
-  );
 
   private osmTileLayer = tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -52,6 +44,7 @@ export class MapComponent implements OnDestroy {
     iconUrl: 'assets/markers/default.png',
     iconRetinaUrl: 'assets/markers/default-2x.png',
   };
+
   private iconWarning: IconOptions = {
     ...this.iconDefault,
     iconUrl: 'assets/markers/alert.svg',
@@ -102,6 +95,7 @@ export class MapComponent implements OnDestroy {
 
     await this.mapService.loadAdminRegionLayer();
     await this.mapService.loadStationLayer();
+    await this.mapService.loadFloodExtentLayer();
   }
 
   private createLayer(layer: IbfLayer): IbfLayer {
@@ -111,6 +105,10 @@ export class MapComponent implements OnDestroy {
 
     if (layer.name === IbfLayerName.adminRegions) {
       layer.leafletLayer = this.createAdminRegionsLayer(layer);
+    }
+
+    if (layer.name === IbfLayerName.floodExtent) {
+      layer.leafletLayer = this.createFloodExtentLayer(layer.wms);
     }
 
     return layer;
@@ -145,12 +143,25 @@ export class MapComponent implements OnDestroy {
     if (!layer.data) {
       return;
     }
-
     return geoJSON(layer.data, {
       style: this.mapService.setAdminRegionStyle(
         layer.data,
         this.mapService.state.defaultColorProperty,
       ),
+    });
+  }
+
+  private createFloodExtentLayer(layerWMS: IbfLayerWMS): Layer {
+    if (!layerWMS) {
+      return;
+    }
+    return tileLayer.wms(layerWMS.url, {
+      layers: layerWMS.name,
+      format: layerWMS.format,
+      version: layerWMS.version,
+      attribution: layerWMS.attribution,
+      crs: layerWMS.crs,
+      transparent: layerWMS.transparent,
     });
   }
 
