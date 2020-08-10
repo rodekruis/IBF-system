@@ -100,7 +100,8 @@ export class MapComponent implements OnDestroy {
     // Trigger a resize to fill the container-element:
     window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 200);
 
-    await this.mapService.loadData();
+    await this.mapService.loadAdminRegionLayer();
+    await this.mapService.loadStationLayer();
   }
 
   private createLayer(layer: IbfLayer): IbfLayer {
