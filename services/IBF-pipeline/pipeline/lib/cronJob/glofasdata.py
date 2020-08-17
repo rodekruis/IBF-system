@@ -157,6 +157,10 @@ class GlofasData:
                     
                     if step + 1 == self.days:
                         stations.append(station)
+                    else:
+                        station = {}
+                        station['code'] = files[i].split(
+                            '_')[2] if GLOFAS_DUMMY == False else files[i].split('_')[4]
                 
             data.close()
         
