@@ -40,7 +40,7 @@ if [ -d "$data_path" ]; then
         path="/etc/letsencrypt/live/$domains"
         mkdir -p "$data_path/conf/live/$domains"
         $docker_compose run --rm --entrypoint "openssl req -x509 -nodes \
-        -newkey rsa:1024 -days 1 -subj '/CN=localhost' \
+        -newkey rsa:$rsa_key_size -days 1 -subj '/CN=localhost' \
         -keyout '$path/privkey.pem' -out '$path/fullchain.pem'" certbot
         echo
 
