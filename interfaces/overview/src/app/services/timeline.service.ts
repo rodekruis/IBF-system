@@ -115,6 +115,10 @@ export class TimelineService {
       this.state.countryCode,
       this.state.selectedTimeStepButtonValue,
     );
+    this.mapService.loadFloodExtentLayer(
+      this.state.countryCode,
+      this.state.selectedTimeStepButtonValue,
+    );
   }
 
   public handleCountryChange($event) {

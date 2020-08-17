@@ -30,3 +30,6 @@ logs
 *.log
 npm-debug.log*
 .npm
+
+# Data zip
+data.zip

@@ -60,6 +60,7 @@ export class MapService {
 
   public async loadFloodExtentLayer(
     countryCode: string = environment.defaultCountryCode,
+    leadTime: string = '7-day',
   ) {
     this.addLayer({
       name: IbfLayerName.floodExtent,
@@ -69,7 +70,7 @@ export class MapService {
       data: null,
       wms: {
         url: environment.geoserver_url,
-        name: `ibf-system:${countryCode}_flood_25year`,
+        name: `ibf-system:flood_extent_${leadTime}_${countryCode}`,
         format: 'image/png',
         version: '1.1.0',
         attribution: '510 Global',
