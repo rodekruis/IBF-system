@@ -9,9 +9,6 @@ function deploy() {
   # Load ENV-variables
   set -a; [ -f ./tools/.env ] && . ./tools/.env; set +a;
 
-  # Variables
-  local repo_services=$repo/services
-
   # Arguments
   local target=$1 || false
 
@@ -50,6 +47,7 @@ function deploy() {
     log "Updating containers..."
 
     cd "$repo" || return
+    sudo docker-compose down -v
     sudo docker-compose up -d --build
     sudo docker-compose restart
   }
@@ -65,7 +63,7 @@ function deploy() {
   # Actual deployment:
   #
   update_code "$target"
-  
+
   updating_containers
 
   restart_webhook_service
