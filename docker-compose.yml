@@ -38,10 +38,28 @@ services:
         volumes:
             - web-interface-root:/home/node/app/www
 
+    ibf-pipeline:
+        build: ./services/IBF-pipeline
+        image: rodekruis/ibf-pipeline
+        restart: unless-stopped
+        volumes:
+            - pipeline-root:/home/ibf
+            - pipeline-geoserver:/home/ibf/geoserver/geodata
+        command: tail -f /dev/null
+
     ibf-geoserver:
         image: kartoza/geoserver
         restart: unless-stopped
+        volumes:
+            - pipeline-geoserver:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
 
 volumes:
     api-service-root:
     web-interface-root:
+    pipeline-root:
+        driver_opts:
+           type: none
+           device: /home/IBF-system/services/IBF-pipeline
+           o: bind
+    pipeline-geoserver:
+
