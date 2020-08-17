@@ -162,7 +162,7 @@ select 'Previous' as current_prev
 ,'7-day' as lead_time
 ;
 
-
+--drop table if exists "IBF-pipeline-output".data_adm2 cascade;
 TRUNCATE TABLE "IBF-pipeline-output".data_adm2;
 insert into "IBF-pipeline-output".data_adm2
 select t3.country_code
