@@ -8,7 +8,7 @@ from rasterio.merge import merge
 
 from lib.cronJob.exposure import Exposure
 from lib.logging.logglySetup import logger
-from settings import PIPELINE_DATA, EXPOSURE_DATA_SOURCES, GEOSERVER_DATA, VECTOR_DISTRICT_DATA, DISTRICT_MAPPING
+from settings import *
 
 class FloodExtent:
 
@@ -19,14 +19,14 @@ class FloodExtent:
         self.days = days
         self.inputPath = GEOSERVER_DATA + "input/flood_extent/"
         self.outputPathAreas = PIPELINE_DATA + 'output/flood_extents/'+ fcStep +'/'
-        self.outputPathMerge = GEOSERVER_DATA + 'output/0/flood_extents/flood_extent_'+ fcStep +'.tif'
-        self.statsPath = PIPELINE_DATA + 'output/calculated_affected/affected_' + fcStep + '.json'
+        self.outputPathMerge = GEOSERVER_DATA + 'output/0/flood_extents/flood_extent_'+ fcStep + '_' + COUNTRY_CODE + '.tif'
+        self.statsPath = PIPELINE_DATA + 'output/calculated_affected/affected_' + fcStep + '_' + COUNTRY_CODE + '.json'
         self.stats = []
 
     def calculate(self):
         admin_gdf = self.loadVectorData()
 
-        df_glofas = self.loadGlofasData()    
+        df_glofas = self.loadGlofasData()
 
         #for fc_tag in ['short','long']:
         logging.info("Create flood extent for %s",  self.fcStep)
@@ -47,6 +47,8 @@ class FloodExtent:
 
         #Loop through catchment-areas and clip right flood extent
         for index, rows in df_glofas.iterrows():
+            if rows['fc_long_trigger'] == 1:
+                print(rows)
 
             #Filter the catchment-area GDF per area
             pcode = rows['pcode']
@@ -58,9 +60,9 @@ class FloodExtent:
             trigger = rows['fc_'+self.fcStep+'_trigger']
             if trigger == 1:
                 return_period = rows['fc_'+self.fcStep+'_rp'] 
-                input_raster = self.inputPath + 'flood_' +str(int(return_period))+'year.tif'
+                input_raster = self.inputPath + COUNTRY_CODE + '_flood_' +str(int(return_period))+'year.tif'
             else: #elif trigger == 0:
-                input_raster = self.inputPath + 'flood_empty.tif'
+                input_raster = self.inputPath + COUNTRY_CODE + '_flood_empty.tif' # TEMP / FIX!
 
             out_image, out_meta = self.clipTiffWithShapes(input_raster, dist_coords)
 
@@ -103,7 +105,7 @@ class FloodExtent:
         df_catchment = pd.read_csv(path,delimiter=';', encoding="windows-1251")
 
         #Load (static) threshold values per station
-        path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.fcStep + '.json'
+        path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
         df_triggers = pd.read_json(path, orient='records')
 
         #Merge two datasets

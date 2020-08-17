@@ -6,7 +6,7 @@ from rasterio.features import shapes
 import fiona
 
 from lib.logging.logglySetup import logger
-from settings import GEOSERVER_INPUT, GEOSERVER_OUTPUT, PIPELINE_TEMP
+from settings import *
 
 class Exposure:
 
@@ -15,7 +15,7 @@ class Exposure:
     def __init__(self, type, rasterValue, timeForecast):
         self.type = type
         self.rasterValue = rasterValue
-        self.inputRaster = GEOSERVER_INPUT +  type + ".tif"
+        self.inputRaster = GEOSERVER_INPUT + type + ".tif"
         self.outputRaster = GEOSERVER_OUTPUT + "0/" + type + timeForecast
         self.stats = []
         self.selectionValue = 0.9
@@ -31,11 +31,11 @@ class Exposure:
                 dest.write(affectedImage)
 
         logger.info("Wrote to " + self.outputRaster)
-        adminBoundaries = "data/input/vector/ZMB_adm4_mapshaper_reproj.shp"
+        adminBoundaries = EXPOSURE_BOUNDARY_DATA
         source = self.type[self.type.find('/')+1:]
         self.stats = self.calcStatsPerAdmin(adminBoundaries, source, shapesFlood)
 
-                
+                 
     def calcStatsPerAdmin(self, adminBoundaries, source, shapesFlood):
         stats = []
         with fiona.open(adminBoundaries, "r") as shapefile:
