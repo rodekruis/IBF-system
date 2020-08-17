@@ -79,7 +79,9 @@ export class MapComponent implements OnDestroy {
           this.layers = [];
         }
         this.addToLayersControl();
-        this.map.fitBounds(this.mapService.state.bounds);
+        if (newLayer.viewCenter) {
+          this.map.fitBounds(this.mapService.state.bounds);
+        }
       });
   }
 
