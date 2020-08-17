@@ -47,9 +47,6 @@ class FloodExtent:
 
         #Loop through catchment-areas and clip right flood extent
         for index, rows in df_glofas.iterrows():
-            if rows['fc_long_trigger'] == 1:
-                print(rows)
-
             #Filter the catchment-area GDF per area
             pcode = rows['pcode']
             # pcode = pcode if len(pcode)==2 else '0'+pcode
