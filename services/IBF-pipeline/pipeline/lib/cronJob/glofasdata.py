@@ -137,8 +137,8 @@ class GlofasData:
                                 discharge = 8000
                             elif station['code'] == 'G1328': # ZMB dummy flood station 2
                                 discharge = 9000
-                            elif station['code'] == 'G6106': # UGA dummy flood station
-                                discharge = 200
+                            elif station['code'] == 'G5200': # UGA dummy flood station
+                                discharge = 700
                             else:
                                 discharge = 0
 
@@ -157,6 +157,10 @@ class GlofasData:
                     
                     if step + 1 == self.days:
                         stations.append(station)
+                    else:
+                        station = {}
+                        station['code'] = files[i].split(
+                            '_')[2] if GLOFAS_DUMMY == False else files[i].split('_')[4]
                 
             data.close()
         
