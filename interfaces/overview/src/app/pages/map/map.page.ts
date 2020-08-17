@@ -9,7 +9,7 @@ import { IbfLayer } from 'src/app/types/ibf-layer';
   styleUrls: ['./map.page.scss'],
 })
 export class MapPage implements OnDestroy {
-  public stations = [];
+  public stations: any;
   private layerSubscription: Subscription;
   public layers: IbfLayer[] = [];
 

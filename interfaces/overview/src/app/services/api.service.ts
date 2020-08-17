@@ -100,7 +100,10 @@ export class ApiService {
     );
   }
 
-  getStations(countryCode: string, leadTime: string): Promise<[]> {
+  getStations(
+    countryCode: string,
+    leadTime: string,
+  ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
     return this.get(
       environment.api_url,
       `stations/${countryCode}/${leadTime}`,
@@ -121,14 +124,17 @@ export class ApiService {
     countryCode: string,
     adminLevel: number,
     leadTime: string,
-  ): Promise<[]> {
+  ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
     return this.get(
       environment.api_url,
       `admin-area-data/${countryCode}/${adminLevel}/${leadTime}`,
     ).toPromise();
   }
 
-  getAdminRegionsStatic(countryCode: string, adminLevel: number): Promise<[]> {
+  getAdminRegionsStatic(
+    countryCode: string,
+    adminLevel: number,
+  ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
     return this.get(
       environment.api_url,
       `admin-static/${countryCode}/${adminLevel}`,

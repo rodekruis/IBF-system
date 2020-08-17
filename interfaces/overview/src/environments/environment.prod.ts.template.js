@@ -14,5 +14,8 @@ export const environment = {
 
   // Configuration/initial data:
   defaultCountryCode: '${process.env.NG_DEFAULT_COUNTRY_CODE}',
+
+  // Geoserver
+  geoserver_url: '${process.env.NG_GEOSERVER_URL}',
 };
 `;
