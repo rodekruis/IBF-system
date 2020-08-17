@@ -13,6 +13,10 @@ CALCULATE_EXPOSURE = False
 GLOFAS_DUMMY = False
 OVERWRITE_DUMMY = True
 
+# Change this date only in case of testing
+CURRENT_DATE=date.today()
+# CURRENT_DATE=date.today() - timedelta(days=1)
+
 
 ######################
 ## COUNTRY SETTINGS ##
@@ -67,9 +71,7 @@ COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
 ## MAIN SETTINGS ##
 ###################
 
-# Change this date only in case of testing
-CURRENT_DATE=date.today()
-# CURRENT_DATE=date.today() - timedelta(days=1)
+
 
 LEAD_TIMES = COUNTRY_SETTINGS['lead_times']
 
