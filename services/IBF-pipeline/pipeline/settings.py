@@ -7,7 +7,7 @@ from datetime import date, timedelta
 
 # Disable these temporarily to run only the trigger-model part
 CALCULATE_EXTENT = True
-CALCULATE_EXPOSURE = False
+CALCULATE_EXPOSURE = True
 
 # Use dummy-data and/or overwrite real data
 GLOFAS_DUMMY = False
@@ -23,7 +23,7 @@ CURRENT_DATE=date.today()
 ######################
 
 # For now indicate 1 country. Ultimately we might want to loop over multiple included countries?
-COUNTRY_CODE='UGA' #'ZMB'/'UGA'
+COUNTRY_CODE='ZMB' #'ZMB'/'UGA'
 
 SETTINGS = {
     "ZMB": {
@@ -38,14 +38,34 @@ SETTINGS = {
             "long": 7
         },
         'EXPOSURE_DATA_SOURCES': {
-            # value of pixel (0-100) reflects no. of cropland pixels in original crop-layer, where each pixel stands for 0.02x0.02=0.0004 km2
-            "cropland/crop_resampled": 0.0004,
-            "population/hrsl_zmb_pop_100_sum": 1,
-            "livestock/Chicken": 1,
-            "livestock/Cattle": 1,
-            "livestock/Goat": 1,
-            "livestock/Pig": 1,
-            "livestock/Sheep": 1,
+            "population": {
+                "source": "population/hrsl_zmb_pop_100_sum",
+                "rasterValue": 1
+            },
+            "cropland": {
+                "source": "cropland/crop_resampled",
+                "rasterValue": 0.0004 # value of pixel (0-100) reflects no. of cropland pixels in original crop-layer, where each pixel stands for 0.02x0.02=0.0004 km2
+            },
+            # "chicken": {
+            #     "source": "livestock/Chicken",
+            #     "rasterValue": 1
+            # },
+            # "cattle": {
+            #     "source": "livestock/Cattle",
+            #     "rasterValue": 1
+            # },
+            # "goat": {
+            #     "source": "livestock/Goat",
+            #     "rasterValue": 1
+            # },
+            # "pig": {
+            #     "source": "livestock/Pig",
+            #     "rasterValue": 1
+            # },
+            # "sheep": {
+            #     "source": "livestock/Sheep",
+            #     "rasterValue": 1
+            # },
         }
     },
     "UGA": {
@@ -59,7 +79,11 @@ SETTINGS = {
             "long": 7
         },
         'EXPOSURE_DATA_SOURCES': {
-            "population/hrsl_uga_pop": 1,
+            "population": {
+                "source": "population/hrsl_uga_pop_resized",
+                "rasterValue": 1
+            }
+            # "population/hrsl_uga_pop_resized": 1,
         }
     },
 }
