@@ -48,7 +48,7 @@ function deploy() {
 
     cd "$repo" || return
     sudo docker-compose down -v
-    sudo docker-compose up -d --build
+    sudo docker-compose -f docker-compose.yml up -d --build
     sudo docker-compose restart
   }
 
