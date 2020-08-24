@@ -56,19 +56,6 @@ group by 1,2
 --select * from "IBF-API"."Trigger_per_lead_time"
 
 
-drop view if exists "IBF-API"."Admin_area_data1";
-create or replace view "IBF-API"."Admin_area_data1" as 
-select zgl.pcode_level1
-	,zgl."name"
-	,zgl.pcode_level0
-	,ST_AsGeoJSON(zgl.geom)::json As geom
-	,d1.*
-from "IBF-static-input"."ZMB_Geo_level1" zgl
-left join "IBF-pipeline-output".data_adm1 d1 on zgl.pcode_level1 = d1.pcode
-where d1.date is not null
-;
---select * from "IBF-API"."Admin_area_data1"
-
 drop view if exists "IBF-API"."Admin_area_static_level2";
 create or replace view "IBF-API"."Admin_area_static_level2" as 
 select country_code
@@ -108,24 +95,23 @@ from (
 	from "IBF-static-input"."UGA_Geo_level2" uga
 ) geo
 left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode_level2 = d2.pcode
---where current_prev = 'Current'
---where d2.date is not null
 ;
 --select * from "IBF-API"."Admin_area_data2" where country_code = 'UGA'
 
-drop view if exists "IBF-API"."Admin_area_data3";
-create or replace view "IBF-API"."Admin_area_data3" as 
-select cast(3 as int) as admin_level 
-	,zgl.pcode_level3
-	,zgl."name"
-	,zgl.pcode_level2
-	,ST_AsGeoJSON(zgl.geom)::json As geom
-	,d3.*
-from "IBF-static-input"."ZMB_Geo_level3" zgl
-left join "IBF-pipeline-output".data_adm3 d3 on zgl.pcode_level3 = d3.pcode
-where d3.date is not null
+drop view if exists "IBF-API"."Matrix_aggregates2";
+create or replace view "IBF-API"."Matrix_aggregates2" as 
+select country_code
+	,current_prev
+	,lead_time
+	,sum(population_affected) as population_affected
+from "IBF-API"."Admin_area_data2"
+where country_code is not null
+group by 1,2,3
 ;
---select * from "IBF-API"."Admin_area_data3"
+--select * from "IBF-API"."Matrix_aggregates2"
+
+
+
 
 
 --create function (not used for now)
