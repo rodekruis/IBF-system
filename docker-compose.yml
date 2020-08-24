@@ -100,19 +100,19 @@ volumes:
         driver: local
         driver_opts:
             type: bind
-            device: $PWD/certbot/conf
+            device: /home/IBF-system/certbot/conf
             o: bind
     certbot-var:
         driver: local
         driver_opts:
             type: bind
-            device: $PWD/certbot/www
+            device: /home/IBF-system/certbot/www
             o: bind
     web-interface-root:
     pipeline-root:
         driver_opts:
            type: bind
-           device: $PWD/services/IBF-pipeline
+           device: /home/IBF-system/services/IBF-pipeline
            o: bind
     pipeline-geoserver:
 
