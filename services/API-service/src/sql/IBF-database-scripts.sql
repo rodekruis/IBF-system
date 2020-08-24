@@ -2,8 +2,22 @@
 --These views/functions are stored in Postgres and called from
 --They are kept explicitly here in the repository for documentation 
 
+--Combine CRA data in one table (input used in processDynamicDataPostgresExposure.sql)
+drop view if exists "IBF-static-input"."CRA_data_2";
+create or replace view "IBF-static-input"."CRA_data_2" as 
+select cast('ZMB' as varchar) as country_code
+	, pcode
+	, row_to_json(zmb.*) as indicators
+from "IBF-static-input"."ZMB_CRA_Indicators_2" zmb
+union all
+select cast('UGA' as varchar) as country_code
+	, pcode
+	, row_to_json(uga.*) as indicators
+from "IBF-static-input"."UGA_CRA_Indicators_2" uga
+;
 
---create view
+
+--create API view for Glofas stations
 drop view if exists "IBF-API"."Glofas_stations";
 create or replace view "IBF-API"."Glofas_stations" as
 select dfps.country_code
@@ -20,7 +34,7 @@ from "IBF-pipeline-output".dashboard_glofas_stations dgsv
 left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code and dgsv.country_code = dfps.country_code
 where current_prev = 'Current'
 ;
---select * from "IBF-API"."Glofas_stations"
+--select * from "IBF-API"."Glofas_stations" where lead_time = '3-day' and country_code = 'ZMB'
 
 drop view if exists "IBF-API"."Trigger_per_lead_time_NEW";
 create or replace view "IBF-API"."Trigger_per_lead_time_NEW" as 
@@ -28,7 +42,7 @@ select *
 from "IBF-pipeline-output".dashboard_triggers_per_day
 where current_prev = 'Current'
 ;
---select * from "IBF-API"."Trigger_per_lead_time"
+--select * from "IBF-API"."Trigger_per_lead_time_NEW"
 
 drop view if exists "IBF-API"."Trigger_per_lead_time";
 create or replace view "IBF-API"."Trigger_per_lead_time" as 
@@ -79,8 +93,7 @@ left join (select pcode, row_to_json(t.*) As properties from "IBF-static-input".
 
 drop view if exists "IBF-API"."Admin_area_data2";
 create or replace view "IBF-API"."Admin_area_data2" as 
-select country_code
-	,geo.pcode_level2
+select geo.pcode_level2
 	,geo."name"
 	,geo.pcode_level1
 	,ST_AsGeoJSON(geo.geom)::json As geom
