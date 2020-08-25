@@ -126,6 +126,7 @@ glofas_date_window=21
 glofas_raw <- read_csv("data/GLOFAS_fill_allstation_.csv") %>% rename(date = time) %>%
   group_by(station) %>%
   mutate(dis_d = rollapplyr(data = dis, width = glofas_date_window,FUN=max,align="center",fill = NA,na.rm = TRUE),
+<<<<<<< Updated upstream
          q5=quantile(dis,probs=.05, names = FALSE),
          q10=quantile(dis,probs=.1, names = FALSE),
          q20=quantile(dis,probs=.2, names = FALSE),
@@ -134,6 +135,17 @@ glofas_raw <- read_csv("data/GLOFAS_fill_allstation_.csv") %>% rename(date = tim
          q85=quantile(dis,probs=.85, names = FALSE),
          q80=quantile(dis,probs=.80, names = FALSE),
          q95=quantile(dis,probs=.95, names = FALSE),
+=======
+         q10=quantile(dis,probs=.1, names = FALSE), 
+         q20=quantile(dis,probs=.2, names = FALSE),
+         q30=quantile(dis,probs=.3, names = FALSE), 
+         q50=quantile(dis,probs=.5, names = FALSE), 
+         q75=quantile(dis,probs=.75, names = FALSE), 
+         q80=quantile(dis,probs=.80, names = FALSE), 
+         q85=quantile(dis,probs=.85, names = FALSE), 
+         q90=quantile(dis,probs=.90, names = FALSE), 
+         q95=quantile(dis,probs=.95, names = FALSE), 
+>>>>>>> Stashed changes
          dis_3d = rollapplyr(data = dis_3, width = glofas_date_window,FUN=max,align="center",fill = NA,na.rm = TRUE),
          dis_7d = rollapplyr(data = dis_7, width = glofas_date_window,FUN=max,align="center",fill = NA,na.rm = TRUE))%>%  ungroup()
 
@@ -143,7 +155,7 @@ glofas_raw_ <- glofas_raw %>%dplyr::filter(
   date <= max(glofas_impact$date)+15) %>% filter(!is.na(dis_d))
 
 day_range<-40
-thresholds<-c('q5','q10','q20','q50','q75','q80','q95')
+thresholds<-c('q10','q20','q30','q50','q75','q80','q85','q90','q95')
 
 
 for (districts in glofas_impact$pcode %>% unique())
@@ -182,15 +194,25 @@ for (stations in df1$station_name %>%  unique())
       triggered_in_vain = protocol_triggered - (length(unique(flood_in_which_peak)) - 1),
       detection_ratio = round(floods_correct / floods, 2),
       false_alarm_ratio = round(triggered_in_vain/protocol_triggered, 2)
+<<<<<<< Updated upstream
     )%>% filter(detection_ratio> 0)
 
+=======
+    )%>% filter(detection_ratio> 0) %>% filter(detection_ratio < 1)
+  
+>>>>>>> Stashed changes
   df4<-data.frame(df3) %>% mutate(thr=thr,thr_stat=elm,district=districts,Glofas_st=stations) %>%
     select(district,Glofas_st,thr_stat,thr,floods,floods_correct,floods_incorrect,protocol_triggered,triggered_in_vain,detection_ratio,false_alarm_ratio)
    if(nrow(df4)>0){
 
   print(df4)
+<<<<<<< Updated upstream
   write.table(df4, "output/Ethiopi_trigger_table_3days_leadtime.csv", sep = "\t", col.names = !file.exists("output/Ethiopi_trigger_table_3days_leadtime.csv"), append = T)
 
+=======
+  write.table(df4, "output/Ethiopi_trigger_table_3days_leadtime_v2.csv", sep = "\t", col.names = !file.exists("output/Ethiopi_trigger_table_3days_leadtime_v2.csv"), append = T)
+  
+>>>>>>> Stashed changes
   }}
 
   ########## 7 day lead time
@@ -229,8 +251,13 @@ for (stations in df1$station_name %>%  unique())
     if(nrow(df4)>0){
 
       print(df4)
+<<<<<<< Updated upstream
       write.table(df4, "output/Ethiopi_trigger_table_7days_leadtime.csv", sep = "\t", col.names = !file.exists("output/Ethiopi_trigger_table_3days_leadtime.csv"), append = T)
 
+=======
+      write.table(df4, "output/Ethiopi_trigger_table_7days_leadtime_v2.csv", sep = "\t", col.names = !file.exists("output/Ethiopi_trigger_table_7days_leadtime_v2.csv"), append = T)
+      
+>>>>>>> Stashed changes
     }}}}
 
 glofas_mapping <- list()
