@@ -14,4 +14,7 @@ export const environment = {
 
   // Configuration/initial data:
   defaultCountryCode: 'UGA',
+
+  // Geoserver
+  geoserver_url: 'http://localhost:8081/geoserver/ibf-system/wms',
 };
