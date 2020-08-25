@@ -23,6 +23,8 @@ class GlofasData:
         self.fcStep = fcStep
         self.days = days
         self.inputPath = PIPELINE_DATA+'input/glofas/'
+        self.triggerPerDay = PIPELINE_OUTPUT + \
+            'triggers_rp_per_station/trigger_per_day_' + COUNTRY_CODE + '.json'
         self.extractedGlofasPath = PIPELINE_OUTPUT + \
             'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
@@ -87,6 +89,15 @@ class GlofasData:
         df_thresholds = df_thresholds.set_index("station_code", drop=False)
 
         stations = []
+        trigger_per_day = {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+            6: 0,
+            7: 0,
+        }
         for i in range(0, len(files)):
             logging.info("Extracting glofas data from %s", i)
             Filename = os.path.join(self.inputPath, files[i])
@@ -104,44 +115,53 @@ class GlofasData:
 
                 # Set dimension-values
                 time = 0
-                step = self.days
 
-                # Loop through 51 ensembles, get forecast (for 3 or 7 day) and compare to threshold
-                ensemble_options = 51
-                if GLOFAS_DUMMY == True:
-                    ensemble_options = 1
-                count = 0
-                dis_sum = 0
-                for ensemble in range(0, ensemble_options):
+                for step in range(0,7):
 
-                    discharge = data['dis'].sel(
-                        ensemble=ensemble, step=step).values[time][0]
+                    # Loop through 51 ensembles, get forecast (for 3 or 7 day) and compare to threshold
+                    ensemble_options = 51
+                    if GLOFAS_DUMMY == True:
+                        ensemble_options = 1
+                    count = 0
+                    dis_sum = 0
+                    for ensemble in range(0, ensemble_options):
 
-                    # DUMMY OVERWRITE FOR NOW
-                    if OVERWRITE_DUMMY == True:
-                        if self.fcStep == 'short':
-                            discharge = 0
-                        elif station['code'] == 'G1361': # ZMB dummy flood station 1
-                            discharge = 8000
-                        elif station['code'] == 'G1328': # ZMB dummy flood station 2
-                            discharge = 9000
-                        elif station['code'] == 'G6106': # UGA dummy flood station
-                            discharge = 200
-                        else:
-                            discharge = 0
+                        discharge = data['dis'].sel(
+                            ensemble=ensemble, step=step).values[time][0]
 
-                    if discharge >= threshold:
-                        count = count + 1
-                    dis_sum = dis_sum + discharge
+                        # DUMMY OVERWRITE FOR NOW
+                        if OVERWRITE_DUMMY == True:
+                            if step < 4:
+                                discharge = 0
+                            elif station['code'] == 'G1361': # ZMB dummy flood station 1
+                                discharge = 8000
+                            elif station['code'] == 'G1328': # ZMB dummy flood station 2
+                                discharge = 9000
+                            elif station['code'] == 'G5200': # UGA dummy flood station
+                                discharge = 700
+                            else:
+                                discharge = 0
 
-                prob = count/ensemble_options
-                dis_avg = dis_sum/ensemble_options
-                station['fc_' + self.fcStep] = dis_avg
-                station['fc_' + self.fcStep+'_prob'] = prob
-                station['fc_'+self.fcStep+'_trigger'] = 1 if prob > TRIGGER_LEVELS['minimum'] else 0
+                        if discharge >= threshold:
+                            count = count + 1
+                        dis_sum = dis_sum + discharge
 
-                stations.append(station)
-
+                    prob = count/ensemble_options
+                    dis_avg = dis_sum/ensemble_options
+                    station['fc_' + self.fcStep] = dis_avg
+                    station['fc_' + self.fcStep+'_prob'] = prob
+                    station['fc_'+self.fcStep+'_trigger'] = 1 if prob > TRIGGER_LEVELS['minimum'] else 0
+                    
+                    if station['fc_'+self.fcStep+'_trigger'] == 1:
+                        trigger_per_day[step + 1] = 1
+                    
+                    if step + 1 == self.days:
+                        stations.append(station)
+                    else:
+                        station = {}
+                        station['code'] = files[i].split(
+                            '_')[2] if GLOFAS_DUMMY == False else files[i].split('_')[4]
+                
             data.close()
         
         # Add 'no_station' and all currently unavailable glofas-stations manually for now
@@ -156,6 +176,11 @@ class GlofasData:
         with open(self.extractedGlofasPath, 'w') as fp:
             json.dump(stations, fp)
             print('Extracted Glofas data - File saved')
+        
+        
+        with open(self.triggerPerDay, 'w') as fp:
+            json.dump([trigger_per_day], fp)
+            print('Extracted Glofas data - Trigger per day File saved')
 
     def findTrigger(self):
         logging.info("Started processing glofas data: " + self.fcStep)

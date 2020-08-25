@@ -20,6 +20,7 @@ class DatabaseManager:
         lizardFolder = PIPELINE_OUTPUT + "lizard/"
         self.tableJson = {
             "triggers_rp_per_station_" + fcStep: triggerFolder + 'triggers_rp_' + fcStep + '_' + COUNTRY_CODE + ".json"
+            ,"triggers_per_day": triggerFolder + 'trigger_per_day_' + COUNTRY_CODE + ".json"
             #,"lizard_output": lizardFolder + 'lizard_output.json'
         }
         if CALCULATE_EXPOSURE:
