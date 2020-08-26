@@ -51,6 +51,8 @@ SETTINGS = {
             "short": 3,
             "medium": 5,
             "long": 7
+        }
+    }
 }
 COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
 
