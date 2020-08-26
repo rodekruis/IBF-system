@@ -1,0 +1,11 @@
+.idea/
+.DS_Store
+*.pyc
+*.nc 
+*.tif
+*.ipynb
+temp/
+shape_files/
+processed_data/
+Globcover2009_V2.3_Global_/
+Globcover2009_V2.3_Global_.zip
