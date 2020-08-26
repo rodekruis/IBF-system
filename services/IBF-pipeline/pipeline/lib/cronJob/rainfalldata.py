@@ -49,30 +49,30 @@ class RainfallData:
             os.remove(os.path.join(self.inputPath, f))
             
     def download(self):
-        # if RAINFALL_DUMMY == False:
-        downloadDone = False
+        if RAINFALL_DUMMY == False:
+            downloadDone = False
+    
+            timeToTryDownload = 43200
+            timeToRetry = 600
+    
+            start = time.time()
+            end = start + timeToTryDownload
+    
+            while downloadDone == False and time.time() < end:
+                try:
+                    self.download_GFS_forecast()
+                    downloadDone = True
+                except urllib.error.URLError:
+                    logger.info(
+                        "GFS download failed. "
+                        "Trying again in 10 minutes")
+                    time.sleep(timeToRetry)
+            if downloadDone == False:
+                raise ValueError('GFS download failed for ' +
+                                 str(timeToTryDownload/3600) + ' hours, no new dataset was found')
 
-        timeToTryDownload = 43200
-        timeToRetry = 600
-
-        start = time.time()
-        end = start + timeToTryDownload
-
-        while downloadDone == False and time.time() < end:
-            try:
-                self.download_GFS_forecast()
-                downloadDone = True
-            except urllib.error.URLError:
-                logger.info(
-                    "GFS download failed. "
-                    "Trying again in 10 minutes")
-                time.sleep(timeToRetry)
-        if downloadDone == False:
-            raise ValueError('GFS download failed for ' +
-                             str(timeToTryDownload/3600) + ' hours, no new dataset was found')
-
-        # else:
-        #     self.inputPath = PIPELINE_DATA + 'input/rainfall_dummy/'
+        else:
+            self.inputPath = PIPELINE_DATA + 'input/rainfall_dummy/'
 
     def bound_extent(self, shapefile):
         '''

@@ -11,7 +11,7 @@ CALCULATE_EXPOSURE = False
 
 # Use dummy-data and/or overwrite real data
 GLOFAS_DUMMY = False
-RAINFALL_DUMMY = False
+RAINFALL_DUMMY = True ## Phuoc's Egypt test
 OVERWRITE_DUMMY = True
 
 
@@ -47,7 +47,7 @@ SETTINGS = {
         'district_mapping': 'Glofas_station_per_district_uga.csv', ## Phuoc to modify this
         'admin_boundaries': 'egy_admbnda_adm1_capmas_20170421.shp',
         'trigger_colname': '5yr_threshold',
-        'CRA_filename': 'ZMB_CRA_Indicators',
+        'CRA_filename': 'ZMB_CRA_Indicators', ## Phuoc to modify this
         'lead_times': {
             "short": 3,
             "medium": 5,
