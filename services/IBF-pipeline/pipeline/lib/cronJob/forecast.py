@@ -1,7 +1,7 @@
 from lib.logging.logglySetup import logger
-from lib.cronJob.glofasdata import GlofasData
+# from lib.cronJob.glofasdata import GlofasData
 from lib.cronJob.rainfalldata import RainfallData
-from lib.cronJob.floodExtent import FloodExtent
+# from lib.cronJob.floodExtent import FloodExtent
 from lib.cronJob.dynamicDataDb import DatabaseManager
 from lib.cronJob.lizard import LizardData
 
