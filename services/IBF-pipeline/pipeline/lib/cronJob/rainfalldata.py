@@ -241,7 +241,7 @@ class RainfallData:
         compare_gdf['fc_day'] = compare_gdf['fc_day'].astype(str)
         df_trigger = compare_gdf.filter(['latitude','longitude','geometry','10_pred'])
         
-        out = df_trigger.to_json(orient='records')            
+        out = df_trigger.to_json()            
         # output_name = '%s_%sday_'%(runcycle_day, self.fcStep) +TRIGGER_RP_COLNAME
         with open(self.triggersPerStationPath, 'w') as fp:
             fp.write(out)
