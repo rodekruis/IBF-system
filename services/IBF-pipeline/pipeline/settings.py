@@ -49,7 +49,7 @@ SETTINGS = {
         'trigger_colname': '5yr_threshold',
         'lead_times': {
             "short": 3,
-            "medium": 5
+            "medium": 5,
             "long": 7
 }
 COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
