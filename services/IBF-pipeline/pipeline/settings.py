@@ -44,7 +44,7 @@ SETTINGS = {
     },
     "EGY": {
         "trigger_levels": 'thresholds_returnperiods.csv',
-        # 'district_mapping': 'Glofas_station_per_district_uga.csv',
+        'district_mapping': 'Glofas_station_per_district_uga.csv', ## Phuoc to modify this
         'admin_boundaries': 'egy_admbnda_adm1_capmas_20170421.shp',
         'trigger_colname': '5yr_threshold',
         'lead_times': {
