@@ -49,9 +49,9 @@ SETTINGS = {
         'trigger_colname': '5yr_threshold',
         'CRA_filename': 'ZMB_CRA_Indicators', ## Phuoc to modify this
         'lead_times': {
-            "short": 3,
+            # "short": 3,
             "medium": 5,
-            "long": 7
+            # "long": 7
         }
     }
 }
