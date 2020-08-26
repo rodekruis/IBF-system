@@ -47,6 +47,7 @@ SETTINGS = {
         'district_mapping': 'Glofas_station_per_district_uga.csv', ## Phuoc to modify this
         'admin_boundaries': 'egy_admbnda_adm1_capmas_20170421.shp',
         'trigger_colname': '5yr_threshold',
+        'CRA_filename': 'ZMB_CRA_Indicators',
         'lead_times': {
             "short": 3,
             "medium": 5,
@@ -125,7 +126,7 @@ GLOFAS_FTP = 'data-portal.ecmwf.int/ZambiaRedcross_glofas_point/'
 GLOFAS_FILENAME = 'glofas_pointdata_ZambiaRedcross'
 
 # CRA input
-# CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename'] ## Phuoc's Egypt test
+CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename'] ## Phuoc's Egypt test
 
 ####################
 ## EMAIL SETTINGS ##
