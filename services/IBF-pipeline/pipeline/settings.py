@@ -99,10 +99,12 @@ SCHEMA_NAME = 'IBF-pipeline-output'
 ###################
 ## PATH SETTINGS ##
 ###################
-GEOSERVER_DATA = '../geoserver/geodata/zambia/'
+# GEOSERVER_DATA = '../geoserver/geodata/zambia/'
+GEOSERVER_DATA = '/home/pphung/Rainfall-only-trigger/shapes/egy/' ## Phuoc's Egypt test
 GEOSERVER_INPUT = GEOSERVER_DATA + 'input/'
 GEOSERVER_OUTPUT = GEOSERVER_DATA + 'output/'
-PIPELINE_DATA = 'data/'
+# PIPELINE_DATA = 'data/'
+PIPELINE_DATA = '/home/pphung/Rainfall-only-trigger/'
 PIPELINE_INPUT = PIPELINE_DATA + 'input/'
 PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'
 PIPELINE_TEMP = PIPELINE_DATA + 'temp/'
