@@ -11,7 +11,7 @@ CALCULATE_EXPOSURE = False
 
 # Use dummy-data and/or overwrite real data
 GLOFAS_DUMMY = False
-RAINFALL_DUMMY = True ## Phuoc's Egypt test
+RAINFALL_DUMMY = False ## Phuoc's Egypt test
 OVERWRITE_DUMMY = True
 
 
