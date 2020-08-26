@@ -20,7 +20,7 @@ OVERWRITE_DUMMY = True
 ######################
 
 # For now indicate 1 country. Ultimately we might want to loop over multiple included countries?
-COUNTRY_CODE='UGA' #'ZMB'/'UGA'/ 'EGY'
+COUNTRY_CODE='EGY' #'ZMB'/'UGA'/ 'EGY'
 
 SETTINGS = {
     "ZMB": {
@@ -112,8 +112,8 @@ PIPELINE_TEMP = PIPELINE_DATA + 'temp/'
 WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + COUNTRY_SETTINGS['trigger_levels']
 DISTRICT_MAPPING = PIPELINE_INPUT + COUNTRY_SETTINGS['district_mapping']
 
-VECTOR_DISTRICT_DATA = PIPELINE_DATA + 'input/vector/ZMB_adm2_mapshaper_new103_pcode.shp'
-
+# VECTOR_DISTRICT_DATA = PIPELINE_DATA + 'input/vector/ZMB_adm2_mapshaper_new103_pcode.shp'
+VECTOR_DISTRICT_DATA = GEOSERVER_INPUTS + COUNTRY_SETTINGS['admin_boundaries']
     
 
 #########################

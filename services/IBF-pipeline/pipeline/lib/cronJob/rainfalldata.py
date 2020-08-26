@@ -37,7 +37,10 @@ class RainfallData:
 
     def process(self):
         self.removeOldForecastData()
-        self.download()
+        self.listFD()
+        self.download_GFS_forecast()
+        self.bound_extent()
+        self.downloadForecast()
         # self.extract()
         self.findTrigger()
 
@@ -128,7 +131,7 @@ class RainfallData:
     def download_GFS_forecast(self):
          
         url = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/' 
-        all_url = listFD(url, ext='')
+        all_url = self.listFD(url, ext='')
         gfs_url = sorted([i for i in all_url if i.split('/')[-2].startswith('gfs.')], reverse=True)
         # url_date = []
         fc_hrs = np.arange(3, 267, 3)
@@ -136,13 +139,13 @@ class RainfallData:
         for url_date in gfs_url:
             # latest_day_url = gfs_url[-1]
             date = url_date.split('/')[-2][4:]
-            hour_url = listFD(url_date, ext='')
+            hour_url = self.listFD(url_date, ext='')
             # runcycle = ['00', '06', '12', '18']
             
             if len(hour_url) == 5: # check if there are all 4 runcycle + parent directory in the hour_url
                                 
                 for url_i in hour_url[1:]:
-                    url_list = listFD(url_i, ext='')
+                    url_list = self.listFD(url_i, ext='')
                     hr = url_i.split('/')[-2]
                     filename_in = ['gfs.t' + hr + 'z.pgrb2.0p50.f' + '%03d'%fc_hr for fc_hr in fc_hrs]
                     
@@ -177,9 +180,9 @@ class RainfallData:
         
         ### COUNTRY SETTINGS
         # country_code = 'egy'
-        adm_shp = gpd.read_file(GEOSERVER_INPUT + '/shapes/' + COUNTRY_CODE + '/egy_admbnda_adm1_capmas_20170421.shp')
+        adm_shp = gpd.read_file(VECTOR_DISTRICT_DATA)
         
-        west, south, east, north = bound_extent(adm_shp)
+        west, south, east, north = self.bound_extent(adm_shp)
         
         lats = slice(north, south) #32, 22
         lons = slice(west, east) #24.5, 37
