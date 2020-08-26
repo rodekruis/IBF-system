@@ -74,7 +74,7 @@ class RainfallData:
         # else:
         #     self.inputPath = PIPELINE_DATA + 'input/rainfall_dummy/'
 
-    def bound_extent(shapefile):
+    def bound_extent(self, shapefile):
         '''
         Create a bounding box from shapefile extent.
         Note that this script is for GRS, northern hemisphere.
@@ -122,7 +122,7 @@ class RainfallData:
             
         return west, south, east, north
     
-    def listFD(url, ext=''):
+    def listFD(self, url, ext=''):
         page = requests.get(url).text
         soup = BeautifulSoup(page, 'html.parser')
         
@@ -130,8 +130,8 @@ class RainfallData:
     
     def download_GFS_forecast(self):
          
-        url = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/' 
-        all_url = self.listFD(url, ext='')
+        # url = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/' 
+        all_url = self.listFD(GFS_SOURCE, ext='')
         gfs_url = sorted([i for i in all_url if i.split('/')[-2].startswith('gfs.')], reverse=True)
         # url_date = []
         fc_hrs = np.arange(3, 267, 3)

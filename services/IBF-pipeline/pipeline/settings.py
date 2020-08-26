@@ -125,6 +125,9 @@ VECTOR_DISTRICT_DATA = GEOSERVER_INPUT + COUNTRY_SETTINGS['admin_boundaries']
 GLOFAS_FTP = 'data-portal.ecmwf.int/ZambiaRedcross_glofas_point/'
 GLOFAS_FILENAME = 'glofas_pointdata_ZambiaRedcross'
 
+# GFS rainfall input
+GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
+
 # CRA input
 CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename'] ## Phuoc's Egypt test
 
