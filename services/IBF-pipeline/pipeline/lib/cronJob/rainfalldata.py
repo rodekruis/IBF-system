@@ -40,7 +40,7 @@ class RainfallData:
         # self.listFD()
         # self.download_GFS_forecast()
         # self.bound_extent()
-        self.downloadForecast()
+        self.download()
         # self.extract()
         self.findTrigger()
 
