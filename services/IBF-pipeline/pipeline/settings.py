@@ -11,6 +11,7 @@ CALCULATE_EXPOSURE = False
 
 # Use dummy-data and/or overwrite real data
 GLOFAS_DUMMY = False
+RAINFALL_DUMMY = False
 OVERWRITE_DUMMY = True
 
 
@@ -19,7 +20,7 @@ OVERWRITE_DUMMY = True
 ######################
 
 # For now indicate 1 country. Ultimately we might want to loop over multiple included countries?
-COUNTRY_CODE='UGA' #'ZMB'/'UGA'
+COUNTRY_CODE='UGA' #'ZMB'/'UGA'/ 'EGY'
 
 SETTINGS = {
     "ZMB": {
@@ -41,6 +42,15 @@ SETTINGS = {
             "long": 7
         },
     },
+    "EGY": {
+        "trigger_levels": 'thresholds_returnperiods.csv',
+        # 'district_mapping': 'Glofas_station_per_district_uga.csv',
+        'admin_boundaries': 'egy_admbnda_adm1_capmas_20170421.shp',
+        'trigger_colname': '5yr_threshold',
+        'lead_times': {
+            "short": 3,
+            "medium": 5
+            "long": 7
 }
 COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
 
