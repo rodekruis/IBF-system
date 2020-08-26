@@ -219,7 +219,7 @@ class RainfallData:
         # for leadtime in np.unique(df_thresholds.forecast_time.values):
             
         ## threshold (1 degree)
-        df_leadtime = df_thresholds[df_thresholds.forecast_time == self.fcstep]
+        df_leadtime = df_thresholds[df_thresholds.forecast_time == self.fcStep]
         geometry = [Point(xy) for xy in zip(df_leadtime.lon.astype(float), df_leadtime.lat.astype(float))]
         threshold_gdf = gpd.GeoDataFrame(df_leadtime, geometry=geometry).set_crs("EPSG:4326")
         
