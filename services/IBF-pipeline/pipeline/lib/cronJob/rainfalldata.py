@@ -37,9 +37,9 @@ class RainfallData:
 
     def process(self):
         self.removeOldForecastData()
-        self.listFD(url, ext='')
+        self.listFD()
         self.download_GFS_forecast()
-        self.bound_extent(shapefile)
+        self.bound_extent()
         self.downloadForecast()
         # self.extract()
         self.findTrigger()
