@@ -110,7 +110,7 @@ PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'
 PIPELINE_TEMP = PIPELINE_DATA + 'temp/'
 
 WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + COUNTRY_SETTINGS['trigger_levels']
-# DISTRICT_MAPPING = PIPELINE_INPUT + COUNTRY_SETTINGS['district_mapping'] ## Phuoc's Egypt test
+DISTRICT_MAPPING = PIPELINE_INPUT + COUNTRY_SETTINGS['district_mapping']
 
 # VECTOR_DISTRICT_DATA = PIPELINE_DATA + 'input/vector/ZMB_adm2_mapshaper_new103_pcode.shp' ## Phuoc's Egypt test
 VECTOR_DISTRICT_DATA = GEOSERVER_INPUT + COUNTRY_SETTINGS['admin_boundaries']
@@ -125,7 +125,7 @@ GLOFAS_FTP = 'data-portal.ecmwf.int/ZambiaRedcross_glofas_point/'
 GLOFAS_FILENAME = 'glofas_pointdata_ZambiaRedcross'
 
 # CRA input
-# CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename'] ## Phuoc's Egypt test
+CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename'] ## Phuoc's Egypt test
 
 ####################
 ## EMAIL SETTINGS ##
