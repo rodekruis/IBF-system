@@ -224,7 +224,7 @@ class RainfallData:
         threshold_gdf = gpd.GeoDataFrame(df_leadtime, geometry=geometry).set_crs("EPSG:4326")
         
         ## forecast (.5 degree)
-        fc_by_day = mean_by_day.sel(fc_day=mean_by_day.fc_day.values[fcStep-1]).to_dataframe().reset_index()
+        fc_by_day = mean_by_day.sel(fc_day=mean_by_day.fc_day.values[self.fcStep-1]).to_dataframe().reset_index()
         geometry = [Point(xy) for xy in zip(fc_by_day.longitude.astype(float), fc_by_day.latitude.astype(float))]
         fc_gdf = gpd.GeoDataFrame(fc_by_day, geometry=geometry).set_crs("EPSG:4326")
         
@@ -237,17 +237,17 @@ class RainfallData:
         z = griddata((compare_gdf['longitude'][known], compare_gdf['latitude'][known]), compare_gdf[TRIGGER_RP_COLNAME][known], (compare_gdf['longitude'][unknown], compare_gdf['latitude'][unknown]))
         compare_gdf[TRIGGER_RP_COLNAME][unknown] = z.tolist()
         
-        compare_gdf[str(str(fcStep)+'_pred')] = np.where((compare_gdf['mean_by_day'] > compare_gdf[TRIGGER_RP_COLNAME]), 1, 0)
+        compare_gdf[str(str(self.fcStep)+'_pred')] = np.where((compare_gdf['mean_by_day'] > compare_gdf[TRIGGER_RP_COLNAME]), 1, 0)
         compare_gdf['fc_day'] = compare_gdf['fc_day'].astype(str)
         df_trigger = compare_gdf.filter(['latitude','longitude','geometry','10_pred'])
         
         out = df_trigger.to_json(orient='records')            
-        # output_name = '%s_%sday_'%(runcycle_day, fcStep) +TRIGGER_RP_COLNAME
+        # output_name = '%s_%sday_'%(runcycle_day, self.fcStep) +TRIGGER_RP_COLNAME
         with open(self.triggersPerStationPath, 'w') as fp:
             fp.write(out)
             print('Processed Glofas data - File saved')
         
-        # cube = make_geocube(vector_data=compare_gdf, measurements=[str(str(fcStep)+'_pred')], resolution=(0.5, -0.5), output_crs="EPSG:4326")
+        # cube = make_geocube(vector_data=compare_gdf, measurements=[str(str(self.fcStep)+'_pred')], resolution=(0.5, -0.5), output_crs="EPSG:4326")
         # cube.rio.to_raster(PIPELINE_OUTPUT + '/' + output_name + '.tif')
         # compare_gdf.to_file(outpath + 'option2/' + output_name + '.shp')
             
