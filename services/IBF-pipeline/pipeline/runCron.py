@@ -13,12 +13,14 @@ def main():
     print(str(datetime.datetime.now()))
 
     try:
-        storeHistoric()
+        if RUN_GLOFAS:
+            storeHistoric()
         for fcStep, days in LEAD_TIMES.items():
             fc = Forecast(fcStep, days)
-            # fc.lizardData.process()
-            # fc.db.upload_lizard()
-            fc.glofasData.process()
+            if RUN_GLOFAS:
+                fc.glofasData.process()
+            if RUN_RAINFALL:
+                fc.rainfallData.process()
             if CALCULATE_EXTENT:
                 fc.floodExtent.calculate()
             if CALCULATE_EXTENT and CALCULATE_EXPOSURE:
