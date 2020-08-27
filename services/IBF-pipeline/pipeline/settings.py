@@ -11,10 +11,11 @@ CALCULATE_EXPOSURE = False
 
 # Use dummy-data and/or overwrite real data
 GLOFAS_DUMMY = False
+RAINFALL_DUMMY = False
 OVERWRITE_DUMMY = True
 
 # Change this date only in case of testing
-CURRENT_DATE=date.today()
+CURRENT_DATE = date.today()
 # CURRENT_DATE=date.today() - timedelta(days=1)
 
 
@@ -23,10 +24,14 @@ CURRENT_DATE=date.today()
 ######################
 
 # For now indicate 1 country. Ultimately we might want to loop over multiple included countries?
-COUNTRY_CODE='UGA' #'ZMB'/'UGA'
+COUNTRY_CODE = 'UGA' #'ZMB'/'UGA'/'EGY'
 
 SETTINGS = {
     "ZMB": {
+        "models": {
+            "glofas": True,
+            "rainfall": False
+        },
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels.csv',
         'district_mapping': 'Glofas_station_per_district.csv',
         'flood_extent_admin_boundaries': 'vector/ZMB_adm2_mapshaper_new103_pcode.shp',
@@ -49,6 +54,10 @@ SETTINGS = {
         }
     },
     "UGA": {
+        "models": {
+            "glofas": True,
+            "rainfall": False
+        },
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
         'district_mapping': 'Glofas_station_per_district_uga.csv',
         'flood_extent_admin_boundaries': 'vector/UGA_adm2_mapshaper.shp',
@@ -62,6 +71,24 @@ SETTINGS = {
             "population/hrsl_uga_pop": 1,
         }
     },
+    "EGY": {
+        "models": {
+            "glofas": False,
+            "rainfall": True
+        },
+        "trigger_levels": 'Rainfall_station_locations_with_trigger_levels.csv',
+        'district_mapping': 'Rainfall_station_per_district_uga.csv',
+        'admin_boundaries': 'vector/egy_admbnda_adm1_capmas_20170421.shp',
+        'flood_extent_admin_boundaries': '',
+        'exposure_admin_boundaries': '',
+        'trigger_colname': '5yr_threshold',
+        'CRA_filename': '',
+        'lead_times': {
+            "short": 3,
+            "long": 7
+        },
+        'EXPOSURE_DATA_SOURCES': {}
+    },
 }
 COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
 
@@ -74,6 +101,8 @@ COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
 
 
 LEAD_TIMES = COUNTRY_SETTINGS['lead_times']
+RUN_GLOFAS = COUNTRY_SETTINGS['models']['glofas']
+RUN_RAINFALL = COUNTRY_SETTINGS['models']['rainfall']
 
 TRIGGER_RP_COLNAME = COUNTRY_SETTINGS['trigger_colname']
 TRIGGER_LEVELS = {
@@ -106,7 +135,7 @@ WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + COUNTRY_SETTINGS['trigger_levels']
 DISTRICT_MAPPING = PIPELINE_INPUT + COUNTRY_SETTINGS['district_mapping']
 VECTOR_DISTRICT_DATA = PIPELINE_INPUT + COUNTRY_SETTINGS['flood_extent_admin_boundaries']
 EXPOSURE_BOUNDARY_DATA = PIPELINE_INPUT + COUNTRY_SETTINGS['exposure_admin_boundaries']
-
+ADMIN_BOUNDARIES = PIPELINE_INPUT + COUNTRY_SETTINGS['admin_boundaries']
     
 
 #########################
@@ -116,6 +145,9 @@ EXPOSURE_BOUNDARY_DATA = PIPELINE_INPUT + COUNTRY_SETTINGS['exposure_admin_bound
 # Glofas input
 GLOFAS_FTP = 'data-portal.ecmwf.int/ZambiaRedcross_glofas_point/'
 GLOFAS_FILENAME = 'glofas_pointdata_ZambiaRedcross'
+
+# GFS rainfall input
+GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 
 # CRA input
 CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename']
