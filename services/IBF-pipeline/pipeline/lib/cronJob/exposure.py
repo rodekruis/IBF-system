@@ -12,11 +12,12 @@ class Exposure:
 
     """Class used to calculate the exposure per exposure type"""
     
-    def __init__(self, type, rasterValue, timeForecast):
-        self.type = type
+    def __init__(self, indicator, source, rasterValue, timeForecast):
+        self.indicator = indicator
+        self.source = source
         self.rasterValue = rasterValue
-        self.inputRaster = GEOSERVER_INPUT + type + ".tif"
-        self.outputRaster = GEOSERVER_OUTPUT + "0/" + type + timeForecast
+        self.inputRaster = GEOSERVER_INPUT + source + ".tif"
+        self.outputRaster = GEOSERVER_OUTPUT + "0/" + source + timeForecast
         self.stats = []
         self.selectionValue = 0.9
         self.tempPath = PIPELINE_TEMP + "out.tif"
@@ -32,11 +33,11 @@ class Exposure:
 
         logger.info("Wrote to " + self.outputRaster)
         adminBoundaries = EXPOSURE_BOUNDARY_DATA
-        source = self.type[self.type.find('/')+1:]
-        self.stats = self.calcStatsPerAdmin(adminBoundaries, source, shapesFlood)
+        # source = self.source[self.source.find('/')+1:]
+        self.stats = self.calcStatsPerAdmin(adminBoundaries, self.indicator, shapesFlood)
 
                  
-    def calcStatsPerAdmin(self, adminBoundaries, source, shapesFlood):
+    def calcStatsPerAdmin(self, adminBoundaries, indicator, shapesFlood):
         stats = []
         with fiona.open(adminBoundaries, "r") as shapefile:
 
@@ -50,16 +51,16 @@ class Exposure:
                         with rasterio.open(self.tempPath, "w", **outMeta) as dest:
                             dest.write(outImage)
                             
-                        statsDistrict = self.calculateRasterStats(source,  str(area['properties']['pcode']), self.tempPath)
+                        statsDistrict = self.calculateRasterStats(indicator,  str(area['properties']['pcode']), self.tempPath)
                     except ValueError:
                             # If there is no flood in the district set  the stats to 0
-                        statsDistrict = {'source': source, 'sum': 0, 'district': str(area['properties']['pcode'])}
+                        statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties']['pcode'])}
                 else: 
-                    statsDistrict = {'source': source, 'sum': '--', 'district': str(area['properties']['pcode'])}        
+                    statsDistrict = {'source': indicator, 'sum': '--', 'district': str(area['properties']['pcode'])}        
                 stats.append(statsDistrict)
         return stats    
 
-    def calculateRasterStats(self, source, district, outFileAffected):
+    def calculateRasterStats(self, indicator, district, outFileAffected):
         raster = rasterio.open(outFileAffected)   
         stats = []
 
@@ -67,7 +68,7 @@ class Exposure:
         band = array[0]
         theSum = band.sum()* self.rasterValue
         stats.append({
-            'source': source,
+            'source': indicator,
             'sum': str(theSum),
             'district': district
             })

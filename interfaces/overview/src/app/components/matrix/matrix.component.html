@@ -10,7 +10,7 @@ MatrixComponent:
       (change)="updateLayer(layer.name, $event.target.checked)"
     />
     &nbsp;
-    <code>{{ layer.type }} </code>: {{ layer.name }}
+    {{ layer.name }}: [{{ layer.type }}]
   </label>
   <br />
 </ng-container>

@@ -23,7 +23,7 @@ export class MapService {
       [-20, -20],
       [20, 20],
     ] as LatLngBoundsLiteral,
-    defaultColorProperty: 'population',
+    defaultColorProperty: 'population_affected', // 'population_affected' / 'population'
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
     defaultFillOpacity: 0.8,
@@ -47,13 +47,14 @@ export class MapService {
 
   public async loadAdminRegionLayer(
     countryCode: string = environment.defaultCountryCode,
+    leadTime: string = '7-day',
     adminLevel: number = 2,
   ) {
     this.addLayer({
       name: IbfLayerName.adminRegions,
       type: IbfLayerType.shape,
       active: true,
-      data: await this.getAdminRegionsStatic(countryCode, adminLevel),
+      data: await this.getAdminRegions(countryCode, adminLevel, leadTime),
       viewCenter: true,
     });
   }
@@ -137,11 +138,16 @@ export class MapService {
     return await this.apiService.getStations(countryCode, leadTime);
   }
 
-  public async getAdminRegionsStatic(
+  public async getAdminRegions(
     countryCode: string = environment.defaultCountryCode,
     adminLevel: number = 2,
+    leadTime: string = '7-day',
   ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
-    return await this.apiService.getAdminRegionsStatic(countryCode, adminLevel);
+    return await this.apiService.getAdminRegions(
+      countryCode,
+      adminLevel,
+      leadTime,
+    );
   }
 
   getAdminRegionFillColor = (colorPropertyValue, colorThreshold) => {
@@ -182,7 +188,11 @@ export class MapService {
 
   public setAdminRegionStyle = (adminRegions, colorProperty) => {
     const colorPropertyValues = adminRegions.features
-      .map((feature) => feature.properties.indicators[colorProperty])
+      .map((feature) =>
+        typeof feature.properties[colorProperty] !== 'undefined'
+          ? feature.properties[colorProperty]
+          : feature.properties.indicators[colorProperty],
+      )
       .filter((v, i, a) => a.indexOf(v) === i);
 
     const colorThreshold = {
@@ -194,7 +204,9 @@ export class MapService {
 
     return (adminRegion) => {
       const fillColor = this.getAdminRegionFillColor(
-        adminRegion.properties.indicators[colorProperty],
+        typeof adminRegion.properties[colorProperty] !== 'undefined'
+          ? adminRegion.properties[colorProperty]
+          : adminRegion.properties.indicators[colorProperty],
         colorThreshold,
       );
       const fillOpacity = this.getAdminRegionFillOpacity(adminRegion);

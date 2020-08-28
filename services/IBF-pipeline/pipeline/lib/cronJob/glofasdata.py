@@ -197,8 +197,6 @@ class GlofasData:
         df_discharge = pd.DataFrame(d)
         df_discharge.index = df_discharge['code']
         df_discharge.sort_index(inplace=True)
-        #print(df_thresholds)
-        #print(df_discharge)
 
         # Merge two datasets
         df = pd.merge(df_thresholds, df_discharge, left_index=True,

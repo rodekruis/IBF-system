@@ -49,7 +49,6 @@ class FloodExtent:
         for index, rows in df_glofas.iterrows():
             #Filter the catchment-area GDF per area
             pcode = rows['pcode']
-            # pcode = pcode if len(pcode)==2 else '0'+pcode
             gdf_dist = admin_gdf[admin_gdf['pcode'] == pcode]
             dist_coords = self.getCoordinatesFromGDF(gdf_dist)
             
@@ -58,7 +57,7 @@ class FloodExtent:
             if trigger == 1:
                 return_period = rows['fc_'+self.fcStep+'_rp'] 
                 input_raster = self.inputPath + COUNTRY_CODE + '_flood_' +str(int(return_period))+'year.tif'
-            else: #elif trigger == 0:
+            else:
                 input_raster = self.inputPath + COUNTRY_CODE + '_flood_empty.tif' # TEMP / FIX!
 
             out_image, out_meta = self.clipTiffWithShapes(input_raster, dist_coords)
@@ -146,10 +145,10 @@ class FloodExtent:
 
         print(self.fcStep, " - fcStep")
 
-        for source, rasterValue in  EXPOSURE_DATA_SOURCES.items():
-            print(source)
+        for indicator, values in  EXPOSURE_DATA_SOURCES.items():
+            print(indicator)
 
-            exposure = Exposure(source, rasterValue, self.fcStep)
+            exposure = Exposure(indicator, values['source'], values['rasterValue'], self.fcStep)
             exposure.calcAffected(self.outputPathMerge)
 
             for item in exposure.stats:
