@@ -140,6 +140,7 @@ export class TimelineService {
 
     this.mapService.loadAdminRegionLayer(countryCode);
     this.mapService.loadFloodExtentLayer(countryCode);
+    this.mapService.loadPopulationGridLayer(countryCode);
     this.loadTimeStepButtons();
     this.handleTimeStepButtonClick(countryForecasts[0]);
   }

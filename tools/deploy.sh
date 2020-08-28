@@ -47,10 +47,9 @@ function deploy() {
     log "Updating containers..."
 
     cd "$repo" || return
-    sudo docker-compose rm -fsv nginx certbot ibf-api-service ibf-pipeline ibf-web-interface
-    sudo docker volume rm ibf-system_web-interface-root ibf-system_pipeline-root
-    sudo docker-compose -f docker-compose.yml up -d --build nginx certbot ibf-api-service ibf-pipeline ibf-web-interface
-    sudo docker-compose restart nginx certbot ibf-api-service ibf-pipeline ibf-web-interface
+    sudo docker-compose down -v
+    sudo docker-compose -f docker-compose.yml up -d --build
+    sudo docker-compose restart
   }
 
   function restart_webhook_service() {

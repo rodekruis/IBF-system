@@ -20,8 +20,13 @@ services:
         volumes:
             - ./interfaces/overview:/home/node/app
 
+    ibf-pipeline:
+        volumes:
+            - ./services/IBF-pipeline:/home/ibf
+
     ibf-geoserver:
         ports:
             - 8081:8080
         volumes:
-            - ./services/IBF-pipeline/geoserver:/opt/geoserver/data_dir
+            - ./services/IBF-pipeline/geoserver/geodata:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
+            - ./services/IBF-pipeline/geoserver/workspaces/ibf-system:/opt/geoserver/data_dir/workspaces/ibf-system
