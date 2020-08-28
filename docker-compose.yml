@@ -81,7 +81,6 @@ services:
         command: tail -f /dev/null
         volumes:
             - pipeline-root:/home/ibf
-            - pipeline-geoserver:/home/ibf/geoserver/geodata
         networks:
             - pipeline-network
         restart: unless-stopped
@@ -115,6 +114,10 @@ volumes:
            device: /home/IBF-system/services/IBF-pipeline
            o: bind
     pipeline-geoserver:
+        driver_opts:
+           type: bind
+           device: /home/IBF-system/services/IBF-pipeline/geoserver/geodata
+           o: bind
 
 
 networks:
