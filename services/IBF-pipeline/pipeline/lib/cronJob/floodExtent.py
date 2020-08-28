@@ -28,7 +28,6 @@ class FloodExtent:
 
         df_glofas = self.loadGlofasData()
 
-        #for fc_tag in ['short','long']:
         logging.info("Create flood extent for %s",  self.fcStep)
 
         logging.info('\nMaking flood extent - '+ self.fcStep+'\n')
