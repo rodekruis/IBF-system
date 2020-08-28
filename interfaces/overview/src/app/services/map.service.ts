@@ -81,6 +81,27 @@ export class MapService {
     });
   }
 
+  public async loadPopulationGridLayer(
+    countryCode: string = environment.defaultCountryCode,
+  ) {
+    this.addLayer({
+      name: IbfLayerName.populationGrid,
+      type: IbfLayerType.wms,
+      active: false,
+      viewCenter: false,
+      data: null,
+      wms: {
+        url: environment.geoserver_url,
+        name: `ibf-system:population_${countryCode}`,
+        format: 'image/png',
+        version: '1.1.0',
+        attribution: '510 Global',
+        crs: CRS.EPSG4326,
+        transparent: true,
+      } as IbfLayerWMS,
+    });
+  }
+
   private addLayer(layer: IbfLayer) {
     const { name, viewCenter, data } = layer;
     if (viewCenter) {
