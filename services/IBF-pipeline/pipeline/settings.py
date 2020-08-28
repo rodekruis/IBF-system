@@ -39,7 +39,7 @@ SETTINGS = {
         },
         'EXPOSURE_DATA_SOURCES': {
             "population": {
-                "source": "population/hrsl_zmb_pop_100_sum",
+                "source": "population/hrsl_zmb_pop_resized_100",
                 "rasterValue": 1
             },
             "cropland": {
@@ -80,10 +80,9 @@ SETTINGS = {
         },
         'EXPOSURE_DATA_SOURCES': {
             "population": {
-                "source": "population/hrsl_uga_pop_resized",
+                "source": "population/hrsl_uga_pop_resized_100",
                 "rasterValue": 1
             }
-            # "population/hrsl_uga_pop_resized": 1,
         }
     },
 }
