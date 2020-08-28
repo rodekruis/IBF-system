@@ -89,6 +89,7 @@ services:
         image: kartoza/geoserver
         volumes:
             - pipeline-geoserver:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
+            - workspace-geoserver:/opt/geoserver/data_dir/workspaces/ibf-system
         networks:
             - web-server-network
             - pipeline-network
@@ -117,6 +118,11 @@ volumes:
         driver_opts:
            type: bind
            device: /home/IBF-system/services/IBF-pipeline/geoserver/geodata
+           o: bind
+    workspace-geoserver:
+        driver_opts:
+           type: bind
+           device: /home/IBF-system/services/IBF-pipeline/geoserver/workspace
            o: bind
 
 
