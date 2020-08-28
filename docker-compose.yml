@@ -122,7 +122,7 @@ volumes:
     workspace-geoserver:
         driver_opts:
            type: bind
-           device: /home/IBF-system/services/IBF-pipeline/geoserver/workspace
+           device: /home/IBF-system/services/IBF-pipeline/geoserver/workspaces/ibf-system
            o: bind
 
 
