@@ -4,13 +4,19 @@ Date: July 2020
 Authors: Lisanne van Brussel (lisanne.van.brussel@vodw.ey.com)
 
 
-This is the configuration dict for CoherenceAreas objects.
+This is the configuration dict for the classes ReadData and TransformDataConnectAreas.
 """
 
     
 cfg = {
         # Path GloFAS Grid cell data
-        'path_discharge_gridcells' : 'C:\\Users\\nlbrus08\\Documents\\01 Klanten\\Rode Kruis\\data_all_2010_2019',      
+        'path_discharge_gridcells' : 'C:\\Users\\nlbrus08\\Documents\\01 Klanten\\Rode Kruis\\data_all_2010_2019',   
+        
+        # Directory to shapefiles of rivers and admin boundaries
+        'path_shp_rivers' : 'C:\\Users\\nlbrus08\\Documents\\01 Klanten\\floodcorrelation\\shapefiles\\Rivers\\',
+        'file_shp_rivers': 'Rivers_hydroshed_cliped_uga.shp',
+        'path_shp_admin_boundaries' : 'C:\\Users\\nlbrus08\\Documents\\01 Klanten\\Rode Kruis\\floodcorrelation\\shapefiles\\admin_boundaries\\',
+        'file_shp_admin_boundaries' : 'uga_adminboundaries_1.shp',
         
         # Coordinates - bounding boxes of country
         'country' : 'uganda',
@@ -18,7 +24,7 @@ cfg = {
         'lat_max' : 4.25, # maximal latitude
         'lon_min' : 29.55, # minmal longitude, must be a duplicate of 0.05
         'lon_max' : 35.05, # maximal longitude
-        'steps_coordinates' : 0.1, # Standard, don't change this.
+        'steps_coordinates' : 0.1, # Standard based on GloFAS 0.1x0.1 degree grid cells, don't change this.
 
         
         # Coherence areas settings
@@ -31,8 +37,7 @@ cfg = {
         # Boolean to save data
         'save_final_data' : True,
         # Path where data should be stored
-        'path_save_data': 'C:\\Users\\nlbrus08\\Documents\\01 Klanten\\Rode Kruis\\save_data_test\\'        
-        
+        'path_save_data': 'C:\\Users\\nlbrus08\\Documents\\01 Klanten\\Rode Kruis\\stored_data_uganda\\'
         }
 
 

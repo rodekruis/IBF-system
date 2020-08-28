@@ -5,10 +5,15 @@
 Date: July 2020
 Authors: Lisanne van Brussel (lisanne.van.brussel@vodw.ey.com)
 
-This class will load GloFAS discharge data per gridcell (0.1x0.1 degree).
+This class will load GloFAS discharge data per gridcell (0.1x0.1 degree). 
+Besides, all files will be merged to one pandas DataFrame (rows=days, columns = 'lat_lon').
 """
 
+##################################################################
+# Set workdirectory
+##################################################################
 
+# Set workdirectory to folder of scripts
 workdirectory_scripts = 'C:\\Users\\nlbrus08\\Documents\\01 Klanten\\Rode Kruis\\floodcorrelation'
 
 ##################################################################
@@ -20,31 +25,44 @@ import numpy as np
 import os
 from datetime import datetime
 from netCDF4 import Dataset
+import geopandas
 
+# Set workdirectory and 
 os.chdir(workdirectory_scripts)
+
+# Import configuration
 cfg = __import__('0_config')
 
+##################################################################
+# Create class ReadData()
+##################################################################
 
 class ReadData:
     """
-    ReadGloFAS discharge data per gridcell (0.1x0.1 degree).
+    Read GloFAS discharge data per gridcell (0.1x0.1 degree).
     
     Parameters
-    ----------
-    _read_merge_data
-        
-    _read_raw_data
-       
-        This is theoretically fastest, but defunct as of December 2019. 
-    
+    ---------- 
     verbose
         Whether to print debug information about the current activities. 
         
     Attributes
-    ----------
+    ---------- 
     df_dis_gridcells : pd.DataFrame
         DataFrame containing GloFAS data with discharge levels per coordinates.
         Column_names are 'lat_lon', each row is a new day.
+        
+    Functions
+    ----------
+    _read_merge_data
+        Merges all monthly GloFAS data to one pandas dataframe.
+        
+    _read_raw_data  
+        Reads one specific nc file for the given lon/lat boundary boxes.
+        Returns a pandas dataframe.  
+        
+    _read_transform_shp_json
+        Reads in a shapefile and transforms and saves it to a json.
     """ 
     
     
@@ -64,26 +82,33 @@ class ReadData:
         self.lon_min = self.cfg['lon_min']
         self.lon_max = self.cfg['lon_max']
         self.steps_coordinates = self.cfg['steps_coordinates']
-
+        self.path_shp_rivers = self.cfg['path_shp_rivers']
+        self.file_shp_rivers = self.cfg['file_shp_rivers']
+        self.path_shp_admin_boundaries = self.cfg['path_shp_admin_boundaries']
+        self.file_shp_admin_boundaries = self.cfg['file_shp_admin_boundaries']        
         
         # Get GloFAS files
         self.GloFAS_files = os.listdir(self.path_glofas_discharge)
         
-        
         # Read all data and merge it to one pandas dataframe
         self.df_discharge = self._read_merge_data()
     
-    
-    def __repr__(self) -> None:
-        """Print method."""
-        return('GloFAS data Read-in object.\n' +
-               'Data shape: ' + str(self.data.shape) +
-               '\nCreated at: ' + str(self.created_at))
+        # Read in shapefiles, transform + saves to json
+        # Rivers
+        self._read_transform_shp_json(path = self.path_shp_rivers,
+                                      file = self.file_shp_rivers)
+        # Admin boundaries
+        self._read_transform_shp_json(path = self.path_shp_admin_boundaries,
+                                      file = self.file_shp_admin_boundaries)
         
-
+        
     def _read_merge_data(self):
         """
-        TBD
+        Uses _read_raw_data to read in .nc-files with GloFAS discharge data (one file per month).
+        Merges all files (of self.GloFAS files) into one pandas DataFrame, where rows: days,
+        columns: coordinates of gridcell ('lat_lon').
+        
+        Output: pandas.DataFrame with all GloFAS discharge data.
         """
         # Set workdirectory
         os.chdir(self.path_glofas_discharge)
@@ -94,7 +119,8 @@ class ReadData:
         else: 
             load_files = load_files = self.GloFAS_files
         
-        # Load and merge grid cell data
+        # Load and merge GloFAS grid cell data
+        # Iterates over the (monthly data) files
         for i,file in enumerate(load_files):
         
             if i == 0:
@@ -137,8 +163,7 @@ class ReadData:
         lon = list(np.round(glofas_nc.variables['lon'][:],2))
         discharge = glofas_nc.variables ['dis24'] [:]
         
-        # Create dataframe with x,y,pixel colours, flood yes(1)/no(0)
-        #data_discharge = pd.DataFrame(columns=['lat', 'long', 'discharge', 'date'])
+        # Select the year and month based on file name
         year = file[0:4]
         month = file.split('_')[1]
         
@@ -158,6 +183,24 @@ class ReadData:
         df['day'] = df.index+1
         
         return(df)
+    
+    def _read_transform_shp_json(self,
+                                path: str = None,
+                                file: str = None         
+                               ):
+        """
+        Reads shapefile and transforms it to json
+        """
+        
+        # Read in data
+        self.myshpfile = geopandas.read_file(path+file)
+        # Save as json
+        name = file.replace('.shp', '.json')
+        self.myshpfile.to_file(path+name, driver='GeoJSON')
+        
+        if self.verbose: print('Transformed file to: ' + path + name)
+        
+        
 
 
 
