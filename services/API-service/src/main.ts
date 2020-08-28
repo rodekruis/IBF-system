@@ -3,7 +3,6 @@ import { NestFactory } from '@nestjs/core';
 import { ApplicationModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import { createProxyMiddleware } from 'http-proxy-middleware';
 
 async function bootstrap(): Promise<void> {
   const appOptions = { cors: true };
@@ -20,13 +19,6 @@ async function bootstrap(): Promise<void> {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/docs', app, document);
-  app.use(
-    '/geoserver',
-    createProxyMiddleware({
-      target: 'http://ibf-geoserver:8080/',
-      changeOrigin: true,
-    }),
-  );
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(process.env.PORT || PORT);
 }

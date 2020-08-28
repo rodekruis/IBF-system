@@ -7,7 +7,6 @@
 
 # Configuration, secrets, etc:
 .env
-Dockerfile
 
 
 # Local data files
