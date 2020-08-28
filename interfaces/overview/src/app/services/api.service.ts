@@ -140,4 +140,15 @@ export class ApiService {
       `admin-static/${countryCode}/${adminLevel}`,
     ).toPromise();
   }
+
+  getMatrixAggregates(
+    countryCode: string,
+    adminLevel: number,
+    leadTime: string,
+  ) {
+    return this.get(
+      environment.api_url,
+      `matrix-aggregates/${countryCode}/${adminLevel}/${leadTime}`,
+    ).toPromise();
+  }
 }

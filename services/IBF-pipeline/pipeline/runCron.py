@@ -16,8 +16,6 @@ def main():
         storeHistoric()
         for fcStep, days in LEAD_TIMES.items():
             fc = Forecast(fcStep, days)
-            # fc.lizardData.process()
-            # fc.db.upload_lizard()
             fc.glofasData.process()
             if CALCULATE_EXTENT:
                 fc.floodExtent.calculate()

@@ -2,7 +2,6 @@ from lib.logging.logglySetup import logger
 from lib.cronJob.glofasdata import GlofasData
 from lib.cronJob.floodExtent import FloodExtent
 from lib.cronJob.dynamicDataDb import DatabaseManager
-from lib.cronJob.lizard import LizardData
 
 class Forecast:
     def __init__(self, fcStep, days):
@@ -11,4 +10,3 @@ class Forecast:
         self.glofasData = GlofasData(fcStep, days)
         self.floodExtent = FloodExtent(fcStep, days)
         self.db = DatabaseManager(fcStep)
-        self.lizardData = LizardData()
