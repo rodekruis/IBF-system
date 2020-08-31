@@ -1,14 +1,32 @@
 <div>
-  <ion-item>
-    <ion-thumbnail slot="start">
-      <img src="assets/icons/Affected-population.svg" />
-    </ion-thumbnail>
-    <ion-label>
-      <h2>Potential Exposed</h2>
-      <p>Population Total</p>
-    </ion-label>
-    <ion-text slot="end">{{
-      aggregatesService.getPopulationExposed() | number: '.2'
-    }}</ion-text>
-  </ion-item>
+  <ion-grid class="ion-no-padding">
+    <ion-row class="aggregates-row">
+      <ion-col size-lg="1" size-md="2" size-xs="2" class="aggregates-col-icon">
+        <ion-thumbnail>
+          <ion-img
+            class="ion-align-self-end"
+            src="assets/icons/Affected-population.svg"
+          >
+          </ion-img>
+        </ion-thumbnail>
+      </ion-col>
+      <ion-col size-lg="7" size-md="6" size-xs="6" class="aggregates-col-text">
+        <ion-label class="ion-text-wrap">
+          <p>Total Exposed Population</p>
+        </ion-label>
+      </ion-col>
+      <ion-col
+        size-lg="4"
+        size-md="4"
+        size-xs="4"
+        class="aggregates-col-number"
+      >
+        <ion-label class="ion-align-self-end">
+          <p>
+            {{ aggregatesService.getPopulationExposed() | number: '.0' }}
+          </p>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </div>
