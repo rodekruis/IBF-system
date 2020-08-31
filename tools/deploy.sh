@@ -53,6 +53,7 @@ function deploy() {
   }
 
   function restart_webhook_service() {
+    sudo systemctl daemon-reload
     sudo service webhook restart
 
     log "Webhook service restarted: "
