@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { IonicModule } from '@ionic/angular';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
+import { ChatComponent } from './components/chat/chat.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MapComponent } from './components/map/map.component';
 import { MatrixComponent } from './components/matrix/matrix.component';
@@ -17,6 +18,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     MatrixComponent,
     TimelineComponent,
     AggregatesComponent,
+    ChatComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -24,6 +26,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     MatrixComponent,
     TimelineComponent,
     AggregatesComponent,
+    ChatComponent,
   ],
 })
 export class SharedModule {}
