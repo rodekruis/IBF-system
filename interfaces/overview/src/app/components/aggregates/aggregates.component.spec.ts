@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { AggregatesComponent } from './aggregates.component';
 
 describe('AggregatesComponent', () => {
@@ -9,8 +8,8 @@ describe('AggregatesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AggregatesComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [AggregatesComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AggregatesComponent);
