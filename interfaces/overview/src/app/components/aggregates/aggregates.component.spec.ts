@@ -1,5 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { AggregatesService } from 'src/app/services/aggregates.service';
 import { AggregatesComponent } from './aggregates.component';
 
 describe('AggregatesComponent', () => {
@@ -9,7 +11,8 @@ describe('AggregatesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AggregatesComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), HttpClientTestingModule],
+      providers: [{ provide: AggregatesService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AggregatesComponent);
