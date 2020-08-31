@@ -1,0 +1,14 @@
+<div>
+  <ion-item>
+    <ion-thumbnail slot="start">
+      <img src="assets/icons/Affected-population.svg" />
+    </ion-thumbnail>
+    <ion-label>
+      <h2>Potential Exposed</h2>
+      <p>Population Total</p>
+    </ion-label>
+    <ion-text slot="end">{{
+      aggregatesService.getPopulationExposed() | number: '.2'
+    }}</ion-text>
+  </ion-item>
+</div>
