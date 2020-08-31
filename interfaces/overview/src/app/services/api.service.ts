@@ -122,8 +122,8 @@ export class ApiService {
 
   getAdminRegions(
     countryCode: string,
-    adminLevel: number,
     leadTime: string,
+    adminLevel: number,
   ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
     return this.get(
       environment.api_url,
@@ -143,8 +143,8 @@ export class ApiService {
 
   getMatrixAggregates(
     countryCode: string,
-    adminLevel: number,
     leadTime: string,
+    adminLevel: number,
   ) {
     return this.get(
       environment.api_url,
