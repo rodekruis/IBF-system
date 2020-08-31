@@ -54,7 +54,7 @@ export class MapService {
       name: IbfLayerName.adminRegions,
       type: IbfLayerType.shape,
       active: true,
-      data: await this.getAdminRegions(countryCode, adminLevel, leadTime),
+      data: await this.getAdminRegions(countryCode, leadTime, adminLevel),
       viewCenter: true,
     });
   }
@@ -161,13 +161,13 @@ export class MapService {
 
   public async getAdminRegions(
     countryCode: string = environment.defaultCountryCode,
-    adminLevel: number = 2,
     leadTime: string = '7-day',
+    adminLevel: number = 2,
   ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
     return await this.apiService.getAdminRegions(
       countryCode,
-      adminLevel,
       leadTime,
+      adminLevel,
     );
   }
 

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Country } from 'src/app/models/country.model';
+import { AggregatesService } from 'src/app/services/aggregates.service';
+import { ApiService } from 'src/app/services/api.service';
 import { MapService } from 'src/app/services/map.service';
 import { environment } from 'src/environments/environment';
-import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,11 @@ export class TimelineService {
     countries: [],
   };
 
-  constructor(private mapService: MapService, private apiService: ApiService) {
+  constructor(
+    private mapService: MapService,
+    private aggregatesService: AggregatesService,
+    private apiService: ApiService,
+  ) {
     this.state.countries = [
       {
         code: 'UGA',
@@ -120,6 +125,10 @@ export class TimelineService {
       this.state.selectedTimeStepButtonValue,
     );
     this.mapService.loadFloodExtentLayer(
+      this.state.countryCode,
+      this.state.selectedTimeStepButtonValue,
+    );
+    this.aggregatesService.loadAggregateInformation(
       this.state.countryCode,
       this.state.selectedTimeStepButtonValue,
     );
