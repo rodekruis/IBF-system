@@ -81,6 +81,28 @@ export class MapService {
     });
   }
 
+  public async loadRainfallTriggerLayer(
+    countryCode: string = environment.defaultCountryCode,
+    leadTime: string = '7-day',
+  ) {
+    this.addLayer({
+      name: IbfLayerName.rainfallTrigger,
+      type: IbfLayerType.wms,
+      active: true,
+      viewCenter: false,
+      data: null,
+      wms: {
+        url: environment.geoserver_url,
+        name: `ibf-system:rainfall_${leadTime}_${countryCode}`,
+        format: 'image/png',
+        version: '1.1.0',
+        attribution: '510 Global',
+        crs: CRS.EPSG4326,
+        transparent: true,
+      } as IbfLayerWMS,
+    });
+  }
+
   public async loadPopulationGridLayer(
     countryCode: string = environment.defaultCountryCode,
   ) {

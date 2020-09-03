@@ -98,6 +98,7 @@ export class MapComponent implements OnDestroy {
     await this.mapService.loadAdminRegionLayer();
     await this.mapService.loadStationLayer();
     await this.mapService.loadFloodExtentLayer();
+    await this.mapService.loadRainfallTriggerLayer();
     await this.mapService.loadPopulationGridLayer();
   }
 
@@ -116,6 +117,10 @@ export class MapComponent implements OnDestroy {
 
     if (layer.name === IbfLayerName.populationGrid) {
       layer.leafletLayer = this.createFloodExtentLayer(layer.wms);
+    }
+
+    if (layer.name === IbfLayerName.rainfallTrigger) {
+      layer.leafletLayer = this.createRainfallTriggerLayer(layer.wms);
     }
 
     return layer;
@@ -159,6 +164,20 @@ export class MapComponent implements OnDestroy {
   }
 
   private createFloodExtentLayer(layerWMS: IbfLayerWMS): Layer {
+    if (!layerWMS) {
+      return;
+    }
+    return tileLayer.wms(layerWMS.url, {
+      layers: layerWMS.name,
+      format: layerWMS.format,
+      version: layerWMS.version,
+      attribution: layerWMS.attribution,
+      crs: layerWMS.crs,
+      transparent: layerWMS.transparent,
+    });
+  }
+
+  private createRainfallTriggerLayer(layerWMS: IbfLayerWMS): Layer {
     if (!layerWMS) {
       return;
     }

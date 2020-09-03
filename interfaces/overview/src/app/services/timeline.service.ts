@@ -35,6 +35,11 @@ export class TimelineService {
         name: 'Zambia',
         forecast: ['3-day', '7-day'],
       },
+      {
+        code: 'EGY',
+        name: 'Egypt',
+        forecast: ['5-day', '10-day'],
+      },
     ] as Country[];
 
     this.selectCountry(environment.defaultCountryCode);
@@ -211,6 +216,10 @@ export class TimelineService {
       this.state.selectedTimeStepButtonValue,
     );
     this.mapService.loadFloodExtentLayer(
+      this.state.countryCode,
+      this.state.selectedTimeStepButtonValue,
+    );
+    this.mapService.loadRainfallTriggerLayer(
       this.state.countryCode,
       this.state.selectedTimeStepButtonValue,
     );
