@@ -155,7 +155,7 @@ export class MapService {
   public async getStations(
     countryCode: string = environment.defaultCountryCode,
     leadTime: string = '7-day',
-  ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
+  ): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getStations(countryCode, leadTime);
   }
 
@@ -163,7 +163,7 @@ export class MapService {
     countryCode: string = environment.defaultCountryCode,
     leadTime: string = '7-day',
     adminLevel: number = 2,
-  ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
+  ): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getAdminRegions(
       countryCode,
       leadTime,
