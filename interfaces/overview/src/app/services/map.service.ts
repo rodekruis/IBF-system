@@ -104,7 +104,7 @@ export class MapService {
 
   private addLayer(layer: IbfLayer) {
     const { name, viewCenter, data } = layer;
-    if (viewCenter) {
+    if (viewCenter && data.features.length) {
       const layerBounds = bbox(data);
       this.state.bounds = containsNumber(layerBounds)
         ? ([
