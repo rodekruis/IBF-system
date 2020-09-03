@@ -20,7 +20,9 @@ export class AggregatesService {
     this.apiService
       .getMatrixAggregates(countryCode, leadTime, adminLevel)
       .then((response) => {
-        this.aggregates = response;
+        if (response) {
+          this.aggregates = response;
+        }
       });
   }
 
