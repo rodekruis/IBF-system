@@ -36,22 +36,11 @@ where current_prev = 'Current'
 ;
 --select * from "IBF-API"."Glofas_stations" where lead_time = '3-day' and country_code = 'ZMB'
 
-drop view if exists "IBF-API"."Trigger_per_lead_time_NEW";
-create or replace view "IBF-API"."Trigger_per_lead_time_NEW" as 
+drop view if exists "IBF-API"."Trigger_per_lead_time";
+create or replace view "IBF-API"."Trigger_per_lead_time" as 
 select *
 from "IBF-pipeline-output".dashboard_triggers_per_day
 where current_prev = 'Current'
-;
---select * from "IBF-API"."Trigger_per_lead_time_NEW"
-
-drop view if exists "IBF-API"."Trigger_per_lead_time";
-create or replace view "IBF-API"."Trigger_per_lead_time" as 
-select country_code
-		,lead_time
-		,max(fc_trigger) as fc_trigger
-from "IBF-pipeline-output".dashboard_forecast_per_station
-where current_prev = 'Current'
-group by 1,2
 ;
 --select * from "IBF-API"."Trigger_per_lead_time"
 
