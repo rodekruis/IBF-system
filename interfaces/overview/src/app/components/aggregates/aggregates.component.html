@@ -1,17 +1,15 @@
 <div>
   <ion-grid class="ion-no-padding">
-    <ion-row class="aggregates-row">
-      <ion-col size-lg="1" size-md="2" size-xs="2" class="aggregates-col-icon">
-        <ion-thumbnail>
+    <ion-row class="aggregates-row ion-no-padding">
+      <ion-col size-lg="9" size-md="9" size-xs="9" class="aggregates-col-text">
+        <ion-thumbnail class="aggregate-icon">
           <ion-img
-            class="ion-align-self-end"
+            class="ion-align-self-end ion-no-margin"
             src="assets/icons/Affected-population-white.svg"
           >
           </ion-img>
         </ion-thumbnail>
-      </ion-col>
-      <ion-col size-lg="8" size-md="7" size-xs="7" class="aggregates-col-text">
-        <ion-label class="ion-text-wrap">
+        <ion-label class="ion-text-wrap aggregate-label">
           <p>Total Exposed Population</p>
         </ion-label>
       </ion-col>
@@ -21,7 +19,7 @@
         size-xs="3"
         class="aggregates-col-number"
       >
-        <ion-label class="ion-align-self-end">
+        <ion-label>
           <p>
             {{ aggregatesService.getPopulationExposed() | number: '1.0-0' }}
           </p>

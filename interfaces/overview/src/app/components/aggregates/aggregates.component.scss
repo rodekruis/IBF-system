@@ -1,24 +1,23 @@
 ion-thumbnail {
   background-color: black;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   border-width: 0.2rem;
   border-color: black;
   border: solid;
 }
 
-// .aggregates-row {
-//   border: solid;
-//   border-width: 0.1rem;
-//   border-color: grey;
-// }
-
-.aggregates-col-icon {
+.aggregates-col-text {
   background-color: white;
 }
 
-.aggregates-col-text {
-  background-color: white;
+.aggregate-icon {
+  display: inline-block;
+}
+
+.aggregate-label {
+  display: inline-block;
+  vertical-align: top;
   padding: 2px;
 }
 
