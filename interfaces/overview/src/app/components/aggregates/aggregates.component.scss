@@ -6,6 +6,9 @@ ion-thumbnail {
   border-color: black;
   border: solid;
 }
+img {
+  width: auto;
+}
 
 .aggregates-col-text {
   background-color: white;
@@ -17,6 +20,11 @@ ion-thumbnail {
 
 .aggregate-icon {
   display: inline-block;
+}
+
+.indicator-icon {
+  display: block;
+  margin: auto;
 }
 
 .aggregate-label {
