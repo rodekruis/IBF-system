@@ -1,5 +1,6 @@
 export enum IbfLayerName {
   glofasStations = 'glofas-stations',
-  adminRegions = 'admin-regions (population)',
   floodExtent = 'flood-extent',
+  populationGrid = 'population-grid',
+  adminRegions = 'admin-regions (population_affected)',
 }

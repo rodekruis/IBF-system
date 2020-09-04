@@ -1,0 +1,28 @@
+ion-thumbnail {
+  background-color: black;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-width: 0.2rem;
+  border-color: black;
+  border: solid;
+}
+
+// .aggregates-row {
+//   border: solid;
+//   border-width: 0.1rem;
+//   border-color: grey;
+// }
+
+.aggregates-col-icon {
+  background-color: white;
+}
+
+.aggregates-col-text {
+  background-color: white;
+  padding: 2px;
+}
+
+.aggregates-col-number {
+  background-color: #f1d0ca;
+  padding: 2px;
+}

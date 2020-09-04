@@ -1,74 +1,74 @@
-
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_calculated_affected_adm3;
-select cast('ZMB' as varchar) as country_code
-	,*
-	,cattle_affected * 1 +
-	goat_affected * 0.1 +
-	sheep_affected * 0.1 +
-	pig_affected * 0.28 +
-	chicken_affected * 0.01
-	as livestock_affected
-INTO "IBF-pipeline-output".dashboard_calculated_affected_adm3
-from (
-select pcode
-    ,date
-    ,current_prev
-    ,lead_time
-    ,sum(case when exposure_class = 'hrsl_zmb_pop_100_sum' then affected end) as population_affected
-    ,sum(case when exposure_class = 'Chicken' then affected end) as chicken_affected
-    ,sum(case when exposure_class = 'Cattle' then affected end) as cattle_affected
-    ,sum(case when exposure_class = 'Goat' then affected end) as goat_affected
-    ,sum(case when exposure_class = 'Pig' then affected end) as pig_affected
-    ,sum(case when exposure_class = 'Sheep' then affected end) as sheep_affected
-    ,sum(case when exposure_class = 'crop_resampled' then affected end) as cropland_affected
-from (
-    SELECT source as exposure_class
-	, case when length(cast(district as varchar)) = 8 then '0' || cast(district as varchar) else cast(district as varchar) end as pcode
-	, t0.date
-	, case when date_part('day',age(current_date,to_date(t0.date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
-	, '3-day' as lead_time
-	, case when sum = '--' then 0
-	    when t1b.fc_trigger = 0 then 0
-	    else cast(sum as float)
-	    end as affected
-	, t1b.fc_trigger
-    FROM "IBF-pipeline-output".calculated_affected_short t0
-    left join "IBF-pipeline-output".pcode_mapping_wards_new_distcode t1a
-	on t0.district = t1a.pcode
-    left join "IBF-pipeline-output".dashboard_forecast_per_district t1b
-	on case when length(cast(t1a.pcode_level2_new as varchar)) = 3 then '0' || cast(t1a.pcode_level2_new as varchar) else cast(t1a.pcode_level2_new as varchar) end = t1b.pcode
-	and t1b.lead_time = '3-day'
-	and t0.date = t1b.date
-	where to_date(t0.date,'yyyy-mm-dd') >= current_date - 1
-
-    UNION ALL
-
-    SELECT source as exposure_class
-	, case when length(cast(district as varchar)) = 8 then '0' || cast(district as varchar) else cast(district as varchar) end as pcode
-	, t0.date
-	, case when date_part('day',age(current_date,to_date(t0.date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
-	, '7-day' as lead_time
-	, case when sum = '--' then 0
-	    when t1b.fc_trigger = 0 then 0
-	    else cast(sum as float)
-	    end as affected
-	, t1b.fc_trigger
-    FROM "IBF-pipeline-output".calculated_affected_long t0
-    left join "IBF-pipeline-output".pcode_mapping_wards_new_distcode t1a
-	on t0.district = t1a.pcode
-    left join "IBF-pipeline-output".dashboard_forecast_per_district t1b
-	on case when length(cast(t1a.pcode_level2_new as varchar)) = 3 then '0' || cast(t1a.pcode_level2_new as varchar) else cast(t1a.pcode_level2_new as varchar) end = t1b.pcode
-	and t1b.lead_time = '7-day'
-	and t0.date = t1b.date
-	where to_date(t0.date,'yyyy-mm-dd') >= current_date - 1
-    ) aa
-group by 1,2,3,4
-) bb
-;
+--
+--DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_calculated_affected_adm3;
+--select cast('ZMB' as varchar) as country_code
+--	,*
+--	,cattle_affected * 1 +
+--	goat_affected * 0.1 +
+--	sheep_affected * 0.1 +
+--	pig_affected * 0.28 +
+--	chicken_affected * 0.01
+--	as livestock_affected
+----INTO "IBF-pipeline-output".dashboard_calculated_affected_adm3
+--from (
+--select pcode
+--    ,date
+--    ,current_prev
+--    ,lead_time
+--     ,sum(case when exposure_class = 'population' then affected end) as population_affected
+--    ,sum(case when exposure_class = 'chicken' then affected end) as chicken_affected
+--    ,sum(case when exposure_class = 'cattle' then affected end) as cattle_affected
+--    ,sum(case when exposure_class = 'goat' then affected end) as goat_affected
+--    ,sum(case when exposure_class = 'pig' then affected end) as pig_affected
+--    ,sum(case when exposure_class = 'sheep' then affected end) as sheep_affected
+--    ,sum(case when exposure_class = 'cropland' then affected end) as cropland_affected
+--from (
+--    SELECT source as exposure_class
+--	, case when length(cast(district as varchar)) = 8 then '0' || cast(district as varchar) else cast(district as varchar) end as pcode
+--	, t0.date
+--	, case when date_part('day',age(current_date,to_date(t0.date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
+--	, '3-day' as lead_time
+--	, case when sum = '--' then 0
+--	    when t1b.fc_trigger = 0 then 0
+--	    else cast(sum as float)
+--	    end as affected
+--	, t1b.fc_trigger
+--    FROM "IBF-pipeline-output".calculated_affected_short t0
+--    left join "IBF-static-input".pcode_mapping_wards_new_distcode t1a
+--	on t0.district = t1a.pcode
+--    left join "IBF-pipeline-output".dashboard_forecast_per_district t1b
+--	on case when length(cast(t1a.pcode_level2_new as varchar)) = 3 then '0' || cast(t1a.pcode_level2_new as varchar) else cast(t1a.pcode_level2_new as varchar) end = t1b.pcode
+--	and t1b.lead_time = '3-day'
+--	and t0.date = t1b.date
+--	where to_date(t0.date,'yyyy-mm-dd') >= current_date - 1
+--
+--    UNION ALL
+--
+--    SELECT source as exposure_class
+--	, case when length(cast(district as varchar)) = 8 then '0' || cast(district as varchar) else cast(district as varchar) end as pcode
+--	, t0.date
+--	, case when date_part('day',age(current_date,to_date(t0.date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
+--	, '7-day' as lead_time
+--	, case when sum = '--' then 0
+--	    when t1b.fc_trigger = 0 then 0
+--	    else cast(sum as float)
+--	    end as affected
+--	, t1b.fc_trigger
+--    select *
+--	FROM "IBF-pipeline-output".calculated_affected_long t0
+--    left join "IBF-static-input".pcode_mapping_wards_new_distcode t1a
+--	on t0.district = t1a.pcode
+--    left join "IBF-pipeline-output".dashboard_forecast_per_district t1b
+--	on case when length(cast(t1a.pcode_level2_new as varchar)) = 3 then '0' || cast(t1a.pcode_level2_new as varchar) else cast(t1a.pcode_level2_new as varchar) end = t1b.pcode
+--	and t1b.lead_time = '7-day'
+--	and t0.date = t1b.date
+--	where to_date(t0.date,'yyyy-mm-dd') >= current_date - 1
+--    ) aa
+--group by 1,2,3,4
+--) bb
+--;
 
 DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_calculated_affected_adm2;
-select cast('ZMB' as varchar) as country_code
-	,*
+select *
 	,cattle_affected * 1 +
 	goat_affected * 0.1 +
 	sheep_affected * 0.1 +
@@ -77,19 +77,21 @@ select cast('ZMB' as varchar) as country_code
 	as livestock_affected
 INTO "IBF-pipeline-output".dashboard_calculated_affected_adm2
 from (
-select pcode
+select country_code
+	,pcode
     ,date
     ,current_prev
     ,lead_time
-    ,sum(case when exposure_class = 'hrsl_zmb_pop_100_sum' then affected end) as population_affected
-    ,sum(case when exposure_class = 'Chicken' then affected end) as chicken_affected
-    ,sum(case when exposure_class = 'Cattle' then affected end) as cattle_affected
-    ,sum(case when exposure_class = 'Goat' then affected end) as goat_affected
-    ,sum(case when exposure_class = 'Pig' then affected end) as pig_affected
-    ,sum(case when exposure_class = 'Sheep' then affected end) as sheep_affected
-    ,sum(case when exposure_class = 'crop_resampled' then affected end) as cropland_affected
+    ,sum(case when exposure_class = 'population' then affected end) as population_affected
+    ,sum(case when exposure_class = 'chicken' then affected end) as chicken_affected
+    ,sum(case when exposure_class = 'cattle' then affected end) as cattle_affected
+    ,sum(case when exposure_class = 'goat' then affected end) as goat_affected
+    ,sum(case when exposure_class = 'pig' then affected end) as pig_affected
+    ,sum(case when exposure_class = 'sheep' then affected end) as sheep_affected
+    ,sum(case when exposure_class = 'cropland' then affected end) as cropland_affected
 from (
-    SELECT source as exposure_class
+    SELECT country_code
+    , source as exposure_class
 	, case when length(cast(district as varchar)) = 8 then '0' || cast(district as varchar) else cast(district as varchar) end as pcode
 	, t0.date
 	, case when date_part('day',age(current_date,to_date(t0.date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
@@ -110,7 +112,8 @@ from (
 
     UNION ALL
 
-    SELECT source as exposure_class
+    SELECT country_code
+    , source as exposure_class
 	, case when length(cast(district as varchar)) = 8 then '0' || cast(district as varchar) else cast(district as varchar) end as pcode
 	, t0.date
 	, case when date_part('day',age(current_date,to_date(t0.date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
@@ -129,10 +132,10 @@ from (
 	and t0.date = t1.date
 	where to_date(t0.date,'yyyy-mm-dd') >= current_date - 1
     ) aa
-group by 1,2,3,4
+group by 1,2,3,4,5
 ) bb
 ;
---select * from "IBF-pipeline-output".dashboard_calculated_affected_adm2
+--select * from "IBF-pipeline-output".dashboard_calculated_affected_adm2 where country_code = 'UGA'
 
 --truncate TABLE "IBF-pipeline-output".data_adm3;
 --insert into "IBF-pipeline-output".data_adm3
@@ -176,8 +179,9 @@ select t3.country_code
 	,coalesce(livestock_affected,0) as livestock_affected
 	,chicken_affected,cattle_affected,goat_affected,pig_affected,sheep_affected
 	,coalesce(cropland_affected,0) as cropland_affected
+	,t0.indicators
 --into "IBF-pipeline-output".data_adm2
-from {} t0
+from "IBF-static-input"."CRA_data_2" t0
 left join "IBF-pipeline-output".help_table t0a
 on 1=1
 left join "IBF-pipeline-output".waterstation_per_district t1
@@ -210,7 +214,7 @@ left join (
 ) t3
 ON t0.pcode = t3.pcode_level2 and t0a.lead_time = t3.lead_time and t0a.current_prev = t3.current_prev
 ;
---select * from "IBF-pipeline-output".data_adm2
+--select * from "IBF-pipeline-output".data_adm2 where country_code = 'UGA'
 
 --truncate TABLE "IBF-pipeline-output".data_adm1;
 --insert into "IBF-pipeline-output".data_adm1

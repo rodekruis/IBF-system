@@ -103,7 +103,7 @@ export class ApiService {
   getStations(
     countryCode: string,
     leadTime: string,
-  ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
+  ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
       `stations/${countryCode}/${leadTime}`,
@@ -122,9 +122,9 @@ export class ApiService {
 
   getAdminRegions(
     countryCode: string,
-    adminLevel: number,
     leadTime: string,
-  ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
+    adminLevel: number,
+  ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
       `admin-area-data/${countryCode}/${adminLevel}/${leadTime}`,
@@ -134,10 +134,21 @@ export class ApiService {
   getAdminRegionsStatic(
     countryCode: string,
     adminLevel: number,
-  ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
+  ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
       `admin-static/${countryCode}/${adminLevel}`,
+    ).toPromise();
+  }
+
+  getMatrixAggregates(
+    countryCode: string,
+    leadTime: string,
+    adminLevel: number,
+  ) {
+    return this.get(
+      environment.api_url,
+      `matrix-aggregates/${countryCode}/${adminLevel}/${leadTime}`,
     ).toPromise();
   }
 }

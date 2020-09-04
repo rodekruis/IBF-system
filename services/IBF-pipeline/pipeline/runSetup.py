@@ -18,9 +18,9 @@ def main():
     if CALCULATE_EXPOSURE:
         uploadStaticToDb('metadata_fbf_zambia','metadata_fbf_zambia.csv')
         uploadStaticToDb('pcode_mapping_wards_new_distcode','pcode_mapping_wards_new_distcode.csv')
-        uploadStaticToDb('redcross_branches','points/RedCross_branches.csv')
-        uploadStaticToDb('healthsites','points/healthsites.csv')
-        uploadStaticToDb('waterpoints','points/wpdx_data_export-2019-07-01T10-05-44.csv')
+        # uploadStaticToDb('redcross_branches','points/RedCross_branches.csv')
+        # uploadStaticToDb('healthsites','points/healthsites.csv')
+        # uploadStaticToDb('waterpoints','points/wpdx_data_export-2019-07-01T10-05-44.csv')
     processStaticDataDb()
     
     logger.info('Finished Setup')

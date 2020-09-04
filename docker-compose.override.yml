@@ -2,11 +2,10 @@ version: "3.8"
 
 services:
     ibf-api-service:
-        command: ["npm", "run", "start:dev"]
-        # command: ["npm", "run", "start"]
+        # command: ["npm", "run", "start:dev"]
+        command: ["npm", "run", "start"]
         environment:
             - NODE_ENV=development
-            - NG_PRODUCTION=false
         volumes:
             - ./services/API-service:/home/ibf/api-service
         ports:
@@ -14,13 +13,20 @@ services:
 
     ibf-web-interface:
         command: ["npm", "run", "start"]
+        environment:
+            - NG_PRODUCTION=false
         ports:
             - 4200:4200
         volumes:
             - ./interfaces/overview:/home/node/app
 
+    ibf-pipeline:
+        volumes:
+            - ./services/IBF-pipeline:/home/ibf
+
     ibf-geoserver:
         ports:
             - 8081:8080
         volumes:
-            - ./services/IBF-pipeline/geoserver:/opt/geoserver/data_dir
+            - ./services/IBF-pipeline/geoserver/geodata:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
+            - ./services/IBF-pipeline/geoserver/workspaces/ibf-system:/opt/geoserver/data_dir/workspaces/ibf-system

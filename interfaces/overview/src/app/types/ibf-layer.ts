@@ -8,6 +8,6 @@ export class IbfLayer {
   active: boolean;
   viewCenter: boolean;
   wms?: IbfLayerWMS;
-  data?: GeoJSON.FeatureCollection | GeoJSON.Feature;
+  data?: GeoJSON.FeatureCollection;
   leafletLayer?: Layer | LayerGroup | Marker;
 }
