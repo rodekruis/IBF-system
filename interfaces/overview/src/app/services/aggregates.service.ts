@@ -24,7 +24,7 @@ export class AggregatesService {
       });
   }
 
-  getPopulationExposed() {
-    return this.aggregates['population_affected'];
+  getAggregate(indicator) {
+    return this.aggregates[indicator];
   }
 }
