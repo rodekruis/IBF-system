@@ -106,7 +106,7 @@ export class DataService {
   ): Promise<number> {
     const query =
       ' select * \
-    from "IBF-API"."Trigger_per_lead_time_NEW" \
+    from "IBF-API"."Trigger_per_lead_time" \
     where 0 = 0 \
     and country_code = $1 \
     ';
