@@ -23,7 +23,6 @@ export class MapService {
       [-20, -20],
       [20, 20],
     ] as LatLngBoundsLiteral,
-    defaultColorProperty: 'population_affected', // 'population_affected' / 'population'
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
     defaultFillOpacity: 0.8,
@@ -56,6 +55,23 @@ export class MapService {
       active: true,
       data: await this.getAdminRegions(countryCode, leadTime, adminLevel),
       viewCenter: true,
+      defaultColorProperty: 'population_affected', // 'population_affected' / 'population'
+    });
+  }
+
+  public async updateAdminRegionLayer(
+    colorProperty: string,
+    countryCode: string = environment.defaultCountryCode,
+    leadTime: string = '7-day',
+    adminLevel: number = 2,
+  ) {
+    this.addLayer({
+      name: IbfLayerName.adminRegions,
+      type: IbfLayerType.shape,
+      active: true,
+      data: await this.getAdminRegions(countryCode, leadTime, adminLevel),
+      viewCenter: true,
+      defaultColorProperty: colorProperty,
     });
   }
 
@@ -146,6 +162,7 @@ export class MapService {
         viewCenter: false,
         data: this.layers[layerIndex].data,
         wms: this.layers[layerIndex].wms,
+        defaultColorProperty: this.layers[layerIndex].defaultColorProperty,
       });
     } else {
       throw `Layer '${name}' does not exist`;

@@ -93,11 +93,16 @@ select country_code
 	,current_prev
 	,lead_time
 	,sum(population_affected) as population_affected
+	,(select * from json_to_recordset(indicators))
 from "IBF-API"."Admin_area_data2"
 where country_code is not null
 group by 1,2,3
 ;
 --select * from "IBF-API"."Matrix_aggregates2"
+
+select *
+from json_to_recordset('[{"operation":"U","taxCode":1000},{"operation":"U","taxCode":10001}]')
+as x("operation" text, "taxCode" int);
 
 
 

@@ -153,7 +153,7 @@ export class MapComponent implements OnDestroy {
     return geoJSON(layer.data, {
       style: this.mapService.setAdminRegionStyle(
         layer.data,
-        this.mapService.state.defaultColorProperty,
+        layer.defaultColorProperty,
       ),
     });
   }

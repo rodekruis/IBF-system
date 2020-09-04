@@ -1,16 +1,29 @@
 <div>
   <ion-grid class="ion-no-padding">
-    <ion-row class="aggregates-row ion-no-padding">
-      <ion-col size-lg="9" size-md="9" size-xs="9" class="aggregates-col-text">
+    <ion-row
+      *ngFor="let indicator of indicators"
+      class="aggregates-row ion-no-padding"
+    >
+      <ion-col
+        size-lg="9"
+        size-md="9"
+        size-xs="9"
+        class="aggregates-col-text"
+        (click)="changeIndicator(indicator.name)"
+        title="Click to visualize in map"
+      >
         <ion-thumbnail class="aggregate-icon">
           <ion-img
             class="ion-align-self-end ion-no-margin"
-            src="assets/icons/Affected-population-white.svg"
+            src="assets/icons/{{ indicator.name }}-white.svg"
           >
           </ion-img>
         </ion-thumbnail>
         <ion-label class="ion-text-wrap aggregate-label">
-          <p>Total Exposed Population</p>
+          <p *ngIf="indicator.active">
+            <strong>{{ indicator.label }}</strong>
+          </p>
+          <p *ngIf="!indicator.active">{{ indicator.label }}</p>
         </ion-label>
       </ion-col>
       <ion-col
@@ -21,7 +34,9 @@
       >
         <ion-label>
           <p>
-            {{ aggregatesService.getPopulationExposed() | number: '1.0-0' }}
+            {{
+              aggregatesService.getAggregate(indicator.name) | number: '1.0-0'
+            }}
           </p>
         </ion-label>
       </ion-col>

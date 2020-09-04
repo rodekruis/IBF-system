@@ -10,6 +10,10 @@ ion-thumbnail {
 .aggregates-col-text {
   background-color: white;
 }
+.aggregates-col-text:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+}
 
 .aggregate-icon {
   display: inline-block;

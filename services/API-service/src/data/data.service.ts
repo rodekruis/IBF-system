@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -120,10 +121,10 @@ export class DataService {
     countryCode: string,
     adminLevel: number,
     leadTime: string,
-  ): Promise<GeoJson> {
+  ): Promise<any> {
     const query =
       ' select * \
-    from "IBF-API"."Matrix_aggregates' +
+    from "IBF-API"."Admin_area_data' +
       adminLevel +
       '" \
     where 0 = 0 \
@@ -131,9 +132,23 @@ export class DataService {
     and country_code = $2 \
     ';
 
-    const result = await this.manager.query(query, [leadTime, countryCode]);
+    const rawResult = await this.manager.query(query, [leadTime, countryCode]);
 
-    return result[0];
+    const indicators = ['population_affected', 'population'];
+
+    const result = {};
+    for (let indicator of indicators) {
+      const cra = typeof rawResult[0][indicator] === 'undefined';
+      result[indicator] = this.sum(rawResult, indicator, cra);
+    }
+
+    return result;
+  }
+
+  sum(items, prop, cra) {
+    return items.reduce(function(a, b) {
+      return a + (cra ? b.indicators[prop] : b[prop]);
+    }, 0);
   }
 
   private toGeojson(rawResult): GeoJson {
