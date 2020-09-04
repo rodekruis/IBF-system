@@ -116,6 +116,26 @@ export class DataService {
     return result[0][leadTime[0]];
   }
 
+  public async getMatrixAggregates(
+    countryCode: string,
+    adminLevel: number,
+    leadTime: string,
+  ): Promise<GeoJson> {
+    const query =
+      ' select * \
+    from "IBF-API"."Matrix_aggregates' +
+      adminLevel +
+      '" \
+    where 0 = 0 \
+    and lead_time = $1 \
+    and country_code = $2 \
+    ';
+
+    const result = await this.manager.query(query, [leadTime, countryCode]);
+
+    return result[0];
+  }
+
   private toGeojson(rawResult): GeoJson {
     const geoJson: GeoJson = {
       type: 'FeatureCollection',

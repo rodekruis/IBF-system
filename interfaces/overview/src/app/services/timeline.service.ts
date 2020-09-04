@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Country } from 'src/app/models/country.model';
+import { AggregatesService } from 'src/app/services/aggregates.service';
+import { ApiService } from 'src/app/services/api.service';
 import { MapService } from 'src/app/services/map.service';
 import { environment } from 'src/environments/environment';
-import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,11 @@ export class TimelineService {
     countries: [],
   };
 
-  constructor(private mapService: MapService, private apiService: ApiService) {
+  constructor(
+    private mapService: MapService,
+    private aggregatesService: AggregatesService,
+    private apiService: ApiService,
+  ) {
     this.state.countries = [
       {
         code: 'UGA',
@@ -36,7 +41,7 @@ export class TimelineService {
   }
 
   private async loadTimeStepButtons() {
-    this.state.timeStepButtons = [
+    this.state.timeStepButtons = this.filterTimeStepButtonsByCountryForecast([
       {
         dateString: this.state.today.format(this.state.dateFormat),
         value: 'Today',
@@ -106,7 +111,93 @@ export class TimelineService {
         alert: await this.getTrigger('7-day'),
         disabled: await this.getForecast('7-day'),
       },
-    ];
+      {
+        dateString: this.state.today
+          .clone()
+          .add(8, 'days')
+          .format(this.state.dateFormat),
+        value: '8-day',
+        alert: await this.getTrigger('8-day'),
+        disabled: await this.getForecast('8-day'),
+      },
+      {
+        dateString: this.state.today
+          .clone()
+          .add(9, 'days')
+          .format(this.state.dateFormat),
+        value: '9-day',
+        alert: await this.getTrigger('9-day'),
+        disabled: await this.getForecast('9-day'),
+      },
+      {
+        dateString: this.state.today
+          .clone()
+          .add(10, 'days')
+          .format(this.state.dateFormat),
+        value: '10-day',
+        alert: await this.getTrigger('10-day'),
+        disabled: await this.getForecast('10-day'),
+      },
+      {
+        dateString: this.state.today
+          .clone()
+          .add(11, 'days')
+          .format(this.state.dateFormat),
+        value: '11-day',
+        alert: await this.getTrigger('11-day'),
+        disabled: await this.getForecast('11-day'),
+      },
+      {
+        dateString: this.state.today
+          .clone()
+          .add(12, 'days')
+          .format(this.state.dateFormat),
+        value: '12-day',
+        alert: await this.getTrigger('12-day'),
+        disabled: await this.getForecast('12-day'),
+      },
+      {
+        dateString: this.state.today
+          .clone()
+          .add(13, 'days')
+          .format(this.state.dateFormat),
+        value: '13-day',
+        alert: await this.getTrigger('13-day'),
+        disabled: await this.getForecast('13-day'),
+      },
+      {
+        dateString: this.state.today
+          .clone()
+          .add(14, 'days')
+          .format(this.state.dateFormat),
+        value: '14-day',
+        alert: await this.getTrigger('14-day'),
+        disabled: await this.getForecast('14-day'),
+      },
+    ]);
+  }
+
+  filterTimeStepButtonsByCountryForecast(timeStepButtons) {
+    const selectedCountryIndex = this.state.countries.findIndex(
+      (country) => country.code === this.state.countryCode,
+    );
+
+    const selectedCountry = this.state.countries[selectedCountryIndex];
+
+    const countryForecastTimeStepButtonIndices = selectedCountry.forecast.map(
+      (forecastValue) =>
+        timeStepButtons.findIndex(
+          (timeStepButton) => timeStepButton.value === forecastValue,
+        ),
+    );
+
+    const countryForecastRange = Math.max.apply(
+      Math,
+      countryForecastTimeStepButtonIndices,
+    );
+
+    timeStepButtons.splice(countryForecastRange + 1);
+    return timeStepButtons;
   }
 
   public handleTimeStepButtonClick(timeStepButtonValue) {
@@ -115,7 +206,15 @@ export class TimelineService {
       this.state.countryCode,
       this.state.selectedTimeStepButtonValue,
     );
+    this.mapService.loadAdminRegionLayer(
+      this.state.countryCode,
+      this.state.selectedTimeStepButtonValue,
+    );
     this.mapService.loadFloodExtentLayer(
+      this.state.countryCode,
+      this.state.selectedTimeStepButtonValue,
+    );
+    this.aggregatesService.loadAggregateInformation(
       this.state.countryCode,
       this.state.selectedTimeStepButtonValue,
     );
@@ -136,6 +235,7 @@ export class TimelineService {
 
     this.mapService.loadAdminRegionLayer(countryCode);
     this.mapService.loadFloodExtentLayer(countryCode);
+    this.mapService.loadPopulationGridLayer(countryCode);
     this.loadTimeStepButtons();
     this.handleTimeStepButtonClick(countryForecasts[0]);
   }

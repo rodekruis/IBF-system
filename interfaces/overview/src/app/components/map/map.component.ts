@@ -98,6 +98,7 @@ export class MapComponent implements OnDestroy {
     await this.mapService.loadAdminRegionLayer();
     await this.mapService.loadStationLayer();
     await this.mapService.loadFloodExtentLayer();
+    await this.mapService.loadPopulationGridLayer();
   }
 
   private createLayer(layer: IbfLayer): IbfLayer {
@@ -110,6 +111,10 @@ export class MapComponent implements OnDestroy {
     }
 
     if (layer.name === IbfLayerName.floodExtent) {
+      layer.leafletLayer = this.createFloodExtentLayer(layer.wms);
+    }
+
+    if (layer.name === IbfLayerName.populationGrid) {
       layer.leafletLayer = this.createFloodExtentLayer(layer.wms);
     }
 

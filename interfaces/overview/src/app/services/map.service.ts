@@ -23,7 +23,7 @@ export class MapService {
       [-20, -20],
       [20, 20],
     ] as LatLngBoundsLiteral,
-    defaultColorProperty: 'population',
+    defaultColorProperty: 'population_affected', // 'population_affected' / 'population'
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
     defaultFillOpacity: 0.8,
@@ -47,13 +47,14 @@ export class MapService {
 
   public async loadAdminRegionLayer(
     countryCode: string = environment.defaultCountryCode,
+    leadTime: string = '7-day',
     adminLevel: number = 2,
   ) {
     this.addLayer({
       name: IbfLayerName.adminRegions,
       type: IbfLayerType.shape,
       active: true,
-      data: await this.getAdminRegionsStatic(countryCode, adminLevel),
+      data: await this.getAdminRegions(countryCode, leadTime, adminLevel),
       viewCenter: true,
     });
   }
@@ -80,9 +81,30 @@ export class MapService {
     });
   }
 
+  public async loadPopulationGridLayer(
+    countryCode: string = environment.defaultCountryCode,
+  ) {
+    this.addLayer({
+      name: IbfLayerName.populationGrid,
+      type: IbfLayerType.wms,
+      active: false,
+      viewCenter: false,
+      data: null,
+      wms: {
+        url: environment.geoserver_url,
+        name: `ibf-system:population_${countryCode}`,
+        format: 'image/png',
+        version: '1.1.0',
+        attribution: '510 Global',
+        crs: CRS.EPSG4326,
+        transparent: true,
+      } as IbfLayerWMS,
+    });
+  }
+
   private addLayer(layer: IbfLayer) {
     const { name, viewCenter, data } = layer;
-    if (viewCenter) {
+    if (viewCenter && data.features.length) {
       const layerBounds = bbox(data);
       this.state.bounds = containsNumber(layerBounds)
         ? ([
@@ -133,15 +155,20 @@ export class MapService {
   public async getStations(
     countryCode: string = environment.defaultCountryCode,
     leadTime: string = '7-day',
-  ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
+  ): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getStations(countryCode, leadTime);
   }
 
-  public async getAdminRegionsStatic(
+  public async getAdminRegions(
     countryCode: string = environment.defaultCountryCode,
+    leadTime: string = '7-day',
     adminLevel: number = 2,
-  ): Promise<GeoJSON.FeatureCollection | GeoJSON.Feature> {
-    return await this.apiService.getAdminRegionsStatic(countryCode, adminLevel);
+  ): Promise<GeoJSON.FeatureCollection> {
+    return await this.apiService.getAdminRegions(
+      countryCode,
+      leadTime,
+      adminLevel,
+    );
   }
 
   getAdminRegionFillColor = (colorPropertyValue, colorThreshold) => {
@@ -182,7 +209,11 @@ export class MapService {
 
   public setAdminRegionStyle = (adminRegions, colorProperty) => {
     const colorPropertyValues = adminRegions.features
-      .map((feature) => feature.properties.indicators[colorProperty])
+      .map((feature) =>
+        typeof feature.properties[colorProperty] !== 'undefined'
+          ? feature.properties[colorProperty]
+          : feature.properties.indicators[colorProperty],
+      )
       .filter((v, i, a) => a.indexOf(v) === i);
 
     const colorThreshold = {
@@ -194,7 +225,9 @@ export class MapService {
 
     return (adminRegion) => {
       const fillColor = this.getAdminRegionFillColor(
-        adminRegion.properties.indicators[colorProperty],
+        typeof adminRegion.properties[colorProperty] !== 'undefined'
+          ? adminRegion.properties[colorProperty]
+          : adminRegion.properties.indicators[colorProperty],
         colorThreshold,
       );
       const fillOpacity = this.getAdminRegionFillOpacity(adminRegion);

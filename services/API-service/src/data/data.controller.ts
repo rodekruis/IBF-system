@@ -87,4 +87,17 @@ export class DataController {
       params.adminLevel,
     );
   }
+
+  @ApiOperation({ title: 'Get matrix aggregates' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
+  @Get('matrix-aggregates/:countryCode/:adminLevel/:leadTime')
+  public async getMatrixAggregates(@Param() params): Promise<GeoJson> {
+    return await this.dataService.getMatrixAggregates(
+      params.countryCode,
+      params.adminLevel,
+      params.leadTime,
+    );
+  }
 }
