@@ -4,7 +4,7 @@ insert into "IBF-pipeline-output".dashboard_triggers_per_day
 select tpd.country_code 
 	,'Current' as current_prev
 --	,case when date_part('day',age(current_date,to_date(date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
-	,"1","2","3","4","5","6","7"
+	,"1","2","3","4","5","6","7","8","9","10"
 --into "IBF-pipeline-output".dashboard_triggers_per_day
 from "IBF-pipeline-output".triggers_per_day tpd
 left join (select country_code, max(date) as max_date from "IBF-pipeline-output".triggers_per_day group by 1) max
