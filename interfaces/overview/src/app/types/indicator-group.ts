@@ -15,5 +15,5 @@ export class Indicator {
 export enum NumberFormat {
   dec0 = 'dec0',
   dec2 = 'dec2',
-  perc = 'perc'
+  perc = 'perc',
 }

@@ -151,4 +151,8 @@ export class ApiService {
       `matrix-aggregates/${countryCode}/${adminLevel}/${leadTime}`,
     ).toPromise();
   }
+
+  getMetadata(countryCode: string) {
+    return this.get(environment.api_url, `metadata/${countryCode}`).toPromise();
+  }
 }
