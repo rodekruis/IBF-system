@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { SourceInfoModalPage } from './source-info-modal.page';
+
+const modalSpy = jasmine.createSpyObj('Modal', ['present']);
+const modalCtrlSpy = jasmine.createSpyObj('ModalController', ['create']);
+modalCtrlSpy.create.and.callFake(() => {
+  return modalSpy;
+});
 
 describe('SourceInfoModalPage', () => {
   let component: SourceInfoModalPage;
@@ -10,6 +16,12 @@ describe('SourceInfoModalPage', () => {
     TestBed.configureTestingModule({
       declarations: [SourceInfoModalPage],
       imports: [IonicModule.forRoot()],
+      providers: [
+        {
+          provide: ModalController,
+          useValue: modalCtrlSpy,
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SourceInfoModalPage);
