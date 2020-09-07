@@ -134,12 +134,55 @@ export class DataService {
 
     const rawResult = await this.manager.query(query, [leadTime, countryCode]);
 
-    const indicators = ['population_affected', 'population'];
+    const indicators = [
+      {
+        name: 'population_affected',
+        weightedAvg: false,
+      },
+      {
+        name: 'population',
+        weightedAvg: false,
+      },
+      {
+        name: 'vulnerability_index',
+        weightedAvg: true,
+      },
+      {
+        name: 'poverty_incidence',
+        weightedAvg: true,
+      },
+      {
+        name: 'female_head_hh',
+        weightedAvg: true,
+      },
+      {
+        name: 'population_u8',
+        weightedAvg: true,
+      },
+      {
+        name: 'population_over65',
+        weightedAvg: true,
+      },
+      {
+        name: 'wall_type',
+        weightedAvg: true,
+      },
+      {
+        name: 'roof_type',
+        weightedAvg: true,
+      },
+    ];
 
     const result = {};
     for (let indicator of indicators) {
-      const cra = typeof rawResult[0][indicator] === 'undefined';
-      result[indicator] = this.sum(rawResult, indicator, cra);
+      const cra = typeof rawResult[0][indicator.name] === 'undefined';
+      if (indicator.weightedAvg) {
+        result[indicator.name] =
+          this.sumProduct(rawResult, indicator.name, 'population', cra) /
+          this.sum(rawResult, 'population', cra);
+      } else {
+        result[indicator.name] = this.sum(rawResult, indicator.name, cra);
+      }
     }
 
     return result;
@@ -148,6 +191,12 @@ export class DataService {
   sum(items, prop, cra) {
     return items.reduce(function(a, b) {
       return a + (cra ? b.indicators[prop] : b[prop]);
+    }, 0);
+  }
+
+  sumProduct(items, prop, weightKey, cra) {
+    return items.reduce(function(a, b) {
+      return a + b.indicators[weightKey] * (cra ? b.indicators[prop] : b[prop]);
     }, 0);
   }
 
