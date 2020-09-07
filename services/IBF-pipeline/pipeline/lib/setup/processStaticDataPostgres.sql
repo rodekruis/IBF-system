@@ -79,6 +79,16 @@ FROM "IBF-pipeline-output".waterpoints
 --	)  As featcoll
 --;
 
+drop table if exists "IBF-API"."metadata";
+--truncate table "IBF-API"."metadata";
+--insert into "IBF-API"."metadata"
+select cast('UGA' as varchar) as country_code
+	,*
+into "IBF-API"."metadata"
+from "IBF-static-input"."UGA_metadata"
+;
+--select * from "IBF-API"."metadata"
+
 
 
 
