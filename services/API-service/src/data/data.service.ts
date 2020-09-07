@@ -117,6 +117,17 @@ export class DataService {
     return result[0][leadTime[0]];
   }
 
+  public async getMetadata(countryCode: string): Promise<any> {
+    const query =
+      ' select * \
+    from "IBF-API"."metadata" \
+    where 0 = 0 \
+    and country_code = $1 \
+    ';
+
+    return await this.manager.query(query, [countryCode]);
+  }
+
   public async getMatrixAggregates(
     countryCode: string,
     adminLevel: number,
@@ -134,44 +145,7 @@ export class DataService {
 
     const rawResult = await this.manager.query(query, [leadTime, countryCode]);
 
-    const indicators = [
-      {
-        name: 'population_affected',
-        weightedAvg: false,
-      },
-      {
-        name: 'population',
-        weightedAvg: false,
-      },
-      {
-        name: 'vulnerability_index',
-        weightedAvg: true,
-      },
-      {
-        name: 'poverty_incidence',
-        weightedAvg: true,
-      },
-      {
-        name: 'female_head_hh',
-        weightedAvg: true,
-      },
-      {
-        name: 'population_u8',
-        weightedAvg: true,
-      },
-      {
-        name: 'population_over65',
-        weightedAvg: true,
-      },
-      {
-        name: 'wall_type',
-        weightedAvg: true,
-      },
-      {
-        name: 'roof_type',
-        weightedAvg: true,
-      },
-    ];
+    const indicators = await this.getMetadata(countryCode);
 
     const result = {};
     for (let indicator of indicators) {

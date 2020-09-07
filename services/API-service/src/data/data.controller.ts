@@ -53,6 +53,13 @@ export class DataController {
     );
   }
 
+  @ApiOperation({ title: 'Get metadata' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @Get('metadata/:countryCode')
+  public async getMetadata(@Param() params): Promise<GeoJson> {
+    return await this.dataService.getMetadata(params.countryCode);
+  }
+
   @ApiOperation({ title: 'Get trigger data per lead-time' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })

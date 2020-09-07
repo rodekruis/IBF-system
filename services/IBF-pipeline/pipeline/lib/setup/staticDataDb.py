@@ -19,6 +19,8 @@ def uploadStaticToDb(table, folder_file):
     extension = os.path.splitext(folder_file)[1]
     if extension == '.csv':
         df = pd.read_csv(path,delimiter=';', encoding='windows-1251')
+        if len(df.columns) == 1 :
+            df = pd.read_csv(path, delimiter=',', encoding="windows-1251")
     #print(df)
 
     #Append new data for current date
