@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./source-info-modal.page.scss'],
 })
 export class SourceInfoModalPage implements OnInit {
-  @Input() indicator: string;
+  @Input() indicator = {};
 
   constructor() {}
 
