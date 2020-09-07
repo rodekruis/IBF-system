@@ -8,9 +8,7 @@ SELECT cast('ZMB' as varchar) as country_code
 			,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
 --INTO "IBF-pipeline-output".dashboard_glofas_stations
 FROM "IBF-static-input"."ZMB_glofas_stations"
-
-union all 
-
+union all
 SELECT 'UGA' as country_code
 	, station_code
 	, station_name
@@ -18,6 +16,14 @@ SELECT 'UGA' as country_code
 	,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
 FROM "IBF-static-input"."UGA_glofas_stations"
 where station_code in (select station_code_7day from "IBF-static-input"."UGA_waterstation_per_district" group by 1)
+union all
+SELECT 'EGY' as country_code
+	, station_code
+	, station_name
+	, "5yr_threshold" as trigger_level
+	,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
+FROM "IBF-static-input"."EGY_glofas_stations"
+where station_code in (select station_code_7day from "IBF-static-input"."EGY_waterstation_per_district" group by 1)
 ;
 --select * from "IBF-pipeline-output".dashboard_glofas_stations
 
@@ -36,6 +42,13 @@ SELECT cast('UGA' as varchar) as country_code
 	, station_code_3day
 	, station_code_7day
 FROM "IBF-static-input"."UGA_waterstation_per_district"
+union all
+SELECT cast('EGY' as varchar) as country_code
+	, "distName"
+	, cast(pcode as varchar)
+	, station_code_3day
+	, station_code_7day
+FROM "IBF-static-input"."EGY_waterstation_per_district"
 ;
 
 DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_redcross_branches;
