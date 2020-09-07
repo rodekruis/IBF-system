@@ -8,8 +8,8 @@ import { ChatComponent } from './components/chat/chat.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MapComponent } from './components/map/map.component';
 import { MatrixComponent } from './components/matrix/matrix.component';
-import { TimelineComponent } from './components/timeline/timeline.component';
 import { SourceInfoModalComponent } from './components/source-info-modal/source-info-modal.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, LeafletModule],
