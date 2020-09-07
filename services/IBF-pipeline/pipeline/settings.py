@@ -24,7 +24,7 @@ CURRENT_DATE = date.today()
 ######################
 
 # For now indicate 1 country. Ultimately we might want to loop over multiple included countries?
-COUNTRY_CODE = 'ZMB' #'ZMB'/'UGA'/'EGY'
+COUNTRY_CODE = 'UGA' #'ZMB'/'UGA'/'EGY'
 
 SETTINGS = {
     "ZMB": {
@@ -36,6 +36,7 @@ SETTINGS = {
         'district_mapping': 'Glofas_station_per_district.csv',
         'flood_extent_admin_boundaries': 'vector/ZMB_adm2_mapshaper_new103_pcode.shp',
         'exposure_admin_boundaries': 'vector/ZMB_adm2_mapshaper_new103_pcode.shp', #ZMB_adm4_mapshaper_reproj
+        'metadata': 'metadata_fbf_zambia.csv',
         'trigger_colname': '10yr_threshold',
         'CRA_filename': 'ZMB_CRA_Indicators',
         'lead_times': {
@@ -82,6 +83,7 @@ SETTINGS = {
         'district_mapping': 'Glofas_station_per_district_uga.csv',
         'flood_extent_admin_boundaries': 'vector/UGA_adm2_mapshaper.shp',
         'exposure_admin_boundaries': 'vector/UGA_adm2_mapshaper.shp',
+        'metadata': 'uga_metadata.csv',
         'trigger_colname': '5yr_threshold',
         'CRA_filename': 'ZMB_CRA_Indicators',
         'lead_times': {

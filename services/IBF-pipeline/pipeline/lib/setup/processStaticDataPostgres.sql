@@ -92,6 +92,22 @@ FROM "IBF-pipeline-output".waterpoints
 --	)  As featcoll
 --;
 
+drop table if exists "IBF-API"."metadata";
+--truncate table "IBF-API"."metadata";
+--insert into "IBF-API"."metadata"
+select cast('UGA' as varchar) as country_code
+	, "name", "label", "group", icon, "weightedAvg", active, "numberFormat", "source", description
+into "IBF-API"."metadata"
+from "IBF-static-input"."metadata"
+where country_code like '%UGA%'
+union all 
+select cast('ZMB' as varchar) as country_code
+	, "name", "label", "group", icon, "weightedAvg", active, "numberFormat", "source", description
+from "IBF-static-input"."metadata"
+where country_code like '%ZMB%'
+;
+--select * from "IBF-API"."metadata"
+
 
 
 

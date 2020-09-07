@@ -11,7 +11,10 @@
         : 'dark'
     }}"
     fill="{{
-      timeStepButton.value == timelineService.state.selectedTimeStepButtonValue
+      [
+        timelineService.state.selectedTimeStepButtonValue,
+        timelineService.state.timeStepButtons[0].value
+      ].includes(timeStepButton.value)
         ? 'solid'
         : 'outline'
     }}"

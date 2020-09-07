@@ -11,10 +11,16 @@ select cast('ZMB' as varchar) as country_code
 from "IBF-static-input"."ZMB_CRA_Indicators_2" zmb
 union all
 select cast('UGA' as varchar) as country_code
-	, pcode
-	, row_to_json(uga.*) as indicators
-from "IBF-static-input"."UGA_CRA_Indicators_2" uga
+	, total.pcode
+	, row_to_json(total.*) as indicators
+from (
+	select uga.*
+		, fl."Weighted Vulnerability Index" as vulnerability_index
+	from "IBF-static-input"."UGA_CRA_Indicators_2" uga
+	left join "IBF-static-input"."UGA_flood_vulnerability" fl on uga.pcode_level2 = fl."pointsADM2_PCODE"
+) total
 ;
+--select * from "IBF-static-input"."CRA_data_2" where country_code = 'UGA'
 
 
 --create API view for Glofas stations
@@ -36,22 +42,11 @@ where current_prev = 'Current'
 ;
 --select * from "IBF-API"."Glofas_stations" where lead_time = '3-day' and country_code = 'ZMB'
 
-drop view if exists "IBF-API"."Trigger_per_lead_time_NEW";
-create or replace view "IBF-API"."Trigger_per_lead_time_NEW" as 
+drop view if exists "IBF-API"."Trigger_per_lead_time";
+create or replace view "IBF-API"."Trigger_per_lead_time" as 
 select *
 from "IBF-pipeline-output".dashboard_triggers_per_day
 where current_prev = 'Current'
-;
---select * from "IBF-API"."Trigger_per_lead_time_NEW"
-
-drop view if exists "IBF-API"."Trigger_per_lead_time";
-create or replace view "IBF-API"."Trigger_per_lead_time" as 
-select country_code
-		,lead_time
-		,max(fc_trigger) as fc_trigger
-from "IBF-pipeline-output".dashboard_forecast_per_station
-where current_prev = 'Current'
-group by 1,2
 ;
 --select * from "IBF-API"."Trigger_per_lead_time"
 
@@ -101,15 +96,13 @@ left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode_level2 = d2.pcode
 drop view if exists "IBF-API"."Matrix_aggregates2";
 create or replace view "IBF-API"."Matrix_aggregates2" as 
 select country_code
-	,current_prev
 	,lead_time
 	,sum(population_affected) as population_affected
 from "IBF-API"."Admin_area_data2"
-where country_code is not null
+where country_code is not null and current_prev = 'Current'
 group by 1,2,3
 ;
 --select * from "IBF-API"."Matrix_aggregates2"
-
 
 
 
