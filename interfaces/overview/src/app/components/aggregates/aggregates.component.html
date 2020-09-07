@@ -1,44 +1,74 @@
 <div>
   <ion-grid class="ion-no-padding">
-    <ion-row
-      *ngFor="let indicator of indicators"
-      class="aggregates-row ion-no-padding"
-    >
-      <ion-col
-        size-lg="9"
-        size-md="9"
-        size-xs="9"
-        class="aggregates-col-text"
-        (click)="changeIndicator(indicator.name)"
-        title="Click to visualize in map"
-      >
-        <ion-thumbnail class="aggregate-icon">
-          <img
-            src="assets/icons/{{ indicator.name }}-white.svg"
-            class="indicator-icon"
-          />
-        </ion-thumbnail>
-        <ion-label class="ion-text-wrap aggregate-label">
-          <p *ngIf="indicator.active">
-            <strong>{{ indicator.label }}</strong>
-          </p>
-          <p *ngIf="!indicator.active">{{ indicator.label }}</p>
-        </ion-label>
-      </ion-col>
-      <ion-col
-        size-lg="3"
-        size-md="3"
-        size-xs="3"
-        class="aggregates-col-number"
-      >
-        <ion-label>
-          <p>
-            {{
-              aggregatesService.getAggregate(indicator.name) | number: '1.0-0'
-            }}
-          </p>
-        </ion-label>
-      </ion-col>
-    </ion-row>
+    <div *ngFor="let group of groups">
+      <p style="margin: 10px;">
+        <strong>{{ group }}</strong>
+      </p>
+      <ion-row *ngFor="let indicator of indicators" class="ion-no-padding">
+        <ng-container *ngIf="indicator.group === group">
+          <ion-col
+            size-lg="8"
+            size-md="8"
+            size-xs="8"
+            class="aggregates-col-text"
+            (click)="changeIndicator(indicator.name)"
+            title="Click to visualize in map"
+          >
+            <ion-thumbnail class="aggregate-icon">
+              <img
+                src="assets/icons/{{ indicator.icon }}"
+                class="indicator-icon"
+              />
+            </ion-thumbnail>
+            <ion-label class="ion-text-wrap aggregate-label">
+              <p *ngIf="indicator.active">
+                <strong>{{ indicator.label }}</strong>
+              </p>
+              <p *ngIf="!indicator.active">{{ indicator.label }}</p>
+            </ion-label>
+          </ion-col>
+          <ion-col
+            size-lg="3"
+            size-md="3"
+            size-xs="3"
+            class="aggregates-col-number"
+          >
+            <ion-label>
+              <p *ngIf="indicator.numberFormat === 'dec2'">
+                {{
+                  aggregatesService.getAggregate(indicator.name)
+                    | number: '.2-2'
+                }}
+              </p>
+              <p *ngIf="indicator.numberFormat === 'dec0'">
+                {{
+                  aggregatesService.getAggregate(indicator.name)
+                    | number: '.0-0'
+                }}
+              </p>
+              <p *ngIf="indicator.numberFormat === 'perc'">
+                {{
+                  aggregatesService.getAggregate(indicator.name)
+                    | percent: '.0-0'
+                }}
+              </p>
+            </ion-label>
+          </ion-col>
+          <ion-col
+            size-lg="1"
+            size-md="1"
+            size-xs="1"
+            class="aggregates-col-info"
+            title="Click for more info on this indicator."
+          >
+            <img
+              class="info-img"
+              src="assets/icons/source-info.svg"
+              (click)="moreInfo(indicator)"
+            />
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    </div>
   </ion-grid>
 </div>

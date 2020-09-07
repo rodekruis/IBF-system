@@ -1,3 +1,7 @@
+.group-header .item-native {
+  background-color: #c2c3c3;
+}
+
 ion-thumbnail {
   background-color: black;
   width: 2rem;
@@ -5,9 +9,6 @@ ion-thumbnail {
   border-width: 0.2rem;
   border-color: black;
   border: solid;
-}
-img {
-  width: auto;
 }
 
 .aggregates-col-text {
@@ -25,6 +26,7 @@ img {
 .indicator-icon {
   display: block;
   margin: auto;
+  width: auto;
 }
 
 .aggregate-label {
@@ -36,4 +38,17 @@ img {
 .aggregates-col-number {
   background-color: #f1d0ca;
   padding: 2px;
+}
+
+.aggregates-col-info {
+  background-color: #f1d0ca;
+}
+.info-img {
+  display: block;
+  margin: auto;
+  width: 50%;
+  height: 50%;
+}
+.info-img:hover {
+  cursor: pointer;
 }
