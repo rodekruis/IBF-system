@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { SourceInfoModalPage } from 'src/app/pages/source-info-modal/source-info-modal.page';
 import { AggregatesService } from 'src/app/services/aggregates.service';
 import { MapService } from 'src/app/services/map.service';
@@ -12,6 +13,7 @@ import { Indicator, IndicatorGroup } from '../../types/indicator-group';
 })
 export class AggregatesComponent {
   public indicators: Indicator[];
+  private indicatorSubscription: Subscription;
   public groups: IndicatorGroup[];
 
   constructor(
@@ -20,13 +22,18 @@ export class AggregatesComponent {
     public modalController: ModalController,
   ) {
     this.groups = [IndicatorGroup.general, IndicatorGroup.vulnerability];
+    this.indicatorSubscription = this.aggregatesService
+      .getIndicators()
+      .subscribe((newIndicators) => {
+        this.indicators = newIndicators;
+        this.indicators.forEach((i) => {
+          i.group = IndicatorGroup[i.group];
+        });
+      });
   }
 
-  async ngOnInit() {
-    this.indicators = await this.aggregatesService.getMetadata();
-    this.indicators.forEach((i) => {
-      i.group = IndicatorGroup[i.group];
-    });
+  ngOnDestroy() {
+    this.indicatorSubscription.unsubscribe();
   }
 
   public changeIndicator(indicator) {
