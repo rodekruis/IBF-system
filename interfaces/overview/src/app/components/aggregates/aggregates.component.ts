@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { SourceInfoModalPage } from 'src/app/pages/source-info-modal/source-info-modal.page';
+import { SourceInfoModalComponent } from 'src/app/components/source-info-modal/source-info-modal.component';
 import { AggregatesService } from 'src/app/services/aggregates.service';
 import { MapService } from 'src/app/services/map.service';
 import { Indicator, IndicatorGroup } from '../../types/indicator-group';
@@ -44,7 +44,7 @@ export class AggregatesComponent {
 
   public async moreInfo(indicator) {
     const modal = await this.modalController.create({
-      component: SourceInfoModalPage,
+      component: SourceInfoModalComponent,
       cssClass: 'my-custom-class',
       componentProps: {
         indicator: indicator,

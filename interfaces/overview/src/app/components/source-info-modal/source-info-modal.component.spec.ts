@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule, ModalController } from '@ionic/angular';
-import { SourceInfoModalPage } from './source-info-modal.page';
+import { SourceInfoModalComponent } from './source-info-modal.component';
 
 const modalSpy = jasmine.createSpyObj('Modal', ['present']);
 const modalCtrlSpy = jasmine.createSpyObj('ModalController', ['create']);
@@ -8,13 +8,13 @@ modalCtrlSpy.create.and.callFake(() => {
   return modalSpy;
 });
 
-describe('SourceInfoModalPage', () => {
-  let component: SourceInfoModalPage;
-  let fixture: ComponentFixture<SourceInfoModalPage>;
+describe('SourceInfoModalComponent', () => {
+  let component: SourceInfoModalComponent;
+  let fixture: ComponentFixture<SourceInfoModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SourceInfoModalPage],
+      declarations: [SourceInfoModalComponent],
       imports: [IonicModule.forRoot()],
       providers: [
         {
@@ -24,7 +24,7 @@ describe('SourceInfoModalPage', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SourceInfoModalPage);
+    fixture = TestBed.createComponent(SourceInfoModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

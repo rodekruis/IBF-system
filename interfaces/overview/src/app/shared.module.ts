@@ -9,6 +9,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { MapComponent } from './components/map/map.component';
 import { MatrixComponent } from './components/matrix/matrix.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { SourceInfoModalComponent } from './components/source-info-modal/source-info-modal.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, LeafletModule],
@@ -19,6 +20,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     TimelineComponent,
     AggregatesComponent,
     ChatComponent,
+    SourceInfoModalComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -27,6 +29,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     TimelineComponent,
     AggregatesComponent,
     ChatComponent,
+    SourceInfoModalComponent,
   ],
 })
 export class SharedModule {}
