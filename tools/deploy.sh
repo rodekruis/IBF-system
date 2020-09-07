@@ -62,7 +62,7 @@ function deploy() {
       SCHEMA=$i
       echo "$SCHEMA"
       PGPASSWORD=$PGPASSWORD pg_dump -U geonodeadmin@geonode-database -Fc -f tools/db-dumps/ibf_$SCHEMA.dump -h geonode-database.postgres.database.azure.com -n \"$SCHEMA\" geonode_datav3
-      PGPASSWORD=$PGPASSWORD pg_restore -U geonodeadmin@geonode-database -d geonode_data -h geonode-database.postgres.database.azure.com --schema=$SCHEMA --clean tools/db-dumps/ibf_$SCHEMA.dump
+      PGPASSWORD=$PGPASSWORD pg_restore -U geonodeadmin@geonode-database -d geonode_datav3-staging -h geonode-database.postgres.database.azure.com --schema=$SCHEMA --clean tools/db-dumps/ibf_$SCHEMA.dump
     done
 
   }
