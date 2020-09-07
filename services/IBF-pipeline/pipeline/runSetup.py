@@ -15,7 +15,7 @@ def main():
     createSchema()
     uploadStaticToDb(COUNTRY_CODE + '_glofas_stations', COUNTRY_SETTINGS['trigger_levels'])
     uploadStaticToDb(COUNTRY_CODE + '_waterstation_per_district',COUNTRY_SETTINGS['district_mapping'])
-    uploadStaticToDb(COUNTRY_CODE + '_metadata',COUNTRY_SETTINGS['metadata'])
+    uploadStaticToDb('metadata','ibf_metadata.csv')
     # uploadStaticToDb('pcode_mapping_wards_new_distcode','pcode_mapping_wards_new_distcode.csv')
     # uploadStaticToDb('redcross_branches','points/RedCross_branches.csv')
     # uploadStaticToDb('healthsites','points/healthsites.csv')
