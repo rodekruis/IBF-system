@@ -128,6 +128,7 @@ export class TimelineService {
       this.state.countryCode,
       this.state.selectedTimeStepButtonValue,
     );
+    this.aggregatesService.getMetadata(this.state.countryCode);
     this.aggregatesService.loadAggregateInformation(
       this.state.countryCode,
       this.state.selectedTimeStepButtonValue,

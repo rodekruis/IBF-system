@@ -12,6 +12,10 @@ export class AggregatesService {
     this.loadAggregateInformation();
   }
 
+  getMetadata(countryCode: string = environment.defaultCountryCode) {
+    return this.apiService.getMetadata(countryCode);
+  }
+
   loadAggregateInformation(
     countryCode: string = environment.defaultCountryCode,
     leadTime: string = '7-day',
