@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -106,7 +107,7 @@ export class DataService {
   ): Promise<number> {
     const query =
       ' select * \
-    from "IBF-API"."Trigger_per_lead_time_NEW" \
+    from "IBF-API"."Trigger_per_lead_time" \
     where 0 = 0 \
     and country_code = $1 \
     ';
@@ -116,14 +117,25 @@ export class DataService {
     return result[0][leadTime[0]];
   }
 
+  public async getMetadata(countryCode: string): Promise<any> {
+    const query =
+      ' select * \
+    from "IBF-API"."metadata" \
+    where 0 = 0 \
+    and country_code = $1 \
+    ';
+
+    return await this.manager.query(query, [countryCode]);
+  }
+
   public async getMatrixAggregates(
     countryCode: string,
     adminLevel: number,
     leadTime: string,
-  ): Promise<GeoJson> {
+  ): Promise<any> {
     const query =
       ' select * \
-    from "IBF-API"."Matrix_aggregates' +
+    from "IBF-API"."Admin_area_data' +
       adminLevel +
       '" \
     where 0 = 0 \
@@ -131,9 +143,35 @@ export class DataService {
     and country_code = $2 \
     ';
 
-    const result = await this.manager.query(query, [leadTime, countryCode]);
+    const rawResult = await this.manager.query(query, [leadTime, countryCode]);
 
-    return result[0];
+    const indicators = await this.getMetadata(countryCode);
+
+    const result = {};
+    for (let indicator of indicators) {
+      const cra = typeof rawResult[0][indicator.name] === 'undefined';
+      if (indicator.weightedAvg) {
+        result[indicator.name] =
+          this.sumProduct(rawResult, indicator.name, 'population', cra) /
+          this.sum(rawResult, 'population', cra);
+      } else {
+        result[indicator.name] = this.sum(rawResult, indicator.name, cra);
+      }
+    }
+
+    return result;
+  }
+
+  sum(items, prop, cra) {
+    return items.reduce(function(a, b) {
+      return a + (cra ? b.indicators[prop] : b[prop]);
+    }, 0);
+  }
+
+  sumProduct(items, prop, weightKey, cra) {
+    return items.reduce(function(a, b) {
+      return a + b.indicators[weightKey] * (cra ? b.indicators[prop] : b[prop]);
+    }, 0);
   }
 
   private toGeojson(rawResult): GeoJson {
