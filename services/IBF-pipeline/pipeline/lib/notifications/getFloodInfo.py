@@ -14,10 +14,11 @@ def getFloodInfo():
             ,case when fc_prob>=0.8 then 'Maximum alert' when fc_prob>=0.7 then 'Medium alert' when fc_prob>=0.6 then 'Minimum alert' end as fc_prob
         from
             "IBF-pipeline-output".data_adm2 t0
-        left join "IBF-static-input"."ZMB_Geo_level2" t1 on
-            t0.pcode = t1.pcode_level2
+        left join "IBF-static-input"."CRA_data_2" t1 on
+            t0.pcode = t1.pcode
         where
-            current_prev = 'Current'
+            t0.country_code = 'UGA'
+            and current_prev = 'Current'
             and fc_trigger = 1
         order by population_affected desc
     '''
@@ -27,7 +28,7 @@ def getFloodInfo():
         con.commit()
     except psycopg2.ProgrammingError as e:
         logger.info(e)
-    
+
     if cur.statusmessage=='SELECT 0':
         theData = []
     else:
