@@ -11,20 +11,20 @@ from settings import EMAIL_NOTIFICATION, EMAIL_WITHOUT_TRIGGER, EMAIL_LIST_HARDC
 from lib.sendMail.emailService import sendMail
 
 
-def notify():
+def notify(countryCode):
     if EMAIL_NOTIFICATION:
         the_client = EmailClient(MC_API, MC_USER)
 
-        floodInfo = getFloodInfo()
+        floodInfo = getFloodInfo(countryCode)
 
         if floodInfo["flood"] or EMAIL_WITHOUT_TRIGGER:
             formattedInfo = formatInfo(floodInfo)
-            the_client.sendNotification(formattedInfo)
-            # msg = MIMEMultipart()
-            # msg['Subject'] = formattedInfo['subject']
-            # part = MIMEText(formattedInfo['html'], "html")
-            # msg.attach(part)
-            # sendMail(EMAIL_LIST_HARDCODE,msg.as_string())
+            # the_client.sendNotification(formattedInfo)
+            msg = MIMEMultipart()
+            msg['Subject'] = formattedInfo['subject']
+            part = MIMEText(formattedInfo['html'], "html")
+            msg.attach(part)
+            sendMail(EMAIL_LIST_HARDCODE,msg.as_string())
 
     else:
         logger.info("Email notificatin are turned off")

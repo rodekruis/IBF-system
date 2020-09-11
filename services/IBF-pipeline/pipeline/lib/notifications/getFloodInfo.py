@@ -3,7 +3,7 @@ from lib.logging.logglySetup import logger
 from lib.setup.setupConnection  import get_db
 
 
-def getFloodInfo():
+def getFloodInfo(countryCode):
     con, cur, db = get_db()
 
     sqlString = '''
@@ -17,7 +17,7 @@ def getFloodInfo():
         left join "IBF-static-input"."CRA_data_2" t1 on
             t0.pcode = t1.pcode
         where
-            t0.country_code = 'UGA'
+            t0.country_code = \'''' + countryCode + '''\'
             and current_prev = 'Current'
             and fc_trigger = 1
         order by population_affected desc
