@@ -24,7 +24,11 @@ CURRENT_DATE = date.today()
 ######################
 
 # For now indicate 1 country. Ultimately we might want to loop over multiple included countries?
+<<<<<<< HEAD
 COUNTRY_CODE = 'UGA' #'ZMB'/'UGA'/'EGY'
+=======
+COUNTRY_CODE='EGY' #'ZMB'/'UGA'/ 'EGY'
+>>>>>>> c2078a815eef410dd8f3d045410bb299c1918a39
 
 SETTINGS = {
     "ZMB": {
@@ -114,6 +118,18 @@ SETTINGS = {
         },
         'EXPOSURE_DATA_SOURCES': {}
     },
+    "EGY": {
+        "trigger_levels": 'thresholds_returnperiods.csv',
+        'district_mapping': 'Glofas_station_per_district_uga.csv', ## Phuoc to modify this
+        'admin_boundaries': 'egy_admbnda_adm1_capmas_20170421.shp',
+        'trigger_colname': '5yr_threshold',
+        'CRA_filename': 'ZMB_CRA_Indicators', ## Phuoc to modify this
+        'lead_times': {
+            # "short": 3,
+            "medium": 5,
+            # "long": 7
+        }
+    }
 }
 COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
 
@@ -148,19 +164,27 @@ SCHEMA_NAME = 'IBF-pipeline-output'
 ###################
 ## PATH SETTINGS ##
 ###################
-GEOSERVER_DATA = '../geoserver/geodata/zambia/'
+# GEOSERVER_DATA = '../geoserver/geodata/zambia/'
+GEOSERVER_DATA = '/home/pphung/Rainfall-only-trigger/shapes/egy/' ## Phuoc's Egypt test
 GEOSERVER_INPUT = GEOSERVER_DATA + 'input/'
 GEOSERVER_OUTPUT = GEOSERVER_DATA + 'output/'
-PIPELINE_DATA = 'data/'
+# PIPELINE_DATA = 'data/'
+PIPELINE_DATA = '/home/pphung/Rainfall-only-trigger/'
 PIPELINE_INPUT = PIPELINE_DATA + 'input/'
 PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'
 PIPELINE_TEMP = PIPELINE_DATA + 'temp/'
 
 WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + COUNTRY_SETTINGS['trigger_levels']
 DISTRICT_MAPPING = PIPELINE_INPUT + COUNTRY_SETTINGS['district_mapping']
+<<<<<<< HEAD
 VECTOR_DISTRICT_DATA = PIPELINE_INPUT + COUNTRY_SETTINGS['flood_extent_admin_boundaries']
 EXPOSURE_BOUNDARY_DATA = PIPELINE_INPUT + COUNTRY_SETTINGS['exposure_admin_boundaries']
 ADMIN_BOUNDARIES = PIPELINE_INPUT + COUNTRY_SETTINGS['admin_boundaries']
+=======
+
+# VECTOR_DISTRICT_DATA = PIPELINE_DATA + 'input/vector/ZMB_adm2_mapshaper_new103_pcode.shp' ## Phuoc's Egypt test
+VECTOR_DISTRICT_DATA = GEOSERVER_INPUT + COUNTRY_SETTINGS['admin_boundaries']
+>>>>>>> c2078a815eef410dd8f3d045410bb299c1918a39
     
 
 #########################
@@ -175,7 +199,7 @@ GLOFAS_FILENAME = 'glofas_pointdata_ZambiaRedcross'
 GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 
 # CRA input
-CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename']
+CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename'] ## Phuoc's Egypt test
 
 ####################
 ## EMAIL SETTINGS ##
