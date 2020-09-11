@@ -173,26 +173,6 @@ class RainfallData:
 
         # Load (static) threshold values per station
 
-<<<<<<< HEAD
-        df_thresholds = pd.read_csv(WATERSTATIONS_TRIGGERS)  ### PHUOC TO CORRECT DIRS IN SETTINGS.PY FILE
-
-        ### COMPARE WITH THE THRESHOLD
-        grb_files = sorted([f for f in os.listdir(self.inputPath) if f.endswith('.grb2')])
-
-        ### COUNTRY SETTINGS
-        # country_code = 'egy'
-        adm_shp = gpd.read_file(ADMIN_BOUNDARIES)
-
-        west, south, east, north = self.bound_extent(adm_shp)
-
-        lats = slice(north, south)  # 32, 22
-        lons = slice(west, east)  # 24.5, 37
-
-        ### CREATE EMPTY VARIABLES FOR ANALYSIS
-        grb_by_day = xr.DataArray()
-        mean_by_day = xr.DataArray()
-
-=======
         df_thresholds = pd.read_csv(WATERSTATIONS_TRIGGERS) ### PHUOC TO CORRECT DIRS IN SETTINGS.PY FILE
         
         ### COMPARE WITH THE THRESHOLD
@@ -211,44 +191,11 @@ class RainfallData:
         grb_by_day = xr.DataArray()
         mean_by_day = xr.DataArray()
         
->>>>>>> c2078a815eef410dd8f3d045410bb299c1918a39
         ###  COMPARE THE THRESHOLD WITH AVERAGE OF ALL RUN CYCLES OF THE DAY (2 LEADTIMES X 1 AVG)
         for file in grb_files:
             file_dir = self.inputPath + file
             # grb = pygrib.open(file_dir)
             grb = xr.open_dataset(file_dir, engine='cfgrib')
-<<<<<<< HEAD
-            grb_clip = grb.sel(latitude=lats, longitude=lons)  # clip grb with country extent
-            runcycle = str(grb_clip.time.dt.year.values) + \
-                       '%02d' % grb_clip.time.dt.month.values +\
-                       '%02d' % grb_clip.time.dt.day.values +\
-                       '%02d' % grb_clip.time.dt.hour.values
-            # grb_clip.rolling(step=accum_duration, center=False).sum()
-            fc_dayrange = np.unique(pd.to_datetime(grb_clip.valid_time.values).date)
-            grb_24hrs = grb_clip.groupby(grb_clip.valid_time.dt.day).sum().drop(
-                labels=['time', 'surface'])  # sum rainfall by day
-
-            for fc_day in fc_dayrange:  # grb_24hrs.day.values:
-                # fc_day = np.datetime64(str(grb_clip.time.dt.year.values) +
-                # '-' + str(grb_clip.time.dt.month.values) + '-' + str(day))
-                # print(fc_day)
-                if len(grb_by_day.coords) == 0:
-                    grb_by_day = grb_24hrs.sel(day=fc_day.day).rename({'tp': 'tp_%s' % runcycle}).assign_coords(
-                        fc_day=fc_day).expand_dims('fc_day').drop(labels='day')
-                else:
-                    grb_by_day = xr.combine_by_coords([grb_by_day, grb_24hrs.sel(day=fc_day.day).rename(
-                        {'tp': 'tp_%s' % runcycle}).assign_coords(fc_day=fc_day).expand_dims('fc_day').drop(
-                        labels='day')])
-
-        mean_by_day = grb_by_day.to_array(dim='tp_mean_by_day').mean('tp_mean_by_day').rename('mean_by_day')
-        # sd_by_day = grb_by_day.to_array(dim='tp_sd_by_day').std('tp_sd_by_day')
-        # mean_by_day = xr.combine_by_coords([mean_by_day, sd_by_day])
-
-        # runcycle_day = str(grb_clip.time.dt.year.values) + '%02d'%grb_clip.time.dt.month.values + '%02d'%grb_clip.time.dt.day.values
-
-        # for leadtime in np.unique(df_thresholds.forecast_time.values):
-
-=======
             grb_clip = grb.sel(latitude=lats, longitude=lons) # clip grb with country extent
             runcycle = str(grb_clip.time.dt.year.values) + '%02d'%grb_clip.time.dt.month.values + '%02d'%grb_clip.time.dt.day.values + '%02d'%grb_clip.time.dt.hour.values
             # grb_clip.rolling(step=accum_duration, center=False).sum()
@@ -271,36 +218,10 @@ class RainfallData:
         
         # for leadtime in np.unique(df_thresholds.forecast_time.values):
             
->>>>>>> c2078a815eef410dd8f3d045410bb299c1918a39
         ## threshold (1 degree)
         df_leadtime = df_thresholds[df_thresholds.forecast_time == self.days]
         geometry = [Point(xy) for xy in zip(df_leadtime.lon.astype(float), df_leadtime.lat.astype(float))]
         threshold_gdf = gpd.GeoDataFrame(df_leadtime, geometry=geometry).set_crs("EPSG:4326")
-<<<<<<< HEAD
-
-        ## forecast (.5 degree)
-        fc_by_day = mean_by_day.sel(fc_day=mean_by_day.fc_day.values[self.days - 1]).to_dataframe().reset_index()
-        geometry = [Point(xy) for xy in zip(fc_by_day.longitude.astype(float), fc_by_day.latitude.astype(float))]
-        fc_gdf = gpd.GeoDataFrame(fc_by_day, geometry=geometry).set_crs("EPSG:4326")
-
-        ## spatial join forecast and threshold and check if a location has rainfall exceeding the threshold
-        compare_gdf = gpd.sjoin(fc_gdf, threshold_gdf, how='left', op='intersects')
-
-        # interpolate NaN cells
-        known = ~np.isnan(compare_gdf['forecast_time'])
-        unknown = ~known
-        z = griddata((compare_gdf['longitude'][known], compare_gdf['latitude'][known]),
-                     compare_gdf[TRIGGER_RP_COLNAME][known],
-                     (compare_gdf['longitude'][unknown], compare_gdf['latitude'][unknown]))
-        compare_gdf[TRIGGER_RP_COLNAME][unknown] = z.tolist()
-
-        compare_gdf[str(str(self.fcStep) + '_pred')] = np.where(
-            (compare_gdf['mean_by_day'] > compare_gdf[TRIGGER_RP_COLNAME]), 1, 0)
-        compare_gdf['fc_day'] = compare_gdf['fc_day'].astype(str)
-        df_trigger = compare_gdf.filter(['latitude', 'longitude', 'geometry', str(str(self.fcStep) + '_pred')])
-
-        out = df_trigger.to_json()
-=======
         
         ## forecast (.5 degree)
         fc_by_day = mean_by_day.sel(fc_day=mean_by_day.fc_day.values[self.days-1]).to_dataframe().reset_index()
@@ -321,22 +242,13 @@ class RainfallData:
         df_trigger = compare_gdf.filter(['latitude','longitude','geometry',str(str(self.fcStep)+'_pred')])
         
         out = df_trigger.to_json()            
->>>>>>> c2078a815eef410dd8f3d045410bb299c1918a39
         # output_name = '%s_%sday_'%(runcycle_day, self.fcStep) +TRIGGER_RP_COLNAME
         with open(self.triggersPerStationPath, 'w') as fp:
             fp.write(out)
             print('Processed Glofas data - File saved')
-<<<<<<< HEAD
-
-        # cube = make_geocube(vector_data=compare_gdf, measurements=[str(str(self.fcStep)+'_pred')], resolution=(0.5, -0.5), output_crs="EPSG:4326")
-        # cube.rio.to_raster(PIPELINE_OUTPUT + '/' + output_name + '.tif')
-        # compare_gdf.to_file(outpath + 'option2/' + output_name + '.shp')
-
-=======
         
         # cube = make_geocube(vector_data=compare_gdf, measurements=[str(str(self.fcStep)+'_pred')], resolution=(0.5, -0.5), output_crs="EPSG:4326")
         # cube.rio.to_raster(PIPELINE_OUTPUT + '/' + output_name + '.tif')
         # compare_gdf.to_file(outpath + 'option2/' + output_name + '.shp')
             
             
->>>>>>> c2078a815eef410dd8f3d045410bb299c1918a39

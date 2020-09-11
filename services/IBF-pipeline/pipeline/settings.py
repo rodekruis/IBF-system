@@ -24,11 +24,7 @@ CURRENT_DATE = date.today()
 ######################
 
 # For now indicate 1 country. Ultimately we might want to loop over multiple included countries?
-<<<<<<< HEAD
-COUNTRY_CODE = 'UGA' #'ZMB'/'UGA'/'EGY'
-=======
 COUNTRY_CODE='EGY' #'ZMB'/'UGA'/ 'EGY'
->>>>>>> c2078a815eef410dd8f3d045410bb299c1918a39
 
 SETTINGS = {
     "ZMB": {
