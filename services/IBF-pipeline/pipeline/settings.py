@@ -11,7 +11,7 @@ CALCULATE_EXPOSURE = True
 
 # Use dummy-data and/or overwrite real data
 GLOFAS_DUMMY = False
-RAINFALL_DUMMY = False
+RAINFALL_DUMMY = True
 OVERWRITE_DUMMY = True
 
 # Change this date only in case of testing
