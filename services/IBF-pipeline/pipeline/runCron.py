@@ -27,7 +27,7 @@ def main():
                 fc.floodExtent.callAllExposure()
             fc.db.upload()
         fc.db.processDynamicDataDb()
-        notify()
+        notify(COUNTRY_CODE)
 
     except Exception as e:
         # If a fatal exception occurs during the cronjob 

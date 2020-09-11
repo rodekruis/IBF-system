@@ -84,7 +84,7 @@ class FloodExtent:
 
     def loadVectorData(self):
 
-        admin_file = VECTOR_DISTRICT_DATA
+        admin_file = ADMIN_BOUNDARIES
         admin_gdf = gpd.GeoDataFrame()
         try:
             admin_gdf = gpd.GeoDataFrame.from_file(admin_file)
