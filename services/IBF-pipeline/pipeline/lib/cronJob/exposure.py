@@ -32,7 +32,7 @@ class Exposure:
                 dest.write(affectedImage)
 
         logger.info("Wrote to " + self.outputRaster)
-        adminBoundaries = EXPOSURE_BOUNDARY_DATA
+        adminBoundaries = ADMIN_BOUNDARIES
         # source = self.source[self.source.find('/')+1:]
         self.stats = self.calcStatsPerAdmin(adminBoundaries, self.indicator, shapesFlood)
 
