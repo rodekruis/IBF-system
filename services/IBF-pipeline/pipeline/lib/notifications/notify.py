@@ -18,13 +18,13 @@ def notify(countryCode):
         floodInfo = getFloodInfo(countryCode)
 
         if floodInfo["flood"] or EMAIL_WITHOUT_TRIGGER:
-            formattedInfo = formatInfo(floodInfo)
-            # the_client.sendNotification(formattedInfo)
-            msg = MIMEMultipart()
-            msg['Subject'] = formattedInfo['subject']
-            part = MIMEText(formattedInfo['html'], "html")
-            msg.attach(part)
-            sendMail(EMAIL_LIST_HARDCODE,msg.as_string())
+            formattedInfo = formatInfo(floodInfo, countryCode)
+            the_client.sendNotification(formattedInfo)
+            # msg = MIMEMultipart()
+            # msg['Subject'] = formattedInfo['subject']
+            # part = MIMEText(formattedInfo['html'], "html")
+            # msg.attach(part)
+            # sendMail(EMAIL_LIST_HARDCODE,msg.as_string())
 
     else:
         logger.info("Email notificatin are turned off")

@@ -2,9 +2,17 @@ import codecs
 from datetime import date
 
 
-def formatInfo(info):
+def formatInfo(info, countryCode):
 
     htmlToday = str(date.today())
+
+    if countryCode == 'UGA':
+        htmlLogo = 'https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/aca24765-1e55-44ce-b534-aa9e1b596a40.jpg'
+    elif countryCode == 'ZMB':
+        htmlLogo = 'https://mcusercontent.com/acdf2ad027e3073babce9067d/images/2d20901d-901d-4678-b32a-8facdb16bd82.png'
+    else:
+        htmlLogo = 'https://mcusercontent.com/acdf2ad027e3073babce9067d/images/2d20901d-901d-4678-b32a-8facdb16bd82.png'
+
     htmlLeadTime = ''
     # affectedPopString = ": Estimate of exposed population: "
     stringList = []
@@ -67,12 +75,14 @@ def formatInfo(info):
     htmlList7 += '</tbody></table>'
     if stringList == []:
         htmlList7 = ''
+
     
     file = codecs.open("lib/notifications/flood-trigger-notification.html", "r")
     theHtml = file.read()
 
     replacablePartToday = '(TODAY)'
     replacablePartLeadTime = '(LEAD-DATE)'
+    replacablePartLogo = '(IMG-LOGO)'
     replacablePart3day = '(TABLE-3-DAYS)'
     replacablePart7day = '(TABLE-7-DAYS)'
 
@@ -94,6 +104,7 @@ def formatInfo(info):
 
     newHtml = theHtml.replace(replacablePartToday, htmlToday) \
                     .replace(replacablePartLeadTime, htmlLeadTime) \
+                    .replace(replacablePartLogo, htmlLogo) \
                     .replace(replacablePart3day, htmlList3) \
                     .replace(replacablePart7day, htmlList7)
                     # .replace(replacablePartWhatsapp, htmlWhatsapp) \
