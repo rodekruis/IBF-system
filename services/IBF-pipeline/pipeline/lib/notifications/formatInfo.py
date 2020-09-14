@@ -14,13 +14,13 @@ def formatInfo(info, countryCode):
         linkWhatsApp = "https://web.whatsapp.com/"
     elif countryCode == "ZMB":
         logo = "https://mcusercontent.com/acdf2ad027e3073babce9067d/images/2d20901d-901d-4678-b32a-8facdb16bd82.png"
-        triggerStatement = ""
+        triggerStatement = "TBD"
         linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/overview"
         linkEAPSOP = "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#heading=h.gjdgxs"
         linkWhatsApp = "https://web.whatsapp.com/"
     else:
         logo = "https://mcusercontent.com/acdf2ad027e3073babce9067d/images/2d20901d-901d-4678-b32a-8facdb16bd82.png"
-        triggerStatement = ""
+        triggerStatement = "TBD"
         linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/overview"
         linkEAPSOP = "https://google.com/"
         linkWhatsApp = "https://web.whatsapp.com/"
