@@ -10,6 +10,7 @@
     "start:watch": "nodemon",
     "prestart:prod": "tsc",
     "start:prod": "node dist/main.js",
+    "seed": "npx ts-node src/scripts seed-init",
     "test": "jest --config=jest.json",
     "test:watch": "npm test -- --watchAll",
     "test:coverage": "npm test -- --coverage --coverageDirectory=coverage",
