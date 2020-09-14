@@ -32,11 +32,12 @@ def formatInfo(info, countryCode):
             <strong>Forecast 3 days from today:</strong> \
         </div> \
         <table class="notification-alerts-table"> \
+            <caption class="notification-alerts-table-caption">The following table lists all the exposed districts in order of exposed population,</caption> \
             <thead> \
                 <tr> \
-                    <th>District</th> \
-                    <th>Potentially Exposed Population</th> \
-                    <th>Alert Level</th> \
+                    <th align="left">District</th> \
+                    <th align="center">Potentially Exposed Population</th> \
+                    <th align="center">Alert Level</th> \
                 </tr> \
             </thead> \
             <tbody>'
@@ -48,11 +49,11 @@ def formatInfo(info, countryCode):
             stringDistrict = districtInfo[0]
             stringList.append(stringDistrict)
             table3Day += (
-                "<tr><td>"
+                "<tr><td align='left'>"
                 + districtInfo[0]
-                + "</td><td>"
+                + "</td><td align='center'>"
                 + affectedPopStr
-                + "</td><td>"
+                + "</td><td align='center'>"
                 + districtInfo[3]
                 + "</td></tr>"
             )
@@ -72,11 +73,12 @@ def formatInfo(info, countryCode):
             <strong>Forecast 7 days from today:</strong> \
         </div> \
         <table class="notification-alerts-table"> \
+            <caption class="notification-alerts-table-caption">The following table lists all the exposed districts in order of exposed population,</caption> \
             <thead> \
                 <tr> \
-                    <th>District</th> \
-                    <th>Potentially Exposed Population</th> \
-                    <th>Alert Level</th> \
+                    <th align="left">District</th> \
+                    <th align="center">Potentially Exposed Population</th> \
+                    <th align="center">Alert Level</th> \
                 </tr> \
             </thead> \
             <tbody>'
@@ -91,11 +93,11 @@ def formatInfo(info, countryCode):
             stringDistrict = districtInfo[0]
             stringList.append(stringDistrict)
             table7Day += (
-                "<tr><td>"
+                "<tr><td align='left'>"
                 + districtInfo[0]
-                + "</td><td>"
+                + "</td><td align='center'>"
                 + affectedPopStr
-                + "</td><td>"
+                + "</td><td align='center'>"
                 + districtInfo[3]
                 + "</td></tr>"
             )
