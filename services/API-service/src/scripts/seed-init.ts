@@ -4,6 +4,7 @@ import { Connection } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { USERCONFIG } from '../secrets';
 import crypto from 'crypto';
+import { EapActionEntity } from '../eap-actions/eap-action.entity';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -22,6 +23,32 @@ export class SeedInit implements InterfaceScript {
         password: crypto
           .createHmac('sha256', USERCONFIG.password)
           .digest('hex'),
+      },
+    ]);
+
+    // ***** CREATE EAP ACTIONS *****
+
+    const eapActionRepository = this.connection.getRepository(EapActionEntity);
+    await eapActionRepository.save([
+      {
+        countryCode: 'UGA',
+        action: 'act1',
+        label: 'Action 1',
+      },
+      {
+        countryCode: 'UGA',
+        action: 'act2',
+        label: 'Action 2',
+      },
+      {
+        countryCode: 'ZMB',
+        action: 'act1',
+        label: 'Action 1',
+      },
+      {
+        countryCode: 'ZMB',
+        action: 'act2',
+        label: 'Action 2',
       },
     ]);
   }

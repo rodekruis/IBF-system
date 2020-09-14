@@ -5,10 +5,10 @@ module.exports = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  schema: 'IBF-pipeline-output',
+  schema: 'IBF-API-test',
   entities: ['src/**/**.entity{.ts,.js}'],
   dropSchema: false,
-  synchronize: false,
+  synchronize: true,
   logging: ['query'],
   logger: 'file',
 };
