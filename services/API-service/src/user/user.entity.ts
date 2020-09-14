@@ -3,7 +3,9 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BeforeInsert,
+  OneToMany,
 } from 'typeorm';
+import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 const crypto = require('crypto');
 
 @Entity('user')
@@ -22,4 +24,6 @@ export class UserEntity {
     this.password = crypto.createHmac('sha256', this.password).digest('hex');
   }
 
+  @OneToMany(type => EapActionStatusEntity, action => action.user)
+  public actions: EapActionStatusEntity[];
 }

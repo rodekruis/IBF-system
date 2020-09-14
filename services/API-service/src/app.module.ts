@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { UserModule } from './user/user.module';
 import { DataModule } from './data/data.module';
 import { HealthModule } from './health.module';
+import { EapActionsModule } from './eap-actions/eap-actions.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { HealthModule } from './health.module';
     UserModule,
     DataModule,
     HealthModule,
+    EapActionsModule,
   ],
   controllers: [AppController],
   providers: [],
