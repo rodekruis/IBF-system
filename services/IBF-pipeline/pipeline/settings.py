@@ -34,8 +34,7 @@ SETTINGS = {
         },
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels.csv',
         'district_mapping': 'Glofas_station_per_district.csv',
-        'flood_extent_admin_boundaries': 'vector/ZMB_adm2_mapshaper_new103_pcode.shp',
-        'exposure_admin_boundaries': 'vector/ZMB_adm2_mapshaper_new103_pcode.shp', #ZMB_adm4_mapshaper_reproj
+        'admin_boundaries': 'vector/ZMB_adm2_mapshaper_new103_pcode.shp',
         'metadata': 'metadata_fbf_zambia.csv',
         'trigger_colname': '10yr_threshold',
         'CRA_filename': 'ZMB_CRA_Indicators',
@@ -81,8 +80,7 @@ SETTINGS = {
         },
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
         'district_mapping': 'Glofas_station_per_district_uga.csv',
-        'flood_extent_admin_boundaries': 'vector/UGA_adm2_mapshaper.shp',
-        'exposure_admin_boundaries': 'vector/UGA_adm2_mapshaper.shp',
+        'admin_boundaries': 'vector/UGA_adm2_mapshaper.shp',
         'metadata': 'uga_metadata.csv',
         'trigger_colname': '5yr_threshold',
         'CRA_filename': 'ZMB_CRA_Indicators',
@@ -158,8 +156,6 @@ PIPELINE_TEMP = PIPELINE_DATA + 'temp/'
 
 WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + COUNTRY_SETTINGS['trigger_levels']
 DISTRICT_MAPPING = PIPELINE_INPUT + COUNTRY_SETTINGS['district_mapping']
-VECTOR_DISTRICT_DATA = PIPELINE_INPUT + COUNTRY_SETTINGS['flood_extent_admin_boundaries']
-EXPOSURE_BOUNDARY_DATA = PIPELINE_INPUT + COUNTRY_SETTINGS['exposure_admin_boundaries']
 ADMIN_BOUNDARIES = PIPELINE_INPUT + COUNTRY_SETTINGS['admin_boundaries']
     
 
@@ -182,7 +178,7 @@ CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename']
 ####################
 
 # Notification email
-EMAIL_NOTIFICATION = False
+EMAIL_NOTIFICATION = True
 EMAIL_WITHOUT_TRIGGER = False
 
 # Notification email (only if hard-coded alternative for mailchimp is used)
