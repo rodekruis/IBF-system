@@ -11,7 +11,7 @@ CALCULATE_EXPOSURE = True
 
 # Use dummy-data and/or overwrite real data
 GLOFAS_DUMMY = False
-RAINFALL_DUMMY = True
+RAINFALL_DUMMY = False
 OVERWRITE_DUMMY = True
 
 # Change this date only in case of testing
@@ -109,6 +109,7 @@ SETTINGS = {
         'CRA_filename': '',
         'lead_times': {
             "short": 3,
+            "medium": 5,
             "long": 7
         },
         'EXPOSURE_DATA_SOURCES': {}
@@ -147,12 +148,12 @@ SCHEMA_NAME = 'IBF-pipeline-output'
 ###################
 ## PATH SETTINGS ##
 ###################
-# GEOSERVER_DATA = '../geoserver/geodata/zambia/'
-GEOSERVER_DATA = '/home/pphung/Rainfall-only-trigger/shapes/egy/' ## Phuoc's Egypt test
+GEOSERVER_DATA = '../geoserver/geodata/zambia/'
+# GEOSERVER_DATA = '/home/pphung/Rainfall-only-trigger/shapes/egy/' ## Phuoc's Egypt test
 GEOSERVER_INPUT = GEOSERVER_DATA + 'input/'
 GEOSERVER_OUTPUT = GEOSERVER_DATA + 'output/'
-# PIPELINE_DATA = 'data/'
-PIPELINE_DATA = '/home/pphung/Rainfall-only-trigger/'
+PIPELINE_DATA = 'data/'
+# PIPELINE_DATA = '/home/pphung/Rainfall-only-trigger/' ## Phuoc's Egypt test
 PIPELINE_INPUT = PIPELINE_DATA + 'input/'
 PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'
 PIPELINE_TEMP = PIPELINE_DATA + 'temp/'
@@ -176,7 +177,7 @@ GLOFAS_FILENAME = 'glofas_pointdata_ZambiaRedcross'
 GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 
 # CRA input
-CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename'] ## Phuoc's Egypt test
+CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename']
 
 ####################
 ## EMAIL SETTINGS ##

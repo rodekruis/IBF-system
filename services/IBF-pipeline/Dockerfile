@@ -1,5 +1,5 @@
 # docker build -t ubuntu1604py36
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 #FROM typhoon:latest
 
 RUN apt-get update
@@ -9,6 +9,19 @@ RUN apt-get install -y software-properties-common nano
 RUN apt-get install -y python3-pip
 RUN apt-get install -y git
 RUN apt-get install -y wget libxml2-utils
+
+RUN apt-get install -y libgnutls28-dev libspatialindex-dev libeccodes0 
+RUN apt-get install gfortran
+RUN wget ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz.v2.0.4 -O /tmp/wgrib2.tgz && \
+    mkdir -p /usr/local/grib2/ && \
+    cd /tmp/ && \
+    tar -xf /tmp/wgrib2.tgz && \
+    rm -r /tmp/wgrib2.tgz && \
+    mv /tmp/grib2/ /usr/bin/grib2/ && \
+    cd /usr/bin/grib2/grib2 && \
+    make && \
+    ln -s /usr/bin/grib2/grib2/wgrib2/wgrib2 /usr/bin/wgrib2 && \
+    apt-get -y autoremove build-essential
 
 RUN add-apt-repository ppa:ubuntugis/ppa
 RUN apt-get update
@@ -29,7 +42,7 @@ WORKDIR /home/ibf/pipeline/
 COPY pipeline/requirements.txt /home/ibf/pipeline/
 RUN pip install -r requirements.txt
 ADD pipeline /home/ibf/pipeline
-ADD geoserver /home/ibf/geoserver
+#ADD geoserver /home/ibf/geoserver # comment this line
 
 # set up cronjob
 # COPY pipeline/crontab /etc/cron.d/crontab
