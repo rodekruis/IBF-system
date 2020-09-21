@@ -1,6 +1,9 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
+import { AuthService } from 'src/app/auth/auth.service';
 import { LoginFormComponent } from './login-form.component';
 
 describe('LoginFormComponent', () => {
@@ -10,7 +13,13 @@ describe('LoginFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LoginFormComponent],
-      imports: [IonicModule.forRoot(), FormsModule],
+      imports: [
+        IonicModule.forRoot(),
+        FormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
+      providers: [{ provide: AuthService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginFormComponent);
