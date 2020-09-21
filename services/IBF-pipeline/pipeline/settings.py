@@ -10,7 +10,7 @@ CALCULATE_EXTENT = True
 CALCULATE_EXPOSURE = True
 
 # Use dummy-data and/or overwrite real data
-GLOFAS_DUMMY = True
+GLOFAS_DUMMY = False
 RAINFALL_DUMMY = False
 OVERWRITE_DUMMY = True
 

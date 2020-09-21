@@ -17,7 +17,7 @@ RUN wget ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz -O /tmp/wgrib2.tgz
     cd /tmp/ && \
     tar -xf /tmp/wgrib2.tgz && \
     rm -r /tmp/wgrib2.tgz && \
-    mv /tmp/grib2/ /usr/bin/grib2/ && \
+    cp -r /tmp/grib2/ /usr/bin/grib2/ && rm -R /tmp/grib2/ && \
     cd /usr/bin/grib2/grib2 && \
     export FC=gfortran && export CC=gcc \
     make && \
