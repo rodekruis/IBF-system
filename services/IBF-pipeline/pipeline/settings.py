@@ -10,7 +10,7 @@ CALCULATE_EXTENT = True
 CALCULATE_EXPOSURE = True
 
 # Use dummy-data and/or overwrite real data
-GLOFAS_DUMMY = False
+GLOFAS_DUMMY = True
 RAINFALL_DUMMY = False
 OVERWRITE_DUMMY = True
 
@@ -24,7 +24,7 @@ CURRENT_DATE = date.today()
 ######################
 
 # For now indicate 1 country. Ultimately we might want to loop over multiple included countries?
-COUNTRY_CODE='EGY' #'ZMB'/'UGA'/ 'EGY'
+COUNTRY_CODE='EGY' #'ZMB'/'UGA'/'EGY'
 
 SETTINGS = {
     "ZMB": {

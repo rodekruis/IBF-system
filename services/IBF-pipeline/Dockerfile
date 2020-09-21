@@ -11,14 +11,15 @@ RUN apt-get install -y git
 RUN apt-get install -y wget libxml2-utils
 
 RUN apt-get install -y libgnutls28-dev libspatialindex-dev libeccodes0 
-RUN apt-get install gfortran
-RUN wget ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz.v2.0.4 -O /tmp/wgrib2.tgz && \
-    mkdir -p /usr/local/grib2/ && \
+RUN apt-get install -y gfortran
+RUN wget ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib2/wgrib2.tgz -O /tmp/wgrib2.tgz && \
+    mkdir -p /usr/bin/grib2/ && \
     cd /tmp/ && \
     tar -xf /tmp/wgrib2.tgz && \
     rm -r /tmp/wgrib2.tgz && \
     mv /tmp/grib2/ /usr/bin/grib2/ && \
     cd /usr/bin/grib2/grib2 && \
+    export FC=gfortran && export CC=gcc \
     make && \
     ln -s /usr/bin/grib2/grib2/wgrib2/wgrib2 /usr/bin/wgrib2 && \
     apt-get -y autoremove build-essential
