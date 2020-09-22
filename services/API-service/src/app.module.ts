@@ -7,12 +7,7 @@ import { DataModule } from './data/data.module';
 import { HealthModule } from './health.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(),
-    UserModule,
-    DataModule,
-    HealthModule,
-  ],
+  imports: [TypeOrmModule.forRoot(), UserModule, DataModule, HealthModule],
   controllers: [AppController],
   providers: [],
 })

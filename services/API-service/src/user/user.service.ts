@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository, DeleteResult } from 'typeorm';
+import { Repository, getRepository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
 import { SECRET } from '../secrets';
@@ -9,43 +9,47 @@ import { validate } from 'class-validator';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { HttpStatus } from '@nestjs/common';
 import crypto from 'crypto';
-
-import jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 import { DeleteUserDto } from './dto/delete-user.dts';
 
 @Injectable()
 export class UserService {
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
+  private readonly relations: string[] = ['countries'];
 
   public constructor() {}
 
   public async findAll(): Promise<UserEntity[]> {
-    return await this.userRepository.find();
+    return await this.userRepository.find({
+      relations: this.relations,
+    });
   }
 
   public async findOne(loginUserDto: LoginUserDto): Promise<UserEntity> {
     const findOneOptions = {
-      username: loginUserDto.username,
+      email: loginUserDto.email,
       password: crypto
         .createHmac('sha256', loginUserDto.password)
         .digest('hex'),
     };
 
-    return await this.userRepository.findOne(findOneOptions);
+    return await this.userRepository.findOne(findOneOptions, {
+      relations: this.relations,
+    });
   }
 
   public async create(dto: CreateUserDto): Promise<UserRO> {
     // check uniqueness of username
-    const { username, password } = dto;
+    const { email, password } = dto;
     const qb = await getRepository(UserEntity)
       .createQueryBuilder('user')
-      .where('user.username = :username', { username });
+      .where('user.email = :email', { email });
 
     const user = await qb.getOne();
 
     if (user) {
-      const errors = { username: 'Username must be unique.' };
+      const errors = { email: 'Email must be unique.' };
       throw new HttpException(
         { message: 'Input data validation failed', errors },
         HttpStatus.BAD_REQUEST,
@@ -54,12 +58,12 @@ export class UserService {
 
     // create new user
     let newUser = new UserEntity();
-    newUser.username = username;
+    newUser.email = email;
     newUser.password = password;
 
     const errors = await validate(newUser);
     if (errors.length > 0) {
-      const _errors = { username: 'User input is not valid.' };
+      const _errors = { email: 'User input is not valid.' };
       throw new HttpException(
         { message: 'Input data validation failed', _errors },
         HttpStatus.BAD_REQUEST,
@@ -113,9 +117,29 @@ export class UserService {
   }
 
   public async findByUsername(username: string): Promise<UserRO> {
-    const user = await this.userRepository.findOne({ username: username });
+    const user = await this.userRepository.findOne(
+      { username: username },
+      {
+        relations: this.relations,
+      },
+    );
     if (!user) {
       const errors = { username: username + ' not found' };
+      console.log(errors);
+      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+    }
+    return this.buildUserRO(user);
+  }
+
+  public async findByEmail(email: string): Promise<UserRO> {
+    const user = await this.userRepository.findOne(
+      { email: email },
+      {
+        relations: this.relations,
+      },
+    );
+    if (!user) {
+      const errors = { email: email + ' not found' };
       console.log(errors);
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
@@ -130,7 +154,16 @@ export class UserService {
     const result = jwt.sign(
       {
         id: user.id,
+        email: user.email,
         username: user.username,
+        firstName: user.firstName,
+        middleName: user.middleName,
+        lastName: user.lastName,
+        role: user.role,
+        status: user.status,
+        countries: user.countries.map(
+          (countryEntity): string => countryEntity.countryCode,
+        ),
         exp: exp.getTime() / 1000,
       },
       SECRET,
@@ -142,7 +175,7 @@ export class UserService {
   private buildUserRO(user: UserEntity): UserRO {
     const userRO = {
       id: user.id,
-      username: user.username,
+      email: user.email,
       token: this.generateJWT(user),
     };
 
