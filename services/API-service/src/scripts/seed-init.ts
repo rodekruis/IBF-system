@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
-import { USERCONFIG } from '../secrets';
-import crypto from 'crypto';
+import { USERCONFIG, COUNTRYCONFIGS } from '../secrets';
+import { CountryEntity } from '../country/country.entity';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -13,17 +13,36 @@ export class SeedInit implements InterfaceScript {
     await this.connection.dropDatabase();
     await this.connection.synchronize(true);
 
+    // ***** CREATE COUNTRIES *****
+
+    const countryRepository = this.connection.getRepository(CountryEntity);
+    const countryEntities = COUNTRYCONFIGS.map(
+      (countryConfig): CountryEntity => {
+        let countryEntity = new CountryEntity();
+        countryEntity.countryCode = countryConfig.countryCode;
+        countryEntity.countryName = countryConfig.countryName;
+        countryEntity.status = countryConfig.status;
+        return countryEntity;
+      },
+    );
+
+    await countryRepository.save(countryEntities);
+
     // ***** CREATE ADMIN USER *****
 
     const userRepository = this.connection.getRepository(UserEntity);
-    await userRepository.save([
-      {
-        username: USERCONFIG.username,
-        password: crypto
-          .createHmac('sha256', USERCONFIG.password)
-          .digest('hex'),
-      },
-    ]);
+
+    let defaultUser = new UserEntity();
+    defaultUser.email = USERCONFIG.email;
+    defaultUser.username = USERCONFIG.username;
+    defaultUser.firstName = USERCONFIG.firstName;
+    defaultUser.lastName = USERCONFIG.lastName;
+    defaultUser.role = USERCONFIG.role;
+    defaultUser.countries = await countryRepository.find();
+    defaultUser.status = USERCONFIG.status;
+    defaultUser.password = USERCONFIG.password;
+
+    await userRepository.save(defaultUser);
   }
 }
 
