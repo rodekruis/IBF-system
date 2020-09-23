@@ -1,0 +1,45 @@
+ion-content {
+  --background: var(--ion-color-ibf-gray-light);
+}
+
+.ibf-welcome-card {
+  overflow: visible;
+  margin-left: 64px;
+  --background: var(--ion-color-ibf-royal-blue);
+
+  &,
+  ion-card-title {
+    --color: var(--ion-color-ibf-royal-blue-contrast);
+  }
+
+  ion-icon {
+    font-size: 48px;
+    color: var(--ion-color-ibf-royal-blue);
+    position: absolute;
+    left: -48px;
+  }
+}
+
+.ibf-login-card {
+  overflow: visible;
+  margin-right: 64px;
+
+  app-timestamp {
+    color: var(--ion-color-ibf-royal-blue);
+  }
+
+  ion-icon {
+    font-size: 34px;
+    color: var(--ion-color-ibf-royal-blue);
+    background: var(--ion-color-ibf-royal-blue-contrast);
+    border-radius: 50%;
+    padding: 6px;
+    position: absolute;
+    right: -48px;
+  }
+}
+
+app-timestamp {
+  height: 48px;
+  display: block;
+}
