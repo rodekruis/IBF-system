@@ -1,16 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>"Overview"</ion-title>
+    <ion-buttons slot="start">
+      <ion-button href="/" title="Home">
+        <ion-icon name="home" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button href="/overview" title="Overview">
+        <ion-icon name="apps" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Pages</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content class="ion-padding">
-  <h2>Sitemap:</h2>
+  <h2>Site map:</h2>
   <ul>
     <li><a href="/">/</a></li>
     <li>/<a href="/login">login</a> - ...</li>
     <li>/<a href="/overview">overview</a> - the main view users will use</li>
   </ul>
-  <h3>Development/testing only:</h3>
+  <h3>Only for development or testing:</h3>
   <ul>
     <li>/<a href="/home">home</a> - this page</li>
     <li>/<a href="/map">map</a> - Only the <code>MapComponent</code></li>
