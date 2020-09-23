@@ -10,6 +10,7 @@ import { MapComponent } from './components/map/map.component';
 import { MatrixComponent } from './components/matrix/matrix.component';
 import { SourceInfoModalComponent } from './components/source-info-modal/source-info-modal.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     ChatComponent,
     SourceInfoModalComponent,
     UserStateComponent,
+    TimestampComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -33,6 +35,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     ChatComponent,
     SourceInfoModalComponent,
     UserStateComponent,
+    TimestampComponent,
   ],
 })
 export class SharedModule {}
