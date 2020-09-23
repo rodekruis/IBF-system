@@ -76,19 +76,20 @@ export class AuthService {
   public async login(email, password) {
     return this.apiService.login(email, password).subscribe(
       (response) => {
-        const user = response.user;
-
-        this.authenticationState.next(user);
-
-        if (!user || !user.token) {
+        if (!response.user || !response.user.token) {
           return;
         }
+
+        this.jwtService.saveToken(response.user.token);
+
+        const user = this.getUserFromToken();
+
+        this.authenticationState.next(user);
 
         if (user.role === UserRole.Guest) {
           return;
         }
 
-        this.jwtService.saveToken(user.token);
         this.loggedIn = true;
         this.userRole = user.role;
 
