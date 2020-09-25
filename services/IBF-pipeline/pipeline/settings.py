@@ -147,24 +147,18 @@ SCHEMA_NAME = 'IBF-pipeline-output'
 ## PATH SETTINGS ##
 ###################
 GEOSERVER_DATA = '../geoserver/geodata/zambia/'
-# GEOSERVER_DATA = '/home/pphung/Rainfall-only-trigger/shapes/egy/' ## Phuoc's Egypt test
 GEOSERVER_INPUT = GEOSERVER_DATA + 'input/'
 GEOSERVER_OUTPUT = GEOSERVER_DATA + 'output/'
 PIPELINE_DATA = 'data/'
-# PIPELINE_DATA = '/home/pphung/Rainfall-only-trigger/' ## Phuoc's Egypt test
 PIPELINE_INPUT = PIPELINE_DATA + 'input/'
 PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'
 PIPELINE_TEMP = PIPELINE_DATA + 'temp/'
 
 WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + COUNTRY_SETTINGS['trigger_levels']
 DISTRICT_MAPPING = PIPELINE_INPUT + COUNTRY_SETTINGS['district_mapping']
-<<<<<<< HEAD
 VECTOR_DISTRICT_DATA = PIPELINE_INPUT + COUNTRY_SETTINGS['flood_extent_admin_boundaries']
 EXPOSURE_BOUNDARY_DATA = PIPELINE_INPUT + COUNTRY_SETTINGS['exposure_admin_boundaries']
 # ADMIN_BOUNDARIES = PIPELINE_INPUT + COUNTRY_SETTINGS['admin_boundaries']
-=======
-ADMIN_BOUNDARIES = PIPELINE_INPUT + COUNTRY_SETTINGS['admin_boundaries']
->>>>>>> upstream/master
     
 
 #########################
