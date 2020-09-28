@@ -1,22 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { Country } from 'src/app/models/country.model';
+import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
+import { TimelineService } from 'src/app/services/timeline.service';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
+import { IbfLayerWMS } from 'src/app/types/ibf-layer-wms';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
-import { IbfLayerWMS } from '../types/ibf-layer-wms';
-import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MapService {
+export class MapService implements OnDestroy {
   private layerSubject = new Subject<IbfLayer>();
   private layers = [] as IbfLayer[];
+  private countrySubscription: Subscription;
+  private timelineSubscription: Subscription;
 
   public state = {
     bounds: [
@@ -29,7 +34,40 @@ export class MapService {
     defaultWeight: 1,
   };
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private countryService: CountryService,
+    private timelineService: TimelineService,
+    private apiService: ApiService,
+  ) {
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.loadAdminRegionLayer(country.countryCode);
+        this.loadFloodExtentLayer(country.countryCode);
+        this.loadPopulationGridLayer(country.countryCode);
+      });
+    this.timelineSubscription = this.timelineService
+      .getTimelineSubscription()
+      .subscribe((timeline: string) => {
+        this.loadStationLayer(
+          this.countryService.selectedCountry.countryCode,
+          timeline,
+        );
+        this.loadAdminRegionLayer(
+          this.countryService.selectedCountry.countryCode,
+          timeline,
+        );
+        this.loadFloodExtentLayer(
+          this.countryService.selectedCountry.countryCode,
+          timeline,
+        );
+      });
+  }
+
+  ngOnDestroy() {
+    this.countrySubscription.unsubscribe();
+    this.timelineSubscription.unsubscribe();
+  }
 
   public async loadStationLayer(
     countryCode: string = environment.defaultCountryCode,

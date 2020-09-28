@@ -5,6 +5,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { IonicModule } from '@ionic/angular';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { CountrySwitcherComponent } from './components/country-switcher/country-switcher.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MapComponent } from './components/map/map.component';
 import { MatrixComponent } from './components/matrix/matrix.component';
@@ -25,6 +26,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     SourceInfoModalComponent,
     UserStateComponent,
     TimestampComponent,
+    CountrySwitcherComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -36,6 +38,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     SourceInfoModalComponent,
     UserStateComponent,
     TimestampComponent,
+    CountrySwitcherComponent,
   ],
 })
 export class SharedModule {}

@@ -1,20 +1,38 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
+import { TimelineService } from 'src/app/services/timeline.service';
+import { Indicator } from 'src/app/types/indicator-group';
 import { environment } from 'src/environments/environment';
-import { Indicator } from '../types/indicator-group';
-import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AggregatesService {
+export class AggregatesService implements OnDestroy {
   private indicatorSubject = new Subject<Indicator[]>();
+  private timelineSubscription: Subscription;
   public indicators: Indicator[];
   private aggregates = {};
 
-  constructor(private apiService: ApiService) {
-    this.loadMetadata();
-    this.loadAggregateInformation();
+  constructor(
+    private countryService: CountryService,
+    private timelineService: TimelineService,
+    private apiService: ApiService,
+  ) {
+    this.timelineSubscription = this.timelineService
+      .getTimelineSubscription()
+      .subscribe((timeline: string) => {
+        this.loadMetadata(this.countryService.selectedCountry.countryCode);
+        this.loadAggregateInformation(
+          this.countryService.selectedCountry.countryCode,
+          timeline,
+        );
+      });
+  }
+
+  ngOnDestroy() {
+    this.timelineSubscription.unsubscribe();
   }
 
   loadMetadata(countryCode: string = environment.defaultCountryCode) {

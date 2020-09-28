@@ -21,6 +21,9 @@ export class AggregatesComponent {
     public mapService: MapService,
     public modalController: ModalController,
   ) {
+    this.aggregatesService.loadMetadata();
+    this.aggregatesService.loadAggregateInformation();
+
     this.groups = [IndicatorGroup.general, IndicatorGroup.vulnerability];
     this.indicatorSubscription = this.aggregatesService
       .getIndicators()
