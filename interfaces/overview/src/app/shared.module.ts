@@ -7,6 +7,7 @@ import { AggregatesComponent } from './components/aggregates/aggregates.componen
 import { ChatComponent } from './components/chat/chat.component';
 import { CountrySwitcherComponent } from './components/country-switcher/country-switcher.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { LogosComponent } from './components/logos/logos.component';
 import { MapComponent } from './components/map/map.component';
 import { MatrixComponent } from './components/matrix/matrix.component';
 import { SourceInfoModalComponent } from './components/source-info-modal/source-info-modal.component';
@@ -27,6 +28,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     UserStateComponent,
     TimestampComponent,
     CountrySwitcherComponent,
+    LogosComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -39,6 +41,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     UserStateComponent,
     TimestampComponent,
     CountrySwitcherComponent,
+    LogosComponent,
   ],
 })
 export class SharedModule {}
