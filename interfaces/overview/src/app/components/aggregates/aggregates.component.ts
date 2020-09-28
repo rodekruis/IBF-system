@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { SourceInfoModalComponent } from 'src/app/components/source-info-modal/source-info-modal.component';
@@ -13,7 +13,7 @@ import { Indicator, IndicatorGroup } from '../../types/indicator-group';
   templateUrl: './aggregates.component.html',
   styleUrls: ['./aggregates.component.scss'],
 })
-export class AggregatesComponent {
+export class AggregatesComponent implements OnDestroy {
   public indicators: Indicator[];
   public groups: IndicatorGroup[];
 
@@ -28,8 +28,13 @@ export class AggregatesComponent {
     public mapService: MapService,
     public modalController: ModalController,
   ) {
-    this.aggregatesService.loadMetadata();
-    this.aggregatesService.loadAggregateInformation();
+    if (
+      this.countryService.selectedCountry &&
+      this.timelineService.state.selectedTimeStepButtonValue
+    ) {
+      this.aggregatesService.loadMetadata();
+      this.aggregatesService.loadAggregateInformation();
+    }
 
     this.countrySubscription = this.countryService
       .getCountrySubscription()
