@@ -14,7 +14,7 @@ describe('OverviewPage', () => {
     TestBed.configureTestingModule({
       declarations: [OverviewPage],
       imports: [
-        IonicModule.forRoot(),
+        IonicModule,
         SharedModule,
         HttpClientTestingModule,
         RouterTestingModule,

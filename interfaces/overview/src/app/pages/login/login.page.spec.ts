@@ -13,7 +13,7 @@ describe('LoginPage', () => {
     TestBed.configureTestingModule({
       declarations: [LoginPage],
       imports: [
-        IonicModule.forRoot(),
+        IonicModule,
         SharedModule,
         HttpClientTestingModule,
         RouterTestingModule,

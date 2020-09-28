@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { CountrySwitcherComponent } from 'src/app/components/country-switcher/country-switcher.component';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { TimelineComponent } from './timeline.component';
 
@@ -10,8 +11,8 @@ describe('TimelineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TimelineComponent],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule],
+      declarations: [TimelineComponent, CountrySwitcherComponent],
+      imports: [IonicModule, HttpClientTestingModule],
       providers: [{ provide: TimelineService }],
     }).compileComponents();
 

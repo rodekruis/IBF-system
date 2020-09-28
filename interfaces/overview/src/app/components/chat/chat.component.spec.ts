@@ -9,7 +9,7 @@ describe('ChatComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ChatComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ChatComponent);
