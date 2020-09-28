@@ -1,43 +1,41 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
-import { AggregatesService } from 'src/app/services/aggregates.service';
 import { ApiService } from 'src/app/services/api.service';
-import { MapService } from 'src/app/services/map.service';
-import { environment } from 'src/environments/environment';
+import { CountryService } from 'src/app/services/country.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TimelineService {
+export class TimelineService implements OnDestroy {
   public state = {
-    countryCode: '',
     selectedTimeStepButtonValue: '7-day',
     today: moment(),
     dateFormat: 'DD/MM',
     timeStepButtons: [],
-    countries: [],
   };
+  private countrySubscription: Subscription;
+  private timelineSubject = new Subject<string>();
 
   constructor(
-    private mapService: MapService,
-    private aggregatesService: AggregatesService,
+    private countryService: CountryService,
     private apiService: ApiService,
   ) {
-    this.state.countries = [
-      {
-        code: 'UGA',
-        name: 'Uganda',
-        forecast: ['7-day'],
-      },
-      {
-        code: 'ZMB',
-        name: 'Zambia',
-        forecast: ['3-day', '7-day'],
-      },
-    ] as Country[];
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.loadTimeStepButtons();
+        this.handleTimeStepButtonClick(country.countryForecasts[0]);
+      });
+  }
 
-    this.selectCountry(environment.defaultCountryCode);
+  ngOnDestroy() {
+    this.countrySubscription.unsubscribe();
+  }
+
+  getTimelineSubscription(): Observable<string> {
+    return this.timelineSubject.asObservable();
   }
 
   private async loadTimeStepButtons() {
@@ -178,13 +176,7 @@ export class TimelineService {
   }
 
   filterTimeStepButtonsByCountryForecast(timeStepButtons) {
-    const selectedCountryIndex = this.state.countries.findIndex(
-      (country) => country.code === this.state.countryCode,
-    );
-
-    const selectedCountry = this.state.countries[selectedCountryIndex];
-
-    const countryForecastTimeStepButtonIndices = selectedCountry.forecast.map(
+    const countryForecastTimeStepButtonIndices = this.countryService.selectedCountry.countryForecasts.map(
       (forecastValue) =>
         timeStepButtons.findIndex(
           (timeStepButton) => timeStepButton.value === forecastValue,
@@ -202,61 +194,20 @@ export class TimelineService {
 
   public handleTimeStepButtonClick(timeStepButtonValue) {
     this.state.selectedTimeStepButtonValue = timeStepButtonValue;
-    this.mapService.loadStationLayer(
-      this.state.countryCode,
-      this.state.selectedTimeStepButtonValue,
-    );
-    this.mapService.loadAdminRegionLayer(
-      this.state.countryCode,
-      this.state.selectedTimeStepButtonValue,
-    );
-    this.mapService.loadFloodExtentLayer(
-      this.state.countryCode,
-      this.state.selectedTimeStepButtonValue,
-    );
-    this.aggregatesService.loadMetadata(this.state.countryCode);
-    this.aggregatesService.loadAggregateInformation(
-      this.state.countryCode,
-      this.state.selectedTimeStepButtonValue,
-    );
-  }
-
-  public handleCountryChange($event) {
-    this.selectCountry($event.detail.value);
-  }
-
-  public selectCountry(countryCode) {
-    this.state.countryCode = countryCode;
-
-    const countryIndex = this.state.countries.findIndex(
-      (country) => country.code === countryCode,
-    );
-    const countryForecasts =
-      countryIndex >= 0 ? this.state.countries[countryIndex].forecast : [];
-
-    this.mapService.loadAdminRegionLayer(countryCode);
-    this.mapService.loadFloodExtentLayer(countryCode);
-    this.mapService.loadPopulationGridLayer(countryCode);
-    this.loadTimeStepButtons();
-    this.handleTimeStepButtonClick(countryForecasts[0]);
   }
 
   private async getForecast(leadTime): Promise<any> {
     return await new Promise((resolve) => {
-      const countryIndex = this.state.countries.findIndex(
-        (country) => country.code === this.state.countryCode,
+      resolve(
+        this.countryService.selectedCountry.countryForecasts.indexOf(leadTime) <
+          0,
       );
-
-      const countryForecasts =
-        countryIndex >= 0 ? this.state.countries[countryIndex].forecast : [];
-
-      resolve(countryForecasts.indexOf(leadTime) < 0);
     });
   }
 
   private async getTrigger(leadTime): Promise<any> {
     const trigger = await this.apiService.getTriggerPerLeadtime(
-      this.state.countryCode,
+      this.countryService.selectedCountry.countryCode,
       leadTime,
     );
     return trigger === 1;
