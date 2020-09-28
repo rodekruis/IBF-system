@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 import { CountryService } from 'src/app/services/country.service';
 import { environment } from 'src/environments/environment';
 
@@ -8,8 +9,14 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./country-switcher.component.scss'],
 })
 export class CountrySwitcherComponent {
-  constructor(public countryService: CountryService) {
+  constructor(
+    public countryService: CountryService,
+    private authService: AuthService,
+  ) {
     this.countryService.selectCountry(environment.defaultCountryCode);
+    this.authService.authenticationState$.subscribe(
+      this.countryService.filterCountriesForUser,
+    );
   }
 
   public handleCountryChange($event) {
