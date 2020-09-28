@@ -1,4 +1,7 @@
-<ion-item class="ibf-country-select ion-float-end">
+<ion-item
+  *ngIf="countryService.countries.length > 1"
+  class="ibf-country-select ion-float-end"
+>
   <ion-label>Country</ion-label>
   <ion-select
     placeholder="Select Country"
