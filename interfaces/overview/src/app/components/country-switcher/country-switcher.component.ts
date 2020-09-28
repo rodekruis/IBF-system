@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./country-switcher.component.scss'],
 })
 export class CountrySwitcherComponent {
-  constructor(private countryService: CountryService) {
+  constructor(public countryService: CountryService) {
     this.countryService.selectCountry(environment.defaultCountryCode);
   }
 
