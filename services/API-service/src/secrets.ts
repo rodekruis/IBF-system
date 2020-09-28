@@ -4,15 +4,58 @@ import { UserStatus } from './user/user-status.enum';
 
 export const SECRET = process.env.SECRET;
 
-export const USERCONFIG = {
-  email: 'dunant@redcross.nl',
-  username: 'dunant',
-  firstName: 'Henry',
-  lastName: 'Dunant',
-  role: UserRole.Admin,
-  password: 'password',
-  status: UserStatus.Active,
-};
+export const USERCONFIGS = [
+  {
+    email: 'dunant@redcross.nl',
+    username: 'dunant',
+    firstName: 'Henry',
+    lastName: 'Dunant',
+    role: UserRole.Admin,
+    password: 'password',
+    status: UserStatus.Active,
+    countries: ['UGA', 'ZMB'],
+  },
+  {
+    email: 'uganda@redcross.nl',
+    username: 'uganda',
+    firstName: 'Uganda',
+    lastName: 'Manager',
+    role: UserRole.DisasterManager,
+    password: 'password',
+    status: UserStatus.Active,
+    countries: ['UGA'],
+  },
+  {
+    email: 'zambia@redcross.nl',
+    username: 'zambia',
+    firstName: 'Zambia',
+    lastName: 'Manager',
+    role: UserRole.DisasterManager,
+    password: 'password',
+    status: UserStatus.Active,
+    countries: ['ZMB'],
+  },
+  {
+    email: 'kenya@redcross.nl',
+    username: 'kenya',
+    firstName: 'Kenya',
+    lastName: 'Manager',
+    role: UserRole.DisasterManager,
+    password: 'password',
+    status: UserStatus.Active,
+    countries: ['KEN'],
+  },
+  {
+    email: 'egypt@redcross.nl',
+    username: 'egypt',
+    firstName: 'Egypt',
+    lastName: 'Manager',
+    role: UserRole.DisasterManager,
+    password: 'password',
+    status: UserStatus.Active,
+    countries: ['EGY'],
+  },
+];
 
 export const COUNTRYCONFIGS = [
   {
@@ -22,7 +65,7 @@ export const COUNTRYCONFIGS = [
   },
   {
     countryCode: 'ZMB',
-    countryName: 'Zimbabwe',
+    countryName: 'Zambia',
     status: CountryStatus.Active,
   },
   {

@@ -12,9 +12,6 @@ export const environment = {
   useMockData: false,
   useServiceWorker: false,
 
-  // Configuration/initial data:
-  defaultCountryCode: 'UGA',
-
   // Geoserver
   geoserver_url:
     'http://ibf-system.westeurope.cloudapp.azure.com/geoserver/ibf-system/wms',

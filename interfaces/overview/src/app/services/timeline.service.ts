@@ -1,44 +1,31 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { Country } from 'src/app/models/country.model';
+import { Observable, Subject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TimelineService implements OnDestroy {
+export class TimelineService {
   public state = {
     selectedTimeStepButtonValue: '7-day',
     today: moment(),
     dateFormat: 'DD/MM',
     timeStepButtons: [],
   };
-  private countrySubscription: Subscription;
   private timelineSubject = new Subject<string>();
 
   constructor(
     private countryService: CountryService,
     private apiService: ApiService,
-  ) {
-    this.countrySubscription = this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.loadTimeStepButtons();
-        this.handleTimeStepButtonClick(country.countryForecasts[0]);
-      });
-  }
-
-  ngOnDestroy() {
-    this.countrySubscription.unsubscribe();
-  }
+  ) {}
 
   getTimelineSubscription(): Observable<string> {
     return this.timelineSubject.asObservable();
   }
 
-  private async loadTimeStepButtons() {
+  public async loadTimeStepButtons() {
     this.state.timeStepButtons = this.filterTimeStepButtonsByCountryForecast([
       {
         dateString: this.state.today.format(this.state.dateFormat),
@@ -194,6 +181,7 @@ export class TimelineService implements OnDestroy {
 
   public handleTimeStepButtonClick(timeStepButtonValue) {
     this.state.selectedTimeStepButtonValue = timeStepButtonValue;
+    this.timelineSubject.next(this.state.selectedTimeStepButtonValue);
   }
 
   private async getForecast(leadTime): Promise<any> {

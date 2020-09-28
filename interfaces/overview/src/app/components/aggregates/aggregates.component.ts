@@ -3,7 +3,9 @@ import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { SourceInfoModalComponent } from 'src/app/components/source-info-modal/source-info-modal.component';
 import { AggregatesService } from 'src/app/services/aggregates.service';
+import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
+import { TimelineService } from 'src/app/services/timeline.service';
 import { Indicator, IndicatorGroup } from '../../types/indicator-group';
 
 @Component({
@@ -13,16 +15,35 @@ import { Indicator, IndicatorGroup } from '../../types/indicator-group';
 })
 export class AggregatesComponent {
   public indicators: Indicator[];
-  private indicatorSubscription: Subscription;
   public groups: IndicatorGroup[];
 
+  private indicatorSubscription: Subscription;
+  private countrySubscription: Subscription;
+  private timelineSubscription: Subscription;
+
   constructor(
+    private countryService: CountryService,
+    private timelineService: TimelineService,
     public aggregatesService: AggregatesService,
     public mapService: MapService,
     public modalController: ModalController,
   ) {
     this.aggregatesService.loadMetadata();
     this.aggregatesService.loadAggregateInformation();
+
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe((country) => {
+        this.aggregatesService.loadMetadata();
+        this.aggregatesService.loadAggregateInformation();
+      });
+
+    this.timelineSubscription = this.timelineService
+      .getTimelineSubscription()
+      .subscribe((timeline) => {
+        this.aggregatesService.loadMetadata();
+        this.aggregatesService.loadAggregateInformation();
+      });
 
     this.groups = [IndicatorGroup.general, IndicatorGroup.vulnerability];
     this.indicatorSubscription = this.aggregatesService
@@ -37,6 +58,8 @@ export class AggregatesComponent {
 
   ngOnDestroy() {
     this.indicatorSubscription.unsubscribe();
+    this.timelineSubscription.unsubscribe();
+    this.countrySubscription.unsubscribe();
   }
 
   public changeIndicator(indicator) {

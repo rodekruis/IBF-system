@@ -1,58 +1,45 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { Indicator } from 'src/app/types/indicator-group';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AggregatesService implements OnDestroy {
+export class AggregatesService {
   private indicatorSubject = new Subject<Indicator[]>();
-  private timelineSubscription: Subscription;
   public indicators: Indicator[];
   private aggregates = {};
+  public defaultAdminLevel = 2;
 
   constructor(
     private countryService: CountryService,
     private timelineService: TimelineService,
     private apiService: ApiService,
-  ) {
-    this.timelineSubscription = this.timelineService
-      .getTimelineSubscription()
-      .subscribe((timeline: string) => {
-        this.loadMetadata(this.countryService.selectedCountry.countryCode);
-        this.loadAggregateInformation(
-          this.countryService.selectedCountry.countryCode,
-          timeline,
-        );
+  ) {}
+
+  loadMetadata() {
+    this.apiService
+      .getMetadata(this.countryService.selectedCountry.countryCode)
+      .then((response) => {
+        this.indicatorSubject.next(response);
+        this.indicators = response;
       });
-  }
-
-  ngOnDestroy() {
-    this.timelineSubscription.unsubscribe();
-  }
-
-  loadMetadata(countryCode: string = environment.defaultCountryCode) {
-    this.apiService.getMetadata(countryCode).then((response) => {
-      this.indicatorSubject.next(response);
-      this.indicators = response;
-    });
   }
 
   getIndicators(): Observable<Indicator[]> {
     return this.indicatorSubject.asObservable();
   }
 
-  loadAggregateInformation(
-    countryCode: string = environment.defaultCountryCode,
-    leadTime: string = '7-day',
-    adminLevel: number = 2,
-  ) {
+  loadAggregateInformation() {
     this.apiService
-      .getMatrixAggregates(countryCode, leadTime, adminLevel)
+      .getMatrixAggregates(
+        this.countryService.selectedCountry.countryCode,
+        this.timelineService.state.selectedTimeStepButtonValue,
+        this.defaultAdminLevel,
+      )
       .then((response) => {
         if (response) {
           this.aggregates = response;

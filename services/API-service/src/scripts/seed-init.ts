@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
-import { USERCONFIG, COUNTRYCONFIGS } from '../secrets';
+import { USERCONFIGS, COUNTRYCONFIGS } from '../secrets';
 import { CountryEntity } from '../country/country.entity';
 
 @Injectable()
@@ -32,17 +32,28 @@ export class SeedInit implements InterfaceScript {
 
     const userRepository = this.connection.getRepository(UserEntity);
 
-    let defaultUser = new UserEntity();
-    defaultUser.email = USERCONFIG.email;
-    defaultUser.username = USERCONFIG.username;
-    defaultUser.firstName = USERCONFIG.firstName;
-    defaultUser.lastName = USERCONFIG.lastName;
-    defaultUser.role = USERCONFIG.role;
-    defaultUser.countries = await countryRepository.find();
-    defaultUser.status = USERCONFIG.status;
-    defaultUser.password = USERCONFIG.password;
+    const userEntities = await Promise.all(
+      USERCONFIGS.map(
+        async (userConfig): Promise<UserEntity> => {
+          let userEntity = new UserEntity();
+          userEntity.email = userConfig.email;
+          userEntity.username = userConfig.username;
+          userEntity.firstName = userConfig.firstName;
+          userEntity.lastName = userConfig.lastName;
+          userEntity.role = userConfig.role;
+          userEntity.countries = await countryRepository.find({
+            where: userConfig.countries.map((countryCode: string): object => {
+              return { countryCode: countryCode };
+            }),
+          });
+          userEntity.status = userConfig.status;
+          userEntity.password = userConfig.password;
+          return userEntity;
+        },
+      ),
+    );
 
-    await userRepository.save(defaultUser);
+    await userRepository.save(userEntities);
   }
 }
 
