@@ -75,6 +75,15 @@ function deploy() {
     log "Webhook service restarted: "
   }
 
+  function cleanup_docker() {
+    sudo docker image prune -f
+
+    log "Unused Docker images removed: "
+  }
+
+
+  
+
 
   #
   # Actual deployment:
@@ -86,6 +95,8 @@ function deploy() {
   migrate_database
 
   restart_webhook_service
+
+  cleanup_docker
 
   log "Done."
 }
