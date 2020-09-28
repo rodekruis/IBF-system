@@ -11,11 +11,7 @@ describe('UserStateComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UserStateComponent],
-      imports: [
-        IonicModule.forRoot(),
-        HttpClientTestingModule,
-        RouterTestingModule,
-      ],
+      imports: [IonicModule, HttpClientTestingModule, RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserStateComponent);

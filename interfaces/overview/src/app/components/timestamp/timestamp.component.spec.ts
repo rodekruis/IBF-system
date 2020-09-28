@@ -9,7 +9,7 @@ describe('TimestampComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TimestampComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TimestampComponent);
