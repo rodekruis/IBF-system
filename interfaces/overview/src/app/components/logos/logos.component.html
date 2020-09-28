@@ -1,0 +1,6 @@
+<ng-container *ngFor="let logo of logos">
+  <img
+    *ngIf="logo.countryCode === countryCode"
+    src="assets/logos/{{ logo.src }}"
+  />
+</ng-container>
