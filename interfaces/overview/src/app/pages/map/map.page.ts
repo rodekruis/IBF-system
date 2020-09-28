@@ -37,7 +37,6 @@ export class MapPage implements OnDestroy {
   }
 
   public async getStations() {
-    const leadTime = '7-day';
-    this.stations = await this.mapService.getStations(leadTime);
+    this.stations = await this.mapService.getStations();
   }
 }

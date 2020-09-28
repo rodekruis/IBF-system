@@ -44,6 +44,7 @@ export class CountryService {
       this.countries = this.countries.filter(
         (country) => user.countries.indexOf(country.countryCode) >= 0,
       );
+      this.selectCountry(this.countries[0].countryCode);
     }
   };
 }
