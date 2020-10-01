@@ -20,21 +20,7 @@
     }}"
     (click)="timelineService.handleTimeStepButtonClick(timeStepButton.value)"
   >
-    {{ timeStepButton.dateString }}<br />{{ timeStepButton.value }}</ion-button
-  >
-  <ion-item class="ibf-country-select ion-float-end">
-    <ion-label>Country</ion-label>
-    <ion-select
-      placeholder="Select Country"
-      interface="popover"
-      (ionChange)="timelineService.handleCountryChange($event)"
-      [value]="timelineService.state.countryCode"
-    >
-      <ion-select-option
-        *ngFor="let country of timelineService.state.countries"
-        value="{{ country.code }}"
-        >{{ country.name }}</ion-select-option
-      >
-    </ion-select>
-  </ion-item>
+    {{ timeStepButton.dateString }}<br />{{ timeStepButton.value }}
+  </ion-button>
+  <app-country-switcher></app-country-switcher>
 </div>

@@ -87,7 +87,7 @@ export class ApiService {
   /////////////////////////////////////////////////////////////////////////////
 
   login(email: string, password: string): Observable<any> {
-    console.log('ApiService : login()');
+    this.log('ApiService : login()');
 
     return this.post(
       environment.api_url,
