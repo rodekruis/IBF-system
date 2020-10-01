@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Indicator } from '../types/indicator-group';
-import { ApiService } from './api.service';
+import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
+import { TimelineService } from 'src/app/services/timeline.service';
+import { Indicator } from 'src/app/types/indicator-group';
 
 @Injectable({
   providedIn: 'root',
@@ -11,30 +12,34 @@ export class AggregatesService {
   private indicatorSubject = new Subject<Indicator[]>();
   public indicators: Indicator[];
   private aggregates = {};
+  public defaultAdminLevel = 2;
 
-  constructor(private apiService: ApiService) {
-    this.loadMetadata();
-    this.loadAggregateInformation();
-  }
+  constructor(
+    private countryService: CountryService,
+    private timelineService: TimelineService,
+    private apiService: ApiService,
+  ) {}
 
-  loadMetadata(countryCode: string = environment.defaultCountryCode) {
-    this.apiService.getMetadata(countryCode).then((response) => {
-      this.indicatorSubject.next(response);
-      this.indicators = response;
-    });
+  loadMetadata() {
+    this.apiService
+      .getMetadata(this.countryService.selectedCountry.countryCode)
+      .then((response) => {
+        this.indicatorSubject.next(response);
+        this.indicators = response;
+      });
   }
 
   getIndicators(): Observable<Indicator[]> {
     return this.indicatorSubject.asObservable();
   }
 
-  loadAggregateInformation(
-    countryCode: string = environment.defaultCountryCode,
-    leadTime: string = '7-day',
-    adminLevel: number = 2,
-  ) {
+  loadAggregateInformation() {
     this.apiService
-      .getMatrixAggregates(countryCode, leadTime, adminLevel)
+      .getMatrixAggregates(
+        this.countryService.selectedCountry.countryCode,
+        this.timelineService.state.selectedTimeStepButtonValue,
+        this.defaultAdminLevel,
+      )
       .then((response) => {
         if (response) {
           this.aggregates = response;

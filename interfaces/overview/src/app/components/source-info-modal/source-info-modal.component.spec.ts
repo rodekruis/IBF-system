@@ -15,7 +15,7 @@ describe('SourceInfoModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SourceInfoModalComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule],
       providers: [
         {
           provide: ModalController,

@@ -11,7 +11,7 @@ describe('AggregatesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AggregatesComponent],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule],
+      imports: [IonicModule, HttpClientTestingModule],
       providers: [{ provide: AggregatesService }],
     }).compileComponents();
 
