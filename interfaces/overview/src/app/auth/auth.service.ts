@@ -99,7 +99,7 @@ export class AuthService {
           return;
         }
 
-        this.router.navigate(['/home']);
+        this.router.navigate(['/overview']);
       },
       (error) => {
         console.error('AuthService error: ', error);
