@@ -75,6 +75,7 @@ export class MapComponent implements OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
+        this.mapService.loadStationLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
         this.mapService.loadPopulationGridLayer();
