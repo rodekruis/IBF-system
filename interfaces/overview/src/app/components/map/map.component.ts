@@ -78,6 +78,8 @@ export class MapComponent implements OnDestroy {
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
         this.mapService.loadPopulationGridLayer();
+        this.mapService.loadCroplandLayer();
+        this.mapService.loadGrasslandLayer();
       });
 
     this.timelineSubscription = this.timelineService
@@ -133,12 +135,8 @@ export class MapComponent implements OnDestroy {
       layer.leafletLayer = this.createAdminRegionsLayer(layer);
     }
 
-    if (layer.name === IbfLayerName.floodExtent) {
-      layer.leafletLayer = this.createFloodExtentLayer(layer.wms);
-    }
-
-    if (layer.name === IbfLayerName.populationGrid) {
-      layer.leafletLayer = this.createFloodExtentLayer(layer.wms);
+    if (layer.type === IbfLayerType.wms) {
+      layer.leafletLayer = this.createWmsLayer(layer.wms);
     }
 
     return layer;
@@ -181,7 +179,7 @@ export class MapComponent implements OnDestroy {
     });
   }
 
-  private createFloodExtentLayer(layerWMS: IbfLayerWMS): Layer {
+  private createWmsLayer(layerWMS: IbfLayerWMS): Layer {
     if (!layerWMS) {
       return;
     }
