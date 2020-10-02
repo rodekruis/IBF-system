@@ -7,7 +7,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { IbfLayer } from 'src/app/types/ibf-layer';
-import { IbfLayerName } from 'src/app/types/ibf-layer-name';
+import { IbfLayerLabel, IbfLayerName } from 'src/app/types/ibf-layer-name';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
 import { IbfLayerWMS } from 'src/app/types/ibf-layer-wms';
 import { environment } from 'src/environments/environment';
@@ -41,6 +41,7 @@ export class MapService {
   public async loadStationLayer() {
     this.addLayer({
       name: IbfLayerName.glofasStations,
+      label: IbfLayerLabel.glofasStations,
       type: IbfLayerType.point,
       active: true,
       data: await this.getStations(),
@@ -51,6 +52,7 @@ export class MapService {
   public async loadAdminRegionLayer() {
     this.addLayer({
       name: IbfLayerName.adminRegions,
+      label: IbfLayerLabel.adminRegions,
       type: IbfLayerType.shape,
       active: true,
       data: await this.getAdminRegions(),
@@ -66,6 +68,7 @@ export class MapService {
   ) {
     this.addLayer({
       name: IbfLayerName.adminRegions,
+      label: IbfLayerLabel.adminRegions,
       type: IbfLayerType.shape,
       active: true,
       data: await this.getAdminRegions(),
@@ -74,16 +77,24 @@ export class MapService {
     });
   }
 
-  public async loadFloodExtentLayer() {
+  private async loadWmsLayer(
+    layerName: IbfLayerName,
+    layerLabel: IbfLayerLabel,
+    active: boolean,
+    timestep?: string,
+  ) {
     this.addLayer({
-      name: IbfLayerName.floodExtent,
+      name: layerName,
+      label: layerLabel,
       type: IbfLayerType.wms,
-      active: true,
+      active: active,
       viewCenter: false,
       data: null,
       wms: {
         url: environment.geoserver_url,
-        name: `ibf-system:flood_extent_${this.timelineService.state.selectedTimeStepButtonValue}_${this.countryService.selectedCountry.countryCode}`,
+        name: `ibf-system:${layerName}_${timestep ? timestep + '_' : ''}${
+          this.countryService.selectedCountry.countryCode
+        }`,
         format: 'image/png',
         version: '1.1.0',
         attribution: '510 Global',
@@ -93,23 +104,25 @@ export class MapService {
     });
   }
 
+  public async loadFloodExtentLayer() {
+    this.loadWmsLayer(
+      IbfLayerName.floodExtent,
+      IbfLayerLabel.floodExtent,
+      true,
+      this.timelineService.state.selectedTimeStepButtonValue,
+    );
+  }
+
   public async loadPopulationGridLayer() {
-    this.addLayer({
-      name: IbfLayerName.populationGrid,
-      type: IbfLayerType.wms,
-      active: false,
-      viewCenter: false,
-      data: null,
-      wms: {
-        url: environment.geoserver_url,
-        name: `ibf-system:population_${this.countryService.selectedCountry.countryCode}`,
-        format: 'image/png',
-        version: '1.1.0',
-        attribution: '510 Global',
-        crs: CRS.EPSG4326,
-        transparent: true,
-      } as IbfLayerWMS,
-    });
+    this.loadWmsLayer(IbfLayerName.population, IbfLayerLabel.population, false);
+  }
+
+  public async loadCroplandLayer() {
+    this.loadWmsLayer(IbfLayerName.cropland, IbfLayerLabel.cropland, false);
+  }
+
+  public async loadGrasslandLayer() {
+    this.loadWmsLayer(IbfLayerName.grassland, IbfLayerLabel.grassland, false);
   }
 
   private addLayer(layer: IbfLayer) {
@@ -151,6 +164,7 @@ export class MapService {
     if (layerIndex >= 0) {
       this.addLayer({
         name: this.layers[layerIndex].name,
+        label: this.layers[layerIndex].label,
         type: this.layers[layerIndex].type,
         active: state,
         viewCenter: false,
