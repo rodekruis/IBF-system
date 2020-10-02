@@ -11,60 +11,53 @@ install.packages("c:/Users/BOttow/Downloads/velox_0.2.0.tar.gz", repos = NULL, t
 
 
 setwd('c:/Users/BOttow/Documents/IBF-system/trigger-model-development/drought/skill-assessment/DMP-VCI-Analysis/dmp_crop_yield_comparison')
+maize_dir <- "c:/Users/BOttow/OneDrive - Rode Kruis/Documenten/IBF/data/gdhy_v1.2_v1.3_20190128/maize"
+#dmp_dir <-
+lzh <- st_read("c:/Users/BOttow/OneDrive - Rode Kruis/Documenten/IBF/data/ZW_LHZ_2011/ZW_LHZ_2011.shp")
+calculateMax = FALSE
+# country extent
+#new_extent <- extent(33, 47, 3.5, 14.5) # Ethiopia
+new_extent <- extent(24, 34, -23, -15) # Zimbabwe
 
 # Because velox$extract() does not take extra arguments we have to write a custom mean no na function
 mean_no_na <- function(x) {
   mean(x, na.rm=T)
 }
-
-
-crs1 <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
-new_extent <- extent(33, 47, 3.5, 14.5)
-
-maiz_dir="C:/Users/ATeklesadik/OneDrive - Rode Kruis/Documents/documents/IBF-system/trigger-model-development/drought/skill-assessment/DMP-VCI-Analysis/dmp_vci_comparison/Iizumi_Toshichika/maize"
-setwd(maiz_dir)
-
-#raster_folders <- setdiff(list.dirs("DMP/", full.names=F), "")
-raster_fILES_maize <-list.files(path = "Iizumi_Toshichika/maize", pattern = '.nc', all.files = FALSE,
-                                full.names = FALSE, recursive = TRUE, include.dirs = FALSE)
-DMP_fILES <-list.files(path = "DMP/", pattern ="*.nc|*.tiff", all.files = FALSE,
-                       full.names = FALSE, recursive = TRUE, include.dirs = FALSE)
-DMP_files<-DMP_fILES[!str_detect(DMP_fILES,pattern="_QL_")]  #remove quality flag files
-
-Maiz_rasters_ <- stack(raster_fILES_maize)
-Maize_raster_ <- calc(Maiz_rasters_, fun = max)
-
-
-setwd('C:\\Users\\ATeklesadik\\OneDrive - Rode Kruis\\Documents\\documents\\IBF-system\\trigger-model-development\\drought\\skill-assessment\\DMP-VCI-Analysis\\dmp_vci_comparison')
-
-
-
 clip<-function(raster,shape) {
   raster_crop<-crop(raster,shape)## masking to basin box
   raster_bsn<-mask(raster_crop,shape) # to bsn boundary only
   return (raster_bsn)}
+crs1 <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
 
-Eth_LZH <- st_read("admin_shapes/ET_LHZ_2018/ET_LHZ_2018.shp")
+#raster_folders <- setdiff(list.dirs("DMP/", full.names=F), "")
+raster_files_maize <-list.files(path = maiz_dir, pattern = '.nc', all.files = FALSE,
+                                full.names = TRUE, recursive = TRUE, include.dirs = FALSE)
+DMP_fILES <-list.files(path = dmp_dir, pattern ="*.nc|*.tiff", all.files = FALSE,
+                       full.names = FALSE, recursive = TRUE, include.dirs = FALSE)
+DMP_files<-DMP_fILES[!str_detect(DMP_fILES,pattern="_QL_")]  #remove quality flag files
 
+if (calculateMax){
+  maize_rasters <- stack(raster_files_maize)
+  maize_rasters_max <- calc(maize_rasters, fun = max)
+}
 
 dmp_dfs <- list()
 yield_dfs<-list()
 
 #######################
-for (raster_file in raster_fILES_maize) {
+for (raster_file in raster_files_maize) {
   print(paste0("Calculating raster ", raster_file, " time ", Sys.time()))
-  filename <- paste0("Iizumi_Toshichika/maize/", raster_file)
-  raster_folder<-strsplit(strsplit(raster_file, "/")[[1]][1], "_")[[1]][2]
+  file <- strsplit(raster_file, "/")[[1]]
+  year <- substr(strsplit(file[length(file)], "_")[[1]][2],1,4)
 
-  MAIZE_raster <- raster(filename)
+  maize_raster <- raster(raster_file)
 
-  yield_velox <- velox(MAIZE_raster)
+  yield_velox <- velox(maize_raster)
 
-  yield_values <- yield_velox$extract(Eth_LZH, fun=mean_no_na)
-  raster_date <- str_sub(raster_folder, 1, 4)
-  yield_df <- tibble(pcode = Eth_LZH$LZCODE,    year = raster_date,    yield = yield_values)
-  write.csv(yield_df, paste0("results/yield_", raster_date, ".csv"), row.names=F)
-  yield_dfs[[raster_date]] <- yield_df
+  yield_values <- yield_velox$extract(lzh, fun=mean_no_na)
+  yield_df <- tibble(pcode = lzh$LZCODE,    year = year,    yield = yield_values)
+  write.csv(yield_df, paste0("results/yield_", year, ".csv"), row.names=F)
+  yield_dfs[[year]] <- yield_df
 }
 # Combining files
 all_yield <- bind_rows(yield_dfs)
@@ -103,7 +96,7 @@ dmpdfs_dfs<-list()
 #######################
 
 csv_fILES_maize <-list.files(path = "results", pattern = '.csv', all.files = FALSE,
-                                full.names = FALSE, recursive = TRUE, include.dirs = TRUE)
+                             full.names = FALSE, recursive = TRUE, include.dirs = TRUE)
 
 
 for (raster_file in csv_fILES_maize) {
