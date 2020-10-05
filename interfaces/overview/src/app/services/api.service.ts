@@ -107,6 +107,7 @@ export class ApiService {
     return this.get(
       environment.api_url,
       `stations/${countryCode}/${leadTime}`,
+      false,
     ).toPromise();
   }
 
@@ -117,6 +118,7 @@ export class ApiService {
     return this.get(
       environment.api_url,
       `triggers/${countryCode}/${leadTime}`,
+      false,
     ).toPromise();
   }
 
@@ -128,6 +130,7 @@ export class ApiService {
     return this.get(
       environment.api_url,
       `admin-area-data/${countryCode}/${adminLevel}/${leadTime}`,
+      false,
     ).toPromise();
   }
 
@@ -138,6 +141,7 @@ export class ApiService {
     return this.get(
       environment.api_url,
       `admin-static/${countryCode}/${adminLevel}`,
+      false,
     ).toPromise();
   }
 
@@ -149,10 +153,15 @@ export class ApiService {
     return this.get(
       environment.api_url,
       `matrix-aggregates/${countryCode}/${adminLevel}/${leadTime}`,
+      false,
     ).toPromise();
   }
 
   getMetadata(countryCode: string) {
-    return this.get(environment.api_url, `metadata/${countryCode}`).toPromise();
+    return this.get(
+      environment.api_url,
+      `metadata/${countryCode}`,
+      false,
+    ).toPromise();
   }
 }

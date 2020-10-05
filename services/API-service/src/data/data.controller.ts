@@ -1,10 +1,18 @@
-import { Get, Param, Controller } from '@nestjs/common';
+import { Get, Param, Controller, UseGuards } from '@nestjs/common';
 import { DataService } from './data.service';
 
-import { ApiUseTags, ApiOperation, ApiImplicitParam } from '@nestjs/swagger';
+import {
+  ApiUseTags,
+  ApiOperation,
+  ApiImplicitParam,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { User } from '../user/user.decorator';
 import { Station, GeoJson } from 'src/models/station.model';
+import { RolesGuard } from '../roles.guard';
 
+@ApiBearerAuth()
+@UseGuards(RolesGuard)
 @ApiUseTags('data')
 @Controller()
 export class DataController {
