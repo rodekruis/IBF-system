@@ -31,7 +31,7 @@ export class TimelineService {
         dateString: this.state.today.format(this.state.dateFormat),
         value: 'Today',
         alert: false,
-        disabled: await this.getForecast('Today'),
+        disabled: true,
       },
       {
         dateString: this.state.today
@@ -193,7 +193,7 @@ export class TimelineService {
     });
   }
 
-  private async getTrigger(leadTime): Promise<any> {
+  public async getTrigger(leadTime): Promise<any> {
     const trigger = await this.apiService.getTriggerPerLeadtime(
       this.countryService.selectedCountry.countryCode,
       leadTime,
