@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import mockCountry from 'src/app/mocks/country.mock';
 import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user.model';
 
@@ -8,7 +9,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class CountryService {
   private countrySubject = new Subject<Country>();
-  public selectedCountry: Country;
+  public selectedCountry: Country = mockCountry;
   public countries: Country[] = [];
 
   constructor() {
