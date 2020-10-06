@@ -7,7 +7,7 @@ library(lubridate)
 # Download velox from https://cran.r-project.org/src/contrib/Archive/velox/
 # Make sure you have and updated version of Rtools (https://cran.r-project.org/bin/windows/Rtools/) and R
 # pkgbuild::has_rtools() # helps to check if rtools is correctly installed
-install.packages("c:/Users/BOttow/Downloads/velox_0.2.0.tar.gz", repos = NULL, type="source")
+# install.packages("c:/Users/BOttow/Downloads/velox_0.2.0.tar.gz", repos = NULL, type="source")
 
 setwd('c:/Users/BOttow/Documents/IBF-system/trigger-model-development/drought/skill-assessment/DMP-VCI-Analysis/dmp_crop_yield_comparison')
 # Maize global dataset, downloaded from here: https://doi.pangaea.de/10.1594/PANGAEA.909132
@@ -66,26 +66,27 @@ write.csv(all_yield, "results/all_yield.csv", row.names=F)
 
 ##### EXTRACTING DMP
 dmp_dfs <- list()
+filename <- paste(dmp_dir, DMP_files[1], sep="/")
+dmp_raster <- raster(filename)
+dmp_raster_cropped <- crop(dmp_raster,new_extent)
+maize_resampled <- raster::resample(crop(maize_rasters_max, new_extent),
+                                     dmp_raster_cropped,  "bilinear")
+maize_resampled[maize_resampled > 0] <- 1 # this layer will be used to crop DMP data
+
 for (raster_file in DMP_files) {
   print(paste0("Calculating raster ", raster_file, " time ", Sys.time()))
   filename <- paste(dmp_dir, raster_file, sep="/")
   raster_folder <- strsplit(raster_file, "_")[[1]][4]
   dmp_raster <- raster(filename)
   dmp_raster_cropped <- crop(dmp_raster,new_extent)
-  Maize_raster.300 <- raster::resample(maize_rasters_max, dmp_raster_cropped,  "bilinear")
-  Maize_raster.300 <- crop(Maize_raster.300, new_extent)
-  Maize_raster.300[Maize_raster.300>0]<- 1 # this layer will be used to crop DMP data
-
-  dmp_raster <- mask(dmp_raster, Maize_raster.300)
+  dmp_raster <- mask(dmp_raster_cropped, maize_resampled)
   dmp_velox <- velox(dmp_raster)
-  dmp_values <- dmp_velox$extract(Eth_LZH, fun=mean_no_na)
+  dmp_values <- dmp_velox$extract(lhz, fun=mean_no_na)
   raster_date <- str_sub(raster_folder, 1, 8)
 
-  dmp_df <- tibble(pcode = Eth_LZH$LZCODE,  date = as_date(raster_date),  dmp = dmp_values)
-
+  dmp_df <- tibble(pcode = lhz$LZCODE,  date = as_date(raster_date),  dmp = dmp_values)
   write.csv(dmp_df, paste0("results/", raster_date, ".csv"), row.names=F)
   dmp_dfs[[raster_folder]] <- dmp_df
-
 }
 
 # Combining files
@@ -93,7 +94,7 @@ all_dmps <- bind_rows(dmp_dfs)
 write.csv(all_dmps, "results/all_dmp.csv", row.names=F)
 
 
-dmpdfs_dfs<-list()
+dmpdfs_dfs <- list()
 #######################
 
 csv_fILES_maize <-list.files(path = "results", pattern = '.csv', all.files = FALSE,
