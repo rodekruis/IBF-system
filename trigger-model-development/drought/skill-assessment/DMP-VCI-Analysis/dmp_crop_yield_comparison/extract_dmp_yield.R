@@ -15,7 +15,7 @@ maize_dir <- "c:/Users/BOttow/OneDrive - Rode Kruis/Documenten/IBF/data/gdhy_v1.
 # Copernicus Dry Matter Productivity dataset
 dmp_dir <- "c:/Users/BOttow/Documents/RK_drought_monitor-master/temp/dmp_v2_1km"
 lhz <- st_read("c:/Users/BOttow/OneDrive - Rode Kruis/Documenten/IBF/data/ZW_LHZ_2011/ZW_LHZ_2011.shp")
-calculateMax = FALSE
+calculateMax = TRUE
 # country extent
 #new_extent <- extent(33, 47, 3.5, 14.5) # Ethiopia
 new_extent <- extent(24, 34, -23, -15) # Zimbabwe
@@ -31,11 +31,11 @@ clip<-function(raster,shape) {
 crs1 <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
 
 #raster_folders <- setdiff(list.dirs("DMP/", full.names=F), "")
-raster_files_maize <- list.files(path = maiz_dir, pattern = '.nc', all.files = FALSE,
+raster_files_maize <- list.files(path = maize_dir, pattern = '.nc', all.files = FALSE,
                                 full.names = TRUE, recursive = TRUE, include.dirs = FALSE)
 DMP_files <- list.files(path = dmp_dir, pattern ="*.nc|*.tiff", all.files = FALSE,
                        full.names = FALSE, recursive = TRUE, include.dirs = FALSE)
-DMP_files <- DMP_files[!str_detect(DMP_fILES,pattern="_QL_")]  #remove quality flag files
+DMP_files <- DMP_files[!str_detect(DMP_files,pattern="_QL_")]  #remove quality flag files
 
 if (calculateMax){
   maize_rasters <- stack(raster_files_maize)
@@ -72,8 +72,8 @@ for (raster_file in DMP_files) {
   raster_folder <- strsplit(raster_file, "_")[[1]][4]
   dmp_raster <- raster(filename)
   dmp_raster_cropped <- crop(dmp_raster,new_extent)
-  Maize_raster.300 <- raster::resample(Maize_raster_,dmp_raster,  "bilinear")
-  Maize_raster.300<-crop(Maize_raster.300,new_extent)
+  Maize_raster.300 <- raster::resample(maize_rasters_max, dmp_raster_cropped,  "bilinear")
+  Maize_raster.300 <- crop(Maize_raster.300, new_extent)
   Maize_raster.300[Maize_raster.300>0]<- 1 # this layer will be used to crop DMP data
 
   dmp_raster <- mask(dmp_raster, Maize_raster.300)
