@@ -6,6 +6,7 @@ setwd('c:/Users/BOttow/Documents/IBF-system/trigger-model-development/drought/sk
 dmp <- read.csv('results/all_dmp.csv')
 yield <- read.csv('results/all_yield.csv')
 lhz <- st_read("c:/Users/BOttow/OneDrive - Rode Kruis/Documenten/IBF/data/ZW_LHZ_2011/ZW_LHZ_2011.shp")
+#filter on zwe15, 16, 21, 24
 
 lzh_pcodes <- tibble(pcode = as.character(lhz$LZCODE),
                        class= as.character(lhz$CLASS),
