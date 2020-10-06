@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { IonicModule } from '@ionic/angular';
+import { AboutBtnComponent } from './components/about-btn/about-btn.component';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CountrySwitcherComponent } from './components/country-switcher/country-switcher.component';
+import { DialogueTurnComponent } from './components/dialogue-turn/dialogue-turn.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LogosComponent } from './components/logos/logos.component';
 import { MapComponent } from './components/map/map.component';
@@ -29,6 +31,8 @@ import { UserStateComponent } from './components/user-state/user-state.component
     TimestampComponent,
     CountrySwitcherComponent,
     LogosComponent,
+    AboutBtnComponent,
+    DialogueTurnComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -42,6 +46,8 @@ import { UserStateComponent } from './components/user-state/user-state.component
     TimestampComponent,
     CountrySwitcherComponent,
     LogosComponent,
+    AboutBtnComponent,
+    DialogueTurnComponent,
   ],
 })
 export class SharedModule {}
