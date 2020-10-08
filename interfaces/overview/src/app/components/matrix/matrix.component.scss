@@ -1,8 +1,25 @@
 .ibf-map-layer-control {
   position: absolute;
   top: 0;
+  bottom: 0;
   right: 0;
-  z-index: 999;
-  background: white;
-  padding: 10px;
+  z-index: 500;
+  width: 150px;
+
+  ion-menu {
+    --width: 100%;
+    z-index: 501;
+
+    ion-item {
+      --padding-start: 0;
+    }
+  }
+
+  ion-menu-toggle {
+    cursor: pointer;
+
+    ion-toolbar {
+      --min-height: 42px;
+    }
+  }
 }
