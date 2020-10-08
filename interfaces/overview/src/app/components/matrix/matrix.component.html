@@ -1,17 +1,16 @@
-<app-aggregates></app-aggregates>
-<pre>
-Layers:
-</pre>
-<ng-container *ngFor="let layer of layers">
-  <label>
-    <input
-      type="checkbox"
-      [name]="layer.name"
-      [checked]="layer.active ? 'true' : null"
-      (change)="updateLayer(layer.name, $event.target.checked)"
-    />
-    &nbsp;
-    {{ layer.label }}: [{{ layer.type }}]
-  </label>
-  <br />
-</ng-container>
+<div class="ibf-map-layer-control">
+  <pre>Layers:</pre>
+  <ng-container *ngFor="let layer of layers">
+    <label>
+      <input
+        type="checkbox"
+        [name]="layer.name"
+        [checked]="layer.active ? 'true' : null"
+        (change)="updateLayer(layer.name, $event.target.checked)"
+      />
+      &nbsp;
+      {{ layer.label }}: [{{ layer.type }}]
+    </label>
+    <br />
+  </ng-container>
+</div>
