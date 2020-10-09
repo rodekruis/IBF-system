@@ -1,14 +1,17 @@
 import { IsEmail } from 'class-validator';
-import { CountryEntity } from '../country/country.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   BeforeInsert,
+  OneToMany,
   ManyToMany,
   JoinTable,
 } from 'typeorm';
 import crypto from 'crypto';
+
+import { CountryEntity } from '../country/country.entity';
+import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -51,4 +54,7 @@ export class UserEntity {
   public hashPassword(): void {
     this.password = crypto.createHmac('sha256', this.password).digest('hex');
   }
+
+  @OneToMany(type => EapActionStatusEntity, action => action.user)
+  public actions: EapActionStatusEntity[];
 }

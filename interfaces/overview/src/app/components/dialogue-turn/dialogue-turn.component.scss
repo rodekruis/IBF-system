@@ -42,7 +42,7 @@
 .dialogue-turn.is-other {
   .dialogue-turn--speech-arrow {
     left: var(--dialogue-turn--margin-around-card-horizontal);
-    border-right-color: var(--ion-color-primary);
+    border-right-color: var(--ion-color-ibf-salmon);
   }
 
   // Adjust for RTL: (Limited support: https://developer.mozilla.org/en-US/docs/Web/CSS/:dir#Browser_compatibility)
@@ -52,7 +52,7 @@
     border-right-color: transparent;
 
     right: var(--dialogue-turn--margin-around-card-horizontal);
-    border-left-color: var(--ion-color-primary);
+    border-left-color: var(--ion-color-ibf-salmon);
   }
 }
 

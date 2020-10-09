@@ -5,9 +5,16 @@ import { AppController } from './app.controller';
 import { UserModule } from './user/user.module';
 import { DataModule } from './data/data.module';
 import { HealthModule } from './health.module';
+import { EapActionsModule } from './eap-actions/eap-actions.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), UserModule, DataModule, HealthModule],
+  imports: [
+    TypeOrmModule.forRoot(),
+    UserModule,
+    DataModule,
+    HealthModule,
+    EapActionsModule,
+  ],
   controllers: [AppController],
   providers: [],
 })
