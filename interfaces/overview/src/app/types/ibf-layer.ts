@@ -7,6 +7,7 @@ export class IbfLayer {
   type: IbfLayerType;
   name: IbfLayerName;
   label: IbfLayerLabel;
+  description: string;
   active: boolean;
   viewCenter: boolean;
   defaultColorProperty?: string;
