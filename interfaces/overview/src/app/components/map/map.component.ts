@@ -13,8 +13,11 @@ import {
   tileLayer,
 } from 'leaflet';
 import { Subscription } from 'rxjs';
+import { Country } from 'src/app/models/country.model';
 import { Station } from 'src/app/models/station.model';
+import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
+import { TimelineService } from 'src/app/services/timeline.service';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
@@ -27,14 +30,17 @@ import { IbfLayerWMS } from 'src/app/types/ibf-layer-wms';
 })
 export class MapComponent implements OnDestroy {
   private map: Map;
-  private layerSubscription: Subscription;
   public layers: IbfLayer[] = [];
 
+  private layerSubscription: Subscription;
+  private countrySubscription: Subscription;
+  private timelineSubscription: Subscription;
+
   private osmTileLayer = tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
     {
       attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">Carto</a>',
     },
   );
 
@@ -61,7 +67,30 @@ export class MapComponent implements OnDestroy {
     overlays: {},
   };
 
-  constructor(public mapService: MapService) {
+  constructor(
+    private countryService: CountryService,
+    private timelineService: TimelineService,
+    public mapService: MapService,
+  ) {
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.mapService.loadStationLayer();
+        this.mapService.loadAdminRegionLayer();
+        this.mapService.loadFloodExtentLayer();
+        this.mapService.loadPopulationGridLayer();
+        this.mapService.loadCroplandLayer();
+        this.mapService.loadGrasslandLayer();
+      });
+
+    this.timelineSubscription = this.timelineService
+      .getTimelineSubscription()
+      .subscribe((timeline: string) => {
+        this.mapService.loadStationLayer();
+        this.mapService.loadAdminRegionLayer();
+        this.mapService.loadFloodExtentLayer();
+      });
+
     this.layerSubscription = this.mapService
       .getLayers()
       .subscribe((newLayer) => {
@@ -87,18 +116,15 @@ export class MapComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.layerSubscription.unsubscribe();
+    this.timelineSubscription.unsubscribe();
+    this.countrySubscription.unsubscribe();
   }
 
-  async onMapReady(map: Map) {
+  onMapReady(map: Map) {
     this.map = map;
 
     // Trigger a resize to fill the container-element:
     window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 200);
-
-    await this.mapService.loadAdminRegionLayer();
-    await this.mapService.loadStationLayer();
-    await this.mapService.loadFloodExtentLayer();
-    await this.mapService.loadPopulationGridLayer();
   }
 
   private createLayer(layer: IbfLayer): IbfLayer {
@@ -110,12 +136,8 @@ export class MapComponent implements OnDestroy {
       layer.leafletLayer = this.createAdminRegionsLayer(layer);
     }
 
-    if (layer.name === IbfLayerName.floodExtent) {
-      layer.leafletLayer = this.createFloodExtentLayer(layer.wms);
-    }
-
-    if (layer.name === IbfLayerName.populationGrid) {
-      layer.leafletLayer = this.createFloodExtentLayer(layer.wms);
+    if (layer.type === IbfLayerType.wms) {
+      layer.leafletLayer = this.createWmsLayer(layer.wms);
     }
 
     return layer;
@@ -158,7 +180,7 @@ export class MapComponent implements OnDestroy {
     });
   }
 
-  private createFloodExtentLayer(layerWMS: IbfLayerWMS): Layer {
+  private createWmsLayer(layerWMS: IbfLayerWMS): Layer {
     if (!layerWMS) {
       return;
     }

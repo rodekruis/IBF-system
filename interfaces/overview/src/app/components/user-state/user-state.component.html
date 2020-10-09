@@ -1,0 +1,20 @@
+<span class="ion-float-start">
+  <ion-title size="small">Logged In As:</ion-title>
+  <ion-title size="small">
+    <strong>{{ displayName }}</strong>
+  </ion-title>
+</span>
+
+<ion-button
+  class="ion-float-end"
+  type="button"
+  [title]="'Log Out'"
+  [attr.aria-label]="'Log Out'"
+  size="small"
+  fill="solid"
+  color="ibf-royal-blue"
+  (click)="doLogout()"
+>
+  <span class="ion-hide-sm-down">Log Out</span>
+  <ion-icon name="log-out" slot="end"></ion-icon>
+</ion-button>

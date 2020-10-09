@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -6,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
-  constructor() {}
+  @ViewChild('loginForm')
+  public loginForm: NgForm;
+
+  constructor(private authService: AuthService) {}
 
   public model = {
     email: '',
@@ -16,6 +21,8 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {}
 
   public onSubmit() {
-    console.log('do login!');
+    this.authService.login(this.model.email, this.model.password).then(() => {
+      this.loginForm.resetForm();
+    });
   }
 }

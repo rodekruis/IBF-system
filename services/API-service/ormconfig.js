@@ -5,7 +5,7 @@ module.exports = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  schema: 'IBF-API-test',
+  schema: 'IBF-app',
   entities: ['src/**/**.entity{.ts,.js}'],
   dropSchema: false,
   synchronize: true,

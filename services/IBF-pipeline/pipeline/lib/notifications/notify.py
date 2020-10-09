@@ -11,14 +11,14 @@ from settings import EMAIL_NOTIFICATION, EMAIL_WITHOUT_TRIGGER, EMAIL_LIST_HARDC
 from lib.sendMail.emailService import sendMail
 
 
-def notify():
+def notify(countryCode):
     if EMAIL_NOTIFICATION:
         the_client = EmailClient(MC_API, MC_USER)
 
-        floodInfo = getFloodInfo()
+        floodInfo = getFloodInfo(countryCode)
 
         if floodInfo["flood"] or EMAIL_WITHOUT_TRIGGER:
-            formattedInfo = formatInfo(floodInfo)
+            formattedInfo = formatInfo(floodInfo, countryCode)
             the_client.sendNotification(formattedInfo)
             # msg = MIMEMultipart()
             # msg['Subject'] = formattedInfo['subject']
