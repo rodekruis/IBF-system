@@ -60,7 +60,11 @@
         </ion-col>
       </ion-row>
       <ion-list class="background-light">
-        <ion-item *ngFor="let action of area.eapActions">
+        <ion-item
+          *ngFor="let action of area.eapActions"
+          style="--background: none;"
+          class="ion-no-padding"
+        >
           <ion-checkbox
             mode="ios"
             slot="start"

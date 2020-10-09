@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { TimelineService } from 'src/app/services/timeline.service';
@@ -29,7 +29,7 @@ export class ChatComponent implements OnDestroy {
     private countryService: CountryService,
     private timelineService: TimelineService,
     private eapActionsService: EapActionsService,
-    private apiService: ApiService,
+    private alertController: AlertController,
   ) {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
@@ -78,14 +78,25 @@ export class ChatComponent implements OnDestroy {
   public submitEapAction(pcode: string) {
     this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = true;
     this.changedActions.forEach(async (action) => {
-      await this.eapActionsService.checkEapAction(
-        action.action,
-        this.countryService.selectedCountry.countryCode,
-        action.checked,
-        action.pcode,
-      );
+      if (action.pcode === pcode) {
+        this.eapActionsService.checkEapAction(
+          action.action,
+          this.countryService.selectedCountry.countryCode,
+          action.checked,
+          action.pcode,
+        );
+      }
     });
-    // this.eapActionsService.loadDistrictsAndActions();
-    this.changedActions = [];
+    this.changedActions = this.changedActions.filter((i) => i.pcode !== pcode);
+    this.actionResult('EAP action(s) updated in database.');
+  }
+
+  private async actionResult(resultMessage: string) {
+    const alert = await this.alertController.create({
+      message: resultMessage,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
   }
 }
