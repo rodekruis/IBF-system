@@ -26,19 +26,27 @@
       </ion-header>
     </ion-menu-toggle>
     <ion-content>
-      <ion-list>
-        <ion-item *ngFor="let layer of layers">
-          <label>
-            <input
-              type="checkbox"
-              [name]="layer.name"
-              [checked]="layer.active ? 'true' : null"
-              (change)="updateLayer(layer.name, $event.target.checked)"
-            />
-            &nbsp;
-            {{ layer.label }}: [{{ layer.type }}]
-          </label>
-          <br />
+      <ion-list color="dark">
+        <ion-item
+          lines="full"
+          *ngFor="let layer of layers"
+          [class.layer-active]="layer.active"
+          (click)="updateLayer(layer.name, !layer.active)"
+        >
+          <ion-row>
+            <ion-col size="6" class="layer-control-label-col">
+              {{ layer.label }}
+            </ion-col>
+            <ion-col size="3" class="layer-control-icon-col"></ion-col>
+            <ion-col size="3" class="layer-control-info-col">
+              <ion-icon
+                name="information-circle"
+                size="large"
+                color="light"
+                class="layer-control-info-icon"
+              ></ion-icon>
+            </ion-col>
+          </ion-row>
         </ion-item>
       </ion-list>
     </ion-content>
