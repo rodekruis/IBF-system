@@ -1,17 +1,55 @@
-<app-aggregates></app-aggregates>
-<pre>
-Layers:
-</pre>
-<ng-container *ngFor="let layer of layers">
-  <label>
-    <input
-      type="checkbox"
-      [name]="layer.name"
-      [checked]="layer.active ? 'true' : null"
-      (change)="updateLayer(layer.name, $event.target.checked)"
-    />
-    &nbsp;
-    {{ layer.label }}: [{{ layer.type }}]
-  </label>
-  <br />
-</ng-container>
+<div class="ibf-map-layer-control">
+  <ion-menu-toggle menu="layer-control" id="layer-control-toggle">
+    <ion-header>
+      <ion-toolbar color="ibf-royal-blue">
+        <ion-buttons slot="end">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-buttons>
+        <ion-title>Layers</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </ion-menu-toggle>
+  <ion-menu
+    side="end"
+    type="push"
+    contentId="layer-control-toggle"
+    menuId="layer-control"
+  >
+    <ion-menu-toggle menu="layer-control">
+      <ion-header>
+        <ion-toolbar color="ibf-royal-blue">
+          <ion-buttons slot="end">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-buttons>
+          <ion-title>Layers</ion-title>
+        </ion-toolbar>
+      </ion-header>
+    </ion-menu-toggle>
+    <ion-content>
+      <ion-list color="dark">
+        <ion-item
+          lines="full"
+          *ngFor="let layer of layers"
+          [class.layer-active]="layer.active"
+          (click)="updateLayer(layer.name, !layer.active)"
+        >
+          <ion-row>
+            <ion-col size="6" class="layer-control-label-col">
+              {{ layer.label }}
+            </ion-col>
+            <ion-col size="3" class="layer-control-icon-col"></ion-col>
+            <ion-col size="3" class="layer-control-info-col">
+              <ion-icon
+                name="information-circle"
+                size="large"
+                color="light"
+                class="layer-control-info-icon"
+                (click)="presentPopover($event, layer)"
+              ></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+</div>
