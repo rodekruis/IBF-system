@@ -4,14 +4,60 @@
   bottom: 0;
   right: 0;
   z-index: 500;
-  width: 150px;
+  width: 200px;
 
   ion-menu {
     --width: 100%;
     z-index: 501;
+    --background: transparent;
 
-    ion-item {
-      --padding-start: 0;
+    ion-content {
+      --background: transparent;
+
+      ion-list {
+        background: var(--ion-color-dark-tint);
+        padding: 0;
+
+        ion-item {
+          --padding-start: 0;
+          --inner-padding-end: 0;
+          --background: var(--ion-color-dark-tint);
+          --color: var(--ion-color-light);
+          --border-color: var(--ion-color-light);
+          cursor: pointer;
+
+          &.layer-active {
+            --background: var(--ion-color-ibf-royal-blue);
+          }
+
+          ion-row {
+            height: 100%;
+
+            .layer-control-label-col,
+            .layer-control-icon-col,
+            .layer-control-info-col {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .layer-control-label-col {
+              border-right: 1px solid var(--ion-color-light);
+              width: 150px !important;
+              justify-content: start;
+            }
+
+            .layer-control-icon-col {
+              border-right: 1px solid var(--ion-color-light);
+            }
+
+            .layer-control-info-icon {
+              background: var(--ion-color-ibf-royal-blue);
+              border-radius: 5px;
+            }
+          }
+        }
+      }
     }
   }
 
