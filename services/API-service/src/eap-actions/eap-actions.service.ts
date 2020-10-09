@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionDto } from './dto/eap-action.dto';
@@ -15,7 +15,7 @@ export class EapActionsService {
   @InjectRepository(EapActionEntity)
   private readonly eapActionRepository: Repository<EapActionEntity>;
 
-  public constructor() {}
+  public constructor(private manager: EntityManager) {}
 
   public async checkAction(
     userId: number,
@@ -33,6 +33,8 @@ export class EapActionsService {
     }
 
     const action = new EapActionStatusEntity();
+    action.status = eapAction.status;
+    action.pcode = eapAction.pcode;
     action.actionChecked = actionId;
 
     // If no user, take default user for now
@@ -45,17 +47,38 @@ export class EapActionsService {
 
   public async getActionsWithStatus(
     countryCode: string,
+    pcode: string,
   ): Promise<EapActionEntity[]> {
-    const actions = this.eapActionRepository
-      .createQueryBuilder('action')
-      .leftJoinAndSelect('action.checked', 'status')
-      .where('action.countryCode = :countryCode', { countryCode })
-      .select([
-        'action.action as action',
-        'action.label as label',
-        'case when status."actionCheckedId" is null then 0 else 1 end as checked',
-      ])
-      .execute();
+    const query =
+      'select "areaOfFocus" as aof \
+        , "action" \
+        , "label" \
+        , \'' +
+      pcode +
+      '\' as pcode \
+        , case when eas."actionCheckedId" is null then false else eas.status end as checked \
+      from "IBF-app"."eap-action" ea \
+      left join( \
+        select t1.* \
+        from "IBF-app"."eap-action-status" t1 \
+	      left join( \
+          select "actionCheckedId",pcode \
+            , max(timestamp) as max_timestamp \
+          from "IBF-app"."eap-action-status" \
+          group by 1,2 \
+          ) t2 \
+        on t1."actionCheckedId" = t2."actionCheckedId" \
+        where timestamp = max_timestamp \
+      ) eas \
+      on ea.id = eas."actionCheckedId" \
+      and \'' +
+      pcode +
+      '\' = eas.pcode \
+      where "countryCode" = $1 \
+    ';
+
+    const actions: any[] = await this.manager.query(query, [countryCode]);
+
     return actions;
   }
 }

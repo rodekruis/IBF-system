@@ -12,7 +12,6 @@ export class AggregatesService {
   private indicatorSubject = new Subject<Indicator[]>();
   public indicators: Indicator[];
   private aggregates = {};
-  public defaultAdminLevel = 2;
 
   constructor(
     private countryService: CountryService,
@@ -38,7 +37,7 @@ export class AggregatesService {
       .getMatrixAggregates(
         this.countryService.selectedCountry.countryCode,
         this.timelineService.state.selectedTimeStepButtonValue,
-        this.defaultAdminLevel,
+        this.countryService.selectedCountry.defaultAdminLevel,
       )
       .then((response) => {
         if (response) {

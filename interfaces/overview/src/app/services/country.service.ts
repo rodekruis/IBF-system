@@ -16,11 +16,13 @@ export class CountryService {
     this.countries = [
       {
         countryCode: 'UGA',
+        defaultAdminLevel: 2,
         countryName: 'Uganda',
         countryForecasts: ['7-day'],
       },
       {
         countryCode: 'ZMB',
+        defaultAdminLevel: 2,
         countryName: 'Zambia',
         countryForecasts: ['3-day', '7-day'],
       },

@@ -6,6 +6,7 @@ import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionsController } from './eap-actions.controller';
 import { EapActionsService } from './eap-actions.service';
+import { DataService } from '../data/data.service';
 
 @Module({
   imports: [
@@ -18,6 +19,6 @@ import { EapActionsService } from './eap-actions.service';
     HttpModule,
   ],
   controllers: [EapActionsController],
-  providers: [EapActionsService],
+  providers: [EapActionsService, DataService],
 })
 export class EapActionsModule {}

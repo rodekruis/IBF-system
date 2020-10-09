@@ -15,6 +15,9 @@ export class EapActionEntity {
   @Column({ nullable: true })
   public countryCode: string;
 
+  @Column({ nullable: true })
+  public areaOfFocus: string;
+
   @OneToMany(type => EapActionStatusEntity, i => i.actionChecked)
   public checked: EapActionStatusEntity[];
 }
