@@ -20,7 +20,7 @@ export class AboutBtnComponent implements OnInit {
     switch (this.countryService.selectedCountry.countryCode) {
       case 'UGA': {
         window.open(
-          'https://rodekruis.sharepoint.com/:w:/r/sites/510-CRAVK-510/_layouts/15/doc2.aspx?action=embedview&sourcedoc=%7B0FFAA5EF-423C-4F81-A51E-BEA98D06E91C%7D&wdStartOn=18&cid=27882c11-7cad-4848-8b03-2ec0520f6377',
+          'https://docs.google.com/document/d/1IiG2ZFasCVE7kmYfqgyrx7SuZWkoYzTvw3LaEt2nl2U/edit#heading=h.35nkun2',
         );
       }
       case 'ZMB': {
