@@ -134,6 +134,14 @@ export class ApiService {
     ).toPromise();
   }
 
+  getTriggeredAreas(countryCode: string, adminLevel: number, leadTime: string) {
+    return this.get(
+      environment.api_url,
+      `triggered-areas/${countryCode}/${adminLevel}/${leadTime}`,
+      false,
+    ).toPromise();
+  }
+
   getAdminRegionsStatic(
     countryCode: string,
     adminLevel: number,
@@ -161,6 +169,33 @@ export class ApiService {
     return this.get(
       environment.api_url,
       `metadata/${countryCode}`,
+      false,
+    ).toPromise();
+  }
+
+  getEapActions(countryCode: string, pcode: string) {
+    return this.get(
+      environment.api_url,
+      `eap-actions/${countryCode}/${pcode}`,
+      false,
+    ).toPromise();
+  }
+
+  checkEapAction(
+    action: string,
+    countryCode: string,
+    status: boolean,
+    pcode: string,
+  ) {
+    return this.post(
+      environment.api_url,
+      `eap-actions`,
+      {
+        action,
+        countryCode,
+        status,
+        pcode,
+      },
       false,
     ).toPromise();
   }

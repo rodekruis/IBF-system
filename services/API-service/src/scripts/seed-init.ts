@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
+import { EapActionEntity } from '../eap-actions/eap-action.entity';
 import { USERCONFIGS, COUNTRYCONFIGS } from '../secrets';
 import { CountryEntity } from '../country/country.entity';
 
@@ -31,7 +32,6 @@ export class SeedInit implements InterfaceScript {
     // ***** CREATE ADMIN USER *****
 
     const userRepository = this.connection.getRepository(UserEntity);
-
     const userEntities = await Promise.all(
       USERCONFIGS.map(
         async (userConfig): Promise<UserEntity> => {
@@ -54,6 +54,48 @@ export class SeedInit implements InterfaceScript {
     );
 
     await userRepository.save(userEntities);
+
+    // ***** CREATE EAP ACTIONS *****
+
+    const eapActionRepository = this.connection.getRepository(EapActionEntity);
+    await eapActionRepository.save([
+      {
+        countryCode: 'UGA',
+        areaOfFocus: 'Shelter',
+        action: 'shelter-1',
+        label: 'Action 1',
+      },
+      {
+        countryCode: 'UGA',
+        areaOfFocus: 'Shelter',
+        action: 'shelter-2',
+        label: 'Action 2',
+      },
+      {
+        countryCode: 'UGA',
+        areaOfFocus: 'WASH',
+        action: 'wash-1',
+        label: 'Action 1',
+      },
+      {
+        countryCode: 'ZMB',
+        areaOfFocus: 'Shelter',
+        action: 'shelter-1',
+        label: 'Action 1',
+      },
+      {
+        countryCode: 'ZMB',
+        areaOfFocus: 'Shelter',
+        action: 'shelter-2',
+        label: 'Action 2',
+      },
+      {
+        countryCode: 'ZMB',
+        areaOfFocus: 'WASH',
+        action: 'wash-1',
+        label: 'Action 1',
+      },
+    ]);
   }
 }
 

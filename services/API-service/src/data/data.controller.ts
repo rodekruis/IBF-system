@@ -103,6 +103,19 @@ export class DataController {
     );
   }
 
+  @ApiOperation({ title: 'Get triggered areas' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
+  @Get('triggered-areas/:countryCode/:adminLevel/:leadTime')
+  public async getTriggeredAreas(@Param() params): Promise<GeoJson> {
+    return await this.dataService.getTriggeredAreas(
+      params.countryCode,
+      params.adminLevel,
+      params.leadTime,
+    );
+  }
+
   @ApiOperation({ title: 'Get matrix aggregates' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })
