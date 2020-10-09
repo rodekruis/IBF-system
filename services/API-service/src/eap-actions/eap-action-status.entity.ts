@@ -10,6 +10,12 @@ export class EapActionStatusEntity {
   @ManyToOne(type => EapActionEntity, i => i.checked)
   public actionChecked: EapActionEntity;
 
+  @Column()
+  public status: boolean;
+
+  @Column()
+  public pcode: string;
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   public timestamp: Date;
 

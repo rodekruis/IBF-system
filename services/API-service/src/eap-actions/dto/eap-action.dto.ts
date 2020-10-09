@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { IsIn, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsIn, IsNotEmpty, IsString } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 export class EapActionDto {
@@ -13,4 +13,14 @@ export class EapActionDto {
   @IsString()
   @IsIn(['UGA', 'ZMB'])
   readonly countryCode: string;
+
+  @ApiModelProperty()
+  @IsNotEmpty()
+  @IsBoolean()
+  readonly status: boolean;
+
+  @ApiModelProperty()
+  @IsNotEmpty()
+  @IsString()
+  readonly pcode: string;
 }

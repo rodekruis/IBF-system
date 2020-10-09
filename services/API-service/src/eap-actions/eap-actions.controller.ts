@@ -25,12 +25,14 @@ export class EapActionsController {
 
   @ApiOperation({ title: 'Check EAP actions as done' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('/:countryCode')
+  @ApiImplicitParam({ name: 'area', required: true, type: 'string' })
+  @Get('/:countryCode/:area')
   public async getActionsWithStatus(
     @Param() params,
   ): Promise<EapActionEntity[]> {
     return await this.eapActionsService.getActionsWithStatus(
       params.countryCode,
+      params.area,
     );
   }
 }

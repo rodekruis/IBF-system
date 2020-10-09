@@ -61,23 +61,39 @@ export class SeedInit implements InterfaceScript {
     await eapActionRepository.save([
       {
         countryCode: 'UGA',
-        action: 'act1',
+        areaOfFocus: 'Shelter',
+        action: 'shelter-1',
         label: 'Action 1',
       },
       {
         countryCode: 'UGA',
-        action: 'act2',
+        areaOfFocus: 'Shelter',
+        action: 'shelter-2',
         label: 'Action 2',
       },
       {
-        countryCode: 'ZMB',
-        action: 'act1',
+        countryCode: 'UGA',
+        areaOfFocus: 'WASH',
+        action: 'wash-1',
         label: 'Action 1',
       },
       {
         countryCode: 'ZMB',
-        action: 'act2',
+        areaOfFocus: 'Shelter',
+        action: 'shelter-1',
+        label: 'Action 1',
+      },
+      {
+        countryCode: 'ZMB',
+        areaOfFocus: 'Shelter',
+        action: 'shelter-2',
         label: 'Action 2',
+      },
+      {
+        countryCode: 'ZMB',
+        areaOfFocus: 'WASH',
+        action: 'wash-1',
+        label: 'Action 1',
       },
     ]);
   }

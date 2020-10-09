@@ -117,6 +117,31 @@ export class DataService {
     return result[0][leadTime[0]];
   }
 
+  public async getTriggeredAreas(
+    countryCode: string,
+    adminLevel: number,
+    leadTime: string,
+  ): Promise<any> {
+    const query =
+      'select pcode_level' +
+      adminLevel +
+      ' as pcode \
+        ,"name" \
+        , population_affected \
+      from "IBF-API"."Admin_area_data' +
+      adminLevel +
+      '" \
+      where country_code = $1 \
+      and lead_time = $2 \
+      and fc_trigger = 1 \
+      order by population_affected DESC \
+    ';
+
+    const result = await this.manager.query(query, [countryCode, leadTime]);
+
+    return result;
+  }
+
   public async getMetadata(countryCode: string): Promise<any> {
     const query =
       ' select * \

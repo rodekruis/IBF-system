@@ -19,7 +19,6 @@ import { quantile } from 'src/shared/utils';
 export class MapService {
   private layerSubject = new Subject<IbfLayer>();
   private layers = [] as IbfLayer[];
-  public defaultAdminLevel = 2;
 
   public state = {
     bounds: [
@@ -188,7 +187,7 @@ export class MapService {
     return await this.apiService.getAdminRegions(
       this.countryService.selectedCountry.countryCode,
       this.timelineService.state.selectedTimeStepButtonValue,
-      this.defaultAdminLevel,
+      this.countryService.selectedCountry.defaultAdminLevel,
     );
   }
 
