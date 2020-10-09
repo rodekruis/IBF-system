@@ -3,13 +3,15 @@ import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
 import { Observable, Subject } from 'rxjs';
+import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
+import { TimelineService } from 'src/app/services/timeline.service';
 import { IbfLayer } from 'src/app/types/ibf-layer';
-import { IbfLayerName } from 'src/app/types/ibf-layer-name';
+import { IbfLayerLabel, IbfLayerName } from 'src/app/types/ibf-layer-name';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
+import { IbfLayerWMS } from 'src/app/types/ibf-layer-wms';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
-import { IbfLayerWMS } from '../types/ibf-layer-wms';
-import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +19,7 @@ import { ApiService } from './api.service';
 export class MapService {
   private layerSubject = new Subject<IbfLayer>();
   private layers = [] as IbfLayer[];
+  public defaultAdminLevel = 2;
 
   public state = {
     bounds: [
@@ -29,31 +32,30 @@ export class MapService {
     defaultWeight: 1,
   };
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private countryService: CountryService,
+    private timelineService: TimelineService,
+    private apiService: ApiService,
+  ) {}
 
-  public async loadStationLayer(
-    countryCode: string = environment.defaultCountryCode,
-    leadTime: string = '7-day',
-  ) {
+  public async loadStationLayer() {
     this.addLayer({
       name: IbfLayerName.glofasStations,
+      label: IbfLayerLabel.glofasStations,
       type: IbfLayerType.point,
       active: true,
-      data: await this.getStations(countryCode, leadTime),
+      data: await this.getStations(),
       viewCenter: false,
     });
   }
 
-  public async loadAdminRegionLayer(
-    countryCode: string = environment.defaultCountryCode,
-    leadTime: string = '7-day',
-    adminLevel: number = 2,
-  ) {
+  public async loadAdminRegionLayer() {
     this.addLayer({
       name: IbfLayerName.adminRegions,
+      label: IbfLayerLabel.adminRegions,
       type: IbfLayerType.shape,
       active: true,
-      data: await this.getAdminRegions(countryCode, leadTime, adminLevel),
+      data: await this.getAdminRegions(),
       viewCenter: true,
       defaultColorProperty: 'population_affected', // 'population_affected' / 'population'
     });
@@ -61,33 +63,38 @@ export class MapService {
 
   public async updateAdminRegionLayer(
     colorProperty: string,
-    countryCode: string = environment.defaultCountryCode,
     leadTime: string = '7-day',
     adminLevel: number = 2,
   ) {
     this.addLayer({
       name: IbfLayerName.adminRegions,
+      label: IbfLayerLabel.adminRegions,
       type: IbfLayerType.shape,
       active: true,
-      data: await this.getAdminRegions(countryCode, leadTime, adminLevel),
+      data: await this.getAdminRegions(),
       viewCenter: true,
       defaultColorProperty: colorProperty,
     });
   }
 
-  public async loadFloodExtentLayer(
-    countryCode: string = environment.defaultCountryCode,
-    leadTime: string = '7-day',
+  private async loadWmsLayer(
+    layerName: IbfLayerName,
+    layerLabel: IbfLayerLabel,
+    active: boolean,
+    timestep?: string,
   ) {
     this.addLayer({
-      name: IbfLayerName.floodExtent,
+      name: layerName,
+      label: layerLabel,
       type: IbfLayerType.wms,
-      active: true,
+      active: active,
       viewCenter: false,
       data: null,
       wms: {
         url: environment.geoserver_url,
-        name: `ibf-system:flood_extent_${leadTime}_${countryCode}`,
+        name: `ibf-system:${layerName}_${timestep ? timestep + '_' : ''}${
+          this.countryService.selectedCountry.countryCode
+        }`,
         format: 'image/png',
         version: '1.1.0',
         attribution: '510 Global',
@@ -97,25 +104,25 @@ export class MapService {
     });
   }
 
-  public async loadPopulationGridLayer(
-    countryCode: string = environment.defaultCountryCode,
-  ) {
-    this.addLayer({
-      name: IbfLayerName.populationGrid,
-      type: IbfLayerType.wms,
-      active: false,
-      viewCenter: false,
-      data: null,
-      wms: {
-        url: environment.geoserver_url,
-        name: `ibf-system:population_${countryCode}`,
-        format: 'image/png',
-        version: '1.1.0',
-        attribution: '510 Global',
-        crs: CRS.EPSG4326,
-        transparent: true,
-      } as IbfLayerWMS,
-    });
+  public async loadFloodExtentLayer() {
+    this.loadWmsLayer(
+      IbfLayerName.floodExtent,
+      IbfLayerLabel.floodExtent,
+      true,
+      this.timelineService.state.selectedTimeStepButtonValue,
+    );
+  }
+
+  public async loadPopulationGridLayer() {
+    this.loadWmsLayer(IbfLayerName.population, IbfLayerLabel.population, false);
+  }
+
+  public async loadCroplandLayer() {
+    this.loadWmsLayer(IbfLayerName.cropland, IbfLayerLabel.cropland, false);
+  }
+
+  public async loadGrasslandLayer() {
+    this.loadWmsLayer(IbfLayerName.grassland, IbfLayerLabel.grassland, false);
   }
 
   private addLayer(layer: IbfLayer) {
@@ -157,6 +164,7 @@ export class MapService {
     if (layerIndex >= 0) {
       this.addLayer({
         name: this.layers[layerIndex].name,
+        label: this.layers[layerIndex].label,
         type: this.layers[layerIndex].type,
         active: state,
         viewCenter: false,
@@ -169,22 +177,18 @@ export class MapService {
     }
   }
 
-  public async getStations(
-    countryCode: string = environment.defaultCountryCode,
-    leadTime: string = '7-day',
-  ): Promise<GeoJSON.FeatureCollection> {
-    return await this.apiService.getStations(countryCode, leadTime);
+  public async getStations(): Promise<GeoJSON.FeatureCollection> {
+    return await this.apiService.getStations(
+      this.countryService.selectedCountry.countryCode,
+      this.timelineService.state.selectedTimeStepButtonValue,
+    );
   }
 
-  public async getAdminRegions(
-    countryCode: string = environment.defaultCountryCode,
-    leadTime: string = '7-day',
-    adminLevel: number = 2,
-  ): Promise<GeoJSON.FeatureCollection> {
+  public async getAdminRegions(): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getAdminRegions(
-      countryCode,
-      leadTime,
-      adminLevel,
+      this.countryService.selectedCountry.countryCode,
+      this.timelineService.state.selectedTimeStepButtonValue,
+      this.defaultAdminLevel,
     );
   }
 

@@ -1,68 +1,142 @@
 import codecs
+from datetime import date
 
 
-def formatInfo(info):
-    affectedPopString = ": Estimate of exposed population: "
-    
-    totalPopAffected3day = 0
+def formatInfo(info, countryCode):
+
+    today = str(date.today())
+
+    if countryCode == "UGA":
+        logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/dc5401e1-26e4-494e-88dc-2fae4bd50c1f.png"
+        triggerStatement = "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>"
+        linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/overview"
+        linkEAPSOP = "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/Doc.aspx?OR=teams&action=edit&sourcedoc={0FFAA5EF-423C-4F81-A51E-BEA98D06E91C}"
+        linkWhatsApp = "https://web.whatsapp.com/"
+    elif countryCode == "ZMB":
+        logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/6d54577d-8f22-4a95-bc30-b86453f5188c.png"
+        triggerStatement = "TBD"
+        linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/overview"
+        linkEAPSOP = "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#heading=h.gjdgxs"
+        linkWhatsApp = "https://web.whatsapp.com/"
+    else:
+        logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+        triggerStatement = "TBD"
+        linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/overview"
+        linkEAPSOP = "https://google.com/"
+        linkWhatsApp = "https://web.whatsapp.com/"
+
+    leadTime = ""
     stringList = []
-    for districtInfo in info['data']:
-        if districtInfo[2] == '3-day':
+    totalPopAffected3day = 0
+    table3Day = '<div> \
+            <strong>Forecast 3 days from today:</strong> \
+        </div> \
+        <table class="notification-alerts-table"> \
+            <caption class="notification-alerts-table-caption">The following table lists all the exposed districts in order of exposed population,</caption> \
+            <thead> \
+                <tr> \
+                    <th align="left">District</th> \
+                    <th align="center">Potentially Exposed Population</th> \
+                    <th align="center">Alert Level</th> \
+                </tr> \
+            </thead> \
+            <tbody>'
+    subject3day = ""
+    for districtInfo in info["data"]:
+        if districtInfo[2] == "3-day":
+            leadTime = "3 days from today"
             affectedPopStr = str("{0:,.0f}".format(round(districtInfo[1])))
-            # glofasProb = ' (' + str(round(districtInfo[3]*100)) + '%)'
-            glofasProb = ' (' + districtInfo[3] + ')'
-            stringDistrict = districtInfo[0] + affectedPopString + affectedPopStr + glofasProb
+            stringDistrict = districtInfo[0]
             stringList.append(stringDistrict)
+            table3Day += (
+                "<tr><td align='left'>"
+                + districtInfo[0]
+                + "</td><td align='center'>"
+                + affectedPopStr
+                + "</td><td align='center'>"
+                + districtInfo[3]
+                + "</td></tr>"
+            )
             totalPopAffected3day = totalPopAffected3day + districtInfo[1]
-    htmlList3 = '<br>'.join(x for x in stringList)
+            subject3day = (
+                "Estimate of exposed population: "
+                + str("{0:,.0f}".format(round(totalPopAffected3day)))
+                + " (3-day). "
+            )
+    table3Day += "</tbody></table>"
     if stringList == []:
-        htmlList3 = 'No flood warning'
+        table3Day = ""
 
     totalPopAffected7day = 0
     stringList = []
-    for districtInfo in info['data']:
-        if districtInfo[2] == '7-day':
+    table7Day = '<div> \
+            <strong>Forecast 7 days from today:</strong> \
+        </div> \
+        <table class="notification-alerts-table"> \
+            <caption class="notification-alerts-table-caption">The following table lists all the exposed districts in order of exposed population,</caption> \
+            <thead> \
+                <tr> \
+                    <th align="left">District</th> \
+                    <th align="center">Potentially Exposed Population</th> \
+                    <th align="center">Alert Level</th> \
+                </tr> \
+            </thead> \
+            <tbody>'
+    subject7day = ""
+    for districtInfo in info["data"]:
+        if districtInfo[2] == "7-day":
+            if leadTime == "3 days from today":
+                leadTime = "3 and 7 days from today"
+            else:
+                leadTime = "7 days from today"
             affectedPopStr = str("{0:,.0f}".format(round(districtInfo[1])))
-            # glofasProb = ' (' + str(round(districtInfo[3]*100)) + '%)'
-            glofasProb = ' (' + districtInfo[3] + ')'
-            stringDistrict = districtInfo[0] + affectedPopString + affectedPopStr + glofasProb
+            stringDistrict = districtInfo[0]
             stringList.append(stringDistrict)
+            table7Day += (
+                "<tr><td align='left'>"
+                + districtInfo[0]
+                + "</td><td align='center'>"
+                + affectedPopStr
+                + "</td><td align='center'>"
+                + districtInfo[3]
+                + "</td></tr>"
+            )
             totalPopAffected7day = totalPopAffected7day + districtInfo[1]
-    htmlList7 = '<br>'.join(x for x in stringList)
+            subject7day = (
+                "Estimate of exposed population: "
+                + str("{0:,.0f}".format(round(totalPopAffected7day)))
+                + " (7-day). "
+            )
+    table7Day += "</tbody></table>"
     if stringList == []:
-        htmlList7 = 'No flood warning'
-    
-    file = codecs.open("lib/notifications/floodRisk.html", "r")
-    theHtml = file.read()
-    replacablePart3day = "Section to replace 3-day"
-    replacablePart7day = "Section to replace 7-day"
-    replacablePartWhatsapp = "Section to replace Whatsapp"
-    replacablePartGlofas = "Section to replace GLOFAS"
-    replacablePartGlofas3 = "(replace-GLOFAS3)"
-    replacablePartGlofas7 = "(replace-GLOFAS7)"
-    
-    if totalPopAffected3day>0 or totalPopAffected7day>0:
-        htmlWhatsapp="<br>You can join a WhatsApp group to communicate with others about the potential flood by clicking this link on your phone: https://chat.whatsapp.com/FH2hls1iOeNJF844L4cOjr"
-        htmlGlofas="<br><br>* The alert class is based on the GLOFAS probability. GLOFAS produces 51 forecasts runs per stations daily. This probability is the percentage of these runs that exceeds the trigger level. Respective levels of 60%, 70% and 80% have been chosen as minimum, medium and maximum threshold."
-    else:
-        htmlWhatsapp=""
-        htmlGlofas=""
-    if totalPopAffected3day>0:
-        htmlGlofasProb3="(Alert class* in brackets)"
-    else:
-        htmlGlofasProb3=""
-    if totalPopAffected7day>0:
-        htmlGlofasProb7="(Alert class* in brackets)"
-    else:
-        htmlGlofasProb7=""
-    newHtml = theHtml.replace(replacablePart3day, htmlList3) \
-                    .replace(replacablePart7day, htmlList7) \
-                    .replace(replacablePartWhatsapp, htmlWhatsapp) \
-                    .replace(replacablePartGlofas, htmlGlofas) \
-                    .replace(replacablePartGlofas3, htmlGlofasProb3) \
-                    .replace(replacablePartGlofas7, htmlGlofasProb7)
+        table7Day = ""
 
-    subject = "Flood warning: Estimate of exposed population: " + str("{0:,.0f}".format(round(totalPopAffected3day))) + " (3-day) / " + str("{0:,.0f}".format(round(totalPopAffected7day))) + " (7-day)"
+    file = codecs.open("lib/notifications/flood-trigger-notification.html", "r")
+    htmlTemplate = file.read()
 
-    emailContent = {"subject": subject, "html": newHtml}
+    placeholderToday = "(TODAY)"
+    placeholderLeadTime = "(LEAD-DATE)"
+    placeholderLogo = "(IMG-LOGO)"
+    placeholderTable3Day = "(TABLE-3-DAYS)"
+    placeholderTable7Day = "(TABLE-7-DAYS)"
+    placeholderTriggerStatement = "(TRIGGER-STATEMENT)"
+    placeholderLinkDashboard = "(LINK-DASHBOARD)"
+    placeholderLinkEAPSOP = "(LINK-EAP-SOP)"
+    placeholderLinkWhatsApp = "(LINK-WHATSAPP)"
+
+    htmlEmail = (
+        htmlTemplate.replace(placeholderToday, today)
+        .replace(placeholderLeadTime, leadTime)
+        .replace(placeholderLogo, logo)
+        .replace(placeholderTable3Day, table3Day)
+        .replace(placeholderTable7Day, table7Day)
+        .replace(placeholderTriggerStatement, triggerStatement)
+        .replace(placeholderLinkDashboard, linkDashboard)
+        .replace(placeholderLinkEAPSOP, linkEAPSOP)
+        .replace(placeholderLinkWhatsApp, linkWhatsApp)
+    )
+
+    subject = "Flood Warning: " + subject3day + subject7day
+
+    emailContent = {"subject": subject, "html": htmlEmail}
     return emailContent

@@ -12,7 +12,7 @@ describe('MapComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MapComponent],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule, LeafletModule],
+      imports: [IonicModule, HttpClientTestingModule, LeafletModule],
       providers: [{ provide: MapService }],
     }).compileComponents();
 
