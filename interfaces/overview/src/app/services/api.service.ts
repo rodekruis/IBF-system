@@ -173,6 +173,14 @@ export class ApiService {
     ).toPromise();
   }
 
+  getAreasOfFocus() {
+    return this.get(
+      environment.api_url,
+      `eap-actions/areas-of-focus`,
+      false,
+    ).toPromise();
+  }
+
   getEapActions(countryCode: string, pcode: string) {
     return this.get(
       environment.api_url,
