@@ -1,5 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
 import { MapService } from 'src/app/services/map.service';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 
@@ -12,7 +14,10 @@ export class MatrixComponent implements OnDestroy {
   private layerSubscription: Subscription;
   public layers: IbfLayer[] = [];
 
-  constructor(public mapService: MapService) {
+  constructor(
+    public mapService: MapService,
+    public popoverController: PopoverController,
+  ) {
     this.layerSubscription = this.mapService
       .getLayers()
       .subscribe((newLayer) => {
@@ -29,6 +34,36 @@ export class MatrixComponent implements OnDestroy {
           this.layers = [];
         }
       });
+  }
+
+  async presentPopover(event: any, layer: IbfLayer) {
+    event.stopPropagation();
+
+    const popover = await this.popoverController.create({
+      component: LayerControlInfoPopoverComponent,
+      animated: true,
+      cssClass: 'ibf-layer-control-popover',
+      event: {
+        target: {
+          getBoundingClientRect: () => {
+            const positionOfIonItem = event.target.parentNode.parentNode.parentNode.getBoundingClientRect();
+            return new DOMRect(
+              positionOfIonItem.x - 250 - 5, // 250 = width of popover; 5 = gap between layer control and popover
+              positionOfIonItem.y - positionOfIonItem.height,
+              positionOfIonItem.width,
+              positionOfIonItem.height,
+            );
+          },
+        },
+      } as any,
+      translucent: true,
+      showBackdrop: true,
+      componentProps: {
+        layer: layer,
+      },
+    });
+
+    return await popover.present();
   }
 
   ngOnDestroy() {

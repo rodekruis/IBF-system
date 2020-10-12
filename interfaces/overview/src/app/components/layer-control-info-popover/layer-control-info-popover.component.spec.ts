@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { AboutBtnComponent } from './about-btn.component';
+import { LayerControlInfoPopoverComponent } from './layer-control-info-popover.component';
 
-describe('AboutBtnComponent', () => {
-  let component: AboutBtnComponent;
-  let fixture: ComponentFixture<AboutBtnComponent>;
+describe('LayerControlInfoPopoverComponent', () => {
+  let component: LayerControlInfoPopoverComponent;
+  let fixture: ComponentFixture<LayerControlInfoPopoverComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AboutBtnComponent],
+      declarations: [LayerControlInfoPopoverComponent],
       imports: [IonicModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AboutBtnComponent);
+    fixture = TestBed.createComponent(LayerControlInfoPopoverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

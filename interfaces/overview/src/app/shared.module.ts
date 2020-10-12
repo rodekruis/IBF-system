@@ -9,6 +9,7 @@ import { AofSummaryComponent } from './components/aof-summary/aof-summary.compon
 import { ChatComponent } from './components/chat/chat.component';
 import { CountrySwitcherComponent } from './components/country-switcher/country-switcher.component';
 import { DialogueTurnComponent } from './components/dialogue-turn/dialogue-turn.component';
+import { LayerControlInfoPopoverComponent } from './components/layer-control-info-popover/layer-control-info-popover.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LogosComponent } from './components/logos/logos.component';
 import { MapComponent } from './components/map/map.component';
@@ -35,6 +36,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     AboutBtnComponent,
     DialogueTurnComponent,
     AofSummaryComponent,
+    LayerControlInfoPopoverComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -51,6 +53,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     AboutBtnComponent,
     DialogueTurnComponent,
     AofSummaryComponent,
+    LayerControlInfoPopoverComponent,
   ],
 })
 export class SharedModule {}
