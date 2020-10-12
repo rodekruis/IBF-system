@@ -1,5 +1,5 @@
 export enum IndicatorGroup {
-  general = 'General',
+  general = 'Exposure',
   vulnerability = 'Vulnerability',
 }
 
