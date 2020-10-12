@@ -23,8 +23,10 @@ export class AggregatesService {
     this.apiService
       .getMetadata(this.countryService.selectedCountry.countryCode)
       .then((response) => {
-        this.indicatorSubject.next(response);
-        this.indicators = response;
+        const indicators = response;
+        // Filter out population (better to remove from metadata in db)
+        this.indicators = indicators.filter((i) => i.name !== 'population');
+        this.indicatorSubject.next(this.indicators);
       });
   }
 

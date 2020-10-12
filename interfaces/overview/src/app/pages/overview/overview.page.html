@@ -22,27 +22,43 @@
       </ion-col>
     </ion-row>
     <ion-row class="page-structure--content">
-      <ion-col
-        sizeXs="12"
-        sizeMd="3"
-        sizeLg="3"
-        sizeXl="3"
-        class="ion-no-padding"
-        style="background-color: #cad0e9;"
-      >
-        <app-chat></app-chat>
+      <ion-col sizeXs="12" sizeMd="6" sizeLg="6" sizeXl="6">
+        <ion-row class="component-title">
+          <ion-img
+            src="assets/icons/alert-black.svg"
+            style="width: 2rem; padding: 2px;"
+          ></ion-img>
+          <ion-label>
+            <strong>Situational Overview</strong>
+          </ion-label>
+        </ion-row>
+        <ion-row style="height: calc(100% - 2rem);">
+          <ion-col
+            sizeXs="12"
+            sizeMd="6"
+            sizeLg="6"
+            sizeXl="6"
+            class="ion-no-padding"
+            style="background-color: #cad0e9;"
+          >
+            <app-chat></app-chat>
+          </ion-col>
+          <ion-col
+            sizeXs="12"
+            sizeMd="6"
+            sizeLg="6"
+            sizeXl="6"
+            style="background-color: #c2c3c3;"
+          >
+            <app-aggregates></app-aggregates>
+            <br />
+            <app-aof-summary
+              style="position: absolute; bottom: 0; width: calc(100% - 10px);"
+            ></app-aof-summary>
+          </ion-col>
+        </ion-row>
       </ion-col>
-      <ion-col
-        sizeXs="12"
-        sizeMd="3"
-        sizeLg="3"
-        sizeXl="3"
-        style="background-color: #c2c3c3;"
-      >
-        <app-aggregates></app-aggregates>
-        <br /><br /><br /><br />
-        <app-aof-summary></app-aof-summary>
-      </ion-col>
+
       <ion-col
         sizeXs="12"
         sizeMd="6"

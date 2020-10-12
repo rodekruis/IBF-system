@@ -19,3 +19,11 @@
 .page-structure--content {
   flex-grow: 1;
 }
+
+.component-title {
+  background-color: var(--ion-color-ibf-salmon);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+}
