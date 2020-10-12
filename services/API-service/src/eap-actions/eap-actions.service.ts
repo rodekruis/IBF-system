@@ -5,6 +5,7 @@ import { EntityManager, Repository } from 'typeorm';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionDto } from './dto/eap-action.dto';
+import { AreaOfFocusEntity } from './area-of-focus.entity';
 
 @Injectable()
 export class EapActionsService {
@@ -14,6 +15,8 @@ export class EapActionsService {
   private readonly eapActionStatusRepository: Repository<EapActionStatusEntity>;
   @InjectRepository(EapActionEntity)
   private readonly eapActionRepository: Repository<EapActionEntity>;
+  @InjectRepository(AreaOfFocusEntity)
+  private readonly areaOfFocusRepository: Repository<AreaOfFocusEntity>;
 
   public constructor(private manager: EntityManager) {}
 
@@ -45,19 +48,26 @@ export class EapActionsService {
     return newAction;
   }
 
+  public async getAreasOfFocus(): Promise<AreaOfFocusEntity[]> {
+    return await this.areaOfFocusRepository.find();
+  }
+
   public async getActionsWithStatus(
     countryCode: string,
     pcode: string,
   ): Promise<EapActionEntity[]> {
     const query =
-      'select "areaOfFocus" as aof \
+      'select aof.label as "aofLabel" \
+        , aof.id as aof \
         , "action" \
-        , "label" \
+        , ea."label" \
         , \'' +
       pcode +
       '\' as pcode \
         , case when eas."actionCheckedId" is null then false else eas.status end as checked \
       from "IBF-app"."eap-action" ea \
+      left join "IBF-app"."area-of-focus" aof \
+        on ea."areaOfFocusId" = aof.id \
       left join( \
         select t1.* \
         from "IBF-app"."eap-action-status" t1 \

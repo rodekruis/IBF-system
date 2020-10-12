@@ -5,6 +5,7 @@ import { ApiImplicitParam, ApiOperation } from '@nestjs/swagger';
 import { EapActionDto } from './dto/eap-action.dto';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
+import { AreaOfFocusEntity } from './area-of-focus.entity';
 
 @Controller('eap-actions')
 export class EapActionsController {
@@ -23,7 +24,7 @@ export class EapActionsController {
     return await this.eapActionsService.checkAction(userId, eapAction);
   }
 
-  @ApiOperation({ title: 'Check EAP actions as done' })
+  @ApiOperation({ title: 'Get EAP actions and status' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'area', required: true, type: 'string' })
   @Get('/:countryCode/:area')
@@ -34,5 +35,11 @@ export class EapActionsController {
       params.countryCode,
       params.area,
     );
+  }
+
+  @ApiOperation({ title: 'Get areas of focus' })
+  @Get('areas-of-focus')
+  public async getAreasOfFocus(): Promise<AreaOfFocusEntity[]> {
+    return await this.eapActionsService.getAreasOfFocus();
   }
 }

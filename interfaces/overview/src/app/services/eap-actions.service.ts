@@ -17,13 +17,17 @@ export class EapActionsService {
     private apiService: ApiService,
   ) {}
 
+  async loadAreasOfFocus() {
+    return await this.apiService.getAreasOfFocus();
+  }
+
   async loadDistrictsAndActions() {
     this.triggeredAreas = await this.apiService.getTriggeredAreas(
       this.countryService.selectedCountry.countryCode,
       this.countryService.selectedCountry.defaultAdminLevel,
       this.timelineService.state.selectedTimeStepButtonValue,
     );
-    for (let area of this.triggeredAreas) {
+    for await (let area of this.triggeredAreas) {
       area.eapActions = await this.apiService.getEapActions(
         this.countryService.selectedCountry.countryCode,
         area.pcode,
