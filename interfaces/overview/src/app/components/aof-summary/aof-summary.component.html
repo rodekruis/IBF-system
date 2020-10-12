@@ -1,0 +1,26 @@
+<ion-row class="xc component-title">
+  <ion-img
+    src="assets/icons/alert-black.svg"
+    style="width: 2rem; padding: 2px;"
+  ></ion-img>
+  <ion-label>
+    <strong>Areas of Focus EAP</strong>
+  </ion-label>
+</ion-row>
+<ion-row *ngFor="let aof of areasOfFocus" class="ion-no-padding">
+  <ng-container *ngIf="aof.count">
+    <ion-col size-lg="8" size-md="8" size-xs="8" class="aggregates-col-text">
+      <ion-thumbnail class="aggregate-icon">
+        <img src="assets/icons/{{ aof.icon }}" class="indicator-icon" />
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap aggregate-label">
+        <p>{{ aof.label }}</p>
+      </ion-label>
+    </ion-col>
+    <ion-col size-lg="4" size-md="4" size-xs="4" class="aggregates-col-number">
+      <ion-label>
+        <p>{{ aof.countChecked }} / {{ aof.count }}</p>
+      </ion-label>
+    </ion-col>
+  </ng-container>
+</ion-row>
