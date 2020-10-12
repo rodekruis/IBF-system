@@ -72,25 +72,6 @@ export class MapComponent implements OnDestroy {
     private timelineService: TimelineService,
     public mapService: MapService,
   ) {
-    this.countrySubscription = this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.mapService.loadStationLayer();
-        this.mapService.loadAdminRegionLayer();
-        this.mapService.loadFloodExtentLayer();
-        this.mapService.loadPopulationGridLayer();
-        this.mapService.loadCroplandLayer();
-        this.mapService.loadGrasslandLayer();
-      });
-
-    this.timelineSubscription = this.timelineService
-      .getTimelineSubscription()
-      .subscribe((timeline: string) => {
-        this.mapService.loadStationLayer();
-        this.mapService.loadAdminRegionLayer();
-        this.mapService.loadFloodExtentLayer();
-      });
-
     this.layerSubscription = this.mapService
       .getLayers()
       .subscribe((newLayer) => {
@@ -111,6 +92,25 @@ export class MapComponent implements OnDestroy {
         if (newLayer.viewCenter) {
           this.map.fitBounds(this.mapService.state.bounds);
         }
+      });
+
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.mapService.loadStationLayer();
+        this.mapService.loadAdminRegionLayer();
+        this.mapService.loadFloodExtentLayer();
+        this.mapService.loadPopulationGridLayer();
+        this.mapService.loadCroplandLayer();
+        this.mapService.loadGrasslandLayer();
+      });
+
+    this.timelineSubscription = this.timelineService
+      .getTimelineSubscription()
+      .subscribe((timeline: string) => {
+        this.mapService.loadStationLayer();
+        this.mapService.loadAdminRegionLayer();
+        this.mapService.loadFloodExtentLayer();
       });
   }
 
