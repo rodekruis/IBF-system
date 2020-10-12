@@ -28,7 +28,10 @@
       turn other layers on and off. There are currently
       <strong>no triggers</strong> activated.
     </p>
-    <app-about-btn btnLabel="About Trigger" color="primary"></app-about-btn>
+    <app-about-btn
+      btnLabel="About Trigger"
+      color="ibf-royal-blue"
+    ></app-about-btn>
   </dialogue-turn>
   <dialogue-turn *ngIf="trigger">
     <p>
@@ -38,7 +41,10 @@
       affected per area. You can keep track here per area which EAP-actions are
       to-do/done.
     </p>
-    <app-about-btn btnLabel="About Trigger" color="primary"></app-about-btn>
+    <app-about-btn
+      btnLabel="About Trigger"
+      color="ibf-royal-blue"
+    ></app-about-btn>
   </dialogue-turn>
   <dialogue-turn actor="self" *ngFor="let area of triggeredAreas">
     <form (submit)="submitEapAction(area.pcode)">
@@ -68,18 +74,20 @@
           <ion-checkbox
             mode="ios"
             slot="start"
+            color="ibf-royal-blue"
             [checked]="action.checked"
             name="action.action"
             (ionChange)="
               changeAction(area.pcode, action.action, $event.detail.checked)
             "
           ></ion-checkbox>
-          <ion-label>{{ action.aof }}: {{ action.label }}</ion-label>
+          <ion-label>{{ action.aofLabel }}: {{ action.label }}</ion-label>
         </ion-item>
       </ion-list>
       <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
         <ion-button
           [disabled]="area.submitDisabled"
+          color="ibf-royal-blue"
           type="submit"
           expand="block"
           style="flex-basis: 100%;"

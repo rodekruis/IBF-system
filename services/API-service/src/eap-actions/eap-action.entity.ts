@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
+import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 
 @Entity('eap-action')
@@ -15,8 +22,8 @@ export class EapActionEntity {
   @Column({ nullable: true })
   public countryCode: string;
 
-  @Column({ nullable: true })
-  public areaOfFocus: string;
+  @ManyToOne(type => AreaOfFocusEntity, aof => aof.actions)
+  public areaOfFocus: AreaOfFocusEntity;
 
   @OneToMany(type => EapActionStatusEntity, i => i.actionChecked)
   public checked: EapActionStatusEntity[];

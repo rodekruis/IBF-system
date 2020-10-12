@@ -94,7 +94,16 @@ export class ChatComponent implements OnDestroy {
   private async actionResult(resultMessage: string) {
     const alert = await this.alertController.create({
       message: resultMessage,
-      buttons: ['OK'],
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            alert.dismiss(true);
+            window.location.reload();
+            return false;
+          },
+        },
+      ],
     });
 
     await alert.present();

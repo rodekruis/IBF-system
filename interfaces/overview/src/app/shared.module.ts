@@ -5,6 +5,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { IonicModule } from '@ionic/angular';
 import { AboutBtnComponent } from './components/about-btn/about-btn.component';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
+import { AofSummaryComponent } from './components/aof-summary/aof-summary.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CountrySwitcherComponent } from './components/country-switcher/country-switcher.component';
 import { DialogueTurnComponent } from './components/dialogue-turn/dialogue-turn.component';
@@ -34,6 +35,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     LogosComponent,
     AboutBtnComponent,
     DialogueTurnComponent,
+    AofSummaryComponent,
     LayerControlInfoPopoverComponent,
   ],
   exports: [
@@ -50,6 +52,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     LogosComponent,
     AboutBtnComponent,
     DialogueTurnComponent,
+    AofSummaryComponent,
     LayerControlInfoPopoverComponent,
   ],
 })

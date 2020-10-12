@@ -7,6 +7,7 @@ import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionsController } from './eap-actions.controller';
 import { EapActionsService } from './eap-actions.service';
 import { DataService } from '../data/data.service';
+import { AreaOfFocusEntity } from './area-of-focus.entity';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { DataService } from '../data/data.service';
       UserEntity,
       EapActionEntity,
       EapActionStatusEntity,
+      AreaOfFocusEntity,
     ]),
     UserModule,
     HttpModule,
