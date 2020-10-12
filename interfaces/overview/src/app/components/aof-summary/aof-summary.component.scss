@@ -1,12 +1,9 @@
-.xc {
-  display: flex;
-  align-items: center;
-  // justify-content: center;
-}
-
 .component-title {
   background-color: var(--ion-color-ibf-salmon);
   padding: 5px;
+  display: flex;
+  align-items: center;
+  // justify-content: center;
 }
 
 ion-thumbnail {
