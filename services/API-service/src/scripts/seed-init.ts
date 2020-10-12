@@ -5,6 +5,7 @@ import { UserEntity } from '../user/user.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
 import { USERCONFIGS, COUNTRYCONFIGS } from '../secrets';
 import { CountryEntity } from '../country/country.entity';
+import { AreaOfFocusEntity } from '../eap-actions/area-of-focus.entity';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -55,43 +56,86 @@ export class SeedInit implements InterfaceScript {
 
     await userRepository.save(userEntities);
 
+    // ***** CREATE AREAS OF FOCUS *****
+
+    const areaOfFocusRepository = this.connection.getRepository(
+      AreaOfFocusEntity,
+    );
+    await areaOfFocusRepository.save([
+      {
+        id: 'drr',
+        label: 'Disaster Risk Reduction',
+        icon: 'Shelter.svg',
+      },
+      {
+        id: 'shelter',
+        label: 'Shelter',
+        icon: 'Shelter.svg',
+      },
+      {
+        id: 'livelihood',
+        label: 'Livelihoods & Basic Needs',
+        icon: 'Livelihood.svg',
+      },
+      {
+        id: 'health',
+        label: 'Health',
+        icon: 'Health.svg',
+      },
+      {
+        id: 'wash',
+        label: 'WASH',
+        icon: 'Water-Sanitation-and-Hygiene.svg',
+      },
+      {
+        id: 'inclusion',
+        label: 'Inclusion, Gender & Protection',
+        icon: 'Gender.svg',
+      },
+      {
+        id: 'migration',
+        label: 'Migration',
+        icon: 'Internally-displaced.svg',
+      },
+    ]);
+
     // ***** CREATE EAP ACTIONS *****
 
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
     await eapActionRepository.save([
       {
         countryCode: 'UGA',
-        areaOfFocus: 'Shelter',
+        areaOfFocus: { id: 'shelter' },
         action: 'shelter-1',
         label: 'Action 1',
       },
       {
         countryCode: 'UGA',
-        areaOfFocus: 'Shelter',
+        areaOfFocus: { id: 'shelter' },
         action: 'shelter-2',
         label: 'Action 2',
       },
       {
         countryCode: 'UGA',
-        areaOfFocus: 'WASH',
+        areaOfFocus: { id: 'wash' },
         action: 'wash-1',
         label: 'Action 1',
       },
       {
         countryCode: 'ZMB',
-        areaOfFocus: 'Shelter',
+        areaOfFocus: { id: 'shelter' },
         action: 'shelter-1',
         label: 'Action 1',
       },
       {
         countryCode: 'ZMB',
-        areaOfFocus: 'Shelter',
+        areaOfFocus: { id: 'shelter' },
         action: 'shelter-2',
         label: 'Action 2',
       },
       {
         countryCode: 'ZMB',
-        areaOfFocus: 'WASH',
+        areaOfFocus: { id: 'wash' },
         action: 'wash-1',
         label: 'Action 1',
       },
