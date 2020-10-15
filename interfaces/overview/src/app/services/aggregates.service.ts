@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { Indicator } from 'src/app/types/indicator-group';
+import { AdminLevelService } from './admin-level.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,7 @@ export class AggregatesService {
 
   constructor(
     private countryService: CountryService,
+    private adminLevelService: AdminLevelService,
     private timelineService: TimelineService,
     private apiService: ApiService,
   ) {}
@@ -39,7 +41,7 @@ export class AggregatesService {
       .getMatrixAggregates(
         this.countryService.selectedCountry.countryCode,
         this.timelineService.state.selectedTimeStepButtonValue,
-        this.countryService.selectedCountry.defaultAdminLevel,
+        this.adminLevelService.adminLevel,
       )
       .then((response) => {
         if (response) {

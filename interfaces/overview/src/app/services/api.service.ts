@@ -2,8 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { JwtService } from 'src/app/services/jwt.service';
+import { AdminLevel } from 'src/app/types/admin-level.enum';
 import { environment } from 'src/environments/environment';
-import { JwtService } from './jwt.service';
 
 @Injectable({
   providedIn: 'root',
@@ -125,7 +126,7 @@ export class ApiService {
   getAdminRegions(
     countryCode: string,
     leadTime: string,
-    adminLevel: number,
+    adminLevel: AdminLevel,
   ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
@@ -134,7 +135,11 @@ export class ApiService {
     ).toPromise();
   }
 
-  getTriggeredAreas(countryCode: string, adminLevel: number, leadTime: string) {
+  getTriggeredAreas(
+    countryCode: string,
+    adminLevel: AdminLevel,
+    leadTime: string,
+  ) {
     return this.get(
       environment.api_url,
       `triggered-areas/${countryCode}/${adminLevel}/${leadTime}`,
@@ -144,7 +149,7 @@ export class ApiService {
 
   getAdminRegionsStatic(
     countryCode: string,
-    adminLevel: number,
+    adminLevel: AdminLevel,
   ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
@@ -156,7 +161,7 @@ export class ApiService {
   getMatrixAggregates(
     countryCode: string,
     leadTime: string,
-    adminLevel: number,
+    adminLevel: AdminLevel,
   ) {
     return this.get(
       environment.api_url,
