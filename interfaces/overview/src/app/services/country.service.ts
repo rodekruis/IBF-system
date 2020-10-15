@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import mockCountry from 'src/app/mocks/country.mock';
 import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user.model';
+import { AdminLevel } from 'src/app/types/admin-level.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -16,13 +17,13 @@ export class CountryService {
     this.countries = [
       {
         countryCode: 'UGA',
-        defaultAdminLevel: 2,
+        defaultAdminLevel: AdminLevel.district,
         countryName: 'Uganda',
         countryForecasts: ['7-day'],
       },
       {
         countryCode: 'ZMB',
-        defaultAdminLevel: 2,
+        defaultAdminLevel: AdminLevel.district,
         countryName: 'Zambia',
         countryForecasts: ['3-day', '7-day'],
       },
