@@ -1,0 +1,43 @@
+<div class="ion-padding-top ibf-admin-level-buttons">
+  <ion-button
+    size="small"
+    class="ibf-admin-level-button"
+    fill="solid"
+    [color]="
+      getSelectedAdminLevel() == adminLevel.province
+        ? 'ibf-royal-blue'
+        : 'ibf-dark-blue'
+    "
+    disabled="disabled"
+    (click)="setAdminLevel(adminLevel.province)"
+  >
+    {{ adminLevelLabel.province }}
+  </ion-button>
+  <ion-button
+    size="small"
+    class="ibf-admin-level-button"
+    fill="solid"
+    [color]="
+      getSelectedAdminLevel() == adminLevel.district
+        ? 'ibf-royal-blue'
+        : 'ibf-dark-blue'
+    "
+    (click)="setAdminLevel(adminLevel.district)"
+  >
+    {{ adminLevelLabel.district }}
+  </ion-button>
+  <ion-button
+    size="small"
+    class="ibf-admin-level-button"
+    fill="solid"
+    [color]="
+      getSelectedAdminLevel() == adminLevel.municipality
+        ? 'ibf-royal-blue'
+        : 'ibf-dark-blue'
+    "
+    disabled="disabled"
+    (click)="setAdminLevel(adminLevel.municipality)"
+  >
+    {{ adminLevelLabel.municipality }}
+  </ion-button>
+</div>

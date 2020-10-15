@@ -1,7 +1,9 @@
+import { AdminLevel } from 'src/app/types/admin-level.enum';
+
 // tslint:disable: variable-name
 export class Country {
   countryCode: string;
-  defaultAdminLevel: number;
+  defaultAdminLevel: AdminLevel;
   countryName: string;
   countryForecasts: string[];
 }

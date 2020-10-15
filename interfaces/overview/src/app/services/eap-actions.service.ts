@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { ApiService } from '../../app/services/api.service';
-import { CountryService } from '../../app/services/country.service';
+import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
+import { AdminLevelService } from './admin-level.service';
 import { TimelineService } from './timeline.service';
 
 @Injectable({
@@ -13,6 +14,7 @@ export class EapActionsService {
 
   constructor(
     private countryService: CountryService,
+    private adminLevelService: AdminLevelService,
     private timelineService: TimelineService,
     private apiService: ApiService,
   ) {}
@@ -24,7 +26,7 @@ export class EapActionsService {
   async loadDistrictsAndActions() {
     this.triggeredAreas = await this.apiService.getTriggeredAreas(
       this.countryService.selectedCountry.countryCode,
-      this.countryService.selectedCountry.defaultAdminLevel,
+      this.adminLevelService.adminLevel,
       this.timelineService.state.selectedTimeStepButtonValue,
     );
     for await (let area of this.triggeredAreas) {
