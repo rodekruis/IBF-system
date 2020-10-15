@@ -3,9 +3,11 @@ import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
 import { Observable, Subject } from 'rxjs';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { AdminLevel } from 'src/app/types/admin-level.enum';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerLabel, IbfLayerName } from 'src/app/types/ibf-layer-name';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
@@ -33,6 +35,7 @@ export class MapService {
 
   constructor(
     private countryService: CountryService,
+    private adminLevelService: AdminLevelService,
     private timelineService: TimelineService,
     private apiService: ApiService,
   ) {}
@@ -65,7 +68,7 @@ export class MapService {
   public async updateAdminRegionLayer(
     colorProperty: string,
     leadTime: string = '7-day',
-    adminLevel: number = 2,
+    adminLevel: AdminLevel = AdminLevel.district,
   ) {
     this.addLayer({
       name: IbfLayerName.adminRegions,
@@ -193,7 +196,7 @@ export class MapService {
     return await this.apiService.getAdminRegions(
       this.countryService.selectedCountry.countryCode,
       this.timelineService.state.selectedTimeStepButtonValue,
-      this.countryService.selectedCountry.defaultAdminLevel,
+      this.adminLevelService.adminLevel,
     );
   }
 

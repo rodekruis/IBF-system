@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { IonicModule } from '@ionic/angular';
 import { AboutBtnComponent } from './components/about-btn/about-btn.component';
+import { AdminLevelComponent } from './components/admin-level/admin-level.component';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
 import { AofSummaryComponent } from './components/aof-summary/aof-summary.component';
 import { ChatComponent } from './components/chat/chat.component';
@@ -12,6 +13,7 @@ import { DialogueTurnComponent } from './components/dialogue-turn/dialogue-turn.
 import { LayerControlInfoPopoverComponent } from './components/layer-control-info-popover/layer-control-info-popover.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LogosComponent } from './components/logos/logos.component';
+import { MapControlsComponent } from './components/map-controls/map-controls.component';
 import { MapComponent } from './components/map/map.component';
 import { MatrixComponent } from './components/matrix/matrix.component';
 import { SourceInfoModalComponent } from './components/source-info-modal/source-info-modal.component';
@@ -37,6 +39,8 @@ import { UserStateComponent } from './components/user-state/user-state.component
     DialogueTurnComponent,
     AofSummaryComponent,
     LayerControlInfoPopoverComponent,
+    MapControlsComponent,
+    AdminLevelComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -54,6 +58,8 @@ import { UserStateComponent } from './components/user-state/user-state.component
     DialogueTurnComponent,
     AofSummaryComponent,
     LayerControlInfoPopoverComponent,
+    MapControlsComponent,
+    AdminLevelComponent,
   ],
 })
 export class SharedModule {}

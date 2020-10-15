@@ -15,9 +15,11 @@ import {
 import { Subscription } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
 import { Station } from 'src/app/models/station.model';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { AdminLevel } from 'src/app/types/admin-level.enum';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
@@ -34,6 +36,7 @@ export class MapComponent implements OnDestroy {
 
   private layerSubscription: Subscription;
   private countrySubscription: Subscription;
+  private adminLevelSubscription: Subscription;
   private timelineSubscription: Subscription;
 
   private osmTileLayer = tileLayer(
@@ -69,6 +72,7 @@ export class MapComponent implements OnDestroy {
 
   constructor(
     private countryService: CountryService,
+    private adminLevelService: AdminLevelService,
     private timelineService: TimelineService,
     public mapService: MapService,
   ) {
@@ -105,6 +109,12 @@ export class MapComponent implements OnDestroy {
         this.mapService.loadGrasslandLayer();
       });
 
+    this.adminLevelSubscription = this.adminLevelService
+      .getAdminLevelSubscription()
+      .subscribe((adminLevel: AdminLevel) => {
+        this.mapService.loadAdminRegionLayer();
+      });
+
     this.timelineSubscription = this.timelineService
       .getTimelineSubscription()
       .subscribe((timeline: string) => {
@@ -117,6 +127,7 @@ export class MapComponent implements OnDestroy {
   ngOnDestroy() {
     this.layerSubscription.unsubscribe();
     this.timelineSubscription.unsubscribe();
+    this.adminLevelSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
   }
 
