@@ -1,6 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import {
+  Control,
+  DomUtil,
   geoJSON,
   icon,
   IconOptions,
@@ -33,6 +35,8 @@ import { IbfLayerWMS } from 'src/app/types/ibf-layer-wms';
 export class MapComponent implements OnDestroy {
   private map: Map;
   public layers: IbfLayer[] = [];
+
+  public legend: Control;
 
   private layerSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -131,6 +135,66 @@ export class MapComponent implements OnDestroy {
     this.countrySubscription.unsubscribe();
   }
 
+  getColor(d, colorThreshold, colors) {
+    return d > colorThreshold[0.8]
+      ? colors[4]
+      : d > colorThreshold[0.6]
+      ? colors[3]
+      : d > colorThreshold[0.4]
+      ? colors[2]
+      : d > colorThreshold[0.2]
+      ? colors[1]
+      : colors[0];
+  }
+
+  public addLegend(map, getColor, colors, colorThreshold, layerActive) {
+    if (this.legend) {
+      map.removeControl(this.legend);
+    }
+
+    if (layerActive) {
+      this.legend = new Control();
+      this.legend.setPosition('bottomright');
+      this.legend.onAdd = function (map) {
+        const div = DomUtil.create('div', 'info legend');
+        const grades = [
+          0,
+          colorThreshold[0.2],
+          colorThreshold[0.4],
+          colorThreshold[0.6],
+          colorThreshold[0.8],
+        ];
+
+        // This is now done based on number distribution, but better to infer from metadata (aggregates-service)
+        const numberFormat = function (d) {
+          const cutoff = colorThreshold[0.8];
+          if (cutoff <= 1) {
+            return Math.round(d * 100) + '%';
+          } else if (cutoff <= 10) {
+            return Math.round(d * 100) / 100;
+          } else {
+            return Math.round(d);
+          }
+        };
+
+        for (let i = 0; i < grades.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' +
+            getColor(grades[i] + 0.0001, colorThreshold, colors) +
+            '"></i> ' +
+            numberFormat(grades[i]) +
+            (grades[i + 1]
+              ? '&ndash;' + numberFormat(grades[i + 1]) + '<br>'
+              : '+');
+        }
+
+        return div;
+      };
+
+      this.legend.addTo(map);
+    }
+  }
+
   onMapReady(map: Map) {
     this.map = map;
 
@@ -145,6 +209,19 @@ export class MapComponent implements OnDestroy {
 
     if (layer.name === IbfLayerName.adminRegions) {
       layer.leafletLayer = this.createAdminRegionsLayer(layer);
+
+      const colors = this.mapService.state.colorGradient;
+      const colorThreshold = this.mapService.getColorThreshold(
+        layer.data,
+        layer.defaultColorProperty,
+      );
+      this.addLegend(
+        this.map,
+        this.getColor,
+        colors,
+        colorThreshold,
+        layer.active,
+      );
     }
 
     if (layer.type === IbfLayerType.wms) {
@@ -183,6 +260,7 @@ export class MapComponent implements OnDestroy {
     if (!layer.data) {
       return;
     }
+
     return geoJSON(layer.data, {
       style: this.mapService.setAdminRegionStyle(
         layer.data,
