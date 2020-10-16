@@ -70,7 +70,7 @@ export class MapService {
   public async updateAdminRegionLayer(
     colorProperty: string,
     leadTime: string = '7-day',
-    adminLevel: AdminLevel = AdminLevel.district,
+    adminLevel: AdminLevel = AdminLevel.adm2,
   ) {
     this.addLayer({
       name: IbfLayerName.adminRegions,

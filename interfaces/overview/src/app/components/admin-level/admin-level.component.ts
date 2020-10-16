@@ -15,7 +15,7 @@ import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 export class AdminLevelComponent {
   private countrySubscription: Subscription;
   public adminLevel = AdminLevel;
-  public adminLevelLabel = AdminLevelLabel;
+  public adminLevelLabel: AdminLevelLabel;
   private adminLevelNumber: number;
   public adminLayerState: boolean = true;
 
@@ -28,12 +28,24 @@ export class AdminLevelComponent {
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.adminLevelService.setAdminLevel(country.defaultAdminLevel);
+        this.loadAdminLevelLabels();
       });
     this.adminLevelNumber = this.getSelectedAdminLevel();
+
+    this.loadAdminLevelLabels();
   }
 
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
+  }
+
+  loadAdminLevelLabels() {
+    this.adminLevelLabel = {
+      adm1: this.countryService.selectedCountry.adminRegionLabels[0],
+      adm2: this.countryService.selectedCountry.adminRegionLabels[1],
+      adm3: this.countryService.selectedCountry.adminRegionLabels[2],
+      adm4: this.countryService.selectedCountry.adminRegionLabels[3],
+    };
   }
 
   setAdminLevel(adminLevel: number, state: boolean): void {
