@@ -4,7 +4,7 @@ import { Country } from 'src/app/models/country.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
-import { AdminLevel } from 'src/app/types/admin-level.enum';
+import { AdminLevel, AdminLevelLabel } from 'src/app/types/admin-level.enum';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 
 @Component({
@@ -15,7 +15,7 @@ import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 export class AdminLevelComponent {
   private countrySubscription: Subscription;
   public adminLevel = AdminLevel;
-  public adminLevelLabel = {};
+  public adminLevelLabel: AdminLevelLabel;
   private adminLevelNumber: number;
   public adminLayerState: boolean = true;
 
