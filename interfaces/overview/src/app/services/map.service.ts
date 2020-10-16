@@ -236,7 +236,7 @@ export class MapService {
     return this.state.defaultColor;
   };
 
-  public setAdminRegionStyle = (adminRegions, colorProperty) => {
+  public getColorThreshold = (adminRegions, colorProperty) => {
     const colorPropertyValues = adminRegions.features
       .map((feature) =>
         typeof feature.properties[colorProperty] !== 'undefined'
@@ -251,6 +251,11 @@ export class MapService {
       0.6: quantile(colorPropertyValues, 0.6),
       0.8: quantile(colorPropertyValues, 0.8),
     };
+    return colorThreshold;
+  };
+
+  public setAdminRegionStyle = (adminRegions, colorProperty) => {
+    const colorThreshold = this.getColorThreshold(adminRegions, colorProperty);
 
     return (adminRegion) => {
       const fillColor = this.getAdminRegionFillColor(
