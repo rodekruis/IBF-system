@@ -7,11 +7,6 @@ import { MapService } from 'src/app/services/map.service';
 import { AdminLevel } from 'src/app/types/admin-level.enum';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 
-export enum AdminLevelLabel {
-  adm1 = (CountryService.countries.adm2 = 'District'),
-  adm3 = 'Municipality',
-}
-
 @Component({
   selector: 'app-admin-level',
   templateUrl: './admin-level.component.html',
@@ -33,7 +28,6 @@ export class AdminLevelComponent {
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.adminLevelService.setAdminLevel(country.defaultAdminLevel);
-
         this.loadAdminLevelLabels();
       });
     this.adminLevelNumber = this.getSelectedAdminLevel();
