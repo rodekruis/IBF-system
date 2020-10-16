@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
 import { MapService } from 'src/app/services/map.service';
 import { IbfLayer } from 'src/app/types/ibf-layer';
+import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 
 @Component({
   selector: 'app-matrix',
@@ -28,7 +29,8 @@ export class MatrixComponent implements OnDestroy {
           if (newLayerIndex >= 0) {
             this.layers.splice(newLayerIndex, 1, newLayer);
           } else {
-            this.layers.push(newLayer);
+            if (newLayer.name !== IbfLayerName.adminRegions)
+              this.layers.push(newLayer);
           }
         } else {
           this.layers = [];
