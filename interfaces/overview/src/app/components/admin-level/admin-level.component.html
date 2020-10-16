@@ -4,12 +4,14 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevel() == adminLevel.province
+      getSelectedAdminLevel() !== adminLevel.province
+        ? 'ibf-dark-blue'
+        : adminLayerState
         ? 'ibf-royal-blue'
-        : 'ibf-dark-blue'
+        : 'ibf-black'
     "
     disabled="disabled"
-    (click)="setAdminLevel(adminLevel.province)"
+    (click)="setAdminLevel(adminLevel.province, !adminLayerState)"
   >
     {{ adminLevelLabel.province }}
   </ion-button>
@@ -18,11 +20,13 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevel() == adminLevel.district
+      getSelectedAdminLevel() !== adminLevel.district
+        ? 'ibf-dark-blue'
+        : adminLayerState
         ? 'ibf-royal-blue'
-        : 'ibf-dark-blue'
+        : 'ibf-black'
     "
-    (click)="setAdminLevel(adminLevel.district)"
+    (click)="setAdminLevel(adminLevel.district, !adminLayerState)"
   >
     {{ adminLevelLabel.district }}
   </ion-button>
@@ -31,12 +35,14 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevel() == adminLevel.municipality
+      getSelectedAdminLevel() !== adminLevel.municipality
+        ? 'ibf-dark-blue'
+        : adminLayerState
         ? 'ibf-royal-blue'
-        : 'ibf-dark-blue'
+        : 'ibf-black'
     "
     disabled="disabled"
-    (click)="setAdminLevel(adminLevel.municipality)"
+    (click)="setAdminLevel(adminLevel.municipality, !adminLayerState)"
   >
     {{ adminLevelLabel.municipality }}
   </ion-button>
