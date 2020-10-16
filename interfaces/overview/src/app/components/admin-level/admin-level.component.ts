@@ -16,7 +16,7 @@ export class AdminLevelComponent {
   private countrySubscription: Subscription;
   public adminLevel = AdminLevel;
   public adminLevelLabel = AdminLevelLabel;
-  private adminLevelNumber: number = 2;
+  private adminLevelNumber: number;
   public adminLayerState: boolean = true;
 
   constructor(
@@ -29,6 +29,7 @@ export class AdminLevelComponent {
       .subscribe((country: Country) => {
         this.adminLevelService.setAdminLevel(country.defaultAdminLevel);
       });
+    this.adminLevelNumber = this.getSelectedAdminLevel();
   }
 
   ngOnDestroy() {
