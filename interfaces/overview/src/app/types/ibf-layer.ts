@@ -10,7 +10,7 @@ export class IbfLayer {
   description: string;
   active: boolean;
   viewCenter: boolean;
-  defaultColorProperty?: string;
+  colorProperty?: string;
   wms?: IbfLayerWMS;
   data?: GeoJSON.FeatureCollection;
   leafletLayer?: Layer | LayerGroup | Marker;
