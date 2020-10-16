@@ -14,6 +14,7 @@ import { IbfLayerType } from 'src/app/types/ibf-layer-type';
 import { IbfLayerWMS } from 'src/app/types/ibf-layer-wms';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
+import { IndicatorEnum } from '../types/indicator-group';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,7 @@ export class MapService {
     ] as LatLngBoundsLiteral,
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
+    defaultColorProperty: IndicatorEnum.PopulationExposed,
     defaultFillOpacity: 0.8,
     defaultWeight: 1,
   };
@@ -61,7 +63,7 @@ export class MapService {
       active: true,
       data: await this.getAdminRegions(),
       viewCenter: true,
-      defaultColorProperty: 'population_affected', // 'population_affected' / 'population'
+      colorProperty: this.state.defaultColorProperty,
     });
   }
 
@@ -78,7 +80,7 @@ export class MapService {
       active: true,
       data: await this.getAdminRegions(),
       viewCenter: true,
-      defaultColorProperty: colorProperty,
+      colorProperty: colorProperty,
     });
   }
 
@@ -178,7 +180,7 @@ export class MapService {
         viewCenter: false,
         data: this.layers[layerIndex].data,
         wms: this.layers[layerIndex].wms,
-        defaultColorProperty: this.layers[layerIndex].defaultColorProperty,
+        colorProperty: this.layers[layerIndex].colorProperty,
       });
     } else {
       throw `Layer '${name}' does not exist`;

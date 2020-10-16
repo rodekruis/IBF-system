@@ -50,3 +50,31 @@
   margin-right: 8px;
   opacity: 0.7;
 }
+
+.marker-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #a5d4a1;
+}
+.marker-icon:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  bottom: -13px;
+  left: 50%;
+  margin-left: -10px;
+  border: 10px solid transparent;
+  border-top-color: #a5d4a1;
+}
+.marker-icon:hover,
+.marker-icon:focus {
+  background-color: silver;
+}
+.marker-icon:hover:before,
+.marker-icon:focus:before {
+  border-top-color: silver;
+}

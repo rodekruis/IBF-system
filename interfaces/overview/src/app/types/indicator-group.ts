@@ -12,6 +12,10 @@ export class Indicator {
   group: IndicatorGroup;
 }
 
+export enum IndicatorEnum {
+  PopulationExposed = 'population_affected',
+}
+
 export enum NumberFormat {
   dec0 = 'dec0',
   dec2 = 'dec2',
