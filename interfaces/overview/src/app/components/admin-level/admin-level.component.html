@@ -4,46 +4,63 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevel() !== adminLevel.province
+      getSelectedAdminLevel() !== adminLevel.adm1
         ? 'ibf-dark-blue'
         : adminLayerState
         ? 'ibf-royal-blue'
         : 'ibf-black'
     "
     disabled="disabled"
-    (click)="setAdminLevel(adminLevel.province, !adminLayerState)"
+    (click)="setAdminLevel(adminLevel.adm1, !adminLayerState)"
   >
-    {{ adminLevelLabel.province }}
+    {{ adminLevelLabel.adm1 }}
   </ion-button>
   <ion-button
     size="small"
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevel() !== adminLevel.district
+      getSelectedAdminLevel() !== adminLevel.adm2
         ? 'ibf-dark-blue'
         : adminLayerState
         ? 'ibf-royal-blue'
         : 'ibf-black'
     "
-    (click)="setAdminLevel(adminLevel.district, !adminLayerState)"
+    (click)="setAdminLevel(adminLevel.adm2, !adminLayerState)"
   >
-    {{ adminLevelLabel.district }}
+    {{ adminLevelLabel.adm2 }}
   </ion-button>
   <ion-button
     size="small"
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevel() !== adminLevel.municipality
+      getSelectedAdminLevel() !== adminLevel.adm3
         ? 'ibf-dark-blue'
         : adminLayerState
         ? 'ibf-royal-blue'
         : 'ibf-black'
     "
     disabled="disabled"
-    (click)="setAdminLevel(adminLevel.municipality, !adminLayerState)"
+    (click)="setAdminLevel(adminLevel.adm3, !adminLayerState)"
   >
-    {{ adminLevelLabel.municipality }}
+    {{ adminLevelLabel.adm3 }}
+  </ion-button>
+  <ion-button
+    *ngIf="adminLevelLabel.adm4"
+    size="small"
+    class="ibf-admin-level-button"
+    fill="solid"
+    [color]="
+      getSelectedAdminLevel() !== adminLevel.adm4
+        ? 'ibf-dark-blue'
+        : adminLayerState
+        ? 'ibf-royal-blue'
+        : 'ibf-black'
+    "
+    disabled="disabled"
+    (click)="setAdminLevel(adminLevel.adm4, !adminLayerState)"
+  >
+    {{ adminLevelLabel.adm4 }}
   </ion-button>
 </div>
