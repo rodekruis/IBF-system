@@ -147,51 +147,52 @@ export class MapComponent implements OnDestroy {
       : colors[0];
   }
 
-  public addLegend(map, getColor, colors, colorThreshold, colorProperty) {
-
+  public addLegend(map, getColor, colors, colorThreshold, layerActive) {
     if (this.legend) {
       map.removeControl(this.legend);
     }
 
-    this.legend = new Control();
-    this.legend.setPosition('bottomright');
-    this.legend.onAdd = function (map) {
-      const div = DomUtil.create('div', 'info legend');
-      const grades = [
-        0,
-        colorThreshold[0.2],
-        colorThreshold[0.4],
-        colorThreshold[0.6],
-        colorThreshold[0.8],
-      ];
+    if (layerActive) {
+      this.legend = new Control();
+      this.legend.setPosition('bottomright');
+      this.legend.onAdd = function (map) {
+        const div = DomUtil.create('div', 'info legend');
+        const grades = [
+          0,
+          colorThreshold[0.2],
+          colorThreshold[0.4],
+          colorThreshold[0.6],
+          colorThreshold[0.8],
+        ];
 
-      // This is now done based on number distribution, but better to infer from metadata (aggregates-service)
-      const numberFormat = function (d) {
-        const cutoff = colorThreshold[0.8];
-        if (cutoff <= 1) {
-          return Math.round(d * 100) + '%';
-        } else if (cutoff <= 10) {
-          return Math.round(d * 100) / 100;
-        } else {
-          return Math.round(d);
+        // This is now done based on number distribution, but better to infer from metadata (aggregates-service)
+        const numberFormat = function (d) {
+          const cutoff = colorThreshold[0.8];
+          if (cutoff <= 1) {
+            return Math.round(d * 100) + '%';
+          } else if (cutoff <= 10) {
+            return Math.round(d * 100) / 100;
+          } else {
+            return Math.round(d);
+          }
+        };
+
+        for (let i = 0; i < grades.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' +
+            getColor(grades[i] + 0.0001, colorThreshold, colors) +
+            '"></i> ' +
+            numberFormat(grades[i]) +
+            (grades[i + 1]
+              ? '&ndash;' + numberFormat(grades[i + 1]) + '<br>'
+              : '+');
         }
+
+        return div;
       };
 
-      for (let i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-          '<i style="background:' +
-          getColor(grades[i] + 0.0001, colorThreshold, colors) +
-          '"></i> ' +
-          numberFormat(grades[i]) +
-          (grades[i + 1]
-            ? '&ndash;' + numberFormat(grades[i + 1]) + '<br>'
-            : '+');
-      }
-
-      return div;
-    };
-
-    this.legend.addTo(map);
+      this.legend.addTo(map);
+    }
   }
 
   onMapReady(map: Map) {
@@ -219,7 +220,7 @@ export class MapComponent implements OnDestroy {
         this.getColor,
         colors,
         colorThreshold,
-        layer.defaultColorProperty,
+        layer.active,
       );
     }
 
