@@ -4,8 +4,13 @@ import { Country } from 'src/app/models/country.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
-import { AdminLevel, AdminLevelLabel } from 'src/app/types/admin-level.enum';
+import { AdminLevel } from 'src/app/types/admin-level.enum';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
+
+export enum AdminLevelLabel {
+  adm1 = (CountryService.countries.adm2 = 'District'),
+  adm3 = 'Municipality',
+}
 
 @Component({
   selector: 'app-admin-level',
@@ -15,7 +20,7 @@ import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 export class AdminLevelComponent {
   private countrySubscription: Subscription;
   public adminLevel = AdminLevel;
-  public adminLevelLabel = AdminLevelLabel;
+  public adminLevelLabel = {};
   private adminLevelNumber: number;
   public adminLayerState: boolean = true;
 
@@ -28,12 +33,25 @@ export class AdminLevelComponent {
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.adminLevelService.setAdminLevel(country.defaultAdminLevel);
+
+        this.loadAdminLevelLabels();
       });
     this.adminLevelNumber = this.getSelectedAdminLevel();
+
+    this.loadAdminLevelLabels();
   }
 
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
+  }
+
+  loadAdminLevelLabels() {
+    this.adminLevelLabel = {
+      adm1: this.countryService.selectedCountry.adminRegionLabels[0],
+      adm2: this.countryService.selectedCountry.adminRegionLabels[1],
+      adm3: this.countryService.selectedCountry.adminRegionLabels[2],
+      adm4: this.countryService.selectedCountry.adminRegionLabels[3],
+    };
   }
 
   setAdminLevel(adminLevel: number, state: boolean): void {
