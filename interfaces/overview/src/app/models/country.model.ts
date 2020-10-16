@@ -6,4 +6,5 @@ export class Country {
   defaultAdminLevel: AdminLevel;
   countryName: string;
   countryForecasts: string[];
+  adminRegionLabels: string[];
 }

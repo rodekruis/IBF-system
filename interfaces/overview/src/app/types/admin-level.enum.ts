@@ -1,11 +1,13 @@
 export enum AdminLevel {
-  province = 1,
-  district = 2,
-  municipality = 3,
+  adm1 = 1,
+  adm2 = 2,
+  adm3 = 3,
+  adm4 = 4,
 }
 
-export enum AdminLevelLabel {
-  province = 'Province',
-  district = 'District',
-  municipality = 'Municipality',
+export class AdminLevelLabel {
+  adm1: string;
+  adm2: string;
+  adm3: string;
+  adm4: string;
 }

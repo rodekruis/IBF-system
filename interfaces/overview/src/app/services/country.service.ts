@@ -17,15 +17,17 @@ export class CountryService {
     this.countries = [
       {
         countryCode: 'UGA',
-        defaultAdminLevel: AdminLevel.district,
+        defaultAdminLevel: AdminLevel.adm2,
         countryName: 'Uganda',
         countryForecasts: ['7-day'],
+        adminRegionLabels: ['Regions', 'Districts', 'Counties', 'Parishes'],
       },
       {
         countryCode: 'ZMB',
-        defaultAdminLevel: AdminLevel.district,
+        defaultAdminLevel: AdminLevel.adm2,
         countryName: 'Zambia',
         countryForecasts: ['3-day', '7-day'],
+        adminRegionLabels: ['Provinces', 'Districts', 'Wards'],
       },
     ] as Country[];
   }
