@@ -11,33 +11,17 @@ import { EapActionsService } from 'src/app/services/eap-actions.service';
 export class AofSummaryComponent implements OnInit {
   private eapActionSubscription: Subscription;
   public areasOfFocus: any[];
+  public triggeredAreas: any[];
 
   constructor(
     private eapActionsService: EapActionsService,
     private apiService: ApiService,
   ) {
-    // this.areasOfFocus = [
-    //   {
-    //     name: 'shelter',
-    //     label: 'Shelter',
-    //     icon: 'Shelter.svg',
-    //     count: 0,
-    //     countChecked: 0,
-    //   },
-    //   {
-    //     name: 'wash',
-    //     label: 'WASH',
-    //     icon: 'Water-Sanitation-and-Hygiene.svg',
-    //     count: 0,
-    //     countChecked: 0,
-    //   },
-    // ]
-
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
       .subscribe((newAreas) => {
-        const triggeredAreas = newAreas;
-        this.calcActionStatus(triggeredAreas);
+        this.triggeredAreas = newAreas;
+        this.calcActionStatus(this.triggeredAreas);
       });
   }
 
@@ -48,7 +32,7 @@ export class AofSummaryComponent implements OnInit {
     this.areasOfFocus = await this.apiService.getAreasOfFocus();
 
     // Start calculation only when last area has eapActions attached to it
-    if (triggeredAreas[triggeredAreas.length - 1].eapActions) {
+    if (triggeredAreas[triggeredAreas.length - 1]?.eapActions) {
       // For each area of focus ..
       this.areasOfFocus.forEach((aof) => {
         aof.count = 0;
