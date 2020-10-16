@@ -266,6 +266,23 @@ export class MapComponent implements OnDestroy {
         layer.data,
         layer.defaultColorProperty,
       ),
+      onEachFeature: function (feature, element) {
+        element.on('click', function () {
+          if (
+            layer.colorProperty === IndicatorEnum.PopulationExposed &&
+            feature.properties[layer.colorProperty] > 0
+          ) {
+            const popup =
+              '<strong>' +
+              feature.properties.name +
+              '</strong><br>' +
+              'Population exposed: ' +
+              Math.round(feature.properties[IndicatorEnum.PopulationExposed]) +
+              '';
+            element.bindPopup(popup).openPopup();
+          }
+        });
+      },
     });
   }
 
