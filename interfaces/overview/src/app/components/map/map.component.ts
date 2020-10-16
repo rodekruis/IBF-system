@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import {
   Control,
+  divIcon,
   DomUtil,
   geoJSON,
   icon,
@@ -26,6 +27,7 @@ import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 import { IbfLayerType } from 'src/app/types/ibf-layer-type';
 import { IbfLayerWMS } from 'src/app/types/ibf-layer-wms';
+import { IndicatorEnum } from 'src/app/types/indicator-group';
 
 @Component({
   selector: 'app-map',
@@ -135,19 +137,7 @@ export class MapComponent implements OnDestroy {
     this.countrySubscription.unsubscribe();
   }
 
-  getColor(d, colorThreshold, colors) {
-    return d > colorThreshold[0.8]
-      ? colors[4]
-      : d > colorThreshold[0.6]
-      ? colors[3]
-      : d > colorThreshold[0.4]
-      ? colors[2]
-      : d > colorThreshold[0.2]
-      ? colors[1]
-      : colors[0];
-  }
-
-  public addLegend(map, getColor, colors, colorThreshold, layerActive) {
+  public addLegend(map, colors, colorThreshold, layerActive) {
     if (this.legend) {
       map.removeControl(this.legend);
     }
@@ -165,6 +155,18 @@ export class MapComponent implements OnDestroy {
           colorThreshold[0.8],
         ];
 
+        const getColor = function (d) {
+          return d > colorThreshold[0.8]
+            ? colors[4]
+            : d > colorThreshold[0.6]
+            ? colors[3]
+            : d > colorThreshold[0.4]
+            ? colors[2]
+            : d > colorThreshold[0.2]
+            ? colors[1]
+            : colors[0];
+        };
+
         // This is now done based on number distribution, but better to infer from metadata (aggregates-service)
         const numberFormat = function (d) {
           const cutoff = colorThreshold[0.8];
@@ -180,7 +182,7 @@ export class MapComponent implements OnDestroy {
         for (let i = 0; i < grades.length; i++) {
           div.innerHTML +=
             '<i style="background:' +
-            getColor(grades[i] + 0.0001, colorThreshold, colors) +
+            getColor(grades[i] + 0.0001) +
             '"></i> ' +
             numberFormat(grades[i]) +
             (grades[i + 1]
@@ -213,15 +215,9 @@ export class MapComponent implements OnDestroy {
       const colors = this.mapService.state.colorGradient;
       const colorThreshold = this.mapService.getColorThreshold(
         layer.data,
-        layer.defaultColorProperty,
+        layer.colorProperty,
       );
-      this.addLegend(
-        this.map,
-        this.getColor,
-        colors,
-        colorThreshold,
-        layer.active,
-      );
+      this.addLegend(this.map, colors, colorThreshold, layer.active);
     }
 
     if (layer.type === IbfLayerType.wms) {
@@ -264,7 +260,7 @@ export class MapComponent implements OnDestroy {
     return geoJSON(layer.data, {
       style: this.mapService.setAdminRegionStyle(
         layer.data,
-        layer.defaultColorProperty,
+        layer.colorProperty,
       ),
       onEachFeature: function (feature, element) {
         element.on('click', function () {
@@ -311,15 +307,63 @@ export class MapComponent implements OnDestroy {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.station_name;
-    let markerIcon = this.iconDefault;
+    let markerIcon;
 
     if (markerProperties.fc_trigger === '1') {
       markerIcon = this.iconWarning;
     }
 
-    return marker(markerLatLng, {
+    const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: icon(markerIcon),
+      icon: markerIcon
+        ? icon(markerIcon)
+        : divIcon({
+            iconSize: [25, 25],
+            iconAnchor: [25, 25],
+            popupAnchor: [0, 0],
+            className: 'marker-icon',
+          }),
     });
+    markerInstance.bindPopup(this.createMarkerPopup(markerProperties));
+
+    return markerInstance;
+  }
+
+  private createMarkerPopup(markerProperties) {
+    // DUMMY: REMOVE FOR PRODUCTION
+    if (markerProperties.fc == 0) markerProperties.fc = 100;
+
+    const percTrigger = markerProperties.fc / markerProperties.trigger_level;
+    const color = percTrigger < 1 ? '#a5d4a1' : '#d7301f';
+
+    const fullWidth = 100;
+
+    const stationInfoPopup =
+      '<strong>' +
+      markerProperties.station_name +
+      '</strong> (' +
+      markerProperties.station_code +
+      ')<br>' +
+      'Forecast: <span style="color:' +
+      color +
+      '">' +
+      Math.round(markerProperties.fc) +
+      ' m<sup>3</sup>/s</span>' +
+      '<div style="border-radius:5px;height:12px;background-color:' +
+      color +
+      '; width: ' +
+      Math.min(
+        (markerProperties.fc / markerProperties.trigger_level) * fullWidth,
+        fullWidth * 2,
+      ) +
+      'px"></div>' +
+      'Trigger : ' +
+      Math.round(markerProperties.trigger_level) +
+      ' m<sup>3</sup>/s' +
+      '<div style="border-radius:5px;height:12px;background-color:grey;width:' +
+      fullWidth +
+      'px"></div>' +
+      '';
+    return stationInfoPopup;
   }
 }

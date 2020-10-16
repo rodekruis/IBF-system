@@ -52,7 +52,9 @@
           ><br />
           <ion-note size="small"
             >Exposed population:
-            <strong>{{ area.population_affected | number: '.0-0' }}</strong>
+            <strong>{{
+              area[IndicatorEnum.PopulationExposed] | number: '.0-0'
+            }}</strong>
           </ion-note>
         </ion-col>
       </ion-row>
