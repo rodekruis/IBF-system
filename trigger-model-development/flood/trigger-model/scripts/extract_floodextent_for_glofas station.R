@@ -28,6 +28,7 @@ glofas_st <- st_read(request)
 #if geonode download part do not work 
 # read files from file----------------
 mypath2 = "C:/Users/ATeklesadik/OneDrive - Rode Kruis/Documents/documents/GLOFAS"
+##..\Rode Kruis\510 - Data preparedness and IBF - [RD] Impact-based forecasting\IBF - FLOOD\IARP_trigger_dashboard_data\data\flood_extent
 mypath3 = "C:/Users/ATeklesadik/Rode Kruis/510 - Data preparedness and IBF - flood_hazard_compiled_from_six_global_models"
 
 glofas_st <- st_read(paste0(mypath2,'/glofas_africa.shp'))
