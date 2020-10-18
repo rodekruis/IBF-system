@@ -17,15 +17,15 @@ crs1 <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
 url_geonode <- "https://geonode.510.global/geoserver/geonode_old/wfs"
 url<- parse_url(url_geonode)
 
-url$query <- list(service = "WFS",version = "2.0.0",request = "GetFeature",typename = "geonode_old:IRAB_BASIn_lev6", outputFormat = "application/json")
+url$query <- list(service = "WFS",version = "2.0.0",request = "GetFeature",typename = "geonode:hybas_lake_af_lev06_v1c", outputFormat = "application/json")
 request <- build_url(url)
 hydrosheds_basins <- st_read(request)
 
-url$query <- list(service = "WFS",version = "2.0.0",request = "GetFeature", typename = "geonode_old:glofas_st",  outputFormat = "application/json")
+url$query <- list(service = "WFS",version = "2.0.0",request = "GetFeature", typename = "geonode:glofas_africa",  outputFormat = "application/json")
 request <- build_url(url)
 glofas_st <- st_read(request)
                   
-# note sure why but geonode download part seems not to work 
+#if geonode download part do not work 
 # read files from file----------------
 mypath2 = "C:/Users/ATeklesadik/OneDrive - Rode Kruis/Documents/documents/GLOFAS"
 mypath3 = "C:/Users/ATeklesadik/Rode Kruis/510 - Data preparedness and IBF - flood_hazard_compiled_from_six_global_models"
