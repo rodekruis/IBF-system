@@ -89,6 +89,7 @@ export class MapService {
     layerLabel: IbfLayerLabel,
     active: boolean,
     timestep?: string,
+    legendColor?: string,
   ) {
     this.addLayer({
       name: layerName,
@@ -99,6 +100,7 @@ export class MapService {
       active: active,
       viewCenter: false,
       data: null,
+      legendColor: legendColor,
       wms: {
         url: environment.geoserver_url,
         name: `ibf-system:${layerName}_${timestep ? timestep + '_' : ''}${
@@ -119,19 +121,38 @@ export class MapService {
       IbfLayerLabel.floodExtent,
       true,
       this.timelineService.state.selectedTimeStepButtonValue,
+      '#d7301f',
     );
   }
 
   public async loadPopulationGridLayer() {
-    this.loadWmsLayer(IbfLayerName.population, IbfLayerLabel.population, false);
+    this.loadWmsLayer(
+      IbfLayerName.population,
+      IbfLayerLabel.population,
+      false,
+      null,
+      '#737373',
+    );
   }
 
   public async loadCroplandLayer() {
-    this.loadWmsLayer(IbfLayerName.cropland, IbfLayerLabel.cropland, false);
+    this.loadWmsLayer(
+      IbfLayerName.cropland,
+      IbfLayerLabel.cropland,
+      false,
+      null,
+      '#DCF064',
+    );
   }
 
   public async loadGrasslandLayer() {
-    this.loadWmsLayer(IbfLayerName.grassland, IbfLayerLabel.grassland, false);
+    this.loadWmsLayer(
+      IbfLayerName.grassland,
+      IbfLayerLabel.grassland,
+      false,
+      null,
+      '#be9600',
+    );
   }
 
   private addLayer(layer: IbfLayer) {
@@ -181,6 +202,7 @@ export class MapService {
         data: this.layers[layerIndex].data,
         wms: this.layers[layerIndex].wms,
         colorProperty: this.layers[layerIndex].colorProperty,
+        legendColor: this.layers[layerIndex].legendColor,
       });
     } else {
       throw `Layer '${name}' does not exist`;

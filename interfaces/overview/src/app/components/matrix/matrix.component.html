@@ -37,7 +37,14 @@
             <ion-col size="6" class="layer-control-label-col">
               {{ layer.label }}
             </ion-col>
-            <ion-col size="3" class="layer-control-icon-col"></ion-col>
+            <ion-col
+              size="3"
+              class="layer-control-legend-col"
+              [class.point-layer]="
+                layer.type === IbfLayerType.point && layer.active
+              "
+              [style.background]="layer.active ? layer.legendColor : null"
+            ></ion-col>
             <ion-col size="3" class="layer-control-info-col">
               <ion-icon
                 name="information-circle"
