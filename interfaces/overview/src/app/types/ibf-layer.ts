@@ -14,4 +14,5 @@ export class IbfLayer {
   wms?: IbfLayerWMS;
   data?: GeoJSON.FeatureCollection;
   leafletLayer?: Layer | LayerGroup | Marker;
+  legendColor?: string;
 }
