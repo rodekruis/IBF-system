@@ -34,7 +34,7 @@
             height: 100%;
 
             .layer-control-label-col,
-            .layer-control-icon-col,
+            .layer-control-legend-col,
             .layer-control-info-col {
               display: flex;
               align-items: center;
@@ -47,7 +47,7 @@
               justify-content: start;
             }
 
-            .layer-control-icon-col {
+            .layer-control-legend-col {
               border-right: 1px solid var(--ion-color-light);
             }
 
