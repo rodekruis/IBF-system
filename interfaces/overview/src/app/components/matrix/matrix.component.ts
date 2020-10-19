@@ -5,6 +5,7 @@ import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-contr
 import { MapService } from 'src/app/services/map.service';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 import { IbfLayerName } from 'src/app/types/ibf-layer-name';
+import { IbfLayerType } from 'src/app/types/ibf-layer-type';
 
 @Component({
   selector: 'app-matrix',
@@ -14,6 +15,7 @@ import { IbfLayerName } from 'src/app/types/ibf-layer-name';
 export class MatrixComponent implements OnDestroy {
   private layerSubscription: Subscription;
   public layers: IbfLayer[] = [];
+  public IbfLayerType = IbfLayerType;
 
   constructor(
     public mapService: MapService,
