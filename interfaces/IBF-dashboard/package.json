@@ -1,6 +1,6 @@
 {
-  "name": "overview",
-  "description": "The overview dashboard of the IBF-system",
+  "name": "ibf-dashboard",
+  "description": "Web interface for the dashboard of the IBF-system.",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
