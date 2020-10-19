@@ -180,14 +180,16 @@ export class MapComponent implements OnDestroy {
         };
 
         for (let i = 0; i < grades.length; i++) {
-          div.innerHTML +=
-            '<i style="background:' +
-            getColor(grades[i] + 0.0001) +
-            '"></i> ' +
-            numberFormat(grades[i]) +
-            (grades[i + 1]
-              ? '&ndash;' + numberFormat(grades[i + 1]) + '<br>'
-              : '+');
+          if (i === 0 || grades[i] > grades[i - 1]) {
+            div.innerHTML +=
+              '<i style="background:' +
+              getColor(grades[i] + 0.0001) +
+              '"></i> ' +
+              numberFormat(grades[i]) +
+              (typeof grades[i + 1] !== 'undefined'
+                ? '&ndash;' + numberFormat(grades[i + 1]) + '<br>'
+                : '+');
+          }
         }
 
         return div;
