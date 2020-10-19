@@ -4,15 +4,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { MapService } from 'src/app/services/map.service';
 import { SharedModule } from 'src/app/shared.module';
-import { OverviewPage } from './overview.page';
+import { DashboardPage } from './dashboard.page';
 
-describe('OverviewPage', () => {
-  let component: OverviewPage;
-  let fixture: ComponentFixture<OverviewPage>;
+describe('DashboardPage', () => {
+  let component: DashboardPage;
+  let fixture: ComponentFixture<DashboardPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [OverviewPage],
+      declarations: [DashboardPage],
       imports: [
         IonicModule,
         SharedModule,
@@ -22,7 +22,7 @@ describe('OverviewPage', () => {
       providers: [{ provide: MapService }],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(OverviewPage);
+    fixture = TestBed.createComponent(DashboardPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

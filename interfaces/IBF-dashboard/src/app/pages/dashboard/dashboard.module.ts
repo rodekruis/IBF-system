@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared.module';
-import { OverviewPageRoutingModule } from './overview-routing.module';
-import { OverviewPage } from './overview.page';
+import { DashboardPageRoutingModule } from './dashboard-routing.module';
+import { DashboardPage } from './dashboard.page';
 
 @NgModule({
   imports: [
@@ -12,8 +12,8 @@ import { OverviewPage } from './overview.page';
     FormsModule,
     IonicModule,
     SharedModule,
-    OverviewPageRoutingModule,
+    DashboardPageRoutingModule,
   ],
-  declarations: [OverviewPage],
+  declarations: [DashboardPage],
 })
-export class OverviewPageModule {}
+export class DashboardPageModule {}
