@@ -309,7 +309,7 @@ export class MapComponent implements OnDestroy {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.station_name;
-    let markerIcon;
+    let markerIcon = this.iconDefault;
 
     if (markerProperties.fc_trigger === '1') {
       markerIcon = this.iconWarning;

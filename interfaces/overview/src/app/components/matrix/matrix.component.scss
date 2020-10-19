@@ -41,6 +41,12 @@
               justify-content: center;
             }
 
+            .point-layer {
+              background-image: url('../../../assets/markers/default.png');
+              background-repeat: no-repeat;
+              background-position: center;
+            }
+
             .layer-control-label-col {
               border-right: 1px solid var(--ion-color-light);
               width: 150px !important;
