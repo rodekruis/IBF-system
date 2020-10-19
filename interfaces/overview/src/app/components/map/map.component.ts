@@ -144,7 +144,7 @@ export class MapComponent implements OnDestroy {
 
     if (layerActive) {
       this.legend = new Control();
-      this.legend.setPosition('bottomright');
+      this.legend.setPosition('bottomleft');
       this.legend.onAdd = function (map) {
         const div = DomUtil.create('div', 'info legend');
         const grades = [
