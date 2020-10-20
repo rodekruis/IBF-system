@@ -1,54 +1,58 @@
-.group-header .item-native {
-  background-color: #c2c3c3;
+.component-title-item {
+  --background: var(--ion-color-ibf-gray);
 }
 
-ion-thumbnail {
-  background-color: black;
-  width: 2rem;
-  height: 2rem;
-  border-width: 0.2rem;
-  border-color: black;
-  border: solid;
+.aggregate-item,
+.aggregate-item-value,
+.aggregate-item-information-icon {
+  --min-height: 2.5rem;
+  height: 2.5rem;
 }
 
-.aggregates-col-text {
-  background-color: white;
-}
-.aggregates-col-text:hover {
+.aggregate-item {
+  --inner-padding-end: 0px;
   cursor: pointer;
-  background-color: lightgrey;
+
+  &:hover {
+    --background: var(--ion-color-ibf-salmon-light);
+  }
+
+  .aggregate-item-thumbnail {
+    background: var(--ion-color-ibf-black);
+    border: 0.2rem solid var(--ion-color-ibf-black);
+    width: 2.5rem;
+    height: 2.5rem;
+    align-self: start;
+
+    ion-img {
+      object-fit: contain;
+    }
+  }
+
+  .aggregate-item-label {
+    text-transform: capitalize;
+    line-height: 1.2;
+    padding: 4px 8px;
+    font-size: 13px;
+
+    &.active {
+      font-weight: bold;
+    }
+  }
 }
 
-.aggregate-icon {
-  display: inline-block;
+.aggregate-item-value {
+  span {
+    font-size: 13px;
+  }
 }
 
-.indicator-icon {
-  display: block;
-  margin: auto;
-  width: auto;
+.aggregate-item-value,
+.aggregate-item-information-icon {
+  --background: var(--ion-color-ibf-salmon);
 }
 
-.aggregate-label {
-  display: inline-block;
-  vertical-align: top;
-  padding: 2px;
-}
-
-.aggregates-col-number {
-  background-color: #f1d0ca;
-  padding: 2px;
-}
-
-.aggregates-col-info {
-  background-color: #f1d0ca;
-}
-.info-img {
-  display: block;
-  margin: auto;
-  width: 50%;
-  height: 50%;
-}
-.info-img:hover {
+.aggregate-item-information-icon {
+  --inner-padding-end: 0.2rem;
   cursor: pointer;
 }
