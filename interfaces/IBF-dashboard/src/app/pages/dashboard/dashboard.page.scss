@@ -14,16 +14,35 @@
   min-height: 100%;
   display: flex;
   flex-flow: column nowrap;
-}
-// The `ion-row` that should fill the height of the page/screen:
-.page-structure--content {
-  flex-grow: 1;
-}
 
-.component-title {
-  background-color: var(--ion-color-ibf-salmon);
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  // justify-content: center;
+  // The `ion-row` that should fill the height of the page/screen:
+  .page-structure--content {
+    flex-grow: 1;
+
+    .ibf-dashboard-left-column {
+      display: flex;
+      flex-direction: column;
+
+      .component-title {
+        background-color: var(--ion-color-ibf-salmon);
+
+        .component-title-item {
+          --background: transparent;
+
+          .component-title-thumbnail {
+            height: 24px;
+            width: 24px;
+          }
+        }
+      }
+
+      .component-content {
+        flex-grow: 1;
+
+        .ibf-dashboard-left-column-right-sub-column {
+          background: var(--ion-color-ibf-gray);
+        }
+      }
+    }
+  }
 }
