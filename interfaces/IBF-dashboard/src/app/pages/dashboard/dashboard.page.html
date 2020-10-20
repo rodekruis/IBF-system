@@ -15,40 +15,43 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid class="page-structure">
-    <ion-row>
-      <ion-col>
-        <app-timeline></app-timeline>
-      </ion-col>
-    </ion-row>
+  <ion-grid class="page-structure ion-no-padding">
     <ion-row class="page-structure--content">
-      <ion-col sizeXs="12" sizeMd="6" sizeLg="6" sizeXl="6">
-        <ion-row class="component-title">
-          <ion-img
-            src="assets/icons/alert-black.svg"
-            style="width: 2rem; padding: 2px;"
-          ></ion-img>
-          <ion-label>
-            <strong>Situational Overview</strong>
-          </ion-label>
+      <ion-col
+        sizeXs="12"
+        sizeMd="5"
+        sizeLg="5"
+        sizeXl="5"
+        class="ibf-dashboard-left-column ion-no-padding"
+      >
+        <ion-row
+          class="component-title ion-justify-content-start ion-align-items-start"
+        >
+          <ion-col size="12">
+            <ion-item lines="none" class="component-title-item">
+              <ion-thumbnail slot="start" class="component-title-thumbnail">
+                <ion-img src="assets/icons/alert-black.svg"></ion-img>
+              </ion-thumbnail>
+              <ion-label><strong>Situational Overview</strong></ion-label>
+            </ion-item>
+          </ion-col>
         </ion-row>
-        <ion-row style="height: calc(100% - 2rem);">
+        <ion-row class="component-content">
           <ion-col
             sizeXs="12"
-            sizeMd="6"
-            sizeLg="6"
-            sizeXl="6"
-            class="ion-no-padding"
-            style="background-color: #cad0e9;"
+            sizeMd="7"
+            sizeLg="7"
+            sizeXl="7"
+            class="ibf-dashboard-left-column-left-sub-column ion-no-padding"
           >
             <app-chat></app-chat>
           </ion-col>
           <ion-col
             sizeXs="12"
-            sizeMd="6"
-            sizeLg="6"
-            sizeXl="6"
-            style="background-color: #c2c3c3;"
+            sizeMd="5"
+            sizeLg="5"
+            sizeXl="5"
+            class="ibf-dashboard-left-column-right-sub-column"
           >
             <app-aggregates></app-aggregates>
             <br />
@@ -61,14 +64,21 @@
 
       <ion-col
         sizeXs="12"
-        sizeMd="6"
-        sizeLg="6"
-        sizeXl="6"
+        sizeMd="7"
+        sizeLg="7"
+        sizeXl="7"
         class="ion-no-padding"
       >
-        <app-map-controls></app-map-controls>
-        <app-map></app-map>
-        <app-matrix></app-matrix>
+        <ion-row>
+          <ion-col>
+            <app-timeline></app-timeline>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <app-map-controls></app-map-controls>
+          <app-map></app-map>
+          <app-matrix></app-matrix>
+        </ion-row>
       </ion-col>
     </ion-row>
   </ion-grid>
