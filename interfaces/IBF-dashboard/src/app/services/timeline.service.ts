@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 
@@ -14,7 +14,7 @@ export class TimelineService {
     dateFormat: 'DD/MM',
     timeStepButtons: [],
   };
-  private timelineSubject = new Subject<string>();
+  private timelineSubject = new ReplaySubject<string>();
 
   constructor(
     private countryService: CountryService,

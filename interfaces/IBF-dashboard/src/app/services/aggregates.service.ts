@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
@@ -10,7 +10,7 @@ import { AdminLevelService } from './admin-level.service';
   providedIn: 'root',
 })
 export class AggregatesService {
-  private indicatorSubject = new Subject<Indicator[]>();
+  private indicatorSubject = new ReplaySubject<Indicator[]>();
   public indicators: Indicator[];
   private aggregates = {};
 
