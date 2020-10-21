@@ -1,12 +1,13 @@
-.app-timeline-button {
-  height: 42px;
-  width: 70px;
-
-  &.ion-color-danger {
-    --ripple-color: red;
-  }
+ion-item {
+  --inner-padding-end: 0;
 }
 
-.ibf-country-select {
-  width: 250px;
+ion-button {
+  height: 100%;
+  width: 70px;
+
+  &:first-child {
+    width: 110px;
+    font-size: 16px;
+  }
 }

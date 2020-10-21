@@ -1,26 +1,26 @@
-<div>
+<ion-item lines="none" class="ion-no-padding">
+  <ion-progress-bar
+    type="indeterminate"
+    color="ibf-gray"
+    class="ion-margin"
+    *ngIf="timelineService.state.timeStepButtons.length < 1"
+  ></ion-progress-bar>
   <ion-button
     *ngFor="let timeStepButton of timelineService.state.timeStepButtons"
-    class="app-timeline-button"
+    expand="full"
     disabled="{{ timeStepButton.disabled }}"
     color="{{
       timeStepButton.alert
-        ? 'danger'
+        ? 'ibf-salmon'
         : timeStepButton.value == timelineService.state.timeStepButtons[0].value
-        ? 'medium'
-        : 'dark'
+        ? 'ibf-dark-blue'
+        : 'ibf-gray'
     }}"
-    fill="{{
-      [
-        timelineService.state.selectedTimeStepButtonValue,
-        timelineService.state.timeStepButtons[0].value
-      ].includes(timeStepButton.value)
-        ? 'solid'
-        : 'outline'
-    }}"
+    fill="solid"
     (click)="timelineService.handleTimeStepButtonClick(timeStepButton.value)"
   >
-    {{ timeStepButton.dateString }}<br />{{ timeStepButton.value }}
+    {{ timeStepButton.value }}
+    <br />
+    {{ timeStepButton.dateString }}
   </ion-button>
-  <app-country-switcher></app-country-switcher>
-</div>
+</ion-item>
