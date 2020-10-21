@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button href="/" title="Home">
@@ -76,17 +76,22 @@
         sizeMd="7"
         sizeLg="7"
         sizeXl="7"
-        class="ion-no-padding"
+        class="ibf-dashboard-right-column ion-no-padding"
       >
-        <ion-row>
+        <ion-row class="component-title">
           <ion-col>
             <app-timeline></app-timeline>
           </ion-col>
+          <ion-col size="auto">
+            <app-country-switcher></app-country-switcher>
+          </ion-col>
         </ion-row>
-        <ion-row>
-          <app-map-controls></app-map-controls>
-          <app-map></app-map>
-          <app-matrix></app-matrix>
+        <ion-row class="component-content">
+          <ion-col>
+            <app-map-controls></app-map-controls>
+            <app-map></app-map>
+            <app-matrix></app-matrix>
+          </ion-col>
         </ion-row>
       </ion-col>
     </ion-row>

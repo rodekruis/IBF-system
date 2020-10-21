@@ -50,5 +50,18 @@
         }
       }
     }
+
+    .ibf-dashboard-right-column {
+      display: flex;
+      flex-direction: column;
+
+      .component-title {
+        background-color: var(--ion-color-ibf-gray);
+      }
+
+      .component-content {
+        flex-grow: 1;
+      }
+    }
   }
 }

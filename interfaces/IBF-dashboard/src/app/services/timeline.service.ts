@@ -26,6 +26,7 @@ export class TimelineService {
   }
 
   public async loadTimeStepButtons() {
+    this.state.timeStepButtons = [];
     this.state.timeStepButtons = this.filterTimeStepButtonsByCountryForecast([
       {
         dateString: this.state.today.format(this.state.dateFormat),
