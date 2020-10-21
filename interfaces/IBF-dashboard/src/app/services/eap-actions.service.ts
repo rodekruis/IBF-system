@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { AdminLevelService } from './admin-level.service';
@@ -9,7 +9,7 @@ import { TimelineService } from './timeline.service';
   providedIn: 'root',
 })
 export class EapActionsService {
-  private triggeredAreaSubject = new Subject<any[]>();
+  private triggeredAreaSubject = new ReplaySubject<any[]>();
   private triggeredAreas: any[];
 
   constructor(

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -20,7 +20,7 @@ import { IndicatorEnum } from '../types/indicator-group';
   providedIn: 'root',
 })
 export class MapService {
-  private layerSubject = new Subject<IbfLayer>();
+  private layerSubject = new ReplaySubject<IbfLayer>();
   private layers = [] as IbfLayer[];
 
   public state = {
