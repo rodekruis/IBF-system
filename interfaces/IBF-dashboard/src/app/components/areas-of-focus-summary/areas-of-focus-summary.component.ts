@@ -4,11 +4,11 @@ import { ApiService } from 'src/app/services/api.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 
 @Component({
-  selector: 'app-aof-summary',
-  templateUrl: './aof-summary.component.html',
-  styleUrls: ['./aof-summary.component.scss'],
+  selector: 'app-areas-of-focus-summary',
+  templateUrl: './areas-of-focus-summary.component.html',
+  styleUrls: ['./areas-of-focus-summary.component.scss'],
 })
-export class AofSummaryComponent implements OnInit {
+export class AreasOfFocusSummaryComponent implements OnInit {
   private eapActionSubscription: Subscription;
   public areasOfFocus: any[];
   public triggeredAreas: any[];
@@ -34,17 +34,17 @@ export class AofSummaryComponent implements OnInit {
     // Start calculation only when last area has eapActions attached to it
     if (triggeredAreas[triggeredAreas.length - 1]?.eapActions) {
       // For each area of focus ..
-      this.areasOfFocus.forEach((aof) => {
-        aof.count = 0;
-        aof.countChecked = 0;
+      this.areasOfFocus.forEach((areaOfFocus) => {
+        areaOfFocus.count = 0;
+        areaOfFocus.countChecked = 0;
         // Look at each triggered area ..
         triggeredAreas.forEach((area) => {
           // And at each action within the area ..
           area.eapActions.forEach((action) => {
             // And count the total # of (checked) tasks this way
-            if (aof.id === action.aof) {
-              aof.count += 1;
-              if (action.checked) aof.countChecked += 1;
+            if (areaOfFocus.id === action.aof) {
+              areaOfFocus.count += 1;
+              if (action.checked) areaOfFocus.countChecked += 1;
             }
           });
         });

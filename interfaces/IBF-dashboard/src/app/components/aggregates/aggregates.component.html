@@ -12,7 +12,6 @@
             size-lg="8"
             size-md="8"
             size-xs="8"
-            class="aggregates-col-text"
             (click)="changeIndicator(indicator.name)"
             title="Click to visualize in map"
           >
@@ -31,12 +30,7 @@
               </ion-label>
             </ion-item>
           </ion-col>
-          <ion-col
-            size-lg="3"
-            size-md="3"
-            size-xs="3"
-            class="aggregates-col-number"
-          >
+          <ion-col size-lg="3" size-md="3" size-xs="3">
             <ion-item class="aggregate-item-value ion-no-padding">
               <ion-label class="ion-no-margin ion-text-end">
                 <span *ngIf="indicator.numberFormat === 'dec2'">
@@ -64,7 +58,6 @@
             size-lg="1"
             size-md="1"
             size-xs="1"
-            class="aggregates-col-info"
             title="Click for more info on this indicator."
           >
             <ion-item class="aggregate-item-information-icon ion-no-padding">

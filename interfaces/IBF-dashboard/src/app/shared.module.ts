@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { AboutBtnComponent } from './components/about-btn/about-btn.component';
 import { AdminLevelComponent } from './components/admin-level/admin-level.component';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
-import { AofSummaryComponent } from './components/aof-summary/aof-summary.component';
+import { AreasOfFocusSummaryComponent } from './components/areas-of-focus-summary/areas-of-focus-summary.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CountrySwitcherComponent } from './components/country-switcher/country-switcher.component';
 import { DialogueTurnComponent } from './components/dialogue-turn/dialogue-turn.component';
@@ -37,7 +37,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     LogosComponent,
     AboutBtnComponent,
     DialogueTurnComponent,
-    AofSummaryComponent,
+    AreasOfFocusSummaryComponent,
     LayerControlInfoPopoverComponent,
     MapControlsComponent,
     AdminLevelComponent,
@@ -56,7 +56,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     LogosComponent,
     AboutBtnComponent,
     DialogueTurnComponent,
-    AofSummaryComponent,
+    AreasOfFocusSummaryComponent,
     LayerControlInfoPopoverComponent,
     MapControlsComponent,
     AdminLevelComponent,
