@@ -17,6 +17,24 @@
 
   margin-top: 0.5em; // inner-padding of .dialogue-turn
   max-width: 20%;
+
+  ion-avatar {
+    display: flex;
+
+    &.self-avatar {
+      background: var(--ion-color-medium);
+    }
+
+    &.system-avatar {
+      color: black;
+      background: white;
+    }
+
+    b,
+    ion-icon {
+      margin: auto;
+    }
+  }
 }
 
 .dialogue-turn--content {

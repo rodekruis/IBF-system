@@ -11,18 +11,13 @@
   <div class="dialogue-turn--actor">
     <ng-container [ngSwitch]="actor">
       <ng-container *ngSwitchCase="allActors.system">
-        <ion-avatar style="color: black; background: white; display: flex;">
-          <b style="margin: auto; text-align: center;">IBF</b>
+        <ion-avatar class="system-avatar">
+          <b>IBF</b>
         </ion-avatar>
       </ng-container>
       <ng-container *ngSwitchCase="allActors.self">
-        <ion-avatar style="background: var(--ion-color-medium); display: flex;">
-          <ion-icon
-            name="person"
-            color="light"
-            size="large"
-            style="margin: auto;"
-          ></ion-icon>
+        <ion-avatar class="self-avatar">
+          <ion-icon name="person" color="light" size="large"></ion-icon>
         </ion-avatar>
       </ng-container>
     </ng-container>
