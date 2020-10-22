@@ -1,5 +1,15 @@
 ion-content {
   --background: var(--ion-color-ibf-gray-light);
+
+  ion-grid {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+
+    ion-row {
+      margin: auto 0;
+    }
+  }
 }
 
 .ibf-welcome-card {
