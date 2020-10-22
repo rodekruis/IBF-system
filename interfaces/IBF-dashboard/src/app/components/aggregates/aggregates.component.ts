@@ -76,7 +76,7 @@ export class AggregatesComponent implements OnDestroy {
   public async moreInfo(indicator) {
     const modal = await this.modalController.create({
       component: SourceInfoModalComponent,
-      cssClass: 'my-custom-class',
+      cssClass: 'source-info-modal-class',
       componentProps: {
         indicator: indicator,
       },
