@@ -56,6 +56,7 @@ export class MapComponent implements OnDestroy {
   private iconDefault: IconOptions = {
     iconSize: [25, 41],
     iconAnchor: [13, 41],
+    popupAnchor: [0, -30],
     iconUrl: 'assets/markers/default.png',
     iconRetinaUrl: 'assets/markers/default-2x.png',
   };
@@ -187,7 +188,7 @@ export class MapComponent implements OnDestroy {
               '"></i> ' +
               numberFormat(grades[i]) +
               (typeof grades[i + 1] !== 'undefined'
-                ? '&ndash;' + numberFormat(grades[i + 1]) + '<br>'
+                ? '&ndash;' + numberFormat(grades[i + 1]) + '<br/>'
                 : '+');
           }
         }
@@ -273,7 +274,7 @@ export class MapComponent implements OnDestroy {
             const popup =
               '<strong>' +
               feature.properties.name +
-              '</strong><br>' +
+              '</strong><br/>' +
               'Population exposed: ' +
               Math.round(feature.properties[IndicatorEnum.PopulationExposed]) +
               '';
@@ -322,7 +323,7 @@ export class MapComponent implements OnDestroy {
         : divIcon({
             iconSize: [25, 25],
             iconAnchor: [25, 25],
-            popupAnchor: [0, 0],
+            popupAnchor: [0, -30],
             className: 'marker-icon',
           }),
     });
@@ -335,37 +336,50 @@ export class MapComponent implements OnDestroy {
     // DUMMY: REMOVE FOR PRODUCTION
     if (markerProperties.fc == 0) markerProperties.fc = 100;
 
-    const percTrigger = markerProperties.fc / markerProperties.trigger_level;
-    const color = percTrigger < 1 ? '#a5d4a1' : '#d7301f';
+    const percentageTrigger =
+      markerProperties.fc / markerProperties.trigger_level;
+    const color = percentageTrigger < 1 ? '#a5d4a1' : '#d7301f';
 
-    const fullWidth = 100;
+    const fullWidth = 50;
 
     const stationInfoPopup =
+      '<div style="margin-bottom: 5px">' +
       '<strong>' +
       markerProperties.station_name +
-      '</strong> (' +
+      '</strong>' +
+      ' (' +
       markerProperties.station_code +
-      ')<br>' +
-      'Forecast: <span style="color:' +
+      ')' +
+      '</div>' +
+      '<div style="margin-bottom: 5px">' +
+      'Forecast: ' +
+      '<span style="color:' +
       color +
       '">' +
       Math.round(markerProperties.fc) +
-      ' m<sup>3</sup>/s</span>' +
+      ' m<sup>3</sup>/s' +
+      '</span>' +
       '<div style="border-radius:5px;height:12px;background-color:' +
       color +
       '; width: ' +
-      Math.min(
-        (markerProperties.fc / markerProperties.trigger_level) * fullWidth,
-        fullWidth * 2,
+      Math.max(
+        Math.min(
+          Math.round(
+            (markerProperties.fc / markerProperties.trigger_level) * fullWidth,
+          ),
+          fullWidth,
+        ),
+        0,
       ) +
-      'px"></div>' +
-      'Trigger : ' +
+      '%"></div>' +
+      '</div>' +
+      '<div>Trigger : ' +
       Math.round(markerProperties.trigger_level) +
       ' m<sup>3</sup>/s' +
       '<div style="border-radius:5px;height:12px;background-color:grey;width:' +
       fullWidth +
-      'px"></div>' +
-      '';
+      '%"></div>' +
+      '</div>';
     return stationInfoPopup;
   }
 }
