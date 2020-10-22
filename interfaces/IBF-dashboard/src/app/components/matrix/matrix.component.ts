@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { MenuController, PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
 import { MapService } from 'src/app/services/map.service';
@@ -16,10 +16,12 @@ export class MatrixComponent implements OnDestroy {
   private layerSubscription: Subscription;
   public layers: IbfLayer[] = [];
   public IbfLayerType = IbfLayerType;
+  public showLayerControlToggleButton: boolean = true;
 
   constructor(
-    public mapService: MapService,
-    public popoverController: PopoverController,
+    private mapService: MapService,
+    private popoverController: PopoverController,
+    private menuController: MenuController,
   ) {
     this.layerSubscription = this.mapService
       .getLayers()
@@ -76,5 +78,11 @@ export class MatrixComponent implements OnDestroy {
 
   public updateLayer(name: string, state: boolean): void {
     this.mapService.setLayerState(name, state);
+  }
+
+  public isLayerControlMenuOpen() {
+    this.menuController.isOpen('layer-control').then((state) => {
+      this.showLayerControlToggleButton = state;
+    });
   }
 }
