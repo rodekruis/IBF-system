@@ -55,7 +55,7 @@ services:
 
     ibf-web-interface:
         build:
-            context: ./interfaces/overview
+            context: ./interfaces/IBF-dashboard
             args:
                 - NG_PRODUCTION=true
                 - NG_API_URL=${NG_API_URL}
