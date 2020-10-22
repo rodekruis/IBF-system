@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button href="/" title="IBF Dashboard">
+        <ion-icon name="apps" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size-xs="12" size-sm="8" size-md="6" size-lg="4">
+        <ion-card class="ibf-welcome-card">
+          <ion-icon name="chatbubbles"></ion-icon>
+          <ion-card-header>
+            <ion-card-title>
+              Hello! Welcome to IBF. This chat will guide you through the
+              system. You will always find it to the left of the screen. Please
+              login below.
+            </ion-card-title>
+          </ion-card-header>
+          <app-timestamp></app-timestamp>
+        </ion-card>
+        <ion-card class="ibf-login-card">
+          <ion-icon name="person"></ion-icon>
+          <ion-card-content>
+            <app-login-form></app-login-form>
+            <div class="ion-text-center">
+              <ion-text>
+                Forgotten your login details?
+                <a href="#"><strong>Get help signing in.</strong></a>
+              </ion-text>
+            </div>
+          </ion-card-content>
+          <app-timestamp></app-timestamp>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

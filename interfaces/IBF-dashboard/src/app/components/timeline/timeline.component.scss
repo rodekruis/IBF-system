@@ -1,0 +1,13 @@
+ion-item {
+  --inner-padding-end: 0;
+}
+
+ion-button {
+  height: 100%;
+  width: 70px;
+
+  &:first-child {
+    width: 110px;
+    font-size: 16px;
+  }
+}
