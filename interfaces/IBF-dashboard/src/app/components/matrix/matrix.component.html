@@ -1,5 +1,9 @@
 <div class="ibf-map-layer-control">
-  <ion-menu-toggle menu="layer-control" id="layer-control-toggle">
+  <ion-menu-toggle
+    menu="layer-control"
+    (click)="isLayerControlMenuOpen()"
+    [class.ion-hide]="!showLayerControlToggleButton"
+  >
     <ion-header>
       <ion-toolbar color="ibf-royal-blue">
         <ion-buttons slot="end">
@@ -11,11 +15,11 @@
   </ion-menu-toggle>
   <ion-menu
     side="end"
-    type="push"
-    contentId="layer-control-toggle"
+    type="overlay"
+    contentId="ibf-dashboard-map"
     menuId="layer-control"
   >
-    <ion-menu-toggle menu="layer-control">
+    <ion-menu-toggle menu="layer-control" (click)="isLayerControlMenuOpen()">
       <ion-header>
         <ion-toolbar color="ibf-royal-blue">
           <ion-buttons slot="end">
@@ -26,16 +30,21 @@
       </ion-header>
     </ion-menu-toggle>
     <ion-content>
-      <ion-list color="dark">
+      <ion-list color="dark" class="ion-no-padding">
         <ion-item
           lines="full"
           *ngFor="let layer of layers"
           [class.layer-active]="layer.active"
           (click)="updateLayer(layer.name, !layer.active)"
+          class="ion-no-padding"
         >
           <ion-row>
             <ion-col size="6" class="layer-control-label-col">
-              {{ layer.label }}
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label class="ion-no-margin ion-text-wrap">
+                  {{ layer.label }}
+                </ion-label>
+              </ion-item>
             </ion-col>
             <ion-col
               size="3"
@@ -45,7 +54,10 @@
               "
               [style.background]="layer.active ? layer.legendColor : null"
             ></ion-col>
-            <ion-col size="3" class="layer-control-info-col">
+            <ion-col
+              size="3"
+              class="layer-control-info-col ion-align-items-center ion-justify-content-center"
+            >
               <ion-icon
                 name="information-circle"
                 size="large"

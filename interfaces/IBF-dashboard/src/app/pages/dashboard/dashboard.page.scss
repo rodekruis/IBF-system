@@ -46,6 +46,7 @@
           .ibf-dashboard-left-column-right-sub-column-grid {
             display: flex;
             flex-flow: column nowrap;
+            overflow: auto;
           }
         }
       }
@@ -61,6 +62,7 @@
 
       .component-content {
         flex-grow: 1;
+        overflow: hidden;
       }
     }
   }

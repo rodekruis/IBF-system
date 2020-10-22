@@ -3,12 +3,10 @@
   top: 0;
   bottom: 0;
   right: 0;
-  z-index: 500;
   width: 200px;
 
   ion-menu {
     --width: 100%;
-    z-index: 501;
     --background: transparent;
 
     ion-content {
@@ -16,10 +14,8 @@
 
       ion-list {
         background: var(--ion-color-dark-tint);
-        padding: 0;
 
         ion-item {
-          --padding-start: 0;
           --inner-padding-end: 0;
           --background: var(--ion-color-dark-tint);
           --color: var(--ion-color-light);
@@ -32,13 +28,10 @@
 
           ion-row {
             height: 100%;
+            width: 100%;
 
-            .layer-control-label-col,
-            .layer-control-legend-col,
             .layer-control-info-col {
               display: flex;
-              align-items: center;
-              justify-content: center;
             }
 
             .point-layer {
@@ -49,8 +42,17 @@
 
             .layer-control-label-col {
               border-right: 1px solid var(--ion-color-light);
-              width: 150px !important;
-              justify-content: start;
+
+              ion-item {
+                --background: transparent;
+
+                ion-label {
+                  text-transform: capitalize;
+                  line-height: 1.2;
+                  padding: 4px 8px;
+                  font-size: 13px;
+                }
+              }
             }
 
             .layer-control-legend-col {
