@@ -18,14 +18,14 @@ To prevent conflicts between other projects use a version manager to install and
 
   After installing run:
 
-  ```
+  ```sh
   nvm install
   ```
 
 **Install other dependencies**  
 See [Documentation](#documentation).
 
-```
+```sh
 npm install
 ```
 
@@ -33,7 +33,7 @@ npm install
 
 Set the required configuration values in the `.env` file, by using the provided [`example.env`](example.env):
 
-```
+```sh
 cp example.env .env
 ```
 
@@ -41,7 +41,7 @@ cp example.env .env
 
 To start a local instance of the interface on <http://localhost:4200/>:
 
-```
+```sh
 npm start
 ```
 
