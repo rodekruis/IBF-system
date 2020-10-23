@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
-import { TimelineService } from 'src/app/services/timeline.service';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-areas-of-focus-summary',
@@ -18,7 +18,7 @@ export class AreasOfFocusSummaryComponent implements OnInit {
   constructor(
     private eapActionsService: EapActionsService,
     private apiService: ApiService,
-    private timelineService: TimelineService,
+    private eventService: EventService,
   ) {
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
@@ -27,14 +27,10 @@ export class AreasOfFocusSummaryComponent implements OnInit {
         this.calcActionStatus(this.triggeredAreas);
       });
 
-    this.getTrigger();
+    this.eventService.getTrigger();
   }
 
   ngOnInit() {}
-
-  private async getTrigger() {
-    this.trigger = !!(await this.timelineService.getEvent());
-  }
 
   async calcActionStatus(triggeredAreas) {
     // Get areas of focus from db

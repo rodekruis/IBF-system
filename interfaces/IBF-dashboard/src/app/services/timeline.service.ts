@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { Moment } from 'moment';
 import { Observable, ReplaySubject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -8,9 +9,11 @@ import { CountryService } from 'src/app/services/country.service';
   providedIn: 'root',
 })
 export class TimelineService {
+  public dates: any[];
+
   public state = {
     selectedTimeStepButtonValue: '7-day',
-    today: null,
+    today: moment(),
     dateFormat: 'DD/MM',
     timeStepButtons: [],
   };
@@ -25,11 +28,32 @@ export class TimelineService {
     return this.timelineSubject.asObservable();
   }
 
-  public async loadTimeStepButtons() {
+  public async loadTodayOptionsDebug() {
+    const dates = await this.apiService.getRecentDates(
+      this.countryService.selectedCountry.countryCode,
+    );
+    this.dates = dates.map((date) => {
+      return {
+        label: moment(date.date).format(this.state.dateFormat),
+        value: moment(date.date),
+      };
+    });
+    this.state.today = moment(dates[0].date);
+  }
+
+  public changeToday(event) {
+    const today = event.detail.value;
+    this.loadTimeStepButtons(today);
+  }
+
+  public async loadTimeStepButtons(today?: Moment) {
+    if (today) {
+      this.state.today = today;
+    } else {
+      this.state.today = moment(this.dates[0].value);
+    }
+
     this.state.timeStepButtons = [];
-    
-    const max_date = (await this.apiService.getRecentDate(this.countryService.selectedCountry.countryCode)).max_date;
-    this.state.today = moment(max_date);
 
     this.state.timeStepButtons = this.filterTimeStepButtonsByCountryForecast([
       {
@@ -201,16 +225,14 @@ export class TimelineService {
   public async getTrigger(leadTime): Promise<any> {
     const trigger = await this.apiService.getTriggerPerLeadtime(
       this.countryService.selectedCountry.countryCode,
-      leadTime,
     );
-    return trigger === 1;
+    return trigger[leadTime[0]] === 1;
   }
 
   public async getEvent(): Promise<any> {
     const event = await this.apiService.getEvent(
       this.countryService.selectedCountry.countryCode,
     );
-    console.log(event);
     return event;
   }
 }
