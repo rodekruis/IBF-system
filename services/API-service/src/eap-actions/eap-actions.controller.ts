@@ -26,14 +26,16 @@ export class EapActionsController {
 
   @ApiOperation({ title: 'Get EAP actions and status' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @ApiImplicitParam({ name: 'area', required: true, type: 'string' })
-  @Get('/:countryCode/:area')
+  @ApiImplicitParam({ name: 'pcode', required: true, type: 'string' })
+  @ApiImplicitParam({ name: 'event', required: true, type: 'number' })
+  @Get('/:countryCode/:pcode/:event')
   public async getActionsWithStatus(
     @Param() params,
   ): Promise<EapActionEntity[]> {
     return await this.eapActionsService.getActionsWithStatus(
       params.countryCode,
-      params.area,
+      params.pcode,
+      params.event,
     );
   }
 

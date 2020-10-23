@@ -118,28 +118,48 @@ export class DataService {
   }
 
   public async getTriggeredAreas(
-    countryCode: string,
+    event: number,
     adminLevel: number,
     leadTime: string,
   ): Promise<any> {
     const query =
-      'select pcode_level' +
+      'select t0.pcode,name,population_affected \
+    from "IBF-pipeline-output".event_districts t0 \
+    left join "IBF-API"."Admin_area_data' +
       adminLevel +
-      ' as pcode \
-        ,"name" \
-        , population_affected \
-      from "IBF-API"."Admin_area_data' +
-      adminLevel +
-      '" \
-      where country_code = $1 \
-      and lead_time = $2 \
-      and fc_trigger = 1 \
-      order by population_affected DESC \
-    ';
+      '" t1 \
+    on t0.pcode = t1.pcode \
+    where event = $1 and lead_time = $2 and fc_trigger = 1 \
+    order by population_affected DESC';
 
-    const result = await this.manager.query(query, [countryCode, leadTime]);
+    const result = await this.manager.query(query, [event, leadTime]);
 
     return result;
+  }
+
+  public async getEvent(countryCode: string): Promise<any> {
+    const daysStickyAfterEvent = 7;
+
+    const query =
+      "select t0.* \
+        from \"IBF-pipeline-output\".events t0 \
+        left join( \
+          select max(case when end_date is null then '9999-99-99' else end_date end) as max_date \
+          , country_code \
+      from \"IBF-pipeline-output\".events \
+      group by country_code \
+        ) t1 \
+        on t0.country_code = t1.country_code \
+        where t0.country_code = $1 \
+        and(case when t0.end_date is null then '9999-99-99' else end_date end) = t1.max_date \
+        and(end_date is null or to_date(end_date, 'yyyy-mm-dd') >= current_date - " +
+      daysStickyAfterEvent +
+      ') \
+    ';
+
+    const result = await this.manager.query(query, [countryCode]);
+
+    return result[0];
   }
 
   public async getMetadata(countryCode: string): Promise<any> {

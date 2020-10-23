@@ -11,6 +11,7 @@ import { TimelineService } from './timeline.service';
 export class EapActionsService {
   private triggeredAreaSubject = new Subject<any[]>();
   private triggeredAreas: any[];
+  private eventId: number;
 
   constructor(
     private countryService: CountryService,
@@ -24,15 +25,20 @@ export class EapActionsService {
   }
 
   async loadDistrictsAndActions() {
-    this.triggeredAreas = await this.apiService.getTriggeredAreas(
-      this.countryService.selectedCountry.countryCode,
+
+    const event = await this.apiService.getEvent(this.countryService.selectedCountry.countryCode);
+    this.eventId = event.id * 1;
+
+    this.triggeredAreas = await this.apiService.getTriggeredAreas(this.eventId,
       this.adminLevelService.adminLevel,
       this.timelineService.state.selectedTimeStepButtonValue,
     );
+
     for await (let area of this.triggeredAreas) {
       area.eapActions = await this.apiService.getEapActions(
         this.countryService.selectedCountry.countryCode,
         area.pcode,
+        this.eventId
       );
     }
     this.triggeredAreaSubject.next(this.triggeredAreas);
@@ -48,6 +54,6 @@ export class EapActionsService {
     status: boolean,
     pcode: string,
   ) {
-    await this.apiService.checkEapAction(action, countryCode, status, pcode);
+    await this.apiService.checkEapAction(action, countryCode, status, pcode, this.eventId);
   }
 }

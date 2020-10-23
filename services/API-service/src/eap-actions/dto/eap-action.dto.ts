@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { IsBoolean, IsIn, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsIn,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 export class EapActionDto {
@@ -23,4 +29,9 @@ export class EapActionDto {
   @IsNotEmpty()
   @IsString()
   readonly pcode: string;
+
+  @ApiModelProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  readonly event: number;
 }

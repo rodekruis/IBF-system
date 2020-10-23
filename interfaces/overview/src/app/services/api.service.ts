@@ -123,6 +123,14 @@ export class ApiService {
     ).toPromise();
   }
 
+  getEvent(countryCode: string): Promise<any> {
+    return this.get(
+      environment.api_url,
+      `event/${countryCode}`,
+      false,
+    ).toPromise();
+  }
+
   getAdminRegions(
     countryCode: string,
     leadTime: string,
@@ -136,13 +144,13 @@ export class ApiService {
   }
 
   getTriggeredAreas(
-    countryCode: string,
+    event: number,
     adminLevel: AdminLevel,
     leadTime: string,
   ) {
     return this.get(
       environment.api_url,
-      `triggered-areas/${countryCode}/${adminLevel}/${leadTime}`,
+      `triggered-areas/${event}/${adminLevel}/${leadTime}`,
       false,
     ).toPromise();
   }
@@ -186,10 +194,10 @@ export class ApiService {
     ).toPromise();
   }
 
-  getEapActions(countryCode: string, pcode: string) {
+  getEapActions(countryCode: string, pcode: string, event: number) {
     return this.get(
       environment.api_url,
-      `eap-actions/${countryCode}/${pcode}`,
+      `eap-actions/${countryCode}/${pcode}/${event}`,
       false,
     ).toPromise();
   }
@@ -199,6 +207,7 @@ export class ApiService {
     countryCode: string,
     status: boolean,
     pcode: string,
+    event: number,
   ) {
     return this.post(
       environment.api_url,
@@ -208,8 +217,10 @@ export class ApiService {
         countryCode,
         status,
         pcode,
+        event,
       },
       false,
     ).toPromise();
   }
+
 }
