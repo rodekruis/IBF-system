@@ -101,6 +101,18 @@ export class DataService {
     return result;
   }
 
+  public async getRecentDate(countryCode: string): Promise<number> {
+    const query =
+      ' select to_date(max(date),\'yyyy-mm-dd\') as max_date \
+    from "IBF-pipeline-output".triggers_per_day \
+    where country_code = $1 \
+    ';
+
+    const result = await this.manager.query(query, [countryCode]);
+
+    return result[0];
+  }
+
   public async getTriggerPerLeadtime(
     countryCode: string,
     leadTime: string,
