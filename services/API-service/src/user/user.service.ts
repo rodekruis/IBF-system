@@ -107,7 +107,9 @@ export class UserService {
   }
 
   public async findById(id: number): Promise<UserRO> {
-    const user = await this.userRepository.findOne(id);
+    const user = await this.userRepository.findOne(id, {
+      relations: this.relations,
+    });
     if (!user) {
       const errors = { User: ' not found' };
       throw new HttpException({ errors }, HttpStatus.UNAUTHORIZED);

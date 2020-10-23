@@ -1,0 +1,10 @@
+<div
+  leaflet
+  [leafletOptions]="leafletOptions"
+  (leafletMapReady)="onMapReady($event)"
+  class="leaflet--map"
+>
+  <div *ngFor="let layer of layers">
+    <div *ngIf="layer.active" [leafletLayer]="layer.leafletLayer"></div>
+  </div>
+</div>
