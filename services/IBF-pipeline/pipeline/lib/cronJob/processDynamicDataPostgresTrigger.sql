@@ -1,9 +1,8 @@
 
 -- DEBUG feature: to run this script for a date in the past instead of current date
--- DO: replace all 'current_date' by 'to_date('2020-10-22','yyyy-mm')'
+-- DO: replace all 'current_date' by 'to_date('2020-10-22','yyyy-mm-dd')'
 -- EXCEPT for this comment itself of course!
-
-
+-- AND change back after
 
 --drop table if exists "IBF-pipeline-output".dashboard_triggers_per_day;
 truncate table "IBF-pipeline-output".dashboard_triggers_per_day;
@@ -11,7 +10,7 @@ insert into "IBF-pipeline-output".dashboard_triggers_per_day
 select tpd.country_code 
 	,'Current' as current_prev
 --	,case when date_part('day',age(current_date,to_date(date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
-	,"1","2","3","4","5","6","7","8","9","10"
+	,"1","2","3","4","5","6","7"--,"8","9","10"
 --into "IBF-pipeline-output".dashboard_triggers_per_day
 from "IBF-pipeline-output".triggers_per_day tpd
 left join (select country_code, max(date) as max_date from "IBF-pipeline-output".triggers_per_day group by 1) max
@@ -20,7 +19,10 @@ left join (select country_code, max(date) as max_date from "IBF-pipeline-output"
 --where to_date(date,'yyyy-mm-dd') >= current_date - 1
 where tpd.date = max.max_date
 ;
+--select * from "IBF-pipeline-output".dashboard_triggers_per_day
 
+
+    
 --drop table "IBF-pipeline-output".dashboard_forecast_per_station cascade;
 truncate table "IBF-pipeline-output".dashboard_forecast_per_station;
 insert into "IBF-pipeline-output".dashboard_forecast_per_station
@@ -97,7 +99,7 @@ ON (t1.lead_time = '7-day' and t0."station_code_7day" = t1.station_code) OR (t1.
 -- NOTE: Determine events and save in events-table
 update "IBF-pipeline-output".events set end_date = subquery.date
 from (
-	select today.country_code, yesterday.date
+	select today.country_code, to_date(today.date,'yyyy-mm-dd') - 1 as date
 	from "IBF-pipeline-output".triggers_per_day today
 	left join "IBF-pipeline-output".triggers_per_day yesterday 
 		on today.country_code = yesterday.country_code
@@ -105,7 +107,7 @@ from (
 	where 1=1
 		and to_date(today.date,'yyyy-mm-dd') = current_date
 		and today."7" = 0
-		and yesterday."7" = 1
+		and (yesterday."7" = 1 or yesterday."7" is null)
 ) subquery
 where end_date is null and events.country_code = subquery.country_code
 ;
@@ -124,23 +126,28 @@ where 1=1
 ;
 --select * from "IBF-pipeline-output".events
 
-
 -- NOTE: Save districts to event. Each day check if there are new districts. Never delete any districts that are not triggered any more.
+-- TO DO: This way a (theoretically possible) updated 'population_affected' for an existing district is not reflected
 --drop table if exists "IBF-pipeline-output".event_districts;
 --create table "IBF-pipeline-output".event_districts as
-insert into "IBF-pipeline-output".event_districts
+--insert into "IBF-pipeline-output".event_districts
 select districtsToday.*
 from (
 	select id as event
-		,pcode
+		,t1.pcode
+		,name
+		,population_affected
 	from "IBF-pipeline-output".events t0
 	left join "IBF-pipeline-output".dashboard_forecast_per_district t1
 		on t0.start_date <= t1.date and coalesce(t0.end_date,'9999-99-99') >= t1.date
 		and t0.country_code = t1.country_code
+	left join "IBF-API"."Admin_area_data2" t2
+		on t1.pcode = t2.pcode
 	where t1.fc_trigger=1
 	) districtsToday
 left join "IBF-pipeline-output".event_districts districtsExisting
 	on districtsToday.event = districtsExisting.event
 	and districtsToday.pcode = districtsExisting.pcode
 where districtsExisting.pcode is null
---select * from "IBF-pipeline-output".event_districts where event = 12
+--select * from "IBF-pipeline-output".event_districts where event = 14
+
