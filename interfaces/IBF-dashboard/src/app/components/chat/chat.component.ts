@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
+import { EventService } from 'src/app/services/event.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { EapAction } from 'src/app/types/eap-action';
 import { IndicatorEnum } from 'src/app/types/indicator-group';
@@ -25,19 +26,19 @@ export class ChatComponent implements OnDestroy {
   public submitDisabled = true;
 
   public leadTime: string;
-  public trigger: boolean;
 
   constructor(
     private countryService: CountryService,
     private timelineService: TimelineService,
     private eapActionsService: EapActionsService,
+    private eventService: EventService,
     private alertController: AlertController,
   ) {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country) => {
         this.eapActionsService.loadDistrictsAndActions();
-        this.getTrigger();
+        this.eventService.getTrigger();
       });
 
     // this.timelineSubscription = this.timelineService
@@ -62,11 +63,7 @@ export class ChatComponent implements OnDestroy {
   }
 
   private async getTrigger() {
-    this.trigger = !!(await this.timelineService.getEvent());
-
-    const timestep = this.timelineService.state.selectedTimeStepButtonValue;
-    // this.trigger = await this.timelineService.getTrigger(timestep);
-    this.leadTime = timestep.replace('-day', ' days from today');
+    this.eventService.getTrigger();
   }
 
   public changeAction(pcode: string, action: string, checkbox: boolean) {
