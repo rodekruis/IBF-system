@@ -143,11 +143,7 @@ export class ApiService {
     ).toPromise();
   }
 
-  getTriggeredAreas(
-    event: number,
-    adminLevel: AdminLevel,
-    leadTime: string,
-  ) {
+  getTriggeredAreas(event: number, adminLevel: AdminLevel, leadTime: string) {
     return this.get(
       environment.api_url,
       `triggered-areas/${event}/${adminLevel}/${leadTime}`,
@@ -222,5 +218,4 @@ export class ApiService {
       false,
     ).toPromise();
   }
-
 }

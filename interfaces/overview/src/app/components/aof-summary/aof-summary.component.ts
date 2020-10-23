@@ -30,8 +30,8 @@ export class AofSummaryComponent implements OnInit {
     this.getTrigger();
   }
 
-  ngOnInit() { }
-  
+  ngOnInit() {}
+
   private async getTrigger() {
     this.trigger = !!(await this.timelineService.getEvent());
   }
