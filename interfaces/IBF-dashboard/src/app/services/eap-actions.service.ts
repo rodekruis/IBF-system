@@ -28,22 +28,22 @@ export class EapActionsService {
     const event = await this.apiService.getEvent(
       this.countryService.selectedCountry.countryCode,
     );
-    this.eventId = event.id * 1;
+    if (event) {
+      this.eventId = event?.id * 1;
 
-    this.triggeredAreas = await this.apiService.getTriggeredAreas(
-      this.eventId,
-      this.adminLevelService.adminLevel,
-      this.timelineService.state.selectedTimeStepButtonValue,
-    );
-
-    for await (let area of this.triggeredAreas) {
-      area.eapActions = await this.apiService.getEapActions(
-        this.countryService.selectedCountry.countryCode,
-        area.pcode,
+      this.triggeredAreas = await this.apiService.getTriggeredAreas(
         this.eventId,
       );
+
+      for await (let area of this.triggeredAreas) {
+        area.eapActions = await this.apiService.getEapActions(
+          this.countryService.selectedCountry.countryCode,
+          area.pcode,
+          this.eventId,
+        );
+      }
+      this.triggeredAreaSubject.next(this.triggeredAreas);
     }
-    this.triggeredAreaSubject.next(this.triggeredAreas);
   }
 
   getTriggeredAreas(): Observable<any[]> {

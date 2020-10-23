@@ -112,21 +112,18 @@ export class ApiService {
     ).toPromise();
   }
 
-  getRecentDate(countryCode: string): Promise<any> {
+  getRecentDates(countryCode: string): Promise<any> {
     return this.get(
       environment.api_url,
-      `recent-date/${countryCode}`,
+      `recent-dates/${countryCode}`,
       false,
     ).toPromise();
   }
 
-  getTriggerPerLeadtime(
-    countryCode: string,
-    leadTime: string,
-  ): Promise<number> {
+  getTriggerPerLeadtime(countryCode: string): Promise<number> {
     return this.get(
       environment.api_url,
-      `triggers/${countryCode}/${leadTime}`,
+      `triggers/${countryCode}`,
       false,
     ).toPromise();
   }
@@ -151,10 +148,10 @@ export class ApiService {
     ).toPromise();
   }
 
-  getTriggeredAreas(event: number, adminLevel: AdminLevel, leadTime: string) {
+  getTriggeredAreas(event: number) {
     return this.get(
       environment.api_url,
-      `triggered-areas/${event}/${adminLevel}/${leadTime}`,
+      `triggered-areas/${event}`,
       false,
     ).toPromise();
   }

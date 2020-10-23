@@ -1,4 +1,4 @@
-<ng-container *ngIf="trigger">
+<ng-container *ngIf="eventService.state.activeEvent">
   <ion-row *ngIf="triggeredAreas?.length" class="component-title">
     <ion-item lines="none" class="component-title-item">
       <ion-thumbnail slot="start" class="component-title-thumbnail">
@@ -27,11 +27,12 @@
       <ion-col size-lg="4" size-md="4" size-xs="4">
         <ion-item class="areas-of-focus-item-value ion-no-padding">
           <ion-label class="ion-no-margin ion-text-center">
-            <span>{{ areaOfFocus.countChecked }} / {{ areaOfFocus.count }}</span>
+            <span
+              >{{ areaOfFocus.countChecked }} / {{ areaOfFocus.count }}</span
+            >
           </ion-label>
         </ion-item>
       </ion-col>
     </ng-container>
   </ion-row>
 </ng-container>
-
