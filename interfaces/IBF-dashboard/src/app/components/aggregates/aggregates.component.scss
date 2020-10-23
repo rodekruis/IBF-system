@@ -1,0 +1,58 @@
+.component-title-item {
+  --background: var(--ion-color-ibf-gray);
+}
+
+.aggregate-item,
+.aggregate-item-value,
+.aggregate-item-information-icon {
+  --min-height: 2.5rem;
+  height: 2.5rem;
+}
+
+.aggregate-item {
+  --inner-padding-end: 0;
+  cursor: pointer;
+
+  &:hover {
+    --background: var(--ion-color-ibf-salmon-light);
+  }
+
+  .aggregate-item-thumbnail {
+    background: var(--ion-color-ibf-black);
+    border: 0.2rem solid var(--ion-color-ibf-black);
+    width: 2.5rem;
+    height: 2.5rem;
+    align-self: start;
+
+    ion-img {
+      object-fit: contain;
+    }
+  }
+
+  .aggregate-item-label {
+    text-transform: capitalize;
+    line-height: 1.2;
+    padding: 4px 8px;
+    font-size: 13px;
+
+    &.active {
+      font-weight: bold;
+    }
+  }
+}
+
+.aggregate-item-value {
+  span {
+    font-size: 13px;
+  }
+}
+
+.aggregate-item-value,
+.aggregate-item-information-icon {
+  --background: var(--ion-color-ibf-salmon-light);
+}
+
+.aggregate-item-information-icon {
+  --inner-padding-end: 0.2rem;
+  cursor: pointer;
+}

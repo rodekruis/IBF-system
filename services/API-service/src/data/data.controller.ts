@@ -68,6 +68,13 @@ export class DataController {
     return await this.dataService.getMetadata(params.countryCode);
   }
 
+  @ApiOperation({ title: 'Get most recent date' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @Get('recent-date/:countryCode')
+  public async getRecentDate(@Param() params): Promise<number> {
+    return await this.dataService.getRecentDate(params.countryCode);
+  }
+
   @ApiOperation({ title: 'Get trigger data per lead-time' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
