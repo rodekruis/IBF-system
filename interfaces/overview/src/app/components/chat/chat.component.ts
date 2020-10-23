@@ -40,12 +40,12 @@ export class ChatComponent implements OnDestroy {
         this.getTrigger();
       });
 
-    this.timelineSubscription = this.timelineService
-      .getTimelineSubscription()
-      .subscribe((timeline) => {
-        this.eapActionsService.loadDistrictsAndActions();
-        this.getTrigger();
-      });
+    // this.timelineSubscription = this.timelineService
+    //   .getTimelineSubscription()
+    //   .subscribe((timeline) => {
+    //     this.eapActionsService.loadDistrictsAndActions();
+    //     this.getTrigger();
+    //   });
 
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
@@ -62,8 +62,10 @@ export class ChatComponent implements OnDestroy {
   }
 
   private async getTrigger() {
+    this.trigger = !!(await this.timelineService.getEvent());
+
     const timestep = this.timelineService.state.selectedTimeStepButtonValue;
-    this.trigger = await this.timelineService.getTrigger(timestep);
+    // this.trigger = await this.timelineService.getTrigger(timestep);
     this.leadTime = timestep.replace('-day', ' days from today');
   }
 

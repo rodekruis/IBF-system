@@ -200,4 +200,12 @@ export class TimelineService {
     );
     return trigger === 1;
   }
+
+  public async getEvent(): Promise<any> {
+    const event = await this.apiService.getEvent(
+      this.countryService.selectedCountry.countryCode,
+    );
+    console.log(event);
+    return event;
+  }
 }
