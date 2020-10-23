@@ -18,7 +18,7 @@ export class AreasOfFocusSummaryComponent implements OnInit {
   constructor(
     private eapActionsService: EapActionsService,
     private apiService: ApiService,
-    private eventService: EventService,
+    public eventService: EventService,
   ) {
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()

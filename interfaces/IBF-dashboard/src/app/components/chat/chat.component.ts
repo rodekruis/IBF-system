@@ -31,7 +31,7 @@ export class ChatComponent implements OnDestroy {
     private countryService: CountryService,
     private timelineService: TimelineService,
     private eapActionsService: EapActionsService,
-    private eventService: EventService,
+    public eventService: EventService,
     private alertController: AlertController,
   ) {
     this.countrySubscription = this.countryService
