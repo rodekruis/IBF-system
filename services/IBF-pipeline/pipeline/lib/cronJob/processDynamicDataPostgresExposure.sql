@@ -90,7 +90,7 @@ select country_code
     ,sum(case when exposure_class = 'sheep' then affected end) as sheep_affected
     ,sum(case when exposure_class = 'cropland' then affected end) as cropland_affected
 from (
-    SELECT country_code
+    SELECT t0.country_code
     , source as exposure_class
 	, case when length(cast(district as varchar)) = 8 then '0' || cast(district as varchar) else cast(district as varchar) end as pcode
 	, t0.date
@@ -112,7 +112,7 @@ from (
 
     UNION ALL
 
-    SELECT country_code
+    SELECT t0.country_code
     , source as exposure_class
 	, case when length(cast(district as varchar)) = 8 then '0' || cast(district as varchar) else cast(district as varchar) end as pcode
 	, t0.date
