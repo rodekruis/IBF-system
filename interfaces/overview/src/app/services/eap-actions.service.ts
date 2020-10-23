@@ -25,11 +25,13 @@ export class EapActionsService {
   }
 
   async loadDistrictsAndActions() {
-
-    const event = await this.apiService.getEvent(this.countryService.selectedCountry.countryCode);
+    const event = await this.apiService.getEvent(
+      this.countryService.selectedCountry.countryCode,
+    );
     this.eventId = event.id * 1;
 
-    this.triggeredAreas = await this.apiService.getTriggeredAreas(this.eventId,
+    this.triggeredAreas = await this.apiService.getTriggeredAreas(
+      this.eventId,
       this.adminLevelService.adminLevel,
       this.timelineService.state.selectedTimeStepButtonValue,
     );
@@ -38,7 +40,7 @@ export class EapActionsService {
       area.eapActions = await this.apiService.getEapActions(
         this.countryService.selectedCountry.countryCode,
         area.pcode,
-        this.eventId
+        this.eventId,
       );
     }
     this.triggeredAreaSubject.next(this.triggeredAreas);
@@ -54,6 +56,12 @@ export class EapActionsService {
     status: boolean,
     pcode: string,
   ) {
-    await this.apiService.checkEapAction(action, countryCode, status, pcode, this.eventId);
+    await this.apiService.checkEapAction(
+      action,
+      countryCode,
+      status,
+      pcode,
+      this.eventId,
+    );
   }
 }
