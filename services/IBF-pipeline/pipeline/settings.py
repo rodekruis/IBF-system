@@ -10,13 +10,13 @@ CALCULATE_EXTENT = True
 CALCULATE_EXPOSURE = True
 
 # Use dummy-data and/or overwrite real data
-GLOFAS_DUMMY = False
+OVERWRITE_DUMMY = True #Overwrite glofas data with dummy data
+DUMMY_TRIGGER = False #Overwrite with flood data (true) or no flood (false)
 RAINFALL_DUMMY = False
-OVERWRITE_DUMMY = True
 
 # Change this date only in case of testing
-CURRENT_DATE = date.today()
-# CURRENT_DATE=date.today() - timedelta(days=1)
+# CURRENT_DATE = date.today()
+CURRENT_DATE=date.today() - timedelta(days=7)
 
 
 ######################
