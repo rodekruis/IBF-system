@@ -11,9 +11,10 @@ library(lubridate)
 
 setwd('c:/Users/BOttow/Documents/IBF-system/trigger-model-development/drought/skill-assessment/DMP-VCI-Analysis/dmp_crop_yield_comparison')
 # Maize global dataset, downloaded from here: https://doi.pangaea.de/10.1594/PANGAEA.909132
-maize_dir <- "c:/Users/BOttow/OneDrive - Rode Kruis/Documenten/IBF/data/gdhy_v1.2_v1.3_20190128/maize"
+maize_dir <- "c:/Users/BOttow/OneDrive - Rode Kruis/Documenten/IBF/data/gdhy_v1.2_v1.3_20190128/wheat"
 # Copernicus Dry Matter Productivity dataset
 dmp_dir <- "c:/Users/BOttow/Documents/RK_drought_monitor-master/temp/dmp_v2_1km"
+# https://fews.net/southern-africa/zimbabwe/livelihood-baseline/august-2011
 lhz <- st_read("c:/Users/BOttow/OneDrive - Rode Kruis/Documenten/IBF/data/ZW_LHZ_2011/ZW_LHZ_2011.shp")
 calculateMax = TRUE
 # country extent
@@ -62,7 +63,7 @@ for (raster_file in raster_files_maize) {
 }
 # Combining files
 all_yield <- bind_rows(yield_dfs)
-write.csv(all_yield, "results/all_yield.csv", row.names=F)
+write.csv(all_yield, "results/all_yield_wheat.csv", row.names=F)
 
 ##### EXTRACTING DMP
 dmp_dfs <- list()
@@ -72,6 +73,10 @@ dmp_raster_cropped <- crop(dmp_raster,new_extent)
 maize_resampled <- raster::resample(crop(maize_rasters_max, new_extent),
                                      dmp_raster_cropped,  "bilinear")
 maize_resampled[maize_resampled > 0] <- 1 # this layer will be used to crop DMP data
+
+flag <- raster(filename, varname = "QFLAG")
+
+
 
 for (raster_file in DMP_files) {
   print(paste0("Calculating raster ", raster_file, " time ", Sys.time()))
