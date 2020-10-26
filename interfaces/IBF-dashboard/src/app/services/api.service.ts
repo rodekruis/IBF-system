@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { MockScenario } from 'src/app/mocks/mock-scenario.enum';
+import * as newEvent from 'src/app/mocks/scenarios/new-event';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level.enum';
 import { environment } from 'src/environments/environment';
@@ -42,6 +44,7 @@ export class ApiService {
   ): Observable<any> {
     const security = this.showSecurity(anonymous);
     this.log(`ApiService GET: ${security} ${endpoint}${path}`);
+    console.log(`ApiService GET: ${security} ${endpoint}${path}`);
 
     return this.http
       .get(endpoint + path, {
@@ -128,7 +131,10 @@ export class ApiService {
     ).toPromise();
   }
 
-  getEvent(countryCode: string): Promise<any> {
+  getEvent(countryCode: string, mockScenario: MockScenario): Promise<any> {
+    if (mockScenario === MockScenario.newEvent) {
+      return newEvent.getEvent();
+    }
     return this.get(
       environment.api_url,
       `event/${countryCode}`,
