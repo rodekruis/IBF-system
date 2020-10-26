@@ -141,7 +141,7 @@ export class DataService {
   }
 
   public async getEvent(countryCode: string): Promise<any> {
-    const daysStickyAfterEvent = 1;
+    const daysStickyAfterEvent = 0;
 
     const query =
       "select t0.* \
@@ -155,7 +155,7 @@ export class DataService {
         on t0.country_code = t1.country_code \
         where t0.country_code = $1 \
         and(case when t0.end_date is null then '9999-99-99' else end_date end) = t1.max_date \
-        and(end_date is null or to_date(end_date, 'yyyy-mm-dd') >= to_date('2020-10-16','yyyy-mm-dd') - " +
+        and(end_date is null or to_date(end_date, 'yyyy-mm-dd') >= current_date - " +
       daysStickyAfterEvent +
       ') \
     ';
