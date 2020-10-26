@@ -12,7 +12,7 @@ export function getRecentDates() {
 export function getEvent() {
   return {
     country_code: 'UGA',
-    start_date: moment().format('YYYY-MM-DD'),
+    start_date: moment().subtract(1, 'days').format('YYYY-MM-DD'),
     end_date: null,
     id: '14',
   };
@@ -25,7 +25,7 @@ export function getTriggerPerLeadtime() {
     '3': '0',
     '4': '0',
     '5': '0',
-    '6': '0',
+    '6': '1',
     '7': '1',
     country_code: 'UGA',
     current_prev: 'Current',
