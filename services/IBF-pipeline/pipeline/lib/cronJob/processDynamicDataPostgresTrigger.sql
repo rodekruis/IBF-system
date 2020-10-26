@@ -130,7 +130,7 @@ where 1=1
 -- TO DO: This way a (theoretically possible) updated 'population_affected' for an existing district is not reflected
 --drop table if exists "IBF-pipeline-output".event_districts;
 --create table "IBF-pipeline-output".event_districts as
---insert into "IBF-pipeline-output".event_districts
+insert into "IBF-pipeline-output".event_districts
 select districtsToday.*
 from (
 	select id as event
@@ -143,6 +143,7 @@ from (
 		and t0.country_code = t1.country_code
 	left join "IBF-API"."Admin_area_data2" t2
 		on t1.pcode = t2.pcode
+		and to_date(t2.date,'yyyy-mm-dd') = current_date
 	where t1.fc_trigger=1
 	) districtsToday
 left join "IBF-pipeline-output".event_districts districtsExisting
@@ -150,4 +151,5 @@ left join "IBF-pipeline-output".event_districts districtsExisting
 	and districtsToday.pcode = districtsExisting.pcode
 where districtsExisting.pcode is null
 --select * from "IBF-pipeline-output".event_districts where event = 14
+
 

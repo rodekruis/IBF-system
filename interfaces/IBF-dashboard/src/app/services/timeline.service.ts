@@ -53,6 +53,8 @@ export class TimelineService {
       this.state.today = moment(this.dates[0].value);
     }
 
+    const triggers = await this.getTrigger();
+
     this.state.timeStepButtons = [];
 
     this.state.timeStepButtons = this.filterTimeStepButtonsByCountryForecast([
@@ -68,7 +70,7 @@ export class TimelineService {
           .add(1, 'days')
           .format(this.state.dateFormat),
         value: '1-day',
-        alert: await this.getTrigger('1-day'),
+        alert: triggers['1'] == 1,
         disabled: await this.getForecast('1-day'),
       },
       {
@@ -77,7 +79,7 @@ export class TimelineService {
           .add(2, 'days')
           .format(this.state.dateFormat),
         value: '2-day',
-        alert: await this.getTrigger('2-day'),
+        alert: triggers['2'] == 1,
         disabled: await this.getForecast('2-day'),
       },
       {
@@ -86,7 +88,7 @@ export class TimelineService {
           .add(3, 'days')
           .format(this.state.dateFormat),
         value: '3-day',
-        alert: await this.getTrigger('3-day'),
+        alert: triggers['3'] == 1,
         disabled: await this.getForecast('3-day'),
       },
       {
@@ -95,7 +97,7 @@ export class TimelineService {
           .add(4, 'days')
           .format(this.state.dateFormat),
         value: '4-day',
-        alert: await this.getTrigger('4-day'),
+        alert: triggers['4'] == 1,
         disabled: await this.getForecast('4-day'),
       },
       {
@@ -104,7 +106,7 @@ export class TimelineService {
           .add(5, 'days')
           .format(this.state.dateFormat),
         value: '5-day',
-        alert: await this.getTrigger('5-day'),
+        alert: triggers['5'] == 1,
         disabled: await this.getForecast('5-day'),
       },
       {
@@ -113,7 +115,7 @@ export class TimelineService {
           .add(6, 'days')
           .format(this.state.dateFormat),
         value: '6-day',
-        alert: await this.getTrigger('6-day'),
+        alert: triggers['6'] == 1,
         disabled: await this.getForecast('6-day'),
       },
       {
@@ -122,72 +124,72 @@ export class TimelineService {
           .add(7, 'days')
           .format(this.state.dateFormat),
         value: '7-day',
-        alert: await this.getTrigger('7-day'),
+        alert: triggers['7'] == 1,
         disabled: await this.getForecast('7-day'),
       },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(8, 'days')
-          .format(this.state.dateFormat),
-        value: '8-day',
-        alert: await this.getTrigger('8-day'),
-        disabled: await this.getForecast('8-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(9, 'days')
-          .format(this.state.dateFormat),
-        value: '9-day',
-        alert: await this.getTrigger('9-day'),
-        disabled: await this.getForecast('9-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(10, 'days')
-          .format(this.state.dateFormat),
-        value: '10-day',
-        alert: await this.getTrigger('10-day'),
-        disabled: await this.getForecast('10-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(11, 'days')
-          .format(this.state.dateFormat),
-        value: '11-day',
-        alert: await this.getTrigger('11-day'),
-        disabled: await this.getForecast('11-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(12, 'days')
-          .format(this.state.dateFormat),
-        value: '12-day',
-        alert: await this.getTrigger('12-day'),
-        disabled: await this.getForecast('12-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(13, 'days')
-          .format(this.state.dateFormat),
-        value: '13-day',
-        alert: await this.getTrigger('13-day'),
-        disabled: await this.getForecast('13-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(14, 'days')
-          .format(this.state.dateFormat),
-        value: '14-day',
-        alert: await this.getTrigger('14-day'),
-        disabled: await this.getForecast('14-day'),
-      },
+      // {
+      //   dateString: this.state.today
+      //     .clone()
+      //     .add(8, 'days')
+      //     .format(this.state.dateFormat),
+      //   value: '8-day',
+      //   alert: triggers['8'] == 1,
+      //   disabled: await this.getForecast('8-day'),
+      // },
+      // {
+      //   dateString: this.state.today
+      //     .clone()
+      //     .add(9, 'days')
+      //     .format(this.state.dateFormat),
+      //   value: '9-day',
+      //   alert: triggers['9'] == 1,
+      //   disabled: await this.getForecast('9-day'),
+      // },
+      // {
+      //   dateString: this.state.today
+      //     .clone()
+      //     .add(10, 'days')
+      //     .format(this.state.dateFormat),
+      //   value: '10-day',
+      //   alert: triggers['10'] == 1,
+      //   disabled: await this.getForecast('10-day'),
+      // },
+      // {
+      //   dateString: this.state.today
+      //     .clone()
+      //     .add(11, 'days')
+      //     .format(this.state.dateFormat),
+      //   value: '11-day',
+      //   alert: triggers['11'] == 1,
+      //   disabled: await this.getForecast('11-day'),
+      // },
+      // {
+      //   dateString: this.state.today
+      //     .clone()
+      //     .add(12, 'days')
+      //     .format(this.state.dateFormat),
+      //   value: '12-day',
+      //   alert: triggers['12'] == 1,
+      //   disabled: await this.getForecast('12-day'),
+      // },
+      // {
+      //   dateString: this.state.today
+      //     .clone()
+      //     .add(13, 'days')
+      //     .format(this.state.dateFormat),
+      //   value: '13-day',
+      //   alert: triggers['13'] == 1,
+      //   disabled: await this.getForecast('13-day'),
+      // },
+      // {
+      //   dateString: this.state.today
+      //     .clone()
+      //     .add(14, 'days')
+      //     .format(this.state.dateFormat),
+      //   value: '14-day',
+      //   alert: triggers['14'] == 1,
+      //   disabled: await this.getForecast('14-day'),
+      // },
     ]);
   }
 
@@ -222,11 +224,11 @@ export class TimelineService {
     });
   }
 
-  public async getTrigger(leadTime): Promise<any> {
+  public async getTrigger(): Promise<any> {
     const trigger = await this.apiService.getTriggerPerLeadtime(
       this.countryService.selectedCountry.countryCode,
     );
-    return trigger[leadTime[0]] === 1;
+    return trigger;
   }
 
   public async getEvent(): Promise<any> {

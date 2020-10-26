@@ -36,7 +36,7 @@ export class EventService {
     this.state.activeTrigger = this.state.event && !this.state.event?.end_date;
     this.state.newEvent =
       this.state.event?.start_date ===
-      this.timelineService.state.today.format('yyyy-mm-dd');
+      this.timelineService.state.today.format('YYYY-MM-DD');
 
     if (this.state.activeTrigger) {
       const timesteps = await this.apiService.getTriggerPerLeadtime(
