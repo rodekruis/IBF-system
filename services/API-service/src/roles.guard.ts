@@ -3,7 +3,7 @@ import { Reflector } from '@nestjs/core';
 import * as jwt from 'jsonwebtoken';
 import { UserService } from './user/user.service';
 import { SECRET } from './secrets';
-import { AUTH_DEBUG } from './config';
+import { DEBUG } from './config';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -13,7 +13,7 @@ export class RolesGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    if (AUTH_DEBUG) {
+    if (DEBUG) {
       return true;
     }
 
