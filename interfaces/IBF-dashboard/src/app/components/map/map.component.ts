@@ -57,12 +57,13 @@ export class MapComponent implements OnDestroy {
     iconSize: [25, 41],
     iconAnchor: [13, 41],
     popupAnchor: [0, -30],
-    iconUrl: 'assets/markers/default.png',
-    iconRetinaUrl: 'assets/markers/default-2x.png',
+    iconUrl: 'assets/markers/default.svg',
+    iconRetinaUrl: 'assets/markers/default.svg',
   };
 
   private iconWarning: IconOptions = {
     ...this.iconDefault,
+    iconSize: [35, 56],
     iconUrl: 'assets/markers/alert.svg',
     iconRetinaUrl: 'assets/markers/alert.svg',
   };
@@ -318,14 +319,7 @@ export class MapComponent implements OnDestroy {
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: markerIcon
-        ? icon(markerIcon)
-        : divIcon({
-            iconSize: [25, 25],
-            iconAnchor: [25, 25],
-            popupAnchor: [0, -30],
-            className: 'marker-icon',
-          }),
+      icon: markerIcon ? icon(markerIcon) : divIcon(),
     });
     markerInstance.bindPopup(this.createMarkerPopup(markerProperties));
 
