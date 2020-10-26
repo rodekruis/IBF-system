@@ -319,9 +319,7 @@ export class MapComponent implements OnDestroy {
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: markerIcon
-        ? icon(markerIcon)
-        : divIcon(),
+      icon: markerIcon ? icon(markerIcon) : divIcon(),
     });
     markerInstance.bindPopup(this.createMarkerPopup(markerProperties));
 
