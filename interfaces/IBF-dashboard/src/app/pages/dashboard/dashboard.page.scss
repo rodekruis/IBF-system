@@ -1,0 +1,69 @@
+.debug-container {
+  outline: 1px dashed hotpink;
+}
+.debug-placeholder {
+  display: flex;
+
+  > * {
+    margin: auto;
+  }
+}
+
+// The lay-out of the `ion-content`-area of the page/screen
+.page-structure {
+  min-height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+
+  // The `ion-row` that should fill the height of the page/screen:
+  .page-structure--content {
+    flex-grow: 1;
+
+    .ibf-dashboard-left-column {
+      display: flex;
+      flex-direction: column;
+
+      .component-title {
+        background-color: var(--ion-color-ibf-salmon);
+
+        .component-title-item {
+          --background: transparent;
+
+          .component-title-thumbnail {
+            height: 24px;
+            width: 24px;
+          }
+        }
+      }
+
+      .component-content {
+        flex-grow: 1;
+
+        .ibf-dashboard-left-column-right-sub-column {
+          background: var(--ion-color-ibf-gray);
+          display: flex;
+
+          .ibf-dashboard-left-column-right-sub-column-grid {
+            display: flex;
+            flex-flow: column nowrap;
+            overflow: auto;
+          }
+        }
+      }
+    }
+
+    .ibf-dashboard-right-column {
+      display: flex;
+      flex-direction: column;
+
+      .component-title {
+        background-color: var(--ion-color-ibf-gray);
+      }
+
+      .component-content {
+        flex-grow: 1;
+        overflow: hidden;
+      }
+    }
+  }
+}
