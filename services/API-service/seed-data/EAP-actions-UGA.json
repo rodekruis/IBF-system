@@ -1,0 +1,90 @@
+[
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "wash"
+                },
+                "action": "wash-1",
+                "label": "Community sensitization and awareness (health risk, preventive measures of floods, hygiene)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "wash"
+                },
+                "action": "wash-2",
+                "label": "Procure and distribute water purification chemicals (Aqua tab and Pur/water guard)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "wash"
+                },
+                "action": "wash-3",
+                "label": "Conduct training for volunteers (CBS, community health and first Aid, community hygiene promoters)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "wash"
+                },
+                "action": "wash-4",
+                "label": "Waste management (collect rubbish and manage it from Urban centers)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-1",
+                "label": "Cleaning water sources/desilting drainage channels/dredging in Urban areas"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-2",
+                "label": "Community mapping - (map out designated centers, evacuation roots and holding stores)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-3",
+                "label": "Provision of shelter kit (Rope, Handsaw, Nails, shovel, hoe, Machete, Shears, Tie wire, Hammer and Tarpaulins)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-4",
+                "label": "Training of volunteers in shelter construction and management"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-5",
+                "label": "Reinforcing housing structures (roofs and walls) using local available materials such as sand bags"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-6",
+                "label": "Distribute water treatment products aquatabs, pur, water storage vessels and soap, sufficient for 30 days"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "livelihood"
+                },
+                "action": "livelihood-1",
+                "label": "Cash and voucher Assistance (CVA) to facilitate evacuation and meet shelter needs to the affected population"
+        }
+]
