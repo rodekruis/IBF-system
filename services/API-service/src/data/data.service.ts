@@ -107,7 +107,7 @@ export class DataService {
     from "IBF-pipeline-output".triggers_per_day \
     where country_code = $1 \
     order by date DESC \
-    limit 10 \
+    limit 1 \
     ';
 
     const result = await this.manager.query(query, [countryCode]);

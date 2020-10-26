@@ -44,7 +44,6 @@ export class ApiService {
   ): Observable<any> {
     const security = this.showSecurity(anonymous);
     this.log(`ApiService GET: ${security} ${endpoint}${path}`);
-    console.log(`ApiService GET: ${security} ${endpoint}${path}`);
 
     return this.http
       .get(endpoint + path, {

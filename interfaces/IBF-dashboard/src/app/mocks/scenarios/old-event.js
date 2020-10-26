@@ -12,8 +12,8 @@ export function getRecentDates() {
 export function getEvent() {
   return {
     country_code: 'UGA',
-    start_date: moment().format('YYYY-MM-DD'),
-    end_date: null,
+    start_date: moment().subtract(12, 'days').format('YYYY-MM-DD'),
+    end_date: moment().subtract(7, 'days').format('YYYY-MM-DD'),
     id: '14',
   };
 }
@@ -26,7 +26,7 @@ export function getTriggerPerLeadtime() {
     '4': '0',
     '5': '0',
     '6': '0',
-    '7': '1',
+    '7': '0',
     country_code: 'UGA',
     current_prev: 'Current',
   };
@@ -54,7 +54,7 @@ export function getTriggeredAreas() {
 
 export function getMatrixAggregates() {
   return {
-    population_affected: 1223.690078735352,
+    population_affected: 0,
     population: 34416151,
     vulnerability_index: 3.67468563628745,
     poverty_incidence: 0.5935475982192198,
@@ -118,10 +118,10 @@ export function getStations() {
           station_code: 'G5200',
           station_name: 'Magoro Ngariam',
           trigger_level: 644.5651245,
-          fc: '700',
-          fc_trigger: '1',
-          fc_perc: 1.08600352919032,
-          fc_prob: '1',
+          fc: '100',
+          fc_trigger: '0',
+          fc_perc: 0.15,
+          fc_prob: '0',
         },
       },
       {
@@ -147,5 +147,9 @@ export function getStations() {
 }
 
 export function getAdminRegions() {
-  return adminAreaData;
+  var result = adminAreaData;
+  result.features.forEach((feature) => {
+    feature.properties.population_affected = 0;
+  });
+  return result;
 }
