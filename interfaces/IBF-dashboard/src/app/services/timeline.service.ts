@@ -4,6 +4,7 @@ import { Moment } from 'moment';
 import { Observable, ReplaySubject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
+import { MockScenario } from '../mocks/mock-scenario.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -232,8 +233,10 @@ export class TimelineService {
   }
 
   public async getEvent(): Promise<any> {
+    const mockScenario = MockScenario.newEvent;
     const event = await this.apiService.getEvent(
       this.countryService.selectedCountry.countryCode,
+      mockScenario,
     );
     return event;
   }
