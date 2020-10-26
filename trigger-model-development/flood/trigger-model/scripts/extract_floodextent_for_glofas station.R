@@ -14,14 +14,14 @@ library(httr)
 # read files from geonode
 crs1 <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0" 
 
-url_geonode <- "https://geonode.510.global/geoserver/geonode_old/wfs"
+url_geonode <- "https://geonode.510.global/geoserver/geonode/wfs"
 url<- parse_url(url_geonode)
 
 url$query <- list(service = "WFS",version = "2.0.0",request = "GetFeature",typename = "geonode:hybas_lake_af_lev06_v1c", outputFormat = "application/json")
 request <- build_url(url)
 hydrosheds_basins <- st_read(request)
 
-url$query <- list(service = "WFS",version = "2.0.0",request = "GetFeature", typename = "geonode:glofas_africa",  outputFormat = "application/json")
+url$query <- list(service = "WFS",version = "2.0.0",request = "GetFeature", typename = "geonode:glofas_irap2",  outputFormat = "application/json")
 request <- build_url(url)
 glofas_st <- st_read(request)
                   
