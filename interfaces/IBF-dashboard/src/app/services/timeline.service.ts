@@ -4,7 +4,6 @@ import { Moment } from 'moment';
 import { Observable, ReplaySubject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import { MockScenario } from '../mocks/mock-scenario.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -128,69 +127,6 @@ export class TimelineService {
         alert: triggers['7'] == 1,
         disabled: await this.getForecast('7-day'),
       },
-      // {
-      //   dateString: this.state.today
-      //     .clone()
-      //     .add(8, 'days')
-      //     .format(this.state.dateFormat),
-      //   value: '8-day',
-      //   alert: triggers['8'] == 1,
-      //   disabled: await this.getForecast('8-day'),
-      // },
-      // {
-      //   dateString: this.state.today
-      //     .clone()
-      //     .add(9, 'days')
-      //     .format(this.state.dateFormat),
-      //   value: '9-day',
-      //   alert: triggers['9'] == 1,
-      //   disabled: await this.getForecast('9-day'),
-      // },
-      // {
-      //   dateString: this.state.today
-      //     .clone()
-      //     .add(10, 'days')
-      //     .format(this.state.dateFormat),
-      //   value: '10-day',
-      //   alert: triggers['10'] == 1,
-      //   disabled: await this.getForecast('10-day'),
-      // },
-      // {
-      //   dateString: this.state.today
-      //     .clone()
-      //     .add(11, 'days')
-      //     .format(this.state.dateFormat),
-      //   value: '11-day',
-      //   alert: triggers['11'] == 1,
-      //   disabled: await this.getForecast('11-day'),
-      // },
-      // {
-      //   dateString: this.state.today
-      //     .clone()
-      //     .add(12, 'days')
-      //     .format(this.state.dateFormat),
-      //   value: '12-day',
-      //   alert: triggers['12'] == 1,
-      //   disabled: await this.getForecast('12-day'),
-      // },
-      // {
-      //   dateString: this.state.today
-      //     .clone()
-      //     .add(13, 'days')
-      //     .format(this.state.dateFormat),
-      //   value: '13-day',
-      //   alert: triggers['13'] == 1,
-      //   disabled: await this.getForecast('13-day'),
-      // },
-      // {
-      //   dateString: this.state.today
-      //     .clone()
-      //     .add(14, 'days')
-      //     .format(this.state.dateFormat),
-      //   value: '14-day',
-      //   alert: triggers['14'] == 1,
-      //   disabled: await this.getForecast('14-day'),
-      // },
     ]);
   }
 
@@ -226,17 +162,15 @@ export class TimelineService {
   }
 
   public async getTrigger(): Promise<any> {
-    const trigger = await this.apiService.getTriggerPerLeadtime(
+    const trigger = await this.apiService.getTriggerPerLeadTime(
       this.countryService.selectedCountry.countryCode,
     );
     return trigger;
   }
 
   public async getEvent(): Promise<any> {
-    const mockScenario = MockScenario.newEvent;
     const event = await this.apiService.getEvent(
       this.countryService.selectedCountry.countryCode,
-      mockScenario,
     );
     return event;
   }

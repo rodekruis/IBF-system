@@ -12,7 +12,9 @@ export class DashboardPage {
 
   constructor(private authService: AuthService) {
     this.authService.authenticationState$.subscribe((user) => {
-      this.isDev = user.role == this.adminRole;
+      if (user) {
+        this.isDev = user.role == this.adminRole;
+      }
     });
   }
 }

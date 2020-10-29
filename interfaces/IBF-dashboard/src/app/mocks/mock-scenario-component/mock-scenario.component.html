@@ -1,0 +1,16 @@
+<ion-item>
+  <ion-label>Mock Scenario</ion-label>
+  <ion-select
+    placeholder="Select Mock Scenario"
+    interface="popover"
+    (ionChange)="handleMockScenarioChange($event)"
+    [value]="mockScenarioService.mockScenario"
+  >
+    <ion-select-option
+      *ngFor="let mockScenario of mockScenarioService.mockScenarios"
+      value="{{ mockScenario }}"
+    >
+      {{ mockScenario }}
+    </ion-select-option>
+  </ion-select>
+</ion-item>
