@@ -13,7 +13,7 @@ export function getEvent() {
   return null;
 }
 
-export function getTriggerPerLeadtime() {
+export function getTriggerPerLeadTime() {
   return {
     '1': '0',
     '2': '0',

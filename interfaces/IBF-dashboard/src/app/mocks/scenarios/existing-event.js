@@ -18,7 +18,7 @@ export function getEvent() {
   };
 }
 
-export function getTriggerPerLeadtime() {
+export function getTriggerPerLeadTime() {
   return {
     '1': '0',
     '2': '0',

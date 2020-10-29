@@ -1,5 +1,4 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
@@ -15,7 +14,6 @@ describe('TimelineComponent', () => {
       declarations: [TimelineComponent],
       imports: [IonicModule, HttpClientTestingModule, RouterTestingModule],
       providers: [{ provide: TimelineService }],
-      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TimelineComponent);

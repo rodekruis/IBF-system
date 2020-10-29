@@ -11,8 +11,7 @@ export class EventService {
   public event: any;
   public activeEvent: boolean;
   public activeTrigger: boolean;
-  public newEvent;
-  boolean;
+  public newEvent: boolean;
 
   public state = {
     event: null,
@@ -39,7 +38,7 @@ export class EventService {
       this.timelineService.state.today.format('YYYY-MM-DD');
 
     if (this.state.activeTrigger) {
-      const timesteps = await this.apiService.getTriggerPerLeadtime(
+      const timesteps = await this.apiService.getTriggerPerLeadTime(
         this.countryService.selectedCountry.countryCode,
       );
       let firstKey = null;

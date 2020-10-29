@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
-import { TimelineService } from 'src/app/services/timeline.service';
 import { EapAction } from 'src/app/types/eap-action';
 import { IndicatorEnum } from 'src/app/types/indicator-group';
 
@@ -29,24 +28,16 @@ export class ChatComponent implements OnDestroy {
 
   constructor(
     private countryService: CountryService,
-    private timelineService: TimelineService,
     private eapActionsService: EapActionsService,
     public eventService: EventService,
     private alertController: AlertController,
   ) {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe((country) => {
+      .subscribe((_) => {
         this.eapActionsService.loadDistrictsAndActions();
         this.eventService.getTrigger();
       });
-
-    // this.timelineSubscription = this.timelineService
-    //   .getTimelineSubscription()
-    //   .subscribe((timeline) => {
-    //     this.eapActionsService.loadDistrictsAndActions();
-    //     this.getTrigger();
-    //   });
 
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
@@ -58,7 +49,6 @@ export class ChatComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.eapActionSubscription.unsubscribe();
-    this.timelineSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
   }
 

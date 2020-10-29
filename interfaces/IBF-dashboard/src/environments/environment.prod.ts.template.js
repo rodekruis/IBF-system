@@ -9,7 +9,6 @@ export const environment = {
   api_url: '${process.env.NG_API_URL}',
 
   // Feature-flags:
-  useMockData: ${process.env.NG_USE_MOCK_DATA === 'true' || false},
   useServiceWorker: ${process.env.NG_USE_SERVICE_WORKER === 'true' || false},
 
   // Geoserver
