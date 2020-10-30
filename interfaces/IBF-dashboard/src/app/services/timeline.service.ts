@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Moment } from 'moment';
 import { Observable, ReplaySubject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -9,7 +8,6 @@ import { CountryService } from 'src/app/services/country.service';
   providedIn: 'root',
 })
 export class TimelineService {
-
   public state = {
     selectedTimeStepButtonValue: '7-day',
     today: moment(),

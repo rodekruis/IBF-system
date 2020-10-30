@@ -19,7 +19,7 @@ export class EventService {
     activeTrigger: null,
     newEvent: null,
     newEventEarlyTrigger: null,
-    leadTime: null,
+    triggerLeadTime: null,
     firstLeadTime: null,
   };
 
@@ -38,23 +38,42 @@ export class EventService {
       this.timelineService.state.today.format('YYYY-MM-DD');
 
     if (this.state.activeTrigger) {
-      const timesteps = await this.apiService.getTriggerPerLeadTime(
-        this.countryService.selectedCountry.countryCode,
-      );
-      let firstKey = null;
-      Object.keys(timesteps).forEach((key) => {
-        if (timesteps[key] == 1) {
-          firstKey = !firstKey ? key : firstKey;
-        }
-      });
-      this.state.firstLeadTime = firstKey;
-      const selectedKey = Number(
-        this.timelineService.state.selectedTimeStepButtonValue.substr(0, 1),
-      );
-      this.state.newEventEarlyTrigger = firstKey < selectedKey;
+      this.getFirstTriggerDate();
+      this.getTriggerLeadTime();
     }
+  }
 
-    const timestep = this.timelineService.state.selectedTimeStepButtonValue;
-    this.state.leadTime = timestep.replace('-day', ' days from today');
+  private async getFirstTriggerDate() {
+    const timesteps = await this.apiService.getTriggerPerLeadTime(
+      this.countryService.selectedCountry.countryCode,
+    );
+    let firstKey = null;
+    Object.keys(timesteps).forEach((key) => {
+      if (timesteps[key] == 1) {
+        firstKey = !firstKey ? key : firstKey;
+      }
+    });
+    this.state.firstLeadTime = firstKey;
+    const selectedKey = Number(
+      this.timelineService.state.selectedTimeStepButtonValue.substr(0, 1),
+    );
+    this.state.newEventEarlyTrigger = firstKey < selectedKey;
+  }
+
+  private async getTriggerLeadTime() {
+    let triggerLeadTime = null;
+    this.countryService.selectedCountry.countryForecasts.forEach((leadtime) => {
+      if (
+        !triggerLeadTime &&
+        Number(leadtime.substr(0, 1)) >= this.state.firstLeadTime
+      ) {
+        triggerLeadTime = Number(leadtime.substr(0, 1));
+        console.log(
+          'this.state.triggerLeadTime: ',
+          this.timelineService.state.selectedTimeStepButtonValue,
+        );
+      }
+    });
+    this.state.triggerLeadTime = triggerLeadTime;
   }
 }

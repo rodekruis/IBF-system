@@ -29,5 +29,4 @@ export class TimelineComponent implements OnDestroy {
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
   }
-
 }
