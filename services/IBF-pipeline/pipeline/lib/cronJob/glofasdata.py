@@ -19,16 +19,19 @@ from secrets import GLOFAS_USER, GLOFAS_PW
 
 class GlofasData:
 
-    def __init__(self, fcStep, days):
+    def __init__(self, fcStep, days, country_code):
         self.fcStep = fcStep
         self.days = days
+        self.country_code = country_code
         self.inputPath = PIPELINE_DATA+'input/glofas/'
         self.triggerPerDay = PIPELINE_OUTPUT + \
-            'triggers_rp_per_station/trigger_per_day_' + COUNTRY_CODE + '.json'
+            'triggers_rp_per_station/trigger_per_day_' + country_code + '.json'
         self.extractedGlofasPath = PIPELINE_OUTPUT + \
-            'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
+            'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + country_code + '.json'
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
-            'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
+            'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + country_code + '.json'
+        self.WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + SETTINGS[country_code]['trigger_levels']
+        self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
 
     def process(self):
         self.removeOldGlofasData()
@@ -81,7 +84,7 @@ class GlofasData:
 
         # Load file with thresholds per station (only once, so before loop)
         df_thresholds = pd.read_csv(
-            WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
+            self.WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
         df_thresholds = df_thresholds.set_index("station_code", drop=False)
 
         stations = []
@@ -107,7 +110,7 @@ class GlofasData:
             if station['code'] in df_thresholds['station_code']:
                 print(Filename)
                 threshold = df_thresholds[df_thresholds.station_code ==
-                                        station['code']][TRIGGER_RP_COLNAME][0]
+                                        station['code']][self.TRIGGER_RP_COLNAME][0]
 
                 # Set dimension-values
                 time = 0
@@ -124,7 +127,7 @@ class GlofasData:
                             ensemble=ensemble, step=step).values[time][0]
 
                         # DUMMY OVERWRITE FOR NOW
-                        if OVERWRITE_DUMMY:
+                        if OVERWRITE_DUMMY == True:
                             if DUMMY_TRIGGER == False:
                                 discharge = 0
                             else:
@@ -185,7 +188,7 @@ class GlofasData:
         # Load (static) threshold values per station
 
         df_thresholds = pd.read_csv(
-            WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
+            self.WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
         df_thresholds.index = df_thresholds['station_code']
         df_thresholds.sort_index(inplace=True)
         # Load extracted Glofas discharge levels per station
@@ -204,7 +207,7 @@ class GlofasData:
             fc = float(row['fc_'+self.fcStep])
             trigger = int(row['fc_'+self.fcStep+'_trigger'])
             if trigger == 1:
-                if COUNTRY_CODE == 'UGA':
+                if self.country_code == 'UGA':
                     return_period = 25
                 elif fc >= row['20yr_threshold']:
                     return_period = 20
