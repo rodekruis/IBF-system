@@ -9,7 +9,6 @@ import { CountryService } from 'src/app/services/country.service';
   providedIn: 'root',
 })
 export class TimelineService {
-  public dates: any[];
 
   public state = {
     selectedTimeStepButtonValue: '7-day',
@@ -28,30 +27,11 @@ export class TimelineService {
     return this.timelineSubject.asObservable();
   }
 
-  public async loadTodayOptionsDebug() {
+  public async loadTimeStepButtons() {
     const dates = await this.apiService.getRecentDates(
       this.countryService.selectedCountry.countryCode,
     );
-    this.dates = dates.map((date) => {
-      return {
-        label: moment(date.date).format(this.state.dateFormat),
-        value: moment(date.date),
-      };
-    });
-    this.state.today = moment(dates[0].date);
-  }
-
-  public changeToday(event) {
-    const today = event.detail.value;
-    this.loadTimeStepButtons(today);
-  }
-
-  public async loadTimeStepButtons(today?: Moment) {
-    if (today) {
-      this.state.today = today;
-    } else {
-      this.state.today = moment(this.dates[0].value);
-    }
+    this.state.today = moment(dates[0].value);
 
     const triggers = await this.getTrigger();
 
