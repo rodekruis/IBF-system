@@ -25,8 +25,10 @@ CURRENT_DATE = date.today()
 
 COUNTRY_CODES = [
     'ZMB'
-    ,'UGA'
-    # ,'EGY'
+    ,
+    'UGA'
+    # ,
+    # 'EGY'
 ]
 
 SETTINGS = {
