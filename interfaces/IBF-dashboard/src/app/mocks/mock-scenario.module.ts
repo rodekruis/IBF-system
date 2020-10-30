@@ -15,8 +15,6 @@ import { MockScenarioInterceptor } from './mock-scenario.interceptor';
       multi: true,
     },
   ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
-  ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class MockScenarioModule {}
