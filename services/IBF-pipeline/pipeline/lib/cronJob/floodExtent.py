@@ -14,13 +14,17 @@ class FloodExtent:
 
     """Class used to calculate flood extent"""
 
-    def __init__(self, fcStep, days):
+    def __init__(self, fcStep, days, country_code):
         self.fcStep = fcStep
         self.days = days
+        self.country_code = country_code
         self.inputPath = GEOSERVER_DATA + "input/flood_extent/"
         self.outputPathAreas = PIPELINE_DATA + 'output/flood_extents/'+ fcStep +'/'
-        self.outputPathMerge = GEOSERVER_DATA + 'output/0/flood_extents/flood_extent_'+ fcStep + '_' + COUNTRY_CODE + '.tif'
-        self.statsPath = PIPELINE_DATA + 'output/calculated_affected/affected_' + fcStep + '_' + COUNTRY_CODE + '.json'
+        self.outputPathMerge = GEOSERVER_DATA + 'output/0/flood_extents/flood_extent_'+ fcStep + '_' + country_code + '.tif'
+        self.statsPath = PIPELINE_DATA + 'output/calculated_affected/affected_' + fcStep + '_' + country_code + '.json'
+        self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
+        self.DISTRICT_MAPPING = PIPELINE_INPUT + SETTINGS[country_code]['district_mapping']
+        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']
         self.stats = []
 
     def calculate(self):
@@ -55,9 +59,9 @@ class FloodExtent:
             trigger = rows['fc_'+self.fcStep+'_trigger']
             if trigger == 1:
                 return_period = rows['fc_'+self.fcStep+'_rp'] 
-                input_raster = self.inputPath + COUNTRY_CODE + '_flood_' +str(int(return_period))+'year.tif'
+                input_raster = self.inputPath + self.country_code + '_flood_' +str(int(return_period))+'year.tif'
             else:
-                input_raster = self.inputPath + COUNTRY_CODE + '_flood_empty.tif' # TEMP / FIX!
+                input_raster = self.inputPath + self.country_code + '_flood_empty.tif' # TEMP / FIX!
 
             out_image, out_meta = self.clipTiffWithShapes(input_raster, dist_coords)
 
@@ -84,7 +88,7 @@ class FloodExtent:
 
     def loadVectorData(self):
 
-        admin_file = ADMIN_BOUNDARIES
+        admin_file = self.ADMIN_BOUNDARIES
         admin_gdf = gpd.GeoDataFrame()
         try:
             admin_gdf = gpd.GeoDataFrame.from_file(admin_file)
@@ -96,11 +100,11 @@ class FloodExtent:
     def loadGlofasData(self):
 
         #Load assigned station per district
-        path = DISTRICT_MAPPING #PIPELINE_DATA+'input/Waterstation_per_catchment_area.csv'
+        path = self.DISTRICT_MAPPING #PIPELINE_DATA+'input/Waterstation_per_catchment_area.csv'
         df_catchment = pd.read_csv(path,delimiter=';', encoding="windows-1251")
 
         #Load (static) threshold values per station
-        path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
+        path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + self.country_code + '.json'
         df_triggers = pd.read_json(path, orient='records')
 
         #Merge two datasets
@@ -144,10 +148,10 @@ class FloodExtent:
 
         print(self.fcStep, " - fcStep")
 
-        for indicator, values in  EXPOSURE_DATA_SOURCES.items():
+        for indicator, values in self.EXPOSURE_DATA_SOURCES.items():
             print(indicator)
 
-            exposure = Exposure(indicator, values['source'], values['rasterValue'], self.fcStep)
+            exposure = Exposure(indicator, values['source'], values['rasterValue'], self.fcStep, self.country_code)
             exposure.calcAffected(self.outputPathMerge)
 
             for item in exposure.stats:
