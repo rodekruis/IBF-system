@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { MockScenarioComponent } from './mock-scenario-component/mock-scenario.component';
 import { MockScenarioInterceptor } from './mock-scenario.interceptor';
 
@@ -15,5 +15,8 @@ import { MockScenarioInterceptor } from './mock-scenario.interceptor';
       multi: true,
     },
   ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+  ]
 })
 export class MockScenarioModule {}

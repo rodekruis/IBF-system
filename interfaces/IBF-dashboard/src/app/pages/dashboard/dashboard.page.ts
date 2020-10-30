@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage {
-  private isDev = false;
+  public isDev = false;
   private readonly adminRole = 'admin';
 
   constructor(private authService: AuthService) {
