@@ -1,104 +1,134 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button href="/" title="Home">
-        <ion-icon name="apps" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <app-user-state></app-user-state>
-    <ion-row slot="end">
-      <ion-col>
-        <app-export-view class="ion-align-items-center"></app-export-view>
-      </ion-col>
-      <ion-col size="auto">
-        <app-logos></app-logos>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-header>
+<ion-menu
+  side="start"
+  type="push"
+  contentId="ibf-dashboard-interface"
+  menuId="dev-control"
+>
+  <ion-menu-toggle menu="dev-control">
+    <ion-header>
+      <ion-toolbar color="ibf-royal-blue">
+        <ion-buttons slot="start">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-buttons>
+        <ion-title>Dev Mode</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </ion-menu-toggle>
+  <ion-content>
+    <ion-list color="dark" class="ion-no-padding">
+      <app-country-switcher
+        class="ion-align-items-center"
+      ></app-country-switcher>
+      <app-mock-scenario class="ion-align-items-center"></app-mock-scenario>
+    </ion-list>
+  </ion-content>
+</ion-menu>
 
-<ion-content>
-  <ion-grid class="page-structure ion-no-padding">
-    <ion-row class="page-structure--content">
-      <ion-col
-        sizeXs="12"
-        sizeMd="5"
-        sizeLg="5"
-        sizeXl="5"
-        class="ibf-dashboard-left-column ion-no-padding"
-      >
-        <ion-row
-          class="component-title ion-justify-content-start ion-align-items-start"
+<div id="ibf-dashboard-interface">
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button href="/" title="Home" [class.ion-hide]="isDev">
+          <ion-icon name="apps" slot="icon-only"></ion-icon>
+        </ion-button>
+        <ion-menu-toggle menu="dev-control" [class.ion-hide]="!isDev">
+          <ion-button>
+            <ion-icon name="apps" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-menu-toggle>
+      </ion-buttons>
+      <app-user-state></app-user-state>
+      <ion-row slot="end">
+        <ion-col>
+          <app-export-view class="ion-align-items-center"></app-export-view>
+        </ion-col>
+        <ion-col size="auto">
+          <app-logos></app-logos>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-grid class="page-structure ion-no-padding">
+      <ion-row class="page-structure--content">
+        <ion-col
+          sizeXs="12"
+          sizeMd="5"
+          sizeLg="5"
+          sizeXl="5"
+          class="ibf-dashboard-left-column ion-no-padding"
         >
-          <ion-col size="12">
-            <ion-item lines="none" class="component-title-item">
-              <ion-thumbnail slot="start" class="component-title-thumbnail">
-                <ion-img src="assets/icons/alert-black.svg"></ion-img>
-              </ion-thumbnail>
-              <ion-label><strong>Situational Overview</strong></ion-label>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row class="component-content">
-          <ion-col
-            sizeXs="12"
-            sizeMd="7"
-            sizeLg="7"
-            sizeXl="7"
-            class="ibf-dashboard-left-column-left-sub-column ion-no-padding"
+          <ion-row
+            class="component-title ion-justify-content-start ion-align-items-start"
           >
-            <app-chat></app-chat>
-          </ion-col>
-          <ion-col
-            sizeXs="12"
-            sizeMd="5"
-            sizeLg="5"
-            sizeXl="5"
-            class="ibf-dashboard-left-column-right-sub-column"
-          >
-            <ion-grid
-              class="ibf-dashboard-left-column-right-sub-column-grid ion-justify-content-between ion-no-padding"
+            <ion-col size="12">
+              <ion-item lines="none" class="component-title-item">
+                <ion-thumbnail slot="start" class="component-title-thumbnail">
+                  <ion-img src="assets/icons/alert-black.svg"></ion-img>
+                </ion-thumbnail>
+                <ion-label><strong>Situational Overview</strong></ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="component-content">
+            <ion-col
+              sizeXs="12"
+              sizeMd="7"
+              sizeLg="7"
+              sizeXl="7"
+              class="ibf-dashboard-left-column-left-sub-column ion-no-padding"
             >
-              <ion-row>
-                <ion-col>
-                  <app-aggregates></app-aggregates>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <app-areas-of-focus-summary></app-areas-of-focus-summary>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-col>
-        </ion-row>
-      </ion-col>
+              <app-chat></app-chat>
+            </ion-col>
+            <ion-col
+              sizeXs="12"
+              sizeMd="5"
+              sizeLg="5"
+              sizeXl="5"
+              class="ibf-dashboard-left-column-right-sub-column"
+            >
+              <ion-grid
+                class="ibf-dashboard-left-column-right-sub-column-grid ion-justify-content-between ion-no-padding"
+              >
+                <ion-row>
+                  <ion-col>
+                    <app-aggregates></app-aggregates>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <app-areas-of-focus-summary></app-areas-of-focus-summary>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-col>
 
-      <ion-col
-        sizeXs="12"
-        sizeMd="7"
-        sizeLg="7"
-        sizeXl="7"
-        class="ibf-dashboard-right-column ion-no-padding"
-      >
-        <ion-row class="component-title">
-          <ion-col>
-            <app-timeline></app-timeline>
-          </ion-col>
-          <ion-col size="auto">
-            <app-country-switcher></app-country-switcher>
-          </ion-col>
-        </ion-row>
-        <ion-row class="component-content">
-          <ion-col>
-            <app-matrix></app-matrix>
-            <ion-content id="ibf-dashboard-map">
-              <app-map-controls></app-map-controls>
-              <app-map></app-map>
-            </ion-content>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+        <ion-col
+          sizeXs="12"
+          sizeMd="7"
+          sizeLg="7"
+          sizeXl="7"
+          class="ibf-dashboard-right-column ion-no-padding"
+        >
+          <ion-row class="component-title">
+            <ion-col>
+              <app-timeline></app-timeline>
+            </ion-col>
+          </ion-row>
+          <ion-row class="component-content">
+            <ion-col>
+              <app-matrix></app-matrix>
+              <ion-content id="ibf-dashboard-map">
+                <app-map-controls></app-map-controls>
+                <app-map></app-map>
+              </ion-content>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+</div>

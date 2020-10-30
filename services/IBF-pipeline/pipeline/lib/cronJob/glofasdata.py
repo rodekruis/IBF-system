@@ -41,30 +41,26 @@ class GlofasData:
             os.remove(os.path.join(self.inputPath, f))
 
     def download(self):
-        if GLOFAS_DUMMY == False:
-            downloadDone = False
+        downloadDone = False
 
-            timeToTryDownload = 43200
-            timeToRetry = 600
+        timeToTryDownload = 43200
+        timeToRetry = 600
 
-            start = time.time()
-            end = start + timeToTryDownload
+        start = time.time()
+        end = start + timeToTryDownload
 
-            while downloadDone == False and time.time() < end:
-                try:
-                    self.makeFtpRequest()
-                    downloadDone = True
-                except urllib.error.URLError:
-                    logger.info(
-                        "Glofas unzip failed, probably because download failed. "
-                        "Trying again in 10 minutes")
-                    time.sleep(timeToRetry)
-            if downloadDone == False:
-                raise ValueError('GLofas download failed for ' +
-                                 str(timeToTryDownload/3600) + ' hours, no new dataset was found')
-
-        else:
-            self.inputPath = PIPELINE_DATA + 'input/glofas_dummy/'
+        while downloadDone == False and time.time() < end:
+            try:
+                self.makeFtpRequest()
+                downloadDone = True
+            except urllib.error.URLError:
+                logger.info(
+                    "Glofas unzip failed, probably because download failed. "
+                    "Trying again in 10 minutes")
+                time.sleep(timeToRetry)
+        if downloadDone == False:
+            raise ValueError('GLofas download failed for ' +
+                                str(timeToTryDownload/3600) + ' hours, no new dataset was found')
 
     def makeFtpRequest(self):
         current_date = CURRENT_DATE.strftime('%Y%m%d')
@@ -103,7 +99,7 @@ class GlofasData:
             Filename = os.path.join(self.inputPath, files[i])
             station = {}
             station['code'] = files[i].split(
-                '_')[2] if GLOFAS_DUMMY == False else files[i].split('_')[4]
+                '_')[2]
 
             data = xr.open_dataset(Filename)
 
@@ -120,8 +116,6 @@ class GlofasData:
 
                     # Loop through 51 ensembles, get forecast (for 3 or 7 day) and compare to threshold
                     ensemble_options = 51
-                    if GLOFAS_DUMMY == True:
-                        ensemble_options = 1
                     count = 0
                     dis_sum = 0
                     for ensemble in range(0, ensemble_options):
@@ -130,17 +124,20 @@ class GlofasData:
                             ensemble=ensemble, step=step).values[time][0]
 
                         # DUMMY OVERWRITE FOR NOW
-                        if OVERWRITE_DUMMY == True:
-                            if step < 4:
+                        if OVERWRITE_DUMMY:
+                            if DUMMY_TRIGGER == False:
                                 discharge = 0
-                            elif station['code'] == 'G1361': # ZMB dummy flood station 1
-                                discharge = 8000
-                            elif station['code'] == 'G1328': # ZMB dummy flood station 2
-                                discharge = 9000
-                            elif station['code'] == 'G5200': # UGA dummy flood station
-                                discharge = 700
                             else:
-                                discharge = 0
+                                if step < 4:
+                                    discharge = 0
+                                elif station['code'] == 'G1361': # ZMB dummy flood station 1
+                                    discharge = 8000
+                                elif station['code'] == 'G1328': # ZMB dummy flood station 2
+                                    discharge = 9000
+                                elif station['code'] == 'G5200': # UGA dummy flood station
+                                    discharge = 700
+                                else:
+                                    discharge = 0
 
                         if discharge >= threshold:
                             count = count + 1
@@ -160,7 +157,7 @@ class GlofasData:
                     else:
                         station = {}
                         station['code'] = files[i].split(
-                            '_')[2] if GLOFAS_DUMMY == False else files[i].split('_')[4]
+                            '_')[2]
                 
             data.close()
         

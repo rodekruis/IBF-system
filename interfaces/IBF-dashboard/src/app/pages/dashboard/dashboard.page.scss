@@ -9,6 +9,16 @@
   }
 }
 
+#ibf-dashboard-interface {
+  height: 100%;
+}
+
+ion-menu {
+  ion-menu-toggle {
+    cursor: pointer;
+  }
+}
+
 app-export-view {
   display: flex;
   height: 100%;
