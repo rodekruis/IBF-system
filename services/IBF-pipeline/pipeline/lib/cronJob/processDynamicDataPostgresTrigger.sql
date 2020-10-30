@@ -106,8 +106,7 @@ from (
 		and to_date(today.date,'yyyy-mm-dd') = to_date(yesterday.date,'yyyy-mm-dd') + 1
 	where 1=1
 		and to_date(today.date,'yyyy-mm-dd') = current_date
-		and today."7" = 0
-		and (yesterday."7" = 1 or yesterday."7" is null)
+		and ((today."7" = 0 and yesterday."7" = 1) or (yesterday."7" is null))
 ) subquery
 where end_date is null and events.country_code = subquery.country_code
 ;
@@ -170,6 +169,7 @@ from (
 		on t1.pcode = t2.pcode
 		and to_date(t2.date,'yyyy-mm-dd') = current_date
 	where t1.fc_trigger=1
+		and t2.lead_time = '7-day'
 	) districtsToday
 left join "IBF-pipeline-output".event_districts districtsExisting
 	on districtsToday.event = districtsExisting.event
@@ -177,5 +177,4 @@ left join "IBF-pipeline-output".event_districts districtsExisting
 where districtsExisting.pcode is null
 ;
 --select * from "IBF-pipeline-output".event_districts where event = 14
-
 
