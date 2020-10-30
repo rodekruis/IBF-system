@@ -77,7 +77,6 @@ services:
     ibf-pipeline:
         build: ./services/IBF-pipeline
         image: rodekruis/ibf-pipeline
-        command: tail -f /dev/null
         volumes:
             - pipeline-root:/home/ibf
         networks:
