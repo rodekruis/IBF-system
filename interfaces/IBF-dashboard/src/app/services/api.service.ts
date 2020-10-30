@@ -112,13 +112,26 @@ export class ApiService {
     ).toPromise();
   }
 
-  getTriggerPerLeadtime(
-    countryCode: string,
-    leadTime: string,
-  ): Promise<number> {
+  getRecentDates(countryCode: string): Promise<any> {
     return this.get(
       environment.api_url,
-      `triggers/${countryCode}/${leadTime}`,
+      `recent-dates/${countryCode}`,
+      false,
+    ).toPromise();
+  }
+
+  getTriggerPerLeadTime(countryCode: string): Promise<number> {
+    return this.get(
+      environment.api_url,
+      `triggers/${countryCode}`,
+      false,
+    ).toPromise();
+  }
+
+  getEvent(countryCode: string): Promise<any> {
+    return this.get(
+      environment.api_url,
+      `event/${countryCode}`,
       false,
     ).toPromise();
   }
@@ -135,14 +148,10 @@ export class ApiService {
     ).toPromise();
   }
 
-  getTriggeredAreas(
-    countryCode: string,
-    adminLevel: AdminLevel,
-    leadTime: string,
-  ) {
+  getTriggeredAreas(event: number) {
     return this.get(
       environment.api_url,
-      `triggered-areas/${countryCode}/${adminLevel}/${leadTime}`,
+      `triggered-areas/${event}`,
       false,
     ).toPromise();
   }
@@ -186,10 +195,10 @@ export class ApiService {
     ).toPromise();
   }
 
-  getEapActions(countryCode: string, pcode: string) {
+  getEapActions(countryCode: string, pcode: string, event: number) {
     return this.get(
       environment.api_url,
-      `eap-actions/${countryCode}/${pcode}`,
+      `eap-actions/${countryCode}/${pcode}/${event}`,
       false,
     ).toPromise();
   }
@@ -199,6 +208,7 @@ export class ApiService {
     countryCode: string,
     status: boolean,
     pcode: string,
+    event: number,
   ) {
     return this.post(
       environment.api_url,
@@ -208,6 +218,7 @@ export class ApiService {
         countryCode,
         status,
         pcode,
+        event,
       },
       false,
     ).toPromise();

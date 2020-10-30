@@ -4,13 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { MockDataModule } from 'src/app/mocks/mock-data.module';
-import { environment } from '../environments/environment';
+import { MockScenarioModule } from 'src/app/mocks/mock-scenario.module';
+import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-const optionalMockDataModule =
-  environment.useMockData || !environment.api_url ? [MockDataModule] : [];
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +22,7 @@ const optionalMockDataModule =
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production && environment.useServiceWorker,
     }),
-    ...optionalMockDataModule,
+    MockScenarioModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

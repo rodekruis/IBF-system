@@ -14,6 +14,9 @@ export class EapActionStatusEntity {
   public status: boolean;
 
   @Column()
+  public event: number;
+
+  @Column()
   public pcode: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

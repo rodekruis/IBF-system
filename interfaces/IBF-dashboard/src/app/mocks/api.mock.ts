@@ -1,51 +1,94 @@
 import { HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import mockStationsGeoJSON from './stations.geojson.mock.data';
+import * as existingEvent from 'src/app/mocks/scenarios/existing-event';
+import * as newEvent from 'src/app/mocks/scenarios/new-event';
+import * as noEvent from 'src/app/mocks/scenarios/no-event';
+import * as oldEvent from 'src/app/mocks/scenarios/old-event';
+import { TimelineService } from '../services/timeline.service';
+import { MockScenarioService } from './mock-scenario-service/mock-scenario.service';
+import { MockScenario } from './mock-scenario.enum';
 
-/**
- * Mock API:
- *
- * Per request-method, multiple properties can be defined.
- * Properties can be full API-paths or only API-endpoints.
- *
- * For example:
- *
- *   GET: {
- *     stations: { handler: returnAllStations },
- *     'stations/ZMB/7-day': { handler: returnStationsFor7Day },
- *   }
- *
- * Handlers:
- *
- * Make sure to properly type the responses based on the (back-end) models.
- * See the folder: ../models/
- * This helps to keep the mock-data in sync with the real data.
- *
- */
-export const MockApi = {
-  GET: {
-    stations: { handler: returnAllStations },
-  },
-  POST: {
-    'user/login': { handler: returnLogin },
-  },
-};
+@Injectable({
+  providedIn: 'root',
+})
+export class MockAPI {
+  constructor(
+    private mockScenarioService: MockScenarioService,
+    private timelineService: TimelineService,
+  ) {}
 
-///////////////////////////////////////////////////////////////////////////////
-// GET:
-///////////////////////////////////////////////////////////////////////////////
+  getMockAPI() {
+    return {
+      GET: {
+        stations: {
+          handler: this.getResponse(
+            'getStations',
+            this.timelineService.state.selectedTimeStepButtonValue,
+          ),
+        },
+        event: { handler: this.getResponse('getEvent') },
+        'triggered-areas': { handler: this.getResponse('getTriggeredAreas') },
+        'recent-dates': { handler: this.getResponse('getRecentDates') },
+        triggers: { handler: this.getResponse('getTriggerPerLeadTime') },
+        'matrix-aggregates': {
+          handler: this.getResponse(
+            'getMatrixAggregates',
+            this.timelineService.state.selectedTimeStepButtonValue,
+          ),
+        },
+        'admin-area-data': {
+          handler: this.getResponse(
+            'getAdminRegions',
+            this.timelineService.state.selectedTimeStepButtonValue,
+          ),
+        },
+      },
+      POST: {
+        'user/login': { handler: this.returnLogin() },
+      },
+    };
+  }
 
-function returnAllStations() {
-  const body = mockStationsGeoJSON;
+  getResponse(functionName, leadTime?) {
+    return () => {
+      let body = {};
+      let status = 200;
 
-  return of(new HttpResponse({ status: 200, body }));
-}
+      switch (this.mockScenarioService.mockScenario) {
+        case MockScenario.existingEvent: {
+          body = existingEvent[functionName](leadTime);
+          break;
+        }
+        case MockScenario.newEvent: {
+          body = newEvent[functionName](leadTime);
+          break;
+        }
+        case MockScenario.noEvent: {
+          body = noEvent[functionName]();
+          break;
+        }
+        case MockScenario.oldEvent: {
+          body = oldEvent[functionName]();
+          break;
+        }
+        default: {
+          status = 400;
+          body = {
+            'Unknown Mock Scenario': this.mockScenarioService.mockScenario,
+          };
+          break;
+        }
+      }
 
-///////////////////////////////////////////////////////////////////////////////
-// POST:
-///////////////////////////////////////////////////////////////////////////////
+      return of(new HttpResponse({ status, body }));
+    };
+  }
 
-function returnLogin() {
-  const body = '';
-  return of(new HttpResponse({ status: 200, body }));
+  returnLogin() {
+    return () => {
+      const body = '';
+      return of(new HttpResponse({ status: 200, body }));
+    };
+  }
 }

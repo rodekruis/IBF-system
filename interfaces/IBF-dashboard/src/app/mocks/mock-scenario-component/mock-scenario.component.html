@@ -1,0 +1,33 @@
+<ng-container *ngIf="countryService.selectedCountry.countryCode === 'UGA'">
+  <ion-item>
+    <ion-label>Mock Scenario</ion-label>
+    <ion-select
+      placeholder="Select Mock Scenario"
+      interface="popover"
+      (ionChange)="handleMockScenarioChange($event)"
+      [value]="mockScenarioService.mockScenario"
+    >
+      <ion-select-option
+        *ngFor="let mockScenario of mockScenarioService.mockScenarios"
+        value="{{ mockScenario }}"
+      >
+        {{ mockScenario }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="mockScenarioService.mockScenario !== MockScenarioEnum.real">
+    <ion-label>Mock-add 3-day</ion-label>
+    <ion-select
+      placeholder="Options"
+      interface="popover"
+      (ionChange)="mockAddLeadtime($event)"
+    >
+      <ion-select-option value="real">
+        Normal (7-day)
+      </ion-select-option>
+      <ion-select-option value="mock">
+        Mock (3-day + 7-day)
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+</ng-container>
