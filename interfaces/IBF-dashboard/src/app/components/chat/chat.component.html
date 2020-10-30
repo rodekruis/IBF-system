@@ -23,8 +23,8 @@
   >
     <p>
       Hello Aid worker HQ. A new trigger warning for
-      <strong>{{ eventService.state.leadTime }}</strong> has been activated for
-      floods.
+      <strong>{{ eventService.state.triggerLeadTime }} days from today</strong>
+      has been activated for floods.
       <span *ngIf="eventService.state.newEventEarlyTrigger">
         The system however detects a trigger as soon as
         <strong>{{ eventService.state.firstLeadTime }} days from today</strong>,

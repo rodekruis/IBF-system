@@ -52,8 +52,8 @@ export function getTriggeredAreas() {
   ];
 }
 
-export function getMatrixAggregates() {
-  return {
+export function getMatrixAggregates(leadTime) {
+  var result = {
     population_affected: 1223.690078735352,
     population: 34416151,
     vulnerability_index: 3.67468563628745,
@@ -64,10 +64,14 @@ export function getMatrixAggregates() {
     wall_type: 0.4440357339494473,
     roof_type: 0.7053708065146507,
   };
+  if (leadTime === '3-day') {
+    result.population_affected = 0;
+  }
+  return result;
 }
 
-export function getStations() {
-  return {
+export function getStations(leadTime) {
+  var result = {
     type: 'FeatureCollection',
     features: [
       {
@@ -144,8 +148,24 @@ export function getStations() {
       },
     ],
   };
+
+  if (leadTime === '3-day') {
+    result.features.forEach((feature) => {
+      feature.properties.fc = '0';
+      feature.properties.fc_trigger = '0';
+      feature.properties.fc_perc = 0;
+      feature.properties.fc_prob = '0';
+    });
+  }
+  return result;
 }
 
-export function getAdminRegions() {
-  return adminAreaData;
+export function getAdminRegions(leadTime) {
+  var result = JSON.parse(JSON.stringify(adminAreaData)); // Hack to clone without reference
+  if (leadTime === '3-day') {
+    result.features.forEach((feature) => {
+      feature.properties.population_affected = 0;
+    });
+  }
+  return result;
 }
