@@ -53,10 +53,9 @@ export class MockScenarioService {
 
   // functions which need to be called on mock scenario change go here
   async callMockScenarioAPIs() {
+    await this.timelineService.loadTimeStepButtons();
     await this.eventService.getTrigger();
     // this.timelineService.getEvent(); called by this.eventService.getTrigger();
-    await this.timelineService.loadTodayOptionsDebug();
-    await this.timelineService.loadTimeStepButtons();
     await this.aggregatesService.loadAggregateInformation();
     await this.eapActionsService.loadDistrictsAndActions();
     await this.mapService.loadAdminRegionLayer();
