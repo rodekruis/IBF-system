@@ -55,7 +55,7 @@ function deploy() {
   function migrate_database() {
     log "Migrating database..."
 
-    declare -a arr=("IBF-static-input" "IBF-pipeline-output" "IBF-API")
+    declare -a arr=("IBF-static-input")
 
     for SCHEMA in "${arr[@]}"
     do

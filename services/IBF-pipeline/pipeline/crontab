@@ -20,5 +20,5 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 #
 # m h  dom mon dow   command
-0 8 * * * cd /home/fbf/pipeline && python3 runCron.py >> /var/log/cron.log 2>&1
+0 8 * * * cd /home/ibf/pipeline && python3 runCron.py >> /var/log/cron.log 2>&1
 
