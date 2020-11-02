@@ -106,8 +106,8 @@ SETTINGS = {
         },
         "trigger_levels": 'Rainfall_station_locations_with_trigger_levels.csv',
         'district_mapping': 'Rainfall_station_per_district_uga.csv',
-        'flood_extent_admin_boundaries': 'vector/egy_mena.shp',
-        'exposure_admin_boundaries': 'vector/egy_mena.shp',
+        'flood_extent_admin_boundaries': 'vector/egy_admbnda_adm1_capmas_20170421.shp',
+        'exposure_admin_boundaries': 'vector/egy_admbnda_adm1_capmas_20170421.shp',
         'trigger_colname': '5yr_threshold',
         'CRA_filename': '',
         'lead_times': {
