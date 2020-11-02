@@ -51,6 +51,7 @@ export class TimelineService {
         value: '1-day',
         alert: this.triggers['1'] == 1,
         disabled: await this.forecastDisabled('1-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -60,6 +61,7 @@ export class TimelineService {
         value: '2-day',
         alert: this.triggers['2'] == 1,
         disabled: await this.forecastDisabled('2-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -69,6 +71,7 @@ export class TimelineService {
         value: '3-day',
         alert: this.triggers['3'] == 1,
         disabled: await this.forecastDisabled('3-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -78,6 +81,7 @@ export class TimelineService {
         value: '4-day',
         alert: this.triggers['4'] == 1,
         disabled: await this.forecastDisabled('4-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -87,6 +91,7 @@ export class TimelineService {
         value: '5-day',
         alert: this.triggers['5'] == 1,
         disabled: await this.forecastDisabled('5-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -96,6 +101,7 @@ export class TimelineService {
         value: '6-day',
         alert: this.triggers['6'] == 1,
         disabled: await this.forecastDisabled('6-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -105,6 +111,7 @@ export class TimelineService {
         value: '7-day',
         alert: this.triggers['7'] == 1,
         disabled: await this.forecastDisabled('7-day'),
+        active: true,
       },
     ]);
   }
@@ -128,6 +135,10 @@ export class TimelineService {
 
   public handleTimeStepButtonClick(timeStepButtonValue) {
     this.state.selectedTimeStepButtonValue = timeStepButtonValue;
+    this.state.timeStepButtons.forEach((i) => (i.active = false));
+    this.state.timeStepButtons.find(
+      (i) => i.value === timeStepButtonValue,
+    ).active = true;
     this.timelineSubject.next(this.state.selectedTimeStepButtonValue);
   }
 

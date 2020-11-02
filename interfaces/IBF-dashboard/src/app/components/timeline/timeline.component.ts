@@ -19,7 +19,7 @@ export class TimelineComponent implements OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(async (country: Country) => {
-        this.timelineService.loadTimeStepButtons();
+        await this.timelineService.loadTimeStepButtons();
         this.timelineService.handleTimeStepButtonClick(
           country.countryForecasts[0],
         );
