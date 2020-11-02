@@ -17,6 +17,7 @@
         : 'ibf-gray'
     }}"
     fill="solid"
+    [class.active]="timeStepButton.active"
     (click)="timelineService.handleTimeStepButtonClick(timeStepButton.value)"
   >
     {{ timeStepButton.value }}
