@@ -68,10 +68,6 @@ export class EventService {
         Number(leadtime.substr(0, 1)) >= this.state.firstLeadTime
       ) {
         triggerLeadTime = Number(leadtime.substr(0, 1));
-        console.log(
-          'this.state.triggerLeadTime: ',
-          this.timelineService.state.selectedTimeStepButtonValue,
-        );
       }
     });
     this.state.triggerLeadTime = triggerLeadTime;
