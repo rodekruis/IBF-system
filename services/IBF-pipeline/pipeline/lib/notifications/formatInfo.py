@@ -11,13 +11,13 @@ def formatInfo(info, countryCode):
         triggerStatement = "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>"
         linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/"
         linkEAPSOP = "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/Doc.aspx?OR=teams&action=edit&sourcedoc={0FFAA5EF-423C-4F81-A51E-BEA98D06E91C}"
-        linkWhatsApp = "https://web.whatsapp.com/"
+        linkWhatsApp = "https://chat.whatsapp.com/Jt7jMX3BydCD07MFExLUUs"
     elif countryCode == "ZMB":
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/6d54577d-8f22-4a95-bc30-b86453f5188c.png"
         triggerStatement = "TBD"
         linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/"
         linkEAPSOP = "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#heading=h.gjdgxs"
-        linkWhatsApp = "https://web.whatsapp.com/"
+        linkWhatsApp = "https://chat.whatsapp.com/HJoSx6pnjQN19bAouNHk8M"
     else:
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
         triggerStatement = "TBD"
