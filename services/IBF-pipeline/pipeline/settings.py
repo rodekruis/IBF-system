@@ -168,7 +168,8 @@ GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 EMAIL_NOTIFICATION = False
 EMAIL_WITHOUT_TRIGGER = False
 
-# Notification email (only if hard-coded alternative for mailchimp is used)
+# Notification email (False if hard-coded alternative for mailchimp is used)
+EMAIL_HARDCODE = False
 EMAIL_LIST_HARDCODE = [
     'jannisvisser@redcross.nl'
 ]
