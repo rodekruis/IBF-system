@@ -26,14 +26,18 @@ import requests
 
 class RainfallData:
 
-    def __init__(self, fcStep, days):
+    def __init__(self, fcStep, days, country_code):
         self.fcStep = fcStep
         self.days = days
         self.inputPath = PIPELINE_DATA+'input/rainfall/'
         # self.extractedGlofasPath = PIPELINE_OUTPUT + \
-        #     'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + COUNTRY_CODE + '.json' ## create name of outputs, stick to json
+        #     'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + country_code + '.json' ## create name of outputs, stick to json
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
-            'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
+                                      'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + country_code + '.json'
+        self.WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + SETTINGS[country_code]['trigger_levels']
+        self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
+        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']
+        self.downloaded = False
 
     def process(self):
         self.removeOldForecastData()
@@ -173,15 +177,16 @@ class RainfallData:
 
         # Load (static) threshold values per station
 
-        df_thresholds = pd.read_csv(WATERSTATIONS_TRIGGERS) ### PHUOC TO CORRECT DIRS IN SETTINGS.PY FILE
-        
+        df_thresholds = pd.read_csv(self.WATERSTATIONS_TRIGGERS)  ### PHUOC TO CORRECT DIRS IN SETTINGS.PY FILE
+
         ### COMPARE WITH THE THRESHOLD
         grb_files = sorted([f for f in os.listdir(self.inputPath) if f.endswith('.grb2')])
         
         ### COUNTRY SETTINGS
         # country_code = 'egy'
-        adm_shp = gpd.read_file(VECTOR_DISTRICT_DATA)
-        
+
+        adm_shp = gpd.read_file(self.ADMIN_BOUNDARIES)
+
         west, south, east, north = self.bound_extent(adm_shp)
         
         lats = slice(north, south) #32, 22
@@ -234,15 +239,18 @@ class RainfallData:
         # interpolate NaN cells
         known = ~np.isnan(compare_gdf['forecast_time'])
         unknown = ~known
-        z = griddata((compare_gdf['longitude'][known], compare_gdf['latitude'][known]), compare_gdf[TRIGGER_RP_COLNAME][known], (compare_gdf['longitude'][unknown], compare_gdf['latitude'][unknown]))
-        compare_gdf[TRIGGER_RP_COLNAME][unknown] = z.tolist()
-        
-        compare_gdf[str(str(self.fcStep)+'_pred')] = np.where((compare_gdf['mean_by_day'] > compare_gdf[TRIGGER_RP_COLNAME]), 1, 0)
+        z = griddata((compare_gdf['longitude'][known], compare_gdf['latitude'][known]),
+                     compare_gdf[self.TRIGGER_RP_COLNAME][known],
+                     (compare_gdf['longitude'][unknown], compare_gdf['latitude'][unknown]))
+        compare_gdf[self.TRIGGER_RP_COLNAME][unknown] = z.tolist()
+
+        compare_gdf[str(str(self.fcStep) + '_pred')] = np.where(
+            (compare_gdf['mean_by_day'] > compare_gdf[self.TRIGGER_RP_COLNAME]), 1, 0)
         compare_gdf['fc_day'] = compare_gdf['fc_day'].astype(str)
-        df_trigger = compare_gdf.filter(['latitude','longitude','geometry',str(str(self.fcStep)+'_pred')])
-        
-        out = df_trigger.to_json()            
-        # output_name = '%s_%sday_'%(runcycle_day, self.fcStep) +TRIGGER_RP_COLNAME
+        df_trigger = compare_gdf.filter(['latitude', 'longitude', 'geometry', str(str(self.fcStep) + '_pred')])
+
+        out = df_trigger.to_json()
+        # output_name = '%s_%sday_'%(runcycle_day, self.fcStep) +self.TRIGGER_RP_COLNAME
         with open(self.triggersPerStationPath, 'w') as fp:
             fp.write(out)
             print('Processed Glofas data - File saved')

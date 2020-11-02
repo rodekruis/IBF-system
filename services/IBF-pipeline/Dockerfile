@@ -46,8 +46,8 @@ ADD pipeline /home/ibf/pipeline
 #ADD geoserver /home/ibf/geoserver # comment this line
 
 # set up cronjob
-# COPY pipeline/crontab /etc/cron.d/crontab
-# RUN chmod 0644 /etc/cron.d/crontab
-# RUN crontab /etc/cron.d/crontab
-# RUN touch /var/log/cron.log
-# CMD cron && tail -f /var/log/cron.log
+COPY pipeline/crontab /etc/cron.d/crontab
+RUN chmod 0644 /etc/cron.d/crontab
+RUN crontab /etc/cron.d/crontab
+RUN touch /var/log/cron.log
+CMD cron && tail -f /var/log/cron.log

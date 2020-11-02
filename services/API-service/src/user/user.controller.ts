@@ -44,9 +44,9 @@ export class UserController {
     }
 
     const token = await this.userService.generateJWT(_user);
-    const { username } = _user;
+    const { email } = _user;
     const user = {
-      username,
+      email,
       token,
     };
 
@@ -59,15 +59,15 @@ export class UserController {
   public async update(
     @User('id') userId: number,
     @Body() userData: UpdateUserDto,
-  ) {
+  ): Promise<UserRO> {
     return this.userService.update(userId, userData);
   }
 
   @UseGuards(RolesGuard)
   @ApiOperation({ title: 'Get current user' })
   @Get('user')
-  public async findMe(@User('username') username: string): Promise<UserRO> {
-    return await this.userService.findByUsername(username);
+  public async findMe(@User('email') email: string): Promise<UserRO> {
+    return await this.userService.findByEmail(email);
   }
 
   @UseGuards(RolesGuard)

@@ -47,6 +47,7 @@ services:
             - DB_PASSWORD=${DB_PASSWORD}
             - NODE_ENV=production
             - SECRET=${SECRET}
+            - RESET_SECRET=${RESET_SECRET}
         networks:
             - web-server-network
         depends_on:
@@ -54,13 +55,12 @@ services:
 
     ibf-web-interface:
         build:
-            context: ./interfaces/overview
+            context: ./interfaces/IBF-dashboard
             args:
                 - NG_PRODUCTION=true
                 - NG_API_URL=${NG_API_URL}
                 - NG_USE_MOCK_DATA=${NG_USE_MOCK_DATA}
                 - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
-                - NG_DEFAULT_COUNTRY_CODE=${NG_DEFAULT_COUNTRY_CODE}
                 - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
         image: rodekruis/ibf-web-interface
         environment:
@@ -68,7 +68,6 @@ services:
             - NG_API_URL=${NG_API_URL}
             - NG_USE_MOCK_DATA=${NG_USE_MOCK_DATA}
             - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
-            - NG_DEFAULT_COUNTRY_CODE=${NG_DEFAULT_COUNTRY_CODE}
             - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
         volumes:
             - web-interface-root:/home/node/app/www
@@ -78,7 +77,6 @@ services:
     ibf-pipeline:
         build: ./services/IBF-pipeline
         image: rodekruis/ibf-pipeline
-        command: tail -f /dev/null
         volumes:
             - pipeline-root:/home/ibf
         networks:
@@ -111,20 +109,19 @@ volumes:
     web-interface-root:
     pipeline-root:
         driver_opts:
-           type: bind
-           device: /home/IBF-system/services/IBF-pipeline
-           o: bind
+            type: bind
+            device: /home/IBF-system/services/IBF-pipeline
+            o: bind
     pipeline-geoserver:
         driver_opts:
-           type: bind
-           device: /home/IBF-system/services/IBF-pipeline/geoserver/geodata
-           o: bind
+            type: bind
+            device: /home/IBF-system/services/IBF-pipeline/geoserver/geodata
+            o: bind
     workspace-geoserver:
         driver_opts:
-           type: bind
-           device: /home/IBF-system/services/IBF-pipeline/geoserver/workspaces/ibf-system
-           o: bind
-
+            type: bind
+            device: /home/IBF-system/services/IBF-pipeline/geoserver/workspaces/ibf-system
+            o: bind
 
 networks:
     certbot-network:

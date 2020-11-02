@@ -10,9 +10,9 @@ CALCULATE_EXTENT = True
 CALCULATE_EXPOSURE = True
 
 # Use dummy-data and/or overwrite real data
-GLOFAS_DUMMY = False
+OVERWRITE_DUMMY = True #Overwrite glofas data with dummy data
+DUMMY_TRIGGER = True #Overwrite with flood data (true) or no flood (false)
 RAINFALL_DUMMY = False
-OVERWRITE_DUMMY = True
 
 # Change this date only in case of testing
 CURRENT_DATE = date.today()
@@ -23,8 +23,13 @@ CURRENT_DATE = date.today()
 ## COUNTRY SETTINGS ##
 ######################
 
-# For now indicate 1 country. Ultimately we might want to loop over multiple included countries?
-COUNTRY_CODE='EGY' #'ZMB'/'UGA'/'EGY'
+COUNTRY_CODES = [
+    'ZMB'
+    ,
+    'UGA'
+    # ,
+    # 'EGY'
+]
 
 SETTINGS = {
     "ZMB": {
@@ -47,10 +52,10 @@ SETTINGS = {
                 "source": "population/hrsl_zmb_pop_resized_100",
                 "rasterValue": 1
             },
-            "cropland": {
-                "source": "cropland/crop_resampled",
-                "rasterValue": 0.0004 # value of pixel (0-100) reflects no. of cropland pixels in original crop-layer, where each pixel stands for 0.02x0.02=0.0004 km2
-            },
+            # "cropland": {
+            #     "source": "cropland/crop_resampled",
+            #     "rasterValue": 0.0004 # value of pixel (0-100) reflects no. of cropland pixels in original crop-layer, where each pixel stands for 0.02x0.02=0.0004 km2
+            # },
             # "chicken": {
             #     "source": "livestock/Chicken",
             #     "rasterValue": 1
@@ -101,8 +106,8 @@ SETTINGS = {
         },
         "trigger_levels": 'Rainfall_station_locations_with_trigger_levels.csv',
         'district_mapping': 'Rainfall_station_per_district_uga.csv',
-        'flood_extent_admin_boundaries': 'vector/egy_admbnda_adm1_capmas_20170421.shp',
-        'exposure_admin_boundaries': 'vector/egy_admbnda_adm1_capmas_20170421.shp',
+        'flood_extent_admin_boundaries': 'vector/egy_mena.shp',
+        'exposure_admin_boundaries': 'vector/egy_mena.shp',
         'trigger_colname': '5yr_threshold',
         'CRA_filename': '',
         'lead_times': {
@@ -113,28 +118,18 @@ SETTINGS = {
         'EXPOSURE_DATA_SOURCES': {}
     },
 }
-COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
 
 
 
-###################
-## MAIN SETTINGS ##
-###################
+####################
+## OTHER SETTINGS ##
+####################
 
-
-
-LEAD_TIMES = COUNTRY_SETTINGS['lead_times']
-RUN_GLOFAS = COUNTRY_SETTINGS['models']['glofas']
-RUN_RAINFALL = COUNTRY_SETTINGS['models']['rainfall']
-
-TRIGGER_RP_COLNAME = COUNTRY_SETTINGS['trigger_colname']
 TRIGGER_LEVELS = {
     "minimum": 0.6,
     "medium": 0.7,
     "maximum": 0.8
 }
-
-EXPOSURE_DATA_SOURCES = COUNTRY_SETTINGS['EXPOSURE_DATA_SOURCES']
 
 #################
 ## DB SETTINGS ##
@@ -154,13 +149,6 @@ PIPELINE_INPUT = PIPELINE_DATA + 'input/'
 PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'
 PIPELINE_TEMP = PIPELINE_DATA + 'temp/'
 
-WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + COUNTRY_SETTINGS['trigger_levels']
-DISTRICT_MAPPING = PIPELINE_INPUT + COUNTRY_SETTINGS['district_mapping']
-VECTOR_DISTRICT_DATA = PIPELINE_INPUT + COUNTRY_SETTINGS['flood_extent_admin_boundaries']
-EXPOSURE_BOUNDARY_DATA = PIPELINE_INPUT + COUNTRY_SETTINGS['exposure_admin_boundaries']
-# ADMIN_BOUNDARIES = PIPELINE_INPUT + COUNTRY_SETTINGS['admin_boundaries']
-    
-
 #########################
 ## INPUT DATA SETTINGS ##
 #########################
@@ -172,15 +160,12 @@ GLOFAS_FILENAME = 'glofas_pointdata_ZambiaRedcross'
 # GFS rainfall input
 GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 
-# CRA input
-CRA_FILENAME = COUNTRY_SETTINGS['CRA_filename']
-
 ####################
 ## EMAIL SETTINGS ##
 ####################
 
 # Notification email
-EMAIL_NOTIFICATION = True
+EMAIL_NOTIFICATION = False
 EMAIL_WITHOUT_TRIGGER = False
 
 # Notification email (only if hard-coded alternative for mailchimp is used)
