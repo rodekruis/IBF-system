@@ -111,9 +111,16 @@ export class TimelineService {
         value: '7-day',
         alert: this.triggers['7'] == 1,
         disabled: await this.forecastDisabled('7-day'),
-        active: true,
+        active: false,
       },
     ]);
+
+    const enabledTimeStepButtons = this.state.timeStepButtons.filter(
+      (timeStepButton) => !timeStepButton.disabled,
+    );
+    if (enabledTimeStepButtons.length > 0) {
+      this.handleTimeStepButtonClick(enabledTimeStepButtons[0].value);
+    }
   }
 
   filterTimeStepButtonsByCountryForecast(timeStepButtons) {
