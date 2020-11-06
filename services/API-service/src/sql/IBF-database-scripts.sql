@@ -100,7 +100,7 @@ select country_code
 	,sum(population_affected) as population_affected
 from "IBF-API"."Admin_area_data2"
 where country_code is not null and current_prev = 'Current'
-group by 1,2,3
+group by 1,2
 ;
 --select * from "IBF-API"."Matrix_aggregates2"
 
