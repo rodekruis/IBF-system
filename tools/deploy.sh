@@ -66,6 +66,8 @@ function deploy() {
       PGPASSWORD=$PGPASSWORD pg_restore -U geonodeadmin@geonode-database -d geonode_datav3-staging -h geonode-database.postgres.database.azure.com --schema=$SCHEMA --clean tools/db-dumps/ibf_$SCHEMA.dump
     done
 
+    PGPASSWORD=$PGPASSWORD psql -U geonodeadmin@geonode-database -d geonode_datav3-staging -h geonode-database.postgres.database.azure.com -f $SQL_FILE_PATH
+
   }
 
   function restart_webhook_service() {
