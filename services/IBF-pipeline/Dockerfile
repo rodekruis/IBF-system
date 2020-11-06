@@ -28,8 +28,8 @@ WORKDIR /home/ibf/pipeline/
 # install dependencies
 COPY pipeline/requirements.txt /home/ibf/pipeline/
 RUN pip install -r requirements.txt
-ADD pipeline /home/ibf/pipeline
-ADD geoserver /home/ibf/geoserver
+# ADD pipeline /home/ibf/pipeline
+# ADD geoserver /home/ibf/geoserver
 
 # set up cronjob
 COPY pipeline/crontab /etc/cron.d/crontab
