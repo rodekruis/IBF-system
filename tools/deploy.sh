@@ -1,106 +1,106 @@
 #!/bin/bash
 
 function deploy() {
-  # Ensure we always start from the repository root-folder
-  local repo
-  repo=$(git rev-parse --show-toplevel)
-  cd "$repo" || return
+    # Ensure we always start from the repository root-folder
+    local repo
+    repo=$(git rev-parse --show-toplevel)
+    cd "$repo" || return
 
-  # Load ENV-variables
-  set -a; [ -f ./tools/.env ] && . ./tools/.env; set +a;
+    # Load ENV-variables
+    set -a; [ -f ./tools/.env ] && . ./tools/.env; set +a;
 
-  # Arguments
-  local target=$1 || false
-
-  function log() {
-    printf "\n\n"
-    # highlight/warn:
-    tput setaf 3
-    echo "$@"
-    printf "\n"
-    # reset highlight/warn:
-    tput sgr0
-  }
-
-  function update_code() {
-    log "Updating code..."
+    # Arguments
     local target=$1 || false
 
-    cd "$repo" || return
-    sudo git reset --hard
-    sudo git fetch --all --tags
+    function log() {
+        printf "\n\n"
+        # highlight/warn:
+        tput setaf 3
+        echo "$@"
+        printf "\n"
+        # reset highlight/warn:
+        tput sgr0
+    }
 
-    # When a target is provided, checkout that
-    if [[ -n "$target" ]]
-    then
-      log "Checking out: $target"
+    function update_code() {
+        log "Updating code..."
+        local target=$1 || false
 
-      sudo git checkout -b "$target" --track upstream/"$target"
-    else
-      log "Pulling latest changes"
+        cd "$repo" || return
+        git reset --hard
+        git fetch --all --tags
 
-      sudo git pull --ff-only
-    fi
-  }
+        # When a target is provided, checkout that
+        if [[ -n "$target" ]]
+        then
+            log "Checking out: $target"
 
-  function updating_containers() {
-    log "Updating containers..."
+            git checkout -b "$target" --track upstream/"$target"
+        else
+            log "Pulling latest changes"
 
-    cd "$repo" || return
-    sudo docker-compose down -v
-    sudo docker-compose -f docker-compose.yml up -d --build
-    sudo docker-compose restart
-  }
+            git pull --ff-only
+        fi
+    }
 
-  function migrate_database() {
-    log "Migrating database..."
+    function updating_containers() {
+        log "Updating containers..."
 
-    declare -a arr=("IBF-static-input")
+        cd "$repo" || return
+        docker-compose down -v
+        docker-compose -f docker-compose.yml up -d --build
+        docker-compose restart
+    }
 
-    for SCHEMA in "${arr[@]}"
-    do
-      echo "$SCHEMA"
-      rm tools/db-dumps/ibf_$SCHEMA.dump
-      PGPASSWORD=$PGPASSWORD pg_dump -U geonodeadmin@geonode-database -Fc -f tools/db-dumps/ibf_$SCHEMA.dump -h geonode-database.postgres.database.azure.com -n \"$SCHEMA\" geonode_datav3
-      PGPASSWORD=$PGPASSWORD psql -U geonodeadmin@geonode-database -d geonode_datav3-staging -h geonode-database.postgres.database.azure.com -c 'drop schema "'$SCHEMA'" cascade; create schema "'$SCHEMA'";'
-      PGPASSWORD=$PGPASSWORD pg_restore -U geonodeadmin@geonode-database -d geonode_datav3-staging -h geonode-database.postgres.database.azure.com --schema=$SCHEMA --clean tools/db-dumps/ibf_$SCHEMA.dump
-    done
+    function migrate_database() {
+        log "Migrating database..."
 
-    PGPASSWORD=$PGPASSWORD psql -U geonodeadmin@geonode-database -d geonode_datav3-staging -h geonode-database.postgres.database.azure.com -f $SQL_FILE_PATH
+        declare -a arr=("IBF-static-input")
 
-  }
+        for SCHEMA in "${arr[@]}"
+        do
+            echo "$SCHEMA"
+            rm tools/db-dumps/ibf_$SCHEMA.dump
+            PGPASSWORD=$PGPASSWORD pg_dump -U geonodeadmin@geonode-database -Fc -f tools/db-dumps/ibf_$SCHEMA.dump -h geonode-database.postgres.database.azure.com -n \"$SCHEMA\" geonode_datav3
+            PGPASSWORD=$PGPASSWORD psql -U geonodeadmin@geonode-database -d geonode_datav3-staging -h geonode-database.postgres.database.azure.com -c 'drop schema "'$SCHEMA'" cascade; create schema "'$SCHEMA'";'
+            PGPASSWORD=$PGPASSWORD pg_restore -U geonodeadmin@geonode-database -d geonode_datav3-staging -h geonode-database.postgres.database.azure.com --schema=$SCHEMA --clean tools/db-dumps/ibf_$SCHEMA.dump
+        done
 
-  function restart_webhook_service() {
-    sudo systemctl daemon-reload
-    sudo service webhook restart
+        PGPASSWORD=$PGPASSWORD psql -U geonodeadmin@geonode-database -d geonode_datav3-staging -h geonode-database.postgres.database.azure.com -f $SQL_FILE_PATH
 
-    log "Webhook service restarted: "
-  }
+    }
 
-  function cleanup_docker() {
-    sudo docker image prune -f
+    function restart_webhook_service() {
+        systemctl daemon-reload
+        service webhook restart
 
-    log "Unused Docker images removed: "
-  }
+        log "Webhook service restarted: "
+    }
+
+    function cleanup_docker() {
+        docker image prune -f
+
+        log "Unused Docker images removed: "
+    }
 
 
-  
 
 
-  #
-  # Actual deployment:
-  #
-  update_code "$target"
 
-  updating_containers
+    #
+    # Actual deployment:
+    #
+    update_code "$target"
 
-  migrate_database
+    updating_containers
 
-  restart_webhook_service
+    migrate_database
 
-  cleanup_docker
+    restart_webhook_service
 
-  log "Done."
+    cleanup_docker
+
+    log "Done."
 }
 
 deploy "$@"
