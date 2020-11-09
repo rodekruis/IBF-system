@@ -7,7 +7,7 @@
 
 # Configuration, secrets, etc:
 .env
-certbot
+#certbot
 
 # R specific:
 .Rproj.user
