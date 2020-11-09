@@ -98,29 +98,29 @@ volumes:
         driver: local
         driver_opts:
             type: bind
-            device: /home/IBF-system/certbot/conf
+            device: /home/ibf-user/IBF-system/certbot/conf
             o: bind
     certbot-var:
         driver: local
         driver_opts:
             type: bind
-            device: /home/IBF-system/certbot/www
+            device: /home/ibf-user/IBF-system/certbot/www
             o: bind
     web-interface-root:
     pipeline-root:
         driver_opts:
             type: bind
-            device: /home/IBF-system/services/IBF-pipeline
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline
             o: bind
     pipeline-geoserver:
         driver_opts:
             type: bind
-            device: /home/IBF-system/services/IBF-pipeline/geoserver/geodata
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline/geoserver/geodata
             o: bind
     workspace-geoserver:
         driver_opts:
             type: bind
-            device: /home/IBF-system/services/IBF-pipeline/geoserver/workspaces/ibf-system
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline/geoserver/workspaces/ibf-system
             o: bind
 
 networks:
