@@ -47,6 +47,14 @@ handler.on('pull_request', function (event) {
   ) {
     deploy()
     return
+  } else if (
+    process.env.NODE_ENV === "staging" &&
+    event.payload.action === "released" &&
+    event.payload.release.draft === false &&
+    event.payload.release.target_commitish
+  ) {
+    deploy()
+    return
   }
 })
 
