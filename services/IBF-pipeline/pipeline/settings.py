@@ -23,7 +23,6 @@ CURRENT_DATE = date.today()
 ## COUNTRY SETTINGS ##
 ######################
 
-COUNTRY_CODES = 'EGY'
 COUNTRY_CODES = [
     # 'ZMB'
     # ,
