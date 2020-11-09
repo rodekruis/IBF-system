@@ -6,8 +6,8 @@ from datetime import date, timedelta
 ##########################
 
 # Disable these temporarily to run only the trigger-model part
-CALCULATE_EXTENT = True
-CALCULATE_EXPOSURE = True
+CALCULATE_EXTENT = False
+CALCULATE_EXPOSURE = False
 
 # Use dummy-data and/or overwrite real data
 OVERWRITE_DUMMY = True #Overwrite glofas data with dummy data
@@ -23,12 +23,13 @@ CURRENT_DATE = date.today()
 ## COUNTRY SETTINGS ##
 ######################
 
+COUNTRY_CODES = 'EGY'
 COUNTRY_CODES = [
-    'ZMB'
-    ,
-    'UGA'
+    # 'ZMB'
     # ,
-    # 'EGY'
+    # 'UGA'
+    # ,
+    'EGY'
 ]
 
 SETTINGS = {
@@ -106,14 +107,13 @@ SETTINGS = {
         },
         "trigger_levels": 'Rainfall_station_locations_with_trigger_levels.csv',
         'district_mapping': 'Rainfall_station_per_district_uga.csv',
-        'flood_extent_admin_boundaries': 'vector/egy_admbnda_adm1_capmas_20170421.shp',
-        'exposure_admin_boundaries': 'vector/egy_admbnda_adm1_capmas_20170421.shp',
+        'admin_boundaries': 'vector/egy_mena.shp',
         'trigger_colname': '5yr_threshold',
         'CRA_filename': '',
         'lead_times': {
-            "short": 3,
+            # "short": 3,
             "medium": 5,
-            "long": 7
+            # "long": 7
         },
         'EXPOSURE_DATA_SOURCES': {}
     },
