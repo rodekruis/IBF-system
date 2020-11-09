@@ -11,7 +11,8 @@
 
 # Local data files
 pipeline/data/
-geoserver/geodata/
+geoserver/geodata/*
+!geoserver/geodata/README.md
 *.zip
 
 
