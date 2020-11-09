@@ -30,3 +30,7 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
 *.log*
+
+# node
+node_modules
+package-lock.json
