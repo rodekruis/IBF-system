@@ -17,7 +17,7 @@ def formatInfo(info, countryCode):
         triggerStatement = "TBD"
         linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/"
         linkEAPSOP = "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#heading=h.gjdgxs"
-        linkWhatsApp = "https://chat.whatsapp.com/HJoSx6pnjQN19bAouNHk8M"
+        linkWhatsApp = "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin"
     else:
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
         triggerStatement = "TBD"
