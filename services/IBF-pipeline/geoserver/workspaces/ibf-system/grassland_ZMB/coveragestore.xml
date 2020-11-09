@@ -1,0 +1,12 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl-48cab08a:175ace47603:-7fe2</id>
+  <name>grassland_ZMB</name>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2020-11-09 12:25:43.963 UTC</dateCreated>
+  <url>file:workspaces/ibf-system/ibf-pipeline/zambia/input/cropland/zmb_grassland.tif</url>
+</coverageStore>
