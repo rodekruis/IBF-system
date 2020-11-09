@@ -5,11 +5,11 @@ After=network.target
 [Service]
 Environment=NODE_ENV=test
 Environment=NODE_PORT=3099
-Environment=IBF_SYSTEM_REPO=/home/IBF-system/
+Environment=IBF_SYSTEM_REPO=/home/ibf-user/IBF-system
 Environment=GITHUB_WEBHOOK_SECRET=secret
 Type=simple
-User=global121production
-ExecStart=/usr/bin/nodejs /home/IBF-system/tools/webhook.js
+User=ibf-user
+ExecStart=/usr/bin/node /home/ibf-user/IBF-system/tools/webhook.js
 Restart=on-failure
 
 [Install]
