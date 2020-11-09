@@ -11,7 +11,7 @@
 
 # Local data files
 pipeline/data/
-geoserver/
+geoserver/geodata/
 *.zip
 
 
