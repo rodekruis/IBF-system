@@ -19,8 +19,8 @@ var handler = createHandler({
 function deploy(target) {
     exec(
         target
-            ? `cd ${process.env.IBF_SYSTEM_REPO} && source ./tools/deploy.sh "${target}"`
-            : `cd ${process.env.IBF_SYSTEM_REPO} && source ./tools/deploy.sh`,
+            ? `cd ${process.env.IBF_SYSTEM_REPO} && bash ./tools/deploy.sh "${target}"`
+            : `cd ${process.env.IBF_SYSTEM_REPO} && bash ./tools/deploy.sh`,
         function (error, stdout, stderr) {
             if (error) {
                 console.log(stderr);
