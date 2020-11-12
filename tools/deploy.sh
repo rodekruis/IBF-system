@@ -7,7 +7,7 @@ function deploy() {
     cd "$repo" || return
 
     # Load ENV-variables
-    set -a; [ -f ./tools/.env ] && . ./tools/.env; set +a;
+    set -a; [ -f ./.env ] && . ./.env; set +a;
 
     # Arguments
     local target=$1 || false
