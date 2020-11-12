@@ -23,7 +23,7 @@
         1. Command to verify group members - `grep ibf-users /etc/group`
     4. Change access of shared directory - `/home/ibf-user`
         1. `chgrp -Rf ibf-users /home/ibf-user`
-        2. `sudo chown ibf-user:ibf-users /home/ibf-user`
+        2. `sudo chown -R ibf-user:ibf-users /home/ibf-user`
         3. `sudo chmod -R 775 /home/ibf-user`
         4. Re-login to verify if you have access by running
            `touch /home/ibf-user`
