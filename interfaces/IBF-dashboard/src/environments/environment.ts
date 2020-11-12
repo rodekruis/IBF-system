@@ -5,13 +5,16 @@
 export const environment = {
   production: false,
 
-  // APIs
+  // API
   api_url: 'http://localhost:3000/api/',
 
-  // Feature-flags:
+  // feature-flags
   useServiceWorker: false,
 
-  // Geoserver
+  // geoserver
   geoserver_url:
     'http://ibf-system.westeurope.cloudapp.azure.com/geoserver/ibf-system/wms',
+
+  // version
+  ibf_system_version: '0.0.0',
 };
