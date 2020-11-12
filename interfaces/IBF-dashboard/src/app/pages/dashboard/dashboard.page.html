@@ -16,6 +16,17 @@
   </ion-menu-toggle>
   <ion-content>
     <ion-list color="dark" class="ion-no-padding">
+      <ion-item
+        href="https://github.com/rodekruis/IBF-system/releases/tag/{{
+          version
+        }}"
+        lines="full"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <ion-label>Version</ion-label>
+        <ion-text>{{ version }}</ion-text>
+      </ion-item>
       <app-country-switcher
         class="ion-align-items-center"
       ></app-country-switcher>
