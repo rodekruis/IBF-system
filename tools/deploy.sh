@@ -6,13 +6,13 @@ function deploy() {
     repo=$(git rev-parse --show-toplevel)
     cd "$repo" || return
 
+    # Arguments
+    local target=$1 || false
+
     function load_environment_variables() {
         # Load ENV-variables
         set -a; [ -f ./.env ] && . ./.env; set +a;
     }
-
-    # Arguments
-    local target=$1 || false
 
     function log() {
         printf "\n\n"
@@ -84,9 +84,6 @@ function deploy() {
 
         log "Unused Docker images removed: "
     }
-
-
-
 
 
     #
