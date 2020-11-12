@@ -43,6 +43,9 @@ function deploy() {
     function load_environment_variables() {
         log "Loading environment variables..."
         set -a; [ -f ./.env ] && . ./.env; set +a;
+        log echo "NODE_ENV: $NODE_ENV"
+        log echo "NG_PRODUCTION: $NG_PRODUCTION"
+        log echo "NG_IBF_SYSTEM_VERSION: $NG_IBF_SYSTEM_VERSION"
     }
 
     function updating_containers() {
