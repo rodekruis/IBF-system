@@ -9,11 +9,6 @@ function deploy() {
     # Arguments
     local target=$1 || false
 
-    function load_environment_variables() {
-        # Load ENV-variables
-        set -a; [ -f ./.env ] && . ./.env; set +a;
-    }
-
     function log() {
         printf "\n\n"
         # highlight/warn:
@@ -37,12 +32,17 @@ function deploy() {
         then
             log "Checking out: $target"
 
-            git checkout -b "$target" --track upstream/"$target"
+            git checkout -b "$target" --track origin/"$target"
         else
             log "Pulling latest changes"
 
             git pull --ff-only
         fi
+    }
+
+    function load_environment_variables() {
+        log "Loading environment variables..."
+        set -a; [ -f ./.env ] && . ./.env; set +a;
     }
 
     function updating_containers() {
