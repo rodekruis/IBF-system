@@ -1,4 +1,4 @@
-# Web interface for the dashboard of the IBF-system
+# Web interface for the dashboard of the IBF-system.
 
 Welcome to the GitHub repository of the [IBF-dashboard](http://ibf-system.westeurope.cloudapp.azure.com/),
 
