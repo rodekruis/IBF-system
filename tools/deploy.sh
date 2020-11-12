@@ -49,9 +49,9 @@ function deploy() {
         log "Updating containers..."
 
         cd "$repo" || return
-        docker-compose down -v
-        docker-compose -f docker-compose.yml up -d --build
-        docker-compose restart
+        sudo docker-compose down -v
+        sudo docker-compose -f docker-compose.yml up -d --build
+        sudo docker-compose restart
     }
 
     function migrate_database() {
@@ -80,7 +80,7 @@ function deploy() {
     }
 
     function cleanup_docker() {
-        docker image prune -f
+        sudo docker image prune -f
 
         log "Unused Docker images removed: "
     }
