@@ -31,10 +31,10 @@
 
     ```jsx
     # Allow members of group ibf-users to execute systemctl daemon-reload
-    %ibf-users ALL=(ALL:ALL) /bin/systemctl daemon-reload
+    %ibf-users ALL=NOPASSWD: /bin/systemctl daemon-reload
 
     # Allow members of group ibf-users to execute service webhook restart
-    %ibf-users ALL=(ALL:ALL) /usr/sbin/service webhook restart
+    %ibf-users ALL=NOPASSWD: /usr/sbin/service webhook restart
     ```
 
 2. Install Software
