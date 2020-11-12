@@ -6,8 +6,10 @@ function deploy() {
     repo=$(git rev-parse --show-toplevel)
     cd "$repo" || return
 
-    # Load ENV-variables
-    set -a; [ -f ./.env ] && . ./.env; set +a;
+    function load_environment_variables() {
+        # Load ENV-variables
+        set -a; [ -f ./.env ] && . ./.env; set +a;
+    }
 
     # Arguments
     local target=$1 || false
@@ -91,6 +93,8 @@ function deploy() {
     # Actual deployment:
     #
     update_code "$target"
+
+    load_environment_variables
 
     updating_containers
 
