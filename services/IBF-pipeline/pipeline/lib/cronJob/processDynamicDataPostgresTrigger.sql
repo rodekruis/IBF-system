@@ -20,6 +20,7 @@ left join (select country_code, max(date) as max_date from "IBF-pipeline-output"
 where tpd.date = max.max_date
 ;
 --select * from "IBF-pipeline-output".dashboard_triggers_per_day
+--select * from "IBF-pipeline-output".triggers_per_day where country_code = 'UGA' order by date
 
 
     
@@ -95,7 +96,7 @@ ON (t1.lead_time = '7-day' and t0."station_code_7day" = t1.station_code) OR (t1.
 ;
 --select * from "IBF-pipeline-output".dashboard_forecast_per_district where country_code = 'UGA' and fc_trigger = 1
 
-
+--truncate table "IBF-pipeline-output".events
 -- NOTE: Determine events and save in events-table
 update "IBF-pipeline-output".events set end_date = subquery.date
 from (
@@ -143,6 +144,8 @@ from (
 			on t1.pcode = t2.pcode
 			and to_date(t2.date,'yyyy-mm-dd') = current_date
 		where t1.fc_trigger=1
+			and t1.current_prev = 'Current'
+			and t2.lead_time = '7-day'
 		) districtsToday
 	left join "IBF-pipeline-output".event_districts districtsExisting
 		on districtsToday.event = districtsExisting.event
@@ -169,6 +172,7 @@ from (
 		on t1.pcode = t2.pcode
 		and to_date(t2.date,'yyyy-mm-dd') = current_date
 	where t1.fc_trigger=1
+		and t1.current_prev = 'Current'
 		and t2.lead_time = '7-day'
 	) districtsToday
 left join "IBF-pipeline-output".event_districts districtsExisting
@@ -176,5 +180,5 @@ left join "IBF-pipeline-output".event_districts districtsExisting
 	and districtsToday.pcode = districtsExisting.pcode
 where districtsExisting.pcode is null
 ;
---select * from "IBF-pipeline-output".event_districts where event = 14
+--select * from "IBF-pipeline-output".event_districts where event = 32
 
