@@ -1,11 +1,7 @@
 <div>
   <ion-grid class="ion-no-padding">
     <div *ngFor="let group of groups">
-      <ion-item lines="none" class="component-title-item">
-        <ion-label>
-          <strong>{{ group }}</strong>
-        </ion-label>
-      </ion-item>
+      <br />
       <ion-row *ngFor="let indicator of indicators" class="ion-no-padding">
         <ng-container *ngIf="indicator.group === group">
           <ion-col
