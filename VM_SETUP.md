@@ -93,6 +93,13 @@
         5. `sudo service webhook start`
         6. Verification - `sudo service webhook status`
     4. `. tools/deploy.sh`
+4. Load base data for pipeline
+    1. Find 2 data-zips in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-08-27T22%3A00%3A00.000Z&e=MnocDf and unzip geodata.zip and data.zip respectively to replace folders /geoserver/geodata/ and /pipeline/data/.
+        1. To unzip: `apt install unzip` and `unzip data.zip`
+    2. You can verify that the pipeline runs correctly by going into the container (`docker-compose exec ibf-pipeline bash`) and running `python3 runCron.py`
+    3. The pipeline will run automatically every day through a cron job, which requires no additional set-up.
+5. Check geoserver is set up correctly.
+    1. Check that [Geoserver](http://ibf-system.westeurope.cloudapp.azure.com/geoserver/web) contains layers.
 
 ### Useful Commands / Tools
 
