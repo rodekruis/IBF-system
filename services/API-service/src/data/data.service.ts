@@ -174,10 +174,8 @@ export class DataService {
     ";
 
     const rawResult = await this.manager.query(query, [leadTime, countryCode]);
-    console.log('rawResult: ', rawResult);
 
     const indicators = await this.getMetadata(countryCode);
-    console.log('indicators: ', indicators);
 
     const result = {};
     for (let indicator of indicators) {
