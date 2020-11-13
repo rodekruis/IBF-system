@@ -20,7 +20,7 @@ export class CountryService {
         defaultAdminLevel: AdminLevel.adm2,
         countryName: 'Uganda',
         countryForecasts: ['7-day'],
-        adminRegionLabels: ['Regions', 'Districts', 'Counties'],
+        adminRegionLabels: ['Regions', 'Districts', 'Counties', 'Parishes'],
       },
       {
         countryCode: 'ZMB',
