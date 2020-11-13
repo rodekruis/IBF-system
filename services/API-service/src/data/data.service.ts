@@ -43,36 +43,17 @@ export class DataService {
       ' select * \
     from "IBF-API"."Admin_area_data' +
       adminLevel +
-      '" \
+      "\" \
     where 0 = 0 \
     and lead_time = $1 \
+    and current_prev = 'Current' \
     and country_code = $2 \
-    ';
+    ";
 
     const rawResult: Station[] = await this.manager.query(query, [
       leadTime,
       countryCode,
     ]);
-
-    const result = this.toGeojson(rawResult);
-
-    return result;
-  }
-
-  public async getAdminAreaStaticData(
-    countryCode: string,
-    adminLevel: number,
-  ): Promise<GeoJson> {
-    const query =
-      ' select * \
-    from "IBF-API"."Admin_area_static_level' +
-      adminLevel +
-      '" \
-    where 0 = 0 \
-    and country_code = $1 \
-    ';
-
-    const rawResult: Station[] = await this.manager.query(query, [countryCode]);
 
     const result = this.toGeojson(rawResult);
 
@@ -185,15 +166,18 @@ export class DataService {
       ' select * \
     from "IBF-API"."Admin_area_data' +
       adminLevel +
-      '" \
+      "\" \
     where 0 = 0 \
     and lead_time = $1 \
+    and current_prev = 'Current' \
     and country_code = $2 \
-    ';
+    ";
 
     const rawResult = await this.manager.query(query, [leadTime, countryCode]);
+    console.log('rawResult: ', rawResult);
 
     const indicators = await this.getMetadata(countryCode);
+    console.log('indicators: ', indicators);
 
     const result = {};
     for (let indicator of indicators) {
