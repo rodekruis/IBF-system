@@ -156,17 +156,6 @@ export class ApiService {
     ).toPromise();
   }
 
-  getAdminRegionsStatic(
-    countryCode: string,
-    adminLevel: AdminLevel,
-  ): Promise<GeoJSON.FeatureCollection> {
-    return this.get(
-      environment.api_url,
-      `admin-static/${countryCode}/${adminLevel}`,
-      false,
-    ).toPromise();
-  }
-
   getMatrixAggregates(
     countryCode: string,
     leadTime: string,
