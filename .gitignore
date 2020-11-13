@@ -7,7 +7,10 @@
 
 # Configuration, secrets, etc:
 .env
-#certbot
+certbot/conf/*
+!certbot/conf/README.md
+certbot/www/*
+!certbot/www/README.md
 
 # R specific:
 .Rproj.user
@@ -27,3 +30,7 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
 *.log*
+
+# node
+node_modules
+package-lock.json
