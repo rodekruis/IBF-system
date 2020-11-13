@@ -1,10 +1,10 @@
 <ng-container *ngIf="eventService.state.activeEvent">
   <ion-row *ngIf="triggeredAreas?.length" class="component-title">
     <ion-item lines="none" class="component-title-item">
-      <ion-thumbnail slot="start" class="component-title-thumbnail">
+      <!-- <ion-thumbnail slot="start" class="component-title-thumbnail">
         <ion-img src="assets/icons/alert-black.svg"></ion-img>
-      </ion-thumbnail>
-      <ion-label><strong>Areas of Focus EAP</strong></ion-label>
+      </ion-thumbnail> -->
+      <ion-label><strong>EAP actions summary</strong></ion-label>
     </ion-item>
   </ion-row>
   <ion-row *ngFor="let areaOfFocus of areasOfFocus" class="ion-no-padding">
