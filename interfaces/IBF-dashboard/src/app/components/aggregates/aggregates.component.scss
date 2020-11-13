@@ -5,8 +5,8 @@
 .aggregate-item,
 .aggregate-item-value,
 .aggregate-item-information-icon {
-  --min-height: 2.5rem;
-  height: 2.5rem;
+  --min-height: 2rem;
+  height: 2rem;
 }
 
 .aggregate-item {
@@ -20,8 +20,8 @@
   .aggregate-item-thumbnail {
     background: var(--ion-color-ibf-black);
     border: 0.2rem solid var(--ion-color-ibf-black);
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     align-self: start;
 
     ion-img {
@@ -33,7 +33,7 @@
     text-transform: capitalize;
     line-height: 1.2;
     padding: 4px 8px;
-    font-size: 13px;
+    font-size: 12px;
 
     &.active {
       font-weight: bold;
@@ -43,7 +43,7 @@
 
 .aggregate-item-value {
   span {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 

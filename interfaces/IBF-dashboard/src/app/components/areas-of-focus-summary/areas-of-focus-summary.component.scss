@@ -3,6 +3,12 @@
 
   .component-title-item {
     --background: transparent;
+    min-height: 30px;
+
+    ion-label {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
 
     .component-title-thumbnail {
       height: 24px;
@@ -13,8 +19,8 @@
 
 .areas-of-focus-item,
 .areas-of-focus-item-value {
-  --min-height: 2.5rem;
-  height: 2.5rem;
+  --min-height: 2rem;
+  height: 2rem;
   --inner-padding-end: 0;
 }
 
@@ -22,8 +28,8 @@
   .areas-of-focus-item-thumbnail {
     background: var(--ion-color-ibf-black);
     border: 0.2rem solid var(--ion-color-ibf-black);
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     align-self: start;
 
     ion-img {
@@ -35,7 +41,7 @@
     text-transform: capitalize;
     line-height: 1.2;
     padding: 4px 8px;
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 
@@ -43,6 +49,6 @@
   --background: var(--ion-color-ibf-salmon-light);
 
   span {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
