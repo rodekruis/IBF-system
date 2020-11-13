@@ -141,7 +141,7 @@ SCHEMA_NAME = 'IBF-pipeline-output'
 ###################
 ## PATH SETTINGS ##
 ###################
-GEOSERVER_DATA = '../geoserver/geodata/zambia/'
+GEOSERVER_DATA = '../geoserver/geodata/'
 GEOSERVER_INPUT = GEOSERVER_DATA + 'input/'
 GEOSERVER_OUTPUT = GEOSERVER_DATA + 'output/'
 PIPELINE_DATA = 'data/'
