@@ -59,16 +59,16 @@ services:
             args:
                 - NG_PRODUCTION=true
                 - NG_API_URL=${NG_API_URL}
-                - NG_USE_MOCK_DATA=${NG_USE_MOCK_DATA}
                 - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
                 - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
+                - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
         image: rodekruis/ibf-web-interface
         environment:
             - NG_PRODUCTION=true
             - NG_API_URL=${NG_API_URL}
-            - NG_USE_MOCK_DATA=${NG_USE_MOCK_DATA}
             - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
             - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
+            - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
         volumes:
             - web-interface-root:/home/node/app/www
         networks:
