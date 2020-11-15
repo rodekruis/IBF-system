@@ -41,6 +41,8 @@ function deploy() {
     }
 
     function load_environment_variables() {
+        log "Create environment file..."
+        eval "echo \"$(cat raw.env)\"" > .env
         log "Loading environment variables..."
         set -a; [ -f ./.env ] && . ./.env; set +a;
         log echo "NODE_ENV: $NODE_ENV"
