@@ -41,18 +41,9 @@ function deploy() {
     }
 
     function load_environment_variables() {
-        log "Create environment file..."
-        sudo -s eval echo "$(cat raw.env)" > 1.env
-        sudo -s eval echo \"$(cat raw.env)\" > 2.env
-        sudo -s eval echo "\"$(cat raw.env)\"" > 3.env
-        sudo -s eval echo \""$(cat raw.env)"\" > 4.env
-        echo sudo -s eval echo "$(cat raw.env)" > inspect.1.env
-        echo sudo -s eval echo \"$(cat raw.env)\" > inspect.2.env
-        echo sudo -s eval echo "\"$(cat raw.env)\"" > inspect.3.env
-        echo sudo -s eval echo \""$(cat raw.env)"\" > inspect.4.env
-        sudo -s eval echo "\"$(cat raw.env)\"" > .env
         log "Loading environment variables..."
         set -a; [ -f ./.env ] && . ./.env; set +a;
+        export NG_IBF_SYSTEM_VERSION=$(node -p "require('./package.json').version")
         log echo "NODE_ENV: $NODE_ENV"
         log echo "NG_PRODUCTION: $NG_PRODUCTION"
         log echo "NG_IBF_SYSTEM_VERSION: $NG_IBF_SYSTEM_VERSION"
