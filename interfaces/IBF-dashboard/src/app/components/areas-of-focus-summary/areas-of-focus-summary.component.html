@@ -18,7 +18,8 @@
             <ion-img src="assets/icons/{{ areaOfFocus.icon }}"></ion-img>
           </ion-thumbnail>
           <ion-label
-            class="areas-of-focus-item-label ion-no-margin ion-text-wrap"
+            class="areas-of-focus-item-label ion-no-margin"
+            [title]="areaOfFocus.label"
           >
             {{ areaOfFocus.label }}
           </ion-label>
