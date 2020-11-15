@@ -16,5 +16,5 @@ export const environment = {
     'http://ibf-system.westeurope.cloudapp.azure.com/geoserver/ibf-system/wms',
 
   // version
-  ibf_system_version: '0.0.0',
+  ibf_system_version: 'v0.0.0',
 };
