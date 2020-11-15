@@ -79,12 +79,10 @@
             2. Set the appropriate values in the
                `/home/ibf-user/IBF-system/services/IBF-pipeline/pipeline/secrets.py`
                file
-        2. Create `/home/ibf-user/IBF-system/raw.env`
-            1. `cp /home/ibf-user/IBF-system/example.env /home/ibf-user/IBF-system/raw.env`
-            2. Set the appropriate values in the `raw.env` file
-            3. Load the `raw.env` vars by,
-                1. `eval "echo \"$(cat /home/ibf-user/IBF-system/raw.env)\"" > .env`
-                2. `source /home/ibf-user/IBF-system/.env`
+        2. Create `/home/ibf-user/IBF-system/.env`
+            1. `cp /home/ibf-user/IBF-system/example.env /home/ibf-user/IBF-system/.env`
+            2. Set the appropriate values in the `.env` file
+            3. Load the `.env` vars by `source /home/ibf-user/IBF-system/.env`
             4. Test if the vars were loaded correctly `echo $NODE_ENV`
     3. Setup web-hook
         1. `sudo cp webhook.service /etc/systemd/system/`
