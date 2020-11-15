@@ -42,6 +42,14 @@ function deploy() {
 
     function load_environment_variables() {
         log "Create environment file..."
+        sudo -s eval echo "$(cat raw.env)" > 1.env
+        sudo -s eval echo \"$(cat raw.env)\" > 2.env
+        sudo -s eval echo "\"$(cat raw.env)\"" > 3.env
+        sudo -s eval echo \""$(cat raw.env)"\" > 4.env
+        echo sudo -s eval echo "$(cat raw.env)" > inspect.1.env
+        echo sudo -s eval echo \"$(cat raw.env)\" > inspect.2.env
+        echo sudo -s eval echo "\"$(cat raw.env)\"" > inspect.3.env
+        echo sudo -s eval echo \""$(cat raw.env)"\" > inspect.4.env
         sudo -s eval echo "\"$(cat raw.env)\"" > .env
         log "Loading environment variables..."
         set -a; [ -f ./.env ] && . ./.env; set +a;
