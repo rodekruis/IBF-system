@@ -104,12 +104,6 @@ export class MapComponent implements OnDestroy {
         if (newLayer.viewCenter) {
           this.map.fitBounds(this.mapService.state.bounds);
         }
-
-        // Trigger a resize to fill the container-element:
-        window.setTimeout(
-          () => window.dispatchEvent(new UIEvent('resize')),
-          1000,
-        );
       });
 
     this.countrySubscription = this.countryService
@@ -125,7 +119,7 @@ export class MapComponent implements OnDestroy {
         // Trigger a resize to fill the container-element:
         window.setTimeout(
           () => window.dispatchEvent(new UIEvent('resize')),
-          1000,
+          200,
         );
       });
 
@@ -133,12 +127,6 @@ export class MapComponent implements OnDestroy {
       .getAdminLevelSubscription()
       .subscribe((adminLevel: AdminLevel) => {
         this.mapService.loadAdminRegionLayer();
-
-        // Trigger a resize to fill the container-element:
-        window.setTimeout(
-          () => window.dispatchEvent(new UIEvent('resize')),
-          1000,
-        );
       });
 
     this.timelineSubscription = this.timelineService
@@ -147,12 +135,6 @@ export class MapComponent implements OnDestroy {
         this.mapService.loadStationLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
-
-        // Trigger a resize to fill the container-element:
-        window.setTimeout(
-          () => window.dispatchEvent(new UIEvent('resize')),
-          1000,
-        );
       });
   }
 
@@ -227,9 +209,6 @@ export class MapComponent implements OnDestroy {
 
   onMapReady(map: Map) {
     this.map = map;
-
-    // Trigger a resize to fill the container-element:
-    window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 1000);
   }
 
   private createLayer(layer: IbfLayer): IbfLayer {
