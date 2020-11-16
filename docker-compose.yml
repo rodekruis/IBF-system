@@ -13,7 +13,7 @@ services:
             - ./nginx/ibf-system.conf:/etc/nginx/conf.d/default.conf
             - certbot-etc:/etc/letsencrypt
             - certbot-var:/var/www/certbot
-            - web-interface-root:/var/www/ibf-web-interface
+            - ibf-dashboard-root:/var/www/ibf-dashboard
         networks:
             - web-server-network
             - certbot-network
@@ -53,7 +53,7 @@ services:
         depends_on:
             - ibf-geoserver
 
-    ibf-web-interface:
+    ibf-dashboard:
         build:
             context: ./interfaces/IBF-dashboard
             args:
@@ -62,7 +62,7 @@ services:
                 - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
                 - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
                 - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
-        image: rodekruis/ibf-web-interface
+        image: rodekruis/ibf-dashboard
         environment:
             - NG_PRODUCTION=true
             - NG_API_URL=${NG_API_URL}
@@ -70,7 +70,7 @@ services:
             - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
             - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
         volumes:
-            - web-interface-root:/home/node/app/www
+            - ibf-dashboard-root:/home/node/app/www
         networks:
             - web-server-network
 
@@ -106,7 +106,7 @@ volumes:
             type: bind
             device: /home/ibf-user/IBF-system/certbot/www
             o: bind
-    web-interface-root:
+    ibf-dashboard-root:
     pipeline-root:
         driver_opts:
             type: bind
