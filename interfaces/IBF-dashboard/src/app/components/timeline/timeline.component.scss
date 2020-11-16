@@ -3,7 +3,7 @@ ion-item {
 }
 
 ion-button {
-  height: 100%;
+  height: 100% !important;
   width: 70px;
 
   &:first-child {
