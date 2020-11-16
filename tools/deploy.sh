@@ -31,11 +31,9 @@ function deploy() {
         if [[ -n "$target" ]]
         then
             log "Checking out: $target"
-
-            git checkout -b "$target" --track origin/"$target"
+            git checkout "$target"
         else
             log "Pulling latest changes"
-
             git pull --ff-only
         fi
     }
