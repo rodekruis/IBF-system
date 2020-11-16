@@ -71,6 +71,7 @@ export class MapComponent implements OnDestroy {
   public leafletOptions: MapOptions = {
     zoom: 5,
     layers: [this.osmTileLayer],
+    trackResize: false,
   };
 
   public leafletLayersControl: LeafletControlLayersConfig = {
