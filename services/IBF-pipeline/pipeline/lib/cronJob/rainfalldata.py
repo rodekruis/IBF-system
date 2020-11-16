@@ -22,6 +22,7 @@ import subprocess
 from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
+from geocube.api.core import make_geocube
 
 
 class RainfallData:
