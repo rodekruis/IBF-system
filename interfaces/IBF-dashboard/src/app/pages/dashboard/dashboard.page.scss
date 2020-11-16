@@ -58,13 +58,17 @@ app-export-view {
         flex-grow: 1;
 
         .ibf-dashboard-left-column-right-sub-column {
-          background: var(--ion-color-ibf-gray);
           display: flex;
 
-          .ibf-dashboard-left-column-right-sub-column-grid {
-            display: flex;
-            flex-flow: column nowrap;
-            overflow: auto;
+          ion-content {
+            --background: var(--ion-color-ibf-gray);
+
+            .ibf-dashboard-left-column-right-sub-column-grid {
+              display: flex;
+              flex-flow: column nowrap;
+              overflow: auto;
+              height: 100%;
+            }
           }
         }
       }
