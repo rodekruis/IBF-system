@@ -57,7 +57,7 @@ handler.on("release", function (event) {
         ["staging", "production"].indexOf(process.env.NODE_ENV) >= 0 &&
         event.payload.action === "published"
     ) {
-        deploy();
+        deploy(event.payload.release.tag_name);
     }
 });
 
