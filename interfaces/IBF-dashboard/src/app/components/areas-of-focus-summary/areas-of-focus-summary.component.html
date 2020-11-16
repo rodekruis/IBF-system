@@ -11,15 +11,10 @@
     <ng-container *ngIf="areaOfFocus.count">
       <ion-col size-lg="8" size-md="8" size-xs="8">
         <ion-item lines="inset" class="areas-of-focus-item ion-no-padding">
-          <ion-thumbnail
-            slot="start"
-            class="areas-of-focus-item-thumbnail"
-          >
+          <ion-thumbnail slot="start" class="areas-of-focus-item-thumbnail">
             <ion-img src="assets/icons/{{ areaOfFocus.icon }}"></ion-img>
           </ion-thumbnail>
-          <ion-label
-            class="areas-of-focus-item-label ion-text-wrap"
-          >
+          <ion-label class="areas-of-focus-item-label ion-text-wrap">
             {{ areaOfFocus.label }}
           </ion-label>
         </ion-item>
