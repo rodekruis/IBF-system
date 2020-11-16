@@ -71,7 +71,6 @@ export class MapComponent implements OnDestroy {
   public leafletOptions: MapOptions = {
     zoom: 5,
     layers: [this.osmTileLayer],
-    trackResize: false,
   };
 
   public leafletLayersControl: LeafletControlLayersConfig = {
@@ -206,7 +205,7 @@ export class MapComponent implements OnDestroy {
     this.map = map;
 
     // Trigger a resize to fill the container-element:
-    window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 200);
+    window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 1000);
   }
 
   private createLayer(layer: IbfLayer): IbfLayer {
