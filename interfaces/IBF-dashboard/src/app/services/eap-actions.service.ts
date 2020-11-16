@@ -31,7 +31,7 @@ export class EapActionsService {
         this.eventId,
       );
 
-      for await (let area of this.triggeredAreas) {
+      for (let area of this.triggeredAreas) {
         area.eapActions = await this.apiService.getEapActions(
           this.countryService.selectedCountry.countryCode,
           area.pcode,

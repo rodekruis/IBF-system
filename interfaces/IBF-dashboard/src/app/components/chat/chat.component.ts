@@ -52,10 +52,6 @@ export class ChatComponent implements OnDestroy {
     this.countrySubscription.unsubscribe();
   }
 
-  private async getTrigger() {
-    this.eventService.getTrigger();
-  }
-
   public changeAction(pcode: string, action: string, checkbox: boolean) {
     const area = this.triggeredAreas.find((i) => i.pcode === pcode);
     const changedAction = area.eapActions.find((i) => i.action === action);
