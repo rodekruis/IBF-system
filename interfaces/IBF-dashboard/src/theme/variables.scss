@@ -154,6 +154,10 @@
   --ion-color-ibf-salmon-light-contrast-rgb: 0, 0, 0;
   --ion-color-ibf-salmon-light-shade: #cfb8af;
   --ion-color-ibf-salmon-light-tint: #e9d2c9;
+
+  ion-button {
+    text-transform: none;
+  }
 }
 
 .ion-color-ibf-white {

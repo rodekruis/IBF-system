@@ -43,6 +43,7 @@ function deploy() {
     function load_environment_variables() {
         log "Loading environment variables..."
         set -a; [ -f ./.env ] && . ./.env; set +a;
+        export NG_IBF_SYSTEM_VERSION=v$(node -p "require('./package.json').version")
         log echo "NODE_ENV: $NODE_ENV"
         log echo "NG_PRODUCTION: $NG_PRODUCTION"
         log echo "NG_IBF_SYSTEM_VERSION: $NG_IBF_SYSTEM_VERSION"
@@ -52,9 +53,10 @@ function deploy() {
         log "Updating containers..."
 
         cd "$repo" || return
-        sudo docker-compose down -v
-        sudo docker-compose -f docker-compose.yml up -d --build
-        sudo docker-compose restart
+        docker-compose down -v
+        docker-compose --env-file /dev/null config > inspect.docker-compose.config
+        docker-compose --env-file /dev/null -f docker-compose.yml up -d --build
+        docker-compose --env-file /dev/null restart
     }
 
     function migrate_database() {
@@ -66,12 +68,12 @@ function deploy() {
         do
             echo "$SCHEMA"
             rm tools/db-dumps/ibf_$SCHEMA.dump
-            PGPASSWORD=$PGPASSWORD pg_dump -U geonodeadmin@geonode-database -Fc -f tools/db-dumps/ibf_$SCHEMA.dump -h geonode-database.postgres.database.azure.com -n \"$SCHEMA\" geonode_datav3
-            PGPASSWORD=$PGPASSWORD psql -U geonodeadmin@geonode-database -d $DB_DATABASE -h geonode-database.postgres.database.azure.com -c 'drop schema "'$SCHEMA'" cascade; create schema "'$SCHEMA'";'
-            PGPASSWORD=$PGPASSWORD pg_restore -U geonodeadmin@geonode-database -d $DB_DATABASE -h geonode-database.postgres.database.azure.com --schema=$SCHEMA --clean tools/db-dumps/ibf_$SCHEMA.dump
+            PGPASSWORD=$DB_PASSWORD pg_dump -U geonodeadmin@geonode-database -Fc -f tools/db-dumps/ibf_$SCHEMA.dump -h geonode-database.postgres.database.azure.com -n \"$SCHEMA\" geonode_datav3
+            PGPASSWORD=$DB_PASSWORD psql -U geonodeadmin@geonode-database -d $DB_DATABASE -h geonode-database.postgres.database.azure.com -c 'drop schema "'$SCHEMA'" cascade; create schema "'$SCHEMA'";'
+            PGPASSWORD=$DB_PASSWORD pg_restore -U geonodeadmin@geonode-database -d $DB_DATABASE -h geonode-database.postgres.database.azure.com --schema=$SCHEMA --clean tools/db-dumps/ibf_$SCHEMA.dump
         done
 
-        PGPASSWORD=$PGPASSWORD psql -U geonodeadmin@geonode-database -d $DB_DATABASE -h geonode-database.postgres.database.azure.com -f $SQL_FILE_PATH
+        PGPASSWORD=$DB_PASSWORD psql -U geonodeadmin@geonode-database -d $DB_DATABASE -h geonode-database.postgres.database.azure.com -f $SQL_FILE_PATH
 
     }
 
@@ -83,7 +85,7 @@ function deploy() {
     }
 
     function cleanup_docker() {
-        sudo docker image prune -f
+        docker image prune -f
 
         log "Unused Docker images removed: "
     }
