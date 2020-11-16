@@ -27,7 +27,8 @@
         <ion-label>Version</ion-label>
         <ion-text>{{ version }}</ion-text>
       </ion-item>
-      <app-country-switcher [class.ion-hide]="!isDev"
+      <app-country-switcher
+        [class.ion-hide]="!isDev"
         class="ion-align-items-center"
       ></app-country-switcher>
       <app-mock-scenario class="ion-align-items-center"></app-mock-scenario>
