@@ -115,12 +115,6 @@ export class MapComponent implements OnDestroy {
         this.mapService.loadPopulationGridLayer();
         this.mapService.loadCroplandLayer();
         this.mapService.loadGrasslandLayer();
-
-        // Trigger a resize to fill the container-element:
-        window.setTimeout(
-          () => window.dispatchEvent(new UIEvent('resize')),
-          200,
-        );
       });
 
     this.adminLevelSubscription = this.adminLevelService
@@ -135,6 +129,12 @@ export class MapComponent implements OnDestroy {
         this.mapService.loadStationLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
+
+        // Trigger a resize to fill the container-element:
+        window.setTimeout(
+          () => window.dispatchEvent(new UIEvent('resize')),
+          200,
+        );
       });
   }
 
