@@ -21,23 +21,24 @@
 
   ion-avatar {
     display: flex;
-    width: 50px !important; // Smaller than this looks weird..
-    height: 50px !important;
+    width: 40px !important; // Smaller than this looks weird..
+    height: 20px !important;
+    line-height: 1.1;
+    margin: 0 12px;
 
     &.self-avatar {
       background: var(--ion-color-medium);
-      margin-right: 0.5em;
     }
 
     &.system-avatar {
       color: black;
       background: white;
-      margin-left: 0.5em;
     }
 
     b,
     ion-icon {
       margin: auto;
+      height: 80%;
     }
   }
 }
