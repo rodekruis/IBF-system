@@ -44,6 +44,8 @@
 }
 
 .aggregate-item-value {
+  --inner-padding-end: 20%;
+
   ion-label {
     margin: 0px !important;
   }
