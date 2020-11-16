@@ -31,6 +31,7 @@ class GlofasData:
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
             'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + country_code + '.json'
         self.WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + SETTINGS[country_code]['trigger_levels']
+        self.DISTRICT_MAPPING = PIPELINE_INPUT + SETTINGS[country_code]['district_mapping']
         self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
 
     def process(self):
@@ -86,6 +87,9 @@ class GlofasData:
         df_thresholds = pd.read_csv(
             self.WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
         df_thresholds = df_thresholds.set_index("station_code", drop=False)
+        df_district_mapping = pd.read_csv(
+            self.DISTRICT_MAPPING, delimiter=';', encoding="windows-1251")
+        df_district_mapping = df_district_mapping.set_index("station_code_7day", drop=False)
 
         stations = []
         trigger_per_day = {
@@ -107,7 +111,7 @@ class GlofasData:
             data = xr.open_dataset(Filename)
 
             # Get threshold for this specific station
-            if station['code'] in df_thresholds['station_code']:
+            if station['code'] in df_thresholds['station_code'] and station['code'] in df_district_mapping['station_code_7day']:
                 print(Filename)
                 threshold = df_thresholds[df_thresholds.station_code ==
                                         station['code']][self.TRIGGER_RP_COLNAME][0]
