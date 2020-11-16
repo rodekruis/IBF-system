@@ -33,8 +33,8 @@ class RainfallData:
         self.inputPath = PIPELINE_DATA+'input/rainfall/'
         # self.extractedGlofasPath = PIPELINE_OUTPUT + \
         #     'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + country_code + '.json' ## create name of outputs, stick to json
-        self.triggersPerStationPath = PIPELINE_OUTPUT + \
-                                      'triggers_rp_per_station/heavy_rp_' + self.fcStep + '_' + country_code + '.tif'
+        self.rainrasterPath = PIPELINE_OUTPUT + \
+                                      'triggers_rp_per_station/rain_rp_' + self.fcStep + '_' + country_code + '.tif'
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
                                       'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + country_code + '.json'
         self.WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + SETTINGS[country_code]['trigger_levels']
@@ -258,8 +258,7 @@ class RainfallData:
             fp.write(out)
         
         cube = make_geocube(vector_data=df_trigger, measurements=[str(str(self.fcStep)+'_pred')], resolution=(0.5, -0.5), output_crs="EPSG:4326")
-        with open(self.triggersPerStationPath, 'w') as fr:
-            cube.rio.to_raster(fr)
+        cube.rio.to_raster(self.rainrasterPath)
         
         print('Processed GFS data - Files saved')
             
