@@ -11,7 +11,7 @@ services:
         ports:
             - 3000:3000
 
-    ibf-web-interface:
+    ibf-dashboard:
         command: ["npm", "run", "start"]
         environment:
             - NG_PRODUCTION=false
