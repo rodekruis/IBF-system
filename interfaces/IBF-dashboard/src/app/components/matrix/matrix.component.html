@@ -37,6 +37,7 @@
           [class.layer-active]="layer.active"
           (click)="updateLayer(layer.name, !layer.active)"
           class="ion-no-padding"
+          [title]="layer.label"
         >
           <ion-row>
             <ion-col size="6" class="layer-control-label-col">
