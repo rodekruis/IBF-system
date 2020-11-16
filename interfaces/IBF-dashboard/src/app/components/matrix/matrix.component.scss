@@ -3,7 +3,7 @@
   top: 0;
   bottom: 0;
   right: 0;
-  width: 200px;
+  width: 25%;
 
   ion-menu {
     --width: 100%;
@@ -16,6 +16,7 @@
         background: var(--ion-color-dark-tint);
 
         ion-item {
+          --min-height: 32px;
           --inner-padding-end: 0;
           --background: var(--ion-color-dark-tint);
           --color: var(--ion-color-light);
@@ -73,7 +74,7 @@
     cursor: pointer;
 
     ion-toolbar {
-      --min-height: 42px;
+      --min-height: 36px;
     }
   }
 }
