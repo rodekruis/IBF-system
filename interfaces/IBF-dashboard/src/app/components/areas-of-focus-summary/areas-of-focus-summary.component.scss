@@ -31,6 +31,7 @@
     width: 2rem;
     height: 2rem;
     align-self: start;
+    margin: 0px !important;
 
     ion-img {
       object-fit: contain;
@@ -42,10 +43,14 @@
     line-height: 1.2;
     padding: 4px 8px;
     font-size: 12px;
+    margin: 0px !important;
   }
 }
 
 .areas-of-focus-item-value {
+  ion-label {
+    margin: 0px !important;
+  }
   --background: var(--ion-color-ibf-salmon-light);
 
   span {

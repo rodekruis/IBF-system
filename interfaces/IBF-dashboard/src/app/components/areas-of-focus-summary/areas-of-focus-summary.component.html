@@ -13,12 +13,12 @@
         <ion-item lines="inset" class="areas-of-focus-item ion-no-padding">
           <ion-thumbnail
             slot="start"
-            class="areas-of-focus-item-thumbnail ion-no-margin"
+            class="areas-of-focus-item-thumbnail"
           >
             <ion-img src="assets/icons/{{ areaOfFocus.icon }}"></ion-img>
           </ion-thumbnail>
           <ion-label
-            class="areas-of-focus-item-label ion-no-margin ion-text-wrap"
+            class="areas-of-focus-item-label ion-text-wrap"
           >
             {{ areaOfFocus.label }}
           </ion-label>
@@ -26,7 +26,7 @@
       </ion-col>
       <ion-col size-lg="4" size-md="4" size-xs="4">
         <ion-item class="areas-of-focus-item-value ion-no-padding">
-          <ion-label class="ion-no-margin ion-text-center">
+          <ion-label class="ion-text-center">
             <span
               >{{ areaOfFocus.countChecked }} / {{ areaOfFocus.count }}</span
             >
