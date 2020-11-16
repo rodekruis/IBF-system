@@ -10,7 +10,7 @@ CALCULATE_EXTENT = True
 CALCULATE_EXPOSURE = True
 
 # Use dummy-data and/or overwrite real data
-OVERWRITE_DUMMY = True #Overwrite glofas data with dummy data
+OVERWRITE_DUMMY = False #Overwrite glofas data with dummy data
 DUMMY_TRIGGER = True #Overwrite with flood data (true) or no flood (false)
 RAINFALL_DUMMY = False
 
