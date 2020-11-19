@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { createParamDecorator } from '@nestjs/common';
 import { SECRET } from '../secrets';
 import * as jwt from 'jsonwebtoken';

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import {
+  HealthIndicatorResult,
   TerminusModule,
   TerminusModuleOptions,
   TypeOrmHealthIndicator,
@@ -15,7 +16,8 @@ const getTerminusOptions = (
       // All the indicator which will be checked when requesting /health
       healthIndicators: [
         // Set the timeout for a response to 300ms
-        async () => db.pingCheck('database', { timeout: 300 }),
+        async (): Promise<HealthIndicatorResult> =>
+          db.pingCheck('database', { timeout: 300 }),
       ],
     },
   ],
