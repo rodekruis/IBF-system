@@ -21,9 +21,9 @@
 
   ion-avatar {
     display: flex;
-    width: 40px !important; // Smaller than this looks weird..
-    height: 20px !important;
-    line-height: 1.1;
+    width: 30px !important;
+    height: 30px !important;
+    line-height: 1.6;
     margin: 0 12px;
 
     &.self-avatar {
