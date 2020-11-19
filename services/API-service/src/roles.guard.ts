@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
 import * as jwt from 'jsonwebtoken';
 import { UserService } from './user/user.service';
 import { SECRET } from './secrets';
@@ -7,12 +7,13 @@ import { DEBUG } from './config';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(
-    private readonly reflector: Reflector,
-    private readonly userService: UserService,
-  ) {}
+  private readonly userService: UserService;
 
-  async canActivate(context: ExecutionContext): Promise<boolean> {
+  public constructor(userService: UserService) {
+    this.userService = userService;
+  }
+
+  public async canActivate(context: ExecutionContext): Promise<boolean> {
     if (DEBUG) {
       return true;
     }

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Entity, Column, OneToMany, PrimaryColumn } from 'typeorm';
 import { EapActionEntity } from './eap-action.entity';
 
