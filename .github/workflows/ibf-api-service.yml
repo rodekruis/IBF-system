@@ -12,7 +12,7 @@ on:
         paths: "services/API-service/**"
 
 jobs:
-    build:
+    ibf-api-service:
         runs-on: ubuntu-latest
 
         env:
