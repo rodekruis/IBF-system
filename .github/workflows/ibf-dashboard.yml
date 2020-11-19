@@ -12,7 +12,7 @@ on:
         paths: "interfaces/IBF-dashboard/**"
 
 jobs:
-    build:
+    ibf-dashboard:
         runs-on: ubuntu-latest
 
         strategy:
