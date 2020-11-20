@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
@@ -18,7 +19,11 @@ export class EapActionsService {
   @InjectRepository(AreaOfFocusEntity)
   private readonly areaOfFocusRepository: Repository<AreaOfFocusEntity>;
 
-  public constructor(private manager: EntityManager) {}
+  private manager: EntityManager;
+
+  public constructor(manager: EntityManager) {
+    this.manager = manager;
+  }
 
   public async checkAction(
     userId: number,
