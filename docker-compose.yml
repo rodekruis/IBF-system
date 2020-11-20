@@ -13,7 +13,7 @@ services:
             - ./nginx/ibf-system.conf:/etc/nginx/conf.d/default.conf
             - certbot-etc:/etc/letsencrypt
             - certbot-var:/var/www/certbot
-            - web-interface-root:/var/www/ibf-web-interface
+            - ibf-dashboard-root:/var/www/ibf-dashboard
         networks:
             - web-server-network
             - certbot-network
@@ -53,31 +53,30 @@ services:
         depends_on:
             - ibf-geoserver
 
-    ibf-web-interface:
+    ibf-dashboard:
         build:
             context: ./interfaces/IBF-dashboard
             args:
                 - NG_PRODUCTION=true
                 - NG_API_URL=${NG_API_URL}
-                - NG_USE_MOCK_DATA=${NG_USE_MOCK_DATA}
                 - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
                 - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
-        image: rodekruis/ibf-web-interface
+                - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
+        image: rodekruis/ibf-dashboard
         environment:
             - NG_PRODUCTION=true
             - NG_API_URL=${NG_API_URL}
-            - NG_USE_MOCK_DATA=${NG_USE_MOCK_DATA}
             - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
             - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
+            - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
         volumes:
-            - web-interface-root:/home/node/app/www
+            - ibf-dashboard-root:/home/node/app/www
         networks:
             - web-server-network
 
     ibf-pipeline:
         build: ./services/IBF-pipeline
         image: rodekruis/ibf-pipeline
-        command: tail -f /dev/null
         volumes:
             - pipeline-root:/home/ibf
         networks:
@@ -99,29 +98,29 @@ volumes:
         driver: local
         driver_opts:
             type: bind
-            device: /home/IBF-system/certbot/conf
+            device: /home/ibf-user/IBF-system/certbot/conf
             o: bind
     certbot-var:
         driver: local
         driver_opts:
             type: bind
-            device: /home/IBF-system/certbot/www
+            device: /home/ibf-user/IBF-system/certbot/www
             o: bind
-    web-interface-root:
+    ibf-dashboard-root:
     pipeline-root:
         driver_opts:
             type: bind
-            device: /home/IBF-system/services/IBF-pipeline
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline
             o: bind
     pipeline-geoserver:
         driver_opts:
             type: bind
-            device: /home/IBF-system/services/IBF-pipeline/geoserver/geodata
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline/geoserver/geodata
             o: bind
     workspace-geoserver:
         driver_opts:
             type: bind
-            device: /home/IBF-system/services/IBF-pipeline/geoserver/workspaces/ibf-system
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline/geoserver/workspaces/ibf-system
             o: bind
 
 networks:

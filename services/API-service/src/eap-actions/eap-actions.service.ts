@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
@@ -18,7 +19,11 @@ export class EapActionsService {
   @InjectRepository(AreaOfFocusEntity)
   private readonly areaOfFocusRepository: Repository<AreaOfFocusEntity>;
 
-  public constructor(private manager: EntityManager) {}
+  private manager: EntityManager;
+
+  public constructor(manager: EntityManager) {
+    this.manager = manager;
+  }
 
   public async checkAction(
     userId: number,
@@ -38,6 +43,7 @@ export class EapActionsService {
     const action = new EapActionStatusEntity();
     action.status = eapAction.status;
     action.pcode = eapAction.pcode;
+    action.event = eapAction.event;
     action.actionChecked = actionId;
 
     // If no user, take default user for now
@@ -55,6 +61,7 @@ export class EapActionsService {
   public async getActionsWithStatus(
     countryCode: string,
     pcode: string,
+    event: number,
   ): Promise<EapActionEntity[]> {
     const query =
       'select aof.label as "aofLabel" \
@@ -79,6 +86,7 @@ export class EapActionsService {
           ) t2 \
         on t1."actionCheckedId" = t2."actionCheckedId" \
         where timestamp = max_timestamp \
+        and event = $2 \
       ) eas \
       on ea.id = eas."actionCheckedId" \
       and \'' +
@@ -87,7 +95,10 @@ export class EapActionsService {
       where "countryCode" = $1 \
     ';
 
-    const actions: any[] = await this.manager.query(query, [countryCode]);
+    const actions: any[] = await this.manager.query(query, [
+      countryCode,
+      event,
+    ]);
 
     return actions;
   }

@@ -8,7 +8,7 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { User } from '../user/user.decorator';
-import { Station, GeoJson } from 'src/models/station.model';
+import { GeoJson } from 'src/models/station.model';
 import { RolesGuard } from '../roles.guard';
 
 @ApiBearerAuth()
@@ -68,15 +68,18 @@ export class DataController {
     return await this.dataService.getMetadata(params.countryCode);
   }
 
+  @ApiOperation({ title: 'Get recent dates' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @Get('recent-dates/:countryCode')
+  public async getRecentDate(@Param() params): Promise<number> {
+    return await this.dataService.getRecentDates(params.countryCode);
+  }
+
   @ApiOperation({ title: 'Get trigger data per lead-time' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
-  @Get('triggers/:countryCode/:leadTime')
+  @Get('triggers/:countryCode')
   public async getTriggerPerLeadtime(@Param() params): Promise<number> {
-    return await this.dataService.getTriggerPerLeadtime(
-      params.countryCode,
-      params.leadTime,
-    );
+    return await this.dataService.getTriggerPerLeadtime(params.countryCode);
   }
 
   @ApiOperation({ title: 'Get admin-area shape data' })
@@ -92,28 +95,11 @@ export class DataController {
     );
   }
 
-  @ApiOperation({ title: 'Get admin-area shape data' })
-  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })
-  @Get('admin-static/:countryCode/:adminLevel')
-  public async getAdminAreaStaticData(@Param() params): Promise<GeoJson> {
-    return await this.dataService.getAdminAreaStaticData(
-      params.countryCode,
-      params.adminLevel,
-    );
-  }
-
   @ApiOperation({ title: 'Get triggered areas' })
-  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
-  @Get('triggered-areas/:countryCode/:adminLevel/:leadTime')
+  @ApiImplicitParam({ name: 'event', required: true, type: 'number' })
+  @Get('triggered-areas/:event')
   public async getTriggeredAreas(@Param() params): Promise<GeoJson> {
-    return await this.dataService.getTriggeredAreas(
-      params.countryCode,
-      params.adminLevel,
-      params.leadTime,
-    );
+    return await this.dataService.getTriggeredAreas(params.event);
   }
 
   @ApiOperation({ title: 'Get matrix aggregates' })
@@ -127,5 +113,12 @@ export class DataController {
       params.adminLevel,
       params.leadTime,
     );
+  }
+
+  @ApiOperation({ title: 'Get active event' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @Get('event/:countryCode')
+  public async getEvent(@Param() params): Promise<GeoJson> {
+    return await this.dataService.getEvent(params.countryCode);
   }
 }

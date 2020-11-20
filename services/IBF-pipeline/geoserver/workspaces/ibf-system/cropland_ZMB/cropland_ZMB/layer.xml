@@ -1,0 +1,16 @@
+<layer>
+  <name>cropland_ZMB</name>
+  <id>LayerInfoImpl-48cab08a:175ace47603:-7fda</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff6</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-48cab08a:175ace47603:-7fdb</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2020-11-09 12:26:53.128 UTC</dateCreated>
+</layer>

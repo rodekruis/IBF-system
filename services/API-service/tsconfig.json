@@ -19,5 +19,6 @@
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"],
-  "types": ["jest"]
+  "types": ["jest"],
+  "typeAcquisition": { "include": ["jest"] }
 }

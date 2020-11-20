@@ -9,6 +9,24 @@
   }
 }
 
+#ibf-dashboard-interface {
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-menu {
+  ion-menu-toggle {
+    cursor: pointer;
+  }
+}
+
+app-export-view {
+  display: flex;
+  height: 100%;
+}
+
 // The lay-out of the `ion-content`-area of the page/screen
 .page-structure {
   min-height: 100%;
@@ -40,13 +58,17 @@
         flex-grow: 1;
 
         .ibf-dashboard-left-column-right-sub-column {
-          background: var(--ion-color-ibf-gray);
           display: flex;
 
-          .ibf-dashboard-left-column-right-sub-column-grid {
-            display: flex;
-            flex-flow: column nowrap;
-            overflow: auto;
+          ion-content {
+            --background: var(--ion-color-ibf-gray);
+
+            .ibf-dashboard-left-column-right-sub-column-grid {
+              display: flex;
+              flex-flow: column nowrap;
+              overflow: auto;
+              height: 100%;
+            }
           }
         }
       }

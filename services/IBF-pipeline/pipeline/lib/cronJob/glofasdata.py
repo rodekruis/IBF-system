@@ -19,16 +19,20 @@ from secrets import GLOFAS_USER, GLOFAS_PW
 
 class GlofasData:
 
-    def __init__(self, fcStep, days):
+    def __init__(self, fcStep, days, country_code):
         self.fcStep = fcStep
         self.days = days
+        self.country_code = country_code
         self.inputPath = PIPELINE_DATA+'input/glofas/'
         self.triggerPerDay = PIPELINE_OUTPUT + \
-            'triggers_rp_per_station/trigger_per_day_' + COUNTRY_CODE + '.json'
+            'triggers_rp_per_station/trigger_per_day_' + country_code + '.json'
         self.extractedGlofasPath = PIPELINE_OUTPUT + \
-            'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
+            'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + country_code + '.json'
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
-            'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + COUNTRY_CODE + '.json'
+            'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + country_code + '.json'
+        self.WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + SETTINGS[country_code]['trigger_levels']
+        self.DISTRICT_MAPPING = PIPELINE_INPUT + SETTINGS[country_code]['district_mapping']
+        self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
 
     def process(self):
         self.removeOldGlofasData()
@@ -41,30 +45,26 @@ class GlofasData:
             os.remove(os.path.join(self.inputPath, f))
 
     def download(self):
-        if GLOFAS_DUMMY == False:
-            downloadDone = False
+        downloadDone = False
 
-            timeToTryDownload = 43200
-            timeToRetry = 600
+        timeToTryDownload = 43200
+        timeToRetry = 600
 
-            start = time.time()
-            end = start + timeToTryDownload
+        start = time.time()
+        end = start + timeToTryDownload
 
-            while downloadDone == False and time.time() < end:
-                try:
-                    self.makeFtpRequest()
-                    downloadDone = True
-                except urllib.error.URLError:
-                    logger.info(
-                        "Glofas unzip failed, probably because download failed. "
-                        "Trying again in 10 minutes")
-                    time.sleep(timeToRetry)
-            if downloadDone == False:
-                raise ValueError('GLofas download failed for ' +
-                                 str(timeToTryDownload/3600) + ' hours, no new dataset was found')
-
-        else:
-            self.inputPath = PIPELINE_DATA + 'input/glofas_dummy/'
+        while downloadDone == False and time.time() < end:
+            try:
+                self.makeFtpRequest()
+                downloadDone = True
+            except urllib.error.URLError:
+                logger.info(
+                    "Glofas unzip failed, probably because download failed. "
+                    "Trying again in 10 minutes")
+                time.sleep(timeToRetry)
+        if downloadDone == False:
+            raise ValueError('GLofas download failed for ' +
+                                str(timeToTryDownload/3600) + ' hours, no new dataset was found')
 
     def makeFtpRequest(self):
         current_date = CURRENT_DATE.strftime('%Y%m%d')
@@ -85,8 +85,11 @@ class GlofasData:
 
         # Load file with thresholds per station (only once, so before loop)
         df_thresholds = pd.read_csv(
-            WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
+            self.WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
         df_thresholds = df_thresholds.set_index("station_code", drop=False)
+        df_district_mapping = pd.read_csv(
+            self.DISTRICT_MAPPING, delimiter=';', encoding="windows-1251")
+        df_district_mapping = df_district_mapping.set_index("station_code_7day", drop=False)
 
         stations = []
         trigger_per_day = {
@@ -103,15 +106,15 @@ class GlofasData:
             Filename = os.path.join(self.inputPath, files[i])
             station = {}
             station['code'] = files[i].split(
-                '_')[2] if GLOFAS_DUMMY == False else files[i].split('_')[4]
+                '_')[2]
 
             data = xr.open_dataset(Filename)
 
             # Get threshold for this specific station
-            if station['code'] in df_thresholds['station_code']:
+            if station['code'] in df_thresholds['station_code'] and station['code'] in df_district_mapping['station_code_7day']:
                 print(Filename)
                 threshold = df_thresholds[df_thresholds.station_code ==
-                                        station['code']][TRIGGER_RP_COLNAME][0]
+                                        station['code']][self.TRIGGER_RP_COLNAME][0]
 
                 # Set dimension-values
                 time = 0
@@ -120,8 +123,6 @@ class GlofasData:
 
                     # Loop through 51 ensembles, get forecast (for 3 or 7 day) and compare to threshold
                     ensemble_options = 51
-                    if GLOFAS_DUMMY == True:
-                        ensemble_options = 1
                     count = 0
                     dis_sum = 0
                     for ensemble in range(0, ensemble_options):
@@ -131,16 +132,19 @@ class GlofasData:
 
                         # DUMMY OVERWRITE FOR NOW
                         if OVERWRITE_DUMMY == True:
-                            if step < 4:
+                            if DUMMY_TRIGGER == False:
                                 discharge = 0
-                            elif station['code'] == 'G1361': # ZMB dummy flood station 1
-                                discharge = 8000
-                            elif station['code'] == 'G1328': # ZMB dummy flood station 2
-                                discharge = 9000
-                            elif station['code'] == 'G5200': # UGA dummy flood station
-                                discharge = 700
                             else:
-                                discharge = 0
+                                if step < 4:
+                                    discharge = 0
+                                elif station['code'] == 'G1361': # ZMB dummy flood station 1
+                                    discharge = 8000
+                                elif station['code'] == 'G1328': # ZMB dummy flood station 2
+                                    discharge = 9000
+                                elif station['code'] == 'G5200': # UGA dummy flood station
+                                    discharge = 700
+                                else:
+                                    discharge = 0
 
                         if discharge >= threshold:
                             count = count + 1
@@ -160,7 +164,7 @@ class GlofasData:
                     else:
                         station = {}
                         station['code'] = files[i].split(
-                            '_')[2] if GLOFAS_DUMMY == False else files[i].split('_')[4]
+                            '_')[2]
                 
             data.close()
         
@@ -188,7 +192,7 @@ class GlofasData:
         # Load (static) threshold values per station
 
         df_thresholds = pd.read_csv(
-            WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
+            self.WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
         df_thresholds.index = df_thresholds['station_code']
         df_thresholds.sort_index(inplace=True)
         # Load extracted Glofas discharge levels per station
@@ -207,7 +211,7 @@ class GlofasData:
             fc = float(row['fc_'+self.fcStep])
             trigger = int(row['fc_'+self.fcStep+'_trigger'])
             if trigger == 1:
-                if COUNTRY_CODE == 'UGA':
+                if self.country_code == 'UGA':
                     return_period = 25
                 elif fc >= row['20yr_threshold']:
                     return_period = 20

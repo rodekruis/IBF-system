@@ -12,7 +12,7 @@ class Exposure:
 
     """Class used to calculate the exposure per exposure type"""
     
-    def __init__(self, indicator, source, rasterValue, timeForecast):
+    def __init__(self, indicator, source, rasterValue, timeForecast, country_code):
         self.indicator = indicator
         self.source = source
         self.rasterValue = rasterValue
@@ -21,6 +21,7 @@ class Exposure:
         self.stats = []
         self.selectionValue = 0.9
         self.tempPath = PIPELINE_TEMP + "out.tif"
+        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']
 
 
     def calcAffected(self, floodExtentRaster):
@@ -32,7 +33,7 @@ class Exposure:
                 dest.write(affectedImage)
 
         logger.info("Wrote to " + self.outputRaster)
-        adminBoundaries = ADMIN_BOUNDARIES
+        adminBoundaries = self.ADMIN_BOUNDARIES
         # source = self.source[self.source.find('/')+1:]
         self.stats = self.calcStatsPerAdmin(adminBoundaries, self.indicator, shapesFlood)
 

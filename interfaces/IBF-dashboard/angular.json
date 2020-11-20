@@ -48,7 +48,12 @@
                 "input": "src/global.scss"
               }
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "@turf/invariant",
+              "@turf/bbox",
+              "@turf/meta"
+            ]
           },
           "configurations": {
             "production": {

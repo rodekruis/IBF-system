@@ -14,6 +14,7 @@ export class TimelineService {
     dateFormat: 'DD/MM',
     timeStepButtons: [],
   };
+  private triggers: any[];
   private timelineSubject = new ReplaySubject<string>();
 
   constructor(
@@ -26,7 +27,15 @@ export class TimelineService {
   }
 
   public async loadTimeStepButtons() {
+    const dates = await this.apiService.getRecentDates(
+      this.countryService.selectedCountry.countryCode,
+    );
+    this.state.today = moment(dates[0].value);
+
+    this.triggers = await this.getTrigger();
+
     this.state.timeStepButtons = [];
+
     this.state.timeStepButtons = this.filterTimeStepButtonsByCountryForecast([
       {
         dateString: this.state.today.format(this.state.dateFormat),
@@ -40,8 +49,9 @@ export class TimelineService {
           .add(1, 'days')
           .format(this.state.dateFormat),
         value: '1-day',
-        alert: await this.getTrigger('1-day'),
-        disabled: await this.getForecast('1-day'),
+        alert: this.triggers['1'] == 1,
+        disabled: await this.forecastDisabled('1-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -49,8 +59,9 @@ export class TimelineService {
           .add(2, 'days')
           .format(this.state.dateFormat),
         value: '2-day',
-        alert: await this.getTrigger('2-day'),
-        disabled: await this.getForecast('2-day'),
+        alert: this.triggers['2'] == 1,
+        disabled: await this.forecastDisabled('2-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -58,8 +69,9 @@ export class TimelineService {
           .add(3, 'days')
           .format(this.state.dateFormat),
         value: '3-day',
-        alert: await this.getTrigger('3-day'),
-        disabled: await this.getForecast('3-day'),
+        alert: this.triggers['3'] == 1,
+        disabled: await this.forecastDisabled('3-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -67,8 +79,9 @@ export class TimelineService {
           .add(4, 'days')
           .format(this.state.dateFormat),
         value: '4-day',
-        alert: await this.getTrigger('4-day'),
-        disabled: await this.getForecast('4-day'),
+        alert: this.triggers['4'] == 1,
+        disabled: await this.forecastDisabled('4-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -76,8 +89,9 @@ export class TimelineService {
           .add(5, 'days')
           .format(this.state.dateFormat),
         value: '5-day',
-        alert: await this.getTrigger('5-day'),
-        disabled: await this.getForecast('5-day'),
+        alert: this.triggers['5'] == 1,
+        disabled: await this.forecastDisabled('5-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -85,8 +99,9 @@ export class TimelineService {
           .add(6, 'days')
           .format(this.state.dateFormat),
         value: '6-day',
-        alert: await this.getTrigger('6-day'),
-        disabled: await this.getForecast('6-day'),
+        alert: this.triggers['6'] == 1,
+        disabled: await this.forecastDisabled('6-day'),
+        active: false,
       },
       {
         dateString: this.state.today
@@ -94,73 +109,18 @@ export class TimelineService {
           .add(7, 'days')
           .format(this.state.dateFormat),
         value: '7-day',
-        alert: await this.getTrigger('7-day'),
-        disabled: await this.getForecast('7-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(8, 'days')
-          .format(this.state.dateFormat),
-        value: '8-day',
-        alert: await this.getTrigger('8-day'),
-        disabled: await this.getForecast('8-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(9, 'days')
-          .format(this.state.dateFormat),
-        value: '9-day',
-        alert: await this.getTrigger('9-day'),
-        disabled: await this.getForecast('9-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(10, 'days')
-          .format(this.state.dateFormat),
-        value: '10-day',
-        alert: await this.getTrigger('10-day'),
-        disabled: await this.getForecast('10-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(11, 'days')
-          .format(this.state.dateFormat),
-        value: '11-day',
-        alert: await this.getTrigger('11-day'),
-        disabled: await this.getForecast('11-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(12, 'days')
-          .format(this.state.dateFormat),
-        value: '12-day',
-        alert: await this.getTrigger('12-day'),
-        disabled: await this.getForecast('12-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(13, 'days')
-          .format(this.state.dateFormat),
-        value: '13-day',
-        alert: await this.getTrigger('13-day'),
-        disabled: await this.getForecast('13-day'),
-      },
-      {
-        dateString: this.state.today
-          .clone()
-          .add(14, 'days')
-          .format(this.state.dateFormat),
-        value: '14-day',
-        alert: await this.getTrigger('14-day'),
-        disabled: await this.getForecast('14-day'),
+        alert: this.triggers['7'] == 1,
+        disabled: await this.forecastDisabled('7-day'),
+        active: false,
       },
     ]);
+
+    const enabledTimeStepButtons = this.state.timeStepButtons.filter(
+      (timeStepButton) => !timeStepButton.disabled,
+    );
+    if (enabledTimeStepButtons.length > 0) {
+      this.handleTimeStepButtonClick(enabledTimeStepButtons[0].value);
+    }
   }
 
   filterTimeStepButtonsByCountryForecast(timeStepButtons) {
@@ -182,23 +142,38 @@ export class TimelineService {
 
   public handleTimeStepButtonClick(timeStepButtonValue) {
     this.state.selectedTimeStepButtonValue = timeStepButtonValue;
+    this.state.timeStepButtons.forEach((i) => (i.active = false));
+    this.state.timeStepButtons.find(
+      (i) => i.value === timeStepButtonValue,
+    ).active = true;
     this.timelineSubject.next(this.state.selectedTimeStepButtonValue);
   }
 
-  private async getForecast(leadTime): Promise<any> {
-    return await new Promise((resolve) => {
-      resolve(
-        this.countryService.selectedCountry.countryForecasts.indexOf(leadTime) <
-          0,
-      );
+  private async forecastDisabled(leadTime): Promise<any> {
+    const leadTimes = [
+      ...this.countryService.selectedCountry.countryForecasts,
+    ].sort();
+    const index = leadTimes.indexOf(leadTime);
+    const leadTimeNotAvailable = await new Promise((resolve) => {
+      resolve(index < 0);
     });
+    const lowerLeadTimeNotTriggered =
+      index + 1 < leadTimes.length && this.triggers[leadTime.substr(0, 1)] == 0;
+
+    return leadTimeNotAvailable || lowerLeadTimeNotTriggered;
   }
 
-  public async getTrigger(leadTime): Promise<any> {
-    const trigger = await this.apiService.getTriggerPerLeadtime(
+  public async getTrigger(): Promise<any> {
+    const trigger = await this.apiService.getTriggerPerLeadTime(
       this.countryService.selectedCountry.countryCode,
-      leadTime,
     );
-    return trigger === 1;
+    return trigger;
+  }
+
+  public async getEvent(): Promise<any> {
+    const event = await this.apiService.getEvent(
+      this.countryService.selectedCountry.countryCode,
+    );
+    return event;
   }
 }

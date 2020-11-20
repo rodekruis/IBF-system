@@ -7,9 +7,16 @@ import { USERCONFIGS, COUNTRYCONFIGS } from '../secrets';
 import { CountryEntity } from '../country/country.entity';
 import { AreaOfFocusEntity } from '../eap-actions/area-of-focus.entity';
 
+import eapActionsUGA from '../../seed-data/EAP-actions-UGA.json';
+import eapActionsZMB from '../../seed-data/EAP-actions-ZMB.json';
+
 @Injectable()
 export class SeedInit implements InterfaceScript {
-  public constructor(private connection: Connection) {}
+  private connection: Connection;
+
+  public constructor(connection: Connection) {
+    this.connection = connection;
+  }
 
   public async run(): Promise<void> {
     await this.connection.dropDatabase();
@@ -100,46 +107,9 @@ export class SeedInit implements InterfaceScript {
     ]);
 
     // ***** CREATE EAP ACTIONS *****
-
+    const eapActions = eapActionsUGA.concat(eapActionsZMB);
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
-    await eapActionRepository.save([
-      {
-        countryCode: 'UGA',
-        areaOfFocus: { id: 'shelter' },
-        action: 'shelter-1',
-        label: 'Action 1',
-      },
-      {
-        countryCode: 'UGA',
-        areaOfFocus: { id: 'shelter' },
-        action: 'shelter-2',
-        label: 'Action 2',
-      },
-      {
-        countryCode: 'UGA',
-        areaOfFocus: { id: 'wash' },
-        action: 'wash-1',
-        label: 'Action 1',
-      },
-      {
-        countryCode: 'ZMB',
-        areaOfFocus: { id: 'shelter' },
-        action: 'shelter-1',
-        label: 'Action 1',
-      },
-      {
-        countryCode: 'ZMB',
-        areaOfFocus: { id: 'shelter' },
-        action: 'shelter-2',
-        label: 'Action 2',
-      },
-      {
-        countryCode: 'ZMB',
-        areaOfFocus: { id: 'wash' },
-        action: 'wash-1',
-        label: 'Action 1',
-      },
-    ]);
+    await eapActionRepository.save(eapActions);
   }
 }
 

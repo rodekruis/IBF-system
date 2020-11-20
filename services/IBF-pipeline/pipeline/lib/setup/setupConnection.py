@@ -11,6 +11,7 @@ def connect():
     global con, cur
     try:
         con = psycopg2.connect(("dbname='"+DB_SETTINGS['db']+"' user='"+DB_SETTINGS['user']+"' password='"+ DB_SETTINGS['password']+ "' host='"+DB_SETTINGS['host']+"' port='"+DB_SETTINGS['port']+"'"))
+        con.autocommit = True
         cur = con.cursor()
         db = cur.execute
     except psycopg2.OperationalError as e:

@@ -1,3 +1,5 @@
+NOTE: some of this information might be old, compared to higher-level readme's.
+
 # FbF-Data-pipeline
 
 This repository consists of 2 parts.
