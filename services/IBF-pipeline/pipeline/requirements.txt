@@ -13,7 +13,7 @@ Flask==1.0.2
 geopandas==0.4.1
 idna==2.8
 itsdangerous==1.1.0
-Jinja2==2.10
+Jinja2==2.10.1
 loggly-python-handler==1.0.0
 lxml==4.3.3
 mailchimp3==3.0.7
@@ -44,6 +44,6 @@ soupsieve==1.9
 SQLAlchemy==1.3.1
 twilio==6.26.0
 unattended-upgrades==0.1
-urllib3==1.24.1
-Werkzeug==0.15.1
+urllib3==1.24.2
+Werkzeug==0.15.3
 xarray==0.11.3
