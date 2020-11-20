@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { Injectable } from '@nestjs/common';
@@ -5,14 +6,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { Station, GeoJson, GeoJsonFeature } from 'src/models/station.model';
-import { type } from 'os';
 
 @Injectable()
 export class DataService {
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
 
-  public constructor(private manager: EntityManager) {}
+  private manager: EntityManager;
+
+  public constructor(manager: EntityManager) {
+    this.manager = manager;
+  }
 
   public async getData(schemaName: string, tableName: string): Promise<string> {
     const query = this.formQuery(schemaName, 'usp_fbf_data', 'ZMB', tableName);

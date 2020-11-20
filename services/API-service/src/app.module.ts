@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { UserModule } from './user/user.module';
 import { DataModule } from './data/data.module';
@@ -21,5 +20,5 @@ import { ScriptsModule } from './scripts/scripts.module';
   providers: [],
 })
 export class ApplicationModule {
-  public constructor(private readonly connection: Connection) {}
+  public constructor() {}
 }

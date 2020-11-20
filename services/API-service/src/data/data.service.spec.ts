@@ -1,27 +1,19 @@
 import { DataService } from './data.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserEntity } from '../user/user.entity';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { repositoryMockFactory } from '../mock/repositoryMock.factory';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 describe('User service', (): void => {
   let service: DataService;
-  let module: TestingModule;
 
   beforeAll(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
-        providers: [
-          DataService,
-          {
-            provide: getRepositoryToken(DataEntity),
-            useFactory: repositoryMockFactory,
-          },
-          {
-            provide: getRepositoryToken(UserEntity),
-            useFactory: repositoryMockFactory,
-          },
+        imports: [
+          TypeOrmModule.forRoot(),
+          TypeOrmModule.forFeature([UserEntity]),
         ],
+        providers: [DataService],
       }).compile();
 
       service = module.get<DataService>(DataService);

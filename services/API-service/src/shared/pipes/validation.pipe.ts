@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {
   PipeTransform,
   ArgumentMetadata,
@@ -11,7 +13,7 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
-  async transform(value, metadata: ArgumentMetadata) {
+  public async transform(value, metadata: ArgumentMetadata) {
     if (!value) {
       throw new BadRequestException('No data submitted');
     }
