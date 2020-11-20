@@ -9,17 +9,19 @@ def getFloodInfo(countryCode):
     sqlString = '''
         select
             t1.name
-            ,population_affected
-            ,lead_time
-            ,case when fc_prob>=0.8 then 'Maximum alert' when fc_prob>=0.7 then 'Medium alert' when fc_prob>=0.6 then 'Minimum alert' end as fc_prob
+            ,t0.population_affected
+            ,t0.lead_time
+            ,case when t0.fc_prob>=0.8 then 'Maximum alert' when t0.fc_prob>=0.7 then 'Medium alert' when t0.fc_prob>=0.6 then 'Minimum alert' end as fc_prob
         from
             "IBF-pipeline-output".data_adm2 t0
-        left join "IBF-static-input"."CRA_data_2" t1 on
+        left join "IBF-API"."Admin_area_data2" t1 on
             t0.pcode = t1.pcode
+            and t0.lead_time = t1.lead_time
+            and t0.current_prev = t1.current_prev
         where
             t0.country_code = \'''' + countryCode + '''\'
-            and current_prev = 'Current'
-            and fc_trigger = 1
+            and t0.current_prev = 'Current'
+            and t0.fc_trigger = 1
         order by population_affected desc
     '''
 
