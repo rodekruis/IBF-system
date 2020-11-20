@@ -12,7 +12,7 @@ CALCULATE_EXPOSURE = False
 # Use dummy-data and/or overwrite real data
 OVERWRITE_DUMMY = True #Overwrite glofas data with dummy data
 DUMMY_TRIGGER = True #Overwrite with flood data (true) or no flood (false)
-RAINFALL_DUMMY = True
+RAINFALL_DUMMY = False
 
 # Change this date only in case of testing
 CURRENT_DATE = date.today()
@@ -111,8 +111,8 @@ SETTINGS = {
         'CRA_filename': '',
         'lead_times': {
             "short": 3,
-            # "medium": 5,
-            # "long": 7
+            "medium": 5,
+            "long": 7
         },
         'EXPOSURE_DATA_SOURCES': {}
     },
