@@ -111,8 +111,8 @@ SETTINGS = {
         'CRA_filename': '',
         'lead_times': {
             "short": 3,
-            "medium": 5,
-            "long": 7
+            #"medium": 5,
+            #"long": 7
         },
         'EXPOSURE_DATA_SOURCES': {}
     },
