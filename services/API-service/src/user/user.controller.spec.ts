@@ -4,41 +4,39 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserRO } from './user.interface';
-import { DeleteResult } from 'typeorm';
-import { LoginUserDto } from './dto/login-user.dto';
 import { RolesGuard } from '../roles.guard';
 
 const userRo = {
   user: {
-    username: 'test-pa',
+    email: 'test@ibf.nl',
     token:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJzdHJpZG5nIiwiZW1haWwiOiJ0ZXNkZnN0QHRlc3QubmwiLCJleHAiOjE1NjYwMzE4MzEuMjk0LCJpYXQiOjE1NjA4NDc4MzF9.tAKGcABFXNd2dRsvf3lZ-4KzUvKGeUkmuhrzGKdfLpo',
   },
 };
 
 class UserServiceMock {
-  public async findByUsername(): Promise<UserRO> {
+  public async findByEmail(): Promise<UserRO> {
     return userRo;
   }
   public async create(userData: CreateUserDto): Promise<UserRO> {
     const userRo = {
       user: {
-        username: userData.username,
+        email: userData.email,
         token:
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJzdHJpZG5nIiwiZW1haWwiOiJ0ZXNkZnN0QHRlc3QubmwiLCJleHAiOjE1NjYwMzE4MzEuMjk0LCJpYXQiOjE1NjA4NDc4MzF9.tAKGcABFXNd2dRsvf3lZ-4KzUvKGeUkmuhrzGKdfLpo',
       },
     };
     return userRo;
   }
-  public async findOne(loginUserDto: LoginUserDto): Promise<UserEntity> {
+  public async findOne(): Promise<UserEntity> {
     const user = new UserEntity();
     user.id = 1;
-    user.username = 'test-pa';
+    user.email = 'test@ibf.nl';
     user.password =
       'c90f86e09c3461da52b3d8bc80ccd6a0d0cb893b1a41bd461e8ed31fa21c9b6e';
     return user;
   }
-  public generateJWT(user) {
+  public generateJWT(): string {
     return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJzdHJpZG5nIiwiZW1haWwiOiJ0ZXNkZnN0QHRlc3QubmwiLCJleHAiOjE1NjYwMzE4MzEuMjk0LCJpYXQiOjE1NjA4NDc4MzF9.tAKGcABFXNd2dRsvf3lZ-4KzUvKGeUkmuhrzGKdfLpo';
   }
 }
@@ -58,9 +56,9 @@ describe('UserController', (): void => {
           },
         ],
       })
-      .overrideGuard(RolesGuard)
-      .useValue({ canActivate: () => true })
-      .compile();
+        .overrideGuard(RolesGuard)
+        .useValue({ canActivate: (): boolean => true })
+        .compile();
       userService = module.get<UserService>(UserService);
       userController = module.get<UserController>(UserController);
     },
@@ -69,9 +67,9 @@ describe('UserController', (): void => {
   describe('findMe', (): void => {
     it('should return a user', async (): Promise<void> => {
       const spy = jest
-        .spyOn(userService, 'findByUsername')
+        .spyOn(userService, 'findByEmail')
         .mockImplementation((): Promise<UserRO> => Promise.resolve(userRo));
-      const controllerResult = await userController.findMe('test-pa');
+      const controllerResult = await userController.findMe('test@ibf.nl');
 
       expect(spy).toHaveBeenCalled();
       expect(controllerResult).toStrictEqual(userRo);
@@ -81,7 +79,7 @@ describe('UserController', (): void => {
   describe('login', (): void => {
     it('should return a user', async (): Promise<void> => {
       const loginParameters = {
-        username: 'test-pa',
+        email: 'test@ibf.nl',
         password: 'string',
       };
       const controllerResult = await userController.login(loginParameters);
@@ -101,7 +99,7 @@ describe('UserController', (): void => {
   describe('create', (): void => {
     it('should return an a user entity', async (): Promise<void> => {
       const userValue = {
-        username: 'test-pa',
+        email: 'test@ibf.nl',
         password: 'string',
       };
       const spy = jest
@@ -113,5 +111,4 @@ describe('UserController', (): void => {
       expect(controllerResult).toEqual(userRo);
     });
   });
-
 });

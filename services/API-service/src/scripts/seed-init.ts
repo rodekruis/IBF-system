@@ -12,7 +12,11 @@ import eapActionsZMB from '../../seed-data/EAP-actions-ZMB.json';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
-  public constructor(private connection: Connection) {}
+  private connection: Connection;
+
+  public constructor(connection: Connection) {
+    this.connection = connection;
+  }
 
   public async run(): Promise<void> {
     await this.connection.dropDatabase();
