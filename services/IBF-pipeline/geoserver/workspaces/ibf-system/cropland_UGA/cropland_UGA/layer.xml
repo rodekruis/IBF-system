@@ -1,0 +1,16 @@
+<layer>
+  <name>cropland_UGA</name>
+  <id>LayerInfoImpl-48cab08a:175ace47603:-7fdd</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff6</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-48cab08a:175ace47603:-7fde</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2020-11-09 12:26:20.397 UTC</dateCreated>
+</layer>

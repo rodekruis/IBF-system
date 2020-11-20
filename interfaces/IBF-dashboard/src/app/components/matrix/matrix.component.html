@@ -37,11 +37,12 @@
           [class.layer-active]="layer.active"
           (click)="updateLayer(layer.name, !layer.active)"
           class="ion-no-padding"
+          [title]="layer.label"
         >
           <ion-row>
             <ion-col size="6" class="layer-control-label-col">
               <ion-item lines="none" class="ion-no-padding">
-                <ion-label class="ion-no-margin ion-text-wrap">
+                <ion-label class="ion-no-margin" [title]="layer.label">
                   {{ layer.label }}
                 </ion-label>
               </ion-item>

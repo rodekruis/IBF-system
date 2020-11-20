@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-areas-of-focus-summary',
@@ -12,10 +13,12 @@ export class AreasOfFocusSummaryComponent implements OnInit {
   private eapActionSubscription: Subscription;
   public areasOfFocus: any[];
   public triggeredAreas: any[];
+  public trigger: boolean;
 
   constructor(
     private eapActionsService: EapActionsService,
     private apiService: ApiService,
+    public eventService: EventService,
   ) {
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
@@ -23,6 +26,8 @@ export class AreasOfFocusSummaryComponent implements OnInit {
         this.triggeredAreas = newAreas;
         this.calcActionStatus(this.triggeredAreas);
       });
+
+    this.eventService.getTrigger();
   }
 
   ngOnInit() {}

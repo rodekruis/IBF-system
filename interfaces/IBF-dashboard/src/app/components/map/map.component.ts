@@ -57,12 +57,13 @@ export class MapComponent implements OnDestroy {
     iconSize: [25, 41],
     iconAnchor: [13, 41],
     popupAnchor: [0, -30],
-    iconUrl: 'assets/markers/default.png',
-    iconRetinaUrl: 'assets/markers/default-2x.png',
+    iconUrl: 'assets/markers/default.svg',
+    iconRetinaUrl: 'assets/markers/default.svg',
   };
 
   private iconWarning: IconOptions = {
     ...this.iconDefault,
+    iconSize: [35, 56],
     iconUrl: 'assets/markers/alert.svg',
     iconRetinaUrl: 'assets/markers/alert.svg',
   };
@@ -103,6 +104,12 @@ export class MapComponent implements OnDestroy {
         if (newLayer.viewCenter) {
           this.map.fitBounds(this.mapService.state.bounds);
         }
+
+        // Trigger a resize to fill the container-element:
+        window.setTimeout(
+          () => window.dispatchEvent(new UIEvent('resize')),
+          200,
+        );
       });
 
     this.countrySubscription = this.countryService
@@ -114,12 +121,24 @@ export class MapComponent implements OnDestroy {
         this.mapService.loadPopulationGridLayer();
         this.mapService.loadCroplandLayer();
         this.mapService.loadGrasslandLayer();
+
+        // Trigger a resize to fill the container-element:
+        window.setTimeout(
+          () => window.dispatchEvent(new UIEvent('resize')),
+          200,
+        );
       });
 
     this.adminLevelSubscription = this.adminLevelService
       .getAdminLevelSubscription()
       .subscribe((adminLevel: AdminLevel) => {
         this.mapService.loadAdminRegionLayer();
+
+        // Trigger a resize to fill the container-element:
+        window.setTimeout(
+          () => window.dispatchEvent(new UIEvent('resize')),
+          200,
+        );
       });
 
     this.timelineSubscription = this.timelineService
@@ -128,6 +147,12 @@ export class MapComponent implements OnDestroy {
         this.mapService.loadStationLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
+
+        // Trigger a resize to fill the container-element:
+        window.setTimeout(
+          () => window.dispatchEvent(new UIEvent('resize')),
+          200,
+        );
       });
   }
 
@@ -318,14 +343,7 @@ export class MapComponent implements OnDestroy {
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: markerIcon
-        ? icon(markerIcon)
-        : divIcon({
-            iconSize: [25, 25],
-            iconAnchor: [25, 25],
-            popupAnchor: [0, -30],
-            className: 'marker-icon',
-          }),
+      icon: markerIcon ? icon(markerIcon) : divIcon(),
     });
     markerInstance.bindPopup(this.createMarkerPopup(markerProperties));
 

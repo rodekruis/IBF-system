@@ -1,34 +1,33 @@
-<ion-row *ngIf="triggeredAreas?.length" class="component-title">
-  <ion-item lines="none" class="component-title-item">
-    <ion-thumbnail slot="start" class="component-title-thumbnail">
-      <ion-img src="assets/icons/alert-black.svg"></ion-img>
-    </ion-thumbnail>
-    <ion-label><strong>Areas of Focus EAP</strong></ion-label>
-  </ion-item>
-</ion-row>
-<ion-row *ngFor="let areaOfFocus of areasOfFocus" class="ion-no-padding">
-  <ng-container *ngIf="areaOfFocus.count">
-    <ion-col size-lg="8" size-md="8" size-xs="8">
-      <ion-item lines="inset" class="areas-of-focus-item ion-no-padding">
-        <ion-thumbnail
-          slot="start"
-          class="areas-of-focus-item-thumbnail ion-no-margin"
-        >
-          <ion-img src="assets/icons/{{ areaOfFocus.icon }}"></ion-img>
-        </ion-thumbnail>
-        <ion-label
-          class="areas-of-focus-item-label ion-no-margin ion-text-wrap"
-        >
-          {{ areaOfFocus.label }}
-        </ion-label>
-      </ion-item>
-    </ion-col>
-    <ion-col size-lg="4" size-md="4" size-xs="4">
-      <ion-item class="areas-of-focus-item-value ion-no-padding">
-        <ion-label class="ion-no-margin ion-text-center">
-          <span>{{ areaOfFocus.countChecked }} / {{ areaOfFocus.count }}</span>
-        </ion-label>
-      </ion-item>
-    </ion-col>
-  </ng-container>
-</ion-row>
+<ng-container *ngIf="eventService.state.activeEvent">
+  <ion-row *ngIf="triggeredAreas?.length" class="component-title">
+    <ion-item lines="none" class="component-title-item">
+      <ion-label><strong>EAP actions summary</strong></ion-label>
+    </ion-item>
+  </ion-row>
+  <ion-row *ngFor="let areaOfFocus of areasOfFocus" class="ion-no-padding">
+    <ng-container *ngIf="areaOfFocus.count">
+      <ion-col size-lg="8" size-md="8" size-xs="8">
+        <ion-item lines="inset" class="areas-of-focus-item ion-no-padding">
+          <ion-thumbnail slot="start" class="areas-of-focus-item-thumbnail">
+            <ion-img src="assets/icons/{{ areaOfFocus.icon }}"></ion-img>
+          </ion-thumbnail>
+          <ion-label
+            class="areas-of-focus-item-label"
+            [title]="areaOfFocus.label"
+          >
+            {{ areaOfFocus.label }}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size-lg="4" size-md="4" size-xs="4">
+        <ion-item class="areas-of-focus-item-value ion-no-padding">
+          <ion-label class="ion-text-center">
+            <span
+              >{{ areaOfFocus.countChecked }} / {{ areaOfFocus.count }}</span
+            >
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ng-container>
+  </ion-row>
+</ng-container>

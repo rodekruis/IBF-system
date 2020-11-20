@@ -1,0 +1,16 @@
+<layer>
+  <name>population_UGA</name>
+  <id>LayerInfoImpl-48cab08a:175ace47603:-7fe9</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff4</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-48cab08a:175ace47603:-7fea</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2020-11-09 12:16:57.993 UTC</dateCreated>
+</layer>

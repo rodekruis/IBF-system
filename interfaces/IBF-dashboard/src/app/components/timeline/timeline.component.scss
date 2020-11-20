@@ -3,11 +3,18 @@ ion-item {
 }
 
 ion-button {
-  height: 100%;
+  height: 100% !important;
   width: 70px;
 
   &:first-child {
     width: 110px;
     font-size: 16px;
+  }
+
+  &.active {
+    font-weight: bold;
+    border: solid;
+    border-color: var(--ion-color-ibf-black);
+    border-width: 2px;
   }
 }

@@ -1,0 +1,16 @@
+<layer>
+  <name>flood_extent_7-day_UGA</name>
+  <id>LayerInfoImpl-48cab08a:175ace47603:-7ff2</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-48cab08a:175ace47603:-7ff3</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2020-11-09 12:13:58.996 UTC</dateCreated>
+</layer>

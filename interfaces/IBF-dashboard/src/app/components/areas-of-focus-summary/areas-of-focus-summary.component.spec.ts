@@ -10,7 +10,7 @@ describe('AreasOfFocusSummaryComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AreasOfFocusSummaryComponent],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule],
+      imports: [IonicModule, HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AreasOfFocusSummaryComponent);

@@ -52,36 +52,6 @@
   }
 }
 
-.marker-icon {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #a5d4a1;
-
-  &:before {
-    content: '';
-    display: block;
-    width: 0;
-    height: 0;
-    position: absolute;
-    bottom: -13px;
-    left: 50%;
-    margin-left: -10px;
-    border: 10px solid transparent;
-    border-top-color: #a5d4a1;
-  }
-
-  &:hover,
-  &:focus {
-    background-color: silver;
-
-    &:before {
-      border-top-color: silver;
-    }
-  }
-}
-
 .leaflet-popup-content-wrapper {
   border-radius: 0;
 }

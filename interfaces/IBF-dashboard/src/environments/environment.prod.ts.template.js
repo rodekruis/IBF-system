@@ -5,14 +5,16 @@ module.exports = `//
 export const environment = {
   production: ${process.env.NG_PRODUCTION || true},
 
-  // API:
+  // API
   api_url: '${process.env.NG_API_URL}',
 
-  // Feature-flags:
-  useMockData: ${process.env.NG_USE_MOCK_DATA === 'true' || false},
-  useServiceWorker: ${process.env.NG_USE_SERVICE_WORKER === 'true' || false},
+  // feature-flags
+  useServiceWorker: ${process.env.NG_USE_SERVICE_WORKER === 'true'},
 
-  // Geoserver
+  // geoserver
   geoserver_url: '${process.env.NG_GEOSERVER_URL}',
+
+  // version
+  ibf_system_version: '${process.env.NG_IBF_SYSTEM_VERSION}',
 };
 `;

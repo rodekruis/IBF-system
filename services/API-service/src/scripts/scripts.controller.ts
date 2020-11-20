@@ -13,7 +13,11 @@ class ResetDto {
 
 @Controller('scripts')
 export class ScriptsController {
-  public constructor(private connection: Connection) {}
+  private connection: Connection;
+
+  public constructor(connection: Connection) {
+    this.connection = connection;
+  }
 
   @ApiOperation({ title: 'Reset database' })
   @Post('/reset')

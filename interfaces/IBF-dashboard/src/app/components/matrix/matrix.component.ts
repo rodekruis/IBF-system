@@ -49,19 +49,6 @@ export class MatrixComponent implements OnDestroy {
       component: LayerControlInfoPopoverComponent,
       animated: true,
       cssClass: 'ibf-layer-control-popover',
-      event: {
-        target: {
-          getBoundingClientRect: () => {
-            const positionOfIonItem = event.target.parentNode.parentNode.parentNode.getBoundingClientRect();
-            return new DOMRect(
-              positionOfIonItem.x - 250 - 5, // 250 = width of popover; 5 = gap between layer control and popover
-              positionOfIonItem.y - positionOfIonItem.height,
-              positionOfIonItem.width,
-              positionOfIonItem.height,
-            );
-          },
-        },
-      } as any,
       translucent: true,
       showBackdrop: true,
       componentProps: {
