@@ -110,9 +110,9 @@ SETTINGS = {
         'trigger_colname': '5yr_threshold',
         'CRA_filename': '',
         'lead_times': {
-            # "short": 3,
+            "short": 3,
             "medium": 5,
-            # "long": 7
+            "long": 7
         },
         'EXPOSURE_DATA_SOURCES': {}
     },
