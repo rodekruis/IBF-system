@@ -107,7 +107,7 @@ SETTINGS = {
         "trigger_levels": 'Rainfall_station_locations_with_trigger_levels.csv',
         'district_mapping': 'Rainfall_station_per_district_uga.csv',
         'admin_boundaries': 'vector/egy_mena.shp',
-        'trigger_colname': '5yr_threshold',
+        'trigger_colname': '10yr_threshold',
         'CRA_filename': '',
         'lead_times': {
             "short": 3,
