@@ -165,11 +165,11 @@ GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 ####################
 
 # Notification email
-EMAIL_NOTIFICATION = False
+EMAIL_NOTIFICATION = True
 EMAIL_WITHOUT_TRIGGER = False
 
 # Notification email (False if hard-coded alternative for mailchimp is used)
-EMAIL_HARDCODE = False
+EMAIL_HARDCODE = True
 EMAIL_LIST_HARDCODE = [
     'jannisvisser@redcross.nl'
 ]
@@ -178,7 +178,7 @@ EMAIL_LIST_HARDCODE = [
 LOGGING = False  # If false send email on error
 LOGGLY_LINK = "https://rodekruis.loggly.com/"
 FROM_EMAIL = "support@510.global"
-FROM_EMAIL_NAME = 'FBF Zambia Flood Trigger system'
+FROM_EMAIL_NAME = 'IBF Flood Trigger system'
 EMAIL_USERNAME = "sa_typhoon@redcross.nl" #"510.global.dashboards@gmail.com"
 LOGGING_TO_EMAIL_ADDRRESSES = [
     "JannisVisser@redcross.nl"
