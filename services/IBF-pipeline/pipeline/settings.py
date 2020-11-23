@@ -178,7 +178,7 @@ EMAIL_LIST_HARDCODE = [
 LOGGING = False  # If false send email on error
 LOGGLY_LINK = "https://rodekruis.loggly.com/"
 FROM_EMAIL = "support@510.global"
-FROM_EMAIL_NAME = 'FBF Zambia Flood Trigger system'
+FROM_EMAIL_NAME = 'IBF Flood Trigger system'
 EMAIL_USERNAME = "sa_typhoon@redcross.nl" #"510.global.dashboards@gmail.com"
 LOGGING_TO_EMAIL_ADDRRESSES = [
     "JannisVisser@redcross.nl"
