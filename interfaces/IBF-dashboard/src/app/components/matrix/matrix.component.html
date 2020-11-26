@@ -1,8 +1,7 @@
 <div class="ibf-map-layer-control">
   <ion-menu-toggle
     menu="layer-control"
-    (click)="isLayerControlMenuOpen()"
-    [class.ion-hide]="!showLayerControlToggleButton"
+    [class.ion-hide]="hideLayerControlToggleButton"
   >
     <ion-header>
       <ion-toolbar color="ibf-royal-blue">
@@ -18,8 +17,10 @@
     type="overlay"
     contentId="ibf-dashboard-map"
     menuId="layer-control"
+    (ionDidOpen)="isLayerControlMenuOpen()"
+    (ionDidClose)="isLayerControlMenuOpen()"
   >
-    <ion-menu-toggle menu="layer-control" (click)="isLayerControlMenuOpen()">
+    <ion-menu-toggle menu="layer-control">
       <ion-header>
         <ion-toolbar color="ibf-royal-blue">
           <ion-buttons slot="end">
