@@ -16,7 +16,7 @@ export class MatrixComponent implements OnDestroy {
   private layerSubscription: Subscription;
   public layers: IbfLayer[] = [];
   public IbfLayerType = IbfLayerType;
-  public showLayerControlToggleButton: boolean = true;
+  public hideLayerControlToggleButton: boolean = false;
 
   constructor(
     private mapService: MapService,
@@ -69,7 +69,7 @@ export class MatrixComponent implements OnDestroy {
 
   public isLayerControlMenuOpen() {
     this.menuController.isOpen('layer-control').then((state) => {
-      this.showLayerControlToggleButton = state;
+      this.hideLayerControlToggleButton = state;
     });
   }
 }
