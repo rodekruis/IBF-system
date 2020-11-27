@@ -1,6 +1,6 @@
 NOTE: some of this information might be old, compared to higher-level readme's.
 
-# FbF-Data-pipeline
+# IBF-pipeline
 
 This repository consists of 2 parts.
 
@@ -23,11 +23,15 @@ This repository consists of 2 parts.
 
 1. Build Docker image (from the IBF-pipeline root folder) and run container with volume. ${PWD} should take automatically your Present Working Directory as the local folder to attach the volume though; if this fails, you can always replace it by the literal path (e.g. "C:/IBF-system/services/IBF-pipeline:/home/ibf" instead of "${PWD}:/home/ibf")
 ```
-docker build . -t ibf-pipeline
-docker run --net=host --name=ibf-pipeline -v ${PWD}:/home/ibf --restart always -it ibf-pipeline
+build image: docker build . -t ibf-pipeline
+create + start container: docker run --name=ibf-pipeline -v ${PWD}:/home/ibf -it ibf-pipeline
+access container (if the previous command didn't get you in already): docker exec -it ibf-pipeline bash
+access container (if the container exists already): docker exec -it ibf-pipeline bash
+remove container (to be able to recreate with same name): docker rm -f ibf-pipeline
 ```
 
 2. Within container run setup: this will a.o. upload static data to the database.
+(NOTE: only when working with local database, not when working with remote development database.)
 
 ```
 python3 runSetup.py
@@ -39,12 +43,7 @@ python3 runSetup.py
 python3 runCron.py
 ```
 
-4. To set up the cron job to really run daily
-
-```
-crontab -e (to open file)
-*/15 * * * * <your_local_directory>/IBF-pipeline/cronjob.sh (add this line at end of file)
-```
+4. Cronjob: locally, you probably don't want to run this automatically every day. If you want to, copy the cron command in /docker-compose.yml and replace the last line of /services/IBF-pipeline/Dockerfile with it.
 
 ## Setup geoserver
 This step is only needed when working with a frontend.
