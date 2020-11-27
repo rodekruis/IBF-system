@@ -77,6 +77,7 @@ services:
     ibf-pipeline:
         build: ./services/IBF-pipeline
         image: rodekruis/ibf-pipeline
+        command: cron && tail -f /var/log/cron.log
         volumes:
             - pipeline-root:/home/ibf
         networks:
