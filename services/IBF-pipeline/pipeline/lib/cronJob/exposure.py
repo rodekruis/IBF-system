@@ -21,7 +21,8 @@ class Exposure:
         self.stats = []
         self.selectionValue = 0.9
         self.tempPath = PIPELINE_TEMP + "out.tif"
-        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']
+        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
+        self.PCODE_COLNAME = SETTINGS[country_code]['admin_boundaries']['pcode_colname']
 
 
     def calcAffected(self, floodExtentRaster):
@@ -34,7 +35,6 @@ class Exposure:
 
         logger.info("Wrote to " + self.outputRaster)
         adminBoundaries = self.ADMIN_BOUNDARIES
-        # source = self.source[self.source.find('/')+1:]
         self.stats = self.calcStatsPerAdmin(adminBoundaries, self.indicator, shapesFlood)
 
                  
@@ -52,12 +52,12 @@ class Exposure:
                         with rasterio.open(self.tempPath, "w", **outMeta) as dest:
                             dest.write(outImage)
                             
-                        statsDistrict = self.calculateRasterStats(indicator,  str(area['properties']['pcode']), self.tempPath)
+                        statsDistrict = self.calculateRasterStats(indicator,  str(area['properties'][self.PCODE_COLNAME]), self.tempPath)
                     except ValueError:
                             # If there is no flood in the district set  the stats to 0
-                        statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties']['pcode'])}
+                        statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties'][self.PCODE_COLNAME])}
                 else: 
-                    statsDistrict = {'source': indicator, 'sum': '--', 'district': str(area['properties']['pcode'])}        
+                    statsDistrict = {'source': indicator, 'sum': '--', 'district': str(area['properties'][self.PCODE_COLNAME])}        
                 stats.append(statsDistrict)
         return stats    
 

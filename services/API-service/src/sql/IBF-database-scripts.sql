@@ -10,6 +10,11 @@ select cast('ZMB' as varchar) as country_code
 	, row_to_json(zmb.*) as indicators
 from "IBF-static-input"."ZMB_CRA_Indicators_2" zmb
 union all
+select cast('KEN' as varchar) as country_code
+	, pcode
+	, row_to_json(ken.*) as indicators
+from "IBF-static-input"."KEN_CRA_Indicators_1" ken
+union all
 select cast('UGA' as varchar) as country_code
 	, total.pcode
 	, row_to_json(total.*) as indicators
@@ -51,29 +56,30 @@ where current_prev = 'Current'
 --select * from "IBF-API"."Trigger_per_lead_time"
 
 
-drop view if exists "IBF-API"."Admin_area_static_level2";
-create or replace view "IBF-API"."Admin_area_static_level2" as 
-select country_code
-	,geo.pcode_level2 as temp
-	,geo."name"
-	,geo.pcode_level1
-	,ST_AsGeoJSON(geo.geom)::json As geom
-	,coalesce(uga.properties,zmb.properties) as indicators
-from (
-	select cast('ZMB' as varchar) as country_code
-			,*
-	from "IBF-static-input"."ZMB_Geo_level2" zmb
-	union all
-	select cast('UGA' as varchar) as country_code
-			,*
-	from "IBF-static-input"."UGA_Geo_level2" uga
-) geo
-left join (select pcode, row_to_json(t.*) As properties from "IBF-static-input"."UGA_CRA_Indicators_2" t) uga on geo.pcode_level2 = uga.pcode and geo.country_code = 'UGA'
-left join (select pcode, row_to_json(t.*) As properties from "IBF-static-input"."ZMB_CRA_Indicators_2" t) zmb on geo.pcode_level2 = zmb.pcode and geo.country_code = 'ZMB'
-;
+--drop view if exists "IBF-API"."Admin_area_static_level2";
+--create or replace view "IBF-API"."Admin_area_static_level2" as 
+--select country_code
+--	,geo.pcode_level2 as temp
+--	,geo."name"
+--	,geo.pcode_level1
+--	,ST_AsGeoJSON(geo.geom)::json As geom
+--	,coalesce(uga.properties,zmb.properties) as indicators
+--from (
+--	select cast('ZMB' as varchar) as country_code
+--			,*
+--	from "IBF-static-input"."ZMB_Geo_level2" zmb
+--	union all
+--	select cast('UGA' as varchar) as country_code
+--			,*
+--	from "IBF-static-input"."UGA_Geo_level2" uga
+--) geo
+--left join (select pcode, row_to_json(t.*) As properties from "IBF-static-input"."UGA_CRA_Indicators_2" t) uga on geo.pcode_level2 = uga.pcode and geo.country_code = 'UGA'
+--left join (select pcode, row_to_json(t.*) As properties from "IBF-static-input"."ZMB_CRA_Indicators_2" t) zmb on geo.pcode_level2 = zmb.pcode and geo.country_code = 'ZMB'
+--left join (select pcode, row_to_json(t.*) As properties from "IBF-static-input"."KEN_CRA_Indicators_2" t) ken on geo.pcode_level2 = ken.pcode and geo.country_code = 'KEN'
+--;
 --select * from "IBF-API"."Admin_area_static_level2" where country_code = 'UGA'
 
-drop view if exists "IBF-API"."Admin_area_data2";
+drop view if exists "IBF-API"."Admin_area_data2" cascade;
 create or replace view "IBF-API"."Admin_area_data2" as 
 select geo.pcode_level2
 	,geo."name"
@@ -88,6 +94,13 @@ from (
 	select cast('UGA' as varchar) as country_code
 			,*
 	from "IBF-static-input"."UGA_Geo_level2" uga
+	union all
+	select cast('KEN' as varchar) as country_code
+			,pcode_level1 as pcode_level2 
+			,name
+			,pcode_level0 as pcode_level1
+			,st_geometryfromtext(geom) as geom
+	from "IBF-static-input"."KEN_Geo_level1" ken
 ) geo
 left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode_level2 = d2.pcode
 ;

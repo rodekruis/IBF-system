@@ -213,16 +213,19 @@ class GlofasData:
             if trigger == 1:
                 if self.country_code == 'UGA':
                     return_period = 25
-                elif fc >= row['20yr_threshold']:
-                    return_period = 20
-                elif fc >= row['10yr_threshold']:
+                elif self.country_code == 'KEN':
                     return_period = 10
-                elif fc >= row['5yr_threshold']:
-                    return_period = 10
-                elif fc >= row['2yr_threshold']:
-                    return_period = 10
-                else:
-                    return_period = 0
+                elif self.country_code == 'ZMB':
+                    if fc >= row['20yr_threshold']:
+                        return_period = 20
+                    elif fc >= row['10yr_threshold']:
+                        return_period = 10
+                    elif fc >= row['5yr_threshold']:
+                        return_period = 10
+                    elif fc >= row['2yr_threshold']:
+                        return_period = 10
+                    else:
+                        return_period = 0
             else:
                 return_period = None
             df.at[index, 'fc_'+self.fcStep+'_rp'] = return_period
