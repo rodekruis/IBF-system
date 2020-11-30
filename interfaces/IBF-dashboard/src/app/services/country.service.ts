@@ -23,6 +23,20 @@ export class CountryService {
         adminRegionLabels: ['Regions', 'Districts', 'Counties', 'Parishes'],
       },
       {
+        countryCode: 'KEN',
+        defaultAdminLevel: AdminLevel.adm2,
+        countryName: 'Kenya',
+        countryForecasts: ['7-day'],
+        adminRegionLabels: ['Counties', 'Subcounties', 'Wards'],
+      },
+      {
+        countryCode: 'ETH',
+        defaultAdminLevel: AdminLevel.adm2,
+        countryName: 'Ethiopia',
+        countryForecasts: ['7-day'],
+        adminRegionLabels: ['Regions', 'Zones', 'Woredas'],
+      },
+      {
         countryCode: 'ZMB',
         defaultAdminLevel: AdminLevel.adm2,
         countryName: 'Zambia',
