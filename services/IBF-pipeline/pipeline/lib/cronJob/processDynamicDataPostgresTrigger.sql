@@ -78,7 +78,7 @@ LEFT JOIN (select "station_code_7day" as station from "IBF-pipeline-output".wate
 	ON t3.station = t0.station_code
 where to_date(date,'yyyy-mm-dd') >= current_date - 1
 ;
---select * from "IBF-pipeline-output".dashboard_forecast_per_station
+--select * from "IBF-pipeline-output".dashboard_forecast_per_station where country_code = 'KEN'
 
 DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_forecast_per_district;
 select t0.country_code
@@ -93,8 +93,9 @@ INTO "IBF-pipeline-output".dashboard_forecast_per_district
 FROM "IBF-pipeline-output".waterstation_per_district t0
 LEFT JOIN "IBF-pipeline-output".dashboard_forecast_per_station  t1
 ON (t1.lead_time = '7-day' and t0."station_code_7day" = t1.station_code) OR (t1.lead_time = '3-day' and t0."station_code_3day" = t1.station_code)
+where t1.lead_time is not null
 ;
---select * from "IBF-pipeline-output".dashboard_forecast_per_district where country_code = 'UGA' and fc_trigger = 1
+--select * from "IBF-pipeline-output".dashboard_forecast_per_district where country_code = 'KEN' and fc_trigger = 1
 
 --truncate table "IBF-pipeline-output".events
 -- NOTE: Determine events and save in events-table
@@ -125,60 +126,3 @@ where 1=1
 	and (yesterday."7" = 0 or yesterday."7" is null)
 ;
 --select * from "IBF-pipeline-output".events
-
--- NOTE: Save districts to event. Each day check if there are new districts. Never delete any districts that are not triggered any more.
--- First, update (potentially) updated population-affected figures for existing districts
-update "IBF-pipeline-output".event_districts set population_affected = subquery.population_affected
-from (
-	select districtsToday.*
-	from (
-		select id as event
-			,t1.pcode
-			,name
-			,population_affected
-		from "IBF-pipeline-output".events t0
-		left join "IBF-pipeline-output".dashboard_forecast_per_district t1
-			on t0.start_date <= t1.date and coalesce(t0.end_date,'9999-99-99') >= t1.date
-			and t0.country_code = t1.country_code
-		left join "IBF-API"."Admin_area_data2" t2
-			on t1.pcode = t2.pcode
-			and to_date(t2.date,'yyyy-mm-dd') = current_date
-		where t1.fc_trigger=1
-			and t1.current_prev = 'Current'
-			and t2.lead_time = '7-day'
-		) districtsToday
-	left join "IBF-pipeline-output".event_districts districtsExisting
-		on districtsToday.event = districtsExisting.event
-		and districtsToday.pcode = districtsExisting.pcode
-	where districtsExisting.pcode is not null
-) subquery
-where event_districts.event = subquery.event and event_districts.pcode = subquery.pcode
-;
--- Second: add new districts (either within existing event, or completely new event)
---drop table if exists "IBF-pipeline-output".event_districts;
---create table "IBF-pipeline-output".event_districts as
-insert into "IBF-pipeline-output".event_districts
-select districtsToday.*
-from (
-	select id as event
-		,t1.pcode
-		,name
-		,population_affected
-	from "IBF-pipeline-output".events t0
-	left join "IBF-pipeline-output".dashboard_forecast_per_district t1
-		on t0.start_date <= t1.date and coalesce(t0.end_date,'9999-99-99') >= t1.date
-		and t0.country_code = t1.country_code
-	left join "IBF-API"."Admin_area_data2" t2
-		on t1.pcode = t2.pcode
-		and to_date(t2.date,'yyyy-mm-dd') = current_date
-	where t1.fc_trigger=1
-		and t1.current_prev = 'Current'
-		and t2.lead_time = '7-day'
-	) districtsToday
-left join "IBF-pipeline-output".event_districts districtsExisting
-	on districtsToday.event = districtsExisting.event
-	and districtsToday.pcode = districtsExisting.pcode
-where districtsExisting.pcode is null
-;
---select * from "IBF-pipeline-output".event_districts where event = 32
-
