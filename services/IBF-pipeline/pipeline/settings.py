@@ -175,13 +175,12 @@ SCHEMA_NAME = 'IBF-pipeline-output'
 ###################
 ## PATH SETTINGS ##
 ###################
-GEOSERVER_DATA = '../geoserver/geodata/'
+GEOSERVER_DATA = 'data/raster/'
 GEOSERVER_INPUT = GEOSERVER_DATA + 'input/'
 GEOSERVER_OUTPUT = GEOSERVER_DATA + 'output/'
-PIPELINE_DATA = 'data/'
+PIPELINE_DATA = 'data/other/'
 PIPELINE_INPUT = PIPELINE_DATA + 'input/'
 PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'
-PIPELINE_TEMP = PIPELINE_DATA + 'temp/'
 
 #########################
 ## INPUT DATA SETTINGS ##
@@ -199,7 +198,7 @@ GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 ####################
 
 # Notification email
-EMAIL_NOTIFICATION = True
+EMAIL_NOTIFICATION = False
 EMAIL_WITHOUT_TRIGGER = False
 
 # Notification email (False if hard-coded alternative for mailchimp is used)

@@ -20,7 +20,7 @@ class Exposure:
         self.outputRaster = GEOSERVER_OUTPUT + "0/" + source + timeForecast
         self.stats = []
         self.selectionValue = 0.9
-        self.tempPath = PIPELINE_TEMP + "out.tif"
+        self.outputPath = PIPELINE_OUTPUT + "out.tif"
         self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
         self.PCODE_COLNAME = SETTINGS[country_code]['admin_boundaries']['pcode_colname']
 
@@ -49,10 +49,10 @@ class Exposure:
                         outImage, outMeta = self.clipTiffWithShapes(self.outputRaster, [area["geometry"]] )
                         
                         # Write clipped raster to tempfile to calculate raster stats
-                        with rasterio.open(self.tempPath, "w", **outMeta) as dest:
+                        with rasterio.open(self.outputPath, "w", **outMeta) as dest:
                             dest.write(outImage)
                             
-                        statsDistrict = self.calculateRasterStats(indicator,  str(area['properties'][self.PCODE_COLNAME]), self.tempPath)
+                        statsDistrict = self.calculateRasterStats(indicator,  str(area['properties'][self.PCODE_COLNAME]), self.outputPath)
                     except ValueError:
                             # If there is no flood in the district set  the stats to 0
                         statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties'][self.PCODE_COLNAME])}

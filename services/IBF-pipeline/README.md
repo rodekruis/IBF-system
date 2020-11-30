@@ -1,23 +1,19 @@
-NOTE: some of this information might be old, compared to higher-level readme's.
-
 # IBF-pipeline
 
 This repository consists of 2 parts.
 
 1. Data pipeline: This is a series of scripts (which will be run daily) which extracts all input data (static + dynamic), transforms them to create flood extents and calculated affected population, and loads the output to locations where they can be served to the dashoard.
-2. Geoserver: Geoserver is one of the locations where output of the data-pipeline is served: namely the raster-files. Geoserver can subsequently serve these raster-files to the frontend through WMS-services.
+2. Geoserver: Premade layers/styles for geoserver.
 
 ## Prerequisites
 
 1. Install Docker
-2. Install python 3.6 >
 
 ## General instalation
 
 1. Clone this directory to `<your_local_directory>`/IBF-pipeline/
 2. Change `/pipeline/secrets.py.template` to `secrets.py` and fill in the necessary passwords.
-3. Find 2 data-zips in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-08-27T22%3A00%3A00.000Z&e=MnocDf and unzip geodata.zip and data.zip respectively to replace folders /geoserver/geodata/ and /pipeline/data/.
-4. NOTE on 2 data-folders: it might conceptually be more logical to have all data (input + output) in one place together (/pipeline/data). From there we would (after all calculations) serve all raster data (input + output) to Geoserver (such that it can be served as WMS to frontend), by copying it to the designated geoserver-datafolder (all other data is uploaded to Postgres and from there served to frontend through API). However, we deemed it redundant to have this copying-step in between and store the raster data in 2 places. Instead we put all raster (input + output) immediately in its correct geoserver-datafolder location.
+3. Find data.zip in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-11-29T23%3A00%3A00.000Z&e=qkUx50 and unzip in /pipeline/data.
 
 ## Set up Data pipeline
 
@@ -44,13 +40,6 @@ python3 runCron.py
 ```
 
 4. Cronjob: locally, you probably don't want to run this automatically every day. If you want to, copy the cron command in /docker-compose.yml and replace the last line of /services/IBF-pipeline/Dockerfile with it.
-
-## Setup geoserver
-This step is only needed when working with a frontend.
-1. Unzip geoserver data folder (described above)
-2. `docker run --name "geoserver" -p 8081:8080 -v ${PWD}/geoserver:/opt/geoserver/data_dir --restart always kartoza/geoserver`
-3. Visit at http://localhost:8081/geoserver/web
-4. Default credentials are admin/geoserver
 
 ### Logging loggly and SMTPHandler for logging (OPTIONAL)
  1. Create a gmail account add to EMAIL_USERNAME in settings.py add your password to secrets.py 
