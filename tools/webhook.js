@@ -48,6 +48,7 @@ handler.on("pull_request", function (event) {
         event.payload.action === "closed" &&
         event.payload.pull_request.merged
     ) {
+        console.log('Deploy started');
         deploy();
     }
 });
@@ -57,6 +58,7 @@ handler.on("release", function (event) {
         ["staging", "production"].indexOf(process.env.NODE_ENV) >= 0 &&
         event.payload.action === "published"
     ) {
+        console.log('Deploy started');
         deploy(event.payload.release.tag_name);
     }
 });
