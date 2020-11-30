@@ -13,6 +13,7 @@ def main():
     print(str(datetime.datetime.now()))
 
     try:
+        storeHistoric()
         for COUNTRY_CODE in COUNTRY_CODES:
             print('--------STARTING: ' + COUNTRY_CODE + '--------------------------')
 
@@ -23,10 +24,10 @@ def main():
             for fcStep, days in LEAD_TIMES.items():
                 print('--------STARTING: ' + fcStep + '--------------------------')
                 fc = Forecast(fcStep, days, COUNTRY_CODE)
-                if RUN_GLOFAS:
-                    fc.glofasData.process()
-                if RUN_RAINFALL:
-                    fc.rainfallData.process()
+                # if RUN_GLOFAS:
+                #     fc.glofasData.process()
+                # if RUN_RAINFALL:
+                #     fc.rainfallData.process()
                 if CALCULATE_EXTENT:
                     fc.floodExtent.calculate()
                 if CALCULATE_EXTENT and CALCULATE_EXPOSURE:

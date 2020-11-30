@@ -116,12 +116,12 @@ volumes:
     pipeline-geoserver:
         driver_opts:
             type: bind
-            device: /home/ibf-user/IBF-system/services/IBF-pipeline/geoserver/geodata
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline/data/raster
             o: bind
     workspace-geoserver:
         driver_opts:
             type: bind
-            device: /home/ibf-user/IBF-system/services/IBF-pipeline/geoserver/workspaces/ibf-system
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline/geoserver-workspaces/ibf-system
             o: bind
 
 networks:
