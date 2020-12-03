@@ -7,14 +7,17 @@ import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { AdminLevel } from 'src/app/types/admin-level.enum';
-import { IbfLayer } from 'src/app/types/ibf-layer';
-import { IbfLayerLabel, IbfLayerName } from 'src/app/types/ibf-layer-name';
-import { IbfLayerType } from 'src/app/types/ibf-layer-type';
-import { IbfLayerWMS } from 'src/app/types/ibf-layer-wms';
+import {
+  IbfLayer,
+  IbfLayerGroup,
+  IbfLayerLabel,
+  IbfLayerName,
+  IbfLayerType,
+  IbfLayerWMS,
+} from 'src/app/types/ibf-layer';
+import { Indicator, IndicatorEnum } from 'src/app/types/indicator-group';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
-import { IndicatorEnum } from '../types/indicator-group';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +33,7 @@ export class MapService {
     ] as LatLngBoundsLiteral,
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
+    transparentColor: 'transparent',
     defaultColorProperty: IndicatorEnum.PopulationExposed,
     defaultFillOpacity: 0.8,
     defaultWeight: 1,
@@ -67,11 +71,22 @@ export class MapService {
     });
   }
 
-  public async updateAdminRegionLayer(
-    colorProperty: string,
-    leadTime: string = '7-day',
-    adminLevel: AdminLevel = AdminLevel.adm2,
-  ) {
+  public async loadAggregateLayer(indicator: Indicator) {
+    this.addLayer({
+      name: indicator.name,
+      label: indicator.label,
+      type: IbfLayerType.shape,
+      description: 'loadAggregateLayer',
+      active: indicator.active,
+      data: await this.getAdminRegions(),
+      viewCenter: true,
+      colorProperty: indicator.name,
+      legendColor: '#969696',
+      group: IbfLayerGroup.aggregates,
+    });
+  }
+
+  public async updateAdminRegionLayer(colorProperty: string) {
     this.addLayer({
       name: IbfLayerName.adminRegions,
       label: IbfLayerLabel.adminRegions,
@@ -183,26 +198,40 @@ export class MapService {
     return this.layerSubject.asObservable();
   }
 
-  private getLayerIndexById(name: string): number {
+  private getLayerIndexById(name: IbfLayerName): number {
     return this.layers.findIndex((layer: IbfLayer) => {
       return layer.name === name;
     });
   }
 
-  public async setLayerState(name: string, state: boolean): Promise<void> {
-    const layerIndex = this.getLayerIndexById(name);
-    if (layerIndex >= 0) {
-      this.addLayer({
-        name: this.layers[layerIndex].name,
-        label: this.layers[layerIndex].label,
-        type: this.layers[layerIndex].type,
-        description: this.layers[layerIndex].description,
-        active: state,
-        viewCenter: false,
-        data: this.layers[layerIndex].data,
-        wms: this.layers[layerIndex].wms,
-        colorProperty: this.layers[layerIndex].colorProperty,
-        legendColor: this.layers[layerIndex].legendColor,
+  public async setLayerState(
+    name: IbfLayerName,
+    state: boolean,
+  ): Promise<void> {
+    const triggerLayerIndex = this.getLayerIndexById(name);
+    const triggerLayer = this.layers[triggerLayerIndex];
+    if (triggerLayerIndex >= 0) {
+      this.layers.forEach((layer: IbfLayer): void => {
+        this.addLayer({
+          name: layer.name,
+          label: layer.label,
+          type: layer.type,
+          description: layer.description,
+          active:
+            layer.group === triggerLayer.group
+              ? layer.name === triggerLayer.name
+                ? state
+                : layer.group
+                ? false
+                : layer.active
+              : layer.active,
+          viewCenter: false,
+          data: layer.data,
+          wms: layer.wms,
+          colorProperty: layer.colorProperty,
+          legendColor: layer.legendColor,
+          group: layer.group,
+        });
       });
     } else {
       throw `Layer '${name}' does not exist`;
@@ -248,16 +277,20 @@ export class MapService {
     return adminRegionFillColor;
   };
 
-  getAdminRegionFillOpacity = (adminRegion) => {
-    return this.state.defaultFillOpacity;
+  getAdminRegionFillOpacity = (layer: IbfLayer) => {
+    return layer.name === IbfLayerName.adminRegions
+      ? 0.0
+      : this.state.defaultFillOpacity;
   };
 
-  getAdminRegionWeight = (adminRegion) => {
+  getAdminRegionWeight = (layer: IbfLayer) => {
     return this.state.defaultWeight;
   };
 
-  getAdminRegionColor = (adminRegion) => {
-    return this.state.defaultColor;
+  getAdminRegionColor = (layer: IbfLayer) => {
+    return layer.name === IbfLayerName.adminRegions
+      ? this.state.defaultColor
+      : this.state.transparentColor;
   };
 
   public getColorThreshold = (adminRegions, colorProperty) => {
@@ -278,8 +311,9 @@ export class MapService {
     return colorThreshold;
   };
 
-  public setAdminRegionStyle = (adminRegions, colorProperty) => {
-    const colorThreshold = this.getColorThreshold(adminRegions, colorProperty);
+  public setAdminRegionStyle = (layer: IbfLayer) => {
+    const colorProperty = layer.colorProperty;
+    const colorThreshold = this.getColorThreshold(layer.data, colorProperty);
 
     return (adminRegion) => {
       const fillColor = this.getAdminRegionFillColor(
@@ -288,9 +322,9 @@ export class MapService {
           : adminRegion.properties.indicators[colorProperty],
         colorThreshold,
       );
-      const fillOpacity = this.getAdminRegionFillOpacity(adminRegion);
-      const weight = this.getAdminRegionWeight(adminRegion);
-      const color = this.getAdminRegionColor(adminRegion);
+      const fillOpacity = this.getAdminRegionFillOpacity(layer);
+      const weight = this.getAdminRegionWeight(layer);
+      const color = this.getAdminRegionColor(layer);
       return {
         fillColor,
         fillOpacity,
