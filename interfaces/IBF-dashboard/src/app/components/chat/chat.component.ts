@@ -17,7 +17,6 @@ export class ChatComponent implements OnDestroy {
 
   private eapActionSubscription: Subscription;
   private countrySubscription: Subscription;
-  private timelineSubscription: Subscription;
 
   public IndicatorEnum = IndicatorEnum;
   public eapActions: EapAction[];

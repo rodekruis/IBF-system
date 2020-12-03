@@ -1,5 +1,8 @@
-import { IbfLayerLabel, IbfLayerName } from 'src/app/types/ibf-layer-name';
-import { IbfLayerType } from 'src/app/types/ibf-layer-type';
+import {
+  IbfLayerLabel,
+  IbfLayerName,
+  IbfLayerType,
+} from 'src/app/types/ibf-layer';
 
 export default {
   type: IbfLayerType.point,
