@@ -11,11 +11,6 @@
 
 .aggregate-item {
   --inner-padding-end: 0;
-  cursor: pointer;
-
-  &:hover {
-    --background: var(--ion-color-ibf-salmon-light);
-  }
 
   .aggregate-item-thumbnail {
     background: var(--ion-color-ibf-black);
@@ -36,10 +31,6 @@
     padding: 4px 8px;
     font-size: 12px;
     margin: 0px !important;
-
-    &.active {
-      font-weight: bold;
-    }
   }
 }
 

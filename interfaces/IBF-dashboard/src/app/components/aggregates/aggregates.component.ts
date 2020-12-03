@@ -53,10 +53,11 @@ export class AggregatesComponent implements OnDestroy {
     this.groups = [IndicatorGroup.general, IndicatorGroup.vulnerability];
     this.indicatorSubscription = this.aggregatesService
       .getIndicators()
-      .subscribe((newIndicators) => {
+      .subscribe((newIndicators: Indicator[]) => {
         this.indicators = newIndicators;
-        this.indicators.forEach((i) => {
-          i.group = IndicatorGroup[i.group];
+        this.indicators.forEach((indicator: Indicator) => {
+          indicator.group = IndicatorGroup[indicator.group];
+          this.mapService.loadAggregateLayer(indicator);
         });
       });
   }
@@ -67,19 +68,11 @@ export class AggregatesComponent implements OnDestroy {
     this.countrySubscription.unsubscribe();
   }
 
-  public changeIndicator(indicator) {
-    this.indicators.forEach((i) => (i.active = false));
-    this.indicators.find((i) => i.name === indicator).active = true;
-    this.mapService.updateAdminRegionLayer(indicator);
-  }
-
-  public async moreInfo(indicator) {
+  public async moreInfo(indicator: Indicator) {
     const modal = await this.modalController.create({
       component: SourceInfoModalComponent,
       cssClass: 'source-info-modal-class',
-      componentProps: {
-        indicator: indicator,
-      },
+      componentProps: { indicator },
     });
     return await modal.present();
   }
