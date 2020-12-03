@@ -6,14 +6,14 @@ export const environment = {
   production: false,
 
   // API
-  api_url: 'http://ibf-system-test.westeurope.cloudapp.azure.com/api/',
+  api_url: 'http://localhost:3000/api/',
 
   // feature-flags
   useServiceWorker: false,
 
   // geoserver
   geoserver_url:
-    'http://ibf-system-test.westeurope.cloudapp.azure.com/geoserver/ibf-system/wms',
+    'http://ibf-system.westeurope.cloudapp.azure.com/geoserver/ibf-system/wms',
 
   // version
   ibf_system_version: 'v0.0.0',
