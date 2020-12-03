@@ -5,7 +5,7 @@ import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
 import { AdminLevel, AdminLevelLabel } from 'src/app/types/admin-level.enum';
-import { IbfLayerName } from 'src/app/types/ibf-layer-name';
+import { IbfLayerName } from 'src/app/types/ibf-layer';
 
 @Component({
   selector: 'app-admin-level',

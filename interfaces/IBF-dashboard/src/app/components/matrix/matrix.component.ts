@@ -3,9 +3,7 @@ import { MenuController, PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
 import { MapService } from 'src/app/services/map.service';
-import { IbfLayer } from 'src/app/types/ibf-layer';
-import { IbfLayerName } from 'src/app/types/ibf-layer-name';
-import { IbfLayerType } from 'src/app/types/ibf-layer-type';
+import { IbfLayer, IbfLayerName, IbfLayerType } from 'src/app/types/ibf-layer';
 
 @Component({
   selector: 'app-matrix',
@@ -63,7 +61,7 @@ export class MatrixComponent implements OnDestroy {
     this.layerSubscription.unsubscribe();
   }
 
-  public updateLayer(name: string, state: boolean): void {
+  public updateLayer(name: IbfLayerName, state: boolean): void {
     this.mapService.setLayerState(name, state);
   }
 

@@ -1,7 +1,4 @@
-import { Layer, LayerGroup, Marker } from 'leaflet';
-import { IbfLayerLabel, IbfLayerName } from './ibf-layer-name';
-import { IbfLayerType } from './ibf-layer-type';
-import { IbfLayerWMS } from './ibf-layer-wms';
+import { CRS, Layer, LayerGroup, Marker } from 'leaflet';
 
 export class IbfLayer {
   type: IbfLayerType;
@@ -15,4 +12,59 @@ export class IbfLayer {
   data?: GeoJSON.FeatureCollection;
   leafletLayer?: Layer | LayerGroup | Marker;
   legendColor?: string;
+  group?: IbfLayerGroup;
+}
+
+export enum IbfLayerType {
+  point = 'point',
+  shape = 'shape',
+  wms = 'wms',
+}
+
+export enum IbfLayerName {
+  glofasStations = 'Glofas stations',
+  floodExtent = 'flood_extent',
+  population = 'population',
+  adminRegions = 'Admin regions',
+  cropland = 'cropland',
+  grassland = 'grassland',
+  population_affected = 'population_affected',
+  vulnerability_index = 'vulnerability_index',
+  poverty_incidence = 'poverty_incidence',
+  female_head_hh = 'female_head_hh',
+  population_u8 = 'population_u8',
+  population_over65 = 'population_over65',
+  wall_type = 'wall_type',
+  roof_type = 'roof_type',
+}
+
+export enum IbfLayerLabel {
+  glofasStations = 'Glofas stations',
+  floodExtent = 'Flood extent',
+  population = 'Population',
+  adminRegions = 'Admin regions',
+  cropland = 'Cropland',
+  grassland = 'Grassland',
+  population_affected = 'Total exposed population',
+  vulnerability_index = 'Vulnerability Index',
+  poverty_incidence = 'Poverty incidence',
+  female_head_hh = 'Female-headed household',
+  population_u8 = 'Population U8',
+  population_over65 = 'Population 65+',
+  wall_type = 'Permanent wall type',
+  roof_type = 'Permanent roof type',
+}
+
+export class IbfLayerWMS {
+  url: string;
+  name: string;
+  format: string;
+  version: string;
+  attribution: string;
+  crs?: CRS;
+  transparent: boolean;
+}
+
+export enum IbfLayerGroup {
+  aggregates = 'aggregates',
 }

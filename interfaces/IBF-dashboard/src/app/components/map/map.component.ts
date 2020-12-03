@@ -23,10 +23,12 @@ import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel } from 'src/app/types/admin-level.enum';
-import { IbfLayer } from 'src/app/types/ibf-layer';
-import { IbfLayerName } from 'src/app/types/ibf-layer-name';
-import { IbfLayerType } from 'src/app/types/ibf-layer-type';
-import { IbfLayerWMS } from 'src/app/types/ibf-layer-wms';
+import {
+  IbfLayer,
+  IbfLayerName,
+  IbfLayerType,
+  IbfLayerWMS,
+} from 'src/app/types/ibf-layer';
 import { IndicatorEnum } from 'src/app/types/indicator-group';
 
 @Component({
@@ -38,7 +40,7 @@ export class MapComponent implements OnDestroy {
   private map: Map;
   public layers: IbfLayer[] = [];
 
-  public legend: Control;
+  public legends: { [key: string]: Control } = {};
 
   private layerSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -163,15 +165,15 @@ export class MapComponent implements OnDestroy {
     this.countrySubscription.unsubscribe();
   }
 
-  public addLegend(map, colors, colorThreshold, layerActive) {
-    if (this.legend) {
-      map.removeControl(this.legend);
+  public addLegend(map, colors, colorThreshold, layer: IbfLayer) {
+    if (this.legends[layer.name]) {
+      map.removeControl(this.legends[layer.name]);
     }
 
-    if (layerActive) {
-      this.legend = new Control();
-      this.legend.setPosition('bottomleft');
-      this.legend.onAdd = function (map) {
+    if (layer.active) {
+      this.legends[layer.name] = new Control();
+      this.legends[layer.name].setPosition('bottomleft');
+      this.legends[layer.name].onAdd = function (map) {
         const div = DomUtil.create('div', 'info legend');
         const grades = [
           0,
@@ -205,6 +207,8 @@ export class MapComponent implements OnDestroy {
           }
         };
 
+        div.innerHTML += `<div><b>${layer.label}</b></div>`;
+
         for (let i = 0; i < grades.length; i++) {
           if (i === 0 || grades[i] > grades[i - 1]) {
             div.innerHTML +=
@@ -221,7 +225,7 @@ export class MapComponent implements OnDestroy {
         return div;
       };
 
-      this.legend.addTo(map);
+      this.legends[layer.name].addTo(map);
     }
   }
 
@@ -237,7 +241,7 @@ export class MapComponent implements OnDestroy {
       layer.leafletLayer = this.createPointLayer(layer);
     }
 
-    if (layer.name === IbfLayerName.adminRegions) {
+    if (layer.type === IbfLayerType.shape) {
       layer.leafletLayer = this.createAdminRegionsLayer(layer);
 
       const colors = this.mapService.state.colorGradient;
@@ -245,7 +249,10 @@ export class MapComponent implements OnDestroy {
         layer.data,
         layer.colorProperty,
       );
-      this.addLegend(this.map, colors, colorThreshold, layer.active);
+
+      if (layer.name !== IbfLayerName.adminRegions) {
+        this.addLegend(this.map, colors, colorThreshold, layer);
+      }
     }
 
     if (layer.type === IbfLayerType.wms) {
@@ -286,10 +293,7 @@ export class MapComponent implements OnDestroy {
     }
 
     return geoJSON(layer.data, {
-      style: this.mapService.setAdminRegionStyle(
-        layer.data,
-        layer.colorProperty,
-      ),
+      style: this.mapService.setAdminRegionStyle(layer),
       onEachFeature: function (feature, element) {
         element.on('click', function () {
           if (

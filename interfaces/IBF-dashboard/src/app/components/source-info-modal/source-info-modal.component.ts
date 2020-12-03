@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Indicator } from 'src/app/types/indicator-group';
 
 @Component({
   selector: 'app-source-info-modal',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./source-info-modal.component.scss'],
 })
 export class SourceInfoModalComponent implements OnInit {
-  @Input() indicator = { label: 'label' };
+  @Input() indicator: Indicator;
 
   constructor() {}
 
