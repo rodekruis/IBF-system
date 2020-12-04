@@ -9,7 +9,7 @@
   }
 }
 
-#ibf-dashboard-interface {
+.ibf-dashboard-interface {
   height: 100%;
   overflow: auto;
   display: flex;
@@ -42,7 +42,7 @@ app-export-view {
       flex-direction: column;
 
       .component-title {
-        background-color: var(--ion-color-ibf-salmon);
+        background-color: var(--ion-color-ibf-gray);
 
         .component-title-item {
           --background: transparent;
