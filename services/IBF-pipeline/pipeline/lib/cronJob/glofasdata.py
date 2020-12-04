@@ -143,6 +143,10 @@ class GlofasData:
                                     discharge = 9000
                                 elif station['code'] == 'G5200': # UGA dummy flood station
                                     discharge = 700
+                                elif station['code'] == 'G1074': # ETH dummy flood station
+                                    discharge = 1000
+                                elif station['code'] == 'G5194': # KEN dummy flood station
+                                    discharge = 2000
                                 else:
                                     discharge = 0
 
@@ -213,8 +217,6 @@ class GlofasData:
             if trigger == 1:
                 if self.country_code == 'UGA':
                     return_period = 25
-                elif self.country_code == 'KEN':
-                    return_period = 10
                 elif self.country_code == 'ZMB':
                     if fc >= row['20yr_threshold']:
                         return_period = 20
@@ -226,6 +228,8 @@ class GlofasData:
                         return_period = 10
                     else:
                         return_period = 0
+                else:
+                    return_period = 10
             else:
                 return_period = None
             df.at[index, 'fc_'+self.fcStep+'_rp'] = return_period

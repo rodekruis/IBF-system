@@ -15,6 +15,13 @@ select cast('KEN' as varchar) as country_code
 	, row_to_json(ken.*) as indicators
 from "IBF-static-input"."KEN_CRA_Indicators_1" ken
 union all
+select cast('ETH' as varchar) as country_code
+	, pcode
+	, row_to_json(
+		ken.*
+		) as indicators
+from "IBF-static-input"."ETH_CRA_Indicators_2" ken
+union all
 select cast('UGA' as varchar) as country_code
 	, total.pcode
 	, row_to_json(total.*) as indicators
@@ -41,7 +48,7 @@ select dfps.country_code
       , dfps.fc_trigger
       , dfps.fc_perc
       , dfps.fc_prob
-from "IBF-pipeline-output".dashboard_glofas_stations dgsv
+from "IBF-static-input".dashboard_glofas_stations dgsv
 left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code and dgsv.country_code = dfps.country_code
 where current_prev = 'Current'
 ;
@@ -101,6 +108,13 @@ from (
 			,pcode_level0 as pcode_level1
 			,st_geometryfromtext(geom) as geom
 	from "IBF-static-input"."KEN_Geo_level1" ken
+	union all
+	select cast('ETH' as varchar) as country_code
+			,pcode_level2 
+			,name
+			,pcode_level1
+			,st_geometryfromtext(geom) as geom
+	from "IBF-static-input"."ETH_Geo_level2" eth
 ) geo
 left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode_level2 = d2.pcode
 ;

@@ -1,12 +1,12 @@
---DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_glofas_stations;
-truncate TABLE "IBF-pipeline-output".dashboard_glofas_stations;
-insert into "IBF-pipeline-output".dashboard_glofas_stations
+--DROP TABLE IF EXISTS "IBF-static-input".dashboard_glofas_stations;
+truncate TABLE "IBF-static-input".dashboard_glofas_stations;
+insert into "IBF-static-input".dashboard_glofas_stations
 SELECT cast('ZMB' as varchar) as country_code 
 	, station_code
 	, station_name
 	, "10yr_threshold" as trigger_level
 			,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
---INTO "IBF-pipeline-output".dashboard_glofas_stations
+--INTO "IBF-static-input".dashboard_glofas_stations
 FROM "IBF-static-input"."ZMB_glofas_stations"
 union all
 SELECT 'UGA' as country_code
@@ -22,8 +22,16 @@ SELECT 'KEN' as country_code
 	, station_name
 	, "5yr_threshold" as trigger_level
 	,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
-FROM "IBF-static-input"."UGA_glofas_stations"
+FROM "IBF-static-input"."KEN_glofas_stations"
 where station_code in (select station_code_7day from "IBF-static-input"."KEN_waterstation_per_district" group by 1)
+union all
+SELECT 'ETH' as country_code
+	, station_code
+	, station_name
+	, "5yr_threshold" as trigger_level
+	,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
+FROM "IBF-static-input"."ETH_glofas_stations"
+where station_code in (select station_code_7day from "IBF-static-input"."ETH_waterstation_per_district" group by 1)
 --union all
 --SELECT 'EGY' as country_code
 --	, station_code
@@ -35,13 +43,13 @@ where station_code in (select station_code_7day from "IBF-static-input"."KEN_wat
 ;
 --select * from "IBF-pipeline-output".dashboard_glofas_stations
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".waterstation_per_district;
+DROP TABLE IF EXISTS "IBF-static-input".waterstation_per_district;
 SELECT cast('ZMB' as varchar) as country_code 
 	, "distName"
 	, cast(pcode as varchar)
 	, station_code_3day
 	, station_code_7day
-INTO "IBF-pipeline-output".waterstation_per_district
+INTO "IBF-static-input".waterstation_per_district
 FROM "IBF-static-input"."ZMB_waterstation_per_district"
 union all 
 SELECT cast('UGA' as varchar) as country_code 
@@ -57,6 +65,13 @@ SELECT cast('KEN' as varchar) as country_code
 	, null
 	, station_code_7day
 FROM "IBF-static-input"."KEN_waterstation_per_district"
+union all
+SELECT cast('ETH' as varchar) as country_code 
+	, zone
+	, cast(pcode as varchar)
+	, null
+	, station_code_7day
+FROM "IBF-static-input"."ETH_waterstation_per_district"
 --union all
 --SELECT cast('EGY' as varchar) as country_code
 --	, "distName"
@@ -125,6 +140,11 @@ select cast('KEN' as varchar) as country_code
 	, "name", "label", "group", icon, "weightedAvg", active, "numberFormat", "source", description
 from "IBF-static-input"."metadata"
 where country_code like '%KEN%'
+union all 
+select cast('ETH' as varchar) as country_code
+	, "name", "label", "group", icon, "weightedAvg", active, "numberFormat", "source", description
+from "IBF-static-input"."metadata"
+where country_code like '%ETH%'
 ;
 --select * from "IBF-API"."metadata"
 
