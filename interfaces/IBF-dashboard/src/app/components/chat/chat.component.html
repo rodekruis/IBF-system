@@ -81,7 +81,11 @@
         which EAP-actions are to-do / done.
       </p>
     </dialogue-turn>
-    <dialogue-turn actor="self" *ngFor="let area of triggeredAreas">
+    <dialogue-turn
+      actor="self"
+      *ngFor="let area of triggeredAreas; first as isFirst"
+      [isConnected]="!isFirst"
+    >
       <form (submit)="submitEapAction(area.pcode)">
         <ion-row>
           <ion-col size-lg="2" size-md="2" size-xs="2">

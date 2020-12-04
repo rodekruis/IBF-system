@@ -1,11 +1,13 @@
+import { IbfLayerLabel, IbfLayerName } from './ibf-layer';
+
 export enum IndicatorGroup {
   general = 'Exposure',
   vulnerability = 'Vulnerability',
 }
 
 export class Indicator {
-  name: string;
-  label: string;
+  name: IbfLayerName;
+  label: IbfLayerLabel;
   icon: string;
   active: boolean;
   numberFormat: NumberFormat;
