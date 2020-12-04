@@ -116,7 +116,7 @@ volumes:
     pipeline-geoserver:
         driver_opts:
             type: bind
-            device: /home/ibf-user/IBF-system/services/IBF-pipeline/data/raster
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline/pipeline/data/raster
             o: bind
     workspace-geoserver:
         driver_opts:
