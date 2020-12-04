@@ -6,6 +6,7 @@ export class IbfLayer {
   label: IbfLayerLabel;
   description: string;
   active: boolean;
+  show: boolean;
   viewCenter: boolean;
   colorProperty?: string;
   wms?: IbfLayerWMS;
