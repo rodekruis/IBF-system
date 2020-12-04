@@ -24,13 +24,13 @@ CURRENT_DATE = date.today()
 ######################
 
 COUNTRY_CODES = [
-    # 'ZMB'
-    # ,
-    # 'UGA'
-    # ,
+    'ZMB'
+    ,
+    'UGA'
+    ,
     'KEN'
-    # ,
-    # 'ETH'
+    ,
+    'ETH'
     # ,
     # 'EGY'
 ]
@@ -47,7 +47,6 @@ SETTINGS = {
             'filename': 'vector/ZMB_adm2_mapshaper_new103_pcode.shp',
             'pcode_colname': 'pcode'
         },
-        # 'metadata': 'metadata_fbf_zambia.csv',
         'trigger_colname': '10yr_threshold',
         'CRA_filename': 'ZMB_CRA_Indicators',
         'lead_times': {
@@ -72,7 +71,6 @@ SETTINGS = {
             'filename': 'vector/UGA_adm2_mapshaper.shp',
             'pcode_colname': 'pcode'
         },
-        # 'metadata': 'uga_metadata.csv',
         'trigger_colname': '5yr_threshold',
         'CRA_filename': 'ZMB_CRA_Indicators',
         'lead_times': {
@@ -96,7 +94,6 @@ SETTINGS = {
             'filename': 'vector/KEN_adm1_mapshaper_corrected.shp',
             'pcode_colname': 'ADM1_PCODE'
         },
-        # 'metadata': 'uga_metadata.csv',
         'trigger_colname': '5yr_threshold',
         'CRA_filename': 'KEN_CRA_Indicators',
         'lead_times': {
@@ -118,17 +115,16 @@ SETTINGS = {
         'district_mapping': 'Glofas_station_per_admin_area_ETH.csv',
         'admin_boundaries': {
             'filename': 'vector/ETH_adm2_mapshaper_reproj.shp',
-            'pcode_colname': 'ZON_P_CODE'
+            'pcode_colname': 'HRpcode'
         },
-        # 'metadata': 'uga_metadata.csv',
         'trigger_colname': '5yr_threshold',
-        # 'CRA_filename': 'ETH_CRA_Indicators',
+        'CRA_filename': 'ETH_CRA_Indicators',
         'lead_times': {
             "long": 7
         },
         'EXPOSURE_DATA_SOURCES': {
             "population": {
-                "source": "population/hrsl_uga_pop_resized_100",
+                "source": "population/worldpop_eth",
                 "rasterValue": 1
             }
         }

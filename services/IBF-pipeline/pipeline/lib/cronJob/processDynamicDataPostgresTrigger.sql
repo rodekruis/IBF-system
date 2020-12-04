@@ -42,13 +42,13 @@ SELECT t0.country_code
 	,other_lead_time_trigger
 	,case when t3.station is null then 0 else 1 end as station_used
 --into "IBF-pipeline-output".dashboard_forecast_per_station
-FROM "IBF-pipeline-output".dashboard_glofas_stations t0
+FROM "IBF-static-input".dashboard_glofas_stations t0
 LEFT JOIN "IBF-pipeline-output".triggers_rp_per_station_short t1
 	ON t0.station_code = t1.station_code
 	AND t0.country_code = t1.country_code
 LEFT JOIN (select to_date(date,'yyyy-mm-dd') as current_prev, max(fc_long_trigger) as other_lead_time_trigger from "IBF-pipeline-output".triggers_rp_per_station_long group by 1) t2
 	ON to_date(date,'yyyy-mm-dd') = t2.current_prev
-LEFT JOIN (select "station_code_3day" as station from "IBF-pipeline-output".waterstation_per_district group by 1) t3
+LEFT JOIN (select "station_code_3day" as station from "IBF-static-input".waterstation_per_district group by 1) t3
 	ON t3.station = t0.station_code
 where to_date(date,'yyyy-mm-dd') >= current_date - 1
 
@@ -68,13 +68,13 @@ SELECT t0.country_code
 	,t0.geom
 	,other_lead_time_trigger
 	,case when t3.station is null then 0 else 1 end as station_used
-FROM "IBF-pipeline-output".dashboard_glofas_stations t0
+FROM "IBF-static-input".dashboard_glofas_stations t0
 LEFT JOIN "IBF-pipeline-output".triggers_rp_per_station_long t1
 	ON t0.station_code = t1.station_code
 	AND t0.country_code = t1.country_code
 LEFT JOIN (select to_date(date,'yyyy-mm-dd') as current_prev, max(fc_short_trigger) as other_lead_time_trigger from "IBF-pipeline-output".triggers_rp_per_station_short group by 1) t2
 	ON to_date(date,'yyyy-mm-dd') = t2.current_prev
-LEFT JOIN (select "station_code_7day" as station from "IBF-pipeline-output".waterstation_per_district group by 1) t3
+LEFT JOIN (select "station_code_7day" as station from "IBF-static-input".waterstation_per_district group by 1) t3
 	ON t3.station = t0.station_code
 where to_date(date,'yyyy-mm-dd') >= current_date - 1
 ;
@@ -90,7 +90,7 @@ select t0.country_code
 	,fc,fc_trigger,fc_rp,fc_perc,fc_prob,fc_trigger2
 	,other_lead_time_trigger
 INTO "IBF-pipeline-output".dashboard_forecast_per_district
-FROM "IBF-pipeline-output".waterstation_per_district t0
+FROM "IBF-static-input".waterstation_per_district t0
 LEFT JOIN "IBF-pipeline-output".dashboard_forecast_per_station  t1
 ON (t1.lead_time = '7-day' and t0."station_code_7day" = t1.station_code) OR (t1.lead_time = '3-day' and t0."station_code_3day" = t1.station_code)
 where t1.lead_time is not null
