@@ -1,0 +1,16 @@
+<layer>
+  <name>population_KEN</name>
+  <id>LayerInfoImpl--62f77a62:1762deea0b3:-7fed</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff4</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl--62f77a62:1762deea0b3:-7fee</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2020-12-04 13:37:17.215 UTC</dateCreated>
+</layer>
