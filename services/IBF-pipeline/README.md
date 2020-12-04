@@ -1,33 +1,33 @@
-NOTE: some of this information might be old, compared to higher-level readme's.
-
-# FbF-Data-pipeline
+# IBF-pipeline
 
 This repository consists of 2 parts.
 
 1. Data pipeline: This is a series of scripts (which will be run daily) which extracts all input data (static + dynamic), transforms them to create flood extents and calculated affected population, and loads the output to locations where they can be served to the dashoard.
-2. Geoserver: Geoserver is one of the locations where output of the data-pipeline is served: namely the raster-files. Geoserver can subsequently serve these raster-files to the frontend through WMS-services.
+2. Geoserver: Premade layers/styles for geoserver.
 
 ## Prerequisites
 
 1. Install Docker
-2. Install python 3.6 >
 
 ## General instalation
 
 1. Clone this directory to `<your_local_directory>`/IBF-pipeline/
 2. Change `/pipeline/secrets.py.template` to `secrets.py` and fill in the necessary passwords.
-3. Find 2 data-zips in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-08-27T22%3A00%3A00.000Z&e=MnocDf and unzip geodata.zip and data.zip respectively to replace folders /geoserver/geodata/ and /pipeline/data/.
-4. NOTE on 2 data-folders: it might conceptually be more logical to have all data (input + output) in one place together (/pipeline/data). From there we would (after all calculations) serve all raster data (input + output) to Geoserver (such that it can be served as WMS to frontend), by copying it to the designated geoserver-datafolder (all other data is uploaded to Postgres and from there served to frontend through API). However, we deemed it redundant to have this copying-step in between and store the raster data in 2 places. Instead we put all raster (input + output) immediately in its correct geoserver-datafolder location.
+3. Find data.zip in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-11-29T23%3A00%3A00.000Z&e=qkUx50 and unzip in /pipeline/data.
 
 ## Set up Data pipeline
 
 1. Build Docker image (from the IBF-pipeline root folder) and run container with volume. ${PWD} should take automatically your Present Working Directory as the local folder to attach the volume though; if this fails, you can always replace it by the literal path (e.g. "C:/IBF-system/services/IBF-pipeline:/home/ibf" instead of "${PWD}:/home/ibf")
 ```
-docker build . -t ibf-pipeline
-docker run --net=host --name=ibf-pipeline -v ${PWD}:/home/ibf --restart always -it ibf-pipeline
+build image: docker build . -t ibf-pipeline
+create + start container: docker run --name=ibf-pipeline -v ${PWD}:/home/ibf -it ibf-pipeline
+access container (if the previous command didn't get you in already): docker exec -it ibf-pipeline bash
+access container (if the container exists already): docker exec -it ibf-pipeline bash
+remove container (to be able to recreate with same name): docker rm -f ibf-pipeline
 ```
 
 2. Within container run setup: this will a.o. upload static data to the database.
+(NOTE: only when working with local database, not when working with remote development database.)
 
 ```
 python3 runSetup.py
@@ -39,19 +39,7 @@ python3 runSetup.py
 python3 runCron.py
 ```
 
-4. To set up the cron job to really run daily
-
-```
-crontab -e (to open file)
-*/15 * * * * <your_local_directory>/IBF-pipeline/cronjob.sh (add this line at end of file)
-```
-
-## Setup geoserver
-This step is only needed when working with a frontend.
-1. Unzip geoserver data folder (described above)
-2. `docker run --name "geoserver" -p 8081:8080 -v ${PWD}/geoserver:/opt/geoserver/data_dir --restart always kartoza/geoserver`
-3. Visit at http://localhost:8081/geoserver/web
-4. Default credentials are admin/geoserver
+4. Cronjob: locally, you probably don't want to run this automatically every day. If you want to, copy the cron command in /docker-compose.yml and replace the last line of /services/IBF-pipeline/Dockerfile with it.
 
 ### Logging loggly and SMTPHandler for logging (OPTIONAL)
  1. Create a gmail account add to EMAIL_USERNAME in settings.py add your password to secrets.py 

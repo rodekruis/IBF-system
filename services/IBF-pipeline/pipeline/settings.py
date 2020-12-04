@@ -27,6 +27,10 @@ COUNTRY_CODES = [
     'ZMB'
     ,
     'UGA'
+    ,
+    'KEN'
+    ,
+    'ETH'
     # ,
     # 'EGY'
 ]
@@ -37,10 +41,12 @@ SETTINGS = {
             "glofas": True,
             "rainfall": False
         },
-        "trigger_levels": 'Glofas_station_locations_with_trigger_levels.csv',
-        'district_mapping': 'Glofas_station_per_district.csv',
-        'admin_boundaries': 'vector/ZMB_adm2_mapshaper_new103_pcode.shp',
-        'metadata': 'metadata_fbf_zambia.csv',
+        "trigger_levels": 'Glofas_station_locations_with_trigger_levels_ZMB.csv',
+        'district_mapping': 'Glofas_station_per_admin_area_ZMB.csv',
+        'admin_boundaries': {
+            'filename': 'vector/ZMB_adm2_mapshaper_new103_pcode.shp',
+            'pcode_colname': 'pcode'
+        },
         'trigger_colname': '10yr_threshold',
         'CRA_filename': 'ZMB_CRA_Indicators',
         'lead_times': {
@@ -51,31 +57,7 @@ SETTINGS = {
             "population": {
                 "source": "population/hrsl_zmb_pop_resized_100",
                 "rasterValue": 1
-            },
-            # "cropland": {
-            #     "source": "cropland/crop_resampled",
-            #     "rasterValue": 0.0004 # value of pixel (0-100) reflects no. of cropland pixels in original crop-layer, where each pixel stands for 0.02x0.02=0.0004 km2
-            # },
-            # "chicken": {
-            #     "source": "livestock/Chicken",
-            #     "rasterValue": 1
-            # },
-            # "cattle": {
-            #     "source": "livestock/Cattle",
-            #     "rasterValue": 1
-            # },
-            # "goat": {
-            #     "source": "livestock/Goat",
-            #     "rasterValue": 1
-            # },
-            # "pig": {
-            #     "source": "livestock/Pig",
-            #     "rasterValue": 1
-            # },
-            # "sheep": {
-            #     "source": "livestock/Sheep",
-            #     "rasterValue": 1
-            # },
+            }
         }
     },
     "UGA": {
@@ -84,9 +66,11 @@ SETTINGS = {
             "rainfall": False
         },
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
-        'district_mapping': 'Glofas_station_per_district_uga.csv',
-        'admin_boundaries': 'vector/UGA_adm2_mapshaper.shp',
-        'metadata': 'uga_metadata.csv',
+        'district_mapping': 'Glofas_station_per_admin_area_UGA.csv',
+        'admin_boundaries': {
+            'filename': 'vector/UGA_adm2_mapshaper.shp',
+            'pcode_colname': 'pcode'
+        },
         'trigger_colname': '5yr_threshold',
         'CRA_filename': 'ZMB_CRA_Indicators',
         'lead_times': {
@@ -95,6 +79,52 @@ SETTINGS = {
         'EXPOSURE_DATA_SOURCES': {
             "population": {
                 "source": "population/hrsl_uga_pop_resized_100",
+                "rasterValue": 1
+            }
+        }
+    },
+    "KEN": {
+        "models": {
+            "glofas": True,
+            "rainfall": False
+        },
+        "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
+        'district_mapping': 'Glofas_station_per_admin_area_KEN.csv',
+        'admin_boundaries': {
+            'filename': 'vector/KEN_adm1_mapshaper_corrected.shp',
+            'pcode_colname': 'ADM1_PCODE'
+        },
+        'trigger_colname': '5yr_threshold',
+        'CRA_filename': 'KEN_CRA_Indicators',
+        'lead_times': {
+            "long": 7
+        },
+        'EXPOSURE_DATA_SOURCES': {
+            "population": {
+                "source": "population/hrsl_ken_pop_resized_100",
+                "rasterValue": 1
+            }
+        }
+    },
+    "ETH": {
+        "models": {
+            "glofas": True,
+            "rainfall": False
+        },
+        "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
+        'district_mapping': 'Glofas_station_per_admin_area_ETH.csv',
+        'admin_boundaries': {
+            'filename': 'vector/ETH_adm2_mapshaper_reproj.shp',
+            'pcode_colname': 'HRpcode'
+        },
+        'trigger_colname': '5yr_threshold',
+        'CRA_filename': 'ETH_CRA_Indicators',
+        'lead_times': {
+            "long": 7
+        },
+        'EXPOSURE_DATA_SOURCES': {
+            "population": {
+                "source": "population/worldpop_eth",
                 "rasterValue": 1
             }
         }
@@ -141,13 +171,12 @@ SCHEMA_NAME = 'IBF-pipeline-output'
 ###################
 ## PATH SETTINGS ##
 ###################
-GEOSERVER_DATA = '../geoserver/geodata/'
+GEOSERVER_DATA = 'data/raster/'
 GEOSERVER_INPUT = GEOSERVER_DATA + 'input/'
 GEOSERVER_OUTPUT = GEOSERVER_DATA + 'output/'
-PIPELINE_DATA = 'data/'
+PIPELINE_DATA = 'data/other/'
 PIPELINE_INPUT = PIPELINE_DATA + 'input/'
 PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'
-PIPELINE_TEMP = PIPELINE_DATA + 'temp/'
 
 #########################
 ## INPUT DATA SETTINGS ##
@@ -165,7 +194,7 @@ GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 ####################
 
 # Notification email
-EMAIL_NOTIFICATION = True
+EMAIL_NOTIFICATION = False
 EMAIL_WITHOUT_TRIGGER = False
 
 # Notification email (False if hard-coded alternative for mailchimp is used)

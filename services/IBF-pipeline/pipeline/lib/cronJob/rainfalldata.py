@@ -30,7 +30,7 @@ class RainfallData:
                                       'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + country_code + '.json'
         self.WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + SETTINGS[country_code]['trigger_levels']
         self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
-        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']
+        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
         self.downloaded = False
 
     def process(self):
