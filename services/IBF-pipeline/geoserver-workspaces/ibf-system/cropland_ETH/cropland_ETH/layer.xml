@@ -1,0 +1,16 @@
+<layer>
+  <name>cropland_ETH</name>
+  <id>LayerInfoImpl--62f77a62:1762deea0b3:-7c1c</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff6</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl--62f77a62:1762deea0b3:-7c1d</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2020-12-04 14:05:09.32 UTC</dateCreated>
+</layer>

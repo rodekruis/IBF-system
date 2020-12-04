@@ -1,0 +1,13 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl--62f77a62:1762deea0b3:-7c18</id>
+  <name>grassland_ETH</name>
+  <description>grassland_ETH</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2020-12-04 14:06:00.342 UTC</dateCreated>
+  <url>file:workspaces/ibf-system/ibf-pipeline/input/cropland/eth_grassland.tif</url>
+</coverageStore>

@@ -1,0 +1,16 @@
+<layer>
+  <name>population_ETH</name>
+  <id>LayerInfoImpl--62f77a62:1762deea0b3:-7fea</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff4</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl--62f77a62:1762deea0b3:-7feb</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2020-12-04 13:38:34.755 UTC</dateCreated>
+</layer>
