@@ -215,9 +215,7 @@ class GlofasData:
             fc = float(row['fc_'+self.fcStep])
             trigger = int(row['fc_'+self.fcStep+'_trigger'])
             if trigger == 1:
-                if self.country_code == 'UGA':
-                    return_period = 25
-                elif self.country_code == 'ZMB':
+                if self.country_code == 'ZMB':
                     if fc >= row['20yr_threshold']:
                         return_period = 20
                     elif fc >= row['10yr_threshold']:
@@ -229,7 +227,7 @@ class GlofasData:
                     else:
                         return_period = 0
                 else:
-                    return_period = 10
+                    return_period = 25
             else:
                 return_period = None
             df.at[index, 'fc_'+self.fcStep+'_rp'] = return_period
