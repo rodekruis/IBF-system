@@ -24,7 +24,8 @@ class FloodExtent:
         self.statsPath = PIPELINE_DATA + 'output/calculated_affected/affected_' + fcStep + '_' + country_code + '.json'
         self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
         self.DISTRICT_MAPPING = PIPELINE_INPUT + SETTINGS[country_code]['district_mapping']
-        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']
+        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
+        self.PCODE_COLNAME = SETTINGS[country_code]['admin_boundaries']['pcode_colname']
         self.stats = []
 
     def calculate(self):
@@ -52,7 +53,7 @@ class FloodExtent:
         for index, rows in df_glofas.iterrows():
             #Filter the catchment-area GDF per area
             pcode = rows['pcode']
-            gdf_dist = admin_gdf[admin_gdf['pcode'] == pcode]
+            gdf_dist = admin_gdf[admin_gdf[self.PCODE_COLNAME] == pcode]
             dist_coords = self.getCoordinatesFromGDF(gdf_dist)
             
             #If trigger, find the right flood extent and clip it for the area and save it
@@ -61,7 +62,7 @@ class FloodExtent:
                 return_period = rows['fc_'+self.fcStep+'_rp'] 
                 input_raster = self.inputPath + self.country_code + '_flood_' +str(int(return_period))+'year.tif'
             else:
-                input_raster = self.inputPath + self.country_code + '_flood_empty.tif' # TEMP / FIX!
+                input_raster = self.inputPath + self.country_code + '_flood_empty.tif'
 
             out_image, out_meta = self.clipTiffWithShapes(input_raster, dist_coords)
 

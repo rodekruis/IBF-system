@@ -13,7 +13,7 @@ export const USERCONFIGS = [
     role: UserRole.Admin,
     password: 'password',
     status: UserStatus.Active,
-    countries: ['UGA', 'ZMB'],
+    countries: ['UGA', 'ZMB', 'KEN', 'ETH'],
   },
   {
     email: 'uganda@redcross.nl',
@@ -35,16 +35,26 @@ export const USERCONFIGS = [
     status: UserStatus.Active,
     countries: ['ZMB'],
   },
-  // {
-  //   email: 'kenya@redcross.nl',
-  //   username: 'kenya',
-  //   firstName: 'Kenya',
-  //   lastName: 'Manager',
-  //   role: UserRole.DisasterManager,
-  //   password: 'password',
-  //   status: UserStatus.Active,
-  //   countries: ['KEN'],
-  // },
+  {
+    email: 'kenya@redcross.nl',
+    username: 'kenya',
+    firstName: 'Kenya',
+    lastName: 'Manager',
+    role: UserRole.DisasterManager,
+    password: 'password',
+    status: UserStatus.Active,
+    countries: ['KEN'],
+  },
+  {
+    email: 'ethiopia@redcross.nl',
+    username: 'ethiopia',
+    firstName: 'Ethiopia',
+    lastName: 'Manager',
+    role: UserRole.DisasterManager,
+    password: 'password',
+    status: UserStatus.Active,
+    countries: ['ETH'],
+  },
   // {
   //   email: 'egypt@redcross.nl',
   //   username: 'egypt',
@@ -71,6 +81,11 @@ export const COUNTRYCONFIGS = [
   {
     countryCode: 'KEN',
     countryName: 'Kenya',
+    status: CountryStatus.Active,
+  },
+  {
+    countryCode: 'ETH',
+    countryName: 'Ethiopia',
     status: CountryStatus.Active,
   },
   {

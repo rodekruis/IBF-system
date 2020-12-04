@@ -1,5 +1,5 @@
 export enum UserRole {
   Admin = 'admin',
-  DisasterManager = 'disaster-manger',
+  DisasterManager = 'disaster-manager',
   Guest = 'guest',
 }

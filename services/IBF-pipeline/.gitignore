@@ -10,10 +10,8 @@
 
 
 # Local data files
-pipeline/data/
-geoserver/geodata/*
-!geoserver/geodata/README.md
-*.zip
+pipeline/data/*
+!pipeline/data/README.md
 
 
 # Generated files
@@ -31,5 +29,10 @@ logs
 npm-debug.log*
 .npm
 
-# Data zip
-data.zip
+# Secrets
+pipeline/secrets.py
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class

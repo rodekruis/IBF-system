@@ -135,7 +135,9 @@ from (
 group by 1,2,3,4,5
 ) bb
 ;
---select * from "IBF-pipeline-output".dashboard_calculated_affected_adm2 where country_code = 'UGA'
+--select * from "IBF-pipeline-output".dashboard_calculated_affected_adm2 where country_code = 'ETH' order by population_affected
+
+--select * from "IBF-pipeline-output".calculated_affected_long where country_code = 'KEN'
 
 --truncate TABLE "IBF-pipeline-output".data_adm3;
 --insert into "IBF-pipeline-output".data_adm3
@@ -175,7 +177,7 @@ select t3.country_code
 	,t0a.lead_time
 	,fc,fc_trigger,fc_rp,fc_perc,fc_prob,fc_trigger2
 	,other_lead_time_trigger
-	,coalesce(population_affected,0) as population_affected
+	,case when fc_trigger = 1 then coalesce(population_affected,0) else 0 end as population_affected
 	,coalesce(livestock_affected,0) as livestock_affected
 	,chicken_affected,cattle_affected,goat_affected,pig_affected,sheep_affected
 	,coalesce(cropland_affected,0) as cropland_affected
@@ -184,7 +186,7 @@ select t3.country_code
 from "IBF-static-input"."CRA_data_2" t0
 left join "IBF-pipeline-output".help_table t0a
 on 1=1
-left join "IBF-pipeline-output".waterstation_per_district t1
+left join "IBF-static-input".waterstation_per_district t1
 on t0.pcode = case when length(cast(t1.pcode as varchar)) = 3 then '0' || cast(t1.pcode as varchar) else cast(t1.pcode as varchar) end
 left join "IBF-pipeline-output".dashboard_forecast_per_station  t2
 ON ((t2.lead_time = '7-day' and t0a.lead_time = t2.lead_time and t1."station_code_7day" = t2.station_code) OR (t2.lead_time = '3-day' and t0a.lead_time = t2.lead_time and t1."station_code_3day" = t2.station_code))
@@ -214,7 +216,7 @@ left join (
 ) t3
 ON t0.pcode = t3.pcode_level2 and t0a.lead_time = t3.lead_time and t0a.current_prev = t3.current_prev
 ;
---select * from "IBF-pipeline-output".data_adm2 where country_code = 'UGA'
+--select * from "IBF-pipeline-output".data_adm2 where country_code = 'ETH'
 
 --truncate TABLE "IBF-pipeline-output".data_adm1;
 --insert into "IBF-pipeline-output".data_adm1
