@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
+import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { Indicator } from 'src/app/types/indicator-group';
 import { AdminLevelService } from './admin-level.service';
@@ -19,6 +20,7 @@ export class AggregatesService {
     private adminLevelService: AdminLevelService,
     private timelineService: TimelineService,
     private apiService: ApiService,
+    private mapService: MapService,
   ) {}
 
   loadMetadata() {
@@ -28,6 +30,10 @@ export class AggregatesService {
         const indicators = response;
         // Filter out population (to do: better to remove from metadata in db)
         this.indicators = indicators.filter((i) => i.name !== 'population');
+        this.mapService.hideAggregateLayers();
+        this.indicators.forEach((indicator: Indicator) => {
+          this.mapService.loadAggregateLayer(indicator);
+        });
         this.indicatorSubject.next(this.indicators);
       });
   }
