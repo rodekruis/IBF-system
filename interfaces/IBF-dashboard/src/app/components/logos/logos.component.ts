@@ -43,6 +43,14 @@ export class LogosComponent {
       //   countryCode: 'ZMB',
       //   src: 'ZMB-zmd.png'
       // },
+      {
+        countryCode: 'KEN',
+        src: 'KEN-krcs.png',
+      },
+      {
+        countryCode: 'ETH',
+        src: 'ETH-ercs.png',
+      },
     ];
 
     this.countrySubscription = this.countryService
