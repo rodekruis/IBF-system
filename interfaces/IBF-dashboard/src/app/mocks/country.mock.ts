@@ -6,4 +6,5 @@ export default {
   countryName: 'Uganda',
   countryForecasts: ['7-day'],
   adminRegionLabels: ['Regions', 'Districts', 'Parishes'],
+  eapLink: 'string',
 };
