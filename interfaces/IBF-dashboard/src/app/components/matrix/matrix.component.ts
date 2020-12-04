@@ -61,8 +61,8 @@ export class MatrixComponent implements OnDestroy {
     this.layerSubscription.unsubscribe();
   }
 
-  public updateLayer(name: IbfLayerName, state: boolean): void {
-    this.mapService.setLayerState(name, state);
+  public updateLayer(name: IbfLayerName, active: boolean): void {
+    this.mapService.updateLayer(name, active, true);
   }
 
   public isLayerControlMenuOpen() {
