@@ -217,6 +217,26 @@ export class MapService {
     });
   }
 
+  private isLayerActive(active, layer, triggerLayer) {
+    const isActiveDefined = active != null;
+    const isTriggerLayer = layer.name === triggerLayer.name;
+    const isTriggerLayerGroup = layer.group === triggerLayer.group;
+
+    let isActive = layer.active;
+
+    if (isActiveDefined && isTriggerLayerGroup) {
+      if (isTriggerLayer) {
+        isActive = active;
+      } else {
+        if (layer.group) {
+          isActive = false;
+        }
+      }
+    }
+
+    return isActive;
+  }
+
   public async updateLayer(
     name: IbfLayerName,
     active: boolean,
@@ -226,30 +246,20 @@ export class MapService {
     const triggerLayer = this.layers[triggerLayerIndex];
     if (triggerLayerIndex >= 0) {
       this.layers.forEach((layer: IbfLayer): void => {
-        const isTriggerLayer = layer.name === triggerLayer.name;
-        const isTriggerLayerGroup = layer.group === triggerLayer.group;
         this.addLayer({
           name: layer.name,
           label: layer.label,
           type: layer.type,
           description: layer.description,
-          active:
-            active == null
-              ? layer.active
-              : isTriggerLayerGroup
-              ? isTriggerLayer
-                ? active
-                : layer.group
-                ? false
-                : layer.active
-              : layer.active,
+          active: this.isLayerActive(active, layer, triggerLayer),
           viewCenter: false,
           data: layer.data,
           wms: layer.wms,
           colorProperty: layer.colorProperty,
           legendColor: layer.legendColor,
           group: layer.group,
-          show: show == null || !isTriggerLayer ? layer.show : show,
+          show:
+            show == null || layer.name != triggerLayer.name ? layer.show : show,
         });
       });
     } else {
