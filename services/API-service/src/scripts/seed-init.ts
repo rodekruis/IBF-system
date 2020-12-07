@@ -7,8 +7,7 @@ import { USERCONFIGS, COUNTRYCONFIGS } from '../secrets';
 import { CountryEntity } from '../country/country.entity';
 import { AreaOfFocusEntity } from '../eap-actions/area-of-focus.entity';
 
-import eapActionsUGA from '../../seed-data/EAP-actions-UGA.json';
-import eapActionsZMB from '../../seed-data/EAP-actions-ZMB.json';
+import eapActions from '../../seed-data/EAP-actions.json';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -107,7 +106,6 @@ export class SeedInit implements InterfaceScript {
     ]);
 
     // ***** CREATE EAP ACTIONS *****
-    const eapActions = eapActionsUGA.concat(eapActionsZMB);
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
     await eapActionRepository.save(eapActions);
   }
