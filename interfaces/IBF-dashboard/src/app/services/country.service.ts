@@ -31,7 +31,7 @@ export class CountryService {
         countryForecasts: ['7-day'],
         adminRegionLabels: ['Counties', 'Subcounties', 'Wards'],
         eapLink:
-          'https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR',
+          'https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9',
       },
       {
         countryCode: 'ETH',
@@ -40,7 +40,7 @@ export class CountryService {
         countryForecasts: ['7-day'],
         adminRegionLabels: ['Regions', 'Zones', 'Woredas'],
         eapLink:
-          'https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98',
+          'https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx',
       },
       {
         countryCode: 'ZMB',
