@@ -53,6 +53,7 @@ export class MapService {
       type: IbfLayerType.point,
       description: 'loadStationLayer',
       active: true,
+      show: true,
       data: await this.getStations(),
       viewCenter: false,
     });
@@ -65,6 +66,7 @@ export class MapService {
       type: IbfLayerType.shape,
       description: 'loadAdminRegionLayer',
       active: true,
+      show: true,
       data: await this.getAdminRegions(),
       viewCenter: true,
       colorProperty: this.state.defaultColorProperty,
@@ -78,11 +80,20 @@ export class MapService {
       type: IbfLayerType.shape,
       description: 'loadAggregateLayer',
       active: indicator.active,
+      show: true,
       data: await this.getAdminRegions(),
       viewCenter: true,
       colorProperty: indicator.name,
       legendColor: '#969696',
       group: IbfLayerGroup.aggregates,
+    });
+  }
+
+  public async hideAggregateLayers() {
+    this.layers.forEach(async (layer: IbfLayer) => {
+      if (layer.group === IbfLayerGroup.aggregates) {
+        await this.updateLayer(layer.name, layer.active, false);
+      }
     });
   }
 
@@ -93,6 +104,7 @@ export class MapService {
       type: IbfLayerType.shape,
       description: 'updateAdminRegionLayer',
       active: true,
+      show: true,
       data: await this.getAdminRegions(),
       viewCenter: true,
       colorProperty: colorProperty,
@@ -113,6 +125,7 @@ export class MapService {
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       active: active,
+      show: true,
       viewCenter: false,
       data: null,
       legendColor: legendColor,
@@ -204,9 +217,30 @@ export class MapService {
     });
   }
 
-  public async setLayerState(
+  private isLayerActive(active, layer, triggerLayer) {
+    const isActiveDefined = active != null;
+    const isTriggerLayer = layer.name === triggerLayer.name;
+    const isTriggerLayerGroup = layer.group === triggerLayer.group;
+
+    let isActive = layer.active;
+
+    if (isActiveDefined && isTriggerLayerGroup) {
+      if (isTriggerLayer) {
+        isActive = active;
+      } else {
+        if (layer.group) {
+          isActive = false;
+        }
+      }
+    }
+
+    return isActive;
+  }
+
+  public async updateLayer(
     name: IbfLayerName,
-    state: boolean,
+    active: boolean,
+    show: boolean,
   ): Promise<void> {
     const triggerLayerIndex = this.getLayerIndexById(name);
     const triggerLayer = this.layers[triggerLayerIndex];
@@ -217,20 +251,15 @@ export class MapService {
           label: layer.label,
           type: layer.type,
           description: layer.description,
-          active:
-            layer.group === triggerLayer.group
-              ? layer.name === triggerLayer.name
-                ? state
-                : layer.group
-                ? false
-                : layer.active
-              : layer.active,
+          active: this.isLayerActive(active, layer, triggerLayer),
           viewCenter: false,
           data: layer.data,
           wms: layer.wms,
           colorProperty: layer.colorProperty,
           legendColor: layer.legendColor,
           group: layer.group,
+          show:
+            show == null || layer.name != triggerLayer.name ? layer.show : show,
         });
       });
     } else {

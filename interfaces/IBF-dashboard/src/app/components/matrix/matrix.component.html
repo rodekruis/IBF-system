@@ -35,6 +35,7 @@
         <ion-item
           lines="full"
           *ngFor="let layer of layers"
+          [class.ion-hide]="!layer.show"
           [class.layer-active]="layer.active"
           (click)="updateLayer(layer.name, !layer.active)"
           class="ion-no-padding"

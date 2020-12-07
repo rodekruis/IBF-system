@@ -10,5 +10,6 @@ export default {
   label: IbfLayerLabel.adminRegions,
   description: 'Mock Description',
   active: true,
+  show: true,
   viewCenter: false,
 };

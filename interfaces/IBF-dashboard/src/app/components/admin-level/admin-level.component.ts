@@ -50,7 +50,7 @@ export class AdminLevelComponent {
 
   setAdminLevel(adminLevel: number, state: boolean): void {
     if (this.adminLevelNumber === adminLevel) {
-      this.mapService.setLayerState(IbfLayerName.adminRegions, state);
+      this.mapService.updateLayer(IbfLayerName.adminRegions, state, true);
       this.adminLayerState = !this.adminLayerState;
     } else {
       this.adminLevelService.setAdminLevel(adminLevel);
