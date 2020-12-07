@@ -22,14 +22,14 @@ def formatInfo(info, countryCode):
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png"
         triggerStatement = "TBD"
         linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/"
-        linkEAPSOP = "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR"
-        linkWhatsApp = "https://web.whatsapp.com/"
+        linkEAPSOP = "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9"        
+        linkWhatsApp = "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/"
     elif countryCode == "ETH":
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png"
         triggerStatement = "TBD"
         linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/"
-        linkEAPSOP = "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98"
-        linkWhatsApp = "https://web.whatsapp.com/"
+        linkEAPSOP = "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx"
+        linkWhatsApp = "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/"
     else:
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
         triggerStatement = "TBD"
