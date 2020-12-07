@@ -1,0 +1,322 @@
+[
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "wash"
+                },
+                "action": "wash-1",
+                "label": "Community sensitization and awareness (health risk, preventive measures of floods, hygiene)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "wash"
+                },
+                "action": "wash-2",
+                "label": "Procure and distribute water purification chemicals (Aqua tab and Pur/water guard)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "wash"
+                },
+                "action": "wash-3",
+                "label": "Conduct training for volunteers (CBS, community health and first Aid, community hygiene promoters)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "wash"
+                },
+                "action": "wash-4",
+                "label": "Waste management (collect rubbish and manage it from Urban centers)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-1",
+                "label": "Cleaning water sources/desilting drainage channels/dredging in Urban areas"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-2",
+                "label": "Community mapping - (map out designated centers, evacuation roots and holding stores)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-3",
+                "label": "Provision of shelter kit (Rope, Handsaw, Nails, shovel, hoe, Machete, Shears, Tie wire, Hammer and Tarpaulins)"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-4",
+                "label": "Training of volunteers in shelter construction and management"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-5",
+                "label": "Reinforcing housing structures (roofs and walls) using local available materials such as sand bags"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-6",
+                "label": "Distribute water treatment products aquatabs, pur, water storage vessels and soap, sufficient for 30 days"
+        },
+        {
+                "countryCode": "UGA",
+                "areaOfFocus": {
+                        "id": "livelihood"
+                },
+                "action": "livelihood-1",
+                "label": "Cash and voucher Assistance (CVA) to facilitate evacuation and meet shelter needs to the affected population"
+        },
+        {
+                "countryCode": "ZMB",
+                "areaOfFocus": {
+                        "id": "drr"
+                },
+                "action": "drr-1",
+                "label": "Dissemination of Early Warning (EW) information and possible Early Action (EA)."
+        },
+        {
+                "countryCode": "ZMB",
+                "areaOfFocus": {
+                        "id": "drr"
+                },
+                "action": "drr-2",
+                "label": "Assess the status of the safe havens to be used as evacuation centers such as Schools, Community halls, health facilities, Places of worship (church buildings, mosques, temples); in terms of; infrastructure, water availability, sanitation facilities and security."
+        },
+        {
+                "countryCode": "ZMB",
+                "areaOfFocus": {
+                        "id": "drr"
+                },
+                "action": "drr-3",
+                "label": "Activation of the rapid response teams (CDRTs, BDRTs, NDRTs) & refresher training."
+        },
+        {
+                "countryCode": "ZMB",
+                "areaOfFocus": {
+                        "id": "drr"
+                },
+                "action": "drr-4",
+                "label": "Preposition personal protection equipment for staff and volunteers."
+        },
+        {
+                "countryCode": "ZMB",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-1",
+                "label": "Assess the status of identified access and evacuation routes and inform communities of the safe routes to use and those to avoid"
+        },
+        {
+                "countryCode": "ZMB",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-2",
+                "label": "Pre-position of non-food items (NFIs) such as shelter kits, mats, Insecticide Treated Nets (ITNs), plastic sheets, blankets, kitchen sets, water purification tablets, Jerricans, soap, PPEs such as rain coats, gumboots, restock FA kits among others to be distributed to flood prone households in case of evacuation."
+        },
+        {
+                "countryCode": "ZMB",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-3",
+                "label": "Pre-position and distribute Non Food Items (NFIs) such as tents and family kits to the high risk families."
+        },
+        {
+                "countryCode": "ZMB",
+                "areaOfFocus": {
+                        "id": "livelihood"
+                },
+                "action": "livelihood-1",
+                "label": "Livestock protection such as pre-identification of alternative pasturelands and relocation of kraals to elevated grounds."
+        },
+        {
+                "countryCode": "ZMB",
+                "areaOfFocus": {
+                        "id": "livelihood"
+                },
+                "action": "livelihood-2",
+                "label": "Community sensitization on proper food storage, preservation and livestock protection. Assess the status of the safe areas for animals. Identify community stores where communities can keep their food. Provide food storage bags."
+        },
+        {
+                "countryCode": "ZMB",
+                "areaOfFocus": {
+                        "id": "health"
+                },
+                "action": "health-1",
+                "label": "Preposition ambulatory services, mobile clinics, ambulances - mobilise the CHWs. Preposition rapid test kits (RDTs). Distribute ITNs (Insecticide Treated Nets)"
+        },
+        {
+                "countryCode": "ZMB",
+                "areaOfFocus": {
+                        "id": "wash"
+                },
+                "action": "wash-1",
+                "label": "Identify the potential sanitation facilities at the evacuation centres. Pre-position and distribution of soap and 20 litre water storage containers."
+        },
+        {
+                "countryCode": "KEN",
+                "areaOfFocus": {
+                        "id": "drr"
+                },
+                "action": "drr-1",
+                "label": "Dissemination of Early Warning Messages"
+        },
+        {
+                "countryCode": "KEN",
+                "areaOfFocus": {
+                        "id": "drr"
+                },
+                "action": "drr-2",
+                "label": "Support Physical Evacuation"
+        },
+        {
+                "countryCode": "KEN",
+                "areaOfFocus": {
+                        "id": "drr"
+                },
+                "action": "drr-3",
+                "label": "Placement of flood markers"
+        },
+        {
+                "countryCode": "KEN",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-1",
+                "label": "Prepositioning of Shelter and WASH NFIs"
+        },
+        {
+                "countryCode": "KEN",
+                "areaOfFocus": {
+                        "id": "livelihood"
+                },
+                "action": "livelihood-1",
+                "label": "Vaccination and Treatment of livestock - this would address the risk associated with livestock"
+        },
+        {
+                "countryCode": "KEN",
+                "areaOfFocus": {
+                        "id": "health"
+                },
+                "action": "health-1",
+                "label": "Activation of mobile health teams"
+        },
+        {
+                "countryCode": "KEN",
+                "areaOfFocus": {
+                        "id": "health"
+                },
+                "action": "health-2",
+                "label": "Preposition of mobile health equipment and emergency medical supplies"
+        },
+        {
+                "countryCode": "KEN",
+                "areaOfFocus": {
+                        "id": "wash"
+                },
+                "action": "wash-1",
+                "label": "Preposition of WASH NFIs"
+        },
+        {
+                "countryCode": "KEN",
+                "areaOfFocus": {
+                        "id": "wash"
+                },
+                "action": "wash-2",
+                "label": "Dissemination of Early Warning messaging on hygiene"
+        },
+        {
+                "countryCode": "ETH",
+                "areaOfFocus": {
+                        "id": "drr"
+                },
+                "action": "drr-1",
+                "label": "Awareness raising "
+        },
+        {
+                "countryCode": "ETH",
+                "areaOfFocus": {
+                        "id": "drr"
+                },
+                "action": "drr-2",
+                "label": "Support Individual safety measures – life jackets, elevated beddings"
+        },
+        {
+                "countryCode": "ETH",
+                "areaOfFocus": {
+                        "id": "drr"
+                },
+                "action": "drr-3",
+                "label": "Evacuation"
+        },
+        {
+                "countryCode": "ETH",
+                "areaOfFocus": {
+                        "id": "drr"
+                },
+                "action": "drr-4",
+                "label": "Provide forage and water for livestock"
+        },
+        {
+                "countryCode": "ETH",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-1",
+                "label": "Water blockage and diversion measures"
+        },
+        {
+                "countryCode": "ETH",
+                "areaOfFocus": {
+                        "id": "shelter"
+                },
+                "action": "shelter-2",
+                "label": "Support house enforcement"
+        },
+        {
+                "countryCode": "ETH",
+                "areaOfFocus": {
+                        "id": "livelihood"
+                },
+                "action": "livelihood-1",
+                "label": "Early harvesting the crops"
+        },
+        {
+                "countryCode": "ETH",
+                "areaOfFocus": {
+                        "id": "livelihood"
+                },
+                "action": "livelihood-2",
+                "label": "Food distribution"
+        },
+        {
+                "countryCode": "ETH",
+                "areaOfFocus": {
+                        "id": "livelihood"
+                },
+                "action": "livelihood-3",
+                "label": "Relocating the livestock from flood zones (including evacuation in the worst case)"
+        }
+]
