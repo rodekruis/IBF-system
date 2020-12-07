@@ -7,4 +7,5 @@ export class Country {
   countryName: string;
   countryForecasts: string[];
   adminRegionLabels: string[];
+  eapLink: string;
 }

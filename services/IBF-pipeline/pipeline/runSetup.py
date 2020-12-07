@@ -24,7 +24,7 @@ def main():
         # uploadStaticToDb('redcross_branches','points/RedCross_branches.csv')
         # uploadStaticToDb('healthsites','points/healthsites.csv')
         # uploadStaticToDb('waterpoints','points/wpdx_data_export-2019-07-01T10-05-44.csv')
-        uploadStaticToDb('UGA_flood_vulnerability','uga_vulnerability_eap.csv')
+        # uploadStaticToDb('UGA_flood_vulnerability','uga_vulnerability_eap.csv')
     processStaticDataDb()
     
     logger.info('Finished Setup')
