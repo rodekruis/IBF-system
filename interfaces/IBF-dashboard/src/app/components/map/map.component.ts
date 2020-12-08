@@ -355,7 +355,6 @@ export class MapComponent implements OnDestroy {
   }
 
   private createMarkerPopup(markerProperties) {
-    
     const percentageTrigger =
       markerProperties.fc / markerProperties.trigger_level;
     const color = percentageTrigger < 1 ? '#a5d4a1' : '#d7301f';
