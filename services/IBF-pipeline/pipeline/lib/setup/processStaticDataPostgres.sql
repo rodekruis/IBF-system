@@ -147,6 +147,7 @@ from "IBF-static-input"."metadata"
 where country_code like '%ETH%'
 ;
 --select * from "IBF-API"."metadata"
+--select * from "IBF-static-input"."metadata"
 
 
 

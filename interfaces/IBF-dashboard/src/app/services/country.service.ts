@@ -26,7 +26,7 @@ export class CountryService {
       },
       {
         countryCode: 'KEN',
-        defaultAdminLevel: AdminLevel.adm2,
+        defaultAdminLevel: AdminLevel.adm1,
         countryName: 'Kenya',
         countryForecasts: ['7-day'],
         adminRegionLabels: ['Counties', 'Subcounties', 'Wards'],
