@@ -48,7 +48,6 @@ SETTINGS = {
             'pcode_colname': 'pcode'
         },
         'trigger_colname': '10yr_threshold',
-        'CRA_filename': 'ZMB_CRA_Indicators',
         'lead_times': {
             "short": 3,
             "long": 7
@@ -72,7 +71,6 @@ SETTINGS = {
             'pcode_colname': 'pcode'
         },
         'trigger_colname': '5yr_threshold',
-        'CRA_filename': 'ZMB_CRA_Indicators',
         'lead_times': {
             "long": 7
         },
@@ -95,7 +93,6 @@ SETTINGS = {
             'pcode_colname': 'ADM1_PCODE'
         },
         'trigger_colname': '5yr_threshold',
-        'CRA_filename': 'KEN_CRA_Indicators',
         'lead_times': {
             "long": 7
         },
@@ -118,7 +115,6 @@ SETTINGS = {
             'pcode_colname': 'HRpcode'
         },
         'trigger_colname': '5yr_threshold',
-        'CRA_filename': 'ETH_CRA_Indicators',
         'lead_times': {
             "long": 7
         },
@@ -140,7 +136,6 @@ SETTINGS = {
         'flood_extent_admin_boundaries': '',
         'exposure_admin_boundaries': '',
         'trigger_colname': '5yr_threshold',
-        'CRA_filename': '',
         'lead_times': {
             "short": 3,
             "long": 7

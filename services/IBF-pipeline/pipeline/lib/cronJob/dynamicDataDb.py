@@ -25,7 +25,6 @@ class DatabaseManager:
         }
         if CALCULATE_EXPOSURE:
             self.tableJson["calculated_affected_" + fcStep] = affectedFolder + 'affected_' + fcStep + '_' + country_code + ".json"
-        self.CRA_FILENAME = SETTINGS[country_code]['CRA_filename']
 
     def upload(self):
         for table, jsonData in self.tableJson.items():
@@ -76,10 +75,7 @@ class DatabaseManager:
             self.cur.execute(sql_trigger)
             self.cur.execute(sql_event_districts)
             if CALCULATE_EXPOSURE:
-                self.cur.execute(psql.SQL(sql_exposure).format(
-                    psql.Identifier("IBF-static-input", self.CRA_FILENAME + "_3"),
-                    psql.Identifier("IBF-static-input", self.CRA_FILENAME + "_2"),
-                    psql.Identifier("IBF-static-input", self.CRA_FILENAME + "_1")))
+                self.cur.execute(psql.SQL(sql_exposure))
             self.con.commit()
             self.con.close()
             print('SQL EXECUTED')
