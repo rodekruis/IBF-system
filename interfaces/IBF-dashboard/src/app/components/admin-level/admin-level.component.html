@@ -11,7 +11,7 @@
         ? 'ibf-royal-blue'
         : 'ibf-black'
     "
-    disabled="disabled"
+    [disabled]="getSelectedAdminLevel() !== adminLevel.adm1"
     (click)="setAdminLevel(adminLevel.adm1, !adminLayerState)"
   >
     {{ adminLevelLabel.adm1 }}
@@ -28,6 +28,7 @@
         ? 'ibf-royal-blue'
         : 'ibf-black'
     "
+    [disabled]="getSelectedAdminLevel() !== adminLevel.adm2"
     (click)="setAdminLevel(adminLevel.adm2, !adminLayerState)"
   >
     {{ adminLevelLabel.adm2 }}
@@ -44,7 +45,7 @@
         ? 'ibf-royal-blue'
         : 'ibf-black'
     "
-    disabled="disabled"
+    [disabled]="getSelectedAdminLevel() !== adminLevel.adm3"
     (click)="setAdminLevel(adminLevel.adm3, !adminLayerState)"
   >
     {{ adminLevelLabel.adm3 }}
@@ -61,7 +62,7 @@
         ? 'ibf-royal-blue'
         : 'ibf-black'
     "
-    disabled="disabled"
+    [disabled]="getSelectedAdminLevel() !== adminLevel.adm4"
     (click)="setAdminLevel(adminLevel.adm4, !adminLayerState)"
   >
     {{ adminLevelLabel.adm4 }}
