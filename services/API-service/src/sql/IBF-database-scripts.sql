@@ -81,7 +81,10 @@ select geo.pcode_level2
 	,d2.*
 from (
 	select cast('ZMB' as varchar) as country_code
-			,*
+			,pcode_level2 
+			,name
+			,pcode_level1
+			,st_geometryfromtext(geom) as geom
 	from "IBF-static-input"."ZMB_Geo_level2" zmb
 	union all
 	select cast('UGA' as varchar) as country_code
@@ -104,7 +107,7 @@ from (
 ) geo
 left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode_level2 = d2.pcode
 ;
---select * from "IBF-API"."Admin_area_data2" where country_code = 'UGA'
+--select * from "IBF-API"."Admin_area_data2" where country_code = 'ZMB'
 
 drop view if exists "IBF-API"."Admin_area_data1" cascade;
 create or replace view "IBF-API"."Admin_area_data1" as 
