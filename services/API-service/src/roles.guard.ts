@@ -2,7 +2,6 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import { UserService } from './user/user.service';
-import { SECRET } from './secrets';
 import { DEBUG } from './config';
 
 @Injectable()
@@ -22,7 +21,7 @@ export class RolesGuard implements CanActivate {
     const authHeaders = req.headers.authorization;
     if (authHeaders && (authHeaders as string).split(' ')[1]) {
       const token = (authHeaders as string).split(' ')[1];
-      const decoded: any = jwt.verify(token, SECRET);
+      const decoded: any = jwt.verify(token, process.env.SECRET);
       const user = await this.userService.findById(decoded.id);
       req.user = user.user;
       return true;
