@@ -80,6 +80,7 @@ FROM "IBF-static-input"."ETH_waterstation_per_district"
 --	, station_code_7day
 --FROM "IBF-static-input"."EGY_waterstation_per_district"
 ;
+--select * from "IBF-static-input".waterstation_per_district
 
 DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_redcross_branches;
 SELECT  "BRANCH" branch_name

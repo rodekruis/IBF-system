@@ -15,7 +15,13 @@ from (
 		left join "IBF-pipeline-output".dashboard_forecast_per_district t1
 			on t0.start_date <= t1.date and coalesce(t0.end_date,'9999-99-99') >= t1.date
 			and t0.country_code = t1.country_code
-		left join "IBF-API"."Admin_area_data2" t2
+		left join (
+			select *
+			from "IBF-API"."Admin_area_data2"
+			union all
+			select *
+			from "IBF-API"."Admin_area_data1"
+		) t2
 			on t1.pcode = t2.pcode
 			and to_date(t2.date,'yyyy-mm-dd') = current_date
 		where t1.fc_trigger=1
@@ -43,7 +49,13 @@ from (
 	left join "IBF-pipeline-output".dashboard_forecast_per_district t1
 		on t0.start_date <= t1.date and coalesce(t0.end_date,'9999-99-99') >= t1.date
 		and t0.country_code = t1.country_code
-	left join "IBF-API"."Admin_area_data2" t2
+	left join (
+		select *
+		from "IBF-API"."Admin_area_data2"
+		union all
+		select *
+		from "IBF-API"."Admin_area_data1"
+	) t2
 		on t1.pcode = t2.pcode
 		and to_date(t2.date,'yyyy-mm-dd') = current_date
 	where t1.fc_trigger=1
@@ -55,5 +67,6 @@ left join "IBF-pipeline-output".event_districts districtsExisting
 	and districtsToday.pcode = districtsExisting.pcode
 where districtsExisting.pcode is null
 ;
---select * from "IBF-pipeline-output".event_districts where event = 32
+--select * from "IBF-pipeline-output".event_districts where event = 91
+--select * from "IBF-pipeline-output".events where country_code = 'ETH'
 
