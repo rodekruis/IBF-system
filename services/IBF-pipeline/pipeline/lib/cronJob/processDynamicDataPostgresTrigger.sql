@@ -20,7 +20,7 @@ left join (select country_code, max(date) as max_date from "IBF-pipeline-output"
 where tpd.date = max.max_date
 ;
 --select * from "IBF-pipeline-output".dashboard_triggers_per_day
---select * from "IBF-pipeline-output".triggers_per_day where country_code = 'UGA' order by date
+--select * from "IBF-pipeline-output".triggers_per_day where country_code = 'ZMB' order by date
 
 
     
@@ -78,11 +78,13 @@ LEFT JOIN (select "station_code_7day" as station from "IBF-static-input".waterst
 	ON t3.station = t0.station_code
 where to_date(date,'yyyy-mm-dd') >= current_date - 1
 ;
---select * from "IBF-pipeline-output".dashboard_forecast_per_station where country_code = 'KEN'
+--select * from "IBF-pipeline-output".dashboard_forecast_per_station order by 1
+--select * from "IBF-pipeline-output".triggers_rp_per_station_long where country_code = 'KEN'
+--select * FROM "IBF-static-input".dashboard_glofas_stations where country_code = 'KEN'
 
 DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_forecast_per_district;
 select t0.country_code
-	,case when length(cast(pcode as varchar)) = 3 then '0' || cast(pcode as varchar) else cast(pcode as varchar) end as pcode
+	,pcode
 	,case when lead_time = '3-day' then "station_code_3day" when lead_time = '7-day' then "station_code_7day" end as station_code
 	,lead_time
 	,date

@@ -44,7 +44,7 @@ SETTINGS = {
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_ZMB.csv',
         'district_mapping': 'Glofas_station_per_admin_area_ZMB.csv',
         'admin_boundaries': {
-            'filename': 'vector/ZMB_adm2_mapshaper_new103_pcode.shp',
+            'filename': 'vector/ZMB_adm2_mapshaper_2020.shp',
             'pcode_colname': 'pcode'
         },
         'trigger_colname': '10yr_threshold',
