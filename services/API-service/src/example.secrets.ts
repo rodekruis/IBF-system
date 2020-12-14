@@ -2,8 +2,6 @@ import { CountryStatus } from './country/country-status.enum';
 import { UserRole } from './user/user-role.enum';
 import { UserStatus } from './user/user-status.enum';
 
-export const SECRET = process.env.SECRET;
-
 export const USERCONFIGS = [
   {
     email: 'dunant@redcross.nl',

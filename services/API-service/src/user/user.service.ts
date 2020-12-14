@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getRepository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
-import { SECRET } from '../secrets';
 import { UserRO } from './user.interface';
 import { validate } from 'class-validator';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
@@ -168,7 +167,7 @@ export class UserService {
         ),
         exp: exp.getTime() / 1000,
       },
-      SECRET,
+      process.env.SECRET,
     );
 
     return result;
