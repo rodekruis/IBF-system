@@ -29,7 +29,7 @@ import {
   IbfLayerType,
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
-import { IndicatorEnum } from 'src/app/types/indicator-group';
+import { IndicatorName } from 'src/app/types/indicator-group';
 
 @Component({
   selector: 'app-map',
@@ -297,7 +297,7 @@ export class MapComponent implements OnDestroy {
       onEachFeature: function (feature, element) {
         element.on('click', function () {
           if (
-            layer.colorProperty === IndicatorEnum.PopulationExposed &&
+            layer.colorProperty === IndicatorName.PopulationAffected &&
             feature.properties[layer.colorProperty] > 0
           ) {
             const popup =
@@ -305,7 +305,7 @@ export class MapComponent implements OnDestroy {
               feature.properties.name +
               '</strong><br/>' +
               'Population exposed: ' +
-              Math.round(feature.properties[IndicatorEnum.PopulationExposed]) +
+              Math.round(feature.properties[IndicatorName.PopulationAffected]) +
               '';
             element.bindPopup(popup).openPopup();
           }
