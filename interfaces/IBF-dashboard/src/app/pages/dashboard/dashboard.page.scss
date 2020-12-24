@@ -42,10 +42,11 @@ app-export-view {
       flex-direction: column;
 
       .component-title {
-        background-color: var(--ion-color-ibf-gray);
+        background-color: var(--ion-color-ibf-royal-blue);
 
         .component-title-item {
           --background: transparent;
+          --color: var(--ion-color-ibf-royal-blue-contrast);
 
           .component-title-thumbnail {
             height: 24px;
