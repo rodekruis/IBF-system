@@ -5,7 +5,7 @@ import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { EapAction } from 'src/app/types/eap-action';
-import { IndicatorEnum } from 'src/app/types/indicator-group';
+import { IndicatorName } from 'src/app/types/indicator-group';
 
 @Component({
   selector: 'app-chat',
@@ -18,7 +18,7 @@ export class ChatComponent implements OnDestroy {
   private eapActionSubscription: Subscription;
   private countrySubscription: Subscription;
 
-  public IndicatorEnum = IndicatorEnum;
+  public IndicatorName = IndicatorName;
   public eapActions: EapAction[];
   public changedActions: EapAction[] = [];
   public submitDisabled = true;
