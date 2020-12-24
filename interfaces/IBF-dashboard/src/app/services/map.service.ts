@@ -15,7 +15,7 @@ import {
   IbfLayerType,
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
-import { Indicator, IndicatorEnum } from 'src/app/types/indicator-group';
+import { Indicator, IndicatorName } from 'src/app/types/indicator-group';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 
@@ -34,7 +34,7 @@ export class MapService {
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
     transparentColor: 'transparent',
-    defaultColorProperty: IndicatorEnum.PopulationExposed,
+    defaultColorProperty: IndicatorName.PopulationAffected,
     defaultFillOpacity: 0.8,
     defaultWeight: 1,
   };
