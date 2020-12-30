@@ -14,8 +14,6 @@
     [class.active]="timeStepButton.active"
     (click)="timelineService.handleTimeStepButtonClick(timeStepButton.value)"
   >
-    {{ timeStepButton.value }}
-    <br />
-    {{ timeStepButton.dateString }}
+    <date-button [date]="timeStepButton.date"></date-button>
   </ion-button>
 </ion-item>

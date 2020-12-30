@@ -48,6 +48,21 @@ app-export-view {
           --background: transparent;
           --color: var(--ion-color-ibf-royal-blue-contrast);
 
+          ion-button {
+            height: 40px;
+            width: 160px;
+            --box-shadow: none;
+            text-transform: uppercase;
+            opacity: 1;
+
+            span {
+              &.today {
+                font-size: 24px;
+                padding-right: 10px;
+              }
+            }
+          }
+
           .component-title-thumbnail {
             height: 24px;
             width: 24px;
