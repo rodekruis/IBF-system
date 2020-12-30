@@ -1,0 +1,21 @@
+.inline-block {
+  display: inline-block;
+}
+
+ion-button {
+  height: 40px;
+  width: 160px;
+  --box-shadow: none;
+  text-transform: uppercase;
+  opacity: 1;
+
+  span {
+    &.today {
+      font-size: 24px;
+      padding-right: 10px;
+    }
+    &.date {
+      font-size: 16px;
+    }
+  }
+}
