@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'date-button',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./date-button.component.scss'],
 })
 export class DateButtonComponent implements OnInit {
-  @Input() date;
+  @Input() date = moment();
 
   private dateFormat: string = 'ddd DD';
   private monthFormat: string = 'MMM YYYY';
