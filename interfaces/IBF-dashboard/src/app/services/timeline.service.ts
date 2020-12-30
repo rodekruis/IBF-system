@@ -11,7 +11,6 @@ export class TimelineService {
   public state = {
     selectedTimeStepButtonValue: '7-day',
     today: moment(),
-    dateFormat: 'DD/MM',
     timeStepButtons: [],
   };
   private triggers: any[];
@@ -26,20 +25,6 @@ export class TimelineService {
     return this.timelineSubject.asObservable();
   }
 
-  private setAlertState = (triggers) => {
-    const dashboardElement = document.getElementById('ibf-dashboard-interface');
-    let alertState = false;
-    const possibleTriggers = ['1', '2', '3', '4', '5', '6', '7'];
-    possibleTriggers.forEach((triggerKey) => {
-      alertState = alertState || triggers[triggerKey] == 1;
-    });
-    if (alertState) {
-      dashboardElement.classList.add('trigger-alert');
-    } else {
-      dashboardElement.classList.remove('trigger-alert');
-    }
-  };
-
   public async loadTimeStepButtons() {
     const dates = await this.apiService.getRecentDates(
       this.countryService.selectedCountry.countryCode,
@@ -48,76 +33,53 @@ export class TimelineService {
 
     this.triggers = await this.getTrigger();
 
-    this.setAlertState(this.triggers);
-
     this.state.timeStepButtons = [];
 
     this.state.timeStepButtons = this.filterTimeStepButtonsByCountryForecast([
       {
-        dateString: this.state.today
-          .clone()
-          .add(1, 'days')
-          .format(this.state.dateFormat),
+        date: this.state.today.clone().add(1, 'days'),
         value: '1-day',
         alert: this.triggers['1'] == 1,
         disabled: await this.forecastDisabled('1-day'),
         active: false,
       },
       {
-        dateString: this.state.today
-          .clone()
-          .add(2, 'days')
-          .format(this.state.dateFormat),
+        date: this.state.today.clone().add(2, 'days'),
         value: '2-day',
         alert: this.triggers['2'] == 1,
         disabled: await this.forecastDisabled('2-day'),
         active: false,
       },
       {
-        dateString: this.state.today
-          .clone()
-          .add(3, 'days')
-          .format(this.state.dateFormat),
+        date: this.state.today.clone().add(3, 'days'),
         value: '3-day',
         alert: this.triggers['3'] == 1,
         disabled: await this.forecastDisabled('3-day'),
         active: false,
       },
       {
-        dateString: this.state.today
-          .clone()
-          .add(4, 'days')
-          .format(this.state.dateFormat),
+        date: this.state.today.clone().add(4, 'days'),
         value: '4-day',
         alert: this.triggers['4'] == 1,
         disabled: await this.forecastDisabled('4-day'),
         active: false,
       },
       {
-        dateString: this.state.today
-          .clone()
-          .add(5, 'days')
-          .format(this.state.dateFormat),
+        date: this.state.today.clone().add(5, 'days'),
         value: '5-day',
         alert: this.triggers['5'] == 1,
         disabled: await this.forecastDisabled('5-day'),
         active: false,
       },
       {
-        dateString: this.state.today
-          .clone()
-          .add(6, 'days')
-          .format(this.state.dateFormat),
+        date: this.state.today.clone().add(6, 'days'),
         value: '6-day',
         alert: this.triggers['6'] == 1,
         disabled: await this.forecastDisabled('6-day'),
         active: false,
       },
       {
-        dateString: this.state.today
-          .clone()
-          .add(7, 'days')
-          .format(this.state.dateFormat),
+        date: this.state.today.clone().add(7, 'days'),
         value: '7-day',
         alert: this.triggers['7'] == 1,
         disabled: await this.forecastDisabled('7-day'),
