@@ -25,6 +25,7 @@ import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel } from 'src/app/types/admin-level.enum';
 import {
   IbfLayer,
+  IbfLayerGroup,
   IbfLayerName,
   IbfLayerType,
   IbfLayerWMS,
@@ -231,6 +232,8 @@ export class MapComponent implements OnDestroy {
 
   onMapReady(map: Map) {
     this.map = map;
+    this.map.createPane('ibf-wms');
+    this.map.createPane('ibf-aggregate');
 
     // Trigger a resize to fill the container-element:
     window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 200);
@@ -293,6 +296,10 @@ export class MapComponent implements OnDestroy {
     }
 
     return geoJSON(layer.data, {
+      pane:
+        layer.group && layer.group === IbfLayerGroup.aggregates
+          ? 'ibf-aggregate'
+          : 'overlayPane',
       style: this.mapService.setAdminRegionStyle(layer),
       onEachFeature: function (feature, element) {
         element.on('click', function () {
@@ -319,6 +326,7 @@ export class MapComponent implements OnDestroy {
       return;
     }
     return tileLayer.wms(layerWMS.url, {
+      pane: 'ibf-wms',
       layers: layerWMS.name,
       format: layerWMS.format,
       version: layerWMS.version,
