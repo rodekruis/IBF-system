@@ -70,4 +70,10 @@ export class MatrixComponent implements OnDestroy {
       this.hideLayerControlToggleButton = state;
     });
   }
+
+  getLayersInOrder(): IbfLayer[] {
+    return this.layers.sort((a: IbfLayer, b: IbfLayer) =>
+      a.order > b.order ? 1 : a.order === b.order ? 0 : -1,
+    );
+  }
 }

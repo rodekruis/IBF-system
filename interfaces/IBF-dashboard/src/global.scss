@@ -110,3 +110,14 @@
     }
   }
 }
+
+// leaflet map
+
+.leaflet-ibf-aggregate-pane {
+  z-index: 533;
+}
+
+.leaflet-ibf-wms-pane {
+  z-index: 566;
+  pointer-events: none;
+}
