@@ -37,11 +37,22 @@ export class EventService {
       this.state.event?.start_date ===
       this.timelineService.state.today.format('YYYY-MM-DD');
 
+    this.setAlertState();
+
     if (this.state.activeTrigger) {
       this.getFirstTriggerDate();
       this.getTriggerLeadTime();
     }
   }
+
+  private setAlertState = () => {
+    const dashboardElement = document.getElementById('ibf-dashboard-interface');
+    if (this.state.activeTrigger) {
+      dashboardElement.classList.add('trigger-alert');
+    } else {
+      dashboardElement.classList.remove('trigger-alert');
+    }
+  };
 
   private async getFirstTriggerDate() {
     const timesteps = await this.apiService.getTriggerPerLeadTime(
