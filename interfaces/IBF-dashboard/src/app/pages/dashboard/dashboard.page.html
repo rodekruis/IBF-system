@@ -76,7 +76,15 @@
           >
             <ion-col size="12">
               <ion-item lines="none" class="component-title-item">
-                <today slot="start" class="ion-margin-end"></today>
+                <ion-button
+                  slot="start"
+                  class="ion-margin-end"
+                  color="transparent"
+                  [disabled]="true"
+                >
+                  <span class="today">TODAY</span>
+                  <date-button [date]="today"></date-button>
+                </ion-button>
                 <ion-thumbnail slot="start" class="component-title-thumbnail">
                   <ion-img src="assets/icons/alert-white.svg"></ion-img>
                 </ion-thumbnail>

@@ -9,6 +9,7 @@ import { AggregatesComponent } from './components/aggregates/aggregates.componen
 import { AreasOfFocusSummaryComponent } from './components/areas-of-focus-summary/areas-of-focus-summary.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CountrySwitcherComponent } from './components/country-switcher/country-switcher.component';
+import { DateButtonComponent } from './components/date-button/date-button.component';
 import { DialogueTurnComponent } from './components/dialogue-turn/dialogue-turn.component';
 import { ExportViewPopoverComponent } from './components/export-view-popover/export-view-popover.component';
 import { ExportViewComponent } from './components/export-view/export-view.component';
@@ -21,7 +22,6 @@ import { MatrixComponent } from './components/matrix/matrix.component';
 import { SourceInfoModalComponent } from './components/source-info-modal/source-info-modal.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimestampComponent } from './components/timestamp/timestamp.component';
-import { TodayComponent } from './components/today/today.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
 
 @NgModule({
@@ -46,7 +46,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     AdminLevelComponent,
     ExportViewComponent,
     ExportViewPopoverComponent,
-    TodayComponent,
+    DateButtonComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -68,7 +68,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     AdminLevelComponent,
     ExportViewComponent,
     ExportViewPopoverComponent,
-    TodayComponent,
+    DateButtonComponent,
   ],
 })
 export class SharedModule {}
