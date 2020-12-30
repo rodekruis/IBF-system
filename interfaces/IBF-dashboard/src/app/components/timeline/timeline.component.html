@@ -9,13 +9,7 @@
     *ngFor="let timeStepButton of timelineService.state.timeStepButtons"
     expand="full"
     disabled="{{ timeStepButton.disabled }}"
-    color="{{
-      timeStepButton.alert
-        ? 'ibf-salmon'
-        : timeStepButton.value == timelineService.state.timeStepButtons[0].value
-        ? 'ibf-dark-blue'
-        : 'ibf-gray'
-    }}"
+    color="{{ timeStepButton.alert ? 'ibf-salmon' : 'ibf-gray' }}"
     fill="solid"
     [class.active]="timeStepButton.active"
     (click)="timelineService.handleTimeStepButtonClick(timeStepButton.value)"
