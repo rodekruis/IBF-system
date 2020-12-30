@@ -54,12 +54,6 @@ export class TimelineService {
 
     this.state.timeStepButtons = this.filterTimeStepButtonsByCountryForecast([
       {
-        dateString: this.state.today.format(this.state.dateFormat),
-        value: 'Today',
-        alert: false,
-        disabled: true,
-      },
-      {
         dateString: this.state.today
           .clone()
           .add(1, 'days')
