@@ -34,7 +34,7 @@
       <ion-list color="dark" class="ion-no-padding">
         <ion-item
           lines="full"
-          *ngFor="let layer of layers"
+          *ngFor="let layer of getLayersInOrder()"
           [class.ion-hide]="!layer.show"
           [class.layer-active]="layer.active"
           (click)="updateLayer(layer.name, !layer.active)"

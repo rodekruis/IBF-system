@@ -12,4 +12,5 @@ export default {
   active: true,
   show: true,
   viewCenter: false,
+  order: 0,
 };
