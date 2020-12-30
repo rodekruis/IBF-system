@@ -25,20 +25,6 @@ export class TimelineService {
     return this.timelineSubject.asObservable();
   }
 
-  private setAlertState = (triggers) => {
-    const dashboardElement = document.getElementById('ibf-dashboard-interface');
-    let alertState = false;
-    const possibleTriggers = ['1', '2', '3', '4', '5', '6', '7'];
-    possibleTriggers.forEach((triggerKey) => {
-      alertState = alertState || triggers[triggerKey] == 1;
-    });
-    if (alertState) {
-      dashboardElement.classList.add('trigger-alert');
-    } else {
-      dashboardElement.classList.remove('trigger-alert');
-    }
-  };
-
   public async loadTimeStepButtons() {
     const dates = await this.apiService.getRecentDates(
       this.countryService.selectedCountry.countryCode,
@@ -46,8 +32,6 @@ export class TimelineService {
     this.state.today = moment(dates[0].value);
 
     this.triggers = await this.getTrigger();
-
-    this.setAlertState(this.triggers);
 
     this.state.timeStepButtons = [];
 
