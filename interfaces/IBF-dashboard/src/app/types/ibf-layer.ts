@@ -8,6 +8,7 @@ export class IbfLayer {
   active: boolean;
   show: boolean;
   viewCenter: boolean;
+  order: number;
   colorProperty?: string;
   wms?: IbfLayerWMS;
   data?: GeoJSON.FeatureCollection;

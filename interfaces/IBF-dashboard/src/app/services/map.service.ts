@@ -56,6 +56,7 @@ export class MapService {
       show: true,
       data: await this.getStations(),
       viewCenter: false,
+      order: 0,
     });
   }
 
@@ -64,12 +65,13 @@ export class MapService {
       name: IbfLayerName.adminRegions,
       label: IbfLayerLabel.adminRegions,
       type: IbfLayerType.shape,
-      description: 'loadAdminRegionLayer',
+      description: '',
       active: true,
       show: true,
       data: await this.getAdminRegions(),
       viewCenter: true,
       colorProperty: this.state.defaultColorProperty,
+      order: 0,
     });
   }
 
@@ -86,6 +88,7 @@ export class MapService {
       colorProperty: indicator.name,
       legendColor: '#969696',
       group: IbfLayerGroup.aggregates,
+      order: 2,
     });
   }
 
@@ -94,20 +97,6 @@ export class MapService {
       if (layer.group === IbfLayerGroup.aggregates) {
         await this.updateLayer(layer.name, layer.active, false);
       }
-    });
-  }
-
-  public async updateAdminRegionLayer(colorProperty: string) {
-    this.addLayer({
-      name: IbfLayerName.adminRegions,
-      label: IbfLayerLabel.adminRegions,
-      type: IbfLayerType.shape,
-      description: 'updateAdminRegionLayer',
-      active: true,
-      show: true,
-      data: await this.getAdminRegions(),
-      viewCenter: true,
-      colorProperty: colorProperty,
     });
   }
 
@@ -129,6 +118,7 @@ export class MapService {
       viewCenter: false,
       data: null,
       legendColor: legendColor,
+      order: 1,
       wms: {
         url: environment.geoserver_url,
         name: `ibf-system:${layerName}_${timestep ? timestep + '_' : ''}${
@@ -258,6 +248,7 @@ export class MapService {
           colorProperty: layer.colorProperty,
           legendColor: layer.legendColor,
           group: layer.group,
+          order: layer.order,
           show:
             show == null || layer.name != triggerLayer.name ? layer.show : show,
         });
