@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-login-form',
@@ -11,18 +12,28 @@ export class LoginFormComponent implements OnInit {
   @ViewChild('loginForm')
   public loginForm: NgForm;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private loaderService: LoaderService,
+  ) {}
+
+  ngOnInit() {
+    this.loaderService.setLoader(false);
+  }
 
   public model = {
     email: '',
     password: '',
   };
 
-  ngOnInit() {}
-
   public onSubmit() {
-    this.authService.login(this.model.email, this.model.password).then(() => {
-      this.loginForm.resetForm();
-    });
+    this.loaderService.setLoader(true);
+    this.authService
+      .login(this.model.email, this.model.password, () => {
+        this.loaderService.setLoader(false);
+      })
+      .then(() => {
+        this.loginForm.resetForm();
+      });
   }
 }
