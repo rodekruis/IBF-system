@@ -20,6 +20,7 @@ import { Country } from 'src/app/models/country.model';
 import { Station } from 'src/app/models/station.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel } from 'src/app/types/admin-level.enum';
@@ -86,6 +87,7 @@ export class MapComponent implements OnDestroy {
     private adminLevelService: AdminLevelService,
     private timelineService: TimelineService,
     public mapService: MapService,
+    private loaderService: LoaderService,
   ) {
     this.layerSubscription = this.mapService
       .getLayers()
@@ -152,10 +154,10 @@ export class MapComponent implements OnDestroy {
         this.mapService.loadFloodExtentLayer();
 
         // Trigger a resize to fill the container-element:
-        window.setTimeout(
-          () => window.dispatchEvent(new UIEvent('resize')),
-          200,
-        );
+        window.setTimeout(() => {
+          window.dispatchEvent(new UIEvent('resize'));
+          this.loaderService.setLoader(false);
+        }, 200);
       });
   }
 
