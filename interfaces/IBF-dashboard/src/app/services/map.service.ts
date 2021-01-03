@@ -6,6 +6,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
+import { EventService } from 'src/app/services/event.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import {
   IbfLayer,
@@ -44,6 +45,7 @@ export class MapService {
     private adminLevelService: AdminLevelService,
     private timelineService: TimelineService,
     private apiService: ApiService,
+    private eventService: EventService,
   ) {}
 
   public async loadStationLayer() {
@@ -137,7 +139,7 @@ export class MapService {
     this.loadWmsLayer(
       IbfLayerName.floodExtent,
       IbfLayerLabel.floodExtent,
-      true,
+      this.eventService.state.activeTrigger,
       this.timelineService.state.selectedTimeStepButtonValue,
       '#d7301f',
     );
