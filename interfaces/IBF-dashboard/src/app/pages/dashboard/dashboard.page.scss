@@ -47,9 +47,10 @@ app-export-view {
         .component-title-item {
           --background: transparent;
           --color: var(--ion-color-ibf-royal-blue-contrast);
+          --height: 40px;
+          --min-height: 40px;
 
           ion-button {
-            height: 40px;
             width: 160px;
             --box-shadow: none;
             text-transform: uppercase;
