@@ -31,7 +31,7 @@ pyproj==2.1.0
 PySocks==1.6.8
 python-dateutil==2.8.0
 pytz==2018.9
-rasterio==1.0.21
+rasterio==1.1.8
 rasterstats==0.13.1
 requests==2.21.0
 requests-futures==0.9.7
