@@ -34,7 +34,7 @@ pytz==2018.9
 rasterio==1.1.8
 rasterstats==0.13.1
 requests==2.25.1
-requests-futures==0.9.7
+requests-futures==1.0.0
 scipy==1.2.1
 Shapely==1.6.4.post2
 simplejson==3.16.0
