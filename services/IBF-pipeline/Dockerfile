@@ -10,7 +10,7 @@ RUN apt-get install -y python3-pip
 RUN apt-get install -y git
 RUN apt-get install -y wget libxml2-utils
 
-RUN add-apt-repository ppa:ubuntugis/ppa
+RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 RUN apt-get update
 RUN apt-get install -y python-numpy gdal-bin libgdal-dev
 
