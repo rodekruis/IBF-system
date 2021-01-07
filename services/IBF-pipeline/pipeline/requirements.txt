@@ -19,7 +19,7 @@ lxml==4.3.3
 mailchimp3==3.0.7
 MarkupSafe==1.1.1
 munch==2.3.2
-netCDF4==1.4.3.2
+netCDF4==1.5.5.1
 numpy==1.16.2
 pandas==0.24.2
 psycopg2-binary==2.8.5
