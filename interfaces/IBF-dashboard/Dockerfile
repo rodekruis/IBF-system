@@ -10,7 +10,7 @@ COPY package*.json ./
 
 USER node
 
-RUN npm ci
+RUN npm ci --no-audit
 
 COPY --chown=node:node . .
 
