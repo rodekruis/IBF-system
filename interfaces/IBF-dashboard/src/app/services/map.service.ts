@@ -80,7 +80,7 @@ export class MapService {
   public async loadAggregateLayer(indicator: Indicator) {
     this.addLayer({
       name: indicator.name,
-      label: indicator.label,
+      label: IbfLayerLabel[indicator.name],
       type: IbfLayerType.shape,
       description: 'loadAggregateLayer',
       active: indicator.active,
