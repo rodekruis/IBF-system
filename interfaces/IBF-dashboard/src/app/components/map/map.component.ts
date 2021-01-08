@@ -375,7 +375,7 @@ export class MapComponent implements OnDestroy {
       icon: markerIcon ? icon(markerIcon) : divIcon(),
       zIndexOffset: 700,
     });
-    markerInstance.bindPopup(this.createMarkerPopup(markerProperties));
+    markerInstance.bindPopup(this.createMarkerStationPopup(markerProperties));
 
     return markerInstance;
   }
@@ -391,12 +391,12 @@ export class MapComponent implements OnDestroy {
       title: markerTitle,
       icon: markerIcon ? icon(markerIcon) : divIcon(),
     });
-    // markerInstance.bindPopup(this.createMarkerPopup(markerProperties));
+    markerInstance.bindPopup(this.createMarkerRedcrossPopup(markerProperties));
 
     return markerInstance;
   }
 
-  private createMarkerPopup(markerProperties) {
+  private createMarkerStationPopup(markerProperties: Station) {
     const percentageTrigger =
       markerProperties.fc / markerProperties.trigger_level;
     const color = percentageTrigger < 1 ? '#a5d4a1' : '#d7301f';
@@ -442,5 +442,44 @@ export class MapComponent implements OnDestroy {
       '%"></div>' +
       '</div>';
     return stationInfoPopup;
+  }
+
+  private createMarkerRedcrossPopup(markerProperties: RedcrossBranch) {
+    const branchInfoPopup = (
+      '<div style="margin-bottom: 5px">' +
+      '<strong>Branch: ' +
+      markerProperties.name +
+      '</strong>' +
+      '</div>'
+    ).concat(
+      markerProperties.nr_volunteers
+        ? '<div style="margin-bottom: 5px">' +
+            'Nr. of volunteers: ' +
+            markerProperties.nr_volunteers +
+            '</div>'
+        : '',
+
+      markerProperties.contact_person
+        ? '<div style="margin-bottom: 5px">' +
+            'Contact person: ' +
+            markerProperties.contact_person +
+            '</div>'
+        : '',
+
+      markerProperties.contact_address
+        ? '<div style="margin-bottom: 5px">' +
+            'Contact address: ' +
+            markerProperties.contact_address +
+            '</div>'
+        : '',
+
+      markerProperties.contact_number
+        ? '<div style="margin-bottom: 5px">' +
+            'Contact number: ' +
+            markerProperties.contact_number +
+            '</div>'
+        : '',
+    );
+    return branchInfoPopup;
   }
 }

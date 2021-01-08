@@ -84,7 +84,7 @@ FROM "IBF-static-input"."ETH_waterstation_per_district"
 
 DROP TABLE IF EXISTS "IBF-static-input".dashboard_redcross_branches;
 SELECT  'ZMB' as country_code
-	, "BRANCH" as name
+	, initcap("BRANCH") as name
 	, "TOTAL" as nr_volunteers
 	, "PRESIDENT" as contact_person
 	, "LOCATION OF OFFICE" as contact_address
@@ -94,7 +94,7 @@ INTO "IBF-static-input".dashboard_redcross_branches
 FROM "IBF-static-input"."ZMB_redcross_branches"
 union all
 SELECT 'UGA' as country_code 
-	, "BranchName" as name 
+	, initcap("BranchName") as name 
 	, null as nr_volunteers 
 	, null as contact_person 
 	, null as contact_address 
