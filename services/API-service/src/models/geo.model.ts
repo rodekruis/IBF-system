@@ -6,12 +6,19 @@ export class Poi {
   geom: string;
 }
 
-export class Station extends Poi {
+export class GlofasStation extends Poi {
   triggerLevel: number;
   forecastLevel: number;
   triggerInd: number;
   triggerPerc: number;
   triggerProb: number;
+}
+
+export class RedcrossBranch extends Poi {
+  nr_volunteers: number;
+  contact_person: string;
+  contact_address: string;
+  contact_number: string;
 }
 
 export class GeoJson {

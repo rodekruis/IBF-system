@@ -8,7 +8,7 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { User } from '../user/user.decorator';
-import { GeoJson } from 'src/models/station.model';
+import { GeoJson } from 'src/models/geo.model';
 import { RolesGuard } from '../roles.guard';
 
 @ApiBearerAuth()
@@ -51,14 +51,18 @@ export class DataController {
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
   @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
   @Get('stations/:countryCode/:leadTime')
-  public async getStations(
-    @User('id') userId: number,
-    @Param() params,
-  ): Promise<GeoJson> {
+  public async getStations(@Param() params): Promise<GeoJson> {
     return await this.dataService.getStations(
       params.countryCode,
       params.leadTime,
     );
+  }
+
+  @ApiOperation({ title: 'Get redcross branch locations' })
+  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
+  @Get('redcross-branches/:countryCode')
+  public async getRedcrossBranches(@Param() params): Promise<GeoJson> {
+    return await this.dataService.getRedcrossBranches(params.countryCode);
   }
 
   @ApiOperation({ title: 'Get metadata' })
