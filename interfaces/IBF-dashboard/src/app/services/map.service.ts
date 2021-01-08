@@ -62,6 +62,20 @@ export class MapService {
     });
   }
 
+  public async loadRedcrossBranchesLayer() {
+    this.addLayer({
+      name: IbfLayerName.redcrossBranches,
+      label: IbfLayerLabel.redcrossBranches,
+      type: IbfLayerType.point,
+      description: 'loadRedcrossBranchesLayer',
+      active: false,
+      show: true,
+      data: await this.getRedcrossBranches(),
+      viewCenter: false,
+      order: 1,
+    });
+  }
+
   public async loadAdminRegionLayer() {
     this.addLayer({
       name: IbfLayerName.adminRegions,
@@ -90,7 +104,7 @@ export class MapService {
       colorProperty: indicator.name,
       legendColor: '#969696',
       group: IbfLayerGroup.aggregates,
-      order: 2,
+      order: 20,
     });
   }
 
@@ -120,7 +134,7 @@ export class MapService {
       viewCenter: false,
       data: null,
       legendColor: legendColor,
-      order: 1,
+      order: 10,
       wms: {
         url: environment.geoserver_url,
         name: `ibf-system:${layerName}_${timestep ? timestep + '_' : ''}${
@@ -264,6 +278,12 @@ export class MapService {
     return await this.apiService.getStations(
       this.countryService.selectedCountry.countryCode,
       this.timelineService.state.selectedTimeStepButtonValue,
+    );
+  }
+
+  public async getRedcrossBranches(): Promise<GeoJSON.FeatureCollection> {
+    return await this.apiService.getRedcrossBranches(
+      this.countryService.selectedCountry.countryCode,
     );
   }
 

@@ -14,6 +14,7 @@ export class MatrixComponent implements OnDestroy {
   private layerSubscription: Subscription;
   public layers: IbfLayer[] = [];
   public IbfLayerType = IbfLayerType;
+  public IbfLayerName = IbfLayerName;
   public hideLayerControlToggleButton: boolean = false;
 
   constructor(
