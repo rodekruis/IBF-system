@@ -5,7 +5,7 @@ SELECT cast('ZMB' as varchar) as country_code
 	, station_code
 	, station_name
 	, "10yr_threshold" as trigger_level
-			,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
+	,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
 --INTO "IBF-static-input".dashboard_glofas_stations
 FROM "IBF-static-input"."ZMB_glofas_stations"
 union all
@@ -41,7 +41,7 @@ where station_code in (select station_code_7day from "IBF-static-input"."ETH_wat
 --FROM "IBF-static-input"."EGY_glofas_stations"
 --where station_code in (select station_code_7day from "IBF-static-input"."EGY_waterstation_per_district" group by 1)
 ;
---select * from "IBF-pipeline-output".dashboard_glofas_stations
+--select * from "IBF-static-input".dashboard_glofas_stations
 
 DROP TABLE IF EXISTS "IBF-static-input".waterstation_per_district;
 SELECT cast('ZMB' as varchar) as country_code 
@@ -82,31 +82,42 @@ FROM "IBF-static-input"."ETH_waterstation_per_district"
 ;
 --select * from "IBF-static-input".waterstation_per_district
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_redcross_branches;
-SELECT  "BRANCH" branch_name
-	, "PROVINCE" province
-	, "PRESIDENT" president
+DROP TABLE IF EXISTS "IBF-static-input".dashboard_redcross_branches;
+SELECT  'ZMB' as country_code
+	, "BRANCH" as name
 	, "TOTAL" as nr_volunteers
-	, "LOCATION OF OFFICE" as address
-			,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
-INTO "IBF-pipeline-output".dashboard_redcross_branches
-FROM "IBF-pipeline-output".redcross_branches
+	, "PRESIDENT" as contact_person
+	, "LOCATION OF OFFICE" as contact_address
+	, null as contact_number
+	, ST_AsGeoJSON(st_SetSrid(st_MakePoint(lon, lat), 4326))::json as geom
+INTO "IBF-static-input".dashboard_redcross_branches
+FROM "IBF-static-input"."ZMB_redcross_branches"
+union all
+SELECT 'UGA' as country_code 
+	, "BranchName" as name 
+	, null as nr_volunteers 
+	, null as contact_person 
+	, null as contact_address 
+	, null as contact_number 
+	, ST_AsGeoJSON(st_SetSrid(st_MakePoint(longitude, latitude), 4326))::json as geom
+FROM "IBF-static-input"."UGA_redcross_branches";
 ;
+--select * from "IBF-static-input".dashboard_redcross_branches
 
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_poi_healthsites;
-SELECT name
-			,type
-			,st_SetSrid(st_MakePoint("Y", "X"), 4326) as geom
-INTO "IBF-pipeline-output".dashboard_poi_healthsites
-FROM "IBF-pipeline-output".healthsites;
-
-DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_poi_waterpoints;
-SELECT water_tech
-	,activity_id
-			,st_SetSrid(st_MakePoint(lat_deg, lon_deg), 4326) as geom
-INTO "IBF-pipeline-output".dashboard_poi_waterpoints
-FROM "IBF-pipeline-output".waterpoints
-;
+--DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_poi_healthsites;
+--SELECT name
+--			,type
+--			,st_SetSrid(st_MakePoint("Y", "X"), 4326) as geom
+--INTO "IBF-pipeline-output".dashboard_poi_healthsites
+--FROM "IBF-pipeline-output".healthsites;
+--
+--DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_poi_waterpoints;
+--SELECT water_tech
+--	,activity_id
+--			,st_SetSrid(st_MakePoint(lat_deg, lon_deg), 4326) as geom
+--INTO "IBF-pipeline-output".dashboard_poi_waterpoints
+--FROM "IBF-pipeline-output".waterpoints
+--;
 
 --DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_roads;
 --SELECT row_to_json(featcoll) as roads
