@@ -55,6 +55,12 @@
               [class.point-layer]="
                 layer.type === IbfLayerType.point && layer.active
               "
+              [class.glofas-layer]="
+                layer.name === IbfLayerName.glofasStations && layer.active
+              "
+              [class.redcross-layer]="
+                layer.name === IbfLayerName.redcrossBranches && layer.active
+              "
               [style.background]="layer.active ? layer.legendColor : null"
             ></ion-col>
             <ion-col

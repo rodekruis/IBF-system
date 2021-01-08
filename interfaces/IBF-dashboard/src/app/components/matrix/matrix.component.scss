@@ -36,9 +36,15 @@
             }
 
             .point-layer {
-              background-image: url('../../../assets/markers/default.svg');
               background-repeat: no-repeat;
               background-position: center;
+              background-size: contain;
+            }
+            .glofas-layer {
+              background-image: url('../../../assets/markers/glofas-default.svg');
+            }
+            .redcross-layer {
+              background-image: url('../../../assets/markers/redcross.png');
             }
 
             .layer-control-label-col {

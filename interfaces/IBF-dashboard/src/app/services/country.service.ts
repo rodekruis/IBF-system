@@ -23,6 +23,9 @@ export class CountryService {
         adminRegionLabels: ['Regions', 'Districts', 'Counties', 'Parishes'],
         eapLink:
           'https://docs.google.com/document/d/1IiG2ZFasCVE7kmYfqgyrx7SuZWkoYzTvw3LaEt2nl2U/edit#heading=h.35nkun2',
+        layerAvailability: {
+          redcrossBranches: true,
+        },
       },
       {
         countryCode: 'KEN',
@@ -32,6 +35,9 @@ export class CountryService {
         adminRegionLabels: ['Counties', 'Subcounties', 'Wards'],
         eapLink:
           'https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9',
+        layerAvailability: {
+          redcross_branches: false,
+        },
       },
       {
         countryCode: 'ETH',
@@ -41,6 +47,9 @@ export class CountryService {
         adminRegionLabels: ['Regions', 'Zones', 'Woredas'],
         eapLink:
           'https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx',
+        layerAvailability: {
+          redcrossBranches: false,
+        },
       },
       {
         countryCode: 'ZMB',
@@ -50,6 +59,9 @@ export class CountryService {
         adminRegionLabels: ['Provinces', 'Districts', 'Wards'],
         eapLink:
           'https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#bookmark=id.xa68na3bshzr',
+        layerAvailability: {
+          redcrossBranches: true,
+        },
       },
     ] as Country[];
   }

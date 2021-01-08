@@ -112,6 +112,14 @@ export class ApiService {
     ).toPromise();
   }
 
+  getRedcrossBranches(countryCode: string): Promise<GeoJSON.FeatureCollection> {
+    return this.get(
+      environment.api_url,
+      `redcross-branches/${countryCode}`,
+      false,
+    ).toPromise();
+  }
+
   getRecentDates(countryCode: string): Promise<any> {
     return this.get(
       environment.api_url,

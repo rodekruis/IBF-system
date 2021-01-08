@@ -31,8 +31,6 @@ COUNTRY_CODES = [
     'KEN'
     ,
     'ETH'
-    # ,
-    # 'EGY'
 ]
 
 SETTINGS = {
@@ -43,6 +41,7 @@ SETTINGS = {
         },
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_ZMB.csv',
         'district_mapping': 'Glofas_station_per_admin_area_ZMB.csv',
+        'redcross_branches': 'points/redcross_branches_ZMB.csv',
         'admin_boundaries': {
             'filename': 'vector/ZMB_adm2_mapshaper_2020.shp',
             'pcode_colname': 'pcode'
@@ -66,6 +65,7 @@ SETTINGS = {
         },
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
         'district_mapping': 'Glofas_station_per_admin_area_UGA.csv',
+        'redcross_branches': 'points/redcross_branches_UGA.csv',
         'admin_boundaries': {
             'filename': 'vector/UGA_adm2_mapshaper.shp',
             'pcode_colname': 'pcode'

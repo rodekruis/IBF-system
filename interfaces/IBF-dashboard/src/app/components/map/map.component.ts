@@ -32,6 +32,7 @@ import {
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
 import { IndicatorName } from 'src/app/types/indicator-group';
+import { RedcrossBranch } from '../../../../../../services/API-service/src/models/geo.model';
 
 @Component({
   selector: 'app-map',
@@ -57,19 +58,26 @@ export class MapComponent implements OnDestroy {
     },
   );
 
-  private iconDefault: IconOptions = {
+  private iconGlofasDefault: IconOptions = {
     iconSize: [25, 41],
     iconAnchor: [13, 41],
     popupAnchor: [0, -30],
-    iconUrl: 'assets/markers/default.svg',
-    iconRetinaUrl: 'assets/markers/default.svg',
+    iconUrl: 'assets/markers/glofas-default.svg',
+    iconRetinaUrl: 'assets/markers/glofas-default.svg',
   };
 
-  private iconWarning: IconOptions = {
-    ...this.iconDefault,
+  private iconGlofasWarning: IconOptions = {
+    ...this.iconGlofasDefault,
     iconSize: [35, 56],
-    iconUrl: 'assets/markers/alert.svg',
-    iconRetinaUrl: 'assets/markers/alert.svg',
+    iconUrl: 'assets/markers/glofas-alert.svg',
+    iconRetinaUrl: 'assets/markers/glofas-alert.svg',
+  };
+
+  private iconRedcrossBranch: IconOptions = {
+    ...this.iconGlofasDefault,
+    iconSize: [20, 33],
+    iconUrl: 'assets/markers/redcross.png',
+    iconRetinaUrl: 'assets/markers/redcross.png',
   };
 
   public leafletOptions: MapOptions = {
@@ -121,6 +129,7 @@ export class MapComponent implements OnDestroy {
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.mapService.loadStationLayer();
+        this.mapService.loadRedcrossBranchesLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
         this.mapService.loadPopulationGridLayer();
@@ -150,6 +159,7 @@ export class MapComponent implements OnDestroy {
       .getTimelineSubscription()
       .subscribe((timeline: string) => {
         this.mapService.loadStationLayer();
+        this.mapService.loadRedcrossBranchesLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
 
@@ -285,6 +295,11 @@ export class MapComponent implements OnDestroy {
               geoJsonPoint.properties as Station,
               latlng,
             );
+          case IbfLayerName.redcrossBranches:
+            return this.createMarkerRedcrossBranch(
+              geoJsonPoint.properties as RedcrossBranch,
+              latlng,
+            );
           default:
             return this.createMarkerDefault(latlng);
         }
@@ -340,7 +355,7 @@ export class MapComponent implements OnDestroy {
 
   private createMarkerDefault(markerLatLng: LatLng): Marker {
     return marker(markerLatLng, {
-      icon: icon(this.iconDefault),
+      icon: icon(this.iconGlofasDefault),
     });
   }
 
@@ -349,22 +364,39 @@ export class MapComponent implements OnDestroy {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.station_name;
-    let markerIcon = this.iconDefault;
+    let markerIcon = this.iconGlofasDefault;
 
     if (markerProperties.fc_trigger === '1') {
-      markerIcon = this.iconWarning;
+      markerIcon = this.iconGlofasWarning;
     }
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: markerIcon ? icon(markerIcon) : divIcon(),
+      zIndexOffset: 700,
     });
-    markerInstance.bindPopup(this.createMarkerPopup(markerProperties));
+    markerInstance.bindPopup(this.createMarkerStationPopup(markerProperties));
 
     return markerInstance;
   }
 
-  private createMarkerPopup(markerProperties) {
+  private createMarkerRedcrossBranch(
+    markerProperties: RedcrossBranch,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.name;
+    let markerIcon = this.iconRedcrossBranch;
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: markerIcon ? icon(markerIcon) : divIcon(),
+    });
+    markerInstance.bindPopup(this.createMarkerRedcrossPopup(markerProperties));
+
+    return markerInstance;
+  }
+
+  private createMarkerStationPopup(markerProperties: Station) {
     const percentageTrigger =
       markerProperties.fc / markerProperties.trigger_level;
     const color = percentageTrigger < 1 ? '#a5d4a1' : '#d7301f';
@@ -410,5 +442,44 @@ export class MapComponent implements OnDestroy {
       '%"></div>' +
       '</div>';
     return stationInfoPopup;
+  }
+
+  private createMarkerRedcrossPopup(markerProperties: RedcrossBranch) {
+    const branchInfoPopup = (
+      '<div style="margin-bottom: 5px">' +
+      '<strong>Branch: ' +
+      markerProperties.name +
+      '</strong>' +
+      '</div>'
+    ).concat(
+      markerProperties.nr_volunteers
+        ? '<div style="margin-bottom: 5px">' +
+            'Nr. of volunteers: ' +
+            markerProperties.nr_volunteers +
+            '</div>'
+        : '',
+
+      markerProperties.contact_person
+        ? '<div style="margin-bottom: 5px">' +
+            'Contact person: ' +
+            markerProperties.contact_person +
+            '</div>'
+        : '',
+
+      markerProperties.contact_address
+        ? '<div style="margin-bottom: 5px">' +
+            'Contact address: ' +
+            markerProperties.contact_address +
+            '</div>'
+        : '',
+
+      markerProperties.contact_number
+        ? '<div style="margin-bottom: 5px">' +
+            'Contact number: ' +
+            markerProperties.contact_number +
+            '</div>'
+        : '',
+    );
+    return branchInfoPopup;
   }
 }
