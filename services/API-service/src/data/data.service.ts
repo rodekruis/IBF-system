@@ -3,15 +3,18 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, EntityManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
-import { Station, GeoJson, GeoJsonFeature } from 'src/models/station.model';
+import {
+  GlofasStation,
+  RedcrossBranch,
+  GeoJson,
+  GeoJsonFeature,
+} from 'src/models/geo.model';
 
 @Injectable()
 export class DataService {
   @InjectRepository(UserEntity)
-  private readonly userRepository: Repository<UserEntity>;
-
   private manager: EntityManager;
 
   public constructor(manager: EntityManager) {
@@ -54,7 +57,7 @@ export class DataService {
     and country_code = $2 \
     ";
 
-    const rawResult: Station[] = await this.manager.query(query, [
+    const rawResult: any[] = await this.manager.query(query, [
       leadTime,
       countryCode,
     ]);
@@ -76,8 +79,25 @@ export class DataService {
     and country_code = $2 \
     ';
 
-    const rawResult: Station[] = await this.manager.query(query, [
+    const rawResult: GlofasStation[] = await this.manager.query(query, [
       leadTime,
+      countryCode,
+    ]);
+
+    const result = this.toGeojson(rawResult);
+
+    return result;
+  }
+
+  public async getRedcrossBranches(countryCode: string): Promise<GeoJson> {
+    const query =
+      ' select * \
+    from "IBF-static-input"."dashboard_redcross_branches" \
+    where 0 = 0 \
+    and country_code = $1 \
+    ';
+
+    const rawResult: RedcrossBranch[] = await this.manager.query(query, [
       countryCode,
     ]);
 

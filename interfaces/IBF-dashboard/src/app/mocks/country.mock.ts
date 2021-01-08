@@ -7,4 +7,7 @@ export default {
   countryForecasts: ['7-day'],
   adminRegionLabels: ['Regions', 'Districts', 'Parishes'],
   eapLink: 'string',
+  layerAvailability: {
+    redcrossBranches: true,
+  },
 };

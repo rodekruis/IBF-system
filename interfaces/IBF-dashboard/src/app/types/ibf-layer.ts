@@ -24,7 +24,8 @@ export enum IbfLayerType {
 }
 
 export enum IbfLayerName {
-  glofasStations = 'Glofas stations',
+  glofasStations = 'glofas_stations',
+  redcrossBranches = 'redcross_branches',
   floodExtent = 'flood_extent',
   population = 'population',
   adminRegions = 'Admin regions',
@@ -42,12 +43,14 @@ export enum IbfLayerName {
 
 export enum IbfLayerLabel {
   glofasStations = 'Glofas stations',
+  redcrossBranches = 'Redcross branches',
   floodExtent = 'Flood extent',
   population = 'Population',
   adminRegions = 'Admin regions',
   cropland = 'Cropland',
   grassland = 'Grassland',
   population_affected = 'Exposed population',
+  vulnerability_score = 'Vulnerability index',
   vulnerability_index = 'Vulnerability index',
   poverty_incidence = 'Poverty incidence',
   female_head_hh = 'Female-headed household',
