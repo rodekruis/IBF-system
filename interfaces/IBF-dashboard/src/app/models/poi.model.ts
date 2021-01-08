@@ -6,3 +6,11 @@ export class Station {
   fc: number;
   fc_trigger: string;
 }
+
+export class RedcrossBranch {
+  name: string;
+  nr_volunteers: number;
+  contact_person: string;
+  contact_address: string;
+  contact_number: string;
+}

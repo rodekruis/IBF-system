@@ -17,7 +17,7 @@ import {
 } from 'leaflet';
 import { Subscription } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
-import { Station } from 'src/app/models/station.model';
+import { RedcrossBranch, Station } from 'src/app/models/poi.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -32,7 +32,6 @@ import {
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
 import { IndicatorName } from 'src/app/types/indicator-group';
-import { RedcrossBranch } from '../../../../../../services/API-service/src/models/geo.model';
 
 @Component({
   selector: 'app-map',
