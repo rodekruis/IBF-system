@@ -61,15 +61,15 @@ export class MapComponent implements OnDestroy {
     iconSize: [25, 41],
     iconAnchor: [13, 41],
     popupAnchor: [0, -30],
-    iconUrl: 'assets/markers/default.svg',
-    iconRetinaUrl: 'assets/markers/default.svg',
+    iconUrl: 'assets/markers/glofas-default.svg',
+    iconRetinaUrl: 'assets/markers/glofas-default.svg',
   };
 
   private iconWarning: IconOptions = {
     ...this.iconDefault,
     iconSize: [35, 56],
-    iconUrl: 'assets/markers/alert.svg',
-    iconRetinaUrl: 'assets/markers/alert.svg',
+    iconUrl: 'assets/markers/glofas-alert.svg',
+    iconRetinaUrl: 'assets/markers/glofas-alert.svg',
   };
 
   public leafletOptions: MapOptions = {
