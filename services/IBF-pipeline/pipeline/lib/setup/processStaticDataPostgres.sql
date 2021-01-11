@@ -138,23 +138,23 @@ drop table if exists "IBF-API"."metadata";
 --truncate table "IBF-API"."metadata";
 --insert into "IBF-API"."metadata"
 select cast('UGA' as varchar) as country_code
-	, "name", "label", "group", icon, "weightedAvg", active, "numberFormat", "source", description
+	, "name", "label", "group", icon, "weightedAvg", active, "numberFormatMap", exposed, "numberFormatAggregate", "source", description
 into "IBF-API"."metadata"
 from "IBF-static-input"."metadata"
 where country_code like '%UGA%'
 union all 
 select cast('ZMB' as varchar) as country_code
-	, "name", "label", "group", icon, "weightedAvg", active, "numberFormat", "source", description
+	, "name", "label", "group", icon, "weightedAvg", active, "numberFormatMap", exposed, "numberFormatAggregate", "source", description
 from "IBF-static-input"."metadata"
 where country_code like '%ZMB%'
 union all 
 select cast('KEN' as varchar) as country_code
-	, "name", "label", "group", icon, "weightedAvg", active, "numberFormat", "source", description
+	, "name", "label", "group", icon, "weightedAvg", active, "numberFormatMap", exposed, "numberFormatAggregate", "source", description
 from "IBF-static-input"."metadata"
 where country_code like '%KEN%'
 union all 
 select cast('ETH' as varchar) as country_code
-	, "name", "label", "group", icon, "weightedAvg", active, "numberFormat", "source", description
+	, "name", "label", "group", icon, "weightedAvg", active, "numberFormatMap", exposed, "numberFormatAggregate", "source", description
 from "IBF-static-input"."metadata"
 where country_code like '%ETH%'
 ;

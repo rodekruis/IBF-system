@@ -201,7 +201,7 @@ export class DataService {
 
     const indicators = await this.getMetadata(countryCode);
 
-    const exposed = true; // Make this into a parameter-endpoint later
+    const exposed = true; // Make this into an endpoint-parameter later
 
     const result = {};
     for (let indicator of indicators) {
