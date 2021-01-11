@@ -12,6 +12,7 @@ export class Indicator {
   active: boolean;
   numberFormatMap: NumberFormat;
   numberFormatAggregate: NumberFormat;
+  aggregateIndicator: boolean;
   group: IndicatorGroup;
 }
 
