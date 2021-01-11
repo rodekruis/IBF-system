@@ -326,10 +326,19 @@ export class MapService {
     return adminRegionFillColor;
   };
 
-  getAdminRegionFillOpacity = (layer: IbfLayer) => {
-    return layer.name === IbfLayerName.adminRegions
-      ? 0.0
-      : this.state.defaultFillOpacity;
+  getAdminRegionFillOpacity = (
+    layer: IbfLayer,
+    trigger: boolean,
+    districtTrigger: boolean,
+  ) => {
+    if (layer.name === IbfLayerName.adminRegions) {
+      return 0.0;
+    }
+    if (trigger && !districtTrigger) {
+      return 0.0;
+    }
+
+    return this.state.defaultFillOpacity;
   };
 
   getAdminRegionWeight = (layer: IbfLayer) => {
@@ -363,6 +372,7 @@ export class MapService {
   public setAdminRegionStyle = (layer: IbfLayer) => {
     const colorProperty = layer.colorProperty;
     const colorThreshold = this.getColorThreshold(layer.data, colorProperty);
+    const trigger = this.eventService.state.activeTrigger;
 
     return (adminRegion) => {
       const fillColor = this.getAdminRegionFillColor(
@@ -371,7 +381,11 @@ export class MapService {
           : adminRegion.properties.indicators[colorProperty],
         colorThreshold,
       );
-      const fillOpacity = this.getAdminRegionFillOpacity(layer);
+      const fillOpacity = this.getAdminRegionFillOpacity(
+        layer,
+        trigger,
+        adminRegion.properties[IndicatorName.PopulationAffected] > 0,
+      );
       const weight = this.getAdminRegionWeight(layer);
       const color = this.getAdminRegionColor(layer);
       return {

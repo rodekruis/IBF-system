@@ -6,8 +6,11 @@ import { EapActionEntity } from '../eap-actions/eap-action.entity';
 import { USERCONFIGS, COUNTRYCONFIGS } from '../secrets';
 import { CountryEntity } from '../country/country.entity';
 import { AreaOfFocusEntity } from '../eap-actions/area-of-focus.entity';
+import { IndicatorEntity } from '../indicator/indicator.entity';
 
-import eapActions from '../../seed-data/EAP-actions.json';
+import areasOfFocus from './areas-of-focus.json';
+import eapActions from './EAP-actions.json';
+import indicators from './indicator-metadata.json';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -67,47 +70,15 @@ export class SeedInit implements InterfaceScript {
     const areaOfFocusRepository = this.connection.getRepository(
       AreaOfFocusEntity,
     );
-    await areaOfFocusRepository.save([
-      {
-        id: 'drr',
-        label: 'Disaster Risk Reduction',
-        icon: 'Shelter.svg',
-      },
-      {
-        id: 'shelter',
-        label: 'Shelter',
-        icon: 'Shelter.svg',
-      },
-      {
-        id: 'livelihood',
-        label: 'Livelihoods & Basic Needs',
-        icon: 'Livelihood.svg',
-      },
-      {
-        id: 'health',
-        label: 'Health',
-        icon: 'Health.svg',
-      },
-      {
-        id: 'wash',
-        label: 'WASH',
-        icon: 'Water-Sanitation-and-Hygiene.svg',
-      },
-      {
-        id: 'inclusion',
-        label: 'Inclusion, Gender & Protection',
-        icon: 'Gender.svg',
-      },
-      {
-        id: 'migration',
-        label: 'Migration',
-        icon: 'Internally-displaced.svg',
-      },
-    ]);
+    await areaOfFocusRepository.save(areasOfFocus);
 
     // ***** CREATE EAP ACTIONS *****
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
     await eapActionRepository.save(eapActions);
+
+    // ***** CREATE INDICATORS *****
+    const indicatorRepository = this.connection.getRepository(IndicatorEntity);
+    await indicatorRepository.save(indicators);
   }
 }
 
