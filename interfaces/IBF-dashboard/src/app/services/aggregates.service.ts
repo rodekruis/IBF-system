@@ -27,7 +27,7 @@ export class AggregatesService {
     this.apiService
       .getMetadata(this.countryService.selectedCountry.countryCode)
       .then((response) => {
-        const indicators = response;
+        this.indicators = response;
         this.mapService.hideAggregateLayers();
         this.indicators.forEach((indicator: Indicator) => {
           this.mapService.loadAggregateLayer(indicator);
