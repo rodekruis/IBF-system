@@ -97,7 +97,11 @@ export class MapService {
       label: IbfLayerLabel[indicator.name],
       type: IbfLayerType.shape,
       description: 'loadAggregateLayer',
-      active: indicator.active,
+      active:
+        indicator.name === IbfLayerName.population_affected &&
+        this.eventService.state.activeTrigger
+          ? true
+          : false,
       show: true,
       data: await this.getAdminRegions(),
       viewCenter: true,
