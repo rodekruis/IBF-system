@@ -5,11 +5,7 @@ import { SourceInfoModalComponent } from 'src/app/components/source-info-modal/s
 import { AggregatesService } from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import {
-  Indicator,
-  IndicatorGroup,
-  IndicatorName,
-} from 'src/app/types/indicator-group';
+import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
 
 @Component({
   selector: 'app-aggregates',
@@ -19,13 +15,6 @@ import {
 export class AggregatesComponent implements OnDestroy {
   public indicators: Indicator[];
   public groups: IndicatorGroup[];
-
-  public hiddenIndicators: IndicatorName[] = [
-    IndicatorName.VulnerabilityIndex,
-    IndicatorName.PovertyIncidence,
-    IndicatorName.WallType,
-    IndicatorName.RoofType,
-  ];
 
   private indicatorSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -63,7 +52,7 @@ export class AggregatesComponent implements OnDestroy {
     this.indicatorSubscription = this.aggregatesService
       .getIndicators()
       .subscribe((newIndicators: Indicator[]) => {
-        this.indicators = newIndicators;
+        this.indicators = newIndicators.filter((i) => i.aggregateIndicator);
         this.indicators.forEach((indicator: Indicator) => {
           indicator.group = IndicatorGroup[indicator.group];
         });
