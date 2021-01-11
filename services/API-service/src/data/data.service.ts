@@ -173,12 +173,14 @@ export class DataService {
   public async getMetadata(countryCode: string): Promise<any> {
     const query =
       ' select * \
-    from "IBF-API"."metadata" \
+    from "IBF-app"."indicator" \
     where 0 = 0 \
-    and country_code = $1 \
-    ';
+    and country_code like \'%' +
+      countryCode +
+      "%' \
+    ";
 
-    return await this.manager.query(query, [countryCode]);
+    return await this.manager.query(query);
   }
 
   public async getMatrixAggregates(
