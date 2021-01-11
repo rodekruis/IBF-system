@@ -10,7 +10,9 @@ export class Indicator {
   label: IbfLayerLabel;
   icon: string;
   active: boolean;
-  numberFormat: NumberFormat;
+  numberFormatMap: NumberFormat;
+  numberFormatAggregate: NumberFormat;
+  aggregateIndicator: boolean;
   group: IndicatorGroup;
 }
 
@@ -26,7 +28,7 @@ export enum IndicatorName {
 }
 
 export enum NumberFormat {
-  dec0 = 'dec0',
-  dec2 = 'dec2',
+  decimal0 = 'decimal0',
+  decimal2 = 'decimal2',
   perc = 'perc',
 }

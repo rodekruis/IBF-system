@@ -10,11 +10,6 @@ select cast('ZMB' as varchar) as country_code
 	, row_to_json(zmb.*) as indicators
 from "IBF-static-input"."ZMB_CRA_Indicators_2" zmb
 union all
---select cast('KEN' as varchar) as country_code
---	, pcode
---	, row_to_json(ken.*) as indicators
---from "IBF-static-input"."KEN_CRA_Indicators_1" ken
---union all
 select cast('ETH' as varchar) as country_code
 	, pcode
 	, row_to_json(
@@ -91,13 +86,6 @@ from (
 			,*
 	from "IBF-static-input"."UGA_Geo_level2" uga
 	union all
---	select cast('KEN' as varchar) as country_code
---			,pcode_level1 as pcode_level2 
---			,name
---			,pcode_level0 as pcode_level1
---			,st_geometryfromtext(geom) as geom
---	from "IBF-static-input"."KEN_Geo_level1" ken
---	union all
 	select cast('ETH' as varchar) as country_code
 			,pcode_level2 
 			,name

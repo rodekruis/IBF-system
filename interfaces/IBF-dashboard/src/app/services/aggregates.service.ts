@@ -27,9 +27,7 @@ export class AggregatesService {
     this.apiService
       .getMetadata(this.countryService.selectedCountry.countryCode)
       .then((response) => {
-        const indicators = response;
-        // Filter out population (to do: better to remove from metadata in db)
-        this.indicators = indicators.filter((i) => i.name !== 'population');
+        this.indicators = response;
         this.mapService.hideAggregateLayers();
         this.indicators.forEach((indicator: Indicator) => {
           this.mapService.loadAggregateLayer(indicator);

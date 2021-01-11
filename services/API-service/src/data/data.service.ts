@@ -173,12 +173,14 @@ export class DataService {
   public async getMetadata(countryCode: string): Promise<any> {
     const query =
       ' select * \
-    from "IBF-API"."metadata" \
+    from "IBF-app"."indicator" \
     where 0 = 0 \
-    and country_code = $1 \
-    ';
+    and country_code like \'%' +
+      countryCode +
+      "%' \
+    ";
 
-    return await this.manager.query(query, [countryCode]);
+    return await this.manager.query(query);
   }
 
   public async getMatrixAggregates(
@@ -201,10 +203,20 @@ export class DataService {
 
     const indicators = await this.getMetadata(countryCode);
 
+    const exposed = true; // Make this into an endpoint-parameter later
+
     const result = {};
     for (let indicator of indicators) {
       const cra = typeof rawResult[0][indicator.name] === 'undefined';
-      if (indicator.weightedAvg) {
+      if (exposed && indicator.weightedAvg) {
+        if (indicator.weightedAvg) {
+          result[indicator.name] = this.sumProductExposed(
+            rawResult,
+            indicator.name,
+            cra,
+          );
+        }
+      } else if (indicator.weightedAvg) {
         result[indicator.name] =
           this.sumProduct(rawResult, indicator.name, 'population', cra) /
           this.sum(rawResult, 'population', cra);
@@ -225,6 +237,14 @@ export class DataService {
   sumProduct(items, prop, weightKey, cra) {
     return items.reduce(function(a, b) {
       return a + b.indicators[weightKey] * (cra ? b.indicators[prop] : b[prop]);
+    }, 0);
+  }
+
+  sumProductExposed(items, prop, cra) {
+    return items.reduce(function(a, b) {
+      return (
+        a + b['population_affected'] * (cra ? b.indicators[prop] : b[prop])
+      );
     }, 0);
   }
 
