@@ -372,11 +372,7 @@ export class MapService {
   public setAdminRegionStyle = (layer: IbfLayer) => {
     const colorProperty = layer.colorProperty;
     const colorThreshold = this.getColorThreshold(layer.data, colorProperty);
-    const trigger =
-      this.getColorThreshold(
-        layer.data,
-        IndicatorName.PopulationAffected,
-      )[0.2] > 0;
+    const trigger = this.eventService.state.activeTrigger;
 
     return (adminRegion) => {
       const fillColor = this.getAdminRegionFillColor(
