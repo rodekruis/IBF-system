@@ -27,8 +27,10 @@ export class AdminLevelComponent {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.adminLevelService.setAdminLevel(country.defaultAdminLevel);
-        this.loadAdminLevelLabels();
+        if (country) {
+          this.adminLevelService.setAdminLevel(country.defaultAdminLevel);
+          this.loadAdminLevelLabels();
+        }
       });
     this.adminLevelNumber = this.getSelectedAdminLevel();
 
