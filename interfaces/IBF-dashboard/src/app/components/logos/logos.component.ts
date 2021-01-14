@@ -56,7 +56,9 @@ export class LogosComponent {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country) => {
-        this.countryCode = country.countryCode;
+        if (country) {
+          this.countryCode = country.countryCode;
+        }
       });
   }
 
