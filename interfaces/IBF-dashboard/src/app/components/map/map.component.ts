@@ -109,13 +109,14 @@ export class MapComponent implements OnDestroy {
           } else {
             this.layers.push(newLayer);
           }
+
+          if (newLayer.viewCenter) {
+            this.map.fitBounds(this.mapService.state.bounds);
+          }
         } else {
           this.layers = [];
         }
         this.addToLayersControl();
-        if (newLayer.viewCenter) {
-          this.map.fitBounds(this.mapService.state.bounds);
-        }
 
         // Trigger a resize to fill the container-element:
         window.setTimeout(

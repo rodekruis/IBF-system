@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
-import { Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -24,7 +24,7 @@ import { quantile } from 'src/shared/utils';
   providedIn: 'root',
 })
 export class MapService {
-  private layerSubject = new ReplaySubject<IbfLayer>();
+  private layerSubject = new BehaviorSubject<IbfLayer>(null);
   private layers = [] as IbfLayer[];
 
   public state = {
@@ -218,10 +218,6 @@ export class MapService {
     } else {
       this.layers.push(layer);
     }
-  }
-
-  private removeLayers() {
-    this.layerSubject.next();
   }
 
   getLayers(): Observable<IbfLayer> {
