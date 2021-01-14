@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 
@@ -14,7 +14,7 @@ export class TimelineService {
     timeStepButtons: [],
   };
   private triggers: any[];
-  private timelineSubject = new ReplaySubject<string>();
+  private timelineSubject = new BehaviorSubject<string>(null);
 
   constructor(
     private countryService: CountryService,
