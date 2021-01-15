@@ -34,6 +34,7 @@ function deploy() {
             git checkout "$target"
         else
             log "Pulling latest changes"
+            git checkout master
             git pull --ff-only
         fi
     }
