@@ -180,7 +180,15 @@ export class DataService {
       "%' \
     ";
 
-    return await this.manager.query(query);
+    const indicators = await this.manager.query(query);
+
+    const event = await this.getEvent(countryCode);
+    const activeTrigger = event && !event.end_date;
+    indicators.find(
+      i => i.name === 'population_affected',
+    ).active = activeTrigger;
+
+    return indicators;
   }
 
   public async getMatrixAggregates(
