@@ -20,7 +20,7 @@ export class AdminLevelComponent {
 
   constructor(
     private countryService: CountryService,
-    private adminLevelService: AdminLevelService,
+    public adminLevelService: AdminLevelService,
     private mapService: MapService,
   ) {
     this.countrySubscription = this.countryService
