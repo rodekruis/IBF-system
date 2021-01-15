@@ -165,10 +165,9 @@ class GlofasData:
                     
                     if step == self.days:
                         stations.append(station)
-                    else:
-                        station = {}
-                        station['code'] = files[i].split(
-                            '_')[2]
+                    station = {}
+                    station['code'] = files[i].split(
+                        '_')[2]
                 
             data.close()
         
