@@ -25,7 +25,8 @@ import { quantile } from 'src/shared/utils';
 })
 export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
-  private layers = [] as IbfLayer[];
+  public layers = [] as IbfLayer[];
+  public activeLayerName: IbfLayerName;
 
   public state = {
     bounds: [

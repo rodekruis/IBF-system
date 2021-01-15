@@ -5,7 +5,7 @@ import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
 import { AdminLevel, AdminLevelLabel } from 'src/app/types/admin-level.enum';
-import { IbfLayerName } from 'src/app/types/ibf-layer';
+import { IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
 
 @Component({
   selector: 'app-admin-level',
@@ -17,11 +17,10 @@ export class AdminLevelComponent {
   public adminLevel = AdminLevel;
   public adminLevelLabel: AdminLevelLabel;
   private adminLevelNumber: number;
-  public adminLayerState: boolean = true;
 
   constructor(
     private countryService: CountryService,
-    private adminLevelService: AdminLevelService,
+    public adminLevelService: AdminLevelService,
     private mapService: MapService,
   ) {
     this.countrySubscription = this.countryService
@@ -53,7 +52,21 @@ export class AdminLevelComponent {
   setAdminLevel(adminLevel: number, state: boolean): void {
     if (this.adminLevelNumber === adminLevel) {
       this.mapService.updateLayer(IbfLayerName.adminRegions, state, true);
-      this.adminLayerState = !this.adminLayerState;
+      const activeLayerName = this.mapService.layers.find(
+        (l) => l.active && l.group === IbfLayerGroup.aggregates,
+      )?.name;
+      if (activeLayerName) {
+        this.mapService.updateLayer(IbfLayerName[activeLayerName], state, true);
+        this.mapService.activeLayerName = activeLayerName;
+      } else if (this.mapService.activeLayerName) {
+        this.mapService.updateLayer(
+          IbfLayerName[this.mapService.activeLayerName],
+          state,
+          true,
+        );
+      }
+      this.adminLevelService.adminLayerState = !this.adminLevelService
+        .adminLayerState;
     } else {
       this.adminLevelService.setAdminLevel(adminLevel);
     }
