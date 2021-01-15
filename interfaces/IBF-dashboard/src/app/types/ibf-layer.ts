@@ -32,6 +32,7 @@ export enum IbfLayerName {
   cropland = 'cropland',
   grassland = 'grassland',
   population_affected = 'population_affected',
+  vulnerability_score = 'vulnerability_score',
   vulnerability_index = 'vulnerability_index',
   poverty_incidence = 'poverty_incidence',
   female_head_hh = 'female_head_hh',
