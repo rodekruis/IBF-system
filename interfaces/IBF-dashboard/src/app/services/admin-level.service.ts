@@ -9,6 +9,7 @@ import { AdminLevel } from 'src/app/types/admin-level.enum';
 export class AdminLevelService {
   private adminLevelSubject = new BehaviorSubject<AdminLevel>(AdminLevel.adm1);
   public adminLevel: AdminLevel = mockCountry.defaultAdminLevel;
+  public adminLayerState: boolean = true;
 
   constructor() {}
 

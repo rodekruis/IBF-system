@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
 import { MapService } from 'src/app/services/map.service';
 import { IbfLayer, IbfLayerName, IbfLayerType } from 'src/app/types/ibf-layer';
+import { AdminLevelService } from '../../services/admin-level.service';
 
 @Component({
   selector: 'app-matrix',
@@ -19,6 +20,7 @@ export class MatrixComponent implements OnDestroy {
 
   constructor(
     private mapService: MapService,
+    private adminLevelService: AdminLevelService,
     private popoverController: PopoverController,
     private menuController: MenuController,
   ) {
@@ -64,6 +66,15 @@ export class MatrixComponent implements OnDestroy {
 
   public updateLayer(name: IbfLayerName, active: boolean): void {
     this.mapService.updateLayer(name, active, true);
+    this.mapService.activeLayerName = active ? name : null;
+    if (active) {
+      this.mapService.layers.find(
+        (l) => l.name === IbfLayerName.adminRegions,
+      ).active = true;
+    }
+    if (active && !this.adminLevelService.adminLayerState) {
+      this.adminLevelService.adminLayerState = true;
+    }
   }
 
   public isLayerControlMenuOpen() {
