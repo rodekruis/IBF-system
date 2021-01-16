@@ -73,7 +73,7 @@ export class AuthService {
     return user;
   }
 
-  public async login(email, password, complete) {
+  public async login(email, password) {
     return this.apiService.login(email, password).subscribe(
       (response) => {
         if (!response.user || !response.user.token) {
@@ -103,7 +103,6 @@ export class AuthService {
       },
       (error) => {
         console.error('AuthService error: ', error);
-        complete();
       },
     );
   }

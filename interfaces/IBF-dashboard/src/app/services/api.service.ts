@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level.enum';
 import { environment } from 'src/environments/environment';
+import { LoaderService } from './loader.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,11 @@ export class ApiService {
   private enableLogging = false;
   private log = this.enableLogging ? console.log : () => {};
 
-  constructor(private jwtService: JwtService, private http: HttpClient) {}
+  constructor(
+    private loaderService: LoaderService,
+    private jwtService: JwtService,
+    private http: HttpClient,
+  ) {}
 
   private showSecurity(anonymous: boolean) {
     return anonymous ? '🌐' : '🔐';
@@ -42,19 +47,21 @@ export class ApiService {
   ): Observable<any> {
     const security = this.showSecurity(anonymous);
     this.log(`ApiService GET: ${security} ${endpoint}${path}`);
+    this.loaderService.setLoader(path, false);
 
     return this.http
       .get(endpoint + path, {
         headers: this.createHeaders(anonymous),
       })
       .pipe(
-        tap((response) =>
+        tap((response) => {
+          this.loaderService.setLoader(path, true);
           this.log(
             `ApiService GET: ${security} ${endpoint}${path}`,
             `\nResponse:`,
             response,
-          ),
-        ),
+          );
+        }),
       );
   }
 
@@ -66,20 +73,22 @@ export class ApiService {
   ): Observable<any> {
     const security = this.showSecurity(anonymous);
     this.log(`ApiService POST: ${security} ${endpoint}${path}`, body);
+    this.loaderService.setLoader(path, false);
 
     return this.http
       .post(endpoint + path, body, {
         headers: this.createHeaders(anonymous),
       })
       .pipe(
-        tap((response) =>
+        tap((response) => {
+          this.loaderService.setLoader(path, true);
           this.log(
             `ApiService POST: ${security} ${endpoint}${path}:`,
             body,
             `\nResponse:`,
             response,
-          ),
-        ),
+          );
+        }),
       );
   }
 
