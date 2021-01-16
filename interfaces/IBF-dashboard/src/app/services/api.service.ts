@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level.enum';
 import { environment } from 'src/environments/environment';
@@ -54,14 +54,14 @@ export class ApiService {
         headers: this.createHeaders(anonymous),
       })
       .pipe(
-        tap((response) => {
-          this.loaderService.setLoader(path, true);
+        tap((response) =>
           this.log(
             `ApiService GET: ${security} ${endpoint}${path}`,
             `\nResponse:`,
             response,
-          );
-        }),
+          ),
+        ),
+        finalize(() => this.loaderService.setLoader(path, true)),
       );
   }
 
@@ -80,15 +80,15 @@ export class ApiService {
         headers: this.createHeaders(anonymous),
       })
       .pipe(
-        tap((response) => {
-          this.loaderService.setLoader(path, true);
+        tap((response) =>
           this.log(
             `ApiService POST: ${security} ${endpoint}${path}:`,
             body,
             `\nResponse:`,
             response,
-          );
-        }),
+          ),
+        ),
+        finalize(() => this.loaderService.setLoader(path, true)),
       );
   }
 
