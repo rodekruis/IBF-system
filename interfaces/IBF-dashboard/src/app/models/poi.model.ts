@@ -14,3 +14,10 @@ export class RedCrossBranch {
   contact_address: string;
   contact_number: string;
 }
+
+export class Waterpoint {
+  wpdxId: string;
+  activityId: string;
+  type: string;
+  reportDate: string;
+}
