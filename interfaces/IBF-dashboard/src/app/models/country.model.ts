@@ -8,5 +8,4 @@ export class Country {
   countryForecasts: string[];
   adminRegionLabels: string[];
   eapLink: string;
-  layerAvailability: any;
 }

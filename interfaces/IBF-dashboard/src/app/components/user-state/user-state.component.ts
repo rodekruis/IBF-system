@@ -28,7 +28,7 @@ export class UserStateComponent {
   };
 
   public doLogout() {
-    this.loaderService.setLoader(true);
+    this.loaderService.setLoader('logout', false);
     this.authService.logout();
     window.location.reload();
   }
