@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
-import { UserService } from './user/user.service';
+import { UserService } from './api/user/user.service';
 import { DEBUG } from './config';
 
 @Injectable()
