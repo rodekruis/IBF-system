@@ -20,7 +20,8 @@
     "start:prod": "npm run build:prod && npm run serve:static",
     "test:dev": "ng test",
     "test:only": "ng test --no-watch --browsers=ChromeHeadless",
-    "test": "npm run lint && npm run test:only"
+    "test": "npm run lint && npm run test:only",
+    "postinstall": "ngcc"
   },
   "dependencies": {
     "@angular/common": "~10.0.3",

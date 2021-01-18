@@ -14,7 +14,7 @@ export class GlofasStation extends Poi {
   triggerProb: number;
 }
 
-export class RedcrossBranch extends Poi {
+export class RedCrossBranch extends Poi {
   nr_volunteers: number;
   contact_person: string;
   contact_address: string;

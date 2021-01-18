@@ -7,7 +7,7 @@ export class Station {
   fc_trigger: string;
 }
 
-export class RedcrossBranch {
+export class RedCrossBranch {
   name: string;
   nr_volunteers: number;
   contact_person: string;
