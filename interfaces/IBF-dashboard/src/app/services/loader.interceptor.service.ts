@@ -15,6 +15,7 @@ import { LoaderService } from './loader.service';
 })
 export class LoaderInterceptorService implements HttpInterceptor {
   constructor(private loaderService: LoaderService) {}
+
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler,
@@ -29,7 +30,7 @@ export class LoaderInterceptorService implements HttpInterceptor {
             this.onEnd(requestPath);
           }
         },
-        (err: any) => {
+        (error: any) => {
           this.onEnd(requestPath);
         },
       ),
