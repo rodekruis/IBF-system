@@ -7,7 +7,7 @@ import { EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import {
   GlofasStation,
-  RedcrossBranch,
+  RedCrossBranch,
   GeoJson,
   GeoJsonFeature,
 } from 'src/models/geo.model';
@@ -97,7 +97,7 @@ export class DataService {
     return result;
   }
 
-  public async getRedcrossBranches(countryCode: string): Promise<GeoJson> {
+  public async getRedCrossBranches(countryCode: string): Promise<GeoJson> {
     const query =
       ' select * \
     from "IBF-static-input"."dashboard_redcross_branches" \
@@ -105,7 +105,7 @@ export class DataService {
     and country_code = $1 \
     ';
 
-    const rawResult: RedcrossBranch[] = await this.manager.query(query, [
+    const rawResult: RedCrossBranch[] = await this.manager.query(query, [
       countryCode,
     ]);
 

@@ -23,6 +23,10 @@ export class ApiService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
+      'Cache-Control':
+        'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+      Pragma: 'no-cache',
+      Expires: '0',
     });
 
     if (!anonymous) {
@@ -112,10 +116,10 @@ export class ApiService {
     ).toPromise();
   }
 
-  getRedcrossBranches(countryCode: string): Promise<GeoJSON.FeatureCollection> {
+  getRedCrossBranches(countryCode: string): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
-      `redcross-branches/${countryCode}`,
+      `red-cross-branches/${countryCode}`,
       false,
     ).toPromise();
   }
