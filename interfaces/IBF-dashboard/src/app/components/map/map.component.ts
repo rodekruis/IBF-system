@@ -13,6 +13,7 @@ import {
   MapOptions,
   marker,
   Marker,
+  markerClusterGroup,
   tileLayer,
 } from 'leaflet';
 import { Subscription } from 'rxjs';
@@ -295,7 +296,7 @@ export class MapComponent implements OnDestroy {
     if (!layer.data) {
       return;
     }
-    return geoJSON(layer.data, {
+    const mapLayer = geoJSON(layer.data, {
       pointToLayer: (geoJsonPoint: GeoJSON.Feature, latlng: LatLng) => {
         switch (layer.name) {
           case IbfLayerName.glofasStations:
@@ -318,6 +319,20 @@ export class MapComponent implements OnDestroy {
         }
       },
     });
+    if (layer.name === IbfLayerName.waterpoints) {
+      const waterpointClusterLayer = markerClusterGroup({
+        iconCreateFunction: function (cluster) {
+          return divIcon({
+            html: '<b>' + cluster.getChildCount() + '</b>',
+            className: 'waterpoint-cluster',
+          });
+        },
+        maxClusterRadius: 50,
+      });
+      waterpointClusterLayer.addLayer(mapLayer);
+      return waterpointClusterLayer;
+    }
+    return mapLayer;
   }
 
   private createAdminRegionsLayer(layer: IbfLayer): Layer {
