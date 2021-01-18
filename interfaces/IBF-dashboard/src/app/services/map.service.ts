@@ -77,6 +77,20 @@ export class MapService {
     });
   }
 
+  public async loadWaterpointsLayer() {
+    this.addLayer({
+      name: IbfLayerName.waterpoints,
+      label: IbfLayerLabel.waterpoints,
+      type: IbfLayerType.point,
+      description: 'loadWaterpointsLayer',
+      active: false,
+      show: true,
+      data: await this.getWaterpoints(),
+      viewCenter: false,
+      order: 2,
+    });
+  }
+
   public async loadAdminRegionLayer() {
     this.addLayer({
       name: IbfLayerName.adminRegions,
@@ -287,6 +301,12 @@ export class MapService {
 
   public async getRedcrossBranches(): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getRedcrossBranches(
+      this.countryService.selectedCountry.countryCode,
+    );
+  }
+
+  public async getWaterpoints(): Promise<GeoJSON.FeatureCollection> {
+    return await this.apiService.getWaterpoints(
       this.countryService.selectedCountry.countryCode,
     );
   }
