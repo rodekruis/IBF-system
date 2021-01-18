@@ -46,16 +46,24 @@ export class DataService {
     adminLevel: number,
     leadTime: string,
   ): Promise<GeoJson> {
-    const query =
-      ' select * \
+    const event = await this.getEvent(countryCode);
+    let pcodes;
+    if (event) {
+      pcodes = (await this.getTriggeredAreas(event.id)).map(
+        area => "'" + area.pcode + "'",
+      );
+    }
+
+    const query = (
+      'select * \
     from "IBF-API"."Admin_area_data' +
       adminLevel +
       "\" \
     where 0 = 0 \
     and lead_time = $1 \
     and current_prev = 'Current' \
-    and country_code = $2 \
-    ";
+    and country_code = $2"
+    ).concat(event ? ' and pcode in (' + pcodes.toString() + ')' : '');
 
     const rawResult: any[] = await this.manager.query(query, [
       leadTime,
@@ -256,7 +264,7 @@ export class DataService {
     }, 0);
   }
 
-  private toGeojson(rawResult): GeoJson {
+  public toGeojson(rawResult): GeoJson {
     const geoJson: GeoJson = {
       type: 'FeatureCollection',
       features: [],

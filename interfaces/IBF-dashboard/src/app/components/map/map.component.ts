@@ -13,11 +13,12 @@ import {
   MapOptions,
   marker,
   Marker,
+  markerClusterGroup,
   tileLayer,
 } from 'leaflet';
 import { Subscription } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
-import { RedCrossBranch, Station } from 'src/app/models/poi.model';
+import { RedCrossBranch, Station, Waterpoint } from 'src/app/models/poi.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
@@ -78,6 +79,12 @@ export class MapComponent implements OnDestroy {
     iconRetinaUrl: 'assets/markers/red-cross.png',
   };
 
+  private iconWaterpoint: IconOptions = {
+    ...this.iconGlofasDefault,
+    iconSize: [20, 33],
+    iconUrl: 'assets/markers/waterpoint.png',
+    iconRetinaUrl: 'assets/markers/waterpoint.png',
+  };
   public leafletOptions: MapOptions = {
     zoom: 5,
     layers: [this.osmTileLayer],
@@ -128,6 +135,7 @@ export class MapComponent implements OnDestroy {
       .subscribe((country: Country) => {
         this.mapService.loadStationLayer();
         this.mapService.loadRedCrossBranchesLayer();
+        this.mapService.loadWaterpointsLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
         this.mapService.loadPopulationGridLayer();
@@ -158,6 +166,7 @@ export class MapComponent implements OnDestroy {
       .subscribe((timeline: string) => {
         this.mapService.loadStationLayer();
         this.mapService.loadRedCrossBranchesLayer();
+        this.mapService.loadWaterpointsLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
 
@@ -285,7 +294,7 @@ export class MapComponent implements OnDestroy {
     if (!layer.data) {
       return;
     }
-    return geoJSON(layer.data, {
+    const mapLayer = geoJSON(layer.data, {
       pointToLayer: (geoJsonPoint: GeoJSON.Feature, latlng: LatLng) => {
         switch (layer.name) {
           case IbfLayerName.glofasStations:
@@ -298,11 +307,30 @@ export class MapComponent implements OnDestroy {
               geoJsonPoint.properties as RedCrossBranch,
               latlng,
             );
+          case IbfLayerName.waterpoints:
+            return this.createMarkerWaterpoint(
+              geoJsonPoint.properties as Waterpoint,
+              latlng,
+            );
           default:
             return this.createMarkerDefault(latlng);
         }
       },
     });
+    if (layer.name === IbfLayerName.waterpoints) {
+      const waterpointClusterLayer = markerClusterGroup({
+        iconCreateFunction: function (cluster) {
+          return divIcon({
+            html: '<b>' + cluster.getChildCount() + '</b>',
+            className: 'waterpoint-cluster',
+          });
+        },
+        maxClusterRadius: 50,
+      });
+      waterpointClusterLayer.addLayer(mapLayer);
+      return waterpointClusterLayer;
+    }
+    return mapLayer;
   }
 
   private createAdminRegionsLayer(layer: IbfLayer): Layer {
@@ -394,6 +422,24 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
+  private createMarkerWaterpoint(
+    markerProperties: Waterpoint,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.wpdxId;
+    let markerIcon = this.iconWaterpoint;
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: markerIcon ? icon(markerIcon) : divIcon(),
+    });
+    markerInstance.bindPopup(
+      this.createMarkerWaterpointPopup(markerProperties),
+    );
+
+    return markerInstance;
+  }
+
   private createMarkerStationPopup(markerProperties: Station) {
     const percentageTrigger =
       markerProperties.fc / markerProperties.trigger_level;
@@ -479,5 +525,25 @@ export class MapComponent implements OnDestroy {
         : '',
     );
     return branchInfoPopup;
+  }
+
+  private createMarkerWaterpointPopup(markerProperties: Waterpoint) {
+    const waterpointInfoPopup = (
+      '<div style="margin-bottom: 5px">' +
+      '<strong>ID: ' +
+      markerProperties.wpdxId +
+      '</strong>' +
+      '</div>'
+    ).concat(
+      '<div style="margin-bottom: 5px">' +
+        'Waterpoint type: ' +
+        (markerProperties.type ? markerProperties.type : 'unknown') +
+        '</div>',
+      '<div style="margin-bottom: 5px">' +
+        'Report date: ' +
+        markerProperties.reportDate +
+        '</div>',
+    );
+    return waterpointInfoPopup;
   }
 }

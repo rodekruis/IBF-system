@@ -26,6 +26,7 @@ export enum IbfLayerType {
 export enum IbfLayerName {
   glofasStations = 'glofas_stations',
   redCrossBranches = 'red_cross_branches',
+  waterpoints = 'waterpoints',
   floodExtent = 'flood_extent',
   population = 'population',
   adminRegions = 'Admin regions',
@@ -45,6 +46,7 @@ export enum IbfLayerName {
 export enum IbfLayerLabel {
   glofasStations = 'Glofas stations',
   redCrossBranches = 'Red Cross branches',
+  waterpoints = 'Waterpoints',
   floodExtent = 'Flood extent',
   population = 'Population',
   adminRegions = 'Admin regions',
