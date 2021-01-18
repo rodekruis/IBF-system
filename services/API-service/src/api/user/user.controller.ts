@@ -12,11 +12,11 @@ import { UserRO } from './user.interface';
 import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { User } from './user.decorator';
-import { ValidationPipe } from '../shared/pipes/validation.pipe';
+import { ValidationPipe } from '../../shared/pipes/validation.pipe';
 
 import { ApiUseTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { DeleteUserDto } from './dto/delete-user.dts';
-import { RolesGuard } from '../roles.guard';
+import { RolesGuard } from '../../roles.guard';
 
 @ApiBearerAuth()
 @ApiUseTags('user')

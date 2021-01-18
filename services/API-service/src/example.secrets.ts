@@ -1,6 +1,6 @@
-import { CountryStatus } from './country/country-status.enum';
-import { UserRole } from './user/user-role.enum';
-import { UserStatus } from './user/user-status.enum';
+import { CountryStatus } from './api/country/country-status.enum';
+import { UserRole } from './api/user/user-role.enum';
+import { UserStatus } from './api/user/user-status.enum';
 
 export const USERCONFIGS = [
   {

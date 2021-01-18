@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
-import { UserEntity } from '../user/user.entity';
-import { EapActionEntity } from '../eap-actions/eap-action.entity';
+import { UserEntity } from '../api/user/user.entity';
+import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
 import { USERCONFIGS, COUNTRYCONFIGS } from '../secrets';
-import { CountryEntity } from '../country/country.entity';
-import { AreaOfFocusEntity } from '../eap-actions/area-of-focus.entity';
-import { IndicatorEntity } from '../indicator/indicator.entity';
+import { CountryEntity } from '../api/country/country.entity';
+import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
+import { IndicatorEntity } from '../api/indicator/indicator.entity';
 
 import areasOfFocus from './areas-of-focus.json';
 import eapActions from './EAP-actions.json';

@@ -9,7 +9,7 @@ import {
 } from '@nestjs/swagger';
 import { User } from '../user/user.decorator';
 import { GeoJson } from 'src/models/geo.model';
-import { RolesGuard } from '../roles.guard';
+import { RolesGuard } from '../../roles.guard';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
