@@ -4,7 +4,7 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserRO } from './user.interface';
-import { RolesGuard } from '../roles.guard';
+import { RolesGuard } from '../../roles.guard';
 
 const userRo = {
   user: {
