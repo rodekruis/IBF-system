@@ -61,6 +61,9 @@
               [class.redcross-layer]="
                 layer.name === IbfLayerName.redcrossBranches && layer.active
               "
+              [class.waterpoint-layer]="
+                layer.name === IbfLayerName.waterpoints && layer.active
+              "
               [style.background]="layer.active ? layer.legendColor : null"
             ></ion-col>
             <ion-col

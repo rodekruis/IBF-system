@@ -42,5 +42,6 @@ export class MockScenarioService {
     await this.mapService.loadAdminRegionLayer();
     await this.mapService.loadStationLayer();
     await this.mapService.loadRedcrossBranchesLayer();
+    await this.mapService.loadWaterpointsLayer();
   }
 }

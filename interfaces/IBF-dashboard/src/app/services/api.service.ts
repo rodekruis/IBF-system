@@ -120,6 +120,14 @@ export class ApiService {
     ).toPromise();
   }
 
+  getWaterpoints(countryCode: string): Promise<GeoJSON.FeatureCollection> {
+    return this.get(
+      environment.api_url,
+      `waterpoints/${countryCode}`,
+      false,
+    ).toPromise();
+  }
+
   getRecentDates(countryCode: string): Promise<any> {
     return this.get(
       environment.api_url,

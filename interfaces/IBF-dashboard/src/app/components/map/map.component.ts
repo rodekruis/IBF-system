@@ -17,7 +17,7 @@ import {
 } from 'leaflet';
 import { Subscription } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
-import { RedcrossBranch, Station } from 'src/app/models/poi.model';
+import { RedcrossBranch, Station, Waterpoint } from 'src/app/models/poi.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -79,6 +79,12 @@ export class MapComponent implements OnDestroy {
     iconRetinaUrl: 'assets/markers/redcross.png',
   };
 
+  private iconWaterpoint: IconOptions = {
+    ...this.iconGlofasDefault,
+    iconSize: [20, 33],
+    iconUrl: 'assets/markers/waterpoint.png',
+    iconRetinaUrl: 'assets/markers/waterpoint.png',
+  };
   public leafletOptions: MapOptions = {
     zoom: 5,
     layers: [this.osmTileLayer],
@@ -130,6 +136,7 @@ export class MapComponent implements OnDestroy {
       .subscribe((country: Country) => {
         this.mapService.loadStationLayer();
         this.mapService.loadRedcrossBranchesLayer();
+        this.mapService.loadWaterpointsLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
         this.mapService.loadPopulationGridLayer();
@@ -160,6 +167,7 @@ export class MapComponent implements OnDestroy {
       .subscribe((timeline: string) => {
         this.mapService.loadStationLayer();
         this.mapService.loadRedcrossBranchesLayer();
+        this.mapService.loadWaterpointsLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
 
@@ -300,6 +308,11 @@ export class MapComponent implements OnDestroy {
               geoJsonPoint.properties as RedcrossBranch,
               latlng,
             );
+          case IbfLayerName.waterpoints:
+            return this.createMarkerWaterpoint(
+              geoJsonPoint.properties as Waterpoint,
+              latlng,
+            );
           default:
             return this.createMarkerDefault(latlng);
         }
@@ -396,6 +409,24 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
+  private createMarkerWaterpoint(
+    markerProperties: Waterpoint,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.wpdxId;
+    let markerIcon = this.iconWaterpoint;
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: markerIcon ? icon(markerIcon) : divIcon(),
+    });
+    markerInstance.bindPopup(
+      this.createMarkerWaterpointPopup(markerProperties),
+    );
+
+    return markerInstance;
+  }
+
   private createMarkerStationPopup(markerProperties: Station) {
     const percentageTrigger =
       markerProperties.fc / markerProperties.trigger_level;
@@ -481,5 +512,25 @@ export class MapComponent implements OnDestroy {
         : '',
     );
     return branchInfoPopup;
+  }
+
+  private createMarkerWaterpointPopup(markerProperties: Waterpoint) {
+    const waterpointInfoPopup = (
+      '<div style="margin-bottom: 5px">' +
+      '<strong>ID: ' +
+      markerProperties.wpdxId +
+      '</strong>' +
+      '</div>'
+    ).concat(
+      '<div style="margin-bottom: 5px">' +
+        'Waterpoint type: ' +
+        (markerProperties.type ? markerProperties.type : 'unknown') +
+        '</div>',
+      '<div style="margin-bottom: 5px">' +
+        'Report date: ' +
+        markerProperties.reportDate +
+        '</div>',
+    );
+    return waterpointInfoPopup;
   }
 }
