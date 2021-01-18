@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { IonicModule } from '@ionic/angular';
 import { AboutBtnComponent } from './components/about-btn/about-btn.component';
 import { AdminLevelComponent } from './components/admin-level/admin-level.component';
@@ -25,7 +26,13 @@ import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, LeafletModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    LeafletModule,
+    LeafletMarkerClusterModule,
+  ],
   declarations: [
     LoginFormComponent,
     MapComponent,
