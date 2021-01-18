@@ -67,12 +67,12 @@ function deploy() {
         do
             echo "$SCHEMA"
             rm -f tools/db-dumps/ibf_$SCHEMA.dump
-            PGPASSWORD=$DB_PASSWORD pg_dump -U geonodeadmin@geonode-database -Fc -f tools/db-dumps/ibf_$SCHEMA.dump -h geonode-database.postgres.database.azure.com -n \"$SCHEMA\" geonode_datav3
-            PGPASSWORD=$DB_PASSWORD psql -U geonodeadmin@geonode-database -d $DB_DATABASE -h geonode-database.postgres.database.azure.com -c 'drop schema "'$SCHEMA'" cascade; create schema "'$SCHEMA'";'
-            PGPASSWORD=$DB_PASSWORD pg_restore -U geonodeadmin@geonode-database -d $DB_DATABASE -h geonode-database.postgres.database.azure.com --schema=$SCHEMA --clean tools/db-dumps/ibf_$SCHEMA.dump
+            PGPASSWORD=$DB_PASSWORD pg_dump -U $DB_USERNAME -Fc -f tools/db-dumps/ibf_$SCHEMA.dump -h $DB_HOST -n \"$SCHEMA\" $DB_DATABASE
+            PGPASSWORD=$DB_PASSWORD psql -U $DB_USERNAME -d $DB_DATABASE -h $DB_HOST -c 'drop schema "'$SCHEMA'" cascade; create schema "'$SCHEMA'";'
+            PGPASSWORD=$DB_PASSWORD pg_restore -U $DB_USERNAME -d $DB_DATABASE -h $DB_HOST --schema=$SCHEMA --clean tools/db-dumps/ibf_$SCHEMA.dump
         done
 
-        PGPASSWORD=$DB_PASSWORD psql -U geonodeadmin@geonode-database -d $DB_DATABASE -h geonode-database.postgres.database.azure.com -f $SQL_FILE_PATH
+        PGPASSWORD=$DB_PASSWORD psql -U $DB_USERNAME -d $DB_DATABASE -h $DB_HOST -f $SQL_FILE_PATH
 
     }
 
