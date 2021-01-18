@@ -191,13 +191,6 @@ export class MapService {
   }
 
   private addLayer(layer: IbfLayer) {
-    if (
-      this.countryService.selectedCountry.layerAvailability[layer.name] ===
-      false
-    ) {
-      return;
-    }
-
     const { name, viewCenter, data } = layer;
     if (viewCenter && data.features.length) {
       const layerBounds = bbox(data);
