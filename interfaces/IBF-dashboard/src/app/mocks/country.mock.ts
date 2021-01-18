@@ -8,6 +8,6 @@ export default {
   adminRegionLabels: ['Regions', 'Districts', 'Parishes'],
   eapLink: 'string',
   layerAvailability: {
-    redcrossBranches: true,
+    redCrossBranches: true,
   },
 };

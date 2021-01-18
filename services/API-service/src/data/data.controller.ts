@@ -58,11 +58,11 @@ export class DataController {
     );
   }
 
-  @ApiOperation({ title: 'Get redcross branch locations' })
+  @ApiOperation({ title: 'Get Red Cross branch locations' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('redcross-branches/:countryCode')
-  public async getRedcrossBranches(@Param() params): Promise<GeoJson> {
-    return await this.dataService.getRedcrossBranches(params.countryCode);
+  @Get('red-cross-branches/:countryCode')
+  public async getRedCrossBranches(@Param() params): Promise<GeoJson> {
+    return await this.dataService.getRedCrossBranches(params.countryCode);
   }
 
   @ApiOperation({ title: 'Get metadata' })

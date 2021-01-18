@@ -63,15 +63,15 @@ export class MapService {
     });
   }
 
-  public async loadRedcrossBranchesLayer() {
+  public async loadRedCrossBranchesLayer() {
     this.addLayer({
-      name: IbfLayerName.redcrossBranches,
-      label: IbfLayerLabel.redcrossBranches,
+      name: IbfLayerName.redCrossBranches,
+      label: IbfLayerLabel.redCrossBranches,
       type: IbfLayerType.point,
-      description: 'loadRedcrossBranchesLayer',
+      description: 'loadRedCrossBranchesLayer',
       active: false,
       show: true,
-      data: await this.getRedcrossBranches(),
+      data: await this.getRedCrossBranches(),
       viewCenter: false,
       order: 1,
     });
@@ -285,8 +285,8 @@ export class MapService {
     );
   }
 
-  public async getRedcrossBranches(): Promise<GeoJSON.FeatureCollection> {
-    return await this.apiService.getRedcrossBranches(
+  public async getRedCrossBranches(): Promise<GeoJSON.FeatureCollection> {
+    return await this.apiService.getRedCrossBranches(
       this.countryService.selectedCountry.countryCode,
     );
   }

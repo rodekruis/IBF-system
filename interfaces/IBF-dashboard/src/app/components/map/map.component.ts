@@ -17,7 +17,7 @@ import {
 } from 'leaflet';
 import { Subscription } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
-import { RedcrossBranch, Station } from 'src/app/models/poi.model';
+import { RedCrossBranch, Station } from 'src/app/models/poi.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
@@ -71,11 +71,11 @@ export class MapComponent implements OnDestroy {
     iconRetinaUrl: 'assets/markers/glofas-alert.svg',
   };
 
-  private iconRedcrossBranch: IconOptions = {
+  private iconRedCrossBranch: IconOptions = {
     ...this.iconGlofasDefault,
     iconSize: [20, 33],
-    iconUrl: 'assets/markers/redcross.png',
-    iconRetinaUrl: 'assets/markers/redcross.png',
+    iconUrl: 'assets/markers/red-cross.png',
+    iconRetinaUrl: 'assets/markers/red-cross.png',
   };
 
   public leafletOptions: MapOptions = {
@@ -127,7 +127,7 @@ export class MapComponent implements OnDestroy {
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.mapService.loadStationLayer();
-        this.mapService.loadRedcrossBranchesLayer();
+        this.mapService.loadRedCrossBranchesLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
         this.mapService.loadPopulationGridLayer();
@@ -157,7 +157,7 @@ export class MapComponent implements OnDestroy {
       .getTimelineSubscription()
       .subscribe((timeline: string) => {
         this.mapService.loadStationLayer();
-        this.mapService.loadRedcrossBranchesLayer();
+        this.mapService.loadRedCrossBranchesLayer();
         this.mapService.loadAdminRegionLayer();
         this.mapService.loadFloodExtentLayer();
 
@@ -293,9 +293,9 @@ export class MapComponent implements OnDestroy {
               geoJsonPoint.properties as Station,
               latlng,
             );
-          case IbfLayerName.redcrossBranches:
-            return this.createMarkerRedcrossBranch(
-              geoJsonPoint.properties as RedcrossBranch,
+          case IbfLayerName.redCrossBranches:
+            return this.createMarkerRedCrossBranch(
+              geoJsonPoint.properties as RedCrossBranch,
               latlng,
             );
           default:
@@ -378,18 +378,18 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
-  private createMarkerRedcrossBranch(
-    markerProperties: RedcrossBranch,
+  private createMarkerRedCrossBranch(
+    markerProperties: RedCrossBranch,
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.name;
-    let markerIcon = this.iconRedcrossBranch;
+    let markerIcon = this.iconRedCrossBranch;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: markerIcon ? icon(markerIcon) : divIcon(),
     });
-    markerInstance.bindPopup(this.createMarkerRedcrossPopup(markerProperties));
+    markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
 
     return markerInstance;
   }
@@ -442,7 +442,7 @@ export class MapComponent implements OnDestroy {
     return stationInfoPopup;
   }
 
-  private createMarkerRedcrossPopup(markerProperties: RedcrossBranch) {
+  private createMarkerRedCrossPopup(markerProperties: RedCrossBranch) {
     const branchInfoPopup = (
       '<div style="margin-bottom: 5px">' +
       '<strong>Branch: ' +
