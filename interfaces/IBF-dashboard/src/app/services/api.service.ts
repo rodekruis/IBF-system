@@ -1,11 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level.enum';
 import { environment } from 'src/environments/environment';
-import { LoaderService } from './loader.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +13,7 @@ export class ApiService {
   private enableLogging = false;
   private log = this.enableLogging ? console.log : () => {};
 
-  constructor(
-    private loaderService: LoaderService,
-    private jwtService: JwtService,
-    private http: HttpClient,
-  ) {}
+  constructor(private jwtService: JwtService, private http: HttpClient) {}
 
   private showSecurity(anonymous: boolean) {
     return anonymous ? '🌐' : '🔐';
@@ -47,7 +42,6 @@ export class ApiService {
   ): Observable<any> {
     const security = this.showSecurity(anonymous);
     this.log(`ApiService GET: ${security} ${endpoint}${path}`);
-    this.loaderService.setLoader(path, false);
 
     return this.http
       .get(endpoint + path, {
@@ -61,7 +55,6 @@ export class ApiService {
             response,
           ),
         ),
-        finalize(() => this.loaderService.setLoader(path, true)),
       );
   }
 
@@ -73,7 +66,6 @@ export class ApiService {
   ): Observable<any> {
     const security = this.showSecurity(anonymous);
     this.log(`ApiService POST: ${security} ${endpoint}${path}`, body);
-    this.loaderService.setLoader(path, false);
 
     return this.http
       .post(endpoint + path, body, {
@@ -88,7 +80,6 @@ export class ApiService {
             response,
           ),
         ),
-        finalize(() => this.loaderService.setLoader(path, true)),
       );
   }
 
