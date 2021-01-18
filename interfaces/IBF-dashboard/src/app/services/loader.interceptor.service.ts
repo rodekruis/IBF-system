@@ -23,6 +23,7 @@ export class LoaderInterceptorService implements HttpInterceptor {
     const requestPath = request.url;
 
     this.showLoader(requestPath);
+
     return next.handle(request).pipe(
       tap(
         (event: HttpEvent<any>) => {
