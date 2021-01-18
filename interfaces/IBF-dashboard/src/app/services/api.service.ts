@@ -116,10 +116,10 @@ export class ApiService {
     ).toPromise();
   }
 
-  getRedcrossBranches(countryCode: string): Promise<GeoJSON.FeatureCollection> {
+  getRedCrossBranches(countryCode: string): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
-      `redcross-branches/${countryCode}`,
+      `red-cross-branches/${countryCode}`,
       false,
     ).toPromise();
   }
