@@ -1,6 +1,6 @@
 import { WaterpointsService } from './waterpoints.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { HttpModule } from '@nestjs/common';
 
 describe('Waterpoints service', (): void => {
   let service: WaterpointsService;
@@ -8,7 +8,7 @@ describe('Waterpoints service', (): void => {
   beforeAll(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
-        imports: [TypeOrmModule.forRoot()],
+        imports: [HttpModule],
         providers: [WaterpointsService],
       }).compile();
 
