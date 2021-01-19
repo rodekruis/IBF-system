@@ -15,7 +15,7 @@ import { User } from './user.decorator';
 import { ValidationPipe } from '../../shared/pipes/validation.pipe';
 
 import { ApiUseTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
-import { DeleteUserDto } from './dto/delete-user.dts';
+import { DeleteUserDto } from './dto/delete-user.dto';
 import { RolesGuard } from '../../roles.guard';
 
 @ApiBearerAuth()
