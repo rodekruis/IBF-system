@@ -13,7 +13,7 @@ Flask==1.1.2
 geopandas==0.4.1
 idna==2.8
 itsdangerous==1.1.0
-Jinja2==2.10.1
+Jinja2==2.11.2
 loggly-python-handler==1.0.0
 lxml==4.6.2
 mailchimp3==3.0.7
