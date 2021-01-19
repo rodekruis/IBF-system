@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 RUN apt-get update
 RUN apt-get install -y software-properties-common nano python3-pip git wget libxml2-utils
