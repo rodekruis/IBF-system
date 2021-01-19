@@ -9,7 +9,7 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { HttpStatus } from '@nestjs/common';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
-import { DeleteUserDto } from './dto/delete-user.dts';
+import { DeleteUserDto } from './dto/delete-user.dto';
 
 @Injectable()
 export class UserService {

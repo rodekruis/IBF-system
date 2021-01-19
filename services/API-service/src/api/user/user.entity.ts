@@ -14,6 +14,8 @@ import crypto from 'crypto';
 
 import { CountryEntity } from '../country/country.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
+import { UserRole } from './user-role.enum';
+import { UserStatus } from './user-status.enum';
 
 @Entity('user')
 export class UserEntity {
@@ -37,14 +39,14 @@ export class UserEntity {
   public lastName: string;
 
   @Column()
-  public role: string;
+  public role: UserRole;
 
   @ManyToMany(type => CountryEntity, country => country.users)
   @JoinTable()
   public countries: CountryEntity[];
 
   @Column()
-  public status: string;
+  public status: UserStatus;
 
   @Column({ select: false })
   public password: string;
