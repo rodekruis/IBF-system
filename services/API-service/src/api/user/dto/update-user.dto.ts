@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { UserRole } from '../user-role.enum';
-import { CountryEntity } from 'src/api/country/country.entity';
+import { CountryEntity } from '../../country/country.entity';
 import { ManyToMany } from 'typeorm';
 import { UserStatus } from '../user-status.enum';
 
