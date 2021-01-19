@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
@@ -9,7 +9,7 @@ import { EventService } from 'src/app/services/event.service';
   templateUrl: './areas-of-focus-summary.component.html',
   styleUrls: ['./areas-of-focus-summary.component.scss'],
 })
-export class AreasOfFocusSummaryComponent implements OnInit {
+export class AreasOfFocusSummaryComponent implements OnDestroy {
   private eapActionSubscription: Subscription;
   public areasOfFocus: any[];
   public triggeredAreas: any[];
@@ -30,7 +30,9 @@ export class AreasOfFocusSummaryComponent implements OnInit {
     this.eventService.getTrigger();
   }
 
-  ngOnInit() {}
+  ngOnDestroy() {
+    this.eapActionSubscription.unsubscribe();
+  }
 
   async calcActionStatus(triggeredAreas) {
     // Get areas of focus from db
