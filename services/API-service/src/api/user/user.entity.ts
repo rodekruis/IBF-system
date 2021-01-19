@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { IsEmail } from 'class-validator';
 import {
   Entity,
@@ -38,15 +36,18 @@ export class UserEntity {
   @Column()
   public lastName: string;
 
-  @Column()
-  public role: UserRole;
+  @Column({ default: UserRole.Guest })
+  public userRole: UserRole;
 
-  @ManyToMany(type => CountryEntity, country => country.users)
+  @ManyToMany(
+    (): typeof CountryEntity => CountryEntity,
+    (country): UserEntity[] => country.users,
+  )
   @JoinTable()
   public countries: CountryEntity[];
 
-  @Column()
-  public status: UserStatus;
+  @Column({ default: UserStatus.Active })
+  public userStatus: UserStatus;
 
   @Column({ select: false })
   public password: string;
@@ -59,6 +60,9 @@ export class UserEntity {
     this.password = crypto.createHmac('sha256', this.password).digest('hex');
   }
 
-  @OneToMany(type => EapActionStatusEntity, action => action.user)
+  @OneToMany(
+    (): typeof EapActionStatusEntity => EapActionStatusEntity,
+    (action): UserEntity => action.user,
+  )
   public actions: EapActionStatusEntity[];
 }
