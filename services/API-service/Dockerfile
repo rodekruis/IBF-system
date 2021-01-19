@@ -1,4 +1,4 @@
-FROM node:15-alpine
+FROM node:10-alpine
 
 RUN apk update && apk add python make g++ git
 
