@@ -9,7 +9,7 @@ on:
         paths: "services/IBF-pipeline/**"
 
 jobs:
-    ibf-dashboard:
+    ibf-pipeline:
         runs-on: ubuntu-latest
 
         strategy:
@@ -21,7 +21,7 @@ jobs:
                 working-directory: "services/IBF-pipeline"
 
         steps:
-            - uses: actions/checkout@v22
+            - uses: actions/checkout@v2
             - name: Set up Python ${{ matrix.python-version }}
               uses: actions/setup-python@v1
               with:
