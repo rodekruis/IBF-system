@@ -34,7 +34,7 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   @IsNotEmpty()
-  public middleName: string;
+  public middleName?: string;
 
   @ApiModelProperty({ example: 'Dunant' })
   @IsString()

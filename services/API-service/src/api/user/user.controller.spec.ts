@@ -5,6 +5,8 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserRO } from './user.interface';
 import { RolesGuard } from '../../roles.guard';
+import { UserRole } from './user-role.enum';
+import { UserStatus } from './user-status.enum';
 
 const userRo = {
   user: {
@@ -98,9 +100,15 @@ describe('UserController', (): void => {
 
   describe('create', (): void => {
     it('should return an a user entity', async (): Promise<void> => {
-      const userValue = {
+      const userValue: CreateUserDto = {
         email: 'test@ibf.nl',
         password: 'string',
+        username: 'testUsername',
+        firstName: 'testFirstName',
+        lastName: 'testLastName',
+        countries: [],
+        role: UserRole.DisasterManager,
+        status: UserStatus.Active,
       };
       const spy = jest
         .spyOn(userService, 'create')
