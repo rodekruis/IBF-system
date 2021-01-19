@@ -31,7 +31,7 @@
     "@angular/platform-browser-dynamic": "~10.0.3",
     "@angular/router": "~10.0.3",
     "@angular/service-worker": "~10.0.3",
-    "@asymmetrik/ngx-leaflet": "^7.0.1",
+    "@asymmetrik/ngx-leaflet": "^8.1.0",
     "@asymmetrik/ngx-leaflet-markercluster": "^5.0.1",
     "@auth0/angular-jwt": "^5.0.1",
     "@ionic/angular": "^5.2.3",
