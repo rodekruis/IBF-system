@@ -86,12 +86,12 @@ export class AuthService {
 
         this.authenticationState.next(user);
 
-        if (user.role === UserRole.Guest) {
+        if (user.userRole === UserRole.Guest) {
           return;
         }
 
         this.loggedIn = true;
-        this.userRole = user.role;
+        this.userRole = user.userRole;
 
         if (this.redirectUrl) {
           this.router.navigate([this.redirectUrl]);
