@@ -12,8 +12,6 @@ services:
             FQDN: ${FQDN}
         volumes:
             - ./nginx/conf.d:/etc/nginx/user.conf.d
-            - ./nginx/expires.conf:/etc/nginx/expires.conf
-            - ./nginx/proxy_params:/etc/nginx/proxy_params
             - ibf-dashboard-root:/var/www/ibf-dashboard
             - letsencrypt:/etc/letsencrypt
         networks:
