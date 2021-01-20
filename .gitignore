@@ -8,10 +8,8 @@
 # Configuration, secrets, etc:
 .env
 inspect.docker-compose.config
-certbot/conf/*
-!certbot/conf/README.md
-certbot/www/*
-!certbot/www/README.md
+nginx/letsencrypt/*
+!nginx/letsencrypt/README.md
 
 # R specific:
 .Rproj.user
