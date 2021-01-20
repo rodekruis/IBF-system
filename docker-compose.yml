@@ -10,7 +10,6 @@ services:
             CERTBOT_EMAIL: ${CERTBOT_EMAIL}
             ENVSUBST_VARS: FQDN
             FQDN: ${FQDN}
-            IS_STAGING: 1
         volumes:
             - ./nginx/conf.d:/etc/nginx/user.conf.d
             - ./nginx/expires.conf:/etc/nginx/expires.conf
