@@ -1,37 +1,37 @@
 [
-        {
-        "id": "drr",
-        "label": "Disaster Risk Reduction",
-        "icon": "Shelter.svg"
-        },
-        {
-        "id": "shelter",
-        "label": "Shelter",
-        "icon": "Shelter.svg"
-        },
-        {
-        "id": "livelihood",
-        "label": "Livelihoods & Basic Needs",
-        "icon": "Livelihood.svg"
-        },
-        {
-        "id": "health",
-        "label": "Health",
-        "icon": "Health.svg"
-        },
-        {
-        "id": "wash",
-        "label": "WASH",
-        "icon": "Water-Sanitation-and-Hygiene.svg"
-        },
-        {
-        "id": "inclusion",
-        "label": "Inclusion, Gender & Protection",
-        "icon": "Gender.svg"
-        },
-        {
-        "id": "migration",
-        "label": "Migration",
-        "icon": "Internally-displaced.svg"
-        }
+  {
+    "id": "drr",
+    "label": "Disaster Risk Reduction",
+    "icon": "Shelter.svg"
+  },
+  {
+    "id": "shelter",
+    "label": "Shelter",
+    "icon": "Shelter.svg"
+  },
+  {
+    "id": "livelihood",
+    "label": "Livelihoods & Basic Needs",
+    "icon": "Livelihood.svg"
+  },
+  {
+    "id": "health",
+    "label": "Health",
+    "icon": "Health.svg"
+  },
+  {
+    "id": "wash",
+    "label": "WASH",
+    "icon": "Water-Sanitation-and-Hygiene.svg"
+  },
+  {
+    "id": "inclusion",
+    "label": "Inclusion, Gender & Protection",
+    "icon": "Gender.svg"
+  },
+  {
+    "id": "migration",
+    "label": "Migration",
+    "icon": "Internally-displaced.svg"
+  }
 ]

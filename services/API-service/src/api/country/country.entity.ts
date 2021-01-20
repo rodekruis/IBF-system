@@ -1,7 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { UserEntity } from '../user/user.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+import { AdminLevel } from './admin-level.enum';
+import { ForecastEntity } from '../forecast/forecast.entity';
+import { CountryStatus } from './country-status.enum';
 
 @Entity('country')
 export class CountryEntity {
@@ -14,12 +21,34 @@ export class CountryEntity {
   @Column()
   public countryName: string;
 
-  @Column()
-  public status: string;
+  @Column({ default: CountryStatus.Active })
+  public countryStatus: CountryStatus;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ default: AdminLevel.adm1 })
+  public defaultAdminLevel: AdminLevel;
+
+  @Column('text', {
+    array: true,
+    default: (): string => 'array[]::text[]',
+  })
+  public adminRegionLabels: string[];
+
+  @Column({ nullable: true })
+  public eapLink: string;
+
+  @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
   public created: Date;
 
-  @ManyToMany(type => UserEntity, user => user.countries)
+  @ManyToMany(
+    (): typeof ForecastEntity => ForecastEntity,
+    (forecast): CountryEntity[] => forecast.countries,
+  )
+  @JoinTable()
+  public countryForecasts: ForecastEntity[];
+
+  @ManyToMany(
+    (): typeof UserEntity => UserEntity,
+    (user): CountryEntity[] => user.countries,
+  )
   public users: UserEntity[];
 }

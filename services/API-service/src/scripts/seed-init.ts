@@ -7,93 +7,18 @@ import { CountryEntity } from '../api/country/country.entity';
 import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
 import { IndicatorEntity } from '../api/indicator/indicator.entity';
 import { CountryStatus } from '../api/country/country-status.enum';
-import { UserRole } from '../api/user/user-role.enum';
-import { UserStatus } from '../api/user/user-status.enum';
+import { AdminLevel } from '../api/country/admin-level.enum';
+import { ForecastEntity } from '../api/forecast/forecast.entity';
+import { ForecastStatus } from 'src/api/forecast/forecast-status.enum';
+import { UserRole } from 'src/api/user/user-role.enum';
+import { UserStatus } from 'src/api/user/user-status.enum';
 
+import forecasts from './forecasts.json';
+import countries from './countries.json';
+import users from './users.json';
 import areasOfFocus from './areas-of-focus.json';
 import eapActions from './EAP-actions.json';
 import indicators from './indicator-metadata.json';
-
-const users = [
-  {
-    email: 'dunant@redcross.nl',
-    username: 'dunant',
-    firstName: 'Henry',
-    lastName: 'Dunant',
-    role: UserRole.Admin,
-    password: 'password',
-    status: UserStatus.Active,
-    countries: ['UGA', 'ZMB', 'KEN', 'ETH'],
-  },
-  {
-    email: 'uganda@redcross.nl',
-    username: 'uganda',
-    firstName: 'Uganda',
-    lastName: 'Manager',
-    role: UserRole.DisasterManager,
-    password: 'password',
-    status: UserStatus.Active,
-    countries: ['UGA'],
-  },
-  {
-    email: 'zambia@redcross.nl',
-    username: 'zambia',
-    firstName: 'Zambia',
-    lastName: 'Manager',
-    role: UserRole.DisasterManager,
-    password: 'password',
-    status: UserStatus.Active,
-    countries: ['ZMB'],
-  },
-  {
-    email: 'kenya@redcross.nl',
-    username: 'kenya',
-    firstName: 'Kenya',
-    lastName: 'Manager',
-    role: UserRole.DisasterManager,
-    password: 'password',
-    status: UserStatus.Active,
-    countries: ['KEN'],
-  },
-  {
-    email: 'ethiopia@redcross.nl',
-    username: 'ethiopia',
-    firstName: 'Ethiopia',
-    lastName: 'Manager',
-    role: UserRole.DisasterManager,
-    password: 'password',
-    status: UserStatus.Active,
-    countries: ['ETH'],
-  },
-];
-
-const countries = [
-  {
-    countryCode: 'UGA',
-    countryName: 'Uganda',
-    status: CountryStatus.Active,
-  },
-  {
-    countryCode: 'ZMB',
-    countryName: 'Zambia',
-    status: CountryStatus.Active,
-  },
-  {
-    countryCode: 'KEN',
-    countryName: 'Kenya',
-    status: CountryStatus.Active,
-  },
-  {
-    countryCode: 'ETH',
-    countryName: 'Ethiopia',
-    status: CountryStatus.Active,
-  },
-  {
-    countryCode: 'EGY',
-    countryName: 'Egypt',
-    status: CountryStatus.Active,
-  },
-];
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -107,22 +32,49 @@ export class SeedInit implements InterfaceScript {
     await this.connection.dropDatabase();
     await this.connection.synchronize(true);
 
+    // ***** CREATE FORECASTS *****
+
+    const forecastRepository = this.connection.getRepository(ForecastEntity);
+    const forecastEntities = forecasts.map(
+      (forecast): ForecastEntity => {
+        let forecastEntity = new ForecastEntity();
+        forecastEntity.forecastName = forecast.forecastName;
+        forecastEntity.forecastLabel = forecast.forecastLabel;
+        forecastEntity.forecastStatus = forecast.forecastStatus as ForecastStatus;
+        return forecastEntity;
+      },
+    );
+
+    await forecastRepository.save(forecastEntities);
+
     // ***** CREATE COUNTRIES *****
 
     const countryRepository = this.connection.getRepository(CountryEntity);
-    const countryEntities = countries.map(
-      (country): CountryEntity => {
-        let countryEntity = new CountryEntity();
-        countryEntity.countryCode = country.countryCode;
-        countryEntity.countryName = country.countryName;
-        countryEntity.status = country.status;
-        return countryEntity;
-      },
+    const countryEntities = await Promise.all(
+      countries.map(
+        async (country): Promise<CountryEntity> => {
+          let countryEntity = new CountryEntity();
+          countryEntity.countryCode = country.countryCode;
+          countryEntity.countryName = country.countryName;
+          countryEntity.countryStatus = country.countryStatus as CountryStatus;
+          countryEntity.defaultAdminLevel = country.defaultAdminLevel as AdminLevel;
+          countryEntity.adminRegionLabels = country.adminRegionLabels;
+          countryEntity.eapLink = country.eapLink;
+          countryEntity.countryForecasts = await forecastRepository.find({
+            where: country.countryForecasts.map(
+              (countryForecast: string): object => {
+                return { forecastName: countryForecast };
+              },
+            ),
+          });
+          return countryEntity;
+        },
+      ),
     );
 
     await countryRepository.save(countryEntities);
 
-    // ***** CREATE ADMIN USER *****
+    // ***** CREATE USERS *****
 
     const userRepository = this.connection.getRepository(UserEntity);
     const userEntities = await Promise.all(
@@ -133,13 +85,13 @@ export class SeedInit implements InterfaceScript {
           userEntity.username = user.username;
           userEntity.firstName = user.firstName;
           userEntity.lastName = user.lastName;
-          userEntity.role = user.role;
+          userEntity.userRole = user.userRole as UserRole;
           userEntity.countries = await countryRepository.find({
             where: user.countries.map((countryCode: string): object => {
               return { countryCode: countryCode };
             }),
           });
-          userEntity.status = user.status;
+          userEntity.userStatus = user.userStatus as UserStatus;
           userEntity.password = user.password;
           return userEntity;
         },
