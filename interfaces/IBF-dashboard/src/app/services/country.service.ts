@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import mockCountry from 'src/app/mocks/country.mock';
 import { Country } from 'src/app/models/country.model';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user/user.model';
 import { AdminLevel } from 'src/app/types/admin-level.enum';
 
 @Injectable({

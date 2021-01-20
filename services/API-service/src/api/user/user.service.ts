@@ -160,8 +160,8 @@ export class UserService {
         firstName: user.firstName,
         middleName: user.middleName,
         lastName: user.lastName,
-        role: user.role,
-        status: user.status,
+        userRole: user.userRole,
+        userStatus: user.userStatus,
         countries: user.countries.map(
           (countryEntity): string => countryEntity.countryCode,
         ),

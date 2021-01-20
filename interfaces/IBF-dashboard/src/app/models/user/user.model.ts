@@ -1,3 +1,6 @@
+import { UserRole } from './user-role.enum';
+import { UserStatus } from './user-status.enum';
+
 export class User {
   token: string;
   email: string;
@@ -5,7 +8,7 @@ export class User {
   firstName: string;
   middleName?: string;
   lastName: string;
-  role: string;
+  userRole: UserRole;
   countries: string[];
-  status: string;
+  userStatus: UserStatus;
 }
