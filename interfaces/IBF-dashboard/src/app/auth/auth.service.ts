@@ -86,10 +86,6 @@ export class AuthService {
 
         this.authenticationState.next(user);
 
-        if (user.userRole === UserRole.Guest) {
-          return;
-        }
-
         this.loggedIn = true;
         this.userRole = user.userRole;
 
