@@ -7,148 +7,18 @@ import { CountryEntity } from '../api/country/country.entity';
 import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
 import { IndicatorEntity } from '../api/indicator/indicator.entity';
 import { CountryStatus } from '../api/country/country-status.enum';
-import { UserRole } from '../api/user/user-role.enum';
-import { UserStatus } from '../api/user/user-status.enum';
+import { AdminLevel } from '../api/country/admin-level.enum';
+import { ForecastEntity } from '../api/forecast/forecast.entity';
+import { ForecastStatus } from 'src/api/forecast/forecast-status.enum';
+import { UserRole } from 'src/api/user/user-role.enum';
+import { UserStatus } from 'src/api/user/user-status.enum';
+
+import forecasts from './forecasts.json';
+import countries from './countries.json';
+import users from './users.json';
 import areasOfFocus from './areas-of-focus.json';
 import eapActions from './EAP-actions.json';
 import indicators from './indicator-metadata.json';
-import { AdminLevel } from '../api/country/admin-level.enum';
-import { ForecastEntity } from '../api/forecast/forecast.entity';
-import { ForecastStatus } from '../api/forecast/forecast-status.enum';
-
-const forecasts = [
-  {
-    forecastName: '1-day',
-    forecastLabel: '1-day',
-    forecastStatus: ForecastStatus.Inactive,
-  },
-  {
-    forecastName: '2-day',
-    forecastLabel: '2-day',
-    forecastStatus: ForecastStatus.Inactive,
-  },
-  {
-    forecastName: '3-day',
-    forecastLabel: '3-day',
-    forecastStatus: ForecastStatus.Active,
-  },
-  {
-    forecastName: '4-day',
-    forecastLabel: '4-day',
-    forecastStatus: ForecastStatus.Inactive,
-  },
-  {
-    forecastName: '5-day',
-    forecastLabel: '5-day',
-    forecastStatus: ForecastStatus.Inactive,
-  },
-  {
-    forecastName: '6-day',
-    forecastLabel: '6-day',
-    forecastStatus: ForecastStatus.Inactive,
-  },
-  {
-    forecastName: '7-day',
-    forecastLabel: '7-day',
-    forecastStatus: ForecastStatus.Active,
-  },
-];
-
-const users = [
-  {
-    email: 'dunant@redcross.nl',
-    username: 'dunant',
-    firstName: 'Henry',
-    lastName: 'Dunant',
-    userRole: UserRole.Admin,
-    password: 'password',
-    userStatus: UserStatus.Active,
-    countries: ['UGA', 'ZMB', 'KEN', 'ETH'],
-  },
-  {
-    email: 'uganda@redcross.nl',
-    username: 'uganda',
-    firstName: 'Uganda',
-    lastName: 'Manager',
-    userRole: UserRole.DisasterManager,
-    password: 'password',
-    userStatus: UserStatus.Active,
-    countries: ['UGA'],
-  },
-  {
-    email: 'zambia@redcross.nl',
-    username: 'zambia',
-    firstName: 'Zambia',
-    lastName: 'Manager',
-    userRole: UserRole.DisasterManager,
-    password: 'password',
-    userStatus: UserStatus.Active,
-    countries: ['ZMB'],
-  },
-  {
-    email: 'kenya@redcross.nl',
-    username: 'kenya',
-    firstName: 'Kenya',
-    lastName: 'Manager',
-    userRole: UserRole.DisasterManager,
-    password: 'password',
-    userStatus: UserStatus.Active,
-    countries: ['KEN'],
-  },
-  {
-    email: 'ethiopia@redcross.nl',
-    username: 'ethiopia',
-    firstName: 'Ethiopia',
-    lastName: 'Manager',
-    userRole: UserRole.DisasterManager,
-    password: 'password',
-    userStatus: UserStatus.Active,
-    countries: ['ETH'],
-  },
-];
-
-const countries = [
-  {
-    countryCode: 'UGA',
-    countryName: 'Uganda',
-    countryStatus: CountryStatus.Active,
-    defaultAdminLevel: AdminLevel.adm2,
-    countryForecasts: ['7-day'],
-    adminRegionLabels: ['Regions', 'Districts', 'Counties', 'Parishes'],
-    eapLink:
-      'https://docs.google.com/document/d/1IiG2ZFasCVE7kmYfqgyrx7SuZWkoYzTvw3LaEt2nl2U/edit#heading=h.35nkun2',
-  },
-  {
-    countryCode: 'ZMB',
-    countryName: 'Zambia',
-    countryStatus: CountryStatus.Active,
-    defaultAdminLevel: AdminLevel.adm2,
-    countryForecasts: ['3-day', '7-day'],
-    adminRegionLabels: ['Provinces', 'Districts', 'Wards'],
-    eapLink:
-      'https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#bookmark=id.xa68na3bshzr',
-  },
-  {
-    countryCode: 'KEN',
-    countryName: 'Kenya',
-    countryStatus: CountryStatus.Active,
-    defaultAdminLevel: AdminLevel.adm1,
-    countryForecasts: ['7-day'],
-    adminRegionLabels: ['Counties', 'Subcounties', 'Wards'],
-    eapLink:
-      'https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9',
-  },
-  {
-    countryCode: 'ETH',
-    countryName: 'Ethiopia',
-    countryStatus: CountryStatus.Active,
-    defaultAdminLevel: AdminLevel.adm2,
-    countryForecasts: ['7-day'],
-    adminRegionLabels: ['Regions', 'Zones', 'Woredas'],
-    eapLink:
-      'https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx',
-  },
-];
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -170,7 +40,7 @@ export class SeedInit implements InterfaceScript {
         let forecastEntity = new ForecastEntity();
         forecastEntity.forecastName = forecast.forecastName;
         forecastEntity.forecastLabel = forecast.forecastLabel;
-        forecastEntity.forecastStatus = forecast.forecastStatus;
+        forecastEntity.forecastStatus = forecast.forecastStatus as ForecastStatus;
         return forecastEntity;
       },
     );
@@ -186,11 +56,14 @@ export class SeedInit implements InterfaceScript {
           let countryEntity = new CountryEntity();
           countryEntity.countryCode = country.countryCode;
           countryEntity.countryName = country.countryName;
-          countryEntity.countryStatus = country.countryStatus;
+          countryEntity.countryStatus = country.countryStatus as CountryStatus;
+          countryEntity.defaultAdminLevel = country.defaultAdminLevel as AdminLevel;
+          countryEntity.adminRegionLabels = country.adminRegionLabels;
+          countryEntity.eapLink = country.eapLink;
           countryEntity.countryForecasts = await forecastRepository.find({
             where: country.countryForecasts.map(
               (countryForecast: string): object => {
-                return { name: countryForecast };
+                return { forecastName: countryForecast };
               },
             ),
           });
@@ -201,7 +74,7 @@ export class SeedInit implements InterfaceScript {
 
     await countryRepository.save(countryEntities);
 
-    // ***** CREATE ADMIN USER *****
+    // ***** CREATE USERS *****
 
     const userRepository = this.connection.getRepository(UserEntity);
     const userEntities = await Promise.all(
@@ -212,13 +85,13 @@ export class SeedInit implements InterfaceScript {
           userEntity.username = user.username;
           userEntity.firstName = user.firstName;
           userEntity.lastName = user.lastName;
-          userEntity.userRole = user.userRole;
+          userEntity.userRole = user.userRole as UserRole;
           userEntity.countries = await countryRepository.find({
             where: user.countries.map((countryCode: string): object => {
               return { countryCode: countryCode };
             }),
           });
-          userEntity.userStatus = user.userStatus;
+          userEntity.userStatus = user.userStatus as UserStatus;
           userEntity.password = user.password;
           return userEntity;
         },

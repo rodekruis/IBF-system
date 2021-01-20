@@ -27,11 +27,11 @@ export class CountryEntity {
   @Column({ default: AdminLevel.adm1 })
   public defaultAdminLevel: AdminLevel;
 
-  @Column({
+  @Column('text', {
     array: true,
     default: (): string => 'array[]::text[]',
   })
-  public adminRegionLabels: string;
+  public adminRegionLabels: string[];
 
   @Column({ nullable: true })
   public eapLink: string;
