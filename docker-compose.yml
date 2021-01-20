@@ -2,18 +2,21 @@ version: "3.8"
 
 services:
     nginx:
-        image: nginx
-        command:
-            '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload;
-            done & nginx -g "daemon off;"'''
+        image: staticfloat/nginx-certbot
         ports:
             - 80:80
             - 443:443
+        environment:
+            CERTBOT_EMAIL: ${CERTBOT_EMAIL}
+            ENVSUBST_VARS: FQDN
+            FQDN: ${FQDN}
+            IS_STAGING: 1
         volumes:
-            - ./nginx/ibf-system.conf:/etc/nginx/conf.d/default.conf
+            - ./nginx/conf.d:/etc/nginx/user.conf.d
             - ./nginx/expires.conf:/etc/nginx/expires.conf
             - ./nginx/proxy_params:/etc/nginx/proxy_params
             - ibf-dashboard-root:/var/www/ibf-dashboard
+            - letsencrypt:/etc/letsencrypt
         networks:
             - web-server-network
         restart: unless-stopped
@@ -96,6 +99,11 @@ volumes:
         driver_opts:
             type: bind
             device: /home/ibf-user/IBF-system/services/IBF-pipeline/geoserver-workspaces/ibf-system
+            o: bind
+    letsencrypt:
+        driver_opts:
+            type: bind
+            device: /home/ibf-user/IBF-system/nginx/letsencrypt
             o: bind
 
 networks:
