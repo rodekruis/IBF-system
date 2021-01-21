@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable @typescript-eslint/camelcase */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
@@ -11,6 +9,13 @@ import {
   GeoJson,
   GeoJsonFeature,
 } from 'src/models/geo.model';
+import {
+  AdminAreaDataRecord,
+  Aggregates,
+  CountryMetaData,
+  DisasterEvent,
+  TriggeredArea,
+} from 'src/models/data.model';
 
 @Injectable()
 export class DataService {
@@ -50,7 +55,7 @@ export class DataService {
     let pcodes;
     if (event) {
       pcodes = (await this.getTriggeredAreas(event.id)).map(
-        area => "'" + area.pcode + "'",
+        (area): string => "'" + area.pcode + "'",
       );
     }
 
@@ -65,7 +70,7 @@ export class DataService {
     and country_code = $2"
     ).concat(event ? ' and pcode in (' + pcodes.toString() + ')' : '');
 
-    const rawResult: any[] = await this.manager.query(query, [
+    const rawResult: AdminAreaDataRecord[] = await this.manager.query(query, [
       leadTime,
       countryCode,
     ]);
@@ -141,7 +146,7 @@ export class DataService {
     return result[0];
   }
 
-  public async getTriggeredAreas(event: number): Promise<any> {
+  public async getTriggeredAreas(event: number): Promise<TriggeredArea[]> {
     const query =
       'select pcode,name,population_affected \
     from "IBF-pipeline-output".event_districts \
@@ -153,7 +158,7 @@ export class DataService {
     return result;
   }
 
-  public async getEvent(countryCode: string): Promise<any> {
+  public async getEvent(countryCode: string): Promise<DisasterEvent> {
     const daysStickyAfterEvent = 0;
 
     const query =
@@ -178,7 +183,7 @@ export class DataService {
     return result[0];
   }
 
-  public async getMetadata(countryCode: string): Promise<any> {
+  public async getMetadata(countryCode: string): Promise<CountryMetaData[]> {
     const query =
       ' select * \
     from "IBF-app"."indicator" \
@@ -193,7 +198,7 @@ export class DataService {
     const event = await this.getEvent(countryCode);
     const activeTrigger = event && !event.end_date;
     indicators.find(
-      i => i.name === 'population_affected',
+      (i): boolean => i.name === 'population_affected',
     ).active = activeTrigger;
 
     return indicators;
@@ -203,7 +208,7 @@ export class DataService {
     countryCode: string,
     adminLevel: number,
     leadTime: string,
-  ): Promise<any> {
+  ): Promise<Aggregates> {
     const query =
       ' select * \
     from "IBF-API"."Admin_area_data' +
@@ -221,43 +226,55 @@ export class DataService {
 
     const exposed = true; // Make this into an endpoint-parameter later
 
-    const result = {};
-    for (let indicator of indicators) {
-      const cra = typeof rawResult[0][indicator.name] === 'undefined';
-      if (exposed && indicator.weightedAvg) {
-        if (indicator.weightedAvg) {
-          result[indicator.name] = this.sumProductExposed(
-            rawResult,
-            indicator.name,
-            cra,
-          );
+    let result: Aggregates = {
+      population_affected: 0,
+      vulnerability_index: 0,
+      poverty_incidence: 0,
+      female_head_hh: 0,
+      population_u8: 0,
+      population_over65: 0,
+      wall_type: 0,
+      roof_type: 0,
+    };
+
+    if (rawResult.length > 0) {
+      for (let indicator of indicators) {
+        const cra = typeof rawResult[0][indicator.name] === 'undefined';
+        if (exposed && indicator.weightedAvg) {
+          if (indicator.weightedAvg) {
+            result[indicator.name] = this.sumProductExposed(
+              rawResult,
+              indicator.name,
+              cra,
+            );
+          }
+        } else if (indicator.weightedAvg) {
+          result[indicator.name] =
+            this.sumProduct(rawResult, indicator.name, 'population', cra) /
+            this.sum(rawResult, 'population', cra);
+        } else {
+          result[indicator.name] = this.sum(rawResult, indicator.name, cra);
         }
-      } else if (indicator.weightedAvg) {
-        result[indicator.name] =
-          this.sumProduct(rawResult, indicator.name, 'population', cra) /
-          this.sum(rawResult, 'population', cra);
-      } else {
-        result[indicator.name] = this.sum(rawResult, indicator.name, cra);
       }
     }
 
     return result;
   }
 
-  sum(items, prop, cra) {
-    return items.reduce(function(a, b) {
+  private sum(items, prop, cra): number {
+    return items.reduce((a, b): number => {
       return a + (cra ? b.indicators[prop] : b[prop]);
     }, 0);
   }
 
-  sumProduct(items, prop, weightKey, cra) {
-    return items.reduce(function(a, b) {
+  private sumProduct(items, prop, weightKey, cra): number {
+    return items.reduce((a, b): number => {
       return a + b.indicators[weightKey] * (cra ? b.indicators[prop] : b[prop]);
     }, 0);
   }
 
-  sumProductExposed(items, prop, cra) {
-    return items.reduce(function(a, b) {
+  private sumProductExposed(items, prop, cra): number {
+    return items.reduce((a, b): number => {
       return (
         a + b['population_affected'] * (cra ? b.indicators[prop] : b[prop])
       );

@@ -61,23 +61,39 @@ export class ChatComponent implements OnDestroy {
     this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = false;
   }
 
-  public submitEapAction(pcode: string) {
+  public async submitEapAction(pcode: string) {
     this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = true;
-    this.changedActions.forEach(async (action) => {
-      if (action.pcode === pcode) {
-        this.eapActionsService.checkEapAction(
-          action.action,
-          this.countryService.selectedCountry.countryCode,
-          action.checked,
-          action.pcode,
-        );
-      }
-    });
-    this.changedActions = this.changedActions.filter((i) => i.pcode !== pcode);
-    this.actionResult('EAP action(s) updated in database.');
+
+    try {
+      const submitEAPActionResult = await Promise.all(
+        this.changedActions.map(async (action) => {
+          if (action.pcode === pcode) {
+            return this.eapActionsService.checkEapAction(
+              action.action,
+              this.countryService.selectedCountry.countryCode,
+              action.checked,
+              action.pcode,
+            );
+          } else {
+            return Promise.resolve();
+          }
+        }),
+      );
+
+      this.changedActions = this.changedActions.filter(
+        (i) => i.pcode !== pcode,
+      );
+
+      this.actionResult(
+        'EAP action(s) updated in database.',
+        window.location.reload,
+      );
+    } catch (e) {
+      this.actionResult('Failed to update EAP action(s) updated in database.');
+    }
   }
 
-  private async actionResult(resultMessage: string) {
+  private async actionResult(resultMessage: string, callback?: () => void) {
     const alert = await this.alertController.create({
       message: resultMessage,
       buttons: [
@@ -85,7 +101,9 @@ export class ChatComponent implements OnDestroy {
           text: 'OK',
           handler: () => {
             alert.dismiss(true);
-            window.location.reload();
+            if (callback) {
+              callback();
+            }
             return false;
           },
         },

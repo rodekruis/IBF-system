@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class AppComponent implements OnDestroy {
     this.initializeApp();
     this.loaderSubscription = this.loaderService
       .getLoaderSubscription()
+      .pipe(debounceTime(500))
       .subscribe((loading: boolean) => {
         this.loading = loading;
       });

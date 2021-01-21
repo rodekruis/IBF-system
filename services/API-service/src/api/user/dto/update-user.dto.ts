@@ -12,6 +12,7 @@ import { UserRole } from '../user-role.enum';
 import { CountryEntity } from '../../country/country.entity';
 import { ManyToMany } from 'typeorm';
 import { UserStatus } from '../user-status.enum';
+import { UserEntity } from '../user.entity';
 
 export class UpdateUserDto {
   @ApiModelProperty({ example: 'Henry' })
@@ -45,7 +46,10 @@ export class UpdateUserDto {
   })
   @IsArray()
   @ArrayNotEmpty()
-  @ManyToMany(type => CountryEntity, country => country.users)
+  @ManyToMany(
+    (): typeof CountryEntity => CountryEntity,
+    (country): UserEntity[] => country.users,
+  )
   public countries: CountryEntity[];
 
   @ApiModelProperty({
