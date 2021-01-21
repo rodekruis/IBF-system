@@ -26,7 +26,7 @@ describe('User service', (): void => {
 
   it('should generate jwt that starts with ey', (): void => {
     const user = new UserEntity();
-    user.id = 909;
+    user.userId = '909';
     user.countries = [];
     const result = service.generateJWT(user);
     expect(result).toBeDefined();
