@@ -5,7 +5,7 @@ import { ForecastStatus } from './forecast-status.enum';
 @Entity('forecast')
 export class ForecastEntity {
   @PrimaryGeneratedColumn('uuid')
-  public id: number;
+  public id: string;
 
   @Column()
   public forecastName: string;

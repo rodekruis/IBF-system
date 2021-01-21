@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
@@ -26,7 +25,7 @@ export class EapActionsService {
   }
 
   public async checkAction(
-    userId: number,
+    userId: string,
     eapAction: EapActionDto,
   ): Promise<EapActionStatusEntity> {
     const actionId = await this.eapActionRepository.findOne({
@@ -95,7 +94,7 @@ export class EapActionsService {
       where "countryCode" = $1 \
     ';
 
-    const actions: any[] = await this.manager.query(query, [
+    const actions: EapActionEntity[] = await this.manager.query(query, [
       countryCode,
       event,
     ]);

@@ -1,17 +1,18 @@
-/* eslint-disable @typescript-eslint/no-parameter-properties */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
+import { GeoJson } from 'src/models/geo.model';
 
 @Injectable()
 export class WaterpointsService {
-  public constructor(private httpService: HttpService) {}
+  private httpService: HttpService;
+
+  public constructor(httpService: HttpService) {
+    this.httpService = httpService;
+  }
 
   public async getWaterpoints(
     countryCode: string,
-  ): Promise<AxiosResponse<any>> {
+  ): Promise<AxiosResponse<GeoJson>> {
     let countryCodeShort;
     switch (countryCode) {
       case 'KEN':
@@ -32,10 +33,10 @@ export class WaterpointsService {
       `status_id=yes&` +
       `country_id=${countryCodeShort}`;
 
-    return new Promise(resolve => {
-      this.httpService.get(path).subscribe(response => {
+    return new Promise((resolve): void => {
+      this.httpService.get(path).subscribe((response): void => {
         const result = response.data;
-        result.features.forEach(feature => {
+        result.features.forEach((feature): void => {
           feature.properties = {
             wpdxId: feature.properties.wpdx_id,
             activityId: feature.properties.activity_id,
@@ -43,7 +44,6 @@ export class WaterpointsService {
             reportDate: feature.properties.report_date.substr(0, 10),
           };
         });
-        console.log('Nr of features: ', result.features.length);
         resolve(result);
       });
     });

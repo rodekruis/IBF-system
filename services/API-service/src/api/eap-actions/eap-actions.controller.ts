@@ -1,12 +1,13 @@
 import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { EapActionsService } from './eap-actions.service';
-import { User } from '../user/user.decorator';
-import { ApiImplicitParam, ApiOperation } from '@nestjs/swagger';
+import { UserDecorator } from '../user/user.decorator';
+import { ApiImplicitParam, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 import { EapActionDto } from './dto/eap-action.dto';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 
+@ApiUseTags('eap-actions')
 @Controller('eap-actions')
 export class EapActionsController {
   private readonly eapActionsService: EapActionsService;
@@ -18,7 +19,7 @@ export class EapActionsController {
   @ApiOperation({ title: 'Check EAP actions as done' })
   @Post()
   public async checkAction(
-    @User('id') userId: number,
+    @UserDecorator('id') userId: string,
     @Body() eapAction: EapActionDto,
   ): Promise<EapActionStatusEntity> {
     return await this.eapActionsService.checkAction(userId, eapAction);

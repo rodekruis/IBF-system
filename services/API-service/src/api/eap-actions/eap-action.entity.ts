@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -24,9 +22,15 @@ export class EapActionEntity {
   @Column({ nullable: true })
   public countryCode: string;
 
-  @ManyToOne(type => AreaOfFocusEntity, aof => aof.actions)
+  @ManyToOne(
+    (): typeof AreaOfFocusEntity => AreaOfFocusEntity,
+    (aof): EapActionEntity[] => aof.actions,
+  )
   public areaOfFocus: AreaOfFocusEntity;
 
-  @OneToMany(type => EapActionStatusEntity, i => i.actionChecked)
+  @OneToMany(
+    (): typeof EapActionStatusEntity => EapActionStatusEntity,
+    (i): EapActionEntity => i.actionChecked,
+  )
   public checked: EapActionStatusEntity[];
 }
