@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {
   PipeTransform,
   ArgumentMetadata,
@@ -12,8 +10,11 @@ import { plainToClass } from 'class-transformer';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 
 @Injectable()
-export class ValidationPipe implements PipeTransform<any> {
-  public async transform(value, metadata: ArgumentMetadata) {
+export class ValidationPipe implements PipeTransform<string> {
+  public async transform(
+    value: string,
+    metadata: ArgumentMetadata,
+  ): Promise<string> {
     if (!value) {
       throw new BadRequestException('No data submitted');
     }
@@ -36,11 +37,11 @@ export class ValidationPipe implements PipeTransform<any> {
     return value;
   }
 
-  private buildError(errors) {
-    const result = {};
-    errors.forEach(el => {
+  private buildError(errors): object {
+    const result: object = {};
+    errors.forEach((el): void => {
       let prop = el.property;
-      Object.entries(el.constraints).forEach(constraint => {
+      Object.entries(el.constraints).forEach((constraint): void => {
         result[prop + constraint[0]] = `${constraint[1]}`;
       });
     });
@@ -49,6 +50,6 @@ export class ValidationPipe implements PipeTransform<any> {
 
   private toValidate(metatype): boolean {
     const types = [String, Boolean, Number, Array, Object];
-    return !types.find(type => metatype === type);
+    return !types.find((type): boolean => metatype === type);
   }
 }

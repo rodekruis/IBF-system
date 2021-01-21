@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import {
   IsBoolean,
   IsIn,
@@ -12,26 +11,26 @@ export class EapActionDto {
   @ApiModelProperty()
   @IsNotEmpty()
   @IsString()
-  readonly action: string;
+  public action: string;
 
   @ApiModelProperty()
   @IsNotEmpty()
   @IsString()
   @IsIn(['UGA', 'ZMB'])
-  readonly countryCode: string;
+  public countryCode: string;
 
   @ApiModelProperty()
   @IsNotEmpty()
   @IsBoolean()
-  readonly status: boolean;
+  public status: boolean;
 
   @ApiModelProperty()
   @IsNotEmpty()
   @IsString()
-  readonly pcode: string;
+  public pcode: string;
 
   @ApiModelProperty()
   @IsNotEmpty()
   @IsNumber()
-  readonly event: number;
+  public event: number;
 }

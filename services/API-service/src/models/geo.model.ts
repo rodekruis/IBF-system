@@ -1,38 +1,36 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 export class Poi {
-  code: string;
-  name: string;
-  geom: string;
+  public code: string;
+  public name: string;
+  public geom: string;
 }
 
 export class GlofasStation extends Poi {
-  triggerLevel: number;
-  forecastLevel: number;
-  triggerInd: number;
-  triggerPerc: number;
-  triggerProb: number;
+  public triggerLevel: number;
+  public forecastLevel: number;
+  public triggerInd: number;
+  public triggerPerc: number;
+  public triggerProb: number;
 }
 
 export class RedCrossBranch extends Poi {
-  nr_volunteers: number;
-  contact_person: string;
-  contact_address: string;
-  contact_number: string;
+  public nr_volunteers: number;
+  public contact_person: string;
+  public contact_address: string;
+  public contact_number: string;
 }
 
 export class GeoJson {
-  type: string;
-  features: GeoJsonFeature[];
+  public type: string;
+  public features: GeoJsonFeature[];
 }
 
 export class GeoJsonFeature {
-  type: string;
-  geometry: Geometry;
-  properties: any;
+  public type: string;
+  public geometry: Geometry;
+  public properties: object;
 }
 
 export class Geometry {
-  type: string;
-  coordinates: number[];
+  public type: string;
+  public coordinates: number[];
 }
