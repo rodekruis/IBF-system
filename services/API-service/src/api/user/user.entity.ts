@@ -18,7 +18,7 @@ import { UserStatus } from './user-status.enum';
 @Entity('user')
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
-  public id: string;
+  public userId: string;
 
   @Column()
   @IsEmail()
