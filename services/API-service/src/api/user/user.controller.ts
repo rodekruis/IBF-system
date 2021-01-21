@@ -11,7 +11,7 @@ import { UserService } from './user.service';
 import { UserRO } from './user.interface';
 import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
-import { User } from './user.decorator';
+import { UserDecorator } from './user.decorator';
 import { ValidationPipe } from '../../shared/pipes/validation.pipe';
 
 import { ApiUseTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
@@ -20,7 +20,7 @@ import { RolesGuard } from '../../roles.guard';
 
 @ApiBearerAuth()
 @ApiUseTags('user')
-@Controller()
+@Controller('user')
 export class UserController {
   private readonly userService: UserService;
   public constructor(userService: UserService) {
@@ -29,14 +29,14 @@ export class UserController {
 
   @ApiOperation({ title: 'Sign-up new user' })
   @UsePipes(new ValidationPipe())
-  @Post('user')
+  @Post()
   public async create(@Body() userData: CreateUserDto): Promise<UserRO> {
     return this.userService.create(userData);
   }
 
   @ApiOperation({ title: 'Log in existing user' })
   @UsePipes(new ValidationPipe())
-  @Post('user/login')
+  @Post('login')
   public async login(@Body() loginUserDto: LoginUserDto): Promise<UserRO> {
     const _user = await this.userService.findOne(loginUserDto);
     if (!_user) {
@@ -55,9 +55,9 @@ export class UserController {
 
   @UseGuards(RolesGuard)
   @ApiOperation({ title: 'Change password of logged in user' })
-  @Post('user/change-password')
+  @Post('change-password')
   public async update(
-    @User('id') userId: number,
+    @UserDecorator('id') userId: string,
     @Body() userData: UpdateUserDto,
   ): Promise<UserRO> {
     return this.userService.update(userId, userData);
@@ -65,16 +65,16 @@ export class UserController {
 
   @UseGuards(RolesGuard)
   @ApiOperation({ title: 'Get current user' })
-  @Get('user')
-  public async findMe(@User('email') email: string): Promise<UserRO> {
+  @Get()
+  public async findMe(@UserDecorator('email') email: string): Promise<UserRO> {
     return await this.userService.findByEmail(email);
   }
 
   @UseGuards(RolesGuard)
   @ApiOperation({ title: 'Delete current user and storage' })
-  @Post('user/delete')
+  @Post('delete')
   public async deleteAccount(
-    @User('id') userId: number,
+    @UserDecorator('id') userId: string,
     @Body() passwordData: DeleteUserDto,
   ): Promise<void> {
     return await this.userService.deleteAccount(userId, passwordData);

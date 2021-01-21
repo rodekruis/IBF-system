@@ -13,7 +13,7 @@ import { CountryStatus } from './country-status.enum';
 @Entity('country')
 export class CountryEntity {
   @PrimaryGeneratedColumn('uuid')
-  public id: number;
+  public id: string;
 
   @Column()
   public countryCode: string;

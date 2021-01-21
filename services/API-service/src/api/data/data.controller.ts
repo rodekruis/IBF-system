@@ -7,9 +7,15 @@ import {
   ApiImplicitParam,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { User } from '../user/user.decorator';
+import { UserDecorator } from '../user/user.decorator';
 import { GeoJson } from 'src/models/geo.model';
 import { RolesGuard } from '../../roles.guard';
+import {
+  Aggregates,
+  CountryMetaData,
+  DisasterEvent,
+  TriggeredArea,
+} from 'src/models/data.model';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -27,7 +33,7 @@ export class DataController {
   @ApiImplicitParam({ name: 'tableName', required: true, type: 'string' })
   @Get('data/:schemaName/:tableName')
   public async getData(
-    @User('id') userId: number,
+    @UserDecorator('id') userId: string,
     @Param() params,
   ): Promise<string> {
     return await this.dataService.getData(params.schemaName, params.tableName);
@@ -38,7 +44,7 @@ export class DataController {
   @ApiImplicitParam({ name: 'tableName', required: true, type: 'string' })
   @Get('geodata/:schemaName/:tableName')
   public async getGeodata(
-    @User('id') userId: number,
+    @UserDecorator('id') userId: string,
     @Param() params,
   ): Promise<string> {
     return await this.dataService.getGeodata(
@@ -68,7 +74,7 @@ export class DataController {
   @ApiOperation({ title: 'Get metadata' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
   @Get('metadata/:countryCode')
-  public async getMetadata(@Param() params): Promise<GeoJson> {
+  public async getMetadata(@Param() params): Promise<CountryMetaData[]> {
     return await this.dataService.getMetadata(params.countryCode);
   }
 
@@ -102,7 +108,7 @@ export class DataController {
   @ApiOperation({ title: 'Get triggered areas' })
   @ApiImplicitParam({ name: 'event', required: true, type: 'number' })
   @Get('triggered-areas/:event')
-  public async getTriggeredAreas(@Param() params): Promise<GeoJson> {
+  public async getTriggeredAreas(@Param() params): Promise<TriggeredArea[]> {
     return await this.dataService.getTriggeredAreas(params.event);
   }
 
@@ -111,7 +117,7 @@ export class DataController {
   @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
   @Get('matrix-aggregates/:countryCode/:adminLevel/:leadTime')
-  public async getMatrixAggregates(@Param() params): Promise<GeoJson> {
+  public async getMatrixAggregates(@Param() params): Promise<Aggregates> {
     return await this.dataService.getMatrixAggregates(
       params.countryCode,
       params.adminLevel,
@@ -122,7 +128,7 @@ export class DataController {
   @ApiOperation({ title: 'Get active event' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
   @Get('event/:countryCode')
-  public async getEvent(@Param() params): Promise<GeoJson> {
+  public async getEvent(@Param() params): Promise<DisasterEvent> {
     return await this.dataService.getEvent(params.countryCode);
   }
 }

@@ -105,7 +105,7 @@ export class UserService {
     await this.userRepository.delete(user.id);
   }
 
-  public async findById(id: number): Promise<UserRO> {
+  public async findById(id: string): Promise<UserRO> {
     const user = await this.userRepository.findOne(id, {
       relations: this.relations,
     });

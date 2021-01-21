@@ -7,6 +7,7 @@ import {
   ApiImplicitParam,
   ApiBearerAuth,
 } from '@nestjs/swagger';
+import { GeoJson } from 'src/models/geo.model';
 
 @ApiBearerAuth()
 @ApiUseTags('waterpoints')
@@ -21,7 +22,9 @@ export class WaterpointsController {
   @ApiOperation({ title: 'Get waterpoint data' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
   @Get('waterpoints/:countryCode')
-  public async getWaterpoints(@Param() params): Promise<AxiosResponse<any>> {
+  public async getWaterpoints(
+    @Param() params,
+  ): Promise<AxiosResponse<GeoJson>> {
     return await this.waterpointsService.getWaterpoints(params.countryCode);
   }
 }

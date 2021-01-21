@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { EapActionEntity } from './eap-action.entity';
@@ -9,7 +7,10 @@ export class EapActionStatusEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @ManyToOne(type => EapActionEntity, i => i.checked)
+  @ManyToOne(
+    (): typeof EapActionEntity => EapActionEntity,
+    (eapActionStatus): EapActionStatusEntity[] => eapActionStatus.checked,
+  )
   public actionChecked: EapActionEntity;
 
   @Column()
@@ -21,9 +22,12 @@ export class EapActionStatusEntity {
   @Column()
   public pcode: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
   public timestamp: Date;
 
-  @ManyToOne(type => UserEntity, user => user.actions)
+  @ManyToOne(
+    (): typeof UserEntity => UserEntity,
+    (user): EapActionStatusEntity[] => user.actions,
+  )
   public user: UserEntity;
 }
