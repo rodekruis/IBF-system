@@ -73,8 +73,8 @@ export class UserService {
     }
   }
 
-  public async update(id: number, dto: UpdateUserDto): Promise<UserRO> {
-    let toUpdate = await this.userRepository.findOne(id);
+  public async update(userId: string, dto: UpdateUserDto): Promise<UserRO> {
+    let toUpdate = await this.userRepository.findOne(userId);
     let updated = toUpdate;
     updated.password = crypto.createHmac('sha256', dto.password).digest('hex');
     const updatedUser = await this.userRepository.save(updated);
@@ -82,11 +82,11 @@ export class UserService {
   }
 
   public async deleteAccount(
-    id: number,
+    userId: string,
     passwordData: DeleteUserDto,
   ): Promise<void> {
     const findOneOptions = {
-      id: id,
+      userId: userId,
     };
     const user = await this.userRepository.findOne(findOneOptions);
 
@@ -102,11 +102,11 @@ export class UserService {
       const errors = 'Password for user is incorrect';
       throw new HttpException({ errors }, HttpStatus.UNAUTHORIZED);
     }
-    await this.userRepository.delete(user.id);
+    await this.userRepository.delete(user.userId);
   }
 
-  public async findById(id: string): Promise<UserRO> {
-    const user = await this.userRepository.findOne(id, {
+  public async findById(userId: string): Promise<UserRO> {
+    const user = await this.userRepository.findOne(userId, {
       relations: this.relations,
     });
     if (!user) {
@@ -154,7 +154,7 @@ export class UserService {
 
     const result = jwt.sign(
       {
-        id: user.id,
+        userId: user.userId,
         email: user.email,
         username: user.username,
         firstName: user.firstName,
@@ -175,7 +175,7 @@ export class UserService {
 
   private buildUserRO(user: UserEntity): UserRO {
     const userRO = {
-      id: user.id,
+      userId: user.userId,
       email: user.email,
       token: this.generateJWT(user),
     };
