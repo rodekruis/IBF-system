@@ -27,6 +27,8 @@ export class IndicatorEntity {
   @Column()
   public numberFormatAggregate: string;
   @Column()
+  public order: number;
+  @Column()
   public source: string;
   @Column()
   public description: string;

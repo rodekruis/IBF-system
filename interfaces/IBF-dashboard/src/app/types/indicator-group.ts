@@ -1,4 +1,4 @@
-import { IbfLayerLabel, IbfLayerName } from './ibf-layer';
+import { ColorBreaks, IbfLayerLabel, IbfLayerName } from './ibf-layer';
 
 export enum IndicatorGroup {
   general = 'Exposure',
@@ -15,6 +15,7 @@ export class Indicator {
   aggregateIndicator: boolean;
   group: IndicatorGroup;
   colorBreaks?: ColorBreaks;
+  order: number;
 }
 
 export enum IndicatorName {
