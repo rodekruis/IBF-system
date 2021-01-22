@@ -16,7 +16,7 @@
   {
     "country_code": "UGA",
     "name": "vulnerability_index",
-    "label": "Vulnerability Index",
+    "label": "Flood Vulnerability Index",
     "group": "vulnerability",
     "icon": "Affected-population-white.svg",
     "weightedAvg": true,
