@@ -32,6 +32,15 @@ export enum IbfLayerName {
   adminRegions = 'Admin regions',
   cropland = 'cropland',
   grassland = 'grassland',
+  population_affected = 'population_affected',
+  vulnerability_score = 'vulnerability_score',
+  vulnerability_index = 'vulnerability_index',
+  poverty_incidence = 'poverty_incidence',
+  female_head_hh = 'female_head_hh',
+  population_u8 = 'population_u8',
+  population_over65 = 'population_over65',
+  wall_type = 'wall_type',
+  roof_type = 'roof_type',
 }
 
 export enum IbfLayerLabel {
