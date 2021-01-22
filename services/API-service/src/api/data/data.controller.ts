@@ -7,7 +7,6 @@ import {
   ApiImplicitParam,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { UserDecorator } from '../user/user.decorator';
 import { GeoJson } from 'src/models/geo.model';
 import { RolesGuard } from '../../roles.guard';
 import {
@@ -26,31 +25,6 @@ export class DataController {
 
   public constructor(dataService: DataService) {
     this.dataService = dataService;
-  }
-
-  @ApiOperation({ title: 'Get specific data table' })
-  @ApiImplicitParam({ name: 'schemaName', required: true, type: 'string' })
-  @ApiImplicitParam({ name: 'tableName', required: true, type: 'string' })
-  @Get('data/:schemaName/:tableName')
-  public async getData(
-    @UserDecorator('id') userId: string,
-    @Param() params,
-  ): Promise<string> {
-    return await this.dataService.getData(params.schemaName, params.tableName);
-  }
-
-  @ApiOperation({ title: 'Get specific geodata table' })
-  @ApiImplicitParam({ name: 'schemaName', required: true, type: 'string' })
-  @ApiImplicitParam({ name: 'tableName', required: true, type: 'string' })
-  @Get('geodata/:schemaName/:tableName')
-  public async getGeodata(
-    @UserDecorator('id') userId: string,
-    @Param() params,
-  ): Promise<string> {
-    return await this.dataService.getGeodata(
-      params.schemaName,
-      params.tableName,
-    );
   }
 
   @ApiOperation({ title: 'Get station location + trigger data' })

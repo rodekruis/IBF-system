@@ -26,26 +26,6 @@ export class DataService {
     this.manager = manager;
   }
 
-  public async getData(schemaName: string, tableName: string): Promise<string> {
-    const query = this.formQuery(schemaName, 'usp_fbf_data', 'ZMB', tableName);
-    const result = await this.manager.query(query);
-    return result[0].usp_fbf_data;
-  }
-
-  public async getGeodata(
-    schemaName: string,
-    tableName: string,
-  ): Promise<string> {
-    const query = this.formQuery(
-      schemaName,
-      'usp_fbf_geodata',
-      'ZMB',
-      tableName,
-    );
-    const result = await this.manager.query(query);
-    return result[0].usp_fbf_geodata;
-  }
-
   public async getAdminAreaData(
     countryCode: string,
     adminLevel: number,
@@ -298,19 +278,5 @@ export class DataService {
     });
 
     return geoJson;
-  }
-
-  private formQuery(schema, functionName, country, tableName): string {
-    const query =
-      'select "IBF-pipeline-output".' +
-      functionName +
-      "('" +
-      country +
-      "','\"" +
-      schema +
-      '"\',\'"' +
-      tableName +
-      '"\');';
-    return query;
   }
 }
