@@ -10,6 +10,7 @@ export class IbfLayer {
   viewCenter: boolean;
   order: number;
   colorProperty?: string;
+  colorBreaks?: ColorBreaks;
   wms?: IbfLayerWMS;
   data?: GeoJSON.FeatureCollection;
   leafletLayer?: Layer | LayerGroup | Marker;
@@ -66,4 +67,18 @@ export class IbfLayerWMS {
 
 export enum IbfLayerGroup {
   aggregates = 'aggregates',
+}
+
+export class ColorBreaks {
+  1: ColorBreak;
+  2: ColorBreak;
+  3: ColorBreak;
+  4: ColorBreak;
+  5: ColorBreak;
+}
+
+export class ColorBreak {
+  label: string;
+  valueLow: number;
+  valueHigh: number;
 }

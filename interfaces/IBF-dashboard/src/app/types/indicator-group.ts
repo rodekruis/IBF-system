@@ -14,6 +14,7 @@ export class Indicator {
   numberFormatAggregate: NumberFormat;
   aggregateIndicator: boolean;
   group: IndicatorGroup;
+  colorBreaks?: ColorBreaks;
 }
 
 export enum IndicatorName {

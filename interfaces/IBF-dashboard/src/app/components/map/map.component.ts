@@ -270,6 +270,7 @@ export class MapComponent implements OnDestroy {
       const colorThreshold = this.mapService.getColorThreshold(
         layer.data,
         layer.colorProperty,
+        layer.colorBreaks,
       );
 
       if (layer.name !== IbfLayerName.adminRegions) {
