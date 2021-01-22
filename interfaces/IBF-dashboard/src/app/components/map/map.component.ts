@@ -32,6 +32,7 @@ import {
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
 import { IndicatorName } from 'src/app/types/indicator-group';
+import { NumberFormat } from '../../types/indicator-group';
 
 @Component({
   selector: 'app-map',
@@ -197,31 +198,41 @@ export class MapComponent implements OnDestroy {
         const div = DomUtil.create('div', 'info legend');
         const grades = [
           0,
-          colorThreshold[0.2],
-          colorThreshold[0.4],
-          colorThreshold[0.6],
-          colorThreshold[0.8],
+          colorThreshold['break1'],
+          colorThreshold['break2'],
+          colorThreshold['break3'],
+          colorThreshold['break4'],
         ];
 
+        let labels;
+        if (layer.colorBreaks) {
+          labels = [
+            layer.colorBreaks['1'].label,
+            layer.colorBreaks['2'].label,
+            layer.colorBreaks['3'].label,
+            layer.colorBreaks['4'].label,
+            layer.colorBreaks['5'].label,
+          ];
+        }
         const getColor = function (d) {
-          return d > colorThreshold[0.8]
+          return d > colorThreshold['break4']
             ? colors[4]
-            : d > colorThreshold[0.6]
+            : d > colorThreshold['break3']
             ? colors[3]
-            : d > colorThreshold[0.4]
+            : d > colorThreshold['break2']
             ? colors[2]
-            : d > colorThreshold[0.2]
+            : d > colorThreshold['break1']
             ? colors[1]
             : colors[0];
         };
 
-        // This is now done based on number distribution, but better to infer from metadata (aggregates-service)
         const numberFormat = function (d) {
-          const cutoff = colorThreshold[0.8];
-          if (cutoff <= 1) {
+          if (layer.numberFormatMap === NumberFormat.perc) {
             return Math.round(d * 100) + '%';
-          } else if (cutoff <= 10) {
+          } else if (layer.numberFormatMap === NumberFormat.decimal2) {
             return Math.round(d * 100) / 100;
+          } else if (layer.numberFormatMap === NumberFormat.decimal0) {
+            return Math.round(d);
           } else {
             return Math.round(d);
           }
@@ -237,8 +248,11 @@ export class MapComponent implements OnDestroy {
               '"></i> ' +
               numberFormat(grades[i]) +
               (typeof grades[i + 1] !== 'undefined'
-                ? '&ndash;' + numberFormat(grades[i + 1]) + '<br/>'
-                : '+');
+                ? '&ndash;' +
+                  numberFormat(grades[i + 1]) +
+                  (labels ? '  -  ' + labels[i] : '') +
+                  '<br/>'
+                : '+' + (labels ? '  -  ' + labels[i] : ''));
           }
         }
 
@@ -356,7 +370,7 @@ export class MapComponent implements OnDestroy {
               feature.properties.name +
               '</strong><br/>' +
               'Population exposed: ' +
-              Math.round(feature.properties[IndicatorName.PopulationAffected]) +
+              Math.round(feature.properties[layer.colorProperty]) +
               '';
             element.bindPopup(popup).openPopup();
           }
