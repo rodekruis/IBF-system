@@ -121,7 +121,7 @@ export class MapService {
       numberFormatMap: indicator.numberFormatMap,
       legendColor: '#969696',
       group: IbfLayerGroup.aggregates,
-      order: 20,
+      order: 20 + indicator.order,
     });
   }
 

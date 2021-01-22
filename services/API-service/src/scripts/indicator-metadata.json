@@ -11,6 +11,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
+    "order": 1,
     "source": "",
     "description": ""
   },
@@ -52,6 +53,7 @@
     "numberFormatMap": "decimal2",
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
+    "order": 2,
     "source": "",
     "description": "Vulnerability factors/indicators: \nThis resulted in the following weights:\n20%   Poverty: Poverty incidence\n20%   Gender: Female-headed household\n10%   Age: Population below 8-years\n10%   Age: population 65+, \n10 %  type of construction: permanent wall type\n10 %  type of construction: permanent roof type\n20%   Refugees legal status #of a displaced person\u000b\nThe vulnerability indicators have been scored on a scale of 1 (low vulnerability) to 10 (high vulnerability)."
   },
@@ -67,6 +69,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
+    "order": 4,
     "source": "http://www.worldpop.org.uk/data/summary/?doi=10.5258/SOTON/WP00285",
     "description": "Alpha version 2011 estimates of proportion of people per grid square living in poverty, as defined by $2 a day thresholds. Tatem AJ, Gething PW, Bhatt S, Weiss D and Pezzulo C (2013) Pilot high resolution poverty maps, University of Southampton/Oxford."
   },
@@ -82,6 +85,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
+    "order": 3,
     "source": "Uganda Bureau of Statistics, National Census Data 2014",
     "description": ""
   },
@@ -97,6 +101,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
+    "order": 3,
     "source": "Uganda Bureau of Statistics, National Census Data 2014",
     "description": ""
   },
@@ -112,6 +117,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
+    "order": 3,
     "source": "Uganda Bureau of Statistics, National Census Data 2014",
     "description": ""
   },
@@ -127,6 +133,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
+    "order": 4,
     "source": "Uganda Bureau of Statistics, National Census Data 2014",
     "description": ""
   },
@@ -142,6 +149,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
+    "order": 4,
     "source": "Uganda Bureau of Statistics, National Census Data 2014",
     "description": ""
   },
@@ -157,6 +165,7 @@
     "numberFormatMap": "decimal2",
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
+    "order": 2,
     "source": "https://dashboard.510.global/#!/community_risk?country=ZMB",
     "description": "Vulnerability index from Community Risk Assessment"
   },
@@ -172,6 +181,7 @@
     "numberFormatMap": "decimal2",
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
+    "order": 2,
     "source": "https://dashboard.510.global/#!/community_risk?country=KEN",
     "description": "Vulnerability index from Community Risk Assessment"
   },
@@ -187,6 +197,7 @@
     "numberFormatMap": "decimal2",
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
+    "order": 2,
     "source": "https://dashboard.510.global/#!/community_risk?country=ETH",
     "description": "Vulnerability index from Community Risk Assessment"
   }
