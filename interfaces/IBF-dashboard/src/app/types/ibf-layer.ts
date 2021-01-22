@@ -1,4 +1,5 @@
 import { CRS, Layer, LayerGroup, Marker } from 'leaflet';
+import { NumberFormat } from './indicator-group';
 
 export class IbfLayer {
   type: IbfLayerType;
@@ -10,6 +11,8 @@ export class IbfLayer {
   viewCenter: boolean;
   order: number;
   colorProperty?: string;
+  colorBreaks?: ColorBreaks;
+  numberFormatMap?: NumberFormat;
   wms?: IbfLayerWMS;
   data?: GeoJSON.FeatureCollection;
   leafletLayer?: Layer | LayerGroup | Marker;
@@ -52,15 +55,6 @@ export enum IbfLayerLabel {
   adminRegions = 'Admin regions',
   cropland = 'Cropland',
   grassland = 'Grassland',
-  population_affected = 'Exposed population',
-  vulnerability_score = 'Vulnerability index',
-  vulnerability_index = 'Vulnerability index',
-  poverty_incidence = 'Poverty incidence',
-  female_head_hh = 'Female-headed household',
-  population_u8 = 'Population U8',
-  population_over65 = 'Population 65+',
-  wall_type = 'Permanent wall type',
-  roof_type = 'Permanent roof type',
 }
 
 export class IbfLayerWMS {
@@ -75,4 +69,18 @@ export class IbfLayerWMS {
 
 export enum IbfLayerGroup {
   aggregates = 'aggregates',
+}
+
+export class ColorBreaks {
+  1: ColorBreak;
+  2: ColorBreak;
+  3: ColorBreak;
+  4: ColorBreak;
+  5: ColorBreak;
+}
+
+export class ColorBreak {
+  label: string;
+  valueLow: number;
+  valueHigh: number;
 }
