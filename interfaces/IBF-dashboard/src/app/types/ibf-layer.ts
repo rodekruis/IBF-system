@@ -32,15 +32,6 @@ export enum IbfLayerName {
   adminRegions = 'Admin regions',
   cropland = 'cropland',
   grassland = 'grassland',
-  population_affected = 'population_affected',
-  vulnerability_score = 'vulnerability_score',
-  vulnerability_index = 'vulnerability_index',
-  poverty_incidence = 'poverty_incidence',
-  female_head_hh = 'female_head_hh',
-  population_u8 = 'population_u8',
-  population_over65 = 'population_over65',
-  wall_type = 'wall_type',
-  roof_type = 'roof_type',
 }
 
 export enum IbfLayerLabel {
@@ -52,15 +43,6 @@ export enum IbfLayerLabel {
   adminRegions = 'Admin regions',
   cropland = 'Cropland',
   grassland = 'Grassland',
-  population_affected = 'Exposed population',
-  vulnerability_score = 'Vulnerability index',
-  vulnerability_index = 'Vulnerability index',
-  poverty_incidence = 'Poverty incidence',
-  female_head_hh = 'Female-headed household',
-  population_u8 = 'Population U8',
-  population_over65 = 'Population 65+',
-  wall_type = 'Permanent wall type',
-  roof_type = 'Permanent roof type',
 }
 
 export class IbfLayerWMS {
