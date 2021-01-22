@@ -113,7 +113,7 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE INDICATORS *****
     const indicatorRepository = this.connection.getRepository(IndicatorEntity);
-    await indicatorRepository.save(indicators);
+    await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
   }
 }
 

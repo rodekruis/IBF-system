@@ -117,6 +117,7 @@ export class MapService {
       data: await this.getAdminRegions(),
       viewCenter: true,
       colorProperty: indicator.name,
+      colorBreaks: indicator.colorBreaks,
       legendColor: '#969696',
       group: IbfLayerGroup.aggregates,
       order: 20,
@@ -273,6 +274,7 @@ export class MapService {
           data: layer.data,
           wms: layer.wms,
           colorProperty: layer.colorProperty,
+          colorBreaks: layer.colorBreaks,
           legendColor: layer.legendColor,
           group: layer.group,
           order: layer.order,
@@ -315,19 +317,19 @@ export class MapService {
   getAdminRegionFillColor = (colorPropertyValue, colorThreshold) => {
     let adminRegionFillColor = this.state.defaultColor;
     switch (true) {
-      case colorPropertyValue < colorThreshold['0.2']:
+      case colorPropertyValue <= colorThreshold['break1']:
         adminRegionFillColor = this.state.colorGradient[0];
         break;
-      case colorPropertyValue < colorThreshold['0.4']:
+      case colorPropertyValue <= colorThreshold['break2']:
         adminRegionFillColor = this.state.colorGradient[1];
         break;
-      case colorPropertyValue < colorThreshold['0.6']:
+      case colorPropertyValue <= colorThreshold['break3']:
         adminRegionFillColor = this.state.colorGradient[2];
         break;
-      case colorPropertyValue < colorThreshold['0.8']:
+      case colorPropertyValue <= colorThreshold['break4']:
         adminRegionFillColor = this.state.colorGradient[3];
         break;
-      case colorPropertyValue > colorThreshold['0.8']:
+      case colorPropertyValue > colorThreshold['break4']:
         adminRegionFillColor = this.state.colorGradient[4];
         break;
       default:
@@ -361,7 +363,15 @@ export class MapService {
       : this.state.transparentColor;
   };
 
-  public getColorThreshold = (adminRegions, colorProperty) => {
+  public getColorThreshold = (adminRegions, colorProperty, colorBreaks) => {
+    if (colorBreaks) {
+      return {
+        break1: colorBreaks['1'].valueHigh,
+        break2: colorBreaks['2'].valueHigh,
+        break3: colorBreaks['3'].valueHigh,
+        break4: colorBreaks['4'].valueHigh,
+      };
+    }
     const colorPropertyValues = adminRegions.features
       .map((feature) =>
         typeof feature.properties[colorProperty] !== 'undefined'
@@ -371,17 +381,21 @@ export class MapService {
       .filter((v, i, a) => a.indexOf(v) === i);
 
     const colorThreshold = {
-      0.2: quantile(colorPropertyValues, 0.2),
-      0.4: quantile(colorPropertyValues, 0.4),
-      0.6: quantile(colorPropertyValues, 0.6),
-      0.8: quantile(colorPropertyValues, 0.8),
+      break1: quantile(colorPropertyValues, 0.2),
+      break2: quantile(colorPropertyValues, 0.4),
+      break3: quantile(colorPropertyValues, 0.6),
+      break4: quantile(colorPropertyValues, 0.8),
     };
     return colorThreshold;
   };
 
   public setAdminRegionStyle = (layer: IbfLayer) => {
     const colorProperty = layer.colorProperty;
-    const colorThreshold = this.getColorThreshold(layer.data, colorProperty);
+    const colorThreshold = this.getColorThreshold(
+      layer.data,
+      colorProperty,
+      layer.colorBreaks,
+    );
     const trigger = this.eventService.state.activeTrigger;
 
     return (adminRegion) => {
