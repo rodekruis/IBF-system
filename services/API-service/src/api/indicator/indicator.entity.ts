@@ -18,12 +18,16 @@ export class IndicatorEntity {
   public weightedAvg: boolean;
   @Column()
   public active: boolean;
+  @Column('json', { nullable: true })
+  public colorBreaks: JSON;
   @Column()
   public numberFormatMap: string;
   @Column()
   public aggregateIndicator: boolean | null;
   @Column()
   public numberFormatAggregate: string;
+  @Column()
+  public order: number;
   @Column()
   public source: string;
   @Column()
