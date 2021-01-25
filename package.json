@@ -6,7 +6,7 @@
         "demo": "npx npm-run-all --print-label --parallel start open",
         "start": "npx npm-run-all --print-label --parallel start:ibf-services start:ibf-interfaces",
         "start:ibf-services": "npx npm-run-all --print-label --parallel start:ibf-api-service",
-        "start:ibf-api-service": "npm start --prefix services/API-service/",
+        "start:ibf-api-service": "npm run start:dev  --prefix services/API-service/",
         "start:ibf-interfaces": "npx npm-run-all --print-label --parallel start:ibf-dashboard",
         "start:ibf-dashboard": "npm start --prefix interfaces/IBF-dashboard/ -- --port 8080",
         "install": "npx npm-run-all --print-label install:ibf-services install:ibf-interfaces",
