@@ -39,7 +39,7 @@ scipy==1.2.1
 Shapely==1.6.4.post2
 simplejson==3.16.0
 six==1.12.0
-snuggs==1.4.3
+snuggs==1.4.7
 soupsieve==1.9
 SQLAlchemy==1.3.22
 twilio==6.26.0
