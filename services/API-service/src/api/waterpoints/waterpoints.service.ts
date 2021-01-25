@@ -28,11 +28,12 @@ export class WaterpointsService {
     }
     const path =
       `https://data.waterpointdata.org/resource/amwk-dedf.geojson?` +
-      `$where=water_source is not null&` +
+      `$where=water_source is not null AND ` +
+      `water_source !='Lake'&` +
       `$limit=100000&` +
       `status_id=yes&` +
       `country_id=${countryCodeShort}`;
-
+    console.log('path: ', path);
     return new Promise((resolve): void => {
       this.httpService.get(path).subscribe((response): void => {
         const result = response.data;
