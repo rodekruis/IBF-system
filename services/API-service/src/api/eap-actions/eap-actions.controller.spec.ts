@@ -1,3 +1,4 @@
+import { UserModule } from './../user/user.module';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
@@ -21,6 +22,7 @@ describe('EapActionsController', (): void => {
             EapActionStatusEntity,
             AreaOfFocusEntity,
           ]),
+          UserModule,
         ],
         controllers: [EapActionsController],
         providers: [EapActionsService],
