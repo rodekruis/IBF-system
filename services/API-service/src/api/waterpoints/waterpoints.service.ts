@@ -33,7 +33,6 @@ export class WaterpointsService {
       `$limit=100000&` +
       `status_id=yes&` +
       `country_id=${countryCodeShort}`;
-    console.log('path: ', path);
     return new Promise((resolve): void => {
       this.httpService.get(path).subscribe((response): void => {
         const result = response.data;
