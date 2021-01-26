@@ -16,14 +16,14 @@ export class PlaceCodeService {
 
   setPlaceCode = (newPlaceCode: PlaceCode): void => {
     this.getPlaceCodeSubscription().subscribe((oldPlaceCode: PlaceCode) => {
-      if (oldPlaceCode) {
+      if (oldPlaceCode && newPlaceCode) {
         newPlaceCode =
           oldPlaceCode.placeCode === newPlaceCode.placeCode
             ? null
             : newPlaceCode;
       }
-      this.placeCodeSubject.next(newPlaceCode);
     });
+    this.placeCodeSubject.next(newPlaceCode);
   };
 
   clearPlaceCode = (): void => {
