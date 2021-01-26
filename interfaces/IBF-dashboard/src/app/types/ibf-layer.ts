@@ -1,4 +1,11 @@
-import { CRS, Layer, LayerGroup, Marker } from 'leaflet';
+import {
+  CRS,
+  GeoJSON,
+  Layer,
+  LayerGroup,
+  Marker,
+  MarkerClusterGroup,
+} from 'leaflet';
 import { NumberFormat } from './indicator-group';
 
 export class IbfLayer {
@@ -15,7 +22,7 @@ export class IbfLayer {
   numberFormatMap?: NumberFormat;
   wms?: IbfLayerWMS;
   data?: GeoJSON.FeatureCollection;
-  leafletLayer?: Layer | LayerGroup | Marker;
+  leafletLayer?: Layer | LayerGroup | Marker | GeoJSON | MarkerClusterGroup;
   legendColor?: string;
   group?: IbfLayerGroup;
 }
