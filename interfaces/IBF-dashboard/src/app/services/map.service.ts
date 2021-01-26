@@ -3,10 +3,12 @@ import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import {
   IbfLayer,
@@ -27,6 +29,9 @@ export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
   public layers = [] as IbfLayer[];
   public activeLayerName: IbfLayerName;
+  public alertColor: string = '#de9584';
+  public safeColor: string = '#2c45fd';
+  public hoverFillOpacity: number = 0.6;
 
   public state = {
     bounds: [
@@ -47,6 +52,7 @@ export class MapService {
     private timelineService: TimelineService,
     private apiService: ApiService,
     private eventService: EventService,
+    private placeCodeService: PlaceCodeService,
   ) {}
 
   public async loadStationLayer() {
@@ -316,7 +322,11 @@ export class MapService {
     );
   }
 
-  getAdminRegionFillColor = (colorPropertyValue, colorThreshold) => {
+  getAdminRegionFillColor = (
+    colorPropertyValue,
+    colorThreshold,
+    placeCode: string,
+  ): string => {
     let adminRegionFillColor = this.state.defaultColor;
     switch (true) {
       case colorPropertyValue <= colorThreshold['break1']:
@@ -337,6 +347,17 @@ export class MapService {
       default:
         adminRegionFillColor = this.state.defaultColor;
     }
+
+    this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe((activePlaceCode: PlaceCode): void => {
+        if (activePlaceCode && activePlaceCode.placeCode === placeCode) {
+          adminRegionFillColor = this.eventService.state.activeTrigger
+            ? this.alertColor
+            : this.safeColor;
+        }
+      });
+
     return adminRegionFillColor;
   };
 
@@ -344,22 +365,32 @@ export class MapService {
     layer: IbfLayer,
     trigger: boolean,
     districtTrigger: boolean,
-  ) => {
+    placeCode: string,
+  ): number => {
+    let fillOpacity = this.state.defaultFillOpacity;
     if (layer.name === IbfLayerName.adminRegions) {
-      return 0.0;
+      fillOpacity = 0.0;
     }
     if (trigger && !districtTrigger) {
-      return 0.0;
+      fillOpacity = 0.0;
     }
 
-    return this.state.defaultFillOpacity;
+    this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe((activePlaceCode: PlaceCode): void => {
+        if (activePlaceCode && activePlaceCode.placeCode === placeCode) {
+          fillOpacity = this.hoverFillOpacity;
+        }
+      });
+
+    return fillOpacity;
   };
 
-  getAdminRegionWeight = (layer: IbfLayer) => {
+  getAdminRegionWeight = (layer: IbfLayer): number => {
     return this.state.defaultWeight;
   };
 
-  getAdminRegionColor = (layer: IbfLayer) => {
+  getAdminRegionColor = (layer: IbfLayer): string => {
     return layer.name === IbfLayerName.adminRegions
       ? this.state.defaultColor
       : this.state.transparentColor;
@@ -406,11 +437,13 @@ export class MapService {
           ? adminRegion.properties[colorProperty]
           : adminRegion.properties.indicators[colorProperty],
         colorThreshold,
+        adminRegion.properties.pcode,
       );
       const fillOpacity = this.getAdminRegionFillOpacity(
         layer,
         trigger,
         adminRegion.properties[IndicatorName.PopulationAffected] > 0,
+        adminRegion.properties.pcode,
       );
       const weight = this.getAdminRegionWeight(layer);
       const color = this.getAdminRegionColor(layer);
