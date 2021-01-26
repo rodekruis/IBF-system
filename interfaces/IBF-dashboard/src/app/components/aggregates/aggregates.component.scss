@@ -2,6 +2,15 @@
   --background: var(--ion-color-ibf-gray);
 }
 
+.aggregate-header-item {
+  --min-height: 36px;
+  --inner-padding-end: 0;
+
+  .aggregate-header-item-label {
+    margin: 8px 0;
+  }
+}
+
 .aggregate-item,
 .aggregate-item-value,
 .aggregate-item-information-icon {
