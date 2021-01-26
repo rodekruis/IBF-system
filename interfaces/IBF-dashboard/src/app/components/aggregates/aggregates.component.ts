@@ -16,8 +16,8 @@ import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
   styleUrls: ['./aggregates.component.scss'],
 })
 export class AggregatesComponent implements OnInit, OnDestroy {
-  public indicators: Indicator[];
-  public groups: IndicatorGroup[];
+  public indicators: Indicator[] = [];
+  public groups: IndicatorGroup[] = [];
   public placeCode: PlaceCode;
   private country: Country;
   private defaultHeaderLabel: string = 'Loading';
