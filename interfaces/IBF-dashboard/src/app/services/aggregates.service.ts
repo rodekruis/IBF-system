@@ -68,7 +68,10 @@ export class AggregatesService {
   getAggregate(indicator: IndicatorName, pCode: string): number {
     return this.aggregates.reduce(
       (accumulator, aggregate) =>
-        accumulator + (pCode === aggregate.pCode ? aggregate[indicator] : 0),
+        accumulator +
+        (pCode === null || pCode === aggregate.pCode
+          ? aggregate[indicator]
+          : 0),
       0,
     );
   }
