@@ -125,11 +125,23 @@
   pointer-events: none;
 }
 
-.waterpoint-cluster {
-  width: auto !important;
-  border: none;
-  background: #011d41;
-  padding: 0px 3px 18px;
-  border-radius: 10px;
+.waterpoint-cluster-s {
+  border-radius: 18px;
+  width: 36px;
+  height: 36px;
+  background-color: #011d41;
   color: white;
+  padding-top: 9px;
+  text-align: center;
+}
+
+.waterpoint-cluster-l {
+  border-radius: 27px;
+  width: 54px;
+  height: 54px;
+  background-color: #011d41;
+  color: white;
+  text-align: center;
+  padding-top: 17px;
+  box-sizing: border-box;
 }
