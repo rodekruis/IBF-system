@@ -16,6 +16,7 @@ import {
   Marker,
   markerClusterGroup,
   MarkerClusterGroup,
+  point,
   tileLayer,
 } from 'leaflet';
 import { Subscription } from 'rxjs';
@@ -354,9 +355,17 @@ export class MapComponent implements OnDestroy {
     if (layer.name === IbfLayerName.waterpoints) {
       const waterpointClusterLayer = markerClusterGroup({
         iconCreateFunction: function (cluster) {
+          const clusterSize = cluster.getChildCount();
+          const sizeTreshhold = 100;
+          const size = clusterSize >= sizeTreshhold ? 60 : 40;
+          const className =
+            clusterSize >= sizeTreshhold
+              ? 'waterpoint-cluster-l'
+              : 'waterpoint-cluster-s';
           return divIcon({
-            html: '<b>' + cluster.getChildCount() + '</b>',
-            className: 'waterpoint-cluster',
+            html: '<b>' + String(clusterSize) + '</b>',
+            className: className,
+            iconSize: point(size, size),
           });
         },
         maxClusterRadius: 50,
