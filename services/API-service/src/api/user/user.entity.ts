@@ -9,7 +9,6 @@ import {
   JoinTable,
 } from 'typeorm';
 import crypto from 'crypto';
-
 import { CountryEntity } from '../country/country.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { UserRole } from './user-role.enum';

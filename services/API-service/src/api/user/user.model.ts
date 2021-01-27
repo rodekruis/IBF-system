@@ -1,5 +1,5 @@
-import { UserRole } from 'src/api/user/user-role.enum';
-import { UserStatus } from 'src/api/user/user-status.enum';
+import { UserRole } from './user-role.enum';
+import { UserStatus } from './user-status.enum';
 
 export class User {
   public id: string;

@@ -4,7 +4,7 @@
     "countryName": "Uganda",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
-    "countryForecasts": ["7-day"],
+    "countryLeadTimes": ["7-day"],
     "adminRegionLabels": ["Regions", "Districts", "Counties", "Parishes"],
     "eapLink": "https://docs.google.com/document/d/1IiG2ZFasCVE7kmYfqgyrx7SuZWkoYzTvw3LaEt2nl2U/edit#heading=h.35nkun2"
   },
@@ -13,7 +13,7 @@
     "countryName": "Zambia",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
-    "countryForecasts": ["3-day", "7-day"],
+    "countryLeadTimes": ["3-day", "7-day"],
     "adminRegionLabels": ["Provinces", "Districts", "Wards"],
     "eapLink": "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#bookmark=id.xa68na3bshzr"
   },
@@ -22,7 +22,7 @@
     "countryName": "Kenya",
     "countryStatus": "active",
     "defaultAdminLevel": 1,
-    "countryForecasts": ["7-day"],
+    "countryLeadTimes": ["7-day"],
     "adminRegionLabels": ["Counties", "Subcounties", "Wards"],
     "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9"
   },
@@ -31,7 +31,7 @@
     "countryName": "Ethiopia",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
-    "countryForecasts": ["7-day"],
+    "countryLeadTimes": ["7-day"],
     "adminRegionLabels": ["Regions", "Zones", "Woredas"],
     "eapLink": "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx"
   }

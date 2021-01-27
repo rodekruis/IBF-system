@@ -38,8 +38,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (
-      this.countryService.selectedCountry &&
-      this.timelineService.state.selectedTimeStepButtonValue
+      this.countryService.activeCountry &&
+      this.timelineService.activeLeadTime
     ) {
       this.aggregatesService.loadMetadata();
       this.aggregatesService.loadAggregateInformation();
