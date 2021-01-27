@@ -23,6 +23,7 @@ services:
             context: ./services/API-service
             args:
                 - NODE_ENV=production
+                - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
         image: rodekruis/ibf-api-service
         environment:
             - DB_TYPE=${DB_TYPE}
@@ -34,6 +35,7 @@ services:
             - NODE_ENV=production
             - SECRET=${SECRET}
             - RESET_SECRET=${RESET_SECRET}
+            - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
         networks:
             - web-server-network
         depends_on:
