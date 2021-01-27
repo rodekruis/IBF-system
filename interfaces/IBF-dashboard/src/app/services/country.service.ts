@@ -3,14 +3,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import mockCountry from 'src/app/mocks/country.mock';
 import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
-import { AdminLevel } from 'src/app/types/admin-level.enum';
+import { AdminLevel } from 'src/app/types/admin-level';
+import { LeadTime } from 'src/app/types/lead-time';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CountryService {
   private countrySubject = new BehaviorSubject<Country>(null);
-  public selectedCountry: Country = mockCountry;
+  public activeCountry: Country = mockCountry;
   public countries: Country[] = [];
 
   constructor() {
@@ -19,7 +20,7 @@ export class CountryService {
         countryCode: 'UGA',
         defaultAdminLevel: AdminLevel.adm2,
         countryName: 'Uganda',
-        countryForecasts: ['7-day'],
+        countryLeadTimes: [LeadTime.day7],
         adminRegionLabels: ['Regions', 'Districts', 'Counties', 'Parishes'],
         eapLink:
           'https://docs.google.com/document/d/1IiG2ZFasCVE7kmYfqgyrx7SuZWkoYzTvw3LaEt2nl2U/edit#heading=h.35nkun2',
@@ -28,7 +29,7 @@ export class CountryService {
         countryCode: 'KEN',
         defaultAdminLevel: AdminLevel.adm1,
         countryName: 'Kenya',
-        countryForecasts: ['7-day'],
+        countryLeadTimes: [LeadTime.day7],
         adminRegionLabels: ['Counties', 'Subcounties', 'Wards'],
         eapLink:
           'https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9',
@@ -37,7 +38,7 @@ export class CountryService {
         countryCode: 'ETH',
         defaultAdminLevel: AdminLevel.adm2,
         countryName: 'Ethiopia',
-        countryForecasts: ['7-day'],
+        countryLeadTimes: [LeadTime.day7],
         adminRegionLabels: ['Regions', 'Zones', 'Woredas'],
         eapLink:
           'https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx',
@@ -46,12 +47,12 @@ export class CountryService {
         countryCode: 'ZMB',
         defaultAdminLevel: AdminLevel.adm2,
         countryName: 'Zambia',
-        countryForecasts: ['3-day', '7-day'],
+        countryLeadTimes: [LeadTime.day3, LeadTime.day7],
         adminRegionLabels: ['Provinces', 'Districts', 'Wards'],
         eapLink:
           'https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#bookmark=id.xa68na3bshzr',
       },
-    ] as Country[];
+    ];
   }
 
   getCountrySubscription = (): Observable<Country> => {
@@ -59,10 +60,10 @@ export class CountryService {
   };
 
   public selectCountry = (countryCode): void => {
-    this.selectedCountry = this.countries.find(
+    this.activeCountry = this.countries.find(
       (country) => country.countryCode == countryCode,
     );
-    this.countrySubject.next(this.selectedCountry);
+    this.countrySubject.next(this.activeCountry);
   };
 
   public filterCountriesForUser = (user: User): void => {

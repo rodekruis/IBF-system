@@ -22,7 +22,7 @@ export class EapActionsService {
 
   async loadDistrictsAndActions() {
     const event = await this.apiService.getEvent(
-      this.countryService.selectedCountry.countryCode,
+      this.countryService.activeCountry.countryCode,
     );
     if (event) {
       this.eventId = event?.id * 1;
@@ -33,7 +33,7 @@ export class EapActionsService {
 
       for (let area of this.triggeredAreas) {
         area.eapActions = await this.apiService.getEapActions(
-          this.countryService.selectedCountry.countryCode,
+          this.countryService.activeCountry.countryCode,
           area.pcode,
           this.eventId,
         );

@@ -28,7 +28,7 @@ import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { AdminLevel } from 'src/app/types/admin-level.enum';
+import { AdminLevel } from 'src/app/types/admin-level';
 import {
   IbfLayer,
   IbfLayerGroup,
@@ -36,8 +36,8 @@ import {
   IbfLayerType,
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
-import { IndicatorName } from 'src/app/types/indicator-group';
-import { NumberFormat } from '../../types/indicator-group';
+import { IndicatorName, NumberFormat } from 'src/app/types/indicator-group';
+import { LeadTime } from 'src/app/types/lead-time';
 
 @Component({
   selector: 'app-map',
@@ -172,7 +172,7 @@ export class MapComponent implements OnDestroy {
 
     this.timelineSubscription = this.timelineService
       .getTimelineSubscription()
-      .subscribe((timeline: string) => {
+      .subscribe((leadTime: LeadTime) => {
         this.mapService.loadStationLayer();
         this.mapService.loadRedCrossBranchesLayer();
         this.mapService.loadWaterpointsLayer();

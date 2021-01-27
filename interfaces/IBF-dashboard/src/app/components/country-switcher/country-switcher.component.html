@@ -4,7 +4,7 @@
     placeholder="Select Country"
     interface="popover"
     (ionChange)="handleCountryChange($event)"
-    [value]="countryService.selectedCountry.countryCode"
+    [value]="countryService.activeCountry.countryCode"
   >
     <ion-select-option
       *ngFor="let country of countryService.countries"

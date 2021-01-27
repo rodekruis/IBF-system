@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from './api.service';
-import { CountryService } from './country.service';
-import { TimelineService } from './timeline.service';
+import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
+import { TimelineService } from 'src/app/services/timeline.service';
+import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
 
 @Injectable({
   providedIn: 'root',
@@ -56,7 +57,7 @@ export class EventService {
 
   private async getFirstTriggerDate() {
     const timesteps = await this.apiService.getTriggerPerLeadTime(
-      this.countryService.selectedCountry.countryCode,
+      this.countryService.activeCountry.countryCode,
     );
     let firstKey = null;
     Object.keys(timesteps).forEach((key) => {
@@ -65,22 +66,22 @@ export class EventService {
       }
     });
     this.state.firstLeadTime = firstKey;
-    const selectedKey = Number(
-      this.timelineService.state.selectedTimeStepButtonValue.substr(0, 1),
-    );
-    this.state.newEventEarlyTrigger = firstKey < selectedKey;
+    this.state.newEventEarlyTrigger =
+      firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
   }
 
   private async getTriggerLeadTime() {
     let triggerLeadTime = null;
-    this.countryService.selectedCountry.countryForecasts.forEach((leadtime) => {
-      if (
-        !triggerLeadTime &&
-        Number(leadtime.substr(0, 1)) >= this.state.firstLeadTime
-      ) {
-        triggerLeadTime = Number(leadtime.substr(0, 1));
-      }
-    });
+    this.countryService.activeCountry.countryLeadTimes.forEach(
+      (leadTime: LeadTime) => {
+        if (
+          !triggerLeadTime &&
+          LeadTimeTriggerKey[leadTime] >= this.state.firstLeadTime
+        ) {
+          triggerLeadTime = LeadTimeTriggerKey[leadTime];
+        }
+      },
+    );
     this.state.triggerLeadTime = triggerLeadTime;
   }
 }

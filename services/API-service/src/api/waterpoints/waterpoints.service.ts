@@ -1,6 +1,6 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { GeoJson } from 'src/models/geo.model';
+import { GeoJson } from '../data/geo.model';
 
 @Injectable()
 export class WaterpointsService {

@@ -1,24 +1,24 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
-import { ForecastStatus } from './forecast-status.enum';
+import { leadTimeStatus } from './lead-time-status.enum';
 
-@Entity('forecast')
-export class ForecastEntity {
+@Entity('lead-time')
+export class LeadTimeEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
   @Column()
-  public forecastName: string;
+  public leadTimeName: string;
 
   @Column()
-  public forecastLabel: string;
+  public leadTimeLabel: string;
 
   @Column()
-  public forecastStatus: ForecastStatus;
+  public leadTimeStatus: leadTimeStatus;
 
   @ManyToMany(
     (): typeof CountryEntity => CountryEntity,
-    (country): ForecastEntity[] => country.countryForecasts,
+    (country): LeadTimeEntity[] => country.countryLeadTimes,
   )
   public countries: CountryEntity[];
 

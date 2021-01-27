@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { User } from 'src/models/user.model';
+import { User } from '../api/user/user.model';
 
 export class BaseController {
   public constructor() {}
