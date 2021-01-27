@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { Indicator } from 'src/app/types/indicator-group';
+import { Indicator, IndicatorName } from 'src/app/types/indicator-group';
 import { AdminLevelService } from './admin-level.service';
 
 @Injectable({
@@ -13,7 +13,7 @@ import { AdminLevelService } from './admin-level.service';
 export class AggregatesService {
   private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
   public indicators: Indicator[];
-  private aggregates = {};
+  private aggregates = [];
 
   constructor(
     private countryService: CountryService,
@@ -40,21 +40,39 @@ export class AggregatesService {
     return this.indicatorSubject.asObservable();
   }
 
-  loadAggregateInformation() {
-    this.apiService
-      .getMatrixAggregates(
-        this.countryService.selectedCountry.countryCode,
-        this.timelineService.state.selectedTimeStepButtonValue,
-        this.adminLevelService.adminLevel,
-      )
-      .then((response) => {
-        if (response) {
-          this.aggregates = response;
+  async loadAggregateInformation() {
+    const adminRegions = await this.apiService.getAdminRegions(
+      this.countryService.selectedCountry.countryCode,
+      this.timelineService.state.selectedTimeStepButtonValue,
+      this.adminLevelService.adminLevel,
+    );
+
+    this.aggregates = adminRegions.features.map((feature) => {
+      let aggregate = {
+        pCode: feature.properties.pcode,
+      };
+      this.indicators.forEach((indicator: Indicator) => {
+        if (indicator.name in feature.properties) {
+          aggregate[indicator.name] = feature.properties[indicator.name];
+        } else if (indicator.name in feature.properties.indicators) {
+          aggregate[indicator.name] =
+            feature.properties.indicators[indicator.name];
+        } else {
+          aggregate[indicator.name] = 0;
         }
       });
+      return aggregate;
+    });
   }
 
-  getAggregate(indicator) {
-    return this.aggregates[indicator];
+  getAggregate(indicator: IndicatorName, pCode: string): number {
+    return this.aggregates.reduce(
+      (accumulator, aggregate) =>
+        accumulator +
+        (pCode === null || pCode === aggregate.pCode
+          ? aggregate[indicator]
+          : 0),
+      0,
+    );
   }
 }
