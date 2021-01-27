@@ -19,6 +19,7 @@ import {
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
 import { Indicator, IndicatorName } from 'src/app/types/indicator-group';
+import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 
@@ -143,7 +144,7 @@ export class MapService {
     layerName: IbfLayerName,
     layerLabel: IbfLayerLabel,
     active: boolean,
-    timestep?: string,
+    leadTime?: LeadTime,
     legendColor?: string,
   ) {
     this.addLayer({
@@ -160,8 +161,8 @@ export class MapService {
       order: 10,
       wms: {
         url: environment.geoserver_url,
-        name: `ibf-system:${layerName}_${timestep ? timestep + '_' : ''}${
-          this.countryService.selectedCountry.countryCode
+        name: `ibf-system:${layerName}_${leadTime ? leadTime + '_' : ''}${
+          this.countryService.activeCountry.countryCode
         }`,
         format: 'image/png',
         version: '1.1.0',
@@ -177,7 +178,7 @@ export class MapService {
       IbfLayerName.floodExtent,
       IbfLayerLabel.floodExtent,
       this.eventService.state.activeTrigger,
-      this.timelineService.state.selectedTimeStepButtonValue,
+      this.timelineService.activeLeadTime,
       '#d7301f',
     );
   }
@@ -297,27 +298,27 @@ export class MapService {
 
   public async getStations(): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getStations(
-      this.countryService.selectedCountry.countryCode,
-      this.timelineService.state.selectedTimeStepButtonValue,
+      this.countryService.activeCountry.countryCode,
+      this.timelineService.activeLeadTime,
     );
   }
 
   public async getRedCrossBranches(): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getRedCrossBranches(
-      this.countryService.selectedCountry.countryCode,
+      this.countryService.activeCountry.countryCode,
     );
   }
 
   public async getWaterpoints(): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getWaterpoints(
-      this.countryService.selectedCountry.countryCode,
+      this.countryService.activeCountry.countryCode,
     );
   }
 
   public async getAdminRegions(): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getAdminRegions(
-      this.countryService.selectedCountry.countryCode,
-      this.timelineService.state.selectedTimeStepButtonValue,
+      this.countryService.activeCountry.countryCode,
+      this.timelineService.activeLeadTime,
       this.adminLevelService.adminLevel,
     );
   }

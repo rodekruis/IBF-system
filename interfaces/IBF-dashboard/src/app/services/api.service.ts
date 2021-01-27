@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { JwtService } from 'src/app/services/jwt.service';
-import { AdminLevel } from 'src/app/types/admin-level.enum';
+import { AdminLevel } from 'src/app/types/admin-level';
+import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -107,7 +108,7 @@ export class ApiService {
 
   getStations(
     countryCode: string,
-    leadTime: string,
+    leadTime: LeadTime = LeadTime.day7,
   ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
@@ -158,8 +159,8 @@ export class ApiService {
 
   getAdminRegions(
     countryCode: string,
-    leadTime: string,
-    adminLevel: AdminLevel,
+    leadTime: LeadTime = LeadTime.day7,
+    adminLevel: AdminLevel = AdminLevel.adm1,
   ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
@@ -178,8 +179,8 @@ export class ApiService {
 
   getMatrixAggregates(
     countryCode: string,
-    leadTime: string,
-    adminLevel: AdminLevel,
+    leadTime: LeadTime = LeadTime.day7,
+    adminLevel: AdminLevel = AdminLevel.adm1,
   ) {
     return this.get(
       environment.api_url,

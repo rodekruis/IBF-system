@@ -24,7 +24,7 @@ export class MockAPI {
         stations: {
           handler: this.getResponse(
             'getStations',
-            this.timelineService.state.selectedTimeStepButtonValue,
+            this.timelineService.activeLeadTime,
           ),
         },
         event: { handler: this.getResponse('getEvent') },
@@ -34,13 +34,13 @@ export class MockAPI {
         'matrix-aggregates': {
           handler: this.getResponse(
             'getMatrixAggregates',
-            this.timelineService.state.selectedTimeStepButtonValue,
+            this.timelineService.activeLeadTime,
           ),
         },
         'admin-area-data': {
           handler: this.getResponse(
             'getAdminRegions',
-            this.timelineService.state.selectedTimeStepButtonValue,
+            this.timelineService.activeLeadTime,
           ),
         },
       },

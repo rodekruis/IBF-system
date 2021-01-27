@@ -4,18 +4,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import {
+  AdminAreaDataRecord,
+  TriggeredArea,
+  DisasterEvent,
+  CountryMetaData,
+  Aggregates,
+} from './data.model';
+import {
+  GeoJson,
   GlofasStation,
   RedCrossBranch,
-  GeoJson,
   GeoJsonFeature,
-} from 'src/models/geo.model';
-import {
-  AdminAreaDataRecord,
-  Aggregates,
-  CountryMetaData,
-  DisasterEvent,
-  TriggeredArea,
-} from 'src/models/data.model';
+} from './geo.model';
 
 @Injectable()
 export class DataService {
