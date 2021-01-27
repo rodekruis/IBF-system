@@ -5,6 +5,7 @@ import {
   divIcon,
   DomUtil,
   geoJSON,
+  GeoJSON,
   icon,
   IconOptions,
   LatLng,
@@ -14,15 +15,19 @@ import {
   marker,
   Marker,
   markerClusterGroup,
+  MarkerClusterGroup,
   point,
   tileLayer,
 } from 'leaflet';
 import { Subscription } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
+import { PlaceCode } from 'src/app/models/place-code.model';
 import { RedCrossBranch, Station, Waterpoint } from 'src/app/models/poi.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
+import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel } from 'src/app/types/admin-level.enum';
 import {
@@ -50,6 +55,7 @@ export class MapComponent implements OnDestroy {
   private countrySubscription: Subscription;
   private adminLevelSubscription: Subscription;
   private timelineSubscription: Subscription;
+  private placeCodeSubscription: Subscription;
 
   private osmTileLayer = tileLayer(
     'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
@@ -101,7 +107,9 @@ export class MapComponent implements OnDestroy {
     private countryService: CountryService,
     private adminLevelService: AdminLevelService,
     private timelineService: TimelineService,
-    public mapService: MapService,
+    private mapService: MapService,
+    private placeCodeService: PlaceCodeService,
+    private eventService: EventService,
   ) {
     this.layerSubscription = this.mapService
       .getLayers()
@@ -178,6 +186,16 @@ export class MapComponent implements OnDestroy {
           200,
         );
       });
+
+    this.placeCodeSubscription = this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe((placeCode: PlaceCode): void => {
+        this.layers.forEach((layer: IbfLayer): void => {
+          if ('resetStyle' in layer.leafletLayer) {
+            layer.leafletLayer.resetStyle();
+          }
+        });
+      });
   }
 
   ngOnDestroy() {
@@ -185,6 +203,7 @@ export class MapComponent implements OnDestroy {
     this.timelineSubscription.unsubscribe();
     this.adminLevelSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
+    this.placeCodeSubscription.unsubscribe();
   }
 
   public addLegend(map, colors, colorThreshold, layer: IbfLayer) {
@@ -306,7 +325,7 @@ export class MapComponent implements OnDestroy {
     });
   }
 
-  private createPointLayer(layer: IbfLayer): Layer {
+  private createPointLayer(layer: IbfLayer): GeoJSON | MarkerClusterGroup {
     if (!layer.data) {
       return;
     }
@@ -357,19 +376,37 @@ export class MapComponent implements OnDestroy {
     return mapLayer;
   }
 
-  private createAdminRegionsLayer(layer: IbfLayer): Layer {
+  private createAdminRegionsLayer(layer: IbfLayer): GeoJSON {
     if (!layer.data) {
       return;
     }
 
-    return geoJSON(layer.data, {
+    const adminRegionsLayer = geoJSON(layer.data, {
       pane:
         layer.group && layer.group === IbfLayerGroup.aggregates
           ? 'ibf-aggregate'
           : 'overlayPane',
       style: this.mapService.setAdminRegionStyle(layer),
-      onEachFeature: function (feature, element) {
-        element.on('click', function () {
+      onEachFeature: (feature, element): void => {
+        element.on('mouseover', (event): void => {
+          event.target.setStyle({
+            fillOpacity: this.mapService.hoverFillOpacity,
+            fillColor: this.eventService.activeTrigger
+              ? this.mapService.alertColor
+              : this.mapService.safeColor,
+          });
+        });
+
+        element.on('mouseout', (): void => {
+          adminRegionsLayer.resetStyle();
+        });
+
+        element.on('click', (): void => {
+          this.placeCodeService.setPlaceCode({
+            countryCode: feature.properties.country_code,
+            placeCodeName: feature.properties.name,
+            placeCode: feature.properties.pcode,
+          });
           if (
             layer.colorProperty === IndicatorName.PopulationAffected &&
             feature.properties[layer.colorProperty] > 0
@@ -386,6 +423,8 @@ export class MapComponent implements OnDestroy {
         });
       },
     });
+
+    return adminRegionsLayer;
   }
 
   private createWmsLayer(layerWMS: IbfLayerWMS): Layer {
@@ -464,7 +503,7 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
-  private createMarkerStationPopup(markerProperties: Station) {
+  private createMarkerStationPopup(markerProperties: Station): string {
     const percentageTrigger =
       markerProperties.fc / markerProperties.trigger_level;
     const color = percentageTrigger < 1 ? '#a5d4a1' : '#d7301f';
@@ -512,7 +551,7 @@ export class MapComponent implements OnDestroy {
     return stationInfoPopup;
   }
 
-  private createMarkerRedCrossPopup(markerProperties: RedCrossBranch) {
+  private createMarkerRedCrossPopup(markerProperties: RedCrossBranch): string {
     const branchInfoPopup = (
       '<div style="margin-bottom: 5px">' +
       '<strong>Branch: ' +
@@ -551,7 +590,7 @@ export class MapComponent implements OnDestroy {
     return branchInfoPopup;
   }
 
-  private createMarkerWaterpointPopup(markerProperties: Waterpoint) {
+  private createMarkerWaterpointPopup(markerProperties: Waterpoint): string {
     const waterpointInfoPopup = (
       '<div style="margin-bottom: 5px">' +
       '<strong>ID: ' +

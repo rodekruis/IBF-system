@@ -26,7 +26,7 @@ export class IndicatorEntity {
   public aggregateIndicator: boolean | null;
   @Column()
   public numberFormatAggregate: string;
-  @Column()
+  @Column({ default: 1 })
   public order: number;
   @Column()
   public source: string;
