@@ -1,20 +1,19 @@
 import { Get, Param, Controller, UseGuards } from '@nestjs/common';
-import { DataService } from './data.service';
-
 import {
   ApiUseTags,
   ApiOperation,
   ApiImplicitParam,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { GeoJson } from 'src/models/geo.model';
 import { RolesGuard } from '../../roles.guard';
 import {
-  Aggregates,
   CountryMetaData,
-  DisasterEvent,
   TriggeredArea,
-} from 'src/models/data.model';
+  Aggregates,
+  DisasterEvent,
+} from './data.model';
+import { DataService } from './data.service';
+import { GeoJson } from './geo.model';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)

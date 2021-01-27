@@ -1,5 +1,4 @@
 import { Get, Param, Controller, UseGuards } from '@nestjs/common';
-import { WaterpointsService } from './waterpoints.service';
 import { AxiosResponse } from 'axios';
 import {
   ApiUseTags,
@@ -7,7 +6,8 @@ import {
   ApiImplicitParam,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { GeoJson } from 'src/models/geo.model';
+import { GeoJson } from '../data/geo.model';
+import { WaterpointsService } from './waterpoints.service';
 import { RolesGuard } from '../../roles.guard';
 
 @ApiBearerAuth()
