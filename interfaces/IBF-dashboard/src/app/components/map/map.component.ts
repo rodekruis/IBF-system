@@ -14,8 +14,8 @@ import {
   marker,
   Marker,
   markerClusterGroup,
-  tileLayer,
   point,
+  tileLayer,
 } from 'leaflet';
 import { Subscription } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
@@ -336,10 +336,13 @@ export class MapComponent implements OnDestroy {
     if (layer.name === IbfLayerName.waterpoints) {
       const waterpointClusterLayer = markerClusterGroup({
         iconCreateFunction: function (cluster) {
-          const clusterSize = cluster.getChildCount()
-          const sizeTreshhold = 100
+          const clusterSize = cluster.getChildCount();
+          const sizeTreshhold = 100;
           const size = clusterSize >= sizeTreshhold ? 60 : 40;
-          const className = clusterSize >= sizeTreshhold ? 'waterpoint-cluster-l' : 'waterpoint-cluster-s';
+          const className =
+            clusterSize >= sizeTreshhold
+              ? 'waterpoint-cluster-l'
+              : 'waterpoint-cluster-s';
           return divIcon({
             html: '<b>' + String(clusterSize) + '</b>',
             className: className,
