@@ -32,7 +32,16 @@ This is the repository for the IBF-system. It includes 3 main components.
 
 ![IBF-system design (draft)](./system-design/ibf-system-design.PNG)
 
-## Installation using Docker
+## Installation 
+1. Setup env variables:
+
+    `cp example.env .env`
+
+    Fill in the .env variables with someone who has them.
+
+2. Whitelist your machine IP at the database server
+
+### Using Docker
 
 ```
 docker-compose -f docker-compose.yml up # for production
@@ -41,6 +50,14 @@ docker-compose up # for development
 
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up # for development (explicit)
 ```
+
+### Without Docker (for local development)
+For local development you can also run and start the services and interface without docker:
+
+`cp .env services/API-service/.env`
+`npn run start`
+
+### Installation result 
 
 These commands will install the IBF-system with listeners at,
 
