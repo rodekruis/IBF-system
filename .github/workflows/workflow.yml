@@ -10,9 +10,6 @@ on:
         branches: [master]
 
 jobs:
-    strategy:
-        max-parallel: 1
-
     detect-changes:
         runs-on: ubuntu-latest
 
@@ -112,6 +109,8 @@ jobs:
                   rodekruis/ibf-pipeline:$(date +%s)
 
     bump-version:
+        needs: [ibf-api-service, ibf-dashboard, ibf-pipeline]
+
         runs-on: ubuntu-latest
 
         steps:
