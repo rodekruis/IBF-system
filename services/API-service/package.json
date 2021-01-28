@@ -37,6 +37,7 @@
     "crypto": "^1.0.1",
     "crypto-js": "^4.0.0",
     "cryptr": "^6.0.1",
+    "csv-parser": "^3.0.0",
     "jsonwebtoken": "^8.1.1",
     "mysql": "^2.15.0",
     "passport": "^0.4.0",
