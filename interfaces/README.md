@@ -12,6 +12,6 @@ A current example here is the `FBF Zambia interface`:
 
 ---
 
-## IBF-dashboard
+## IBF dashboard
 
 -   A responsive (progressive) web-app, usable on mobile and desktop devices
