@@ -7,6 +7,7 @@ import { HealthModule } from './health.module';
 import { EapActionsModule } from './api/eap-actions/eap-actions.module';
 import { ScriptsModule } from './scripts/scripts.module';
 import { WaterpointsModule } from './api/waterpoints/waterpoints.module';
+import { UgaDataLevel2Module } from './api/uga-data-level-2/uga-data-level-2.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { WaterpointsModule } from './api/waterpoints/waterpoints.module';
     WaterpointsModule,
     ScriptsModule,
     HealthModule,
+    UgaDataLevel2Module,
   ],
   controllers: [AppController],
   providers: [],
