@@ -42,14 +42,10 @@ http.createServer(function (req, res) {
     });
 }).listen(process.env.NODE_PORT);
 
-handler.on("pull_request", function (event) {
-    if (
-        process.env.NODE_ENV === "test" &&
-        event.payload.action === "closed" &&
-        event.payload.pull_request.merged
-    ) {
-        console.log('Deploy started');
-        deploy();
+handler.on("create", function (event) {
+    if (process.env.NODE_ENV === "test" && event.payload.ref_type === "tag") {
+        console.log("Deploy started");
+        deploy(event.payload.ref);
     }
 });
 
@@ -58,7 +54,7 @@ handler.on("release", function (event) {
         ["staging", "production"].indexOf(process.env.NODE_ENV) >= 0 &&
         event.payload.action === "published"
     ) {
-        console.log('Deploy started');
+        console.log("Deploy started");
         deploy(event.payload.release.tag_name);
     }
 });
