@@ -1,3 +1,4 @@
+import { GeoJson } from './../../models/geo.model';
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { validate } from 'class-validator';
 import { Injectable } from '@nestjs/common';
@@ -7,7 +8,8 @@ import { HttpException } from '@nestjs/common';
 import { Readable } from 'stream';
 import { UgaDataLevel2Entity } from './uga-data-level-2.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, getManager } from 'typeorm';
+import fs from 'fs';
 const csv = require('csv-parser');
 
 @Injectable()
@@ -57,5 +59,13 @@ export class UgaDataLevel2Service {
       throw new HttpException(errors, HttpStatus.BAD_REQUEST);
     }
     return validatatedArray;
+  }
+
+  public async findAll(): Promise<GeoJson> {
+    const entityManager = getManager();
+    const q = fs
+      .readFileSync('./src/api/uga-data-level-2/sql/select-all-uga-level-2.sql')
+      .toString();
+    return await entityManager.query(q);
   }
 }

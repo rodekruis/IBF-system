@@ -1,6 +1,7 @@
 import { UgaDataLevel2Service } from './uga-data-level-2.service';
 import {
   Controller,
+  Get,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -12,6 +13,8 @@ import {
   ApiImplicitFile,
 } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Param } from '@nestjs/common';
+import { GeoJson } from 'src/models/geo.model';
 
 @ApiBearerAuth()
 @ApiUseTags('uganda')
@@ -33,5 +36,11 @@ export class UgaDataLevel2Controller {
   @UseInterceptors(FileInterceptor('file'))
   public async upload(@UploadedFile() ugaDataLevel2List): Promise<void> {
     await this.ugaDataLevel2Service.updateOrCreate(ugaDataLevel2List);
+  }
+
+  @ApiOperation({ title: 'Get all covid risk admin 2' })
+  @Get('all')
+  public async getUgandaLevel2(): Promise<GeoJson> {
+    return await this.ugaDataLevel2Service.findAll();
   }
 }
