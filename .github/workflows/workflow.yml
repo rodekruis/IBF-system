@@ -119,7 +119,7 @@ jobs:
 
             - name: Bump version and push tag
               uses: TriPSs/conventional-changelog-action@v3
-              if: github.event_name == 'push'
+              if: github.event_name == 'push' && always()
               with:
                   github-token: ${{ secrets.ACTIONS_TOKEN }}
                   git-message: "chore(release): {version}"
