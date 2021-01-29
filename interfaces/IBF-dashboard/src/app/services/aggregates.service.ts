@@ -65,12 +65,35 @@ export class AggregatesService {
     });
   }
 
-  getAggregate(indicator: IndicatorName, pCode: string): number {
+  getAggregate(
+    weightedAvg: boolean,
+    indicator: IndicatorName,
+    pCode: string,
+  ): number {
+    if (weightedAvg) {
+      return this.getExposedAbsSumFromPerc(indicator, pCode);
+    } else {
+      return this.getSum(indicator, pCode);
+    }
+  }
+
+  getSum(indicator: IndicatorName, pCode: string) {
     return this.aggregates.reduce(
       (accumulator, aggregate) =>
         accumulator +
         (pCode === null || pCode === aggregate.pCode
           ? aggregate[indicator]
+          : 0),
+      0,
+    );
+  }
+
+  getExposedAbsSumFromPerc(indicator: IndicatorName, pCode: string) {
+    return this.aggregates.reduce(
+      (accumulator, aggregate) =>
+        accumulator +
+        (pCode === null || pCode === aggregate.pCode
+          ? aggregate[IndicatorName.PopulationAffected] * aggregate[indicator]
           : 0),
       0,
     );

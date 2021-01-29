@@ -13,6 +13,7 @@ export class Indicator {
   numberFormatMap: NumberFormat;
   numberFormatAggregate: NumberFormat;
   aggregateIndicator: boolean;
+  weightedAvg: boolean;
   group: IndicatorGroup;
   colorBreaks?: ColorBreaks;
   order: number;

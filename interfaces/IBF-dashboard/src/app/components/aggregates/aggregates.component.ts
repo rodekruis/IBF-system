@@ -94,9 +94,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return await modal.present();
   }
 
-  public getAggregate(indicatorName) {
+  public getAggregate(indicatorName, weightedAvg) {
     return this.aggregatesService.getAggregate(
       indicatorName,
+      weightedAvg,
       this.placeCode ? this.placeCode.placeCode : null,
     );
   }
