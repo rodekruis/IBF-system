@@ -177,18 +177,6 @@ export class ApiService {
     ).toPromise();
   }
 
-  getMatrixAggregates(
-    countryCode: string,
-    leadTime: LeadTime = LeadTime.day7,
-    adminLevel: AdminLevel = AdminLevel.adm1,
-  ) {
-    return this.get(
-      environment.api_url,
-      `matrix-aggregates/${countryCode}/${adminLevel}/${leadTime}`,
-      false,
-    ).toPromise();
-  }
-
   getMetadata(countryCode: string) {
     return this.get(
       environment.api_url,

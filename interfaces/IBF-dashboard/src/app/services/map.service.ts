@@ -33,6 +33,7 @@ export class MapService {
   public alertColor: string = '#de9584';
   public safeColor: string = '#2c45fd';
   public hoverFillOpacity: number = 0.6;
+  public unselectedFillOpacity: number = 0.4;
 
   public state = {
     bounds: [
@@ -379,8 +380,12 @@ export class MapService {
     this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe((activePlaceCode: PlaceCode): void => {
-        if (activePlaceCode && activePlaceCode.placeCode === placeCode) {
-          fillOpacity = this.hoverFillOpacity;
+        if (activePlaceCode) {
+          if (activePlaceCode.placeCode === placeCode) {
+            fillOpacity = this.hoverFillOpacity;
+          } else {
+            fillOpacity = this.unselectedFillOpacity;
+          }
         }
       });
 

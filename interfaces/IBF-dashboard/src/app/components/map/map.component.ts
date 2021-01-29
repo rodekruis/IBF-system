@@ -37,7 +37,7 @@ import {
   IbfLayerType,
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
-import { IndicatorName, NumberFormat } from 'src/app/types/indicator-group';
+import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 
 @Component({
@@ -48,6 +48,7 @@ import { LeadTime } from 'src/app/types/lead-time';
 export class MapComponent implements OnDestroy {
   private map: Map;
   public layers: IbfLayer[] = [];
+  private placeCode: string;
 
   public legends: { [key: string]: Control } = {};
 
@@ -206,6 +207,18 @@ export class MapComponent implements OnDestroy {
     this.placeCodeSubscription.unsubscribe();
   }
 
+  private numberFormat(d, layer) {
+    if (layer.numberFormatMap === NumberFormat.perc) {
+      return Math.round(d * 100) + '%';
+    } else if (layer.numberFormatMap === NumberFormat.decimal2) {
+      return Math.round(d * 100) / 100;
+    } else if (layer.numberFormatMap === NumberFormat.decimal0) {
+      return Math.round(d);
+    } else {
+      return Math.round(d);
+    }
+  }
+
   public addLegend(map, colors, colorThreshold, layer: IbfLayer) {
     if (this.legends[layer.name]) {
       map.removeControl(this.legends[layer.name]);
@@ -214,7 +227,7 @@ export class MapComponent implements OnDestroy {
     if (layer.active) {
       this.legends[layer.name] = new Control();
       this.legends[layer.name].setPosition('bottomleft');
-      this.legends[layer.name].onAdd = function (map) {
+      this.legends[layer.name].onAdd = (map) => {
         const div = DomUtil.create('div', 'info legend');
         const grades = [
           0,
@@ -246,18 +259,6 @@ export class MapComponent implements OnDestroy {
             : colors[0];
         };
 
-        const numberFormat = function (d) {
-          if (layer.numberFormatMap === NumberFormat.perc) {
-            return Math.round(d * 100) + '%';
-          } else if (layer.numberFormatMap === NumberFormat.decimal2) {
-            return Math.round(d * 100) / 100;
-          } else if (layer.numberFormatMap === NumberFormat.decimal0) {
-            return Math.round(d);
-          } else {
-            return Math.round(d);
-          }
-        };
-
         div.innerHTML += `<div><b>${layer.label}</b></div>`;
 
         for (let i = 0; i < grades.length; i++) {
@@ -266,10 +267,10 @@ export class MapComponent implements OnDestroy {
               '<i style="background:' +
               getColor(grades[i] + 0.0001) +
               '"></i> ' +
-              numberFormat(grades[i]) +
+              this.numberFormat(grades[i], layer) +
               (typeof grades[i + 1] !== 'undefined'
                 ? '&ndash;' +
-                  numberFormat(grades[i + 1]) +
+                  this.numberFormat(grades[i + 1], layer) +
                   (labels ? '  -  ' + labels[i] : '') +
                   '<br/>'
                 : '+' + (labels ? '  -  ' + labels[i] : ''));
@@ -391,7 +392,7 @@ export class MapComponent implements OnDestroy {
         element.on('mouseover', (event): void => {
           event.target.setStyle({
             fillOpacity: this.mapService.hoverFillOpacity,
-            fillColor: this.eventService.activeTrigger
+            fillColor: this.eventService.state.activeTrigger
               ? this.mapService.alertColor
               : this.mapService.safeColor,
           });
@@ -399,6 +400,8 @@ export class MapComponent implements OnDestroy {
 
         element.on('mouseout', (): void => {
           adminRegionsLayer.resetStyle();
+
+          element.closePopup();
         });
 
         element.on('click', (): void => {
@@ -407,18 +410,28 @@ export class MapComponent implements OnDestroy {
             placeCodeName: feature.properties.name,
             placeCode: feature.properties.pcode,
           });
-          if (
-            layer.colorProperty === IndicatorName.PopulationAffected &&
-            feature.properties[layer.colorProperty] > 0
-          ) {
+
+          if (layer.name !== IbfLayerName.adminRegions) {
             const popup =
               '<strong>' +
               feature.properties.name +
               '</strong><br/>' +
-              'Population exposed: ' +
-              Math.round(feature.properties[layer.colorProperty]) +
+              layer.label +
+              ': ' +
+              this.numberFormat(
+                typeof feature.properties[layer.colorProperty] !== 'undefined'
+                  ? feature.properties[layer.colorProperty]
+                  : feature.properties.indicators[layer.colorProperty],
+                layer,
+              ) +
               '';
-            element.bindPopup(popup).openPopup();
+            if (feature.properties.pcode === this.placeCode) {
+              element.unbindPopup();
+              this.placeCode = null;
+            } else {
+              element.bindPopup(popup).openPopup();
+              this.placeCode = feature.properties.pcode;
+            }
           }
         });
       },
