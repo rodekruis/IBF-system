@@ -1,3 +1,12 @@
+## [0.2.1](https://github.com/rodekruis/IBF-system/compare/v0.2.0...v0.2.1) (2021-01-29)
+
+
+### Bug Fixes
+
+* remove [0,0] waterpoint locations AB[#5846](https://github.com/rodekruis/IBF-system/issues/5846) ([8799049](https://github.com/rodekruis/IBF-system/commit/8799049338cf193067b214f832609ea1f1dac05f))
+
+
+
 # [0.2.0](https://github.com/rodekruis/IBF-system/compare/v0.1.5...v0.2.0) (2021-01-29)
 
 
