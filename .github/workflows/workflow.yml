@@ -19,6 +19,7 @@ jobs:
             ibf-pipeline: ${{ steps.filter.outputs.ibf-pipeline }}
 
         steps:
+            - uses: actions/checkout@v2
             - uses: dorny/paths-filter@v2
               id: filter
               with:
