@@ -7,13 +7,14 @@
       title="Situation in {{ getHeaderLabel() }}"
     >
       <ion-label class="aggregate-header-item-label">
-        {{ getHeaderLabel() }}
+        Selected: {{ getHeaderLabel() }}
       </ion-label>
       <ion-button
         slot="end"
         fill="clear"
         *ngIf="placeCode"
         color="light"
+        class="placeCodeResetBtn"
         (click)="clearPlaceCode()"
       >
         <ion-icon name="close" slot="icon-only"></ion-icon>

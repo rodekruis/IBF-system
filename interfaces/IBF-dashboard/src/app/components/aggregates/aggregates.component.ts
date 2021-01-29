@@ -4,11 +4,17 @@ import { Subscription } from 'rxjs';
 import { SourceInfoModalComponent } from 'src/app/components/source-info-modal/source-info-modal.component';
 import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { AggregatesService } from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
+import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
+import {
+  Indicator,
+  IndicatorGroup,
+  IndicatorName,
+} from 'src/app/types/indicator-group';
 
 @Component({
   selector: 'app-aggregates',
@@ -32,6 +38,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private timelineService: TimelineService,
     private aggregatesService: AggregatesService,
     private placeCodeService: PlaceCodeService,
+    private eventService: EventService,
+    private adminLevelService: AdminLevelService,
     private modalController: ModalController,
     private changeDetectorRef: ChangeDetectorRef,
   ) {}
@@ -94,19 +102,24 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return await modal.present();
   }
 
-  public getAggregate(indicatorName, weightedAvg) {
+  public getAggregate(indicatorName: IndicatorName, weightedAvg: boolean) {
     return this.aggregatesService.getAggregate(
-      indicatorName,
       weightedAvg,
+      indicatorName,
       this.placeCode ? this.placeCode.placeCode : null,
     );
   }
 
   public getHeaderLabel() {
+    const country = this.countryService.activeCountry;
+    const adminAreaLabel =
+      country.adminRegionLabels[this.adminLevelService.adminLevel - 1];
     return this.placeCode
       ? this.placeCode.placeCodeName
+      : this.eventService.state.activeTrigger
+      ? 'Exposed ' + adminAreaLabel
       : this.country
-      ? this.country.countryName
+      ? 'All ' + this.country.countryName
       : this.defaultHeaderLabel;
   }
 
