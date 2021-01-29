@@ -1,3 +1,21 @@
+# [0.3.0](https://github.com/rodekruis/IBF-system/compare/v0.2.1...v0.3.0) (2021-01-29)
+
+
+### Bug Fixes
+
+* get abs exposed aggregate vs simple sum AB[#5655](https://github.com/rodekruis/IBF-system/issues/5655) ([00d5bea](https://github.com/rodekruis/IBF-system/commit/00d5bea28f92db21cdbc1dd4c9efa5a51a2e4b10))
+* improve district-selection label AB[#5657](https://github.com/rodekruis/IBF-system/issues/5657) ([b5a246a](https://github.com/rodekruis/IBF-system/commit/b5a246a96f65c7ef9b30f13527a397d0377f1131))
+* improve highlighting of (de)selected districts AB[#5658](https://github.com/rodekruis/IBF-system/issues/5658) ([2296072](https://github.com/rodekruis/IBF-system/commit/22960726e224c42bc46063bcde964d48ea5f051e))
+* remove unused aggregate endpoint AB[#5655](https://github.com/rodekruis/IBF-system/issues/5655) ([2b79ac2](https://github.com/rodekruis/IBF-system/commit/2b79ac2d693a6be90d402e6d128476dfcbb59e3c))
+
+
+### Features
+
+* filter chat+aof-summary on map-area-selection AB[#5660](https://github.com/rodekruis/IBF-system/issues/5660) ([c57561e](https://github.com/rodekruis/IBF-system/commit/c57561e27596810b908fddc50b7d852918301b60))
+* on-click popup behaviour aligns better with pcode-setting AB[#5655](https://github.com/rodekruis/IBF-system/issues/5655) ([418b49f](https://github.com/rodekruis/IBF-system/commit/418b49fc23ec1a362d45b1525784177c74bf2dbd))
+
+
+
 ## [0.2.1](https://github.com/rodekruis/IBF-system/compare/v0.2.0...v0.2.1) (2021-01-29)
 
 
