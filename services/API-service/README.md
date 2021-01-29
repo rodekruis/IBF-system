@@ -1,4 +1,4 @@
-# API-service
+# IBF-API-service
 
 This service creates endpoints which serves data from the IBF-database to (for example) the IBF-interfaces.
 
