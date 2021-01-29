@@ -23,7 +23,6 @@ services:
             context: ./services/API-service
             args:
                 - NODE_ENV=production
-                - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
         image: rodekruis/ibf-api-service
         environment:
             - DB_TYPE=${DB_TYPE}
