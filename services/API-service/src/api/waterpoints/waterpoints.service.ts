@@ -40,7 +40,11 @@ export class WaterpointsService {
         .get(path, { headers: this.headers })
         .subscribe((response): void => {
           const result = response.data;
-          result.features = result.features.filter(feature => feature.geometry.coordinates[0] !== 0 || feature.geometry.coordinates[1] !== 0);
+          result.features = result.features.filter(
+            feature =>
+              feature.geometry.coordinates[0] !== 0 ||
+              feature.geometry.coordinates[1] !== 0,
+          );
           result.features.forEach((feature): void => {
             feature.properties = {
               wpdxId: feature.properties.wpdx_id,
