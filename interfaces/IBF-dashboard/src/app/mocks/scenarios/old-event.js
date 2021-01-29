@@ -52,20 +52,6 @@ export function getTriggeredAreas() {
   ];
 }
 
-export function getMatrixAggregates() {
-  return {
-    population_affected: 0,
-    population: 34416151,
-    vulnerability_index: 3.67468563628745,
-    poverty_incidence: 0.5935475982192198,
-    female_head_hh: 0.236787625234443,
-    population_u8: 0.31127200912153125,
-    population_over65: 0.02857607996315451,
-    wall_type: 0.4440357339494473,
-    roof_type: 0.7053708065146507,
-  };
-}
-
 export function getStations() {
   return {
     type: 'FeatureCollection',

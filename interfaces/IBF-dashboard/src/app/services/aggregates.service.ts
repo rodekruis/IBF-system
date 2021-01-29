@@ -52,13 +52,15 @@ export class AggregatesService {
         pCode: feature.properties.pcode,
       };
       this.indicators.forEach((indicator: Indicator) => {
-        if (indicator.name in feature.properties) {
-          aggregate[indicator.name] = feature.properties[indicator.name];
-        } else if (indicator.name in feature.properties.indicators) {
-          aggregate[indicator.name] =
-            feature.properties.indicators[indicator.name];
-        } else {
-          aggregate[indicator.name] = 0;
+        if (indicator.aggregateIndicator) {
+          if (indicator.name in feature.properties) {
+            aggregate[indicator.name] = feature.properties[indicator.name];
+          } else if (indicator.name in feature.properties.indicators) {
+            aggregate[indicator.name] =
+              feature.properties.indicators[indicator.name];
+          } else {
+            aggregate[indicator.name] = 0;
+          }
         }
       });
       return aggregate;
