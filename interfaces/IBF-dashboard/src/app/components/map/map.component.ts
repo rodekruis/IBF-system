@@ -392,7 +392,7 @@ export class MapComponent implements OnDestroy {
         element.on('mouseover', (event): void => {
           event.target.setStyle({
             fillOpacity: this.mapService.hoverFillOpacity,
-            fillColor: this.eventService.activeTrigger
+            fillColor: this.eventService.state.activeTrigger
               ? this.mapService.alertColor
               : this.mapService.safeColor,
           });
