@@ -52,19 +52,6 @@ export function getTriggeredAreas() {
   ];
 }
 
-export function getMatrixAggregates(leadTime) {
-  var result = {
-    population_affected: 1223.690078735352,
-    female_head_hh: 254,
-    population_u8: 383,
-    population_over65: 45,
-  };
-  if (leadTime === '3-day') {
-    result.population_affected = 0;
-  }
-  return result;
-}
-
 export function getStations(leadTime) {
   var result = {
     type: 'FeatureCollection',

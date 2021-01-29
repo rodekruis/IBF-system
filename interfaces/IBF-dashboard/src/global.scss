@@ -125,6 +125,10 @@
   pointer-events: none;
 }
 
+.leaflet-popup-pane {
+  pointer-events: auto;
+}
+
 .waterpoint-cluster-s {
   border-radius: 18px;
   width: 36px;

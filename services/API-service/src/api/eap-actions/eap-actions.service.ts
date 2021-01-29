@@ -46,7 +46,7 @@ export class EapActionsService {
     action.actionChecked = actionId;
 
     // If no user, take default user for now
-    const user = await this.userRepository.findOne(userId ? userId : 1);
+    const user = await this.userRepository.findOne(userId);
     action.user = user;
 
     const newAction = await this.eapActionStatusRepository.save(action);

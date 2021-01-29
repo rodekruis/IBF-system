@@ -31,12 +31,6 @@ export class MockAPI {
         'triggered-areas': { handler: this.getResponse('getTriggeredAreas') },
         'recent-dates': { handler: this.getResponse('getRecentDates') },
         triggers: { handler: this.getResponse('getTriggerPerLeadTime') },
-        'matrix-aggregates': {
-          handler: this.getResponse(
-            'getMatrixAggregates',
-            this.timelineService.activeLeadTime,
-          ),
-        },
         'admin-area-data': {
           handler: this.getResponse(
             'getAdminRegions',
