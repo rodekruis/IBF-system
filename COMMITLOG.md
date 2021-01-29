@@ -1,4 +1,4 @@
-# [Unreleased](https://github.com/rodekruis/IBF-system/compare/v0.1.5...ae75851c56e90087f20b8b155d412b482cd665ef) (2021-01-28)
+# [0.2.0](https://github.com/rodekruis/IBF-system/compare/v0.1.5...v0.2.0) (2021-01-29)
 
 
 ### Bug Fixes
@@ -16,6 +16,8 @@
 * rename vulnerability layer AB[#5661](https://github.com/rodekruis/IBF-system/issues/5661) ([aa90465](https://github.com/rodekruis/IBF-system/commit/aa904655a36a79896f18b487203e1e277c7ee412))
 * set swagger schema to https ([9c29dab](https://github.com/rodekruis/IBF-system/commit/9c29dab799a9bf786a023b3a7127ac1f431df36d))
 * show error message when EAP update fails ([65d0414](https://github.com/rodekruis/IBF-system/commit/65d0414aacf05e202f24c9b645c5bfc91b318333))
+* test commit for workflow ([a57088d](https://github.com/rodekruis/IBF-system/commit/a57088d5a738ff3c1fa4b4395b72f2604b0de607))
+* useful test commit for workflow ([21ce626](https://github.com/rodekruis/IBF-system/commit/21ce6266e85fb43f4c491665b90b8eb98188f6e7))
 * user controller spec ([b6a8dbc](https://github.com/rodekruis/IBF-system/commit/b6a8dbc4aaeda2291a3074f466e4bf3579687c70))
 * user service spec ([0bf43c4](https://github.com/rodekruis/IBF-system/commit/0bf43c483a3d0d0dac2a305c93831a256bcb7a93))
 
