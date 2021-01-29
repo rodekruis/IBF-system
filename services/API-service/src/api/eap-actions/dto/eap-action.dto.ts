@@ -16,7 +16,7 @@ export class EapActionDto {
   @ApiModelProperty()
   @IsNotEmpty()
   @IsString()
-  @IsIn(['UGA', 'ZMB'])
+  @IsIn(['UGA', 'ZMB', 'KEN', 'ETH'])
   public countryCode: string;
 
   @ApiModelProperty()
