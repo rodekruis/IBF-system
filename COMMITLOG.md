@@ -1,3 +1,12 @@
+# [0.4.0](https://github.com/rodekruis/IBF-system/compare/v0.3.0...v0.4.0) (2021-01-31)
+
+
+### Features
+
+* countries api ([e87c818](https://github.com/rodekruis/IBF-system/commit/e87c8183da0ece940632b0972bb695fc3610b3e4))
+
+
+
 # [0.3.0](https://github.com/rodekruis/IBF-system/compare/v0.2.1...v0.3.0) (2021-01-29)
 
 
