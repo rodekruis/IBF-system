@@ -16,7 +16,10 @@ export class CountryEntity {
   public id: string;
 
   @Column()
-  public countryCode: string;
+  public countryCodeISO3: string;
+
+  @Column()
+  public countryCodeISO2: string;
 
   @Column()
   public countryName: string;
@@ -35,6 +38,12 @@ export class CountryEntity {
 
   @Column({ nullable: true })
   public eapLink: string;
+
+  @Column('text', {
+    array: true,
+    default: (): string => 'array[]::text[]',
+  })
+  public countryLogos: string[];
 
   @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
   public created: Date;

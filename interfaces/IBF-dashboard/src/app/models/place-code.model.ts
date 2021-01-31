@@ -1,5 +1,5 @@
 export class PlaceCode {
-  countryCode: string;
+  countryCodeISO3: string;
   placeCodeName: string;
   placeCode: string;
 }
