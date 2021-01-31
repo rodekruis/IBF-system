@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { MockScenarioModule } from 'src/app/mocks/mock-scenario.module';
 import { LoaderInterceptorService } from 'src/app/services/loader.interceptor.service';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +22,6 @@ import { AppComponent } from './app.component';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production && environment.useServiceWorker,
     }),
-    MockScenarioModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

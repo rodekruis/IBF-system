@@ -57,7 +57,7 @@ export class EventService {
 
   private async getFirstTriggerDate() {
     const timesteps = await this.apiService.getTriggerPerLeadTime(
-      this.countryService.activeCountry.countryCode,
+      this.countryService.activeCountry.countryCodeISO3,
     );
     let firstKey = null;
     Object.keys(timesteps).forEach((key) => {

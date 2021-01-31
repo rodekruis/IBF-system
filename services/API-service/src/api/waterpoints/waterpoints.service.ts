@@ -41,7 +41,7 @@ export class WaterpointsService {
         .subscribe((response): void => {
           const result = response.data;
           result.features = result.features.filter(
-            feature =>
+            (feature): boolean =>
               feature.geometry.coordinates[0] !== 0 ||
               feature.geometry.coordinates[1] !== 0,
           );

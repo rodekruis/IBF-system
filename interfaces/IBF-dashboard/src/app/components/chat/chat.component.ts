@@ -93,7 +93,7 @@ export class ChatComponent implements OnDestroy {
           if (action.pcode === pcode) {
             return this.eapActionsService.checkEapAction(
               action.action,
-              this.countryService.activeCountry.countryCode,
+              this.countryService.activeCountry.countryCodeISO3,
               action.checked,
               action.pcode,
             );
