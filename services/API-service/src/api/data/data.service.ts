@@ -5,16 +5,15 @@ import { EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import {
   AdminAreaDataRecord,
-  TriggeredArea,
-  DisasterEvent,
   CountryMetaData,
-  Aggregates,
+  DisasterEvent,
+  TriggeredArea,
 } from './data.model';
 import {
   GeoJson,
+  GeoJsonFeature,
   GlofasStation,
   RedCrossBranch,
-  GeoJsonFeature,
 } from './geo.model';
 
 @Injectable()

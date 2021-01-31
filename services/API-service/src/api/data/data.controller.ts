@@ -1,17 +1,12 @@
-import { Get, Param, Controller, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import {
-  ApiUseTags,
-  ApiOperation,
-  ApiImplicitParam,
   ApiBearerAuth,
+  ApiImplicitParam,
+  ApiOperation,
+  ApiUseTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
-import {
-  CountryMetaData,
-  TriggeredArea,
-  Aggregates,
-  DisasterEvent,
-} from './data.model';
+import { CountryMetaData, DisasterEvent, TriggeredArea } from './data.model';
 import { DataService } from './data.service';
 import { GeoJson } from './geo.model';
 
