@@ -54,7 +54,8 @@ export class SeedInit implements InterfaceScript {
       countries.map(
         async (country): Promise<CountryEntity> => {
           let countryEntity = new CountryEntity();
-          countryEntity.countryCode = country.countryCode;
+          countryEntity.countryCodeISO3 = country.countryCodeISO3;
+          countryEntity.countryCodeISO2 = country.countryCodeISO2;
           countryEntity.countryName = country.countryName;
           countryEntity.countryStatus = country.countryStatus as CountryStatus;
           countryEntity.defaultAdminLevel = country.defaultAdminLevel as AdminLevel;
@@ -67,6 +68,7 @@ export class SeedInit implements InterfaceScript {
               },
             ),
           });
+          countryEntity.countryLogos = country.countryLogos;
           return countryEntity;
         },
       ),
@@ -87,8 +89,8 @@ export class SeedInit implements InterfaceScript {
           userEntity.lastName = user.lastName;
           userEntity.userRole = user.userRole as UserRole;
           userEntity.countries = await countryRepository.find({
-            where: user.countries.map((countryCode: string): object => {
-              return { countryCode: countryCode };
+            where: user.countries.map((countryCodeISO3: string): object => {
+              return { countryCodeISO3: countryCodeISO3 };
             }),
           });
           userEntity.userStatus = user.userStatus as UserStatus;

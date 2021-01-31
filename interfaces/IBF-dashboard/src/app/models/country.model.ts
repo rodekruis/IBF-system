@@ -3,10 +3,11 @@ import { LeadTime } from 'src/app/types/lead-time';
 
 // tslint:disable: variable-name
 export class Country {
-  countryCode: string;
+  countryCodeISO3: string;
   defaultAdminLevel: AdminLevel;
   countryName: string;
   countryLeadTimes: LeadTime[];
   adminRegionLabels: string[];
   eapLink: string;
+  countryLogos: string[];
 }

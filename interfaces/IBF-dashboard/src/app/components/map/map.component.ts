@@ -406,7 +406,7 @@ export class MapComponent implements OnDestroy {
 
         element.on('click', (): void => {
           this.placeCodeService.setPlaceCode({
-            countryCode: feature.properties.country_code,
+            countryCodeISO3: feature.properties.country_code,
             placeCodeName: feature.properties.name,
             placeCode: feature.properties.pcode,
           });

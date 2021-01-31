@@ -163,7 +163,7 @@ export class UserService {
         userRole: user.userRole,
         userStatus: user.userStatus,
         countries: user.countries.map(
-          (countryEntity): string => countryEntity.countryCode,
+          (countryEntity): string => countryEntity.countryCodeISO3,
         ),
         exp: exp.getTime() / 1000,
       },

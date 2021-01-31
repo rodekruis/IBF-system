@@ -25,7 +25,7 @@ export class AggregatesService {
 
   loadMetadata() {
     this.apiService
-      .getMetadata(this.countryService.activeCountry.countryCode)
+      .getMetadata(this.countryService.activeCountry.countryCodeISO3)
       .then((response) => {
         this.indicators = response;
         this.mapService.hideAggregateLayers();
@@ -42,7 +42,7 @@ export class AggregatesService {
 
   async loadAggregateInformation() {
     const adminRegions = await this.apiService.getAdminRegions(
-      this.countryService.activeCountry.countryCode,
+      this.countryService.activeCountry.countryCodeISO3,
       this.timelineService.activeLeadTime,
       this.adminLevelService.adminLevel,
     );

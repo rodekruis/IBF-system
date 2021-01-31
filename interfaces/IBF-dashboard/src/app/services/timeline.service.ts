@@ -28,7 +28,7 @@ export class TimelineService {
 
   public async loadTimeStepButtons() {
     const dates = await this.apiService.getRecentDates(
-      this.countryService.activeCountry.countryCode,
+      this.countryService.activeCountry.countryCodeISO3,
     );
     this.state.today = moment(dates[0].value);
 
@@ -89,14 +89,14 @@ export class TimelineService {
 
   public async getTrigger(): Promise<any> {
     const trigger = await this.apiService.getTriggerPerLeadTime(
-      this.countryService.activeCountry.countryCode,
+      this.countryService.activeCountry.countryCodeISO3,
     );
     return trigger;
   }
 
   public async getEvent(): Promise<any> {
     const event = await this.apiService.getEvent(
-      this.countryService.activeCountry.countryCode,
+      this.countryService.activeCountry.countryCodeISO3,
     );
     return event;
   }
