@@ -13,7 +13,7 @@ import { RolesGuard } from '../../roles.guard';
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
 @ApiUseTags('waterpoints')
-@Controller()
+@Controller('waterpoints')
 export class WaterpointsController {
   private readonly waterpointsService: WaterpointsService;
 
@@ -23,7 +23,7 @@ export class WaterpointsController {
 
   @ApiOperation({ title: 'Get waterpoint data' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('waterpoints/:countryCode')
+  @Get(':countryCode')
   public async getWaterpoints(
     @Param() params,
   ): Promise<AxiosResponse<GeoJson>> {
