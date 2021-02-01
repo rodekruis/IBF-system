@@ -44,7 +44,7 @@
     "pg": "^7.9.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.4.0",
-    "slug": "^1.0.0",
+    "slug": "^4.0.2",
     "tsc-watch": "^2.1.2",
     "typeorm": "^0.2.15",
     "typescript": "^3.3.1",
