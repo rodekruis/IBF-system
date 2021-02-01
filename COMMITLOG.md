@@ -1,3 +1,13 @@
+## [0.4.4](https://github.com/rodekruis/IBF-system/compare/v0.4.3...v0.4.4) (2021-02-01)
+
+
+### Bug Fixes
+
+* bug in migration-part deploy-script ([8f27104](https://github.com/rodekruis/IBF-system/commit/8f27104a8e1389d8b37014bd8a585c70c7cc2ae0))
+* load aggregates within metadata-call AB[#5655](https://github.com/rodekruis/IBF-system/issues/5655) ([2510e86](https://github.com/rodekruis/IBF-system/commit/2510e868c09b6ebdd256ffb4d4dc98488f5b7d8b))
+
+
+
 ## [0.4.3](https://github.com/rodekruis/IBF-system/compare/v0.4.2...v0.4.3) (2021-02-01)
 
 
@@ -178,10 +188,6 @@
 * update mock-data with abs. exposed numbers AB[#5544](https://github.com/rodekruis/IBF-system/issues/5544) ([49dec20](https://github.com/rodekruis/IBF-system/commit/49dec20faf0da61249e6a779ce7ceb450862addd))
 * use salmon colors only if active trigger ([8b2db22](https://github.com/rodekruis/IBF-system/commit/8b2db22130a72c007b91cdf6d0a28c7436f1784c))
 * use today component AB[#5267](https://github.com/rodekruis/IBF-system/issues/5267) ([9f14704](https://github.com/rodekruis/IBF-system/commit/9f14704d5c9f873db48929c4d9117373bd06139a))
-
-
-
-## [0.1.3](https://github.com/rodekruis/IBF-system/compare/v0.1.2...v0.1.3) (2020-11-23)
 
 
 
