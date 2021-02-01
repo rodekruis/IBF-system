@@ -134,23 +134,49 @@
 //   margin: 0;
 // }
 
-.waterpoint-cluster-s {
-  border-radius: 18px;
-  width: 36px;
-  height: 36px;
+.waterpoint-cluster-10 {
+  border-radius: 24px;
+  width: 48px;
+  height: 48px;
   background-color: #011d41;
   color: white;
-  padding-top: 9px;
+  padding-top: 7px;
   text-align: center;
+  opacity: 0.7 !important;
 }
 
-.waterpoint-cluster-l {
-  border-radius: 27px;
-  width: 54px;
-  height: 54px;
+.waterpoint-cluster-100 {
+  border-radius: 30px;
+  width: 60px;
+  height: 60px;
   background-color: #011d41;
   color: white;
   text-align: center;
-  padding-top: 17px;
+  padding-top: 10px;
   box-sizing: border-box;
+  opacity: 0.7 !important;
+}
+
+.waterpoint-cluster-1000 {
+  border-radius: 36px;
+  width: 72px;
+  height: 72px;
+  background-color: #011d41;
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  box-sizing: border-box;
+  opacity: 0.7 !important;
+}
+
+.waterpoint-cluster-10000 {
+  border-radius: 48px;
+  width: 96px;
+  height: 966px;
+  background-color: #011d41;
+  color: white;
+  text-align: center;
+  padding-top: 30px;
+  box-sizing: border-box;
+  opacity: 0.7 !important;
 }
