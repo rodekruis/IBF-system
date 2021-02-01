@@ -360,22 +360,22 @@ export class MapComponent implements OnDestroy {
           let size: number;
           let className: string;
           switch (true) {
-            case (clusterSize <=10):
-                size = 30
-                className = 'waterpoint-cluster-10'
-                break;
-            case (clusterSize < 100):
-                size = 40
-                className = 'waterpoint-cluster-100'
-                break;
-            case (clusterSize < 1000):
-                size = 60
-                className = 'waterpoint-cluster-1000'
-                break;
+            case clusterSize <= 10:
+              size = 30;
+              className = 'waterpoint-cluster-10';
+              break;
+            case clusterSize < 100:
+              size = 40;
+              className = 'waterpoint-cluster-100';
+              break;
+            case clusterSize < 1000:
+              size = 60;
+              className = 'waterpoint-cluster-1000';
+              break;
             default:
-                size = 80
-                className = 'waterpoint-cluster-10000'
-                break;
+              size = 80;
+              className = 'waterpoint-cluster-10000';
+              break;
           }
           return divIcon({
             html: '<b>' + String(clusterSize) + '</b>',
