@@ -23,7 +23,7 @@ export class AggregatesService {
     private mapService: MapService,
   ) {}
 
-  loadMetadata() {
+  loadMetadataAndAggregates() {
     this.apiService
       .getMetadata(this.countryService.activeCountry.countryCodeISO3)
       .then((response) => {
@@ -33,6 +33,8 @@ export class AggregatesService {
           this.mapService.loadAggregateLayer(indicator);
         });
         this.indicatorSubject.next(this.indicators);
+
+        this.loadAggregateInformation();
       });
   }
 
