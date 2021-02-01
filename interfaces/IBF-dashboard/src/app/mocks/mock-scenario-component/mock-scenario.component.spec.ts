@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { MockScenarioService } from '../mock-scenario-service/mock-scenario.service';
 import { MockScenarioComponent } from './mock-scenario.component';
@@ -11,7 +12,7 @@ describe('MockScenarioComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MockScenarioComponent],
-      imports: [IonicModule, HttpClientTestingModule],
+      imports: [IonicModule, HttpClientTestingModule, RouterTestingModule],
       providers: [MockScenarioService],
     }).compileComponents();
 
