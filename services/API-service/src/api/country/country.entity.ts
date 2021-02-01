@@ -1,10 +1,11 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
+  Entity,
   JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+import { BoundingBox } from '../data/geo.model';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { UserEntity } from '../user/user.entity';
 import { AdminLevel } from './admin-level.enum';
@@ -44,6 +45,9 @@ export class CountryEntity {
     default: (): string => 'array[]::text[]',
   })
   public countryLogos: string[];
+
+  @Column('geometry')
+  public countryBoundingBox: BoundingBox;
 
   @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
   public created: Date;
