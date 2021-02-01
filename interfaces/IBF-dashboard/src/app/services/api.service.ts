@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Country } from 'src/app/models/country.model';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
@@ -108,7 +108,18 @@ export class ApiService {
   }
 
   getCountries(): Promise<Country[]> {
-    return this.get(environment.api_url, `country`, false).toPromise();
+    return this.get(environment.api_url, `country`, false)
+      .pipe(
+        map((countries) => {
+          return countries.map((country) => {
+            country.countryLeadTimes = country.countryLeadTimes.map(
+              (leadTime) => leadTime.leadTimeName,
+            );
+            return country;
+          });
+        }),
+      )
+      .toPromise();
   }
 
   getStations(
