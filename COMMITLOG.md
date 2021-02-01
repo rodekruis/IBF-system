@@ -1,3 +1,15 @@
+## [0.4.1](https://github.com/rodekruis/IBF-system/compare/v0.4.0...v0.4.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* aggregates header country variable ([d559d35](https://github.com/rodekruis/IBF-system/commit/d559d35132ec216fd465a1908477c82a124adba1))
+* country api should return lead times ([2ec22df](https://github.com/rodekruis/IBF-system/commit/2ec22dfd4b276920d6c626e6ea522e0f1dde5025))
+* filter countries by user on load ([6fa0a35](https://github.com/rodekruis/IBF-system/commit/6fa0a35e4522451349e1168f4f7b4d4fc525d19c))
+* tests ([1e72d0e](https://github.com/rodekruis/IBF-system/commit/1e72d0ecf337cd405601f56091483abe8444ae23))
+
+
+
 # [0.4.0](https://github.com/rodekruis/IBF-system/compare/v0.3.0...v0.4.0) (2021-01-31)
 
 
@@ -165,70 +177,6 @@
 
 
 ## [0.1.1](https://github.com/rodekruis/IBF-system/compare/v0.1.0...v0.1.1) (2020-11-15)
-
-
-### Bug Fixes
-
-* add sudo to deploy ([f1ddcbf](https://github.com/rodekruis/IBF-system/commit/f1ddcbfd48c421e168b919ef637896e1732b2afe))
-* add sudo to webhook and deploy ([fd05d00](https://github.com/rodekruis/IBF-system/commit/fd05d006d5391fcbc637aa105df74d2c4027296a))
-* azure web app fails if web interface service terminates ([58bd595](https://github.com/rodekruis/IBF-system/commit/58bd5953ba9c81b949b123106f65c44ce1e4d165))
-* check aggregates response to be not null ([78df42a](https://github.com/rodekruis/IBF-system/commit/78df42a6b8cb131b9ea00bef8ab1fc04165069f4))
-* do not wrap eap and layer labels ([cec8136](https://github.com/rodekruis/IBF-system/commit/cec81362e5131388c5bc206cdb4b8c9576bd2f99))
-* enable prod build for interface ([16ea270](https://github.com/rodekruis/IBF-system/commit/16ea2706f98df06e11ea17e5e0b449f2d888c76b))
-* make handleTimeStepButtonClick public ([256e483](https://github.com/rodekruis/IBF-system/commit/256e4833a9782d9f8298afe5ec7774d43767ce6a))
-* make ibf layer data only a feature collection ([382717e](https://github.com/rodekruis/IBF-system/commit/382717eb60403b90dd969575dcf74df9512164e3))
-* ng lint ([9b4c066](https://github.com/rodekruis/IBF-system/commit/9b4c0665e233cbf0c43605ed3959242a279339aa))
-* remove conflicting lint ([df2a1e4](https://github.com/rodekruis/IBF-system/commit/df2a1e4b417f8ce727e451c4dec3bfdc316a0d6d))
-* run prettier fix ([71f4ddd](https://github.com/rodekruis/IBF-system/commit/71f4ddd09045ab3d3433a8811fb34b887f532b27))
-* serve interface from www folder instead of dist to avoid conflict ([7a41a61](https://github.com/rodekruis/IBF-system/commit/7a41a61951060ca7fc1cce1fb48ff92542d106f1))
-* set default initial value for layers variable to pass tests ([f589316](https://github.com/rodekruis/IBF-system/commit/f589316b32f87704cd2f0214e953059e2a45cf0b))
-* set env vars after code pull ([ec8057d](https://github.com/rodekruis/IBF-system/commit/ec8057d5673a7863eb4e63343b3ed2c769ae56ea))
-* set map bounds only if features are present ([33dc805](https://github.com/rodekruis/IBF-system/commit/33dc8052982cb8f550fc3635d852526d06550fe7))
-* string env vars need to be converted to boolean ([47cbead](https://github.com/rodekruis/IBF-system/commit/47cbeade36e0b7c53aba56c80ed20d71baadc092))
-* switch back to bash command in webhook.js ([4879995](https://github.com/rodekruis/IBF-system/commit/487999593c14a4b4f74767e184eb884b58bd0ba8))
-* test spec for timeline component ([c830209](https://github.com/rodekruis/IBF-system/commit/c830209b9cd7a9f67c98c0e63081e2de017f3159))
-* test spec for timeline service ([0358364](https://github.com/rodekruis/IBF-system/commit/03583646ddca778417198f99bca4ce67b279b230))
-* update docker image link in azure config ([d254414](https://github.com/rodekruis/IBF-system/commit/d254414a0151356b6f3732c2677d1429d341a3d2))
-* use correct remote in deploy ([d7ac3b7](https://github.com/rodekruis/IBF-system/commit/d7ac3b79e0c3bf30ff6167c97e3ccf027b9f068d))
-* use IMAGE_NAME as build tag ([49dbe9d](https://github.com/rodekruis/IBF-system/commit/49dbe9d06b39b6c55c96a0809a5f0c7a00b12a6b))
-* use ReplaySubject instead of Subject ([624fe76](https://github.com/rodekruis/IBF-system/commit/624fe7634526fc4b145dad28fecc9c4e4d9150c9))
-
-
-### Features
-
-* :sparkles: show aggregate information ([d1bfc97](https://github.com/rodekruis/IBF-system/commit/d1bfc975cf9c254447a5a27d6dfb89480a0fb154))
-* add admin region layer ([115cddd](https://github.com/rodekruis/IBF-system/commit/115cdddd3b9349ba12ec41a309fbb731c7b994bb))
-* add country table and map users to country ([49c8722](https://github.com/rodekruis/IBF-system/commit/49c872233dc4b562abc12bcc3408a6d4cb500fb0))
-* add dockerfile for web interface, create docker compose for ci ([3df1ba2](https://github.com/rodekruis/IBF-system/commit/3df1ba287c9a331a3a43ca8d185dc1ebad59abe6))
-* add helper package json file at root directory ([970c965](https://github.com/rodekruis/IBF-system/commit/970c965ae12bf7eb5d713cbdb9d136fa236fab4c))
-* added build hooks to pass env vars ([822f398](https://github.com/rodekruis/IBF-system/commit/822f398d801b5b8e720c823fc1784161f5281b58))
-* country dropdown ([f7569ec](https://github.com/rodekruis/IBF-system/commit/f7569ecf425a0d2bb8a5239e8e082f458ba06abf))
-* flood extent for Uganda ([a335c28](https://github.com/rodekruis/IBF-system/commit/a335c287a17e9816fd8913e10189fa4e197ac603))
-* format toolbar ([51910f7](https://github.com/rodekruis/IBF-system/commit/51910f7fa53f922fe093a969c3a9c29a70d8df5a))
-* host geoserver via api service using http proxy middleware ([9ffc313](https://github.com/rodekruis/IBF-system/commit/9ffc31336e589366f2551c0add282f6c8d84dc62))
-* ibf color vars ([b7d76d0](https://github.com/rodekruis/IBF-system/commit/b7d76d0fad06f5df05769c971bc5919d0d72af0f))
-* log env vars ([345f9cf](https://github.com/rodekruis/IBF-system/commit/345f9cfd350b5026d6813417b05d87483b77445d))
-* login page styling ([3a3c3af](https://github.com/rodekruis/IBF-system/commit/3a3c3af8f878fd43ce726340a8e44ab99c6510d3))
-* login page styling ([b94b856](https://github.com/rodekruis/IBF-system/commit/b94b856f82358d763e816a14f22df7b190ce5e8b))
-* move default constant string to map service ([5e0862c](https://github.com/rodekruis/IBF-system/commit/5e0862cf13b41a2df85c867c891611c331eeb1b5))
-* reload admin region layer only on country change ([95dd888](https://github.com/rodekruis/IBF-system/commit/95dd888b7642b71ca81f78e7602a2aef77255f4b))
-* remove lat lng from docker compose and env file ([fbd5778](https://github.com/rodekruis/IBF-system/commit/fbd5778fb01cd6033b51a09e46d55211d2df694c))
-* remove lat lng from env vars ([0454721](https://github.com/rodekruis/IBF-system/commit/0454721fab549cf8112862dc15135839697eb7d2))
-* remove unused admin region model ([e8d8e51](https://github.com/rodekruis/IBF-system/commit/e8d8e51bce642e323d54d28ce5c2df905554daf5))
-* serve static frontend build via backend, remove nginx, use prod build for frontend ([018d6f0](https://github.com/rodekruis/IBF-system/commit/018d6f0b8b310a9bc07b7ae4c11ea56e6c586057))
-* set title ([cfdd591](https://github.com/rodekruis/IBF-system/commit/cfdd5910d90d3094e6711366c11c87306200bc75))
-* support upto 14 day forecasts ([6ba2031](https://github.com/rodekruis/IBF-system/commit/6ba20318b98cc124f27eab426f50c4cf1272221e))
-* switch to gradient of colors ([4fc7250](https://github.com/rodekruis/IBF-system/commit/4fc72506b8f06063f35a8b7f46b1e4048a6479f2))
-* timeline and setup layer subscribers ([3d05310](https://github.com/rodekruis/IBF-system/commit/3d0531066815b90bab182f8d7fc4a8bbf19b3f2d))
-* timeline update based on review ([a424bbe](https://github.com/rodekruis/IBF-system/commit/a424bbe8f62055c06d2f8309802f7e9a6648fcd6))
-* update icon ([60d3945](https://github.com/rodekruis/IBF-system/commit/60d3945e78313add5d4a1016fa55a4c227f60dbc))
-* use dotenv file for secrets and config ([cd09693](https://github.com/rodekruis/IBF-system/commit/cd096934e46909131872f9be710a58825b8bce5e))
-* user state component ([07bcb1a](https://github.com/rodekruis/IBF-system/commit/07bcb1a8eef1e25d77cf591728b55b3a1d0bdd88))
-
-
-### Reverts
-
-* Revert "add context to docker, fix dependencies in SQL, update README" ([4b99a9d](https://github.com/rodekruis/IBF-system/commit/4b99a9d740dea8b5e6663a413925438f2b8b70f7))
 
 
 
