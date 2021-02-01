@@ -26,7 +26,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public groups: IndicatorGroup[] = [];
   public placeCode: PlaceCode;
   private country: Country;
-  private defaultHeaderLabel: string = 'Loading';
+  private defaultHeaderLabel: string = '...Loading';
 
   private indicatorSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -49,23 +49,20 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       this.countryService.activeCountry &&
       this.timelineService.activeLeadTime
     ) {
-      this.aggregatesService.loadMetadata();
-      this.aggregatesService.loadAggregateInformation();
+      this.aggregatesService.loadMetadataAndAggregates();
     }
 
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.country = country;
-        this.aggregatesService.loadMetadata();
-        this.aggregatesService.loadAggregateInformation();
+        this.aggregatesService.loadMetadataAndAggregates();
       });
 
     this.timelineSubscription = this.timelineService
       .getTimelineSubscription()
       .subscribe((timeline) => {
-        this.aggregatesService.loadMetadata();
-        this.aggregatesService.loadAggregateInformation();
+        this.aggregatesService.loadMetadataAndAggregates();
       });
 
     this.placeCodeSubscription = this.placeCodeService
