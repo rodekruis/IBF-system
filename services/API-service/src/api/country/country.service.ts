@@ -7,8 +7,11 @@ import { CountryEntity } from './country.entity';
 export class CountryService {
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
+  private readonly relations: string[] = ['countryLeadTimes'];
 
   public async getCountries(): Promise<CountryEntity[]> {
-    return this.countryRepository.find();
+    return await this.countryRepository.find({
+      relations: this.relations,
+    });
   }
 }
