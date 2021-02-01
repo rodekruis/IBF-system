@@ -22,6 +22,8 @@ import { Indicator, IndicatorName } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
+import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
+import { MockScenario } from '../mocks/mock-scenario.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -55,7 +57,17 @@ export class MapService {
     private apiService: ApiService,
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
-  ) {}
+    private mockScenarioService: MockScenarioService,
+  ) {
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe((mockScenario: MockScenario) => {
+        this.loadAdminRegionLayer();
+        this.loadStationLayer();
+        this.loadRedCrossBranchesLayer();
+        this.loadWaterpointsLayer();
+      });
+  }
 
   public async loadStationLayer() {
     this.addLayer({
