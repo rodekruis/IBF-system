@@ -129,6 +129,11 @@
   pointer-events: auto;
 }
 
+// This also changes the margin of other popups, which we don't want..
+// .leaflet-popup-content {
+//   margin: 0;
+// }
+
 .waterpoint-cluster-s {
   border-radius: 18px;
   width: 36px;

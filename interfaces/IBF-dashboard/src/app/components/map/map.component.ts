@@ -511,6 +511,7 @@ export class MapComponent implements OnDestroy {
     });
     markerInstance.bindPopup(
       this.createMarkerWaterpointPopup(markerProperties),
+      { maxWidth: 560 },
     );
 
     return markerInstance;
@@ -519,48 +520,88 @@ export class MapComponent implements OnDestroy {
   private createMarkerStationPopup(markerProperties: Station): string {
     const percentageTrigger =
       markerProperties.fc / markerProperties.trigger_level;
-    const color = percentageTrigger < 1 ? '#a5d4a1' : '#d7301f';
-
-    const fullWidth = 50;
+    const color = percentageTrigger < 1 ? 'lightgrey' : 'salmon';
+    const eapStatusText = percentageTrigger < 1 ? 'No action' : 'Activate EAP';
 
     const stationInfoPopup =
-      '<div style="margin-bottom: 5px">' +
-      '<strong>' +
+      '<div style="background-color: blue; color: white; padding: 5px; margin-bottom: 5px"> \
+    <strong>' +
       markerProperties.station_name +
-      '</strong>' +
-      ' (' +
+      '</strong> (' +
       markerProperties.station_code +
-      ')' +
-      '</div>' +
-      '<div style="margin-bottom: 5px">' +
-      'Forecast: ' +
-      '<span style="color:' +
-      color +
-      '">' +
-      Math.round(markerProperties.fc) +
-      ' m<sup>3</sup>/s' +
-      '</span>' +
-      '<div style="border-radius:5px;height:12px;background-color:' +
-      color +
-      '; width: ' +
+      ') \
+  </div> \
+  <div style="margin-left:5px"> \
+    <div style="margin-bottom:5px">Forecast river discharge in m<sup>3</sup>/s</div> \
+    <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
+      <div style="border-radius:10px 0 0 10px;height:20px;background-color:lightgrey; width: 80%"> \
+        <div style="border-radius:10px;height:20px;background-color:blue; color:white; display: flex; white-space: nowrap; width:' +
       Math.max(
         Math.min(
           Math.round(
-            (markerProperties.fc / markerProperties.trigger_level) * fullWidth,
+            (markerProperties.fc / markerProperties.trigger_level) * 100,
           ),
-          fullWidth,
+          100,
         ),
         0,
       ) +
-      '%"></div>' +
-      '</div>' +
-      '<div>Trigger : ' +
+      '%"><span>' +
+      markerProperties.fc +
+      ' m<sup>3</sup>/s</span></div> \
+      </div> \
+    </div> \
+    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; text-align: right; width: 80%; margin-bottom:10px"> \
+      Trigger activation threshold: ' +
       Math.round(markerProperties.trigger_level) +
-      ' m<sup>3</sup>/s' +
-      '<div style="border-radius:5px;height:12px;background-color:grey;width:' +
-      fullWidth +
-      '%"></div>' +
-      '</div>';
+      ' m<sup>3</sup>/s<span>   </span> \
+    </div> \
+  </div> \
+  <div style="background-color: ' +
+      color +
+      '; color: black; padding: 10px; margin-bottom: 5px; text-align: center; text-transform:uppercase"> \
+    <strong>' +
+      eapStatusText +
+      '</strong> \
+  </div>';
+
+    // const stationInfoPopup =
+    //   '<div style="margin-bottom: 5px">' +
+    //   '<strong>' +
+    //   markerProperties.station_name +
+    //   '</strong>' +
+    //   ' (' +
+    //   markerProperties.station_code +
+    //   ')' +
+    //   '</div>' +
+    //   '<div style="margin-bottom: 5px">' +
+    //   'Forecast: ' +
+    //   '<span style="color:' +
+    //   color +
+    //   '">' +
+    //   Math.round(markerProperties.fc) +
+    //   ' m<sup>3</sup>/s' +
+    //   '</span>' +
+    //   '<div style="border-radius:5px;height:12px;background-color:' +
+    //   color +
+    //   '; width: ' +
+    //   Math.max(
+    //     Math.min(
+    //       Math.round(
+    //         (markerProperties.fc / markerProperties.trigger_level) * fullWidth,
+    //       ),
+    //       fullWidth,
+    //     ),
+    //     0,
+    //   ) +
+    //   '%"></div>' +
+    //   '</div>' +
+    //   '<div>Trigger : ' +
+    //   Math.round(markerProperties.trigger_level) +
+    //   ' m<sup>3</sup>/s' +
+    //   '<div style="border-radius:5px;height:12px;background-color:grey;width:' +
+    //   fullWidth +
+    //   '%"></div>' +
+    //   '</div>';
     return stationInfoPopup;
   }
 
