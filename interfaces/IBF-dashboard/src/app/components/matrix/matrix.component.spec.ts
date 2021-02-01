@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { MapService } from 'src/app/services/map.service';
 import { MatrixComponent } from './matrix.component';
@@ -11,7 +12,7 @@ describe('MatrixComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MatrixComponent],
-      imports: [IonicModule, HttpClientTestingModule],
+      imports: [IonicModule, HttpClientTestingModule, RouterTestingModule],
       providers: [{ provide: MapService }],
     }).compileComponents();
 
