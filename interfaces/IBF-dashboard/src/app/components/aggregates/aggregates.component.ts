@@ -111,16 +111,24 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   public getHeaderLabel() {
+    let headerLabel = this.defaultHeaderLabel;
     const country = this.countryService.activeCountry;
     const adminAreaLabel =
       country.adminRegionLabels[this.adminLevelService.adminLevel - 1];
-    return this.placeCode
-      ? this.placeCode.placeCodeName
-      : this.eventService.state.activeTrigger
-      ? 'Exposed ' + adminAreaLabel
-      : this.country
-      ? 'All ' + this.country.countryName
-      : this.defaultHeaderLabel;
+
+    if (this.placeCode) {
+      headerLabel = this.placeCode.placeCodeName;
+    } else {
+      if (this.eventService.state.activeTrigger) {
+        headerLabel = 'Exposed ' + adminAreaLabel;
+      } else {
+        if (country) {
+          headerLabel = 'All ' + country.countryName;
+        }
+      }
+    }
+
+    return headerLabel;
   }
 
   public clearPlaceCode() {
