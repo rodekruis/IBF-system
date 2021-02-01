@@ -1,3 +1,12 @@
+## [0.4.2](https://github.com/rodekruis/IBF-system/compare/v0.4.1...v0.4.2) (2021-02-01)
+
+
+### Bug Fixes
+
+* waterpoints api should use polygon filter ([ec4541a](https://github.com/rodekruis/IBF-system/commit/ec4541ae75de84da72d551b4444faad76af7b0fa))
+
+
+
 ## [0.4.1](https://github.com/rodekruis/IBF-system/compare/v0.4.0...v0.4.1) (2021-02-01)
 
 
@@ -173,10 +182,6 @@
 ### Bug Fixes
 
 * disable default uppercase on all ionic buttons ([78f1c73](https://github.com/rodekruis/IBF-system/commit/78f1c7350cfc6e37c80eed7c925567cf5022fa6b))
-
-
-
-## [0.1.1](https://github.com/rodekruis/IBF-system/compare/v0.1.0...v0.1.1) (2020-11-15)
 
 
 
