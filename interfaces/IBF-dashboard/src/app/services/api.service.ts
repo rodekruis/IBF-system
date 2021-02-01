@@ -1,9 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { Country } from 'src/app/models/country.model';
 import { JwtService } from 'src/app/services/jwt.service';
-import { AdminLevel } from 'src/app/types/admin-level.enum';
+import { AdminLevel } from 'src/app/types/admin-level';
+import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -105,65 +107,82 @@ export class ApiService {
     );
   }
 
+  getCountries(): Promise<Country[]> {
+    return this.get(environment.api_url, `country`, false)
+      .pipe(
+        map((countries) => {
+          return countries.map((country) => {
+            country.countryLeadTimes = country.countryLeadTimes.map(
+              (leadTime) => leadTime.leadTimeName,
+            );
+            return country;
+          });
+        }),
+      )
+      .toPromise();
+  }
+
   getStations(
-    countryCode: string,
-    leadTime: string,
+    countryCodeISO3: string,
+    leadTime: LeadTime = LeadTime.day7,
   ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
-      `stations/${countryCode}/${leadTime}`,
+      `stations/${countryCodeISO3}/${leadTime}`,
       false,
     ).toPromise();
   }
 
-  getRedCrossBranches(countryCode: string): Promise<GeoJSON.FeatureCollection> {
+  getRedCrossBranches(
+    countryCodeISO3: string,
+  ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
-      `red-cross-branches/${countryCode}`,
+      `red-cross-branches/${countryCodeISO3}`,
       false,
     ).toPromise();
   }
 
-  getWaterpoints(countryCode: string): Promise<GeoJSON.FeatureCollection> {
+  getWaterpoints(countryCodeISO3: string): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
-      `waterpoints/${countryCode}`,
+      `waterpoints/${countryCodeISO3}`,
       false,
     ).toPromise();
   }
 
-  getRecentDates(countryCode: string): Promise<any> {
+  getRecentDates(countryCodeISO3: string): Promise<any> {
     return this.get(
       environment.api_url,
-      `recent-dates/${countryCode}`,
+      `recent-dates/${countryCodeISO3}`,
       false,
     ).toPromise();
   }
 
-  getTriggerPerLeadTime(countryCode: string): Promise<number> {
+  getTriggerPerLeadTime(countryCodeISO3: string): Promise<number> {
     return this.get(
       environment.api_url,
-      `triggers/${countryCode}`,
+      `triggers/${countryCodeISO3}`,
       false,
     ).toPromise();
   }
 
-  getEvent(countryCode: string): Promise<any> {
+  getEvent(countryCodeISO3: string): Promise<any> {
     return this.get(
       environment.api_url,
-      `event/${countryCode}`,
+      `event/${countryCodeISO3}`,
       false,
     ).toPromise();
   }
 
   getAdminRegions(
-    countryCode: string,
-    leadTime: string,
-    adminLevel: AdminLevel,
+    countryCodeISO3: string,
+    leadTime: LeadTime = LeadTime.day7,
+    adminLevel: AdminLevel = AdminLevel.adm1,
   ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
       environment.api_url,
-      `admin-area-data/${countryCode}/${adminLevel}/${leadTime}`,
+      `admin-area-data/${countryCodeISO3}/${adminLevel}/${leadTime}`,
       false,
     ).toPromise();
   }
@@ -176,22 +195,10 @@ export class ApiService {
     ).toPromise();
   }
 
-  getMatrixAggregates(
-    countryCode: string,
-    leadTime: string,
-    adminLevel: AdminLevel,
-  ) {
+  getMetadata(countryCodeISO3: string) {
     return this.get(
       environment.api_url,
-      `matrix-aggregates/${countryCode}/${adminLevel}/${leadTime}`,
-      false,
-    ).toPromise();
-  }
-
-  getMetadata(countryCode: string) {
-    return this.get(
-      environment.api_url,
-      `metadata/${countryCode}`,
+      `metadata/${countryCodeISO3}`,
       false,
     ).toPromise();
   }
@@ -204,17 +211,17 @@ export class ApiService {
     ).toPromise();
   }
 
-  getEapActions(countryCode: string, pcode: string, event: number) {
+  getEapActions(countryCodeISO3: string, pcode: string, event: number) {
     return this.get(
       environment.api_url,
-      `eap-actions/${countryCode}/${pcode}/${event}`,
+      `eap-actions/${countryCodeISO3}/${pcode}/${event}`,
       false,
     ).toPromise();
   }
 
   checkEapAction(
     action: string,
-    countryCode: string,
+    countryCodeISO3: string,
     status: boolean,
     pcode: string,
     event: number,
@@ -224,7 +231,7 @@ export class ApiService {
       `eap-actions`,
       {
         action,
-        countryCode,
+        countryCodeISO3,
         status,
         pcode,
         event,

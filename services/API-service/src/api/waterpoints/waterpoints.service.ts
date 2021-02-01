@@ -1,6 +1,6 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { GeoJson } from 'src/models/geo.model';
+import { GeoJson } from '../data/geo.model';
 
 @Injectable()
 export class WaterpointsService {
@@ -29,8 +29,8 @@ export class WaterpointsService {
     }
     const path =
       `https://data.waterpointdata.org/resource/amwk-dedf.geojson?` +
-      `$where=water_source is not null AND ` +
-      `water_source !='Lake'&` +
+      `$where=water_source is not null` +
+      ` AND water_source !='Lake'&` +
       `$limit=100000&` +
       `status_id=yes&` +
       `country_id=${countryCodeShort}`;
@@ -40,6 +40,11 @@ export class WaterpointsService {
         .get(path, { headers: this.headers })
         .subscribe((response): void => {
           const result = response.data;
+          result.features = result.features.filter(
+            (feature): boolean =>
+              feature.geometry.coordinates[0] !== 0 ||
+              feature.geometry.coordinates[1] !== 0,
+          );
           result.features.forEach((feature): void => {
             feature.properties = {
               wpdxId: feature.properties.wpdx_id,

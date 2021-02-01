@@ -1,38 +1,46 @@
 [
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
+    "countryCodeISO2": "UG",
     "countryName": "Uganda",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
-    "countryForecasts": ["7-day"],
+    "countryLeadTimes": ["7-day"],
     "adminRegionLabels": ["Regions", "Districts", "Counties", "Parishes"],
-    "eapLink": "https://docs.google.com/document/d/1IiG2ZFasCVE7kmYfqgyrx7SuZWkoYzTvw3LaEt2nl2U/edit#heading=h.35nkun2"
+    "eapLink": "https://docs.google.com/document/d/1IiG2ZFasCVE7kmYfqgyrx7SuZWkoYzTvw3LaEt2nl2U/edit#heading=h.35nkun2",
+    "countryLogos": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.svg"]
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
+    "countryCodeISO2": "ZM",
     "countryName": "Zambia",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
-    "countryForecasts": ["3-day", "7-day"],
+    "countryLeadTimes": ["3-day", "7-day"],
     "adminRegionLabels": ["Provinces", "Districts", "Wards"],
-    "eapLink": "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#bookmark=id.xa68na3bshzr"
+    "eapLink": "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#bookmark=id.xa68na3bshzr",
+    "countryLogos": ["ZMB-warma.png", "ZMB-government.svg", "ZMB-zrcs.png"]
   },
   {
-    "countryCode": "KEN",
+    "countryCodeISO3": "KEN",
+    "countryCodeISO2": "KE",
     "countryName": "Kenya",
     "countryStatus": "active",
     "defaultAdminLevel": 1,
-    "countryForecasts": ["7-day"],
+    "countryLeadTimes": ["7-day"],
     "adminRegionLabels": ["Counties", "Subcounties", "Wards"],
-    "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9"
+    "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9",
+    "countryLogos": ["KEN-krcs.png"]
   },
   {
-    "countryCode": "ETH",
+    "countryCodeISO3": "ETH",
+    "countryCodeISO2": "ET",
     "countryName": "Ethiopia",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
-    "countryForecasts": ["7-day"],
+    "countryLeadTimes": ["7-day"],
     "adminRegionLabels": ["Regions", "Zones", "Woredas"],
-    "eapLink": "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx"
+    "eapLink": "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx",
+    "countryLogos": ["ETH-ercs.png"]
   }
 ]

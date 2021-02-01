@@ -1,10 +1,12 @@
-import { AdminLevel } from 'src/app/types/admin-level.enum';
+import { AdminLevel } from 'src/app/types/admin-level';
+import { LeadTime } from 'src/app/types/lead-time';
 
 export default {
-  countryCode: 'UGA',
+  countryCodeISO3: 'UGA',
   defaultAdminLevel: AdminLevel.adm2,
   countryName: 'Uganda',
-  countryForecasts: ['7-day'],
+  countryLeadTimes: [LeadTime.day7],
   adminRegionLabels: ['Regions', 'Districts', 'Parishes'],
   eapLink: 'string',
+  countryLogos: ['UGA-unma.png', 'UGA-government.jpg', 'UGA-urcs.svg'],
 };

@@ -4,11 +4,17 @@ import { Subscription } from 'rxjs';
 import { SourceInfoModalComponent } from 'src/app/components/source-info-modal/source-info-modal.component';
 import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { AggregatesService } from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
+import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
+import {
+  Indicator,
+  IndicatorGroup,
+  IndicatorName,
+} from 'src/app/types/indicator-group';
 
 @Component({
   selector: 'app-aggregates',
@@ -32,14 +38,16 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private timelineService: TimelineService,
     private aggregatesService: AggregatesService,
     private placeCodeService: PlaceCodeService,
+    private eventService: EventService,
+    private adminLevelService: AdminLevelService,
     private modalController: ModalController,
     private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
     if (
-      this.countryService.selectedCountry &&
-      this.timelineService.state.selectedTimeStepButtonValue
+      this.countryService.activeCountry &&
+      this.timelineService.activeLeadTime
     ) {
       this.aggregatesService.loadMetadata();
       this.aggregatesService.loadAggregateInformation();
@@ -94,19 +102,33 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return await modal.present();
   }
 
-  public getAggregate(indicatorName) {
+  public getAggregate(indicatorName: IndicatorName, weightedAvg: boolean) {
     return this.aggregatesService.getAggregate(
+      weightedAvg,
       indicatorName,
       this.placeCode ? this.placeCode.placeCode : null,
     );
   }
 
   public getHeaderLabel() {
-    return this.placeCode
-      ? this.placeCode.placeCodeName
-      : this.country
-      ? this.country.countryName
-      : this.defaultHeaderLabel;
+    let headerLabel = this.defaultHeaderLabel;
+    const country = this.countryService.activeCountry;
+    const adminAreaLabel =
+      country.adminRegionLabels[this.adminLevelService.adminLevel - 1];
+
+    if (this.placeCode) {
+      headerLabel = this.placeCode.placeCodeName;
+    } else {
+      if (this.eventService.state.activeTrigger) {
+        headerLabel = 'Exposed ' + adminAreaLabel;
+      } else {
+        if (country) {
+          headerLabel = 'All ' + country.countryName;
+        }
+      }
+    }
+
+    return headerLabel;
   }
 
   public clearPlaceCode() {

@@ -1,4 +1,3 @@
-import { UserEntity } from '../user/user.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,8 +5,9 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
+import { LeadTimeEntity } from '../lead-time/lead-time.entity';
+import { UserEntity } from '../user/user.entity';
 import { AdminLevel } from './admin-level.enum';
-import { ForecastEntity } from '../forecast/forecast.entity';
 import { CountryStatus } from './country-status.enum';
 
 @Entity('country')
@@ -16,7 +16,10 @@ export class CountryEntity {
   public id: string;
 
   @Column()
-  public countryCode: string;
+  public countryCodeISO3: string;
+
+  @Column()
+  public countryCodeISO2: string;
 
   @Column()
   public countryName: string;
@@ -36,15 +39,21 @@ export class CountryEntity {
   @Column({ nullable: true })
   public eapLink: string;
 
+  @Column('text', {
+    array: true,
+    default: (): string => 'array[]::text[]',
+  })
+  public countryLogos: string[];
+
   @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
   public created: Date;
 
   @ManyToMany(
-    (): typeof ForecastEntity => ForecastEntity,
-    (forecast): CountryEntity[] => forecast.countries,
+    (): typeof LeadTimeEntity => LeadTimeEntity,
+    (leadTime): CountryEntity[] => leadTime.countries,
   )
   @JoinTable()
-  public countryForecasts: ForecastEntity[];
+  public countryLeadTimes: LeadTimeEntity[];
 
   @ManyToMany(
     (): typeof UserEntity => UserEntity,
