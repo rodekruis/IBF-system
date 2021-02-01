@@ -1,3 +1,12 @@
+## [0.4.5](https://github.com/rodekruis/IBF-system/compare/v0.4.4...v0.4.5) (2021-02-01)
+
+
+### Bug Fixes
+
+* resolve mock scenarios cyclic dependency AB[#5872](https://github.com/rodekruis/IBF-system/issues/5872) ([e093096](https://github.com/rodekruis/IBF-system/commit/e093096f19ad1beebd2406ac43f03daa30d31d37))
+
+
+
 ## [0.4.4](https://github.com/rodekruis/IBF-system/compare/v0.4.3...v0.4.4) (2021-02-01)
 
 
@@ -139,55 +148,6 @@
 * integrate leaflet-markercluster for waterpoints AB[#5640](https://github.com/rodekruis/IBF-system/issues/5640) ([c9653c4](https://github.com/rodekruis/IBF-system/commit/c9653c46deeaaa559e8f4e3ed7e00cac727c26d4))
 * remove layer availability property AB[#5642](https://github.com/rodekruis/IBF-system/issues/5642) ([672bdd9](https://github.com/rodekruis/IBF-system/commit/672bdd9d7753431b053e0d93cbd0e0b814363d3c))
 * waterpoint-endpoint calling 3rd party API AB[#5637](https://github.com/rodekruis/IBF-system/issues/5637) ([e31bfbb](https://github.com/rodekruis/IBF-system/commit/e31bfbb0b20fa101b16764caa01defddf9a70ef7))
-
-
-
-## [0.1.4](https://github.com/rodekruis/IBF-system/compare/v0.1.3...v0.1.4) (2021-01-16)
-
-
-### Bug Fixes
-
-* activate exposed-pop layer in api AB[#5527](https://github.com/rodekruis/IBF-system/issues/5527) ([4ad6b15](https://github.com/rodekruis/IBF-system/commit/4ad6b152cef6936fcb093d2df70b23f00f42cd45))
-* build error AB[#5059](https://github.com/rodekruis/IBF-system/issues/5059) ([695122f](https://github.com/rodekruis/IBF-system/commit/695122f26e8a40226f6da077a19022711236f7d7))
-* downgrade dependabot changes ([d6bff2c](https://github.com/rodekruis/IBF-system/commit/d6bff2cfc80eb966837da2926abad39889811d9c))
-* downgrade node to 10 for api-service ([768b082](https://github.com/rodekruis/IBF-system/commit/768b082f9bfe5040c2bd806fdb02065205ce26fe))
-* getting right lead-time in ibf-pipeline AB[#5591](https://github.com/rodekruis/IBF-system/issues/5591) ([f437398](https://github.com/rodekruis/IBF-system/commit/f43739879275d882141a538e54ec3b3be7cecec9))
-* handle errors using finalize ([97eb40e](https://github.com/rodekruis/IBF-system/commit/97eb40ebebd244abb4ad2351f72f49ccf032c8ad))
-* if no branch specified deploy-script uses master AB[#5591](https://github.com/rodekruis/IBF-system/issues/5591) ([e0323a5](https://github.com/rodekruis/IBF-system/commit/e0323a5a52abc0ba3cec70419024ad5a1ef62c07))
-* layer controls menu should listen on menu events instead of button click AB[#4893](https://github.com/rodekruis/IBF-system/issues/4893) ([76aa068](https://github.com/rodekruis/IBF-system/commit/76aa068cf1c4bdcab7fbf05870b61916768d731b))
-* loader issue AB[#5261](https://github.com/rodekruis/IBF-system/issues/5261) ([ffcfa8d](https://github.com/rodekruis/IBF-system/commit/ffcfa8d0d18a4d24562509f4c982318ba5b1496d))
-* pipeline took 6-day instead of 7-day AB[#5591](https://github.com/rodekruis/IBF-system/issues/5591) ([489826d](https://github.com/rodekruis/IBF-system/commit/489826d2c5de8b4328b051aff8311d44b7e92f71))
-* replace ReplaySubject to BehaviorSubject ([1314367](https://github.com/rodekruis/IBF-system/commit/1314367fad4c18a76d682f234464dd1c4bc72be9))
-* revert env config ([d4d9000](https://github.com/rodekruis/IBF-system/commit/d4d90002541954c1cb1200f4c6f9a1defc131cca))
-* set default date for date button component ([9f8b72d](https://github.com/rodekruis/IBF-system/commit/9f8b72d1a80749b73c3dac2ea07f84a3fae54c8a))
-* source info modal null test ([3a5c5d7](https://github.com/rodekruis/IBF-system/commit/3a5c5d79f0dd58dcff84761dab10189e04cc550b))
-* tests ([6f8a182](https://github.com/rodekruis/IBF-system/commit/6f8a182b2a86efd76b44a5c31b393f85b548f83f))
-* update map aggregate layers on country switch AB[#5051](https://github.com/rodekruis/IBF-system/issues/5051) ([bd84b0b](https://github.com/rodekruis/IBF-system/commit/bd84b0b15c11f2ebb2f8bf8ceb08e58898fbaca5))
-* upgrade pygobject ([d6fec1c](https://github.com/rodekruis/IBF-system/commit/d6fec1cadedd84e2a9955f6d1268e477b955f9a1))
-* use env var for secrets ([6b90832](https://github.com/rodekruis/IBF-system/commit/6b90832655cf1ee29dd5fe7060435d4257d9ca13))
-* use unstable ubuntu gis for 20.04 ([2e13538](https://github.com/rodekruis/IBF-system/commit/2e1353888e27f81d1f0353cc2082ffde992436dd))
-
-
-### Features
-
-* add ordering to layers AB[#5257](https://github.com/rodekruis/IBF-system/issues/5257) AB[#5256](https://github.com/rodekruis/IBF-system/issues/5256) AB[#5258](https://github.com/rodekruis/IBF-system/issues/5258) AB[#5262](https://github.com/rodekruis/IBF-system/issues/5262) ([d1c9623](https://github.com/rodekruis/IBF-system/commit/d1c96231eed863666bf367fa46aa7f5661e52054))
-* add today component AB[#5268](https://github.com/rodekruis/IBF-system/issues/5268) ([70bbbe9](https://github.com/rodekruis/IBF-system/commit/70bbbe90a4e771eae2d62c07aaeda5542bc28e2a))
-* change situational overview header color AB[#5263](https://github.com/rodekruis/IBF-system/issues/5263) ([b76d4b4](https://github.com/rodekruis/IBF-system/commit/b76d4b4a26c683dcd45cbc726b7b503198c7bd83))
-* date button and timeline buttons ([70bba4c](https://github.com/rodekruis/IBF-system/commit/70bba4c28705babb94897e9db56ddd969077284f))
-* flood extent layer should be inactive if no active trigger AB[#5265](https://github.com/rodekruis/IBF-system/issues/5265) ([c488060](https://github.com/rodekruis/IBF-system/commit/c4880608219e928836e789aeae9fd997ef8393b7))
-* hide some aggregate indicators from middle column AB[#5269](https://github.com/rodekruis/IBF-system/issues/5269) ([4902360](https://github.com/rodekruis/IBF-system/commit/49023606f3c083bfed3b740cdd2affbdc0b056f0))
-* join admin-lines toggling to admin-fill  toggling AB[#5059](https://github.com/rodekruis/IBF-system/issues/5059) ([8f3e9fc](https://github.com/rodekruis/IBF-system/commit/8f3e9fc7a3bc9f14d7d750510495af00219a075b))
-* loader AB[#5132](https://github.com/rodekruis/IBF-system/issues/5132) ([d0a7a79](https://github.com/rodekruis/IBF-system/commit/d0a7a79bae40e30e806ba9bccc154c2348e7329a))
-* move aggregate layers to matrix ([e79f264](https://github.com/rodekruis/IBF-system/commit/e79f264be73ac58dac00c1cd8f37ca45382b6e29))
-* remove secrets from git to avoid adding user information AB[#5153](https://github.com/rodekruis/IBF-system/issues/5153) ([7eee766](https://github.com/rodekruis/IBF-system/commit/7eee766a9823b4faadd5adcd60decfe2a6f96411))
-* remove today from timeline component AB[#5266](https://github.com/rodekruis/IBF-system/issues/5266) ([ab79853](https://github.com/rodekruis/IBF-system/commit/ab79853486ea01afe2da38ee23a361e40ffed557))
-* revert chat messages to be at the right/left of the avatar ([33fa15a](https://github.com/rodekruis/IBF-system/commit/33fa15acc948dbcec0d4fb2d8ada9842eb49e82a))
-* show all aof AB[#5387](https://github.com/rodekruis/IBF-system/issues/5387) ([39c3530](https://github.com/rodekruis/IBF-system/commit/39c35304d2f179bdbfb8ce99ecff9eeb4048c17c))
-* show exposed pop. by default if trigger AB[#5527](https://github.com/rodekruis/IBF-system/issues/5527) ([8b5da2f](https://github.com/rodekruis/IBF-system/commit/8b5da2fe6da1c67e4f83b8594e4260035426d5df))
-* toggle visiblity of warning icon based on trigger status ([6744186](https://github.com/rodekruis/IBF-system/commit/674418646ee442467a13911a47f01120974666f4))
-* update mock-data with abs. exposed numbers AB[#5544](https://github.com/rodekruis/IBF-system/issues/5544) ([49dec20](https://github.com/rodekruis/IBF-system/commit/49dec20faf0da61249e6a779ce7ceb450862addd))
-* use salmon colors only if active trigger ([8b2db22](https://github.com/rodekruis/IBF-system/commit/8b2db22130a72c007b91cdf6d0a28c7436f1784c))
-* use today component AB[#5267](https://github.com/rodekruis/IBF-system/issues/5267) ([9f14704](https://github.com/rodekruis/IBF-system/commit/9f14704d5c9f873db48929c4d9117373bd06139a))
 
 
 
