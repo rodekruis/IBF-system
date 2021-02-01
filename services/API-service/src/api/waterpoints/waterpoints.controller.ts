@@ -1,5 +1,4 @@
 import { Get, Param, Controller, UseGuards } from '@nestjs/common';
-import { WaterpointsService } from './waterpoints.service';
 import { AxiosResponse } from 'axios';
 import {
   ApiUseTags,
@@ -7,13 +6,14 @@ import {
   ApiImplicitParam,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { GeoJson } from 'src/models/geo.model';
+import { GeoJson } from '../data/geo.model';
+import { WaterpointsService } from './waterpoints.service';
 import { RolesGuard } from '../../roles.guard';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
 @ApiUseTags('waterpoints')
-@Controller()
+@Controller('waterpoints')
 export class WaterpointsController {
   private readonly waterpointsService: WaterpointsService;
 
@@ -23,7 +23,7 @@ export class WaterpointsController {
 
   @ApiOperation({ title: 'Get waterpoint data' })
   @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('waterpoints/:countryCode')
+  @Get(':countryCode')
   public async getWaterpoints(
     @Param() params,
   ): Promise<AxiosResponse<GeoJson>> {

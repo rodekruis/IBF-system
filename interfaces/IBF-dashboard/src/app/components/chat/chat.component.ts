@@ -1,9 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { PlaceCode } from 'src/app/models/place-code.model';
 import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EapAction } from 'src/app/types/eap-action';
 import { IndicatorName } from 'src/app/types/indicator-group';
 
@@ -14,9 +16,11 @@ import { IndicatorName } from 'src/app/types/indicator-group';
 })
 export class ChatComponent implements OnDestroy {
   public triggeredAreas: any[];
+  public filteredAreas: any[];
 
   private eapActionSubscription: Subscription;
   private countrySubscription: Subscription;
+  private placeCodeSubscription: Subscription;
 
   public IndicatorName = IndicatorName;
   public eapActions: EapAction[];
@@ -29,8 +33,12 @@ export class ChatComponent implements OnDestroy {
     private countryService: CountryService,
     private eapActionsService: EapActionsService,
     public eventService: EventService,
+    private placeCodeService: PlaceCodeService,
     private alertController: AlertController,
-  ) {
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {}
+
+  ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((_) => {
@@ -42,13 +50,28 @@ export class ChatComponent implements OnDestroy {
       .getTriggeredAreas()
       .subscribe((newAreas) => {
         this.triggeredAreas = newAreas;
+        this.filteredAreas = [...this.triggeredAreas];
         this.triggeredAreas.forEach((area) => (area.submitDisabled = true));
+      });
+
+    this.placeCodeSubscription = this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe((placeCode: PlaceCode) => {
+        if (placeCode) {
+          this.filteredAreas = this.triggeredAreas.filter(
+            (area) => area.pcode === placeCode.placeCode,
+          );
+        } else {
+          this.filteredAreas = [...this.triggeredAreas];
+        }
+        this.changeDetectorRef.detectChanges();
       });
   }
 
   ngOnDestroy() {
     this.eapActionSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
+    this.placeCodeSubscription.unsubscribe();
   }
 
   public changeAction(pcode: string, action: string, checkbox: boolean) {
@@ -70,7 +93,7 @@ export class ChatComponent implements OnDestroy {
           if (action.pcode === pcode) {
             return this.eapActionsService.checkEapAction(
               action.action,
-              this.countryService.selectedCountry.countryCode,
+              this.countryService.activeCountry.countryCodeISO3,
               action.checked,
               action.pcode,
             );

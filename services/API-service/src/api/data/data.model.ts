@@ -12,18 +12,18 @@ export class AdminAreaDataRecord {
   public lead_time: string;
   public fc: number;
   public fc_trigger: number;
-  public fc_rp: null;
-  public fc_perc: null;
+  public fc_rp: number;
+  public fc_perc: number;
   public fc_prob: number;
   public fc_trigger2: number;
   public other_lead_time_trigger: number;
   public population_affected: number;
   public livestock_affected: number;
-  public chicken_affected: null;
-  public cattle_affected: null;
-  public goat_affected: null;
-  public pig_affected: null;
-  public sheep_affected: null;
+  public chicken_affected: number;
+  public cattle_affected: number;
+  public goat_affected: number;
+  public pig_affected: number;
+  public sheep_affected: number;
   public cropland_affected: number;
   public indicators: {
     pcode: string;
@@ -49,12 +49,12 @@ export class AdminAreaDataRecord {
     incident_density: number;
     internet_access: number;
     land_area: number;
-    married_u18: null;
+    married_u18: number;
     mobile_phone_access: number;
     mosquito_nets: number;
     no_toilet: number;
     nr_of_hospitals: number;
-    nr_refugees: null;
+    nr_refugees: number;
     old_head_hh: number;
     orphanhood: number;
     own_bicycle: number;
@@ -68,7 +68,7 @@ export class AdminAreaDataRecord {
     population_u8: number;
     poverty_incidence: number;
     received_remittances: number;
-    refugee_density: null;
+    refugee_density: number;
     roof_type: number;
     school_not_attending: number;
     subsistence_farming_old: number;
@@ -96,7 +96,7 @@ export class AdminAreaDataRecord {
     working_10_17_score: number;
     birth_certificate_0_17_score: number;
     school_not_attending_score: number;
-    married_u18_score: null;
+    married_u18_score: number;
     female_head_hh_score: number;
     young_head_hh_score: number;
     copmleted_o_level_score: number;

@@ -1,20 +1,14 @@
-import { Get, Param, Controller, UseGuards } from '@nestjs/common';
-import { DataService } from './data.service';
-
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import {
-  ApiUseTags,
-  ApiOperation,
-  ApiImplicitParam,
   ApiBearerAuth,
+  ApiImplicitParam,
+  ApiOperation,
+  ApiUseTags,
 } from '@nestjs/swagger';
-import { GeoJson } from 'src/models/geo.model';
 import { RolesGuard } from '../../roles.guard';
-import {
-  Aggregates,
-  CountryMetaData,
-  DisasterEvent,
-  TriggeredArea,
-} from 'src/models/data.model';
+import { CountryMetaData, DisasterEvent, TriggeredArea } from './data.model';
+import { DataService } from './data.service';
+import { GeoJson } from './geo.model';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -84,19 +78,6 @@ export class DataController {
   @Get('triggered-areas/:event')
   public async getTriggeredAreas(@Param() params): Promise<TriggeredArea[]> {
     return await this.dataService.getTriggeredAreas(params.event);
-  }
-
-  @ApiOperation({ title: 'Get matrix aggregates' })
-  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @ApiImplicitParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiImplicitParam({ name: 'leadTime', required: true, type: 'string' })
-  @Get('matrix-aggregates/:countryCode/:adminLevel/:leadTime')
-  public async getMatrixAggregates(@Param() params): Promise<Aggregates> {
-    return await this.dataService.getMatrixAggregates(
-      params.countryCode,
-      params.adminLevel,
-      params.leadTime,
-    );
   }
 
   @ApiOperation({ title: 'Get active event' })

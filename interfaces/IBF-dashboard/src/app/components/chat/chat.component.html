@@ -83,7 +83,7 @@
     </dialogue-turn>
     <dialogue-turn
       actor="self"
-      *ngFor="let area of triggeredAreas; first as isFirst"
+      *ngFor="let area of filteredAreas; first as isFirst"
       [isConnected]="!isFirst"
     >
       <form (submit)="submitEapAction(area.pcode)">

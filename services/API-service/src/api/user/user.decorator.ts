@@ -1,6 +1,6 @@
 import { createParamDecorator } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
-import { User } from '../../models/user.model';
+import { User } from './user.model';
 
 export const UserDecorator = createParamDecorator(
   (data, req): User => {

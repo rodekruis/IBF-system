@@ -34,6 +34,7 @@ services:
             - NODE_ENV=production
             - SECRET=${SECRET}
             - RESET_SECRET=${RESET_SECRET}
+            - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
         networks:
             - web-server-network
         depends_on:

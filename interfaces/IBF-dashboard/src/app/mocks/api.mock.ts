@@ -24,23 +24,17 @@ export class MockAPI {
         stations: {
           handler: this.getResponse(
             'getStations',
-            this.timelineService.state.selectedTimeStepButtonValue,
+            this.timelineService.activeLeadTime,
           ),
         },
         event: { handler: this.getResponse('getEvent') },
         'triggered-areas': { handler: this.getResponse('getTriggeredAreas') },
         'recent-dates': { handler: this.getResponse('getRecentDates') },
         triggers: { handler: this.getResponse('getTriggerPerLeadTime') },
-        'matrix-aggregates': {
-          handler: this.getResponse(
-            'getMatrixAggregates',
-            this.timelineService.state.selectedTimeStepButtonValue,
-          ),
-        },
         'admin-area-data': {
           handler: this.getResponse(
             'getAdminRegions',
-            this.timelineService.state.selectedTimeStepButtonValue,
+            this.timelineService.activeLeadTime,
           ),
         },
       },

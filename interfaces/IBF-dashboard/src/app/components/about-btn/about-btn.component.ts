@@ -17,6 +17,6 @@ export class AboutBtnComponent implements OnInit {
   ngOnInit() {}
 
   public btnAction() {
-    window.open(this.countryService.selectedCountry.eapLink);
+    window.open(this.countryService.activeCountry.eapLink);
   }
 }

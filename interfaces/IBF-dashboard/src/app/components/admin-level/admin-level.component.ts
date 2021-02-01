@@ -4,7 +4,7 @@ import { Country } from 'src/app/models/country.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
-import { AdminLevel, AdminLevelLabel } from 'src/app/types/admin-level.enum';
+import { AdminLevel, AdminLevelLabel } from 'src/app/types/admin-level';
 import { IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
 
 @Component({
@@ -42,10 +42,10 @@ export class AdminLevelComponent {
 
   loadAdminLevelLabels() {
     this.adminLevelLabel = {
-      adm1: this.countryService.selectedCountry.adminRegionLabels[0],
-      adm2: this.countryService.selectedCountry.adminRegionLabels[1],
-      adm3: this.countryService.selectedCountry.adminRegionLabels[2],
-      adm4: this.countryService.selectedCountry.adminRegionLabels[3],
+      adm1: this.countryService.activeCountry.adminRegionLabels[0],
+      adm2: this.countryService.activeCountry.adminRegionLabels[1],
+      adm3: this.countryService.activeCountry.adminRegionLabels[2],
+      adm4: this.countryService.activeCountry.adminRegionLabels[3],
     };
   }
 

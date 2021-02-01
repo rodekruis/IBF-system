@@ -4,18 +4,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import {
-  GlofasStation,
-  RedCrossBranch,
-  GeoJson,
-  GeoJsonFeature,
-} from 'src/models/geo.model';
-import {
   AdminAreaDataRecord,
-  Aggregates,
   CountryMetaData,
   DisasterEvent,
   TriggeredArea,
-} from 'src/models/data.model';
+} from './data.model';
+import {
+  GeoJson,
+  GeoJsonFeature,
+  GlofasStation,
+  RedCrossBranch,
+} from './geo.model';
 
 @Injectable()
 export class DataService {
@@ -182,83 +181,6 @@ export class DataService {
     ).active = activeTrigger;
 
     return indicators;
-  }
-
-  public async getMatrixAggregates(
-    countryCode: string,
-    adminLevel: number,
-    leadTime: string,
-  ): Promise<Aggregates> {
-    const query =
-      ' select * \
-    from "IBF-API"."Admin_area_data' +
-      adminLevel +
-      "\" \
-    where 0 = 0 \
-    and lead_time = $1 \
-    and current_prev = 'Current' \
-    and country_code = $2 \
-    ";
-
-    const rawResult = await this.manager.query(query, [leadTime, countryCode]);
-
-    const indicators = await this.getMetadata(countryCode);
-
-    const exposed = true; // Make this into an endpoint-parameter later
-
-    let result: Aggregates = {
-      population_affected: 0,
-      vulnerability_index: 0,
-      poverty_incidence: 0,
-      female_head_hh: 0,
-      population_u8: 0,
-      population_over65: 0,
-      wall_type: 0,
-      roof_type: 0,
-    };
-
-    if (rawResult.length > 0) {
-      for (let indicator of indicators) {
-        const cra = typeof rawResult[0][indicator.name] === 'undefined';
-        if (exposed && indicator.weightedAvg) {
-          if (indicator.weightedAvg) {
-            result[indicator.name] = this.sumProductExposed(
-              rawResult,
-              indicator.name,
-              cra,
-            );
-          }
-        } else if (indicator.weightedAvg) {
-          result[indicator.name] =
-            this.sumProduct(rawResult, indicator.name, 'population', cra) /
-            this.sum(rawResult, 'population', cra);
-        } else {
-          result[indicator.name] = this.sum(rawResult, indicator.name, cra);
-        }
-      }
-    }
-
-    return result;
-  }
-
-  private sum(items, prop, cra): number {
-    return items.reduce((a, b): number => {
-      return a + (cra ? b.indicators[prop] : b[prop]);
-    }, 0);
-  }
-
-  private sumProduct(items, prop, weightKey, cra): number {
-    return items.reduce((a, b): number => {
-      return a + b.indicators[weightKey] * (cra ? b.indicators[prop] : b[prop]);
-    }, 0);
-  }
-
-  private sumProductExposed(items, prop, cra): number {
-    return items.reduce((a, b): number => {
-      return (
-        a + b['population_affected'] * (cra ? b.indicators[prop] : b[prop])
-      );
-    }, 0);
   }
 
   public toGeojson(rawResult): GeoJson {
