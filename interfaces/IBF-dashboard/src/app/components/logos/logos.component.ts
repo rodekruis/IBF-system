@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CountryService } from 'src/app/services/country.service';
 
@@ -7,11 +7,13 @@ import { CountryService } from 'src/app/services/country.service';
   templateUrl: './logos.component.html',
   styleUrls: ['./logos.component.scss'],
 })
-export class LogosComponent {
+export class LogosComponent implements OnInit {
   private countrySubscription: Subscription;
   public logos: string[] = [];
 
-  constructor(private countryService: CountryService) {
+  constructor(private countryService: CountryService) {}
+
+  ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country) => {
