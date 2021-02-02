@@ -24,8 +24,8 @@ Where:
    `livelyzoneshape`: shapefile of livelihood zones (for calculation)  
 
 ### Data input:
-   `livelyhood zones`: https://fews.net/content/zimbabwe-livelihood-zones-2011
-   `admin boundaries`: https://data.humdata.org/dataset/zimbabwe-administrative-levels-0-3-boundaries
-   `SPI and SPEI`: https://wci.earth2observe.eu/portal/? 
-   `crop yield`: https://doi.pangaea.de/10.1594/PANGAEA.909132
+   `livelyhood zones`: https://fews.net/content/zimbabwe-livelihood-zones-2011<br>
+   `admin boundaries`: https://data.humdata.org/dataset/zimbabwe-administrative-levels-0-3-boundaries<br>
+   `SPI and SPEI`: https://wci.earth2observe.eu/portal/ <br>
+   `crop yield`: https://doi.pangaea.de/10.1594/PANGAEA.909132<br>
 All these data can be loaded in easily if synced through OneDrive from the IBF channel in Teams.
