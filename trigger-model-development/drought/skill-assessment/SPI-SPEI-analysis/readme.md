@@ -22,3 +22,10 @@ Where:
    `yield_anomaly_thr`: crop yield anomaly (single value)  
    `countryshape`: shapefile of country (for cropping global dataset with country extent)  
    `livelyzoneshape`: shapefile of livelihood zones (for calculation)  
+
+### Data input:
+   `livelyhood zones`: https://fews.net/content/zimbabwe-livelihood-zones-2011
+   `admin boundaries`: https://data.humdata.org/dataset/zimbabwe-administrative-levels-0-3-boundaries
+   `SPI and SPEI`: https://wci.earth2observe.eu/portal/? 
+   `crop yield`: https://doi.pangaea.de/10.1594/PANGAEA.909132
+All these data can be loaded in easily if synced through OneDrive from the IBF channel in Teams.
