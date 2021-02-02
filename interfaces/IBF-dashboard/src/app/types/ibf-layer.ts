@@ -51,6 +51,7 @@ export enum IbfLayerName {
   population_over65 = 'population_over65',
   wall_type = 'wall_type',
   roof_type = 'roof_type',
+  covidRisk = 'covidrisk',
 }
 
 export enum IbfLayerLabel {
@@ -62,6 +63,7 @@ export enum IbfLayerLabel {
   adminRegions = 'Admin regions',
   cropland = 'Cropland',
   grassland = 'Grassland',
+  covidRisk = 'Covid Risk'
 }
 
 export class IbfLayerWMS {

@@ -18,8 +18,8 @@ import {
   IbfLayerType,
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
-import { Indicator, IndicatorName } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
+import { Indicator, IndicatorName, NumberFormat } from 'src/app/types/indicator-group';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 
@@ -115,6 +115,15 @@ export class MapService {
   }
 
   public async loadAggregateLayer(indicator: Indicator) {
+
+    // This solution is not pretty. To load a layer in the legend without
+    // loading the data an empty geosjon is needed.
+    let data = null;
+    if (!indicator.lazyLoad) {
+      data = await this.getAdminRegions()
+    } else {
+      data = { features : [] }
+    }
     this.addLayer({
       name: indicator.name,
       label: indicator.label,
@@ -122,7 +131,7 @@ export class MapService {
       description: 'loadAggregateLayer',
       active: indicator.active,
       show: true,
-      data: await this.getAdminRegions(),
+      data: data,
       viewCenter: true,
       colorProperty: indicator.name,
       colorBreaks: indicator.colorBreaks,
@@ -130,6 +139,25 @@ export class MapService {
       legendColor: '#969696',
       group: IbfLayerGroup.aggregates,
       order: 20 + indicator.order,
+    });
+  }
+
+  public async loadAdmin2Data() {
+    this.addLayer({
+      name: IbfLayerName.covidRisk,
+      label: IbfLayerLabel.covidRisk,
+      type: IbfLayerType.shape,
+      description: 'loadCovidLayer',
+      active: true,
+      show: true,
+      data: await this.getAdmin2Data(),
+      viewCenter: true,
+      colorProperty: IbfLayerName.covidRisk,
+      colorBreaks: null,
+      numberFormatMap: NumberFormat.perc,
+      legendColor: '#969696',
+      group: IbfLayerGroup.aggregates,
+      order: 1,
     });
   }
 
@@ -216,7 +244,7 @@ export class MapService {
 
   private addLayer(layer: IbfLayer) {
     const { name, viewCenter, data } = layer;
-    if (viewCenter && data.features.length) {
+    if (viewCenter && data.features && data.features.length) {
       const layerBounds = bbox(data);
       this.state.bounds = containsNumber(layerBounds)
         ? ([
@@ -322,6 +350,11 @@ export class MapService {
       this.timelineService.activeLeadTime,
       this.adminLevelService.adminLevel,
     );
+  }
+
+  public async getAdmin2Data(): Promise<GeoJSON.FeatureCollection> {
+    const data = await this.apiService.getAdmin2Data();
+    return data
   }
 
   getAdminRegionFillColor = (

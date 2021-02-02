@@ -187,6 +187,14 @@ export class ApiService {
     ).toPromise();
   }
 
+  getAdmin2Data(): Promise<GeoJSON.FeatureCollection> {
+    return this.get(
+      environment.api_url,
+      `uga-data-level-2/all`,
+      false,
+    ).toPromise();
+  }
+
   getTriggeredAreas(event: number) {
     return this.get(
       environment.api_url,
