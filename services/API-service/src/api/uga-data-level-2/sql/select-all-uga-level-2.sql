@@ -1,6 +1,6 @@
 SELECT
    pcode,
-   ST_AsGeoJSON(geom),
+   (ST_AsGeoJSON(g.geom))::jsonb as geom,
    covidrisk 
 FROM
    "IBF-static-input"."UGA_Geo_level2" g 
