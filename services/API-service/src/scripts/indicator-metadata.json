@@ -200,5 +200,21 @@
     "order": 2,
     "source": "https://dashboard.510.global/#!/community_risk?country=ETH",
     "description": "Vulnerability index from Community Risk Assessment"
-  }
+  },  {
+    "country_code": "UGA",
+    "name": "covidrisk",
+    "label": "Covid Risk",
+    "group": "aggregates",
+    "icon": "Children-white.svg",
+    "weightedAvg": true,
+    "active": false,
+    "colorBreaks": null,
+    "numberFormatMap": "perc",
+    "aggregateIndicator": true,
+    "numberFormatAggregate": "decimal0",
+    "order": 1,
+    "source": "Jacopo",
+    "description": "Covid risk",
+    "lazyLoad" : true
+  }  
 ]
