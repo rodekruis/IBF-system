@@ -4,6 +4,7 @@ import {
   Get,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -13,8 +14,8 @@ import {
   ApiImplicitFile,
 } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Param } from '@nestjs/common';
-import { GeoJson } from 'src/models/geo.model';
+import { RolesGuard } from '../../roles.guard';
+import { GeoJson } from '../data/geo.model';
 
 @ApiBearerAuth()
 @ApiUseTags('uganda')
@@ -25,7 +26,7 @@ export class UgaDataLevel2Controller {
     this.ugaDataLevel2Service = ugaDataLevel2Service;
   }
 
-  // @UseGuards(RolesGuard)
+  @UseGuards(RolesGuard)
   @ApiOperation({ title: 'Upload level 2 data' })
   @ApiImplicitFile({
     name: 'file',
