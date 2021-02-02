@@ -22,6 +22,7 @@ Where:
    `yield_anomaly_thr`: crop yield anomaly (single value)  
    `countryshape`: shapefile of country (for cropping global dataset with country extent)  
    `livelyzoneshape`: shapefile of livelihood zones (for calculation)  
+   `output_folder`: folder where to save the output  
 
 ### Data input:
    `livelyhood zones`: https://fews.net/content/zimbabwe-livelihood-zones-2011<br>
