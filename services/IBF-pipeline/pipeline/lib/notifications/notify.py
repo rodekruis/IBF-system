@@ -26,7 +26,7 @@ def notify(countryCode):
                 msg.attach(part)
                 sendMail(EMAIL_LIST_HARDCODE,msg.as_string())
             else:
-                the_client.sendNotification(formattedInfo)
+                the_client.sendNotification(formattedInfo, countryCode)
 
     else:
         logger.info("Email notificatin are turned off")

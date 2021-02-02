@@ -1,0 +1,122 @@
+<coverage>
+  <id>CoverageInfoImpl--62f77a62:1762deea0b3:-7ff4</id>
+  <name>flood_extent_7-day_KEN</name>
+  <nativeName>flood_extent_7-day_KEN</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl-48cab08a:175ace47603:-7ffa</id>
+  </namespace>
+  <title>flood_extent_7-day_KEN</title>
+  <description>Generated from GeoTIFF</description>
+  <keywords>
+    <string>flood_extent_long_KEN</string>
+    <string>WCS</string>
+    <string>GeoTIFF</string>
+  </keywords>
+  <nativeCRS>GEOGCS[&quot;WGS 84&quot;, 
+  DATUM[&quot;World Geodetic System 1984&quot;, 
+    SPHEROID[&quot;WGS 84&quot;, 6378137.0, 298.257223563, AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]], 
+    AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]], 
+  PRIMEM[&quot;Greenwich&quot;, 0.0, AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]], 
+  UNIT[&quot;degree&quot;, 0.017453292519943295], 
+  AXIS[&quot;Geodetic longitude&quot;, EAST], 
+  AXIS[&quot;Geodetic latitude&quot;, NORTH], 
+  AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
+  <srs>EPSG:4326</srs>
+  <nativeBoundingBox>
+    <minx>33.916676667</minx>
+    <maxx>41.908343333332986</maxx>
+    <miny>-4.6665709362619845</miny>
+    <maxy>5.408429553</maxy>
+    <crs>EPSG:4326</crs>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>33.916676667</minx>
+    <maxx>41.908343333332986</maxx>
+    <miny>-4.6665709362619845</miny>
+    <maxy>5.408429553</maxy>
+    <crs>EPSG:4326</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>REPROJECT_TO_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <metadata>
+    <entry key="DirectDownload.Key">
+      <directDownloadSettings>
+        <directDownloadEnabled>false</directDownloadEnabled>
+        <maxDownloadSize>0</maxDownloadSize>
+      </directDownloadSettings>
+    </entry>
+    <entry key="cachingEnabled">false</entry>
+    <entry key="dirName">flood_extent_7-day_KEN_flood_extent_long_KEN</entry>
+  </metadata>
+  <store class="coverageStore">
+    <id>CoverageStoreInfoImpl--62f77a62:1762deea0b3:-7ff6</id>
+  </store>
+  <serviceConfiguration>false</serviceConfiguration>
+  <simpleConversionEnabled>false</simpleConversionEnabled>
+  <nativeFormat>GeoTIFF</nativeFormat>
+  <grid dimension="2">
+    <range>
+      <low>0 0</low>
+      <high>959 1209</high>
+    </range>
+    <transform>
+      <scaleX>0.008333333332985391</scaleX>
+      <scaleY>-0.00833333373801653</scaleY>
+      <shearX>0.0</shearX>
+      <shearY>0.0</shearY>
+      <translateX>33.92084333366649</translateX>
+      <translateY>5.404262886130992</translateY>
+    </transform>
+    <crs>EPSG:4326</crs>
+  </grid>
+  <supportedFormats>
+    <string>GEOTIFF</string>
+    <string>GIF</string>
+    <string>PNG</string>
+    <string>JPEG</string>
+    <string>TIFF</string>
+  </supportedFormats>
+  <interpolationMethods>
+    <string>nearest neighbor</string>
+    <string>bilinear</string>
+    <string>bicubic</string>
+  </interpolationMethods>
+  <defaultInterpolationMethod>nearest neighbor</defaultInterpolationMethod>
+  <dimensions>
+    <coverageDimension>
+      <name>GRAY_INDEX</name>
+      <description>GridSampleDimension[-Infinity,Infinity]</description>
+      <range>
+        <min>-inf</min>
+        <max>inf</max>
+      </range>
+      <nullValues>
+        <double>0.0</double>
+      </nullValues>
+      <dimensionType>
+        <name>REAL_32BITS</name>
+      </dimensionType>
+    </coverageDimension>
+  </dimensions>
+  <requestSRS>
+    <string>EPSG:4326</string>
+  </requestSRS>
+  <responseSRS>
+    <string>EPSG:4326</string>
+  </responseSRS>
+  <parameters>
+    <entry>
+      <string>InputTransparentColor</string>
+      <null/>
+    </entry>
+    <entry>
+      <string>SUGGESTED_TILE_SIZE</string>
+      <string>512,512</string>
+    </entry>
+    <entry>
+      <string>RescalePixels</string>
+      <boolean>true</boolean>
+    </entry>
+  </parameters>
+  <nativeCoverageName>flood_extent_long_KEN</nativeCoverageName>
+</coverage>

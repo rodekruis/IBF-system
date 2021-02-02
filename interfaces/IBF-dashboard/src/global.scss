@@ -55,3 +55,123 @@
 .leaflet-popup-content-wrapper {
   border-radius: 0;
 }
+
+// trigger alert colors
+.trigger-alert {
+  .ibf-dashboard-left-column {
+    .component-title {
+      background-color: var(--ion-color-ibf-salmon) !important;
+
+      .component-title-item,
+      .today-button {
+        color: var(--ion-color-ibf-black) !important;
+
+        .component-title-thumbnail {
+          display: block !important;
+          background-image: url('assets/icons/alert-black.svg') !important;
+        }
+      }
+    }
+
+    .component-content {
+      dialogue-turn {
+        .dialogue-turn:not(.is-self) {
+          .dialogue-turn--content {
+            ion-card {
+              background: var(--ion-color-ibf-salmon) !important;
+            }
+          }
+        }
+
+        .dialogue-turn.is-other {
+          .dialogue-turn--speech-arrow {
+            border-right-color: var(--ion-color-ibf-salmon) !important;
+          }
+
+          .dialogue-turn--speech-arrow:dir(rtl) {
+            border-left-color: var(--ion-color-ibf-salmon) !important;
+          }
+        }
+      }
+
+      app-aggregates {
+        .aggregate-item-value,
+        .aggregate-item-information-icon {
+          --background: var(--ion-color-ibf-salmon-light) !important;
+        }
+      }
+
+      app-areas-of-focus-summary {
+        .component-title {
+          background-color: var(--ion-color-ibf-salmon) !important;
+        }
+
+        .areas-of-focus-item-value {
+          --background: var(--ion-color-ibf-salmon-light) !important;
+        }
+      }
+    }
+  }
+}
+
+// leaflet map
+
+.leaflet-ibf-aggregate-pane {
+  z-index: 533;
+}
+
+.leaflet-ibf-wms-pane {
+  z-index: 566;
+  pointer-events: none;
+}
+
+.leaflet-popup-pane {
+  pointer-events: auto;
+}
+
+.waterpoint-cluster-10 {
+  border-radius: 24px;
+  width: 48px;
+  height: 48px;
+  background-color: #011d41;
+  color: white;
+  padding-top: 7px;
+  text-align: center;
+  opacity: 0.7 !important;
+}
+
+.waterpoint-cluster-100 {
+  border-radius: 30px;
+  width: 60px;
+  height: 60px;
+  background-color: #011d41;
+  color: white;
+  text-align: center;
+  padding-top: 10px;
+  box-sizing: border-box;
+  opacity: 0.7 !important;
+}
+
+.waterpoint-cluster-1000 {
+  border-radius: 36px;
+  width: 72px;
+  height: 72px;
+  background-color: #011d41;
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  box-sizing: border-box;
+  opacity: 0.7 !important;
+}
+
+.waterpoint-cluster-10000 {
+  border-radius: 48px;
+  width: 96px;
+  height: 966px;
+  background-color: #011d41;
+  color: white;
+  text-align: center;
+  padding-top: 30px;
+  box-sizing: border-box;
+  opacity: 0.7 !important;
+}

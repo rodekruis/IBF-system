@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
 
 @Component({
   selector: 'app-areas-of-focus-summary',
   templateUrl: './areas-of-focus-summary.component.html',
   styleUrls: ['./areas-of-focus-summary.component.scss'],
 })
-export class AreasOfFocusSummaryComponent implements OnInit {
+export class AreasOfFocusSummaryComponent implements OnDestroy {
   private eapActionSubscription: Subscription;
+  private placeCodeSubscription: Subscription;
+
   public areasOfFocus: any[];
   public triggeredAreas: any[];
   public trigger: boolean;
@@ -19,7 +23,11 @@ export class AreasOfFocusSummaryComponent implements OnInit {
     private eapActionsService: EapActionsService,
     private apiService: ApiService,
     public eventService: EventService,
-  ) {
+    private placeCodeService: PlaceCodeService,
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {}
+
+  ngOnInit() {
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
       .subscribe((newAreas) => {
@@ -27,10 +35,26 @@ export class AreasOfFocusSummaryComponent implements OnInit {
         this.calcActionStatus(this.triggeredAreas);
       });
 
+    this.placeCodeSubscription = this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe((placeCode: PlaceCode) => {
+        if (placeCode) {
+          const filteredAreas = this.triggeredAreas.filter(
+            (area) => area.pcode === placeCode.placeCode,
+          );
+          this.calcActionStatus(filteredAreas);
+        } else {
+          this.calcActionStatus(this.triggeredAreas);
+        }
+      });
+
     this.eventService.getTrigger();
   }
 
-  ngOnInit() {}
+  ngOnDestroy() {
+    this.eapActionSubscription.unsubscribe();
+    this.placeCodeSubscription.unsubscribe();
+  }
 
   async calcActionStatus(triggeredAreas) {
     // Get areas of focus from db
@@ -55,5 +79,6 @@ export class AreasOfFocusSummaryComponent implements OnInit {
         });
       });
     }
+    this.changeDetectorRef.detectChanges();
   }
 }

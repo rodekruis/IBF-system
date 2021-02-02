@@ -27,17 +27,32 @@ export class MockScenarioInterceptor implements HttpInterceptor {
     // Strip API-hostname from url:
     const requestPath = request.url.replace(environment.api_url, '');
     // Use only first level to get generic endpoint
-    const requestEndpoint = requestPath.split('/')[0];
+    const requestPathSplit = requestPath.split('/');
+    const requestEndpoint = requestPathSplit[0];
 
-    const mockAPIs = this.mockAPI.getMockAPI();
+    let mockAPIs = this.mockAPI.getMockAPI();
+    if (
+      requestEndpoint === 'stations' ||
+      requestEndpoint === 'admin-area-data'
+    ) {
+      const leadTime = requestPathSplit[requestPathSplit.length - 1];
+      mockAPIs = this.mockAPI.getMockAPI(leadTime);
+    }
 
     const currentMockEndpoint =
       (mockAPIs[request.method] && mockAPIs[request.method][requestPath]) ||
       (mockAPIs[request.method] && mockAPIs[request.method][requestEndpoint]) ||
       null;
 
-    return this.mockScenarioService.mockScenario !== MockScenario.real &&
-      currentMockEndpoint
+    let isMockScenario = false;
+
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe((mockScenario: MockScenario) => {
+        isMockScenario = mockScenario !== MockScenario.real;
+      });
+
+    return isMockScenario && currentMockEndpoint
       ? currentMockEndpoint.handler()
       : next.handle(request);
   }

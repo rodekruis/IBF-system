@@ -1,10 +1,13 @@
-import { AdminLevel } from 'src/app/types/admin-level.enum';
+import { AdminLevel } from 'src/app/types/admin-level';
+import { LeadTime } from 'src/app/types/lead-time';
 
 // tslint:disable: variable-name
 export class Country {
-  countryCode: string;
+  countryCodeISO3: string;
   defaultAdminLevel: AdminLevel;
   countryName: string;
-  countryForecasts: string[];
+  countryLeadTimes: LeadTime[];
   adminRegionLabels: string[];
+  eapLink: string;
+  countryLogos: string[];
 }

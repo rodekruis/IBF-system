@@ -1,25 +1,39 @@
 <div>
   <ion-grid class="ion-no-padding">
+    <ion-item
+      color="medium"
+      lines="none"
+      class="aggregate-header-item"
+      title="Situation in {{ getHeaderLabel() }}"
+    >
+      <ion-label class="aggregate-header-item-label">
+        Selected: {{ getHeaderLabel() }}
+      </ion-label>
+      <ion-button
+        slot="end"
+        fill="clear"
+        *ngIf="placeCode"
+        color="light"
+        class="placeCodeResetBtn"
+        (click)="clearPlaceCode()"
+      >
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item>
     <div *ngFor="let group of groups">
-      <br />
       <ion-row *ngFor="let indicator of indicators" class="ion-no-padding">
         <ng-container *ngIf="indicator.group === group">
           <ion-col
             size-lg="8"
             size-md="8"
             size-xs="8"
-            (click)="changeIndicator(indicator.name)"
             title="Click to visualize in map"
           >
             <ion-item lines="inset" class="aggregate-item ion-no-padding">
               <ion-thumbnail slot="start" class="aggregate-item-thumbnail">
                 <ion-img src="assets/icons/{{ indicator.icon }}"></ion-img>
               </ion-thumbnail>
-              <ion-label
-                class="aggregate-item-label"
-                [title]="indicator.label"
-                [class.active]="indicator.active"
-              >
+              <ion-label class="aggregate-item-label" [title]="indicator.label">
                 {{ indicator.label }}
               </ion-label>
             </ion-item>
@@ -27,21 +41,21 @@
           <ion-col size-lg="3" size-md="3" size-xs="3">
             <ion-item class="aggregate-item-value ion-no-padding">
               <ion-label class="ion-text-right">
-                <span *ngIf="indicator.numberFormat === 'dec2'">
+                <span *ngIf="indicator.numberFormatAggregate === 'decimal2'">
                   {{
-                    aggregatesService.getAggregate(indicator.name)
+                    this.getAggregate(indicator.name, indicator.weightedAvg)
                       | number: '.2-2'
                   }}
                 </span>
-                <span *ngIf="indicator.numberFormat === 'dec0'">
+                <span *ngIf="indicator.numberFormatAggregate === 'decimal0'">
                   {{
-                    aggregatesService.getAggregate(indicator.name)
+                    this.getAggregate(indicator.name, indicator.weightedAvg)
                       | number: '.0-0'
                   }}
                 </span>
-                <span *ngIf="indicator.numberFormat === 'perc'">
+                <span *ngIf="indicator.numberFormatAggregate === 'perc'">
                   {{
-                    aggregatesService.getAggregate(indicator.name)
+                    this.getAggregate(indicator.name, indicator.weightedAvg)
                       | percent: '.0-0'
                   }}
                 </span>

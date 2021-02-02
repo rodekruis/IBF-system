@@ -119,7 +119,7 @@ class GlofasData:
                 # Set dimension-values
                 time = 0
 
-                for step in range(0,7):
+                for step in range(1,8):
 
                     # Loop through 51 ensembles, get forecast (for 3 or 7 day) and compare to threshold
                     ensemble_options = 51
@@ -135,7 +135,7 @@ class GlofasData:
                             if DUMMY_TRIGGER == False:
                                 discharge = 0
                             else:
-                                if step < 4:
+                                if step < 5:
                                     discharge = 0
                                 elif station['code'] == 'G1361': # ZMB dummy flood station 1
                                     discharge = 8000
@@ -143,6 +143,10 @@ class GlofasData:
                                     discharge = 9000
                                 elif station['code'] == 'G5200': # UGA dummy flood station
                                     discharge = 700
+                                elif station['code'] == 'G1074': # ETH dummy flood station
+                                    discharge = 1000
+                                elif station['code'] == 'G5194': # KEN dummy flood station
+                                    discharge = 2000
                                 else:
                                     discharge = 0
 
@@ -157,14 +161,13 @@ class GlofasData:
                     station['fc_'+self.fcStep+'_trigger'] = 1 if prob > TRIGGER_LEVELS['minimum'] else 0
                     
                     if station['fc_'+self.fcStep+'_trigger'] == 1:
-                        trigger_per_day[step + 1] = 1
+                        trigger_per_day[step] = 1
                     
-                    if step + 1 == self.days:
+                    if step == self.days:
                         stations.append(station)
-                    else:
-                        station = {}
-                        station['code'] = files[i].split(
-                            '_')[2]
+                    station = {}
+                    station['code'] = files[i].split(
+                        '_')[2]
                 
             data.close()
         
@@ -211,18 +214,19 @@ class GlofasData:
             fc = float(row['fc_'+self.fcStep])
             trigger = int(row['fc_'+self.fcStep+'_trigger'])
             if trigger == 1:
-                if self.country_code == 'UGA':
-                    return_period = 25
-                elif fc >= row['20yr_threshold']:
-                    return_period = 20
-                elif fc >= row['10yr_threshold']:
-                    return_period = 10
-                elif fc >= row['5yr_threshold']:
-                    return_period = 10
-                elif fc >= row['2yr_threshold']:
-                    return_period = 10
+                if self.country_code == 'ZMB':
+                    if fc >= row['20yr_threshold']:
+                        return_period = 20
+                    elif fc >= row['10yr_threshold']:
+                        return_period = 10
+                    elif fc >= row['5yr_threshold']:
+                        return_period = 10
+                    elif fc >= row['2yr_threshold']:
+                        return_period = 10
+                    else:
+                        return_period = 0
                 else:
-                    return_period = 0
+                    return_period = 25
             else:
                 return_period = None
             df.at[index, 'fc_'+self.fcStep+'_rp'] = return_period

@@ -13,8 +13,7 @@ def main():
     print(str(datetime.datetime.now()))
 
     try:
-        # if RUN_GLOFAS:
-        #     storeHistoric()
+        storeHistoric()
         for COUNTRY_CODE in COUNTRY_CODES:
             print('--------STARTING: ' + COUNTRY_CODE + '--------------------------')
 

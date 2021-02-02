@@ -1,14 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
-import { UserEntity } from '../user/user.entity';
-import { EapActionEntity } from '../eap-actions/eap-action.entity';
-import { USERCONFIGS, COUNTRYCONFIGS } from '../secrets';
-import { CountryEntity } from '../country/country.entity';
-import { AreaOfFocusEntity } from '../eap-actions/area-of-focus.entity';
+import { AdminLevel } from '../api/country/admin-level.enum';
+import { CountryStatus } from '../api/country/country-status.enum';
+import { CountryEntity } from '../api/country/country.entity';
+import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
+import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
+import { IndicatorEntity } from '../api/indicator/indicator.entity';
+import { leadTimeStatus } from '../api/lead-time/lead-time-status.enum';
+import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
+import { UserRole } from '../api/user/user-role.enum';
+import { UserStatus } from '../api/user/user-status.enum';
+import { UserEntity } from '../api/user/user.entity';
 
-import eapActionsUGA from '../../seed-data/EAP-actions-UGA.json';
-import eapActionsZMB from '../../seed-data/EAP-actions-ZMB.json';
+import leadTimes from './lead-times.json';
+import countries from './countries.json';
+import users from './users.json';
+import areasOfFocus from './areas-of-focus.json';
+import eapActions from './EAP-actions.json';
+import indicators from './indicator-metadata.json';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -22,40 +32,70 @@ export class SeedInit implements InterfaceScript {
     await this.connection.dropDatabase();
     await this.connection.synchronize(true);
 
+    // ***** CREATE LEAD TIMES *****
+
+    const leadTimeRepository = this.connection.getRepository(LeadTimeEntity);
+    const leadTimeEntities = leadTimes.map(
+      (leadTime): LeadTimeEntity => {
+        let leadTimeEntity = new LeadTimeEntity();
+        leadTimeEntity.leadTimeName = leadTime.leadTimeName;
+        leadTimeEntity.leadTimeLabel = leadTime.leadTimeLabel;
+        leadTimeEntity.leadTimeStatus = leadTime.leadTimeStatus as leadTimeStatus;
+        return leadTimeEntity;
+      },
+    );
+
+    await leadTimeRepository.save(leadTimeEntities);
+
     // ***** CREATE COUNTRIES *****
 
     const countryRepository = this.connection.getRepository(CountryEntity);
-    const countryEntities = COUNTRYCONFIGS.map(
-      (countryConfig): CountryEntity => {
-        let countryEntity = new CountryEntity();
-        countryEntity.countryCode = countryConfig.countryCode;
-        countryEntity.countryName = countryConfig.countryName;
-        countryEntity.status = countryConfig.status;
-        return countryEntity;
-      },
+    const countryEntities = await Promise.all(
+      countries.map(
+        async (country): Promise<CountryEntity> => {
+          let countryEntity = new CountryEntity();
+          countryEntity.countryCodeISO3 = country.countryCodeISO3;
+          countryEntity.countryCodeISO2 = country.countryCodeISO2;
+          countryEntity.countryName = country.countryName;
+          countryEntity.countryStatus = country.countryStatus as CountryStatus;
+          countryEntity.defaultAdminLevel = country.defaultAdminLevel as AdminLevel;
+          countryEntity.adminRegionLabels = country.adminRegionLabels;
+          countryEntity.eapLink = country.eapLink;
+          countryEntity.countryLeadTimes = await leadTimeRepository.find({
+            where: country.countryLeadTimes.map(
+              (countryLeadTime: string): object => {
+                return { leadTimeName: countryLeadTime };
+              },
+            ),
+          });
+          countryEntity.countryLogos = country.countryLogos;
+          countryEntity.countryBoundingBox = country.countryBoundingBox;
+          return countryEntity;
+        },
+      ),
     );
 
     await countryRepository.save(countryEntities);
 
-    // ***** CREATE ADMIN USER *****
+    // ***** CREATE USERS *****
 
     const userRepository = this.connection.getRepository(UserEntity);
     const userEntities = await Promise.all(
-      USERCONFIGS.map(
-        async (userConfig): Promise<UserEntity> => {
+      users.map(
+        async (user): Promise<UserEntity> => {
           let userEntity = new UserEntity();
-          userEntity.email = userConfig.email;
-          userEntity.username = userConfig.username;
-          userEntity.firstName = userConfig.firstName;
-          userEntity.lastName = userConfig.lastName;
-          userEntity.role = userConfig.role;
+          userEntity.email = user.email;
+          userEntity.username = user.username;
+          userEntity.firstName = user.firstName;
+          userEntity.lastName = user.lastName;
+          userEntity.userRole = user.userRole as UserRole;
           userEntity.countries = await countryRepository.find({
-            where: userConfig.countries.map((countryCode: string): object => {
-              return { countryCode: countryCode };
+            where: user.countries.map((countryCodeISO3: string): object => {
+              return { countryCodeISO3: countryCodeISO3 };
             }),
           });
-          userEntity.status = userConfig.status;
-          userEntity.password = userConfig.password;
+          userEntity.userStatus = user.userStatus as UserStatus;
+          userEntity.password = user.password;
           return userEntity;
         },
       ),
@@ -68,48 +108,15 @@ export class SeedInit implements InterfaceScript {
     const areaOfFocusRepository = this.connection.getRepository(
       AreaOfFocusEntity,
     );
-    await areaOfFocusRepository.save([
-      {
-        id: 'drr',
-        label: 'Disaster Risk Reduction',
-        icon: 'Shelter.svg',
-      },
-      {
-        id: 'shelter',
-        label: 'Shelter',
-        icon: 'Shelter.svg',
-      },
-      {
-        id: 'livelihood',
-        label: 'Livelihoods & Basic Needs',
-        icon: 'Livelihood.svg',
-      },
-      {
-        id: 'health',
-        label: 'Health',
-        icon: 'Health.svg',
-      },
-      {
-        id: 'wash',
-        label: 'WASH',
-        icon: 'Water-Sanitation-and-Hygiene.svg',
-      },
-      {
-        id: 'inclusion',
-        label: 'Inclusion, Gender & Protection',
-        icon: 'Gender.svg',
-      },
-      {
-        id: 'migration',
-        label: 'Migration',
-        icon: 'Internally-displaced.svg',
-      },
-    ]);
+    await areaOfFocusRepository.save(areasOfFocus);
 
     // ***** CREATE EAP ACTIONS *****
-    const eapActions = eapActionsUGA.concat(eapActionsZMB);
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
     await eapActionRepository.save(eapActions);
+
+    // ***** CREATE INDICATORS *****
+    const indicatorRepository = this.connection.getRepository(IndicatorEntity);
+    await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
   }
 }
 

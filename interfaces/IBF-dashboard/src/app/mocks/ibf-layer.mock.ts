@@ -1,5 +1,8 @@
-import { IbfLayerLabel, IbfLayerName } from 'src/app/types/ibf-layer-name';
-import { IbfLayerType } from 'src/app/types/ibf-layer-type';
+import {
+  IbfLayerLabel,
+  IbfLayerName,
+  IbfLayerType,
+} from 'src/app/types/ibf-layer';
 
 export default {
   type: IbfLayerType.point,
@@ -7,5 +10,7 @@ export default {
   label: IbfLayerLabel.adminRegions,
   description: 'Mock Description',
   active: true,
+  show: true,
   viewCenter: false,
+  order: 0,
 };

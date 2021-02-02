@@ -1,11 +1,10 @@
 .dialogue-turn {
   --dialogue-turn--speech-arrow-width: 8px;
   --dialogue-turn--speech-arrow-height: 8px;
-  --dialogue-turn--margin-around-card-vertical: -6px;
-  --dialogue-turn--margin-around-card-horizontal: 24px;
+  --dialogue-turn--margin-around-card-vertical: 22px;
+  --dialogue-turn--margin-around-card-horizontal: -6px;
 
   display: flex;
-  flex-direction: column;
 
   ion-card {
     box-shadow: none;
@@ -16,29 +15,27 @@
   order: 1;
 
   margin-top: 0.5em; // inner-padding of .dialogue-turn
-  display: flex;
-  width: 100%;
+  max-width: 20%;
 
   ion-avatar {
     display: flex;
-    width: 30px !important;
-    height: 30px !important;
-    line-height: 1.6;
-    margin: 0 12px;
+    width: 40px !important;
+    height: 40px !important;
 
     &.self-avatar {
       background: var(--ion-color-medium);
+      margin-right: 0.5em;
     }
 
     &.system-avatar {
       color: black;
       background: white;
+      margin-left: 0.5em;
     }
 
     b,
     ion-icon {
       margin: auto;
-      height: 80%;
     }
   }
 }
@@ -47,6 +44,9 @@
   position: relative;
   order: 2;
   transform-origin: top left;
+
+  width: 80%;
+  max-width: 80%;
 
   ion-card-content {
     -webkit-inline-start: 8px !important;
@@ -72,7 +72,7 @@
 .dialogue-turn.is-other {
   .dialogue-turn--speech-arrow {
     left: var(--dialogue-turn--margin-around-card-horizontal);
-    border-bottom-color: var(--ion-color-ibf-salmon);
+    border-right-color: var(--ion-color-ibf-gray);
   }
 
   // Adjust for RTL: (Limited support: https://developer.mozilla.org/en-US/docs/Web/CSS/:dir#Browser_compatibility)
@@ -82,22 +82,23 @@
     border-right-color: transparent;
 
     right: var(--dialogue-turn--margin-around-card-horizontal);
-    border-left-color: var(--ion-color-ibf-salmon);
+    border-left-color: var(--ion-color-ibf-gray);
   }
 }
 
 .dialogue-turn.is-self {
   .dialogue-turn--actor {
-    justify-content: flex-end;
+    order: 2;
   }
 
   .dialogue-turn--content {
+    order: 1;
     transform-origin: top right;
   }
 
   .dialogue-turn--speech-arrow {
     right: var(--dialogue-turn--margin-around-card-horizontal);
-    border-bottom-color: var(--ion-color-light);
+    border-left-color: var(--ion-color-light);
   }
 
   // Adjust for RTL: (Limited support: https://developer.mozilla.org/en-US/docs/Web/CSS/:dir#Browser_compatibility)

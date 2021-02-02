@@ -1,1 +1,0 @@
-Contents of [geodata.zip](https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/[RD]%20Impact-based%20forecasting/General_Data/Production%20Data/geodata.zip?csf=1&web=1&e=Dwtnny) should be placed here.

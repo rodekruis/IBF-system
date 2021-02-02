@@ -36,7 +36,7 @@
   </ion-content>
 </ion-menu>
 
-<div id="ibf-dashboard-interface">
+<div id="ibf-dashboard-interface" class="ibf-dashboard-interface">
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-buttons slot="start">
@@ -76,9 +76,19 @@
           >
             <ion-col size="12">
               <ion-item lines="none" class="component-title-item">
-                <ion-thumbnail slot="start" class="component-title-thumbnail">
-                  <ion-img src="assets/icons/alert-black.svg"></ion-img>
-                </ion-thumbnail>
+                <ion-button
+                  slot="start"
+                  class="ion-margin-end today-button"
+                  color="transparent"
+                  [disabled]="true"
+                >
+                  <span class="today">TODAY</span>
+                  <date-button></date-button>
+                </ion-button>
+                <ion-thumbnail
+                  slot="start"
+                  class="component-title-thumbnail"
+                ></ion-thumbnail>
                 <ion-label><strong>Situational Overview</strong></ion-label>
               </ion-item>
             </ion-col>

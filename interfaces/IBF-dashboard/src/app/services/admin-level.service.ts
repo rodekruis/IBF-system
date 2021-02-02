@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import mockCountry from 'src/app/mocks/country.mock';
-import { AdminLevel } from 'src/app/types/admin-level.enum';
+import { AdminLevel } from 'src/app/types/admin-level';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminLevelService {
-  private adminLevelSubject = new ReplaySubject<AdminLevel>();
+  private adminLevelSubject = new BehaviorSubject<AdminLevel>(AdminLevel.adm1);
   public adminLevel: AdminLevel = mockCountry.defaultAdminLevel;
+  public adminLayerState: boolean = true;
 
   constructor() {}
 

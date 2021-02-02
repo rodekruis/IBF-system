@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from './api.service';
-import { CountryService } from './country.service';
-import { TimelineService } from './timeline.service';
+import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
+import { TimelineService } from 'src/app/services/timeline.service';
+import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
+import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
+import { MockScenario } from '../mocks/mock-scenario.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +30,14 @@ export class EventService {
     private timelineService: TimelineService,
     private apiService: ApiService,
     private countryService: CountryService,
-  ) {}
+    private mockScenarioService: MockScenarioService,
+  ) {
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe((mockScenario: MockScenario) => {
+        this.getTrigger();
+      });
+  }
 
   public async getTrigger() {
     this.state.event = await this.timelineService.getEvent();
@@ -37,15 +47,26 @@ export class EventService {
       this.state.event?.start_date ===
       this.timelineService.state.today.format('YYYY-MM-DD');
 
+    this.setAlertState();
+
     if (this.state.activeTrigger) {
       this.getFirstTriggerDate();
       this.getTriggerLeadTime();
     }
   }
 
+  private setAlertState = () => {
+    const dashboardElement = document.getElementById('ibf-dashboard-interface');
+    if (this.state.activeTrigger) {
+      dashboardElement.classList.add('trigger-alert');
+    } else {
+      dashboardElement.classList.remove('trigger-alert');
+    }
+  };
+
   private async getFirstTriggerDate() {
     const timesteps = await this.apiService.getTriggerPerLeadTime(
-      this.countryService.selectedCountry.countryCode,
+      this.countryService.activeCountry.countryCodeISO3,
     );
     let firstKey = null;
     Object.keys(timesteps).forEach((key) => {
@@ -54,22 +75,22 @@ export class EventService {
       }
     });
     this.state.firstLeadTime = firstKey;
-    const selectedKey = Number(
-      this.timelineService.state.selectedTimeStepButtonValue.substr(0, 1),
-    );
-    this.state.newEventEarlyTrigger = firstKey < selectedKey;
+    this.state.newEventEarlyTrigger =
+      firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
   }
 
   private async getTriggerLeadTime() {
     let triggerLeadTime = null;
-    this.countryService.selectedCountry.countryForecasts.forEach((leadtime) => {
-      if (
-        !triggerLeadTime &&
-        Number(leadtime.substr(0, 1)) >= this.state.firstLeadTime
-      ) {
-        triggerLeadTime = Number(leadtime.substr(0, 1));
-      }
-    });
+    this.countryService.activeCountry.countryLeadTimes.forEach(
+      (leadTime: LeadTime) => {
+        if (
+          !triggerLeadTime &&
+          LeadTimeTriggerKey[leadTime] >= this.state.firstLeadTime
+        ) {
+          triggerLeadTime = LeadTimeTriggerKey[leadTime];
+        }
+      },
+    );
     this.state.triggerLeadTime = triggerLeadTime;
   }
 }

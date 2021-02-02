@@ -15,7 +15,8 @@
     "types": ["jest", "node"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "skipLibCheck": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"],

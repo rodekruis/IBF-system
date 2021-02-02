@@ -2,6 +2,19 @@
   --background: var(--ion-color-ibf-gray);
 }
 
+.placeCodeResetBtn {
+  margin-left: 8px;
+}
+
+.aggregate-header-item {
+  --min-height: 36px;
+  --inner-padding-end: 0;
+
+  .aggregate-header-item-label {
+    margin: 8px 0;
+  }
+}
+
 .aggregate-item,
 .aggregate-item-value,
 .aggregate-item-information-icon {
@@ -11,11 +24,6 @@
 
 .aggregate-item {
   --inner-padding-end: 0;
-  cursor: pointer;
-
-  &:hover {
-    --background: var(--ion-color-ibf-salmon-light);
-  }
 
   .aggregate-item-thumbnail {
     background: var(--ion-color-ibf-black);
@@ -36,10 +44,6 @@
     padding: 4px 8px;
     font-size: 12px;
     margin: 0px !important;
-
-    &.active {
-      font-weight: bold;
-    }
   }
 }
 
@@ -59,7 +63,7 @@
   ion-label {
     margin: 0px !important;
   }
-  --background: var(--ion-color-ibf-salmon-light);
+  --background: var(--ion-color-ibf-gray-light);
 }
 
 .aggregate-item-information-icon {

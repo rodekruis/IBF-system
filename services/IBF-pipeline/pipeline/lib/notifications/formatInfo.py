@@ -18,6 +18,18 @@ def formatInfo(info, countryCode):
         linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/"
         linkEAPSOP = "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#heading=h.gjdgxs"
         linkWhatsApp = "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin"
+    elif countryCode == "KEN":
+        logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png"
+        triggerStatement = "TBD"
+        linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/"
+        linkEAPSOP = "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/"        
+        linkWhatsApp = "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/"
+    elif countryCode == "ETH":
+        logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png"
+        triggerStatement = "TBD"
+        linkDashboard = "http://ibf-system.westeurope.cloudapp.azure.com/"
+        linkEAPSOP = "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/"
+        linkWhatsApp = "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/"
     else:
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
         triggerStatement = "TBD"
