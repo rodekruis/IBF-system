@@ -17,6 +17,7 @@ export class Indicator {
   group: IndicatorGroup;
   colorBreaks?: ColorBreaks;
   order: number;
+  lazyLoad: boolean;
 }
 
 export enum IndicatorName {

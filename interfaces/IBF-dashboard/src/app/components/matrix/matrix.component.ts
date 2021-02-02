@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { MenuController, PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
+import { AggregatesService } from 'src/app/services/aggregates.service';
 import { MapService } from 'src/app/services/map.service';
 import { IbfLayer, IbfLayerName, IbfLayerType } from 'src/app/types/ibf-layer';
 import { AdminLevelService } from '../../services/admin-level.service';
@@ -23,6 +24,7 @@ export class MatrixComponent implements OnDestroy {
     private adminLevelService: AdminLevelService,
     private popoverController: PopoverController,
     private menuController: MenuController,
+    private aggregatesService: AggregatesService
   ) {
     this.layerSubscription = this.mapService
       .getLayers()
@@ -64,7 +66,11 @@ export class MatrixComponent implements OnDestroy {
     this.layerSubscription.unsubscribe();
   }
 
-  public updateLayer(name: IbfLayerName, active: boolean): void {
+  public async updateLayer(name: IbfLayerName, active: boolean, lazyLoad): Promise<void> {
+    this.aggregatesService.indicators
+    if (active && lazyLoad.data.features.length === 0) {
+      await this.loadDataOnActivate(name)
+    }
     this.mapService.updateLayer(name, active, true);
     this.mapService.activeLayerName = active ? name : null;
     if (active) {
@@ -75,6 +81,10 @@ export class MatrixComponent implements OnDestroy {
     if (active && !this.adminLevelService.adminLayerState) {
       this.adminLevelService.adminLayerState = true;
     }
+  }
+
+  public async loadDataOnActivate(name) {
+    await this.mapService.loadAdmin2Data()
   }
 
   public isLayerControlMenuOpen() {
