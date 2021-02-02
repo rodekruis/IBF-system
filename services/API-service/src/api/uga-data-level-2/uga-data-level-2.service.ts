@@ -1,4 +1,4 @@
-import { GeoJson } from './../../models/geo.model';
+import { DataService } from './../data/data.service';
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { validate } from 'class-validator';
 import { Injectable } from '@nestjs/common';
@@ -10,6 +10,7 @@ import { UgaDataLevel2Entity } from './uga-data-level-2.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getManager } from 'typeorm';
 import fs from 'fs';
+import { GeoJson } from '../data/geo.model';
 const csv = require('csv-parser');
 
 @Injectable()
@@ -17,7 +18,7 @@ export class UgaDataLevel2Service {
   @InjectRepository(UgaDataLevel2Entity)
   private readonly ugaLevel2Repo: Repository<UgaDataLevel2Entity>;
 
-  public constructor() {}
+  public constructor(private readonly dataService: DataService) {}
 
   public async updateOrCreate(data): Promise<void> {
     const objArray = await this.csvBufferToArray(data.buffer);
@@ -66,6 +67,8 @@ export class UgaDataLevel2Service {
     const q = fs
       .readFileSync('./src/api/uga-data-level-2/sql/select-all-uga-level-2.sql')
       .toString();
-    return await entityManager.query(q);
+    const rawResult = await entityManager.query(q);
+    console.log('rawResult uga: ', rawResult);
+    return this.dataService.toGeojson(rawResult);
   }
 }
