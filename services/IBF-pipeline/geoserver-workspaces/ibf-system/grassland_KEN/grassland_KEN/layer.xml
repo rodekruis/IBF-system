@@ -1,0 +1,16 @@
+<layer>
+  <name>grassland_KEN</name>
+  <id>LayerInfoImpl--62f77a62:1762deea0b3:-7c19</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff5</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl--62f77a62:1762deea0b3:-7c1a</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2020-12-04 14:05:36.451 UTC</dateCreated>
+</layer>

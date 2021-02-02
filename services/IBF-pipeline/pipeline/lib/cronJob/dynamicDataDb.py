@@ -25,7 +25,6 @@ class DatabaseManager:
         }
         if CALCULATE_EXPOSURE:
             self.tableJson["calculated_affected_" + fcStep] = affectedFolder + 'affected_' + fcStep + '_' + country_code + ".json"
-        self.CRA_FILENAME = SETTINGS[country_code]['CRA_filename']
 
     def upload(self):
         for table, jsonData in self.tableJson.items():
@@ -64,6 +63,9 @@ class DatabaseManager:
         sql_file = open('lib/cronJob/processDynamicDataPostgresTrigger.sql', 'r', encoding='utf-8')
         sql_trigger = sql_file.read()
         sql_file.close()
+        sql_file = open('lib/cronJob/processEventDistricts.sql', 'r', encoding='utf-8')
+        sql_event_districts = sql_file.read()
+        sql_file.close()
         if CALCULATE_EXPOSURE:
             sql_file = open('lib/cronJob/processDynamicDataPostgresExposure.sql', 'r', encoding='utf-8')
             sql_exposure = sql_file.read()
@@ -71,11 +73,9 @@ class DatabaseManager:
         try:
             self.con, self.cur, self.db = get_db()
             self.cur.execute(sql_trigger)
+            self.cur.execute(sql_event_districts)
             if CALCULATE_EXPOSURE:
-                self.cur.execute(psql.SQL(sql_exposure).format(
-                    psql.Identifier("IBF-static-input", self.CRA_FILENAME + "_3"),
-                    psql.Identifier("IBF-static-input", self.CRA_FILENAME + "_2"),
-                    psql.Identifier("IBF-static-input", self.CRA_FILENAME + "_1")))
+                self.cur.execute(psql.SQL(sql_exposure))
             self.con.commit()
             self.con.close()
             print('SQL EXECUTED')

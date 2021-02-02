@@ -1,17 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Repository } from 'typeorm';
 import { MockType } from './mock.type';
 
-export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(
-  (): any => ({
-    findOne: jest.fn(entity => entity),
-    findAndCount: jest.fn(entity => entity),
-    findAll: jest.fn(entity => entity),
-    create: jest.fn(entity => entity),
-    save: jest.fn(entity => entity),
-    delete: jest.fn(entity => entity),
-    publish: jest.fn(entity => entity),
-    unpublish: jest.fn(entity => entity),
-  }),
-);
+export const repositoryMockFactory: () => MockType<
+  Repository<jest.Mock>
+> = jest.fn((): object => ({
+  findOne: jest.fn((entity): typeof entity => entity),
+  findAndCount: jest.fn((entity): typeof entity => entity),
+  findAll: jest.fn((entity): typeof entity => entity),
+  create: jest.fn((entity): typeof entity => entity),
+  save: jest.fn((entity): typeof entity => entity),
+  delete: jest.fn((entity): typeof entity => entity),
+  publish: jest.fn((entity): typeof entity => entity),
+  unpublish: jest.fn((entity): typeof entity => entity),
+}));

@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:15-alpine
 
 RUN apk update && apk add python make g++ git
 
@@ -10,7 +10,7 @@ COPY package*.json ./
 
 USER node
 
-RUN npm ci
+RUN npm ci --no-audit
 
 COPY --chown=node:node . .
 

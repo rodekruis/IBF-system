@@ -1,11 +1,13 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { PlaceCode } from 'src/app/models/place-code.model';
 import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EapAction } from 'src/app/types/eap-action';
-import { IndicatorEnum } from 'src/app/types/indicator-group';
+import { IndicatorName } from 'src/app/types/indicator-group';
 
 @Component({
   selector: 'app-chat',
@@ -14,12 +16,13 @@ import { IndicatorEnum } from 'src/app/types/indicator-group';
 })
 export class ChatComponent implements OnDestroy {
   public triggeredAreas: any[];
+  public filteredAreas: any[];
 
   private eapActionSubscription: Subscription;
   private countrySubscription: Subscription;
-  private timelineSubscription: Subscription;
+  private placeCodeSubscription: Subscription;
 
-  public IndicatorEnum = IndicatorEnum;
+  public IndicatorName = IndicatorName;
   public eapActions: EapAction[];
   public changedActions: EapAction[] = [];
   public submitDisabled = true;
@@ -30,8 +33,12 @@ export class ChatComponent implements OnDestroy {
     private countryService: CountryService,
     private eapActionsService: EapActionsService,
     public eventService: EventService,
+    private placeCodeService: PlaceCodeService,
     private alertController: AlertController,
-  ) {
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {}
+
+  ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((_) => {
@@ -43,13 +50,28 @@ export class ChatComponent implements OnDestroy {
       .getTriggeredAreas()
       .subscribe((newAreas) => {
         this.triggeredAreas = newAreas;
+        this.filteredAreas = [...this.triggeredAreas];
         this.triggeredAreas.forEach((area) => (area.submitDisabled = true));
+      });
+
+    this.placeCodeSubscription = this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe((placeCode: PlaceCode) => {
+        if (placeCode) {
+          this.filteredAreas = this.triggeredAreas.filter(
+            (area) => area.pcode === placeCode.placeCode,
+          );
+        } else {
+          this.filteredAreas = [...this.triggeredAreas];
+        }
+        this.changeDetectorRef.detectChanges();
       });
   }
 
   ngOnDestroy() {
     this.eapActionSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
+    this.placeCodeSubscription.unsubscribe();
   }
 
   public changeAction(pcode: string, action: string, checkbox: boolean) {
@@ -62,23 +84,39 @@ export class ChatComponent implements OnDestroy {
     this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = false;
   }
 
-  public submitEapAction(pcode: string) {
+  public async submitEapAction(pcode: string) {
     this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = true;
-    this.changedActions.forEach(async (action) => {
-      if (action.pcode === pcode) {
-        this.eapActionsService.checkEapAction(
-          action.action,
-          this.countryService.selectedCountry.countryCode,
-          action.checked,
-          action.pcode,
-        );
-      }
-    });
-    this.changedActions = this.changedActions.filter((i) => i.pcode !== pcode);
-    this.actionResult('EAP action(s) updated in database.');
+
+    try {
+      const submitEAPActionResult = await Promise.all(
+        this.changedActions.map(async (action) => {
+          if (action.pcode === pcode) {
+            return this.eapActionsService.checkEapAction(
+              action.action,
+              this.countryService.activeCountry.countryCodeISO3,
+              action.checked,
+              action.pcode,
+            );
+          } else {
+            return Promise.resolve();
+          }
+        }),
+      );
+
+      this.changedActions = this.changedActions.filter(
+        (i) => i.pcode !== pcode,
+      );
+
+      this.actionResult(
+        'EAP action(s) updated in database.',
+        window.location.reload,
+      );
+    } catch (e) {
+      this.actionResult('Failed to update EAP action(s) updated in database.');
+    }
   }
 
-  private async actionResult(resultMessage: string) {
+  private async actionResult(resultMessage: string, callback?: () => void) {
     const alert = await this.alertController.create({
       message: resultMessage,
       buttons: [
@@ -86,7 +124,9 @@ export class ChatComponent implements OnDestroy {
           text: 'OK',
           handler: () => {
             alert.dismiss(true);
-            window.location.reload();
+            if (callback) {
+              callback();
+            }
             return false;
           },
         },

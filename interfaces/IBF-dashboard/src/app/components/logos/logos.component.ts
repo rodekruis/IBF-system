@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CountryService } from 'src/app/services/country.service';
 
@@ -7,48 +7,19 @@ import { CountryService } from 'src/app/services/country.service';
   templateUrl: './logos.component.html',
   styleUrls: ['./logos.component.scss'],
 })
-export class LogosComponent {
+export class LogosComponent implements OnInit {
   private countrySubscription: Subscription;
-  public countryCode: string;
-  public logos: any[];
+  public logos: string[] = [];
 
-  constructor(private countryService: CountryService) {
-    this.logos = [
-      {
-        countryCode: 'UGA',
-        src: 'UGA-unma.png',
-      },
-      {
-        countryCode: 'UGA',
-        src: 'UGA-government.jpg',
-      },
-      {
-        countryCode: 'UGA',
-        src: 'UGA-urcs.svg',
-      },
-      {
-        countryCode: 'ZMB',
-        src: 'ZMB-warma.png',
-      },
-      {
-        countryCode: 'ZMB',
-        src: 'ZMB-government.svg',
-      },
-      {
-        countryCode: 'ZMB',
-        src: 'ZMB-zrcs.png',
-      },
-      // This img is somehow not found, even though present
-      // {
-      //   countryCode: 'ZMB',
-      //   src: 'ZMB-zmd.png'
-      // },
-    ];
+  constructor(private countryService: CountryService) {}
 
+  ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country) => {
-        this.countryCode = country.countryCode;
+        if (country) {
+          this.logos = country.countryLogos;
+        }
       });
   }
 

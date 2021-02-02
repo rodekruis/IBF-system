@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user/user.model';
 import { ApiService } from 'src/app/services/api.service';
 import { JwtService } from 'src/app/services/jwt.service';
-import { UserRole } from './user-role.enum';
+import { UserRole } from '../models/user/user-role.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +42,7 @@ export class AuthService {
     if (!this.userRole) {
       const user = this.getUserFromToken();
 
-      this.userRole = user ? user.role : '';
+      this.userRole = user ? user.userRole : '';
     }
 
     return this.userRole;
@@ -63,12 +63,12 @@ export class AuthService {
       firstName: decodedToken.firstName,
       middleName: decodedToken.middleName,
       lastName: decodedToken.lastName,
-      role: decodedToken.role,
-      status: decodedToken.status,
+      userRole: decodedToken.userRole,
+      userStatus: decodedToken.userStatus,
       countries: decodedToken.countries,
     };
 
-    this.userRole = user.role;
+    this.userRole = user.userRole;
 
     return user;
   }
@@ -86,12 +86,8 @@ export class AuthService {
 
         this.authenticationState.next(user);
 
-        if (user.role === UserRole.Guest) {
-          return;
-        }
-
         this.loggedIn = true;
-        this.userRole = user.role;
+        this.userRole = user.userRole;
 
         if (this.redirectUrl) {
           this.router.navigate([this.redirectUrl]);

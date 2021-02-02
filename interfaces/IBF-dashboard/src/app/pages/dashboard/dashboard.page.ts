@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
+import { UserRole } from 'src/app/models/user/user-role.enum';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,12 +11,12 @@ import { environment } from 'src/environments/environment';
 export class DashboardPage {
   public version: string = environment.ibf_system_version;
   public isDev = false;
-  private readonly adminRole = 'admin';
+  private readonly adminRole = UserRole.Admin;
 
   constructor(private authService: AuthService) {
     this.authService.authenticationState$.subscribe((user) => {
       if (user) {
-        this.isDev = user.role == this.adminRole;
+        this.isDev = user.userRole == this.adminRole;
       }
     });
   }

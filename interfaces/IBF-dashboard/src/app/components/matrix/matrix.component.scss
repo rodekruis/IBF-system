@@ -1,6 +1,6 @@
 .ibf-map-layer-control {
   position: absolute;
-  top: 0;
+  top: 10px;
   bottom: 0;
   right: 0;
   width: 25%;
@@ -36,9 +36,18 @@
             }
 
             .point-layer {
-              background-image: url('../../../assets/markers/default.svg');
               background-repeat: no-repeat;
               background-position: center;
+              background-size: contain;
+            }
+            .glofas-layer {
+              background-image: url('../../../assets/markers/glofas-default.svg');
+            }
+            .red-cross-layer {
+              background-image: url('../../../assets/markers/red-cross.png');
+            }
+            .waterpoint-layer {
+              background-image: url('../../../assets/markers/waterpoint.png');
             }
 
             .layer-control-label-col {
@@ -51,7 +60,7 @@
                   text-transform: capitalize;
                   line-height: 1.2;
                   padding: 4px 8px;
-                  font-size: 13px;
+                  font-size: 11px;
                 }
               }
             }

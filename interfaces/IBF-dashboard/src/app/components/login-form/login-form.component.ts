@@ -13,12 +13,12 @@ export class LoginFormComponent implements OnInit {
 
   constructor(private authService: AuthService) {}
 
+  ngOnInit() {}
+
   public model = {
     email: '',
     password: '',
   };
-
-  ngOnInit() {}
 
   public onSubmit() {
     this.authService.login(this.model.email, this.model.password).then(() => {

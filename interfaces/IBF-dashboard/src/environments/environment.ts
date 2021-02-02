@@ -12,8 +12,7 @@ export const environment = {
   useServiceWorker: false,
 
   // geoserver
-  geoserver_url:
-    'http://ibf-system.westeurope.cloudapp.azure.com/geoserver/ibf-system/wms',
+  geoserver_url: 'https://ibf-test.510.global/geoserver/ibf-system/wms',
 
   // version
   ibf_system_version: 'v0.0.0',
