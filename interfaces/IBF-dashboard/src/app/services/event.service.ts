@@ -5,6 +5,7 @@ import { TimelineService } from 'src/app/services/timeline.service';
 import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { MockScenario } from '../mocks/mock-scenario.enum';
+import { Country } from '../models/country.model';
 
 @Injectable({
   providedIn: 'root',
@@ -64,33 +65,43 @@ export class EventService {
     }
   };
 
-  private async getFirstTriggerDate() {
-    const timesteps = await this.apiService.getTriggerPerLeadTime(
-      this.countryService.activeCountry.countryCodeISO3,
-    );
-    let firstKey = null;
-    Object.keys(timesteps).forEach((key) => {
-      if (timesteps[key] == 1) {
-        firstKey = !firstKey ? key : firstKey;
-      }
-    });
-    this.state.firstLeadTime = firstKey;
-    this.state.newEventEarlyTrigger =
-      firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
+  private getFirstTriggerDate() {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe(async (country: Country) => {
+        if (country) {
+          const timesteps = await this.apiService.getTriggerPerLeadTime(
+            country.countryCodeISO3,
+          );
+          let firstKey = null;
+          Object.keys(timesteps).forEach((key) => {
+            if (timesteps[key] == 1) {
+              firstKey = !firstKey ? key : firstKey;
+            }
+          });
+          this.state.firstLeadTime = firstKey;
+          this.state.newEventEarlyTrigger =
+            firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
+        }
+      });
   }
 
-  private async getTriggerLeadTime() {
-    let triggerLeadTime = null;
-    this.countryService.activeCountry.countryLeadTimes.forEach(
-      (leadTime: LeadTime) => {
-        if (
-          !triggerLeadTime &&
-          LeadTimeTriggerKey[leadTime] >= this.state.firstLeadTime
-        ) {
-          triggerLeadTime = LeadTimeTriggerKey[leadTime];
+  private getTriggerLeadTime() {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe(async (country: Country) => {
+        if (country) {
+          let triggerLeadTime = null;
+          country.countryLeadTimes.forEach((leadTime: LeadTime) => {
+            if (
+              !triggerLeadTime &&
+              LeadTimeTriggerKey[leadTime] >= this.state.firstLeadTime
+            ) {
+              triggerLeadTime = LeadTimeTriggerKey[leadTime];
+            }
+          });
+          this.state.triggerLeadTime = triggerLeadTime;
         }
-      },
-    );
-    this.state.triggerLeadTime = triggerLeadTime;
+      });
   }
 }
