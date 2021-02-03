@@ -49,6 +49,7 @@ services:
                 - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
                 - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
                 - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
+                - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
         image: rodekruis/ibf-dashboard
         environment:
             - NG_PRODUCTION=true
@@ -56,6 +57,7 @@ services:
             - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
             - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
             - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
+            - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
         volumes:
             - ibf-dashboard-root:/home/node/app/www
         networks:

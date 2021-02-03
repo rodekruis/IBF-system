@@ -29,15 +29,22 @@
           <ion-icon name="chatbubbles"></ion-icon>
           <ion-card-header>
             <ion-card-title>
-              Hello! Welcome to IBF. This chat will guide you through the
-              system. You will always find it to the left of the screen. Please
-              login below.
-              <br /><br />
-              <strong>NOTE:</strong> This dashboard works best in Chrome,
-              Firefox, Safari and Microsoft Edge. The dashboard does not load
-              well in Internet Explorer.
+              Hello! Welcome to IBF.
             </ion-card-title>
+            <ion-card-subtitle>
+              This chat will guide you through the system. You will find it to
+              the left of the screen. Please login below.
+            </ion-card-subtitle>
           </ion-card-header>
+          <ion-card-content>
+            <ion-card-title (click)="presentPopover()">
+              Click to watch the IBF Video Guide.
+            </ion-card-title>
+            <br />
+            NOTE: This dashboard works best in Chrome, Firefox, Safari and
+            Microsoft Edge. The dashboard is not compatible with Internet
+            Explorer.
+          </ion-card-content>
           <app-timestamp></app-timestamp>
         </ion-card>
         <ion-card class="ibf-login-card">

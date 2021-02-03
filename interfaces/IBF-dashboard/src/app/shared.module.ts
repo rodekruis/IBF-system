@@ -24,6 +24,8 @@ import { SourceInfoModalComponent } from './components/source-info-modal/source-
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
+import { VideoGuideButtonComponent } from './components/video-guide-button/video-guide-button.component';
+import { VideoPopoverComponent } from './components/video-popover/video-popover.component';
 
 @NgModule({
   imports: [
@@ -54,6 +56,8 @@ import { UserStateComponent } from './components/user-state/user-state.component
     ExportViewComponent,
     ExportViewPopoverComponent,
     DateButtonComponent,
+    VideoPopoverComponent,
+    VideoGuideButtonComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -76,6 +80,8 @@ import { UserStateComponent } from './components/user-state/user-state.component
     ExportViewComponent,
     ExportViewPopoverComponent,
     DateButtonComponent,
+    VideoPopoverComponent,
+    VideoGuideButtonComponent,
   ],
 })
 export class SharedModule {}
