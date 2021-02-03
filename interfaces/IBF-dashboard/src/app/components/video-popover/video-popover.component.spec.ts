@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { DateButtonComponent } from './date-button.component';
+import { VideoPopoverComponent } from './video-popover.component';
 
-describe('DateButtonComponent', () => {
-  let component: DateButtonComponent;
-  let fixture: ComponentFixture<DateButtonComponent>;
+describe('VideoPopoverComponent', () => {
+  let component: VideoPopoverComponent;
+  let fixture: ComponentFixture<VideoPopoverComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DateButtonComponent],
+      declarations: [VideoPopoverComponent],
       imports: [IonicModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DateButtonComponent);
+    fixture = TestBed.createComponent(VideoPopoverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
