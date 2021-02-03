@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { VideoPopoverComponent } from 'src/app/components/video-popover/video-popover.component';
 import { environment } from 'src/environments/environment';
+import { VideoPopoverComponent } from '../video-popover/video-popover.component';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'video-guide-button',
+  templateUrl: './video-guide-button.component.html',
+  styleUrls: ['./video-guide-button.component.scss'],
 })
-export class LoginPage {
-  public version: string = environment.ibf_system_version;
+export class VideoGuideButtonComponent {
+  @Input()
+  public color: string = 'ibf-royal-blue';
 
   constructor(private popoverController: PopoverController) {}
 
