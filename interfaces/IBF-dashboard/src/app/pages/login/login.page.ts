@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
+import { VideoPopoverComponent } from 'src/app/components/video-popover/video-popover.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,5 +11,17 @@ import { environment } from 'src/environments/environment';
 export class LoginPage {
   public version: string = environment.ibf_system_version;
 
-  constructor() {}
+  constructor(private popoverController: PopoverController) {}
+
+  async presentPopover() {
+    const popover = await this.popoverController.create({
+      component: VideoPopoverComponent,
+      animated: true,
+      cssClass: 'ibf-video-popover',
+      translucent: true,
+      showBackdrop: true,
+    });
+
+    return await popover.present();
+  }
 }

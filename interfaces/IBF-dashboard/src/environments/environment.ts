@@ -16,4 +16,7 @@ export const environment = {
 
   // version
   ibf_system_version: 'v0.0.0',
+
+  // video url
+  ibf_video_url: 'https://www.youtube-nocookie.com/embed/O0PwZSpEhhc',
 };

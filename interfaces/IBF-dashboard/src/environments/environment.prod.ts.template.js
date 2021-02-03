@@ -16,5 +16,8 @@ export const environment = {
 
   // version
   ibf_system_version: '${process.env.NG_IBF_SYSTEM_VERSION}',
+
+  // video url
+  ibf_video_url: '${process.env.NG_IBF_VIDEO_URL}',
 };
 `;

@@ -19,8 +19,19 @@ ion-content {
   --background: var(--ion-color-ibf-royal-blue);
 
   &,
-  ion-card-title {
+  ion-card-title,
+  ion-card-subtitle {
     --color: var(--ion-color-ibf-royal-blue-contrast);
+  }
+
+  ion-card-content {
+    ion-card-title {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   ion-icon {
@@ -51,6 +62,6 @@ ion-content {
 }
 
 app-timestamp {
-  height: 48px;
+  height: 24px;
   display: block;
 }
