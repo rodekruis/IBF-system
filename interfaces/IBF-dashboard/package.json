@@ -21,7 +21,7 @@
     "test:dev": "ng test",
     "test:only": "ng test --no-watch --browsers=ChromeHeadless",
     "test": "npm run lint && npm run test:only",
-    "postinstall": "ngcc"
+    "postinstall": "ngcc --tsconfig \"tsconfig.json\""
   },
   "dependencies": {
     "@angular/common": "~11.1.1",
