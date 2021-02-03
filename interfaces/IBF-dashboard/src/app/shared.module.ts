@@ -24,6 +24,7 @@ import { SourceInfoModalComponent } from './components/source-info-modal/source-
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
+import { VideoGuideButtonComponent } from './components/video-guide-button/video-guide-button.component';
 import { VideoPopoverComponent } from './components/video-popover/video-popover.component';
 
 @NgModule({
@@ -56,6 +57,7 @@ import { VideoPopoverComponent } from './components/video-popover/video-popover.
     ExportViewPopoverComponent,
     DateButtonComponent,
     VideoPopoverComponent,
+    VideoGuideButtonComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -79,6 +81,7 @@ import { VideoPopoverComponent } from './components/video-popover/video-popover.
     ExportViewPopoverComponent,
     DateButtonComponent,
     VideoPopoverComponent,
+    VideoGuideButtonComponent,
   ],
 })
 export class SharedModule {}
