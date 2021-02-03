@@ -1,3 +1,13 @@
+# [0.5.0](https://github.com/rodekruis/IBF-system/compare/v0.4.5...v0.5.0) (2021-02-03)
+
+
+### Features
+
+* video guide url in chat component AB[#5923](https://github.com/rodekruis/IBF-system/issues/5923) ([907ca39](https://github.com/rodekruis/IBF-system/commit/907ca3921f0c850c3da45d0f11a18b2107b5dae3))
+* video on login page and reduce font size AB[#5925](https://github.com/rodekruis/IBF-system/issues/5925) AB[#5926](https://github.com/rodekruis/IBF-system/issues/5926) AB[#5927](https://github.com/rodekruis/IBF-system/issues/5927) ([2079553](https://github.com/rodekruis/IBF-system/commit/207955352614da439dba82f83bb38bfb919c4aae))
+
+
+
 ## [0.4.5](https://github.com/rodekruis/IBF-system/compare/v0.4.4...v0.4.5) (2021-02-01)
 
 
@@ -115,39 +125,6 @@
 * debounce loader for smooth ux ([9981fe4](https://github.com/rodekruis/IBF-system/commit/9981fe48091ca509a50689a3ee8ac9753725d524))
 * lead time defaults to 7-day, refactor lead time table ([7d23fd7](https://github.com/rodekruis/IBF-system/commit/7d23fd72dc05cb899cecfcb9d936be128b8bd5c6))
 * place code AB[#5655](https://github.com/rodekruis/IBF-system/issues/5655) AB[#5656](https://github.com/rodekruis/IBF-system/issues/5656) AB[#5658](https://github.com/rodekruis/IBF-system/issues/5658) AB[#5657](https://github.com/rodekruis/IBF-system/issues/5657) AB[#5659](https://github.com/rodekruis/IBF-system/issues/5659) ([ba2fd95](https://github.com/rodekruis/IBF-system/commit/ba2fd9589c6bba65ee5520beeb080f714abd842d))
-
-
-
-## [0.1.5](https://github.com/rodekruis/IBF-system/compare/v0.1.4...v0.1.5) (2021-01-20)
-
-
-### Bug Fixes
-
-* add ibf and ibf-test as server names ([5d6d01e](https://github.com/rodekruis/IBF-system/commit/5d6d01e75e5c0425cc9f81c830952085db253493))
-* add test server name ([761161a](https://github.com/rodekruis/IBF-system/commit/761161a9a766b76fc72e6d1dbeeee9d0b918375d))
-* allow guest users to login ([b7b051a](https://github.com/rodekruis/IBF-system/commit/b7b051a8e880c87478e34b417892660a2ed1635a))
-* import file path ([3ae3a0e](https://github.com/rodekruis/IBF-system/commit/3ae3a0ec1681dfdfcc0b52b240c1d7483cd48e0f))
-* import user dto test ([e47b3f9](https://github.com/rodekruis/IBF-system/commit/e47b3f981cb4adbd17031161e6839649cf759d22))
-* only use ibf-test in server_name ([161503c](https://github.com/rodekruis/IBF-system/commit/161503c02c73e6cd0dbb32aec9903f308cd15b70))
-* remove dead link on login page ([8aa294b](https://github.com/rodekruis/IBF-system/commit/8aa294b1cf5791844993462a1b1863c949bb403f))
-* remove proxy cache ([71d85e3](https://github.com/rodekruis/IBF-system/commit/71d85e3eeb8fb4c8084c63b1a5c9a546f54ff3b8))
-* rename old vars ([62efd07](https://github.com/rodekruis/IBF-system/commit/62efd07e6c8ae4a49746c4ea317bd159195af33d))
-* rename redcross to Red Cross AB[#5641](https://github.com/rodekruis/IBF-system/issues/5641) ([bfaf821](https://github.com/rodekruis/IBF-system/commit/bfaf821d4189a57585445c6968ec7ebaa68c820d))
-* reorganize API-service folder structure AB[#5637](https://github.com/rodekruis/IBF-system/issues/5637) ([228b9aa](https://github.com/rodekruis/IBF-system/commit/228b9aae9f1bccd3721d6ac3bb4333e3e1870008))
-* swagger dto for user apis ([a652b46](https://github.com/rodekruis/IBF-system/commit/a652b469a96b11f76c5b0aa692e7045de435bd52))
-* unit test bug AB[#5637](https://github.com/rodekruis/IBF-system/issues/5637) ([f999476](https://github.com/rodekruis/IBF-system/commit/f999476c974c6e6e34141233ce5190fc7cf930cb))
-* use loader interceptor AB[#5261](https://github.com/rodekruis/IBF-system/issues/5261) ([c2c89ec](https://github.com/rodekruis/IBF-system/commit/c2c89ec0c536edd062fcdf1635c01278ed63e4c6))
-* use nginx cache AB[#5261](https://github.com/rodekruis/IBF-system/issues/5261) ([66f89c7](https://github.com/rodekruis/IBF-system/commit/66f89c74e7e20f8d0bcd6e510ac3217f9be9c6fe))
-* use nginx instead of localhost ([2118077](https://github.com/rodekruis/IBF-system/commit/2118077a8f783a7de70e45d23a71b794ff0f46a8))
-* use no-cache header in api service AB[#5261](https://github.com/rodekruis/IBF-system/issues/5261) ([edb0c45](https://github.com/rodekruis/IBF-system/commit/edb0c45f4585f44d83cd958ffd88f6a12eaf8da6))
-
-
-### Features
-
-* add waterpoint-layer to dashboard AB[#5638](https://github.com/rodekruis/IBF-system/issues/5638) ([5f3dfc8](https://github.com/rodekruis/IBF-system/commit/5f3dfc87fb487cb978c930626fcfccaa7aeac4f5))
-* integrate leaflet-markercluster for waterpoints AB[#5640](https://github.com/rodekruis/IBF-system/issues/5640) ([c9653c4](https://github.com/rodekruis/IBF-system/commit/c9653c46deeaaa559e8f4e3ed7e00cac727c26d4))
-* remove layer availability property AB[#5642](https://github.com/rodekruis/IBF-system/issues/5642) ([672bdd9](https://github.com/rodekruis/IBF-system/commit/672bdd9d7753431b053e0d93cbd0e0b814363d3c))
-* waterpoint-endpoint calling 3rd party API AB[#5637](https://github.com/rodekruis/IBF-system/issues/5637) ([e31bfbb](https://github.com/rodekruis/IBF-system/commit/e31bfbb0b20fa101b16764caa01defddf9a70ef7))
 
 
 
