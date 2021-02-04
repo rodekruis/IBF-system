@@ -28,6 +28,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public indicators: Indicator[] = [];
   public groups: IndicatorGroup[] = [];
   public placeCode: PlaceCode;
+
   private defaultHeaderLabel: string;
   private exposedPrefix: string;
   private allPrefix: string;

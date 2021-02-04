@@ -47,7 +47,10 @@
       "instruction": "The potentially affected areas are listed below in order of number of people potentially affected per area. You can keep track here per area which EAP-actions are to-do / done.",
       "place-name": "District: <strong>{{ placeName }}</strong>",
       "exposed-population": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
-      "submit-button-label": "Submit"
+      "submit-button-label": "Submit",
+      "update-success": "EAP action(s) updated in database.",
+      "update-failure": "Failed to update EAP action(s) updated in database.",
+      "prompt-button-label": "OK"
     }
   }
 }
