@@ -16,9 +16,9 @@ library(stringr)
 ##################################################
 ################### Load inputs ##################
 ##################################################
-
-zwe_lzh <- st_read('C:/Users/pphung/Desktop/zwe_spi/zwe_livelihoodzones/ZW_LHZ_2011/ZW_LHZ_2011.shp')
-zwe <- st_read('C:/Users/pphung/Desktop/zwe_spi/zwe_admbnda_adm0_zimstat_ocha_20180911/zwe_admbnda_adm0_zimstat_ocha_20180911.shp')
+onedrive_folder <- "c:/Users/BOttow/Rode Kruis"
+zwe_lzh <- st_read('c:/Users/BOttow/Documents/IPC/data/ZW_LHZ_2011/ZW_LHZ_2011.shp')
+zwe <- st_read('c:/Users/BOttow/Documents/IPC/data/ZW_LHZ_2011/zwe_admbnda_adm0_zimstat_ocha_20180911.shp')
 
 # name of standardised index (i.e: SPI3, SPEI6) for naming graphs and files
 si_type = "SPEI12"
@@ -29,26 +29,31 @@ si_thr = -1
 yield_anomaly_thr = -1
 
 # load the standardised index file
-si <- brick("C:/Users/pphung/Desktop/zwe_spi/spi_spei/spei12.nc")
+si <- brick(sprintf("%s/510 - Data preparedness and IBF - [RD] Impact-based forecasting/General_Data/spi_spei/spei12.nc",
+                    onedrive_folder))
 
 # load all crop yield files and read as data.frame
-yieldlist = list.files(path = "C:/Users/pphung/Desktop/zwe_spi/gdhy_v1.2_v1.3_20190128/maize/", pattern = "yield_", full.names=TRUE)
+yieldlist = list.files(path = sprintf("%s/510 - Data preparedness and IBF - [RD] Impact-based forecasting/IBF-  DROUGHT/crop_yield_data/maize/",
+                                      onedrive_folder), pattern = "yield_", full.names=TRUE)
 yield.df <- NULL
 for (i in 1:length(yieldlist)) {
   c_yield <- brick(yieldlist[i])
   c_yield_LHZ <- exact_extract(c_yield, zwe_lzh, 'mean')    # extract by livelihood
   c_yield_LHZ <- as.data.frame(t(as.matrix(c_yield_LHZ)), col.names=as.character(zwe_lzh$FNID))
   names(c_yield_LHZ)<-as.character(zwe_lzh$FNID)            # name column as livelihood zone
-  rownames(c_yield_LHZ) <- str_sub(yieldlist[1], -8, -5)    # name row as year
+  rownames(c_yield_LHZ) <- str_sub(yieldlist[i], -8, -5)    # name row as year
   rbind(yield.df, c_yield_LHZ) -> yield.df                  # append to the large df
 }
 yield.df <- yield.df[complete.cases(yield.df), ]  # remove NA
 
+### output folder
+output_folder <- paste(getwd(), "output", sep="/")
+
 ##################################################
 ########## Function to calculate skills ##########
 ##################################################
-
-skill_analysis <- function(si_type, si, si_thr, crop_type, yield.df, yield_anomaly_thr, countryshape, livelyzoneshape) {
+skill_analysis <- function(si_type, si, si_thr, crop_type, yield.df, yield_anomaly_thr, 
+                           countryshape, livelyzoneshape, output_folder) {
   
   # calculate crop yield anomaly
   yield.df_long <- gather(yield.df, factor_key=TRUE)
@@ -63,6 +68,7 @@ skill_analysis <- function(si_type, si, si_thr, crop_type, yield.df, yield_anoma
   }
   yield_anomaly <- yield_anomaly %>%
     mutate(year=rownames(yield_anomaly)) 
+  rownames(yield_anomaly) <- yield_anomaly$year
   yield_anomaly$year <- as.Date(yield_anomaly$year, format="%Y")
   yield_anomaly_subset <- yield_anomaly[year(yield_anomaly$year) %in% c(1983:2012),] # subset yield to 1983-2012
   
@@ -79,7 +85,7 @@ skill_analysis <- function(si_type, si, si_thr, crop_type, yield.df, yield_anoma
     mutate(month=format(si_LHZ$date, "%m"))
   rownames(si_LHZ) <- si_LHZ$date
   si_LHZ_subset <- si_LHZ[year(si_LHZ$date) %in% c(1983:2012) &   # subset yield to 1983-2012
-                            months(si_LHZ$date) %in% month.name[1:3],]  # subset Jan, Feb, Mar from 1983-2012
+                            month(si_LHZ$date) %in% c(1:3),]  # subset Jan, Feb, Mar from 1983-2012
   
   
   # create a dataframe with binary of SPI<threshold and crop anomaly per lz
@@ -115,8 +121,8 @@ skill_analysis <- function(si_type, si, si_thr, crop_type, yield.df, yield_anoma
             legend.position = c(0.8, 0.2),
             plot.title = element_text(size=18),
             plot.background = element_rect(fill = "transparent",colour = NA)) 
-    
-    ggsave(filename=paste0("C:/Users/pphung/Desktop/zwe_spi/out/per_lzone/",si_type, "_", crop_type, "_", i, '.png'), 
+    dir.create(paste0(output_folder, "/per_lzone"))
+    ggsave(filename=paste0(output_folder,"/per_lzone/",si_type, "_", crop_type, "_", i, '.png'), 
            plot=scatwinddam, width = 30, height = 20, units = "cm")
     
     # check if standardised index and yield anomaly cross thresholds
@@ -127,8 +133,10 @@ skill_analysis <- function(si_type, si, si_thr, crop_type, yield.df, yield_anoma
       mutate(drought = ifelse(min>si_thr, 0, 1))  # binary logic if the index is higher than the threshold: 0, else 1
     rownames(si_LHZ_filtered) <- si_LHZ_filtered$year
     
+    x <- rownames(yield_anomaly_filtered)
     yield_anomaly_filtered <- yield_anomaly_filtered %>%
       mutate(anomaly=ifelse(yield > yield_anomaly_thr, 0, 1)) # binary logic if the index is higher than the threshold: 0, else 1
+    rownames(yield_anomaly_filtered) <- x
     
     # calculate the scores
     scores <- merge(si_LHZ_filtered, yield_anomaly_filtered, by=0) %>%
@@ -160,16 +168,18 @@ skill_analysis <- function(si_type, si, si_thr, crop_type, yield.df, yield_anoma
         # yield_anomaly_thr: crop yield anomaly (single value)
         # countryshape: shapefile of country (for cropping global dataset with country extent)
         # livelyzoneshape: shapefile of livelihood zones (for calculation)
+        # output_folder: folder where to save the output
 
 ##################################################
 ######### Run function and save outputs ##########
 ##################################################
 
-scores.df <- skill_analysis(si_type, si, si_thr, crop_type, yield.df, yield_anomaly_thr, zwe, zwe_lzh)
+scores.df <- skill_analysis(si_type, si, si_thr, crop_type, yield.df, yield_anomaly_thr, zwe, 
+                            zwe_lzh, output_folder)
 
 # export csv and shapefile of the scores
 write.csv(scores.df,
-          paste0("C:/Users/pphung/Desktop/zwe_spi/out/", si_type, "_", crop_type, "_scores_summary.csv"))
+          paste0(output_folder, si_type, "_", crop_type, "_scores_summary.csv"))
 zwe_scores = merge(zwe_lzh, scores.df, by.x="FNID", by.y=0)
 st_write(zwe_scores,
          paste0("C:/Users/pphung/Desktop/zwe_spi/out/shape/", si_type, "_", crop_type, "_zwe_scores.shp"), append=FALSE)
