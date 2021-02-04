@@ -3,13 +3,11 @@
   <dialogue-turn
     *ngIf="!eventService.state.activeEvent && !eventService.state.activeTrigger"
   >
-    <p>
-      Hello Aid worker HQ. To your right is the map of your country. You can
-      turn other layers on and off. There are currently
-      <strong>no triggers</strong> activated.
-    </p>
+    <p
+      [innerHTML]="'chat-component.no-event-no-trigger.welcome' | translate"
+    ></p>
     <app-about-btn
-      btnLabel="About Trigger"
+      [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>
     <video-guide-button></video-guide-button>
@@ -23,17 +21,23 @@
     "
   >
     <p>
-      Hello Aid worker HQ. A new trigger warning for
-      <strong>{{ eventService.state.triggerLeadTime }} days from today</strong>
-      has been activated for floods.
-      <span *ngIf="eventService.state.newEventEarlyTrigger">
-        The system however detects a trigger as soon as
-        <strong>{{ eventService.state.firstLeadTime }} days from today</strong>,
-        which was not detectable earlier.
+      <span
+        [innerHTML]="
+          'chat-component.new-event-active-trigger.welcome'
+            | translate: { days: eventService.state.triggerLeadTime }
+        "
+      >
       </span>
+      <span
+        *ngIf="eventService.state.newEventEarlyTrigger"
+        [innerHTML]="
+          'chat-component.new-event-active-trigger.new-event-early-trigger'
+            | translate: { days: eventService.state.firstLeadTime }
+        "
+      ></span>
     </p>
     <app-about-btn
-      btnLabel="About Trigger"
+      [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>
     <video-guide-button></video-guide-button>
@@ -46,15 +50,18 @@
       !eventService.state.newEvent
     "
   >
-    <p>
-      Hello Aid worker HQ. A trigger warning for floods has earlier been
-      activated on
-      <strong>{{ eventService.state.event.start_date }}</strong
-      >. It is now
-      <strong>{{ eventService.state.firstLeadTime }} days</strong> away.
-    </p>
+    <p
+      [innerHTML]="
+        'chat-component.active-event-active-trigger.welcome'
+          | translate
+            : {
+                startDate: eventService.state.event.start_date,
+                days: eventService.state.firstLeadTime
+              }
+      "
+    ></p>
     <app-about-btn
-      btnLabel="About Trigger"
+      [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>
     <video-guide-button></video-guide-button>
@@ -63,27 +70,27 @@
   <dialogue-turn
     *ngIf="eventService.state.activeEvent && !eventService.state.activeTrigger"
   >
-    <p>
-      Hello Aid worker HQ. There is <strong>no active trigger</strong> any more
-      (as you can see in the map). However, you can still see here the
-      EAP-actions that relate to the event that started on
-      <strong>{{ eventService.state.event.start_date }}</strong> and ended on
-      <strong>{{ eventService.state.event.end_date }}</strong
-      >. This event stays visible here for 7 days after the end-date.
-    </p>
+    <p
+      [innerHTML]="
+        'chat-component.active-event-no-trigger.welcome'
+          | translate
+            : {
+                startDate: eventService.state.event.start_date,
+                endDate: eventService.state.event.end_date
+              }
+      "
+    ></p>
     <app-about-btn
-      btnLabel="About Trigger"
+      [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>
     <video-guide-button></video-guide-button>
   </dialogue-turn>
   <ng-container *ngIf="eventService.state.activeEvent">
     <dialogue-turn isConnected="true">
-      <p>
-        The potentially affected areas are listed below in order of number of
-        people potentially affected per area. You can keep track here per area
-        which EAP-actions are to-do / done.
-      </p>
+      <p
+        [translate]="'chat-component.active-event.instruction' | translate"
+      ></p>
     </dialogue-turn>
     <dialogue-turn
       actor="self"
@@ -100,13 +107,24 @@
           </ion-col>
           <ion-col size-lg="10" size-md="10" size-xs="10">
             <ion-label
-              >District: <strong>{{ area.name }}</strong></ion-label
+              [innerHTML]="
+                'chat-component.active-event.place-name'
+                  | translate: { placeName: area.name }
+              "
+            ></ion-label
             ><br />
-            <ion-note size="small"
-              >Exposed population:
-              <strong>{{
-                area[IndicatorName.PopulationAffected] | number: '.0-0'
-              }}</strong>
+            <ion-note
+              size="small"
+              [innerHTML]="
+                'chat-component.active-event.exposed-population'
+                  | translate
+                    : {
+                        exposedNumber:
+                          area[IndicatorName.PopulationAffected]
+                          | number: '.0-0'
+                      }
+              "
+            >
             </ion-note>
           </ion-col>
         </ion-row>
@@ -138,9 +156,8 @@
             type="submit"
             expand="block"
             class="submit-button"
-          >
-            Submit
-          </ion-button>
+            [translate]="'chat-component.active-event.submit-button-label'"
+          ></ion-button>
         </ion-row>
       </form>
     </dialogue-turn>
