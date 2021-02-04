@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { MapService } from 'src/app/services/map.service';
 import { MapComponent } from './map.component';
 
@@ -19,6 +20,7 @@ describe('MapComponent', () => {
           HttpClientTestingModule,
           LeafletModule,
           RouterTestingModule,
+          TranslateModule.forRoot(),
         ],
         providers: [{ provide: MapService }],
       }).compileComponents();
