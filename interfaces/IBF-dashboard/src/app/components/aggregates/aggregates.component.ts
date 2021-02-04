@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { SourceInfoModalComponent } from 'src/app/components/source-info-modal/source-info-modal.component';
 import { Country } from 'src/app/models/country.model';
@@ -16,6 +17,7 @@ import {
   IndicatorGroup,
   IndicatorName,
 } from 'src/app/types/indicator-group';
+import { LeadTime } from 'src/app/types/lead-time';
 
 @Component({
   selector: 'app-aggregates',
@@ -26,8 +28,9 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public indicators: Indicator[] = [];
   public groups: IndicatorGroup[] = [];
   public placeCode: PlaceCode;
-  private country: Country;
-  private defaultHeaderLabel: string = '...Loading';
+  private defaultHeaderLabel: string;
+  private exposedPrefix: string;
+  private allPrefix: string;
 
   private indicatorSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -44,7 +47,22 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private eapActionsService: EapActionsService,
     private modalController: ModalController,
     private changeDetectorRef: ChangeDetectorRef,
-  ) {}
+    private translateService: TranslateService,
+  ) {
+    this.translateService
+      .get([
+        'aggregates-component.default-header-label',
+        'aggregates-component.exposed-prefix',
+        'aggregates-component.all-prefix',
+      ])
+      .subscribe((translatedStrings: string) => {
+        this.defaultHeaderLabel =
+          translatedStrings['aggregates-component.default-header-label'];
+        this.exposedPrefix =
+          translatedStrings['aggregates-component.exposed-prefix'];
+        this.allPrefix = translatedStrings['aggregates-component.all-prefix'];
+      });
+  }
 
   ngOnInit() {
     if (
@@ -57,13 +75,12 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.country = country;
         this.aggregatesService.loadMetadataAndAggregates();
       });
 
     this.timelineSubscription = this.timelineService
       .getTimelineSubscription()
-      .subscribe((timeline) => {
+      .subscribe((timeline: LeadTime) => {
         this.aggregatesService.loadMetadataAndAggregates();
       });
 
@@ -122,11 +139,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         this.eapActionsService
           .getTriggeredAreas()
           .subscribe((triggeredAreas) => {
-            headerLabel = `Exposed ${triggeredAreas.length} ${adminAreaLabel}`;
+            headerLabel = `${this.exposedPrefix} ${triggeredAreas.length} ${adminAreaLabel}`;
           });
       } else {
         if (country) {
-          headerLabel = 'All ' + country.countryName;
+          headerLabel = `${this.allPrefix} ${country.countryName}`;
         }
       }
     }
