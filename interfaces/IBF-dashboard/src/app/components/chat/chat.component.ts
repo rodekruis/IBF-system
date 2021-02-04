@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { CountryService } from 'src/app/services/country.service';
@@ -17,6 +18,10 @@ import { IndicatorName } from 'src/app/types/indicator-group';
 export class ChatComponent implements OnDestroy {
   public triggeredAreas: any[];
   public filteredAreas: any[];
+
+  private updateSuccessMessage: string;
+  private updateFailureMessage: string;
+  private promptButtonLabel: string;
 
   private eapActionSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -36,7 +41,23 @@ export class ChatComponent implements OnDestroy {
     private placeCodeService: PlaceCodeService,
     private alertController: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
-  ) {}
+    private translateService: TranslateService,
+  ) {
+    this.translateService
+      .get([
+        'chat-component.active-event.update-success',
+        'chat-component.active-event.update-failure',
+        'chat-component.active-event.prompt-button-label',
+      ])
+      .subscribe((translatedStrings: string) => {
+        this.updateSuccessMessage =
+          translatedStrings['chat-component.active-event.update-success'];
+        this.updateFailureMessage =
+          translatedStrings['chat-component.active-event.update-failure'];
+        this.promptButtonLabel =
+          translatedStrings['chat-component.active-event.prompt-button-label'];
+      });
+  }
 
   ngOnInit() {
     this.countrySubscription = this.countryService
@@ -107,12 +128,11 @@ export class ChatComponent implements OnDestroy {
         (i) => i.pcode !== pcode,
       );
 
-      this.actionResult(
-        'EAP action(s) updated in database.',
-        window.location.reload,
+      this.actionResult(this.updateSuccessMessage, (): void =>
+        window.location.reload(),
       );
     } catch (e) {
-      this.actionResult('Failed to update EAP action(s) updated in database.');
+      this.actionResult(this.updateFailureMessage);
     }
   }
 
@@ -121,7 +141,7 @@ export class ChatComponent implements OnDestroy {
       message: resultMessage,
       buttons: [
         {
-          text: 'OK',
+          text: this.promptButtonLabel,
           handler: () => {
             alert.dismiss(true);
             if (callback) {
