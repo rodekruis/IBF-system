@@ -24,5 +24,8 @@
     "default-header-label": "...Loading",
     "exposed-prefix": "Exposed",
     "all-prefix": "All"
+  },
+  "areas-of-focus-summary-component": {
+    "title": "EAP Actions Summary"
   }
 }
