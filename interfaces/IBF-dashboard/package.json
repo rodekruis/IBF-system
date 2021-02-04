@@ -35,6 +35,8 @@
     "@asymmetrik/ngx-leaflet-markercluster": "^5.0.1",
     "@auth0/angular-jwt": "^5.0.1",
     "@ionic/angular": "^5.2.3",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
     "@turf/center": "^6.0.1",
     "@turf/invariant": "^6.1.2",
     "dotenv": "^8.2.0",

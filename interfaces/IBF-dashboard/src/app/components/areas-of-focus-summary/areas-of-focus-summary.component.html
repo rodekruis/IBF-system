@@ -1,7 +1,9 @@
 <ng-container *ngIf="eventService.state.activeEvent">
   <ion-row *ngIf="triggeredAreas?.length" class="component-title">
     <ion-item lines="none" class="component-title-item">
-      <ion-label><strong>EAP actions summary</strong></ion-label>
+      <ion-label>
+        <strong [translate]="'areas-of-focus-summary-component.title'"></strong>
+      </ion-label>
     </ion-item>
   </ion-row>
   <ion-row *ngFor="let areaOfFocus of areasOfFocus" class="ion-no-padding">

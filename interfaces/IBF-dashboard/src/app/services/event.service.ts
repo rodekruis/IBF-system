@@ -16,6 +16,7 @@ export class EventService {
   public activeEvent: boolean;
   public activeTrigger: boolean;
   public newEvent: boolean;
+  public disasterType: string = 'flood';
 
   public state = {
     event: null,

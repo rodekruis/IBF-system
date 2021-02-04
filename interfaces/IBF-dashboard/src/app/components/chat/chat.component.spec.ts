@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { ChatComponent } from './chat.component';
 
 describe('ChatComponent', () => {
@@ -14,7 +15,12 @@ describe('ChatComponent', () => {
       TestBed.configureTestingModule({
         declarations: [ChatComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        imports: [IonicModule, HttpClientTestingModule, RouterTestingModule],
+        imports: [
+          IonicModule,
+          HttpClientTestingModule,
+          RouterTestingModule,
+          TranslateModule.forRoot(),
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ChatComponent);

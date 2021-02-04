@@ -2,6 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared.module';
 import { LoginPage } from './login.page';
 
@@ -18,6 +19,7 @@ describe('LoginPage', () => {
           SharedModule,
           HttpClientTestingModule,
           RouterTestingModule,
+          TranslateModule.forRoot(),
         ],
       }).compileComponents();
 
