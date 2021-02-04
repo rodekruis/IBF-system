@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { AggregatesService } from 'src/app/services/aggregates.service';
@@ -9,17 +9,19 @@ describe('AggregatesComponent', () => {
   let component: AggregatesComponent;
   let fixture: ComponentFixture<AggregatesComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [AggregatesComponent],
-      imports: [IonicModule, HttpClientTestingModule, RouterTestingModule],
-      providers: [{ provide: AggregatesService }],
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [AggregatesComponent],
+        imports: [IonicModule, HttpClientTestingModule, RouterTestingModule],
+        providers: [{ provide: AggregatesService }],
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(AggregatesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+      fixture = TestBed.createComponent(AggregatesComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    }),
+  );
 
   it('should create', () => {
     expect(component).toBeTruthy();
