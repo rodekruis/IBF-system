@@ -7,6 +7,7 @@ import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { AggregatesService } from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
+import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
@@ -40,6 +41,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
     private adminLevelService: AdminLevelService,
+    private eapActionsService: EapActionsService,
     private modalController: ModalController,
     private changeDetectorRef: ChangeDetectorRef,
   ) {}
@@ -117,7 +119,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       headerLabel = this.placeCode.placeCodeName;
     } else {
       if (this.eventService.state.activeTrigger) {
-        headerLabel = 'Exposed ' + adminAreaLabel;
+        this.eapActionsService
+          .getTriggeredAreas()
+          .subscribe((triggeredAreas) => {
+            headerLabel = `Exposed ${triggeredAreas.length} ${adminAreaLabel}`;
+          });
       } else {
         if (country) {
           headerLabel = 'All ' + country.countryName;
