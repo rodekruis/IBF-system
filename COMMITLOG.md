@@ -1,3 +1,19 @@
+# [0.7.0](https://github.com/rodekruis/IBF-system/compare/v0.6.0...v0.7.0) (2021-02-04)
+
+
+### Features
+
+* add popover texts ([8ffbef0](https://github.com/rodekruis/IBF-system/commit/8ffbef021427664f631d4c4950349d6ec84bf357))
+* ngx translate ([c167f2a](https://github.com/rodekruis/IBF-system/commit/c167f2a5cecf017145216508f3d109d5d6051dd2))
+* translate aggregate component ([50c174b](https://github.com/rodekruis/IBF-system/commit/50c174bcd28bf26dfeee4cc045bb91562f0439bb))
+* translate aggregates component ([0b7589e](https://github.com/rodekruis/IBF-system/commit/0b7589ea2e5c5dad98e660405b9c2349ea3d339c))
+* translate areas of focus summary component ([024e060](https://github.com/rodekruis/IBF-system/commit/024e060d793c55f021530b4f23c209bdc1bf79ce))
+* translate chat component ([f229e7d](https://github.com/rodekruis/IBF-system/commit/f229e7ddb30bdfbf25de3832f838851d57bfc941))
+* translate chat component and upgrade typescript ([079a708](https://github.com/rodekruis/IBF-system/commit/079a7080493622941fda0db6a95a36415e617a6d))
+* translate dashboard page ([a0441b2](https://github.com/rodekruis/IBF-system/commit/a0441b25b9b4e50f5caf95843e7350bd168c5c3b))
+
+
+
 # [0.6.0](https://github.com/rodekruis/IBF-system/compare/v0.5.0...v0.6.0) (2021-02-03)
 
 
@@ -90,15 +106,6 @@
 
 * filter chat+aof-summary on map-area-selection AB[#5660](https://github.com/rodekruis/IBF-system/issues/5660) ([c57561e](https://github.com/rodekruis/IBF-system/commit/c57561e27596810b908fddc50b7d852918301b60))
 * on-click popup behaviour aligns better with pcode-setting AB[#5655](https://github.com/rodekruis/IBF-system/issues/5655) ([418b49f](https://github.com/rodekruis/IBF-system/commit/418b49fc23ec1a362d45b1525784177c74bf2dbd))
-
-
-
-## [0.2.1](https://github.com/rodekruis/IBF-system/compare/v0.2.0...v0.2.1) (2021-01-29)
-
-
-### Bug Fixes
-
-* remove [0,0] waterpoint locations AB[#5846](https://github.com/rodekruis/IBF-system/issues/5846) ([8799049](https://github.com/rodekruis/IBF-system/commit/8799049338cf193067b214f832609ea1f1dac05f))
 
 
 
