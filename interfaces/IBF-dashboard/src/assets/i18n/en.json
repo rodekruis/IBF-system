@@ -16,5 +16,10 @@
     },
     "today": "TODAY",
     "situational-overview": "Situational Overview"
+  },
+  "aggregates-component": {
+    "header-prefix": "Selected",
+    "header-title-prefix": "Situation in",
+    "more-information": "Click for more info on this indicator."
   }
 }
