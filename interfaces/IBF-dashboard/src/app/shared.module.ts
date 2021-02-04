@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { AboutBtnComponent } from './components/about-btn/about-btn.component';
 import { AdminLevelComponent } from './components/admin-level/admin-level.component';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
@@ -34,6 +35,7 @@ import { VideoPopoverComponent } from './components/video-popover/video-popover.
     IonicModule,
     LeafletModule,
     LeafletMarkerClusterModule,
+    TranslateModule,
   ],
   declarations: [
     LoginFormComponent,
@@ -82,6 +84,7 @@ import { VideoPopoverComponent } from './components/video-popover/video-popover.
     DateButtonComponent,
     VideoPopoverComponent,
     VideoGuideButtonComponent,
+    TranslateModule,
   ],
 })
 export class SharedModule {}
