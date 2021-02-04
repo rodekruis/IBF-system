@@ -12,11 +12,8 @@ import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import {
-  Indicator,
-  IndicatorGroup,
-  IndicatorName,
-} from 'src/app/types/indicator-group';
+import { IbfLayerName } from 'src/app/types/ibf-layer';
+import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 
 @Component({
@@ -32,6 +29,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private defaultHeaderLabel: string;
   private exposedPrefix: string;
   private allPrefix: string;
+  private popoverTexts: { [key: string]: string } = {};
 
   private indicatorSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -51,17 +49,15 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
   ) {
     this.translateService
-      .get([
-        'aggregates-component.default-header-label',
-        'aggregates-component.exposed-prefix',
-        'aggregates-component.all-prefix',
-      ])
-      .subscribe((translatedStrings: string) => {
+      .get(['aggregates-component', 'popover'])
+      .subscribe((translatedStrings: object) => {
         this.defaultHeaderLabel =
-          translatedStrings['aggregates-component.default-header-label'];
+          translatedStrings['aggregates-component']['default-header-label'];
         this.exposedPrefix =
-          translatedStrings['aggregates-component.exposed-prefix'];
-        this.allPrefix = translatedStrings['aggregates-component.all-prefix'];
+          translatedStrings['aggregates-component']['exposed-prefix'];
+        this.allPrefix =
+          translatedStrings['aggregates-component']['all-prefix'];
+        this.popoverTexts = translatedStrings['popover'];
       });
   }
 
@@ -114,12 +110,22 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: SourceInfoModalComponent,
       cssClass: 'source-info-modal-class',
-      componentProps: { indicator },
+      componentProps: {
+        indicator,
+        text: this.getPopoverText(indicator.name),
+      },
     });
     return await modal.present();
   }
 
-  public getAggregate(indicatorName: IndicatorName, weightedAvg: boolean) {
+  private getPopoverText(indicatorName: IbfLayerName): string {
+    const triggerState: string = this.eventService.state.activeTrigger
+      ? `active-trigger-${this.eventService.disasterType}`
+      : 'no-trigger';
+    return this.popoverTexts[indicatorName][triggerState];
+  }
+
+  public getAggregate(indicatorName: IbfLayerName, weightedAvg: boolean) {
     return this.aggregatesService.getAggregate(
       weightedAvg,
       indicatorName,

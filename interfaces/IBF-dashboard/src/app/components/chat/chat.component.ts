@@ -8,7 +8,7 @@ import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EapAction } from 'src/app/types/eap-action';
-import { IndicatorName } from 'src/app/types/indicator-group';
+import { IbfLayerName } from 'src/app/types/ibf-layer';
 
 @Component({
   selector: 'app-chat',
@@ -27,7 +27,7 @@ export class ChatComponent implements OnDestroy {
   private countrySubscription: Subscription;
   private placeCodeSubscription: Subscription;
 
-  public IndicatorName = IndicatorName;
+  public indicatorName = IbfLayerName;
   public eapActions: EapAction[];
   public changedActions: EapAction[] = [];
   public submitDisabled = true;
@@ -44,18 +44,11 @@ export class ChatComponent implements OnDestroy {
     private translateService: TranslateService,
   ) {
     this.translateService
-      .get([
-        'chat-component.active-event.update-success',
-        'chat-component.active-event.update-failure',
-        'chat-component.active-event.prompt-button-label',
-      ])
+      .get('chat-component.active-event')
       .subscribe((translatedStrings: string) => {
-        this.updateSuccessMessage =
-          translatedStrings['chat-component.active-event.update-success'];
-        this.updateFailureMessage =
-          translatedStrings['chat-component.active-event.update-failure'];
-        this.promptButtonLabel =
-          translatedStrings['chat-component.active-event.prompt-button-label'];
+        this.updateSuccessMessage = translatedStrings['update-success'];
+        this.updateFailureMessage = translatedStrings['update-failure'];
+        this.promptButtonLabel = translatedStrings['prompt-button-label'];
       });
   }
 
