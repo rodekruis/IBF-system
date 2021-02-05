@@ -59,7 +59,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           translatedStrings['aggregates-component']['exposed-prefix'];
         this.allPrefix =
           translatedStrings['aggregates-component']['all-prefix'];
-        this.popoverTexts = translatedStrings['popover'];
+        this.popoverTexts = translatedStrings['popover']['aggregate-popover'];
       });
   }
 
