@@ -174,9 +174,9 @@ export class MapService {
     });
   }
 
-  public async loadAdmin2Data() {
+  public async loadAdmin2Data(name: IbfLayerName) {
     this.addLayer({
-      name: IbfLayerName.covidRisk,
+      name: name,
       label: IbfLayerLabel.covidRisk,
       type: IbfLayerType.shape,
       description: 'loadCovidLayer',

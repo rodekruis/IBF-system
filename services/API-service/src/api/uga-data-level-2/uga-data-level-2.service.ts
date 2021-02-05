@@ -71,7 +71,6 @@ export class UgaDataLevel2Service {
       .readFileSync('./src/api/uga-data-level-2/sql/select-all-uga-level-2.sql')
       .toString();
     const rawResult = await entityManager.query(q);
-    console.log('rawResult uga: ', rawResult);
     return this.dataService.toGeojson(rawResult);
   }
 }

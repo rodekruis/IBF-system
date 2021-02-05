@@ -69,11 +69,11 @@ export class MatrixComponent implements OnDestroy {
   public async updateLayer(
     name: IbfLayerName,
     active: boolean,
-    lazyLoad,
+    data: GeoJSON.FeatureCollection,
   ): Promise<void> {
     this.aggregatesService.indicators;
-    if (active && lazyLoad.data.features.length === 0) {
-      await this.loadDataOnActivate(name);
+    if (active && data.features.length === 0) {
+      await this.mapService.loadAdmin2Data(name);
     }
     this.mapService.updateLayer(name, active, true);
     this.mapService.activeLayerName = active ? name : null;
@@ -85,10 +85,6 @@ export class MatrixComponent implements OnDestroy {
     if (active && !this.adminLevelService.adminLayerState) {
       this.adminLevelService.adminLayerState = true;
     }
-  }
-
-  public async loadDataOnActivate(name) {
-    await this.mapService.loadAdmin2Data();
   }
 
   public isLayerControlMenuOpen() {
