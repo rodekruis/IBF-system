@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
+import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
+import { MockScenario } from '../mocks/mock-scenario.enum';
+import { Country } from '../models/country.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,32 +17,43 @@ export class EapActionsService {
   constructor(
     private countryService: CountryService,
     private apiService: ApiService,
-  ) {}
+    private mockScenarioService: MockScenarioService,
+  ) {
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe((mockScenario: MockScenario) => {
+        this.loadDistrictsAndActions();
+      });
+  }
 
   async loadAreasOfFocus() {
     return await this.apiService.getAreasOfFocus();
   }
 
-  async loadDistrictsAndActions() {
-    const event = await this.apiService.getEvent(
-      this.countryService.activeCountry.countryCodeISO3,
-    );
-    if (event) {
-      this.eventId = event?.id * 1;
+  loadDistrictsAndActions() {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe(async (country: Country) => {
+        if (country) {
+          const event = await this.apiService.getEvent(country.countryCodeISO3);
+          if (event) {
+            this.eventId = event?.id * 1;
 
-      this.triggeredAreas = await this.apiService.getTriggeredAreas(
-        this.eventId,
-      );
+            this.triggeredAreas = await this.apiService.getTriggeredAreas(
+              this.eventId,
+            );
 
-      for (let area of this.triggeredAreas) {
-        area.eapActions = await this.apiService.getEapActions(
-          this.countryService.activeCountry.countryCodeISO3,
-          area.pcode,
-          this.eventId,
-        );
-      }
-      this.triggeredAreaSubject.next(this.triggeredAreas);
-    }
+            for (let area of this.triggeredAreas) {
+              area.eapActions = await this.apiService.getEapActions(
+                country.countryCodeISO3,
+                area.pcode,
+                this.eventId,
+              );
+            }
+            this.triggeredAreaSubject.next(this.triggeredAreas);
+          }
+        }
+      });
   }
 
   getTriggeredAreas(): Observable<any[]> {

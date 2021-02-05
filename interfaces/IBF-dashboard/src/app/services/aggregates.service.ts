@@ -4,7 +4,10 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { Indicator, IndicatorName } from 'src/app/types/indicator-group';
+import { Indicator } from 'src/app/types/indicator-group';
+import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
+import { MockScenario } from '../mocks/mock-scenario.enum';
+import { IbfLayerName } from '../types/ibf-layer';
 import { AdminLevelService } from './admin-level.service';
 
 @Injectable({
@@ -12,7 +15,7 @@ import { AdminLevelService } from './admin-level.service';
 })
 export class AggregatesService {
   private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
-  public indicators: Indicator[];
+  public indicators: Indicator[] = [];
   private aggregates = [];
 
   constructor(
@@ -21,9 +24,16 @@ export class AggregatesService {
     private timelineService: TimelineService,
     private apiService: ApiService,
     private mapService: MapService,
-  ) {}
+    private mockScenarioService: MockScenarioService,
+  ) {
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe((mockScenario: MockScenario) => {
+        this.loadAggregateInformation();
+      });
+  }
 
-  loadMetadata() {
+  loadMetadataAndAggregates() {
     this.apiService
       .getMetadata(this.countryService.activeCountry.countryCodeISO3)
       .then((response) => {
@@ -33,6 +43,8 @@ export class AggregatesService {
           this.mapService.loadAggregateLayer(indicator);
         });
         this.indicatorSubject.next(this.indicators);
+
+        this.loadAggregateInformation();
       });
   }
 
@@ -69,7 +81,7 @@ export class AggregatesService {
 
   getAggregate(
     weightedAvg: boolean,
-    indicator: IndicatorName,
+    indicator: IbfLayerName,
     pCode: string,
   ): number {
     if (weightedAvg) {
@@ -79,7 +91,7 @@ export class AggregatesService {
     }
   }
 
-  getSum(indicator: IndicatorName, pCode: string) {
+  getSum(indicator: IbfLayerName, pCode: string) {
     return this.aggregates.reduce(
       (accumulator, aggregate) =>
         accumulator +
@@ -90,12 +102,12 @@ export class AggregatesService {
     );
   }
 
-  getExposedAbsSumFromPerc(indicator: IndicatorName, pCode: string) {
+  getExposedAbsSumFromPerc(indicator: IbfLayerName, pCode: string) {
     return this.aggregates.reduce(
       (accumulator, aggregate) =>
         accumulator +
         (pCode === null || pCode === aggregate.pCode
-          ? aggregate[IndicatorName.PopulationAffected] * aggregate[indicator]
+          ? aggregate[IbfLayerName.population_affected] * aggregate[indicator]
           : 0),
       0,
     );

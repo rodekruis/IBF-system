@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Indicator } from 'src/app/types/indicator-group';
 
 @Component({
@@ -6,10 +6,9 @@ import { Indicator } from 'src/app/types/indicator-group';
   templateUrl: './source-info-modal.component.html',
   styleUrls: ['./source-info-modal.component.scss'],
 })
-export class SourceInfoModalComponent implements OnInit {
+export class SourceInfoModalComponent {
   @Input() indicator: Indicator;
+  @Input() text: string;
 
   constructor() {}
-
-  ngOnInit() {}
 }

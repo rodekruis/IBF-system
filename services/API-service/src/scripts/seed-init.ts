@@ -70,6 +70,7 @@ export class SeedInit implements InterfaceScript {
             ),
           });
           countryEntity.countryLogos = country.countryLogos;
+          countryEntity.countryBoundingBox = country.countryBoundingBox;
           return countryEntity;
         },
       ),

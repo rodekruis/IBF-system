@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { SourceInfoModalComponent } from './source-info-modal.component';
 
@@ -12,22 +12,24 @@ describe('SourceInfoModalComponent', () => {
   let component: SourceInfoModalComponent;
   let fixture: ComponentFixture<SourceInfoModalComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [SourceInfoModalComponent],
-      imports: [IonicModule],
-      providers: [
-        {
-          provide: ModalController,
-          useValue: modalCtrlSpy,
-        },
-      ],
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [SourceInfoModalComponent],
+        imports: [IonicModule],
+        providers: [
+          {
+            provide: ModalController,
+            useValue: modalCtrlSpy,
+          },
+        ],
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(SourceInfoModalComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+      fixture = TestBed.createComponent(SourceInfoModalComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    }),
+  );
 
   it('should create', () => {
     expect(component).toBeTruthy();
