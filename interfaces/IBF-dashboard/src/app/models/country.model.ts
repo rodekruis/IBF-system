@@ -10,4 +10,19 @@ export class Country {
   adminRegionLabels: string[];
   eapLink: string;
   countryLogos: string[];
+  eapAlertClasses?: EapAlertClasses;
+}
+
+export class EapAlertClasses {
+  no: EapAlertClass;
+  min: EapAlertClass;
+  med: EapAlertClass;
+  max: EapAlertClass;
+}
+
+export class EapAlertClass {
+  label: string;
+  color: string;
+  valueLow: number;
+  valueHigh: number;
 }

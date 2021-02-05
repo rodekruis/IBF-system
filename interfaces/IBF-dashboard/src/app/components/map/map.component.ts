@@ -66,30 +66,23 @@ export class MapComponent implements OnDestroy {
     },
   );
 
-  private iconGlofasDefault: IconOptions = {
+  private iconBaseOptions: IconOptions = {
     iconSize: [25, 41],
     iconAnchor: [13, 41],
     popupAnchor: [0, -30],
-    iconUrl: 'assets/markers/glofas-default.svg',
-    iconRetinaUrl: 'assets/markers/glofas-default.svg',
-  };
-
-  private iconGlofasWarning: IconOptions = {
-    ...this.iconGlofasDefault,
-    iconSize: [35, 56],
-    iconUrl: 'assets/markers/glofas-alert.svg',
-    iconRetinaUrl: 'assets/markers/glofas-alert.svg',
+    iconUrl: 'assets/markers/glofas-no.svg',
+    iconRetinaUrl: 'assets/markers/glofas-no.svg',
   };
 
   private iconRedCrossBranch: IconOptions = {
-    ...this.iconGlofasDefault,
+    ...this.iconBaseOptions,
     iconSize: [20, 33],
     iconUrl: 'assets/markers/red-cross.png',
     iconRetinaUrl: 'assets/markers/red-cross.png',
   };
 
   private iconWaterpoint: IconOptions = {
-    ...this.iconGlofasDefault,
+    ...this.iconBaseOptions,
     iconSize: [20, 33],
     iconUrl: 'assets/markers/waterpoint.png',
     iconRetinaUrl: 'assets/markers/waterpoint.png',
@@ -471,7 +464,7 @@ export class MapComponent implements OnDestroy {
 
   private createMarkerDefault(markerLatLng: LatLng): Marker {
     return marker(markerLatLng, {
-      icon: icon(this.iconGlofasDefault),
+      icon: icon(this.iconBaseOptions),
     });
   }
 
@@ -480,18 +473,33 @@ export class MapComponent implements OnDestroy {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.station_name;
-    let markerIcon = this.iconGlofasDefault;
+    let markerIcon: IconOptions;
 
-    if (markerProperties.fc_trigger === '1') {
-      markerIcon = this.iconGlofasWarning;
-    }
+    const eapAlertClasses = this.countryService.activeCountry.eapAlertClasses;
+    const glofasProbability = markerProperties.fc_prob;
+    Object.keys(eapAlertClasses).forEach((key) => {
+      if (
+        glofasProbability >= eapAlertClasses[key].valueLow &&
+        glofasProbability < eapAlertClasses[key].valueHigh
+      ) {
+        markerIcon = {
+          ...this.iconBaseOptions,
+          iconSize: [25, 41],
+          iconUrl: 'assets/markers/glofas-' + key + '.png',
+          iconRetinaUrl: 'assets/markers/glofas-' + key + '.png',
+        };
+      }
+    });
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: markerIcon ? icon(markerIcon) : divIcon(),
       zIndexOffset: 700,
     });
-    markerInstance.bindPopup(this.createMarkerStationPopup(markerProperties));
+    markerInstance.bindPopup(this.createMarkerStationPopup(markerProperties), {
+      minWidth: 300,
+      className: 'station-popup',
+    });
 
     return markerInstance;
   }
@@ -531,50 +539,64 @@ export class MapComponent implements OnDestroy {
   }
 
   private createMarkerStationPopup(markerProperties: Station): string {
-    const percentageTrigger =
-      markerProperties.fc / markerProperties.trigger_level;
-    const color = percentageTrigger < 1 ? '#a5d4a1' : '#d7301f';
+    const eapAlertClasses = this.countryService.activeCountry.eapAlertClasses;
+    const glofasProbability = markerProperties.fc_prob;
 
-    const fullWidth = 50;
+    let eapStatusText: string;
+    let color: string;
+    Object.keys(eapAlertClasses).forEach((key) => {
+      if (
+        glofasProbability >= eapAlertClasses[key].valueLow &&
+        glofasProbability < eapAlertClasses[key].valueHigh
+      ) {
+        eapStatusText = eapAlertClasses[key].label;
+        color = eapAlertClasses[key].color;
+      }
+    });
+
+    const triggerWidth = Math.max(
+      Math.min(
+        Math.round(
+          (markerProperties.fc / markerProperties.trigger_level) * 100,
+        ),
+        115,
+      ),
+      0,
+    );
 
     const stationInfoPopup =
-      '<div style="margin-bottom: 5px">' +
-      '<strong>' +
+      '<div style="background-color: var(--ion-color-ibf-royal-blue); color: white; padding: 5px; margin-bottom: 5px"> \
+    <strong>' +
       markerProperties.station_name +
-      '</strong>' +
-      ' (' +
+      '</strong> (' +
       markerProperties.station_code +
-      ')' +
-      '</div>' +
-      '<div style="margin-bottom: 5px">' +
-      'Forecast: ' +
-      '<span style="color:' +
-      color +
-      '">' +
-      Math.round(markerProperties.fc) +
-      ' m<sup>3</sup>/s' +
-      '</span>' +
-      '<div style="border-radius:5px;height:12px;background-color:' +
-      color +
-      '; width: ' +
-      Math.max(
-        Math.min(
-          Math.round(
-            (markerProperties.fc / markerProperties.trigger_level) * fullWidth,
-          ),
-          fullWidth,
-        ),
-        0,
-      ) +
-      '%"></div>' +
-      '</div>' +
-      '<div>Trigger : ' +
+      ') \
+  </div> \
+  <div style="margin-left:5px"> \
+    <div style="margin-bottom:5px">Forecast river discharge in m<sup>3</sup>/s</div> \
+    <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
+      <div style="border-radius:10px 0 0 10px;height:20px;background-color:lightgrey; width: 80%"> \
+        <div style="border-radius:10px;height:20px;background-color:var(--ion-color-ibf-royal-blue); color:white; text-align:center; white-space: nowrap; min-width: 25%; width:' +
+      triggerWidth +
+      '%"><span>' +
+      markerProperties.fc +
+      ' m<sup>3</sup>/s</span></div> \
+      </div> \
+    </div> \
+    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; text-align: right; width: 80%; margin-bottom:10px"> \
+      Trigger activation threshold: ' +
       Math.round(markerProperties.trigger_level) +
-      ' m<sup>3</sup>/s' +
-      '<div style="border-radius:5px;height:12px;background-color:grey;width:' +
-      fullWidth +
-      '%"></div>' +
-      '</div>';
+      ' m<sup>3</sup>/s<span>   </span> \
+    </div> \
+  </div> \
+  <div style="background-color: ' +
+      color +
+      '; color: black; padding: 10px; text-align: center; text-transform:uppercase"> \
+    <strong>' +
+      eapStatusText +
+      '</strong> \
+  </div>';
+
     return stationInfoPopup;
   }
 
