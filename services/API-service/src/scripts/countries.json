@@ -5,19 +5,59 @@
     "countryName": "Uganda",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
-    "countryLeadTimes": ["7-day"],
-    "adminRegionLabels": ["Regions", "Districts", "Counties", "Parishes"],
+    "countryLeadTimes": [
+      "7-day"
+    ],
+    "adminRegionLabels": [
+      "Regions",
+      "Districts",
+      "Counties",
+      "Parishes"
+    ],
     "eapLink": "https://docs.google.com/document/d/1IiG2ZFasCVE7kmYfqgyrx7SuZWkoYzTvw3LaEt2nl2U/edit#heading=h.35nkun2",
-    "countryLogos": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.svg"],
+    "countryLogos": [
+      "UGA-unma.png",
+      "UGA-government.jpg",
+      "UGA-urcs.svg"
+    ],
+    "eapAlertClasses": {
+      "no": {
+        "label": "No action",
+        "color": "lightgrey",
+        "valueLow": 0,
+        "valueHigh": 0.8
+      },
+      "max": {
+        "label": "Activate EAP",
+        "color": "var(--ion-color-ibf-salmon)",
+        "valueLow": 0.8,
+        "valueHigh": 1.01
+      }
+    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
         [
-          [35.00105362800008, -1.48147434699996],
-          [35.00105362800008, 4.231367005000038],
-          [29.57216169200007, 4.231367005000038],
-          [29.57216169200007, -1.48147434699996],
-          [35.00105362800008, -1.48147434699996]
+          [
+            35.00105362800008,
+            -1.48147434699996
+          ],
+          [
+            35.00105362800008,
+            4.231367005000038
+          ],
+          [
+            29.57216169200007,
+            4.231367005000038
+          ],
+          [
+            29.57216169200007,
+            -1.48147434699996
+          ],
+          [
+            35.00105362800008,
+            -1.48147434699996
+          ]
         ]
       ]
     }
@@ -28,19 +68,71 @@
     "countryName": "Zambia",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
-    "countryLeadTimes": ["3-day", "7-day"],
-    "adminRegionLabels": ["Provinces", "Districts", "Wards"],
+    "countryLeadTimes": [
+      "3-day",
+      "7-day"
+    ],
+    "adminRegionLabels": [
+      "Provinces",
+      "Districts",
+      "Wards"
+    ],
     "eapLink": "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#bookmark=id.xa68na3bshzr",
-    "countryLogos": ["ZMB-warma.png", "ZMB-government.svg", "ZMB-zrcs.png"],
+    "countryLogos": [
+      "ZMB-warma.png",
+      "ZMB-government.svg",
+      "ZMB-zrcs.png"
+    ],
+    "eapAlertClasses": {
+      "no": {
+        "label": "No action",
+        "color": "lightgrey",
+        "valueLow": 0,
+        "valueHigh": 0.6
+      },
+      "min": {
+        "label": "Met office to monitor",
+        "color": "#ffff00",
+        "valueLow": 0.6,
+        "valueHigh": 0.7
+      },
+      "med": {
+        "label": "Alert IFRC / Prep evacuation / Warn communities",
+        "color": "#ffc000",
+        "valueLow": 0.7,
+        "valueHigh": 0.8
+      },
+      "max": {
+        "label": "Activate EAP",
+        "color": "var(--ion-color-ibf-salmon)",
+        "valueLow": 0.8,
+        "valueHigh": 1.01
+      }
+    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
         [
-          [33.71243793900004, -18.07917628699994],
-          [33.71243793900004, -8.271976286999973],
-          [21.98003793900006, -8.271976286999973],
-          [21.98003793900006, -18.07917628699994],
-          [33.71243793900004, -18.07917628699994]
+          [
+            33.71243793900004,
+            -18.07917628699994
+          ],
+          [
+            33.71243793900004,
+            -8.271976286999973
+          ],
+          [
+            21.98003793900006,
+            -8.271976286999973
+          ],
+          [
+            21.98003793900006,
+            -18.07917628699994
+          ],
+          [
+            33.71243793900004,
+            -18.07917628699994
+          ]
         ]
       ]
     }
@@ -51,19 +143,56 @@
     "countryName": "Kenya",
     "countryStatus": "active",
     "defaultAdminLevel": 1,
-    "countryLeadTimes": ["7-day"],
-    "adminRegionLabels": ["Counties", "Subcounties", "Wards"],
+    "countryLeadTimes": [
+      "7-day"
+    ],
+    "adminRegionLabels": [
+      "Counties",
+      "Subcounties",
+      "Wards"
+    ],
     "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9",
-    "countryLogos": ["KEN-krcs.png"],
+    "countryLogos": [
+      "KEN-krcs.png"
+    ],
+    "eapAlertClasses": {
+      "no": {
+        "label": "No action",
+        "color": "lightgrey",
+        "valueLow": 0,
+        "valueHigh": 0.8
+      },
+      "max": {
+        "label": "Activate EAP",
+        "color": "var(--ion-color-ibf-salmon)",
+        "valueLow": 0.8,
+        "valueHigh": 1.01
+      }
+    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
         [
-          [41.88752400000004, -4.720416999999941],
-          [41.88752400000004, 4.633819000000074],
-          [33.90958600000005, 4.633819000000074],
-          [33.90958600000005, -4.720416999999941],
-          [41.88752400000004, -4.720416999999941]
+          [
+            41.88752400000004,
+            -4.720416999999941
+          ],
+          [
+            41.88752400000004,
+            4.633819000000074
+          ],
+          [
+            33.90958600000005,
+            4.633819000000074
+          ],
+          [
+            33.90958600000005,
+            -4.720416999999941
+          ],
+          [
+            41.88752400000004,
+            -4.720416999999941
+          ]
         ]
       ]
     }
@@ -74,19 +203,56 @@
     "countryName": "Ethiopia",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
-    "countryLeadTimes": ["7-day"],
-    "adminRegionLabels": ["Regions", "Zones", "Woredas"],
+    "countryLeadTimes": [
+      "7-day"
+    ],
+    "eapAlertClasses": {
+      "no": {
+        "label": "No action",
+        "color": "lightgrey",
+        "valueLow": 0,
+        "valueHigh": 0.8
+      },
+      "max": {
+        "label": "Activate EAP",
+        "color": "var(--ion-color-ibf-salmon)",
+        "valueLow": 0.8,
+        "valueHigh": 1.01
+      }
+    },
+    "adminRegionLabels": [
+      "Regions",
+      "Zones",
+      "Woredas"
+    ],
     "eapLink": "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx",
-    "countryLogos": ["ETH-ercs.png"],
+    "countryLogos": [
+      "ETH-ercs.png"
+    ],
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
         [
-          [47.98824, 3.40667],
-          [47.98824, 14.84547690700003],
-          [32.9918, 14.84547690700003],
-          [32.9918, 3.40667],
-          [47.98824, 3.40667]
+          [
+            47.98824,
+            3.40667
+          ],
+          [
+            47.98824,
+            14.84547690700003
+          ],
+          [
+            32.9918,
+            14.84547690700003
+          ],
+          [
+            32.9918,
+            3.40667
+          ],
+          [
+            47.98824,
+            3.40667
+          ]
         ]
       ]
     }
