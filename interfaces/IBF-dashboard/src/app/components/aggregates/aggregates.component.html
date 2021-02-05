@@ -25,8 +25,8 @@
       </ion-button>
     </ion-item>
     <div *ngFor="let group of groups">
-      <ion-item 
-        *ngIf="group === indicatorGroupEnum.vulnerability" 
+      <ion-item
+        *ngIf="group === indicatorGroupEnum.vulnerability"
         color="medium"
         lines="none"
         class="aggregate-header-item"
@@ -43,9 +43,7 @@
                 <ion-img src="assets/icons/{{ indicator.icon }}"></ion-img>
               </ion-thumbnail>
               <ion-label class="aggregate-item-label" [title]="indicator.label">
-                <span 
-                  *ngIf="indicator.weightedAvg" 
-                ></span>
+                <span *ngIf="indicator.weightedAvg"></span>
                 {{ indicator.label }}
               </ion-label>
             </ion-item>
