@@ -4,7 +4,8 @@ export class Station {
   station_code: string;
   trigger_level: number;
   fc: number;
-  fc_trigger: string;
+  fc_trigger: number;
+  fc_prob: number;
 }
 
 export class RedCrossBranch {
