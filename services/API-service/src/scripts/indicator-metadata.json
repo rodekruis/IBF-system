@@ -203,18 +203,18 @@
   },  {
     "country_code": "UGA",
     "name": "covidrisk",
-    "label": "Covid Risk",
-    "group": "aggregates",
-    "icon": "Children-white.svg",
+    "label": "COVID Risk",
+    "group": "",
+    "icon": "",
     "weightedAvg": true,
     "active": false,
     "colorBreaks": null,
-    "numberFormatMap": "perc",
-    "aggregateIndicator": true,
-    "numberFormatAggregate": "decimal0",
-    "order": 1,
-    "source": "Jacopo",
-    "description": "Covid risk",
+    "numberFormatMap": "decimal2",
+    "aggregateIndicator": false,
+    "numberFormatAggregate": "",
+    "order": 2,
+    "source": "",
+    "description": "",
     "lazyLoad" : true
   }  
 ]
