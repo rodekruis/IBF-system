@@ -24,7 +24,7 @@ export class MatrixComponent implements OnDestroy {
     private adminLevelService: AdminLevelService,
     private popoverController: PopoverController,
     private menuController: MenuController,
-    private aggregatesService: AggregatesService
+    private aggregatesService: AggregatesService,
   ) {
     this.layerSubscription = this.mapService
       .getLayers()
@@ -66,10 +66,14 @@ export class MatrixComponent implements OnDestroy {
     this.layerSubscription.unsubscribe();
   }
 
-  public async updateLayer(name: IbfLayerName, active: boolean, lazyLoad): Promise<void> {
-    this.aggregatesService.indicators
+  public async updateLayer(
+    name: IbfLayerName,
+    active: boolean,
+    lazyLoad,
+  ): Promise<void> {
+    this.aggregatesService.indicators;
     if (active && lazyLoad.data.features.length === 0) {
-      await this.loadDataOnActivate(name)
+      await this.loadDataOnActivate(name);
     }
     this.mapService.updateLayer(name, active, true);
     this.mapService.activeLayerName = active ? name : null;
@@ -84,7 +88,7 @@ export class MatrixComponent implements OnDestroy {
   }
 
   public async loadDataOnActivate(name) {
-    await this.mapService.loadAdmin2Data()
+    await this.mapService.loadAdmin2Data();
   }
 
   public isLayerControlMenuOpen() {
