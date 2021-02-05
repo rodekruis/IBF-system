@@ -34,3 +34,8 @@ export class Geometry {
   public type: string;
   public coordinates: number[];
 }
+
+export class BoundingBox {
+  public type: string;
+  public coordinates: number[][][];
+}

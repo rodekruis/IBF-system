@@ -45,7 +45,7 @@ export class CountryService {
         this.countries = this.countries.filter(
           (country) => user.countries.indexOf(country.countryCodeISO3) >= 0,
         );
-        if (this.countries.length > 1) {
+        if (this.countries.length > 0) {
           this.selectCountry(this.countries[0].countryCodeISO3);
         }
       }

@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { SourceInfoModalComponent } from 'src/app/components/source-info-modal/source-info-modal.component';
 import { Country } from 'src/app/models/country.model';
@@ -7,14 +8,13 @@ import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { AggregatesService } from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
+import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import {
-  Indicator,
-  IndicatorGroup,
-  IndicatorName,
-} from 'src/app/types/indicator-group';
+import { IbfLayerName } from 'src/app/types/ibf-layer';
+import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
+import { LeadTime } from 'src/app/types/lead-time';
 
 @Component({
   selector: 'app-aggregates',
@@ -25,8 +25,13 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public indicators: Indicator[] = [];
   public groups: IndicatorGroup[] = [];
   public placeCode: PlaceCode;
-  private country: Country;
-  private defaultHeaderLabel: string = '...Loading';
+
+  public indicatorGroupEnum = IndicatorGroup;
+
+  private defaultHeaderLabel: string;
+  private exposedPrefix: string;
+  private allPrefix: string;
+  private popoverTexts: { [key: string]: string } = {};
 
   private indicatorSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -40,9 +45,23 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
     private adminLevelService: AdminLevelService,
+    private eapActionsService: EapActionsService,
     private modalController: ModalController,
     private changeDetectorRef: ChangeDetectorRef,
-  ) {}
+    private translateService: TranslateService,
+  ) {
+    this.translateService
+      .get(['aggregates-component', 'popover'])
+      .subscribe((translatedStrings: object) => {
+        this.defaultHeaderLabel =
+          translatedStrings['aggregates-component']['default-header-label'];
+        this.exposedPrefix =
+          translatedStrings['aggregates-component']['exposed-prefix'];
+        this.allPrefix =
+          translatedStrings['aggregates-component']['all-prefix'];
+        this.popoverTexts = translatedStrings['popover'];
+      });
+  }
 
   ngOnInit() {
     if (
@@ -55,13 +74,12 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.country = country;
         this.aggregatesService.loadMetadataAndAggregates();
       });
 
     this.timelineSubscription = this.timelineService
       .getTimelineSubscription()
-      .subscribe((timeline) => {
+      .subscribe((timeline: LeadTime) => {
         this.aggregatesService.loadMetadataAndAggregates();
       });
 
@@ -72,7 +90,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         this.changeDetectorRef.detectChanges();
       });
 
-    this.groups = [IndicatorGroup.general, IndicatorGroup.vulnerability];
     this.indicatorSubscription = this.aggregatesService
       .getIndicators()
       .subscribe((newIndicators: Indicator[]) => {
@@ -80,6 +97,12 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         this.indicators.forEach((indicator: Indicator) => {
           indicator.group = IndicatorGroup[indicator.group];
         });
+        this.groups = [];
+        for (let group in IndicatorGroup) {
+          if (this.indicators.find((i) => i.group === IndicatorGroup[group])) {
+            this.groups.push(IndicatorGroup[group]);
+          }
+        }
       });
   }
 
@@ -94,12 +117,22 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: SourceInfoModalComponent,
       cssClass: 'source-info-modal-class',
-      componentProps: { indicator },
+      componentProps: {
+        indicator,
+        text: this.getPopoverText(indicator.name),
+      },
     });
     return await modal.present();
   }
 
-  public getAggregate(indicatorName: IndicatorName, weightedAvg: boolean) {
+  private getPopoverText(indicatorName: IbfLayerName): string {
+    const triggerState: string = this.eventService.state.activeTrigger
+      ? `active-trigger-${this.eventService.disasterType}`
+      : 'no-trigger';
+    return this.popoverTexts[indicatorName][triggerState];
+  }
+
+  public getAggregate(indicatorName: IbfLayerName, weightedAvg: boolean) {
     return this.aggregatesService.getAggregate(
       weightedAvg,
       indicatorName,
@@ -117,10 +150,14 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       headerLabel = this.placeCode.placeCodeName;
     } else {
       if (this.eventService.state.activeTrigger) {
-        headerLabel = 'Exposed ' + adminAreaLabel;
+        this.eapActionsService
+          .getTriggeredAreas()
+          .subscribe((triggeredAreas) => {
+            headerLabel = `${triggeredAreas.length} ${this.exposedPrefix} ${adminAreaLabel}`;
+          });
       } else {
         if (country) {
-          headerLabel = 'All ' + country.countryName;
+          headerLabel = `${this.allPrefix} ${country.countryName}`;
         }
       }
     }

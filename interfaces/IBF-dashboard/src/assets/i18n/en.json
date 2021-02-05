@@ -1,0 +1,141 @@
+{
+  "app-name": "IBF-dashboard",
+  "common": {
+    "version": "Version"
+  },
+  "login-page": {
+    "title": "Login",
+    "welcome": "Hello! Welcome to IBF.",
+    "instruction": "This chat will guide you through the system. You will find it to the left of the screen. Please login below.",
+    "video": "Click to watch the IBF Video Guide.",
+    "note": "NOTE: This dashboard works best in Chrome, Firefox, Safari and Microsoft Edge. The dashboard is not compatible with Internet Explorer."
+  },
+  "dashboard-page": {
+    "dev-menu": {
+      "title": "Dev Mode"
+    },
+    "today": "TODAY",
+    "situational-overview": "Situational Overview"
+  },
+  "popover": {
+    "population_affected": {
+      "no-trigger": "Currently there is no trigger, so there is no population exposed.",
+      "active-trigger-flood": "Number of people exposed is calculated by the population living in the (flood extent) area within the districts currently triggered. The number of people and the flood extent is derived from the below sources.<br /><br />Source (Population Data): <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br />Source (Flood Extent): 25 return period flood map",
+      "active-trigger-drought": "Number of people exposed is calculated by the population living in the (drought extent) area within the districts currently triggered. The number of people and the extent is derived from the below sources.<br /><br />Source (Population Data): <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br />Source (Drought Extent): IPC-3 Crisis classification on food security, based on the October Outlook of FEWSNET."
+    },
+    "female_head_hh": {
+      "no-trigger": "This layer gives an estimate on the number of adult females as decision-maker and main income producer of a household. In this country the household size is (#)<br /><br />Source Data: (LINK)",
+      "active-trigger-flood": "This layer gives an estimate on the number of adult females as decision-maker and main income producer of a household. In this country the average household size is (#)<br /><br />Source Data: (LINK)",
+      "active-trigger-drought": "This layer gives an estimate on the number of adult females as decision-maker and main income producer of a household. In this country the average household size is (#)<br /><br />Source Data: (LINK)"
+    },
+    "population_u8": {
+      "no-trigger": "Percentage of people under 8 years old.<br /><br />Source Data: (LINK)",
+      "active-trigger-flood": "Percentage of people under 8 years old.<br /><br />Source Data: (LINK)",
+      "active-trigger-drought": "Percentage of people under 8 years old.<br /><br />Source Data: (LINK)"
+    },
+    "population_over65": {
+      "no-trigger": "Percentage of people over 65 years old.<br /><br />Source Data: (LINK)",
+      "active-trigger-flood": "Percentage of people over 65 years old.<br /><br />Source Data: (LINK)",
+      "active-trigger-drought": "Percentage of people over 65 years old.<br /><br />Source Data: (LINK)"
+    },
+    "red_cross_branches": {
+      "no-trigger": "A Red Cross / Red Crescent National Society exists of a network of local branches, this layer provides the locations of these local branches.",
+      "active-trigger-flood": "A Red Cross / Red Crescent National Society exists of a network of local branches, this layer provides the locations of these local branches.",
+      "active-trigger-drought": "A Red Cross / Red Crescent National Society exists of a network of local branches, this layer provides the locations of these local branches."
+    },
+    "glofas_stations": {
+      "no-trigger": "This layer provides the location of the Global Flood Awareness System (GLoFAS) monitoring locations. The GLOFAS Stations simulates discharge, hydrological forecast of daily river flow over a 30-day period, and provides probabilities of river discharge exceeding a 2-year, 5-year and 20-year return period flood for points on large river basins (greater than 1000 km<sup>2</sup>). GloFAS flood forecasts are open access. The probabilities are calculated based on the result of an ensemble model containing 51 runs.",
+      "active-trigger-flood": "This layer provides the location of the Global Flood Awareness System (GLoFAS) monitoring locations. The GLOFAS Stations simulates discharge, hydrological forecast of daily river flow over a 30-day period, and provides probabilities of river discharge exceeding a 2-year, 5-year and 20-year return period flood for points on large river basins (greater than 1000 km<sup>2</sup>). GloFAS flood forecasts are open access. The probabilities are calculated based on the result of an ensemble model containing 51 runs.",
+      "active-trigger-drought": "This layer provides the location of the Global Flood Awareness System (GLoFAS) monitoring locations. The GLOFAS Stations simulates discharge, hydrological forecast of daily river flow over a 30-day period, and provides probabilities of river discharge exceeding a 2-year, 5-year and 20-year return period flood for points on large river basins (greater than 1000 km<sup>2</sup>). GloFAS flood forecasts are open access. The probabilities are calculated based on the result of an ensemble model containing 51 runs."
+    },
+    "flood_extent": {
+      "no-trigger": "The flood extent layer indicates the inundated area of recurring flooding with a 20-year return period.",
+      "active-trigger-flood": "The flood extent layer indicates the inundated area of recurring flooding with a 20-year return period.",
+      "active-trigger-drought": "The flood extent layer indicates the inundated area of recurring flooding with a 20-year return period."
+    },
+    "waterpoints": {
+      "no-trigger": "Number and location of water points accessible for people and which waterpoints are located within the flood extent.<br /><br />Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
+      "active-trigger-flood": "Number and location of water points accessible for people and which waterpoints are located within the flood extent.<br /><br />Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
+      "active-trigger-drought": "Number and location of water points accessible for people and which waterpoints are located within the flood extent.<br /><br />Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
+    },
+    "cropland": {
+      "no-trigger": "The land use classes are based on GLOBCOVER Land Cover Classifications, 5 land use types are selected and 2 layers created;<br /><br />Layer 1: Combined cropland: consists of 3 land use types<ol><li>rainfed cropland</li><li>mosaic cropland - 50-70% cropland & 20-50% vegetation (grassland/shrubland/forest)</li><li>mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) & 20-50% cropland</li></ol>Layer 2: Combined grassland consists of 2 land use types<ol start='4'><li>Mosaic forest or shrubland - 50-70% (forest/shrubland & 20-50% grassland</li><li>Mosaic grassland - 50-70% grassland & 20-50% forest or shrubland</li></ol>",
+      "active-trigger-flood": "The land use classes are based on GLOBCOVER Land Cover Classifications, 5 land use types are selected and 2 layers created;<br /><br />Layer 1: Combined cropland: consists of 3 land use types<ol><li>rainfed cropland</li><li>mosaic cropland - 50-70% cropland & 20-50% vegetation (grassland/shrubland/forest)</li><li>mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) & 20-50% cropland</li></ol>Layer 2: Combined grassland consists of 2 land use types<ol start='4'><li>Mosaic forest or shrubland - 50-70% (forest/shrubland & 20-50% grassland</li><li>Mosaic grassland - 50-70% grassland & 20-50% forest or shrubland</li></ol>",
+      "active-trigger-drought": "The land use classes are based on GLOBCOVER Land Cover Classifications, 5 land use types are selected and 2 layers created;<br /><br />Layer 1: Combined cropland: consists of 3 land use types<ol><li>rainfed cropland</li><li>mosaic cropland - 50-70% cropland & 20-50% vegetation (grassland/shrubland/forest)</li><li>mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) & 20-50% cropland</li></ol>Layer 2: Combined grassland consists of 2 land use types<ol start='4'><li>Mosaic forest or shrubland - 50-70% (forest/shrubland & 20-50% grassland</li><li>Mosaic grassland - 50-70% grassland & 20-50% forest or shrubland</li></ol>"
+    },
+    "livestock": {
+      "no-trigger": "Number of cattle per km<sup>2</sup> calculated with the reference unit; Livestock Unit Coefficient (LSU) to aggregate livestock from various species. LSU = 1 for cattle."
+    },
+    "wall_type": {
+      "no-trigger": "Percentage of households with permanent wall materials; percentage of buildings with (partly) concrete or brick walls.",
+      "active-trigger-flood": "Percentage of households with permanent wall materials; percentage of buildings with (partly) concrete or brick walls.",
+      "active-trigger-drought": "Percentage of households with permanent wall materials; percentage of buildings with (partly) concrete or brick walls."
+    },
+    "roof_type": {
+      "no-trigger": "Percentage of households with permanent roof materials; percentage of buildings with (partly) concrete or iron or aluminium roofs.<br /><br />Source: OCHA Pre-disaster indicators. (Direct government source to be included).",
+      "active-trigger-flood": "Percentage of households with permanent roof materials; percentage of buildings with (partly) concrete or iron or aluminium roofs.<br /><br />Source: OCHA Pre-disaster indicators. (Direct government source to be included).",
+      "active-trigger-drought": "Percentage of households with permanent roof materials; percentage of buildings with (partly) concrete or iron or aluminium roofs.<br /><br />Source: OCHA Pre-disaster indicators. (Direct government source to be included)."
+    },
+    "vulnerability_index": {
+      "no-trigger": "The vulnerability index contains information on vulnerability: relative socio-economic status, but also inequality and presence of specific vulnerable groups. The Vulnerability Index is a composite index selected vulnerability criteria by the National Society and Technical Working group. The composite index exists of the following indicators (including their weight in the total score) <ul><li>20% Poverty: Poverty incidence</li><li>20% Gender: Female headed household</li><li>10% Age: Population below 8-years</li><li>10% Age: population 65+,</li><li>10 % type of construction: permanent wall type</li><li>10 %type of construction: permanent roof type</li><li>20% Refugees legal status #of displaced person</li></ul>",
+      "active-trigger-flood": "The vulnerability index contains information on vulnerability: relative socio-economic status, but also inequality and presence of specific vulnerable groups. The Vulnerability Index is a composite index selected vulnerability criteria by the National Society and Technical Working group. The composite index exists of the following indicators (including their weight in the total score) <ul><li>20% Poverty: Poverty incidence</li><li>20% Gender: Female headed household</li><li>10% Age: Population below 8-years</li><li>10% Age: population 65+,</li><li>10 % type of construction: permanent wall type</li><li>10 %type of construction: permanent roof type</li><li>20% Refugees legal status #of displaced person</li></ul>",
+      "active-trigger-drought": "The vulnerability index contains information on vulnerability: relative socio-economic status, but also inequality and presence of specific vulnerable groups. The Vulnerability Index is a composite index selected vulnerability criteria by the National Society and Technical Working group. The composite index exists of the following indicators (including their weight in the total score) <ul><li>20% Poverty: Poverty incidence</li><li>20% Gender: Female headed household</li><li>10% Age: Population below 8-years</li><li>10% Age: population 65+,</li><li>10 % type of construction: permanent wall type</li><li>10 %type of construction: permanent roof type</li><li>20% Refugees legal status #of displaced person</li></ul>"
+    },
+    "poverty_incidence": {
+      "no-trigger": "Poverty Incidence is defined by the Multidiemensional Poverty Index and a $2 a day threshold. The layer gives an estimate of people living in poverty.<br /><br />Source: <a href='https://www.worldpop.org/geodata/listing?id=23'>Worldpop – Development and Health Indicators - Poverty</a> indicator <a href='https://ophi.org.uk/policy/multidimensional-poverty-index/'>https://ophi.org.uk/policy/multidimensional-poverty-index/</a>",
+      "active-trigger-flood": "Poverty Incidence is defined by the Multidiemensional Poverty Index and a $2 a day threshold. The layer gives an estimate of people living in poverty.<br /><br />Source: <a href='https://www.worldpop.org/geodata/listing?id=23'>Worldpop – Development and Health Indicators - Poverty</a> indicator <a href='https://ophi.org.uk/policy/multidimensional-poverty-index/'>https://ophi.org.uk/policy/multidimensional-poverty-index/</a>",
+      "active-trigger-drought": "Poverty Incidence is defined by the Multidiemensional Poverty Index and a $2 a day threshold. The layer gives an estimate of people living in poverty.<br /><br />Source: <a href='https://www.worldpop.org/geodata/listing?id=23'>Worldpop – Development and Health Indicators - Poverty</a> indicator <a href='https://ophi.org.uk/policy/multidimensional-poverty-index/'>https://ophi.org.uk/policy/multidimensional-poverty-index/</a>"
+    },
+    "health_sites": {
+      "no-trigger": "Number of health facilities by type and location, health facility types; clinic, hospital, pharmacy, dentist and doctors<br /><br />Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>",
+      "active-trigger-flood": "Number of health facilities by type and location, health facility types; clinic, hospital, pharmacy, dentist and doctors<br /><br />Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>",
+      "active-trigger-drought": "Number of health facilities by type and location, health facility types; clinic, hospital, pharmacy, dentist and doctors<br /><br />Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>"
+    },
+    "population": {
+      "no-trigger": "No Description Available",
+      "active-trigger-flood": "No Description Available",
+      "active-trigger-drought": "No Description Available"
+    },
+    "grassland": {
+      "no-trigger": "No Description Available",
+      "active-trigger-flood": "No Description Available",
+      "active-trigger-drought": "No Description Available"
+    }
+  },
+  "aggregates-component": {
+    "header-title-prefix": "Situation in",
+    "more-information": "Click for more info on this indicator.",
+    "default-header-label": "...Loading",
+    "exposed-prefix": "Exposed",
+    "all-prefix": "All",
+    "exposed-subgroups": "of which.."
+  },
+  "areas-of-focus-summary-component": {
+    "title": "EAP Actions Summary"
+  },
+  "chat-component": {
+    "about-button-label": "About Trigger",
+    "no-event-no-trigger": {
+      "welcome": "Hello Aid worker HQ. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
+    },
+    "new-event-active-trigger": {
+      "welcome": "Hello Aid worker HQ. A new trigger warning for <strong>{{ days }} days from today</strong> has been activated for floods.",
+      "new-event-early-trigger": "The system however detects a trigger as soon as <strong>{{ days }} days from today</strong>, which was not detectable earlier."
+    },
+    "active-event-active-trigger": {
+      "welcome": "Hello Aid worker HQ. A trigger warning for floods has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ days }} days</strong> away."
+    },
+    "active-event-no-trigger": {
+      "welcome": "Hello Aid worker HQ. There is <strong>no active trigger</strong> any more (as you can see in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
+    },
+    "active-event": {
+      "instruction": "The potentially affected areas are listed below in order of number of people potentially affected per area. You can keep track here per area which EAP-actions are to-do / done.",
+      "place-name": "District: <strong>{{ placeName }}</strong>",
+      "exposed-population": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
+      "submit-button-label": "Submit",
+      "update-success": "EAP action(s) updated in database.",
+      "update-failure": "Failed to update EAP action(s) updated in database.",
+      "prompt-button-label": "OK"
+    }
+  }
+}

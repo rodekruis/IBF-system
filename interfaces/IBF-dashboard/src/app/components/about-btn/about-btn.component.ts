@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Country } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
 
 @Component({
@@ -17,6 +18,10 @@ export class AboutBtnComponent implements OnInit {
   ngOnInit() {}
 
   public btnAction() {
-    window.open(this.countryService.activeCountry.eapLink);
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        window.open(country.eapLink);
+      });
   }
 }

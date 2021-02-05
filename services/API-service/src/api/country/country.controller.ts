@@ -18,6 +18,6 @@ export class CountryController {
   @ApiOperation({ title: 'Get country data' })
   @Get()
   public async getCountries(): Promise<CountryEntity[]> {
-    return await this.countryService.getCountries();
+    return await this.countryService.findAll();
   }
 }

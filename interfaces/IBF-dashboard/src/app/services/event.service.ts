@@ -3,6 +3,9 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
+import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
+import { MockScenario } from '../mocks/mock-scenario.enum';
+import { Country } from '../models/country.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +16,7 @@ export class EventService {
   public activeEvent: boolean;
   public activeTrigger: boolean;
   public newEvent: boolean;
+  public disasterType: string = 'flood';
 
   public state = {
     event: null,
@@ -28,7 +32,14 @@ export class EventService {
     private timelineService: TimelineService,
     private apiService: ApiService,
     private countryService: CountryService,
-  ) {}
+    private mockScenarioService: MockScenarioService,
+  ) {
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe((mockScenario: MockScenario) => {
+        this.getTrigger();
+      });
+  }
 
   public async getTrigger() {
     this.state.event = await this.timelineService.getEvent();
@@ -55,33 +66,43 @@ export class EventService {
     }
   };
 
-  private async getFirstTriggerDate() {
-    const timesteps = await this.apiService.getTriggerPerLeadTime(
-      this.countryService.activeCountry.countryCodeISO3,
-    );
-    let firstKey = null;
-    Object.keys(timesteps).forEach((key) => {
-      if (timesteps[key] == 1) {
-        firstKey = !firstKey ? key : firstKey;
-      }
-    });
-    this.state.firstLeadTime = firstKey;
-    this.state.newEventEarlyTrigger =
-      firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
+  private getFirstTriggerDate() {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe(async (country: Country) => {
+        if (country) {
+          const timesteps = await this.apiService.getTriggerPerLeadTime(
+            country.countryCodeISO3,
+          );
+          let firstKey = null;
+          Object.keys(timesteps).forEach((key) => {
+            if (timesteps[key] == 1) {
+              firstKey = !firstKey ? key : firstKey;
+            }
+          });
+          this.state.firstLeadTime = firstKey;
+          this.state.newEventEarlyTrigger =
+            firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
+        }
+      });
   }
 
-  private async getTriggerLeadTime() {
-    let triggerLeadTime = null;
-    this.countryService.activeCountry.countryLeadTimes.forEach(
-      (leadTime: LeadTime) => {
-        if (
-          !triggerLeadTime &&
-          LeadTimeTriggerKey[leadTime] >= this.state.firstLeadTime
-        ) {
-          triggerLeadTime = LeadTimeTriggerKey[leadTime];
+  private getTriggerLeadTime() {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe(async (country: Country) => {
+        if (country) {
+          let triggerLeadTime = null;
+          country.countryLeadTimes.forEach((leadTime: LeadTime) => {
+            if (
+              !triggerLeadTime &&
+              LeadTimeTriggerKey[leadTime] >= this.state.firstLeadTime
+            ) {
+              triggerLeadTime = LeadTimeTriggerKey[leadTime];
+            }
+          });
+          this.state.triggerLeadTime = triggerLeadTime;
         }
-      },
-    );
-    this.state.triggerLeadTime = triggerLeadTime;
+      });
   }
 }

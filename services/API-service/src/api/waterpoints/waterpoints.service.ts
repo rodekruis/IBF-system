@@ -1,50 +1,46 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
+import { WKTStringFromGeometry } from 'wkt-io-ts';
+import { isRight } from 'fp-ts/lib/Either';
+import { CountryService } from '../country/country.service';
 import { GeoJson } from '../data/geo.model';
 
 @Injectable()
 export class WaterpointsService {
   private httpService: HttpService;
+  private countryService: CountryService;
+
   private headers = { 'X-App-Token': process.env.WATERPOINTDATA_TOKEN };
 
-  public constructor(httpService: HttpService) {
+  public constructor(httpService: HttpService, countryService: CountryService) {
     this.httpService = httpService;
+    this.countryService = countryService;
   }
 
   public async getWaterpoints(
-    countryCode: string,
+    countryCodeISO3: string,
   ): Promise<AxiosResponse<GeoJson>> {
-    let countryCodeShort;
-    switch (countryCode) {
-      case 'KEN':
-        countryCodeShort = 'KE';
-      case 'ZMB':
-        countryCodeShort = 'ZM';
-      case 'UGA':
-        countryCodeShort = 'UG';
-      case 'ETH':
-        countryCodeShort = 'ET';
-      default:
-        countryCodeShort = countryCode.substr(0, 2);
+    const country = await this.countryService.findOne(countryCodeISO3);
+
+    const countryWkt = WKTStringFromGeometry.decode(country.countryBoundingBox);
+    if (!isRight(countryWkt)) {
+      throw new Error('Country Bounding Box is not valid');
     }
+
     const path =
-      `https://data.waterpointdata.org/resource/amwk-dedf.geojson?` +
-      `$where=water_source is not null` +
-      ` AND water_source !='Lake'&` +
-      `$limit=100000&` +
-      `status_id=yes&` +
-      `country_id=${countryCodeShort}`;
+      `https://data.waterpointdata.org/resource/amwk-dedf.geojson` +
+      `?$where=water_source is not null` +
+      ` AND water_source !='Lake'` +
+      ` AND within_polygon(location, '${countryWkt.right}')` +
+      `&$limit=100000` +
+      `&status_id=yes` +
+      `&country_id=${country.countryCodeISO2}`;
 
     return new Promise((resolve): void => {
       this.httpService
         .get(path, { headers: this.headers })
         .subscribe((response): void => {
           const result = response.data;
-          result.features = result.features.filter(
-            (feature): boolean =>
-              feature.geometry.coordinates[0] !== 0 ||
-              feature.geometry.coordinates[1] !== 0,
-          );
           result.features.forEach((feature): void => {
             feature.properties = {
               wpdxId: feature.properties.wpdx_id,
