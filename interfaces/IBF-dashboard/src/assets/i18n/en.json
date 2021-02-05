@@ -103,7 +103,6 @@
     }
   },
   "aggregates-component": {
-    "header-prefix": "Selected",
     "header-title-prefix": "Situation in",
     "more-information": "Click for more info on this indicator.",
     "default-header-label": "...Loading",
