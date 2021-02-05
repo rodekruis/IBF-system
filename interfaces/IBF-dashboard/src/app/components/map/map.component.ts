@@ -66,30 +66,23 @@ export class MapComponent implements OnDestroy {
     },
   );
 
-  private iconGlofasDefault: IconOptions = {
+  private iconBaseOptions: IconOptions = {
     iconSize: [25, 41],
     iconAnchor: [13, 41],
     popupAnchor: [0, -30],
-    iconUrl: 'assets/markers/glofas-default.svg',
-    iconRetinaUrl: 'assets/markers/glofas-default.svg',
-  };
-
-  private iconGlofasWarning: IconOptions = {
-    ...this.iconGlofasDefault,
-    iconSize: [35, 56],
-    iconUrl: 'assets/markers/glofas-alert.svg',
-    iconRetinaUrl: 'assets/markers/glofas-alert.svg',
+    iconUrl: 'assets/markers/glofas-no.svg',
+    iconRetinaUrl: 'assets/markers/glofas-no.svg',
   };
 
   private iconRedCrossBranch: IconOptions = {
-    ...this.iconGlofasDefault,
+    ...this.iconBaseOptions,
     iconSize: [20, 33],
     iconUrl: 'assets/markers/red-cross.png',
     iconRetinaUrl: 'assets/markers/red-cross.png',
   };
 
   private iconWaterpoint: IconOptions = {
-    ...this.iconGlofasDefault,
+    ...this.iconBaseOptions,
     iconSize: [20, 33],
     iconUrl: 'assets/markers/waterpoint.png',
     iconRetinaUrl: 'assets/markers/waterpoint.png',
@@ -471,7 +464,7 @@ export class MapComponent implements OnDestroy {
 
   private createMarkerDefault(markerLatLng: LatLng): Marker {
     return marker(markerLatLng, {
-      icon: icon(this.iconGlofasDefault),
+      icon: icon(this.iconBaseOptions),
     });
   }
 
@@ -480,11 +473,23 @@ export class MapComponent implements OnDestroy {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.station_name;
-    let markerIcon = this.iconGlofasDefault;
+    let markerIcon: IconOptions;
 
-    if (markerProperties.fc_trigger === '1') {
-      markerIcon = this.iconGlofasWarning;
-    }
+    const eapAlertClasses = this.countryService.activeCountry.eapAlertClasses;
+    const glofasProbability = markerProperties.fc_prob;
+    Object.keys(eapAlertClasses).forEach((key) => {
+      if (
+        glofasProbability >= eapAlertClasses[key].valueLow &&
+        glofasProbability < eapAlertClasses[key].valueHigh
+      ) {
+        markerIcon = {
+          ...this.iconBaseOptions,
+          iconSize: [25, 41],
+          iconUrl: 'assets/markers/glofas-' + key + '.png',
+          iconRetinaUrl: 'assets/markers/glofas-' + key + '.png',
+        };
+      }
+    });
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
@@ -532,10 +537,19 @@ export class MapComponent implements OnDestroy {
   }
 
   private createMarkerStationPopup(markerProperties: Station): string {
-    const percentageTrigger =
-      markerProperties.fc / markerProperties.trigger_level;
-    const color = percentageTrigger < 1 ? 'lightgrey' : 'salmon';
-    const eapStatusText = percentageTrigger < 1 ? 'No action' : 'Activate EAP';
+    const eapAlertClasses = this.countryService.activeCountry.eapAlertClasses;
+    let eapStatusText: string;
+    let color: string;
+    const glofasProbability = markerProperties.fc_prob;
+    Object.keys(eapAlertClasses).forEach((key) => {
+      if (
+        glofasProbability >= eapAlertClasses[key].valueLow &&
+        glofasProbability < eapAlertClasses[key].valueHigh
+      ) {
+        eapStatusText = eapAlertClasses[key].label;
+        color = eapAlertClasses[key].color;
+      }
+    });
 
     const stationInfoPopup =
       '<div style="background-color: blue; color: white; padding: 5px; margin-bottom: 5px"> \
