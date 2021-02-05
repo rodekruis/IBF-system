@@ -32,4 +32,6 @@ export class IndicatorEntity {
   public source: string;
   @Column()
   public description: string;
+  @Column({ default: false })
+  public lazyLoad: boolean;
 }
