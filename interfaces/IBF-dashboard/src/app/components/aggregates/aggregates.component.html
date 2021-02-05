@@ -11,7 +11,6 @@
       "
     >
       <ion-label class="aggregate-header-item-label">
-        <span [translate]="'aggregates-component.header-prefix'"></span>:
         {{ getHeaderLabel() }}
       </ion-label>
       <ion-button
@@ -26,6 +25,16 @@
       </ion-button>
     </ion-item>
     <div *ngFor="let group of groups">
+      <ion-item
+        *ngIf="group === indicatorGroupEnum.vulnerability"
+        color="medium"
+        lines="none"
+        class="aggregate-header-item"
+      >
+        <ion-label>
+          <span [translate]="'aggregates-component.exposed-subgroups'"></span>
+        </ion-label>
+      </ion-item>
       <ion-row *ngFor="let indicator of indicators" class="ion-no-padding">
         <ng-container *ngIf="indicator.group === group">
           <ion-col size-lg="8" size-md="8" size-xs="8">
@@ -34,6 +43,7 @@
                 <ion-img src="assets/icons/{{ indicator.icon }}"></ion-img>
               </ion-thumbnail>
               <ion-label class="aggregate-item-label" [title]="indicator.label">
+                <span *ngIf="indicator.weightedAvg"></span>
                 {{ indicator.label }}
               </ion-label>
             </ion-item>
