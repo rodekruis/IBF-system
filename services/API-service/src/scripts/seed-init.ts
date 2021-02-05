@@ -29,8 +29,8 @@ export class SeedInit implements InterfaceScript {
   }
 
   public async run(): Promise<void> {
-    await this.connection.dropDatabase();
-    await this.connection.synchronize(true);
+    await this.cleanAll();
+    await this.connection.synchronize(false);
 
     // ***** CREATE LEAD TIMES *****
 
@@ -117,6 +117,30 @@ export class SeedInit implements InterfaceScript {
     // ***** CREATE INDICATORS *****
     const indicatorRepository = this.connection.getRepository(IndicatorEntity);
     await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
+  }
+
+  private async getEntities(): Promise<any[]> {
+    const entities = [];
+    this.connection.entityMetadatas.forEach(x =>
+      entities.push({ name: x.name, tableName: x.tableName }),
+    );
+    return entities;
+  }
+
+  private async cleanAll(): Promise<void> {
+    const entities = await this.getEntities();
+    try {
+      for (const entity of entities) {
+        const repository = await this.connection.getRepository(entity.name);
+        if (repository.metadata.schema === 'IBF-app') {
+          const q = `DROP TABLE \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
+          console.log(q);
+          await repository.query(q);
+        }
+      }
+    } catch (error) {
+      throw new Error(`ERROR: Cleaning test db: ${error}`);
+    }
   }
 }
 
