@@ -146,7 +146,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         this.eapActionsService
           .getTriggeredAreas()
           .subscribe((triggeredAreas) => {
-            headerLabel = `${this.exposedPrefix} ${triggeredAreas.length} ${adminAreaLabel}`;
+            headerLabel = `${triggeredAreas.length} ${this.exposedPrefix} ${adminAreaLabel}`;
           });
       } else {
         if (country) {
