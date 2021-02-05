@@ -26,6 +26,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public groups: IndicatorGroup[] = [];
   public placeCode: PlaceCode;
 
+  public indicatorGroupEnum = IndicatorGroup;
+
   private defaultHeaderLabel: string;
   private exposedPrefix: string;
   private allPrefix: string;
@@ -88,7 +90,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         this.changeDetectorRef.detectChanges();
       });
 
-    this.groups = [IndicatorGroup.general, IndicatorGroup.vulnerability];
     this.indicatorSubscription = this.aggregatesService
       .getIndicators()
       .subscribe((newIndicators: Indicator[]) => {
@@ -96,6 +97,12 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         this.indicators.forEach((indicator: Indicator) => {
           indicator.group = IndicatorGroup[indicator.group];
         });
+        this.groups = [];
+        for (let group in IndicatorGroup) {
+          if (this.indicators.find((i) => i.group === IndicatorGroup[group])) {
+            this.groups.push(IndicatorGroup[group]);
+          }
+        }
       });
   }
 
@@ -146,7 +153,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         this.eapActionsService
           .getTriggeredAreas()
           .subscribe((triggeredAreas) => {
-            headerLabel = `${this.exposedPrefix} ${triggeredAreas.length} ${adminAreaLabel}`;
+            headerLabel = `${triggeredAreas.length} ${this.exposedPrefix} ${adminAreaLabel}`;
           });
       } else {
         if (country) {
