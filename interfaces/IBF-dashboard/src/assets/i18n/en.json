@@ -128,7 +128,7 @@
     "default-header-label": "...Loading",
     "exposed-prefix": "Exposed",
     "all-prefix": "All",
-    "exposed-subgroups": "of which.."
+    "exposed-subgroups": "of which .."
   },
   "areas-of-focus-summary-component": {
     "title": "EAP Actions Summary"

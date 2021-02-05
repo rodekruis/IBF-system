@@ -40,6 +40,9 @@ export class CountryEntity {
   @Column({ nullable: true })
   public eapLink: string;
 
+  @Column('json', { nullable: true })
+  public eapAlertClasses: JSON;
+
   @Column('text', {
     array: true,
     default: (): string => 'array[]::text[]',

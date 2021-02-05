@@ -69,6 +69,9 @@ export class SeedInit implements InterfaceScript {
             ),
           });
           countryEntity.countryLogos = country.countryLogos;
+          countryEntity.eapAlertClasses = JSON.parse(
+            JSON.stringify([country.eapAlertClasses]),
+          )[0];
           countryEntity.countryBoundingBox = country.countryBoundingBox;
           return countryEntity;
         },
