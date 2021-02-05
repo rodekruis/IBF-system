@@ -1,3 +1,19 @@
+# [0.9.0](https://github.com/rodekruis/IBF-system/compare/v0.8.0...v0.9.0) (2021-02-05)
+
+
+### Bug Fixes
+
+* improve station popup AB[#5852](https://github.com/rodekruis/IBF-system/issues/5852) ([0e455e9](https://github.com/rodekruis/IBF-system/commit/0e455e96f0602d0a8dc267c063b87b1e6fdf6788))
+
+
+### Features
+
+* add aggregate column popovers separately AB[#5665](https://github.com/rodekruis/IBF-system/issues/5665) ([54bc85a](https://github.com/rodekruis/IBF-system/commit/54bc85aa5605231850c3cea16b5cd9b3ca270e33))
+* add eapAlertClasses per country AB[#5853](https://github.com/rodekruis/IBF-system/issues/5853) ([d1cd04a](https://github.com/rodekruis/IBF-system/commit/d1cd04a762b9f7187bb493e12b0a9c7e993e23cf))
+* start of upgrade station popup ([9eeba45](https://github.com/rodekruis/IBF-system/commit/9eeba45db78604a3b1c3b0d1861224e16d66ce47))
+
+
+
 # [0.8.0](https://github.com/rodekruis/IBF-system/compare/v0.7.0...v0.8.0) (2021-02-05)
 
 
@@ -93,15 +109,6 @@
 * country api should return lead times ([2ec22df](https://github.com/rodekruis/IBF-system/commit/2ec22dfd4b276920d6c626e6ea522e0f1dde5025))
 * filter countries by user on load ([6fa0a35](https://github.com/rodekruis/IBF-system/commit/6fa0a35e4522451349e1168f4f7b4d4fc525d19c))
 * tests ([1e72d0e](https://github.com/rodekruis/IBF-system/commit/1e72d0ecf337cd405601f56091483abe8444ae23))
-
-
-
-# [0.4.0](https://github.com/rodekruis/IBF-system/compare/v0.3.0...v0.4.0) (2021-01-31)
-
-
-### Features
-
-* countries api ([e87c818](https://github.com/rodekruis/IBF-system/commit/e87c8183da0ece940632b0972bb695fc3610b3e4))
 
 
 
