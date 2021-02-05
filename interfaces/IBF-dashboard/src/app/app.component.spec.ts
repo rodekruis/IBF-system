@@ -1,6 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Platform } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -16,6 +17,7 @@ describe('AppComponent', () => {
 
       TestBed.configureTestingModule({
         declarations: [AppComponent],
+        imports: [TranslateModule.forRoot()],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         providers: [{ provide: Platform, useValue: platformSpy }],
       }).compileComponents();
