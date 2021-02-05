@@ -19,8 +19,8 @@ import {
   IbfLayerType,
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
-import { LeadTime } from 'src/app/types/lead-time';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
+import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
@@ -148,14 +148,13 @@ export class MapService {
   }
 
   public async loadAggregateLayer(indicator: Indicator) {
-
     // This solution is not pretty. To load a layer in the legend without
     // loading the data an empty geosjon is needed.
     let data = null;
     if (!indicator.lazyLoad) {
-      data = await this.getAdminRegions()
+      data = await this.getAdminRegions();
     } else {
-      data = { features : [] }
+      data = { features: [] };
     }
     this.addLayer({
       name: indicator.name,
@@ -386,7 +385,7 @@ export class MapService {
 
   public async getAdmin2Data(): Promise<GeoJSON.FeatureCollection> {
     const data = await this.apiService.getAdmin2Data();
-    return data
+    return data;
   }
 
   getAdminRegionFillColor = (

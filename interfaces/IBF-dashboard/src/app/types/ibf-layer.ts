@@ -63,7 +63,7 @@ export enum IbfLayerLabel {
   adminRegions = 'Admin regions',
   cropland = 'Cropland',
   grassland = 'Grassland',
-  covidRisk = 'Covid Risk'
+  covidRisk = 'Covid Risk',
 }
 
 export class IbfLayerWMS {
