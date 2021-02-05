@@ -11,14 +11,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getManager } from 'typeorm';
 import fs from 'fs';
 import { GeoJson } from '../data/geo.model';
-const csv = require('csv-parser');
+import csv from 'csv-parser';
 
 @Injectable()
 export class UgaDataLevel2Service {
   @InjectRepository(UgaDataLevel2Entity)
   private readonly ugaLevel2Repo: Repository<UgaDataLevel2Entity>;
 
-  public constructor(private readonly dataService: DataService) {}
+  private dataService: DataService;
+  public constructor(dataService: DataService) {
+    this.dataService = dataService;
+  }
 
   public async updateOrCreate(data): Promise<void> {
     const objArray = await this.csvBufferToArray(data.buffer);
@@ -33,7 +36,7 @@ export class UgaDataLevel2Service {
     let parsedData = [];
     return await new Promise(function(resolve, reject) {
       stream
-        .pipe(csv({ delimiter: ';' }))
+        .pipe(csv())
         .on('error', error => reject(error))
         .on('data', row => parsedData.push(row))
         .on('end', () => {
