@@ -73,7 +73,7 @@ export class MapService {
       });
 
     this.translateService
-      .get('popover')
+      .get('popover.layer-popover')
       .subscribe((translatedStrings: { [key: string]: string }) => {
         this.popoverTexts = translatedStrings;
       });
