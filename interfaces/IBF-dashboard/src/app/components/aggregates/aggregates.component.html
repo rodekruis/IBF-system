@@ -4,36 +4,46 @@
       color="medium"
       lines="none"
       class="aggregate-header-item"
-      title="Situation in {{ getHeaderLabel() }}"
+      [title]="
+        ('aggregates-component.header-title-prefix' | translate) +
+        ' ' +
+        getHeaderLabel()
+      "
     >
       <ion-label class="aggregate-header-item-label">
-        Selected: {{ getHeaderLabel() }}
+        {{ getHeaderLabel() }}
       </ion-label>
       <ion-button
         slot="end"
         fill="clear"
         *ngIf="placeCode"
         color="light"
-        class="placeCodeResetBtn"
+        class="place-code-reset-button"
         (click)="clearPlaceCode()"
       >
         <ion-icon name="close" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-item>
     <div *ngFor="let group of groups">
+      <ion-item
+        *ngIf="group === indicatorGroupEnum.vulnerability"
+        color="medium"
+        lines="none"
+        class="aggregate-header-item"
+      >
+        <ion-label>
+          <span [translate]="'aggregates-component.exposed-subgroups'"></span>
+        </ion-label>
+      </ion-item>
       <ion-row *ngFor="let indicator of indicators" class="ion-no-padding">
         <ng-container *ngIf="indicator.group === group">
-          <ion-col
-            size-lg="8"
-            size-md="8"
-            size-xs="8"
-            title="Click to visualize in map"
-          >
+          <ion-col size-lg="8" size-md="8" size-xs="8">
             <ion-item lines="inset" class="aggregate-item ion-no-padding">
               <ion-thumbnail slot="start" class="aggregate-item-thumbnail">
                 <ion-img src="assets/icons/{{ indicator.icon }}"></ion-img>
               </ion-thumbnail>
               <ion-label class="aggregate-item-label" [title]="indicator.label">
+                <span *ngIf="indicator.weightedAvg"></span>
                 {{ indicator.label }}
               </ion-label>
             </ion-item>
@@ -66,7 +76,7 @@
             size-lg="1"
             size-md="1"
             size-xs="1"
-            title="Click for more info on this indicator."
+            [title]="'aggregates-component.more-information' | translate"
           >
             <ion-item class="aggregate-item-information-icon ion-no-padding">
               <ion-label class="ion-text-center">
