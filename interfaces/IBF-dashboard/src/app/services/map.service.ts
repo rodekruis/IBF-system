@@ -19,7 +19,7 @@ import {
   IbfLayerType,
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
-import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
+import { Indicator } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
@@ -174,22 +174,22 @@ export class MapService {
     });
   }
 
-  public async loadAdmin2Data(name: IbfLayerName) {
+  public async loadAdmin2Data(indicator: Indicator) {
     this.addLayer({
-      name: name,
-      label: IbfLayerLabel.covidRisk,
+      name: indicator.name,
+      label: indicator.label,
       type: IbfLayerType.shape,
       description: 'loadCovidLayer',
       active: true,
       show: true,
       data: await this.getAdmin2Data(),
       viewCenter: true,
-      colorProperty: IbfLayerName.covidRisk,
-      colorBreaks: null,
-      numberFormatMap: NumberFormat.perc,
+      colorProperty: indicator.name,
+      colorBreaks: indicator.colorBreaks,
+      numberFormatMap: indicator.numberFormatMap,
       legendColor: '#969696',
       group: IbfLayerGroup.aggregates,
-      order: 1,
+      order: indicator.order,
     });
   }
 
