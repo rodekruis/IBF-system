@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
@@ -19,9 +20,11 @@ import {
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
-import { Indicator, IndicatorName, NumberFormat } from 'src/app/types/indicator-group';
+import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
+import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
+import { MockScenario } from '../mocks/mock-scenario.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -43,10 +46,12 @@ export class MapService {
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
     transparentColor: 'transparent',
-    defaultColorProperty: IndicatorName.PopulationAffected,
+    defaultColorProperty: IbfLayerName.population_affected,
     defaultFillOpacity: 0.8,
     defaultWeight: 1,
   };
+
+  private popoverTexts: { [key: string]: string } = {};
 
   constructor(
     private countryService: CountryService,
@@ -55,14 +60,42 @@ export class MapService {
     private apiService: ApiService,
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
-  ) {}
+    private mockScenarioService: MockScenarioService,
+    private translateService: TranslateService,
+  ) {
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe((mockScenario: MockScenario) => {
+        this.loadAdminRegionLayer();
+        this.loadStationLayer();
+        this.loadRedCrossBranchesLayer();
+        this.loadWaterpointsLayer();
+      });
+
+    this.translateService
+      .get('popover')
+      .subscribe((translatedStrings: { [key: string]: string }) => {
+        this.popoverTexts = translatedStrings;
+      });
+  }
+
+  private getPopoverText(indicatorName: IbfLayerName): string {
+    let popoverText = '';
+    if (this.popoverTexts[indicatorName]) {
+      const triggerState: string = this.eventService.state.activeTrigger
+        ? `active-trigger-${this.eventService.disasterType}`
+        : 'no-trigger';
+      popoverText = this.popoverTexts[indicatorName][triggerState];
+    }
+    return popoverText;
+  }
 
   public async loadStationLayer() {
     this.addLayer({
       name: IbfLayerName.glofasStations,
       label: IbfLayerLabel.glofasStations,
       type: IbfLayerType.point,
-      description: 'loadStationLayer',
+      description: this.getPopoverText(IbfLayerName.glofasStations),
       active: true,
       show: true,
       data: await this.getStations(),
@@ -76,7 +109,7 @@ export class MapService {
       name: IbfLayerName.redCrossBranches,
       label: IbfLayerLabel.redCrossBranches,
       type: IbfLayerType.point,
-      description: 'loadRedCrossBranchesLayer',
+      description: this.getPopoverText(IbfLayerName.redCrossBranches),
       active: false,
       show: true,
       data: await this.getRedCrossBranches(),
@@ -90,7 +123,7 @@ export class MapService {
       name: IbfLayerName.waterpoints,
       label: IbfLayerLabel.waterpoints,
       type: IbfLayerType.point,
-      description: 'loadWaterpointsLayer',
+      description: this.getPopoverText(IbfLayerName.waterpoints),
       active: false,
       show: true,
       data: await this.getWaterpoints(),
@@ -128,7 +161,7 @@ export class MapService {
       name: indicator.name,
       label: indicator.label,
       type: IbfLayerType.shape,
-      description: 'loadAggregateLayer',
+      description: this.getPopoverText(indicator.name),
       active: indicator.active,
       show: true,
       data: data,
@@ -180,8 +213,7 @@ export class MapService {
       name: layerName,
       label: layerLabel,
       type: IbfLayerType.wms,
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      description: this.getPopoverText(layerName),
       active: active,
       show: true,
       viewCenter: false,
@@ -481,7 +513,7 @@ export class MapService {
       const fillOpacity = this.getAdminRegionFillOpacity(
         layer,
         trigger,
-        adminRegion.properties[IndicatorName.PopulationAffected] > 0,
+        adminRegion.properties[IbfLayerName.population_affected] > 0,
         adminRegion.properties.pcode,
       );
       const weight = this.getAdminRegionWeight(layer);

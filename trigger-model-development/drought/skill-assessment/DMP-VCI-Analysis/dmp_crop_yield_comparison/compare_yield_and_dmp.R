@@ -10,12 +10,12 @@ crop_zones <- c("ZW15", "ZW16", "ZW21", "ZW24")
 periods <- c(1:12)
 for (period in periods){
 
-  res_name <- sprintf("results/cor_%s.csv", period)
+  res_name <- sprintf("results/cor_wheat_%s.csv", period)
 
   setwd('c:/Users/BOttow/Documents/IBF-system/trigger-model-development/drought/skill-assessment/DMP-VCI-Analysis/dmp_crop_yield_comparison')
   dmp <- read.csv('results/all_dmp.csv')
   if (filter_on_zones) {dmp <- dmp %>% filter(pcode %in% crop_zones)}
-  yield <- read.csv('results/all_yield.csv')
+  yield <- read.csv('results/all_yield_wheat.csv')
   if (filter_on_zones) {yield <- yield %>% filter(pcode %in% crop_zones)}
   lhz <- st_read("c:/Users/BOttow/OneDrive - Rode Kruis/Documenten/IBF/data/ZW_LHZ_2011/ZW_LHZ_2011.shp")
   if (filter_on_zones) {lhz <- lhz %>% filter(LZCODE %in% crop_zones)}
@@ -48,7 +48,7 @@ for (period in periods){
     left_join(lhz_pcodes, by = "pcode")
 
   yield_dmp <- yield %>% mutate(year=as.numeric(year)) %>%
-    select(-class,-lznameen) %>%
+    dplyr::select(-class,-lznameen) %>%
     left_join(dmp2, by = c("pcode", "year")) %>%
     drop_na() %>%
     mutate(com_id=paste0(pcode,year)) %>%
@@ -63,7 +63,7 @@ for (period in periods){
     group_by(class) %>% mutate(cor_maize_lzt = cor(yield, dmp_maize_m)) %>% ungroup() %>% as.data.frame() %>%
     group_by(lznameen) %>% mutate(cor_maize_lzn = cor(yield, dmp_maize_m)) %>% ungroup() %>% as.data.frame()
 
-  dat2 <- yield_dmp2 %>% select(pcode,year,class,lznameen, cor_maize_lzt, cor_maize_lzn) %>%
+  dat2 <- yield_dmp2 %>% dplyr::select(pcode,year,class,lznameen, cor_maize_lzt, cor_maize_lzn) %>%
     gather(var, val, -pcode,-year,-class,-lznameen)
 
   ggplot(dat2, aes(x = lznameen, y=val, colour = var)) +
@@ -79,7 +79,7 @@ for (period in periods){
                                      size = 14))
 
   yield_dmp3 <- yield_dmp2 %>% distinct(pcode, .keep_all = TRUE) %>%
-    select(pcode,dmp_maize_m,cor_maize_lzt,cor_maize_lzn) %>%
+    dplyr::select(pcode,dmp_maize_m,cor_maize_lzt,cor_maize_lzn) %>%
     mutate(LZCODE=pcode)
 
   lhz2<- lhz %>% left_join(yield_dmp3,by='LZCODE')
@@ -88,16 +88,16 @@ for (period in periods){
 }
 
 period <- periods[1]
-res_name <- sprintf("results/cor_%s.csv", period)
+res_name <- sprintf("results/cor_wheat_%s.csv", period)
 cor <- read.csv(res_name)
 summary <- as.data.frame(t(c(cor$cor_maize_lzn, mean(cor$cor_maize_lzn))))
 colnames(summary) <- c(cor$pcode, "mean")
 for (period in periods[2:length(periods)]){
-  res_name <- sprintf("results/cor_%s.csv", period)
+  res_name <- sprintf("results/cor_wheat_%s.csv", period)
   cor <- read.csv(res_name)
   summary[period,] <- c(cor$cor_maize_lzn, mean(cor$cor_maize_lzn))
 }
-write.csv(summary, "results/cor_summary.csv")
+write.csv(summary, "results/cor_wheat.csv")
 
 #---------------------- vistualize stations and risk areas -------------------------------
 tmap_mode(mode = "view")

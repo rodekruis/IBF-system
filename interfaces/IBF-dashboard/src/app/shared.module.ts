@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { AboutBtnComponent } from './components/about-btn/about-btn.component';
 import { AdminLevelComponent } from './components/admin-level/admin-level.component';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
@@ -24,6 +25,8 @@ import { SourceInfoModalComponent } from './components/source-info-modal/source-
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
+import { VideoGuideButtonComponent } from './components/video-guide-button/video-guide-button.component';
+import { VideoPopoverComponent } from './components/video-popover/video-popover.component';
 
 @NgModule({
   imports: [
@@ -32,6 +35,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
     IonicModule,
     LeafletModule,
     LeafletMarkerClusterModule,
+    TranslateModule,
   ],
   declarations: [
     LoginFormComponent,
@@ -54,6 +58,8 @@ import { UserStateComponent } from './components/user-state/user-state.component
     ExportViewComponent,
     ExportViewPopoverComponent,
     DateButtonComponent,
+    VideoPopoverComponent,
+    VideoGuideButtonComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -76,6 +82,9 @@ import { UserStateComponent } from './components/user-state/user-state.component
     ExportViewComponent,
     ExportViewPopoverComponent,
     DateButtonComponent,
+    VideoPopoverComponent,
+    VideoGuideButtonComponent,
+    TranslateModule,
   ],
 })
 export class SharedModule {}
