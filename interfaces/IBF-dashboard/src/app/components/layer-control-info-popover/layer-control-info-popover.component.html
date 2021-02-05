@@ -1,7 +1,7 @@
 <ion-card>
   <ion-card-header color="ibf-royal-blue">
     <ion-icon
-      class="ibf-layer-control-popover"
+      class="ibf-layer-control-popover-icon"
       name="close-circle"
       size="large"
       (click)="closePopover()"
@@ -10,7 +10,8 @@
       {{ layer.label }}
     </ion-card-title>
   </ion-card-header>
-  <ion-card-content class="ion-padding-top">
-    {{ layer.description }}
-  </ion-card-content>
+  <ion-card-content
+    class="ion-padding-top"
+    [innerHTML]="layer.description"
+  ></ion-card-content>
 </ion-card>

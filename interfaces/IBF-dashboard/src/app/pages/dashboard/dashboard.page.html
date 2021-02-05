@@ -10,7 +10,7 @@
         <ion-buttons slot="start">
           <ion-icon name="chevron-back-outline"></ion-icon>
         </ion-buttons>
-        <ion-title>Dev Mode</ion-title>
+        <ion-title [translate]="'dashboard-page.dev-menu.title'"></ion-title>
       </ion-toolbar>
     </ion-header>
   </ion-menu-toggle>
@@ -24,7 +24,7 @@
         rel="noopener noreferrer"
         target="_blank"
       >
-        <ion-label>Version</ion-label>
+        <ion-label [translate]="'common.version'"></ion-label>
         <ion-text>{{ version }}</ion-text>
       </ion-item>
       <app-country-switcher
@@ -40,9 +40,6 @@
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <!-- <ion-button href="/" title="Home" [class.ion-hide]="isDev">
-          <ion-icon name="apps" slot="icon-only"></ion-icon>
-        </ion-button> -->
         <ion-menu-toggle menu="dev-control">
           <ion-button>
             <ion-icon name="apps" slot="icon-only"></ion-icon>
@@ -82,14 +79,21 @@
                   color="transparent"
                   [disabled]="true"
                 >
-                  <span class="today">TODAY</span>
+                  <span
+                    class="today"
+                    [translate]="'dashboard-page.today'"
+                  ></span>
                   <date-button></date-button>
                 </ion-button>
                 <ion-thumbnail
                   slot="start"
                   class="component-title-thumbnail"
                 ></ion-thumbnail>
-                <ion-label><strong>Situational Overview</strong></ion-label>
+                <ion-label>
+                  <strong
+                    [translate]="'dashboard-page.situational-overview'"
+                  ></strong>
+                </ion-label>
               </ion-item>
             </ion-col>
           </ion-row>
