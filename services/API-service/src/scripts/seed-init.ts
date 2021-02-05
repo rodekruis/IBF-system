@@ -29,7 +29,6 @@ export class SeedInit implements InterfaceScript {
   }
 
   public async run(): Promise<void> {
-    // await this.connection.dropDatabase();
     await this.cleanAll();
     await this.connection.synchronize(false);
 
