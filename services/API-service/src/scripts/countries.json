@@ -23,7 +23,7 @@
     "eapAlertClasses": {
       "no": {
         "label": "No action",
-        "color": "lightgrey",
+        "color": "#d4d3d2",
         "valueLow": 0,
         "valueHigh": 0.8
       },
@@ -86,7 +86,7 @@
     "eapAlertClasses": {
       "no": {
         "label": "No action",
-        "color": "lightgrey",
+        "color": "#d4d3d2",
         "valueLow": 0,
         "valueHigh": 0.6
       },
@@ -158,7 +158,7 @@
     "eapAlertClasses": {
       "no": {
         "label": "No action",
-        "color": "lightgrey",
+        "color": "#d4d3d2",
         "valueLow": 0,
         "valueHigh": 0.8
       },
@@ -209,7 +209,7 @@
     "eapAlertClasses": {
       "no": {
         "label": "No action",
-        "color": "lightgrey",
+        "color": "#d4d3d2",
         "valueLow": 0,
         "valueHigh": 0.8
       },
