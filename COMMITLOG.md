@@ -1,3 +1,12 @@
+## [0.10.1](https://github.com/rodekruis/IBF-system/compare/v0.10.0...v0.10.1) (2021-02-08)
+
+
+### Bug Fixes
+
+* finetune station popup visually AB[#6028](https://github.com/rodekruis/IBF-system/issues/6028) ([b683e87](https://github.com/rodekruis/IBF-system/commit/b683e87528b8b85e518e09ad1118ce754c09ec15))
+
+
+
 # [0.10.0](https://github.com/rodekruis/IBF-system/compare/v0.9.0...v0.10.0) (2021-02-08)
 
 
@@ -103,15 +112,6 @@
 ### Bug Fixes
 
 * user country should be selected ([2244676](https://github.com/rodekruis/IBF-system/commit/2244676577de8ce14dbaa4fcfcd8d8ac9af4ae60))
-
-
-
-## [0.4.2](https://github.com/rodekruis/IBF-system/compare/v0.4.1...v0.4.2) (2021-02-01)
-
-
-### Bug Fixes
-
-* waterpoints api should use polygon filter ([ec4541a](https://github.com/rodekruis/IBF-system/commit/ec4541ae75de84da72d551b4444faad76af7b0fa))
 
 
 
