@@ -1,5 +1,6 @@
 SELECT
    pcode,
+   name,
    (ST_AsGeoJSON(g.geom))::jsonb as geom,
    covidrisk 
 FROM
