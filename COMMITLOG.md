@@ -1,3 +1,18 @@
+# [0.10.0](https://github.com/rodekruis/IBF-system/compare/v0.9.0...v0.10.0) (2021-02-08)
+
+
+### Bug Fixes
+
+* add district name to covid data AB[#5841](https://github.com/rodekruis/IBF-system/issues/5841) ([888264f](https://github.com/rodekruis/IBF-system/commit/888264fdb7807bb93cbb7412ff221c8c077b1907))
+* clean up old glofas images AB[#5853](https://github.com/rodekruis/IBF-system/issues/5853) ([91733b7](https://github.com/rodekruis/IBF-system/commit/91733b799098fd7fb3bfffa17b4b1e2cb45d582d))
+
+
+### Features
+
+* add covid risk popup info + fix order AB[#6025](https://github.com/rodekruis/IBF-system/issues/6025) ([fcd8738](https://github.com/rodekruis/IBF-system/commit/fcd8738ad1bd941a25287aef15ba8a973840e56d))
+
+
+
 # [0.9.0](https://github.com/rodekruis/IBF-system/compare/v0.8.0...v0.9.0) (2021-02-05)
 
 
@@ -97,18 +112,6 @@
 ### Bug Fixes
 
 * waterpoints api should use polygon filter ([ec4541a](https://github.com/rodekruis/IBF-system/commit/ec4541ae75de84da72d551b4444faad76af7b0fa))
-
-
-
-## [0.4.1](https://github.com/rodekruis/IBF-system/compare/v0.4.0...v0.4.1) (2021-02-01)
-
-
-### Bug Fixes
-
-* aggregates header country variable ([d559d35](https://github.com/rodekruis/IBF-system/commit/d559d35132ec216fd465a1908477c82a124adba1))
-* country api should return lead times ([2ec22df](https://github.com/rodekruis/IBF-system/commit/2ec22dfd4b276920d6c626e6ea522e0f1dde5025))
-* filter countries by user on load ([6fa0a35](https://github.com/rodekruis/IBF-system/commit/6fa0a35e4522451349e1168f4f7b4d4fc525d19c))
-* tests ([1e72d0e](https://github.com/rodekruis/IBF-system/commit/1e72d0ecf337cd405601f56091483abe8444ae23))
 
 
 
