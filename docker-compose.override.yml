@@ -14,7 +14,7 @@ services:
     ibf-dashboard:
         command: ["npm", "run", "start"]
         environment:
-            - NG_PRODUCTION=false
+            - NG_CONFIGURATION=development
         ports:
             - 4200:4200
         volumes:
