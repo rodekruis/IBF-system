@@ -44,7 +44,7 @@ function deploy() {
         set -a; [ -f ./.env ] && . ./.env; set +a;
         export NG_IBF_SYSTEM_VERSION=v$(node -p "require('./package.json').version")
         log echo "NODE_ENV: $NODE_ENV"
-        log echo "NG_PRODUCTION: $NG_PRODUCTION"
+        log echo "NG_CONFIGURATION: $NG_CONFIGURATION"
         log echo "NG_IBF_SYSTEM_VERSION: $NG_IBF_SYSTEM_VERSION"
     }
 
