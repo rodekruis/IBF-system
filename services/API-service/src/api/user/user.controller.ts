@@ -14,12 +14,12 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { UserDecorator } from './user.decorator';
 import { ValidationPipe } from '../../shared/pipes/validation.pipe';
 
-import { ApiUseTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { DeleteUserDto } from './dto/delete-user.dto';
 import { RolesGuard } from '../../roles.guard';
 
 @ApiBearerAuth()
-@ApiUseTags('user')
+@ApiTags('user')
 @Controller('user')
 export class UserController {
   private readonly userService: UserService;
@@ -27,14 +27,14 @@ export class UserController {
     this.userService = userService;
   }
 
-  @ApiOperation({ title: 'Sign-up new user' })
+  @ApiOperation({ summary: 'Sign-up new user' })
   @UsePipes(new ValidationPipe())
   @Post()
   public async create(@Body() userData: CreateUserDto): Promise<UserRO> {
     return this.userService.create(userData);
   }
 
-  @ApiOperation({ title: 'Log in existing user' })
+  @ApiOperation({ summary: 'Log in existing user' })
   @UsePipes(new ValidationPipe())
   @Post('login')
   public async login(@Body() loginUserDto: LoginUserDto): Promise<UserRO> {
@@ -54,7 +54,7 @@ export class UserController {
   }
 
   @UseGuards(RolesGuard)
-  @ApiOperation({ title: 'Change password of logged in user' })
+  @ApiOperation({ summary: 'Change password of logged in user' })
   @Post('change-password')
   public async update(
     @UserDecorator('id') userId: string,
@@ -64,14 +64,14 @@ export class UserController {
   }
 
   @UseGuards(RolesGuard)
-  @ApiOperation({ title: 'Get current user' })
+  @ApiOperation({ summary: 'Get current user' })
   @Get()
   public async findMe(@UserDecorator('email') email: string): Promise<UserRO> {
     return await this.userService.findByEmail(email);
   }
 
   @UseGuards(RolesGuard)
-  @ApiOperation({ title: 'Delete current user and storage' })
+  @ApiOperation({ summary: 'Delete current user and storage' })
   @Post('delete')
   public async deleteAccount(
     @UserDecorator('id') userId: string,
