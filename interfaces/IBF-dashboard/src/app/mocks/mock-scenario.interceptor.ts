@@ -28,7 +28,7 @@ export class MockScenarioInterceptor implements HttpInterceptor {
     const requestPath = request.url.replace(environment.api_url, '');
     // Use only first level to get generic endpoint
     const requestPathSplit = requestPath.split('/');
-    const requestEndpoint = requestPathSplit[0];
+    const requestEndpoint = requestPathSplit[1];
 
     let mockAPIs = this.mockAPI.getMockAPI();
     if (

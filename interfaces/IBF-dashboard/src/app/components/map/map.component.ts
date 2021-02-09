@@ -474,6 +474,7 @@ export class MapComponent implements OnDestroy {
   ): Marker {
     const markerTitle = markerProperties.station_name;
     let markerIcon: IconOptions;
+    let className: string;
 
     const eapAlertClasses = this.countryService.activeCountry.eapAlertClasses;
     const glofasProbability = markerProperties.fc_prob;
@@ -488,6 +489,7 @@ export class MapComponent implements OnDestroy {
           iconUrl: 'assets/markers/glofas-' + key + '.png',
           iconRetinaUrl: 'assets/markers/glofas-' + key + '.png',
         };
+        className = 'station-popup-' + key;
       }
     });
 
@@ -498,7 +500,7 @@ export class MapComponent implements OnDestroy {
     });
     markerInstance.bindPopup(this.createMarkerStationPopup(markerProperties), {
       minWidth: 300,
-      className: 'station-popup',
+      className: className,
     });
 
     return markerInstance;
@@ -543,16 +545,24 @@ export class MapComponent implements OnDestroy {
     const glofasProbability = markerProperties.fc_prob;
 
     let eapStatusText: string;
-    let color: string;
+    let eapStatuscolor: string;
     Object.keys(eapAlertClasses).forEach((key) => {
       if (
         glofasProbability >= eapAlertClasses[key].valueLow &&
         glofasProbability < eapAlertClasses[key].valueHigh
       ) {
         eapStatusText = eapAlertClasses[key].label;
-        color = eapAlertClasses[key].color;
+        eapStatuscolor = eapAlertClasses[key].color;
       }
     });
+    const headerColor =
+      glofasProbability > eapAlertClasses.max.valueLow
+        ? eapStatuscolor
+        : 'var(--ion-color-ibf-royal-blue)';
+    const headerTextColor =
+      glofasProbability > eapAlertClasses.max.valueLow
+        ? 'var(--ion-color-ibf-black)'
+        : 'var(--ion-color-ibf-white)';
 
     const triggerWidth = Math.max(
       Math.min(
@@ -564,34 +574,47 @@ export class MapComponent implements OnDestroy {
       0,
     );
 
+    const lastAvailableLeadTime = this.countryService.activeCountry
+      .countryLeadTimes[
+      this.countryService.activeCountry.countryLeadTimes.length - 1
+    ];
+    const leadTime =
+      this.timelineService.activeLeadTime || lastAvailableLeadTime;
+
     const stationInfoPopup =
-      '<div style="background-color: var(--ion-color-ibf-royal-blue); color: white; padding: 5px; margin-bottom: 5px"> \
-    <strong>' +
-      markerProperties.station_name +
-      '</strong> (' +
+      '<div style="background-color: ' +
+      headerColor +
+      '; color: ' +
+      headerTextColor +
+      '; padding: 5px; margin-bottom: 5px"> \
+        <strong>' +
       markerProperties.station_code +
-      ') \
-  </div> \
-  <div style="margin-left:5px"> \
-    <div style="margin-bottom:5px">Forecast river discharge in m<sup>3</sup>/s</div> \
-    <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
-      <div style="border-radius:10px 0 0 10px;height:20px;background-color:lightgrey; width: 80%"> \
-        <div style="border-radius:10px;height:20px;background-color:var(--ion-color-ibf-royal-blue); color:white; text-align:center; white-space: nowrap; min-width: 25%; width:' +
-      triggerWidth +
-      '%"><span>' +
-      markerProperties.fc +
-      ' m<sup>3</sup>/s</span></div> \
+      ' STATION: ' +
+      markerProperties.station_name +
+      '</strong> \
       </div> \
-    </div> \
-    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; text-align: right; width: 80%; margin-bottom:10px"> \
-      Trigger activation threshold: ' +
+      <div style="margin-left:5px"> \
+        <div style="margin-bottom:5px">' +
+      leadTime +
+      ' forecast river discharge (in m<sup>3</sup>/s) \
+      </div> \
+      <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
+        <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
+          <div style="border-radius:10px;height:20px;line-height:20px;background-color:var(--ion-color-ibf-royal-blue); color:white; text-align:center; white-space: nowrap; min-width: 15%; width:' +
+      triggerWidth +
+      '%">' +
+      markerProperties.fc +
+      '</div></div></div> \
+    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
+      Trigger activation threshold:</div> \
+   \
+  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>' +
       Math.round(markerProperties.trigger_level) +
-      ' m<sup>3</sup>/s<span>   </span> \
-    </div> \
-  </div> \
+      '</strong></div></div> \
+</div> \
   <div style="background-color: ' +
-      color +
-      '; color: black; padding: 10px; text-align: center; text-transform:uppercase"> \
+      eapStatuscolor +
+      '; color: var(--ion-color-ibf-black); padding: 10px; text-align: center; text-transform:uppercase"> \
     <strong>' +
       eapStatusText +
       '</strong> \
