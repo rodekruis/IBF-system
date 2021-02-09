@@ -1,3 +1,12 @@
+# [0.11.0](https://github.com/rodekruis/IBF-system/compare/v0.10.1...v0.11.0) (2021-02-09)
+
+
+### Features
+
+* configuration env var for interface and favicon for each environment ([9037f18](https://github.com/rodekruis/IBF-system/commit/9037f18fba748a8fe4807f7d891fd8b4c6ec008c))
+
+
+
 ## [0.10.1](https://github.com/rodekruis/IBF-system/compare/v0.10.0...v0.10.1) (2021-02-08)
 
 
@@ -103,15 +112,6 @@
 
 * bug in migration-part deploy-script ([8f27104](https://github.com/rodekruis/IBF-system/commit/8f27104a8e1389d8b37014bd8a585c70c7cc2ae0))
 * load aggregates within metadata-call AB[#5655](https://github.com/rodekruis/IBF-system/issues/5655) ([2510e86](https://github.com/rodekruis/IBF-system/commit/2510e868c09b6ebdd256ffb4d4dc98488f5b7d8b))
-
-
-
-## [0.4.3](https://github.com/rodekruis/IBF-system/compare/v0.4.2...v0.4.3) (2021-02-01)
-
-
-### Bug Fixes
-
-* user country should be selected ([2244676](https://github.com/rodekruis/IBF-system/commit/2244676577de8ce14dbaa4fcfcd8d8ac9af4ae60))
 
 
 
