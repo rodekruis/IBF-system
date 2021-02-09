@@ -126,16 +126,8 @@ export class SeedInit implements InterfaceScript {
     await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
   }
 
-  private async getEntities(): Promise<any[]> {
-    const entities = [];
-    this.connection.entityMetadatas.forEach(x =>
-      entities.push({ name: x.name, tableName: x.tableName }),
-    );
-    return entities;
-  }
-
   private async cleanAll(): Promise<void> {
-    const entities = await this.getEntities();
+    const entities = this.connection.entityMetadatas;
     try {
       for (const entity of entities) {
         const repository = await this.connection.getRepository(entity.name);

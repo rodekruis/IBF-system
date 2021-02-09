@@ -45,7 +45,7 @@ services:
         build:
             context: ./interfaces/IBF-dashboard
             args:
-                - NG_PRODUCTION=true
+                - NG_CONFIGURATION=${NG_CONFIGURATION}
                 - NG_API_URL=${NG_API_URL}
                 - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
                 - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
@@ -53,7 +53,7 @@ services:
                 - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
         image: rodekruis/ibf-dashboard
         environment:
-            - NG_PRODUCTION=true
+            - NG_CONFIGURATION=${NG_CONFIGURATION}
             - NG_API_URL=${NG_API_URL}
             - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
             - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
