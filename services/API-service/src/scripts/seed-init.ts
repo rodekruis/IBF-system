@@ -48,10 +48,14 @@ export class SeedInit implements InterfaceScript {
     await leadTimeRepository.save(leadTimeEntities);
 
     // ***** CREATE COUNTRIES *****
+    const envCountries = process.env.COUNTRIES.split(',');
+    const selectedCountries = countries.filter((country): boolean => {
+      return envCountries.includes(country.countryCodeISO3);
+    });
 
     const countryRepository = this.connection.getRepository(CountryEntity);
     const countryEntities = await Promise.all(
-      countries.map(
+      selectedCountries.map(
         async (country): Promise<CountryEntity> => {
           let countryEntity = new CountryEntity();
           countryEntity.countryCodeISO3 = country.countryCodeISO3;

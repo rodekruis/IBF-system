@@ -6,6 +6,7 @@ import traceback
 import time
 import datetime
 from settings import *
+from secrets import *
 
 def main():
     logger.info("Started Cron")
