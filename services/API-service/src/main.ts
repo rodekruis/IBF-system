@@ -14,7 +14,7 @@ async function bootstrap(): Promise<void> {
     .setDescription('API description')
     .setVersion('1.0')
     .setBasePath('api')
-    .setSchemes(SCHEME)
+    .addServer(`${SCHEME}://`)
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
