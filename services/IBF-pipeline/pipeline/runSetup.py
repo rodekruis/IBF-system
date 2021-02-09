@@ -2,6 +2,7 @@ from lib.setup.createSchema import createSchema
 from lib.setup.createSubFolders import createSubFolders
 from lib.setup.staticDataDb import uploadStaticToDb, processStaticDataDb
 from settings import *
+from secrets import *
 
 from lib.logging.logglySetup import logger
 
