@@ -3,9 +3,9 @@ import { EapActionsService } from './eap-actions.service';
 import { UserDecorator } from '../user/user.decorator';
 import {
   ApiBearerAuth,
-  ApiImplicitParam,
+  ApiParam,
   ApiOperation,
-  ApiUseTags,
+  ApiTags,
 } from '@nestjs/swagger';
 import { EapActionDto } from './dto/eap-action.dto';
 import { EapActionEntity } from './eap-action.entity';
@@ -15,7 +15,7 @@ import { RolesGuard } from '../../roles.guard';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
-@ApiUseTags('eap-actions')
+@ApiTags('eap-actions')
 @Controller('eap-actions')
 export class EapActionsController {
   private readonly eapActionsService: EapActionsService;
@@ -24,7 +24,7 @@ export class EapActionsController {
     this.eapActionsService = eapActionsService;
   }
 
-  @ApiOperation({ title: 'Check EAP actions as done' })
+  @ApiOperation({ summary: 'Check EAP actions as done' })
   @Post()
   public async checkAction(
     @UserDecorator('id') userId: string,
@@ -33,10 +33,10 @@ export class EapActionsController {
     return await this.eapActionsService.checkAction(userId, eapAction);
   }
 
-  @ApiOperation({ title: 'Get EAP actions and status' })
-  @ApiImplicitParam({ name: 'countryCode', required: true, type: 'string' })
-  @ApiImplicitParam({ name: 'pcode', required: true, type: 'string' })
-  @ApiImplicitParam({ name: 'event', required: true, type: 'number' })
+  @ApiOperation({ summary: 'Get EAP actions and status' })
+  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiParam({ name: 'pcode', required: true, type: 'string' })
+  @ApiParam({ name: 'event', required: true, type: 'number' })
   @Get('/:countryCode/:pcode/:event')
   public async getActionsWithStatus(
     @Param() params,
@@ -48,7 +48,7 @@ export class EapActionsController {
     );
   }
 
-  @ApiOperation({ title: 'Get areas of focus' })
+  @ApiOperation({ summary: 'Get areas of focus' })
   @Get('areas-of-focus')
   public async getAreasOfFocus(): Promise<AreaOfFocusEntity[]> {
     return await this.eapActionsService.getAreasOfFocus();

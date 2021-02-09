@@ -6,16 +6,16 @@ import {
   Length,
   Min,
 } from 'class-validator';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class UgaDataLevel2Dto {
-  @ApiModelProperty()
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   @Length(11, 11)
   public pcode: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
   @Min(0)

@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
-  ApiUseTags,
+  ApiTags,
   ApiOperation,
   ApiImplicitFile,
 } from '@nestjs/swagger';
@@ -18,7 +18,7 @@ import { RolesGuard } from '../../roles.guard';
 import { GeoJson } from '../data/geo.model';
 
 @ApiBearerAuth()
-@ApiUseTags('uganda')
+@ApiTags('uganda')
 @Controller('uga-data-level-2')
 export class UgaDataLevel2Controller {
   private readonly ugaDataLevel2Service: UgaDataLevel2Service;
@@ -27,7 +27,7 @@ export class UgaDataLevel2Controller {
   }
 
   @UseGuards(RolesGuard)
-  @ApiOperation({ title: 'Upload level 2 data' })
+  @ApiOperation({ summary: 'Upload level 2 data' })
   @ApiImplicitFile({
     name: 'file',
     required: false,
@@ -39,7 +39,7 @@ export class UgaDataLevel2Controller {
     await this.ugaDataLevel2Service.updateOrCreate(ugaDataLevel2List);
   }
 
-  @ApiOperation({ title: 'Get all covid risk admin 2' })
+  @ApiOperation({ summary: 'Get all covid risk admin 2' })
   @Get('all')
   public async getUgandaLevel2(): Promise<GeoJson> {
     return await this.ugaDataLevel2Service.findAll();
