@@ -23,7 +23,8 @@
               {
                 "glob": "**/*",
                 "input": "src/assets",
-                "output": "assets"
+                "output": "assets",
+                "ignore": ["icons/stage/*", "icons/test/*"]
               },
               {
                 "glob": "**/*.svg",
@@ -81,6 +82,58 @@
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
             },
+            "stage": {
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "src/assets",
+                  "output": "assets",
+                  "ignore": ["icons/stage/*", "icons/test/*"]
+                },
+                {
+                  "glob": "**/*.svg",
+                  "input": "node_modules/ionicons/dist/ionicons/svg",
+                  "output": "./svg"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "./node_modules/leaflet/dist/images",
+                  "output": "assets/leaflet"
+                },
+                "src/manifest.webmanifest",
+                {
+                  "glob": "favicon.png",
+                  "input": "src/assets/icons/stage",
+                  "output": "assets/icons"
+                }
+              ]
+            },
+            "test": {
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "src/assets",
+                  "output": "assets",
+                  "ignore": ["icons/stage/*", "icons/test/*"]
+                },
+                {
+                  "glob": "**/*.svg",
+                  "input": "node_modules/ionicons/dist/ionicons/svg",
+                  "output": "./svg"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "./node_modules/leaflet/dist/images",
+                  "output": "assets/leaflet"
+                },
+                "src/manifest.webmanifest",
+                {
+                  "glob": "favicon.png",
+                  "input": "src/assets/icons/test",
+                  "output": "assets/icons"
+                }
+              ]
+            },
             "ci": {
               "progress": false
             }
@@ -117,14 +170,10 @@
             "scripts": [],
             "assets": [
               {
-                "glob": "favicon.ico",
-                "input": "src/",
-                "output": "/"
-              },
-              {
                 "glob": "**/*",
                 "input": "src/assets",
-                "output": "/assets"
+                "output": "/assets",
+                "ignore": ["icons/stage/*", "icons/test/*"]
               },
               "src/manifest.webmanifest"
             ]
