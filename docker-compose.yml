@@ -25,6 +25,7 @@ services:
                 - NODE_ENV=production
         image: rodekruis/ibf-api-service
         environment:
+            - ADMIN_PASSWORD=${ADMIN_PASSWORD}
             - DB_TYPE=${DB_TYPE}
             - DB_HOST=${DB_HOST}
             - DB_PORT=${DB_PORT}
