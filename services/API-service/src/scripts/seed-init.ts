@@ -49,13 +49,9 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE COUNTRIES *****
     const envCountries = process.env.COUNTRIES.split(',');
-    console.log('envCountries: ', envCountries);
-
-    const selectedCountries = countries.filter(function( obj ) {
+    const selectedCountries = countries.filter(function(obj) {
       return envCountries.includes(obj.countryCodeISO3);
     });
-    console.log('selectedCountries: ', selectedCountries);
-
 
     const countryRepository = this.connection.getRepository(CountryEntity);
     const countryEntities = await Promise.all(
