@@ -86,9 +86,8 @@ export class SeedInit implements InterfaceScript {
       selectedUsers = users.filter(function(obj) {
         return obj.userRole === 'admin';
       });
-      selectedUsers[0].password = process.env.ADMIN_PASSWORD
-    }
-    else {
+      selectedUsers[0].password = process.env.ADMIN_PASSWORD;
+    } else {
       selectedUsers = users;
     }
 
