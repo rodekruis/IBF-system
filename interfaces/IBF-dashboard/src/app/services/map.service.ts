@@ -73,7 +73,7 @@ export class MapService {
       });
 
     this.translateService
-      .get('popover.layer-popover')
+      .get('map-service.popover')
       .subscribe((translatedStrings: { [key: string]: string }) => {
         this.popoverTexts = translatedStrings;
       });
@@ -179,7 +179,7 @@ export class MapService {
       name: indicator.name,
       label: indicator.label,
       type: IbfLayerType.shape,
-      description: 'loadCovidLayer',
+      description: this.getPopoverText(indicator.name),
       active: true,
       show: true,
       data: await this.getAdmin2Data(),
@@ -189,7 +189,7 @@ export class MapService {
       numberFormatMap: indicator.numberFormatMap,
       legendColor: '#969696',
       group: IbfLayerGroup.aggregates,
-      order: indicator.order,
+      order: 20 + indicator.order,
     });
   }
 

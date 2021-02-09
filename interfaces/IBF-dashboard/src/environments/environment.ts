@@ -3,10 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  configuration: 'development',
 
   // API
-  api_url: 'http://localhost:3000/api/',
+  api_url: 'http://localhost:3000/api',
 
   // feature-flags
   useServiceWorker: false,
