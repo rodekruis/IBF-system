@@ -1,3 +1,20 @@
+# [0.12.0](https://github.com/rodekruis/IBF-system/compare/v0.11.0...v0.12.0) (2021-02-09)
+
+
+### Bug Fixes
+
+* Resolved pip install issues in pipeline AB[#6022](https://github.com/rodekruis/IBF-system/issues/6022) ([2be49e9](https://github.com/rodekruis/IBF-system/commit/2be49e954b0cdb05afec0a2f1e3e7d8e99ecd1ad))
+
+
+### Features
+
+* added countries to secrets template AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([24bc3fa](https://github.com/rodekruis/IBF-system/commit/24bc3fa740d7f93e5efd41d5a9a60d55a731cbc4))
+* only run glofas for country AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([c6ceda1](https://github.com/rodekruis/IBF-system/commit/c6ceda1c50ca3f5b5e0576b8f53aa503505af219))
+* only run glofas for country AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([457db9c](https://github.com/rodekruis/IBF-system/commit/457db9cbb8ba613e0e9b4c04ef9269be474c1815))
+* Only seed countries in .env ([663ddc0](https://github.com/rodekruis/IBF-system/commit/663ddc0834bed33d6dcba0f71604dce8c977010c))
+
+
+
 # [0.11.0](https://github.com/rodekruis/IBF-system/compare/v0.10.1...v0.11.0) (2021-02-09)
 
 
@@ -102,16 +119,6 @@
 ### Bug Fixes
 
 * resolve mock scenarios cyclic dependency AB[#5872](https://github.com/rodekruis/IBF-system/issues/5872) ([e093096](https://github.com/rodekruis/IBF-system/commit/e093096f19ad1beebd2406ac43f03daa30d31d37))
-
-
-
-## [0.4.4](https://github.com/rodekruis/IBF-system/compare/v0.4.3...v0.4.4) (2021-02-01)
-
-
-### Bug Fixes
-
-* bug in migration-part deploy-script ([8f27104](https://github.com/rodekruis/IBF-system/commit/8f27104a8e1389d8b37014bd8a585c70c7cc2ae0))
-* load aggregates within metadata-call AB[#5655](https://github.com/rodekruis/IBF-system/issues/5655) ([2510e86](https://github.com/rodekruis/IBF-system/commit/2510e868c09b6ebdd256ffb4d4dc98488f5b7d8b))
 
 
 
