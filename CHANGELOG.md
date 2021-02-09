@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## [Unreleased](https://github.com/rodekruis/IBF-system/compare/0.1.0...master)
+- 2021-01-27: Add COUNTRIES to .env file
 - 2021-01-27: Move COUNTRY_CODES from settings.py to secrets.py
 
 ### Added
