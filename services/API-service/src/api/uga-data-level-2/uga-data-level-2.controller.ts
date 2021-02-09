@@ -11,7 +11,8 @@ import {
   ApiBearerAuth,
   ApiTags,
   ApiOperation,
-  ApiImplicitFile,
+  ApiConsumes,
+  ApiBody,
 } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { RolesGuard } from '../../roles.guard';
@@ -27,13 +28,22 @@ export class UgaDataLevel2Controller {
   }
 
   @UseGuards(RolesGuard)
-  @ApiOperation({ summary: 'Upload level 2 data' })
-  @ApiImplicitFile({
-    name: 'file',
-    required: false,
-    description: 'Upload level 2 admin data. Columns: pcode covidrisk',
+  @ApiOperation({
+    summary: 'Upload level 2 admin data. Columns: pcode covidrisk',
   })
   @Post('upload')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @UseInterceptors(FileInterceptor('file'))
   public async upload(@UploadedFile() ugaDataLevel2List): Promise<void> {
     await this.ugaDataLevel2Service.updateOrCreate(ugaDataLevel2List);
