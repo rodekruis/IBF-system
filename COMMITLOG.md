@@ -1,3 +1,13 @@
+## [0.12.2](https://github.com/rodekruis/IBF-system/compare/v0.12.1...v0.12.2) (2021-02-09)
+
+
+### Bug Fixes
+
+* better way of doing the last commit ([b87d82f](https://github.com/rodekruis/IBF-system/commit/b87d82f24a18e1c12e4b206537a3b8057d38fa1d))
+* use prod env file instead of dev env ([777bea7](https://github.com/rodekruis/IBF-system/commit/777bea750a5aa1ae9f094ecbd3e0ddec0bf02b18))
+
+
+
 ## [0.12.1](https://github.com/rodekruis/IBF-system/compare/v0.12.0...v0.12.1) (2021-02-09)
 
 
@@ -109,16 +119,6 @@
 ### Features
 
 * show count of exposed areas in aggregates AB[#5869](https://github.com/rodekruis/IBF-system/issues/5869) ([a1b7665](https://github.com/rodekruis/IBF-system/commit/a1b766539bd86c2b834463008601b9fca1632c13))
-
-
-
-# [0.5.0](https://github.com/rodekruis/IBF-system/compare/v0.4.5...v0.5.0) (2021-02-03)
-
-
-### Features
-
-* video guide url in chat component AB[#5923](https://github.com/rodekruis/IBF-system/issues/5923) ([907ca39](https://github.com/rodekruis/IBF-system/commit/907ca3921f0c850c3da45d0f11a18b2107b5dae3))
-* video on login page and reduce font size AB[#5925](https://github.com/rodekruis/IBF-system/issues/5925) AB[#5926](https://github.com/rodekruis/IBF-system/issues/5926) AB[#5927](https://github.com/rodekruis/IBF-system/issues/5927) ([2079553](https://github.com/rodekruis/IBF-system/commit/207955352614da439dba82f83bb38bfb919c4aae))
 
 
 
