@@ -1,3 +1,12 @@
+## [0.12.1](https://github.com/rodekruis/IBF-system/compare/v0.12.0...v0.12.1) (2021-02-09)
+
+
+### Bug Fixes
+
+* replace ApiImplicitFile ([2648038](https://github.com/rodekruis/IBF-system/commit/26480381792eaf35397e1e82e09f866bfbe16f1d))
+
+
+
 # [0.12.0](https://github.com/rodekruis/IBF-system/compare/v0.11.0...v0.12.0) (2021-02-09)
 
 
@@ -110,15 +119,6 @@
 
 * video guide url in chat component AB[#5923](https://github.com/rodekruis/IBF-system/issues/5923) ([907ca39](https://github.com/rodekruis/IBF-system/commit/907ca3921f0c850c3da45d0f11a18b2107b5dae3))
 * video on login page and reduce font size AB[#5925](https://github.com/rodekruis/IBF-system/issues/5925) AB[#5926](https://github.com/rodekruis/IBF-system/issues/5926) AB[#5927](https://github.com/rodekruis/IBF-system/issues/5927) ([2079553](https://github.com/rodekruis/IBF-system/commit/207955352614da439dba82f83bb38bfb919c4aae))
-
-
-
-## [0.4.5](https://github.com/rodekruis/IBF-system/compare/v0.4.4...v0.4.5) (2021-02-01)
-
-
-### Bug Fixes
-
-* resolve mock scenarios cyclic dependency AB[#5872](https://github.com/rodekruis/IBF-system/issues/5872) ([e093096](https://github.com/rodekruis/IBF-system/commit/e093096f19ad1beebd2406ac43f03daa30d31d37))
 
 
 
