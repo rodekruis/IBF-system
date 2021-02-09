@@ -15,7 +15,7 @@ const todayString =
     ("0" + (today.getMonth() + 1)).slice(-2) +
     "-" +
     ("0" + today.getDate()).slice(-2);
-const logDirectory = "/tmp/";
+const logDirectory = "/var/tmp/";
 const stdoutFileName = `ibf-${todayString}.stdout.log`;
 const stderrFileName = `ibf-${todayString}.stderr.log`;
 const stdoutStream = fs.createWriteStream(logDirectory + stdoutFileName, {
