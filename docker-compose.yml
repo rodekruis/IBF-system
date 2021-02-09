@@ -35,6 +35,7 @@ services:
             - SECRET=${SECRET}
             - RESET_SECRET=${RESET_SECRET}
             - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
+            - COUNTRIES=${COUNTRIES}
         networks:
             - web-server-network
         depends_on:
