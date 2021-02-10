@@ -3,10 +3,13 @@ import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 import { SeverityLevel } from 'src/app/analytics/severity-level.model';
 import { environment } from 'src/environments/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AnalyticsService {
-  appInsights: ApplicationInsights;
-  appInsightsEnabled: boolean;
+  applicationInsights: ApplicationInsights;
+  isApplicationInsightsEnabled: boolean;
+  properties: object = {};
 
   constructor() {
     if (
@@ -16,7 +19,7 @@ export class AnalyticsService {
       return;
     }
 
-    this.appInsights = new ApplicationInsights({
+    this.applicationInsights = new ApplicationInsights({
       config: {
         connectionString: `InstrumentationKey=${environment.applicationInsightsInstrumentationKey};IngestionEndpoint=${environment.applicationInsightsUrl}`,
         instrumentationKey: environment.applicationInsightsInstrumentationKey,
@@ -24,25 +27,40 @@ export class AnalyticsService {
       },
     });
 
-    this.appInsightsEnabled = true;
-    this.appInsights.loadAppInsights();
+    this.setEnvironmentProperties();
+    this.isApplicationInsightsEnabled = true;
+    this.applicationInsights.loadAppInsights();
   }
 
-  logPageView(name?: string) {
-    this.appInsights.trackPageView({ name });
+  setEnvironmentProperties(): void {
+    this.properties = {
+      configuration: environment.configuration,
+      version: environment.ibfSystemVersion,
+      apiUrl: environment.apiUrl,
+    };
   }
 
-  logError(error: any, severityLevel?: SeverityLevel) {
+  logPageView(name?: string): void {
+    this.applicationInsights.trackPageView({
+      name,
+      properties: this.properties,
+    });
+  }
+
+  logError(error: any, severityLevel?: SeverityLevel): void {
     this.displayOnConsole(error, severityLevel);
   }
 
-  logEvent(name: string, properties?: { [key: string]: any }) {
-    this.appInsights.trackEvent({ name }, properties);
+  logEvent(name: string, properties?: { [key: string]: any }): void {
+    this.applicationInsights.trackEvent(
+      { name },
+      Object.assign({}, this.properties, properties),
+    );
   }
 
   logException(exception: Error, severityLevel?: SeverityLevel) {
-    if (this.appInsightsEnabled) {
-      this.appInsights.trackException({
+    if (this.isApplicationInsightsEnabled) {
+      this.applicationInsights.trackException({
         exception,
         severityLevel,
       });
@@ -52,7 +70,10 @@ export class AnalyticsService {
   }
 
   logTrace(message: string, properties?: { [key: string]: any }) {
-    this.appInsights.trackTrace({ message }, properties);
+    this.applicationInsights.trackTrace(
+      { message },
+      Object.assign({}, this.properties, properties),
+    );
   }
 
   private displayOnConsole(
