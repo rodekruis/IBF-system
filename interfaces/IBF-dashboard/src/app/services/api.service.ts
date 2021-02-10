@@ -42,7 +42,7 @@ export class ApiService {
   }
 
   get(path: string, anonymous: boolean = true): Observable<any> {
-    const url = `${environment.api_url}/${path}`;
+    const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
     this.log(`ApiService GET: ${security} ${url}`);
 
@@ -66,7 +66,7 @@ export class ApiService {
     body: object,
     anonymous: boolean = false,
   ): Observable<any> {
-    const url = `${environment.api_url}/${path}`;
+    const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
     this.log(`ApiService POST: ${security} ${url}`, body);
 
