@@ -1,3 +1,13 @@
+# [0.13.0](https://github.com/rodekruis/IBF-system/compare/v0.12.2...v0.13.0) (2021-02-10)
+
+
+### Features
+
+* add analytics module AB[#5986](https://github.com/rodekruis/IBF-system/issues/5986) AB[#5935](https://github.com/rodekruis/IBF-system/issues/5935) ([2a46ad5](https://github.com/rodekruis/IBF-system/commit/2a46ad5b65186b447d51b7741f5685c9b17d0947))
+* analytics page view events ([128b482](https://github.com/rodekruis/IBF-system/commit/128b482f8b4fae42b57ceacecb2d47ba9ed6232b))
+
+
+
 ## [0.12.2](https://github.com/rodekruis/IBF-system/compare/v0.12.1...v0.12.2) (2021-02-09)
 
 
@@ -110,15 +120,6 @@
 * translate chat component ([f229e7d](https://github.com/rodekruis/IBF-system/commit/f229e7ddb30bdfbf25de3832f838851d57bfc941))
 * translate chat component and upgrade typescript ([079a708](https://github.com/rodekruis/IBF-system/commit/079a7080493622941fda0db6a95a36415e617a6d))
 * translate dashboard page ([a0441b2](https://github.com/rodekruis/IBF-system/commit/a0441b25b9b4e50f5caf95843e7350bd168c5c3b))
-
-
-
-# [0.6.0](https://github.com/rodekruis/IBF-system/compare/v0.5.0...v0.6.0) (2021-02-03)
-
-
-### Features
-
-* show count of exposed areas in aggregates AB[#5869](https://github.com/rodekruis/IBF-system/issues/5869) ([a1b7665](https://github.com/rodekruis/IBF-system/commit/a1b766539bd86c2b834463008601b9fca1632c13))
 
 
 
