@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  public version: string = environment.ibf_system_version;
+  public version: string = environment.ibfSystemVersion;
 
   constructor(private popoverController: PopoverController) {}
 
@@ -17,7 +17,7 @@ export class LoginPage {
     const popover = await this.popoverController.create({
       component: VideoPopoverComponent,
       componentProps: {
-        videoURL: environment.ibf_video_guide_url,
+        videoUrl: environment.ibfVideoGuideUrl,
       },
       animated: true,
       cssClass: 'ibf-video-guide-popover',
