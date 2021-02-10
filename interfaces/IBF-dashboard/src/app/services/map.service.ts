@@ -220,7 +220,7 @@ export class MapService {
       legendColor: legendColor,
       order: 10,
       wms: {
-        url: environment.geoserver_url,
+        url: environment.geoserverUrl,
         name: `ibf-system:${layerName}_${leadTime ? leadTime + '_' : ''}${
           this.countryService.activeCountry.countryCodeISO3
         }`,

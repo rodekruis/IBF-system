@@ -51,6 +51,8 @@ services:
                 - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
                 - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
                 - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
+                - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
+                - NG_APPLICATION_INSIGHTS_URL:${NG_APPLICATION_INSIGHTS_URL}
         image: rodekruis/ibf-dashboard
         environment:
             - NG_CONFIGURATION=${NG_CONFIGURATION}
@@ -59,6 +61,8 @@ services:
             - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
             - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
             - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
+            - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
+            - NG_APPLICATION_INSIGHTS_URL:${NG_APPLICATION_INSIGHTS_URL}
         volumes:
             - ibf-dashboard-root:/home/node/app/www
         networks:

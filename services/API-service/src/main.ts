@@ -13,7 +13,6 @@ async function bootstrap(): Promise<void> {
     .setTitle('IBF - API-service')
     .setDescription('API description')
     .setVersion('1.0')
-    .setBasePath('api')
     .addServer(`${SCHEME}://`)
     .addBearerAuth()
     .build();
