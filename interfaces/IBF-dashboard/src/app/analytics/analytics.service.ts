@@ -41,10 +41,14 @@ export class AnalyticsService {
   }
 
   logPageView(name?: string): void {
-    this.applicationInsights.trackPageView({
-      name,
-      properties: this.properties,
-    });
+    if (this.isApplicationInsightsEnabled) {
+      this.applicationInsights.trackPageView({
+        name,
+        properties: this.properties,
+      });
+    } else {
+      console.log('analyticsService logPageView', name);
+    }
   }
 
   logError(error: any, severityLevel?: SeverityLevel): void {
@@ -52,10 +56,14 @@ export class AnalyticsService {
   }
 
   logEvent(name: string, properties?: { [key: string]: any }): void {
-    this.applicationInsights.trackEvent(
-      { name },
-      Object.assign({}, this.properties, properties),
-    );
+    if (this.isApplicationInsightsEnabled) {
+      this.applicationInsights.trackEvent(
+        { name },
+        Object.assign({}, this.properties, properties),
+      );
+    } else {
+      console.log('analyticsService logEvent', name, properties);
+    }
   }
 
   logException(exception: Error, severityLevel?: SeverityLevel) {
@@ -70,10 +78,14 @@ export class AnalyticsService {
   }
 
   logTrace(message: string, properties?: { [key: string]: any }) {
-    this.applicationInsights.trackTrace(
-      { message },
-      Object.assign({}, this.properties, properties),
-    );
+    if (this.isApplicationInsightsEnabled) {
+      this.applicationInsights.trackTrace(
+        { message },
+        Object.assign({}, this.properties, properties),
+      );
+    } else {
+      console.log('analyticsService logTrace', message, properties);
+    }
   }
 
   private displayOnConsole(
