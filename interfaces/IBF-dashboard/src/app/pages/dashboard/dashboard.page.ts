@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage {
-  public version: string = environment.ibf_system_version;
+  public version: string = environment.ibfSystemVersion;
   public isDev = false;
   private readonly adminRole = UserRole.Admin;
 

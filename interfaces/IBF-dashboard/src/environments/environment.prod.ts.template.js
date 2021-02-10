@@ -4,20 +4,18 @@ module.exports = `//
 
 export const environment = {
   configuration: '${process.env.NG_CONFIGURATION || 'production'}',
-
-  // API
-  api_url: '${process.env.NG_API_URL}',
-
-  // feature-flags
-  useServiceWorker: ${process.env.NG_USE_SERVICE_WORKER === 'true'},
-
-  // geoserver
-  geoserver_url: '${process.env.NG_GEOSERVER_URL}',
-
-  // version
-  ibf_system_version: '${process.env.NG_IBF_SYSTEM_VERSION}',
-
-  // video guide url
-  ibf_video_guide_url: '${process.env.NG_IBF_VIDEO_GUIDE_URL}',
+  apiUrl: '${process.env.NG_API_URL}', // API
+  useServiceWorker: ${
+    process.env.NG_USE_SERVICE_WORKER === 'true'
+  }, // feature-flags
+  geoserverUrl: '${process.env.NG_GEOSERVER_URL}', // geoserver
+  ibfSystemVersion: '${process.env.NG_IBF_SYSTEM_VERSION}', // version
+  ibfVideoGuideUrl: '${process.env.NG_IBF_VIDEO_GUIDE_URL}', // video guide url
+  applicationInsightsInstrumentationKey: '${
+    process.env.NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY
+  }', // application insights instrumentation key
+  applicationInsightsUrl: '${
+    process.env.NG_APPLICATION_INSIGHTS_URL
+  }', // application insights url endpoint
 };
 `;

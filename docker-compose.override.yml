@@ -21,6 +21,8 @@ services:
             - ./interfaces/IBF-dashboard:/home/node/app
 
     ibf-pipeline:
+        ports:
+            - 5432:5432
         volumes:
             - ./services/IBF-pipeline:/home/ibf
 

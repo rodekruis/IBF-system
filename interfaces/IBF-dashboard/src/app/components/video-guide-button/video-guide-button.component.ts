@@ -18,7 +18,7 @@ export class VideoGuideButtonComponent {
     const popover = await this.popoverController.create({
       component: VideoPopoverComponent,
       componentProps: {
-        videoURL: environment.ibf_video_guide_url,
+        videoUrl: environment.ibfVideoGuideUrl,
       },
       animated: true,
       cssClass: 'ibf-video-guide-popover',
