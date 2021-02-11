@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint \"**/*.ts\"",
+    "fix:syntax": "npm run lint:syntax -- --write",
+    "lint:syntax": "prettier --check \"**/*.{md,js,ts,scss,html}\" ",
     "start": "node index.js",
     "start:dev": "npx tsc-watch --onSuccess \"  node index.js  \" --onFailure \"echo There was a problem with the build!\" -p tsconfig.json",
     "start:watch": "nodemon",
