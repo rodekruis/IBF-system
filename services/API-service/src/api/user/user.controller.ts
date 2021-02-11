@@ -27,6 +27,7 @@ export class UserController {
     this.userService = userService;
   }
 
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Sign-up new user' })
   @UsePipes(new ValidationPipe())
   @Post()
