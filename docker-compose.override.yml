@@ -14,13 +14,15 @@ services:
     ibf-dashboard:
         command: ["npm", "run", "start"]
         environment:
-            - NG_PRODUCTION=false
+            - NG_CONFIGURATION=development
         ports:
             - 4200:4200
         volumes:
             - ./interfaces/IBF-dashboard:/home/node/app
 
     ibf-pipeline:
+        ports:
+            - 5432:5432
         volumes:
             - ./services/IBF-pipeline:/home/ibf
 
