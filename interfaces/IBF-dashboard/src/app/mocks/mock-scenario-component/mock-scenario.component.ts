@@ -47,7 +47,7 @@ export class MockScenarioComponent implements OnInit, OnDestroy {
   }
 
   public mockAddLeadtime(event: CustomEvent): void {
-    const activeCountry = this.countryService.activeCountry;
+    const activeCountry = this.countryService.getActiveCountry();
     if (event.detail.value === 'mock') {
       if (!activeCountry.countryLeadTimes.includes(LeadTime.day3)) {
         activeCountry.countryLeadTimes.push(LeadTime.day3);

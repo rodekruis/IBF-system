@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user/user.model';
 import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { UserRole } from '../models/user/user-role.enum';
 
@@ -21,6 +22,7 @@ export class AuthService {
   constructor(
     private apiService: ApiService,
     private jwtService: JwtService,
+    private countryService: CountryService,
     private router: Router,
   ) {
     this.checkLoggedInState();
@@ -88,6 +90,8 @@ export class AuthService {
 
         this.loggedIn = true;
         this.userRole = user.userRole;
+
+        this.countryService.getCountries(user);
 
         if (this.redirectUrl) {
           this.router.navigate([this.redirectUrl]);
