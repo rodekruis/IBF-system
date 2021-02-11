@@ -41,11 +41,12 @@ export class AdminLevelComponent {
   }
 
   loadAdminLevelLabels() {
+    const activeCountry = this.countryService.getActiveCountry();
     this.adminLevelLabel = {
-      adm1: this.countryService.activeCountry.adminRegionLabels[0],
-      adm2: this.countryService.activeCountry.adminRegionLabels[1],
-      adm3: this.countryService.activeCountry.adminRegionLabels[2],
-      adm4: this.countryService.activeCountry.adminRegionLabels[3],
+      adm1: activeCountry.adminRegionLabels[0],
+      adm2: activeCountry.adminRegionLabels[1],
+      adm3: activeCountry.adminRegionLabels[2],
+      adm4: activeCountry.adminRegionLabels[3],
     };
   }
 

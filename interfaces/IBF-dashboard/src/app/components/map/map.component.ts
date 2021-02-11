@@ -475,7 +475,10 @@ export class MapComponent implements OnDestroy {
     const markerTitle = markerProperties.station_name;
     let markerIcon: IconOptions;
 
-    const eapAlertClasses = this.countryService.activeCountry.eapAlertClasses;
+    const activeCountry = JSON.parse(
+      localStorage.getItem(this.countryService.countryLocalStorage),
+    );
+    const eapAlertClasses = activeCountry.eapAlertClasses;
     const glofasProbability = markerProperties.fc_prob;
     Object.keys(eapAlertClasses).forEach((key) => {
       if (
@@ -539,7 +542,10 @@ export class MapComponent implements OnDestroy {
   }
 
   private createMarkerStationPopup(markerProperties: Station): string {
-    const eapAlertClasses = this.countryService.activeCountry.eapAlertClasses;
+    const activeCountry = JSON.parse(
+      localStorage.getItem(this.countryService.countryLocalStorage),
+    );
+    const eapAlertClasses = activeCountry.eapAlertClasses;
     const glofasProbability = markerProperties.fc_prob;
 
     let eapStatusText: string;

@@ -142,7 +142,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   public getHeaderLabel() {
     let headerLabel = this.defaultHeaderLabel;
-    const country = this.countryService.activeCountry;
+    const country = this.countryService.getActiveCountry();
     const adminAreaLabel =
       country.adminRegionLabels[this.adminLevelService.adminLevel - 1];
 
