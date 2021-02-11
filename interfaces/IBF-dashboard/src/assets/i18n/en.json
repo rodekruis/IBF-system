@@ -17,8 +17,14 @@
     "today": "TODAY",
     "situational-overview": "Situational Overview"
   },
-  "popover": {
-    "aggregate-popover": {
+  "aggregates-component": {
+    "header-title-prefix": "Situation in",
+    "more-information": "Click for more info on this indicator.",
+    "default-header-label": "...Loading",
+    "exposed-prefix": "Exposed",
+    "all-prefix": "All",
+    "exposed-subgroups": "of which ..",
+    "popover": {
       "population_affected": {
         "no-trigger": "Currently there is no trigger, so there is no population exposed.",
         "active-trigger-flood": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent is derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href=\"https://www.ciesin.columbia.edu/data/hrsl/\">https://www.ciesin.columbia.edu/data/hrsl/</a><br />Source (Flood Extent): 25 return period flood map",
@@ -39,8 +45,38 @@
         "active-trigger-flood": "Number of people over 65 years of age living in the flood extent area within the areas currently triggered. The number of people over 65 years of age in the flood extent is derived from the below sources.<br /><br />Source data:<ul><li>Population over 65: <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014.</li><li>Total Population: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href=\"https://www.ciesin.columbia.edu/data/hrsl/\">https://www.ciesin.columbia.edu/data/hrsl/</a></li><li>Flood extent:</li></ul>:",
         "active-trigger-drought": "Number of people over 65 years of age living in the drought extent area within the areas currently triggered. The number of people over 65 years of age in the drought extent is derived from the below sources.<br /><br />Source data:<ul><li>Population over 65: <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014.</li><li>Total Population: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href=\"https://www.ciesin.columbia.edu/data/hrsl/\">https://www.ciesin.columbia.edu/data/hrsl/</a></li><li>Drought extent:</li></ul>"
       }
+    }
+  },
+  "areas-of-focus-summary-component": {
+    "title": "EAP Actions Summary"
+  },
+  "chat-component": {
+    "about-button-label": "About Trigger",
+    "no-event-no-trigger": {
+      "welcome": "Hello Aid worker HQ. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
     },
-    "layer-popover": {
+    "new-event-active-trigger": {
+      "welcome": "Hello Aid worker HQ. A new trigger warning for <strong>{{ days }} days from today</strong> has been activated for floods.",
+      "new-event-early-trigger": "The system however detects a trigger as soon as <strong>{{ days }} days from today</strong>, which was not detectable earlier."
+    },
+    "active-event-active-trigger": {
+      "welcome": "Hello Aid worker HQ. A trigger warning for floods has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ days }} days</strong> away."
+    },
+    "active-event-no-trigger": {
+      "welcome": "Hello Aid worker HQ. There is <strong>no active trigger</strong> any more (as you can see in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
+    },
+    "active-event": {
+      "instruction": "The potentially affected areas are listed below in order of number of people potentially affected per area. You can keep track here per area which EAP-actions are to-do / done.",
+      "place-name": "District: <strong>{{ placeName }}</strong>",
+      "exposed-population": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
+      "submit-button-label": "Submit",
+      "update-success": "EAP action(s) updated in database.",
+      "update-failure": "Failed to update EAP action(s) updated in database.",
+      "prompt-button-label": "OK"
+    }
+  },
+  "map-service": {
+    "popover": {
       "population_affected": {
         "no-trigger": "Currently there is no trigger, so there is no population exposed.",
         "active-trigger-flood": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent is derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href=\"https://www.ciesin.columbia.edu/data/hrsl/\">https://www.ciesin.columbia.edu/data/hrsl/</a><br />Source (Flood Extent): 25 return period flood map",
@@ -125,42 +161,6 @@
         "active-trigger-flood": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href=\"https://www.ciesin.columbia.edu/data/hrsl/\">https://www.ciesin.columbia.edu/data/hrsl/</a>",
         "active-trigger-drought": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href=\"https://www.ciesin.columbia.edu/data/hrsl/\">https://www.ciesin.columbia.edu/data/hrsl/</a>"
       }
-    }
-  },
-  "aggregates-component": {
-    "header-title-prefix": "Situation in",
-    "more-information": "Click for more info on this indicator.",
-    "default-header-label": "...Loading",
-    "exposed-prefix": "Exposed",
-    "all-prefix": "All",
-    "exposed-subgroups": "of which .."
-  },
-  "areas-of-focus-summary-component": {
-    "title": "EAP Actions Summary"
-  },
-  "chat-component": {
-    "about-button-label": "About Trigger",
-    "no-event-no-trigger": {
-      "welcome": "Hello Aid worker HQ. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
-    },
-    "new-event-active-trigger": {
-      "welcome": "Hello Aid worker HQ. A new trigger warning for <strong>{{ days }} days from today</strong> has been activated for floods.",
-      "new-event-early-trigger": "The system however detects a trigger as soon as <strong>{{ days }} days from today</strong>, which was not detectable earlier."
-    },
-    "active-event-active-trigger": {
-      "welcome": "Hello Aid worker HQ. A trigger warning for floods has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ days }} days</strong> away."
-    },
-    "active-event-no-trigger": {
-      "welcome": "Hello Aid worker HQ. There is <strong>no active trigger</strong> any more (as you can see in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
-    },
-    "active-event": {
-      "instruction": "The potentially affected areas are listed below in order of number of people potentially affected per area. You can keep track here per area which EAP-actions are to-do / done.",
-      "place-name": "District: <strong>{{ placeName }}</strong>",
-      "exposed-population": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
-      "submit-button-label": "Submit",
-      "update-success": "EAP action(s) updated in database.",
-      "update-failure": "Failed to update EAP action(s) updated in database.",
-      "prompt-button-label": "OK"
     }
   }
 }

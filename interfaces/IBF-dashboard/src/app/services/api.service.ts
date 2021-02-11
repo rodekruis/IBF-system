@@ -41,23 +41,20 @@ export class ApiService {
     return headers;
   }
 
-  get(
-    endpoint: string,
-    path: string,
-    anonymous: boolean = true,
-  ): Observable<any> {
+  get(path: string, anonymous: boolean = true): Observable<any> {
+    const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
-    this.log(`ApiService GET: ${security} ${endpoint}${path}`);
+    this.log(`ApiService GET: ${security} ${url}`);
 
     return this.http
-      .get(endpoint + path, {
+      .get(url, {
         headers: this.createHeaders(anonymous),
       })
       .pipe(
         tap((response) =>
           this.log(
-            `ApiService GET: ${security} ${endpoint}${path}`,
-            `\nResponse:`,
+            `ApiService GET: ${security} ${url}`,
+            '\nResponse:',
             response,
           ),
         ),
@@ -65,24 +62,24 @@ export class ApiService {
   }
 
   post(
-    endpoint: string,
     path: string,
     body: object,
     anonymous: boolean = false,
   ): Observable<any> {
+    const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
-    this.log(`ApiService POST: ${security} ${endpoint}${path}`, body);
+    this.log(`ApiService POST: ${security} ${url}`, body);
 
     return this.http
-      .post(endpoint + path, body, {
+      .post(url, body, {
         headers: this.createHeaders(anonymous),
       })
       .pipe(
         tap((response) =>
           this.log(
-            `ApiService POST: ${security} ${endpoint}${path}:`,
+            `ApiService POST: ${security} ${url}:`,
             body,
-            `\nResponse:`,
+            '\nResponse:',
             response,
           ),
         ),
@@ -97,7 +94,6 @@ export class ApiService {
     this.log('ApiService : login()');
 
     return this.post(
-      environment.api_url,
       'user/login',
       {
         email,
@@ -108,7 +104,7 @@ export class ApiService {
   }
 
   getCountries(): Promise<Country[]> {
-    return this.get(environment.api_url, `country`, false)
+    return this.get('country', false)
       .pipe(
         map((countries) => {
           return countries.map((country) => {
@@ -127,7 +123,6 @@ export class ApiService {
     leadTime: LeadTime = LeadTime.day7,
   ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
-      environment.api_url,
       `stations/${countryCodeISO3}/${leadTime}`,
       false,
     ).toPromise();
@@ -136,43 +131,23 @@ export class ApiService {
   getRedCrossBranches(
     countryCodeISO3: string,
   ): Promise<GeoJSON.FeatureCollection> {
-    return this.get(
-      environment.api_url,
-      `red-cross-branches/${countryCodeISO3}`,
-      false,
-    ).toPromise();
+    return this.get(`red-cross-branches/${countryCodeISO3}`, false).toPromise();
   }
 
   getWaterpoints(countryCodeISO3: string): Promise<GeoJSON.FeatureCollection> {
-    return this.get(
-      environment.api_url,
-      `waterpoints/${countryCodeISO3}`,
-      false,
-    ).toPromise();
+    return this.get(`waterpoints/${countryCodeISO3}`, false).toPromise();
   }
 
   getRecentDates(countryCodeISO3: string): Promise<any> {
-    return this.get(
-      environment.api_url,
-      `recent-dates/${countryCodeISO3}`,
-      false,
-    ).toPromise();
+    return this.get(`recent-dates/${countryCodeISO3}`, false).toPromise();
   }
 
   getTriggerPerLeadTime(countryCodeISO3: string): Promise<number> {
-    return this.get(
-      environment.api_url,
-      `triggers/${countryCodeISO3}`,
-      false,
-    ).toPromise();
+    return this.get(`triggers/${countryCodeISO3}`, false).toPromise();
   }
 
   getEvent(countryCodeISO3: string): Promise<any> {
-    return this.get(
-      environment.api_url,
-      `event/${countryCodeISO3}`,
-      false,
-    ).toPromise();
+    return this.get(`event/${countryCodeISO3}`, false).toPromise();
   }
 
   getAdminRegions(
@@ -181,47 +156,29 @@ export class ApiService {
     adminLevel: AdminLevel = AdminLevel.adm1,
   ): Promise<GeoJSON.FeatureCollection> {
     return this.get(
-      environment.api_url,
       `admin-area-data/${countryCodeISO3}/${adminLevel}/${leadTime}`,
       false,
     ).toPromise();
   }
 
   getAdmin2Data(): Promise<GeoJSON.FeatureCollection> {
-    return this.get(
-      environment.api_url,
-      `uga-data-level-2/all`,
-      false,
-    ).toPromise();
+    return this.get('uga-data-level-2/all', false).toPromise();
   }
 
   getTriggeredAreas(event: number) {
-    return this.get(
-      environment.api_url,
-      `triggered-areas/${event}`,
-      false,
-    ).toPromise();
+    return this.get(`triggered-areas/${event}`, false).toPromise();
   }
 
   getMetadata(countryCodeISO3: string) {
-    return this.get(
-      environment.api_url,
-      `metadata/${countryCodeISO3}`,
-      false,
-    ).toPromise();
+    return this.get(`metadata/${countryCodeISO3}`, false).toPromise();
   }
 
   getAreasOfFocus() {
-    return this.get(
-      environment.api_url,
-      `eap-actions/areas-of-focus`,
-      false,
-    ).toPromise();
+    return this.get('eap-actions/areas-of-focus', false).toPromise();
   }
 
   getEapActions(countryCodeISO3: string, pcode: string, event: number) {
     return this.get(
-      environment.api_url,
       `eap-actions/${countryCodeISO3}/${pcode}/${event}`,
       false,
     ).toPromise();
@@ -235,8 +192,7 @@ export class ApiService {
     event: number,
   ) {
     return this.post(
-      environment.api_url,
-      `eap-actions`,
+      'eap-actions',
       {
         action,
         countryCode: countryCodeISO3,

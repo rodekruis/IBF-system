@@ -5,31 +5,31 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class EapActionDto {
-  @ApiModelProperty()
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   public action: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   @IsIn(['UGA', 'ZMB', 'KEN', 'ETH'])
   public countryCode: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsNotEmpty()
   @IsBoolean()
   public status: boolean;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   public pcode: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
   public event: number;
