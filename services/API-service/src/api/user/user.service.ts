@@ -58,7 +58,14 @@ export class UserService {
     // create new user
     let newUser = new UserEntity();
     newUser.email = email;
+    newUser.username = dto.username;
     newUser.password = password;
+    newUser.firstName = dto.firstName;
+    newUser.middleName = dto.middleName;
+    newUser.lastName = dto.lastName;
+    newUser.userRole = dto.role;
+    newUser.userStatus = dto.status;
+    newUser.countries = dto.countries;
 
     const errors = await validate(newUser);
     if (errors.length > 0) {
