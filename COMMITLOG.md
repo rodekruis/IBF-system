@@ -1,3 +1,12 @@
+## [0.14.1](https://github.com/rodekruis/IBF-system/compare/v0.14.0...v0.14.1) (2021-02-11)
+
+
+### Bug Fixes
+
+* Fix add user endpoint AB[#6124](https://github.com/rodekruis/IBF-system/issues/6124) ([10321b7](https://github.com/rodekruis/IBF-system/commit/10321b7aef9667e183c29ddee3f57c93582d0384))
+
+
+
 # [0.14.0](https://github.com/rodekruis/IBF-system/compare/v0.13.1...v0.14.0) (2021-02-11)
 
 
@@ -98,22 +107,6 @@
 ### Features
 
 * add covid risk popup info + fix order AB[#6025](https://github.com/rodekruis/IBF-system/issues/6025) ([fcd8738](https://github.com/rodekruis/IBF-system/commit/fcd8738ad1bd941a25287aef15ba8a973840e56d))
-
-
-
-# [0.9.0](https://github.com/rodekruis/IBF-system/compare/v0.8.0...v0.9.0) (2021-02-05)
-
-
-### Bug Fixes
-
-* improve station popup AB[#5852](https://github.com/rodekruis/IBF-system/issues/5852) ([0e455e9](https://github.com/rodekruis/IBF-system/commit/0e455e96f0602d0a8dc267c063b87b1e6fdf6788))
-
-
-### Features
-
-* add aggregate column popovers separately AB[#5665](https://github.com/rodekruis/IBF-system/issues/5665) ([54bc85a](https://github.com/rodekruis/IBF-system/commit/54bc85aa5605231850c3cea16b5cd9b3ca270e33))
-* add eapAlertClasses per country AB[#5853](https://github.com/rodekruis/IBF-system/issues/5853) ([d1cd04a](https://github.com/rodekruis/IBF-system/commit/d1cd04a762b9f7187bb493e12b0a9c7e993e23cf))
-* start of upgrade station popup ([9eeba45](https://github.com/rodekruis/IBF-system/commit/9eeba45db78604a3b1c3b0d1861224e16d66ce47))
 
 
 
