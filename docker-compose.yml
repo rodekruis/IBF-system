@@ -72,6 +72,13 @@ services:
     ibf-pipeline:
         build: ./services/IBF-pipeline
         image: rodekruis/ibf-pipeline
+        environment:
+            - DB_HOST=${DB_HOST}
+            - DB_PORT=${DB_PORT}
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - COUNTRIES=${COUNTRIES}
         command: cron && tail -f /var/log/cron.log
         volumes:
             - pipeline-root:/home/ibf
