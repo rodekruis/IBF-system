@@ -106,7 +106,7 @@ describe('UserController', (): void => {
         username: 'testUsername',
         firstName: 'testFirstName',
         lastName: 'testLastName',
-        countries: [],
+        countryCodesISO3: ['test'],
         role: UserRole.DisasterManager,
         status: UserStatus.Active,
       };

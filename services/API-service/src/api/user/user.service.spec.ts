@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserEntity } from './user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
+import { CountryEntity } from '../country/country.entity';
 
 describe('User service', (): void => {
   let service: UserService;
@@ -15,6 +16,10 @@ describe('User service', (): void => {
           UserService,
           {
             provide: getRepositoryToken(UserEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(CountryEntity),
             useFactory: repositoryMockFactory,
           },
         ],
