@@ -100,6 +100,7 @@ export class ChatComponent implements OnDestroy {
 
   public async submitEapAction(pcode: string) {
     this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = true;
+    const activeCountry = this.countryService.getActiveCountry();
 
     try {
       const submitEAPActionResult = await Promise.all(
@@ -107,7 +108,7 @@ export class ChatComponent implements OnDestroy {
           if (action.pcode === pcode) {
             return this.eapActionsService.checkEapAction(
               action.action,
-              this.countryService.activeCountry.countryCodeISO3,
+              activeCountry.countryCodeISO3,
               action.checked,
               action.pcode,
             );

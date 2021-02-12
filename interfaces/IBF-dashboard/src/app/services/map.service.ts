@@ -208,6 +208,7 @@ export class MapService {
     leadTime?: LeadTime,
     legendColor?: string,
   ) {
+    const activeCountry = this.countryService.getActiveCountry();
     this.addLayer({
       name: layerName,
       label: layerLabel,
@@ -222,7 +223,7 @@ export class MapService {
       wms: {
         url: environment.geoserverUrl,
         name: `ibf-system:${layerName}_${leadTime ? leadTime + '_' : ''}${
-          this.countryService.activeCountry.countryCodeISO3
+          activeCountry.countryCodeISO3
         }`,
         format: 'image/png',
         version: '1.1.0',
@@ -358,26 +359,26 @@ export class MapService {
 
   public async getStations(): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getStations(
-      this.countryService.activeCountry.countryCodeISO3,
+      this.countryService.getActiveCountry().countryCodeISO3,
       this.timelineService.activeLeadTime,
     );
   }
 
   public async getRedCrossBranches(): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getRedCrossBranches(
-      this.countryService.activeCountry.countryCodeISO3,
+      this.countryService.getActiveCountry().countryCodeISO3,
     );
   }
 
   public async getWaterpoints(): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getWaterpoints(
-      this.countryService.activeCountry.countryCodeISO3,
+      this.countryService.getActiveCountry().countryCodeISO3,
     );
   }
 
   public async getAdminRegions(): Promise<GeoJSON.FeatureCollection> {
     return await this.apiService.getAdminRegions(
-      this.countryService.activeCountry.countryCodeISO3,
+      this.countryService.getActiveCountry().countryCodeISO3,
       this.timelineService.activeLeadTime,
       this.adminLevelService.adminLevel,
     );
