@@ -1,3 +1,12 @@
+# [0.15.0](https://github.com/rodekruis/IBF-system/compare/v0.14.1...v0.15.0) (2021-02-12)
+
+
+### Features
+
+* add flood extent source link to popovers AB[#6020](https://github.com/rodekruis/IBF-system/issues/6020) ([b1d80ea](https://github.com/rodekruis/IBF-system/commit/b1d80ea5d180d90a0dfab03edd825ad6f9a11f91))
+
+
+
 ## [0.14.1](https://github.com/rodekruis/IBF-system/compare/v0.14.0...v0.14.1) (2021-02-11)
 
 
@@ -92,21 +101,6 @@
 ### Bug Fixes
 
 * finetune station popup visually AB[#6028](https://github.com/rodekruis/IBF-system/issues/6028) ([b683e87](https://github.com/rodekruis/IBF-system/commit/b683e87528b8b85e518e09ad1118ce754c09ec15))
-
-
-
-# [0.10.0](https://github.com/rodekruis/IBF-system/compare/v0.9.0...v0.10.0) (2021-02-08)
-
-
-### Bug Fixes
-
-* add district name to covid data AB[#5841](https://github.com/rodekruis/IBF-system/issues/5841) ([888264f](https://github.com/rodekruis/IBF-system/commit/888264fdb7807bb93cbb7412ff221c8c077b1907))
-* clean up old glofas images AB[#5853](https://github.com/rodekruis/IBF-system/issues/5853) ([91733b7](https://github.com/rodekruis/IBF-system/commit/91733b799098fd7fb3bfffa17b4b1e2cb45d582d))
-
-
-### Features
-
-* add covid risk popup info + fix order AB[#6025](https://github.com/rodekruis/IBF-system/issues/6025) ([fcd8738](https://github.com/rodekruis/IBF-system/commit/fcd8738ad1bd941a25287aef15ba8a973840e56d))
 
 
 
