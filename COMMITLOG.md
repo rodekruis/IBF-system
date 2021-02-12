@@ -1,3 +1,12 @@
+# [0.16.0](https://github.com/rodekruis/IBF-system/compare/v0.15.3...v0.16.0) (2021-02-12)
+
+
+### Features
+
+* don't migrate db to production-server AB[#6131](https://github.com/rodekruis/IBF-system/issues/6131) ([1e1e0bc](https://github.com/rodekruis/IBF-system/commit/1e1e0bc60ac01c6686a66f068d3c98b0743ff36f))
+
+
+
 ## [0.15.3](https://github.com/rodekruis/IBF-system/compare/v0.15.2...v0.15.3) (2021-02-12)
 
 
@@ -86,15 +95,6 @@
 
 * better way of doing the last commit ([b87d82f](https://github.com/rodekruis/IBF-system/commit/b87d82f24a18e1c12e4b206537a3b8057d38fa1d))
 * use prod env file instead of dev env ([777bea7](https://github.com/rodekruis/IBF-system/commit/777bea750a5aa1ae9f094ecbd3e0ddec0bf02b18))
-
-
-
-## [0.12.1](https://github.com/rodekruis/IBF-system/compare/v0.12.0...v0.12.1) (2021-02-09)
-
-
-### Bug Fixes
-
-* replace ApiImplicitFile ([2648038](https://github.com/rodekruis/IBF-system/commit/26480381792eaf35397e1e82e09f866bfbe16f1d))
 
 
 
