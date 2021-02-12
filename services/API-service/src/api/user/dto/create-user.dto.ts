@@ -10,10 +10,7 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { UserRole } from '../user-role.enum';
-import { CountryEntity } from '../../country/country.entity';
-import { ManyToMany } from 'typeorm';
 import { UserStatus } from '../user-status.enum';
-import { UserEntity } from '../user.entity';
 
 export class CreateUserDto {
   @ApiProperty({ example: 'dunant@redcross.nl' })
@@ -51,17 +48,12 @@ export class CreateUserDto {
   public role: UserRole;
 
   @ApiProperty({
-    example: UserRole.DisasterManager,
-    default: UserRole.Guest,
-    type: [CountryEntity],
+    example: ['UGA', 'KEN', 'ETH', 'ZMB'],
+    default: ['UGA'],
   })
   @IsArray()
   @ArrayNotEmpty()
-  @ManyToMany(
-    (): typeof CountryEntity => CountryEntity,
-    (country): UserEntity[] => country.users,
-  )
-  public countries: CountryEntity[];
+  public countryCodesISO3: string[];
 
   @ApiProperty({
     example: UserStatus.Active,
@@ -71,7 +63,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   public status: UserStatus;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'password' })
   @IsNotEmpty()
   @MinLength(4)
   public password: string;

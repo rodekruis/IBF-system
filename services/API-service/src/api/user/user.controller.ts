@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserRO } from './user.interface';
-import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
+import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { UserDecorator } from './user.decorator';
 import { ValidationPipe } from '../../shared/pipes/validation.pipe';
@@ -58,7 +58,7 @@ export class UserController {
   @Post('change-password')
   public async update(
     @UserDecorator('id') userId: string,
-    @Body() userData: UpdateUserDto,
+    @Body() userData: UpdatePasswordDto,
   ): Promise<UserRO> {
     return this.userService.update(userId, userData);
   }
