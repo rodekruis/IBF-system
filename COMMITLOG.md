@@ -1,3 +1,13 @@
+## [0.15.2](https://github.com/rodekruis/IBF-system/compare/v0.15.1...v0.15.2) (2021-02-12)
+
+
+### Bug Fixes
+
+* Do not load mock country first AB[#6039](https://github.com/rodekruis/IBF-system/issues/6039) ([cc6b5e3](https://github.com/rodekruis/IBF-system/commit/cc6b5e35f2ee0ba2e63d4447155687178e8a1f7b))
+* fix tests AB[#6039](https://github.com/rodekruis/IBF-system/issues/6039) ([57e4941](https://github.com/rodekruis/IBF-system/commit/57e4941fe441a362745df9be92f32f65779e92e5))
+
+
+
 ## [0.15.1](https://github.com/rodekruis/IBF-system/compare/v0.15.0...v0.15.1) (2021-02-12)
 
 
@@ -93,15 +103,6 @@
 * only run glofas for country AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([c6ceda1](https://github.com/rodekruis/IBF-system/commit/c6ceda1c50ca3f5b5e0576b8f53aa503505af219))
 * only run glofas for country AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([457db9c](https://github.com/rodekruis/IBF-system/commit/457db9cbb8ba613e0e9b4c04ef9269be474c1815))
 * Only seed countries in .env ([663ddc0](https://github.com/rodekruis/IBF-system/commit/663ddc0834bed33d6dcba0f71604dce8c977010c))
-
-
-
-# [0.11.0](https://github.com/rodekruis/IBF-system/compare/v0.10.1...v0.11.0) (2021-02-09)
-
-
-### Features
-
-* configuration env var for interface and favicon for each environment ([9037f18](https://github.com/rodekruis/IBF-system/commit/9037f18fba748a8fe4807f7d891fd8b4c6ec008c))
 
 
 
