@@ -23,16 +23,6 @@ CURRENT_DATE = date.today()
 ## COUNTRY SETTINGS ##
 ######################
 
-COUNTRY_CODES = [
-    'ZMB'
-    ,
-    'UGA'
-    ,
-    'KEN'
-    ,
-    'ETH'
-]
-
 SETTINGS = {
     "ZMB": {
         "models": {

@@ -28,7 +28,6 @@
         <ion-text>{{ version }}</ion-text>
       </ion-item>
       <app-country-switcher
-        [class.ion-hide]="!isDev"
         class="ion-align-items-center"
       ></app-country-switcher>
       <app-mock-scenario class="ion-align-items-center"></app-mock-scenario>
@@ -40,7 +39,10 @@
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-menu-toggle menu="dev-control">
+        <ion-button title="Home" [class.ion-hide]="isDev">
+          <ion-icon name="apps" slot="icon-only"></ion-icon>
+        </ion-button>
+        <ion-menu-toggle menu="dev-control" [class.ion-hide]="!isDev">
           <ion-button>
             <ion-icon name="apps" slot="icon-only"></ion-icon>
           </ion-button>

@@ -51,15 +51,12 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
   ) {
     this.translateService
-      .get(['aggregates-component', 'popover'])
+      .get('aggregates-component')
       .subscribe((translatedStrings: object) => {
-        this.defaultHeaderLabel =
-          translatedStrings['aggregates-component']['default-header-label'];
-        this.exposedPrefix =
-          translatedStrings['aggregates-component']['exposed-prefix'];
-        this.allPrefix =
-          translatedStrings['aggregates-component']['all-prefix'];
-        this.popoverTexts = translatedStrings['popover']['aggregate-popover'];
+        this.defaultHeaderLabel = translatedStrings['default-header-label'];
+        this.exposedPrefix = translatedStrings['exposed-prefix'];
+        this.allPrefix = translatedStrings['all-prefix'];
+        this.popoverTexts = translatedStrings['popover'];
       });
   }
 
