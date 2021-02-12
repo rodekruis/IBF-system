@@ -1,5 +1,5 @@
-import { AdminLevel } from 'src/app/types/admin-level';
-import { LeadTime } from 'src/app/types/lead-time';
+import { AdminLevel } from '../types/admin-level';
+import { LeadTime } from '../types/lead-time';
 
 export default {
   countryCodeISO3: 'UGA',
