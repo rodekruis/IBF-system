@@ -48,10 +48,14 @@ export class SeedInit implements InterfaceScript {
     await leadTimeRepository.save(leadTimeEntities);
 
     // ***** CREATE COUNTRIES *****
+    const envCountries = process.env.COUNTRIES.split(',');
+    const selectedCountries = countries.filter((country): boolean => {
+      return envCountries.includes(country.countryCodeISO3);
+    });
 
     const countryRepository = this.connection.getRepository(CountryEntity);
     const countryEntities = await Promise.all(
-      countries.map(
+      selectedCountries.map(
         async (country): Promise<CountryEntity> => {
           let countryEntity = new CountryEntity();
           countryEntity.countryCodeISO3 = country.countryCodeISO3;
@@ -81,10 +85,19 @@ export class SeedInit implements InterfaceScript {
     await countryRepository.save(countryEntities);
 
     // ***** CREATE USERS *****
+    let selectedUsers;
+    if (process.env.NODE_ENV === 'production') {
+      selectedUsers = users.filter((user): boolean => {
+        return user.userRole === 'admin';
+      });
+      selectedUsers[0].password = process.env.ADMIN_PASSWORD;
+    } else {
+      selectedUsers = users;
+    }
 
     const userRepository = this.connection.getRepository(UserEntity);
     const userEntities = await Promise.all(
-      users.map(
+      selectedUsers.map(
         async (user): Promise<UserEntity> => {
           let userEntity = new UserEntity();
           userEntity.email = user.email;
@@ -122,16 +135,8 @@ export class SeedInit implements InterfaceScript {
     await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
   }
 
-  private async getEntities(): Promise<any[]> {
-    const entities = [];
-    this.connection.entityMetadatas.forEach(x =>
-      entities.push({ name: x.name, tableName: x.tableName }),
-    );
-    return entities;
-  }
-
   private async cleanAll(): Promise<void> {
-    const entities = await this.getEntities();
+    const entities = this.connection.entityMetadatas;
     try {
       for (const entity of entities) {
         const repository = await this.connection.getRepository(entity.name);

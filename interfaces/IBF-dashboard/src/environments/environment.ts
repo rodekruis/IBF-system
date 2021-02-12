@@ -3,20 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-
-  // API
-  api_url: 'http://localhost:3000/api/',
-
-  // feature-flags
-  useServiceWorker: false,
-
-  // geoserver
-  geoserver_url: 'https://ibf-test.510.global/geoserver/ibf-system/wms',
-
-  // version
-  ibf_system_version: 'v0.0.0',
-
-  // video guide url
-  ibf_video_guide_url: 'https://www.youtube-nocookie.com/embed/O0PwZSpEhhc',
+  configuration: 'development',
+  apiUrl: 'http://localhost:3000/api', // API
+  useServiceWorker: false, // feature-flags
+  geoserverUrl: 'https://ibf-test.510.global/geoserver/ibf-system/wms', // geoserver
+  ibfSystemVersion: 'v0.0.0', // version
+  ibfVideoGuideUrl: 'https://www.youtube-nocookie.com/embed/O0PwZSpEhhc', // video guide url
+  applicationInsightsInstrumentationKey: '', // application insights instrumentation key
+  applicationInsightsUrl: '', // application insights url
 };

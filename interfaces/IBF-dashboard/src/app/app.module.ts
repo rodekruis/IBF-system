@@ -31,7 +31,9 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production && environment.useServiceWorker,
+      enabled:
+        environment.configuration === 'production' &&
+        environment.useServiceWorker,
     }),
     MockScenarioModule,
     TranslateModule.forRoot({

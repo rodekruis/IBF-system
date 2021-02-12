@@ -25,6 +25,7 @@ services:
                 - NODE_ENV=production
         image: rodekruis/ibf-api-service
         environment:
+            - ADMIN_PASSWORD=${ADMIN_PASSWORD}
             - DB_TYPE=${DB_TYPE}
             - DB_HOST=${DB_HOST}
             - DB_PORT=${DB_PORT}
@@ -35,6 +36,7 @@ services:
             - SECRET=${SECRET}
             - RESET_SECRET=${RESET_SECRET}
             - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
+            - COUNTRIES=${COUNTRIES}
         networks:
             - web-server-network
         depends_on:
@@ -44,20 +46,24 @@ services:
         build:
             context: ./interfaces/IBF-dashboard
             args:
-                - NG_PRODUCTION=true
+                - NG_CONFIGURATION=${NG_CONFIGURATION}
                 - NG_API_URL=${NG_API_URL}
                 - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
                 - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
                 - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
                 - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
+                - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
+                - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
         image: rodekruis/ibf-dashboard
         environment:
-            - NG_PRODUCTION=true
+            - NG_CONFIGURATION=${NG_CONFIGURATION}
             - NG_API_URL=${NG_API_URL}
             - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
             - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
             - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
             - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
+            - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
+            - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
         volumes:
             - ibf-dashboard-root:/home/node/app/www
         networks:
@@ -66,6 +72,13 @@ services:
     ibf-pipeline:
         build: ./services/IBF-pipeline
         image: rodekruis/ibf-pipeline
+        environment:
+            - DB_HOST=${DB_HOST}
+            - DB_PORT=${DB_PORT}
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - COUNTRIES=${COUNTRIES}
         command: cron && tail -f /var/log/cron.log
         volumes:
             - pipeline-root:/home/ibf

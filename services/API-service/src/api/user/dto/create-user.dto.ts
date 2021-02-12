@@ -8,7 +8,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { UserRole } from '../user-role.enum';
 import { CountryEntity } from '../../country/country.entity';
 import { ManyToMany } from 'typeorm';
@@ -16,33 +16,33 @@ import { UserStatus } from '../user-status.enum';
 import { UserEntity } from '../user.entity';
 
 export class CreateUserDto {
-  @ApiModelProperty({ example: 'dunant@redcross.nl' })
+  @ApiProperty({ example: 'dunant@redcross.nl' })
   @IsEmail()
   @IsNotEmpty()
   public email: string;
 
-  @ApiModelProperty({ example: 'dunant' })
+  @ApiProperty({ example: 'dunant' })
   @IsString()
   @IsNotEmpty()
   public username: string;
 
-  @ApiModelProperty({ example: 'Henry' })
+  @ApiProperty({ example: 'Henry' })
   @IsString()
   @IsNotEmpty()
   public firstName: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsString()
   @IsOptional()
   @IsNotEmpty()
   public middleName?: string;
 
-  @ApiModelProperty({ example: 'Dunant' })
+  @ApiProperty({ example: 'Dunant' })
   @IsString()
   @IsNotEmpty()
   public lastName: string;
 
-  @ApiModelProperty({
+  @ApiProperty({
     example: UserRole.DisasterManager,
     default: UserRole.Guest,
   })
@@ -50,7 +50,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   public role: UserRole;
 
-  @ApiModelProperty({
+  @ApiProperty({
     example: UserRole.DisasterManager,
     default: UserRole.Guest,
     type: [CountryEntity],
@@ -63,7 +63,7 @@ export class CreateUserDto {
   )
   public countries: CountryEntity[];
 
-  @ApiModelProperty({
+  @ApiProperty({
     example: UserStatus.Active,
     default: UserStatus.Inactive,
   })
@@ -71,7 +71,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   public status: UserStatus;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsNotEmpty()
   @MinLength(4)
   public password: string;
