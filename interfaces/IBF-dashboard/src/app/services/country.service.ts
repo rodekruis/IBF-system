@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Country } from 'src/app/models/country.model';
 import mockCountry from 'src/app/mocks/country.mock';
+import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
 import { ApiService } from './api.service';
 
