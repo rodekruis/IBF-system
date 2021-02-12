@@ -36,8 +36,9 @@ export class TimelineService {
   }
 
   public async loadTimeStepButtons() {
+    const activeCountry = this.countryService.getActiveCountry();
     const dates = await this.apiService.getRecentDates(
-      this.countryService.activeCountry.countryCodeISO3,
+      activeCountry.countryCodeISO3,
     );
     this.state.today = moment(dates[0].value);
 
@@ -85,9 +86,8 @@ export class TimelineService {
   }
 
   private async isLeadTimeDisabled(leadTime: LeadTime): Promise<boolean> {
-    const leadTimes = [
-      ...this.countryService.activeCountry.countryLeadTimes,
-    ].sort();
+    const activeCountry = this.countryService.getActiveCountry();
+    const leadTimes = [...activeCountry.countryLeadTimes].sort();
     const index = leadTimes.indexOf(leadTime);
     const leadTimeNotAvailable = index < 0;
     const lowerLeadTimeNotTriggered =
@@ -97,16 +97,16 @@ export class TimelineService {
   }
 
   public async getTrigger(): Promise<any> {
+    const activeCountry = this.countryService.getActiveCountry();
     const trigger = await this.apiService.getTriggerPerLeadTime(
-      this.countryService.activeCountry.countryCodeISO3,
+      activeCountry.countryCodeISO3,
     );
     return trigger;
   }
 
   public async getEvent(): Promise<any> {
-    const event = await this.apiService.getEvent(
-      this.countryService.activeCountry.countryCodeISO3,
-    );
+    const activeCountry = this.countryService.getActiveCountry();
+    const event = await this.apiService.getEvent(activeCountry.countryCodeISO3);
     return event;
   }
 }

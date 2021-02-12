@@ -34,8 +34,9 @@ export class AggregatesService {
   }
 
   loadMetadataAndAggregates() {
+    const activeCountry = this.countryService.getActiveCountry();
     this.apiService
-      .getMetadata(this.countryService.activeCountry.countryCodeISO3)
+      .getMetadata(activeCountry.countryCodeISO3)
       .then((response) => {
         this.indicators = response;
         this.mapService.hideAggregateLayers();
@@ -53,8 +54,9 @@ export class AggregatesService {
   }
 
   async loadAggregateInformation() {
+    const activeCountry = this.countryService.getActiveCountry();
     const adminRegions = await this.apiService.getAdminRegions(
-      this.countryService.activeCountry.countryCodeISO3,
+      activeCountry.countryCodeISO3,
       this.timelineService.activeLeadTime,
       this.adminLevelService.adminLevel,
     );
