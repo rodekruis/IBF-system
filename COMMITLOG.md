@@ -1,3 +1,12 @@
+## [0.15.3](https://github.com/rodekruis/IBF-system/compare/v0.15.2...v0.15.3) (2021-02-12)
+
+
+### Bug Fixes
+
+* create + update user AB[#6124](https://github.com/rodekruis/IBF-system/issues/6124) ([2cf2df9](https://github.com/rodekruis/IBF-system/commit/2cf2df945ccc1ce11ae6df0031cc3c9400ce0edd))
+
+
+
 ## [0.15.2](https://github.com/rodekruis/IBF-system/compare/v0.15.1...v0.15.2) (2021-02-12)
 
 
@@ -86,23 +95,6 @@
 ### Bug Fixes
 
 * replace ApiImplicitFile ([2648038](https://github.com/rodekruis/IBF-system/commit/26480381792eaf35397e1e82e09f866bfbe16f1d))
-
-
-
-# [0.12.0](https://github.com/rodekruis/IBF-system/compare/v0.11.0...v0.12.0) (2021-02-09)
-
-
-### Bug Fixes
-
-* Resolved pip install issues in pipeline AB[#6022](https://github.com/rodekruis/IBF-system/issues/6022) ([2be49e9](https://github.com/rodekruis/IBF-system/commit/2be49e954b0cdb05afec0a2f1e3e7d8e99ecd1ad))
-
-
-### Features
-
-* added countries to secrets template AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([24bc3fa](https://github.com/rodekruis/IBF-system/commit/24bc3fa740d7f93e5efd41d5a9a60d55a731cbc4))
-* only run glofas for country AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([c6ceda1](https://github.com/rodekruis/IBF-system/commit/c6ceda1c50ca3f5b5e0576b8f53aa503505af219))
-* only run glofas for country AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([457db9c](https://github.com/rodekruis/IBF-system/commit/457db9cbb8ba613e0e9b4c04ef9269be474c1815))
-* Only seed countries in .env ([663ddc0](https://github.com/rodekruis/IBF-system/commit/663ddc0834bed33d6dcba0f71604dce8c977010c))
 
 
 
