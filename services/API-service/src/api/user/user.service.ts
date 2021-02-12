@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository } from 'typeorm';
+import { Repository, getRepository, In } from 'typeorm';
 import { UserEntity } from './user.entity';
-import { CreateUserDto, LoginUserDto, UpdateUserDto } from './dto';
+import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { UserRO } from './user.interface';
 import { validate } from 'class-validator';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
@@ -10,11 +10,14 @@ import { HttpStatus } from '@nestjs/common';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { DeleteUserDto } from './dto/delete-user.dto';
+import { CountryEntity } from '../country/country.entity';
 
 @Injectable()
 export class UserService {
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
+  @InjectRepository(CountryEntity)
+  private readonly countryRepository: Repository<CountryEntity>;
   private readonly relations: string[] = ['countries'];
 
   public constructor() {}
@@ -65,7 +68,9 @@ export class UserService {
     newUser.lastName = dto.lastName;
     newUser.userRole = dto.role;
     newUser.userStatus = dto.status;
-    newUser.countries = dto.countries;
+    newUser.countries = await this.countryRepository.find({
+      where: { countryCodeISO3: In(dto.countryCodesISO3) },
+    });
 
     const errors = await validate(newUser);
     if (errors.length > 0) {
@@ -80,8 +85,10 @@ export class UserService {
     }
   }
 
-  public async update(userId: string, dto: UpdateUserDto): Promise<UserRO> {
-    let toUpdate = await this.userRepository.findOne(userId);
+  public async update(userId: string, dto: UpdatePasswordDto): Promise<UserRO> {
+    let toUpdate = await this.userRepository.findOne(userId, {
+      relations: this.relations,
+    });
     let updated = toUpdate;
     updated.password = crypto.createHmac('sha256', dto.password).digest('hex');
     const updatedUser = await this.userRepository.save(updated);
@@ -182,7 +189,6 @@ export class UserService {
 
   private buildUserRO(user: UserEntity): UserRO {
     const userRO = {
-      userId: user.userId,
       email: user.email,
       token: this.generateJWT(user),
     };
