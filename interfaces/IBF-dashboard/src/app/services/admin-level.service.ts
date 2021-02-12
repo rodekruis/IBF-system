@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import mockCountry from 'src/app/mocks/country.mock';
 import { AdminLevel } from 'src/app/types/admin-level';
 
 @Injectable({
@@ -8,7 +7,7 @@ import { AdminLevel } from 'src/app/types/admin-level';
 })
 export class AdminLevelService {
   private adminLevelSubject = new BehaviorSubject<AdminLevel>(AdminLevel.adm1);
-  public adminLevel: AdminLevel = mockCountry.defaultAdminLevel;
+  public adminLevel: AdminLevel;
   public adminLayerState: boolean = true;
 
   constructor() {}
