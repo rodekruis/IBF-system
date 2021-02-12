@@ -20,13 +20,13 @@ export function getEvent() {
 
 export function getTriggerPerLeadTime() {
   return {
-    '1': '0',
-    '2': '0',
-    '3': '0',
-    '4': '0',
-    '5': '0',
-    '6': '1',
-    '7': '1',
+    1: '0',
+    2: '0',
+    3: '0',
+    4: '0',
+    5: '0',
+    6: '1',
+    7: '1',
     country_code: 'UGA',
     current_prev: 'Current',
   };
