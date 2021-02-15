@@ -1,3 +1,12 @@
+## [0.17.2](https://github.com/rodekruis/IBF-system/compare/v0.17.1...v0.17.2) (2021-02-15)
+
+
+### Bug Fixes
+
+* use node env var in docker compose AB[#6158](https://github.com/rodekruis/IBF-system/issues/6158) ([5d059b7](https://github.com/rodekruis/IBF-system/commit/5d059b7f5ba7646ea6dd98b12c11373f61c1ec30))
+
+
+
 ## [0.17.1](https://github.com/rodekruis/IBF-system/compare/v0.17.0...v0.17.1) (2021-02-15)
 
 
@@ -78,21 +87,6 @@
 ### Bug Fixes
 
 * Fix add user endpoint AB[#6124](https://github.com/rodekruis/IBF-system/issues/6124) ([10321b7](https://github.com/rodekruis/IBF-system/commit/10321b7aef9667e183c29ddee3f57c93582d0384))
-
-
-
-# [0.14.0](https://github.com/rodekruis/IBF-system/compare/v0.13.1...v0.14.0) (2021-02-11)
-
-
-### Bug Fixes
-
-* hide dev mode for non-admin users ([14597fe](https://github.com/rodekruis/IBF-system/commit/14597fe206b23e010ea7058fd4b3d13af4608a9c))
-
-
-### Features
-
-* Disable dev menu for normal users AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([7194278](https://github.com/rodekruis/IBF-system/commit/71942783c316ffd70daafc3334e7c4bbf64748a2))
-* In production only add one user AB[#6039](https://github.com/rodekruis/IBF-system/issues/6039) ([86404c3](https://github.com/rodekruis/IBF-system/commit/86404c3d34a1a3f73e17479270dafdcf3b7e934c))
 
 
 
