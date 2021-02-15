@@ -1,3 +1,12 @@
+# [0.17.0](https://github.com/rodekruis/IBF-system/compare/v0.16.1...v0.17.0) (2021-02-15)
+
+
+### Features
+
+* add rainfall pipeline to sytem-design AB[#6152](https://github.com/rodekruis/IBF-system/issues/6152) ([36bf456](https://github.com/rodekruis/IBF-system/commit/36bf456a79503889ced38600c70f634aad97b87a))
+
+
+
 ## [0.16.1](https://github.com/rodekruis/IBF-system/compare/v0.16.0...v0.16.1) (2021-02-15)
 
 
@@ -84,16 +93,6 @@
 ### Bug Fixes
 
 * typo in docker config ([9e8813f](https://github.com/rodekruis/IBF-system/commit/9e8813f834cd3b6eafaf5ade085c48641af473f2))
-
-
-
-# [0.13.0](https://github.com/rodekruis/IBF-system/compare/v0.12.2...v0.13.0) (2021-02-10)
-
-
-### Features
-
-* add analytics module AB[#5986](https://github.com/rodekruis/IBF-system/issues/5986) AB[#5935](https://github.com/rodekruis/IBF-system/issues/5935) ([2a46ad5](https://github.com/rodekruis/IBF-system/commit/2a46ad5b65186b447d51b7741f5685c9b17d0947))
-* analytics page view events ([128b482](https://github.com/rodekruis/IBF-system/commit/128b482f8b4fae42b57ceacecb2d47ba9ed6232b))
 
 
 
