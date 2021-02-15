@@ -1,3 +1,12 @@
+## [0.17.1](https://github.com/rodekruis/IBF-system/compare/v0.17.0...v0.17.1) (2021-02-15)
+
+
+### Bug Fixes
+
+* Auth post user ([e981337](https://github.com/rodekruis/IBF-system/commit/e9813378ede6e6884fd9e36e114d4b1d3e7e000f))
+
+
+
 # [0.17.0](https://github.com/rodekruis/IBF-system/compare/v0.16.1...v0.17.0) (2021-02-15)
 
 
@@ -84,15 +93,6 @@
 
 * Disable dev menu for normal users AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([7194278](https://github.com/rodekruis/IBF-system/commit/71942783c316ffd70daafc3334e7c4bbf64748a2))
 * In production only add one user AB[#6039](https://github.com/rodekruis/IBF-system/issues/6039) ([86404c3](https://github.com/rodekruis/IBF-system/commit/86404c3d34a1a3f73e17479270dafdcf3b7e934c))
-
-
-
-## [0.13.1](https://github.com/rodekruis/IBF-system/compare/v0.13.0...v0.13.1) (2021-02-10)
-
-
-### Bug Fixes
-
-* typo in docker config ([9e8813f](https://github.com/rodekruis/IBF-system/commit/9e8813f834cd3b6eafaf5ade085c48641af473f2))
 
 
 
