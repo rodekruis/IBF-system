@@ -79,6 +79,8 @@ services:
             - DB_USERNAME=${DB_USERNAME}
             - DB_PASSWORD=${DB_PASSWORD}
             - COUNTRIES=${COUNTRIES}
+            - DASHBOARD_URL=${DASHBOARD_URL}
+            - EMAIL_NOTIFICATION=${EMAIL_NOTIFICATION}
         command: /bin/sh ./entrypoint.sh
         volumes:
             - pipeline-root:/home/ibf
