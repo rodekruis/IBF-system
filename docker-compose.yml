@@ -79,7 +79,7 @@ services:
             - DB_USERNAME=${DB_USERNAME}
             - DB_PASSWORD=${DB_PASSWORD}
             - COUNTRIES=${COUNTRIES}
-        command: cron && tail -f /var/log/cron.log
+        command: /bin/sh ./entrypoint.sh
         volumes:
             - pipeline-root:/home/ibf
         networks:
