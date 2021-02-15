@@ -1,6 +1,6 @@
 # IBF-dashboard: Web interface of the IBF-system.
 
-Welcome to the GitHub repository of the [IBF-dashboard](http://ibf-system.westeurope.cloudapp.azure.com/),
+Welcome to the GitHub repository of the [IBF-dashboard](http://ibf.510.global/),
 
 - [Setup development environment](#setup-development-environment)
 - [Configuration](#configuration)

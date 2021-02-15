@@ -106,7 +106,7 @@
        requires no additional set-up.
 5. Verify if the geoserver is set up correctly.
     1. Check if the
-       [Geoserver](http://ibf-system.westeurope.cloudapp.azure.com/geoserver/web)
+       [Geoserver](http://ibf.510.global/geoserver/web)
        contains necessary layers.
 
 ### Useful Commands / Tools
