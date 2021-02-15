@@ -1,3 +1,18 @@
+# [0.18.0](https://github.com/rodekruis/IBF-system/compare/v0.17.2...v0.18.0) (2021-02-15)
+
+
+### Bug Fixes
+
+* process env boolean correctly AB[#6159](https://github.com/rodekruis/IBF-system/issues/6159) ([daa403e](https://github.com/rodekruis/IBF-system/commit/daa403e652be23e08021109a0c91ed74fdcd777f))
+* update new dashboard URL in pipeline email AB[#6161](https://github.com/rodekruis/IBF-system/issues/6161) ([85b7490](https://github.com/rodekruis/IBF-system/commit/85b7490cca264d1c264be818e3141aef7c4903f9))
+
+
+### Features
+
+* make email-boolean configurable + true on production AB[#6159](https://github.com/rodekruis/IBF-system/issues/6159) ([0a494a8](https://github.com/rodekruis/IBF-system/commit/0a494a8e53a003a49b8e9cf712412732f33a9be2))
+
+
+
 ## [0.17.2](https://github.com/rodekruis/IBF-system/compare/v0.17.1...v0.17.2) (2021-02-15)
 
 
@@ -78,15 +93,6 @@
 ### Features
 
 * add flood extent source link to popovers AB[#6020](https://github.com/rodekruis/IBF-system/issues/6020) ([b1d80ea](https://github.com/rodekruis/IBF-system/commit/b1d80ea5d180d90a0dfab03edd825ad6f9a11f91))
-
-
-
-## [0.14.1](https://github.com/rodekruis/IBF-system/compare/v0.14.0...v0.14.1) (2021-02-11)
-
-
-### Bug Fixes
-
-* Fix add user endpoint AB[#6124](https://github.com/rodekruis/IBF-system/issues/6124) ([10321b7](https://github.com/rodekruis/IBF-system/commit/10321b7aef9667e183c29ddee3f57c93582d0384))
 
 
 
