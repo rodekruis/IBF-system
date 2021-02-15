@@ -98,6 +98,15 @@ for (elm in  names(eval(parse(text=paste("settings$",Country,sep=""))))){
   assign(elm,data_read)
 } 
 
+for (elm in  names(eval(parse(text=paste("settings$",'general_geo',sep=""))))){
+  url$query <- list(service = "WFS",version = "2.0.0",request = "GetFeature",
+                    typename = eval(parse(text=paste("settings$",'general_geo',"$",elm,sep=""))),
+                    outputFormat = "application/json")
+  request <- build_url(url)
+  data_read <- st_read(request)
+  assign(elm,data_read)
+} 
+
 
 # download geo data
 # check validity of shape files downloaded from geonode server 

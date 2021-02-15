@@ -17,6 +17,26 @@ import matplotlib.colors as colors
 Main Functions
 '''
 
+def plot_droughts_per_district(data, label_col='drought reported', district_col='District', path='../', country='Uganda',
+                               admin_level=1):
+    droughts_per_district = data[[district_col, label_col]].groupby(district_col).sum().reset_index()
+    gdf_country = gpd.read_file(get_country_shapefile(path=path, country=country, admin_level=admin_level), crs='')
+
+    gdf_country.rename(columns={'ADM1_EN': district_col}, inplace=True)
+    gdf_country['centroid'] = gdf_country.centroid
+
+    droughts_per_district = gdf_country[[district_col, 'geometry', 'centroid']].merge(droughts_per_district,
+                                                                                      on=district_col)
+    droughts_per_district.set_geometry('centroid', drop=True, inplace=True)
+    droughts_per_district = droughts_per_district[droughts_per_district[label_col] > 0]
+
+    geoplot.polyplot(gdf_country)
+    ax = plt.gca()
+    geoplot.pointplot(droughts_per_district, scale=label_col, color='darkred', marker='o',
+                      limits=(2, 14), legend=True, legend_values=[1, 3, 6, 9, 12],
+                      ax=ax)
+    return
+
 def prepare_Uganda_data(phath='./datasets/',
                         filename='Droughts_satelite_and_events.csv',
                         output_filename='Uganda_seasonal_normalized.csv',
@@ -78,19 +98,29 @@ def prepare_Uganda_data(phath='./datasets/',
 
     return normal_data
 
-def fit_Logreg_model(data, selected_features, label_name, C_array,
-                     n_splits=2, shuffle=True, shuffle_seed=10):
+
+
+
+def optimize_Logreg_model(data, selected_features, label_name, C_array,
+                          train_years = [2000,2012],
+                          val_years = [2012,2016]):
+
     reduced_data = reduce_data(data, label_name)
 
     X = reduced_data[selected_features]
 
     y = reduced_data[label_name]
 
-    n_pos = len(y[y == True])
-    n_neg = len(y[y == False])
+    train_ind = np.array(reduced_data[(reduced_data.year >= train_years[0]) & ((reduced_data.year < train_years[1]))].index)
+    val_ind = np.array(reduced_data[(reduced_data.year >= val_years[0]) & ((reduced_data.year < val_years[1]))].index)
 
-    W_neg = (1.0 / n_neg) / (1.0 / n_pos + 1.0 / n_neg)
-    W_pos = (1.0 / n_pos) / (1.0 / n_pos + 1.0 / n_neg)
+    y_train = reduced_data[(reduced_data.year >= train_years[0]) & ((reduced_data.year < train_years[1]))][label_name]
+
+    n_pos = len(y_train[y_train == True])
+    n_neg = len(y_train[y_train == False])
+
+    W_neg = (1.0 / n_neg)
+    W_pos = (1.0 / n_pos)
 
     Weights = {True: W_pos, False: W_neg}
 
@@ -103,11 +133,9 @@ def fit_Logreg_model(data, selected_features, label_name, C_array,
 
     param_grid = {'C': C_array}
 
-    scoring = sklm.make_scorer(weighted_fscore)
+    scoring = sklm.make_scorer(positive_fscore)
 
-    cv = ms.KFold(n_splits=n_splits,
-                  shuffle=shuffle,
-                  random_state=shuffle_seed)
+    cv = ((train_ind, val_ind),)
 
     GS = ms.GridSearchCV(estimator=opt_model,
                          param_grid=param_grid,
@@ -121,28 +149,44 @@ def fit_Logreg_model(data, selected_features, label_name, C_array,
 
     opt_model.C = best_param
 
-    mean_test_scores = GS.cv_results_['mean_test_score']
+    test_scores = GS.cv_results_['mean_test_score']
 
-    std_test_scores = GS.cv_results_['std_test_score']
+    return opt_model, test_scores
 
-    return X, y, opt_model, mean_test_scores, std_test_scores
+def predict_Logreg_model(data, selected_features, label_name, C, confusion_matrix=True,drop_zero_coefs=True):
 
+    reduced_data = reduce_data(data, label_name)
 
-def predict_Logreg_model(model, X, y, C, confusion_matrix=True):
+    X = reduced_data[selected_features]
 
-    label_name = y.name
+    y = reduced_data[label_name]
 
-    model.C = C
+    n_pos = len(y[y == True])
+    n_neg = len(y[y == False])
+
+    W_neg = (1.0 / n_neg)
+    W_pos = (1.0 / n_pos)
+
+    Weights = {True: W_pos, False: W_neg}
+
+    model = LogisticRegression(C=C,class_weight=Weights,
+                               penalty='l1',fit_intercept=True,
+                               solver='liblinear',
+                               random_state=0)
+
     model.fit(X, y)
     y_pred = model.predict(X)
 
     coefs = pd.DataFrame()
     coefs['feature'] = X.columns
     coefs['coef'] = model.coef_.ravel()
-    coefs['abs_coef'] = coefs['coef'].abs()
-    coefs.sort_values('abs_coef', ascending=False, inplace=True, axis=0)
-    coefs = coefs[['feature', 'coef']]
-    coefs = coefs[coefs.coef.abs()>0]
+
+    if drop_zero_coefs:
+        coefs = coefs[coefs.coef.abs() >= 10**(-2)]
+        coefs['abs_coef'] = coefs['coef'].abs()
+        coefs.sort_values('abs_coef', ascending=False, inplace=True, axis=0)
+        coefs = coefs[['feature', 'coef']]
+
     coefs.rename(columns={'coef':'coefficients'},inplace=True)
 
     predictions = pd.DataFrame()
@@ -160,8 +204,62 @@ def predict_Logreg_model(model, X, y, C, confusion_matrix=True):
 
     if confusion_matrix:
         print_metrics(y, y_pred)
-        print('\n')
-        print('Weighted Average F-score  %0.2f' % weighted_fscore(y, y_pred))
+
+    return coefs, predictions, pr, roc, auc, model
+
+def predict_Logreg_model_split(data, year_split, selected_features, label_name, C, confusion_matrix=True):
+
+    reduced_data = reduce_data(data, label_name)
+
+    train = reduced_data[reduced_data.year < year_split]
+    test = reduced_data[reduced_data.year >= year_split]
+
+    X_train = train[selected_features]
+    y_train = train[label_name]
+
+    X_test = test[selected_features]
+    y_test = test[label_name]
+
+    n_pos = len(y_train[y_train == True])
+    n_neg = len(y_train[y_train == False])
+
+    W_neg = (1.0 / n_neg)
+    W_pos = (1.0 / n_pos)
+
+    Weights = {True: W_pos, False: W_neg}
+
+    model = LogisticRegression(C=C, class_weight=Weights,
+                               penalty='l1', fit_intercept=True,
+                               solver='liblinear',
+                               random_state=0)
+
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+
+    coefs = pd.DataFrame()
+    coefs['feature'] = X_train.columns
+    coefs['coef'] = model.coef_.ravel()
+    coefs['abs_coef'] = coefs['coef'].abs()
+    coefs.sort_values('abs_coef', ascending=False, inplace=True, axis=0)
+    coefs = coefs[['feature', 'coef']]
+    coefs = coefs[coefs.coef.abs() >= 10**(-2)]
+    coefs.rename(columns={'coef':'coefficients'},inplace=True)
+
+    predictions = pd.DataFrame()
+    predictions[label_name] = y_test
+    predictions['logit_scores'] = (X_test.values.dot(model.coef_.T)).ravel() + model.intercept_
+    predictions['predictions'] = y_pred
+
+    pr = sklm.precision_recall_curve(y_test, predictions['logit_scores'],
+                                           pos_label=True)
+
+    roc = sklm.roc_curve(y_test, predictions['logit_scores'],
+                                     pos_label=True)
+
+    auc = sklm.auc(roc[0],roc[1])
+
+    if confusion_matrix:
+        print_metrics(y_test, y_pred)
 
     return coefs, predictions, pr, roc, auc
 
@@ -200,30 +298,7 @@ def plot_dist(data,target,drought_var):
 
 
 def visualize_droughts_uganda(data, model, year, season, selected_features,
-                              label_name, path_to_shapefile='../'):
-
-    drought_count = data[['year', 'Season', label_name]].groupby(['year', 'Season']).sum().rename(
-        columns={label_name: 'drought_count'}).reset_index()
-    drought_count['date'] = drought_count.apply(lambda x: date(x.year,
-                                                               int(x.Season.split('_')[1]), 1),
-                                                axis=1)
-    drought_count[['date', 'drought_count']].plot(x='date', marker='o',
-                                                  color='darkorange',
-                                                  figsize=(5, 1.2),
-                                                  legend=False, )
-    ax = plt.gca()
-    date_1 = date(year, int(season.split('_')[0]), 1)
-    date_2 = date(year, int(season.split('_')[1]), 1)
-    ax.axvspan(date_1, date_2, alpha=0.5, color='grey')
-    plt.ylabel('drought count')
-    plt.xlabel('')
-    plt.ylim([-0.5, 20])
-    plt.yticks(range(0, 20, 5));
-    if season == '6_7':
-        title = 'June-July ' + str(year)
-    if season == '11_12':
-        title = 'November-December ' + str(year)
-    plt.title(title);
+                              label_name, path_to_shapefile='../', cmap='jet'):
 
     gdf_country = gpd.read_file(get_country_shapefile(path=path_to_shapefile,
                                                       country='Uganda',
@@ -251,11 +326,16 @@ def visualize_droughts_uganda(data, model, year, season, selected_features,
                     edgecolor="black", figsize=(6, 6))
         ax = plt.gca()
         geoplot.choropleth(temp_1, hue=temp_1['score'],
-                           cmap='jet', norm=norm, legend=True, ax=ax, zorder=0);
+                           cmap=cmap, norm=norm, legend=True, ax=ax, zorder=0);
     else:
         geoplot.choropleth(temp_1, hue=temp_1['score'],
-                           cmap='jet', norm=norm, legend=True, zorder=0,
+                           cmap=cmap, norm=norm, legend=True, zorder=0,
                            figsize=(6, 6));
+    if season == '6_7':
+        title = 'June-July ' + str(year)
+    if season == '11_12':
+        title = 'November-December ' + str(year)
+    plt.title(title);
 
     return
 
@@ -270,8 +350,8 @@ def make_monitor_model(training_data, selected_features, label_name, C):
     n_pos = len(y[y == True])
     n_neg = len(y[y == False])
 
-    W_neg = (1.0 / n_neg) / (1.0 / n_pos + 1.0 / n_neg)
-    W_pos = (1.0 / n_pos) / (1.0 / n_pos + 1.0 / n_neg)
+    W_neg = (1.0 / n_neg)
+    W_pos = (1.0 / n_pos)
 
     Weights = {True: W_pos, False: W_neg}
 
@@ -286,10 +366,44 @@ def make_monitor_model(training_data, selected_features, label_name, C):
 
     return monitor_model
 
+def prepare_dmp_data(path_to_DMP='./datasets/Uganda_DMP_data.csv'):
+
+    dmp_data = pd.read_csv(path_to_DMP, index_col=False)
+    dmp_data.date = pd.to_datetime(dmp_data.date, infer_datetime_format=True)
+    dmp_data.rename(columns={'district': 'District'}, inplace=True)
+    dmp_data['delta DMP'] = dmp_data.DMP.max() - dmp_data.DMP
+
+    averaged_data = pd.DataFrame()
+    groups = dmp_data.groupby('District')
+    for name, group in groups:
+        sorted_group = group[['date', 'delta DMP']].sort_values('date').reset_index(drop=True)
+        averaged_group = sorted_group[['delta DMP']].rolling(window=3).mean()
+        averaged_group['date'] = sorted_group['date']
+        averaged_group['District'] = name
+        averaged_group = averaged_group[['District', 'date', 'delta DMP']]
+        averaged_group.dropna(inplace=True)
+        averaged_data = pd.concat([averaged_data, averaged_group], axis=0)
+    averaged_data.reset_index(inplace=True, drop=True)
+    averaged_data['month'] = averaged_data['date'].dt.month
+    averaged_data['year'] = averaged_data['date'].dt.year
+
+    normal_dmp_data = normalize_data(dmp_data,
+                                     ids_list=['District', 'year', 'month', 'date'],
+                                     grouping=['District', 'month'])
+    normal_dmp_data = normal_dmp_data[['District', 'year', 'month', 'date', 'delta DMP']]
+
+    normal_dmp_data.sort_values(['District', 'year'], inplace=True)
+    month_shift = 1
+    normal_dmp_data = normal_dmp_data[['District', 'date', 'delta DMP']]
+    normal_dmp_data['date'] = normal_dmp_data['date'] + pd.DateOffset(months=month_shift)
+
+    return normal_dmp_data
 
 def prepare_monitor_data(data, monitor_features, monitor_model,
                          date_col='date', district_col='District',
-                         label_col=None):
+                         label_col=None,path_to_DMP=None,
+                         path_to_shapefile='../'):
+
     data[date_col] = pd.to_datetime(data[date_col],
                                     infer_datetime_format=True)
     raw_data = data.copy()
@@ -320,44 +434,47 @@ def prepare_monitor_data(data, monitor_features, monitor_model,
         monitor_model.coef_.T)).ravel() + monitor_model.intercept_
     normal_data['drought_predicted'] = normal_data['score'] > 0
     normal_data[date_col] = normal_data[date_col] + pd.DateOffset(months=month_shift)
+
     if label_col is not None:
         normal_data = normal_data.merge(data[[date_col,district_col, label_col]],
                                         on=[date_col,district_col])
-    return normal_data
-
-
-def monitor_plot(monitor_data, montor_date, district_col='District',date_col='date',
-                 label_col=None, path_to_shapefile='../'):
-
-    month = montor_date.month
-
-    year = montor_date.year
-
-    select_date = date(year, month, 1).strftime("%Y-%m-%d")
-
-    part_data = monitor_data[monitor_data[date_col] == select_date].copy()
-
-    if part_data.empty:
-        print('Data is not available.')
-        return
+    if path_to_DMP is not None:
+        normal_dmp_data = prepare_dmp_data(path_to_DMP)
+        normal_data = normal_data.merge(normal_dmp_data, on=[date_col,district_col], how='outer')
 
     gdf_country = gpd.read_file(get_country_shapefile(path=path_to_shapefile,
                                                       country='Uganda',
                                                       admin_level=1), crs='')
-
     gdf_country.rename(columns={'ADM1_EN': district_col}, inplace=True)
-    gdf_country_points = gdf_country.copy()
-    gdf_country_points['geometry'] = gdf_country_points.centroid
+    gdf_country = gdf_country[[district_col,'geometry']]
+    gdf_country['centroid'] = gdf_country.centroid
 
-    temp_1 = gdf_country[[district_col, 'geometry']].merge(part_data[[district_col,
-                                                                      'score']],
-                                                           on=district_col)
+    normal_data = gdf_country.merge(normal_data,on=district_col)
+
+    return normal_data
+
+
+
+def monitor_plot(monitor_data, monitor_date,date_col='date',
+                 label_col=None,cmap='jet'):
+
+    month = monitor_date.month
+
+    year = monitor_date.year
+
+    select_date = date(year, month, 1).strftime("%Y-%m-%d")
+
+    temp_1 = monitor_data[monitor_data[date_col] == select_date].copy()
+
+    if (temp_1['score'].isna().sum() > 0) | (temp_1.empty):
+        print('Data is not available.')
+        return
+
     temp_2 = pd.DataFrame()
 
     if label_col is not None:
-        temp_2 = gdf_country_points[[district_col, 'geometry']].merge(part_data[[district_col,
-                                                                                 label_col]],
-                                                                      on=district_col)
+        temp_2 = temp_1.copy()
+        temp_2['geometry'] = temp_2.centroid
         temp_2 = temp_2[temp_2[label_col]]
 
     norm = colors.Normalize(vmin=-0.6, vmax=0.6)
@@ -367,13 +484,71 @@ def monitor_plot(monitor_data, montor_date, district_col='District',date_col='da
                     edgecolor="black", figsize=(6, 6))
         ax = plt.gca()
         geoplot.choropleth(temp_1, hue=temp_1['score'],
-                           cmap='jet', norm=norm, legend=True, ax=ax, zorder=0);
+                           cmap=cmap, norm=norm, legend=True, ax=ax, zorder=0);
     else:
         geoplot.choropleth(temp_1, hue=temp_1['score'],
-                           cmap='jet', norm=norm, legend=True, zorder=0,
+                           cmap=cmap, norm=norm, legend=True, zorder=0,
                            figsize=(6, 6));
-    plt.title(select_date);
 
+    plt.title(monitor_date.strftime("%B %Y"));
+
+    return
+
+
+def plot_score_DMP_correlation(monitor_data, district_col='District', cmap='jet'):
+
+    corrs = []
+    districts = []
+
+    grouped = monitor_data[[district_col, 'score', 'delta DMP']].dropna().groupby(district_col)
+
+    for name, group in grouped:
+        corrs.append(group[['score', 'delta DMP']].corr().values[0, 1])
+        districts.append(name)
+
+    corr_data = pd.DataFrame()
+    corr_data[district_col] = districts
+    corr_data['Correlation'] = corrs
+
+    corr_data = monitor_data[[district_col, 'geometry']].drop_duplicates().merge(corr_data, on=district_col)
+
+    geoplot.choropleth(corr_data, hue=corr_data['Correlation'], cmap=cmap, legend=True)
+    plt.title(r'Correlation between the drought score and normalized $\Delta$DMP')
+
+    return corr_data
+
+def monitor_plot_dmp(monitor_data, monitor_date, date_col='date', cmap='jet'):
+    month = monitor_date.month
+
+    year = monitor_date.year
+
+    select_date = date(year, month, 1).strftime("%Y-%m-%d")
+
+    temp = monitor_data[monitor_data[date_col] == select_date].copy()
+
+    temp = temp[['geometry', 'score', 'delta DMP']].dropna()
+
+    if (temp.empty):
+        print('Data is not available.')
+        return
+    f, axs = plt.subplots(1, 2, figsize=(13, 6))
+
+    norm1 = colors.Normalize(vmin=-0.6, vmax=0.6)
+    geoplot.choropleth(temp, hue=temp['score'], cmap=cmap, norm=norm1, legend=True,ax=axs[0])
+    axs[0].title.set_text('score (' + monitor_date.strftime("%B %Y") + ')')
+
+    norm2 = colors.Normalize(vmin=-0.6, vmax=0.6)
+    geoplot.choropleth(temp, hue=temp['delta DMP'], cmap=cmap, norm=norm2, legend=True,ax=axs[1])
+    axs[1].title.set_text(r'normalized $\Delta$DMP (' + monitor_date.strftime("%B %Y") + ')')
+
+    return
+
+
+def plot_timeseries(data, district_name, variables=['score', 'delta DMP'], date_col='date', district_col='District'):
+    data[data[district_col] == district_name].dropna().set_index(date_col)[variables].plot()
+    cor = data[data[district_col] == district_name].dropna().set_index(date_col)[variables].corr().values[1,0]
+    plt.title(district_name + ' - correlation: %' + str(int(round(cor, 2) * 100)));
+    plt.legend(['score', r'normalized $\Delta$DMP'], bbox_to_anchor=(1.01, 1));
     return
 
 def fit_random_model(y, p=0.5):
@@ -413,7 +588,6 @@ def fit_random_model(y, p=0.5):
             col + '_Negative'])
 
     return metric_mean, metric_std
-
 
 '''
 Helper Functions 

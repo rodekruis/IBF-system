@@ -17,6 +17,9 @@ Ethiopia Risk Analysis Example
 Kenya Risk Analysis Example
 ![Example of risk analysis for Kenya](https://github.com/rodekruis/Flood_impact_models/blob/master/output/Kenya/kenya_impact.gif)
 
+Uganda Risk Analysis Example
+![Example of risk analysis for Uganda](https://github.com/boukepieter/IBF-system/blob/master/trigger-model-development/flood/trigger-model/output/uganda/Uganda_impact.gif)
+
 ## 2. [Impact hazard catalogue](https://github.com/rodekruis/Flood_impact_models/blob/master/scripts/impact_hazard_catalog.R)
 A script which link impact (which was analyzed in understanding the risk part) with Hazard. Hydro-Met data will be used as a             proxy for discribing hazard.
 
@@ -27,8 +30,6 @@ Input
 
 Output
 * An Impact Hazard Catalog (A csv file with a daily record of flood impact and associated Hazard) 
-* a shyny app to easily visualize impact hazard catalog 
-![shyny app for visualizing impact-hazard catalog data) Ethiopia](https://github.com/rodekruis/Flood_impact_models/blob/master/output/hazard_impact_catalog.PNG)
 * plots for each events showing Impact and Hazard link(For EAP)
 * The outcome of this analysis is a hazard-impact catalog, which will be an input for the trigger table(next step)
 
@@ -42,44 +43,20 @@ Example of impact-hazard analysis for a single event(hazard is based on NAM rain
 ![Example of impact-hazard analysis for a single event(hazard is based on NAM RAINFALL Data) Ethiopia](https://github.com/rodekruis/Flood_impact_models/blob/master/output/hazard_impact_ethiopia_rainfall.PNG)
 
 ## 3. Trigger model development
+Based on impact-hazard catalog developed in the above step a [script](https://github.com/rodekruis/IBF-system/blob/master/trigger-model-development/flood/trigger-model/dashboard/IARP_trigger_dashboard/r_resources/trigger_table.R )is developed to generate a trigger table 
+the table is generated for a set of predefined trigger ranges and lead times, which can be modified by the user. For generating the first version of the trigger table we used lead time 3 days and 7 days. Five values for trigger threshold, Q10,Q50,Q70,Q90 and Q95, were defined to generate the first version of the trigger table. For calculating the trigger table we made the following assumptions
+- a time window of two weeks was selected when checking Glofas peak values against reported impact incidents(this is to consider uncertainty in impact data reporting date)
+- after a trigger value is passed, any other event in a time window of 3 weeks is considered the same event as the first one 
+- the above assumptions can be adjusted easily if needed  
+
 Here we build a trigger model based on data from Impact-hazard catalogue    
 ## 4. Visualization of trigger model
-easy visualization of the IBF model results for descion makers ds for 
-## 5. Intervention maps (combining vulnerability index with exposure and hazard maps )
-Geo spatial data needed for running the scripts are stored in 510geonode server. For running the scripts check list of variables in Geo_setting.R
-    
-    
-### Discription of directory layout
+easy visualization of the IBF model results for descion makers 
 
-    .
-      ├── Output/Ugandachirps_anomalies        # folder for rainfall annomaly based on chirps data 
-      ├── processed_data/uganda                # folder for rainfall annomaly based on chirps data 
-      ├── raw_data                             # folder for rainfall annomaly based on chirps data 
-      │   ├── UGANDA                             # folder for rainfall annomaly based on chirps data       
-      |   ├── chirps_anomalies                 # folder for rainfall annomaly based on chirps data 
-      |   ├── chirps_dayaverages               # Folder for daily rainfall averages
-      |   ├── Chirps_tiffs                     # Chirps tiff format 
-      |   ├── glofs                            # CSV files for GLOFAS data
-      |   └── AFFECTED_DIST_with_glofas.csv   # Reorganized repo to easily add other countries in the future
-      |   └── CRA Oeganda.xlsx
-      |   └── DI_uga.csv
-      |     ...
-      ├── scripts                              # folder for rainfall annomaly based on chirps data 
-      |    └── catchment_extractor.py          # for each admin location this script will extract catchment area
-      |    └── create_anomaly_data.R           # script to calculate rainfall annomaly whichis one variable in the trigger model
-      |    └── create_rain_data.R              # after downloading rainfall use this script to extract rainfall per catchment 
-      |    └── download_rain_data.py           # download rainfall data
-      |    └── glofas_research.R               # a script which will explore if GLOFAS flow data from a station capture a flood impact event 
-      |    └── glofas_download_data.py         # download glofas river discharge data (global)    
-      |    └── glofas_slice_country.py         # loag global glofas data, select one country and save it in a new file
-      |    └── make_flood_plots.R              # this script plot impact data and GLOFAS flow data associate a potential glofas station ) this script then make a datamatrix by combining all the sation district information
-      |    ├── shiny_uganda_data_explorer      # folder for an app which is used for rainfall data visualization          
-      |    └── ...
-      ├── shapes                               # folder for radmin boundaries 
-      |   └── ...
-      |   └── region_model.R                       # folder for uganda admin 
-      └── settings.R                           # a script which pass information on folder structure, projections etc... to the main code
-      └── region_model.R                       # Main code for the trigger model. This code will use all the other codes in the script folder 
+* a shyny app to easily visualize impact hazard catalog 
+[shyny app for visualizing impact-hazard catalog data) Ethiopia](https://510ibf.shinyapps.io/IARP_trigger_dashboard/)
+
+    
 ### Notes      
 To run catchment extractor script addtional data is needed - this can be found in the following link https://rodekruis.sharepoint.com/:f:/s/510-CRAVK-510/EhG4P2uRQRZKjZiJlo7YMYwBs5sqYxzcHmElbF4GtCGF6Q?e=g2mdMV
 

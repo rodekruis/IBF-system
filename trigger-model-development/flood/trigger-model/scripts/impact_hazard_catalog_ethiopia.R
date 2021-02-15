@@ -222,7 +222,8 @@ impact_data1_R%>%st_set_geometry(impact_data1_R$geometry)
 
 #---------------------- Hydro/mettrological stations in affected regions -------------------------------
 river_eth <- st_intersection(rivers, admin1) %>% filter(UP_CELLS>1500) ##arrange(desc(UP_CELLS)) %>% dplyr::select(ARCID,geometry)
-eth_glofas_st<-glofas_st %>% filter(CountryNam =='Ethiopia')%>% mutate(station=id) %>% select(station) 
+
+eth_glofas_st<-glofas_st %>% filter(Country =='Ethiopia')%>% mutate(station=id) %>% select(station) 
 
 # based on nearest glogas station with in 50km from the impacted wareda 
 admin_centroid_pts <- impact_data1_w_ts %>%mutate(cent_lon=map_dbl(geometry, ~st_centroid(.x)[[1]]), 
@@ -234,8 +235,16 @@ admin_centroid_pts = st_transform(admin_centroid_pts, 4326)
 eth_glofas_st = st_transform(eth_glofas_st, 4326)
 
 
+
+
+
+glofas_stations_in_affected_areas <- read.csv(paste0(getwd(),'/dashboard/ethiopia_shiny_app/data/Eth_affected_area_stations2.csv'),sep=",")%>% 
+  gather("id","station",-"Z_NAME",-"W_NAME") %>% rename(Zone="Z_NAME") %>%
+  select(Zone,"W_NAME","station") %>% drop_na(station)
+
+
 # find the first nearest neighbor rainfall station station for each centroid,  maximum 
-glofas_stations_in_affected_areas<-st_join(admin_centroid_pts, eth_glofas_st, st_nn, k = 2,maxdist = 50000)%>% st_set_geometry(NULL)%>% select(Zone,station) %>% filter(station !='NA')
+glofas_stations_in_affected_areas<-st_join(admin_centroid_pts, eth_glofas_st, st_nn, k = 2,maxdist = 90000)%>% st_set_geometry(NULL)%>% select(Zone,station) %>% filter(station !='NA')
 glofas_stations_in_affected_areas<-glofas_stations_in_affected_areas  %>% distinct(Zone,station,.keep_all = TRUE)
 
 NAM_stations_in_affected_areas<-st_join(admin_centroid_pts, NMA_stations, st_nn, k = 2,maxdist = 20000)%>% st_set_geometry(NULL)%>% select(Zone,station) %>% filter(station !='NA')
@@ -263,8 +272,11 @@ tm_shape(impact_data1_Z) + tm_polygons(col = "Affected", name='W_Name',
   #tm_shape(eth_admin3) + tm_borders(lwd = .5,col='#bdbdbd') + #
   tm_format("NLD")
 #---------------------- read glofas data hazard ------------------------------- 
-glofas_data<-prep_glofas_data()
-fill_glofas_data_<-fill_glofas_data(glofas_data)
+glofas_data<-prep_glofas_data()%>%drop_na(dis)
+
+fill_glofas_data_<-fill_glofas_data(glofas_data) %>% select(-year)
+ 
+write.csv(fill_glofas_data_,file=paste0(getwd(),'/input/fill_glofas_data_.csv'),sep=",",row.names = FALSE)
 
 make_glofas_district_matrix <- function(glofas_data,glofas_stations_in_affected_areas) {
   

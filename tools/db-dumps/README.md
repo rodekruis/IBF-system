@@ -1,0 +1,1 @@
+Folder to store database dumps during migration on server.

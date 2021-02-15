@@ -1,0 +1,11 @@
+1) Install ipypublish:
+
+	https://ipypublish.readthedocs.io/en/latest/getting_started.html
+
+2) Run: 
+	nbpublish Uganda_logit_model.ipynb
+
+Alternatively, run:
+
+	jupyter nbconvert --to latex --template hidecode  Uganda_logit_model.ipynb --output-dir='./converted'
+

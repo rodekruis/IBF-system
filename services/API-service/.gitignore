@@ -1,0 +1,27 @@
+# IDE / Editors
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+
+# Configuration, secrets, etc:
+.env
+src/secrets.ts
+
+
+# Generated files
+dist
+coverage
+www
+
+
+# External code
+node_modules
+
+
+# Logs / Cache / temporary files
+logs
+*.log
+npm-debug.log*
+.npm

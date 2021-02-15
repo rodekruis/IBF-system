@@ -1,0 +1,18 @@
+# Imported from .gitignore:
+/.ionic
+/.sass-cache
+/.sourcemaps
+/.versions
+/coverage
+/dist
+/node_modules
+/platforms
+/plugins
+/www
+
+# Don't reorder imports for polyfills:
+src/polyfills.ts
+README.md
+
+# to import zone-testing in the right order for angular 11
+src/test.ts

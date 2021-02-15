@@ -1,0 +1,38 @@
+# IDE / Editors
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+
+# Configuration, secrets, etc:
+.env
+inspect.docker-compose.config
+nginx/letsencrypt/*
+!nginx/letsencrypt/README.md
+
+# R specific:
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+
+# Generic ignored files:
+*~
+*.sw[mnpcod]
+.tmp
+*.tmp
+*.tmp.*
+.DS_Store
+Thumbs.db
+UserInterfaceState.xcuserstate
+$RECYCLE.BIN/
+*.log*
+
+# node
+node_modules
+package-lock.json
+
+# db-dumps
+tools/db-dumps/*.dump
