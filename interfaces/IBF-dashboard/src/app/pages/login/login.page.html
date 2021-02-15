@@ -1,0 +1,57 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button href="/" [title]="'app-name' | translate">
+        <ion-icon name="apps" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title [translate]="'login-page.title'"></ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        href="https://github.com/rodekruis/IBF-system/releases/tag/{{
+          version
+        }}"
+        [title]="('common.version' | translate) + ' ' + version"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {{ version }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size-xs="12" size-sm="10" size-md="8" size-lg="6" size-xl="4">
+        <ion-card class="ibf-welcome-card">
+          <ion-icon name="chatbubbles"></ion-icon>
+          <ion-card-header>
+            <ion-card-title [translate]="'login-page.welcome'">
+            </ion-card-title>
+            <ion-card-subtitle [translate]="'login-page.instruction'">
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-title
+              (click)="presentPopover()"
+              [translate]="'login-page.video'"
+            >
+            </ion-card-title>
+            <br />
+            <span [translate]="'login-page.note'"></span>
+          </ion-card-content>
+          <app-timestamp></app-timestamp>
+        </ion-card>
+        <ion-card class="ibf-login-card">
+          <ion-icon name="person"></ion-icon>
+          <ion-card-content>
+            <app-login-form></app-login-form>
+          </ion-card-content>
+          <app-timestamp></app-timestamp>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

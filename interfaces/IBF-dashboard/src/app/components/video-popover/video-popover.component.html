@@ -1,0 +1,20 @@
+<ion-card>
+  <ion-card-header color="ibf-royal-blue">
+    <ion-icon
+      name="close-circle"
+      size="large"
+      (click)="closePopover()"
+    ></ion-icon>
+    <ion-card-title>IBF Video Guide</ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="ion-padding-top ion-text-center">
+    <iframe
+      width="560"
+      height="315"
+      [src]="getVideoUrl()"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,16 @@
+[Unit]
+Description=Github webhook
+After=network.target
+
+[Service]
+Environment=NODE_ENV=test
+Environment=NODE_PORT=3099
+Environment=IBF_SYSTEM_REPO=/home/ibf-user/IBF-system
+Environment=GITHUB_WEBHOOK_SECRET=secret
+Type=simple
+User=ibf-user
+ExecStart=/usr/bin/node /home/ibf-user/IBF-system/tools/webhook.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,37 @@
+# IDE / Editors
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+
+# Configuration, secrets, etc:
+.env
+environment.prod.ts
+
+
+# Assets ONLY included during build
+src/assets/leaflet
+
+
+# Generated files
+dist
+coverage
+platforms
+plugins
+www
+
+
+# External code
+node_modules
+
+
+# Logs / Cache / temporary files
+logs
+*.log
+npm-debug.log*
+.npm
+.ionic
+.sass-cache
+.sourcemaps
+.versions

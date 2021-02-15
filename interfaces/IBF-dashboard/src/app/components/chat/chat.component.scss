@@ -1,0 +1,34 @@
+ion-content {
+  --background: var(--ion-color-ibf-light-blue);
+
+  p,
+  ion-label,
+  ion-note {
+    font-size: 12px;
+  }
+
+  .background-light {
+    background-color: var(--ion-color-light);
+
+    ion-item {
+      --background: none;
+    }
+  }
+
+  .chat-icon {
+    width: 1.5rem;
+    padding: 1px;
+  }
+
+  .submit-button {
+    flex-basis: 100%;
+  }
+}
+
+.action-label {
+  font-size: small;
+}
+
+ion-checkbox {
+  margin-inline-end: 8px !important;
+}

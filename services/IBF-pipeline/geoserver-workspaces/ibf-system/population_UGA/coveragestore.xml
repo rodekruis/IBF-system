@@ -1,0 +1,13 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl-48cab08a:175ace47603:-7feb</id>
+  <name>population_UGA</name>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2020-11-09 12:16:40.558 UTC</dateCreated>
+  <dateModified>2020-11-13 09:17:47.380 UTC</dateModified>
+  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/hrsl_uga_pop_resized_100.tif</url>
+</coverageStore>

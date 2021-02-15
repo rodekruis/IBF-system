@@ -1,0 +1,52 @@
+[
+  {
+    "email": "dunant@redcross.nl",
+    "username": "dunant",
+    "firstName": "Henry",
+    "lastName": "Dunant",
+    "userRole": "admin",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["UGA", "ZMB", "KEN", "ETH"]
+  },
+  {
+    "email": "uganda@redcross.nl",
+    "username": "uganda",
+    "firstName": "Uganda",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["UGA"]
+  },
+  {
+    "email": "zambia@redcross.nl",
+    "username": "zambia",
+    "firstName": "Zambia",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["ZMB"]
+  },
+  {
+    "email": "kenya@redcross.nl",
+    "username": "kenya",
+    "firstName": "Kenya",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["KEN"]
+  },
+  {
+    "email": "ethiopia@redcross.nl",
+    "username": "ethiopia",
+    "firstName": "Ethiopia",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["ETH"]
+  }
+]

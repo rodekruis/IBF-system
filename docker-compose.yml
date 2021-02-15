@@ -1,0 +1,126 @@
+version: "3.8"
+
+services:
+    nginx:
+        image: staticfloat/nginx-certbot
+        ports:
+            - 80:80
+            - 443:443
+        environment:
+            CERTBOT_EMAIL: ${CERTBOT_EMAIL}
+            ENVSUBST_VARS: FQDN
+            FQDN: ${FQDN}
+        volumes:
+            - ./nginx/conf.d:/etc/nginx/user.conf.d
+            - ibf-dashboard-root:/var/www/ibf-dashboard
+            - letsencrypt:/etc/letsencrypt
+        networks:
+            - web-server-network
+        restart: unless-stopped
+
+    ibf-api-service:
+        build:
+            context: ./services/API-service
+            args:
+                - NODE_ENV=production
+        image: rodekruis/ibf-api-service
+        environment:
+            - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+            - DB_TYPE=${DB_TYPE}
+            - DB_HOST=${DB_HOST}
+            - DB_PORT=${DB_PORT}
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - NODE_ENV=production
+            - SECRET=${SECRET}
+            - RESET_SECRET=${RESET_SECRET}
+            - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
+            - COUNTRIES=${COUNTRIES}
+        networks:
+            - web-server-network
+        depends_on:
+            - ibf-geoserver
+
+    ibf-dashboard:
+        build:
+            context: ./interfaces/IBF-dashboard
+            args:
+                - NG_CONFIGURATION=${NG_CONFIGURATION}
+                - NG_API_URL=${NG_API_URL}
+                - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
+                - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
+                - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
+                - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
+                - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
+                - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
+        image: rodekruis/ibf-dashboard
+        environment:
+            - NG_CONFIGURATION=${NG_CONFIGURATION}
+            - NG_API_URL=${NG_API_URL}
+            - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
+            - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
+            - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
+            - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
+            - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
+            - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
+        volumes:
+            - ibf-dashboard-root:/home/node/app/www
+        networks:
+            - web-server-network
+
+    ibf-pipeline:
+        build: ./services/IBF-pipeline
+        image: rodekruis/ibf-pipeline
+        environment:
+            - DB_HOST=${DB_HOST}
+            - DB_PORT=${DB_PORT}
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - COUNTRIES=${COUNTRIES}
+        command: cron && tail -f /var/log/cron.log
+        volumes:
+            - pipeline-root:/home/ibf
+        networks:
+            - pipeline-network
+        restart: unless-stopped
+
+    ibf-geoserver:
+        image: kartoza/geoserver
+        volumes:
+            - pipeline-geoserver:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
+            - workspace-geoserver:/opt/geoserver/data_dir/workspaces/ibf-system
+        networks:
+            - web-server-network
+            - pipeline-network
+        restart: unless-stopped
+
+volumes:
+    ibf-dashboard-root:
+    pipeline-root:
+        driver_opts:
+            type: bind
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline
+            o: bind
+    pipeline-geoserver:
+        driver_opts:
+            type: bind
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline/pipeline/data/raster
+            o: bind
+    workspace-geoserver:
+        driver_opts:
+            type: bind
+            device: /home/ibf-user/IBF-system/services/IBF-pipeline/geoserver-workspaces/ibf-system
+            o: bind
+    letsencrypt:
+        driver_opts:
+            type: bind
+            device: /home/ibf-user/IBF-system/nginx/letsencrypt
+            o: bind
+
+networks:
+    web-server-network:
+        driver: bridge
+    pipeline-network:
+        driver: bridge

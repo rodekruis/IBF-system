@@ -1,0 +1,89 @@
+.ibf-map-layer-control {
+  position: absolute;
+  top: 10px;
+  bottom: 0;
+  right: 0;
+  width: 25%;
+
+  ion-menu {
+    --width: 100%;
+    --background: transparent;
+
+    ion-content {
+      --background: transparent;
+
+      ion-list {
+        background: var(--ion-color-dark-tint);
+
+        ion-item {
+          --min-height: 32px;
+          --inner-padding-end: 0;
+          --background: var(--ion-color-dark-tint);
+          --color: var(--ion-color-light);
+          --border-color: var(--ion-color-light);
+          cursor: pointer;
+
+          &.layer-active {
+            --background: var(--ion-color-ibf-royal-blue);
+          }
+
+          ion-row {
+            height: 100%;
+            width: 100%;
+
+            .layer-control-info-col {
+              display: flex;
+            }
+
+            .point-layer {
+              background-repeat: no-repeat;
+              background-position: center;
+              background-size: contain;
+            }
+            .glofas-layer {
+              background-image: url('../../../assets/markers/glofas-no.png');
+            }
+            .red-cross-layer {
+              background-image: url('../../../assets/markers/red-cross.png');
+            }
+            .waterpoint-layer {
+              background-image: url('../../../assets/markers/waterpoint.png');
+            }
+
+            .layer-control-label-col {
+              border-right: 1px solid var(--ion-color-light);
+
+              ion-item {
+                --background: transparent;
+
+                ion-label {
+                  text-transform: capitalize;
+                  line-height: 1.2;
+                  padding: 4px 8px;
+                  font-size: 11px;
+                }
+              }
+            }
+
+            .layer-control-legend-col {
+              border-right: 1px solid var(--ion-color-light);
+            }
+
+            .layer-control-info-icon {
+              background: var(--ion-color-ibf-royal-blue);
+              border-radius: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  ion-menu-toggle {
+    cursor: pointer;
+
+    ion-toolbar {
+      --min-height: 36px;
+    }
+  }
+}

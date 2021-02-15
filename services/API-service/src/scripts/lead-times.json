@@ -1,0 +1,37 @@
+[
+  {
+    "leadTimeName": "1-day",
+    "leadTimeLabel": "1-day",
+    "leadTimeStatus": "inactive"
+  },
+  {
+    "leadTimeName": "2-day",
+    "leadTimeLabel": "2-day",
+    "leadTimeStatus": "inactive"
+  },
+  {
+    "leadTimeName": "3-day",
+    "leadTimeLabel": "3-day",
+    "leadTimeStatus": "active"
+  },
+  {
+    "leadTimeName": "4-day",
+    "leadTimeLabel": "4-day",
+    "leadTimeStatus": "inactive"
+  },
+  {
+    "leadTimeName": "5-day",
+    "leadTimeLabel": "5-day",
+    "leadTimeStatus": "inactive"
+  },
+  {
+    "leadTimeName": "6-day",
+    "leadTimeLabel": "6-day",
+    "leadTimeStatus": "inactive"
+  },
+  {
+    "leadTimeName": "7-day",
+    "leadTimeLabel": "7-day",
+    "leadTimeStatus": "active"
+  }
+]

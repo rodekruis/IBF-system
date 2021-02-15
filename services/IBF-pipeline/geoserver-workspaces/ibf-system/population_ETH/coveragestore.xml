@@ -1,0 +1,14 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl--62f77a62:1762deea0b3:-7fec</id>
+  <name>population_ETH</name>
+  <description>population_ETH</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2020-12-04 13:37:57.585 UTC</dateCreated>
+  <dateModified>2020-12-04 13:38:09.791 UTC</dateModified>
+  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/worldpop_eth.tif</url>
+</coverageStore>
