@@ -1,3 +1,12 @@
+## [0.16.1](https://github.com/rodekruis/IBF-system/compare/v0.16.0...v0.16.1) (2021-02-15)
+
+
+### Bug Fixes
+
+* cronjob to read env-variables AB[#6151](https://github.com/rodekruis/IBF-system/issues/6151) ([ace5cc9](https://github.com/rodekruis/IBF-system/commit/ace5cc9d817524436a3e43212588619c83d50db9))
+
+
+
 # [0.16.0](https://github.com/rodekruis/IBF-system/compare/v0.15.3...v0.16.0) (2021-02-12)
 
 
@@ -85,16 +94,6 @@
 
 * add analytics module AB[#5986](https://github.com/rodekruis/IBF-system/issues/5986) AB[#5935](https://github.com/rodekruis/IBF-system/issues/5935) ([2a46ad5](https://github.com/rodekruis/IBF-system/commit/2a46ad5b65186b447d51b7741f5685c9b17d0947))
 * analytics page view events ([128b482](https://github.com/rodekruis/IBF-system/commit/128b482f8b4fae42b57ceacecb2d47ba9ed6232b))
-
-
-
-## [0.12.2](https://github.com/rodekruis/IBF-system/compare/v0.12.1...v0.12.2) (2021-02-09)
-
-
-### Bug Fixes
-
-* better way of doing the last commit ([b87d82f](https://github.com/rodekruis/IBF-system/commit/b87d82f24a18e1c12e4b206537a3b8057d38fa1d))
-* use prod env file instead of dev env ([777bea7](https://github.com/rodekruis/IBF-system/commit/777bea750a5aa1ae9f094ecbd3e0ddec0bf02b18))
 
 
 
