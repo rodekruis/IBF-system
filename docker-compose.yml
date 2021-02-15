@@ -22,7 +22,7 @@ services:
         build:
             context: ./services/API-service
             args:
-                - NODE_ENV=production
+                - NODE_ENV=${NODE_ENV}
         image: rodekruis/ibf-api-service
         environment:
             - ADMIN_PASSWORD=${ADMIN_PASSWORD}
@@ -32,7 +32,7 @@ services:
             - DB_DATABASE=${DB_DATABASE}
             - DB_USERNAME=${DB_USERNAME}
             - DB_PASSWORD=${DB_PASSWORD}
-            - NODE_ENV=production
+            - NODE_ENV=${NODE_ENV}
             - SECRET=${SECRET}
             - RESET_SECRET=${RESET_SECRET}
             - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
