@@ -180,7 +180,7 @@ GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 ####################
 
 # Notification email
-EMAIL_NOTIFICATION = os.getenv('EMAIL_NOTIFICATION')
+EMAIL_NOTIFICATION = os.getenv('EMAIL_NOTIFICATION') == 'True'
 EMAIL_WITHOUT_TRIGGER = False
 
 # Notification email (False if hard-coded alternative for mailchimp is used)
