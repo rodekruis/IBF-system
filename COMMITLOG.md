@@ -1,3 +1,12 @@
+## [0.18.1](https://github.com/rodekruis/IBF-system/compare/v0.18.0...v0.18.1) (2021-02-15)
+
+
+### Bug Fixes
+
+* fixes to get docker-compose up working AB# 6163 ([d5cad09](https://github.com/rodekruis/IBF-system/commit/d5cad0992ba72c12dd51754681fbdd0909431f31))
+
+
+
 # [0.18.0](https://github.com/rodekruis/IBF-system/compare/v0.17.2...v0.18.0) (2021-02-15)
 
 
@@ -84,15 +93,6 @@
 
 * do not make menu-btn reload AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([12d8b05](https://github.com/rodekruis/IBF-system/commit/12d8b0576bf7723bd52127470321075277f74944))
 * get pipeline secrets from root .env AB[#5968](https://github.com/rodekruis/IBF-system/issues/5968) ([cfc923d](https://github.com/rodekruis/IBF-system/commit/cfc923d4561bdd44451ec0a9b896b5ecb5d87fcf))
-
-
-
-# [0.15.0](https://github.com/rodekruis/IBF-system/compare/v0.14.1...v0.15.0) (2021-02-12)
-
-
-### Features
-
-* add flood extent source link to popovers AB[#6020](https://github.com/rodekruis/IBF-system/issues/6020) ([b1d80ea](https://github.com/rodekruis/IBF-system/commit/b1d80ea5d180d90a0dfab03edd825ad6f9a11f91))
 
 
 
