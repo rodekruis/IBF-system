@@ -97,9 +97,7 @@ export class ChatComponent implements OnDestroy {
     } else {
       this.changedActions = this.changedActions.filter(item => !(changedAction.action === item.action));
     }
-    console.log('this.changedActions: ', this.changedActions);
-    console.log('this.triggeredAreas: ', this.triggeredAreas);
-    this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = this.changedActions.length === 0
+    this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = this.changedActions.length === 0;
   }
 
   public async submitEapAction(pcode: string) {
