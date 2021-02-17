@@ -418,6 +418,14 @@ export class MapComponent implements OnDestroy {
         });
 
         element.on('click', (): void => {
+          this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
+            placeCode: feature.properties.pcode,
+            page: AnalyticsPage.dashboard,
+            country: feature.properties.country_code,
+            isActiveEvent: this.eventService.state.activeEvent,
+            isActiveTrigger: this.eventService.state.activeTrigger,
+          });
+
           this.placeCodeService.setPlaceCode({
             countryCodeISO3: feature.properties.country_code,
             placeCodeName: feature.properties.name,
