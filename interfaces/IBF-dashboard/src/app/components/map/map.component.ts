@@ -469,9 +469,24 @@ export class MapComponent implements OnDestroy {
   }
 
   private createMarkerDefault(markerLatLng: LatLng): Marker {
-    return marker(markerLatLng, {
+    const markerInstance = marker(markerLatLng, {
       icon: icon(this.iconBaseOptions),
     });
+
+    markerInstance.on('click', (): void => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country) => {
+          this.analyticsService.logEvent(AnalyticsEvent.mapMarker, {
+            page: AnalyticsPage.dashboard,
+            country: country.countryCodeISO3,
+            isActiveEvent: this.eventService.state.activeEvent,
+            isActiveTrigger: this.eventService.state.activeTrigger,
+          });
+        });
+    });
+
+    return markerInstance;
   }
 
   private createMarkerStation(
@@ -511,6 +526,18 @@ export class MapComponent implements OnDestroy {
       minWidth: 300,
       className: className,
     });
+    markerInstance.on('click', (): void => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country) => {
+          this.analyticsService.logEvent(AnalyticsEvent.glofasStation, {
+            page: AnalyticsPage.dashboard,
+            country: country.countryCodeISO3,
+            isActiveEvent: this.eventService.state.activeEvent,
+            isActiveTrigger: this.eventService.state.activeTrigger,
+          });
+        });
+    });
 
     return markerInstance;
   }
@@ -527,6 +554,18 @@ export class MapComponent implements OnDestroy {
       icon: markerIcon ? icon(markerIcon) : divIcon(),
     });
     markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
+    markerInstance.on('click', (): void => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country) => {
+          this.analyticsService.logEvent(AnalyticsEvent.redCrossBranch, {
+            page: AnalyticsPage.dashboard,
+            country: country.countryCodeISO3,
+            isActiveEvent: this.eventService.state.activeEvent,
+            isActiveTrigger: this.eventService.state.activeTrigger,
+          });
+        });
+    });
 
     return markerInstance;
   }
@@ -545,7 +584,7 @@ export class MapComponent implements OnDestroy {
     markerInstance.bindPopup(
       this.createMarkerWaterpointPopup(markerProperties),
     );
-    markerInstance.on('click', () => {
+    markerInstance.on('click', (): void => {
       this.countryService
         .getCountrySubscription()
         .subscribe((country: Country) => {

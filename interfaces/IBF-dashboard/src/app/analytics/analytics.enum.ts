@@ -14,5 +14,8 @@ export enum AnalyticsEvent {
   logOut = 'log-out',
   eapAction = 'eap-action',
   eapSubmit = 'eap-submit',
-  waterPoint = 'waterPoint',
+  waterPoint = 'water-point',
+  redCrossBranch = 'red-cross-branch',
+  mapMarker = 'map-marker',
+  glofasStation = 'glofas-station',
 }
