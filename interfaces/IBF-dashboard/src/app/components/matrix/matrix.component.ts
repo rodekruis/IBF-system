@@ -90,11 +90,11 @@ export class MatrixComponent implements OnDestroy {
     this.layerSubscription.unsubscribe();
   }
 
-  public async updateLayer(
+  updateLayerClick(
     name: IbfLayerName,
     active: boolean,
     data: GeoJSON.FeatureCollection,
-  ): Promise<void> {
+  ): void {
     this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
@@ -108,6 +108,14 @@ export class MatrixComponent implements OnDestroy {
         });
       });
 
+    this.updateLayer(name, active, data);
+  }
+
+  public async updateLayer(
+    name: IbfLayerName,
+    active: boolean,
+    data: GeoJSON.FeatureCollection,
+  ): Promise<void> {
     if (active && data.features.length === 0) {
       const indicator = this.aggregatesService.indicators.find(
         (o) => o.name === name,

@@ -20,6 +20,11 @@ import {
   tileLayer,
 } from 'leaflet';
 import { Subscription } from 'rxjs';
+import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
+import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { RedCrossBranch, Station, Waterpoint } from 'src/app/models/poi.model';
@@ -104,6 +109,7 @@ export class MapComponent implements OnDestroy {
     private mapService: MapService,
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
+    private analyticsService: AnalyticsService,
   ) {
     this.layerSubscription = this.mapService
       .getLayers()
@@ -539,6 +545,18 @@ export class MapComponent implements OnDestroy {
     markerInstance.bindPopup(
       this.createMarkerWaterpointPopup(markerProperties),
     );
+    markerInstance.on('click', () => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country) => {
+          this.analyticsService.logEvent(AnalyticsEvent.waterPoint, {
+            page: AnalyticsPage.dashboard,
+            country: country.countryCodeISO3,
+            isActiveEvent: this.eventService.state.activeEvent,
+            isActiveTrigger: this.eventService.state.activeTrigger,
+          });
+        });
+    });
 
     return markerInstance;
   }
@@ -580,10 +598,15 @@ export class MapComponent implements OnDestroy {
       0,
     );
 
-    const lastAvailableLeadTime = this.countryService.activeCountry
-      .countryLeadTimes[
-      this.countryService.activeCountry.countryLeadTimes.length - 1
-    ];
+    let lastAvailableLeadTime: LeadTime;
+
+    if (this.countryService.activeCountry) {
+      lastAvailableLeadTime = this.countryService.activeCountry
+        .countryLeadTimes[
+        this.countryService.activeCountry.countryLeadTimes.length - 1
+      ];
+    }
+
     const leadTime =
       this.timelineService.activeLeadTime || lastAvailableLeadTime;
 

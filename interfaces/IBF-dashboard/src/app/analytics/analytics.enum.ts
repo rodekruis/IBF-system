@@ -14,4 +14,5 @@ export enum AnalyticsEvent {
   logOut = 'log-out',
   eapAction = 'eap-action',
   eapSubmit = 'eap-submit',
+  waterPoint = 'waterPoint',
 }
