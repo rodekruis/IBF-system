@@ -11,11 +11,6 @@ import { Country } from '../models/country.model';
   providedIn: 'root',
 })
 export class EventService {
-  public leadTime: string;
-  public event: any;
-  public activeEvent: boolean;
-  public activeTrigger: boolean;
-  public newEvent: boolean;
   public disasterType: string = 'flood';
 
   public state = {
