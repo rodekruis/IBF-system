@@ -18,4 +18,5 @@ export enum AnalyticsEvent {
   redCrossBranch = 'red-cross-branch',
   mapMarker = 'map-marker',
   glofasStation = 'glofas-station',
+  mapPlaceSelect = 'map-place-select',
 }
