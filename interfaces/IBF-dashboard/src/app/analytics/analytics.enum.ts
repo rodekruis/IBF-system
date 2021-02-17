@@ -11,4 +11,5 @@ export enum AnalyticsEvent {
   mapLayer = 'map-layer',
   mapLayerInformation = 'map-layer-information',
   exportView = 'export-view',
+  logOut = 'log-out',
 }
