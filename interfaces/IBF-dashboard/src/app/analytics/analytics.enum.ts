@@ -9,4 +9,5 @@ export enum AnalyticsEvent {
   aggregateInformation = 'aggregate-information',
   adminLevel = 'admin-level',
   mapLayer = 'map-layer',
+  mapLayerInformation = 'map-layer-information',
 }

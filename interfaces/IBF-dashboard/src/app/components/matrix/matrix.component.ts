@@ -70,6 +70,19 @@ export class MatrixComponent implements OnDestroy {
       },
     });
 
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.analyticsService.logEvent(AnalyticsEvent.mapLayerInformation, {
+          mapLayerName: layer.name,
+          mapLayerStatus: layer.active,
+          page: AnalyticsPage.dashboard,
+          country: country.countryCodeISO3,
+          isActiveEvent: this.eventService.state.activeEvent,
+          isActiveTrigger: this.eventService.state.activeTrigger,
+        });
+      });
+
     return await popover.present();
   }
 
@@ -86,8 +99,8 @@ export class MatrixComponent implements OnDestroy {
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.analyticsService.logEvent(AnalyticsEvent.mapLayer, {
-          layerName: name,
-          layerStatus: active,
+          mapLayerName: name,
+          mapLayerStatus: active,
           page: AnalyticsPage.dashboard,
           country: country.countryCodeISO3,
           isActiveEvent: this.eventService.state.activeEvent,
