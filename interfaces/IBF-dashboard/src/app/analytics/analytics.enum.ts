@@ -8,4 +8,5 @@ export enum AnalyticsEvent {
   aboutTrigger = 'about-trigger',
   aggregateInformation = 'aggregate-information',
   adminLevel = 'admin-level',
+  mapLayer = 'map-layer',
 }

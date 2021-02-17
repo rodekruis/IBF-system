@@ -1,8 +1,16 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MenuController, PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
+import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
+import { Country } from 'src/app/models/country.model';
 import { AggregatesService } from 'src/app/services/aggregates.service';
+import { CountryService } from 'src/app/services/country.service';
+import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { IbfLayer, IbfLayerName, IbfLayerType } from 'src/app/types/ibf-layer';
 import { AdminLevelService } from '../../services/admin-level.service';
@@ -20,6 +28,9 @@ export class MatrixComponent implements OnDestroy {
   public hideLayerControlToggleButton: boolean = false;
 
   constructor(
+    private countryService: CountryService,
+    private analyticsService: AnalyticsService,
+    private eventService: EventService,
     private mapService: MapService,
     private adminLevelService: AdminLevelService,
     private popoverController: PopoverController,
@@ -71,6 +82,19 @@ export class MatrixComponent implements OnDestroy {
     active: boolean,
     data: GeoJSON.FeatureCollection,
   ): Promise<void> {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.analyticsService.logEvent(AnalyticsEvent.mapLayer, {
+          layerName: name,
+          layerStatus: active,
+          page: AnalyticsPage.dashboard,
+          country: country.countryCodeISO3,
+          isActiveEvent: this.eventService.state.activeEvent,
+          isActiveTrigger: this.eventService.state.activeTrigger,
+        });
+      });
+
     if (active && data.features.length === 0) {
       const indicator = this.aggregatesService.indicators.find(
         (o) => o.name === name,
