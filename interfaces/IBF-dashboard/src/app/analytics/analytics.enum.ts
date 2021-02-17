@@ -10,4 +10,5 @@ export enum AnalyticsEvent {
   adminLevel = 'admin-level',
   mapLayer = 'map-layer',
   mapLayerInformation = 'map-layer-information',
+  exportView = 'export-view',
 }
