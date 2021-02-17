@@ -39,6 +39,7 @@ export class AnalyticsService {
       configuration: environment.configuration,
       version: environment.ibfSystemVersion,
       apiUrl: environment.apiUrl,
+      referrer: document.referrer,
     });
   };
 
