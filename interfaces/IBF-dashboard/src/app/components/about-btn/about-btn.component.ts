@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AnalyticsEvent } from 'src/app/analytics/analytics.enum';
+import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { Country } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
@@ -29,6 +32,7 @@ export class AboutBtnComponent implements OnInit {
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.analyticsService.logEvent(AnalyticsEvent.aboutTrigger, {
+          page: AnalyticsPage.dashboard,
           country: country.countryCodeISO3,
           isActiveEvent: this.eventService.state.activeEvent,
           isActiveTrigger: this.eventService.state.activeTrigger,
