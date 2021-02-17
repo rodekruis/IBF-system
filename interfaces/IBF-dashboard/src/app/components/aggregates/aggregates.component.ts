@@ -2,6 +2,11 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
+import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { SourceInfoModalComponent } from 'src/app/components/source-info-modal/source-info-modal.component';
 import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
@@ -49,6 +54,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private modalController: ModalController,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
+    private analyticsService: AnalyticsService,
   ) {
     this.translateService
       .get('aggregates-component')
@@ -119,6 +125,19 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         text: this.getPopoverText(indicator.name),
       },
     });
+
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.analyticsService.logEvent(AnalyticsEvent.aggregateInformation, {
+          indicator: indicator.name,
+          page: AnalyticsPage.dashboard,
+          country: country.countryCodeISO3,
+          isActiveEvent: this.eventService.state.activeEvent,
+          isActiveTrigger: this.eventService.state.activeTrigger,
+        });
+      });
+
     return await modal.present();
   }
 
