@@ -12,4 +12,6 @@ export enum AnalyticsEvent {
   mapLayerInformation = 'map-layer-information',
   exportView = 'export-view',
   logOut = 'log-out',
+  eapAction = 'eap-action',
+  eapSubmit = 'eap-submit',
 }
