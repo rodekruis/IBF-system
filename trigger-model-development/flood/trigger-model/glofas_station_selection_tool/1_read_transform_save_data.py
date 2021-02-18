@@ -15,7 +15,7 @@ saves the scripts (based on input of the configuration script).
 ##################################################################
 
 # Set workdirectory to folder of scripts
-workdirectory_scripts = 'C:\\Users\\nlbrus08\\Documents\\01 Klanten\\Rode Kruis\\floodcorrelation'
+workdirectory_scripts = 'c:\\Users\\BOttow\\Documents\\IBF-system\\trigger-model-development\\flood\\trigger-model\\glofas_station_selection_tool\\'
 
 ##################################################################
 # Importers

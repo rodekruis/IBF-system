@@ -14,7 +14,7 @@ Besides, all files will be merged to one pandas DataFrame (rows=days, columns = 
 ##################################################################
 
 # Set workdirectory to folder of scripts
-workdirectory_scripts = 'C:\\Users\\nlbrus08\\Documents\\01 Klanten\\Rode Kruis\\floodcorrelation'
+workdirectory_scripts = 'c:\\Users\\BOttow\\Documents\\IBF-system\\trigger-model-development\\flood\\trigger-model\\glofas_station_selection_tool\\'
 
 ##################################################################
 # Importers
@@ -159,8 +159,8 @@ class ReadData:
         
         #Load dataset  
         glofas_nc = Dataset(file)
-        lat = list(np.round(glofas_nc.variables['lat'][:],2))
-        lon = list(np.round(glofas_nc.variables['lon'][:],2))
+        lat = list(np.round(glofas_nc.variables['latitude'][:],2))
+        lon = list(np.round(glofas_nc.variables['longitude'][:],2))
         discharge = glofas_nc.variables ['dis24'] [:]
         
         # Select the year and month based on file name
