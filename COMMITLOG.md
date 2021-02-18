@@ -1,3 +1,12 @@
+## [0.19.1](https://github.com/rodekruis/IBF-system/compare/v0.19.0...v0.19.1) (2021-02-18)
+
+
+### Bug Fixes
+
+* check for data on update map layer ([3046bb9](https://github.com/rodekruis/IBF-system/commit/3046bb9081c1dbc8d28d217635f3761f7529e7d7))
+
+
+
 # [0.19.0](https://github.com/rodekruis/IBF-system/compare/v0.18.1...v0.19.0) (2021-02-18)
 
 
@@ -94,16 +103,6 @@
 ### Bug Fixes
 
 * create + update user AB[#6124](https://github.com/rodekruis/IBF-system/issues/6124) ([2cf2df9](https://github.com/rodekruis/IBF-system/commit/2cf2df945ccc1ce11ae6df0031cc3c9400ce0edd))
-
-
-
-## [0.15.2](https://github.com/rodekruis/IBF-system/compare/v0.15.1...v0.15.2) (2021-02-12)
-
-
-### Bug Fixes
-
-* Do not load mock country first AB[#6039](https://github.com/rodekruis/IBF-system/issues/6039) ([cc6b5e3](https://github.com/rodekruis/IBF-system/commit/cc6b5e35f2ee0ba2e63d4447155687178e8a1f7b))
-* fix tests AB[#6039](https://github.com/rodekruis/IBF-system/issues/6039) ([57e4941](https://github.com/rodekruis/IBF-system/commit/57e4941fe441a362745df9be92f32f65779e92e5))
 
 
 
