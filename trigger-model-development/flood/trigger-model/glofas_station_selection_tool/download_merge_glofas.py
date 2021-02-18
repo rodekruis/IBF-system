@@ -10,15 +10,18 @@ import cdsapi
 import zipfile
 import shutil
 
+months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
 
-def download_and_merge(year_start=2009, year_end=2009):
+def download_and_merge(year_start=2010, year_end=2019):
     """"
     download global glofas data and merge it per year
     """
 
     c = cdsapi.Client()
     glofas_year_dir = 'data_all_'+str(year_start)+'_'+str(year_end)
-    os.mkdir(glofas_year_dir)  # create folder for year data merge
+    if not os.path.exists(glofas_year_dir):
+        os.mkdir(glofas_year_dir)
+      # create folder for year data merge
 
     # loop over years and months
     for year in range(year_start, year_end+1):
@@ -30,17 +33,20 @@ def download_and_merge(year_start=2009, year_end=2009):
             print(str(year) + '_' + str(month))
 
             # download zip file
+            glofas_month_dir = str(year) + '_' + str(month)
+            if not os.path.exists(glofas_month_dir):
+                os.mkdir(glofas_month_dir)
             try:
                 c.retrieve(
                     'cems-glofas-historical',
                     {
-                        'format': 'zip',
-                        'variable': 'River discharge',
-                        'dataset': 'Consolidated reanalysis',
-                        'version': '2.1',
-                        'year': str(year),
-                        'month': str("{:02d}".format(month)),
-                        'day': [
+                        'format': 'netcdf',
+                        'variable': 'river_discharge_in_the_last_24_hours',
+                        'dataset': 'consolidated_reanalysis',
+                        'system_version': 'version_2_1',
+                        'hyear': str(year),
+                        'hmonth': months[month-1],
+                        'hday': [
                             '01', '02', '03',
                             '04', '05', '06',
                             '07', '08', '09',
@@ -54,18 +60,9 @@ def download_and_merge(year_start=2009, year_end=2009):
                             '31',
                         ],
                     },
-                    'download.zip')
+                    glofas_month_dir + '/download.nc')
             except:
                 continue
-
-            # extract to new directory
-            glofas_month_dir = str(year) + '_' + str(month)
-            os.mkdir(glofas_month_dir)
-            with zipfile.ZipFile('download.zip', 'r') as zip_ref:
-                zip_ref.extractall(path='./'+glofas_month_dir)
-
-            # delete zip file
-            os.remove('download.zip')
 
             # merge monthly data in one dataframe
             ncconcat = xr.Dataset()
@@ -75,11 +72,15 @@ def download_and_merge(year_start=2009, year_end=2009):
                     ncconcat = nc
                 else:
                     ncconcat = xr.concat([ncconcat, nc], dim='time')  # to concatenate the .nc on time
-                del nc
+                
 
             # save new dataframe
             ncconcat.to_netcdf(glofas_year_dir+'/'+str(year)+'_'+str(month)+'_merged.nc')
-
+            
+            nc.close()
+            ncconcat.close()
+            del nc
+            del ncconcat
             # remove monthly data to save space
             shutil.rmtree(glofas_month_dir)
   
