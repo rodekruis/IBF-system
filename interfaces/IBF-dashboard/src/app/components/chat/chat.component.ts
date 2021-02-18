@@ -2,6 +2,12 @@ import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
+import { AnalyticsService } from 'src/app/analytics/analytics.service';
+import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
@@ -42,6 +48,7 @@ export class ChatComponent implements OnDestroy {
     private alertController: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
+    private analyticsService: AnalyticsService,
   ) {
     this.translateService
       .get('chat-component.active-event')
@@ -89,6 +96,20 @@ export class ChatComponent implements OnDestroy {
   }
 
   public changeAction(pcode: string, action: string, checkbox: boolean) {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.analyticsService.logEvent(AnalyticsEvent.eapAction, {
+          placeCode: pcode,
+          eapAction: action,
+          eapActionStatus: checkbox,
+          page: AnalyticsPage.dashboard,
+          country: country.countryCodeISO3,
+          isActiveEvent: this.eventService.state.activeEvent,
+          isActiveTrigger: this.eventService.state.activeTrigger,
+        });
+      });
+
     const area = this.triggeredAreas.find((i) => i.pcode === pcode);
     const changedAction = area.eapActions.find((i) => i.action === action);
     changedAction.checked = checkbox;
@@ -99,6 +120,18 @@ export class ChatComponent implements OnDestroy {
   }
 
   public async submitEapAction(pcode: string) {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
+          placeCode: pcode,
+          page: AnalyticsPage.dashboard,
+          country: country.countryCodeISO3,
+          isActiveEvent: this.eventService.state.activeEvent,
+          isActiveTrigger: this.eventService.state.activeTrigger,
+        });
+      });
+
     this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = true;
     const activeCountry = this.countryService.getActiveCountry();
 

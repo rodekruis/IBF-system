@@ -12,7 +12,7 @@
     color="{{ timeStepButton.alert ? 'ibf-salmon' : 'ibf-gray' }}"
     fill="solid"
     [class.active]="timeStepButton.active"
-    (click)="timelineService.handleTimeStepButtonClick(timeStepButton.value)"
+    (click)="handleTimeStepButtonClick(timeStepButton.value)"
   >
     <date-button [date]="timeStepButton.date"></date-button>
   </ion-button>

@@ -20,6 +20,11 @@ import {
   tileLayer,
 } from 'leaflet';
 import { Subscription } from 'rxjs';
+import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
+import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { RedCrossBranch, Station, Waterpoint } from 'src/app/models/poi.model';
@@ -104,6 +109,7 @@ export class MapComponent implements OnDestroy {
     private mapService: MapService,
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
+    private analyticsService: AnalyticsService,
   ) {
     this.layerSubscription = this.mapService
       .getLayers()
@@ -412,6 +418,14 @@ export class MapComponent implements OnDestroy {
         });
 
         element.on('click', (): void => {
+          this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
+            placeCode: feature.properties.pcode,
+            page: AnalyticsPage.dashboard,
+            country: feature.properties.country_code,
+            isActiveEvent: this.eventService.state.activeEvent,
+            isActiveTrigger: this.eventService.state.activeTrigger,
+          });
+
           this.placeCodeService.setPlaceCode({
             countryCodeISO3: feature.properties.country_code,
             placeCodeName: feature.properties.name,
@@ -463,9 +477,24 @@ export class MapComponent implements OnDestroy {
   }
 
   private createMarkerDefault(markerLatLng: LatLng): Marker {
-    return marker(markerLatLng, {
+    const markerInstance = marker(markerLatLng, {
       icon: icon(this.iconBaseOptions),
     });
+
+    markerInstance.on('click', (): void => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country) => {
+          this.analyticsService.logEvent(AnalyticsEvent.mapMarker, {
+            page: AnalyticsPage.dashboard,
+            country: country.countryCodeISO3,
+            isActiveEvent: this.eventService.state.activeEvent,
+            isActiveTrigger: this.eventService.state.activeTrigger,
+          });
+        });
+    });
+
+    return markerInstance;
   }
 
   private createMarkerStation(
@@ -505,6 +534,18 @@ export class MapComponent implements OnDestroy {
       minWidth: 300,
       className: className,
     });
+    markerInstance.on('click', (): void => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country) => {
+          this.analyticsService.logEvent(AnalyticsEvent.glofasStation, {
+            page: AnalyticsPage.dashboard,
+            country: country.countryCodeISO3,
+            isActiveEvent: this.eventService.state.activeEvent,
+            isActiveTrigger: this.eventService.state.activeTrigger,
+          });
+        });
+    });
 
     return markerInstance;
   }
@@ -521,6 +562,18 @@ export class MapComponent implements OnDestroy {
       icon: markerIcon ? icon(markerIcon) : divIcon(),
     });
     markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
+    markerInstance.on('click', (): void => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country) => {
+          this.analyticsService.logEvent(AnalyticsEvent.redCrossBranch, {
+            page: AnalyticsPage.dashboard,
+            country: country.countryCodeISO3,
+            isActiveEvent: this.eventService.state.activeEvent,
+            isActiveTrigger: this.eventService.state.activeTrigger,
+          });
+        });
+    });
 
     return markerInstance;
   }
@@ -539,6 +592,18 @@ export class MapComponent implements OnDestroy {
     markerInstance.bindPopup(
       this.createMarkerWaterpointPopup(markerProperties),
     );
+    markerInstance.on('click', (): void => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country) => {
+          this.analyticsService.logEvent(AnalyticsEvent.waterPoint, {
+            page: AnalyticsPage.dashboard,
+            country: country.countryCodeISO3,
+            isActiveEvent: this.eventService.state.activeEvent,
+            isActiveTrigger: this.eventService.state.activeTrigger,
+          });
+        });
+    });
 
     return markerInstance;
   }
@@ -580,10 +645,15 @@ export class MapComponent implements OnDestroy {
       0,
     );
 
-    const lastAvailableLeadTime = this.countryService.activeCountry
-      .countryLeadTimes[
-      this.countryService.activeCountry.countryLeadTimes.length - 1
-    ];
+    let lastAvailableLeadTime: LeadTime;
+
+    if (this.countryService.activeCountry) {
+      lastAvailableLeadTime = this.countryService.activeCountry
+        .countryLeadTimes[
+        this.countryService.activeCountry.countryLeadTimes.length - 1
+      ];
+    }
+
     const leadTime =
       this.timelineService.activeLeadTime || lastAvailableLeadTime;
 

@@ -12,7 +12,9 @@
         : 'ibf-black'
     "
     [disabled]="getSelectedAdminLevel() !== adminLevel.adm1"
-    (click)="setAdminLevel(adminLevel.adm1, !adminLevelService.adminLayerState)"
+    (click)="
+      setAdminLevelClick(adminLevel.adm1, !adminLevelService.adminLayerState)
+    "
   >
     {{ adminLevelLabel.adm1 }}
   </ion-button>
@@ -29,7 +31,9 @@
         : 'ibf-black'
     "
     [disabled]="getSelectedAdminLevel() !== adminLevel.adm2"
-    (click)="setAdminLevel(adminLevel.adm2, !adminLevelService.adminLayerState)"
+    (click)="
+      setAdminLevelClick(adminLevel.adm2, !adminLevelService.adminLayerState)
+    "
   >
     {{ adminLevelLabel.adm2 }}
   </ion-button>
@@ -46,7 +50,9 @@
         : 'ibf-black'
     "
     [disabled]="getSelectedAdminLevel() !== adminLevel.adm3"
-    (click)="setAdminLevel(adminLevel.adm3, !adminLevelService.adminLayerState)"
+    (click)="
+      setAdminLevelClick(adminLevel.adm3, !adminLevelService.adminLayerState)
+    "
   >
     {{ adminLevelLabel.adm3 }}
   </ion-button>
@@ -63,7 +69,9 @@
         : 'ibf-black'
     "
     [disabled]="getSelectedAdminLevel() !== adminLevel.adm4"
-    (click)="setAdminLevel(adminLevel.adm4, !adminLevelService.adminLayerState)"
+    (click)="
+      setAdminLevelClick(adminLevel.adm4, !adminLevelService.adminLayerState)
+    "
   >
     {{ adminLevelLabel.adm4 }}
   </ion-button>
