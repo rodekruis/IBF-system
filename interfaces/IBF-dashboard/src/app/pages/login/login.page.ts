@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { VideoPopoverComponent } from 'src/app/components/video-popover/video-popover.component';
 import { environment } from 'src/environments/environment';
@@ -18,7 +22,7 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.analyticsService.logPageView('login');
+    this.analyticsService.logPageView(AnalyticsPage.login);
   }
 
   async presentPopover() {
@@ -31,6 +35,10 @@ export class LoginPage implements OnInit {
       cssClass: 'ibf-video-guide-popover',
       translucent: true,
       showBackdrop: true,
+    });
+
+    this.analyticsService.logEvent(AnalyticsEvent.watchVideoGuide, {
+      page: AnalyticsPage.login,
     });
 
     return await popover.present();

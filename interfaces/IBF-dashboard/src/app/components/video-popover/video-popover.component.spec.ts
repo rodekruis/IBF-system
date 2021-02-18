@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { VideoPopoverComponent } from './video-popover.component';
@@ -10,7 +11,7 @@ describe('VideoPopoverComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [VideoPopoverComponent],
-        imports: [IonicModule],
+        imports: [IonicModule, HttpClientTestingModule],
       }).compileComponents();
 
       fixture = TestBed.createComponent(VideoPopoverComponent);
