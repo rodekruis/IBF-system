@@ -1,3 +1,24 @@
+# [0.19.0](https://github.com/rodekruis/IBF-system/compare/v0.18.1...v0.19.0) (2021-02-18)
+
+
+### Features
+
+* analytics event for about trigger button AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([d912ed1](https://github.com/rodekruis/IBF-system/commit/d912ed17ee564195f1f25f45a11f6504ae2f5cac))
+* analytics event for admin level button click AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([0899266](https://github.com/rodekruis/IBF-system/commit/08992662e839dfbb90f9f14f5132d170d6d83dde))
+* analytics event for aggregate information popover AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([1d2be85](https://github.com/rodekruis/IBF-system/commit/1d2be856148fcb5b774914f586858af7ee7851c9))
+* analytics event for default marker, red cross branch and glofas station AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([30104ac](https://github.com/rodekruis/IBF-system/commit/30104acfcc5ca8d01425b5fcd22ff0c88bafe8b6))
+* analytics event for eap action and eap submit AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([bc2fc6b](https://github.com/rodekruis/IBF-system/commit/bc2fc6be9cd25d5eb3704e4d05b17c97b4dd8c6a))
+* analytics event for export view button click AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([17ddab1](https://github.com/rodekruis/IBF-system/commit/17ddab1d14f98fb70c8e023144f3a7acc0c08097))
+* analytics event for lead time AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([b5c9346](https://github.com/rodekruis/IBF-system/commit/b5c934629931031620ede8ac8254a34ff28282d7))
+* analytics event for logout button click AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([2024ca7](https://github.com/rodekruis/IBF-system/commit/2024ca72f3d00e91aa3d40a95edd47f1e6812e31))
+* analytics event for map layer information AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([6deee81](https://github.com/rodekruis/IBF-system/commit/6deee81723849a0366d01e09ac0435412b6d2050))
+* analytics event for map layer toggle AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([919411c](https://github.com/rodekruis/IBF-system/commit/919411c4809d6189e241e2c27ef2f1d739e4f7cf))
+* analytics event for map place select AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([ef7e7d3](https://github.com/rodekruis/IBF-system/commit/ef7e7d30933a89ef93125ae6b0fda64984409c9e))
+* analytics event for video guide button AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([6e68ed8](https://github.com/rodekruis/IBF-system/commit/6e68ed84f5234ea5f1acad3b00db11d6d04235cb))
+* analytics event for water point AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([9b8b4bc](https://github.com/rodekruis/IBF-system/commit/9b8b4bcc806234f80fbc1a5cd831d1f44a9f38b9))
+
+
+
 ## [0.18.1](https://github.com/rodekruis/IBF-system/compare/v0.18.0...v0.18.1) (2021-02-15)
 
 
@@ -83,16 +104,6 @@
 
 * Do not load mock country first AB[#6039](https://github.com/rodekruis/IBF-system/issues/6039) ([cc6b5e3](https://github.com/rodekruis/IBF-system/commit/cc6b5e35f2ee0ba2e63d4447155687178e8a1f7b))
 * fix tests AB[#6039](https://github.com/rodekruis/IBF-system/issues/6039) ([57e4941](https://github.com/rodekruis/IBF-system/commit/57e4941fe441a362745df9be92f32f65779e92e5))
-
-
-
-## [0.15.1](https://github.com/rodekruis/IBF-system/compare/v0.15.0...v0.15.1) (2021-02-12)
-
-
-### Bug Fixes
-
-* do not make menu-btn reload AB[#6023](https://github.com/rodekruis/IBF-system/issues/6023) ([12d8b05](https://github.com/rodekruis/IBF-system/commit/12d8b0576bf7723bd52127470321075277f74944))
-* get pipeline secrets from root .env AB[#5968](https://github.com/rodekruis/IBF-system/issues/5968) ([cfc923d](https://github.com/rodekruis/IBF-system/commit/cfc923d4561bdd44451ec0a9b896b5ecb5d87fcf))
 
 
 
