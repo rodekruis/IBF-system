@@ -116,7 +116,7 @@ export class MatrixComponent implements OnDestroy {
     active: boolean,
     data: GeoJSON.FeatureCollection,
   ): Promise<void> {
-    if (active && data.features.length === 0) {
+    if (active && data && data.features.length === 0) {
       const indicator = this.aggregatesService.indicators.find(
         (o) => o.name === name,
       );
