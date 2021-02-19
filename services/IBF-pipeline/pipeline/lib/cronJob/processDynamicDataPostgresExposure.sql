@@ -82,7 +82,29 @@ select 'Previous' as current_prev
 ,'7-day' as lead_time
 ;
 
---drop table if exists "IBF-pipeline-output".data_adm2 cascade;
+CREATE TABLE IF NOT EXISTS "IBF-pipeline-output".data_adm2 (
+	country_code text NULL,
+	pcode varchar NULL,
+	"date" text NULL,
+	current_prev text NULL,
+	lead_time text NULL,
+	fc int8 NULL,
+	fc_trigger int8 NULL,
+	fc_rp float8 NULL,
+	fc_perc float8 NULL,
+	fc_prob int8 NULL,
+	fc_trigger2 int4 NULL,
+	other_lead_time_trigger int8 NULL,
+	population_affected float8 NULL,
+	livestock_affected float8 NULL,
+	chicken_affected float8 NULL,
+	cattle_affected float8 NULL,
+	goat_affected float8 NULL,
+	pig_affected float8 NULL,
+	sheep_affected float8 NULL,
+	cropland_affected float8 NULL,
+	indicators json NULL
+);
 TRUNCATE TABLE "IBF-pipeline-output".data_adm2;
 insert into "IBF-pipeline-output".data_adm2
 select t3.country_code
