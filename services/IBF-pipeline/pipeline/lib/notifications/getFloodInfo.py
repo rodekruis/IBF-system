@@ -14,7 +14,13 @@ def getFloodInfo(countryCode):
             ,case when t0.fc_prob>=0.8 then 'Maximum alert' when t0.fc_prob>=0.7 then 'Medium alert' when t0.fc_prob>=0.6 then 'Minimum alert' end as fc_prob
         from
             "IBF-pipeline-output".data_adm2 t0
-        left join "IBF-API"."Admin_area_data2" t1 on
+        left join (
+            select *
+            from "IBF-API"."Admin_area_data2"
+            union all
+            select *
+            from "IBF-API"."Admin_area_data1"
+        ) t1 on
             t0.pcode = t1.pcode
             and t0.lead_time = t1.lead_time
             and t0.current_prev = t1.current_prev
