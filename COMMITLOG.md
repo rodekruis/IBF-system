@@ -1,3 +1,18 @@
+# [0.20.0](https://github.com/rodekruis/IBF-system/compare/v0.19.1...v0.20.0) (2021-02-19)
+
+
+### Bug Fixes
+
+* create table if not exists AB[#6254](https://github.com/rodekruis/IBF-system/issues/6254) ([f71465e](https://github.com/rodekruis/IBF-system/commit/f71465e91f7a10eef3052ad606a00c8539e8ab9a))
+* create tables if not exist AB[#6254](https://github.com/rodekruis/IBF-system/issues/6254) ([138230f](https://github.com/rodekruis/IBF-system/commit/138230fcf5c7ac1e3a0453db34c465f6e774efad))
+
+
+### Features
+
+* add dockerized local db AB[#6253](https://github.com/rodekruis/IBF-system/issues/6253) ([0dbeeed](https://github.com/rodekruis/IBF-system/commit/0dbeeed76376fc5ad7b2fd6525e8c4a96c662bc3))
+
+
+
 ## [0.19.1](https://github.com/rodekruis/IBF-system/compare/v0.19.0...v0.19.1) (2021-02-18)
 
 
@@ -94,15 +109,6 @@
 ### Features
 
 * don't migrate db to production-server AB[#6131](https://github.com/rodekruis/IBF-system/issues/6131) ([1e1e0bc](https://github.com/rodekruis/IBF-system/commit/1e1e0bc60ac01c6686a66f068d3c98b0743ff36f))
-
-
-
-## [0.15.3](https://github.com/rodekruis/IBF-system/compare/v0.15.2...v0.15.3) (2021-02-12)
-
-
-### Bug Fixes
-
-* create + update user AB[#6124](https://github.com/rodekruis/IBF-system/issues/6124) ([2cf2df9](https://github.com/rodekruis/IBF-system/commit/2cf2df945ccc1ce11ae6df0031cc3c9400ce0edd))
 
 
 
