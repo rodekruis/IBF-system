@@ -272,7 +272,9 @@ export class MapComponent implements OnDestroy {
                   this.numberFormat(grades[i + 1], layer) +
                   (labels ? '  -  ' + labels[i] : '') +
                   '<br/>'
-                : '+' + (labels ? '  -  ' + labels[i] : ''));
+                : '+' +
+                  (layer.unit ? ' ' + layer.unit : '') +
+                  (labels ? '  -  ' + labels[i] : ''));
           }
         }
 
