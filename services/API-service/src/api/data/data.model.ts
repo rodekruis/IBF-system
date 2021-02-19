@@ -142,21 +142,6 @@ export class DisasterEvent {
   public id: number;
 }
 
-export class CountryMetaData {
-  public id: string;
-  public country_code: string;
-  public name: string;
-  public label: string;
-  public group: string;
-  public icon: string;
-  public weightedAvg: boolean;
-  public numberFormatMap: string;
-  public aggregateIndicator: true;
-  public numberFormatAggregate: string;
-  public source: string;
-  public description: string;
-}
-
 export class Aggregates {
   public population_affected: number;
   public vulnerability_index: number;

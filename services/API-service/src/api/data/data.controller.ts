@@ -6,7 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
-import { CountryMetaData, DisasterEvent, TriggeredArea } from './data.model';
+import { DisasterEvent, TriggeredArea } from './data.model';
 import { DataService } from './data.service';
 import { GeoJson } from './geo.model';
 
@@ -37,13 +37,6 @@ export class DataController {
   @Get('red-cross-branches/:countryCode')
   public async getRedCrossBranches(@Param() params): Promise<GeoJson> {
     return await this.dataService.getRedCrossBranches(params.countryCode);
-  }
-
-  @ApiOperation({ summary: 'Get metadata' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('metadata/:countryCode')
-  public async getMetadata(@Param() params): Promise<CountryMetaData[]> {
-    return await this.dataService.getMetadata(params.countryCode);
   }
 
   @ApiOperation({ summary: 'Get recent dates' })
