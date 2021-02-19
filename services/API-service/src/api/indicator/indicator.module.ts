@@ -1,7 +1,6 @@
 import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataModule } from '../data/data.module';
-import { DataService } from '../data/data.service';
 import { UserModule } from '../user/user.module';
 import { IndicatorController } from './indicator.controller';
 import { IndicatorEntity } from './indicator.entity';

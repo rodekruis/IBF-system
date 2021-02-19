@@ -9,7 +9,7 @@ export class IndicatorService {
   @InjectRepository(IndicatorEntity)
   private readonly indicatorRepository: Repository<IndicatorEntity>;
 
-  public constructor(private dataService: DataService) {}
+  public constructor(private readonly dataService: DataService) {}
 
   public async getIndicatorsByCountry(countryCode): Promise<IndicatorEntity[]> {
     const indicators = await this.indicatorRepository.find({});
