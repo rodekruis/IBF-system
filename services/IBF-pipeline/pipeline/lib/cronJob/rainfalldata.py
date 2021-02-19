@@ -16,6 +16,7 @@ import subprocess
 from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
+from geocube.api.core import make_geocube
 
 
 class RainfallData:
@@ -24,10 +25,10 @@ class RainfallData:
         self.fcStep = fcStep
         self.days = days
         self.inputPath = PIPELINE_DATA + 'input/rainfall/'
-        # self.extractedGlofasPath = PIPELINE_OUTPUT + \
-        #     'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + country_code + '.json' ## create name of outputs, stick to json
-        self.triggersPerStationPath = PIPELINE_OUTPUT + \
-                                      'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + country_code + '.json'
+        self.rainrasterPath = PIPELINE_OUTPUT + \
+                                      'triggers_rp_per_station/rain_rp_' + self.fcStep + '_' + country_code + '.tif'
+        # self.triggersPerStationPath = PIPELINE_OUTPUT + \
+        #                               'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + country_code + '.json'
         self.WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + SETTINGS[country_code]['trigger_levels']
         self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
         self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
@@ -131,7 +132,7 @@ class RainfallData:
         all_url = self.listFD(GFS_SOURCE, ext='')
         gfs_url = sorted([i for i in all_url if i.split('/')[-2].startswith('gfs.')], reverse=True)
         # url_date = []
-        fc_hrs = np.arange(3, 267, 3)
+        fc_hrs = np.arange(3, 195, 3)
 
         for url_date in gfs_url:
             # latest_day_url = gfs_url[-1]
@@ -231,7 +232,7 @@ class RainfallData:
         threshold_gdf = gpd.GeoDataFrame(df_leadtime, geometry=geometry).set_crs("EPSG:4326")
 
         ## forecast (.5 degree)
-        fc_by_day = mean_by_day.sel(fc_day=mean_by_day.fc_day.values[self.days - 1]).to_dataframe().reset_index()
+        fc_by_day = mean_by_day.sel(fc_day=mean_by_day.fc_day.values[self.days]).to_dataframe().reset_index()
         geometry = [Point(xy) for xy in zip(fc_by_day.longitude.astype(float), fc_by_day.latitude.astype(float))]
         fc_gdf = gpd.GeoDataFrame(fc_by_day, geometry=geometry).set_crs("EPSG:4326")
 
@@ -251,13 +252,13 @@ class RainfallData:
         compare_gdf['fc_day'] = compare_gdf['fc_day'].astype(str)
         df_trigger = compare_gdf.filter(['latitude', 'longitude', 'geometry', str(str(self.fcStep) + '_pred')])
 
-        out = df_trigger.to_json()
+        # out = df_trigger.to_json()
         # output_name = '%s_%sday_'%(runcycle_day, self.fcStep) +self.TRIGGER_RP_COLNAME
-        with open(self.triggersPerStationPath, 'w') as fp:
-            fp.write(out)
-            print('Processed Glofas data - File saved')
-
-        # cube = make_geocube(vector_data=compare_gdf, measurements=[str(str(self.fcStep)+'_pred')], resolution=(0.5, -0.5), output_crs="EPSG:4326")
-        # cube.rio.to_raster(PIPELINE_OUTPUT + '/' + output_name + '.tif')
-        # compare_gdf.to_file(outpath + 'option2/' + output_name + '.shp')
+        # with open(self.triggersPerStationPath, 'w') as fp:
+        #     fp.write(out)
+            
+        cube = make_geocube(vector_data=df_trigger, measurements=[str(str(self.fcStep)+'_pred')], resolution=(-0.5, 0.5), align=(0.25, 0.25), output_crs="EPSG:4326")
+        cube.rio.to_raster(self.rainrasterPath)
+        
+        print('Processed Glofas data - File saved')
 
