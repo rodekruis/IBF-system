@@ -28,6 +28,8 @@ export class IndicatorEntity {
   public numberFormatAggregate: string;
   @Column({ default: 1 })
   public order: number;
+  @Column({ nullable: true })
+  public unit: string;
   @Column()
   public source: string;
   @Column()
