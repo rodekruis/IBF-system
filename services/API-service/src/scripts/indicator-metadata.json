@@ -12,6 +12,7 @@
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
     "order": 1,
+    "unit": "people",
     "source": "",
     "description": ""
   },
@@ -63,7 +64,7 @@
     "label": "Poverty incidence",
     "group": "vulnerability",
     "icon": "Poverty-white.svg",
-    "weightedAvg": true, 
+    "weightedAvg": true,
     "active": false,
     "colorBreaks": null,
     "numberFormatMap": "perc",
@@ -200,7 +201,8 @@
     "order": 2,
     "source": "https://dashboard.510.global/#!/community_risk?country=ETH",
     "description": "Vulnerability index from Community Risk Assessment"
-  },  {
+  },
+  {
     "country_code": "UGA",
     "name": "covidrisk",
     "label": "COVID Risk",
@@ -215,6 +217,6 @@
     "order": 2,
     "source": "",
     "description": "",
-    "lazyLoad" : true
-  }  
+    "lazyLoad": true
+  }
 ]
