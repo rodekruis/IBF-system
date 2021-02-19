@@ -13,30 +13,35 @@ def formatInfo(info, countryCode):
         linkDashboard = os.getenv('DASHBOARD_URL')
         linkEAPSOP = "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/Doc.aspx?OR=teams&action=edit&sourcedoc={0FFAA5EF-423C-4F81-A51E-BEA98D06E91C}"
         linkWhatsApp = "https://chat.whatsapp.com/Jt7jMX3BydCD07MFExLUUs"
+        adminAreaLabel = ['District','Districts']
     elif countryCode == "ZMB":
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/6d54577d-8f22-4a95-bc30-b86453f5188c.png"
         triggerStatement = "TBD"
         linkDashboard = os.getenv('DASHBOARD_URL')
         linkEAPSOP = "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#heading=h.gjdgxs"
         linkWhatsApp = "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin"
+        adminAreaLabel = ['District','Districts']
     elif countryCode == "KEN":
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png"
         triggerStatement = "TBD"
         linkDashboard = os.getenv('DASHBOARD_URL')
         linkEAPSOP = "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/"        
         linkWhatsApp = "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/"
+        adminAreaLabel = ['County','Counties']
     elif countryCode == "ETH":
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png"
         triggerStatement = "TBD"
         linkDashboard = os.getenv('DASHBOARD_URL')
         linkEAPSOP = "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/"
         linkWhatsApp = "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/"
+        adminAreaLabel = ['Zone','Zones']
     else:
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
         triggerStatement = "TBD"
         linkDashboard = os.getenv('DASHBOARD_URL')
         linkEAPSOP = "https://google.com/"
         linkWhatsApp = "https://web.whatsapp.com/"
+        adminAreaLabel = ['District','Districts']
 
     leadTime = ""
     stringList = []
@@ -45,10 +50,10 @@ def formatInfo(info, countryCode):
             <strong>Forecast 3 days from today:</strong> \
         </div> \
         <table class="notification-alerts-table"> \
-            <caption class="notification-alerts-table-caption">The following table lists all the exposed districts in order of exposed population,</caption> \
+            <caption class="notification-alerts-table-caption">The following table lists all the exposed '+adminAreaLabel[1].lower()+' in order of exposed population,</caption> \
             <thead> \
                 <tr> \
-                    <th align="left">District</th> \
+                    <th align="left">'+adminAreaLabel[0]+'</th> \
                     <th align="center">Potentially Exposed Population</th> \
                     <th align="center">Alert Level</th> \
                 </tr> \
@@ -86,10 +91,10 @@ def formatInfo(info, countryCode):
             <strong>Forecast 7 days from today:</strong> \
         </div> \
         <table class="notification-alerts-table"> \
-            <caption class="notification-alerts-table-caption">The following table lists all the exposed districts in order of exposed population,</caption> \
+            <caption class="notification-alerts-table-caption">The following table lists all the exposed '+adminAreaLabel[1].lower()+' in order of exposed population,</caption> \
             <thead> \
                 <tr> \
-                    <th align="left">District</th> \
+                    <th align="left">'+adminAreaLabel[0]+'</th> \
                     <th align="center">Potentially Exposed Population</th> \
                     <th align="center">Alert Level</th> \
                 </tr> \
@@ -136,6 +141,8 @@ def formatInfo(info, countryCode):
     placeholderLinkDashboard = "(LINK-DASHBOARD)"
     placeholderLinkEAPSOP = "(LINK-EAP-SOP)"
     placeholderLinkWhatsApp = "(LINK-WHATSAPP)"
+    placeholderAdminAreaPlural = "(ADMIN-AREA-PLURAL)"
+    placeholderAdminAreaSingular = "(ADMIN-AREA-SINGULAR)"
 
     htmlEmail = (
         htmlTemplate.replace(placeholderToday, today)
@@ -147,6 +154,8 @@ def formatInfo(info, countryCode):
         .replace(placeholderLinkDashboard, linkDashboard)
         .replace(placeholderLinkEAPSOP, linkEAPSOP)
         .replace(placeholderLinkWhatsApp, linkWhatsApp)
+        .replace(placeholderAdminAreaSingular, adminAreaLabel[0].lower())
+        .replace(placeholderAdminAreaPlural, adminAreaLabel[1].lower())
     )
 
     subject = "Flood Warning: " + subject3day + subject7day
