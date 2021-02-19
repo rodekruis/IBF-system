@@ -1,3 +1,12 @@
+## [0.20.3](https://github.com/rodekruis/IBF-system/compare/v0.20.2...v0.20.3) (2021-02-19)
+
+
+### Bug Fixes
+
+* have geojson import work with new version of dash-leaflet AB[#6038](https://github.com/rodekruis/IBF-system/issues/6038) ([e1dbeb9](https://github.com/rodekruis/IBF-system/commit/e1dbeb9d3edaeb3d5bde4b72ec107ba46ef8f29d))
+
+
+
 ## [0.20.2](https://github.com/rodekruis/IBF-system/compare/v0.20.1...v0.20.2) (2021-02-19)
 
 
@@ -101,15 +110,6 @@
 ### Bug Fixes
 
 * Auth post user ([e981337](https://github.com/rodekruis/IBF-system/commit/e9813378ede6e6884fd9e36e114d4b1d3e7e000f))
-
-
-
-# [0.17.0](https://github.com/rodekruis/IBF-system/compare/v0.16.1...v0.17.0) (2021-02-15)
-
-
-### Features
-
-* add rainfall pipeline to sytem-design AB[#6152](https://github.com/rodekruis/IBF-system/issues/6152) ([36bf456](https://github.com/rodekruis/IBF-system/commit/36bf456a79503889ced38600c70f634aad97b87a))
 
 
 
