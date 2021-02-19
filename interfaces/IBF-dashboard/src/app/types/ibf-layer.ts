@@ -17,6 +17,7 @@ export class IbfLayer {
   show: boolean;
   viewCenter: boolean;
   order: number;
+  unit?: string;
   colorProperty?: string;
   colorBreaks?: ColorBreaks;
   numberFormatMap?: NumberFormat;
