@@ -1,3 +1,19 @@
+# [0.21.0](https://github.com/rodekruis/IBF-system/compare/v0.20.3...v0.21.0) (2021-02-19)
+
+
+### Bug Fixes
+
+* move getMetadata endpoint to indicator-module AB[#6278](https://github.com/rodekruis/IBF-system/issues/6278) ([4a5de88](https://github.com/rodekruis/IBF-system/commit/4a5de88c45de868bb2eef6c1367197f1b5343c95))
+
+
+### Features
+
+* add unit to map popup AB[#6183](https://github.com/rodekruis/IBF-system/issues/6183) ([7ffb1b5](https://github.com/rodekruis/IBF-system/commit/7ffb1b5182421311a1d5bd41fe174a8e1abffe30))
+* add unit to map-legend AB[#6184](https://github.com/rodekruis/IBF-system/issues/6184) ([9dc3e32](https://github.com/rodekruis/IBF-system/commit/9dc3e32304ebb52dd593290fe34c59776bdf9494))
+* add unit-attribute to indicator-metadata AB[#6182](https://github.com/rodekruis/IBF-system/issues/6182) ([7c95113](https://github.com/rodekruis/IBF-system/commit/7c9511330b27c0ba2bb32fbe6cc7a57d786a1aa0))
+
+
+
 ## [0.20.3](https://github.com/rodekruis/IBF-system/compare/v0.20.2...v0.20.3) (2021-02-19)
 
 
@@ -101,15 +117,6 @@
 ### Bug Fixes
 
 * use node env var in docker compose AB[#6158](https://github.com/rodekruis/IBF-system/issues/6158) ([5d059b7](https://github.com/rodekruis/IBF-system/commit/5d059b7f5ba7646ea6dd98b12c11373f61c1ec30))
-
-
-
-## [0.17.1](https://github.com/rodekruis/IBF-system/compare/v0.17.0...v0.17.1) (2021-02-15)
-
-
-### Bug Fixes
-
-* Auth post user ([e981337](https://github.com/rodekruis/IBF-system/commit/e9813378ede6e6884fd9e36e114d4b1d3e7e000f))
 
 
 
