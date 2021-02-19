@@ -1,3 +1,13 @@
+## [0.20.2](https://github.com/rodekruis/IBF-system/compare/v0.20.1...v0.20.2) (2021-02-19)
+
+
+### Bug Fixes
+
+* submit eap action disable button AB[#6181](https://github.com/rodekruis/IBF-system/issues/6181) ([c1fe206](https://github.com/rodekruis/IBF-system/commit/c1fe20663d5d2f7ca4f679b1260fdd4f1c9a7e94))
+* submit eap action disable button AB[#6181](https://github.com/rodekruis/IBF-system/issues/6181) ([9a29213](https://github.com/rodekruis/IBF-system/commit/9a29213ae7e6723796452ac72133626e54c87844))
+
+
+
 ## [0.20.1](https://github.com/rodekruis/IBF-system/compare/v0.20.0...v0.20.1) (2021-02-19)
 
 
@@ -100,15 +110,6 @@
 ### Features
 
 * add rainfall pipeline to sytem-design AB[#6152](https://github.com/rodekruis/IBF-system/issues/6152) ([36bf456](https://github.com/rodekruis/IBF-system/commit/36bf456a79503889ced38600c70f634aad97b87a))
-
-
-
-## [0.16.1](https://github.com/rodekruis/IBF-system/compare/v0.16.0...v0.16.1) (2021-02-15)
-
-
-### Bug Fixes
-
-* cronjob to read env-variables AB[#6151](https://github.com/rodekruis/IBF-system/issues/6151) ([ace5cc9](https://github.com/rodekruis/IBF-system/commit/ace5cc9d817524436a3e43212588619c83d50db9))
 
 
 
