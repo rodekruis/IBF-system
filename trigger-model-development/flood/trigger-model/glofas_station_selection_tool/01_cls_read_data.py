@@ -140,7 +140,7 @@ class ReadData:
         df_dis_gridcells['day'] = df_dis_gridcells['day'].astype(str).apply(lambda x: x.zfill(2))
         df_dis_gridcells['month'] = df_dis_gridcells['month'].astype(str).apply(lambda x: x.zfill(2))
         df_dis_gridcells['date'] = df_dis_gridcells['year'] +'-' + df_dis_gridcells['month']+'-'+df_dis_gridcells['day']
-        df_dis_gridcells['date'] = df_dis_gridcells['date'].apply(lambda x: datetime.strptime(x, '%Y-%m-%d')).dt.date
+        df_dis_gridcells['date'] = df_dis_gridcells['date'].apply(lambda x: datetime.strptime(x, '%Y-%m-%d'))
                 
         if self.verbose: print('All files downloaded and concatenated')      
         
@@ -172,7 +172,7 @@ class ReadData:
             lat_val = np.round(lat_val,2)
             for lon_val in np.arange(self.lon_min, self.lon_max, self.steps_coordinates):
                 lon_val = np.round(lon_val, 2)
-                if lon_val in lon and lat_val in lat:
+                if np.any(lon == lon_val) and np.any(lat == lat_val):
                      df[str(lat_val)+'_'+str(lon_val)] = np.ma.filled(discharge[:,
                                                                     lat.index(lat_val),
                                                                     lon.index(lon_val)])
