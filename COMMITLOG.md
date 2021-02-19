@@ -1,3 +1,12 @@
+## [0.20.1](https://github.com/rodekruis/IBF-system/compare/v0.20.0...v0.20.1) (2021-02-19)
+
+
+### Bug Fixes
+
+* fix+improve email sending for all countries AB[#6215](https://github.com/rodekruis/IBF-system/issues/6215) ([313ac07](https://github.com/rodekruis/IBF-system/commit/313ac07d4da61288bd0c17cf957a03a3d8bc6f15))
+
+
+
 # [0.20.0](https://github.com/rodekruis/IBF-system/compare/v0.19.1...v0.20.0) (2021-02-19)
 
 
@@ -100,15 +109,6 @@
 ### Bug Fixes
 
 * cronjob to read env-variables AB[#6151](https://github.com/rodekruis/IBF-system/issues/6151) ([ace5cc9](https://github.com/rodekruis/IBF-system/commit/ace5cc9d817524436a3e43212588619c83d50db9))
-
-
-
-# [0.16.0](https://github.com/rodekruis/IBF-system/compare/v0.15.3...v0.16.0) (2021-02-12)
-
-
-### Features
-
-* don't migrate db to production-server AB[#6131](https://github.com/rodekruis/IBF-system/issues/6131) ([1e1e0bc](https://github.com/rodekruis/IBF-system/commit/1e1e0bc60ac01c6686a66f068d3c98b0743ff36f))
 
 
 
