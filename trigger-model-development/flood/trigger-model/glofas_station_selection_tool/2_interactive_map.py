@@ -27,7 +27,7 @@ from rasterio.features import shapes
 ##################################################################
 # Specify current working directory 
 #workdirectory_data= 'C:\\Users\\nlbanni5\\Documents\\Rode Kruis\\connected_areas\\rode-kruis\\connected_areas'
-workdirectory_data= 'C:\\Users\\nlbrus08\\Documents\\01 Klanten\\Rode Kruis\\floodcorrelation'
+workdirectory_data= 'c:\\Users\\BOttow\\Rode Kruis\\team-Data-Team-E&Y-510@rodekruis.nl - GloFAS_station_selection_tool_data'
 
 os.chdir(workdirectory_data)
 
@@ -48,7 +48,7 @@ df_percentile_thresholds = pd.DataFrame(df_glofas.set_index('date').quantile(
 df_stations = pd.read_csv('stored_data_uganda\\rp_glofas_station.csv')
  
 # Read in layers (grid, rivers, waterbodies, districts)
-with open("shapefiles\\grid_layers\\grid_layer_1.json", 'r') as f:
+with open("shapefiles\\grid_layers\\grid_layer_2.json", 'r') as f:
     grid = json.load(f)
 
 with open("shapefiles\\Rivers\\Rivers_hydroshed_cliped_uga.json", 'r') as f:
@@ -498,8 +498,8 @@ for coords in river_coords:
     coords_list.append(points)
 
 # Transform gridded data in right style
-grid_geo = dlx.geojson(grid, id="grid_geojson", defaultOptions=options, style = get_style)
-districts_geo = dlx.geojson(admin_boundaries, id="districts_geojson", defaultOptions=options, style = get_style_grey)
+grid_geo = dl.GeoJSON(data=grid, id="grid_geojson", options=dict(hoverStyle=dict(weight = 5, color = '#666', dashArray = ''), zoomToBoundsOnClick=False, style = dict(fill = False, weight=1, opacity=1, color='white', dashArray='3', fillOpacity=0.1)))
+districts_geo = dl.GeoJSON(data=admin_boundaries, id="districts_geojson", options=dict(hoverStyle=dict(weight = 5, color = '#666', dashArray = ''), zoomToBoundsOnClick=False, style = dict(fill = False, weight=1, opacity=0.8, color='black', dashArray='3', fillOpacity=0.1)))
     
 # Create: spatial file based on river geojson 
 grid_rivers = dl.Polyline(positions = coords_list, weight = 1, fillColor = 'blue', fillOpacity = 0.7)                         

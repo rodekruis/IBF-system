@@ -10,13 +10,13 @@ This is the configuration dict for the classes ReadData and TransformDataConnect
     
 cfg = {
         # Path GloFAS Grid cell data
-        'path_discharge_gridcells' : 'c:\\Users\\BOttow\\Documents\\IBF-system\\trigger-model-development\\flood\\trigger-model\\glofas_station_selection_tool\\2017_11',   
+        'path_discharge_gridcells' : 'c:\\Users\\BOttow\\Documents\\IBF-system\\trigger-model-development\\flood\\trigger-model\\glofas_station_selection_tool\\data_all_2010_2019',   
         
         # Directory to shapefiles of rivers and admin boundaries
         'path_shp_rivers' : 'c:\\Users\\BOttow\\Rode Kruis\\team-Data-Team-E&Y-510@rodekruis.nl - GloFAS_station_selection_tool_data\\shapefiles\\Rivers\\',
         'file_shp_rivers': 'Rivers_hydroshed_cliped_uga.shp',
         'path_shp_admin_boundaries' : 'c:\\Users\\BOttow\\Rode Kruis\\team-Data-Team-E&Y-510@rodekruis.nl - GloFAS_station_selection_tool_data\\shapefiles\\admin_boundaries\\',
-        'file_shp_admin_boundaries' : 'uga_adminboundaries_1.shp',
+        'file_shp_admin_boundaries' : 'uga_adminboundaries_1.json',
         
         # Coordinates - bounding boxes of country
         'country' : 'uganda',
