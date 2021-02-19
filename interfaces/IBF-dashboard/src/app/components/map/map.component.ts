@@ -415,8 +415,6 @@ export class MapComponent implements OnDestroy {
 
         element.on('mouseout', (): void => {
           adminRegionsLayer.resetStyle();
-
-          element.closePopup();
         });
 
         element.on('click', (): void => {
@@ -447,7 +445,7 @@ export class MapComponent implements OnDestroy {
                   : feature.properties.indicators[layer.colorProperty],
                 layer,
               ) +
-              '';
+              (layer.unit ? ' ' + layer.unit : '');
             if (feature.properties.pcode === this.placeCode) {
               element.unbindPopup();
               this.placeCode = null;
