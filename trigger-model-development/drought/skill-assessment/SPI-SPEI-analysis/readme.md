@@ -36,13 +36,13 @@ All these data can be loaded in easily if synced through OneDrive from the IBF c
 The script calculates the SPI with various leadtime based on the ECMWF Precipitation Data extracted from the Climate Data Store -  https://cds.climate.copernicus.eu/cdsapp#!/dataset/seasonal-monthly-single-levels?tab=overview into a global NETCDF File. This dataset can be used to do country-specific spi calculations in combination with the `spi_spei_analysis.R` script. 
 
 
-# Usage
+### Usage
 `spi_type`: fill in the SPI leadtime you are interested in (SPI1 - SPI2 - SPI3 or other)
 
-# Data input
+### Data input
 `rain_mean`: 'monthly_ensamble_mean_1993-2016.nc' or 'monthly_mean_1993_2016.nc' - See script: XXX how to download the data from the CDS 
 The data also be loaded in easily if synced through OneDrive from the IBF channel in Teams.
 
-# More information
+### More information
 `ecmwf_calculate_spi.R` contact ateklesadik@redcross.nl
 
