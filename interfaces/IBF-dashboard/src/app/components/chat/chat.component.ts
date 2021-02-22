@@ -1,3 +1,4 @@
+import { ApiService } from 'src/app/services/api.service';
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -42,6 +43,7 @@ export class ChatComponent implements OnDestroy {
     private alertController: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
+    private apiService: ApiService
   ) {
     this.translateService
       .get('chat-component.active-event')
@@ -110,7 +112,7 @@ export class ChatComponent implements OnDestroy {
               action.action,
               activeCountry.countryCodeISO3,
               action.checked,
-              action.pcode,
+              action.pcode
             );
           } else {
             return Promise.resolve();
@@ -148,5 +150,9 @@ export class ChatComponent implements OnDestroy {
     });
 
     await alert.present();
+  }
+
+  public closePcodeEvent(eventPcodeId: any) {
+    this.apiService.closeEventPcode(eventPcodeId)
   }
 }

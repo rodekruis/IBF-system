@@ -165,8 +165,8 @@ export class ApiService {
     return this.get('uga-data-level-2/all', false).toPromise();
   }
 
-  getTriggeredAreas(event: number) {
-    return this.get(`triggered-areas/${event}`, false).toPromise();
+  getTriggeredAreas(countryCodeISO3: string) {
+    return this.get(`triggered-areas/${countryCodeISO3}`, false).toPromise();
   }
 
   getMetadata(countryCodeISO3: string) {
@@ -188,8 +188,7 @@ export class ApiService {
     action: string,
     countryCodeISO3: string,
     status: boolean,
-    pcode: string,
-    event: number,
+    pcode: string
   ) {
     return this.post(
       'eap-actions',
@@ -197,8 +196,19 @@ export class ApiService {
         action,
         countryCode: countryCodeISO3,
         status,
-        pcode,
-        event,
+        pcode
+      },
+      false,
+    ).toPromise();
+  }
+
+  closeEventPcode(
+    eventPcodeId: number,
+  ) {
+    return this.post(
+      'event/close-pcode',
+      {
+        eventPcodeId
       },
       false,
     ).toPromise();
