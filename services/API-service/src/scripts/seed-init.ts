@@ -20,6 +20,8 @@ import areasOfFocus from './json/areas-of-focus.json';
 import eapActions from './json/EAP-actions.json';
 import indicators from './json/indicator-metadata.json';
 
+import SeedAdminArea from './seed-admin-area';
+
 @Injectable()
 export class SeedInit implements InterfaceScript {
   private connection: Connection;
@@ -133,6 +135,10 @@ export class SeedInit implements InterfaceScript {
     // ***** CREATE INDICATORS *****
     const indicatorRepository = this.connection.getRepository(IndicatorEntity);
     await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
+
+    // ***** SEED ADMIN-AREA DATA *****
+    const seedAdminArea = await new SeedAdminArea(this.connection);
+    await seedAdminArea.run();
   }
 
   private async cleanAll(): Promise<void> {
