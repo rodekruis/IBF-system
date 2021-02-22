@@ -13,12 +13,12 @@ import { UserRole } from '../api/user/user-role.enum';
 import { UserStatus } from '../api/user/user-status.enum';
 import { UserEntity } from '../api/user/user.entity';
 
-import leadTimes from './lead-times.json';
-import countries from './countries.json';
-import users from './users.json';
-import areasOfFocus from './areas-of-focus.json';
-import eapActions from './EAP-actions.json';
-import indicators from './indicator-metadata.json';
+import leadTimes from './json/lead-times.json';
+import countries from './json/countries.json';
+import users from './json/users.json';
+import areasOfFocus from './json/areas-of-focus.json';
+import eapActions from './json/EAP-actions.json';
+import indicators from './json/indicator-metadata.json';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
