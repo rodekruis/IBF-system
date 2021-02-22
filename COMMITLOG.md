@@ -1,3 +1,12 @@
+## [0.21.1](https://github.com/rodekruis/IBF-system/compare/v0.21.0...v0.21.1) (2021-02-22)
+
+
+### Bug Fixes
+
+* trigger country-subscription at refresh AB[#6272](https://github.com/rodekruis/IBF-system/issues/6272) ([08cb35c](https://github.com/rodekruis/IBF-system/commit/08cb35c52f081e662ae0fd83894b51f3d26d0252))
+
+
+
 # [0.21.0](https://github.com/rodekruis/IBF-system/compare/v0.20.3...v0.21.0) (2021-02-19)
 
 
@@ -108,15 +117,6 @@
 ### Features
 
 * make email-boolean configurable + true on production AB[#6159](https://github.com/rodekruis/IBF-system/issues/6159) ([0a494a8](https://github.com/rodekruis/IBF-system/commit/0a494a8e53a003a49b8e9cf712412732f33a9be2))
-
-
-
-## [0.17.2](https://github.com/rodekruis/IBF-system/compare/v0.17.1...v0.17.2) (2021-02-15)
-
-
-### Bug Fixes
-
-* use node env var in docker compose AB[#6158](https://github.com/rodekruis/IBF-system/issues/6158) ([5d059b7](https://github.com/rodekruis/IBF-system/commit/5d059b7f5ba7646ea6dd98b12c11373f61c1ec30))
 
 
 
