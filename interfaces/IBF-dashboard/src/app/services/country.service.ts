@@ -14,11 +14,19 @@ export class CountryService {
   public countries: Country[] = [];
   public countryLocalStorage = 'country';
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {
+    this.getCountries();
+  }
 
-  public async getCountries(user: User): Promise<void> {
+  private async getCountries(): Promise<void> {
     this.countries = await this.apiService.getCountries();
-    this.filterCountriesForUser(user);
+    const activeCountry = this.getActiveCountry();
+    this.selectCountry(activeCountry.countryCodeISO3);
+  }
+
+  public async getCountriesByUser(user: User): Promise<void> {
+    this.countries = await this.apiService.getCountries();
+    this.filterCountriesByUser(user);
   }
 
   getCountrySubscription = (): Observable<Country> => {
@@ -36,7 +44,7 @@ export class CountryService {
     this.countrySubject.next(this.activeCountry);
   };
 
-  public filterCountriesForUser(user: User): void {
+  public filterCountriesByUser(user: User): void {
     if (!user || !user.countries) {
       this.countries = [];
     } else {

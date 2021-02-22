@@ -5,7 +5,7 @@ export class IndicatorEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
   @Column()
-  public country_code: string;
+  public country_codes: string;
   @Column()
   public name: string;
   @Column()
@@ -28,6 +28,8 @@ export class IndicatorEntity {
   public numberFormatAggregate: string;
   @Column({ default: 1 })
   public order: number;
+  @Column({ nullable: true })
+  public unit: string;
   @Column()
   public source: string;
   @Column()
