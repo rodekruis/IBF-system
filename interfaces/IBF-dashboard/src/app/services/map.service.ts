@@ -171,6 +171,7 @@ export class MapService {
       legendColor: '#969696',
       group: IbfLayerGroup.aggregates,
       order: 20 + indicator.order,
+      unit: indicator.unit,
     });
   }
 
@@ -348,6 +349,7 @@ export class MapService {
           legendColor: layer.legendColor,
           group: layer.group,
           order: layer.order,
+          unit: layer.unit,
           show:
             show == null || layer.name != triggerLayer.name ? layer.show : show,
         });

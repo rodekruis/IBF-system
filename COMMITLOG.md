@@ -1,3 +1,71 @@
+## [0.21.1](https://github.com/rodekruis/IBF-system/compare/v0.21.0...v0.21.1) (2021-02-22)
+
+
+### Bug Fixes
+
+* trigger country-subscription at refresh AB[#6272](https://github.com/rodekruis/IBF-system/issues/6272) ([08cb35c](https://github.com/rodekruis/IBF-system/commit/08cb35c52f081e662ae0fd83894b51f3d26d0252))
+
+
+
+# [0.21.0](https://github.com/rodekruis/IBF-system/compare/v0.20.3...v0.21.0) (2021-02-19)
+
+
+### Bug Fixes
+
+* move getMetadata endpoint to indicator-module AB[#6278](https://github.com/rodekruis/IBF-system/issues/6278) ([4a5de88](https://github.com/rodekruis/IBF-system/commit/4a5de88c45de868bb2eef6c1367197f1b5343c95))
+
+
+### Features
+
+* add unit to map popup AB[#6183](https://github.com/rodekruis/IBF-system/issues/6183) ([7ffb1b5](https://github.com/rodekruis/IBF-system/commit/7ffb1b5182421311a1d5bd41fe174a8e1abffe30))
+* add unit to map-legend AB[#6184](https://github.com/rodekruis/IBF-system/issues/6184) ([9dc3e32](https://github.com/rodekruis/IBF-system/commit/9dc3e32304ebb52dd593290fe34c59776bdf9494))
+* add unit-attribute to indicator-metadata AB[#6182](https://github.com/rodekruis/IBF-system/issues/6182) ([7c95113](https://github.com/rodekruis/IBF-system/commit/7c9511330b27c0ba2bb32fbe6cc7a57d786a1aa0))
+
+
+
+## [0.20.3](https://github.com/rodekruis/IBF-system/compare/v0.20.2...v0.20.3) (2021-02-19)
+
+
+### Bug Fixes
+
+* have geojson import work with new version of dash-leaflet AB[#6038](https://github.com/rodekruis/IBF-system/issues/6038) ([e1dbeb9](https://github.com/rodekruis/IBF-system/commit/e1dbeb9d3edaeb3d5bde4b72ec107ba46ef8f29d))
+
+
+
+## [0.20.2](https://github.com/rodekruis/IBF-system/compare/v0.20.1...v0.20.2) (2021-02-19)
+
+
+### Bug Fixes
+
+* submit eap action disable button AB[#6181](https://github.com/rodekruis/IBF-system/issues/6181) ([c1fe206](https://github.com/rodekruis/IBF-system/commit/c1fe20663d5d2f7ca4f679b1260fdd4f1c9a7e94))
+* submit eap action disable button AB[#6181](https://github.com/rodekruis/IBF-system/issues/6181) ([9a29213](https://github.com/rodekruis/IBF-system/commit/9a29213ae7e6723796452ac72133626e54c87844))
+
+
+
+## [0.20.1](https://github.com/rodekruis/IBF-system/compare/v0.20.0...v0.20.1) (2021-02-19)
+
+
+### Bug Fixes
+
+* fix+improve email sending for all countries AB[#6215](https://github.com/rodekruis/IBF-system/issues/6215) ([313ac07](https://github.com/rodekruis/IBF-system/commit/313ac07d4da61288bd0c17cf957a03a3d8bc6f15))
+
+
+
+# [0.20.0](https://github.com/rodekruis/IBF-system/compare/v0.19.1...v0.20.0) (2021-02-19)
+
+
+### Bug Fixes
+
+* create table if not exists AB[#6254](https://github.com/rodekruis/IBF-system/issues/6254) ([f71465e](https://github.com/rodekruis/IBF-system/commit/f71465e91f7a10eef3052ad606a00c8539e8ab9a))
+* create tables if not exist AB[#6254](https://github.com/rodekruis/IBF-system/issues/6254) ([138230f](https://github.com/rodekruis/IBF-system/commit/138230fcf5c7ac1e3a0453db34c465f6e774efad))
+
+
+### Features
+
+* add dockerized local db AB[#6253](https://github.com/rodekruis/IBF-system/issues/6253) ([0dbeeed](https://github.com/rodekruis/IBF-system/commit/0dbeeed76376fc5ad7b2fd6525e8c4a96c662bc3))
+
+
+
 ## [0.19.1](https://github.com/rodekruis/IBF-system/compare/v0.19.0...v0.19.1) (2021-02-18)
 
 
@@ -49,60 +117,6 @@
 ### Features
 
 * make email-boolean configurable + true on production AB[#6159](https://github.com/rodekruis/IBF-system/issues/6159) ([0a494a8](https://github.com/rodekruis/IBF-system/commit/0a494a8e53a003a49b8e9cf712412732f33a9be2))
-
-
-
-## [0.17.2](https://github.com/rodekruis/IBF-system/compare/v0.17.1...v0.17.2) (2021-02-15)
-
-
-### Bug Fixes
-
-* use node env var in docker compose AB[#6158](https://github.com/rodekruis/IBF-system/issues/6158) ([5d059b7](https://github.com/rodekruis/IBF-system/commit/5d059b7f5ba7646ea6dd98b12c11373f61c1ec30))
-
-
-
-## [0.17.1](https://github.com/rodekruis/IBF-system/compare/v0.17.0...v0.17.1) (2021-02-15)
-
-
-### Bug Fixes
-
-* Auth post user ([e981337](https://github.com/rodekruis/IBF-system/commit/e9813378ede6e6884fd9e36e114d4b1d3e7e000f))
-
-
-
-# [0.17.0](https://github.com/rodekruis/IBF-system/compare/v0.16.1...v0.17.0) (2021-02-15)
-
-
-### Features
-
-* add rainfall pipeline to sytem-design AB[#6152](https://github.com/rodekruis/IBF-system/issues/6152) ([36bf456](https://github.com/rodekruis/IBF-system/commit/36bf456a79503889ced38600c70f634aad97b87a))
-
-
-
-## [0.16.1](https://github.com/rodekruis/IBF-system/compare/v0.16.0...v0.16.1) (2021-02-15)
-
-
-### Bug Fixes
-
-* cronjob to read env-variables AB[#6151](https://github.com/rodekruis/IBF-system/issues/6151) ([ace5cc9](https://github.com/rodekruis/IBF-system/commit/ace5cc9d817524436a3e43212588619c83d50db9))
-
-
-
-# [0.16.0](https://github.com/rodekruis/IBF-system/compare/v0.15.3...v0.16.0) (2021-02-12)
-
-
-### Features
-
-* don't migrate db to production-server AB[#6131](https://github.com/rodekruis/IBF-system/issues/6131) ([1e1e0bc](https://github.com/rodekruis/IBF-system/commit/1e1e0bc60ac01c6686a66f068d3c98b0743ff36f))
-
-
-
-## [0.15.3](https://github.com/rodekruis/IBF-system/compare/v0.15.2...v0.15.3) (2021-02-12)
-
-
-### Bug Fixes
-
-* create + update user AB[#6124](https://github.com/rodekruis/IBF-system/issues/6124) ([2cf2df9](https://github.com/rodekruis/IBF-system/commit/2cf2df945ccc1ce11ae6df0031cc3c9400ce0edd))
 
 
 

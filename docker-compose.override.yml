@@ -2,14 +2,18 @@ version: "3.8"
 
 services:
     ibf-api-service:
-        # command: ["npm", "run", "start:dev"]
-        command: ["npm", "run", "start"]
+        command: ["npm", "run", "start:dev"]
         environment:
             - NODE_ENV=development
         volumes:
             - ./services/API-service:/home/ibf/api-service
         ports:
             - 3000:3000
+        depends_on:
+            - ibf-local-db
+        networks:
+            - web-server-network
+            - pipeline-network
 
     ibf-dashboard:
         command: ["npm", "run", "start"]
@@ -37,3 +41,17 @@ services:
         volumes:
             - ./nginx/conf.d:/etc/nginx/user.conf.d
             - ./nginx/letsencrypt:/etc/letsencrypt
+    
+    ibf-local-db:
+        image: "postgis/postgis"
+        container_name: ibf-local-db
+        environment:
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_DBNAME=${DB_DATABASE}
+        volumes:
+            - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
+        ports:
+            - "5437:5432"
+        networks:
+            - pipeline-network
