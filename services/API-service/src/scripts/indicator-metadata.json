@@ -1,6 +1,6 @@
 [
   {
-    "country_code": "UGA,ZMB,KEN,ETH",
+    "country_codes": "UGA,ZMB,KEN,ETH",
     "name": "population_affected",
     "label": "Exposed population",
     "group": "general",
@@ -12,11 +12,12 @@
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
     "order": 1,
+    "unit": "people",
     "source": "",
     "description": ""
   },
   {
-    "country_code": "UGA",
+    "country_codes": "UGA",
     "name": "vulnerability_index",
     "label": "Flood Vulnerability Index",
     "group": "vulnerability",
@@ -58,12 +59,12 @@
     "description": "Vulnerability factors/indicators: \nThis resulted in the following weights:\n20%   Poverty: Poverty incidence\n20%   Gender: Female-headed household\n10%   Age: Population below 8-years\n10%   Age: population 65+, \n10 %  type of construction: permanent wall type\n10 %  type of construction: permanent roof type\n20%   Refugees legal status #of a displaced person\u000b\nThe vulnerability indicators have been scored on a scale of 1 (low vulnerability) to 10 (high vulnerability)."
   },
   {
-    "country_code": "UGA",
+    "country_codes": "UGA",
     "name": "poverty_incidence",
     "label": "Poverty incidence",
     "group": "vulnerability",
     "icon": "Poverty-white.svg",
-    "weightedAvg": true, 
+    "weightedAvg": true,
     "active": false,
     "colorBreaks": null,
     "numberFormatMap": "perc",
@@ -74,7 +75,7 @@
     "description": "Alpha version 2011 estimates of proportion of people per grid square living in poverty, as defined by $2 a day thresholds. Tatem AJ, Gething PW, Bhatt S, Weiss D and Pezzulo C (2013) Pilot high resolution poverty maps, University of Southampton/Oxford."
   },
   {
-    "country_code": "UGA",
+    "country_codes": "UGA",
     "name": "female_head_hh",
     "label": "Female-headed household",
     "group": "vulnerability",
@@ -90,7 +91,7 @@
     "description": ""
   },
   {
-    "country_code": "UGA",
+    "country_codes": "UGA",
     "name": "population_u8",
     "label": "Population U8",
     "group": "vulnerability",
@@ -106,7 +107,7 @@
     "description": ""
   },
   {
-    "country_code": "UGA",
+    "country_codes": "UGA",
     "name": "population_over65",
     "label": "Population 65+",
     "group": "vulnerability",
@@ -122,7 +123,7 @@
     "description": ""
   },
   {
-    "country_code": "UGA",
+    "country_codes": "UGA",
     "name": "wall_type",
     "label": "Permanent wall type",
     "group": "vulnerability",
@@ -138,7 +139,7 @@
     "description": ""
   },
   {
-    "country_code": "UGA",
+    "country_codes": "UGA",
     "name": "roof_type",
     "label": "Permanent roof type",
     "group": "vulnerability",
@@ -154,7 +155,7 @@
     "description": ""
   },
   {
-    "country_code": "ZMB",
+    "country_codes": "ZMB",
     "name": "vulnerability_score",
     "label": "Vulnerability Index",
     "group": "vulnerability",
@@ -170,7 +171,7 @@
     "description": "Vulnerability index from Community Risk Assessment"
   },
   {
-    "country_code": "KEN",
+    "country_codes": "KEN",
     "name": "vulnerability_score",
     "label": "Vulnerability Index",
     "group": "vulnerability",
@@ -186,7 +187,7 @@
     "description": "Vulnerability index from Community Risk Assessment"
   },
   {
-    "country_code": "ETH",
+    "country_codes": "ETH",
     "name": "vulnerability_score",
     "label": "Vulnerability Index",
     "group": "vulnerability",
@@ -200,8 +201,9 @@
     "order": 2,
     "source": "https://dashboard.510.global/#!/community_risk?country=ETH",
     "description": "Vulnerability index from Community Risk Assessment"
-  },  {
-    "country_code": "UGA",
+  },
+  {
+    "country_codes": "UGA",
     "name": "covidrisk",
     "label": "COVID Risk",
     "group": "",
@@ -215,6 +217,6 @@
     "order": 2,
     "source": "",
     "description": "",
-    "lazyLoad" : true
-  }  
+    "lazyLoad": true
+  }
 ]

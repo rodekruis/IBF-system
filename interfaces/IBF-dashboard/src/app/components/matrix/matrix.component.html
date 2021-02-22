@@ -37,7 +37,7 @@
           *ngFor="let layer of getLayersInOrder()"
           [class.ion-hide]="!layer.show"
           [class.layer-active]="layer.active"
-          (click)="updateLayer(layer.name, !layer.active, layer.data)"
+          (click)="updateLayerClick(layer.name, !layer.active, layer.data)"
           class="ion-no-padding"
           [title]="layer.label"
         >

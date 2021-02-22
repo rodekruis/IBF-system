@@ -9,9 +9,13 @@ library(lubridate)
 # pkgbuild::has_rtools() # helps to check if rtools is correctly installed
 # install.packages("c:/Users/BOttow/Downloads/velox_0.2.0.tar.gz", repos = NULL, type="source")
 
-setwd('c:/Users/BOttow/Documents/IBF-system/trigger-model-development/drought/skill-assessment/DMP-VCI-Analysis/dmp_crop_yield_comparison')
+# setwd(getSrcDirectory()[1])
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+onedrive_folder <- "c:/Users/BOttow/Rode Kruis"
+  
 # Maize global dataset, downloaded from here: https://doi.pangaea.de/10.1594/PANGAEA.909132
-maize_dir <- "c:/Users/BOttow/OneDrive - Rode Kruis/Documenten/IBF/data/gdhy_v1.2_v1.3_20190128/wheat"
+maize_dir <- sprintf("%s/510 - Data preparedness and IBF - [RD] Impact-based forecasting/IBF-  DROUGHT/crop_yield_data/maize/",
+                     onedrive_folder)
 # Copernicus Dry Matter Productivity dataset
 dmp_dir <- "c:/Users/BOttow/Documents/RK_drought_monitor-master/temp/dmp_v2_1km"
 # https://fews.net/southern-africa/zimbabwe/livelihood-baseline/august-2011

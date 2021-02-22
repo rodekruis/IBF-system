@@ -6,7 +6,6 @@ import { EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import {
   AdminAreaDataRecord,
-  CountryMetaData,
   DisasterEvent,
   TriggeredArea,
 } from './data.model';
@@ -203,27 +202,6 @@ export class DataService {
           `;
     const result = await this.manager.query(query, [countryCode]);
     return result[0];
-  }
-
-  public async getMetadata(countryCode: string): Promise<CountryMetaData[]> {
-    const query =
-      ' select * \
-    from "IBF-app"."indicator" \
-    where 0 = 0 \
-    and country_code like \'%' +
-      countryCode +
-      "%' \
-    ";
-
-    const indicators = await this.manager.query(query);
-
-    const event = await this.getCountryEvent(countryCode);
-    const activeTrigger = event && !event.end_date;
-    indicators.find(
-      (i): boolean => i.name === 'population_affected',
-    ).active = activeTrigger;
-
-    return indicators;
   }
 
   public toGeojson(rawResult): GeoJson {

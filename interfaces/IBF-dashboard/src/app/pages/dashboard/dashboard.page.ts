@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserRole } from 'src/app/models/user/user-role.enum';
@@ -26,6 +27,6 @@ export class DashboardPage implements OnInit {
   }
 
   ngOnInit() {
-    this.analyticsService.logPageView('dashboard');
+    this.analyticsService.logPageView(AnalyticsPage.dashboard);
   }
 }

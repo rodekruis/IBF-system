@@ -14,7 +14,7 @@ Besides, all files will be merged to one pandas DataFrame (rows=days, columns = 
 ##################################################################
 
 # Set workdirectory to folder of scripts
-workdirectory_scripts = 'C:\\Users\\nlbrus08\\Documents\\01 Klanten\\Rode Kruis\\floodcorrelation'
+workdirectory_scripts = 'c:\\Users\\BOttow\\Documents\\IBF-system\\trigger-model-development\\flood\\trigger-model\\glofas_station_selection_tool\\'
 
 ##################################################################
 # Importers
@@ -140,7 +140,7 @@ class ReadData:
         df_dis_gridcells['day'] = df_dis_gridcells['day'].astype(str).apply(lambda x: x.zfill(2))
         df_dis_gridcells['month'] = df_dis_gridcells['month'].astype(str).apply(lambda x: x.zfill(2))
         df_dis_gridcells['date'] = df_dis_gridcells['year'] +'-' + df_dis_gridcells['month']+'-'+df_dis_gridcells['day']
-        df_dis_gridcells['date'] = df_dis_gridcells['date'].apply(lambda x: datetime.strptime(x, '%Y-%m-%d')).dt.date
+        df_dis_gridcells['date'] = df_dis_gridcells['date'].apply(lambda x: datetime.strptime(x, '%Y-%m-%d'))
                 
         if self.verbose: print('All files downloaded and concatenated')      
         
@@ -159,8 +159,8 @@ class ReadData:
         
         #Load dataset  
         glofas_nc = Dataset(file)
-        lat = list(np.round(glofas_nc.variables['lat'][:],2))
-        lon = list(np.round(glofas_nc.variables['lon'][:],2))
+        lat = list(np.round(glofas_nc.variables['latitude'][:],2))
+        lon = list(np.round(glofas_nc.variables['longitude'][:],2))
         discharge = glofas_nc.variables ['dis24'] [:]
         
         # Select the year and month based on file name
@@ -172,7 +172,7 @@ class ReadData:
             lat_val = np.round(lat_val,2)
             for lon_val in np.arange(self.lon_min, self.lon_max, self.steps_coordinates):
                 lon_val = np.round(lon_val, 2)
-                if lon_val in lon and lat_val in lat:
+                if np.any(lon == lon_val) and np.any(lat == lat_val):
                      df[str(lat_val)+'_'+str(lon_val)] = np.ma.filled(discharge[:,
                                                                     lat.index(lat_val),
                                                                     lon.index(lon_val)])

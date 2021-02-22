@@ -4,7 +4,17 @@
 -- EXCEPT for this comment itself of course!
 -- AND change back after
 
---drop table if exists "IBF-pipeline-output".dashboard_triggers_per_day;
+CREATE TABLE if not exists "IBF-pipeline-output".dashboard_triggers_per_day (
+	country_code text NULL,
+	current_prev text NULL,
+	"1" int8 NULL,
+	"2" int8 NULL,
+	"3" int8 NULL,
+	"4" int8 NULL,
+	"5" int8 NULL,
+	"6" int8 NULL,
+	"7" int8 NULL
+);
 truncate table "IBF-pipeline-output".dashboard_triggers_per_day;
 insert into "IBF-pipeline-output".dashboard_triggers_per_day
 select tpd.country_code 
@@ -24,7 +34,24 @@ where tpd.date = max.max_date
 
 
     
---drop table "IBF-pipeline-output".dashboard_forecast_per_station cascade;
+CREATE TABLE if not exists "IBF-pipeline-output".dashboard_forecast_per_station (
+	country_code varchar NULL,
+	station_code text NULL,
+	station_name text NULL,
+	trigger_level float8 NULL,
+	"date" text NULL,
+	current_prev text NULL,
+	lead_time text NULL,
+	fc int8 NULL,
+	fc_trigger int8 NULL,
+	fc_rp float8 NULL,
+	fc_perc float8 NULL,
+	fc_prob int8 NULL,
+	fc_trigger2 int4 NULL,
+	geom geometry NULL,
+	other_lead_time_trigger int8 NULL,
+	station_used int4 NULL
+);
 truncate table "IBF-pipeline-output".dashboard_forecast_per_station;
 insert into "IBF-pipeline-output".dashboard_forecast_per_station
 SELECT t0.country_code
