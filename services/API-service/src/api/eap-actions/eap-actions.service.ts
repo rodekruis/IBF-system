@@ -28,14 +28,12 @@ export class EapActionsService {
     userId: string,
     eapAction: EapActionDto,
   ): Promise<EapActionStatusEntity> {
-    console.log('checkAction: ', eapAction);
     const actionId = await this.eapActionRepository.findOne({
       where: {
         countryCode: eapAction.countryCode,
         action: eapAction.action,
       },
     });
-    console.log('actionId: ', actionId);
     if (!actionId) {
       const errors = 'Action not found';
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
@@ -52,7 +50,6 @@ export class EapActionsService {
     const eventPcodeId = await this.manager.query(query, [eapAction.pcode])[0][
       'id'
     ];
-    console.log('eventPcodeId: ', eventPcodeId);
 
     const action = new EapActionStatusEntity();
     action.status = eapAction.status;
