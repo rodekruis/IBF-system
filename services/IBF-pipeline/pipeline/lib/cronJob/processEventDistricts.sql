@@ -1,6 +1,11 @@
 
 -- NOTE: This code was put in a different file than 'processDynamicDataPostgresTrigger.sql', because it relies on the 'event' table being ready.
-
+CREATE TABLE if not exists "IBF-pipeline-output".event_districts (
+	"event" int8 NULL,
+	pcode varchar NULL,
+	"name" varchar NULL,
+	population_affected float8 NULL
+);
 -- NOTE: Save districts to event. Each day check if there are new districts. Never delete any districts that are not triggered any more.
 -- First, update (potentially) updated population-affected figures for existing districts
 update

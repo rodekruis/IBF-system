@@ -170,7 +170,7 @@ export class ApiService {
   }
 
   getMetadata(countryCodeISO3: string) {
-    return this.get(`metadata/${countryCodeISO3}`, false).toPromise();
+    return this.get(`indicators/${countryCodeISO3}`, false).toPromise();
   }
 
   getAreasOfFocus() {

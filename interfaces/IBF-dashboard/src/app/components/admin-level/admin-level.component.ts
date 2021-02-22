@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
+import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { Country } from 'src/app/models/country.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
+import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { AdminLevel, AdminLevelLabel } from 'src/app/types/admin-level';
 import { IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
@@ -22,6 +28,8 @@ export class AdminLevelComponent {
     private countryService: CountryService,
     public adminLevelService: AdminLevelService,
     private mapService: MapService,
+    private analyticsService: AnalyticsService,
+    private eventService: EventService,
   ) {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
@@ -48,6 +56,23 @@ export class AdminLevelComponent {
       adm3: activeCountry.adminRegionLabels[2],
       adm4: activeCountry.adminRegionLabels[3],
     };
+  }
+
+  setAdminLevelClick(adminLevel: number, state: boolean): void {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.analyticsService.logEvent(AnalyticsEvent.adminLevel, {
+          adminLevel: adminLevel,
+          adminLevelState: state,
+          page: AnalyticsPage.dashboard,
+          country: country.countryCodeISO3,
+          isActiveEvent: this.eventService.state.activeEvent,
+          isActiveTrigger: this.eventService.state.activeTrigger,
+        });
+      });
+
+    this.setAdminLevel(adminLevel, state);
   }
 
   setAdminLevel(adminLevel: number, state: boolean): void {
