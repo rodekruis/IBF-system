@@ -42,7 +42,7 @@ The script calculates the SPI with various leadtime based on the ECMWF Precipita
 ### Data input
 `rain_mean`: 'monthly_ensamble_mean_1993-2016.nc' or 'monthly_mean_1993_2016.nc' - 
 
-See script: XXX how to download the data from the CDS, `extra_info_cds_api` provides some extra information how to create an API to extract the data from the CDS. 
+See script: XXX how to download the data from the CDS, `extra_info_api_cds` provides some extra information how to create an API to extract the data from the CDS. 
 The data also be loaded in easily if synced through OneDrive from the IBF channel in Teams.
 
 ### More information
