@@ -19,13 +19,4 @@ export class AdminAreaController {
   public constructor(adminAreaService: AdminAreaService) {
     this.adminAreaService = adminAreaService;
   }
-
-  @ApiOperation({ summary: 'Get adminArea data' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get(':countryCode')
-  public async getAdminAreas(@Param() params): Promise<AdminAreaEntity[]> {
-    return await this.adminAreaService.getAdminAreasByCountry(
-      params.countryCode,
-    );
-  }
 }

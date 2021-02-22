@@ -11,7 +11,6 @@ import { AdminAreaService } from './admin-area.service';
     HttpModule,
     UserModule,
     TypeOrmModule.forFeature([AdminAreaEntity]),
-    DataModule,
   ],
   providers: [AdminAreaService],
   controllers: [AdminAreaController],
