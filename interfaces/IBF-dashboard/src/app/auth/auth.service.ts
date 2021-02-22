@@ -91,7 +91,7 @@ export class AuthService {
         this.loggedIn = true;
         this.userRole = user.userRole;
 
-        this.countryService.getCountries(user);
+        this.countryService.getCountriesByUser(user);
 
         if (this.redirectUrl) {
           this.router.navigate([this.redirectUrl]);
