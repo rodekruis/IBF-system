@@ -9,6 +9,7 @@ import { ScriptsModule } from './scripts/scripts.module';
 import { CountryModule } from './api/country/country.module';
 import { WaterpointsModule } from './api/waterpoints/waterpoints.module';
 import { UgaDataLevel2Module } from './api/uga-data-level-2/uga-data-level-2.module';
+import { EventModule } from './api/event/event.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UgaDataLevel2Module } from './api/uga-data-level-2/uga-data-level-2.mod
     HealthModule,
     UgaDataLevel2Module,
     CountryModule,
+    EventModule,
   ],
   controllers: [AppController],
   providers: [],

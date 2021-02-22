@@ -142,6 +142,12 @@ export class DisasterEvent {
   public id: number;
 }
 
+export class CountryEvent {
+  public country_code: string;
+  public start_date: Date;
+  public end_date: Date;
+}
+
 export class CountryMetaData {
   public id: string;
   public country_code: string;
