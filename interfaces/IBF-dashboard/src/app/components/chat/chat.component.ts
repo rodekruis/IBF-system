@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
@@ -29,6 +29,7 @@ export class ChatComponent implements OnDestroy {
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
   private promptButtonLabel: string;
+  private closeEventPopup: object;
 
   private eapActionSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -47,6 +48,7 @@ export class ChatComponent implements OnDestroy {
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private alertController: AlertController,
+    public loadingCtrl: LoadingController,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
     private apiService: ApiService,
@@ -58,6 +60,7 @@ export class ChatComponent implements OnDestroy {
         this.updateSuccessMessage = translatedStrings['update-success'];
         this.updateFailureMessage = translatedStrings['update-failure'];
         this.promptButtonLabel = translatedStrings['prompt-button-label'];
+        this.closeEventPopup = translatedStrings['close-event-popup'];
       });
   }
 
@@ -190,10 +193,37 @@ export class ChatComponent implements OnDestroy {
     await alert.present();
   }
 
-  public closePcodeEvent(eventPcodeId: number) {
+  public async closePcodeEventPopup(area) {
+    const message = this.closeEventPopup['message'].replace('{{ name of district }}', area.name)
+    const alert = await this.alertController.create({
+      message: message,
+      buttons: [
+        {
+          text: this.closeEventPopup['cancel'],
+          handler: () => {
+            console.log('Cancel close pcode');
+          }
+        },
+        {
+          text: this.closeEventPopup['confirm'],
+          handler: () => {
+            this.closePcodeEvent(area.id)
+          }
+        },
+      ],
+    })
+    await alert.present();
+  }
+
+  public async closePcodeEvent(eventPcodeId: number) {
     this.apiService.closeEventPcode(eventPcodeId);
     this.filteredAreas = this.filteredAreas.filter(
       (item) => item.id !== eventPcodeId,
     );
+    let loading = await this.loadingCtrl.create({});
+    loading.present();
+    setTimeout(() => {
+      loading.dismiss();
+    }, 1000);
   }
 }

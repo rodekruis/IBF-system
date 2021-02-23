@@ -73,7 +73,13 @@
       "close-event-button": "Close event",
       "update-success": "EAP action(s) updated in database.",
       "update-failure": "Failed to update EAP action(s) updated in database.",
-      "prompt-button-label": "OK"
+      "prompt-button-label": "OK",
+      "close-event-popup": {
+        "message": "You are about to close the triggered event in {{ name of district }}. This action can not be undone.",
+        "confirm": "Close event",
+        "cancel": "Cancel"
+
+      }
     }
   },
   "map-service": {
