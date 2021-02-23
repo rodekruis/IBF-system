@@ -17,8 +17,9 @@ export class IndicatorService {
   public async getIndicatorsByCountry(countryCode): Promise<IndicatorEntity[]> {
     const indicators = await this.indicatorRepository.find({});
 
-    const countryIndicators = indicators.filter((indicator: IndicatorEntity) =>
-      indicator.country_codes.split(',').includes(countryCode),
+    const countryIndicators = indicators.filter(
+      (indicator: IndicatorEntity): boolean =>
+        indicator.country_codes.split(',').includes(countryCode),
     );
 
     const event = await this.dataService.getEvent(countryCode);
