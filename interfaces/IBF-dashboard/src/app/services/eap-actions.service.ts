@@ -38,7 +38,7 @@ export class EapActionsService {
           const event = await this.apiService.getEvent(country.countryCodeISO3);
           if (event) {
             this.triggeredAreas = await this.apiService.getTriggeredAreas(
-              country.countryCodeISO3
+              country.countryCodeISO3,
             );
 
             for (let area of this.triggeredAreas) {

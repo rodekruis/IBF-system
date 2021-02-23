@@ -1,4 +1,3 @@
-import { ApiService } from 'src/app/services/api.service';
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,6 +9,7 @@ import {
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
+import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
@@ -150,7 +150,7 @@ export class ChatComponent implements OnDestroy {
               action.action,
               activeCountry.countryCodeISO3,
               action.checked,
-              action.pcode
+              action.pcode,
             );
           } else {
             return Promise.resolve();
@@ -191,7 +191,9 @@ export class ChatComponent implements OnDestroy {
   }
 
   public closePcodeEvent(eventPcodeId: number) {
-    this.apiService.closeEventPcode(eventPcodeId)
-    this.filteredAreas = this.filteredAreas.filter((item) => item.id !== eventPcodeId);
+    this.apiService.closeEventPcode(eventPcodeId);
+    this.filteredAreas = this.filteredAreas.filter(
+      (item) => item.id !== eventPcodeId,
+    );
   }
 }

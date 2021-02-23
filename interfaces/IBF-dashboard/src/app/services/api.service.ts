@@ -188,7 +188,7 @@ export class ApiService {
     action: string,
     countryCodeISO3: string,
     status: boolean,
-    pcode: string
+    pcode: string,
   ) {
     return this.post(
       'eap-actions',
@@ -196,19 +196,17 @@ export class ApiService {
         action,
         countryCode: countryCodeISO3,
         status,
-        pcode
+        pcode,
       },
       false,
     ).toPromise();
   }
 
-  closeEventPcode(
-    eventPcodeId: number,
-  ) {
+  closeEventPcode(eventPcodeId: number) {
     return this.post(
       'event/close-pcode',
       {
-        eventPcodeId
+        eventPcodeId,
       },
       false,
     ).toPromise();
