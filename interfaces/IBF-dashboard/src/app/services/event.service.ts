@@ -39,11 +39,10 @@ export class EventService {
   public async getTrigger() {
     this.state.event = await this.timelineService.getEvent();
     this.state.activeEvent = !!this.state.event;
-    this.state.activeTrigger = this.state.event && !this.state.event?.end_date;
+    this.state.activeTrigger = this.state.event && this.state.event.active_trigger;
     this.state.newEvent =
       this.state.event?.start_date ===
       this.timelineService.state.today.format('YYYY-MM-DD');
-
     this.setAlertState();
 
     if (this.state.activeTrigger) {

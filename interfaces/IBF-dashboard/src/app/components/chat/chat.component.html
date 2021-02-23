@@ -160,9 +160,11 @@
           ></ion-button>
         </ion-row>
       </form>
-      <ion-button (click)="closePcodeEvent(area.id)">
-        Close event
-      </ion-button>
+      <ion-button (click)="closePcodeEvent(area.id)"
+        color="ibf-royal-blue"
+        expand="block"
+        [translate]="'chat-component.active-event.close-event-button'"
+      ></ion-button>
     </dialogue-turn>
   </ng-container>
 </ion-content>

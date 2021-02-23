@@ -19,7 +19,7 @@ export class IndicatorService {
     );
 
     const event = await this.dataService.getCountryEvent(countryCode);
-    const activeTrigger = event && !event.end_date;
+    const activeTrigger = event && event.active_trigger;
     countryIndicators.find(
       (i): boolean => i.name === 'population_affected',
     ).active = activeTrigger;

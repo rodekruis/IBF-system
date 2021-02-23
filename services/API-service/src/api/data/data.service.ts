@@ -4,11 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
-import {
-  AdminAreaDataRecord,
-  DisasterEvent,
-  TriggeredArea,
-} from './data.model';
+import { AdminAreaDataRecord, TriggeredArea } from './data.model';
 import {
   GeoJson,
   GeoJsonFeature,
@@ -166,9 +162,10 @@ export class DataService {
   public async getCountryEvent(countryCode: string): Promise<CountryEvent> {
     const query = `
     select
-      max(end_date) as end_date,
-      min(start_date) as start_date,
-      max(country_code) as country_code
+      to_char(max(end_date) , 'yyyy-mm-dd') as end_date,
+      to_char(min(start_date), 'yyyy-mm-dd') as start_date,
+      max(country_code) as country_code,
+      max(active_trigger::int)::boolean as active_trigger
     from
       (
       select
@@ -176,7 +173,8 @@ export class DataService {
         coalesce(a2.country_code , a1.country_code) as country_code,
         coalesce(a2.population_affected, a1.population_affected) as population_affected,
         e.end_date,
-        e.start_date 
+        e.start_date,
+        e.active_trigger
       from
         "IBF-pipeline-output".event_pcode e
       left join "IBF-API"."Admin_area_data2" a2 on
@@ -196,11 +194,16 @@ export class DataService {
         a2.country_code,
         a1.country_code,
         e.end_date,
-        e.start_date 
+        e.start_date,
+        e."active_trigger"
       order by
         population_affected desc ) as event_pcode_country where country_code = $1
           `;
     const result = await this.manager.query(query, [countryCode]);
+    console.log('result: ', result);
+    if (!result[0].country_code) {
+      return null;
+    }
     return result[0];
   }
 
