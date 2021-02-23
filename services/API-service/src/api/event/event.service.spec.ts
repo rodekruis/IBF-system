@@ -1,18 +1,28 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { EventPcodeEntity } from './event-pcode.entity';
 import { EventService } from './event.service';
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 
-describe('EventService', () => {
+describe('User service', (): void => {
   let service: EventService;
+  beforeAll(
+    async (): Promise<void> => {
+      const module: TestingModule = await Test.createTestingModule({
+        providers: [
+          {
+            provide: getRepositoryToken(EventPcodeEntity),
+            useFactory: repositoryMockFactory,
+          },
+          EventService,
+        ],
+      }).compile();
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [EventService],
-    }).compile();
+      service = module.get<EventService>(EventService);
+    },
+  );
 
-    service = module.get<EventService>(EventService);
-  });
-
-  it('should be defined', () => {
+  it('should be defined', (): void => {
     expect(service).toBeDefined();
   });
 });
