@@ -134,6 +134,9 @@
                 }
               ]
             },
+            "development": {
+              "fileReplacements": []
+            },
             "ci": {
               "progress": false
             }
