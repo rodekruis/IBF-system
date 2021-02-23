@@ -11,8 +11,6 @@ export class EventService {
   private readonly eventPcodeRepo: Repository<EventPcodeEntity>;
 
   public async closeEventPcode(eventPcodeDto: EventPcodeDto): Promise<void> {
-    console.log('closeDistrictEventDto: ', eventPcodeDto);
-
     const eventPcode = await this.eventPcodeRepo.findOne(
       eventPcodeDto.eventPcodeId,
     );
