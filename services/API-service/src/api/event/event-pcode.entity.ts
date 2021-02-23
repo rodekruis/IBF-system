@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryColumn, Check } from 'typeorm';
+import { Entity, Column, Check, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('event_pcode', { schema: 'IBF-pipeline-output' })
 export class EventPcodeEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   public id: number;
 
   @Column({ nullable: true })
@@ -18,6 +18,9 @@ export class EventPcodeEntity {
   @Column({ type: 'timestamp', nullable: true })
   public manual_closed_date: Date;
 
-  @Column({})
+  @Column({ default: true })
+  public active_trigger: boolean;
+
+  @Column({ default: false })
   public closed: boolean;
 }

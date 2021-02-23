@@ -135,17 +135,11 @@ export class TriggeredArea {
   public population_affected: number;
 }
 
-export class DisasterEvent {
-  public country_code: string;
-  public start_date: Date;
-  public end_date?: Date;
-  public id: number;
-}
-
 export class CountryEvent {
   public country_code: string;
-  public start_date: Date;
-  public end_date: Date;
+  public start_date: string;
+  public end_date: string;
+  public active_trigger: boolean;
 }
 
 export class CountryMetaData {

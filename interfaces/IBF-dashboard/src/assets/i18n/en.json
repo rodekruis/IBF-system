@@ -70,6 +70,7 @@
       "place-name": "District: <strong>{{ placeName }}</strong>",
       "exposed-population": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
       "submit-button-label": "Submit",
+      "close-event-button": "Close event",
       "update-success": "EAP action(s) updated in database.",
       "update-failure": "Failed to update EAP action(s) updated in database.",
       "prompt-button-label": "OK"

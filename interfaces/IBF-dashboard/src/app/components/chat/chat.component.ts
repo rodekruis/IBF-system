@@ -190,7 +190,8 @@ export class ChatComponent implements OnDestroy {
     await alert.present();
   }
 
-  public closePcodeEvent(eventPcodeId: any) {
+  public closePcodeEvent(eventPcodeId: number) {
     this.apiService.closeEventPcode(eventPcodeId)
+    this.filteredAreas = this.filteredAreas.filter((item) => item.id !== eventPcodeId);
   }
 }
