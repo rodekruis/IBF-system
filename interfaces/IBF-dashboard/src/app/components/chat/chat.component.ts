@@ -194,7 +194,10 @@ export class ChatComponent implements OnDestroy {
   }
 
   public async closePcodeEventPopup(area) {
-    const message = this.closeEventPopup['message'].replace('{{ name of district }}', area.name)
+    const message = this.closeEventPopup['message'].replace(
+      '{{ name of district }}',
+      area.name,
+    );
     const alert = await this.alertController.create({
       message: message,
       buttons: [
@@ -202,16 +205,16 @@ export class ChatComponent implements OnDestroy {
           text: this.closeEventPopup['cancel'],
           handler: () => {
             console.log('Cancel close pcode');
-          }
+          },
         },
         {
           text: this.closeEventPopup['confirm'],
           handler: () => {
-            this.closePcodeEvent(area.id)
-          }
+            this.closePcodeEvent(area.id);
+          },
         },
       ],
-    })
+    });
     await alert.present();
   }
 
