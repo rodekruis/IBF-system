@@ -46,5 +46,4 @@ See script: XXX how to download the data from the CDS, `extra_info_api_cds` prov
 The data also be loaded in easily if synced through OneDrive from the IBF channel in Teams.
 
 ### More information
-`ecmwf_calculate_spi.R` contact ateklesadik@redcross.nl
 
