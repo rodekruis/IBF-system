@@ -36,6 +36,7 @@ export class AboutBtnComponent implements OnInit {
           country: country.countryCodeISO3,
           isActiveEvent: this.eventService.state.activeEvent,
           isActiveTrigger: this.eventService.state.activeTrigger,
+          component: this.constructor.name,
         });
 
         window.open(country.eapLink);
