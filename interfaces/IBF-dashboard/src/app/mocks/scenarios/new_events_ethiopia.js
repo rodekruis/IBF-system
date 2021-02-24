@@ -62,14 +62,14 @@ export function getStations(leadTime) {
           lead_time: '7-day',
           station_code: 'G1067',
           station_name: 'Melka Sedi',
-          trigger_level: 719.30,
+          trigger_level: 719.3,
           fc: '0',
           fc_trigger: '0',
           fc_perc: 0,
-          fc_prob: '0',#75%
+          fc_prob: '0', // 75%
         },
       },
-	  {
+      {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -84,10 +84,10 @@ export function getStations(leadTime) {
           fc: '0',
           fc_trigger: '0',
           fc_perc: 0,
-          fc_prob: '0',#85%
+          fc_prob: '0', // 85%
         },
       },
-	  
+
       {
         type: 'Feature',
         geometry: {
@@ -103,10 +103,10 @@ export function getStations(leadTime) {
           fc: '0',
           fc_trigger: '0',
           fc_perc: 0,
-          fc_prob: '0',#75%
+          fc_prob: '0', // 75%
         },
       },
-	  {
+      {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -121,11 +121,9 @@ export function getStations(leadTime) {
           fc: '0',
           fc_trigger: '0',
           fc_perc: 0,
-          fc_prob: '0',#85%
+          fc_prob: '0', // 85%
         },
       },
-
-
     ],
   };
 
