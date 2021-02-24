@@ -39,6 +39,7 @@ export class LoginPage implements OnInit {
 
     this.analyticsService.logEvent(AnalyticsEvent.watchVideoGuide, {
       page: AnalyticsPage.login,
+      component: this.constructor.name,
     });
 
     return await popover.present();

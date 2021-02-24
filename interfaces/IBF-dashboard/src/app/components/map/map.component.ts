@@ -424,6 +424,7 @@ export class MapComponent implements OnDestroy {
             country: feature.properties.country_code,
             isActiveEvent: this.eventService.state.activeEvent,
             isActiveTrigger: this.eventService.state.activeTrigger,
+            component: this.constructor.name,
           });
 
           this.placeCodeService.setPlaceCode({
@@ -490,6 +491,7 @@ export class MapComponent implements OnDestroy {
             country: country.countryCodeISO3,
             isActiveEvent: this.eventService.state.activeEvent,
             isActiveTrigger: this.eventService.state.activeTrigger,
+            component: this.constructor.name,
           });
         });
     });
@@ -543,6 +545,7 @@ export class MapComponent implements OnDestroy {
             country: country.countryCodeISO3,
             isActiveEvent: this.eventService.state.activeEvent,
             isActiveTrigger: this.eventService.state.activeTrigger,
+            component: this.constructor.name,
           });
         });
     });
@@ -571,6 +574,7 @@ export class MapComponent implements OnDestroy {
             country: country.countryCodeISO3,
             isActiveEvent: this.eventService.state.activeEvent,
             isActiveTrigger: this.eventService.state.activeTrigger,
+            component: this.constructor.name,
           });
         });
     });
@@ -601,6 +605,7 @@ export class MapComponent implements OnDestroy {
             country: country.countryCodeISO3,
             isActiveEvent: this.eventService.state.activeEvent,
             isActiveTrigger: this.eventService.state.activeTrigger,
+            component: this.constructor.name,
           });
         });
     });

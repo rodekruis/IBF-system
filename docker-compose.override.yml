@@ -49,7 +49,7 @@ services:
             - POSTGRES_PASSWORD=${DB_PASSWORD}
             - POSTGRES_DB=${DB_DATABASE}
         volumes:
-            - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
+            - "./database/init.sql:/docker-entrypoint-initdb.d/init.sql"
         ports:
             - "5437:5432"
         networks:
