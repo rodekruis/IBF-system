@@ -43,14 +43,18 @@ services:
             - ./nginx/letsencrypt:/etc/letsencrypt
 
     ibf-local-db:
-        image: "postgis/postgis"
+        image: postgis/postgis
         environment:
             - POSTGRES_USER=${DB_USERNAME}
             - POSTGRES_PASSWORD=${DB_PASSWORD}
             - POSTGRES_DB=${DB_DATABASE}
         volumes:
-            - "./database/init.sql:/docker-entrypoint-initdb.d/init.sql"
+            - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+            - ibf-local-db-data:/var/lib/postgresql/data
         ports:
-            - "5437:5432"
+            - 5437:5432
         networks:
             - pipeline-network
+
+volumes:
+    ibf-local-db-data:
