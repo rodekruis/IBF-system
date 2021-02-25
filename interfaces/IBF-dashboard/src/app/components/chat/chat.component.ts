@@ -224,16 +224,16 @@ export class ChatComponent implements OnDestroy {
       (item) => item.id !== eventPcodeId,
     );
     this.countryService
-    .getCountrySubscription()
-    .subscribe((country: Country) => {
-      this.analyticsService.logEvent(AnalyticsEvent.watchVideoGuide, {
-        page: AnalyticsPage.dashboard,
-        country: country.countryCodeISO3,
-        isActiveEvent: this.eventService.state.activeEvent,
-        isActiveTrigger: this.eventService.state.activeTrigger,
-        pcode: pcode
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.analyticsService.logEvent(AnalyticsEvent.watchVideoGuide, {
+          page: AnalyticsPage.dashboard,
+          country: country.countryCodeISO3,
+          isActiveEvent: this.eventService.state.activeEvent,
+          isActiveTrigger: this.eventService.state.activeTrigger,
+          pcode: pcode,
+        });
       });
-    });
     let loading = await this.loadingCtrl.create({});
     loading.present();
     setTimeout(() => {
