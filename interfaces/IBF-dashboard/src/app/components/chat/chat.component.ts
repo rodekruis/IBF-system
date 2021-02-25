@@ -210,7 +210,7 @@ export class ChatComponent implements OnDestroy {
         {
           text: this.closeEventPopup['confirm'],
           handler: () => {
-            this.closePcodeEvent(area.id);
+            this.closePcodeEvent(area.id, area.pcode);
           },
         },
       ],
@@ -218,11 +218,22 @@ export class ChatComponent implements OnDestroy {
     await alert.present();
   }
 
-  public async closePcodeEvent(eventPcodeId: number) {
+  public async closePcodeEvent(eventPcodeId: number, pcode: string) {
     this.apiService.closeEventPcode(eventPcodeId);
     this.filteredAreas = this.filteredAreas.filter(
       (item) => item.id !== eventPcodeId,
     );
+    this.countryService
+    .getCountrySubscription()
+    .subscribe((country: Country) => {
+      this.analyticsService.logEvent(AnalyticsEvent.watchVideoGuide, {
+        page: AnalyticsPage.dashboard,
+        country: country.countryCodeISO3,
+        isActiveEvent: this.eventService.state.activeEvent,
+        isActiveTrigger: this.eventService.state.activeTrigger,
+        pcode: pcode
+      });
+    });
     let loading = await this.loadingCtrl.create({});
     loading.present();
     setTimeout(() => {
