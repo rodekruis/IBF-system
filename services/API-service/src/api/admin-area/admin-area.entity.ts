@@ -6,23 +6,23 @@ export class AdminAreaEntity {
   public id: string;
 
   @Column()
-  public country_code: string;
+  public countryCode: string;
 
   @Column()
-  public admin_level: number;
+  public adminLevel: number;
 
   @Column()
-  pcode: string;
+  public pcode: string;
 
   @Column({ nullable: true })
-  name: string;
+  public name: string;
 
   @Column({ nullable: true })
-  pcode_parent: string;
+  public pcodeParent: string;
 
   @Column({ nullable: true })
-  geom: string;
+  public geom: string;
 
   @Column({ nullable: true })
-  glofas_station: string;
+  public glofasStation: string;
 }

@@ -26,11 +26,11 @@ export class SeedAdminArea implements InterfaceScript {
         .createQueryBuilder()
         .insert()
         .values({
-          country_code: 'EGY',
-          admin_level: 1,
+          countryCode: 'EGY',
+          adminLevel: 1,
           name: area.properties.ADM1_EN,
           pcode: area.properties.ADM1_PCODE,
-          pcode_parent: area.properties.ADM0_PCODE,
+          pcodeParent: area.properties.ADM0_PCODE,
           geom: `{ "type": "MultiPolygon", "coordinates": [${area.geometry.coordinates}] }`,
         })
         .execute();
@@ -42,14 +42,14 @@ export class SeedAdminArea implements InterfaceScript {
         .createQueryBuilder()
         .insert()
         .values({
-          country_code: 'ETH',
-          admin_level: 2,
+          countryCode: 'ETH',
+          adminLevel: 2,
           name: area.properties.ZONENAME,
           pcode:
             area.properties.HRname === 'Mezhenger'
               ? area.properties.ZON_Pcode
               : area.properties.HRpcode,
-          pcode_parent: area.properties.HRparent,
+          pcodeParent: area.properties.HRparent,
           geom: `{ "type": "MultiPolygon", "coordinates": [${area.geometry.coordinates}] }`,
         })
         .execute();

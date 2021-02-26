@@ -3,20 +3,20 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity('glofasStation')
 export class GlofasStationEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  public id: string;
 
   @Column()
-  country_code: string;
+  public countryCode: string;
 
   @Column()
-  station_code: string;
+  public stationCode: string;
 
   @Column()
-  station_name: string;
+  public stationName: string;
 
   @Column({ nullable: true })
-  trigger_level: string;
+  public triggerLevel: string;
 
   @Column({ nullable: true })
-  geom: string;
+  public geom: string;
 }
