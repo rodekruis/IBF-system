@@ -1,3 +1,21 @@
+# [0.22.0](https://github.com/rodekruis/IBF-system/compare/v0.21.2...v0.22.0) (2021-02-24)
+
+
+### Features
+
+* add component property to analytics events AB[#6335](https://github.com/rodekruis/IBF-system/issues/6335) ([f0ce69d](https://github.com/rodekruis/IBF-system/commit/f0ce69ddca6c59f89b48801673f7ea06d9080f25))
+
+
+
+## [0.21.2](https://github.com/rodekruis/IBF-system/compare/v0.21.1...v0.21.2) (2021-02-23)
+
+
+### Bug Fixes
+
+* use POSTGRES_DB instead of POSTGRES_DBNAME AB[#6253](https://github.com/rodekruis/IBF-system/issues/6253) ([7b055c0](https://github.com/rodekruis/IBF-system/commit/7b055c0a30a9adab448906e1e1b8f04984b268dd))
+
+
+
 ## [0.21.1](https://github.com/rodekruis/IBF-system/compare/v0.21.0...v0.21.1) (2021-02-22)
 
 
@@ -93,30 +111,6 @@
 * analytics event for map place select AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([ef7e7d3](https://github.com/rodekruis/IBF-system/commit/ef7e7d30933a89ef93125ae6b0fda64984409c9e))
 * analytics event for video guide button AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([6e68ed8](https://github.com/rodekruis/IBF-system/commit/6e68ed84f5234ea5f1acad3b00db11d6d04235cb))
 * analytics event for water point AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([9b8b4bc](https://github.com/rodekruis/IBF-system/commit/9b8b4bcc806234f80fbc1a5cd831d1f44a9f38b9))
-
-
-
-## [0.18.1](https://github.com/rodekruis/IBF-system/compare/v0.18.0...v0.18.1) (2021-02-15)
-
-
-### Bug Fixes
-
-* fixes to get docker-compose up working AB# 6163 ([d5cad09](https://github.com/rodekruis/IBF-system/commit/d5cad0992ba72c12dd51754681fbdd0909431f31))
-
-
-
-# [0.18.0](https://github.com/rodekruis/IBF-system/compare/v0.17.2...v0.18.0) (2021-02-15)
-
-
-### Bug Fixes
-
-* process env boolean correctly AB[#6159](https://github.com/rodekruis/IBF-system/issues/6159) ([daa403e](https://github.com/rodekruis/IBF-system/commit/daa403e652be23e08021109a0c91ed74fdcd777f))
-* update new dashboard URL in pipeline email AB[#6161](https://github.com/rodekruis/IBF-system/issues/6161) ([85b7490](https://github.com/rodekruis/IBF-system/commit/85b7490cca264d1c264be818e3141aef7c4903f9))
-
-
-### Features
-
-* make email-boolean configurable + true on production AB[#6159](https://github.com/rodekruis/IBF-system/issues/6159) ([0a494a8](https://github.com/rodekruis/IBF-system/commit/0a494a8e53a003a49b8e9cf712412732f33a9be2))
 
 
 

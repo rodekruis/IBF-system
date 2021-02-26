@@ -135,6 +135,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           country: country.countryCodeISO3,
           isActiveEvent: this.eventService.state.activeEvent,
           isActiveTrigger: this.eventService.state.activeTrigger,
+          component: this.constructor.name,
         });
       });
 
