@@ -132,7 +132,7 @@ class GlofasData:
 
                         # DUMMY OVERWRITE FOR NOW
                         if OVERWRITE_DUMMY == True:
-                            if DUMMY_TRIGGER == False:
+                            if SETTINGS[self.country_code]['dummy_trigger'] == False:
                                 discharge = 0
                             else:
                                 if step < 5:
@@ -143,8 +143,10 @@ class GlofasData:
                                     discharge = 9000
                                 elif station['code'] == 'G5200': # UGA dummy flood station
                                     discharge = 700
-                                elif station['code'] == 'G1074': # ETH dummy flood station
+                                elif station['code'] == 'G1067': # ETH dummy flood station
                                     discharge = 1000
+                                elif station['code'] == 'G1904': # ETH dummy flood station
+                                    discharge = 2000
                                 elif station['code'] == 'G5194': # KEN dummy flood station
                                     discharge = 2000
                                 else:
