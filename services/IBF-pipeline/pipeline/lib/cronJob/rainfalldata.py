@@ -2,6 +2,7 @@ import os
 import xarray as xr
 import numpy as np
 import pandas as pd
+from pandas import DataFrame
 import logging
 import urllib.request
 import urllib.error
@@ -21,15 +22,12 @@ from geocube.api.core import make_geocube
 
 class RainfallData:
 
-    def __init__(self, fcStep, days, country_code):
+    def __init__(self, fcStep, days, country_code, rainfall_triggers, rainfall_cols):
         self.fcStep = fcStep
         self.days = days
         self.inputPath = PIPELINE_DATA + 'input/rainfall/'
-        self.rainrasterPath = PIPELINE_OUTPUT + \
-                                      'triggers_rp_per_station/rain_rp_' + self.fcStep + '_' + country_code + '.tif'
-        # self.triggersPerStationPath = PIPELINE_OUTPUT + \
-        #                               'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + country_code + '.json'
-        self.WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + SETTINGS[country_code]['trigger_levels']
+        self.rainfall_triggers = rainfall_triggers
+        self.rainfall_cols = rainfall_cols
         self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
         self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
         self.downloaded = False
@@ -172,8 +170,8 @@ class RainfallData:
         logging.info("Started processing glofas data: " + self.fcStep)
 
         # Load (static) threshold values per station
-
-        df_thresholds = pd.read_csv(self.WATERSTATIONS_TRIGGERS)  ### PHUOC TO CORRECT DIRS IN SETTINGS.PY FILE
+        df_thresholds = DataFrame(self.rainfall_triggers)
+        df_thresholds.columns = self.rainfall_cols
 
         ### COMPARE WITH THE THRESHOLD
         grb_files = sorted([f for f in os.listdir(self.inputPath) if f.endswith('.grb2')])

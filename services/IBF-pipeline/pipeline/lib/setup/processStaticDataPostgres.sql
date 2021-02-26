@@ -28,7 +28,7 @@ union all
 SELECT 'ETH' as country_code
 	, station_code
 	, station_name
-	, "5yr_threshold" as trigger_level
+	, "10yr_threshold_7day" as trigger_level
 	,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
 FROM "IBF-static-input"."ETH_glofas_stations"
 where station_code in (select station_code_7day from "IBF-static-input"."ETH_waterstation_per_district" group by 1)
