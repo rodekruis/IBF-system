@@ -48,5 +48,15 @@
     "password": "password",
     "userStatus": "active",
     "countries": ["ETH"]
+  },
+  {
+    "email": "egypt@redcross.nl",
+    "username": "egypt",
+    "firstName": "Egypt",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["EGY"]
   }
 ]
