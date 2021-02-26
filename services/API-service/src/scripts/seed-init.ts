@@ -35,107 +35,107 @@ export class SeedInit implements InterfaceScript {
     await this.cleanAll();
     await this.connection.synchronize(false);
 
-    // // ***** CREATE LEAD TIMES *****
+    // ***** CREATE LEAD TIMES *****
 
-    // const leadTimeRepository = this.connection.getRepository(LeadTimeEntity);
-    // const leadTimeEntities = leadTimes.map(
-    //   (leadTime): LeadTimeEntity => {
-    //     let leadTimeEntity = new LeadTimeEntity();
-    //     leadTimeEntity.leadTimeName = leadTime.leadTimeName;
-    //     leadTimeEntity.leadTimeLabel = leadTime.leadTimeLabel;
-    //     leadTimeEntity.leadTimeStatus = leadTime.leadTimeStatus as leadTimeStatus;
-    //     return leadTimeEntity;
-    //   },
-    // );
+    const leadTimeRepository = this.connection.getRepository(LeadTimeEntity);
+    const leadTimeEntities = leadTimes.map(
+      (leadTime): LeadTimeEntity => {
+        let leadTimeEntity = new LeadTimeEntity();
+        leadTimeEntity.leadTimeName = leadTime.leadTimeName;
+        leadTimeEntity.leadTimeLabel = leadTime.leadTimeLabel;
+        leadTimeEntity.leadTimeStatus = leadTime.leadTimeStatus as leadTimeStatus;
+        return leadTimeEntity;
+      },
+    );
 
-    // await leadTimeRepository.save(leadTimeEntities);
+    await leadTimeRepository.save(leadTimeEntities);
 
-    // // ***** CREATE COUNTRIES *****
-    // const envCountries = process.env.COUNTRIES.split(',');
-    // const selectedCountries = countries.filter((country): boolean => {
-    //   return envCountries.includes(country.countryCodeISO3);
-    // });
+    // ***** CREATE COUNTRIES *****
+    const envCountries = process.env.COUNTRIES.split(',');
+    const selectedCountries = countries.filter((country): boolean => {
+      return envCountries.includes(country.countryCodeISO3);
+    });
 
-    // const countryRepository = this.connection.getRepository(CountryEntity);
-    // const countryEntities = await Promise.all(
-    //   selectedCountries.map(
-    //     async (country): Promise<CountryEntity> => {
-    //       let countryEntity = new CountryEntity();
-    //       countryEntity.countryCodeISO3 = country.countryCodeISO3;
-    //       countryEntity.countryCodeISO2 = country.countryCodeISO2;
-    //       countryEntity.countryName = country.countryName;
-    //       countryEntity.countryStatus = country.countryStatus as CountryStatus;
-    //       countryEntity.defaultAdminLevel = country.defaultAdminLevel as AdminLevel;
-    //       countryEntity.adminRegionLabels = country.adminRegionLabels;
-    //       countryEntity.eapLink = country.eapLink;
-    //       countryEntity.countryLeadTimes = await leadTimeRepository.find({
-    //         where: country.countryLeadTimes.map(
-    //           (countryLeadTime: string): object => {
-    //             return { leadTimeName: countryLeadTime };
-    //           },
-    //         ),
-    //       });
-    //       countryEntity.countryLogos = country.countryLogos;
-    //       countryEntity.eapAlertClasses = JSON.parse(
-    //         JSON.stringify([country.eapAlertClasses]),
-    //       )[0];
-    //       countryEntity.countryBoundingBox = country.countryBoundingBox;
-    //       return countryEntity;
-    //     },
-    //   ),
-    // );
+    const countryRepository = this.connection.getRepository(CountryEntity);
+    const countryEntities = await Promise.all(
+      selectedCountries.map(
+        async (country): Promise<CountryEntity> => {
+          let countryEntity = new CountryEntity();
+          countryEntity.countryCodeISO3 = country.countryCodeISO3;
+          countryEntity.countryCodeISO2 = country.countryCodeISO2;
+          countryEntity.countryName = country.countryName;
+          countryEntity.countryStatus = country.countryStatus as CountryStatus;
+          countryEntity.defaultAdminLevel = country.defaultAdminLevel as AdminLevel;
+          countryEntity.adminRegionLabels = country.adminRegionLabels;
+          countryEntity.eapLink = country.eapLink;
+          countryEntity.countryLeadTimes = await leadTimeRepository.find({
+            where: country.countryLeadTimes.map(
+              (countryLeadTime: string): object => {
+                return { leadTimeName: countryLeadTime };
+              },
+            ),
+          });
+          countryEntity.countryLogos = country.countryLogos;
+          countryEntity.eapAlertClasses = JSON.parse(
+            JSON.stringify([country.eapAlertClasses]),
+          )[0];
+          countryEntity.countryBoundingBox = country.countryBoundingBox;
+          return countryEntity;
+        },
+      ),
+    );
 
-    // await countryRepository.save(countryEntities);
+    await countryRepository.save(countryEntities);
 
-    // // ***** CREATE USERS *****
-    // let selectedUsers;
-    // if (process.env.NODE_ENV === 'production') {
-    //   selectedUsers = users.filter((user): boolean => {
-    //     return user.userRole === 'admin';
-    //   });
-    //   selectedUsers[0].password = process.env.ADMIN_PASSWORD;
-    // } else {
-    //   selectedUsers = users;
-    // }
+    // ***** CREATE USERS *****
+    let selectedUsers;
+    if (process.env.NODE_ENV === 'production') {
+      selectedUsers = users.filter((user): boolean => {
+        return user.userRole === 'admin';
+      });
+      selectedUsers[0].password = process.env.ADMIN_PASSWORD;
+    } else {
+      selectedUsers = users;
+    }
 
-    // const userRepository = this.connection.getRepository(UserEntity);
-    // const userEntities = await Promise.all(
-    //   selectedUsers.map(
-    //     async (user): Promise<UserEntity> => {
-    //       let userEntity = new UserEntity();
-    //       userEntity.email = user.email;
-    //       userEntity.username = user.username;
-    //       userEntity.firstName = user.firstName;
-    //       userEntity.lastName = user.lastName;
-    //       userEntity.userRole = user.userRole as UserRole;
-    //       userEntity.countries = await countryRepository.find({
-    //         where: user.countries.map((countryCodeISO3: string): object => {
-    //           return { countryCodeISO3: countryCodeISO3 };
-    //         }),
-    //       });
-    //       userEntity.userStatus = user.userStatus as UserStatus;
-    //       userEntity.password = user.password;
-    //       return userEntity;
-    //     },
-    //   ),
-    // );
+    const userRepository = this.connection.getRepository(UserEntity);
+    const userEntities = await Promise.all(
+      selectedUsers.map(
+        async (user): Promise<UserEntity> => {
+          let userEntity = new UserEntity();
+          userEntity.email = user.email;
+          userEntity.username = user.username;
+          userEntity.firstName = user.firstName;
+          userEntity.lastName = user.lastName;
+          userEntity.userRole = user.userRole as UserRole;
+          userEntity.countries = await countryRepository.find({
+            where: user.countries.map((countryCodeISO3: string): object => {
+              return { countryCodeISO3: countryCodeISO3 };
+            }),
+          });
+          userEntity.userStatus = user.userStatus as UserStatus;
+          userEntity.password = user.password;
+          return userEntity;
+        },
+      ),
+    );
 
-    // await userRepository.save(userEntities);
+    await userRepository.save(userEntities);
 
-    // // ***** CREATE AREAS OF FOCUS *****
+    // ***** CREATE AREAS OF FOCUS *****
 
-    // const areaOfFocusRepository = this.connection.getRepository(
-    //   AreaOfFocusEntity,
-    // );
-    // await areaOfFocusRepository.save(areasOfFocus);
+    const areaOfFocusRepository = this.connection.getRepository(
+      AreaOfFocusEntity,
+    );
+    await areaOfFocusRepository.save(areasOfFocus);
 
-    // // ***** CREATE EAP ACTIONS *****
-    // const eapActionRepository = this.connection.getRepository(EapActionEntity);
-    // await eapActionRepository.save(eapActions);
+    // ***** CREATE EAP ACTIONS *****
+    const eapActionRepository = this.connection.getRepository(EapActionEntity);
+    await eapActionRepository.save(eapActions);
 
-    // // ***** CREATE INDICATORS *****
-    // const indicatorRepository = this.connection.getRepository(IndicatorEntity);
-    // await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
+    // ***** CREATE INDICATORS *****
+    const indicatorRepository = this.connection.getRepository(IndicatorEntity);
+    await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
 
     // // ***** SEED ADMIN-AREA DATA *****
     const seedAdminArea = await new SeedAdminArea(this.connection);
