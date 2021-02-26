@@ -6,10 +6,6 @@ from datetime import date, timedelta
 ## DEVELOPMENT SETTINGS ##
 ##########################
 
-# Disable these temporarily to run only the trigger-model part
-CALCULATE_EXTENT = True
-CALCULATE_EXPOSURE = True
-
 # Use dummy-data and/or overwrite real data
 OVERWRITE_DUMMY = False #Overwrite glofas data with dummy data
 DUMMY_TRIGGER = True #Overwrite with flood data (true) or no flood (false)

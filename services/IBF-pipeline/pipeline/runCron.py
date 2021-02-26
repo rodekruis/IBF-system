@@ -31,8 +31,9 @@ def main():
                 if CALCULATE_EXTENT and CALCULATE_EXPOSURE:
                     fc.floodExtent.callAllExposure()
                 fc.db.upload()
-            fc.db.processDynamicDataDb()
-            notify(COUNTRY_CODE)
+            if COUNTRY_SETTINGS['model'] == 'glofas':
+                fc.db.processDynamicDataDb()
+                notify(COUNTRY_CODE)
 
     except Exception as e:
         # If a fatal exception occurs during the cronjob
