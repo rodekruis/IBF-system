@@ -22,4 +22,7 @@ export class AdminAreaEntity {
 
   @Column({ nullable: true })
   geom: string;
+
+  @Column({ nullable: true })
+  glofas_station: string;
 }

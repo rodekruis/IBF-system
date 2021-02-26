@@ -1,22 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AdminAreaEntity } from './admin-area.entity';
-import { AdminAreaService } from './admin-area.service';
+import { GlofasStationEntity } from './glofas-station.entity';
+import { GlofasStationService } from './glofas-station.service';
 
-describe('AdminAreaService', (): void => {
-  let service: AdminAreaService;
+describe('GlofasStationService', (): void => {
+  let service: GlofasStationService;
 
   beforeEach(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
         imports: [
           TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([AdminAreaEntity]),
+          TypeOrmModule.forFeature([GlofasStationEntity]),
         ],
-        providers: [AdminAreaService],
+        providers: [GlofasStationService],
       }).compile();
 
-      service = module.get<AdminAreaService>(AdminAreaService);
+      service = module.get<GlofasStationService>(GlofasStationService);
     },
   );
 
