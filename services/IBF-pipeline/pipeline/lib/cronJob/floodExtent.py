@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from pandas import DataFrame
 import json
 import logging
 import geopandas as gpd
@@ -14,16 +15,20 @@ class FloodExtent:
 
     """Class used to calculate flood extent"""
 
-    def __init__(self, fcStep, days, country_code):
+    def __init__(self, fcStep, days, country_code, district_mapping = None, district_cols = None):
         self.fcStep = fcStep
         self.days = days
         self.country_code = country_code
-        self.inputPath = GEOSERVER_DATA + "input/flood_extent/"
-        self.outputPathAreas = PIPELINE_DATA + 'output/flood_extents/'+ fcStep +'/'
-        self.outputPathMerge = GEOSERVER_DATA + 'output/0/flood_extents/flood_extent_'+ fcStep + '_' + country_code + '.tif'
-        self.statsPath = PIPELINE_DATA + 'output/calculated_affected/affected_' + fcStep + '_' + country_code + '.json'
+        self.inputPath = GEOSERVER_INPUT + "flood_extent/"
+        self.outputPathAreas = PIPELINE_OUTPUT + 'flood_extents/'+ fcStep +'/'
+        if SETTINGS[country_code]['model'] == 'glofas':
+            self.outputPathMerge = GEOSERVER_OUTPUT + '0/flood_extents/flood_extent_'+ fcStep + '_' + country_code + '.tif'
+        elif SETTINGS[country_code]['model'] == 'rainfall':
+            self.outputPathMerge = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ fcStep + '_' + country_code + '.tif'
+        self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + fcStep + '_' + country_code + '.json'
         self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
-        self.DISTRICT_MAPPING = PIPELINE_INPUT + SETTINGS[country_code]['district_mapping']
+        self.DISTRICT_MAPPING = district_mapping
+        self.district_cols = district_cols
         self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
         self.PCODE_COLNAME = SETTINGS[country_code]['admin_boundaries']['pcode_colname']
         self.stats = []
@@ -101,15 +106,15 @@ class FloodExtent:
     def loadGlofasData(self):
 
         #Load assigned station per district
-        path = self.DISTRICT_MAPPING #PIPELINE_DATA+'input/Waterstation_per_catchment_area.csv'
-        df_catchment = pd.read_csv(path,delimiter=';', encoding="windows-1251")
+        df_district_mapping = DataFrame(self.DISTRICT_MAPPING)
+        df_district_mapping.columns = self.district_cols
 
         #Load (static) threshold values per station
         path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + self.country_code + '.json'
         df_triggers = pd.read_json(path, orient='records')
-
+        
         #Merge two datasets
-        df_glofas = pd.merge(df_catchment, df_triggers, left_on='station_code_'+str(self.days)+'day', right_on='station_code', how='left')
+        df_glofas = pd.merge(df_district_mapping, df_triggers, left_on='station_code_'+str(self.days)+'day', right_on='station_code', how='left')
 
         return df_glofas
 
