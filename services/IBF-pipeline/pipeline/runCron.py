@@ -24,10 +24,7 @@ def main():
             RUN_RAINFALL = COUNTRY_SETTINGS['models']['rainfall']
             for fcStep, days in LEAD_TIMES.items():
                 print('--------STARTING: ' + fcStep + '--------------------------')
-                fc = Forecast(fcStep, days, COUNTRY_CODE)
-                if RUN_GLOFAS:
-                    fc.glofasData.process()
-                if RUN_RAINFALL:
+                fc = Forecast(fcStep, days, COUNTRY_CODE, COUNTRY_SETTINGS['model'])
                     fc.rainfallData.process()
                 if CALCULATE_EXTENT:
                     fc.floodExtent.calculate()

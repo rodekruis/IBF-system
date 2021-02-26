@@ -37,7 +37,6 @@ SETTINGS = {
             'filename': 'vector/ZMB_adm2_mapshaper_2020.shp',
             'pcode_colname': 'pcode'
         },
-        'trigger_colname': '10yr_threshold',
         'lead_times': {
             "short": 3,
             "long": 7
@@ -61,7 +60,6 @@ SETTINGS = {
             'filename': 'vector/UGA_adm2_mapshaper.shp',
             'pcode_colname': 'pcode'
         },
-        'trigger_colname': '5yr_threshold',
         'lead_times': {
             "long": 7
         },
@@ -83,7 +81,6 @@ SETTINGS = {
             'filename': 'vector/KEN_adm1_mapshaper_corrected.shp',
             'pcode_colname': 'ADM1_PCODE'
         },
-        'trigger_colname': '5yr_threshold',
         'lead_times': {
             "long": 7
         },
@@ -105,7 +102,6 @@ SETTINGS = {
             'filename': 'vector/ETH_adm2_mapshaper_reproj.shp',
             'pcode_colname': 'HRpcode'
         },
-        'trigger_colname': '5yr_threshold',
         'lead_times': {
             "long": 7
         },

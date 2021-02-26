@@ -83,6 +83,23 @@ class DatabaseManager:
             logger.info(e)
             print('SQL FAILED', e)
 
+    def downloadDataFromDb(self, schema, table, country_code = None):
+        try:
+            self.con, self.cur, self.db = get_db()
+            sql = "SELECT * FROM \""+schema+"\".\""+table+"\""
+            if country_code != None:
+                sql = sql + " WHERE country_code=\'"+self.country_code+"\'"
+            self.cur.execute(sql)
+            data = self.cur.fetchall()
+            self.cur.execute("SELECT * FROM \""+schema+"\".\""+table+"\" LIMIT 0")
+            colnames = [desc[0] for desc in self.cur.description]
+            self.con.commit()
+            self.con.close()
+        except psycopg2.ProgrammingError as e:
+            logger.info(e)
+
+        return data,colnames
+
 
 
     

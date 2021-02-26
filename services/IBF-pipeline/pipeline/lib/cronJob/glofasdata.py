@@ -4,6 +4,7 @@ import os
 from os import listdir
 from os.path import isfile, join
 import pandas as pd
+from pandas import DataFrame
 import sys
 import json
 import datetime
@@ -19,7 +20,7 @@ from secrets import GLOFAS_USER, GLOFAS_PW
 
 class GlofasData:
 
-    def __init__(self, fcStep, days, country_code):
+    def __init__(self, fcStep, days, country_code, glofas_stations, glofas_cols, district_mapping, district_cols):
         self.fcStep = fcStep
         self.days = days
         self.country_code = country_code
@@ -30,9 +31,10 @@ class GlofasData:
             'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + country_code + '.json'
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
             'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + country_code + '.json'
-        self.WATERSTATIONS_TRIGGERS = PIPELINE_INPUT + SETTINGS[country_code]['trigger_levels']
-        self.DISTRICT_MAPPING = PIPELINE_INPUT + SETTINGS[country_code]['district_mapping']
-        self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
+        self.GLOFAS_STATIONS = glofas_stations
+        self.glofas_cols = glofas_cols
+        self.DISTRICT_MAPPING = district_mapping
+        self.district_cols = district_cols
 
     def process(self):
         self.removeOldGlofasData()
@@ -83,12 +85,11 @@ class GlofasData:
         files = [f for f in listdir(self.inputPath) if isfile(
             join(self.inputPath, f)) and f.endswith('.nc')]
 
-        # Load file with thresholds per station (only once, so before loop)
-        df_thresholds = pd.read_csv(
-            self.WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
+        df_thresholds = DataFrame(self.GLOFAS_STATIONS)
+        df_thresholds.columns = self.glofas_cols
         df_thresholds = df_thresholds.set_index("station_code", drop=False)
-        df_district_mapping = pd.read_csv(
-            self.DISTRICT_MAPPING, delimiter=';', encoding="windows-1251")
+        df_district_mapping = DataFrame(self.DISTRICT_MAPPING)
+        df_district_mapping.columns = self.district_cols
         df_district_mapping = df_district_mapping.set_index("station_code_7day", drop=False)
 
         stations = []
@@ -114,7 +115,7 @@ class GlofasData:
             if station['code'] in df_thresholds['station_code'] and station['code'] in df_district_mapping['station_code_7day']:
                 print(Filename)
                 threshold = df_thresholds[df_thresholds.station_code ==
-                                        station['code']][self.TRIGGER_RP_COLNAME][0]
+                                        station['code']]['trigger_level'][0]
 
                 # Set dimension-values
                 time = 0
@@ -194,9 +195,9 @@ class GlofasData:
 
         # Load (static) threshold values per station
 
-        df_thresholds = pd.read_csv(
-            self.WATERSTATIONS_TRIGGERS, delimiter=';', encoding="windows-1251")
-        df_thresholds.index = df_thresholds['station_code']
+        df_thresholds = DataFrame(self.GLOFAS_STATIONS)
+        df_thresholds.columns = self.glofas_cols
+        df_thresholds = df_thresholds.set_index("station_code", drop=False)
         df_thresholds.sort_index(inplace=True)
         # Load extracted Glofas discharge levels per station
         with open(self.extractedGlofasPath) as json_data:
