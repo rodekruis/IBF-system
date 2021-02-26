@@ -29,7 +29,7 @@ export class SeedGlofasStation implements InterfaceScript {
       const adminArea = await adminAreaRepository.findOne({
         where: { pcode: area['pcode'] },
       });
-      adminArea.glofas_station = area['station_code_7day'];
+      adminArea.glofasStation = area['station_code_7day'];
       adminAreaRepository.save(adminArea);
     });
 
@@ -47,10 +47,10 @@ export class SeedGlofasStation implements InterfaceScript {
           .createQueryBuilder()
           .insert()
           .values({
-            country_code: 'ETH',
-            station_code: station['station_code'],
-            station_name: station['station_name'],
-            trigger_level: station['10yr_threshold_7day'],
+            countryCode: 'ETH',
+            stationCode: station['station_code'],
+            stationName: station['station_name'],
+            triggerLevel: station['10yr_threshold_7day'],
             geom: () =>
               `st_SetSrid(st_MakePoint(${station['lat']}, ${station['lon']}), 4326)`,
           })
