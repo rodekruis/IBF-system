@@ -13,12 +13,15 @@ import { UserRole } from '../api/user/user-role.enum';
 import { UserStatus } from '../api/user/user-status.enum';
 import { UserEntity } from '../api/user/user.entity';
 
-import leadTimes from './lead-times.json';
-import countries from './countries.json';
-import users from './users.json';
-import areasOfFocus from './areas-of-focus.json';
-import eapActions from './EAP-actions.json';
-import indicators from './indicator-metadata.json';
+import leadTimes from './json/lead-times.json';
+import countries from './json/countries.json';
+import users from './json/users.json';
+import areasOfFocus from './json/areas-of-focus.json';
+import eapActions from './json/EAP-actions.json';
+import indicators from './json/indicator-metadata.json';
+
+import SeedAdminArea from './seed-admin-area';
+import SeedGlofasStation from './seed-glofas-station';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -133,6 +136,14 @@ export class SeedInit implements InterfaceScript {
     // ***** CREATE INDICATORS *****
     const indicatorRepository = this.connection.getRepository(IndicatorEntity);
     await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
+
+    // // ***** SEED ADMIN-AREA DATA *****
+    const seedAdminArea = await new SeedAdminArea(this.connection);
+    await seedAdminArea.run();
+
+    // ***** SEED GLOFAS-STATION DATA *****
+    const seedGlofasStation = await new SeedGlofasStation(this.connection);
+    await seedGlofasStation.run();
   }
 
   private async cleanAll(): Promise<void> {

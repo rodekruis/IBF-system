@@ -16,8 +16,14 @@ def main():
     createSchema()
     for COUNTRY_CODE in COUNTRY_CODES:
         COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
+        # Glofas only
         uploadStaticToDb(COUNTRY_CODE + '_glofas_stations', COUNTRY_SETTINGS['trigger_levels'])
         uploadStaticToDb(COUNTRY_CODE + '_waterstation_per_district',COUNTRY_SETTINGS['district_mapping'])
+        
+        # Rainfall only
+        # uploadStaticToDb(COUNTRY_CODE + '_rainfall_trigger_levels', COUNTRY_SETTINGS['trigger_levels'])
+
+        # Only if aplicable
         # uploadStaticToDb(COUNTRY_CODE + '_redcross_branches',COUNTRY_SETTINGS['redcross_branches'])
     processStaticDataDb()
     
