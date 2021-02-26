@@ -26,6 +26,7 @@ class RainfallData:
         self.fcStep = fcStep
         self.days = days
         self.inputPath = PIPELINE_DATA + 'input/rainfall/'
+        self.rainrasterPath = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ fcStep + '_' + country_code + '.tif'
         self.rainfall_triggers = rainfall_triggers
         self.rainfall_cols = rainfall_cols
         self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']

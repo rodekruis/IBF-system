@@ -18,26 +18,19 @@ class DatabaseManager:
         self.engine = create_engine('postgresql://'+DB_SETTINGS['user']+':'+DB_SETTINGS['password']+'@'+DB_SETTINGS['host']+':'+DB_SETTINGS['port']+'/'+DB_SETTINGS['db'])
         triggerFolder = PIPELINE_OUTPUT + "triggers_rp_per_station/"
         affectedFolder = PIPELINE_OUTPUT + "calculated_affected/"
-        lizardFolder = PIPELINE_OUTPUT + "lizard/"
-        self.tableJson = {
-            "triggers_rp_per_station_" + fcStep: triggerFolder + 'triggers_rp_' + fcStep + '_' + country_code + ".json"
-            ,"triggers_per_day": triggerFolder + 'trigger_per_day_' + country_code + ".json"
-        }
-        if CALCULATE_EXPOSURE:
-            self.tableJson["calculated_affected_" + fcStep] = affectedFolder + 'affected_' + fcStep + '_' + country_code + ".json"
+
+        self.tableJson = {}
+        if SETTINGS[country_code]['model'] == 'glofas':
+            self.tableJson["triggers_rp_per_station_" + fcStep] = triggerFolder + 'triggers_rp_' + fcStep + '_' + country_code + ".json"
+            self.tableJson["triggers_per_day"] =  triggerFolder + 'trigger_per_day_' + country_code + ".json"
+        self.tableJson["calculated_affected_" + fcStep] = affectedFolder + 'affected_' + fcStep + '_' + country_code + ".json"
 
     def upload(self):
         for table, jsonData in self.tableJson.items():
             self.uploadDynamicToDb(table, jsonData)
 
-    def upload_lizard(self):
-        table = "lizard_output"
-        lizardFolder = PIPELINE_OUTPUT + "lizard/"
-        jsonData = lizardFolder + 'lizard_output.json'
-        self.uploadDynamicToDb(table, jsonData)
-
-
     def uploadDynamicToDb(self, table, jsonData):
+
         logger.info("Uploading from %s to %s", table, jsonData)
         #Load (static) threshold values per station and add date-column
         df = pd.read_json(jsonData, orient='records')
