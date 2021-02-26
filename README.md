@@ -144,10 +144,13 @@ For adding a new country to the IBF-system, a lot of components are already gene
     - add country-specific settings to settings.py (e.g. right links to abovementioned data)
     - Run runSetup.py (`python3 runSetup.py`) for new country only (comment out other countries in settings.py)
     - Run runCron.py (`python3 runCron.py`) to test pipeline.
-4. User-account
-    - Add user for country to API-service/src/secrets.ts
-    - add country to admin-user
-    - upload through 'npm run seed' from API-service
+4. Api-Service
+    - Users:
+        - Add user for country to src/scripts/users.json
+        - Add country to admin-user
+    - Country
+        - Add country in src/scripts/countries.json
+    - Upload through 'npm run seed' from API-service
 4. IBF-dashboard
     - Add country + parameters to country.service.ts
     - Test dashboard by logging in through admin-user or country-specific user
