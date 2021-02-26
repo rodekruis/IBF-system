@@ -22,10 +22,7 @@ CURRENT_DATE = date.today()
 
 SETTINGS = {
     "ZMB": {
-        "models": {
-            "glofas": True,
-            "rainfall": False
-        },
+        "model": 'glofas',
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_ZMB.csv',
         'district_mapping': 'Glofas_station_per_admin_area_ZMB.csv',
         'redcross_branches': 'points/redcross_branches_ZMB.csv',
@@ -45,10 +42,7 @@ SETTINGS = {
         }
     },
     "UGA": {
-        "models": {
-            "glofas": True,
-            "rainfall": False
-        },
+        "model": 'glofas',
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
         'district_mapping': 'Glofas_station_per_admin_area_UGA.csv',
         'redcross_branches': 'points/redcross_branches_UGA.csv',
@@ -67,10 +61,7 @@ SETTINGS = {
         }
     },
     "KEN": {
-        "models": {
-            "glofas": True,
-            "rainfall": False
-        },
+        "model": 'glofas',
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
         'district_mapping': 'Glofas_station_per_admin_area_KEN.csv',
         'admin_boundaries': {
@@ -88,10 +79,7 @@ SETTINGS = {
         }
     },
     "ETH": {
-        "models": {
-            "glofas": True,
-            "rainfall": False
-        },
+        "model": 'glofas',
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
         'district_mapping': 'Glofas_station_per_admin_area_ETH.csv',
         'admin_boundaries': {
@@ -109,24 +97,24 @@ SETTINGS = {
         }
     },
     "EGY": {
-        "models": {
-            "glofas": False,
-            "rainfall": True
-        },
+        "model": 'rainfall',
         "trigger_levels": 'Rainfall_station_locations_with_trigger_levels.csv',
-        'district_mapping': 'Rainfall_station_per_district_uga.csv',
+        'district_mapping': '<not needed>',
         'admin_boundaries': {
-                'filename': 'vector/egy_admbnda_adm1_capmas_20170421.shp',
+                'filename': 'vector/EGY_adm1_MENAregion.shp',
                 'pcode_colname': 'ADM1_PCODE'
         },
-        'flood_extent_admin_boundaries': '',
-        'exposure_admin_boundaries': '',
         'trigger_colname': '5yr_threshold',
         'lead_times': {
-            "short": 3,
+            # "short": 3,
+            # "medium": 5,
             "long": 7
         },
-        'EXPOSURE_DATA_SOURCES': {}
+        'EXPOSURE_DATA_SOURCES': {
+            "population": {
+                "source": "population/population_egy_2018-10-01",
+                "rasterValue": 1
+            }}
     },
 }
 

@@ -19,10 +19,13 @@ class FloodExtent:
         self.fcStep = fcStep
         self.days = days
         self.country_code = country_code
-        self.inputPath = GEOSERVER_DATA + "input/flood_extent/"
-        self.outputPathAreas = PIPELINE_DATA + 'output/flood_extents/'+ fcStep +'/'
-        self.outputPathMerge = GEOSERVER_DATA + 'output/0/flood_extents/flood_extent_'+ fcStep + '_' + country_code + '.tif'
-        self.statsPath = PIPELINE_DATA + 'output/calculated_affected/affected_' + fcStep + '_' + country_code + '.json'
+        self.inputPath = GEOSERVER_INPUT + "flood_extent/"
+        self.outputPathAreas = PIPELINE_OUTPUT + 'flood_extents/'+ fcStep +'/'
+        if SETTINGS[country_code]['model'] == 'glofas':
+            self.outputPathMerge = GEOSERVER_OUTPUT + '0/flood_extents/flood_extent_'+ fcStep + '_' + country_code + '.tif'
+        elif SETTINGS[country_code]['model'] == 'rainfall':
+            self.outputPathMerge = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ fcStep + '_' + country_code + '.tif'
+        self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + fcStep + '_' + country_code + '.json'
         self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
         self.DISTRICT_MAPPING = district_mapping
         self.district_cols = district_cols
