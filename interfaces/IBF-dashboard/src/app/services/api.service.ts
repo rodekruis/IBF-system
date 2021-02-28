@@ -202,7 +202,7 @@ export class ApiService {
     ).toPromise();
   }
 
-  closeEventPcode(eventPcodeId: number) {
+  closeEventPlaceCode(eventPcodeId: number) {
     return this.post(
       'event/close-pcode',
       {

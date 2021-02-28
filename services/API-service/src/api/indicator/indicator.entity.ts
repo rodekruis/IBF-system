@@ -4,7 +4,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 export class IndicatorEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
-  @Column({ nullable: true })
+  @Column()
   public country_codes: string;
   @Column()
   public name: string;

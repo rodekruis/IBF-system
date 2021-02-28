@@ -75,9 +75,9 @@ export class DataController {
   }
 
   @ApiOperation({ summary: 'Get active country event' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('event/:countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('event/:countryCodeISO3')
   public async getCountryEvent(@Param() params): Promise<CountryEvent> {
-    return await this.dataService.getCountryEvent(params.countryCode);
+    return await this.dataService.getCountryEvent(params.countryCodeISO3);
   }
 }

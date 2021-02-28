@@ -71,6 +71,7 @@ from (
 	where t1.fc_trigger=1
 		and t1.current_prev = 'Current'
 		and t2.lead_time = '7-day'
+	GROUP BY t1.pcode, start_date, end_date
 	) districtsToday
 left join "IBF-pipeline-output".event_pcode districtsExisting
 	on districtsToday.pcode = districtsExisting.pcode

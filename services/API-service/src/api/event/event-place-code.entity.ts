@@ -1,14 +1,14 @@
 import { Entity, Column, Check, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('event_pcode', { schema: 'IBF-pipeline-output' })
-export class EventPcodeEntity {
+export class EventPlaceCodeEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column({ nullable: true })
+  @Column({})
   public pcode: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'timestamp' })
   public start_date: Date;
 
   @Column({ type: 'timestamp', nullable: true })
