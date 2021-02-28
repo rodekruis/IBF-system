@@ -1,9 +1,9 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class EventPcodeDto {
+export class EventPlaceCodeDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
-  public eventPcodeId: number;
+  public eventPlacecodeId: number;
 }

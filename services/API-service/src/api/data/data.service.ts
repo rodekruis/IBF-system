@@ -23,13 +23,13 @@ export class DataService {
   }
 
   public async getAdminAreaData(
-    countryCode: string,
+    countryCodeISO3: string,
     adminLevel: number,
     leadTime: string,
   ): Promise<GeoJson> {
-    let pcodes;
-    pcodes = (await this.getTriggeredAreas(countryCode)).map(
-      (area): string => "'" + area.pcode + "'",
+    let placeCodes;
+    placeCodes = (await this.getTriggeredAreas(countryCodeISO3)).map(
+      (triggeredArea): string => "'" + triggeredArea.pcode + "'",
     );
     const query = (
       'select * \
@@ -41,11 +41,13 @@ export class DataService {
     and current_prev = 'Current' \
     and country_code = $2"
     ).concat(
-      pcodes.length > 0 ? ' and pcode in (' + pcodes.toString() + ')' : '',
+      placeCodes.length > 0
+        ? ' and pcode in (' + placeCodes.toString() + ')'
+        : '',
     );
     const rawResult: AdminAreaDataRecord[] = await this.manager.query(query, [
       leadTime,
-      countryCode,
+      countryCodeISO3,
     ]);
     const result = this.toGeojson(rawResult);
     return result;
@@ -128,12 +130,12 @@ export class DataService {
     return result;
   }
 
-  public async getCountryEvent(countryCode: string): Promise<CountryEvent> {
+  public async getCountryEvent(countryCodeISO3: string): Promise<CountryEvent> {
     const query = fs
       .readFileSync('./src/api/data/sql/get-country-event.sql')
       .toString();
-    const result = await this.manager.query(query, [countryCode]);
-    if (!result[0].country_code) {
+    const result = await this.manager.query(query, [countryCodeISO3]);
+    if (!result[0].start_date) {
       return null;
     }
     return result[0];

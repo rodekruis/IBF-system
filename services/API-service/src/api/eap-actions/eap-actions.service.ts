@@ -47,14 +47,14 @@ export class EapActionsService {
         closed = false
         and pcode = $1`;
 
-    const eventPcodeId = await this.manager.query(query, [eapAction.pcode])[0][
-      'id'
-    ];
+    const eventPlaceCodeId = await this.manager.query(query, [
+      eapAction.pcode,
+    ])[0]['id'];
 
     const action = new EapActionStatusEntity();
     action.status = eapAction.status;
     action.pcode = eapAction.pcode;
-    action.event = eventPcodeId;
+    action.event = eventPlaceCodeId;
     action.actionChecked = actionId;
 
     // If no user, take default user for now

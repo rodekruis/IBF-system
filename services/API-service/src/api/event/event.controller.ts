@@ -1,4 +1,4 @@
-import { EventPcodeDto } from './dto/event-pcode.dto';
+import { EventPlaceCodeDto } from './dto/event-place-code.dto';
 import { EventService } from './event.service';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -18,8 +18,8 @@ export class EventController {
   @ApiOperation({ summary: 'Check EAP actions as done' })
   @Post('close-pcode')
   public async closeEventPcode(
-    @Body() eventPcodeDto: EventPcodeDto,
+    @Body() eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
-    return await this.eventService.closeEventPcode(eventPcodeDto);
+    return await this.eventService.closeEventPcode(eventPlaceCodeDto);
   }
 }

@@ -193,11 +193,12 @@ export class ChatComponent implements OnDestroy {
     await alert.present();
   }
 
-  public async closePcodeEventPopup(area) {
-    const message = this.closeEventPopup['message'].replace(
-      '{{ name of district }}',
-      area.name,
-    );
+  public async closePlaceCodeEventPopup(area) {
+    const message = await this.translateService
+      .get('chat-component.active-event.close-event-popup.message', {
+        placCodeName: area.name,
+      })
+      .toPromise();
     const alert = await this.alertController.create({
       message: message,
       buttons: [
@@ -210,7 +211,7 @@ export class ChatComponent implements OnDestroy {
         {
           text: this.closeEventPopup['confirm'],
           handler: () => {
-            this.closePcodeEvent(area.id, area.pcode);
+            this.closePlaceCodeEvent(area.id, area.pcode);
           },
         },
       ],
@@ -218,10 +219,13 @@ export class ChatComponent implements OnDestroy {
     await alert.present();
   }
 
-  public async closePcodeEvent(eventPcodeId: number, pcode: string) {
-    this.apiService.closeEventPcode(eventPcodeId);
+  public async closePlaceCodeEvent(
+    eventPlaceCodeId: number,
+    placeCode: string,
+  ) {
+    this.apiService.closeEventPlaceCode(eventPlaceCodeId);
     this.filteredAreas = this.filteredAreas.filter(
-      (item) => item.id !== eventPcodeId,
+      (item) => item.id !== eventPlaceCodeId,
     );
     this.countryService
       .getCountrySubscription()
@@ -231,7 +235,7 @@ export class ChatComponent implements OnDestroy {
           country: country.countryCodeISO3,
           isActiveEvent: this.eventService.state.activeEvent,
           isActiveTrigger: this.eventService.state.activeTrigger,
-          pcode: pcode,
+          placeCode: placeCode,
         });
       });
     let loading = await this.loadingCtrl.create({});
