@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
-import fs from 'fs';
-import csv from 'csv-parser';
-import { Readable } from 'stream';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 
 import adminAreasEGY from './git-lfs/EGY_adm1_MENAregion.json';
 import adminAreasETH from './git-lfs/ETH_adm2.json';
+import adminAreasUGA from './git-lfs/UGA_adm2.json';
+import adminAreasZMB from './git-lfs/ZMB_adm2.json';
+import adminAreasKEN from './git-lfs/KEN_adm1.json';
 
 @Injectable()
 export class SeedAdminArea implements InterfaceScript {
@@ -31,7 +31,7 @@ export class SeedAdminArea implements InterfaceScript {
           name: area.properties.ADM1_EN,
           pcode: area.properties.ADM1_PCODE,
           pcodeParent: area.properties.ADM0_PCODE,
-          geom: `{ "type": "MultiPolygon", "coordinates": [${area.geometry.coordinates}] }`,
+          geom: () => this.geomFunction(area.geometry.coordinates),
         })
         .execute();
     });
@@ -50,35 +50,64 @@ export class SeedAdminArea implements InterfaceScript {
               ? area.properties.ZON_Pcode
               : area.properties.HRpcode,
           pcodeParent: area.properties.HRparent,
-          geom: `{ "type": "MultiPolygon", "coordinates": [${area.geometry.coordinates}] }`,
+          geom: () => this.geomFunction(area.geometry.coordinates),
+        })
+        .execute();
+    });
+
+    // -- Uganda
+    adminAreasUGA.features.forEach(async area => {
+      await adminAreaRepository
+        .createQueryBuilder()
+        .insert()
+        .values({
+          countryCode: 'UGA',
+          adminLevel: 2,
+          name: area.properties.name,
+          pcode: area.properties.pcode,
+          pcodeParent: area.properties.adm1pcode,
+          geom: () => this.geomFunction(area.geometry.coordinates),
+        })
+        .execute();
+    });
+
+    // -- Zambia
+    adminAreasZMB.features.forEach(async area => {
+      await adminAreaRepository
+        .createQueryBuilder()
+        .insert()
+        .values({
+          countryCode: 'ZMB',
+          adminLevel: 2,
+          name: area.properties.NAME,
+          pcode: area.properties.pcode,
+          pcodeParent: area.properties.zmb_adm__4,
+          geom: () => this.geomFunction(area.geometry.coordinates),
+        })
+        .execute();
+    });
+
+    // -- Kenya
+    adminAreasKEN.features.forEach(async area => {
+      await adminAreaRepository
+        .createQueryBuilder()
+        .insert()
+        .values({
+          countryCode: 'KEN',
+          adminLevel: 1,
+          name: area.properties.ADM1_EN,
+          pcode: area.properties.ADM1_PCODE,
+          pcodeParent: null,
+          geom: () => this.geomFunction(area.geometry.coordinates),
         })
         .execute();
     });
   }
 
-  private async getCsvData(source: string) {
-    const buffer = fs.readFileSync(source);
-    let data = await this.csvBufferToArray(buffer, ',');
-    if (Object.keys(data[0]).length === 1) {
-      data = await this.csvBufferToArray(buffer, ';');
-    }
-    return data;
-  }
-
-  private async csvBufferToArray(buffer, separator): Promise<object[]> {
-    const stream = new Readable();
-    stream.push(buffer.toString());
-    stream.push(null);
-    let parsedData = [];
-    return await new Promise(function(resolve, reject) {
-      stream
-        .pipe(csv({ separator: separator }))
-        .on('error', error => reject(error))
-        .on('data', row => parsedData.push(row))
-        .on('end', () => {
-          resolve(parsedData);
-        });
-    });
+  private geomFunction(coordinates) {
+    return `ST_GeomFromGeoJSON( '{ "type": "MultiPolygon", "coordinates": ${JSON.stringify(
+      coordinates,
+    )} }' )`;
   }
 }
 
