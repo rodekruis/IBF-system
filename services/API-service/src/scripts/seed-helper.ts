@@ -4,7 +4,11 @@ import csv from 'csv-parser';
 import { Readable } from 'stream';
 
 export class SeedHelper {
-  public constructor(private connection: Connection) {}
+  private connection: Connection;
+
+  public constructor(connection: Connection) {
+    this.connection = connection;
+  }
 
   public async getCsvData(source: string) {
     const buffer = fs.readFileSync(source);

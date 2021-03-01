@@ -26,9 +26,13 @@ import { SeedHelper } from './seed-helper';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
-  public constructor(private connection: Connection) {}
+  private connection: Connection;
+  private readonly seedHelper: SeedHelper;
 
-  private readonly seedHelper = new SeedHelper(this.connection);
+  public constructor(connection: Connection) {
+    this.connection = connection;
+    this.seedHelper = new SeedHelper(connection);
+  }
 
   public async run(): Promise<void> {
     await this.seedHelper.cleanAll();
