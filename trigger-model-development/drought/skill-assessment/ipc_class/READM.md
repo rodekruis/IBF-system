@@ -14,7 +14,8 @@ The script exists of two parts, whereby the first part. `1. Download data from F
 
 One Drive Locations
 -	`livelihood zones`: OneDrive folder - C:/Users/..../Rode Kruis/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_livelihoodzones/ZW_LHZ_2011/ZW_LHZ_2011.shp
--	`admin boundaries`: OneDrive folder - C:/Users/.../Rode Kruis/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/Admin/zwe_admbnda_adm0_zimstat_ocha_20180911/
+-	`admin boundaries`: OneDrive folder - C:/Users/.../Rode Kruis/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/Admin/zwe_admbnda_adm0_zimstat_ocha_20180911/  
+please check which admin level you are interested in, either adm0, adm1, adm2 or adm3<br>
 -	`Population data` :  OneDrive folder - C:/Users/.../Rode Kruis/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/Admin/pop_recalc.shp
 
 To download the FEWSNET Outlook data make sure you have the right folder structure in place:
