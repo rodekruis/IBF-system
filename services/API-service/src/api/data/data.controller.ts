@@ -7,7 +7,7 @@ import {
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 
-import { TriggeredArea, CountryEvent } from './data.model';
+import { TriggeredArea, EventSummaryCountry } from './data.model';
 import { DataService } from './data.service';
 import { GeoJson } from './geo.model';
 
@@ -74,10 +74,14 @@ export class DataController {
     return await this.dataService.getTriggeredAreas(params.countryCode);
   }
 
-  @ApiOperation({ summary: 'Get active country event' })
+  @ApiOperation({ summary: 'Get active event summary of a country' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @Get('event/:countryCodeISO3')
-  public async getCountryEvent(@Param() params): Promise<CountryEvent> {
-    return await this.dataService.getCountryEvent(params.countryCodeISO3);
+  public async getEventSummaryCountry(
+    @Param() params,
+  ): Promise<EventSummaryCountry> {
+    return await this.dataService.getEventSummaryCountry(
+      params.countryCodeISO3,
+    );
   }
 }

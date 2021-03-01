@@ -14,7 +14,7 @@ export class EventService {
     eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
     const eventPlaceCode = await this.eventPlaceCodeRepo.findOne(
-      eventPlaceCodeDto.eventPlacecodeId,
+      eventPlaceCodeDto.eventPlaceCodeId,
     );
     if (!eventPlaceCode) {
       const errors = 'Event Pcode not found';
