@@ -9,5 +9,5 @@ This baseline is used to calculate the Probability of Detection (POD) and False 
 - `crop yield data`: https://doi.pangaea.de/10.1594/PANGAEA.909132<br>
 
 OneDrive folder
-`livelihood zones`: C:/Users/.../Rode Kruis/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_livelihoodzones/ZW_LHZ_2011/
-`crop yield maize major`: C:/Users/..../Rode Kruis/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_cropyield/.csv
+- `livelihood zones`: C:/Users/.../Rode Kruis/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_livelihoodzones/ZW_LHZ_2011/<br>
+- `crop yield maize major`: C:/Users/..../Rode Kruis/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_cropyield/.csv
