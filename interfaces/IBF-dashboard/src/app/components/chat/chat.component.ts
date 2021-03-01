@@ -76,7 +76,6 @@ export class ChatComponent implements OnDestroy {
       .getTriggeredAreas()
       .subscribe((newAreas) => {
         this.triggeredAreas = newAreas;
-        console.log('this.triggeredAreas: ', this.triggeredAreas);
         this.filteredAreas = [...this.triggeredAreas];
         this.triggeredAreas.forEach((area) => (area.submitDisabled = true));
       });
