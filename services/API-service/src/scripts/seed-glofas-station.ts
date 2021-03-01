@@ -8,9 +8,13 @@ import { SeedHelper } from './seed-helper';
 
 @Injectable()
 export class SeedGlofasStation implements InterfaceScript {
-  public constructor(private connection: Connection) {}
+  private connection: Connection;
+  private readonly seedHelper: SeedHelper;
 
-  private readonly seedHelper = new SeedHelper(this.connection);
+  public constructor(connection: Connection) {
+    this.connection = connection;
+    this.seedHelper = new SeedHelper(connection);
+  }
 
   public async run(): Promise<void> {
     const glofasStationRepository = this.connection.getRepository(
