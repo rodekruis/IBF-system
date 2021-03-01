@@ -256,5 +256,65 @@
         ]
       ]
     }
+  },
+  {
+    "countryCodeISO3": "EGY",
+    "countryCodeISO2": "EG",
+    "countryName": "Egypt",
+    "countryStatus": "active",
+    "defaultAdminLevel": 1,
+    "countryLeadTimes": [
+      "7-day"
+    ],
+    "eapAlertClasses": {
+      "no": {
+        "label": "No action",
+        "color": "#d4d3d2",
+        "valueLow": 0,
+        "valueHigh": 0.8
+      },
+      "max": {
+        "label": "Activate EAP",
+        "color": "var(--ion-color-ibf-salmon)",
+        "valueLow": 0.8,
+        "valueHigh": 1.01
+      }
+    },
+    "adminRegionLabels": [
+      "Governorates",
+      "Marakiz",
+      "Districts"
+    ],
+    "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0a248aa7f06fc4d149892726478ef0fe6&authkey=AWC-wu2bMWX0NRGu7aUjTe8&expiration=2022-02-24T23%3a00%3a00.000Z&rtime=DcUsZo3Z2Eg",
+    "countryLogos": [
+      "ETH-ercs.png"
+    ],
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            24.2069487572,
+            20.7481080291
+          ],
+          [
+            37.3734557629,
+            20.7481080291
+          ],
+          [
+            37.3734557629,
+            32.7651320716
+          ],
+          [
+            24.2069487572,
+            32.7651320716
+          ],
+          [
+            24.2069487572,
+            20.7481080291
+          ]
+        ]
+      ]
+    }
   }
 ]

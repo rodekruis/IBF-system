@@ -31,8 +31,8 @@ def main():
                     fc.floodExtent.calculate()
                 fc.floodExtent.callAllExposure()
                 fc.db.upload()
+            fc.db.processDynamicDataDb()
             if COUNTRY_SETTINGS['model'] == 'glofas':
-                fc.db.processDynamicDataDb()
                 notify(COUNTRY_CODE)
 
     except Exception as e:
