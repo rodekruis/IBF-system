@@ -36,6 +36,12 @@ select cast('KEN' as varchar) as country_code
 	, pcode
 	, row_to_json(ken.*) as indicators
 from "IBF-static-input"."KEN_CRA_Indicators_1" ken
+union all 
+select cast('EGY' as varchar) as country_code
+	, pcode
+	, null as indicators
+from "IBF-app"."adminArea" 
+where "countryCode" = 'EGY'
 ;
 --select * from "IBF-static-input"."CRA_data_1" where country_code = 'UGA'
 
@@ -86,53 +92,91 @@ where current_prev = 'Current'
 --select * from "IBF-API"."Trigger_per_lead_time"
 
 
+--drop view if exists "IBF-API"."Admin_area_data2" cascade;
+--create or replace view "IBF-API"."Admin_area_data2" as 
+--select geo.pcode_level2
+--	,geo."name"
+--	,geo.pcode_level1
+--	,ST_AsGeoJSON(geo.geom)::json As geom
+--	,d2.*
+--from (
+--	select cast('ZMB' as varchar) as country_code
+--			,pcode_level2 
+--			,name
+--			,pcode_level1
+--			,st_geometryfromtext(geom) as geom
+--	from "IBF-static-input"."ZMB_Geo_level2" zmb
+--	union all
+--	select cast('UGA' as varchar) as country_code
+--			,*
+--	from "IBF-static-input"."UGA_Geo_level2" uga
+--	union all
+--	select cast('ETH' as varchar) as country_code
+--			,pcode_level2 
+--			,name
+--			,pcode_level1
+--			,st_geometryfromtext(geom) as geom
+----	select *
+--	from "IBF-static-input"."ETH_Geo_level2" eth
+--	union all
+--	select "countryCode" 
+--			,pcode
+--			,"name" 
+--			,"pcodeParent"
+--			,st_geom
+----	select * 
+--	from "IBF-app"."adminArea"
+--	where "countryCode" = 'EGY'
+--) geo
+--left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode_level2 = d2.pcode
+--;
 drop view if exists "IBF-API"."Admin_area_data2" cascade;
 create or replace view "IBF-API"."Admin_area_data2" as 
-select geo.pcode_level2
+select geo.pcode as pcode_level2
 	,geo."name"
-	,geo.pcode_level1
+	,geo."pcodeParent" as pcode_level1
 	,ST_AsGeoJSON(geo.geom)::json As geom
-	,d2.*
-from (
-	select cast('ZMB' as varchar) as country_code
-			,pcode_level2 
-			,name
-			,pcode_level1
-			,st_geometryfromtext(geom) as geom
-	from "IBF-static-input"."ZMB_Geo_level2" zmb
-	union all
-	select cast('UGA' as varchar) as country_code
-			,*
-	from "IBF-static-input"."UGA_Geo_level2" uga
-	union all
-	select cast('ETH' as varchar) as country_code
-			,pcode_level2 
-			,name
-			,pcode_level1
-			,st_geometryfromtext(geom) as geom
-	from "IBF-static-input"."ETH_Geo_level2" eth
-) geo
-left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode_level2 = d2.pcode
+	,"countryCode" as country_code
+	,d2.pcode, "date", current_prev, lead_time, fc, fc_trigger, fc_rp, fc_perc, fc_prob, population_affected, indicators
+from "IBF-app"."adminArea" geo
+left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode = d2.pcode
+where "adminLevel" = 2
 ;
 --select * from "IBF-API"."Admin_area_data2" where country_code = 'ZMB'
+--select * from "IBF-app"."adminArea" geo where "cou
 
 drop view if exists "IBF-API"."Admin_area_data1" cascade;
 create or replace view "IBF-API"."Admin_area_data1" as 
-select geo.pcode_level1
+select geo.pcode as pcode_level1
 	,geo."name"
-	,geo.pcode_level0
+	,geo."pcodeParent" as pcode_level0
 	,ST_AsGeoJSON(geo.geom)::json As geom
-	,d2.*
-from (
-	select cast('KEN' as varchar) as country_code
-			,pcode_level1
-			,name
-			,pcode_level0
-			,st_geometryfromtext(geom) as geom
-	from "IBF-static-input"."KEN_Geo_level1" ken
-) geo
-left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode_level1 = d2.pcode
+	,"countryCode" as country_code
+--	,d2.*
+	,d2.pcode, "date", current_prev, lead_time, fc, fc_trigger, fc_rp, fc_perc, fc_prob, population_affected, indicators
+from "IBF-app"."adminArea" geo
+left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode = d2.pcode
+where "adminLevel" = 1
 ;
+--select * from "IBF-API"."Admin_area_data1" where country_code = 'EGY'
+
+--drop view if exists "IBF-API"."Admin_area_data1" cascade;
+--create or replace view "IBF-API"."Admin_area_data1" as 
+--select geo.pcode_level1
+--	,geo."name"
+--	,geo.pcode_level0
+--	,ST_AsGeoJSON(geo.geom)::json As geom
+--	,d2.*
+--from (
+--	select cast('KEN' as varchar) as country_code
+--			,pcode_level1
+--			,name
+--			,pcode_level0
+--			,st_geometryfromtext(geom) as geom
+--	from "IBF-static-input"."KEN_Geo_level1" ken
+--) geo
+--left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode_level1 = d2.pcode
+--;
 --select * from "IBF-API"."Admin_area_data1" where country_code = 'KEN'
 
 drop view if exists "IBF-API"."Matrix_aggregates2";
