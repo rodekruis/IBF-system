@@ -1,3 +1,25 @@
+# [0.23.0](https://github.com/rodekruis/IBF-system/compare/v0.22.0...v0.23.0) (2021-02-26)
+
+
+### Bug Fixes
+
+* make pipeline work for rainfall AB[#6212](https://github.com/rodekruis/IBF-system/issues/6212) ([36d2cb6](https://github.com/rodekruis/IBF-system/commit/36d2cb6d71215c763b97af27054d34368623715f))
+* new location/filter on git-lfs files AB[#6294](https://github.com/rodekruis/IBF-system/issues/6294) ([3c046ca](https://github.com/rodekruis/IBF-system/commit/3c046ca5882a9ac21dca3da6619391badafa5976))
+* remove unused controllers/methods AB[#6294](https://github.com/rodekruis/IBF-system/issues/6294) ([7e4f569](https://github.com/rodekruis/IBF-system/commit/7e4f569249914741d3cd690c814401f75e5197b1))
+* turn off sql + notify for egypt (fix later) ([4659ebf](https://github.com/rodekruis/IBF-system/commit/4659ebf7f22d2d599a053f62e462207e79533e36))
+* uncomment forgotten AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([0f7e16d](https://github.com/rodekruis/IBF-system/commit/0f7e16d209149b6336cd274b85be1907bf7c9f38))
+
+
+### Features
+
+* add test shapefile git LFS AB[#6294](https://github.com/rodekruis/IBF-system/issues/6294) ([9b452f1](https://github.com/rodekruis/IBF-system/commit/9b452f19ac3687ef23363d4845330b86ff91192b))
+* admin-area-entity + seed Egypt data AB[#6294](https://github.com/rodekruis/IBF-system/issues/6294) ([b474101](https://github.com/rodekruis/IBF-system/commit/b4741012b6f8816c7fb5c931d9eb8ed1b17f8f97))
+* get static data pipeline from db AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([5035b92](https://github.com/rodekruis/IBF-system/commit/5035b9275b1f219d24ebafbec5298414c65293e3))
+* load glofas station CSV input via seed (for now unused) AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([4232f24](https://github.com/rodekruis/IBF-system/commit/4232f243ce825352d2331c261f32ea6791511e84))
+* set up Git LFS AB[#6294](https://github.com/rodekruis/IBF-system/issues/6294) ([e53c448](https://github.com/rodekruis/IBF-system/commit/e53c44817c3d16aa83bd2cde9948e19a6c6d228b))
+
+
+
 # [0.22.0](https://github.com/rodekruis/IBF-system/compare/v0.21.2...v0.22.0) (2021-02-24)
 
 
@@ -90,27 +112,6 @@
 ### Bug Fixes
 
 * check for data on update map layer ([3046bb9](https://github.com/rodekruis/IBF-system/commit/3046bb9081c1dbc8d28d217635f3761f7529e7d7))
-
-
-
-# [0.19.0](https://github.com/rodekruis/IBF-system/compare/v0.18.1...v0.19.0) (2021-02-18)
-
-
-### Features
-
-* analytics event for about trigger button AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([d912ed1](https://github.com/rodekruis/IBF-system/commit/d912ed17ee564195f1f25f45a11f6504ae2f5cac))
-* analytics event for admin level button click AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([0899266](https://github.com/rodekruis/IBF-system/commit/08992662e839dfbb90f9f14f5132d170d6d83dde))
-* analytics event for aggregate information popover AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([1d2be85](https://github.com/rodekruis/IBF-system/commit/1d2be856148fcb5b774914f586858af7ee7851c9))
-* analytics event for default marker, red cross branch and glofas station AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([30104ac](https://github.com/rodekruis/IBF-system/commit/30104acfcc5ca8d01425b5fcd22ff0c88bafe8b6))
-* analytics event for eap action and eap submit AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([bc2fc6b](https://github.com/rodekruis/IBF-system/commit/bc2fc6be9cd25d5eb3704e4d05b17c97b4dd8c6a))
-* analytics event for export view button click AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([17ddab1](https://github.com/rodekruis/IBF-system/commit/17ddab1d14f98fb70c8e023144f3a7acc0c08097))
-* analytics event for lead time AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([b5c9346](https://github.com/rodekruis/IBF-system/commit/b5c934629931031620ede8ac8254a34ff28282d7))
-* analytics event for logout button click AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([2024ca7](https://github.com/rodekruis/IBF-system/commit/2024ca72f3d00e91aa3d40a95edd47f1e6812e31))
-* analytics event for map layer information AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([6deee81](https://github.com/rodekruis/IBF-system/commit/6deee81723849a0366d01e09ac0435412b6d2050))
-* analytics event for map layer toggle AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([919411c](https://github.com/rodekruis/IBF-system/commit/919411c4809d6189e241e2c27ef2f1d739e4f7cf))
-* analytics event for map place select AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([ef7e7d3](https://github.com/rodekruis/IBF-system/commit/ef7e7d30933a89ef93125ae6b0fda64984409c9e))
-* analytics event for video guide button AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([6e68ed8](https://github.com/rodekruis/IBF-system/commit/6e68ed84f5234ea5f1acad3b00db11d6d04235cb))
-* analytics event for water point AB[#5192](https://github.com/rodekruis/IBF-system/issues/5192) ([9b8b4bc](https://github.com/rodekruis/IBF-system/commit/9b8b4bcc806234f80fbc1a5cd831d1f44a9f38b9))
 
 
 
