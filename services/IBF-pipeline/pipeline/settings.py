@@ -95,7 +95,7 @@ SETTINGS = {
                 "rasterValue": 1
             }
         },
-        'dummy_trigger': False
+        'dummy_trigger': True
     },
     "EGY": {
         "model": 'rainfall',
@@ -117,7 +117,7 @@ SETTINGS = {
                 "rasterValue": 1
             }
         },
-        'dummy_trigger': False
+        'dummy_trigger': True
     }
 }
 
