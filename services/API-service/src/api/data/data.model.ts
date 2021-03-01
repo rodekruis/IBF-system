@@ -137,9 +137,9 @@ export class TriggeredArea {
 
 export class CountryEvent {
   public country_code: string;
-  public start_date: string;
-  public end_date: string;
-  public active_trigger: boolean;
+  public startDate: string;
+  public endDate: string;
+  public activeTrigger: boolean;
 }
 
 export class CountryMetaData {

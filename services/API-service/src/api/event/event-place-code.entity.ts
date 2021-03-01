@@ -1,25 +1,25 @@
 import { Entity, Column, Check, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('event_pcode', { schema: 'IBF-pipeline-output' })
+@Entity('event_place_code', { schema: 'IBF-pipeline-output' })
 export class EventPlaceCodeEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
   @Column({})
-  public pcode: string;
+  public placeCode: string;
 
   @Column({ type: 'timestamp' })
-  public start_date: Date;
+  public startDate: Date;
 
   @Column({ type: 'timestamp', nullable: true })
-  @Check(`"start_date" < "end_date"`)
-  public end_date: Date;
+  @Check(`"startDate" < "endDate"`)
+  public endDate: Date;
 
   @Column({ type: 'timestamp', nullable: true })
-  public manual_closed_date: Date;
+  public manualClosedDate: Date;
 
   @Column({ default: true })
-  public active_trigger: boolean;
+  public activeTrigger: boolean;
 
   @Column({ default: false })
   public closed: boolean;

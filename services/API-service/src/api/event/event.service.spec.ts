@@ -1,8 +1,8 @@
-import { EventPcodeEntity } from './event-pcode.entity';
 import { EventService } from './event.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
+import { EventPlaceCodeEntity } from './event-place-code.entity';
 
 describe('User service', (): void => {
   let service: EventService;
@@ -11,7 +11,7 @@ describe('User service', (): void => {
       const module: TestingModule = await Test.createTestingModule({
         providers: [
           {
-            provide: getRepositoryToken(EventPcodeEntity),
+            provide: getRepositoryToken(EventPlaceCodeEntity),
             useFactory: repositoryMockFactory,
           },
           EventService,
