@@ -264,22 +264,10 @@
     "countryStatus": "active",
     "defaultAdminLevel": 1,
     "countryLeadTimes": [
+      "3-day",
       "7-day"
     ],
-    "eapAlertClasses": {
-      "no": {
-        "label": "No action",
-        "color": "#d4d3d2",
-        "valueLow": 0,
-        "valueHigh": 0.8
-      },
-      "max": {
-        "label": "Activate EAP",
-        "color": "var(--ion-color-ibf-salmon)",
-        "valueLow": 0.8,
-        "valueHigh": 1.01
-      }
-    },
+    "eapAlertClasses": {},
     "adminRegionLabels": [
       "Governorates",
       "Marakiz",
