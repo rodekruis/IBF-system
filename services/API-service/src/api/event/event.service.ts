@@ -21,7 +21,7 @@ export class EventService {
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
     eventPlaceCode.closed = true;
-    eventPlaceCode.manual_closed_date = new Date();
+    eventPlaceCode.manualClosedDate = new Date();
     await this.eventPlaceCodeRepo.save(eventPlaceCode);
   }
 }

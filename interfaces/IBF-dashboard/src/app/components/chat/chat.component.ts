@@ -76,6 +76,7 @@ export class ChatComponent implements OnDestroy {
       .getTriggeredAreas()
       .subscribe((newAreas) => {
         this.triggeredAreas = newAreas;
+        console.log('this.triggeredAreas: ', this.triggeredAreas);
         this.filteredAreas = [...this.triggeredAreas];
         this.triggeredAreas.forEach((area) => (area.submitDisabled = true));
       });
@@ -85,7 +86,7 @@ export class ChatComponent implements OnDestroy {
       .subscribe((placeCode: PlaceCode) => {
         if (placeCode) {
           this.filteredAreas = this.triggeredAreas.filter(
-            (area) => area.pcode === placeCode.placeCode,
+            (area) => area.placeCode === placeCode.placeCode,
           );
         } else {
           this.filteredAreas = [...this.triggeredAreas];
@@ -100,12 +101,12 @@ export class ChatComponent implements OnDestroy {
     this.placeCodeSubscription.unsubscribe();
   }
 
-  public changeAction(pcode: string, action: string, checkbox: boolean) {
+  public changeAction(placeCode: string, action: string, checkbox: boolean) {
     this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.analyticsService.logEvent(AnalyticsEvent.eapAction, {
-          placeCode: pcode,
+          placeCode: placeCode,
           eapAction: action,
           eapActionStatus: checkbox,
           page: AnalyticsPage.dashboard,
@@ -115,7 +116,7 @@ export class ChatComponent implements OnDestroy {
         });
       });
 
-    const area = this.triggeredAreas.find((i) => i.pcode === pcode);
+    const area = this.triggeredAreas.find((i) => i.placeCode === placeCode);
     const changedAction = area.eapActions.find((i) => i.action === action);
     changedAction.checked = checkbox;
     if (!this.changedActions.includes(changedAction)) {
@@ -125,16 +126,16 @@ export class ChatComponent implements OnDestroy {
         (item) => !(changedAction.action === item.action),
       );
     }
-    this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled =
+    this.triggeredAreas.find((i) => i.placeCode === placeCode).submitDisabled =
       this.changedActions.length === 0;
   }
 
-  public async submitEapAction(pcode: string) {
+  public async submitEapAction(placeCode: string) {
     this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
-          placeCode: pcode,
+          placeCode: placeCode,
           page: AnalyticsPage.dashboard,
           country: country.countryCodeISO3,
           isActiveEvent: this.eventService.state.activeEvent,
@@ -142,13 +143,15 @@ export class ChatComponent implements OnDestroy {
         });
       });
 
-    this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = true;
+    this.triggeredAreas.find(
+      (i) => i.placeCode === placeCode,
+    ).submitDisabled = true;
     const activeCountry = this.countryService.getActiveCountry();
 
     try {
       const submitEAPActionResult = await Promise.all(
         this.changedActions.map(async (action) => {
-          if (action.pcode === pcode) {
+          if (action.pcode === placeCode) {
             return this.eapActionsService.checkEapAction(
               action.action,
               activeCountry.countryCodeISO3,
@@ -162,7 +165,7 @@ export class ChatComponent implements OnDestroy {
       );
 
       this.changedActions = this.changedActions.filter(
-        (i) => i.pcode !== pcode,
+        (i) => i.pcode !== placeCode,
       );
 
       this.actionResult(this.updateSuccessMessage, (): void =>
@@ -205,13 +208,13 @@ export class ChatComponent implements OnDestroy {
         {
           text: this.closeEventPopup['cancel'],
           handler: () => {
-            console.log('Cancel close pcode');
+            console.log('Cancel close place code');
           },
         },
         {
           text: this.closeEventPopup['confirm'],
           handler: () => {
-            this.closePlaceCodeEvent(area.id, area.pcode);
+            this.closePlaceCodeEvent(area.id, area.placeCode);
           },
         },
       ],
@@ -223,7 +226,7 @@ export class ChatComponent implements OnDestroy {
     eventPlaceCodeId: number,
     placeCode: string,
   ) {
-    this.apiService.closeEventPlaceCode(eventPlaceCodeId);
+    await this.apiService.closeEventPlaceCode(eventPlaceCodeId);
     this.filteredAreas = this.filteredAreas.filter(
       (item) => item.id !== eventPlaceCodeId,
     );

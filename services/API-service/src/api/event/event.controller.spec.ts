@@ -1,4 +1,4 @@
-import { EventPcodeEntity } from './event-pcode.entity';
+import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { EventService } from './event.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { EventController } from './event.controller';
@@ -14,7 +14,7 @@ describe('EventController', (): void => {
       const module: TestingModule = await Test.createTestingModule({
         imports: [
           TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([UserEntity, EventPcodeEntity]),
+          TypeOrmModule.forFeature([UserEntity, EventPlaceCodeEntity]),
           UserModule,
         ],
         controllers: [EventController],

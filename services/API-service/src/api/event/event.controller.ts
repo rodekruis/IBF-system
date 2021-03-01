@@ -15,8 +15,8 @@ export class EventController {
     this.eventService = eventService;
   }
 
-  @ApiOperation({ summary: 'Check EAP actions as done' })
-  @Post('close-pcode')
+  @ApiOperation({ summary: 'Close place code event' })
+  @Post('close-place-code')
   public async closeEventPcode(
     @Body() eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {

@@ -135,7 +135,7 @@ export class DataService {
       .readFileSync('./src/api/data/sql/get-country-event.sql')
       .toString();
     const result = await this.manager.query(query, [countryCodeISO3]);
-    if (!result[0].start_date) {
+    if (!result[0].startDate) {
       return null;
     }
     return result[0];
