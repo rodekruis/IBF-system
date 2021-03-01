@@ -4,7 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 
-describe('User service', (): void => {
+describe('Event service', (): void => {
   let service: EventService;
   beforeAll(
     async (): Promise<void> => {

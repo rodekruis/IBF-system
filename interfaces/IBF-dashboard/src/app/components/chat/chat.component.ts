@@ -225,10 +225,13 @@ export class ChatComponent implements OnDestroy {
     eventPlaceCodeId: number,
     placeCode: string,
   ) {
-    await this.apiService.closeEventPlaceCode(eventPlaceCodeId);
-    this.filteredAreas = this.filteredAreas.filter(
-      (item) => item.id !== eventPlaceCodeId,
-    );
+    let loading = await this.loadingCtrl.create({});
+    loading.present();
+    this.apiService.closeEventPlaceCode(eventPlaceCodeId).then(() => {
+      loading.dismiss();
+    });
+    this.eapActionsService.loadDistrictsAndActions();
+    this.eventService.getTrigger();
     this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
@@ -240,10 +243,5 @@ export class ChatComponent implements OnDestroy {
           placeCode: placeCode,
         });
       });
-    let loading = await this.loadingCtrl.create({});
-    loading.present();
-    setTimeout(() => {
-      loading.dismiss();
-    }, 1000);
   }
 }

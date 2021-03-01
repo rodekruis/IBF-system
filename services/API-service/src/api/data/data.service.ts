@@ -1,4 +1,4 @@
-import { CountryEvent } from './data.model';
+import { EventSummaryCountry } from './data.model';
 /* eslint-disable @typescript-eslint/camelcase */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -130,9 +130,11 @@ export class DataService {
     return result;
   }
 
-  public async getCountryEvent(countryCodeISO3: string): Promise<CountryEvent> {
+  public async getEventSummaryCountry(
+    countryCodeISO3: string,
+  ): Promise<EventSummaryCountry> {
     const query = fs
-      .readFileSync('./src/api/data/sql/get-country-event.sql')
+      .readFileSync('./src/api/data/sql/get-event-summary-country.sql')
       .toString();
     const result = await this.manager.query(query, [countryCodeISO3]);
     if (!result[0].startDate) {

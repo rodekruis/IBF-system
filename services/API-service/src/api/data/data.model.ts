@@ -135,7 +135,7 @@ export class TriggeredArea {
   public population_affected: number;
 }
 
-export class CountryEvent {
+export class EventSummaryCountry {
   public country_code: string;
   public startDate: string;
   public endDate: string;

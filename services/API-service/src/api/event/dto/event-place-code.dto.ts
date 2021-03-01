@@ -5,5 +5,5 @@ export class EventPlaceCodeDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
-  public eventPlacecodeId: number;
+  public eventPlaceCodeId: number;
 }
