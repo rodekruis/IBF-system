@@ -1,3 +1,17 @@
+# [0.25.0](https://github.com/rodekruis/IBF-system/compare/v0.24.0...v0.25.0) (2021-03-01)
+
+
+### Bug Fixes
+
+* add extra columns for Zambia AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([4498364](https://github.com/rodekruis/IBF-system/commit/44983640a99fe787b524d538c0a2dc1f0358fd90))
+
+
+### Features
+
+* get trigger per day for Egypt AB[#6414](https://github.com/rodekruis/IBF-system/issues/6414) ([ae2c415](https://github.com/rodekruis/IBF-system/commit/ae2c4152ba1b575d0e157fba6ba9b01b59f17aec))
+
+
+
 # [0.24.0](https://github.com/rodekruis/IBF-system/compare/v0.23.0...v0.24.0) (2021-03-01)
 
 
@@ -111,21 +125,6 @@
 ### Bug Fixes
 
 * fix+improve email sending for all countries AB[#6215](https://github.com/rodekruis/IBF-system/issues/6215) ([313ac07](https://github.com/rodekruis/IBF-system/commit/313ac07d4da61288bd0c17cf957a03a3d8bc6f15))
-
-
-
-# [0.20.0](https://github.com/rodekruis/IBF-system/compare/v0.19.1...v0.20.0) (2021-02-19)
-
-
-### Bug Fixes
-
-* create table if not exists AB[#6254](https://github.com/rodekruis/IBF-system/issues/6254) ([f71465e](https://github.com/rodekruis/IBF-system/commit/f71465e91f7a10eef3052ad606a00c8539e8ab9a))
-* create tables if not exist AB[#6254](https://github.com/rodekruis/IBF-system/issues/6254) ([138230f](https://github.com/rodekruis/IBF-system/commit/138230fcf5c7ac1e3a0453db34c465f6e774efad))
-
-
-### Features
-
-* add dockerized local db AB[#6253](https://github.com/rodekruis/IBF-system/issues/6253) ([0dbeeed](https://github.com/rodekruis/IBF-system/commit/0dbeeed76376fc5ad7b2fd6525e8c4a96c662bc3))
 
 
 
