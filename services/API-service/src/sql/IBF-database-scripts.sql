@@ -46,13 +46,32 @@ select dfps.country_code
 		,dfps.lead_time
 		,dgsv.station_code
 		,dgsv.station_name
-		,ST_AsGeoJSON(ST_FlipCoordinates(dgsv.geom))::json As geom
 		,dgsv.trigger_level
+		,dgsv.geom
 	  , dfps.fc
       , dfps.fc_trigger
       , dfps.fc_perc
       , dfps.fc_prob
-from "IBF-static-input".dashboard_glofas_stations dgsv
+from (
+	select country_code
+		,station_code 
+		,station_name 
+		,trigger_level 
+		,ST_AsGeoJSON(ST_FlipCoordinates(geom))::json As geom
+	from "IBF-static-input".dashboard_glofas_stations
+	where country_code <> 'ETH'
+	
+	-- TEMPORARY FIX TO JOIN 'OLD' and 'NEW' 
+	union all
+	
+	select "countryCode"
+		,"stationCode"
+		,"stationName"
+		,"triggerLevel"
+		,ST_AsGeoJSON(geom)::json As geom
+	from "IBF-app"."glofasStation" gs 
+	where "countryCode" = 'ETH'
+	) dgsv
 left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code and dgsv.country_code = dfps.country_code
 where current_prev = 'Current'
 ;

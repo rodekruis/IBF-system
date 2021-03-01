@@ -22,17 +22,16 @@ import indicators from './json/indicator-metadata.json';
 
 import SeedAdminArea from './seed-admin-area';
 import SeedGlofasStation from './seed-glofas-station';
+import { SeedHelper } from './seed-helper';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
-  private connection: Connection;
+  public constructor(private connection: Connection) {}
 
-  public constructor(connection: Connection) {
-    this.connection = connection;
-  }
+  private readonly seedHelper = new SeedHelper(this.connection);
 
   public async run(): Promise<void> {
-    await this.cleanAll();
+    await this.seedHelper.cleanAll();
     await this.connection.synchronize(false);
 
     // ***** CREATE LEAD TIMES *****
@@ -137,29 +136,16 @@ export class SeedInit implements InterfaceScript {
     const indicatorRepository = this.connection.getRepository(IndicatorEntity);
     await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
 
-    // // ***** SEED ADMIN-AREA DATA *****
+    // ***** SEED ADMIN-AREA DATA *****
     const seedAdminArea = await new SeedAdminArea(this.connection);
     await seedAdminArea.run();
 
     // ***** SEED GLOFAS-STATION DATA *****
     const seedGlofasStation = await new SeedGlofasStation(this.connection);
     await seedGlofasStation.run();
-  }
 
-  private async cleanAll(): Promise<void> {
-    const entities = this.connection.entityMetadatas;
-    try {
-      for (const entity of entities) {
-        const repository = await this.connection.getRepository(entity.name);
-        if (repository.metadata.schema === 'IBF-app') {
-          const q = `DROP TABLE \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
-          console.log(q);
-          await repository.query(q);
-        }
-      }
-    } catch (error) {
-      throw new Error(`ERROR: Cleaning test db: ${error}`);
-    }
+    // ***** RUN SCRIPT TO FINALIZE ALL DATA PREPARATION *****
+    await this.seedHelper.runSqlScript('./src/sql/IBF-database-scripts.sql');
   }
 }
 
