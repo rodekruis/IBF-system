@@ -20,30 +20,10 @@ CREATE TABLE if not exists "IBF-pipeline-output".dashboard_triggers_per_day (
 
 truncate table "IBF-pipeline-output".dashboard_triggers_per_day;
 
-insert into "IBF-pipeline-output".dashboard_triggers_per_day
-select tpd.country_code 
-	,tpd.date
-	,'Current' as current_prev
-	,"1","2","3","4","5","6","7"
-from "IBF-pipeline-output".triggers_per_day tpd
-left join (select country_code, max(date) as max_date from "IBF-pipeline-output".triggers_per_day group by 1) max
-	on tpd.country_code = max.country_code
-	and tpd.date = max.max_date
-where tpd.date = max.max_date
-
-union all 
-
-select 'EGY'
-	, (
-select date
-from "IBF-pipeline-output".calculated_affected_short
-where country_code = 'EGY'
-group by date
-order by date desc
-limit 1
-	) date
-	, 'Current'
-	, 0,0
+delete from "IBF-pipeline-output".triggers_per_day where country_code = 'EGY' and to_date(date,'yyyy-mm-dd') = current_date;
+insert into "IBF-pipeline-output".triggers_per_day
+select 0
+	,0,0
 	, (
 select max(case when sum <> '--' and sum <> '0' then 1 else 0 end) as trigger
 from "IBF-pipeline-output".calculated_affected_short
@@ -61,7 +41,29 @@ group by date
 order by date desc
 limit 1
 	) day7
+	, (
+select date
+from "IBF-pipeline-output".calculated_affected_short
+where country_code = 'EGY'
+group by date
+order by date desc
+limit 1
+	) date
+	,'EGY'
 ;
+
+insert into "IBF-pipeline-output".dashboard_triggers_per_day
+select tpd.country_code 
+	,tpd.date
+	,'Current' as current_prev
+	,"1","2","3","4","5","6","7"
+from "IBF-pipeline-output".triggers_per_day tpd
+left join (select country_code, max(date) as max_date from "IBF-pipeline-output".triggers_per_day group by 1) max
+	on tpd.country_code = max.country_code
+	and tpd.date = max.max_date
+where tpd.date = max.max_date
+;
+
 --select * from "IBF-pipeline-output".dashboard_triggers_per_day
 --select * from "IBF-pipeline-output".triggers_per_day where country_code = 'ZMB' order by date
 
@@ -190,7 +192,8 @@ left join "IBF-pipeline-output".triggers_per_day yesterday
 	and to_date(today.date,'yyyy-mm-dd') = to_date(yesterday.date,'yyyy-mm-dd') + 1
 where 1=1
 	and to_date(today.date,'yyyy-mm-dd') = current_date
-	and today."7" = 1 
+	and (today."7" = 1  or today."3" = 1)
 	and (yesterday."7" = 0 or yesterday."7" is null)
+	and (yesterday."3" = 0 or yesterday."3" is null)
 ;
---select * from "IBF-pipeline-output".events
+--select * from "IBF-pipeline-output".events where country_code = 'EGY'
