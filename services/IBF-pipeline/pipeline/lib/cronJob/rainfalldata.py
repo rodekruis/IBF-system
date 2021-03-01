@@ -25,6 +25,7 @@ class RainfallData:
     def __init__(self, fcStep, days, country_code, rainfall_triggers, rainfall_cols):
         self.fcStep = fcStep
         self.days = days
+        self.country_code = country_code
         self.inputPath = PIPELINE_DATA + 'input/rainfall/'
         self.rainrasterPath = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ fcStep + '_' + country_code + '.tif'
         self.rainfall_triggers = rainfall_triggers
@@ -45,7 +46,10 @@ class RainfallData:
             os.remove(os.path.join(self.inputPath, f))
 
     def download(self):
-        if RAINFALL_DUMMY == False:
+        if SETTINGS[self.country_code]['dummy_trigger'] == True:            
+            self.inputPath = PIPELINE_DATA + 'input/rainfall_dummy/'
+        
+        else:
             downloadDone = False
 
             timeToTryDownload = 43200
@@ -68,8 +72,6 @@ class RainfallData:
                 raise ValueError('GFS download failed for ' +
                                  str(timeToTryDownload / 3600) + ' hours, no new dataset was found')
 
-        else:
-            self.inputPath = PIPELINE_DATA + 'input/rainfall_dummy/'
 
     def bound_extent(self, shapefile):
         '''

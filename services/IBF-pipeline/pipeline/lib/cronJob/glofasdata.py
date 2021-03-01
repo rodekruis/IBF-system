@@ -131,25 +131,24 @@ class GlofasData:
                         discharge = data['dis'].sel(
                             ensemble=ensemble, step=step).values[time][0]
 
-                        # DUMMY OVERWRITE FOR NOW
-                        if OVERWRITE_DUMMY == True:
-                            if DUMMY_TRIGGER == False:
+                        # DUMMY OVERWRITE DEPENDING ON COUNTRY SETTING
+                        if SETTINGS[self.country_code]['dummy_trigger'] == True:
+                            if step < 5:
                                 discharge = 0
+                            elif station['code'] == 'G1361': # ZMB dummy flood station 1
+                                discharge = 8000
+                            elif station['code'] == 'G1328': # ZMB dummy flood station 2
+                                discharge = 9000
+                            elif station['code'] == 'G5200': # UGA dummy flood station
+                                discharge = 700
+                            elif station['code'] == 'G1067': # ETH dummy flood station
+                                discharge = 1000
+                            elif station['code'] == 'G1904': # ETH dummy flood station
+                                discharge = 2000
+                            elif station['code'] == 'G5194': # KEN dummy flood station
+                                discharge = 2000
                             else:
-                                if step < 5:
-                                    discharge = 0
-                                elif station['code'] == 'G1361': # ZMB dummy flood station 1
-                                    discharge = 8000
-                                elif station['code'] == 'G1328': # ZMB dummy flood station 2
-                                    discharge = 9000
-                                elif station['code'] == 'G5200': # UGA dummy flood station
-                                    discharge = 700
-                                elif station['code'] == 'G1074': # ETH dummy flood station
-                                    discharge = 1000
-                                elif station['code'] == 'G5194': # KEN dummy flood station
-                                    discharge = 2000
-                                else:
-                                    discharge = 0
+                                discharge = 0
 
                         if discharge >= threshold:
                             count = count + 1

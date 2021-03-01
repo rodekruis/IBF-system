@@ -6,12 +6,9 @@ from datetime import date, timedelta
 ## DEVELOPMENT SETTINGS ##
 ##########################
 
-# Use dummy-data and/or overwrite real data
-OVERWRITE_DUMMY = False #Overwrite glofas data with dummy data
-DUMMY_TRIGGER = True #Overwrite with flood data (true) or no flood (false)
-RAINFALL_DUMMY = False
+# Change dummy-triggers per country (below) now
 
-# Change this date only in case of testing
+# Change this date only in case of specific testing purposes
 CURRENT_DATE = date.today()
 # CURRENT_DATE=date.today() - timedelta(days=1)
 
@@ -39,7 +36,8 @@ SETTINGS = {
                 "source": "population/hrsl_zmb_pop_resized_100",
                 "rasterValue": 1
             }
-        }
+        },
+        'dummy_trigger': False
     },
     "UGA": {
         "model": 'glofas',
@@ -58,7 +56,8 @@ SETTINGS = {
                 "source": "population/hrsl_uga_pop_resized_100",
                 "rasterValue": 1
             }
-        }
+        },
+        'dummy_trigger': False
     },
     "KEN": {
         "model": 'glofas',
@@ -76,7 +75,8 @@ SETTINGS = {
                 "source": "population/hrsl_ken_pop_resized_100",
                 "rasterValue": 1
             }
-        }
+        },
+        'dummy_trigger': False
     },
     "ETH": {
         "model": 'glofas',
@@ -94,7 +94,8 @@ SETTINGS = {
                 "source": "population/worldpop_eth",
                 "rasterValue": 1
             }
-        }
+        },
+        'dummy_trigger': False
     },
     "EGY": {
         "model": 'rainfall',
@@ -106,7 +107,7 @@ SETTINGS = {
         },
         'trigger_colname': '5yr_threshold',
         'lead_times': {
-            # "short": 3,
+            "short": 3,
             # "medium": 5,
             "long": 7
         },
@@ -114,8 +115,10 @@ SETTINGS = {
             "population": {
                 "source": "population/population_egy_2018-10-01",
                 "rasterValue": 1
-            }}
-    },
+            }
+        },
+        'dummy_trigger': False
+    }
 }
 
 
