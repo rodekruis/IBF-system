@@ -62,7 +62,7 @@ SELECT t0.country_code
 	,case when date_part('day',age(current_date,to_date(date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
 	,'3-day' as lead_time
 	,fc_short as fc,fc_short_trigger as fc_trigger,fc_short_rp as fc_rp
-	,case when trigger_level = 0 then null else fc_short/trigger_level end as fc_perc
+	,case when t0.trigger_level = 0 then null else fc_short/t0.trigger_level end as fc_perc
 	,fc_short_prob as fc_prob
 	,case when fc_short_prob >= 0.8 then 80 when fc_short_prob >=0.7 then 70 when fc_short_prob >=0.6 then 60 else 0 end as fc_trigger2
 	,t0.geom
@@ -89,7 +89,7 @@ SELECT t0.country_code
 	,case when date_part('day',age(current_date,to_date(date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
 	,'7-day' as lead_time
 	,fc_long,fc_long_trigger,fc_long_rp
-	,case when trigger_level = 0 then null else fc_long/trigger_level end as fc_perc
+	,case when t0.trigger_level = 0 then null else fc_long/t0.trigger_level end as fc_perc
 	,fc_long_prob as fc_prob
 	,case when fc_long_prob >= 0.8 then 80 when fc_long_prob >=0.7 then 70 when fc_long_prob >=0.6 then 60 else 0 end as fc_trigger2
 	,t0.geom
