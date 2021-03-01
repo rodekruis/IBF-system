@@ -14,7 +14,7 @@ export class GlofasStationEntity {
   @Column()
   public stationName: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'real' })
   public triggerLevel: string;
 
   @Column({ nullable: true })

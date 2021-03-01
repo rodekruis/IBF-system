@@ -1,19 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
-import fs from 'fs';
-import csv from 'csv-parser';
-import { Readable } from 'stream';
+
 import { GlofasStationEntity } from '../api/glofas-station/glofas-station.entity';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
+import { SeedHelper } from './seed-helper';
 
 @Injectable()
 export class SeedGlofasStation implements InterfaceScript {
-  private connection: Connection;
+  public constructor(private connection: Connection) {}
 
-  public constructor(connection: Connection) {
-    this.connection = connection;
-  }
+  private readonly seedHelper = new SeedHelper(this.connection);
 
   public async run(): Promise<void> {
     const glofasStationRepository = this.connection.getRepository(
@@ -22,7 +19,7 @@ export class SeedGlofasStation implements InterfaceScript {
     const adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
 
     // ETH: GLOFAS Station per admin-area
-    const stationPerAdminAreaDataETH = await this.getCsvData(
+    const stationPerAdminAreaDataETH = await this.seedHelper.getCsvData(
       './src/scripts/git-lfs/Glofas_station_per_admin_area_ETH.csv',
     );
     stationPerAdminAreaDataETH.forEach(async area => {
@@ -33,8 +30,8 @@ export class SeedGlofasStation implements InterfaceScript {
       adminAreaRepository.save(adminArea);
     });
 
-    // -- ETH
-    const glofasStationData = await this.getCsvData(
+    // -- ETH: GLOFAS stations
+    const glofasStationData = await this.seedHelper.getCsvData(
       './src/scripts/git-lfs/Glofas_station_locations_with_trigger_levels_IARP.csv',
     );
     const stationCodesETH = stationPerAdminAreaDataETH.map(
@@ -50,37 +47,14 @@ export class SeedGlofasStation implements InterfaceScript {
             countryCode: 'ETH',
             stationCode: station['station_code'],
             stationName: station['station_name'],
-            triggerLevel: station['10yr_threshold_7day'],
-            geom: () =>
-              `st_SetSrid(st_MakePoint(${station['lat']}, ${station['lon']}), 4326)`,
+            triggerLevel:
+              station['10yr_threshold_7day'] == ''
+                ? null
+                : station['10yr_threshold_7day'],
+            geom: () => `st_MakePoint(${station['lon']}, ${station['lat']})`,
           })
           .execute();
       }
-    });
-  }
-
-  private async getCsvData(source: string) {
-    const buffer = fs.readFileSync(source);
-    let data = await this.csvBufferToArray(buffer, ',');
-    if (Object.keys(data[0]).length === 1) {
-      data = await this.csvBufferToArray(buffer, ';');
-    }
-    return data;
-  }
-
-  private async csvBufferToArray(buffer, separator): Promise<object[]> {
-    const stream = new Readable();
-    stream.push(buffer.toString());
-    stream.push(null);
-    let parsedData = [];
-    return await new Promise(function(resolve, reject) {
-      stream
-        .pipe(csv({ separator: separator }))
-        .on('error', error => reject(error))
-        .on('data', row => parsedData.push(row))
-        .on('end', () => {
-          resolve(parsedData);
-        });
     });
   }
 }
