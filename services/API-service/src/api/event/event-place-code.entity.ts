@@ -2,8 +2,8 @@ import { Entity, Column, Check, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('event_place_code', { schema: 'IBF-pipeline-output' })
 export class EventPlaceCodeEntity {
-  @PrimaryGeneratedColumn()
-  public id: number;
+  @PrimaryGeneratedColumn('uuid')
+  public eventPlaceCodeId: string;
 
   @Column({})
   public placeCode: string;

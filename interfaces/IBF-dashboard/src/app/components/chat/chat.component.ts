@@ -213,7 +213,7 @@ export class ChatComponent implements OnDestroy {
         {
           text: this.closeEventPopup['confirm'],
           handler: () => {
-            this.closePlaceCodeEvent(area.id, area.placeCode);
+            this.closePlaceCodeEvent(area.eventPlaceCodeId, area.placeCode);
           },
         },
       ],
@@ -222,7 +222,7 @@ export class ChatComponent implements OnDestroy {
   }
 
   public async closePlaceCodeEvent(
-    eventPlaceCodeId: number,
+    eventPlaceCodeId: string,
     placeCode: string,
   ) {
     let loading = await this.loadingCtrl.create({});

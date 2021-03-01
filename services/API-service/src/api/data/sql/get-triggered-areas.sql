@@ -7,7 +7,7 @@
       e."placeCode",
       coalesce(a2.name, a1.name) as name,
       coalesce(a2.population_affected, a1.population_affected) as "populationAffected",
-      e.id
+      e."eventPlaceCodeId"
     from
       "IBF-pipeline-output".event_place_code e
     left join "IBF-API"."Admin_area_data2" a2 on
@@ -28,7 +28,7 @@
       a1.population_affected,
       a2.name,
       a1.name,
-      e.id
+      e."eventPlaceCodeId"
     order by
       "populationAffected" desc ) as ec
   where
