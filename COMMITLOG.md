@@ -1,3 +1,13 @@
+## [0.25.1](https://github.com/rodekruis/IBF-system/compare/v0.25.0...v0.25.1) (2021-03-01)
+
+
+### Bug Fixes
+
+* fix event-setting for trigger Egypt AB[#6388](https://github.com/rodekruis/IBF-system/issues/6388) ([b05a753](https://github.com/rodekruis/IBF-system/commit/b05a753487420b93360f78785d26ff827555a86f))
+* new trigger levels Egypt AB[#6388](https://github.com/rodekruis/IBF-system/issues/6388) ([22409cc](https://github.com/rodekruis/IBF-system/commit/22409cca3876888cdcbd53a3bf66d9a11f55cac2))
+
+
+
 # [0.25.0](https://github.com/rodekruis/IBF-system/compare/v0.24.0...v0.25.0) (2021-03-01)
 
 
@@ -116,15 +126,6 @@
 
 * submit eap action disable button AB[#6181](https://github.com/rodekruis/IBF-system/issues/6181) ([c1fe206](https://github.com/rodekruis/IBF-system/commit/c1fe20663d5d2f7ca4f679b1260fdd4f1c9a7e94))
 * submit eap action disable button AB[#6181](https://github.com/rodekruis/IBF-system/issues/6181) ([9a29213](https://github.com/rodekruis/IBF-system/commit/9a29213ae7e6723796452ac72133626e54c87844))
-
-
-
-## [0.20.1](https://github.com/rodekruis/IBF-system/compare/v0.20.0...v0.20.1) (2021-02-19)
-
-
-### Bug Fixes
-
-* fix+improve email sending for all countries AB[#6215](https://github.com/rodekruis/IBF-system/issues/6215) ([313ac07](https://github.com/rodekruis/IBF-system/commit/313ac07d4da61288bd0c17cf957a03a3d8bc6f15))
 
 
 
