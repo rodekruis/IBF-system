@@ -6,7 +6,9 @@ from datetime import date, timedelta
 ## DEVELOPMENT SETTINGS ##
 ##########################
 
-# Change this date only in case of testing
+# Change dummy-triggers per country (below) now
+
+# Change this date only in case of specific testing purposes
 CURRENT_DATE = date.today()
 # CURRENT_DATE=date.today() - timedelta(days=1)
 
