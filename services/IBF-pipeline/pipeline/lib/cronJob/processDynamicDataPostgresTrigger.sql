@@ -4,8 +4,10 @@
 -- EXCEPT for this comment itself of course!
 -- AND change back after
 
+--drop table "IBF-pipeline-output".dashboard_triggers_per_day cascade;
 CREATE TABLE if not exists "IBF-pipeline-output".dashboard_triggers_per_day (
 	country_code text NULL,
+	"date" text null,
 	current_prev text NULL,
 	"1" int8 NULL,
 	"2" int8 NULL,
@@ -15,23 +17,53 @@ CREATE TABLE if not exists "IBF-pipeline-output".dashboard_triggers_per_day (
 	"6" int8 NULL,
 	"7" int8 NULL
 );
+
 truncate table "IBF-pipeline-output".dashboard_triggers_per_day;
+
 insert into "IBF-pipeline-output".dashboard_triggers_per_day
 select tpd.country_code 
+	,tpd.date
 	,'Current' as current_prev
---	,case when date_part('day',age(current_date,to_date(date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
-	,"1","2","3","4","5","6","7"--,"8","9","10"
---into "IBF-pipeline-output".dashboard_triggers_per_day
+	,"1","2","3","4","5","6","7"
 from "IBF-pipeline-output".triggers_per_day tpd
 left join (select country_code, max(date) as max_date from "IBF-pipeline-output".triggers_per_day group by 1) max
 	on tpd.country_code = max.country_code
 	and tpd.date = max.max_date
---where to_date(date,'yyyy-mm-dd') >= current_date - 1
 where tpd.date = max.max_date
+
+union all 
+
+select 'EGY'
+	, (
+select date
+from "IBF-pipeline-output".calculated_affected_short
+where country_code = 'EGY'
+group by date
+order by date desc
+limit 1
+	) date
+	, 'Current'
+	, 0,0
+	, (
+select max(case when sum <> '--' and sum <> '0' then 1 else 0 end) as trigger
+from "IBF-pipeline-output".calculated_affected_short
+where country_code = 'EGY' and source = 'population'
+group by date
+order by date desc
+limit 1
+	) day3
+	, 0,0,0
+	, (
+select max(case when sum <> '--' and sum <> '0' then 1 else 0 end) as trigger
+from "IBF-pipeline-output".calculated_affected_long
+where country_code = 'EGY' and source = 'population'
+group by date
+order by date desc
+limit 1
+	) day7
 ;
 --select * from "IBF-pipeline-output".dashboard_triggers_per_day
 --select * from "IBF-pipeline-output".triggers_per_day where country_code = 'ZMB' order by date
-
 
     
 CREATE TABLE if not exists "IBF-pipeline-output".dashboard_forecast_per_station (
