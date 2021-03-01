@@ -6,11 +6,6 @@ from datetime import date, timedelta
 ## DEVELOPMENT SETTINGS ##
 ##########################
 
-# Use dummy-data and/or overwrite real data
-OVERWRITE_DUMMY = False #Overwrite glofas data with dummy data
-DUMMY_TRIGGER = True #Overwrite with flood data (true) or no flood (false)
-RAINFALL_DUMMY = False
-
 # Change this date only in case of testing
 CURRENT_DATE = date.today()
 # CURRENT_DATE=date.today() - timedelta(days=1)
@@ -110,7 +105,7 @@ SETTINGS = {
         },
         'trigger_colname': '5yr_threshold',
         'lead_times': {
-            # "short": 3,
+            "short": 3,
             # "medium": 5,
             "long": 7
         },
