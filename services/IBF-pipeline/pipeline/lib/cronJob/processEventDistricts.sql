@@ -39,7 +39,7 @@ from
 		where
 			t1.fc_trigger = 1
 			and t1.current_prev = 'Current'
-			and t2.lead_time = '7-day' ) districtsToday
+			and (t2.lead_time = '7-day' or t2.lead_time = '3-day') ) districtsToday
 	left join "IBF-pipeline-output".event_place_code eventPcodeExisting on
 		districtsToday.pcode = eventPcodeExisting."placeCode"
 	where
@@ -71,7 +71,7 @@ from (
 		and to_date(t2.date,'yyyy-mm-dd') = current_date
 	where t1.fc_trigger=1
 		and t1.current_prev = 'Current'
-		and t2.lead_time = '7-day'
+		and (t2.lead_time = '7-day' or t2.lead_time = '3-day')
 	GROUP BY t1.pcode, "startDate", "endDate"
 	) districtsToday
 left join "IBF-pipeline-output".event_place_code districtsExisting
