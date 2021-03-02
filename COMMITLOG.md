@@ -1,3 +1,33 @@
+# [0.27.0](https://github.com/rodekruis/IBF-system/compare/v0.26.0...v0.27.0) (2021-03-02)
+
+
+### Bug Fixes
+
+* AB[#6356](https://github.com/rodekruis/IBF-system/issues/6356) update based on review. Change snake to camelcase ([7aa306a](https://github.com/rodekruis/IBF-system/commit/7aa306add706a224b7559610a3793e8e9af1faf0))
+* AB[#6356](https://github.com/rodekruis/IBF-system/issues/6356) update based on review. Change snake to camelcase ([c6e87c3](https://github.com/rodekruis/IBF-system/commit/c6e87c3cd579697e960ad98b2a33d20d0156022b))
+* AI close event ([fc85fb3](https://github.com/rodekruis/IBF-system/commit/fc85fb37c13fc6642644cf36b710d0be76f05a6b))
+* getCountry event due to merge conflict ([66ef8b5](https://github.com/rodekruis/IBF-system/commit/66ef8b5461b456fa1427d0cacfdd1caf1b76f914))
+* Solve merge conflict ([ac2dae8](https://github.com/rodekruis/IBF-system/commit/ac2dae855143938a98918eb61265bc4b7cb5db87))
+* syntax AB[#6316](https://github.com/rodekruis/IBF-system/issues/6316) ([337ea73](https://github.com/rodekruis/IBF-system/commit/337ea73b28eab5e60254e608915f4f0d558b7d47))
+* test AB[#6316](https://github.com/rodekruis/IBF-system/issues/6316) ([e33c586](https://github.com/rodekruis/IBF-system/commit/e33c586dc5c1c97db821f7b5ebfcabab5ad2c97a))
+
+
+### Features
+
+* Added active trigger to event_pcode AB[#6315](https://github.com/rodekruis/IBF-system/issues/6315) ([45425a0](https://github.com/rodekruis/IBF-system/commit/45425a0495b5384d970836edd632bbf304cbc90a))
+* Change event sql to work per district AB[#7179](https://github.com/rodekruis/IBF-system/issues/7179) ([8fc9a85](https://github.com/rodekruis/IBF-system/commit/8fc9a85924fc98cc85e214e2bc8417b0796b1cdb))
+* change id EventPlaceCodeEntity AB[#6417](https://github.com/rodekruis/IBF-system/issues/6417) ([5b597b7](https://github.com/rodekruis/IBF-system/commit/5b597b76868f1dbaf77e89e10e828e499733eff6))
+* confirm popup AB[#6297](https://github.com/rodekruis/IBF-system/issues/6297) ([28061a9](https://github.com/rodekruis/IBF-system/commit/28061a9af737a9e0b0a707b2fa2d4557ed7756e3))
+* Create close event pcode in frontend AB[#6295](https://github.com/rodekruis/IBF-system/issues/6295) ([3df1628](https://github.com/rodekruis/IBF-system/commit/3df1628d17f707c0a83121ff4f58643ead6c1f72))
+* Endpoint that allows closing of event AB[#6180](https://github.com/rodekruis/IBF-system/issues/6180) ([1c9e1c1](https://github.com/rodekruis/IBF-system/commit/1c9e1c137cc9411bf849f66a4b4471c6dfcea73e))
+* event to event per pcode AB[#6216](https://github.com/rodekruis/IBF-system/issues/6216) ([31c6af0](https://github.com/rodekruis/IBF-system/commit/31c6af048de09b7f2d75686ef76dd1d7abcc5ce4))
+* log closing events AB[#6162](https://github.com/rodekruis/IBF-system/issues/6162) ([43477e5](https://github.com/rodekruis/IBF-system/commit/43477e5f3bd88ed5aa0e1fd4e15558606282248c))
+* seperate .sql files AB[#6297](https://github.com/rodekruis/IBF-system/issues/6297) ([5fa3e98](https://github.com/rodekruis/IBF-system/commit/5fa3e98bce31cc1acb4250673467c1d71eddda83))
+* Update based on review AB[#6356](https://github.com/rodekruis/IBF-system/issues/6356) ([9f5a924](https://github.com/rodekruis/IBF-system/commit/9f5a924a7658e7e9503129db7409221a15e3d3e1))
+* work on review AB[#6356](https://github.com/rodekruis/IBF-system/issues/6356) ([1e2c557](https://github.com/rodekruis/IBF-system/commit/1e2c5572f5757e3d349f6f40957c3b5b677dad30))
+
+
+
 # [0.26.0](https://github.com/rodekruis/IBF-system/compare/v0.25.1...v0.26.0) (2021-03-02)
 
 
@@ -116,15 +146,6 @@
 * add unit to map popup AB[#6183](https://github.com/rodekruis/IBF-system/issues/6183) ([7ffb1b5](https://github.com/rodekruis/IBF-system/commit/7ffb1b5182421311a1d5bd41fe174a8e1abffe30))
 * add unit to map-legend AB[#6184](https://github.com/rodekruis/IBF-system/issues/6184) ([9dc3e32](https://github.com/rodekruis/IBF-system/commit/9dc3e32304ebb52dd593290fe34c59776bdf9494))
 * add unit-attribute to indicator-metadata AB[#6182](https://github.com/rodekruis/IBF-system/issues/6182) ([7c95113](https://github.com/rodekruis/IBF-system/commit/7c9511330b27c0ba2bb32fbe6cc7a57d786a1aa0))
-
-
-
-## [0.20.3](https://github.com/rodekruis/IBF-system/compare/v0.20.2...v0.20.3) (2021-02-19)
-
-
-### Bug Fixes
-
-* have geojson import work with new version of dash-leaflet AB[#6038](https://github.com/rodekruis/IBF-system/issues/6038) ([e1dbeb9](https://github.com/rodekruis/IBF-system/commit/e1dbeb9d3edaeb3d5bde4b72ec107ba46ef8f29d))
 
 
 
