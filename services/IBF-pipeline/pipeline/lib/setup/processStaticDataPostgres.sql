@@ -1,10 +1,14 @@
---DROP TABLE IF EXISTS "IBF-static-input".dashboard_glofas_stations;
+--DROP TABLE IF EXISTS "IBF-static-input".dashboard_glofas_stations cascade;
 truncate TABLE "IBF-static-input".dashboard_glofas_stations;
 insert into "IBF-static-input".dashboard_glofas_stations
 SELECT cast('ZMB' as varchar) as country_code 
 	, station_code
 	, station_name
 	, "10yr_threshold" as trigger_level
+	, "2yr_threshold"
+	, "5yr_threshold"
+	, "10yr_threshold"
+	, "20yr_threshold"
 	,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
 --INTO "IBF-static-input".dashboard_glofas_stations
 FROM "IBF-static-input"."ZMB_glofas_stations"
@@ -13,6 +17,10 @@ SELECT 'UGA' as country_code
 	, station_code
 	, station_name
 	, "5yr_threshold" as trigger_level
+	, "2yr_threshold"
+	, "5yr_threshold"
+	, "10yr_threshold"
+	, "20yr_threshold"
 	,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
 FROM "IBF-static-input"."UGA_glofas_stations"
 where station_code in (select station_code_7day from "IBF-static-input"."UGA_waterstation_per_district" group by 1)
@@ -21,6 +29,10 @@ SELECT 'KEN' as country_code
 	, station_code
 	, station_name
 	, "5yr_threshold" as trigger_level
+	, "2yr_threshold"
+	, "5yr_threshold"
+	, "10yr_threshold"
+	, "20yr_threshold"
 	,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
 FROM "IBF-static-input"."KEN_glofas_stations"
 where station_code in (select station_code_7day from "IBF-static-input"."KEN_waterstation_per_district" group by 1)
@@ -28,18 +40,14 @@ union all
 SELECT 'ETH' as country_code
 	, station_code
 	, station_name
-	, "5yr_threshold" as trigger_level
+	, "10yr_threshold_7day" as trigger_level
+	, "2yr_threshold"
+	, "5yr_threshold"
+	, "10yr_threshold"
+	, "20yr_threshold"
 	,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
 FROM "IBF-static-input"."ETH_glofas_stations"
 where station_code in (select station_code_7day from "IBF-static-input"."ETH_waterstation_per_district" group by 1)
---union all
---SELECT 'EGY' as country_code
---	, station_code
---	, station_name
---	, "5yr_threshold" as trigger_level
---	,st_SetSrid(st_MakePoint(lat, lon), 4326) as geom
---FROM "IBF-static-input"."EGY_glofas_stations"
---where station_code in (select station_code_7day from "IBF-static-input"."EGY_waterstation_per_district" group by 1)
 ;
 --select * from "IBF-static-input".dashboard_glofas_stations
 
@@ -72,6 +80,7 @@ SELECT cast('ETH' as varchar) as country_code
 	, null
 	, station_code_7day
 FROM "IBF-static-input"."ETH_waterstation_per_district"
+
 --union all
 --SELECT cast('EGY' as varchar) as country_code
 --	, "distName"

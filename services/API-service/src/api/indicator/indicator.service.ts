@@ -8,14 +8,18 @@ import { IndicatorEntity } from './indicator.entity';
 export class IndicatorService {
   @InjectRepository(IndicatorEntity)
   private readonly indicatorRepository: Repository<IndicatorEntity>;
+  private readonly dataService: DataService;
 
-  public constructor(private readonly dataService: DataService) {}
+  public constructor(dataService: DataService) {
+    this.dataService = dataService;
+  }
 
   public async getIndicatorsByCountry(countryCode): Promise<IndicatorEntity[]> {
     const indicators = await this.indicatorRepository.find({});
 
-    const countryIndicators = indicators.filter(i =>
-      i.country_codes.split(',').includes(countryCode),
+    const countryIndicators = indicators.filter(
+      (indicator: IndicatorEntity): boolean =>
+        indicator.country_codes.split(',').includes(countryCode),
     );
 
     const event = await this.dataService.getEventSummaryCountry(countryCode);

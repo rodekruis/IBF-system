@@ -13,23 +13,29 @@ import { UserRole } from '../api/user/user-role.enum';
 import { UserStatus } from '../api/user/user-status.enum';
 import { UserEntity } from '../api/user/user.entity';
 
-import leadTimes from './lead-times.json';
-import countries from './countries.json';
-import users from './users.json';
-import areasOfFocus from './areas-of-focus.json';
-import eapActions from './EAP-actions.json';
-import indicators from './indicator-metadata.json';
+import leadTimes from './json/lead-times.json';
+import countries from './json/countries.json';
+import users from './json/users.json';
+import areasOfFocus from './json/areas-of-focus.json';
+import eapActions from './json/EAP-actions.json';
+import indicators from './json/indicator-metadata.json';
+
+import SeedAdminArea from './seed-admin-area';
+import SeedGlofasStation from './seed-glofas-station';
+import { SeedHelper } from './seed-helper';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
   private connection: Connection;
+  private readonly seedHelper: SeedHelper;
 
   public constructor(connection: Connection) {
     this.connection = connection;
+    this.seedHelper = new SeedHelper(connection);
   }
 
   public async run(): Promise<void> {
-    await this.cleanAll();
+    await this.seedHelper.cleanAll();
     await this.connection.synchronize(false);
 
     // ***** CREATE LEAD TIMES *****
@@ -133,22 +139,17 @@ export class SeedInit implements InterfaceScript {
     // ***** CREATE INDICATORS *****
     const indicatorRepository = this.connection.getRepository(IndicatorEntity);
     await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
-  }
 
-  private async cleanAll(): Promise<void> {
-    const entities = this.connection.entityMetadatas;
-    try {
-      for (const entity of entities) {
-        const repository = await this.connection.getRepository(entity.name);
-        if (repository.metadata.schema === 'IBF-app') {
-          const q = `DROP TABLE \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
-          console.log(q);
-          await repository.query(q);
-        }
-      }
-    } catch (error) {
-      throw new Error(`ERROR: Cleaning test db: ${error}`);
-    }
+    // ***** SEED ADMIN-AREA DATA *****
+    const seedAdminArea = await new SeedAdminArea(this.connection);
+    await seedAdminArea.run();
+
+    // ***** SEED GLOFAS-STATION DATA *****
+    const seedGlofasStation = await new SeedGlofasStation(this.connection);
+    await seedGlofasStation.run();
+
+    // ***** RUN SCRIPT TO FINALIZE ALL DATA PREPARATION *****
+    await this.seedHelper.runSqlScript('./src/sql/IBF-database-scripts.sql');
   }
 }
 

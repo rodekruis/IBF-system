@@ -1,6 +1,6 @@
 [
   {
-    "country_codes": "UGA,ZMB,KEN,ETH",
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY",
     "name": "population_affected",
     "label": "Exposed population",
     "group": "general",

@@ -2,6 +2,7 @@ import { UserEntity } from './../user/user.entity';
 import { DataService } from './../data/data.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataModule } from '../data/data.module';
 import { IndicatorEntity } from './indicator.entity';
 import { IndicatorService } from './indicator.service';
 
@@ -12,6 +13,7 @@ describe('IndicatorService', (): void => {
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
         imports: [
+          DataModule,
           TypeOrmModule.forRoot(),
           TypeOrmModule.forFeature([IndicatorEntity, UserEntity]),
         ],
