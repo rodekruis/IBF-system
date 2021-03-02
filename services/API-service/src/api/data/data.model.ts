@@ -135,11 +135,26 @@ export class TriggeredArea {
   public population_affected: number;
 }
 
-export class DisasterEvent {
+export class EventSummaryCountry {
   public country_code: string;
-  public start_date: Date;
-  public end_date?: Date;
-  public id: number;
+  public startDate: string;
+  public endDate: string;
+  public activeTrigger: boolean;
+}
+
+export class CountryMetaData {
+  public id: string;
+  public country_code: string;
+  public name: string;
+  public label: string;
+  public group: string;
+  public icon: string;
+  public weightedAvg: boolean;
+  public numberFormatMap: string;
+  public aggregateIndicator: true;
+  public numberFormatAggregate: string;
+  public source: string;
+  public description: string;
 }
 
 export class Aggregates {

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
@@ -9,6 +9,7 @@ import {
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
+import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
@@ -28,6 +29,7 @@ export class ChatComponent implements OnDestroy {
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
   private promptButtonLabel: string;
+  private closeEventPopup: object;
 
   private eapActionSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -46,8 +48,10 @@ export class ChatComponent implements OnDestroy {
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private alertController: AlertController,
+    public loadingCtrl: LoadingController,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
+    private apiService: ApiService,
     private analyticsService: AnalyticsService,
   ) {
     this.translateService
@@ -56,6 +60,7 @@ export class ChatComponent implements OnDestroy {
         this.updateSuccessMessage = translatedStrings['update-success'];
         this.updateFailureMessage = translatedStrings['update-failure'];
         this.promptButtonLabel = translatedStrings['prompt-button-label'];
+        this.closeEventPopup = translatedStrings['close-event-popup'];
       });
   }
 
@@ -80,7 +85,7 @@ export class ChatComponent implements OnDestroy {
       .subscribe((placeCode: PlaceCode) => {
         if (placeCode) {
           this.filteredAreas = this.triggeredAreas.filter(
-            (area) => area.pcode === placeCode.placeCode,
+            (area) => area.placeCode === placeCode.placeCode,
           );
         } else {
           this.filteredAreas = [...this.triggeredAreas];
@@ -95,12 +100,12 @@ export class ChatComponent implements OnDestroy {
     this.placeCodeSubscription.unsubscribe();
   }
 
-  public changeAction(pcode: string, action: string, checkbox: boolean) {
+  public changeAction(placeCode: string, action: string, checkbox: boolean) {
     this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.analyticsService.logEvent(AnalyticsEvent.eapAction, {
-          placeCode: pcode,
+          placeCode: placeCode,
           eapAction: action,
           eapActionStatus: checkbox,
           page: AnalyticsPage.dashboard,
@@ -111,7 +116,7 @@ export class ChatComponent implements OnDestroy {
         });
       });
 
-    const area = this.triggeredAreas.find((i) => i.pcode === pcode);
+    const area = this.triggeredAreas.find((i) => i.placeCode === placeCode);
     const changedAction = area.eapActions.find((i) => i.action === action);
     changedAction.checked = checkbox;
     if (!this.changedActions.includes(changedAction)) {
@@ -121,16 +126,16 @@ export class ChatComponent implements OnDestroy {
         (item) => !(changedAction.action === item.action),
       );
     }
-    this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled =
+    this.triggeredAreas.find((i) => i.placeCode === placeCode).submitDisabled =
       this.changedActions.length === 0;
   }
 
-  public async submitEapAction(pcode: string) {
+  public async submitEapAction(placeCode: string) {
     this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
         this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
-          placeCode: pcode,
+          placeCode: placeCode,
           page: AnalyticsPage.dashboard,
           country: country.countryCodeISO3,
           isActiveEvent: this.eventService.state.activeEvent,
@@ -139,13 +144,15 @@ export class ChatComponent implements OnDestroy {
         });
       });
 
-    this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = true;
+    this.triggeredAreas.find(
+      (i) => i.placeCode === placeCode,
+    ).submitDisabled = true;
     const activeCountry = this.countryService.getActiveCountry();
 
     try {
       const submitEAPActionResult = await Promise.all(
         this.changedActions.map(async (action) => {
-          if (action.pcode === pcode) {
+          if (action.pcode === placeCode) {
             return this.eapActionsService.checkEapAction(
               action.action,
               activeCountry.countryCodeISO3,
@@ -159,7 +166,7 @@ export class ChatComponent implements OnDestroy {
       );
 
       this.changedActions = this.changedActions.filter(
-        (i) => i.pcode !== pcode,
+        (i) => i.pcode !== placeCode,
       );
 
       this.actionResult(this.updateSuccessMessage, (): void =>
@@ -188,5 +195,55 @@ export class ChatComponent implements OnDestroy {
     });
 
     await alert.present();
+  }
+
+  public async closePlaceCodeEventPopup(area) {
+    const message = await this.translateService
+      .get('chat-component.active-event.close-event-popup.message', {
+        placCodeName: area.name,
+      })
+      .toPromise();
+    const alert = await this.alertController.create({
+      message: message,
+      buttons: [
+        {
+          text: this.closeEventPopup['cancel'],
+          handler: () => {
+            console.log('Cancel close place code');
+          },
+        },
+        {
+          text: this.closeEventPopup['confirm'],
+          handler: () => {
+            this.closePlaceCodeEvent(area.eventPlaceCodeId, area.placeCode);
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  public async closePlaceCodeEvent(
+    eventPlaceCodeId: string,
+    placeCode: string,
+  ) {
+    let loading = await this.loadingCtrl.create({});
+    loading.present();
+    this.apiService.closeEventPlaceCode(eventPlaceCodeId).then(() => {
+      loading.dismiss();
+    });
+    this.eapActionsService.loadDistrictsAndActions();
+    this.eventService.getTrigger();
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.analyticsService.logEvent(AnalyticsEvent.closeEvent, {
+          page: AnalyticsPage.dashboard,
+          country: country.countryCodeISO3,
+          isActiveEvent: this.eventService.state.activeEvent,
+          isActiveTrigger: this.eventService.state.activeTrigger,
+          placeCode: placeCode,
+        });
+      });
   }
 }
