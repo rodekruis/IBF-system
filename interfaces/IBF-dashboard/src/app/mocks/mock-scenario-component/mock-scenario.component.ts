@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MockScenarioService } from 'src/app/mocks/mock-scenario-service/mock-scenario.service';
 import { MockScenario } from 'src/app/mocks/mock-scenario.enum';
+import { Country } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { LeadTime } from 'src/app/types/lead-time';
@@ -15,6 +16,9 @@ export class MockScenarioComponent implements OnInit, OnDestroy {
   public MockScenarioEnum = MockScenario;
   public mockScenario: MockScenario;
   public mockScenarioSubscription: Subscription;
+
+  private ugandaCountryCodeISO3 = 'UGA';
+  public mockLeadTimeKey = 'mock';
 
   public mockScenarios: MockScenario[] = [
     MockScenario.real,
@@ -46,15 +50,32 @@ export class MockScenarioComponent implements OnInit, OnDestroy {
     this.mockScenarioService.setMockScenario(event.detail.value);
   }
 
-  public mockAddLeadtime(event: CustomEvent): void {
-    const activeCountry = this.countryService.getActiveCountry();
-    if (event.detail.value === 'mock') {
-      if (!activeCountry.countryLeadTimes.includes(LeadTime.day3)) {
-        activeCountry.countryLeadTimes.push(LeadTime.day3);
-      }
-    } else {
-      activeCountry.countryLeadTimes = [LeadTime.day7];
-    }
-    this.timelineService.loadTimeStepButtons();
+  public mockAddLeadTime(event: CustomEvent): void {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        if (event.detail.value === this.mockLeadTimeKey) {
+          if (!country.countryLeadTimes.includes(LeadTime.day3)) {
+            country.countryLeadTimes.push(LeadTime.day3);
+          }
+        } else {
+          country.countryLeadTimes = [LeadTime.day7];
+        }
+        this.timelineService.loadTimeStepButtons();
+      });
+  }
+
+  public allowMockScenarios(): boolean {
+    let allowMock = false;
+
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        if (country) {
+          allowMock = country.countryCodeISO3 === this.ugandaCountryCodeISO3;
+        }
+      });
+
+    return allowMock;
   }
 }

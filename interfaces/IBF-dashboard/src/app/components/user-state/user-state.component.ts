@@ -26,7 +26,9 @@ export class UserStateComponent {
     private analyticsService: AnalyticsService,
     private eventService: EventService,
   ) {
-    this.authService.authenticationState$.subscribe(this.setDisplayName);
+    this.authService.getAuthSubscription().subscribe((user: User) => {
+      this.setDisplayName(user);
+    });
   }
 
   setDisplayName = (user: User) => {
