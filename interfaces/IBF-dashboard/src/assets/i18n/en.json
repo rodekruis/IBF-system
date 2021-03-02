@@ -70,9 +70,16 @@
       "place-name": "District: <strong>{{ placeName }}</strong>",
       "exposed-population": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
       "submit-button-label": "Submit",
+      "close-event-button": "Close Event",
       "update-success": "EAP action(s) updated in database.",
       "update-failure": "Failed to update EAP action(s) updated in database.",
-      "prompt-button-label": "OK"
+      "prompt-button-label": "OK",
+      "close-event-popup": {
+        "message": "You are about to close the triggered event in {{ placCodeName }}. This action can not be undone.",
+        "confirm": "Close Event",
+        "cancel": "Cancel"
+
+      }
     }
   },
   "map-service": {

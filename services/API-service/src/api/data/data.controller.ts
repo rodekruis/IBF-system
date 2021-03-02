@@ -6,7 +6,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
-import { DisasterEvent, TriggeredArea } from './data.model';
+
+import { TriggeredArea, EventSummaryCountry } from './data.model';
 import { DataService } from './data.service';
 import { GeoJson } from './geo.model';
 
@@ -67,16 +68,20 @@ export class DataController {
   }
 
   @ApiOperation({ summary: 'Get triggered areas' })
-  @ApiParam({ name: 'event', required: true, type: 'number' })
-  @Get('triggered-areas/:event')
+  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
+  @Get('triggered-areas/:countryCode')
   public async getTriggeredAreas(@Param() params): Promise<TriggeredArea[]> {
-    return await this.dataService.getTriggeredAreas(params.event);
+    return await this.dataService.getTriggeredAreas(params.countryCode);
   }
 
-  @ApiOperation({ summary: 'Get active event' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('event/:countryCode')
-  public async getEvent(@Param() params): Promise<DisasterEvent> {
-    return await this.dataService.getEvent(params.countryCode);
+  @ApiOperation({ summary: 'Get active event summary of a country' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('event/:countryCodeISO3')
+  public async getEventSummaryCountry(
+    @Param() params,
+  ): Promise<EventSummaryCountry> {
+    return await this.dataService.getEventSummaryCountry(
+      params.countryCodeISO3,
+    );
   }
 }

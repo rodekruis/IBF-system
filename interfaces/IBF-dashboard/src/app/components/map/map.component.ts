@@ -258,7 +258,10 @@ export class MapComponent implements OnDestroy {
             : colors[0];
         };
 
-        div.innerHTML += `<div><b>${layer.label}</b></div>`;
+        div.innerHTML +=
+          `<div><b>${layer.label}</b>` +
+          (layer.unit ? ' (' + layer.unit + ')' : '') +
+          `</div>`;
 
         for (let i = 0; i < grades.length; i++) {
           if (i === 0 || grades[i] > grades[i - 1]) {
@@ -272,9 +275,7 @@ export class MapComponent implements OnDestroy {
                   this.numberFormat(grades[i + 1], layer) +
                   (labels ? '  -  ' + labels[i] : '') +
                   '<br/>'
-                : '+' +
-                  (layer.unit ? ' ' + layer.unit : '') +
-                  (labels ? '  -  ' + labels[i] : ''));
+                : '+' + (labels ? '  -  ' + labels[i] : ''));
           }
         }
 

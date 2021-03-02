@@ -44,7 +44,6 @@ export class EapActionsController {
     return await this.eapActionsService.getActionsWithStatus(
       params.countryCode,
       params.pcode,
-      params.event,
     );
   }
 
