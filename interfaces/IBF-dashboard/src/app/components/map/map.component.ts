@@ -507,10 +507,14 @@ export class MapComponent implements OnDestroy {
     let markerIcon: IconOptions;
     let className: string;
 
-    const activeCountry = JSON.parse(
-      localStorage.getItem(this.countryService.countryLocalStorage),
-    );
-    const eapAlertClasses = activeCountry.eapAlertClasses;
+    let eapAlertClasses;
+
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        eapAlertClasses = country.eapAlertClasses;
+      });
+
     const glofasProbability = markerProperties.fc_prob;
     Object.keys(eapAlertClasses).forEach((key) => {
       if (
@@ -614,9 +618,14 @@ export class MapComponent implements OnDestroy {
   }
 
   private createMarkerStationPopup(markerProperties: Station): string {
-    const activeCountry = JSON.parse(
-      localStorage.getItem(this.countryService.countryLocalStorage),
-    );
+    let activeCountry: Country;
+
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        activeCountry = country;
+      });
+
     const eapAlertClasses = activeCountry.eapAlertClasses;
     const glofasProbability = markerProperties.fc_prob;
 
@@ -652,11 +661,11 @@ export class MapComponent implements OnDestroy {
 
     let lastAvailableLeadTime: LeadTime;
 
-    if (this.countryService.activeCountry) {
-      lastAvailableLeadTime = this.countryService.activeCountry
-        .countryLeadTimes[
-        this.countryService.activeCountry.countryLeadTimes.length - 1
-      ];
+    if (activeCountry) {
+      lastAvailableLeadTime =
+        activeCountry.countryLeadTimes[
+          activeCountry.countryLeadTimes.length - 1
+        ];
     }
 
     const leadTime =

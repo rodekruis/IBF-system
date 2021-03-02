@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import mockCountry from 'src/app/mocks/country.mock';
 import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
+import { AuthService } from '../auth/auth.service';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -10,18 +10,15 @@ import { ApiService } from './api.service';
 })
 export class CountryService {
   private countrySubject = new BehaviorSubject<Country>(null);
-  public activeCountry: Country;
   public countries: Country[] = [];
-  public countryLocalStorage = 'country';
 
-  constructor(private apiService: ApiService) {
-    this.getCountries();
-  }
-
-  private async getCountries(): Promise<void> {
-    this.countries = await this.apiService.getCountries();
-    const activeCountry = this.getActiveCountry();
-    this.selectCountry(activeCountry.countryCodeISO3);
+  constructor(
+    private apiService: ApiService,
+    private authService: AuthService,
+  ) {
+    this.authService.getAuthSubscription().subscribe((user: User) => {
+      this.getCountriesByUser(user);
+    });
   }
 
   public async getCountriesByUser(user: User): Promise<void> {
@@ -34,14 +31,11 @@ export class CountryService {
   };
 
   public selectCountry = (countryCodeISO3: string): void => {
-    this.activeCountry = this.countries.find(
-      (country) => country.countryCodeISO3 == countryCodeISO3,
+    this.countrySubject.next(
+      this.countries.find(
+        (country) => country.countryCodeISO3 == countryCodeISO3,
+      ),
     );
-    localStorage.setItem(
-      this.countryLocalStorage,
-      JSON.stringify(this.activeCountry),
-    );
-    this.countrySubject.next(this.activeCountry);
   };
 
   public filterCountriesByUser(user: User): void {
@@ -55,13 +49,5 @@ export class CountryService {
         this.selectCountry(this.countries[0].countryCodeISO3);
       }
     }
-  }
-
-  public getActiveCountry(): Country {
-    const countryString = localStorage.getItem(this.countryLocalStorage);
-    if (countryString) {
-      return JSON.parse(countryString);
-    }
-    return mockCountry;
   }
 }

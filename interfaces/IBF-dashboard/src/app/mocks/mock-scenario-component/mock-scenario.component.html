@@ -1,6 +1,4 @@
-<ng-container
-  *ngIf="countryService.getActiveCountry().countryCodeISO3 === 'UGA'"
->
+<ng-container *ngIf="allowMockScenarios()">
   <ion-item>
     <ion-label>Mock Scenario</ion-label>
     <ion-select
@@ -22,10 +20,12 @@
     <ion-select
       placeholder="Options"
       interface="popover"
-      (ionChange)="mockAddLeadtime($event)"
+      (ionChange)="mockAddLeadTime($event)"
     >
       <ion-select-option value="real">Normal (7-day)</ion-select-option>
-      <ion-select-option value="mock">Mock (3-day + 7-day)</ion-select-option>
+      <ion-select-option [value]="mockLeadTimeKey"
+        >Mock (3-day + 7-day)</ion-select-option
+      >
     </ion-select>
   </ion-item>
 </ng-container>
