@@ -28,9 +28,4 @@ export class EapActionDto {
   @IsNotEmpty()
   @IsString()
   public pcode: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsNumber()
-  public event: number;
 }

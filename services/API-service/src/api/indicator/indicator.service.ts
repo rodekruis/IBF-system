@@ -22,8 +22,8 @@ export class IndicatorService {
         indicator.country_codes.split(',').includes(countryCode),
     );
 
-    const event = await this.dataService.getEvent(countryCode);
-    const activeTrigger = event && !event.end_date;
+    const event = await this.dataService.getEventSummaryCountry(countryCode);
+    const activeTrigger = event && event.activeTrigger;
     countryIndicators.find(
       (i): boolean => i.name === 'population_affected',
     ).active = activeTrigger;

@@ -20,30 +20,10 @@ CREATE TABLE if not exists "IBF-pipeline-output".dashboard_triggers_per_day (
 
 truncate table "IBF-pipeline-output".dashboard_triggers_per_day;
 
-insert into "IBF-pipeline-output".dashboard_triggers_per_day
-select tpd.country_code 
-	,tpd.date
-	,'Current' as current_prev
-	,"1","2","3","4","5","6","7"
-from "IBF-pipeline-output".triggers_per_day tpd
-left join (select country_code, max(date) as max_date from "IBF-pipeline-output".triggers_per_day group by 1) max
-	on tpd.country_code = max.country_code
-	and tpd.date = max.max_date
-where tpd.date = max.max_date
-
-union all 
-
-select 'EGY'
-	, (
-select date
-from "IBF-pipeline-output".calculated_affected_short
-where country_code = 'EGY'
-group by date
-order by date desc
-limit 1
-	) date
-	, 'Current'
-	, 0,0
+delete from "IBF-pipeline-output".triggers_per_day where country_code = 'EGY' and to_date(date,'yyyy-mm-dd') = current_date;
+insert into "IBF-pipeline-output".triggers_per_day
+select 0
+	,0,0
 	, (
 select max(case when sum <> '--' and sum <> '0' then 1 else 0 end) as trigger
 from "IBF-pipeline-output".calculated_affected_short
@@ -61,7 +41,29 @@ group by date
 order by date desc
 limit 1
 	) day7
+	, (
+select date
+from "IBF-pipeline-output".calculated_affected_short
+where country_code = 'EGY'
+group by date
+order by date desc
+limit 1
+	) date
+	,'EGY'
 ;
+
+insert into "IBF-pipeline-output".dashboard_triggers_per_day
+select tpd.country_code 
+	,tpd.date
+	,'Current' as current_prev
+	,"1","2","3","4","5","6","7"
+from "IBF-pipeline-output".triggers_per_day tpd
+left join (select country_code, max(date) as max_date from "IBF-pipeline-output".triggers_per_day group by 1) max
+	on tpd.country_code = max.country_code
+	and tpd.date = max.max_date
+where tpd.date = max.max_date
+;
+
 --select * from "IBF-pipeline-output".dashboard_triggers_per_day
 --select * from "IBF-pipeline-output".triggers_per_day where country_code = 'ZMB' order by date
 
@@ -156,41 +158,3 @@ LEFT JOIN "IBF-pipeline-output".dashboard_forecast_per_station  t1
 ON (t1.lead_time = '7-day' and t0."station_code_7day" = t1.station_code) OR (t1.lead_time = '3-day' and t0."station_code_3day" = t1.station_code)
 where t1.lead_time is not null
 ;
---select * from "IBF-pipeline-output".dashboard_forecast_per_district where country_code = 'KEN' and fc_trigger = 1
-
-CREATE TABLE if not exists "IBF-pipeline-output".events (
-	country_code text NULL,
-	start_date text NULL,
-	end_date text NULL,
-	id bigserial NOT NULL,
-	CONSTRAINT events_pkey PRIMARY KEY (id)
-);
---truncate table "IBF-pipeline-output".events
--- NOTE: Determine events and save in events-table
-update "IBF-pipeline-output".events set end_date = subquery.date
-from (
-	select today.country_code, to_date(today.date,'yyyy-mm-dd') - 1 as date
-	from "IBF-pipeline-output".triggers_per_day today
-	left join "IBF-pipeline-output".triggers_per_day yesterday 
-		on today.country_code = yesterday.country_code
-		and to_date(today.date,'yyyy-mm-dd') = to_date(yesterday.date,'yyyy-mm-dd') + 1
-	where 1=1
-		and to_date(today.date,'yyyy-mm-dd') = current_date
-		and ((today."7" = 0 and yesterday."7" = 1) or (yesterday."7" is null))
-) subquery
-where end_date is null and events.country_code = subquery.country_code
-;
-insert into "IBF-pipeline-output".events
-select today.country_code
-	,today.date
-	,null	
-from "IBF-pipeline-output".triggers_per_day today
-left join "IBF-pipeline-output".triggers_per_day yesterday 
-	on today.country_code = yesterday.country_code
-	and to_date(today.date,'yyyy-mm-dd') = to_date(yesterday.date,'yyyy-mm-dd') + 1
-where 1=1
-	and to_date(today.date,'yyyy-mm-dd') = current_date
-	and today."7" = 1 
-	and (yesterday."7" = 0 or yesterday."7" is null)
-;
---select * from "IBF-pipeline-output".events

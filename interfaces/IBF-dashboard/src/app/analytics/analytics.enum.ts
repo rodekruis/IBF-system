@@ -20,4 +20,5 @@ export enum AnalyticsEvent {
   glofasStation = 'glofas-station',
   mapPlaceSelect = 'map-place-select',
   leadTime = 'lead-time',
+  closeEvent = 'close-event',
 }

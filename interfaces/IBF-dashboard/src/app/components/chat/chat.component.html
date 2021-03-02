@@ -55,7 +55,7 @@
         'chat-component.active-event-active-trigger.welcome'
           | translate
             : {
-                startDate: eventService.state.event.start_date,
+                startDate: eventService.state.event.startDate,
                 days: eventService.state.firstLeadTime
               }
       "
@@ -75,8 +75,8 @@
         'chat-component.active-event-no-trigger.welcome'
           | translate
             : {
-                startDate: eventService.state.event.start_date,
-                endDate: eventService.state.event.end_date
+                startDate: eventService.state.event.startDate,
+                endDate: eventService.state.event.endDate
               }
       "
     ></p>
@@ -97,7 +97,7 @@
       *ngFor="let area of filteredAreas; first as isFirst"
       [isConnected]="!isFirst"
     >
-      <form (submit)="submitEapAction(area.pcode)">
+      <form (submit)="submitEapAction(area.placeCode)">
         <ion-row>
           <ion-col size-lg="2" size-md="2" size-xs="2">
             <ion-img
@@ -120,8 +120,7 @@
                   | translate
                     : {
                         exposedNumber:
-                          area[indicatorName.population_affected]
-                          | number: '.0-0'
+                          area['populationAffected'] | number: '.0-0'
                       }
               "
             >
@@ -140,7 +139,11 @@
               [checked]="action.checked"
               name="action.action"
               (ionChange)="
-                changeAction(area.pcode, action.action, $event.detail.checked)
+                changeAction(
+                  area.placeCode,
+                  action.action,
+                  $event.detail.checked
+                )
               "
             ></ion-checkbox>
             <ion-label class="action-label ion-text-wrap"
@@ -160,6 +163,12 @@
           ></ion-button>
         </ion-row>
       </form>
+      <ion-button
+        (click)="closePlaceCodeEventPopup(area)"
+        color="ibf-royal-blue"
+        expand="block"
+        [translate]="'chat-component.active-event.close-event-button'"
+      ></ion-button>
     </dialogue-turn>
   </ng-container>
 </ion-content>
