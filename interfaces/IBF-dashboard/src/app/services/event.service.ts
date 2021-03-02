@@ -54,7 +54,7 @@ export class EventService {
 
   private setAlertState = () => {
     const dashboardElement = document.getElementById('ibf-dashboard-interface');
-    if (this.state.activeTrigger) {
+    if (dashboardElement && this.state.activeTrigger) {
       dashboardElement.classList.add('trigger-alert');
     } else {
       dashboardElement.classList.remove('trigger-alert');
