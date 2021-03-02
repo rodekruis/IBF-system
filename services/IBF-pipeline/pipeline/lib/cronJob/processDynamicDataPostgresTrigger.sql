@@ -4,8 +4,10 @@
 -- EXCEPT for this comment itself of course!
 -- AND change back after
 
+--drop table "IBF-pipeline-output".dashboard_triggers_per_day cascade;
 CREATE TABLE if not exists "IBF-pipeline-output".dashboard_triggers_per_day (
 	country_code text NULL,
+	"date" text null,
 	current_prev text NULL,
 	"1" int8 NULL,
 	"2" int8 NULL,
@@ -15,23 +17,55 @@ CREATE TABLE if not exists "IBF-pipeline-output".dashboard_triggers_per_day (
 	"6" int8 NULL,
 	"7" int8 NULL
 );
+
 truncate table "IBF-pipeline-output".dashboard_triggers_per_day;
+
+delete from "IBF-pipeline-output".triggers_per_day where country_code = 'EGY' and to_date(date,'yyyy-mm-dd') = current_date;
+insert into "IBF-pipeline-output".triggers_per_day
+select 0
+	,0,0
+	, (
+select max(case when sum <> '--' and sum <> '0' then 1 else 0 end) as trigger
+from "IBF-pipeline-output".calculated_affected_short
+where country_code = 'EGY' and source = 'population'
+group by date
+order by date desc
+limit 1
+	) day3
+	, 0,0,0
+	, (
+select max(case when sum <> '--' and sum <> '0' then 1 else 0 end) as trigger
+from "IBF-pipeline-output".calculated_affected_long
+where country_code = 'EGY' and source = 'population'
+group by date
+order by date desc
+limit 1
+	) day7
+	, (
+select date
+from "IBF-pipeline-output".calculated_affected_short
+where country_code = 'EGY'
+group by date
+order by date desc
+limit 1
+	) date
+	,'EGY'
+;
+
 insert into "IBF-pipeline-output".dashboard_triggers_per_day
 select tpd.country_code 
+	,tpd.date
 	,'Current' as current_prev
---	,case when date_part('day',age(current_date,to_date(date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
-	,"1","2","3","4","5","6","7"--,"8","9","10"
---into "IBF-pipeline-output".dashboard_triggers_per_day
+	,"1","2","3","4","5","6","7"
 from "IBF-pipeline-output".triggers_per_day tpd
 left join (select country_code, max(date) as max_date from "IBF-pipeline-output".triggers_per_day group by 1) max
 	on tpd.country_code = max.country_code
 	and tpd.date = max.max_date
---where to_date(date,'yyyy-mm-dd') >= current_date - 1
 where tpd.date = max.max_date
 ;
+
 --select * from "IBF-pipeline-output".dashboard_triggers_per_day
 --select * from "IBF-pipeline-output".triggers_per_day where country_code = 'ZMB' order by date
-
 
     
 CREATE TABLE if not exists "IBF-pipeline-output".dashboard_forecast_per_station (
@@ -62,7 +96,7 @@ SELECT t0.country_code
 	,case when date_part('day',age(current_date,to_date(date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
 	,'3-day' as lead_time
 	,fc_short as fc,fc_short_trigger as fc_trigger,fc_short_rp as fc_rp
-	,case when trigger_level = 0 then null else fc_short/trigger_level end as fc_perc
+	,case when t0.trigger_level = 0 then null else fc_short/t0.trigger_level end as fc_perc
 	,fc_short_prob as fc_prob
 	,case when fc_short_prob >= 0.8 then 80 when fc_short_prob >=0.7 then 70 when fc_short_prob >=0.6 then 60 else 0 end as fc_trigger2
 	,t0.geom
@@ -89,7 +123,7 @@ SELECT t0.country_code
 	,case when date_part('day',age(current_date,to_date(date,'yyyy-mm-dd'))) = 1 then 'Previous' else 'Current' end as current_prev
 	,'7-day' as lead_time
 	,fc_long,fc_long_trigger,fc_long_rp
-	,case when trigger_level = 0 then null else fc_long/trigger_level end as fc_perc
+	,case when t0.trigger_level = 0 then null else fc_long/t0.trigger_level end as fc_perc
 	,fc_long_prob as fc_prob
 	,case when fc_long_prob >= 0.8 then 80 when fc_long_prob >=0.7 then 70 when fc_long_prob >=0.6 then 60 else 0 end as fc_trigger2
 	,t0.geom
@@ -124,4 +158,3 @@ LEFT JOIN "IBF-pipeline-output".dashboard_forecast_per_station  t1
 ON (t1.lead_time = '7-day' and t0."station_code_7day" = t1.station_code) OR (t1.lead_time = '3-day' and t0."station_code_3day" = t1.station_code)
 where t1.lead_time is not null
 ;
---select * from "IBF-pipeline-output".dashboard_forecast_per_district where country_code = 'KEN' and fc_trigger = 1

@@ -6,16 +6,9 @@ from datetime import date, timedelta
 ## DEVELOPMENT SETTINGS ##
 ##########################
 
-# Disable these temporarily to run only the trigger-model part
-CALCULATE_EXTENT = True
-CALCULATE_EXPOSURE = True
+# Change dummy-triggers per country (below) now
 
-# Use dummy-data and/or overwrite real data
-OVERWRITE_DUMMY = False #Overwrite glofas data with dummy data
-DUMMY_TRIGGER = True #Overwrite with flood data (true) or no flood (false)
-RAINFALL_DUMMY = False
-
-# Change this date only in case of testing
+# Change this date only in case of specific testing purposes
 CURRENT_DATE = date.today()
 # CURRENT_DATE=date.today() - timedelta(days=1)
 
@@ -26,10 +19,7 @@ CURRENT_DATE = date.today()
 
 SETTINGS = {
     "ZMB": {
-        "models": {
-            "glofas": True,
-            "rainfall": False
-        },
+        "model": 'glofas',
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_ZMB.csv',
         'district_mapping': 'Glofas_station_per_admin_area_ZMB.csv',
         'redcross_branches': 'points/redcross_branches_ZMB.csv',
@@ -37,7 +27,6 @@ SETTINGS = {
             'filename': 'vector/ZMB_adm2_mapshaper_2020.shp',
             'pcode_colname': 'pcode'
         },
-        'trigger_colname': '10yr_threshold',
         'lead_times': {
             "short": 3,
             "long": 7
@@ -47,13 +36,11 @@ SETTINGS = {
                 "source": "population/hrsl_zmb_pop_resized_100",
                 "rasterValue": 1
             }
-        }
+        },
+        'dummy_trigger': False
     },
     "UGA": {
-        "models": {
-            "glofas": True,
-            "rainfall": False
-        },
+        "model": 'glofas',
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
         'district_mapping': 'Glofas_station_per_admin_area_UGA.csv',
         'redcross_branches': 'points/redcross_branches_UGA.csv',
@@ -61,7 +48,6 @@ SETTINGS = {
             'filename': 'vector/UGA_adm2_mapshaper.shp',
             'pcode_colname': 'pcode'
         },
-        'trigger_colname': '5yr_threshold',
         'lead_times': {
             "long": 7
         },
@@ -70,20 +56,17 @@ SETTINGS = {
                 "source": "population/hrsl_uga_pop_resized_100",
                 "rasterValue": 1
             }
-        }
+        },
+        'dummy_trigger': False
     },
     "KEN": {
-        "models": {
-            "glofas": True,
-            "rainfall": False
-        },
+        "model": 'glofas',
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
         'district_mapping': 'Glofas_station_per_admin_area_KEN.csv',
         'admin_boundaries': {
             'filename': 'vector/KEN_adm1_mapshaper_corrected.shp',
             'pcode_colname': 'ADM1_PCODE'
         },
-        'trigger_colname': '5yr_threshold',
         'lead_times': {
             "long": 7
         },
@@ -92,20 +75,17 @@ SETTINGS = {
                 "source": "population/hrsl_ken_pop_resized_100",
                 "rasterValue": 1
             }
-        }
+        },
+        'dummy_trigger': False
     },
     "ETH": {
-        "models": {
-            "glofas": True,
-            "rainfall": False
-        },
+        "model": 'glofas',
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
         'district_mapping': 'Glofas_station_per_admin_area_ETH.csv',
         'admin_boundaries': {
             'filename': 'vector/ETH_adm2_mapshaper_reproj.shp',
             'pcode_colname': 'HRpcode'
         },
-        'trigger_colname': '5yr_threshold',
         'lead_times': {
             "long": 7
         },
@@ -114,25 +94,31 @@ SETTINGS = {
                 "source": "population/worldpop_eth",
                 "rasterValue": 1
             }
-        }
+        },
+        'dummy_trigger': True
     },
     "EGY": {
-        "models": {
-            "glofas": False,
-            "rainfall": True
-        },
+        "model": 'rainfall',
         "trigger_levels": 'Rainfall_station_locations_with_trigger_levels.csv',
-        'district_mapping': 'Rainfall_station_per_district_uga.csv',
-        'admin_boundaries': 'vector/egy_admbnda_adm1_capmas_20170421.shp',
-        'flood_extent_admin_boundaries': '',
-        'exposure_admin_boundaries': '',
+        'district_mapping': '<not needed>',
+        'admin_boundaries': {
+                'filename': 'vector/EGY_adm1_MENAregion.shp',
+                'pcode_colname': 'ADM1_PCODE'
+        },
         'trigger_colname': '5yr_threshold',
         'lead_times': {
             "short": 3,
+            # "medium": 5,
             "long": 7
         },
-        'EXPOSURE_DATA_SOURCES': {}
-    },
+        'EXPOSURE_DATA_SOURCES': {
+            "population": {
+                "source": "population/population_egy_2018-10-01",
+                "rasterValue": 1
+            }
+        },
+        'dummy_trigger': True
+    }
 }
 
 

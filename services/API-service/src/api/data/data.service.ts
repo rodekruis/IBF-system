@@ -95,7 +95,7 @@ export class DataService {
   public async getRecentDates(countryCode: string): Promise<number> {
     const query =
       ' select to_date(date,\'yyyy-mm-dd\') as date \
-    from "IBF-pipeline-output".triggers_per_day \
+    from "IBF-pipeline-output".dashboard_triggers_per_day \
     where country_code = $1 \
     order by date DESC \
     limit 1 \

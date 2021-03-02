@@ -4,6 +4,7 @@ import rasterio.features
 import rasterio.warp
 from rasterio.features import shapes
 import fiona
+import numpy as np
 
 from lib.logging.logglySetup import logger
 from settings import *
@@ -81,7 +82,7 @@ class Exposure:
         allgeom = []
         with rasterio.open(tiffLocaction) as dataset:
             # Read the dataset's valid data mask as a ndarray.
-            image = dataset.read(1)
+            image = dataset.read(1).astype(np.float32)
             mask = dataset.dataset_mask()
             theShapes = shapes(image, mask=mask, transform=dataset.transform)
             
