@@ -1,19 +1,17 @@
+import { EventSummaryCountry } from './data.model';
 /* eslint-disable @typescript-eslint/camelcase */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
-import {
-  AdminAreaDataRecord,
-  DisasterEvent,
-  TriggeredArea,
-} from './data.model';
+import { AdminAreaDataRecord, TriggeredArea } from './data.model';
 import {
   GeoJson,
   GeoJsonFeature,
   GlofasStation,
   RedCrossBranch,
 } from './geo.model';
+import fs from 'fs';
 
 @Injectable()
 export class DataService {
@@ -25,18 +23,14 @@ export class DataService {
   }
 
   public async getAdminAreaData(
-    countryCode: string,
+    countryCodeISO3: string,
     adminLevel: number,
     leadTime: string,
   ): Promise<GeoJson> {
-    const event = await this.getEvent(countryCode);
-    let pcodes;
-    if (event) {
-      pcodes = (await this.getTriggeredAreas(event.id)).map(
-        (area): string => "'" + area.pcode + "'",
-      );
-    }
-
+    let placeCodes;
+    placeCodes = (await this.getTriggeredAreas(countryCodeISO3)).map(
+      (triggeredArea): string => "'" + triggeredArea.pcode + "'",
+    );
     const query = (
       'select * \
     from "IBF-API"."Admin_area_data' +
@@ -46,15 +40,16 @@ export class DataService {
     and lead_time = $1 \
     and current_prev = 'Current' \
     and country_code = $2"
-    ).concat(event ? ' and pcode in (' + pcodes.toString() + ')' : '');
-
+    ).concat(
+      placeCodes.length > 0
+        ? ' and pcode in (' + placeCodes.toString() + ')'
+        : '',
+    );
     const rawResult: AdminAreaDataRecord[] = await this.manager.query(query, [
       leadTime,
-      countryCode,
+      countryCodeISO3,
     ]);
-
     const result = this.toGeojson(rawResult);
-
     return result;
   }
 
@@ -124,40 +119,27 @@ export class DataService {
     return result[0];
   }
 
-  public async getTriggeredAreas(event: number): Promise<TriggeredArea[]> {
-    const query =
-      'select pcode,name,population_affected \
-    from "IBF-pipeline-output".event_districts \
-    where event = $1 \
-    order by population_affected DESC';
+  public async getTriggeredAreas(
+    countryCode: string,
+  ): Promise<TriggeredArea[]> {
+    const query = fs
+      .readFileSync('./src/api/data/sql/get-triggered-areas.sql')
+      .toString();
 
-    const result = await this.manager.query(query, [event]);
-
+    const result = await this.manager.query(query, [countryCode, countryCode]);
     return result;
   }
 
-  public async getEvent(countryCode: string): Promise<DisasterEvent> {
-    const daysStickyAfterEvent = 0;
-
-    const query =
-      "select t0.* \
-        from \"IBF-pipeline-output\".events t0 \
-        left join( \
-          select max(case when end_date is null then '9999-99-99' else end_date end) as max_date \
-          , country_code \
-      from \"IBF-pipeline-output\".events \
-      group by country_code \
-        ) t1 \
-        on t0.country_code = t1.country_code \
-        where t0.country_code = $1 \
-        and(case when t0.end_date is null then '9999-99-99' else end_date end) = t1.max_date \
-        and(end_date is null or to_date(end_date, 'yyyy-mm-dd') >= current_date - " +
-      daysStickyAfterEvent +
-      ') \
-    ';
-
-    const result = await this.manager.query(query, [countryCode]);
-
+  public async getEventSummaryCountry(
+    countryCodeISO3: string,
+  ): Promise<EventSummaryCountry> {
+    const query = fs
+      .readFileSync('./src/api/data/sql/get-event-summary-country.sql')
+      .toString();
+    const result = await this.manager.query(query, [countryCodeISO3]);
+    if (!result[0].startDate) {
+      return null;
+    }
     return result[0];
   }
 

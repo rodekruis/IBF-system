@@ -37,17 +37,15 @@ export class EapActionsService {
         if (country) {
           const event = await this.apiService.getEvent(country.countryCodeISO3);
           if (event) {
-            this.eventId = event?.id * 1;
-
             this.triggeredAreas = await this.apiService.getTriggeredAreas(
-              this.eventId,
+              country.countryCodeISO3,
             );
 
             for (let area of this.triggeredAreas) {
               area.eapActions = await this.apiService.getEapActions(
                 country.countryCodeISO3,
                 area.pcode,
-                this.eventId,
+                area.id,
               );
             }
             this.triggeredAreaSubject.next(this.triggeredAreas);
@@ -71,7 +69,6 @@ export class EapActionsService {
       countryCodeISO3,
       status,
       pcode,
-      this.eventId,
     );
   }
 }
