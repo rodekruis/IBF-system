@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { VideoGuideButtonComponent } from './video-guide-button.component';
 
@@ -11,7 +12,7 @@ describe('VideoGuideButtonComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [VideoGuideButtonComponent],
-        imports: [IonicModule, HttpClientTestingModule],
+        imports: [IonicModule, HttpClientTestingModule, RouterTestingModule],
       }).compileComponents();
 
       fixture = TestBed.createComponent(VideoGuideButtonComponent);

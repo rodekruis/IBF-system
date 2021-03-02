@@ -21,90 +21,100 @@ export class SeedAdminArea implements InterfaceScript {
     const adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
 
     // -- Egypt
-    adminAreasEGY.features.forEach(async area => {
-      await adminAreaRepository
-        .createQueryBuilder()
-        .insert()
-        .values({
-          countryCode: 'EGY',
-          adminLevel: 1,
-          name: area.properties.ADM1_EN,
-          pcode: area.properties.ADM1_PCODE,
-          pcodeParent: area.properties.ADM0_PCODE,
-          geom: () => this.geomFunction(area.geometry.coordinates),
-        })
-        .execute();
-    });
+    adminAreasEGY.features.forEach(
+      async (area): Promise<void> => {
+        await adminAreaRepository
+          .createQueryBuilder()
+          .insert()
+          .values({
+            countryCode: 'EGY',
+            adminLevel: 1,
+            name: area.properties.ADM1_EN,
+            pcode: area.properties.ADM1_PCODE,
+            pcodeParent: area.properties.ADM0_PCODE,
+            geom: (): string => this.geomFunction(area.geometry.coordinates),
+          })
+          .execute();
+      },
+    );
 
     // -- Ethiopia
-    adminAreasETH.features.forEach(async area => {
-      await adminAreaRepository
-        .createQueryBuilder()
-        .insert()
-        .values({
-          countryCode: 'ETH',
-          adminLevel: 2,
-          name: area.properties.ZONENAME,
-          pcode:
-            area.properties.HRname === 'Mezhenger'
-              ? area.properties.ZON_Pcode
-              : area.properties.HRpcode,
-          pcodeParent: area.properties.HRparent,
-          geom: () => this.geomFunction(area.geometry.coordinates),
-        })
-        .execute();
-    });
+    adminAreasETH.features.forEach(
+      async (area): Promise<void> => {
+        await adminAreaRepository
+          .createQueryBuilder()
+          .insert()
+          .values({
+            countryCode: 'ETH',
+            adminLevel: 2,
+            name: area.properties.ZONENAME,
+            pcode:
+              area.properties.HRname === 'Mezhenger'
+                ? area.properties.ZON_Pcode
+                : area.properties.HRpcode,
+            pcodeParent: area.properties.HRparent,
+            geom: (): string => this.geomFunction(area.geometry.coordinates),
+          })
+          .execute();
+      },
+    );
 
     // -- Uganda
-    adminAreasUGA.features.forEach(async area => {
-      await adminAreaRepository
-        .createQueryBuilder()
-        .insert()
-        .values({
-          countryCode: 'UGA',
-          adminLevel: 2,
-          name: area.properties.name,
-          pcode: area.properties.pcode,
-          pcodeParent: area.properties.adm1pcode,
-          geom: () => this.geomFunction(area.geometry.coordinates),
-        })
-        .execute();
-    });
+    adminAreasUGA.features.forEach(
+      async (area): Promise<void> => {
+        await adminAreaRepository
+          .createQueryBuilder()
+          .insert()
+          .values({
+            countryCode: 'UGA',
+            adminLevel: 2,
+            name: area.properties.name,
+            pcode: area.properties.pcode,
+            pcodeParent: area.properties.adm1pcode,
+            geom: (): string => this.geomFunction(area.geometry.coordinates),
+          })
+          .execute();
+      },
+    );
 
     // -- Zambia
-    adminAreasZMB.features.forEach(async area => {
-      await adminAreaRepository
-        .createQueryBuilder()
-        .insert()
-        .values({
-          countryCode: 'ZMB',
-          adminLevel: 2,
-          name: area.properties.NAME,
-          pcode: area.properties.pcode,
-          pcodeParent: area.properties.zmb_adm__4,
-          geom: () => this.geomFunction(area.geometry.coordinates),
-        })
-        .execute();
-    });
+    adminAreasZMB.features.forEach(
+      async (area): Promise<void> => {
+        await adminAreaRepository
+          .createQueryBuilder()
+          .insert()
+          .values({
+            countryCode: 'ZMB',
+            adminLevel: 2,
+            name: area.properties.NAME,
+            pcode: area.properties.pcode,
+            pcodeParent: area.properties.zmb_adm__4,
+            geom: (): string => this.geomFunction(area.geometry.coordinates),
+          })
+          .execute();
+      },
+    );
 
     // -- Kenya
-    adminAreasKEN.features.forEach(async area => {
-      await adminAreaRepository
-        .createQueryBuilder()
-        .insert()
-        .values({
-          countryCode: 'KEN',
-          adminLevel: 1,
-          name: area.properties.ADM1_EN,
-          pcode: area.properties.ADM1_PCODE,
-          pcodeParent: null,
-          geom: () => this.geomFunction(area.geometry.coordinates),
-        })
-        .execute();
-    });
+    adminAreasKEN.features.forEach(
+      async (area): Promise<void> => {
+        await adminAreaRepository
+          .createQueryBuilder()
+          .insert()
+          .values({
+            countryCode: 'KEN',
+            adminLevel: 1,
+            name: area.properties.ADM1_EN,
+            pcode: area.properties.ADM1_PCODE,
+            pcodeParent: null,
+            geom: (): string => this.geomFunction(area.geometry.coordinates),
+          })
+          .execute();
+      },
+    );
   }
 
-  private geomFunction(coordinates) {
+  private geomFunction(coordinates): string {
     return `ST_GeomFromGeoJSON( '{ "type": "MultiPolygon", "coordinates": ${JSON.stringify(
       coordinates,
     )} }' )`;

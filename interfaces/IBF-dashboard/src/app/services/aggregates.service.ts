@@ -7,6 +7,7 @@ import { TimelineService } from 'src/app/services/timeline.service';
 import { Indicator } from 'src/app/types/indicator-group';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { MockScenario } from '../mocks/mock-scenario.enum';
+import { Country } from '../models/country.model';
 import { IbfLayerName } from '../types/ibf-layer';
 import { AdminLevelService } from './admin-level.service';
 
@@ -34,18 +35,23 @@ export class AggregatesService {
   }
 
   loadMetadataAndAggregates() {
-    const activeCountry = this.countryService.getActiveCountry();
-    this.apiService
-      .getMetadata(activeCountry.countryCodeISO3)
-      .then((response) => {
-        this.indicators = response;
-        this.mapService.hideAggregateLayers();
-        this.indicators.forEach((indicator: Indicator) => {
-          this.mapService.loadAggregateLayer(indicator);
-        });
-        this.indicatorSubject.next(this.indicators);
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country): void => {
+        if (country) {
+          this.apiService
+            .getMetadata(country.countryCodeISO3)
+            .then((response) => {
+              this.indicators = response;
+              this.mapService.hideAggregateLayers();
+              this.indicators.forEach((indicator: Indicator) => {
+                this.mapService.loadAggregateLayer(indicator);
+              });
+              this.indicatorSubject.next(this.indicators);
 
-        this.loadAggregateInformation();
+              this.loadAggregateInformation();
+            });
+        }
       });
   }
 
@@ -53,32 +59,40 @@ export class AggregatesService {
     return this.indicatorSubject.asObservable();
   }
 
-  async loadAggregateInformation() {
-    const activeCountry = this.countryService.getActiveCountry();
-    const adminRegions = await this.apiService.getAdminRegions(
-      activeCountry.countryCodeISO3,
-      this.timelineService.activeLeadTime,
-      this.adminLevelService.adminLevel,
-    );
+  loadAggregateInformation(): void {
+    this.countryService.getCountrySubscription().subscribe(
+      async (country: Country): Promise<void> => {
+        if (country) {
+          const adminRegions = await this.apiService.getAdminRegions(
+            country.countryCodeISO3,
+            this.timelineService.activeLeadTime,
+            this.adminLevelService.adminLevel,
+          );
 
-    this.aggregates = adminRegions.features.map((feature) => {
-      let aggregate = {
-        pCode: feature.properties.pcode,
-      };
-      this.indicators.forEach((indicator: Indicator) => {
-        if (indicator.aggregateIndicator) {
-          if (indicator.name in feature.properties) {
-            aggregate[indicator.name] = feature.properties[indicator.name];
-          } else if (indicator.name in feature.properties.indicators) {
-            aggregate[indicator.name] =
-              feature.properties.indicators[indicator.name];
-          } else {
-            aggregate[indicator.name] = 0;
-          }
+          this.aggregates = adminRegions.features.map((feature) => {
+            let aggregate = {
+              pCode: feature.properties.pcode,
+            };
+
+            this.indicators.forEach((indicator: Indicator) => {
+              if (indicator.aggregateIndicator) {
+                if (indicator.name in feature.properties) {
+                  aggregate[indicator.name] =
+                    feature.properties[indicator.name];
+                } else if (indicator.name in feature.properties.indicators) {
+                  aggregate[indicator.name] =
+                    feature.properties.indicators[indicator.name];
+                } else {
+                  aggregate[indicator.name] = 0;
+                }
+              }
+            });
+
+            return aggregate;
+          });
         }
-      });
-      return aggregate;
-    });
+      },
+    );
   }
 
   getAggregate(

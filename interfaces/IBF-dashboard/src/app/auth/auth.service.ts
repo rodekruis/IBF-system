@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/app/models/user/user.model';
 import { ApiService } from 'src/app/services/api.service';
-import { CountryService } from 'src/app/services/country.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { UserRole } from '../models/user/user-role.enum';
 
@@ -12,26 +11,26 @@ import { UserRole } from '../models/user/user-role.enum';
 })
 export class AuthService {
   private loggedIn = false;
-  private userRole: UserRole | string;
-
-  redirectUrl: string;
-
-  private authenticationState = new BehaviorSubject<User | null>(null);
-  public authenticationState$ = this.authenticationState.asObservable();
+  private userRole: UserRole;
+  public redirectUrl: string;
+  private authSubject = new BehaviorSubject<User>(null);
 
   constructor(
     private apiService: ApiService,
     private jwtService: JwtService,
-    private countryService: CountryService,
     private router: Router,
   ) {
     this.checkLoggedInState();
   }
 
+  getAuthSubscription = (): Observable<User> => {
+    return this.authSubject.asObservable();
+  };
+
   checkLoggedInState() {
     const user = this.getUserFromToken();
 
-    this.authenticationState.next(user);
+    this.authSubject.next(user);
   }
 
   public isLoggedIn(): boolean {
@@ -40,11 +39,11 @@ export class AuthService {
     return this.loggedIn;
   }
 
-  public getUserRole(): UserRole | string {
+  public getUserRole(): UserRole {
     if (!this.userRole) {
       const user = this.getUserFromToken();
 
-      this.userRole = user ? user.userRole : '';
+      this.userRole = user ? user.userRole : null;
     }
 
     return this.userRole;
@@ -86,12 +85,10 @@ export class AuthService {
 
         const user = this.getUserFromToken();
 
-        this.authenticationState.next(user);
+        this.authSubject.next(user);
 
         this.loggedIn = true;
         this.userRole = user.userRole;
-
-        this.countryService.getCountriesByUser(user);
 
         if (this.redirectUrl) {
           this.router.navigate([this.redirectUrl]);
@@ -110,7 +107,7 @@ export class AuthService {
   public logout() {
     this.jwtService.destroyToken();
     this.loggedIn = false;
-    this.authenticationState.next(null);
+    this.authSubject.next(null);
     this.router.navigate(['/login']);
   }
 }

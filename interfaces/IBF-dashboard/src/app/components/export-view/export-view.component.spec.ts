@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { ExportViewComponent } from './export-view.component';
 
@@ -11,7 +12,7 @@ describe('ExportViewComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [ExportViewComponent],
-        imports: [IonicModule, HttpClientTestingModule],
+        imports: [IonicModule, HttpClientTestingModule, RouterTestingModule],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ExportViewComponent);
