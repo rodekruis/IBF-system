@@ -237,7 +237,7 @@ export class ChatComponent implements OnDestroy {
     this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.watchVideoGuide, {
+        this.analyticsService.logEvent(AnalyticsEvent.closeEvent, {
           page: AnalyticsPage.dashboard,
           country: country.countryCodeISO3,
           isActiveEvent: this.eventService.state.activeEvent,
