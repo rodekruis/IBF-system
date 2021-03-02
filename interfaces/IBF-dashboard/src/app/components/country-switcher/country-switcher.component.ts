@@ -12,7 +12,7 @@ export class CountrySwitcherComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
   public country: Country;
 
-  constructor(private countryService: CountryService) {}
+  constructor(public countryService: CountryService) {}
 
   ngOnInit() {
     this.countrySubscription = this.countryService
