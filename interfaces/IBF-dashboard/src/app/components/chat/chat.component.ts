@@ -125,49 +125,53 @@ export class ChatComponent implements OnDestroy {
       this.changedActions.length === 0;
   }
 
-  public async submitEapAction(pcode: string) {
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
-          placeCode: pcode,
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          component: this.constructor.name,
-        });
-      });
+  public async submitEapAction(pcode: string): Promise<void> {
+    return new Promise((): void => {
+      this.countryService.getCountrySubscription().subscribe(
+        async (country: Country): Promise<void> => {
+          this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
+            placeCode: pcode,
+            page: AnalyticsPage.dashboard,
+            country: country.countryCodeISO3,
+            isActiveEvent: this.eventService.state.activeEvent,
+            isActiveTrigger: this.eventService.state.activeTrigger,
+            component: this.constructor.name,
+          });
 
-    this.triggeredAreas.find((i) => i.pcode === pcode).submitDisabled = true;
-    const activeCountry = this.countryService.getActiveCountry();
+          this.triggeredAreas.find(
+            (i) => i.pcode === pcode,
+          ).submitDisabled = true;
 
-    try {
-      const submitEAPActionResult = await Promise.all(
-        this.changedActions.map(async (action) => {
-          if (action.pcode === pcode) {
-            return this.eapActionsService.checkEapAction(
-              action.action,
-              activeCountry.countryCodeISO3,
-              action.checked,
-              action.pcode,
+          try {
+            let submitEAPActionResult = [];
+            submitEAPActionResult = await Promise.all(
+              this.changedActions.map(async (action) => {
+                if (action.pcode === pcode) {
+                  return this.eapActionsService.checkEapAction(
+                    action.action,
+                    country.countryCodeISO3,
+                    action.checked,
+                    action.pcode,
+                  );
+                } else {
+                  return Promise.resolve();
+                }
+              }),
             );
-          } else {
-            return Promise.resolve();
+
+            this.changedActions = this.changedActions.filter(
+              (i) => i.pcode !== pcode,
+            );
+
+            this.actionResult(this.updateSuccessMessage, (): void =>
+              window.location.reload(),
+            );
+          } catch (e) {
+            this.actionResult(this.updateFailureMessage);
           }
-        }),
+        },
       );
-
-      this.changedActions = this.changedActions.filter(
-        (i) => i.pcode !== pcode,
-      );
-
-      this.actionResult(this.updateSuccessMessage, (): void =>
-        window.location.reload(),
-      );
-    } catch (e) {
-      this.actionResult(this.updateFailureMessage);
-    }
+    });
   }
 
   private async actionResult(resultMessage: string, callback?: () => void) {

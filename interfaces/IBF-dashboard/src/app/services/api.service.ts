@@ -134,7 +134,7 @@ export class ApiService {
     return this.get(`red-cross-branches/${countryCodeISO3}`, false).toPromise();
   }
 
-  getWaterpoints(countryCodeISO3: string): Promise<GeoJSON.FeatureCollection> {
+  getWaterPoints(countryCodeISO3: string): Promise<GeoJSON.FeatureCollection> {
     return this.get(`waterpoints/${countryCodeISO3}`, false).toPromise();
   }
 
