@@ -1,3 +1,13 @@
+## [0.27.1](https://github.com/rodekruis/IBF-system/compare/v0.27.0...v0.27.1) (2021-03-02)
+
+
+### Bug Fixes
+
+* avoid localstorage for country info AB[#6424](https://github.com/rodekruis/IBF-system/issues/6424) ([60f998b](https://github.com/rodekruis/IBF-system/commit/60f998bc547a1d58857a49829ff4c1b73bcdd515))
+* make country service public in country switcher component ([aa4b221](https://github.com/rodekruis/IBF-system/commit/aa4b221d503d4ff140cc9803ec81bb446d48bd06))
+
+
+
 # [0.27.0](https://github.com/rodekruis/IBF-system/compare/v0.26.0...v0.27.0) (2021-03-02)
 
 
@@ -130,22 +140,6 @@
 ### Bug Fixes
 
 * trigger country-subscription at refresh AB[#6272](https://github.com/rodekruis/IBF-system/issues/6272) ([08cb35c](https://github.com/rodekruis/IBF-system/commit/08cb35c52f081e662ae0fd83894b51f3d26d0252))
-
-
-
-# [0.21.0](https://github.com/rodekruis/IBF-system/compare/v0.20.3...v0.21.0) (2021-02-19)
-
-
-### Bug Fixes
-
-* move getMetadata endpoint to indicator-module AB[#6278](https://github.com/rodekruis/IBF-system/issues/6278) ([4a5de88](https://github.com/rodekruis/IBF-system/commit/4a5de88c45de868bb2eef6c1367197f1b5343c95))
-
-
-### Features
-
-* add unit to map popup AB[#6183](https://github.com/rodekruis/IBF-system/issues/6183) ([7ffb1b5](https://github.com/rodekruis/IBF-system/commit/7ffb1b5182421311a1d5bd41fe174a8e1abffe30))
-* add unit to map-legend AB[#6184](https://github.com/rodekruis/IBF-system/issues/6184) ([9dc3e32](https://github.com/rodekruis/IBF-system/commit/9dc3e32304ebb52dd593290fe34c59776bdf9494))
-* add unit-attribute to indicator-metadata AB[#6182](https://github.com/rodekruis/IBF-system/issues/6182) ([7c95113](https://github.com/rodekruis/IBF-system/commit/7c9511330b27c0ba2bb32fbe6cc7a57d786a1aa0))
 
 
 
