@@ -1,3 +1,12 @@
+# [0.26.0](https://github.com/rodekruis/IBF-system/compare/v0.25.1...v0.26.0) (2021-03-02)
+
+
+### Features
+
+* Change legend AB[#6351](https://github.com/rodekruis/IBF-system/issues/6351) ([e371421](https://github.com/rodekruis/IBF-system/commit/e371421ca9285c394bb84e344cbacdb68884de46))
+
+
+
 ## [0.25.1](https://github.com/rodekruis/IBF-system/compare/v0.25.0...v0.25.1) (2021-03-01)
 
 
@@ -116,16 +125,6 @@
 ### Bug Fixes
 
 * have geojson import work with new version of dash-leaflet AB[#6038](https://github.com/rodekruis/IBF-system/issues/6038) ([e1dbeb9](https://github.com/rodekruis/IBF-system/commit/e1dbeb9d3edaeb3d5bde4b72ec107ba46ef8f29d))
-
-
-
-## [0.20.2](https://github.com/rodekruis/IBF-system/compare/v0.20.1...v0.20.2) (2021-02-19)
-
-
-### Bug Fixes
-
-* submit eap action disable button AB[#6181](https://github.com/rodekruis/IBF-system/issues/6181) ([c1fe206](https://github.com/rodekruis/IBF-system/commit/c1fe20663d5d2f7ca4f679b1260fdd4f1c9a7e94))
-* submit eap action disable button AB[#6181](https://github.com/rodekruis/IBF-system/issues/6181) ([9a29213](https://github.com/rodekruis/IBF-system/commit/9a29213ae7e6723796452ac72133626e54c87844))
 
 
 
