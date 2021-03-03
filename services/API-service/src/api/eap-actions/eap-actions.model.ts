@@ -3,6 +3,6 @@ export class EAPActions {
   public aof: string;
   public action: string;
   public label: string;
-  public pcode: number;
+  public placeCode: string;
   public checked: boolean;
 }

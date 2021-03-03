@@ -71,7 +71,7 @@ export class AggregatesService {
 
           this.aggregates = adminRegions.features.map((feature) => {
             let aggregate = {
-              pCode: feature.properties.pcode,
+              placeCode: feature.properties.pcode,
             };
 
             this.indicators.forEach((indicator: Indicator) => {
@@ -98,31 +98,31 @@ export class AggregatesService {
   getAggregate(
     weightedAvg: boolean,
     indicator: IbfLayerName,
-    pCode: string,
+    placeCode: string,
   ): number {
     if (weightedAvg) {
-      return this.getExposedAbsSumFromPerc(indicator, pCode);
+      return this.getExposedAbsSumFromPerc(indicator, placeCode);
     } else {
-      return this.getSum(indicator, pCode);
+      return this.getSum(indicator, placeCode);
     }
   }
 
-  getSum(indicator: IbfLayerName, pCode: string) {
+  getSum(indicator: IbfLayerName, placeCode: string) {
     return this.aggregates.reduce(
       (accumulator, aggregate) =>
         accumulator +
-        (pCode === null || pCode === aggregate.pCode
+        (placeCode === null || placeCode === aggregate.placeCode
           ? aggregate[indicator]
           : 0),
       0,
     );
   }
 
-  getExposedAbsSumFromPerc(indicator: IbfLayerName, pCode: string) {
+  getExposedAbsSumFromPerc(indicator: IbfLayerName, placeCode: string) {
     return this.aggregates.reduce(
       (accumulator, aggregate) =>
         accumulator +
-        (pCode === null || pCode === aggregate.pCode
+        (placeCode === null || placeCode === aggregate.placeCode
           ? aggregate[IbfLayerName.population_affected] * aggregate[indicator]
           : 0),
       0,
