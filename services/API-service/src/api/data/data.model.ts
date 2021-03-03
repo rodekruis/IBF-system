@@ -8,23 +8,13 @@ export class AdminAreaDataRecord {
   public country_code: string;
   public pcode: string;
   public date: Date;
-  public current_prev: string;
   public lead_time: string;
   public fc: number;
   public fc_trigger: number;
   public fc_rp: number;
   public fc_perc: number;
   public fc_prob: number;
-  public fc_trigger2: number;
-  public other_lead_time_trigger: number;
   public population_affected: number;
-  public livestock_affected: number;
-  public chicken_affected: number;
-  public cattle_affected: number;
-  public goat_affected: number;
-  public pig_affected: number;
-  public sheep_affected: number;
-  public cropland_affected: number;
   public indicators: {
     pcode: string;
     birth_certificate_0_17: number;
@@ -130,7 +120,7 @@ export class AdminAreaDataRecord {
 }
 
 export class TriggeredArea {
-  public pcode: string;
+  public placeCode: string;
   public name: string;
   public population_affected: number;
 }
