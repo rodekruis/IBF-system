@@ -16,11 +16,11 @@ export class EapActionStatusEntity {
   @Column()
   public status: boolean;
 
-  @Column()
-  public event: number;
+  @Column('uuid')
+  public eventPlaceCodeId: string;
 
   @Column()
-  public pcode: string;
+  public placeCode: string;
 
   @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
   public timestamp: Date;

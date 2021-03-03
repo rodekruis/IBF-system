@@ -40,7 +40,7 @@ export class AreasOfFocusSummaryComponent implements OnDestroy {
       .subscribe((placeCode: PlaceCode) => {
         if (placeCode) {
           const filteredAreas = this.triggeredAreas.filter(
-            (area) => area.pcode === placeCode.placeCode,
+            (area) => area.placeCode === placeCode.placeCode,
           );
           this.calcActionStatus(filteredAreas);
         } else {

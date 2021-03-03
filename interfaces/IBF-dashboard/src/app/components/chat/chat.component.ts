@@ -150,12 +150,12 @@ export class ChatComponent implements OnDestroy {
           try {
             await Promise.all(
               this.changedActions.map(async (action) => {
-                if (action.pcode === placeCode) {
+                if (action.placeCode === placeCode) {
                   return this.eapActionsService.checkEapAction(
                     action.action,
                     country.countryCodeISO3,
                     action.checked,
-                    action.pcode,
+                    action.placeCode,
                   );
                 } else {
                   return Promise.resolve();
@@ -164,7 +164,7 @@ export class ChatComponent implements OnDestroy {
             );
 
             this.changedActions = this.changedActions.filter(
-              (i) => i.pcode !== placeCode,
+              (i) => i.placeCode !== placeCode,
             );
 
             this.actionResult(this.updateSuccessMessage, (): void =>
