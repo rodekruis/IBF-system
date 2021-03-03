@@ -11,7 +11,7 @@ module.exports = {
         },
         upload: {
             target: "lhci",
-            serverBaseUrl: "http://localhost:9001/",
+            serverBaseUrl: "http://ibf-test.510.global:9001",
             token: process.env.LIGHTHOUSE_BUILD_TOKEN,
         },
     },
