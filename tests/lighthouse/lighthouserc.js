@@ -2,6 +2,7 @@ module.exports = {
     ci: {
         collect: {
             url: ["https://ibf-test.510.global"],
+            headful: false,
         },
         assert: {
             assertions: {
