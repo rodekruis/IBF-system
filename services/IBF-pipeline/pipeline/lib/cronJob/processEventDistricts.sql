@@ -35,10 +35,9 @@ from
 			from
 				"IBF-API"."Admin_area_data1" ) t2 on
 			t1.pcode = t2.pcode
-			and to_date(t2.date, 'yyyy-mm-dd') = current_date
+			and t2.date = current_date
 		where
 			t1.fc_trigger = 1
-			and t1.current_prev = 'Current'
 			and (t2.lead_time = '7-day' or t2.lead_time = '3-day') ) districtsToday
 	left join "IBF-pipeline-output".event_place_code eventPcodeExisting on
 		districtsToday.pcode = eventPcodeExisting."placeCode"
@@ -68,19 +67,17 @@ from (
 		from "IBF-API"."Admin_area_data1"
 	) t2
 		on t1.pcode = t2.pcode
-		and to_date(t2.date,'yyyy-mm-dd') = current_date
+		and t2.date = current_date
 	where t1.fc_trigger=1
-		and t1.current_prev = 'Current'
 		and (t2.lead_time = '7-day' or t2.lead_time = '3-day')
 	GROUP BY t1.pcode, "startDate", "endDate"
-	) districtsToday
+) districtsToday
 left join "IBF-pipeline-output".event_place_code districtsExisting
 	on districtsToday.pcode = districtsExisting."placeCode"
 	and districtsExisting.closed = false
 where districtsExisting."placeCode" is null
 ;
---select * from "IBF-pipeline-output".event_districts where event = 91
---select * from "IBF-pipeline-output".events where country_code = 'ETH'
+--select * from "IBF-pipeline-output".event_place_code
 
 -- Lastly Close events older than 7 days
 update

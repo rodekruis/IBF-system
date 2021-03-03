@@ -28,8 +28,8 @@ SETTINGS = {
             'pcode_colname': 'pcode'
         },
         'lead_times': {
-            "short": 3,
-            "long": 7
+            "3-day": 3,
+            "7-day": 7
         },
         'EXPOSURE_DATA_SOURCES': {
             "population": {
@@ -49,7 +49,7 @@ SETTINGS = {
             'pcode_colname': 'pcode'
         },
         'lead_times': {
-            "long": 7
+            "7-day": 7
         },
         'EXPOSURE_DATA_SOURCES': {
             "population": {
@@ -68,7 +68,7 @@ SETTINGS = {
             'pcode_colname': 'ADM1_PCODE'
         },
         'lead_times': {
-            "long": 7
+            "7-day": 7
         },
         'EXPOSURE_DATA_SOURCES': {
             "population": {
@@ -87,7 +87,7 @@ SETTINGS = {
             'pcode_colname': 'HRpcode'
         },
         'lead_times': {
-            "long": 7
+            "7-day": 7
         },
         'EXPOSURE_DATA_SOURCES': {
             "population": {
@@ -107,9 +107,9 @@ SETTINGS = {
         },
         'trigger_colname': '5yr_threshold',
         'lead_times': {
-            "short": 3,
-            # "medium": 5,
-            "long": 7
+            "3-day": 3,
+            "5-day": 5,
+            "7-day": 7
         },
         'EXPOSURE_DATA_SOURCES': {
             "population": {

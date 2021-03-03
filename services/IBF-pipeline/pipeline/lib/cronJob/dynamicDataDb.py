@@ -14,6 +14,7 @@ class DatabaseManager:
 
     def __init__(self, fcStep, country_code):
         self.country_code = country_code
+        self.fcStep = fcStep
         #Create connections (in 2 different ways for now)
         self.engine = create_engine('postgresql://'+DB_SETTINGS['user']+':'+DB_SETTINGS['password']+'@'+DB_SETTINGS['host']+':'+DB_SETTINGS['port']+'/'+DB_SETTINGS['db'])
         triggerFolder = PIPELINE_OUTPUT + "triggers_rp_per_station/"
@@ -21,9 +22,9 @@ class DatabaseManager:
 
         self.tableJson = {}
         if SETTINGS[country_code]['model'] == 'glofas':
-            self.tableJson["triggers_rp_per_station_" + fcStep] = triggerFolder + 'triggers_rp_' + fcStep + '_' + country_code + ".json"
+            self.tableJson["triggers_rp_per_station"] = triggerFolder + 'triggers_rp_' + fcStep + '_' + country_code + ".json"
             self.tableJson["triggers_per_day"] =  triggerFolder + 'trigger_per_day_' + country_code + ".json"
-        self.tableJson["calculated_affected_" + fcStep] = affectedFolder + 'affected_' + fcStep + '_' + country_code + ".json"
+        self.tableJson["calculated_affected"] = affectedFolder + 'affected_' + fcStep + '_' + country_code + ".json"
 
     def upload(self):
         for table, jsonData in self.tableJson.items():
@@ -32,23 +33,26 @@ class DatabaseManager:
     def uploadDynamicToDb(self, table, jsonData):
 
         logger.info("Uploading from %s to %s", table, jsonData)
-        #Load (static) threshold values per station and add date-column
         df = pd.read_json(jsonData, orient='records')
         current_date = CURRENT_DATE.strftime('%Y-%m-%d')
-        df['date']=current_date
+        df['date']=CURRENT_DATE
         df['country_code']=self.country_code
+        if table != "triggers_per_day":
+            df['lead_time']=self.fcStep
 
-        #Delete existing entries with same date
+        #Delete existing entries with same date, lead_time and country_code
         try:
             self.con, self.cur, self.db = get_db()
             sql = "DELETE FROM \""+SCHEMA_NAME+"\"."+table+" WHERE date=\'"+current_date+"\' AND country_code=\'"+self.country_code+"\'"
+            if table != "triggers_per_day":
+                sql = sql + " AND lead_time=\'"+self.fcStep+"\'"
             self.cur.execute(sql)
             self.con.commit()
             self.con.close()
         except psycopg2.ProgrammingError as e:
             logger.info(e)
 
-        #Append new data for current date
+        #Append new data for current date, lead_time and country_code
         df.to_sql(table, self.engine, if_exists='append', schema=SCHEMA_NAME)
         print(table+' uploaded')
 

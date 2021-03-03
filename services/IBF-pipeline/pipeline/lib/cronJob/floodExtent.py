@@ -62,9 +62,9 @@ class FloodExtent:
             dist_coords = self.getCoordinatesFromGDF(gdf_dist)
             
             #If trigger, find the right flood extent and clip it for the area and save it
-            trigger = rows['fc_'+self.fcStep+'_trigger']
+            trigger = rows['fc_trigger']
             if trigger == 1:
-                return_period = rows['fc_'+self.fcStep+'_rp'] 
+                return_period = rows['fc_rp'] 
                 input_raster = self.inputPath + self.country_code + '_flood_' +str(int(return_period))+'year.tif'
             else:
                 input_raster = self.inputPath + self.country_code + '_flood_empty.tif'
