@@ -1,3 +1,12 @@
+## [0.27.4](https://github.com/rodekruis/IBF-system/compare/v0.27.3...v0.27.4) (2021-03-03)
+
+
+### Bug Fixes
+
+* make chat+aof work properly again after event-pcode changes AB[#6483](https://github.com/rodekruis/IBF-system/issues/6483) ([56ba1c8](https://github.com/rodekruis/IBF-system/commit/56ba1c89cc1a15052ebbb30d1e1a58728dce44c4))
+
+
+
 ## [0.27.3](https://github.com/rodekruis/IBF-system/compare/v0.27.2...v0.27.3) (2021-03-03)
 
 
@@ -131,15 +140,6 @@
 * get static data pipeline from db AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([5035b92](https://github.com/rodekruis/IBF-system/commit/5035b9275b1f219d24ebafbec5298414c65293e3))
 * load glofas station CSV input via seed (for now unused) AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([4232f24](https://github.com/rodekruis/IBF-system/commit/4232f243ce825352d2331c261f32ea6791511e84))
 * set up Git LFS AB[#6294](https://github.com/rodekruis/IBF-system/issues/6294) ([e53c448](https://github.com/rodekruis/IBF-system/commit/e53c44817c3d16aa83bd2cde9948e19a6c6d228b))
-
-
-
-# [0.22.0](https://github.com/rodekruis/IBF-system/compare/v0.21.2...v0.22.0) (2021-02-24)
-
-
-### Features
-
-* add component property to analytics events AB[#6335](https://github.com/rodekruis/IBF-system/issues/6335) ([f0ce69d](https://github.com/rodekruis/IBF-system/commit/f0ce69ddca6c59f89b48801673f7ea06d9080f25))
 
 
 
