@@ -21,5 +21,5 @@ export class EapActionDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  public pcode: string;
+  public placeCode: string;
 }

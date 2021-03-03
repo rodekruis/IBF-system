@@ -35,15 +35,14 @@ export class EapActionsController {
 
   @ApiOperation({ summary: 'Get EAP actions and status' })
   @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @ApiParam({ name: 'pcode', required: true, type: 'string' })
-  @ApiParam({ name: 'event', required: true, type: 'number' })
-  @Get('/:countryCode/:pcode/:event')
+  @ApiParam({ name: 'placeCode', required: true, type: 'string' })
+  @Get('/:countryCode/:placeCode')
   public async getActionsWithStatus(
     @Param() params,
   ): Promise<EapActionEntity[]> {
     return await this.eapActionsService.getActionsWithStatus(
       params.countryCode,
-      params.pcode,
+      params.placeCode,
     );
   }
 

@@ -17,7 +17,7 @@ export class EventService {
       eventPlaceCodeDto.eventPlaceCodeId,
     );
     if (!eventPlaceCode) {
-      const errors = 'Event Pcode not found';
+      const errors = 'Event placeCode not found';
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
     eventPlaceCode.closed = true;
