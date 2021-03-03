@@ -92,10 +92,13 @@ function deploy() {
     }
 
     function test_lighthouse() {
-        log "Running lighthouse test..."
-
-        export LHCI_BUILD_CONTEXT__CURRENT_BRANCH=$target
-        lhci autorun --config=tests/lighthouse/lighthouserc.js
+        if [[ $NODE_ENV="test" ]]
+        then
+            log "Running lighthouse test on $NODE_ENV environment..."
+            lhci autorun --config=tests/lighthouse/lighthouserc.js
+        else
+            log "Skipping lighthouse test on $NODE_ENV environment..."
+        fi
     }
 
     update_code "$target"
