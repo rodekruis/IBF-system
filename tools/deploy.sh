@@ -79,22 +79,25 @@ function deploy() {
     }
 
     function restart_webhook_service() {
+        log "Restarting webhook service..."
+
         sudo systemctl daemon-reload
         sudo service webhook restart
-
-        log "Webhook service restarted: "
     }
 
     function cleanup_docker() {
-        docker image prune -f
+        log "Removing unused docker images..."
 
-        log "Unused Docker images removed: "
+        docker image prune -f
     }
 
+    function test_lighthouse() {
+        log "Running lighthouse test..."
 
-    #
-    # Actual deployment:
-    #
+        export LHCI_BUILD_CONTEXT__CURRENT_BRANCH=$target
+        lhci autorun --config=tests/lighthouse/lighthouserc.js
+    }
+
     update_code "$target"
 
     load_environment_variables
@@ -103,9 +106,11 @@ function deploy() {
 
     migrate_database
 
-    restart_webhook_service
-
     cleanup_docker
+
+    test_lighthouse
+
+    restart_webhook_service
 
     log "Done."
 }
