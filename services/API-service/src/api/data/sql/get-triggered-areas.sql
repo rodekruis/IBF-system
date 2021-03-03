@@ -14,10 +14,8 @@
       a2.pcode = e."placeCode"
       and a2.country_code = $1
       and a2.name is not null
-      and a2.current_prev = 'Current'
     left join "IBF-API"."Admin_area_data1" a1 on
       a1.pcode = e."placeCode"
-      and a1.current_prev = 'Current'
       and a1.name is not null
       and a1.country_code = $2
     where
