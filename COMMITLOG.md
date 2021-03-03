@@ -1,3 +1,12 @@
+## [0.27.2](https://github.com/rodekruis/IBF-system/compare/v0.27.1...v0.27.2) (2021-03-03)
+
+
+### Bug Fixes
+
+* enable generic lead-times in datamodel AB[#6292](https://github.com/rodekruis/IBF-system/issues/6292) ([cb87e24](https://github.com/rodekruis/IBF-system/commit/cb87e241f2a1955028942283b99d9d742ae772f9))
+
+
+
 ## [0.27.1](https://github.com/rodekruis/IBF-system/compare/v0.27.0...v0.27.1) (2021-03-02)
 
 
@@ -131,15 +140,6 @@
 ### Bug Fixes
 
 * use POSTGRES_DB instead of POSTGRES_DBNAME AB[#6253](https://github.com/rodekruis/IBF-system/issues/6253) ([7b055c0](https://github.com/rodekruis/IBF-system/commit/7b055c0a30a9adab448906e1e1b8f04984b268dd))
-
-
-
-## [0.21.1](https://github.com/rodekruis/IBF-system/compare/v0.21.0...v0.21.1) (2021-02-22)
-
-
-### Bug Fixes
-
-* trigger country-subscription at refresh AB[#6272](https://github.com/rodekruis/IBF-system/issues/6272) ([08cb35c](https://github.com/rodekruis/IBF-system/commit/08cb35c52f081e662ae0fd83894b51f3d26d0252))
 
 
 
