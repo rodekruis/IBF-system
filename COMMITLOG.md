@@ -1,3 +1,12 @@
+## [0.27.3](https://github.com/rodekruis/IBF-system/compare/v0.27.2...v0.27.3) (2021-03-03)
+
+
+### Bug Fixes
+
+* test pr to test lighthouse ci ([d15c461](https://github.com/rodekruis/IBF-system/commit/d15c4615ac70bfb68f31bba58f47fdf07c307476))
+
+
+
 ## [0.27.2](https://github.com/rodekruis/IBF-system/compare/v0.27.1...v0.27.2) (2021-03-03)
 
 
@@ -131,15 +140,6 @@
 ### Features
 
 * add component property to analytics events AB[#6335](https://github.com/rodekruis/IBF-system/issues/6335) ([f0ce69d](https://github.com/rodekruis/IBF-system/commit/f0ce69ddca6c59f89b48801673f7ea06d9080f25))
-
-
-
-## [0.21.2](https://github.com/rodekruis/IBF-system/compare/v0.21.1...v0.21.2) (2021-02-23)
-
-
-### Bug Fixes
-
-* use POSTGRES_DB instead of POSTGRES_DBNAME AB[#6253](https://github.com/rodekruis/IBF-system/issues/6253) ([7b055c0](https://github.com/rodekruis/IBF-system/commit/7b055c0a30a9adab448906e1e1b8f04984b268dd))
 
 
 
