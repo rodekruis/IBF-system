@@ -1,3 +1,12 @@
+## [0.27.5](https://github.com/rodekruis/IBF-system/compare/v0.27.4...v0.27.5) (2021-03-03)
+
+
+### Bug Fixes
+
+* test pr to check lighthouse ([00c7143](https://github.com/rodekruis/IBF-system/commit/00c7143a095abb3e90de750ca7a626fd1b87e581))
+
+
+
 ## [0.27.4](https://github.com/rodekruis/IBF-system/compare/v0.27.3...v0.27.4) (2021-03-03)
 
 
@@ -118,28 +127,6 @@
 * egypt user AB[#6289](https://github.com/rodekruis/IBF-system/issues/6289) ([fb53512](https://github.com/rodekruis/IBF-system/commit/fb5351270e80848b37b84e3d83c834068748ffa4))
 * load admin-boundary data via seed AB[#6288](https://github.com/rodekruis/IBF-system/issues/6288) ([886c13f](https://github.com/rodekruis/IBF-system/commit/886c13ff552b3bbdd5351f367700af1b622a3ed1))
 * overwrite per country AB[#6337](https://github.com/rodekruis/IBF-system/issues/6337) AB[#6340](https://github.com/rodekruis/IBF-system/issues/6340) ([c21e658](https://github.com/rodekruis/IBF-system/commit/c21e658c74a56ba72edc5a884136241a35bd43c2))
-
-
-
-# [0.23.0](https://github.com/rodekruis/IBF-system/compare/v0.22.0...v0.23.0) (2021-02-26)
-
-
-### Bug Fixes
-
-* make pipeline work for rainfall AB[#6212](https://github.com/rodekruis/IBF-system/issues/6212) ([36d2cb6](https://github.com/rodekruis/IBF-system/commit/36d2cb6d71215c763b97af27054d34368623715f))
-* new location/filter on git-lfs files AB[#6294](https://github.com/rodekruis/IBF-system/issues/6294) ([3c046ca](https://github.com/rodekruis/IBF-system/commit/3c046ca5882a9ac21dca3da6619391badafa5976))
-* remove unused controllers/methods AB[#6294](https://github.com/rodekruis/IBF-system/issues/6294) ([7e4f569](https://github.com/rodekruis/IBF-system/commit/7e4f569249914741d3cd690c814401f75e5197b1))
-* turn off sql + notify for egypt (fix later) ([4659ebf](https://github.com/rodekruis/IBF-system/commit/4659ebf7f22d2d599a053f62e462207e79533e36))
-* uncomment forgotten AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([0f7e16d](https://github.com/rodekruis/IBF-system/commit/0f7e16d209149b6336cd274b85be1907bf7c9f38))
-
-
-### Features
-
-* add test shapefile git LFS AB[#6294](https://github.com/rodekruis/IBF-system/issues/6294) ([9b452f1](https://github.com/rodekruis/IBF-system/commit/9b452f19ac3687ef23363d4845330b86ff91192b))
-* admin-area-entity + seed Egypt data AB[#6294](https://github.com/rodekruis/IBF-system/issues/6294) ([b474101](https://github.com/rodekruis/IBF-system/commit/b4741012b6f8816c7fb5c931d9eb8ed1b17f8f97))
-* get static data pipeline from db AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([5035b92](https://github.com/rodekruis/IBF-system/commit/5035b9275b1f219d24ebafbec5298414c65293e3))
-* load glofas station CSV input via seed (for now unused) AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([4232f24](https://github.com/rodekruis/IBF-system/commit/4232f243ce825352d2331c261f32ea6791511e84))
-* set up Git LFS AB[#6294](https://github.com/rodekruis/IBF-system/issues/6294) ([e53c448](https://github.com/rodekruis/IBF-system/commit/e53c44817c3d16aa83bd2cde9948e19a6c6d228b))
 
 
 
