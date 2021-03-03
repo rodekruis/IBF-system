@@ -76,7 +76,7 @@ handler.on("create", function (event) {
     stdoutStream.write("Event Received: create\n");
     if (process.env.NODE_ENV === "test" && event.payload.ref_type === "tag") {
         stdoutStream.write("Event Triggered: create\n");
-        deploy(event.payload.ref);
+        deploy();
     }
 });
 
