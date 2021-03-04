@@ -1,3 +1,12 @@
+## [0.27.8](https://github.com/rodekruis/IBF-system/compare/v0.27.7...v0.27.8) (2021-03-04)
+
+
+### Bug Fixes
+
+* lighthouse test for dashboard needs local storage ([280e7d8](https://github.com/rodekruis/IBF-system/commit/280e7d829775024a5b010907b5698e061f9c443f))
+
+
+
 ## [0.27.7](https://github.com/rodekruis/IBF-system/compare/v0.27.6...v0.27.7) (2021-03-04)
 
 
@@ -98,16 +107,6 @@
 ### Features
 
 * Change legend AB[#6351](https://github.com/rodekruis/IBF-system/issues/6351) ([e371421](https://github.com/rodekruis/IBF-system/commit/e371421ca9285c394bb84e344cbacdb68884de46))
-
-
-
-## [0.25.1](https://github.com/rodekruis/IBF-system/compare/v0.25.0...v0.25.1) (2021-03-01)
-
-
-### Bug Fixes
-
-* fix event-setting for trigger Egypt AB[#6388](https://github.com/rodekruis/IBF-system/issues/6388) ([b05a753](https://github.com/rodekruis/IBF-system/commit/b05a753487420b93360f78785d26ff827555a86f))
-* new trigger levels Egypt AB[#6388](https://github.com/rodekruis/IBF-system/issues/6388) ([22409cc](https://github.com/rodekruis/IBF-system/commit/22409cca3876888cdcbd53a3bf66d9a11f55cac2))
 
 
 
