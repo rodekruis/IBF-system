@@ -1,3 +1,12 @@
+## [0.27.7](https://github.com/rodekruis/IBF-system/compare/v0.27.6...v0.27.7) (2021-03-04)
+
+
+### Bug Fixes
+
+* test pr to check lighthouse ([58d1c99](https://github.com/rodekruis/IBF-system/commit/58d1c990a997ec44477c6fa5cb36d5e9be833f73))
+
+
+
 ## [0.27.6](https://github.com/rodekruis/IBF-system/compare/v0.27.5...v0.27.6) (2021-03-04)
 
 
@@ -99,20 +108,6 @@
 
 * fix event-setting for trigger Egypt AB[#6388](https://github.com/rodekruis/IBF-system/issues/6388) ([b05a753](https://github.com/rodekruis/IBF-system/commit/b05a753487420b93360f78785d26ff827555a86f))
 * new trigger levels Egypt AB[#6388](https://github.com/rodekruis/IBF-system/issues/6388) ([22409cc](https://github.com/rodekruis/IBF-system/commit/22409cca3876888cdcbd53a3bf66d9a11f55cac2))
-
-
-
-# [0.25.0](https://github.com/rodekruis/IBF-system/compare/v0.24.0...v0.25.0) (2021-03-01)
-
-
-### Bug Fixes
-
-* add extra columns for Zambia AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([4498364](https://github.com/rodekruis/IBF-system/commit/44983640a99fe787b524d538c0a2dc1f0358fd90))
-
-
-### Features
-
-* get trigger per day for Egypt AB[#6414](https://github.com/rodekruis/IBF-system/issues/6414) ([ae2c415](https://github.com/rodekruis/IBF-system/commit/ae2c4152ba1b575d0e157fba6ba9b01b59f17aec))
 
 
 
