@@ -1,4 +1,7 @@
 const LIGHTHOUSE_SERVER_URL = process.env.LIGHTHOUSE_SERVER_URL;
+const LIGHTHOUSE_SERVER_LOGIN_USER = process.env.LIGHTHOUSE_SERVER_LOGIN_USER;
+const LIGHTHOUSE_SERVER_LOGIN_PASSWORD =
+    process.env.LIGHTHOUSE_SERVER_LOGIN_PASSWORD;
 const LIGHTHOUSE_BUILD_TOKEN = process.env.LIGHTHOUSE_BUILD_TOKEN;
 const IBF_TEST_URL = process.env.IBF_TEST_URL;
 const IBF_LOGIN_PATH = process.env.IBF_LOGIN_PATH;
@@ -54,6 +57,10 @@ module.exports = {
             target: "lhci",
             token: LIGHTHOUSE_BUILD_TOKEN,
             serverBaseUrl: LIGHTHOUSE_SERVER_URL,
+            basicAuth: {
+                username: LIGHTHOUSE_SERVER_LOGIN_USER,
+                password: LIGHTHOUSE_SERVER_LOGIN_PASSWORD,
+            },
         },
     },
 };
