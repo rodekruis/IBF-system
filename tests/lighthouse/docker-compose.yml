@@ -6,6 +6,7 @@ services:
         ports:
             - 9001:9001
         volumes:
+            - ./lighthouse-server.json:/usr/src/lhci/lighthouserc.json
             - lighthouse-server-data:/data
         restart: unless-stopped
 
