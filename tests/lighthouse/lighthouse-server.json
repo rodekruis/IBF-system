@@ -1,0 +1,16 @@
+{
+    "ci": {
+        "server": {
+            "port": 9001,
+            "basicAuth": {
+                "username": "admin",
+                "password": "password"
+            },
+            "storage": {
+                "storageMethod": "sql",
+                "sqlDialect": "sqlite",
+                "sqlDatabasePath": "/data/lhci.db"
+            }
+        }
+    }
+}
