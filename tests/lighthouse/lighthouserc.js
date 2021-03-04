@@ -13,7 +13,11 @@ module.exports = {
             puppeteerScript: "./tests/lighthouse/login-script.js",
             puppeteerLaunchOptions: {
                 defaultViewport: null,
-                args: ["--disable-gpu --window-size=1280,720", "--no-sandbox"],
+                args: [
+                    "--disable-gpu",
+                    "--window-size=1280,720",
+                    "--no-sandbox",
+                ],
                 headless: true,
             },
             headful: false,

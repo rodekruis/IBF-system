@@ -5,7 +5,7 @@ const LOGIN_PASSWORD = process.env.LOGIN_PASSWORD;
 const locators = {
     inputLoginEmail: 'input[type="email"]',
     inputLoginPassword: 'input[type="password"]',
-    loginForm: ".login-form",
+    loginButton: ".login-button",
 };
 
 module.exports = async (browser, context) => {
@@ -25,7 +25,7 @@ module.exports = async (browser, context) => {
         const passwordInput = await page.$(locators.inputLoginPassword);
         await passwordInput.type(LOGIN_PASSWORD);
         await Promise.all([
-            page.$eval(locators.loginForm, form => form.submit()),
+            page.$eval(locators.loginButton, button => button.click()),
             page.waitForNavigation({ waitUntil: "networkidle0" }),
         ]).catch(function (err) {
             console.log("Login Failed");
