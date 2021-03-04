@@ -1,3 +1,12 @@
+## [0.27.6](https://github.com/rodekruis/IBF-system/compare/v0.27.5...v0.27.6) (2021-03-04)
+
+
+### Bug Fixes
+
+* test pr to check lighthouse ([dae8e2f](https://github.com/rodekruis/IBF-system/commit/dae8e2fb1483caaaff761edd988e4fdb9b7604d0))
+
+
+
 ## [0.27.5](https://github.com/rodekruis/IBF-system/compare/v0.27.4...v0.27.5) (2021-03-03)
 
 
@@ -104,29 +113,6 @@
 ### Features
 
 * get trigger per day for Egypt AB[#6414](https://github.com/rodekruis/IBF-system/issues/6414) ([ae2c415](https://github.com/rodekruis/IBF-system/commit/ae2c4152ba1b575d0e157fba6ba9b01b59f17aec))
-
-
-
-# [0.24.0](https://github.com/rodekruis/IBF-system/compare/v0.23.0...v0.24.0) (2021-03-01)
-
-
-### Bug Fixes
-
-* change service declaration ([0a5349d](https://github.com/rodekruis/IBF-system/commit/0a5349d890b870549e8039f753d0560dce4ab877))
-* fix lint errors AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([e576c04](https://github.com/rodekruis/IBF-system/commit/e576c04d89bffd109978ac2ef0243828147a511b))
-* fix rainfall-dummy AB[#6340](https://github.com/rodekruis/IBF-system/issues/6340) ([84b3ce6](https://github.com/rodekruis/IBF-system/commit/84b3ce6ffee1338b204fc242a559611f4a9a073a))
-* improve country-specific dummy-trigger AB[#6340](https://github.com/rodekruis/IBF-system/issues/6340) ([d0ae214](https://github.com/rodekruis/IBF-system/commit/d0ae2141dc45508f88f7f7cba03531d4347ced3f))
-* join old and new way of importing data temporarily AB[#6336](https://github.com/rodekruis/IBF-system/issues/6336) ([155ded5](https://github.com/rodekruis/IBF-system/commit/155ded5535e38cd4473b5f68c712735211b49696))
-* lint ([63beb63](https://github.com/rodekruis/IBF-system/commit/63beb6302824d043935067992f48356dff62e967))
-* make 'run sql' step in pipeline work for EGY/rainfall AB[#6212](https://github.com/rodekruis/IBF-system/issues/6212) ([26b7c20](https://github.com/rodekruis/IBF-system/commit/26b7c2061bf2206c5c28fcff54f88f313d06b224))
-
-
-### Features
-
-* add egy to countries AB[#6288](https://github.com/rodekruis/IBF-system/issues/6288) AB[#6291](https://github.com/rodekruis/IBF-system/issues/6291) ([a799e59](https://github.com/rodekruis/IBF-system/commit/a799e596c128dfae0ceb9f3407803f8b5ffe3918))
-* egypt user AB[#6289](https://github.com/rodekruis/IBF-system/issues/6289) ([fb53512](https://github.com/rodekruis/IBF-system/commit/fb5351270e80848b37b84e3d83c834068748ffa4))
-* load admin-boundary data via seed AB[#6288](https://github.com/rodekruis/IBF-system/issues/6288) ([886c13f](https://github.com/rodekruis/IBF-system/commit/886c13ff552b3bbdd5351f367700af1b622a3ed1))
-* overwrite per country AB[#6337](https://github.com/rodekruis/IBF-system/issues/6337) AB[#6340](https://github.com/rodekruis/IBF-system/issues/6340) ([c21e658](https://github.com/rodekruis/IBF-system/commit/c21e658c74a56ba72edc5a884136241a35bd43c2))
 
 
 
