@@ -1,5 +1,5 @@
 <coverage>
-  <id>CoverageInfoImpl-b6c01c7:177ed6ef1a3:-7c3f</id>
+  <id>CoverageInfoImpl--2b88a80e:17802070c75:-7d7c</id>
   <name>population_EGY</name>
   <nativeName>population_EGY</nativeName>
   <namespace>
@@ -8,7 +8,7 @@
   <title>population_EGY</title>
   <description>Generated from GeoTIFF</description>
   <keywords>
-    <string>population_egy_2018-10-01</string>
+    <string>hrsl_egy_pop_resized_100</string>
     <string>WCS</string>
     <string>GeoTIFF</string>
   </keywords>
@@ -23,14 +23,14 @@
   AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
   <srs>EPSG:4326</srs>
   <nativeBoundingBox>
-    <minx>24.722361111111113</minx>
+    <minx>24.72236111111111</minx>
     <maxx>36.89208333333333</maxx>
     <miny>21.999583333333334</miny>
     <maxy>31.652916666666666</maxy>
     <crs>EPSG:4326</crs>
   </nativeBoundingBox>
   <latLonBoundingBox>
-    <minx>24.722361111111113</minx>
+    <minx>24.72236111111111</minx>
     <maxx>36.89208333333333</maxx>
     <miny>21.999583333333334</miny>
     <maxy>31.652916666666666</maxy>
@@ -46,10 +46,10 @@
       </directDownloadSettings>
     </entry>
     <entry key="cachingEnabled">false</entry>
-    <entry key="dirName">population_EGY_population_egy_2018-10-01</entry>
+    <entry key="dirName">population_EGY_hrsl_egy_pop_resized_100</entry>
   </metadata>
   <store class="coverageStore">
-    <id>CoverageStoreInfoImpl-b6c01c7:177ed6ef1a3:-7c41</id>
+    <id>CoverageStoreInfoImpl--2b88a80e:17802070c75:-7d7d</id>
   </store>
   <serviceConfiguration>false</serviceConfiguration>
   <simpleConversionEnabled>false</simpleConversionEnabled>
@@ -57,24 +57,24 @@
   <grid dimension="2">
     <range>
       <low>0 0</low>
-      <high>43811 34752</high>
+      <high>4381 3475</high>
     </range>
     <transform>
-      <scaleX>2.777777777777778E-4</scaleX>
-      <scaleY>-2.777777777777778E-4</scaleY>
+      <scaleX>0.0027778411828856936</scaleX>
+      <scaleY>-0.0027779376498800958</scaleY>
       <shearX>0.0</shearX>
       <shearY>0.0</shearY>
-      <translateX>24.7225</translateX>
-      <translateY>31.65277777777778</translateY>
+      <translateX>24.72375003170255</translateX>
+      <translateY>31.651527697841725</translateY>
     </transform>
     <crs>EPSG:4326</crs>
   </grid>
   <supportedFormats>
+    <string>GEOTIFF</string>
     <string>GIF</string>
     <string>PNG</string>
     <string>JPEG</string>
     <string>TIFF</string>
-    <string>GEOTIFF</string>
   </supportedFormats>
   <interpolationMethods>
     <string>nearest neighbor</string>
@@ -115,5 +115,5 @@
       <boolean>true</boolean>
     </entry>
   </parameters>
-  <nativeCoverageName>population_egy_2018-10-01</nativeCoverageName>
+  <nativeCoverageName>hrsl_egy_pop_resized_100</nativeCoverageName>
 </coverage>
