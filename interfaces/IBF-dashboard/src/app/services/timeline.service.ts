@@ -106,10 +106,8 @@ export class TimelineService {
 
     const index = leadTimes.indexOf(leadTime);
     const leadTimeNotAvailable = index < 0;
-    const lowerLeadTimeNotTriggered =
-      this.triggers[LeadTimeTriggerKey[leadTime]] == 0;
 
-    return leadTimeNotAvailable || lowerLeadTimeNotTriggered;
+    return leadTimeNotAvailable;
   }
 
   public async getTrigger(): Promise<any> {
