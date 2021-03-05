@@ -23,11 +23,10 @@ def getFloodInfo(countryCode):
         ) t1 on
             t0.pcode = t1.pcode
             and t0.lead_time = t1.lead_time
-            and t0.current_prev = t1.current_prev
         where
             t0.country_code = \'''' + countryCode + '''\'
-            and t0.current_prev = 'Current'
             and t0.fc_trigger = 1
+            and t0.population_affected > 0
         order by population_affected desc
     '''
 

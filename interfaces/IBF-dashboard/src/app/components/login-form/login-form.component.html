@@ -1,4 +1,4 @@
-<form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+<form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="login-form">
   <input
     type="submit"
     hidden
@@ -35,6 +35,7 @@
   <ion-button
     buttonType="button"
     type="submit"
+    class="login-button"
     expand="block"
     [disabled]="!loginForm.form.valid"
   >

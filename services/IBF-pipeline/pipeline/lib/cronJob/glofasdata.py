@@ -156,11 +156,11 @@ class GlofasData:
 
                     prob = count/ensemble_options
                     dis_avg = dis_sum/ensemble_options
-                    station['fc_' + self.fcStep] = dis_avg
-                    station['fc_' + self.fcStep+'_prob'] = prob
-                    station['fc_'+self.fcStep+'_trigger'] = 1 if prob > TRIGGER_LEVELS['minimum'] else 0
+                    station['fc'] = dis_avg
+                    station['fc_prob'] = prob
+                    station['fc_trigger'] = 1 if prob > TRIGGER_LEVELS['minimum'] else 0
                     
-                    if station['fc_'+self.fcStep+'_trigger'] == 1:
+                    if station['fc_trigger'] == 1:
                         trigger_per_day[step] = 1
                     
                     if step == self.days:
@@ -175,9 +175,9 @@ class GlofasData:
         for station_code in ['no_station']: #,'F0043','F0044','F0045','F0046','F0047','F0048','F0049','F0050','F0051','F0052','F0053','F0054','F0055','F0056','G5696']:
             station = {}
             station['code']=station_code
-            station['fc_' + self.fcStep] = 0
-            station['fc_' + self.fcStep+'_prob'] = 0
-            station['fc_'+self.fcStep+'_trigger'] = 0
+            station['fc'] = 0
+            station['fc_prob'] = 0
+            station['fc_trigger'] = 0
             stations.append(station)
 
         with open(self.extractedGlofasPath, 'w') as fp:
@@ -211,8 +211,8 @@ class GlofasData:
 
         # Dtermine trigger + return period per water station
         for index, row in df.iterrows():
-            fc = float(row['fc_'+self.fcStep])
-            trigger = int(row['fc_'+self.fcStep+'_trigger'])
+            fc = float(row['fc'])
+            trigger = int(row['fc_trigger'])
             if trigger == 1:
                 if self.country_code == 'ZMB':
                     if fc >= row['20yr_threshold']:
@@ -229,7 +229,7 @@ class GlofasData:
                     return_period = 25
             else:
                 return_period = None
-            df.at[index, 'fc_'+self.fcStep+'_rp'] = return_period
+            df.at[index, 'fc_rp'] = return_period
 
         out = df.to_json(orient='records')
         with open(self.triggersPerStationPath, 'w') as fp:

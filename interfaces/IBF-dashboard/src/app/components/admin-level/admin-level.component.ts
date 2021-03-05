@@ -21,7 +21,12 @@ import { IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
 export class AdminLevelComponent {
   private countrySubscription: Subscription;
   public adminLevel = AdminLevel;
-  public adminLevelLabel: AdminLevelLabel;
+  public adminLevelLabel: AdminLevelLabel = {
+    adm1: 'Admin Level 1',
+    adm2: 'Admin Level 2',
+    adm3: 'Admin Level 3',
+    adm4: 'Admin Level 4',
+  };
   private adminLevelNumber: number;
 
   constructor(
@@ -49,13 +54,18 @@ export class AdminLevelComponent {
   }
 
   loadAdminLevelLabels() {
-    const activeCountry = this.countryService.getActiveCountry();
-    this.adminLevelLabel = {
-      adm1: activeCountry.adminRegionLabels[0],
-      adm2: activeCountry.adminRegionLabels[1],
-      adm3: activeCountry.adminRegionLabels[2],
-      adm4: activeCountry.adminRegionLabels[3],
-    };
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        if (country) {
+          this.adminLevelLabel = {
+            adm1: country.adminRegionLabels[0],
+            adm2: country.adminRegionLabels[1],
+            adm3: country.adminRegionLabels[2],
+            adm4: country.adminRegionLabels[3],
+          };
+        }
+      });
   }
 
   setAdminLevelClick(adminLevel: number, state: boolean): void {

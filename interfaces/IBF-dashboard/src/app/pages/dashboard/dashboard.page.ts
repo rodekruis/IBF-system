@@ -3,6 +3,7 @@ import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserRole } from 'src/app/models/user/user-role.enum';
+import { User } from 'src/app/models/user/user.model';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -19,7 +20,7 @@ export class DashboardPage implements OnInit {
     private authService: AuthService,
     private analyticsService: AnalyticsService,
   ) {
-    this.authService.authenticationState$.subscribe((user) => {
+    this.authService.getAuthSubscription().subscribe((user: User): void => {
       if (user) {
         this.isDev = user.userRole == this.adminRole;
       }

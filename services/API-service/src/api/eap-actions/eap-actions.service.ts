@@ -40,21 +40,21 @@ export class EapActionsService {
     }
 
     const query = `select
-        id
+        "eventPlaceCodeId"
       from
-        "IBF-pipeline-output".event_pcode
+        "IBF-pipeline-output".event_place_code
       where
         closed = false
-        and pcode = $1`;
+        and "placeCode" = $1`;
 
-    const eventPlaceCodeId = await this.manager.query(query, [
-      eapAction.pcode,
-    ])[0]['id'];
+    const eventPlaceCodeId = (
+      await this.manager.query(query, [eapAction.placeCode])
+    )[0]['eventPlaceCodeId'];
 
     const action = new EapActionStatusEntity();
     action.status = eapAction.status;
-    action.pcode = eapAction.pcode;
-    action.event = eventPlaceCodeId;
+    action.placeCode = eapAction.placeCode;
+    action.eventPlaceCodeId = eventPlaceCodeId;
     action.actionChecked = actionId;
 
     // If no user, take default user for now
@@ -71,22 +71,23 @@ export class EapActionsService {
 
   public async getActionsWithStatus(
     countryCode: string,
-    pcode: string,
+    placeCode: string,
   ): Promise<EapActionEntity[]> {
-    const query = `select
+    const query = `
+      select
         aof.label as "aofLabel" ,
         aof.id as aof ,
         "action" ,
         ea."label" ,
-        $1 as pcode,
+        $1 as "placeCode",
         case
           when eas."actionCheckedId" is null then false
           else eas.status
         end as checked
       from
         "IBF-app"."eap-action" ea
-      left join "IBF-app"."area-of-focus" aof on
-        ea."areaOfFocusId" = aof.id
+      left join "IBF-app"."area-of-focus" aof 
+        on ea."areaOfFocusId" = aof.id
       left join(
         select
           t1.*
@@ -95,28 +96,30 @@ export class EapActionsService {
         left join(
           select
             "actionCheckedId",
-            pcode ,
+            "placeCode" ,
             max(timestamp) as max_timestamp
           from
             "IBF-app"."eap-action-status"
           group by
-            1,
-            2 ) t2 on
-          t1."actionCheckedId" = t2."actionCheckedId"
+            1,2 
+        ) t2 
+          on t1."actionCheckedId" = t2."actionCheckedId"
         where
           timestamp = max_timestamp
-          and event = any( (
-          select
-            array_agg(id)
-          from
-            "IBF-pipeline-output".event_pcode where closed = false)::int[]) ) eas on
-        ea.id = eas."actionCheckedId"
-        and pcode = eas.pcode
+          and "eventPlaceCodeId" = any( (
+            select
+              array_agg("eventPlaceCodeId")
+            from "IBF-pipeline-output".event_place_code 
+            where closed = false
+          )::uuid[]) 
+      ) eas 
+        on ea.id = eas."actionCheckedId"
+        and eas."placeCode" = $1
       where
         "countryCode" = $2`;
 
     const actions: EapActionEntity[] = await this.manager.query(query, [
-      pcode,
+      placeCode,
       countryCode,
     ]);
 

@@ -29,8 +29,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe(async (country: Country) => {
-        await this.timelineService.loadTimeStepButtons();
+      .subscribe((country: Country) => {
+        this.timelineService.loadTimeStepButtons();
       });
   }
 

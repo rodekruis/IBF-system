@@ -1,4 +1,4 @@
-# IBF-API-service
+# IBF-API-service: REST API of the IBF-system.
 
 This service creates endpoints which serves data from the IBF-database to (for example) the IBF-interfaces.
 

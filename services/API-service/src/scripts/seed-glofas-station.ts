@@ -26,40 +26,45 @@ export class SeedGlofasStation implements InterfaceScript {
     const stationPerAdminAreaDataETH = await this.seedHelper.getCsvData(
       './src/scripts/git-lfs/Glofas_station_per_admin_area_ETH.csv',
     );
-    stationPerAdminAreaDataETH.forEach(async area => {
-      const adminArea = await adminAreaRepository.findOne({
-        where: { pcode: area['pcode'] },
-      });
-      adminArea.glofasStation = area['station_code_7day'];
-      adminAreaRepository.save(adminArea);
-    });
+    stationPerAdminAreaDataETH.forEach(
+      async (area): Promise<void> => {
+        const adminArea = await adminAreaRepository.findOne({
+          where: { pcode: area['pcode'] },
+        });
+        adminArea.glofasStation = area['station_code_7day'];
+        adminAreaRepository.save(adminArea);
+      },
+    );
 
     // -- ETH: GLOFAS stations
     const glofasStationData = await this.seedHelper.getCsvData(
       './src/scripts/git-lfs/Glofas_station_locations_with_trigger_levels_IARP.csv',
     );
     const stationCodesETH = stationPerAdminAreaDataETH.map(
-      area => area['station_code_7day'],
+      (area): string => area['station_code_7day'],
     );
 
-    glofasStationData.forEach(async station => {
-      if (stationCodesETH.includes(station['station_code'])) {
-        await glofasStationRepository
-          .createQueryBuilder()
-          .insert()
-          .values({
-            countryCode: 'ETH',
-            stationCode: station['station_code'],
-            stationName: station['station_name'],
-            triggerLevel:
-              station['10yr_threshold_7day'] == ''
-                ? null
-                : station['10yr_threshold_7day'],
-            geom: () => `st_MakePoint(${station['lon']}, ${station['lat']})`,
-          })
-          .execute();
-      }
-    });
+    glofasStationData.forEach(
+      async (station): Promise<void> => {
+        if (stationCodesETH.includes(station['station_code'])) {
+          await glofasStationRepository
+            .createQueryBuilder()
+            .insert()
+            .values({
+              countryCode: 'ETH',
+              stationCode: station['station_code'],
+              stationName: station['station_name'],
+              triggerLevel:
+                station['10yr_threshold_7day'] == ''
+                  ? null
+                  : station['10yr_threshold_7day'],
+              geom: (): string =>
+                `st_MakePoint(${station['lon']}, ${station['lat']})`,
+            })
+            .execute();
+        }
+      },
+    );
   }
 }
 
