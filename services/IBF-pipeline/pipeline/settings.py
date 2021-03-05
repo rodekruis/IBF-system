@@ -113,7 +113,7 @@ SETTINGS = {
         },
         'EXPOSURE_DATA_SOURCES': {
             "population": {
-                "source": "population/population_egy_2018-10-01",
+                "source": "population/hrsl_egy_pop_resized_100",
                 "rasterValue": 1
             }
         },

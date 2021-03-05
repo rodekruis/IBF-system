@@ -8,6 +8,7 @@ import numpy as np
 
 from lib.logging.logglySetup import logger
 from settings import *
+import os
 
 class Exposure:
 
@@ -27,13 +28,14 @@ class Exposure:
 
 
     def calcAffected(self, floodExtentRaster):
-        shapesFlood =  self.loadTiffAsShapes(floodExtentRaster)
+        shapesFlood = self.loadTiffAsShapes(floodExtentRaster)
         if shapesFlood != []:
-            affectedImage, affectedMeta = self.clipTiffWithShapes(self.inputRaster, shapesFlood)
-
-            with rasterio.open(self.outputRaster, "w", **affectedMeta) as dest:
-                dest.write(affectedImage)
-
+            try:
+                affectedImage, affectedMeta = self.clipTiffWithShapes(self.inputRaster, shapesFlood)
+                with rasterio.open(self.outputRaster, "w", **affectedMeta) as dest:
+                    dest.write(affectedImage)
+            except ValueError:
+                print('Rasters do not overlap')
         logger.info("Wrote to " + self.outputRaster)
         adminBoundaries = self.ADMIN_BOUNDARIES
         self.stats = self.calcStatsPerAdmin(adminBoundaries, self.indicator, shapesFlood)
@@ -54,7 +56,7 @@ class Exposure:
                             dest.write(outImage)
                             
                         statsDistrict = self.calculateRasterStats(indicator,  str(area['properties'][self.PCODE_COLNAME]), self.outputPath)
-                    except ValueError:
+                    except (ValueError, rasterio.errors.RasterioIOError):
                             # If there is no flood in the district set  the stats to 0
                         statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties'][self.PCODE_COLNAME])}
                 else: 
