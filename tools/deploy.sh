@@ -20,7 +20,7 @@ function deploy() {
     }
 
     function update_code() {
-        log "Updating code..."
+        log "Update code..."
         local target=$1 || false
 
         cd "$repo" || return
@@ -30,17 +30,17 @@ function deploy() {
         # When a target is provided, checkout that
         if [[ -n "$target" ]]
         then
-            log "Checking out: $target"
+            log "Check out: $target"
             git checkout "$target"
         else
-            log "Pulling latest changes"
+            log "Pull latest changes"
             git checkout master
             git pull --ff-only
         fi
     }
 
     function load_environment_variables() {
-        log "Loading environment variables..."
+        log "Load environment variables..."
         set -a; [ -f ./.env ] && . ./.env; set +a;
         export NG_IBF_SYSTEM_VERSION=v$(node -p "require('./package.json').version")
         log echo "NODE_ENV: $NODE_ENV"
@@ -48,8 +48,8 @@ function deploy() {
         log echo "NG_IBF_SYSTEM_VERSION: $NG_IBF_SYSTEM_VERSION"
     }
 
-    function updating_containers() {
-        log "Updating containers..."
+    function update_containers() {
+        log "Update containers..."
 
         cd "$repo" || return
         docker-compose down -v
@@ -60,7 +60,7 @@ function deploy() {
 
     function migrate_database() {
         if [ "$PRODUCTION_DATA_SERVER" = no ]; then
-            log "Migrating database..."
+            log "Migrate database..."
 
             declare -a arr=("IBF-static-input")
 
@@ -79,33 +79,41 @@ function deploy() {
     }
 
     function restart_webhook_service() {
+        log "Restart webhook service..."
+
         sudo systemctl daemon-reload
         sudo service webhook restart
-
-        log "Webhook service restarted: "
     }
 
     function cleanup_docker() {
-        docker image prune -f
+        log "Remove unused docker images..."
 
-        log "Unused Docker images removed: "
+        docker image prune -f
     }
 
+    function test_lighthouse() {
+        if [[ $NODE_ENV="test" ]]
+        then
+            log "Run lighthouse test on $NODE_ENV environment..."
+            lhci autorun --config=tests/lighthouse/lighthouserc.js
+        else
+            log "Skip lighthouse test on $NODE_ENV environment..."
+        fi
+    }
 
-    #
-    # Actual deployment:
-    #
     update_code "$target"
 
     load_environment_variables
 
-    updating_containers
+    update_containers
 
     migrate_database
 
-    restart_webhook_service
-
     cleanup_docker
+
+    test_lighthouse
+
+    restart_webhook_service
 
     log "Done."
 }
