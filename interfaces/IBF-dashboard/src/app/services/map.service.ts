@@ -503,6 +503,16 @@ export class MapService {
       fillOpacity = 0.0;
     }
 
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        if (country) {
+          if (country.countryCodeISO3 === 'EGY' && !placeCode.includes('EG')) {
+            fillOpacity = 0.0;
+          }
+        }
+      });
+
     this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe((activePlaceCode: PlaceCode): void => {
