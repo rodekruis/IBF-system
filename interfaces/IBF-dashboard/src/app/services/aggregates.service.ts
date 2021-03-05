@@ -40,7 +40,7 @@ export class AggregatesService {
       .subscribe((country: Country): void => {
         if (country) {
           this.apiService
-            .getMetadata(country.countryCodeISO3)
+            .getIndicators(country.countryCodeISO3)
             .then((response) => {
               this.indicators = response;
               this.mapService.hideAggregateLayers();
