@@ -6,23 +6,26 @@ import { CountryStatus } from '../api/country/country-status.enum';
 import { CountryEntity } from '../api/country/country.entity';
 import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
 import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
-import { IndicatorEntity } from '../api/indicator/indicator.entity';
+import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
 import { leadTimeStatus } from '../api/lead-time/lead-time-status.enum';
 import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 import { UserRole } from '../api/user/user-role.enum';
 import { UserStatus } from '../api/user/user-status.enum';
 import { UserEntity } from '../api/user/user.entity';
+import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
+
+import { SeedHelper } from './seed-helper';
 
 import leadTimes from './json/lead-times.json';
 import countries from './json/countries.json';
 import users from './json/users.json';
 import areasOfFocus from './json/areas-of-focus.json';
 import eapActions from './json/EAP-actions.json';
-import indicators from './json/indicator-metadata.json';
+import indicatorMetadata from './json/indicator-metadata.json';
+import layerMetadata from './json/layer-metadata.json';
 
 import SeedAdminArea from './seed-admin-area';
 import SeedGlofasStation from './seed-glofas-station';
-import { SeedHelper } from './seed-helper';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -136,9 +139,17 @@ export class SeedInit implements InterfaceScript {
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
     await eapActionRepository.save(eapActions);
 
-    // ***** CREATE INDICATORS *****
-    const indicatorRepository = this.connection.getRepository(IndicatorEntity);
-    await indicatorRepository.save(JSON.parse(JSON.stringify(indicators)));
+    // ***** CREATE INDICATOR METADATA *****
+    const indicatorRepository = this.connection.getRepository(
+      IndicatorMetadataEntity,
+    );
+    await indicatorRepository.save(
+      JSON.parse(JSON.stringify(indicatorMetadata)),
+    );
+
+    // ***** CREATE LAYER METADATA *****
+    const layerRepository = this.connection.getRepository(LayerMetadataEntity);
+    await layerRepository.save(JSON.parse(JSON.stringify(layerMetadata)));
 
     // ***** SEED ADMIN-AREA DATA *****
     const seedAdminArea = await new SeedAdminArea(this.connection);

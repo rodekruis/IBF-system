@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('indicator')
-export class IndicatorEntity {
+@Entity('indicator-metadata')
+export class IndicatorMetadataEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
   @Column()

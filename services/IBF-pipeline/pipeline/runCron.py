@@ -1,5 +1,4 @@
 from lib.cronJob.forecast import Forecast
-from lib.cronJob.storeHistoric import storeHistoric
 from lib.notifications.notify import notify
 from lib.logging.logglySetup import logger
 import traceback
@@ -14,7 +13,6 @@ def main():
     print(str(datetime.datetime.now()))
 
     try:
-        storeHistoric()
         for COUNTRY_CODE in COUNTRY_CODES:
             print('--------STARTING: ' + COUNTRY_CODE + '--------------------------')
 

@@ -143,14 +143,7 @@ export class MapComponent implements OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.mapService.loadStationLayer();
-        this.mapService.loadRedCrossBranchesLayer();
-        this.mapService.loadWaterpointsLayer();
-        this.mapService.loadAdminRegionLayer();
-        this.mapService.loadFloodExtentLayer();
-        this.mapService.loadPopulationGridLayer();
-        this.mapService.loadCroplandLayer();
-        this.mapService.loadGrasslandLayer();
+        this.mapService.loadCountryLayers();
 
         // Trigger a resize to fill the container-element:
         window.setTimeout(
@@ -174,11 +167,7 @@ export class MapComponent implements OnDestroy {
     this.timelineSubscription = this.timelineService
       .getTimelineSubscription()
       .subscribe((leadTime: LeadTime) => {
-        this.mapService.loadStationLayer();
-        this.mapService.loadRedCrossBranchesLayer();
-        this.mapService.loadWaterpointsLayer();
-        this.mapService.loadAdminRegionLayer();
-        this.mapService.loadFloodExtentLayer();
+        this.mapService.loadCountryLayers();
 
         // Trigger a resize to fill the container-element:
         window.setTimeout(

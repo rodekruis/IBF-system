@@ -8,6 +8,15 @@ import {
 } from 'leaflet';
 import { NumberFormat } from './indicator-group';
 
+export class IbfLayerMetadata {
+  name: IbfLayerName;
+  label: IbfLayerLabel;
+  type: IbfLayerType;
+  active: string;
+  legendColor: string;
+  leadTimeDependent: boolean;
+}
+
 export class IbfLayer {
   type: IbfLayerType;
   name: IbfLayerName;
@@ -37,8 +46,10 @@ export enum IbfLayerType {
 export enum IbfLayerName {
   glofasStations = 'glofas_stations',
   redCrossBranches = 'red_cross_branches',
+  redCrescentBranches = 'red_crescent_branches',
   waterpoints = 'waterpoints',
   floodExtent = 'flood_extent',
+  rainfallExtent = 'rainfall_extent',
   population = 'population',
   adminRegions = 'Admin regions',
   cropland = 'cropland',
@@ -58,8 +69,10 @@ export enum IbfLayerName {
 export enum IbfLayerLabel {
   glofasStations = 'Glofas stations',
   redCrossBranches = 'Red Cross branches',
+  redCrescentBranches = 'Red Crescent branches',
   waterpoints = 'Waterpoints',
   floodExtent = 'Flood extent',
+  rainfallExtent = 'Rainfall extent',
   population = 'Population',
   adminRegions = 'Admin regions',
   cropland = 'Cropland',
