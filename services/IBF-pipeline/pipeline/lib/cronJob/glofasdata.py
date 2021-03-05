@@ -15,7 +15,7 @@ import tarfile
 import time
 from lib.logging.logglySetup import logger
 from settings import *
-from secrets import GLOFAS_USER, GLOFAS_PW
+from secrets import GLOFAS_USER, GLOFAS_PW, SETTINGS_SECRET
 
 
 class GlofasData:
@@ -28,9 +28,11 @@ class GlofasData:
         self.triggerPerDay = PIPELINE_OUTPUT + \
             'triggers_rp_per_station/trigger_per_day_' + country_code + '.json'
         self.extractedGlofasPath = PIPELINE_OUTPUT + \
-            'glofas_extraction/glofas_forecast_' + self.fcStep + '_' + country_code + '.json'
+            'glofas_extraction/glofas_forecast_' + \
+            self.fcStep + '_' + country_code + '.json'
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
-            'triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + country_code + '.json'
+            'triggers_rp_per_station/triggers_rp_' + \
+            self.fcStep + '_' + country_code + '.json'
         self.GLOFAS_STATIONS = glofas_stations
         self.glofas_cols = glofas_cols
         self.DISTRICT_MAPPING = district_mapping
@@ -66,7 +68,7 @@ class GlofasData:
                 time.sleep(timeToRetry)
         if downloadDone == False:
             raise ValueError('GLofas download failed for ' +
-                                str(timeToTryDownload/3600) + ' hours, no new dataset was found')
+                             str(timeToTryDownload/3600) + ' hours, no new dataset was found')
 
     def makeFtpRequest(self):
         current_date = CURRENT_DATE.strftime('%Y%m%d')
@@ -90,7 +92,8 @@ class GlofasData:
         df_thresholds = df_thresholds.set_index("station_code", drop=False)
         df_district_mapping = DataFrame(self.DISTRICT_MAPPING)
         df_district_mapping.columns = self.district_cols
-        df_district_mapping = df_district_mapping.set_index("station_code_7day", drop=False)
+        df_district_mapping = df_district_mapping.set_index(
+            "station_code_7day", drop=False)
 
         stations = []
         trigger_per_day = {
@@ -115,12 +118,12 @@ class GlofasData:
             if station['code'] in df_thresholds['station_code'] and station['code'] in df_district_mapping['station_code_7day']:
                 print(Filename)
                 threshold = df_thresholds[df_thresholds.station_code ==
-                                        station['code']]['trigger_level'][0]
+                                          station['code']]['trigger_level'][0]
 
                 # Set dimension-values
                 time = 0
 
-                for step in range(1,8):
+                for step in range(1, 8):
 
                     # Loop through 51 ensembles, get forecast (for 3 or 7 day) and compare to threshold
                     ensemble_options = 51
@@ -132,20 +135,20 @@ class GlofasData:
                             ensemble=ensemble, step=step).values[time][0]
 
                         # DUMMY OVERWRITE DEPENDING ON COUNTRY SETTING
-                        if SETTINGS[self.country_code]['dummy_trigger'] == True:
+                        if SETTINGS_SECRET[self.country_code]['dummy_trigger'] == True:
                             if step < 5:
                                 discharge = 0
-                            elif station['code'] == 'G1361': # ZMB dummy flood station 1
+                            elif station['code'] == 'G1361':  # ZMB dummy flood station 1
                                 discharge = 8000
-                            elif station['code'] == 'G1328': # ZMB dummy flood station 2
+                            elif station['code'] == 'G1328':  # ZMB dummy flood station 2
                                 discharge = 9000
-                            elif station['code'] == 'G5200': # UGA dummy flood station
+                            elif station['code'] == 'G5200':  # UGA dummy flood station
                                 discharge = 700
-                            elif station['code'] == 'G1067': # ETH dummy flood station
+                            elif station['code'] == 'G1067':  # ETH dummy flood station
                                 discharge = 1000
-                            elif station['code'] == 'G1904': # ETH dummy flood station
+                            elif station['code'] == 'G1904':  # ETH dummy flood station
                                 discharge = 2000
-                            elif station['code'] == 'G5194': # KEN dummy flood station
+                            elif station['code'] == 'G5194':  # KEN dummy flood station
                                 discharge = 2000
                             else:
                                 discharge = 0
@@ -159,22 +162,23 @@ class GlofasData:
                     station['fc'] = dis_avg
                     station['fc_prob'] = prob
                     station['fc_trigger'] = 1 if prob > TRIGGER_LEVELS['minimum'] else 0
-                    
+
                     if station['fc_trigger'] == 1:
                         trigger_per_day[step] = 1
-                    
+
                     if step == self.days:
                         stations.append(station)
                     station = {}
                     station['code'] = files[i].split(
                         '_')[2]
-                
+
             data.close()
-        
+
         # Add 'no_station' and all currently unavailable glofas-stations manually for now
-        for station_code in ['no_station']: #,'F0043','F0044','F0045','F0046','F0047','F0048','F0049','F0050','F0051','F0052','F0053','F0054','F0055','F0056','G5696']:
+        # ,'F0043','F0044','F0045','F0046','F0047','F0048','F0049','F0050','F0051','F0052','F0053','F0054','F0055','F0056','G5696']:
+        for station_code in ['no_station']:
             station = {}
-            station['code']=station_code
+            station['code'] = station_code
             station['fc'] = 0
             station['fc_prob'] = 0
             station['fc_trigger'] = 0
@@ -183,8 +187,7 @@ class GlofasData:
         with open(self.extractedGlofasPath, 'w') as fp:
             json.dump(stations, fp)
             print('Extracted Glofas data - File saved')
-        
-        
+
         with open(self.triggerPerDay, 'w') as fp:
             json.dump([trigger_per_day], fp)
             print('Extracted Glofas data - Trigger per day File saved')
