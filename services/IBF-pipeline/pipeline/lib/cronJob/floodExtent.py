@@ -155,7 +155,8 @@ class FloodExtent:
         print(self.fcStep, " - fcStep")
 
         for indicator, values in self.EXPOSURE_DATA_SOURCES.items():
-            print(indicator)
+            print('indicator: ', indicator)
+
 
             exposure = Exposure(indicator, values['source'], values['rasterValue'], self.fcStep, self.country_code)
             exposure.calcAffected(self.outputPathMerge)
@@ -163,7 +164,6 @@ class FloodExtent:
             for item in exposure.stats:
                 self.stats.append(item)
 
-        print(self.statsPath)
         with open(self.statsPath, 'w') as fp:
             json.dump(self.stats, fp)
             logger.info("Saved stats for %s", self.statsPath)
