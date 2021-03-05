@@ -1,3 +1,12 @@
+## [0.27.9](https://github.com/rodekruis/IBF-system/compare/v0.27.8...v0.27.9) (2021-03-05)
+
+
+### Bug Fixes
+
+* non overlapping raster AB[#6388](https://github.com/rodekruis/IBF-system/issues/6388) ([38cedff](https://github.com/rodekruis/IBF-system/commit/38cedff69205ed976c5deb4ee8be3e7f0e4f7f01))
+
+
+
 ## [0.27.8](https://github.com/rodekruis/IBF-system/compare/v0.27.7...v0.27.8) (2021-03-04)
 
 
@@ -98,15 +107,6 @@
 * seperate .sql files AB[#6297](https://github.com/rodekruis/IBF-system/issues/6297) ([5fa3e98](https://github.com/rodekruis/IBF-system/commit/5fa3e98bce31cc1acb4250673467c1d71eddda83))
 * Update based on review AB[#6356](https://github.com/rodekruis/IBF-system/issues/6356) ([9f5a924](https://github.com/rodekruis/IBF-system/commit/9f5a924a7658e7e9503129db7409221a15e3d3e1))
 * work on review AB[#6356](https://github.com/rodekruis/IBF-system/issues/6356) ([1e2c557](https://github.com/rodekruis/IBF-system/commit/1e2c5572f5757e3d349f6f40957c3b5b677dad30))
-
-
-
-# [0.26.0](https://github.com/rodekruis/IBF-system/compare/v0.25.1...v0.26.0) (2021-03-02)
-
-
-### Features
-
-* Change legend AB[#6351](https://github.com/rodekruis/IBF-system/issues/6351) ([e371421](https://github.com/rodekruis/IBF-system/commit/e371421ca9285c394bb84e344cbacdb68884de46))
 
 
 
