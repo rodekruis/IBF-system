@@ -3,5 +3,5 @@ export class EapAction {
   action: string;
   label: string;
   checked: boolean;
-  pcode: string;
+  placeCode: string;
 }

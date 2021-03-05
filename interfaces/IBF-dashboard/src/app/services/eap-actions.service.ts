@@ -44,8 +44,7 @@ export class EapActionsService {
             for (let area of this.triggeredAreas) {
               area.eapActions = await this.apiService.getEapActions(
                 country.countryCodeISO3,
-                area.pcode,
-                area.id,
+                area.placeCode,
               );
             }
             this.triggeredAreaSubject.next(this.triggeredAreas);
@@ -62,13 +61,13 @@ export class EapActionsService {
     action: string,
     countryCodeISO3: string,
     status: boolean,
-    pcode: string,
+    placeCode: string,
   ) {
     await this.apiService.checkEapAction(
       action,
       countryCodeISO3,
       status,
-      pcode,
+      placeCode,
     );
   }
 }

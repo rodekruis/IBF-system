@@ -10,7 +10,7 @@ export class SeedHelper {
     this.connection = connection;
   }
 
-  public async getCsvData(source: string) {
+  public async getCsvData(source: string): Promise<object[]> {
     const buffer = fs.readFileSync(source);
     let data = await this.csvBufferToArray(buffer, ',');
     if (Object.keys(data[0]).length === 1) {
@@ -24,18 +24,18 @@ export class SeedHelper {
     stream.push(buffer.toString());
     stream.push(null);
     let parsedData = [];
-    return await new Promise(function(resolve, reject) {
+    return await new Promise((resolve, reject): void => {
       stream
         .pipe(csv({ separator: separator }))
-        .on('error', error => reject(error))
-        .on('data', row => parsedData.push(row))
-        .on('end', () => {
+        .on('error', (error): void => reject(error))
+        .on('data', (row): number => parsedData.push(row))
+        .on('end', (): void => {
           resolve(parsedData);
         });
     });
   }
 
-  public async runSqlScript(path: string) {
+  public async runSqlScript(path: string): Promise<void> {
     const entityManager = getManager();
     const query = fs.readFileSync(path).toString();
     await entityManager.query(query);

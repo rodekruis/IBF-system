@@ -25,6 +25,7 @@ import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { MockScenario } from '../mocks/mock-scenario.enum';
+import { Country } from '../models/country.model';
 
 @Injectable({
   providedIn: 'root',
@@ -126,7 +127,7 @@ export class MapService {
       description: this.getPopoverText(IbfLayerName.waterpoints),
       active: false,
       show: true,
-      data: await this.getWaterpoints(),
+      data: await this.getWaterPoints(),
       viewCenter: false,
       order: 2,
     });
@@ -148,14 +149,12 @@ export class MapService {
   }
 
   public async loadAggregateLayer(indicator: Indicator) {
-    // This solution is not pretty. To load a layer in the legend without
-    // loading the data an empty geosjon is needed.
-    let data = null;
+    let data = { features: [] } as GeoJSON.FeatureCollection;
+
     if (!indicator.lazyLoad) {
       data = await this.getAdminRegions();
-    } else {
-      data = { features: [] };
     }
+
     this.addLayer({
       name: indicator.name,
       label: indicator.label,
@@ -209,30 +208,35 @@ export class MapService {
     leadTime?: LeadTime,
     legendColor?: string,
   ) {
-    const activeCountry = this.countryService.getActiveCountry();
-    this.addLayer({
-      name: layerName,
-      label: layerLabel,
-      type: IbfLayerType.wms,
-      description: this.getPopoverText(layerName),
-      active: active,
-      show: true,
-      viewCenter: false,
-      data: null,
-      legendColor: legendColor,
-      order: 10,
-      wms: {
-        url: environment.geoserverUrl,
-        name: `ibf-system:${layerName}_${leadTime ? leadTime + '_' : ''}${
-          activeCountry.countryCodeISO3
-        }`,
-        format: 'image/png',
-        version: '1.1.0',
-        attribution: '510 Global',
-        crs: CRS.EPSG4326,
-        transparent: true,
-      } as IbfLayerWMS,
-    });
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country): void => {
+        if (country) {
+          this.addLayer({
+            name: layerName,
+            label: layerLabel,
+            type: IbfLayerType.wms,
+            description: this.getPopoverText(layerName),
+            active: active,
+            show: true,
+            viewCenter: false,
+            data: null,
+            legendColor: legendColor,
+            order: 10,
+            wms: {
+              url: environment.geoserverUrl,
+              name: `ibf-system:${layerName}_${leadTime ? leadTime + '_' : ''}${
+                country.countryCodeISO3
+              }`,
+              format: 'image/png',
+              version: '1.1.0',
+              attribution: '510 Global',
+              crs: CRS.EPSG4326,
+              transparent: true,
+            } as IbfLayerWMS,
+          });
+        }
+      });
   }
 
   public async loadFloodExtentLayer() {
@@ -360,30 +364,86 @@ export class MapService {
   }
 
   public async getStations(): Promise<GeoJSON.FeatureCollection> {
-    return await this.apiService.getStations(
-      this.countryService.getActiveCountry().countryCodeISO3,
-      this.timelineService.activeLeadTime,
-    );
+    return new Promise((resolve): void => {
+      this.countryService.getCountrySubscription().subscribe(
+        async (country: Country): Promise<void> => {
+          let stations = {
+            features: [],
+          } as GeoJSON.FeatureCollection;
+
+          if (country) {
+            stations = await this.apiService.getStations(
+              country.countryCodeISO3,
+              this.timelineService.activeLeadTime,
+            );
+          }
+
+          resolve(stations);
+        },
+      );
+    });
   }
 
   public async getRedCrossBranches(): Promise<GeoJSON.FeatureCollection> {
-    return await this.apiService.getRedCrossBranches(
-      this.countryService.getActiveCountry().countryCodeISO3,
-    );
+    return new Promise((resolve): void => {
+      this.countryService.getCountrySubscription().subscribe(
+        async (country: Country): Promise<void> => {
+          let redCrossBranches = {
+            features: [],
+          } as GeoJSON.FeatureCollection;
+
+          if (country) {
+            redCrossBranches = await this.apiService.getRedCrossBranches(
+              country.countryCodeISO3,
+            );
+          }
+
+          resolve(redCrossBranches);
+        },
+      );
+    });
   }
 
-  public async getWaterpoints(): Promise<GeoJSON.FeatureCollection> {
-    return await this.apiService.getWaterpoints(
-      this.countryService.getActiveCountry().countryCodeISO3,
-    );
+  public async getWaterPoints(): Promise<GeoJSON.FeatureCollection> {
+    return new Promise((resolve): void => {
+      this.countryService.getCountrySubscription().subscribe(
+        async (country: Country): Promise<void> => {
+          let waterPoints = {
+            features: [],
+          } as GeoJSON.FeatureCollection;
+
+          if (country) {
+            waterPoints = await this.apiService.getWaterPoints(
+              country.countryCodeISO3,
+            );
+          }
+
+          resolve(waterPoints);
+        },
+      );
+    });
   }
 
   public async getAdminRegions(): Promise<GeoJSON.FeatureCollection> {
-    return await this.apiService.getAdminRegions(
-      this.countryService.getActiveCountry().countryCodeISO3,
-      this.timelineService.activeLeadTime,
-      this.adminLevelService.adminLevel,
-    );
+    return new Promise((resolve): void => {
+      this.countryService.getCountrySubscription().subscribe(
+        async (country: Country): Promise<void> => {
+          let adminRegions = {
+            features: [],
+          } as GeoJSON.FeatureCollection;
+
+          if (country) {
+            adminRegions = await this.apiService.getAdminRegions(
+              country.countryCodeISO3,
+              this.timelineService.activeLeadTime,
+              this.adminLevelService.adminLevel,
+            );
+          }
+
+          resolve(adminRegions);
+        },
+      );
+    });
   }
 
   public async getAdmin2Data(): Promise<GeoJSON.FeatureCollection> {

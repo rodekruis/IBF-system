@@ -17,3 +17,6 @@ The data is extracted from the global crop yield dataset by the script [extract_
 Data can be found in MS Teams `.../510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_cropyield/`. 
 
 - Shapefile of the livelihood zones `lhz`. Data can be found in MS Teams `/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_livelihoodzones/ZW_LHZ_2011/ZW_LHZ_2011.shp`
+
+## Note
+Please make sure the folder `results` is in the same folder as the script. 

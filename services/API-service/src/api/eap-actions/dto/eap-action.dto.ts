@@ -1,10 +1,4 @@
-import {
-  IsBoolean,
-  IsIn,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { IsBoolean, IsIn, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class EapActionDto {
@@ -27,5 +21,5 @@ export class EapActionDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  public pcode: string;
+  public placeCode: string;
 }

@@ -29,17 +29,16 @@ export class DataService {
   ): Promise<GeoJson> {
     let placeCodes;
     placeCodes = (await this.getTriggeredAreas(countryCodeISO3)).map(
-      (triggeredArea): string => "'" + triggeredArea.pcode + "'",
+      (triggeredArea): string => "'" + triggeredArea.placeCode + "'",
     );
     const query = (
       'select * \
     from "IBF-API"."Admin_area_data' +
       adminLevel +
-      "\" \
+      '" \
     where 0 = 0 \
     and lead_time = $1 \
-    and current_prev = 'Current' \
-    and country_code = $2"
+    and country_code = $2'
     ).concat(
       placeCodes.length > 0
         ? ' and pcode in (' + placeCodes.toString() + ')'

@@ -134,7 +134,7 @@ export class ApiService {
     return this.get(`red-cross-branches/${countryCodeISO3}`, false).toPromise();
   }
 
-  getWaterpoints(countryCodeISO3: string): Promise<GeoJSON.FeatureCollection> {
+  getWaterPoints(countryCodeISO3: string): Promise<GeoJSON.FeatureCollection> {
     return this.get(`waterpoints/${countryCodeISO3}`, false).toPromise();
   }
 
@@ -177,9 +177,9 @@ export class ApiService {
     return this.get('eap-actions/areas-of-focus', false).toPromise();
   }
 
-  getEapActions(countryCodeISO3: string, pcode: string, event: number) {
+  getEapActions(countryCodeISO3: string, placeCode: string) {
     return this.get(
-      `eap-actions/${countryCodeISO3}/${pcode}/${event}`,
+      `eap-actions/${countryCodeISO3}/${placeCode}`,
       false,
     ).toPromise();
   }
@@ -188,7 +188,7 @@ export class ApiService {
     action: string,
     countryCodeISO3: string,
     status: boolean,
-    pcode: string,
+    placeCode: string,
   ) {
     return this.post(
       'eap-actions',
@@ -196,7 +196,7 @@ export class ApiService {
         action,
         countryCode: countryCodeISO3,
         status,
-        pcode,
+        placeCode,
       },
       false,
     ).toPromise();

@@ -67,12 +67,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (
-      this.countryService.activeCountry &&
-      this.timelineService.activeLeadTime
-    ) {
-      this.aggregatesService.loadMetadataAndAggregates();
-    }
+    this.aggregatesService.loadMetadataAndAggregates();
 
     this.countrySubscription = this.countryService
       .getCountrySubscription()
@@ -159,25 +154,30 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   public getHeaderLabel() {
     let headerLabel = this.defaultHeaderLabel;
-    const country = this.countryService.getActiveCountry();
-    const adminAreaLabel =
-      country.adminRegionLabels[this.adminLevelService.adminLevel - 1];
 
-    if (this.placeCode) {
-      headerLabel = this.placeCode.placeCodeName;
-    } else {
-      if (this.eventService.state.activeTrigger) {
-        this.eapActionsService
-          .getTriggeredAreas()
-          .subscribe((triggeredAreas) => {
-            headerLabel = `${triggeredAreas.length} ${this.exposedPrefix} ${adminAreaLabel}`;
-          });
-      } else {
-        if (country) {
-          headerLabel = `${this.allPrefix} ${country.countryName}`;
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        if (this.placeCode) {
+          headerLabel = this.placeCode.placeCodeName;
+        } else {
+          if (country) {
+            if (this.eventService.state.activeTrigger) {
+              const adminAreaLabel =
+                country.adminRegionLabels[
+                  this.adminLevelService.adminLevel - 1
+                ];
+              this.eapActionsService
+                .getTriggeredAreas()
+                .subscribe((triggeredAreas) => {
+                  headerLabel = `${triggeredAreas.length} ${this.exposedPrefix} ${adminAreaLabel}`;
+                });
+            } else {
+              headerLabel = `${this.allPrefix} ${country.countryName}`;
+            }
+          }
         }
-      }
-    }
+      });
 
     return headerLabel;
   }
