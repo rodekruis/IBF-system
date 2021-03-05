@@ -694,7 +694,7 @@ export class MapComponent implements OnDestroy {
           <div style="border-radius:10px;height:20px;line-height:20px;background-color:var(--ion-color-ibf-royal-blue); color:white; text-align:center; white-space: nowrap; min-width: 15%; width:' +
       triggerWidth +
       '%">' +
-      markerProperties.fc +
+      Math.round(markerProperties.fc) +
       '</div></div></div> \
     <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
       Trigger activation threshold:</div> \
