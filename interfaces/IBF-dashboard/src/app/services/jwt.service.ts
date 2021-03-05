@@ -9,15 +9,15 @@ export class JwtService {
   private jwtHelper = new JwtHelperService();
 
   public getToken(): string | undefined {
-    return window.sessionStorage[this.tokenKey];
+    return window.localStorage[this.tokenKey];
   }
 
   public saveToken(token: string): void {
-    window.sessionStorage[this.tokenKey] = token;
+    window.localStorage[this.tokenKey] = token;
   }
 
   public destroyToken(): void {
-    window.sessionStorage.removeItem(this.tokenKey);
+    window.localStorage.removeItem(this.tokenKey);
   }
 
   public decodeToken(rawToken: string): any {
