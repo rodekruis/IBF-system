@@ -24,7 +24,7 @@ def notify(countryCode):
                 msg['Subject'] = formattedInfo['subject']
                 part = MIMEText(formattedInfo['html'], "html")
                 msg.attach(part)
-                sendMail(EMAIL_LIST_HARDCODE,msg.as_string())
+                sendMail(EMAIL_LIST_HARDCODE, msg.as_string())
             else:
                 the_client.sendNotification(formattedInfo, countryCode)
 
