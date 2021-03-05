@@ -54,7 +54,7 @@ select t3.country_code
 	,t3.date
 	,t0a.lead_time
 	,fc,fc_trigger,fc_rp,fc_perc,fc_prob
-	,case when fc_trigger = 1 then coalesce(population_affected,0) else 0 end as population_affected
+	,population_affected
 	,t0.indicators
 --into "IBF-pipeline-output".data_adm2
 from (
