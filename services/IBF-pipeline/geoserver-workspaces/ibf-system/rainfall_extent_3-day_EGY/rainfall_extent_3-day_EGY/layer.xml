@@ -1,0 +1,17 @@
+<layer>
+  <name>rainfall_extent_3-day_EGY</name>
+  <id>LayerInfoImpl--6b43d756:177ee816d38:-7fde</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl--6b43d756:177ee816d38:-7fdf</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2021-03-01 16:19:40.593 UTC</dateCreated>
+  <dateModified>2021-03-05 09:58:30.2 UTC</dateModified>
+</layer>

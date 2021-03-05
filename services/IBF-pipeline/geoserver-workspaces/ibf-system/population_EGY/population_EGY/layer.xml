@@ -1,0 +1,16 @@
+<layer>
+  <name>population_EGY</name>
+  <id>LayerInfoImpl-b6c01c7:177ed6ef1a3:-7c3e</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff4</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-b6c01c7:177ed6ef1a3:-7c3f</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2021-03-01 13:09:57.574 UTC</dateCreated>
+</layer>

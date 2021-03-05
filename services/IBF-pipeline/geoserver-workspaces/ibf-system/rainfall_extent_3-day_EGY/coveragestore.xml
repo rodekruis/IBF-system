@@ -1,0 +1,14 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl--6b43d756:177ee816d38:-7fe0</id>
+  <name>rainfall_extent_3-day_EGY</name>
+  <description>rainfall_extent_3-day_EGY</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2021-03-01 16:19:22.895 UTC</dateCreated>
+  <dateModified>2021-03-05 10:00:27.921 UTC</dateModified>
+  <url>file:workspaces/ibf-system/ibf-pipeline/output/0/rainfall_extents/rain_rp_3-day_EGY.tif</url>
+</coverageStore>
