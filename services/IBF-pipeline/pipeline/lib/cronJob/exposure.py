@@ -77,6 +77,9 @@ class Exposure:
                         if SETTINGS[self.country_code]['model'] == 'glofas':
                             if self.checkIfTriggeredArea(df_triggers,df_district_mapping,str(area['properties'][self.PCODE_COLNAME])) == 0:
                                 statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties'][self.PCODE_COLNAME])}
+                        if self.country_code == 'EGY':
+                            if 'EG' not in str(area['properties'][self.PCODE_COLNAME]):
+                                statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties'][self.PCODE_COLNAME])}
                     except (ValueError, rasterio.errors.RasterioIOError):
                             # If there is no flood in the district set  the stats to 0
                         statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties'][self.PCODE_COLNAME])}
