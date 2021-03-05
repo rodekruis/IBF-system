@@ -36,8 +36,7 @@ SETTINGS = {
                 "source": "population/hrsl_zmb_pop_resized_100",
                 "rasterValue": 1
             }
-        },
-        'dummy_trigger': False
+        }
     },
     "UGA": {
         "model": 'glofas',
@@ -56,8 +55,7 @@ SETTINGS = {
                 "source": "population/hrsl_uga_pop_resized_100",
                 "rasterValue": 1
             }
-        },
-        'dummy_trigger': False
+        }
     },
     "KEN": {
         "model": 'glofas',
@@ -75,8 +73,7 @@ SETTINGS = {
                 "source": "population/hrsl_ken_pop_resized_100",
                 "rasterValue": 1
             }
-        },
-        'dummy_trigger': False
+        }
     },
     "ETH": {
         "model": 'glofas',
@@ -94,8 +91,7 @@ SETTINGS = {
                 "source": "population/worldpop_eth",
                 "rasterValue": 1
             }
-        },
-        'dummy_trigger': True
+        }
     },
     "EGY": {
         "model": 'rainfall',
@@ -116,8 +112,7 @@ SETTINGS = {
                 "source": "population/hrsl_egy_pop_resized_100",
                 "rasterValue": 1
             }
-        },
-        'dummy_trigger': True
+        }
     }
 }
 

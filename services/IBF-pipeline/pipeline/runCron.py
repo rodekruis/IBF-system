@@ -8,6 +8,7 @@ import datetime
 from settings import *
 from secrets import *
 
+
 def main():
     logger.info("Started Cron")
     startTime = time.time()
@@ -16,14 +17,17 @@ def main():
     try:
         storeHistoric()
         for COUNTRY_CODE in COUNTRY_CODES:
-            print('--------STARTING: ' + COUNTRY_CODE + '--------------------------')
+            print('--------STARTING: ' + COUNTRY_CODE +
+                  '--------------------------')
 
             COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
             LEAD_TIMES = COUNTRY_SETTINGS['lead_times']
 
             for fcStep, days in LEAD_TIMES.items():
-                print('--------STARTING: ' + fcStep + '--------------------------')
-                fc = Forecast(fcStep, days, COUNTRY_CODE, COUNTRY_SETTINGS['model'])
+                print('--------STARTING: ' + fcStep +
+                      '--------------------------')
+                fc = Forecast(fcStep, days, COUNTRY_CODE,
+                              COUNTRY_SETTINGS['model'])
                 if COUNTRY_SETTINGS['model'] == 'rainfall':
                     fc.rainfallData.process()
                 if COUNTRY_SETTINGS['model'] == 'glofas':
@@ -32,7 +36,7 @@ def main():
                 fc.floodExtent.callAllExposure()
                 fc.db.upload()
             fc.db.processDynamicDataDb()
-            if COUNTRY_SETTINGS['model'] == 'glofas':
+            if COUNTRY_SETTINGS['model'] == 'glofas' and SETTINGS_SECRET[COUNTRY_CODE]["notify_email"]:
                 notify(COUNTRY_CODE)
 
     except Exception as e:
