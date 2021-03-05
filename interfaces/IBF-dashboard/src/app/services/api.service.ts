@@ -169,8 +169,15 @@ export class ApiService {
     return this.get(`triggered-areas/${countryCodeISO3}`, false).toPromise();
   }
 
-  getMetadata(countryCodeISO3: string) {
-    return this.get(`indicators/${countryCodeISO3}`, false).toPromise();
+  getIndicators(countryCodeISO3: string) {
+    return this.get(
+      `metadata/indicators/${countryCodeISO3}`,
+      false,
+    ).toPromise();
+  }
+
+  getLayers(countryCodeISO3: string) {
+    return this.get(`metadata/layers/${countryCodeISO3}`, false).toPromise();
   }
 
   getAreasOfFocus() {

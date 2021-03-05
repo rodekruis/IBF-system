@@ -15,6 +15,7 @@ import {
   IbfLayer,
   IbfLayerGroup,
   IbfLayerLabel,
+  IbfLayerMetadata,
   IbfLayerName,
   IbfLayerType,
   IbfLayerWMS,
@@ -67,10 +68,7 @@ export class MapService {
     this.mockScenarioService
       .getMockScenarioSubscription()
       .subscribe((mockScenario: MockScenario) => {
-        this.loadAdminRegionLayer();
-        this.loadStationLayer();
-        this.loadRedCrossBranchesLayer();
-        this.loadWaterpointsLayer();
+        this.loadCountryLayers();
       });
 
     this.translateService
@@ -91,6 +89,47 @@ export class MapService {
     return popoverText;
   }
 
+  public async loadCountryLayers() {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country): void => {
+        if (country) {
+          this.apiService
+            .getLayers(country.countryCodeISO3)
+            .then((response) => {
+              const layers = response;
+              layers.forEach((layer: IbfLayerMetadata) => {
+                if (layer.type === IbfLayerType.wms) {
+                  this.loadWmsLayer(
+                    layer.name,
+                    layer.label,
+                    layer.active === 'if-trigger'
+                      ? this.eventService.state.activeTrigger
+                      : layer.active === 'no'
+                      ? false
+                      : true,
+                    layer.leadTimeDependent
+                      ? this.timelineService.activeLeadTime
+                      : null,
+                    layer.legendColor,
+                  );
+                } else if (layer.name === IbfLayerName.adminRegions) {
+                  this.loadAdminRegionLayer();
+                } else if (layer.name === IbfLayerName.glofasStations) {
+                  this.loadStationLayer();
+                } else if (layer.name === IbfLayerName.redCrossBranches) {
+                  this.loadRedCrossBranchesLayer(layer.label);
+                } else if (layer.name === IbfLayerName.redCrescentBranches) {
+                  this.loadRedCrossBranchesLayer(layer.label);
+                } else if (layer.name === IbfLayerName.waterpoints) {
+                  this.loadWaterpointsLayer();
+                }
+              });
+            });
+        }
+      });
+  }
+
   public async loadStationLayer() {
     this.addLayer({
       name: IbfLayerName.glofasStations,
@@ -105,10 +144,10 @@ export class MapService {
     });
   }
 
-  public async loadRedCrossBranchesLayer() {
+  public async loadRedCrossBranchesLayer(label: IbfLayerLabel) {
     this.addLayer({
       name: IbfLayerName.redCrossBranches,
-      label: IbfLayerLabel.redCrossBranches,
+      label: label,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.redCrossBranches),
       active: false,
@@ -237,46 +276,6 @@ export class MapService {
           });
         }
       });
-  }
-
-  public async loadFloodExtentLayer() {
-    this.loadWmsLayer(
-      IbfLayerName.floodExtent,
-      IbfLayerLabel.floodExtent,
-      this.eventService.state.activeTrigger,
-      this.timelineService.activeLeadTime,
-      '#d7301f',
-    );
-  }
-
-  public async loadPopulationGridLayer() {
-    this.loadWmsLayer(
-      IbfLayerName.population,
-      IbfLayerLabel.population,
-      false,
-      null,
-      '#737373',
-    );
-  }
-
-  public async loadCroplandLayer() {
-    this.loadWmsLayer(
-      IbfLayerName.cropland,
-      IbfLayerLabel.cropland,
-      false,
-      null,
-      '#DCF064',
-    );
-  }
-
-  public async loadGrasslandLayer() {
-    this.loadWmsLayer(
-      IbfLayerName.grassland,
-      IbfLayerLabel.grassland,
-      false,
-      null,
-      '#be9600',
-    );
   }
 
   private addLayer(layer: IbfLayer) {
@@ -503,6 +502,16 @@ export class MapService {
     if (trigger && !districtTrigger) {
       fillOpacity = 0.0;
     }
+
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        if (country) {
+          if (country.countryCodeISO3 === 'EGY' && !placeCode.includes('EG')) {
+            fillOpacity = 0.0;
+          }
+        }
+      });
 
     this.placeCodeService
       .getPlaceCodeSubscription()
