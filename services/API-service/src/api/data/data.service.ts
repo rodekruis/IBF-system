@@ -31,19 +31,18 @@ export class DataService {
     placeCodes = (await this.getTriggeredAreas(countryCodeISO3)).map(
       (triggeredArea): string => "'" + triggeredArea.placeCode + "'",
     );
-    const query = (
-      'select * \
-    from "IBF-API"."Admin_area_data' +
+    const query =
+      `select *
+    from "IBF-API"."Admin_area_data` +
       adminLevel +
-      '" \
-    where 0 = 0 \
-    and lead_time = $1 \
-    and country_code = $2'
-    ).concat(
-      placeCodes.length > 0
-        ? ' and pcode in (' + placeCodes.toString() + ')'
-        : '',
-    );
+      `"
+    where 0 = 0
+    and lead_time = $1
+    and country_code = $2`.concat(
+        placeCodes.length > 0
+          ? ' and pcode in (' + placeCodes.toString() + ')'
+          : '',
+      );
     const rawResult: AdminAreaDataRecord[] = await this.manager.query(query, [
       leadTime,
       countryCodeISO3,
