@@ -89,11 +89,17 @@ class Exposure:
         return stats    
 
     def checkIfTriggeredArea(self, df_triggers, df_district_mapping, pcode):
-        station_code = df_district_mapping[df_district_mapping['pcode'] == pcode]['station_code_7day'][0]
+        df_station_code = df_district_mapping[df_district_mapping['pcode'] == pcode]
+        if df_station_code.empty:
+            return 0
+        station_code = df_station_code['station_code_7day'][0]
         if station_code == 'no_station':
             return 0
-
-        return df_triggers[df_triggers['station_code'] == station_code]['fc_trigger'][0]
+        df_trigger = df_triggers[df_triggers['station_code'] == station_code]
+        if df_trigger.empty:
+            return 0
+        trigger = df_trigger['fc_trigger'][0]
+        return trigger
 
     def calculateRasterStats(self, indicator, district, outFileAffected):
         raster = rasterio.open(outFileAffected)   
