@@ -1,5 +1,5 @@
 <coverage>
-  <id>CoverageInfoImpl--62f77a62:1762deea0b3:-7ff4</id>
+  <id>CoverageInfoImpl--2b88a80e:17802070c75:-7e3a</id>
   <name>flood_extent_7-day_KEN</name>
   <nativeName>flood_extent_7-day_KEN</nativeName>
   <namespace>
@@ -8,7 +8,7 @@
   <title>flood_extent_7-day_KEN</title>
   <description>Generated from GeoTIFF</description>
   <keywords>
-    <string>flood_extent_long_KEN</string>
+    <string>flood_extent_7-day_KEN</string>
     <string>WCS</string>
     <string>GeoTIFF</string>
   </keywords>
@@ -24,15 +24,15 @@
   <srs>EPSG:4326</srs>
   <nativeBoundingBox>
     <minx>33.916676667</minx>
-    <maxx>41.908343333332986</maxx>
-    <miny>-4.6665709362619845</miny>
+    <maxx>41.90084256171409</maxx>
+    <miny>-4.142403780333333</miny>
     <maxy>5.408429553</maxy>
     <crs>EPSG:4326</crs>
   </nativeBoundingBox>
   <latLonBoundingBox>
     <minx>33.916676667</minx>
-    <maxx>41.908343333332986</maxx>
-    <miny>-4.6665709362619845</miny>
+    <maxx>41.90084256171409</maxx>
+    <miny>-4.142403780333333</miny>
     <maxy>5.408429553</maxy>
     <crs>EPSG:4326</crs>
   </latLonBoundingBox>
@@ -46,10 +46,10 @@
       </directDownloadSettings>
     </entry>
     <entry key="cachingEnabled">false</entry>
-    <entry key="dirName">flood_extent_7-day_KEN_flood_extent_long_KEN</entry>
+    <entry key="dirName">flood_extent_7-day_KEN_flood_extent_7-day_KEN</entry>
   </metadata>
   <store class="coverageStore">
-    <id>CoverageStoreInfoImpl--62f77a62:1762deea0b3:-7ff6</id>
+    <id>CoverageStoreInfoImpl--2b88a80e:17802070c75:-7e3b</id>
   </store>
   <serviceConfiguration>false</serviceConfiguration>
   <simpleConversionEnabled>false</simpleConversionEnabled>
@@ -57,15 +57,15 @@
   <grid dimension="2">
     <range>
       <low>0 0</low>
-      <high>959 1209</high>
+      <high>9581 11461</high>
     </range>
     <transform>
-      <scaleX>0.008333333332985391</scaleX>
-      <scaleY>-0.00833333373801653</scaleY>
+      <scaleX>8.333332527621432E-4</scaleX>
+      <scaleY>-8.333333333333333E-4</scaleY>
       <shearX>0.0</shearX>
       <shearY>0.0</shearY>
-      <translateX>33.92084333366649</translateX>
-      <translateY>5.404262886130992</translateY>
+      <translateX>33.917093333626376</translateX>
+      <translateY>5.408012886333334</translateY>
     </transform>
     <crs>EPSG:4326</crs>
   </grid>
@@ -118,5 +118,5 @@
       <boolean>true</boolean>
     </entry>
   </parameters>
-  <nativeCoverageName>flood_extent_long_KEN</nativeCoverageName>
+  <nativeCoverageName>flood_extent_7-day_KEN</nativeCoverageName>
 </coverage>

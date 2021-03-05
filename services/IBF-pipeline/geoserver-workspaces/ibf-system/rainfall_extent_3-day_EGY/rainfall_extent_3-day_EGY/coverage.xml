@@ -1,5 +1,5 @@
 <coverage>
-  <id>CoverageInfoImpl--6b43d756:177ee816d38:-7fdf</id>
+  <id>CoverageInfoImpl--2b88a80e:17802070c75:-7ef7</id>
   <name>rainfall_extent_3-day_EGY</name>
   <nativeName>rainfall_extent_3-day_EGY</nativeName>
   <namespace>
@@ -8,7 +8,7 @@
   <title>rainfall_extent_3-day_EGY</title>
   <description>Generated from GeoTIFF</description>
   <keywords>
-    <string>rain_rp_short_EGY</string>
+    <string>rain_rp_3-day_EGY</string>
     <string>WCS</string>
     <string>GeoTIFF</string>
   </keywords>
@@ -46,10 +46,10 @@
       </directDownloadSettings>
     </entry>
     <entry key="cachingEnabled">false</entry>
-    <entry key="dirName">rainfall_extent_short_EGY_rain_rp_short_EGY</entry>
+    <entry key="dirName">rainfall_extent_3-day_EGY_rain_rp_3-day_EGY</entry>
   </metadata>
   <store class="coverageStore">
-    <id>CoverageStoreInfoImpl--6b43d756:177ee816d38:-7fe0</id>
+    <id>CoverageStoreInfoImpl--2b88a80e:17802070c75:-7ef8</id>
   </store>
   <serviceConfiguration>false</serviceConfiguration>
   <simpleConversionEnabled>false</simpleConversionEnabled>
@@ -103,10 +103,6 @@
   </responseSRS>
   <parameters>
     <entry>
-      <string>RescalePixels</string>
-      <boolean>true</boolean>
-    </entry>
-    <entry>
       <string>InputTransparentColor</string>
       <null/>
     </entry>
@@ -114,6 +110,10 @@
       <string>SUGGESTED_TILE_SIZE</string>
       <string>512,512</string>
     </entry>
+    <entry>
+      <string>RescalePixels</string>
+      <boolean>true</boolean>
+    </entry>
   </parameters>
-  <nativeCoverageName>rain_rp_short_EGY</nativeCoverageName>
+  <nativeCoverageName>rain_rp_3-day_EGY</nativeCoverageName>
 </coverage>
