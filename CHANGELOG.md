@@ -12,7 +12,11 @@ and this project adheres to
 
 ## [Unreleased](https://github.com/rodekruis/IBF-system/compare/0.1.0...master)
 
-## [0.29.0](https://github.com/rodekruis/IBF-system/releases/tag/0.1.0) - 2020-11-12
+## [0.30.0](https://github.com/rodekruis/IBF-system/releases/tag/0.30.0) - 2020-03-05
+
+- 2021-03-05: Added SETTINGS_SECRET to secrets.py
+
+## [0.29.0](https://github.com/rodekruis/IBF-system/releases/tag/0.29.0) - 2020-03-05
 
 ### Added
 
