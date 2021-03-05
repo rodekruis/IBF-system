@@ -15,6 +15,7 @@ import {
   IbfLayer,
   IbfLayerGroup,
   IbfLayerLabel,
+  IbfLayerMetadata,
   IbfLayerName,
   IbfLayerType,
   IbfLayerWMS,
@@ -97,7 +98,7 @@ export class MapService {
             .getLayers(country.countryCodeISO3)
             .then((response) => {
               const layers = response;
-              layers.forEach((layer: any) => {
+              layers.forEach((layer: IbfLayerMetadata) => {
                 if (layer.type === IbfLayerType.wms) {
                   this.loadWmsLayer(
                     layer.name,

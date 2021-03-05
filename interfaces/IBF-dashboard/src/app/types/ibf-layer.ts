@@ -8,6 +8,15 @@ import {
 } from 'leaflet';
 import { NumberFormat } from './indicator-group';
 
+export class IbfLayerMetadata {
+  name: IbfLayerName;
+  label: IbfLayerLabel;
+  type: IbfLayerType;
+  active: string;
+  legendColor: string;
+  leadTimeDependent: boolean;
+}
+
 export class IbfLayer {
   type: IbfLayerType;
   name: IbfLayerName;
