@@ -27,10 +27,16 @@ export class DataService {
     adminLevel: number,
     leadTime: string,
   ): Promise<GeoJson> {
+    const trigger = (await this.getTriggerPerLeadtime(countryCodeISO3))[
+      leadTime.substr(0, 1)
+    ];
     let placeCodes;
-    placeCodes = (await this.getTriggeredAreas(countryCodeISO3)).map(
-      (triggeredArea): string => "'" + triggeredArea.placeCode + "'",
-    );
+    if (parseInt(trigger) === 1) {
+      placeCodes = (await this.getTriggeredAreas(countryCodeISO3)).map(
+        (triggeredArea): string => "'" + triggeredArea.placeCode + "'",
+      );
+    }
+
     const query =
       `select *
     from "IBF-API"."Admin_area_data` +
@@ -39,7 +45,7 @@ export class DataService {
     where 0 = 0
     and lead_time = $1
     and country_code = $2`.concat(
-        placeCodes.length > 0
+        placeCodes && placeCodes.length > 0
           ? ' and pcode in (' + placeCodes.toString() + ')'
           : '',
       );
