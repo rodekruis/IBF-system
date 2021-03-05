@@ -27,7 +27,7 @@ class FloodExtent:
             self.outputPathMerge = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ fcStep + '_' + country_code + '.tif'
         self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + fcStep + '_' + country_code + '.json'
         self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
-        self.DISTRICT_MAPPING = district_mapping
+        self.district_mapping = district_mapping
         self.district_cols = district_cols
         self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
         self.PCODE_COLNAME = SETTINGS[country_code]['admin_boundaries']['pcode_colname']
@@ -106,7 +106,7 @@ class FloodExtent:
     def loadGlofasData(self):
 
         #Load assigned station per district
-        df_district_mapping = DataFrame(self.DISTRICT_MAPPING)
+        df_district_mapping = DataFrame(self.district_mapping)
         df_district_mapping.columns = self.district_cols
 
         #Load (static) threshold values per station
@@ -158,7 +158,7 @@ class FloodExtent:
             print('indicator: ', indicator)
 
 
-            exposure = Exposure(indicator, values['source'], values['rasterValue'], self.fcStep, self.country_code)
+            exposure = Exposure(indicator, values['source'], values['rasterValue'], self.fcStep, self.country_code, self.district_mapping, self.district_cols)
             exposure.calcAffected(self.outputPathMerge)
 
             for item in exposure.stats:
