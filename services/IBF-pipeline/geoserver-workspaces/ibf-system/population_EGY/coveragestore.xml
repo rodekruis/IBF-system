@@ -1,5 +1,5 @@
 <coverageStore>
-  <id>CoverageStoreInfoImpl-b6c01c7:177ed6ef1a3:-7c41</id>
+  <id>CoverageStoreInfoImpl--2b88a80e:17802070c75:-7d7d</id>
   <name>population_EGY</name>
   <description>population_EGY</description>
   <type>GeoTIFF</type>
@@ -8,6 +8,6 @@
     <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
   </workspace>
   <__default>false</__default>
-  <dateCreated>2021-03-01 13:09:33.868 UTC</dateCreated>
-  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/population_egy_2018-10-01.tif</url>
+  <dateCreated>2021-03-05 12:32:54.953 UTC</dateCreated>
+  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/hrsl_egy_pop_resized_100.tif</url>
 </coverageStore>
