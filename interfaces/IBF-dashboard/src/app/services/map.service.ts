@@ -118,7 +118,9 @@ export class MapService {
                 } else if (layer.name === IbfLayerName.glofasStations) {
                   this.loadStationLayer();
                 } else if (layer.name === IbfLayerName.redCrossBranches) {
-                  this.loadRedCrossBranchesLayer();
+                  this.loadRedCrossBranchesLayer(layer.label);
+                } else if (layer.name === IbfLayerName.redCrescentBranches) {
+                  this.loadRedCrossBranchesLayer(layer.label);
                 } else if (layer.name === IbfLayerName.waterpoints) {
                   this.loadWaterpointsLayer();
                 }
@@ -142,10 +144,10 @@ export class MapService {
     });
   }
 
-  public async loadRedCrossBranchesLayer() {
+  public async loadRedCrossBranchesLayer(label: IbfLayerLabel) {
     this.addLayer({
       name: IbfLayerName.redCrossBranches,
-      label: IbfLayerLabel.redCrossBranches,
+      label: label,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.redCrossBranches),
       active: false,

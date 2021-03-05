@@ -62,7 +62,7 @@
   },
   {
     "country_codes": "EGY",
-    "name": "red_cross_branches",
+    "name": "red_crescent_branches",
     "label": "Red Crescent branches",
     "type": "point",
     "leadTimeDependent": false,
