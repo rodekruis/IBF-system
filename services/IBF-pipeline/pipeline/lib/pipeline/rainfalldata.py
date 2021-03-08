@@ -23,13 +23,13 @@ from secrets import SETTINGS_SECRET
 
 class RainfallData:
 
-    def __init__(self, fcStep, days, country_code, rainfall_triggers, rainfall_cols):
-        self.fcStep = fcStep
-        self.days = days
+    def __init__(self, leadTimeLabel, leadTimeValue, country_code, rainfall_triggers, rainfall_cols):
+        self.leadTimeLabel = leadTimeLabel
+        self.leadTimeValue = leadTimeValue
         self.country_code = country_code
         self.inputPath = PIPELINE_DATA + 'input/rainfall/'
         self.rainrasterPath = GEOSERVER_OUTPUT + \
-            '0/rainfall_extents/rain_rp_' + fcStep + '_' + country_code + '.tif'
+            '0/rainfall_extents/rain_rp_' + leadTimeLabel + '_' + country_code + '.tif'
         self.rainfall_triggers = rainfall_triggers
         self.rainfall_cols = rainfall_cols
         self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
@@ -184,7 +184,7 @@ class RainfallData:
                 continue
 
     def findTrigger(self):
-        logging.info("Started processing glofas data: " + self.fcStep)
+        logging.info("Started processing glofas data: " + self.leadTimeLabel)
 
         # Load (static) threshold values per station
         df_thresholds = DataFrame(self.rainfall_triggers)
@@ -246,7 +246,7 @@ class RainfallData:
         # for leadtime in np.unique(df_thresholds.forecast_time.values):
 
         # threshold (1 degree)
-        df_leadtime = df_thresholds[df_thresholds.forecast_time == self.days]
+        df_leadtime = df_thresholds[df_thresholds.forecast_time == self.leadTimeValue]
         geometry = [Point(xy) for xy in zip(
             df_leadtime.lon.astype(float), df_leadtime.lat.astype(float))]
         threshold_gdf = gpd.GeoDataFrame(
@@ -254,7 +254,7 @@ class RainfallData:
 
         # forecast (.5 degree)
         fc_by_day = mean_by_day.sel(
-            fc_day=mean_by_day.fc_day.values[self.days]).to_dataframe().reset_index()
+            fc_day=mean_by_day.fc_day.values[self.leadTimeValue]).to_dataframe().reset_index()
         geometry = [Point(xy) for xy in zip(
             fc_by_day.longitude.astype(float), fc_by_day.latitude.astype(float))]
         fc_gdf = gpd.GeoDataFrame(
@@ -272,19 +272,19 @@ class RainfallData:
                      (compare_gdf['longitude'][unknown], compare_gdf['latitude'][unknown]))
         compare_gdf[self.TRIGGER_RP_COLNAME][unknown] = z.tolist()
 
-        compare_gdf[str(str(self.fcStep) + '_pred')] = np.where(
+        compare_gdf[str(str(self.leadTimeLabel) + '_pred')] = np.where(
             (compare_gdf['mean_by_day'] > compare_gdf[self.TRIGGER_RP_COLNAME]), 1, 0)
         compare_gdf['fc_day'] = compare_gdf['fc_day'].astype(str)
         df_trigger = compare_gdf.filter(
-            ['latitude', 'longitude', 'geometry', str(str(self.fcStep) + '_pred')])
+            ['latitude', 'longitude', 'geometry', str(str(self.leadTimeLabel) + '_pred')])
 
         # out = df_trigger.to_json()
-        # output_name = '%s_%sday_'%(runcycle_day, self.fcStep) +self.TRIGGER_RP_COLNAME
+        # output_name = '%s_%sday_'%(runcycle_day, self.leadTimeLabel) +self.TRIGGER_RP_COLNAME
         # with open(self.triggersPerStationPath, 'w') as fp:
         #     fp.write(out)
 
         cube = make_geocube(vector_data=df_trigger, measurements=[str(str(
-            self.fcStep)+'_pred')], resolution=(-0.5, 0.5), align=(0.25, 0.25), output_crs="EPSG:4326")
+            self.leadTimeLabel)+'_pred')], resolution=(-0.5, 0.5), align=(0.25, 0.25), output_crs="EPSG:4326")
         cube.rio.to_raster(self.rainrasterPath)
 
         print('Processed Glofas data - File saved')

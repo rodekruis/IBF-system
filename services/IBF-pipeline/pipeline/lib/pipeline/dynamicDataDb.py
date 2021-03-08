@@ -13,9 +13,9 @@ class DatabaseManager:
 
     """ Class to upload and process data in the database """
 
-    def __init__(self, fcStep, country_code):
+    def __init__(self, leadTimeLabel, country_code):
         self.country_code = country_code
-        self.fcStep = fcStep
+        self.leadTimeLabel = leadTimeLabel
         # Create connections (in 2 different ways for now)
         self.engine = create_engine(
             'postgresql://'+DB_SETTINGS['user']+':'+DB_SETTINGS['password']+'@'+DB_SETTINGS['host']+':'+DB_SETTINGS['port']+'/'+DB_SETTINGS['db'])
@@ -25,11 +25,11 @@ class DatabaseManager:
         self.tableJson = {}
         if SETTINGS[country_code]['model'] == 'glofas':
             self.tableJson["triggers_rp_per_station"] = triggerFolder + \
-                'triggers_rp_' + fcStep + '_' + country_code + ".json"
+                'triggers_rp_' + leadTimeLabel + '_' + country_code + ".json"
             self.tableJson["triggers_per_day"] = triggerFolder + \
                 'trigger_per_day_' + country_code + ".json"
         self.tableJson["calculated_affected"] = affectedFolder + \
-            'affected_' + fcStep + '_' + country_code + ".json"
+            'affected_' + leadTimeLabel + '_' + country_code + ".json"
 
     def upload(self):
         for table, jsonData in self.tableJson.items():
@@ -43,7 +43,7 @@ class DatabaseManager:
         df['date'] = CURRENT_DATE
         df['country_code'] = self.country_code
         if table != "triggers_per_day":
-            df['lead_time'] = self.fcStep
+            df['lead_time'] = self.leadTimeLabel
 
         # Delete existing entries with same date, lead_time and country_code
         try:
@@ -51,7 +51,7 @@ class DatabaseManager:
             sql = "DELETE FROM \""+SCHEMA_NAME+"\"."+table+" WHERE date=\'" + \
                 current_date+"\' AND country_code=\'"+self.country_code+"\'"
             if table != "triggers_per_day":
-                sql = sql + " AND lead_time=\'"+self.fcStep+"\'"
+                sql = sql + " AND lead_time=\'"+self.leadTimeLabel+"\'"
             self.cur.execute(sql)
             self.con.commit()
             self.con.close()
@@ -64,14 +64,14 @@ class DatabaseManager:
 
     def processDynamicDataDb(self):
         sql_file = open(
-            'lib/cronJob/processDynamicDataPostgresTrigger.sql', 'r', encoding='utf-8')
+            'lib/pipeline/processDynamicDataPostgresTrigger.sql', 'r', encoding='utf-8')
         sql_trigger = sql_file.read()
         sql_file.close()
         sql_file = open(
-            'lib/cronJob/processDynamicDataPostgresExposure.sql', 'r', encoding='utf-8')
+            'lib/pipeline/processDynamicDataPostgresExposure.sql', 'r', encoding='utf-8')
         sql_exposure = sql_file.read()
         sql_file.close()
-        sql_file = open('lib/cronJob/processEventDistricts.sql',
+        sql_file = open('lib/pipeline/processEventDistricts.sql',
                         'r', encoding='utf-8')
         sql_event_districts = sql_file.read()
         sql_file.close()

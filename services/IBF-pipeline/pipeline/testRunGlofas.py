@@ -1,7 +1,7 @@
-from lib.cronJob.extractGlofasData import extractGlofasData
-from lib.cronJob.processGlofasData import processGlofasData
-from lib.cronJob.makeFloodExtent import makeFloodExtent
-from lib.cronJob.dynamicDataDb import uploadDynamicToDb, processDynamicDataDb
+from lib.pipeline.extractGlofasData import extractGlofasData
+from lib.pipeline.processGlofasData import processGlofasData
+from lib.pipeline.makeFloodExtent import makeFloodExtent
+from lib.pipeline.dynamicDataDb import uploadDynamicToDb, processDynamicDataDb
 from lib.logging.logglySetup import logger
 
 def main():
