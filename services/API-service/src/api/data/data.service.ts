@@ -130,7 +130,7 @@ export class DataService {
       .readFileSync('./src/api/data/sql/get-triggered-areas.sql')
       .toString();
 
-    const result = await this.manager.query(query, [countryCode, countryCode]);
+    const result = await this.manager.query(query, [countryCode]);
     return result;
   }
 
