@@ -1,3 +1,12 @@
+# [0.32.0](https://github.com/rodekruis/IBF-system/compare/v0.31.0...v0.32.0) (2021-03-08)
+
+
+### Features
+
+* seed adm dynamically AB[#6517](https://github.com/rodekruis/IBF-system/issues/6517) ([58e2b19](https://github.com/rodekruis/IBF-system/commit/58e2b19fc09819e80fe287d2f0b95143695ff865))
+
+
+
 # [0.31.0](https://github.com/rodekruis/IBF-system/compare/v0.28.0...v0.31.0) (2021-03-08)
 
 
@@ -103,15 +112,6 @@
 ### Bug Fixes
 
 * test pr to test lighthouse ci ([d15c461](https://github.com/rodekruis/IBF-system/commit/d15c4615ac70bfb68f31bba58f47fdf07c307476))
-
-
-
-## [0.27.2](https://github.com/rodekruis/IBF-system/compare/v0.27.1...v0.27.2) (2021-03-03)
-
-
-### Bug Fixes
-
-* enable generic lead-times in datamodel AB[#6292](https://github.com/rodekruis/IBF-system/issues/6292) ([cb87e24](https://github.com/rodekruis/IBF-system/commit/cb87e241f2a1955028942283b99d9d742ae772f9))
 
 
 
