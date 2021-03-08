@@ -1,4 +1,4 @@
-from lib.cronJob.forecast import Forecast
+from lib.pipeline.forecast import Forecast
 from lib.notifications.notify import notify
 from lib.logging.logglySetup import logger
 import traceback
@@ -21,20 +21,20 @@ def main():
             COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
             LEAD_TIMES = COUNTRY_SETTINGS['lead_times']
 
-            for fcStep, days in LEAD_TIMES.items():
-                print('--------STARTING: ' + fcStep +
+            for leadTimeLabel, leadTimeValue in LEAD_TIMES.items():
+                print('--------STARTING: ' + leadTimeLabel +
                       '--------------------------')
-                fc = Forecast(fcStep, days, COUNTRY_CODE,
+                fc = Forecast(leadTimeLabel, leadTimeValue, COUNTRY_CODE,
                               COUNTRY_SETTINGS['model'])
                 if COUNTRY_SETTINGS['model'] == 'rainfall':
                     fc.rainfallData.process()
                 if COUNTRY_SETTINGS['model'] == 'glofas':
                     fc.glofasData.process()
                     fc.floodExtent.calculate()
-                fc.floodExtent.callAllExposure()
+                fc.exposure.callAllExposure()
                 fc.db.upload()
             fc.db.processDynamicDataDb()
-            if COUNTRY_SETTINGS['model'] == 'glofas' and SETTINGS_SECRET[COUNTRY_CODE]["notify_email"]:
+            if COUNTRY_SETTINGS['model'] == 'glofas':
                 notify(COUNTRY_CODE)
 
     except Exception as e:

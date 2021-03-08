@@ -10,7 +10,7 @@ from datetime import date, timedelta
 
 # Change this date only in case of specific testing purposes
 CURRENT_DATE = date.today()
-# CURRENT_DATE=date.today() - timedelta(days=1)
+# CURRENT_DATE=date.today() - timedelta(leadTimeValue=1)
 
 
 ######################
@@ -161,10 +161,9 @@ GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 ####################
 
 # Notification email
-EMAIL_NOTIFICATION = os.getenv('EMAIL_NOTIFICATION') == 'True'
 EMAIL_WITHOUT_TRIGGER = False
 
-# Notification email (False if hard-coded alternative for mailchimp is used)
+# Notification email (True if hard-coded alternative for mailchimp is used)
 EMAIL_HARDCODE = True
 EMAIL_LIST_HARDCODE = [
     'jannisvisser@redcross.nl'
