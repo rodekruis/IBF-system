@@ -27,7 +27,7 @@ import { quantile } from 'src/shared/utils';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { MockScenario } from '../mocks/mock-scenario.enum';
 import { Country } from '../models/country.model';
-import { LayerActivation } from './../models/layer-activation.enum';
+import { LayerActivation } from '../models/layer-activation.enum';
 
 @Injectable({
   providedIn: 'root',
