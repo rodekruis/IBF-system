@@ -1,33 +1,25 @@
-
-  select
-    *
-  from
-    (
-    select
+select
       e."placeCode",
-      coalesce(a2.name, a1.name) as name,
-      coalesce(a2.population_affected, a1.population_affected) as "populationAffected",
+      a.name,
+      a.population_affected as "populationAffected",
       e."eventPlaceCodeId"
     from
       "IBF-pipeline-output".event_place_code e
-    left join "IBF-API"."Admin_area_data2" a2 on
-      a2.pcode = e."placeCode"
-      and a2.country_code = $1
-      and a2.name is not null
-    left join "IBF-API"."Admin_area_data1" a1 on
-      a1.pcode = e."placeCode"
-      and a1.name is not null
-      and a1.country_code = $2
+    inner join (
+    	select name,pcode,max(population_affected) as population_affected
+    	from (
+	    	select country_code,name,pcode,population_affected
+	    	from "IBF-API"."Admin_area_data2"
+	    	union all
+	    	select country_code,name,pcode,population_affected
+	    	from "IBF-API"."Admin_area_data2"
+    	) sub
+    	where country_code = $1
+      	and population_affected > 0
+    	group by name,pcode
+    ) a
+    	on e."placeCode" = a.pcode   
     where
       closed = false
-    group by
-      e."placeCode",
-      a2.population_affected,
-      a1.population_affected,
-      a2.name,
-      a1.name,
-      e."eventPlaceCodeId"
     order by
-      "populationAffected" desc ) as ec
-  where
-    name is not null
+      "populationAffected" desc 
