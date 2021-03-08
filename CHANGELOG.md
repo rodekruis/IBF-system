@@ -1,3 +1,13 @@
+## [0.33.2](https://github.com/rodekruis/IBF-system/compare/v0.33.1...v0.33.2) (2021-03-08)
+
+
+### Bug Fixes
+
+* get triggered areas  AB[#6539](https://github.com/rodekruis/IBF-system/issues/6539) ([caedc83](https://github.com/rodekruis/IBF-system/commit/caedc8327ce5c5b156cb8b3ed2d5705d876c7b96))
+* review add enum for layer acrivation AB[#6539](https://github.com/rodekruis/IBF-system/issues/6539) ([e5e0ac5](https://github.com/rodekruis/IBF-system/commit/e5e0ac54310108458a2265d783c7f2ecbdf0bf52))
+
+
+
 ## [0.33.1](https://github.com/rodekruis/IBF-system/compare/v0.33.0...v0.33.1) (2021-03-08)
 
 
@@ -109,15 +119,6 @@
 ### Bug Fixes
 
 * test pr to check lighthouse ([58d1c99](https://github.com/rodekruis/IBF-system/commit/58d1c990a997ec44477c6fa5cb36d5e9be833f73))
-
-
-
-## [0.27.6](https://github.com/rodekruis/IBF-system/compare/v0.27.5...v0.27.6) (2021-03-04)
-
-
-### Bug Fixes
-
-* test pr to check lighthouse ([dae8e2f](https://github.com/rodekruis/IBF-system/commit/dae8e2fb1483caaaff761edd988e4fdb9b7604d0))
 
 
 
