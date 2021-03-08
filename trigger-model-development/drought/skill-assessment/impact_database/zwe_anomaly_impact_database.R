@@ -14,10 +14,10 @@ library(ggthemes)
 ##################################################
 ################ Load shapefiles ################
 ##################################################
-onedrive_folder <- 'C:/Users/MPanis/Rode Kruis'
+onedrive_folder <- 'C:/Users/BOttow/Rode Kruis'
 
-zwe_lzh <- st_read('C:/Users/MPanis/Rode Kruis/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_livelihoodzones/ZW_LHZ_2011/ZW_LHZ_2011.shp')
-zwe_ <- st_read('C:/Users/MPanis/Rode Kruis/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/Admin/zwe_admbnda_adm0_zimstat_ocha_20180911/zwe_admbnda_adm0_zimstat_ocha_20180911.shp')
+zwe_lzh <- st_read(sprintf('%s/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_livelihoodzones/ZW_LHZ_2011/ZW_LHZ_2011.shp', onedrive_folder))
+zwe_ <- st_read(sprintf('%s/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/Admin/zwe_admbnda_adm0_zimstat_ocha_20180911/zwe_admbnda_adm0_zimstat_ocha_20180911.shp', onedrive_folder))
 
 
 ## Crop Yield Maize Anomaly ##

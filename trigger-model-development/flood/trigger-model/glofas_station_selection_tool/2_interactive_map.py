@@ -45,7 +45,7 @@ df_percentile_thresholds = pd.DataFrame(df_glofas.set_index('date').quantile(
                                                                    ).T.reset_index(drop=True)
 
 # Read in station locations 
-df_stations = pd.read_csv('stored_data_uganda\\rp_glofas_station.csv')
+df_stations = pd.read_csv('stored_data_uganda\\rp_glofas_station_uga_new.csv')
  
 # Read in layers (grid, rivers, waterbodies, districts)
 with open("shapefiles\\grid_layers\\grid_layer_2.json", 'r') as f:
@@ -635,7 +635,7 @@ def update_graph(click_lat_lng):
                      "value")])
 def update_output(value):
     if 'stations' in value:
-        return [dl.Marker(position=[row['lat'], row['lon']], children=dl.Tooltip(row['ID'])) for i, 
+        return [dl.Marker(position=[row['lat'], row['lon']], children=dl.Tooltip(row['location'])) for i, 
                                row in stations_uganda.iterrows()]
     else:
         return None
