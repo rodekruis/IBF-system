@@ -101,16 +101,16 @@ published release. This takes a while (approx 20 mins) to update.
 ### To "stage" environment
 
 -   Make sure to verify if the environment-settings are appropriately set on the
-    stage VM before merging the PR.
+    stage VM before publishing the release.
 -   When a [release](#release-checklist) is published, it is automatically
     deployed to the staging-server.
 
 ### To "production" environment
 
--   Make sure to verify if the environment-settings are appropriately set on the
-    VM before merging the PR.
--   When a [release](#release-checklist) is published, it is automatically
-    deployed to the staging-server.
+-   Make sure to verify if the [environment variables](./example.env) are
+    appropriately set on the VM.
+-   Manually run the [deploy script](./tools/deploy.sh) with the tag which
+    should be deployed for the specific country.
 
 ## Adding a new country
 
