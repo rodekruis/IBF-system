@@ -125,5 +125,4 @@ jobs:
               with:
                   github-token: ${{ secrets.ACTIONS_TOKEN }}
                   git-message: "chore(release): {version}"
-                  output-file: "COMMITLOG.md"
                   release-count: 10
