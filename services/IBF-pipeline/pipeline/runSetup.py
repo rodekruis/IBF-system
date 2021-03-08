@@ -24,8 +24,11 @@ def main():
         if COUNTRY_SETTINGS['model'] == 'rainfall':
             uploadStaticToDb(COUNTRY_CODE + '_rainfall_trigger_levels', COUNTRY_SETTINGS['trigger_levels'])
 
-        # Only if aplicable
-        # uploadStaticToDb(COUNTRY_CODE + '_redcross_branches',COUNTRY_SETTINGS['redcross_branches'])
+        if COUNTRY_CODE = 'UGA' or COUNTRY_CODE = 'ZMB':
+            uploadStaticToDb(COUNTRY_CODE + '_redcross_branches',COUNTRY_SETTINGS['redcross_branches'])
+        
+        if COUNTRY_CODE = 'UGA':
+            uploadStaticToDb(COUNTRY_CODE + '_flood_vulnerability',COUNTRY_SETTINGS['flood_vulnerability'])
     processStaticDataDb()
     
     logger.info('Finished Setup')

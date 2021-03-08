@@ -42,6 +42,7 @@ SETTINGS = {
         "model": 'glofas',
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
         'district_mapping': 'Glofas_station_per_admin_area_UGA.csv',
+        'flood_vulnerability': 'Flood_vulnerability_EAP_UGA.csv',
         'redcross_branches': 'points/redcross_branches_UGA.csv',
         'admin_boundaries': {
             'filename': 'vector/UGA_adm2_mapshaper.shp',
