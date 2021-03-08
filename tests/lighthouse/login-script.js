@@ -26,7 +26,7 @@ module.exports = async (browser, context) => {
         await passwordInput.type(LOGIN_PASSWORD);
         await Promise.all([
             page.$eval(locators.loginButton, button => button.click()),
-            page.waitForNavigation({ waitUntil: "networkidle0" }),
+            page.waitForNavigation({ waitUntil: "networkidle0", timeout: 0 }),
         ]).catch(function (err) {
             console.log("Login Failed");
             process.exit(1);
