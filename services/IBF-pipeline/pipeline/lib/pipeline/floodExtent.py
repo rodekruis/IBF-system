@@ -6,8 +6,6 @@ import logging
 import geopandas as gpd
 import rasterio
 from rasterio.merge import merge
-
-from lib.cronJob.exposure import Exposure
 from lib.logging.logglySetup import logger
 from settings import *
 
@@ -15,32 +13,29 @@ class FloodExtent:
 
     """Class used to calculate flood extent"""
 
-    def __init__(self, fcStep, days, country_code, district_mapping = None, district_cols = None):
-        self.fcStep = fcStep
-        self.days = days
+    def __init__(self, leadTimeLabel, leadTimeValue, country_code, district_mapping, district_cols):
+        self.leadTimeLabel = leadTimeLabel
+        self.leadTimeValue = leadTimeValue
         self.country_code = country_code
         self.inputPath = GEOSERVER_INPUT + "flood_extent/"
-        self.outputPathAreas = PIPELINE_OUTPUT + 'flood_extents/'+ fcStep +'/'
+        self.outputPathAreas = PIPELINE_OUTPUT + 'flood_extents/'+ leadTimeLabel +'/'
         if SETTINGS[country_code]['model'] == 'glofas':
-            self.outputPathMerge = GEOSERVER_OUTPUT + '0/flood_extents/flood_extent_'+ fcStep + '_' + country_code + '.tif'
+            self.outputPathMerge = GEOSERVER_OUTPUT + '0/flood_extents/flood_extent_'+ leadTimeLabel + '_' + country_code + '.tif'
         elif SETTINGS[country_code]['model'] == 'rainfall':
-            self.outputPathMerge = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ fcStep + '_' + country_code + '.tif'
-        self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + fcStep + '_' + country_code + '.json'
-        self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
+            self.outputPathMerge = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ leadTimeLabel + '_' + country_code + '.tif'
         self.district_mapping = district_mapping
         self.district_cols = district_cols
         self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
         self.PCODE_COLNAME = SETTINGS[country_code]['admin_boundaries']['pcode_colname']
-        self.stats = []
 
     def calculate(self):
         admin_gdf = self.loadVectorData()
 
         df_glofas = self.loadGlofasData()
 
-        logging.info("Create flood extent for %s",  self.fcStep)
+        logging.info("Create flood extent for %s",  self.leadTimeLabel)
 
-        logging.info('\nMaking flood extent - '+ self.fcStep+'\n')
+        logging.info('\nMaking flood extent - '+ self.leadTimeLabel+'\n')
 
         #Create new subfolder for current date
         if not os.path.exists(self.outputPathAreas):
@@ -110,11 +105,11 @@ class FloodExtent:
         df_district_mapping.columns = self.district_cols
 
         #Load (static) threshold values per station
-        path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + self.country_code + '.json'
+        path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.leadTimeLabel + '_' + self.country_code + '.json'
         df_triggers = pd.read_json(path, orient='records')
         
         #Merge two datasets
-        df_glofas = pd.merge(df_district_mapping, df_triggers, left_on='station_code_'+str(self.days)+'day', right_on='station_code', how='left')
+        df_glofas = pd.merge(df_district_mapping, df_triggers, left_on='station_code_'+str(self.leadTimeValue)+'day', right_on='station_code', how='left')
 
         return df_glofas
 
@@ -149,22 +144,5 @@ class FloodExtent:
         return mosaic, out_meta
 
 
-    def callAllExposure(self):
-        logger.info('Started calculating affected of %s', self.outputPathMerge)
 
-        print(self.fcStep, " - fcStep")
-
-        for indicator, values in self.EXPOSURE_DATA_SOURCES.items():
-            print('indicator: ', indicator)
-
-
-            exposure = Exposure(indicator, values['source'], values['rasterValue'], self.fcStep, self.country_code, self.district_mapping, self.district_cols)
-            exposure.calcAffected(self.outputPathMerge)
-
-            for item in exposure.stats:
-                self.stats.append(item)
-
-        with open(self.statsPath, 'w') as fp:
-            json.dump(self.stats, fp)
-            logger.info("Saved stats for %s", self.statsPath)
             
