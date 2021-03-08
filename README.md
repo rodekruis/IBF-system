@@ -118,57 +118,52 @@ For adding a new country to the IBF-system, a lot of components are already
 generic, and thus automized. But also quit some manual steps are needed at the
 moment. This is intended to be improved in the future. The list below is
 intended to give a full overview. It is not however meant to be detailed enough
-to execute each step, without further knowledge.
+to execute each step, without further knowledge. Ask a developer who knows more.
 
-1. Prepare data (look at existing countries for exact format examples +
-   locations where to store)
-    - Flood extent raster (for at least 1 return period) + an 'empty' raster of
-      the same exten/pixel size. (.tif)
-    - Population (.tif)
-    - Grassland + cropland (.tif)
-    - Admin-area-boundary file for agreed upon admin-level (.shp)
-    - Glofas*stations_locations_with_trigger_levels*<country_code>.csv
-    - Glofas*station_per_admin_area*<country_code>.csv
-        - which (e.g.) 'districts' are triggered if station X is triggered?
-        - note: this should include all admin-areas. If not mapped to any
-          station, use 'no_station'
-    - vulnerability data to be used (.csv)
-2. Database + scripts
-    - Transfer "<country_code>\_datamodel"."Indicators_TOTAL_1" from CRA To
-      "IBF-static-input"."<country_code>\_CRA_Indicators_1" using DBeaver export
-      functionality
-    - Transfer "<country_code>\_datamodel"."Geo_level1" from CRA to
-      "IBF-static-input"."<country_code>\_Geo_level1" using DBeaver export
-      functionality
-    - add necessary piece of script to `processStaticDataPostgres.sql`
-        - dashboard_glofas_stations
-        - waterstation_per_district
-        - metadata
-    - add necessary piece of script to `IBF-database-scripts.sql` (for now this
-      allows only 1 admin-level + pretend all countries are same admin-level)
-        - CRA_Data_2
-        - Admin_area_data_2
-3. IBF-pipeline
-    - add country_code to settings.py
-    - add country-specific settings to settings.py (e.g. right links to
-      abovementioned data)
-    - Run runSetup.py (`python3 runSetup.py`) for new country only (comment out
-      other countries in settings.py)
-    - Run runCron.py (`python3 runCron.py`) to test pipeline.
-4. Api-Service
+### Adding country with disaster type *Floods*
+1. IBF-API-Service
     - Users:
         - Add user for country to src/scripts/users.json
         - Add country to admin-user
     - Country
         - Add country in src/scripts/countries.json
     - Upload through 'npm run seed' from API-service
-5. IBF-dashboard
-    - Add country + parameters to country.service.ts
-    - Test dashboard by logging in through admin-user or country-specific user
-6. Geoserver
-    - Manually create new layers in Geoserver interface (do this on server only,
-      not locally)
-        - flood*extent*<lead-time>\_<country_code> for each lead-time
+2. Data for database (look at existing countries and files for examples in terms of format)
+    - Save admin-area-boundary file (.shp) for agreed upon admin-level as geojson (with extension .json) with the right column names in `services/API-service/src/scripts/git-lfs/`
+    - Save Glofas_stations_locations_with_trigger_levels_<country_code>.csv in the same folder
+    - Save Glofas_station_per_admin_area_<country_code>.csv in the same folder
+        - which (e.g.) 'districts' are triggered if station X is triggered?
+        - note: this should include all admin-areas. If not mapped to any
+          station, use 'no_station'
+    - Potentially add extra code in seed-scripts (seed-amin-area.ts / seed-glofas-station.ts / etc.) to process new data correctly.
+    - Run seed script of IBF-API-service
+    - NOTE: we are in a migration, where we want to move new data as much as possible to this new seed-script set up. So also for other data, not mentioned here, the goal is to upload this via seed-scripts as well. Some other data that is not yet included in seed-script
+      - CRA data > transfered from "<country_code>\_datamodel"."Indicators_TOTAL_1" in CRA To
+        "IBF-static-input"."<country_code>\_CRA_Indicators_1" using DBeaver export
+        functionality
+        - add necessary piece of script to CRA_data part of `processStaticDataPostgres.sql`
+      - Flood vulnerability data to be used (.csv) > uploaded manually (through runSetup.py)
+      - Red Cross branch data (.csv) > uploaded manually (through runSetup.py)
+      - COVID risk data (.csv) > uploaded through specifically created endpoint
+3. Geodata for IBF-pipline and IBF-geoserver (look at existing countries and files for examples in terms of format)
+    - Save in `services/IBF-pipeline/pipeline/data` in the right subfolder ..
+      - Flood extent raster (for at least 1 return period) + an 'empty' raster of
+        the same exten/pixel size. (.tif)
+      - Population (.tif)
+      - Grassland + cropland (.tif)
+      - The same admin-boundary-file as described above, but saves as .shp
+    - When deploying to other environments (local/remote) this data needs to be transfered (e.g. as data.zip through WinSCP or similar)
+4. IBF-pipeline
+    - add country_code to .env (for development settings, replace by ONLY that code)
+    - add country-specific settings to settings.py (e.g. right links to
+      abovementioned data)
+      - with model = 'glofas'
+    - add country-specific settings to secrets.py
+    - add dummy-trigger-station to glofasdata.py with forecast-value that exceeds trigger-value
+    - Run runPipeline.py (`python3 runPipeline.py`) to test pipeline.
+5. Geoserver
+    - Manually create new stores+layers in [Geoserver interface of test-vm](https://ibf-test.510.global/geoserver/web)
+        - flood_extent_<lead-time>\_<country_code> for each lead-time
         - population\_<country_code>
         - grassland\_<country_code>
         - cropland\_<country_code>
@@ -177,6 +172,8 @@ to execute each step, without further knowledge.
       IBF-pipeline/geoserver-workspaces to Github
     - This will prevent you from having to do the same for another server, or if
       your content is lost somehow
+6. IBF-dashboard
+    - Test dashboard by logging in through admin-user or country-specific user
 7. Specifics/Extras
     - Whatsapp:
         - create whatsapp group
@@ -184,15 +181,15 @@ to execute each step, without further knowledge.
     - EAP-link
         - create bookmark in Google Docs at place where Trigger Model section
           starts
-        - paste link (incl bookmark) in
-          IBF-dashboard/src/app/services/country.service.ts
+        - paste link (incl bookmark) in countries seed-script
         - paste link (excl bookmark) in
           IBF-pipeline/pipeline/lib/notifications/formatInfo.py
     - Logo's
         - Get logo(s) (.png)
         - Paste in IBF-dashboard/app/assets/logos + add reference to each logo
-          in IBF-dashboard/src/app/components/logos/logos.component.ts
+          in countries seed-script
         - Paste in IBF-pipeline/pipeline/email-logo-<country_code>.png
+        - Upload logo to mailchimp + retrieve shareable link + copy this in IBF-pipeline/pipeline/lib/notifications/formatInfo.py
     - Mailchimp segment
         - Add new tag '<country_code>' to at least 1 user
         - Create new segment '<country_code>' defined as users with tag
@@ -204,6 +201,16 @@ to execute each step, without further knowledge.
           EAP-action
         - Add to API-service/seed-data/EAP-actions.json
         - run 'npm run seed' from API-service
+
+### Adding country with disaster type *Heavy rainfall*
+- Follow the 'flood' manual above as much as possible, with notable exceptions
+- Input data database
+  - Rainfall_station_locations_with_trigger_levels.csv > currently not included in seed-script yet, but manually uploaded (through runSetup.py)
+- Input dat pipeline
+  - There is no equivalent input to the flood extent raster. This is created in the pipeline.
+- Add country in IBF-pipeline settings.py with model = 'rainfall'
+- Save geoserver output as rainfall_extent_<leadTime>_<countrYCode>
+
 
 ## Glossary
 
