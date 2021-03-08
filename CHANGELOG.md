@@ -1,3 +1,12 @@
+## [0.33.1](https://github.com/rodekruis/IBF-system/compare/v0.33.0...v0.33.1) (2021-03-08)
+
+
+### Bug Fixes
+
+* enable geoserver locally AB[#6540](https://github.com/rodekruis/IBF-system/issues/6540) ([32f6bf3](https://github.com/rodekruis/IBF-system/commit/32f6bf3bed37923b71ce1cc1e76db091f60070e2))
+
+
+
 # [0.33.0](https://github.com/rodekruis/IBF-system/compare/v0.32.1...v0.33.0) (2021-03-08)
 
 
@@ -109,15 +118,6 @@
 ### Bug Fixes
 
 * test pr to check lighthouse ([dae8e2f](https://github.com/rodekruis/IBF-system/commit/dae8e2fb1483caaaff761edd988e4fdb9b7604d0))
-
-
-
-## [0.27.5](https://github.com/rodekruis/IBF-system/compare/v0.27.4...v0.27.5) (2021-03-03)
-
-
-### Bug Fixes
-
-* test pr to check lighthouse ([00c7143](https://github.com/rodekruis/IBF-system/commit/00c7143a095abb3e90de750ca7a626fd1b87e581))
 
 
 
