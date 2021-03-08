@@ -25,8 +25,8 @@ module.exports = {
             disableStorageReset: true,
             settings: {
                 output: "json",
-                maxWaitForFcp: 30000,
-                maxWaitForLoad: 45000,
+                maxWaitForFcp: 3000000,
+                maxWaitForLoad: 4500000,
                 throttlingMethod: "simulate",
                 auditMode: false,
                 gatherMode: false,
