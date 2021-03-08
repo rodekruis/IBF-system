@@ -6,7 +6,7 @@ export const environment = {
   configuration: 'development',
   apiUrl: 'http://localhost:3000/api', // API
   useServiceWorker: false, // feature-flags
-  geoserverUrl: 'https://ibf-test.510.global/geoserver/ibf-system/wms', // geoserver
+  geoserverUrl: 'http://localhost:8081/geoserver/ibf-system/wms', // geoserver
   ibfSystemVersion: 'v0.0.0', // version
   ibfVideoGuideUrl: 'https://www.youtube-nocookie.com/embed/O0PwZSpEhhc', // video guide url
   applicationInsightsInstrumentationKey: '', // application insights instrumentation key
