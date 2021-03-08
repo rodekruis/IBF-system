@@ -5,6 +5,9 @@ services:
         image: patrickhulce/lhci-server
         ports:
             - 9001:9001
+        environment:
+            LHCI_BASIC_AUTH__USERNAME: ${LIGHTHOUSE_SERVER_LOGIN_USER}
+            LHCI_BASIC_AUTH__PASSWORD: ${LIGHTHOUSE_SERVER_LOGIN_PASSWORD}
         volumes:
             - ./lighthouse-server.json:/usr/src/lhci/lighthouserc.json
             - lighthouse-server-data:/data
