@@ -54,4 +54,4 @@ python3 runCron.py
 1.  Create account: https://mailchimp.com/help/create-an-account/ add username to `secrets.py`
 2.  Create maillist: https://mailchimp.com/help/create-audience/ and add list id to `secrets.py` https://mailchimp.com/help/find-audience-id/
 3.  Create API key: https://mailchimp.com/help/about-api-keys/#Find-or-Generate-Your-API-Key add it to `secrets.py`
-4.  Set EMAIL_NOTIFICATION to `True` in `settings.py`
+4.  Set 'notify_email' per country to `True` in `secrets.py`

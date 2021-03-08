@@ -10,7 +10,7 @@ from datetime import date, timedelta
 
 # Change this date only in case of specific testing purposes
 CURRENT_DATE = date.today()
-# CURRENT_DATE=date.today() - timedelta(days=1)
+# CURRENT_DATE=date.today() - timedelta(leadTimeValue=1)
 
 
 ######################
@@ -42,6 +42,7 @@ SETTINGS = {
         "model": 'glofas',
         "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
         'district_mapping': 'Glofas_station_per_admin_area_UGA.csv',
+        'flood_vulnerability': 'Flood_vulnerability_EAP_UGA.csv',
         'redcross_branches': 'points/redcross_branches_UGA.csv',
         'admin_boundaries': {
             'filename': 'vector/UGA_adm2_mapshaper.shp',
@@ -161,11 +162,10 @@ GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 ####################
 
 # Notification email
-EMAIL_NOTIFICATION = os.getenv('EMAIL_NOTIFICATION') == 'True'
 EMAIL_WITHOUT_TRIGGER = False
 
-# Notification email (False if hard-coded alternative for mailchimp is used)
-EMAIL_HARDCODE = True
+# Notification email (True if hard-coded alternative for mailchimp is used)
+EMAIL_HARDCODE = False
 EMAIL_LIST_HARDCODE = [
     'jannisvisser@redcross.nl'
 ]
