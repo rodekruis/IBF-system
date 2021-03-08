@@ -118,6 +118,13 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+            - name: Wait for previous workflow to complete
+              uses: softprops/turnstyle@v1
+              with:
+                  abort-after-seconds: 1800
+              env:
+                  GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+
             - uses: actions/checkout@v2
 
             - name: Bump version and push tag
