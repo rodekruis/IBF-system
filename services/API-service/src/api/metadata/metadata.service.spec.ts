@@ -18,8 +18,8 @@ describe('MetadataService', (): void => {
           TypeOrmModule.forRoot(),
           TypeOrmModule.forFeature([
             IndicatorMetadataEntity,
-            LayerMetadataEntity,
             UserEntity,
+            LayerMetadataEntity,
           ]),
         ],
         providers: [MetadataService, DataService],

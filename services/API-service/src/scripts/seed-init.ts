@@ -42,7 +42,7 @@ export class SeedInit implements InterfaceScript {
     await this.connection.synchronize(false);
 
     // ***** CREATE LEAD TIMES *****
-
+    console.log('Seed Lead Times...');
     const leadTimeRepository = this.connection.getRepository(LeadTimeEntity);
     const leadTimeEntities = leadTimes.map(
       (leadTime): LeadTimeEntity => {
@@ -57,6 +57,7 @@ export class SeedInit implements InterfaceScript {
     await leadTimeRepository.save(leadTimeEntities);
 
     // ***** CREATE COUNTRIES *****
+    console.log('Seed Counties...');
     const envCountries = process.env.COUNTRIES.split(',');
     const selectedCountries = countries.filter((country): boolean => {
       return envCountries.includes(country.countryCodeISO3);
@@ -94,6 +95,7 @@ export class SeedInit implements InterfaceScript {
     await countryRepository.save(countryEntities);
 
     // ***** CREATE USERS *****
+    console.log('Seed Users...');
     let selectedUsers;
     if (process.env.NODE_ENV === 'production') {
       selectedUsers = users.filter((user): boolean => {
@@ -129,17 +131,19 @@ export class SeedInit implements InterfaceScript {
     await userRepository.save(userEntities);
 
     // ***** CREATE AREAS OF FOCUS *****
-
+    console.log('Seed Areas of Focus...');
     const areaOfFocusRepository = this.connection.getRepository(
       AreaOfFocusEntity,
     );
     await areaOfFocusRepository.save(areasOfFocus);
 
     // ***** CREATE EAP ACTIONS *****
+    console.log('Seed EAP Actions...');
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
     await eapActionRepository.save(eapActions);
 
     // ***** CREATE INDICATOR METADATA *****
+    console.log('Seed Indicators...');
     const indicatorRepository = this.connection.getRepository(
       IndicatorMetadataEntity,
     );
@@ -148,18 +152,22 @@ export class SeedInit implements InterfaceScript {
     );
 
     // ***** CREATE LAYER METADATA *****
+    console.log('Seed Layers...');
     const layerRepository = this.connection.getRepository(LayerMetadataEntity);
     await layerRepository.save(JSON.parse(JSON.stringify(layerMetadata)));
 
     // ***** SEED ADMIN-AREA DATA *****
+    console.log('Seed Admin Areas...');
     const seedAdminArea = await new SeedAdminArea(this.connection);
     await seedAdminArea.run();
 
     // ***** SEED GLOFAS-STATION DATA *****
+    console.log('Seed Glofas Stations...');
     const seedGlofasStation = await new SeedGlofasStation(this.connection);
     await seedGlofasStation.run();
 
     // ***** RUN SCRIPT TO FINALIZE ALL DATA PREPARATION *****
+    console.log('Run IBF-database-scripts.sql...');
     await this.seedHelper.runSqlScript('./src/sql/IBF-database-scripts.sql');
   }
 }
