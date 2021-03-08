@@ -12,7 +12,7 @@ select
 	    	from "IBF-API"."Admin_area_data2"
 	    	union all
 	    	select country_code,name,pcode,population_affected
-	    	from "IBF-API"."Admin_area_data2"
+	    	from "IBF-API"."Admin_area_data1"
     	) sub
     	where country_code = $1
       	and population_affected > 0
