@@ -1,4 +1,4 @@
-from lib.cronJob.forecast import Forecast
+from lib.pipeline.forecast import Forecast
 from lib.logging.logglySetup import logger
 import traceback
 import time
@@ -11,8 +11,8 @@ def main():
     print(str(datetime.datetime.now()))
 
     try:
-        for fcStep, days in LEAD_TIMES.items():
-            fc = Forecast(fcStep, days)
+        for leadTimeLabel, leadTimeValue in LEAD_TIMES.items():
+            fc = Forecast(leadTimeLabel, leadTimeValue)
             fc.rainfallData.process()
     except Exception as e:
         # If a fatal exception occurs during the cronjob

@@ -7,6 +7,7 @@ import fiona
 import numpy as np
 import pandas as pd
 from pandas import DataFrame
+import json
 
 from lib.logging.logglySetup import logger
 from settings import *
@@ -16,41 +17,59 @@ class Exposure:
 
     """Class used to calculate the exposure per exposure type"""
     
-    def __init__(self, indicator, source, rasterValue, timeForecast, country_code, district_mapping = None, district_cols = None):
-        self.fcStep = timeForecast
+    def __init__(self, leadTimeLabel, country_code, district_mapping = None, district_cols = None):
+        self.leadTimeLabel = leadTimeLabel
         self.country_code = country_code
-        self.indicator = indicator
-        self.source = source
-        self.rasterValue = rasterValue
-        self.inputRaster = GEOSERVER_INPUT + source + ".tif"
-        self.outputRaster = GEOSERVER_OUTPUT + "0/" + source + timeForecast
-        self.stats = []
+        if SETTINGS[country_code]['model'] == 'glofas':
+            self.disasterExtentRaster = GEOSERVER_OUTPUT + '0/flood_extents/flood_extent_'+ leadTimeLabel + '_' + country_code + '.tif'
+        elif SETTINGS[country_code]['model'] == 'rainfall':
+            self.disasterExtentRaster = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ leadTimeLabel + '_' + country_code + '.tif'
         self.selectionValue = 0.9
         self.outputPath = PIPELINE_OUTPUT + "out.tif"
         self.district_mapping = district_mapping
         self.district_cols = district_cols
         self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
         self.PCODE_COLNAME = SETTINGS[country_code]['admin_boundaries']['pcode_colname']
+        self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
+        self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + leadTimeLabel + '_' + country_code + '.json'
+        self.stats = []
+
+    def callAllExposure(self):
+        logger.info('Started calculating affected of %s', self.disasterExtentRaster)
+
+        for indicator, values in self.EXPOSURE_DATA_SOURCES.items():
+            print('indicator: ', indicator)
+            self.inputRaster = GEOSERVER_INPUT + values['source'] + ".tif"
+            self.outputRaster = GEOSERVER_OUTPUT + "0/" + values['source'] + self.leadTimeLabel
+
+            self.calcAffected(self.disasterExtentRaster, indicator, values['rasterValue'])
 
 
-    def calcAffected(self, floodExtentRaster):
-        shapesFlood = self.loadTiffAsShapes(floodExtentRaster)
-        if shapesFlood != []:
+        with open(self.statsPath, 'w') as fp:
+            json.dump(self.stats, fp)
+            logger.info("Saved stats for %s", self.statsPath)
+
+    def calcAffected(self, disasterExtentRaster, indicator, rasterValue):
+        disasterExtentShapes = self.loadTiffAsShapes(disasterExtentRaster)
+        if disasterExtentShapes != []:
             try:
-                affectedImage, affectedMeta = self.clipTiffWithShapes(self.inputRaster, shapesFlood)
+                affectedImage, affectedMeta = self.clipTiffWithShapes(self.inputRaster, disasterExtentShapes)
                 with rasterio.open(self.outputRaster, "w", **affectedMeta) as dest:
                     dest.write(affectedImage)
             except ValueError:
                 print('Rasters do not overlap')
         logger.info("Wrote to " + self.outputRaster)
         adminBoundaries = self.ADMIN_BOUNDARIES
-        self.stats = self.calcStatsPerAdmin(adminBoundaries, self.indicator, shapesFlood)
+        stats = self.calcStatsPerAdmin(adminBoundaries, indicator, disasterExtentShapes, rasterValue)
+        
+        for item in stats:
+            self.stats.append(item)
 
                  
-    def calcStatsPerAdmin(self, adminBoundaries, indicator, shapesFlood):
+    def calcStatsPerAdmin(self, adminBoundaries, indicator, disasterExtentShapes, rasterValue):
         if SETTINGS[self.country_code]['model'] == 'glofas':
             #Load trigger_data per station
-            path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.fcStep + '_' + self.country_code + '.json'
+            path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.leadTimeLabel + '_' + self.country_code + '.json'
             df_triggers = pd.read_json(path, orient='records')
             df_triggers = df_triggers.set_index("station_code", drop=False)
             #Load assigned station per district
@@ -63,7 +82,7 @@ class Exposure:
 
             # Clip affected raster per area
             for area in shapefile:
-                if shapesFlood != []: 
+                if disasterExtentShapes != []: 
                     try: 
                         outImage, outMeta = self.clipTiffWithShapes(self.outputRaster, [area["geometry"]] )
                         
@@ -71,7 +90,7 @@ class Exposure:
                         with rasterio.open(self.outputPath, "w", **outMeta) as dest:
                             dest.write(outImage)
                             
-                        statsDistrict = self.calculateRasterStats(indicator,  str(area['properties'][self.PCODE_COLNAME]), self.outputPath)
+                        statsDistrict = self.calculateRasterStats(indicator,  str(area['properties'][self.PCODE_COLNAME]), self.outputPath, rasterValue)
 
                         # Overwrite non-triggered areas with positive exposure (due to rounding errors) to 0
                         if SETTINGS[self.country_code]['model'] == 'glofas':
@@ -81,7 +100,7 @@ class Exposure:
                             if 'EG' not in str(area['properties'][self.PCODE_COLNAME]):
                                 statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties'][self.PCODE_COLNAME])}
                     except (ValueError, rasterio.errors.RasterioIOError):
-                            # If there is no flood in the district set  the stats to 0
+                            # If there is no disaster in the district set  the stats to 0
                         statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties'][self.PCODE_COLNAME])}
                 else: 
                     statsDistrict = {'source': indicator, 'sum': '--', 'district': str(area['properties'][self.PCODE_COLNAME])}        
@@ -101,13 +120,13 @@ class Exposure:
         trigger = df_trigger['fc_trigger'][0]
         return trigger
 
-    def calculateRasterStats(self, indicator, district, outFileAffected):
+    def calculateRasterStats(self, indicator, district, outFileAffected, rasterValue):
         raster = rasterio.open(outFileAffected)   
         stats = []
 
         array = raster.read( masked=True)
         band = array[0]
-        theSum = band.sum()* self.rasterValue
+        theSum = band.sum() * rasterValue
         stats.append({
             'source': indicator,
             'sum': str(theSum),
