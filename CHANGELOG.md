@@ -1,3 +1,13 @@
+## [0.32.1](https://github.com/rodekruis/IBF-system/compare/v0.32.0...v0.32.1) (2021-03-08)
+
+
+### Bug Fixes
+
+* improve naming/structure IBF-pipeline AB[#6286](https://github.com/rodekruis/IBF-system/issues/6286) ([552b141](https://github.com/rodekruis/IBF-system/commit/552b1419a6caa2d7755902c2d7e7f53bd656ef2d))
+* set mailing default to mailchimp AB[#6534](https://github.com/rodekruis/IBF-system/issues/6534) ([c6e6305](https://github.com/rodekruis/IBF-system/commit/c6e63059f466330b0b580838a5ae45109ced2ced))
+
+
+
 # [0.32.0](https://github.com/rodekruis/IBF-system/compare/v0.31.0...v0.32.0) (2021-03-08)
 
 
@@ -103,15 +113,6 @@
 ### Bug Fixes
 
 * make chat+aof work properly again after event-pcode changes AB[#6483](https://github.com/rodekruis/IBF-system/issues/6483) ([56ba1c8](https://github.com/rodekruis/IBF-system/commit/56ba1c89cc1a15052ebbb30d1e1a58728dce44c4))
-
-
-
-## [0.27.3](https://github.com/rodekruis/IBF-system/compare/v0.27.2...v0.27.3) (2021-03-03)
-
-
-### Bug Fixes
-
-* test pr to test lighthouse ci ([d15c461](https://github.com/rodekruis/IBF-system/commit/d15c4615ac70bfb68f31bba58f47fdf07c307476))
 
 
 
