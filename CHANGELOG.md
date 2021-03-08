@@ -1,3 +1,17 @@
+# [0.33.0](https://github.com/rodekruis/IBF-system/compare/v0.32.1...v0.33.0) (2021-03-08)
+
+
+### Bug Fixes
+
+* update documentation to add new country AB[#6291](https://github.com/rodekruis/IBF-system/issues/6291) ([16c5803](https://github.com/rodekruis/IBF-system/commit/16c5803a58a9cd78ecea2d90da0a6b461ecee82e))
+
+
+### Features
+
+* add documentation on local database AB[#6261](https://github.com/rodekruis/IBF-system/issues/6261) ([79bc6f9](https://github.com/rodekruis/IBF-system/commit/79bc6f98d6ab17c48e17d3f41ae8147280e471a3))
+
+
+
 ## [0.32.1](https://github.com/rodekruis/IBF-system/compare/v0.32.0...v0.32.1) (2021-03-08)
 
 
@@ -104,15 +118,6 @@
 ### Bug Fixes
 
 * test pr to check lighthouse ([00c7143](https://github.com/rodekruis/IBF-system/commit/00c7143a095abb3e90de750ca7a626fd1b87e581))
-
-
-
-## [0.27.4](https://github.com/rodekruis/IBF-system/compare/v0.27.3...v0.27.4) (2021-03-03)
-
-
-### Bug Fixes
-
-* make chat+aof work properly again after event-pcode changes AB[#6483](https://github.com/rodekruis/IBF-system/issues/6483) ([56ba1c8](https://github.com/rodekruis/IBF-system/commit/56ba1c89cc1a15052ebbb30d1e1a58728dce44c4))
 
 
 
