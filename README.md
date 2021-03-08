@@ -57,7 +57,34 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up # for dev
 For local development you can also run and start the services and interface
 without docker:
 
-`cp .env services/API-service/.env` `npn run start`
+`cp .env services/API-service/.env` `npm run start`
+
+### NOTE on local database
+
+Locally, a database-container will start (as opposed to remote servers, which are connected to a database-server).
+To currently fill this database with data
+- dump + restore 'IBF-static-input' schema from 'geonode_datav3' remote database
+- run the IBF-API-service seed script to create + fill 'IBF-app' tables
+- run the script /services/API-service/src/sql/IBF-database-scripts.sql'
+- run the IBF-pipeline to create + get initial fill of 'IBF-pipeline-output' schema's.
+
+We are in a migration, where as much as possible we will load new static data from seed-scripts. This will make sure it ends up automatically on all servers.
+This is however not yet always the case:
+  - geodata (raster/shapefiles used by pipeline/geoserver) > for these sources, you still need to include it in data.zip + transfer (e.g. via WinSCP or similar) to all servers)
+  - if for other data, for some reason, it is not possible/handy to add new data via seed-script, keep the following in mind
+    - this means you're adding data to your local db through e.g.
+      - manual upload (strongly discouraged)
+      - runSetup.py in IBF-pipeline (at least you can keep track here of what's uploaded)
+    - when you're done developing on your local db + local code ..
+    - .. and have deployed code to test-vm ..
+    - .. you have to somehow make sure that the data also ends up on the dev-database `geonode_datav3`
+      - repeat in the same way on test-vm (e.g. runSetup.py on there as well)
+      - do a dump+restore from local to `geonode_datav3`
+        - NOTE: coordinate with other developers though, that you are not working in separate branches and will overwrite each others' data
+    - NOTE: for other servers no action needed: to get this to staging/production/etc. is taken care of by the database migration step in the deploy-script   
+  - NOTE: that the other developers subsequently have to get the data also to their local database
+    - which again requires a dump+restore
+    - so notify them to do this
 
 ### Installation result
 
