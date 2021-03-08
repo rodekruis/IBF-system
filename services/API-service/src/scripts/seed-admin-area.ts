@@ -2,12 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
-
-import adminAreasEGY from './git-lfs/EGY_adm1_MENAregion.json';
-import adminAreasETH from './git-lfs/ETH_adm2.json';
-import adminAreasUGA from './git-lfs/UGA_adm2.json';
-import adminAreasZMB from './git-lfs/ZMB_adm2.json';
-import adminAreasKEN from './git-lfs/KEN_adm1.json';
+import countries from './json/countries.json';
+import fs from 'fs';
 
 @Injectable()
 export class SeedAdminArea implements InterfaceScript {
@@ -18,95 +14,37 @@ export class SeedAdminArea implements InterfaceScript {
   }
 
   public async run(): Promise<void> {
+    const envCountries = process.env.COUNTRIES.split(',');
     const adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
+    for (const country of countries) {
+      if (envCountries.includes(country.countryCodeISO3)) {
+        this.seedCountryAdminAreas(country, adminAreaRepository);
+      }
+    }
+  }
 
-    // -- Egypt
-    adminAreasEGY.features.forEach(
+  private async seedCountryAdminAreas(
+    country,
+    adminAreaRepository,
+  ): Promise<void> {
+    const fileName = `./src/scripts/git-lfs/${country.countryCodeISO3}_adm${country.defaultAdminLevel}.json`;
+    const adminJsonRaw = fs.readFileSync(fileName, 'utf-8');
+    const adminJson = JSON.parse(adminJsonRaw);
+    adminJson.features.forEach(
       async (area): Promise<void> => {
         await adminAreaRepository
           .createQueryBuilder()
           .insert()
           .values({
-            countryCode: 'EGY',
-            adminLevel: 1,
-            name: area.properties.ADM1_EN,
-            pcode: area.properties.ADM1_PCODE,
-            pcodeParent: area.properties.ADM0_PCODE,
-            geom: (): string => this.geomFunction(area.geometry.coordinates),
-          })
-          .execute();
-      },
-    );
-
-    // -- Ethiopia
-    adminAreasETH.features.forEach(
-      async (area): Promise<void> => {
-        await adminAreaRepository
-          .createQueryBuilder()
-          .insert()
-          .values({
-            countryCode: 'ETH',
-            adminLevel: 2,
-            name: area.properties.ZONENAME,
-            pcode:
-              area.properties.HRname === 'Mezhenger'
-                ? area.properties.ZON_Pcode
-                : area.properties.HRpcode,
-            pcodeParent: area.properties.HRparent,
-            geom: (): string => this.geomFunction(area.geometry.coordinates),
-          })
-          .execute();
-      },
-    );
-
-    // -- Uganda
-    adminAreasUGA.features.forEach(
-      async (area): Promise<void> => {
-        await adminAreaRepository
-          .createQueryBuilder()
-          .insert()
-          .values({
-            countryCode: 'UGA',
-            adminLevel: 2,
-            name: area.properties.name,
-            pcode: area.properties.pcode,
-            pcodeParent: area.properties.adm1pcode,
-            geom: (): string => this.geomFunction(area.geometry.coordinates),
-          })
-          .execute();
-      },
-    );
-
-    // -- Zambia
-    adminAreasZMB.features.forEach(
-      async (area): Promise<void> => {
-        await adminAreaRepository
-          .createQueryBuilder()
-          .insert()
-          .values({
-            countryCode: 'ZMB',
-            adminLevel: 2,
-            name: area.properties.NAME,
-            pcode: area.properties.pcode,
-            pcodeParent: area.properties.zmb_adm__4,
-            geom: (): string => this.geomFunction(area.geometry.coordinates),
-          })
-          .execute();
-      },
-    );
-
-    // -- Kenya
-    adminAreasKEN.features.forEach(
-      async (area): Promise<void> => {
-        await adminAreaRepository
-          .createQueryBuilder()
-          .insert()
-          .values({
-            countryCode: 'KEN',
-            adminLevel: 1,
-            name: area.properties.ADM1_EN,
-            pcode: area.properties.ADM1_PCODE,
-            pcodeParent: null,
+            countryCode: country.countryCodeISO3,
+            adminLevel: country.defaultAdminLevel,
+            name: area.properties[`ADM${country.defaultAdminLevel}_EN`],
+            pcode: area.properties[`ADM${country.defaultAdminLevel}_PCODE`],
+            pcodeParent: area.properties[
+              `ADM${country.defaultAdminLevel - 1}_PCODE`
+            ]
+              ? area.properties[`ADM${country.defaultAdminLevel - 1}_PCODE`]
+              : null,
             geom: (): string => this.geomFunction(area.geometry.coordinates),
           })
           .execute();
