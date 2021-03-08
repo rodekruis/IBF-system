@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataModule } from '../data/data.module';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { MetadataService } from './metadata.service';
+import { LayerMetadataEntity } from './layer-metadata.entity';
 
 describe('MetadataService', (): void => {
   let service: MetadataService;
@@ -15,7 +16,11 @@ describe('MetadataService', (): void => {
         imports: [
           DataModule,
           TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([IndicatorMetadataEntity, UserEntity]),
+          TypeOrmModule.forFeature([
+            IndicatorMetadataEntity,
+            LayerMetadataEntity,
+            UserEntity,
+          ]),
         ],
         providers: [MetadataService, DataService],
       }).compile();
