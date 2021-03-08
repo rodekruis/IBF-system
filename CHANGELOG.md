@@ -1,3 +1,12 @@
+## [0.33.3](https://github.com/rodekruis/IBF-system/compare/v0.33.2...v0.33.3) (2021-03-08)
+
+
+### Bug Fixes
+
+* last changes in keeping relative file paths AD[#5756](https://github.com/rodekruis/IBF-system/issues/5756) ([db99af6](https://github.com/rodekruis/IBF-system/commit/db99af6e1e8475ff52ac3544f7befbd805b72f80))
+
+
+
 ## [0.33.2](https://github.com/rodekruis/IBF-system/compare/v0.33.1...v0.33.2) (2021-03-08)
 
 
@@ -110,15 +119,6 @@
 ### Bug Fixes
 
 * lighthouse test for dashboard needs local storage ([280e7d8](https://github.com/rodekruis/IBF-system/commit/280e7d829775024a5b010907b5698e061f9c443f))
-
-
-
-## [0.27.7](https://github.com/rodekruis/IBF-system/compare/v0.27.6...v0.27.7) (2021-03-04)
-
-
-### Bug Fixes
-
-* test pr to check lighthouse ([58d1c99](https://github.com/rodekruis/IBF-system/commit/58d1c990a997ec44477c6fa5cb36d5e9be833f73))
 
 
 
