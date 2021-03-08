@@ -7,6 +7,13 @@ Make sure you have access to Google Earth Engine in order to extract the data.
 ## Usage: 
 The script exists of two parts, whereby the first part. `1. Download data from FEWSNET via Google Earth Engine` will guide you trough the downloading process of the FEWSNET Outlooks via GEE. If you have downloaded the data, you can start the script from `2. RUN SCRIPT FROM HERE IF YOU HAVE THE DATA ALREADY' 
 
+### Packages versions:
+The script works with this data with these versions:
+- geopandas 0.6.1
+- pyproj 2.6.1.post1
+
+It was also tested with the newest versions of both and that gave errors on the projection when loading in shapefiles. So if that happens, downgrade to mentioned versions.
+
 ### Data input: 
 -	`livelihood zones`: https://fews.net/content/zimbabwe-livelihood-zones-2011<br>
 -	`admin boundaries`: https://data.humdata.org/dataset/zimbabwe-administrative-levels-0-3-boundaries<br>
