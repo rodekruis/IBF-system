@@ -20,19 +20,19 @@ from secrets import GLOFAS_USER, GLOFAS_PW, SETTINGS_SECRET
 
 class GlofasData:
 
-    def __init__(self, fcStep, days, country_code, glofas_stations, glofas_cols, district_mapping, district_cols):
-        self.fcStep = fcStep
-        self.days = days
+    def __init__(self, leadTimeLabel, leadTimeValue, country_code, glofas_stations, glofas_cols, district_mapping, district_cols):
+        self.leadTimeLabel = leadTimeLabel
+        self.leadTimeValue = leadTimeValue
         self.country_code = country_code
         self.inputPath = PIPELINE_DATA+'input/glofas/'
         self.triggerPerDay = PIPELINE_OUTPUT + \
             'triggers_rp_per_station/trigger_per_day_' + country_code + '.json'
         self.extractedGlofasPath = PIPELINE_OUTPUT + \
             'glofas_extraction/glofas_forecast_' + \
-            self.fcStep + '_' + country_code + '.json'
+            self.leadTimeLabel + '_' + country_code + '.json'
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
             'triggers_rp_per_station/triggers_rp_' + \
-            self.fcStep + '_' + country_code + '.json'
+            self.leadTimeLabel + '_' + country_code + '.json'
         self.GLOFAS_STATIONS = glofas_stations
         self.glofas_cols = glofas_cols
         self.DISTRICT_MAPPING = district_mapping
@@ -166,7 +166,7 @@ class GlofasData:
                     if station['fc_trigger'] == 1:
                         trigger_per_day[step] = 1
 
-                    if step == self.days:
+                    if step == self.leadTimeValue:
                         stations.append(station)
                     station = {}
                     station['code'] = files[i].split(
@@ -193,7 +193,7 @@ class GlofasData:
             print('Extracted Glofas data - Trigger per day File saved')
 
     def findTrigger(self):
-        logging.info("Started processing glofas data: " + self.fcStep)
+        logging.info("Started processing glofas data: " + self.leadTimeLabel)
 
         # Load (static) threshold values per station
 

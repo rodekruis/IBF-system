@@ -59,7 +59,7 @@ where districtsExisting."placeCode" is null
 ;
 --select * from "IBF-pipeline-output".event_place_code
 
--- Lastly Close events older than 7 days
+-- Lastly Close events older than 7 leadTimeValue
 update
 	"IBF-pipeline-output".event_place_code
 set
