@@ -113,33 +113,45 @@ FROM "IBF-static-input"."UGA_redcross_branches";
 ;
 --select * from "IBF-static-input".dashboard_redcross_branches
 
-DROP FUNCTION IF EXISTS "IBF-pipeline-output".usp_fbf_geodata(varchar, varchar, varchar);
-CREATE OR REPLACE FUNCTION "IBF-pipeline-output".usp_fbf_geodata(country varchar, schema_name varchar, table_name varchar, OUT result json) AS $func$
-	BEGIN
-	EXECUTE format('
-		SELECT row_to_json(featcoll)
-		FROM (
-			SELECT ''FeatureCollection'' As type, array_to_json(array_agg(feat)) As features
-			FROM (
-				SELECT ''Feature'' As type
-					,ST_AsGeoJSON(tbl.geom)::json As geometry
-					,row_to_json((SELECT l FROM (SELECT tbl.*) As l)) As properties
-				FROM %s.%s As tbL
-				)  As feat
-			)  As featcoll
-		;',schema_name, table_name)
-	INTO result;
-	END
-$func$ LANGUAGE plpgsql;
+--Combine CRA data in one table (input used in processDynamicDataPostgresExposure.sql)
+drop table if exists "IBF-static-input"."CRA_data_2";
+create table "IBF-static-input"."CRA_data_2" as 
+select cast('ZMB' as varchar) as country_code
+	, pcode
+	, row_to_json(zmb.*) as indicators
+from "IBF-static-input"."ZMB_CRA_Indicators_2" zmb
+union all
+select cast('ETH' as varchar) as country_code
+	, pcode
+	, row_to_json(
+		ken.*
+		) as indicators
+from "IBF-static-input"."ETH_CRA_Indicators_2" ken
+union all
+select cast('UGA' as varchar) as country_code
+	, total.pcode
+	, row_to_json(total.*) as indicators
+from (
+	select uga.*
+		, fl."Weighted Vulnerability Index" as vulnerability_index
+	from "IBF-static-input"."UGA_CRA_Indicators_2" uga
+	left join "IBF-static-input"."UGA_flood_vulnerability" fl on uga.pcode_level2 = fl."pointsADM2_PCODE"
+) total
+;
+--select * from "IBF-static-input"."CRA_data_2" where country_code = 'UGA'
 
-DROP FUNCTION IF EXISTS "IBF-pipeline-output".usp_fbf_data(varchar, varchar, varchar);
-CREATE OR REPLACE FUNCTION "IBF-pipeline-output".usp_fbf_data(country varchar, schema_name varchar, table_name varchar, OUT result json) AS $func$
-	BEGIN
-	EXECUTE format('select array_to_json(array_agg(tbl))
-			from (
-			select *
-			from %s.%s
-			) tbl;',schema_name,table_name)
-	INTO result;
-	END
-$func$ LANGUAGE plpgsql;
+--Combine CRA data in one table (input used in processDynamicDataPostgresExposure.sql)
+drop table if exists "IBF-static-input"."CRA_data_1";
+create table "IBF-static-input"."CRA_data_1" as 
+select cast('KEN' as varchar) as country_code
+	, pcode
+	, row_to_json(ken.*) as indicators
+from "IBF-static-input"."KEN_CRA_Indicators_1" ken
+union all 
+select cast('EGY' as varchar) as country_code
+	, pcode
+	, null as indicators
+from "IBF-app"."adminArea" 
+where "countryCode" = 'EGY'
+;
+--select * from "IBF-static-input"."CRA_data_1" where country_code = 'UGA'

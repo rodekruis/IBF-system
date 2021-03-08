@@ -21,25 +21,13 @@ from
 		select
 			t1.pcode,
 			t1.population_affected,
-			t2.date
+			t1.date
 		from
 			"IBF-pipeline-output".dashboard_calculated_affected t1
-		left join (
-			select
-				*
-			from
-				"IBF-API"."Admin_area_data2"
-			union all
-			select
-				*
-			from
-				"IBF-API"."Admin_area_data1" 
-		) t2 
-			on t1.pcode = t2.pcode
-			and t2.date = current_date
 		where
 			t1.population_affected  > 0
-			and (t2.lead_time = '7-day' or t2.lead_time = '5-day' or t2.lead_time = '3-day') ) districtsToday
+			and t1.date = current_date
+		) districtsToday
 	left join "IBF-pipeline-output".event_place_code eventPcodeExisting on
 		districtsToday.pcode = eventPcodeExisting."placeCode"
 	where
@@ -60,17 +48,8 @@ from (
 		,now()::date as "startDate"
 		,(now() + interval '7 DAY')::date as "endDate" 		
     from "IBF-pipeline-output".dashboard_calculated_affected t1
-	left join (
-		select *
-		from "IBF-API"."Admin_area_data2"
-		union all
-		select *
-		from "IBF-API"."Admin_area_data1"
-	) t2
-		on t1.pcode = t2.pcode
-		and t2.date = current_date
 	where t1.population_affected > 0
-		and (t2.lead_time = '7-day' or t2.lead_time = '5-day' or t2.lead_time = '3-day')
+		and t1.date = current_date
 	GROUP BY t1.pcode, "startDate", "endDate"
 ) districtsToday
 left join "IBF-pipeline-output".event_place_code districtsExisting
