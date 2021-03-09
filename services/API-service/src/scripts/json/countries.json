@@ -10,7 +10,7 @@
       "triggerColName": "5yr_threshold"
     },
     "countryLeadTimes": [
-      "7-day"
+      "5-day"
     ],
     "adminRegionLabels": [
       "Regions",
