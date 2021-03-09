@@ -4,7 +4,6 @@ import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
-import { MockScenario } from '../mocks/mock-scenario.enum';
 import { Country } from '../models/country.model';
 
 @Injectable({
@@ -29,11 +28,9 @@ export class EventService {
     private countryService: CountryService,
     private mockScenarioService: MockScenarioService,
   ) {
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe((mockScenario: MockScenario) => {
-        this.getTrigger();
-      });
+    this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
+      this.getTrigger();
+    });
   }
 
   public async getTrigger() {

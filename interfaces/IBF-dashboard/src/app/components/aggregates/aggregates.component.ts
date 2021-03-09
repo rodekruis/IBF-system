@@ -19,7 +19,6 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
-import { LeadTime } from 'src/app/types/lead-time';
 
 @Component({
   selector: 'app-aggregates',
@@ -72,12 +71,14 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.aggregatesService.loadMetadataAndAggregates();
+        if (country) {
+          this.aggregatesService.loadMetadataAndAggregates();
+        }
       });
 
     this.timelineSubscription = this.timelineService
       .getTimelineSubscription()
-      .subscribe((timeline: LeadTime) => {
+      .subscribe(() => {
         this.aggregatesService.loadMetadataAndAggregates();
       });
 

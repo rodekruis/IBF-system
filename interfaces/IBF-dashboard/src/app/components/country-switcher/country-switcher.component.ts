@@ -18,7 +18,9 @@ export class CountrySwitcherComponent implements OnInit, OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.country = country;
+        if (country) {
+          this.country = country;
+        }
       });
   }
 
