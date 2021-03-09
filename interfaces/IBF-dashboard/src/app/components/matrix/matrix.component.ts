@@ -38,7 +38,7 @@ export class MatrixComponent implements OnDestroy {
     private aggregatesService: AggregatesService,
   ) {
     this.layerSubscription = this.mapService
-      .getLayers()
+      .getLayerSubscription()
       .subscribe((newLayer) => {
         if (newLayer) {
           const newLayerIndex = this.layers.findIndex(

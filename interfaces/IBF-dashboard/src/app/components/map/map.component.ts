@@ -95,7 +95,7 @@ export class MapComponent implements OnDestroy {
     private analyticsService: AnalyticsService,
   ) {
     this.layerSubscription = this.mapService
-      .getLayers()
+      .getLayerSubscription()
       .subscribe((newLayer) => {
         if (newLayer) {
           const newLayerIndex = this.layers.findIndex(
