@@ -17,6 +17,18 @@ export class GlofasStationEntity {
   @Column({ nullable: true, type: 'real' })
   public triggerLevel: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'real' })
+  public threshold2Year: string;
+
+  @Column({ nullable: true, type: 'real' })
+  public threshold5Year: string;
+
+  @Column({ nullable: true, type: 'real' })
+  public threshold10Year: string;
+
+  @Column({ nullable: true, type: 'real' })
+  public threshold20Year: string;
+
+  @Column()
   public geom: string;
 }

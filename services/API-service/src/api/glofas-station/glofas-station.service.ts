@@ -9,4 +9,12 @@ export class GlofasStationService {
   private readonly glofasStationRepository: Repository<GlofasStationEntity>;
 
   public constructor() {}
+
+  public async getStationsByCountry(
+    countryCodeISO3,
+  ): Promise<GlofasStationEntity[]> {
+    return await this.glofasStationRepository.find({
+      where: { countryCode: countryCodeISO3 },
+    });
+  }
 }

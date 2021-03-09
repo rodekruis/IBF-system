@@ -111,7 +111,7 @@ class Exposure:
         df_station_code = df_district_mapping[df_district_mapping['pcode'] == pcode]
         if df_station_code.empty:
             return 0
-        station_code = df_station_code['station_code_7day'][0]
+        station_code = df_station_code['station_code'][0]
         if station_code == 'no_station':
             return 0
         df_trigger = df_triggers[df_triggers['station_code'] == station_code]

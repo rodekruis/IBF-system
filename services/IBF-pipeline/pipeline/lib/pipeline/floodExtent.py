@@ -109,7 +109,7 @@ class FloodExtent:
         df_triggers = pd.read_json(path, orient='records')
         
         #Merge two datasets
-        df_glofas = pd.merge(df_district_mapping, df_triggers, left_on='station_code_'+str(self.leadTimeValue)+'day', right_on='station_code', how='left')
+        df_glofas = pd.merge(df_district_mapping, df_triggers, left_on='station_code', right_on='station_code', how='left')
 
         return df_glofas
 
