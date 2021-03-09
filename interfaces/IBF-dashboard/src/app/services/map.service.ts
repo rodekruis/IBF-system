@@ -147,13 +147,16 @@ export class MapService {
       description: this.getPopoverText(IbfLayerName.glofasStations),
       active: true,
       show: true,
-      data: layerActive ? await this.getStations(): null,
+      data: layerActive ? await this.getStations() : null,
       viewCenter: false,
       order: 0,
     });
   }
 
-  public async loadRedCrossBranchesLayer(label: IbfLayerLabel, layerActive: boolean) {
+  public async loadRedCrossBranchesLayer(
+    label: IbfLayerLabel,
+    layerActive: boolean,
+  ) {
     this.addLayer({
       name: IbfLayerName.redCrossBranches,
       label: label,
@@ -175,7 +178,7 @@ export class MapService {
       description: this.getPopoverText(IbfLayerName.waterpoints),
       active: layerActive,
       show: true,
-      data: layerActive ?  await this.getWaterPoints() : null,
+      data: layerActive ? await this.getWaterPoints() : null,
       viewCenter: false,
       order: 2,
     });
@@ -189,7 +192,7 @@ export class MapService {
       description: '',
       active: layerActive,
       show: true,
-      data: layerActive ? await this.getAdminRegions(): null,
+      data: layerActive ? await this.getAdminRegions() : null,
       viewCenter: true,
       colorProperty: this.state.defaultColorProperty,
       order: 0,
@@ -345,27 +348,33 @@ export class MapService {
     const triggerLayerIndex = this.getLayerIndexById(name);
     const triggerLayer = this.layers[triggerLayerIndex];
     if (triggerLayerIndex >= 0) {
-      this.layers.forEach(async (layer: IbfLayer): Promise<void> => {
-        this.addLayer({
-          name: layer.name,
-          label: layer.label,
-          type: layer.type,
-          description: layer.description,
-          active: this.isLayerActive(active, layer, triggerLayer),
-          viewCenter: false,
-          data: this.layerDataLoadRequired(layer) ? await this.getLayerData(layer) : layer.data,
-          wms: layer.wms,
-          colorProperty: layer.colorProperty,
-          colorBreaks: layer.colorBreaks,
-          numberFormatMap: layer.numberFormatMap,
-          legendColor: layer.legendColor,
-          group: layer.group,
-          order: layer.order,
-          unit: layer.unit,
-          show:
-            show == null || layer.name != triggerLayer.name ? layer.show : show,
-        });
-      });
+      this.layers.forEach(
+        async (layer: IbfLayer): Promise<void> => {
+          this.addLayer({
+            name: layer.name,
+            label: layer.label,
+            type: layer.type,
+            description: layer.description,
+            active: this.isLayerActive(active, layer, triggerLayer),
+            viewCenter: false,
+            data: this.layerDataLoadRequired(layer)
+              ? await this.getLayerData(layer)
+              : layer.data,
+            wms: layer.wms,
+            colorProperty: layer.colorProperty,
+            colorBreaks: layer.colorBreaks,
+            numberFormatMap: layer.numberFormatMap,
+            legendColor: layer.legendColor,
+            group: layer.group,
+            order: layer.order,
+            unit: layer.unit,
+            show:
+              show == null || layer.name != triggerLayer.name
+                ? layer.show
+                : show,
+          });
+        },
+      );
     } else {
       throw `Layer '${name}' does not exist`;
     }
@@ -376,30 +385,36 @@ export class MapService {
       return false;
     } else if (!layer.data) {
       // layer data has not been loaded yet
-      return true
+      return true;
     } else if (layer.data.features && layer.data.features.length === 0) {
       // layer is aggegrate layer that has not been loaded yet
-      return true
+      return true;
     }
-    return false
+    return false;
   }
 
-  public async getLayerData(layer: IbfLayer): Promise<GeoJSON.FeatureCollection> {
+  public async getLayerData(
+    layer: IbfLayer,
+  ): Promise<GeoJSON.FeatureCollection> {
     let data;
     if (layer.name === IbfLayerName.waterpoints) {
       data = await this.getWaterPoints();
-    } else if (layer.name === IbfLayerName.redCrossBranches || layer.name === IbfLayerName.redCrescentBranches) {
+    } else if (
+      layer.name === IbfLayerName.redCrossBranches ||
+      layer.name === IbfLayerName.redCrescentBranches
+    ) {
       data = await this.getRedCrossBranches();
     } else if (layer.name === IbfLayerName.glofasStations) {
       data = await this.getStations();
     } else if (layer.name === IbfLayerName.adminRegions) {
-      data = await this.getAdminRegions()
+      data = await this.getAdminRegions();
     } else if (layer.name === IbfLayerName.covidRisk) {
-      data = await this.getAdmin2Data()
-    } else { // In case layer is aggregate layer
-      data = await this.getAdminRegions()
+      data = await this.getAdmin2Data();
+    } else {
+      // In case layer is aggregate layer
+      data = await this.getAdminRegions();
     }
-    return data
+    return data;
   }
 
   public async getStations(): Promise<GeoJSON.FeatureCollection> {
@@ -475,17 +490,23 @@ export class MapService {
               ? this.timelineService.activeLeadTime
               : LeadTime.day7;
             if (
-              this.adminRegionsObject[`${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`]
+              this.adminRegionsObject[
+                `${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`
+              ]
             ) {
               // Get admin regions from memory
-              adminRegions = this.adminRegionsObject[`${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`];
+              adminRegions = this.adminRegionsObject[
+                `${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`
+              ];
             } else {
               adminRegions = await this.apiService.getAdminRegions(
                 country.countryCodeISO3,
                 this.timelineService.activeLeadTime,
                 this.adminLevelService.adminLevel,
               );
-              this.adminRegionsObject[`${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`] = adminRegions
+              this.adminRegionsObject[
+                `${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`
+              ] = adminRegions;
             }
           }
           resolve(adminRegions);
