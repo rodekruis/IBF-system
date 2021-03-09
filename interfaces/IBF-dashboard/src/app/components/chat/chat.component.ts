@@ -40,8 +40,6 @@ export class ChatComponent implements OnDestroy {
   public changedActions: EapAction[] = [];
   public submitDisabled = true;
 
-  public leadTime: string;
-
   constructor(
     private countryService: CountryService,
     private eapActionsService: EapActionsService,
@@ -67,9 +65,11 @@ export class ChatComponent implements OnDestroy {
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe((_) => {
-        this.eapActionsService.loadDistrictsAndActions();
-        this.eventService.getTrigger();
+      .subscribe((country: Country) => {
+        if (country) {
+          this.eapActionsService.loadDistrictsAndActions();
+          this.eventService.getTrigger();
+        }
       });
 
     this.eapActionSubscription = this.eapActionsService

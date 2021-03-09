@@ -5,7 +5,6 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
-import { MockScenario } from '../mocks/mock-scenario.enum';
 import { Country } from '../models/country.model';
 
 @Injectable({
@@ -25,11 +24,9 @@ export class TimelineService {
     private apiService: ApiService,
     private mockScenarioService: MockScenarioService,
   ) {
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe((mockScenario: MockScenario) => {
-        this.loadTimeStepButtons();
-      });
+    this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
+      this.loadTimeStepButtons();
+    });
   }
 
   getTimelineSubscription(): Observable<LeadTime> {

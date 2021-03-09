@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Country } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class LogosComponent implements OnInit {
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe((country) => {
+      .subscribe((country: Country) => {
         if (country) {
           this.logos = country.countryLogos;
         }
