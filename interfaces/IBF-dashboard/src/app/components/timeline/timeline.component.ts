@@ -30,7 +30,9 @@ export class TimelineComponent implements OnInit, OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.timelineService.loadTimeStepButtons();
+        if (country) {
+          this.timelineService.loadTimeStepButtons();
+        }
       });
   }
 

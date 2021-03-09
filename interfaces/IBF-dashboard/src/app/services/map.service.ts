@@ -25,7 +25,6 @@ import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
-import { MockScenario } from '../mocks/mock-scenario.enum';
 import { Country } from '../models/country.model';
 import { LayerActivation } from '../models/layer-activation.enum';
 
@@ -66,11 +65,9 @@ export class MapService {
     private mockScenarioService: MockScenarioService,
     private translateService: TranslateService,
   ) {
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe((mockScenario: MockScenario) => {
-        this.loadCountryLayers();
-      });
+    this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
+      this.loadCountryLayers();
+    });
 
     this.translateService
       .get('map-service.popover')
@@ -306,7 +303,7 @@ export class MapService {
     }
   }
 
-  getLayers(): Observable<IbfLayer> {
+  getLayerSubscription(): Observable<IbfLayer> {
     return this.layerSubject.asObservable();
   }
 
