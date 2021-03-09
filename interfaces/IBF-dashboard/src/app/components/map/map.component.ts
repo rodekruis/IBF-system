@@ -25,6 +25,14 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
+import {
+  LEAFLET_MAP_ATTRIBUTION,
+  LEAFLET_MAP_OPTIONS,
+  LEAFLET_MAP_URL_TEMPLATE,
+  LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
+  LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
+} from 'src/app/config';
 import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { RedCrossBranch, Station, Waterpoint } from 'src/app/models/poi.model';
@@ -63,37 +71,12 @@ export class MapComponent implements OnDestroy {
   private timelineSubscription: Subscription;
   private placeCodeSubscription: Subscription;
 
-  private osmTileLayer = tileLayer(
-    'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
-    {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">Carto</a>',
-    },
-  );
+  private osmTileLayer = tileLayer(LEAFLET_MAP_URL_TEMPLATE, {
+    attribution: LEAFLET_MAP_ATTRIBUTION,
+  });
 
-  private iconBaseOptions: IconOptions = {
-    iconSize: [25, 41],
-    iconAnchor: [13, 41],
-    popupAnchor: [0, -30],
-    iconUrl: 'assets/markers/glofas-no.svg',
-    iconRetinaUrl: 'assets/markers/glofas-no.svg',
-  };
-
-  private iconRedCrossBranch: IconOptions = {
-    ...this.iconBaseOptions,
-    iconSize: [20, 33],
-    iconUrl: 'assets/markers/red-cross.png',
-    iconRetinaUrl: 'assets/markers/red-cross.png',
-  };
-
-  private iconWaterpoint: IconOptions = {
-    ...this.iconBaseOptions,
-    iconSize: [20, 33],
-    iconUrl: 'assets/markers/waterpoint.png',
-    iconRetinaUrl: 'assets/markers/waterpoint.png',
-  };
   public leafletOptions: MapOptions = {
-    zoom: 5,
+    ...LEAFLET_MAP_OPTIONS,
     layers: [this.osmTileLayer],
   };
 
@@ -143,13 +126,15 @@ export class MapComponent implements OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.mapService.loadCountryLayers();
+        if (country) {
+          this.mapService.loadCountryLayers();
 
-        // Trigger a resize to fill the container-element:
-        window.setTimeout(
-          () => window.dispatchEvent(new UIEvent('resize')),
-          200,
-        );
+          // Trigger a resize to fill the container-element:
+          window.setTimeout(
+            () => window.dispatchEvent(new UIEvent('resize')),
+            200,
+          );
+        }
       });
 
     this.adminLevelSubscription = this.adminLevelService
@@ -469,7 +454,7 @@ export class MapComponent implements OnDestroy {
 
   private createMarkerDefault(markerLatLng: LatLng): Marker {
     const markerInstance = marker(markerLatLng, {
-      icon: icon(this.iconBaseOptions),
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_BASE),
     });
 
     markerInstance.on('click', (): void => {
@@ -512,7 +497,7 @@ export class MapComponent implements OnDestroy {
         glofasProbability < eapAlertClasses[key].valueHigh
       ) {
         markerIcon = {
-          ...this.iconBaseOptions,
+          ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
           iconSize: [25, 41],
           iconUrl: 'assets/markers/glofas-' + key + '.png',
           iconRetinaUrl: 'assets/markers/glofas-' + key + '.png',
@@ -552,7 +537,7 @@ export class MapComponent implements OnDestroy {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.name;
-    let markerIcon = this.iconRedCrossBranch;
+    let markerIcon = LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
@@ -581,7 +566,7 @@ export class MapComponent implements OnDestroy {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.wpdxId;
-    let markerIcon = this.iconWaterpoint;
+    let markerIcon = LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,

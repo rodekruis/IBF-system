@@ -25,7 +25,6 @@ import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
-import { MockScenario } from '../mocks/mock-scenario.enum';
 import { Country } from '../models/country.model';
 
 @Injectable({
@@ -65,11 +64,9 @@ export class MapService {
     private mockScenarioService: MockScenarioService,
     private translateService: TranslateService,
   ) {
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe((mockScenario: MockScenario) => {
-        this.loadCountryLayers();
-      });
+    this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
+      this.loadCountryLayers();
+    });
 
     this.translateService
       .get('map-service.popover')
