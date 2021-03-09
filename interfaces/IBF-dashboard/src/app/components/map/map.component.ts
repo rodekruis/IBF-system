@@ -118,7 +118,8 @@ export class MapComponent implements OnDestroy {
           const newLayerIndex = this.layers.findIndex(
             (layer) => layer.name === newLayer.name,
           );
-          newLayer = this.createLayer(newLayer);
+
+          newLayer = newLayer.data ? this.createLayer(newLayer) : newLayer;
           if (newLayerIndex >= 0) {
             this.layers.splice(newLayerIndex, 1, newLayer);
           } else {
@@ -155,7 +156,7 @@ export class MapComponent implements OnDestroy {
     this.adminLevelSubscription = this.adminLevelService
       .getAdminLevelSubscription()
       .subscribe((adminLevel: AdminLevel) => {
-        this.mapService.loadAdminRegionLayer();
+        this.mapService.loadAdminRegionLayer(true);
 
         // Trigger a resize to fill the container-element:
         window.setTimeout(

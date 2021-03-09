@@ -40,6 +40,7 @@ export class MapService {
   public safeColor: string = '#2c45fd';
   public hoverFillOpacity: number = 0.6;
   public unselectedFillOpacity: number = 0.4;
+  public adminRegionsObject: object = {};
 
   public state = {
     bounds: [
@@ -100,18 +101,18 @@ export class MapService {
             .then((response) => {
               const layers = response;
               layers.forEach((layer: IbfLayerMetadata) => {
+                let layerActive: boolean;
+                if (layer.active === LayerActivation.yes) {
+                  layerActive = true;
+                } else if (
+                  layer.active === LayerActivation.ifTrigger &&
+                  this.eventService.state.activeTrigger
+                ) {
+                  layerActive = true;
+                } else {
+                  layerActive = false;
+                }
                 if (layer.type === IbfLayerType.wms) {
-                  let layerActive: boolean;
-                  if (layer.active === LayerActivation.yes) {
-                    layerActive = true;
-                  } else if (
-                    layer.active === LayerActivation.ifTrigger &&
-                    this.eventService.state.activeTrigger
-                  ) {
-                    layerActive = true;
-                  } else {
-                    layerActive = false;
-                  }
                   this.loadWmsLayer(
                     layer.name,
                     layer.label,
@@ -122,15 +123,15 @@ export class MapService {
                     layer.legendColor,
                   );
                 } else if (layer.name === IbfLayerName.adminRegions) {
-                  this.loadAdminRegionLayer();
+                  this.loadAdminRegionLayer(layerActive);
                 } else if (layer.name === IbfLayerName.glofasStations) {
-                  this.loadStationLayer();
+                  this.loadStationLayer(layerActive);
                 } else if (layer.name === IbfLayerName.redCrossBranches) {
-                  this.loadRedCrossBranchesLayer(layer.label);
+                  this.loadRedCrossBranchesLayer(layer.label, layerActive);
                 } else if (layer.name === IbfLayerName.redCrescentBranches) {
-                  this.loadRedCrossBranchesLayer(layer.label);
+                  this.loadRedCrossBranchesLayer(layer.label, layerActive);
                 } else if (layer.name === IbfLayerName.waterpoints) {
-                  this.loadWaterpointsLayer();
+                  this.loadWaterpointsLayer(layerActive);
                 }
               });
             });
@@ -138,7 +139,7 @@ export class MapService {
       });
   }
 
-  public async loadStationLayer() {
+  public async loadStationLayer(layerActive: boolean) {
     this.addLayer({
       name: IbfLayerName.glofasStations,
       label: IbfLayerLabel.glofasStations,
@@ -146,49 +147,49 @@ export class MapService {
       description: this.getPopoverText(IbfLayerName.glofasStations),
       active: true,
       show: true,
-      data: await this.getStations(),
+      data: layerActive ? await this.getStations(): null,
       viewCenter: false,
       order: 0,
     });
   }
 
-  public async loadRedCrossBranchesLayer(label: IbfLayerLabel) {
+  public async loadRedCrossBranchesLayer(label: IbfLayerLabel, layerActive: boolean) {
     this.addLayer({
       name: IbfLayerName.redCrossBranches,
       label: label,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.redCrossBranches),
-      active: false,
+      active: layerActive,
       show: true,
-      data: await this.getRedCrossBranches(),
+      data: layerActive ? await this.getRedCrossBranches() : null,
       viewCenter: false,
       order: 1,
     });
   }
 
-  public async loadWaterpointsLayer() {
+  public async loadWaterpointsLayer(layerActive: boolean) {
     this.addLayer({
       name: IbfLayerName.waterpoints,
       label: IbfLayerLabel.waterpoints,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.waterpoints),
-      active: false,
+      active: layerActive,
       show: true,
-      data: await this.getWaterPoints(),
+      data: layerActive ?  await this.getWaterPoints() : null,
       viewCenter: false,
       order: 2,
     });
   }
 
-  public async loadAdminRegionLayer() {
+  public async loadAdminRegionLayer(layerActive: boolean) {
     this.addLayer({
       name: IbfLayerName.adminRegions,
       label: IbfLayerLabel.adminRegions,
       type: IbfLayerType.shape,
       description: '',
-      active: true,
+      active: layerActive,
       show: true,
-      data: await this.getAdminRegions(),
+      data: layerActive ? await this.getAdminRegions(): null,
       viewCenter: true,
       colorProperty: this.state.defaultColorProperty,
       order: 0,
@@ -196,9 +197,9 @@ export class MapService {
   }
 
   public async loadAggregateLayer(indicator: Indicator) {
-    let data = { features: [] } as GeoJSON.FeatureCollection;
+    let data = null; // { features: [] } as GeoJSON.FeatureCollection;
 
-    if (!indicator.lazyLoad) {
+    if (indicator.active) {
       data = await this.getAdminRegions();
     }
 
@@ -288,7 +289,7 @@ export class MapService {
 
   private addLayer(layer: IbfLayer) {
     const { name, viewCenter, data } = layer;
-    if (viewCenter && data.features && data.features.length) {
+    if (viewCenter && data && data.features && data.features.length) {
       const layerBounds = bbox(data);
       this.state.bounds = containsNumber(layerBounds)
         ? ([
@@ -344,7 +345,7 @@ export class MapService {
     const triggerLayerIndex = this.getLayerIndexById(name);
     const triggerLayer = this.layers[triggerLayerIndex];
     if (triggerLayerIndex >= 0) {
-      this.layers.forEach((layer: IbfLayer): void => {
+      this.layers.forEach(async (layer: IbfLayer): Promise<void> => {
         this.addLayer({
           name: layer.name,
           label: layer.label,
@@ -352,7 +353,7 @@ export class MapService {
           description: layer.description,
           active: this.isLayerActive(active, layer, triggerLayer),
           viewCenter: false,
-          data: layer.data,
+          data: this.layerDataLoadRequired(layer) ? await this.getLayerData(layer) : layer.data,
           wms: layer.wms,
           colorProperty: layer.colorProperty,
           colorBreaks: layer.colorBreaks,
@@ -368,6 +369,37 @@ export class MapService {
     } else {
       throw `Layer '${name}' does not exist`;
     }
+  }
+
+  public layerDataLoadRequired(layer: IbfLayer): boolean {
+    if (layer.wms) {
+      return false;
+    } else if (!layer.data) {
+      // layer data has not been loaded yet
+      return true
+    } else if (layer.data.features && layer.data.features.length === 0) {
+      // layer is aggegrate layer that has not been loaded yet
+      return true
+    }
+    return false
+  }
+
+  public async getLayerData(layer: IbfLayer): Promise<GeoJSON.FeatureCollection> {
+    let data;
+    if (layer.name === IbfLayerName.waterpoints) {
+      data = await this.getWaterPoints();
+    } else if (layer.name === IbfLayerName.redCrossBranches || layer.name === IbfLayerName.redCrescentBranches) {
+      data = await this.getRedCrossBranches();
+    } else if (layer.name === IbfLayerName.glofasStations) {
+      data = await this.getStations();
+    } else if (layer.name === IbfLayerName.adminRegions) {
+      data = await this.getAdminRegions()
+    } else if (layer.name === IbfLayerName.covidRisk) {
+      data = await this.getAdmin2Data()
+    } else { // In case layer is aggregate layer
+      data = await this.getAdminRegions()
+    }
+    return data
   }
 
   public async getStations(): Promise<GeoJSON.FeatureCollection> {
@@ -438,15 +470,24 @@ export class MapService {
           let adminRegions = {
             features: [],
           } as GeoJSON.FeatureCollection;
-
           if (country) {
-            adminRegions = await this.apiService.getAdminRegions(
-              country.countryCodeISO3,
-              this.timelineService.activeLeadTime,
-              this.adminLevelService.adminLevel,
-            );
+            const activeLeadTime = this.timelineService.activeLeadTime
+              ? this.timelineService.activeLeadTime
+              : LeadTime.day7;
+            if (
+              this.adminRegionsObject[`${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`]
+            ) {
+              // Get admin regions from memory
+              adminRegions = this.adminRegionsObject[`${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`];
+            } else {
+              adminRegions = await this.apiService.getAdminRegions(
+                country.countryCodeISO3,
+                this.timelineService.activeLeadTime,
+                this.adminLevelService.adminLevel,
+              );
+              this.adminRegionsObject[`${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`] = adminRegions
+            }
           }
-
           resolve(adminRegions);
         },
       );
