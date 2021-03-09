@@ -295,7 +295,7 @@ export class MapService {
     }
   }
 
-  getLayers(): Observable<IbfLayer> {
+  getLayerSubscription(): Observable<IbfLayer> {
     return this.layerSubject.asObservable();
   }
 
