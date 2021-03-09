@@ -43,7 +43,7 @@ export class AggregatesService {
             .getIndicators(country.countryCodeISO3)
             .then((response) => {
               this.indicators = response;
-              this.mapService.hideAggregateLayers();
+              /// this.mapService.hideAggregateLayers();
               this.indicators.forEach((indicator: Indicator) => {
                 this.mapService.loadAggregateLayer(indicator);
               });
