@@ -33,16 +33,13 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
 } from 'src/app/config';
-import { Country } from 'src/app/models/country.model';
-import { PlaceCode } from 'src/app/models/place-code.model';
+import { Country, EapAlertClasses } from 'src/app/models/country.model';
 import { RedCrossBranch, Station, Waterpoint } from 'src/app/models/poi.model';
-import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { AdminLevel } from 'src/app/types/admin-level';
 import {
   IbfLayer,
   IbfLayerGroup,
@@ -62,13 +59,12 @@ export class MapComponent implements OnDestroy {
   private map: Map;
   public layers: IbfLayer[] = [];
   private placeCode: string;
+  private country: Country;
 
   public legends: { [key: string]: Control } = {};
 
   private layerSubscription: Subscription;
   private countrySubscription: Subscription;
-  private adminLevelSubscription: Subscription;
-  private timelineSubscription: Subscription;
   private placeCodeSubscription: Subscription;
 
   private osmTileLayer = tileLayer(LEAFLET_MAP_URL_TEMPLATE, {
@@ -87,7 +83,6 @@ export class MapComponent implements OnDestroy {
 
   constructor(
     private countryService: CountryService,
-    private adminLevelService: AdminLevelService,
     private timelineService: TimelineService,
     private mapService: MapService,
     private placeCodeService: PlaceCodeService,
@@ -126,44 +121,12 @@ export class MapComponent implements OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        if (country) {
-          this.mapService.loadCountryLayers();
-
-          // Trigger a resize to fill the container-element:
-          window.setTimeout(
-            () => window.dispatchEvent(new UIEvent('resize')),
-            200,
-          );
-        }
-      });
-
-    this.adminLevelSubscription = this.adminLevelService
-      .getAdminLevelSubscription()
-      .subscribe((adminLevel: AdminLevel) => {
-        this.mapService.loadAdminRegionLayer();
-
-        // Trigger a resize to fill the container-element:
-        window.setTimeout(
-          () => window.dispatchEvent(new UIEvent('resize')),
-          200,
-        );
-      });
-
-    this.timelineSubscription = this.timelineService
-      .getTimelineSubscription()
-      .subscribe((leadTime: LeadTime) => {
-        this.mapService.loadCountryLayers();
-
-        // Trigger a resize to fill the container-element:
-        window.setTimeout(
-          () => window.dispatchEvent(new UIEvent('resize')),
-          200,
-        );
+        this.country = country;
       });
 
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
-      .subscribe((placeCode: PlaceCode): void => {
+      .subscribe((): void => {
         this.layers.forEach((layer: IbfLayer): void => {
           if ('resetStyle' in layer.leafletLayer) {
             layer.leafletLayer.resetStyle();
@@ -174,8 +137,6 @@ export class MapComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.layerSubscription.unsubscribe();
-    this.timelineSubscription.unsubscribe();
-    this.adminLevelSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
   }
@@ -396,7 +357,6 @@ export class MapComponent implements OnDestroy {
           this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
             placeCode: feature.properties.pcode,
             page: AnalyticsPage.dashboard,
-            country: feature.properties.country_code,
             isActiveEvent: this.eventService.state.activeEvent,
             isActiveTrigger: this.eventService.state.activeTrigger,
             component: this.constructor.name,
@@ -458,17 +418,12 @@ export class MapComponent implements OnDestroy {
     });
 
     markerInstance.on('click', (): void => {
-      this.countryService
-        .getCountrySubscription()
-        .subscribe((country: Country) => {
-          this.analyticsService.logEvent(AnalyticsEvent.mapMarker, {
-            page: AnalyticsPage.dashboard,
-            country: country.countryCodeISO3,
-            isActiveEvent: this.eventService.state.activeEvent,
-            isActiveTrigger: this.eventService.state.activeTrigger,
-            component: this.constructor.name,
-          });
-        });
+      this.analyticsService.logEvent(AnalyticsEvent.mapMarker, {
+        page: AnalyticsPage.dashboard,
+        isActiveEvent: this.eventService.state.activeEvent,
+        isActiveTrigger: this.eventService.state.activeTrigger,
+        component: this.constructor.name,
+      });
     });
 
     return markerInstance;
@@ -482,13 +437,9 @@ export class MapComponent implements OnDestroy {
     let markerIcon: IconOptions;
     let className: string;
 
-    let eapAlertClasses;
-
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        eapAlertClasses = country.eapAlertClasses;
-      });
+    const eapAlertClasses = this.country
+      ? this.country.eapAlertClasses
+      : new EapAlertClasses();
 
     const glofasProbability = markerProperties.fc_prob;
     Object.keys(eapAlertClasses).forEach((key) => {
@@ -516,17 +467,12 @@ export class MapComponent implements OnDestroy {
       className: className,
     });
     markerInstance.on('click', (): void => {
-      this.countryService
-        .getCountrySubscription()
-        .subscribe((country: Country) => {
-          this.analyticsService.logEvent(AnalyticsEvent.glofasStation, {
-            page: AnalyticsPage.dashboard,
-            country: country.countryCodeISO3,
-            isActiveEvent: this.eventService.state.activeEvent,
-            isActiveTrigger: this.eventService.state.activeTrigger,
-            component: this.constructor.name,
-          });
-        });
+      this.analyticsService.logEvent(AnalyticsEvent.glofasStation, {
+        page: AnalyticsPage.dashboard,
+        isActiveEvent: this.eventService.state.activeEvent,
+        isActiveTrigger: this.eventService.state.activeTrigger,
+        component: this.constructor.name,
+      });
     });
 
     return markerInstance;
@@ -545,17 +491,12 @@ export class MapComponent implements OnDestroy {
     });
     markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
     markerInstance.on('click', (): void => {
-      this.countryService
-        .getCountrySubscription()
-        .subscribe((country: Country) => {
-          this.analyticsService.logEvent(AnalyticsEvent.redCrossBranch, {
-            page: AnalyticsPage.dashboard,
-            country: country.countryCodeISO3,
-            isActiveEvent: this.eventService.state.activeEvent,
-            isActiveTrigger: this.eventService.state.activeTrigger,
-            component: this.constructor.name,
-          });
-        });
+      this.analyticsService.logEvent(AnalyticsEvent.redCrossBranch, {
+        page: AnalyticsPage.dashboard,
+        isActiveEvent: this.eventService.state.activeEvent,
+        isActiveTrigger: this.eventService.state.activeTrigger,
+        component: this.constructor.name,
+      });
     });
 
     return markerInstance;
@@ -576,32 +517,21 @@ export class MapComponent implements OnDestroy {
       this.createMarkerWaterpointPopup(markerProperties),
     );
     markerInstance.on('click', (): void => {
-      this.countryService
-        .getCountrySubscription()
-        .subscribe((country: Country) => {
-          this.analyticsService.logEvent(AnalyticsEvent.waterPoint, {
-            page: AnalyticsPage.dashboard,
-            country: country.countryCodeISO3,
-            isActiveEvent: this.eventService.state.activeEvent,
-            isActiveTrigger: this.eventService.state.activeTrigger,
-            component: this.constructor.name,
-          });
-        });
+      this.analyticsService.logEvent(AnalyticsEvent.waterPoint, {
+        page: AnalyticsPage.dashboard,
+        isActiveEvent: this.eventService.state.activeEvent,
+        isActiveTrigger: this.eventService.state.activeTrigger,
+        component: this.constructor.name,
+      });
     });
 
     return markerInstance;
   }
 
   private createMarkerStationPopup(markerProperties: Station): string {
-    let activeCountry: Country;
-
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        activeCountry = country;
-      });
-
-    const eapAlertClasses = activeCountry.eapAlertClasses;
+    const eapAlertClasses = this.country
+      ? this.country.eapAlertClasses
+      : new EapAlertClasses();
     const glofasProbability = markerProperties.fc_prob;
 
     let eapStatusText: string;
@@ -636,11 +566,10 @@ export class MapComponent implements OnDestroy {
 
     let lastAvailableLeadTime: LeadTime;
 
-    if (activeCountry) {
-      lastAvailableLeadTime =
-        activeCountry.countryLeadTimes[
-          activeCountry.countryLeadTimes.length - 1
-        ];
+    if (this.country) {
+      lastAvailableLeadTime = this.country.countryLeadTimes[
+        this.country.countryLeadTimes.length - 1
+      ];
     }
 
     const leadTime =

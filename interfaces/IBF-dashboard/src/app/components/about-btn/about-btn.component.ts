@@ -28,17 +28,16 @@ export class AboutBtnComponent implements OnInit {
   ngOnInit() {}
 
   public btnAction() {
+    this.analyticsService.logEvent(AnalyticsEvent.aboutTrigger, {
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
+
     this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.aboutTrigger, {
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          component: this.constructor.name,
-        });
-
         window.open(country.eapLink);
       });
   }
