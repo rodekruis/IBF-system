@@ -49,7 +49,7 @@ import {
 } from 'src/app/types/ibf-layer';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
-import { breakKey } from '../models/map.model';
+import { breakKey } from '../../models/map.model';
 
 @Component({
   selector: 'app-map',
