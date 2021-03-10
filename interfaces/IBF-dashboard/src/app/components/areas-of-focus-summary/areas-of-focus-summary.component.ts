@@ -14,6 +14,7 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 export class AreasOfFocusSummaryComponent implements OnDestroy {
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
+  private areasOfFocusSubscription: Subscription;
 
   public areasOfFocus: any[];
   public triggeredAreas: any[];
@@ -54,33 +55,36 @@ export class AreasOfFocusSummaryComponent implements OnDestroy {
   ngOnDestroy() {
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
+    this.areasOfFocusSubscription.unsubscribe();
   }
 
   calcActionStatus(triggeredAreas): void {
     // Get areas of focus from db
-    this.apiService.getAreasOfFocus().subscribe((areasOfFocus) => {
-      this.areasOfFocus = areasOfFocus;
+    this.areasOfFocusSubscription = this.apiService
+      .getAreasOfFocus()
+      .subscribe((areasOfFocus) => {
+        this.areasOfFocus = areasOfFocus;
 
-      // Start calculation only when last area has eapActions attached to it
-      if (triggeredAreas[triggeredAreas.length - 1]?.eapActions) {
-        // For each area of focus ..
-        this.areasOfFocus.forEach((areaOfFocus) => {
-          areaOfFocus.count = 0;
-          areaOfFocus.countChecked = 0;
-          // Look at each triggered area ..
-          triggeredAreas.forEach((area) => {
-            // And at each action within the area ..
-            area.eapActions.forEach((action) => {
-              // And count the total # of (checked) tasks this way
-              if (areaOfFocus.id === action.aof) {
-                areaOfFocus.count += 1;
-                if (action.checked) areaOfFocus.countChecked += 1;
-              }
+        // Start calculation only when last area has eapActions attached to it
+        if (triggeredAreas[triggeredAreas.length - 1]?.eapActions) {
+          // For each area of focus ..
+          this.areasOfFocus.forEach((areaOfFocus) => {
+            areaOfFocus.count = 0;
+            areaOfFocus.countChecked = 0;
+            // Look at each triggered area ..
+            triggeredAreas.forEach((area) => {
+              // And at each action within the area ..
+              area.eapActions.forEach((action) => {
+                // And count the total # of (checked) tasks this way
+                if (areaOfFocus.id === action.aof) {
+                  areaOfFocus.count += 1;
+                  if (action.checked) areaOfFocus.countChecked += 1;
+                }
+              });
             });
           });
-        });
-      }
-      this.changeDetectorRef.detectChanges();
-    });
+        }
+        this.changeDetectorRef.detectChanges();
+      });
   }
 }

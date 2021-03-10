@@ -32,6 +32,8 @@ export class ChatComponent implements OnDestroy {
 
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
+  private translateSubscription: Subscription;
+  private closeEventPlaceCodeSubscription: Subscription;
 
   public indicatorName = IbfLayerName;
   public eapActions: EapAction[];
@@ -49,7 +51,7 @@ export class ChatComponent implements OnDestroy {
     private apiService: ApiService,
     private analyticsService: AnalyticsService,
   ) {
-    this.translateService
+    this.translateSubscription = this.translateService
       .get('chat-component.active-event')
       .subscribe((translatedStrings: string) => {
         this.updateSuccessMessage = translatedStrings['update-success'];
@@ -85,6 +87,8 @@ export class ChatComponent implements OnDestroy {
   ngOnDestroy() {
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
+    this.translateSubscription.unsubscribe();
+    this.closeEventPlaceCodeSubscription.unsubscribe();
   }
 
   public changeAction(
@@ -176,7 +180,7 @@ export class ChatComponent implements OnDestroy {
   }
 
   public closePlaceCodeEventPopup(area): void {
-    this.translateService
+    this.translateSubscription = this.translateService
       .get('chat-component.active-event.close-event-popup.message', {
         placeCodeName: area.name,
       })
@@ -213,9 +217,11 @@ export class ChatComponent implements OnDestroy {
     placeCode: string,
   ): void {
     this.loaderService.setLoader('closePlaceCodeEvent', true);
-    this.apiService.closeEventPlaceCode(eventPlaceCodeId).subscribe(() => {
-      this.loaderService.setLoader('closePlaceCodeEvent', false);
-    });
+    this.closeEventPlaceCodeSubscription = this.apiService
+      .closeEventPlaceCode(eventPlaceCodeId)
+      .subscribe(() => {
+        this.loaderService.setLoader('closePlaceCodeEvent', false);
+      });
     this.eapActionsService.loadDistrictsAndActions();
     this.eventService.getTrigger();
     this.analyticsService.logEvent(AnalyticsEvent.closeEvent, {

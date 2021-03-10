@@ -40,6 +40,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private indicatorSubscription: Subscription;
   private countrySubscription: Subscription;
   private placeCodeSubscription: Subscription;
+  private translateSubscription: Subscription;
+  private eapActionSubscription: Subscription;
 
   constructor(
     private countryService: CountryService,
@@ -53,7 +55,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private analyticsService: AnalyticsService,
   ) {
-    this.translateService
+    this.translateSubscription = this.translateService
       .get('aggregates-component')
       .subscribe((translatedStrings: object) => {
         this.defaultHeaderLabel = translatedStrings['default-header-label'];
@@ -99,6 +101,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.indicatorSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
+    this.translateSubscription.unsubscribe();
+    this.eapActionSubscription.unsubscribe();
   }
 
   public async moreInfo(indicator: Indicator): Promise<void> {
@@ -148,7 +152,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           const adminAreaLabel = this.country.adminRegionLabels[
             this.adminLevelService.adminLevel - 1
           ];
-          this.eapActionsService
+          this.eapActionSubscription = this.eapActionsService
             .getTriggeredAreas()
             .subscribe((triggeredAreas) => {
               headerLabel = `${triggeredAreas.length} ${this.exposedPrefix} ${adminAreaLabel}`;
