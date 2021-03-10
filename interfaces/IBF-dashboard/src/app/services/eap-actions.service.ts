@@ -22,29 +22,32 @@ export class EapActionsService {
     });
   }
 
-  async loadAreasOfFocus() {
-    return await this.apiService.getAreasOfFocus();
-  }
-
   loadDistrictsAndActions() {
     this.countryService
       .getCountrySubscription()
-      .subscribe(async (country: Country) => {
+      .subscribe((country: Country) => {
         if (country) {
-          const event = await this.apiService.getEvent(country.countryCodeISO3);
-          if (event) {
-            this.triggeredAreas = await this.apiService.getTriggeredAreas(
-              country.countryCodeISO3,
-            );
+          this.apiService
+            .getEvent(country.countryCodeISO3)
+            .subscribe((event) => {
+              if (event) {
+                this.apiService
+                  .getTriggeredAreas(country.countryCodeISO3)
+                  .subscribe((triggeredAreas) => {
+                    this.triggeredAreas = triggeredAreas;
 
-            for (let area of this.triggeredAreas) {
-              area.eapActions = await this.apiService.getEapActions(
-                country.countryCodeISO3,
-                area.placeCode,
-              );
-            }
-            this.triggeredAreaSubject.next(this.triggeredAreas);
-          }
+                    for (let area of this.triggeredAreas) {
+                      this.apiService
+                        .getEapActions(country.countryCodeISO3, area.placeCode)
+                        .subscribe((eapActions) => {
+                          area.eapActions = eapActions;
+                        });
+                    }
+
+                    this.triggeredAreaSubject.next(this.triggeredAreas);
+                  });
+              }
+            });
         }
       });
   }
@@ -53,17 +56,12 @@ export class EapActionsService {
     return this.triggeredAreaSubject.asObservable();
   }
 
-  async checkEapAction(
+  checkEapAction(
     action: string,
     countryCodeISO3: string,
     status: boolean,
     placeCode: string,
   ) {
-    await this.apiService.checkEapAction(
-      action,
-      countryCodeISO3,
-      status,
-      placeCode,
-    );
+    this.apiService.checkEapAction(action, countryCodeISO3, status, placeCode);
   }
 }

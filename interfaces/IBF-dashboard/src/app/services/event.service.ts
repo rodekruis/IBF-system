@@ -33,20 +33,22 @@ export class EventService {
     });
   }
 
-  public async getTrigger() {
-    this.state.event = await this.timelineService.getEvent();
-    this.state.activeEvent = !!this.state.event;
-    this.state.activeTrigger =
-      this.state.event && this.state.event.activeTrigger;
-    this.state.newEvent =
-      this.state.event?.startDate ===
-      this.timelineService.state.today.format('YYYY-MM-DD');
-    this.setAlertState();
+  public getTrigger() {
+    this.timelineService.getEvent().subscribe((event) => {
+      this.state.event = event;
+      this.state.activeEvent = !!this.state.event;
+      this.state.activeTrigger =
+        this.state.event && this.state.event.activeTrigger;
+      this.state.newEvent =
+        this.state.event?.startDate ===
+        this.timelineService.state.today.format('YYYY-MM-DD');
+      this.setAlertState();
 
-    if (this.state.activeTrigger) {
-      this.getFirstTriggerDate();
-      this.getTriggerLeadTime();
-    }
+      if (this.state.activeTrigger) {
+        this.getFirstTriggerDate();
+        this.getTriggerLeadTime();
+      }
+    });
   }
 
   private setAlertState = () => {
@@ -63,20 +65,22 @@ export class EventService {
   private getFirstTriggerDate() {
     this.countryService
       .getCountrySubscription()
-      .subscribe(async (country: Country) => {
+      .subscribe((country: Country) => {
         if (country) {
-          const timesteps = await this.apiService.getTriggerPerLeadTime(
-            country.countryCodeISO3,
-          );
-          let firstKey = null;
-          Object.keys(timesteps).forEach((key) => {
-            if (timesteps[key] == 1) {
-              firstKey = !firstKey ? key : firstKey;
-            }
-          });
-          this.state.firstLeadTime = firstKey;
-          this.state.newEventEarlyTrigger =
-            firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
+          this.apiService
+            .getTriggerPerLeadTime(country.countryCodeISO3)
+            .subscribe((timesteps) => {
+              let firstKey = null;
+              Object.keys(timesteps).forEach((key) => {
+                if (timesteps[key] == 1) {
+                  firstKey = !firstKey ? key : firstKey;
+                }
+              });
+              this.state.firstLeadTime = firstKey;
+              this.state.newEventEarlyTrigger =
+                firstKey <
+                LeadTimeTriggerKey[this.timelineService.activeLeadTime];
+            });
         }
       });
   }
@@ -84,7 +88,7 @@ export class EventService {
   private getTriggerLeadTime() {
     this.countryService
       .getCountrySubscription()
-      .subscribe(async (country: Country) => {
+      .subscribe((country: Country) => {
         if (country) {
           let triggerLeadTime = null;
           country.countryLeadTimes.forEach((leadTime: LeadTime) => {

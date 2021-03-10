@@ -38,7 +38,7 @@ export class AggregatesService {
         if (country) {
           this.apiService
             .getIndicators(country.countryCodeISO3)
-            .then((response) => {
+            .subscribe((response) => {
               this.indicators = response;
               this.mapService.hideAggregateLayers();
               this.indicators.forEach((indicator: Indicator) => {
@@ -57,39 +57,43 @@ export class AggregatesService {
   }
 
   loadAggregateInformation(): void {
-    this.countryService.getCountrySubscription().subscribe(
-      async (country: Country): Promise<void> => {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country): void => {
         if (country) {
-          const adminRegions = await this.apiService.getAdminRegions(
-            country.countryCodeISO3,
-            this.timelineService.activeLeadTime,
-            this.adminLevelService.adminLevel,
-          );
+          this.apiService
+            .getAdminRegions(
+              country.countryCodeISO3,
+              this.timelineService.activeLeadTime,
+              this.adminLevelService.adminLevel,
+            )
+            .subscribe((adminRegions) => {
+              this.aggregates = adminRegions.features.map((feature) => {
+                let aggregate = {
+                  placeCode: feature.properties.pcode,
+                };
 
-          this.aggregates = adminRegions.features.map((feature) => {
-            let aggregate = {
-              placeCode: feature.properties.pcode,
-            };
+                this.indicators.forEach((indicator: Indicator) => {
+                  if (indicator.aggregateIndicator) {
+                    if (indicator.name in feature.properties) {
+                      aggregate[indicator.name] =
+                        feature.properties[indicator.name];
+                    } else if (
+                      indicator.name in feature.properties.indicators
+                    ) {
+                      aggregate[indicator.name] =
+                        feature.properties.indicators[indicator.name];
+                    } else {
+                      aggregate[indicator.name] = 0;
+                    }
+                  }
+                });
 
-            this.indicators.forEach((indicator: Indicator) => {
-              if (indicator.aggregateIndicator) {
-                if (indicator.name in feature.properties) {
-                  aggregate[indicator.name] =
-                    feature.properties[indicator.name];
-                } else if (indicator.name in feature.properties.indicators) {
-                  aggregate[indicator.name] =
-                    feature.properties.indicators[indicator.name];
-                } else {
-                  aggregate[indicator.name] = 0;
-                }
-              }
+                return aggregate;
+              });
             });
-
-            return aggregate;
-          });
         }
-      },
-    );
+      });
   }
 
   getAggregate(

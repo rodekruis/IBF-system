@@ -20,7 +20,7 @@ export class VideoPopoverComponent {
     return this.domSanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
   }
 
-  public async closePopover(): Promise<void> {
-    await this.popoverController.dismiss();
+  public closePopover(): void {
+    this.popoverController.dismiss();
   }
 }

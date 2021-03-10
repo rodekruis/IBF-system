@@ -56,7 +56,7 @@ export class MatrixComponent implements OnDestroy {
       });
   }
 
-  async presentPopover(event: any, layer: IbfLayer) {
+  async presentPopover(event: any, layer: IbfLayer): Promise<void> {
     event.stopPropagation();
 
     const popover = await this.popoverController.create({
@@ -84,7 +84,7 @@ export class MatrixComponent implements OnDestroy {
         });
       });
 
-    return await popover.present();
+    popover.present();
   }
 
   ngOnDestroy() {
@@ -113,16 +113,16 @@ export class MatrixComponent implements OnDestroy {
     this.updateLayer(name, active, data);
   }
 
-  public async updateLayer(
+  public updateLayer(
     name: IbfLayerName,
     active: boolean,
     data: GeoJSON.FeatureCollection,
-  ): Promise<void> {
+  ): void {
     if (active && data && data.features.length === 0) {
       const indicator = this.aggregatesService.indicators.find(
         (o) => o.name === name,
       );
-      await this.mapService.loadAdmin2Data(indicator);
+      this.mapService.loadAdmin2Data(indicator);
     }
     this.mapService.updateLayer(name, active, true);
     this.mapService.activeLayerName = active ? name : null;
@@ -136,10 +136,10 @@ export class MatrixComponent implements OnDestroy {
     }
   }
 
-  public isLayerControlMenuOpen() {
-    this.menuController.isOpen('layer-control').then((state) => {
-      this.hideLayerControlToggleButton = state;
-    });
+  public async isLayerControlMenuOpen(): Promise<void> {
+    this.hideLayerControlToggleButton = await this.menuController.isOpen(
+      'layer-control',
+    );
   }
 
   getLayersInOrder(): IbfLayer[] {
