@@ -7,10 +7,8 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
-import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -33,7 +31,6 @@ export class ChatComponent implements OnDestroy {
   private closeEventPopup: object;
 
   private eapActionSubscription: Subscription;
-  private countrySubscription: Subscription;
   private placeCodeSubscription: Subscription;
 
   public indicatorName = IbfLayerName;
@@ -42,7 +39,6 @@ export class ChatComponent implements OnDestroy {
   public submitDisabled = true;
 
   constructor(
-    private countryService: CountryService,
     private eapActionsService: EapActionsService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
@@ -64,15 +60,6 @@ export class ChatComponent implements OnDestroy {
   }
 
   ngOnInit() {
-    this.countrySubscription = this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        if (country) {
-          this.eapActionsService.loadDistrictsAndActions();
-          this.eventService.getTrigger();
-        }
-      });
-
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
       .subscribe((newAreas) => {
@@ -97,7 +84,6 @@ export class ChatComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.eapActionSubscription.unsubscribe();
-    this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
   }
 
@@ -106,20 +92,15 @@ export class ChatComponent implements OnDestroy {
     action: string,
     checkbox: boolean,
   ): void {
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.eapAction, {
-          placeCode: placeCode,
-          eapAction: action,
-          eapActionStatus: checkbox,
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          component: this.constructor.name,
-        });
-      });
+    this.analyticsService.logEvent(AnalyticsEvent.eapAction, {
+      placeCode: placeCode,
+      eapAction: action,
+      eapActionStatus: checkbox,
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
 
     const area = this.triggeredAreas.find((i) => i.placeCode === placeCode);
     const changedAction = area.eapActions.find((i) => i.action === action);
@@ -136,45 +117,39 @@ export class ChatComponent implements OnDestroy {
   }
 
   public submitEapAction(placeCode: string): void {
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country): void => {
-        this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
-          placeCode: placeCode,
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          component: this.constructor.name,
-        });
+    this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
+      placeCode: placeCode,
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
 
-        this.triggeredAreas.find(
-          (i) => i.placeCode === placeCode,
-        ).submitDisabled = true;
+    this.triggeredAreas.find(
+      (i) => i.placeCode === placeCode,
+    ).submitDisabled = true;
 
-        try {
-          this.changedActions.map((action) => {
-            if (action.placeCode === placeCode) {
-              return this.eapActionsService.checkEapAction(
-                action.action,
-                country.countryCodeISO3,
-                action.checked,
-                action.placeCode,
-              );
-            }
-          });
-
-          this.changedActions = this.changedActions.filter(
-            (i) => i.placeCode !== placeCode,
+    try {
+      this.changedActions.map((action) => {
+        if (action.placeCode === placeCode) {
+          return this.eapActionsService.checkEapAction(
+            action.action,
+            action.checked,
+            action.placeCode,
           );
-
-          this.actionResult(this.updateSuccessMessage, (): void =>
-            window.location.reload(),
-          );
-        } catch (e) {
-          this.actionResult(this.updateFailureMessage);
         }
       });
+
+      this.changedActions = this.changedActions.filter(
+        (i) => i.placeCode !== placeCode,
+      );
+
+      this.actionResult(this.updateSuccessMessage, (): void =>
+        window.location.reload(),
+      );
+    } catch (e) {
+      this.actionResult(this.updateFailureMessage);
+    }
   }
 
   private async actionResult(
@@ -243,16 +218,11 @@ export class ChatComponent implements OnDestroy {
     });
     this.eapActionsService.loadDistrictsAndActions();
     this.eventService.getTrigger();
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.closeEvent, {
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          placeCode: placeCode,
-        });
-      });
+    this.analyticsService.logEvent(AnalyticsEvent.closeEvent, {
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      placeCode: placeCode,
+    });
   }
 }

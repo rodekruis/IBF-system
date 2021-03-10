@@ -11,57 +11,63 @@ import { Country } from '../models/country.model';
 export class EapActionsService {
   private triggeredAreaSubject = new BehaviorSubject<any[]>([]);
   private triggeredAreas: any[];
+  private country: Country;
 
   constructor(
     private countryService: CountryService,
     private apiService: ApiService,
     private mockScenarioService: MockScenarioService,
   ) {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.country = country;
+        this.loadDistrictsAndActions();
+      });
+
     this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
       this.loadDistrictsAndActions();
     });
   }
 
   loadDistrictsAndActions() {
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        if (country) {
-          this.apiService
-            .getEvent(country.countryCodeISO3)
-            .subscribe((event) => {
-              if (event) {
-                this.apiService
-                  .getTriggeredAreas(country.countryCodeISO3)
-                  .subscribe((triggeredAreas) => {
-                    this.triggeredAreas = triggeredAreas;
+    if (this.country) {
+      this.apiService
+        .getEvent(this.country.countryCodeISO3)
+        .subscribe((event) => {
+          if (event) {
+            this.apiService
+              .getTriggeredAreas(this.country.countryCodeISO3)
+              .subscribe((triggeredAreas) => {
+                this.triggeredAreas = triggeredAreas;
 
-                    for (let area of this.triggeredAreas) {
-                      this.apiService
-                        .getEapActions(country.countryCodeISO3, area.placeCode)
-                        .subscribe((eapActions) => {
-                          area.eapActions = eapActions;
-                        });
-                    }
+                for (let area of this.triggeredAreas) {
+                  this.apiService
+                    .getEapActions(this.country.countryCodeISO3, area.placeCode)
+                    .subscribe((eapActions) => {
+                      area.eapActions = eapActions;
+                    });
+                }
 
-                    this.triggeredAreaSubject.next(this.triggeredAreas);
-                  });
-              }
-            });
-        }
-      });
+                this.triggeredAreaSubject.next(this.triggeredAreas);
+              });
+          }
+        });
+    }
   }
 
   getTriggeredAreas(): Observable<any[]> {
     return this.triggeredAreaSubject.asObservable();
   }
 
-  checkEapAction(
-    action: string,
-    countryCodeISO3: string,
-    status: boolean,
-    placeCode: string,
-  ) {
-    this.apiService.checkEapAction(action, countryCodeISO3, status, placeCode);
+  checkEapAction(action: string, status: boolean, placeCode: string) {
+    if (this.country) {
+      this.apiService.checkEapAction(
+        action,
+        this.country.countryCodeISO3,
+        status,
+        placeCode,
+      );
+    }
   }
 }

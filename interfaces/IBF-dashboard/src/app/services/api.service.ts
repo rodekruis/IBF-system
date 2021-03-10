@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { CountryTriggers } from 'src/app/models/country-triggers.model';
 import { Country } from 'src/app/models/country.model';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
@@ -139,7 +140,7 @@ export class ApiService {
     return this.get(`recent-dates/${countryCodeISO3}`, false);
   }
 
-  getTriggerPerLeadTime(countryCodeISO3: string): Observable<number> {
+  getTriggerPerLeadTime(countryCodeISO3: string): Observable<CountryTriggers> {
     return this.get(`triggers/${countryCodeISO3}`, false);
   }
 

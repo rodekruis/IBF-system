@@ -7,9 +7,7 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
-import { Country } from 'src/app/models/country.model';
 import { AggregatesService } from 'src/app/services/aggregates.service';
-import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { IbfLayer, IbfLayerName, IbfLayerType } from 'src/app/types/ibf-layer';
@@ -28,7 +26,6 @@ export class MatrixComponent implements OnDestroy {
   public hideLayerControlToggleButton: boolean = false;
 
   constructor(
-    private countryService: CountryService,
     private analyticsService: AnalyticsService,
     private eventService: EventService,
     private mapService: MapService,
@@ -70,19 +67,14 @@ export class MatrixComponent implements OnDestroy {
       },
     });
 
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.mapLayerInformation, {
-          mapLayerName: layer.name,
-          mapLayerStatus: layer.active,
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          component: this.constructor.name,
-        });
-      });
+    this.analyticsService.logEvent(AnalyticsEvent.mapLayerInformation, {
+      mapLayerName: layer.name,
+      mapLayerStatus: layer.active,
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
 
     popover.present();
   }
@@ -96,19 +88,14 @@ export class MatrixComponent implements OnDestroy {
     active: boolean,
     data: GeoJSON.FeatureCollection,
   ): void {
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.mapLayer, {
-          mapLayerName: name,
-          mapLayerStatus: active,
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          component: this.constructor.name,
-        });
-      });
+    this.analyticsService.logEvent(AnalyticsEvent.mapLayer, {
+      mapLayerName: name,
+      mapLayerStatus: active,
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
 
     this.updateLayer(name, active, data);
   }
