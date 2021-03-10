@@ -27,7 +27,7 @@ export class AdminLevelComponent {
 
   setAdminLevelClick(adminLevel: number, state: boolean): void {
     this.analyticsService.logEvent(AnalyticsEvent.adminLevel, {
-      adminLevel: adminLevel,
+      adminLevel,
       adminLevelState: state,
       page: AnalyticsPage.dashboard,
       isActiveEvent: this.eventService.state.activeEvent,

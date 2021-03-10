@@ -10,7 +10,7 @@ import { Country } from '../models/country.model';
   providedIn: 'root',
 })
 export class EventService {
-  public disasterType: string = 'flood';
+  public disasterType = 'flood';
   private country: Country;
 
   public state = {
@@ -81,7 +81,7 @@ export class EventService {
         .subscribe((timesteps) => {
           let firstKey = null;
           Object.keys(timesteps).forEach((key) => {
-            if (timesteps[key] == 1) {
+            if (timesteps[key] === '1') {
               firstKey = !firstKey ? key : firstKey;
             }
           });

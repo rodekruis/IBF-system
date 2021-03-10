@@ -1,6 +1,6 @@
 <ion-content scrollY="true">
   <!-- No event -->
-  <dialogue-turn
+  <app-dialogue-turn
     *ngIf="!eventService.state.activeEvent && !eventService.state.activeTrigger"
   >
     <p
@@ -10,10 +10,10 @@
       [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>
-    <video-guide-button></video-guide-button>
-  </dialogue-turn>
+    <app-video-guide-button></app-video-guide-button>
+  </app-dialogue-turn>
   <!-- New event today -->
-  <dialogue-turn
+  <app-dialogue-turn
     *ngIf="
       eventService.state.activeEvent &&
       eventService.state.activeTrigger &&
@@ -40,10 +40,10 @@
       [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>
-    <video-guide-button></video-guide-button>
-  </dialogue-turn>
+    <app-video-guide-button></app-video-guide-button>
+  </app-dialogue-turn>
   <!-- Existing event, still trigger -->
-  <dialogue-turn
+  <app-dialogue-turn
     *ngIf="
       eventService.state.activeEvent &&
       eventService.state.activeTrigger &&
@@ -64,10 +64,10 @@
       [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>
-    <video-guide-button></video-guide-button>
-  </dialogue-turn>
+    <app-video-guide-button></app-video-guide-button>
+  </app-dialogue-turn>
   <!-- Old event -->
-  <dialogue-turn
+  <app-dialogue-turn
     *ngIf="eventService.state.activeEvent && !eventService.state.activeTrigger"
   >
     <p
@@ -84,15 +84,15 @@
       [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>
-    <video-guide-button></video-guide-button>
-  </dialogue-turn>
+    <app-video-guide-button></app-video-guide-button>
+  </app-dialogue-turn>
   <ng-container *ngIf="eventService.state.activeEvent">
-    <dialogue-turn isConnected="true">
+    <app-dialogue-turn isConnected="true">
       <p
         [translate]="'chat-component.active-event.instruction' | translate"
       ></p>
-    </dialogue-turn>
-    <dialogue-turn
+    </app-dialogue-turn>
+    <app-dialogue-turn
       actor="self"
       *ngFor="let area of filteredAreas; first as isFirst"
       [isConnected]="!isFirst"
@@ -169,6 +169,6 @@
         expand="block"
         [translate]="'chat-component.active-event.close-event-button'"
       ></ion-button>
-    </dialogue-turn>
+    </app-dialogue-turn>
   </ng-container>
 </ion-content>

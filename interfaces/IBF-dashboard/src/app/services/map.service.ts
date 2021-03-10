@@ -27,6 +27,7 @@ import { quantile } from 'src/shared/utils';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { Country } from '../models/country.model';
 import { LayerActivation } from '../models/layer-activation.enum';
+import { breakKey } from '../models/map.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,10 +36,10 @@ export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
   public layers = [] as IbfLayer[];
   public activeLayerName: IbfLayerName;
-  public alertColor: string = '#de9584';
-  public safeColor: string = '#2c45fd';
-  public hoverFillOpacity: number = 0.6;
-  public unselectedFillOpacity: number = 0.4;
+  public alertColor = '#de9584';
+  public safeColor = '#2c45fd';
+  public hoverFillOpacity = 0.6;
+  public unselectedFillOpacity = 0.4;
 
   public state = {
     bounds: [
@@ -183,7 +184,7 @@ export class MapService {
         .subscribe((redCrossBranches) => {
           this.addLayer({
             name: IbfLayerName.redCrossBranches,
-            label: label,
+            label,
             type: IbfLayerType.point,
             description: this.getPopoverText(IbfLayerName.redCrossBranches),
             active: false,
@@ -313,11 +314,11 @@ export class MapService {
         label: layerLabel,
         type: IbfLayerType.wms,
         description: this.getPopoverText(layerName),
-        active: active,
+        active,
         show: true,
         viewCenter: false,
         data: null,
-        legendColor: legendColor,
+        legendColor,
         order: 10,
         wms: {
           url: environment.geoserverUrl,
@@ -406,11 +407,13 @@ export class MapService {
           order: layer.order,
           unit: layer.unit,
           show:
-            show == null || layer.name != triggerLayer.name ? layer.show : show,
+            show == null || layer.name !== triggerLayer.name
+              ? layer.show
+              : show,
         });
       });
     } else {
-      throw `Layer '${name}' does not exist`;
+      throw Error(`Layer '${name}' does not exist`);
     }
   }
 
@@ -421,19 +424,19 @@ export class MapService {
   ): string => {
     let adminRegionFillColor = this.state.defaultColor;
     switch (true) {
-      case colorPropertyValue <= colorThreshold['break1']:
+      case colorPropertyValue <= colorThreshold[breakKey.break1]:
         adminRegionFillColor = this.state.colorGradient[0];
         break;
-      case colorPropertyValue <= colorThreshold['break2']:
+      case colorPropertyValue <= colorThreshold[breakKey.break2]:
         adminRegionFillColor = this.state.colorGradient[1];
         break;
-      case colorPropertyValue <= colorThreshold['break3']:
+      case colorPropertyValue <= colorThreshold[breakKey.break3]:
         adminRegionFillColor = this.state.colorGradient[2];
         break;
-      case colorPropertyValue <= colorThreshold['break4']:
+      case colorPropertyValue <= colorThreshold[breakKey.break4]:
         adminRegionFillColor = this.state.colorGradient[3];
         break;
-      case colorPropertyValue > colorThreshold['break4']:
+      case colorPropertyValue > colorThreshold[breakKey.break5]:
         adminRegionFillColor = this.state.colorGradient[4];
         break;
       default:

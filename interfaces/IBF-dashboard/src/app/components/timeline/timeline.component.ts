@@ -23,7 +23,7 @@ export class TimelineComponent {
   handleTimeStepButtonClick(leadTime: LeadTime) {
     this.analyticsService.logEvent(AnalyticsEvent.leadTime, {
       page: AnalyticsPage.dashboard,
-      leadTime: leadTime,
+      leadTime,
       isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,

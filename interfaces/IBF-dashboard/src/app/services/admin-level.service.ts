@@ -11,8 +11,17 @@ export class AdminLevelService {
   private adminLevelSubject = new BehaviorSubject<AdminLevel>(AdminLevel.adm1);
   public adminLevel: AdminLevel;
   public adminLevelLabel: AdminLevelLabel = new AdminLevelLabel();
-  public adminLayerState: boolean = true;
+  public adminLayerState = true;
   private country: Country;
+
+  private static loadAdminLevelLabels(country: Country): AdminLevelLabel {
+    return {
+      adm1: country.adminRegionLabels[0],
+      adm2: country.adminRegionLabels[1],
+      adm3: country.adminRegionLabels[2],
+      adm4: country.adminRegionLabels[3],
+    };
+  }
 
   constructor(private countryService: CountryService) {
     this.countryService
@@ -36,14 +45,5 @@ export class AdminLevelService {
   public setAdminLevel(adminLevel: AdminLevel) {
     this.adminLevel = adminLevel;
     this.adminLevelSubject.next(this.adminLevel);
-  }
-
-  private static loadAdminLevelLabels(country: Country): AdminLevelLabel {
-    return {
-      adm1: country.adminRegionLabels[0],
-      adm2: country.adminRegionLabels[1],
-      adm3: country.adminRegionLabels[2],
-      adm4: country.adminRegionLabels[3],
-    };
   }
 }

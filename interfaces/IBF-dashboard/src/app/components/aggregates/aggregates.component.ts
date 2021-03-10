@@ -29,6 +29,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public groups: IndicatorGroup[] = [];
   public placeCode: PlaceCode;
   private country: Country;
+  private aggregateComponentTranslateNode = 'aggregates-component';
+  private defaultHeaderLabelTranslateNode = 'default-header-label';
+  private exposedPrefixTranslateNode = 'exposed-prefix';
+  private allPrefixTranslateNode = 'all-prefix';
+  private popoverTranslateNode = 'popover';
 
   public indicatorGroupEnum = IndicatorGroup;
 
@@ -56,12 +61,13 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private analyticsService: AnalyticsService,
   ) {
     this.translateSubscription = this.translateService
-      .get('aggregates-component')
+      .get(this.aggregateComponentTranslateNode)
       .subscribe((translatedStrings: object) => {
-        this.defaultHeaderLabel = translatedStrings['default-header-label'];
-        this.exposedPrefix = translatedStrings['exposed-prefix'];
-        this.allPrefix = translatedStrings['all-prefix'];
-        this.popoverTexts = translatedStrings['popover'];
+        this.defaultHeaderLabel =
+          translatedStrings[this.defaultHeaderLabelTranslateNode];
+        this.exposedPrefix = translatedStrings[this.exposedPrefixTranslateNode];
+        this.allPrefix = translatedStrings[this.allPrefixTranslateNode];
+        this.popoverTexts = translatedStrings[this.popoverTranslateNode];
       });
   }
 
@@ -89,7 +95,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           indicator.group = IndicatorGroup[indicator.group];
         });
         this.groups = [];
-        for (let group in IndicatorGroup) {
+        for (const group in IndicatorGroup) {
           if (this.indicators.find((i) => i.group === IndicatorGroup[group])) {
             this.groups.push(IndicatorGroup[group]);
           }

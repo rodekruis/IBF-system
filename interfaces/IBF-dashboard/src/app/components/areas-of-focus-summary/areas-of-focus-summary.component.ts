@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -11,7 +11,7 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
   templateUrl: './areas-of-focus-summary.component.html',
   styleUrls: ['./areas-of-focus-summary.component.scss'],
 })
-export class AreasOfFocusSummaryComponent implements OnDestroy {
+export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private areasOfFocusSubscription: Subscription;
@@ -78,7 +78,9 @@ export class AreasOfFocusSummaryComponent implements OnDestroy {
                 // And count the total # of (checked) tasks this way
                 if (areaOfFocus.id === action.aof) {
                   areaOfFocus.count += 1;
-                  if (action.checked) areaOfFocus.countChecked += 1;
+                  if (action.checked) {
+                    areaOfFocus.countChecked += 1;
+                  }
                 }
               });
             });
