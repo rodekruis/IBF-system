@@ -23,7 +23,7 @@ export class MatrixComponent implements OnDestroy {
   public layers: IbfLayer[] = [];
   public IbfLayerType = IbfLayerType;
   public IbfLayerName = IbfLayerName;
-  public hideLayerControlToggleButton: boolean = false;
+  public hideLayerControlToggleButton = false;
 
   constructor(
     private analyticsService: AnalyticsService,
@@ -44,8 +44,9 @@ export class MatrixComponent implements OnDestroy {
           if (newLayerIndex >= 0) {
             this.layers.splice(newLayerIndex, 1, newLayer);
           } else {
-            if (newLayer.name !== IbfLayerName.adminRegions)
+            if (newLayer.name !== IbfLayerName.adminRegions) {
               this.layers.push(newLayer);
+            }
           }
         } else {
           this.layers = [];
@@ -62,9 +63,7 @@ export class MatrixComponent implements OnDestroy {
       cssClass: 'ibf-layer-control-popover',
       translucent: true,
       showBackdrop: true,
-      componentProps: {
-        layer: layer,
-      },
+      componentProps: { layer },
     });
 
     this.analyticsService.logEvent(AnalyticsEvent.mapLayerInformation, {

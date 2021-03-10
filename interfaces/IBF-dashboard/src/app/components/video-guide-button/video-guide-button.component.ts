@@ -10,13 +10,13 @@ import { environment } from 'src/environments/environment';
 import { VideoPopoverComponent } from '../video-popover/video-popover.component';
 
 @Component({
-  selector: 'video-guide-button',
+  selector: 'app-video-guide-button',
   templateUrl: './video-guide-button.component.html',
   styleUrls: ['./video-guide-button.component.scss'],
 })
 export class VideoGuideButtonComponent {
   @Input()
-  public color: string = 'ibf-royal-blue';
+  public color = 'ibf-royal-blue';
 
   constructor(
     private popoverController: PopoverController,

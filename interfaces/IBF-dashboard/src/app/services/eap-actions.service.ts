@@ -41,7 +41,7 @@ export class EapActionsService {
               .subscribe((triggeredAreas) => {
                 this.triggeredAreas = triggeredAreas;
 
-                for (let area of this.triggeredAreas) {
+                for (const area of this.triggeredAreas) {
                   this.apiService
                     .getEapActions(this.country.countryCodeISO3, area.placeCode)
                     .subscribe((eapActions) => {

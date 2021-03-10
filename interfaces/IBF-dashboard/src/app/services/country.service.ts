@@ -35,7 +35,7 @@ export class CountryService {
   public selectCountry = (countryCodeISO3: string): void => {
     this.countrySubject.next(
       this.countries.find(
-        (country) => country.countryCodeISO3 == countryCodeISO3,
+        (country) => country.countryCodeISO3 === countryCodeISO3,
       ),
     );
   };

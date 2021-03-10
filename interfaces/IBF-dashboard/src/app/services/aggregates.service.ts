@@ -74,7 +74,7 @@ export class AggregatesService {
         )
         .subscribe((adminRegions) => {
           this.aggregates = adminRegions.features.map((feature) => {
-            let aggregate = {
+            const aggregate = {
               placeCode: feature.properties.pcode,
             };
 

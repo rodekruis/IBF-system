@@ -49,6 +49,7 @@ import {
 } from 'src/app/types/ibf-layer';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
+import { breakKey } from '../models/map.model';
 
 @Component({
   selector: 'app-map',
@@ -161,14 +162,14 @@ export class MapComponent implements OnDestroy {
     if (layer.active) {
       this.legends[layer.name] = new Control();
       this.legends[layer.name].setPosition('bottomleft');
-      this.legends[layer.name].onAdd = (map) => {
+      this.legends[layer.name].onAdd = () => {
         const div = DomUtil.create('div', 'info legend');
         const grades = [
           0,
-          colorThreshold['break1'],
-          colorThreshold['break2'],
-          colorThreshold['break3'],
-          colorThreshold['break4'],
+          colorThreshold[breakKey.break1],
+          colorThreshold[breakKey.break2],
+          colorThreshold[breakKey.break3],
+          colorThreshold[breakKey.break4],
         ];
 
         let labels;
@@ -181,14 +182,14 @@ export class MapComponent implements OnDestroy {
             layer.colorBreaks['5'].label,
           ];
         }
-        const getColor = function (d) {
-          return d > colorThreshold['break4']
+        const getColor = (d) => {
+          return d > colorThreshold[breakKey.break4]
             ? colors[4]
-            : d > colorThreshold['break3']
+            : d > colorThreshold[breakKey.break3]
             ? colors[3]
-            : d > colorThreshold['break2']
+            : d > colorThreshold[breakKey.break2]
             ? colors[2]
-            : d > colorThreshold['break1']
+            : d > colorThreshold[breakKey.break1]
             ? colors[1]
             : colors[0];
         };
@@ -291,8 +292,8 @@ export class MapComponent implements OnDestroy {
       },
     });
     if (layer.name === IbfLayerName.waterpoints) {
-      const waterpointClusterLayer = markerClusterGroup({
-        iconCreateFunction: function (cluster) {
+      const waterPointClusterLayer = markerClusterGroup({
+        iconCreateFunction: (cluster) => {
           const clusterSize = cluster.getChildCount();
           let size: number;
           let className: string;
@@ -316,14 +317,14 @@ export class MapComponent implements OnDestroy {
           }
           return divIcon({
             html: '<b>' + String(clusterSize) + '</b>',
-            className: className,
+            className,
             iconSize: point(size, size),
           });
         },
         maxClusterRadius: 50,
       });
-      waterpointClusterLayer.addLayer(mapLayer);
-      return waterpointClusterLayer;
+      waterPointClusterLayer.addLayer(mapLayer);
+      return waterPointClusterLayer;
     }
     return mapLayer;
   }
@@ -464,7 +465,7 @@ export class MapComponent implements OnDestroy {
     });
     markerInstance.bindPopup(this.createMarkerStationPopup(markerProperties), {
       minWidth: 300,
-      className: className,
+      className,
     });
     markerInstance.on('click', (): void => {
       this.analyticsService.logEvent(AnalyticsEvent.glofasStation, {
@@ -483,11 +484,10 @@ export class MapComponent implements OnDestroy {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.name;
-    let markerIcon = LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: markerIcon ? icon(markerIcon) : divIcon(),
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH),
     });
     markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
     markerInstance.on('click', (): void => {
@@ -507,11 +507,10 @@ export class MapComponent implements OnDestroy {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.wpdxId;
-    let markerIcon = LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: markerIcon ? icon(markerIcon) : divIcon(),
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT),
     });
     markerInstance.bindPopup(
       this.createMarkerWaterpointPopup(markerProperties),

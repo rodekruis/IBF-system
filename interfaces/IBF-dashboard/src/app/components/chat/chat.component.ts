@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -21,7 +21,7 @@ import { IbfLayerName } from 'src/app/types/ibf-layer';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnDestroy {
+export class ChatComponent implements OnInit, OnDestroy {
   public triggeredAreas: any[];
   public filteredAreas: any[];
 
@@ -97,7 +97,7 @@ export class ChatComponent implements OnDestroy {
     checkbox: boolean,
   ): void {
     this.analyticsService.logEvent(AnalyticsEvent.eapAction, {
-      placeCode: placeCode,
+      placeCode,
       eapAction: action,
       eapActionStatus: checkbox,
       page: AnalyticsPage.dashboard,
@@ -122,7 +122,7 @@ export class ChatComponent implements OnDestroy {
 
   public submitEapAction(placeCode: string): void {
     this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
-      placeCode: placeCode,
+      placeCode,
       page: AnalyticsPage.dashboard,
       isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
@@ -180,6 +180,8 @@ export class ChatComponent implements OnDestroy {
   }
 
   public closePlaceCodeEventPopup(area): void {
+    const cancelTranslateNode = 'cancel';
+    const confirmTranslateNode = 'confirm';
     this.translateSubscription = this.translateService
       .get('chat-component.active-event.close-event-popup.message', {
         placeCodeName: area.name,
@@ -187,16 +189,16 @@ export class ChatComponent implements OnDestroy {
       .subscribe(
         async (message): Promise<void> => {
           const alert = await this.alertController.create({
-            message: message,
+            message,
             buttons: [
               {
-                text: this.closeEventPopup['cancel'],
+                text: this.closeEventPopup[cancelTranslateNode],
                 handler: () => {
                   console.log('Cancel close place code');
                 },
               },
               {
-                text: this.closeEventPopup['confirm'],
+                text: this.closeEventPopup[confirmTranslateNode],
                 handler: () => {
                   this.closePlaceCodeEvent(
                     area.eventPlaceCodeId,
@@ -228,7 +230,7 @@ export class ChatComponent implements OnDestroy {
       page: AnalyticsPage.dashboard,
       isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
-      placeCode: placeCode,
+      placeCode,
     });
   }
 }

@@ -71,7 +71,7 @@ export class TimelineService {
                   this.state.timeStepButtons[index] = {
                     date: this.state.today.clone().add(triggerKey, 'days'),
                     value: leadTime,
-                    alert: this.triggers[triggerKey] == 1,
+                    alert: this.triggers[triggerKey] === '1',
                     disabled: isLeadTimeDisabled,
                     active: false,
                   };
