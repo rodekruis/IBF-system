@@ -21,7 +21,7 @@ export class LoginFormComponent implements OnInit {
   };
 
   public onSubmit() {
-    this.authService.login(this.model.email, this.model.password).then(() => {
+    this.authService.login(this.model.email, this.model.password).add(() => {
       this.loginForm.resetForm();
     });
   }

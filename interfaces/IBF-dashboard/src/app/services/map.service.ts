@@ -86,14 +86,14 @@ export class MapService {
     return popoverText;
   }
 
-  public async loadCountryLayers() {
+  public loadCountryLayers() {
     this.countryService
       .getCountrySubscription()
       .subscribe((country: Country): void => {
         if (country) {
           this.apiService
             .getLayers(country.countryCodeISO3)
-            .then((response) => {
+            .subscribe((response) => {
               const layers = response;
               layers.forEach((layer: IbfLayerMetadata) => {
                 if (layer.type === IbfLayerType.wms) {
@@ -127,117 +127,123 @@ export class MapService {
       });
   }
 
-  public async loadStationLayer() {
-    this.addLayer({
-      name: IbfLayerName.glofasStations,
-      label: IbfLayerLabel.glofasStations,
-      type: IbfLayerType.point,
-      description: this.getPopoverText(IbfLayerName.glofasStations),
-      active: true,
-      show: true,
-      data: await this.getStations(),
-      viewCenter: false,
-      order: 0,
+  public loadStationLayer() {
+    this.getStations().subscribe((stations) => {
+      this.addLayer({
+        name: IbfLayerName.glofasStations,
+        label: IbfLayerLabel.glofasStations,
+        type: IbfLayerType.point,
+        description: this.getPopoverText(IbfLayerName.glofasStations),
+        active: true,
+        show: true,
+        data: stations,
+        viewCenter: false,
+        order: 0,
+      });
     });
   }
 
-  public async loadRedCrossBranchesLayer(label: IbfLayerLabel) {
-    this.addLayer({
-      name: IbfLayerName.redCrossBranches,
-      label: label,
-      type: IbfLayerType.point,
-      description: this.getPopoverText(IbfLayerName.redCrossBranches),
-      active: false,
-      show: true,
-      data: await this.getRedCrossBranches(),
-      viewCenter: false,
-      order: 1,
+  public loadRedCrossBranchesLayer(label: IbfLayerLabel) {
+    this.getRedCrossBranches().subscribe((redCrossBranches) => {
+      this.addLayer({
+        name: IbfLayerName.redCrossBranches,
+        label: label,
+        type: IbfLayerType.point,
+        description: this.getPopoverText(IbfLayerName.redCrossBranches),
+        active: false,
+        show: true,
+        data: redCrossBranches,
+        viewCenter: false,
+        order: 1,
+      });
     });
   }
 
-  public async loadWaterpointsLayer() {
-    this.addLayer({
-      name: IbfLayerName.waterpoints,
-      label: IbfLayerLabel.waterpoints,
-      type: IbfLayerType.point,
-      description: this.getPopoverText(IbfLayerName.waterpoints),
-      active: false,
-      show: true,
-      data: await this.getWaterPoints(),
-      viewCenter: false,
-      order: 2,
+  public loadWaterpointsLayer() {
+    this.getWaterPoints().subscribe((waterPoints) => {
+      this.addLayer({
+        name: IbfLayerName.waterpoints,
+        label: IbfLayerLabel.waterpoints,
+        type: IbfLayerType.point,
+        description: this.getPopoverText(IbfLayerName.waterpoints),
+        active: false,
+        show: true,
+        data: waterPoints,
+        viewCenter: false,
+        order: 2,
+      });
     });
   }
 
-  public async loadAdminRegionLayer() {
-    this.addLayer({
-      name: IbfLayerName.adminRegions,
-      label: IbfLayerLabel.adminRegions,
-      type: IbfLayerType.shape,
-      description: '',
-      active: true,
-      show: true,
-      data: await this.getAdminRegions(),
-      viewCenter: true,
-      colorProperty: this.state.defaultColorProperty,
-      order: 0,
+  public loadAdminRegionLayer() {
+    this.getAdminRegions().subscribe((adminRegions) => {
+      this.addLayer({
+        name: IbfLayerName.adminRegions,
+        label: IbfLayerLabel.adminRegions,
+        type: IbfLayerType.shape,
+        description: '',
+        active: true,
+        show: true,
+        data: adminRegions,
+        viewCenter: true,
+        colorProperty: this.state.defaultColorProperty,
+        order: 0,
+      });
     });
   }
 
-  public async loadAggregateLayer(indicator: Indicator) {
-    let data = { features: [] } as GeoJSON.FeatureCollection;
-
-    if (!indicator.lazyLoad) {
-      data = await this.getAdminRegions();
-    }
-
-    this.addLayer({
-      name: indicator.name,
-      label: indicator.label,
-      type: IbfLayerType.shape,
-      description: this.getPopoverText(indicator.name),
-      active: indicator.active,
-      show: true,
-      data: data,
-      viewCenter: true,
-      colorProperty: indicator.name,
-      colorBreaks: indicator.colorBreaks,
-      numberFormatMap: indicator.numberFormatMap,
-      legendColor: '#969696',
-      group: IbfLayerGroup.aggregates,
-      order: 20 + indicator.order,
-      unit: indicator.unit,
+  public loadAggregateLayer(indicator: Indicator) {
+    this.getAdminRegions().subscribe((adminRegions) => {
+      this.addLayer({
+        name: indicator.name,
+        label: indicator.label,
+        type: IbfLayerType.shape,
+        description: this.getPopoverText(indicator.name),
+        active: indicator.active,
+        show: true,
+        data: adminRegions,
+        viewCenter: true,
+        colorProperty: indicator.name,
+        colorBreaks: indicator.colorBreaks,
+        numberFormatMap: indicator.numberFormatMap,
+        legendColor: '#969696',
+        group: IbfLayerGroup.aggregates,
+        order: 20 + indicator.order,
+        unit: indicator.unit,
+      });
     });
   }
 
-  public async loadAdmin2Data(indicator: Indicator) {
-    this.addLayer({
-      name: indicator.name,
-      label: indicator.label,
-      type: IbfLayerType.shape,
-      description: this.getPopoverText(indicator.name),
-      active: true,
-      show: true,
-      data: await this.getAdmin2Data(),
-      viewCenter: true,
-      colorProperty: indicator.name,
-      colorBreaks: indicator.colorBreaks,
-      numberFormatMap: indicator.numberFormatMap,
-      legendColor: '#969696',
-      group: IbfLayerGroup.aggregates,
-      order: 20 + indicator.order,
+  public loadAdmin2Data(indicator: Indicator) {
+    this.apiService.getAdmin2Data().subscribe((admin2Data) => {
+      this.addLayer({
+        name: indicator.name,
+        label: indicator.label,
+        type: IbfLayerType.shape,
+        description: this.getPopoverText(indicator.name),
+        active: true,
+        show: true,
+        data: admin2Data,
+        viewCenter: true,
+        colorProperty: indicator.name,
+        colorBreaks: indicator.colorBreaks,
+        numberFormatMap: indicator.numberFormatMap,
+        legendColor: '#969696',
+        group: IbfLayerGroup.aggregates,
+        order: 20 + indicator.order,
+      });
     });
   }
 
-  public async hideAggregateLayers() {
-    this.layers.forEach(async (layer: IbfLayer) => {
+  public hideAggregateLayers() {
+    this.layers.forEach((layer: IbfLayer) => {
       if (layer.group === IbfLayerGroup.aggregates) {
-        await this.updateLayer(layer.name, layer.active, false);
+        this.updateLayer(layer.name, layer.active, false);
       }
     });
   }
 
-  private async loadWmsLayer(
+  private loadWmsLayer(
     layerName: IbfLayerName,
     layerLabel: IbfLayerLabel,
     active: boolean,
@@ -325,11 +331,7 @@ export class MapService {
     return isActive;
   }
 
-  public async updateLayer(
-    name: IbfLayerName,
-    active: boolean,
-    show: boolean,
-  ): Promise<void> {
+  public updateLayer(name: IbfLayerName, active: boolean, show: boolean): void {
     const triggerLayerIndex = this.getLayerIndexById(name);
     const triggerLayer = this.layers[triggerLayerIndex];
     if (triggerLayerIndex >= 0) {
@@ -359,92 +361,75 @@ export class MapService {
     }
   }
 
-  public async getStations(): Promise<GeoJSON.FeatureCollection> {
-    return new Promise((resolve): void => {
-      this.countryService.getCountrySubscription().subscribe(
-        async (country: Country): Promise<void> => {
-          let stations = {
-            features: [],
-          } as GeoJSON.FeatureCollection;
-
+  public getStations(): Observable<GeoJSON.FeatureCollection> {
+    return new Observable((subject): void => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country): void => {
           if (country) {
-            stations = await this.apiService.getStations(
-              country.countryCodeISO3,
-              this.timelineService.activeLeadTime,
-            );
+            this.apiService
+              .getStations(
+                country.countryCodeISO3,
+                this.timelineService.activeLeadTime,
+              )
+              .subscribe((stations) => {
+                subject.next(stations);
+              });
           }
-
-          resolve(stations);
-        },
-      );
+        });
     });
   }
 
-  public async getRedCrossBranches(): Promise<GeoJSON.FeatureCollection> {
-    return new Promise((resolve): void => {
-      this.countryService.getCountrySubscription().subscribe(
-        async (country: Country): Promise<void> => {
-          let redCrossBranches = {
-            features: [],
-          } as GeoJSON.FeatureCollection;
-
+  public getRedCrossBranches(): Observable<GeoJSON.FeatureCollection> {
+    return new Observable((subject): void => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country): void => {
           if (country) {
-            redCrossBranches = await this.apiService.getRedCrossBranches(
-              country.countryCodeISO3,
-            );
+            this.apiService
+              .getRedCrossBranches(country.countryCodeISO3)
+              .subscribe((redCrossBranches) => {
+                subject.next(redCrossBranches);
+              });
           }
-
-          resolve(redCrossBranches);
-        },
-      );
+        });
     });
   }
 
-  public async getWaterPoints(): Promise<GeoJSON.FeatureCollection> {
-    return new Promise((resolve): void => {
-      this.countryService.getCountrySubscription().subscribe(
-        async (country: Country): Promise<void> => {
-          let waterPoints = {
-            features: [],
-          } as GeoJSON.FeatureCollection;
-
+  public getWaterPoints(): Observable<GeoJSON.FeatureCollection> {
+    return new Observable((subject): void => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country): void => {
           if (country) {
-            waterPoints = await this.apiService.getWaterPoints(
-              country.countryCodeISO3,
-            );
+            this.apiService
+              .getWaterPoints(country.countryCodeISO3)
+              .subscribe((waterPoints) => {
+                subject.next(waterPoints);
+              });
           }
-
-          resolve(waterPoints);
-        },
-      );
+        });
     });
   }
 
-  public async getAdminRegions(): Promise<GeoJSON.FeatureCollection> {
-    return new Promise((resolve): void => {
-      this.countryService.getCountrySubscription().subscribe(
-        async (country: Country): Promise<void> => {
-          let adminRegions = {
-            features: [],
-          } as GeoJSON.FeatureCollection;
-
+  public getAdminRegions(): Observable<GeoJSON.FeatureCollection> {
+    return new Observable((subject): void => {
+      this.countryService
+        .getCountrySubscription()
+        .subscribe((country: Country): void => {
           if (country) {
-            adminRegions = await this.apiService.getAdminRegions(
-              country.countryCodeISO3,
-              this.timelineService.activeLeadTime,
-              this.adminLevelService.adminLevel,
-            );
+            this.apiService
+              .getAdminRegions(
+                country.countryCodeISO3,
+                this.timelineService.activeLeadTime,
+                this.adminLevelService.adminLevel,
+              )
+              .subscribe((adminRegions) => {
+                subject.next(adminRegions);
+              });
           }
-
-          resolve(adminRegions);
-        },
-      );
+        });
     });
-  }
-
-  public async getAdmin2Data(): Promise<GeoJSON.FeatureCollection> {
-    const data = await this.apiService.getAdmin2Data();
-    return data;
   }
 
   getAdminRegionFillColor = (

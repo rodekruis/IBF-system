@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
@@ -13,6 +13,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EapAction } from 'src/app/types/eap-action';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
@@ -46,7 +47,7 @@ export class ChatComponent implements OnDestroy {
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private alertController: AlertController,
-    public loadingCtrl: LoadingController,
+    private loaderService: LoaderService,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
     private apiService: ApiService,
@@ -100,7 +101,11 @@ export class ChatComponent implements OnDestroy {
     this.placeCodeSubscription.unsubscribe();
   }
 
-  public changeAction(placeCode: string, action: string, checkbox: boolean) {
+  public changeAction(
+    placeCode: string,
+    action: string,
+    checkbox: boolean,
+  ): void {
     this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
@@ -130,55 +135,52 @@ export class ChatComponent implements OnDestroy {
       this.changedActions.length === 0;
   }
 
-  public async submitEapAction(placeCode: string): Promise<void> {
-    return new Promise((): void => {
-      this.countryService.getCountrySubscription().subscribe(
-        async (country: Country): Promise<void> => {
-          this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
-            placeCode: placeCode,
-            page: AnalyticsPage.dashboard,
-            country: country.countryCodeISO3,
-            isActiveEvent: this.eventService.state.activeEvent,
-            isActiveTrigger: this.eventService.state.activeTrigger,
-            component: this.constructor.name,
+  public submitEapAction(placeCode: string): void {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country): void => {
+        this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
+          placeCode: placeCode,
+          page: AnalyticsPage.dashboard,
+          country: country.countryCodeISO3,
+          isActiveEvent: this.eventService.state.activeEvent,
+          isActiveTrigger: this.eventService.state.activeTrigger,
+          component: this.constructor.name,
+        });
+
+        this.triggeredAreas.find(
+          (i) => i.placeCode === placeCode,
+        ).submitDisabled = true;
+
+        try {
+          this.changedActions.map((action) => {
+            if (action.placeCode === placeCode) {
+              return this.eapActionsService.checkEapAction(
+                action.action,
+                country.countryCodeISO3,
+                action.checked,
+                action.placeCode,
+              );
+            }
           });
 
-          this.triggeredAreas.find(
-            (i) => i.placeCode === placeCode,
-          ).submitDisabled = true;
+          this.changedActions = this.changedActions.filter(
+            (i) => i.placeCode !== placeCode,
+          );
 
-          try {
-            await Promise.all(
-              this.changedActions.map(async (action) => {
-                if (action.placeCode === placeCode) {
-                  return this.eapActionsService.checkEapAction(
-                    action.action,
-                    country.countryCodeISO3,
-                    action.checked,
-                    action.placeCode,
-                  );
-                } else {
-                  return Promise.resolve();
-                }
-              }),
-            );
-
-            this.changedActions = this.changedActions.filter(
-              (i) => i.placeCode !== placeCode,
-            );
-
-            this.actionResult(this.updateSuccessMessage, (): void =>
-              window.location.reload(),
-            );
-          } catch (e) {
-            this.actionResult(this.updateFailureMessage);
-          }
-        },
-      );
-    });
+          this.actionResult(this.updateSuccessMessage, (): void =>
+            window.location.reload(),
+          );
+        } catch (e) {
+          this.actionResult(this.updateFailureMessage);
+        }
+      });
   }
 
-  private async actionResult(resultMessage: string, callback?: () => void) {
+  private async actionResult(
+    resultMessage: string,
+    callback?: () => void,
+  ): Promise<void> {
     const alert = await this.alertController.create({
       message: resultMessage,
       buttons: [
@@ -195,43 +197,49 @@ export class ChatComponent implements OnDestroy {
       ],
     });
 
-    await alert.present();
+    alert.present();
   }
 
-  public async closePlaceCodeEventPopup(area) {
-    const message = await this.translateService
+  public closePlaceCodeEventPopup(area): void {
+    this.translateService
       .get('chat-component.active-event.close-event-popup.message', {
-        placCodeName: area.name,
+        placeCodeName: area.name,
       })
-      .toPromise();
-    const alert = await this.alertController.create({
-      message: message,
-      buttons: [
-        {
-          text: this.closeEventPopup['cancel'],
-          handler: () => {
-            console.log('Cancel close place code');
-          },
+      .subscribe(
+        async (message): Promise<void> => {
+          const alert = await this.alertController.create({
+            message: message,
+            buttons: [
+              {
+                text: this.closeEventPopup['cancel'],
+                handler: () => {
+                  console.log('Cancel close place code');
+                },
+              },
+              {
+                text: this.closeEventPopup['confirm'],
+                handler: () => {
+                  this.closePlaceCodeEvent(
+                    area.eventPlaceCodeId,
+                    area.placeCode,
+                  );
+                },
+              },
+            ],
+          });
+
+          alert.present();
         },
-        {
-          text: this.closeEventPopup['confirm'],
-          handler: () => {
-            this.closePlaceCodeEvent(area.eventPlaceCodeId, area.placeCode);
-          },
-        },
-      ],
-    });
-    await alert.present();
+      );
   }
 
-  public async closePlaceCodeEvent(
+  public closePlaceCodeEvent(
     eventPlaceCodeId: string,
     placeCode: string,
-  ) {
-    let loading = await this.loadingCtrl.create({});
-    loading.present();
-    this.apiService.closeEventPlaceCode(eventPlaceCodeId).then(() => {
-      loading.dismiss();
+  ): void {
+    this.loaderService.setLoader('closePlaceCodeEvent', true);
+    this.apiService.closeEventPlaceCode(eventPlaceCodeId).subscribe(() => {
+      this.loaderService.setLoader('closePlaceCodeEvent', false);
     });
     this.eapActionsService.loadDistrictsAndActions();
     this.eventService.getTrigger();

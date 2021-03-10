@@ -21,9 +21,11 @@ export class CountryService {
     });
   }
 
-  public async getCountriesByUser(user: User): Promise<void> {
-    this.countries = await this.apiService.getCountries();
-    this.filterCountriesByUser(user);
+  public getCountriesByUser(user: User): void {
+    this.apiService.getCountries().subscribe((countries) => {
+      this.countries = countries;
+      this.filterCountriesByUser(user);
+    });
   }
 
   getCountrySubscription = (): Observable<Country> => {

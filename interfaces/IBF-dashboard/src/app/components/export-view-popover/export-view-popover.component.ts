@@ -9,8 +9,8 @@ import { PopoverController } from '@ionic/angular';
 export class ExportViewPopoverComponent {
   constructor(private popoverController: PopoverController) {}
 
-  public async closePopover() {
-    await this.popoverController.dismiss();
+  public closePopover(): void {
+    this.popoverController.dismiss();
   }
 
   public getOperatingSystem() {

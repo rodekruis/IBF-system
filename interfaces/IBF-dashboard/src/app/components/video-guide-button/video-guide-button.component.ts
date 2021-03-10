@@ -27,7 +27,7 @@ export class VideoGuideButtonComponent {
     private eventService: EventService,
   ) {}
 
-  async presentPopover() {
+  async presentPopover(): Promise<void> {
     const popover = await this.popoverController.create({
       component: VideoPopoverComponent,
       componentProps: {
@@ -51,6 +51,6 @@ export class VideoGuideButtonComponent {
         });
       });
 
-    return await popover.present();
+    popover.present();
   }
 }

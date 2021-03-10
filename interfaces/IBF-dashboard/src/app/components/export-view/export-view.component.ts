@@ -23,7 +23,7 @@ export class ExportViewComponent {
     private eventService: EventService,
   ) {}
 
-  async presentPopover() {
+  async presentPopover(): Promise<void> {
     const popover = await this.popoverController.create({
       component: ExportViewPopoverComponent,
       animated: true,
@@ -44,6 +44,6 @@ export class ExportViewComponent {
         });
       });
 
-    return await popover.present();
+    popover.present();
   }
 }

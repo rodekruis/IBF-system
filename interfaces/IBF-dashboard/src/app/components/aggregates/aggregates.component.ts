@@ -112,7 +112,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.placeCodeSubscription.unsubscribe();
   }
 
-  public async moreInfo(indicator: Indicator) {
+  public async moreInfo(indicator: Indicator): Promise<void> {
     const modal = await this.modalController.create({
       component: SourceInfoModalComponent,
       cssClass: 'source-info-modal-class',
@@ -135,7 +135,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         });
       });
 
-    return await modal.present();
+    modal.present();
   }
 
   private getPopoverText(indicatorName: IbfLayerName): string {
