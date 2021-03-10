@@ -26,6 +26,7 @@ import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { Country } from '../models/country.model';
+import { LayerActivation } from '../models/layer-activation.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -97,14 +98,21 @@ export class MapService {
               const layers = response;
               layers.forEach((layer: IbfLayerMetadata) => {
                 if (layer.type === IbfLayerType.wms) {
+                  let layerActive: boolean;
+                  if (layer.active === LayerActivation.yes) {
+                    layerActive = true;
+                  } else if (
+                    layer.active === LayerActivation.ifTrigger &&
+                    this.eventService.state.activeTrigger
+                  ) {
+                    layerActive = true;
+                  } else {
+                    layerActive = false;
+                  }
                   this.loadWmsLayer(
                     layer.name,
                     layer.label,
-                    layer.active === 'if-trigger'
-                      ? this.eventService.state.activeTrigger
-                      : layer.active === 'no'
-                      ? false
-                      : true,
+                    layerActive,
                     layer.leadTimeDependent
                       ? this.timelineService.activeLeadTime
                       : null,
