@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -13,19 +14,30 @@ import { EventService } from 'src/app/services/event.service';
   templateUrl: './about-btn.component.html',
   styleUrls: ['./about-btn.component.scss'],
 })
-export class AboutBtnComponent implements OnInit {
+export class AboutBtnComponent implements OnDestroy {
   @Input()
   public btnLabel: string;
   @Input()
   public color: string;
 
+  private country: Country;
+  private countrySubscription: Subscription;
+
   constructor(
     private countryService: CountryService,
     private analyticsService: AnalyticsService,
     private eventService: EventService,
-  ) {}
+  ) {
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.country = country;
+      });
+  }
 
-  ngOnInit() {}
+  ngOnDestroy() {
+    this.countrySubscription.unsubscribe();
+  }
 
   public btnAction() {
     this.analyticsService.logEvent(AnalyticsEvent.aboutTrigger, {
@@ -35,10 +47,8 @@ export class AboutBtnComponent implements OnInit {
       component: this.constructor.name,
     });
 
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        window.open(country.eapLink);
-      });
+    if (this.country) {
+      window.open(this.country.eapLink);
+    }
   }
 }
