@@ -14,10 +14,9 @@ Output
 * The outcome of this analysis is a risk map, which is based on historical impact data 
 
 Ethiopia Drought Risk Analysis Example
-![Example of risk analysis for Ethiopia](
-https://github.com/rodekruis/IBF-system/tree/master/trigger-model-development/drought/trigger-model/Drought_trigger_dashboard/output/ethiopia_impact.png)
+![Example of risk analysis for Ethiopia](./output/ethiopia_impact.png?raw=true)
  
-
+ 
 ## 2. Impact hazard catalogue
 A time series matrix with drought event,biophysical indicators and climate variables aggregated per admin/livelyhood zone boundaries.
 

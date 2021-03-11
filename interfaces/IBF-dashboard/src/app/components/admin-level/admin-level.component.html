@@ -1,6 +1,6 @@
 <div class="ion-padding-top ibf-admin-level-buttons">
   <ion-button
-    *ngIf="adminLevelLabel.adm1"
+    *ngIf="getAdminLevelLabel(adminLevel.adm1)"
     size="small"
     class="ibf-admin-level-button"
     fill="solid"
@@ -16,10 +16,10 @@
       setAdminLevelClick(adminLevel.adm1, !adminLevelService.adminLayerState)
     "
   >
-    {{ adminLevelLabel.adm1 }}
+    {{ getAdminLevelLabel(adminLevel.adm1) }}
   </ion-button>
   <ion-button
-    *ngIf="adminLevelLabel.adm2"
+    *ngIf="getAdminLevelLabel(adminLevel.adm2)"
     size="small"
     class="ibf-admin-level-button"
     fill="solid"
@@ -35,10 +35,10 @@
       setAdminLevelClick(adminLevel.adm2, !adminLevelService.adminLayerState)
     "
   >
-    {{ adminLevelLabel.adm2 }}
+    {{ getAdminLevelLabel(adminLevel.adm2) }}
   </ion-button>
   <ion-button
-    *ngIf="adminLevelLabel.adm3"
+    *ngIf="getAdminLevelLabel(adminLevel.adm3)"
     size="small"
     class="ibf-admin-level-button"
     fill="solid"
@@ -54,10 +54,10 @@
       setAdminLevelClick(adminLevel.adm3, !adminLevelService.adminLayerState)
     "
   >
-    {{ adminLevelLabel.adm3 }}
+    {{ getAdminLevelLabel(adminLevel.adm3) }}
   </ion-button>
   <ion-button
-    *ngIf="adminLevelLabel.adm4"
+    *ngIf="getAdminLevelLabel(adminLevel.adm4)"
     size="small"
     class="ibf-admin-level-button"
     fill="solid"
@@ -73,6 +73,6 @@
       setAdminLevelClick(adminLevel.adm4, !adminLevelService.adminLayerState)
     "
   >
-    {{ adminLevelLabel.adm4 }}
+    {{ getAdminLevelLabel(adminLevel.adm4) }}
   </ion-button>
 </div>

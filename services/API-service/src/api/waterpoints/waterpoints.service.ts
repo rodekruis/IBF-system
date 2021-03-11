@@ -36,10 +36,9 @@ export class WaterpointsService {
       `&status_id=yes` +
       `&country_id=${country.countryCodeISO2}`;
 
-    return new Promise((resolve): void => {
-      this.httpService
-        .get(path, { headers: this.headers })
-        .subscribe((response): void => {
+    return new Promise((resolve, reject): void => {
+      this.httpService.get(path, { headers: this.headers }).subscribe({
+        next: (response): void => {
           const result = response.data;
           result.features.forEach((feature): void => {
             feature.properties = {
@@ -50,7 +49,9 @@ export class WaterpointsService {
             };
           });
           resolve(result);
-        });
+        },
+        error: reject,
+      });
     });
   }
 }

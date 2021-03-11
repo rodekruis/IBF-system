@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
@@ -8,7 +8,7 @@ import { CountryService } from 'src/app/services/country.service';
   templateUrl: './logos.component.html',
   styleUrls: ['./logos.component.scss'],
 })
-export class LogosComponent implements OnInit {
+export class LogosComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
   public logos: string[] = [];
 
