@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { CountryTriggers } from 'src/app/models/country-triggers.model';
 import { Country } from 'src/app/models/country.model';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
@@ -103,92 +104,83 @@ export class ApiService {
     );
   }
 
-  getCountries(): Promise<Country[]> {
-    return this.get('country', false)
-      .pipe(
-        map((countries) => {
-          return countries.map((country) => {
-            country.countryLeadTimes = country.countryLeadTimes.map(
-              (leadTime) => leadTime.leadTimeName,
-            );
-            return country;
-          });
-        }),
-      )
-      .toPromise();
+  getCountries(): Observable<Country[]> {
+    return this.get('country', false).pipe(
+      map((countries) => {
+        return countries.map((country) => {
+          country.countryLeadTimes = country.countryLeadTimes.map(
+            (leadTime) => leadTime.leadTimeName,
+          );
+          return country;
+        });
+      }),
+    );
   }
 
   getStations(
     countryCodeISO3: string,
     leadTime: LeadTime = LeadTime.day7,
-  ): Promise<GeoJSON.FeatureCollection> {
-    return this.get(
-      `stations/${countryCodeISO3}/${leadTime}`,
-      false,
-    ).toPromise();
+  ): Observable<GeoJSON.FeatureCollection> {
+    return this.get(`stations/${countryCodeISO3}/${leadTime}`, false);
   }
 
   getRedCrossBranches(
     countryCodeISO3: string,
-  ): Promise<GeoJSON.FeatureCollection> {
-    return this.get(`red-cross-branches/${countryCodeISO3}`, false).toPromise();
+  ): Observable<GeoJSON.FeatureCollection> {
+    return this.get(`red-cross-branches/${countryCodeISO3}`, false);
   }
 
-  getWaterPoints(countryCodeISO3: string): Promise<GeoJSON.FeatureCollection> {
-    return this.get(`waterpoints/${countryCodeISO3}`, false).toPromise();
+  getWaterPoints(
+    countryCodeISO3: string,
+  ): Observable<GeoJSON.FeatureCollection> {
+    return this.get(`waterpoints/${countryCodeISO3}`, false);
   }
 
-  getRecentDates(countryCodeISO3: string): Promise<any> {
-    return this.get(`recent-dates/${countryCodeISO3}`, false).toPromise();
+  getRecentDates(countryCodeISO3: string): Observable<any> {
+    return this.get(`recent-dates/${countryCodeISO3}`, false);
   }
 
-  getTriggerPerLeadTime(countryCodeISO3: string): Promise<number> {
-    return this.get(`triggers/${countryCodeISO3}`, false).toPromise();
+  getTriggerPerLeadTime(countryCodeISO3: string): Observable<CountryTriggers> {
+    return this.get(`triggers/${countryCodeISO3}`, false);
   }
 
-  getEvent(countryCodeISO3: string): Promise<any> {
-    return this.get(`event/${countryCodeISO3}`, false).toPromise();
+  getEvent(countryCodeISO3: string): Observable<any> {
+    return this.get(`event/${countryCodeISO3}`, false);
   }
 
   getAdminRegions(
     countryCodeISO3: string,
     leadTime: LeadTime = LeadTime.day7,
     adminLevel: AdminLevel = AdminLevel.adm1,
-  ): Promise<GeoJSON.FeatureCollection> {
+  ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
       `admin-area-data/${countryCodeISO3}/${adminLevel}/${leadTime}`,
       false,
-    ).toPromise();
+    );
   }
 
-  getAdmin2Data(): Promise<GeoJSON.FeatureCollection> {
-    return this.get('uga-data-level-2/all', false).toPromise();
+  getAdmin2Data(): Observable<GeoJSON.FeatureCollection> {
+    return this.get('uga-data-level-2/all', false);
   }
 
   getTriggeredAreas(countryCodeISO3: string) {
-    return this.get(`triggered-areas/${countryCodeISO3}`, false).toPromise();
+    return this.get(`triggered-areas/${countryCodeISO3}`, false);
   }
 
   getIndicators(countryCodeISO3: string) {
-    return this.get(
-      `metadata/indicators/${countryCodeISO3}`,
-      false,
-    ).toPromise();
+    return this.get(`metadata/indicators/${countryCodeISO3}`, false);
   }
 
   getLayers(countryCodeISO3: string) {
-    return this.get(`metadata/layers/${countryCodeISO3}`, false).toPromise();
+    return this.get(`metadata/layers/${countryCodeISO3}`, false);
   }
 
   getAreasOfFocus() {
-    return this.get('eap-actions/areas-of-focus', false).toPromise();
+    return this.get('eap-actions/areas-of-focus', false);
   }
 
   getEapActions(countryCodeISO3: string, placeCode: string) {
-    return this.get(
-      `eap-actions/${countryCodeISO3}/${placeCode}`,
-      false,
-    ).toPromise();
+    return this.get(`eap-actions/${countryCodeISO3}/${placeCode}`, false);
   }
 
   checkEapAction(
@@ -206,7 +198,7 @@ export class ApiService {
         placeCode,
       },
       false,
-    ).toPromise();
+    );
   }
 
   closeEventPlaceCode(eventPlaceCodeId: string) {
@@ -216,6 +208,6 @@ export class ApiService {
         eventPlaceCodeId,
       },
       false,
-    ).toPromise();
+    );
   }
 }

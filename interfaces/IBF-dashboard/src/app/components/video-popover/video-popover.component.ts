@@ -4,7 +4,7 @@ import { PopoverController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'video-popover',
+  selector: 'app-video-popover',
   templateUrl: './video-popover.component.html',
   styleUrls: ['./video-popover.component.scss'],
 })
@@ -20,7 +20,7 @@ export class VideoPopoverComponent {
     return this.domSanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
   }
 
-  public async closePopover(): Promise<void> {
-    await this.popoverController.dismiss();
+  public closePopover(): void {
+    this.popoverController.dismiss();
   }
 }

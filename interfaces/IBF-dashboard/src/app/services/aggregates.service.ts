@@ -17,6 +17,7 @@ export class AggregatesService {
   private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
   public indicators: Indicator[] = [];
   private aggregates = [];
+  private country: Country;
 
   constructor(
     private countryService: CountryService,
@@ -26,30 +27,37 @@ export class AggregatesService {
     private mapService: MapService,
     private mockScenarioService: MockScenarioService,
   ) {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.country = country;
+        this.loadMetadataAndAggregates();
+      });
+
+    this.timelineService.getTimelineSubscription().subscribe(() => {
+      this.loadMetadataAndAggregates();
+    });
+
     this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
       this.loadAggregateInformation();
     });
   }
 
   loadMetadataAndAggregates() {
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country): void => {
-        if (country) {
-          this.apiService
-            .getIndicators(country.countryCodeISO3)
-            .then((response) => {
-              this.indicators = response;
-              this.mapService.hideAggregateLayers();
-              this.indicators.forEach((indicator: Indicator) => {
-                this.mapService.loadAggregateLayer(indicator);
-              });
-              this.indicatorSubject.next(this.indicators);
+    if (this.country) {
+      this.apiService
+        .getIndicators(this.country.countryCodeISO3)
+        .subscribe((response) => {
+          this.indicators = response;
+          this.mapService.hideAggregateLayers();
+          this.indicators.forEach((indicator: Indicator) => {
+            this.mapService.loadAggregateLayer(indicator);
+          });
+          this.indicatorSubject.next(this.indicators);
 
-              this.loadAggregateInformation();
-            });
-        }
-      });
+          this.loadAggregateInformation();
+        });
+    }
   }
 
   getIndicators(): Observable<Indicator[]> {
@@ -57,17 +65,16 @@ export class AggregatesService {
   }
 
   loadAggregateInformation(): void {
-    this.countryService.getCountrySubscription().subscribe(
-      async (country: Country): Promise<void> => {
-        if (country) {
-          const adminRegions = await this.apiService.getAdminRegions(
-            country.countryCodeISO3,
-            this.timelineService.activeLeadTime,
-            this.adminLevelService.adminLevel,
-          );
-
+    if (this.country) {
+      this.apiService
+        .getAdminRegions(
+          this.country.countryCodeISO3,
+          this.timelineService.activeLeadTime,
+          this.adminLevelService.adminLevel,
+        )
+        .subscribe((adminRegions) => {
           this.aggregates = adminRegions.features.map((feature) => {
-            let aggregate = {
+            const aggregate = {
               placeCode: feature.properties.pcode,
             };
 
@@ -87,9 +94,8 @@ export class AggregatesService {
 
             return aggregate;
           });
-        }
-      },
-    );
+        });
+    }
   }
 
   getAggregate(

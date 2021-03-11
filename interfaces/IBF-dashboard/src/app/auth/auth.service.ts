@@ -74,7 +74,7 @@ export class AuthService {
     return user;
   }
 
-  public async login(email, password) {
+  public login(email, password) {
     return this.apiService.login(email, password).subscribe(
       (response) => {
         if (!response.user || !response.user.token) {
