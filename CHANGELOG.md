@@ -1,3 +1,14 @@
+## [0.33.4](https://github.com/rodekruis/IBF-system/compare/v0.33.3...v0.33.4) (2021-03-11)
+
+
+### Bug Fixes
+
+* catch error on waterpoints API and use correct admin region layer name ([90665d2](https://github.com/rodekruis/IBF-system/commit/90665d2338e1c4d4348ddc66a485b13716d968ae))
+* import path ([f95edaa](https://github.com/rodekruis/IBF-system/commit/f95edaaef0fd713f6546a19017ce593932303ebb))
+* window open triggers multiple times on country change ([1f844d1](https://github.com/rodekruis/IBF-system/commit/1f844d1e964b889a423b7fc96048a642f7a99fc3))
+
+
+
 ## [0.33.3](https://github.com/rodekruis/IBF-system/compare/v0.33.2...v0.33.3) (2021-03-08)
 
 
@@ -110,15 +121,6 @@
 ### Bug Fixes
 
 * non overlapping raster AB[#6388](https://github.com/rodekruis/IBF-system/issues/6388) ([38cedff](https://github.com/rodekruis/IBF-system/commit/38cedff69205ed976c5deb4ee8be3e7f0e4f7f01))
-
-
-
-## [0.27.8](https://github.com/rodekruis/IBF-system/compare/v0.27.7...v0.27.8) (2021-03-04)
-
-
-### Bug Fixes
-
-* lighthouse test for dashboard needs local storage ([280e7d8](https://github.com/rodekruis/IBF-system/commit/280e7d829775024a5b010907b5698e061f9c443f))
 
 
 
