@@ -9,18 +9,21 @@ import { PopoverController } from '@ionic/angular';
 export class ExportViewPopoverComponent {
   constructor(private popoverController: PopoverController) {}
 
-  public async closePopover() {
-    await this.popoverController.dismiss();
+  public closePopover(): void {
+    this.popoverController.dismiss();
   }
 
   public getOperatingSystem() {
-    var operatingSystemName = 'Unknown';
-    if (navigator.appVersion.indexOf('Win') != -1)
+    let operatingSystemName = 'Unknown';
+    if (navigator.appVersion.indexOf('Win') !== -1) {
       operatingSystemName = 'Windows';
-    if (navigator.appVersion.indexOf('Mac') != -1)
+    }
+    if (navigator.appVersion.indexOf('Mac') !== -1) {
       operatingSystemName = 'MacOS';
-    if (navigator.appVersion.indexOf('Linux') != -1)
+    }
+    if (navigator.appVersion.indexOf('Linux') !== -1) {
       operatingSystemName = 'Linux';
+    }
     return operatingSystemName;
   }
 }

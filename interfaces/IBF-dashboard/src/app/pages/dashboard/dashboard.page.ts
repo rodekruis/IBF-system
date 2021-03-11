@@ -22,7 +22,7 @@ export class DashboardPage implements OnInit {
   ) {
     this.authService.getAuthSubscription().subscribe((user: User): void => {
       if (user) {
-        this.isDev = user.userRole == this.adminRole;
+        this.isDev = user.userRole === this.adminRole;
       }
     });
   }

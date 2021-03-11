@@ -7,9 +7,7 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
-import { Country } from 'src/app/models/country.model';
 import { AggregatesService } from 'src/app/services/aggregates.service';
-import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { IbfLayer, IbfLayerName, IbfLayerType } from 'src/app/types/ibf-layer';
@@ -25,10 +23,9 @@ export class MatrixComponent implements OnDestroy {
   public layers: IbfLayer[] = [];
   public IbfLayerType = IbfLayerType;
   public IbfLayerName = IbfLayerName;
-  public hideLayerControlToggleButton: boolean = false;
+  public hideLayerControlToggleButton = false;
 
   constructor(
-    private countryService: CountryService,
     private analyticsService: AnalyticsService,
     private eventService: EventService,
     private mapService: MapService,
@@ -47,8 +44,9 @@ export class MatrixComponent implements OnDestroy {
           if (newLayerIndex >= 0) {
             this.layers.splice(newLayerIndex, 1, newLayer);
           } else {
-            if (newLayer.name !== IbfLayerName.adminRegions)
+            if (newLayer.name !== IbfLayerName.adminRegions) {
               this.layers.push(newLayer);
+            }
           }
         } else {
           this.layers = [];
@@ -56,7 +54,7 @@ export class MatrixComponent implements OnDestroy {
       });
   }
 
-  async presentPopover(event: any, layer: IbfLayer) {
+  async presentPopover(event: any, layer: IbfLayer): Promise<void> {
     event.stopPropagation();
 
     const popover = await this.popoverController.create({
@@ -65,26 +63,19 @@ export class MatrixComponent implements OnDestroy {
       cssClass: 'ibf-layer-control-popover',
       translucent: true,
       showBackdrop: true,
-      componentProps: {
-        layer: layer,
-      },
+      componentProps: { layer },
     });
 
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.mapLayerInformation, {
-          mapLayerName: layer.name,
-          mapLayerStatus: layer.active,
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          component: this.constructor.name,
-        });
-      });
+    this.analyticsService.logEvent(AnalyticsEvent.mapLayerInformation, {
+      mapLayerName: layer.name,
+      mapLayerStatus: layer.active,
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
 
-    return await popover.present();
+    popover.present();
   }
 
   ngOnDestroy() {
@@ -96,50 +87,48 @@ export class MatrixComponent implements OnDestroy {
     active: boolean,
     data: GeoJSON.FeatureCollection,
   ): void {
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.mapLayer, {
-          mapLayerName: name,
-          mapLayerStatus: active,
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          component: this.constructor.name,
-        });
-      });
+    this.analyticsService.logEvent(AnalyticsEvent.mapLayer, {
+      mapLayerName: name,
+      mapLayerStatus: active,
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
 
     this.updateLayer(name, active, data);
   }
 
-  public async updateLayer(
+  public updateLayer(
     name: IbfLayerName,
     active: boolean,
     data: GeoJSON.FeatureCollection,
-  ): Promise<void> {
+  ): void {
     if (active && data && data.features.length === 0) {
       const indicator = this.aggregatesService.indicators.find(
         (o) => o.name === name,
       );
-      await this.mapService.loadAdmin2Data(indicator);
+      this.mapService.loadAdmin2Data(indicator);
     }
     this.mapService.updateLayer(name, active, true);
     this.mapService.activeLayerName = active ? name : null;
     if (active) {
-      this.mapService.layers.find(
+      const adminRegionLayer = this.mapService.layers.find(
         (l) => l.name === IbfLayerName.adminRegions,
-      ).active = true;
+      );
+      if (adminRegionLayer) {
+        adminRegionLayer.active = true;
+      }
     }
     if (active && !this.adminLevelService.adminLayerState) {
       this.adminLevelService.adminLayerState = true;
     }
   }
 
-  public isLayerControlMenuOpen() {
-    this.menuController.isOpen('layer-control').then((state) => {
-      this.hideLayerControlToggleButton = state;
-    });
+  public async isLayerControlMenuOpen(): Promise<void> {
+    this.hideLayerControlToggleButton = await this.menuController.isOpen(
+      'layer-control',
+    );
   }
 
   getLayersInOrder(): IbfLayer[] {
