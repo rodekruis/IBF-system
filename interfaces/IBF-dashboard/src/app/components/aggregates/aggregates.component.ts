@@ -108,7 +108,9 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
-    this.eapActionSubscription.unsubscribe();
+    if (this.eapActionSubscription) {
+      this.eapActionSubscription.unsubscribe();
+    }
   }
 
   public async moreInfo(indicator: Indicator): Promise<void> {
