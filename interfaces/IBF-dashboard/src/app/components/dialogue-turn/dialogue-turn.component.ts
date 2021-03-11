@@ -6,7 +6,7 @@ enum Actor {
 }
 
 @Component({
-  selector: 'dialogue-turn',
+  selector: 'app-dialogue-turn',
   templateUrl: './dialogue-turn.component.html',
   styleUrls: ['./dialogue-turn.component.scss'],
 })

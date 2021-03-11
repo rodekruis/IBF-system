@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
     this.analyticsService.logPageView(AnalyticsPage.login);
   }
 
-  async presentPopover() {
+  async presentPopover(): Promise<void> {
     const popover = await this.popoverController.create({
       component: VideoPopoverComponent,
       componentProps: {
@@ -42,6 +42,6 @@ export class LoginPage implements OnInit {
       component: this.constructor.name,
     });
 
-    return await popover.present();
+    popover.present();
   }
 }

@@ -11,59 +11,63 @@ import { Country } from '../models/country.model';
 export class EapActionsService {
   private triggeredAreaSubject = new BehaviorSubject<any[]>([]);
   private triggeredAreas: any[];
+  private country: Country;
 
   constructor(
     private countryService: CountryService,
     private apiService: ApiService,
     private mockScenarioService: MockScenarioService,
   ) {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.country = country;
+        this.loadDistrictsAndActions();
+      });
+
     this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
       this.loadDistrictsAndActions();
     });
   }
 
-  async loadAreasOfFocus() {
-    return await this.apiService.getAreasOfFocus();
-  }
-
   loadDistrictsAndActions() {
-    this.countryService
-      .getCountrySubscription()
-      .subscribe(async (country: Country) => {
-        if (country) {
-          const event = await this.apiService.getEvent(country.countryCodeISO3);
+    if (this.country) {
+      this.apiService
+        .getEvent(this.country.countryCodeISO3)
+        .subscribe((event) => {
           if (event) {
-            this.triggeredAreas = await this.apiService.getTriggeredAreas(
-              country.countryCodeISO3,
-            );
+            this.apiService
+              .getTriggeredAreas(this.country.countryCodeISO3)
+              .subscribe((triggeredAreas) => {
+                this.triggeredAreas = triggeredAreas;
 
-            for (let area of this.triggeredAreas) {
-              area.eapActions = await this.apiService.getEapActions(
-                country.countryCodeISO3,
-                area.placeCode,
-              );
-            }
-            this.triggeredAreaSubject.next(this.triggeredAreas);
+                for (const area of this.triggeredAreas) {
+                  this.apiService
+                    .getEapActions(this.country.countryCodeISO3, area.placeCode)
+                    .subscribe((eapActions) => {
+                      area.eapActions = eapActions;
+                    });
+                }
+
+                this.triggeredAreaSubject.next(this.triggeredAreas);
+              });
           }
-        }
-      });
+        });
+    }
   }
 
   getTriggeredAreas(): Observable<any[]> {
     return this.triggeredAreaSubject.asObservable();
   }
 
-  async checkEapAction(
-    action: string,
-    countryCodeISO3: string,
-    status: boolean,
-    placeCode: string,
-  ) {
-    await this.apiService.checkEapAction(
-      action,
-      countryCodeISO3,
-      status,
-      placeCode,
-    );
+  checkEapAction(action: string, status: boolean, placeCode: string) {
+    if (this.country) {
+      this.apiService.checkEapAction(
+        action,
+        this.country.countryCodeISO3,
+        status,
+        placeCode,
+      );
+    }
   }
 }

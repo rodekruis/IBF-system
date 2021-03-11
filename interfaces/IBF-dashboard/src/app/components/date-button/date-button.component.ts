@@ -2,15 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'date-button',
+  selector: 'app-date-button',
   templateUrl: './date-button.component.html',
   styleUrls: ['./date-button.component.scss'],
 })
 export class DateButtonComponent implements OnInit {
   @Input() date = moment();
 
-  private dateFormat: string = 'ddd DD';
-  private monthFormat: string = 'MMM YYYY';
+  private dateFormat = 'ddd DD';
+  private monthFormat = 'MMM YYYY';
   public displayDate: string;
   public displayMonth: string;
 
