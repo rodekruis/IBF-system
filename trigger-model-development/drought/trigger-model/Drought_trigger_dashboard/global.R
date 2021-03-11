@@ -65,8 +65,8 @@ for (elm in  names(eval(parse(text=paste("settings$",country,sep=""))))){
 Ethiopia <- Ethiopia%>% #sf::read_sf("./shapefiles/Ethiopia/eth-administrative-divisions-shapefiles/eth_admbnda_adm2_csa_bofed_20201008.shp")%>%
   dplyr::select(ADM1_PCODE,ADM2_PCODE,ADM0_EN)
 
-SA_admin2_region <-SA_admin2_region%>%#sf::read_sf("./shapefiles/SA_admin2_region.shp")
-kenya<- sf::read_sf("./shapefiles/kenya/KEN_Adm2.shp")%>%
+SA_admin2_region <-SA_admin2_region#sf::read_sf("./shapefiles/SA_admin2_region.shp")
+kenya<- kenya%>%#sf::read_sf("./shapefiles/kenya/KEN_Adm2.shp")%>%
   dplyr::mutate(ADM1_PCODE=DSCodeAdm1,ADM2_PCODE=DSCodeAdm2,ADM0_EN='KENYA')%>%
   dplyr::select(ADM1_PCODE,ADM2_PCODE,ADM0_EN)
 
