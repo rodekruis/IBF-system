@@ -289,16 +289,15 @@ export class MapService {
             this.adminLevelService.adminLevel,
           )
           .subscribe((adminRegions) => {
-            this.addAggregateLayer(indicator, adminRegions)
+            this.addAggregateLayer(indicator, adminRegions);
           });
-      }
-      else {
-        this.addAggregateLayer(indicator, null)
+      } else {
+        this.addAggregateLayer(indicator, null);
       }
     }
   }
 
-  public addAggregateLayer(indicator: Indicator, adminRegions:any) {
+  public addAggregateLayer(indicator: Indicator, adminRegions: any) {
     this.addLayer({
       name: indicator.name,
       label: indicator.label,
@@ -317,7 +316,6 @@ export class MapService {
       unit: indicator.unit,
     });
   }
-
 
   public loadAdmin2Data(indicator: Indicator) {
     this.apiService.getAdmin2Data().subscribe((admin2Data) => {
@@ -585,12 +583,11 @@ export class MapService {
               ]
             ) {
               // Get admin regions from memory
-              console.log('// Get admin regions from memory: ');
               adminRegions = this.adminRegionsObject[
                 `${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`
               ];
             } else {
-              console.log('// Get admin regions from api: ');
+              // Get admin regions from api
               adminRegions = await this.apiService
                 .getAdminRegions(
                   country.countryCodeISO3,
@@ -639,7 +636,6 @@ export class MapService {
       default:
         adminRegionFillColor = this.state.defaultColor;
     }
-
     if (this.placeCode && this.placeCode.placeCode === placeCode) {
       adminRegionFillColor = this.eventService.state.activeTrigger
         ? this.alertColor
