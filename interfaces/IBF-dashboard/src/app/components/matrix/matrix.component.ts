@@ -108,7 +108,6 @@ export class MatrixComponent implements OnDestroy {
       const indicator = this.aggregatesService.indicators.find(
         (o) => o.name === name,
       );
-      this.mapService.loadAdmin2Data(indicator);
     }
     this.mapService.updateLayer(name, active, true);
     this.mapService.activeLayerName = active ? name : null;
