@@ -250,7 +250,7 @@ export class MapService {
 
   private loadAdminRegionLayer(layerActive: boolean) {
     if (this.country) {
-      if (layerActive)
+      if (layerActive) {
         this.apiService
           .getAdminRegions(
             this.country.countryCodeISO3,
@@ -260,7 +260,10 @@ export class MapService {
           .subscribe((adminRegions) => {
             this.addAdminRegionLayer(adminRegions);
           });
-      else this.addAdminRegionLayer(null);
+      }
+      else {
+        this.addAdminRegionLayer(null);
+      }
     }
   }
 
@@ -455,7 +458,7 @@ export class MapService {
             order: layer.order,
             unit: layer.unit,
             show:
-              show == null || layer.name != triggerLayer.name
+              show == null || layer.name !== triggerLayer.name
                 ? layer.show
                 : show,
           });
