@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -13,33 +14,41 @@ import { EventService } from 'src/app/services/event.service';
   templateUrl: './about-btn.component.html',
   styleUrls: ['./about-btn.component.scss'],
 })
-export class AboutBtnComponent implements OnInit {
+export class AboutBtnComponent implements OnDestroy {
   @Input()
   public btnLabel: string;
   @Input()
   public color: string;
 
+  private country: Country;
+  private countrySubscription: Subscription;
+
   constructor(
     private countryService: CountryService,
     private analyticsService: AnalyticsService,
     private eventService: EventService,
-  ) {}
-
-  ngOnInit() {}
-
-  public btnAction() {
-    this.countryService
+  ) {
+    this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.aboutTrigger, {
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          component: this.constructor.name,
-        });
-
-        window.open(country.eapLink);
+        this.country = country;
       });
+  }
+
+  ngOnDestroy() {
+    this.countrySubscription.unsubscribe();
+  }
+
+  public btnAction() {
+    this.analyticsService.logEvent(AnalyticsEvent.aboutTrigger, {
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
+
+    if (this.country) {
+      window.open(this.country.eapLink);
+    }
   }
 }
