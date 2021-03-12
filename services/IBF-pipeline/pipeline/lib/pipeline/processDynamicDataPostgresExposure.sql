@@ -69,7 +69,7 @@ on 1=1
 left join "IBF-static-input".waterstation_per_district t1
 on t0.pcode = t1.pcode
 left join "IBF-pipeline-output".dashboard_forecast_per_station  t2
-ON t1."station_code_7day" = t2.station_code 
+ON t1.station_code = t2.station_code 
 	and t1.country_code = t2.country_code 
 	and t0a.lead_time = t2.lead_time
 left join (

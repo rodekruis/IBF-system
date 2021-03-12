@@ -55,6 +55,9 @@ export class CountryEntity {
   @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
   public created: Date;
 
+  @Column('json', { nullable: true })
+  public glofasStationInput: JSON;
+
   @ManyToMany(
     (): typeof LeadTimeEntity => LeadTimeEntity,
     (leadTime): CountryEntity[] => leadTime.countries,

@@ -49,7 +49,7 @@ SETTINGS = {
             'pcode_colname': 'pcode'
         },
         'lead_times': {
-            "7-day": 7
+            "5-day": 5
         },
         'EXPOSURE_DATA_SOURCES': {
             "population": {
