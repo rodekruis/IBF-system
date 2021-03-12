@@ -260,8 +260,7 @@ export class MapService {
           .subscribe((adminRegions) => {
             this.addAdminRegionLayer(adminRegions);
           });
-      }
-      else {
+      } else {
         this.addAdminRegionLayer(null);
       }
     }
