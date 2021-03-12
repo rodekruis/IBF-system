@@ -11,6 +11,8 @@ import { WaterpointsModule } from './api/waterpoints/waterpoints.module';
 import { UgaDataLevel2Module } from './api/uga-data-level-2/uga-data-level-2.module';
 import { EventModule } from './api/event/event.module';
 import { MetadataModule } from './api/metadata/metadata.module';
+import { AdminAreaModule } from './api/admin-area/admin-area.module';
+import { GlofasStationModule } from './api/glofas-station/glofas-station.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { MetadataModule } from './api/metadata/metadata.module';
     CountryModule,
     EventModule,
     MetadataModule,
+    AdminAreaModule,
+    GlofasStationModule,
   ],
   controllers: [AppController],
   providers: [],

@@ -93,7 +93,7 @@ class GlofasData:
         df_district_mapping = DataFrame(self.DISTRICT_MAPPING)
         df_district_mapping.columns = self.district_cols
         df_district_mapping = df_district_mapping.set_index(
-            "station_code_7day", drop=False)
+            "station_code", drop=False)
 
         stations = []
         trigger_per_day = {
@@ -115,7 +115,7 @@ class GlofasData:
             data = xr.open_dataset(Filename)
 
             # Get threshold for this specific station
-            if station['code'] in df_thresholds['station_code'] and station['code'] in df_district_mapping['station_code_7day']:
+            if station['code'] in df_thresholds['station_code'] and station['code'] in df_district_mapping['station_code']:
                 print(Filename)
                 threshold = df_thresholds[df_thresholds.station_code ==
                                           station['code']]['trigger_level'][0]

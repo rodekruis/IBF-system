@@ -117,14 +117,14 @@ where date >= current_date
 DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_forecast_per_district;
 select t0.country_code
 	,pcode
-	,"station_code_7day" as station_code
+	,t0.station_code
 	,lead_time
 	,date
 	,fc,fc_trigger,fc_rp,fc_perc,fc_prob
 INTO "IBF-pipeline-output".dashboard_forecast_per_district
 FROM "IBF-static-input".waterstation_per_district t0
 LEFT JOIN "IBF-pipeline-output".dashboard_forecast_per_station  t1
-ON t0."station_code_7day" = t1.station_code and t0.country_code = t1.country_code
+ON t0.station_code = t1.station_code and t0.country_code = t1.country_code
 where t1.lead_time is not null
 ;
 --select * from "IBF-pipeline-output".dashboard_forecast_per_district;

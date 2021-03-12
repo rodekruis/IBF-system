@@ -5,11 +5,14 @@ import { Connection } from 'typeorm';
 import { GlofasStationEntity } from '../api/glofas-station/glofas-station.entity';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { SeedHelper } from './seed-helper';
+import countries from './json/countries.json';
 
 @Injectable()
 export class SeedGlofasStation implements InterfaceScript {
   private connection: Connection;
   private readonly seedHelper: SeedHelper;
+  private glofasStationRepository;
+  private adminAreaRepository;
 
   public constructor(connection: Connection) {
     this.connection = connection;
@@ -17,47 +20,61 @@ export class SeedGlofasStation implements InterfaceScript {
   }
 
   public async run(): Promise<void> {
-    const glofasStationRepository = this.connection.getRepository(
+    const envCountries = process.env.COUNTRIES.split(',');
+    this.glofasStationRepository = this.connection.getRepository(
       GlofasStationEntity,
     );
-    const adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
+    this.adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
+    for (const country of countries) {
+      if (
+        envCountries.includes(country.countryCodeISO3) &&
+        country.glofasStationInput
+      ) {
+        this.seedCountryGlofasStations(country);
+      }
+    }
+  }
 
-    // ETH: GLOFAS Station per admin-area
-    const stationPerAdminAreaDataETH = await this.seedHelper.getCsvData(
-      './src/scripts/git-lfs/Glofas_station_per_admin_area_ETH.csv',
+  private async seedCountryGlofasStations(country): Promise<void> {
+    const stationPerAdminAreaDataFileName = `./src/scripts/git-lfs/Glofas_station_per_admin_area_${country.countryCodeISO3}.csv`;
+    const stationPerAdminAreaData = await this.seedHelper.getCsvData(
+      stationPerAdminAreaDataFileName,
     );
-    stationPerAdminAreaDataETH.forEach(
+    stationPerAdminAreaData.forEach(
       async (area): Promise<void> => {
-        const adminArea = await adminAreaRepository.findOne({
+        const adminArea = await this.adminAreaRepository.findOne({
           where: { pcode: area['pcode'] },
         });
-        adminArea.glofasStation = area['station_code_7day'];
-        adminAreaRepository.save(adminArea);
+        adminArea.glofasStation = area['station_code'];
+        this.adminAreaRepository.save(adminArea);
       },
     );
-
-    // -- ETH: GLOFAS stations
+    const glofasStationDataFileName = `./src/scripts/git-lfs/${country.glofasStationInput['fileName']}`;
     const glofasStationData = await this.seedHelper.getCsvData(
-      './src/scripts/git-lfs/Glofas_station_locations_with_trigger_levels_IARP.csv',
+      glofasStationDataFileName,
     );
-    const stationCodesETH = stationPerAdminAreaDataETH.map(
-      (area): string => area['station_code_7day'],
+    const stationCodes = stationPerAdminAreaData.map(
+      (area): string => area['station_code'],
     );
 
     glofasStationData.forEach(
       async (station): Promise<void> => {
-        if (stationCodesETH.includes(station['station_code'])) {
-          await glofasStationRepository
+        if (stationCodes.includes(station['station_code'])) {
+          await this.glofasStationRepository
             .createQueryBuilder()
             .insert()
             .values({
-              countryCode: 'ETH',
+              countryCode: country.countryCodeISO3,
               stationCode: station['station_code'],
               stationName: station['station_name'],
               triggerLevel:
-                station['10yr_threshold_7day'] == ''
+                station[country.glofasStationInput['triggerColName']] == ''
                   ? null
-                  : station['10yr_threshold_7day'],
+                  : station[country.glofasStationInput['triggerColName']],
+              threshold2Year: station['2yr_threshold'],
+              threshold5Year: station['5yr_threshold'],
+              threshold10Year: station['10yr_threshold'],
+              threshold20Year: station['20yr_threshold'],
               geom: (): string =>
                 `st_MakePoint(${station['lon']}, ${station['lat']})`,
             })
