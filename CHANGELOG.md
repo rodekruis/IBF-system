@@ -1,3 +1,12 @@
+## [0.33.5](https://github.com/rodekruis/IBF-system/compare/v0.33.4...v0.33.5) (2021-03-12)
+
+
+### Bug Fixes
+
+* add data folder to docker ignore ([3488fff](https://github.com/rodekruis/IBF-system/commit/3488fff0a70ce7ae8d83fb15f1657061076571b6))
+
+
+
 ## [0.33.4](https://github.com/rodekruis/IBF-system/compare/v0.33.3...v0.33.4) (2021-03-11)
 
 
@@ -112,15 +121,6 @@
 ### Features
 
 * added+changed geoserver stores/layers EGY AB[#6290](https://github.com/rodekruis/IBF-system/issues/6290) ([f0be92f](https://github.com/rodekruis/IBF-system/commit/f0be92f349770d60411e8872b7b0b35b9f863201))
-
-
-
-## [0.27.9](https://github.com/rodekruis/IBF-system/compare/v0.27.8...v0.27.9) (2021-03-05)
-
-
-### Bug Fixes
-
-* non overlapping raster AB[#6388](https://github.com/rodekruis/IBF-system/issues/6388) ([38cedff](https://github.com/rodekruis/IBF-system/commit/38cedff69205ed976c5deb4ee8be3e7f0e4f7f01))
 
 
 
