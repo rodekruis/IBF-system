@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Country } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { CountryService } from 'src/app/services/country.service';
   templateUrl: './logos.component.html',
   styleUrls: ['./logos.component.scss'],
 })
-export class LogosComponent implements OnInit {
+export class LogosComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
   public logos: string[] = [];
 
@@ -16,7 +17,7 @@ export class LogosComponent implements OnInit {
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe((country) => {
+      .subscribe((country: Country) => {
         if (country) {
           this.logos = country.countryLogos;
         }

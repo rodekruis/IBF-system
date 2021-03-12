@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
-import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
 import { LoaderService } from 'src/app/services/loader.service';
 
@@ -16,19 +15,25 @@ import { LoaderService } from 'src/app/services/loader.service';
   templateUrl: './user-state.component.html',
   styleUrls: ['./user-state.component.scss'],
 })
-export class UserStateComponent {
+export class UserStateComponent implements OnDestroy {
   public displayName: string;
+  private authSubscription: Subscription;
 
   constructor(
     private authService: AuthService,
     private loaderService: LoaderService,
-    private countryService: CountryService,
     private analyticsService: AnalyticsService,
     private eventService: EventService,
   ) {
-    this.authService.getAuthSubscription().subscribe((user: User) => {
-      this.setDisplayName(user);
-    });
+    this.authSubscription = this.authService
+      .getAuthSubscription()
+      .subscribe((user: User) => {
+        this.setDisplayName(user);
+      });
+  }
+
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
   }
 
   setDisplayName = (user: User) => {
@@ -41,17 +46,12 @@ export class UserStateComponent {
   };
 
   public doLogout() {
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.logOut, {
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          component: this.constructor.name,
-        });
-      });
+    this.analyticsService.logEvent(AnalyticsEvent.logOut, {
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
 
     this.loaderService.setLoader('logout', false);
     this.authService.logout();
