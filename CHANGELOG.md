@@ -1,3 +1,13 @@
+## [0.33.6](https://github.com/rodekruis/IBF-system/compare/v0.33.5...v0.33.6) (2021-03-12)
+
+
+### Bug Fixes
+
+* change lead-time UGA to 5 days AB[#6541](https://github.com/rodekruis/IBF-system/issues/6541) ([ed2fef7](https://github.com/rodekruis/IBF-system/commit/ed2fef717b84081f21c05e7d42e37ab7011df87d))
+* move all glofas-station input to seed AB[#6543](https://github.com/rodekruis/IBF-system/issues/6543) ([d88dbac](https://github.com/rodekruis/IBF-system/commit/d88dbaca5ed664ce7e4775c080da954e4b1f6331))
+
+
+
 ## [0.33.5](https://github.com/rodekruis/IBF-system/compare/v0.33.4...v0.33.5) (2021-03-12)
 
 
@@ -105,22 +115,6 @@
 * Set sending emails per country AB[#6520](https://github.com/rodekruis/IBF-system/issues/6520) ([d29f815](https://github.com/rodekruis/IBF-system/commit/d29f815da1e82d24f60580b1955a65eba74d9cef))
 * show all non-triggered timesteps again AB[#6425](https://github.com/rodekruis/IBF-system/issues/6425) ([f5e4505](https://github.com/rodekruis/IBF-system/commit/f5e4505e750a006c91ac7754aa9c76b27e014c56))
 * show only boundaries for non-Egypt areas AB[#6485](https://github.com/rodekruis/IBF-system/issues/6485) ([e6c3055](https://github.com/rodekruis/IBF-system/commit/e6c3055091dd9c403a2a0ff813ecd1bc824fbb4d))
-
-
-
-# [0.28.0](https://github.com/rodekruis/IBF-system/compare/v0.27.9...v0.28.0) (2021-03-05)
-
-
-### Bug Fixes
-
-* display station-popup forecast as integer AB[#6484](https://github.com/rodekruis/IBF-system/issues/6484) ([674a5fb](https://github.com/rodekruis/IBF-system/commit/674a5fbd45db067a42712747157651573a95733c))
-* update EGY-population geoserver AB[#6290](https://github.com/rodekruis/IBF-system/issues/6290) ([64ec617](https://github.com/rodekruis/IBF-system/commit/64ec61781c29987cd01ece4cb282160726733c28))
-* update flood-extent geoserver-layers AB[#6290](https://github.com/rodekruis/IBF-system/issues/6290) ([96f4050](https://github.com/rodekruis/IBF-system/commit/96f4050868193cd6596c13b18c2639639af153b5))
-
-
-### Features
-
-* added+changed geoserver stores/layers EGY AB[#6290](https://github.com/rodekruis/IBF-system/issues/6290) ([f0be92f](https://github.com/rodekruis/IBF-system/commit/f0be92f349770d60411e8872b7b0b35b9f863201))
 
 
 
