@@ -7,9 +7,10 @@
     "build": "ng build",
     "build:prod": "npm run build -- --prod",
     "e2e": "ng e2e",
-    "fix:syntax": "npm run lint:syntax -- --write",
-    "lint:syntax": "prettier --check \"**/*.{md,js,ts,scss,html}\" ",
-    "lint": "npm run lint:syntax",
+    "format:fix": "npm run lint:syntax -- --write",
+    "format:check": "prettier --check \"**/*.{md,js,ts,scss,html}\" ",
+    "lint:check": "ng lint",
+    "lint": "npx npm-run-all --print-label --parallel lint:check format:check",
     "ng": "ng",
     "prebuild": "npm run set-env-variables",
     "prestart": "npm install --no-optional --no-audit --no-fund",
@@ -74,6 +75,6 @@
     "protractor": "~7.0.0",
     "ts-node": "~9.1.1",
     "tslint": "~6.1.0",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3 >=4.0.0 <4.2.0"
   }
 }

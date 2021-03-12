@@ -79,7 +79,7 @@
   {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY",
     "name": "admin_regions",
-    "label": "Admin regions",
+    "label": "Admin Regions",
     "type": "shape",
     "active": "yes"
   }

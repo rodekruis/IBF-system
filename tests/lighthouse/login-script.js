@@ -27,8 +27,8 @@ module.exports = async (browser, context) => {
         await Promise.all([
             page.$eval(locators.loginButton, button => button.click()),
             page.waitForNavigation({ waitUntil: "networkidle0", timeout: 0 }),
-        ]).catch(function (err) {
-            console.log("Login Failed");
+        ]).catch(error => {
+            console.log("Login Failed\n\n", error);
             process.exit(1);
         });
 

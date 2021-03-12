@@ -5,6 +5,8 @@ import {
 } from '@microsoft/applicationinsights-web';
 import { SeverityLevel } from 'src/app/analytics/severity-level.model';
 import { environment } from 'src/environments/environment';
+import { Country } from '../models/country.model';
+import { CountryService } from '../services/country.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +14,15 @@ import { environment } from 'src/environments/environment';
 export class AnalyticsService {
   applicationInsights: ApplicationInsights;
   isApplicationInsightsEnabled: boolean;
+  private country: Country;
 
-  constructor() {
+  constructor(private countryService: CountryService) {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.country = country;
+      });
+
     if (
       !environment.applicationInsightsInstrumentationKey ||
       !environment.applicationInsightsUrl
@@ -40,6 +49,7 @@ export class AnalyticsService {
       version: environment.ibfSystemVersion,
       apiUrl: environment.apiUrl,
       referrer: document.referrer,
+      country: this.country ? this.country.countryCodeISO3 : null,
     });
   };
 

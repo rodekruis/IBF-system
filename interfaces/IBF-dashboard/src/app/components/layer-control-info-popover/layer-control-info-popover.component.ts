@@ -13,7 +13,7 @@ export class LayerControlInfoPopoverComponent {
 
   constructor(private popoverController: PopoverController) {}
 
-  public async closePopover() {
-    await this.popoverController.dismiss();
+  public closePopover(): void {
+    this.popoverController.dismiss();
   }
 }
