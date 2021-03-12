@@ -75,10 +75,9 @@
       "update-failure": "Failed to update EAP action(s) updated in database.",
       "prompt-button-label": "OK",
       "close-event-popup": {
-        "message": "You are about to close the triggered event in {{ placCodeName }}. This action can not be undone.",
+        "message": "You are about to close the triggered event in {{ placeCodeName }}. This action can not be undone.",
         "confirm": "Close Event",
         "cancel": "Cancel"
-
       }
     }
   },

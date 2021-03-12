@@ -3,6 +3,7 @@ import { Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { DEBOUNCE_TIME_LOADER } from 'src/app/config';
 import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
@@ -23,7 +24,7 @@ export class AppComponent implements OnDestroy {
     this.initializeApp();
     this.loaderSubscription = this.loaderService
       .getLoaderSubscription()
-      .pipe(debounceTime(500))
+      .pipe(debounceTime(DEBOUNCE_TIME_LOADER))
       .subscribe((loading: boolean) => {
         this.loading = loading;
       });

@@ -16,10 +16,8 @@ import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
-import { TimelineService } from 'src/app/services/timeline.service';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
-import { LeadTime } from 'src/app/types/lead-time';
 
 @Component({
   selector: 'app-aggregates',
@@ -30,6 +28,12 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public indicators: Indicator[] = [];
   public groups: IndicatorGroup[] = [];
   public placeCode: PlaceCode;
+  private country: Country;
+  private aggregateComponentTranslateNode = 'aggregates-component';
+  private defaultHeaderLabelTranslateNode = 'default-header-label';
+  private exposedPrefixTranslateNode = 'exposed-prefix';
+  private allPrefixTranslateNode = 'all-prefix';
+  private popoverTranslateNode = 'popover';
 
   public indicatorGroupEnum = IndicatorGroup;
 
@@ -40,12 +44,12 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private indicatorSubscription: Subscription;
   private countrySubscription: Subscription;
-  private timelineSubscription: Subscription;
   private placeCodeSubscription: Subscription;
+  private translateSubscription: Subscription;
+  private eapActionSubscription: Subscription;
 
   constructor(
     private countryService: CountryService,
-    private timelineService: TimelineService,
     private aggregatesService: AggregatesService,
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
@@ -56,13 +60,14 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private analyticsService: AnalyticsService,
   ) {
-    this.translateService
-      .get('aggregates-component')
+    this.translateSubscription = this.translateService
+      .get(this.aggregateComponentTranslateNode)
       .subscribe((translatedStrings: object) => {
-        this.defaultHeaderLabel = translatedStrings['default-header-label'];
-        this.exposedPrefix = translatedStrings['exposed-prefix'];
-        this.allPrefix = translatedStrings['all-prefix'];
-        this.popoverTexts = translatedStrings['popover'];
+        this.defaultHeaderLabel =
+          translatedStrings[this.defaultHeaderLabelTranslateNode];
+        this.exposedPrefix = translatedStrings[this.exposedPrefixTranslateNode];
+        this.allPrefix = translatedStrings[this.allPrefixTranslateNode];
+        this.popoverTexts = translatedStrings[this.popoverTranslateNode];
       });
   }
 
@@ -72,13 +77,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe((country: Country) => {
-        this.aggregatesService.loadMetadataAndAggregates();
-      });
-
-    this.timelineSubscription = this.timelineService
-      .getTimelineSubscription()
-      .subscribe((timeline: LeadTime) => {
-        this.aggregatesService.loadMetadataAndAggregates();
+        this.country = country;
       });
 
     this.placeCodeSubscription = this.placeCodeService
@@ -96,7 +95,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           indicator.group = IndicatorGroup[indicator.group];
         });
         this.groups = [];
-        for (let group in IndicatorGroup) {
+        for (const group in IndicatorGroup) {
           if (this.indicators.find((i) => i.group === IndicatorGroup[group])) {
             this.groups.push(IndicatorGroup[group]);
           }
@@ -106,12 +105,15 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.indicatorSubscription.unsubscribe();
-    this.timelineSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
+    this.translateSubscription.unsubscribe();
+    if (this.eapActionSubscription) {
+      this.eapActionSubscription.unsubscribe();
+    }
   }
 
-  public async moreInfo(indicator: Indicator) {
+  public async moreInfo(indicator: Indicator): Promise<void> {
     const modal = await this.modalController.create({
       component: SourceInfoModalComponent,
       cssClass: 'source-info-modal-class',
@@ -121,20 +123,15 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       },
     });
 
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.analyticsService.logEvent(AnalyticsEvent.aggregateInformation, {
-          indicator: indicator.name,
-          page: AnalyticsPage.dashboard,
-          country: country.countryCodeISO3,
-          isActiveEvent: this.eventService.state.activeEvent,
-          isActiveTrigger: this.eventService.state.activeTrigger,
-          component: this.constructor.name,
-        });
-      });
+    this.analyticsService.logEvent(AnalyticsEvent.aggregateInformation, {
+      indicator: indicator.name,
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
 
-    return await modal.present();
+    modal.present();
   }
 
   private getPopoverText(indicatorName: IbfLayerName): string {
@@ -155,29 +152,24 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public getHeaderLabel() {
     let headerLabel = this.defaultHeaderLabel;
 
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country) => {
-        if (this.placeCode) {
-          headerLabel = this.placeCode.placeCodeName;
+    if (this.placeCode) {
+      headerLabel = this.placeCode.placeCodeName;
+    } else {
+      if (this.country) {
+        if (this.eventService.state.activeTrigger) {
+          const adminAreaLabel = this.country.adminRegionLabels[
+            this.adminLevelService.adminLevel - 1
+          ];
+          this.eapActionSubscription = this.eapActionsService
+            .getTriggeredAreas()
+            .subscribe((triggeredAreas) => {
+              headerLabel = `${triggeredAreas.length} ${this.exposedPrefix} ${adminAreaLabel}`;
+            });
         } else {
-          if (country) {
-            if (this.eventService.state.activeTrigger) {
-              const adminAreaLabel =
-                country.adminRegionLabels[
-                  this.adminLevelService.adminLevel - 1
-                ];
-              this.eapActionsService
-                .getTriggeredAreas()
-                .subscribe((triggeredAreas) => {
-                  headerLabel = `${triggeredAreas.length} ${this.exposedPrefix} ${adminAreaLabel}`;
-                });
-            } else {
-              headerLabel = `${this.allPrefix} ${country.countryName}`;
-            }
-          }
+          headerLabel = `${this.allPrefix} ${this.country.countryName}`;
         }
-      });
+      }
+    }
 
     return headerLabel;
   }

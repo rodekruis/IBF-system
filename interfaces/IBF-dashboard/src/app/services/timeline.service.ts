@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
-import { MockScenario } from '../mocks/mock-scenario.enum';
+import { CountryTriggers } from '../models/country-triggers.model';
 import { Country } from '../models/country.model';
 
 @Injectable({
@@ -17,19 +17,25 @@ export class TimelineService {
     today: moment(),
     timeStepButtons: [],
   };
-  private triggers: any[];
+  private triggers: CountryTriggers;
   private timelineSubject = new BehaviorSubject<LeadTime>(null);
+  private country: Country;
 
   constructor(
     private countryService: CountryService,
     private apiService: ApiService,
     private mockScenarioService: MockScenarioService,
   ) {
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe((mockScenario: MockScenario) => {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe((country: Country) => {
+        this.country = country;
         this.loadTimeStepButtons();
       });
+
+    this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
+      this.loadTimeStepButtons();
+    });
   }
 
   getTimelineSubscription(): Observable<LeadTime> {
@@ -37,54 +43,50 @@ export class TimelineService {
   }
 
   public loadTimeStepButtons(): void {
-    this.countryService.getCountrySubscription().subscribe(
-      async (country: Country): Promise<void> => {
-        let dates = [];
+    if (this.country) {
+      this.apiService
+        .getRecentDates(this.country.countryCodeISO3)
+        .subscribe((dates) => {
+          if (dates.length > 0) {
+            this.state.today = moment(dates[0].value);
+          }
 
-        if (country) {
-          dates = await this.apiService.getRecentDates(country.countryCodeISO3);
-        }
+          this.apiService
+            .getTriggerPerLeadTime(this.country.countryCodeISO3)
+            .subscribe((triggers) => {
+              this.triggers = triggers;
 
-        if (dates.length > 0) {
-          this.state.today = moment(dates[0].value);
-        }
+              if (this.triggers) {
+                [
+                  LeadTime.day1,
+                  LeadTime.day2,
+                  LeadTime.day3,
+                  LeadTime.day4,
+                  LeadTime.day5,
+                  LeadTime.day6,
+                  LeadTime.day7,
+                ].map((leadTime: LeadTime, index: number): void => {
+                  const isLeadTimeDisabled = this.isLeadTimeDisabled(leadTime);
+                  const triggerKey = LeadTimeTriggerKey[leadTime];
+                  this.state.timeStepButtons[index] = {
+                    date: this.state.today.clone().add(triggerKey, 'days'),
+                    value: leadTime,
+                    alert: this.triggers[triggerKey] === '1',
+                    disabled: isLeadTimeDisabled,
+                    active: false,
+                  };
+                });
+              }
 
-        this.triggers = await this.getTrigger();
-
-        if (this.triggers) {
-          this.state.timeStepButtons = await Promise.all(
-            [
-              LeadTime.day1,
-              LeadTime.day2,
-              LeadTime.day3,
-              LeadTime.day4,
-              LeadTime.day5,
-              LeadTime.day6,
-              LeadTime.day7,
-            ].map(
-              async (leadTime: LeadTime): Promise<object> => {
-                const triggerKey: string = LeadTimeTriggerKey[leadTime];
-                const x = {
-                  date: this.state.today.clone().add(triggerKey, 'days'),
-                  value: leadTime,
-                  alert: this.triggers[triggerKey] == 1,
-                  disabled: await this.isLeadTimeDisabled(leadTime),
-                  active: false,
-                };
-                return x;
-              },
-            ),
-          );
-        }
-
-        const enabledTimeStepButtons = this.state.timeStepButtons.filter(
-          (timeStepButton) => !timeStepButton.disabled,
-        );
-        if (enabledTimeStepButtons.length > 0) {
-          this.handleTimeStepButtonClick(enabledTimeStepButtons[0].value);
-        }
-      },
-    );
+              const enabledTimeStepButtons = this.state.timeStepButtons.filter(
+                (timeStepButton) => !timeStepButton.disabled,
+              );
+              if (enabledTimeStepButtons.length > 0) {
+                this.handleTimeStepButtonClick(enabledTimeStepButtons[0].value);
+              }
+            });
+        });
+    }
   }
 
   public handleTimeStepButtonClick(timeStepButtonValue) {
@@ -96,47 +98,10 @@ export class TimelineService {
     this.timelineSubject.next(this.activeLeadTime);
   }
 
-  private async isLeadTimeDisabled(leadTime: LeadTime): Promise<boolean> {
-    let leadTimes = [];
-    this.countryService
-      .getCountrySubscription()
-      .subscribe((country: Country): void => {
-        leadTimes = country.countryLeadTimes;
-      });
-
-    const index = leadTimes.indexOf(leadTime);
-    const leadTimeNotAvailable = index < 0;
-
+  private isLeadTimeDisabled(leadTime: LeadTime): boolean {
+    const leadTimes = this.country ? this.country.countryLeadTimes : [];
+    const leadTimeIndex = leadTimes.indexOf(leadTime);
+    const leadTimeNotAvailable = leadTimeIndex < 0;
     return leadTimeNotAvailable;
-  }
-
-  public async getTrigger(): Promise<any> {
-    return new Promise((resolve): void => {
-      this.countryService.getCountrySubscription().subscribe(
-        async (country: Country): Promise<void> => {
-          let trigger;
-          if (country) {
-            trigger = await this.apiService.getTriggerPerLeadTime(
-              country.countryCodeISO3,
-            );
-          }
-          resolve(trigger);
-        },
-      );
-    });
-  }
-
-  public async getEvent(): Promise<any> {
-    return new Promise((resolve): void => {
-      this.countryService.getCountrySubscription().subscribe(
-        async (country: Country): Promise<void> => {
-          let event;
-          if (country) {
-            event = await this.apiService.getEvent(country.countryCodeISO3);
-          }
-          resolve(event);
-        },
-      );
-    });
   }
 }
