@@ -19,35 +19,44 @@ export class SeedGlofasStation implements InterfaceScript {
     this.seedHelper = new SeedHelper(connection);
   }
 
-  public async run(): Promise<void> {
+  public async runArray(): Promise<void[]> {
     const envCountries = process.env.COUNTRIES.split(',');
     this.glofasStationRepository = this.connection.getRepository(
       GlofasStationEntity,
     );
     this.adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
-    for (const country of countries) {
-      if (
-        envCountries.includes(country.countryCodeISO3) &&
-        country.glofasStationInput
-      ) {
-        this.seedCountryGlofasStations(country);
-      }
-    }
+
+    return await Promise.all(
+      countries.map(
+        async (country): Promise<void> => {
+          if (
+            envCountries.includes(country.countryCodeISO3) &&
+            country.glofasStationInput
+          ) {
+            await this.seedCountryGlofasStations(country);
+          }
+          return Promise.resolve();
+        },
+      ),
+    );
   }
 
-  private async seedCountryGlofasStations(country): Promise<void> {
+  private async seedCountryGlofasStations(country): Promise<void[]> {
     const stationPerAdminAreaDataFileName = `./src/scripts/git-lfs/Glofas_station_per_admin_area_${country.countryCodeISO3}.csv`;
     const stationPerAdminAreaData = await this.seedHelper.getCsvData(
       stationPerAdminAreaDataFileName,
     );
-    stationPerAdminAreaData.forEach(
-      async (area): Promise<void> => {
-        const adminArea = await this.adminAreaRepository.findOne({
-          where: { pcode: area['pcode'] },
-        });
-        adminArea.glofasStation = area['station_code'];
-        this.adminAreaRepository.save(adminArea);
-      },
+    await Promise.all(
+      stationPerAdminAreaData.map(
+        async (area): Promise<void> => {
+          const adminArea = await this.adminAreaRepository.findOne({
+            where: { pcode: area['pcode'] },
+          });
+          adminArea.glofasStation = area['station_code'];
+          this.adminAreaRepository.save(adminArea);
+          return Promise.resolve();
+        },
+      ),
     );
     const glofasStationDataFileName = `./src/scripts/git-lfs/${country.glofasStationInput['fileName']}`;
     const glofasStationData = await this.seedHelper.getCsvData(
@@ -57,28 +66,31 @@ export class SeedGlofasStation implements InterfaceScript {
       (area): string => area['station_code'],
     );
 
-    glofasStationData.forEach(
-      async (station): Promise<void> => {
-        if (stationCodes.includes(station['station_code'])) {
-          await this.glofasStationRepository
-            .createQueryBuilder()
-            .insert()
-            .values({
-              countryCode: country.countryCodeISO3,
-              stationCode: station['station_code'],
-              stationName: station['station_name'],
-              triggerLevel:
-                station[country.glofasStationInput['triggerColName']],
-              threshold2Year: station['2yr_threshold'],
-              threshold5Year: station['5yr_threshold'],
-              threshold10Year: station['10yr_threshold'],
-              threshold20Year: station['20yr_threshold'],
-              geom: (): string =>
-                `st_MakePoint(${station['lon']}, ${station['lat']})`,
-            })
-            .execute();
-        }
-      },
+    return await Promise.all(
+      glofasStationData.map(
+        async (station): Promise<void> => {
+          if (stationCodes.includes(station['station_code'])) {
+            await this.glofasStationRepository
+              .createQueryBuilder()
+              .insert()
+              .values({
+                countryCode: country.countryCodeISO3,
+                stationCode: station['station_code'],
+                stationName: station['station_name'],
+                triggerLevel:
+                  station[country.glofasStationInput['triggerColName']],
+                threshold2Year: station['2yr_threshold'],
+                threshold5Year: station['5yr_threshold'],
+                threshold10Year: station['10yr_threshold'],
+                threshold20Year: station['20yr_threshold'],
+                geom: (): string =>
+                  `st_MakePoint(${station['lon']}, ${station['lat']})`,
+              })
+              .execute();
+          }
+          return Promise.resolve();
+        },
+      ),
     );
   }
 }
