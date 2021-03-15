@@ -1,3 +1,12 @@
+## [0.38.2](https://github.com/rodekruis/IBF-system/compare/v0.38.1...v0.38.2) (2021-03-15)
+
+
+### Bug Fixes
+
+* run sql-scripts in right order AB[#6603](https://github.com/rodekruis/IBF-system/issues/6603) ([8f97aea](https://github.com/rodekruis/IBF-system/commit/8f97aeae73d8bbd48e276e64c820fae5f5fb3e2a))
+
+
+
 ## [0.38.1](https://github.com/rodekruis/IBF-system/compare/v0.38.0...v0.38.1) (2021-03-15)
 
 
@@ -84,16 +93,6 @@
 ### Features
 
 * automatically enable all countries for admin-user AB[#6586](https://github.com/rodekruis/IBF-system/issues/6586) ([4b3a777](https://github.com/rodekruis/IBF-system/commit/4b3a777dc38a9d71b8e39ae0d53ab6afda59d06c))
-
-
-
-## [0.33.6](https://github.com/rodekruis/IBF-system/compare/v0.33.5...v0.33.6) (2021-03-12)
-
-
-### Bug Fixes
-
-* change lead-time UGA to 5 days AB[#6541](https://github.com/rodekruis/IBF-system/issues/6541) ([ed2fef7](https://github.com/rodekruis/IBF-system/commit/ed2fef717b84081f21c05e7d42e37ab7011df87d))
-* move all glofas-station input to seed AB[#6543](https://github.com/rodekruis/IBF-system/issues/6543) ([d88dbac](https://github.com/rodekruis/IBF-system/commit/d88dbaca5ed664ce7e4775c080da954e4b1f6331))
 
 
 
