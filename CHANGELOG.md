@@ -1,3 +1,12 @@
+# [0.39.0](https://github.com/rodekruis/IBF-system/compare/v0.38.2...v0.39.0) (2021-03-15)
+
+
+### Features
+
+* disable close-event when activeTrigger AB[#6623](https://github.com/rodekruis/IBF-system/issues/6623) ([f2a5729](https://github.com/rodekruis/IBF-system/commit/f2a57294e03b613f12bf0e7b10b4844b0afe2e59))
+
+
+
 ## [0.38.2](https://github.com/rodekruis/IBF-system/compare/v0.38.1...v0.38.2) (2021-03-15)
 
 
@@ -84,15 +93,6 @@
 ### Features
 
 * load data only for active layers AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([be17713](https://github.com/rodekruis/IBF-system/commit/be17713d2e44afd37621076f1473422cdce592ab))
-
-
-
-# [0.34.0](https://github.com/rodekruis/IBF-system/compare/v0.33.6...v0.34.0) (2021-03-12)
-
-
-### Features
-
-* automatically enable all countries for admin-user AB[#6586](https://github.com/rodekruis/IBF-system/issues/6586) ([4b3a777](https://github.com/rodekruis/IBF-system/commit/4b3a777dc38a9d71b8e39ae0d53ab6afda59d06c))
 
 
 
