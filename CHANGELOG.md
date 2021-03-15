@@ -1,3 +1,12 @@
+# [0.37.0](https://github.com/rodekruis/IBF-system/compare/v0.36.0...v0.37.0) (2021-03-15)
+
+
+### Features
+
+* load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([ec4371e](https://github.com/rodekruis/IBF-system/commit/ec4371e4a43e0231bafdc427e1c5454690235fea))
+
+
+
 # [0.36.0](https://github.com/rodekruis/IBF-system/compare/v0.35.0...v0.36.0) (2021-03-15)
 
 
@@ -86,20 +95,6 @@
 ### Bug Fixes
 
 * enable geoserver locally AB[#6540](https://github.com/rodekruis/IBF-system/issues/6540) ([32f6bf3](https://github.com/rodekruis/IBF-system/commit/32f6bf3bed37923b71ce1cc1e76db091f60070e2))
-
-
-
-# [0.33.0](https://github.com/rodekruis/IBF-system/compare/v0.32.1...v0.33.0) (2021-03-08)
-
-
-### Bug Fixes
-
-* update documentation to add new country AB[#6291](https://github.com/rodekruis/IBF-system/issues/6291) ([16c5803](https://github.com/rodekruis/IBF-system/commit/16c5803a58a9cd78ecea2d90da0a6b461ecee82e))
-
-
-### Features
-
-* add documentation on local database AB[#6261](https://github.com/rodekruis/IBF-system/issues/6261) ([79bc6f9](https://github.com/rodekruis/IBF-system/commit/79bc6f98d6ab17c48e17d3f41ae8147280e471a3))
 
 
 
