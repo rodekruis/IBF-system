@@ -438,7 +438,7 @@ export class MapService {
     if (triggerLayerIndex >= 0) {
       this.layers.forEach(
         async (layer: IbfLayer): Promise<void> => {
-          const layerActive = this.isLayerActive(active, layer, triggerLayer)
+          const layerActive = this.isLayerActive(active, layer, triggerLayer);
           this.addLayer({
             name: layer.name,
             label: layer.label,
@@ -471,7 +471,7 @@ export class MapService {
 
   public layerDataLoadRequired(layer: IbfLayer, layerActive: boolean): boolean {
     if (!layerActive) {
-      return false
+      return false;
     }
     if (layer.wms) {
       return false;
