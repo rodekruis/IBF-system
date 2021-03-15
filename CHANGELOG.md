@@ -1,3 +1,12 @@
+## [0.37.1](https://github.com/rodekruis/IBF-system/compare/v0.37.0...v0.37.1) (2021-03-15)
+
+
+### Bug Fixes
+
+* fix seed comma error AB[#6543](https://github.com/rodekruis/IBF-system/issues/6543) ([0287140](https://github.com/rodekruis/IBF-system/commit/0287140092a87930c7b8fc0fb294046a53816e44))
+
+
+
 # [0.37.0](https://github.com/rodekruis/IBF-system/compare/v0.36.0...v0.37.0) (2021-03-15)
 
 
@@ -86,15 +95,6 @@
 
 * get triggered areas  AB[#6539](https://github.com/rodekruis/IBF-system/issues/6539) ([caedc83](https://github.com/rodekruis/IBF-system/commit/caedc8327ce5c5b156cb8b3ed2d5705d876c7b96))
 * review add enum for layer acrivation AB[#6539](https://github.com/rodekruis/IBF-system/issues/6539) ([e5e0ac5](https://github.com/rodekruis/IBF-system/commit/e5e0ac54310108458a2265d783c7f2ecbdf0bf52))
-
-
-
-## [0.33.1](https://github.com/rodekruis/IBF-system/compare/v0.33.0...v0.33.1) (2021-03-08)
-
-
-### Bug Fixes
-
-* enable geoserver locally AB[#6540](https://github.com/rodekruis/IBF-system/issues/6540) ([32f6bf3](https://github.com/rodekruis/IBF-system/commit/32f6bf3bed37923b71ce1cc1e76db091f60070e2))
 
 
 
