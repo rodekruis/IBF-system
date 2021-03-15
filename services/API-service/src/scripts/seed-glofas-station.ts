@@ -19,29 +19,30 @@ export class SeedGlofasStation implements InterfaceScript {
     this.seedHelper = new SeedHelper(connection);
   }
 
-  public async runArray(): Promise<void[]> {
+  public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
     this.glofasStationRepository = this.connection.getRepository(
       GlofasStationEntity,
     );
     this.adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
 
-    return await Promise.all(
+    await Promise.all(
       countries.map(
-        async (country): Promise<void> => {
+        (country): Promise<void> => {
           if (
             envCountries.includes(country.countryCodeISO3) &&
             country.glofasStationInput
           ) {
-            await this.seedCountryGlofasStations(country);
+            return this.seedCountryGlofasStations(country);
+          } else {
+            return Promise.resolve();
           }
-          return Promise.resolve();
         },
       ),
     );
   }
 
-  private async seedCountryGlofasStations(country): Promise<void[]> {
+  private async seedCountryGlofasStations(country): Promise<void> {
     const stationPerAdminAreaDataFileName = `./src/scripts/git-lfs/Glofas_station_per_admin_area_${country.countryCodeISO3}.csv`;
     const stationPerAdminAreaData = await this.seedHelper.getCsvData(
       stationPerAdminAreaDataFileName,
@@ -53,8 +54,7 @@ export class SeedGlofasStation implements InterfaceScript {
             where: { pcode: area['pcode'] },
           });
           adminArea.glofasStation = area['station_code'];
-          this.adminAreaRepository.save(adminArea);
-          return Promise.resolve();
+          return this.adminAreaRepository.save(adminArea);
         },
       ),
     );
@@ -66,11 +66,11 @@ export class SeedGlofasStation implements InterfaceScript {
       (area): string => area['station_code'],
     );
 
-    return await Promise.all(
+    await Promise.all(
       glofasStationData.map(
-        async (station): Promise<void> => {
+        (station): Promise<void> => {
           if (stationCodes.includes(station['station_code'])) {
-            await this.glofasStationRepository
+            return this.glofasStationRepository
               .createQueryBuilder()
               .insert()
               .values({
@@ -87,8 +87,9 @@ export class SeedGlofasStation implements InterfaceScript {
                   `st_MakePoint(${station['lon']}, ${station['lat']})`,
               })
               .execute();
+          } else {
+            return Promise.resolve();
           }
-          return Promise.resolve();
         },
       ),
     );
