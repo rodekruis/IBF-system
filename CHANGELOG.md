@@ -1,3 +1,12 @@
+# [0.38.0](https://github.com/rodekruis/IBF-system/compare/v0.37.3...v0.38.0) (2021-03-15)
+
+
+### Features
+
+* changing console logs in seed ([5d0408d](https://github.com/rodekruis/IBF-system/commit/5d0408de90616add54e5e8609669fb790f7fa527))
+
+
+
 ## [0.37.3](https://github.com/rodekruis/IBF-system/compare/v0.37.2...v0.37.3) (2021-03-15)
 
 
@@ -83,17 +92,6 @@
 ### Bug Fixes
 
 * add data folder to docker ignore ([3488fff](https://github.com/rodekruis/IBF-system/commit/3488fff0a70ce7ae8d83fb15f1657061076571b6))
-
-
-
-## [0.33.4](https://github.com/rodekruis/IBF-system/compare/v0.33.3...v0.33.4) (2021-03-11)
-
-
-### Bug Fixes
-
-* catch error on waterpoints API and use correct admin region layer name ([90665d2](https://github.com/rodekruis/IBF-system/commit/90665d2338e1c4d4348ddc66a485b13716d968ae))
-* import path ([f95edaa](https://github.com/rodekruis/IBF-system/commit/f95edaaef0fd713f6546a19017ce593932303ebb))
-* window open triggers multiple times on country change ([1f844d1](https://github.com/rodekruis/IBF-system/commit/1f844d1e964b889a423b7fc96048a642f7a99fc3))
 
 
 
