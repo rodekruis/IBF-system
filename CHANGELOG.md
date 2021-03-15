@@ -1,3 +1,12 @@
+## [0.37.3](https://github.com/rodekruis/IBF-system/compare/v0.37.2...v0.37.3) (2021-03-15)
+
+
+### Bug Fixes
+
+* improve promise.all AB[#6599](https://github.com/rodekruis/IBF-system/issues/6599) ([b813ff3](https://github.com/rodekruis/IBF-system/commit/b813ff3d75bdbf2b151e3a00caea9c9a5e18fea5))
+
+
+
 ## [0.37.2](https://github.com/rodekruis/IBF-system/compare/v0.37.1...v0.37.2) (2021-03-15)
 
 
@@ -85,15 +94,6 @@
 * catch error on waterpoints API and use correct admin region layer name ([90665d2](https://github.com/rodekruis/IBF-system/commit/90665d2338e1c4d4348ddc66a485b13716d968ae))
 * import path ([f95edaa](https://github.com/rodekruis/IBF-system/commit/f95edaaef0fd713f6546a19017ce593932303ebb))
 * window open triggers multiple times on country change ([1f844d1](https://github.com/rodekruis/IBF-system/commit/1f844d1e964b889a423b7fc96048a642f7a99fc3))
-
-
-
-## [0.33.3](https://github.com/rodekruis/IBF-system/compare/v0.33.2...v0.33.3) (2021-03-08)
-
-
-### Bug Fixes
-
-* last changes in keeping relative file paths AD[#5756](https://github.com/rodekruis/IBF-system/issues/5756) ([db99af6](https://github.com/rodekruis/IBF-system/commit/db99af6e1e8475ff52ac3544f7befbd805b72f80))
 
 
 
