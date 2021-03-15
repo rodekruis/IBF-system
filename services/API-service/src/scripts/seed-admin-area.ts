@@ -13,16 +13,17 @@ export class SeedAdminArea implements InterfaceScript {
     this.connection = connection;
   }
 
-  public async runArray(): Promise<void[]> {
+  public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
     const adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
-    return await Promise.all(
+    await Promise.all(
       countries.map(
         async (country): Promise<void> => {
           if (envCountries.includes(country.countryCodeISO3)) {
-            await this.seedCountryAdminAreas(country, adminAreaRepository);
+            return this.seedCountryAdminAreas(country, adminAreaRepository);
+          } else {
+            return Promise.resolve();
           }
-          return Promise.resolve();
         },
       ),
     );
@@ -31,14 +32,14 @@ export class SeedAdminArea implements InterfaceScript {
   private async seedCountryAdminAreas(
     country,
     adminAreaRepository,
-  ): Promise<void[]> {
+  ): Promise<void> {
     const fileName = `./src/scripts/git-lfs/${country.countryCodeISO3}_adm${country.defaultAdminLevel}.json`;
     const adminJsonRaw = fs.readFileSync(fileName, 'utf-8');
     const adminJson = JSON.parse(adminJsonRaw);
-    return await Promise.all(
+    await Promise.all(
       adminJson.features.map(
-        async (area): Promise<void> => {
-          await adminAreaRepository
+        (area): Promise<void> => {
+          return adminAreaRepository
             .createQueryBuilder()
             .insert()
             .values({
@@ -53,8 +54,8 @@ export class SeedAdminArea implements InterfaceScript {
                 : null,
               geom: (): string => this.geomFunction(area.geometry.coordinates),
             })
-            .execute();
-          return Promise.resolve();
+            .execute()
+            .catch(console.error);
         },
       ),
     );

@@ -17,6 +17,5 @@ import { SeedInit } from './seed-init';
 export class ScriptsModule {}
 
 export interface InterfaceScript {
-  run?(argv: Arguments): Promise<void>;
-  runArray?(argv: Arguments): Promise<void[]>;
+  run(argv: Arguments): Promise<void>;
 }

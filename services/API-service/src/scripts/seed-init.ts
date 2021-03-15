@@ -164,12 +164,12 @@ export class SeedInit implements InterfaceScript {
     // ***** SEED ADMIN-AREA DATA *****
     console.log('Seed Admin Areas...');
     const seedAdminArea = new SeedAdminArea(this.connection);
-    await seedAdminArea.runArray();
+    await seedAdminArea.run();
 
     // ***** SEED GLOFAS-STATION DATA *****
     console.log('Seed Glofas Stations...');
     const seedGlofasStation = new SeedGlofasStation(this.connection);
-    await seedGlofasStation.runArray();
+    await seedGlofasStation.run();
 
     // ***** RUN SCRIPT TO FINALIZE ALL DATA PREPARATION *****
     console.log('Run IBF-database-scripts.sql...');
