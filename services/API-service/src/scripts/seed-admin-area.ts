@@ -13,42 +13,50 @@ export class SeedAdminArea implements InterfaceScript {
     this.connection = connection;
   }
 
-  public async run(): Promise<void> {
+  public async runArray(): Promise<void[]> {
     const envCountries = process.env.COUNTRIES.split(',');
     const adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
-    for (const country of countries) {
-      if (envCountries.includes(country.countryCodeISO3)) {
-        this.seedCountryAdminAreas(country, adminAreaRepository);
-      }
-    }
+    return await Promise.all(
+      countries.map(
+        async (country): Promise<void> => {
+          if (envCountries.includes(country.countryCodeISO3)) {
+            await this.seedCountryAdminAreas(country, adminAreaRepository);
+          }
+          return Promise.resolve();
+        },
+      ),
+    );
   }
 
   private async seedCountryAdminAreas(
     country,
     adminAreaRepository,
-  ): Promise<void> {
+  ): Promise<void[]> {
     const fileName = `./src/scripts/git-lfs/${country.countryCodeISO3}_adm${country.defaultAdminLevel}.json`;
     const adminJsonRaw = fs.readFileSync(fileName, 'utf-8');
     const adminJson = JSON.parse(adminJsonRaw);
-    adminJson.features.forEach(
-      async (area): Promise<void> => {
-        await adminAreaRepository
-          .createQueryBuilder()
-          .insert()
-          .values({
-            countryCode: country.countryCodeISO3,
-            adminLevel: country.defaultAdminLevel,
-            name: area.properties[`ADM${country.defaultAdminLevel}_EN`],
-            pcode: area.properties[`ADM${country.defaultAdminLevel}_PCODE`],
-            pcodeParent: area.properties[
-              `ADM${country.defaultAdminLevel - 1}_PCODE`
-            ]
-              ? area.properties[`ADM${country.defaultAdminLevel - 1}_PCODE`]
-              : null,
-            geom: (): string => this.geomFunction(area.geometry.coordinates),
-          })
-          .execute();
-      },
+    return await Promise.all(
+      adminJson.features.map(
+        async (area): Promise<void> => {
+          await adminAreaRepository
+            .createQueryBuilder()
+            .insert()
+            .values({
+              countryCode: country.countryCodeISO3,
+              adminLevel: country.defaultAdminLevel,
+              name: area.properties[`ADM${country.defaultAdminLevel}_EN`],
+              pcode: area.properties[`ADM${country.defaultAdminLevel}_PCODE`],
+              pcodeParent: area.properties[
+                `ADM${country.defaultAdminLevel - 1}_PCODE`
+              ]
+                ? area.properties[`ADM${country.defaultAdminLevel - 1}_PCODE`]
+                : null,
+              geom: (): string => this.geomFunction(area.geometry.coordinates),
+            })
+            .execute();
+          return Promise.resolve();
+        },
+      ),
     );
   }
 
