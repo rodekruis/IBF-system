@@ -220,12 +220,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     eventPlaceCodeId: string,
     placeCode: string,
   ): void {
-    this.loaderService.setLoader('closePlaceCodeEvent', true);
     this.closeEventPlaceCodeSubscription = this.apiService
       .closeEventPlaceCode(eventPlaceCodeId)
-      .subscribe(() => {
-        this.loaderService.setLoader('closePlaceCodeEvent', false);
-      });
+      .subscribe();
     this.eapActionsService.loadDistrictsAndActions();
     this.eventService.getTrigger();
     this.analyticsService.logEvent(AnalyticsEvent.closeEvent, {
