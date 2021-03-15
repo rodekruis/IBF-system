@@ -1,3 +1,13 @@
+# [0.36.0](https://github.com/rodekruis/IBF-system/compare/v0.35.0...v0.36.0) (2021-03-15)
+
+
+### Features
+
+* load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([7f2b6c1](https://github.com/rodekruis/IBF-system/commit/7f2b6c137f0a491b5d071322ccb8bd2eede9c32b))
+* load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([c633f3d](https://github.com/rodekruis/IBF-system/commit/c633f3d582f92b1ae14fd6fd75a0708f5d38d5c7))
+
+
+
 # [0.35.0](https://github.com/rodekruis/IBF-system/compare/v0.34.0...v0.35.0) (2021-03-12)
 
 
@@ -90,16 +100,6 @@
 ### Features
 
 * add documentation on local database AB[#6261](https://github.com/rodekruis/IBF-system/issues/6261) ([79bc6f9](https://github.com/rodekruis/IBF-system/commit/79bc6f98d6ab17c48e17d3f41ae8147280e471a3))
-
-
-
-## [0.32.1](https://github.com/rodekruis/IBF-system/compare/v0.32.0...v0.32.1) (2021-03-08)
-
-
-### Bug Fixes
-
-* improve naming/structure IBF-pipeline AB[#6286](https://github.com/rodekruis/IBF-system/issues/6286) ([552b141](https://github.com/rodekruis/IBF-system/commit/552b1419a6caa2d7755902c2d7e7f53bd656ef2d))
-* set mailing default to mailchimp AB[#6534](https://github.com/rodekruis/IBF-system/issues/6534) ([c6e6305](https://github.com/rodekruis/IBF-system/commit/c6e63059f466330b0b580838a5ae45109ced2ced))
 
 
 
