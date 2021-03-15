@@ -1,4 +1,16 @@
 -- NOTE: Save districts to event. Each day check if there are new districts. Never delete any districts that are not triggered any more.
+CREATE table if not exists "IBF-pipeline-output".event_place_code (
+	"eventPlaceCodeId" uuid NOT NULL DEFAULT uuid_generate_v4(),
+	"placeCode" varchar NOT NULL,
+	"startDate" timestamp NOT NULL,
+	"populationAffected" float8 not null,
+	"endDate" timestamp NULL,
+	"manualClosedDate" timestamp NULL,
+	"activeTrigger" bool NOT NULL DEFAULT true,
+	closed bool NOT NULL DEFAULT false,
+	CONSTRAINT "CHK_8e945c9a741036988f4bf6ee2e" CHECK (("startDate" < "endDate")),
+	CONSTRAINT "PK_a44cfd74b39d84fa9a9c42ef302" PRIMARY KEY ("eventPlaceCodeId")
+);
 
 -- First set all events as inactive
 update
@@ -11,22 +23,22 @@ update
 	"IBF-pipeline-output".event_place_code
 set
 	"endDate" = (now() + interval '7 DAY')::date, 
-	"activeTrigger" = true
+	"activeTrigger" = true,
+	"populationAffected" = subquery.population_affected
 from
 	(
 	select
 		districtsToday.*
 	from
 		(
-		select
-			t1.pcode,
-			t1.population_affected,
-			t1.date
+		select pcode,
+			max(t1.population_affected) as population_affected
 		from
 			"IBF-pipeline-output".dashboard_calculated_affected t1
 		where
 			t1.population_affected  > 0
 			and t1.date = current_date
+		group by pcode
 		) districtsToday
 	left join "IBF-pipeline-output".event_place_code eventPcodeExisting on
 		districtsToday.pcode = eventPcodeExisting."placeCode"
@@ -41,12 +53,13 @@ where
 
 
 -- Third: add new districts (either within existing event, or completely new event)
-insert into "IBF-pipeline-output".event_place_code("placeCode",  "startDate", "endDate")
+insert into "IBF-pipeline-output".event_place_code("placeCode",  "startDate", "endDate","populationAffected")
 select  districtsToday.*
 from (
 	select t1.pcode 
 		,now()::date as "startDate"
 		,(now() + interval '7 DAY')::date as "endDate" 		
+		,max(population_affected) as population_affected
     from "IBF-pipeline-output".dashboard_calculated_affected t1
 	where t1.population_affected > 0
 		and t1.date = current_date
