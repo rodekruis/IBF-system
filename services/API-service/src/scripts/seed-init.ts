@@ -57,9 +57,10 @@ export class SeedInit implements InterfaceScript {
     await leadTimeRepository.save(leadTimeEntities);
 
     // ***** CREATE COUNTRIES *****
-    console.log('Seed Counties...');
+    console.log('Seed Countries...');
     const envCountries = process.env.COUNTRIES.split(',');
     const selectedCountries = countries.filter((country): boolean => {
+      console.log(`Seeding country ${country.countryCodeISO3}`);
       return envCountries.includes(country.countryCodeISO3);
     });
 
