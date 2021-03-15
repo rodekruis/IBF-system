@@ -97,7 +97,10 @@ export class MapComponent implements OnDestroy {
           const newLayerIndex = this.layers.findIndex(
             (layer) => layer.name === newLayer.name,
           );
-          newLayer = (newLayer.data || newLayer.type === IbfLayerType.wms) ? this.createLayer(newLayer) : newLayer;
+          newLayer =
+            newLayer.data || newLayer.type === IbfLayerType.wms
+              ? this.createLayer(newLayer)
+              : newLayer;
           if (newLayerIndex >= 0) {
             this.layers.splice(newLayerIndex, 1, newLayer);
           } else {
