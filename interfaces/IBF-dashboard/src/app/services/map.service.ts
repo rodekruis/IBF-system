@@ -438,14 +438,15 @@ export class MapService {
     if (triggerLayerIndex >= 0) {
       this.layers.forEach(
         async (layer: IbfLayer): Promise<void> => {
+          const layerActive = this.isLayerActive(active, layer, triggerLayer)
           this.addLayer({
             name: layer.name,
             label: layer.label,
             type: layer.type,
             description: layer.description,
-            active: this.isLayerActive(active, layer, triggerLayer),
+            active: layerActive,
             viewCenter: false,
-            data: this.layerDataLoadRequired(layer)
+            data: this.layerDataLoadRequired(layer, layerActive)
               ? await this.getLayerData(layer)
               : layer.data,
             wms: layer.wms,
@@ -468,7 +469,10 @@ export class MapService {
     }
   }
 
-  public layerDataLoadRequired(layer: IbfLayer): boolean {
+  public layerDataLoadRequired(layer: IbfLayer, layerActive: boolean): boolean {
+    if (!layerActive) {
+      return false
+    }
     if (layer.wms) {
       return false;
     } else if (!layer.data) {
