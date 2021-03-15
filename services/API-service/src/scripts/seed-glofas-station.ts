@@ -68,9 +68,7 @@ export class SeedGlofasStation implements InterfaceScript {
               stationCode: station['station_code'],
               stationName: station['station_name'],
               triggerLevel:
-                station[country.glofasStationInput['triggerColName']] == ''
-                  ? null
-                  : station[country.glofasStationInput['triggerColName']],
+                station[country.glofasStationInput['triggerColName']],
               threshold2Year: station['2yr_threshold'],
               threshold5Year: station['5yr_threshold'],
               threshold10Year: station['10yr_threshold'],
