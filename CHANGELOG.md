@@ -1,3 +1,12 @@
+## [0.37.2](https://github.com/rodekruis/IBF-system/compare/v0.37.1...v0.37.2) (2021-03-15)
+
+
+### Bug Fixes
+
+* only run sql-scripts when upload done AB[#6599](https://github.com/rodekruis/IBF-system/issues/6599) ([fdcba56](https://github.com/rodekruis/IBF-system/commit/fdcba56b3bdaaaeed29c6d4e072abbd3ba18aa67))
+
+
+
 ## [0.37.1](https://github.com/rodekruis/IBF-system/compare/v0.37.0...v0.37.1) (2021-03-15)
 
 
@@ -85,16 +94,6 @@
 ### Bug Fixes
 
 * last changes in keeping relative file paths AD[#5756](https://github.com/rodekruis/IBF-system/issues/5756) ([db99af6](https://github.com/rodekruis/IBF-system/commit/db99af6e1e8475ff52ac3544f7befbd805b72f80))
-
-
-
-## [0.33.2](https://github.com/rodekruis/IBF-system/compare/v0.33.1...v0.33.2) (2021-03-08)
-
-
-### Bug Fixes
-
-* get triggered areas  AB[#6539](https://github.com/rodekruis/IBF-system/issues/6539) ([caedc83](https://github.com/rodekruis/IBF-system/commit/caedc8327ce5c5b156cb8b3ed2d5705d876c7b96))
-* review add enum for layer acrivation AB[#6539](https://github.com/rodekruis/IBF-system/issues/6539) ([e5e0ac5](https://github.com/rodekruis/IBF-system/commit/e5e0ac54310108458a2265d783c7f2ecbdf0bf52))
 
 
 
