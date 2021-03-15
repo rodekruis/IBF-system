@@ -165,6 +165,7 @@
       </form>
       <ion-button
         (click)="closePlaceCodeEventPopup(area)"
+        [disabled]="area.activeTrigger"
         color="ibf-royal-blue"
         expand="block"
         [translate]="'chat-component.active-event.close-event-button'"
