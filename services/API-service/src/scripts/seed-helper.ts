@@ -28,7 +28,12 @@ export class SeedHelper {
       stream
         .pipe(csv({ separator: separator }))
         .on('error', (error): void => reject(error))
-        .on('data', (row): number => parsedData.push(row))
+        .on('data', (row): number => {
+          Object.keys(row).forEach(key =>
+            row[key] === '' ? (row[key] = null) : row[key],
+          );
+          return parsedData.push(row);
+        })
         .on('end', (): void => {
           resolve(parsedData);
         });

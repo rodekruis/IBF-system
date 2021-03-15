@@ -11,7 +11,7 @@ export class GlofasStationEntity {
   @Column()
   public stationCode: string;
 
-  @Column()
+  @Column({ nullable: true })
   public stationName: string;
 
   @Column({ nullable: true, type: 'real' })
@@ -29,6 +29,6 @@ export class GlofasStationEntity {
   @Column({ nullable: true, type: 'real' })
   public threshold20Year: string;
 
-  @Column()
+  @Column({ nullable: true })
   public geom: string;
 }
