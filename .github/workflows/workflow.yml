@@ -31,83 +31,107 @@ jobs:
                       ibf-pipeline:
                         - "services/IBF-pipeline/**"
 
-    ibf-api-service:
+    # ibf-api-service:
+    #     needs: detect-changes
+    #     if: ${{ needs.detect-changes.outputs.ibf-api-service == 'true' }}
+
+    #     runs-on: ubuntu-latest
+
+    #     env:
+    #         DB_TYPE: ${{ secrets.DB_TYPE }}
+    #         DB_HOST: ${{ secrets.DB_HOST }}
+    #         DB_PORT: ${{ secrets.DB_PORT }}
+    #         DB_DATABASE: ${{ secrets.DB_DATABASE }}
+    #         DB_USERNAME: ${{ secrets.DB_USERNAME }}
+    #         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+    #         SECRET: ${{ secrets.SECRET }}
+
+    #     strategy:
+    #         matrix:
+    #             node-version: [12.x]
+
+    #     defaults:
+    #         run:
+    #             working-directory: "services/API-service"
+
+    #     steps:
+    #         - uses: actions/checkout@v2
+    #         - name: Use Node.js ${{ matrix.node-version }}
+    #           uses: actions/setup-node@v2.1.5
+    #           with:
+    #               node-version: ${{ matrix.node-version }}
+    #         - run: npm ci --no-audit
+    #         - run: npm run lint
+    #         - run: npm test
+    #         - run:
+    #               docker build . --file Dockerfile --tag
+    #               rodekruis/ibf-api-service:$(date +%s)
+
+    # ibf-dashboard:
+    #     needs: detect-changes
+    #     if: ${{ needs.detect-changes.outputs.ibf-dashboard == 'true' }}
+
+    #     runs-on: ubuntu-latest
+
+    #     strategy:
+    #         matrix:
+    #             node-version: [14.x]
+
+    #     defaults:
+    #         run:
+    #             working-directory: "interfaces/IBF-dashboard"
+
+    #     steps:
+    #         - uses: actions/checkout@v2
+    #         - name: Use Node.js ${{ matrix.node-version }}
+    #           uses: actions/setup-node@v2.1.5
+    #           with:
+    #               node-version: ${{ matrix.node-version }}
+    #         - run: npm ci --no-audit
+    #         - run: npm test
+    #         - run:
+    #               docker build . --file Dockerfile --tag
+    #               rodekruis/ibf-dashboard:$(date +%s)
+
+    # ibf-pipeline:
+    #     needs: detect-changes
+    #     if: ${{ needs.detect-changes.outputs.ibf-pipeline == 'true' }}
+
+    #     runs-on: ubuntu-latest
+
+    #     defaults:
+    #         run:
+    #             working-directory: "services/IBF-pipeline"
+
+    #     steps:
+    #         - uses: actions/checkout@v2
+    #         - run:
+    #               docker build . --file Dockerfile --tag
+    #               rodekruis/ibf-pipeline:$(date +%s)
+
+
+    cypress-run:
         needs: detect-changes
-        if: ${{ needs.detect-changes.outputs.ibf-api-service == 'true' }}
-
-        runs-on: ubuntu-latest
-
-        env:
-            DB_TYPE: ${{ secrets.DB_TYPE }}
-            DB_HOST: ${{ secrets.DB_HOST }}
-            DB_PORT: ${{ secrets.DB_PORT }}
-            DB_DATABASE: ${{ secrets.DB_DATABASE }}
-            DB_USERNAME: ${{ secrets.DB_USERNAME }}
-            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-            SECRET: ${{ secrets.SECRET }}
-
-        strategy:
-            matrix:
-                node-version: [12.x]
-
-        defaults:
-            run:
-                working-directory: "services/API-service"
-
-        steps:
-            - uses: actions/checkout@v2
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v2.1.5
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - run: npm ci --no-audit
-            - run: npm run lint
-            - run: npm test
-            - run:
-                  docker build . --file Dockerfile --tag
-                  rodekruis/ibf-api-service:$(date +%s)
-
-    ibf-dashboard:
-        needs: detect-changes
-        if: ${{ needs.detect-changes.outputs.ibf-dashboard == 'true' }}
-
-        runs-on: ubuntu-latest
-
-        strategy:
-            matrix:
-                node-version: [14.x]
-
-        defaults:
-            run:
-                working-directory: "interfaces/IBF-dashboard"
-
-        steps:
-            - uses: actions/checkout@v2
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v2.1.5
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - run: npm ci --no-audit
-            - run: npm test
-            - run:
-                  docker build . --file Dockerfile --tag
-                  rodekruis/ibf-dashboard:$(date +%s)
-
-    ibf-pipeline:
-        needs: detect-changes
-        if: ${{ needs.detect-changes.outputs.ibf-pipeline == 'true' }}
+        if: |
+            ${{ needs.detect-changes.outputs.ibf-pipeline == 'true' }} ||
+            ${{ needs.detect-changes.outputs.ibf-dashboard == 'true' }} ||
+            ${{ needs.detect-changes.outputs.ibf-api-service == 'true' }}            
 
         runs-on: ubuntu-latest
 
         defaults:
             run:
                 working-directory: "services/IBF-pipeline"
-
         steps:
-            - uses: actions/checkout@v2
-            - run:
-                  docker build . --file Dockerfile --tag
-                  rodekruis/ibf-pipeline:$(date +%s)
+        - name: Checkout
+            uses: actions/checkout@v2
+        # Install NPM dependencies, cache them correctly
+        # and run all Cypress tests
+        - name: Cypress run
+            uses: cypress-io/github-action@v2
+            with:
+                build: npm run build
+                start: npm start
 
     bump-version:
         needs: [ibf-api-service, ibf-dashboard, ibf-pipeline]
