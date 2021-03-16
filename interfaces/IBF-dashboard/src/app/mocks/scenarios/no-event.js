@@ -1,10 +1,10 @@
 import adminAreaData from './admin-area-data.json';
-import * as moment from 'moment';
+import { DateTime } from 'luxon';
 
 export function getRecentDates() {
   return [
     {
-      date: moment().format('YYYY-MM-DD'),
+      date: DateTime.now().toFormat('yyyy-LL-dd'),
     },
   ];
 }

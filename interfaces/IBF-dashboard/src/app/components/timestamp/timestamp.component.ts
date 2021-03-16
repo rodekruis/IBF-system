@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
+import { Component, Input, OnInit } from '@angular/core';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-timestamp',
@@ -7,13 +7,18 @@ import * as moment from 'moment';
   styleUrls: ['./timestamp.component.scss'],
 })
 export class TimestampComponent implements OnInit {
-  public date: string;
-  public time: string;
+  @Input()
+  private timestamp: DateTime = DateTime.now();
+
+  private dateFormat = 'cccc, dd LLLL';
+  private timeFormat = 'HH:mm';
+  public displayDate: string;
+  public displayTime: string;
 
   constructor() {}
 
   ngOnInit() {
-    this.date = moment().format('dddd, D MMMM');
-    this.time = moment().format('HH:mm');
+    this.displayDate = this.timestamp.toFormat(this.dateFormat);
+    this.displayTime = this.timestamp.toFormat(this.timeFormat);
   }
 }

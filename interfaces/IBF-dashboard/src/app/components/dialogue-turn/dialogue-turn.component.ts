@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DateTime } from 'luxon';
 
 enum Actor {
   system = 'system',
@@ -18,7 +19,7 @@ export class DialogueTurnComponent implements OnInit {
   actor = Actor.system;
 
   @Input()
-  moment: Date;
+  timestamp: DateTime = DateTime.now();
 
   @Input()
   isConnected = false;
@@ -35,7 +36,7 @@ export class DialogueTurnComponent implements OnInit {
   ngOnInit() {
     this.isSelf = this.actor === Actor.self;
     this.isSystem = this.actor === Actor.system;
-    this.moment = new Date();
+    this.timestamp = DateTime.now();
   }
 
   show() {
