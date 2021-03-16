@@ -110,13 +110,12 @@ jobs:
     #               docker build . --file Dockerfile --tag
     #               rodekruis/ibf-pipeline:$(date +%s)
 
-
     cypress-run:
         needs: detect-changes
         if: |
             ${{ needs.detect-changes.outputs.ibf-pipeline == 'true' }} ||
             ${{ needs.detect-changes.outputs.ibf-dashboard == 'true' }} ||
-            ${{ needs.detect-changes.outputs.ibf-api-service == 'true' }}            
+            ${{ needs.detect-changes.outputs.ibf-api-service == 'true' }}
 
         runs-on: ubuntu-latest
 
@@ -124,15 +123,15 @@ jobs:
             run:
                 working-directory: "services/IBF-pipeline"
         steps:
-        - name: Checkout
-            uses: actions/checkout@v2
-        # Install NPM dependencies, cache them correctly
-        # and run all Cypress tests
-        - name: Cypress run
-            uses: cypress-io/github-action@v2
-            with:
-                build: npm run build
-                start: npm start
+            - name: Checkout
+              uses: actions/checkout@v2
+            # Install NPM dependencies, cache them correctly
+            # and run all Cypress tests
+            - name: Cypress run
+              uses: cypress-io/github-action@v2
+              with:
+                  build: npm run build
+                  start: npm start
 
     bump-version:
         needs: [ibf-api-service, ibf-dashboard, ibf-pipeline]
