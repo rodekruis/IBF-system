@@ -144,7 +144,7 @@ jobs:
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
-                  prepare: ./prepare-test.sh
+                  command: ./prepare-test.sh
                   build: npm i
                   start: npm run start:cypress"
     # bump-version:
