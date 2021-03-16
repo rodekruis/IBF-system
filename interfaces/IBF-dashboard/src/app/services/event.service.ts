@@ -52,7 +52,7 @@ export class EventService {
             this.state.event && this.state.event.activeTrigger;
           this.state.newEvent =
             this.state.event?.startDate ===
-            this.timelineService.state.today.format('YYYY-MM-DD');
+            this.timelineService.state.today.toFormat('yyyy-LL-dd');
           this.setAlertState();
 
           if (this.state.activeTrigger) {
