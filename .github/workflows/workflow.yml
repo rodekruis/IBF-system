@@ -17,6 +17,7 @@ jobs:
             ibf-api-service: ${{ steps.filter.outputs.ibf-api-service }}
             ibf-dashboard: ${{ steps.filter.outputs.ibf-dashboard }}
             ibf-pipeline: ${{ steps.filter.outputs.ibf-pipeline }}
+            cypress-run: ${{ steps.filter.outputs.cypress-run }}
 
         steps:
             - uses: actions/checkout@v2
