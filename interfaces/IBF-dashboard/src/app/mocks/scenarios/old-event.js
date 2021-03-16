@@ -1,10 +1,10 @@
 import adminAreaData from './admin-area-data.json';
-import * as moment from 'moment';
+import { DateTime } from 'luxon';
 
 export function getRecentDates() {
   return [
     {
-      date: moment().format('YYYY-MM-DD'),
+      date: DateTime.now().toFormat('yyyy-LL-dd'),
     },
   ];
 }
@@ -12,8 +12,8 @@ export function getRecentDates() {
 export function getEvent() {
   return {
     country_code: 'UGA',
-    start_date: moment().subtract(12, 'days').format('YYYY-MM-DD'),
-    end_date: moment().subtract(7, 'days').format('YYYY-MM-DD'),
+    start_date: DateTime.now().minus({ days: 12 }).toFormat('yyyy-LL-dd'),
+    end_date: DateTime.now().minus({ days: 7 }).toFormat('yyyy-LL-dd'),
     id: '14',
   };
 }

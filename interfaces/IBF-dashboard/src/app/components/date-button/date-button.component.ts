@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import * as moment from 'moment';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-date-button',
@@ -7,17 +7,17 @@ import * as moment from 'moment';
   styleUrls: ['./date-button.component.scss'],
 })
 export class DateButtonComponent implements OnInit {
-  @Input() date = moment();
+  @Input() date = DateTime.now();
 
-  private dateFormat = 'ddd DD';
-  private monthFormat = 'MMM YYYY';
+  private dateFormat = 'ccc dd';
+  private monthFormat = 'LLL yyyy';
   public displayDate: string;
   public displayMonth: string;
 
   constructor() {}
 
   ngOnInit() {
-    this.displayDate = this.date.format(this.dateFormat);
-    this.displayMonth = this.date.format(this.monthFormat);
+    this.displayDate = this.date.toFormat(this.dateFormat);
+    this.displayMonth = this.date.toFormat(this.monthFormat);
   }
 }
