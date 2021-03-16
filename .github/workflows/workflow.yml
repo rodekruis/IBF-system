@@ -119,6 +119,20 @@ jobs:
 
         runs-on: ubuntu-latest
 
+        env:
+            DB_TYPE: ${{ secrets.DB_TYPE }}
+            DB_HOST_TEST_VM: ${{ secrets.DB_HOST }}
+            DB_PORT: ${{ secrets.DB_PORT }}
+            DB_DATABASE_TEST_VM: ${{ secrets.DB_DATABASE }}
+            DB_USERNAME_TEST_VM: ${{ secrets.DB_USERNAME }}
+            DB_PASSWORD_TEST_VM: ${{ secrets.DB_PASSWORD}}
+            SECRET: ${{ secrets.SECRET }}
+            DB_HOST: ibf-local-db
+            DB_DATABASE: ibf
+            DB_USERNAME: ibf
+            DB_PASSWORD: ibf
+            DB_PORT_LOCAL: 5437
+
         defaults:
             run:
                 working-directory: "services/IBF-pipeline"
@@ -130,8 +144,8 @@ jobs:
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
-                  build: npm run build
-                  start: npm start
+                  build: npm i
+                  start: npm run start:cypress"
     # bump-version:
     #     needs: [ibf-api-service, ibf-dashboard, ibf-pipeline]
     #     if: |
