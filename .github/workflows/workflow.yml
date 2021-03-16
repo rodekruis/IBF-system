@@ -132,28 +132,23 @@ jobs:
               with:
                   build: npm run build
                   start: npm start
-
-    bump-version:
-        needs: [ibf-api-service, ibf-dashboard, ibf-pipeline]
-        if: |
-            always() &&
-            github.event_name == 'push'
-
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Wait for previous workflow to complete
-              uses: softprops/turnstyle@v1
-              with:
-                  abort-after-seconds: 1800
-              env:
-                  GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
-
-            - uses: actions/checkout@v2
-
-            - name: Bump version and push tag
-              uses: TriPSs/conventional-changelog-action@v3
-              with:
-                  github-token: ${{ secrets.ACTIONS_TOKEN }}
-                  git-message: "chore(release): {version}"
-                  release-count: 10
+    # bump-version:
+    #     needs: [ibf-api-service, ibf-dashboard, ibf-pipeline]
+    #     if: |
+    #         always() &&
+    #         github.event_name == 'push'
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - name: Wait for previous workflow to complete
+    #           uses: softprops/turnstyle@v1
+    #           with:
+    #               abort-after-seconds: 1800
+    #           env:
+    #               GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+    #         - uses: actions/checkout@v2
+    #         - name: Bump version and push tag
+    #           uses: TriPSs/conventional-changelog-action@v3
+    #           with:
+    #               github-token: ${{ secrets.ACTIONS_TOKEN }}
+    #               git-message: "chore(release): {version}"
+    #               release-count: 10
