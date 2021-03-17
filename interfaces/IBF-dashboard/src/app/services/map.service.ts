@@ -71,35 +71,53 @@ export class MapService {
   ) {
     this.countryService
       .getCountrySubscription()
-      .subscribe((country: Country): void => {
-        this.country = country;
-        this.loadCountryLayers();
-      });
+      .subscribe(this.onCountryChange);
 
-    this.adminLevelService.getAdminLevelSubscription().subscribe(() => {
-      this.loadAdminRegionLayer(true);
-    });
+    this.adminLevelService
+      .getAdminLevelSubscription()
+      .subscribe(this.onAdminLevelChange);
 
-    this.timelineService.getTimelineSubscription().subscribe(() => {
-      this.loadCountryLayers();
-    });
+    this.timelineService
+      .getTimelineSubscription()
+      .subscribe(this.onLeadTimeChange);
 
     this.placeCodeService
       .getPlaceCodeSubscription()
-      .subscribe((placeCode: PlaceCode): void => {
-        this.placeCode = placeCode;
-      });
+      .subscribe(this.onPlaceCodeChange);
 
-    this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
-      this.loadCountryLayers();
-    });
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe(this.onMockScenarioChange);
 
     this.translateService
       .get('map-service.popover')
-      .subscribe((translatedStrings: { [key: string]: string }) => {
-        this.popoverTexts = translatedStrings;
-      });
+      .subscribe(this.onTranslate);
   }
+
+  private onCountryChange = (country: Country): void => {
+    this.country = country;
+    this.loadCountryLayers();
+  };
+
+  private onAdminLevelChange = () => {
+    this.loadAdminRegionLayer(true);
+  };
+
+  private onLeadTimeChange = () => {
+    this.loadCountryLayers();
+  };
+
+  private onPlaceCodeChange = (placeCode: PlaceCode): void => {
+    this.placeCode = placeCode;
+  };
+
+  private onMockScenarioChange = () => {
+    this.loadCountryLayers();
+  };
+
+  private onTranslate = (translatedStrings) => {
+    this.popoverTexts = translatedStrings;
+  };
 
   private getPopoverText(indicatorName: IbfLayerName): string {
     let popoverText = '';
@@ -112,46 +130,46 @@ export class MapService {
     return popoverText;
   }
 
+  private onLayerChange = (layers) => {
+    layers.forEach((layer: IbfLayerMetadata) => {
+      let layerActive: boolean;
+      if (layer.active === LayerActivation.yes) {
+        layerActive = true;
+      } else if (
+        layer.active === LayerActivation.ifTrigger &&
+        this.eventService.state.activeTrigger
+      ) {
+        layerActive = true;
+      } else {
+        layerActive = false;
+      }
+      if (layer.type === IbfLayerType.wms) {
+        this.loadWmsLayer(
+          layer.name,
+          layer.label,
+          layerActive,
+          layer.leadTimeDependent ? this.timelineService.activeLeadTime : null,
+          layer.legendColor,
+        );
+      } else if (layer.name === IbfLayerName.adminRegions) {
+        this.loadAdminRegionLayer(layerActive);
+      } else if (layer.name === IbfLayerName.glofasStations) {
+        this.loadStationLayer(layerActive);
+      } else if (layer.name === IbfLayerName.redCrossBranches) {
+        this.loadRedCrossBranchesLayer(layer.label, layerActive);
+      } else if (layer.name === IbfLayerName.redCrescentBranches) {
+        this.loadRedCrossBranchesLayer(layer.label, layerActive);
+      } else if (layer.name === IbfLayerName.waterpoints) {
+        this.loadWaterPointsLayer(layerActive);
+      }
+    });
+  };
+
   public async loadCountryLayers() {
     if (this.country) {
       this.apiService
         .getLayers(this.country.countryCodeISO3)
-        .subscribe((layers) => {
-          layers.forEach((layer: IbfLayerMetadata) => {
-            let layerActive: boolean;
-            if (layer.active === LayerActivation.yes) {
-              layerActive = true;
-            } else if (
-              layer.active === LayerActivation.ifTrigger &&
-              this.eventService.state.activeTrigger
-            ) {
-              layerActive = true;
-            } else {
-              layerActive = false;
-            }
-            if (layer.type === IbfLayerType.wms) {
-              this.loadWmsLayer(
-                layer.name,
-                layer.label,
-                layerActive,
-                layer.leadTimeDependent
-                  ? this.timelineService.activeLeadTime
-                  : null,
-                layer.legendColor,
-              );
-            } else if (layer.name === IbfLayerName.adminRegions) {
-              this.loadAdminRegionLayer(layerActive);
-            } else if (layer.name === IbfLayerName.glofasStations) {
-              this.loadStationLayer(layerActive);
-            } else if (layer.name === IbfLayerName.redCrossBranches) {
-              this.loadRedCrossBranchesLayer(layer.label, layerActive);
-            } else if (layer.name === IbfLayerName.redCrescentBranches) {
-              this.loadRedCrossBranchesLayer(layer.label, layerActive);
-            } else if (layer.name === IbfLayerName.waterpoints) {
-              this.loadWaterPointsLayer(layerActive);
-            }
-          });
-        });
+        .subscribe(this.onLayerChange);
     }
   }
 
@@ -163,16 +181,14 @@ export class MapService {
             this.country.countryCodeISO3,
             this.timelineService.activeLeadTime,
           )
-          .subscribe((stations) => {
-            this.addStationLayer(stations);
-          });
+          .subscribe(this.addStationLayer);
       } else {
         this.addStationLayer(null);
       }
     }
   }
 
-  private addStationLayer(stations: any) {
+  private addStationLayer = (stations: any) => {
     this.addLayer({
       name: IbfLayerName.glofasStations,
       label: IbfLayerLabel.glofasStations,
@@ -184,12 +200,12 @@ export class MapService {
       viewCenter: false,
       order: 0,
     });
-  }
+  };
 
-  private loadRedCrossBranchesLayer(
+  private loadRedCrossBranchesLayer = (
     label: IbfLayerLabel,
     layerActive: boolean,
-  ) {
+  ) => {
     if (this.country) {
       if (layerActive) {
         this.apiService
@@ -201,12 +217,12 @@ export class MapService {
         this.addRedCrossBranchesLayer(label, null);
       }
     }
-  }
+  };
 
-  private addRedCrossBranchesLayer(
+  private addRedCrossBranchesLayer = (
     label: IbfLayerLabel,
     redCrossBranches: any,
-  ) {
+  ) => {
     this.addLayer({
       name: IbfLayerName.redCrossBranches,
       label,
@@ -218,9 +234,9 @@ export class MapService {
       viewCenter: false,
       order: 1,
     });
-  }
+  };
 
-  private loadWaterPointsLayer(layerActive: boolean) {
+  private loadWaterPointsLayer = (layerActive: boolean) => {
     if (this.country) {
       if (layerActive) {
         this.apiService
@@ -232,7 +248,7 @@ export class MapService {
         this.addWaterPointsLayer(null);
       }
     }
-  }
+  };
 
   private addWaterPointsLayer(waterPoints: any) {
     this.addLayer({

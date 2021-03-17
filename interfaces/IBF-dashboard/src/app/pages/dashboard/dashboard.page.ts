@@ -20,14 +20,16 @@ export class DashboardPage implements OnInit {
     private authService: AuthService,
     private analyticsService: AnalyticsService,
   ) {
-    this.authService.getAuthSubscription().subscribe((user: User): void => {
-      if (user) {
-        this.isDev = user.userRole === this.adminRole;
-      }
-    });
+    this.authService.getAuthSubscription().subscribe(this.onUserChange);
   }
 
   ngOnInit() {
     this.analyticsService.logPageView(AnalyticsPage.dashboard);
   }
+
+  private onUserChange = (user: User): void => {
+    if (user) {
+      this.isDev = user.userRole === this.adminRole;
+    }
+  };
 }

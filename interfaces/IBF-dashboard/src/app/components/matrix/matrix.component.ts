@@ -36,23 +36,25 @@ export class MatrixComponent implements OnDestroy {
   ) {
     this.layerSubscription = this.mapService
       .getLayerSubscription()
-      .subscribe((newLayer) => {
-        if (newLayer) {
-          const newLayerIndex = this.layers.findIndex(
-            (layer) => layer.name === newLayer.name,
-          );
-          if (newLayerIndex >= 0) {
-            this.layers.splice(newLayerIndex, 1, newLayer);
-          } else {
-            if (newLayer.name !== IbfLayerName.adminRegions) {
-              this.layers.push(newLayer);
-            }
-          }
-        } else {
-          this.layers = [];
-        }
-      });
+      .subscribe(this.onLayerChange);
   }
+
+  private onLayerChange = (newLayer) => {
+    if (newLayer) {
+      const newLayerIndex = this.layers.findIndex(
+        (layer) => layer.name === newLayer.name,
+      );
+      if (newLayerIndex >= 0) {
+        this.layers.splice(newLayerIndex, 1, newLayer);
+      } else {
+        if (newLayer.name !== IbfLayerName.adminRegions) {
+          this.layers.push(newLayer);
+        }
+      }
+    } else {
+      this.layers = [];
+    }
+  };
 
   async presentPopover(event: any, layer: IbfLayer): Promise<void> {
     event.stopPropagation();
@@ -99,6 +101,12 @@ export class MatrixComponent implements OnDestroy {
     this.updateLayer(name, active, data);
   }
 
+  private filterIndicatorByLayerName = (name) => (indicator) =>
+    indicator.name === name;
+
+  private filterAdminRegionsLayer = (layer) =>
+    layer.name === IbfLayerName.adminRegions;
+
   public updateLayer(
     name: IbfLayerName,
     active: boolean,
@@ -106,14 +114,14 @@ export class MatrixComponent implements OnDestroy {
   ): void {
     if (active && data && data.features.length === 0) {
       const indicator = this.aggregatesService.indicators.find(
-        (o) => o.name === name,
+        this.filterIndicatorByLayerName(name),
       );
     }
     this.mapService.updateLayer(name, active, true);
     this.mapService.activeLayerName = active ? name : null;
     if (active) {
       const adminRegionLayer = this.mapService.layers.find(
-        (l) => l.name === IbfLayerName.adminRegions,
+        this.filterAdminRegionsLayer,
       );
       if (adminRegionLayer) {
         adminRegionLayer.active = true;
@@ -130,9 +138,10 @@ export class MatrixComponent implements OnDestroy {
     );
   }
 
+  private sortLayers = (a: IbfLayer, b: IbfLayer) =>
+    a.order > b.order ? 1 : a.order === b.order ? 0 : -1;
+
   getLayersInOrder(): IbfLayer[] {
-    return this.layers.sort((a: IbfLayer, b: IbfLayer) =>
-      a.order > b.order ? 1 : a.order === b.order ? 0 : -1,
-    );
+    return this.layers.sort(this.sortLayers);
   }
 }

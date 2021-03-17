@@ -36,6 +36,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private popoverTranslateNode = 'popover';
 
   public indicatorGroupEnum = IndicatorGroup;
+  private triggeredAreas: any[];
 
   private defaultHeaderLabel: string;
   private exposedPrefix: string;
@@ -62,13 +63,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   ) {
     this.translateSubscription = this.translateService
       .get(this.aggregateComponentTranslateNode)
-      .subscribe((translatedStrings: object) => {
-        this.defaultHeaderLabel =
-          translatedStrings[this.defaultHeaderLabelTranslateNode];
-        this.exposedPrefix = translatedStrings[this.exposedPrefixTranslateNode];
-        this.allPrefix = translatedStrings[this.allPrefixTranslateNode];
-        this.popoverTexts = translatedStrings[this.popoverTranslateNode];
-      });
+      .subscribe(this.onTranslate);
   }
 
   ngOnInit() {
@@ -76,31 +71,19 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.country = country;
-      });
+      .subscribe(this.onCountryChange);
 
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
-      .subscribe((placeCode: PlaceCode) => {
-        this.placeCode = placeCode;
-        this.changeDetectorRef.detectChanges();
-      });
+      .subscribe(this.onPlaceCodeChange);
 
     this.indicatorSubscription = this.aggregatesService
       .getIndicators()
-      .subscribe((newIndicators: Indicator[]) => {
-        this.indicators = newIndicators.filter((i) => i.aggregateIndicator);
-        this.indicators.forEach((indicator: Indicator) => {
-          indicator.group = IndicatorGroup[indicator.group];
-        });
-        this.groups = [];
-        for (const group in IndicatorGroup) {
-          if (this.indicators.find((i) => i.group === IndicatorGroup[group])) {
-            this.groups.push(IndicatorGroup[group]);
-          }
-        }
-      });
+      .subscribe(this.onIndicatorChange);
+
+    this.eapActionSubscription = this.eapActionsService
+      .getTriggeredAreas()
+      .subscribe(this.onTriggeredAreasChange);
   }
 
   ngOnDestroy() {
@@ -108,10 +91,56 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
-    if (this.eapActionSubscription) {
-      this.eapActionSubscription.unsubscribe();
-    }
+    this.eapActionSubscription.unsubscribe();
   }
+
+  private onTranslate = (translatedStrings) => {
+    this.defaultHeaderLabel =
+      translatedStrings[this.defaultHeaderLabelTranslateNode];
+    this.exposedPrefix = translatedStrings[this.exposedPrefixTranslateNode];
+    this.allPrefix = translatedStrings[this.allPrefixTranslateNode];
+    this.popoverTexts = translatedStrings[this.popoverTranslateNode];
+  };
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+  };
+
+  private onPlaceCodeChange = (placeCode: PlaceCode) => {
+    this.placeCode = placeCode;
+    this.changeDetectorRef.detectChanges();
+  };
+
+  private onIndicatorChange = (newIndicators: Indicator[]) => {
+    // clean data to avoid these inefficient filters and loops
+    const filterAggregateIndicators = (indicator: Indicator) =>
+      indicator.aggregateIndicator;
+    this.indicators = newIndicators.filter(filterAggregateIndicators);
+
+    const typecastIndicatorGroup = (indicator: Indicator) => {
+      indicator.group = IndicatorGroup[indicator.group];
+    };
+    this.indicators.forEach(typecastIndicatorGroup);
+
+    this.groups = [];
+
+    for (const group in IndicatorGroup) {
+      if (IndicatorGroup[group]) {
+        const indicatorGroup = IndicatorGroup[group];
+
+        const filterIndicatorByIndicatorGroup = (indicator: Indicator) =>
+          indicator.group === indicatorGroup;
+
+        if (this.indicators.find(filterIndicatorByIndicatorGroup)) {
+          this.groups.push(indicatorGroup);
+        }
+      }
+    }
+  };
+
+  private onTriggeredAreasChange = (triggeredAreas) => {
+    this.triggeredAreas = triggeredAreas;
+  };
 
   public async moreInfo(indicator: Indicator): Promise<void> {
     const modal = await this.modalController.create({
@@ -160,11 +189,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           const adminAreaLabel = this.country.adminRegionLabels[
             this.adminLevelService.adminLevel - 1
           ];
-          this.eapActionSubscription = this.eapActionsService
-            .getTriggeredAreas()
-            .subscribe((triggeredAreas) => {
-              headerLabel = `${triggeredAreas.length} ${this.exposedPrefix} ${adminAreaLabel}`;
-            });
+          headerLabel = `${this.triggeredAreas.length} ${this.exposedPrefix} ${adminAreaLabel}`;
         } else {
           headerLabel = `${this.allPrefix} ${this.country.countryName}`;
         }

@@ -33,7 +33,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private translateSubscription: Subscription;
-  private closeEventPlaceCodeSubscription: Subscription;
 
   public indicatorName = IbfLayerName;
   public eapActions: EapAction[];
@@ -53,45 +52,81 @@ export class ChatComponent implements OnInit, OnDestroy {
   ) {
     this.translateSubscription = this.translateService
       .get('chat-component.active-event')
-      .subscribe((translatedStrings: string) => {
-        this.updateSuccessMessage = translatedStrings['update-success'];
-        this.updateFailureMessage = translatedStrings['update-failure'];
-        this.promptButtonLabel = translatedStrings['prompt-button-label'];
-        this.closeEventPopup = translatedStrings['close-event-popup'];
-      });
+      .subscribe(this.onTranslate);
   }
 
   ngOnInit() {
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
-      .subscribe((newAreas) => {
-        this.triggeredAreas = newAreas;
-        this.filteredAreas = [...this.triggeredAreas];
-        this.triggeredAreas.forEach((area) => (area.submitDisabled = true));
-      });
+      .subscribe(this.onTriggeredAreasChange);
 
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
-      .subscribe((placeCode: PlaceCode) => {
-        if (placeCode) {
-          this.filteredAreas = this.triggeredAreas.filter(
-            (area) => area.placeCode === placeCode.placeCode,
-          );
-        } else {
-          this.filteredAreas = [...this.triggeredAreas];
-        }
-        this.changeDetectorRef.detectChanges();
-      });
+      .subscribe(this.onPlaceCodeChange);
   }
 
   ngOnDestroy() {
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
-    if (this.closeEventPlaceCodeSubscription) {
-      this.closeEventPlaceCodeSubscription.unsubscribe();
-    }
   }
+
+  private onTranslate = (translatedStrings) => {
+    this.updateSuccessMessage = translatedStrings['update-success'];
+    this.updateFailureMessage = translatedStrings['update-failure'];
+    this.promptButtonLabel = translatedStrings['prompt-button-label'];
+    this.closeEventPopup = translatedStrings['close-event-popup'];
+  };
+
+  private onTriggeredAreasChange = (triggeredAreas) => {
+    this.triggeredAreas = triggeredAreas;
+    this.filteredAreas = [...this.triggeredAreas];
+    this.triggeredAreas.forEach(this.disableSubmitButtonForTriggeredArea);
+  };
+
+  private onPlaceCodeChange = (placeCode: PlaceCode) => {
+    if (placeCode) {
+      const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
+        triggeredArea.placeCode === placeCode.placeCode;
+
+      this.filteredAreas = this.triggeredAreas.filter(
+        filterTriggeredAreasByPlaceCode,
+      );
+    } else {
+      this.filteredAreas = [...this.triggeredAreas];
+    }
+    this.changeDetectorRef.detectChanges();
+  };
+
+  // data needs to be reorganized to avoid the mess that follows
+
+  private disableSubmitButtonForTriggeredArea = (triggeredArea) =>
+    (triggeredArea.submitDisabled = true);
+
+  private filterTriggeredAreaByPlaceCode = (placeCode) => (triggeredArea) =>
+    triggeredArea.placeCode === placeCode;
+
+  private filterChangedEAPActionByChangedEAPAction = (changedAction) => (
+    eapAction,
+  ) => !(eapAction.action === changedAction.action);
+
+  private filterEAPActionByEAPAction = (action) => (eapAction) =>
+    eapAction.action === action;
+
+  private filterEAPActionByPlaceCode = (placeCode) => (eapAction) =>
+    eapAction.placeCode !== placeCode;
+
+  private checkEAPActionByPlaceCode = (placeCode) => (eapAction) => {
+    if (eapAction.placeCode === placeCode) {
+      return this.eapActionsService.checkEapAction(
+        eapAction.action,
+        eapAction.checked,
+        eapAction.placeCode,
+      );
+    }
+  };
+
+  private onEAPActionComplete = (): void => window.location.reload();
 
   public changeAction(
     placeCode: string,
@@ -108,17 +143,26 @@ export class ChatComponent implements OnInit, OnDestroy {
       component: this.constructor.name,
     });
 
-    const area = this.triggeredAreas.find((i) => i.placeCode === placeCode);
-    const changedAction = area.eapActions.find((i) => i.action === action);
+    const filterTriggeredAreaByPlaceCode = this.filterTriggeredAreaByPlaceCode(
+      placeCode,
+    );
+
+    const triggeredArea = this.triggeredAreas.find(
+      filterTriggeredAreaByPlaceCode,
+    );
+    const changedAction = triggeredArea.eapActions.find(
+      this.filterEAPActionByEAPAction(action),
+    );
+
     changedAction.checked = checkbox;
     if (!this.changedActions.includes(changedAction)) {
       this.changedActions.push(changedAction);
     } else {
       this.changedActions = this.changedActions.filter(
-        (item) => !(changedAction.action === item.action),
+        this.filterChangedEAPActionByChangedEAPAction(changedAction),
       );
     }
-    this.triggeredAreas.find((i) => i.placeCode === placeCode).submitDisabled =
+    this.triggeredAreas.find(filterTriggeredAreaByPlaceCode).submitDisabled =
       this.changedActions.length === 0;
   }
 
@@ -132,28 +176,18 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
 
     this.triggeredAreas.find(
-      (i) => i.placeCode === placeCode,
+      this.filterTriggeredAreaByPlaceCode(placeCode),
     ).submitDisabled = true;
 
     try {
-      this.changedActions.map((action) => {
-        if (action.placeCode === placeCode) {
-          return this.eapActionsService.checkEapAction(
-            action.action,
-            action.checked,
-            action.placeCode,
-          );
-        }
-      });
+      this.changedActions.map(this.checkEAPActionByPlaceCode(placeCode));
 
       this.changedActions = this.changedActions.filter(
-        (i) => i.placeCode !== placeCode,
+        this.filterEAPActionByPlaceCode(placeCode),
       );
 
-      this.actionResult(this.updateSuccessMessage, (): void =>
-        window.location.reload(),
-      );
-    } catch (e) {
+      this.actionResult(this.updateSuccessMessage, this.onEAPActionComplete);
+    } catch {
       this.actionResult(this.updateFailureMessage);
     }
   }
@@ -181,55 +215,57 @@ export class ChatComponent implements OnInit, OnDestroy {
     alert.present();
   }
 
-  public closePlaceCodeEventPopup(area): void {
+  private onClosePlaceCodeEventPopupByTriggeredArea = (triggeredArea) => async (
+    message,
+  ): Promise<void> => {
     const cancelTranslateNode = 'cancel';
     const confirmTranslateNode = 'confirm';
+
+    const alert = await this.alertController.create({
+      message,
+      buttons: [
+        {
+          text: this.closeEventPopup[cancelTranslateNode],
+          handler: () => {
+            console.log('Cancel close place code');
+          },
+        },
+        {
+          text: this.closeEventPopup[confirmTranslateNode],
+          handler: () => {
+            this.closePlaceCodeEvent(
+              triggeredArea.eventPlaceCodeId,
+              triggeredArea.placeCode,
+            );
+          },
+        },
+      ],
+    });
+
+    alert.present();
+  };
+
+  public closePlaceCodeEventPopup(triggeredArea): void {
     this.translateSubscription = this.translateService
       .get('chat-component.active-event.close-event-popup.message', {
-        placeCodeName: area.name,
+        placeCodeName: triggeredArea.name,
       })
-      .subscribe(
-        async (message): Promise<void> => {
-          const alert = await this.alertController.create({
-            message,
-            buttons: [
-              {
-                text: this.closeEventPopup[cancelTranslateNode],
-                handler: () => {
-                  console.log('Cancel close place code');
-                },
-              },
-              {
-                text: this.closeEventPopup[confirmTranslateNode],
-                handler: () => {
-                  this.closePlaceCodeEvent(
-                    area.eventPlaceCodeId,
-                    area.placeCode,
-                  );
-                },
-              },
-            ],
-          });
-
-          alert.present();
-        },
-      );
+      .subscribe(this.onClosePlaceCodeEventPopupByTriggeredArea(triggeredArea));
   }
 
   public closePlaceCodeEvent(
     eventPlaceCodeId: string,
     placeCode: string,
   ): void {
-    this.closeEventPlaceCodeSubscription = this.apiService
-      .closeEventPlaceCode(eventPlaceCodeId)
-      .subscribe();
-    this.eapActionsService.loadDistrictsAndActions();
-    this.eventService.getTrigger();
     this.analyticsService.logEvent(AnalyticsEvent.closeEvent, {
       page: AnalyticsPage.dashboard,
       isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       placeCode,
     });
+
+    this.apiService.closeEventPlaceCode(eventPlaceCodeId);
+    this.eapActionsService.loadDistrictsAndActions();
+    this.eventService.getTrigger();
   }
 }
