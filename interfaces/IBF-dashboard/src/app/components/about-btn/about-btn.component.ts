@@ -30,14 +30,16 @@ export class AboutBtnComponent implements OnDestroy {
   ) {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.country = country;
-      });
+      .subscribe(this.onCountryChange);
   }
 
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
   }
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+  };
 
   public btnAction() {
     this.analyticsService.logEvent(AnalyticsEvent.aboutTrigger, {
