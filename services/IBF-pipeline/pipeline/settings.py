@@ -100,7 +100,7 @@ SETTINGS = {
         'district_mapping': '<not needed>',
         'admin_boundaries': {
                 'filename': 'vector/EGY_adm1_MENAregion.shp',
-                'pcode_colname': 'ADM1_PCODE'
+                'pcode_colname': 'ADMIN01COD'
         },
         'trigger_colname': '5yr_threshold',
         'lead_times': {
