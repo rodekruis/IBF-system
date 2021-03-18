@@ -9,6 +9,7 @@ module.exports = {
   entities: ['src/**/**.entity{.ts,.js}'],
   dropSchema: false,
   synchronize: true,
-  logging: ['query'],
-  logger: 'file',
+  logging: ['error'],
+  logger: 'advanced-console',
+  maxQueryExecutionTime: 1000,
 };
