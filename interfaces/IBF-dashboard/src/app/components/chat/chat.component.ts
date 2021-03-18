@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -122,6 +122,17 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.changedActions.length === 0;
   }
 
+  private filterEAPActionByPlaceCode = (placeCode) => (action) =>
+    action.placeCode === placeCode;
+
+  private checkEAPAction = (action) => {
+    return this.eapActionsService.checkEapAction(
+      action.action,
+      action.checked,
+      action.placeCode,
+    );
+  };
+
   public submitEapAction(placeCode: string): void {
     this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
       placeCode,
@@ -135,33 +146,17 @@ export class ChatComponent implements OnInit, OnDestroy {
       (i) => i.placeCode === placeCode,
     ).submitDisabled = true;
 
-    try {
-      this.changedActions.map((action) => {
-        if (action.placeCode === placeCode) {
-          return this.eapActionsService.checkEapAction(
-            action.action,
-            action.checked,
-            action.placeCode,
-          );
-        }
-      });
-
-      this.changedActions = this.changedActions.filter(
-        (i) => i.placeCode !== placeCode,
-      );
-
-      this.actionResult(this.updateSuccessMessage, (): void =>
-        window.location.reload(),
-      );
-    } catch (e) {
-      this.actionResult(this.updateFailureMessage);
-    }
+    forkJoin(
+      this.changedActions
+        .filter(this.filterEAPActionByPlaceCode(placeCode))
+        .map(this.checkEAPAction),
+    ).subscribe({
+      next: () => this.actionResult(this.updateSuccessMessage),
+      error: () => this.actionResult(this.updateFailureMessage),
+    });
   }
 
-  private async actionResult(
-    resultMessage: string,
-    callback?: () => void,
-  ): Promise<void> {
+  private async actionResult(resultMessage: string): Promise<void> {
     const alert = await this.alertController.create({
       message: resultMessage,
       buttons: [
@@ -169,9 +164,6 @@ export class ChatComponent implements OnInit, OnDestroy {
           text: this.promptButtonLabel,
           handler: () => {
             alert.dismiss(true);
-            if (callback) {
-              callback();
-            }
             return false;
           },
         },
