@@ -7,9 +7,8 @@ Created on Thu Mar 11 14:16:28 2021
 import xarray as xr
 import os
 import cdsapi
-import shutil
 
-year_start = 2004
+year_start = 2007
 year_end = 2018
 months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
 output = "c:/Users/BOttow/Rode Kruis/510 - Data preparedness and IBF - [CTRY] Uganda/GIS Data/GloFAS"
