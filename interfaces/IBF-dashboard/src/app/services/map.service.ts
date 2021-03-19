@@ -41,6 +41,11 @@ export class MapService {
   public safeColor = '#2c45fd';
   public hoverFillOpacity = 0.6;
   public unselectedFillOpacity = 0.4;
+  public disputedBorderStyle = {
+    weight: 2,
+    dashArray: '5 5',
+    color: this.alertColor,
+  };
 
   public state = {
     bounds: [
@@ -749,13 +754,20 @@ export class MapService {
         adminRegion.properties[IbfLayerName.population_affected] > 0,
         adminRegion.properties.pcode,
       );
-      const weight = this.getAdminRegionWeight(layer);
-      const color = this.getAdminRegionColor(layer);
+      let weight = this.getAdminRegionWeight(layer);
+      let color = this.getAdminRegionColor(layer);
+      let dashArray;
+      if (adminRegion.properties.pcode === 'Disputed') {
+        dashArray = this.disputedBorderStyle.dashArray;
+        weight = this.disputedBorderStyle.weight;
+        color = this.disputedBorderStyle.color;
+      }
       return {
         fillColor,
         fillOpacity,
         weight,
         color,
+        dashArray,
       };
     };
   };
