@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { DEBUG_LOG } from 'src/app/config';
 import { CountryTriggers } from 'src/app/models/country-triggers.model';
 import { Country } from 'src/app/models/country.model';
 import { JwtService } from 'src/app/services/jwt.service';
@@ -13,8 +14,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  private enableLogging = false;
-  private log = this.enableLogging ? console.log : () => {};
+  private log = DEBUG_LOG ? console.log : () => {};
 
   constructor(private jwtService: JwtService, private http: HttpClient) {}
 
