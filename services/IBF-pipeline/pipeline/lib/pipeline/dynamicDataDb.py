@@ -78,8 +78,8 @@ class DatabaseManager:
         try:
             self.con, self.cur, self.db = get_db()
             self.cur.execute(sql_trigger)
+            self.cur.execute(sql_exposure)
             self.cur.execute(sql_event_districts)
-            self.cur.execute(psql.SQL(sql_exposure))
             self.con.commit()
             self.con.close()
             print('SQL EXECUTED')
