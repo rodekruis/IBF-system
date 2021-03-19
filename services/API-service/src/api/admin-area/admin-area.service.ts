@@ -10,6 +10,13 @@ export class AdminAreaService {
 
   public constructor() {}
 
+  public async getAdminAreas(countryCodeISO3): Promise<any[]> {
+    return await this.adminAreaRepository.find({
+      select: ['countryCode', 'name', 'pcode', 'geom'],
+      where: { countryCode: countryCodeISO3 },
+    });
+  }
+
   public async getStationAdminAreaMappingByCountry(
     countryCodeISO3,
   ): Promise<any[]> {
