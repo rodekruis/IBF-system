@@ -1,3 +1,13 @@
+## [0.40.2](https://github.com/rodekruis/IBF-system/compare/v0.40.1...v0.40.2) (2021-03-19)
+
+
+### Bug Fixes
+
+* also apply change in trigger-situation AB[#6691](https://github.com/rodekruis/IBF-system/issues/6691) ([33a30dd](https://github.com/rodekruis/IBF-system/commit/33a30ddc13674b708a20925f2e99f294e9a6009d))
+* unselected places should not turn grey for admin boundary layer AB[#6691](https://github.com/rodekruis/IBF-system/issues/6691) ([7467ab2](https://github.com/rodekruis/IBF-system/commit/7467ab211017a4e69b3dca6f979d855b1a3ef142))
+
+
+
 ## [0.40.1](https://github.com/rodekruis/IBF-system/compare/v0.40.0...v0.40.1) (2021-03-19)
 
 
@@ -86,15 +96,6 @@
 ### Bug Fixes
 
 * fix seed comma error AB[#6543](https://github.com/rodekruis/IBF-system/issues/6543) ([0287140](https://github.com/rodekruis/IBF-system/commit/0287140092a87930c7b8fc0fb294046a53816e44))
-
-
-
-# [0.37.0](https://github.com/rodekruis/IBF-system/compare/v0.36.0...v0.37.0) (2021-03-15)
-
-
-### Features
-
-* load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([ec4371e](https://github.com/rodekruis/IBF-system/commit/ec4371e4a43e0231bafdc427e1c5454690235fea))
 
 
 
