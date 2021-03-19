@@ -3,6 +3,7 @@ area==1.1.1
 asn1crypto==0.24.0
 attrs==20.3.0
 beautifulsoup4==4.9.3
+cdsapi==0.5.1
 certifi==2020.12.5
 cftime==1.4.1
 chardet==4.0.0

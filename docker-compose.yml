@@ -33,6 +33,7 @@ services:
             - DB_USERNAME=${DB_USERNAME}
             - DB_PASSWORD=${DB_PASSWORD}
             - NODE_ENV=${NODE_ENV}
+            - PRODUCTION_DATA_SERVER=${PRODUCTION_DATA_SERVER}
             - SECRET=${SECRET}
             - RESET_SECRET=${RESET_SECRET}
             - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}

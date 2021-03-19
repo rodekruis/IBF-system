@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
+import { DateTime } from 'luxon';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -14,7 +14,7 @@ import { Country } from '../models/country.model';
 export class TimelineService {
   public activeLeadTime: LeadTime;
   public state = {
-    today: moment(),
+    today: DateTime.now(),
     timeStepButtons: [],
   };
   private triggers: CountryTriggers;
@@ -48,7 +48,7 @@ export class TimelineService {
         .getRecentDates(this.country.countryCodeISO3)
         .subscribe((dates) => {
           if (dates.length > 0) {
-            this.state.today = moment(dates[0].value);
+            this.state.today = DateTime.fromISO(dates[0].date);
           }
 
           this.apiService
@@ -69,7 +69,7 @@ export class TimelineService {
                   const isLeadTimeDisabled = this.isLeadTimeDisabled(leadTime);
                   const triggerKey = LeadTimeTriggerKey[leadTime];
                   this.state.timeStepButtons[index] = {
-                    date: this.state.today.clone().add(triggerKey, 'days'),
+                    date: this.state.today.plus({ days: Number(triggerKey) }),
                     value: leadTime,
                     alert: this.triggers[triggerKey] === '1',
                     disabled: isLeadTimeDisabled,

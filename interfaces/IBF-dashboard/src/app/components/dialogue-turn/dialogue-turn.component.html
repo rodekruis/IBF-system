@@ -26,13 +26,7 @@
     <ion-card [color]="isSelf ? 'light' : 'ibf-gray'">
       <ion-card-content>
         <ng-content></ng-content>
-
-        <ion-note class="ion-float-end ion-text-end">
-          <small
-            >{{ moment | date: 'EEEE, d LLL' }} -
-            <strong>{{ moment | date: 'HH:mm' }}</strong></small
-          >
-        </ion-note>
+        <small><app-timestamp [timestamp]="timestamp"></app-timestamp></small>
       </ion-card-content>
     </ion-card>
 

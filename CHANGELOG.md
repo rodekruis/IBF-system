@@ -1,3 +1,74 @@
+# [0.41.0](https://github.com/rodekruis/IBF-system/compare/v0.40.2...v0.41.0) (2021-03-19)
+
+
+### Bug Fixes
+
+* load all users on staging AB[#6636](https://github.com/rodekruis/IBF-system/issues/6636) ([d2ddeef](https://github.com/rodekruis/IBF-system/commit/d2ddeef964221a4d5f60cd511d40e6d7add9c44c))
+
+
+### Features
+
+* endpoint to get admin boundaries (for pipeline, unused yet) AB[#6626](https://github.com/rodekruis/IBF-system/issues/6626) ([21f76ef](https://github.com/rodekruis/IBF-system/commit/21f76ef91020017d234deaac90e50e4abfd1fb22))
+* make pipeline read geojson from db instead of file AB[#6626](https://github.com/rodekruis/IBF-system/issues/6626) ([ece8d81](https://github.com/rodekruis/IBF-system/commit/ece8d8171e6febfdf54f6980a9999fa645bbf85e))
+* update egypt geojson AB[#6627](https://github.com/rodekruis/IBF-system/issues/6627) ([8a8ab77](https://github.com/rodekruis/IBF-system/commit/8a8ab776dcbe261c803c1327bcfde6544c2e2c62))
+* visualize disputed boundaries AB[#6629](https://github.com/rodekruis/IBF-system/issues/6629) ([a57520b](https://github.com/rodekruis/IBF-system/commit/a57520bff7008169048ecbab1d3c1bd732bc70db))
+
+
+
+## [0.40.2](https://github.com/rodekruis/IBF-system/compare/v0.40.1...v0.40.2) (2021-03-19)
+
+
+### Bug Fixes
+
+* also apply change in trigger-situation AB[#6691](https://github.com/rodekruis/IBF-system/issues/6691) ([33a30dd](https://github.com/rodekruis/IBF-system/commit/33a30ddc13674b708a20925f2e99f294e9a6009d))
+* unselected places should not turn grey for admin boundary layer AB[#6691](https://github.com/rodekruis/IBF-system/issues/6691) ([7467ab2](https://github.com/rodekruis/IBF-system/commit/7467ab211017a4e69b3dca6f979d855b1a3ef142))
+
+
+
+## [0.40.1](https://github.com/rodekruis/IBF-system/compare/v0.40.0...v0.40.1) (2021-03-19)
+
+
+### Bug Fixes
+
+* eap actions submit AB[#6700](https://github.com/rodekruis/IBF-system/issues/6700) ([766b5bd](https://github.com/rodekruis/IBF-system/commit/766b5bddfc881bc286e2dd4819536fb9b754bec0))
+* populationAffected column should not get dropped on synchronize AB[#6690](https://github.com/rodekruis/IBF-system/issues/6690) ([ba32330](https://github.com/rodekruis/IBF-system/commit/ba32330e820b43d0f17c9e5f1eb4e4f775e481cb))
+* remove DDL AB[#6690](https://github.com/rodekruis/IBF-system/issues/6690) ([992db99](https://github.com/rodekruis/IBF-system/commit/992db99542151bc8eda59607eb6faaac7f764f8f))
+
+
+
+# [0.40.0](https://github.com/rodekruis/IBF-system/compare/v0.39.0...v0.40.0) (2021-03-19)
+
+
+### Bug Fixes
+
+* update geoserver store+layer to 5-day AB[#6703](https://github.com/rodekruis/IBF-system/issues/6703) ([04c645a](https://github.com/rodekruis/IBF-system/commit/04c645a0b671c7c0a4e48f2313a252894e269c02))
+* update UGA glofas stations AB[#6492](https://github.com/rodekruis/IBF-system/issues/6492) ([60cab6b](https://github.com/rodekruis/IBF-system/commit/60cab6b9bcdfb92597a0902dff199579f00f5d1d))
+
+
+### Features
+
+* use Glofas API instead of FTP AB[#6491](https://github.com/rodekruis/IBF-system/issues/6491) ([f0fd484](https://github.com/rodekruis/IBF-system/commit/f0fd484bbb1be6e555ae8001d0bfb972ee5e61a8))
+
+
+
+# [0.39.0](https://github.com/rodekruis/IBF-system/compare/v0.38.2...v0.39.0) (2021-03-15)
+
+
+### Features
+
+* disable close-event when activeTrigger AB[#6623](https://github.com/rodekruis/IBF-system/issues/6623) ([f2a5729](https://github.com/rodekruis/IBF-system/commit/f2a57294e03b613f12bf0e7b10b4844b0afe2e59))
+
+
+
+## [0.38.2](https://github.com/rodekruis/IBF-system/compare/v0.38.1...v0.38.2) (2021-03-15)
+
+
+### Bug Fixes
+
+* run sql-scripts in right order AB[#6603](https://github.com/rodekruis/IBF-system/issues/6603) ([8f97aea](https://github.com/rodekruis/IBF-system/commit/8f97aeae73d8bbd48e276e64c820fae5f5fb3e2a))
+
+
+
 ## [0.38.1](https://github.com/rodekruis/IBF-system/compare/v0.38.0...v0.38.1) (2021-03-15)
 
 
@@ -33,67 +104,6 @@
 ### Bug Fixes
 
 * only run sql-scripts when upload done AB[#6599](https://github.com/rodekruis/IBF-system/issues/6599) ([fdcba56](https://github.com/rodekruis/IBF-system/commit/fdcba56b3bdaaaeed29c6d4e072abbd3ba18aa67))
-
-
-
-## [0.37.1](https://github.com/rodekruis/IBF-system/compare/v0.37.0...v0.37.1) (2021-03-15)
-
-
-### Bug Fixes
-
-* fix seed comma error AB[#6543](https://github.com/rodekruis/IBF-system/issues/6543) ([0287140](https://github.com/rodekruis/IBF-system/commit/0287140092a87930c7b8fc0fb294046a53816e44))
-
-
-
-# [0.37.0](https://github.com/rodekruis/IBF-system/compare/v0.36.0...v0.37.0) (2021-03-15)
-
-
-### Features
-
-* load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([ec4371e](https://github.com/rodekruis/IBF-system/commit/ec4371e4a43e0231bafdc427e1c5454690235fea))
-
-
-
-# [0.36.0](https://github.com/rodekruis/IBF-system/compare/v0.35.0...v0.36.0) (2021-03-15)
-
-
-### Features
-
-* load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([7f2b6c1](https://github.com/rodekruis/IBF-system/commit/7f2b6c137f0a491b5d071322ccb8bd2eede9c32b))
-* load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([c633f3d](https://github.com/rodekruis/IBF-system/commit/c633f3d582f92b1ae14fd6fd75a0708f5d38d5c7))
-
-
-
-# [0.35.0](https://github.com/rodekruis/IBF-system/compare/v0.34.0...v0.35.0) (2021-03-12)
-
-
-### Bug Fixes
-
-* syntax ([4e3dc59](https://github.com/rodekruis/IBF-system/commit/4e3dc59eb5d4912fe72f7fe262617da7a2b3896f))
-
-
-### Features
-
-* load data only for active layers AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([be17713](https://github.com/rodekruis/IBF-system/commit/be17713d2e44afd37621076f1473422cdce592ab))
-
-
-
-# [0.34.0](https://github.com/rodekruis/IBF-system/compare/v0.33.6...v0.34.0) (2021-03-12)
-
-
-### Features
-
-* automatically enable all countries for admin-user AB[#6586](https://github.com/rodekruis/IBF-system/issues/6586) ([4b3a777](https://github.com/rodekruis/IBF-system/commit/4b3a777dc38a9d71b8e39ae0d53ab6afda59d06c))
-
-
-
-## [0.33.6](https://github.com/rodekruis/IBF-system/compare/v0.33.5...v0.33.6) (2021-03-12)
-
-
-### Bug Fixes
-
-* change lead-time UGA to 5 days AB[#6541](https://github.com/rodekruis/IBF-system/issues/6541) ([ed2fef7](https://github.com/rodekruis/IBF-system/commit/ed2fef717b84081f21c05e7d42e37ab7011df87d))
-* move all glofas-station input to seed AB[#6543](https://github.com/rodekruis/IBF-system/issues/6543) ([d88dbac](https://github.com/rodekruis/IBF-system/commit/d88dbaca5ed664ce7e4775c080da954e4b1f6331))
 
 
 

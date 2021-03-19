@@ -45,7 +45,7 @@ df_percentile_thresholds = pd.DataFrame(df_glofas.set_index('date').quantile(
                                                                    ).T.reset_index(drop=True)
 
 # Read in station locations 
-df_stations = pd.read_csv('stored_data_uganda\\rp_glofas_station_uga_new.csv')
+df_stations = pd.read_csv('stored_data_uganda\\rp_glofas_station_uga_v2.csv')
  
 # Read in layers (grid, rivers, waterbodies, districts)
 with open("shapefiles\\grid_layers\\grid_layer_2.json", 'r') as f:
