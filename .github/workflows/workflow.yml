@@ -144,7 +144,7 @@ jobs:
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
-                  command: ./prepare-test.sh
+                  command: chmod prepare-test.sh && ./prepare-test.sh
                   start: npm run start:cypress"
     # bump-version:
     #     needs: [ibf-api-service, ibf-dashboard, ibf-pipeline]
