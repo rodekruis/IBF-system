@@ -83,10 +83,13 @@ export class SeedGlofasStation implements InterfaceScript {
                 threshold5Year: station['5yr_threshold'],
                 threshold10Year: station['10yr_threshold'],
                 threshold20Year: station['20yr_threshold'],
+                lat: station['lat'],
+                lon: station['lon'],
                 geom: (): string =>
                   `st_MakePoint(${station['lon']}, ${station['lat']})`,
               })
-              .execute();
+              .execute()
+              .catch(console.error);
           } else {
             return Promise.resolve();
           }
