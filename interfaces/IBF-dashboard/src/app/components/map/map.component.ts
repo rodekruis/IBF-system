@@ -132,7 +132,7 @@ export class MapComponent implements OnDestroy {
       .getPlaceCodeSubscription()
       .subscribe((): void => {
         this.layers.forEach((layer: IbfLayer): void => {
-          if ('resetStyle' in layer.leafletLayer) {
+          if (layer.leafletLayer && 'resetStyle' in layer.leafletLayer) {
             layer.leafletLayer.resetStyle();
           }
         });
