@@ -1,16 +1,16 @@
 <layer>
-  <name>flood_extent_7-day_UGA</name>
-  <id>LayerInfoImpl--2b88a80e:17802070c75:-7e36</id>
+  <name>flood_extent_5-day_UGA</name>
+  <id>LayerInfoImpl--348e44ac:17849e219c0:-7ff4</id>
   <type>RASTER</type>
   <defaultStyle>
     <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
   </defaultStyle>
   <resource class="coverage">
-    <id>CoverageInfoImpl--2b88a80e:17802070c75:-7e37</id>
+    <id>CoverageInfoImpl--348e44ac:17849e219c0:-7ff5</id>
   </resource>
   <attribution>
     <logoWidth>0</logoWidth>
     <logoHeight>0</logoHeight>
   </attribution>
-  <dateCreated>2021-03-05 12:16:10.254 UTC</dateCreated>
+  <dateCreated>2021-03-19 10:25:15.31 UTC</dateCreated>
 </layer>
