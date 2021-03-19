@@ -3,7 +3,7 @@
 function prepare() {
   echo 'Running prepare test.'
   echo 'Running docker-compose up -d ibf-api-service ibf-dashboard ibf-local-db'
-  docker-compose up -d ibf-api-service ibf-dashboard ibf-local-db'
+  docker-compose up -d ibf-api-service ibf-dashboard ibf-local-db
   echo 'docker ps -a'
   docker ps -a
   echo 'Running database migration'
