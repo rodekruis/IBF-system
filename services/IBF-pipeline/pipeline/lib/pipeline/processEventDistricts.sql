@@ -1,16 +1,5 @@
 -- NOTE: Save districts to event. Each day check if there are new districts. Never delete any districts that are not triggered any more.
-CREATE table if not exists "IBF-pipeline-output".event_place_code (
-	"eventPlaceCodeId" uuid NOT NULL DEFAULT uuid_generate_v4(),
-	"placeCode" varchar NOT NULL,
-	"startDate" timestamp NOT NULL,
-	"populationAffected" float8 not null,
-	"endDate" timestamp NULL,
-	"manualClosedDate" timestamp NULL,
-	"activeTrigger" bool NOT NULL DEFAULT true,
-	closed bool NOT NULL DEFAULT false,
-	CONSTRAINT "CHK_8e945c9a741036988f4bf6ee2e" CHECK (("startDate" < "endDate")),
-	CONSTRAINT "PK_a44cfd74b39d84fa9a9c42ef302" PRIMARY KEY ("eventPlaceCodeId")
-);
+-- NOTE: this table is created with TypeORM from event-place-code.entity.ts
 
 -- First set all events as inactive
 update
