@@ -1,4 +1,7 @@
 import { IconOptions, MapOptions } from 'leaflet';
+import { environment } from 'src/environments/environment';
+
+export const DEBUG_LOG = environment.configuration === 'development';
 
 export const DEBOUNCE_TIME_LOADER = 500;
 
