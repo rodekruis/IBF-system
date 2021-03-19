@@ -1,3 +1,14 @@
+# [0.42.0](https://github.com/rodekruis/IBF-system/compare/v0.41.0...v0.42.0) (2021-03-19)
+
+
+### Features
+
+* add flood susceptibility layer AB[#6635](https://github.com/rodekruis/IBF-system/issues/6635) ([4786238](https://github.com/rodekruis/IBF-system/commit/4786238d69fbbafe0e71ab047b5014579bbeba39))
+* add flood susceptibility layer geoserver AB[#6631](https://github.com/rodekruis/IBF-system/issues/6631) ([5dccdf1](https://github.com/rodekruis/IBF-system/commit/5dccdf135ed05ab9e58f7be8d839f60cca1e1726))
+* add style geoserver for flood susceptibiltiy AB[#6632](https://github.com/rodekruis/IBF-system/issues/6632) ([db27375](https://github.com/rodekruis/IBF-system/commit/db273756c44e7d28ebb60d02c716803ef2bc9bcc))
+
+
+
 # [0.41.0](https://github.com/rodekruis/IBF-system/compare/v0.40.2...v0.41.0) (2021-03-19)
 
 
@@ -95,15 +106,6 @@
 ### Bug Fixes
 
 * improve promise.all AB[#6599](https://github.com/rodekruis/IBF-system/issues/6599) ([b813ff3](https://github.com/rodekruis/IBF-system/commit/b813ff3d75bdbf2b151e3a00caea9c9a5e18fea5))
-
-
-
-## [0.37.2](https://github.com/rodekruis/IBF-system/compare/v0.37.1...v0.37.2) (2021-03-15)
-
-
-### Bug Fixes
-
-* only run sql-scripts when upload done AB[#6599](https://github.com/rodekruis/IBF-system/issues/6599) ([fdcba56](https://github.com/rodekruis/IBF-system/commit/fdcba56b3bdaaaeed29c6d4e072abbd3ba18aa67))
 
 
 
