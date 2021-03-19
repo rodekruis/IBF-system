@@ -1,0 +1,17 @@
+<layer>
+  <name>flood_susceptibility_EGY</name>
+  <id>LayerInfoImpl--348e44ac:17849e219c0:-76ee</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--348e44ac:17849e219c0:-766f</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl--348e44ac:17849e219c0:-76ef</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2021-03-19 16:21:20.890 UTC</dateCreated>
+  <dateModified>2021-03-19 16:27:45.272 UTC</dateModified>
+</layer>
