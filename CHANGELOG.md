@@ -1,3 +1,14 @@
+## [0.40.1](https://github.com/rodekruis/IBF-system/compare/v0.40.0...v0.40.1) (2021-03-19)
+
+
+### Bug Fixes
+
+* eap actions submit AB[#6700](https://github.com/rodekruis/IBF-system/issues/6700) ([766b5bd](https://github.com/rodekruis/IBF-system/commit/766b5bddfc881bc286e2dd4819536fb9b754bec0))
+* populationAffected column should not get dropped on synchronize AB[#6690](https://github.com/rodekruis/IBF-system/issues/6690) ([ba32330](https://github.com/rodekruis/IBF-system/commit/ba32330e820b43d0f17c9e5f1eb4e4f775e481cb))
+* remove DDL AB[#6690](https://github.com/rodekruis/IBF-system/issues/6690) ([992db99](https://github.com/rodekruis/IBF-system/commit/992db99542151bc8eda59607eb6faaac7f764f8f))
+
+
+
 # [0.40.0](https://github.com/rodekruis/IBF-system/compare/v0.39.0...v0.40.0) (2021-03-19)
 
 
@@ -84,16 +95,6 @@
 ### Features
 
 * load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([ec4371e](https://github.com/rodekruis/IBF-system/commit/ec4371e4a43e0231bafdc427e1c5454690235fea))
-
-
-
-# [0.36.0](https://github.com/rodekruis/IBF-system/compare/v0.35.0...v0.36.0) (2021-03-15)
-
-
-### Features
-
-* load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([7f2b6c1](https://github.com/rodekruis/IBF-system/commit/7f2b6c137f0a491b5d071322ccb8bd2eede9c32b))
-* load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([c633f3d](https://github.com/rodekruis/IBF-system/commit/c633f3d582f92b1ae14fd6fd75a0708f5d38d5c7))
 
 
 
