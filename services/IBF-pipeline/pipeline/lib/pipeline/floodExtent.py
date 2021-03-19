@@ -7,13 +7,14 @@ import geopandas as gpd
 import rasterio
 from rasterio.merge import merge
 from lib.logging.logglySetup import logger
+from lib.setup.setupConnection import get_db
 from settings import *
 
 class FloodExtent:
 
     """Class used to calculate flood extent"""
 
-    def __init__(self, leadTimeLabel, leadTimeValue, country_code, district_mapping, district_cols):
+    def __init__(self, leadTimeLabel, leadTimeValue, country_code, district_mapping, district_cols, admin_area_gdf):
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
         self.country_code = country_code
@@ -25,11 +26,10 @@ class FloodExtent:
             self.outputPathMerge = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ leadTimeLabel + '_' + country_code + '.tif'
         self.district_mapping = district_mapping
         self.district_cols = district_cols
-        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
-        self.PCODE_COLNAME = SETTINGS[country_code]['admin_boundaries']['pcode_colname']
+        self.ADMIN_AREA_GDF = admin_area_gdf
 
     def calculate(self):
-        admin_gdf = self.loadVectorData()
+        admin_gdf = self.ADMIN_AREA_GDF
 
         df_glofas = self.loadGlofasData()
 
@@ -53,7 +53,7 @@ class FloodExtent:
         for index, rows in df_glofas.iterrows():
             #Filter the catchment-area GDF per area
             pcode = rows['pcode']
-            gdf_dist = admin_gdf[admin_gdf[self.PCODE_COLNAME] == pcode]
+            gdf_dist = admin_gdf[admin_gdf['pcode'] == pcode]
             dist_coords = self.getCoordinatesFromGDF(gdf_dist)
             
             #If trigger, find the right flood extent and clip it for the area and save it
@@ -86,17 +86,6 @@ class FloodExtent:
         gdf = gdf.to_crs(epsg=force_epsg)
 
         return gdf
-
-    def loadVectorData(self):
-
-        admin_file = self.ADMIN_BOUNDARIES
-        admin_gdf = gpd.GeoDataFrame()
-        try:
-            admin_gdf = gpd.GeoDataFrame.from_file(admin_file)
-        except IOError as ioe:
-            print("Could not load admin-file properly", end="", flush=True)
-        
-        return admin_gdf
 
     def loadGlofasData(self):
 

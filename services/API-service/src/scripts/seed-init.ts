@@ -98,7 +98,7 @@ export class SeedInit implements InterfaceScript {
     // ***** CREATE USERS *****
     console.log('Seed Users...');
     let selectedUsers;
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.PRODUCTION_DATA_SERVER === 'yes') {
       selectedUsers = users.filter((user): boolean => {
         return user.userRole === 'admin';
       });

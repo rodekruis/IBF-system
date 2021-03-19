@@ -2,6 +2,7 @@ import psycopg2
 from psycopg2 import sql as psql
 from sqlalchemy import create_engine, text
 import pandas as pd
+import geopandas as gpd
 
 from lib.logging.logglySetup import logger
 from lib.setup.setupConnection import get_db
@@ -104,3 +105,15 @@ class DatabaseManager:
             logger.info(e)
 
         return data, colnames
+
+    def downloadGeoDataFromDb(self, schema, table, country_code=None):
+        try:
+            self.con, self.cur, self.db = get_db()
+            sql = "SELECT * FROM \""+schema+"\".\""+table+"\""
+            if country_code != None:
+                sql = sql + " WHERE \"countryCode\"=\'"+self.country_code+"\'"
+            admin_gdf = gpd.read_postgis(sql,self.con)
+        except psycopg2.ProgrammingError as e:
+            logger.info(e)
+
+        return admin_gdf
