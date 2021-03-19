@@ -668,6 +668,7 @@ export class MapService {
 
     if (trigger && !districtTrigger) {
       fillOpacity = 0.0;
+      unselectedFillOpacity = 0.0;
     }
 
     if (
