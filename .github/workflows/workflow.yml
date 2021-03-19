@@ -144,7 +144,7 @@ jobs:
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
-                  run: |
+                  start: |
                       echo 'Starting test preparation.'
                       chmod +x prepare-test.sh
                       ./prepare-test.sh

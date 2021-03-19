@@ -1,11 +1,13 @@
 #!/bin/bash
 
 function prepare() {
-  cd ../..
+  echo 'Running prepare test'
+  echo 'Running docker-compose up'
   docker-compose up -d
+  echo 'Running database migration'
   migrate_database
+  echo 'Running seed'
   docker-compose exec ibf-api-service npm run seed
-  cd interfaces/tests/
 }
 
 
