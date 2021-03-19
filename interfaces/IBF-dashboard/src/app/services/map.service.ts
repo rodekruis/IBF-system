@@ -658,11 +658,17 @@ export class MapService {
     placeCode: string,
   ): number => {
     let fillOpacity = this.state.defaultFillOpacity;
+    let unselectedFillOpacity = this.unselectedFillOpacity;
+    const hoverFillOpacity = this.hoverFillOpacity;
+
     if (layer.name === IbfLayerName.adminRegions) {
       fillOpacity = 0.0;
+      unselectedFillOpacity = 0.0;
     }
+
     if (trigger && !districtTrigger) {
       fillOpacity = 0.0;
+      unselectedFillOpacity = 0.0;
     }
 
     if (
@@ -675,9 +681,9 @@ export class MapService {
 
     if (this.placeCode) {
       if (this.placeCode.placeCode === placeCode) {
-        fillOpacity = this.hoverFillOpacity;
+        fillOpacity = hoverFillOpacity;
       } else {
-        fillOpacity = this.unselectedFillOpacity;
+        fillOpacity = unselectedFillOpacity;
       }
     }
 
