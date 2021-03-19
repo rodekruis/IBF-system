@@ -29,6 +29,12 @@ export class GlofasStationEntity {
   @Column({ nullable: true, type: 'real' })
   public threshold20Year: string;
 
+  @Column({ nullable: true, type: 'real' })
+  public lat: string;
+
+  @Column({ nullable: true, type: 'real' })
+  public lon: string;
+
   @Column({ nullable: true })
   public geom: string;
 }
