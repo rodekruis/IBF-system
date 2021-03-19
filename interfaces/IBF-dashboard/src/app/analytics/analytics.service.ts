@@ -5,6 +5,7 @@ import {
 } from '@microsoft/applicationinsights-web';
 import { SeverityLevel } from 'src/app/analytics/severity-level.model';
 import { environment } from 'src/environments/environment';
+import { DEBUG_LOG } from '../config';
 import { Country } from '../models/country.model';
 import { CountryService } from '../services/country.service';
 
@@ -12,6 +13,8 @@ import { CountryService } from '../services/country.service';
   providedIn: 'root',
 })
 export class AnalyticsService {
+  private log = DEBUG_LOG ? console.log : () => {};
+
   applicationInsights: ApplicationInsights;
   isApplicationInsightsEnabled: boolean;
   private country: Country;
@@ -57,7 +60,7 @@ export class AnalyticsService {
     if (this.isApplicationInsightsEnabled) {
       this.applicationInsights.trackPageView({ name });
     } else {
-      console.log('analyticsService logPageView', name);
+      this.log('analyticsService logPageView', name);
     }
   }
 
@@ -69,7 +72,7 @@ export class AnalyticsService {
     if (this.isApplicationInsightsEnabled) {
       this.applicationInsights.trackEvent({ name }, properties);
     } else {
-      console.log('analyticsService logEvent', name, properties);
+      this.log('analyticsService logEvent', name, properties);
     }
   }
 
@@ -88,7 +91,7 @@ export class AnalyticsService {
     if (this.isApplicationInsightsEnabled) {
       this.applicationInsights.trackTrace({ message }, properties);
     } else {
-      console.log('analyticsService logTrace', message, properties);
+      this.log('analyticsService logTrace', message, properties);
     }
   }
 
