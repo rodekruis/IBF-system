@@ -133,9 +133,9 @@ jobs:
             DB_PASSWORD: ibf
             DB_PORT_LOCAL: 5437
 
-        defaults:
-            run:
-                working-directory: "interfaces/tests"
+        # defaults:
+        #     run:
+        #         working-directory: "interfaces/tests"
         steps:
             - name: Checkout
               uses: actions/checkout@v2
@@ -144,8 +144,6 @@ jobs:
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
-                  working-directory: "interfaces/tests"
-                  project: interfaces/tests
                   command: ./prepare-test.sh
                   build: cd interfaces/tests && npm i
                   start: npm run start:cypress"
