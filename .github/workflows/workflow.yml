@@ -144,6 +144,7 @@ jobs:
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
+                  project: ./interfaces/tests
                   command: ./prepare-test.sh
                   build: cd interfaces/tests && npm i
                   start: npm run start:cypress"
