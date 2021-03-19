@@ -148,7 +148,7 @@ jobs:
                       echo 'Starting test preparation.'
                       chmod +x prepare-test.sh
                       ./prepare-test.sh
-                  start: npx cypress info"
+                  #   start: npx cypress info"
     # bump-version:
     #     needs: [ibf-api-service, ibf-dashboard, ibf-pipeline]
     #     if: |
