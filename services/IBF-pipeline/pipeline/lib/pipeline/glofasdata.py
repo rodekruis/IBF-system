@@ -142,8 +142,8 @@ class GlofasData:
                                 discharge = 8000
                             elif station['code'] == 'G1328':  # ZMB dummy flood station 2
                                 discharge = 9000
-                            elif station['code'] == 'G5200':  # UGA dummy flood station
-                                discharge = 700
+                            elif station['code'] == 'DWRM14':  # UGA dummy flood station
+                                discharge = 150
                             elif station['code'] == 'G1067':  # ETH dummy flood station
                                 discharge = 1000
                             elif station['code'] == 'G1904':  # ETH dummy flood station
