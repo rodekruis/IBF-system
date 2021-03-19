@@ -1,3 +1,18 @@
+# [0.40.0](https://github.com/rodekruis/IBF-system/compare/v0.39.0...v0.40.0) (2021-03-19)
+
+
+### Bug Fixes
+
+* update geoserver store+layer to 5-day AB[#6703](https://github.com/rodekruis/IBF-system/issues/6703) ([04c645a](https://github.com/rodekruis/IBF-system/commit/04c645a0b671c7c0a4e48f2313a252894e269c02))
+* update UGA glofas stations AB[#6492](https://github.com/rodekruis/IBF-system/issues/6492) ([60cab6b](https://github.com/rodekruis/IBF-system/commit/60cab6b9bcdfb92597a0902dff199579f00f5d1d))
+
+
+### Features
+
+* use Glofas API instead of FTP AB[#6491](https://github.com/rodekruis/IBF-system/issues/6491) ([f0fd484](https://github.com/rodekruis/IBF-system/commit/f0fd484bbb1be6e555ae8001d0bfb972ee5e61a8))
+
+
+
 # [0.39.0](https://github.com/rodekruis/IBF-system/compare/v0.38.2...v0.39.0) (2021-03-15)
 
 
@@ -79,20 +94,6 @@
 
 * load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([7f2b6c1](https://github.com/rodekruis/IBF-system/commit/7f2b6c137f0a491b5d071322ccb8bd2eede9c32b))
 * load only active layer AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([c633f3d](https://github.com/rodekruis/IBF-system/commit/c633f3d582f92b1ae14fd6fd75a0708f5d38d5c7))
-
-
-
-# [0.35.0](https://github.com/rodekruis/IBF-system/compare/v0.34.0...v0.35.0) (2021-03-12)
-
-
-### Bug Fixes
-
-* syntax ([4e3dc59](https://github.com/rodekruis/IBF-system/commit/4e3dc59eb5d4912fe72f7fe262617da7a2b3896f))
-
-
-### Features
-
-* load data only for active layers AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([be17713](https://github.com/rodekruis/IBF-system/commit/be17713d2e44afd37621076f1473422cdce592ab))
 
 
 
