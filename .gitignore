@@ -35,7 +35,7 @@ $RECYCLE.BIN/
 
 # node
 node_modules
-package-lock.json
+# package-lock.json
 
 # db-dumps
 tools/db-dumps/*.dump
