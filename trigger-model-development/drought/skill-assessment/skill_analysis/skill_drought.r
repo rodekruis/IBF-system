@@ -7,6 +7,9 @@ library(readr)
 library(httr)
 library(sp)
 library(lubridate)
+library(ggplot2)
+library(ggthemes)
+library(cowplot)
 
 
 onedrive_folder <- "c:/Users/pphung/Rode Kruis"
@@ -80,7 +83,7 @@ yield_spi <- merge(spi_zwe_mean, yield, by.x=c("livelihoodzone","year"), by.y=c(
   left_join(admin_all,by=c('livelihoodzone'='LZCODE'))
 yield_spi <- yield_spi %>% 
   group_by(year,ADM2_PCODE) %>%
-  summarise(spi_drought_adm=max(spi_drought),drought_adm=max(drought,na.rm=TRUE)) # get droughts per adm2
+  summarise(spi_drought_adm=max(spi_drought),drought_adm=max(drought,na.rm=TRUE)) #drought by indicator and by yield if set for the adm2 if the indicator and yeild of any lhz is trigger
 
 scores_yield_spi <- yield_spi %>%
   mutate(
@@ -97,7 +100,30 @@ scores_yield_spi <- yield_spi %>%
     POD = hits/(hits+sum(missed)),
     FAR = false_alarms/(hits+false_alarms)
   )
-write.csv(scores_yield_spi, './output/scores_yield_spi.csv')
+# write.csv(scores_yield_spi, './output/scores_yield_spi.csv')
+
+scores_yield_spi_shp = merge(zwe, scores_yield_spi, by="ADM2_PCODE")
+st_write(scores_yield_spi_shp, './output/scores_yield_spi.shp', append=FALSE)
+
+# plot all scores in shapefile
+pod = ggplot() + 
+  geom_sf(data = scores_yield_spi_shp, aes(fill = POD), # fill by POD
+          colour = "black", size = 0.5) + 
+  scale_fill_gradient(limits = c(0,1), low = "red", high = "white") +
+  theme(legend.position="bottom") +
+  ggtitle("POD")
+far = ggplot() + 
+  geom_sf(data = scores_yield_spi_shp, aes(fill = FAR), # fill by POD
+          colour = "black", size = 0.5) + 
+  scale_fill_gradient(limits = c(0,1), low = "white", high = "red") +
+  theme(legend.position="bottom") +
+  ggtitle("FAR")
+pod_far <- plot_grid(pod, far)
+title <- ggdraw() +
+  draw_label(paste("Scores SPI3 vs Maize for Zimbabwe"), fontface='bold')
+fig <- plot_grid(title, pod_far, ncol=1, rel_heights=c(0.1, 1))
+ggsave(filename='./output/scores_yield_spi.png', plot=fig, width=15, height=10, units="cm")
+
 
 
 
@@ -133,9 +159,29 @@ scores_yield_dmp <- yield_dmp %>%
     POD = hits/(hits+sum(missed)),
     FAR = false_alarms/(hits+false_alarms)
   )
-write.csv(scores_yield_dmp, './output/scores_yield_dmp.csv')
+# write.csv(scores_yield_dmp, './output/scores_yield_dmp.csv')
 
+scores_yield_dmp_shp = merge(zwe, scores_yield_dmp, by="ADM2_PCODE")
+st_write(scores_yield_dmp_shp, './output/scores_yield_dmp.shp', append=FALSE)
 
+# plot all scores in shapefile
+pod = ggplot() + 
+  geom_sf(data = scores_yield_dmp_shp, aes(fill = POD), # fill by POD
+          colour = "black", size = 0.5) + 
+  scale_fill_gradient(limits = c(0,1), low = "red", high = "white") +
+  theme(legend.position="bottom") +
+  ggtitle("POD")
+far = ggplot() + 
+  geom_sf(data = scores_yield_dmp_shp, aes(fill = FAR), # fill by POD
+          colour = "black", size = 0.5) + 
+  scale_fill_gradient(limits = c(0,1), low = "white", high = "red") +
+  theme(legend.position="bottom") +
+  ggtitle("FAR")
+pod_far <- plot_grid(pod, far)
+title <- ggdraw() +
+  draw_label(paste("Scores DMP vs Maize for Zimbabwe"), fontface='bold')
+fig <- plot_grid(title, pod_far, ncol=1, rel_heights=c(0.1, 1))
+ggsave(filename='./output/scores_yield_dmp.png', plot=fig, width=15, height=10, units="cm")
 
 
 
