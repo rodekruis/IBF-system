@@ -23,7 +23,7 @@ from secrets import SETTINGS_SECRET
 
 class RainfallData:
 
-    def __init__(self, leadTimeLabel, leadTimeValue, country_code, rainfall_triggers, rainfall_cols):
+    def __init__(self, leadTimeLabel, leadTimeValue, country_code, admin_area_gdf, rainfall_triggers, rainfall_cols):
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
         self.country_code = country_code
@@ -33,8 +33,7 @@ class RainfallData:
         self.rainfall_triggers = rainfall_triggers
         self.rainfall_cols = rainfall_cols
         self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
-        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + \
-            SETTINGS[country_code]['admin_boundaries']['filename']
+        self.ADMIN_AREA_GDF = admin_area_gdf
         self.downloaded = False
 
     def process(self):
@@ -194,10 +193,7 @@ class RainfallData:
         grb_files = sorted([f for f in os.listdir(
             self.inputPath) if f.endswith('.grb2')])
 
-        # COUNTRY SETTINGS
-        # country_code = 'egy'
-        adm_shp = gpd.read_file(self.ADMIN_BOUNDARIES)
-
+        adm_shp = self.ADMIN_AREA_GDF
         west, south, east, north = self.bound_extent(adm_shp)
 
         lats = slice(north, south)  # 32, 22
