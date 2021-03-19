@@ -5,6 +5,7 @@ function prepare() {
   docker-compose up -d
   migrate_database
   docker-compose exec ibf-api-service npm run seed
+  cd interfaces/tests/
 }
 
 
