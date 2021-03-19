@@ -1,3 +1,50 @@
+# [0.39.0](https://github.com/rodekruis/IBF-system/compare/v0.38.2...v0.39.0) (2021-03-15)
+
+
+### Features
+
+* disable close-event when activeTrigger AB[#6623](https://github.com/rodekruis/IBF-system/issues/6623) ([f2a5729](https://github.com/rodekruis/IBF-system/commit/f2a57294e03b613f12bf0e7b10b4844b0afe2e59))
+
+
+
+## [0.38.2](https://github.com/rodekruis/IBF-system/compare/v0.38.1...v0.38.2) (2021-03-15)
+
+
+### Bug Fixes
+
+* run sql-scripts in right order AB[#6603](https://github.com/rodekruis/IBF-system/issues/6603) ([8f97aea](https://github.com/rodekruis/IBF-system/commit/8f97aeae73d8bbd48e276e64c820fae5f5fb3e2a))
+
+
+
+## [0.38.1](https://github.com/rodekruis/IBF-system/compare/v0.38.0...v0.38.1) (2021-03-15)
+
+
+### Bug Fixes
+
+* broken wms layer AB[#6614](https://github.com/rodekruis/IBF-system/issues/6614) ([23d3310](https://github.com/rodekruis/IBF-system/commit/23d33105aeb577f63919639712a2390a378366c2))
+* broken wms layer AB[#6614](https://github.com/rodekruis/IBF-system/issues/6614) ([538c623](https://github.com/rodekruis/IBF-system/commit/538c623d81de7c494995a5966516a38725e497d0))
+* dont' use loader for close event AB[#6602](https://github.com/rodekruis/IBF-system/issues/6602) ([2f6a6ed](https://github.com/rodekruis/IBF-system/commit/2f6a6ed3cbae07a22bc6462e34cf7d2596bd9516))
+
+
+
+# [0.38.0](https://github.com/rodekruis/IBF-system/compare/v0.37.3...v0.38.0) (2021-03-15)
+
+
+### Features
+
+* changing console logs in seed ([5d0408d](https://github.com/rodekruis/IBF-system/commit/5d0408de90616add54e5e8609669fb790f7fa527))
+
+
+
+## [0.37.3](https://github.com/rodekruis/IBF-system/compare/v0.37.2...v0.37.3) (2021-03-15)
+
+
+### Bug Fixes
+
+* improve promise.all AB[#6599](https://github.com/rodekruis/IBF-system/issues/6599) ([b813ff3](https://github.com/rodekruis/IBF-system/commit/b813ff3d75bdbf2b151e3a00caea9c9a5e18fea5))
+
+
+
 ## [0.37.2](https://github.com/rodekruis/IBF-system/compare/v0.37.1...v0.37.2) (2021-03-15)
 
 
@@ -46,54 +93,6 @@
 ### Features
 
 * load data only for active layers AB[#6421](https://github.com/rodekruis/IBF-system/issues/6421) ([be17713](https://github.com/rodekruis/IBF-system/commit/be17713d2e44afd37621076f1473422cdce592ab))
-
-
-
-# [0.34.0](https://github.com/rodekruis/IBF-system/compare/v0.33.6...v0.34.0) (2021-03-12)
-
-
-### Features
-
-* automatically enable all countries for admin-user AB[#6586](https://github.com/rodekruis/IBF-system/issues/6586) ([4b3a777](https://github.com/rodekruis/IBF-system/commit/4b3a777dc38a9d71b8e39ae0d53ab6afda59d06c))
-
-
-
-## [0.33.6](https://github.com/rodekruis/IBF-system/compare/v0.33.5...v0.33.6) (2021-03-12)
-
-
-### Bug Fixes
-
-* change lead-time UGA to 5 days AB[#6541](https://github.com/rodekruis/IBF-system/issues/6541) ([ed2fef7](https://github.com/rodekruis/IBF-system/commit/ed2fef717b84081f21c05e7d42e37ab7011df87d))
-* move all glofas-station input to seed AB[#6543](https://github.com/rodekruis/IBF-system/issues/6543) ([d88dbac](https://github.com/rodekruis/IBF-system/commit/d88dbaca5ed664ce7e4775c080da954e4b1f6331))
-
-
-
-## [0.33.5](https://github.com/rodekruis/IBF-system/compare/v0.33.4...v0.33.5) (2021-03-12)
-
-
-### Bug Fixes
-
-* add data folder to docker ignore ([3488fff](https://github.com/rodekruis/IBF-system/commit/3488fff0a70ce7ae8d83fb15f1657061076571b6))
-
-
-
-## [0.33.4](https://github.com/rodekruis/IBF-system/compare/v0.33.3...v0.33.4) (2021-03-11)
-
-
-### Bug Fixes
-
-* catch error on waterpoints API and use correct admin region layer name ([90665d2](https://github.com/rodekruis/IBF-system/commit/90665d2338e1c4d4348ddc66a485b13716d968ae))
-* import path ([f95edaa](https://github.com/rodekruis/IBF-system/commit/f95edaaef0fd713f6546a19017ce593932303ebb))
-* window open triggers multiple times on country change ([1f844d1](https://github.com/rodekruis/IBF-system/commit/1f844d1e964b889a423b7fc96048a642f7a99fc3))
-
-
-
-## [0.33.3](https://github.com/rodekruis/IBF-system/compare/v0.33.2...v0.33.3) (2021-03-08)
-
-
-### Bug Fixes
-
-* last changes in keeping relative file paths AD[#5756](https://github.com/rodekruis/IBF-system/issues/5756) ([db99af6](https://github.com/rodekruis/IBF-system/commit/db99af6e1e8475ff52ac3544f7befbd805b72f80))
 
 
 

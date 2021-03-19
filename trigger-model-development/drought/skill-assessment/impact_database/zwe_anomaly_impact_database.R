@@ -21,7 +21,7 @@ zwe_ <- st_read(sprintf('%s/510 - Data preparedness and IBF - [PRJ] FbF - Zimbab
 
 
 ## Crop Yield Maize Anomaly ##
-df <-read.csv(file ="C:/Users/MPanis/Rode Kruis/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_cropyield/all_yield_maize_major.csv" )
+df <-read.csv(sprintf("%s/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_cropyield/all_yield_maize_major.csv", onedrive_folder) )
 
 # mean value over all years grouped by pcode
 ref <- aggregate(yield ~ pcode, df, mean)
@@ -44,15 +44,16 @@ df %>% filter(anomaly < -1) %>% dplyr::select(year, pcode) %>% table()
 df %>% filter(anomaly < -1.5) %>% dplyr::select(year, pcode) %>% table()
 df %>% filter(anomaly < -2) %>% dplyr::select(year, pcode) %>% table()
 
+df <- df %>% mutate(year_date = as.Date(as.character(year), format="%Y"))
 for (x in df$pcode %>% unique()) {
-  p <- df %>% filter(pcode == x) %>%  ggplot() + geom_line(aes(x = year, y = anomaly)) +
+  p <- df %>% filter(pcode == x) %>%  ggplot() + geom_line(aes(x = year_date, y = anomaly)) +
     geom_hline(yintercept=-2, linetype="dashed", color = "red",size=1) +
     geom_hline(yintercept=-1, linetype="dashed", color = "blue",size=.5) + 
     geom_hline(yintercept=0, linetype="dashed", color = "black",size=.1)+ 
     scale_x_date(name="year")+
     #scale_x_date(name="time") + 
     scale_y_continuous(name="Standardized Anomaly Crop Yield")+ 
-    geom_rect(data=rect_data, aes(xmin=xmin,xmax=xmax,ymin=ymin,ymax=ymax,fill=col),alpha=0.2)+
+    #geom_rect(data=rect_data, aes(xmin=xmin,xmax=xmax,ymin=ymin,ymax=ymax,fill=col),alpha=0.2)+
     scale_fill_identity()+
     coord_cartesian(ylim=c(-4.0,3.5)) +
     ggtitle('Crop Yield Standardized Anomaly (%s)')+
@@ -63,7 +64,7 @@ for (x in df$pcode %>% unique()) {
           plot.background = element_rect(fill = "transparent",colour = NA))
   
   
-  ggsave(filename=sprintf("D:/Drought_IBF/zwe/Anomaly_%s.png", x),plot=p, width = 30, height = 20, units = "cm")
+  ggsave(filename=sprintf("output/Anomaly_%s.png", x),plot=p, width = 30, height = 20, units = "cm")
 }
 
 
