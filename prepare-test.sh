@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function prepare() {
-  echo 'Running prepare test'
+  echo 'Running prepare test.'
   echo 'Running docker-compose up -d ibf-api-service ibf-dashboard ibf-local-db'
   docker-compose up -d
   echo 'docker ps -a'
