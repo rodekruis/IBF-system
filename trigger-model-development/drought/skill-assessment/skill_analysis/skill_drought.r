@@ -26,9 +26,9 @@ zwe_lhz <- zwe_lhz %>%
   dplyr::mutate(ADM0_EN=COUNTRY) %>%
   dplyr::select(LZCODE)
 
-admin_all <- st_union(zwe_lhz, zwe, by_feature=FALSE) %>%
-  dplyr::select(ADM1_PCODE,ADM2_PCODE,ADM0_EN,LZCODE)
-
+admin_all <- st_intersection(zwe, zwe_lhz) %>%
+  dplyr::select(ADM1_PCODE,ADM2_PCODE,LZCODE)
+# plot(admin_all)
 
 
 # load and calculate crop yield anomaly
@@ -42,12 +42,12 @@ mean_sd <- yield %>%
 yield <- yield %>%
   left_join(mean_sd,by='pcode')
 yield$yield_anomaly <- (yield$yield-yield$mean)/yield$sd       # calculate CYA
-yield$drought <- ifelse(yield$yield_anomaly < yield_thr, 1, 0)  # mark if it is drought or not (= if the CYA exceeds the threshold)
+yield$yield_drought <- ifelse(yield$yield_anomaly < yield_thr, 1, 0)  # mark if it is drought or not (= if the CYA exceeds the threshold)
+yield = subset(yield, select=-c(yield,mean,sd))
 
-yield = subset(yield, select=-c(mean,sd))
-
-df_all <- admin_all %>%
-  left_join(yield,by=c('LZCODE'='pcode'))
+df_all <- admin_all %>%    # create joint table with adm2, lhz and yield anomaly
+  left_join(yield,by=c('LZCODE'='pcode')) %>%
+  dplyr::select(-yield_drought)
 
 
 # load bio-indicator
@@ -75,15 +75,18 @@ spi_zwe_mean <- spi_zwe %>%        # take mean value among the 3 months of the y
 spi_zwe_mean <- spi_zwe_mean %>%
   mutate(spi_drought = ifelse(spi_mean>spi_thr, 0, 1))  # binary logic if the index is higher than the threshold: 0, else 1
 
-# df_all <- df_all %>%       # join to a big table
-#     left_join(spi_zwe_mean,by=c('LZCODE'='livelihoodzone'))
+df_all <- df_all %>%       # join to a big table
+  left_join(spi_zwe_mean, by=c('LZCODE'='livelihoodzone','year')) %>%
+  dplyr::select(-spi_drought)
 # write.csv(df_all, './output/combined_indicators.csv')
 
-yield_spi <- merge(spi_zwe_mean, yield, by.x=c("livelihoodzone","year"), by.y=c("pcode","year")) %>%
+yield_spi <- merge(spi_zwe_mean, yield, 
+                   by.x=c("livelihoodzone","year"), by.y=c("pcode","year")) %>%
   left_join(admin_all,by=c('livelihoodzone'='LZCODE'))
 yield_spi <- yield_spi %>% 
   group_by(year,ADM2_PCODE) %>%
-  summarise(spi_drought_adm=max(spi_drought),drought_adm=max(drought,na.rm=TRUE)) #drought by indicator and by yield if set for the adm2 if the indicator and yeild of any lhz is trigger
+  summarise(spi_drought_adm=max(spi_drought),
+            drought_adm=max(yield_drought,na.rm=TRUE)) #drought by indicator and by yield if set for the adm2 if the indicator and yeild of any lhz is trigger
 
 scores_yield_spi <- yield_spi %>%
   mutate(
@@ -136,13 +139,14 @@ dmp_zwe_mean <- dmp_zwe[months(dmp_zwe$date) %in% month.name[1:3],] %>% # subset
 dmp_zwe_mean <- dmp_zwe_mean %>%
   mutate(dmp_drought = ifelse(dmp_mean>dmp_thr, 0, 1))  # binary logic if the index is higher than the threshold: 0, else 1
 
-# df_all <- df_all %>%
-#   left_join(dmp_zwe_mean,by=c('LZCODE'='pcode'))
+df_all <- df_all %>%       # join to a big table
+  left_join(dmp_zwe_mean, by=c('LZCODE'='pcode','year')) %>%
+  dplyr::select(-dmp_drought)
 
 yield_dmp <- merge(dmp_zwe_mean, yield, by=c("pcode","year")) %>% 
   left_join(admin_all,by=c('pcode'='LZCODE')) %>% 
   group_by(year,ADM2_PCODE) %>%
-  summarise(dmp_drought_adm=max(dmp_drought),drought_adm=max(drought,na.rm=TRUE))
+  summarise(dmp_drought_adm=max(dmp_drought),drought_adm=max(yield_drought,na.rm=TRUE))
 
 scores_yield_dmp <- yield_dmp %>%
   mutate(
