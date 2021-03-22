@@ -284,6 +284,9 @@ export class MapService {
       colorProperty: this.state.defaultColorProperty,
       order: 0,
     });
+    this.adminRegionsObject[
+      `${this.country.countryCodeISO3}-${this.timelineService.activeLeadTime}-${this.adminLevelService.adminLevel}`
+    ] = adminRegions;
   }
 
   public loadAggregateLayer(indicator: Indicator) {
@@ -585,17 +588,14 @@ export class MapService {
             features: [],
           } as GeoJSON.FeatureCollection;
           if (country) {
-            const activeLeadTime = this.timelineService.activeLeadTime
-              ? this.timelineService.activeLeadTime
-              : LeadTime.day7;
             if (
               this.adminRegionsObject[
-                `${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`
+                `${country.countryCodeISO3}-${this.timelineService.activeLeadTime}-${this.adminLevelService.adminLevel}`
               ]
             ) {
               // Get admin regions from memory
               adminRegions = this.adminRegionsObject[
-                `${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`
+                `${country.countryCodeISO3}-${this.timelineService.activeLeadTime}-${this.adminLevelService.adminLevel}`
               ];
             } else {
               // Get admin regions from api
@@ -607,7 +607,7 @@ export class MapService {
                 )
                 .toPromise();
               this.adminRegionsObject[
-                `${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`
+                `${country.countryCodeISO3}-${this.timelineService.activeLeadTime}${this.adminLevelService.adminLevel}`
               ] = adminRegions;
             }
           }
