@@ -21,19 +21,19 @@ def main():
             COUNTRY_SETTINGS = SETTINGS[COUNTRY_CODE]
             LEAD_TIMES = COUNTRY_SETTINGS['lead_times']
 
-            # for leadTimeLabel, leadTimeValue in LEAD_TIMES.items():
-            #     print('--------STARTING: ' + leadTimeLabel +
-            #           '--------------------------')
-            #     fc = Forecast(leadTimeLabel, leadTimeValue, COUNTRY_CODE,
-            #                   COUNTRY_SETTINGS['model'])
-            #     if COUNTRY_SETTINGS['model'] == 'rainfall':
-            #         fc.rainfallData.process()
-            #     if COUNTRY_SETTINGS['model'] == 'glofas':
-            #         fc.glofasData.process()
-            #         fc.floodExtent.calculate()
-            #     fc.exposure.callAllExposure()
-            #     fc.db.upload()
-            # fc.db.processDynamicDataDb()
+            for leadTimeLabel, leadTimeValue in LEAD_TIMES.items():
+                print('--------STARTING: ' + leadTimeLabel +
+                      '--------------------------')
+                fc = Forecast(leadTimeLabel, leadTimeValue, COUNTRY_CODE,
+                              COUNTRY_SETTINGS['model'])
+                if COUNTRY_SETTINGS['model'] == 'rainfall':
+                    fc.rainfallData.process()
+                if COUNTRY_SETTINGS['model'] == 'glofas':
+                    fc.glofasData.process()
+                    fc.floodExtent.calculate()
+                fc.exposure.callAllExposure()
+                fc.db.upload()
+            fc.db.processDynamicDataDb()
             notify(COUNTRY_CODE)
 
     except Exception as e:
