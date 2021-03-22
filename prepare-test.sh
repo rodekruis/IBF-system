@@ -6,9 +6,9 @@ function prepare() {
   docker-compose up -d ibf-api-service ibf-dashboard ibf-local-db
   echo 'docker ps -a'
   docker ps -a
-  echo 'Running database migration'
+  echo 'Running database migration.'
   migrate_database
-  echo 'Running seed'
+  echo 'Running seed.'
   docker-compose exec -T ibf-api-service npm run seed
 }
 
