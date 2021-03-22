@@ -12,42 +12,60 @@ def formatInfo(info, countryCode):
         triggerStatement = "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>"
         linkDashboard = os.getenv('DASHBOARD_URL')
         linkEAPSOP = "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/Doc.aspx?OR=teams&action=edit&sourcedoc={0FFAA5EF-423C-4F81-A51E-BEA98D06E91C}"
-        linkWhatsApp = "https://chat.whatsapp.com/Jt7jMX3BydCD07MFExLUUs"
+        linkSocialMedia = {
+            "type": "WhatsApp",
+            "url": "https://chat.whatsapp.com/Jt7jMX3BydCD07MFExLUUs/"
+        }
         adminAreaLabel = ['District','Districts']
     elif countryCode == "ZMB":
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/6d54577d-8f22-4a95-bc30-b86453f5188c.png"
         triggerStatement = "TBD"
         linkDashboard = os.getenv('DASHBOARD_URL')
         linkEAPSOP = "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#heading=h.gjdgxs"
-        linkWhatsApp = "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin"
+        linkSocialMedia = {
+            "type": "WhatsApp",
+            "url": "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin/"
+        }
         adminAreaLabel = ['District','Districts']
     elif countryCode == "KEN":
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png"
         triggerStatement = "TBD"
         linkDashboard = os.getenv('DASHBOARD_URL')
         linkEAPSOP = "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/"        
-        linkWhatsApp = "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/"
+        linkSocialMedia = {
+            "type": "WhatsApp",
+            "url": "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/"
+        }
         adminAreaLabel = ['County','Counties']
     elif countryCode == "ETH":
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png"
         triggerStatement = "TBD"
         linkDashboard = os.getenv('DASHBOARD_URL')
         linkEAPSOP = "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/"
-        linkWhatsApp = "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/"
+        linkSocialMedia = {
+            "type": "WhatsApp",
+            "url": "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/"
+        }
         adminAreaLabel = ['Zone','Zones']
     elif countryCode == "EGY":
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/899e677e-b673-4ab6-bcd2-8d51f996658d.png"
         triggerStatement = "TBD"
         linkDashboard = os.getenv('DASHBOARD_URL')
         linkEAPSOP = "https://google.com/"
-        linkWhatsApp = "https://web.whatsapp.com/"
+        linkSocialMedia = {
+            "type": "Telegram",
+            "url": "https://t.me/joinchat/hLtvficJO-llZDE0/"
+        }
         adminAreaLabel = ['Governorate','Governorates']
     else:
         logo = "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
         triggerStatement = "TBD"
         linkDashboard = os.getenv('DASHBOARD_URL')
         linkEAPSOP = "https://google.com/"
-        linkWhatsApp = "https://web.whatsapp.com/"
+        linkSocialMedia = {
+            "type": "WhatsApp",
+            "url": "https://web.whatsapp.com/"
+        }
         adminAreaLabel = ['District','Districts']
 
     leadTimes = ['3-day','5-day','7-day']
@@ -120,7 +138,8 @@ def formatInfo(info, countryCode):
     placeholderTriggerStatement = "(TRIGGER-STATEMENT)"
     placeholderLinkDashboard = "(LINK-DASHBOARD)"
     placeholderLinkEAPSOP = "(LINK-EAP-SOP)"
-    placeholderLinkWhatsApp = "(LINK-WHATSAPP)"
+    placeholderLinkSocialMedia = "(SOCIAL-MEDIA-LINK)"
+    placeholderTypeSocialMedia = "(SOCIAL-MEDIA-TYPE)"
     placeholderAdminAreaPlural = "(ADMIN-AREA-PLURAL)"
     placeholderAdminAreaSingular = "(ADMIN-AREA-SINGULAR)"
 
@@ -132,7 +151,8 @@ def formatInfo(info, countryCode):
         .replace(placeholderTriggerStatement, triggerStatement)
         .replace(placeholderLinkDashboard, linkDashboard)
         .replace(placeholderLinkEAPSOP, linkEAPSOP)
-        .replace(placeholderLinkWhatsApp, linkWhatsApp)
+        .replace(placeholderLinkSocialMedia, linkSocialMedia['url'])
+        .replace(placeholderTypeSocialMedia, linkSocialMedia['type'])
         .replace(placeholderAdminAreaSingular, adminAreaLabel[0].lower())
         .replace(placeholderAdminAreaPlural, adminAreaLabel[1].lower())
     )
