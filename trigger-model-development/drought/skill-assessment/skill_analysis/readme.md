@@ -5,7 +5,7 @@
 Some indicator data was extracted per livelihoodzone, some not. The script to calculate skill scores (POD and FAR) of an indicator against impact proxy crop yield per adm2 boundary. 
 It is also able to see how many time drought was triggered in the past years. 
 
-The outpus per indicator are a csv a plot for the scores and a shapefile of adm2.
+The outpus per indicator are a csv, a plot for the scores and a shapefile of adm2. A combined table of yield anomaly and the indicators per year are also exported.
 
 
 ### Data input:
@@ -22,3 +22,10 @@ For new indicators, the expected format is similar to one of DMP: in csv, with c
 
 ### Usage:
 
+Sections `READ ADMIN AND LIVELIHOODZONE BOUNDARIES` and `LOAD AND CALCULATE CROP YIELD ANOMALY` are fixed to define the data frame. Indicators are loaded and modified manually as following:
+- Set the threshold for `[indicatorname]_thr`
+- Load the indicator from your synced OneDrive `[indicatorname]_[countryname]`
+- Join the indicator to the combined table
+- As of now, yearly mean value of the indicator is used to set if it was drought based on the indicator (indicator value exceeded the threshold).
+- Calculate the scores per adm2.
+- Export and plot the results.
