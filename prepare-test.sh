@@ -9,7 +9,7 @@ function prepare() {
   echo 'Running database migration'
   migrate_database
   echo 'Running seed'
-  docker-compose exec ibf-api-service npm run seed
+  docker-compose exec -T ibf-api-service npm run seed
 }
 
 
