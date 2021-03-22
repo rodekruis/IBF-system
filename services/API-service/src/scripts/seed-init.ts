@@ -38,9 +38,7 @@ export class SeedInit implements InterfaceScript {
   }
 
   public async run(): Promise<void> {
-    console.log('start seed')
     await this.seedHelper.cleanAll();
-    console.log('before sync')
     await this.connection.synchronize(false);
 
     // ***** CREATE LEAD TIMES *****
