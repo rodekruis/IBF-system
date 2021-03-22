@@ -10,6 +10,8 @@ function prepare() {
   migrate_database
   echo 'Running seed.'
   docker-compose exec -T ibf-api-service npm run seed
+    echo 'docker ps -a2 '
+  docker ps -a
 }
 
 
