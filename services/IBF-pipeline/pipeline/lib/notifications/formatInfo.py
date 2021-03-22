@@ -68,7 +68,7 @@ def formatInfo(info, countryCode):
         }
         adminAreaLabel = ['District','Districts']
 
-    leadTimes = ['3-day','5-day','7-day']
+    leadTimes = ['1-day','2-day','3-day','4-day','5-day','6-day','7-day','8-day','9-day','10-day']
     totalPopAffected = {}
     table = {}
     subject = {}
