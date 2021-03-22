@@ -122,6 +122,75 @@ ggsave(filename='./output/scores_yield_spi.png', plot=fig, width=15, height=10, 
 
 
 
+## SPEI ----
+spei_thr = -0.65
+
+spei_zwe <- read.csv(sprintf('%s/510 - Data preparedness and IBF - [PRJ] FbF - Zimbabwe - Danish Red Cross/3. Data - Hazard exposure, vulnerability/zwe_spi/zwe_spei3.csv',onedrive_folder))%>%
+  mutate(date=ymd(as.Date(date))) %>%
+  mutate(year=year(date))
+
+spei_zwe_mean <- spei_zwe %>%        # take mean value among the 3 months of the year
+  group_by(year,livelihoodzone) %>%
+  summarise(spei_mean=mean(spei3))  ### to replace column name when reading different SPI/ SPEI
+spei_zwe_mean <- spei_zwe_mean %>%
+  mutate(spei_drought = ifelse(spei_mean>spei_thr, 0, 1))  # binary logic if the index is higher than the threshold: 0, else 1
+
+df_all <- df_all %>%       # join to a big table
+  left_join(spei_zwe_mean, by=c('LZCODE'='livelihoodzone','year')) %>%
+  dplyr::select(-spei_drought)
+# write.csv(df_all, './output/combined_indicators.csv')
+
+yield_spei <- merge(spei_zwe_mean, yield, 
+                   by.x=c("livelihoodzone","year"), by.y=c("pcode","year")) %>%
+  left_join(admin_all,by=c('livelihoodzone'='LZCODE'))
+yield_spei <- yield_spei %>% 
+  group_by(year,ADM2_PCODE) %>%
+  summarise(spei_drought_adm=max(spei_drought),
+            drought_adm=max(yield_drought,na.rm=TRUE)) #drought by indicator and by yield if set for the adm2 if the indicator and yeild of any lhz is triggered
+
+# FAR, POD, Trigger count
+scores_yield_spei <- yield_spei %>%
+  mutate(
+    hit = spei_drought_adm & drought_adm,                     # hit when it's drought and crop loss
+    false_alarm = (spei_drought_adm==1) & (drought_adm==0),   # false alarm when it's drought but not crop loss
+    missed = (spei_drought_adm==0) & (drought_adm==1),        # missed when it's not drought but crop loss
+    cor_neg = (spei_drought_adm==0) & (drought_adm==0)        
+  ) %>%
+  group_by(ADM2_PCODE) %>%
+  summarise(
+    hits = sum(hit),
+    false_alarms = sum(false_alarm),
+    triggered = hits + false_alarms,
+    POD = hits/(hits+sum(missed)),
+    FAR = false_alarms/(hits+false_alarms)
+  )
+write.csv(scores_yield_spei, './output/scores_yield_spei.csv')
+
+scores_yield_spei_shp = merge(zwe, scores_yield_spei, by="ADM2_PCODE")
+st_write(scores_yield_spei_shp, './output/scores_yield_spei.shp', append=FALSE)
+
+# plot all scores in shapefile
+pod = ggplot() +
+  geom_sf(data = scores_yield_spei_shp, aes(fill = POD), # fill by POD
+          colour = "black", size = 0.5) +
+  scale_fill_gradient(limits = c(0,1), low = "red", high = "white") +
+  theme(legend.position="bottom") +
+  ggtitle("POD")
+far = ggplot() +
+  geom_sf(data = scores_yield_spei_shp, aes(fill = FAR), # fill by POD
+          colour = "black", size = 0.5) +
+  scale_fill_gradient(limits = c(0,1), low = "white", high = "red") +
+  theme(legend.position="bottom") +
+  ggtitle("FAR")
+pod_far <- plot_grid(pod, far)
+title <- ggdraw() +
+  draw_label(paste("Scores SPEI3 vs Maize for Zimbabwe"), fontface='bold')
+fig <- plot_grid(title, pod_far, ncol=1, rel_heights=c(0.1, 1))
+ggsave(filename='./output/scores_yield_spei.png', plot=fig, width=15, height=10, units="cm")
+
+
+
+
 ## DMP ----
 dmp_thr = 70
 
@@ -138,7 +207,7 @@ dmp_zwe_mean <- dmp_zwe_mean %>%
 df_all <- df_all %>%       # join to a big table
   left_join(dmp_zwe_mean, by=c('LZCODE'='pcode','year')) %>%
   dplyr::select(-dmp_drought)
-# write.csv(df_all, './output/combined_indicators.csv')
+write.csv(df_all, './output/combined_indicators.csv')
 
 yield_dmp <- merge(dmp_zwe_mean, yield, by=c("pcode","year")) %>% 
   left_join(admin_all,by=c('pcode'='LZCODE')) %>% 

@@ -12,7 +12,7 @@ The outpus per indicator are a csv, a plot for the scores and a shapefile of adm
 
 The script is now for Zimbabwe, data can be found in the FBF Zimbabwe channel and can be loaded in easily if synced through OneDrive from the IBF channel in Teams.
 
-At the moment, the inputs are `livelyhood zones`, `admin boundaries`, `crop yield` which are as base. Indicators are now included `SPI3`, `DMP`.
+At the moment, the inputs are `livelyhood zones`, `admin boundaries`, `crop yield` which are as base. Indicators are now included `SPI3`, `SPEI3`, `DMP`.
 
 For new indicators, the expected format is similar to one of DMP: in csv, with columns:
 - adm2 pcode and/ or livelihoodzone pcode as same as those in above files

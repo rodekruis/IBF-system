@@ -87,6 +87,16 @@ skill_analysis <- function(si_type, si, si_thr, crop_type, yield.df, yield_anoma
   si_LHZ_subset <- si_LHZ[year(si_LHZ$date) %in% c(1983:2012) &   # subset yield to 1983-2012
                             month(si_LHZ$date) %in% c(1:3),]  # subset Jan, Feb, Mar from 1983-2012
   
+  # save dataframe lhz | year | si
+  si_LHZ_subset = subset(si_LHZ_subset, select=-(ID))
+  si_LHZ_pivot <- si_LHZ_subset %>%
+    tidyr::pivot_longer(
+      cols = starts_with("ZW"),
+      names_to = "livelihoodzone",
+      values_to = si_type)
+  write.csv(si_LHZ_pivot,
+            paste0(output_folder, si_type, ".csv"))
+  
   
   # create a dataframe with binary of SPI<threshold and crop anomaly per lz
   # calculate FAR, POD per lz
