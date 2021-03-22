@@ -1,5 +1,6 @@
-import adminAreaData from './admin-area-data.json';
 import { DateTime } from 'luxon';
+import adminAreaData from './admin-area-data.json';
+import glofasStationData from './glofas-station-data.json';
 
 export function getRecentDates() {
   return [
@@ -11,10 +12,10 @@ export function getRecentDates() {
 
 export function getEvent() {
   return {
-    country_code: 'UGA',
-    start_date: DateTime.now().minus({ days: 12 }).toFormat('yyyy-LL-dd'),
-    end_date: DateTime.now().minus({ days: 7 }).toFormat('yyyy-LL-dd'),
-    id: '14',
+    countryCode: 'UGA',
+    startDate: DateTime.now().minus({days: 12}).toFormat('yyyy-LL-dd'),
+    endDate: DateTime.now().minus({days: 7}).toFormat('yyyy-LL-dd'),
+    activeTrigger: false,
   };
 }
 
@@ -28,114 +29,62 @@ export function getTriggerPerLeadTime() {
     6: '0',
     7: '0',
     country_code: 'UGA',
-    current_prev: 'Current',
+    date: DateTime.now().toFormat('yyyy-LL-dd'),
   };
 }
 
 export function getTriggeredAreas() {
   return [
     {
-      pcode: '21UGA006003',
-      name: 'Bulambuli',
-      population_affected: 646.299926757813,
+      placeCode: "21UGA013005",
+      name: "Katakwi",
+      populationAffected: 4133.6044921875,
+      eventPlaceCodeId: "c5cf9a42-12d6-46c4-8d72-18019ae7c42a",
+      activeTrigger: false
     },
     {
-      pcode: '21UGA013006',
-      name: 'Kumi',
-      population_affected: 432.408020019531,
+      placeCode: "21UGA008008",
+      name: "Napak",
+      populationAffected: 3501.15771484375,
+      eventPlaceCodeId: "9a4d3f64-9547-42f9-878e-e0e96613c304",
+      activeTrigger: false
     },
     {
-      pcode: '21UGA013002',
-      name: 'Bukedea',
-      population_affected: 144.982131958008,
+      placeCode: "21UGA013001",
+      name: "Amuria",
+      populationAffected: 2047.373046875,
+      eventPlaceCodeId: "5b7457cf-d1f9-4258-8469-bc3db90a4d44",
+      activeTrigger: false
     },
+    {
+      placeCode: "21UGA013004",
+      name: "Kapelebyong",
+      populationAffected: 1561.43115234375,
+      eventPlaceCodeId: "95f414a1-c3f3-425e-96f5-d3354cc04d5b",
+      activeTrigger: false
+    },
+    {
+      placeCode: "21UGA008004",
+      name: "Kotido",
+      populationAffected: 961.6905517578125,
+      eventPlaceCodeId: "8286f5fe-e9a6-4ad2-afdc-9dc9af3c0f26",
+      activeTrigger: false
+    },
+    {
+      placeCode: "21UGA008001",
+      name: "Abim",
+      populationAffected: 401.5565185546875,
+      eventPlaceCodeId: "07b26d41-abb0-4931-b4d4-a3fe7eeb9ff1",
+      activeTrigger: false
+    }
   ];
 }
 
 export function getStations() {
-  return {
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [34.04999924, 0.150000006],
-        },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '7-day',
-          station_code: 'G5195',
-          station_name: 'NZOIA AT RUAMBWA FERRY (1EF01)',
-          trigger_level: 1951.601318,
-          fc: '0',
-          fc_trigger: '0',
-          fc_perc: 0,
-          fc_prob: '0',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [33.84999847, 1.75],
-        },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '7-day',
-          station_code: 'G5196',
-          station_name: 'Akokorio at Uganda Gauge',
-          trigger_level: 125.1974792,
-          fc: '0',
-          fc_trigger: '0',
-          fc_perc: 0,
-          fc_prob: '0',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [33.95000076, 1.649999976],
-        },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '7-day',
-          station_code: 'G5200',
-          station_name: 'Magoro Ngariam',
-          trigger_level: 644.5651245,
-          fc: '100',
-          fc_trigger: '0',
-          fc_perc: 0.15,
-          fc_prob: '0',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [34.04999924, 2.450000048],
-        },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '7-day',
-          station_code: 'G6106',
-          station_name: 'Kapelebyong',
-          trigger_level: 160.9732056,
-          fc: '0',
-          fc_trigger: '0',
-          fc_perc: 0,
-          fc_prob: '0',
-        },
-      },
-    ],
-  };
+  return JSON.parse(JSON.stringify(glofasStationData)); // Hack to clone without reference
 }
 
 export function getAdminRegions() {
-  var result = JSON.parse(JSON.stringify(adminAreaData)); // Hack to clone without reference
-  result.features.forEach((feature) => {
-    feature.properties.population_affected = 0;
-  });
-  return result;
+  return JSON.parse(JSON.stringify(adminAreaData)); // Hack to clone without reference
 }
+

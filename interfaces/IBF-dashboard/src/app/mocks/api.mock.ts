@@ -14,18 +14,18 @@ import { MockScenario } from './mock-scenario.enum';
 export class MockAPI {
   constructor(private mockScenarioService: MockScenarioService) {}
 
-  getMockAPI(leadTime?) {
+  getMockAPI() {
     return {
       GET: {
         stations: {
-          handler: this.getResponse('getStations', leadTime),
+          handler: this.getResponse('getStations'),
         },
         event: { handler: this.getResponse('getEvent') },
         'triggered-areas': { handler: this.getResponse('getTriggeredAreas') },
         'recent-dates': { handler: this.getResponse('getRecentDates') },
         triggers: { handler: this.getResponse('getTriggerPerLeadTime') },
         'admin-area-data': {
-          handler: this.getResponse('getAdminRegions', leadTime),
+          handler: this.getResponse('getAdminRegions'),
         },
       },
       POST: {
@@ -34,7 +34,7 @@ export class MockAPI {
     };
   }
 
-  getResponse(functionName, leadTime?) {
+  getResponse(functionName) {
     return () => {
       let body = {};
       let status = 200;
@@ -44,11 +44,11 @@ export class MockAPI {
         .subscribe((mockScenario: MockScenario) => {
           switch (mockScenario) {
             case MockScenario.existingEvent: {
-              body = existingEvent[functionName](leadTime);
+              body = existingEvent[functionName]();
               break;
             }
             case MockScenario.newEvent: {
-              body = newEvent[functionName](leadTime);
+              body = newEvent[functionName]();
               break;
             }
             case MockScenario.noEvent: {
