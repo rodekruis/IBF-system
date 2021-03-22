@@ -16,7 +16,7 @@ function prepare() {
 
 
 function migrate_database() {
-    declare -a arr=("IBF-static-input","IBF-pipeline-output")
+    declare -a arr=("IBF-static-input" "IBF-pipeline-output")
 
     for SCHEMA in "${arr[@]}"
     do
