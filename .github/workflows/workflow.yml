@@ -127,12 +127,12 @@ jobs:
             DB_USERNAME_TEST_VM: ${{ secrets.DB_USERNAME }}
             DB_PASSWORD_TEST_VM: ${{ secrets.DB_PASSWORD}}
             SECRET: ${{ secrets.SECRET }}
-            DB_HOST: ibf-local-db
-            DB_DATABASE: ibf
-            DB_USERNAME: ibf
-            DB_PASSWORD: ibf
-            DB_PORT_LOCAL: 5437
-            DB_HOST_LOCAL: localhost
+            DB_HOST: ${{ secrets.DB_HOST }}
+            DB_DATABASE: geonode_datav3-github-actions
+            DB_USERNAME: ${{ secrets.DB_USERNAME }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD}}
+            DB_PORT_LOCAL: ${{ secrets.DB_PORT }}
+            DB_HOST_LOCAL: ${{ secrets.DB_HOST }}
             COUNTRIES: UGA
 
         # defaults:
@@ -151,7 +151,7 @@ jobs:
                       chmod +x prepare-test.sh
                       bash ./prepare-test.sh
                   wait-on: "http://localhost:4200"
-                  wait-on-timeout: 1200
+                  wait-on-timeout: 2400
                   #   start: npx cypress info"
     # bump-version:
     #     needs: [ibf-api-service, ibf-dashboard, ibf-pipeline]
