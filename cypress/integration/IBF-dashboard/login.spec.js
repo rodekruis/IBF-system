@@ -1,6 +1,6 @@
 describe('Login Page', () => {
   beforeEach(() => {
-    cy.setDashboard();
+    // cy.setDashboard();
     cy.server();
   });
 
