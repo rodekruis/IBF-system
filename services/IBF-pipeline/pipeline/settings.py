@@ -20,13 +20,7 @@ CURRENT_DATE = date.today()
 SETTINGS = {
     "ZMB": {
         "model": 'glofas',
-        "trigger_levels": 'Glofas_station_locations_with_trigger_levels_ZMB.csv',
-        'district_mapping': 'Glofas_station_per_admin_area_ZMB.csv',
         'redcross_branches': 'points/redcross_branches_ZMB.csv',
-        'admin_boundaries': {
-            'filename': 'vector/ZMB_adm2_mapshaper_2020.shp',
-            'pcode_colname': 'pcode'
-        },
         'lead_times': {
             "3-day": 3,
             "7-day": 7
@@ -36,18 +30,13 @@ SETTINGS = {
                 "source": "population/hrsl_zmb_pop_resized_100",
                 "rasterValue": 1
             }
-        }
+        },
+        'bounding_box': [-9, 21, -18, 34]
     },
     "UGA": {
         "model": 'glofas',
-        "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
-        'district_mapping': 'Glofas_station_per_admin_area_UGA.csv',
         'flood_vulnerability': 'Flood_vulnerability_EAP_UGA.csv',
         'redcross_branches': 'points/redcross_branches_UGA.csv',
-        'admin_boundaries': {
-            'filename': 'vector/UGA_adm2_mapshaper.shp',
-            'pcode_colname': 'pcode'
-        },
         'lead_times': {
             "5-day": 5
         },
@@ -56,16 +45,11 @@ SETTINGS = {
                 "source": "population/hrsl_uga_pop_resized_100",
                 "rasterValue": 1
             }
-        }
+        },
+        'bounding_box': [5, 29, -2, 36]
     },
     "KEN": {
         "model": 'glofas',
-        "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
-        'district_mapping': 'Glofas_station_per_admin_area_KEN.csv',
-        'admin_boundaries': {
-            'filename': 'vector/KEN_adm1_mapshaper_corrected.shp',
-            'pcode_colname': 'ADM1_PCODE'
-        },
         'lead_times': {
             "7-day": 7
         },
@@ -74,16 +58,11 @@ SETTINGS = {
                 "source": "population/hrsl_ken_pop_resized_100",
                 "rasterValue": 1
             }
-        }
+        },
+        'bounding_box': [5, 33, -4, 42]
     },
     "ETH": {
         "model": 'glofas',
-        "trigger_levels": 'Glofas_station_locations_with_trigger_levels_IARP.csv',
-        'district_mapping': 'Glofas_station_per_admin_area_ETH.csv',
-        'admin_boundaries': {
-            'filename': 'vector/ETH_adm2_mapshaper_reproj.shp',
-            'pcode_colname': 'HRpcode'
-        },
         'lead_times': {
             "7-day": 7
         },
@@ -92,16 +71,12 @@ SETTINGS = {
                 "source": "population/worldpop_eth",
                 "rasterValue": 1
             }
-        }
+        },
+        'bounding_box': [15, 32, 3, 48]
     },
     "EGY": {
         "model": 'rainfall',
         "trigger_levels": 'Rainfall_station_locations_with_trigger_levels.csv',
-        'district_mapping': '<not needed>',
-        'admin_boundaries': {
-                'filename': 'vector/EGY_adm1_MENAregion.shp',
-                'pcode_colname': 'ADM1_PCODE'
-        },
         'trigger_colname': '5yr_threshold',
         'lead_times': {
             "3-day": 3,

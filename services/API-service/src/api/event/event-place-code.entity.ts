@@ -11,6 +11,9 @@ export class EventPlaceCodeEntity {
   @Column({ type: 'timestamp' })
   public startDate: Date;
 
+  @Column({ type: 'float8' })
+  public populationAffected: number;
+
   @Column({ type: 'timestamp', nullable: true })
   @Check(`"startDate" < "endDate"`)
   public endDate: Date;

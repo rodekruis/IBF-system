@@ -3,6 +3,7 @@ area==1.1.1
 asn1crypto==0.24.0
 attrs==20.3.0
 beautifulsoup4==4.9.3
+cdsapi==0.5.1
 certifi==2020.12.5
 cftime==1.4.1
 chardet==4.0.0
@@ -19,7 +20,7 @@ Jinja2==2.11.3
 keyring==10.6.0
 keyrings.alt==3.0
 loggly-python-handler==1.0.1
-lxml==4.6.2
+lxml==4.6.3
 mailchimp3==3.0.14
 MarkupSafe==1.1.1
 munch==2.5.0

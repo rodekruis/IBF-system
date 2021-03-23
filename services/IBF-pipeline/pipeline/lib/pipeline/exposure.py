@@ -17,7 +17,7 @@ class Exposure:
 
     """Class used to calculate the exposure per exposure type"""
     
-    def __init__(self, leadTimeLabel, country_code, district_mapping = None, district_cols = None):
+    def __init__(self, leadTimeLabel, country_code, admin_area_gdf, district_mapping = None, district_cols = None):
         self.leadTimeLabel = leadTimeLabel
         self.country_code = country_code
         if SETTINGS[country_code]['model'] == 'glofas':
@@ -28,8 +28,8 @@ class Exposure:
         self.outputPath = PIPELINE_OUTPUT + "out.tif"
         self.district_mapping = district_mapping
         self.district_cols = district_cols
-        self.ADMIN_BOUNDARIES = PIPELINE_INPUT + SETTINGS[country_code]['admin_boundaries']['filename']
-        self.PCODE_COLNAME = SETTINGS[country_code]['admin_boundaries']['pcode_colname']
+        self.ADMIN_AREA_GDF = admin_area_gdf
+        self.ADMIN_AREA_GDF_TMP_PATH = PIPELINE_OUTPUT+"admin-areas_TMP.shp"
         self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
         self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + leadTimeLabel + '_' + country_code + '.json'
         self.stats = []
@@ -59,14 +59,14 @@ class Exposure:
             except ValueError:
                 print('Rasters do not overlap')
         logger.info("Wrote to " + self.outputRaster)
-        adminBoundaries = self.ADMIN_BOUNDARIES
-        stats = self.calcStatsPerAdmin(adminBoundaries, indicator, disasterExtentShapes, rasterValue)
+        self.ADMIN_AREA_GDF.to_file(self.ADMIN_AREA_GDF_TMP_PATH)
+        stats = self.calcStatsPerAdmin(indicator, disasterExtentShapes, rasterValue)
         
         for item in stats:
             self.stats.append(item)
 
                  
-    def calcStatsPerAdmin(self, adminBoundaries, indicator, disasterExtentShapes, rasterValue):
+    def calcStatsPerAdmin(self, indicator, disasterExtentShapes, rasterValue):
         if SETTINGS[self.country_code]['model'] == 'glofas':
             #Load trigger_data per station
             path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.leadTimeLabel + '_' + self.country_code + '.json'
@@ -78,7 +78,7 @@ class Exposure:
             df_district_mapping = df_district_mapping.set_index("pcode", drop=False)
 
         stats = []
-        with fiona.open(adminBoundaries, "r") as shapefile:
+        with fiona.open(self.ADMIN_AREA_GDF_TMP_PATH, "r") as shapefile:
 
             # Clip affected raster per area
             for area in shapefile:
@@ -90,21 +90,22 @@ class Exposure:
                         with rasterio.open(self.outputPath, "w", **outMeta) as dest:
                             dest.write(outImage)
                             
-                        statsDistrict = self.calculateRasterStats(indicator,  str(area['properties'][self.PCODE_COLNAME]), self.outputPath, rasterValue)
+                        statsDistrict = self.calculateRasterStats(indicator,  str(area['properties']['pcode']), self.outputPath, rasterValue)
 
                         # Overwrite non-triggered areas with positive exposure (due to rounding errors) to 0
                         if SETTINGS[self.country_code]['model'] == 'glofas':
-                            if self.checkIfTriggeredArea(df_triggers,df_district_mapping,str(area['properties'][self.PCODE_COLNAME])) == 0:
-                                statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties'][self.PCODE_COLNAME])}
+                            if self.checkIfTriggeredArea(df_triggers,df_district_mapping,str(area['properties']['pcode'])) == 0:
+                                statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties']['pcode'])}
                         if self.country_code == 'EGY':
-                            if 'EG' not in str(area['properties'][self.PCODE_COLNAME]):
-                                statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties'][self.PCODE_COLNAME])}
+                            if 'EG' not in str(area['properties']['pcode']):
+                                statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties']['pcode'])}
                     except (ValueError, rasterio.errors.RasterioIOError):
                             # If there is no disaster in the district set  the stats to 0
-                        statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties'][self.PCODE_COLNAME])}
+                        statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties']['pcode'])}
                 else: 
-                    statsDistrict = {'source': indicator, 'sum': '--', 'district': str(area['properties'][self.PCODE_COLNAME])}        
+                    statsDistrict = {'source': indicator, 'sum': '--', 'district': str(area['properties']['pcode'])}        
                 stats.append(statsDistrict)
+        os.remove(self.ADMIN_AREA_GDF_TMP_PATH)
         return stats    
 
     def checkIfTriggeredArea(self, df_triggers, df_district_mapping, pcode):
