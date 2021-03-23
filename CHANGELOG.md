@@ -1,3 +1,12 @@
+# [0.47.0](https://github.com/rodekruis/IBF-system/compare/v0.46.0...v0.47.0) (2021-03-23)
+
+
+### Features
+
+* cypress no install ([eb916a1](https://github.com/rodekruis/IBF-system/commit/eb916a1d01f5f59819f80bc4ad436acef4eef9f9))
+
+
+
 # [0.46.0](https://github.com/rodekruis/IBF-system/compare/v0.45.0...v0.46.0) (2021-03-23)
 
 
@@ -153,15 +162,6 @@
 ### Features
 
 * use Glofas API instead of FTP AB[#6491](https://github.com/rodekruis/IBF-system/issues/6491) ([f0fd484](https://github.com/rodekruis/IBF-system/commit/f0fd484bbb1be6e555ae8001d0bfb972ee5e61a8))
-
-
-
-# [0.39.0](https://github.com/rodekruis/IBF-system/compare/v0.38.2...v0.39.0) (2021-03-15)
-
-
-### Features
-
-* disable close-event when activeTrigger AB[#6623](https://github.com/rodekruis/IBF-system/issues/6623) ([f2a5729](https://github.com/rodekruis/IBF-system/commit/f2a57294e03b613f12bf0e7b10b4844b0afe2e59))
 
 
 
