@@ -1,3 +1,12 @@
+## [0.51.1](https://github.com/rodekruis/IBF-system/compare/v0.51.0...v0.51.1) (2021-03-23)
+
+
+### Bug Fixes
+
+* cypress file location ([6155b49](https://github.com/rodekruis/IBF-system/commit/6155b49179629b1c621914f249770b91f894352a))
+
+
+
 # [0.51.0](https://github.com/rodekruis/IBF-system/compare/v0.50.0...v0.51.0) (2021-03-23)
 
 
@@ -135,17 +144,6 @@
 * test workflow ([0960345](https://github.com/rodekruis/IBF-system/commit/0960345f862adf79e6fa7bde6cbf46af7be5af34))
 * test workflow ([6480b98](https://github.com/rodekruis/IBF-system/commit/6480b9816123e57c6a36f4e161813e2bc13d88dd))
 * test workflow ([c291110](https://github.com/rodekruis/IBF-system/commit/c291110a4b2ce4262c05ebcad28c94efe9f50fc7))
-
-
-
-# [0.42.0](https://github.com/rodekruis/IBF-system/compare/v0.41.0...v0.42.0) (2021-03-19)
-
-
-### Features
-
-* add flood susceptibility layer AB[#6635](https://github.com/rodekruis/IBF-system/issues/6635) ([4786238](https://github.com/rodekruis/IBF-system/commit/4786238d69fbbafe0e71ab047b5014579bbeba39))
-* add flood susceptibility layer geoserver AB[#6631](https://github.com/rodekruis/IBF-system/issues/6631) ([5dccdf1](https://github.com/rodekruis/IBF-system/commit/5dccdf135ed05ab9e58f7be8d839f60cca1e1726))
-* add style geoserver for flood susceptibiltiy AB[#6632](https://github.com/rodekruis/IBF-system/issues/6632) ([db27375](https://github.com/rodekruis/IBF-system/commit/db273756c44e7d28ebb60d02c716803ef2bc9bcc))
 
 
 
