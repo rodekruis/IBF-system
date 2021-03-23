@@ -1,6 +1,9 @@
 # Lighthouse
 .lighthouseci
 
+# Cypress
+cypress.env.json
+
 # IDE / Editors
 .vscode
 .idea

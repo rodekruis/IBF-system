@@ -1,6 +1,6 @@
 {
   "baseUrl": "http://localhost:4200",
   "env": {
-    "apiUrl": "http://localhost:3000/api"
+    "apiUrl": "https://ibf-test.510.global/api"
   }
 }
