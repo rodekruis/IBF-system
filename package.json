@@ -27,18 +27,19 @@
     "lint:ibf-api-service": "npm run lint --prefix services/API-service/",
     "lint:ibf-interfaces": "npx npm-run-all --print-label --parallel lint:ibf-dashboard",
     "lint:ibf-dashboard": "npm run lint --prefix interfaces/IBF-dashboard/",
-    "start:cypress": "npx cypress open"
+    "start:cypress": "npx cypress open",
+    "install:cypress": "npm install cypress@6.6.0"
   },
   "dependencies": {
     "github-webhook-handler": "^1.0.0"
   },
   "devDependencies": {
     "@lhci/cli": "^0.7.0",
+    "cypress": "^6.6.0",
     "lighthouse": "^7.2.0",
     "pre-commit": "^1.2.2",
     "pre-push": "^0.1.1",
-    "puppeteer": "^8.0.0",
-    "cypress": "^6.6.0"
+    "puppeteer": "^8.0.0"
   },
   "pre-commit": "lint"
 }

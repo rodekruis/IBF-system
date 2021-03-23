@@ -156,6 +156,6 @@ jobs:
               uses: cypress-io/github-action@v2
               with:
                   install: false
-                  build: npm install --only=dev
+                  build: npm run install:cypress
                   wait-on: "https://ibf-test.510.global/"
                   wait-on-timeout: 6000
