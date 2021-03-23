@@ -121,12 +121,12 @@ export class SeedInit implements InterfaceScript {
             user.userRole === UserRole.Admin
               ? await countryRepository.find()
               : await countryRepository.find({
-                where: user.countries.map(
-                  (countryCodeISO3: string): object => {
-                    return { countryCodeISO3: countryCodeISO3 };
-                  },
-                ),
-              });
+                  where: user.countries.map(
+                    (countryCodeISO3: string): object => {
+                      return { countryCodeISO3: countryCodeISO3 };
+                    },
+                  ),
+                });
           userEntity.userStatus = user.userStatus as UserStatus;
           userEntity.password = user.password;
           return userEntity;
