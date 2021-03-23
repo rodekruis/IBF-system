@@ -1,3 +1,12 @@
+# [0.49.0](https://github.com/rodekruis/IBF-system/compare/v0.48.0...v0.49.0) (2021-03-23)
+
+
+### Features
+
+* cypress install seperate ([db55f8a](https://github.com/rodekruis/IBF-system/commit/db55f8abdacac735406158a6dd784a4dcb22c363))
+
+
+
 # [0.48.0](https://github.com/rodekruis/IBF-system/compare/v0.47.0...v0.48.0) (2021-03-23)
 
 
@@ -145,17 +154,6 @@
 
 * also apply change in trigger-situation AB[#6691](https://github.com/rodekruis/IBF-system/issues/6691) ([33a30dd](https://github.com/rodekruis/IBF-system/commit/33a30ddc13674b708a20925f2e99f294e9a6009d))
 * unselected places should not turn grey for admin boundary layer AB[#6691](https://github.com/rodekruis/IBF-system/issues/6691) ([7467ab2](https://github.com/rodekruis/IBF-system/commit/7467ab211017a4e69b3dca6f979d855b1a3ef142))
-
-
-
-## [0.40.1](https://github.com/rodekruis/IBF-system/compare/v0.40.0...v0.40.1) (2021-03-19)
-
-
-### Bug Fixes
-
-* eap actions submit AB[#6700](https://github.com/rodekruis/IBF-system/issues/6700) ([766b5bd](https://github.com/rodekruis/IBF-system/commit/766b5bddfc881bc286e2dd4819536fb9b754bec0))
-* populationAffected column should not get dropped on synchronize AB[#6690](https://github.com/rodekruis/IBF-system/issues/6690) ([ba32330](https://github.com/rodekruis/IBF-system/commit/ba32330e820b43d0f17c9e5f1eb4e4f775e481cb))
-* remove DDL AB[#6690](https://github.com/rodekruis/IBF-system/issues/6690) ([992db99](https://github.com/rodekruis/IBF-system/commit/992db99542151bc8eda59607eb6faaac7f764f8f))
 
 
 
