@@ -1,3 +1,12 @@
+# [0.48.0](https://github.com/rodekruis/IBF-system/compare/v0.47.0...v0.48.0) (2021-03-23)
+
+
+### Features
+
+* cypress install seperate ([b14a794](https://github.com/rodekruis/IBF-system/commit/b14a7941afbe808f04dabe59b642d9e30186d416))
+
+
+
 # [0.47.0](https://github.com/rodekruis/IBF-system/compare/v0.46.0...v0.47.0) (2021-03-23)
 
 
@@ -147,21 +156,6 @@
 * eap actions submit AB[#6700](https://github.com/rodekruis/IBF-system/issues/6700) ([766b5bd](https://github.com/rodekruis/IBF-system/commit/766b5bddfc881bc286e2dd4819536fb9b754bec0))
 * populationAffected column should not get dropped on synchronize AB[#6690](https://github.com/rodekruis/IBF-system/issues/6690) ([ba32330](https://github.com/rodekruis/IBF-system/commit/ba32330e820b43d0f17c9e5f1eb4e4f775e481cb))
 * remove DDL AB[#6690](https://github.com/rodekruis/IBF-system/issues/6690) ([992db99](https://github.com/rodekruis/IBF-system/commit/992db99542151bc8eda59607eb6faaac7f764f8f))
-
-
-
-# [0.40.0](https://github.com/rodekruis/IBF-system/compare/v0.39.0...v0.40.0) (2021-03-19)
-
-
-### Bug Fixes
-
-* update geoserver store+layer to 5-day AB[#6703](https://github.com/rodekruis/IBF-system/issues/6703) ([04c645a](https://github.com/rodekruis/IBF-system/commit/04c645a0b671c7c0a4e48f2313a252894e269c02))
-* update UGA glofas stations AB[#6492](https://github.com/rodekruis/IBF-system/issues/6492) ([60cab6b](https://github.com/rodekruis/IBF-system/commit/60cab6b9bcdfb92597a0902dff199579f00f5d1d))
-
-
-### Features
-
-* use Glofas API instead of FTP AB[#6491](https://github.com/rodekruis/IBF-system/issues/6491) ([f0fd484](https://github.com/rodekruis/IBF-system/commit/f0fd484bbb1be6e555ae8001d0bfb972ee5e61a8))
 
 
 
