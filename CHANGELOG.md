@@ -1,3 +1,13 @@
+# [0.44.0](https://github.com/rodekruis/IBF-system/compare/v0.43.0...v0.44.0) (2021-03-23)
+
+
+### Features
+
+* cypress after merge ([019c426](https://github.com/rodekruis/IBF-system/commit/019c426f64e8bd35f9269420fab287495c6b5569))
+* cypress after merge ([67fc41a](https://github.com/rodekruis/IBF-system/commit/67fc41a1a9a01daf317512a83cc9720a6f6b7f74))
+
+
+
 # [0.43.0](https://github.com/rodekruis/IBF-system/compare/v0.42.0...v0.43.0) (2021-03-23)
 
 
@@ -153,15 +163,6 @@
 * broken wms layer AB[#6614](https://github.com/rodekruis/IBF-system/issues/6614) ([23d3310](https://github.com/rodekruis/IBF-system/commit/23d33105aeb577f63919639712a2390a378366c2))
 * broken wms layer AB[#6614](https://github.com/rodekruis/IBF-system/issues/6614) ([538c623](https://github.com/rodekruis/IBF-system/commit/538c623d81de7c494995a5966516a38725e497d0))
 * dont' use loader for close event AB[#6602](https://github.com/rodekruis/IBF-system/issues/6602) ([2f6a6ed](https://github.com/rodekruis/IBF-system/commit/2f6a6ed3cbae07a22bc6462e34cf7d2596bd9516))
-
-
-
-# [0.38.0](https://github.com/rodekruis/IBF-system/compare/v0.37.3...v0.38.0) (2021-03-15)
-
-
-### Features
-
-* changing console logs in seed ([5d0408d](https://github.com/rodekruis/IBF-system/commit/5d0408de90616add54e5e8609669fb790f7fa527))
 
 
 
