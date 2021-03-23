@@ -63,8 +63,7 @@ jobs:
             - run: npm ci --no-audit
             - run: npm run lint
             - run: npm test
-            - run:
-                  docker build . --file Dockerfile --tag
+            - run: docker build . --file Dockerfile --tag
                   rodekruis/ibf-api-service:$(date +%s)
 
     ibf-dashboard:
@@ -89,8 +88,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
             - run: npm ci --no-audit
             - run: npm test
-            - run:
-                  docker build . --file Dockerfile --tag
+            - run: docker build . --file Dockerfile --tag
                   rodekruis/ibf-dashboard:$(date +%s)
 
     ibf-pipeline:
@@ -105,8 +103,7 @@ jobs:
 
         steps:
             - uses: actions/checkout@v2
-            - run:
-                  docker build . --file Dockerfile --tag
+            - run: docker build . --file Dockerfile --tag
                   rodekruis/ibf-pipeline:$(date +%s)
 
     bump-version:
@@ -133,3 +130,31 @@ jobs:
                   github-token: ${{ secrets.ACTIONS_TOKEN }}
                   git-message: "chore(release): {version}"
                   release-count: 10
+    cypress-run:
+        needs: detect-changes
+        if: |
+            always() &&
+            github.event_name == 'push'
+        runs-on: ubuntu-latest
+
+        env:
+            DB_TYPE: ${{ secrets.DB_TYPE }}
+            DB_HOST: ${{ secrets.DB_HOST }}
+            DB_PORT: ${{ secrets.DB_PORT }}
+            DB_DATABASE: ${{ secrets.DB_DATABASE }}
+            DB_USERNAME: ${{ secrets.DB_USERNAME }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+            SECRET: ${{ secrets.SECRET }}
+            COUNTRIES: UGA
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            # Install NPM dependencies, cache them correctly
+            # and run all Cypress tests
+            - name: Cypress run
+              uses: cypress-io/github-action@v2
+              with:
+                  build: npm run i
+                  wait-on: "https://ibf-test.510.global/"
+                  wait-on-timeout: 6000
