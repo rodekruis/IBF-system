@@ -1,3 +1,13 @@
+# [0.45.0](https://github.com/rodekruis/IBF-system/compare/v0.44.0...v0.45.0) (2021-03-23)
+
+
+### Features
+
+* add data to git-lfs as a test AB[#6717](https://github.com/rodekruis/IBF-system/issues/6717) ([ad64317](https://github.com/rodekruis/IBF-system/commit/ad64317c70e7da67c741a238ce78dcb01bcfe3b8))
+* add popup info flood susceptibility AB[#6633](https://github.com/rodekruis/IBF-system/issues/6633) ([2d379d1](https://github.com/rodekruis/IBF-system/commit/2d379d18ad814ca335d595cd23be8412728b1db5))
+
+
+
 # [0.44.0](https://github.com/rodekruis/IBF-system/compare/v0.43.0...v0.44.0) (2021-03-23)
 
 
@@ -152,17 +162,6 @@
 ### Bug Fixes
 
 * run sql-scripts in right order AB[#6603](https://github.com/rodekruis/IBF-system/issues/6603) ([8f97aea](https://github.com/rodekruis/IBF-system/commit/8f97aeae73d8bbd48e276e64c820fae5f5fb3e2a))
-
-
-
-## [0.38.1](https://github.com/rodekruis/IBF-system/compare/v0.38.0...v0.38.1) (2021-03-15)
-
-
-### Bug Fixes
-
-* broken wms layer AB[#6614](https://github.com/rodekruis/IBF-system/issues/6614) ([23d3310](https://github.com/rodekruis/IBF-system/commit/23d33105aeb577f63919639712a2390a378366c2))
-* broken wms layer AB[#6614](https://github.com/rodekruis/IBF-system/issues/6614) ([538c623](https://github.com/rodekruis/IBF-system/commit/538c623d81de7c494995a5966516a38725e497d0))
-* dont' use loader for close event AB[#6602](https://github.com/rodekruis/IBF-system/issues/6602) ([2f6a6ed](https://github.com/rodekruis/IBF-system/commit/2f6a6ed3cbae07a22bc6462e34cf7d2596bd9516))
 
 
 
