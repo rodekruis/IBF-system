@@ -130,25 +130,3 @@ jobs:
                   github-token: ${{ secrets.ACTIONS_TOKEN }}
                   git-message: "chore(release): {version}"
                   release-count: 10
-    cypress-run:
-        needs: bump-version
-        if: |
-            always() &&
-            github.event_name == 'push'
-        runs-on: ubuntu-latest
-
-        env:
-            CYPRESS_BASE_URL: ${{ secrets.CYPRESS_BASE_URL }}
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-            # Install NPM dependencies, cache them correctly
-            # and run all Cypress tests
-            - name: Cypress run
-              uses: cypress-io/github-action@v2
-              with:
-                  install: false
-                  build: npm run install:cypress
-                  wait-on: "https://ibf-test.510.global/"
-                  wait-on-timeout: 6000
