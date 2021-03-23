@@ -1,3 +1,13 @@
+# [0.50.0](https://github.com/rodekruis/IBF-system/compare/v0.49.0...v0.50.0) (2021-03-23)
+
+
+### Features
+
+* cypress install seperate ([ea2401a](https://github.com/rodekruis/IBF-system/commit/ea2401a5ac9739b00d4fd2fcbdbebfb290f4a872))
+* cypress on deploy ([4a1d06b](https://github.com/rodekruis/IBF-system/commit/4a1d06b6b6a68edff778ba7bf971722aae05efff))
+
+
+
 # [0.49.0](https://github.com/rodekruis/IBF-system/compare/v0.48.0...v0.49.0) (2021-03-23)
 
 
@@ -144,16 +154,6 @@
 * make pipeline read geojson from db instead of file AB[#6626](https://github.com/rodekruis/IBF-system/issues/6626) ([ece8d81](https://github.com/rodekruis/IBF-system/commit/ece8d8171e6febfdf54f6980a9999fa645bbf85e))
 * update egypt geojson AB[#6627](https://github.com/rodekruis/IBF-system/issues/6627) ([8a8ab77](https://github.com/rodekruis/IBF-system/commit/8a8ab776dcbe261c803c1327bcfde6544c2e2c62))
 * visualize disputed boundaries AB[#6629](https://github.com/rodekruis/IBF-system/issues/6629) ([a57520b](https://github.com/rodekruis/IBF-system/commit/a57520bff7008169048ecbab1d3c1bd732bc70db))
-
-
-
-## [0.40.2](https://github.com/rodekruis/IBF-system/compare/v0.40.1...v0.40.2) (2021-03-19)
-
-
-### Bug Fixes
-
-* also apply change in trigger-situation AB[#6691](https://github.com/rodekruis/IBF-system/issues/6691) ([33a30dd](https://github.com/rodekruis/IBF-system/commit/33a30ddc13674b708a20925f2e99f294e9a6009d))
-* unselected places should not turn grey for admin boundary layer AB[#6691](https://github.com/rodekruis/IBF-system/issues/6691) ([7467ab2](https://github.com/rodekruis/IBF-system/commit/7467ab211017a4e69b3dca6f979d855b1a3ef142))
 
 
 
