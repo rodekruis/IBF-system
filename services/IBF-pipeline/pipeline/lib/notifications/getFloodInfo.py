@@ -11,7 +11,7 @@ def getFloodInfo(countryCode):
             t1.name
             ,t0.population_affected
             ,t0.lead_time
-            ,case when t0.fc_prob>=0.8 then 'Maximum alert' when t0.fc_prob>=0.7 then 'Medium alert' when t0.fc_prob>=0.6 then 'Minimum alert' end as fc_prob
+            ,case when t0.fc_prob>=0.8 then 'Maximum alert' when t0.fc_prob>=0.7 then 'Medium alert' when t0.fc_prob>=0.6 then 'Minimum alert' else '' end as fc_prob
         from
             "IBF-pipeline-output".data_adm2 t0
         left join (
@@ -25,7 +25,6 @@ def getFloodInfo(countryCode):
             and t0.lead_time = t1.lead_time
         where
             t0.country_code = \'''' + countryCode + '''\'
-            and t0.fc_trigger = 1
             and t0.population_affected > 0
         order by population_affected desc
     '''

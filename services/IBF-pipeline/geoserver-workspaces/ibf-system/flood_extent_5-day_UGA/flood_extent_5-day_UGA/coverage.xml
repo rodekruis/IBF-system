@@ -1,14 +1,14 @@
 <coverage>
-  <id>CoverageInfoImpl--2b88a80e:17802070c75:-7e37</id>
-  <name>flood_extent_7-day_UGA</name>
-  <nativeName>flood_extent_7-day_UGA</nativeName>
+  <id>CoverageInfoImpl--348e44ac:17849e219c0:-7ff5</id>
+  <name>flood_extent_5-day_UGA</name>
+  <nativeName>flood_extent_5-day_UGA</nativeName>
   <namespace>
     <id>NamespaceInfoImpl-48cab08a:175ace47603:-7ffa</id>
   </namespace>
-  <title>flood_extent_7-day_UGA</title>
+  <title>flood_extent_5-day_UGA</title>
   <description>Generated from GeoTIFF</description>
   <keywords>
-    <string>flood_extent_7-day_UGA</string>
+    <string>flood_extent_5-day_UGA</string>
     <string>WCS</string>
     <string>GeoTIFF</string>
   </keywords>
@@ -46,10 +46,10 @@
       </directDownloadSettings>
     </entry>
     <entry key="cachingEnabled">false</entry>
-    <entry key="dirName">flood_extent_7-day_UGA_flood_extent_7-day_UGA</entry>
+    <entry key="dirName">flood_extent_5-day_UGA_flood_extent_5-day_UGA</entry>
   </metadata>
   <store class="coverageStore">
-    <id>CoverageStoreInfoImpl--2b88a80e:17802070c75:-7e38</id>
+    <id>CoverageStoreInfoImpl--348e44ac:17849e219c0:-7ff7</id>
   </store>
   <serviceConfiguration>false</serviceConfiguration>
   <simpleConversionEnabled>false</simpleConversionEnabled>
@@ -70,11 +70,11 @@
     <crs>EPSG:4326</crs>
   </grid>
   <supportedFormats>
-    <string>GEOTIFF</string>
     <string>GIF</string>
     <string>PNG</string>
     <string>JPEG</string>
     <string>TIFF</string>
+    <string>GEOTIFF</string>
   </supportedFormats>
   <interpolationMethods>
     <string>nearest neighbor</string>
@@ -118,5 +118,5 @@
       <boolean>true</boolean>
     </entry>
   </parameters>
-  <nativeCoverageName>flood_extent_7-day_UGA</nativeCoverageName>
+  <nativeCoverageName>flood_extent_5-day_UGA</nativeCoverageName>
 </coverage>

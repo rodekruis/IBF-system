@@ -1,6 +1,6 @@
 {
   "name": "IBF-system",
-  "version": "0.39.0",
+  "version": "0.51.1",
   "private": true,
   "scripts": {
     "demo": "npx npm-run-all --print-label --parallel start open",
@@ -26,13 +26,16 @@
     "lint:ibf-services": "npx npm-run-all --print-label --parallel lint:ibf-api-service",
     "lint:ibf-api-service": "npm run lint --prefix services/API-service/",
     "lint:ibf-interfaces": "npx npm-run-all --print-label --parallel lint:ibf-dashboard",
-    "lint:ibf-dashboard": "npm run lint --prefix interfaces/IBF-dashboard/"
+    "lint:ibf-dashboard": "npm run lint --prefix interfaces/IBF-dashboard/",
+    "start:cypress": "npx cypress open",
+    "install:cypress": "npm install cypress@6.6.0"
   },
   "dependencies": {
     "github-webhook-handler": "^1.0.0"
   },
   "devDependencies": {
     "@lhci/cli": "^0.7.0",
+    "cypress": "^6.6.0",
     "lighthouse": "^7.2.0",
     "pre-commit": "^1.2.2",
     "pre-push": "^0.1.1",

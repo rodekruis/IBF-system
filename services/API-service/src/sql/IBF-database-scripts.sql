@@ -2,9 +2,8 @@
 --These views/functions are stored in Postgres and called from
 --They are kept explicitly here in the repository for documentation 
 
---DROP TABLE IF EXISTS "IBF-static-input".dashboard_glofas_stations cascade;
-truncate TABLE "IBF-static-input".dashboard_glofas_stations;
-insert into "IBF-static-input".dashboard_glofas_stations
+DROP TABLE IF EXISTS "IBF-static-input".dashboard_glofas_stations cascade;
+create table "IBF-static-input".dashboard_glofas_stations as
 select "countryCode" as country_code 
 	, "stationCode" as station_code
 	, "stationName" as station_name
@@ -14,6 +13,8 @@ select "countryCode" as country_code
 	, "threshold10Year" as "10yr_threshold"
 	, "threshold20Year" as "20yr_threshold"
 	, st_astext(geom) as geom
+	, lat
+	, lon
 from "IBF-app"."glofasStation" 
 ;
 --select * from "IBF-static-input".dashboard_glofas_stations
