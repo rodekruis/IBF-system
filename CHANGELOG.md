@@ -1,3 +1,12 @@
+# [0.51.0](https://github.com/rodekruis/IBF-system/compare/v0.50.0...v0.51.0) (2021-03-23)
+
+
+### Features
+
+* cypress on deploy ([23f5fbb](https://github.com/rodekruis/IBF-system/commit/23f5fbb4546ec1986ed61352a2c1299c3dee170f))
+
+
+
 # [0.50.0](https://github.com/rodekruis/IBF-system/compare/v0.49.0...v0.50.0) (2021-03-23)
 
 
@@ -137,23 +146,6 @@
 * add flood susceptibility layer AB[#6635](https://github.com/rodekruis/IBF-system/issues/6635) ([4786238](https://github.com/rodekruis/IBF-system/commit/4786238d69fbbafe0e71ab047b5014579bbeba39))
 * add flood susceptibility layer geoserver AB[#6631](https://github.com/rodekruis/IBF-system/issues/6631) ([5dccdf1](https://github.com/rodekruis/IBF-system/commit/5dccdf135ed05ab9e58f7be8d839f60cca1e1726))
 * add style geoserver for flood susceptibiltiy AB[#6632](https://github.com/rodekruis/IBF-system/issues/6632) ([db27375](https://github.com/rodekruis/IBF-system/commit/db273756c44e7d28ebb60d02c716803ef2bc9bcc))
-
-
-
-# [0.41.0](https://github.com/rodekruis/IBF-system/compare/v0.40.2...v0.41.0) (2021-03-19)
-
-
-### Bug Fixes
-
-* load all users on staging AB[#6636](https://github.com/rodekruis/IBF-system/issues/6636) ([d2ddeef](https://github.com/rodekruis/IBF-system/commit/d2ddeef964221a4d5f60cd511d40e6d7add9c44c))
-
-
-### Features
-
-* endpoint to get admin boundaries (for pipeline, unused yet) AB[#6626](https://github.com/rodekruis/IBF-system/issues/6626) ([21f76ef](https://github.com/rodekruis/IBF-system/commit/21f76ef91020017d234deaac90e50e4abfd1fb22))
-* make pipeline read geojson from db instead of file AB[#6626](https://github.com/rodekruis/IBF-system/issues/6626) ([ece8d81](https://github.com/rodekruis/IBF-system/commit/ece8d8171e6febfdf54f6980a9999fa645bbf85e))
-* update egypt geojson AB[#6627](https://github.com/rodekruis/IBF-system/issues/6627) ([8a8ab77](https://github.com/rodekruis/IBF-system/commit/8a8ab776dcbe261c803c1327bcfde6544c2e2c62))
-* visualize disputed boundaries AB[#6629](https://github.com/rodekruis/IBF-system/issues/6629) ([a57520b](https://github.com/rodekruis/IBF-system/commit/a57520bff7008169048ecbab1d3c1bd732bc70db))
 
 
 
