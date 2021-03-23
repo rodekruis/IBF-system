@@ -91,6 +91,16 @@ function deploy() {
         docker image prune -f
     }
 
+    function test_cypress() {
+        if [[ $NODE_ENV="test" ]]
+        then
+            log "Run cypress test on $NODE_ENV environment..."
+            npx cypress run --project .. --record
+        else
+            log "Skip cypress test on $NODE_ENV environment..."
+        fi
+    }
+
     function test_lighthouse() {
         if [[ $NODE_ENV="test" ]]
         then
@@ -110,6 +120,8 @@ function deploy() {
     migrate_database
 
     cleanup_docker
+
+    test_cypress
 
     test_lighthouse
 
