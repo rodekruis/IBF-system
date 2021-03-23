@@ -131,7 +131,7 @@ jobs:
                   git-message: "chore(release): {version}"
                   release-count: 10
     cypress-run:
-        needs: detect-changes
+        needs: bump-version
         if: |
             always() &&
             github.event_name == 'push'
