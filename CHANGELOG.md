@@ -1,3 +1,12 @@
+# [0.46.0](https://github.com/rodekruis/IBF-system/compare/v0.45.0...v0.46.0) (2021-03-23)
+
+
+### Features
+
+* cypress after merge ([3507074](https://github.com/rodekruis/IBF-system/commit/350707473e80dbeeef076b047719a509ae99917b))
+
+
+
 # [0.45.0](https://github.com/rodekruis/IBF-system/compare/v0.44.0...v0.45.0) (2021-03-23)
 
 
@@ -153,15 +162,6 @@
 ### Features
 
 * disable close-event when activeTrigger AB[#6623](https://github.com/rodekruis/IBF-system/issues/6623) ([f2a5729](https://github.com/rodekruis/IBF-system/commit/f2a57294e03b613f12bf0e7b10b4844b0afe2e59))
-
-
-
-## [0.38.2](https://github.com/rodekruis/IBF-system/compare/v0.38.1...v0.38.2) (2021-03-15)
-
-
-### Bug Fixes
-
-* run sql-scripts in right order AB[#6603](https://github.com/rodekruis/IBF-system/issues/6603) ([8f97aea](https://github.com/rodekruis/IBF-system/commit/8f97aeae73d8bbd48e276e64c820fae5f5fb3e2a))
 
 
 
