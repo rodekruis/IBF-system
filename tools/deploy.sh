@@ -95,7 +95,7 @@ function deploy() {
         if [[ $NODE_ENV="test" ]]
         then
             log "Run cypress test on $NODE_ENV environment..."
-            npx cypress run --project .. --record
+            npx cypress run --record
         else
             log "Skip cypress test on $NODE_ENV environment..."
         fi
