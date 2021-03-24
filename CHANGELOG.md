@@ -1,3 +1,12 @@
+## [0.51.3](https://github.com/rodekruis/IBF-system/compare/v0.51.2...v0.51.3) (2021-03-24)
+
+
+### Bug Fixes
+
+* use observables instead of promises AB[#6739](https://github.com/rodekruis/IBF-system/issues/6739) ([979594d](https://github.com/rodekruis/IBF-system/commit/979594d511c3678d6228b3a6aa6c1e49e5d9aaa2))
+
+
+
 ## [0.51.2](https://github.com/rodekruis/IBF-system/compare/v0.51.1...v0.51.2) (2021-03-23)
 
 
@@ -78,16 +87,6 @@
 
 * add data to git-lfs as a test AB[#6717](https://github.com/rodekruis/IBF-system/issues/6717) ([ad64317](https://github.com/rodekruis/IBF-system/commit/ad64317c70e7da67c741a238ce78dcb01bcfe3b8))
 * add popup info flood susceptibility AB[#6633](https://github.com/rodekruis/IBF-system/issues/6633) ([2d379d1](https://github.com/rodekruis/IBF-system/commit/2d379d18ad814ca335d595cd23be8412728b1db5))
-
-
-
-# [0.44.0](https://github.com/rodekruis/IBF-system/compare/v0.43.0...v0.44.0) (2021-03-23)
-
-
-### Features
-
-* cypress after merge ([019c426](https://github.com/rodekruis/IBF-system/commit/019c426f64e8bd35f9269420fab287495c6b5569))
-* cypress after merge ([67fc41a](https://github.com/rodekruis/IBF-system/commit/67fc41a1a9a01daf317512a83cc9720a6f6b7f74))
 
 
 
