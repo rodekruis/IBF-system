@@ -11,10 +11,10 @@ export function getRecentDates() {
 
 export function getEvent() {
   return {
-    country_code: 'UGA',
-    start_date: DateTime.now().minus({ days: 12 }).toFormat('yyyy-LL-dd'),
-    end_date: DateTime.now().minus({ days: 7 }).toFormat('yyyy-LL-dd'),
-    id: '14',
+    countryCode: 'UGA',
+    startDate: DateTime.now().minus({ days: 12 }).toFormat('yyyy-LL-dd'),
+    endDate: DateTime.now().minus({ days: 7 }).toFormat('yyyy-LL-dd'),
+    activeTrigger: true,
   };
 }
 
@@ -28,26 +28,32 @@ export function getTriggerPerLeadTime() {
     6: '0',
     7: '0',
     country_code: 'UGA',
-    current_prev: 'Current',
+    date: DateTime.now().minus({ days: 3 }).toFormat('yyyy-LL-dd'),
   };
 }
 
 export function getTriggeredAreas() {
   return [
     {
-      pcode: '21UGA006003',
+      placeCode: '21UGA006003',
       name: 'Bulambuli',
-      population_affected: 646.299926757813,
+      populationAffected: 646.299926757813,
+      activeTrigger: true,
+      eventPlaceCodeId: 'f4cae6bf-c55b-4e14-b467-9b97fd618c30',
     },
     {
-      pcode: '21UGA013006',
+      placeCode: '21UGA013006',
       name: 'Kumi',
-      population_affected: 432.408020019531,
+      populationAffected: 432.408020019531,
+      activeTrigger: true,
+      eventPlaceCodeId: 'f4cae6bf-c55b-4e14-b467-9b97fd618c31',
     },
     {
-      pcode: '21UGA013002',
+      placeCode: '21UGA013002',
       name: 'Bukedea',
-      population_affected: 144.982131958008,
+      populationAffected: 144.982131958008,
+      activeTrigger: true,
+      eventPlaceCodeId: 'f4cae6bf-c55b-4e14-b467-9b97fd618c32',
     },
   ];
 }
@@ -58,73 +64,121 @@ export function getStations() {
     features: [
       {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [34.04999924, 0.150000006],
-        },
+        geometry: { type: 'Point', coordinates: [33.95, 0.95] },
         properties: {
           country_code: 'UGA',
-          lead_time: '7-day',
-          station_code: 'G5195',
-          station_name: 'NZOIA AT RUAMBWA FERRY (1EF01)',
-          trigger_level: 1951.601318,
-          fc: '0',
+          lead_time: '5-day',
+          station_code: 'DWRM1',
+          station_name: 'R. Manafwa at Butaleja',
+          trigger_level: 841,
+          fc: 59.2738970588,
           fc_trigger: '0',
-          fc_perc: 0,
+          fc_perc: 0.0704802580960761,
           fc_prob: '0',
         },
       },
       {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [33.84999847, 1.75],
-        },
+        geometry: { type: 'Point', coordinates: [32.15, 0.65] },
         properties: {
           country_code: 'UGA',
-          lead_time: '7-day',
-          station_code: 'G5196',
-          station_name: 'Akokorio at Uganda Gauge',
-          trigger_level: 125.1974792,
-          fc: '0',
+          lead_time: '5-day',
+          station_code: 'DWRM10',
+          station_name: 'R. Mayanja',
+          trigger_level: 84,
+          fc: 3.1121323529,
           fc_trigger: '0',
-          fc_perc: 0,
+          fc_perc: 0.037049194677381,
           fc_prob: '0',
         },
       },
       {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [33.95000076, 1.649999976],
-        },
+        geometry: { type: 'Point', coordinates: [30.95, 1.15] },
         properties: {
           country_code: 'UGA',
-          lead_time: '7-day',
-          station_code: 'G5200',
-          station_name: 'Magoro Ngariam',
-          trigger_level: 644.5651245,
-          fc: '100',
+          lead_time: '5-day',
+          station_code: 'DWRM12',
+          station_name: 'R. Nkusi',
+          trigger_level: 28,
+          fc: 1.6231617647,
           fc_trigger: '0',
-          fc_perc: 0.15,
+          fc_perc: 0.057970063025,
           fc_prob: '0',
         },
       },
       {
         type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [34.04999924, 2.450000048],
-        },
+        geometry: { type: 'Point', coordinates: [33.85, 1.75] },
         properties: {
           country_code: 'UGA',
-          lead_time: '7-day',
-          station_code: 'G6106',
-          station_name: 'Kapelebyong',
-          trigger_level: 160.9732056,
-          fc: '0',
+          lead_time: '5-day',
+          station_code: 'DWRM14',
+          station_name: 'Akokoro at Uganda Gauge',
+          trigger_level: 100,
+          fc: 7.5980392157,
           fc_trigger: '0',
-          fc_perc: 0,
+          fc_perc: 0.075980392157,
+          fc_prob: '0',
+        },
+      },
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [34.05, 0.25] },
+        properties: {
+          country_code: 'UGA',
+          lead_time: '5-day',
+          station_code: 'DWRM2',
+          station_name: 'R. Sio',
+          trigger_level: 92,
+          fc: 40.9552696078,
+          fc_trigger: '0',
+          fc_perc: 0.445165973997826,
+          fc_prob: '0',
+        },
+      },
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [33.75, 0.75] },
+        properties: {
+          country_code: 'UGA',
+          lead_time: '5-day',
+          station_code: 'DWRM3',
+          station_name: 'R. Mpologoma at Budumba',
+          trigger_level: 427,
+          fc: 82.7626953125,
+          fc_trigger: '0',
+          fc_perc: 0.193823642418033,
+          fc_prob: '0',
+        },
+      },
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [30.75, 0.85] },
+        properties: {
+          country_code: 'UGA',
+          lead_time: '5-day',
+          station_code: 'DWRM7',
+          station_name: 'R. Muzizi',
+          trigger_level: 21,
+          fc: 1.9914215686,
+          fc_trigger: '0',
+          fc_perc: 0.0948295985047619,
+          fc_prob: '0',
+        },
+      },
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [29.75, -0.75] },
+        properties: {
+          country_code: 'UGA',
+          lead_time: '5-day',
+          station_code: 'DWRM9',
+          station_name: 'R. Mitano',
+          trigger_level: 104,
+          fc: 22.0508578431,
+          fc_trigger: '0',
+          fc_perc: 0.212027479260577,
           fc_prob: '0',
         },
       },
@@ -135,7 +189,7 @@ export function getStations() {
 export function getAdminRegions() {
   var result = JSON.parse(JSON.stringify(adminAreaData)); // Hack to clone without reference
   result.features.forEach((feature) => {
-    feature.properties.population_affected = 0;
+    feature.properties.populationAffected = 0;
   });
   return result;
 }
