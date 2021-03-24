@@ -26,6 +26,7 @@ import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
+import { MockScenario } from '../mocks/mock-scenario.enum';
 import { Country } from '../models/country.model';
 import { LayerActivation } from '../models/layer-activation.enum';
 import { breakKey } from '../models/map.model';
@@ -64,6 +65,7 @@ export class MapService {
   private popoverTexts: { [key: string]: string } = {};
   private country: Country;
   private placeCode: PlaceCode;
+  private mockScenario: MockScenario;
 
   constructor(
     private countryService: CountryService,
@@ -96,9 +98,12 @@ export class MapService {
         this.placeCode = placeCode;
       });
 
-    this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
-      this.loadCountryLayers();
-    });
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe((mockScenario: MockScenario) => {
+        this.mockScenario = mockScenario;
+        this.loadCountryLayers();
+      });
 
     this.translateService
       .get('map-service.popover')
@@ -475,7 +480,7 @@ export class MapService {
     if (interactedLayerIndex >= 0) {
       this.layers.forEach((layer: IbfLayer): void => {
         let layerObservable: Observable<GeoJSON.FeatureCollection> = EMPTY;
-        const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}`;
+        const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}_${this.mockScenario}`;
         const layerActive = this.isLayerActive(active, layer, interactedLayer);
         if (this.layerDataCache[layerDataCacheKey]) {
           layerObservable = this.layerDataCache[layerDataCacheKey];
