@@ -40,15 +40,19 @@ export class AdminLevelComponent {
 
   setAdminLevel(adminLevel: number, state: boolean): void {
     if (this.adminLevelService.adminLevel === adminLevel) {
-      this.mapService.updateLayer(IbfLayerName.adminRegions, state, true);
+      this.mapService.updateLayers(IbfLayerName.adminRegions, state, true);
       const activeLayerName = this.mapService.layers.find(
         (l) => l.active && l.group === IbfLayerGroup.aggregates,
       )?.name;
       if (activeLayerName) {
-        this.mapService.updateLayer(IbfLayerName[activeLayerName], state, true);
+        this.mapService.updateLayers(
+          IbfLayerName[activeLayerName],
+          state,
+          true,
+        );
         this.mapService.activeLayerName = activeLayerName;
       } else if (this.mapService.activeLayerName) {
-        this.mapService.updateLayer(
+        this.mapService.updateLayers(
           IbfLayerName[this.mapService.activeLayerName],
           state,
           true,

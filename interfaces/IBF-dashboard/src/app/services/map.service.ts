@@ -3,7 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
@@ -36,7 +37,6 @@ export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
   public layers = [] as IbfLayer[];
   public activeLayerName: IbfLayerName;
-  public adminRegionsObject: object = {};
   public alertColor = '#de9584';
   public safeColor = '#2c45fd';
   public hoverFillOpacity = 0.6;
@@ -46,6 +46,7 @@ export class MapService {
     dashArray: '5 5',
     color: this.alertColor,
   };
+  private layerDataCache = {};
 
   public state = {
     bounds: [
@@ -348,7 +349,7 @@ export class MapService {
   public hideAggregateLayers() {
     this.layers.forEach((layer: IbfLayer) => {
       if (layer.group === IbfLayerGroup.aggregates) {
-        this.updateLayer(layer.name, layer.active, false);
+        this.updateLayers(layer.name, layer.active, false);
       }
     });
   }
@@ -417,15 +418,15 @@ export class MapService {
     });
   }
 
-  private isLayerActive(active, layer, triggerLayer) {
+  private isLayerActive(active, layer, interactedLayer) {
     const isActiveDefined = active != null;
-    const isTriggerLayer = layer.name === triggerLayer.name;
-    const isTriggerLayerGroup = layer.group === triggerLayer.group;
+    const isInteractedLayer = layer.name === interactedLayer.name;
+    const isInteractedLayerGroup = layer.group === interactedLayer.group;
 
     let isActive = layer.active;
 
-    if (isActiveDefined && isTriggerLayerGroup) {
-      if (isTriggerLayer) {
+    if (isActiveDefined && isInteractedLayerGroup) {
+      if (isInteractedLayer) {
         isActive = active;
       } else {
         if (layer.group) {
@@ -437,189 +438,104 @@ export class MapService {
     return isActive;
   }
 
-  public updateLayer(name: IbfLayerName, active: boolean, show: boolean): void {
-    const triggerLayerIndex = this.getLayerIndexById(name);
-    const triggerLayer = this.layers[triggerLayerIndex];
-    if (triggerLayerIndex >= 0) {
-      this.layers.forEach(
-        async (layer: IbfLayer): Promise<void> => {
-          const layerActive = this.isLayerActive(active, layer, triggerLayer);
-          this.addLayer({
-            name: layer.name,
-            label: layer.label,
-            type: layer.type,
-            description: layer.description,
-            active: layerActive,
-            viewCenter: false,
-            data: this.layerDataLoadRequired(layer, layerActive)
-              ? await this.getLayerData(layer)
-              : layer.data,
-            wms: layer.wms,
-            colorProperty: layer.colorProperty,
-            colorBreaks: layer.colorBreaks,
-            numberFormatMap: layer.numberFormatMap,
-            legendColor: layer.legendColor,
-            group: layer.group,
-            order: layer.order,
-            unit: layer.unit,
-            show:
-              show == null || layer.name !== triggerLayer.name
-                ? layer.show
-                : show,
-          });
-        },
-      );
+  private updateLayer = (
+    active: boolean,
+    show: boolean,
+    layer: IbfLayer,
+    interactedLayer: IbfLayer,
+  ) => (layerData) => {
+    this.addLayer({
+      name: layer.name,
+      label: layer.label,
+      type: layer.type,
+      description: layer.description,
+      active,
+      viewCenter: false,
+      data: layerData,
+      wms: layer.wms,
+      colorProperty: layer.colorProperty,
+      colorBreaks: layer.colorBreaks,
+      numberFormatMap: layer.numberFormatMap,
+      legendColor: layer.legendColor,
+      group: layer.group,
+      order: layer.order,
+      unit: layer.unit,
+      show:
+        show == null || layer.name !== interactedLayer.name ? layer.show : show,
+    });
+  };
+
+  public updateLayers(
+    name: IbfLayerName,
+    active: boolean,
+    show: boolean,
+  ): void {
+    const interactedLayerIndex = this.getLayerIndexById(name);
+    const interactedLayer = this.layers[interactedLayerIndex];
+    if (interactedLayerIndex >= 0) {
+      this.layers.forEach((layer: IbfLayer): void => {
+        let layerObservable: Observable<GeoJSON.FeatureCollection> = EMPTY;
+        const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}`;
+        const layerActive = this.isLayerActive(active, layer, interactedLayer);
+        if (this.layerDataCache[layerDataCacheKey]) {
+          layerObservable = this.layerDataCache[layerDataCacheKey];
+        } else if (layerActive) {
+          layerObservable = this.getLayerData(layer, layerDataCacheKey);
+        }
+        layerObservable.subscribe(
+          this.updateLayer(layerActive, show, layer, interactedLayer),
+        );
+      });
     } else {
       throw Error(`Layer '${name}' does not exist`);
     }
   }
 
-  public layerDataLoadRequired(layer: IbfLayer, layerActive: boolean): boolean {
-    if (!layerActive) {
-      return false;
-    }
-    if (layer.wms) {
-      return false;
-    } else if (!layer.data) {
-      // layer data has not been loaded yet
-      return true;
-    } else if (layer.data.features && layer.data.features.length === 0) {
-      // layer is aggegrate layer that has not been loaded yet
-      return true;
-    }
-    return false;
-  }
-
-  public async getLayerData(
+  public getLayerData(
     layer: IbfLayer,
-  ): Promise<GeoJSON.FeatureCollection> {
-    let data;
+    layerDataCacheKey: string,
+  ): Observable<GeoJSON.FeatureCollection> {
+    let layerData: Observable<GeoJSON.FeatureCollection>;
     if (layer.name === IbfLayerName.waterpoints) {
-      data = await this.getWaterPoints();
+      layerData = this.apiService
+        .getWaterPoints(this.country.countryCodeISO3)
+        .pipe(shareReplay(1));
     } else if (
       layer.name === IbfLayerName.redCrossBranches ||
       layer.name === IbfLayerName.redCrescentBranches
     ) {
-      data = await this.getRedCrossBranches();
+      layerData = this.apiService
+        .getRedCrossBranches(this.country.countryCodeISO3)
+        .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.glofasStations) {
-      data = await this.getStations();
+      layerData = this.apiService
+        .getStations(
+          this.country.countryCodeISO3,
+          this.timelineService.activeLeadTime,
+        )
+        .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.adminRegions) {
-      data = await this.getAdminRegions();
+      layerData = this.apiService
+        .getAdminRegions(
+          this.country.countryCodeISO3,
+          this.timelineService.activeLeadTime,
+          this.adminLevelService.adminLevel,
+        )
+        .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.covidRisk) {
-      data = await this.getAdmin2Data();
+      layerData = this.apiService.getAdmin2Data().pipe(shareReplay(1));
     } else {
       // In case layer is aggregate layer
-      data = await this.getAdminRegions();
+      layerData = this.apiService
+        .getAdminRegions(
+          this.country.countryCodeISO3,
+          this.timelineService.activeLeadTime,
+          this.adminLevelService.adminLevel,
+        )
+        .pipe(shareReplay(1));
     }
-    return data;
-  }
-
-  public async getStations(): Promise<GeoJSON.FeatureCollection> {
-    return new Promise((resolve): void => {
-      this.countryService.getCountrySubscription().subscribe(
-        async (country: Country): Promise<void> => {
-          let stations = {
-            features: [],
-          } as GeoJSON.FeatureCollection;
-
-          if (country) {
-            stations = await this.apiService
-              .getStations(
-                country.countryCodeISO3,
-                this.timelineService.activeLeadTime,
-              )
-              .toPromise();
-          }
-
-          resolve(stations);
-        },
-      );
-    });
-  }
-
-  public async getRedCrossBranches(): Promise<GeoJSON.FeatureCollection> {
-    return new Promise((resolve): void => {
-      this.countryService.getCountrySubscription().subscribe(
-        async (country: Country): Promise<void> => {
-          let redCrossBranches = {
-            features: [],
-          } as GeoJSON.FeatureCollection;
-
-          if (country) {
-            redCrossBranches = await this.apiService
-              .getRedCrossBranches(country.countryCodeISO3)
-              .toPromise();
-          }
-
-          resolve(redCrossBranches);
-        },
-      );
-    });
-  }
-
-  public async getWaterPoints(): Promise<GeoJSON.FeatureCollection> {
-    return new Promise((resolve): void => {
-      this.countryService.getCountrySubscription().subscribe(
-        async (country: Country): Promise<void> => {
-          let waterPoints = {
-            features: [],
-          } as GeoJSON.FeatureCollection;
-
-          if (country) {
-            waterPoints = await this.apiService
-              .getWaterPoints(country.countryCodeISO3)
-              .toPromise();
-          }
-
-          resolve(waterPoints);
-        },
-      );
-    });
-  }
-
-  public async getAdminRegions(): Promise<GeoJSON.FeatureCollection> {
-    return new Promise((resolve): void => {
-      this.countryService.getCountrySubscription().subscribe(
-        async (country: Country): Promise<void> => {
-          let adminRegions = {
-            features: [],
-          } as GeoJSON.FeatureCollection;
-          if (country) {
-            const activeLeadTime = this.timelineService.activeLeadTime
-              ? this.timelineService.activeLeadTime
-              : LeadTime.day7;
-            if (
-              this.adminRegionsObject[
-                `${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`
-              ]
-            ) {
-              // Get admin regions from memory
-              adminRegions = this.adminRegionsObject[
-                `${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`
-              ];
-            } else {
-              // Get admin regions from api
-              adminRegions = await this.apiService
-                .getAdminRegions(
-                  country.countryCodeISO3,
-                  this.timelineService.activeLeadTime,
-                  this.adminLevelService.adminLevel,
-                )
-                .toPromise();
-              this.adminRegionsObject[
-                `${country.countryCodeISO3}${activeLeadTime}${this.adminLevelService.adminLevel}`
-              ] = adminRegions;
-            }
-          }
-          resolve(adminRegions);
-        },
-      );
-    });
-  }
-
-  public async getAdmin2Data(): Promise<GeoJSON.FeatureCollection> {
-    const data = await this.apiService.getAdmin2Data().toPromise();
-    return data;
+    this.layerDataCache[layerDataCacheKey] = layerData;
+    return layerData;
   }
 
   getAdminRegionFillColor = (
