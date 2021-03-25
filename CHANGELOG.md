@@ -1,3 +1,13 @@
+## [0.51.4](https://github.com/rodekruis/IBF-system/compare/v0.51.3...v0.51.4) (2021-03-25)
+
+
+### Bug Fixes
+
+* mock scenario support in cache AB[#6728](https://github.com/rodekruis/IBF-system/issues/6728) ([764085b](https://github.com/rodekruis/IBF-system/commit/764085b3a80dcfc1e22c62026f354d4df8824241))
+* update mock scenario data AB[#6728](https://github.com/rodekruis/IBF-system/issues/6728) ([b9ff467](https://github.com/rodekruis/IBF-system/commit/b9ff467c52fc71ca0bf01fd05e838da96d302e27))
+
+
+
 ## [0.51.3](https://github.com/rodekruis/IBF-system/compare/v0.51.2...v0.51.3) (2021-03-24)
 
 
@@ -77,16 +87,6 @@
 ### Features
 
 * cypress after merge ([3507074](https://github.com/rodekruis/IBF-system/commit/350707473e80dbeeef076b047719a509ae99917b))
-
-
-
-# [0.45.0](https://github.com/rodekruis/IBF-system/compare/v0.44.0...v0.45.0) (2021-03-23)
-
-
-### Features
-
-* add data to git-lfs as a test AB[#6717](https://github.com/rodekruis/IBF-system/issues/6717) ([ad64317](https://github.com/rodekruis/IBF-system/commit/ad64317c70e7da67c741a238ce78dcb01bcfe3b8))
-* add popup info flood susceptibility AB[#6633](https://github.com/rodekruis/IBF-system/issues/6633) ([2d379d1](https://github.com/rodekruis/IBF-system/commit/2d379d18ad814ca335d595cd23be8412728b1db5))
 
 
 
