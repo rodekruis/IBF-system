@@ -38,14 +38,7 @@ export class MockScenarioInterceptor implements HttpInterceptor {
     const requestPathSplit = requestPath.split('/');
     const requestEndpoint = requestPathSplit[1];
 
-    let mockAPIs = this.mockAPI.getMockAPI();
-    if (
-      requestEndpoint === 'stations' ||
-      requestEndpoint === 'admin-area-data'
-    ) {
-      const leadTime = requestPathSplit[requestPathSplit.length - 1];
-      mockAPIs = this.mockAPI.getMockAPI(leadTime);
-    }
+    const mockAPIs = this.mockAPI.getMockAPI();
 
     const currentMockEndpoint =
       (mockAPIs[request.method] && mockAPIs[request.method][requestPath]) ||

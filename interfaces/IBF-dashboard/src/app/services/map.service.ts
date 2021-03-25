@@ -577,22 +577,12 @@ export class MapService {
     return adminRegionFillColor;
   };
 
-  getAdminRegionFillOpacity = (
-    layer: IbfLayer,
-    trigger: boolean,
-    districtTrigger: boolean,
-    placeCode: string,
-  ): number => {
+  getAdminRegionFillOpacity = (layer: IbfLayer, placeCode: string): number => {
     let fillOpacity = this.state.defaultFillOpacity;
     let unselectedFillOpacity = this.unselectedFillOpacity;
     const hoverFillOpacity = this.hoverFillOpacity;
 
     if (layer.name === IbfLayerName.adminRegions) {
-      fillOpacity = 0.0;
-      unselectedFillOpacity = 0.0;
-    }
-
-    if (trigger && !districtTrigger) {
       fillOpacity = 0.0;
       unselectedFillOpacity = 0.0;
     }
@@ -671,8 +661,6 @@ export class MapService {
       );
       const fillOpacity = this.getAdminRegionFillOpacity(
         layer,
-        trigger,
-        adminRegion.properties[IbfLayerName.population_affected] > 0,
         adminRegion.properties.pcode,
       );
       let weight = this.getAdminRegionWeight(layer);

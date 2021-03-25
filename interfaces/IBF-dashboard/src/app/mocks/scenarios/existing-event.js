@@ -1,5 +1,6 @@
-import adminAreaData from './admin-area-data.json';
 import { DateTime } from 'luxon';
+import adminAreaData from './admin-area-data.json';
+import glofasStationData from './glofas-station-data.json';
 
 export function getRecentDates() {
   return [
@@ -12,8 +13,8 @@ export function getRecentDates() {
 export function getEvent() {
   return {
     countryCode: 'UGA',
-    startDate: DateTime.now().add({ days: 4 }).toFormat('yyyy-LL-dd'),
-    endDate: null,
+    startDate: DateTime.now().minus({ days: 1 }).toFormat('yyyy-LL-dd'),
+    endDate: DateTime.now().plus({ days: 7 }).toFormat('yyyy-LL-dd'),
     activeTrigger: true,
   };
 }
@@ -25,8 +26,8 @@ export function getTriggerPerLeadTime() {
     3: '0',
     4: '1',
     5: '1',
-    6: '0',
-    7: '0',
+    6: '1',
+    7: '1',
     country_code: 'UGA',
     date: DateTime.now().toFormat('yyyy-LL-dd'),
   };
@@ -35,163 +36,175 @@ export function getTriggerPerLeadTime() {
 export function getTriggeredAreas() {
   return [
     {
-      placeCode: '21UGA006003',
-      name: 'Bulambuli',
-      populationAffected: 646.299926757813,
+      placeCode: '21UGA013005',
+      name: 'Katakwi',
+      populationAffected: 4133.6044921875,
+      eventPlaceCodeId: 'c5cf9a42-12d6-46c4-8d72-18019ae7c42a',
       activeTrigger: true,
-      eventPlaceCodeId: 'f4cae6bf-c55b-4e14-b467-9b97fd618c30',
     },
     {
-      placeCode: '21UGA013006',
-      name: 'Kumi',
-      populationAffected: 432.408020019531,
+      placeCode: '21UGA008008',
+      name: 'Napak',
+      populationAffected: 3501.15771484375,
+      eventPlaceCodeId: '9a4d3f64-9547-42f9-878e-e0e96613c304',
       activeTrigger: true,
-      eventPlaceCodeId: 'f4cae6bf-c55b-4e14-b467-9b97fd618c31',
     },
     {
-      placeCode: '21UGA013002',
-      name: 'Bukedea',
-      populationAffected: 144.982131958008,
+      placeCode: '21UGA013001',
+      name: 'Amuria',
+      populationAffected: 2047.373046875,
+      eventPlaceCodeId: '5b7457cf-d1f9-4258-8469-bc3db90a4d44',
       activeTrigger: true,
-      eventPlaceCodeId: 'f4cae6bf-c55b-4e14-b467-9b97fd618c32',
+    },
+    {
+      placeCode: '21UGA013004',
+      name: 'Kapelebyong',
+      populationAffected: 1561.43115234375,
+      eventPlaceCodeId: '95f414a1-c3f3-425e-96f5-d3354cc04d5b',
+      activeTrigger: true,
+    },
+    {
+      placeCode: '21UGA008004',
+      name: 'Kotido',
+      populationAffected: 961.6905517578125,
+      eventPlaceCodeId: '8286f5fe-e9a6-4ad2-afdc-9dc9af3c0f26',
+      activeTrigger: true,
+    },
+    {
+      placeCode: '21UGA008001',
+      name: 'Abim',
+      populationAffected: 401.5565185546875,
+      eventPlaceCodeId: '07b26d41-abb0-4931-b4d4-a3fe7eeb9ff1',
+      activeTrigger: true,
     },
   ];
 }
-
-export function getStations(leadTime) {
-  return {
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [33.95, 0.95] },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '5-day',
-          station_code: 'DWRM1',
-          station_name: 'R. Manafwa at Butaleja',
-          trigger_level: 841,
-          fc: 59.2738970588,
-          fc_trigger: '0',
-          fc_perc: 0.0704802580960761,
-          fc_prob: '0',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [32.15, 0.65] },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '5-day',
-          station_code: 'DWRM10',
-          station_name: 'R. Mayanja',
-          trigger_level: 84,
-          fc: 3.1121323529,
-          fc_trigger: '0',
-          fc_perc: 0.037049194677381,
-          fc_prob: '0',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [30.95, 1.15] },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '5-day',
-          station_code: 'DWRM12',
-          station_name: 'R. Nkusi',
-          trigger_level: 28,
-          fc: 1.6231617647,
-          fc_trigger: '0',
-          fc_perc: 0.057970063025,
-          fc_prob: '0',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [33.85, 1.75] },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '5-day',
-          station_code: 'DWRM14',
-          station_name: 'Akokoro at Uganda Gauge',
-          trigger_level: 100,
-          fc: 7.5980392157,
-          fc_trigger: '0',
-          fc_perc: 0.075980392157,
-          fc_prob: '0',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [34.05, 0.25] },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '5-day',
-          station_code: 'DWRM2',
-          station_name: 'R. Sio',
-          trigger_level: 92,
-          fc: 40.9552696078,
-          fc_trigger: '0',
-          fc_perc: 0.445165973997826,
-          fc_prob: '0',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [33.75, 0.75] },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '5-day',
-          station_code: 'DWRM3',
-          station_name: 'R. Mpologoma at Budumba',
-          trigger_level: 427,
-          fc: 82.7626953125,
-          fc_trigger: '0',
-          fc_perc: 0.193823642418033,
-          fc_prob: '0',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [30.75, 0.85] },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '5-day',
-          station_code: 'DWRM7',
-          station_name: 'R. Muzizi',
-          trigger_level: 21,
-          fc: 1.9914215686,
-          fc_trigger: '0',
-          fc_perc: 0.0948295985047619,
-          fc_prob: '0',
-        },
-      },
-      {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [29.75, -0.75] },
-        properties: {
-          country_code: 'UGA',
-          lead_time: '5-day',
-          station_code: 'DWRM9',
-          station_name: 'R. Mitano',
-          trigger_level: 104,
-          fc: 22.0508578431,
-          fc_trigger: '0',
-          fc_perc: 0.212027479260577,
-          fc_prob: '0',
-        },
-      },
-    ],
-  };
+export function getStations() {
+  var stations = JSON.parse(JSON.stringify(glofasStationData)); // Hack to clone without reference
+  stations.features.forEach((feature) => {
+    if (feature.properties.station_code === 'DWRM14') {
+      feature.properties = {
+        country_code: 'UGA',
+        lead_time: '5-day',
+        station_code: 'DWRM14',
+        station_name: 'Akokoro at Uganda Gauge',
+        trigger_level: 100,
+        fc: 147.0588235294,
+        fc_trigger: '1',
+        fc_perc: 1.470588235294,
+        fc_prob: '1',
+      };
+    }
+  });
+  return stations;
 }
 
-export function getAdminRegions(leadTime) {
-  var result = JSON.parse(JSON.stringify(adminAreaData)); // Hack to clone without reference
-  if (leadTime === '3-day') {
-    result.features.forEach((feature) => {
-      feature.properties.populationAffected = 0;
+export function getAdminRegions() {
+  var areas = JSON.parse(JSON.stringify(adminAreaData)); // Hack to clone without reference
+  var triggeredAreaProperties = [
+    {
+      pcode_level2: '21UGA008001',
+      name: 'Abim',
+      pcode_level1: '21UGA008',
+      country_code: 'UGA',
+      pcode: '21UGA008001',
+      date: '2021-03-19T00:00:00.000Z',
+      lead_time: '5-day',
+      fc: 147.0588235294,
+      fc_trigger: '1',
+      fc_rp: 25,
+      fc_perc: 1.470588235294,
+      fc_prob: '1',
+      population_affected: 401.5565185546875,
+    },
+    {
+      pcode_level2: '21UGA008004',
+      name: 'Kotido',
+      pcode_level1: '21UGA008',
+      country_code: 'UGA',
+      pcode: '21UGA008004',
+      date: '2021-03-19T00:00:00.000Z',
+      lead_time: '5-day',
+      fc: 147.0588235294,
+      fc_trigger: '1',
+      fc_rp: 25,
+      fc_perc: 1.470588235294,
+      fc_prob: '1',
+      population_affected: 961.6905517578125,
+    },
+    {
+      pcode_level2: '21UGA008008',
+      name: 'Napak',
+      pcode_level1: '21UGA008',
+      country_code: 'UGA',
+      pcode: '21UGA008008',
+      date: '2021-03-19T00:00:00.000Z',
+      lead_time: '5-day',
+      fc: 147.0588235294,
+      fc_trigger: '1',
+      fc_rp: 25,
+      fc_perc: 1.470588235294,
+      fc_prob: '1',
+      population_affected: 3501.15771484375,
+    },
+    {
+      pcode_level2: '21UGA013001',
+      name: 'Amuria',
+      pcode_level1: '21UGA013',
+      country_code: 'UGA',
+      pcode: '21UGA013001',
+      date: '2021-03-19T00:00:00.000Z',
+      lead_time: '5-day',
+      fc: 147.0588235294,
+      fc_trigger: '1',
+      fc_rp: 25,
+      fc_perc: 1.470588235294,
+      fc_prob: '1',
+      population_affected: 2047.373046875,
+    },
+    {
+      pcode_level2: '21UGA013004',
+      name: 'Kapelebyong',
+      pcode_level1: '21UGA013',
+      country_code: 'UGA',
+      pcode: '21UGA013004',
+      date: '2021-03-19T00:00:00.000Z',
+      lead_time: '5-day',
+      fc: 147.0588235294,
+      fc_trigger: '1',
+      fc_rp: 25,
+      fc_perc: 1.470588235294,
+      fc_prob: '1',
+      population_affected: 1561.43115234375,
+    },
+    {
+      pcode_level2: '21UGA013005',
+      name: 'Katakwi',
+      pcode_level1: '21UGA013',
+      country_code: 'UGA',
+      pcode: '21UGA013005',
+      date: '2021-03-19T00:00:00.000Z',
+      lead_time: '5-day',
+      fc: 147.0588235294,
+      fc_trigger: '1',
+      fc_rp: 25,
+      fc_perc: 1.470588235294,
+      fc_prob: '1',
+      population_affected: 4133.6044921875,
+    },
+  ];
+  var triggeredAreas = {
+    type: 'FeatureCollection',
+    features: [],
+  };
+  triggeredAreaProperties.forEach((areaProperties) => {
+    areas.features.forEach((feature) => {
+      if (feature.properties.pcode === areaProperties.pcode) {
+        areaProperties['indicators'] = feature.properties.indicators;
+        feature.properties = areaProperties;
+        triggeredAreas.features.push(feature);
+      }
     });
-  }
-  return result;
+  });
+  return triggeredAreas;
 }
