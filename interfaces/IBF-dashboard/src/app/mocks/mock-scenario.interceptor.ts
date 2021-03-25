@@ -15,10 +15,18 @@ import { MockScenario } from './mock-scenario.enum';
   providedIn: 'root',
 })
 export class MockScenarioInterceptor implements HttpInterceptor {
+  private mockScenario: MockScenario;
+
   constructor(
     private mockScenarioService: MockScenarioService,
     private mockAPI: MockAPI,
-  ) {}
+  ) {
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe((mockScenario: MockScenario) => {
+        this.mockScenario = mockScenario;
+      });
+  }
 
   intercept(
     request: HttpRequest<any>,
@@ -44,13 +52,7 @@ export class MockScenarioInterceptor implements HttpInterceptor {
       (mockAPIs[request.method] && mockAPIs[request.method][requestEndpoint]) ||
       null;
 
-    let isMockScenario = false;
-
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe((mockScenario: MockScenario) => {
-        isMockScenario = mockScenario !== MockScenario.real;
-      });
+    const isMockScenario = this.mockScenario !== MockScenario.real;
 
     return isMockScenario && currentMockEndpoint
       ? currentMockEndpoint.handler()

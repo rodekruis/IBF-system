@@ -12,7 +12,15 @@ import { MockScenario } from './mock-scenario.enum';
   providedIn: 'root',
 })
 export class MockAPI {
-  constructor(private mockScenarioService: MockScenarioService) {}
+  private mockScenario: MockScenario;
+
+  constructor(private mockScenarioService: MockScenarioService) {
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe((mockScenario: MockScenario) => {
+        this.mockScenario = mockScenario;
+      });
+  }
 
   getMockAPI(leadTime?) {
     return {
@@ -39,35 +47,31 @@ export class MockAPI {
       let body = {};
       let status = 200;
 
-      this.mockScenarioService
-        .getMockScenarioSubscription()
-        .subscribe((mockScenario: MockScenario) => {
-          switch (mockScenario) {
-            case MockScenario.existingEvent: {
-              body = existingEvent[functionName](leadTime);
-              break;
-            }
-            case MockScenario.newEvent: {
-              body = newEvent[functionName](leadTime);
-              break;
-            }
-            case MockScenario.noEvent: {
-              body = noEvent[functionName]();
-              break;
-            }
-            case MockScenario.oldEvent: {
-              body = oldEvent[functionName]();
-              break;
-            }
-            default: {
-              status = 400;
-              body = {
-                'Unknown Mock Scenario': mockScenario,
-              };
-              break;
-            }
-          }
-        });
+      switch (this.mockScenario) {
+        case MockScenario.existingEvent: {
+          body = existingEvent[functionName](leadTime);
+          break;
+        }
+        case MockScenario.newEvent: {
+          body = newEvent[functionName](leadTime);
+          break;
+        }
+        case MockScenario.noEvent: {
+          body = noEvent[functionName]();
+          break;
+        }
+        case MockScenario.oldEvent: {
+          body = oldEvent[functionName]();
+          break;
+        }
+        default: {
+          status = 400;
+          body = {
+            'Unknown Mock Scenario': this.mockScenario,
+          };
+          break;
+        }
+      }
 
       return of(new HttpResponse({ status, body }));
     };
