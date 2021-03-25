@@ -1,0 +1,173 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.95,
+          0.95
+        ]
+      },
+      "properties": {
+        "country_code": "UGA",
+        "lead_time": "5-day",
+        "station_code": "DWRM1",
+        "station_name": "R. Manafwa at Butaleja",
+        "trigger_level": 841,
+        "fc": 49.5658126532,
+        "fc_trigger": "0",
+        "fc_perc": 0.05893675701926278,
+        "fc_prob": "0"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.15,
+          0.65
+        ]
+      },
+      "properties": {
+        "country_code": "UGA",
+        "lead_time": "5-day",
+        "station_code": "DWRM10",
+        "station_name": "R. Mayanja",
+        "trigger_level": 84,
+        "fc": 1.8094362744999999,
+        "fc_trigger": "0",
+        "fc_perc": 0.021540908029761902,
+        "fc_prob": "0"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.95,
+          1.15
+        ]
+      },
+      "properties": {
+        "country_code": "UGA",
+        "lead_time": "5-day",
+        "station_code": "DWRM12",
+        "station_name": "R. Nkusi",
+        "trigger_level": 28,
+        "fc": 1.490502451,
+        "fc_trigger": "0",
+        "fc_perc": 0.05323223039285714,
+        "fc_prob": "0"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.85,
+          1.75
+        ]
+      },
+      "properties": {
+        "country_code": "UGA",
+        "lead_time": "5-day",
+        "station_code": "DWRM14",
+        "station_name": "Akokoro at Uganda Gauge",
+        "trigger_level": 100,
+        "fc": 8.3572495404,
+        "fc_trigger": "0",
+        "fc_perc": 0.083572495404,
+        "fc_prob": "0"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.05,
+          0.25
+        ]
+      },
+      "properties": {
+        "country_code": "UGA",
+        "lead_time": "5-day",
+        "station_code": "DWRM2",
+        "station_name": "R. Sio",
+        "trigger_level": 92,
+        "fc": 41.46875,
+        "fc_trigger": "0",
+        "fc_perc": 0.4507472826086957,
+        "fc_prob": "0"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.75,
+          0.75
+        ]
+      },
+      "properties": {
+        "country_code": "UGA",
+        "lead_time": "5-day",
+        "station_code": "DWRM3",
+        "station_name": "R. Mpologoma at Budumba",
+        "trigger_level": 427,
+        "fc": 73.9924651501,
+        "fc_trigger": "0",
+        "fc_perc": 0.17328446170983608,
+        "fc_prob": "0"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.75,
+          0.85
+        ]
+      },
+      "properties": {
+        "country_code": "UGA",
+        "lead_time": "5-day",
+        "station_code": "DWRM7",
+        "station_name": "R. Muzizi",
+        "trigger_level": 21,
+        "fc": 2.0588235294,
+        "fc_trigger": "0",
+        "fc_perc": 0.09803921568571429,
+        "fc_prob": "0"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.75,
+          -0.75
+        ]
+      },
+      "properties": {
+        "country_code": "UGA",
+        "lead_time": "5-day",
+        "station_code": "DWRM9",
+        "station_name": "R. Mitano",
+        "trigger_level": 104,
+        "fc": 23.5447303922,
+        "fc_trigger": "0",
+        "fc_perc": 0.22639163838653847,
+        "fc_prob": "0"
+      }
+    }
+  ]
+}
