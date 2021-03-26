@@ -204,7 +204,7 @@
   },
   {
     "country_codes": "UGA",
-    "name": "covidrisk",
+    "name": "covid_risk",
     "label": "COVID Risk",
     "group": "",
     "icon": "",

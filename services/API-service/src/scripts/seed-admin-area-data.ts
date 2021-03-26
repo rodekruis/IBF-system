@@ -45,6 +45,29 @@ export class SeedAdminAreaData implements InterfaceScript {
         },
       ),
     );
+
+    // COVID risk
+    const covidRiskFilename = `./src/scripts/git-lfs/admin-area-data/covid_risk_UGA.csv`;
+    const covidRiskData = await this.seedHelper.getCsvData(covidRiskFilename);
+
+    await Promise.all(
+      covidRiskData.map(
+        async (area): Promise<void> => {
+          return this.adminAreaDataRepository
+            .createQueryBuilder()
+            .insert()
+            .values({
+              countryCode: 'UGA',
+              adminLevel: 2,
+              placeCode: area['pcode'],
+              key: area['key'],
+              value: area['value'],
+            })
+            .execute()
+            .catch(console.error);
+        },
+      ),
+    );
   }
 }
 
