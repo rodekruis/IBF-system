@@ -42,49 +42,23 @@ from "IBF-app"."redcrossBranch"
 ;
 --select * from "IBF-static-input".dashboard_redcross_branches
 
---Combine CRA data in one table (input used in processDynamicDataPostgresExposure.sql)
-drop table if exists "IBF-static-input"."CRA_data_2";
-create table "IBF-static-input"."CRA_data_2" as 
-select cast('ZMB' as varchar) as country_code
-	, pcode
-	, row_to_json(zmb.*) as indicators
-from "IBF-static-input"."ZMB_CRA_Indicators_2" zmb
-union all
-select cast('ETH' as varchar) as country_code
-	, pcode
-	, row_to_json(
-		ken.*
-		) as indicators
-from "IBF-static-input"."ETH_CRA_Indicators_2" ken
-union all
-select cast('UGA' as varchar) as country_code
-	, total.pcode
-	, row_to_json(total.*) as indicators
-from (
-	select uga.*
-		, fl."Weighted Vulnerability Index" as vulnerability_index
-	from "IBF-static-input"."UGA_CRA_Indicators_2" uga
-	left join "IBF-static-input"."UGA_flood_vulnerability" fl on uga.pcode_level2 = fl."pointsADM2_PCODE"
-) total
+--TO DO: transform to generic row-to-column pivot (but not worth it before completely moving all sql to typescript)
+drop table if exists "IBF-static-input".dashboard_admin_area_data;
+create table "IBF-static-input".dashboard_admin_area_data as
+select aa.pcode
+		,max(case when key = 'population_over65' then value end) as population_over65
+		,max(case when key = 'female_head_hh' then value end) as female_head_hh
+		,max(case when key = 'population_u8' then value end) as population_u8
+		,max(case when key = 'poverty_incidence' then value end) as poverty_incidence
+		,max(case when key = 'roof_type' then value end) as roof_type
+		,max(case when key = 'wall_type' then value end) as wall_type
+		,max(case when key = 'Weighted Vulnerability Index' then value end) as vulnerability_index
+from "IBF-app"."adminArea" aa 
+left join "IBF-app"."adminAreaData" aad
+	on aa.pcode = aad."placeCode"
+group by 1
 ;
---select * from "IBF-static-input"."CRA_data_2" where country_code = 'UGA'
-
---Combine CRA data in one table (input used in processDynamicDataPostgresExposure.sql)
-drop table if exists "IBF-static-input"."CRA_data_1";
-create table "IBF-static-input"."CRA_data_1" as 
-select cast('KEN' as varchar) as country_code
-	, pcode
-	, row_to_json(ken.*) as indicators
-from "IBF-static-input"."KEN_CRA_Indicators_1" ken
-union all 
-select cast('EGY' as varchar) as country_code
-	, pcode
-	, null as indicators
-from "IBF-app"."adminArea" 
-where "countryCode" = 'EGY'
-;
---select * from "IBF-static-input"."CRA_data_1" where country_code = 'UGA'
-
+--select * from "IBF-static-input".dashboard_admin_area_data
 
 --create API view for Glofas stations
 drop view if exists "IBF-API"."Glofas_stations";
@@ -130,7 +104,7 @@ from "IBF-app"."adminArea" geo
 left join "IBF-pipeline-output".data_adm2 d2 on geo.pcode = d2.pcode
 where "adminLevel" = 2
 ;
---select * from "IBF-API"."Admin_area_data2" where country_code = 'ZMB'
+--select * from "IBF-API"."Admin_area_data2" where country_code = 'UGA'
 
 drop view if exists "IBF-API"."Admin_area_data1" cascade;
 create or replace view "IBF-API"."Admin_area_data1" as 
