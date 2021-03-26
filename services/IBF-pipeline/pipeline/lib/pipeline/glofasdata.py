@@ -43,11 +43,10 @@ class GlofasData:
 
     def process(self):
         self.removeOldGlofasData()
+        self.download()
         if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia 
-            self.downloadFtp()
             self.extractFtpData()
         else:
-            self.makeApiRequest()
             self.extractApiData()
         self.findTrigger()
 
@@ -55,7 +54,7 @@ class GlofasData:
         for f in [f for f in os.listdir(self.inputPath)]:
             os.remove(os.path.join(self.inputPath, f))
 
-    def downloadFtp(self):
+    def download(self):
         downloadDone = False
 
         timeToTryDownload = 43200
@@ -66,12 +65,15 @@ class GlofasData:
 
         while downloadDone == False and time.time() < end:
             try:
-                self.makeFtpRequest()
+                if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia 
+                    self.makeFtpRequest()
+                else:
+                    self.makeApiRequest()
                 downloadDone = True
-            except urllib.error.URLError:
-                logger.info(
-                    "Glofas unzip failed, probably because download failed. "
-                    "Trying again in 10 minutes")
+            except:
+                error = 'Download data failed. Trying again in 10 minutes.'
+                print(error)
+                logger.info(error)
                 time.sleep(timeToRetry)
         if downloadDone == False:
             raise ValueError('GLofas download failed for ' +
