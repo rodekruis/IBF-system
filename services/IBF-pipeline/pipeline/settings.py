@@ -31,7 +31,18 @@ SETTINGS = {
                 "rasterValue": 1
             }
         },
-        'bounding_box': [-9, 21, -18, 34]
+        'bounding_box': [-9, 21, -18, 34],
+        'email': {
+            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/6d54577d-8f22-4a95-bc30-b86453f5188c.png",
+            'triggerStatement': "TBD",
+            'linkDashboard': os.getenv('DASHBOARD_URL'),
+            'linkEAPSOP': "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#heading=h.gjdgxs",
+            'linkSocialMedia': {
+                "type": "WhatsApp",
+                "url": "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin/"
+            },
+            'adminAreaLabel': ['District','Districts']
+        }
     },
     "UGA": {
         "model": 'glofas',
@@ -46,7 +57,18 @@ SETTINGS = {
                 "rasterValue": 1
             }
         },
-        'bounding_box': [5, 29, -2, 36]
+        'bounding_box': [5, 29, -2, 36],
+        'email': {
+            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/dc5401e1-26e4-494e-88dc-2fae4bd50c1f.png",
+            'triggerStatement': "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>",
+            'linkDashboard': os.getenv('DASHBOARD_URL'),
+            'linkEAPSOP': "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/Doc.aspx?OR=teams&action=edit&sourcedoc={0FFAA5EF-423C-4F81-A51E-BEA98D06E91C}",
+            'linkSocialMedia': {
+                "type": "WhatsApp",
+                "url": "https://chat.whatsapp.com/Jt7jMX3BydCD07MFExLUUs/"
+            },
+            'adminAreaLabel': ['District','Districts']
+        }
     },
     "KEN": {
         "model": 'glofas',
@@ -59,7 +81,18 @@ SETTINGS = {
                 "rasterValue": 1
             }
         },
-        'bounding_box': [5, 33, -4, 42]
+        'bounding_box': [5, 33, -4, 42],        
+        'email': {
+            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png",
+            'triggerStatement': "TBD",
+            'linkDashboard': os.getenv('DASHBOARD_URL'),
+            'linkEAPSOP': "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/"      ,  
+            'linkSocialMedia': {
+                "type": "WhatsApp",
+                "url": "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/"
+            },
+            'adminAreaLabel': ['County','Counties']
+        }
     },
     "ETH": {
         "model": 'glofas',
@@ -72,7 +105,18 @@ SETTINGS = {
                 "rasterValue": 1
             }
         },
-        'bounding_box': [15, 32, 3, 48]
+        'bounding_box': [15, 32, 3, 48],
+        'email': {
+            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png",
+            'triggerStatement': "TBD",
+            'linkDashboard': os.getenv('DASHBOARD_URL'),
+            'linkEAPSOP': "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/",
+            'linkSocialMedia': {
+                "type": "WhatsApp",
+                "url": "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/"
+            },
+            'adminAreaLabel': ['Zone','Zones']
+        }
     },
     "EGY": {
         "model": 'rainfall',
@@ -88,6 +132,17 @@ SETTINGS = {
                 "source": "population/hrsl_egy_pop_resized_100",
                 "rasterValue": 1
             }
+        },
+        'email': {
+            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/899e677e-b673-4ab6-bcd2-8d51f996658d.png",
+            'triggerStatement': "TBD",
+            'linkDashboard': os.getenv('DASHBOARD_URL'),
+            'linkEAPSOP': "https://google.com/",
+            'linkSocialMedia': {
+                "type": "Telegram",
+                "url": "https://t.me/joinchat/hLtvficJO-llZDE0/"
+            },
+            'adminAreaLabel': ['Governorate','Governorates']
         }
     }
 }
