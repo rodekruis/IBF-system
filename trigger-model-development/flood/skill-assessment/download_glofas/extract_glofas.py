@@ -40,11 +40,12 @@ def glofas_extract_station(directory, files, st_lat, st_lon, deltax, ensemble):
 
 # reading GloFAS GRIB file
 ensemble = list(range(1,11))
+ensemble = 1
 deltax=0.05
 input_dir = 'c:/Users/BOttow/Rode Kruis/510 - Data preparedness and IBF - [CTRY] Uganda/GIS Data/GloFAS'
 output_dir = 'c:/Users/BOttow/Documents/IBF-system/trigger-model-development/flood/skill-assessment/download_glofas/output'
 files = os.listdir(input_dir)
-r = re.compile('.*\.grib$')
+r = re.compile('.*control_reforecast\.grib$')
 filtered_files = [ s for s in files if r.match(s) ]
 
 station_file = 'c:/Users/BOttow/Rode Kruis/510 - Data preparedness and IBF - [CTRY] Uganda/IBF Dashboard data/rp_glofas_station_uga_v2.csv' 
@@ -56,5 +57,5 @@ for i in list(stations.index)[1:]:
     st_lat = stations['lat'][i]
     st_lon = stations['lon'][i]
     df_station = glofas_extract_station(input_dir, filtered_files, st_lat, st_lon, deltax, ensemble)
-    df_station.to_csv("%s/glofas_hindcast_5dayLT_%s.csv" % (output_dir, stations['ID'][i]), index = False)
+    df_station.to_csv("%s/glofas_hindcast_5dayLT_%s_control_reforecast.csv" % (output_dir, stations['ID'][i]), index = False)
 
