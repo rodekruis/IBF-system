@@ -20,34 +20,25 @@ from "IBF-app"."glofasStation"
 --select * from "IBF-static-input".dashboard_glofas_stations
 
 DROP TABLE IF EXISTS "IBF-static-input".waterstation_per_district;
+create table "IBF-static-input".waterstation_per_district as
 select "countryCode" as country_code
 		,"name" 
 		,pcode 
 		,"glofasStation" as station_code
-INTO "IBF-static-input".waterstation_per_district
 from "IBF-app"."adminArea" aa 
 ;
 --select * from "IBF-static-input".waterstation_per_district
 
 DROP TABLE IF EXISTS "IBF-static-input".dashboard_redcross_branches;
-SELECT  'ZMB' as country_code
-	, initcap("BRANCH") as name
-	, "TOTAL" as nr_volunteers
-	, "PRESIDENT" as contact_person
-	, "LOCATION OF OFFICE" as contact_address
-	, null as contact_number
-	, ST_AsGeoJSON(st_SetSrid(st_MakePoint(lon, lat), 4326))::json as geom
-INTO "IBF-static-input".dashboard_redcross_branches
-FROM "IBF-static-input"."ZMB_redcross_branches"
-union all
-SELECT 'UGA' as country_code 
-	, initcap("BranchName") as name 
-	, null as nr_volunteers 
-	, null as contact_person 
-	, null as contact_address 
-	, null as contact_number 
-	, ST_AsGeoJSON(st_SetSrid(st_MakePoint(longitude, latitude), 4326))::json as geom
-FROM "IBF-static-input"."UGA_redcross_branches";
+create table "IBF-static-input".dashboard_redcross_branches as
+select "countryCode"
+		,"name"
+		,"nrVolunteers" 
+		,"contactPerson" 
+		,"contactAddress" 
+		,"contactNumber" 
+		, ST_AsGeoJSON(st_astext(geom))::json as geom
+from "IBF-app"."redcrossBranch"
 ;
 --select * from "IBF-static-input".dashboard_redcross_branches
 

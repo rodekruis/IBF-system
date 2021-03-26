@@ -13,6 +13,7 @@ import { EventModule } from './api/event/event.module';
 import { MetadataModule } from './api/metadata/metadata.module';
 import { AdminAreaModule } from './api/admin-area/admin-area.module';
 import { GlofasStationModule } from './api/glofas-station/glofas-station.module';
+import { RedcrossBranchModule } from './api/redcross-branch/redcross-branch.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { GlofasStationModule } from './api/glofas-station/glofas-station.module'
     MetadataModule,
     AdminAreaModule,
     GlofasStationModule,
+    RedcrossBranchModule,
   ],
   controllers: [AppController],
   providers: [],

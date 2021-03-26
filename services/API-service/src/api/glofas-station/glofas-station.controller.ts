@@ -24,7 +24,7 @@ export class GlofasStationController {
   @ApiOperation({ summary: 'Get Glofas stations by country' })
   @ApiParam({ name: 'countryCode', required: true, type: 'string' })
   @Get(':countryCode')
-  public async getLayers(@Param() params): Promise<GlofasStationEntity[]> {
+  public async getStations(@Param() params): Promise<GlofasStationEntity[]> {
     return await this.glofasStationService.getStationsByCountry(
       params.countryCode,
     );

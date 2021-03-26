@@ -630,31 +630,31 @@ export class MapComponent implements OnDestroy {
       '</strong>' +
       '</div>'
     ).concat(
-      markerProperties.nr_volunteers
+      markerProperties.nrVolunteers
         ? '<div style="margin-bottom: 5px">' +
             'Nr. of volunteers: ' +
-            markerProperties.nr_volunteers +
+            markerProperties.nrVolunteers +
             '</div>'
         : '',
 
-      markerProperties.contact_person
+      markerProperties.contactPerson
         ? '<div style="margin-bottom: 5px">' +
             'Contact person: ' +
-            markerProperties.contact_person +
+            markerProperties.contactPerson +
             '</div>'
         : '',
 
-      markerProperties.contact_address
+      markerProperties.contactAddress
         ? '<div style="margin-bottom: 5px">' +
             'Contact address: ' +
-            markerProperties.contact_address +
+            markerProperties.contactAddress +
             '</div>'
         : '',
 
-      markerProperties.contact_number
+      markerProperties.contactNumber
         ? '<div style="margin-bottom: 5px">' +
             'Contact number: ' +
-            markerProperties.contact_number +
+            markerProperties.contactNumber +
             '</div>'
         : '',
     );
