@@ -53,6 +53,7 @@ select aa.pcode
 		,max(case when key = 'roof_type' then value end) as roof_type
 		,max(case when key = 'wall_type' then value end) as wall_type
 		,max(case when key = 'Weighted Vulnerability Index' then value end) as vulnerability_index
+		,max(case when key = 'covid_risk' then value end) as covid_risk
 from "IBF-app"."adminArea" aa 
 left join "IBF-app"."adminAreaData" aad
 	on aa.pcode = aad."placeCode"
