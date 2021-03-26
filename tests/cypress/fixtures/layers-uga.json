@@ -1,0 +1,22 @@
+[
+  {
+    "label": "Population",
+    "active": "no"
+  },
+  {
+    "label": "Cropland",
+    "active": "no"
+  },
+  {
+    "label": "Glofas stations",
+    "active": "yes"
+  },
+  {
+    "label": "Waterpoints",
+    "active": "no"
+  },
+  {
+    "label": "COVID Risk",
+    "active": "no"
+  }
+]
