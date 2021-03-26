@@ -1,3 +1,12 @@
+## [0.51.6](https://github.com/rodekruis/IBF-system/compare/v0.51.5...v0.51.6) (2021-03-26)
+
+
+### Bug Fixes
+
+* catch failed glofas api request and retry AB[#6798](https://github.com/rodekruis/IBF-system/issues/6798) ([2cab348](https://github.com/rodekruis/IBF-system/commit/2cab3489f30579497caf5727b952e60e462ca38f))
+
+
+
 ## [0.51.5](https://github.com/rodekruis/IBF-system/compare/v0.51.4...v0.51.5) (2021-03-25)
 
 
@@ -78,15 +87,6 @@
 ### Features
 
 * cypress install seperate ([b14a794](https://github.com/rodekruis/IBF-system/commit/b14a7941afbe808f04dabe59b642d9e30186d416))
-
-
-
-# [0.47.0](https://github.com/rodekruis/IBF-system/compare/v0.46.0...v0.47.0) (2021-03-23)
-
-
-### Features
-
-* cypress no install ([eb916a1](https://github.com/rodekruis/IBF-system/commit/eb916a1d01f5f59819f80bc4ad436acef4eef9f9))
 
 
 
