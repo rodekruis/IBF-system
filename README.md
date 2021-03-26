@@ -165,12 +165,6 @@ to execute each step, without further knowledge. Ask a developer who knows more.
     - Potentially add extra code in seed-scripts (seed-amin-area.ts / seed-glofas-station.ts / etc.) to process new data correctly.
     - Run seed script of IBF-API-service
     - NOTE: we are in a migration, where we want to move new data as much as possible to this new seed-script set up. So also for other data, not mentioned here, the goal is to upload this via seed-scripts as well. Some other data that is not yet included in seed-script
-      - CRA data > transfered from "<country_code>\_datamodel"."Indicators_TOTAL_1" in CRA To
-        "IBF-static-input"."<country_code>\_CRA_Indicators_1" using DBeaver export
-        functionality
-        - add necessary piece of script to CRA_data part of `processStaticDataPostgres.sql`
-      - Flood vulnerability data to be used (.csv) > uploaded manually (through runSetup.py)
-      - Red Cross branch data (.csv) > uploaded manually (through runSetup.py)
       - COVID risk data (.csv) > uploaded through specifically created endpoint
 3. Geodata for IBF-pipline and IBF-geoserver (look at existing countries and files for examples in terms of format)
     - Save in `services/IBF-pipeline/pipeline/data` in the right subfolder ..

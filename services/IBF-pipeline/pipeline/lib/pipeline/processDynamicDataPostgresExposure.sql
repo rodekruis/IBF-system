@@ -24,8 +24,8 @@ group by 1,2,3,4
 
 
 drop table if exists "IBF-pipeline-output".help_table;
+create table "IBF-pipeline-output".help_table as
 select '3-day' as lead_time
-into "IBF-pipeline-output".help_table
 union all
 select '5-day' as lead_time
 union all
@@ -55,15 +55,9 @@ select t3.country_code
 	,t0a.lead_time
 	,fc,fc_trigger,fc_rp,fc_perc,fc_prob
 	,population_affected
-	,t0.indicators
+	,row_to_json(t0.*) as indicators
 --into "IBF-pipeline-output".data_adm2
-from (
-	select * 
-	from "IBF-static-input"."CRA_data_2"
-	union all
-	select *
-	from "IBF-static-input"."CRA_data_1"
-) t0
+from "IBF-static-input".dashboard_admin_area_data t0
 left join "IBF-pipeline-output".help_table t0a
 on 1=1
 left join "IBF-static-input".waterstation_per_district t1
