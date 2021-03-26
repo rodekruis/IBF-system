@@ -1,12 +1,12 @@
 <ion-content scrollY="true">
   <!-- No event -->
-  <app-dialogue-turn
+  <app-dialogue-turn data-cy="chat"
     *ngIf="!eventService.state.activeEvent && !eventService.state.activeTrigger"
   >
     <p
       [innerHTML]="'chat-component.no-event-no-trigger.welcome' | translate"
     ></p>
-    <app-about-btn
+    <app-about-btn data-cy="chat-about-trigger"
       [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>
@@ -36,11 +36,11 @@
         "
       ></span>
     </p>
-    <app-about-btn
+    <app-about-btn data-cy="chat-about-trigger"
       [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>
-    <app-video-guide-button></app-video-guide-button>
+    <app-video-guide-button data-cy="chat-video-guide"></app-video-guide-button>
   </app-dialogue-turn>
   <!-- Existing event, still trigger -->
   <app-dialogue-turn

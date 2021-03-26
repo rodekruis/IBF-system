@@ -3,7 +3,7 @@ describe('Login Page', () => {
     cy.server();
   });
 
-  // Real API call
+  // Login using the UI
   it('lets the user log in', function () {
     cy.fixture('login').then((login) => {
       cy.visit(login.portal);
