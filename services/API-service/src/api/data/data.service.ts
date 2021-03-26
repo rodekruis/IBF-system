@@ -84,7 +84,7 @@ export class DataService {
       ' select * \
     from "IBF-static-input"."dashboard_redcross_branches" \
     where 0 = 0 \
-    and country_code = $1 \
+    and "countryCode" = $1 \
     ';
 
     const rawResult: RedCrossBranch[] = await this.manager.query(query, [

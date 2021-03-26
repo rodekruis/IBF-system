@@ -26,6 +26,7 @@ import layerMetadata from './json/layer-metadata.json';
 
 import SeedAdminArea from './seed-admin-area';
 import SeedGlofasStation from './seed-glofas-station';
+import { SeedRedcrossBranches } from './seed-redcross-branches';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -171,6 +172,11 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed Glofas Stations...');
     const seedGlofasStation = new SeedGlofasStation(this.connection);
     await seedGlofasStation.run();
+
+    // ***** SEED RED CROSS BRANCHES DATA *****
+    console.log('Seed Red Cross branches...');
+    const seedRedcrossBranches = new SeedRedcrossBranches(this.connection);
+    await seedRedcrossBranches.run();
 
     // ***** RUN SCRIPT TO FINALIZE ALL DATA PREPARATION *****
     console.log('Run IBF-database-scripts.sql...');
