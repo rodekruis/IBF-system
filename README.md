@@ -1,5 +1,16 @@
 # IBF-system
 
+
+
+## Status
+
+| Component                 | Build Status                                                                                                                                                                              |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cypress Integration Tests | [![IBF-system](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/jkaw7k/master&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/jkaw7k/runs) |
+
+
+## Introduction
+
 **NOTE**: For now some background on IBF-terminology (e.g. triggers) is
 expected. This can be expanded on later.
 
@@ -103,10 +114,6 @@ Installation:
  1. `sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb`
  2. In root folder `npm install --only=dev`
  3. Run `npm run start:cypress` 
-
-Cypress results:
-
-[![IBF-system](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/jkaw7k/master&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/jkaw7k/runs)
 
 
 ## Releases
