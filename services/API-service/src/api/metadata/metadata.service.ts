@@ -22,20 +22,9 @@ export class MetadataService {
   ): Promise<IndicatorMetadataEntity[]> {
     const indicators = await this.indicatorRepository.find({});
 
-    const countryIndicators = indicators.filter(
-      (metadata: IndicatorMetadataEntity): boolean =>
-        metadata.country_codes.split(',').includes(countryCodeISO3),
+    return indicators.filter((metadata: IndicatorMetadataEntity): boolean =>
+      metadata.country_codes.split(',').includes(countryCodeISO3),
     );
-
-    const event = await this.dataService.getEventSummaryCountry(
-      countryCodeISO3,
-    );
-    const activeTrigger = event && event.activeTrigger;
-    countryIndicators.find(
-      (i): boolean => i.name === 'population_affected',
-    ).active = activeTrigger;
-
-    return countryIndicators;
   }
 
   public async getLayersByCountry(

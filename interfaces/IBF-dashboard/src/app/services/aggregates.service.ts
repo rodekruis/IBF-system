@@ -9,6 +9,7 @@ import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenari
 import { Country } from '../models/country.model';
 import { IbfLayerName } from '../types/ibf-layer';
 import { AdminLevelService } from './admin-level.service';
+import { EventService } from './event.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,7 @@ export class AggregatesService {
     private timelineService: TimelineService,
     private apiService: ApiService,
     private mapService: MapService,
+    private eventService: EventService,
     private mockScenarioService: MockScenarioService,
   ) {
     this.countryService
@@ -49,6 +51,13 @@ export class AggregatesService {
         .getIndicators(this.country.countryCodeISO3)
         .subscribe((response) => {
           this.indicators = response;
+
+          // Load 'exposed population' layer by default if trigger
+          const activeTrigger = this.eventService.state.activeTrigger;
+          this.indicators.find(
+            (i): boolean => i.name === IbfLayerName.population_affected,
+          ).active = activeTrigger;
+
           this.mapService.hideAggregateLayers();
           this.indicators.forEach((indicator: Indicator) => {
             this.mapService.loadAggregateLayer(indicator);
