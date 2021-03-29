@@ -97,7 +97,6 @@ function deploy() {
             log "Run cypress test on $NODE_ENV environment..."
             cd IBF-system
             npx cypress run --record
-            cd ..
         else
             log "Skip cypress test on $NODE_ENV environment..."
         fi
