@@ -1,6 +1,6 @@
 // Contains a list of custom Commands
-Cypress.Commands.add("login", (login) => {
-  cy.fixture('login-uga').then((login) => {
+Cypress.Commands.add("login", (country) => {
+  cy.fixture('login-' + country).then((login) => {
     const apiUrl = Cypress.env('apiUrl');
     cy.request('POST', apiUrl + '/user/login', {
       email: login.email,

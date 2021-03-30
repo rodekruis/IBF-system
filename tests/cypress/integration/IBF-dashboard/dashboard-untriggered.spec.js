@@ -1,7 +1,6 @@
 describe('Load the dashboard non triggered', () => {
   beforeEach(() => {
-    cy.server();
-    cy.login();
+    cy.login('uga');
   });
 
   // Real API call
@@ -19,9 +18,7 @@ describe('Load the dashboard non triggered', () => {
 
   it('shows chat with blue about-trigger button', function () {
     cy.get('[data-cy=chat]')
-    cy.get('[data-cy=chat-about-trigger]').within(($app) => {
-      cy.get('ion-button').should('have.class', 'ion-color-ibf-royal-blue')
-    })
+    cy.get('[data-cy=chat-about-trigger]').should('have.class', 'ion-color-ibf-royal-blue')
   });
 
   it('shows video guide in chat and opens popup', function () {
