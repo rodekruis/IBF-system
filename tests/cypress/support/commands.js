@@ -1,6 +1,6 @@
 // Contains a list of custom Commands
 Cypress.Commands.add("login", (login) => {
-  cy.fixture('login').then((login) => {
+  cy.fixture('login-uga').then((login) => {
     const apiUrl = Cypress.env('apiUrl');
     cy.request('POST', apiUrl + '/user/login', {
       email: login.email,
@@ -11,3 +11,23 @@ Cypress.Commands.add("login", (login) => {
     cy.visit('/')
   })
 })
+
+// Funcation that waits fo all promises to resolve
+Cypress.Commands.add("waitForAngular", () => {
+  return cy.window().then({ timeout: 25000 }, win => {
+    return new Cypress.Promise((resolve, reject) => {
+      let testabilities = win['getAllAngularTestabilities']();
+      if (!testabilities) {
+        return reject(new Error('No testabilities. Check Angular API'));
+      }
+      let count = testabilities.length;
+      testabilities.forEach(testability => testability.whenStable(() => {
+        count--;
+        if (count !== 0) return;
+        resolve();
+      }));
+    });
+  });
+})
+
+Cypress.Commands.overwrite('log', (subject, message) => cy.task('log', message));

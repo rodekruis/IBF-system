@@ -6,7 +6,7 @@ describe('Load the dashboard non triggered', () => {
 
   // Real API call
   it('lets the user log in programatically', function () {
-    cy.fixture('login').then((login) => {
+    cy.fixture('login-uga').then((login) => {
       const apiUrl = Cypress.env('apiUrl');
       cy.request('POST', apiUrl + '/user/login', {
         email: login.email,

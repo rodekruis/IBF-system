@@ -1,22 +1,62 @@
 [
   {
+    "label": "Glofas stations",
+    "active": "yes",
+    "type": "point"
+  },
+  {
+    "label": "Red Cross branches",
+    "active": "no",
+    "type": "point"
+  },
+  {
+    "label": "Population 65+",
+    "active": "no",
+    "type": "shape"
+  },
+  {
     "label": "Population",
-    "active": "no"
+    "active": "no",
+    "type": "wms"
   },
   {
     "label": "Cropland",
-    "active": "no"
-  },
-  {
-    "label": "Glofas stations",
-    "active": "yes"
+    "active": "no",
+    "type": "wms"
   },
   {
     "label": "Waterpoints",
-    "active": "no"
+    "active": "no",
+    "type": "point"
   },
   {
     "label": "COVID Risk",
-    "active": "no"
+    "active": "no",
+    "type": "shape"
+  },
+  {
+    "label": "Grassland",
+    "active": "no",
+    "type": "wms"
+  },
+  {
+    "label": "Population U8",
+    "active": "no",
+    "type": "shape"
+  },
+  {
+    "label": "Poverty incidence",
+    "active": "no",
+    "type": "shape"
+  },
+  {
+    "label": "Permanent wall type",
+    "active": "no",
+    "type": "shape"
+  },
+  {
+    "label": "Permanent roof type",
+    "active": "no",
+    "type": "shape"
   }
 ]
