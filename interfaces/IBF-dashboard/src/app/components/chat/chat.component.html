@@ -1,12 +1,12 @@
 <ion-content scrollY="true">
   <!-- No event -->
-  <app-dialogue-turn data-cy="chat"
+  <app-dialogue-turn
     *ngIf="!eventService.state.activeEvent && !eventService.state.activeTrigger"
   >
     <p
       [innerHTML]="'chat-component.no-event-no-trigger.welcome' | translate"
     ></p>
-    <app-about-btn data-cy="chat-about-trigger"
+    <app-about-btn
       [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>

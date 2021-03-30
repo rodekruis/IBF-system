@@ -1,12 +1,11 @@
 describe('Login Page', () => {
   beforeEach(() => {
-    cy.server();
   });
 
   // Login using the UI
   it('lets the user log in', function () {
     cy.fixture('login-uga').then((login) => {
-      cy.visit(login.portal);
+      cy.visit('/login');
 
       cy.get('input[name="email"]').type(login.email);
       cy.get('input[name="password"]').type(login.password);
