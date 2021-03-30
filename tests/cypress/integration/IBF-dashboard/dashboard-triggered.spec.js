@@ -1,13 +1,11 @@
 describe('Load the dashboard triggered', () => {
   beforeEach(() => {
-    cy.login('eth');
+    cy.login('zam');
   });
 
-  it('shows chat with red about-trigger button', function () {
+  it('shows chat with red background', function () {
     cy.get('[data-cy=chat]')
-    cy.get('[data-cy=chat-about-trigger]').within(($app) => {
-      cy.get('ion-button').should('have.class', 'ion-color-ibf-salmon')
-    })
+    // Needs tests to check if tiggered
   });
 
 });
