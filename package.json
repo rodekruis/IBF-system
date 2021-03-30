@@ -27,7 +27,7 @@
     "lint:ibf-api-service": "npm run lint --prefix services/API-service/",
     "lint:ibf-interfaces": "npx npm-run-all --print-label --parallel lint:ibf-dashboard",
     "lint:ibf-dashboard": "npm run lint --prefix interfaces/IBF-dashboard/",
-    "start:cypress": "npx cypress open"
+    "test:integration": "npx cypress open"
   },
   "dependencies": {
     "github-webhook-handler": "^1.0.0"
