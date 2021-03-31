@@ -376,6 +376,9 @@ export class MapComponent implements OnDestroy {
             const popup =
               '<strong>' +
               feature.properties.name +
+              (feature.properties.pcode === 'Disputed'
+                ? ' (Disputed borders)'
+                : '') +
               '</strong><br/>' +
               layer.label +
               ': ' +
