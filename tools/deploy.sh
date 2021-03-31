@@ -95,6 +95,7 @@ function deploy() {
         if [[ $NODE_ENV="test" ]]
         then
             log "Run integration tests on $NODE_ENV environment..."
+            cd "$repo" || return
             npm run test:integration
         else
             log "Skip integration tests on $NODE_ENV environment..."
@@ -105,6 +106,7 @@ function deploy() {
         if [[ $NODE_ENV="test" ]]
         then
             log "Run performance tests on $NODE_ENV environment..."
+            cd "$repo" || return
             npm run test:performance
         else
             log "Skip performance tests on $NODE_ENV environment..."
