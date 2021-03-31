@@ -91,24 +91,23 @@ function deploy() {
         docker image prune -f
     }
 
-    function test_cypress() {
+    function test_integration() {
         if [[ $NODE_ENV="test" ]]
         then
-            log "Run cypress test on $NODE_ENV environment..."
-            cd IBF-system
-            npx cypress run --record
+            log "Run integration tests on $NODE_ENV environment..."
+            npm run test:integration
         else
-            log "Skip cypress test on $NODE_ENV environment..."
+            log "Skip integration tests on $NODE_ENV environment..."
         fi
     }
 
-    function test_lighthouse() {
+    function test_performance() {
         if [[ $NODE_ENV="test" ]]
         then
-            log "Run lighthouse test on $NODE_ENV environment..."
-            lhci autorun --config=tests/lighthouse/lighthouserc.js
+            log "Run performance tests on $NODE_ENV environment..."
+            npm run test:performance
         else
-            log "Skip lighthouse test on $NODE_ENV environment..."
+            log "Skip performance tests on $NODE_ENV environment..."
         fi
     }
 
@@ -122,9 +121,9 @@ function deploy() {
 
     cleanup_docker
 
-    test_cypress
+    test_integration
 
-    test_lighthouse
+    test_performance
 
     restart_webhook_service
 
