@@ -1,3 +1,12 @@
+## [0.52.1](https://github.com/rodekruis/IBF-system/compare/v0.52.0...v0.52.1) (2021-03-31)
+
+
+### Bug Fixes
+
+* dummy commit to push ([fba3521](https://github.com/rodekruis/IBF-system/commit/fba352130d92bfe3483c5d1ac05da2a0ae38772a))
+
+
+
 # [0.52.0](https://github.com/rodekruis/IBF-system/compare/v0.51.6...v0.52.0) (2021-03-31)
 
 
@@ -89,15 +98,6 @@
 
 * cypress install seperate ([ea2401a](https://github.com/rodekruis/IBF-system/commit/ea2401a5ac9739b00d4fd2fcbdbebfb290f4a872))
 * cypress on deploy ([4a1d06b](https://github.com/rodekruis/IBF-system/commit/4a1d06b6b6a68edff778ba7bf971722aae05efff))
-
-
-
-# [0.49.0](https://github.com/rodekruis/IBF-system/compare/v0.48.0...v0.49.0) (2021-03-23)
-
-
-### Features
-
-* cypress install seperate ([db55f8a](https://github.com/rodekruis/IBF-system/commit/db55f8abdacac735406158a6dd784a4dcb22c363))
 
 
 
