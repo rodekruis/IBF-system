@@ -15,10 +15,18 @@ import { MockScenario } from './mock-scenario.enum';
   providedIn: 'root',
 })
 export class MockScenarioInterceptor implements HttpInterceptor {
+  private mockScenario: MockScenario;
+
   constructor(
     private mockScenarioService: MockScenarioService,
     private mockAPI: MockAPI,
-  ) {}
+  ) {
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe((mockScenario: MockScenario) => {
+        this.mockScenario = mockScenario;
+      });
+  }
 
   intercept(
     request: HttpRequest<any>,
@@ -30,27 +38,14 @@ export class MockScenarioInterceptor implements HttpInterceptor {
     const requestPathSplit = requestPath.split('/');
     const requestEndpoint = requestPathSplit[1];
 
-    let mockAPIs = this.mockAPI.getMockAPI();
-    if (
-      requestEndpoint === 'stations' ||
-      requestEndpoint === 'admin-area-data'
-    ) {
-      const leadTime = requestPathSplit[requestPathSplit.length - 1];
-      mockAPIs = this.mockAPI.getMockAPI(leadTime);
-    }
+    const mockAPIs = this.mockAPI.getMockAPI();
 
     const currentMockEndpoint =
       (mockAPIs[request.method] && mockAPIs[request.method][requestPath]) ||
       (mockAPIs[request.method] && mockAPIs[request.method][requestEndpoint]) ||
       null;
 
-    let isMockScenario = false;
-
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe((mockScenario: MockScenario) => {
-        isMockScenario = mockScenario !== MockScenario.real;
-      });
+    const isMockScenario = this.mockScenario !== MockScenario.real;
 
     return isMockScenario && currentMockEndpoint
       ? currentMockEndpoint.handler()
