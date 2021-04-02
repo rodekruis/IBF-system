@@ -99,22 +99,7 @@ df_impact<-data.frame(date=unique(drop_na(df_impact)$Date),val=60)
 all_glofas_dfs<-all_glofas_dfs1 %>%left_join(zambia_glofas_stations ,by='st')
  
 
-agg = aggregate(all_glofas_dfs1,
-                by = list(all_glofas_dfs1$year, all_glofas_dfs1$step),
-                FUN = max)
 
-#agg2 = aggregate(all_glofas_dfs%>%select(st,rt10,step,district),by = list(all_glofas_dfs1$st, all_glofas_dfs1$step), FUN = max)
-
-
-
-
-
-
-
-ggplot(agg %>% filter(step>4 ) , aes(Date, act_rt10, colour = factor(step)), size = 7) + 
-  geom_point(shape = 21, alpha = 0.75, size = 3)
-
- 
 
 
 ggplot(all_glofas_dfs %>% filter(act_rt10 >50 )%>% filter(step>4 )  ,
