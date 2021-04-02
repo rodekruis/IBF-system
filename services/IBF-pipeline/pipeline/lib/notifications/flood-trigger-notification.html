@@ -24,6 +24,10 @@
         text-align: center;
       }
 
+      .notification-sub-title {
+          vertical-align: top;
+      }
+
       .notification-sub-title-left {
         text-align: left;
       }
@@ -46,6 +50,10 @@
       .notification-alerts-table-caption {
         margin-bottom: 10px;
         text-align: left;
+      }
+
+      .notification-alerts-table-row {
+        border-top: 1px solid #c0c0c0;
       }
 
       .notification-actions-table td,
@@ -75,6 +83,15 @@
         font-weight: bold;
         border: 1px solid #000000;
         cursor: pointer;
+      }
+
+      .notification-lead-date-list-label {
+          margin-right: 7rem;
+      }
+
+      .notification-lead-date-list {
+        list-style-position: inside;
+        margin: 0;
       }
 
       p {
@@ -892,7 +909,7 @@
                                           src="(IMG-LOGO)"
                                           style="
                                             max-width: 332px;
-                                            padding-bottom: 0;
+                                            padding: 8px;
                                             display: inline !important;
                                             vertical-align: bottom;
                                           "
@@ -910,16 +927,21 @@
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td>
+                                      <td class="notification-sub-title">
                                         <h3 class="notification-sub-title-left">
                                           Today: (TODAY)
                                         </h3>
                                       </td>
-                                      <td>
+                                      <td class="notification-sub-title">
                                         <h3
                                           class="notification-sub-title-right"
                                         >
-                                          Lead Time: (LEAD-DATE)
+                                          <div
+                                            class="notification-lead-date-list-label"
+                                          >Lead Time: </div>
+                                          <ul
+                                            class="notification-lead-date-list"
+                                          >(LEAD-DATE-LIST)</ul>
                                         </h3>
                                       </td>
                                     </tr>
@@ -1032,13 +1054,12 @@
                                           <div class="notification-content">
                                             Dear Reader,<br /><br />
                                             A trigger warning for
-                                            <b>(LEAD-DATE)</b>
-                                            has been activated for <strong>(DISASTER-TYPE)</strong> for
+                                            <ul>(LEAD-DATE-LIST)</ul>
+                                            has been activated for <strong>(DISASTER-TYPE)</strong> in
                                             the following (ADMIN-AREA-PLURAL). They are listed
-                                            in order of number people
+                                            in order of number of people
                                             potentially exposed per (ADMIN-AREA-SINGULAR). Please
-                                            click the following buttons to do
-                                            the following.
+                                            click the following buttons:
                                             <table
                                               class="notification-actions-table"
                                             >
@@ -1096,8 +1117,8 @@
                                                           align="left"
                                                         >
                                                           1. See the locations
-                                                          potentially affected
-                                                          on the map in our
+                                                          potentially exposed
+                                                          on the map in the
                                                           dashboard.
                                                         </td>
                                                       </tr>
