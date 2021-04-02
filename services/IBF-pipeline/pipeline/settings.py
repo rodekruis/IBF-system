@@ -10,7 +10,7 @@ from datetime import date, timedelta
 
 # Change this date only in case of specific testing purposes
 CURRENT_DATE = date.today()
-# CURRENT_DATE=date.today() - timedelta(leadTimeValue=1)
+# CURRENT_DATE=date.today() - timedelta(1)
 
 
 ######################
