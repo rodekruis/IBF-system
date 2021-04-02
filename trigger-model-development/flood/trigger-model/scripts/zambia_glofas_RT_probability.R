@@ -10,7 +10,7 @@ library(tidyverse)
 
 library(ggplot2)
 # ------------------------ import DATA  -----------------------------------
-
+# GLOFAS files are big to upload here 
 path='C:/Users/ATeklesadik/OneDrive - Rode Kruis/Documents/documents/GLOFAS/glofas'
 
 
