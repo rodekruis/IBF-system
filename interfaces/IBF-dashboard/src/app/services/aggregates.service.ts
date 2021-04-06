@@ -29,40 +29,85 @@ export class AggregatesService {
   ) {
     this.countryService
       .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.country = country;
-        this.loadMetadataAndAggregates();
-      });
+      .subscribe(this.onCountryChange);
 
-    this.timelineService.getTimelineSubscription().subscribe(() => {
-      this.loadMetadataAndAggregates();
-    });
+    this.timelineService
+      .getTimelineSubscription()
+      .subscribe(this.onLeadTimeChange);
 
-    this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
-      this.loadAggregateInformation();
-    });
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe(this.onMockScenarioChange);
   }
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+    this.loadMetadataAndAggregates();
+  };
+
+  private onLeadTimeChange = () => {
+    this.loadMetadataAndAggregates();
+  };
+
+  private onMockScenarioChange = () => {
+    this.loadAggregateInformation();
+  };
 
   loadMetadataAndAggregates() {
     if (this.country) {
       this.apiService
         .getIndicators(this.country.countryCodeISO3)
-        .subscribe((response) => {
-          this.indicators = response;
-          this.mapService.hideAggregateLayers();
-          this.indicators.forEach((indicator: Indicator) => {
-            this.mapService.loadAggregateLayer(indicator);
-          });
-          this.indicatorSubject.next(this.indicators);
-
-          this.loadAggregateInformation();
-        });
+        .subscribe(this.onIndicatorChange);
     }
   }
+
+  private onIndicator = (indicator: Indicator) => {
+    this.mapService.loadAggregateLayer(indicator);
+  };
+
+  private onIndicatorChange = (indicators) => {
+    this.indicators = indicators;
+    this.mapService.hideAggregateLayers();
+    this.indicators.forEach(this.onIndicator);
+    this.indicatorSubject.next(this.indicators);
+
+    this.loadAggregateInformation();
+  };
 
   getIndicators(): Observable<Indicator[]> {
     return this.indicatorSubject.asObservable();
   }
+
+  private onEachIndicatorByFeatureAndAggregate = (feature, aggregate) => (
+    indicator: Indicator,
+  ) => {
+    if (indicator.aggregateIndicator) {
+      if (indicator.name in feature.properties) {
+        aggregate[indicator.name] = feature.properties[indicator.name];
+      } else if (indicator.name in feature.properties.indicators) {
+        aggregate[indicator.name] =
+          feature.properties.indicators[indicator.name];
+      } else {
+        aggregate[indicator.name] = 0;
+      }
+    }
+  };
+
+  private onEachAdminFeature = (feature) => {
+    const aggregate = {
+      placeCode: feature.properties.pcode,
+    };
+
+    this.indicators.forEach(
+      this.onEachIndicatorByFeatureAndAggregate(feature, aggregate),
+    );
+
+    return aggregate;
+  };
+
+  private onAdminRegions = (adminRegions) => {
+    this.aggregates = adminRegions.features.map(this.onEachAdminFeature);
+  };
 
   loadAggregateInformation(): void {
     if (this.country) {
@@ -72,63 +117,35 @@ export class AggregatesService {
           this.timelineService.activeLeadTime,
           this.adminLevelService.adminLevel,
         )
-        .subscribe((adminRegions) => {
-          this.aggregates = adminRegions.features.map((feature) => {
-            const aggregate = {
-              placeCode: feature.properties.pcode,
-            };
-
-            this.indicators.forEach((indicator: Indicator) => {
-              if (indicator.aggregateIndicator) {
-                if (indicator.name in feature.properties) {
-                  aggregate[indicator.name] =
-                    feature.properties[indicator.name];
-                } else if (indicator.name in feature.properties.indicators) {
-                  aggregate[indicator.name] =
-                    feature.properties.indicators[indicator.name];
-                } else {
-                  aggregate[indicator.name] = 0;
-                }
-              }
-            });
-
-            return aggregate;
-          });
-        });
+        .subscribe(this.onAdminRegions);
     }
   }
 
   getAggregate(
-    weightedAvg: boolean,
+    weightedAverage: boolean,
     indicator: IbfLayerName,
     placeCode: string,
   ): number {
-    if (weightedAvg) {
-      return this.getExposedAbsSumFromPerc(indicator, placeCode);
-    } else {
-      return this.getSum(indicator, placeCode);
+    return this.aggregates.reduce(
+      this.aggregateReducer(weightedAverage, indicator, placeCode),
+      0,
+    );
+  }
+
+  private aggregateReducer = (
+    weightedAverage: boolean,
+    indicator: IbfLayerName,
+    placeCode: string,
+  ) => (accumulator, aggregate) => {
+    let indicatorValue = 0;
+
+    if (placeCode === null || placeCode === aggregate.placeCode) {
+      const indicatorWeight = weightedAverage
+        ? aggregate[IbfLayerName.population_affected]
+        : 1;
+      indicatorValue = indicatorWeight * aggregate[indicator];
     }
-  }
 
-  getSum(indicator: IbfLayerName, placeCode: string) {
-    return this.aggregates.reduce(
-      (accumulator, aggregate) =>
-        accumulator +
-        (placeCode === null || placeCode === aggregate.placeCode
-          ? aggregate[indicator]
-          : 0),
-      0,
-    );
-  }
-
-  getExposedAbsSumFromPerc(indicator: IbfLayerName, placeCode: string) {
-    return this.aggregates.reduce(
-      (accumulator, aggregate) =>
-        accumulator +
-        (placeCode === null || placeCode === aggregate.placeCode
-          ? aggregate[IbfLayerName.population_affected] * aggregate[indicator]
-          : 0),
-      0,
-    );
-  }
+    return accumulator + indicatorValue;
+  };
 }

@@ -104,22 +104,22 @@ volumes:
     pipeline-root:
         driver_opts:
             type: bind
-            device: /home/ibf-user/IBF-system/services/IBF-pipeline
+            device: ./services/IBF-pipeline
             o: bind
     pipeline-geoserver:
         driver_opts:
             type: bind
-            device: /home/ibf-user/IBF-system/services/IBF-pipeline/pipeline/data/raster
+            device: ./services/IBF-pipeline/pipeline/data/raster
             o: bind
     workspace-geoserver:
         driver_opts:
             type: bind
-            device: /home/ibf-user/IBF-system/services/IBF-pipeline/geoserver-workspaces/ibf-system
+            device: ./services/IBF-pipeline/geoserver-workspaces/ibf-system
             o: bind
     letsencrypt:
         driver_opts:
             type: bind
-            device: /home/ibf-user/IBF-system/nginx/letsencrypt
+            device: ./nginx/letsencrypt
             o: bind
 
 networks:

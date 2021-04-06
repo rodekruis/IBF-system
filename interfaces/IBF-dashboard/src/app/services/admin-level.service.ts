@@ -26,17 +26,19 @@ export class AdminLevelService {
   constructor(private countryService: CountryService) {
     this.countryService
       .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.country = country;
-
-        if (this.country) {
-          this.setAdminLevel(this.country.defaultAdminLevel);
-          this.adminLevelLabel = AdminLevelService.loadAdminLevelLabels(
-            this.country,
-          );
-        }
-      });
+      .subscribe(this.onCountryChange);
   }
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+
+    if (this.country) {
+      this.setAdminLevel(this.country.defaultAdminLevel);
+      this.adminLevelLabel = AdminLevelService.loadAdminLevelLabels(
+        this.country,
+      );
+    }
+  };
 
   getAdminLevelSubscription = (): Observable<AdminLevel> => {
     return this.adminLevelSubject.asObservable();

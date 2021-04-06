@@ -25,10 +25,12 @@ export class AppComponent implements OnDestroy {
     this.loaderSubscription = this.loaderService
       .getLoaderSubscription()
       .pipe(debounceTime(DEBOUNCE_TIME_LOADER))
-      .subscribe((loading: boolean) => {
-        this.loading = loading;
-      });
+      .subscribe(this.onLoaderChange);
   }
+
+  private onLoaderChange = (loading: boolean) => {
+    this.loading = loading;
+  };
 
   initializeApp() {
     this.translateService.setDefaultLang(this.defaultLanguage);
