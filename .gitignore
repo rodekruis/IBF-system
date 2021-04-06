@@ -1,6 +1,12 @@
 # Lighthouse
 .lighthouseci
 
+# Cypress
+cypress.env.json
+tests/cypress/screenshots
+tests/cypress/integration/examples
+tests/cypress/videos
+
 # IDE / Editors
 .vscode
 .idea
@@ -35,7 +41,7 @@ $RECYCLE.BIN/
 
 # node
 node_modules
-package-lock.json
+# package-lock.json
 
 # db-dumps
 tools/db-dumps/*.dump

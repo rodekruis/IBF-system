@@ -4,8 +4,6 @@ import { MockScenarioService } from 'src/app/mocks/mock-scenario-service/mock-sc
 import { MockScenario } from 'src/app/mocks/mock-scenario.enum';
 import { Country } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
-import { TimelineService } from 'src/app/services/timeline.service';
-import { LeadTime } from 'src/app/types/lead-time';
 
 @Component({
   selector: 'app-mock-scenario',
@@ -34,7 +32,6 @@ export class MockScenarioComponent implements OnInit, OnDestroy {
   constructor(
     public mockScenarioService: MockScenarioService,
     public countryService: CountryService,
-    private timelineService: TimelineService,
   ) {}
 
   ngOnInit() {
@@ -62,19 +59,6 @@ export class MockScenarioComponent implements OnInit, OnDestroy {
 
   public handleMockScenarioChange(event: CustomEvent): void {
     this.mockScenarioService.setMockScenario(event.detail.value);
-  }
-
-  public mockAddLeadTime(event: CustomEvent): void {
-    if (this.country) {
-      if (event.detail.value === this.mockLeadTimeKey) {
-        if (!this.country.countryLeadTimes.includes(LeadTime.day3)) {
-          this.country.countryLeadTimes.push(LeadTime.day3);
-        }
-      } else {
-        this.country.countryLeadTimes = [LeadTime.day7];
-      }
-      this.timelineService.loadTimeStepButtons();
-    }
   }
 
   public allowMockScenarios(): boolean {

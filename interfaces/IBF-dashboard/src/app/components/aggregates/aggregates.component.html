@@ -24,7 +24,7 @@
         <ion-icon name="close" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-item>
-    <div *ngFor="let group of groups">
+    <div *ngFor="let group of groups" data-cy="aggregate-list">
       <ion-item
         *ngIf="group === indicatorGroupEnum.vulnerability"
         color="medium"
@@ -50,7 +50,7 @@
           </ion-col>
           <ion-col size-lg="3" size-md="3" size-xs="3">
             <ion-item class="aggregate-item-value ion-no-padding">
-              <ion-label class="ion-text-right">
+              <ion-label class="ion-text-right" data-cy="aggregate-number">
                 <span *ngIf="indicator.numberFormatAggregate === 'decimal2'">
                   {{
                     this.getAggregate(indicator.name, indicator.weightedAvg)

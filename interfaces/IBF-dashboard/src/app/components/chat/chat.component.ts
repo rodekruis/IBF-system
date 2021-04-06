@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -11,7 +11,6 @@ import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
-import { LoaderService } from 'src/app/services/loader.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EapAction } from 'src/app/types/eap-action';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
@@ -44,7 +43,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private alertController: AlertController,
-    private loaderService: LoaderService,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
     private apiService: ApiService,
@@ -114,19 +112,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     eapAction.action === action;
 
   private filterEAPActionByPlaceCode = (placeCode) => (eapAction) =>
-    eapAction.placeCode !== placeCode;
-
-  private checkEAPActionByPlaceCode = (placeCode) => (eapAction) => {
-    if (eapAction.placeCode === placeCode) {
-      return this.eapActionsService.checkEapAction(
-        eapAction.action,
-        eapAction.checked,
-        eapAction.placeCode,
-      );
-    }
-  };
-
-  private onEAPActionComplete = (): void => window.location.reload();
+    eapAction.placeCode === placeCode;
 
   public changeAction(
     placeCode: string,
@@ -166,6 +152,14 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.changedActions.length === 0;
   }
 
+  private checkEAPAction = (action) => {
+    return this.eapActionsService.checkEapAction(
+      action.action,
+      action.checked,
+      action.placeCode,
+    );
+  };
+
   public submitEapAction(placeCode: string): void {
     this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
       placeCode,
@@ -179,23 +173,17 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.filterTriggeredAreaByPlaceCode(placeCode),
     ).submitDisabled = true;
 
-    try {
-      this.changedActions.map(this.checkEAPActionByPlaceCode(placeCode));
-
-      this.changedActions = this.changedActions.filter(
-        this.filterEAPActionByPlaceCode(placeCode),
-      );
-
-      this.actionResult(this.updateSuccessMessage, this.onEAPActionComplete);
-    } catch {
-      this.actionResult(this.updateFailureMessage);
-    }
+    forkJoin(
+      this.changedActions
+        .filter(this.filterEAPActionByPlaceCode(placeCode))
+        .map(this.checkEAPAction),
+    ).subscribe({
+      next: () => this.actionResult(this.updateSuccessMessage),
+      error: () => this.actionResult(this.updateFailureMessage),
+    });
   }
 
-  private async actionResult(
-    resultMessage: string,
-    callback?: () => void,
-  ): Promise<void> {
+  private async actionResult(resultMessage: string): Promise<void> {
     const alert = await this.alertController.create({
       message: resultMessage,
       buttons: [
@@ -203,9 +191,6 @@ export class ChatComponent implements OnInit, OnDestroy {
           text: this.promptButtonLabel,
           handler: () => {
             alert.dismiss(true);
-            if (callback) {
-              callback();
-            }
             return false;
           },
         },
