@@ -31,25 +31,11 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
-      .subscribe((newAreas) => {
-        this.triggeredAreas = newAreas;
-        this.calcActionStatus(this.triggeredAreas);
-      });
+      .subscribe(this.onTriggeredAreasChange);
 
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
-      .subscribe((placeCode: PlaceCode) => {
-        if (placeCode) {
-          const filteredAreas = this.triggeredAreas.filter(
-            (area) => area.placeCode === placeCode.placeCode,
-          );
-          this.calcActionStatus(filteredAreas);
-        } else {
-          this.calcActionStatus(this.triggeredAreas);
-        }
-      });
-
-    this.eventService.getTrigger();
+      .subscribe(this.onPlaceCodeChange);
   }
 
   ngOnDestroy() {
@@ -58,35 +44,64 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     this.areasOfFocusSubscription.unsubscribe();
   }
 
-  calcActionStatus(triggeredAreas): void {
+  private onTriggeredAreasChange = (triggeredAreas) => {
+    this.triggeredAreas = triggeredAreas;
+    this.calculateEAPActionStatus(this.triggeredAreas);
+  };
+
+  private onPlaceCodeChange = (placeCode: PlaceCode) => {
+    if (placeCode) {
+      const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
+        triggeredArea.placeCode === placeCode.placeCode;
+
+      const filteredAreas = this.triggeredAreas.filter(
+        filterTriggeredAreasByPlaceCode,
+      );
+      this.calculateEAPActionStatus(filteredAreas);
+    } else {
+      this.calculateEAPActionStatus(this.triggeredAreas);
+    }
+  };
+
+  // data needs to be reorganized to avoid the mess that follows
+
+  private onEachEAPAction = (areaOfFocus) => (action) => {
+    // And count the total # of (checked) tasks this way
+    if (areaOfFocus.id === action.aof) {
+      areaOfFocus.count += 1;
+      if (action.checked) {
+        areaOfFocus.countChecked += 1;
+      }
+    }
+  };
+
+  private onEachTriggeredArea = (areaOfFocus) => (area) => {
+    // And at each action within the area ..
+    area.eapActions.forEach(this.onEachEAPAction(areaOfFocus));
+  };
+
+  private calculateEAPActionStatus(triggeredAreas): void {
+    const onEachAreaOfFocus = (areaOfFocus) => {
+      areaOfFocus.count = 0;
+      areaOfFocus.countChecked = 0;
+      // Look at each triggered area ..
+      triggeredAreas.forEach(this.onEachTriggeredArea(areaOfFocus));
+    };
+
+    const onAreasOfFocusChange = (areasOfFocus) => {
+      this.areasOfFocus = areasOfFocus;
+
+      // Start calculation only when last area has eapActions attached to it
+      if (triggeredAreas[triggeredAreas.length - 1]?.eapActions) {
+        // For each area of focus ..
+        this.areasOfFocus.forEach(onEachAreaOfFocus);
+      }
+      this.changeDetectorRef.detectChanges();
+    };
+
     // Get areas of focus from db
     this.areasOfFocusSubscription = this.apiService
       .getAreasOfFocus()
-      .subscribe((areasOfFocus) => {
-        this.areasOfFocus = areasOfFocus;
-
-        // Start calculation only when last area has eapActions attached to it
-        if (triggeredAreas[triggeredAreas.length - 1]?.eapActions) {
-          // For each area of focus ..
-          this.areasOfFocus.forEach((areaOfFocus) => {
-            areaOfFocus.count = 0;
-            areaOfFocus.countChecked = 0;
-            // Look at each triggered area ..
-            triggeredAreas.forEach((area) => {
-              // And at each action within the area ..
-              area.eapActions.forEach((action) => {
-                // And count the total # of (checked) tasks this way
-                if (areaOfFocus.id === action.aof) {
-                  areaOfFocus.count += 1;
-                  if (action.checked) {
-                    areaOfFocus.countChecked += 1;
-                  }
-                }
-              });
-            });
-          });
-        }
-        this.changeDetectorRef.detectChanges();
-      });
+      .subscribe(onAreasOfFocusChange);
   }
 }

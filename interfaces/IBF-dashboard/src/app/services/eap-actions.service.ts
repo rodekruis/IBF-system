@@ -20,39 +20,51 @@ export class EapActionsService {
   ) {
     this.countryService
       .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.country = country;
-        this.loadDistrictsAndActions();
-      });
+      .subscribe(this.onCountryChange);
 
-    this.mockScenarioService.getMockScenarioSubscription().subscribe(() => {
-      this.loadDistrictsAndActions();
-    });
+    this.mockScenarioService
+      .getMockScenarioSubscription()
+      .subscribe(this.onMockScenarioChange);
   }
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+    this.loadDistrictsAndActions();
+  };
+
+  private onMockScenarioChange = () => {
+    this.loadDistrictsAndActions();
+  };
+
+  private onEAPActionByTriggeredArea = (triggeredArea) => (eapActions) => {
+    triggeredArea.eapActions = eapActions;
+  };
+
+  private onTriggeredAreas = (triggeredAreas) => {
+    this.triggeredAreas = triggeredAreas;
+
+    for (const triggeredArea of this.triggeredAreas) {
+      this.apiService
+        .getEapActions(this.country.countryCodeISO3, triggeredArea.placeCode)
+        .subscribe(this.onEAPActionByTriggeredArea(triggeredArea));
+    }
+
+    this.triggeredAreaSubject.next(this.triggeredAreas);
+  };
+
+  private onEvent = (event) => {
+    if (event) {
+      this.apiService
+        .getTriggeredAreas(this.country.countryCodeISO3)
+        .subscribe(this.onTriggeredAreas);
+    }
+  };
 
   loadDistrictsAndActions() {
     if (this.country) {
       this.apiService
         .getEvent(this.country.countryCodeISO3)
-        .subscribe((event) => {
-          if (event) {
-            this.apiService
-              .getTriggeredAreas(this.country.countryCodeISO3)
-              .subscribe((triggeredAreas) => {
-                this.triggeredAreas = triggeredAreas;
-
-                for (const area of this.triggeredAreas) {
-                  this.apiService
-                    .getEapActions(this.country.countryCodeISO3, area.placeCode)
-                    .subscribe((eapActions) => {
-                      area.eapActions = eapActions;
-                    });
-                }
-
-                this.triggeredAreaSubject.next(this.triggeredAreas);
-              });
-          }
-        });
+        .subscribe(this.onEvent);
     }
   }
 
