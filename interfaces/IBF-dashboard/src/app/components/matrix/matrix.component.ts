@@ -117,7 +117,7 @@ export class MatrixComponent implements OnDestroy {
         this.filterIndicatorByLayerName(name),
       );
     }
-    this.mapService.updateLayer(name, active, true);
+    this.mapService.updateLayers(name, active, true);
     this.mapService.activeLayerName = active ? name : null;
     if (active) {
       const adminRegionLayer = this.mapService.layers.find(

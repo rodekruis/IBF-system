@@ -73,13 +73,11 @@ export class EapActionsService {
   }
 
   checkEapAction(action: string, status: boolean, placeCode: string) {
-    if (this.country) {
-      this.apiService.checkEapAction(
-        action,
-        this.country.countryCodeISO3,
-        status,
-        placeCode,
-      );
-    }
+    return this.apiService.checkEapAction(
+      action,
+      this.country.countryCodeISO3,
+      status,
+      placeCode,
+    );
   }
 }

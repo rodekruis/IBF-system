@@ -34,8 +34,7 @@ def main():
                 fc.exposure.callAllExposure()
                 fc.db.upload()
             fc.db.processDynamicDataDb()
-            if COUNTRY_SETTINGS['model'] == 'glofas':
-                notify(COUNTRY_CODE)
+            notify(COUNTRY_CODE)
 
     except Exception as e:
         # If a fatal exception occurs during the cronjob

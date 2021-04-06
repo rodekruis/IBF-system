@@ -91,13 +91,25 @@ function deploy() {
         docker image prune -f
     }
 
-    function test_lighthouse() {
+    function test_integration() {
         if [[ $NODE_ENV="test" ]]
         then
-            log "Run lighthouse test on $NODE_ENV environment..."
-            lhci autorun --config=tests/lighthouse/lighthouserc.js
+            log "Run integration tests on $NODE_ENV environment..."
+            cd "$repo" || return
+            npm run test:integration
         else
-            log "Skip lighthouse test on $NODE_ENV environment..."
+            log "Skip integration tests on $NODE_ENV environment..."
+        fi
+    }
+
+    function test_performance() {
+        if [[ $NODE_ENV="test" ]]
+        then
+            log "Run performance tests on $NODE_ENV environment..."
+            cd "$repo" || return
+            npm run test:performance
+        else
+            log "Skip performance tests on $NODE_ENV environment..."
         fi
     }
 
@@ -111,7 +123,9 @@ function deploy() {
 
     cleanup_docker
 
-    test_lighthouse
+    test_integration
+
+    test_performance
 
     restart_webhook_service
 

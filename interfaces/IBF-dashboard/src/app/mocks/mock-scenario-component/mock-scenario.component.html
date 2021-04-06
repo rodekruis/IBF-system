@@ -15,17 +15,4 @@
       </ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-item *ngIf="mockScenario !== MockScenarioEnum.real">
-    <ion-label>Mock-add 3-day</ion-label>
-    <ion-select
-      placeholder="Options"
-      interface="popover"
-      (ionChange)="mockAddLeadTime($event)"
-    >
-      <ion-select-option value="real">Normal (7-day)</ion-select-option>
-      <ion-select-option [value]="mockLeadTimeKey"
-        >Mock (3-day + 7-day)</ion-select-option
-      >
-    </ion-select>
-  </ion-item>
 </ng-container>
