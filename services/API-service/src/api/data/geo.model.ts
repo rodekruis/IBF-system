@@ -13,7 +13,7 @@ export class GlofasStation extends Poi {
 }
 
 export class RedCrossBranch extends Poi {
-  public nrVolunteers: number;
+  public numberOfVolunteers: number;
   public contactPerson: string;
   public contactAddress: string;
   public contactNumber: string;
