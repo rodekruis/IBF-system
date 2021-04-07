@@ -18,7 +18,7 @@
     "active": "yes"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY",
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
     "name": "population",
     "label": "Population",
     "type": "wms",
@@ -86,7 +86,7 @@
     "active": "no"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY",
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
     "name": "admin_regions",
     "label": "Admin Regions",
     "type": "shape",

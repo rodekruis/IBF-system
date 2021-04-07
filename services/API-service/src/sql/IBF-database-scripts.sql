@@ -75,6 +75,12 @@ from (
 	from "IBF-static-input"."UGA_CRA_Indicators_2" uga
 	left join "IBF-static-input"."UGA_flood_vulnerability" fl on uga.pcode_level2 = fl."pointsADM2_PCODE"
 ) total
+union all 
+	select cast('PHL' as varchar) as country_code
+		, pcode
+		, null as indicators
+	from "IBF-app"."adminArea" 
+	where "countryCode" = 'PHL'
 ;
 --select * from "IBF-static-input"."CRA_data_2" where country_code = 'UGA'
 

@@ -321,5 +321,52 @@
         ]
       ]
     }
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "countryCodeISO2": "PH",
+    "countryName": "Philippines",
+    "countryStatus": "active",
+    "defaultAdminLevel": 2,
+    "countryLeadTimes": [
+      "7-day"
+    ],
+    "eapAlertClasses": {},
+    "adminRegionLabels": [
+      "Regions",
+      "Provinces",
+      "Component cities"
+    ],
+    "eapLink": "https://example.org",
+    "countryLogos": [
+      "PHL-prc.jpg"
+    ],
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            116.9666564465,
+            4.1242251549
+          ],
+          [
+            114.8572814465,
+            21.4093058493
+          ],
+          [
+            127.4256408215,
+            21.2865155817
+          ],
+          [
+            126.9861876965,
+            4.56241516
+          ],
+          [
+            116.9666564465,
+            4.1242251549
+          ]
+        ]
+      ]
+    }
   }
 ]
