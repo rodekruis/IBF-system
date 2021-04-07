@@ -12,6 +12,16 @@ export class UploadService {
   }
 
   public async exposure(uploadExposure: UploadExposureDto): Promise<void> {
+    // Delete existsing entries with same date, leadtime and country_code and unit typ
+    const q = `DELETE FROM "IBF-pipeline-output".calculated_affected 
+                WHERE "source" = $1 AND "date" = $2 AND country_code = $3 AND lead_time = $4`;
+    await this.manager.query(q, [
+      uploadExposure.exposureUnit,
+      new Date(),
+      uploadExposure.countryCodeISO3,
+      uploadExposure.leadTime,
+    ]);
+
     for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
       const q = `INSERT INTO  "IBF-pipeline-output".calculated_affected( "index", "source", sum, district, "date", country_code, lead_time) 
                 VALUES($1, $2, $3, $4, $5, $6, $7)`;
@@ -25,6 +35,7 @@ export class UploadService {
         uploadExposure.leadTime,
       ]);
     }
+
     await this.processExposure();
   }
 
