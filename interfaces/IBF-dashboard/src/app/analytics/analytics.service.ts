@@ -22,9 +22,7 @@ export class AnalyticsService {
   constructor(private countryService: CountryService) {
     this.countryService
       .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.country = country;
-      });
+      .subscribe(this.onCountryChange);
 
     if (
       !environment.applicationInsightsInstrumentationKey ||
@@ -45,6 +43,10 @@ export class AnalyticsService {
     this.applicationInsights.loadAppInsights();
     this.applicationInsights.addTelemetryInitializer(this.telemetryInitializer);
   }
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+  };
 
   telemetryInitializer = (item: ITelemetryItem): void => {
     Object.assign(item.data, {
