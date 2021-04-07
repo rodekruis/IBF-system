@@ -14,15 +14,15 @@ import { CountryStatus } from './country-status.enum';
 @Entity('country')
 export class CountryEntity {
   @PrimaryGeneratedColumn('uuid')
-  public id: string;
+  public countryId: string;
 
-  @Column()
+  @Column({ unique: true })
   public countryCodeISO3: string;
 
-  @Column()
+  @Column({ unique: true })
   public countryCodeISO2: string;
 
-  @Column()
+  @Column({ unique: true })
   public countryName: string;
 
   @Column({ default: CountryStatus.Active })

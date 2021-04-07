@@ -19,11 +19,11 @@ export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   public userId: string;
 
-  @Column()
+  @Column({ unique: true })
   @IsEmail()
   public email: string;
 
-  @Column()
+  @Column({ unique: true })
   public username: string;
 
   @Column()
@@ -42,7 +42,17 @@ export class UserEntity {
     (): typeof CountryEntity => CountryEntity,
     (country): UserEntity[] => country.users,
   )
-  @JoinTable()
+  @JoinTable({
+    name: 'user_countries',
+    joinColumn: {
+      name: 'user',
+      referencedColumnName: 'email',
+    },
+    inverseJoinColumn: {
+      name: 'country',
+      referencedColumnName: 'countryCodeISO3',
+    },
+  })
   public countries: CountryEntity[];
 
   @Column({ default: UserStatus.Active })
