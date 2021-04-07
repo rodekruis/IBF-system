@@ -1,12 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { CountryEntity } from '../country/country.entity';
 
 @Entity('adminAreaData')
 export class AdminAreaDataEntity {
   @PrimaryGeneratedColumn('uuid')
-  public id: string;
+  public adminAreaDataId: string;
 
-  @Column()
-  public countryCode: string;
+  @ManyToOne((): typeof CountryEntity => CountryEntity)
+  @JoinColumn({ name: 'countryCode', referencedColumnName: 'countryCodeISO3' })
+  public country: string;
 
   @Column()
   public adminLevel: number;
