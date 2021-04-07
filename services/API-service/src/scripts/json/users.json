@@ -67,5 +67,17 @@
     "countries": [
       "EGY"
     ]
+  },
+  {
+    "email": "philippines@redcross.nl",
+    "username": "philippines",
+    "firstName": "Philippines",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": [
+      "PHL"
+    ]
   }
 ]
