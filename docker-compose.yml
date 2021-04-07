@@ -42,6 +42,8 @@ services:
             - web-server-network
         depends_on:
             - ibf-geoserver
+        volumes:
+            - ./services/IBF-pipeline/pipeline/lib/pipeline:/home/ibf/pipeline
 
     ibf-dashboard:
         build:

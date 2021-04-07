@@ -1,0 +1,28 @@
+import { IsArray, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
+import { ExposurePlaceCodeDto } from './exposure-place-code.dto';
+import exposure from './example/upload-exposure-example.json';
+
+export class UploadExposureDto {
+  @ApiProperty({ example: 'PHL' })
+  @IsNotEmpty()
+  @IsString()
+  public countryCodeISO3: string;
+
+  @ApiProperty({ example: exposure })
+  @IsArray()
+  @ValidateNested()
+  @Type(() => ExposurePlaceCodeDto)
+  public exposurePlaceCodes: ExposurePlaceCodeDto[];
+
+  @ApiProperty({ example: '7-day' })
+  @IsNotEmpty()
+  @IsString()
+  public leadTime: string;
+
+  @ApiProperty({ example: 'population' })
+  @IsNotEmpty()
+  @IsString()
+  public exposureUnit: string;
+}
