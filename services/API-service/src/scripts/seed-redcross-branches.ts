@@ -51,7 +51,7 @@ export class SeedRedcrossBranches implements InterfaceScript {
               .values({
                 countryCode: country.countryCodeISO3,
                 name: branch['BRANCH'],
-                nrVolunteers: branch['TOTAL'],
+                numberOfVolunteers: branch['TOTAL'],
                 contactPerson: branch['PRESIDENT'],
                 contactAddress: branch['LOCATION OF OFFICE'],
                 contactNumber: null,

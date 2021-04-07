@@ -655,10 +655,10 @@ export class MapComponent implements OnDestroy {
       '</strong>' +
       '</div>'
     ).concat(
-      markerProperties.nrVolunteers
+      markerProperties.numberOfVolunteers
         ? '<div style="margin-bottom: 5px">' +
             'Nr. of volunteers: ' +
-            markerProperties.nrVolunteers +
+            markerProperties.numberOfVolunteers +
             '</div>'
         : '',
 
