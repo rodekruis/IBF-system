@@ -59,7 +59,7 @@ export class SeedAdminAreaData implements InterfaceScript {
             .values({
               countryCode: 'UGA',
               adminLevel: 2,
-              placeCode: area['pcode'],
+              placeCode: area['placeCode'],
               key: area['key'],
               value: area['value'],
             })
