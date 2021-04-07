@@ -17,14 +17,16 @@ export class CountrySwitcherComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.country = country;
-      });
+      .subscribe(this.onCountryChange);
   }
 
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
   }
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+  };
 
   public handleCountryChange($event) {
     this.countryService.selectCountry($event.detail.value);

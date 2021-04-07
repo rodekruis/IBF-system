@@ -1,5 +1,16 @@
 # IBF-system
 
+
+
+## Status
+
+| Component                 | Build Status                                                                                                                                                                              |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cypress Integration Tests | [![IBF-system](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/jkaw7k/master&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/jkaw7k/runs) |
+
+
+## Introduction
+
 **NOTE**: For now some background on IBF-terminology (e.g. triggers) is
 expected. This can be expanded on later.
 
@@ -94,6 +105,17 @@ These commands will install the IBF-system with listeners at,
 2. \*development only - [localhost:4200](http://localhost:4200) for the web
    interface
 
+## Integration tests
+
+### Cypress
+
+We use Cypress for automated integration testing in this project.
+Installation:
+ 1. `sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb`
+ 2. In root folder `npm install --only=dev`
+ 3. Run `npm run start:cypress` 
+
+
 ## Releases
 
 See notable changes and the currently release version in the
@@ -101,6 +123,8 @@ See notable changes and the currently release version in the
 
 ### Release Checklist
 
+
+-   [ ] Check if the latest integration tests passed on [Cypress Dashboard](https://dashboard.cypress.io/projects/jkaw7k/runs?branches=%5B%5D&committers=%5B%5D&flaky=%5B%5D&page=1&status=%5B%5D&tags=%5B%5D&timeRange=%7B%22startDate%22%3A%221970-01-01%22%2C%22endDate%22%3A%222038-01-19%22%7D).
 -   [ ] Pick a tag to release. Let's say we want to release the tag
         [v0.27.9](https://github.com/rodekruis/IBF-system/releases/tag/v0.27.9)
         on GitHub.

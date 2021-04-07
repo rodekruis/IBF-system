@@ -37,21 +37,25 @@ export class MockScenarioComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.country = country;
-      });
+      .subscribe(this.onCountryChange);
 
     this.mockScenarioSubscription = this.mockScenarioService
       .getMockScenarioSubscription()
-      .subscribe((mockScenario: MockScenario) => {
-        this.mockScenario = mockScenario;
-      });
+      .subscribe(this.onMockScenarioChange);
   }
 
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
     this.mockScenarioSubscription.unsubscribe();
   }
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+  };
+
+  private onMockScenarioChange = (mockScenario: MockScenario) => {
+    this.mockScenario = mockScenario;
+  };
 
   public handleMockScenarioChange(event: CustomEvent): void {
     this.mockScenarioService.setMockScenario(event.detail.value);

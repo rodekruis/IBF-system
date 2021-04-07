@@ -27,9 +27,7 @@ export class UserStateComponent implements OnDestroy {
   ) {
     this.authSubscription = this.authService
       .getAuthSubscription()
-      .subscribe((user: User) => {
-        this.setDisplayName(user);
-      });
+      .subscribe(this.setDisplayName);
   }
 
   ngOnDestroy() {
