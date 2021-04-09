@@ -134,10 +134,10 @@ SETTINGS = {
             }
         },
         'email': {
-            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/899e677e-b673-4ab6-bcd2-8d51f996658d.png",
+            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/6907dc6e-311a-402b-b97d-551f04ef3d0b.png",
             'triggerStatement': "TBD",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
-            'linkEAPSOP': "https://google.com/",
+            'linkEAPSOP': "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=07f11e3484d5241c58158cdd420e6134f&authkey=AVPI5OX8vf6JaBSLf2wX_xM&expiration=2022-04-08T22%3A00%3A00.000Z&e=nMtlu2",
             'linkSocialMedia': {
                 "type": "Telegram",
                 "url": "https://t.me/joinchat/hLtvficJO-llZDE0/"
