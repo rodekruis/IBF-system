@@ -160,7 +160,7 @@ class RainfallData:
                         # batch_ex_download = "wget -nd -e robots=off -P %s -A %s %s" % (
                         # self.inputPath, name, url_i + name)
                         batch_ex_download = "wget -nd -e robots=off -A %s %s" % (
-                            name, url_i + name)
+                            name, url_i + 'atmos/' + name)
                         subprocess.call(batch_ex_download,
                                         cwd=self.inputPath, shell=True)
                     filename_out = str(date + '_' + hr)
