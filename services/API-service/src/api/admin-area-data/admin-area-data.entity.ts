@@ -25,6 +25,6 @@ export class AdminAreaDataEntity {
   @Column()
   public key: string;
 
-  @Column({ nullable: true })
-  public value: string;
+  @Column({ nullable: true, type: 'real' })
+  public value: number;
 }
