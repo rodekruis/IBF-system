@@ -344,27 +344,6 @@ export class MapService {
     });
   }
 
-  public loadAdmin2Data(indicator: Indicator) {
-    this.apiService.getAdmin2Data().subscribe((admin2Data) => {
-      this.addLayer({
-        name: indicator.name,
-        label: indicator.label,
-        type: IbfLayerType.shape,
-        description: this.getPopoverText(indicator.name),
-        active: true,
-        show: true,
-        data: admin2Data,
-        viewCenter: true,
-        colorProperty: indicator.name,
-        colorBreaks: indicator.colorBreaks,
-        numberFormatMap: indicator.numberFormatMap,
-        legendColor: '#969696',
-        group: IbfLayerGroup.aggregates,
-        order: 20 + indicator.order,
-      });
-    });
-  }
-
   public hideAggregateLayers() {
     this.layers.forEach((layer: IbfLayer) => {
       if (layer.group === IbfLayerGroup.aggregates) {
@@ -541,8 +520,6 @@ export class MapService {
           this.adminLevelService.adminLevel,
         )
         .pipe(shareReplay(1));
-    } else if (layer.name === IbfLayerName.covidRisk) {
-      layerData = this.apiService.getAdmin2Data().pipe(shareReplay(1));
     } else {
       // In case layer is aggregate layer
       layerData = this.apiService

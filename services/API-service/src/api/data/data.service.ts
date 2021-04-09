@@ -82,9 +82,9 @@ export class DataService {
   public async getRedCrossBranches(countryCode: string): Promise<GeoJson> {
     const query =
       ' select * \
-    from "IBF-static-input"."dashboard_redcross_branches" \
+    from "IBF-API"."redcross_branches" \
     where 0 = 0 \
-    and country_code = $1 \
+    and "countryCode" = $1 \
     ';
 
     const rawResult: RedCrossBranch[] = await this.manager.query(query, [
@@ -99,7 +99,7 @@ export class DataService {
   public async getRecentDates(countryCode: string): Promise<number> {
     const query =
       ' select to_date(date,\'yyyy-mm-dd\') as date \
-    from "IBF-pipeline-output".dashboard_triggers_per_day \
+    from "IBF-API"."Trigger_per_lead_time" \
     where country_code = $1 \
     order by date DESC \
     limit 1 \
