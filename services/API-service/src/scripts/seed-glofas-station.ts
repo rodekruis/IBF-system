@@ -51,7 +51,7 @@ export class SeedGlofasStation implements InterfaceScript {
       stationPerAdminAreaData.map(
         async (area): Promise<void> => {
           const adminArea = await this.adminAreaRepository.findOne({
-            where: { pcode: area['pcode'] },
+            where: { placeCode: area['pcode'] },
           });
           adminArea.glofasStation = area['station_code'];
           return this.adminAreaRepository.save(adminArea);

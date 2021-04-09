@@ -74,10 +74,15 @@ without docker:
 
 Locally, a database-container will start (as opposed to remote servers, which are connected to a database-server).
 To currently fill this database with data
-- dump + restore 'IBF-static-input' schema from 'geonode_datav3' remote database
-- run the IBF-API-service seed script to create + fill 'IBF-app' tables
-- run the script /services/API-service/src/sql/IBF-database-scripts.sql'
-- run the IBF-pipeline to create + get initial fill of 'IBF-pipeline-output' schema's.
+- run seed script
+  - docker-compose exec ibf-api-service npm run seed
+  - the 2nd half of the IBF-database-scripts.sql will fail, because of missing IBF-pipeline-output tables
+- run the setup-script of the pipeline
+  - docker-compose exec ibf-pipeline python3 runSetup.py
+  - this uploads any currently not-yet-migrated-to-seed data
+- run the pipeline for all countries
+  - docker-compose exec ibf-pipeline python3 runPipeline.py
+- run the seed-script again
 
 We are in a migration, where as much as possible we will load new static data from seed-scripts. This will make sure it ends up automatically on all servers.
 This is however not yet always the case:
