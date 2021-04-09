@@ -1,3 +1,12 @@
+## [0.54.1](https://github.com/rodekruis/IBF-system/compare/v0.54.0...v0.54.1) (2021-04-09)
+
+
+### Bug Fixes
+
+* correct test-code ([46b36b5](https://github.com/rodekruis/IBF-system/commit/46b36b55eaafd8f76976af2d6a43e1a8b1e1d13b))
+
+
+
 # [0.54.0](https://github.com/rodekruis/IBF-system/compare/v0.53.0...v0.54.0) (2021-04-09)
 
 
@@ -103,15 +112,6 @@
 ### Bug Fixes
 
 * use observables instead of promises AB[#6739](https://github.com/rodekruis/IBF-system/issues/6739) ([979594d](https://github.com/rodekruis/IBF-system/commit/979594d511c3678d6228b3a6aa6c1e49e5d9aaa2))
-
-
-
-## [0.51.2](https://github.com/rodekruis/IBF-system/compare/v0.51.1...v0.51.2) (2021-03-23)
-
-
-### Bug Fixes
-
-* cypress file location2 ([964afb9](https://github.com/rodekruis/IBF-system/commit/964afb992e67bcbace6dbe581e2a99f828753994))
 
 
 
