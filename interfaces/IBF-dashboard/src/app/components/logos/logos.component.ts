@@ -17,14 +17,16 @@ export class LogosComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe((country: Country) => {
-        if (country) {
-          this.logos = country.countryLogos;
-        }
-      });
+      .subscribe(this.onCountryChange);
   }
 
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
   }
+
+  private onCountryChange = (country: Country) => {
+    if (country) {
+      this.logos = country.countryLogos;
+    }
+  };
 }

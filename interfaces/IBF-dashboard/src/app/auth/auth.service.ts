@@ -75,34 +75,37 @@ export class AuthService {
   }
 
   public login(email, password) {
-    return this.apiService.login(email, password).subscribe(
-      (response) => {
-        if (!response.user || !response.user.token) {
-          return;
-        }
-
-        this.jwtService.saveToken(response.user.token);
-
-        const user = this.getUserFromToken();
-
-        this.authSubject.next(user);
-
-        this.loggedIn = true;
-        this.userRole = user.userRole;
-
-        if (this.redirectUrl) {
-          this.router.navigate([this.redirectUrl]);
-          this.redirectUrl = null;
-          return;
-        }
-
-        this.router.navigate(['/']);
-      },
-      (error) => {
-        console.error('AuthService error: ', error);
-      },
-    );
+    return this.apiService
+      .login(email, password)
+      .subscribe(this.onLoginResponse, this.onLoginError);
   }
+
+  private onLoginResponse = (response) => {
+    if (!response.user || !response.user.token) {
+      return;
+    }
+
+    this.jwtService.saveToken(response.user.token);
+
+    const user = this.getUserFromToken();
+
+    this.authSubject.next(user);
+
+    this.loggedIn = true;
+    this.userRole = user.userRole;
+
+    if (this.redirectUrl) {
+      this.router.navigate([this.redirectUrl]);
+      this.redirectUrl = null;
+      return;
+    }
+
+    this.router.navigate(['/']);
+  };
+
+  private onLoginError = (error) => {
+    console.error('AuthService error: ', error);
+  };
 
   public logout() {
     this.jwtService.destroyToken();
