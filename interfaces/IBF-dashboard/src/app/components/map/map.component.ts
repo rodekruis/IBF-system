@@ -650,7 +650,6 @@ export class MapComponent implements OnDestroy {
   }
 
   private createMarkerRedCrossPopup(markerProperties: RedCrossBranch): string {
-    console.log('markerProperties: ', markerProperties);
     const branchInfoPopup = (
       '<div style="margin-bottom: 5px">' +
       '<strong>Branch: ' +
