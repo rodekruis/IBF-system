@@ -74,10 +74,15 @@ without docker:
 
 Locally, a database-container will start (as opposed to remote servers, which are connected to a database-server).
 To currently fill this database with data
-- dump + restore 'IBF-static-input' schema from 'geonode_datav3' remote database
-- run the IBF-API-service seed script to create + fill 'IBF-app' tables
-- run the script /services/API-service/src/sql/IBF-database-scripts.sql'
-- run the IBF-pipeline to create + get initial fill of 'IBF-pipeline-output' schema's.
+- run seed script
+  - docker-compose exec ibf-api-service npm run seed
+  - the 2nd half of the IBF-database-scripts.sql will fail, because of missing IBF-pipeline-output tables
+- run the setup-script of the pipeline
+  - docker-compose exec ibf-pipeline python3 runSetup.py
+  - this uploads any currently not-yet-migrated-to-seed data
+- run the pipeline for all countries
+  - docker-compose exec ibf-pipeline python3 runPipeline.py
+- run the seed-script again
 
 We are in a migration, where as much as possible we will load new static data from seed-scripts. This will make sure it ends up automatically on all servers.
 This is however not yet always the case:
@@ -189,12 +194,6 @@ to execute each step, without further knowledge. Ask a developer who knows more.
     - Potentially add extra code in seed-scripts (seed-amin-area.ts / seed-glofas-station.ts / etc.) to process new data correctly.
     - Run seed script of IBF-API-service
     - NOTE: we are in a migration, where we want to move new data as much as possible to this new seed-script set up. So also for other data, not mentioned here, the goal is to upload this via seed-scripts as well. Some other data that is not yet included in seed-script
-      - CRA data > transfered from "<country_code>\_datamodel"."Indicators_TOTAL_1" in CRA To
-        "IBF-static-input"."<country_code>\_CRA_Indicators_1" using DBeaver export
-        functionality
-        - add necessary piece of script to CRA_data part of `processStaticDataPostgres.sql`
-      - Flood vulnerability data to be used (.csv) > uploaded manually (through runSetup.py)
-      - Red Cross branch data (.csv) > uploaded manually (through runSetup.py)
       - COVID risk data (.csv) > uploaded through specifically created endpoint
 3. Geodata for IBF-pipline and IBF-geoserver (look at existing countries and files for examples in terms of format)
     - Save in `services/IBF-pipeline/pipeline/data` in the right subfolder ..

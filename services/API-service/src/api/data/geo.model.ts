@@ -13,10 +13,10 @@ export class GlofasStation extends Poi {
 }
 
 export class RedCrossBranch extends Poi {
-  public nr_volunteers: number;
-  public contact_person: string;
-  public contact_address: string;
-  public contact_number: string;
+  public numberOfVolunteers: number;
+  public contactPerson: string;
+  public contactAddress: string;
+  public contactNumber: string;
 }
 
 export class GeoJson {

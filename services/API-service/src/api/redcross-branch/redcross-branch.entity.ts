@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('adminArea')
-export class AdminAreaEntity {
+@Entity('redcrossBranch')
+export class RedcrossBranchEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
@@ -9,20 +9,20 @@ export class AdminAreaEntity {
   public countryCode: string;
 
   @Column()
-  public adminLevel: number;
-
-  @Column()
-  public placeCode: string;
-
-  @Column({ nullable: true })
   public name: string;
 
   @Column({ nullable: true })
-  public placeCodeParent: string;
+  public numberOfVolunteers: string;
 
   @Column({ nullable: true })
+  public contactPerson: string;
+
+  @Column({ nullable: true })
+  public contactAddress: string;
+
+  @Column({ nullable: true })
+  public contactNumber: string;
+
+  @Column()
   public geom: string;
-
-  @Column({ nullable: true })
-  public glofasStation: string;
 }

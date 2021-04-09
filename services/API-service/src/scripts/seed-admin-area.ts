@@ -33,7 +33,7 @@ export class SeedAdminArea implements InterfaceScript {
     country,
     adminAreaRepository,
   ): Promise<void> {
-    const fileName = `./src/scripts/git-lfs/${country.countryCodeISO3}_adm${country.defaultAdminLevel}.json`;
+    const fileName = `./src/scripts/git-lfs/admin-boundaries/${country.countryCodeISO3}_adm${country.defaultAdminLevel}.json`;
     const adminJsonRaw = fs.readFileSync(fileName, 'utf-8');
     const adminJson = JSON.parse(adminJsonRaw);
     await Promise.all(
@@ -46,8 +46,9 @@ export class SeedAdminArea implements InterfaceScript {
               countryCode: country.countryCodeISO3,
               adminLevel: country.defaultAdminLevel,
               name: area.properties[`ADM${country.defaultAdminLevel}_EN`],
-              pcode: area.properties[`ADM${country.defaultAdminLevel}_PCODE`],
-              pcodeParent: area.properties[
+              placeCode:
+                area.properties[`ADM${country.defaultAdminLevel}_PCODE`],
+              placeCodeParent: area.properties[
                 `ADM${country.defaultAdminLevel - 1}_PCODE`
               ]
                 ? area.properties[`ADM${country.defaultAdminLevel - 1}_PCODE`]

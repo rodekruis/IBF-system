@@ -100,6 +100,7 @@ from "IBF-pipeline-output".triggers_per_day tpd
     and tpd.date = max.max_date
 where tpd.date = max.max_date;
 --select * from "IBF-pipeline-output".dashboard_triggers_per_day
+
 CREATE TABLE if not exists "IBF-pipeline-output".dashboard_forecast_per_station (
     country_code varchar NULL,
     station_code text NULL,
@@ -110,46 +111,41 @@ CREATE TABLE if not exists "IBF-pipeline-output".dashboard_forecast_per_station 
     fc float8 NULL,
     fc_trigger int8 NULL,
     fc_rp float8 NULL,
-    fc_perc float8 NULL,
     fc_prob int8 NULL,
     geom geometry NULL
 );
 --drop table "IBF-pipeline-output".dashboard_forecast_per_station cascade;
 truncate table "IBF-pipeline-output".dashboard_forecast_per_station;
 insert into "IBF-pipeline-output".dashboard_forecast_per_station
-SELECT t0.country_code,
-    t0.station_code,
-    t0.station_name,
-    t0.trigger_level,
+SELECT t0."countryCode" as country_code,
+    t0."stationCode" as station_code,
+    t0."stationName" as station_name,
+    t0."triggerLevel" as trigger_level,
     date,
     t1.lead_time as lead_time,
     fc,
     fc_trigger,
     fc_rp,
-    case
-        when t0.trigger_level = 0 then null
-        else fc / t0.trigger_level
-    end as fc_perc,
     fc_prob as fc_prob,
-    t0.geom --into "IBF-pipeline-output".dashboard_forecast_per_station
-FROM "IBF-static-input".dashboard_glofas_stations t0
-    LEFT JOIN "IBF-pipeline-output".triggers_rp_per_station t1 ON t0.station_code = t1.station_code
-    AND t0.country_code = t1.country_code
+    st_astext(t0.geom)
+FROM "IBF-app"."glofasStation" t0
+    LEFT JOIN "IBF-pipeline-output".triggers_rp_per_station t1 ON t0."stationCode" = t1."stationCode"
+    AND t0."countryCode" = t1.country_code
 where date >= current_date;
 --select * from "IBF-pipeline-output".dashboard_forecast_per_station order by 1
+
 DROP TABLE IF EXISTS "IBF-pipeline-output".dashboard_forecast_per_district;
-select t0.country_code,
-    pcode,
-    t0.station_code,
+select t0."countryCode" as country_code,
+    t0."placeCode" as pcode,
+    t0."glofasStation" as station_code,
     lead_time,
     date,
     fc,
     fc_trigger,
     fc_rp,
-    fc_perc,
     fc_prob INTO "IBF-pipeline-output".dashboard_forecast_per_district
-FROM "IBF-static-input".waterstation_per_district t0
-    LEFT JOIN "IBF-pipeline-output".dashboard_forecast_per_station t1 ON t0.station_code = t1.station_code
-    and t0.country_code = t1.country_code
+FROM "IBF-app"."adminArea" t0
+    LEFT JOIN "IBF-pipeline-output".dashboard_forecast_per_station t1 ON t0."glofasStation" = t1.station_code
+    and t0."countryCode" = t1.country_code
 where t1.lead_time is not null;
 --select * from "IBF-pipeline-output".dashboard_forecast_per_district;

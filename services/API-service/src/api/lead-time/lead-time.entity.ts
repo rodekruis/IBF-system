@@ -5,9 +5,9 @@ import { leadTimeStatus } from './lead-time-status.enum';
 @Entity('lead-time')
 export class LeadTimeEntity {
   @PrimaryGeneratedColumn('uuid')
-  public id: string;
+  public leadTimeId: string;
 
-  @Column()
+  @Column({ unique: true })
   public leadTimeName: string;
 
   @Column()
