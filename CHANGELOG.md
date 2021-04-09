@@ -1,3 +1,12 @@
+# [0.55.0](https://github.com/rodekruis/IBF-system/compare/v0.54.1...v0.55.0) (2021-04-09)
+
+
+### Features
+
+* also show unavailable branch-properties AB[#6985](https://github.com/rodekruis/IBF-system/issues/6985) ([259a446](https://github.com/rodekruis/IBF-system/commit/259a4467296fc3d5ef20e59680c01fb73c756c40))
+
+
+
 ## [0.54.1](https://github.com/rodekruis/IBF-system/compare/v0.54.0...v0.54.1) (2021-04-09)
 
 
@@ -103,15 +112,6 @@
 
 * mock scenario support in cache AB[#6728](https://github.com/rodekruis/IBF-system/issues/6728) ([764085b](https://github.com/rodekruis/IBF-system/commit/764085b3a80dcfc1e22c62026f354d4df8824241))
 * update mock scenario data AB[#6728](https://github.com/rodekruis/IBF-system/issues/6728) ([b9ff467](https://github.com/rodekruis/IBF-system/commit/b9ff467c52fc71ca0bf01fd05e838da96d302e27))
-
-
-
-## [0.51.3](https://github.com/rodekruis/IBF-system/compare/v0.51.2...v0.51.3) (2021-03-24)
-
-
-### Bug Fixes
-
-* use observables instead of promises AB[#6739](https://github.com/rodekruis/IBF-system/issues/6739) ([979594d](https://github.com/rodekruis/IBF-system/commit/979594d511c3678d6228b3a6aa6c1e49e5d9aaa2))
 
 
 
