@@ -36,7 +36,7 @@ export class SeedRedcrossBranches implements InterfaceScript {
   }
 
   private async seedCountryRedcrossBranches(country): Promise<void> {
-    const redcrossBranchesFilename = `./src/scripts/git-lfs/redcross_branches_${country.countryCodeISO3}.csv`;
+    const redcrossBranchesFilename = `./src/scripts/git-lfs/redcross-branches/redcross_branches_${country.countryCodeISO3}.csv`;
     try {
       const redcrossBranchesData = await this.seedHelper.getCsvData(
         redcrossBranchesFilename,
