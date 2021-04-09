@@ -92,51 +92,15 @@ export class MapComponent implements OnDestroy {
   ) {
     this.layerSubscription = this.mapService
       .getLayerSubscription()
-      .subscribe((newLayer) => {
-        if (newLayer) {
-          const newLayerIndex = this.layers.findIndex(
-            (layer) => layer.name === newLayer.name,
-          );
-          newLayer =
-            newLayer.data || newLayer.type === IbfLayerType.wms
-              ? this.createLayer(newLayer)
-              : newLayer;
-          if (newLayerIndex >= 0) {
-            this.layers.splice(newLayerIndex, 1, newLayer);
-          } else {
-            this.layers.push(newLayer);
-          }
-
-          if (newLayer.viewCenter) {
-            this.map.fitBounds(this.mapService.state.bounds);
-          }
-        } else {
-          this.layers = [];
-        }
-        this.addToLayersControl();
-
-        // Trigger a resize to fill the container-element:
-        window.setTimeout(
-          () => window.dispatchEvent(new UIEvent('resize')),
-          200,
-        );
-      });
+      .subscribe(this.onLayerChange);
 
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe((country: Country) => {
-        this.country = country;
-      });
+      .subscribe(this.onCountryChange);
 
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
-      .subscribe((): void => {
-        this.layers.forEach((layer: IbfLayer): void => {
-          if (layer.leafletLayer && 'resetStyle' in layer.leafletLayer) {
-            layer.leafletLayer.resetStyle();
-          }
-        });
-      });
+      .subscribe(this.onPlaceCodeChange);
   }
 
   ngOnDestroy() {
@@ -144,6 +108,52 @@ export class MapComponent implements OnDestroy {
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
   }
+
+  private filterLayerByLayerName = (newLayer) => (layer) =>
+    layer.name === newLayer.name;
+
+  private onLayerChange = (newLayer) => {
+    if (newLayer) {
+      const newLayerIndex = this.layers.findIndex(
+        this.filterLayerByLayerName(newLayer),
+      );
+      newLayer =
+        newLayer.data || newLayer.type === IbfLayerType.wms
+          ? this.createLayer(newLayer)
+          : newLayer;
+      if (newLayerIndex >= 0) {
+        this.layers.splice(newLayerIndex, 1, newLayer);
+      } else {
+        this.layers.push(newLayer);
+      }
+
+      if (newLayer.viewCenter) {
+        this.map.fitBounds(this.mapService.state.bounds);
+      }
+    } else {
+      this.layers = [];
+    }
+    this.addToLayersControl();
+
+    this.triggerWindowResize();
+  };
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+  };
+
+  private onPlaceCodeChange = (): void => {
+    this.layers.forEach((layer: IbfLayer): void => {
+      if (layer.leafletLayer && 'resetStyle' in layer.leafletLayer) {
+        layer.leafletLayer.resetStyle();
+      }
+    });
+  };
+
+  private triggerWindowResize = () => {
+    // Trigger a resize to fill the container-element:
+    window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 200);
+  };
 
   private numberFormat(d, layer) {
     if (layer.numberFormatMap === NumberFormat.perc) {
@@ -156,6 +166,21 @@ export class MapComponent implements OnDestroy {
       return Math.round(d);
     }
   }
+
+  private getFeatureColorByColorsAndColorThresholds = (
+    colors,
+    colorThreshold,
+  ) => (feature) => {
+    return feature > colorThreshold[breakKey.break4]
+      ? colors[4]
+      : feature > colorThreshold[breakKey.break3]
+      ? colors[3]
+      : feature > colorThreshold[breakKey.break2]
+      ? colors[2]
+      : feature > colorThreshold[breakKey.break1]
+      ? colors[1]
+      : colors[0];
+  };
 
   public addLegend(map, colors, colorThreshold, layer: IbfLayer) {
     if (this.legends[layer.name]) {
@@ -185,17 +210,10 @@ export class MapComponent implements OnDestroy {
             layer.colorBreaks['5'].label,
           ];
         }
-        const getColor = (d) => {
-          return d > colorThreshold[breakKey.break4]
-            ? colors[4]
-            : d > colorThreshold[breakKey.break3]
-            ? colors[3]
-            : d > colorThreshold[breakKey.break2]
-            ? colors[2]
-            : d > colorThreshold[breakKey.break1]
-            ? colors[1]
-            : colors[0];
-        };
+        const getColor = this.getFeatureColorByColorsAndColorThresholds(
+          colors,
+          colorThreshold,
+        );
 
         div.innerHTML +=
           `<div><b>${layer.label}</b>` +
@@ -230,8 +248,7 @@ export class MapComponent implements OnDestroy {
     this.map.createPane('ibf-wms');
     this.map.createPane('ibf-aggregate');
 
-    // Trigger a resize to fill the container-element:
-    window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 200);
+    this.triggerWindowResize();
   }
 
   private createLayer(layer: IbfLayer): IbfLayer {
@@ -267,63 +284,70 @@ export class MapComponent implements OnDestroy {
     });
   }
 
+  private getPointToLayerByLayer = (layerName) => (
+    geoJsonPoint: GeoJSON.Feature,
+    latlng: LatLng,
+  ): Marker => {
+    switch (layerName) {
+      case IbfLayerName.glofasStations:
+        return this.createMarkerStation(
+          geoJsonPoint.properties as Station,
+          latlng,
+        );
+      case IbfLayerName.redCrossBranches:
+        return this.createMarkerRedCrossBranch(
+          geoJsonPoint.properties as RedCrossBranch,
+          latlng,
+        );
+      case IbfLayerName.waterpoints:
+        return this.createMarkerWaterpoint(
+          geoJsonPoint.properties as Waterpoint,
+          latlng,
+        );
+      default:
+        return this.createMarkerDefault(latlng);
+    }
+  };
+
+  private getIconCreateFunction = (cluster) => {
+    const clusterSize = cluster.getChildCount();
+    let size: number;
+    let className: string;
+    switch (true) {
+      case clusterSize <= 10:
+        size = 30;
+        className = 'waterpoint-cluster-10';
+        break;
+      case clusterSize < 100:
+        size = 40;
+        className = 'waterpoint-cluster-100';
+        break;
+      case clusterSize < 1000:
+        size = 60;
+        className = 'waterpoint-cluster-1000';
+        break;
+      default:
+        size = 80;
+        className = 'waterpoint-cluster-10000';
+        break;
+    }
+    return divIcon({
+      html: '<b>' + String(clusterSize) + '</b>',
+      className,
+      iconSize: point(size, size),
+    });
+  };
+
   private createPointLayer(layer: IbfLayer): GeoJSON | MarkerClusterGroup {
     if (!layer.data) {
       return;
     }
     const mapLayer = geoJSON(layer.data, {
-      pointToLayer: (geoJsonPoint: GeoJSON.Feature, latlng: LatLng) => {
-        switch (layer.name) {
-          case IbfLayerName.glofasStations:
-            return this.createMarkerStation(
-              geoJsonPoint.properties as Station,
-              latlng,
-            );
-          case IbfLayerName.redCrossBranches:
-            return this.createMarkerRedCrossBranch(
-              geoJsonPoint.properties as RedCrossBranch,
-              latlng,
-            );
-          case IbfLayerName.waterpoints:
-            return this.createMarkerWaterpoint(
-              geoJsonPoint.properties as Waterpoint,
-              latlng,
-            );
-          default:
-            return this.createMarkerDefault(latlng);
-        }
-      },
+      pointToLayer: this.getPointToLayerByLayer(layer.name),
     });
     if (layer.name === IbfLayerName.waterpoints) {
       const waterPointClusterLayer = markerClusterGroup({
-        iconCreateFunction: (cluster) => {
-          const clusterSize = cluster.getChildCount();
-          let size: number;
-          let className: string;
-          switch (true) {
-            case clusterSize <= 10:
-              size = 30;
-              className = 'waterpoint-cluster-10';
-              break;
-            case clusterSize < 100:
-              size = 40;
-              className = 'waterpoint-cluster-100';
-              break;
-            case clusterSize < 1000:
-              size = 60;
-              className = 'waterpoint-cluster-1000';
-              break;
-            default:
-              size = 80;
-              className = 'waterpoint-cluster-10000';
-              break;
-          }
-          return divIcon({
-            html: '<b>' + String(clusterSize) + '</b>',
-            className,
-            iconSize: point(size, size),
-          });
-        },
+        iconCreateFunction: this.getIconCreateFunction,
         maxClusterRadius: 50,
       });
       waterPointClusterLayer.addLayer(mapLayer);
@@ -331,6 +355,61 @@ export class MapComponent implements OnDestroy {
     }
     return mapLayer;
   }
+
+  private onAdminRegionMouseOver = (event): void => {
+    event.target.setStyle({
+      fillOpacity: this.mapService.hoverFillOpacity,
+      fillColor: this.eventService.state.activeTrigger
+        ? this.mapService.alertColor
+        : this.mapService.safeColor,
+    });
+  };
+
+  private onAdminRegionClickByLayerAndFeatureAndElement = (
+    layer,
+    feature,
+    element,
+  ) => (): void => {
+    this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
+      placeCode: feature.properties.pcode,
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
+
+    this.placeCodeService.setPlaceCode({
+      countryCodeISO3: feature.properties.country_code,
+      placeCodeName: feature.properties.name,
+      placeCode: feature.properties.pcode,
+    });
+
+    if (layer.name !== IbfLayerName.adminRegions) {
+      const popup =
+        '<strong>' +
+        feature.properties.name +
+        (feature.properties.pcode.includes('Disputed')
+          ? ' (Disputed borders)'
+          : '') +
+        '</strong><br/>' +
+        layer.label +
+        ': ' +
+        this.numberFormat(
+          typeof feature.properties[layer.colorProperty] !== 'undefined'
+            ? feature.properties[layer.colorProperty]
+            : feature.properties.indicators[layer.colorProperty],
+          layer,
+        ) +
+        (layer.unit ? ' ' + layer.unit : '');
+      if (feature.properties.pcode === this.placeCode) {
+        element.unbindPopup();
+        this.placeCode = null;
+      } else {
+        element.bindPopup(popup).openPopup();
+        this.placeCode = feature.properties.pcode;
+      }
+    }
+  };
 
   private createAdminRegionsLayer(layer: IbfLayer): GeoJSON {
     if (!layer.data) {
@@ -344,60 +423,18 @@ export class MapComponent implements OnDestroy {
           : 'overlayPane',
       style: this.mapService.setAdminRegionStyle(layer),
       onEachFeature: (feature, element): void => {
-        element.on('mouseover', (event): void => {
-          event.target.setStyle({
-            fillOpacity: this.mapService.hoverFillOpacity,
-            fillColor: this.eventService.state.activeTrigger
-              ? this.mapService.alertColor
-              : this.mapService.safeColor,
-          });
-        });
-
+        element.on('mouseover', this.onAdminRegionMouseOver);
         element.on('mouseout', (): void => {
           adminRegionsLayer.resetStyle();
         });
-
-        element.on('click', (): void => {
-          this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
-            placeCode: feature.properties.pcode,
-            page: AnalyticsPage.dashboard,
-            isActiveEvent: this.eventService.state.activeEvent,
-            isActiveTrigger: this.eventService.state.activeTrigger,
-            component: this.constructor.name,
-          });
-
-          this.placeCodeService.setPlaceCode({
-            countryCodeISO3: feature.properties.country_code,
-            placeCodeName: feature.properties.name,
-            placeCode: feature.properties.pcode,
-          });
-
-          if (layer.name !== IbfLayerName.adminRegions) {
-            const popup =
-              '<strong>' +
-              feature.properties.name +
-              (feature.properties.pcode === 'Disputed'
-                ? ' (Disputed borders)'
-                : '') +
-              '</strong><br/>' +
-              layer.label +
-              ': ' +
-              this.numberFormat(
-                typeof feature.properties[layer.colorProperty] !== 'undefined'
-                  ? feature.properties[layer.colorProperty]
-                  : feature.properties.indicators[layer.colorProperty],
-                layer,
-              ) +
-              (layer.unit ? ' ' + layer.unit : '');
-            if (feature.properties.pcode === this.placeCode) {
-              element.unbindPopup();
-              this.placeCode = null;
-            } else {
-              element.bindPopup(popup).openPopup();
-              this.placeCode = feature.properties.pcode;
-            }
-          }
-        });
+        element.on(
+          'click',
+          this.onAdminRegionClickByLayerAndFeatureAndElement(
+            layer,
+            feature,
+            element,
+          ),
+        );
       },
     });
 
@@ -419,19 +456,21 @@ export class MapComponent implements OnDestroy {
     });
   }
 
+  private onMapMarkerClick = (analyticsEvent) => (): void => {
+    this.analyticsService.logEvent(analyticsEvent, {
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
+  };
+
   private createMarkerDefault(markerLatLng: LatLng): Marker {
     const markerInstance = marker(markerLatLng, {
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_BASE),
     });
 
-    markerInstance.on('click', (): void => {
-      this.analyticsService.logEvent(AnalyticsEvent.mapMarker, {
-        page: AnalyticsPage.dashboard,
-        isActiveEvent: this.eventService.state.activeEvent,
-        isActiveTrigger: this.eventService.state.activeTrigger,
-        component: this.constructor.name,
-      });
-    });
+    markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.mapMarker));
 
     return markerInstance;
   }
@@ -473,14 +512,10 @@ export class MapComponent implements OnDestroy {
       minWidth: 300,
       className,
     });
-    markerInstance.on('click', (): void => {
-      this.analyticsService.logEvent(AnalyticsEvent.glofasStation, {
-        page: AnalyticsPage.dashboard,
-        isActiveEvent: this.eventService.state.activeEvent,
-        isActiveTrigger: this.eventService.state.activeTrigger,
-        component: this.constructor.name,
-      });
-    });
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.glofasStation),
+    );
 
     return markerInstance;
   }
@@ -496,14 +531,10 @@ export class MapComponent implements OnDestroy {
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH),
     });
     markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
-    markerInstance.on('click', (): void => {
-      this.analyticsService.logEvent(AnalyticsEvent.redCrossBranch, {
-        page: AnalyticsPage.dashboard,
-        isActiveEvent: this.eventService.state.activeEvent,
-        isActiveTrigger: this.eventService.state.activeTrigger,
-        component: this.constructor.name,
-      });
-    });
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.redCrossBranch),
+    );
 
     return markerInstance;
   }
@@ -521,14 +552,10 @@ export class MapComponent implements OnDestroy {
     markerInstance.bindPopup(
       this.createMarkerWaterpointPopup(markerProperties),
     );
-    markerInstance.on('click', (): void => {
-      this.analyticsService.logEvent(AnalyticsEvent.waterPoint, {
-        page: AnalyticsPage.dashboard,
-        isActiveEvent: this.eventService.state.activeEvent,
-        isActiveTrigger: this.eventService.state.activeTrigger,
-        component: this.constructor.name,
-      });
-    });
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.waterPoint),
+    );
 
     return markerInstance;
   }

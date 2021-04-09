@@ -1,3 +1,41 @@
+## [0.52.2](https://github.com/rodekruis/IBF-system/compare/v0.52.1...v0.52.2) (2021-04-09)
+
+
+### Bug Fixes
+
+* make pcode unique + reduce file size EGY AB[#6808](https://github.com/rodekruis/IBF-system/issues/6808) ([cecd742](https://github.com/rodekruis/IBF-system/commit/cecd7421517db37060f2fe67352f55bbac52e821))
+
+
+
+## [0.52.1](https://github.com/rodekruis/IBF-system/compare/v0.52.0...v0.52.1) (2021-03-31)
+
+
+### Bug Fixes
+
+* dummy commit to push ([fba3521](https://github.com/rodekruis/IBF-system/commit/fba352130d92bfe3483c5d1ac05da2a0ae38772a))
+
+
+
+# [0.52.0](https://github.com/rodekruis/IBF-system/compare/v0.51.6...v0.52.0) (2021-03-31)
+
+
+### Bug Fixes
+
+* AB[#6707](https://github.com/rodekruis/IBF-system/issues/6707) tests for no-trigger scenario improvement ([ad94370](https://github.com/rodekruis/IBF-system/commit/ad94370757daf6d0e08babdc2f2553b87a1d624a))
+* AB[#6708](https://github.com/rodekruis/IBF-system/issues/6708) tests for trigger scenario starat ([a981256](https://github.com/rodekruis/IBF-system/commit/a9812563bcb7bc33d2bc1dd1d94e585d5ee0e23a))
+* AB[#6764](https://github.com/rodekruis/IBF-system/issues/6764) test readme ([eef0a15](https://github.com/rodekruis/IBF-system/commit/eef0a15b2a5aa87f077d73dc5cca1c1d4d17652c))
+* AB[#6764](https://github.com/rodekruis/IBF-system/issues/6764) test readme ([011ee8b](https://github.com/rodekruis/IBF-system/commit/011ee8bd22159270a16ad35fef6f2a2f124c73c8))
+* attempt to fix lighthouse tests in deploy ([8f166f1](https://github.com/rodekruis/IBF-system/commit/8f166f1a8aab5f87cc81f57c1ccbfb4f6cede438))
+* lint ([47b048b](https://github.com/rodekruis/IBF-system/commit/47b048b518c16e16a09ed0af836a141406b9c760))
+
+
+### Features
+
+* AB[#6707](https://github.com/rodekruis/IBF-system/issues/6707) tests for no-trigger scenario ([edb7e7d](https://github.com/rodekruis/IBF-system/commit/edb7e7d68a23ce9a1ce95a4c4d37b17ba207f023))
+* Added tests for non-triggered scenario AB[#6707](https://github.com/rodekruis/IBF-system/issues/6707) ([a511def](https://github.com/rodekruis/IBF-system/commit/a511defb17420ac08469ac0cf9be229fc0360075))
+
+
+
 ## [0.51.6](https://github.com/rodekruis/IBF-system/compare/v0.51.5...v0.51.6) (2021-03-26)
 
 
@@ -59,34 +97,6 @@
 ### Features
 
 * cypress on deploy ([23f5fbb](https://github.com/rodekruis/IBF-system/commit/23f5fbb4546ec1986ed61352a2c1299c3dee170f))
-
-
-
-# [0.50.0](https://github.com/rodekruis/IBF-system/compare/v0.49.0...v0.50.0) (2021-03-23)
-
-
-### Features
-
-* cypress install seperate ([ea2401a](https://github.com/rodekruis/IBF-system/commit/ea2401a5ac9739b00d4fd2fcbdbebfb290f4a872))
-* cypress on deploy ([4a1d06b](https://github.com/rodekruis/IBF-system/commit/4a1d06b6b6a68edff778ba7bf971722aae05efff))
-
-
-
-# [0.49.0](https://github.com/rodekruis/IBF-system/compare/v0.48.0...v0.49.0) (2021-03-23)
-
-
-### Features
-
-* cypress install seperate ([db55f8a](https://github.com/rodekruis/IBF-system/commit/db55f8abdacac735406158a6dd784a4dcb22c363))
-
-
-
-# [0.48.0](https://github.com/rodekruis/IBF-system/compare/v0.47.0...v0.48.0) (2021-03-23)
-
-
-### Features
-
-* cypress install seperate ([b14a794](https://github.com/rodekruis/IBF-system/commit/b14a7941afbe808f04dabe59b642d9e30186d416))
 
 
 
