@@ -650,6 +650,7 @@ export class MapComponent implements OnDestroy {
   }
 
   private createMarkerRedCrossPopup(markerProperties: RedCrossBranch): string {
+    console.log('markerProperties: ', markerProperties);
     const branchInfoPopup = (
       '<div style="margin-bottom: 5px">' +
       '<strong>Branch: ' +
@@ -657,33 +658,22 @@ export class MapComponent implements OnDestroy {
       '</strong>' +
       '</div>'
     ).concat(
-      markerProperties.numberOfVolunteers
-        ? '<div style="margin-bottom: 5px">' +
-            'Nr. of volunteers: ' +
-            markerProperties.numberOfVolunteers +
-            '</div>'
-        : '',
-
-      markerProperties.contactPerson
-        ? '<div style="margin-bottom: 5px">' +
-            'Contact person: ' +
-            markerProperties.contactPerson +
-            '</div>'
-        : '',
-
-      markerProperties.contactAddress
-        ? '<div style="margin-bottom: 5px">' +
-            'Contact address: ' +
-            markerProperties.contactAddress +
-            '</div>'
-        : '',
-
-      markerProperties.contactNumber
-        ? '<div style="margin-bottom: 5px">' +
-            'Contact number: ' +
-            markerProperties.contactNumber +
-            '</div>'
-        : '',
+      '<div style="margin-bottom: 5px">' +
+        'Nr. of volunteers: ' +
+        (markerProperties.numberOfVolunteers || '') +
+        '</div>',
+      '<div style="margin-bottom: 5px">' +
+        'Contact person: ' +
+        (markerProperties.contactPerson || '') +
+        '</div>',
+      '<div style="margin-bottom: 5px">' +
+        'Contact address: ' +
+        (markerProperties.contactAddress || '') +
+        '</div>',
+      '<div style="margin-bottom: 5px">' +
+        'Contact number: ' +
+        (markerProperties.contactNumber || '') +
+        '</div>',
     );
     return branchInfoPopup;
   }
