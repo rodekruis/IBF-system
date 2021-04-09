@@ -239,7 +239,7 @@ to execute each step, without further knowledge. Ask a developer who knows more.
         - Get logo(s) (.png)
         - Paste in IBF-dashboard/app/assets/logos + add reference to each logo
           in countries seed-script
-        - Paste in IBF-pipeline/pipeline/email-logo-<country_code>.png
+        - Paste in IBF-pipeline/pipeline/lib/notifications/logos/email-logo-<country_code>.png
         - Upload logo to mailchimp + retrieve shareable link + copy this in IBF-pipeline/pipeline/lib/notifications/formatInfo.py
     - Mailchimp segment
         - Add new tag '<country_code>' to at least 1 user
