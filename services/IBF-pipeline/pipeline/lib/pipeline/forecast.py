@@ -15,8 +15,6 @@ class Forecast:
         self.db = DatabaseManager(leadTimeLabel, country_code)
 
         self.admin_area_gdf = self.db.downloadGeoDataFromDb('IBF-app','adminArea', country_code=country_code)
-        self.admin_area_test = self.db.apiGetRequest('adminAreas',country_code=country_code)
-        print(self.admin_area_test)
         
         if model == 'glofas':
             self.glofas_stations = self.db.apiGetRequest('glofasStations',country_code=country_code)
