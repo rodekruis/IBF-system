@@ -41,7 +41,6 @@ CREATE TABLE IF NOT EXISTS "IBF-pipeline-output".data_adm2 (
 	fc float8 NULL,
 	fc_trigger int8 NULL,
 	fc_rp float8 NULL,
-	fc_perc float8 NULL,
 	fc_prob int8 NULL,
 	population_affected float8 NULL,
 	indicators json NULL
@@ -53,18 +52,18 @@ select t3.country_code
 	,t0.pcode
 	,t3.date
 	,t0a.lead_time
-	,fc,fc_trigger,fc_rp,fc_perc,fc_prob
+	,fc,fc_trigger,fc_rp,fc_prob
 	,population_affected
 	,row_to_json(t0.*) as indicators
 --into "IBF-pipeline-output".data_adm2
 from "IBF-static-input".dashboard_admin_area_data t0
 left join "IBF-pipeline-output".help_table t0a
 on 1=1
-left join "IBF-static-input".waterstation_per_district t1
-on t0.pcode = t1.pcode
+left join "IBF-app"."adminArea" t1
+on t0.pcode = t1."placeCode" 
 left join "IBF-pipeline-output".dashboard_forecast_per_station  t2
-ON t1.station_code = t2.station_code 
-	and t1.country_code = t2.country_code 
+ON t1."glofasStation" = t2.station_code 
+	and t1."countryCode" = t2.country_code 
 	and t0a.lead_time = t2.lead_time
 left join (
 	select pcode as pcode_level2

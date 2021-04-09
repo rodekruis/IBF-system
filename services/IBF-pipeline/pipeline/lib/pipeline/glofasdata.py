@@ -22,7 +22,7 @@ from secrets import *
 
 class GlofasData:
 
-    def __init__(self, leadTimeLabel, leadTimeValue, country_code, glofas_stations, glofas_cols, district_mapping, district_cols):
+    def __init__(self, leadTimeLabel, leadTimeValue, country_code, glofas_stations, district_mapping):
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
         self.country_code = country_code
@@ -36,9 +36,7 @@ class GlofasData:
             'triggers_rp_per_station/triggers_rp_' + \
             self.leadTimeLabel + '_' + country_code + '.json'
         self.GLOFAS_STATIONS = glofas_stations
-        self.glofas_cols = glofas_cols
         self.DISTRICT_MAPPING = district_mapping
-        self.district_cols = district_cols
         self.current_date = CURRENT_DATE.strftime('%Y-%m-%d')
 
     def process(self):
@@ -116,13 +114,10 @@ class GlofasData:
         files = [f for f in listdir(self.inputPath) if isfile(
             join(self.inputPath, f)) and f.endswith('.nc')]
 
-        df_thresholds = DataFrame(self.GLOFAS_STATIONS)
-        df_thresholds.columns = self.glofas_cols
-        df_thresholds = df_thresholds.set_index("station_code", drop=False)
-        df_district_mapping = DataFrame(self.DISTRICT_MAPPING)
-        df_district_mapping.columns = self.district_cols
-        df_district_mapping = df_district_mapping.set_index(
-            "station_code", drop=False)
+        df_thresholds = pd.read_json(json.dumps(self.GLOFAS_STATIONS))
+        df_thresholds = df_thresholds.set_index("stationCode", drop=False)
+        df_district_mapping = pd.read_json(json.dumps(self.DISTRICT_MAPPING))
+        df_district_mapping = df_district_mapping.set_index("glofasStation", drop=False)
 
         stations = []
         trigger_per_day = {
@@ -144,10 +139,10 @@ class GlofasData:
             data = xr.open_dataset(Filename)
 
             # Get threshold for this specific station
-            if station['code'] in df_thresholds['station_code'] and station['code'] in df_district_mapping['station_code']:
+            if station['code'] in df_thresholds['stationCode'] and station['code'] in df_district_mapping['glofasStation']:
                 print(Filename)
-                threshold = df_thresholds[df_thresholds.station_code ==
-                                          station['code']]['trigger_level'][0]
+                threshold = df_thresholds[df_thresholds['stationCode'] ==
+                                          station['code']]['triggerLevel'][0]
 
                 # Set dimension-values
                 time = 0
@@ -224,13 +219,10 @@ class GlofasData:
         print('\nExtracting Glofas Data\n')
 
         # Load input data
-        df_thresholds = DataFrame(self.GLOFAS_STATIONS)
-        df_thresholds.columns = self.glofas_cols
-        df_thresholds = df_thresholds.set_index("station_code", drop=False)
-        df_district_mapping = DataFrame(self.DISTRICT_MAPPING)
-        df_district_mapping.columns = self.district_cols
-        df_district_mapping = df_district_mapping.set_index(
-            "station_code", drop=False)
+        df_thresholds = pd.read_json(json.dumps(self.GLOFAS_STATIONS))
+        df_thresholds = df_thresholds.set_index("stationCode", drop=False)
+        df_district_mapping = pd.read_json(json.dumps(self.DISTRICT_MAPPING))
+        df_district_mapping = df_district_mapping.set_index("glofasStation", drop=False)
 
         # Set up variables to fill
         stations = []
@@ -261,12 +253,12 @@ class GlofasData:
 
         for index, row in df_thresholds.iterrows():
             station = {}
-            station['code'] = row['station_code']
+            station['code'] = row['stationCode']
 
-            if station['code'] in df_district_mapping['station_code'] and station['code'] != 'no_station':
+            if station['code'] in df_district_mapping['glofasStation'] and station['code'] != 'no_station':
                 print(station['code'])
-                threshold = df_thresholds[df_thresholds.station_code ==
-                                          station['code']]['trigger_level'][0]
+                threshold = df_thresholds[df_thresholds['stationCode'] ==
+                                          station['code']]['triggerLevel'][0]
                 
                 for step in range(1, 8):
                     # Loop through 51 ensembles, get forecast and compare to threshold
@@ -317,7 +309,7 @@ class GlofasData:
                     if step == self.leadTimeValue:
                         stations.append(station)
                     station = {}
-                    station['code'] = row['station_code']
+                    station['code'] = row['stationCode']
 
 
         # Add 'no_station'
@@ -342,9 +334,8 @@ class GlofasData:
 
         # Load (static) threshold values per station
 
-        df_thresholds = DataFrame(self.GLOFAS_STATIONS)
-        df_thresholds.columns = self.glofas_cols
-        df_thresholds = df_thresholds.set_index("station_code", drop=False)
+        df_thresholds = pd.read_json(json.dumps(self.GLOFAS_STATIONS))
+        df_thresholds = df_thresholds.set_index("stationCode", drop=False)
         df_thresholds.sort_index(inplace=True)
         # Load extracted Glofas discharge levels per station
         with open(self.extractedGlofasPath) as json_data:
@@ -365,13 +356,13 @@ class GlofasData:
             trigger = int(row['fc_trigger'])
             if trigger == 1:
                 if self.country_code == 'ZMB':
-                    if fc >= row['20yr_threshold']:
+                    if fc >= row['threshold20Year']:
                         return_period = 20
-                    elif fc >= row['10yr_threshold']:
+                    elif fc >= row['threshold10Year']:
                         return_period = 10
-                    elif fc >= row['5yr_threshold']:
+                    elif fc >= row['threshold5Year']:
                         return_period = 10
-                    elif fc >= row['2yr_threshold']:
+                    elif fc >= row['threshold2Year']:
                         return_period = 10
                     else:
                         return_period = 0

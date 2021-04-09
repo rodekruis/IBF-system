@@ -14,7 +14,7 @@ class FloodExtent:
 
     """Class used to calculate flood extent"""
 
-    def __init__(self, leadTimeLabel, leadTimeValue, country_code, district_mapping, district_cols, admin_area_gdf):
+    def __init__(self, leadTimeLabel, leadTimeValue, country_code, district_mapping, admin_area_gdf):
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
         self.country_code = country_code
@@ -25,7 +25,6 @@ class FloodExtent:
         elif SETTINGS[country_code]['model'] == 'rainfall':
             self.outputPathMerge = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ leadTimeLabel + '_' + country_code + '.tif'
         self.district_mapping = district_mapping
-        self.district_cols = district_cols
         self.ADMIN_AREA_GDF = admin_area_gdf
 
     def calculate(self):
@@ -52,8 +51,8 @@ class FloodExtent:
         #Loop through catchment-areas and clip right flood extent
         for index, rows in df_glofas.iterrows():
             #Filter the catchment-area GDF per area
-            pcode = rows['pcode']
-            gdf_dist = admin_gdf[admin_gdf['pcode'] == pcode]
+            pcode = rows['placeCode']
+            gdf_dist = admin_gdf[admin_gdf['placeCode'] == pcode]
             dist_coords = self.getCoordinatesFromGDF(gdf_dist)
             
             #If trigger, find the right flood extent and clip it for the area and save it
@@ -90,15 +89,14 @@ class FloodExtent:
     def loadGlofasData(self):
 
         #Load assigned station per district
-        df_district_mapping = DataFrame(self.district_mapping)
-        df_district_mapping.columns = self.district_cols
+        df_district_mapping = pd.read_json(json.dumps(self.district_mapping))
 
         #Load (static) threshold values per station
         path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.leadTimeLabel + '_' + self.country_code + '.json'
         df_triggers = pd.read_json(path, orient='records')
         
         #Merge two datasets
-        df_glofas = pd.merge(df_district_mapping, df_triggers, left_on='station_code', right_on='station_code', how='left')
+        df_glofas = pd.merge(df_district_mapping, df_triggers, left_on='glofasStation', right_on='stationCode', how='left')
 
         return df_glofas
 

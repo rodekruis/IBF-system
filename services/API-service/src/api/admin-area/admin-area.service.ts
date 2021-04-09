@@ -12,7 +12,7 @@ export class AdminAreaService {
 
   public async getAdminAreas(countryCodeISO3): Promise<any[]> {
     return await this.adminAreaRepository.find({
-      select: ['countryCode', 'name', 'pcode', 'geom'],
+      select: ['countryCode', 'name', 'placeCode', 'geom'],
       where: { countryCode: countryCodeISO3 },
     });
   }
@@ -21,7 +21,7 @@ export class AdminAreaService {
     countryCodeISO3,
   ): Promise<any[]> {
     return await this.adminAreaRepository.find({
-      select: ['countryCode', 'name', 'pcode', 'glofasStation'],
+      select: ['countryCode', 'name', 'placeCode', 'glofasStation'],
       where: { countryCode: countryCodeISO3 },
     });
   }
