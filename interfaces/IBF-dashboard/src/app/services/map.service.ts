@@ -657,7 +657,7 @@ export class MapService {
       let weight = this.getAdminRegionWeight(layer);
       let color = this.getAdminRegionColor(layer);
       let dashArray;
-      if (adminRegion.properties.pcode === 'Disputed') {
+      if (adminRegion.properties.pcode.includes('Disputed')) {
         dashArray = this.disputedBorderStyle.dashArray;
         weight = this.disputedBorderStyle.weight;
         color = this.disputedBorderStyle.color;

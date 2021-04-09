@@ -3,9 +3,9 @@ from email.mime.text import MIMEText
 import smtplib
 import ssl
 
-from lib.notifications.sendNotification import EmailClient 
-from lib.notifications.getFloodInfo import getFloodInfo 
-from lib.notifications.formatInfo import formatInfo 
+from lib.notifications.sendNotification import EmailClient
+from lib.notifications.getFloodInfo import getFloodInfo
+from lib.notifications.formatInfo import formatInfo
 from lib.logging.logglySetup import logger
 from secrets import MC_USER, MC_API, EMAIL_PASSWORD, SETTINGS_SECRET
 from settings import EMAIL_WITHOUT_TRIGGER, EMAIL_HARDCODE, EMAIL_LIST_HARDCODE, EMAIL_USERNAME, FROM_EMAIL
@@ -13,13 +13,12 @@ from settings import EMAIL_WITHOUT_TRIGGER, EMAIL_HARDCODE, EMAIL_LIST_HARDCODE,
 
 def notify(countryCode):
     if SETTINGS_SECRET[countryCode]["notify_email"]:
-        mailchimpClient = EmailClient(MC_API, MC_USER)
-
         floodInfo = getFloodInfo(countryCode)
 
         if floodInfo["flood"] or EMAIL_WITHOUT_TRIGGER:
             formattedInfo = formatInfo(floodInfo, countryCode)
             if not EMAIL_HARDCODE:
+                mailchimpClient = EmailClient(MC_API, MC_USER)
                 mailchimpClient.sendNotification(formattedInfo, countryCode)
             else:
                 msg = MIMEMultipart()
@@ -52,4 +51,4 @@ def sendMailAlternative(receiver_email, message):
         print(e)
         logger.info(e)
     finally:
-        server.quit() 
+        server.quit()

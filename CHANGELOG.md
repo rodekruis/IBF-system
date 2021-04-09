@@ -1,3 +1,27 @@
+# [0.53.0](https://github.com/rodekruis/IBF-system/compare/v0.52.2...v0.53.0) (2021-04-09)
+
+
+### Bug Fixes
+
+* change logo EGY email AB[#6893](https://github.com/rodekruis/IBF-system/issues/6893) ([c58372a](https://github.com/rodekruis/IBF-system/commit/c58372ace0faf87e0164d0e254a167fd66e6f113))
+* update trigger email notification format AB[#6740](https://github.com/rodekruis/IBF-system/issues/6740) ([f7faba8](https://github.com/rodekruis/IBF-system/commit/f7faba8531969b3989d26318d01122855b21ff96))
+
+
+### Features
+
+* made disaster-type dynamic in email AB[#6740](https://github.com/rodekruis/IBF-system/issues/6740) ([3c77fdd](https://github.com/rodekruis/IBF-system/commit/3c77fddf9c780315f4f6bc31be043b7cacb69945))
+
+
+
+## [0.52.2](https://github.com/rodekruis/IBF-system/compare/v0.52.1...v0.52.2) (2021-04-09)
+
+
+### Bug Fixes
+
+* make pcode unique + reduce file size EGY AB[#6808](https://github.com/rodekruis/IBF-system/issues/6808) ([cecd742](https://github.com/rodekruis/IBF-system/commit/cecd7421517db37060f2fe67352f55bbac52e821))
+
+
+
 ## [0.52.1](https://github.com/rodekruis/IBF-system/compare/v0.52.0...v0.52.1) (2021-03-31)
 
 
@@ -79,25 +103,6 @@
 ### Bug Fixes
 
 * cypress file location ([6155b49](https://github.com/rodekruis/IBF-system/commit/6155b49179629b1c621914f249770b91f894352a))
-
-
-
-# [0.51.0](https://github.com/rodekruis/IBF-system/compare/v0.50.0...v0.51.0) (2021-03-23)
-
-
-### Features
-
-* cypress on deploy ([23f5fbb](https://github.com/rodekruis/IBF-system/commit/23f5fbb4546ec1986ed61352a2c1299c3dee170f))
-
-
-
-# [0.50.0](https://github.com/rodekruis/IBF-system/compare/v0.49.0...v0.50.0) (2021-03-23)
-
-
-### Features
-
-* cypress install seperate ([ea2401a](https://github.com/rodekruis/IBF-system/commit/ea2401a5ac9739b00d4fd2fcbdbebfb290f4a872))
-* cypress on deploy ([4a1d06b](https://github.com/rodekruis/IBF-system/commit/4a1d06b6b6a68edff778ba7bf971722aae05efff))
 
 
 
