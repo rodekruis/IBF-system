@@ -12,7 +12,6 @@ export class AdminAreaDataRecord {
   public fc: number;
   public fc_trigger: number;
   public fc_rp: number;
-  public fc_perc: number;
   public fc_prob: number;
   public population_affected: number;
   public indicators: {

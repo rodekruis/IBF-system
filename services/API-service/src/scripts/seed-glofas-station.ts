@@ -43,7 +43,7 @@ export class SeedGlofasStation implements InterfaceScript {
   }
 
   private async seedCountryGlofasStations(country): Promise<void> {
-    const stationPerAdminAreaDataFileName = `./src/scripts/git-lfs/Glofas_station_per_admin_area_${country.countryCodeISO3}.csv`;
+    const stationPerAdminAreaDataFileName = `./src/scripts/git-lfs/glofas-stations/Glofas_station_per_admin_area_${country.countryCodeISO3}.csv`;
     const stationPerAdminAreaData = await this.seedHelper.getCsvData(
       stationPerAdminAreaDataFileName,
     );
@@ -51,14 +51,14 @@ export class SeedGlofasStation implements InterfaceScript {
       stationPerAdminAreaData.map(
         async (area): Promise<void> => {
           const adminArea = await this.adminAreaRepository.findOne({
-            where: { pcode: area['pcode'] },
+            where: { placeCode: area['pcode'] },
           });
           adminArea.glofasStation = area['station_code'];
           return this.adminAreaRepository.save(adminArea);
         },
       ),
     );
-    const glofasStationDataFileName = `./src/scripts/git-lfs/${country.glofasStationInput['fileName']}`;
+    const glofasStationDataFileName = `./src/scripts/git-lfs/glofas-stations/${country.glofasStationInput['fileName']}`;
     const glofasStationData = await this.seedHelper.getCsvData(
       glofasStationDataFileName,
     );

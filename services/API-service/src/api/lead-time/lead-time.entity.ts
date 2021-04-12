@@ -4,9 +4,9 @@ import { DisasterEntity } from '../disaster/disaster.entity';
 @Entity('lead-time')
 export class LeadTimeEntity {
   @PrimaryGeneratedColumn('uuid')
-  public id: string;
+  public leadTimeId: string;
 
-  @Column()
+  @Column({ unique: true })
   public leadTimeName: string;
 
   @Column()
