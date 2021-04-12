@@ -21,10 +21,10 @@ export enum LeadTimeTriggerKey {
   '7-day' = '7',
   '1-month' = '1',
   '2-month' = '2',
-  '3-month' = '3'
+  '3-month' = '3',
 }
 
 export enum LeadTimeUnit {
   day = 'day',
-  month = 'month'
+  month = 'month',
 }

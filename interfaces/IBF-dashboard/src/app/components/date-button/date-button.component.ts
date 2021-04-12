@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
+import { LeadTimeUnit } from 'src/app/types/lead-time';
 
 @Component({
   selector: 'app-date-button',
@@ -8,6 +9,7 @@ import { DateTime } from 'luxon';
 })
 export class DateButtonComponent implements OnInit {
   @Input() date = DateTime.now();
+  @Input() unit = LeadTimeUnit.day;
 
   private dateFormat = 'ccc dd';
   private monthFormat = 'LLL yyyy';
@@ -17,7 +19,9 @@ export class DateButtonComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.displayDate = this.date.toFormat(this.dateFormat);
+    if (this.unit == LeadTimeUnit.day) {
+      this.displayDate = this.date.toFormat(this.dateFormat);
+    }
     this.displayMonth = this.date.toFormat(this.monthFormat);
   }
 }

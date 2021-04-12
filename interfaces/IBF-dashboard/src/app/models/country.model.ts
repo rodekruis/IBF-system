@@ -1,5 +1,5 @@
-import { LeadTime } from './../types/lead-time';
 import { AdminLevel } from 'src/app/types/admin-level';
+import { LeadTime } from './../types/lead-time';
 export class Country {
   countryCodeISO3: string;
   defaultAdminLevel: AdminLevel;
@@ -38,4 +38,3 @@ class LeadTimeEntity {
   countries: Country[];
   disasterTypes: DisasterType[];
 }
-

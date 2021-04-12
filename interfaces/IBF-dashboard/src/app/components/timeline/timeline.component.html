@@ -14,6 +14,9 @@
     [class.active]="timeStepButton.active"
     (click)="handleTimeStepButtonClick(timeStepButton.value)"
   >
-    <app-date-button [date]="timeStepButton.date"></app-date-button>
+    <app-date-button
+      [date]="timeStepButton.date"
+      [unit]="timeStepButton.unit"
+    ></app-date-button>
   </ion-button>
 </ion-item>
