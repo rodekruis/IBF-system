@@ -17,13 +17,14 @@ import subprocess
 from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
+import json
 from geocube.api.core import make_geocube
 from secrets import SETTINGS_SECRET
 
 
 class RainfallData:
 
-    def __init__(self, leadTimeLabel, leadTimeValue, country_code, admin_area_gdf, rainfall_triggers, rainfall_cols):
+    def __init__(self, leadTimeLabel, leadTimeValue, country_code, admin_area_gdf, rainfall_triggers):
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
         self.country_code = country_code
@@ -31,8 +32,6 @@ class RainfallData:
         self.rainrasterPath = GEOSERVER_OUTPUT + \
             '0/rainfall_extents/rain_rp_' + leadTimeLabel + '_' + country_code + '.tif'
         self.rainfall_triggers = rainfall_triggers
-        self.rainfall_cols = rainfall_cols
-        self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
         self.ADMIN_AREA_GDF = admin_area_gdf
         self.downloaded = False
 
@@ -186,8 +185,7 @@ class RainfallData:
         logging.info("Started processing glofas data: " + self.leadTimeLabel)
 
         # Load (static) threshold values per station
-        df_thresholds = DataFrame(self.rainfall_triggers)
-        df_thresholds.columns = self.rainfall_cols
+        df_thresholds = pd.read_json(json.dumps(self.rainfall_triggers))
 
         # COMPARE WITH THE THRESHOLD
         grb_files = sorted([f for f in os.listdir(
@@ -242,7 +240,7 @@ class RainfallData:
         # for leadtime in np.unique(df_thresholds.forecast_time.values):
 
         # threshold (1 degree)
-        df_leadtime = df_thresholds[df_thresholds.forecast_time == self.leadTimeValue]
+        df_leadtime = df_thresholds[df_thresholds['leadTime'] == self.leadTimeValue]
         geometry = [Point(xy) for xy in zip(
             df_leadtime.lon.astype(float), df_leadtime.lat.astype(float))]
         threshold_gdf = gpd.GeoDataFrame(
@@ -261,21 +259,21 @@ class RainfallData:
                                 how='left', op='intersects')
 
         # interpolate NaN cells
-        known = ~np.isnan(compare_gdf['forecast_time'])
+        known = ~np.isnan(compare_gdf['leadTime'])
         unknown = ~known
         z = griddata((compare_gdf['longitude'][known], compare_gdf['latitude'][known]),
-                     compare_gdf[self.TRIGGER_RP_COLNAME][known],
+                     compare_gdf['triggerLevel'][known],
                      (compare_gdf['longitude'][unknown], compare_gdf['latitude'][unknown]))
-        compare_gdf[self.TRIGGER_RP_COLNAME][unknown] = z.tolist()
+        compare_gdf['triggerLevel'][unknown] = z.tolist()
 
         compare_gdf[str(str(self.leadTimeLabel) + '_pred')] = np.where(
-            (compare_gdf['mean_by_day'] > compare_gdf[self.TRIGGER_RP_COLNAME]), 1, 0)
+            (compare_gdf['mean_by_day'] > compare_gdf['triggerLevel']), 1, 0)
         compare_gdf['fc_day'] = compare_gdf['fc_day'].astype(str)
         df_trigger = compare_gdf.filter(
             ['latitude', 'longitude', 'geometry', str(str(self.leadTimeLabel) + '_pred')])
 
         # out = df_trigger.to_json()
-        # output_name = '%s_%sday_'%(runcycle_day, self.leadTimeLabel) +self.TRIGGER_RP_COLNAME
+        # output_name = '%s_%sday_'%(runcycle_day, self.leadTimeLabel) + 'triggerLevel'
         # with open(self.triggersPerStationPath, 'w') as fp:
         #     fp.write(out)
 

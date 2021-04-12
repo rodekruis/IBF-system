@@ -144,13 +144,11 @@ SETTINGS = {
     },
     "EGY": {
         "model": 'rainfall',
-        "trigger_levels": 'Rainfall_station_locations_with_trigger_levels.csv',
         'district_mapping': '<not needed>',
         'admin_boundaries': {
                 'filename': 'vector/EGY_adm1_MENAregion.shp',
                 'pcode_colname': 'ADM1_PCODE'
         },
-        'trigger_colname': '5yr_threshold',
         'lead_times': {
             "3-day": 3,
             "5-day": 5,

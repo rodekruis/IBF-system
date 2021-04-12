@@ -14,6 +14,7 @@ import { AdminAreaModule } from './api/admin-area/admin-area.module';
 import { GlofasStationModule } from './api/glofas-station/glofas-station.module';
 import { RedcrossBranchModule } from './api/redcross-branch/redcross-branch.module';
 import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.module';
+import { RainfallTriggersModule } from './api/rainfall-triggers/rainfall-triggers.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.modul
     GlofasStationModule,
     RedcrossBranchModule,
     AdminAreaDataModule,
+    RainfallTriggersModule,
   ],
   controllers: [AppController],
   providers: [],
