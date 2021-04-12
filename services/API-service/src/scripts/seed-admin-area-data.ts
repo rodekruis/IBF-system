@@ -40,8 +40,7 @@ export class SeedAdminAreaData implements InterfaceScript {
               key: area['key'],
               value: area['value'],
             })
-            .execute()
-            .catch(console.error);
+            .execute();
         },
       ),
     );
@@ -63,8 +62,7 @@ export class SeedAdminAreaData implements InterfaceScript {
               key: area['key'],
               value: area['value'],
             })
-            .execute()
-            .catch(console.error);
+            .execute();
         },
       ),
     );

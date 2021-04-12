@@ -14,7 +14,7 @@ export class AdminAreaDataEntity {
 
   @ManyToOne((): typeof CountryEntity => CountryEntity)
   @JoinColumn({ name: 'countryCode', referencedColumnName: 'countryCodeISO3' })
-  public country: string;
+  public countryCode: string;
 
   @Column()
   public adminLevel: number;
