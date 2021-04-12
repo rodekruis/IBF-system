@@ -27,20 +27,13 @@ access container (if the container exists already): docker exec -it ibf-pipeline
 remove container (to be able to recreate with same name): docker rm -f ibf-pipeline
 ```
 
-2. Within container run setup: this will a.o. upload static data to the database.
-   (NOTE: only when working with local database, not when working with remote development database.)
-
-```
-python3 runSetup.py
-```
-
-3. All other scripts are summarized in cronJob (as it will be run daily). Test it through:
+2. All other scripts are summarized in cronJob (as it will be run daily). Test it through:
 
 ```
 python3 runCron.py
 ```
 
-4. Cronjob: locally, you probably don't want to run this automatically every day. If you want to, copy the cron command in /docker-compose.yml and replace the last line of /services/IBF-pipeline/Dockerfile with it.
+3. Cronjob: locally, you probably don't want to run this automatically every day. If you want to, copy the cron command in /docker-compose.yml and replace the last line of /services/IBF-pipeline/Dockerfile with it.
 
 ### Logging loggly and SMTPHandler for logging (OPTIONAL)
 
