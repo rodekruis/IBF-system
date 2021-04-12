@@ -29,7 +29,6 @@ export class AdminAreaController {
     return await this.adminAreaService.getAdminAreas(params.countryCode);
   }
 
-  // NOTE: this endpoint is to be used by the IBF-pipeline to read this data from DB (instead of current way > TO DO)
   @ApiOperation({
     summary: 'Get Glofas station to admin-area mapping by country',
   })
