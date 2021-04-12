@@ -1,0 +1,17 @@
+<layer>
+  <name>ibf-system:population_PHL</name>
+  <id>LayerInfoImpl-6aaea59:178ab4094ca:-7ff9</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff4</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-6aaea59:178ab4094ca:-7ffa</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2021-04-07 13:27:27.666 UTC</dateCreated>
+  <dateModified>2021-04-07 13:29:15.498 UTC</dateModified>
+</layer>

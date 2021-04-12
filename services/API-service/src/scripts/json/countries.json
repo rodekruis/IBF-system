@@ -4,12 +4,13 @@
     "countryCodeISO2": "UG",
     "countryName": "Uganda",
     "countryStatus": "active",
+    "disasterType": "floods",
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
       "triggerColName": "5yr_threshold"
     },
-    "countryLeadTimes": [
+    "countryActiveLeadTimes": [
       "5-day"
     ],
     "adminRegionLabels": [
@@ -71,12 +72,13 @@
     "countryCodeISO2": "ZM",
     "countryName": "Zambia",
     "countryStatus": "active",
+    "disasterType": "floods",
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_ZMB.csv",
       "triggerColName": "10yr_threshold"
     },
-    "countryLeadTimes": [
+    "countryActiveLeadTimes": [
       "3-day",
       "7-day"
     ],
@@ -150,12 +152,13 @@
     "countryCodeISO2": "KE",
     "countryName": "Kenya",
     "countryStatus": "active",
+    "disasterType": "floods",
     "defaultAdminLevel": 1,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
       "triggerColName": "5yr_threshold"
     },
-    "countryLeadTimes": [
+    "countryActiveLeadTimes": [
       "7-day"
     ],
     "adminRegionLabels": [
@@ -214,12 +217,13 @@
     "countryCodeISO2": "ET",
     "countryName": "Ethiopia",
     "countryStatus": "active",
+    "disasterType": "floods",
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
       "triggerColName": "10yr_threshold_7day"
     },
-    "countryLeadTimes": [
+    "countryActiveLeadTimes": [
       "7-day"
     ],
     "eapAlertClasses": {
@@ -278,8 +282,9 @@
     "countryCodeISO2": "EG",
     "countryName": "Egypt",
     "countryStatus": "active",
+    "disasterType": "heavy-rain",
     "defaultAdminLevel": 1,
-    "countryLeadTimes": [
+    "countryActiveLeadTimes": [
       "3-day",
       "5-day",
       "7-day"
@@ -327,9 +332,12 @@
     "countryCodeISO2": "PH",
     "countryName": "Philippines",
     "countryStatus": "active",
+    "disasterType": "dengue",
     "defaultAdminLevel": 2,
-    "countryLeadTimes": [
-      "7-day"
+    "countryActiveLeadTimes": [
+      "1-month",
+      "2-month",
+      "3-month"
     ],
     "eapAlertClasses": {},
     "adminRegionLabels": [

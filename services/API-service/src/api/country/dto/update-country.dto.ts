@@ -47,7 +47,7 @@ export class UpdateCountryDto {
   @ApiProperty()
   @IsArray()
   @IsEnum(LeadTimeEntity)
-  public countryLeadTimes: LeadTimeEntity[];
+  public countryActiveLeadTimes: LeadTimeEntity[];
 
   @ApiProperty()
   @IsArray()

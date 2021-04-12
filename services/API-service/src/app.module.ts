@@ -14,6 +14,7 @@ import { MetadataModule } from './api/metadata/metadata.module';
 import { AdminAreaModule } from './api/admin-area/admin-area.module';
 import { GlofasStationModule } from './api/glofas-station/glofas-station.module';
 import { UploadModule } from './api/upload/upload.module';
+import { DisasterModule } from './api/disaster/disaster.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { UploadModule } from './api/upload/upload.module';
     AdminAreaModule,
     GlofasStationModule,
     UploadModule,
+    DisasterModule,
   ],
   controllers: [AppController],
   providers: [],
