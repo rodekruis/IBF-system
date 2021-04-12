@@ -40,5 +40,4 @@ export class RainfallTriggersEntity {
 
   @Column({ nullable: true, type: 'real' })
   public threshold100Year: string;
-  W;
 }
