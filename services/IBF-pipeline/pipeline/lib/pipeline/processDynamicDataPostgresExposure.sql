@@ -30,6 +30,12 @@ union all
 select '5-day' as lead_time
 union all
 select '7-day' as lead_time
+union all
+select '1-month' as lead_time
+union all
+select '2-month' as lead_time
+union all
+select '3-month' as lead_time
 ;
 --select * from "IBF-pipeline-output".help_table;
 

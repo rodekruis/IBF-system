@@ -12,7 +12,10 @@ CREATE TABLE if not exists "IBF-pipeline-output".dashboard_triggers_per_day (
     "4" int8 NULL,
     "5" int8 NULL,
     "6" int8 NULL,
-    "7" int8 NULL
+    "7" int8 NULL,
+    "1-m" int8 NULL,
+    "2-m" int8 NULL,
+    "3-m" int8 NULL
 );
 truncate table "IBF-pipeline-output".dashboard_triggers_per_day;
 delete from "IBF-pipeline-output".triggers_per_day

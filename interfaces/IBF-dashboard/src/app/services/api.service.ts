@@ -108,7 +108,7 @@ export class ApiService {
     return this.get('country', false).pipe(
       map((countries) => {
         return countries.map((country) => {
-          country.countryLeadTimes = country.countryLeadTimes.map(
+          country.countryActiveLeadTimes = country.countryActiveLeadTimes.map(
             (leadTime) => leadTime.leadTimeName,
           );
           return country;
