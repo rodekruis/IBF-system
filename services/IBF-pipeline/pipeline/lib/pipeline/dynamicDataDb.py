@@ -91,10 +91,10 @@ class DatabaseManager:
     def apiGetRequest(self, path, country_code):
         import requests
 
-        login_response = requests.post('http://12.0.0.8:3000/api/user/login', data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
+        login_response = requests.post('http://ibf-api-service:3000/api/user/login', data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
         TOKEN = login_response.json()['user']['token']
 
-        response = requests.get('http://12.0.0.8:3000/api/'+path+'/'+country_code,headers={'Authorization': 'Bearer ' + TOKEN})
+        response = requests.get('http://ibf-api-service:3000/api/'+path+'/'+country_code,headers={'Authorization': 'Bearer ' + TOKEN})
         data = response.json()
         return(data)
 
