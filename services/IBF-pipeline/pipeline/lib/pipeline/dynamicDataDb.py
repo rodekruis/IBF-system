@@ -7,7 +7,7 @@ import geopandas as gpd
 from lib.logging.logglySetup import logger
 from lib.setup.setupConnection import get_db
 from settings import *
-from secrets import DB_SETTINGS
+from secrets import DB_SETTINGS, ADMIN_LOGIN, ADMIN_PASSWORD
 
 
 class DatabaseManager:
@@ -87,6 +87,16 @@ class DatabaseManager:
         except psycopg2.ProgrammingError as e:
             logger.info(e)
             print('SQL FAILED', e)
+
+    def apiGetRequest(self, path, country_code):
+        import requests
+
+        login_response = requests.post('http://12.0.0.8:3000/api/user/login', data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
+        TOKEN = login_response.json()['user']['token']
+
+        response = requests.get('http://12.0.0.8:3000/api/'+path+'/'+country_code,headers={'Authorization': 'Bearer ' + TOKEN})
+        data = response.json()
+        return(data)
 
     def downloadDataFromDb(self, schema, table, country_code=None):
         try:

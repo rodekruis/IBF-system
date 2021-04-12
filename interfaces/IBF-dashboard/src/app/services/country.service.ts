@@ -16,27 +16,35 @@ export class CountryService {
     private apiService: ApiService,
     private authService: AuthService,
   ) {
-    this.authService.getAuthSubscription().subscribe((user: User) => {
-      this.getCountriesByUser(user);
-    });
+    this.authService.getAuthSubscription().subscribe(this.onUserChange);
   }
 
+  private onUserChange = (user: User) => {
+    this.getCountriesByUser(user);
+  };
+
   public getCountriesByUser(user: User): void {
-    this.apiService.getCountries().subscribe((countries) => {
-      this.countries = countries;
-      this.filterCountriesByUser(user);
-    });
+    this.apiService.getCountries().subscribe(this.onCountriesByUser(user));
   }
 
   getCountrySubscription = (): Observable<Country> => {
     return this.countrySubject.asObservable();
   };
 
+  private onCountriesByUser = (user) => (countries) => {
+    this.countries = countries;
+    this.filterCountriesByUser(user);
+  };
+
+  private filterCountryByCountryCodeISO3 = (countryCodeISO3) => (country) =>
+    country.countryCodeISO3 === countryCodeISO3;
+
+  private filterCountryByUser = (user: User) => (country) =>
+    user.countries.indexOf(country.countryCodeISO3) >= 0;
+
   public selectCountry = (countryCodeISO3: string): void => {
     this.countrySubject.next(
-      this.countries.find(
-        (country) => country.countryCodeISO3 === countryCodeISO3,
-      ),
+      this.countries.find(this.filterCountryByCountryCodeISO3(countryCodeISO3)),
     );
   };
 
@@ -44,9 +52,7 @@ export class CountryService {
     if (!user || !user.countries) {
       this.countries = [];
     } else {
-      this.countries = this.countries.filter(
-        (country) => user.countries.indexOf(country.countryCodeISO3) >= 0,
-      );
+      this.countries = this.countries.filter(this.filterCountryByUser(user));
       if (this.countries.length > 0) {
         this.selectCountry(this.countries[0].countryCodeISO3);
       }

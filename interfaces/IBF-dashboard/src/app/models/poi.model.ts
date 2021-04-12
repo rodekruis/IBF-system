@@ -10,10 +10,10 @@ export class Station {
 
 export class RedCrossBranch {
   name: string;
-  nr_volunteers: number;
-  contact_person: string;
-  contact_address: string;
-  contact_number: string;
+  numberOfVolunteers: number;
+  contactPerson: string;
+  contactAddress: string;
+  contactNumber: string;
 }
 
 export class Waterpoint {

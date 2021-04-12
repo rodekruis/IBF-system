@@ -159,10 +159,6 @@ export class ApiService {
     );
   }
 
-  getAdmin2Data(): Observable<GeoJSON.FeatureCollection> {
-    return this.get('uga-data-level-2/all', false);
-  }
-
   getTriggeredAreas(countryCodeISO3: string) {
     return this.get(`triggered-areas/${countryCodeISO3}`, false);
   }

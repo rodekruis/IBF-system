@@ -8,13 +8,14 @@ import { EapActionsModule } from './api/eap-actions/eap-actions.module';
 import { ScriptsModule } from './scripts/scripts.module';
 import { CountryModule } from './api/country/country.module';
 import { WaterpointsModule } from './api/waterpoints/waterpoints.module';
-import { UgaDataLevel2Module } from './api/uga-data-level-2/uga-data-level-2.module';
 import { EventModule } from './api/event/event.module';
 import { MetadataModule } from './api/metadata/metadata.module';
 import { AdminAreaModule } from './api/admin-area/admin-area.module';
 import { GlofasStationModule } from './api/glofas-station/glofas-station.module';
 import { UploadModule } from './api/upload/upload.module';
 import { DisasterModule } from './api/disaster/disaster.module';
+import { RedcrossBranchModule } from './api/redcross-branch/redcross-branch.module';
+import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.module';
 
 @Module({
   imports: [
@@ -25,7 +26,6 @@ import { DisasterModule } from './api/disaster/disaster.module';
     WaterpointsModule,
     ScriptsModule,
     HealthModule,
-    UgaDataLevel2Module,
     CountryModule,
     EventModule,
     MetadataModule,
@@ -33,6 +33,8 @@ import { DisasterModule } from './api/disaster/disaster.module';
     GlofasStationModule,
     UploadModule,
     DisasterModule,
+    RedcrossBranchModule,
+    AdminAreaDataModule,
   ],
   controllers: [AppController],
   providers: [],

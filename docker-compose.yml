@@ -15,7 +15,7 @@ services:
             - ibf-dashboard-root:/var/www/ibf-dashboard
             - letsencrypt:/etc/letsencrypt
         networks:
-            - web-server-network
+            web-server-network:
         restart: unless-stopped
 
     ibf-api-service:
@@ -39,7 +39,9 @@ services:
             - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
             - COUNTRIES=${COUNTRIES}
         networks:
-            - web-server-network
+            web-server-network:
+            pipeline-network:
+                ipv4_address: 12.0.0.8
         depends_on:
             - ibf-geoserver
         volumes:
@@ -70,7 +72,7 @@ services:
         volumes:
             - ibf-dashboard-root:/home/node/app/www
         networks:
-            - web-server-network
+            web-server-network:
 
     ibf-pipeline:
         build: ./services/IBF-pipeline
@@ -88,7 +90,7 @@ services:
         volumes:
             - pipeline-root:/home/ibf
         networks:
-            - pipeline-network
+            pipeline-network:
         restart: unless-stopped
 
     ibf-geoserver:
@@ -97,8 +99,8 @@ services:
             - pipeline-geoserver:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
             - workspace-geoserver:/opt/geoserver/data_dir/workspaces/ibf-system
         networks:
-            - web-server-network
-            - pipeline-network
+            web-server-network:
+            pipeline-network:
         restart: unless-stopped
 
 volumes:
@@ -106,22 +108,22 @@ volumes:
     pipeline-root:
         driver_opts:
             type: bind
-            device: /home/ibf-user/IBF-system/services/IBF-pipeline
+            device: ./services/IBF-pipeline
             o: bind
     pipeline-geoserver:
         driver_opts:
             type: bind
-            device: /home/ibf-user/IBF-system/services/IBF-pipeline/pipeline/data/raster
+            device: ./services/IBF-pipeline/pipeline/data/raster
             o: bind
     workspace-geoserver:
         driver_opts:
             type: bind
-            device: /home/ibf-user/IBF-system/services/IBF-pipeline/geoserver-workspaces/ibf-system
+            device: ./services/IBF-pipeline/geoserver-workspaces/ibf-system
             o: bind
     letsencrypt:
         driver_opts:
             type: bind
-            device: /home/ibf-user/IBF-system/nginx/letsencrypt
+            device: ./nginx/letsencrypt
             o: bind
 
 networks:
@@ -129,3 +131,8 @@ networks:
         driver: bridge
     pipeline-network:
         driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 12.0.0.0/24
+    

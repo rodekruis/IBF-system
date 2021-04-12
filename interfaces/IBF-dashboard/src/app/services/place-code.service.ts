@@ -15,15 +15,19 @@ export class PlaceCodeService {
   }
 
   setPlaceCode = (newPlaceCode: PlaceCode): void => {
-    this.getPlaceCodeSubscription().subscribe((oldPlaceCode: PlaceCode) => {
-      if (oldPlaceCode && newPlaceCode) {
-        newPlaceCode =
-          oldPlaceCode.placeCode === newPlaceCode.placeCode
-            ? null
-            : newPlaceCode;
-      }
-    });
+    this.getPlaceCodeSubscription().subscribe(
+      this.onPlaceCodeChangeByPlaceCode,
+    );
     this.placeCodeSubject.next(newPlaceCode);
+  };
+
+  private onPlaceCodeChangeByPlaceCode = (newPlaceCode: PlaceCode) => (
+    oldPlaceCode: PlaceCode,
+  ) => {
+    if (oldPlaceCode && newPlaceCode) {
+      newPlaceCode =
+        oldPlaceCode.placeCode === newPlaceCode.placeCode ? null : newPlaceCode;
+    }
   };
 
   clearPlaceCode = (): void => {

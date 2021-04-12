@@ -12,13 +12,13 @@ export class AdminAreaEntity {
   public adminLevel: number;
 
   @Column()
-  public pcode: string;
+  public placeCode: string;
 
   @Column({ nullable: true })
   public name: string;
 
   @Column({ nullable: true })
-  public pcodeParent: string;
+  public placeCodeParent: string;
 
   @Column({ nullable: true })
   public geom: string;
