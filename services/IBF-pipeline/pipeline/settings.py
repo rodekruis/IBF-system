@@ -188,10 +188,7 @@ TRIGGER_LEVELS = {
 
 #######################
 ## DB / API SETTINGS ##
-#################
-## DB SETTINGS ##
-#################
-SCHEMA_NAME_INPUT = 'IBF-static-input'
+#######################
 SCHEMA_NAME = 'IBF-pipeline-output'
 # Other connection-settings in secrets.py
 
