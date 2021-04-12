@@ -30,7 +30,7 @@ remove container (to be able to recreate with same name): docker rm -f ibf-pipel
 2. All other scripts are summarized in cronJob (as it will be run daily). Test it through:
 
 ```
-python3 runCron.py
+python3 runPipeline.py
 ```
 
 3. Cronjob: locally, you probably don't want to run this automatically every day. If you want to, copy the cron command in /docker-compose.yml and replace the last line of /services/IBF-pipeline/Dockerfile with it.
