@@ -1,11 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { CountryEntity } from '../country/country.entity';
 
 @Entity('rainfallTriggers')
 export class RainfallTriggersEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column()
+  @ManyToOne((): typeof CountryEntity => CountryEntity)
+  @JoinColumn({ name: 'countryCode', referencedColumnName: 'countryCodeISO3' })
   public countryCode: string;
 
   @Column({ type: 'real' })
@@ -17,7 +25,7 @@ export class RainfallTriggersEntity {
   @Column()
   public leadTime: string;
 
-  @Column({ nullable: true, type: 'real' })
+  @Column({ type: 'real' })
   public triggerLevel: string;
 
   @Column({ nullable: true, type: 'real' })

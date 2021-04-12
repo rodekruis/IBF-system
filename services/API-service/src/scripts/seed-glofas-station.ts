@@ -88,8 +88,7 @@ export class SeedGlofasStation implements InterfaceScript {
                 geom: (): string =>
                   `st_MakePoint(${station['lon']}, ${station['lat']})`,
               })
-              .execute()
-              .catch(console.error);
+              .execute();
           } else {
             return Promise.resolve();
           }

@@ -58,8 +58,7 @@ export class SeedRedcrossBranches implements InterfaceScript {
                 geom: (): string =>
                   `st_MakePoint(${branch['lon']}, ${branch['lat']})`,
               })
-              .execute()
-              .catch(console.error);
+              .execute();
           },
         ),
       );

@@ -5,7 +5,7 @@ import { SeedHelper } from './seed-helper';
 import { RainfallTriggersEntity } from '../api/rainfall-triggers/rainfall-triggers.entity';
 
 @Injectable()
-export class SeedOther implements InterfaceScript {
+export class SeedRainfallData implements InterfaceScript {
   private connection: Connection;
   private readonly seedHelper: SeedHelper;
   private rainfallTriggersRepository;
@@ -22,7 +22,7 @@ export class SeedOther implements InterfaceScript {
 
     // EGY
     // Trigger levels per lat/lon pixel
-    const fileName = `./src/scripts/git-lfs/other/rainfall_trigger_levels_EGY.csv`;
+    const fileName = `./src/scripts/git-lfs/rainfall/rainfall_trigger_levels_EGY.csv`;
     const data = await this.seedHelper.getCsvData(fileName);
 
     await Promise.all(
@@ -45,12 +45,11 @@ export class SeedOther implements InterfaceScript {
               threshold50Year: pixel['50yr_threshold'],
               threshold100Year: pixel['100yr_threshold'],
             })
-            .execute()
-            .catch(console.error);
+            .execute();
         },
       ),
     );
   }
 }
 
-export default SeedOther;
+export default SeedRainfallData;
