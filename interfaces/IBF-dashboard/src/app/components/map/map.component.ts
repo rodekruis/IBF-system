@@ -572,8 +572,8 @@ export class MapComponent implements OnDestroy {
     let lastAvailableLeadTime: LeadTime;
 
     if (this.country) {
-      lastAvailableLeadTime = this.country.countryLeadTimes[
-        this.country.countryLeadTimes.length - 1
+      lastAvailableLeadTime = this.country.countryActiveLeadTimes[
+        this.country.countryActiveLeadTimes.length - 1
       ];
     }
 

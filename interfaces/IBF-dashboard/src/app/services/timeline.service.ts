@@ -1,10 +1,13 @@
-import { DisasterType } from './../models/country.model';
 import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import { LeadTime, LeadTimeTriggerKey, LeadTimeUnit } from 'src/app/types/lead-time';
+import {
+  LeadTime,
+  LeadTimeTriggerKey,
+  LeadTimeUnit,
+} from 'src/app/types/lead-time';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { CountryTriggers } from '../models/country-triggers.model';
 import { Country } from '../models/country.model';
@@ -60,18 +63,22 @@ export class TimelineService {
             .subscribe((triggers) => {
               this.triggers = triggers;
               if (this.triggers) {
-                vissibleLeadTimes.map((leadTime: LeadTime, index: number): void => {
-                  const isLeadTimeDisabled = this.isLeadTimeDisabled(leadTime);
-                  const triggerKey = LeadTimeTriggerKey[leadTime];
-                  this.state.timeStepButtons[index] = {
-                    date: this.getLeadTimeDate(leadTime, triggerKey),
-                    unit: leadTime.split('-')[1] as LeadTimeUnit,
-                    value: leadTime,
-                    alert: this.triggers[triggerKey] === '1',
-                    disabled: isLeadTimeDisabled,
-                    active: false,
-                  };
-                });
+                vissibleLeadTimes.map(
+                  (leadTime: LeadTime, index: number): void => {
+                    const isLeadTimeDisabled = this.isLeadTimeDisabled(
+                      leadTime,
+                    );
+                    const triggerKey = LeadTimeTriggerKey[leadTime];
+                    this.state.timeStepButtons[index] = {
+                      date: this.getLeadTimeDate(leadTime, triggerKey),
+                      unit: leadTime.split('-')[1] as LeadTimeUnit,
+                      value: leadTime,
+                      alert: this.triggers[triggerKey] === '1',
+                      disabled: isLeadTimeDisabled,
+                      active: false,
+                    };
+                  },
+                );
               }
 
               const enabledTimeStepButtons = this.state.timeStepButtons.filter(
@@ -96,9 +103,9 @@ export class TimelineService {
 
   private getLeadTimeDate(leadTime: LeadTime, triggerKey: string) {
     if (leadTime.includes('day')) {
-      return this.state.today.plus({ days: Number(triggerKey) })
+      return this.state.today.plus({ days: Number(triggerKey) });
     } else {
-      return this.state.today.plus({ months: Number(triggerKey) })
+      return this.state.today.plus({ months: Number(triggerKey) });
     }
   }
 
@@ -113,10 +120,11 @@ export class TimelineService {
     const vissibleLeadTimes = [];
     for (const disaster of country.disasterTypes) {
       for (const leadTime of disaster.leadTimes) {
-        vissibleLeadTimes.indexOf(leadTime.leadTimeName) === -1 && vissibleLeadTimes.push(leadTime.leadTimeName)
+        vissibleLeadTimes.indexOf(leadTime.leadTimeName) === -1 &&
+          vissibleLeadTimes.push(leadTime.leadTimeName);
       }
     }
     console.log('vissibleLeadTimes: ', vissibleLeadTimes);
-    return vissibleLeadTimes
+    return vissibleLeadTimes;
   }
 }
