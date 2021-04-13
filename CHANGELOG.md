@@ -1,3 +1,12 @@
+## [0.56.1](https://github.com/rodekruis/IBF-system/compare/v0.56.0...v0.56.1) (2021-04-13)
+
+
+### Bug Fixes
+
+* update URCS logo AB[#7050](https://github.com/rodekruis/IBF-system/issues/7050) ([48587c9](https://github.com/rodekruis/IBF-system/commit/48587c9fecc0a7001f0decf905766a16416616c6))
+
+
+
 # [0.56.0](https://github.com/rodekruis/IBF-system/compare/v0.55.0...v0.56.0) (2021-04-13)
 
 
@@ -102,15 +111,6 @@
 ### Bug Fixes
 
 * catch failed glofas api request and retry AB[#6798](https://github.com/rodekruis/IBF-system/issues/6798) ([2cab348](https://github.com/rodekruis/IBF-system/commit/2cab3489f30579497caf5727b952e60e462ca38f))
-
-
-
-## [0.51.5](https://github.com/rodekruis/IBF-system/compare/v0.51.4...v0.51.5) (2021-03-25)
-
-
-### Bug Fixes
-
-* merge changes from [#610](https://github.com/rodekruis/IBF-system/issues/610) ([5d1d54e](https://github.com/rodekruis/IBF-system/commit/5d1d54e8e97917af7a39b55cda042df71dcd3c51))
 
 
 
