@@ -1,3 +1,12 @@
+# [0.56.0](https://github.com/rodekruis/IBF-system/compare/v0.55.0...v0.56.0) (2021-04-13)
+
+
+### Features
+
+* add trigger statement email EGY AB[#7043](https://github.com/rodekruis/IBF-system/issues/7043) ([71d3cce](https://github.com/rodekruis/IBF-system/commit/71d3ccee7e17e4bd8969430789ab7112bf2a8be3))
+
+
+
 # [0.55.0](https://github.com/rodekruis/IBF-system/compare/v0.54.1...v0.55.0) (2021-04-09)
 
 
@@ -102,16 +111,6 @@
 ### Bug Fixes
 
 * merge changes from [#610](https://github.com/rodekruis/IBF-system/issues/610) ([5d1d54e](https://github.com/rodekruis/IBF-system/commit/5d1d54e8e97917af7a39b55cda042df71dcd3c51))
-
-
-
-## [0.51.4](https://github.com/rodekruis/IBF-system/compare/v0.51.3...v0.51.4) (2021-03-25)
-
-
-### Bug Fixes
-
-* mock scenario support in cache AB[#6728](https://github.com/rodekruis/IBF-system/issues/6728) ([764085b](https://github.com/rodekruis/IBF-system/commit/764085b3a80dcfc1e22c62026f354d4df8824241))
-* update mock scenario data AB[#6728](https://github.com/rodekruis/IBF-system/issues/6728) ([b9ff467](https://github.com/rodekruis/IBF-system/commit/b9ff467c52fc71ca0bf01fd05e838da96d302e27))
 
 
 
