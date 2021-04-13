@@ -71,7 +71,7 @@ SETTINGS = {
         },
         'bounding_box': [5, 29, -2, 36],
         'email': {
-            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/dc5401e1-26e4-494e-88dc-2fae4bd50c1f.png",
+            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c44cb471-0595-454d-aad6-d1050553315f.png",
             'triggerStatement': "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/Doc.aspx?OR=teams&action=edit&sourcedoc={0FFAA5EF-423C-4F81-A51E-BEA98D06E91C}",
