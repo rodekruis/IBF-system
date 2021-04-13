@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { DEBOUNCE_TIME_LOADER } from 'src/app/config';
 import { LoaderService } from 'src/app/services/loader.service';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnDestroy {
   private loaderSubscription: Subscription;
   public loading = true;
   private defaultLanguage = 'en';
+  public environmentConfiguration = environment.configuration;
 
   constructor(
     private platform: Platform,
