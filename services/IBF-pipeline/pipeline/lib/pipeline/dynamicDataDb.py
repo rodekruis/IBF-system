@@ -60,7 +60,8 @@ class DatabaseManager:
             logger.info(e)
 
         # Append new data for current date, lead_time and country_code
-        df.to_sql(table, self.engine, if_exists='append', schema=SCHEMA_NAME)
+        df.to_sql(table, self.engine, index=False,
+                  if_exists='append', schema=SCHEMA_NAME)
         print(table+' uploaded')
 
     def processDynamicDataDb(self):
@@ -91,10 +92,12 @@ class DatabaseManager:
     def apiGetRequest(self, path, country_code):
         import requests
 
-        login_response = requests.post('http://12.0.0.8:3000/api/user/login', data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
+        login_response = requests.post('http://12.0.0.8:3000/api/user/login', data=[
+                                       ('email', ADMIN_LOGIN), ('password', ADMIN_PASSWORD)])
         TOKEN = login_response.json()['user']['token']
 
-        response = requests.get('http://12.0.0.8:3000/api/'+path+'/'+country_code,headers={'Authorization': 'Bearer ' + TOKEN})
+        response = requests.get('http://12.0.0.8:3000/api/'+path+'/' +
+                                country_code, headers={'Authorization': 'Bearer ' + TOKEN})
         data = response.json()
         return(data)
 
@@ -122,7 +125,7 @@ class DatabaseManager:
             sql = "SELECT * FROM \""+schema+"\".\""+table+"\""
             if country_code != None:
                 sql = sql + " WHERE \"countryCode\"=\'"+self.country_code+"\'"
-            admin_gdf = gpd.read_postgis(sql,self.con)
+            admin_gdf = gpd.read_postgis(sql, self.con)
         except psycopg2.ProgrammingError as e:
             logger.info(e)
 

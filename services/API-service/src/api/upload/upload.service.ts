@@ -1,10 +1,21 @@
+import { LeadTime } from './enum/lead-time.enum';
+import { ExposurePlaceCodeDto } from './dto/exposure-place-code.dto';
 import { Injectable } from '@nestjs/common';
-import { EntityManager } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { UploadExposureDto } from './dto/upload-exposure.dto';
 import fs from 'fs';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CalculatedAffectedEntity } from './calculated-affected.entity';
+import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 
 @Injectable()
 export class UploadService {
+  @InjectRepository(CalculatedAffectedEntity)
+  private readonly calculatedAffectedRepository: Repository<
+    CalculatedAffectedEntity
+  >;
+  @InjectRepository(TriggerPerLeadTime)
+  private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
   private manager: EntityManager;
 
   public constructor(manager: EntityManager) {
@@ -13,30 +24,52 @@ export class UploadService {
 
   public async exposure(uploadExposure: UploadExposureDto): Promise<void> {
     // Delete existsing entries with same date, leadtime and country_code and unit typ
-    const q = `DELETE FROM "IBF-pipeline-output".calculated_affected 
-                WHERE "source" = $1 AND "date" = $2 AND country_code = $3 AND lead_time = $4`;
-    await this.manager.query(q, [
-      uploadExposure.exposureUnit,
-      new Date(),
-      uploadExposure.countryCodeISO3,
-      uploadExposure.leadTime,
-    ]);
+    await this.calculatedAffectedRepository.delete({
+      source: uploadExposure.exposureUnit,
+      date: new Date(),
+      countryCode: uploadExposure.countryCodeISO3,
+      leadTime: uploadExposure.leadTime,
+    });
 
     for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
-      const q = `INSERT INTO  "IBF-pipeline-output".calculated_affected( "index", "source", sum, district, "date", country_code, lead_time) 
-                VALUES($1, $2, $3, $4, $5, $6, $7)`;
-      await this.manager.query(q, [
-        1,
-        uploadExposure.exposureUnit,
-        exposurePlaceCode.amount,
-        exposurePlaceCode.placeCode,
-        new Date(),
-        uploadExposure.countryCodeISO3,
-        uploadExposure.leadTime,
-      ]);
+      const calculatedAffected = new CalculatedAffectedEntity();
+      calculatedAffected.source = uploadExposure.exposureUnit;
+      calculatedAffected.sum = exposurePlaceCode.amount;
+      calculatedAffected.district = exposurePlaceCode.placeCode;
+      calculatedAffected.date = new Date();
+      calculatedAffected.countryCode = uploadExposure.countryCodeISO3;
+      calculatedAffected.leadTime = uploadExposure.leadTime;
+      this.calculatedAffectedRepository.save(calculatedAffected);
     }
-
     await this.processExposure();
+    await this.insertTrigger(uploadExposure);
+  }
+
+  private async insertTrigger(
+    uploadExposure: UploadExposureDto,
+  ): Promise<void> {
+    const trigger = this.isThereTrigger(uploadExposure.exposurePlaceCodes);
+    // Delete duplicates
+    await this.triggerPerLeadTimeRepository.delete({
+      date: new Date(),
+      countryCode: uploadExposure.countryCodeISO3,
+      leadTime: uploadExposure.leadTime as LeadTime,
+    });
+    const triggerPerLeadTime = new TriggerPerLeadTime();
+    triggerPerLeadTime.date = new Date();
+    triggerPerLeadTime.countryCode = uploadExposure.countryCodeISO3;
+    triggerPerLeadTime.leadTime = uploadExposure.leadTime as LeadTime;
+    triggerPerLeadTime.triggered = trigger;
+    await this.triggerPerLeadTimeRepository.save(triggerPerLeadTime);
+  }
+
+  private isThereTrigger(exposurePlaceCodes: ExposurePlaceCodeDto[]): boolean {
+    for (const exposurePlaceCode of exposurePlaceCodes) {
+      if (Number(exposurePlaceCode.amount) > 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public async processExposure(): Promise<void> {
