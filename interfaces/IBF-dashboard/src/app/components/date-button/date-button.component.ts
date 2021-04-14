@@ -19,7 +19,7 @@ export class DateButtonComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    if (this.unit == LeadTimeUnit.day) {
+    if (this.unit === LeadTimeUnit.day) {
       this.displayDate = this.date.toFormat(this.dateFormat);
     }
     this.displayMonth = this.date.toFormat(this.monthFormat);
