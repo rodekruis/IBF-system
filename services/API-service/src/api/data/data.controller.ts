@@ -43,14 +43,14 @@ export class DataController {
   @ApiOperation({ summary: 'Get recent dates' })
   @ApiParam({ name: 'countryCode', required: true, type: 'string' })
   @Get('recent-dates/:countryCode')
-  public async getRecentDate(@Param() params): Promise<number> {
+  public async getRecentDate(@Param() params): Promise<object> {
     return await this.dataService.getRecentDates(params.countryCode);
   }
 
   @ApiOperation({ summary: 'Get trigger data per lead-time' })
   @ApiParam({ name: 'countryCode', required: true, type: 'string' })
   @Get('triggers/:countryCode')
-  public async getTriggerPerLeadtime(@Param() params): Promise<number> {
+  public async getTriggerPerLeadtime(@Param() params): Promise<object> {
     return await this.dataService.getTriggerPerLeadtime(params.countryCode);
   }
 

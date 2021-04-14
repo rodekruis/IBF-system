@@ -3,6 +3,7 @@ import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { ExposurePlaceCodeDto } from './exposure-place-code.dto';
 import exposure from './example/upload-exposure-example.json';
+import { LeadTime } from '../enum/lead-time.enum';
 
 export class UploadExposureDto {
   @ApiProperty({ example: 'PHL' })
@@ -19,7 +20,7 @@ export class UploadExposureDto {
   @ApiProperty({ example: '1-month' })
   @IsNotEmpty()
   @IsString()
-  public leadTime: string;
+  public leadTime: LeadTime;
 
   @ApiProperty({ example: 'population' })
   @IsNotEmpty()

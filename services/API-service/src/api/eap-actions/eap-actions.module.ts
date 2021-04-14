@@ -1,3 +1,4 @@
+import { TriggerPerLeadTime } from './../upload/trigger-per-lead-time.entity';
 import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
@@ -16,6 +17,7 @@ import { AreaOfFocusEntity } from './area-of-focus.entity';
       EapActionEntity,
       EapActionStatusEntity,
       AreaOfFocusEntity,
+      TriggerPerLeadTime,
     ]),
     UserModule,
     HttpModule,
