@@ -1,3 +1,12 @@
+## [0.56.2](https://github.com/rodekruis/IBF-system/compare/v0.56.1...v0.56.2) (2021-04-14)
+
+
+### Bug Fixes
+
+* show indicator for stage environment AB[#7065](https://github.com/rodekruis/IBF-system/issues/7065) ([e95995c](https://github.com/rodekruis/IBF-system/commit/e95995cb54f7144a16ff8364029cd4043eabfab8))
+
+
+
 ## [0.56.1](https://github.com/rodekruis/IBF-system/compare/v0.56.0...v0.56.1) (2021-04-13)
 
 
@@ -102,15 +111,6 @@
 
 * AB[#6707](https://github.com/rodekruis/IBF-system/issues/6707) tests for no-trigger scenario ([edb7e7d](https://github.com/rodekruis/IBF-system/commit/edb7e7d68a23ce9a1ce95a4c4d37b17ba207f023))
 * Added tests for non-triggered scenario AB[#6707](https://github.com/rodekruis/IBF-system/issues/6707) ([a511def](https://github.com/rodekruis/IBF-system/commit/a511defb17420ac08469ac0cf9be229fc0360075))
-
-
-
-## [0.51.6](https://github.com/rodekruis/IBF-system/compare/v0.51.5...v0.51.6) (2021-03-26)
-
-
-### Bug Fixes
-
-* catch failed glofas api request and retry AB[#6798](https://github.com/rodekruis/IBF-system/issues/6798) ([2cab348](https://github.com/rodekruis/IBF-system/commit/2cab3489f30579497caf5727b952e60e462ca38f))
 
 
 
