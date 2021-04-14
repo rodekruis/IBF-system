@@ -6,6 +6,7 @@ import { DataModule } from '../data/data.module';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { MetadataService } from './metadata.service';
 import { LayerMetadataEntity } from './layer-metadata.entity';
+import { TriggerPerLeadTime } from '../upload/trigger-per-lead-time.entity';
 
 describe('MetadataService', (): void => {
   let service: MetadataService;
@@ -20,6 +21,7 @@ describe('MetadataService', (): void => {
             IndicatorMetadataEntity,
             UserEntity,
             LayerMetadataEntity,
+            TriggerPerLeadTime,
           ]),
         ],
         providers: [MetadataService, DataService],
