@@ -59,9 +59,10 @@ export class TimelineService {
     const isLeadTimeDisabled = this.isLeadTimeDisabled(leadTime);
     const triggerKey = LeadTimeTriggerKey[leadTime];
     this.state.timeStepButtons[index] = {
-      date: this.state.today.plus({ days: Number(triggerKey) }),
+      date: this.getLeadTimeDate(leadTime, triggerKey),
+      unit: leadTime.split('-')[1] as LeadTimeUnit,
       value: leadTime,
-      alert: this.triggers[triggerKey] === '1',
+      alert: this.triggers[leadTime] === '1',
       disabled: isLeadTimeDisabled,
       active: false,
     };
@@ -71,15 +72,8 @@ export class TimelineService {
     this.triggers = triggers;
 
     if (this.triggers) {
-      [
-        LeadTime.day1,
-        LeadTime.day2,
-        LeadTime.day3,
-        LeadTime.day4,
-        LeadTime.day5,
-        LeadTime.day6,
-        LeadTime.day7,
-      ].map(this.leadTimeToLeadTimeButton);
+      const vissibleLeadTimes = this.getVisibleLeadTimes(this.country);
+      vissibleLeadTimes.map(this.leadTimeToLeadTimeButton);
     }
 
     const enabledTimeStepButtons = this.state.timeStepButtons.filter(
@@ -102,51 +96,9 @@ export class TimelineService {
 
   public loadTimeStepButtons(): void {
     if (this.country) {
-      console.log('this.country: ', this.country);
       this.apiService
         .getRecentDates(this.country.countryCodeISO3)
-<<<<<<< HEAD
-        .subscribe((dates) => {
-          if (dates.length > 0) {
-            this.state.today = DateTime.fromISO(dates[0].date);
-          }
-
-          const vissibleLeadTimes = this.getVisibleLeadTimes(this.country);
-
-          this.apiService
-            .getTriggerPerLeadTime(this.country.countryCodeISO3)
-            .subscribe((triggers) => {
-              this.triggers = triggers;
-              if (this.triggers) {
-                vissibleLeadTimes.map(
-                  (leadTime: LeadTime, index: number): void => {
-                    const isLeadTimeDisabled = this.isLeadTimeDisabled(
-                      leadTime,
-                    );
-                    const triggerKey = LeadTimeTriggerKey[leadTime];
-                    this.state.timeStepButtons[index] = {
-                      date: this.getLeadTimeDate(leadTime, triggerKey),
-                      unit: leadTime.split('-')[1] as LeadTimeUnit,
-                      value: leadTime,
-                      alert: this.triggers[triggerKey] === '1',
-                      disabled: isLeadTimeDisabled,
-                      active: false,
-                    };
-                  },
-                );
-              }
-
-              const enabledTimeStepButtons = this.state.timeStepButtons.filter(
-                (timeStepButton) => !timeStepButton.disabled,
-              );
-              if (enabledTimeStepButtons.length > 0) {
-                this.handleTimeStepButtonClick(enabledTimeStepButtons[0].value);
-              }
-            });
-        });
-=======
         .subscribe(this.onRecentDates);
->>>>>>> origin/master
     }
   }
 
@@ -188,7 +140,6 @@ export class TimelineService {
           vissibleLeadTimes.push(leadTime.leadTimeName);
       }
     }
-    console.log('vissibleLeadTimes: ', vissibleLeadTimes);
     return vissibleLeadTimes;
   }
 }
