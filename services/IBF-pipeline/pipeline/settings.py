@@ -71,7 +71,7 @@ SETTINGS = {
         },
         'bounding_box': [5, 29, -2, 36],
         'email': {
-            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/dc5401e1-26e4-494e-88dc-2fae4bd50c1f.png",
+            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c44cb471-0595-454d-aad6-d1050553315f.png",
             'triggerStatement': "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/Doc.aspx?OR=teams&action=edit&sourcedoc={0FFAA5EF-423C-4F81-A51E-BEA98D06E91C}",
@@ -164,7 +164,10 @@ SETTINGS = {
         },
         'email': {
             'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/6907dc6e-311a-402b-b97d-551f04ef3d0b.png",
-            'triggerStatement': "TBD",
+            'triggerStatement': "Egyptian RCS can respond accordingly to their EAP/ SOP when the rainfall forecast from Global \
+                Forecast System for the lead times of 3- or 5- or 7 days exceeds the defined thresholds, \
+                which will be anticipated to occur in some regions of Egypt. The defined threshold \
+                corresponds to a 5-year return period heavy rainfall event.",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=07f11e3484d5241c58158cdd420e6134f&authkey=AVPI5OX8vf6JaBSLf2wX_xM&expiration=2022-04-08T22%3A00%3A00.000Z&e=nMtlu2",
             'linkSocialMedia': {
