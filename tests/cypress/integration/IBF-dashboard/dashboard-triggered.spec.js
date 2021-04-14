@@ -1,11 +1,10 @@
-describe('Load the dashboard triggered', () => {
-  beforeEach(() => {
-    cy.login('zam');
-  });
+describe("Load the dashboard triggered", () => {
+    beforeEach(() => {
+        cy.login("zam");
+    });
 
-  it('shows chat with red background', function () {
-    cy.get('[data-cy=chat]')
-    // Needs tests to check if tiggered
-  });
-
+    it("shows chat with red background", function () {
+        cy.get("[data-test=chat]");
+        // Needs tests to check if tiggered
+    });
 });
