@@ -159,21 +159,24 @@ class GlofasData:
                             ensemble=ensemble, step=step).values[time][0]
 
                         # DUMMY OVERWRITE DEPENDING ON COUNTRY SETTING
-                        if SETTINGS_SECRET[self.country_code]['dummy_trigger'] == True:
-                            if step < 5:
-                                discharge = 0
-                            elif station['code'] == 'G1361':  # ZMB dummy flood station 1
-                                discharge = 8000
-                            elif station['code'] == 'G1328':  # ZMB dummy flood station 2
-                                discharge = 9000
-                            elif station['code'] == 'DWRM14':  # UGA dummy flood station
-                                discharge = 150
-                            elif station['code'] == 'G1067':  # ETH dummy flood station
-                                discharge = 1000
-                            elif station['code'] == 'G1904':  # ETH dummy flood station
-                                discharge = 2000
-                            elif station['code'] == 'G5194':  # KEN dummy flood station
-                                discharge = 2000
+                        if SETTINGS_SECRET[self.country_code]['mock'] == True:
+                            if SETTINGS_SECRET[self.country_code]['if_mock_trigger'] == True:
+                                if step < 5: # Only dummy trigger for 5-day and above
+                                    discharge = 0
+                                elif station['code'] == 'G1361':  # ZMB dummy flood station 1
+                                    discharge = 8000
+                                elif station['code'] == 'G1328':  # ZMB dummy flood station 2
+                                    discharge = 9000
+                                elif station['code'] == 'DWRM14':  # UGA dummy flood station
+                                    discharge = 150
+                                elif station['code'] == 'G1067':  # ETH dummy flood station 1 
+                                    discharge = 1000
+                                elif station['code'] == 'G1904':  # ETH dummy flood station 2
+                                    discharge = 2000
+                                elif station['code'] == 'G5194':  # KEN dummy flood station
+                                    discharge = 2000
+                                else:
+                                    discharge = 0
                             else:
                                 discharge = 0
 
@@ -274,22 +277,25 @@ class GlofasData:
                         dischargeArray = ncData2['dis24'].sel(latitude=slice(st_lat+deltax,st_lat-deltax), longitude=slice(st_lon-deltax,st_lon+deltax),step=str(step)+' days',number=ensemble).values.flatten()
                         discharge = np.nanmax(dischargeArray)
 
-                        # DUMMY OVERWRITE DEPENDING ON COUNTRY SETTING
-                        if SETTINGS_SECRET[self.country_code]['dummy_trigger'] == True:
-                            if step < 5: # Only dummy trigger for 5-day and above
-                                discharge = 0
-                            elif station['code'] == 'G1361':  # ZMB dummy flood station 1
-                                discharge = 8000
-                            elif station['code'] == 'G1328':  # ZMB dummy flood station 2
-                                discharge = 9000
-                            elif station['code'] == 'DWRM14':  # UGA dummy flood station
-                                discharge = 150
-                            elif station['code'] == 'G1067':  # ETH dummy flood station 1 
-                                discharge = 1000
-                            elif station['code'] == 'G1904':  # ETH dummy flood station 2
-                                discharge = 2000
-                            elif station['code'] == 'G5194':  # KEN dummy flood station
-                                discharge = 2000
+                        # MOCK OVERWRITE DEPENDING ON COUNTRY SETTING
+                        if SETTINGS_SECRET[self.country_code]['mock'] == True:
+                            if SETTINGS_SECRET[self.country_code]['if_mock_trigger'] == True:
+                                if step < 5: # Only dummy trigger for 5-day and above
+                                    discharge = 0
+                                elif station['code'] == 'G1361':  # ZMB dummy flood station 1
+                                    discharge = 8000
+                                elif station['code'] == 'G1328':  # ZMB dummy flood station 2
+                                    discharge = 9000
+                                elif station['code'] == 'DWRM14':  # UGA dummy flood station
+                                    discharge = 150
+                                elif station['code'] == 'G1067':  # ETH dummy flood station 1 
+                                    discharge = 1000
+                                elif station['code'] == 'G1904':  # ETH dummy flood station 2
+                                    discharge = 2000
+                                elif station['code'] == 'G5194':  # KEN dummy flood station
+                                    discharge = 2000
+                                else:
+                                    discharge = 0
                             else:
                                 discharge = 0
 
