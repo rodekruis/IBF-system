@@ -93,18 +93,20 @@ class GlofasData:
         r = c.retrieve(
             'cems-glofas-forecast',
             {
+                'system_version': 'version_2_1',
+                'product_type': 'ensemble_perturbed_forecasts',
                 'variable': 'river_discharge_in_the_last_24_hours',
                 'format': 'netcdf',
-                'product_type': 'ensemble_perturbed_forecasts',
-                'year': CURRENT_DATE.year,
-                'month': CURRENT_DATE.month,
-                'day': CURRENT_DATE.day,
+                'year': str("{:04d}".format(CURRENT_DATE.year)),#CURRENT_DATE.year,
+                'month': str("{:02d}".format(CURRENT_DATE.month)), #CURRENT_DATE.month, 
+                'day':str("{:02d}".format(CURRENT_DATE.day)),# CURRENT_DATE.day,
                 'leadtime_hour': [
                     '24', '48', '72',
                     '96', '120', '144',
                     '168',
                 ],
-                'area': SETTINGS[self.country_code]['bounding_box']
+                'area': SETTINGS[self.country_code]['bounding_box'],
+                'hydrological_model': 'htessel_lisflood',
             },
             self.inputPath+'glofas-api-'+self.country_code+'-'+self.current_date+'.nc')
 
