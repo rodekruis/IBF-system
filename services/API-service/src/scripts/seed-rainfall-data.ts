@@ -3,6 +3,8 @@ import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
 import { SeedHelper } from './seed-helper';
 import { RainfallTriggersEntity } from '../api/rainfall-triggers/rainfall-triggers.entity';
+import countries from './json/countries.json';
+import { HazardModel } from '../api/country/hazard-model.enum';
 
 @Injectable()
 export class SeedRainfallData implements InterfaceScript {
@@ -20,9 +22,25 @@ export class SeedRainfallData implements InterfaceScript {
       RainfallTriggersEntity,
     );
 
-    // EGY
-    // Trigger levels per lat/lon pixel
-    const fileName = `./src/scripts/git-lfs/rainfall/rainfall_trigger_levels_EGY.csv`;
+    const envCountries = process.env.COUNTRIES.split(',');
+    await Promise.all(
+      countries.map(
+        (country): Promise<void> => {
+          if (
+            envCountries.includes(country.countryCodeISO3) &&
+            country.hazardModel === HazardModel.rainfall
+          ) {
+            return this.seedRainfallData(country);
+          } else {
+            return Promise.resolve();
+          }
+        },
+      ),
+    );
+  }
+
+  private async seedRainfallData(country): Promise<void> {
+    const fileName = `./src/scripts/git-lfs/rainfall/rainfall_trigger_levels_${country.countryCodeISO3}.csv`;
     const data = await this.seedHelper.getCsvData(fileName);
 
     await Promise.all(
@@ -32,7 +50,7 @@ export class SeedRainfallData implements InterfaceScript {
             .createQueryBuilder()
             .insert()
             .values({
-              countryCode: 'EGY',
+              countryCode: country.countryCodeISO3,
               lat: pixel['lat'],
               lon: pixel['lon'],
               leadTime: pixel['forecast_time'],
