@@ -1,3 +1,14 @@
+## [0.57.1](https://github.com/rodekruis/IBF-system/compare/v0.57.0...v0.57.1) (2021-04-19)
+
+
+### Bug Fixes
+
+* change mock station UGA AB[#7064](https://github.com/rodekruis/IBF-system/issues/7064) ([29270c6](https://github.com/rodekruis/IBF-system/commit/29270c665f24ee024003cddc17c26beb4fc75b18))
+* revert temporary glofas api date override AB[#7169](https://github.com/rodekruis/IBF-system/issues/7169) ([ca7aecb](https://github.com/rodekruis/IBF-system/commit/ca7aecb485521847fc99ab2facc7ee67e80e78e3))
+* temporarily use available glofas api date AB# ([185e023](https://github.com/rodekruis/IBF-system/commit/185e0232dace0da508bf88c55b7cf60bff727c25))
+
+
+
 # [0.57.0](https://github.com/rodekruis/IBF-system/compare/v0.56.2...v0.57.0) (2021-04-19)
 
 
@@ -91,15 +102,6 @@
 ### Bug Fixes
 
 * make pcode unique + reduce file size EGY AB[#6808](https://github.com/rodekruis/IBF-system/issues/6808) ([cecd742](https://github.com/rodekruis/IBF-system/commit/cecd7421517db37060f2fe67352f55bbac52e821))
-
-
-
-## [0.52.1](https://github.com/rodekruis/IBF-system/compare/v0.52.0...v0.52.1) (2021-03-31)
-
-
-### Bug Fixes
-
-* dummy commit to push ([fba3521](https://github.com/rodekruis/IBF-system/commit/fba352130d92bfe3483c5d1ac05da2a0ae38772a))
 
 
 
