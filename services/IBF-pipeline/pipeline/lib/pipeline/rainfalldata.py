@@ -47,7 +47,7 @@ class RainfallData:
             os.remove(os.path.join(self.inputPath, f))
 
     def download(self):
-        if SETTINGS_SECRET[self.country_code]['dummy_trigger'] == True:
+        if SETTINGS_SECRET[self.country_code]['mock'] == True:
             self.inputPath = PIPELINE_DATA + 'input/rainfall_dummy/'
 
         else:
