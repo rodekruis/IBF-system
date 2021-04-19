@@ -1,3 +1,12 @@
+## [0.57.2](https://github.com/rodekruis/IBF-system/compare/v0.57.1...v0.57.2) (2021-04-19)
+
+
+### Bug Fixes
+
+* update EAP link UGA AB[#7051](https://github.com/rodekruis/IBF-system/issues/7051) ([12d6285](https://github.com/rodekruis/IBF-system/commit/12d6285564579911ba8030fc63b815d31ce97b03))
+
+
+
 ## [0.57.1](https://github.com/rodekruis/IBF-system/compare/v0.57.0...v0.57.1) (2021-04-19)
 
 
@@ -93,15 +102,6 @@
 ### Features
 
 * made disaster-type dynamic in email AB[#6740](https://github.com/rodekruis/IBF-system/issues/6740) ([3c77fdd](https://github.com/rodekruis/IBF-system/commit/3c77fddf9c780315f4f6bc31be043b7cacb69945))
-
-
-
-## [0.52.2](https://github.com/rodekruis/IBF-system/compare/v0.52.1...v0.52.2) (2021-04-09)
-
-
-### Bug Fixes
-
-* make pcode unique + reduce file size EGY AB[#6808](https://github.com/rodekruis/IBF-system/issues/6808) ([cecd742](https://github.com/rodekruis/IBF-system/commit/cecd7421517db37060f2fe67352f55bbac52e821))
 
 
 
