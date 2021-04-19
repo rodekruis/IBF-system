@@ -40,33 +40,26 @@ export class SeedRainfallData implements InterfaceScript {
   }
 
   private async seedRainfallData(country): Promise<void> {
-    const fileName = `./src/scripts/git-lfs/rainfall/rainfall_trigger_levels_${country.countryCodeISO3}.csv`;
-    const data = await this.seedHelper.getCsvData(fileName);
+    const rainfallFileName = `./src/scripts/git-lfs/rainfall/rainfall_trigger_levels_${country.countryCodeISO3}.csv`;
+    const rainfallData = await this.seedHelper.getCsvData(rainfallFileName);
+    const rainfallArray = rainfallData.map(pixel => {
+      return {
+        countryCode: country.countryCodeISO3,
+        lat: pixel['lat'],
+        lon: pixel['lon'],
+        leadTime: pixel['forecast_time'],
+        triggerLevel: pixel['5yr_threshold'],
+        threshold99Perc: pixel['threshold_99perc'],
+        threshold2Year: pixel['2yr_threshold'],
+        threshold5Year: pixel['5yr_threshold'],
+        threshold10Year: pixel['10yr_threshold'],
+        threshold20Year: pixel['20yr_threshold'],
+        threshold50Year: pixel['50yr_threshold'],
+        threshold100Year: pixel['100yr_threshold'],
+      };
+    });
 
-    await Promise.all(
-      data.map(
-        async (pixel): Promise<void> => {
-          return this.rainfallTriggersRepository
-            .createQueryBuilder()
-            .insert()
-            .values({
-              countryCode: country.countryCodeISO3,
-              lat: pixel['lat'],
-              lon: pixel['lon'],
-              leadTime: pixel['forecast_time'],
-              triggerLevel: pixel['5yr_threshold'],
-              threshold99Perc: pixel['threshold_99perc'],
-              threshold2Year: pixel['2yr_threshold'],
-              threshold5Year: pixel['5yr_threshold'],
-              threshold10Year: pixel['10yr_threshold'],
-              threshold20Year: pixel['20yr_threshold'],
-              threshold50Year: pixel['50yr_threshold'],
-              threshold100Year: pixel['100yr_threshold'],
-            })
-            .execute();
-        },
-      ),
-    );
+    await this.rainfallTriggersRepository.save(rainfallArray);
   }
 }
 
