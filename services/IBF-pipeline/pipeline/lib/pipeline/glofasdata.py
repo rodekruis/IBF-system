@@ -78,13 +78,12 @@ class GlofasData:
                             str(timeToTryDownload/3600) + ' hours, no new dataset was found')
 
     def makeFtpRequest(self):
-        current_date = CURRENT_DATE.strftime('%Y%m%d')
-        filename = GLOFAS_FILENAME + '_' + current_date + '00.tar.gz'
+        filename = GLOFAS_FILENAME + '_' + self.current_date + '00.tar.gz'
         ftp_path = 'ftp://'+GLOFAS_USER+':'+GLOFAS_PW + '@' + GLOFAS_FTP
         urllib.request.urlretrieve(ftp_path + filename,
                                    self.inputPath + filename)
 
-        tar = tarfile.open(self.inputPath + filename, "r:gz")
+        tar = tarfile.open(self.inputPath + filename, "r:gz") 
         tar.extractall(self.inputPath)
         tar.close()
 
@@ -97,9 +96,9 @@ class GlofasData:
                 'product_type': 'ensemble_perturbed_forecasts',
                 'variable': 'river_discharge_in_the_last_24_hours',
                 'format': 'netcdf',
-                'year': str("{:04d}".format(CURRENT_DATE.year)),#CURRENT_DATE.year,
-                'month': str("{:02d}".format(CURRENT_DATE.month)), #CURRENT_DATE.month, 
-                'day':str("{:02d}".format(CURRENT_DATE.day)),# CURRENT_DATE.day,
+                'year': str("{:04d}".format(CURRENT_DATE.year)),
+                'month': str("{:02d}".format(CURRENT_DATE.month)), 
+                'day':str("{:02d}".format(CURRENT_DATE.day)),
                 'leadtime_hour': [
                     '24', '48', '72',
                     '96', '120', '144',
@@ -169,14 +168,6 @@ class GlofasData:
                                     discharge = 8000
                                 elif station['code'] == 'G1328':  # ZMB dummy flood station 2
                                     discharge = 9000
-                                elif station['code'] == 'DWRM14':  # UGA dummy flood station
-                                    discharge = 150
-                                elif station['code'] == 'G1067':  # ETH dummy flood station 1 
-                                    discharge = 1000
-                                elif station['code'] == 'G1904':  # ETH dummy flood station 2
-                                    discharge = 2000
-                                elif station['code'] == 'G5194':  # KEN dummy flood station
-                                    discharge = 2000
                                 else:
                                     discharge = 0
                             else:
@@ -284,12 +275,8 @@ class GlofasData:
                             if SETTINGS_SECRET[self.country_code]['if_mock_trigger'] == True:
                                 if step < 5: # Only dummy trigger for 5-day and above
                                     discharge = 0
-                                elif station['code'] == 'G1361':  # ZMB dummy flood station 1
-                                    discharge = 8000
-                                elif station['code'] == 'G1328':  # ZMB dummy flood station 2
-                                    discharge = 9000
-                                elif station['code'] == 'DWRM14':  # UGA dummy flood station
-                                    discharge = 150
+                                elif station['code'] == 'DWRM1':  # UGA dummy flood station 1
+                                    discharge = 1000
                                 elif station['code'] == 'G1067':  # ETH dummy flood station 1 
                                     discharge = 1000
                                 elif station['code'] == 'G1904':  # ETH dummy flood station 2
