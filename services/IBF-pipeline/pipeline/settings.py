@@ -240,3 +240,9 @@ LOGGING_TO_EMAIL_ADDRRESSES = [
 ]
 
 
+#####################
+## ATTRIBUTE NAMES ##
+#####################
+
+TRIGGER_LEVEL = 'triggerLevel'
+LEAD_TIME = 'leadTime'

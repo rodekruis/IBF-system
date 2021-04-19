@@ -3,6 +3,7 @@
     "countryCodeISO3": "UGA",
     "countryCodeISO2": "UG",
     "countryName": "Uganda",
+    "hazardModel": "glofas",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
     "glofasStationInput": {
@@ -70,6 +71,7 @@
     "countryCodeISO3": "ZMB",
     "countryCodeISO2": "ZM",
     "countryName": "Zambia",
+    "hazardModel": "glofas",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
     "glofasStationInput": {
@@ -149,6 +151,7 @@
     "countryCodeISO3": "KEN",
     "countryCodeISO2": "KE",
     "countryName": "Kenya",
+    "hazardModel": "glofas",
     "countryStatus": "active",
     "defaultAdminLevel": 1,
     "glofasStationInput": {
@@ -213,6 +216,7 @@
     "countryCodeISO3": "ETH",
     "countryCodeISO2": "ET",
     "countryName": "Ethiopia",
+    "hazardModel": "glofas",
     "countryStatus": "active",
     "defaultAdminLevel": 2,
     "glofasStationInput": {
@@ -277,6 +281,7 @@
     "countryCodeISO3": "EGY",
     "countryCodeISO2": "EG",
     "countryName": "Egypt",
+    "hazardModel": "rainfall",
     "countryStatus": "active",
     "defaultAdminLevel": 1,
     "countryLeadTimes": [
