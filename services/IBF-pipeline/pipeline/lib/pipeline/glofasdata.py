@@ -78,8 +78,7 @@ class GlofasData:
                             str(timeToTryDownload/3600) + ' hours, no new dataset was found')
 
     def makeFtpRequest(self):
-        current_date = CURRENT_DATE.strftime('%Y%m%d')
-        filename = GLOFAS_FILENAME + '_' + current_date + '00.tar.gz'
+        filename = GLOFAS_FILENAME + '_' + self.current_date + '00.tar.gz'
         ftp_path = 'ftp://'+GLOFAS_USER+':'+GLOFAS_PW + '@' + GLOFAS_FTP
         urllib.request.urlretrieve(ftp_path + filename,
                                    self.inputPath + filename)
@@ -89,6 +88,10 @@ class GlofasData:
         tar.close()
 
     def makeApiRequest(self):
+        if SETTINGS_SECRET[self.country_code]['mock'] == True:
+            # Temporarily set available date in case of mock (TO DO: download shouldn't be necessary at all in mock setting)
+            CURRENT_DATE = date(2021,4,16)
+
         c = cdsapi.Client(key=GLOFAS_API_KEY,url=GLOFAS_API_URL)
         r = c.retrieve(
             'cems-glofas-forecast',
@@ -97,9 +100,9 @@ class GlofasData:
                 'product_type': 'ensemble_perturbed_forecasts',
                 'variable': 'river_discharge_in_the_last_24_hours',
                 'format': 'netcdf',
-                'year': str("{:04d}".format(CURRENT_DATE.year)),#CURRENT_DATE.year,
-                'month': str("{:02d}".format(CURRENT_DATE.month)), #CURRENT_DATE.month, 
-                'day':str("{:02d}".format(CURRENT_DATE.day)),# CURRENT_DATE.day,
+                'year': str("{:04d}".format(CURRENT_DATE.year)),
+                'month': str("{:02d}".format(CURRENT_DATE.month)), 
+                'day':str("{:02d}".format(CURRENT_DATE.day)),
                 'leadtime_hour': [
                     '24', '48', '72',
                     '96', '120', '144',
