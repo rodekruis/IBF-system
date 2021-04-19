@@ -83,15 +83,11 @@ class GlofasData:
         urllib.request.urlretrieve(ftp_path + filename,
                                    self.inputPath + filename)
 
-        tar = tarfile.open(self.inputPath + filename, "r:gz")
+        tar = tarfile.open(self.inputPath + filename, "r:gz") 
         tar.extractall(self.inputPath)
         tar.close()
 
     def makeApiRequest(self):
-        if SETTINGS_SECRET[self.country_code]['mock'] == True:
-            # Temporarily set available date in case of mock (TO DO: download shouldn't be necessary at all in mock setting)
-            CURRENT_DATE = date(2021,4,16)
-
         c = cdsapi.Client(key=GLOFAS_API_KEY,url=GLOFAS_API_URL)
         r = c.retrieve(
             'cems-glofas-forecast',
