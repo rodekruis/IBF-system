@@ -57,8 +57,8 @@ export class DataController {
   @ApiOperation({ summary: 'Get admin-area shape data' })
   @ApiParam({ name: 'countryCode', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiParam({ name: 'leadTime', required: true, type: 'string' })
-  @Get('admin-area-data/:countryCode/:adminLevel/:leadTime')
+  @ApiParam({ name: 'leadTime', required: false, type: 'string' })
+  @Get('admin-area-data/:countryCode/:adminLevel/:leadTime?')
   public async getAdminAreaData(@Param() params): Promise<GeoJson> {
     return await this.dataService.getAdminAreaData(
       params.countryCode,

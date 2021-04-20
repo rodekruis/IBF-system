@@ -150,11 +150,16 @@ export class ApiService {
 
   getAdminRegions(
     countryCodeISO3: string,
-    leadTime: LeadTime = LeadTime.day7,
+    leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adm1,
   ): Observable<GeoJSON.FeatureCollection> {
+    const url =
+      `admin-area-data/${countryCodeISO3}/${adminLevel}/` +
+      (leadTime ? leadTime : '');
+    console.log('url: ', url);
     return this.get(
-      `admin-area-data/${countryCodeISO3}/${adminLevel}/${leadTime}`,
+      `admin-area-data/${countryCodeISO3}/${adminLevel}/` +
+        (leadTime ? leadTime : ''),
       false,
     );
   }

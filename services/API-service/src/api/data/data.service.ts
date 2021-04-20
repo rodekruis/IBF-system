@@ -14,11 +14,15 @@ import {
 } from './geo.model';
 import fs from 'fs';
 import { TriggerPerLeadTime } from '../upload/trigger-per-lead-time.entity';
+import { CountryEntity } from '../country/country.entity';
 
 @Injectable()
 export class DataService {
   @InjectRepository(UserEntity)
   private manager: EntityManager;
+
+  @InjectRepository(CountryEntity)
+  private readonly countryRepository: Repository<CountryEntity>;
 
   @InjectRepository(TriggerPerLeadTime)
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
@@ -32,6 +36,9 @@ export class DataService {
     adminLevel: number,
     leadTime: string,
   ): Promise<GeoJson> {
+    if (!leadTime) {
+      leadTime = await this.getDefaultLeadTime(countryCodeISO3);
+    }
     const trigger = (await this.getTriggerPerLeadtime(countryCodeISO3))[
       leadTime.substr(0, 1)
     ];
@@ -60,6 +67,27 @@ export class DataService {
     ]);
     const result = this.toGeojson(rawResult);
     return result;
+  }
+
+  public async getDefaultLeadTime(countryCodeISO3: string): Promise<string> {
+    const findOneOptions = {
+      countryCodeISO3: countryCodeISO3,
+    };
+    const country = await this.countryRepository.findOne(findOneOptions, {
+      relations: ['countryActiveLeadTimes'],
+    });
+    for (const activeLeadTime of country.countryActiveLeadTimes) {
+      if (activeLeadTime.leadTimeName === LeadTime.day7) {
+        return activeLeadTime.leadTimeName;
+      }
+    }
+    for (const activeLeadTime of country.countryActiveLeadTimes) {
+      if (activeLeadTime.leadTimeName === LeadTime.month1) {
+        return activeLeadTime.leadTimeName;
+      }
+    }
+    // If country does not have 7 day or 1 month lead time return the first
+    return country.countryActiveLeadTimes[0].leadTimeName;
   }
 
   public async getStations(

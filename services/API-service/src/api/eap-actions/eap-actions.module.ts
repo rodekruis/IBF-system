@@ -1,3 +1,4 @@
+import { CountryEntity } from './../country/country.entity';
 import { TriggerPerLeadTime } from './../upload/trigger-per-lead-time.entity';
 import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -18,6 +19,7 @@ import { AreaOfFocusEntity } from './area-of-focus.entity';
       EapActionStatusEntity,
       AreaOfFocusEntity,
       TriggerPerLeadTime,
+      CountryEntity,
     ]),
     UserModule,
     HttpModule,
