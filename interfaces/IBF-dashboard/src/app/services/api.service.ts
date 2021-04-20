@@ -153,10 +153,6 @@ export class ApiService {
     leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adm1,
   ): Observable<GeoJSON.FeatureCollection> {
-    const url =
-      `admin-area-data/${countryCodeISO3}/${adminLevel}/` +
-      (leadTime ? leadTime : '');
-    console.log('url: ', url);
     return this.get(
       `admin-area-data/${countryCodeISO3}/${adminLevel}/` +
         (leadTime ? leadTime : ''),
