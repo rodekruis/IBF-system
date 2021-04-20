@@ -1,3 +1,32 @@
+## [0.57.2](https://github.com/rodekruis/IBF-system/compare/v0.57.1...v0.57.2) (2021-04-19)
+
+
+### Bug Fixes
+
+* update EAP link UGA AB[#7051](https://github.com/rodekruis/IBF-system/issues/7051) ([12d6285](https://github.com/rodekruis/IBF-system/commit/12d6285564579911ba8030fc63b815d31ce97b03))
+
+
+
+## [0.57.1](https://github.com/rodekruis/IBF-system/compare/v0.57.0...v0.57.1) (2021-04-19)
+
+
+### Bug Fixes
+
+* change mock station UGA AB[#7064](https://github.com/rodekruis/IBF-system/issues/7064) ([29270c6](https://github.com/rodekruis/IBF-system/commit/29270c665f24ee024003cddc17c26beb4fc75b18))
+* revert temporary glofas api date override AB[#7169](https://github.com/rodekruis/IBF-system/issues/7169) ([ca7aecb](https://github.com/rodekruis/IBF-system/commit/ca7aecb485521847fc99ab2facc7ee67e80e78e3))
+* temporarily use available glofas api date AB# ([185e023](https://github.com/rodekruis/IBF-system/commit/185e0232dace0da508bf88c55b7cf60bff727c25))
+
+
+
+# [0.57.0](https://github.com/rodekruis/IBF-system/compare/v0.56.2...v0.57.0) (2021-04-19)
+
+
+### Features
+
+* provide mock-no-trigger option IBF-pipeline AB[#7068](https://github.com/rodekruis/IBF-system/issues/7068) ([5425b3c](https://github.com/rodekruis/IBF-system/commit/5425b3c793b374543de805a81d2adc136d986396))
+
+
+
 ## [0.56.2](https://github.com/rodekruis/IBF-system/compare/v0.56.1...v0.56.2) (2021-04-14)
 
 
@@ -73,44 +102,6 @@
 ### Features
 
 * made disaster-type dynamic in email AB[#6740](https://github.com/rodekruis/IBF-system/issues/6740) ([3c77fdd](https://github.com/rodekruis/IBF-system/commit/3c77fddf9c780315f4f6bc31be043b7cacb69945))
-
-
-
-## [0.52.2](https://github.com/rodekruis/IBF-system/compare/v0.52.1...v0.52.2) (2021-04-09)
-
-
-### Bug Fixes
-
-* make pcode unique + reduce file size EGY AB[#6808](https://github.com/rodekruis/IBF-system/issues/6808) ([cecd742](https://github.com/rodekruis/IBF-system/commit/cecd7421517db37060f2fe67352f55bbac52e821))
-
-
-
-## [0.52.1](https://github.com/rodekruis/IBF-system/compare/v0.52.0...v0.52.1) (2021-03-31)
-
-
-### Bug Fixes
-
-* dummy commit to push ([fba3521](https://github.com/rodekruis/IBF-system/commit/fba352130d92bfe3483c5d1ac05da2a0ae38772a))
-
-
-
-# [0.52.0](https://github.com/rodekruis/IBF-system/compare/v0.51.6...v0.52.0) (2021-03-31)
-
-
-### Bug Fixes
-
-* AB[#6707](https://github.com/rodekruis/IBF-system/issues/6707) tests for no-trigger scenario improvement ([ad94370](https://github.com/rodekruis/IBF-system/commit/ad94370757daf6d0e08babdc2f2553b87a1d624a))
-* AB[#6708](https://github.com/rodekruis/IBF-system/issues/6708) tests for trigger scenario starat ([a981256](https://github.com/rodekruis/IBF-system/commit/a9812563bcb7bc33d2bc1dd1d94e585d5ee0e23a))
-* AB[#6764](https://github.com/rodekruis/IBF-system/issues/6764) test readme ([eef0a15](https://github.com/rodekruis/IBF-system/commit/eef0a15b2a5aa87f077d73dc5cca1c1d4d17652c))
-* AB[#6764](https://github.com/rodekruis/IBF-system/issues/6764) test readme ([011ee8b](https://github.com/rodekruis/IBF-system/commit/011ee8bd22159270a16ad35fef6f2a2f124c73c8))
-* attempt to fix lighthouse tests in deploy ([8f166f1](https://github.com/rodekruis/IBF-system/commit/8f166f1a8aab5f87cc81f57c1ccbfb4f6cede438))
-* lint ([47b048b](https://github.com/rodekruis/IBF-system/commit/47b048b518c16e16a09ed0af836a141406b9c760))
-
-
-### Features
-
-* AB[#6707](https://github.com/rodekruis/IBF-system/issues/6707) tests for no-trigger scenario ([edb7e7d](https://github.com/rodekruis/IBF-system/commit/edb7e7d68a23ce9a1ce95a4c4d37b17ba207f023))
-* Added tests for non-triggered scenario AB[#6707](https://github.com/rodekruis/IBF-system/issues/6707) ([a511def](https://github.com/rodekruis/IBF-system/commit/a511defb17420ac08469ac0cf9be229fc0360075))
 
 
 
