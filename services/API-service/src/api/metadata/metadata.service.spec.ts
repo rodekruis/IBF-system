@@ -1,3 +1,4 @@
+import { CountryEntity } from './../country/country.entity';
 import { UserEntity } from '../user/user.entity';
 import { DataService } from '../data/data.service';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -22,6 +23,7 @@ describe('MetadataService', (): void => {
             UserEntity,
             LayerMetadataEntity,
             TriggerPerLeadTime,
+            CountryEntity,
           ]),
         ],
         providers: [MetadataService, DataService],
