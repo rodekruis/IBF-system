@@ -20,6 +20,32 @@ export class SeedAdminAreaData implements InterfaceScript {
       AdminAreaDataEntity,
     );
 
+    // PHL
+    // vulnerability_dengue_data_ibfera_PHL
+    const dengueVulnerabilityFilename = `./src/scripts/git-lfs/admin-area-data/vulnerability_dengue_data_ibfera_PHL.csv`;
+    const dengueVulnerabilityData = await this.seedHelper.getCsvData(
+      dengueVulnerabilityFilename,
+    );
+
+    await Promise.all(
+      dengueVulnerabilityData.map(
+        async (area): Promise<void> => {
+          return this.adminAreaDataRepository
+            .createQueryBuilder()
+            .insert()
+            .values({
+              countryCode: 'PHL',
+              adminLevel: 2,
+              placeCode: area['placeCode'],
+              key: area['key'],
+              value: area['value'],
+            })
+            .execute()
+            .catch(console.error);
+        },
+      ),
+    );
+
     // UGA
     // Flood vulnerability
     const floodVulnerabilityFilename = `./src/scripts/git-lfs/admin-area-data/flood_vulnerability_UGA.csv`;

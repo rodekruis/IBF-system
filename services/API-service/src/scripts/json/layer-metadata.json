@@ -69,6 +69,14 @@
     "active": "no"
   },
   {
+    "country_codes": "PHL",
+    "name": "health_sites",
+    "label": "Health Sites",
+    "type": "point",
+    "leadTimeDependent": false,
+    "active": "no"
+  },
+  {
     "country_codes": "UGA,ZMB,KEN,ETH",
     "name": "waterpoints",
     "label": "Waterpoints",
