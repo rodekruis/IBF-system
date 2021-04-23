@@ -1,3 +1,21 @@
+## [0.57.3](https://github.com/rodekruis/IBF-system/compare/v0.57.2...v0.57.3) (2021-04-23)
+
+
+### Bug Fixes
+
+* correct cron-job filename AB[#7036](https://github.com/rodekruis/IBF-system/issues/7036) ([abdade2](https://github.com/rodekruis/IBF-system/commit/abdade2eb13cc6f79ce79a9d606679af3c64c96c))
+* correct mistake AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([4d28069](https://github.com/rodekruis/IBF-system/commit/4d280694836c0f5c1b39f748a37361ca43f5cfd1))
+* migrate egypt-triggers to seed AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([07e7490](https://github.com/rodekruis/IBF-system/commit/07e7490f51320954f41376cdcabf0f90f4838059))
+* process feedback AB[#7093](https://github.com/rodekruis/IBF-system/issues/7093) ([92a9a81](https://github.com/rodekruis/IBF-system/commit/92a9a81a85aa3e67f61a10b8dd7a5820da54c95d))
+* relation with country-entity + other improvements AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([b95acfe](https://github.com/rodekruis/IBF-system/commit/b95acfea41d3f6ca6ecd088d6e5c213bcd25887c))
+* remove runSetup in IBF-pipeline AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([b655050](https://github.com/rodekruis/IBF-system/commit/b65505094d2f6eacef4447387ca6096fdf5c7ff7))
+* remove unused function AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([03e7bbc](https://github.com/rodekruis/IBF-system/commit/03e7bbc1fa89876e4b505cadfadf89193fb542a6))
+* remove unused functions AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([3e527a0](https://github.com/rodekruis/IBF-system/commit/3e527a0298c4380e94a0c671ca90a7fa6aa554b5))
+* use container-name instead of assign ip AB[#6806](https://github.com/rodekruis/IBF-system/issues/6806) ([e0019ed](https://github.com/rodekruis/IBF-system/commit/e0019ed8c094b2f634d7ea5296fd2cf08ae3d309))
+* use typeORM save instead of insert-querybuilder where possible AB[#7093](https://github.com/rodekruis/IBF-system/issues/7093) ([3483356](https://github.com/rodekruis/IBF-system/commit/3483356f9196f0b76d0ccdeda7598da407fe403a))
+
+
+
 ## [0.57.2](https://github.com/rodekruis/IBF-system/compare/v0.57.1...v0.57.2) (2021-04-19)
 
 
@@ -87,21 +105,6 @@
 ### Features
 
 * use GET endpoints in IBF-pipeline AB[#6806](https://github.com/rodekruis/IBF-system/issues/6806) ([a8bb8b9](https://github.com/rodekruis/IBF-system/commit/a8bb8b989bbc42366d28f9bafb56ad47fdba3e18))
-
-
-
-# [0.53.0](https://github.com/rodekruis/IBF-system/compare/v0.52.2...v0.53.0) (2021-04-09)
-
-
-### Bug Fixes
-
-* change logo EGY email AB[#6893](https://github.com/rodekruis/IBF-system/issues/6893) ([c58372a](https://github.com/rodekruis/IBF-system/commit/c58372ace0faf87e0164d0e254a167fd66e6f113))
-* update trigger email notification format AB[#6740](https://github.com/rodekruis/IBF-system/issues/6740) ([f7faba8](https://github.com/rodekruis/IBF-system/commit/f7faba8531969b3989d26318d01122855b21ff96))
-
-
-### Features
-
-* made disaster-type dynamic in email AB[#6740](https://github.com/rodekruis/IBF-system/issues/6740) ([3c77fdd](https://github.com/rodekruis/IBF-system/commit/3c77fddf9c780315f4f6bc31be043b7cacb69945))
 
 
 
