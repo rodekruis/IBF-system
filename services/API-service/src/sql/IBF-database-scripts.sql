@@ -88,7 +88,6 @@ select geo."placeCode" as pcode_level1
 	,geo."placeCodeParent" as pcode_level0
 	,ST_AsGeoJSON(geo.geom)::json As geom
 	,"countryCode" as country_code
---	,d2.*
 	,d2.pcode, "date", lead_time, fc, fc_trigger, fc_rp, fc_prob, population_affected, indicators
 from "IBF-app"."adminArea" geo
 left join "IBF-pipeline-output".data_adm2 d2 on geo."placeCode" = d2.pcode

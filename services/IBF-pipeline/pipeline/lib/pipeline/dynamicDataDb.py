@@ -7,7 +7,7 @@ import geopandas as gpd
 from lib.logging.logglySetup import logger
 from lib.setup.setupConnection import get_db
 from settings import *
-from secrets import DB_SETTINGS, ADMIN_LOGIN, ADMIN_PASSWORD
+from secrets import DB_SETTINGS, ADMIN_LOGIN, ADMIN_PASSWORD, DATALAKE_STORAGE_ACCOUNT_NAME, DATALAKE_STORAGE_ACCOUNT_KEY, DATALAKE_API_VERSION
 
 
 class DatabaseManager:
@@ -108,3 +108,57 @@ class DatabaseManager:
             logger.info(e)
 
         return admin_gdf
+    
+    def getDataFromDatalake(self, path):
+        import requests
+        import datetime
+        import hmac
+        import hashlib
+        import base64
+
+        
+        request_time = datetime.datetime.utcnow().strftime('%a, %d %b %Y %H:%M:%S GMT')
+        file_system_name ='ibf/' + path
+        print('Downloading from datalake: ', file_system_name)
+
+        string_params = {
+            'verb': 'GET',
+            'Content-Encoding': '',
+            'Content-Language': '',
+            'Content-Length': '',
+            'Content-MD5': '',
+            'Content-Type': '',
+            'Date': '',
+            'If-Modified-Since': '',
+            'If-Match': '',
+            'If-None-Match': '',
+            'If-Unmodified-Since': '',
+            'Range': '',
+            'CanonicalizedHeaders': 'x-ms-date:' + request_time + '\nx-ms-version:' + DATALAKE_API_VERSION,
+            'CanonicalizedResource': '/' + DATALAKE_STORAGE_ACCOUNT_NAME+'/'+file_system_name
+            }
+        
+        string_to_sign = (string_params['verb'] + '\n' 
+                        + string_params['Content-Encoding'] + '\n'
+                        + string_params['Content-Language'] + '\n'
+                        + string_params['Content-Length'] + '\n'
+                        + string_params['Content-MD5'] + '\n' 
+                        + string_params['Content-Type'] + '\n' 
+                        + string_params['Date'] + '\n' 
+                        + string_params['If-Modified-Since'] + '\n'
+                        + string_params['If-Match'] + '\n'
+                        + string_params['If-None-Match'] + '\n'
+                        + string_params['If-Unmodified-Since'] + '\n'
+                        + string_params['Range'] + '\n'
+                        + string_params['CanonicalizedHeaders']+'\n'
+                        + string_params['CanonicalizedResource'])
+        
+        signed_string = base64.b64encode(hmac.new(base64.b64decode(DATALAKE_STORAGE_ACCOUNT_KEY), msg=string_to_sign.encode('utf-8'), digestmod=hashlib.sha256).digest()).decode()
+        headers = {
+            'x-ms-date' : request_time,
+            'x-ms-version' : DATALAKE_API_VERSION,
+            'Authorization' : ('SharedKey ' + DATALAKE_STORAGE_ACCOUNT_NAME + ':' + signed_string)
+        }
+        url = ('https://' + DATALAKE_STORAGE_ACCOUNT_NAME + '.dfs.core.windows.net/'+file_system_name)
+        r = requests.get(url, headers = headers)
+        return r

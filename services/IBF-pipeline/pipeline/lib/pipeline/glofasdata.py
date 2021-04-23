@@ -16,6 +16,7 @@ import tarfile
 import time
 import cdsapi
 from lib.logging.logglySetup import logger
+from lib.pipeline.dynamicDataDb import DatabaseManager
 from settings import *
 from secrets import *
 
@@ -23,6 +24,7 @@ from secrets import *
 class GlofasData:
 
     def __init__(self, leadTimeLabel, leadTimeValue, country_code, glofas_stations, district_mapping):
+        self.db = DatabaseManager(leadTimeLabel, country_code)
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
         self.country_code = country_code
@@ -69,7 +71,7 @@ class GlofasData:
                     self.makeApiRequest()
                 downloadDone = True
             except:
-                error = 'Download data failed. Trying again in 10 minutes.'
+                error = 'Download data failed. Trying again in ' + str(timeToRetry/60) + ' minutes.'
                 print(error)
                 logger.info(error)
                 time.sleep(timeToRetry)
@@ -88,26 +90,11 @@ class GlofasData:
         tar.close()
 
     def makeApiRequest(self):
-        c = cdsapi.Client(key=GLOFAS_API_KEY,url=GLOFAS_API_URL)
-        r = c.retrieve(
-            'cems-glofas-forecast',
-            {
-                'system_version': 'version_2_1',
-                'product_type': 'ensemble_perturbed_forecasts',
-                'variable': 'river_discharge_in_the_last_24_hours',
-                'format': 'netcdf',
-                'year': str("{:04d}".format(CURRENT_DATE.year)),
-                'month': str("{:02d}".format(CURRENT_DATE.month)), 
-                'day':str("{:02d}".format(CURRENT_DATE.day)),
-                'leadtime_hour': [
-                    '24', '48', '72',
-                    '96', '120', '144',
-                    '168',
-                ],
-                'area': SETTINGS[self.country_code]['bounding_box'],
-                'hydrological_model': 'htessel_lisflood',
-            },
-            self.inputPath+'glofas-api-'+self.country_code+'-'+self.current_date+'.nc')
+        path = 'glofas/glofas-forecast-' + self.current_date.replace('-','') + '.nc'
+        glofasDataFile = self.db.getDataFromDatalake(path)
+        if glofasDataFile.status_code >= 400:
+            raise ValueError()
+        open(self.inputPath+'glofas-api-'+self.country_code+'-'+self.current_date+'.nc', 'wb').write(glofasDataFile.content)
 
     def extractFtpData(self):
         print('\nExtracting FTP Glofas Data\n')
