@@ -130,6 +130,12 @@ export class ApiService {
     return this.get(`red-cross-branches/${countryCodeISO3}`, false);
   }
 
+  getHealthSites(
+    countryCodeISO3: string,
+  ): Observable<GeoJSON.FeatureCollection> {
+    return this.get(`health-sites/${countryCodeISO3}`, false);
+  }
+
   getWaterPoints(
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {
