@@ -16,6 +16,7 @@ import { UploadModule } from './api/upload/upload.module';
 import { DisasterModule } from './api/disaster/disaster.module';
 import { RedcrossBranchModule } from './api/redcross-branch/redcross-branch.module';
 import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.module';
+import { HealthSiteModule } from './api/health-site/health-site.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.modul
     UploadModule,
     DisasterModule,
     RedcrossBranchModule,
+    HealthSiteModule,
     AdminAreaDataModule,
   ],
   controllers: [AppController],

@@ -13,7 +13,6 @@ export class EventService {
   public async closeEventPcode(
     eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
-    console.log('EventPlaceCodeDto: ', eventPlaceCodeDto);
     const eventPlaceCode = await this.eventPlaceCodeRepo.findOne(
       eventPlaceCodeDto.eventPlaceCodeId,
     );

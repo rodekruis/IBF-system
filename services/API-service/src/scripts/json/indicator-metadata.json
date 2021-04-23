@@ -75,7 +75,7 @@
     "description": "Alpha version 2011 estimates of proportion of people per grid square living in poverty, as defined by $2 a day thresholds. Tatem AJ, Gething PW, Bhatt S, Weiss D and Pezzulo C (2013) Pilot high resolution poverty maps, University of Southampton/Oxford."
   },
   {
-    "country_codes": "UGA",
+    "country_codes": "UGA,PHL",
     "name": "female_head_hh",
     "label": "Female-headed household",
     "group": "vulnerability",
@@ -108,6 +108,22 @@
   },
   {
     "country_codes": "UGA",
+    "name": "population_u9",
+    "label": "Population U9",
+    "group": "vulnerability",
+    "icon": "Children-white.svg",
+    "weightedAvg": true,
+    "active": false,
+    "colorBreaks": null,
+    "numberFormatMap": "perc",
+    "aggregateIndicator": true,
+    "numberFormatAggregate": "decimal0",
+    "order": 3,
+    "source": "To be added",
+    "description": ""
+  },
+  {
+    "country_codes": "UGA,PHL",
     "name": "population_over65",
     "label": "Population 65+",
     "group": "vulnerability",
@@ -218,5 +234,39 @@
     "source": "",
     "description": "",
     "lazyLoad": true
+  },
+  {
+    "country_codes": "PHL",
+    "name": "dengue_cases_average",
+    "label": "Dengue Cases Average",
+    "group": "",
+    "icon": "Affected-population-white.svg",
+    "weightedAvg": false,
+    "active": false,
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": true,
+    "numberFormatAggregate": "decimal0",
+    "order": 4,
+    "unit": "cases",
+    "source": "Sources: https://doh.gov.ph/statistics",
+    "description": "Number of dengue cases per administrative division per year."
+  },
+  {
+    "country_codes": "PHL",
+    "name": "dengue_incidence_average",
+    "label": "Dengue Incidence",
+    "group": "",
+    "icon": "Affected-population-white.svg",
+    "weightedAvg": true,
+    "active": false,
+    "colorBreaks": null,
+    "numberFormatMap": "perc",
+    "aggregateIndicator": true,
+    "numberFormatAggregate": "decimal2",
+    "order": 4,
+    "unit": "incidence",
+    "source": "Sources: https://doh.gov.ph/statistics",
+    "description": "Number of dengue cases per 1000 people per administrative division per year."
   }
 ]

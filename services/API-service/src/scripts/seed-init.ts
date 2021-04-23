@@ -29,6 +29,7 @@ import SeedGlofasStation from './seed-glofas-station';
 import { SeedHelper } from './seed-helper';
 import { SeedRedcrossBranches } from './seed-redcross-branches';
 import SeedAdminAreaData from './seed-admin-area-data';
+import { SeedHealthSites } from './seed-health-sites';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -203,6 +204,11 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed Red Cross branches...');
     const seedRedcrossBranches = new SeedRedcrossBranches(this.connection);
     await seedRedcrossBranches.run();
+
+    // ***** SEED RED CROSS BRANCHES DATA *****
+    console.log('Seed Health Sites...');
+    const seedHealthSites = new SeedHealthSites(this.connection);
+    await seedHealthSites.run();
 
     // ***** SEED INDICATOR DATA PER ADMIN AREa *****
     console.log('Seed Indicator data per admin-area...');
