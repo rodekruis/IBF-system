@@ -77,30 +77,14 @@ To currently fill this database with data
 - run seed script
   - docker-compose exec ibf-api-service npm run seed
   - the 2nd half of the IBF-database-scripts.sql will fail, because of missing IBF-pipeline-output tables
-- run the setup-script of the pipeline
-  - docker-compose exec ibf-pipeline python3 runSetup.py
-  - this uploads any currently not-yet-migrated-to-seed data
 - run the pipeline for all countries
   - docker-compose exec ibf-pipeline python3 runPipeline.py
 - run the seed-script again
 
-We are in a migration, where as much as possible we will load new static data from seed-scripts. This will make sure it ends up automatically on all servers.
-This is however not yet always the case:
-  - geodata (raster/shapefiles used by pipeline/geoserver) > for these sources, you still need to include it in data.zip + transfer (e.g. via WinSCP or similar) to all servers)
-  - if for other data, for some reason, it is not possible/handy to add new data via seed-script, keep the following in mind
-    - this means you're adding data to your local db through e.g.
-      - manual upload (strongly discouraged)
-      - runSetup.py in IBF-pipeline (at least you can keep track here of what's uploaded)
-    - when you're done developing on your local db + local code ..
-    - .. and have deployed code to test-vm ..
-    - .. you have to somehow make sure that the data also ends up on the dev-database `geonode_datav3`
-      - repeat in the same way on test-vm (e.g. runSetup.py on there as well)
-      - do a dump+restore from local to `geonode_datav3`
-        - NOTE: coordinate with other developers though, that you are not working in separate branches and will overwrite each others' data
-    - NOTE: for other servers no action needed: to get this to staging/production/etc. is taken care of by the database migration step in the deploy-script   
-  - NOTE: that the other developers subsequently have to get the data also to their local database
-    - which again requires a dump+restore
-    - so notify them to do this
+Migration to seed-scripts is now finished. 
+- Any new static data needs to be imported using a seed-script + corresponding TypeORM entity
+- This includes e.g. geojson data
+- The only exception are raster-files, which need to be included in data.zip and transfered to all relevant servers. 
 
 ### Installation result
 

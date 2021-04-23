@@ -10,6 +10,7 @@ import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { UserEntity } from '../user/user.entity';
 import { AdminLevel } from './admin-level.enum';
 import { CountryStatus } from './country-status.enum';
+import { HazardModel } from './hazard-model.enum';
 
 @Entity('country')
 export class CountryEntity {
@@ -24,6 +25,9 @@ export class CountryEntity {
 
   @Column({ unique: true })
   public countryName: string;
+
+  @Column()
+  public hazardModel: HazardModel;
 
   @Column({ default: CountryStatus.Active })
   public countryStatus: CountryStatus;

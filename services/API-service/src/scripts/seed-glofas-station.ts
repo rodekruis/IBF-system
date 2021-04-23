@@ -6,6 +6,7 @@ import { GlofasStationEntity } from '../api/glofas-station/glofas-station.entity
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { SeedHelper } from './seed-helper';
 import countries from './json/countries.json';
+import { HazardModel } from '../api/country/hazard-model.enum';
 
 @Injectable()
 export class SeedGlofasStation implements InterfaceScript {
@@ -31,7 +32,7 @@ export class SeedGlofasStation implements InterfaceScript {
         (country): Promise<void> => {
           if (
             envCountries.includes(country.countryCodeISO3) &&
-            country.glofasStationInput
+            country.hazardModel === HazardModel.glofas
           ) {
             return this.seedCountryGlofasStations(country);
           } else {
@@ -88,8 +89,7 @@ export class SeedGlofasStation implements InterfaceScript {
                 geom: (): string =>
                   `st_MakePoint(${station['lon']}, ${station['lat']})`,
               })
-              .execute()
-              .catch(console.error);
+              .execute();
           } else {
             return Promise.resolve();
           }

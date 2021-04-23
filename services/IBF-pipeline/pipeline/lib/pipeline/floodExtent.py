@@ -7,7 +7,6 @@ import geopandas as gpd
 import rasterio
 from rasterio.merge import merge
 from lib.logging.logglySetup import logger
-from lib.setup.setupConnection import get_db
 from settings import *
 
 class FloodExtent:
