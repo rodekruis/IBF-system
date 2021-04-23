@@ -247,10 +247,7 @@ export class MapService {
     });
   };
 
-
-  private loadHealthSites = (
-    layerActive: boolean,
-  ) => {
+  private loadHealthSites = (layerActive: boolean) => {
     if (this.country) {
       if (layerActive) {
         this.apiService
@@ -265,9 +262,7 @@ export class MapService {
     }
   };
 
-  private addHealthSites = (
-    healthSites: any,
-  ) => {
+  private addHealthSites = (healthSites: any) => {
     this.addLayer({
       name: IbfLayerName.healthSites,
       label: IbfLayerLabel.healthSites,
@@ -280,7 +275,6 @@ export class MapService {
       order: 1,
     });
   };
-
 
   private loadWaterPointsLayer = (layerActive: boolean) => {
     if (this.country) {
@@ -542,12 +536,11 @@ export class MapService {
       layerData = this.apiService
         .getRedCrossBranches(this.country.countryCodeISO3)
         .pipe(shareReplay(1));
-    } else if
-      (layer.name === IbfLayerName.healthSites) {
+    } else if (layer.name === IbfLayerName.healthSites) {
       layerData = this.apiService
         .getHealthSites(this.country.countryCodeISO3)
         .pipe(shareReplay(1));
-    } else if(layer.name === IbfLayerName.glofasStations) {
+    } else if (layer.name === IbfLayerName.glofasStations) {
       layerData = this.apiService
         .getStations(
           this.country.countryCodeISO3,

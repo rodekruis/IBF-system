@@ -34,7 +34,12 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
 } from 'src/app/config';
 import { Country, EapAlertClasses } from 'src/app/models/country.model';
-import { HealthSite, RedCrossBranch, Station, Waterpoint } from 'src/app/models/poi.model';
+import {
+  HealthSite,
+  RedCrossBranch,
+  Station,
+  Waterpoint,
+} from 'src/app/models/poi.model';
 import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
@@ -252,7 +257,7 @@ export class MapComponent implements OnDestroy {
   }
 
   private createLayer(layer: IbfLayer): IbfLayer {
-     if (layer.type === IbfLayerType.point) {
+    if (layer.type === IbfLayerType.point) {
       layer.leafletLayer = this.createPointLayer(layer);
     }
 
@@ -710,9 +715,9 @@ export class MapComponent implements OnDestroy {
       '</div>'
     ).concat(
       '<div style="margin-bottom: 5px">' +
-      'Type: ' +
-      (markerProperties.type || '') +
-      '</div>',
+        'Type: ' +
+        (markerProperties.type || '') +
+        '</div>',
     );
     return branchInfoPopup;
   }
