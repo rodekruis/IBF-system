@@ -249,12 +249,12 @@ export class ChatComponent implements OnInit, OnDestroy {
       placeCode,
     });
     this.apiService.closeEventPlaceCode(eventPlaceCodeId).subscribe({
-      next: () => this.reloadEapAndTrigger()
+      next: () => this.reloadEapAndTrigger(),
     });
   }
 
   private reloadEapAndTrigger() {
     this.eapActionsService.loadDistrictsAndActions();
     this.eventService.getTrigger();
-    }
+  }
 }
