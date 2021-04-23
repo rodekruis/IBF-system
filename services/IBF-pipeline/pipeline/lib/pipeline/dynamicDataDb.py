@@ -17,7 +17,6 @@ class DatabaseManager:
     def __init__(self, leadTimeLabel, country_code):
         self.country_code = country_code
         self.leadTimeLabel = leadTimeLabel
-        # Create connections (in 2 different ways for now)
         self.engine = create_engine(
             'postgresql://'+DB_SETTINGS['user']+':'+DB_SETTINGS['password']+'@'+DB_SETTINGS['host']+':'+DB_SETTINGS['port']+'/'+DB_SETTINGS['db'])
         triggerFolder = PIPELINE_OUTPUT + "triggers_rp_per_station/"
@@ -91,30 +90,12 @@ class DatabaseManager:
     def apiGetRequest(self, path, country_code):
         import requests
 
-        login_response = requests.post('http://12.0.0.8:3000/api/user/login', data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
+        login_response = requests.post(API_LOGIN_URL, data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
         TOKEN = login_response.json()['user']['token']
 
-        response = requests.get('http://12.0.0.8:3000/api/'+path+'/'+country_code,headers={'Authorization': 'Bearer ' + TOKEN})
+        response = requests.get(API_SERVICE_URL + path + '/' + country_code, headers={'Authorization': 'Bearer ' + TOKEN})
         data = response.json()
         return(data)
-
-    def downloadDataFromDb(self, schema, table, country_code=None):
-        try:
-            self.con, self.cur, self.db = get_db()
-            sql = "SELECT * FROM \""+schema+"\".\""+table+"\""
-            if country_code != None:
-                sql = sql + " WHERE country_code=\'"+self.country_code+"\'"
-            self.cur.execute(sql)
-            data = self.cur.fetchall()
-            self.cur.execute("SELECT * FROM \""+schema +
-                             "\".\""+table+"\" LIMIT 0")
-            colnames = [desc[0] for desc in self.cur.description]
-            self.con.commit()
-            self.con.close()
-        except psycopg2.ProgrammingError as e:
-            logger.info(e)
-
-        return data, colnames
 
     def downloadGeoDataFromDb(self, schema, table, country_code=None):
         try:

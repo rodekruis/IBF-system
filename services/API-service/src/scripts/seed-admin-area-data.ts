@@ -26,48 +26,32 @@ export class SeedAdminAreaData implements InterfaceScript {
     const floodVulnerabilityData = await this.seedHelper.getCsvData(
       floodVulnerabilityFilename,
     );
+    const floodVulnerabilityDataArray = floodVulnerabilityData.map(area => {
+      return {
+        countryCode: 'UGA',
+        adminLevel: 2,
+        placeCode: area['placeCode'],
+        key: area['key'],
+        value: area['value'],
+      };
+    });
 
-    await Promise.all(
-      floodVulnerabilityData.map(
-        async (area): Promise<void> => {
-          return this.adminAreaDataRepository
-            .createQueryBuilder()
-            .insert()
-            .values({
-              countryCode: 'UGA',
-              adminLevel: 2,
-              placeCode: area['placeCode'],
-              key: area['key'],
-              value: area['value'],
-            })
-            .execute()
-            .catch(console.error);
-        },
-      ),
-    );
+    await this.adminAreaDataRepository.save(floodVulnerabilityDataArray);
 
     // COVID risk
     const covidRiskFilename = `./src/scripts/git-lfs/admin-area-data/covid_risk_UGA.csv`;
     const covidRiskData = await this.seedHelper.getCsvData(covidRiskFilename);
+    const covidRiskDataArray = covidRiskData.map(area => {
+      return {
+        countryCode: 'UGA',
+        adminLevel: 2,
+        placeCode: area['placeCode'],
+        key: area['key'],
+        value: area['value'],
+      };
+    });
 
-    await Promise.all(
-      covidRiskData.map(
-        async (area): Promise<void> => {
-          return this.adminAreaDataRepository
-            .createQueryBuilder()
-            .insert()
-            .values({
-              countryCode: 'UGA',
-              adminLevel: 2,
-              placeCode: area['placeCode'],
-              key: area['key'],
-              value: area['value'],
-            })
-            .execute()
-            .catch(console.error);
-        },
-      ),
-    );
+    await this.adminAreaDataRepository.save(covidRiskDataArray);
   }
 }
 

@@ -144,13 +144,11 @@ SETTINGS = {
     },
     "EGY": {
         "model": 'rainfall',
-        "trigger_levels": 'Rainfall_station_locations_with_trigger_levels.csv',
         'district_mapping': '<not needed>',
         'admin_boundaries': {
                 'filename': 'vector/EGY_adm1_MENAregion.shp',
                 'pcode_colname': 'ADM1_PCODE'
         },
-        'trigger_colname': '5yr_threshold',
         'lead_times': {
             "3-day": 3,
             "5-day": 5,
@@ -191,12 +189,14 @@ TRIGGER_LEVELS = {
     "maximum": 0.8
 }
 
-#################
-## DB SETTINGS ##
-#################
-SCHEMA_NAME_INPUT = 'IBF-static-input'
+#######################
+## DB / API SETTINGS ##
+#######################
 SCHEMA_NAME = 'IBF-pipeline-output'
 # Other connection-settings in secrets.py
+
+API_SERVICE_URL = 'http://ibf-api-service:3000/api/'
+API_LOGIN_URL = API_SERVICE_URL + 'user/login'
 
 ###################
 ## PATH SETTINGS ##
@@ -243,3 +243,9 @@ LOGGING_TO_EMAIL_ADDRRESSES = [
 ]
 
 
+#####################
+## ATTRIBUTE NAMES ##
+#####################
+
+TRIGGER_LEVEL = 'triggerLevel'
+LEAD_TIME = 'leadTime'

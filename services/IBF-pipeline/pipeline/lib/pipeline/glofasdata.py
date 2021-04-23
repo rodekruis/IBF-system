@@ -143,7 +143,7 @@ class GlofasData:
             if station['code'] in df_thresholds['stationCode'] and station['code'] in df_district_mapping['glofasStation']:
                 print(Filename)
                 threshold = df_thresholds[df_thresholds['stationCode'] ==
-                                          station['code']]['triggerLevel'][0]
+                                          station['code']][TRIGGER_LEVEL][0]
 
                 # Set dimension-values
                 time = 0
@@ -254,7 +254,7 @@ class GlofasData:
             if station['code'] in df_district_mapping['glofasStation'] and station['code'] != 'no_station':
                 print(station['code'])
                 threshold = df_thresholds[df_thresholds['stationCode'] ==
-                                          station['code']]['triggerLevel'][0]
+                                          station['code']][TRIGGER_LEVEL][0]
                 
                 for step in range(1, 8):
                     # Loop through 51 ensembles, get forecast and compare to threshold
