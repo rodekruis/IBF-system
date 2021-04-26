@@ -1,3 +1,12 @@
+## [0.57.4](https://github.com/rodekruis/IBF-system/compare/v0.57.3...v0.57.4) (2021-04-26)
+
+
+### Bug Fixes
+
+* remove ion-content from app component html AB[#7219](https://github.com/rodekruis/IBF-system/issues/7219) AB[#7220](https://github.com/rodekruis/IBF-system/issues/7220) AB[#7227](https://github.com/rodekruis/IBF-system/issues/7227) ([cb1d21e](https://github.com/rodekruis/IBF-system/commit/cb1d21e66844b3e56ea540d5c2cc52178940dcba))
+
+
+
 ## [0.57.3](https://github.com/rodekruis/IBF-system/compare/v0.57.2...v0.57.3) (2021-04-23)
 
 
@@ -87,24 +96,6 @@
 ### Bug Fixes
 
 * correct test-code ([46b36b5](https://github.com/rodekruis/IBF-system/commit/46b36b55eaafd8f76976af2d6a43e1a8b1e1d13b))
-
-
-
-# [0.54.0](https://github.com/rodekruis/IBF-system/compare/v0.53.0...v0.54.0) (2021-04-09)
-
-
-### Bug Fixes
-
-* change 'value' datatyp to float AB[#6814](https://github.com/rodekruis/IBF-system/issues/6814) ([a9fb96c](https://github.com/rodekruis/IBF-system/commit/a9fb96cc074a8e152b11def9f31064a0345ee735))
-* move flood vulnerability / CRA data to seed+entity AB[#6807](https://github.com/rodekruis/IBF-system/issues/6807) ([96fc35c](https://github.com/rodekruis/IBF-system/commit/96fc35ca2406183d8e95b15128b7de76960ae009))
-* move redcross branch data to seed+entity AB[#6805](https://github.com/rodekruis/IBF-system/issues/6805) ([e88496e](https://github.com/rodekruis/IBF-system/commit/e88496e197e227e245537d86c642bb61a8f7c97a))
-* move uga-data-level2 module into admin-area-data AB[#6807](https://github.com/rodekruis/IBF-system/issues/6807) ([685a693](https://github.com/rodekruis/IBF-system/commit/685a6932f0a1a4506f70becf15e6d62438518f9c))
-* structure git-lfs folder AB[#6807](https://github.com/rodekruis/IBF-system/issues/6807) ([23abdee](https://github.com/rodekruis/IBF-system/commit/23abdee2382ddcbe99cf9812e9969878a8562f94))
-
-
-### Features
-
-* use GET endpoints in IBF-pipeline AB[#6806](https://github.com/rodekruis/IBF-system/issues/6806) ([a8bb8b9](https://github.com/rodekruis/IBF-system/commit/a8bb8b989bbc42366d28f9bafb56ad47fdba3e18))
 
 
 
