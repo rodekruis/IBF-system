@@ -15,6 +15,7 @@ export class DashboardPage implements OnInit {
   public version: string = environment.ibfSystemVersion;
   public isDev = false;
   private readonly adminRole = UserRole.Admin;
+  public environmentConfiguration = environment.configuration;
 
   constructor(
     private authService: AuthService,
