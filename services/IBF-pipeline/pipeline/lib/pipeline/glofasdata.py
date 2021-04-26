@@ -44,7 +44,7 @@ class GlofasData:
     def process(self):
         self.removeOldGlofasData()
         self.download()
-        if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia 
+        if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia
             self.extractFtpData()
         else:
             self.extractApiData()
@@ -65,13 +65,13 @@ class GlofasData:
 
         while downloadDone == False and time.time() < end:
             try:
-                if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia 
+                if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia
                     self.makeFtpRequest()
                 else:
                     self.makeApiRequest()
                 downloadDone = True
-            except:
-                error = 'Download data failed. Trying again in ' + str(timeToRetry/60) + ' minutes.'
+            except Exception as exception:
+                error = 'Download data failed. Trying again in {} minutes.\n{}'.format(timeToRetry//60, exception)
                 print(error)
                 logger.info(error)
                 time.sleep(timeToRetry)
@@ -85,7 +85,7 @@ class GlofasData:
         urllib.request.urlretrieve(ftp_path + filename,
                                    self.inputPath + filename)
 
-        tar = tarfile.open(self.inputPath + filename, "r:gz") 
+        tar = tarfile.open(self.inputPath + filename, "r:gz")
         tar.extractall(self.inputPath)
         tar.close()
 
@@ -218,7 +218,7 @@ class GlofasData:
             6: 0,
             7: 0,
         }
-        
+
         # Load netCDF data
         ncData = xr.open_dataset(self.inputPath+'glofas-api-'+self.country_code+'-'+self.current_date+'.nc')
 
@@ -242,7 +242,7 @@ class GlofasData:
                 print(station['code'])
                 threshold = df_thresholds[df_thresholds['stationCode'] ==
                                           station['code']][TRIGGER_LEVEL][0]
-                
+
                 for step in range(1, 8):
                     # Loop through 51 ensembles, get forecast and compare to threshold
                     ensemble_options = 51
@@ -264,7 +264,7 @@ class GlofasData:
                                     discharge = 0
                                 elif station['code'] == 'DWRM1':  # UGA dummy flood station 1
                                     discharge = 1000
-                                elif station['code'] == 'G1067':  # ETH dummy flood station 1 
+                                elif station['code'] == 'G1067':  # ETH dummy flood station 1
                                     discharge = 1000
                                 elif station['code'] == 'G1904':  # ETH dummy flood station 2
                                     discharge = 2000
