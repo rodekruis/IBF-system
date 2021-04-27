@@ -27,9 +27,11 @@ import disasters from './json/disasters.json';
 import SeedAdminArea from './seed-admin-area';
 import SeedGlofasStation from './seed-glofas-station';
 import { SeedHelper } from './seed-helper';
-import { SeedRedcrossBranches } from './seed-redcross-branches';
-import SeedAdminAreaData from './seed-admin-area-data';
 import { SeedHealthSites } from './seed-health-sites';
+import SeedRedcrossBranches from './seed-redcross-branches';
+import SeedAdminAreaData from './seed-admin-area-data';
+import SeedRainfallData from './seed-rainfall-data';
+import { HazardModel } from '../api/country/hazard-model.enum';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -97,6 +99,7 @@ export class SeedInit implements InterfaceScript {
           countryEntity.countryCodeISO3 = country.countryCodeISO3;
           countryEntity.countryCodeISO2 = country.countryCodeISO2;
           countryEntity.countryName = country.countryName;
+          countryEntity.hazardModel = country.hazardModel as HazardModel;
           countryEntity.countryStatus = country.countryStatus as CountryStatus;
           countryEntity.defaultAdminLevel = country.defaultAdminLevel as AdminLevel;
           countryEntity.adminRegionLabels = country.adminRegionLabels;
@@ -210,10 +213,15 @@ export class SeedInit implements InterfaceScript {
     const seedHealthSites = new SeedHealthSites(this.connection);
     await seedHealthSites.run();
 
-    // ***** SEED INDICATOR DATA PER ADMIN AREa *****
+    // ***** SEED INDICATOR DATA PER ADMIN AREA *****
     console.log('Seed Indicator data per admin-area...');
     const seedAdminAreaData = new SeedAdminAreaData(this.connection);
     await seedAdminAreaData.run();
+
+    // ***** SEED RAINFALL DATA *****
+    console.log('Seed rainfall data...');
+    const seedRainfallData = new SeedRainfallData(this.connection);
+    await seedRainfallData.run();
 
     // ***** RUN SCRIPT TO FINALIZE ALL DATA PREPARATION *****
     console.log('Run IBF-database-scripts.sql...');

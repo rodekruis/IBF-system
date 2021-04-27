@@ -41,7 +41,6 @@ services:
         networks:
             web-server-network:
             pipeline-network:
-                ipv4_address: 12.0.0.8
         depends_on:
             - ibf-geoserver
         volumes:
@@ -131,8 +130,4 @@ networks:
         driver: bridge
     pipeline-network:
         driver: bridge
-        ipam:
-            driver: default
-            config:
-                - subnet: 12.0.0.0/24
     

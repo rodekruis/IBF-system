@@ -11,6 +11,7 @@ import { UserEntity } from '../user/user.entity';
 import { AdminLevel } from './admin-level.enum';
 import { CountryStatus } from './country-status.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { HazardModel } from './hazard-model.enum';
 
 @Entity('country')
 export class CountryEntity {
@@ -25,6 +26,9 @@ export class CountryEntity {
 
   @Column({ unique: true })
   public countryName: string;
+
+  @Column({ nullable: true })
+  public hazardModel: HazardModel;
 
   @Column({ default: CountryStatus.Active })
   public countryStatus: CountryStatus;
