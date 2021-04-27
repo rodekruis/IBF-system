@@ -55,8 +55,7 @@ export class SeedAdminArea implements InterfaceScript {
                 : null,
               geom: (): string => this.geomFunction(area.geometry.coordinates),
             })
-            .execute()
-            .catch(console.error);
+            .execute();
         },
       ),
     );
