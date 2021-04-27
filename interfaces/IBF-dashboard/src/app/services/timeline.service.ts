@@ -136,8 +136,9 @@ export class TimelineService {
     const vissibleLeadTimes = [];
     for (const disaster of country.disasterTypes) {
       for (const leadTime of disaster.leadTimes) {
-        vissibleLeadTimes.indexOf(leadTime.leadTimeName) === -1 &&
+        if (vissibleLeadTimes.indexOf(leadTime.leadTimeName) === -1) {
           vissibleLeadTimes.push(leadTime.leadTimeName);
+        }
       }
     }
     return vissibleLeadTimes;
