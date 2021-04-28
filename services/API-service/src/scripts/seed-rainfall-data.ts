@@ -28,7 +28,7 @@ export class SeedRainfallData implements InterfaceScript {
         (country): Promise<void> => {
           if (
             envCountries.includes(country.countryCodeISO3) &&
-            country.disasterType === DisasterType.Rainfall
+            country.disasterType === DisasterType.HeavyRain
           ) {
             return this.seedRainfallData(country);
           } else {
