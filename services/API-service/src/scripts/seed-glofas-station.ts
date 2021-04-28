@@ -1,3 +1,4 @@
+import { DisasterType } from './../api/disaster/disaster-type.enum';
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
@@ -6,7 +7,6 @@ import { GlofasStationEntity } from '../api/glofas-station/glofas-station.entity
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { SeedHelper } from './seed-helper';
 import countries from './json/countries.json';
-import { HazardModel } from '../api/country/hazard-model.enum';
 
 @Injectable()
 export class SeedGlofasStation implements InterfaceScript {
@@ -32,7 +32,7 @@ export class SeedGlofasStation implements InterfaceScript {
         (country): Promise<void> => {
           if (
             envCountries.includes(country.countryCodeISO3) &&
-            country.hazardModel === HazardModel.glofas
+            country.disasterType === DisasterType.Floods
           ) {
             return this.seedCountryGlofasStations(country);
           } else {

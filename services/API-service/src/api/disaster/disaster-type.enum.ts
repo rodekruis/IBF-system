@@ -1,5 +1,5 @@
 export enum DisasterType {
   Floods = 'floods',
-  HeavyRain = 'heavy-rain',
+  Rainfall = 'rainfall',
   Dengue = 'dengue',
 }
