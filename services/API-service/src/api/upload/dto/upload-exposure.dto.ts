@@ -17,7 +17,7 @@ export class UploadExposureDto {
   @Type(() => ExposurePlaceCodeDto)
   public exposurePlaceCodes: ExposurePlaceCodeDto[];
 
-  @ApiProperty({ example: '1-month' })
+  @ApiProperty({ example: '0-month' })
   @IsNotEmpty()
   @IsString()
   public leadTime: LeadTime;

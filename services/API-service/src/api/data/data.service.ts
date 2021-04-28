@@ -82,7 +82,7 @@ export class DataService {
       }
     }
     for (const activeLeadTime of country.countryActiveLeadTimes) {
-      if (activeLeadTime.leadTimeName === LeadTime.month1) {
+      if (activeLeadTime.leadTimeName === LeadTime.month0) {
         return activeLeadTime.leadTimeName;
       }
     }
