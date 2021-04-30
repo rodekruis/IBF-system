@@ -66,6 +66,7 @@ export class DataService {
       countryCodeISO3,
     ]);
     const result = this.toGeojson(rawResult);
+    console.log('query: ', query);
     return result;
   }
 

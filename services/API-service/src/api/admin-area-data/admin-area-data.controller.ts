@@ -13,9 +13,11 @@ import {
   ApiBody,
   ApiConsumes,
   ApiOperation,
+  ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
+import { GeoJson } from '../data/geo.model';
 import { AdminAreaDataService } from './admin-area-data.service';
 
 @ApiBearerAuth()

@@ -1,7 +1,7 @@
-import { UserModule } from './../user/user.module';
-import { UploadService } from './upload.service';
+import { UserModule } from '../user/user.module';
+import { UploadService } from './admin-area-dynamic-data.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UploadController } from './upload.controller';
+import { UploadController } from './admin-area-dynamic-data.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CalculatedAffectedEntity } from './calculated-affected.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';

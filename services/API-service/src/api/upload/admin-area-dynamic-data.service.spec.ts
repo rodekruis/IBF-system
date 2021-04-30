@@ -4,16 +4,16 @@ import { EntityManager } from 'typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { CalculatedAffectedEntity } from './calculated-affected.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
-import { UploadService } from './upload.service';
+import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 
-describe('UploadService', (): void => {
-  let service: UploadService;
+describe('AdminAreaDynamicDataService', (): void => {
+  let service: AdminAreaDynamicDataService;
 
   beforeEach(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
         providers: [
-          UploadService,
+          AdminAreaDynamicDataService,
           EntityManager,
           {
             provide: getRepositoryToken(TriggerPerLeadTime),
@@ -26,7 +26,9 @@ describe('UploadService', (): void => {
         ],
       }).compile();
 
-      service = module.get<UploadService>(UploadService);
+      service = module.get<AdminAreaDynamicDataService>(
+        AdminAreaDynamicDataService,
+      );
     },
   );
 
