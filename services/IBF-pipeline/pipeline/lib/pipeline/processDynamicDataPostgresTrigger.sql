@@ -22,8 +22,8 @@ delete from "IBF-pipeline-output".triggers_per_day
 where country_code = 'EGY'
     and to_date(cast(date as TEXT), 'yyyy-mm-dd') = current_date;
 insert into "IBF-pipeline-output".triggers_per_day
-select 0,
-    0 --day1
+select 
+	0 --day1
 ,
     0 --day2
 ,
@@ -82,6 +82,7 @@ select 0,
         order by date desc
         limit 1
     ) date, 'EGY';
+   
 truncate table "IBF-pipeline-output".dashboard_triggers_per_day;
 insert into "IBF-pipeline-output".dashboard_triggers_per_day
 select tpd.country_code,
