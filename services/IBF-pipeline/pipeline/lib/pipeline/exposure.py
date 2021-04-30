@@ -30,7 +30,6 @@ class Exposure:
         self.ADMIN_AREA_GDF = admin_area_gdf
         self.ADMIN_AREA_GDF_TMP_PATH = PIPELINE_OUTPUT+"admin-areas_TMP.shp"
         self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
-        self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + leadTimeLabel + '_' + country_code + '.json'
         self.stats = []
 
     def callAllExposure(self):
@@ -43,10 +42,17 @@ class Exposure:
 
             self.calcAffected(self.disasterExtentRaster, indicator, values['rasterValue'])
 
+            result = {
+                'countryCodeISO3': self.country_code,
+                'exposurePlaceCodes': self.stats,
+                'leadTime': self.leadTimeLabel,
+                'exposureUnit': indicator
+            }
 
-        with open(self.statsPath, 'w') as fp:
-            json.dump(self.stats, fp)
-            logger.info("Saved stats for %s", self.statsPath)
+            self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + self.leadTimeLabel + '_' + self.country_code + '_' + indicator + '.json'
+            with open(self.statsPath, 'w') as fp:
+                json.dump(result, fp)
+                logger.info("Saved stats for %s", self.statsPath)
 
     def calcAffected(self, disasterExtentRaster, indicator, rasterValue):
         disasterExtentShapes = self.loadTiffAsShapes(disasterExtentRaster)
@@ -64,7 +70,7 @@ class Exposure:
         for item in stats:
             self.stats.append(item)
 
-                 
+
     def calcStatsPerAdmin(self, indicator, disasterExtentShapes, rasterValue):
         if SETTINGS[self.country_code]['model'] == 'glofas':
             #Load trigger_data per station
@@ -93,15 +99,15 @@ class Exposure:
                         # Overwrite non-triggered areas with positive exposure (due to rounding errors) to 0
                         if SETTINGS[self.country_code]['model'] == 'glofas':
                             if self.checkIfTriggeredArea(df_triggers,df_district_mapping,str(area['properties']['placeCode'])) == 0:
-                                statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties']['placeCode'])}
+                                statsDistrict = {'amount': 0, 'placeCode': str(area['properties']['placeCode'])}
                         if self.country_code == 'EGY':
                             if 'EG' not in str(area['properties']['placeCode']):
-                                statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties']['placeCode'])}
+                                statsDistrict = {'amount': 0, 'placeCode': str(area['properties']['placeCode'])}
                     except (ValueError, rasterio.errors.RasterioIOError):
                             # If there is no disaster in the district set  the stats to 0
-                        statsDistrict = {'source': indicator, 'sum': 0, 'district': str(area['properties']['placeCode'])}
+                        statsDistrict = {'amount': 0, 'placeCode': str(area['properties']['placeCode'])}
                 else: 
-                    statsDistrict = {'source': indicator, 'sum': '--', 'district': str(area['properties']['placeCode'])}        
+                    statsDistrict = {'amount': 0, 'placeCode': str(area['properties']['placeCode'])}        
                 stats.append(statsDistrict)
         os.remove(self.ADMIN_AREA_GDF_TMP_PATH)
         return stats    
@@ -127,9 +133,8 @@ class Exposure:
         band = array[0]
         theSum = band.sum() * rasterValue
         stats.append({
-            'source': indicator,
-            'sum': str(theSum),
-            'district': district
+            'amount': float(str(theSum)),
+            'placeCode': district
             })
         return stats[0]
 

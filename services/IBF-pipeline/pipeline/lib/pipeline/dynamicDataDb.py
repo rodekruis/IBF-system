@@ -3,6 +3,8 @@ from psycopg2 import sql as psql
 from sqlalchemy import create_engine, text
 import pandas as pd
 import geopandas as gpd
+import requests
+import json
 
 from lib.logging.logglySetup import logger
 from lib.setup.setupConnection import get_db
@@ -20,23 +22,30 @@ class DatabaseManager:
         self.engine = create_engine(
             'postgresql://'+DB_SETTINGS['user']+':'+DB_SETTINGS['password']+'@'+DB_SETTINGS['host']+':'+DB_SETTINGS['port']+'/'+DB_SETTINGS['db'])
         triggerFolder = PIPELINE_OUTPUT + "triggers_rp_per_station/"
-        affectedFolder = PIPELINE_OUTPUT + "calculated_affected/"
-
+        self.affectedFolder = PIPELINE_OUTPUT + "calculated_affected/"
+        self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
         self.tableJson = {}
         if SETTINGS[country_code]['model'] == 'glofas':
             self.tableJson["triggers_rp_per_station"] = triggerFolder + \
                 'triggers_rp_' + leadTimeLabel + '_' + country_code + ".json"
             self.tableJson["triggers_per_day"] = triggerFolder + \
                 'trigger_per_day_' + country_code + ".json"
-        self.tableJson["calculated_affected"] = affectedFolder + \
-            'affected_' + leadTimeLabel + '_' + country_code + ".json"
 
     def upload(self):
+        self.uploadCalculatedAffected()
+        
         for table, jsonData in self.tableJson.items():
             self.uploadDynamicToDb(table, jsonData)
 
-    def uploadDynamicToDb(self, table, jsonData):
+    def uploadCalculatedAffected(self):
+        for indicator, values in self.EXPOSURE_DATA_SOURCES.items():
+            with open(self.affectedFolder + \
+                'affected_' + self.leadTimeLabel + '_' + self.country_code + '_' + indicator + '.json') as json_file:
+                body = json.load(json_file)
+                self.apiPostRequest('upload/exposure', body)
 
+
+    def uploadDynamicToDb(self, table, jsonData):
         logger.info("Uploading from %s to %s", table, jsonData)
         df = pd.read_json(jsonData, orient='records')
         current_date = CURRENT_DATE.strftime('%Y-%m-%d')
@@ -89,14 +98,27 @@ class DatabaseManager:
             print('SQL FAILED', e)
 
     def apiGetRequest(self, path, country_code):
-        import requests
+        TOKEN = self.authenticate()
 
-        login_response = requests.post(API_LOGIN_URL, data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
-        TOKEN = login_response.json()['user']['token']
-
-        response = requests.get(API_SERVICE_URL + path + '/' + country_code, headers={'Authorization': 'Bearer ' + TOKEN})
+        response = requests.get( \
+            API_SERVICE_URL + path + '/' + country_code, \
+            headers={'Authorization': 'Bearer ' + TOKEN} \
+            )
         data = response.json()
         return(data)
+
+    def apiPostRequest(self, path, body):
+        TOKEN = self.authenticate()
+
+        requests.post( \
+            API_SERVICE_URL + path, \
+            json = body, \
+            headers={'Authorization': 'Bearer ' + TOKEN} \
+         )
+
+    def authenticate(self):
+        login_response = requests.post(API_LOGIN_URL, data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
+        return login_response.json()['user']['token']
 
     def downloadGeoDataFromDb(self, schema, table, country_code=None):
         try:
