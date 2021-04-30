@@ -1,5 +1,5 @@
 <coverage>
-  <id>CoverageInfoImpl-6aaea59:178ab4094ca:-7ffa</id>
+  <id>CoverageInfoImpl--6115c9a:17903408745:-7d81</id>
   <name>population_PHL</name>
   <nativeName>population_PHL</nativeName>
   <namespace>
@@ -38,29 +38,18 @@
   </latLonBoundingBox>
   <projectionPolicy>REPROJECT_TO_DECLARED</projectionPolicy>
   <enabled>true</enabled>
-  <advertised>false</advertised>
   <metadata>
-    <entry key="elevation">
-      <dimensionInfo>
-        <enabled>false</enabled>
-      </dimensionInfo>
-    </entry>
     <entry key="DirectDownload.Key">
       <directDownloadSettings>
         <directDownloadEnabled>false</directDownloadEnabled>
         <maxDownloadSize>0</maxDownloadSize>
       </directDownloadSettings>
     </entry>
-    <entry key="time">
-      <dimensionInfo>
-        <enabled>false</enabled>
-      </dimensionInfo>
-    </entry>
     <entry key="cachingEnabled">false</entry>
     <entry key="dirName">population_PHL_hrsl_phl_pop_resized_100</entry>
   </metadata>
   <store class="coverageStore">
-    <id>CoverageStoreInfoImpl-6aaea59:178ab4094ca:-7ffc</id>
+    <id>CoverageStoreInfoImpl--6115c9a:17903408745:-7d83</id>
   </store>
   <serviceConfiguration>false</serviceConfiguration>
   <simpleConversionEnabled>false</simpleConversionEnabled>
@@ -81,11 +70,11 @@
     <crs>EPSG:4326</crs>
   </grid>
   <supportedFormats>
-    <string>GEOTIFF</string>
     <string>GIF</string>
     <string>PNG</string>
     <string>JPEG</string>
     <string>TIFF</string>
+    <string>GEOTIFF</string>
   </supportedFormats>
   <interpolationMethods>
     <string>nearest neighbor</string>
