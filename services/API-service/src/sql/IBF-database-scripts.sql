@@ -114,4 +114,3 @@ where country_code is not null
 group by 1,2
 ;
 --select * from "IBF-API"."Matrix_aggregates1"
-
