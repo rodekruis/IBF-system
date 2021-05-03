@@ -248,8 +248,12 @@ export class ChatComponent implements OnInit, OnDestroy {
       isActiveTrigger: this.eventService.state.activeTrigger,
       placeCode,
     });
+    this.apiService.closeEventPlaceCode(eventPlaceCodeId).subscribe({
+      next: () => this.reloadEapAndTrigger(),
+    });
+  }
 
-    this.apiService.closeEventPlaceCode(eventPlaceCodeId);
+  private reloadEapAndTrigger() {
     this.eapActionsService.loadDistrictsAndActions();
     this.eventService.getTrigger();
   }

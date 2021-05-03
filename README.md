@@ -185,7 +185,6 @@ to execute each step, without further knowledge. Ask a developer who knows more.
         the same exten/pixel size. (.tif)
       - Population (.tif)
       - Grassland + cropland (.tif)
-      - The same admin-boundary-file as described above, but saves as .shp
     - When deploying to other environments (local/remote) this data needs to be transfered (e.g. as data.zip through WinSCP or similar)
 4. IBF-pipeline
     - add country_code to .env (for development settings, replace by ONLY that code)

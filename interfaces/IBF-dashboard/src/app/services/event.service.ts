@@ -105,7 +105,7 @@ export class EventService {
   private getTriggerLeadTime() {
     if (this.country) {
       let triggerLeadTime = null;
-      this.country.countryLeadTimes.forEach((leadTime: LeadTime) => {
+      this.country.countryActiveLeadTimes.forEach((leadTime: LeadTime) => {
         if (
           !triggerLeadTime &&
           LeadTimeTriggerKey[leadTime] >= this.state.firstLeadTime

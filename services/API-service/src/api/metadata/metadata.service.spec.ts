@@ -1,3 +1,4 @@
+import { CountryEntity } from './../country/country.entity';
 import { UserEntity } from '../user/user.entity';
 import { DataService } from '../data/data.service';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -6,6 +7,7 @@ import { DataModule } from '../data/data.module';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { MetadataService } from './metadata.service';
 import { LayerMetadataEntity } from './layer-metadata.entity';
+import { TriggerPerLeadTime } from '../upload/trigger-per-lead-time.entity';
 
 describe('MetadataService', (): void => {
   let service: MetadataService;
@@ -20,6 +22,8 @@ describe('MetadataService', (): void => {
             IndicatorMetadataEntity,
             UserEntity,
             LayerMetadataEntity,
+            TriggerPerLeadTime,
+            CountryEntity,
           ]),
         ],
         providers: [MetadataService, DataService],
