@@ -110,7 +110,9 @@ class DatabaseManager:
             json = body, \
             headers={'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json', 'Accept':'application/json'} \
         )
-        print(r.text)
+        if r.status_code >= 400:
+            print(r.text)
+            raise ValueError()
 
     def authenticate(self):
         login_response = requests.post(API_LOGIN_URL, data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
