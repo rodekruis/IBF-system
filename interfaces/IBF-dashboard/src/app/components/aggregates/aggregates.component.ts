@@ -164,10 +164,16 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   private getPopoverText(indicatorName: IbfLayerName): string {
-    const triggerState: string = this.eventService.state.activeTrigger
-      ? `active-trigger-${this.eventService.disasterType}`
-      : 'no-trigger';
-    return this.popoverTexts[indicatorName][triggerState];
+    let popoverText = '';
+    if (this.popoverTexts[indicatorName]) {
+      const countryCodeToUse = this.popoverTexts[indicatorName][
+        this.country.countryCodeISO3
+      ]
+        ? this.country.countryCodeISO3
+        : 'UGA';
+      popoverText = this.popoverTexts[indicatorName][countryCodeToUse];
+    }
+    return popoverText;
   }
 
   public getAggregate(indicatorName: IbfLayerName, weightedAvg: boolean) {
