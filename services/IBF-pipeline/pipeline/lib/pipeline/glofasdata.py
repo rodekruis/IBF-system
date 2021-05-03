@@ -258,7 +258,7 @@ class GlofasData:
                     station['fc_trigger'] = 1 if prob > TRIGGER_LEVELS['minimum'] else 0
 
                     if station['fc_trigger'] == 1:
-                        trigger_per_day[str(step)+'-day'] = True
+                        trigger_per_day[step] = 1
 
                     if step == self.leadTimeValue:
                         stations.append(station)
@@ -295,13 +295,13 @@ class GlofasData:
         # Set up variables to fill
         stations = []
         trigger_per_day = {
-            '1-day': False,
-            '2-day': False,
-            '3-day': False,
-            '4-day': False,
-            '5-day': False,
-            '6-day': False,
-            '7-day': False,
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+            6: 0,
+            7: 0,
         }
 
         for index, row in df_thresholds.iterrows():
