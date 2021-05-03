@@ -16,7 +16,7 @@ export class GlofasStationEntity {
   @JoinColumn({ name: 'countryCode', referencedColumnName: 'countryCodeISO3' })
   public countryCode: string;
 
-  @Column()
+  @Column({ unique: true })
   public stationCode: string;
 
   @Column({ nullable: true })

@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -6,6 +6,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
+import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
+import { GlofasStationTriggerEntity } from './glofas-station-trigger.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
 import { GlofasStationService } from './glofas-station.service';
 
@@ -26,6 +28,16 @@ export class GlofasStationController {
   public async getStations(@Param() params): Promise<GlofasStationEntity[]> {
     return await this.glofasStationService.getStationsByCountry(
       params.countryCode,
+    );
+  }
+
+  @ApiOperation({ summary: 'Upload Glofas forecast data per station' })
+  @Post('triggers')
+  public async uploadTriggerDataPerStation(
+    @Body() uploadTriggerPerStationArray: UploadTriggerPerStationDto[],
+  ): Promise<GlofasStationTriggerEntity[]> {
+    return await this.glofasStationService.uploadTriggerDataPerStation(
+      uploadTriggerPerStationArray,
     );
   }
 }

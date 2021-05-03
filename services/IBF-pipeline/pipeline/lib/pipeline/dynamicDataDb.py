@@ -21,21 +21,15 @@ class DatabaseManager:
         self.leadTimeLabel = leadTimeLabel
         self.engine = create_engine(
             'postgresql://'+DB_SETTINGS['user']+':'+DB_SETTINGS['password']+'@'+DB_SETTINGS['host']+':'+DB_SETTINGS['port']+'/'+DB_SETTINGS['db'])
-        triggerFolder = PIPELINE_OUTPUT + "triggers_rp_per_station/"
+        self.triggerFolder = PIPELINE_OUTPUT + "triggers_rp_per_station/"
         self.affectedFolder = PIPELINE_OUTPUT + "calculated_affected/"
         self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
-        self.tableJson = {}
-        if SETTINGS[country_code]['model'] == 'glofas':
-            self.tableJson["triggers_rp_per_station"] = triggerFolder + \
-                'triggers_rp_' + leadTimeLabel + '_' + country_code + ".json"
-            self.tableJson["triggers_per_day"] = triggerFolder + \
-                'trigger_per_day_' + country_code + ".json"
 
     def upload(self):
+        if SETTINGS[self.country_code]['model'] == 'glofas':
+            self.uploadTriggersPerLeadTime()
+            self.uploadTriggerPerStation()
         self.uploadCalculatedAffected()
-        
-        for table, jsonData in self.tableJson.items():
-            self.uploadDynamicToDb(table, jsonData)
 
     def uploadCalculatedAffected(self):
         for indicator, values in self.EXPOSURE_DATA_SOURCES.items():
@@ -43,34 +37,35 @@ class DatabaseManager:
                 'affected_' + self.leadTimeLabel + '_' + self.country_code + '_' + indicator + '.json') as json_file:
                 body = json.load(json_file)
                 self.apiPostRequest('upload/exposure', body)
+            print('Uploaded calculated_affected for indicator: ' + indicator)
 
+    def uploadTriggerPerStation(self):
+        df = pd.read_json(self.triggerFolder + \
+                'triggers_rp_' + self.leadTimeLabel + '_' + self.country_code + ".json", orient='records')
+        dfUpload = pd.DataFrame(index=df.index)
+        dfUpload['countryCode'] = self.country_code
+        dfUpload['leadTime'] = self.leadTimeLabel
+        dfUpload['stationCode'] = df['stationCode']
+        dfUpload['forecastLevel'] = df['fc']
+        dfUpload['forecastProbability'] = df['fc_prob']
+        dfUpload['forecastTrigger'] = df['fc_trigger']
+        dfUpload['forecastReturnPeriod'] = df['fc_rp']
+        body = json.loads(dfUpload.to_json(orient='records'))
+        self.apiPostRequest('glofasStations/triggers', body)
+        print('Uploaded triggers per station')
 
-    def uploadDynamicToDb(self, table, jsonData):
-        logger.info("Uploading from %s to %s", table, jsonData)
-        df = pd.read_json(jsonData, orient='records')
-        current_date = CURRENT_DATE.strftime('%Y-%m-%d')
-        df['date'] = CURRENT_DATE
-        df['country_code'] = self.country_code
-        if table != "triggers_per_day":
-            df['lead_time'] = self.leadTimeLabel
-
-        # Delete existing entries with same date, lead_time and country_code
-        try:
-            self.con, self.cur, self.db = get_db()
-            sql = "DELETE FROM \""+SCHEMA_NAME+"\"."+table+" WHERE date=\'" + \
-                current_date+"\' AND country_code=\'"+self.country_code+"\'"
-            if table != "triggers_per_day":
-                sql = sql + " AND lead_time=\'"+self.leadTimeLabel+"\'"
-            self.cur.execute(sql)
-            self.con.commit()
-            self.con.close()
-        except psycopg2.ProgrammingError as e:
-            logger.info(e)
-
-        # Append new data for current date, lead_time and country_code
-        df.to_sql(table, self.engine, index=False,
-                  if_exists='append', schema=SCHEMA_NAME)
-        print(table+' uploaded')
+    def uploadTriggersPerLeadTime(self):
+        with open(self.triggerFolder + \
+            'trigger_per_day_' + self.country_code + ".json") as json_file:
+            triggers = json.load(json_file)[0]
+            for key in triggers:
+                body = {
+                    'countryCode': self.country_code,
+                    'leadTime': str(key),
+                    'triggered': triggers[key]
+                }
+                self.apiPostRequest('upload/triggers-per-leadtime', body)
+        print('Uploaded triggers per leadTime')
 
     def processDynamicDataDb(self):
         sql_file = open(
@@ -110,11 +105,12 @@ class DatabaseManager:
     def apiPostRequest(self, path, body):
         TOKEN = self.authenticate()
 
-        requests.post( \
+        r = requests.post( \
             API_SERVICE_URL + path, \
             json = body, \
-            headers={'Authorization': 'Bearer ' + TOKEN} \
-         )
+            headers={'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json', 'Accept':'application/json'} \
+        )
+        print(r.text)
 
     def authenticate(self):
         login_response = requests.post(API_LOGIN_URL, data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
