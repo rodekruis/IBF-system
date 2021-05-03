@@ -1,3 +1,15 @@
+# [0.59.0](https://github.com/rodekruis/IBF-system/compare/v0.58.1...v0.59.0) (2021-05-03)
+
+
+### Features
+
+* add EGY red crescent branches AB[#7426](https://github.com/rodekruis/IBF-system/issues/7426) ([8776d73](https://github.com/rodekruis/IBF-system/commit/8776d7383c4478e44ee17f3c1c8796a66829d93d))
+* add rainfall extent info popup AB[#7422](https://github.com/rodekruis/IBF-system/issues/7422) ([b21c19e](https://github.com/rodekruis/IBF-system/commit/b21c19e179f726cfd8ab33e2fc56f4c45d484a84))
+* make info-popovers country-specific AB[#7423](https://github.com/rodekruis/IBF-system/issues/7423) ([0d69ae7](https://github.com/rodekruis/IBF-system/commit/0d69ae78fedbf85861f8c7274f2aacf2b0045eaf))
+* update flood susceptibility EGY AB[#7424](https://github.com/rodekruis/IBF-system/issues/7424) ([3c64947](https://github.com/rodekruis/IBF-system/commit/3c6494738505be3a2bb3b35cf6e1d6df2941a2ca))
+
+
+
 ## [0.58.1](https://github.com/rodekruis/IBF-system/compare/v0.58.0...v0.58.1) (2021-05-03)
 
 
@@ -112,15 +124,6 @@
 ### Bug Fixes
 
 * update URCS logo AB[#7050](https://github.com/rodekruis/IBF-system/issues/7050) ([b854bdb](https://github.com/rodekruis/IBF-system/commit/b854bdb6d47434ce0b206c24d9e2bf9c43eafab0))
-
-
-
-# [0.56.0](https://github.com/rodekruis/IBF-system/compare/v0.55.0...v0.56.0) (2021-04-13)
-
-
-### Features
-
-* add trigger statement email EGY AB[#7043](https://github.com/rodekruis/IBF-system/issues/7043) ([f8f0a7e](https://github.com/rodekruis/IBF-system/commit/f8f0a7e8cf65d1bbfab400917b880a8b161c8156))
 
 
 
