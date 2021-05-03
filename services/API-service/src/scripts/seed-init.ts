@@ -7,14 +7,13 @@ import { CountryEntity } from '../api/country/country.entity';
 import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
 import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
 import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
-import { leadTimeStatus } from '../api/lead-time/lead-time-status.enum';
 import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 import { UserRole } from '../api/user/user-role.enum';
 import { UserStatus } from '../api/user/user-status.enum';
 import { UserEntity } from '../api/user/user.entity';
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
-
-import { SeedHelper } from './seed-helper';
+import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { DisasterEntity } from '../api/disaster/disaster.entity';
 
 import leadTimes from './json/lead-times.json';
 import countries from './json/countries.json';
@@ -23,13 +22,15 @@ import areasOfFocus from './json/areas-of-focus.json';
 import eapActions from './json/EAP-actions.json';
 import indicatorMetadata from './json/indicator-metadata.json';
 import layerMetadata from './json/layer-metadata.json';
+import disasters from './json/disasters.json';
 
 import SeedAdminArea from './seed-admin-area';
 import SeedGlofasStation from './seed-glofas-station';
+import { SeedHelper } from './seed-helper';
+import { SeedHealthSites } from './seed-health-sites';
 import SeedRedcrossBranches from './seed-redcross-branches';
 import SeedAdminAreaData from './seed-admin-area-data';
 import SeedRainfallData from './seed-rainfall-data';
-import { HazardModel } from '../api/country/hazard-model.enum';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -45,17 +46,38 @@ export class SeedInit implements InterfaceScript {
     await this.seedHelper.cleanAll();
     await this.connection.synchronize(false);
 
+    // ***** CREATE DISASTER *****
+    console.log('Seed Disasters...');
+    const disasterRepository = this.connection.getRepository(DisasterEntity);
+    const disasterEntities = disasters.map(
+      (disaster): DisasterEntity => {
+        let disasterEntity = new DisasterEntity();
+        disasterEntity.disasterType = disaster.disasterType as DisasterType;
+        disasterEntity.label = disaster.label;
+        return disasterEntity;
+      },
+    );
+
+    await disasterRepository.save(disasterEntities);
+
     // ***** CREATE LEAD TIMES *****
     console.log('Seed Lead Times...');
     const leadTimeRepository = this.connection.getRepository(LeadTimeEntity);
-    const leadTimeEntities = leadTimes.map(
-      (leadTime): LeadTimeEntity => {
-        let leadTimeEntity = new LeadTimeEntity();
-        leadTimeEntity.leadTimeName = leadTime.leadTimeName;
-        leadTimeEntity.leadTimeLabel = leadTime.leadTimeLabel;
-        leadTimeEntity.leadTimeStatus = leadTime.leadTimeStatus as leadTimeStatus;
-        return leadTimeEntity;
-      },
+
+    const leadTimeEntities = await Promise.all(
+      leadTimes.map(
+        async (leadTime): Promise<LeadTimeEntity> => {
+          let leadTimeEntity = new LeadTimeEntity();
+          leadTimeEntity.leadTimeName = leadTime.leadTimeName;
+          leadTimeEntity.leadTimeLabel = leadTime.leadTimeLabel;
+          leadTimeEntity.disasterTypes = await disasterRepository.find({
+            where: leadTime.disasterTypes.map((diasterType: string): object => {
+              return { disasterType: diasterType };
+            }),
+          });
+          return leadTimeEntity;
+        },
+      ),
     );
 
     await leadTimeRepository.save(leadTimeEntities);
@@ -76,17 +98,19 @@ export class SeedInit implements InterfaceScript {
           countryEntity.countryCodeISO3 = country.countryCodeISO3;
           countryEntity.countryCodeISO2 = country.countryCodeISO2;
           countryEntity.countryName = country.countryName;
-          countryEntity.hazardModel = country.hazardModel as HazardModel;
           countryEntity.countryStatus = country.countryStatus as CountryStatus;
           countryEntity.defaultAdminLevel = country.defaultAdminLevel as AdminLevel;
           countryEntity.adminRegionLabels = country.adminRegionLabels;
           countryEntity.eapLink = country.eapLink;
-          countryEntity.countryLeadTimes = await leadTimeRepository.find({
-            where: country.countryLeadTimes.map(
+          countryEntity.countryActiveLeadTimes = await leadTimeRepository.find({
+            where: country.countryActiveLeadTimes.map(
               (countryLeadTime: string): object => {
                 return { leadTimeName: countryLeadTime };
               },
             ),
+          });
+          countryEntity.disasterTypes = await disasterRepository.find({
+            where: { disasterType: country.disasterType },
           });
           countryEntity.countryLogos = country.countryLogos;
           countryEntity.eapAlertClasses = JSON.parse(
@@ -181,6 +205,11 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed Red Cross branches...');
     const seedRedcrossBranches = new SeedRedcrossBranches(this.connection);
     await seedRedcrossBranches.run();
+
+    // ***** SEED RED CROSS BRANCHES DATA *****
+    console.log('Seed Health Sites...');
+    const seedHealthSites = new SeedHealthSites(this.connection);
+    await seedHealthSites.run();
 
     // ***** SEED INDICATOR DATA PER ADMIN AREA *****
     console.log('Seed Indicator data per admin-area...');

@@ -43,22 +43,22 @@ export class DataController {
   @ApiOperation({ summary: 'Get recent dates' })
   @ApiParam({ name: 'countryCode', required: true, type: 'string' })
   @Get('recent-dates/:countryCode')
-  public async getRecentDate(@Param() params): Promise<number> {
+  public async getRecentDate(@Param() params): Promise<object> {
     return await this.dataService.getRecentDates(params.countryCode);
   }
 
   @ApiOperation({ summary: 'Get trigger data per lead-time' })
   @ApiParam({ name: 'countryCode', required: true, type: 'string' })
   @Get('triggers/:countryCode')
-  public async getTriggerPerLeadtime(@Param() params): Promise<number> {
+  public async getTriggerPerLeadtime(@Param() params): Promise<object> {
     return await this.dataService.getTriggerPerLeadtime(params.countryCode);
   }
 
   @ApiOperation({ summary: 'Get admin-area shape data' })
   @ApiParam({ name: 'countryCode', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiParam({ name: 'leadTime', required: true, type: 'string' })
-  @Get('admin-area-data/:countryCode/:adminLevel/:leadTime')
+  @ApiParam({ name: 'leadTime', required: false, type: 'string' })
+  @Get('admin-area-data/:countryCode/:adminLevel/:leadTime?')
   public async getAdminAreaData(@Param() params): Promise<GeoJson> {
     return await this.dataService.getAdminAreaData(
       params.countryCode,

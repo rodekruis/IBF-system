@@ -3,7 +3,11 @@ import { DateTime } from 'luxon';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
+import {
+  LeadTime,
+  LeadTimeTriggerKey,
+  LeadTimeUnit,
+} from 'src/app/types/lead-time';
 import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { CountryTriggers } from '../models/country-triggers.model';
 import { Country } from '../models/country.model';
@@ -55,9 +59,13 @@ export class TimelineService {
     const isLeadTimeDisabled = this.isLeadTimeDisabled(leadTime);
     const triggerKey = LeadTimeTriggerKey[leadTime];
     this.state.timeStepButtons[index] = {
-      date: this.state.today.plus({ days: Number(triggerKey) }),
+      date: this.getLeadTimeDate(leadTime, triggerKey),
+      unit: leadTime.split('-')[1] as LeadTimeUnit,
       value: leadTime,
-      alert: this.triggers[triggerKey] === '1',
+      alert:
+        this.triggers[
+          leadTime.includes('day') ? leadTime.substr(0, 1) : leadTime
+        ] === '1',
       disabled: isLeadTimeDisabled,
       active: false,
     };
@@ -67,15 +75,8 @@ export class TimelineService {
     this.triggers = triggers;
 
     if (this.triggers) {
-      [
-        LeadTime.day1,
-        LeadTime.day2,
-        LeadTime.day3,
-        LeadTime.day4,
-        LeadTime.day5,
-        LeadTime.day6,
-        LeadTime.day7,
-      ].map(this.leadTimeToLeadTimeButton);
+      const vissibleLeadTimes = this.getVisibleLeadTimes(this.country);
+      vissibleLeadTimes.map(this.leadTimeToLeadTimeButton);
     }
 
     const enabledTimeStepButtons = this.state.timeStepButtons.filter(
@@ -119,10 +120,30 @@ export class TimelineService {
     this.timelineSubject.next(this.activeLeadTime);
   }
 
+  private getLeadTimeDate(leadTime: LeadTime, triggerKey: string) {
+    if (leadTime.includes('day')) {
+      return this.state.today.plus({ days: Number(triggerKey) });
+    } else {
+      return this.state.today.plus({ months: Number(triggerKey) });
+    }
+  }
+
   private isLeadTimeDisabled(leadTime: LeadTime): boolean {
-    const leadTimes = this.country ? this.country.countryLeadTimes : [];
+    const leadTimes = this.country ? this.country.countryActiveLeadTimes : [];
     const leadTimeIndex = leadTimes.indexOf(leadTime);
     const leadTimeNotAvailable = leadTimeIndex < 0;
     return leadTimeNotAvailable;
+  }
+
+  private getVisibleLeadTimes(country: Country) {
+    const vissibleLeadTimes = [];
+    for (const disaster of country.disasterTypes) {
+      for (const leadTime of disaster.leadTimes) {
+        if (vissibleLeadTimes.indexOf(leadTime.leadTimeName) === -1) {
+          vissibleLeadTimes.push(leadTime.leadTimeName);
+        }
+      }
+    }
+    return vissibleLeadTimes;
   }
 }

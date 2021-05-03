@@ -1,0 +1,14 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl--6115c9a:17903408745:-7d83</id>
+  <name>population_PHL</name>
+  <description>population_PHL</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2021-04-24 13:14:31.559 UTC</dateCreated>
+  <dateModified>2021-04-24 13:14:45.557 UTC</dateModified>
+  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/hrsl_phl_pop_resized_100.tif</url>
+</coverageStore>

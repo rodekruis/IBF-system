@@ -15,12 +15,16 @@ select aa."placeCode" as pcode
 		,max(case when key = 'wall_type' then value end) as wall_type
 		,max(case when key = 'Weighted Vulnerability Index' then value end) as vulnerability_index
 		,max(case when key = 'covid_risk' then value end) as covid_risk
+		,max(case when key = 'population_u9' then value end) as population_u9
+		,max(case when key = 'dengue_incidence_average' then value end) as dengue_incidence_average
+		,max(case when key = 'dengue_cases_average' then value end) as dengue_cases_average
 from "IBF-app"."adminArea" aa
 left join "IBF-app"."adminAreaData" aad
 	on aa."placeCode" = aad."placeCode"
 group by 1
 ;
---select * from "IBF-static-input".dashboard_admin_area_data
+--select * from "IBF-static-input".dashboard_admin_area_data
+
 
 --create API view for Glofas stations
 DROP TABLE IF EXISTS "IBF-API".redcross_branches;
