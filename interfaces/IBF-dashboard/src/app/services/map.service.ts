@@ -131,10 +131,12 @@ export class MapService {
   private getPopoverText(indicatorName: IbfLayerName): string {
     let popoverText = '';
     if (this.popoverTexts[indicatorName]) {
-      const triggerState: string = this.eventService.state.activeTrigger
-        ? `active-trigger-${this.eventService.disasterType}`
-        : 'no-trigger';
-      popoverText = this.popoverTexts[indicatorName][triggerState];
+      const countryCodeToUse = this.popoverTexts[indicatorName][
+        this.country.countryCodeISO3
+      ]
+        ? this.country.countryCodeISO3
+        : 'UGA';
+      popoverText = this.popoverTexts[indicatorName][countryCodeToUse];
     }
     return popoverText;
   }
