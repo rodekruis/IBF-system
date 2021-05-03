@@ -1,5 +1,0 @@
-processed_data/*
-!processed_data/.gitkeep
-raw_data/*
-!raw_data/.gitkeep
-__pycache__/*
