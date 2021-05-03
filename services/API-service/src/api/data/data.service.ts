@@ -40,7 +40,7 @@ export class DataService {
       leadTime = await this.getDefaultLeadTime(countryCodeISO3);
     }
     const trigger = (await this.getTriggerPerLeadtime(countryCodeISO3))[
-      leadTime.substr(0, 1)
+      leadTime
     ];
     let placeCodes;
     if (parseInt(trigger) === 1) {
@@ -130,50 +130,17 @@ export class DataService {
   }
 
   public async getRecentDates(countryCode: string): Promise<object[]> {
-    // This needs to change when all countries use the upload service
-    if (countryCode === 'PHL') {
-      const resultPHL = await this.triggerPerLeadTimeRepository.findOne({
-        where: { countryCode: countryCode },
-        order: { date: 'DESC' },
-      });
-      if (!resultPHL) {
-        return [];
-      }
-      return [{ date: new Date(resultPHL.date).toISOString() }];
+    const result = await this.triggerPerLeadTimeRepository.findOne({
+      where: { countryCode: countryCode },
+      order: { date: 'DESC' },
+    });
+    if (!result) {
+      return [];
     }
-
-    const query =
-      ' select to_date(date,\'yyyy-mm-dd\') as date \
-    from "IBF-API"."Trigger_per_lead_time" \
-    where country_code = $1 \
-    order by date DESC \
-    limit 1 \
-    ';
-
-    const result = await this.manager.query(query, [countryCode]);
-
-    return result;
+    return [{ date: new Date(result.date).toISOString() }];
   }
 
   public async getTriggerPerLeadtime(countryCode: string): Promise<object> {
-    if (countryCode === 'PHL') {
-      return this.getTriggerPerLeadtimeEntity(countryCode);
-    }
-
-    const query =
-      ' select * \
-    from "IBF-API"."Trigger_per_lead_time" \
-    where 0 = 0 \
-    and country_code = $1 \
-    ';
-    const result = await this.manager.query(query, [countryCode]);
-
-    return result[0];
-  }
-
-  private async getTriggerPerLeadtimeEntity(
-    countryCode: string,
-  ): Promise<object> {
     const latestDate = await this.getOneMaximumTriggerDate(countryCode);
     const triggersPerLeadTime = await this.triggerPerLeadTimeRepository.find({
       where: { countryCode: countryCode, date: latestDate },
@@ -181,21 +148,21 @@ export class DataService {
     if (triggersPerLeadTime.length === 0) {
       return;
     }
-    const resultPHL = {};
-    resultPHL['date'] = triggersPerLeadTime[0].date;
-    resultPHL['country_code'] = triggersPerLeadTime[0].countryCode;
+    const result = {};
+    result['date'] = triggersPerLeadTime[0].date;
+    result['country_code'] = triggersPerLeadTime[0].countryCode;
     for (const leadTimeKey in LeadTime) {
       const leadTimeUnit = LeadTime[leadTimeKey];
       const leadTimeIsTriggered = triggersPerLeadTime.find(
         (el): boolean => el.leadTime === leadTimeUnit,
       );
       if (leadTimeIsTriggered) {
-        resultPHL[leadTimeUnit] = String(Number(leadTimeIsTriggered.triggered));
+        result[leadTimeUnit] = String(Number(leadTimeIsTriggered.triggered));
       } else {
-        resultPHL[leadTimeUnit] = '0';
+        result[leadTimeUnit] = '0';
       }
     }
-    return resultPHL;
+    return result;
   }
 
   private async getOneMaximumTriggerDate(countryCode): Promise<Date> {

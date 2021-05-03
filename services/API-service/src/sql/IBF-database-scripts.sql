@@ -40,13 +40,6 @@ from "IBF-app"."redcrossBranch"
 ;
 --select * from "IBF-static-input".dashboard_redcross_branches
 
-drop view if exists "IBF-API"."Trigger_per_lead_time";
-create or replace view "IBF-API"."Trigger_per_lead_time" as
-select *
-from "IBF-pipeline-output".dashboard_triggers_per_day
-;
---select * from "IBF-API"."Trigger_per_lead_time"
-
 --create API view for Glofas stations
 drop view if exists "IBF-API"."Glofas_stations";
 create or replace view "IBF-API"."Glofas_stations" as
