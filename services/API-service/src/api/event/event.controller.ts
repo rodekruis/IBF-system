@@ -20,7 +20,6 @@ export class EventController {
   public async closeEventPcode(
     @Body() eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
-    console.log('eventPlaceCodeDto: ', eventPlaceCodeDto);
     return await this.eventService.closeEventPcode(eventPlaceCodeDto);
   }
 }

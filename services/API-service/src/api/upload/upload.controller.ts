@@ -8,6 +8,7 @@ import {
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { UploadExposureDto } from './dto/upload-exposure.dto';
+import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { UploadService } from './upload.service';
 
 @ApiBearerAuth()
@@ -30,5 +31,20 @@ export class UploadController {
     @Body() placeCodeExposure: UploadExposureDto,
   ): Promise<void> {
     await this.uploadService.exposure(placeCodeExposure);
+  }
+
+  @UseGuards(RolesGuard)
+  @ApiOperation({
+    summary: 'Upload trigger per leadtime data',
+  })
+  @Post('triggers-per-leadtime')
+  @ApiConsumes()
+  @UseInterceptors()
+  public async uploadTriggersPerLeadTime(
+    @Body() uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
+  ): Promise<void> {
+    await this.uploadService.uploadTriggerPerLeadTime(
+      uploadTriggerPerLeadTimeDto,
+    );
   }
 }

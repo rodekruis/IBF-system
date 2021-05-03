@@ -7,6 +7,7 @@ import fs from 'fs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CalculatedAffectedEntity } from './calculated-affected.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 
 @Injectable()
 export class UploadService {
@@ -49,17 +50,28 @@ export class UploadService {
     uploadExposure: UploadExposureDto,
   ): Promise<void> {
     const trigger = this.isThereTrigger(uploadExposure.exposurePlaceCodes);
+
+    const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
+    uploadTriggerPerLeadTimeDto.countryCode = uploadExposure.countryCodeISO3;
+    uploadTriggerPerLeadTimeDto.leadTime = uploadExposure.leadTime as LeadTime;
+    uploadTriggerPerLeadTimeDto.triggered = trigger;
+    await this.uploadTriggerPerLeadTime(uploadTriggerPerLeadTimeDto);
+  }
+
+  public async uploadTriggerPerLeadTime(
+    uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
+  ): Promise<void> {
     // Delete duplicates
     await this.triggerPerLeadTimeRepository.delete({
       date: new Date(),
-      countryCode: uploadExposure.countryCodeISO3,
-      leadTime: uploadExposure.leadTime as LeadTime,
+      countryCode: uploadTriggerPerLeadTimeDto.countryCode,
+      leadTime: uploadTriggerPerLeadTimeDto.leadTime as LeadTime,
     });
     const triggerPerLeadTime = new TriggerPerLeadTime();
     triggerPerLeadTime.date = new Date();
-    triggerPerLeadTime.countryCode = uploadExposure.countryCodeISO3;
-    triggerPerLeadTime.leadTime = uploadExposure.leadTime as LeadTime;
-    triggerPerLeadTime.triggered = trigger;
+    triggerPerLeadTime.countryCode = uploadTriggerPerLeadTimeDto.countryCode;
+    triggerPerLeadTime.leadTime = uploadTriggerPerLeadTimeDto.leadTime as LeadTime;
+    triggerPerLeadTime.triggered = uploadTriggerPerLeadTimeDto.triggered;
     await this.triggerPerLeadTimeRepository.save(triggerPerLeadTime);
   }
 
