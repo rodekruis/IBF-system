@@ -16,6 +16,7 @@ import tarfile
 import time
 import cdsapi
 from lib.logging.logglySetup import logger
+from lib.pipeline.dynamicDataDb import DatabaseManager
 from settings import *
 from secrets import *
 
@@ -23,6 +24,7 @@ from secrets import *
 class GlofasData:
 
     def __init__(self, leadTimeLabel, leadTimeValue, country_code, glofas_stations, district_mapping):
+        self.db = DatabaseManager(leadTimeLabel, country_code)
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
         self.country_code = country_code
@@ -42,7 +44,7 @@ class GlofasData:
     def process(self):
         self.removeOldGlofasData()
         self.download()
-        if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia 
+        if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia
             self.extractFtpData()
         else:
             self.extractApiData()
@@ -63,13 +65,13 @@ class GlofasData:
 
         while downloadDone == False and time.time() < end:
             try:
-                if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia 
+                if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia
                     self.makeFtpRequest()
                 else:
                     self.makeApiRequest()
                 downloadDone = True
-            except:
-                error = 'Download data failed. Trying again in 10 minutes.'
+            except Exception as exception:
+                error = 'Download data failed. Trying again in {} minutes.\n{}'.format(timeToRetry//60, exception)
                 print(error)
                 logger.info(error)
                 time.sleep(timeToRetry)
@@ -83,31 +85,16 @@ class GlofasData:
         urllib.request.urlretrieve(ftp_path + filename,
                                    self.inputPath + filename)
 
-        tar = tarfile.open(self.inputPath + filename, "r:gz") 
+        tar = tarfile.open(self.inputPath + filename, "r:gz")
         tar.extractall(self.inputPath)
         tar.close()
 
     def makeApiRequest(self):
-        c = cdsapi.Client(key=GLOFAS_API_KEY,url=GLOFAS_API_URL)
-        r = c.retrieve(
-            'cems-glofas-forecast',
-            {
-                'system_version': 'version_2_1',
-                'product_type': 'ensemble_perturbed_forecasts',
-                'variable': 'river_discharge_in_the_last_24_hours',
-                'format': 'netcdf',
-                'year': str("{:04d}".format(CURRENT_DATE.year)),
-                'month': str("{:02d}".format(CURRENT_DATE.month)), 
-                'day':str("{:02d}".format(CURRENT_DATE.day)),
-                'leadtime_hour': [
-                    '24', '48', '72',
-                    '96', '120', '144',
-                    '168',
-                ],
-                'area': SETTINGS[self.country_code]['bounding_box'],
-                'hydrological_model': 'htessel_lisflood',
-            },
-            self.inputPath+'glofas-api-'+self.country_code+'-'+self.current_date+'.nc')
+        path = 'glofas/glofas-forecast-' + self.current_date.replace('-','') + '.nc'
+        glofasDataFile = self.db.getDataFromDatalake(path)
+        if glofasDataFile.status_code >= 400:
+            raise ValueError()
+        open(self.inputPath+'glofas-api-'+self.country_code+'-'+self.current_date+'.nc', 'wb').write(glofasDataFile.content)
 
     def extractFtpData(self):
         print('\nExtracting FTP Glofas Data\n')
@@ -231,7 +218,7 @@ class GlofasData:
             '6-day': False,
             '7-day': False,
         }
-        
+
         # Load netCDF data
         ncData = xr.open_dataset(self.inputPath+'glofas-api-'+self.country_code+'-'+self.current_date+'.nc')
 
@@ -255,7 +242,7 @@ class GlofasData:
                 print(station['code'])
                 threshold = df_thresholds[df_thresholds['stationCode'] ==
                                           station['code']][TRIGGER_LEVEL][0]
-                
+
                 for step in range(1, 8):
                     # Loop through 51 ensembles, get forecast and compare to threshold
                     ensemble_options = 51
@@ -277,7 +264,7 @@ class GlofasData:
                                     discharge = 0
                                 elif station['code'] == 'DWRM1':  # UGA dummy flood station 1
                                     discharge = 1000
-                                elif station['code'] == 'G1067':  # ETH dummy flood station 1 
+                                elif station['code'] == 'G1067':  # ETH dummy flood station 1
                                     discharge = 1000
                                 elif station['code'] == 'G1904':  # ETH dummy flood station 2
                                     discharge = 2000
