@@ -1,3 +1,13 @@
+## [0.59.1](https://github.com/rodekruis/IBF-system/compare/v0.59.0...v0.59.1) (2021-05-03)
+
+
+### Bug Fixes
+
+* don't try download if mock AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([79699ab](https://github.com/rodekruis/IBF-system/commit/79699abe2123bc87300a04098e0f8ca518b2e109))
+* remove changes other open branch AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([bfdc3c2](https://github.com/rodekruis/IBF-system/commit/bfdc3c21f769b280e46e3dbd774e632550c5c44f))
+
+
+
 # [0.59.0](https://github.com/rodekruis/IBF-system/compare/v0.58.1...v0.59.0) (2021-05-03)
 
 
@@ -115,15 +125,6 @@
 ### Bug Fixes
 
 * show indicator for stage environment AB[#7065](https://github.com/rodekruis/IBF-system/issues/7065) ([ab72fc6](https://github.com/rodekruis/IBF-system/commit/ab72fc667a3f9aae4f217e049336d87157625b24))
-
-
-
-## [0.56.1](https://github.com/rodekruis/IBF-system/compare/v0.56.0...v0.56.1) (2021-04-13)
-
-
-### Bug Fixes
-
-* update URCS logo AB[#7050](https://github.com/rodekruis/IBF-system/issues/7050) ([b854bdb](https://github.com/rodekruis/IBF-system/commit/b854bdb6d47434ce0b206c24d9e2bf9c43eafab0))
 
 
 
