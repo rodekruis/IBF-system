@@ -1,3 +1,37 @@
+# [0.58.0](https://github.com/rodekruis/IBF-system/compare/v0.57.4...v0.58.0) (2021-05-03)
+
+
+### Bug Fixes
+
+* AB[#6892](https://github.com/rodekruis/IBF-system/issues/6892) updated readme on adding a country ([f951e78](https://github.com/rodekruis/IBF-system/commit/f951e783d992685ebf58c2b0dedcbd56d4677dcf))
+* Add month lead time to fronted AB[#6956](https://github.com/rodekruis/IBF-system/issues/6956) ([dbd2d70](https://github.com/rodekruis/IBF-system/commit/dbd2d7086658425991a34f91c82c4d40beb1d333))
+* bug where events did not close AB[#7200](https://github.com/rodekruis/IBF-system/issues/7200) ([7368edd](https://github.com/rodekruis/IBF-system/commit/7368edd44c14b9e51fbe27f695bb196f77a796cd))
+* correct timelineButton.alert for day leadTimes AB[#7421](https://github.com/rodekruis/IBF-system/issues/7421) ([ac48d2b](https://github.com/rodekruis/IBF-system/commit/ac48d2b0355d12f4aaa43e23b008ea83a2f38eb8))
+* lint ([442f746](https://github.com/rodekruis/IBF-system/commit/442f746d03e0c38d6d1f468fd1ba71af27b22956))
+* lint ([a6bf0da](https://github.com/rodekruis/IBF-system/commit/a6bf0da3113395eef27c2cef284a0581026250de))
+* only run pipeline for countries in settings.py AB[#7418](https://github.com/rodekruis/IBF-system/issues/7418) ([ffc6999](https://github.com/rodekruis/IBF-system/commit/ffc6999b7c1e9b114b9005b00901a0f555ecaaf4))
+* re-add geoserver layer manually AB[#7419](https://github.com/rodekruis/IBF-system/issues/7419) ([49bf3c5](https://github.com/rodekruis/IBF-system/commit/49bf3c575ee6171254d33b5d00a8867b79b4e256))
+* Remove non-working folder name ([823891b](https://github.com/rodekruis/IBF-system/commit/823891b8535cf095d011aae58c283425feabdf2f))
+* Replace hazard model by disastertype ([e7d1280](https://github.com/rodekruis/IBF-system/commit/e7d1280b4e7647030fc22ceb4816ca0a4e6b9e5f))
+* Replace hazard model by disastertype ([43c5f38](https://github.com/rodekruis/IBF-system/commit/43c5f382de8c4aa16d62ec3b45834f639eddb7d6))
+* resolve merge conflict ([defdfc7](https://github.com/rodekruis/IBF-system/commit/defdfc7dc5f7a1c836134fcaf22e394630aeb36e))
+* small sql-change needed AB[#7419](https://github.com/rodekruis/IBF-system/issues/7419) ([eddc096](https://github.com/rodekruis/IBF-system/commit/eddc096af66e1f74aa51e04a31db3acb7dffe6b0))
+* tests ([6a258af](https://github.com/rodekruis/IBF-system/commit/6a258af46493e0138b177239915ae3f19f52e21c))
+* under 9 layer from PHL to UGA AB[#7421](https://github.com/rodekruis/IBF-system/issues/7421) ([072a57b](https://github.com/rodekruis/IBF-system/commit/072a57bcb9710e2e0a97f73c8f4dcc460031027a))
+
+
+### Features
+
+* AB[#6891](https://github.com/rodekruis/IBF-system/issues/6891) added minimum version of PHL ([2faabee](https://github.com/rodekruis/IBF-system/commit/2faabee817229e6c3253bedeeb1defe863824c4e))
+* AB[#6902](https://github.com/rodekruis/IBF-system/issues/6902) AB[#6911](https://github.com/rodekruis/IBF-system/issues/6911) Created endpoint that accept data from era pipeline ([f9ba5e7](https://github.com/rodekruis/IBF-system/commit/f9ba5e791414da2a844a949260623f09c1cecb89))
+* AB[#6924](https://github.com/rodekruis/IBF-system/issues/6924) Delete duplicate exposure data ([49e7050](https://github.com/rodekruis/IBF-system/commit/49e705061380fd3a69708496747deeca015b1b50))
+* AB[#7039](https://github.com/rodekruis/IBF-system/issues/7039) Trigger per lead time month ([2493898](https://github.com/rodekruis/IBF-system/commit/2493898553079b5e324d97fca4d47348377a684b))
+* Add months as leadtime and disastertype  in backend AB[#6949](https://github.com/rodekruis/IBF-system/issues/6949) AB[#6954](https://github.com/rodekruis/IBF-system/issues/6954) ([d55ec99](https://github.com/rodekruis/IBF-system/commit/d55ec99f5b034b95339e918c886367194437d1e1))
+* set default leadtime for get admin-areas in backend AB[#7199](https://github.com/rodekruis/IBF-system/issues/7199) ([402ce0c](https://github.com/rodekruis/IBF-system/commit/402ce0ce40cc526c95b9c3d09c0763f4b6ed13fd))
+* set default leadtime for get admin-areas in backend AB[#7199](https://github.com/rodekruis/IBF-system/issues/7199) ([fb73a10](https://github.com/rodekruis/IBF-system/commit/fb73a10898688703cdc802dcfc5aca455818b236))
+
+
+
 ## [0.57.4](https://github.com/rodekruis/IBF-system/compare/v0.57.3...v0.57.4) (2021-04-26)
 
 
@@ -87,15 +121,6 @@
 ### Features
 
 * also show unavailable branch-properties AB[#6985](https://github.com/rodekruis/IBF-system/issues/6985) ([259a446](https://github.com/rodekruis/IBF-system/commit/259a4467296fc3d5ef20e59680c01fb73c756c40))
-
-
-
-## [0.54.1](https://github.com/rodekruis/IBF-system/compare/v0.54.0...v0.54.1) (2021-04-09)
-
-
-### Bug Fixes
-
-* correct test-code ([46b36b5](https://github.com/rodekruis/IBF-system/commit/46b36b55eaafd8f76976af2d6a43e1a8b1e1d13b))
 
 
 
