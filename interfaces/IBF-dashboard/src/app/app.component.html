@@ -2,15 +2,5 @@
   <div class="loader" *ngIf="loading">
     <ion-spinner color="light"></ion-spinner>
   </div>
-  <ion-content>
-    <ion-router-outlet></ion-router-outlet>
-  </ion-content>
-  <ion-footer
-    class="ion-no-border ion-text-center"
-    *ngIf="environmentConfiguration === 'stage'"
-  >
-    <ion-toolbar color="ibf-salmon">
-      <ion-title>{{ environmentConfiguration }}</ion-title>
-    </ion-toolbar>
-  </ion-footer>
+  <ion-router-outlet></ion-router-outlet>
 </ion-app>

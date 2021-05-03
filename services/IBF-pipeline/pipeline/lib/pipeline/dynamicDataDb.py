@@ -59,7 +59,8 @@ class DatabaseManager:
             logger.info(e)
 
         # Append new data for current date, lead_time and country_code
-        df.to_sql(table, self.engine, if_exists='append', schema=SCHEMA_NAME)
+        df.to_sql(table, self.engine, index=False,
+                  if_exists='append', schema=SCHEMA_NAME)
         print(table+' uploaded')
 
     def processDynamicDataDb(self):
@@ -103,7 +104,7 @@ class DatabaseManager:
             sql = "SELECT * FROM \""+schema+"\".\""+table+"\""
             if country_code != None:
                 sql = sql + " WHERE \"countryCode\"=\'"+self.country_code+"\'"
-            admin_gdf = gpd.read_postgis(sql,self.con)
+            admin_gdf = gpd.read_postgis(sql, self.con)
         except psycopg2.ProgrammingError as e:
             logger.info(e)
 

@@ -22,3 +22,8 @@ export class Waterpoint {
   type: string;
   reportDate: string;
 }
+
+export class HealthSite {
+  name: string;
+  type: number;
+}

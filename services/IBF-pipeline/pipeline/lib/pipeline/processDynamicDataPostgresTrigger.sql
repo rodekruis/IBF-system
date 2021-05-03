@@ -12,15 +12,18 @@ CREATE TABLE if not exists "IBF-pipeline-output".dashboard_triggers_per_day (
     "4" int8 NULL,
     "5" int8 NULL,
     "6" int8 NULL,
-    "7" int8 NULL
+    "7" int8 NULL,
+    "1-m" int8 NULL,
+    "2-m" int8 NULL,
+    "3-m" int8 NULL
 );
 truncate table "IBF-pipeline-output".dashboard_triggers_per_day;
 delete from "IBF-pipeline-output".triggers_per_day
 where country_code = 'EGY'
     and to_date(cast(date as TEXT), 'yyyy-mm-dd') = current_date;
 insert into "IBF-pipeline-output".triggers_per_day
-select 0,
-    0 --day1
+select 
+	0 --day1
 ,
     0 --day2
 ,
@@ -79,6 +82,7 @@ select 0,
         order by date desc
         limit 1
     ) date, 'EGY';
+   
 truncate table "IBF-pipeline-output".dashboard_triggers_per_day;
 insert into "IBF-pipeline-output".dashboard_triggers_per_day
 select tpd.country_code,
