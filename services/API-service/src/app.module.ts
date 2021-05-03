@@ -12,7 +12,7 @@ import { EventModule } from './api/event/event.module';
 import { MetadataModule } from './api/metadata/metadata.module';
 import { AdminAreaModule } from './api/admin-area/admin-area.module';
 import { GlofasStationModule } from './api/glofas-station/glofas-station.module';
-import { AdminAreaDynamicDataModule } from './api/upload/admin-area-dynamic-data.module';
+import { AdminAreaDynamicDataModule } from './api/admin-area-dynamic-data/admin-area-dynamic-data.module';
 import { DisasterModule } from './api/disaster/disaster.module';
 import { RedcrossBranchModule } from './api/redcross-branch/redcross-branch.module';
 import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.module';

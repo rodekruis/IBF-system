@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
 import { DataService } from './data.service';
 import { UserModule } from '../user/user.module';
-import { TriggerPerLeadTime } from '../upload/trigger-per-lead-time.entity';
+import { TriggerPerLeadTime } from '../admin-area-dynamic-data/trigger-per-lead-time.entity';
 
 @Module({
   imports: [
