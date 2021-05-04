@@ -7,13 +7,13 @@ describe("Export Button", () => {
         cy.login();
     });
 
-    it("loads", function () {
+    it("loads", () => {
         cy.get(selectors.exportViewButton)
             .should("be.visible")
             .should("not.be.disabled");
     });
 
-    it("opens popup", function () {
+    it("opens popup", () => {
         cy.get(selectors.exportViewButton).click();
         cy.waitForAngular();
         cy.get(selectors.exportViewPopover).should("be.visible");
