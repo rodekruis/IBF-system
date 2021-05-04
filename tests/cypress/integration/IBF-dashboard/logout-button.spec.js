@@ -4,7 +4,7 @@ import constants from "../../support/constants";
 // test logout button
 describe("Logout Button", () => {
     beforeEach(() => {
-        cy.login("uga");
+        cy.login();
     });
 
     it("loads", function () {
