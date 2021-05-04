@@ -18,5 +18,6 @@ import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
   ],
   controllers: [AdminAreaDynamicDataController],
   providers: [AdminAreaDynamicDataService],
+  exports: [AdminAreaDynamicDataService],
 })
 export class AdminAreaDynamicDataModule {}

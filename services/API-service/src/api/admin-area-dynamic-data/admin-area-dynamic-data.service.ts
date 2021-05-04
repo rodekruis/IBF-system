@@ -8,6 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CalculatedAffectedEntity } from './calculated-affected.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
+import { ExposureUnit } from './enum/exposure-unit';
+import { DynamicDataReturnDto } from './dto/dynamic-data-return.dto';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -19,7 +21,7 @@ export class AdminAreaDynamicDataService {
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
 
   @InjectRepository(AdminAreaDynamicDataEntity)
-  private readonly adminAreaDynamicDataEntity: Repository<
+  private readonly adminAreaDynamicDataRepo: Repository<
     AdminAreaDynamicDataEntity
   >;
   private manager: EntityManager;
@@ -51,7 +53,7 @@ export class AdminAreaDynamicDataService {
         await this.insertTrigger(uploadExposure);
       }
     } else {
-      await this.adminAreaDynamicDataEntity.delete({
+      await this.adminAreaDynamicDataRepo.delete({
         key: uploadExposure.exposureUnit,
         date: new Date(),
         countryCode: uploadExposure.countryCodeISO3,
@@ -66,7 +68,7 @@ export class AdminAreaDynamicDataService {
         area.date = new Date();
         area.countryCode = uploadExposure.countryCodeISO3;
         area.leadTime = uploadExposure.leadTime;
-        this.adminAreaDynamicDataEntity.save(area);
+        this.adminAreaDynamicDataRepo.save(area);
       }
     }
     await this.processExposure();
@@ -112,5 +114,27 @@ export class AdminAreaDynamicDataService {
       const q = fs.readFileSync(sqlPath).toString();
       await this.manager.query(q);
     }
+  }
+
+  public async getAdminAreaDynamicData(
+    countryCode: string,
+    adminLevel: string,
+    leadTime: LeadTime,
+    key: ExposureUnit,
+  ): Promise<DynamicDataReturnDto[]> {
+    const result = await this.adminAreaDynamicDataRepo
+      .createQueryBuilder('admin_area_dynamic_data')
+      .where({
+        countryCode: countryCode,
+        adminLevel: Number(adminLevel),
+        leadTime: leadTime,
+        key: key,
+      })
+      .select([
+        'admin_area_dynamic_data.value AS value',
+        'admin_area_dynamic_data.placeCode AS placecode',
+      ])
+      .execute();
+    return result;
   }
 }
