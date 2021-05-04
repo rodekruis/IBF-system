@@ -7,11 +7,11 @@ describe("Logout Button", () => {
         cy.login();
     });
 
-    it("loads", function () {
+    it("loads", () => {
         cy.get(selectors.logOut).should("be.visible").should("not.be.disabled");
     });
 
-    it("logs out", function () {
+    it("logs out", () => {
         cy.get(selectors.logOut).click();
         cy.url().should((url) => {
             expect(url).to.match(
