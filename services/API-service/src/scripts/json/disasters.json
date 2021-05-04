@@ -1,0 +1,14 @@
+[
+  {
+    "disasterType": "floods",
+    "label": "floods"
+  },
+  {
+    "disasterType": "heavy-rain",
+    "label": "heavy rain"
+  },
+  {
+    "disasterType": "dengue",
+    "label": "dengue"
+  }
+]

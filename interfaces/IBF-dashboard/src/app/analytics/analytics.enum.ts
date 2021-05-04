@@ -16,6 +16,7 @@ export enum AnalyticsEvent {
   eapSubmit = 'eap-submit',
   waterPoint = 'water-point',
   redCrossBranch = 'red-cross-branch',
+  healthSite = 'health-site',
   mapMarker = 'map-marker',
   glofasStation = 'glofas-station',
   mapPlaceSelect = 'map-place-select',

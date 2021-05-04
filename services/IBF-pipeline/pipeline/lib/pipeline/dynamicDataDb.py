@@ -7,7 +7,7 @@ import geopandas as gpd
 from lib.logging.logglySetup import logger
 from lib.setup.setupConnection import get_db
 from settings import *
-from secrets import DB_SETTINGS, ADMIN_LOGIN, ADMIN_PASSWORD
+from secrets import DB_SETTINGS, ADMIN_LOGIN, ADMIN_PASSWORD, DATALAKE_STORAGE_ACCOUNT_NAME, DATALAKE_STORAGE_ACCOUNT_KEY, DATALAKE_API_VERSION
 
 
 class DatabaseManager:
@@ -17,7 +17,6 @@ class DatabaseManager:
     def __init__(self, leadTimeLabel, country_code):
         self.country_code = country_code
         self.leadTimeLabel = leadTimeLabel
-        # Create connections (in 2 different ways for now)
         self.engine = create_engine(
             'postgresql://'+DB_SETTINGS['user']+':'+DB_SETTINGS['password']+'@'+DB_SETTINGS['host']+':'+DB_SETTINGS['port']+'/'+DB_SETTINGS['db'])
         triggerFolder = PIPELINE_OUTPUT + "triggers_rp_per_station/"
@@ -60,7 +59,8 @@ class DatabaseManager:
             logger.info(e)
 
         # Append new data for current date, lead_time and country_code
-        df.to_sql(table, self.engine, if_exists='append', schema=SCHEMA_NAME)
+        df.to_sql(table, self.engine, index=False,
+                  if_exists='append', schema=SCHEMA_NAME)
         print(table+' uploaded')
 
     def processDynamicDataDb(self):
@@ -91,30 +91,12 @@ class DatabaseManager:
     def apiGetRequest(self, path, country_code):
         import requests
 
-        login_response = requests.post('http://12.0.0.8:3000/api/user/login', data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
+        login_response = requests.post(API_LOGIN_URL, data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
         TOKEN = login_response.json()['user']['token']
 
-        response = requests.get('http://12.0.0.8:3000/api/'+path+'/'+country_code,headers={'Authorization': 'Bearer ' + TOKEN})
+        response = requests.get(API_SERVICE_URL + path + '/' + country_code, headers={'Authorization': 'Bearer ' + TOKEN})
         data = response.json()
         return(data)
-
-    def downloadDataFromDb(self, schema, table, country_code=None):
-        try:
-            self.con, self.cur, self.db = get_db()
-            sql = "SELECT * FROM \""+schema+"\".\""+table+"\""
-            if country_code != None:
-                sql = sql + " WHERE country_code=\'"+self.country_code+"\'"
-            self.cur.execute(sql)
-            data = self.cur.fetchall()
-            self.cur.execute("SELECT * FROM \""+schema +
-                             "\".\""+table+"\" LIMIT 0")
-            colnames = [desc[0] for desc in self.cur.description]
-            self.con.commit()
-            self.con.close()
-        except psycopg2.ProgrammingError as e:
-            logger.info(e)
-
-        return data, colnames
 
     def downloadGeoDataFromDb(self, schema, table, country_code=None):
         try:
@@ -122,8 +104,62 @@ class DatabaseManager:
             sql = "SELECT * FROM \""+schema+"\".\""+table+"\""
             if country_code != None:
                 sql = sql + " WHERE \"countryCode\"=\'"+self.country_code+"\'"
-            admin_gdf = gpd.read_postgis(sql,self.con)
+            admin_gdf = gpd.read_postgis(sql, self.con)
         except psycopg2.ProgrammingError as e:
             logger.info(e)
 
         return admin_gdf
+    
+    def getDataFromDatalake(self, path):
+        import requests
+        import datetime
+        import hmac
+        import hashlib
+        import base64
+
+        
+        request_time = datetime.datetime.utcnow().strftime('%a, %d %b %Y %H:%M:%S GMT')
+        file_system_name ='ibf/' + path
+        print('Downloading from datalake: ', file_system_name)
+
+        string_params = {
+            'verb': 'GET',
+            'Content-Encoding': '',
+            'Content-Language': '',
+            'Content-Length': '',
+            'Content-MD5': '',
+            'Content-Type': '',
+            'Date': '',
+            'If-Modified-Since': '',
+            'If-Match': '',
+            'If-None-Match': '',
+            'If-Unmodified-Since': '',
+            'Range': '',
+            'CanonicalizedHeaders': 'x-ms-date:' + request_time + '\nx-ms-version:' + DATALAKE_API_VERSION,
+            'CanonicalizedResource': '/' + DATALAKE_STORAGE_ACCOUNT_NAME+'/'+file_system_name
+            }
+        
+        string_to_sign = (string_params['verb'] + '\n' 
+                        + string_params['Content-Encoding'] + '\n'
+                        + string_params['Content-Language'] + '\n'
+                        + string_params['Content-Length'] + '\n'
+                        + string_params['Content-MD5'] + '\n' 
+                        + string_params['Content-Type'] + '\n' 
+                        + string_params['Date'] + '\n' 
+                        + string_params['If-Modified-Since'] + '\n'
+                        + string_params['If-Match'] + '\n'
+                        + string_params['If-None-Match'] + '\n'
+                        + string_params['If-Unmodified-Since'] + '\n'
+                        + string_params['Range'] + '\n'
+                        + string_params['CanonicalizedHeaders']+'\n'
+                        + string_params['CanonicalizedResource'])
+        
+        signed_string = base64.b64encode(hmac.new(base64.b64decode(DATALAKE_STORAGE_ACCOUNT_KEY), msg=string_to_sign.encode('utf-8'), digestmod=hashlib.sha256).digest()).decode()
+        headers = {
+            'x-ms-date' : request_time,
+            'x-ms-version' : DATALAKE_API_VERSION,
+            'Authorization' : ('SharedKey ' + DATALAKE_STORAGE_ACCOUNT_NAME + ':' + signed_string)
+        }
+        url = ('https://' + DATALAKE_STORAGE_ACCOUNT_NAME + '.dfs.core.windows.net/'+file_system_name)
+        r = requests.get(url, headers = headers)
+        return r

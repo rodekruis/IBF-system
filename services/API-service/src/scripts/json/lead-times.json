@@ -2,36 +2,78 @@
   {
     "leadTimeName": "1-day",
     "leadTimeLabel": "1-day",
-    "leadTimeStatus": "inactive"
+    "disasterTypes": [
+      "heavy-rain",
+      "floods"
+    ]
   },
   {
     "leadTimeName": "2-day",
     "leadTimeLabel": "2-day",
-    "leadTimeStatus": "inactive"
+    "disasterTypes": [
+      "heavy-rain",
+      "floods"
+    ]
   },
   {
     "leadTimeName": "3-day",
     "leadTimeLabel": "3-day",
-    "leadTimeStatus": "active"
+    "disasterTypes": [
+      "heavy-rain",
+      "floods"
+    ]
   },
   {
     "leadTimeName": "4-day",
     "leadTimeLabel": "4-day",
-    "leadTimeStatus": "inactive"
+    "disasterTypes": [
+      "heavy-rain",
+      "floods"
+    ]
   },
   {
     "leadTimeName": "5-day",
     "leadTimeLabel": "5-day",
-    "leadTimeStatus": "inactive"
+    "disasterTypes": [
+      "heavy-rain",
+      "floods"
+    ]
   },
   {
     "leadTimeName": "6-day",
     "leadTimeLabel": "6-day",
-    "leadTimeStatus": "inactive"
+    "disasterTypes": [
+      "heavy-rain",
+      "floods"
+    ]
   },
   {
     "leadTimeName": "7-day",
     "leadTimeLabel": "7-day",
-    "leadTimeStatus": "active"
+    "disasterTypes": [
+      "heavy-rain",
+      "floods"
+    ]
+  },
+  {
+    "leadTimeName": "1-month",
+    "leadTimeLabel": "1-month",
+    "disasterTypes": [
+      "dengue"
+    ]
+  },
+  {
+    "leadTimeName": "2-month",
+    "leadTimeLabel": "2-month",
+    "disasterTypes": [
+      "dengue"
+    ]
+  },
+  {
+    "leadTimeName": "3-month",
+    "leadTimeLabel": "3-month",
+    "disasterTypes": [
+      "dengue"
+    ]
   }
 ]

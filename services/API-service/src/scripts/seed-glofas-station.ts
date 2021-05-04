@@ -1,3 +1,4 @@
+import { DisasterType } from './../api/disaster/disaster-type.enum';
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
@@ -31,7 +32,7 @@ export class SeedGlofasStation implements InterfaceScript {
         (country): Promise<void> => {
           if (
             envCountries.includes(country.countryCodeISO3) &&
-            country.glofasStationInput
+            country.disasterType === DisasterType.Floods
           ) {
             return this.seedCountryGlofasStations(country);
           } else {
@@ -88,8 +89,7 @@ export class SeedGlofasStation implements InterfaceScript {
                 geom: (): string =>
                   `st_MakePoint(${station['lon']}, ${station['lat']})`,
               })
-              .execute()
-              .catch(console.error);
+              .execute();
           } else {
             return Promise.resolve();
           }

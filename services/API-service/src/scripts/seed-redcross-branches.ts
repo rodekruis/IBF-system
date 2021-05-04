@@ -50,16 +50,15 @@ export class SeedRedcrossBranches implements InterfaceScript {
               .insert()
               .values({
                 countryCode: country.countryCodeISO3,
-                name: branch['BRANCH'],
-                numberOfVolunteers: branch['TOTAL'],
-                contactPerson: branch['PRESIDENT'],
-                contactAddress: branch['LOCATION OF OFFICE'],
-                contactNumber: null,
+                name: branch['branch_name'],
+                numberOfVolunteers: branch['number_of_volunteers'],
+                contactPerson: branch['contact_person'],
+                contactAddress: branch['contact_address'],
+                contactNumber: branch['contact_number'],
                 geom: (): string =>
                   `st_MakePoint(${branch['lon']}, ${branch['lat']})`,
               })
-              .execute()
-              .catch(console.error);
+              .execute();
           },
         ),
       );
