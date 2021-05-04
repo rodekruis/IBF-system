@@ -4,4 +4,6 @@ export default {
     inputPassword: "[data-test='input-password'] input",
     inputSubmit: "[data-test='login-button']",
     logOut: "[data-test='logout-button']",
+    userDisplayNameLabel: "[data-test='user-display-name-label']",
+    userDisplayName: "[data-test='user-display-name']",
 };

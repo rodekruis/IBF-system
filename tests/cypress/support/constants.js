@@ -4,6 +4,7 @@ export default {
     envLoginUser: "LOGIN_USER",
     envLoginPassword: "LOGIN_PASSWORD",
     loginToken: "jwt",
+    userDisplayNameLabelText: "Logged In As:",
     loginPagePath: "/login",
     loginApiUrl: "/user/login",
     dashboardPagePath: "/",
