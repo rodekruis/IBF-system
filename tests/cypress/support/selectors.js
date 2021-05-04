@@ -3,5 +3,5 @@ export default {
     inputUser: "[data-test='input-user'] input",
     inputPassword: "[data-test='input-password'] input",
     inputSubmit: "[data-test='login-button']",
-    loggedInAs: "[data-test=logged-in-as]",
+    logOut: "[data-test='logout-button']",
 };

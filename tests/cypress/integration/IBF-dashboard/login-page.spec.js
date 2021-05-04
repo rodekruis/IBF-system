@@ -1,14 +1,14 @@
 import selectors from "../../support/selectors";
 import constants from "../../support/constants";
 
-// test login.page behaviour
+// test login
 describe("Login Page", () => {
     beforeEach(() => {
         cy.visit(constants.loginPagePath);
     });
 
     it("loads", function () {
-        cy.url().should(url => {
+        cy.url().should((url) => {
             expect(url).to.match(
                 new RegExp(
                     "^" +
@@ -20,25 +20,19 @@ describe("Login Page", () => {
             expect(localStorage.getItem(constants.loginToken)).not.to.exist;
         });
 
-        cy.get(selectors.pageTitle).should(element => {
-            expect(element).to.be.visible;
-            expect(element).to.contain(constants.loginPageTitle);
-        });
+        cy.get(selectors.pageTitle)
+            .should("be.visible")
+            .contains(constants.loginPageTitle);
 
-        cy.get(selectors.inputUser).should(element => {
-            expect(element).to.be.visible;
-            expect(element).to.be.enabled;
-        });
+        cy.get(selectors.inputUser).should("be.visible").should("be.enabled");
 
-        cy.get(selectors.inputPassword).should(element => {
-            expect(element).to.be.visible;
-            expect(element).to.be.enabled;
-        });
+        cy.get(selectors.inputPassword)
+            .should("be.visible")
+            .should("be.enabled");
 
-        cy.get(selectors.inputSubmit).should(element => {
-            expect(element).to.be.visible;
-            expect(element).not.to.be.enabled;
-        });
+        cy.get(selectors.inputSubmit)
+            .should("be.visible")
+            .should("not.be.disabled");
     });
 
     it("allows login", function () {
@@ -48,7 +42,7 @@ describe("Login Page", () => {
         );
         cy.get(selectors.inputSubmit).click();
 
-        cy.url().should(url => {
+        cy.url().should((url) => {
             expect(url).to.match(
                 new RegExp(
                     "^" +
@@ -58,12 +52,6 @@ describe("Login Page", () => {
                 )
             );
             expect(localStorage.getItem(constants.loginToken)).to.exist;
-        });
-
-        // move to dashboard page
-        cy.get(selectors.loggedInAs).should(element => {
-            expect(element).to.be.visible;
-            expect(element).contain(constants.loggedInAs);
         });
     });
 });
