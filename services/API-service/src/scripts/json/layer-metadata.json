@@ -18,7 +18,7 @@
     "active": "yes"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY",
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
     "name": "population",
     "label": "Population",
     "type": "wms",
@@ -69,6 +69,14 @@
     "active": "no"
   },
   {
+    "country_codes": "PHL",
+    "name": "health_sites",
+    "label": "Health Sites",
+    "type": "point",
+    "leadTimeDependent": false,
+    "active": "no"
+  },
+  {
     "country_codes": "UGA,ZMB,KEN,ETH",
     "name": "waterpoints",
     "label": "Waterpoints",
@@ -86,7 +94,7 @@
     "active": "no"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY",
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
     "name": "admin_regions",
     "label": "Admin Regions",
     "type": "shape",

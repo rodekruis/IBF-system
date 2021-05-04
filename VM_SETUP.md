@@ -101,7 +101,7 @@
         2. `data.zip` into `services/IBF-pipeline/pipeline/data/`
     3. You can verify that the pipeline runs correctly by going into the
        container (`docker-compose exec ibf-pipeline bash`) and running
-       `python3 runCron.py`
+       `python3 runPipeline.py`
     4. The pipeline will run automatically every day through a cron job, which
        requires no additional set-up.
 5. Verify if the geoserver is set up correctly.

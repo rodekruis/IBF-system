@@ -131,10 +131,12 @@ export class MapService {
   private getPopoverText(indicatorName: IbfLayerName): string {
     let popoverText = '';
     if (this.popoverTexts[indicatorName]) {
-      const triggerState: string = this.eventService.state.activeTrigger
-        ? `active-trigger-${this.eventService.disasterType}`
-        : 'no-trigger';
-      popoverText = this.popoverTexts[indicatorName][triggerState];
+      const countryCodeToUse = this.popoverTexts[indicatorName][
+        this.country.countryCodeISO3
+      ]
+        ? this.country.countryCodeISO3
+        : 'UGA';
+      popoverText = this.popoverTexts[indicatorName][countryCodeToUse];
     }
     return popoverText;
   }
@@ -170,6 +172,8 @@ export class MapService {
         this.loadRedCrossBranchesLayer(layer.label, layerActive);
       } else if (layer.name === IbfLayerName.waterpoints) {
         this.loadWaterPointsLayer(layerActive);
+      } else if (layer.name === IbfLayerName.healthSites) {
+        this.loadHealthSites(layerActive);
       }
     });
   };
@@ -240,6 +244,35 @@ export class MapService {
       active: false,
       show: true,
       data: redCrossBranches,
+      viewCenter: false,
+      order: 1,
+    });
+  };
+
+  private loadHealthSites = (layerActive: boolean) => {
+    if (this.country) {
+      if (layerActive) {
+        this.apiService
+          .getHealthSites(this.country.countryCodeISO3)
+          .subscribe((healthSites) => {
+            console.log('healthSites: sbuscribe ', healthSites);
+            this.addHealthSites(healthSites);
+          });
+      } else {
+        this.addHealthSites(null);
+      }
+    }
+  };
+
+  private addHealthSites = (healthSites: any) => {
+    this.addLayer({
+      name: IbfLayerName.healthSites,
+      label: IbfLayerLabel.healthSites,
+      type: IbfLayerType.point,
+      description: this.getPopoverText(IbfLayerName.healthSites),
+      active: false,
+      show: true,
+      data: healthSites,
       viewCenter: false,
       order: 1,
     });
@@ -504,6 +537,10 @@ export class MapService {
     ) {
       layerData = this.apiService
         .getRedCrossBranches(this.country.countryCodeISO3)
+        .pipe(shareReplay(1));
+    } else if (layer.name === IbfLayerName.healthSites) {
+      layerData = this.apiService
+        .getHealthSites(this.country.countryCodeISO3)
         .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.glofasStations) {
       layerData = this.apiService

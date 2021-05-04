@@ -12,8 +12,12 @@ import { EventModule } from './api/event/event.module';
 import { MetadataModule } from './api/metadata/metadata.module';
 import { AdminAreaModule } from './api/admin-area/admin-area.module';
 import { GlofasStationModule } from './api/glofas-station/glofas-station.module';
+import { UploadModule } from './api/upload/upload.module';
+import { DisasterModule } from './api/disaster/disaster.module';
 import { RedcrossBranchModule } from './api/redcross-branch/redcross-branch.module';
 import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.module';
+import { HealthSiteModule } from './api/health-site/health-site.module';
+import { RainfallTriggersModule } from './api/rainfall-triggers/rainfall-triggers.module';
 
 @Module({
   imports: [
@@ -29,8 +33,12 @@ import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.modul
     MetadataModule,
     AdminAreaModule,
     GlofasStationModule,
+    UploadModule,
+    DisasterModule,
     RedcrossBranchModule,
+    HealthSiteModule,
     AdminAreaDataModule,
+    RainfallTriggersModule,
   ],
   controllers: [AppController],
   providers: [],

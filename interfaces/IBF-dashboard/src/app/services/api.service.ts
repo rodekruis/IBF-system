@@ -108,7 +108,7 @@ export class ApiService {
     return this.get('country', false).pipe(
       map((countries) => {
         return countries.map((country) => {
-          country.countryLeadTimes = country.countryLeadTimes.map(
+          country.countryActiveLeadTimes = country.countryActiveLeadTimes.map(
             (leadTime) => leadTime.leadTimeName,
           );
           return country;
@@ -128,6 +128,12 @@ export class ApiService {
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(`red-cross-branches/${countryCodeISO3}`, false);
+  }
+
+  getHealthSites(
+    countryCodeISO3: string,
+  ): Observable<GeoJSON.FeatureCollection> {
+    return this.get(`health-sites/${countryCodeISO3}`, false);
   }
 
   getWaterPoints(
@@ -150,11 +156,12 @@ export class ApiService {
 
   getAdminRegions(
     countryCodeISO3: string,
-    leadTime: LeadTime = LeadTime.day7,
+    leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adm1,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
-      `admin-area-data/${countryCodeISO3}/${adminLevel}/${leadTime}`,
+      `admin-area-data/${countryCodeISO3}/${adminLevel}/` +
+        (leadTime ? leadTime : ''),
       false,
     );
   }

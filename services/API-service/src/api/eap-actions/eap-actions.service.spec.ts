@@ -1,3 +1,4 @@
+import { CountryEntity } from './../country/country.entity';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
@@ -19,6 +20,7 @@ describe('EapActionsService', (): void => {
             EapActionStatusEntity,
             EapActionEntity,
             AreaOfFocusEntity,
+            CountryEntity,
           ]),
         ],
         providers: [EapActionsService],

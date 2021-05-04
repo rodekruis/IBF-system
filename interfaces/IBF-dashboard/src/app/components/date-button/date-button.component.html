@@ -1,5 +1,7 @@
 <span>
-  <span class="date">{{ displayDate }}</span>
-  <br />
+  <div *ngIf="displayDate">
+    <span class="date">{{ displayDate }}</span>
+    <br />
+  </div>
   <span class="month">{{ displayMonth }}</span>
 </span>

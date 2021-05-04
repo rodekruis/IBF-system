@@ -4,12 +4,13 @@
     "countryCodeISO2": "UG",
     "countryName": "Uganda",
     "countryStatus": "active",
+    "disasterType": "floods",
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
       "triggerColName": "5yr_threshold"
     },
-    "countryLeadTimes": [
+    "countryActiveLeadTimes": [
       "5-day"
     ],
     "adminRegionLabels": [
@@ -18,7 +19,7 @@
       "Counties",
       "Parishes"
     ],
-    "eapLink": "https://docs.google.com/document/d/1IiG2ZFasCVE7kmYfqgyrx7SuZWkoYzTvw3LaEt2nl2U/edit#heading=h.35nkun2",
+    "eapLink": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd",
     "countryLogos": [
       "UGA-unma.png",
       "UGA-government.jpg",
@@ -71,12 +72,13 @@
     "countryCodeISO2": "ZM",
     "countryName": "Zambia",
     "countryStatus": "active",
+    "disasterType": "floods",
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_ZMB.csv",
       "triggerColName": "10yr_threshold"
     },
-    "countryLeadTimes": [
+    "countryActiveLeadTimes": [
       "3-day",
       "7-day"
     ],
@@ -150,12 +152,13 @@
     "countryCodeISO2": "KE",
     "countryName": "Kenya",
     "countryStatus": "active",
+    "disasterType": "floods",
     "defaultAdminLevel": 1,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
       "triggerColName": "5yr_threshold"
     },
-    "countryLeadTimes": [
+    "countryActiveLeadTimes": [
       "7-day"
     ],
     "adminRegionLabels": [
@@ -214,12 +217,13 @@
     "countryCodeISO2": "ET",
     "countryName": "Ethiopia",
     "countryStatus": "active",
+    "disasterType": "floods",
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
       "triggerColName": "10yr_threshold_7day"
     },
-    "countryLeadTimes": [
+    "countryActiveLeadTimes": [
       "7-day"
     ],
     "eapAlertClasses": {
@@ -278,8 +282,9 @@
     "countryCodeISO2": "EG",
     "countryName": "Egypt",
     "countryStatus": "active",
+    "disasterType": "heavy-rain",
     "defaultAdminLevel": 1,
-    "countryLeadTimes": [
+    "countryActiveLeadTimes": [
       "3-day",
       "5-day",
       "7-day"
@@ -317,6 +322,56 @@
           [
             24.2069487572,
             20.7481080291
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "countryCodeISO2": "PH",
+    "countryName": "Philippines",
+    "countryStatus": "active",
+    "disasterType": "dengue",
+    "defaultAdminLevel": 2,
+    "countryActiveLeadTimes": [
+      "1-month",
+      "2-month",
+      "3-month"
+    ],
+    "eapAlertClasses": {},
+    "adminRegionLabels": [
+      "Regions",
+      "Provinces",
+      "Component cities"
+    ],
+    "eapLink": "https://example.org",
+    "countryLogos": [
+      "PHL-prc.jpg"
+    ],
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            116.9666564465,
+            4.1242251549
+          ],
+          [
+            114.8572814465,
+            21.4093058493
+          ],
+          [
+            127.4256408215,
+            21.2865155817
+          ],
+          [
+            126.9861876965,
+            4.56241516
+          ],
+          [
+            116.9666564465,
+            4.1242251549
           ]
         ]
       ]

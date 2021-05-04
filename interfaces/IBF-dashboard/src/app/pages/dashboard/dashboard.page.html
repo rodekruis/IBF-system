@@ -49,7 +49,18 @@
         </ion-menu-toggle>
       </ion-buttons>
       <app-user-state></app-user-state>
-      <ion-row slot="end">
+      <ion-row slot="end" class="ion-align-items-center">
+        <ion-col>
+          <ion-button
+            *ngIf="environmentConfiguration === 'stage'"
+            size="small"
+            color="ibf-salmon"
+            disabled
+            fill="solid"
+          >
+            Environment: {{ environmentConfiguration }}
+          </ion-button>
+        </ion-col>
         <ion-col>
           <app-export-view class="ion-align-items-center"></app-export-view>
         </ion-col>

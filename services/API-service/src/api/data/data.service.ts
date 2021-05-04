@@ -1,8 +1,9 @@
+import { LeadTime } from './../upload/enum/lead-time.enum';
 import { EventSummaryCountry } from './data.model';
 /* eslint-disable @typescript-eslint/camelcase */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
+import { EntityManager, Repository, getManager } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { AdminAreaDataRecord, TriggeredArea } from './data.model';
 import {
@@ -12,11 +13,19 @@ import {
   RedCrossBranch,
 } from './geo.model';
 import fs from 'fs';
+import { TriggerPerLeadTime } from '../upload/trigger-per-lead-time.entity';
+import { CountryEntity } from '../country/country.entity';
 
 @Injectable()
 export class DataService {
   @InjectRepository(UserEntity)
   private manager: EntityManager;
+
+  @InjectRepository(CountryEntity)
+  private readonly countryRepository: Repository<CountryEntity>;
+
+  @InjectRepository(TriggerPerLeadTime)
+  private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
 
   public constructor(manager: EntityManager) {
     this.manager = manager;
@@ -27,6 +36,9 @@ export class DataService {
     adminLevel: number,
     leadTime: string,
   ): Promise<GeoJson> {
+    if (!leadTime) {
+      leadTime = await this.getDefaultLeadTime(countryCodeISO3);
+    }
     const trigger = (await this.getTriggerPerLeadtime(countryCodeISO3))[
       leadTime.substr(0, 1)
     ];
@@ -55,6 +67,27 @@ export class DataService {
     ]);
     const result = this.toGeojson(rawResult);
     return result;
+  }
+
+  public async getDefaultLeadTime(countryCodeISO3: string): Promise<string> {
+    const findOneOptions = {
+      countryCodeISO3: countryCodeISO3,
+    };
+    const country = await this.countryRepository.findOne(findOneOptions, {
+      relations: ['countryActiveLeadTimes'],
+    });
+    for (const activeLeadTime of country.countryActiveLeadTimes) {
+      if (activeLeadTime.leadTimeName === LeadTime.day7) {
+        return activeLeadTime.leadTimeName;
+      }
+    }
+    for (const activeLeadTime of country.countryActiveLeadTimes) {
+      if (activeLeadTime.leadTimeName === LeadTime.month1) {
+        return activeLeadTime.leadTimeName;
+      }
+    }
+    // If country does not have 7 day or 1 month lead time return the first
+    return country.countryActiveLeadTimes[0].leadTimeName;
   }
 
   public async getStations(
@@ -96,7 +129,19 @@ export class DataService {
     return result;
   }
 
-  public async getRecentDates(countryCode: string): Promise<number> {
+  public async getRecentDates(countryCode: string): Promise<object[]> {
+    // This needs to change when all countries use the upload service
+    if (countryCode === 'PHL') {
+      const resultPHL = await this.triggerPerLeadTimeRepository.findOne({
+        where: { countryCode: countryCode },
+        order: { date: 'DESC' },
+      });
+      if (!resultPHL) {
+        return [];
+      }
+      return [{ date: new Date(resultPHL.date).toISOString() }];
+    }
+
     const query =
       ' select to_date(date,\'yyyy-mm-dd\') as date \
     from "IBF-API"."Trigger_per_lead_time" \
@@ -110,17 +155,55 @@ export class DataService {
     return result;
   }
 
-  public async getTriggerPerLeadtime(countryCode: string): Promise<number> {
+  public async getTriggerPerLeadtime(countryCode: string): Promise<object> {
+    if (countryCode === 'PHL') {
+      return this.getTriggerPerLeadtimeEntity(countryCode);
+    }
+
     const query =
       ' select * \
     from "IBF-API"."Trigger_per_lead_time" \
     where 0 = 0 \
     and country_code = $1 \
     ';
-
     const result = await this.manager.query(query, [countryCode]);
 
     return result[0];
+  }
+
+  private async getTriggerPerLeadtimeEntity(
+    countryCode: string,
+  ): Promise<object> {
+    const latestDate = await this.getOneMaximumTriggerDate(countryCode);
+    const triggersPerLeadTime = await this.triggerPerLeadTimeRepository.find({
+      where: { countryCode: countryCode, date: latestDate },
+    });
+    if (triggersPerLeadTime.length === 0) {
+      return;
+    }
+    const resultPHL = {};
+    resultPHL['date'] = triggersPerLeadTime[0].date;
+    resultPHL['country_code'] = triggersPerLeadTime[0].countryCode;
+    for (const leadTimeKey in LeadTime) {
+      const leadTimeUnit = LeadTime[leadTimeKey];
+      const leadTimeIsTriggered = triggersPerLeadTime.find(
+        (el): boolean => el.leadTime === leadTimeUnit,
+      );
+      if (leadTimeIsTriggered) {
+        resultPHL[leadTimeUnit] = String(Number(leadTimeIsTriggered.triggered));
+      } else {
+        resultPHL[leadTimeUnit] = '0';
+      }
+    }
+    return resultPHL;
+  }
+
+  private async getOneMaximumTriggerDate(countryCode): Promise<Date> {
+    const result = await this.triggerPerLeadTimeRepository.findOne({
+      order: { date: 'DESC' },
+      where: { countryCode: countryCode },
+    });
+    return result.date;
   }
 
   public async getTriggeredAreas(

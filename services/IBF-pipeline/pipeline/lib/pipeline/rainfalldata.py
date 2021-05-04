@@ -17,13 +17,14 @@ import subprocess
 from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
+import json
 from geocube.api.core import make_geocube
 from secrets import SETTINGS_SECRET
 
 
 class RainfallData:
 
-    def __init__(self, leadTimeLabel, leadTimeValue, country_code, admin_area_gdf, rainfall_triggers, rainfall_cols):
+    def __init__(self, leadTimeLabel, leadTimeValue, country_code, admin_area_gdf, rainfall_triggers):
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
         self.country_code = country_code
@@ -31,8 +32,6 @@ class RainfallData:
         self.rainrasterPath = GEOSERVER_OUTPUT + \
             '0/rainfall_extents/rain_rp_' + leadTimeLabel + '_' + country_code + '.tif'
         self.rainfall_triggers = rainfall_triggers
-        self.rainfall_cols = rainfall_cols
-        self.TRIGGER_RP_COLNAME = SETTINGS[country_code]['trigger_colname']
         self.ADMIN_AREA_GDF = admin_area_gdf
         self.downloaded = False
 
@@ -48,7 +47,7 @@ class RainfallData:
             os.remove(os.path.join(self.inputPath, f))
 
     def download(self):
-        if SETTINGS_SECRET[self.country_code]['dummy_trigger'] == True:
+        if SETTINGS_SECRET[self.country_code]['mock'] == True:
             self.inputPath = PIPELINE_DATA + 'input/rainfall_dummy/'
 
         else:
@@ -134,18 +133,14 @@ class RainfallData:
 
     def download_GFS_forecast(self):
 
-        # url = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
         all_url = self.listFD(GFS_SOURCE, ext='')
         gfs_url = sorted([i for i in all_url if i.split(
             '/')[-2].startswith('gfs.')], reverse=True)
-        # url_date = []
         fc_hrs = np.arange(3, 195, 3)
 
         for url_date in gfs_url:
-            # latest_day_url = gfs_url[-1]
             date = url_date.split('/')[-2][4:]
             hour_url = self.listFD(url_date, ext='')
-            # runcycle = ['00', '06', '12', '18']
 
             if len(hour_url) == 5:  # check if there are all 4 runcycle + parent directory in the hour_url
 
@@ -157,8 +152,6 @@ class RainfallData:
 
                     for name in filename_in:
                         # DOWNLOAD ALL GRB2 FILES OF THE DATE
-                        # batch_ex_download = "wget -nd -e robots=off -P %s -A %s %s" % (
-                        # self.inputPath, name, url_i + name)
                         batch_ex_download = "wget -nd -e robots=off -A %s %s" % (
                             name, url_i + 'atmos/' + name)
                         subprocess.call(batch_ex_download,
@@ -166,7 +159,6 @@ class RainfallData:
                     filename_out = str(date + '_' + hr)
                     print(datetime.now().strftime("%H:%M:%S"), filename_out)
                     # EXTRACT AND MERGE
-                    # filename_in1 = 'gfs_4_' + date + '_' + hr + '_???'
                     batch_ex_filter = "cat gfs.* | wgrib2 - -match '(:APCP:)' -ncep_norm %s.grb2" % (
                         filename_out)
                     subprocess.check_output(
@@ -185,9 +177,8 @@ class RainfallData:
     def findTrigger(self):
         logging.info("Started processing glofas data: " + self.leadTimeLabel)
 
-        # Load (static) threshold values per station
-        df_thresholds = DataFrame(self.rainfall_triggers)
-        df_thresholds.columns = self.rainfall_cols
+        # Load (static) threshold values per pixel
+        df_thresholds = pd.read_json(json.dumps(self.rainfall_triggers))
 
         # COMPARE WITH THE THRESHOLD
         grb_files = sorted([f for f in os.listdir(
@@ -206,7 +197,6 @@ class RainfallData:
         # COMPARE THE THRESHOLD WITH AVERAGE OF ALL RUN CYCLES OF THE DAY (2 LEADTIMES X 1 AVG)
         for file in grb_files:
             file_dir = self.inputPath + file
-            # grb = pygrib.open(file_dir)
             grb = xr.open_dataset(file_dir, engine='cfgrib')
             # clip grb with country extent
             grb_clip = grb.sel(latitude=lats, longitude=lons)
@@ -214,16 +204,12 @@ class RainfallData:
                 '%02d' % grb_clip.time.dt.month.values +\
                 '%02d' % grb_clip.time.dt.day.values +\
                 '%02d' % grb_clip.time.dt.hour.values
-            # grb_clip.rolling(step=accum_duration, center=False).sum()
             fc_dayrange = np.unique(pd.to_datetime(
                 grb_clip.valid_time.values).date)
             grb_24hrs = grb_clip.groupby(grb_clip.valid_time.dt.day).sum().drop(
                 labels=['time', 'surface'])  # sum rainfall by day
 
-            for fc_day in fc_dayrange:  # grb_24hrs.day.values:
-                # fc_day = np.datetime64(str(grb_clip.time.dt.year.values) +
-                # '-' + str(grb_clip.time.dt.month.values) + '-' + str(day))
-                # print(fc_day)
+            for fc_day in fc_dayrange:
                 if len(grb_by_day.coords) == 0:
                     grb_by_day = grb_24hrs.sel(day=fc_day.day).rename({'tp': 'tp_%s' % runcycle}).assign_coords(
                         fc_day=fc_day).expand_dims('fc_day').drop(labels='day')
@@ -234,15 +220,9 @@ class RainfallData:
 
         mean_by_day = grb_by_day.to_array(dim='tp_mean_by_day').mean(
             'tp_mean_by_day').rename('mean_by_day')
-        # sd_by_day = grb_by_day.to_array(dim='tp_sd_by_day').std('tp_sd_by_day')
-        # mean_by_day = xr.combine_by_coords([mean_by_day, sd_by_day])
-
-        # runcycle_day = str(grb_clip.time.dt.year.values) + '%02d'%grb_clip.time.dt.month.values + '%02d'%grb_clip.time.dt.day.values
-
-        # for leadtime in np.unique(df_thresholds.forecast_time.values):
 
         # threshold (1 degree)
-        df_leadtime = df_thresholds[df_thresholds.forecast_time == self.leadTimeValue]
+        df_leadtime = df_thresholds[df_thresholds[LEAD_TIME] == self.leadTimeValue]
         geometry = [Point(xy) for xy in zip(
             df_leadtime.lon.astype(float), df_leadtime.lat.astype(float))]
         threshold_gdf = gpd.GeoDataFrame(
@@ -261,26 +241,21 @@ class RainfallData:
                                 how='left', op='intersects')
 
         # interpolate NaN cells
-        known = ~np.isnan(compare_gdf['forecast_time'])
+        known = ~np.isnan(compare_gdf[LEAD_TIME])
         unknown = ~known
         z = griddata((compare_gdf['longitude'][known], compare_gdf['latitude'][known]),
-                     compare_gdf[self.TRIGGER_RP_COLNAME][known],
+                     compare_gdf[TRIGGER_LEVEL][known],
                      (compare_gdf['longitude'][unknown], compare_gdf['latitude'][unknown]))
-        compare_gdf[self.TRIGGER_RP_COLNAME][unknown] = z.tolist()
+        compare_gdf[TRIGGER_LEVEL][unknown] = z.tolist()
 
         compare_gdf[str(str(self.leadTimeLabel) + '_pred')] = np.where(
-            (compare_gdf['mean_by_day'] > compare_gdf[self.TRIGGER_RP_COLNAME]), 1, 0)
+            (compare_gdf['mean_by_day'] > compare_gdf[TRIGGER_LEVEL]), 1, 0)
         compare_gdf['fc_day'] = compare_gdf['fc_day'].astype(str)
         df_trigger = compare_gdf.filter(
             ['latitude', 'longitude', 'geometry', str(str(self.leadTimeLabel) + '_pred')])
-
-        # out = df_trigger.to_json()
-        # output_name = '%s_%sday_'%(runcycle_day, self.leadTimeLabel) +self.TRIGGER_RP_COLNAME
-        # with open(self.triggersPerStationPath, 'w') as fp:
-        #     fp.write(out)
 
         cube = make_geocube(vector_data=df_trigger, measurements=[str(str(
             self.leadTimeLabel)+'_pred')], resolution=(-0.5, 0.5), align=(0.25, 0.25), output_crs="EPSG:4326")
         cube.rio.to_raster(self.rainrasterPath)
 
-        print('Processed Glofas data - File saved')
+        print('Processed Rainfall data - File saved')

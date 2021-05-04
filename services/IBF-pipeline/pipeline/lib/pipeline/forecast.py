@@ -24,6 +24,6 @@ class Forecast:
             self.exposure = Exposure(leadTimeLabel, country_code,self.admin_area_gdf,self.district_mapping)
   
         if model == 'rainfall':
-            self.rainfall_triggers,self.rainfall_cols = self.db.downloadDataFromDb('IBF-static-input','EGY_rainfall_trigger_levels')
-            self.rainfallData = RainfallData(leadTimeLabel, leadTimeValue, country_code, self.admin_area_gdf, self.rainfall_triggers, self.rainfall_cols)
+            self.rainfall_triggers = self.db.apiGetRequest('rainfallTriggers',country_code=country_code)
+            self.rainfallData = RainfallData(leadTimeLabel, leadTimeValue, country_code, self.admin_area_gdf, self.rainfall_triggers)
             self.exposure = Exposure(leadTimeLabel, country_code, self.admin_area_gdf)

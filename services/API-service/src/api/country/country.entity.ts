@@ -10,6 +10,7 @@ import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { UserEntity } from '../user/user.entity';
 import { AdminLevel } from './admin-level.enum';
 import { CountryStatus } from './country-status.enum';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Entity('country')
 export class CountryEntity {
@@ -63,11 +64,17 @@ export class CountryEntity {
     (leadTime): CountryEntity[] => leadTime.countries,
   )
   @JoinTable()
-  public countryLeadTimes: LeadTimeEntity[];
+  public countryActiveLeadTimes: LeadTimeEntity[];
 
   @ManyToMany(
     (): typeof UserEntity => UserEntity,
     (user): CountryEntity[] => user.countries,
   )
   public users: UserEntity[];
+
+  @ManyToMany(
+    (): typeof DisasterEntity => DisasterEntity,
+    (disasterType): CountryEntity[] => disasterType.countries,
+  )
+  public disasterTypes: DisasterEntity[];
 }

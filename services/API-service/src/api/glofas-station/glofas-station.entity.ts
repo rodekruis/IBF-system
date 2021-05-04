@@ -1,11 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { CountryEntity } from '../country/country.entity';
 
 @Entity('glofasStation')
 export class GlofasStationEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column()
+  @ManyToOne((): typeof CountryEntity => CountryEntity)
+  @JoinColumn({ name: 'countryCode', referencedColumnName: 'countryCodeISO3' })
   public countryCode: string;
 
   @Column()
