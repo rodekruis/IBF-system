@@ -3,6 +3,30 @@
 -- EXCEPT for this comment itself of course!
 -- AND change back after
 
+-- TEMP
+drop table if exists "IBF-pipeline-output".triggers_rp_per_station;
+SELECT t0.id
+	, t0."stationCode"
+	, "stationName"
+	, "triggerLevel"
+	, "threshold2Year"
+	, "threshold5Year"
+	, "threshold10Year"
+	, "threshold20Year"
+	, geom
+	, t0."stationCode" as code
+	, t1."forecastLevel" as fc
+	, t1."forecastProbability" as fc_prob
+	, t1."forecastTrigger" as fc_trigger
+	, t1."forecastReturnPeriod" as fc_rp
+	, t1."date" 
+	, t1."countryCode" as country_code
+	, t1."leadTime" as lead_time
+into "IBF-pipeline-output".triggers_rp_per_station
+FROM "IBF-app"."glofasStation" t0
+LEFT JOIN "IBF-app"."glofasStationTrigger" t1 ON t0."stationCode" = t1."stationCode"
+;
+
 CREATE TABLE if not exists "IBF-pipeline-output".dashboard_forecast_per_station (
     country_code varchar NULL,
     station_code text NULL,
