@@ -1,13 +1,14 @@
 import { UserModule } from '../user/user.module';
-import { UploadService } from './admin-area-dynamic-data.service';
+import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UploadController } from './admin-area-dynamic-data.controller';
+import { AdminAreaDynamicDataController } from './admin-area-dynamic-data.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CalculatedAffectedEntity } from './calculated-affected.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 
-describe('UploadController', (): void => {
-  let controller: UploadController;
+describe('AdminAreaDynamicController', (): void => {
+  let controller: AdminAreaDynamicDataController;
 
   beforeEach(
     async (): Promise<void> => {
@@ -17,14 +18,17 @@ describe('UploadController', (): void => {
           TypeOrmModule.forFeature([
             TriggerPerLeadTime,
             CalculatedAffectedEntity,
+            AdminAreaDynamicDataEntity,
           ]),
           UserModule,
         ],
-        controllers: [UploadController],
-        providers: [UploadService],
+        controllers: [AdminAreaDynamicDataController],
+        providers: [AdminAreaDynamicDataService],
       }).compile();
 
-      controller = module.get<UploadController>(UploadController);
+      controller = module.get<AdminAreaDynamicDataController>(
+        AdminAreaDynamicDataController,
+      );
     },
   );
 

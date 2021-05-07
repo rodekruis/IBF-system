@@ -1,4 +1,4 @@
-import { DynamicDataReturnDto } from './dto/dynamic-data-return.dto';
+import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { ExposureUnit } from './enum/exposure-unit';
 import { Body, Get, Param } from '@nestjs/common';
 import { Controller, Post, UseGuards, UseInterceptors } from '@nestjs/common';
@@ -42,7 +42,7 @@ export class AdminAreaDynamicDataController {
   @Get(':countryCode/:adminLevel/:leadTime/:key')
   public async getAdminAreaData(
     @Param() params,
-  ): Promise<DynamicDataReturnDto[]> {
+  ): Promise<AdminDataReturnDto[]> {
     return await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
       params.countryCode,
       params.adminLevel,

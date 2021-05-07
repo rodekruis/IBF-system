@@ -1,5 +1,5 @@
 export enum ExposureUnit {
   population = 'population',
-  potentialCasesU9 = 'potentialCasesU9',
-  potentialCases65 = 'potentialCases65',
+  potentialCasesU9 = 'potential_cases_U9',
+  potentialCases65 = 'potential_cases_65',
 }

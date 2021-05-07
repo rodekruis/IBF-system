@@ -9,7 +9,7 @@ import { CalculatedAffectedEntity } from './calculated-affected.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { ExposureUnit } from './enum/exposure-unit';
-import { DynamicDataReturnDto } from './dto/dynamic-data-return.dto';
+import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -121,7 +121,7 @@ export class AdminAreaDynamicDataService {
     adminLevel: string,
     leadTime: LeadTime,
     key: ExposureUnit,
-  ): Promise<DynamicDataReturnDto[]> {
+  ): Promise<AdminDataReturnDto[]> {
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('admin_area_dynamic_data')
       .where({
@@ -132,7 +132,7 @@ export class AdminAreaDynamicDataService {
       })
       .select([
         'admin_area_dynamic_data.value AS value',
-        'admin_area_dynamic_data.placeCode AS placecode',
+        'admin_area_dynamic_data.placeCode AS "placeCode"',
       ])
       .execute();
     return result;

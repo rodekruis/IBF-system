@@ -19,6 +19,7 @@ export class Indicator {
   order: number;
   unit?: string;
   lazyLoad: boolean;
+  dynamic?: boolean;
 }
 
 export enum NumberFormat {

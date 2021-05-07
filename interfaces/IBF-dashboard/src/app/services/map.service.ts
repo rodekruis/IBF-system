@@ -3,8 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, Observable, zip } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
@@ -30,6 +30,7 @@ import { MockScenario } from '../mocks/mock-scenario.enum';
 import { Country } from '../models/country.model';
 import { LayerActivation } from '../models/layer-activation.enum';
 import { breakKey } from '../models/map.model';
+import { AdminLevel } from '../types/admin-level';
 
 @Injectable({
   providedIn: 'root',
@@ -371,6 +372,7 @@ export class MapService {
       legendColor: '#969696',
       group: IbfLayerGroup.aggregates,
       order: 20 + indicator.order,
+      dynamic: indicator.dynamic,
       unit: indicator.unit,
     });
   }
@@ -489,6 +491,7 @@ export class MapService {
       group: layer.group,
       order: layer.order,
       unit: layer.unit,
+      dynamic: layer.dynamic,
       show:
         show == null || layer.name !== interactedLayer.name ? layer.show : show,
     });
@@ -557,16 +560,67 @@ export class MapService {
         .pipe(shareReplay(1));
     } else {
       // In case layer is aggregate layer
-      layerData = this.apiService
-        .getAdminRegions(
-          this.country.countryCodeISO3,
-          this.timelineService.activeLeadTime,
-          this.adminLevelService.adminLevel,
-        )
-        .pipe(shareReplay(1));
+      layerData = this.getCombineAdminRegionData(
+        this.country.countryCodeISO3,
+        this.adminLevelService.adminLevel,
+        this.timelineService.activeLeadTime,
+        layer,
+      ).pipe(shareReplay(1));
     }
     this.layerDataCache[layerDataCacheKey] = layerData;
     return layerData;
+  }
+
+  getCombineAdminRegionData(
+    countryCodeISO3: string,
+    adminLevel: AdminLevel,
+    leadTime: LeadTime,
+    layer: IbfLayer,
+  ): Observable<GeoJSON.FeatureCollection> {
+    // Do api request to get data layer
+    let admDynamicDataObs: Observable<any>;
+    if (layer.dynamic) {
+      admDynamicDataObs = this.apiService.getAdminAreaDynamicData(
+        countryCodeISO3,
+        adminLevel,
+        leadTime,
+        layer.name,
+      );
+    } else {
+      admDynamicDataObs = this.apiService.getAdminAreaData(
+        countryCodeISO3,
+        adminLevel,
+        layer.name,
+      );
+    }
+    // Get the geometry from the admin region (this should re-use the cache if that is already loaded)
+    const adminRegionsLayer = new IbfLayer();
+    adminRegionsLayer.name = IbfLayerName.adminRegions;
+    const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${adminRegionsLayer.name}_${this.mockScenario}`;
+    const adminRegionsObs = this.getLayerData(
+      adminRegionsLayer,
+      layerDataCacheKey,
+    );
+
+    // Combine results
+    return zip(admDynamicDataObs, adminRegionsObs).pipe(
+      map(([admDynamicData, adminRegions]) => {
+        const updatedFeatures = [];
+        for (const area of adminRegions.features) {
+          const admDynamicEntry = admDynamicData.find(
+            (admDynamicEntry): number => {
+              if (area.properties.pcode === admDynamicEntry.placeCode) {
+                return admDynamicEntry;
+              }
+            },
+          );
+          area.properties.indicators = {};
+          area.properties.indicators[layer.name] = admDynamicEntry.value;
+          updatedFeatures.push(area);
+        }
+        return adminRegions;
+      }),
+    );
   }
 
   getAdminRegionFillColor = (
