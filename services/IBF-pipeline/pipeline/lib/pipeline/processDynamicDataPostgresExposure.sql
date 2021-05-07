@@ -62,7 +62,7 @@ select t3.country_code
 	,population_affected
 	,row_to_json(t0.*) as indicators
 --into "IBF-pipeline-output".data_adm2
-from "IBF-static-input".dashboard_admin_area_data t0
+from "IBF-pipeline-output".dashboard_admin_area_data t0
 left join "IBF-pipeline-output".help_table t0a
 on 1=1
 left join "IBF-app"."adminArea" t1
