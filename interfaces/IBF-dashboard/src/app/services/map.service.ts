@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
-import { BehaviorSubject, of, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
