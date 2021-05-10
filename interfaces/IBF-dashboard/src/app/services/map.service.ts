@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
+import { BehaviorSubject, of, Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
@@ -505,7 +505,7 @@ export class MapService {
     const interactedLayer = this.layers[interactedLayerIndex];
     if (interactedLayerIndex >= 0) {
       this.layers.forEach((layer: IbfLayer): void => {
-        let layerObservable: Observable<GeoJSON.FeatureCollection> = EMPTY;
+        let layerObservable: Observable<GeoJSON.FeatureCollection> = of(null);
         const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}_${this.mockScenario}`;
         const layerActive = this.isLayerActive(active, layer, interactedLayer);
         if (this.layerDataCache[layerDataCacheKey]) {
