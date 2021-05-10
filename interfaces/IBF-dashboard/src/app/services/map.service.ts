@@ -505,7 +505,10 @@ export class MapService {
     const interactedLayer = this.layers[interactedLayerIndex];
     if (interactedLayerIndex >= 0) {
       this.layers.forEach((layer: IbfLayer): void => {
-        let layerObservable: Observable<GeoJSON.FeatureCollection> = of(null);
+        let layerObservable: Observable<GeoJSON.FeatureCollection> = of({
+          type: 'FeatureCollection',
+          features: [],
+        });
         const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}_${this.mockScenario}`;
         const layerActive = this.isLayerActive(active, layer, interactedLayer);
         if (this.layerDataCache[layerDataCacheKey]) {
