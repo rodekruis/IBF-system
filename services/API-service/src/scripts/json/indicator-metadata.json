@@ -125,11 +125,11 @@
     "numberFormatAggregate": "decimal0",
     "order": 3,
     "dynamic": false,
-    "source": "To be added",
-    "description": ""
+    "source": "https://data.humdata.org/dataset/philippines-pre-disaster-indicators",
+    "description": "Percentage of people under 9 years of age."
   },
   {
-    "country_codes": "UGA,PHL",
+    "country_codes": "UGA",
     "name": "population_over65",
     "label": "Population 65+",
     "group": "vulnerability",
@@ -263,7 +263,7 @@
     "order": 4,
     "dynamic": false,
     "unit": "cases",
-    "source": "Sources: https://doh.gov.ph/statistics",
+    "source": "https://doh.gov.ph/statistics",
     "description": "Number of dengue cases per administrative division per year."
   },
   {
@@ -277,12 +277,29 @@
     "colorBreaks": null,
     "numberFormatMap": "perc",
     "aggregateIndicator": true,
-    "numberFormatAggregate": "decimal2",
+    "numberFormatAggregate": "decimal4",
     "order": 4,
     "dynamic": false,
     "unit": "incidence",
-    "source": "Sources: https://doh.gov.ph/statistics",
+    "source": "https://doh.gov.ph/statistics",
     "description": "Number of dengue cases per 1000 people per administrative division per year."
+  },
+  {
+    "country_codes": "PHL",
+    "name": "population_over65_phl",
+    "label": "Population 65+",
+    "group": "vulnerability",
+    "icon": "Elderly-white.svg",
+    "weightedAvg": true,
+    "active": false,
+    "colorBreaks": null,
+    "numberFormatMap": "perc",
+    "aggregateIndicator": true,
+    "numberFormatAggregate": "decimal0",
+    "order": 3,
+    "dynamic": false,
+    "source": "https://data.humdata.org/dataset/philippines-pre-disaster-indicators",
+    "description": "Percentage of people over 65 years of age."
   },
   {
     "country_codes": "PHL",
@@ -298,8 +315,8 @@
     "numberFormatAggregate": "",
     "order": 2,
     "dynamic": true,
-    "source": "",
-    "description": "",
+    "source": "demographic data: https://data.humdata.org/dataset/philippines-pre-disaster-indicators",
+    "description": "Number of potential dengue cases among children under 9 years of age, based on dengue risk and demographic data",
     "lazyLoad": true
   },
   {
@@ -316,8 +333,8 @@
     "numberFormatAggregate": "",
     "order": 2,
     "dynamic": true,
-    "source": "",
-    "description": "",
+    "source": "demographic data: https://data.humdata.org/dataset/philippines-pre-disaster-indicators",
+    "description": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data.",
     "lazyLoad": true
   }
 ]
