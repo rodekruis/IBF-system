@@ -6,4 +6,7 @@ export default {
     logOut: "[data-test='logout-button']",
     userDisplayNameLabel: "[data-test='user-display-name-label']",
     userDisplayName: "[data-test='user-display-name']",
+    exportViewButton: "[data-test='export-view-button']",
+    exportViewPopover: "[data-test='export-view-popover']",
+    logoImage: "[data-test='logo-image']",
 };
