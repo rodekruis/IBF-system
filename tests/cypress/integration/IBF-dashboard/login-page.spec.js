@@ -7,7 +7,7 @@ describe("Login Page", () => {
         cy.visit(constants.loginPagePath);
     });
 
-    it("loads", function () {
+    it("loads", () => {
         cy.url().should((url) => {
             expect(url).to.match(
                 new RegExp(
@@ -35,7 +35,7 @@ describe("Login Page", () => {
             .should("not.be.disabled");
     });
 
-    it("allows login", function () {
+    it("allows login", () => {
         cy.get(selectors.inputUser).type(Cypress.env(constants.envLoginUser));
         cy.get(selectors.inputPassword).type(
             Cypress.env(constants.envLoginPassword)
