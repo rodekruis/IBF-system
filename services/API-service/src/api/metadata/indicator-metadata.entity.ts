@@ -32,10 +32,6 @@ export class IndicatorMetadataEntity {
   public dynamic: boolean;
   @Column({ nullable: true })
   public unit: string;
-  @Column()
-  public source: string;
-  @Column()
-  public description: string;
   @Column({ default: false })
   public lazyLoad: boolean;
 }

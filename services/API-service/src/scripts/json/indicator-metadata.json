@@ -13,9 +13,7 @@
     "numberFormatAggregate": "decimal0",
     "order": 1,
     "dynamic": true,
-    "unit": "people",
-    "source": "",
-    "description": ""
+    "unit": "people"
   },
   {
     "country_codes": "UGA",
@@ -56,9 +54,7 @@
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
     "order": 2,
-    "dynamic": false,
-    "source": "",
-    "description": "Vulnerability factors/indicators: \nThis resulted in the following weights:\n20%   Poverty: Poverty incidence\n20%   Gender: Female-headed household\n10%   Age: Population below 8-years\n10%   Age: population 65+, \n10 %  type of construction: permanent wall type\n10 %  type of construction: permanent roof type\n20%   Refugees legal status #of a displaced person\u000b\nThe vulnerability indicators have been scored on a scale of 1 (low vulnerability) to 10 (high vulnerability)."
+    "dynamic": false
   },
   {
     "country_codes": "UGA",
@@ -73,9 +69,7 @@
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
     "order": 4,
-    "dynamic": false,
-    "source": "http://www.worldpop.org.uk/data/summary/?doi=10.5258/SOTON/WP00285",
-    "description": "Alpha version 2011 estimates of proportion of people per grid square living in poverty, as defined by $2 a day thresholds. Tatem AJ, Gething PW, Bhatt S, Weiss D and Pezzulo C (2013) Pilot high resolution poverty maps, University of Southampton/Oxford."
+    "dynamic": false
   },
   {
     "country_codes": "UGA",
@@ -90,9 +84,7 @@
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
     "order": 3,
-    "dynamic": false,
-    "source": "Uganda Bureau of Statistics, National Census Data 2014",
-    "description": ""
+    "dynamic": false
   },
   {
     "country_codes": "UGA",
@@ -107,9 +99,7 @@
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
     "order": 3,
-    "dynamic": false,
-    "source": "Uganda Bureau of Statistics, National Census Data 2014",
-    "description": ""
+    "dynamic": false
   },
   {
     "country_codes": "PHL",
@@ -124,9 +114,7 @@
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
     "order": 3,
-    "dynamic": false,
-    "source": "https://data.humdata.org/dataset/philippines-pre-disaster-indicators",
-    "description": "Percentage of people under 9 years of age."
+    "dynamic": false
   },
   {
     "country_codes": "UGA",
@@ -141,9 +129,7 @@
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
     "order": 3,
-    "dynamic": false,
-    "source": "Uganda Bureau of Statistics, National Census Data 2014",
-    "description": ""
+    "dynamic": false
   },
   {
     "country_codes": "UGA",
@@ -158,9 +144,7 @@
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
     "order": 4,
-    "dynamic": false,
-    "source": "Uganda Bureau of Statistics, National Census Data 2014",
-    "description": ""
+    "dynamic": false
   },
   {
     "country_codes": "UGA",
@@ -175,9 +159,7 @@
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
     "order": 4,
-    "dynamic": false,
-    "source": "Uganda Bureau of Statistics, National Census Data 2014",
-    "description": ""
+    "dynamic": false
   },
   {
     "country_codes": "ZMB",
@@ -192,9 +174,7 @@
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
     "order": 2,
-    "dynamic": false,
-    "source": "https://dashboard.510.global/#!/community_risk?country=ZMB",
-    "description": "Vulnerability index from Community Risk Assessment"
+    "dynamic": false
   },
   {
     "country_codes": "KEN",
@@ -209,9 +189,7 @@
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
     "order": 2,
-    "dynamic": false,
-    "source": "https://dashboard.510.global/#!/community_risk?country=KEN",
-    "description": "Vulnerability index from Community Risk Assessment"
+    "dynamic": false
   },
   {
     "country_codes": "ETH",
@@ -226,9 +204,7 @@
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
     "order": 2,
-    "dynamic": false,
-    "source": "https://dashboard.510.global/#!/community_risk?country=ETH",
-    "description": "Vulnerability index from Community Risk Assessment"
+    "dynamic": false
   },
   {
     "country_codes": "UGA",
@@ -244,8 +220,6 @@
     "numberFormatAggregate": "",
     "order": 2,
     "dynamic": false,
-    "source": "",
-    "description": "",
     "lazyLoad": false
   },
   {
@@ -262,9 +236,7 @@
     "numberFormatAggregate": "decimal0",
     "order": 4,
     "dynamic": false,
-    "unit": "cases",
-    "source": "https://doh.gov.ph/statistics",
-    "description": "Number of dengue cases per administrative division per year."
+    "unit": "cases"
   },
   {
     "country_codes": "PHL",
@@ -280,9 +252,7 @@
     "numberFormatAggregate": "decimal4",
     "order": 4,
     "dynamic": false,
-    "unit": "incidence",
-    "source": "https://doh.gov.ph/statistics",
-    "description": "Number of dengue cases per 1000 people per administrative division per year."
+    "unit": "incidence"
   },
   {
     "country_codes": "PHL",
@@ -297,9 +267,7 @@
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
     "order": 3,
-    "dynamic": false,
-    "source": "https://data.humdata.org/dataset/philippines-pre-disaster-indicators",
-    "description": "Percentage of people over 65 years of age."
+    "dynamic": false
   },
   {
     "country_codes": "PHL",
@@ -315,8 +283,6 @@
     "numberFormatAggregate": "",
     "order": 5,
     "dynamic": true,
-    "source": "demographic data: https://data.humdata.org/dataset/philippines-pre-disaster-indicators",
-    "description": "Number of potential dengue cases among children under 9 years of age, based on dengue risk and demographic data",
     "lazyLoad": true
   },
   {
@@ -333,8 +299,6 @@
     "numberFormatAggregate": "",
     "order": 5,
     "dynamic": true,
-    "source": "demographic data: https://data.humdata.org/dataset/philippines-pre-disaster-indicators",
-    "description": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data.",
     "lazyLoad": true
   },
   {
@@ -350,8 +314,6 @@
     "aggregateIndicator": true,
     "numberFormatAggregate": "decimal0",
     "order": 3,
-    "dynamic": false,
-    "source": "",
-    "description": ""
+    "dynamic": false
   }
 ]
