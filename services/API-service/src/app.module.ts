@@ -20,29 +20,29 @@ import { HealthSiteModule } from './api/health-site/health-site.module';
 import { RainfallTriggersModule } from './api/rainfall-triggers/rainfall-triggers.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(),
-    UserModule,
-    DataModule,
-    EapActionsModule,
-    WaterpointsModule,
-    ScriptsModule,
-    HealthModule,
-    CountryModule,
-    EventModule,
-    MetadataModule,
-    AdminAreaModule,
-    GlofasStationModule,
-    UploadModule,
-    DisasterModule,
-    RedcrossBranchModule,
-    HealthSiteModule,
-    AdminAreaDataModule,
-    RainfallTriggersModule,
-  ],
-  controllers: [AppController],
-  providers: [],
+    imports: [
+        TypeOrmModule.forRoot(),
+        UserModule,
+        DataModule,
+        EapActionsModule,
+        WaterpointsModule,
+        ScriptsModule,
+        HealthModule,
+        CountryModule,
+        EventModule,
+        MetadataModule,
+        AdminAreaModule,
+        GlofasStationModule,
+        UploadModule,
+        DisasterModule,
+        RedcrossBranchModule,
+        HealthSiteModule,
+        AdminAreaDataModule,
+        RainfallTriggersModule,
+    ],
+    controllers: [AppController],
+    providers: [],
 })
 export class ApplicationModule {
-  public constructor() {}
+    public constructor() {}
 }

@@ -5,24 +5,24 @@ import { AdminAreaEntity } from './admin-area.entity';
 
 @Injectable()
 export class AdminAreaService {
-  @InjectRepository(AdminAreaEntity)
-  private readonly adminAreaRepository: Repository<AdminAreaEntity>;
+    @InjectRepository(AdminAreaEntity)
+    private readonly adminAreaRepository: Repository<AdminAreaEntity>;
 
-  public constructor() {}
+    public constructor() {}
 
-  public async getAdminAreas(countryCodeISO3): Promise<any[]> {
-    return await this.adminAreaRepository.find({
-      select: ['countryCode', 'name', 'placeCode', 'geom'],
-      where: { countryCode: countryCodeISO3 },
-    });
-  }
+    public async getAdminAreas(countryCodeISO3): Promise<any[]> {
+        return await this.adminAreaRepository.find({
+            select: ['countryCode', 'name', 'placeCode', 'geom'],
+            where: { countryCode: countryCodeISO3 },
+        });
+    }
 
-  public async getStationAdminAreaMappingByCountry(
-    countryCodeISO3,
-  ): Promise<any[]> {
-    return await this.adminAreaRepository.find({
-      select: ['countryCode', 'name', 'placeCode', 'glofasStation'],
-      where: { countryCode: countryCodeISO3 },
-    });
-  }
+    public async getStationAdminAreaMappingByCountry(
+        countryCodeISO3,
+    ): Promise<any[]> {
+        return await this.adminAreaRepository.find({
+            select: ['countryCode', 'name', 'placeCode', 'glofasStation'],
+            where: { countryCode: countryCodeISO3 },
+        });
+    }
 }

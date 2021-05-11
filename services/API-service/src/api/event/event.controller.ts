@@ -9,18 +9,18 @@ import { RolesGuard } from '../../roles.guard';
 @ApiTags('event')
 @Controller('event')
 export class EventController {
-  private readonly eventService: EventService;
+    private readonly eventService: EventService;
 
-  public constructor(eventService: EventService) {
-    this.eventService = eventService;
-  }
+    public constructor(eventService: EventService) {
+        this.eventService = eventService;
+    }
 
-  @ApiOperation({ summary: 'Close place code event' })
-  @Post('close-place-code')
-  public async closeEventPcode(
-    @Body() eventPlaceCodeDto: EventPlaceCodeDto,
-  ): Promise<void> {
-    console.log('eventPlaceCodeDto: ', eventPlaceCodeDto);
-    return await this.eventService.closeEventPcode(eventPlaceCodeDto);
-  }
+    @ApiOperation({ summary: 'Close place code event' })
+    @Post('close-place-code')
+    public async closeEventPcode(
+        @Body() eventPlaceCodeDto: EventPlaceCodeDto,
+    ): Promise<void> {
+        console.log('eventPlaceCodeDto: ', eventPlaceCodeDto);
+        return await this.eventService.closeEventPcode(eventPlaceCodeDto);
+    }
 }

@@ -6,24 +6,24 @@ import exposure from './example/upload-exposure-example.json';
 import { LeadTime } from '../enum/lead-time.enum';
 
 export class UploadExposureDto {
-  @ApiProperty({ example: 'PHL' })
-  @IsNotEmpty()
-  @IsString()
-  public countryCodeISO3: string;
+    @ApiProperty({ example: 'PHL' })
+    @IsNotEmpty()
+    @IsString()
+    public countryCodeISO3: string;
 
-  @ApiProperty({ example: exposure })
-  @IsArray()
-  @ValidateNested()
-  @Type(() => ExposurePlaceCodeDto)
-  public exposurePlaceCodes: ExposurePlaceCodeDto[];
+    @ApiProperty({ example: exposure })
+    @IsArray()
+    @ValidateNested()
+    @Type(() => ExposurePlaceCodeDto)
+    public exposurePlaceCodes: ExposurePlaceCodeDto[];
 
-  @ApiProperty({ example: '1-month' })
-  @IsNotEmpty()
-  @IsString()
-  public leadTime: LeadTime;
+    @ApiProperty({ example: '1-month' })
+    @IsNotEmpty()
+    @IsString()
+    public leadTime: LeadTime;
 
-  @ApiProperty({ example: 'population' })
-  @IsNotEmpty()
-  @IsString()
-  public exposureUnit: string;
+    @ApiProperty({ example: 'population' })
+    @IsNotEmpty()
+    @IsString()
+    public exposureUnit: string;
 }

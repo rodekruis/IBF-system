@@ -5,17 +5,17 @@ import { ScriptsController } from './scripts.controller';
 import { SeedInit } from './seed-init';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      migrations: [`src/migrations/*.{ts,js}`],
-      entities: ['src/app/**/*.entity.{ts,js}'],
-    }),
-  ],
-  providers: [SeedInit],
-  controllers: [ScriptsController],
+    imports: [
+        TypeOrmModule.forRoot({
+            migrations: [`src/migrations/*.{ts,js}`],
+            entities: ['src/app/**/*.entity.{ts,js}'],
+        }),
+    ],
+    providers: [SeedInit],
+    controllers: [ScriptsController],
 })
 export class ScriptsModule {}
 
 export interface InterfaceScript {
-  run(argv: Arguments): Promise<void>;
+    run(argv: Arguments): Promise<void>;
 }

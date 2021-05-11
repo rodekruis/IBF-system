@@ -7,11 +7,14 @@ import { CalculatedAffectedEntity } from './calculated-affected.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([TriggerPerLeadTime, CalculatedAffectedEntity]),
-    UserModule,
-  ],
-  controllers: [UploadController],
-  providers: [UploadService],
+    imports: [
+        TypeOrmModule.forFeature([
+            TriggerPerLeadTime,
+            CalculatedAffectedEntity,
+        ]),
+        UserModule,
+    ],
+    controllers: [UploadController],
+    providers: [UploadService],
 })
 export class UploadModule {}

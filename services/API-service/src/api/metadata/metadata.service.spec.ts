@@ -10,30 +10,30 @@ import { LayerMetadataEntity } from './layer-metadata.entity';
 import { TriggerPerLeadTime } from '../upload/trigger-per-lead-time.entity';
 
 describe('MetadataService', (): void => {
-  let service: MetadataService;
+    let service: MetadataService;
 
-  beforeEach(
-    async (): Promise<void> => {
-      const module: TestingModule = await Test.createTestingModule({
-        imports: [
-          DataModule,
-          TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([
-            IndicatorMetadataEntity,
-            UserEntity,
-            LayerMetadataEntity,
-            TriggerPerLeadTime,
-            CountryEntity,
-          ]),
-        ],
-        providers: [MetadataService, DataService],
-      }).compile();
+    beforeEach(
+        async (): Promise<void> => {
+            const module: TestingModule = await Test.createTestingModule({
+                imports: [
+                    DataModule,
+                    TypeOrmModule.forRoot(),
+                    TypeOrmModule.forFeature([
+                        IndicatorMetadataEntity,
+                        UserEntity,
+                        LayerMetadataEntity,
+                        TriggerPerLeadTime,
+                        CountryEntity,
+                    ]),
+                ],
+                providers: [MetadataService, DataService],
+            }).compile();
 
-      service = module.get<MetadataService>(MetadataService);
-    },
-  );
+            service = module.get<MetadataService>(MetadataService);
+        },
+    );
 
-  it('should be defined', (): void => {
-    expect(service).toBeDefined();
-  });
+    it('should be defined', (): void => {
+        expect(service).toBeDefined();
+    });
 });

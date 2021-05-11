@@ -12,19 +12,19 @@ import { DataService } from '../data/data.service';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      UserEntity,
-      EapActionEntity,
-      EapActionStatusEntity,
-      AreaOfFocusEntity,
-      TriggerPerLeadTime,
-      CountryEntity,
-    ]),
-    UserModule,
-    HttpModule,
-  ],
-  controllers: [EapActionsController],
-  providers: [EapActionsService, DataService],
+    imports: [
+        TypeOrmModule.forFeature([
+            UserEntity,
+            EapActionEntity,
+            EapActionStatusEntity,
+            AreaOfFocusEntity,
+            TriggerPerLeadTime,
+            CountryEntity,
+        ]),
+        UserModule,
+        HttpModule,
+    ],
+    controllers: [EapActionsController],
+    providers: [EapActionsService, DataService],
 })
 export class EapActionsModule {}

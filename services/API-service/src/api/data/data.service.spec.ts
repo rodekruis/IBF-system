@@ -6,27 +6,27 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TriggerPerLeadTime } from '../upload/trigger-per-lead-time.entity';
 
 describe('User service', (): void => {
-  let service: DataService;
+    let service: DataService;
 
-  beforeAll(
-    async (): Promise<void> => {
-      const module: TestingModule = await Test.createTestingModule({
-        imports: [
-          TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([
-            UserEntity,
-            TriggerPerLeadTime,
-            CountryEntity,
-          ]),
-        ],
-        providers: [DataService],
-      }).compile();
+    beforeAll(
+        async (): Promise<void> => {
+            const module: TestingModule = await Test.createTestingModule({
+                imports: [
+                    TypeOrmModule.forRoot(),
+                    TypeOrmModule.forFeature([
+                        UserEntity,
+                        TriggerPerLeadTime,
+                        CountryEntity,
+                    ]),
+                ],
+                providers: [DataService],
+            }).compile();
 
-      service = module.get<DataService>(DataService);
-    },
-  );
+            service = module.get<DataService>(DataService);
+        },
+    );
 
-  it('should be defined', (): void => {
-    expect(service).toBeDefined();
-  });
+    it('should be defined', (): void => {
+        expect(service).toBeDefined();
+    });
 });
