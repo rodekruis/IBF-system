@@ -1,10 +1,20 @@
+## [0.59.2](https://github.com/rodekruis/IBF-system/compare/v0.59.1...v0.59.2) (2021-05-11)
+
+
+### Bug Fixes
+
+* legend code requires data to not be null ([d0966d5](https://github.com/rodekruis/IBF-system/commit/d0966d5760d1b766c6fe2edc87ecc3b4077cf478))
+* use rxjs of instead of EMPTY AB[#7227](https://github.com/rodekruis/IBF-system/issues/7227) ([9a7ac5a](https://github.com/rodekruis/IBF-system/commit/9a7ac5afccffacf0568ed78f15e708be4a4df7a9))
+
+
+
 ## [0.59.1](https://github.com/rodekruis/IBF-system/compare/v0.59.0...v0.59.1) (2021-05-03)
 
 
 ### Bug Fixes
 
-* don't try download if mock AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([79699ab](https://github.com/rodekruis/IBF-system/commit/79699abe2123bc87300a04098e0f8ca518b2e109))
-* remove changes other open branch AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([bfdc3c2](https://github.com/rodekruis/IBF-system/commit/bfdc3c21f769b280e46e3dbd774e632550c5c44f))
+* don't try download if mock AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([59924e4](https://github.com/rodekruis/IBF-system/commit/59924e42f702921963a4c4638e4a567711d4d86c))
+* remove changes other open branch AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([afd2edd](https://github.com/rodekruis/IBF-system/commit/afd2edd49158fc9bbc4cb5e1de84c2c846076e02))
 
 
 
@@ -116,15 +126,6 @@
 ### Features
 
 * provide mock-no-trigger option IBF-pipeline AB[#7068](https://github.com/rodekruis/IBF-system/issues/7068) ([dd1f840](https://github.com/rodekruis/IBF-system/commit/dd1f840e717427d7730f7fb1b9b8a23f03f8d14a))
-
-
-
-## [0.56.2](https://github.com/rodekruis/IBF-system/compare/v0.56.1...v0.56.2) (2021-04-14)
-
-
-### Bug Fixes
-
-* show indicator for stage environment AB[#7065](https://github.com/rodekruis/IBF-system/issues/7065) ([ab72fc6](https://github.com/rodekruis/IBF-system/commit/ab72fc667a3f9aae4f217e049336d87157625b24))
 
 
 
