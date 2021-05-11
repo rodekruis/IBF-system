@@ -607,7 +607,7 @@ export class MapService {
       map(([admDynamicData, adminRegions]) => {
         const updatedFeatures = [];
         for (const area of adminRegions.features) {
-          const admDynamicEntry = admDynamicData.find(
+          const foundAdmDynamicEntry = admDynamicData.find(
             (admDynamicEntry): number => {
               if (area.properties.pcode === admDynamicEntry.placeCode) {
                 return admDynamicEntry;
@@ -615,7 +615,7 @@ export class MapService {
             },
           );
           area.properties.indicators = {};
-          area.properties.indicators[layer.name] = admDynamicEntry.value;
+          area.properties.indicators[layer.name] = foundAdmDynamicEntry.value;
           updatedFeatures.push(area);
         }
         return adminRegions;

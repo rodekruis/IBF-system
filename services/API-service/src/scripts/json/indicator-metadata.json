@@ -78,7 +78,7 @@
     "description": "Alpha version 2011 estimates of proportion of people per grid square living in poverty, as defined by $2 a day thresholds. Tatem AJ, Gething PW, Bhatt S, Weiss D and Pezzulo C (2013) Pilot high resolution poverty maps, University of Southampton/Oxford."
   },
   {
-    "country_codes": "UGA,PHL",
+    "country_codes": "UGA",
     "name": "female_head_hh",
     "label": "Female-headed household",
     "group": "vulnerability",
@@ -304,7 +304,7 @@
   {
     "country_codes": "PHL",
     "name": "potential_cases_U9",
-    "label": "Potential Cases Under 9",
+    "label": "Potential Cases U9",
     "group": "",
     "icon": "",
     "weightedAvg": true,
@@ -313,7 +313,7 @@
     "numberFormatMap": "decimal2",
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
-    "order": 2,
+    "order": 5,
     "dynamic": true,
     "source": "demographic data: https://data.humdata.org/dataset/philippines-pre-disaster-indicators",
     "description": "Number of potential dengue cases among children under 9 years of age, based on dengue risk and demographic data",
@@ -331,10 +331,27 @@
     "numberFormatMap": "decimal2",
     "aggregateIndicator": false,
     "numberFormatAggregate": "",
-    "order": 2,
+    "order": 5,
     "dynamic": true,
     "source": "demographic data: https://data.humdata.org/dataset/philippines-pre-disaster-indicators",
     "description": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data.",
     "lazyLoad": true
+  },
+  {
+    "country_codes": "PHL",
+    "name": "female_head_hh_phl",
+    "label": "Female-headed household",
+    "group": "vulnerability",
+    "icon": "Person2-white.svg",
+    "weightedAvg": true,
+    "active": false,
+    "colorBreaks": null,
+    "numberFormatMap": "perc",
+    "aggregateIndicator": true,
+    "numberFormatAggregate": "decimal0",
+    "order": 3,
+    "dynamic": false,
+    "source": "",
+    "description": ""
   }
 ]
