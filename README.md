@@ -100,9 +100,15 @@ These commands will install the IBF-system with listeners at,
 
 We use Cypress for automated integration testing in this project.
 Installation:
- 1. `sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb`
- 2. In root folder `npm install --only=dev`
- 3. Run `npm run start:cypress` 
+ 0. (Potentially on Ubuntu?: `sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb`)
+ 1. In root folder `npm install --only=dev`
+  - This should download and install Cypress
+  - If it fails, find out why and/or install Cypress in some other way (e.g. `npm install cypress`)
+ 2. Set necessary environment variables, for example by using a CYPRESS_* prefix (see https://docs.cypress.io/guides/guides/environment-variables for more)
+  - e.g. on Windows Powershell: $env:CYPRESS_LOGIN_USER = "<login>"
+ 3. Run `npm run open:cypress` 
+  - When the Cypress window opens click on 'Run X integration specs'
+  - Alternatively run `npm run start:cypress` to run from commandline
 
 
 ## Releases

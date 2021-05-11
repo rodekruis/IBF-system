@@ -16,6 +16,7 @@
       pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
       autocomplete="email username"
       clearInput="true"
+      data-test="input-user"
     ></ion-input>
   </ion-item>
   <ion-item>
@@ -29,6 +30,7 @@
       minlength="4"
       clearInput="true"
       clearOnEdit="false"
+      data-test="input-password"
     ></ion-input>
   </ion-item>
 
@@ -38,6 +40,7 @@
     class="login-button"
     expand="block"
     [disabled]="!loginForm.form.valid"
+    data-test="login-button"
   >
     Log In
     <ion-icon slot="end" name="enter"></ion-icon>

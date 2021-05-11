@@ -3,9 +3,9 @@ const LOGIN_USER = process.env.LOGIN_USER;
 const LOGIN_PASSWORD = process.env.LOGIN_PASSWORD;
 
 const locators = {
-    inputLoginEmail: 'input[type="email"]',
-    inputLoginPassword: 'input[type="password"]',
-    loginButton: ".login-button",
+    inputLoginEmail: "[data-test='input-user'] input",
+    inputLoginPassword: "[data-test='input-password'] input",
+    loginButton: "[data-test='login-button']",
 };
 
 module.exports = async (browser, context) => {
