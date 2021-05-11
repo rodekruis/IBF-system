@@ -1,3 +1,12 @@
+## [0.59.3](https://github.com/rodekruis/IBF-system/compare/v0.59.2...v0.59.3) (2021-05-11)
+
+
+### Bug Fixes
+
+* update readme AB[#7563](https://github.com/rodekruis/IBF-system/issues/7563) ([667c279](https://github.com/rodekruis/IBF-system/commit/667c2799c2a24cd032280900bc8b1a6242431cd9))
+
+
+
 ## [0.59.2](https://github.com/rodekruis/IBF-system/compare/v0.59.1...v0.59.2) (2021-05-11)
 
 
@@ -117,15 +126,6 @@
 * change mock station UGA AB[#7064](https://github.com/rodekruis/IBF-system/issues/7064) ([b27fca9](https://github.com/rodekruis/IBF-system/commit/b27fca933ba1a85049c807d6d9c8a2bcb6faeee3))
 * revert temporary glofas api date override AB[#7169](https://github.com/rodekruis/IBF-system/issues/7169) ([2c52b9f](https://github.com/rodekruis/IBF-system/commit/2c52b9fe15c865fcf5e3e4c4c1a416e54484f9a3))
 * temporarily use available glofas api date AB# ([6061175](https://github.com/rodekruis/IBF-system/commit/606117503465693ad28f760eaee65d5727dba57e))
-
-
-
-# [0.57.0](https://github.com/rodekruis/IBF-system/compare/v0.56.2...v0.57.0) (2021-04-19)
-
-
-### Features
-
-* provide mock-no-trigger option IBF-pipeline AB[#7068](https://github.com/rodekruis/IBF-system/issues/7068) ([dd1f840](https://github.com/rodekruis/IBF-system/commit/dd1f840e717427d7730f7fb1b9b8a23f03f8d14a))
 
 
 
