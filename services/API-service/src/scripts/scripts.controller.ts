@@ -79,6 +79,9 @@ export class ScriptsController {
     ];
     for (const unit of exposureUnitsPHL) {
       for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
+        console.log(
+          `Seeding leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3}`,
+        );
         await this.adminAreaDynamicDataService.exposure({
           countryCodeISO3: body.countryCodeISO3,
           exposurePlaceCodes: body.triggered ? exposureTriggered : exposure,
