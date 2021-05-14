@@ -6,9 +6,9 @@ export enum LeadTime {
   day5 = '5-day',
   day6 = '6-day',
   day7 = '7-day',
+  month0 = '0-month',
   month1 = '1-month',
   month2 = '2-month',
-  month3 = '3-month',
 }
 
 export enum LeadTimeTriggerKey {
@@ -19,9 +19,9 @@ export enum LeadTimeTriggerKey {
   '5-day' = '5',
   '6-day' = '6',
   '7-day' = '7',
+  '0-month' = '0',
   '1-month' = '1',
   '2-month' = '2',
-  '3-month' = '3',
 }
 
 export enum LeadTimeUnit {

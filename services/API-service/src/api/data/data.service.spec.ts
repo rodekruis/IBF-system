@@ -3,7 +3,7 @@ import { DataService } from './data.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserEntity } from '../user/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TriggerPerLeadTime } from '../upload/trigger-per-lead-time.entity';
+import { TriggerPerLeadTime } from '../admin-area-dynamic-data/trigger-per-lead-time.entity';
 
 describe('User service', (): void => {
   let service: DataService;

@@ -1,5 +1,5 @@
 import { CountryEntity } from './../country/country.entity';
-import { TriggerPerLeadTime } from './../upload/trigger-per-lead-time.entity';
+import { TriggerPerLeadTime } from '../admin-area-dynamic-data/trigger-per-lead-time.entity';
 import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';

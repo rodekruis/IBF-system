@@ -35,6 +35,7 @@ export class IbfLayer {
   leafletLayer?: Layer | LayerGroup | Marker | GeoJSON | MarkerClusterGroup;
   legendColor?: string;
   group?: IbfLayerGroup;
+  dynamic?: boolean;
 }
 
 export enum IbfLayerType {

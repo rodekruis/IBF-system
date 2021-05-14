@@ -13,17 +13,20 @@ from lib.logging.logglySetup import logger
 from settings import *
 import os
 
+
 class Exposure:
 
     """Class used to calculate the exposure per exposure type"""
-    
-    def __init__(self, leadTimeLabel, country_code, admin_area_gdf, district_mapping = None):
+
+    def __init__(self, leadTimeLabel, country_code, admin_area_gdf, district_mapping=None):
         self.leadTimeLabel = leadTimeLabel
         self.country_code = country_code
         if SETTINGS[country_code]['model'] == 'glofas':
-            self.disasterExtentRaster = GEOSERVER_OUTPUT + '0/flood_extents/flood_extent_'+ leadTimeLabel + '_' + country_code + '.tif'
+            self.disasterExtentRaster = GEOSERVER_OUTPUT + \
+                '0/flood_extents/flood_extent_' + leadTimeLabel + '_' + country_code + '.tif'
         elif SETTINGS[country_code]['model'] == 'rainfall':
-            self.disasterExtentRaster = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ leadTimeLabel + '_' + country_code + '.tif'
+            self.disasterExtentRaster = GEOSERVER_OUTPUT + \
+                '0/rainfall_extents/rain_rp_' + leadTimeLabel + '_' + country_code + '.tif'
         self.selectionValue = 0.9
         self.outputPath = PIPELINE_OUTPUT + "out.tif"
         self.district_mapping = district_mapping
@@ -33,14 +36,17 @@ class Exposure:
         self.stats = []
 
     def callAllExposure(self):
-        logger.info('Started calculating affected of %s', self.disasterExtentRaster)
+        logger.info('Started calculating affected of %s',
+                    self.disasterExtentRaster)
 
         for indicator, values in self.EXPOSURE_DATA_SOURCES.items():
             print('indicator: ', indicator)
             self.inputRaster = GEOSERVER_INPUT + values['source'] + ".tif"
-            self.outputRaster = GEOSERVER_OUTPUT + "0/" + values['source'] + self.leadTimeLabel
+            self.outputRaster = GEOSERVER_OUTPUT + "0/" + \
+                values['source'] + self.leadTimeLabel
 
-            self.calcAffected(self.disasterExtentRaster, indicator, values['rasterValue'])
+            self.calcAffected(self.disasterExtentRaster,
+                              indicator, values['rasterValue'])
 
             result = {
                 'countryCodeISO3': self.country_code,
@@ -49,7 +55,8 @@ class Exposure:
                 'exposureUnit': indicator
             }
 
-            self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + self.leadTimeLabel + '_' + self.country_code + '_' + indicator + '.json'
+            self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + \
+                self.leadTimeLabel + '_' + self.country_code + '_' + indicator + '.json'
             with open(self.statsPath, 'w') as fp:
                 json.dump(result, fp)
                 logger.info("Saved stats for %s", self.statsPath)
@@ -58,59 +65,69 @@ class Exposure:
         disasterExtentShapes = self.loadTiffAsShapes(disasterExtentRaster)
         if disasterExtentShapes != []:
             try:
-                affectedImage, affectedMeta = self.clipTiffWithShapes(self.inputRaster, disasterExtentShapes)
+                affectedImage, affectedMeta = self.clipTiffWithShapes(
+                    self.inputRaster, disasterExtentShapes)
                 with rasterio.open(self.outputRaster, "w", **affectedMeta) as dest:
                     dest.write(affectedImage)
             except ValueError:
                 print('Rasters do not overlap')
         logger.info("Wrote to " + self.outputRaster)
         self.ADMIN_AREA_GDF.to_file(self.ADMIN_AREA_GDF_TMP_PATH)
-        stats = self.calcStatsPerAdmin(indicator, disasterExtentShapes, rasterValue)
-        
+        stats = self.calcStatsPerAdmin(
+            indicator, disasterExtentShapes, rasterValue)
+
         for item in stats:
             self.stats.append(item)
 
-
     def calcStatsPerAdmin(self, indicator, disasterExtentShapes, rasterValue):
         if SETTINGS[self.country_code]['model'] == 'glofas':
-            #Load trigger_data per station
-            path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.leadTimeLabel + '_' + self.country_code + '.json'
+            # Load trigger_data per station
+            path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + \
+                self.leadTimeLabel + '_' + self.country_code + '.json'
             df_triggers = pd.read_json(path, orient='records')
             df_triggers = df_triggers.set_index("stationCode", drop=False)
-            #Load assigned station per district
-            df_district_mapping = pd.read_json(json.dumps(self.district_mapping))
-            df_district_mapping = df_district_mapping.set_index("placeCode", drop=False)
+            # Load assigned station per district
+            df_district_mapping = pd.read_json(
+                json.dumps(self.district_mapping))
+            df_district_mapping = df_district_mapping.set_index(
+                "placeCode", drop=False)
 
         stats = []
         with fiona.open(self.ADMIN_AREA_GDF_TMP_PATH, "r") as shapefile:
 
             # Clip affected raster per area
             for area in shapefile:
-                if disasterExtentShapes != []: 
-                    try: 
-                        outImage, outMeta = self.clipTiffWithShapes(self.outputRaster, [area["geometry"]] )
-                        
+                if disasterExtentShapes != []:
+                    try:
+                        outImage, outMeta = self.clipTiffWithShapes(
+                            self.outputRaster, [area["geometry"]])
+
                         # Write clipped raster to tempfile to calculate raster stats
                         with rasterio.open(self.outputPath, "w", **outMeta) as dest:
                             dest.write(outImage)
-                            
-                        statsDistrict = self.calculateRasterStats(indicator,  str(area['properties']['placeCode']), self.outputPath, rasterValue)
+
+                        statsDistrict = self.calculateRasterStats(indicator,  str(
+                            area['properties']['placeCode']), self.outputPath, rasterValue)
 
                         # Overwrite non-triggered areas with positive exposure (due to rounding errors) to 0
                         if SETTINGS[self.country_code]['model'] == 'glofas':
-                            if self.checkIfTriggeredArea(df_triggers,df_district_mapping,str(area['properties']['placeCode'])) == 0:
-                                statsDistrict = {'amount': 0, 'placeCode': str(area['properties']['placeCode'])}
+                            if self.checkIfTriggeredArea(df_triggers, df_district_mapping, str(area['properties']['placeCode'])) == 0:
+                                statsDistrict = {'amount': 0, 'placeCode': str(
+                                    area['properties']['placeCode'])}
                         if self.country_code == 'EGY':
                             if 'EG' not in str(area['properties']['placeCode']):
-                                statsDistrict = {'amount': 0, 'placeCode': str(area['properties']['placeCode'])}
+                                statsDistrict = {'amount': 0, 'placeCode': str(
+                                    area['properties']['placeCode'])}
                     except (ValueError, rasterio.errors.RasterioIOError):
-                            # If there is no disaster in the district set  the stats to 0
-                        statsDistrict = {'amount': 0, 'placeCode': str(area['properties']['placeCode'])}
-                else: 
-                    statsDistrict = {'amount': 0, 'placeCode': str(area['properties']['placeCode'])}        
+                        # If there is no disaster in the district set  the stats to 0
+                        statsDistrict = {'amount': 0, 'placeCode': str(
+                            area['properties']['placeCode'])}
+                else:
+                    statsDistrict = {'amount': 0, 'placeCode': str(
+                        area['properties']['placeCode'])}
                 stats.append(statsDistrict)
         os.remove(self.ADMIN_AREA_GDF_TMP_PATH)
-        return stats    
+        return stats
 
     def checkIfTriggeredArea(self, df_triggers, df_district_mapping, pcode):
         df_station_code = df_district_mapping[df_district_mapping['placeCode'] == pcode]
@@ -126,19 +143,17 @@ class Exposure:
         return trigger
 
     def calculateRasterStats(self, indicator, district, outFileAffected, rasterValue):
-        raster = rasterio.open(outFileAffected)   
+        raster = rasterio.open(outFileAffected)
         stats = []
 
-        array = raster.read( masked=True)
+        array = raster.read(masked=True)
         band = array[0]
         theSum = band.sum() * rasterValue
         stats.append({
             'amount': float(str(theSum)),
             'placeCode': district
-            })
+        })
         return stats[0]
-
-
 
     def loadTiffAsShapes(self, tiffLocaction):
         allgeom = []
@@ -147,29 +162,28 @@ class Exposure:
             image = dataset.read(1).astype(np.float32)
             mask = dataset.dataset_mask()
             theShapes = shapes(image, mask=mask, transform=dataset.transform)
-            
+
             # Extract feature shapes and values from the array.
             for geom, val in theShapes:
-                if val >= self.selectionValue:              
+                if val >= self.selectionValue:
                     # Transform shapes from the dataset's own coordinate
                     # reference system to CRS84 (EPSG:4326).
                     geom = rasterio.warp.transform_geom(
                         dataset.crs, 'EPSG:4326', geom, precision=6)
                     # Append everything to one geojson
-                    
-                    allgeom.append(geom)   
+
+                    allgeom.append(geom)
         return allgeom
-
-
 
     def clipTiffWithShapes(self, tiffLocaction, shapes):
         with rasterio.open(tiffLocaction) as src:
-            outImage, out_transform = rasterio.mask.mask(src, shapes, crop=True)
+            outImage, out_transform = rasterio.mask.mask(
+                src, shapes, crop=True)
             outMeta = src.meta.copy()
 
         outMeta.update({"driver": "GTiff",
-                    "height": outImage.shape[1],
-                    "width": outImage.shape[2],
-                    "transform": out_transform})
+                        "height": outImage.shape[1],
+                        "width": outImage.shape[2],
+                        "transform": out_transform})
 
         return outImage, outMeta

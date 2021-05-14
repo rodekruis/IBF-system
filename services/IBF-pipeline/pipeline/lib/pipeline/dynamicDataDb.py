@@ -33,15 +33,15 @@ class DatabaseManager:
 
     def uploadCalculatedAffected(self):
         for indicator, values in self.EXPOSURE_DATA_SOURCES.items():
-            with open(self.affectedFolder + \
-                'affected_' + self.leadTimeLabel + '_' + self.country_code + '_' + indicator + '.json') as json_file:
+            with open(self.affectedFolder +
+                      'affected_' + self.leadTimeLabel + '_' + self.country_code + '_' + indicator + '.json') as json_file:
                 body = json.load(json_file)
                 self.apiPostRequest('upload/exposure', body)
             print('Uploaded calculated_affected for indicator: ' + indicator)
 
     def uploadTriggerPerStation(self):
-        df = pd.read_json(self.triggerFolder + \
-                'triggers_rp_' + self.leadTimeLabel + '_' + self.country_code + ".json", orient='records')
+        df = pd.read_json(self.triggerFolder +
+                          'triggers_rp_' + self.leadTimeLabel + '_' + self.country_code + ".json", orient='records')
         dfUpload = pd.DataFrame(index=df.index)
         dfUpload['countryCode'] = self.country_code
         dfUpload['leadTime'] = self.leadTimeLabel
@@ -55,8 +55,8 @@ class DatabaseManager:
         print('Uploaded triggers per station')
 
     def uploadTriggersPerLeadTime(self):
-        with open(self.triggerFolder + \
-            'trigger_per_day_' + self.country_code + ".json") as json_file:
+        with open(self.triggerFolder +
+                  'trigger_per_day_' + self.country_code + ".json") as json_file:
             triggers = json.load(json_file)[0]
             for key in triggers:
                 body = {
@@ -100,27 +100,29 @@ class DatabaseManager:
     def apiGetRequest(self, path, country_code):
         TOKEN = self.authenticate()
 
-        response = requests.get( \
-            API_SERVICE_URL + path + '/' + country_code, \
-            headers={'Authorization': 'Bearer ' + TOKEN} \
-            )
+        response = requests.get(
+            API_SERVICE_URL + path + '/' + country_code,
+            headers={'Authorization': 'Bearer ' + TOKEN}
+        )
         data = response.json()
         return(data)
 
     def apiPostRequest(self, path, body):
         TOKEN = self.authenticate()
 
-        r = requests.post( \
-            API_SERVICE_URL + path, \
-            json = body, \
-            headers={'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json', 'Accept':'application/json'} \
+        r = requests.post(
+            API_SERVICE_URL + path,
+            json=body,
+            headers={'Authorization': 'Bearer ' + TOKEN,
+                     'Content-Type': 'application/json', 'Accept': 'application/json'}
         )
         if r.status_code >= 400:
             print(r.text)
             raise ValueError()
 
     def authenticate(self):
-        login_response = requests.post(API_LOGIN_URL, data=[('email',ADMIN_LOGIN),('password',ADMIN_PASSWORD)])
+        login_response = requests.post(API_LOGIN_URL, data=[(
+            'email', ADMIN_LOGIN), ('password', ADMIN_PASSWORD)])
         return login_response.json()['user']['token']
 
     def downloadGeoDataFromDb(self, schema, table, country_code=None):
@@ -134,7 +136,7 @@ class DatabaseManager:
             logger.info(e)
 
         return admin_gdf
-    
+
     def getDataFromDatalake(self, path):
         import requests
         import datetime
@@ -142,9 +144,8 @@ class DatabaseManager:
         import hashlib
         import base64
 
-        
         request_time = datetime.datetime.utcnow().strftime('%a, %d %b %Y %H:%M:%S GMT')
-        file_system_name ='ibf/' + path
+        file_system_name = 'ibf/' + path
         print('Downloading from datalake: ', file_system_name)
 
         string_params = {
@@ -162,29 +163,31 @@ class DatabaseManager:
             'Range': '',
             'CanonicalizedHeaders': 'x-ms-date:' + request_time + '\nx-ms-version:' + DATALAKE_API_VERSION,
             'CanonicalizedResource': '/' + DATALAKE_STORAGE_ACCOUNT_NAME+'/'+file_system_name
-            }
-        
-        string_to_sign = (string_params['verb'] + '\n' 
-                        + string_params['Content-Encoding'] + '\n'
-                        + string_params['Content-Language'] + '\n'
-                        + string_params['Content-Length'] + '\n'
-                        + string_params['Content-MD5'] + '\n' 
-                        + string_params['Content-Type'] + '\n' 
-                        + string_params['Date'] + '\n' 
-                        + string_params['If-Modified-Since'] + '\n'
-                        + string_params['If-Match'] + '\n'
-                        + string_params['If-None-Match'] + '\n'
-                        + string_params['If-Unmodified-Since'] + '\n'
-                        + string_params['Range'] + '\n'
-                        + string_params['CanonicalizedHeaders']+'\n'
-                        + string_params['CanonicalizedResource'])
-        
-        signed_string = base64.b64encode(hmac.new(base64.b64decode(DATALAKE_STORAGE_ACCOUNT_KEY), msg=string_to_sign.encode('utf-8'), digestmod=hashlib.sha256).digest()).decode()
-        headers = {
-            'x-ms-date' : request_time,
-            'x-ms-version' : DATALAKE_API_VERSION,
-            'Authorization' : ('SharedKey ' + DATALAKE_STORAGE_ACCOUNT_NAME + ':' + signed_string)
         }
-        url = ('https://' + DATALAKE_STORAGE_ACCOUNT_NAME + '.dfs.core.windows.net/'+file_system_name)
-        r = requests.get(url, headers = headers)
+
+        string_to_sign = (string_params['verb'] + '\n'
+                          + string_params['Content-Encoding'] + '\n'
+                          + string_params['Content-Language'] + '\n'
+                          + string_params['Content-Length'] + '\n'
+                          + string_params['Content-MD5'] + '\n'
+                          + string_params['Content-Type'] + '\n'
+                          + string_params['Date'] + '\n'
+                          + string_params['If-Modified-Since'] + '\n'
+                          + string_params['If-Match'] + '\n'
+                          + string_params['If-None-Match'] + '\n'
+                          + string_params['If-Unmodified-Since'] + '\n'
+                          + string_params['Range'] + '\n'
+                          + string_params['CanonicalizedHeaders']+'\n'
+                          + string_params['CanonicalizedResource'])
+
+        signed_string = base64.b64encode(hmac.new(base64.b64decode(
+            DATALAKE_STORAGE_ACCOUNT_KEY), msg=string_to_sign.encode('utf-8'), digestmod=hashlib.sha256).digest()).decode()
+        headers = {
+            'x-ms-date': request_time,
+            'x-ms-version': DATALAKE_API_VERSION,
+            'Authorization': ('SharedKey ' + DATALAKE_STORAGE_ACCOUNT_NAME + ':' + signed_string)
+        }
+        url = ('https://' + DATALAKE_STORAGE_ACCOUNT_NAME +
+               '.dfs.core.windows.net/'+file_system_name)
+        r = requests.get(url, headers=headers)
         return r

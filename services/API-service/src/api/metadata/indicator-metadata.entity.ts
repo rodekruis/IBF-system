@@ -28,12 +28,10 @@ export class IndicatorMetadataEntity {
   public numberFormatAggregate: string;
   @Column({ default: 1 })
   public order: number;
+  @Column({ default: false })
+  public dynamic: boolean;
   @Column({ nullable: true })
   public unit: string;
-  @Column()
-  public source: string;
-  @Column()
-  public description: string;
   @Column({ default: false })
   public lazyLoad: boolean;
 }

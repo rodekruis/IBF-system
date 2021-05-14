@@ -174,6 +174,29 @@ export class ApiService {
     return this.get(`metadata/indicators/${countryCodeISO3}`, false);
   }
 
+  getAdminAreaData(
+    countryCodeISO3: string,
+    adminLevel: AdminLevel,
+    key: string,
+  ) {
+    return this.get(
+      `adminAreaData/${countryCodeISO3}/${adminLevel}/${key}`,
+      false,
+    );
+  }
+
+  getAdminAreaDynamicData(
+    countryCodeISO3: string,
+    adminLevel: AdminLevel,
+    leadTime: LeadTime,
+    key: string,
+  ) {
+    return this.get(
+      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${leadTime}/${key}`,
+      false,
+    );
+  }
+
   getLayers(countryCodeISO3: string) {
     return this.get(`metadata/layers/${countryCodeISO3}`, false);
   }

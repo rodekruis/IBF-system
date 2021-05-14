@@ -13,9 +13,13 @@ import {
   ApiBody,
   ApiConsumes,
   ApiOperation,
+  ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
+import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
+import { ExposureUnit } from '../admin-area-dynamic-data/enum/exposure-unit';
+import { GeoJson } from '../data/geo.model';
 import { AdminAreaDataService } from './admin-area-data.service';
 
 @ApiBearerAuth()
@@ -49,5 +53,20 @@ export class AdminAreaDataController {
   @UseInterceptors(FileInterceptor('file'))
   public async upload(@UploadedFile() adminAreaData): Promise<void> {
     await this.adminAreaDataService.updateOrCreate(adminAreaData);
+  }
+
+  @ApiOperation({ summary: 'Get dynamic admin-area data' })
+  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiParam({ name: 'key', required: true, type: 'string' })
+  @Get(':countryCode/:adminLevel/:key')
+  public async getAdminAreaData(
+    @Param() params,
+  ): Promise<AdminDataReturnDto[]> {
+    return await this.adminAreaDataService.getAdminAreaData(
+      params.countryCode,
+      params.adminLevel,
+      params.key as ExposureUnit,
+    );
   }
 }
