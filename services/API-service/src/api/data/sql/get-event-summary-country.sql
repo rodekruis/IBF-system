@@ -18,10 +18,10 @@ from
   from
     "IBF-pipeline-output".event_place_code e
   left join "IBF-API"."Admin_area_data2" a2 on
-    a2.pcode = e."placeCode"
+    a2."placeCode" = e."placeCode"
     and a2.country_code is not null
   left join "IBF-API"."Admin_area_data1" a1 on
-    a1.pcode = e."placeCode"
+    a1."placeCode" = e."placeCode"
     and a1.country_code is not null
   where
     closed = false

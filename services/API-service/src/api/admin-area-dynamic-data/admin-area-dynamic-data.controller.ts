@@ -1,5 +1,5 @@
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
-import { ExposureUnit } from './enum/exposure-unit';
+import { DynamicDataUnit } from './enum/dynamic-data-unit';
 import { Body, Get, Param } from '@nestjs/common';
 import { Controller, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import {
@@ -12,6 +12,7 @@ import {
 import { RolesGuard } from '../../roles.guard';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
+import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 @ApiBearerAuth()
 @ApiTags('admin-area-dynamic-data')
 @Controller('admin-area-dynamic-data')
@@ -25,7 +26,7 @@ export class AdminAreaDynamicDataController {
   @ApiOperation({
     summary: 'Upload exposure data at a regular interval',
   })
-  @Post('upload')
+  @Post('exposure')
   @ApiConsumes()
   @UseInterceptors()
   public async exposure(
@@ -47,7 +48,22 @@ export class AdminAreaDynamicDataController {
       params.countryCode,
       params.adminLevel,
       params.leadTime,
-      params.key as ExposureUnit,
+      params.key as DynamicDataUnit,
+    );
+  }
+
+  @UseGuards(RolesGuard)
+  @ApiOperation({
+    summary: 'Upload trigger per leadtime data',
+  })
+  @Post('triggers-per-leadtime')
+  @ApiConsumes()
+  @UseInterceptors()
+  public async uploadTriggersPerLeadTime(
+    @Body() uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
+  ): Promise<void> {
+    await this.adminAreaDynamicDataService.uploadTriggerPerLeadTime(
+      uploadTriggerPerLeadTimeDto,
     );
   }
 }

@@ -1,4 +1,4 @@
-
+--
 --create API view for Glofas stations
 DROP TABLE IF EXISTS "IBF-API".redcross_branches;
 create table "IBF-API".redcross_branches as
@@ -12,19 +12,19 @@ select "countryCode"
 from "IBF-app"."redcrossBranch"
 ;
 --select * from "IBF-API".redcross_branches
-
+--
 --create API view for Glofas stations
 drop view if exists "IBF-API"."Glofas_stations";
 create or replace view "IBF-API"."Glofas_stations" as
-select dfps.country_code
-		,dfps.lead_time
+select gst."countryCode" as country_code
+		,gst."leadTime" as lead_time
 		,dgsv.station_code
 		,dgsv.station_name
 		,dgsv.trigger_level
 		,dgsv.geom
-	  , dfps.fc
-      , dfps.fc_trigger
-      , dfps.fc_prob
+	  , gst."forecastLevel" as fc
+      , gst."forecastTrigger" as fc_trigger
+      , gst."forecastProbability" as fc_prob
 from (
 	select "countryCode" as country_code
 		,"stationCode" as station_code
@@ -33,35 +33,69 @@ from (
 		,ST_AsGeoJSON(geom)::json As geom
 	from "IBF-app"."glofasStation" gs
 	) dgsv
-left join "IBF-pipeline-output".dashboard_forecast_per_station dfps on dgsv.station_code = dfps.station_code and dgsv.country_code = dfps.country_code
+left join "IBF-app"."glofasStationTrigger" gst
+	on dgsv.station_code = gst."stationCode" 
+	and dgsv.country_code = gst."countryCode" 
+	and gst.date = current_date
 ;
 --select * from "IBF-API"."Glofas_stations" where lead_time = '3-day' and country_code = 'ZMB'
 
 drop view if exists "IBF-API"."Admin_area_data2" cascade;
 create or replace view "IBF-API"."Admin_area_data2" as
-select geo."placeCode" as pcode_level2
+select geo."placeCode"
 	,geo."name"
 	,geo."placeCodeParent" as pcode_level1
 	,ST_AsGeoJSON(geo.geom)::json As geom
 	,"countryCode" as country_code
-	,d2.pcode, "date", lead_time, fc, fc_trigger, fc_rp, fc_prob, population_affected, indicators
+	, date
+	, lead_time
+	, population_affected
+	, row_to_json(daad.*) as indicators
 from "IBF-app"."adminArea" geo
-left join "IBF-pipeline-output".data_adm2 d2 on geo."placeCode" = d2.pcode
+left join (
+	select country_code 
+		,lead_time
+		,date
+		,district as "placeCode" 
+		,cast("sum" as float) as population_affected
+	from "IBF-pipeline-output".calculated_affected
+	where date = current_date 
+	and source = 'population'
+) ca
+	on geo."placeCode" = ca."placeCode"  
+	and geo."countryCode" = ca.country_code 
+left join "IBF-pipeline-output".dashboard_admin_area_data daad 
+	on geo."placeCode" = daad."placeCode"
 where "adminLevel" = 2
 ;
 --select * from "IBF-API"."Admin_area_data2" where country_code = 'UGA'
 
 drop view if exists "IBF-API"."Admin_area_data1" cascade;
 create or replace view "IBF-API"."Admin_area_data1" as
-select geo."placeCode" as pcode_level1
+select geo."placeCode"
 	,geo."name"
 	,geo."placeCodeParent" as pcode_level0
 	,ST_AsGeoJSON(geo.geom)::json As geom
 	,"countryCode" as country_code
---	,d2.*
-	,d2.pcode, "date", lead_time, fc, fc_trigger, fc_rp, fc_prob, population_affected, indicators
+	, date
+	, lead_time
+	, population_affected
+	, row_to_json(daad.*) as indicators
 from "IBF-app"."adminArea" geo
-left join "IBF-pipeline-output".data_adm2 d2 on geo."placeCode" = d2.pcode
+left join (
+	select country_code 
+		,lead_time
+		,date
+		,district as "placeCode" 
+		,cast("sum" as float) as population_affected
+	from "IBF-pipeline-output".calculated_affected
+	where date = current_date 
+	and source = 'population'
+) ca
+	on geo."placeCode" = ca."placeCode"  
+	and geo."countryCode" = ca.country_code 
+left join "IBF-pipeline-output".dashboard_admin_area_data daad 
+	on geo."placeCode" = daad."placeCode"
 where "adminLevel" = 1
 ;
 --select * from "IBF-API"."Admin_area_data1" where country_code = 'EGY'

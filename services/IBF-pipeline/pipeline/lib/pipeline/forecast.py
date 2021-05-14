@@ -16,18 +16,18 @@ class Forecast:
         self.leadTimeValue = leadTimeValue 
         self.db = DatabaseManager(leadTimeLabel, country_code)
 
-        # self.admin_area_gdf = self.db.downloadGeoDataFromDb('IBF-app','adminArea', country_code=country_code)
-        self.admin_area_gdf = self.db.apiGetRequest('adminAreas',country_code=country_code)
-        print(type(self.admin_area_gdf[0]))
-        for index in range(len(self.admin_area_gdf)):
-            self.admin_area_gdf[index]['geometry'] = self.admin_area_gdf[index]['geom']
-            self.admin_area_gdf[index]['properties'] = {
-                'placeCode': self.admin_area_gdf[index]['placeCode'],
-                'name': self.admin_area_gdf[index]['name']
-            }
-        print(self.admin_area_gdf[0])
-        admin_gdf = geopandas.GeoDataFrame.from_features(self.admin_area_gdf)
-        print(admin_gdf.head(10))
+        self.admin_area_gdf = self.db.downloadGeoDataFromDb('IBF-app','adminArea', country_code=country_code)
+        # self.admin_area_gdf = self.db.apiGetRequest('adminAreas',country_code=country_code)
+        # print(type(self.admin_area_gdf[0]))
+        # for index in range(len(self.admin_area_gdf)):
+        #     self.admin_area_gdf[index]['geometry'] = self.admin_area_gdf[index]['geom']
+        #     self.admin_area_gdf[index]['properties'] = {
+        #         'placeCode': self.admin_area_gdf[index]['placeCode'],
+        #         'name': self.admin_area_gdf[index]['name']
+        #     }
+        # print(self.admin_area_gdf[0])
+        # admin_gdf = geopandas.GeoDataFrame.from_features(self.admin_area_gdf)
+        # print(admin_gdf.head(10))
         # admin_df = pd.read_json(json.dumps(self.admin_area_gdf))
         # print(admin_df.head(10))
         # # admin_df['geom2'] = admin_df.geom.apply(lambda x: wkb.dumps(x))

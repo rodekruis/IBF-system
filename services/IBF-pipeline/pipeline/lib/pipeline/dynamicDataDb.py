@@ -36,14 +36,14 @@ class DatabaseManager:
             with open(self.affectedFolder +
                       'affected_' + self.leadTimeLabel + '_' + self.country_code + '_' + indicator + '.json') as json_file:
                 body = json.load(json_file)
-                self.apiPostRequest('upload/exposure', body)
+                self.apiPostRequest('admin-area-dynamic-data/exposure', body)
             print('Uploaded calculated_affected for indicator: ' + indicator)
 
     def uploadTriggerPerStation(self):
         df = pd.read_json(self.triggerFolder +
                           'triggers_rp_' + self.leadTimeLabel + '_' + self.country_code + ".json", orient='records')
         dfUpload = pd.DataFrame(index=df.index)
-        dfUpload['countryCode'] = self.country_code
+        dfUpload['countryCodeISO3'] = self.country_code
         dfUpload['leadTime'] = self.leadTimeLabel
         dfUpload['stationCode'] = df['stationCode']
         dfUpload['forecastLevel'] = df['fc']
@@ -64,17 +64,10 @@ class DatabaseManager:
                     'leadTime': str(key),
                     'triggered': triggers[key]
                 }
-                self.apiPostRequest('upload/triggers-per-leadtime', body)
+                self.apiPostRequest('admin-area-dynamic-data/triggers-per-leadtime', body)
         print('Uploaded triggers per leadTime')
 
     def processDynamicDataDb(self):
-        sql_file = open(
-            'lib/pipeline/processDynamicDataPostgresTrigger.sql', 'r', encoding='utf-8')
-        sql_trigger = sql_file.read()
-        sql_file.close()
-        sql_file = open(
-            'lib/pipeline/processDynamicDataPostgresExposure.sql', 'r', encoding='utf-8')
-        sql_exposure = sql_file.read()
         sql_file.close()
         sql_file = open('lib/pipeline/processEventDistricts.sql',
                         'r', encoding='utf-8')
@@ -86,7 +79,6 @@ class DatabaseManager:
         sql_file.close()
         try:
             self.con, self.cur, self.db = get_db()
-            self.cur.execute(sql_trigger)
             self.cur.execute(sql_exposure)
             self.cur.execute(sql_event_districts)
             self.cur.execute(sql_create_views)

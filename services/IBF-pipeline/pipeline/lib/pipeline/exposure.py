@@ -52,7 +52,8 @@ class Exposure:
                 'countryCodeISO3': self.country_code,
                 'exposurePlaceCodes': self.stats,
                 'leadTime': self.leadTimeLabel,
-                'exposureUnit': indicator
+                'dynamicDataUnit': indicator,
+                'adminLevel': 2
             }
 
             self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + \

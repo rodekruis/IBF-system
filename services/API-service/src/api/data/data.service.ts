@@ -40,7 +40,7 @@ export class DataService {
       leadTime = await this.getDefaultLeadTime(countryCodeISO3);
     }
     const trigger = (await this.getTriggerPerLeadtime(countryCodeISO3))[
-      leadTime.substr(0, 1)
+      leadTime
     ];
     let placeCodes;
     if (parseInt(trigger) === 1) {
@@ -58,7 +58,7 @@ export class DataService {
     and lead_time = $1
     and country_code = $2`.concat(
         placeCodes && placeCodes.length > 0
-          ? ' and pcode in (' + placeCodes.toString() + ')'
+          ? ' and "placeCode" in (' + placeCodes.toString() + ')'
           : '',
       );
     const rawResult: AdminAreaDataRecord[] = await this.manager.query(query, [

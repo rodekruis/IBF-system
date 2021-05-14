@@ -18,7 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { ExposureUnit } from '../admin-area-dynamic-data/enum/exposure-unit';
+import { DynamicDataUnit } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { GeoJson } from '../data/geo.model';
 import { AdminAreaDataService } from './admin-area-data.service';
 
@@ -66,7 +66,7 @@ export class AdminAreaDataController {
     return await this.adminAreaDataService.getAdminAreaData(
       params.countryCode,
       params.adminLevel,
-      params.key as ExposureUnit,
+      params.key as DynamicDataUnit,
     );
   }
 }

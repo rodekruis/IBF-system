@@ -1,5 +1,5 @@
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
-import { ExposureUnit } from './../api/admin-area-dynamic-data/enum/exposure-unit';
+import { DynamicDataUnit } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
 import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiProperty } from '@nestjs/swagger';
 import { IsIn, IsNotEmpty, IsString } from 'class-validator';
@@ -73,9 +73,9 @@ export class ScriptsController {
       }
     });
     const exposureUnitsPHL = [
-      ExposureUnit.population,
-      ExposureUnit.potentialCases65,
-      ExposureUnit.potentialCasesU9,
+      DynamicDataUnit.population,
+      DynamicDataUnit.potentialCases65,
+      DynamicDataUnit.potentialCasesU9,
     ];
     for (const unit of exposureUnitsPHL) {
       for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
@@ -86,7 +86,7 @@ export class ScriptsController {
           countryCodeISO3: body.countryCodeISO3,
           exposurePlaceCodes: body.triggered ? exposureTriggered : exposure,
           leadTime: activeLeadTime as LeadTime,
-          exposureUnit: unit,
+          dynamicDataUnit: unit,
           adminLevel: selectedCountry.defaultAdminLevel,
         });
       }

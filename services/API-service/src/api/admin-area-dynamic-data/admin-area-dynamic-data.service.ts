@@ -1,5 +1,5 @@
 import { LeadTime } from './enum/lead-time.enum';
-import { ExposurePlaceCodeDto } from './dto/exposure-place-code.dto';
+import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { Injectable } from '@nestjs/common';
 import { EntityManager, Repository } from 'typeorm';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
@@ -8,8 +8,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CalculatedAffectedEntity } from './calculated-affected.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
-import { ExposureUnit } from './enum/exposure-unit';
+import { DynamicDataUnit } from './enum/dynamic-data-unit';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
+import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -35,15 +36,15 @@ export class AdminAreaDynamicDataService {
   ): Promise<void> {
     // Delete existsing entries with same date, leadtime and country_code and unit typ
     await this.calculatedAffectedRepository.delete({
-      source: uploadExposure.exposureUnit,
+      source: uploadExposure.dynamicDataUnit,
       date: new Date(),
       countryCode: uploadExposure.countryCodeISO3,
       leadTime: uploadExposure.leadTime,
     });
-    if (uploadExposure.exposureUnit === 'population') {
+    if (uploadExposure.dynamicDataUnit === 'population') {
       for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
         const calculatedAffected = new CalculatedAffectedEntity();
-        calculatedAffected.source = uploadExposure.exposureUnit;
+        calculatedAffected.source = uploadExposure.dynamicDataUnit;
         calculatedAffected.sum = String(exposurePlaceCode.amount);
         calculatedAffected.district = exposurePlaceCode.placeCode;
         calculatedAffected.date = new Date();
@@ -54,14 +55,14 @@ export class AdminAreaDynamicDataService {
       }
     } else {
       await this.adminAreaDynamicDataRepo.delete({
-        key: uploadExposure.exposureUnit,
+        key: uploadExposure.dynamicDataUnit,
         date: new Date(),
         countryCode: uploadExposure.countryCodeISO3,
         leadTime: uploadExposure.leadTime,
       });
       for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
         const area = new AdminAreaDynamicDataEntity();
-        area.key = uploadExposure.exposureUnit;
+        area.key = uploadExposure.dynamicDataUnit;
         area.value = exposurePlaceCode.amount;
         area.adminLevel = uploadExposure.adminLevel;
         area.placeCode = exposurePlaceCode.placeCode;
@@ -78,21 +79,34 @@ export class AdminAreaDynamicDataService {
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
     const trigger = this.isThereTrigger(uploadExposure.exposurePlaceCodes);
+
+    const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
+    uploadTriggerPerLeadTimeDto.countryCode = uploadExposure.countryCodeISO3;
+    uploadTriggerPerLeadTimeDto.leadTime = uploadExposure.leadTime as LeadTime;
+    uploadTriggerPerLeadTimeDto.triggered = trigger;
+    await this.uploadTriggerPerLeadTime(uploadTriggerPerLeadTimeDto);
+  }
+
+  public async uploadTriggerPerLeadTime(
+    uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
+  ): Promise<void> {
     // Delete duplicates
     await this.triggerPerLeadTimeRepository.delete({
       date: new Date(),
-      countryCode: uploadExposure.countryCodeISO3,
-      leadTime: uploadExposure.leadTime as LeadTime,
+      countryCode: uploadTriggerPerLeadTimeDto.countryCode,
+      leadTime: uploadTriggerPerLeadTimeDto.leadTime as LeadTime,
     });
     const triggerPerLeadTime = new TriggerPerLeadTime();
     triggerPerLeadTime.date = new Date();
-    triggerPerLeadTime.countryCode = uploadExposure.countryCodeISO3;
-    triggerPerLeadTime.leadTime = uploadExposure.leadTime as LeadTime;
-    triggerPerLeadTime.triggered = trigger;
+    triggerPerLeadTime.countryCode = uploadTriggerPerLeadTimeDto.countryCode;
+    triggerPerLeadTime.leadTime = uploadTriggerPerLeadTimeDto.leadTime as LeadTime;
+    triggerPerLeadTime.triggered = uploadTriggerPerLeadTimeDto.triggered;
     await this.triggerPerLeadTimeRepository.save(triggerPerLeadTime);
   }
 
-  private isThereTrigger(exposurePlaceCodes: ExposurePlaceCodeDto[]): boolean {
+  private isThereTrigger(
+    exposurePlaceCodes: DynamicDataPlaceCodeDto[],
+  ): boolean {
     for (const exposurePlaceCode of exposurePlaceCodes) {
       if (Number(exposurePlaceCode.amount) > 0) {
         return true;
@@ -103,11 +117,7 @@ export class AdminAreaDynamicDataService {
 
   public async processExposure(): Promise<void> {
     const sqlFolder = '../../ibf/pipeline/';
-    const sqlFileNames = [
-      'processDynamicDataPostgresTrigger.sql',
-      'processDynamicDataPostgresExposure.sql',
-      'processEventDistricts.sql',
-    ];
+    const sqlFileNames = ['processEventDistricts.sql'];
 
     for (const sqlFileName of sqlFileNames) {
       const sqlPath = sqlFolder + sqlFileName;
@@ -120,7 +130,7 @@ export class AdminAreaDynamicDataService {
     countryCode: string,
     adminLevel: string,
     leadTime: LeadTime,
-    key: ExposureUnit,
+    key: DynamicDataUnit,
   ): Promise<AdminDataReturnDto[]> {
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('admin_area_dynamic_data')

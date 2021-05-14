@@ -6,7 +6,7 @@ export class AdminAreaDataRecord {
   public pcode_level1: string;
   public geom: Geometry;
   public country_code: string;
-  public pcode: string;
+  public placeCode: string;
   public date: Date;
   public lead_time: string;
   public fc: number;

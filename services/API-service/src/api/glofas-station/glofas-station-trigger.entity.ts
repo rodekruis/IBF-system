@@ -16,7 +16,7 @@ export class GlofasStationTriggerEntity {
 
   @ManyToOne((): typeof CountryEntity => CountryEntity)
   @JoinColumn({ name: 'countryCode', referencedColumnName: 'countryCodeISO3' })
-  public countryCode: string;
+  public countryCodeISO3: string;
 
   @ManyToOne((): typeof LeadTimeEntity => LeadTimeEntity)
   @JoinColumn({ name: 'leadTime', referencedColumnName: 'leadTimeName' })

@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
-import { ExposureUnit } from './enum/exposure-unit';
+import { DynamicDataUnit } from './enum/dynamic-data-unit';
 
 @Entity('admin_area_dynamic_data')
 export class AdminAreaDynamicDataEntity {
@@ -25,7 +25,7 @@ export class AdminAreaDynamicDataEntity {
   public placeCode: string;
 
   @Column()
-  public key: ExposureUnit;
+  public key: DynamicDataUnit;
 
   @Column({ type: 'date' })
   public date: Date;

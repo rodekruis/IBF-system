@@ -22,8 +22,13 @@ from
 		(
 		select pcode,
 			max(t1.population_affected) as population_affected
-		from
-			"IBF-pipeline-output".dashboard_calculated_affected t1
+		from (
+			select "district" as pcode
+				, date
+				,cast("sum" as float) as population_affected
+			from "IBF-pipeline-output".calculated_affected
+			where source = 'population'
+		) t1
 		where
 			t1.population_affected  > 0
 			and t1.date = current_date
@@ -33,7 +38,8 @@ from
 		districtsToday.pcode = eventPcodeExisting."placeCode"
 	where
 		eventPcodeExisting."placeCode" is not null
-		and eventPcodeExisting.closed is false ) subquery
+		and eventPcodeExisting.closed is false
+) subquery
 where
 	event_place_code."placeCode" = subquery.pcode
 	and event_place_code.closed = false 
@@ -54,7 +60,14 @@ select t1.pcode
      	ELSE (now() + interval '7 DAY')::date
      	END AS "endDate" 		
 	,max(population_affected) as population_affected
-from "IBF-pipeline-output".dashboard_calculated_affected t1
+from (
+	select "district" as pcode
+		, date
+		, lead_time
+		,cast("sum" as float) as population_affected
+	from "IBF-pipeline-output".calculated_affected
+	where source = 'population'
+) t1
 where t1.population_affected > 0
 	and t1.date = current_date
 GROUP BY t1.pcode, "startDate", "endDate"

@@ -28,7 +28,8 @@ export class AdminAreaEntity {
   @Column({ nullable: true })
   public placeCodeParent: string;
 
-  @Column('geometry', { nullable: true })
+  // @Column('geometry', { nullable: true })
+  @Column({ nullable: true })
   public geom: string;
 
   @Column({ nullable: true })

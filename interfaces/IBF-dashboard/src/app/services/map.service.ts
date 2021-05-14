@@ -614,7 +614,7 @@ export class MapService {
         for (const area of adminRegions.features) {
           const foundAdmDynamicEntry = admDynamicData.find(
             (admDynamicEntry): number => {
-              if (area.properties.pcode === admDynamicEntry.placeCode) {
+              if (area.properties.placeCode === admDynamicEntry.placeCode) {
                 return admDynamicEntry;
               }
             },
@@ -742,16 +742,16 @@ export class MapService {
           ? adminRegion.properties[colorProperty]
           : adminRegion.properties.indicators[colorProperty],
         colorThreshold,
-        adminRegion.properties.pcode,
+        adminRegion.properties.placeCode,
       );
       const fillOpacity = this.getAdminRegionFillOpacity(
         layer,
-        adminRegion.properties.pcode,
+        adminRegion.properties.placeCode,
       );
       let weight = this.getAdminRegionWeight(layer);
       let color = this.getAdminRegionColor(layer);
       let dashArray;
-      if (adminRegion.properties.pcode.includes('Disputed')) {
+      if (adminRegion.properties.placeCode.includes('Disputed')) {
         dashArray = this.disputedBorderStyle.dashArray;
         weight = this.disputedBorderStyle.weight;
         color = this.disputedBorderStyle.color;
