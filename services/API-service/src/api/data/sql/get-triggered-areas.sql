@@ -5,7 +5,7 @@ select
       e."eventPlaceCodeId",
       e."activeTrigger"
     from
-      "IBF-pipeline-output".event_place_code e
+      "IBF-app".event_place_code e
     inner join (
     	select name,"placeCode"
     	from (

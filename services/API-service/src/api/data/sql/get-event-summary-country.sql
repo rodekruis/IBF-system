@@ -16,7 +16,7 @@ from
     e."startDate",
     e."activeTrigger"
   from
-    "IBF-pipeline-output".event_place_code e
+    "IBF-app".event_place_code e
   left join "IBF-API"."Admin_area_data2" a2 on
     a2."placeCode" = e."placeCode"
     and a2.country_code is not null

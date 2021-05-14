@@ -64,7 +64,7 @@ class DatabaseManager:
                     'leadTime': str(key),
                     'triggered': triggers[key]
                 }
-                self.apiPostRequest('admin-area-dynamic-data/triggers-per-leadtime', body)
+                self.apiPostRequest('event/triggers-per-leadtime', body)
         print('Uploaded triggers per leadTime')
 
     def processDynamicDataDb(self):
@@ -83,7 +83,7 @@ class DatabaseManager:
             print('SQL FAILED', e)
 
     def apiGetRequest(self, path, country_code):
-        TOKEN = self.authenticate()
+        TOKEN = self.apiAuthenticate()
 
         response = requests.get(
             API_SERVICE_URL + path + '/' + country_code,
@@ -93,7 +93,7 @@ class DatabaseManager:
         return(data)
 
     def apiPostRequest(self, path, body):
-        TOKEN = self.authenticate()
+        TOKEN = self.apiAuthenticate()
 
         r = requests.post(
             API_SERVICE_URL + path,
@@ -105,7 +105,7 @@ class DatabaseManager:
             print(r.text)
             raise ValueError()
 
-    def authenticate(self):
+    def apiAuthenticate(self):
         login_response = requests.post(API_LOGIN_URL, data=[(
             'email', ADMIN_LOGIN), ('password', ADMIN_PASSWORD)])
         return login_response.json()['user']['token']

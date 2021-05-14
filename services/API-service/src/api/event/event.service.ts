@@ -4,18 +4,39 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { EventPlaceCodeDto } from './dto/event-place-code.dto';
 import { LessThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CalculatedAffectedEntity } from '../admin-area-dynamic-data/calculated-affected.entity';
 import { DynamicDataUnit } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
+import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 
 @Injectable()
 export class EventService {
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
-  @InjectRepository(CalculatedAffectedEntity)
-  private readonly calculatedAffectedRepository: Repository<
-    CalculatedAffectedEntity
+  @InjectRepository(AdminAreaDynamicDataEntity)
+  private readonly adminAreaDynamicDataRepo: Repository<
+    AdminAreaDynamicDataEntity
   >;
+  @InjectRepository(TriggerPerLeadTime)
+  private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
+
+  public async uploadTriggerPerLeadTime(
+    uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
+  ): Promise<void> {
+    // Delete duplicates
+    await this.triggerPerLeadTimeRepository.delete({
+      date: new Date(),
+      countryCode: uploadTriggerPerLeadTimeDto.countryCode,
+      leadTime: uploadTriggerPerLeadTimeDto.leadTime as LeadTime,
+    });
+    const triggerPerLeadTime = new TriggerPerLeadTime();
+    triggerPerLeadTime.date = new Date();
+    triggerPerLeadTime.countryCode = uploadTriggerPerLeadTimeDto.countryCode;
+    triggerPerLeadTime.leadTime = uploadTriggerPerLeadTimeDto.leadTime as LeadTime;
+    triggerPerLeadTime.triggered = uploadTriggerPerLeadTimeDto.triggered;
+    await this.triggerPerLeadTimeRepository.save(triggerPerLeadTime);
+  }
 
   public async closeEventPcode(
     eventPlaceCodeDto: EventPlaceCodeDto,
@@ -32,7 +53,7 @@ export class EventService {
     await this.eventPlaceCodeRepo.save(eventPlaceCode);
   }
 
-  public async processEventDistricts() {
+  public async processEventAreas() {
     // set all events to activeTrigger=false
     const eventAreas = await this.eventPlaceCodeRepo.find();
     eventAreas.forEach(area => (area.activeTrigger = false));
@@ -49,15 +70,15 @@ export class EventService {
   }
 
   private async updateExistingEventAreas() {
-    const affectedAreas = await this.calculatedAffectedRepository
+    const affectedAreas = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
-      .select('area.district AS "placeCode"')
-      .addSelect('MAX(area.sum) AS "populationAffected"')
-      .addSelect('MAX(area.lead_time) AS "leadTime"')
-      .where('source = :source', { source: DynamicDataUnit.population })
-      .andWhere("sum > '0'")
+      .select('area."placeCode"')
+      .addSelect('MAX(area.value) AS "populationAffected"')
+      .addSelect('MAX(area."leadTime") AS "leadTime"')
+      .where('key = :key', { key: DynamicDataUnit.population })
+      .andWhere('value > 0')
       .andWhere('date = current_date')
-      .groupBy('area.district')
+      .groupBy('area."placeCode"')
       .getRawMany();
 
     const affectedAreasPlaceCodes = affectedAreas.map(area => area.placeCode);
@@ -73,23 +94,21 @@ export class EventService {
         unclosedEventArea.activeTrigger = true;
         unclosedEventArea.populationAffected = affectedArea.populationAffected;
         unclosedEventArea.endDate = this.getEndDate(affectedArea.leadTime);
-        console.log('affectedArea: ', affectedArea);
       }
     });
-    console.log('unclosedEventAreas: ', unclosedEventAreas);
     await this.eventPlaceCodeRepo.save(unclosedEventAreas);
   }
 
   private async addNewEventAreas() {
-    const affectedAreas = await this.calculatedAffectedRepository
+    const affectedAreas = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
-      .select('area.district AS "placeCode"')
-      .addSelect('MAX(area.sum) AS "populationAffected"')
-      .addSelect('MAX(area.lead_time) AS "leadTime"')
-      .where('source = :source', { source: DynamicDataUnit.population })
-      .andWhere("sum > '0'")
+      .select('area."placeCode"')
+      .addSelect('MAX(area.value) AS "populationAffected"')
+      .addSelect('MAX(area."leadTime") AS "leadTime"')
+      .where('key = :key', { key: DynamicDataUnit.population })
+      .andWhere('value > 0')
       .andWhere('date = current_date')
-      .groupBy('area.district')
+      .groupBy('area."placeCode"')
       .getRawMany();
 
     const existingUnclosedEventAreas = (

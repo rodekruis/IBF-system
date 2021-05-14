@@ -4,12 +4,17 @@ import { Module } from '@nestjs/common';
 import { EventController } from './event.controller';
 import { EventService } from './event.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CalculatedAffectedEntity } from '../admin-area-dynamic-data/calculated-affected.entity';
+import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 
 @Module({
   imports: [
     UserModule,
-    TypeOrmModule.forFeature([EventPlaceCodeEntity, CalculatedAffectedEntity]),
+    TypeOrmModule.forFeature([
+      EventPlaceCodeEntity,
+      TriggerPerLeadTime,
+      AdminAreaDynamicDataEntity,
+    ]),
   ],
   controllers: [EventController],
   providers: [EventService],

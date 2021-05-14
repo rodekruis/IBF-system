@@ -42,7 +42,7 @@ export class EapActionsService {
     const query = `select
         "eventPlaceCodeId"
       from
-        "IBF-pipeline-output".event_place_code
+        "IBF-app".event_place_code
       where
         closed = false
         and "placeCode" = $1`;
@@ -109,7 +109,7 @@ export class EapActionsService {
           and "eventPlaceCodeId" = any( (
             select
               array_agg("eventPlaceCodeId")
-            from "IBF-pipeline-output".event_place_code 
+            from "IBF-app".event_place_code 
             where closed = false
           )::uuid[]) 
       ) eas 

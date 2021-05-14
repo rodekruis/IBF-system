@@ -13,7 +13,7 @@ import {
   RedCrossBranch,
 } from './geo.model';
 import fs from 'fs';
-import { TriggerPerLeadTime } from '../admin-area-dynamic-data/trigger-per-lead-time.entity';
+import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { CountryEntity } from '../country/country.entity';
 
 @Injectable()

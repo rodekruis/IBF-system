@@ -61,6 +61,8 @@ docker-compose -f docker-compose.yml up # for production
 docker-compose up # for development
 
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up # for development (explicit)
+
+Load database with data (see below)
 ```
 
 ### Without Docker (for local development)
@@ -70,18 +72,17 @@ without docker:
 
 `cp .env services/API-service/.env` `npm run start`
 
-### NOTE on local database
+### NOTE on (local) database
 
 Locally, a database-container will start (as opposed to remote servers, which are connected to a database-server).
-To currently fill this database with data
+To fill this database with data
 - run seed script
   - docker-compose exec ibf-api-service npm run seed
-  - the 2nd half of the IBF-database-scripts.sql will fail, because of missing IBF-pipeline-output tables
 - run the pipeline for all countries
   - docker-compose exec ibf-pipeline python3 runPipeline.py
-- run the seed-script again
+  - NOTE: try setting countries to mock in secrets.py if pipeline is failing
 
-Migration to seed-scripts is now finished. 
+Adding new data
 - Any new static data needs to be imported using a seed-script + corresponding TypeORM entity
 - This includes e.g. geojson data
 - The only exception are raster-files, which need to be included in data.zip and transfered to all relevant servers. 

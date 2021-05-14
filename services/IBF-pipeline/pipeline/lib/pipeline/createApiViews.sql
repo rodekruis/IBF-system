@@ -53,18 +53,18 @@ select geo."placeCode"
 	, row_to_json(daad.*) as indicators
 from "IBF-app"."adminArea" geo
 left join (
-	select country_code 
-		,lead_time
+	select "countryCode" as country_code 
+		,"leadTime" as lead_time
 		,date
-		,district as "placeCode" 
-		,cast("sum" as float) as population_affected
-	from "IBF-pipeline-output".calculated_affected
+		,"placeCode" 
+		,value as population_affected
+	from "IBF-app".admin_area_dynamic_data
 	where date = current_date 
-	and source = 'population'
+	and key = 'population'
 ) ca
 	on geo."placeCode" = ca."placeCode"  
 	and geo."countryCode" = ca.country_code 
-left join "IBF-pipeline-output".dashboard_admin_area_data daad 
+left join "IBF-app".admin_area_data_pivoted daad 
 	on geo."placeCode" = daad."placeCode"
 where "adminLevel" = 2
 ;
@@ -83,18 +83,18 @@ select geo."placeCode"
 	, row_to_json(daad.*) as indicators
 from "IBF-app"."adminArea" geo
 left join (
-	select country_code 
-		,lead_time
+	select "countryCode" as country_code 
+		,"leadTime" as lead_time
 		,date
-		,district as "placeCode" 
-		,cast("sum" as float) as population_affected
-	from "IBF-pipeline-output".calculated_affected
+		,"placeCode" 
+		,value as population_affected
+	from "IBF-app".admin_area_dynamic_data
 	where date = current_date 
-	and source = 'population'
+	and key = 'population'
 ) ca
 	on geo."placeCode" = ca."placeCode"  
 	and geo."countryCode" = ca.country_code 
-left join "IBF-pipeline-output".dashboard_admin_area_data daad 
+left join "IBF-app".admin_area_data_pivoted daad 
 	on geo."placeCode" = daad."placeCode"
 where "adminLevel" = 1
 ;

@@ -189,11 +189,9 @@ TRIGGER_LEVELS = {
     "maximum": 0.8
 }
 
-#######################
-## DB / API SETTINGS ##
-#######################
-SCHEMA_NAME = 'IBF-pipeline-output'
-# Other connection-settings in secrets.py
+##################
+## API SETTINGS ##
+##################
 
 API_SERVICE_URL = 'http://ibf-api-service:3000/api/'
 API_LOGIN_URL = API_SERVICE_URL + 'user/login'

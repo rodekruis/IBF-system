@@ -4,8 +4,8 @@
 
 
 --TO DO: transform to generic row-to-column pivot (but not worth it before completely moving all sql to typescript)
-drop table if exists "IBF-pipeline-output".dashboard_admin_area_data;
-create table "IBF-pipeline-output".dashboard_admin_area_data as
+drop table if exists "IBF-app".admin_area_data_pivoted;
+create table "IBF-app".admin_area_data_pivoted as
 select aa."placeCode"
 		,max(case when key = 'population_over65' then value end) as population_over65
 		,max(case when key = 'female_head_hh' then value end) as female_head_hh
@@ -23,4 +23,4 @@ left join "IBF-app"."adminAreaData" aad
 	on aa."placeCode" = aad."placeCode"
 group by 1
 ;
---select * from "IBF-pipeline-output".dashboard_admin_area_data
+--select * from "IBF-app".admin_area_data_pivoted

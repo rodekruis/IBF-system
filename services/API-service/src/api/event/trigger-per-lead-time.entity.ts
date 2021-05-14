@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { LeadTime } from './enum/lead-time.enum';
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 
 @Entity('trigger_per_lead_time')
 export class TriggerPerLeadTime {
