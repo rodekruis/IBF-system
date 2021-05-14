@@ -222,9 +222,7 @@ export class SeedInit implements InterfaceScript {
     await seedRainfallData.run();
 
     // ***** RUN SCRIPT TO FINALIZE ALL DATA PREPARATION *****
-    console.log(
-      'Run POST Seed Script (OLD 1st part of IBF-database-scripts.sql) ...',
-    );
+    console.log('Run After-Seed Script ...');
     await this.seedHelper.runSqlScript('./src/scripts/post-seed-script.sql');
   }
 }
