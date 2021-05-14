@@ -1,3 +1,4 @@
+import { AdminAreaDynamicDataModule } from './../api/admin-area-dynamic-data/admin-area-dynamic-data.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Arguments } from 'yargs';
@@ -10,6 +11,7 @@ import { SeedInit } from './seed-init';
       migrations: [`src/migrations/*.{ts,js}`],
       entities: ['src/app/**/*.entity.{ts,js}'],
     }),
+    AdminAreaDynamicDataModule,
   ],
   providers: [SeedInit],
   controllers: [ScriptsController],

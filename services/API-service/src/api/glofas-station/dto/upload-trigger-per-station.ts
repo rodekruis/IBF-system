@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { LeadTime } from '../../upload/enum/lead-time.enum';
+import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 
 export class UploadTriggerPerStationDto {
   @ApiProperty({ example: 'PHL' })

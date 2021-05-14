@@ -1,4 +1,4 @@
-import { LeadTime } from './../upload/enum/lead-time.enum';
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { EventSummaryCountry } from './data.model';
 /* eslint-disable @typescript-eslint/camelcase */
 import { Injectable } from '@nestjs/common';
@@ -13,7 +13,7 @@ import {
   RedCrossBranch,
 } from './geo.model';
 import fs from 'fs';
-import { TriggerPerLeadTime } from '../upload/trigger-per-lead-time.entity';
+import { TriggerPerLeadTime } from '../admin-area-dynamic-data/trigger-per-lead-time.entity';
 import { CountryEntity } from '../country/country.entity';
 
 @Injectable()
@@ -40,7 +40,7 @@ export class DataService {
       leadTime = await this.getDefaultLeadTime(countryCodeISO3);
     }
     const trigger = (await this.getTriggerPerLeadtime(countryCodeISO3))[
-      leadTime
+      leadTime.substr(0, 1)
     ];
     let placeCodes;
     if (parseInt(trigger) === 1) {
@@ -82,7 +82,7 @@ export class DataService {
       }
     }
     for (const activeLeadTime of country.countryActiveLeadTimes) {
-      if (activeLeadTime.leadTimeName === LeadTime.month1) {
+      if (activeLeadTime.leadTimeName === LeadTime.month0) {
         return activeLeadTime.leadTimeName;
       }
     }

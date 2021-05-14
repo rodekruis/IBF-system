@@ -10,5 +10,5 @@ export class ExposurePlaceCodeDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
-  public amount: string;
+  public amount: number;
 }

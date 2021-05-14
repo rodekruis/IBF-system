@@ -56,6 +56,13 @@
     ]
   },
   {
+    "leadTimeName": "0-month",
+    "leadTimeLabel": "0-month",
+    "disasterTypes": [
+      "dengue"
+    ]
+  },
+  {
     "leadTimeName": "1-month",
     "leadTimeLabel": "1-month",
     "disasterTypes": [
@@ -65,13 +72,6 @@
   {
     "leadTimeName": "2-month",
     "leadTimeLabel": "2-month",
-    "disasterTypes": [
-      "dengue"
-    ]
-  },
-  {
-    "leadTimeName": "3-month",
-    "leadTimeLabel": "3-month",
     "disasterTypes": [
       "dengue"
     ]
