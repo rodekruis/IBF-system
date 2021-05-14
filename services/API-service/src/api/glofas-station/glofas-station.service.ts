@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { DynamicDataUnit } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
-import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
 import { GlofasStationTriggerEntity } from './glofas-station-trigger.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
@@ -15,12 +12,6 @@ export class GlofasStationService {
   @InjectRepository(GlofasStationTriggerEntity)
   private readonly glofasStationTriggerRepository: Repository<
     GlofasStationTriggerEntity
-  >;
-  @InjectRepository(AdminAreaEntity)
-  private readonly adminAreaRepository: Repository<AdminAreaEntity>;
-  @InjectRepository(AdminAreaDynamicDataEntity)
-  private readonly adminAreaDynamicDataRepository: Repository<
-    AdminAreaDynamicDataEntity
   >;
 
   public constructor() {}
@@ -56,41 +47,7 @@ export class GlofasStationService {
       stationForecast.forecastTrigger = station.forecastTrigger;
       stationForecast.forecastReturnPeriod = station.forecastReturnPeriod;
       stationForecasts.push(stationForecast);
-      await this.mapForecastToAdminArea(stationForecast);
     }
     return await this.glofasStationTriggerRepository.save(stationForecasts);
-  }
-
-  private async mapForecastToAdminArea(
-    stationForecast: GlofasStationTriggerEntity,
-  ) {
-    const relatedAdminAreas = await this.adminAreaRepository.find({
-      select: ['placeCode'],
-      where: { glofasStation: stationForecast.stationCode },
-    });
-    const metrics = [
-      DynamicDataUnit.forecastLevel,
-      DynamicDataUnit.forecastProbability,
-      DynamicDataUnit.forecastTrigger,
-      DynamicDataUnit.forecastReturnPeriod,
-    ];
-
-    const toSave: AdminAreaDynamicDataEntity[] = [];
-    metrics.forEach(metric => {
-      relatedAdminAreas.forEach(area => {
-        const adminAreaDynamicData = new AdminAreaDynamicDataEntity();
-        adminAreaDynamicData.countryCode = stationForecast.countryCodeISO3;
-        adminAreaDynamicData.adminLevel = 2;
-        adminAreaDynamicData.leadTime = stationForecast.leadTime;
-        adminAreaDynamicData.key = metric;
-        adminAreaDynamicData.placeCode = area.placeCode;
-        adminAreaDynamicData.value = Number(stationForecast[metric]);
-
-        adminAreaDynamicData.date = stationForecast.date;
-        toSave.push(adminAreaDynamicData);
-      });
-    });
-
-    await this.adminAreaDynamicDataRepository.save(toSave);
   }
 }
