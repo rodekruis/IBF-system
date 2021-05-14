@@ -68,13 +68,13 @@ class DatabaseManager:
         print('Uploaded triggers per leadTime')
 
     def processDynamicDataDb(self):
-        sql_file = open('lib/pipeline/createApiViews.sql',
+        sql_file = open('lib/pipeline/createApiTables.sql',
                         'r', encoding='utf-8')
-        sql_create_views = sql_file.read()
+        sql_create_api_tables = sql_file.read()
         sql_file.close()
         try:
             self.con, self.cur, self.db = get_db()
-            self.cur.execute(sql_create_views)
+            self.cur.execute(sql_create_api_tables)
             self.con.commit()
             self.con.close()
             print('SQL EXECUTED')

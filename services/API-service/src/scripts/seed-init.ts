@@ -220,10 +220,6 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed rainfall data...');
     const seedRainfallData = new SeedRainfallData(this.connection);
     await seedRainfallData.run();
-
-    // ***** RUN SCRIPT TO FINALIZE ALL DATA PREPARATION *****
-    console.log('Run After-Seed Script ...');
-    await this.seedHelper.runSqlScript('./src/scripts/post-seed-script.sql');
   }
 }
 
