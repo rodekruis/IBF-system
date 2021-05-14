@@ -11,6 +11,7 @@ import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { DynamicDataUnit } from './enum/dynamic-data-unit';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
+import { EventService } from '../event/event.service';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -20,15 +21,16 @@ export class AdminAreaDynamicDataService {
   >;
   @InjectRepository(TriggerPerLeadTime)
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
-
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<
     AdminAreaDynamicDataEntity
   >;
   private manager: EntityManager;
+  private eventService: EventService;
 
-  public constructor(manager: EntityManager) {
+  public constructor(manager: EntityManager, eventService: EventService) {
     this.manager = manager;
+    this.eventService = eventService;
   }
 
   public async exposure(
@@ -72,7 +74,7 @@ export class AdminAreaDynamicDataService {
         this.adminAreaDynamicDataRepo.save(area);
       }
     }
-    await this.processExposure();
+    await this.eventService.processEventDistricts();
   }
 
   private async insertTrigger(
@@ -113,17 +115,6 @@ export class AdminAreaDynamicDataService {
       }
     }
     return false;
-  }
-
-  public async processExposure(): Promise<void> {
-    const sqlFolder = '../../ibf/pipeline/';
-    const sqlFileNames = ['processEventDistricts.sql'];
-
-    for (const sqlFileName of sqlFileNames) {
-      const sqlPath = sqlFolder + sqlFileName;
-      const q = fs.readFileSync(sqlPath).toString();
-      await this.manager.query(q);
-    }
   }
 
   public async getAdminAreaDynamicData(
