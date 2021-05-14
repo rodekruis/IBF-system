@@ -37,11 +37,13 @@
       ></span>
     </p>
     <app-about-btn
-      data-cy="chat-about-trigger"
+      data-test="chat-about-trigger"
       [btnLabel]="'chat-component.about-button-label' | translate"
       color="ibf-royal-blue"
     ></app-about-btn>
-    <app-video-guide-button data-cy="chat-video-guide"></app-video-guide-button>
+    <app-video-guide-button
+      data-test="chat-video-guide"
+    ></app-video-guide-button>
   </app-dialogue-turn>
   <!-- Existing event, still trigger -->
   <app-dialogue-turn

@@ -1,5 +1,5 @@
 {
-    "baseUrl": "http://localhost:8080",
+    "baseUrl": "http://localhost:4200",
     "env": {
         "apiUrl": "https://ibf-test.510.global/api"
     },

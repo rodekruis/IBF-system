@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
-import { BehaviorSubject, EMPTY, Observable, zip } from 'rxjs';
+import { BehaviorSubject, Observable, of, zip } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
@@ -132,10 +132,12 @@ export class MapService {
   private getPopoverText(indicatorName: IbfLayerName): string {
     let popoverText = '';
     if (this.popoverTexts[indicatorName]) {
-      const triggerState: string = this.eventService.state.activeTrigger
-        ? `active-trigger-${this.eventService.disasterType}`
-        : 'no-trigger';
-      popoverText = this.popoverTexts[indicatorName][triggerState];
+      const countryCodeToUse = this.popoverTexts[indicatorName][
+        this.country.countryCodeISO3
+      ]
+        ? this.country.countryCodeISO3
+        : 'UGA';
+      popoverText = this.popoverTexts[indicatorName][countryCodeToUse];
     }
     return popoverText;
   }
@@ -506,7 +508,10 @@ export class MapService {
     const interactedLayer = this.layers[interactedLayerIndex];
     if (interactedLayerIndex >= 0) {
       this.layers.forEach((layer: IbfLayer): void => {
-        let layerObservable: Observable<GeoJSON.FeatureCollection> = EMPTY;
+        let layerObservable: Observable<GeoJSON.FeatureCollection> = of({
+          type: 'FeatureCollection',
+          features: [],
+        });
         const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}_${this.mockScenario}`;
         const layerActive = this.isLayerActive(active, layer, interactedLayer);
         if (this.layerDataCache[layerDataCacheKey]) {

@@ -5,7 +5,10 @@
         <ion-icon name="apps" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title [translate]="'login-page.title'"></ion-title>
+    <ion-title
+      [translate]="'login-page.title'"
+      data-test="page-title"
+    ></ion-title>
     <ion-buttons slot="end">
       <ion-button
         href="https://github.com/rodekruis/IBF-system/releases/tag/{{
