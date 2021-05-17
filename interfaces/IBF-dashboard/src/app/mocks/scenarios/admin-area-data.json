@@ -1370,7 +1370,7 @@
           "no_toilet_score": 0.1129,
           "coping_capacity_score": 7.1437,
           "risk_score": 4.9058,
-          "vulnerability_index": 4.041
+          "flood_vulnerability_index": 4.041
         }
       }
     },
@@ -2283,7 +2283,7 @@
           "no_toilet_score": 0.2068,
           "coping_capacity_score": 6.2132,
           "risk_score": 4.2236,
-          "vulnerability_index": 3.233
+          "flood_vulnerability_index": 3.233
         }
       }
     },
@@ -3208,7 +3208,7 @@
           "no_toilet_score": 0.3331,
           "coping_capacity_score": 7.569,
           "risk_score": 5.2968,
-          "vulnerability_index": 4.211
+          "flood_vulnerability_index": 4.211
         }
       }
     },
@@ -4337,7 +4337,7 @@
           "no_toilet_score": 0.3059,
           "coping_capacity_score": 7.2789,
           "risk_score": 4.8534,
-          "vulnerability_index": 4.205
+          "flood_vulnerability_index": 4.205
         }
       }
     },
@@ -5186,7 +5186,7 @@
           "no_toilet_score": 1.1651,
           "coping_capacity_score": 6.6264,
           "risk_score": 5.7977,
-          "vulnerability_index": 3.7910000000000004
+          "flood_vulnerability_index": 3.7910000000000004
         }
       }
     },
@@ -6307,7 +6307,7 @@
           "no_toilet_score": 1.7676,
           "coping_capacity_score": 6.8344,
           "risk_score": 5.8347,
-          "vulnerability_index": 6.242000000000001
+          "flood_vulnerability_index": 6.242000000000001
         }
       }
     },
@@ -7776,7 +7776,7 @@
           "no_toilet_score": 1.3024,
           "coping_capacity_score": 6.3069,
           "risk_score": 5.0393,
-          "vulnerability_index": 4.446000000000001
+          "flood_vulnerability_index": 4.446000000000001
         }
       }
     },
@@ -8373,7 +8373,7 @@
           "no_toilet_score": 0.94,
           "coping_capacity_score": 6.4107,
           "risk_score": 4.5609,
-          "vulnerability_index": 4.2860000000000005
+          "flood_vulnerability_index": 4.2860000000000005
         }
       }
     },
@@ -8950,7 +8950,7 @@
           "no_toilet_score": 1.2748,
           "coping_capacity_score": 7.3419,
           "risk_score": 5.2312,
-          "vulnerability_index": 4.703
+          "flood_vulnerability_index": 4.703
         }
       }
     },
@@ -9735,7 +9735,7 @@
           "no_toilet_score": 0.6858,
           "coping_capacity_score": 6.2302,
           "risk_score": 5.4246,
-          "vulnerability_index": 4.4510000000000005
+          "flood_vulnerability_index": 4.4510000000000005
         }
       }
     },
@@ -10824,7 +10824,7 @@
           "no_toilet_score": 5.8957,
           "coping_capacity_score": 7.6973,
           "risk_score": 5.2674,
-          "vulnerability_index": 5.255
+          "flood_vulnerability_index": 5.255
         }
       }
     },
@@ -12621,7 +12621,7 @@
           "no_toilet_score": 2.7457,
           "coping_capacity_score": 7.4888,
           "risk_score": 5.2859,
-          "vulnerability_index": 5.5
+          "flood_vulnerability_index": 5.5
         }
       }
     },
@@ -13518,7 +13518,7 @@
           "no_toilet_score": 0.6443,
           "coping_capacity_score": 4.513,
           "risk_score": 3.1768,
-          "vulnerability_index": 4.468
+          "flood_vulnerability_index": 4.468
         }
       }
     },
@@ -14795,7 +14795,7 @@
           "no_toilet_score": 3.319,
           "coping_capacity_score": 6.7636,
           "risk_score": 4.8158,
-          "vulnerability_index": 4.76
+          "flood_vulnerability_index": 4.76
         }
       }
     },
@@ -15852,7 +15852,7 @@
           "no_toilet_score": 4.5924,
           "coping_capacity_score": 7.6454,
           "risk_score": 5.3359,
-          "vulnerability_index": 5.324
+          "flood_vulnerability_index": 5.324
         }
       }
     },
@@ -17469,7 +17469,7 @@
           "no_toilet_score": 2.7315,
           "coping_capacity_score": 7.3592,
           "risk_score": 6.6893,
-          "vulnerability_index": 5.251
+          "flood_vulnerability_index": 5.251
         }
       }
     },
@@ -18486,7 +18486,7 @@
           "no_toilet_score": 2.0838,
           "coping_capacity_score": 6.8409,
           "risk_score": 4.88,
-          "vulnerability_index": 5.182
+          "flood_vulnerability_index": 5.182
         }
       }
     },
@@ -19899,7 +19899,7 @@
           "no_toilet_score": 3.8512,
           "coping_capacity_score": 7.3069,
           "risk_score": 5.2387,
-          "vulnerability_index": 5.337999999999999
+          "flood_vulnerability_index": 5.337999999999999
         }
       }
     },
@@ -20512,7 +20512,7 @@
           "no_toilet_score": 0.2647,
           "coping_capacity_score": 6.903,
           "risk_score": 4.5811,
-          "vulnerability_index": 3.372
+          "flood_vulnerability_index": 3.372
         }
       }
     },
@@ -21349,7 +21349,7 @@
           "no_toilet_score": 0.0248,
           "coping_capacity_score": 5.5898,
           "risk_score": 4.456,
-          "vulnerability_index": 3.228
+          "flood_vulnerability_index": 3.228
         }
       }
     },
@@ -22270,7 +22270,7 @@
           "no_toilet_score": 0.0969,
           "coping_capacity_score": 5.619,
           "risk_score": 4.5698,
-          "vulnerability_index": 3.722
+          "flood_vulnerability_index": 3.722
         }
       }
     },
@@ -23127,7 +23127,7 @@
           "no_toilet_score": 0.3197,
           "coping_capacity_score": 6.903,
           "risk_score": 5.4048,
-          "vulnerability_index": 3.78
+          "flood_vulnerability_index": 3.78
         }
       }
     },
@@ -24416,7 +24416,7 @@
           "no_toilet_score": 0.2702,
           "coping_capacity_score": 6.6875,
           "risk_score": 4.879,
-          "vulnerability_index": 3.667
+          "flood_vulnerability_index": 3.667
         }
       }
     },
@@ -25397,7 +25397,7 @@
           "no_toilet_score": 0.0767,
           "coping_capacity_score": 5.1125,
           "risk_score": 3.5599,
-          "vulnerability_index": 3.1260000000000003
+          "flood_vulnerability_index": 3.1260000000000003
         }
       }
     },
@@ -26066,7 +26066,7 @@
           "no_toilet_score": 0.0624,
           "coping_capacity_score": 6.6032,
           "risk_score": 4.2927,
-          "vulnerability_index": 3.8819999999999997
+          "flood_vulnerability_index": 3.8819999999999997
         }
       }
     },
@@ -27103,7 +27103,7 @@
           "no_toilet_score": 0.1303,
           "coping_capacity_score": 6.6513,
           "risk_score": 4.4461,
-          "vulnerability_index": 3.8160000000000003
+          "flood_vulnerability_index": 3.8160000000000003
         }
       }
     },
@@ -27808,7 +27808,7 @@
           "no_toilet_score": 0.0718,
           "coping_capacity_score": 6.0751,
           "risk_score": 4.4858,
-          "vulnerability_index": 3.9010000000000002
+          "flood_vulnerability_index": 3.9010000000000002
         }
       }
     },
@@ -28533,7 +28533,7 @@
           "no_toilet_score": 0.0315,
           "coping_capacity_score": 5.533,
           "risk_score": 3.8848,
-          "vulnerability_index": 3.4810000000000003
+          "flood_vulnerability_index": 3.4810000000000003
         }
       }
     },
@@ -28970,7 +28970,7 @@
           "no_toilet_score": 0.6025,
           "coping_capacity_score": 6.926,
           "risk_score": 4.423,
-          "vulnerability_index": 3.2680000000000002
+          "flood_vulnerability_index": 3.2680000000000002
         }
       }
     },
@@ -29587,7 +29587,7 @@
           "no_toilet_score": 1.0301,
           "coping_capacity_score": 5.9792,
           "risk_score": 5.5985,
-          "vulnerability_index": 3.835
+          "flood_vulnerability_index": 3.835
         }
       }
     },
@@ -30132,7 +30132,7 @@
           "no_toilet_score": 1.3725,
           "coping_capacity_score": 7.0979,
           "risk_score": 4.9158,
-          "vulnerability_index": 3.4330000000000003
+          "flood_vulnerability_index": 3.4330000000000003
         }
       }
     },
@@ -30745,7 +30745,7 @@
           "no_toilet_score": 0.5236,
           "coping_capacity_score": 6.7481,
           "risk_score": 4.4883,
-          "vulnerability_index": 3.529
+          "flood_vulnerability_index": 3.529
         }
       }
     },
@@ -31190,7 +31190,7 @@
           "no_toilet_score": 0.6239,
           "coping_capacity_score": 6.9985,
           "risk_score": 4.5847,
-          "vulnerability_index": 3.517
+          "flood_vulnerability_index": 3.517
         }
       }
     },
@@ -31903,7 +31903,7 @@
           "no_toilet_score": 0.6578,
           "coping_capacity_score": 6.7966,
           "risk_score": 4.7332,
-          "vulnerability_index": 3.877
+          "flood_vulnerability_index": 3.877
         }
       }
     },
@@ -32624,7 +32624,7 @@
           "no_toilet_score": 1.0236,
           "coping_capacity_score": 5.9863,
           "risk_score": 4.3586,
-          "vulnerability_index": 3.7319999999999998
+          "flood_vulnerability_index": 3.7319999999999998
         }
       }
     },
@@ -33285,7 +33285,7 @@
           "no_toilet_score": 2.0501,
           "coping_capacity_score": 6.949,
           "risk_score": 5.2574,
-          "vulnerability_index": 4.541
+          "flood_vulnerability_index": 4.541
         }
       }
     },
@@ -34338,7 +34338,7 @@
           "no_toilet_score": 0.773,
           "coping_capacity_score": 6.2017,
           "risk_score": 4.1166,
-          "vulnerability_index": 3.674
+          "flood_vulnerability_index": 3.674
         }
       }
     },
@@ -35251,7 +35251,7 @@
           "no_toilet_score": 0.367,
           "coping_capacity_score": 6.9422,
           "risk_score": 4.5583,
-          "vulnerability_index": 3.736
+          "flood_vulnerability_index": 3.736
         }
       }
     },
@@ -36072,7 +36072,7 @@
           "no_toilet_score": 0.3676,
           "coping_capacity_score": 7.0742,
           "risk_score": 4.7181,
-          "vulnerability_index": 3.535
+          "flood_vulnerability_index": 3.535
         }
       }
     },
@@ -36821,7 +36821,7 @@
           "no_toilet_score": 0.5799,
           "coping_capacity_score": 7.7181,
           "risk_score": 5.0888,
-          "vulnerability_index": 3.574
+          "flood_vulnerability_index": 3.574
         }
       }
     },
@@ -37886,7 +37886,7 @@
           "no_toilet_score": 0.6211,
           "coping_capacity_score": 7.3218,
           "risk_score": 4.8784,
-          "vulnerability_index": 3.674
+          "flood_vulnerability_index": 3.674
         }
       }
     },
@@ -38935,7 +38935,7 @@
           "no_toilet_score": 1.5407,
           "coping_capacity_score": 6.8444,
           "risk_score": 4.5441,
-          "vulnerability_index": 4.353
+          "flood_vulnerability_index": 4.353
         }
       }
     },
@@ -40424,7 +40424,7 @@
           "no_toilet_score": 0.6925,
           "coping_capacity_score": 6.1428,
           "risk_score": 4.0889,
-          "vulnerability_index": 3.3160000000000003
+          "flood_vulnerability_index": 3.3160000000000003
         }
       }
     },
@@ -41117,7 +41117,7 @@
           "no_toilet_score": 1.1458,
           "coping_capacity_score": 6.5291,
           "risk_score": 5.0519,
-          "vulnerability_index": 3.657
+          "flood_vulnerability_index": 3.657
         }
       }
     },
@@ -41622,7 +41622,7 @@
           "no_toilet_score": 0.6089,
           "coping_capacity_score": 6.4414,
           "risk_score": 4.5963,
-          "vulnerability_index": 2.7510000000000003
+          "flood_vulnerability_index": 2.7510000000000003
         }
       }
     },
@@ -42203,7 +42203,7 @@
           "no_toilet_score": 0.8685,
           "coping_capacity_score": 7.2539,
           "risk_score": 5.1159,
-          "vulnerability_index": 4
+          "flood_vulnerability_index": 4
         }
       }
     },
@@ -42760,7 +42760,7 @@
           "no_toilet_score": 0.3636,
           "coping_capacity_score": 5.4644,
           "risk_score": 3.596,
-          "vulnerability_index": 2.7510000000000003
+          "flood_vulnerability_index": 2.7510000000000003
         }
       }
     },
@@ -43385,7 +43385,7 @@
           "no_toilet_score": 0.2352,
           "coping_capacity_score": 4.4579,
           "risk_score": 4.454,
-          "vulnerability_index": 2.3169999999999997
+          "flood_vulnerability_index": 2.3169999999999997
         }
       }
     },
@@ -43914,7 +43914,7 @@
           "no_toilet_score": 0.6602,
           "coping_capacity_score": 6.9712,
           "risk_score": 4.824,
-          "vulnerability_index": 3.548
+          "flood_vulnerability_index": 3.548
         }
       }
     },
@@ -44691,7 +44691,7 @@
           "no_toilet_score": 0.5382,
           "coping_capacity_score": 6.3196,
           "risk_score": 4.8911,
-          "vulnerability_index": 3.0210000000000004
+          "flood_vulnerability_index": 3.0210000000000004
         }
       }
     },
@@ -45360,7 +45360,7 @@
           "no_toilet_score": 0.4734,
           "coping_capacity_score": 6.5958,
           "risk_score": 4.4388,
-          "vulnerability_index": 3.1710000000000003
+          "flood_vulnerability_index": 3.1710000000000003
         }
       }
     },
@@ -46209,7 +46209,7 @@
           "no_toilet_score": 1.1537,
           "coping_capacity_score": 6.6221,
           "risk_score": 5.238,
-          "vulnerability_index": 3.323
+          "flood_vulnerability_index": 3.323
         }
       }
     },
@@ -46750,7 +46750,7 @@
           "no_toilet_score": 2.0938,
           "coping_capacity_score": 7.0042,
           "risk_score": 5.1546,
-          "vulnerability_index": 4.071000000000001
+          "flood_vulnerability_index": 4.071000000000001
         }
       }
     },
@@ -47227,7 +47227,7 @@
           "no_toilet_score": 0.7542,
           "coping_capacity_score": 7.2125,
           "risk_score": 4.8008,
-          "vulnerability_index": 3.2560000000000002
+          "flood_vulnerability_index": 3.2560000000000002
         }
       }
     },
@@ -47656,7 +47656,7 @@
           "no_toilet_score": 0.5717,
           "coping_capacity_score": 6.6458,
           "risk_score": 4.6035,
-          "vulnerability_index": 3.2319999999999998
+          "flood_vulnerability_index": 3.2319999999999998
         }
       }
     },
@@ -48193,7 +48193,7 @@
           "no_toilet_score": 1.2045,
           "coping_capacity_score": 6.7929,
           "risk_score": 5.781,
-          "vulnerability_index": 3.963
+          "flood_vulnerability_index": 3.963
         }
       }
     },
@@ -48982,7 +48982,7 @@
           "no_toilet_score": 0.7371,
           "coping_capacity_score": 6.6037,
           "risk_score": 4.6747,
-          "vulnerability_index": 4.071000000000001
+          "flood_vulnerability_index": 4.071000000000001
         }
       }
     },
@@ -49491,7 +49491,7 @@
           "no_toilet_score": 0.9511,
           "coping_capacity_score": 6.0536,
           "risk_score": 4.3662,
-          "vulnerability_index": 3.6689999999999996
+          "flood_vulnerability_index": 3.6689999999999996
         }
       }
     },
@@ -50252,7 +50252,7 @@
           "no_toilet_score": 1.6059,
           "coping_capacity_score": 6.8565,
           "risk_score": 4.8733,
-          "vulnerability_index": 4.06
+          "flood_vulnerability_index": 4.06
         }
       }
     },
@@ -50713,7 +50713,7 @@
           "no_toilet_score": 0.9665,
           "coping_capacity_score": 6.6994,
           "risk_score": 4.978,
-          "vulnerability_index": 3.472
+          "flood_vulnerability_index": 3.472
         }
       }
     },
@@ -51318,7 +51318,7 @@
           "no_toilet_score": 0.5018,
           "coping_capacity_score": 5.4205,
           "risk_score": 4.2983,
-          "vulnerability_index": 3.215
+          "flood_vulnerability_index": 3.215
         }
       }
     },
@@ -51787,7 +51787,7 @@
           "no_toilet_score": 0.7807,
           "coping_capacity_score": 6.814,
           "risk_score": 4.903,
-          "vulnerability_index": 3.3960000000000004
+          "flood_vulnerability_index": 3.3960000000000004
         }
       }
     },
@@ -52336,7 +52336,7 @@
           "no_toilet_score": 0.909,
           "coping_capacity_score": 6.1028,
           "risk_score": 4.4944,
-          "vulnerability_index": 3.91
+          "flood_vulnerability_index": 3.91
         }
       }
     },
@@ -52717,7 +52717,7 @@
           "no_toilet_score": 0,
           "coping_capacity_score": 4.2318,
           "risk_score": 3.5337,
-          "vulnerability_index": 1.266
+          "flood_vulnerability_index": 1.266
         }
       }
     },
@@ -53590,7 +53590,7 @@
           "no_toilet_score": 3.774,
           "coping_capacity_score": 6.9948,
           "risk_score": 5.2258,
-          "vulnerability_index": 5.053
+          "flood_vulnerability_index": 5.053
         }
       }
     },
@@ -54531,7 +54531,7 @@
           "no_toilet_score": 10,
           "coping_capacity_score": 9.1301,
           "risk_score": 6.8311,
-          "vulnerability_index": 4.712
+          "flood_vulnerability_index": 4.712
         }
       }
     },
@@ -55444,7 +55444,7 @@
           "no_toilet_score": 6.1132,
           "coping_capacity_score": 8.4987,
           "risk_score": 6.3729,
-          "vulnerability_index": 5.428999999999999
+          "flood_vulnerability_index": 5.428999999999999
         }
       }
     },
@@ -56289,7 +56289,7 @@
           "no_toilet_score": 8.6638,
           "coping_capacity_score": 8.172,
           "risk_score": 6.4866,
-          "vulnerability_index": 5.476
+          "flood_vulnerability_index": 5.476
         }
       }
     },
@@ -57202,7 +57202,7 @@
           "no_toilet_score": 8.9331,
           "coping_capacity_score": 7.8194,
           "risk_score": 6.0924,
-          "vulnerability_index": 5.662000000000001
+          "flood_vulnerability_index": 5.662000000000001
         }
       }
     },
@@ -57999,7 +57999,7 @@
           "no_toilet_score": 9.7935,
           "coping_capacity_score": 8.6621,
           "risk_score": 7.0858,
-          "vulnerability_index": 5.517
+          "flood_vulnerability_index": 5.517
         }
       }
     },
@@ -59108,7 +59108,7 @@
           "no_toilet_score": 8.6864,
           "coping_capacity_score": 8.1463,
           "risk_score": 6.2885,
-          "vulnerability_index": 5.517
+          "flood_vulnerability_index": 5.517
         }
       }
     },
@@ -59805,7 +59805,7 @@
           "no_toilet_score": 7.7658,
           "coping_capacity_score": 8.2434,
           "risk_score": 6.6211,
-          "vulnerability_index": 6.544
+          "flood_vulnerability_index": 6.544
         }
       }
     },
@@ -60414,7 +60414,7 @@
           "no_toilet_score": 0.0259,
           "coping_capacity_score": 5.7608,
           "risk_score": 4.8174,
-          "vulnerability_index": 3.707
+          "flood_vulnerability_index": 3.707
         }
       }
     },
@@ -61495,7 +61495,7 @@
           "no_toilet_score": 0.0798,
           "coping_capacity_score": 6.6617,
           "risk_score": 5.1872,
-          "vulnerability_index": 3.926
+          "flood_vulnerability_index": 3.926
         }
       }
     },
@@ -62112,7 +62112,7 @@
           "no_toilet_score": 0.4035,
           "coping_capacity_score": 6.6238,
           "risk_score": 4.5578,
-          "vulnerability_index": 3.9130000000000003
+          "flood_vulnerability_index": 3.9130000000000003
         }
       }
     },
@@ -62809,7 +62809,7 @@
           "no_toilet_score": 0.0573,
           "coping_capacity_score": 7.3031,
           "risk_score": 4.8258,
-          "vulnerability_index": 3.602
+          "flood_vulnerability_index": 3.602
         }
       }
     },
@@ -63494,7 +63494,7 @@
           "no_toilet_score": 0.0496,
           "coping_capacity_score": 6.3341,
           "risk_score": 5.2109,
-          "vulnerability_index": 3.927
+          "flood_vulnerability_index": 3.927
         }
       }
     },
@@ -64591,7 +64591,7 @@
           "no_toilet_score": 0.0874,
           "coping_capacity_score": 5.9329,
           "risk_score": 4.1457,
-          "vulnerability_index": 4.0680000000000005
+          "flood_vulnerability_index": 4.0680000000000005
         }
       }
     },
@@ -65868,7 +65868,7 @@
           "no_toilet_score": 1.577,
           "coping_capacity_score": 7.6136,
           "risk_score": 5.1468,
-          "vulnerability_index": 4.703
+          "flood_vulnerability_index": 4.703
         }
       }
     },
@@ -66421,7 +66421,7 @@
           "no_toilet_score": 1.5781,
           "coping_capacity_score": 7.2671,
           "risk_score": 4.9082,
-          "vulnerability_index": 4.276
+          "flood_vulnerability_index": 4.276
         }
       }
     },
@@ -67310,7 +67310,7 @@
           "no_toilet_score": 1.3572,
           "coping_capacity_score": 7.1927,
           "risk_score": 5.0448,
-          "vulnerability_index": 4.459
+          "flood_vulnerability_index": 4.459
         }
       }
     },
@@ -68043,7 +68043,7 @@
           "no_toilet_score": 1.0322,
           "coping_capacity_score": 7.0373,
           "risk_score": 4.8475,
-          "vulnerability_index": 4.187
+          "flood_vulnerability_index": 4.187
         }
       }
     },
@@ -68896,7 +68896,7 @@
           "no_toilet_score": 1.3705,
           "coping_capacity_score": 6.9903,
           "risk_score": 4.802,
-          "vulnerability_index": 4.801
+          "flood_vulnerability_index": 4.801
         }
       }
     },
@@ -69641,7 +69641,7 @@
           "no_toilet_score": 1.1762,
           "coping_capacity_score": 7.4563,
           "risk_score": 5.0339,
-          "vulnerability_index": 4.459
+          "flood_vulnerability_index": 4.459
         }
       }
     },
@@ -70850,7 +70850,7 @@
           "no_toilet_score": 0.7601,
           "coping_capacity_score": 6.0317,
           "risk_score": 4.4861,
-          "vulnerability_index": 3.74
+          "flood_vulnerability_index": 3.74
         }
       }
     },
@@ -72047,7 +72047,7 @@
           "no_toilet_score": 2.8943,
           "coping_capacity_score": 7.7721,
           "risk_score": 5.5998,
-          "vulnerability_index": 5.377000000000001
+          "flood_vulnerability_index": 5.377000000000001
         }
       }
     },
@@ -72992,7 +72992,7 @@
           "no_toilet_score": 0.9316,
           "coping_capacity_score": 7.353,
           "risk_score": 4.9917,
-          "vulnerability_index": 4.797
+          "flood_vulnerability_index": 4.797
         }
       }
     },
@@ -73649,7 +73649,7 @@
           "no_toilet_score": 0.4764,
           "coping_capacity_score": 5.5892,
           "risk_score": 3.9381,
-          "vulnerability_index": 2.8289999999999997
+          "flood_vulnerability_index": 2.8289999999999997
         }
       }
     },
@@ -74194,7 +74194,7 @@
           "no_toilet_score": 6.0368,
           "coping_capacity_score": 7.1408,
           "risk_score": 5.1394,
-          "vulnerability_index": 3.366
+          "flood_vulnerability_index": 3.366
         }
       }
     },
@@ -75027,7 +75027,7 @@
           "no_toilet_score": 0.3598,
           "coping_capacity_score": 7.0061,
           "risk_score": 4.6251,
-          "vulnerability_index": 3.565
+          "flood_vulnerability_index": 3.565
         }
       }
     },
@@ -75836,7 +75836,7 @@
           "no_toilet_score": 0.6739,
           "coping_capacity_score": 6.4176,
           "risk_score": 4.5846,
-          "vulnerability_index": 3.7030000000000003
+          "flood_vulnerability_index": 3.7030000000000003
         }
       }
     },
@@ -76689,7 +76689,7 @@
           "no_toilet_score": 0.3616,
           "coping_capacity_score": 6.4162,
           "risk_score": 4.4314,
-          "vulnerability_index": 3.597
+          "flood_vulnerability_index": 3.597
         }
       }
     },
@@ -77666,7 +77666,7 @@
           "no_toilet_score": 0.7652,
           "coping_capacity_score": 7.1237,
           "risk_score": 4.9925,
-          "vulnerability_index": 3.6
+          "flood_vulnerability_index": 3.6
         }
       }
     },
@@ -78635,7 +78635,7 @@
           "no_toilet_score": 0.235,
           "coping_capacity_score": 5.3597,
           "risk_score": 4.4446,
-          "vulnerability_index": 3.122
+          "flood_vulnerability_index": 3.122
         }
       }
     },
@@ -79596,7 +79596,7 @@
           "no_toilet_score": 0.287,
           "coping_capacity_score": 5.7919,
           "risk_score": 4.6436,
-          "vulnerability_index": 3.457
+          "flood_vulnerability_index": 3.457
         }
       }
     },
@@ -80681,7 +80681,7 @@
           "no_toilet_score": 0.3152,
           "coping_capacity_score": 6.5734,
           "risk_score": 4.3516,
-          "vulnerability_index": 3.565
+          "flood_vulnerability_index": 3.565
         }
       }
     },
@@ -81506,7 +81506,7 @@
           "no_toilet_score": 0.4259,
           "coping_capacity_score": 4.9298,
           "risk_score": 3.7236,
-          "vulnerability_index": 2.7569999999999997
+          "flood_vulnerability_index": 2.7569999999999997
         }
       }
     },
@@ -82679,7 +82679,7 @@
           "no_toilet_score": 0.3976,
           "coping_capacity_score": 6.0659,
           "risk_score": 4.3806,
-          "vulnerability_index": 3.304
+          "flood_vulnerability_index": 3.304
         }
       }
     },
@@ -83752,7 +83752,7 @@
           "no_toilet_score": 1.641,
           "coping_capacity_score": 6.2078,
           "risk_score": 4.5693,
-          "vulnerability_index": 3.4
+          "flood_vulnerability_index": 3.4
         }
       }
     },
@@ -84805,7 +84805,7 @@
           "no_toilet_score": 0.0414,
           "coping_capacity_score": 3.8569,
           "risk_score": 3.5321,
-          "vulnerability_index": 1.74
+          "flood_vulnerability_index": 1.74
         }
       }
     },
@@ -85262,7 +85262,7 @@
           "no_toilet_score": 0.1823,
           "coping_capacity_score": 6.521,
           "risk_score": 5.0348,
-          "vulnerability_index": 3.911
+          "flood_vulnerability_index": 3.911
         }
       }
     },
@@ -85987,7 +85987,7 @@
           "no_toilet_score": 0.1365,
           "coping_capacity_score": 6.0021,
           "risk_score": 4.242,
-          "vulnerability_index": 3.555
+          "flood_vulnerability_index": 3.555
         }
       }
     },
@@ -86948,7 +86948,7 @@
           "no_toilet_score": 0.5893,
           "coping_capacity_score": 6.9668,
           "risk_score": 4.7004,
-          "vulnerability_index": 3.971
+          "flood_vulnerability_index": 3.971
         }
       }
     },
@@ -87245,7 +87245,7 @@
           "no_toilet_score": 0.852,
           "coping_capacity_score": 6.2357,
           "risk_score": 5.0122,
-          "vulnerability_index": 2.8289999999999997
+          "flood_vulnerability_index": 2.8289999999999997
         }
       }
     },
@@ -87750,7 +87750,7 @@
           "no_toilet_score": 0.2258,
           "coping_capacity_score": 5.8833,
           "risk_score": 5.1194,
-          "vulnerability_index": 3.9389999999999996
+          "flood_vulnerability_index": 3.9389999999999996
         }
       }
     },
@@ -88367,7 +88367,7 @@
           "no_toilet_score": 0.2049,
           "coping_capacity_score": 5.3679,
           "risk_score": 4.4809,
-          "vulnerability_index": 3.7889999999999997
+          "flood_vulnerability_index": 3.7889999999999997
         }
       }
     },
@@ -89040,7 +89040,7 @@
           "no_toilet_score": 0.293,
           "coping_capacity_score": 6.0429,
           "risk_score": 4.7109,
-          "vulnerability_index": 3.623
+          "flood_vulnerability_index": 3.623
         }
       }
     },
@@ -89565,7 +89565,7 @@
           "no_toilet_score": 0.6072,
           "coping_capacity_score": 5.7285,
           "risk_score": 3.9847,
-          "vulnerability_index": 3.49
+          "flood_vulnerability_index": 3.49
         }
       }
     },
@@ -90238,7 +90238,7 @@
           "no_toilet_score": 0.4639,
           "coping_capacity_score": 4.698,
           "risk_score": 3.4513,
-          "vulnerability_index": 3.145
+          "flood_vulnerability_index": 3.145
         }
       }
     },
@@ -90999,7 +90999,7 @@
           "no_toilet_score": 0.3245,
           "coping_capacity_score": 5.7169,
           "risk_score": 4.1325,
-          "vulnerability_index": 3.326
+          "flood_vulnerability_index": 3.326
         }
       }
     },
@@ -91592,7 +91592,7 @@
           "no_toilet_score": 0.6083,
           "coping_capacity_score": 6.5795,
           "risk_score": 4.7151,
-          "vulnerability_index": 3.804
+          "flood_vulnerability_index": 3.804
         }
       }
     },
@@ -92565,7 +92565,7 @@
           "no_toilet_score": 0.5008,
           "coping_capacity_score": 6.6331,
           "risk_score": 4.8922,
-          "vulnerability_index": 3.5380000000000003
+          "flood_vulnerability_index": 3.5380000000000003
         }
       }
     },
@@ -93646,7 +93646,7 @@
           "no_toilet_score": 2.0702,
           "coping_capacity_score": 7.237,
           "risk_score": 5.1487,
-          "vulnerability_index": 5.184
+          "flood_vulnerability_index": 5.184
         }
       }
     },
@@ -94243,7 +94243,7 @@
           "no_toilet_score": 2.0953,
           "coping_capacity_score": 7.1461,
           "risk_score": 4.7679,
-          "vulnerability_index": 4.62
+          "flood_vulnerability_index": 4.62
         }
       }
     },
@@ -94904,7 +94904,7 @@
           "no_toilet_score": 2.0726,
           "coping_capacity_score": 6.7983,
           "risk_score": 4.8026,
-          "vulnerability_index": 4.8580000000000005
+          "flood_vulnerability_index": 4.8580000000000005
         }
       }
     },
@@ -95789,7 +95789,7 @@
           "no_toilet_score": 3.9322,
           "coping_capacity_score": 7.6613,
           "risk_score": 5.4922,
-          "vulnerability_index": 5.184
+          "flood_vulnerability_index": 5.184
         }
       }
     },
@@ -96466,7 +96466,7 @@
           "no_toilet_score": 4.697,
           "coping_capacity_score": 7.0243,
           "risk_score": 5.439,
-          "vulnerability_index": 6.166
+          "flood_vulnerability_index": 6.166
         }
       }
     },
@@ -97043,7 +97043,7 @@
           "no_toilet_score": 2.0352,
           "coping_capacity_score": 6.6714,
           "risk_score": 4.4777,
-          "vulnerability_index": 4.61
+          "flood_vulnerability_index": 4.61
         }
       }
     },
@@ -97600,7 +97600,7 @@
           "no_toilet_score": 1.6695,
           "coping_capacity_score": 6.8223,
           "risk_score": 5.1513,
-          "vulnerability_index": 4.873
+          "flood_vulnerability_index": 4.873
         }
       }
     },
@@ -98185,7 +98185,7 @@
           "no_toilet_score": 1.502,
           "coping_capacity_score": 6.841,
           "risk_score": 4.9495,
-          "vulnerability_index": 4.914
+          "flood_vulnerability_index": 4.914
         }
       }
     },
@@ -98878,7 +98878,7 @@
           "no_toilet_score": 1.3641,
           "coping_capacity_score": 6.1119,
           "risk_score": 4.1419,
-          "vulnerability_index": 4.345
+          "flood_vulnerability_index": 4.345
         }
       }
     },
@@ -99627,7 +99627,7 @@
           "no_toilet_score": 0.1419,
           "coping_capacity_score": 6.7011,
           "risk_score": 4.9697,
-          "vulnerability_index": 3.435
+          "flood_vulnerability_index": 3.435
         }
       }
     },
@@ -100300,7 +100300,7 @@
           "no_toilet_score": 0.2178,
           "coping_capacity_score": 6.5135,
           "risk_score": 6.2862,
-          "vulnerability_index": 4.037
+          "flood_vulnerability_index": 4.037
         }
       }
     },
@@ -101501,7 +101501,7 @@
           "no_toilet_score": 0.2189,
           "coping_capacity_score": 5.5803,
           "risk_score": 4.3735,
-          "vulnerability_index": 3.657
+          "flood_vulnerability_index": 3.657
         }
       }
     },
@@ -102222,7 +102222,7 @@
           "no_toilet_score": 1.6234,
           "coping_capacity_score": 7.0076,
           "risk_score": 5.0296,
-          "vulnerability_index": 5.0680000000000005
+          "flood_vulnerability_index": 5.0680000000000005
         }
       }
     },
@@ -102883,7 +102883,7 @@
           "no_toilet_score": 2.125,
           "coping_capacity_score": 6.9965,
           "risk_score": 5.0704,
-          "vulnerability_index": 5.175
+          "flood_vulnerability_index": 5.175
         }
       }
     },
@@ -103640,7 +103640,7 @@
           "no_toilet_score": 0.9783,
           "coping_capacity_score": 7.1807,
           "risk_score": 5.5107,
-          "vulnerability_index": 4.78
+          "flood_vulnerability_index": 4.78
         }
       }
     },
@@ -104369,7 +104369,7 @@
           "no_toilet_score": 1.8007,
           "coping_capacity_score": 7.3637,
           "risk_score": 5.5365,
-          "vulnerability_index": 5.505
+          "flood_vulnerability_index": 5.505
         }
       }
     }

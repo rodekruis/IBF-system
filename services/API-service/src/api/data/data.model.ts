@@ -114,7 +114,7 @@ export class AdminAreaDataRecord {
     no_toilet_score: number;
     coping_capacity_score: number;
     risk_score: number;
-    vulnerability_index: number;
+    flood_vulnerability_index: number;
   };
 }
 
@@ -148,7 +148,7 @@ export class CountryMetaData {
 
 export class Aggregates {
   public population_affected: number;
-  public vulnerability_index: number;
+  public flood_vulnerability_index: number;
   public poverty_incidence: number;
   public female_head_hh: number;
   public population_u8: number;

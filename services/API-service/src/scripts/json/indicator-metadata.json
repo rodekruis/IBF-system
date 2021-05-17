@@ -17,7 +17,7 @@
   },
   {
     "country_codes": "UGA",
-    "name": "vulnerability_index",
+    "name": "flood_vulnerability_index",
     "label": "Flood Vulnerability Index",
     "group": "vulnerability",
     "icon": "Affected-population-white.svg",
@@ -72,7 +72,7 @@
     "dynamic": false
   },
   {
-    "country_codes": "UGA",
+    "country_codes": "UGA,PHL",
     "name": "female_head_hh",
     "label": "Female-headed household",
     "group": "vulnerability",
@@ -117,7 +117,7 @@
     "dynamic": false
   },
   {
-    "country_codes": "UGA",
+    "country_codes": "UGA,PHL",
     "name": "population_over65",
     "label": "Population 65+",
     "group": "vulnerability",
@@ -256,21 +256,6 @@
   },
   {
     "country_codes": "PHL",
-    "name": "population_over65_phl",
-    "label": "Population 65+",
-    "group": "vulnerability",
-    "icon": "Elderly-white.svg",
-    "weightedAvg": true,
-    "active": false,
-    "colorBreaks": null,
-    "numberFormatMap": "perc",
-    "aggregateIndicator": true,
-    "numberFormatAggregate": "decimal0",
-    "order": 3,
-    "dynamic": false
-  },
-  {
-    "country_codes": "PHL",
     "name": "potential_cases_U9",
     "label": "Potential Cases U9",
     "group": "",
@@ -300,20 +285,5 @@
     "order": 5,
     "dynamic": true,
     "lazyLoad": true
-  },
-  {
-    "country_codes": "PHL",
-    "name": "female_head_hh_phl",
-    "label": "Female-headed household",
-    "group": "vulnerability",
-    "icon": "Person2-white.svg",
-    "weightedAvg": true,
-    "active": false,
-    "colorBreaks": null,
-    "numberFormatMap": "perc",
-    "aggregateIndicator": true,
-    "numberFormatAggregate": "decimal0",
-    "order": 3,
-    "dynamic": false
   }
 ]
