@@ -50,8 +50,11 @@ services:
             - POSTGRES_DB=${DB_DATABASE}
         volumes:
             - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+            - ibf-local-db-data:/var/lib/postgresql/data
         ports:
             - 5437:5432
         networks:
             - pipeline-network
 
+volumes:
+    ibf-local-db-data:
