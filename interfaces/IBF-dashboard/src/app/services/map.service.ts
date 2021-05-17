@@ -563,7 +563,7 @@ export class MapService {
           this.adminLevelService.adminLevel,
         )
         .pipe(shareReplay(1));
-    } else {
+    } else if (layer.type !== IbfLayerType.wms) {
       // In case layer is aggregate layer
       layerData = this.getCombineAdminRegionData(
         this.country.countryCodeISO3,
@@ -571,6 +571,8 @@ export class MapService {
         this.timelineService.activeLeadTime,
         layer,
       ).pipe(shareReplay(1));
+    } else {
+      layerData = of(null);
     }
     this.layerDataCache[layerDataCacheKey] = layerData;
     return layerData;
