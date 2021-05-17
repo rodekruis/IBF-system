@@ -53,7 +53,7 @@ class Exposure:
                 'exposurePlaceCodes': self.stats,
                 'leadTime': self.leadTimeLabel,
                 'dynamicDataUnit': indicator,
-                'adminLevel': 2
+                'adminLevel': SETTINGS[self.country_code]['admin_level']
             }
 
             self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + \

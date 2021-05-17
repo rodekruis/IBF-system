@@ -36,7 +36,7 @@ export class AdminAreaDynamicDataService {
       for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
         const dynamicDataRecord = new AdminAreaDynamicDataEntity();
         dynamicDataRecord.countryCode = uploadExposure.countryCodeISO3;
-        dynamicDataRecord.adminLevel = 2;
+        dynamicDataRecord.adminLevel = uploadExposure.adminLevel;
         dynamicDataRecord.placeCode = exposurePlaceCode.placeCode;
         dynamicDataRecord.key = uploadExposure.dynamicDataUnit;
         dynamicDataRecord.date = new Date();
