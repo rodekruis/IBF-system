@@ -1,20 +1,18 @@
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
+import { Type } from 'class-transformer';
+import { TriggerPerLeadTimeDto } from './trigger-per-leadtime.dto';
+import triggers from './example/triggers-per-leadtime-UGA-triggered.json';
 
 export class UploadTriggerPerLeadTimeDto {
-  @ApiProperty({ example: 'PHL' })
+  @ApiProperty({ example: 'UGA' })
   @IsNotEmpty()
   @IsString()
   public countryCodeISO3: string;
 
-  @ApiProperty({ example: '7-day' })
-  @IsNotEmpty()
-  @IsString()
-  public leadTime: LeadTime;
-
-  @ApiProperty({ default: false })
-  @IsNotEmpty()
-  @IsBoolean()
-  public triggered: boolean;
+  @ApiProperty({ example: triggers })
+  @IsArray()
+  @ValidateNested()
+  @Type(() => TriggerPerLeadTimeDto)
+  public triggersPerLeadTime: TriggerPerLeadTimeDto[];
 }

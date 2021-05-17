@@ -1,14 +1,9 @@
-import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
-import { DynamicDataUnit } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
 import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiProperty } from '@nestjs/swagger';
 import { IsIn, IsNotEmpty, IsString } from 'class-validator';
-import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { Connection } from 'typeorm';
 import { SeedInit } from './seed-init';
-import countries from './json/countries.json';
-import exposure from '../api/admin-area-dynamic-data/dto/example/upload-exposure-example.json';
-import exposureTriggered from '../api/admin-area-dynamic-data/dto/example/upload-exposure-example-triggered.json';
+import { ScriptsService } from './scripts.service';
 
 class ResetDto {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -17,13 +12,13 @@ class ResetDto {
   public readonly secret: string;
 }
 
-class MockDynamic {
+export class MockDynamic {
   @ApiProperty({ example: 'fill_in_secret' })
   @IsNotEmpty()
   @IsString()
   public readonly secret: string;
-  @ApiProperty({ example: 'PHL' })
-  @IsIn(['PHL'])
+  @ApiProperty({ example: 'UGA' })
+  @IsIn(['PHL', 'UGA'])
   public readonly countryCodeISO3: string;
   @ApiProperty()
   @IsNotEmpty()
@@ -34,14 +29,11 @@ class MockDynamic {
 export class ScriptsController {
   private connection: Connection;
 
-  private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService;
+  private readonly scriptsService: ScriptsService;
 
-  public constructor(
-    connection: Connection,
-    adminAreaDynamicDataService: AdminAreaDynamicDataService,
-  ) {
+  public constructor(connection: Connection, scriptsService: ScriptsService) {
     this.connection = connection;
-    this.adminAreaDynamicDataService = adminAreaDynamicDataService;
+    this.scriptsService = scriptsService;
   }
 
   @ApiOperation({ summary: 'Reset database' })
@@ -67,30 +59,9 @@ export class ScriptsController {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
-    const selectedCountry = countries.find((country): any => {
-      if (body.countryCodeISO3 === country.countryCodeISO3) {
-        return country;
-      }
-    });
-    const exposureUnitsPHL = [
-      DynamicDataUnit.populationAffected,
-      DynamicDataUnit.potentialCases65,
-      DynamicDataUnit.potentialCasesU9,
-    ];
-    for (const unit of exposureUnitsPHL) {
-      for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
-        console.log(
-          `Seeding leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3}`,
-        );
-        await this.adminAreaDynamicDataService.exposure({
-          countryCodeISO3: body.countryCodeISO3,
-          exposurePlaceCodes: body.triggered ? exposureTriggered : exposure,
-          leadTime: activeLeadTime as LeadTime,
-          dynamicDataUnit: unit,
-          adminLevel: selectedCountry.defaultAdminLevel,
-        });
-      }
-    }
-    return res.status(HttpStatus.ACCEPTED).send('Succesfully mocked!');
+
+    const result = await this.scriptsService.mockCountry(body);
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
   }
 }

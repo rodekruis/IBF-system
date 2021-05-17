@@ -65,8 +65,12 @@ export class AdminAreaDynamicDataService {
     const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
     uploadTriggerPerLeadTimeDto.countryCodeISO3 =
       uploadExposure.countryCodeISO3;
-    uploadTriggerPerLeadTimeDto.leadTime = uploadExposure.leadTime as LeadTime;
-    uploadTriggerPerLeadTimeDto.triggered = trigger;
+    uploadTriggerPerLeadTimeDto.triggersPerLeadTime = [
+      {
+        leadTime: uploadExposure.leadTime as LeadTime,
+        triggered: trigger,
+      },
+    ];
     await this.eventService.uploadTriggerPerLeadTime(
       uploadTriggerPerLeadTimeDto,
     );

@@ -24,19 +24,26 @@ export class EventService {
   public async uploadTriggerPerLeadTime(
     uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ): Promise<void> {
-    // Delete duplicates
-    await this.triggerPerLeadTimeRepository.delete({
-      date: new Date(),
-      countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
-      leadTime: uploadTriggerPerLeadTimeDto.leadTime as LeadTime,
-    });
-    const triggerPerLeadTime = new TriggerPerLeadTime();
-    triggerPerLeadTime.date = new Date();
-    triggerPerLeadTime.countryCodeISO3 =
-      uploadTriggerPerLeadTimeDto.countryCodeISO3;
-    triggerPerLeadTime.leadTime = uploadTriggerPerLeadTimeDto.leadTime as LeadTime;
-    triggerPerLeadTime.triggered = uploadTriggerPerLeadTimeDto.triggered;
-    await this.triggerPerLeadTimeRepository.save(triggerPerLeadTime);
+    const triggersPerLeadTime: TriggerPerLeadTime[] = [];
+    for (let leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
+      // Delete duplicates
+      await this.triggerPerLeadTimeRepository.delete({
+        date: new Date(),
+        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
+        leadTime: leadTime.leadTime as LeadTime,
+      });
+
+      const triggerPerLeadTime = new TriggerPerLeadTime();
+      triggerPerLeadTime.date = new Date();
+      triggerPerLeadTime.countryCodeISO3 =
+        uploadTriggerPerLeadTimeDto.countryCodeISO3;
+      triggerPerLeadTime.leadTime = leadTime.leadTime as LeadTime;
+      triggerPerLeadTime.triggered = leadTime.triggered;
+
+      triggersPerLeadTime.push(triggerPerLeadTime);
+    }
+
+    await this.triggerPerLeadTimeRepository.save(triggersPerLeadTime);
   }
 
   public async closeEventPcode(

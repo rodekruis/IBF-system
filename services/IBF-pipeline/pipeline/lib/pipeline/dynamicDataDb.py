@@ -42,15 +42,18 @@ class DatabaseManager:
     def uploadTriggerPerStation(self):
         df = pd.read_json(self.triggerFolder +
                           'triggers_rp_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + ".json", orient='records')
-        dfUpload = pd.DataFrame(index=df.index)
-        dfUpload['countryCodeISO3'] = self.countryCodeISO3
-        dfUpload['leadTime'] = self.leadTimeLabel
-        dfUpload['stationCode'] = df['stationCode']
-        dfUpload['forecastLevel'] = df['fc']
-        dfUpload['forecastProbability'] = df['fc_prob']
-        dfUpload['forecastTrigger'] = df['fc_trigger']
-        dfUpload['forecastReturnPeriod'] = df['fc_rp']
-        body = json.loads(dfUpload.to_json(orient='records'))
+        dfStation = pd.DataFrame(index=df.index)
+        dfStation['stationCode'] = df['stationCode']
+        dfStation['forecastLevel'] = df['fc']
+        dfStation['forecastProbability'] = df['fc_prob']
+        dfStation['forecastTrigger'] = df['fc_trigger']
+        dfStation['forecastReturnPeriod'] = df['fc_rp']
+        stationForecasts = json.loads(dfStation.to_json(orient='records'))
+        body = {
+            'countryCodeISO3': self.countryCodeISO3,
+            'leadTime': self.leadTimeLabel,
+            'stationForecasts': stationForecasts
+        }
         self.apiPostRequest('glofasStations/triggers', body)
         print('Uploaded triggers per station')
 
@@ -58,13 +61,17 @@ class DatabaseManager:
         with open(self.triggerFolder +
                   'trigger_per_day_' + self.countryCodeISO3 + ".json") as json_file:
             triggers = json.load(json_file)[0]
+            triggersPerLeadTime = []
             for key in triggers:
-                body = {
-                    'countryCodeISO3': self.countryCodeISO3,
+                triggersPerLeadTime.append({
                     'leadTime': str(key),
                     'triggered': triggers[key]
-                }
-                self.apiPostRequest('event/triggers-per-leadtime', body)
+                })
+            body = {
+                'countryCodeISO3': self.countryCodeISO3,
+                'triggersPerLeadTime': triggersPerLeadTime
+            }
+            self.apiPostRequest('event/triggers-per-leadtime', body)
         print('Uploaded triggers per leadTime')
 
     def processDynamicDataDb(self):

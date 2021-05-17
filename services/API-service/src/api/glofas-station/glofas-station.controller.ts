@@ -34,10 +34,10 @@ export class GlofasStationController {
   @ApiOperation({ summary: 'Upload Glofas forecast data per station' })
   @Post('triggers')
   public async uploadTriggerDataPerStation(
-    @Body() uploadTriggerPerStationArray: UploadTriggerPerStationDto[],
+    @Body() uploadTriggerPerStation: UploadTriggerPerStationDto,
   ): Promise<GlofasStationTriggerEntity[]> {
     return await this.glofasStationService.uploadTriggerDataPerStation(
-      uploadTriggerPerStationArray,
+      uploadTriggerPerStation,
     );
   }
 }
