@@ -17,25 +17,6 @@ class Forecast:
         self.db = DatabaseManager(leadTimeLabel, countryCodeISO3)
 
         self.admin_area_gdf = self.db.downloadGeoDataFromDb('IBF-app','adminArea', countryCodeISO3=countryCodeISO3)
-        # self.admin_area_gdf = self.db.apiGetRequest('adminAreas',countryCodeISO3=countryCodeISO3)
-        # print(type(self.admin_area_gdf[0]))
-        # for index in range(len(self.admin_area_gdf)):
-        #     self.admin_area_gdf[index]['geometry'] = self.admin_area_gdf[index]['geom']
-        #     self.admin_area_gdf[index]['properties'] = {
-        #         'placeCode': self.admin_area_gdf[index]['placeCode'],
-        #         'name': self.admin_area_gdf[index]['name']
-        #     }
-        # print(self.admin_area_gdf[0])
-        # admin_gdf = geopandas.GeoDataFrame.from_features(self.admin_area_gdf)
-        # print(admin_gdf.head(10))
-        # admin_df = pd.read_json(json.dumps(self.admin_area_gdf))
-        # print(admin_df.head(10))
-        # # admin_df['geom2'] = admin_df.geom.apply(lambda x: wkb.dumps(x))
-        # # print(admin_df.head(10))
-        # admin_df['coordinates'] = geopandas.GeoSeries.from_wkb(admin_df['geometry'])
-        # print(admin_df.head(10))
-        # gdf = geopandas.GeoDataFrame(admin_df, geometry='coordinates')
-        # print(admin_gdf.head(10))
         
         if model == 'glofas':
             self.glofas_stations = self.db.apiGetRequest('glofasStations',countryCodeISO3=countryCodeISO3)
