@@ -318,5 +318,13 @@
     },
     "action": "livelihood-3",
     "label": "Relocating the livestock from flood zones (including evacuation in the worst case)"
+  },
+  {
+    "countryCode": "PHL",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-3",
+    "label": "Placeholder event to test event functionality"
   }
 ]

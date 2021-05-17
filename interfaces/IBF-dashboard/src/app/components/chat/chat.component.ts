@@ -7,8 +7,10 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
+import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
@@ -23,12 +25,15 @@ import { IbfLayerName } from 'src/app/types/ibf-layer';
 export class ChatComponent implements OnInit, OnDestroy {
   public triggeredAreas: any[];
   public filteredAreas: any[];
+  public activeDisasterType: string;
 
+  private translatedStrings: object;
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
   private promptButtonLabel: string;
   private closeEventPopup: object;
 
+  private countrySubscription: Subscription;
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private translateSubscription: Subscription;
@@ -39,6 +44,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public submitDisabled = true;
 
   constructor(
+    private countryService: CountryService,
     private eapActionsService: EapActionsService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
@@ -49,11 +55,15 @@ export class ChatComponent implements OnInit, OnDestroy {
     private analyticsService: AnalyticsService,
   ) {
     this.translateSubscription = this.translateService
-      .get('chat-component.active-event')
+      .get('chat-component')
       .subscribe(this.onTranslate);
   }
 
   ngOnInit() {
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe(this.onCountryChange);
+
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
       .subscribe(this.onTriggeredAreasChange);
@@ -64,16 +74,34 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.countrySubscription.unsubscribe();
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
   }
 
   private onTranslate = (translatedStrings) => {
-    this.updateSuccessMessage = translatedStrings['update-success'];
-    this.updateFailureMessage = translatedStrings['update-failure'];
-    this.promptButtonLabel = translatedStrings['prompt-button-label'];
-    this.closeEventPopup = translatedStrings['close-event-popup'];
+    this.translatedStrings = translatedStrings;
+  };
+
+  private onCountryChange = (country: Country) => {
+    if (country) {
+      const genericKey = 'generic'
+      const activeEventKey = 'active-event'
+      this.activeDisasterType = country.disasterTypes[0].disasterType;
+      this.promptButtonLabel = this.translatedStrings[genericKey][
+        'prompt-button-label'
+      ];
+      this.closeEventPopup = this.translatedStrings[genericKey][
+        'close-event-popup'
+      ];
+      this.updateSuccessMessage = this.translatedStrings[
+        this.activeDisasterType
+      ][activeEventKey]['update-success'];
+      this.updateFailureMessage = this.translatedStrings[
+        this.activeDisasterType
+      ][activeEventKey]['update-failure'];
+    }
   };
 
   private onTriggeredAreasChange = (triggeredAreas) => {
@@ -232,7 +260,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   public closePlaceCodeEventPopup(triggeredArea): void {
     this.translateSubscription = this.translateService
-      .get('chat-component.active-event.close-event-popup.message', {
+      .get(`chat-component.generic.close-event-popup.message`, {
         placeCodeName: triggeredArea.name,
       })
       .subscribe(this.onClosePlaceCodeEventPopupByTriggeredArea(triggeredArea));
