@@ -75,7 +75,9 @@ without docker:
 ### NOTE on (local) database
 
 Locally, a database-container will start (as opposed to remote servers, which are connected to a database-server).
-To fill this database with data
+To (re)seed this database with data
+- (re)create database + schema's
+  - docker-compose up -d --force-recreate ibf-local-db 
 - run seed script
   - docker-compose exec ibf-api-service npm run seed
 - run the pipeline for all countries
