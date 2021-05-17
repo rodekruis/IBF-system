@@ -83,7 +83,6 @@ export class EventService {
   };
 
   private onTriggerPerLeadTime = (timesteps) => {
-    console.log('timesteps: ', timesteps);
     let firstKey = null;
     Object.keys(timesteps).forEach((key) => {
       if (timesteps[key] === '1') {

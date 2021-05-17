@@ -73,7 +73,7 @@ export class ScriptsController {
       }
     });
     const exposureUnitsPHL = [
-      DynamicDataUnit.population,
+      DynamicDataUnit.populationAffected,
       DynamicDataUnit.potentialCases65,
       DynamicDataUnit.potentialCasesU9,
     ];
