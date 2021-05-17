@@ -35,7 +35,7 @@ export class UploadAdminAreaDynamicDataDto {
     @IsString()
     public leadTime: LeadTime;
 
-    @ApiProperty({ example: 'population' })
+    @ApiProperty({ example: 'population_affected' })
     @IsNotEmpty()
     @IsEnum(DynamicDataUnit)
     @IsString()

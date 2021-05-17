@@ -80,7 +80,7 @@ left join (
 		,value as population_affected
 	from "IBF-app".admin_area_dynamic_data
 	where date = current_date 
-	and key = 'population'
+	and key = 'population_affected'
 ) ca
 	on geo."placeCode" = ca."placeCode"  
 	and geo."countryCodeISO3" = ca.countryCodeISO3 
@@ -110,7 +110,7 @@ left join (
 		,value as population_affected
 	from "IBF-app".admin_area_dynamic_data
 	where date = current_date 
-	and key = 'population'
+	and key = 'population_affected'
 ) ca
 	on geo."placeCode" = ca."placeCode"  
 	and geo."countryCodeISO3" = ca.countryCodeISO3 
