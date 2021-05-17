@@ -315,5 +315,21 @@
     "numberFormatAggregate": "decimal0",
     "order": 3,
     "dynamic": false
+  },
+  {
+    "country_codes": "PHL",
+    "name": "alert_threshold",
+    "label": "Alert Threshold Reached",
+    "group": "outline",
+    "icon": "Person2-white.svg",
+    "weightedAvg": true,
+    "active": false,
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": true,
+    "numberFormatAggregate": "decimal0",
+    "order": 3,
+    "dynamic": true,
+    "lazyLoad": true
   }
 ]

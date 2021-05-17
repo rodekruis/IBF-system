@@ -9,6 +9,7 @@ import { SeedInit } from './seed-init';
 import countries from './json/countries.json';
 import exposure from '../api/admin-area-dynamic-data/dto/example/upload-exposure-example.json';
 import exposureTriggered from '../api/admin-area-dynamic-data/dto/example/upload-exposure-example-triggered.json';
+import { ExposurePlaceCodeDto } from 'src/api/admin-area-dynamic-data/dto/exposure-place-code.dto';
 
 class ResetDto {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -76,6 +77,7 @@ export class ScriptsController {
       ExposureUnit.population,
       ExposureUnit.potentialCases65,
       ExposureUnit.potentialCasesU9,
+      ExposureUnit.alertThreshold,
     ];
     for (const unit of exposureUnitsPHL) {
       for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
@@ -84,13 +86,34 @@ export class ScriptsController {
         );
         await this.adminAreaDynamicDataService.exposure({
           countryCodeISO3: body.countryCodeISO3,
-          exposurePlaceCodes: body.triggered ? exposureTriggered : exposure,
+          exposurePlaceCodes: this.mockAmount(
+            body.triggered ? exposureTriggered : exposure,
+            unit,
+          ),
           leadTime: activeLeadTime as LeadTime,
           exposureUnit: unit,
           adminLevel: selectedCountry.defaultAdminLevel,
         });
       }
     }
+
     return res.status(HttpStatus.ACCEPTED).send('Succesfully mocked!');
+  }
+
+  private mockAmount(
+    exposurePlacecodes: any,
+    exposureUnit: ExposureUnit,
+  ): ExposurePlaceCodeDto[] {
+    const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
+    for (const pcodeData of copyOfExposureUnit) {
+      if (exposureUnit === ExposureUnit.potentialCases65) {
+        pcodeData.amount = Math.round(pcodeData.amount * 0.1);
+      } else if (exposureUnit === ExposureUnit.potentialCasesU9) {
+        pcodeData.amount = Math.round(pcodeData.amount * 0.2);
+      } else if (exposureUnit === ExposureUnit.alertThreshold) {
+        pcodeData.amount = Number(pcodeData.amount > 0);
+      }
+    }
+    return copyOfExposureUnit;
   }
 }

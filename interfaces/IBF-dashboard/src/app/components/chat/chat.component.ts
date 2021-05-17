@@ -86,8 +86,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onCountryChange = (country: Country) => {
     if (country) {
-      const genericKey = 'generic'
-      const activeEventKey = 'active-event'
+      const genericKey = 'generic';
+      const activeEventKey = 'active-event';
       this.activeDisasterType = country.disasterTypes[0].disasterType;
       this.promptButtonLabel = this.translatedStrings[genericKey][
         'prompt-button-label'
