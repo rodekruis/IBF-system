@@ -25,17 +25,17 @@ export class AdminAreaDynamicDataService {
   public async exposure(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
-    // Delete existing entries with same date, leadtime and country_code and unit typ
+    // Delete existing entries with same date, leadtime and countryCodeISO3 and unit typ
     await this.adminAreaDynamicDataRepo.delete({
       key: uploadExposure.dynamicDataUnit,
       date: new Date(),
-      countryCode: uploadExposure.countryCodeISO3,
+      countryCodeISO3: uploadExposure.countryCodeISO3,
       leadTime: uploadExposure.leadTime,
     });
     if (uploadExposure.dynamicDataUnit === DynamicDataUnit.population) {
       for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
         const dynamicDataRecord = new AdminAreaDynamicDataEntity();
-        dynamicDataRecord.countryCode = uploadExposure.countryCodeISO3;
+        dynamicDataRecord.countryCodeISO3 = uploadExposure.countryCodeISO3;
         dynamicDataRecord.adminLevel = uploadExposure.adminLevel;
         dynamicDataRecord.placeCode = exposurePlaceCode.placeCode;
         dynamicDataRecord.key = uploadExposure.dynamicDataUnit;
@@ -49,7 +49,7 @@ export class AdminAreaDynamicDataService {
       await this.adminAreaDynamicDataRepo.delete({
         key: uploadExposure.dynamicDataUnit,
         date: new Date(),
-        countryCode: uploadExposure.countryCodeISO3,
+        countryCodeISO3: uploadExposure.countryCodeISO3,
         leadTime: uploadExposure.leadTime,
       });
       for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
@@ -59,7 +59,7 @@ export class AdminAreaDynamicDataService {
         area.adminLevel = uploadExposure.adminLevel;
         area.placeCode = exposurePlaceCode.placeCode;
         area.date = new Date();
-        area.countryCode = uploadExposure.countryCodeISO3;
+        area.countryCodeISO3 = uploadExposure.countryCodeISO3;
         area.leadTime = uploadExposure.leadTime;
         this.adminAreaDynamicDataRepo.save(area);
       }
@@ -73,7 +73,8 @@ export class AdminAreaDynamicDataService {
     const trigger = this.isThereTrigger(uploadExposure.exposurePlaceCodes);
 
     const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
-    uploadTriggerPerLeadTimeDto.countryCode = uploadExposure.countryCodeISO3;
+    uploadTriggerPerLeadTimeDto.countryCodeISO3 =
+      uploadExposure.countryCodeISO3;
     uploadTriggerPerLeadTimeDto.leadTime = uploadExposure.leadTime as LeadTime;
     uploadTriggerPerLeadTimeDto.triggered = trigger;
     await this.eventService.uploadTriggerPerLeadTime(
@@ -93,7 +94,7 @@ export class AdminAreaDynamicDataService {
   }
 
   public async getAdminAreaDynamicData(
-    countryCode: string,
+    countryCodeISO3: string,
     adminLevel: string,
     leadTime: LeadTime,
     key: DynamicDataUnit,
@@ -101,7 +102,7 @@ export class AdminAreaDynamicDataService {
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('admin_area_dynamic_data')
       .where({
-        countryCode: countryCode,
+        countryCodeISO3: countryCodeISO3,
         adminLevel: Number(adminLevel),
         leadTime: leadTime,
         key: key,

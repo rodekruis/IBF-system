@@ -16,17 +16,17 @@ class DatabaseManager:
 
     """ Class to upload and process data in the database """
 
-    def __init__(self, leadTimeLabel, country_code):
-        self.country_code = country_code
+    def __init__(self, leadTimeLabel, countryCodeISO3):
+        self.countryCodeISO3 = countryCodeISO3
         self.leadTimeLabel = leadTimeLabel
         self.engine = create_engine(
             'postgresql://'+DB_SETTINGS['user']+':'+DB_SETTINGS['password']+'@'+DB_SETTINGS['host']+':'+DB_SETTINGS['port']+'/'+DB_SETTINGS['db'])
         self.triggerFolder = PIPELINE_OUTPUT + "triggers_rp_per_station/"
         self.affectedFolder = PIPELINE_OUTPUT + "calculated_affected/"
-        self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
+        self.EXPOSURE_DATA_SOURCES = SETTINGS[countryCodeISO3]['EXPOSURE_DATA_SOURCES']
 
     def upload(self):
-        if SETTINGS[self.country_code]['model'] == 'glofas':
+        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
             self.uploadTriggersPerLeadTime()
             self.uploadTriggerPerStation()
         self.uploadCalculatedAffected()
@@ -34,16 +34,16 @@ class DatabaseManager:
     def uploadCalculatedAffected(self):
         for indicator, values in self.EXPOSURE_DATA_SOURCES.items():
             with open(self.affectedFolder +
-                      'affected_' + self.leadTimeLabel + '_' + self.country_code + '_' + indicator + '.json') as json_file:
+                      'affected_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '_' + indicator + '.json') as json_file:
                 body = json.load(json_file)
                 self.apiPostRequest('admin-area-dynamic-data/exposure', body)
             print('Uploaded calculated_affected for indicator: ' + indicator)
 
     def uploadTriggerPerStation(self):
         df = pd.read_json(self.triggerFolder +
-                          'triggers_rp_' + self.leadTimeLabel + '_' + self.country_code + ".json", orient='records')
+                          'triggers_rp_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + ".json", orient='records')
         dfUpload = pd.DataFrame(index=df.index)
-        dfUpload['countryCodeISO3'] = self.country_code
+        dfUpload['countryCodeISO3'] = self.countryCodeISO3
         dfUpload['leadTime'] = self.leadTimeLabel
         dfUpload['stationCode'] = df['stationCode']
         dfUpload['forecastLevel'] = df['fc']
@@ -56,11 +56,11 @@ class DatabaseManager:
 
     def uploadTriggersPerLeadTime(self):
         with open(self.triggerFolder +
-                  'trigger_per_day_' + self.country_code + ".json") as json_file:
+                  'trigger_per_day_' + self.countryCodeISO3 + ".json") as json_file:
             triggers = json.load(json_file)[0]
             for key in triggers:
                 body = {
-                    'countryCode': self.country_code,
+                    'countryCodeISO3': self.countryCodeISO3,
                     'leadTime': str(key),
                     'triggered': triggers[key]
                 }
@@ -82,11 +82,11 @@ class DatabaseManager:
             logger.info(e)
             print('SQL FAILED', e)
 
-    def apiGetRequest(self, path, country_code):
+    def apiGetRequest(self, path, countryCodeISO3):
         TOKEN = self.apiAuthenticate()
 
         response = requests.get(
-            API_SERVICE_URL + path + '/' + country_code,
+            API_SERVICE_URL + path + '/' + countryCodeISO3,
             headers={'Authorization': 'Bearer ' + TOKEN}
         )
         data = response.json()
@@ -110,12 +110,12 @@ class DatabaseManager:
             'email', ADMIN_LOGIN), ('password', ADMIN_PASSWORD)])
         return login_response.json()['user']['token']
 
-    def downloadGeoDataFromDb(self, schema, table, country_code=None):
+    def downloadGeoDataFromDb(self, schema, table, countryCodeISO3=None):
         try:
             self.con, self.cur, self.db = get_db()
             sql = "SELECT * FROM \""+schema+"\".\""+table+"\""
-            if country_code != None:
-                sql = sql + " WHERE \"countryCode\"=\'"+self.country_code+"\'"
+            if countryCodeISO3 != None:
+                sql = sql + " WHERE \"countryCodeISO3\"=\'"+self.countryCodeISO3+"\'"
             admin_gdf = gpd.read_postgis(sql, self.con)
         except psycopg2.ProgrammingError as e:
             logger.info(e)

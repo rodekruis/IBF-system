@@ -10,8 +10,7 @@ export class EapActionDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  @IsIn(['UGA', 'ZMB', 'KEN', 'ETH'])
-  public countryCode: string;
+  public countryCodeISO3: string;
 
   @ApiProperty()
   @IsNotEmpty()

@@ -13,16 +13,16 @@ class FloodExtent:
 
     """Class used to calculate flood extent"""
 
-    def __init__(self, leadTimeLabel, leadTimeValue, country_code, district_mapping, admin_area_gdf):
+    def __init__(self, leadTimeLabel, leadTimeValue, countryCodeISO3, district_mapping, admin_area_gdf):
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
-        self.country_code = country_code
+        self.countryCodeISO3 = countryCodeISO3
         self.inputPath = GEOSERVER_INPUT + "flood_extent/"
         self.outputPathAreas = PIPELINE_OUTPUT + 'flood_extents/'+ leadTimeLabel +'/'
-        if SETTINGS[country_code]['model'] == 'glofas':
-            self.outputPathMerge = GEOSERVER_OUTPUT + '0/flood_extents/flood_extent_'+ leadTimeLabel + '_' + country_code + '.tif'
-        elif SETTINGS[country_code]['model'] == 'rainfall':
-            self.outputPathMerge = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ leadTimeLabel + '_' + country_code + '.tif'
+        if SETTINGS[countryCodeISO3]['model'] == 'glofas':
+            self.outputPathMerge = GEOSERVER_OUTPUT + '0/flood_extents/flood_extent_'+ leadTimeLabel + '_' + countryCodeISO3 + '.tif'
+        elif SETTINGS[countryCodeISO3]['model'] == 'rainfall':
+            self.outputPathMerge = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ leadTimeLabel + '_' + countryCodeISO3 + '.tif'
         self.district_mapping = district_mapping
         self.ADMIN_AREA_GDF = admin_area_gdf
 
@@ -58,9 +58,9 @@ class FloodExtent:
             trigger = rows['fc_trigger']
             if trigger == 1:
                 return_period = rows['fc_rp'] 
-                input_raster = self.inputPath + self.country_code + '_flood_' +str(int(return_period))+'year.tif'
+                input_raster = self.inputPath + self.countryCodeISO3 + '_flood_' +str(int(return_period))+'year.tif'
             else:
-                input_raster = self.inputPath + self.country_code + '_flood_empty.tif'
+                input_raster = self.inputPath + self.countryCodeISO3 + '_flood_empty.tif'
 
             out_image, out_meta = self.clipTiffWithShapes(input_raster, dist_coords)
 
@@ -91,7 +91,7 @@ class FloodExtent:
         df_district_mapping = pd.read_json(json.dumps(self.district_mapping))
 
         #Load (static) threshold values per station
-        path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.leadTimeLabel + '_' + self.country_code + '.json'
+        path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '.json'
         df_triggers = pd.read_json(path, orient='records')
         
         #Merge two datasets

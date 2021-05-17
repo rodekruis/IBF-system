@@ -3,7 +3,7 @@ from lib.logging.logglySetup import logger
 from lib.setup.setupConnection  import get_db
 
 
-def getFloodInfo(countryCode):
+def getFloodInfo(countryCodeISO3):
     con, cur, db = get_db()
 
     sqlString = '''
@@ -21,7 +21,7 @@ def getFloodInfo(countryCode):
         left join "IBF-app"."glofasStationTrigger" gst 
             on aa."glofasStation" = gst."stationCode" 
             and aad.lead_time = gst."leadTime" 
-        where aad.country_code = \'''' + countryCode + '''\'
+        where aad.countryCodeISO3 = \'''' + countryCodeISO3 + '''\'
             and aad.population_affected > 0
         order by population_affected desc
     '''

@@ -1,5 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import { CountryEntity } from '../country/country.entity';
 
 @Entity('trigger_per_lead_time')
 export class TriggerPerLeadTime {
@@ -9,8 +16,12 @@ export class TriggerPerLeadTime {
   @Column({ type: 'date' })
   public date: Date;
 
-  @Column()
-  public countryCode: string;
+  @ManyToOne((): typeof CountryEntity => CountryEntity)
+  @JoinColumn({
+    name: 'countryCodeISO3',
+    referencedColumnName: 'countryCodeISO3',
+  })
+  public countryCodeISO3: string;
 
   @Column()
   public leadTime: LeadTime;

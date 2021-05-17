@@ -6,7 +6,7 @@ export class UploadTriggerPerLeadTimeDto {
   @ApiProperty({ example: 'PHL' })
   @IsNotEmpty()
   @IsString()
-  public countryCode: string;
+  public countryCodeISO3: string;
 
   @ApiProperty({ example: '7-day' })
   @IsNotEmpty()

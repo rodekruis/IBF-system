@@ -16,7 +16,7 @@ export class RainfallTriggersService {
     countryCodeISO3,
   ): Promise<RainfallTriggersEntity[]> {
     return await this.rainfallTriggersRepository.find({
-      where: { countryCode: countryCodeISO3 },
+      where: { countryCodeISO3: countryCodeISO3 },
     });
   }
 }

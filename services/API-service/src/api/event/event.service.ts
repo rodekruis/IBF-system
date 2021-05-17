@@ -27,12 +27,13 @@ export class EventService {
     // Delete duplicates
     await this.triggerPerLeadTimeRepository.delete({
       date: new Date(),
-      countryCode: uploadTriggerPerLeadTimeDto.countryCode,
+      countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
       leadTime: uploadTriggerPerLeadTimeDto.leadTime as LeadTime,
     });
     const triggerPerLeadTime = new TriggerPerLeadTime();
     triggerPerLeadTime.date = new Date();
-    triggerPerLeadTime.countryCode = uploadTriggerPerLeadTimeDto.countryCode;
+    triggerPerLeadTime.countryCodeISO3 =
+      uploadTriggerPerLeadTimeDto.countryCodeISO3;
     triggerPerLeadTime.leadTime = uploadTriggerPerLeadTimeDto.leadTime as LeadTime;
     triggerPerLeadTime.triggered = uploadTriggerPerLeadTimeDto.triggered;
     await this.triggerPerLeadTimeRepository.save(triggerPerLeadTime);

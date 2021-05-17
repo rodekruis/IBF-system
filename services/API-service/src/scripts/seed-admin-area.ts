@@ -43,7 +43,7 @@ export class SeedAdminArea implements InterfaceScript {
             .createQueryBuilder()
             .insert()
             .values({
-              countryCode: country.countryCodeISO3,
+              countryCodeISO3: country.countryCodeISO3,
               adminLevel: country.defaultAdminLevel,
               name: area.properties[`ADM${country.defaultAdminLevel}_EN`],
               placeCode:

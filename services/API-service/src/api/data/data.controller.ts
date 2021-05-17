@@ -23,55 +23,55 @@ export class DataController {
   }
 
   @ApiOperation({ summary: 'Get station location + trigger data' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
-  @Get('stations/:countryCode/:leadTime')
+  @Get('stations/:countryCodeISO3/:leadTime')
   public async getStations(@Param() params): Promise<GeoJson> {
     return await this.dataService.getStations(
-      params.countryCode,
+      params.countryCodeISO3,
       params.leadTime,
     );
   }
 
   @ApiOperation({ summary: 'Get Red Cross branch locations' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('red-cross-branches/:countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('red-cross-branches/:countryCodeISO3')
   public async getRedCrossBranches(@Param() params): Promise<GeoJson> {
-    return await this.dataService.getRedCrossBranches(params.countryCode);
+    return await this.dataService.getRedCrossBranches(params.countryCodeISO3);
   }
 
   @ApiOperation({ summary: 'Get recent dates' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('recent-dates/:countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('recent-dates/:countryCodeISO3')
   public async getRecentDate(@Param() params): Promise<object> {
-    return await this.dataService.getRecentDates(params.countryCode);
+    return await this.dataService.getRecentDates(params.countryCodeISO3);
   }
 
   @ApiOperation({ summary: 'Get trigger data per lead-time' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('triggers/:countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('triggers/:countryCodeISO3')
   public async getTriggerPerLeadtime(@Param() params): Promise<object> {
-    return await this.dataService.getTriggerPerLeadtime(params.countryCode);
+    return await this.dataService.getTriggerPerLeadtime(params.countryCodeISO3);
   }
 
   @ApiOperation({ summary: 'Get admin-area shape data' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'leadTime', required: false, type: 'string' })
-  @Get('admin-area-data/:countryCode/:adminLevel/:leadTime?')
+  @Get('admin-area-data/:countryCodeISO3/:adminLevel/:leadTime?')
   public async getAdminAreaData(@Param() params): Promise<GeoJson> {
     return await this.dataService.getAdminAreaData(
-      params.countryCode,
+      params.countryCodeISO3,
       params.adminLevel,
       params.leadTime,
     );
   }
 
   @ApiOperation({ summary: 'Get triggered areas' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('triggered-areas/:countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('triggered-areas/:countryCodeISO3')
   public async getTriggeredAreas(@Param() params): Promise<TriggeredArea[]> {
-    return await this.dataService.getTriggeredAreas(params.countryCode);
+    return await this.dataService.getTriggeredAreas(params.countryCodeISO3);
   }
 
   @ApiOperation({ summary: 'Get active event summary of a country' })

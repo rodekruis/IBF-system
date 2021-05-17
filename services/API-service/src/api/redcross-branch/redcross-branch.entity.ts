@@ -1,12 +1,23 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { CountryEntity } from '../country/country.entity';
 
 @Entity('redcrossBranch')
 export class RedcrossBranchEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column()
-  public countryCode: string;
+  @ManyToOne((): typeof CountryEntity => CountryEntity)
+  @JoinColumn({
+    name: 'countryCodeISO3',
+    referencedColumnName: 'countryCodeISO3',
+  })
+  public countryCodeISO3: string;
 
   @Column()
   public name: string;

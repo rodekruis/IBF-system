@@ -30,7 +30,7 @@ export class EapActionsService {
   ): Promise<EapActionStatusEntity> {
     const actionId = await this.eapActionRepository.findOne({
       where: {
-        countryCode: eapAction.countryCode,
+        countryCodeISO3: eapAction.countryCodeISO3,
         action: eapAction.action,
       },
     });
@@ -70,7 +70,7 @@ export class EapActionsService {
   }
 
   public async getActionsWithStatus(
-    countryCode: string,
+    countryCodeISO3: string,
     placeCode: string,
   ): Promise<EapActionEntity[]> {
     const query = `
@@ -116,11 +116,11 @@ export class EapActionsService {
         on ea.id = eas."actionCheckedId"
         and eas."placeCode" = $1
       where
-        "countryCode" = $2`;
+        "countryCodeISO3" = $2`;
 
     const actions: EapActionEntity[] = await this.manager.query(query, [
       placeCode,
-      countryCode,
+      countryCodeISO3,
     ]);
 
     return actions;

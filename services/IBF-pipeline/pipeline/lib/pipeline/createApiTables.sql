@@ -2,7 +2,7 @@
 --create API view for Glofas stations
 DROP TABLE IF EXISTS "IBF-API".redcross_branches;
 create table "IBF-API".redcross_branches as
-select "countryCode"
+select "countryCodeISO3"
 		,"name"
 		,"numberOfVolunteers"
 		,"contactPerson"
@@ -16,7 +16,7 @@ from "IBF-app"."redcrossBranch"
 --create API view for Glofas stations
 drop table if exists "IBF-API"."Glofas_stations";
 create table "IBF-API"."Glofas_stations" as
-select gst."countryCode" as country_code
+select gst."countryCodeISO3" as countryCodeISO3
 		,gst."leadTime" as lead_time
 		,dgsv.station_code
 		,dgsv.station_name
@@ -26,7 +26,7 @@ select gst."countryCode" as country_code
       , gst."forecastTrigger" as fc_trigger
       , gst."forecastProbability" as fc_prob
 from (
-	select "countryCode" as country_code
+	select "countryCodeISO3" as countryCodeISO3
 		,"stationCode" as station_code
 		,"stationName" as station_name
 		,"triggerLevel" as trigger_level
@@ -35,10 +35,10 @@ from (
 	) dgsv
 left join "IBF-app"."glofasStationTrigger" gst
 	on dgsv.station_code = gst."stationCode" 
-	and dgsv.country_code = gst."countryCode" 
+	and dgsv.countryCodeISO3 = gst."countryCodeISO3" 
 	and gst.date = current_date
 ;
---select * from "IBF-API"."Glofas_stations" where lead_time = '3-day' and country_code = 'ZMB'
+--select * from "IBF-API"."Glofas_stations" where lead_time = '3-day' and countryCodeISO3 = 'ZMB'
 
 drop table if exists "IBF-API".admin_area_data_pivoted;
 create table "IBF-API".admin_area_data_pivoted as
@@ -66,14 +66,14 @@ select geo."placeCode"
 	,geo."name"
 	,geo."placeCodeParent" as pcode_level1
 	,ST_AsGeoJSON(geo.geom)::json As geom
-	,"countryCode" as country_code
+	,"countryCodeISO3" as countryCodeISO3
 	, date
 	, lead_time
 	, population_affected
 	, row_to_json(daad.*) as indicators
 from "IBF-app"."adminArea" geo
 left join (
-	select "countryCode" as country_code 
+	select "countryCodeISO3" as countryCodeISO3 
 		,"leadTime" as lead_time
 		,date
 		,"placeCode" 
@@ -83,12 +83,12 @@ left join (
 	and key = 'population'
 ) ca
 	on geo."placeCode" = ca."placeCode"  
-	and geo."countryCode" = ca.country_code 
+	and geo."countryCodeISO3" = ca.countryCodeISO3 
 left join "IBF-API".admin_area_data_pivoted daad 
 	on geo."placeCode" = daad."placeCode"
 where "adminLevel" = 2
 ;
---select * from "IBF-API"."Admin_area_data2" where country_code = 'UGA'
+--select * from "IBF-API"."Admin_area_data2" where countryCodeISO3 = 'UGA'
 
 drop table if exists "IBF-API"."Admin_area_data1" cascade;
 create table "IBF-API"."Admin_area_data1" as
@@ -96,14 +96,14 @@ select geo."placeCode"
 	,geo."name"
 	,geo."placeCodeParent" as pcode_level0
 	,ST_AsGeoJSON(geo.geom)::json As geom
-	,"countryCode" as country_code
+	,"countryCodeISO3" as countryCodeISO3
 	, date
 	, lead_time
 	, population_affected
 	, row_to_json(daad.*) as indicators
 from "IBF-app"."adminArea" geo
 left join (
-	select "countryCode" as country_code 
+	select "countryCodeISO3" as countryCodeISO3 
 		,"leadTime" as lead_time
 		,date
 		,"placeCode" 
@@ -113,33 +113,33 @@ left join (
 	and key = 'population'
 ) ca
 	on geo."placeCode" = ca."placeCode"  
-	and geo."countryCode" = ca.country_code 
+	and geo."countryCodeISO3" = ca.countryCodeISO3 
 left join "IBF-API".admin_area_data_pivoted daad 
 	on geo."placeCode" = daad."placeCode"
 where "adminLevel" = 1
 ;
---select * from "IBF-API"."Admin_area_data1" where country_code = 'EGY'
+--select * from "IBF-API"."Admin_area_data1" where countryCodeISO3 = 'EGY'
 
 drop table if exists "IBF-API".admin_area_data_pivoted;
 
 drop table if exists "IBF-API"."Matrix_aggregates2";
 create table "IBF-API"."Matrix_aggregates2" as
-select country_code
+select countryCodeISO3
 	,lead_time
 	,sum(population_affected) as population_affected
 from "IBF-API"."Admin_area_data2"
-where country_code is not null
+where countryCodeISO3 is not null
 group by 1,2
 ;
 --select * from "IBF-API"."Matrix_aggregates2"
 
 drop table if exists "IBF-API"."Matrix_aggregates1";
 create table "IBF-API"."Matrix_aggregates1" as
-select country_code
+select countryCodeISO3
 	,lead_time
 	,sum(population_affected) as population_affected
 from "IBF-API"."Admin_area_data1"
-where country_code is not null
+where countryCodeISO3 is not null
 group by 1,2
 ;
 --select * from "IBF-API"."Matrix_aggregates1"

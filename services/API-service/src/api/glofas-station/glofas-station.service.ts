@@ -20,7 +20,7 @@ export class GlofasStationService {
     countryCodeISO3,
   ): Promise<GlofasStationEntity[]> {
     return await this.glofasStationRepository.find({
-      where: { countryCode: countryCodeISO3 },
+      where: { countryCodeISO3: countryCodeISO3 },
     });
   }
 
@@ -29,7 +29,7 @@ export class GlofasStationService {
   ): Promise<GlofasStationTriggerEntity[]> {
     const stationForecasts: GlofasStationTriggerEntity[] = [];
     for await (let station of uploadTriggerPerStationArray) {
-      // Delete existsing entries with same date, leadTime and countryCode and stationCode
+      // Delete existsing entries with same date, leadTime and countryCodeISO3 and stationCode
       await this.glofasStationTriggerRepository.delete({
         stationCode: station.stationCode,
         countryCodeISO3: station.countryCodeISO3,

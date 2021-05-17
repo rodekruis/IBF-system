@@ -36,16 +36,16 @@ export class AdminAreaDynamicDataController {
   }
 
   @ApiOperation({ summary: 'Get dynamic admin-area data' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
   @ApiParam({ name: 'key', required: true, type: 'string' })
-  @Get(':countryCode/:adminLevel/:leadTime/:key')
+  @Get(':countryCodeISO3/:adminLevel/:leadTime/:key')
   public async getAdminAreaData(
     @Param() params,
   ): Promise<AdminDataReturnDto[]> {
     return await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
-      params.countryCode,
+      params.countryCodeISO3,
       params.adminLevel,
       params.leadTime,
       params.key as DynamicDataUnit,

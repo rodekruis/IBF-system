@@ -12,25 +12,17 @@ export class AdminAreaService {
 
   public async getAdminAreas(countryCodeISO3): Promise<any[]> {
     return await this.adminAreaRepository.find({
-      select: ['countryCode', 'name', 'placeCode', 'geom'],
-      where: { countryCode: countryCodeISO3 },
+      select: ['countryCodeISO3', 'name', 'placeCode', 'geom'],
+      where: { countryCodeISO3: countryCodeISO3 },
     });
-    // return await getManager()
-    //   .createQueryBuilder()
-    //   .select('"countryCode", name, "placeCode", geom AS geometry')
-    //   .from(AdminAreaEntity, 'adminArea')
-    //   .where('"adminArea"."countryCode" = :countryCodeISO3', {
-    //     countryCodeISO3,
-    //   })
-    //   .getRawMany();
   }
 
   public async getStationAdminAreaMappingByCountry(
     countryCodeISO3,
   ): Promise<any[]> {
     return await this.adminAreaRepository.find({
-      select: ['countryCode', 'name', 'placeCode', 'glofasStation'],
-      where: { countryCode: countryCodeISO3 },
+      select: ['countryCodeISO3', 'name', 'placeCode', 'glofasStation'],
+      where: { countryCodeISO3: countryCodeISO3 },
     });
   }
 }

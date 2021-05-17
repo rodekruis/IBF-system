@@ -21,13 +21,13 @@ export class RainfallTriggersController {
   }
 
   @ApiOperation({ summary: 'Get rainfall trigger levels by country' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get(':countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get(':countryCodeISO3')
   public async getTriggerLevels(
     @Param() params,
   ): Promise<RainfallTriggersEntity[]> {
     return await this.rainfallTriggersService.getTriggerLevelsByCountry(
-      params.countryCode,
+      params.countryCodeISO3,
     );
   }
 }

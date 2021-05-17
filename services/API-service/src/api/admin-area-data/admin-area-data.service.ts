@@ -50,7 +50,7 @@ export class AdminAreaDataService {
     const validatatedArray = [];
     for (const [i, row] of csvArray.entries()) {
       let data = new UploadAdminAreaDataDto();
-      data.countryCode = row.countryCode;
+      data.countryCodeISO3 = row.countryCodeISO3;
       data.adminLevel = parseInt(row.adminLevel);
       data.placeCode = row.placeCode;
       data.key = row.key;
@@ -69,14 +69,14 @@ export class AdminAreaDataService {
   }
 
   public async getAdminAreaData(
-    countryCode: string,
+    countryCodeISO3: string,
     adminLevel: string,
     key: DynamicDataUnit,
   ): Promise<AdminDataReturnDto[]> {
     const result = await this.adminAreaDataRepository
       .createQueryBuilder('adminAreaData')
       .where({
-        countryCode: countryCode,
+        countryCodeISO3: countryCodeISO3,
         adminLevel: Number(adminLevel),
         key: key,
       })

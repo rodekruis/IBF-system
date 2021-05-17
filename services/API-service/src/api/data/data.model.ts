@@ -5,7 +5,7 @@ export class AdminAreaDataRecord {
   public name: string;
   public pcode_level1: string;
   public geom: Geometry;
-  public country_code: string;
+  public countryCodeISO3: string;
   public placeCode: string;
   public date: Date;
   public lead_time: string;
@@ -125,7 +125,7 @@ export class TriggeredArea {
 }
 
 export class EventSummaryCountry {
-  public country_code: string;
+  public countryCodeISO3: string;
   public startDate: string;
   public endDate: string;
   public activeTrigger: boolean;
@@ -133,7 +133,7 @@ export class EventSummaryCountry {
 
 export class CountryMetaData {
   public id: string;
-  public country_code: string;
+  public countryCodeISO3: string;
   public name: string;
   public label: string;
   public group: string;

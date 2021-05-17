@@ -22,20 +22,22 @@ export class MetadataController {
   }
 
   @ApiOperation({ summary: 'Get indicator metadata' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('indicators/:countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('indicators/:countryCodeISO3')
   public async getIndicators(
     @Param() params,
   ): Promise<IndicatorMetadataEntity[]> {
     return await this.metadataService.getIndicatorsByCountry(
-      params.countryCode,
+      params.countryCodeISO3,
     );
   }
 
   @ApiOperation({ summary: 'Get layer metadata' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('layers/:countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('layers/:countryCodeISO3')
   public async getLayers(@Param() params): Promise<LayerMetadataEntity[]> {
-    return await this.metadataService.getLayersByCountry(params.countryCode);
+    return await this.metadataService.getLayersByCountry(
+      params.countryCodeISO3,
+    );
   }
 }

@@ -36,7 +36,7 @@ export class SeedAdminAreaData implements InterfaceScript {
               .createQueryBuilder()
               .insert()
               .values({
-                countryCode: 'PHL',
+                countryCodeISO3: 'PHL',
                 adminLevel: 2,
                 placeCode: area['placeCode'],
                 key: area['key'],
@@ -58,7 +58,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       );
       const floodVulnerabilityDataArray = floodVulnerabilityData.map(area => {
         return {
-          countryCode: 'UGA',
+          countryCodeISO3: 'UGA',
           adminLevel: 2,
           placeCode: area['placeCode'],
           key: area['key'],
@@ -73,7 +73,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       const covidRiskData = await this.seedHelper.getCsvData(covidRiskFilename);
       const covidRiskDataArray = covidRiskData.map(area => {
         return {
-          countryCode: 'UGA',
+          countryCodeISO3: 'UGA',
           adminLevel: 2,
           placeCode: area['placeCode'],
           key: area['key'],

@@ -44,7 +44,7 @@ export class SeedRainfallData implements InterfaceScript {
     const rainfallData = await this.seedHelper.getCsvData(rainfallFileName);
     const rainfallArray = rainfallData.map(pixel => {
       return {
-        countryCode: country.countryCodeISO3,
+        countryCodeISO3: country.countryCodeISO3,
         lat: pixel['lat'],
         lon: pixel['lon'],
         leadTime: pixel['forecast_time'],

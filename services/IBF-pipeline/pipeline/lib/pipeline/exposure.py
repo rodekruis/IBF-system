@@ -18,21 +18,21 @@ class Exposure:
 
     """Class used to calculate the exposure per exposure type"""
 
-    def __init__(self, leadTimeLabel, country_code, admin_area_gdf, district_mapping=None):
+    def __init__(self, leadTimeLabel, countryCodeISO3, admin_area_gdf, district_mapping=None):
         self.leadTimeLabel = leadTimeLabel
-        self.country_code = country_code
-        if SETTINGS[country_code]['model'] == 'glofas':
+        self.countryCodeISO3 = countryCodeISO3
+        if SETTINGS[countryCodeISO3]['model'] == 'glofas':
             self.disasterExtentRaster = GEOSERVER_OUTPUT + \
-                '0/flood_extents/flood_extent_' + leadTimeLabel + '_' + country_code + '.tif'
-        elif SETTINGS[country_code]['model'] == 'rainfall':
+                '0/flood_extents/flood_extent_' + leadTimeLabel + '_' + countryCodeISO3 + '.tif'
+        elif SETTINGS[countryCodeISO3]['model'] == 'rainfall':
             self.disasterExtentRaster = GEOSERVER_OUTPUT + \
-                '0/rainfall_extents/rain_rp_' + leadTimeLabel + '_' + country_code + '.tif'
+                '0/rainfall_extents/rain_rp_' + leadTimeLabel + '_' + countryCodeISO3 + '.tif'
         self.selectionValue = 0.9
         self.outputPath = PIPELINE_OUTPUT + "out.tif"
         self.district_mapping = district_mapping
         self.ADMIN_AREA_GDF = admin_area_gdf
         self.ADMIN_AREA_GDF_TMP_PATH = PIPELINE_OUTPUT+"admin-areas_TMP.shp"
-        self.EXPOSURE_DATA_SOURCES = SETTINGS[country_code]['EXPOSURE_DATA_SOURCES']
+        self.EXPOSURE_DATA_SOURCES = SETTINGS[countryCodeISO3]['EXPOSURE_DATA_SOURCES']
         self.stats = []
 
     def callAllExposure(self):
@@ -49,15 +49,15 @@ class Exposure:
                               indicator, values['rasterValue'])
 
             result = {
-                'countryCodeISO3': self.country_code,
+                'countryCodeISO3': self.countryCodeISO3,
                 'exposurePlaceCodes': self.stats,
                 'leadTime': self.leadTimeLabel,
                 'dynamicDataUnit': indicator,
-                'adminLevel': SETTINGS[self.country_code]['admin_level']
+                'adminLevel': SETTINGS[self.countryCodeISO3]['admin_level']
             }
 
             self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + \
-                self.leadTimeLabel + '_' + self.country_code + '_' + indicator + '.json'
+                self.leadTimeLabel + '_' + self.countryCodeISO3 + '_' + indicator + '.json'
             with open(self.statsPath, 'w') as fp:
                 json.dump(result, fp)
                 logger.info("Saved stats for %s", self.statsPath)
@@ -81,10 +81,10 @@ class Exposure:
             self.stats.append(item)
 
     def calcStatsPerAdmin(self, indicator, disasterExtentShapes, rasterValue):
-        if SETTINGS[self.country_code]['model'] == 'glofas':
+        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
             # Load trigger_data per station
             path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + \
-                self.leadTimeLabel + '_' + self.country_code + '.json'
+                self.leadTimeLabel + '_' + self.countryCodeISO3 + '.json'
             df_triggers = pd.read_json(path, orient='records')
             df_triggers = df_triggers.set_index("stationCode", drop=False)
             # Load assigned station per district
@@ -111,11 +111,11 @@ class Exposure:
                             area['properties']['placeCode']), self.outputPath, rasterValue)
 
                         # Overwrite non-triggered areas with positive exposure (due to rounding errors) to 0
-                        if SETTINGS[self.country_code]['model'] == 'glofas':
+                        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
                             if self.checkIfTriggeredArea(df_triggers, df_district_mapping, str(area['properties']['placeCode'])) == 0:
                                 statsDistrict = {'amount': 0, 'placeCode': str(
                                     area['properties']['placeCode'])}
-                        if self.country_code == 'EGY':
+                        if self.countryCodeISO3 == 'EGY':
                             if 'EG' not in str(area['properties']['placeCode']):
                                 statsDistrict = {'amount': 0, 'placeCode': str(
                                     area['properties']['placeCode'])}

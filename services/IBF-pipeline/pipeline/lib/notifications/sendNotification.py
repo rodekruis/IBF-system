@@ -7,8 +7,8 @@ from settings import FROM_EMAIL, FROM_EMAIL_NAME
 
 class EmailClient(MailChimp):
  
-    def sendNotification(self, emailContent, countryCode):
-        self.countryCode = countryCode 
+    def sendNotification(self, emailContent, countryCodeISO3):
+        self.countryCodeISO3 = countryCodeISO3 
         title = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         campaign_data = self.populateCampaignData(LIST_ID, title, emailContent["subject"], "Flood")
         campaign = self.createCampaign(campaign_data)
@@ -42,7 +42,7 @@ class EmailClient(MailChimp):
             "recipients": {
                 "list_id": list_id,
                 "segment_opts": {
-                    "saved_segment_id": SEGMENT[self.countryCode]
+                    "saved_segment_id": SEGMENT[self.countryCodeISO3]
                 }
             },
             "type": "regular"

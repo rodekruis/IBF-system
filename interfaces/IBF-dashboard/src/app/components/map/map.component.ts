@@ -389,7 +389,7 @@ export class MapComponent implements OnDestroy {
     });
 
     this.placeCodeService.setPlaceCode({
-      countryCodeISO3: feature.properties.country_code,
+      countryCodeISO3: feature.properties.countryCodeISO3,
       placeCodeName: feature.properties.name,
       placeCode: feature.properties.placeCode,
     });

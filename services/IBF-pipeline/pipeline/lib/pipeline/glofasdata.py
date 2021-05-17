@@ -23,32 +23,32 @@ from secrets import *
 
 class GlofasData:
 
-    def __init__(self, leadTimeLabel, leadTimeValue, country_code, glofas_stations, district_mapping):
-        self.db = DatabaseManager(leadTimeLabel, country_code)
+    def __init__(self, leadTimeLabel, leadTimeValue, countryCodeISO3, glofas_stations, district_mapping):
+        self.db = DatabaseManager(leadTimeLabel, countryCodeISO3)
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
-        self.country_code = country_code
+        self.countryCodeISO3 = countryCodeISO3
         self.inputPath = PIPELINE_DATA+'input/glofas/'
         self.triggerPerDay = PIPELINE_OUTPUT + \
-            'triggers_rp_per_station/trigger_per_day_' + country_code + '.json'
+            'triggers_rp_per_station/trigger_per_day_' + countryCodeISO3 + '.json'
         self.extractedGlofasPath = PIPELINE_OUTPUT + \
             'glofas_extraction/glofas_forecast_' + \
-            self.leadTimeLabel + '_' + country_code + '.json'
+            self.leadTimeLabel + '_' + countryCodeISO3 + '.json'
         self.triggersPerStationPath = PIPELINE_OUTPUT + \
             'triggers_rp_per_station/triggers_rp_' + \
-            self.leadTimeLabel + '_' + country_code + '.json'
+            self.leadTimeLabel + '_' + countryCodeISO3 + '.json'
         self.GLOFAS_STATIONS = glofas_stations
         self.DISTRICT_MAPPING = district_mapping
         self.current_date = CURRENT_DATE.strftime('%Y-%m-%d')
 
     def process(self):
-        if SETTINGS_SECRET[self.country_code]['mock'] == False:
+        if SETTINGS_SECRET[self.countryCodeISO3]['mock'] == False:
             self.removeOldGlofasData()
             self.download()
-        if SETTINGS_SECRET[self.country_code]['mock'] == True:
+        if SETTINGS_SECRET[self.countryCodeISO3]['mock'] == True:
             self.extractMockData()
         else:
-            if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia
+            if self.countryCodeISO3 == 'ZMB': #Temporarily keep using FTP for Zambia
                 self.extractFtpData()
             else:
                 self.extractApiData()
@@ -69,7 +69,7 @@ class GlofasData:
 
         while downloadDone == False and time.time() < end:
             try:
-                if self.country_code == 'ZMB': #Temporarily keep using FTP for Zambia
+                if self.countryCodeISO3 == 'ZMB': #Temporarily keep using FTP for Zambia
                     self.makeFtpRequest()
                 else:
                     self.makeApiRequest()
@@ -98,7 +98,7 @@ class GlofasData:
         glofasDataFile = self.db.getDataFromDatalake(path)
         if glofasDataFile.status_code >= 400:
             raise ValueError()
-        open(self.inputPath+'glofas-api-'+self.country_code+'-'+self.current_date+'.nc', 'wb').write(glofasDataFile.content)
+        open(self.inputPath+'glofas-api-'+self.countryCodeISO3+'-'+self.current_date+'.nc', 'wb').write(glofasDataFile.content)
 
     def extractFtpData(self):
         print('\nExtracting Glofas (FTP) Data\n')
@@ -210,7 +210,7 @@ class GlofasData:
         }
 
         # Load netCDF data
-        ncData = xr.open_dataset(self.inputPath+'glofas-api-'+self.country_code+'-'+self.current_date+'.nc')
+        ncData = xr.open_dataset(self.inputPath+'glofas-api-'+self.countryCodeISO3+'-'+self.current_date+'.nc')
 
         # Transform lon/lat values
         lons=np.linspace(ncData.dis24.attrs['GRIB_longitudeOfFirstGridPointInDegrees'],
@@ -322,7 +322,7 @@ class GlofasData:
                     for ensemble in range(1, ensemble_options):
 
                         # MOCK OVERWRITE DEPENDING ON COUNTRY SETTING
-                        if SETTINGS_SECRET[self.country_code]['if_mock_trigger'] == True:
+                        if SETTINGS_SECRET[self.countryCodeISO3]['if_mock_trigger'] == True:
                             if step < 5: # Only dummy trigger for 5-day and above
                                 discharge = 0
                             elif station['code'] == 'DWRM1':  # UGA dummy flood station 1
@@ -404,7 +404,7 @@ class GlofasData:
             fc = float(row['fc'])
             trigger = int(row['fc_trigger'])
             if trigger == 1:
-                if self.country_code == 'ZMB':
+                if self.countryCodeISO3 == 'ZMB':
                     if fc >= row['threshold20Year']:
                         return_period = 20
                     elif fc >= row['threshold10Year']:

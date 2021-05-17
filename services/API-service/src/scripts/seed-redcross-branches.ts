@@ -49,7 +49,7 @@ export class SeedRedcrossBranches implements InterfaceScript {
               .createQueryBuilder()
               .insert()
               .values({
-                countryCode: country.countryCodeISO3,
+                countryCodeISO3: country.countryCodeISO3,
                 name: branch['branch_name'],
                 numberOfVolunteers: branch['number_of_volunteers'],
                 contactPerson: branch['contact_person'],
