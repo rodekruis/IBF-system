@@ -2,36 +2,36 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('indicator-metadata')
 export class IndicatorMetadataEntity {
-  @PrimaryGeneratedColumn('uuid')
-  public id: string;
-  @Column()
-  public country_codes: string;
-  @Column()
-  public name: string;
-  @Column()
-  public label: string;
-  @Column()
-  public group: string;
-  @Column()
-  public icon: string;
-  @Column()
-  public weightedAvg: boolean;
-  @Column()
-  public active: boolean;
-  @Column('json', { nullable: true })
-  public colorBreaks: JSON;
-  @Column()
-  public numberFormatMap: string;
-  @Column()
-  public aggregateIndicator: boolean | null;
-  @Column()
-  public numberFormatAggregate: string;
-  @Column({ default: 1 })
-  public order: number;
-  @Column({ default: false })
-  public dynamic: boolean;
-  @Column({ nullable: true })
-  public unit: string;
-  @Column({ default: false })
-  public lazyLoad: boolean;
+    @PrimaryGeneratedColumn('uuid')
+    public id: string;
+    @Column()
+    public country_codes: string;
+    @Column()
+    public name: string;
+    @Column()
+    public label: string;
+    @Column()
+    public group: string;
+    @Column()
+    public icon: string;
+    @Column()
+    public weightedAvg: boolean;
+    @Column()
+    public active: boolean;
+    @Column('json', { nullable: true })
+    public colorBreaks: JSON;
+    @Column()
+    public numberFormatMap: string;
+    @Column()
+    public aggregateIndicator: boolean | null;
+    @Column()
+    public numberFormatAggregate: string;
+    @Column({ default: 1 })
+    public order: number;
+    @Column({ default: false })
+    public dynamic: boolean;
+    @Column({ nullable: true })
+    public unit: string;
+    @Column({ default: false })
+    public lazyLoad: boolean;
 }

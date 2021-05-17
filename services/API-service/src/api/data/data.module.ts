@@ -8,12 +8,16 @@ import { UserModule } from '../user/user.module';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([UserEntity, TriggerPerLeadTime, CountryEntity]),
-    UserModule,
-  ],
-  providers: [DataService],
-  controllers: [DataController],
-  exports: [DataService],
+    imports: [
+        TypeOrmModule.forFeature([
+            UserEntity,
+            TriggerPerLeadTime,
+            CountryEntity,
+        ]),
+        UserModule,
+    ],
+    providers: [DataService],
+    controllers: [DataController],
+    exports: [DataService],
 })
 export class DataModule {}

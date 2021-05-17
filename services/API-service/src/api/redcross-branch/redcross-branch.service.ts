@@ -5,16 +5,16 @@ import { RedcrossBranchEntity } from './redcross-branch.entity';
 
 @Injectable()
 export class RedcrossBranchService {
-  @InjectRepository(RedcrossBranchEntity)
-  private readonly redcrossBranchRepository: Repository<RedcrossBranchEntity>;
+    @InjectRepository(RedcrossBranchEntity)
+    private readonly redcrossBranchRepository: Repository<RedcrossBranchEntity>;
 
-  public constructor() {}
+    public constructor() {}
 
-  public async getBranchesByCountry(
-    countryCodeISO3,
-  ): Promise<RedcrossBranchEntity[]> {
-    return await this.redcrossBranchRepository.find({
-      where: { countryCodeISO3: countryCodeISO3 },
-    });
-  }
+    public async getBranchesByCountry(
+        countryCodeISO3,
+    ): Promise<RedcrossBranchEntity[]> {
+        return await this.redcrossBranchRepository.find({
+            where: { countryCodeISO3: countryCodeISO3 },
+        });
+    }
 }

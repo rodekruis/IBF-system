@@ -10,30 +10,30 @@ import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.d
 @ApiTags('event')
 @Controller('event')
 export class EventController {
-  private readonly eventService: EventService;
+    private readonly eventService: EventService;
 
-  public constructor(eventService: EventService) {
-    this.eventService = eventService;
-  }
+    public constructor(eventService: EventService) {
+        this.eventService = eventService;
+    }
 
-  @ApiOperation({ summary: 'Close place code event' })
-  @Post('close-place-code')
-  public async closeEventPcode(
-    @Body() eventPlaceCodeDto: EventPlaceCodeDto,
-  ): Promise<void> {
-    return await this.eventService.closeEventPcode(eventPlaceCodeDto);
-  }
+    @ApiOperation({ summary: 'Close place code event' })
+    @Post('close-place-code')
+    public async closeEventPcode(
+        @Body() eventPlaceCodeDto: EventPlaceCodeDto,
+    ): Promise<void> {
+        return await this.eventService.closeEventPcode(eventPlaceCodeDto);
+    }
 
-  @UseGuards(RolesGuard)
-  @ApiOperation({
-    summary: 'Upload trigger per leadtime data',
-  })
-  @Post('triggers-per-leadtime')
-  public async uploadTriggersPerLeadTime(
-    @Body() uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
-  ): Promise<void> {
-    await this.eventService.uploadTriggerPerLeadTime(
-      uploadTriggerPerLeadTimeDto,
-    );
-  }
+    @UseGuards(RolesGuard)
+    @ApiOperation({
+        summary: 'Upload trigger per leadtime data',
+    })
+    @Post('triggers-per-leadtime')
+    public async uploadTriggersPerLeadTime(
+        @Body() uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
+    ): Promise<void> {
+        await this.eventService.uploadTriggerPerLeadTime(
+            uploadTriggerPerLeadTimeDto,
+        );
+    }
 }

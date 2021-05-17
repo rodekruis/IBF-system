@@ -6,13 +6,13 @@ import { RedcrossBranchEntity } from './redcross-branch.entity';
 import { RedcrossBranchService } from './redcross-branch.service';
 
 @Module({
-  imports: [
-    HttpModule,
-    UserModule,
-    TypeOrmModule.forFeature([RedcrossBranchEntity]),
-  ],
-  providers: [RedcrossBranchService],
-  controllers: [RedcrossBranchController],
-  exports: [RedcrossBranchService],
+    imports: [
+        HttpModule,
+        UserModule,
+        TypeOrmModule.forFeature([RedcrossBranchEntity]),
+    ],
+    providers: [RedcrossBranchService],
+    controllers: [RedcrossBranchController],
+    exports: [RedcrossBranchService],
 })
 export class RedcrossBranchModule {}

@@ -8,13 +8,16 @@ import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { EventModule } from '../event/event.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([TriggerPerLeadTime, AdminAreaDynamicDataEntity]),
-    UserModule,
-    EventModule,
-  ],
-  controllers: [AdminAreaDynamicDataController],
-  providers: [AdminAreaDynamicDataService],
-  exports: [AdminAreaDynamicDataService],
+    imports: [
+        TypeOrmModule.forFeature([
+            TriggerPerLeadTime,
+            AdminAreaDynamicDataEntity,
+        ]),
+        UserModule,
+        EventModule,
+    ],
+    controllers: [AdminAreaDynamicDataController],
+    providers: [AdminAreaDynamicDataService],
+    exports: [AdminAreaDynamicDataService],
 })
 export class AdminAreaDynamicDataModule {}

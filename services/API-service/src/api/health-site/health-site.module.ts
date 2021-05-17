@@ -7,14 +7,14 @@ import { HealthSiteEntity } from './health-site.entity';
 import { HealthSiteService } from './health-site.service';
 
 @Module({
-  imports: [
-    HttpModule,
-    UserModule,
-    DataModule,
-    TypeOrmModule.forFeature([HealthSiteEntity]),
-  ],
-  providers: [HealthSiteService],
-  controllers: [HealthSiteController],
-  exports: [HealthSiteService],
+    imports: [
+        HttpModule,
+        UserModule,
+        DataModule,
+        TypeOrmModule.forFeature([HealthSiteEntity]),
+    ],
+    providers: [HealthSiteService],
+    controllers: [HealthSiteController],
+    exports: [HealthSiteService],
 })
 export class HealthSiteModule {}

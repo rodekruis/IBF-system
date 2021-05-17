@@ -1,33 +1,33 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    ManyToOne,
+    JoinColumn,
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
 
 @Entity('adminAreaData')
 export class AdminAreaDataEntity {
-  @PrimaryGeneratedColumn('uuid')
-  public adminAreaDataId: string;
+    @PrimaryGeneratedColumn('uuid')
+    public adminAreaDataId: string;
 
-  @ManyToOne((): typeof CountryEntity => CountryEntity)
-  @JoinColumn({
-    name: 'countryCodeISO3',
-    referencedColumnName: 'countryCodeISO3',
-  })
-  public countryCodeISO3: string;
+    @ManyToOne((): typeof CountryEntity => CountryEntity)
+    @JoinColumn({
+        name: 'countryCodeISO3',
+        referencedColumnName: 'countryCodeISO3',
+    })
+    public countryCodeISO3: string;
 
-  @Column()
-  public adminLevel: number;
+    @Column()
+    public adminLevel: number;
 
-  @Column()
-  public placeCode: string;
+    @Column()
+    public placeCode: string;
 
-  @Column()
-  public key: string;
+    @Column()
+    public key: string;
 
-  @Column({ nullable: true, type: 'real' })
-  public value: number;
+    @Column({ nullable: true, type: 'real' })
+    public value: number;
 }
