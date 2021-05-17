@@ -32,38 +32,28 @@ export class AdminAreaDynamicDataService {
       countryCodeISO3: uploadExposure.countryCodeISO3,
       leadTime: uploadExposure.leadTime,
     });
-    if (uploadExposure.dynamicDataUnit === DynamicDataUnit.population) {
-      for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
-        const dynamicDataRecord = new AdminAreaDynamicDataEntity();
-        dynamicDataRecord.countryCodeISO3 = uploadExposure.countryCodeISO3;
-        dynamicDataRecord.adminLevel = uploadExposure.adminLevel;
-        dynamicDataRecord.placeCode = exposurePlaceCode.placeCode;
-        dynamicDataRecord.key = uploadExposure.dynamicDataUnit;
-        dynamicDataRecord.date = new Date();
-        dynamicDataRecord.value = exposurePlaceCode.amount;
-        dynamicDataRecord.leadTime = uploadExposure.leadTime;
-        this.adminAreaDynamicDataRepo.save(dynamicDataRecord);
-        await this.insertTrigger(uploadExposure);
-      }
-    } else {
-      await this.adminAreaDynamicDataRepo.delete({
-        key: uploadExposure.dynamicDataUnit,
-        date: new Date(),
-        countryCodeISO3: uploadExposure.countryCodeISO3,
-        leadTime: uploadExposure.leadTime,
-      });
-      for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
-        const area = new AdminAreaDynamicDataEntity();
-        area.key = uploadExposure.dynamicDataUnit;
-        area.value = exposurePlaceCode.amount;
-        area.adminLevel = uploadExposure.adminLevel;
-        area.placeCode = exposurePlaceCode.placeCode;
-        area.date = new Date();
-        area.countryCodeISO3 = uploadExposure.countryCodeISO3;
-        area.leadTime = uploadExposure.leadTime;
-        this.adminAreaDynamicDataRepo.save(area);
-      }
+    await this.adminAreaDynamicDataRepo.delete({
+      key: uploadExposure.dynamicDataUnit,
+      date: new Date(),
+      countryCodeISO3: uploadExposure.countryCodeISO3,
+      leadTime: uploadExposure.leadTime,
+    });
+    for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
+      const area = new AdminAreaDynamicDataEntity();
+      area.key = uploadExposure.dynamicDataUnit;
+      area.value = exposurePlaceCode.amount;
+      area.adminLevel = uploadExposure.adminLevel;
+      area.placeCode = exposurePlaceCode.placeCode;
+      area.date = new Date();
+      area.countryCodeISO3 = uploadExposure.countryCodeISO3;
+      area.leadTime = uploadExposure.leadTime;
+      this.adminAreaDynamicDataRepo.save(area);
     }
+
+    if (uploadExposure.dynamicDataUnit === DynamicDataUnit.populationAffected) {
+      await this.insertTrigger(uploadExposure);
+    }
+
     await this.eventService.processEventAreas();
   }
 
