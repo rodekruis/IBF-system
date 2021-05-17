@@ -219,7 +219,7 @@ export class ApiService {
       'eap-actions',
       {
         action,
-        countryCodeISO3: countryCodeISO3,
+        countryCodeISO3,
         status,
         placeCode,
       },
