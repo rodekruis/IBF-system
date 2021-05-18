@@ -9,17 +9,19 @@ import { DynamicDataUnit } from './enum/dynamic-data-unit';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
 import { EventService } from '../event/event.service';
-
+import fs from 'fs';
 @Injectable()
 export class AdminAreaDynamicDataService {
+  private manager: EntityManager;
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<
     AdminAreaDynamicDataEntity
   >;
   private eventService: EventService;
 
-  public constructor(eventService: EventService) {
+  public constructor(eventService: EventService, manager: EntityManager) {
     this.eventService = eventService;
+    this.manager = manager;
   }
 
   public async exposure(
@@ -32,12 +34,12 @@ export class AdminAreaDynamicDataService {
       countryCodeISO3: uploadExposure.countryCodeISO3,
       leadTime: uploadExposure.leadTime,
     });
-    await this.adminAreaDynamicDataRepo.delete({
-      key: uploadExposure.dynamicDataUnit,
-      date: new Date(),
-      countryCodeISO3: uploadExposure.countryCodeISO3,
-      leadTime: uploadExposure.leadTime,
-    });
+    // await this.adminAreaDynamicDataRepo.delete({
+    //   key: uploadExposure.dynamicDataUnit,
+    //   date: new Date(),
+    //   countryCodeISO3: uploadExposure.countryCodeISO3,
+    //   leadTime: uploadExposure.leadTime,
+    // });
     for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
       const area = new AdminAreaDynamicDataEntity();
       area.key = uploadExposure.dynamicDataUnit;
@@ -52,6 +54,12 @@ export class AdminAreaDynamicDataService {
 
     if (uploadExposure.dynamicDataUnit === DynamicDataUnit.populationAffected) {
       await this.insertTrigger(uploadExposure);
+      const query = fs
+        .readFileSync(
+          './src/api/admin-area-dynamic-data/sql/createApiTables.sql',
+        )
+        .toString();
+      await this.manager.query(query);
     }
 
     await this.eventService.processEventAreas();

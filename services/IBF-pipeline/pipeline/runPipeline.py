@@ -33,7 +33,6 @@ def main():
                     fc.floodExtent.calculate()
                 fc.exposure.callAllExposure()
                 fc.db.upload()
-            fc.db.processDynamicDataDb()
             notify(COUNTRY_CODE)
 
     except Exception as e:

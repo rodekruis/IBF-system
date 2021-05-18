@@ -74,21 +74,6 @@ class DatabaseManager:
             self.apiPostRequest('event/triggers-per-leadtime', body)
         print('Uploaded triggers per leadTime')
 
-    def processDynamicDataDb(self):
-        sql_file = open('lib/pipeline/createApiTables.sql',
-                        'r', encoding='utf-8')
-        sql_create_api_tables = sql_file.read()
-        sql_file.close()
-        try:
-            self.con, self.cur, self.db = get_db()
-            self.cur.execute(sql_create_api_tables)
-            self.con.commit()
-            self.con.close()
-            print('SQL EXECUTED')
-        except psycopg2.ProgrammingError as e:
-            logger.info(e)
-            print('SQL FAILED', e)
-
     def apiGetRequest(self, path, countryCodeISO3):
         TOKEN = self.apiAuthenticate()
 
