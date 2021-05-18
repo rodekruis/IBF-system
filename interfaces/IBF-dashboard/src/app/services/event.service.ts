@@ -86,7 +86,7 @@ export class EventService {
     let firstKey = null;
     Object.keys(timesteps).forEach((key) => {
       if (timesteps[key] === '1') {
-        firstKey = !firstKey ? key.substr(0, 1) : firstKey;
+        firstKey = !firstKey ? key : firstKey;
       }
     });
     this.state.firstLeadTime = firstKey;

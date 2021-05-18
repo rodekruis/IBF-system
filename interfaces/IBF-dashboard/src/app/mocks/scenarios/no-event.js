@@ -23,7 +23,7 @@ export function getTriggerPerLeadTime() {
     5: '0',
     6: '0',
     7: '0',
-    country_code: 'UGA',
+    countryCodeISO3: 'UGA',
     date: DateTime.now().toFormat('yyyy-LL-dd'),
   };
 }

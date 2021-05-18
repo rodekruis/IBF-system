@@ -1,5 +1,5 @@
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
-import { ExposureUnit } from './enum/exposure-unit';
+import { DynamicDataUnit } from './enum/dynamic-data-unit';
 import { Body, Get, Param } from '@nestjs/common';
 import { Controller, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import {
@@ -12,6 +12,7 @@ import {
 import { RolesGuard } from '../../roles.guard';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
+import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
 @ApiBearerAuth()
 @ApiTags('admin-area-dynamic-data')
 @Controller('admin-area-dynamic-data')
@@ -25,7 +26,7 @@ export class AdminAreaDynamicDataController {
   @ApiOperation({
     summary: 'Upload exposure data at a regular interval',
   })
-  @Post('upload')
+  @Post('exposure')
   @ApiConsumes()
   @UseInterceptors()
   public async exposure(
@@ -35,19 +36,19 @@ export class AdminAreaDynamicDataController {
   }
 
   @ApiOperation({ summary: 'Get dynamic admin-area data' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
   @ApiParam({ name: 'key', required: true, type: 'string' })
-  @Get(':countryCode/:adminLevel/:leadTime/:key')
+  @Get(':countryCodeISO3/:adminLevel/:leadTime/:key')
   public async getAdminAreaData(
     @Param() params,
   ): Promise<AdminDataReturnDto[]> {
     return await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
-      params.countryCode,
+      params.countryCodeISO3,
       params.adminLevel,
       params.leadTime,
-      params.key as ExposureUnit,
+      params.key as DynamicDataUnit,
     );
   }
 }

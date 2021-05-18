@@ -1,98 +1,84 @@
 import { LeadTime } from './enum/lead-time.enum';
-import { ExposurePlaceCodeDto } from './dto/exposure-place-code.dto';
+import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { Injectable } from '@nestjs/common';
 import { EntityManager, Repository } from 'typeorm';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
-import fs from 'fs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CalculatedAffectedEntity } from './calculated-affected.entity';
-import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
-import { ExposureUnit } from './enum/exposure-unit';
+import { DynamicDataUnit } from './enum/dynamic-data-unit';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
+import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
+import { EventService } from '../event/event.service';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
-  @InjectRepository(CalculatedAffectedEntity)
-  private readonly calculatedAffectedRepository: Repository<
-    CalculatedAffectedEntity
-  >;
-  @InjectRepository(TriggerPerLeadTime)
-  private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
-
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<
     AdminAreaDynamicDataEntity
   >;
-  private manager: EntityManager;
+  private eventService: EventService;
 
-  public constructor(manager: EntityManager) {
-    this.manager = manager;
+  public constructor(eventService: EventService) {
+    this.eventService = eventService;
   }
 
   public async exposure(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
-    // Delete existsing entries with same date, leadtime and country_code and unit typ
-    await this.calculatedAffectedRepository.delete({
-      source: uploadExposure.exposureUnit,
+    // Delete existing entries with same date, leadtime and countryCodeISO3 and unit typ
+    await this.adminAreaDynamicDataRepo.delete({
+      key: uploadExposure.dynamicDataUnit,
       date: new Date(),
-      countryCode: uploadExposure.countryCodeISO3,
+      countryCodeISO3: uploadExposure.countryCodeISO3,
       leadTime: uploadExposure.leadTime,
     });
-    if (uploadExposure.exposureUnit === 'population') {
-      for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
-        const calculatedAffected = new CalculatedAffectedEntity();
-        calculatedAffected.source = uploadExposure.exposureUnit;
-        calculatedAffected.sum = String(exposurePlaceCode.amount);
-        calculatedAffected.district = exposurePlaceCode.placeCode;
-        calculatedAffected.date = new Date();
-        calculatedAffected.countryCode = uploadExposure.countryCodeISO3;
-        calculatedAffected.leadTime = uploadExposure.leadTime;
-        this.calculatedAffectedRepository.save(calculatedAffected);
-        await this.insertTrigger(uploadExposure);
-      }
-    } else {
-      await this.adminAreaDynamicDataRepo.delete({
-        key: uploadExposure.exposureUnit,
-        date: new Date(),
-        countryCode: uploadExposure.countryCodeISO3,
-        leadTime: uploadExposure.leadTime,
-      });
-      for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
-        const area = new AdminAreaDynamicDataEntity();
-        area.key = uploadExposure.exposureUnit;
-        area.value = exposurePlaceCode.amount;
-        area.adminLevel = uploadExposure.adminLevel;
-        area.placeCode = exposurePlaceCode.placeCode;
-        area.date = new Date();
-        area.countryCode = uploadExposure.countryCodeISO3;
-        area.leadTime = uploadExposure.leadTime;
-        this.adminAreaDynamicDataRepo.save(area);
-      }
+    await this.adminAreaDynamicDataRepo.delete({
+      key: uploadExposure.dynamicDataUnit,
+      date: new Date(),
+      countryCodeISO3: uploadExposure.countryCodeISO3,
+      leadTime: uploadExposure.leadTime,
+    });
+    for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
+      const area = new AdminAreaDynamicDataEntity();
+      area.key = uploadExposure.dynamicDataUnit;
+      area.value = exposurePlaceCode.amount;
+      area.adminLevel = uploadExposure.adminLevel;
+      area.placeCode = exposurePlaceCode.placeCode;
+      area.date = new Date();
+      area.countryCodeISO3 = uploadExposure.countryCodeISO3;
+      area.leadTime = uploadExposure.leadTime;
+      this.adminAreaDynamicDataRepo.save(area);
     }
-    await this.processExposure();
+
+    if (uploadExposure.dynamicDataUnit === DynamicDataUnit.populationAffected) {
+      await this.insertTrigger(uploadExposure);
+    }
+
+    await this.eventService.processEventAreas();
   }
 
   private async insertTrigger(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
     const trigger = this.isThereTrigger(uploadExposure.exposurePlaceCodes);
-    // Delete duplicates
-    await this.triggerPerLeadTimeRepository.delete({
-      date: new Date(),
-      countryCode: uploadExposure.countryCodeISO3,
-      leadTime: uploadExposure.leadTime as LeadTime,
-    });
-    const triggerPerLeadTime = new TriggerPerLeadTime();
-    triggerPerLeadTime.date = new Date();
-    triggerPerLeadTime.countryCode = uploadExposure.countryCodeISO3;
-    triggerPerLeadTime.leadTime = uploadExposure.leadTime as LeadTime;
-    triggerPerLeadTime.triggered = trigger;
-    await this.triggerPerLeadTimeRepository.save(triggerPerLeadTime);
+
+    const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
+    uploadTriggerPerLeadTimeDto.countryCodeISO3 =
+      uploadExposure.countryCodeISO3;
+    uploadTriggerPerLeadTimeDto.triggersPerLeadTime = [
+      {
+        leadTime: uploadExposure.leadTime as LeadTime,
+        triggered: trigger,
+      },
+    ];
+    await this.eventService.uploadTriggerPerLeadTime(
+      uploadTriggerPerLeadTimeDto,
+    );
   }
 
-  private isThereTrigger(exposurePlaceCodes: ExposurePlaceCodeDto[]): boolean {
+  private isThereTrigger(
+    exposurePlaceCodes: DynamicDataPlaceCodeDto[],
+  ): boolean {
     for (const exposurePlaceCode of exposurePlaceCodes) {
       if (Number(exposurePlaceCode.amount) > 0) {
         return true;
@@ -101,31 +87,16 @@ export class AdminAreaDynamicDataService {
     return false;
   }
 
-  public async processExposure(): Promise<void> {
-    const sqlFolder = '../../ibf/pipeline/';
-    const sqlFileNames = [
-      'processDynamicDataPostgresTrigger.sql',
-      'processDynamicDataPostgresExposure.sql',
-      'processEventDistricts.sql',
-    ];
-
-    for (const sqlFileName of sqlFileNames) {
-      const sqlPath = sqlFolder + sqlFileName;
-      const q = fs.readFileSync(sqlPath).toString();
-      await this.manager.query(q);
-    }
-  }
-
   public async getAdminAreaDynamicData(
-    countryCode: string,
+    countryCodeISO3: string,
     adminLevel: string,
     leadTime: LeadTime,
-    key: ExposureUnit,
+    key: DynamicDataUnit,
   ): Promise<AdminDataReturnDto[]> {
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('admin_area_dynamic_data')
       .where({
-        countryCode: countryCode,
+        countryCodeISO3: countryCodeISO3,
         adminLevel: Number(adminLevel),
         leadTime: leadTime,
         key: key,

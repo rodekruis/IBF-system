@@ -75,7 +75,7 @@ export class SeedGlofasStation implements InterfaceScript {
               .createQueryBuilder()
               .insert()
               .values({
-                countryCode: country.countryCodeISO3,
+                countryCodeISO3: country.countryCodeISO3,
                 stationCode: station['station_code'],
                 stationName: station['station_name'],
                 triggerLevel:

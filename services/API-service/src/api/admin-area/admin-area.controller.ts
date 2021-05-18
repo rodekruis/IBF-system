@@ -23,20 +23,20 @@ export class AdminAreaController {
   @ApiOperation({
     summary: 'Get admin-areas by country',
   })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get(':countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get(':countryCodeISO3')
   public async getAdminAreas(@Param() params): Promise<any[]> {
-    return await this.adminAreaService.getAdminAreas(params.countryCode);
+    return await this.adminAreaService.getAdminAreas(params.countryCodeISO3);
   }
 
   @ApiOperation({
     summary: 'Get Glofas station to admin-area mapping by country',
   })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get('station-mapping/:countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('station-mapping/:countryCodeISO3')
   public async getStationMapping(@Param() params): Promise<any[]> {
     return await this.adminAreaService.getStationAdminAreaMappingByCountry(
-      params.countryCode,
+      params.countryCodeISO3,
     );
   }
 }

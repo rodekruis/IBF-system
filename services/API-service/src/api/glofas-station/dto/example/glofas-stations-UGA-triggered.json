@@ -1,0 +1,58 @@
+[
+  {
+    "stationCode": "DWRM1",
+    "forecastLevel": 1000,
+    "forecastProbability": 1,
+    "forecastTrigger": 1,
+    "forecastReturnPeriod": 25
+  },
+  {
+    "stationCode": "DWRM2",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "DWRM3",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "DWRM7",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "DWRM9",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "DWRM10",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "DWRM12",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "DWRM14",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  }
+]

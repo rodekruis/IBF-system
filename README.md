@@ -61,6 +61,8 @@ docker-compose -f docker-compose.yml up # for production
 docker-compose up # for development
 
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up # for development (explicit)
+
+Load database with data (see below)
 ```
 
 ### Without Docker (for local development)
@@ -70,18 +72,19 @@ without docker:
 
 `cp .env services/API-service/.env` `npm run start`
 
-### NOTE on local database
+### NOTE on (local) database
 
 Locally, a database-container will start (as opposed to remote servers, which are connected to a database-server).
-To currently fill this database with data
+To (re)seed this database with data
+- (re)create database + schema's
+  - docker-compose up -d --force-recreate ibf-local-db 
 - run seed script
   - docker-compose exec ibf-api-service npm run seed
-  - the 2nd half of the IBF-database-scripts.sql will fail, because of missing IBF-pipeline-output tables
 - run the pipeline for all countries
   - docker-compose exec ibf-pipeline python3 runPipeline.py
-- run the seed-script again
+  - NOTE: try setting countries to mock in secrets.py if pipeline is failing
 
-Migration to seed-scripts is now finished. 
+Adding new data
 - Any new static data needs to be imported using a seed-script + corresponding TypeORM entity
 - This includes e.g. geojson data
 - The only exception are raster-files, which need to be included in data.zip and transfered to all relevant servers. 
@@ -100,9 +103,15 @@ These commands will install the IBF-system with listeners at,
 
 We use Cypress for automated integration testing in this project.
 Installation:
- 1. `sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb`
- 2. In root folder `npm install --only=dev`
- 3. Run `npm run start:cypress` 
+ 0. (Potentially on Ubuntu?: `sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb`)
+ 1. In root folder `npm install --only=dev`
+  - This should download and install Cypress
+  - If it fails, find out why and/or install Cypress in some other way (e.g. `npm install cypress`)
+ 2. Set necessary environment variables, for example by using a CYPRESS_* prefix (see https://docs.cypress.io/guides/guides/environment-variables for more)
+  - e.g. on Windows Powershell: $env:CYPRESS_LOGIN_USER = "<login>"
+ 3. Run `npm run open:cypress` 
+  - When the Cypress window opens click on 'Run X integration specs'
+  - Alternatively run `npm run start:cypress` to run from commandline
 
 
 ## Releases
@@ -170,8 +179,8 @@ to execute each step, without further knowledge. Ask a developer who knows more.
     - Upload through 'npm run seed' from API-service
 2. Data for database (look at existing countries and files for examples in terms of format)
     - Save admin-area-boundary file (.shp) for agreed upon admin-level as geojson (with extension .json) with the right column names in `services/API-service/src/scripts/git-lfs/`
-    - Save Glofas_stations_locations_with_trigger_levels_<country_code>.csv in the same folder
-    - Save Glofas_station_per_admin_area_<country_code>.csv in the same folder
+    - Save Glofas_stations_locations_with_trigger_levels_<countryCodeISO3>.csv in the same folder
+    - Save Glofas_station_per_admin_area_<countryCodeISO3>.csv in the same folder
         - which (e.g.) 'districts' are triggered if station X is triggered?
         - note: this should include all admin-areas. If not mapped to any
           station, use 'no_station'
@@ -187,7 +196,7 @@ to execute each step, without further knowledge. Ask a developer who knows more.
       - Grassland + cropland (.tif)
     - When deploying to other environments (local/remote) this data needs to be transfered (e.g. as data.zip through WinSCP or similar)
 4. IBF-pipeline
-    - add country_code to .env (for development settings, replace by ONLY that code)
+    - add countryCodeISO3 to .env (for development settings, replace by ONLY that code)
     - add country-specific settings to settings.py (e.g. right links to
       abovementioned data)
       - with model = 'glofas'
@@ -196,10 +205,10 @@ to execute each step, without further knowledge. Ask a developer who knows more.
     - Run runPipeline.py (`python3 runPipeline.py`) to test pipeline.
 5. Geoserver
     - Manually create new stores+layers in [Geoserver interface of test-vm](https://ibf-test.510.global/geoserver/web)
-        - flood_extent_<lead-time>\_<country_code> for each lead-time
-        - population\_<country_code>
-        - grassland\_<country_code>
-        - cropland\_<country_code>
+        - flood_extent_<lead-time>\_<countryCodeISO3> for each lead-time
+        - population\_<countryCodeISO3>
+        - grassland\_<countryCodeISO3>
+        - cropland\_<countryCodeISO3>
     - Test that the specifics layers are viewable in the dashboard now
     - When done, commit the (automatically) generated content in
       IBF-pipeline/geoserver-workspaces to Github
@@ -221,12 +230,12 @@ to execute each step, without further knowledge. Ask a developer who knows more.
         - Get logo(s) (.png)
         - Paste in IBF-dashboard/app/assets/logos + add reference to each logo
           in countries seed-script
-        - Paste in IBF-pipeline/pipeline/lib/notifications/logos/email-logo-<country_code>.png
+        - Paste in IBF-pipeline/pipeline/lib/notifications/logos/email-logo-<countryCodeISO3>.png
         - Upload logo to mailchimp + retrieve shareable link + copy this in IBF-pipeline/pipeline/lib/notifications/formatInfo.py
     - Mailchimp segment
-        - Add new tag '<country_code>' to at least 1 user
-        - Create new segment '<country_code>' defined as users with tag
-          '<country_code>'.
+        - Add new tag '<countryCodeISO3>' to at least 1 user
+        - Create new segment '<countryCodeISO3>' defined as users with tag
+          '<countryCodeISO3>'.
         - Get segmentId of new segment
         - Paste this in IBF-pipeline/pipeline/secrets.py
     - EAP-actions

@@ -12,7 +12,7 @@ export function getRecentDates() {
 
 export function getEvent() {
   return {
-    countryCode: 'UGA',
+    countryCodeISO3: 'UGA',
     startDate: DateTime.now().minus({ days: 12 }).toFormat('yyyy-LL-dd'),
     endDate: DateTime.now().minus({ days: 7 }).toFormat('yyyy-LL-dd'),
     activeTrigger: false,
@@ -28,7 +28,7 @@ export function getTriggerPerLeadTime() {
     5: '0',
     6: '0',
     7: '0',
-    country_code: 'UGA',
+    countryCodeISO3: 'UGA',
     date: DateTime.now().toFormat('yyyy-LL-dd'),
   };
 }

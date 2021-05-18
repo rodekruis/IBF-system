@@ -20,27 +20,27 @@ export class GlofasStationService {
     countryCodeISO3,
   ): Promise<GlofasStationEntity[]> {
     return await this.glofasStationRepository.find({
-      where: { countryCode: countryCodeISO3 },
+      where: { countryCodeISO3: countryCodeISO3 },
     });
   }
 
   public async uploadTriggerDataPerStation(
-    uploadTriggerPerStationArray: UploadTriggerPerStationDto[],
+    uploadTriggerPerStation: UploadTriggerPerStationDto,
   ): Promise<GlofasStationTriggerEntity[]> {
     const stationForecasts: GlofasStationTriggerEntity[] = [];
-    for await (let station of uploadTriggerPerStationArray) {
-      // Delete existsing entries with same date, leadTime and countryCode and stationCode
+    for await (let station of uploadTriggerPerStation.stationForecasts) {
+      // Delete existsing entries with same date, leadTime and countryCodeISO3 and stationCode
       await this.glofasStationTriggerRepository.delete({
         stationCode: station.stationCode,
-        countryCode: station.countryCodeISO3,
-        leadTime: station.leadTime,
+        countryCodeISO3: uploadTriggerPerStation.countryCodeISO3,
+        leadTime: uploadTriggerPerStation.leadTime,
         date: new Date(),
       });
 
       const stationForecast = new GlofasStationTriggerEntity();
       stationForecast.stationCode = station.stationCode;
-      stationForecast.leadTime = station.leadTime;
-      stationForecast.countryCode = station.countryCodeISO3;
+      stationForecast.leadTime = uploadTriggerPerStation.leadTime;
+      stationForecast.countryCodeISO3 = uploadTriggerPerStation.countryCodeISO3;
       stationForecast.date = new Date();
       stationForecast.forecastLevel = station.forecastLevel;
       stationForecast.forecastProbability = station.forecastProbability;

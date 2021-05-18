@@ -1,3 +1,44 @@
+## [0.59.3](https://github.com/rodekruis/IBF-system/compare/v0.59.2...v0.59.3) (2021-05-11)
+
+
+### Bug Fixes
+
+* update readme AB[#7563](https://github.com/rodekruis/IBF-system/issues/7563) ([667c279](https://github.com/rodekruis/IBF-system/commit/667c2799c2a24cd032280900bc8b1a6242431cd9))
+
+
+
+## [0.59.2](https://github.com/rodekruis/IBF-system/compare/v0.59.1...v0.59.2) (2021-05-11)
+
+
+### Bug Fixes
+
+* legend code requires data to not be null ([d0966d5](https://github.com/rodekruis/IBF-system/commit/d0966d5760d1b766c6fe2edc87ecc3b4077cf478))
+* use rxjs of instead of EMPTY AB[#7227](https://github.com/rodekruis/IBF-system/issues/7227) ([9a7ac5a](https://github.com/rodekruis/IBF-system/commit/9a7ac5afccffacf0568ed78f15e708be4a4df7a9))
+
+
+
+## [0.59.1](https://github.com/rodekruis/IBF-system/compare/v0.59.0...v0.59.1) (2021-05-03)
+
+
+### Bug Fixes
+
+* don't try download if mock AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([59924e4](https://github.com/rodekruis/IBF-system/commit/59924e42f702921963a4c4638e4a567711d4d86c))
+* remove changes other open branch AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([afd2edd](https://github.com/rodekruis/IBF-system/commit/afd2edd49158fc9bbc4cb5e1de84c2c846076e02))
+
+
+
+# [0.59.0](https://github.com/rodekruis/IBF-system/compare/v0.58.1...v0.59.0) (2021-05-03)
+
+
+### Features
+
+* add EGY red crescent branches AB[#7426](https://github.com/rodekruis/IBF-system/issues/7426) ([8776d73](https://github.com/rodekruis/IBF-system/commit/8776d7383c4478e44ee17f3c1c8796a66829d93d))
+* add rainfall extent info popup AB[#7422](https://github.com/rodekruis/IBF-system/issues/7422) ([b21c19e](https://github.com/rodekruis/IBF-system/commit/b21c19e179f726cfd8ab33e2fc56f4c45d484a84))
+* make info-popovers country-specific AB[#7423](https://github.com/rodekruis/IBF-system/issues/7423) ([0d69ae7](https://github.com/rodekruis/IBF-system/commit/0d69ae78fedbf85861f8c7274f2aacf2b0045eaf))
+* update flood susceptibility EGY AB[#7424](https://github.com/rodekruis/IBF-system/issues/7424) ([3c64947](https://github.com/rodekruis/IBF-system/commit/3c6494738505be3a2bb3b35cf6e1d6df2941a2ca))
+
+
+
 ## [0.58.1](https://github.com/rodekruis/IBF-system/compare/v0.58.0...v0.58.1) (2021-05-03)
 
 
@@ -85,42 +126,6 @@
 * change mock station UGA AB[#7064](https://github.com/rodekruis/IBF-system/issues/7064) ([b27fca9](https://github.com/rodekruis/IBF-system/commit/b27fca933ba1a85049c807d6d9c8a2bcb6faeee3))
 * revert temporary glofas api date override AB[#7169](https://github.com/rodekruis/IBF-system/issues/7169) ([2c52b9f](https://github.com/rodekruis/IBF-system/commit/2c52b9fe15c865fcf5e3e4c4c1a416e54484f9a3))
 * temporarily use available glofas api date AB# ([6061175](https://github.com/rodekruis/IBF-system/commit/606117503465693ad28f760eaee65d5727dba57e))
-
-
-
-# [0.57.0](https://github.com/rodekruis/IBF-system/compare/v0.56.2...v0.57.0) (2021-04-19)
-
-
-### Features
-
-* provide mock-no-trigger option IBF-pipeline AB[#7068](https://github.com/rodekruis/IBF-system/issues/7068) ([dd1f840](https://github.com/rodekruis/IBF-system/commit/dd1f840e717427d7730f7fb1b9b8a23f03f8d14a))
-
-
-
-## [0.56.2](https://github.com/rodekruis/IBF-system/compare/v0.56.1...v0.56.2) (2021-04-14)
-
-
-### Bug Fixes
-
-* show indicator for stage environment AB[#7065](https://github.com/rodekruis/IBF-system/issues/7065) ([ab72fc6](https://github.com/rodekruis/IBF-system/commit/ab72fc667a3f9aae4f217e049336d87157625b24))
-
-
-
-## [0.56.1](https://github.com/rodekruis/IBF-system/compare/v0.56.0...v0.56.1) (2021-04-13)
-
-
-### Bug Fixes
-
-* update URCS logo AB[#7050](https://github.com/rodekruis/IBF-system/issues/7050) ([b854bdb](https://github.com/rodekruis/IBF-system/commit/b854bdb6d47434ce0b206c24d9e2bf9c43eafab0))
-
-
-
-# [0.56.0](https://github.com/rodekruis/IBF-system/compare/v0.55.0...v0.56.0) (2021-04-13)
-
-
-### Features
-
-* add trigger statement email EGY AB[#7043](https://github.com/rodekruis/IBF-system/issues/7043) ([f8f0a7e](https://github.com/rodekruis/IBF-system/commit/f8f0a7e8cf65d1bbfab400917b880a8b161c8156))
 
 
 

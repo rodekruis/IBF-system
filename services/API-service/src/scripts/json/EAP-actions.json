@@ -1,6 +1,6 @@
 [
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -8,7 +8,7 @@
     "label": "Community sensitization and awareness (health risk, preventive measures of floods, hygiene)"
   },
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -16,7 +16,7 @@
     "label": "Procure and distribute water purification chemicals (Aqua tab and Pur/water guard)"
   },
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -24,7 +24,7 @@
     "label": "Conduct training for volunteers (CBS, community health and first Aid, community hygiene promoters)"
   },
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -32,7 +32,7 @@
     "label": "Waste management (collect rubbish and manage it from Urban centers)"
   },
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -40,7 +40,7 @@
     "label": "Cleaning water sources/desilting drainage channels/dredging in Urban areas"
   },
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -48,7 +48,7 @@
     "label": "Community mapping - (map out designated centers, evacuation roots and holding stores)"
   },
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -56,7 +56,7 @@
     "label": "Provision of shelter kit (Rope, Handsaw, Nails, shovel, hoe, Machete, Shears, Tie wire, Hammer and Tarpaulins)"
   },
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -64,7 +64,7 @@
     "label": "Training of volunteers in shelter construction and management"
   },
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -72,7 +72,7 @@
     "label": "Reinforcing housing structures (roofs and walls) using local available materials such as sand bags"
   },
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -80,7 +80,7 @@
     "label": "Distribute water treatment products aquatabs, pur, water storage vessels and soap, sufficient for 30 days"
   },
   {
-    "countryCode": "UGA",
+    "countryCodeISO3": "UGA",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -88,7 +88,7 @@
     "label": "Cash and voucher Assistance (CVA) to facilitate evacuation and meet shelter needs to the affected population"
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -96,7 +96,7 @@
     "label": "Dissemination of Early Warning (EW) information and possible Early Action (EA)."
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -104,7 +104,7 @@
     "label": "Assess the status of the safe havens to be used as evacuation centers such as Schools, Community halls, health facilities, Places of worship (church buildings, mosques, temples); in terms of; infrastructure, water availability, sanitation facilities and security."
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -112,7 +112,7 @@
     "label": "Activation of the rapid response teams (CDRTs, BDRTs, NDRTs) & refresher training."
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -120,7 +120,7 @@
     "label": "Preposition personal protection equipment for staff and volunteers."
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -128,7 +128,7 @@
     "label": "Assess the status of identified access and evacuation routes and inform communities of the safe routes to use and those to avoid"
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -136,7 +136,7 @@
     "label": "Pre-position of non-food items (NFIs) such as shelter kits, mats, Insecticide Treated Nets (ITNs), plastic sheets, blankets, kitchen sets, water purification tablets, Jerricans, soap, PPEs such as rain coats, gumboots, restock FA kits among others to be distributed to flood prone households in case of evacuation."
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -144,7 +144,7 @@
     "label": "Pre-position and distribute Non Food Items (NFIs) such as tents and family kits to the high risk families."
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -152,7 +152,7 @@
     "label": "Livestock protection such as pre-identification of alternative pasturelands and relocation of kraals to elevated grounds."
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -160,7 +160,7 @@
     "label": "Community sensitization on proper food storage, preservation and livestock protection. Assess the status of the safe areas for animals. Identify community stores where communities can keep their food. Provide food storage bags."
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
     "areaOfFocus": {
       "id": "health"
     },
@@ -168,7 +168,7 @@
     "label": "Preposition ambulatory services, mobile clinics, ambulances - mobilise the CHWs. Preposition rapid test kits (RDTs). Distribute ITNs (Insecticide Treated Nets)"
   },
   {
-    "countryCode": "ZMB",
+    "countryCodeISO3": "ZMB",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -176,7 +176,7 @@
     "label": "Identify the potential sanitation facilities at the evacuation centres. Pre-position and distribution of soap and 20 litre water storage containers."
   },
   {
-    "countryCode": "KEN",
+    "countryCodeISO3": "KEN",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -184,7 +184,7 @@
     "label": "Dissemination of Early Warning Messages"
   },
   {
-    "countryCode": "KEN",
+    "countryCodeISO3": "KEN",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -192,7 +192,7 @@
     "label": "Support Physical Evacuation"
   },
   {
-    "countryCode": "KEN",
+    "countryCodeISO3": "KEN",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -200,7 +200,7 @@
     "label": "Placement of flood markers"
   },
   {
-    "countryCode": "KEN",
+    "countryCodeISO3": "KEN",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -208,7 +208,7 @@
     "label": "Prepositioning of Shelter and WASH NFIs"
   },
   {
-    "countryCode": "KEN",
+    "countryCodeISO3": "KEN",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -216,7 +216,7 @@
     "label": "Vaccination and Treatment of livestock - this would address the risk associated with livestock"
   },
   {
-    "countryCode": "KEN",
+    "countryCodeISO3": "KEN",
     "areaOfFocus": {
       "id": "health"
     },
@@ -224,7 +224,7 @@
     "label": "Activation of mobile health teams"
   },
   {
-    "countryCode": "KEN",
+    "countryCodeISO3": "KEN",
     "areaOfFocus": {
       "id": "health"
     },
@@ -232,7 +232,7 @@
     "label": "Preposition of mobile health equipment and emergency medical supplies"
   },
   {
-    "countryCode": "KEN",
+    "countryCodeISO3": "KEN",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -240,7 +240,7 @@
     "label": "Preposition of WASH NFIs"
   },
   {
-    "countryCode": "KEN",
+    "countryCodeISO3": "KEN",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -248,7 +248,7 @@
     "label": "Dissemination of Early Warning messaging on hygiene"
   },
   {
-    "countryCode": "ETH",
+    "countryCodeISO3": "ETH",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -256,7 +256,7 @@
     "label": "Awareness raising "
   },
   {
-    "countryCode": "ETH",
+    "countryCodeISO3": "ETH",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -264,7 +264,7 @@
     "label": "Support Individual safety measures – life jackets, elevated beddings"
   },
   {
-    "countryCode": "ETH",
+    "countryCodeISO3": "ETH",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -272,7 +272,7 @@
     "label": "Evacuation"
   },
   {
-    "countryCode": "ETH",
+    "countryCodeISO3": "ETH",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -280,7 +280,7 @@
     "label": "Provide forage and water for livestock"
   },
   {
-    "countryCode": "ETH",
+    "countryCodeISO3": "ETH",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -288,7 +288,7 @@
     "label": "Water blockage and diversion measures"
   },
   {
-    "countryCode": "ETH",
+    "countryCodeISO3": "ETH",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -296,7 +296,7 @@
     "label": "Support house enforcement"
   },
   {
-    "countryCode": "ETH",
+    "countryCodeISO3": "ETH",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -304,7 +304,7 @@
     "label": "Early harvesting the crops"
   },
   {
-    "countryCode": "ETH",
+    "countryCodeISO3": "ETH",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -312,7 +312,7 @@
     "label": "Food distribution"
   },
   {
-    "countryCode": "ETH",
+    "countryCodeISO3": "ETH",
     "areaOfFocus": {
       "id": "livelihood"
     },

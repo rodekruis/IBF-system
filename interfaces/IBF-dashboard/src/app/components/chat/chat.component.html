@@ -18,16 +18,27 @@
           'chat-component.' + activeDisasterType + '.about-button-label'
             | translate
         "
-        color="ibf-royal-blue"
       ></app-about-btn>
-      <app-video-guide-button></app-video-guide-button>
-    </app-dialogue-turn>
-    <!-- New event today -->
-    <app-dialogue-turn
-      *ngIf="
-        eventService.state.activeEvent &&
-        eventService.state.activeTrigger &&
-        eventService.state.newEvent
+    <app-video-guide-button
+      data-test="chat-video-guide"
+    ></app-video-guide-button>
+  </app-dialogue-turn>
+  <!-- Existing event, still trigger -->
+  <app-dialogue-turn
+    *ngIf="
+      eventService.state.activeEvent &&
+      eventService.state.activeTrigger &&
+      !eventService.state.newEvent
+    "
+  >
+    <p
+      [innerHTML]="
+        'chat-component.active-event-active-trigger.welcome'
+          | translate
+            : {
+                startDate: eventService.state.event.startDate,
+                days: eventService.state.firstLeadTime
+              }
       "
     >
       <p>

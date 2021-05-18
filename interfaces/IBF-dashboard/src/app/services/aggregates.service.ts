@@ -95,7 +95,7 @@ export class AggregatesService {
 
   private onEachAdminFeature = (feature) => {
     const aggregate = {
-      placeCode: feature.properties.pcode,
+      placeCode: feature.properties.placeCode,
     };
 
     this.indicators.forEach(

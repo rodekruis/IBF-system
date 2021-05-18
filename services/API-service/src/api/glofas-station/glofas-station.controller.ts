@@ -23,21 +23,21 @@ export class GlofasStationController {
   }
 
   @ApiOperation({ summary: 'Get Glofas stations by country' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get(':countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get(':countryCodeISO3')
   public async getStations(@Param() params): Promise<GlofasStationEntity[]> {
     return await this.glofasStationService.getStationsByCountry(
-      params.countryCode,
+      params.countryCodeISO3,
     );
   }
 
   @ApiOperation({ summary: 'Upload Glofas forecast data per station' })
   @Post('triggers')
   public async uploadTriggerDataPerStation(
-    @Body() uploadTriggerPerStationArray: UploadTriggerPerStationDto[],
+    @Body() uploadTriggerPerStation: UploadTriggerPerStationDto,
   ): Promise<GlofasStationTriggerEntity[]> {
     return await this.glofasStationService.uploadTriggerDataPerStation(
-      uploadTriggerPerStationArray,
+      uploadTriggerPerStation,
     );
   }
 }

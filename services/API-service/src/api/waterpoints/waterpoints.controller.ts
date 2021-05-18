@@ -22,11 +22,11 @@ export class WaterpointsController {
   }
 
   @ApiOperation({ summary: 'Get waterpoint data' })
-  @ApiParam({ name: 'countryCode', required: true, type: 'string' })
-  @Get(':countryCode')
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get(':countryCodeISO3')
   public async getWaterpoints(
     @Param() params,
   ): Promise<AxiosResponse<GeoJson>> {
-    return await this.waterpointsService.getWaterpoints(params.countryCode);
+    return await this.waterpointsService.getWaterpoints(params.countryCodeISO3);
   }
 }

@@ -30,7 +30,7 @@ export class EapActionsService {
   ): Promise<EapActionStatusEntity> {
     const actionId = await this.eapActionRepository.findOne({
       where: {
-        countryCode: eapAction.countryCode,
+        countryCodeISO3: eapAction.countryCodeISO3,
         action: eapAction.action,
       },
     });
@@ -42,7 +42,7 @@ export class EapActionsService {
     const query = `select
         "eventPlaceCodeId"
       from
-        "IBF-pipeline-output".event_place_code
+        "IBF-app".event_place_code
       where
         closed = false
         and "placeCode" = $1`;
@@ -70,7 +70,7 @@ export class EapActionsService {
   }
 
   public async getActionsWithStatus(
-    countryCode: string,
+    countryCodeISO3: string,
     placeCode: string,
   ): Promise<EapActionEntity[]> {
     const query = `
@@ -109,18 +109,18 @@ export class EapActionsService {
           and "eventPlaceCodeId" = any( (
             select
               array_agg("eventPlaceCodeId")
-            from "IBF-pipeline-output".event_place_code 
+            from "IBF-app".event_place_code 
             where closed = false
           )::uuid[]) 
       ) eas 
         on ea.id = eas."actionCheckedId"
         and eas."placeCode" = $1
       where
-        "countryCode" = $2`;
+        "countryCodeISO3" = $2`;
 
     const actions: EapActionEntity[] = await this.manager.query(query, [
       placeCode,
-      countryCode,
+      countryCodeISO3,
     ]);
 
     return actions;

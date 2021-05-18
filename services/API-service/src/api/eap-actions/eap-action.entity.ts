@@ -4,7 +4,9 @@ import {
   Column,
   OneToMany,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { CountryEntity } from '../country/country.entity';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 
@@ -19,8 +21,12 @@ export class EapActionEntity {
   @Column()
   public label: string;
 
-  @Column({ nullable: true })
-  public countryCode: string;
+  @ManyToOne((): typeof CountryEntity => CountryEntity)
+  @JoinColumn({
+    name: 'countryCodeISO3',
+    referencedColumnName: 'countryCodeISO3',
+  })
+  public countryCodeISO3: string;
 
   @ManyToOne(
     (): typeof AreaOfFocusEntity => AreaOfFocusEntity,

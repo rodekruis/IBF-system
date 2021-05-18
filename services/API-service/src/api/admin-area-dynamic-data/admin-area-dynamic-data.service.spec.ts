@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
-import { CalculatedAffectedEntity } from './calculated-affected.entity';
-import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
+import { EventService } from '../event/event.service';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 
 describe('AdminAreaDynamicDataService', (): void => {
   let service: AdminAreaDynamicDataService;
@@ -15,17 +15,17 @@ describe('AdminAreaDynamicDataService', (): void => {
       const module: TestingModule = await Test.createTestingModule({
         providers: [
           AdminAreaDynamicDataService,
-          EntityManager,
+          EventService,
           {
             provide: getRepositoryToken(TriggerPerLeadTime),
             useFactory: repositoryMockFactory,
           },
           {
-            provide: getRepositoryToken(CalculatedAffectedEntity),
+            provide: getRepositoryToken(AdminAreaDynamicDataEntity),
             useFactory: repositoryMockFactory,
           },
           {
-            provide: getRepositoryToken(AdminAreaDynamicDataEntity),
+            provide: getRepositoryToken(EventPlaceCodeEntity),
             useFactory: repositoryMockFactory,
           },
         ],

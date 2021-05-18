@@ -12,7 +12,7 @@ export function getRecentDates() {
 
 export function getEvent() {
   return {
-    countryCode: 'UGA',
+    countryCodeISO3: 'UGA',
     startDate: DateTime.now().minus({ days: 1 }).toFormat('yyyy-LL-dd'),
     endDate: DateTime.now().plus({ days: 7 }).toFormat('yyyy-LL-dd'),
     activeTrigger: true,
@@ -28,7 +28,7 @@ export function getTriggerPerLeadTime() {
     5: '1',
     6: '1',
     7: '1',
-    country_code: 'UGA',
+    countryCodeISO3: 'UGA',
     date: DateTime.now().toFormat('yyyy-LL-dd'),
   };
 }
@@ -84,7 +84,7 @@ export function getStations() {
   stations.features.forEach((feature) => {
     if (feature.properties.station_code === 'DWRM14') {
       feature.properties = {
-        country_code: 'UGA',
+        countryCodeISO3: 'UGA',
         lead_time: '5-day',
         station_code: 'DWRM14',
         station_name: 'Akokoro at Uganda Gauge',
@@ -106,7 +106,7 @@ export function getAdminRegions() {
       pcode_level2: '21UGA008001',
       name: 'Abim',
       pcode_level1: '21UGA008',
-      country_code: 'UGA',
+      countryCodeISO3: 'UGA',
       pcode: '21UGA008001',
       date: '2021-03-19T00:00:00.000Z',
       lead_time: '5-day',
@@ -121,7 +121,7 @@ export function getAdminRegions() {
       pcode_level2: '21UGA008004',
       name: 'Kotido',
       pcode_level1: '21UGA008',
-      country_code: 'UGA',
+      countryCodeISO3: 'UGA',
       pcode: '21UGA008004',
       date: '2021-03-19T00:00:00.000Z',
       lead_time: '5-day',
@@ -136,7 +136,7 @@ export function getAdminRegions() {
       pcode_level2: '21UGA008008',
       name: 'Napak',
       pcode_level1: '21UGA008',
-      country_code: 'UGA',
+      countryCodeISO3: 'UGA',
       pcode: '21UGA008008',
       date: '2021-03-19T00:00:00.000Z',
       lead_time: '5-day',
@@ -151,7 +151,7 @@ export function getAdminRegions() {
       pcode_level2: '21UGA013001',
       name: 'Amuria',
       pcode_level1: '21UGA013',
-      country_code: 'UGA',
+      countryCodeISO3: 'UGA',
       pcode: '21UGA013001',
       date: '2021-03-19T00:00:00.000Z',
       lead_time: '5-day',
@@ -166,7 +166,7 @@ export function getAdminRegions() {
       pcode_level2: '21UGA013004',
       name: 'Kapelebyong',
       pcode_level1: '21UGA013',
-      country_code: 'UGA',
+      countryCodeISO3: 'UGA',
       pcode: '21UGA013004',
       date: '2021-03-19T00:00:00.000Z',
       lead_time: '5-day',
@@ -181,7 +181,7 @@ export function getAdminRegions() {
       pcode_level2: '21UGA013005',
       name: 'Katakwi',
       pcode_level1: '21UGA013',
-      country_code: 'UGA',
+      countryCodeISO3: 'UGA',
       pcode: '21UGA013005',
       date: '2021-03-19T00:00:00.000Z',
       lead_time: '5-day',

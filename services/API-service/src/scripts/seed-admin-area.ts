@@ -15,6 +15,7 @@ export class SeedAdminArea implements InterfaceScript {
 
   public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
+
     const adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
     await Promise.all(
       countries.map(
@@ -43,7 +44,7 @@ export class SeedAdminArea implements InterfaceScript {
             .createQueryBuilder()
             .insert()
             .values({
-              countryCode: country.countryCodeISO3,
+              countryCodeISO3: country.countryCodeISO3,
               adminLevel: country.defaultAdminLevel,
               name: area.properties[`ADM${country.defaultAdminLevel}_EN`],
               placeCode:

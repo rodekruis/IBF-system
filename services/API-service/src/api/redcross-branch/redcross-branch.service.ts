@@ -14,7 +14,7 @@ export class RedcrossBranchService {
     countryCodeISO3,
   ): Promise<RedcrossBranchEntity[]> {
     return await this.redcrossBranchRepository.find({
-      where: { countryCode: countryCodeISO3 },
+      where: { countryCodeISO3: countryCodeISO3 },
     });
   }
 }

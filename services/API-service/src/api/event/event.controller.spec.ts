@@ -5,6 +5,8 @@ import { EventController } from './event.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
 import { UserModule } from '../user/user.module';
+import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 
 describe('EventController', (): void => {
   let controller: EventController;
@@ -14,7 +16,12 @@ describe('EventController', (): void => {
       const module: TestingModule = await Test.createTestingModule({
         imports: [
           TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([UserEntity, EventPlaceCodeEntity]),
+          TypeOrmModule.forFeature([
+            UserEntity,
+            EventPlaceCodeEntity,
+            AdminAreaDynamicDataEntity,
+            TriggerPerLeadTime,
+          ]),
           UserModule,
         ],
         controllers: [EventController],

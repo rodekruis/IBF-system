@@ -8,10 +8,10 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { ExposurePlaceCodeDto } from './exposure-place-code.dto';
-import exposure from './example/upload-exposure-example.json';
+import { DynamicDataPlaceCodeDto } from './dynamic-data-place-code.dto';
+import exposure from './example/upload-exposure-PHL.json';
 import { LeadTime } from '../enum/lead-time.enum';
-import { ExposureUnit } from '../enum/exposure-unit';
+import { DynamicDataUnit } from '../enum/dynamic-data-unit';
 
 export class UploadAdminAreaDynamicDataDto {
   @ApiProperty({ example: 'PHL' })
@@ -22,8 +22,8 @@ export class UploadAdminAreaDynamicDataDto {
   @ApiProperty({ example: exposure })
   @IsArray()
   @ValidateNested()
-  @Type(() => ExposurePlaceCodeDto)
-  public exposurePlaceCodes: ExposurePlaceCodeDto[];
+  @Type(() => DynamicDataPlaceCodeDto)
+  public exposurePlaceCodes: DynamicDataPlaceCodeDto[];
 
   @ApiProperty({ example: 2 })
   @IsNotEmpty()
@@ -35,9 +35,9 @@ export class UploadAdminAreaDynamicDataDto {
   @IsString()
   public leadTime: LeadTime;
 
-  @ApiProperty({ example: 'population' })
+  @ApiProperty({ example: 'population_affected' })
   @IsNotEmpty()
-  @IsEnum(ExposureUnit)
+  @IsEnum(DynamicDataUnit)
   @IsString()
-  public exposureUnit: ExposureUnit;
+  public dynamicDataUnit: DynamicDataUnit;
 }

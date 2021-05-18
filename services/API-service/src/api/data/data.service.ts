@@ -13,7 +13,7 @@ import {
   RedCrossBranch,
 } from './geo.model';
 import fs from 'fs';
-import { TriggerPerLeadTime } from '../admin-area-dynamic-data/trigger-per-lead-time.entity';
+import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { CountryEntity } from '../country/country.entity';
 
 @Injectable()
@@ -40,7 +40,7 @@ export class DataService {
       leadTime = await this.getDefaultLeadTime(countryCodeISO3);
     }
     const trigger = (await this.getTriggerPerLeadtime(countryCodeISO3))[
-      leadTime.substr(0, 1)
+      leadTime
     ];
     let placeCodes;
     if (parseInt(trigger) === 1) {
@@ -56,9 +56,9 @@ export class DataService {
       `"
     where 0 = 0
     and lead_time = $1
-    and country_code = $2`.concat(
+    and countryCodeISO3 = $2`.concat(
         placeCodes && placeCodes.length > 0
-          ? ' and pcode in (' + placeCodes.toString() + ')'
+          ? ' and "placeCode" in (' + placeCodes.toString() + ')'
           : '',
       );
     const rawResult: AdminAreaDataRecord[] = await this.manager.query(query, [
@@ -91,7 +91,7 @@ export class DataService {
   }
 
   public async getStations(
-    countryCode: string,
+    countryCodeISO3: string,
     leadTime: string,
   ): Promise<GeoJson> {
     const query =
@@ -99,12 +99,12 @@ export class DataService {
     from "IBF-API"."Glofas_stations" \
     where 0 = 0 \
     and lead_time = $1 \
-    and country_code = $2 \
+    and countryCodeISO3 = $2 \
     ';
 
     const rawResult: GlofasStation[] = await this.manager.query(query, [
       leadTime,
-      countryCode,
+      countryCodeISO3,
     ]);
 
     const result = this.toGeojson(rawResult);
@@ -112,16 +112,16 @@ export class DataService {
     return result;
   }
 
-  public async getRedCrossBranches(countryCode: string): Promise<GeoJson> {
+  public async getRedCrossBranches(countryCodeISO3: string): Promise<GeoJson> {
     const query =
       ' select * \
     from "IBF-API"."redcross_branches" \
     where 0 = 0 \
-    and "countryCode" = $1 \
+    and "countryCodeISO3" = $1 \
     ';
 
     const rawResult: RedCrossBranch[] = await this.manager.query(query, [
-      countryCode,
+      countryCodeISO3,
     ]);
 
     const result = this.toGeojson(rawResult);
@@ -129,9 +129,9 @@ export class DataService {
     return result;
   }
 
-  public async getRecentDates(countryCode: string): Promise<object[]> {
+  public async getRecentDates(countryCodeISO3: string): Promise<object[]> {
     const result = await this.triggerPerLeadTimeRepository.findOne({
-      where: { countryCode: countryCode },
+      where: { countryCodeISO3: countryCodeISO3 },
       order: { date: 'DESC' },
     });
     if (!result) {
@@ -140,17 +140,17 @@ export class DataService {
     return [{ date: new Date(result.date).toISOString() }];
   }
 
-  public async getTriggerPerLeadtime(countryCode: string): Promise<object> {
-    const latestDate = await this.getOneMaximumTriggerDate(countryCode);
+  public async getTriggerPerLeadtime(countryCodeISO3: string): Promise<object> {
+    const latestDate = await this.getOneMaximumTriggerDate(countryCodeISO3);
     const triggersPerLeadTime = await this.triggerPerLeadTimeRepository.find({
-      where: { countryCode: countryCode, date: latestDate },
+      where: { countryCodeISO3: countryCodeISO3, date: latestDate },
     });
     if (triggersPerLeadTime.length === 0) {
       return;
     }
     const result = {};
     result['date'] = triggersPerLeadTime[0].date;
-    result['country_code'] = triggersPerLeadTime[0].countryCode;
+    result['countryCodeISO3'] = triggersPerLeadTime[0].countryCodeISO3;
     for (const leadTimeKey in LeadTime) {
       const leadTimeUnit = LeadTime[leadTimeKey];
       const leadTimeIsTriggered = triggersPerLeadTime.find(
@@ -165,22 +165,22 @@ export class DataService {
     return result;
   }
 
-  private async getOneMaximumTriggerDate(countryCode): Promise<Date> {
+  private async getOneMaximumTriggerDate(countryCodeISO3): Promise<Date> {
     const result = await this.triggerPerLeadTimeRepository.findOne({
       order: { date: 'DESC' },
-      where: { countryCode: countryCode },
+      where: { countryCodeISO3: countryCodeISO3 },
     });
     return result.date;
   }
 
   public async getTriggeredAreas(
-    countryCode: string,
+    countryCodeISO3: string,
   ): Promise<TriggeredArea[]> {
     const query = fs
       .readFileSync('./src/api/data/sql/get-triggered-areas.sql')
       .toString();
 
-    const result = await this.manager.query(query, [countryCode]);
+    const result = await this.manager.query(query, [countryCodeISO3]);
     return result;
   }
 

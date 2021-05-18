@@ -153,7 +153,9 @@ export class SeedInit implements InterfaceScript {
               : await countryRepository.find({
                   where: user.countries.map(
                     (countryCodeISO3: string): object => {
-                      return { countryCodeISO3: countryCodeISO3 };
+                      return {
+                        countryCodeISO3: countryCodeISO3,
+                      };
                     },
                   ),
                 });
@@ -175,8 +177,12 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE EAP ACTIONS *****
     console.log('Seed EAP Actions...');
+    const countryEapActions = eapActions.filter((eapAction: any): boolean =>
+      envCountries.includes(eapAction.countryCodeISO3),
+    );
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
-    await eapActionRepository.save(eapActions);
+
+    await eapActionRepository.save(countryEapActions);
 
     // ***** CREATE INDICATOR METADATA *****
     console.log('Seed Indicators...');
@@ -221,10 +227,6 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed rainfall data...');
     const seedRainfallData = new SeedRainfallData(this.connection);
     await seedRainfallData.run();
-
-    // ***** RUN SCRIPT TO FINALIZE ALL DATA PREPARATION *****
-    console.log('Run IBF-database-scripts.sql...');
-    await this.seedHelper.runSqlScript('./src/sql/IBF-database-scripts.sql');
   }
 }
 

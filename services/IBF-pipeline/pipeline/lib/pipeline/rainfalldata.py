@@ -24,13 +24,13 @@ from secrets import SETTINGS_SECRET
 
 class RainfallData:
 
-    def __init__(self, leadTimeLabel, leadTimeValue, country_code, admin_area_gdf, rainfall_triggers):
+    def __init__(self, leadTimeLabel, leadTimeValue, countryCodeISO3, admin_area_gdf, rainfall_triggers):
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
-        self.country_code = country_code
+        self.countryCodeISO3 = countryCodeISO3
         self.inputPath = PIPELINE_DATA + 'input/rainfall/'
         self.rainrasterPath = GEOSERVER_OUTPUT + \
-            '0/rainfall_extents/rain_rp_' + leadTimeLabel + '_' + country_code + '.tif'
+            '0/rainfall_extents/rain_rp_' + leadTimeLabel + '_' + countryCodeISO3 + '.tif'
         self.rainfall_triggers = rainfall_triggers
         self.ADMIN_AREA_GDF = admin_area_gdf
         self.downloaded = False
@@ -47,7 +47,7 @@ class RainfallData:
             os.remove(os.path.join(self.inputPath, f))
 
     def download(self):
-        if SETTINGS_SECRET[self.country_code]['mock'] == True:
+        if SETTINGS_SECRET[self.countryCodeISO3]['mock'] == True:
             self.inputPath = PIPELINE_DATA + 'input/rainfall_dummy/'
 
         else:

@@ -5,20 +5,20 @@ select
       e."eventPlaceCodeId",
       e."activeTrigger"
     from
-      "IBF-pipeline-output".event_place_code e
+      "IBF-app".event_place_code e
     inner join (
-    	select name,pcode
+    	select name,"placeCode"
     	from (
-	    	select country_code,name,pcode
+	    	select countryCodeISO3,name,"placeCode"
 	    	from "IBF-API"."Admin_area_data2"
 	    	union all
-	    	select country_code,name,pcode
+	    	select countryCodeISO3,name,"placeCode"
 	    	from "IBF-API"."Admin_area_data1"
     	) sub
-    	where country_code = $1
-    	group by name,pcode
+    	where countryCodeISO3 = $1
+    	group by name,"placeCode"
     ) a
-    	on e."placeCode" = a.pcode   
+    	on e."placeCode" = a."placeCode"   
     where
       closed = false
     order by

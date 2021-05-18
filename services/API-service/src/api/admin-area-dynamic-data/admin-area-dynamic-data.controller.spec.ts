@@ -1,10 +1,10 @@
 import { UserModule } from '../user/user.module';
+import { EventModule } from '../event/event.module';
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AdminAreaDynamicDataController } from './admin-area-dynamic-data.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CalculatedAffectedEntity } from './calculated-affected.entity';
-import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 
 describe('AdminAreaDynamicController', (): void => {
@@ -17,10 +17,10 @@ describe('AdminAreaDynamicController', (): void => {
           TypeOrmModule.forRoot(),
           TypeOrmModule.forFeature([
             TriggerPerLeadTime,
-            CalculatedAffectedEntity,
             AdminAreaDynamicDataEntity,
           ]),
           UserModule,
+          EventModule,
         ],
         controllers: [AdminAreaDynamicDataController],
         providers: [AdminAreaDynamicDataService],

@@ -11,15 +11,15 @@ from secrets import MC_USER, MC_API, EMAIL_PASSWORD, SETTINGS_SECRET
 from settings import EMAIL_WITHOUT_TRIGGER, EMAIL_HARDCODE, EMAIL_LIST_HARDCODE, EMAIL_USERNAME, FROM_EMAIL
 
 
-def notify(countryCode):
-    if SETTINGS_SECRET[countryCode]["notify_email"]:
-        floodInfo = getFloodInfo(countryCode)
+def notify(countryCodeISO3):
+    if SETTINGS_SECRET[countryCodeISO3]["notify_email"]:
+        floodInfo = getFloodInfo(countryCodeISO3)
 
         if floodInfo["flood"] or EMAIL_WITHOUT_TRIGGER:
-            formattedInfo = formatInfo(floodInfo, countryCode)
+            formattedInfo = formatInfo(floodInfo, countryCodeISO3)
             if not EMAIL_HARDCODE:
                 mailchimpClient = EmailClient(MC_API, MC_USER)
-                mailchimpClient.sendNotification(formattedInfo, countryCode)
+                mailchimpClient.sendNotification(formattedInfo, countryCodeISO3)
             else:
                 msg = MIMEMultipart()
                 msg['Subject'] = formattedInfo['subject']

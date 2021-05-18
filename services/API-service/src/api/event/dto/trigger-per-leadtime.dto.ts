@@ -1,13 +1,8 @@
 import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { LeadTime } from '../enum/lead-time.enum';
+import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 
-export class UploadTriggerPerLeadTimeDto {
-  @ApiProperty({ example: 'PHL' })
-  @IsNotEmpty()
-  @IsString()
-  public countryCode: string;
-
+export class TriggerPerLeadTimeDto {
   @ApiProperty({ example: '7-day' })
   @IsNotEmpty()
   @IsString()
