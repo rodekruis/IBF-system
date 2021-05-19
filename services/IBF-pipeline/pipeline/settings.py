@@ -31,6 +31,7 @@ SETTINGS = {
             "3-day": 3,
             "7-day": 7
         },
+        'admin_level': 2,
         'EXPOSURE_DATA_SOURCES': {
             "population": {
                 "source": "population/hrsl_zmb_pop_resized_100",
@@ -63,6 +64,7 @@ SETTINGS = {
         'lead_times': {
             "5-day": 5
         },
+        'admin_level': 2,
         'EXPOSURE_DATA_SOURCES': {
             "population": {
                 "source": "population/hrsl_uga_pop_resized_100",
@@ -93,6 +95,7 @@ SETTINGS = {
         'lead_times': {
             "7-day": 7
         },
+        'admin_level': 1,
         'EXPOSURE_DATA_SOURCES': {
             "population": {
                 "source": "population/hrsl_ken_pop_resized_100",
@@ -123,6 +126,7 @@ SETTINGS = {
         'lead_times': {
             "7-day": 7
         },
+        'admin_level': 2,
         'EXPOSURE_DATA_SOURCES': {
             "population": {
                 "source": "population/worldpop_eth",
@@ -149,6 +153,7 @@ SETTINGS = {
                 'filename': 'vector/EGY_adm1_MENAregion.shp',
                 'pcode_colname': 'ADM1_PCODE'
         },
+        'admin_level': 1,
         'lead_times': {
             "3-day": 3,
             "5-day": 5,
@@ -189,11 +194,9 @@ TRIGGER_LEVELS = {
     "maximum": 0.8
 }
 
-#######################
-## DB / API SETTINGS ##
-#######################
-SCHEMA_NAME = 'IBF-pipeline-output'
-# Other connection-settings in secrets.py
+##################
+## API SETTINGS ##
+##################
 
 API_SERVICE_URL = 'http://ibf-api-service:3000/api/'
 API_LOGIN_URL = API_SERVICE_URL + 'user/login'

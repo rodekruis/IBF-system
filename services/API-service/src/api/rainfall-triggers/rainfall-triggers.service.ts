@@ -5,18 +5,18 @@ import { RainfallTriggersEntity } from './rainfall-triggers.entity';
 
 @Injectable()
 export class RainfallTriggersService {
-  @InjectRepository(RainfallTriggersEntity)
-  private readonly rainfallTriggersRepository: Repository<
-    RainfallTriggersEntity
-  >;
+    @InjectRepository(RainfallTriggersEntity)
+    private readonly rainfallTriggersRepository: Repository<
+        RainfallTriggersEntity
+    >;
 
-  public constructor() {}
+    public constructor() {}
 
-  public async getTriggerLevelsByCountry(
-    countryCodeISO3,
-  ): Promise<RainfallTriggersEntity[]> {
-    return await this.rainfallTriggersRepository.find({
-      where: { countryCode: countryCodeISO3 },
-    });
-  }
+    public async getTriggerLevelsByCountry(
+        countryCodeISO3,
+    ): Promise<RainfallTriggersEntity[]> {
+        return await this.rainfallTriggersRepository.find({
+            where: { countryCodeISO3: countryCodeISO3 },
+        });
+    }
 }

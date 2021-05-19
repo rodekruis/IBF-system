@@ -6,13 +6,13 @@ import { AdminAreaEntity } from './admin-area.entity';
 import { AdminAreaService } from './admin-area.service';
 
 @Module({
-  imports: [
-    HttpModule,
-    UserModule,
-    TypeOrmModule.forFeature([AdminAreaEntity]),
-  ],
-  providers: [AdminAreaService],
-  controllers: [AdminAreaController],
-  exports: [AdminAreaService],
+    imports: [
+        HttpModule,
+        UserModule,
+        TypeOrmModule.forFeature([AdminAreaEntity]),
+    ],
+    providers: [AdminAreaService],
+    controllers: [AdminAreaController],
+    exports: [AdminAreaService],
 })
 export class AdminAreaModule {}

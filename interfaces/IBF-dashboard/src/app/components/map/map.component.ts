@@ -381,7 +381,7 @@ export class MapComponent implements OnDestroy {
     element,
   ) => (): void => {
     this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
-      placeCode: feature.properties.pcode,
+      placeCode: feature.properties.placeCode,
       page: AnalyticsPage.dashboard,
       isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
@@ -389,16 +389,16 @@ export class MapComponent implements OnDestroy {
     });
 
     this.placeCodeService.setPlaceCode({
-      countryCodeISO3: feature.properties.country_code,
+      countryCodeISO3: feature.properties.countryCodeISO3,
       placeCodeName: feature.properties.name,
-      placeCode: feature.properties.pcode,
+      placeCode: feature.properties.placeCode,
     });
 
     if (layer.name !== IbfLayerName.adminRegions) {
       const popup =
         '<strong>' +
         feature.properties.name +
-        (feature.properties.pcode.includes('Disputed')
+        (feature.properties.placeCode.includes('Disputed')
           ? ' (Disputed borders)'
           : '') +
         '</strong><br/>' +
@@ -411,12 +411,12 @@ export class MapComponent implements OnDestroy {
           layer,
         ) +
         (layer.unit ? ' ' + layer.unit : '');
-      if (feature.properties.pcode === this.placeCode) {
+      if (feature.properties.placeCode === this.placeCode) {
         element.unbindPopup();
         this.placeCode = null;
       } else {
         element.bindPopup(popup).openPopup();
-        this.placeCode = feature.properties.pcode;
+        this.placeCode = feature.properties.placeCode;
       }
     }
   };

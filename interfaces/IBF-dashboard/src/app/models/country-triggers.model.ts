@@ -7,6 +7,6 @@ export class CountryTriggers {
   5: string;
   6: string;
   7: string;
-  country_code: string;
+  countryCodeISO3: string;
   date: string;
 }
