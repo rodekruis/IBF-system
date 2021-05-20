@@ -1,7 +1,7 @@
 select
       e."placeCode",
       a.name,
-      e."populationAffected",
+      e."exposureValue",
       e."eventPlaceCodeId",
       e."activeTrigger"
     from
@@ -18,8 +18,8 @@ select
     	where countryCodeISO3 = $1
     	group by name,"placeCode"
     ) a
-    	on e."placeCode" = a."placeCode"   
+    	on e."placeCode" = a."placeCode"
     where
       closed = false
     order by
-      "populationAffected" desc 
+      "exposureValue" desc

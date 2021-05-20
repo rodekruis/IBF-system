@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CountryService } from '../country/country.service';
 import { DataService } from '../data/data.service';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { LayerMetadataEntity } from './layer-metadata.entity';
@@ -11,9 +12,12 @@ export class MetadataService {
   private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
   @InjectRepository(LayerMetadataEntity)
   private readonly layerRepository: Repository<LayerMetadataEntity>;
-  private readonly dataService: DataService;
 
-  public constructor(dataService: DataService) {
+  private readonly dataService: DataService;
+  private countryService: CountryService;
+
+  public constructor(dataService: DataService, countryService: CountryService) {
+    this.countryService = countryService;
     this.dataService = dataService;
   }
 
@@ -30,9 +34,12 @@ export class MetadataService {
     const event = await this.dataService.getEventSummaryCountry(
       countryCodeISO3,
     );
+    const triggerUnits = await this.countryService.getTriggerUnitsForCountry(
+      countryCodeISO3,
+    );
     const activeTrigger = event && event.activeTrigger;
-    countryIndicators.find(
-      (i): boolean => i.name === 'population_affected',
+    countryIndicators.find((i): boolean =>
+      triggerUnits.includes(i.name),
     ).active = activeTrigger;
 
     return countryIndicators;

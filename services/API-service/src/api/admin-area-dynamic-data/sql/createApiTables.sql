@@ -34,8 +34,8 @@ from (
 	from "IBF-app"."glofasStation" gs
 	) dgsv
 left join "IBF-app"."glofasStationTrigger" gst
-	on dgsv.station_code = gst."stationCode" 
-	and dgsv.countryCodeISO3 = gst."countryCodeISO3" 
+	on dgsv.station_code = gst."stationCode"
+	and dgsv.countryCodeISO3 = gst."countryCodeISO3"
 	and gst.date = current_date
 ;
 --select * from "IBF-API"."Glofas_stations" where lead_time = '3-day' and countryCodeISO3 = 'ZMB'
@@ -69,22 +69,22 @@ select geo."placeCode"
 	,"countryCodeISO3" as countryCodeISO3
 	, date
 	, lead_time
-	, population_affected
+	, exposureValue
 	, row_to_json(daad.*) as indicators
 from "IBF-app"."adminArea" geo
 left join (
-	select "countryCodeISO3" as countryCodeISO3 
+	select "countryCodeISO3" as countryCodeISO3
 		,"leadTime" as lead_time
 		,date
-		,"placeCode" 
-		,value as population_affected
+		,"placeCode"
+		,value as exposureValue
 	from "IBF-app".admin_area_dynamic_data
-	where date = current_date 
-	and key = 'population_affected'
+	where date = current_date
+	and key in ('population_affected', 'alert_threshold')
 ) ca
-	on geo."placeCode" = ca."placeCode"  
-	and geo."countryCodeISO3" = ca.countryCodeISO3 
-left join "IBF-API".admin_area_data_pivoted daad 
+	on geo."placeCode" = ca."placeCode"
+	and geo."countryCodeISO3" = ca.countryCodeISO3
+left join "IBF-API".admin_area_data_pivoted daad
 	on geo."placeCode" = daad."placeCode"
 where "adminLevel" = 2
 ;
@@ -99,22 +99,22 @@ select geo."placeCode"
 	,"countryCodeISO3" as countryCodeISO3
 	, date
 	, lead_time
-	, population_affected
+	, exposureValue
 	, row_to_json(daad.*) as indicators
 from "IBF-app"."adminArea" geo
 left join (
-	select "countryCodeISO3" as countryCodeISO3 
+	select "countryCodeISO3" as countryCodeISO3
 		,"leadTime" as lead_time
 		,date
-		,"placeCode" 
-		,value as population_affected
+		,"placeCode"
+		,value as exposureValue
 	from "IBF-app".admin_area_dynamic_data
-	where date = current_date 
+	where date = current_date
 	and key = 'population_affected'
 ) ca
-	on geo."placeCode" = ca."placeCode"  
-	and geo."countryCodeISO3" = ca.countryCodeISO3 
-left join "IBF-API".admin_area_data_pivoted daad 
+	on geo."placeCode" = ca."placeCode"
+	and geo."countryCodeISO3" = ca.countryCodeISO3
+left join "IBF-API".admin_area_data_pivoted daad
 	on geo."placeCode" = daad."placeCode"
 where "adminLevel" = 1
 ;
@@ -126,7 +126,7 @@ drop table if exists "IBF-API"."Matrix_aggregates2";
 create table "IBF-API"."Matrix_aggregates2" as
 select countryCodeISO3
 	,lead_time
-	,sum(population_affected) as population_affected
+	,sum(exposureValue) as exposureValue
 from "IBF-API"."Admin_area_data2"
 where countryCodeISO3 is not null
 group by 1,2
@@ -137,7 +137,7 @@ drop table if exists "IBF-API"."Matrix_aggregates1";
 create table "IBF-API"."Matrix_aggregates1" as
 select countryCodeISO3
 	,lead_time
-	,sum(population_affected) as population_affected
+	,sum(exposureValue) as exposureValue
 from "IBF-API"."Admin_area_data1"
 where countryCodeISO3 is not null
 group by 1,2

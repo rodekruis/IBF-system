@@ -28,4 +28,20 @@ export class CountryService {
       relations: this.relations,
     });
   }
+
+  public async getTriggerUnitsForCountry(
+    countryCodeISO3: string,
+  ): Promise<string[]> {
+    const findOneOptions = {
+      countryCodeISO3: countryCodeISO3,
+    };
+    const country = await this.countryRepository.findOne(findOneOptions, {
+      relations: ['disasterTypes'],
+    });
+    const triggerUnits = [];
+    for (const disaster of country.disasterTypes) {
+      triggerUnits.push(disaster.triggerUnit);
+    }
+    return triggerUnits;
+  }
 }

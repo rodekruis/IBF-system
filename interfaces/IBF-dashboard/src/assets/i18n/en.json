@@ -110,7 +110,7 @@
         "new-event-early-trigger": "The system however detects an alert as soon as <strong>{{ months }} month(s) from now</strong>, which was not detectable earlier."
       },
       "active-event-active-trigger": {
-        "welcome": "Hello Aid worker HQ. A dengue alert has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ months }} month(s)</strong> away."
+        "welcome": "Hello Aid worker HQ. A dengue alert has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ days }} month(s)</strong> away."
       },
       "active-event-no-trigger": {
         "welcome": "Hello Aid worker HQ. There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."

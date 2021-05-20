@@ -78,17 +78,21 @@ export class EventService {
   }
 
   private async updateExistingEventAreas() {
-    const affectedAreas = await this.adminAreaDynamicDataRepo
+    const q = this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
-      .addSelect('MAX(area.value) AS "populationAffected"')
+      .addSelect('MAX(area.value) AS "exposureValue"')
       .addSelect('MAX(area."leadTime") AS "leadTime"')
-      .where('key = :key', { key: DynamicDataUnit.populationAffected })
+      .where('key IN(:...keys)', {
+        keys: [
+          DynamicDataUnit.populationAffected,
+          DynamicDataUnit.alertThreshold,
+        ],
+      })
       .andWhere('value > 0')
       .andWhere('date = current_date')
-      .groupBy('area."placeCode"')
-      .getRawMany();
-
+      .groupBy('area."placeCode"');
+    const affectedAreas = await q.getRawMany();
     const affectedAreasPlaceCodes = affectedAreas.map(area => area.placeCode);
     const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
       where: { closed: false },
@@ -100,7 +104,7 @@ export class EventService {
           area => area.placeCode === unclosedEventArea.placeCode,
         );
         unclosedEventArea.activeTrigger = true;
-        unclosedEventArea.populationAffected = affectedArea.populationAffected;
+        unclosedEventArea.exposureValue = affectedArea.exposureValue;
         unclosedEventArea.endDate = this.getEndDate(affectedArea.leadTime);
       }
     });
@@ -111,9 +115,14 @@ export class EventService {
     const affectedAreas = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
-      .addSelect('MAX(area.value) AS "populationAffected"')
+      .addSelect('MAX(area.value) AS "exposureValue"')
       .addSelect('MAX(area."leadTime") AS "leadTime"')
-      .where('key = :key', { key: DynamicDataUnit.populationAffected })
+      .where('key IN(:...keys)', {
+        keys: [
+          DynamicDataUnit.populationAffected,
+          DynamicDataUnit.alertThreshold,
+        ],
+      })
       .andWhere('value > 0')
       .andWhere('date = current_date')
       .groupBy('area."placeCode"')
@@ -129,7 +138,7 @@ export class EventService {
       if (!existingUnclosedEventAreas.includes(area.placeCode)) {
         const eventArea = new EventPlaceCodeEntity();
         eventArea.placeCode = area.placeCode;
-        eventArea.populationAffected = +area.populationAffected;
+        eventArea.exposureValue = +area.populationAffected;
         eventArea.startDate = new Date();
         eventArea.endDate = this.getEndDate(area.leadTime);
         eventArea.activeTrigger = true;

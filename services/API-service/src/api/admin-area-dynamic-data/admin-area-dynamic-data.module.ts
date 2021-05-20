@@ -1,3 +1,4 @@
+import { CountryModule } from './../country/country.module';
 import { UserModule } from '../user/user.module';
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 import { AdminAreaDynamicDataController } from './admin-area-dynamic-data.controller';
@@ -12,6 +13,7 @@ import { EventModule } from '../event/event.module';
     TypeOrmModule.forFeature([TriggerPerLeadTime, AdminAreaDynamicDataEntity]),
     UserModule,
     EventModule,
+    CountryModule,
   ],
   controllers: [AdminAreaDynamicDataController],
   providers: [AdminAreaDynamicDataService],

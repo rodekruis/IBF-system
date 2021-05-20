@@ -121,7 +121,7 @@ export class AdminAreaDataRecord {
 export class TriggeredArea {
   public placeCode: string;
   public name: string;
-  public population_affected: number;
+  public exposureValue: number;
 }
 
 export class EventSummaryCountry {

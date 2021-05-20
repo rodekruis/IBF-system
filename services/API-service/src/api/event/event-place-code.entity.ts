@@ -12,7 +12,7 @@ export class EventPlaceCodeEntity {
   public startDate: Date;
 
   @Column({ type: 'float8' })
-  public populationAffected: number;
+  public exposureValue: number;
 
   @Column({ type: 'timestamp', nullable: true })
   @Check(`"startDate" < "endDate"`)

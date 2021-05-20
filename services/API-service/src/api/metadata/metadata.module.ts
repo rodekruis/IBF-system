@@ -1,3 +1,4 @@
+import { CountryModule } from './../country/country.module';
 import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataModule } from '../data/data.module';
@@ -13,6 +14,7 @@ import { LayerMetadataEntity } from './layer-metadata.entity';
     UserModule,
     TypeOrmModule.forFeature([IndicatorMetadataEntity, LayerMetadataEntity]),
     DataModule,
+    CountryModule,
   ],
   providers: [MetadataService],
   controllers: [MetadataController],

@@ -11,7 +11,7 @@ from
   select
     e."placeCode" ,
     coalesce(a2.countryCodeISO3 , a1.countryCodeISO3) as countryCodeISO3,
-    coalesce(a2.population_affected, a1.population_affected) as population_affected,
+    coalesce(a2.exposureValue, a1.exposureValue) as exposureValue,
     e."endDate",
     e."startDate",
     e."activeTrigger"
@@ -27,12 +27,12 @@ from
     closed = false
   group by
     e."placeCode",
-    a2.population_affected,
-    a1.population_affected,
+    a2.exposureValue,
+    a1.exposureValue,
     a2.countryCodeISO3,
     a1.countryCodeISO3,
     e."endDate",
     e."startDate",
     e."activeTrigger"
   order by
-    population_affected desc ) as event_place_code_country where countryCodeISO3 = $1
+    exposureValue desc ) as event_place_code_country where countryCodeISO3 = $1

@@ -44,10 +44,10 @@ export class ScriptsService {
     let exposureUnits;
     if (selectedCountry.countryCodeISO3 === 'PHL') {
       exposureUnits = [
-        DynamicDataUnit.populationAffected,
+        DynamicDataUnit.alertThreshold,
         DynamicDataUnit.potentialCases65,
         DynamicDataUnit.potentialCasesU9,
-        DynamicDataUnit.alertThreshold,
+        DynamicDataUnit.potentialCases,
       ];
     } else {
       exposureUnits = [DynamicDataUnit.populationAffected];

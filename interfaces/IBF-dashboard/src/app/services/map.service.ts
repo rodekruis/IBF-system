@@ -256,7 +256,6 @@ export class MapService {
         this.apiService
           .getHealthSites(this.country.countryCodeISO3)
           .subscribe((healthSites) => {
-            console.log('healthSites: sbuscribe ', healthSites);
             this.addHealthSites(healthSites);
           });
       } else {
@@ -342,12 +341,14 @@ export class MapService {
 
   public loadAggregateLayer(indicator: Indicator) {
     if (this.country) {
-      if (indicator.active) {
-        this.apiService
-          .getAdminRegions(
+      if (indicator.active && this.timelineService.activeLeadTime) {
+        this.getCombineAdminRegionData
+          (
             this.country.countryCodeISO3,
-            this.timelineService.activeLeadTime,
             this.adminLevelService.adminLevel,
+            this.timelineService.activeLeadTime,
+            indicator.name,
+            indicator.dynamic
           )
           .subscribe((adminRegions) => {
             this.addAggregateLayer(indicator, adminRegions);
@@ -569,7 +570,8 @@ export class MapService {
         this.country.countryCodeISO3,
         this.adminLevelService.adminLevel,
         this.timelineService.activeLeadTime,
-        layer,
+        layer.name,
+        layer.dynamic
       ).pipe(shareReplay(1));
     } else {
       layerData = of(null);
@@ -582,22 +584,23 @@ export class MapService {
     countryCodeISO3: string,
     adminLevel: AdminLevel,
     leadTime: LeadTime,
-    layer: IbfLayer,
+    layerName: IbfLayerName,
+    dynamic: boolean
   ): Observable<GeoJSON.FeatureCollection> {
     // Do api request to get data layer
     let admDynamicDataObs: Observable<any>;
-    if (layer.dynamic) {
+    if (dynamic) {
       admDynamicDataObs = this.apiService.getAdminAreaDynamicData(
         countryCodeISO3,
         adminLevel,
         leadTime,
-        layer.name,
+        layerName,
       );
     } else {
       admDynamicDataObs = this.apiService.getAdminAreaData(
         countryCodeISO3,
         adminLevel,
-        layer.name,
+        layerName,
       );
     }
     // Get the geometry from the admin region (this should re-use the cache if that is already loaded)
@@ -622,7 +625,7 @@ export class MapService {
             },
           );
           area.properties.indicators = {};
-          area.properties.indicators[layer.name] = foundAdmDynamicEntry.value;
+          area.properties.indicators[layerName] = foundAdmDynamicEntry.value;
           updatedFeatures.push(area);
         }
         return adminRegions;
@@ -758,6 +761,7 @@ export class MapService {
         weight = this.disputedBorderStyle.weight;
         color = this.disputedBorderStyle.color;
       }
+      color = this.alertColor
       return {
         fillColor,
         fillOpacity,

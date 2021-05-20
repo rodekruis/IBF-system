@@ -1,3 +1,4 @@
+import { CountryService } from './../country/country.service';
 import { LeadTime } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { Injectable } from '@nestjs/common';
@@ -17,10 +18,17 @@ export class AdminAreaDynamicDataService {
   private readonly adminAreaDynamicDataRepo: Repository<
     AdminAreaDynamicDataEntity
   >;
-  private eventService: EventService;
 
-  public constructor(eventService: EventService, manager: EntityManager) {
+  private eventService: EventService;
+  private countryService: CountryService;
+
+  public constructor(
+    countryService: CountryService,
+    eventService: EventService,
+    manager: EntityManager,
+  ) {
     this.eventService = eventService;
+    this.countryService = countryService;
     this.manager = manager;
   }
 
@@ -34,12 +42,7 @@ export class AdminAreaDynamicDataService {
       countryCodeISO3: uploadExposure.countryCodeISO3,
       leadTime: uploadExposure.leadTime,
     });
-    // await this.adminAreaDynamicDataRepo.delete({
-    //   key: uploadExposure.dynamicDataUnit,
-    //   date: new Date(),
-    //   countryCodeISO3: uploadExposure.countryCodeISO3,
-    //   leadTime: uploadExposure.leadTime,
-    // });
+
     for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
       const area = new AdminAreaDynamicDataEntity();
       area.key = uploadExposure.dynamicDataUnit;
@@ -52,7 +55,11 @@ export class AdminAreaDynamicDataService {
       this.adminAreaDynamicDataRepo.save(area);
     }
 
-    if (uploadExposure.dynamicDataUnit === DynamicDataUnit.populationAffected) {
+    const triggerUnits = await this.countryService.getTriggerUnitsForCountry(
+      uploadExposure.countryCodeISO3,
+    );
+    console.log('triggerUnits: ', triggerUnits, uploadExposure.dynamicDataUnit);
+    if (triggerUnits.includes(uploadExposure.dynamicDataUnit)) {
       await this.insertTrigger(uploadExposure);
       const query = fs
         .readFileSync(
