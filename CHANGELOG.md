@@ -1,3 +1,17 @@
+# [0.61.0](https://github.com/rodekruis/IBF-system/compare/v0.60.1...v0.61.0) (2021-05-21)
+
+
+### Bug Fixes
+
+* changes needed to merge rainfall PR AB[#7785](https://github.com/rodekruis/IBF-system/issues/7785) ([249fadd](https://github.com/rodekruis/IBF-system/commit/249fadd07227c7c9d7e3666efc72b6acc954dd4b))
+
+
+### Features
+
+* update documentation AB[#6513](https://github.com/rodekruis/IBF-system/issues/6513) ([a9ac5ef](https://github.com/rodekruis/IBF-system/commit/a9ac5efbb4f88b33c9a0276f081f663b30b66adb))
+
+
+
 ## [0.60.1](https://github.com/rodekruis/IBF-system/compare/v0.60.0...v0.60.1) (2021-05-21)
 
 
@@ -135,24 +149,6 @@
 ### Bug Fixes
 
 * remove ion-content from app component html AB[#7219](https://github.com/rodekruis/IBF-system/issues/7219) AB[#7220](https://github.com/rodekruis/IBF-system/issues/7220) AB[#7227](https://github.com/rodekruis/IBF-system/issues/7227) ([2978003](https://github.com/rodekruis/IBF-system/commit/2978003ac8a022f3882cff4cacdd53a9d932020e))
-
-
-
-## [0.57.3](https://github.com/rodekruis/IBF-system/compare/v0.57.2...v0.57.3) (2021-04-23)
-
-
-### Bug Fixes
-
-* correct cron-job filename AB[#7036](https://github.com/rodekruis/IBF-system/issues/7036) ([03a0667](https://github.com/rodekruis/IBF-system/commit/03a06672785705ab3089a3f7cfd4978dec130ecd))
-* correct mistake AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([c897af8](https://github.com/rodekruis/IBF-system/commit/c897af8dd72ecb94c21402b93e6ccf6d5a59f4b7))
-* migrate egypt-triggers to seed AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([ab44e2e](https://github.com/rodekruis/IBF-system/commit/ab44e2eeddc3e0a4cf45282f8e1bddb292bf937e))
-* process feedback AB[#7093](https://github.com/rodekruis/IBF-system/issues/7093) ([26e88fd](https://github.com/rodekruis/IBF-system/commit/26e88fd651600a6034ed622feaca0947061f2a87))
-* relation with country-entity + other improvements AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([50a1856](https://github.com/rodekruis/IBF-system/commit/50a1856c0db8e8b842b492858b55002d225668ed))
-* remove runSetup in IBF-pipeline AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([ac4bc0e](https://github.com/rodekruis/IBF-system/commit/ac4bc0edb452a5f38a3f677bdf3248f9b7eb0350))
-* remove unused function AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([45e4c85](https://github.com/rodekruis/IBF-system/commit/45e4c85e8dcb2488e2a81ceb3140a86e88c7cc85))
-* remove unused functions AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([f8e5d24](https://github.com/rodekruis/IBF-system/commit/f8e5d244689a4fa0afab1ab5501714c6c3d0caed))
-* use container-name instead of assign ip AB[#6806](https://github.com/rodekruis/IBF-system/issues/6806) ([605ea22](https://github.com/rodekruis/IBF-system/commit/605ea220e84447456ad1321007176beba2e1d306))
-* use typeORM save instead of insert-querybuilder where possible AB[#7093](https://github.com/rodekruis/IBF-system/issues/7093) ([defe8da](https://github.com/rodekruis/IBF-system/commit/defe8dabebd5e474b67787eab19c606f2862bb48))
 
 
 
