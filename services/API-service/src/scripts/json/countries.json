@@ -335,9 +335,9 @@
     "disasterType": "dengue",
     "defaultAdminLevel": 2,
     "countryActiveLeadTimes": [
+      "0-month",
       "1-month",
-      "2-month",
-      "3-month"
+      "2-month"
     ],
     "eapAlertClasses": {},
     "adminRegionLabels": [

@@ -7,44 +7,44 @@ import { LayerMetadataEntity } from './layer-metadata.entity';
 
 @Injectable()
 export class MetadataService {
-  @InjectRepository(IndicatorMetadataEntity)
-  private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
-  @InjectRepository(LayerMetadataEntity)
-  private readonly layerRepository: Repository<LayerMetadataEntity>;
-  private readonly dataService: DataService;
+    @InjectRepository(IndicatorMetadataEntity)
+    private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
+    @InjectRepository(LayerMetadataEntity)
+    private readonly layerRepository: Repository<LayerMetadataEntity>;
+    private readonly dataService: DataService;
 
-  public constructor(dataService: DataService) {
-    this.dataService = dataService;
-  }
+    public constructor(dataService: DataService) {
+        this.dataService = dataService;
+    }
 
-  public async getIndicatorsByCountry(
-    countryCodeISO3,
-  ): Promise<IndicatorMetadataEntity[]> {
-    const indicators = await this.indicatorRepository.find({});
+    public async getIndicatorsByCountry(
+        countryCodeISO3,
+    ): Promise<IndicatorMetadataEntity[]> {
+        const indicators = await this.indicatorRepository.find({});
 
-    const countryIndicators = indicators.filter(
-      (metadata: IndicatorMetadataEntity): boolean =>
-        metadata.country_codes.split(',').includes(countryCodeISO3),
-    );
+        const countryIndicators = indicators.filter(
+            (metadata: IndicatorMetadataEntity): boolean =>
+                metadata.country_codes.split(',').includes(countryCodeISO3),
+        );
 
-    const event = await this.dataService.getEventSummaryCountry(
-      countryCodeISO3,
-    );
-    const activeTrigger = event && event.activeTrigger;
-    countryIndicators.find(
-      (i): boolean => i.name === 'population_affected',
-    ).active = activeTrigger;
+        const event = await this.dataService.getEventSummaryCountry(
+            countryCodeISO3,
+        );
+        const activeTrigger = event && event.activeTrigger;
+        countryIndicators.find(
+            (i): boolean => i.name === 'population_affected',
+        ).active = activeTrigger;
 
-    return countryIndicators;
-  }
+        return countryIndicators;
+    }
 
-  public async getLayersByCountry(
-    countryCodeISO3,
-  ): Promise<LayerMetadataEntity[]> {
-    const layers = await this.layerRepository.find();
+    public async getLayersByCountry(
+        countryCodeISO3,
+    ): Promise<LayerMetadataEntity[]> {
+        const layers = await this.layerRepository.find();
 
-    return layers.filter((metadata: LayerMetadataEntity): boolean =>
-      metadata.country_codes.split(',').includes(countryCodeISO3),
-    );
-  }
+        return layers.filter((metadata: LayerMetadataEntity): boolean =>
+            metadata.country_codes.split(',').includes(countryCodeISO3),
+        );
+    }
 }

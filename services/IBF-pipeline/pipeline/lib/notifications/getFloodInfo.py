@@ -3,29 +3,26 @@ from lib.logging.logglySetup import logger
 from lib.setup.setupConnection  import get_db
 
 
-def getFloodInfo(countryCode):
+def getFloodInfo(countryCodeISO3):
     con, cur, db = get_db()
 
     sqlString = '''
-        select
-            t1.name
-            ,t0.population_affected
-            ,t0.lead_time
-            ,case when t0.fc_prob>=0.8 then 'Maximum alert' when t0.fc_prob>=0.7 then 'Medium alert' when t0.fc_prob>=0.6 then 'Minimum alert' else '' end as fc_prob
-        from
-            "IBF-pipeline-output".data_adm2 t0
-        left join (
+        select aad.name,population_affected ,lead_time
+            , case when gst."forecastProbability">=0.8 then 'Maximum alert' when gst."forecastProbability">=0.7 then 'Medium alert' when gst."forecastProbability">=0.6 then 'Minimum alert' else '' end as fc_prob
+        from (
             select *
             from "IBF-API"."Admin_area_data2"
             union all
             select *
             from "IBF-API"."Admin_area_data1"
-        ) t1 on
-            t0.pcode = t1.pcode
-            and t0.lead_time = t1.lead_time
-        where
-            t0.country_code = \'''' + countryCode + '''\'
-            and t0.population_affected > 0
+        ) aad
+        left join "IBF-app"."adminArea" aa 
+            on aad."placeCode" = aa."placeCode" 
+        left join "IBF-app"."glofasStationTrigger" gst 
+            on aa."glofasStation" = gst."stationCode" 
+            and aad.lead_time = gst."leadTime" 
+        where aad.countryCodeISO3 = \'''' + countryCodeISO3 + '''\'
+            and aad.population_affected > 0
         order by population_affected desc
     '''
 

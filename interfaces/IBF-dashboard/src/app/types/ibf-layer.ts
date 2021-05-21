@@ -35,6 +35,7 @@ export class IbfLayer {
   leafletLayer?: Layer | LayerGroup | Marker | GeoJSON | MarkerClusterGroup;
   legendColor?: string;
   group?: IbfLayerGroup;
+  dynamic?: boolean;
 }
 
 export enum IbfLayerType {
@@ -56,7 +57,7 @@ export enum IbfLayerName {
   grassland = 'grassland',
   population_affected = 'population_affected',
   vulnerability_score = 'vulnerability_score',
-  vulnerability_index = 'vulnerability_index',
+  flood_vulnerability_index = 'flood_vulnerability_index',
   poverty_incidence = 'poverty_incidence',
   female_head_hh = 'female_head_hh',
   population_u8 = 'population_u8',

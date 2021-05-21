@@ -62,10 +62,7 @@ export class TimelineService {
       date: this.getLeadTimeDate(leadTime, triggerKey),
       unit: leadTime.split('-')[1] as LeadTimeUnit,
       value: leadTime,
-      alert:
-        this.triggers[
-          leadTime.includes('day') ? leadTime.substr(0, 1) : leadTime
-        ] === '1',
+      alert: this.triggers[leadTime] === '1',
       disabled: isLeadTimeDisabled,
       active: false,
     };

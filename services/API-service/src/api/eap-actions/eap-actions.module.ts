@@ -1,5 +1,5 @@
 import { CountryEntity } from './../country/country.entity';
-import { TriggerPerLeadTime } from './../upload/trigger-per-lead-time.entity';
+import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
@@ -12,19 +12,19 @@ import { DataService } from '../data/data.service';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      UserEntity,
-      EapActionEntity,
-      EapActionStatusEntity,
-      AreaOfFocusEntity,
-      TriggerPerLeadTime,
-      CountryEntity,
-    ]),
-    UserModule,
-    HttpModule,
-  ],
-  controllers: [EapActionsController],
-  providers: [EapActionsService, DataService],
+    imports: [
+        TypeOrmModule.forFeature([
+            UserEntity,
+            EapActionEntity,
+            EapActionStatusEntity,
+            AreaOfFocusEntity,
+            TriggerPerLeadTime,
+            CountryEntity,
+        ]),
+        UserModule,
+        HttpModule,
+    ],
+    controllers: [EapActionsController],
+    providers: [EapActionsService, DataService],
 })
 export class EapActionsModule {}

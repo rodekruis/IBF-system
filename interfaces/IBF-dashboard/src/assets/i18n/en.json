@@ -81,13 +81,18 @@
         "EGY": "Number of people exposed is calculated by the population living in the rainfall extent area within the governorates currently triggered. The number of people and the rainfall extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href=\"https://www.ciesin.columbia.edu/data/hrsl/\">https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br />Source Rainfall Extent: Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset.<br>The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
       },
       "female_head_hh": {
-        "UGA": "Percentage of people living in female headed households.<br /><br />Source Data: <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014."
+        "UGA": "Percentage of people living in female headed households.<br /><br />Source Data: <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014.",
+        "PHL": "Percentage of people living in female-headed households. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
       },
       "population_u8": {
         "UGA": "Percentage of people under 8 years old.<br /><br />Source Data: <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014."
       },
+      "population_u9": {
+        "PHL": "Percentage of people under 9 years of age. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      },
       "population_over65": {
-        "UGA": "Percentage of people over 65 years old.<br /><br />Source Data: <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014."
+        "UGA": "Percentage of people over 65 years old.<br /><br />Source Data: <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014.",
+        "PHL": "Percentage of people over 65 years of age. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
       },
       "glofas_stations": {
         "UGA": "This layer provides the location where the Global Flood Awareness System (GLoFAS) forecast is used for the trigger. This forecast is often used by the National Governmental Meteorological Services.<br /><br />GloFAS is a global hydrological forecast- and monitoring system that delivers global ensemble river discharge forecasts (limited up to 7 days ahead in this layer) for the large river basins (greater than 1000 km2).<br /><br />Methodology presenting the GloFAS probability levels: GloFAS forecast data contains a 51-member ensemble. The 60/70/80% trigger-threshold discharge levels are presented as 'trigger-alert' levels agreed on in the EAP. The probability is the percentage of the 51 ensemble members that predicts that the discharge is above the threshold. The administrative areas in the country correspond are mapped to a specific GloFAS Station, and as such it is determined which areas are triggered when the station exceed the trigger threshold value (for more informatie see the EAP).<br /><br />Source Link: <a href='https://www.globalfloods.eu/'>https://www.globalfloods.eu/</a>"
@@ -120,7 +125,7 @@
       "poverty_incidence": {
         "UGA": "Poverty Incidence is defined by the Multidiemensional Poverty Index and a $2 a day threshold. The layer gives an estimate of people living in poverty.<br /><br />Source: Tatem AJ, Gething PW, Bhatt S, Weiss D and Pezzulo C (2013) Pilot high resolution poverty maps, University of Southampton/Oxford. DOI: 10.5258/SOTON/WP00285. Year: 2010"
       },
-      "vulnerability_index": {
+      "flood_vulnerability_index": {
         "UGA": "The disaster vulnerability index is a composite index for the context of exposure to the hazard and the capacity to anticipate, cope with and recover from the impacts of floods. The National Society and Technical Working group selected the following criteria below: (including their weight in the total score)<ul><li>20% Poverty: Poverty incidence</li><li>20% Gender: Female headed household</li><li>10% Age: Population below 8-years</li><li>10% Age: population 65+,</li><li>10 % type of construction: permanent wall type</li><li>10 %type of construction: permanent roof type</li><li>20% Refugees legal status #of displaced person</li></ul><br>For furhter information please refere to the Eap. For source links, see each individual layer."
       },
       "covidrisk": {
@@ -136,6 +141,21 @@
       },
       "flood_susceptibility": {
         "EGY": "Flood susceptibility identifies the most vulnerable areas based on physical characteristics that determine the propensity for flooding” (Vojtek and Vojtekova, 2019). The mapping of flood susceptible areas involves the analysis of multiple criteria for different characteristics of the region that collectively contribute to the likelihood of floods.<br/><br/>Nine influencing parameters based on a variety of satellite imagery and spatial datasets are the input factors of the model, such as topographical (Elevation model, Slope), physical (Land cover, Hydrological soil group) and hydrological properties (Height Above Nearest Drainage, Distance from Nearest Drainage, Topographic Wetness Index Slope, Rain intensity, Rain duration). Set of weights based on expert knowledge (The Analytical Hierarchical Process) from REACH (2019) was adapted in this analysis.<br/><br/><strong>LEGEND:</strong> There are 4 classes of flood susceptibility. The higher the flood susceptibility, the darker blue the color.<br/><br/>SOURCES:<ul><li>REACH. Yemen Flood Susceptibility. 2019. <a href='https://reliefweb.int/sites/reliefweb.int/files/resources/REACH_YEM_MethodologyNote_HVA_FloodSusceptibility_01APR2020_EN_V2.pdf'>https://reliefweb.int/sites/reliefweb.int/files/resources/REACH_YEM_MethodologyNote_HVA_FloodSusceptibility_01APR2020_EN_V2.pdf</a></li><li>Vojtek, M.; Vojteková, J. Flood Susceptibility Mapping on a National Scale in Slovakia Using the Analytical Hierarchy Process. Water 2019, 11, 364. <a href='https://doi.org/10.3390/w11020364'>https://doi.org/10.3390/w11020364</a></li></ul>"
+      },
+      "dengue_cases_average": {
+        "PHL": "Number of dengue cases per administrative division per year. <br /><br />Source: <a href=\"https://doh.gov.ph/statistics\">https://doh.gov.ph/statistics/</a>"
+      },
+      "dengue_incidence_average": {
+        "PHL": "Number of dengue cases per 1000 people per administrative division per year. <br /><br />Source: <a href=\"https://doh.gov.ph/statistics\">https://doh.gov.ph/statistics/</a>"
+      },
+      "potential_cases": {
+        "PHL": "Number of potential dengue cases, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      },
+      "potential_cases_U9": {
+        "PHL": "Number of potential dengue cases among children under 9 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      },
+      "potential_cases_65": {
+        "PHL": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
       }
     }
   }

@@ -1,35 +1,67 @@
 import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsIn, IsNotEmpty, IsString } from 'class-validator';
 import { Connection } from 'typeorm';
 import { SeedInit } from './seed-init';
+import { ScriptsService } from './scripts.service';
 
 class ResetDto {
-  @ApiProperty({ example: 'fill_in_secret' })
-  @IsNotEmpty()
-  @IsString()
-  public readonly secret: string;
+    @ApiProperty({ example: 'fill_in_secret' })
+    @IsNotEmpty()
+    @IsString()
+    public readonly secret: string;
+}
+
+export class MockDynamic {
+    @ApiProperty({ example: 'fill_in_secret' })
+    @IsNotEmpty()
+    @IsString()
+    public readonly secret: string;
+    @ApiProperty({ example: 'UGA' })
+    @IsIn(['PHL', 'UGA'])
+    public readonly countryCodeISO3: string;
+    @ApiProperty()
+    @IsNotEmpty()
+    public readonly triggered: boolean;
 }
 
 @Controller('scripts')
 export class ScriptsController {
-  private connection: Connection;
+    private connection: Connection;
 
-  public constructor(connection: Connection) {
-    this.connection = connection;
-  }
+    private readonly scriptsService: ScriptsService;
 
-  @ApiOperation({ summary: 'Reset database' })
-  @Post('/reset')
-  public async resetDb(@Body() body: ResetDto, @Res() res): Promise<string> {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    public constructor(connection: Connection, scriptsService: ScriptsService) {
+        this.connection = connection;
+        this.scriptsService = scriptsService;
     }
-    let seed;
-    seed = new SeedInit(this.connection);
-    await seed.run();
-    return res
-      .status(HttpStatus.ACCEPTED)
-      .send('Request received. The reset can take a minute.');
-  }
+
+    @ApiOperation({ summary: 'Reset database' })
+    @Post('/reset')
+    public async resetDb(@Body() body: ResetDto, @Res() res): Promise<string> {
+        if (body.secret !== process.env.RESET_SECRET) {
+            return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+        }
+        let seed;
+        seed = new SeedInit(this.connection);
+        await seed.run();
+        return res
+            .status(HttpStatus.ACCEPTED)
+            .send('Request received. The reset can take a minute.');
+    }
+
+    @ApiOperation({ summary: 'Mock dynamic data' })
+    @Post('/mock-dynamic-data')
+    public async mockDynamic(
+        @Body() body: MockDynamic,
+        @Res() res,
+    ): Promise<string> {
+        if (body.secret !== process.env.RESET_SECRET) {
+            return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+        }
+
+        const result = await this.scriptsService.mockCountry(body);
+
+        return res.status(HttpStatus.ACCEPTED).send(result);
+    }
 }

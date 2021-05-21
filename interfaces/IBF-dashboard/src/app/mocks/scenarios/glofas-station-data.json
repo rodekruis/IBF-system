@@ -11,7 +11,7 @@
         ]
       },
       "properties": {
-        "country_code": "UGA",
+        "countryCodeISO3": "UGA",
         "lead_time": "5-day",
         "station_code": "DWRM1",
         "station_name": "R. Manafwa at Butaleja",
@@ -32,7 +32,7 @@
         ]
       },
       "properties": {
-        "country_code": "UGA",
+        "countryCodeISO3": "UGA",
         "lead_time": "5-day",
         "station_code": "DWRM10",
         "station_name": "R. Mayanja",
@@ -53,7 +53,7 @@
         ]
       },
       "properties": {
-        "country_code": "UGA",
+        "countryCodeISO3": "UGA",
         "lead_time": "5-day",
         "station_code": "DWRM12",
         "station_name": "R. Nkusi",
@@ -74,7 +74,7 @@
         ]
       },
       "properties": {
-        "country_code": "UGA",
+        "countryCodeISO3": "UGA",
         "lead_time": "5-day",
         "station_code": "DWRM14",
         "station_name": "Akokoro at Uganda Gauge",
@@ -95,7 +95,7 @@
         ]
       },
       "properties": {
-        "country_code": "UGA",
+        "countryCodeISO3": "UGA",
         "lead_time": "5-day",
         "station_code": "DWRM2",
         "station_name": "R. Sio",
@@ -116,7 +116,7 @@
         ]
       },
       "properties": {
-        "country_code": "UGA",
+        "countryCodeISO3": "UGA",
         "lead_time": "5-day",
         "station_code": "DWRM3",
         "station_name": "R. Mpologoma at Budumba",
@@ -137,7 +137,7 @@
         ]
       },
       "properties": {
-        "country_code": "UGA",
+        "countryCodeISO3": "UGA",
         "lead_time": "5-day",
         "station_code": "DWRM7",
         "station_name": "R. Muzizi",
@@ -158,7 +158,7 @@
         ]
       },
       "properties": {
-        "country_code": "UGA",
+        "countryCodeISO3": "UGA",
         "lead_time": "5-day",
         "station_code": "DWRM9",
         "station_name": "R. Mitano",

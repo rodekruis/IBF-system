@@ -4,7 +4,7 @@ from datetime import date
 from settings import SETTINGS
 
 
-def formatInfo(info, countryCode):
+def formatInfo(info, countryCodeISO3):
 
     today = str(date.today())
 
@@ -21,16 +21,16 @@ def formatInfo(info, countryCode):
     placeholderAdminAreaSingular = "(ADMIN-AREA-SINGULAR)"
     placeholderDisasterType = "(DISASTER-TYPE)"
 
-    email_settings = SETTINGS[countryCode]['email']
+    email_settings = SETTINGS[countryCodeISO3]['email']
     logo = email_settings['logo']
     triggerStatement = email_settings['triggerStatement']
     linkDashboard = email_settings['linkDashboard']
     linkEAPSOP = email_settings['linkEAPSOP']
     linkSocialMedia = email_settings['linkSocialMedia']
     adminAreaLabel = email_settings['adminAreaLabel']
-    if SETTINGS[countryCode]['model'] == 'glofas':
+    if SETTINGS[countryCodeISO3]['model'] == 'glofas':
         disasterType = 'Flood'
-    elif SETTINGS[countryCode]['model'] == 'rainfall':
+    elif SETTINGS[countryCodeISO3]['model'] == 'rainfall':
         disasterType = 'Heavy Rain'
 
     leadTimes = ['1-day','2-day','3-day','4-day','5-day','6-day','7-day','8-day','9-day','10-day']
