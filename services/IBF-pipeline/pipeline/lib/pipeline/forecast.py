@@ -16,7 +16,14 @@ class Forecast:
         self.leadTimeValue = leadTimeValue 
         self.db = DatabaseManager(leadTimeLabel, countryCodeISO3)
 
-        self.admin_area_gdf = self.db.downloadGeoDataFromDb('IBF-app','admin-area', countryCodeISO3=countryCodeISO3)
+        admin_area_json = self.db.apiGetRequest('admin-areas',countryCodeISO3=countryCodeISO3)
+        for index in range(len(admin_area_json)):
+            admin_area_json[index]['geometry'] = admin_area_json[index]['geom']
+            admin_area_json[index]['properties'] = {
+                'placeCode': admin_area_json[index]['placeCode'],
+                'name': admin_area_json[index]['name']
+            }
+        self.admin_area_gdf = geopandas.GeoDataFrame.from_features(admin_area_json)
         
         if model == 'glofas':
             self.glofas_stations = self.db.apiGetRequest('glofas-stations',countryCodeISO3=countryCodeISO3)

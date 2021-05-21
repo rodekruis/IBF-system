@@ -102,18 +102,6 @@ class DatabaseManager:
             'email', ADMIN_LOGIN), ('password', ADMIN_PASSWORD)])
         return login_response.json()['user']['token']
 
-    def downloadGeoDataFromDb(self, schema, table, countryCodeISO3=None):
-        try:
-            self.con, self.cur, self.db = get_db()
-            sql = "SELECT * FROM \""+schema+"\".\""+table+"\""
-            if countryCodeISO3 != None:
-                sql = sql + " WHERE \"countryCodeISO3\"=\'"+self.countryCodeISO3+"\'"
-            admin_gdf = gpd.read_postgis(sql, self.con)
-        except psycopg2.ProgrammingError as e:
-            logger.info(e)
-
-        return admin_gdf
-
     def getDataFromDatalake(self, path):
         import requests
         import datetime
