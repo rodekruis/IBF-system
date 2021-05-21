@@ -10,31 +10,31 @@ import { EapActionsController } from './eap-actions.controller';
 import { EapActionsService } from './eap-actions.service';
 
 describe('EapActionsController', (): void => {
-    let controller: EapActionsController;
+  let controller: EapActionsController;
 
-    beforeEach(
-        async (): Promise<void> => {
-            const module: TestingModule = await Test.createTestingModule({
-                imports: [
-                    TypeOrmModule.forRoot(),
-                    TypeOrmModule.forFeature([
-                        UserEntity,
-                        EapActionEntity,
-                        EapActionStatusEntity,
-                        AreaOfFocusEntity,
-                        CountryEntity,
-                    ]),
-                    UserModule,
-                ],
-                controllers: [EapActionsController],
-                providers: [EapActionsService],
-            }).compile();
+  beforeEach(
+    async (): Promise<void> => {
+      const module: TestingModule = await Test.createTestingModule({
+        imports: [
+          TypeOrmModule.forRoot(),
+          TypeOrmModule.forFeature([
+            UserEntity,
+            EapActionEntity,
+            EapActionStatusEntity,
+            AreaOfFocusEntity,
+            CountryEntity,
+          ]),
+          UserModule,
+        ],
+        controllers: [EapActionsController],
+        providers: [EapActionsService],
+      }).compile();
 
-            controller = module.get<EapActionsController>(EapActionsController);
-        },
-    );
+      controller = module.get<EapActionsController>(EapActionsController);
+    },
+  );
 
-    it('should be defined', (): void => {
-        expect(controller).toBeDefined();
-    });
+  it('should be defined', (): void => {
+    expect(controller).toBeDefined();
+  });
 });

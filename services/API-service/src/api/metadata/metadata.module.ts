@@ -8,17 +8,14 @@ import { MetadataService } from './metadata.service';
 import { LayerMetadataEntity } from './layer-metadata.entity';
 
 @Module({
-    imports: [
-        HttpModule,
-        UserModule,
-        TypeOrmModule.forFeature([
-            IndicatorMetadataEntity,
-            LayerMetadataEntity,
-        ]),
-        DataModule,
-    ],
-    providers: [MetadataService],
-    controllers: [MetadataController],
-    exports: [MetadataService],
+  imports: [
+    HttpModule,
+    UserModule,
+    TypeOrmModule.forFeature([IndicatorMetadataEntity, LayerMetadataEntity]),
+    DataModule,
+  ],
+  providers: [MetadataService],
+  controllers: [MetadataController],
+  exports: [MetadataService],
 })
 export class MetadataModule {}

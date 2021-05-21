@@ -9,39 +9,37 @@ import { AreaOfFocusEntity } from './area-of-focus.entity';
 
 @Injectable()
 export class EapActionsService {
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>;
-    @InjectRepository(EapActionStatusEntity)
-    private readonly eapActionStatusRepository: Repository<
-        EapActionStatusEntity
-    >;
-    @InjectRepository(EapActionEntity)
-    private readonly eapActionRepository: Repository<EapActionEntity>;
-    @InjectRepository(AreaOfFocusEntity)
-    private readonly areaOfFocusRepository: Repository<AreaOfFocusEntity>;
+  @InjectRepository(UserEntity)
+  private readonly userRepository: Repository<UserEntity>;
+  @InjectRepository(EapActionStatusEntity)
+  private readonly eapActionStatusRepository: Repository<EapActionStatusEntity>;
+  @InjectRepository(EapActionEntity)
+  private readonly eapActionRepository: Repository<EapActionEntity>;
+  @InjectRepository(AreaOfFocusEntity)
+  private readonly areaOfFocusRepository: Repository<AreaOfFocusEntity>;
 
-    private manager: EntityManager;
+  private manager: EntityManager;
 
-    public constructor(manager: EntityManager) {
-        this.manager = manager;
+  public constructor(manager: EntityManager) {
+    this.manager = manager;
+  }
+
+  public async checkAction(
+    userId: string,
+    eapAction: EapActionDto,
+  ): Promise<EapActionStatusEntity> {
+    const actionId = await this.eapActionRepository.findOne({
+      where: {
+        countryCodeISO3: eapAction.countryCodeISO3,
+        action: eapAction.action,
+      },
+    });
+    if (!actionId) {
+      const errors = 'Action not found';
+      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
 
-    public async checkAction(
-        userId: string,
-        eapAction: EapActionDto,
-    ): Promise<EapActionStatusEntity> {
-        const actionId = await this.eapActionRepository.findOne({
-            where: {
-                countryCodeISO3: eapAction.countryCodeISO3,
-                action: eapAction.action,
-            },
-        });
-        if (!actionId) {
-            const errors = 'Action not found';
-            throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
-        }
-
-        const query = `select
+    const query = `select
         "eventPlaceCodeId"
       from
         "IBF-app".event_place_code
@@ -49,33 +47,33 @@ export class EapActionsService {
         closed = false
         and "placeCode" = $1`;
 
-        const eventPlaceCodeId = (
-            await this.manager.query(query, [eapAction.placeCode])
-        )[0]['eventPlaceCodeId'];
+    const eventPlaceCodeId = (
+      await this.manager.query(query, [eapAction.placeCode])
+    )[0]['eventPlaceCodeId'];
 
-        const action = new EapActionStatusEntity();
-        action.status = eapAction.status;
-        action.placeCode = eapAction.placeCode;
-        action.eventPlaceCodeId = eventPlaceCodeId;
-        action.actionChecked = actionId;
+    const action = new EapActionStatusEntity();
+    action.status = eapAction.status;
+    action.placeCode = eapAction.placeCode;
+    action.eventPlaceCodeId = eventPlaceCodeId;
+    action.actionChecked = actionId;
 
-        // If no user, take default user for now
-        const user = await this.userRepository.findOne(userId);
-        action.user = user;
+    // If no user, take default user for now
+    const user = await this.userRepository.findOne(userId);
+    action.user = user;
 
-        const newAction = await this.eapActionStatusRepository.save(action);
-        return newAction;
-    }
+    const newAction = await this.eapActionStatusRepository.save(action);
+    return newAction;
+  }
 
-    public async getAreasOfFocus(): Promise<AreaOfFocusEntity[]> {
-        return await this.areaOfFocusRepository.find();
-    }
+  public async getAreasOfFocus(): Promise<AreaOfFocusEntity[]> {
+    return await this.areaOfFocusRepository.find();
+  }
 
-    public async getActionsWithStatus(
-        countryCodeISO3: string,
-        placeCode: string,
-    ): Promise<EapActionEntity[]> {
-        const query = `
+  public async getActionsWithStatus(
+    countryCodeISO3: string,
+    placeCode: string,
+  ): Promise<EapActionEntity[]> {
+    const query = `
       select
         aof.label as "aofLabel" ,
         aof.id as aof ,
@@ -120,11 +118,11 @@ export class EapActionsService {
       where
         "countryCodeISO3" = $2`;
 
-        const actions: EapActionEntity[] = await this.manager.query(query, [
-            placeCode,
-            countryCodeISO3,
-        ]);
+    const actions: EapActionEntity[] = await this.manager.query(query, [
+      placeCode,
+      countryCodeISO3,
+    ]);
 
-        return actions;
-    }
+    return actions;
+  }
 }

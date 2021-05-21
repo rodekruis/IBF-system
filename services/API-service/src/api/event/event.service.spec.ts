@@ -7,32 +7,32 @@ import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-are
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 
 describe('Event service', (): void => {
-    let service: EventService;
-    beforeAll(
-        async (): Promise<void> => {
-            const module: TestingModule = await Test.createTestingModule({
-                providers: [
-                    {
-                        provide: getRepositoryToken(EventPlaceCodeEntity),
-                        useFactory: repositoryMockFactory,
-                    },
-                    {
-                        provide: getRepositoryToken(AdminAreaDynamicDataEntity),
-                        useFactory: repositoryMockFactory,
-                    },
-                    {
-                        provide: getRepositoryToken(TriggerPerLeadTime),
-                        useFactory: repositoryMockFactory,
-                    },
-                    EventService,
-                ],
-            }).compile();
+  let service: EventService;
+  beforeAll(
+    async (): Promise<void> => {
+      const module: TestingModule = await Test.createTestingModule({
+        providers: [
+          {
+            provide: getRepositoryToken(EventPlaceCodeEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AdminAreaDynamicDataEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(TriggerPerLeadTime),
+            useFactory: repositoryMockFactory,
+          },
+          EventService,
+        ],
+      }).compile();
 
-            service = module.get<EventService>(EventService);
-        },
-    );
+      service = module.get<EventService>(EventService);
+    },
+  );
 
-    it('should be defined', (): void => {
-        expect(service).toBeDefined();
-    });
+  it('should be defined', (): void => {
+    expect(service).toBeDefined();
+  });
 });

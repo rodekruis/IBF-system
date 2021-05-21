@@ -1,4 +1,4 @@
-countryCodeISO3,adminLevel,placeCode,key,value
+countryCodeISO3,adminLevel,placeCode,indicator,value
 UGA,2,21UGA001001,covid_risk,0.482354341
 UGA,2,21UGA001002,covid_risk,0.46062166
 UGA,2,21UGA001003,covid_risk,0.360652533

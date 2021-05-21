@@ -5,9 +5,9 @@ import { WaterpointsController } from './waterpoints.controller';
 import { WaterpointsService } from './waterpoints.service';
 
 @Module({
-    imports: [HttpModule, UserModule, CountryModule],
-    providers: [WaterpointsService],
-    controllers: [WaterpointsController],
-    exports: [WaterpointsService],
+  imports: [HttpModule, UserModule, CountryModule],
+  providers: [WaterpointsService],
+  controllers: [WaterpointsController],
+  exports: [WaterpointsService],
 })
 export class WaterpointsModule {}
