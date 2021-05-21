@@ -6,20 +6,13 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { CountryEntity } from '../country/country.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
+import { GlofasStationEntity } from './glofas-station.entity';
 
-@Entity('glofas-station-trigger')
-export class GlofasStationTriggerEntity {
+@Entity('glofas-station-forecast')
+export class GlofasStationForecastEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
-
-  @ManyToOne((): typeof CountryEntity => CountryEntity)
-  @JoinColumn({
-    name: 'countryCodeISO3',
-    referencedColumnName: 'countryCodeISO3',
-  })
-  public countryCodeISO3: string;
 
   @ManyToOne((): typeof LeadTimeEntity => LeadTimeEntity)
   @JoinColumn({ name: 'leadTime', referencedColumnName: 'leadTimeName' })
@@ -28,8 +21,11 @@ export class GlofasStationTriggerEntity {
   @Column({ type: 'date' })
   public date: Date;
 
-  @Column()
-  public stationCode: string;
+  @ManyToOne(
+    (): typeof GlofasStationEntity => GlofasStationEntity,
+    (station): GlofasStationForecastEntity[] => station.stationForecasts,
+  )
+  public glofasStation: GlofasStationEntity;
 
   @Column({ type: 'double precision' })
   public forecastLevel: string;

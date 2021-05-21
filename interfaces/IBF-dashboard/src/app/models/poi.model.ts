@@ -1,11 +1,11 @@
 // tslint:disable: variable-name
 export class Station {
-  station_name: string;
-  station_code: string;
-  trigger_level: number;
-  fc: number;
-  fc_trigger: number;
-  fc_prob: number;
+  stationName: string;
+  stationCode: string;
+  triggerLevel: number;
+  forecastLevel: number;
+  forecastTrigger: number;
+  forecastProbability: number;
 }
 
 export class RedCrossBranch {

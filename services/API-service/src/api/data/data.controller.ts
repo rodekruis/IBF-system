@@ -22,17 +22,6 @@ export class DataController {
     this.dataService = dataService;
   }
 
-  @ApiOperation({ summary: 'Get station location + trigger data' })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'leadTime', required: true, type: 'string' })
-  @Get('stations/:countryCodeISO3/:leadTime')
-  public async getStations(@Param() params): Promise<GeoJson> {
-    return await this.dataService.getStations(
-      params.countryCodeISO3,
-      params.leadTime,
-    );
-  }
-
   @ApiOperation({ summary: 'Get Red Cross branch locations' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @Get('red-cross-branches/:countryCodeISO3')

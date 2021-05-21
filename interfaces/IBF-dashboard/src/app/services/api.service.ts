@@ -121,7 +121,7 @@ export class ApiService {
     countryCodeISO3: string,
     leadTime: LeadTime = LeadTime.day7,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`data/stations/${countryCodeISO3}/${leadTime}`, false);
+    return this.get(`glofas-stations/${countryCodeISO3}/${leadTime}`, false);
   }
 
   getRedCrossBranches(

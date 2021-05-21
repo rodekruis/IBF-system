@@ -87,7 +87,7 @@ export class SeedGlofasStation implements InterfaceScript {
                 lat: station['lat'],
                 lon: station['lon'],
                 geom: (): string =>
-                  `st_MakePoint(${station['lon']}, ${station['lat']})`,
+                  `st_asgeojson(st_MakePoint(${station['lon']}, ${station['lat']}))::json`,
               })
               .execute();
           } else {

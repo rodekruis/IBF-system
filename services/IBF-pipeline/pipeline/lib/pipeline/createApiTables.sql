@@ -12,33 +12,6 @@ select "countryCodeISO3"
 from "IBF-app"."redcross-branch"
 ;
 --select * from "IBF-API".redcross_branches
---
---create API view for Glofas stations
-drop table if exists "IBF-API"."Glofas_stations";
-create table "IBF-API"."Glofas_stations" as
-select gst."countryCodeISO3" as countryCodeISO3
-		,gst."leadTime" as lead_time
-		,dgsv.station_code
-		,dgsv.station_name
-		,dgsv.trigger_level
-		,dgsv.geom
-	  , gst."forecastLevel" as fc
-      , gst."forecastTrigger" as fc_trigger
-      , gst."forecastProbability" as fc_prob
-from (
-	select "countryCodeISO3" as countryCodeISO3
-		,"stationCode" as station_code
-		,"stationName" as station_name
-		,"triggerLevel" as trigger_level
-		,ST_AsGeoJSON(geom)::json As geom
-	from "IBF-app"."glofas-station" gs
-	) dgsv
-left join "IBF-app"."glofas-station-trigger" gst
-	on dgsv.station_code = gst."stationCode" 
-	and dgsv.countryCodeISO3 = gst."countryCodeISO3" 
-	and gst.date = current_date
-;
---select * from "IBF-API"."Glofas_stations" where lead_time = '3-day' and countryCodeISO3 = 'ZMB'
 
 drop table if exists "IBF-API".admin_area_data_pivoted;
 create table "IBF-API".admin_area_data_pivoted as

@@ -18,7 +18,7 @@ def getFloodInfo(countryCodeISO3):
         ) aad
         left join "IBF-app"."admin-area" aa 
             on aad."placeCode" = aa."placeCode" 
-        left join "IBF-app"."glofas-station-trigger" gst 
+        left join "IBF-app"."glofas-station-forecast" gst 
             on aa."glofasStation" = gst."stationCode" 
             and aad.lead_time = gst."leadTime" 
         where aad.countryCodeISO3 = \'''' + countryCodeISO3 + '''\'

@@ -90,28 +90,6 @@ export class DataService {
     return country.countryActiveLeadTimes[0].leadTimeName;
   }
 
-  public async getStations(
-    countryCodeISO3: string,
-    leadTime: string,
-  ): Promise<GeoJson> {
-    const query =
-      ' select * \
-    from "IBF-API"."Glofas_stations" \
-    where 0 = 0 \
-    and lead_time = $1 \
-    and countryCodeISO3 = $2 \
-    ';
-
-    const rawResult: GlofasStation[] = await this.manager.query(query, [
-      leadTime,
-      countryCodeISO3,
-    ]);
-
-    const result = this.toGeojson(rawResult);
-
-    return result;
-  }
-
   public async getRedCrossBranches(countryCodeISO3: string): Promise<GeoJson> {
     const query =
       ' select * \
