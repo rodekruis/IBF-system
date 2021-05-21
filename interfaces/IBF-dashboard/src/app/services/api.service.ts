@@ -121,13 +121,13 @@ export class ApiService {
     countryCodeISO3: string,
     leadTime: LeadTime = LeadTime.day7,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`stations/${countryCodeISO3}/${leadTime}`, false);
+    return this.get(`data/stations/${countryCodeISO3}/${leadTime}`, false);
   }
 
   getRedCrossBranches(
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`red-cross-branches/${countryCodeISO3}`, false);
+    return this.get(`data/red-cross-branches/${countryCodeISO3}`, false);
   }
 
   getHealthSites(
@@ -143,15 +143,15 @@ export class ApiService {
   }
 
   getRecentDates(countryCodeISO3: string): Observable<any> {
-    return this.get(`recent-dates/${countryCodeISO3}`, false);
+    return this.get(`data/recent-dates/${countryCodeISO3}`, false);
   }
 
   getTriggerPerLeadTime(countryCodeISO3: string): Observable<CountryTriggers> {
-    return this.get(`triggers/${countryCodeISO3}`, false);
+    return this.get(`data/triggers/${countryCodeISO3}`, false);
   }
 
   getEvent(countryCodeISO3: string): Observable<any> {
-    return this.get(`event/${countryCodeISO3}`, false);
+    return this.get(`data/event/${countryCodeISO3}`, false);
   }
 
   getAdminRegions(
@@ -160,14 +160,14 @@ export class ApiService {
     adminLevel: AdminLevel = AdminLevel.adm1,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
-      `admin-area-data/${countryCodeISO3}/${adminLevel}/` +
+      `data/admin-area-data/${countryCodeISO3}/${adminLevel}/` +
         (leadTime ? leadTime : ''),
       false,
     );
   }
 
   getTriggeredAreas(countryCodeISO3: string) {
-    return this.get(`triggered-areas/${countryCodeISO3}`, false);
+    return this.get(`data/triggered-areas/${countryCodeISO3}`, false);
   }
 
   getIndicators(countryCodeISO3: string) {
@@ -177,10 +177,10 @@ export class ApiService {
   getAdminAreaData(
     countryCodeISO3: string,
     adminLevel: AdminLevel,
-    key: string,
+    indicator: string,
   ) {
     return this.get(
-      `adminAreaData/${countryCodeISO3}/${adminLevel}/${key}`,
+      `admin-area-data/${countryCodeISO3}/${adminLevel}/${indicator}`,
       false,
     );
   }
@@ -189,10 +189,10 @@ export class ApiService {
     countryCodeISO3: string,
     adminLevel: AdminLevel,
     leadTime: LeadTime,
-    key: string,
+    indicator: string,
   ) {
     return this.get(
-      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${leadTime}/${key}`,
+      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${leadTime}/${indicator}`,
       false,
     );
   }

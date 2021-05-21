@@ -9,7 +9,7 @@ select "countryCodeISO3"
 		,"contactAddress"
 		,"contactNumber"
 		, ST_AsGeoJSON(st_astext(geom))::json as geom
-from "IBF-app"."redcrossBranch"
+from "IBF-app"."redcross-branch"
 ;
 --select * from "IBF-API".redcross_branches
 --
@@ -31,9 +31,9 @@ from (
 		,"stationName" as station_name
 		,"triggerLevel" as trigger_level
 		,ST_AsGeoJSON(geom)::json As geom
-	from "IBF-app"."glofasStation" gs
+	from "IBF-app"."glofas-station" gs
 	) dgsv
-left join "IBF-app"."glofasStationTrigger" gst
+left join "IBF-app"."glofas-station-trigger" gst
 	on dgsv.station_code = gst."stationCode" 
 	and dgsv.countryCodeISO3 = gst."countryCodeISO3" 
 	and gst.date = current_date
@@ -43,19 +43,19 @@ left join "IBF-app"."glofasStationTrigger" gst
 drop table if exists "IBF-API".admin_area_data_pivoted;
 create table "IBF-API".admin_area_data_pivoted as
 select aa."placeCode"
-		,max(case when key = 'population_over65' then value end) as population_over65
-		,max(case when key = 'female_head_hh' then value end) as female_head_hh
-		,max(case when key = 'population_u8' then value end) as population_u8
-		,max(case when key = 'poverty_incidence' then value end) as poverty_incidence
-		,max(case when key = 'roof_type' then value end) as roof_type
-		,max(case when key = 'wall_type' then value end) as wall_type
-		,max(case when key = 'Weighted Vulnerability Index' then value end) as vulnerability_index
-		,max(case when key = 'covid_risk' then value end) as covid_risk
-		,max(case when key = 'population_u9' then value end) as population_u9
-		,max(case when key = 'dengue_incidence_average' then value end) as dengue_incidence_average
-		,max(case when key = 'dengue_cases_average' then value end) as dengue_cases_average
-from "IBF-app"."adminArea" aa
-left join "IBF-app"."adminAreaData" aad
+		,max(case when indicator = 'population_over65' then value end) as population_over65
+		,max(case when indicator = 'female_head_hh' then value end) as female_head_hh
+		,max(case when indicator = 'population_u8' then value end) as population_u8
+		,max(case when indicator = 'poverty_incidence' then value end) as poverty_incidence
+		,max(case when indicator = 'roof_type' then value end) as roof_type
+		,max(case when indicator = 'wall_type' then value end) as wall_type
+		,max(case when indicator = 'Weighted Vulnerability Index' then value end) as vulnerability_index
+		,max(case when indicator = 'covid_risk' then value end) as covid_risk
+		,max(case when indicator = 'population_u9' then value end) as population_u9
+		,max(case when indicator = 'dengue_incidence_average' then value end) as dengue_incidence_average
+		,max(case when indicator = 'dengue_cases_average' then value end) as dengue_cases_average
+from "IBF-app"."admin-area" aa
+left join "IBF-app"."admin-area-data" aad
 	on aa."placeCode" = aad."placeCode"
 group by 1
 ;
@@ -71,16 +71,16 @@ select geo."placeCode"
 	, lead_time
 	, population_affected
 	, row_to_json(daad.*) as indicators
-from "IBF-app"."adminArea" geo
+from "IBF-app"."admin-area" geo
 left join (
 	select "countryCodeISO3" as countryCodeISO3 
 		,"leadTime" as lead_time
 		,date
 		,"placeCode" 
 		,value as population_affected
-	from "IBF-app".admin_area_dynamic_data
+	from "IBF-app"."admin-area-dynamic-data"
 	where date = current_date 
-	and key = 'population_affected'
+	and indicator = 'population_affected'
 ) ca
 	on geo."placeCode" = ca."placeCode"  
 	and geo."countryCodeISO3" = ca.countryCodeISO3 
@@ -101,16 +101,16 @@ select geo."placeCode"
 	, lead_time
 	, population_affected
 	, row_to_json(daad.*) as indicators
-from "IBF-app"."adminArea" geo
+from "IBF-app"."admin-area" geo
 left join (
 	select "countryCodeISO3" as countryCodeISO3 
 		,"leadTime" as lead_time
 		,date
 		,"placeCode" 
 		,value as population_affected
-	from "IBF-app".admin_area_dynamic_data
+	from "IBF-app"."admin-area-dynamic-data"
 	where date = current_date 
-	and key = 'population_affected'
+	and indicator = 'population_affected'
 ) ca
 	on geo."placeCode" = ca."placeCode"  
 	and geo."countryCodeISO3" = ca.countryCodeISO3 

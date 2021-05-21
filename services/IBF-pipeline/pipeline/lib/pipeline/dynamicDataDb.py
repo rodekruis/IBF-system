@@ -54,7 +54,7 @@ class DatabaseManager:
             'leadTime': self.leadTimeLabel,
             'stationForecasts': stationForecasts
         }
-        self.apiPostRequest('glofasStations/triggers', body)
+        self.apiPostRequest('glofas-stations/triggers', body)
         print('Uploaded triggers per station')
 
     def uploadTriggersPerLeadTime(self):
