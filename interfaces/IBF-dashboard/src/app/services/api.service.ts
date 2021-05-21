@@ -127,7 +127,7 @@ export class ApiService {
   getRedCrossBranches(
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`data/red-cross-branches/${countryCodeISO3}`, false);
+    return this.get(`redcross-branches/${countryCodeISO3}`, false);
   }
 
   getHealthSites(

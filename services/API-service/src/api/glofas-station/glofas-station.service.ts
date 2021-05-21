@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { DataService } from '../data/data.service';
-import { GeoJson } from '../data/geo.model';
+import { GeoJson } from '../../shared/geo.model';
 import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
 import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
+import { HelperService } from '../../shared/helper.service';
 
 @Injectable()
 export class GlofasStationService {
@@ -17,10 +17,10 @@ export class GlofasStationService {
     GlofasStationForecastEntity
   >;
 
-  private readonly dataService: DataService;
+  private readonly helperService: HelperService;
 
-  public constructor(dataService: DataService) {
-    this.dataService = dataService;
+  public constructor(helperService: HelperService) {
+    this.helperService = helperService;
   }
 
   public async getStationsByCountry(
@@ -58,7 +58,7 @@ export class GlofasStationService {
       .andWhere('date = current_date')
       .getRawMany();
 
-    return this.dataService.toGeojson(stationForecasts);
+    return this.helperService.toGeojson(stationForecasts);
   }
 
   public async uploadTriggerDataPerStation(

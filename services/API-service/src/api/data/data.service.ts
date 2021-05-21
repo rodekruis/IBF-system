@@ -3,15 +3,10 @@ import { EventSummaryCountry } from './data.model';
 /* eslint-disable @typescript-eslint/camelcase */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, Repository, getManager } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { AdminAreaDataRecord, TriggeredArea } from './data.model';
-import {
-  GeoJson,
-  GeoJsonFeature,
-  GlofasStation,
-  RedCrossBranch,
-} from './geo.model';
+import { GeoJson, GeoJsonFeature } from '../../shared/geo.model';
 import fs from 'fs';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { CountryEntity } from '../country/country.entity';
@@ -88,23 +83,6 @@ export class DataService {
     }
     // If country does not have 7 day or 1 month lead time return the first
     return country.countryActiveLeadTimes[0].leadTimeName;
-  }
-
-  public async getRedCrossBranches(countryCodeISO3: string): Promise<GeoJson> {
-    const query =
-      ' select * \
-    from "IBF-API"."redcross_branches" \
-    where 0 = 0 \
-    and "countryCodeISO3" = $1 \
-    ';
-
-    const rawResult: RedCrossBranch[] = await this.manager.query(query, [
-      countryCodeISO3,
-    ]);
-
-    const result = this.toGeojson(rawResult);
-
-    return result;
   }
 
   public async getRecentDates(countryCodeISO3: string): Promise<object[]> {

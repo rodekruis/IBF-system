@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { getManager, Repository } from 'typeorm';
+import { getManager } from 'typeorm';
 import { DataService } from '../data/data.service';
-import { GeoJson, GeoJsonFeature } from '../data/geo.model';
 import { HealthSiteEntity } from './health-site.entity';
 
 @Injectable()

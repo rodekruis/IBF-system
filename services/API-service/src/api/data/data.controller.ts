@@ -9,7 +9,7 @@ import { RolesGuard } from '../../roles.guard';
 
 import { TriggeredArea, EventSummaryCountry } from './data.model';
 import { DataService } from './data.service';
-import { GeoJson } from './geo.model';
+import { GeoJson } from '../../shared/geo.model';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -20,13 +20,6 @@ export class DataController {
 
   public constructor(dataService: DataService) {
     this.dataService = dataService;
-  }
-
-  @ApiOperation({ summary: 'Get Red Cross branch locations' })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @Get('red-cross-branches/:countryCodeISO3')
-  public async getRedCrossBranches(@Param() params): Promise<GeoJson> {
-    return await this.dataService.getRedCrossBranches(params.countryCodeISO3);
   }
 
   @ApiOperation({ summary: 'Get recent dates' })

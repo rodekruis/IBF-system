@@ -56,7 +56,7 @@ export class SeedRedcrossBranches implements InterfaceScript {
                 contactAddress: branch['contact_address'],
                 contactNumber: branch['contact_number'],
                 geom: (): string =>
-                  `st_MakePoint(${branch['lon']}, ${branch['lat']})`,
+                  `st_asgeojson(st_MakePoint(${branch['lon']}, ${branch['lat']}))::json`,
               })
               .execute();
           },

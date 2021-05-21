@@ -5,8 +5,8 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
+import { GeoJson } from 'src/shared/geo.model';
 import { RolesGuard } from '../../roles.guard';
-import { RedcrossBranchEntity } from './redcross-branch.entity';
 import { RedcrossBranchService } from './redcross-branch.service';
 
 @ApiBearerAuth()
@@ -20,11 +20,10 @@ export class RedcrossBranchController {
     this.redcrossBranchService = redcrossBranchService;
   }
 
-  // NOTE: this endpoint is to be used by the IBF-dashboard instead of the current one in data.controller.ts > TO DO
   @ApiOperation({ summary: 'Get Red Cross branches by country' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @Get(':countryCodeISO3')
-  public async getBranches(@Param() params): Promise<RedcrossBranchEntity[]> {
+  public async getBranches(@Param() params): Promise<GeoJson> {
     return await this.redcrossBranchService.getBranchesByCountry(
       params.countryCodeISO3,
     );

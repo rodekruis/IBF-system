@@ -1,4 +1,4 @@
-import { Geometry } from './geo.model';
+import { Geometry } from '../../shared/geo.model';
 
 export class AdminAreaDataRecord {
   public pcode_level2: string;

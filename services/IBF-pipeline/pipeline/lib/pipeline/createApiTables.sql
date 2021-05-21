@@ -1,17 +1,3 @@
---
---create API view for Glofas stations
-DROP TABLE IF EXISTS "IBF-API".redcross_branches;
-create table "IBF-API".redcross_branches as
-select "countryCodeISO3"
-		,"name"
-		,"numberOfVolunteers"
-		,"contactPerson"
-		,"contactAddress"
-		,"contactNumber"
-		, ST_AsGeoJSON(st_astext(geom))::json as geom
-from "IBF-app"."redcross-branch"
-;
---select * from "IBF-API".redcross_branches
 
 drop table if exists "IBF-API".admin_area_data_pivoted;
 create table "IBF-API".admin_area_data_pivoted as

@@ -28,10 +28,10 @@ def main():
                               COUNTRY_SETTINGS['model'])
                 if COUNTRY_SETTINGS['model'] == 'rainfall':
                     fc.rainfallData.process()
-                # if COUNTRY_SETTINGS['model'] == 'glofas':
-                #     fc.glofasData.process()
-                #     fc.floodExtent.calculate()
-                # fc.exposure.callAllExposure()
+                if COUNTRY_SETTINGS['model'] == 'glofas':
+                    fc.glofasData.process()
+                    fc.floodExtent.calculate()
+                fc.exposure.callAllExposure()
                 fc.db.upload()
             fc.db.processDynamicDataDb()
             notify(COUNTRY_CODE)
