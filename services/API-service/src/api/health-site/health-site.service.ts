@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { HelperService } from '../../shared/helper.service';
 import { getManager } from 'typeorm';
-import { DataService } from '../data/data.service';
 import { HealthSiteEntity } from './health-site.entity';
 
 @Injectable()
 export class HealthSiteService {
-  private readonly dataService: DataService;
+  private readonly helperService: HelperService;
 
-  public constructor(dataService: DataService) {
-    this.dataService = dataService;
+  public constructor(helperService: HelperService) {
+    this.helperService = helperService;
   }
 
   public async getHealthSitesCountry(countryCodeISO3: string): Promise<any> {
@@ -23,6 +23,6 @@ export class HealthSiteService {
       })
       .getRawMany();
 
-    return this.dataService.toGeojson(queryResult);
+    return this.helperService.toGeojson(queryResult);
   }
 }

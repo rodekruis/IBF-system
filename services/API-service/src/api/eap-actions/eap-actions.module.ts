@@ -8,7 +8,6 @@ import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionsController } from './eap-actions.controller';
 import { EapActionsService } from './eap-actions.service';
-import { DataService } from '../data/data.service';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 
 @Module({
@@ -25,6 +24,6 @@ import { AreaOfFocusEntity } from './area-of-focus.entity';
     HttpModule,
   ],
   controllers: [EapActionsController],
-  providers: [EapActionsService, DataService],
+  providers: [EapActionsService],
 })
 export class EapActionsModule {}

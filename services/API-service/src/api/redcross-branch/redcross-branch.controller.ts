@@ -5,7 +5,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { GeoJson } from 'src/shared/geo.model';
+import { GeoJson } from '../../shared/geo.model';
 import { RolesGuard } from '../../roles.guard';
 import { RedcrossBranchService } from './redcross-branch.service';
 

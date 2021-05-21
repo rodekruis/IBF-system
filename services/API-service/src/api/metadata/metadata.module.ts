@@ -1,20 +1,21 @@
 import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataModule } from '../data/data.module';
 import { UserModule } from '../user/user.module';
 import { MetadataController } from './metadata.controller';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { MetadataService } from './metadata.service';
 import { LayerMetadataEntity } from './layer-metadata.entity';
+import { HelperService } from '../../shared/helper.service';
+import { EventModule } from '../event/event.module';
 
 @Module({
   imports: [
     HttpModule,
     UserModule,
     TypeOrmModule.forFeature([IndicatorMetadataEntity, LayerMetadataEntity]),
-    DataModule,
+    EventModule,
   ],
-  providers: [MetadataService],
+  providers: [MetadataService, HelperService],
   controllers: [MetadataController],
   exports: [MetadataService],
 })

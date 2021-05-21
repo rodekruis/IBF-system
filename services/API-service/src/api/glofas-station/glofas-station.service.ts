@@ -66,17 +66,18 @@ export class GlofasStationService {
   ): Promise<GlofasStationForecastEntity[]> {
     const stationForecasts: GlofasStationForecastEntity[] = [];
     for await (let station of uploadTriggerPerStation.stationForecasts) {
+      const glofasStation = await this.glofasStationRepository.findOne({
+        where: { stationCode: station.stationCode },
+      });
+
       // Delete existsing entries with same date, leadTime and countryCodeISO3 and stationCode
       await this.glofasStationForecastRepository.delete({
-        glofasStation: { stationCode: station.stationCode },
+        glofasStation: glofasStation,
         leadTime: uploadTriggerPerStation.leadTime,
         date: new Date(),
       });
 
       const stationForecast = new GlofasStationForecastEntity();
-      const glofasStation = await this.glofasStationRepository.findOne({
-        where: { stationCode: station.stationCode },
-      });
       stationForecast.glofasStation = glofasStation;
       stationForecast.leadTime = uploadTriggerPerStation.leadTime;
       stationForecast.date = new Date();

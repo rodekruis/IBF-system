@@ -5,6 +5,7 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
+import { GeoJson } from '../../shared/geo.model';
 import { RolesGuard } from '../../roles.guard';
 import { AdminAreaService } from './admin-area.service';
 
@@ -27,6 +28,19 @@ export class AdminAreaController {
   @Get(':countryCodeISO3')
   public async getAdminAreas(@Param() params): Promise<any[]> {
     return await this.adminAreaService.getAdminAreas(params.countryCodeISO3);
+  }
+
+  @ApiOperation({ summary: 'Get admin-area by leadTime' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'leadTime', required: false, type: 'string' })
+  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @Get('per-leadtime/:countryCodeISO3/:adminLevel/:leadTime?')
+  public async getAdminAreaData(@Param() params): Promise<GeoJson> {
+    return await this.adminAreaService.getAdminAreasPerLeadTime(
+      params.countryCodeISO3,
+      params.leadTime,
+      params.adminLevel,
+    );
   }
 
   @ApiOperation({
