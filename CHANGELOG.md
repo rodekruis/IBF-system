@@ -1,3 +1,14 @@
+## [0.60.1](https://github.com/rodekruis/IBF-system/compare/v0.60.0...v0.60.1) (2021-05-21)
+
+
+### Bug Fixes
+
+* don't try download if mock AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([79699ab](https://github.com/rodekruis/IBF-system/commit/79699abe2123bc87300a04098e0f8ca518b2e109))
+* indentation ([a4de40e](https://github.com/rodekruis/IBF-system/commit/a4de40ef505c85d61abf7b0dcca177dd19b2eba8))
+* remove changes other open branch AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([bfdc3c2](https://github.com/rodekruis/IBF-system/commit/bfdc3c21f769b280e46e3dbd774e632550c5c44f))
+
+
+
 # [0.60.0](https://github.com/rodekruis/IBF-system/compare/v0.59.3...v0.60.0) (2021-05-19)
 
 
@@ -142,15 +153,6 @@
 * remove unused functions AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([f8e5d24](https://github.com/rodekruis/IBF-system/commit/f8e5d244689a4fa0afab1ab5501714c6c3d0caed))
 * use container-name instead of assign ip AB[#6806](https://github.com/rodekruis/IBF-system/issues/6806) ([605ea22](https://github.com/rodekruis/IBF-system/commit/605ea220e84447456ad1321007176beba2e1d306))
 * use typeORM save instead of insert-querybuilder where possible AB[#7093](https://github.com/rodekruis/IBF-system/issues/7093) ([defe8da](https://github.com/rodekruis/IBF-system/commit/defe8dabebd5e474b67787eab19c606f2862bb48))
-
-
-
-## [0.57.2](https://github.com/rodekruis/IBF-system/compare/v0.57.1...v0.57.2) (2021-04-19)
-
-
-### Bug Fixes
-
-* update EAP link UGA AB[#7051](https://github.com/rodekruis/IBF-system/issues/7051) ([e49d3ea](https://github.com/rodekruis/IBF-system/commit/e49d3eab78e9b99de29ba961c6d8b67f55567c0a))
 
 
 
