@@ -9,18 +9,18 @@ import { GlofasStationEntity } from './glofas-station.entity';
 import { GlofasStationService } from './glofas-station.service';
 
 @Module({
-    imports: [
-        HttpModule,
-        UserModule,
-        TypeOrmModule.forFeature([
-            GlofasStationEntity,
-            GlofasStationTriggerEntity,
-            AdminAreaEntity,
-            AdminAreaDynamicDataEntity,
-        ]),
-    ],
-    providers: [GlofasStationService],
-    controllers: [GlofasStationController],
-    exports: [GlofasStationService],
+  imports: [
+    HttpModule,
+    UserModule,
+    TypeOrmModule.forFeature([
+      GlofasStationEntity,
+      GlofasStationTriggerEntity,
+      AdminAreaEntity,
+      AdminAreaDynamicDataEntity,
+    ]),
+  ],
+  providers: [GlofasStationService],
+  controllers: [GlofasStationController],
+  exports: [GlofasStationService],
 })
 export class GlofasStationModule {}

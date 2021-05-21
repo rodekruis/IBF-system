@@ -4,30 +4,30 @@ import { EapActionEntity } from './eap-action.entity';
 
 @Entity('eap-action-status')
 export class EapActionStatusEntity {
-    @PrimaryGeneratedColumn()
-    public id: number;
+  @PrimaryGeneratedColumn()
+  public id: number;
 
-    @ManyToOne(
-        (): typeof EapActionEntity => EapActionEntity,
-        (eapActionStatus): EapActionStatusEntity[] => eapActionStatus.checked,
-    )
-    public actionChecked: EapActionEntity;
+  @ManyToOne(
+    (): typeof EapActionEntity => EapActionEntity,
+    (eapActionStatus): EapActionStatusEntity[] => eapActionStatus.checked,
+  )
+  public actionChecked: EapActionEntity;
 
-    @Column()
-    public status: boolean;
+  @Column()
+  public status: boolean;
 
-    @Column('uuid')
-    public eventPlaceCodeId: string;
+  @Column('uuid')
+  public eventPlaceCodeId: string;
 
-    @Column()
-    public placeCode: string;
+  @Column()
+  public placeCode: string;
 
-    @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
-    public timestamp: Date;
+  @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
+  public timestamp: Date;
 
-    @ManyToOne(
-        (): typeof UserEntity => UserEntity,
-        (user): EapActionStatusEntity[] => user.actions,
-    )
-    public user: UserEntity;
+  @ManyToOne(
+    (): typeof UserEntity => UserEntity,
+    (user): EapActionStatusEntity[] => user.actions,
+  )
+  public user: UserEntity;
 }

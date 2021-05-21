@@ -9,15 +9,15 @@ import { CountryService } from './country.service';
 @ApiTags('country')
 @Controller('country')
 export class CountryController {
-    private readonly countryService: CountryService;
+  private readonly countryService: CountryService;
 
-    public constructor(countryService: CountryService) {
-        this.countryService = countryService;
-    }
+  public constructor(countryService: CountryService) {
+    this.countryService = countryService;
+  }
 
-    @ApiOperation({ summary: 'Get country data' })
-    @Get()
-    public async getCountries(): Promise<CountryEntity[]> {
-        return await this.countryService.findAll();
-    }
+  @ApiOperation({ summary: 'Get country data' })
+  @Get()
+  public async getCountries(): Promise<CountryEntity[]> {
+    return await this.countryService.findAll();
+  }
 }

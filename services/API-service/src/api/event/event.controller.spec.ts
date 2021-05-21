@@ -9,30 +9,30 @@ import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-are
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 
 describe('EventController', (): void => {
-    let controller: EventController;
+  let controller: EventController;
 
-    beforeEach(
-        async (): Promise<void> => {
-            const module: TestingModule = await Test.createTestingModule({
-                imports: [
-                    TypeOrmModule.forRoot(),
-                    TypeOrmModule.forFeature([
-                        UserEntity,
-                        EventPlaceCodeEntity,
-                        AdminAreaDynamicDataEntity,
-                        TriggerPerLeadTime,
-                    ]),
-                    UserModule,
-                ],
-                controllers: [EventController],
-                providers: [EventService],
-            }).compile();
+  beforeEach(
+    async (): Promise<void> => {
+      const module: TestingModule = await Test.createTestingModule({
+        imports: [
+          TypeOrmModule.forRoot(),
+          TypeOrmModule.forFeature([
+            UserEntity,
+            EventPlaceCodeEntity,
+            AdminAreaDynamicDataEntity,
+            TriggerPerLeadTime,
+          ]),
+          UserModule,
+        ],
+        controllers: [EventController],
+        providers: [EventService],
+      }).compile();
 
-            controller = module.get<EventController>(EventController);
-        },
-    );
+      controller = module.get<EventController>(EventController);
+    },
+  );
 
-    it('should be defined', (): void => {
-        expect(controller).toBeDefined();
-    });
+  it('should be defined', (): void => {
+    expect(controller).toBeDefined();
+  });
 });

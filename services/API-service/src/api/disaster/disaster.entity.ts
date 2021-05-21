@@ -1,36 +1,36 @@
 import { CountryEntity } from './../country/country.entity';
 import {
-    Column,
-    Entity,
-    JoinTable,
-    ManyToMany,
-    PrimaryGeneratedColumn,
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { DisasterType } from './disaster-type.enum';
 
 @Entity('disaster')
 export class DisasterEntity {
-    @PrimaryGeneratedColumn('uuid')
-    public id: string;
+  @PrimaryGeneratedColumn('uuid')
+  public id: string;
 
-    @Column()
-    public disasterType: DisasterType;
+  @Column()
+  public disasterType: DisasterType;
 
-    @Column()
-    public label: string;
+  @Column()
+  public label: string;
 
-    @ManyToMany(
-        (): typeof CountryEntity => CountryEntity,
-        (countries): DisasterEntity[] => countries.disasterTypes,
-    )
-    @JoinTable()
-    public countries: CountryEntity[];
+  @ManyToMany(
+    (): typeof CountryEntity => CountryEntity,
+    (countries): DisasterEntity[] => countries.disasterTypes,
+  )
+  @JoinTable()
+  public countries: CountryEntity[];
 
-    @ManyToMany(
-        (): typeof LeadTimeEntity => LeadTimeEntity,
-        (leadTime): DisasterEntity[] => leadTime.disasterTypes,
-    )
-    @JoinTable()
-    public leadTimes: LeadTimeEntity[];
+  @ManyToMany(
+    (): typeof LeadTimeEntity => LeadTimeEntity,
+    (leadTime): DisasterEntity[] => leadTime.disasterTypes,
+  )
+  @JoinTable()
+  public leadTimes: LeadTimeEntity[];
 }

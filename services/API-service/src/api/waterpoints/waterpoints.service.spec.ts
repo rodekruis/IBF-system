@@ -6,24 +6,24 @@ import { CountryEntity } from '../country/country.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 describe('Waterpoints service', (): void => {
-    let service: WaterpointsService;
+  let service: WaterpointsService;
 
-    beforeAll(
-        async (): Promise<void> => {
-            const module: TestingModule = await Test.createTestingModule({
-                imports: [
-                    HttpModule,
-                    TypeOrmModule.forRoot(),
-                    TypeOrmModule.forFeature([CountryEntity]),
-                ],
-                providers: [WaterpointsService, CountryService],
-            }).compile();
+  beforeAll(
+    async (): Promise<void> => {
+      const module: TestingModule = await Test.createTestingModule({
+        imports: [
+          HttpModule,
+          TypeOrmModule.forRoot(),
+          TypeOrmModule.forFeature([CountryEntity]),
+        ],
+        providers: [WaterpointsService, CountryService],
+      }).compile();
 
-            service = module.get<WaterpointsService>(WaterpointsService);
-        },
-    );
+      service = module.get<WaterpointsService>(WaterpointsService);
+    },
+  );
 
-    it('should be defined', (): void => {
-        expect(service).toBeDefined();
-    });
+  it('should be defined', (): void => {
+    expect(service).toBeDefined();
+  });
 });

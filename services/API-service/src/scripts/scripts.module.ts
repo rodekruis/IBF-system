@@ -9,20 +9,20 @@ import { ScriptsService } from './scripts.service';
 import { EventModule } from '../api/event/event.module';
 
 @Module({
-    imports: [
-        TypeOrmModule.forRoot({
-            migrations: [`src/migrations/*.{ts,js}`],
-            entities: ['src/app/**/*.entity.{ts,js}'],
-        }),
-        AdminAreaDynamicDataModule,
-        GlofasStationModule,
-        EventModule,
-    ],
-    providers: [SeedInit, ScriptsService],
-    controllers: [ScriptsController],
+  imports: [
+    TypeOrmModule.forRoot({
+      migrations: [`src/migrations/*.{ts,js}`],
+      entities: ['src/app/**/*.entity.{ts,js}'],
+    }),
+    AdminAreaDynamicDataModule,
+    GlofasStationModule,
+    EventModule,
+  ],
+  providers: [SeedInit, ScriptsService],
+  controllers: [ScriptsController],
 })
 export class ScriptsModule {}
 
 export interface InterfaceScript {
-    run(argv: Arguments): Promise<void>;
+  run(argv: Arguments): Promise<void>;
 }
