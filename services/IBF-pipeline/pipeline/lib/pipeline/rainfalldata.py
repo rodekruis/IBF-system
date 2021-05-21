@@ -39,7 +39,7 @@ class RainfallData:
         if not self.downloaded:
             self.removeOldForecastData()
             self.download()
-        if SETTINGS_SECRET[self.countryCodeISO3]['mock'] == False:
+        if SETTINGS_SECRET[self.countryCodeISO3]['mock'] == True:
             self.findTrigger_mock()
         else:
             self.findTrigger()
@@ -50,7 +50,7 @@ class RainfallData:
             os.remove(os.path.join(self.inputPath, f))
 
     def download(self):
-        if SETTINGS_SECRET[self.countryCodeISO3]['mock'] == False:
+        if SETTINGS_SECRET[self.countryCodeISO3]['mock'] == True:
             self.inputPath = PIPELINE_DATA + 'input/rainfall_dummy/'
 
         else:
@@ -208,10 +208,10 @@ class RainfallData:
         grb = xr.open_dataset(file_dir)
         grb_clip = grb.sel(latitude=lats, longitude=lons) # clip grb with country extent
 
-        #for leadtime in np.unique(df.forecast_time.values):
+        #for leadtime in np.unique(df.leadTime.values):
             
         ## threshold (1 degree)
-        df_leadtime = df_thresholds[df_thresholds.forecast_time == self.leadTimeValue]
+        df_leadtime = df_thresholds[df_thresholds.leadTime == self.leadTimeValue]
         geometry = [Point(xy) for xy in zip(
             df_leadtime.lon.astype(float), df_leadtime.lat.astype(float))]
         threshold_gdf = gpd.GeoDataFrame(df_leadtime, geometry=geometry)
@@ -230,15 +230,15 @@ class RainfallData:
                                 how='left', op='intersects')
         
         # interpolate NaN cells
-        known = ~np.isnan(compare_gdf['forecast_time'])
+        known = ~np.isnan(compare_gdf['leadTime'])
         unknown = ~known
         z = griddata((compare_gdf['longitude'][known], compare_gdf['latitude'][known]), 
-                     compare_gdf[self.rainfall_cols][known], 
+                     compare_gdf['triggerLevel'][known], 
                      (compare_gdf['longitude'][unknown], compare_gdf['latitude'][unknown]))
-        compare_gdf[self.rainfall_cols][unknown] = z.tolist()
+        compare_gdf['triggerLevel'][unknown] = z.tolist()
         
         compare_gdf[str(str(self.leadTimeLabel)+'_pred')] = np.where(
-            (compare_gdf['APCP_surface'] > compare_gdf[self.rainfall_cols]), 1, 0)
+            (compare_gdf['APCP_surface'] > compare_gdf['triggerLevel']), 1, 0)
         compare_gdf['time'] = compare_gdf['time'].astype(str)
         df_trigger = compare_gdf.filter(
             ['latitude','longitude','geometry',str(str(self.leadTimeLabel)+'_pred')])
@@ -307,10 +307,10 @@ class RainfallData:
 
         # runcycle_day = str(grb_clip.time.dt.year.values) + '%02d'%grb_clip.time.dt.month.values + '%02d'%grb_clip.time.dt.day.values
 
-        # for leadtime in np.unique(df_thresholds.forecast_time.values):
+        # for leadtime in np.unique(df_thresholds.leadTime.values):
 
         ## threshold (1 degree)
-        df_leadtime = df_thresholds[df_thresholds.forecast_time == self.leadTimeValue]
+        df_leadtime = df_thresholds[df_thresholds.leadTime == self.leadTimeValue]
         geometry = [Point(xy) for xy in zip(df_leadtime.lon.astype(float), df_leadtime.lat.astype(float))]
         threshold_gdf = gpd.GeoDataFrame(df_leadtime, geometry=geometry).set_crs("EPSG:4326")
 
@@ -323,20 +323,20 @@ class RainfallData:
         compare_gdf = gpd.sjoin(fc_gdf, threshold_gdf, how='left', op='intersects')
 
         # interpolate NaN cells
-        known = ~np.isnan(compare_gdf['forecast_time'])
+        known = ~np.isnan(compare_gdf['leadTime'])
         unknown = ~known
         z = griddata((compare_gdf['longitude'][known], compare_gdf['latitude'][known]),
-                     compare_gdf[self.rainfall_cols][known],
+                     compare_gdf['triggerLevel'][known],
                      (compare_gdf['longitude'][unknown], compare_gdf['latitude'][unknown]))
-        compare_gdf[self.rainfall_cols][unknown] = z.tolist()
+        compare_gdf['triggerLevel'][unknown] = z.tolist()
 
         compare_gdf[str(str(self.leadTimeLabel) + '_pred')] = np.where(
-            (compare_gdf['mean_by_day'] > compare_gdf[self.rainfall_cols]), 1, 0)
+            (compare_gdf['mean_by_day'] > compare_gdf['triggerLevel']), 1, 0)
         compare_gdf['fc_day'] = compare_gdf['fc_day'].astype(str)
         df_trigger = compare_gdf.filter(['latitude', 'longitude', 'geometry', str(str(self.leadTimeLabel) + '_pred')])
 
         # out = df_trigger.to_json()
-        # output_name = '%s_%sday_'%(runcycle_day, self.leadTimeLabel) +self.rainfall_cols
+        # output_name = '%s_%sday_'%(runcycle_day, self.leadTimeLabel) + 'triggerLevel'
         # with open(self.triggersPerStationPath, 'w') as fp:
         #     fp.write(out)
             
