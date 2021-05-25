@@ -375,8 +375,7 @@ export class MapService {
         indicator.group === IndicatorGroup.outline
           ? IbfLayerGroup.outline
           : IbfLayerGroup.aggregates,
-      order:
-        indicator.group === IndicatorGroup.outline ? 100 : 20 + indicator.order,
+      order: 20 + indicator.order,
       dynamic: indicator.dynamic,
       unit: indicator.unit,
     });

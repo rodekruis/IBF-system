@@ -2,16 +2,19 @@
   {
     "disasterType": "floods",
     "label": "floods",
-    "triggerUnit": "population"
+    "triggerUnit": "population",
+    "actionsUnit": "population"
   },
   {
     "disasterType": "heavy-rain",
     "label": "heavy rain",
-    "triggerUnit": "population"
+    "triggerUnit": "population",
+    "actionsUnit": "population"
   },
   {
     "disasterType": "dengue",
     "label": "dengue",
-    "triggerUnit": "alert_threshold"
+    "triggerUnit": "alert_threshold",
+    "actionsUnit": "potential_cases"
   }
 ]

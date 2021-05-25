@@ -7,10 +7,16 @@ import { UserEntity } from '../user/user.entity';
 import { DataService } from './data.service';
 import { UserModule } from '../user/user.module';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
+import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity, TriggerPerLeadTime, CountryEntity]),
+    TypeOrmModule.forFeature([
+      UserEntity,
+      AdminAreaDynamicDataEntity,
+      TriggerPerLeadTime,
+      CountryEntity,
+    ]),
     UserModule,
     CountryModule,
   ],

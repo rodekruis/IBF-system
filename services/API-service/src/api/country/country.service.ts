@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterEntity } from '../disaster/disaster.entity';
 import { CountryEntity } from './country.entity';
 
 @Injectable()
@@ -46,17 +47,26 @@ export class CountryService {
     return triggerUnits;
   }
 
-  public async getDisasterTypesForCountry(
-    countryCodeISO3,
-  ): Promise<DisasterType[]> {
+  public async geDisasterEntitiesForCountry(
+    countryCodeISO3: string,
+  ): Promise<DisasterEntity[]> {
     const findOneOptions = {
       countryCodeISO3: countryCodeISO3,
     };
     const country = await this.countryRepository.findOne(findOneOptions, {
       relations: ['disasterTypes'],
     });
+    return country.disasterTypes;
+  }
+
+  public async getDisasterTypesForCountry(
+    countryCodeISO3: string,
+  ): Promise<DisasterType[]> {
+    const disasterEntities = await this.geDisasterEntitiesForCountry(
+      countryCodeISO3,
+    );
     const disasterTypes: DisasterType[] = [];
-    for (const disaster of country.disasterTypes) {
+    for (const disaster of disasterEntities) {
       disasterTypes.push(disaster.disasterType);
     }
     return disasterTypes;

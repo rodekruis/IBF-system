@@ -261,7 +261,7 @@
     "country_codes": "PHL",
     "name": "alert_threshold",
     "label": "Alert Threshold Reached",
-    "group": "general",
+    "group": "outline",
     "icon": "Person2-white.svg",
     "weightedAvg": true,
     "active": false,

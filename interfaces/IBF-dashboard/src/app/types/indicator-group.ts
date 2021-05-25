@@ -3,7 +3,7 @@ import { ColorBreaks, IbfLayerLabel, IbfLayerName } from './ibf-layer';
 export enum IndicatorGroup {
   general = 'Exposure',
   vulnerability = 'Vulnerability',
-  outline = 'Outline',
+  outline = 'outline',
 }
 
 export class Indicator {

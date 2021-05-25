@@ -55,6 +55,7 @@ export class SeedInit implements InterfaceScript {
         disasterEntity.disasterType = disaster.disasterType as DisasterType;
         disasterEntity.label = disaster.label;
         disasterEntity.triggerUnit = disaster.triggerUnit;
+        disasterEntity.actionsUnit = disaster.actionsUnit;
         return disasterEntity;
       },
     );

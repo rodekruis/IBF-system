@@ -1,3 +1,4 @@
+import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { DisasterType } from './../disaster/disaster-type.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { EventSummaryCountry } from './data.model';
@@ -28,6 +29,11 @@ export class DataService {
 
   @InjectRepository(TriggerPerLeadTime)
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
+
+  @InjectRepository(AdminAreaDynamicDataEntity)
+  private readonly adminAreaDynamicDataRepository: Repository<
+    AdminAreaDynamicDataEntity
+  >;
 
   private countryService: CountryService;
   public constructor(manager: EntityManager, countryService: CountryService) {
@@ -187,9 +193,38 @@ export class DataService {
     const query = fs
       .readFileSync('./src/api/data/sql/get-triggered-areas.sql')
       .toString();
+    const triggeredAreas = await this.manager.query(query, [countryCodeISO3]);
+    if (triggeredAreas.length === 0) {
+      return triggeredAreas;
+    }
+    const placeCodeArray = triggeredAreas.map((obj): string => {
+      return obj.placeCode;
+    });
+    const disasterEntities = await this.countryService.geDisasterEntitiesForCountry(
+      countryCodeISO3,
+    );
+    const queryAdminAreas = this.adminAreaDynamicDataRepository
+      .createQueryBuilder('area')
+      .select('area."placeCode", area."value"')
+      .where('"placeCode" IN(:...placeCodes)', {
+        placeCodes: placeCodeArray,
+      })
+      .andWhere('"key" = :unit', {
+        unit: disasterEntities[0].actionsUnit,
+      });
+    const areaActionUnitArray = await queryAdminAreas.getRawMany();
 
-    const result = await this.manager.query(query, [countryCodeISO3]);
-    return result;
+    for (let area of triggeredAreas) {
+      const foundAreaActionUnit = areaActionUnitArray.find(
+        (areaActionUnit): number => {
+          if (areaActionUnit.placeCode === area.placeCode) {
+            return areaActionUnit;
+          }
+        },
+      );
+      area.actionsUnit = foundAreaActionUnit.value;
+    }
+    return triggeredAreas;
   }
 
   public async getEventSummaryCountry(

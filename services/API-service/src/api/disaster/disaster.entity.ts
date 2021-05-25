@@ -23,6 +23,9 @@ export class DisasterEntity {
   @Column({ default: 'population' })
   public triggerUnit: string;
 
+  @Column({ default: 'population' })
+  public actionsUnit: string;
+
   @ManyToMany(
     (): typeof CountryEntity => CountryEntity,
     (countries): DisasterEntity[] => countries.disasterTypes,
