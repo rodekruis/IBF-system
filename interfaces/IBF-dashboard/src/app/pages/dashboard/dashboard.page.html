@@ -51,23 +51,21 @@
       <app-user-state></app-user-state>
       <ion-row slot="end" class="ion-align-items-center">
         <ion-col>
-          <ion-button
-            *ngIf="environmentConfiguration === 'stage'"
-            size="small"
-            color="ibf-salmon"
-            disabled
-            fill="solid"
-          >
-            Environment: {{ environmentConfiguration }}
-          </ion-button>
-        </ion-col>
-        <ion-col>
           <app-export-view class="ion-align-items-center"></app-export-view>
         </ion-col>
         <ion-col size="auto">
           <app-logos></app-logos>
         </ion-col>
       </ion-row>
+    </ion-toolbar>
+    <ion-toolbar
+      *ngIf="environmentConfiguration === 'stage'"
+      class="disclaimer-toolbar"
+      color="ibf-salmon"
+    >
+      <ion-title class="ion-text-center" size="small"
+        >Environment: {{ environmentConfiguration }}</ion-title
+      >
     </ion-toolbar>
   </ion-header>
 
