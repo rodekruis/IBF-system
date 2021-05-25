@@ -38,7 +38,6 @@ export class AdminAreaDynamicDataService {
     // Delete existing entries with same date, leadtime and countryCodeISO3 and unit typ
     await this.adminAreaDynamicDataRepo.delete({
       key: uploadExposure.dynamicDataUnit,
-      date: new Date(),
       countryCodeISO3: uploadExposure.countryCodeISO3,
       leadTime: uploadExposure.leadTime,
     });
@@ -58,7 +57,6 @@ export class AdminAreaDynamicDataService {
     const triggerUnits = await this.countryService.getTriggerUnitsForCountry(
       uploadExposure.countryCodeISO3,
     );
-    console.log('triggerUnits: ', triggerUnits, uploadExposure.dynamicDataUnit);
     if (triggerUnits.includes(uploadExposure.dynamicDataUnit)) {
       await this.insertTrigger(uploadExposure);
       const query = fs

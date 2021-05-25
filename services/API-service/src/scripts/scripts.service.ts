@@ -86,7 +86,7 @@ export class ScriptsService {
       } else if (exposureUnit === DynamicDataUnit.potentialCasesU9) {
         pcodeData.amount = Math.round(pcodeData.amount * 0.2);
       } else if (exposureUnit === DynamicDataUnit.alertThreshold) {
-        pcodeData.amount = Number(pcodeData.amount > 0);
+        pcodeData.amount = ['PH137500000', 'PH137400000', 'PH133900000', 'PH137600000', 'PH031400000'].includes(pcodeData.placeCode) ? 1: 0
       }
     }
     return copyOfExposureUnit;

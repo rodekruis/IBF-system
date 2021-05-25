@@ -1,3 +1,4 @@
+import { CountryModule } from './../country/country.module';
 import { CountryEntity } from './../country/country.entity';
 import { Module } from '@nestjs/common';
 import { DataController } from './data.controller';
@@ -11,6 +12,7 @@ import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
   imports: [
     TypeOrmModule.forFeature([UserEntity, TriggerPerLeadTime, CountryEntity]),
     UserModule,
+    CountryModule,
   ],
   providers: [DataService],
   controllers: [DataController],

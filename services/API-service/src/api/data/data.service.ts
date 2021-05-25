@@ -1,9 +1,10 @@
+import { DisasterType } from './../disaster/disaster-type.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { EventSummaryCountry } from './data.model';
 /* eslint-disable @typescript-eslint/camelcase */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, Repository, getManager } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { AdminAreaDataRecord, TriggeredArea } from './data.model';
 import {
@@ -15,6 +16,7 @@ import {
 import fs from 'fs';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { CountryEntity } from '../country/country.entity';
+import { CountryService } from '../country/country.service';
 
 @Injectable()
 export class DataService {
@@ -27,8 +29,10 @@ export class DataService {
   @InjectRepository(TriggerPerLeadTime)
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
 
-  public constructor(manager: EntityManager) {
+  private countryService: CountryService;
+  public constructor(manager: EntityManager, countryService: CountryService) {
     this.manager = manager;
+    this.countryService = countryService;
   }
 
   public async getAdminAreaData(
@@ -49,6 +53,10 @@ export class DataService {
       );
     }
 
+    const hasTriggerAlertThreshold = (
+      await this.countryService.getDisasterTypesForCountry(countryCodeISO3)
+    ).includes(DisasterType.Dengue);
+
     const query =
       `select *
     from "IBF-API"."Admin_area_data` +
@@ -57,7 +65,7 @@ export class DataService {
     where 0 = 0
     and lead_time = $1
     and countryCodeISO3 = $2`.concat(
-        placeCodes && placeCodes.length > 0
+        !hasTriggerAlertThreshold && placeCodes && placeCodes.length > 0
           ? ' and "placeCode" in (' + placeCodes.toString() + ')'
           : '',
       );
