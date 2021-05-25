@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { HelperService } from '../../shared/helper.service';
 import { RedcrossBranchEntity } from './redcross-branch.entity';
 import { RedcrossBranchService } from './redcross-branch.service';
 
@@ -13,7 +14,7 @@ describe('RedcrossBranchService', (): void => {
           TypeOrmModule.forRoot(),
           TypeOrmModule.forFeature([RedcrossBranchEntity]),
         ],
-        providers: [RedcrossBranchService],
+        providers: [RedcrossBranchService, HelperService],
       }).compile();
 
       service = module.get<RedcrossBranchService>(RedcrossBranchService);

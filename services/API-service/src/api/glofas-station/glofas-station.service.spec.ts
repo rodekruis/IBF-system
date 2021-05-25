@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { HelperService } from '../../shared/helper.service';
 import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
 import { GlofasStationService } from './glofas-station.service';
@@ -17,7 +18,7 @@ describe('GlofasStationService', (): void => {
             GlofasStationForecastEntity,
           ]),
         ],
-        providers: [GlofasStationService],
+        providers: [GlofasStationService, HelperService],
       }).compile();
 
       service = module.get<GlofasStationService>(GlofasStationService);
