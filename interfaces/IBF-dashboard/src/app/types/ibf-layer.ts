@@ -66,7 +66,7 @@ export enum IbfLayerName {
   roof_type = 'roof_type',
   covidRisk = 'covid_risk',
   healthSites = 'health_sites',
-  alertThreshold = 'alert_threshold'
+  alertThreshold = 'alert_threshold',
 }
 
 export enum IbfLayerLabel {
@@ -96,6 +96,7 @@ export class IbfLayerWMS {
 
 export enum IbfLayerGroup {
   aggregates = 'aggregates',
+  outline = 'outline',
 }
 
 export class ColorBreaks {

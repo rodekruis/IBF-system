@@ -54,7 +54,7 @@ import {
 } from 'src/app/types/ibf-layer';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
-import { breakKey } from '../../models/map.model';
+import { breakKey, Pane } from '../../models/map.model';
 
 @Component({
   selector: 'app-map',
@@ -250,8 +250,10 @@ export class MapComponent implements OnDestroy {
 
   onMapReady(map: Map) {
     this.map = map;
-    this.map.createPane('ibf-wms');
-    this.map.createPane('ibf-aggregate');
+    this.map.createPane(Pane.ibfWms);
+    this.map.createPane(Pane.outline);
+    this.map.getPane(Pane.outline).style.zIndex = '650';
+    this.map.createPane(Pane.ibfAggregate);
 
     this.triggerWindowResize();
   }
@@ -271,7 +273,10 @@ export class MapComponent implements OnDestroy {
         layer.colorBreaks,
       );
 
-      if (layer.name !== IbfLayerName.adminRegions) {
+      if (
+        layer.name !== IbfLayerName.adminRegions &&
+        layer.group !== IbfLayerGroup.outline
+      ) {
         this.addLegend(this.map, colors, colorThreshold, layer);
       }
     }
@@ -425,29 +430,36 @@ export class MapComponent implements OnDestroy {
     if (!layer.data) {
       return;
     }
-
-    const adminRegionsLayer = geoJSON(layer.data, {
-      pane:
-        layer.group && layer.group === IbfLayerGroup.aggregates
-          ? 'ibf-aggregate'
-          : 'overlayPane',
-      style: this.mapService.setAdminRegionStyle(layer),
-      onEachFeature: (feature, element): void => {
-        element.on('mouseover', this.onAdminRegionMouseOver);
-        element.on('mouseout', (): void => {
-          adminRegionsLayer.resetStyle();
-        });
-        element.on(
-          'click',
-          this.onAdminRegionClickByLayerAndFeatureAndElement(
-            layer,
-            feature,
-            element,
-          ),
-        );
-      },
-    });
-
+    let adminRegionsLayer: GeoJSON;
+    if (layer.group === IbfLayerGroup.outline) {
+      adminRegionsLayer = geoJSON(layer.data, {
+        pane: Pane.outline,
+        style: this.mapService.setOutlineLayerStyle(layer),
+        interactive: false,
+      });
+    } else {
+      adminRegionsLayer = geoJSON(layer.data, {
+        pane:
+          layer.group && layer.group === IbfLayerGroup.aggregates
+            ? Pane.ibfAggregate
+            : 'overlayPane',
+        style: this.mapService.setAdminRegionStyle(layer),
+        onEachFeature: (feature, element): void => {
+          element.on('mouseover', this.onAdminRegionMouseOver);
+          element.on('mouseout', (): void => {
+            adminRegionsLayer.resetStyle();
+          });
+          element.on(
+            'click',
+            this.onAdminRegionClickByLayerAndFeatureAndElement(
+              layer,
+              feature,
+              element,
+            ),
+          );
+        },
+      });
+    }
     return adminRegionsLayer;
   }
 
@@ -456,7 +468,7 @@ export class MapComponent implements OnDestroy {
       return;
     }
     return tileLayer.wms(layerWMS.url, {
-      pane: 'ibf-wms',
+      pane: Pane.ibfWms,
       layers: layerWMS.name,
       format: layerWMS.format,
       version: layerWMS.version,

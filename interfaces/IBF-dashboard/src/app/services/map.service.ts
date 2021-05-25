@@ -21,7 +21,7 @@ import {
   IbfLayerType,
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
-import { Indicator } from 'src/app/types/indicator-group';
+import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
@@ -342,17 +342,15 @@ export class MapService {
   public loadAggregateLayer(indicator: Indicator) {
     if (this.country) {
       if (indicator.active && this.timelineService.activeLeadTime) {
-        this.getCombineAdminRegionData
-          (
-            this.country.countryCodeISO3,
-            this.adminLevelService.adminLevel,
-            this.timelineService.activeLeadTime,
-            indicator.name,
-            indicator.dynamic
-          )
-          .subscribe((adminRegions) => {
-            this.addAggregateLayer(indicator, adminRegions);
-          });
+        this.getCombineAdminRegionData(
+          this.country.countryCodeISO3,
+          this.adminLevelService.adminLevel,
+          this.timelineService.activeLeadTime,
+          indicator.name,
+          indicator.dynamic,
+        ).subscribe((adminRegions) => {
+          this.addAggregateLayer(indicator, adminRegions);
+        });
       } else {
         this.addAggregateLayer(indicator, null);
       }
@@ -373,8 +371,12 @@ export class MapService {
       colorBreaks: indicator.colorBreaks,
       numberFormatMap: indicator.numberFormatMap,
       legendColor: '#969696',
-      group: IbfLayerGroup.aggregates,
-      order: 20 + indicator.order,
+      group:
+        indicator.group === IndicatorGroup.outline
+          ? IbfLayerGroup.outline
+          : IbfLayerGroup.aggregates,
+      order:
+        indicator.group === IndicatorGroup.outline ? 100 : 20 + indicator.order,
       dynamic: indicator.dynamic,
       unit: indicator.unit,
     });
@@ -571,7 +573,7 @@ export class MapService {
         this.adminLevelService.adminLevel,
         this.timelineService.activeLeadTime,
         layer.name,
-        layer.dynamic
+        layer.dynamic,
       ).pipe(shareReplay(1));
     } else {
       layerData = of(null);
@@ -585,7 +587,7 @@ export class MapService {
     adminLevel: AdminLevel,
     leadTime: LeadTime,
     layerName: IbfLayerName,
-    dynamic: boolean
+    dynamic: boolean,
   ): Observable<GeoJSON.FeatureCollection> {
     // Do api request to get data layer
     let admDynamicDataObs: Observable<any>;
@@ -667,6 +669,15 @@ export class MapService {
     return adminRegionFillColor;
   };
 
+  getOutlineColor(colorPropertyValue) {
+    switch (true) {
+      case colorPropertyValue === 0:
+        return 0;
+      default:
+        return 1;
+    }
+  }
+
   getAdminRegionFillOpacity = (layer: IbfLayer, placeCode: string): number => {
     let fillOpacity = this.state.defaultFillOpacity;
     let unselectedFillOpacity = this.unselectedFillOpacity;
@@ -732,6 +743,26 @@ export class MapService {
     return colorThreshold;
   };
 
+  public setOutlineLayerStyle = (layer: IbfLayer) => {
+    const colorProperty = layer.colorProperty;
+    return (adminRegion) => {
+      const color = '#c22400';
+      const opacity = this.getOutlineColor(
+        typeof adminRegion.properties[colorProperty] !== 'undefined'
+          ? adminRegion.properties[colorProperty]
+          : adminRegion.properties.indicators[colorProperty],
+      );
+      const fillOpacity = 0;
+      const weight = 3;
+      return {
+        opacity,
+        color,
+        fillOpacity,
+        weight,
+      };
+    };
+  };
+
   public setAdminRegionStyle = (layer: IbfLayer) => {
     const colorProperty = layer.colorProperty;
     const colorThreshold = this.getColorThreshold(
@@ -761,7 +792,6 @@ export class MapService {
         weight = this.disputedBorderStyle.weight;
         color = this.disputedBorderStyle.color;
       }
-      color = this.alertColor
       return {
         fillColor,
         fillOpacity,
