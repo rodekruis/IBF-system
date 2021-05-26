@@ -34,6 +34,6 @@ export class RedcrossBranchEntity {
   @Column({ nullable: true })
   public contactNumber: string;
 
-  @Column()
-  public geom: string;
+  @Column('json', { nullable: true })
+  public geom: JSON;
 }

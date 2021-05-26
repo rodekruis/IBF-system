@@ -5,7 +5,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { BoundingBox } from '../data/geo.model';
+import { BoundingBox } from '../../shared/geo.model';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { UserEntity } from '../user/user.entity';
 import { AdminLevel } from './admin-level.enum';

@@ -1,9 +1,15 @@
 import { EventPlaceCodeDto } from './dto/event-place-code.dto';
 import { EventService } from './event.service';
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
+import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -14,6 +20,40 @@ export class EventController {
 
   public constructor(eventService: EventService) {
     this.eventService = eventService;
+  }
+
+  @ApiOperation({ summary: 'Get active event summary of a country' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get(':countryCodeISO3')
+  public async getEventSummaryCountry(
+    @Param() params,
+  ): Promise<EventSummaryCountry> {
+    return await this.eventService.getEventSummaryCountry(
+      params.countryCodeISO3,
+    );
+  }
+
+  @ApiOperation({ summary: 'Get recent dates' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('recent-dates/:countryCodeISO3')
+  public async getRecentDate(@Param() params): Promise<object> {
+    return await this.eventService.getRecentDates(params.countryCodeISO3);
+  }
+
+  @ApiOperation({ summary: 'Get trigger data per lead-time' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('triggers/:countryCodeISO3')
+  public async getTriggerPerLeadtime(@Param() params): Promise<object> {
+    return await this.eventService.getTriggerPerLeadtime(
+      params.countryCodeISO3,
+    );
+  }
+
+  @ApiOperation({ summary: 'Get triggered areas' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Get('triggered-areas/:countryCodeISO3')
+  public async getTriggeredAreas(@Param() params): Promise<TriggeredArea[]> {
+    return await this.eventService.getTriggeredAreas(params.countryCodeISO3);
   }
 
   @ApiOperation({ summary: 'Close place code event' })

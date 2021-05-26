@@ -489,7 +489,7 @@ export class MapComponent implements OnDestroy {
     markerProperties: Station,
     markerLatLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.station_name;
+    const markerTitle = markerProperties.stationName;
     let markerIcon: IconOptions;
     let className: string;
 
@@ -497,7 +497,7 @@ export class MapComponent implements OnDestroy {
       ? this.country.eapAlertClasses
       : new EapAlertClasses();
 
-    const glofasProbability = markerProperties.fc_prob;
+    const glofasProbability = markerProperties.forecastProbability;
     Object.keys(eapAlertClasses).forEach((key) => {
       if (
         glofasProbability >= eapAlertClasses[key].valueLow &&
@@ -593,7 +593,7 @@ export class MapComponent implements OnDestroy {
     const eapAlertClasses = this.country
       ? this.country.eapAlertClasses
       : new EapAlertClasses();
-    const glofasProbability = markerProperties.fc_prob;
+    const glofasProbability = markerProperties.forecastProbability;
 
     let eapStatusText: string;
     let eapStatuscolor: string;
@@ -618,7 +618,8 @@ export class MapComponent implements OnDestroy {
     const triggerWidth = Math.max(
       Math.min(
         Math.round(
-          (markerProperties.fc / markerProperties.trigger_level) * 100,
+          (markerProperties.forecastLevel / markerProperties.triggerLevel) *
+            100,
         ),
         115,
       ),
@@ -643,9 +644,9 @@ export class MapComponent implements OnDestroy {
       headerTextColor +
       '; padding: 5px; margin-bottom: 5px"> \
         <strong>' +
-      markerProperties.station_code +
+      markerProperties.stationCode +
       ' STATION: ' +
-      markerProperties.station_name +
+      markerProperties.stationName +
       '</strong> \
       </div> \
       <div style="margin-left:5px"> \
@@ -658,13 +659,13 @@ export class MapComponent implements OnDestroy {
           <div style="border-radius:10px;height:20px;line-height:20px;background-color:var(--ion-color-ibf-royal-blue); color:white; text-align:center; white-space: nowrap; min-width: 15%; width:' +
       triggerWidth +
       '%">' +
-      Math.round(markerProperties.fc) +
+      Math.round(markerProperties.forecastLevel) +
       '</div></div></div> \
     <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
       Trigger activation threshold:</div> \
    \
   <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>' +
-      Math.round(markerProperties.trigger_level) +
+      Math.round(markerProperties.triggerLevel) +
       '</strong></div></div> \
 </div> \
   <div style="background-color: ' +

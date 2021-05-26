@@ -6,8 +6,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
+import { GeoJson } from '../../shared/geo.model';
 import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
-import { GlofasStationTriggerEntity } from './glofas-station-trigger.entity';
+import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
 import { GlofasStationService } from './glofas-station.service';
 
@@ -25,9 +26,24 @@ export class GlofasStationController {
   @ApiOperation({ summary: 'Get Glofas stations by country' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @Get(':countryCodeISO3')
-  public async getStations(@Param() params): Promise<GlofasStationEntity[]> {
+  public async getStationsByCountry(
+    @Param() params,
+  ): Promise<GlofasStationEntity[]> {
     return await this.glofasStationService.getStationsByCountry(
       params.countryCodeISO3,
+    );
+  }
+
+  @ApiOperation({
+    summary: 'Get Glofas stations forecast by leadtime and country',
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'leadTime', required: true, type: 'string' })
+  @Get(':countryCodeISO3/:leadTime')
+  public async getStationForecastByLeadTime(@Param() params): Promise<GeoJson> {
+    return await this.glofasStationService.getStationForecastByLeadTime(
+      params.countryCodeISO3,
+      params.leadTime,
     );
   }
 
@@ -35,7 +51,7 @@ export class GlofasStationController {
   @Post('triggers')
   public async uploadTriggerDataPerStation(
     @Body() uploadTriggerPerStation: UploadTriggerPerStationDto,
-  ): Promise<GlofasStationTriggerEntity[]> {
+  ): Promise<GlofasStationForecastEntity[]> {
     return await this.glofasStationService.uploadTriggerDataPerStation(
       uploadTriggerPerStation,
     );

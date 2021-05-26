@@ -121,13 +121,13 @@ export class ApiService {
     countryCodeISO3: string,
     leadTime: LeadTime = LeadTime.day7,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`data/stations/${countryCodeISO3}/${leadTime}`, false);
+    return this.get(`glofas-stations/${countryCodeISO3}/${leadTime}`, false);
   }
 
   getRedCrossBranches(
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`data/red-cross-branches/${countryCodeISO3}`, false);
+    return this.get(`redcross-branches/${countryCodeISO3}`, false);
   }
 
   getHealthSites(
@@ -143,15 +143,15 @@ export class ApiService {
   }
 
   getRecentDates(countryCodeISO3: string): Observable<any> {
-    return this.get(`data/recent-dates/${countryCodeISO3}`, false);
+    return this.get(`event/recent-dates/${countryCodeISO3}`, false);
   }
 
   getTriggerPerLeadTime(countryCodeISO3: string): Observable<CountryTriggers> {
-    return this.get(`data/triggers/${countryCodeISO3}`, false);
+    return this.get(`event/triggers/${countryCodeISO3}`, false);
   }
 
   getEvent(countryCodeISO3: string): Observable<any> {
-    return this.get(`data/event/${countryCodeISO3}`, false);
+    return this.get(`event/${countryCodeISO3}`, false);
   }
 
   getAdminRegions(
@@ -160,14 +160,15 @@ export class ApiService {
     adminLevel: AdminLevel = AdminLevel.adm1,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
-      `data/admin-area-data/${countryCodeISO3}/${adminLevel}/` +
-        (leadTime ? leadTime : ''),
+      `admin-areas/per-leadtime/${countryCodeISO3}/${adminLevel}/${
+        leadTime ? leadTime : ''
+      }`,
       false,
     );
   }
 
   getTriggeredAreas(countryCodeISO3: string) {
-    return this.get(`data/triggered-areas/${countryCodeISO3}`, false);
+    return this.get(`event/triggered-areas/${countryCodeISO3}`, false);
   }
 
   getIndicators(countryCodeISO3: string) {

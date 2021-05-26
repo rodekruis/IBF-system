@@ -5,6 +5,7 @@ import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+import { EntityManager } from 'typeorm';
 
 describe('Event service', (): void => {
   let service: EventService;
@@ -25,6 +26,7 @@ describe('Event service', (): void => {
             useFactory: repositoryMockFactory,
           },
           EventService,
+          EntityManager,
         ],
       }).compile();
 

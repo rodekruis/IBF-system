@@ -1,13 +1,14 @@
-import { CountryEntity } from './../country/country.entity';
-import { UserEntity } from '../user/user.entity';
-import { DataService } from '../data/data.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataModule } from '../data/data.module';
+import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { MetadataService } from './metadata.service';
 import { LayerMetadataEntity } from './layer-metadata.entity';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
+import { HelperService } from '../../shared/helper.service';
+import { EventService } from '../event/event.service';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
+import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
+import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 
 describe('MetadataService', (): void => {
   let service: MetadataService;
@@ -16,17 +17,29 @@ describe('MetadataService', (): void => {
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
         imports: [
-          DataModule,
           TypeOrmModule.forRoot(),
           TypeOrmModule.forFeature([
             IndicatorMetadataEntity,
-            UserEntity,
             LayerMetadataEntity,
-            TriggerPerLeadTime,
-            CountryEntity,
           ]),
         ],
-        providers: [MetadataService, DataService],
+        providers: [
+          MetadataService,
+          HelperService,
+          EventService,
+          {
+            provide: getRepositoryToken(EventPlaceCodeEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AdminAreaDynamicDataEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(TriggerPerLeadTime),
+            useFactory: repositoryMockFactory,
+          },
+        ],
       }).compile();
 
       service = module.get<MetadataService>(MetadataService);

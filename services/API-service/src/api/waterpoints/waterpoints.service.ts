@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { WKTStringFromGeometry } from 'wkt-io-ts';
 import { isRight } from 'fp-ts/lib/Either';
 import { CountryService } from '../country/country.service';
-import { GeoJson } from '../data/geo.model';
+import { GeoJson } from '../../shared/geo.model';
 
 @Injectable()
 export class WaterpointsService {

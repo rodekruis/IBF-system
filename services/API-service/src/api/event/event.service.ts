@@ -2,13 +2,15 @@
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { EventPlaceCodeDto } from './dto/event-place-code.dto';
-import { LessThan, Repository } from 'typeorm';
+import { EntityManager, LessThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
+import fs from 'fs';
 
 @Injectable()
 export class EventService {
@@ -20,6 +22,35 @@ export class EventService {
   >;
   @InjectRepository(TriggerPerLeadTime)
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
+  private manager: EntityManager;
+
+  public constructor(manager: EntityManager) {
+    this.manager = manager;
+  }
+
+  public async getEventSummaryCountry(
+    countryCodeISO3: string,
+  ): Promise<EventSummaryCountry> {
+    const query = fs
+      .readFileSync('./src/api/event/sql/get-event-summary-country.sql')
+      .toString();
+    const result = await this.manager.query(query, [countryCodeISO3]);
+    if (!result[0].startDate) {
+      return null;
+    }
+    return result[0];
+  }
+
+  public async getRecentDates(countryCodeISO3: string): Promise<object[]> {
+    const result = await this.triggerPerLeadTimeRepository.findOne({
+      where: { countryCodeISO3: countryCodeISO3 },
+      order: { date: 'DESC' },
+    });
+    if (!result) {
+      return [];
+    }
+    return [{ date: new Date(result.date).toISOString() }];
+  }
 
   public async uploadTriggerPerLeadTime(
     uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
@@ -44,6 +75,50 @@ export class EventService {
     }
 
     await this.triggerPerLeadTimeRepository.save(triggersPerLeadTime);
+  }
+
+  public async getTriggeredAreas(
+    countryCodeISO3: string,
+  ): Promise<TriggeredArea[]> {
+    const query = fs
+      .readFileSync('./src/api/event/sql/get-triggered-areas.sql')
+      .toString();
+
+    const result = await this.manager.query(query, [countryCodeISO3]);
+    return result;
+  }
+
+  public async getTriggerPerLeadtime(countryCodeISO3: string): Promise<object> {
+    const latestDate = await this.getOneMaximumTriggerDate(countryCodeISO3);
+    const triggersPerLeadTime = await this.triggerPerLeadTimeRepository.find({
+      where: { countryCodeISO3: countryCodeISO3, date: latestDate },
+    });
+    if (triggersPerLeadTime.length === 0) {
+      return;
+    }
+    const result = {};
+    result['date'] = triggersPerLeadTime[0].date;
+    result['countryCodeISO3'] = triggersPerLeadTime[0].countryCodeISO3;
+    for (const leadTimeKey in LeadTime) {
+      const leadTimeUnit = LeadTime[leadTimeKey];
+      const leadTimeIsTriggered = triggersPerLeadTime.find(
+        (el): boolean => el.leadTime === leadTimeUnit,
+      );
+      if (leadTimeIsTriggered) {
+        result[leadTimeUnit] = String(Number(leadTimeIsTriggered.triggered));
+      } else {
+        result[leadTimeUnit] = '0';
+      }
+    }
+    return result;
+  }
+
+  private async getOneMaximumTriggerDate(countryCodeISO3): Promise<Date> {
+    const result = await this.triggerPerLeadTimeRepository.findOne({
+      order: { date: 'DESC' },
+      where: { countryCodeISO3: countryCodeISO3 },
+    });
+    return result.date;
   }
 
   public async closeEventPcode(
