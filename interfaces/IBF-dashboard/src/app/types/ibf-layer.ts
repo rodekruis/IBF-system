@@ -38,6 +38,10 @@ export class IbfLayer {
   dynamic?: boolean;
 }
 
+export enum IbfLayerThreshold {
+  potentialCasesThreshold = 'potential_cases_threshold',
+}
+
 export enum IbfLayerType {
   point = 'point',
   shape = 'shape',
@@ -67,6 +71,9 @@ export enum IbfLayerName {
   covidRisk = 'covid_risk',
   healthSites = 'health_sites',
   alertThreshold = 'alert_threshold',
+  potentialCases = 'potential_cases',
+  potentialCases65 = 'potential_cases_65',
+  potentialCasesU9 = 'potential_cases_U9',
 }
 
 export enum IbfLayerLabel {

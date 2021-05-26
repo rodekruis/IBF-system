@@ -23,7 +23,7 @@ export class DisasterEntity {
   @Column({ default: 'population' })
   public triggerUnit: string;
 
-  @Column({ default: 'population' })
+  @Column({ default: 'population_affected' })
   public actionsUnit: string;
 
   @ManyToMany(

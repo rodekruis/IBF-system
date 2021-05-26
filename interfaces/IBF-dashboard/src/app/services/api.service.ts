@@ -185,6 +185,10 @@ export class ApiService {
     );
   }
 
+  getAdminAreaDataOne(key: string, placeCode: string) {
+    return this.get(`adminAreaDataOne/${key}/${placeCode}`, false);
+  }
+
   getAdminAreaDynamicData(
     countryCodeISO3: string,
     adminLevel: AdminLevel,

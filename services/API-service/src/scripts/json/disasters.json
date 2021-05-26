@@ -3,13 +3,13 @@
     "disasterType": "floods",
     "label": "floods",
     "triggerUnit": "population",
-    "actionsUnit": "population"
+    "actionsUnit": "population_affected"
   },
   {
     "disasterType": "heavy-rain",
     "label": "heavy rain",
     "triggerUnit": "population",
-    "actionsUnit": "population"
+    "actionsUnit": "population_affected"
   },
   {
     "disasterType": "dengue",

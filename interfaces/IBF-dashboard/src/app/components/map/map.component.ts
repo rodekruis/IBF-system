@@ -40,6 +40,7 @@ import {
   Station,
   Waterpoint,
 } from 'src/app/models/poi.model';
+import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
@@ -55,6 +56,7 @@ import {
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { breakKey, Pane } from '../../models/map.model';
+import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
   selector: 'app-map',
@@ -94,6 +96,7 @@ export class MapComponent implements OnDestroy {
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
     private analyticsService: AnalyticsService,
+    private apiService: ApiService,
   ) {
     this.layerSubscription = this.mapService
       .getLayerSubscription()
@@ -400,31 +403,160 @@ export class MapComponent implements OnDestroy {
     });
 
     if (layer.name !== IbfLayerName.adminRegions) {
-      const popup =
-        '<strong>' +
-        feature.properties.name +
-        (feature.properties.placeCode.includes('Disputed')
-          ? ' (Disputed borders)'
-          : '') +
-        '</strong><br/>' +
-        layer.label +
-        ': ' +
-        this.numberFormat(
-          typeof feature.properties[layer.colorProperty] !== 'undefined'
-            ? feature.properties[layer.colorProperty]
-            : feature.properties.indicators[layer.colorProperty],
-          layer,
-        ) +
-        (layer.unit ? ' ' + layer.unit : '');
       if (feature.properties.placeCode === this.placeCode) {
         element.unbindPopup();
         this.placeCode = null;
       } else {
-        element.bindPopup(popup).openPopup();
-        this.placeCode = feature.properties.placeCode;
+        this.bindPopupAdminRegions(layer, feature, element);
       }
     }
   };
+
+  private bindPopupAdminRegions(layer: IbfLayer, feature, element): void {
+    let popup: string;
+    if (layer.name !== IbfLayerName.potentialCases) {
+      popup = this.createDefaultPopupAdminRegions(layer, feature);
+      element.bindPopup(popup).openPopup();
+      this.placeCode = feature.properties.placeCode;
+    } else {
+      this.apiService
+        .getAdminAreaDataOne(
+          IbfLayerThreshold.potentialCasesThreshold,
+          feature.properties.placeCode,
+        )
+        .subscribe((thresholdValue: number) => {
+          popup = this.createThresHoldPopupAdminRegions(
+            layer,
+            feature,
+            thresholdValue,
+          );
+          const popupOptions = {
+            minWidth: 300,
+            className: 'trigger-popup-max',
+          };
+          element.bindPopup(popup, popupOptions).openPopup();
+          this.placeCode = feature.properties.placeCode;
+        });
+    }
+  }
+
+  private createDefaultPopupAdminRegions(layer: IbfLayer, feature): string {
+    return (
+      '<strong>' +
+      feature.properties.name +
+      (feature.properties.placeCode.includes('Disputed')
+        ? ' (Disputed borders)'
+        : '') +
+      '</strong><br/>' +
+      layer.label +
+      ': ' +
+      this.numberFormat(
+        typeof feature.properties[layer.colorProperty] !== 'undefined'
+          ? feature.properties[layer.colorProperty]
+          : feature.properties.indicators[layer.colorProperty],
+        layer,
+      ) +
+      (layer.unit ? ' ' + layer.unit : '')
+    );
+  }
+
+  private createThresHoldPopupAdminRegions(
+    layer: IbfLayer,
+    feature,
+    thresholdValue: number,
+  ): string {
+    const forecastValue = feature['properties']['indicators'][layer.name];
+    const featureTriggered = forecastValue > thresholdValue;
+    const headerColor = featureTriggered
+      ? 'var(--ion-color-ibf-salmon)'
+      : 'var(--ion-color-ibf-royal-blue)';
+    const headerTextColor = featureTriggered
+      ? 'var(--ion-color-ibf-black)'
+      : 'var(--ion-color-ibf-white)';
+    const title = feature.properties.name;
+    const eapStatusColor = headerColor;
+    const eapStatusText = featureTriggered
+      ? 'ACTIVATE ACTION PROTOCOL'
+      : 'No action';
+
+    return this.createThresholdPopup(
+      headerColor,
+      headerTextColor,
+      title,
+      eapStatusColor,
+      eapStatusText,
+      forecastValue,
+      thresholdValue,
+      layer.label,
+    );
+  }
+
+  private createThresholdPopup(
+    headerColor: string,
+    headerTextColor: string,
+    title: string,
+    eapStatuscolor: string,
+    eapStatusText: string,
+    forecastValue: number,
+    thresholdValue: number,
+    unit: string,
+  ): string {
+    let lastAvailableLeadTime: LeadTime;
+
+    if (this.country) {
+      lastAvailableLeadTime = this.country.countryActiveLeadTimes[
+        this.country.countryActiveLeadTimes.length - 1
+      ];
+    }
+
+    const triggerWidth = Math.max(
+      Math.min(Math.round((forecastValue / thresholdValue) * 100), 115),
+      0,
+    );
+
+    const leadTime =
+      this.timelineService.activeLeadTime || lastAvailableLeadTime;
+    const stationInfoPopup =
+      '<div style="background-color: ' +
+      headerColor +
+      '; color: ' +
+      headerTextColor +
+      '; padding: 5px; margin-bottom: 5px"> \
+        <strong>' +
+      title +
+      '</strong> \
+      </div> \
+      <div style="margin-left:5px"> \
+        <div style="margin-bottom:5px">' +
+      leadTime +
+      ' ' +
+      unit +
+      ' \
+      </div> \
+      <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
+        <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
+          <div style="border-radius:10px;height:20px;line-height:20px;background-color:var(--ion-color-ibf-royal-blue); color:white; text-align:center; white-space: nowrap; min-width: 15%; width:' +
+      triggerWidth +
+      '%">' +
+      Math.round(forecastValue) +
+      '</div></div></div> \
+    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
+      Trigger activation threshold:</div> \
+   \
+  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>' +
+      Math.round(thresholdValue) +
+      '</strong></div></div> \
+</div> \
+  <div style="background-color: ' +
+      eapStatuscolor +
+      '; color: var(--ion-color-ibf-black); padding: 10px; text-align: center; text-transform:uppercase"> \
+    <strong>' +
+      eapStatusText +
+      '</strong> \
+  </div>';
+
+    return stationInfoPopup;
+  }
 
   private createAdminRegionsLayer(layer: IbfLayer): GeoJSON {
     if (!layer.data) {
@@ -521,7 +653,7 @@ export class MapComponent implements OnDestroy {
           iconUrl: 'assets/markers/glofas-' + key + '.png',
           iconRetinaUrl: 'assets/markers/glofas-' + key + '.png',
         };
-        className = 'station-popup-' + key;
+        className = 'trigger-popup-' + key;
       }
     });
 
@@ -608,85 +740,41 @@ export class MapComponent implements OnDestroy {
     const glofasProbability = markerProperties.fc_prob;
 
     let eapStatusText: string;
-    let eapStatuscolor: string;
+    let eapStatusColor: string;
     Object.keys(eapAlertClasses).forEach((key) => {
       if (
         glofasProbability >= eapAlertClasses[key].valueLow &&
         glofasProbability < eapAlertClasses[key].valueHigh
       ) {
         eapStatusText = eapAlertClasses[key].label;
-        eapStatuscolor = eapAlertClasses[key].color;
+        eapStatusColor = eapAlertClasses[key].color;
       }
     });
     const headerColor =
       glofasProbability > eapAlertClasses.max.valueLow
-        ? eapStatuscolor
+        ? eapStatusColor
         : 'var(--ion-color-ibf-royal-blue)';
     const headerTextColor =
       glofasProbability > eapAlertClasses.max.valueLow
         ? 'var(--ion-color-ibf-black)'
         : 'var(--ion-color-ibf-white)';
 
-    const triggerWidth = Math.max(
-      Math.min(
-        Math.round(
-          (markerProperties.fc / markerProperties.trigger_level) * 100,
-        ),
-        115,
-      ),
-      0,
-    );
-
-    let lastAvailableLeadTime: LeadTime;
-
-    if (this.country) {
-      lastAvailableLeadTime = this.country.countryActiveLeadTimes[
-        this.country.countryActiveLeadTimes.length - 1
-      ];
-    }
-
-    const leadTime =
-      this.timelineService.activeLeadTime || lastAvailableLeadTime;
-
-    const stationInfoPopup =
-      '<div style="background-color: ' +
-      headerColor +
-      '; color: ' +
-      headerTextColor +
-      '; padding: 5px; margin-bottom: 5px"> \
-        <strong>' +
+    const title =
       markerProperties.station_code +
       ' STATION: ' +
-      markerProperties.station_name +
-      '</strong> \
-      </div> \
-      <div style="margin-left:5px"> \
-        <div style="margin-bottom:5px">' +
-      leadTime +
-      ' forecast river discharge (in m<sup>3</sup>/s) \
-      </div> \
-      <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
-        <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
-          <div style="border-radius:10px;height:20px;line-height:20px;background-color:var(--ion-color-ibf-royal-blue); color:white; text-align:center; white-space: nowrap; min-width: 15%; width:' +
-      triggerWidth +
-      '%">' +
-      Math.round(markerProperties.fc) +
-      '</div></div></div> \
-    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
-      Trigger activation threshold:</div> \
-   \
-  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>' +
-      Math.round(markerProperties.trigger_level) +
-      '</strong></div></div> \
-</div> \
-  <div style="background-color: ' +
-      eapStatuscolor +
-      '; color: var(--ion-color-ibf-black); padding: 10px; text-align: center; text-transform:uppercase"> \
-    <strong>' +
-      eapStatusText +
-      '</strong> \
-  </div>';
+      markerProperties.station_name;
 
+    const unit = ' forecast river discharge (in m<sup>3</sup>/s)';
+    const stationInfoPopup = this.createThresholdPopup(
+      headerColor,
+      headerTextColor,
+      title,
+      eapStatusColor,
+      eapStatusText,
+      markerProperties.fc,
+      markerProperties.trigger_level,
+      unit,
+    );
     return stationInfoPopup;
   }
 

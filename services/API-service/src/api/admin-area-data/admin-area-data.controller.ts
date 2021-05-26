@@ -25,7 +25,7 @@ import { AdminAreaDataService } from './admin-area-data.service';
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
 @ApiTags('adminAreaData')
-@Controller('adminAreaData')
+@Controller()
 export class AdminAreaDataController {
   private readonly adminAreaDataService: AdminAreaDataService;
 
@@ -37,7 +37,7 @@ export class AdminAreaDataController {
   @ApiOperation({
     summary: 'Upload admin-area data',
   })
-  @Post('upload')
+  @Post('adminAreaData/upload')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
@@ -55,11 +55,11 @@ export class AdminAreaDataController {
     await this.adminAreaDataService.updateOrCreate(adminAreaData);
   }
 
-  @ApiOperation({ summary: 'Get dynamic admin-area data' })
+  @ApiOperation({ summary: 'Get admin-area data' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'key', required: true, type: 'string' })
-  @Get(':countryCodeISO3/:adminLevel/:key')
+  @Get('adminAreaData/:countryCodeISO3/:adminLevel/:key')
   public async getAdminAreaData(
     @Param() params,
   ): Promise<AdminDataReturnDto[]> {
@@ -67,6 +67,17 @@ export class AdminAreaDataController {
       params.countryCodeISO3,
       params.adminLevel,
       params.key as DynamicDataUnit,
+    );
+  }
+
+  @ApiOperation({ summary: 'Get admin-area data per placeCode' })
+  @ApiParam({ name: 'key', required: true, type: 'string' })
+  @ApiParam({ name: 'placeCode', required: true, type: 'string' })
+  @Get('adminAreaDataOne/:key/:placeCode')
+  public async getAdminAreaDataPerPcode(@Param() params): Promise<number> {
+    return await this.adminAreaDataService.getAdminAreaDataPerPcode(
+      params.key as DynamicDataUnit,
+      params.placeCode,
     );
   }
 }
