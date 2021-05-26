@@ -1,3 +1,12 @@
+## [0.61.1](https://github.com/rodekruis/IBF-system/compare/v0.61.0...v0.61.1) (2021-05-26)
+
+
+### Bug Fixes
+
+* unit tests ([7a4f869](https://github.com/rodekruis/IBF-system/commit/7a4f869fde1573be98261c7a40c53c46559450b7))
+
+
+
 # [0.61.0](https://github.com/rodekruis/IBF-system/compare/v0.60.1...v0.61.0) (2021-05-21)
 
 
@@ -140,15 +149,6 @@
 * Add months as leadtime and disastertype  in backend AB[#6949](https://github.com/rodekruis/IBF-system/issues/6949) AB[#6954](https://github.com/rodekruis/IBF-system/issues/6954) ([b8d0470](https://github.com/rodekruis/IBF-system/commit/b8d04709d93e55e63934b291c26c0f89242da26e))
 * set default leadtime for get admin-areas in backend AB[#7199](https://github.com/rodekruis/IBF-system/issues/7199) ([f7b58e6](https://github.com/rodekruis/IBF-system/commit/f7b58e6f9ebab74df57d6fd3ce19bb079da9d404))
 * set default leadtime for get admin-areas in backend AB[#7199](https://github.com/rodekruis/IBF-system/issues/7199) ([873a4b7](https://github.com/rodekruis/IBF-system/commit/873a4b75401f805ff24da73703a15b6023282d39))
-
-
-
-## [0.57.4](https://github.com/rodekruis/IBF-system/compare/v0.57.3...v0.57.4) (2021-04-26)
-
-
-### Bug Fixes
-
-* remove ion-content from app component html AB[#7219](https://github.com/rodekruis/IBF-system/issues/7219) AB[#7220](https://github.com/rodekruis/IBF-system/issues/7220) AB[#7227](https://github.com/rodekruis/IBF-system/issues/7227) ([2978003](https://github.com/rodekruis/IBF-system/commit/2978003ac8a022f3882cff4cacdd53a9d932020e))
 
 
 
