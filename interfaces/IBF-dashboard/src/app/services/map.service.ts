@@ -453,7 +453,11 @@ export class MapService {
     });
   }
 
-  private isLayerActive(active, layer, interactedLayer) {
+  private isLayerActive(active, layer: IbfLayer, interactedLayer) {
+    if (layer.group === IbfLayerGroup.outline) {
+      return true;
+    }
+
     const isActiveDefined = active != null;
     const isInteractedLayer = layer.name === interactedLayer.name;
     const isInteractedLayerGroup = layer.group === interactedLayer.group;

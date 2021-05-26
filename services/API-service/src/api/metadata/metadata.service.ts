@@ -24,22 +24,33 @@ export class MetadataService {
   public async getIndicatorsByCountry(
     countryCodeISO3,
   ): Promise<IndicatorMetadataEntity[]> {
-    const indicators = await this.indicatorRepository.find({});
-
-    const countryIndicators = indicators.filter(
-      (metadata: IndicatorMetadataEntity): boolean =>
-        metadata.country_codes.split(',').includes(countryCodeISO3),
-    );
-
     const event = await this.dataService.getEventSummaryCountry(
       countryCodeISO3,
     );
-    const triggerUnits = await this.countryService.getTriggerUnitsForCountry(
+    const activeTrigger = event && event.activeTrigger;
+
+    const indicators = await this.indicatorRepository.find({});
+
+    let countryIndicators = [];
+    if (activeTrigger) {
+      countryIndicators = indicators.filter(
+        (metadata: IndicatorMetadataEntity): boolean =>
+          metadata.country_codes.split(',').includes(countryCodeISO3),
+      );
+    } else {
+      countryIndicators = indicators.filter(
+        (metadata: IndicatorMetadataEntity): boolean =>
+          metadata.country_codes.split(',').includes(countryCodeISO3) &&
+          metadata.group !== 'outline',
+      );
+    }
+
+    const actionUnits = await this.countryService.getActionsUnitsForCountry(
       countryCodeISO3,
     );
-    const activeTrigger = event && event.activeTrigger;
+
     countryIndicators.find((i): boolean =>
-      triggerUnits.includes(i.name),
+      actionUnits.includes(i.name),
     ).active = activeTrigger;
 
     return countryIndicators;

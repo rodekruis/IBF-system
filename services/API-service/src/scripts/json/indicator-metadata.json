@@ -264,7 +264,7 @@
     "group": "outline",
     "icon": "Person2-white.svg",
     "weightedAvg": true,
-    "active": false,
+    "active": true,
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
     "aggregateIndicator": false,

@@ -66,7 +66,7 @@ export class ScriptsService {
         );
         await this.adminAreaDynamicDataService.exposure({
           countryCodeISO3: selectedCountry.countryCodeISO3,
-          exposurePlaceCodes: this.mockAmount(exposure, unit),
+          exposurePlaceCodes: this.mockAmount(exposure, unit, triggered),
           leadTime: activeLeadTime as LeadTime,
           dynamicDataUnit: unit,
           adminLevel: selectedCountry.defaultAdminLevel,
@@ -78,6 +78,7 @@ export class ScriptsService {
   private mockAmount(
     exposurePlacecodes: any,
     exposureUnit: DynamicDataUnit,
+    triggered: boolean
   ): [] {
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     for (const pcodeData of copyOfExposureUnit) {
@@ -86,8 +87,12 @@ export class ScriptsService {
       } else if (exposureUnit === DynamicDataUnit.potentialCasesU9) {
         pcodeData.amount = Math.round(pcodeData.amount * 0.2);
       } else if (exposureUnit === DynamicDataUnit.alertThreshold) {
-        pcodeData.amount = ['PH137500000', 'PH137400000', 'PH133900000', 'PH137600000', 'PH031400000'].includes(pcodeData.placeCode) ? 1: 0
-      }
+        if (!triggered) {
+          pcodeData.amount = 0
+        } else {
+          pcodeData.amount = ['PH137500000', 'PH137400000', 'PH133900000', 'PH137600000', 'PH031400000'].includes(pcodeData.placeCode) ? 1 : 0
+          }
+        }
     }
     return copyOfExposureUnit;
   }
