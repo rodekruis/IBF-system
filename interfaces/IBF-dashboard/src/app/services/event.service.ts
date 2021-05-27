@@ -21,6 +21,7 @@ export class EventService {
     newEventEarlyTrigger: null,
     triggerLeadTime: null,
     firstLeadTime: null,
+    firstLeadTimeNumberString: null,
   };
 
   constructor(
@@ -90,6 +91,7 @@ export class EventService {
       }
     });
     this.state.firstLeadTime = firstKey;
+    this.state.firstLeadTimeNumberString = String(this.state.firstLeadTime.replace(/[^\d]/g, ''))
     this.state.newEventEarlyTrigger =
       firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
   };

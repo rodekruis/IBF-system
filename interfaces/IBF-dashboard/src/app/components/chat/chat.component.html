@@ -40,7 +40,7 @@
               | translate
                 : {
                     startDate: eventService.state.event.startDate,
-                    days: eventService.state.firstLeadTime
+                    days: eventService.state.firstLeadTimeNumberString
                   }
           "
         >
@@ -51,7 +51,7 @@
             'chat-component.' +
               activeDisasterType +
               '.new-event-active-trigger.new-event-early-trigger'
-              | translate: { days: eventService.state.firstLeadTime }
+              | translate: { days: eventService.state.firstLeadTimeNumberString }
           "
         ></span>
       </p>
@@ -83,7 +83,7 @@
             | translate
               : {
                   startDate: eventService.state.event.startDate,
-                  days: eventService.state.firstLeadTime
+                  days: eventService.state.firstLeadTimeNumberString
                 }
         "
       ></p>
