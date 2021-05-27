@@ -182,7 +182,6 @@ export class SeedInit implements InterfaceScript {
       envCountries.includes(eapAction.countryCodeISO3),
     );
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
-
     await eapActionRepository.save(countryEapActions);
 
     // ***** CREATE INDICATOR METADATA *****

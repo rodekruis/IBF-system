@@ -4,4 +4,5 @@ export enum DynamicDataUnit {
   potentialCases65 = 'potential_cases_65',
   alertThreshold = 'alert_threshold',
   potentialCases = 'potential_cases',
+  potentialThreshold = 'potential_cases_threshold',
 }
