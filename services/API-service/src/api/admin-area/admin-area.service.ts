@@ -3,12 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { EntityManager, Repository } from 'typeorm';
-import fs from 'fs';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from './admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
 import { EventService } from '../event/event.service';
-import { AdminAreaRecord } from 'src/shared/data.model';
+import { AggregateDataRecord } from 'src/shared/data.model';
+import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 
 @Injectable()
 export class AdminAreaService {
@@ -32,18 +33,18 @@ export class AdminAreaService {
     this.eventService = eventService;
   }
 
-  public async getAdminAreas(countryCodeISO3): Promise<any[]> {
+  public async getAdminAreasRaw(countryCodeISO3): Promise<any[]> {
     return await this.adminAreaRepository.find({
-      select: ['countryCodeISO3', 'name', 'placeCode', 'geom'],
+      select: ['countryCodeISO3', 'name', 'placeCode', 'geom', 'glofasStation'],
       where: { countryCodeISO3: countryCodeISO3 },
     });
   }
 
-  public async getAdminAreasPerLeadTime(
+  private async getTriggeredPlaceCodes(
     countryCodeISO3: string,
     leadTime: string,
-    adminLevel: number,
-  ): Promise<GeoJson> {
+  ) {
+    console.log('getTriggeredPlaceCodes: ', countryCodeISO3);
     if (!leadTime) {
       leadTime = await this.getDefaultLeadTime(countryCodeISO3);
     }
@@ -51,41 +52,119 @@ export class AdminAreaService {
       await this.eventService.getTriggerPerLeadtime(countryCodeISO3)
     )[leadTime];
 
-    let placeCodes;
+    let placeCodes = [];
     if (parseInt(trigger) === 1) {
       placeCodes = (
         await this.eventService.getTriggeredAreas(countryCodeISO3)
-      ).map((triggeredArea): string => "'" + triggeredArea.placeCode + "'");
+      ).map((triggeredArea): string => triggeredArea.placeCode);
     }
+    return placeCodes;
+  }
 
-    const baseQuery = fs
-      .readFileSync('./src/api/admin-area/sql/get-admin-regions.sql')
-      .toString();
-    const query = baseQuery.concat(
-      placeCodes && placeCodes.length > 0
-        ? ' and geo."placeCode" in (' + placeCodes.toString() + ')'
-        : '',
-    );
-
-    const adminAreas: AdminAreaRecord[] = await this.manager.query(query, [
+  public async getAggregatesData(
+    countryCodeISO3: string,
+    leadTime: string,
+    adminLevel: number,
+  ): Promise<AggregateDataRecord[]> {
+    console.log('getAggregatesData: ', countryCodeISO3);
+    const placeCodes = await this.getTriggeredPlaceCodes(
       countryCodeISO3,
       leadTime,
-      adminLevel,
-    ]);
+    );
+
+    let staticIndicatorsScript = this.adminAreaRepository
+      .createQueryBuilder('area')
+      .select(['area."placeCode"'])
+      .leftJoin(AdminAreaDataEntity, 'data', 'area.placeCode = data.placeCode')
+      .addSelect(['data."indicator"', 'data."value"'])
+      .where('area."countryCodeISO3" = :countryCodeISO3', {
+        countryCodeISO3: countryCodeISO3,
+      })
+      .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
+    if (placeCodes.length) {
+      staticIndicatorsScript = staticIndicatorsScript.andWhere(
+        'area."placeCode" IN (:...placeCodes)',
+        { placeCodes: placeCodes },
+      );
+    }
+    const staticIndicators = await staticIndicatorsScript.getRawMany();
+
+    let dynamicIndicatorsScript = this.adminAreaRepository
+      .createQueryBuilder('area')
+      .select(['area."placeCode"'])
+      .leftJoin(
+        AdminAreaDynamicDataEntity,
+        'dynamic',
+        'area.placeCode = dynamic.placeCode',
+      )
+      .addSelect(['dynamic."indicator"', 'dynamic."value"'])
+      .where('area."countryCodeISO3" = :countryCodeISO3', {
+        countryCodeISO3: countryCodeISO3,
+      })
+      .andWhere('date = current_date')
+      .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
+      .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
+    if (placeCodes.length) {
+      dynamicIndicatorsScript = dynamicIndicatorsScript.andWhere(
+        'area."placeCode" IN (:...placeCodes)',
+        { placeCodes: placeCodes },
+      );
+    }
+    const dynamicIndicators = await dynamicIndicatorsScript.getRawMany();
+
+    return staticIndicators.concat(dynamicIndicators);
+  }
+
+  public async getAdminAreas(
+    countryCodeISO3: string,
+    leadTime: string,
+    adminLevel: number,
+  ): Promise<GeoJson> {
+    console.log('getAdminAreas: ', countryCodeISO3);
+    const placeCodes = await this.getTriggeredPlaceCodes(
+      countryCodeISO3,
+      leadTime,
+    );
+
+    let adminAreasScript = this.adminAreaRepository
+      .createQueryBuilder('area')
+      .select([
+        'area."placeCode"',
+        'area."name"',
+        'ST_AsGeoJSON(area.geom)::json As geom',
+        'area."countryCodeISO3"',
+      ])
+      .leftJoin(
+        AdminAreaDynamicDataEntity,
+        'dynamic',
+        'area.placeCode = dynamic.placeCode',
+      )
+      .addSelect([
+        'dynamic.value AS "population_affected"',
+        'dynamic."leadTime"',
+        'dynamic."date"',
+      ])
+      .where('area."countryCodeISO3" = :countryCodeISO3', {
+        countryCodeISO3: countryCodeISO3,
+      })
+      .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
+      .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel })
+      .andWhere('date = current_date');
+
+    if (placeCodes.length) {
+      adminAreasScript = adminAreasScript.andWhere(
+        'area."placeCode" IN (:...placeCodes)',
+        { placeCodes: placeCodes },
+      );
+    }
+
+    const adminAreas = await adminAreasScript.getRawMany();
 
     return this.helperService.toGeojson(adminAreas);
   }
 
-  public async getStationAdminAreaMappingByCountry(
-    countryCodeISO3,
-  ): Promise<any[]> {
-    return await this.adminAreaRepository.find({
-      select: ['countryCodeISO3', 'name', 'placeCode', 'glofasStation'],
-      where: { countryCodeISO3: countryCodeISO3 },
-    });
-  }
-
   private async getDefaultLeadTime(countryCodeISO3: string): Promise<string> {
+    console.log('getDefaultLeadTime: ', countryCodeISO3);
     const findOneOptions = {
       countryCodeISO3: countryCodeISO3,
     };

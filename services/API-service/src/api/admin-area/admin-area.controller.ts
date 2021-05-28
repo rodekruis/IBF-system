@@ -8,6 +8,7 @@ import {
 import { GeoJson } from '../../shared/geo.model';
 import { RolesGuard } from '../../roles.guard';
 import { AdminAreaService } from './admin-area.service';
+import { AggregateDataRecord } from 'src/shared/data.model';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -20,37 +21,42 @@ export class AdminAreaController {
     this.adminAreaService = adminAreaService;
   }
 
-  // NOTE: this endpoint is to be used by the IBF-pipeline to read this data from DB (instead of current way > TO DO)
   @ApiOperation({
-    summary: 'Get admin-areas by country',
+    summary: 'Get admin-areas by country raw',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @Get(':countryCodeISO3')
-  public async getAdminAreas(@Param() params): Promise<any[]> {
-    return await this.adminAreaService.getAdminAreas(params.countryCodeISO3);
+  @Get('raw/:countryCodeISO3')
+  public async getAdminAreasRaw(@Param() params): Promise<any[]> {
+    return await this.adminAreaService.getAdminAreasRaw(params.countryCodeISO3);
   }
 
-  @ApiOperation({ summary: 'Get admin-area by leadTime' })
+  @ApiOperation({
+    summary: 'Get admin-areas by country as geojson for dashboard',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'leadTime', required: false, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @Get('per-leadtime/:countryCodeISO3/:adminLevel/:leadTime?')
-  public async getAdminAreaData(@Param() params): Promise<GeoJson> {
-    return await this.adminAreaService.getAdminAreasPerLeadTime(
+  @Get(':countryCodeISO3/:adminLevel/:leadTime?')
+  public async getAdminAreas(@Param() params): Promise<GeoJson> {
+    return await this.adminAreaService.getAdminAreas(
       params.countryCodeISO3,
       params.leadTime,
       params.adminLevel,
     );
   }
 
-  @ApiOperation({
-    summary: 'Get Glofas station to admin-area mapping by country',
-  })
+  @ApiOperation({ summary: 'Get admin-area by leadTime' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @Get('station-mapping/:countryCodeISO3')
-  public async getStationMapping(@Param() params): Promise<any[]> {
-    return await this.adminAreaService.getStationAdminAreaMappingByCountry(
+  @ApiParam({ name: 'leadTime', required: false, type: 'string' })
+  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @Get('aggregates/:countryCodeISO3/:adminLevel/:leadTime?')
+  public async getAggregatesData(
+    @Param() params,
+  ): Promise<AggregateDataRecord[]> {
+    return await this.adminAreaService.getAggregatesData(
       params.countryCodeISO3,
+      params.leadTime,
+      params.adminLevel,
     );
   }
 }

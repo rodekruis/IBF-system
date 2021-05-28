@@ -16,7 +16,7 @@ class Forecast:
         self.leadTimeValue = leadTimeValue 
         self.db = DatabaseManager(leadTimeLabel, countryCodeISO3)
 
-        admin_area_json = self.db.apiGetRequest('admin-areas',countryCodeISO3=countryCodeISO3)
+        admin_area_json = self.db.apiGetRequest('admin-areas/raw',countryCodeISO3=countryCodeISO3)
         for index in range(len(admin_area_json)):
             admin_area_json[index]['geometry'] = admin_area_json[index]['geom']
             admin_area_json[index]['properties'] = {
@@ -27,7 +27,7 @@ class Forecast:
         
         if model == 'glofas':
             self.glofas_stations = self.db.apiGetRequest('glofas-stations',countryCodeISO3=countryCodeISO3)
-            self.district_mapping = self.db.apiGetRequest('admin-areas/station-mapping',countryCodeISO3=countryCodeISO3)
+            self.district_mapping = self.db.apiGetRequest('admin-areas/raw',countryCodeISO3=countryCodeISO3)
             self.glofasData = GlofasData(leadTimeLabel, leadTimeValue, countryCodeISO3, self.glofas_stations,self.district_mapping)
             self.floodExtent = FloodExtent(leadTimeLabel, leadTimeValue, countryCodeISO3,self.district_mapping,self.admin_area_gdf)
             self.exposure = Exposure(leadTimeLabel, countryCodeISO3,self.admin_area_gdf,self.district_mapping)
