@@ -6,7 +6,6 @@ import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { EventService } from '../event/event.service';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
-import { EntityManager } from 'typeorm';
 
 describe('AdminAreaDynamicDataService', (): void => {
   let service: AdminAreaDynamicDataService;
@@ -29,7 +28,6 @@ describe('AdminAreaDynamicDataService', (): void => {
             provide: getRepositoryToken(TriggerPerLeadTime),
             useFactory: repositoryMockFactory,
           },
-          EntityManager,
         ],
       }).compile();
 

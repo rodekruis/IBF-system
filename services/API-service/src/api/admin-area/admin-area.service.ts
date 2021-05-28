@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { EntityManager, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from './admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
@@ -19,16 +19,10 @@ export class AdminAreaService {
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
 
-  private manager: EntityManager;
   private helperService: HelperService;
   private eventService: EventService;
 
-  public constructor(
-    manager: EntityManager,
-    helperService: HelperService,
-    eventService: EventService,
-  ) {
-    this.manager = manager;
+  public constructor(helperService: HelperService, eventService: EventService) {
     this.helperService = helperService;
     this.eventService = eventService;
   }
