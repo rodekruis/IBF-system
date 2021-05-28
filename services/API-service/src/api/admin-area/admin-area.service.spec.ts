@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
@@ -25,7 +24,6 @@ describe('AdminAreaService', (): void => {
           AdminAreaService,
           EventService,
           HelperService,
-          EntityManager,
           {
             provide: getRepositoryToken(EventPlaceCodeEntity),
             useFactory: repositoryMockFactory,
