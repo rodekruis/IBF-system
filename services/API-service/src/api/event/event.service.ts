@@ -11,6 +11,7 @@ import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
 import fs from 'fs';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 
 @Injectable()
 export class EventService {
@@ -31,14 +32,24 @@ export class EventService {
   public async getEventSummaryCountry(
     countryCodeISO3: string,
   ): Promise<EventSummaryCountry> {
-    const query = fs
-      .readFileSync('./src/api/event/sql/get-event-summary-country.sql')
-      .toString();
-    const result = await this.manager.query(query, [countryCodeISO3]);
-    if (!result[0].startDate) {
-      return null;
-    }
-    return result[0];
+    const eventSummary = await this.eventPlaceCodeRepo
+      .createQueryBuilder('event')
+      .select('area."countryCodeISO3"')
+      .leftJoin(AdminAreaEntity, 'area', 'area.placeCode = event.placeCode')
+      .groupBy('area."countryCodeISO3"')
+      .addSelect([
+        'to_char(MAX("startDate") , \'yyyy-mm-dd\') AS "startDate"',
+        'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
+        'MAX(event."activeTrigger"::int)::boolean AS "activeTrigger"',
+      ])
+      .where('closed = :closed', {
+        closed: false,
+      })
+      .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
+        countryCodeISO3: countryCodeISO3,
+      })
+      .getRawOne();
+    return eventSummary;
   }
 
   public async getRecentDates(countryCodeISO3: string): Promise<object[]> {
