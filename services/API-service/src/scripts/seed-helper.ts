@@ -1,4 +1,4 @@
-import { Connection, getManager } from 'typeorm';
+import { Connection } from 'typeorm';
 import fs from 'fs';
 import csv from 'csv-parser';
 import { Readable } from 'stream';
@@ -38,12 +38,6 @@ export class SeedHelper {
           resolve(parsedData);
         });
     });
-  }
-
-  public async runSqlScript(path: string): Promise<void> {
-    const entityManager = getManager();
-    const query = fs.readFileSync(path).toString();
-    await entityManager.query(query);
   }
 
   public async cleanAll(): Promise<void> {

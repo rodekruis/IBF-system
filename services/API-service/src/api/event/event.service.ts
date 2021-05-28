@@ -2,7 +2,7 @@
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { EventPlaceCodeDto } from './dto/event-place-code.dto';
-import { EntityManager, LessThan, Repository } from 'typeorm';
+import { LessThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
@@ -10,7 +10,6 @@ import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.d
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
-import fs from 'fs';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 
 @Injectable()
@@ -23,11 +22,8 @@ export class EventService {
   >;
   @InjectRepository(TriggerPerLeadTime)
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
-  private manager: EntityManager;
 
-  public constructor(manager: EntityManager) {
-    this.manager = manager;
-  }
+  public constructor() {}
 
   public async getEventSummaryCountry(
     countryCodeISO3: string,
@@ -91,12 +87,25 @@ export class EventService {
   public async getTriggeredAreas(
     countryCodeISO3: string,
   ): Promise<TriggeredArea[]> {
-    const query = fs
-      .readFileSync('./src/api/event/sql/get-triggered-areas.sql')
-      .toString();
-
-    const result = await this.manager.query(query, [countryCodeISO3]);
-    return result;
+    const triggeredAreas = await this.eventPlaceCodeRepo
+      .createQueryBuilder('event')
+      .select([
+        'event."placeCode"',
+        'area.name AS name',
+        'event."populationAffected"',
+        'event."eventPlaceCodeId"',
+        'event."activeTrigger"',
+      ])
+      .leftJoin(AdminAreaEntity, 'area', 'area.placeCode = event.placeCode')
+      .where('closed = :closed', {
+        closed: false,
+      })
+      .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
+        countryCodeISO3: countryCodeISO3,
+      })
+      .orderBy('event."populationAffected"', 'DESC')
+      .getRawMany();
+    return triggeredAreas;
   }
 
   public async getTriggerPerLeadtime(countryCodeISO3: string): Promise<object> {
