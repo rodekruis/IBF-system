@@ -28,7 +28,6 @@ export class EapActionStatusEntity {
     (eventPlaceCode): EapActionStatusEntity[] =>
       eventPlaceCode.eapActionStatuses,
   )
-  @JoinTable()
   public eventPlaceCode: EventPlaceCodeEntity;
 
   @Column()
