@@ -121,4 +121,21 @@ export class AdminAreaDynamicDataService {
       .execute();
     return result;
   }
+
+  public async getDynamicAdminAreaDataPerPcode(
+    key: DynamicDataUnit,
+    placeCode: string,
+    leadTime: string,
+  ): Promise<number> {
+    const result = await this.adminAreaDynamicDataRepo
+      .createQueryBuilder('admin_area_dynamic_data')
+      .where({
+        key: key,
+        placeCode: placeCode,
+        leadTime: leadTime,
+      })
+      .select(['admin_area_dynamic_data.value AS value'])
+      .execute();
+    return result[0].value;
+  }
 }

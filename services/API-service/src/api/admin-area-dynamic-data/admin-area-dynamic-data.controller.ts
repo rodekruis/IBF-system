@@ -51,4 +51,17 @@ export class AdminAreaDynamicDataController {
       params.key as DynamicDataUnit,
     );
   }
+
+  @ApiOperation({ summary: 'Get admin-area data per placeCode' })
+  @ApiParam({ name: 'key', required: true, type: 'string' })
+  @ApiParam({ name: 'placeCode', required: true, type: 'string' })
+  @ApiParam({ name: 'leadTime', required: true, type: 'string' })
+  @Get('get/one/:key/:placeCode/:leadTime')
+  public async getAdminAreaDataPerPcode(@Param() params): Promise<number> {
+    return await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
+      params.key as DynamicDataUnit,
+      params.placeCode,
+      params.leadTime,
+    );
+  }
 }

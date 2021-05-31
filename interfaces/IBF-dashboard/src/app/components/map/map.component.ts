@@ -420,9 +420,10 @@ export class MapComponent implements OnDestroy {
       this.placeCode = feature.properties.placeCode;
     } else {
       this.apiService
-        .getAdminAreaDataOne(
+        .getAdminAreaDynamiceDataOne(
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
+          this.country.countryActiveLeadTimes[this.country.countryActiveLeadTimes.length - 1]
         )
         .subscribe((thresholdValue: number) => {
           popup = this.createThresHoldPopupAdminRegions(

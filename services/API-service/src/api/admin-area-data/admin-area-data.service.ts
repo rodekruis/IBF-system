@@ -87,19 +87,4 @@ export class AdminAreaDataService {
       .execute();
     return result;
   }
-
-  public async getAdminAreaDataPerPcode(
-    key: DynamicDataUnit,
-    placeCode: string,
-  ): Promise<number> {
-    const result = await this.adminAreaDataRepository
-      .createQueryBuilder('adminAreaData')
-      .where({
-        key: key,
-        placeCode: placeCode,
-      })
-      .select(['adminAreaData.value AS value'])
-      .execute();
-    return result[0].value;
-  }
 }

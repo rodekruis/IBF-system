@@ -185,8 +185,8 @@ export class ApiService {
     );
   }
 
-  getAdminAreaDataOne(key: string, placeCode: string) {
-    return this.get(`adminAreaDataOne/${key}/${placeCode}`, false);
+  getAdminAreaDynamiceDataOne(key: string, placeCode: string, leadTime: string) {
+    return this.get(`admin-area-dynamic-data/get/one/${key}/${placeCode}/${leadTime}`, false);
   }
 
   getAdminAreaDynamicData(

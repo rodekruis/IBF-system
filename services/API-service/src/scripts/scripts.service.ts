@@ -8,7 +8,6 @@ import fs from 'fs';
 import { DynamicDataUnit } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { EventService } from '../api/event/event.service';
-
 @Injectable()
 export class ScriptsService {
   private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService;
@@ -48,18 +47,25 @@ export class ScriptsService {
         DynamicDataUnit.potentialCases65,
         DynamicDataUnit.potentialCasesU9,
         DynamicDataUnit.potentialCases,
+        DynamicDataUnit.potentialThreshold,
       ];
     } else {
       exposureUnits = [DynamicDataUnit.populationAffected];
     }
 
-    const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/upload-exposure-${
-      selectedCountry.countryCodeISO3
-    }${triggered ? '-triggered' : ''}.json`;
-    const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
-    const exposure = JSON.parse(exposureRaw);
-
     for (const unit of exposureUnits) {
+      let exposureFileNameEnd: string;
+      if (unit === DynamicDataUnit.potentialThreshold) {
+        exposureFileNameEnd = '-potential-cases-threshold'
+      } else {
+        exposureFileNameEnd = triggered ? '-triggered' : ''
+      }
+      const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/upload-exposure-${selectedCountry.countryCodeISO3
+        }${exposureFileNameEnd}.json`;
+
+      const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
+      const exposure = JSON.parse(exposureRaw);
+
       for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
         console.log(
           `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3}`,
