@@ -48,7 +48,7 @@ export class EapActionsService {
     const action = new EapActionStatusEntity();
     action.status = eapAction.status;
     action.placeCode = eapAction.placeCode;
-    action.eventPlaceCodeId = eventPlaceCode.eventPlaceCodeId;
+    action.eventPlaceCode = eventPlaceCode;
     action.actionChecked = actionId;
 
     // If no user, take default user for now
@@ -87,11 +87,7 @@ export class EapActionsService {
         'status."actionCheckedId" = recent."actionCheckedId"',
       )
       .setParameters(mostRecentStatePerAction.getParameters())
-      .leftJoin(
-        EventPlaceCodeEntity,
-        'event',
-        'event."eventPlaceCodeId" = status."eventPlaceCodeId"',
-      )
+      .leftJoin('status.eventPlaceCode', 'event')
       .where('status.timestamp = recent.max_timestamp')
       .andWhere('event.closed = false');
 
@@ -113,7 +109,7 @@ export class EapActionsService {
         { placeCode: placeCode },
       )
       .setParameters(eapActionsStates.getParameters())
-      .leftJoin(AreaOfFocusEntity, 'area', 'area.id = action."areaOfFocusId"')
+      .leftJoin('action.areaOfFocus', 'area')
       .where('action."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })

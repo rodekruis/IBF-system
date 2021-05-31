@@ -38,7 +38,6 @@ export class AdminAreaService {
     countryCodeISO3: string,
     leadTime: string,
   ) {
-    console.log('getTriggeredPlaceCodes: ', countryCodeISO3);
     if (!leadTime) {
       leadTime = await this.getDefaultLeadTime(countryCodeISO3);
     }
@@ -60,7 +59,6 @@ export class AdminAreaService {
     leadTime: string,
     adminLevel: number,
   ): Promise<AggregateDataRecord[]> {
-    console.log('getAggregatesData: ', countryCodeISO3);
     const placeCodes = await this.getTriggeredPlaceCodes(
       countryCodeISO3,
       leadTime,
@@ -114,7 +112,6 @@ export class AdminAreaService {
     leadTime: string,
     adminLevel: number,
   ): Promise<GeoJson> {
-    console.log('getAdminAreas: ', countryCodeISO3);
     const placeCodes = await this.getTriggeredPlaceCodes(
       countryCodeISO3,
       leadTime,
@@ -158,7 +155,6 @@ export class AdminAreaService {
   }
 
   private async getDefaultLeadTime(countryCodeISO3: string): Promise<string> {
-    console.log('getDefaultLeadTime: ', countryCodeISO3);
     const findOneOptions = {
       countryCodeISO3: countryCodeISO3,
     };
