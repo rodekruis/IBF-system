@@ -15,7 +15,7 @@ export class EventPlaceCodeEntity {
   public exposureValue: number;
 
   @Column({ type: 'timestamp', nullable: true })
-  @Check(`"startDate" < "endDate"`)
+  @Check(`"startDate" <= "endDate"`)
   public endDate: Date;
 
   @Column({ type: 'timestamp', nullable: true })

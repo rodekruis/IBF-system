@@ -23,7 +23,7 @@ export class IndicatorMetadataEntity {
   @Column()
   public numberFormatMap: string;
   @Column()
-  public aggregateIndicator: boolean | null;
+  public aggregateIndicator: string | null;
   @Column()
   public numberFormatAggregate: string;
   @Column({ default: 1 })

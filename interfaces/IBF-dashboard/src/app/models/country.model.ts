@@ -30,6 +30,8 @@ export class DisasterType {
   disasterType: string;
   label: string;
   leadTimes: LeadTimeEntity[];
+  actionsUnit: string;
+  triggerUnit: string;
 }
 
 class LeadTimeEntity {

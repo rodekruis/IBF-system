@@ -81,7 +81,8 @@ export class AggregatesService {
   private onEachIndicatorByFeatureAndAggregate = (feature, aggregate) => (
     indicator: Indicator,
   ) => {
-    if (indicator.aggregateIndicator) {
+    if (indicator.aggregateIndicator.includes(this.country.countryCodeISO3)) {
+      console.log('feature.properties: ', feature.properties);
       if (indicator.name in feature.properties) {
         aggregate[indicator.name] = feature.properties[indicator.name];
       } else if (indicator.name in feature.properties.indicators) {
@@ -137,15 +138,18 @@ export class AggregatesService {
     indicator: IbfLayerName,
     placeCode: string,
   ) => (accumulator, aggregate) => {
+    // console.log('accumulator: ', accumulator);
+    // console.log('placeCode: ', placeCode);
     let indicatorValue = 0;
 
     if (placeCode === null || placeCode === aggregate.placeCode) {
       const indicatorWeight = weightedAverage
-        ? aggregate[IbfLayerName.population_affected]
+        ? aggregate[this.country.disasterTypes[0].actionsUnit]
         : 1;
       indicatorValue = indicatorWeight * aggregate[indicator];
     }
 
+    console.log('indicatorValue: ', indicatorValue);
     return accumulator + indicatorValue;
   };
 }
