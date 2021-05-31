@@ -6,6 +6,7 @@ import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionDto } from './dto/eap-action.dto';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 
 @Injectable()
 export class EapActionsService {
@@ -17,12 +18,10 @@ export class EapActionsService {
   private readonly eapActionRepository: Repository<EapActionEntity>;
   @InjectRepository(AreaOfFocusEntity)
   private readonly areaOfFocusRepository: Repository<AreaOfFocusEntity>;
+  @InjectRepository(EventPlaceCodeEntity)
+  private readonly eventPlaceCodeRepository: Repository<EventPlaceCodeEntity>;
 
-  private manager: EntityManager;
-
-  public constructor(manager: EntityManager) {
-    this.manager = manager;
-  }
+  public constructor() {}
 
   public async checkAction(
     userId: string,
@@ -39,22 +38,17 @@ export class EapActionsService {
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
 
-    const query = `select
-        "eventPlaceCodeId"
-      from
-        "IBF-app".event_place_code
-      where
-        closed = false
-        and "placeCode" = $1`;
-
-    const eventPlaceCodeId = (
-      await this.manager.query(query, [eapAction.placeCode])
-    )[0]['eventPlaceCodeId'];
+    const eventPlaceCode = await this.eventPlaceCodeRepository.findOne({
+      where: {
+        closed: false,
+        placeCode: eapAction.placeCode,
+      },
+    });
 
     const action = new EapActionStatusEntity();
     action.status = eapAction.status;
     action.placeCode = eapAction.placeCode;
-    action.eventPlaceCodeId = eventPlaceCodeId;
+    action.eventPlaceCodeId = eventPlaceCode.eventPlaceCodeId;
     action.actionChecked = actionId;
 
     // If no user, take default user for now
@@ -73,56 +67,60 @@ export class EapActionsService {
     countryCodeISO3: string,
     placeCode: string,
   ): Promise<EapActionEntity[]> {
-    const query = `
-      select
-        aof.label as "aofLabel" ,
-        aof.id as aof ,
-        "action" ,
-        ea."label" ,
-        $1 as "placeCode",
-        case
-          when eas."actionCheckedId" is null then false
-          else eas.status
-        end as checked
-      from
-        "IBF-app"."eap-action" ea
-      left join "IBF-app"."area-of-focus" aof 
-        on ea."areaOfFocusId" = aof.id
-      left join(
-        select
-          t1.*
-        from
-          "IBF-app"."eap-action-status" t1
-        left join(
-          select
-            "actionCheckedId",
-            "placeCode" ,
-            max(timestamp) as max_timestamp
-          from
-            "IBF-app"."eap-action-status"
-          group by
-            1,2 
-        ) t2 
-          on t1."actionCheckedId" = t2."actionCheckedId"
-        where
-          timestamp = max_timestamp
-          and "eventPlaceCodeId" = any( (
-            select
-              array_agg("eventPlaceCodeId")
-            from "IBF-app".event_place_code 
-            where closed = false
-          )::uuid[]) 
-      ) eas 
-        on ea.id = eas."actionCheckedId"
-        and eas."placeCode" = $1
-      where
-        "countryCodeISO3" = $2`;
+    const mostRecentStatePerAction = await this.eapActionStatusRepository
+      .createQueryBuilder('status')
+      .select(['status."actionCheckedId"', 'status."placeCode"'])
+      .groupBy('status."actionCheckedId"')
+      .addGroupBy('status."placeCode"')
+      .addSelect(['MAX(status.timestamp) AS "max_timestamp"']);
 
-    const actions: EapActionEntity[] = await this.manager.query(query, [
-      placeCode,
-      countryCodeISO3,
-    ]);
+    const eapActionsStates = await this.eapActionStatusRepository
+      .createQueryBuilder('status')
+      .select([
+        'status."actionCheckedId"',
+        'status."placeCode"',
+        'status."status"',
+      ])
+      .leftJoin(
+        '(' + mostRecentStatePerAction.getQuery() + ')',
+        'recent',
+        'status."actionCheckedId" = recent."actionCheckedId"',
+      )
+      .setParameters(mostRecentStatePerAction.getParameters())
+      .leftJoin(
+        EventPlaceCodeEntity,
+        'event',
+        'event."eventPlaceCodeId" = status."eventPlaceCodeId"',
+      )
+      .where('status.timestamp = recent.max_timestamp')
+      .andWhere('event.closed = false');
 
-    return actions;
+    const eapActions = await this.eapActionRepository
+      .createQueryBuilder('action')
+      .select([
+        'area."label" AS "aofLabel"',
+        'area.id AS aof',
+        'action."action"',
+        'action."label"',
+      ])
+      .addSelect(
+        'case when status."actionCheckedId" is null then false else status.status end AS checked',
+      )
+      .leftJoin(
+        '(' + eapActionsStates.getQuery() + ')',
+        'status',
+        'action.id = status."actionCheckedId" AND status."placeCode" = :placeCode',
+        { placeCode: placeCode },
+      )
+      .setParameters(eapActionsStates.getParameters())
+      .leftJoin(AreaOfFocusEntity, 'area', 'area.id = action."areaOfFocusId"')
+      .where('action."countryCodeISO3" = :countryCodeISO3', {
+        countryCodeISO3: countryCodeISO3,
+      })
+      .getRawMany();
+
+    eapActions.forEach(action => (action['placeCode'] = placeCode));
+
+    return eapActions;
   }
 }
