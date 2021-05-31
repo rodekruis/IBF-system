@@ -82,7 +82,6 @@ export class AggregatesService {
     indicator: Indicator,
   ) => {
     if (indicator.aggregateIndicator.includes(this.country.countryCodeISO3)) {
-      console.log('feature.properties: ', feature.properties);
       if (indicator.name in feature.properties) {
         aggregate[indicator.name] = feature.properties[indicator.name];
       } else if (indicator.name in feature.properties.indicators) {
@@ -138,8 +137,6 @@ export class AggregatesService {
     indicator: IbfLayerName,
     placeCode: string,
   ) => (accumulator, aggregate) => {
-    // console.log('accumulator: ', accumulator);
-    // console.log('placeCode: ', placeCode);
     let indicatorValue = 0;
 
     if (placeCode === null || placeCode === aggregate.placeCode) {
@@ -149,7 +146,6 @@ export class AggregatesService {
       indicatorValue = indicatorWeight * aggregate[indicator];
     }
 
-    console.log('indicatorValue: ', indicatorValue);
     return accumulator + indicatorValue;
   };
 }
