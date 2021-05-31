@@ -475,7 +475,7 @@ export class MapComponent implements OnDestroy {
       ? 'var(--ion-color-ibf-black)'
       : 'var(--ion-color-ibf-white)';
     const title = feature.properties.name;
-    const eapStatusColor = headerColor;
+    const eapStatusColor = featureTriggered ? 'var(--ion-color-ibf-salmon)' : '#d4d3d2'
     const eapStatusText = featureTriggered
       ? 'ACTIVATE ACTION PROTOCOL'
       : 'No action';
