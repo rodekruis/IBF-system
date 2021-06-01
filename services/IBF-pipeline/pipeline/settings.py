@@ -33,7 +33,7 @@ SETTINGS = {
         },
         'bounding_box': [-9, 21, -18, 34],
         'email': {
-            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/35e3a47b-65d0-9b15-ad8f-ac19300ef5b6.png",
+            'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/6d54577d-8f22-4a95-bc30-b86453f5188c.png",
             'triggerStatement': "TBD",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#heading=h.gjdgxs",
