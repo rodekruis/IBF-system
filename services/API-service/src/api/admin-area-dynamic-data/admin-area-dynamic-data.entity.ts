@@ -7,9 +7,9 @@ import {
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
-import { DynamicDataUnit } from './enum/dynamic-data-unit';
+import { DynamicIndicator } from './enum/dynamic-indicator';
 
-@Entity('admin_area_dynamic_data')
+@Entity('admin-area-dynamic-data')
 export class AdminAreaDynamicDataEntity {
   @PrimaryGeneratedColumn('uuid')
   public adminAreaDynamicDataId: string;
@@ -28,7 +28,7 @@ export class AdminAreaDynamicDataEntity {
   public placeCode: string;
 
   @Column()
-  public key: DynamicDataUnit;
+  public indicator: DynamicIndicator;
 
   @Column({ type: 'date' })
   public date: Date;

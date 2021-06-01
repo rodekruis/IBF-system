@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CountryService } from '../country/country.service';
-import { DataService } from '../data/data.service';
+import { EventService } from '../event/event.service';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { LayerMetadataEntity } from './layer-metadata.entity';
 
@@ -13,18 +13,18 @@ export class MetadataService {
   @InjectRepository(LayerMetadataEntity)
   private readonly layerRepository: Repository<LayerMetadataEntity>;
 
-  private readonly dataService: DataService;
   private countryService: CountryService;
+  private readonly eventService: EventService;
 
-  public constructor(dataService: DataService, countryService: CountryService) {
+  public constructor( countryService: CountryService, eventService: EventService) {
     this.countryService = countryService;
-    this.dataService = dataService;
+    this.eventService = eventService;
   }
 
   public async getIndicatorsByCountry(
     countryCodeISO3,
   ): Promise<IndicatorMetadataEntity[]> {
-    const event = await this.dataService.getEventSummaryCountry(
+    const event = await this.eventService.getEventSummaryCountry(
       countryCodeISO3,
     );
     const activeTrigger = event && event.activeTrigger;

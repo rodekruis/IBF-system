@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
 
-@Entity('redcrossBranch')
+@Entity('redcross-branch')
 export class RedcrossBranchEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
@@ -34,6 +34,6 @@ export class RedcrossBranchEntity {
   @Column({ nullable: true })
   public contactNumber: string;
 
-  @Column()
-  public geom: string;
+  @Column('json', { nullable: true })
+  public geom: JSON;
 }

@@ -15,8 +15,8 @@ import { EventModule } from '../event/event.module';
     EventModule,
     CountryModule,
   ],
-  controllers: [AdminAreaDynamicDataController],
   providers: [AdminAreaDynamicDataService],
+  controllers: [AdminAreaDynamicDataController],
   exports: [AdminAreaDynamicDataService],
 })
 export class AdminAreaDynamicDataModule {}

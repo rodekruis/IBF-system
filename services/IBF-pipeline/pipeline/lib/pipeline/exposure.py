@@ -52,7 +52,7 @@ class Exposure:
                 'countryCodeISO3': self.countryCodeISO3,
                 'exposurePlaceCodes': self.stats,
                 'leadTime': self.leadTimeLabel,
-                'dynamicDataUnit': indicator + '_affected',
+                'dynamicIndicator': indicator + '_affected',
                 'adminLevel': SETTINGS[self.countryCodeISO3]['admin_level']
             }
 

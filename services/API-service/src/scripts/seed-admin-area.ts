@@ -15,7 +15,6 @@ export class SeedAdminArea implements InterfaceScript {
 
   public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
-
     const adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
     await Promise.all(
       countries.map(

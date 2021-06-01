@@ -2,18 +2,17 @@ import { CountryService } from './../country/country.service';
 import { LeadTime } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { Injectable } from '@nestjs/common';
-import { EntityManager, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
-import { DynamicDataUnit } from './enum/dynamic-data-unit';
+import { DynamicIndicator } from './enum/dynamic-indicator';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
 import { EventService } from '../event/event.service';
 import fs from 'fs';
 @Injectable()
 export class AdminAreaDynamicDataService {
-  private manager: EntityManager;
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<
     AdminAreaDynamicDataEntity
@@ -25,11 +24,9 @@ export class AdminAreaDynamicDataService {
   public constructor(
     countryService: CountryService,
     eventService: EventService,
-    manager: EntityManager,
   ) {
     this.eventService = eventService;
     this.countryService = countryService;
-    this.manager = manager;
   }
 
   public async exposure(
@@ -37,14 +34,19 @@ export class AdminAreaDynamicDataService {
   ): Promise<void> {
     // Delete existing entries with same date, leadtime and countryCodeISO3 and unit typ
     await this.adminAreaDynamicDataRepo.delete({
-      key: uploadExposure.dynamicDataUnit,
+      indicator: uploadExposure.dynamicIndicator,
       countryCodeISO3: uploadExposure.countryCodeISO3,
       leadTime: uploadExposure.leadTime,
     });
-
+    await this.adminAreaDynamicDataRepo.delete({
+      indicator: uploadExposure.dynamicIndicator,
+      date: new Date(),
+      countryCodeISO3: uploadExposure.countryCodeISO3,
+      leadTime: uploadExposure.leadTime,
+    });
     for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
       const area = new AdminAreaDynamicDataEntity();
-      area.key = uploadExposure.dynamicDataUnit;
+      area.indicator = uploadExposure.dynamicIndicator;
       area.value = exposurePlaceCode.amount;
       area.adminLevel = uploadExposure.adminLevel;
       area.placeCode = exposurePlaceCode.placeCode;
@@ -57,17 +59,11 @@ export class AdminAreaDynamicDataService {
     const triggerUnits = await this.countryService.getTriggerUnitsForCountry(
       uploadExposure.countryCodeISO3,
     );
-    if (triggerUnits.includes(uploadExposure.dynamicDataUnit)) {
+    if (triggerUnits.includes(uploadExposure.dynamicIndicator)) {
       await this.insertTrigger(uploadExposure);
-      const query = fs
-        .readFileSync(
-          './src/api/admin-area-dynamic-data/sql/createApiTables.sql',
-        )
-        .toString();
-      await this.manager.query(query);
     }
 
-    await this.eventService.processEventAreas();
+    await this.eventService.processEventAreas(uploadExposure.countryCodeISO3);
   }
 
   private async insertTrigger(
@@ -104,33 +100,33 @@ export class AdminAreaDynamicDataService {
     countryCodeISO3: string,
     adminLevel: string,
     leadTime: LeadTime,
-    key: DynamicDataUnit,
+    indicator: DynamicIndicator,
   ): Promise<AdminDataReturnDto[]> {
     const result = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('admin_area_dynamic_data')
+      .createQueryBuilder('admin-area-dynamic-data')
       .where({
         countryCodeISO3: countryCodeISO3,
         adminLevel: Number(adminLevel),
         leadTime: leadTime,
-        key: key,
+        indicator: indicator,
       })
       .select([
-        'admin_area_dynamic_data.value AS value',
-        'admin_area_dynamic_data.placeCode AS "placeCode"',
+        'admin-area-dynamic-data.value AS value',
+        'admin-area-dynamic-data.placeCode AS "placeCode"',
       ])
       .execute();
     return result;
   }
 
   public async getDynamicAdminAreaDataPerPcode(
-    key: DynamicDataUnit,
+    indicator: DynamicIndicator,
     placeCode: string,
     leadTime: string,
   ): Promise<number> {
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('admin_area_dynamic_data')
       .where({
-        key: key,
+        indicator: indicator,
         placeCode: placeCode,
         leadTime: leadTime,
       })

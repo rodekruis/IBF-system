@@ -178,11 +178,12 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE EAP ACTIONS *****
     console.log('Seed EAP Actions...');
-    const countryEapActions = eapActions.filter((eapAction: any): boolean =>
-      envCountries.includes(eapAction.countryCodeISO3),
-    );
+    envCountries
+    const filteredAction = eapActions.filter((action): boolean => {
+      return envCountries.includes(action.countryCodeISO3);
+    })
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
-    await eapActionRepository.save(countryEapActions);
+    await eapActionRepository.save(filteredAction);
 
     // ***** CREATE INDICATOR METADATA *****
     console.log('Seed Indicators...');

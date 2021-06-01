@@ -6,7 +6,7 @@ import {
   ApiParam,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { GeoJson } from '../data/geo.model';
+import { GeoJson } from '../../shared/geo.model';
 import { WaterpointsService } from './waterpoints.service';
 import { RolesGuard } from '../../roles.guard';
 

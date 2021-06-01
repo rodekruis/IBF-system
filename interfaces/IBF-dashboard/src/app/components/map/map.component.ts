@@ -634,7 +634,7 @@ export class MapComponent implements OnDestroy {
     markerProperties: Station,
     markerLatLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.station_name;
+    const markerTitle = markerProperties.stationName;
     let markerIcon: IconOptions;
     let className: string;
 
@@ -642,7 +642,7 @@ export class MapComponent implements OnDestroy {
       ? this.country.eapAlertClasses
       : new EapAlertClasses();
 
-    const glofasProbability = markerProperties.fc_prob;
+    const glofasProbability = markerProperties.forecastProbability;
     Object.keys(eapAlertClasses).forEach((key) => {
       if (
         glofasProbability >= eapAlertClasses[key].valueLow &&
@@ -738,7 +738,7 @@ export class MapComponent implements OnDestroy {
     const eapAlertClasses = this.country
       ? this.country.eapAlertClasses
       : new EapAlertClasses();
-    const glofasProbability = markerProperties.fc_prob;
+    const glofasProbability = markerProperties.forecastProbability;
 
     let eapStatusText: string;
     let eapStatusColor: string;
@@ -761,9 +761,9 @@ export class MapComponent implements OnDestroy {
         : 'var(--ion-color-ibf-white)';
 
     const title =
-      markerProperties.station_code +
+      markerProperties.stationCode +
       ' STATION: ' +
-      markerProperties.station_name;
+      markerProperties.stationName;
 
     const unit = ' forecast river discharge (in m<sup>3</sup>/s)';
     const stationInfoPopup = this.createThresholdPopup(
@@ -772,8 +772,8 @@ export class MapComponent implements OnDestroy {
       title,
       eapStatusColor,
       eapStatusText,
-      markerProperties.fc,
-      markerProperties.trigger_level,
+      markerProperties.forecastLevel,
+      markerProperties.forecastTrigger,
       unit,
     );
     return stationInfoPopup;

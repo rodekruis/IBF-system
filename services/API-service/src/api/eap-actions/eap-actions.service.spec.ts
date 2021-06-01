@@ -6,6 +6,7 @@ import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionsService } from './eap-actions.service';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 
 describe('EapActionsService', (): void => {
   let service: EapActionsService;
@@ -21,6 +22,7 @@ describe('EapActionsService', (): void => {
             EapActionEntity,
             AreaOfFocusEntity,
             CountryEntity,
+            EventPlaceCodeEntity,
           ]),
         ],
         providers: [EapActionsService],

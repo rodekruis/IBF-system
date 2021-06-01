@@ -11,8 +11,8 @@ import { RainfallTriggersService } from './rainfall-triggers.service';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
-@ApiTags('rainfallTriggers')
-@Controller('rainfallTriggers')
+@ApiTags('rainfall-triggers')
+@Controller('rainfall-triggers')
 export class RainfallTriggersController {
   private readonly rainfallTriggersService: RainfallTriggersService;
 

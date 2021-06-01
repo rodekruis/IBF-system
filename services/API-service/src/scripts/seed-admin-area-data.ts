@@ -39,7 +39,7 @@ export class SeedAdminAreaData implements InterfaceScript {
                 countryCodeISO3: 'PHL',
                 adminLevel: 2,
                 placeCode: area['placeCode'],
-                key: area['key'],
+                indicator: area['indicator'],
                 value: area['value'],
               })
               .execute()
@@ -61,7 +61,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           countryCodeISO3: 'UGA',
           adminLevel: 2,
           placeCode: area['placeCode'],
-          key: area['key'],
+          indicator: area['indicator'],
           value: area['value'],
         };
       });
@@ -76,7 +76,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           countryCodeISO3: 'UGA',
           adminLevel: 2,
           placeCode: area['placeCode'],
-          key: area['key'],
+          indicator: area['indicator'],
           value: area['value'],
         };
       });

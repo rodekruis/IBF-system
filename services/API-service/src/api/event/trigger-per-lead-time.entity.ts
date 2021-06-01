@@ -8,7 +8,7 @@ import {
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../country/country.entity';
 
-@Entity('trigger_per_lead_time')
+@Entity('trigger-per-lead-time')
 export class TriggerPerLeadTime {
   @PrimaryGeneratedColumn('uuid')
   public id: string;

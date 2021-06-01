@@ -14,26 +14,16 @@
 **NOTE**: For now some background on IBF-terminology (e.g. triggers) is
 expected. This can be expanded on later.
 
-This is the repository for the IBF-system. It includes 3 main components.
+This is the repository for the IBF-system. It includes 2 main components.
 
-1. [Trigger model development](./trigger-model-development/)
+1. [Services (backend)](./services/)
 
--   This contains the exploratory analysis for developing a trigger-model for a
-    given country and disaster-type.
--   It might include (in the future) a lot of shared code between countries and
-    disaster types, and even (automated) tools to aid analysts to develop
-    trigger models.
--   The output is a `trigger script` which determines (per country/disaster
-    type) when and where a trigger is reached.
-
-2. [Services (backend)](./services/)
-
--   The `trigger script` is subsequently automated through (e.g. a daily
-    running) service.
+-   The `trigger model development scripts` are automated through (e.g. a daily
+    running) pipeline.
 -   Results (as well as other related data) are stored in a database
 -   Database content is returned through API-calls to some interface
 
-3. [Interfaces (frontend)](./interfaces/)
+2. [Interfaces (frontend)](./interfaces/)
 
 -   Visualization of model results through dashboards
 -   Dashboards might move from read-only to write-applications, where users can
@@ -43,6 +33,10 @@ This is the repository for the IBF-system. It includes 3 main components.
 
 ![IBF-system design (draft)](./system-design/ibf-system-design.PNG)
 
+## Prequisites
+
+The IBF-pipeline for GloFAS needs separate resources to be present (see services/IBF-pipeline/README.md)
+
 ## Installation
 
 1. Setup env variables:
@@ -51,7 +45,12 @@ This is the repository for the IBF-system. It includes 3 main components.
 
     Fill in the .env variables with someone who has them.
 
-2. Whitelist your machine IP at the database server
+2. Set up secret values for IBF-pipeline:
+    `cp services/IBF-pipeline/pipeline/secrets.py.template services/IBF-pipeline/pipeline/secrets.py`
+
+    Fill in the variables with someone who has them.
+    
+3. Whitelist your machine IP at the database server (unless using local database)
 
 ### Using Docker
 
@@ -72,12 +71,11 @@ without docker:
 
 `cp .env services/API-service/.env` `npm run start`
 
-### NOTE on (local) database
+### Load (local) database with data
 
 Locally, a database-container will start (as opposed to remote servers, which are connected to a database-server).
 To (re)seed this database with data
-- (re)create database + schema's
-  - docker-compose up -d --force-recreate ibf-local-db 
+- (re)create schema
 - run seed script
   - docker-compose exec ibf-api-service npm run seed
 - run the pipeline for all countries

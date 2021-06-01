@@ -1,5 +1,6 @@
 import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { HelperService } from '../../shared/helper.service';
 import { UserModule } from '../user/user.module';
 import { RedcrossBranchController } from './redcross-branch.controller';
 import { RedcrossBranchEntity } from './redcross-branch.entity';
@@ -11,7 +12,7 @@ import { RedcrossBranchService } from './redcross-branch.service';
     UserModule,
     TypeOrmModule.forFeature([RedcrossBranchEntity]),
   ],
-  providers: [RedcrossBranchService],
+  providers: [RedcrossBranchService, HelperService],
   controllers: [RedcrossBranchController],
   exports: [RedcrossBranchService],
 })

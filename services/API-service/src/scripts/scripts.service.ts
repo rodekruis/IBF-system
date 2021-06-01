@@ -5,7 +5,7 @@ import { GlofasStationService } from '../api/glofas-station/glofas-station.servi
 import { MockDynamic } from './scripts.controller';
 import countries from './json/countries.json';
 import fs from 'fs';
-import { DynamicDataUnit } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
+import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-indicator';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { EventService } from '../api/event/event.service';
 @Injectable()
@@ -43,19 +43,19 @@ export class ScriptsService {
     let exposureUnits;
     if (selectedCountry.countryCodeISO3 === 'PHL') {
       exposureUnits = [
-        DynamicDataUnit.alertThreshold,
-        DynamicDataUnit.potentialCases65,
-        DynamicDataUnit.potentialCasesU9,
-        DynamicDataUnit.potentialCases,
-        DynamicDataUnit.potentialThreshold,
+        DynamicIndicator.alertThreshold,
+        DynamicIndicator.potentialCases65,
+        DynamicIndicator.potentialCasesU9,
+        DynamicIndicator.potentialCases,
+        DynamicIndicator.potentialThreshold,
       ];
     } else {
-      exposureUnits = [DynamicDataUnit.populationAffected];
+      exposureUnits = [DynamicIndicator.populationAffected];
     }
 
     for (const unit of exposureUnits) {
       let exposureFileNameEnd: string;
-      if (unit === DynamicDataUnit.potentialThreshold) {
+      if (unit === DynamicIndicator.potentialThreshold) {
         exposureFileNameEnd = '-potential-cases-threshold'
       } else {
         exposureFileNameEnd = triggered ? '-triggered' : ''
@@ -74,7 +74,7 @@ export class ScriptsService {
           countryCodeISO3: selectedCountry.countryCodeISO3,
           exposurePlaceCodes: this.mockAmount(exposure, unit, triggered),
           leadTime: activeLeadTime as LeadTime,
-          dynamicDataUnit: unit,
+          dynamicIndicator: unit,
           adminLevel: selectedCountry.defaultAdminLevel,
         });
       }
@@ -83,16 +83,16 @@ export class ScriptsService {
 
   private mockAmount(
     exposurePlacecodes: any,
-    exposureUnit: DynamicDataUnit,
+    exposureUnit: DynamicIndicator,
     triggered: boolean
   ): [] {
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     for (const pcodeData of copyOfExposureUnit) {
-      if (exposureUnit === DynamicDataUnit.potentialCases65) {
+      if (exposureUnit === DynamicIndicator.potentialCases65) {
         pcodeData.amount = Math.round(pcodeData.amount * 0.1);
-      } else if (exposureUnit === DynamicDataUnit.potentialCasesU9) {
+      } else if (exposureUnit === DynamicIndicator.potentialCasesU9) {
         pcodeData.amount = Math.round(pcodeData.amount * 0.2);
-      } else if (exposureUnit === DynamicDataUnit.alertThreshold) {
+      } else if (exposureUnit === DynamicIndicator.alertThreshold) {
         if (!triggered) {
           pcodeData.amount = 0
         } else {

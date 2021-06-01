@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('health_site')
+@Entity('health-site')
 export class HealthSiteEntity {
   @PrimaryGeneratedColumn('uuid')
-  public id: string;
+  public healthSiteId: string;
 
   @Column()
   public countryCodeISO3: string;

@@ -11,7 +11,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { DynamicDataPlaceCodeDto } from './dynamic-data-place-code.dto';
 import exposure from './example/upload-exposure-PHL.json';
 import { LeadTime } from '../enum/lead-time.enum';
-import { DynamicDataUnit } from '../enum/dynamic-data-unit';
+import { DynamicIndicator } from '../enum/dynamic-indicator';
 
 export class UploadAdminAreaDynamicDataDto {
   @ApiProperty({ example: 'PHL' })
@@ -37,7 +37,7 @@ export class UploadAdminAreaDynamicDataDto {
 
   @ApiProperty({ example: 'population_affected' })
   @IsNotEmpty()
-  @IsEnum(DynamicDataUnit)
+  @IsEnum(DynamicIndicator)
   @IsString()
-  public dynamicDataUnit: DynamicDataUnit;
+  public dynamicIndicator: DynamicIndicator;
 }

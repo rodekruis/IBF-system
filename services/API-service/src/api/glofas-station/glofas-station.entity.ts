@@ -4,10 +4,12 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
+import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 
-@Entity('glofasStation')
+@Entity('glofas-station')
 export class GlofasStationEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
@@ -21,6 +23,12 @@ export class GlofasStationEntity {
 
   @Column({ unique: true })
   public stationCode: string;
+
+  @OneToMany(
+    (): typeof GlofasStationForecastEntity => GlofasStationForecastEntity,
+    (station): GlofasStationEntity => station.glofasStation,
+  )
+  public stationForecasts: GlofasStationForecastEntity[];
 
   @Column({ nullable: true })
   public stationName: string;
@@ -40,12 +48,12 @@ export class GlofasStationEntity {
   @Column({ nullable: true, type: 'real' })
   public threshold20Year: string;
 
-  @Column({ nullable: true, type: 'real' })
+  @Column({ nullable: true, type: 'double precision' })
   public lat: string;
 
-  @Column({ nullable: true, type: 'real' })
+  @Column({ nullable: true, type: 'double precision' })
   public lon: string;
 
-  @Column({ nullable: true })
-  public geom: string;
+  @Column('json', { nullable: true })
+  public geom: JSON;
 }

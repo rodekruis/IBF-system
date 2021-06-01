@@ -17,15 +17,15 @@ describe('AdminAreaDynamicDataService', (): void => {
           AdminAreaDynamicDataService,
           EventService,
           {
-            provide: getRepositoryToken(TriggerPerLeadTime),
-            useFactory: repositoryMockFactory,
-          },
-          {
             provide: getRepositoryToken(AdminAreaDynamicDataEntity),
             useFactory: repositoryMockFactory,
           },
           {
             provide: getRepositoryToken(EventPlaceCodeEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(TriggerPerLeadTime),
             useFactory: repositoryMockFactory,
           },
         ],

@@ -7,7 +7,7 @@ import csv from 'csv-parser';
 import { UploadAdminAreaDataDto } from './dto/upload-admin-area-data.dto';
 import { validate } from 'class-validator';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { DynamicDataUnit } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
+import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator';
 
 @Injectable()
 export class AdminAreaDataService {
@@ -23,7 +23,7 @@ export class AdminAreaDataService {
     validatedObjArray.forEach(record => {
       this.adminAreaDataRepository.delete({
         placeCode: record['placeCode'],
-        key: record['key'],
+        indicator: record['indicator'],
       });
     });
     await this.adminAreaDataRepository.save(validatedObjArray);
@@ -53,7 +53,7 @@ export class AdminAreaDataService {
       data.countryCodeISO3 = row.countryCodeISO3;
       data.adminLevel = parseInt(row.adminLevel);
       data.placeCode = row.placeCode;
-      data.key = row.key;
+      data.indicator = row.indicator;
       data.value = parseFloat(row.value);
       const result = await validate(data);
       if (result.length > 0) {
@@ -71,18 +71,18 @@ export class AdminAreaDataService {
   public async getAdminAreaData(
     countryCodeISO3: string,
     adminLevel: string,
-    key: DynamicDataUnit,
+    indicator: DynamicIndicator,
   ): Promise<AdminDataReturnDto[]> {
     const result = await this.adminAreaDataRepository
-      .createQueryBuilder('adminAreaData')
+      .createQueryBuilder('admin-area-data')
       .where({
         countryCodeISO3: countryCodeISO3,
         adminLevel: Number(adminLevel),
-        key: key,
+        indicator: indicator,
       })
       .select([
-        'adminAreaData.value AS value',
-        'adminAreaData.placeCode AS "placeCode"',
+        'admin-area-data.value AS value',
+        'admin-area-data.placeCode AS "placeCode"',
       ])
       .execute();
     return result;

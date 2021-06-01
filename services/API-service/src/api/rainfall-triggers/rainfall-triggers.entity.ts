@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
 
-@Entity('rainfallTriggers')
+@Entity('rainfall-triggers')
 export class RainfallTriggersEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;

@@ -1,3 +1,73 @@
+## [0.61.1](https://github.com/rodekruis/IBF-system/compare/v0.61.0...v0.61.1) (2021-05-26)
+
+
+### Bug Fixes
+
+* unit tests ([7a4f869](https://github.com/rodekruis/IBF-system/commit/7a4f869fde1573be98261c7a40c53c46559450b7))
+
+
+
+# [0.61.0](https://github.com/rodekruis/IBF-system/compare/v0.60.1...v0.61.0) (2021-05-21)
+
+
+### Bug Fixes
+
+* changes needed to merge rainfall PR AB[#7785](https://github.com/rodekruis/IBF-system/issues/7785) ([249fadd](https://github.com/rodekruis/IBF-system/commit/249fadd07227c7c9d7e3666efc72b6acc954dd4b))
+
+
+### Features
+
+* update documentation AB[#6513](https://github.com/rodekruis/IBF-system/issues/6513) ([a9ac5ef](https://github.com/rodekruis/IBF-system/commit/a9ac5efbb4f88b33c9a0276f081f663b30b66adb))
+
+
+
+## [0.60.1](https://github.com/rodekruis/IBF-system/compare/v0.60.0...v0.60.1) (2021-05-21)
+
+
+### Bug Fixes
+
+* don't try download if mock AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([79699ab](https://github.com/rodekruis/IBF-system/commit/79699abe2123bc87300a04098e0f8ca518b2e109))
+* indentation ([a4de40e](https://github.com/rodekruis/IBF-system/commit/a4de40ef505c85d61abf7b0dcca177dd19b2eba8))
+* remove changes other open branch AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([bfdc3c2](https://github.com/rodekruis/IBF-system/commit/bfdc3c21f769b280e46e3dbd774e632550c5c44f))
+
+
+
+# [0.60.0](https://github.com/rodekruis/IBF-system/compare/v0.59.3...v0.60.0) (2021-05-19)
+
+
+### Bug Fixes
+
+* add country-check on admin-area data AB[#7530](https://github.com/rodekruis/IBF-system/issues/7530) ([8c6d640](https://github.com/rodekruis/IBF-system/commit/8c6d64021bf48d634e696cee71b7f8abd741ca01))
+* add log to mock data controller ([8b9a9f0](https://github.com/rodekruis/IBF-system/commit/8b9a9f0118d24aa8901cebe8a68d7c38e3452630))
+* Added descriptions AB[#7374](https://github.com/rodekruis/IBF-system/issues/7374) ([a3b08aa](https://github.com/rodekruis/IBF-system/commit/a3b08aaa04aafc242db5472bd7c034ac4240a8bd))
+* added temp migration-query to keep working pipeline AB[#7430](https://github.com/rodekruis/IBF-system/issues/7430) ([339e43f](https://github.com/rodekruis/IBF-system/commit/339e43f69df43851e740056b19c6f8e10d003f9a))
+* added temp migration-query to keep working pipeline AB[#7430](https://github.com/rodekruis/IBF-system/issues/7430) ([730f776](https://github.com/rodekruis/IBF-system/commit/730f7765effbc8685d304e41eff93e77fdf46816))
+* forgot rename 'population_affected' AB[#7767](https://github.com/rodekruis/IBF-system/issues/7767) ([aad4de6](https://github.com/rodekruis/IBF-system/commit/aad4de654fca81de8547893f7fd65a68bc96ab6b))
+* include missing import AB[#7418](https://github.com/rodekruis/IBF-system/issues/7418) ([0e8565c](https://github.com/rodekruis/IBF-system/commit/0e8565c1a0f404e0543525443c30a57cb69c3930))
+* lint ([44042fc](https://github.com/rodekruis/IBF-system/commit/44042fc2981dae0c58c0611da56864f66916a8ce))
+* lint ([c245b7a](https://github.com/rodekruis/IBF-system/commit/c245b7a1d083c8a0542944c1e73d9074f8274fa9))
+* lint + unit test ([6e60a9b](https://github.com/rodekruis/IBF-system/commit/6e60a9bc0da93c5149a77cbe32c6bf13872af738))
+* raise error if post request fails AB[#7450](https://github.com/rodekruis/IBF-system/issues/7450) ([f479d7e](https://github.com/rodekruis/IBF-system/commit/f479d7e3ab8a134cbf3f31c16fc8b2d2fb9be38f))
+* raise error if post request fails AB[#7450](https://github.com/rodekruis/IBF-system/issues/7450) ([6da8b99](https://github.com/rodekruis/IBF-system/commit/6da8b99c4f915ef292422750eac781f9ce576edf))
+* Remove description and source from entity AB[#7619](https://github.com/rodekruis/IBF-system/issues/7619) ([38b847a](https://github.com/rodekruis/IBF-system/commit/38b847a6e75f6a2daaebefc36e85c50fd6fd2ae8))
+* remove vulnerability_score ZMB/ETH/KEN ([5e103f4](https://github.com/rodekruis/IBF-system/commit/5e103f407ddf46e03b9db87404e09a98aed1eb81))
+* set adminLevel dynamically in pipeline AB[#7767](https://github.com/rodekruis/IBF-system/issues/7767) ([ea5d453](https://github.com/rodekruis/IBF-system/commit/ea5d45355c492185b5c3aac2639f558239b3ced4))
+* temp ([a1fe263](https://github.com/rodekruis/IBF-system/commit/a1fe26385ea8e50c726dd46821e9b99b5add44e7))
+* unit test ([c5d0268](https://github.com/rodekruis/IBF-system/commit/c5d026872763bb4ea53d315e88e2893cb44a9aff))
+* unit test AB[#7430](https://github.com/rodekruis/IBF-system/issues/7430) ([67deab5](https://github.com/rodekruis/IBF-system/commit/67deab5111bada6693edd1b55860516d4e9edf93))
+* wms-layer bug AB[#7767](https://github.com/rodekruis/IBF-system/issues/7767) ([091e5e6](https://github.com/rodekruis/IBF-system/commit/091e5e650a38f450c137b13788a9cd64fc8b6fd4))
+
+
+### Features
+
+* Added description for PHL AB[#7374](https://github.com/rodekruis/IBF-system/issues/7374) ([20de08f](https://github.com/rodekruis/IBF-system/commit/20de08f9d3ce9dbc41b22635f0a1adb1308ff8fc))
+* Change leadtime month to start at the current month AB[#7385](https://github.com/rodekruis/IBF-system/issues/7385) ([f9afe86](https://github.com/rodekruis/IBF-system/commit/f9afe86695fe269712e51e13dcc172b7a3d5d8aa))
+* Close event at the end of month for month lead time AB[#7408](https://github.com/rodekruis/IBF-system/issues/7408) ([5118366](https://github.com/rodekruis/IBF-system/commit/51183668415e62c4d7e683ec84f8b89e1fafeacf))
+* multiple dynamic layers in frontend AB[#7409](https://github.com/rodekruis/IBF-system/issues/7409) ([32971fa](https://github.com/rodekruis/IBF-system/commit/32971fa3b5f6d42a2915f2f9e1484d63f0a3bae6))
+* store and serve dynamic admin area data AB[#7417](https://github.com/rodekruis/IBF-system/issues/7417) ([716c6d6](https://github.com/rodekruis/IBF-system/commit/716c6d6c17d4c73a90b9937fc5580d066dd7a189))
+
+
+
 ## [0.59.3](https://github.com/rodekruis/IBF-system/compare/v0.59.2...v0.59.3) (2021-05-11)
 
 
@@ -79,53 +149,6 @@
 * Add months as leadtime and disastertype  in backend AB[#6949](https://github.com/rodekruis/IBF-system/issues/6949) AB[#6954](https://github.com/rodekruis/IBF-system/issues/6954) ([b8d0470](https://github.com/rodekruis/IBF-system/commit/b8d04709d93e55e63934b291c26c0f89242da26e))
 * set default leadtime for get admin-areas in backend AB[#7199](https://github.com/rodekruis/IBF-system/issues/7199) ([f7b58e6](https://github.com/rodekruis/IBF-system/commit/f7b58e6f9ebab74df57d6fd3ce19bb079da9d404))
 * set default leadtime for get admin-areas in backend AB[#7199](https://github.com/rodekruis/IBF-system/issues/7199) ([873a4b7](https://github.com/rodekruis/IBF-system/commit/873a4b75401f805ff24da73703a15b6023282d39))
-
-
-
-## [0.57.4](https://github.com/rodekruis/IBF-system/compare/v0.57.3...v0.57.4) (2021-04-26)
-
-
-### Bug Fixes
-
-* remove ion-content from app component html AB[#7219](https://github.com/rodekruis/IBF-system/issues/7219) AB[#7220](https://github.com/rodekruis/IBF-system/issues/7220) AB[#7227](https://github.com/rodekruis/IBF-system/issues/7227) ([2978003](https://github.com/rodekruis/IBF-system/commit/2978003ac8a022f3882cff4cacdd53a9d932020e))
-
-
-
-## [0.57.3](https://github.com/rodekruis/IBF-system/compare/v0.57.2...v0.57.3) (2021-04-23)
-
-
-### Bug Fixes
-
-* correct cron-job filename AB[#7036](https://github.com/rodekruis/IBF-system/issues/7036) ([03a0667](https://github.com/rodekruis/IBF-system/commit/03a06672785705ab3089a3f7cfd4978dec130ecd))
-* correct mistake AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([c897af8](https://github.com/rodekruis/IBF-system/commit/c897af8dd72ecb94c21402b93e6ccf6d5a59f4b7))
-* migrate egypt-triggers to seed AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([ab44e2e](https://github.com/rodekruis/IBF-system/commit/ab44e2eeddc3e0a4cf45282f8e1bddb292bf937e))
-* process feedback AB[#7093](https://github.com/rodekruis/IBF-system/issues/7093) ([26e88fd](https://github.com/rodekruis/IBF-system/commit/26e88fd651600a6034ed622feaca0947061f2a87))
-* relation with country-entity + other improvements AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([50a1856](https://github.com/rodekruis/IBF-system/commit/50a1856c0db8e8b842b492858b55002d225668ed))
-* remove runSetup in IBF-pipeline AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([ac4bc0e](https://github.com/rodekruis/IBF-system/commit/ac4bc0edb452a5f38a3f677bdf3248f9b7eb0350))
-* remove unused function AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([45e4c85](https://github.com/rodekruis/IBF-system/commit/45e4c85e8dcb2488e2a81ceb3140a86e88c7cc85))
-* remove unused functions AB[#6813](https://github.com/rodekruis/IBF-system/issues/6813) ([f8e5d24](https://github.com/rodekruis/IBF-system/commit/f8e5d244689a4fa0afab1ab5501714c6c3d0caed))
-* use container-name instead of assign ip AB[#6806](https://github.com/rodekruis/IBF-system/issues/6806) ([605ea22](https://github.com/rodekruis/IBF-system/commit/605ea220e84447456ad1321007176beba2e1d306))
-* use typeORM save instead of insert-querybuilder where possible AB[#7093](https://github.com/rodekruis/IBF-system/issues/7093) ([defe8da](https://github.com/rodekruis/IBF-system/commit/defe8dabebd5e474b67787eab19c606f2862bb48))
-
-
-
-## [0.57.2](https://github.com/rodekruis/IBF-system/compare/v0.57.1...v0.57.2) (2021-04-19)
-
-
-### Bug Fixes
-
-* update EAP link UGA AB[#7051](https://github.com/rodekruis/IBF-system/issues/7051) ([e49d3ea](https://github.com/rodekruis/IBF-system/commit/e49d3eab78e9b99de29ba961c6d8b67f55567c0a))
-
-
-
-## [0.57.1](https://github.com/rodekruis/IBF-system/compare/v0.57.0...v0.57.1) (2021-04-19)
-
-
-### Bug Fixes
-
-* change mock station UGA AB[#7064](https://github.com/rodekruis/IBF-system/issues/7064) ([b27fca9](https://github.com/rodekruis/IBF-system/commit/b27fca933ba1a85049c807d6d9c8a2bcb6faeee3))
-* revert temporary glofas api date override AB[#7169](https://github.com/rodekruis/IBF-system/issues/7169) ([2c52b9f](https://github.com/rodekruis/IBF-system/commit/2c52b9fe15c865fcf5e3e4c4c1a416e54484f9a3))
-* temporarily use available glofas api date AB# ([6061175](https://github.com/rodekruis/IBF-system/commit/606117503465693ad28f760eaee65d5727dba57e))
 
 
 

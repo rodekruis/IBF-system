@@ -20,7 +20,7 @@ export class UploadAdminAreaDataDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  public key: number;
+  public indicator: number;
 
   @ApiProperty()
   @IsNumber()

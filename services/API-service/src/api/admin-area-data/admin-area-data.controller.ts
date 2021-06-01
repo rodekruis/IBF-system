@@ -18,14 +18,13 @@ import {
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { DynamicDataUnit } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
-import { GeoJson } from '../data/geo.model';
+import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator';
 import { AdminAreaDataService } from './admin-area-data.service';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
-@ApiTags('adminAreaData')
-@Controller('adminAreaData')
+@ApiTags('admin-area-data')
+@Controller('admin-area-data')
 export class AdminAreaDataController {
   private readonly adminAreaDataService: AdminAreaDataService;
 
@@ -58,15 +57,15 @@ export class AdminAreaDataController {
   @ApiOperation({ summary: 'Get admin-area data' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiParam({ name: 'key', required: true, type: 'string' })
-  @Get(':countryCodeISO3/:adminLevel/:key')
+  @ApiParam({ name: 'indicator', required: true, type: 'string' })
+  @Get(':countryCodeISO3/:adminLevel/:indicator')
   public async getAdminAreaData(
     @Param() params,
   ): Promise<AdminDataReturnDto[]> {
     return await this.adminAreaDataService.getAdminAreaData(
       params.countryCodeISO3,
       params.adminLevel,
-      params.key as DynamicDataUnit,
+      params.indicator as DynamicIndicator,
     );
   }
 }

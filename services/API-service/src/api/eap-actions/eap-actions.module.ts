@@ -1,4 +1,3 @@
-import { DataModule } from './../data/data.module';
 import { CountryEntity } from './../country/country.entity';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { HttpModule, Module } from '@nestjs/common';
@@ -9,8 +8,8 @@ import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionsController } from './eap-actions.controller';
 import { EapActionsService } from './eap-actions.service';
-import { DataService } from '../data/data.service';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 
 @Module({
   imports: [
@@ -21,10 +20,10 @@ import { AreaOfFocusEntity } from './area-of-focus.entity';
       AreaOfFocusEntity,
       TriggerPerLeadTime,
       CountryEntity,
+      EventPlaceCodeEntity,
     ]),
     UserModule,
     HttpModule,
-    DataModule,
   ],
   controllers: [EapActionsController],
   providers: [EapActionsService],

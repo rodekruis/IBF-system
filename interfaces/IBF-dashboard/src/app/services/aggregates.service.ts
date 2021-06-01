@@ -81,21 +81,23 @@ export class AggregatesService {
   private onEachIndicatorByFeatureAndAggregate = (feature, aggregate) => (
     indicator: Indicator,
   ) => {
+
     if (indicator.aggregateIndicator.includes(this.country.countryCodeISO3)) {
-      if (indicator.name in feature.properties) {
-        aggregate[indicator.name] = feature.properties[indicator.name];
-      } else if (indicator.name in feature.properties.indicators) {
-        aggregate[indicator.name] =
-          feature.properties.indicators[indicator.name];
+      const foundIndicator = feature.records.find(
+        (a) => a.indicator === indicator.name,
+      );
+      if (foundIndicator) {
+        aggregate[indicator.name] = foundIndicator.value;
+
       } else {
         aggregate[indicator.name] = 0;
       }
     }
   };
 
-  private onEachAdminFeature = (feature) => {
+  private onEachPlaceCode = (feature) => {
     const aggregate = {
-      placeCode: feature.properties.placeCode,
+      placeCode: feature.placeCode,
     };
 
     this.indicators.forEach(
@@ -105,19 +107,39 @@ export class AggregatesService {
     return aggregate;
   };
 
-  private onAdminRegions = (adminRegions) => {
-    this.aggregates = adminRegions.features.map(this.onEachAdminFeature);
+  private onAggregatesData = (records) => {
+    const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
+    this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
   };
+
+  private aggregateOnPlaceCode(array) {
+    const groupsByPlaceCode = [];
+    array.forEach((record) => {
+      if (
+        groupsByPlaceCode.map((i) => i.placeCode).includes(record.placeCode)
+      ) {
+        groupsByPlaceCode
+          .find((i) => i.placeCode === record.placeCode)
+          .records.push(record);
+      } else {
+        groupsByPlaceCode.push({
+          placeCode: record.placeCode,
+          records: [record],
+        });
+      }
+    });
+    return groupsByPlaceCode;
+  }
 
   loadAggregateInformation(): void {
     if (this.country) {
       this.apiService
-        .getAdminRegions(
+        .getAggregatesData(
           this.country.countryCodeISO3,
           this.timelineService.activeLeadTime,
           this.adminLevelService.adminLevel,
         )
-        .subscribe(this.onAdminRegions);
+        .subscribe(this.onAggregatesData);
     }
   }
 

@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
 
-@Entity('adminAreaData')
+@Entity('admin-area-data')
 export class AdminAreaDataEntity {
   @PrimaryGeneratedColumn('uuid')
   public adminAreaDataId: string;
@@ -26,7 +26,7 @@ export class AdminAreaDataEntity {
   public placeCode: string;
 
   @Column()
-  public key: string;
+  public indicator: string;
 
   @Column({ nullable: true, type: 'real' })
   public value: number;

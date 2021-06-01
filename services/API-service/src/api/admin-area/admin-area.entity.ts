@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
 
-@Entity('adminArea')
+@Entity('admin-area')
 export class AdminAreaEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
@@ -31,8 +31,7 @@ export class AdminAreaEntity {
   @Column({ nullable: true })
   public placeCodeParent: string;
 
-  // @Column('geometry', { nullable: true })
-  @Column({ nullable: true })
+  @Column('geometry', { nullable: true })
   public geom: string;
 
   @Column({ nullable: true })
