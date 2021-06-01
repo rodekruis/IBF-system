@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinTable,
+} from 'typeorm';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { UserEntity } from '../user/user.entity';
 import { EapActionEntity } from './eap-action.entity';
 
@@ -16,8 +23,12 @@ export class EapActionStatusEntity {
   @Column()
   public status: boolean;
 
-  @Column('uuid')
-  public eventPlaceCodeId: string;
+  @ManyToOne(
+    (): typeof EventPlaceCodeEntity => EventPlaceCodeEntity,
+    (eventPlaceCode): EapActionStatusEntity[] =>
+      eventPlaceCode.eapActionStatuses,
+  )
+  public eventPlaceCode: EventPlaceCodeEntity;
 
   @Column()
   public placeCode: string;

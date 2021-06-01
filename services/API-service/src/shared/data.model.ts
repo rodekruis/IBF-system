@@ -8,7 +8,12 @@ export class AdminAreaRecord {
   public date: Date;
   public leadTime: string;
   public population_affected: number;
-  public indicators: object;
+}
+
+export class AggregateDataRecord {
+  public placeCode: string;
+  public indicator: string;
+  public value: number;
 }
 
 export class TriggeredArea {

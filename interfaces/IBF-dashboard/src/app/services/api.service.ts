@@ -160,8 +160,21 @@ export class ApiService {
     adminLevel: AdminLevel = AdminLevel.adm1,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
-      `admin-areas/per-leadtime/${countryCodeISO3}/${adminLevel}/${
+      `admin-areas/${countryCodeISO3}/${adminLevel}/${
         leadTime ? leadTime : ''
+      }`,
+      false,
+    );
+  }
+
+  getAggregatesData(
+    countryCodeISO3: string,
+    leadTime: string,
+    adminLevel: AdminLevel = AdminLevel.adm1,
+  ): Observable<any> {
+    return this.get(
+      `admin-areas/aggregates/${countryCodeISO3}/${adminLevel}/${
+        leadTime ? leadTime : '{leadTime}'
       }`,
       false,
     );

@@ -9,6 +9,7 @@ import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionsController } from './eap-actions.controller';
 import { EapActionsService } from './eap-actions.service';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AreaOfFocusEntity } from './area-of-focus.entity';
       AreaOfFocusEntity,
       TriggerPerLeadTime,
       CountryEntity,
+      EventPlaceCodeEntity,
     ]),
     UserModule,
     HttpModule,

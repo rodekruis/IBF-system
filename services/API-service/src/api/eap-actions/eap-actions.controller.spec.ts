@@ -8,6 +8,7 @@ import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionsController } from './eap-actions.controller';
 import { EapActionsService } from './eap-actions.service';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 
 describe('EapActionsController', (): void => {
   let controller: EapActionsController;
@@ -23,6 +24,7 @@ describe('EapActionsController', (): void => {
             EapActionStatusEntity,
             AreaOfFocusEntity,
             CountryEntity,
+            EventPlaceCodeEntity,
           ]),
           UserModule,
         ],

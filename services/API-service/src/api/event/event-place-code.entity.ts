@@ -1,6 +1,14 @@
-import { Entity, Column, Check, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  Check,
+  PrimaryGeneratedColumn,
+  JoinTable,
+  OneToMany,
+} from 'typeorm';
+import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 
-@Entity('event_place_code')
+@Entity('event-place-code')
 export class EventPlaceCodeEntity {
   @PrimaryGeneratedColumn('uuid')
   public eventPlaceCodeId: string;
@@ -26,4 +34,11 @@ export class EventPlaceCodeEntity {
 
   @Column({ default: false })
   public closed: boolean;
+
+  @OneToMany(
+    (): typeof EapActionStatusEntity => EapActionStatusEntity,
+    (eapActionStatus): EventPlaceCodeEntity => eapActionStatus.eventPlaceCode,
+  )
+  @JoinTable()
+  public eapActionStatuses: EapActionStatusEntity[];
 }
