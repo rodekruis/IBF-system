@@ -1,3 +1,17 @@
+# [0.62.0](https://github.com/rodekruis/IBF-system/compare/v0.61.1...v0.62.0) (2021-06-02)
+
+
+### Bug Fixes
+
+* ftp incorrectly called AB[#8045](https://github.com/rodekruis/IBF-system/issues/8045) ([1bcacd8](https://github.com/rodekruis/IBF-system/commit/1bcacd8625dc1c46ea7824a2e78d27616118c4b7))
+
+
+### Features
+
+* add dmmu logo zambia AB[#6126](https://github.com/rodekruis/IBF-system/issues/6126) ([073702a](https://github.com/rodekruis/IBF-system/commit/073702aeac9f97531c83cc58d7ba61a81693a49d))
+
+
+
 ## [0.61.1](https://github.com/rodekruis/IBF-system/compare/v0.61.0...v0.61.1) (2021-05-26)
 
 
@@ -115,40 +129,6 @@
 ### Bug Fixes
 
 * log error message to help debug ([a784bec](https://github.com/rodekruis/IBF-system/commit/a784bec52b08d10993dc14405ba4db117d412d27))
-
-
-
-# [0.58.0](https://github.com/rodekruis/IBF-system/compare/v0.57.4...v0.58.0) (2021-05-03)
-
-
-### Bug Fixes
-
-* AB[#6892](https://github.com/rodekruis/IBF-system/issues/6892) updated readme on adding a country ([dcc7d8d](https://github.com/rodekruis/IBF-system/commit/dcc7d8d81f8a42614b85b814f96ac8cdbb7d4ab8))
-* Add month lead time to fronted AB[#6956](https://github.com/rodekruis/IBF-system/issues/6956) ([c2b7af7](https://github.com/rodekruis/IBF-system/commit/c2b7af798a3253990d8407f263a3859d975b9584))
-* bug where events did not close AB[#7200](https://github.com/rodekruis/IBF-system/issues/7200) ([ef1025b](https://github.com/rodekruis/IBF-system/commit/ef1025b19d701726c83c6d7ef5bdd3558f3c0705))
-* correct timelineButton.alert for day leadTimes AB[#7421](https://github.com/rodekruis/IBF-system/issues/7421) ([528b3ce](https://github.com/rodekruis/IBF-system/commit/528b3ce7b208ec773fb74b9c5d6e4b301f895428))
-* lint ([a8c529c](https://github.com/rodekruis/IBF-system/commit/a8c529c0f2391fae192caf40484501aa3e8b1c4e))
-* lint ([b47f6fd](https://github.com/rodekruis/IBF-system/commit/b47f6fdac76dbc230cc4bfd2cd01f8eb700b5177))
-* only run pipeline for countries in settings.py AB[#7418](https://github.com/rodekruis/IBF-system/issues/7418) ([492697a](https://github.com/rodekruis/IBF-system/commit/492697acdc8fcd9723c16f7a6b3b63adb02ad2a6))
-* re-add geoserver layer manually AB[#7419](https://github.com/rodekruis/IBF-system/issues/7419) ([87248b2](https://github.com/rodekruis/IBF-system/commit/87248b2ff1927ccadbc191c53f2cf7bcb498dab8))
-* Remove non-working folder name ([9da9d2a](https://github.com/rodekruis/IBF-system/commit/9da9d2ac7226c7b54f8a4ad324d2d53cfb54c5d2))
-* Replace hazard model by disastertype ([92fe099](https://github.com/rodekruis/IBF-system/commit/92fe099e4eec856d6714c472711893d8d48b5316))
-* Replace hazard model by disastertype ([d2f8949](https://github.com/rodekruis/IBF-system/commit/d2f89499626b6c842457fe878d48480ceffed50e))
-* resolve merge conflict ([5abc212](https://github.com/rodekruis/IBF-system/commit/5abc212cda19ff2f8be04c47c58ef704a43ae69d))
-* small sql-change needed AB[#7419](https://github.com/rodekruis/IBF-system/issues/7419) ([60f9a3c](https://github.com/rodekruis/IBF-system/commit/60f9a3c2f372290df29f748eed84f941951d975c))
-* tests ([f5b9704](https://github.com/rodekruis/IBF-system/commit/f5b97047e289cfa39487910ce33450325692ae97))
-* under 9 layer from PHL to UGA AB[#7421](https://github.com/rodekruis/IBF-system/issues/7421) ([8480443](https://github.com/rodekruis/IBF-system/commit/8480443537b797986db1c81c605d6a4717c3fad7))
-
-
-### Features
-
-* AB[#6891](https://github.com/rodekruis/IBF-system/issues/6891) added minimum version of PHL ([302b097](https://github.com/rodekruis/IBF-system/commit/302b0974db2219bdd96d4271b5d9b8ac78de4fa2))
-* AB[#6902](https://github.com/rodekruis/IBF-system/issues/6902) AB[#6911](https://github.com/rodekruis/IBF-system/issues/6911) Created endpoint that accept data from era pipeline ([b3f75c9](https://github.com/rodekruis/IBF-system/commit/b3f75c9fd11aaae7f27665ebbf160fb599e8d5d5))
-* AB[#6924](https://github.com/rodekruis/IBF-system/issues/6924) Delete duplicate exposure data ([475699a](https://github.com/rodekruis/IBF-system/commit/475699a2996d913e1927a66f7deb95b87a93ea72))
-* AB[#7039](https://github.com/rodekruis/IBF-system/issues/7039) Trigger per lead time month ([4abd83c](https://github.com/rodekruis/IBF-system/commit/4abd83c9c619934a609ef1004c81da5233ec81c0))
-* Add months as leadtime and disastertype  in backend AB[#6949](https://github.com/rodekruis/IBF-system/issues/6949) AB[#6954](https://github.com/rodekruis/IBF-system/issues/6954) ([b8d0470](https://github.com/rodekruis/IBF-system/commit/b8d04709d93e55e63934b291c26c0f89242da26e))
-* set default leadtime for get admin-areas in backend AB[#7199](https://github.com/rodekruis/IBF-system/issues/7199) ([f7b58e6](https://github.com/rodekruis/IBF-system/commit/f7b58e6f9ebab74df57d6fd3ce19bb079da9d404))
-* set default leadtime for get admin-areas in backend AB[#7199](https://github.com/rodekruis/IBF-system/issues/7199) ([873a4b7](https://github.com/rodekruis/IBF-system/commit/873a4b75401f805ff24da73703a15b6023282d39))
 
 
 
