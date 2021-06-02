@@ -39,7 +39,7 @@ class GlofasData:
             self.leadTimeLabel + '_' + countryCodeISO3 + '.json'
         self.GLOFAS_STATIONS = glofas_stations
         self.DISTRICT_MAPPING = district_mapping
-        self.current_date = CURRENT_DATE.strftime('%Y-%m-%d')
+        self.current_date = CURRENT_DATE.strftime('%Y%m%d')
 
     def process(self):
         if SETTINGS_SECRET[self.countryCodeISO3]['mock'] == False:
@@ -94,7 +94,7 @@ class GlofasData:
         tar.close()
 
     def makeApiRequest(self):
-        path = 'glofas/glofas-forecast-' + self.current_date.replace('-','') + '.nc'
+        path = 'glofas/glofas-forecast-' + self.current_date + '.nc'
         glofasDataFile = self.db.getDataFromDatalake(path)
         if glofasDataFile.status_code >= 400:
             raise ValueError()
