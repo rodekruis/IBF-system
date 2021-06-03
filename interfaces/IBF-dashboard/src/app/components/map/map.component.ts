@@ -423,7 +423,9 @@ export class MapComponent implements OnDestroy {
         .getAdminAreaDynamiceDataOne(
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
-          this.country.countryActiveLeadTimes[this.country.countryActiveLeadTimes.length - 1]
+          this.country.countryActiveLeadTimes[
+            this.country.countryActiveLeadTimes.length - 1
+          ],
         )
         .subscribe((thresholdValue: number) => {
           popup = this.createThresHoldPopupAdminRegions(
@@ -475,7 +477,9 @@ export class MapComponent implements OnDestroy {
       ? 'var(--ion-color-ibf-black)'
       : 'var(--ion-color-ibf-white)';
     const title = feature.properties.name;
-    const eapStatusColor = featureTriggered ? 'var(--ion-color-ibf-salmon)' : '#d4d3d2'
+    const eapStatusColor = featureTriggered
+      ? 'var(--ion-color-ibf-salmon)'
+      : '#d4d3d2';
     const eapStatusText = featureTriggered
       ? 'ACTIVATE ACTION PROTOCOL'
       : 'No action';

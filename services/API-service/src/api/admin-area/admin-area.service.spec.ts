@@ -1,3 +1,4 @@
+import { CountryService } from './../country/country.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
@@ -24,6 +25,7 @@ describe('AdminAreaService', (): void => {
           AdminAreaService,
           EventService,
           HelperService,
+          CountryService,
           {
             provide: getRepositoryToken(EventPlaceCodeEntity),
             useFactory: repositoryMockFactory,

@@ -81,14 +81,12 @@ export class AggregatesService {
   private onEachIndicatorByFeatureAndAggregate = (feature, aggregate) => (
     indicator: Indicator,
   ) => {
-
     if (indicator.aggregateIndicator.includes(this.country.countryCodeISO3)) {
       const foundIndicator = feature.records.find(
         (a) => a.indicator === indicator.name,
       );
       if (foundIndicator) {
         aggregate[indicator.name] = foundIndicator.value;
-
       } else {
         aggregate[indicator.name] = 0;
       }

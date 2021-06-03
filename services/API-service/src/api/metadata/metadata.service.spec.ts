@@ -9,6 +9,8 @@ import { EventService } from '../event/event.service';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { CountryEntity } from '../country/country.entity';
+import { CountryService } from '../country/country.service';
 
 describe('MetadataService', (): void => {
   let service: MetadataService;
@@ -27,6 +29,11 @@ describe('MetadataService', (): void => {
           MetadataService,
           HelperService,
           EventService,
+          CountryService,
+          {
+            provide: getRepositoryToken(CountryEntity),
+            useFactory: repositoryMockFactory,
+          },
           {
             provide: getRepositoryToken(EventPlaceCodeEntity),
             useFactory: repositoryMockFactory,

@@ -5,6 +5,8 @@ import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+import { CountryService } from '../country/country.service';
+import { CountryEntity } from '../country/country.entity';
 
 describe('Event service', (): void => {
   let service: EventService;
@@ -24,7 +26,12 @@ describe('Event service', (): void => {
             provide: getRepositoryToken(TriggerPerLeadTime),
             useFactory: repositoryMockFactory,
           },
+          {
+            provide: getRepositoryToken(CountryEntity),
+            useFactory: repositoryMockFactory,
+          },
           EventService,
+          CountryService,
         ],
       }).compile();
 

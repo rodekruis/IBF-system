@@ -199,8 +199,15 @@ export class ApiService {
     );
   }
 
-  getAdminAreaDynamiceDataOne(key: string, placeCode: string, leadTime: string) {
-    return this.get(`admin-area-dynamic-data/get/one/${key}/${placeCode}/${leadTime}`, false);
+  getAdminAreaDynamiceDataOne(
+    key: string,
+    placeCode: string,
+    leadTime: string,
+  ) {
+    return this.get(
+      `admin-area-dynamic-data/get/one/${key}/${placeCode}/${leadTime}`,
+      false,
+    );
   }
 
   getAdminAreaDynamicData(

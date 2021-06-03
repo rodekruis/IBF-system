@@ -103,7 +103,6 @@ export class AdminAreaService {
       );
     }
     const dynamicIndicators = await dynamicIndicatorsScript.getRawMany();
-
     return staticIndicators.concat(dynamicIndicators);
   }
 

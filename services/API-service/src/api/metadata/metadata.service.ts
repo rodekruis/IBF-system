@@ -16,7 +16,10 @@ export class MetadataService {
   private countryService: CountryService;
   private readonly eventService: EventService;
 
-  public constructor( countryService: CountryService, eventService: EventService) {
+  public constructor(
+    countryService: CountryService,
+    eventService: EventService,
+  ) {
     this.countryService = countryService;
     this.eventService = eventService;
   }

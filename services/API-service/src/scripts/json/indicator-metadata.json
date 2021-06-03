@@ -236,7 +236,7 @@
     "colorBreaks": null,
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "PHL",
-    "numberFormatAggregate": "",
+    "numberFormatAggregate": "decimal0",
     "order": 5,
     "dynamic": true,
     "lazyLoad": true
@@ -252,7 +252,7 @@
     "colorBreaks": null,
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "PHL",
-    "numberFormatAggregate": "",
+    "numberFormatAggregate": "decimal0",
     "order": 5,
     "dynamic": true,
     "lazyLoad": true

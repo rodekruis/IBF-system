@@ -91,7 +91,9 @@ export class EventService {
       }
     });
     this.state.firstLeadTime = firstKey;
-    this.state.firstLeadTimeNumberString = String(this.state.firstLeadTime.replace(/[^\d]/g, ''))
+    this.state.firstLeadTimeNumberString = String(
+      this.state.firstLeadTime.replace(/[^\d]/g, ''),
+    );
     this.state.newEventEarlyTrigger =
       firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
   };

@@ -1,12 +1,15 @@
+import { CountryService } from './../country/country.service';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { EventService } from './event.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { EventController } from './event.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
 import { UserModule } from '../user/user.module';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+import { CountryEntity } from '../country/country.entity';
+import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 
 describe('EventController', (): void => {
   let controller: EventController;
@@ -25,7 +28,14 @@ describe('EventController', (): void => {
           UserModule,
         ],
         controllers: [EventController],
-        providers: [EventService],
+        providers: [
+          EventService,
+          CountryService,
+          {
+            provide: getRepositoryToken(CountryEntity),
+            useFactory: repositoryMockFactory,
+          },
+        ],
       }).compile();
 
       controller = module.get<EventController>(EventController);

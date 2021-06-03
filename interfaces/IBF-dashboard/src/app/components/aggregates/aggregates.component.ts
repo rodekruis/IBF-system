@@ -114,7 +114,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private onIndicatorChange = (newIndicators: Indicator[]) => {
     // clean data to avoid these inefficient filters and loops
     const filterAggregateIndicators = (indicator: Indicator) =>
-      indicator.aggregateIndicator.includes(this.country.countryCodeISO3)
+      indicator.aggregateIndicator.includes(this.country.countryCodeISO3);
 
     this.indicators = newIndicators.filter(filterAggregateIndicators);
 
