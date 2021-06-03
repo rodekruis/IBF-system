@@ -261,4 +261,16 @@ export class ApiService {
       false,
     );
   }
+
+  mockDynamicData(secret: string, countryCodeISO3: string, triggered) {
+    return this.post(
+      'scripts/mock-dynamic-data',
+      {
+        secret,
+        countryCodeISO3,
+        triggered,
+      },
+      false,
+    );
+  }
 }

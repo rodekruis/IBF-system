@@ -205,7 +205,7 @@
         "PHL": "Number of dengue cases per administrative division per year. <br /><br />Source: <a href=\"https://doh.gov.ph/statistics\">https://doh.gov.ph/statistics/</a>"
       },
       "dengue_incidence_average": {
-        "PHL": "Number of dengue cases per 1000 people per administrative division per year. <br /><br />Source: <a href=\"https://doh.gov.ph/statistics\">https://doh.gov.ph/statistics/</a>"
+        "PHL": "Number of dengue cases per 10.000.000 people per administrative division per year. <br /><br />Source: <a href=\"https://doh.gov.ph/statistics\">https://doh.gov.ph/statistics/</a>"
       },
       "potential_cases": {
         "PHL": "Number of potential dengue cases, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
