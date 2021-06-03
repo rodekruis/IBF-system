@@ -178,10 +178,9 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE EAP ACTIONS *****
     console.log('Seed EAP Actions...');
-    envCountries
     const filteredAction = eapActions.filter((action): boolean => {
       return envCountries.includes(action.countryCodeISO3);
-    })
+    });
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
     await eapActionRepository.save(filteredAction);
 
