@@ -53,7 +53,9 @@ export class AdminAreaDynamicDataService {
       area.date = new Date();
       area.countryCodeISO3 = uploadExposure.countryCodeISO3;
       area.leadTime = uploadExposure.leadTime;
+      console.time('Save admin area');
       this.adminAreaDynamicDataRepo.save(area);
+      console.timeEnd('Save admin area');
     }
 
     const triggerUnits = await this.countryService.getTriggerUnitsForCountry(

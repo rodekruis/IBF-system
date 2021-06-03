@@ -25,6 +25,7 @@ export class ScriptsService {
   }
 
   public async mockCountry(mockInput: MockDynamic) {
+    console.time('Mocking a country')
     const selectedCountry = countries.find((country): any => {
       if (mockInput.countryCodeISO3 === country.countryCodeISO3) {
         return country;
@@ -37,6 +38,7 @@ export class ScriptsService {
       await this.mockGlofasStations(selectedCountry, mockInput.triggered);
       await this.mockTriggerPerLeadTime(selectedCountry, mockInput.triggered);
     }
+    console.timeEnd('Mocking a country')
   }
 
   private async mockExposure(selectedCountry, triggered: boolean) {
