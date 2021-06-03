@@ -180,6 +180,7 @@ export class EventService {
     const triggerIndicators = await this.countryService.getTriggerUnitsForCountry(
       countryCodeISO3,
     );
+    console.log('triggerIndicators: ', triggerIndicators);
     const triggeredPlaceCodes = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
@@ -195,6 +196,10 @@ export class EventService {
       .getRawMany();
 
     const triggerPlaceCodesArray = triggeredPlaceCodes.map(a => a.placeCode);
+    console.log('triggerPlaceCodesArray: ', triggerPlaceCodesArray);
+    if (triggerPlaceCodesArray.length === 0) {
+      return [];
+    }
 
     const actionIndicatorsCountry = await this.countryService.getActionsUnitsForCountry(
       countryCodeISO3,

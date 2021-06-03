@@ -107,9 +107,9 @@ Installation:
   - If it fails, find out why and/or install Cypress in some other way (e.g. `npm install cypress`)
  2. Set necessary environment variables, for example by using a CYPRESS_* prefix (see https://docs.cypress.io/guides/guides/environment-variables for more)
   - e.g. on Windows Powershell: $env:CYPRESS_LOGIN_USER = "<login>"
- 3. Run `npm run open:cypress` 
+ 3. Run `npm run cypress:open` 
   - When the Cypress window opens click on 'Run X integration specs'
-  - Alternatively run `npm run start:cypress` to run from commandline
+  - Alternatively run `npm run cypress:start` to run from commandline
 
 
 ## Releases
