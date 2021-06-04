@@ -33,17 +33,14 @@ export class AdminAreaDynamicDataService {
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
     // Delete existing entries with same date, leadtime and countryCodeISO3 and unit typ
+    console.time('delete');
     await this.adminAreaDynamicDataRepo.delete({
       indicator: uploadExposure.dynamicIndicator,
       countryCodeISO3: uploadExposure.countryCodeISO3,
       leadTime: uploadExposure.leadTime,
     });
-    await this.adminAreaDynamicDataRepo.delete({
-      indicator: uploadExposure.dynamicIndicator,
-      date: new Date(),
-      countryCodeISO3: uploadExposure.countryCodeISO3,
-      leadTime: uploadExposure.leadTime,
-    });
+    console.timeEnd('delete');
+    console.time('Insert exposure');
     for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
       const area = new AdminAreaDynamicDataEntity();
       area.indicator = uploadExposure.dynamicIndicator;
@@ -55,6 +52,9 @@ export class AdminAreaDynamicDataService {
       area.leadTime = uploadExposure.leadTime;
       this.adminAreaDynamicDataRepo.save(area);
     }
+    console.timeEnd('Insert exposure');
+
+    console.time('Insert trigger');
 
     const triggerUnits = await this.countryService.getTriggerUnitsForCountry(
       uploadExposure.countryCodeISO3,
@@ -63,7 +63,12 @@ export class AdminAreaDynamicDataService {
       await this.insertTrigger(uploadExposure);
     }
 
+    console.timeEnd('Insert trigger');
+
+    console.time('Process event areas');
+
     await this.eventService.processEventAreas(uploadExposure.countryCodeISO3);
+    console.timeEnd('Process event areas');
   }
 
   private async insertTrigger(
