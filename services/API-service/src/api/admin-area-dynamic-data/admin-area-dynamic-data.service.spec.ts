@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
