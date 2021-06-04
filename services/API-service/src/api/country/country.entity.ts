@@ -29,6 +29,12 @@ export class CountryEntity {
   @Column({ default: CountryStatus.Active })
   public countryStatus: CountryStatus;
 
+  @Column('int', {
+    array: true,
+    default: (): string => 'array[]::int[]',
+  })
+  public adminLevels: AdminLevel[];
+
   @Column({ default: AdminLevel.adm1 })
   public defaultAdminLevel: AdminLevel;
 

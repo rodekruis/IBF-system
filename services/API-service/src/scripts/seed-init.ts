@@ -99,6 +99,7 @@ export class SeedInit implements InterfaceScript {
           countryEntity.countryCodeISO2 = country.countryCodeISO2;
           countryEntity.countryName = country.countryName;
           countryEntity.countryStatus = country.countryStatus as CountryStatus;
+          countryEntity.adminLevels = country.adminLevels as AdminLevel[];
           countryEntity.defaultAdminLevel = country.defaultAdminLevel as AdminLevel;
           countryEntity.adminRegionLabels = country.adminRegionLabels;
           countryEntity.eapLink = country.eapLink;

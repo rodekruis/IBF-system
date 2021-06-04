@@ -5,6 +5,9 @@
     "countryName": "Uganda",
     "countryStatus": "active",
     "disasterType": "floods",
+    "adminLevels": [
+      2
+    ],
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
@@ -73,6 +76,11 @@
     "countryName": "Zambia",
     "countryStatus": "active",
     "disasterType": "floods",
+    "adminLevels": [
+      1,
+      2,
+      3
+    ],
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_ZMB.csv",
@@ -154,6 +162,9 @@
     "countryName": "Kenya",
     "countryStatus": "active",
     "disasterType": "floods",
+    "adminLevels": [
+      1
+    ],
     "defaultAdminLevel": 1,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
@@ -219,6 +230,9 @@
     "countryName": "Ethiopia",
     "countryStatus": "active",
     "disasterType": "floods",
+    "adminLevels": [
+      2
+    ],
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
@@ -284,6 +298,9 @@
     "countryName": "Egypt",
     "countryStatus": "active",
     "disasterType": "heavy-rain",
+    "adminLevels": [
+      1
+    ],
     "defaultAdminLevel": 1,
     "countryActiveLeadTimes": [
       "3-day",
@@ -334,6 +351,9 @@
     "countryName": "Philippines",
     "countryStatus": "active",
     "disasterType": "dengue",
+    "adminLevels": [
+      2
+    ],
     "defaultAdminLevel": 2,
     "countryActiveLeadTimes": [
       "0-month",
