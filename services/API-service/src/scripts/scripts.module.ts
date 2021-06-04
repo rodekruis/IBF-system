@@ -1,3 +1,4 @@
+import { EventPlaceCodeEntity } from './../api/event/event-place-code.entity';
 import { AdminAreaDynamicDataModule } from './../api/admin-area-dynamic-data/admin-area-dynamic-data.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -14,6 +15,7 @@ import { EventModule } from '../api/event/event.module';
       migrations: [`src/migrations/*.{ts,js}`],
       entities: ['src/app/**/*.entity.{ts,js}'],
     }),
+    TypeOrmModule.forFeature([EventPlaceCodeEntity]),
     AdminAreaDynamicDataModule,
     GlofasStationModule,
     EventModule,

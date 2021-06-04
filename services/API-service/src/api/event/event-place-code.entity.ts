@@ -41,6 +41,7 @@ export class EventPlaceCodeEntity {
   @OneToMany(
     (): typeof EapActionStatusEntity => EapActionStatusEntity,
     (eapActionStatus): EventPlaceCodeEntity => eapActionStatus.eventPlaceCode,
+    { onDelete: 'CASCADE' },
   )
   @JoinTable()
   public eapActionStatuses: EapActionStatusEntity[];

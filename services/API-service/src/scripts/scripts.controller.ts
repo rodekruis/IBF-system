@@ -23,6 +23,9 @@ export class MockDynamic {
   @ApiProperty()
   @IsNotEmpty()
   public readonly triggered: boolean;
+  @ApiProperty({ example: true })
+  @IsNotEmpty()
+  public readonly removeEvents: boolean;
 }
 
 @Controller('scripts')

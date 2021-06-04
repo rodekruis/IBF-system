@@ -485,15 +485,15 @@ export class MapComponent implements OnDestroy {
       ];
     }
 
-    const timeUnit = lastAvailableLeadTime.split('-')[1]
-    const subtitle = `${layer.label} for ${timeUnit} selected`
+    const timeUnit = lastAvailableLeadTime.split('-')[1];
+    const subtitle = `${layer.label} for ${timeUnit} selected`;
     const eapStatusColor = featureTriggered
       ? 'var(--ion-color-ibf-salmon)'
       : '#d4d3d2';
     const eapStatusText = featureTriggered
       ? 'ACTIVATE EARLY ACTIONS'
       : 'No action';
-    const thresholdName = 'Alert threshold'
+    const thresholdName = 'Alert threshold';
 
     return this.createThresholdPopup(
       headerColor,
@@ -524,7 +524,6 @@ export class MapComponent implements OnDestroy {
       0,
     );
 
-
     const stationInfoPopup =
       '<div style="background-color: ' +
       headerColor +
@@ -548,7 +547,9 @@ export class MapComponent implements OnDestroy {
       Math.round(forecastValue) +
       '</div></div></div> \
     <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
-      ' + thresholdName + ':</div> \
+      ' +
+      thresholdName +
+      ':</div> \
    \
   <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>' +
       Math.round(thresholdValue) +
@@ -781,10 +782,9 @@ export class MapComponent implements OnDestroy {
     const leadTime =
       this.timelineService.activeLeadTime || lastAvailableLeadTime;
     const unit = ' forecast river discharge (in m<sup>3</sup>/s)';
-    const subtitle = `${leadTime} ${unit}`
+    const subtitle = `${leadTime} ${unit}`;
 
-
-    const thresholdName = 'Trigger activation threshold'
+    const thresholdName = 'Trigger activation threshold';
     const stationInfoPopup = this.createThresholdPopup(
       headerColor,
       headerTextColor,

@@ -73,7 +73,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
 
   private mockApiRefresh(secret: string, triggered: boolean) {
     this.apiService
-      .mockDynamicData(secret, this.country.countryCodeISO3, triggered)
+      .mockDynamicData(secret, this.country.countryCodeISO3, triggered, true)
       .subscribe({
         next: () => window.location.reload(),
       });

@@ -8,11 +8,17 @@ import fs from 'fs';
 import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-indicator';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { EventService } from '../api/event/event.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
+import { Repository } from 'typeorm';
 @Injectable()
 export class ScriptsService {
   private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService;
   private readonly glofasStationService: GlofasStationService;
   private readonly eventService: EventService;
+
+  @InjectRepository(EventPlaceCodeEntity)
+  private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
 
   public constructor(
     adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -25,6 +31,14 @@ export class ScriptsService {
   }
 
   public async mockCountry(mockInput: MockDynamic) {
+    if (mockInput.removeEvents) {
+      // const triggeredPlaceCodes = await this.eventService.getTriggeredAreas(mockInput.countryCodeISO3)
+      // for (const area of triggeredPlaceCodes) {
+      const all = await this.eventPlaceCodeRepo.find()
+      await this.eventPlaceCodeRepo.remove(all)
+      // }
+    }
+
     console.time('Mocking a country')
     const selectedCountry = countries.find((country): any => {
       if (mockInput.countryCodeISO3 === country.countryCodeISO3) {
