@@ -32,11 +32,8 @@ export class ScriptsService {
 
   public async mockCountry(mockInput: MockDynamic) {
     if (mockInput.removeEvents) {
-      // const triggeredPlaceCodes = await this.eventService.getTriggeredAreas(mockInput.countryCodeISO3)
-      // for (const area of triggeredPlaceCodes) {
       const all = await this.eventPlaceCodeRepo.find()
       await this.eventPlaceCodeRepo.remove(all)
-      // }
     }
 
     console.time('Mocking a country')
@@ -102,6 +99,7 @@ export class ScriptsService {
     exposureUnit: DynamicIndicator,
     triggered: boolean
   ): [] {
+    console.time('Mock amount')
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     for (const pcodeData of copyOfExposureUnit) {
       if (exposureUnit === DynamicIndicator.potentialCases65) {
@@ -116,6 +114,7 @@ export class ScriptsService {
           }
         }
     }
+    console.timeEnd('Mock amount')
     return copyOfExposureUnit;
   }
 

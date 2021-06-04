@@ -19,9 +19,6 @@ export class EventPlaceCodeEntity {
   @Column({ type: 'timestamp' })
   public startDate: Date;
 
-  // @Column({ type: 'float8' })
-  // public exposureValue: number;
-
   @Column({ type: 'float8', nullable: true })
   public actionsValue: number;
 
