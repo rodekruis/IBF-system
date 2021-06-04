@@ -106,7 +106,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-    this.filteredAreas = [...this.triggeredAreas];
+    this.filteredAreas = [];
     this.triggeredAreas.forEach(this.disableSubmitButtonForTriggeredArea);
   };
 
@@ -119,7 +119,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         filterTriggeredAreasByPlaceCode,
       );
     } else {
-      this.filteredAreas = [...this.triggeredAreas];
+      this.filteredAreas = [];
     }
     this.changeDetectorRef.detectChanges();
   };
