@@ -337,6 +337,8 @@ class GlofasData:
                                 discharge = 8000
                             elif station['code'] == 'G1328':  # ZMB dummy flood station 2
                                 discharge = 9000
+                            elif station['code'] == 'G1319':  # ZMB dummy flood station 3
+                                discharge = 1400
                             else:
                                 discharge = 0
                         else:
