@@ -650,8 +650,8 @@ export class MapComponent implements OnDestroy {
           <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
             <div style="border-radius:10px;height:20px;line-height:20px;background-color:${eapStatusColor}; color:${eapStatusColorText}; text-align:center; white-space: nowrap; min-width: 15%; width:${triggerWidth}%">${Math.round(
       markerProperties.forecastLevel,
-    )}</div> \ 
-          </div> \ 
+    )}</div> \
+          </div> \
         </div> \
         <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
           Trigger activation threshold: \
