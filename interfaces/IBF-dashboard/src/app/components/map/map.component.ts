@@ -638,7 +638,14 @@ export class MapComponent implements OnDestroy {
     }</strong> \
       </div> \
       <div style="margin-left:5px"> \
-        <div style="margin-bottom:5px">${leadTime} forecast river discharge (in m<sup>3</sup>/s)</div> \
+        <div style="margin-bottom:5px"> \
+          ${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
+          ${
+            markerProperties.forecastReturnPeriod
+              ? `<br>This corresponds to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years`
+              : ''
+          } \
+        </div> \
         <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
           <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
             <div style="border-radius:10px;height:20px;line-height:20px;background-color:${eapStatusColor}; color:${eapStatusColorText}; text-align:center; white-space: nowrap; min-width: 15%; width:${triggerWidth}%">${Math.round(
