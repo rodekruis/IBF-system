@@ -5,13 +5,11 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevel() !== adminLevel.adm1
-        ? 'ibf-dark-blue'
-        : adminLevelService.adminLayerState
+      getSelectedAdminLevels().includes(adminLevel.adm1)
         ? 'ibf-royal-blue'
-        : 'ibf-black'
+        : 'ibf-dark-blue'
     "
-    [disabled]="getSelectedAdminLevel() !== adminLevel.adm1"
+    [disabled]="!getCountryAdminLevels().includes(adminLevel.adm1)"
     (click)="
       setAdminLevelClick(adminLevel.adm1, !adminLevelService.adminLayerState)
     "
@@ -24,13 +22,11 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevel() !== adminLevel.adm2
-        ? 'ibf-dark-blue'
-        : adminLevelService.adminLayerState
-        ? 'ibf-royal-blue'
-        : 'ibf-black'
+    getSelectedAdminLevels().includes(adminLevel.adm2)
+      ? 'ibf-royal-blue'
+      : 'ibf-dark-blue'
     "
-    [disabled]="getSelectedAdminLevel() !== adminLevel.adm2"
+    [disabled]="!getCountryAdminLevels().includes(adminLevel.adm2)"
     (click)="
       setAdminLevelClick(adminLevel.adm2, !adminLevelService.adminLayerState)
     "
@@ -43,13 +39,11 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevel() !== adminLevel.adm3
-        ? 'ibf-dark-blue'
-        : adminLevelService.adminLayerState
-        ? 'ibf-royal-blue'
-        : 'ibf-black'
+    getSelectedAdminLevels().includes(adminLevel.adm3)
+      ? 'ibf-royal-blue'
+      : 'ibf-dark-blue'
     "
-    [disabled]="getSelectedAdminLevel() !== adminLevel.adm3"
+    [disabled]="!getCountryAdminLevels().includes(adminLevel.adm3)"
     (click)="
       setAdminLevelClick(adminLevel.adm3, !adminLevelService.adminLayerState)
     "
@@ -62,13 +56,11 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevel() !== adminLevel.adm4
-        ? 'ibf-dark-blue'
-        : adminLevelService.adminLayerState
-        ? 'ibf-royal-blue'
-        : 'ibf-black'
+    getSelectedAdminLevels().includes(adminLevel.adm4)
+      ? 'ibf-royal-blue'
+      : 'ibf-dark-blue'
     "
-    [disabled]="getSelectedAdminLevel() !== adminLevel.adm4"
+    [disabled]="!getCountryAdminLevels().includes(adminLevel.adm4)"
     (click)="
       setAdminLevelClick(adminLevel.adm4, !adminLevelService.adminLayerState)
     "

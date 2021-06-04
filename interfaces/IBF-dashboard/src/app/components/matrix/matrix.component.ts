@@ -47,7 +47,7 @@ export class MatrixComponent implements OnDestroy {
       if (newLayerIndex >= 0) {
         this.layers.splice(newLayerIndex, 1, newLayer);
       } else {
-        if (newLayer.name !== IbfLayerName.adminRegions) {
+        if (!newLayer.name.includes(IbfLayerName.adminRegions)) {
           this.layers.push(newLayer);
         }
       }

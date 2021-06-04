@@ -252,6 +252,7 @@ export class MapComponent implements OnDestroy {
     this.map = map;
     this.map.createPane('ibf-wms');
     this.map.createPane('ibf-aggregate');
+    this.map.createPane('ibf-additional-admin-boundaries');
 
     this.triggerWindowResize();
   }
@@ -271,7 +272,7 @@ export class MapComponent implements OnDestroy {
         layer.colorBreaks,
       );
 
-      if (layer.name !== IbfLayerName.adminRegions) {
+      if (!layer.name.includes(IbfLayerName.adminRegions)) {
         this.addLegend(this.map, colors, colorThreshold, layer);
       }
     }
@@ -402,15 +403,17 @@ export class MapComponent implements OnDestroy {
           ? ' (Disputed borders)'
           : '') +
         '</strong><br/>' +
-        layer.label +
-        ': ' +
-        this.numberFormat(
-          typeof feature.properties[layer.colorProperty] !== 'undefined'
-            ? feature.properties[layer.colorProperty]
-            : feature.properties.indicators[layer.colorProperty],
-          layer,
-        ) +
-        (layer.unit ? ' ' + layer.unit : '');
+        (layer.name.includes(IbfLayerName.adminRegions)
+          ? ''
+          : layer.label +
+            ': ' +
+            this.numberFormat(
+              typeof feature.properties[layer.colorProperty] !== 'undefined'
+                ? feature.properties[layer.colorProperty]
+                : feature.properties.indicators[layer.colorProperty],
+              layer,
+            ) +
+            (layer.unit ? ' ' + layer.unit : ''));
       if (feature.properties.placeCode === this.placeCode) {
         element.unbindPopup();
         this.placeCode = null;
@@ -430,6 +433,10 @@ export class MapComponent implements OnDestroy {
       pane:
         layer.group && layer.group === IbfLayerGroup.aggregates
           ? 'ibf-aggregate'
+          : layer.name === IbfLayerName.adminRegions
+          ? 'overlayPane'
+          : layer.name.includes(IbfLayerName.adminRegions)
+          ? 'ibf-additional-admin-boundaries'
           : 'overlayPane',
       style: this.mapService.setAdminRegionStyle(layer),
       onEachFeature: (feature, element): void => {

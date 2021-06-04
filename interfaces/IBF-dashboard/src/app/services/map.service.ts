@@ -108,8 +108,12 @@ export class MapService {
     this.loadCountryLayers();
   };
 
-  private onAdminLevelChange = () => {
-    this.loadAdminRegionLayer(true);
+  private onAdminLevelChange = (adminLevel: AdminLevel) => {
+    if (adminLevel === this.adminLevelService.adminLevel) {
+      this.loadAdminRegionLayer(true);
+    } else {
+      this.loadAdminRegionLayer(true, adminLevel);
+    }
   };
 
   private onLeadTimeChange = () => {
@@ -256,7 +260,6 @@ export class MapService {
         this.apiService
           .getHealthSites(this.country.countryCodeISO3)
           .subscribe((healthSites) => {
-            console.log('healthSites: sbuscribe ', healthSites);
             this.addHealthSites(healthSites);
           });
       } else {
@@ -307,17 +310,22 @@ export class MapService {
     });
   }
 
-  private loadAdminRegionLayer(layerActive: boolean) {
+  public loadAdminRegionLayer(
+    layerActive: boolean,
+    additionalAdminLevel?: AdminLevel,
+  ) {
     if (this.country) {
       if (layerActive) {
         this.apiService
           .getAdminRegions(
             this.country.countryCodeISO3,
             this.timelineService.activeLeadTime,
-            this.adminLevelService.adminLevel,
+            additionalAdminLevel || this.adminLevelService.adminLevel,
           )
           .subscribe((adminRegions) => {
-            this.addAdminRegionLayer(adminRegions);
+            additionalAdminLevel
+              ? this.addAdminRegionLayer(adminRegions, additionalAdminLevel)
+              : this.addAdminRegionLayer(adminRegions);
           });
       } else {
         this.addAdminRegionLayer(null);
@@ -325,16 +333,22 @@ export class MapService {
     }
   }
 
-  private addAdminRegionLayer(adminRegions: any) {
+  private addAdminRegionLayer(
+    adminRegions: any,
+    additionalAdminLevel?: AdminLevel,
+  ) {
     this.addLayer({
-      name: IbfLayerName.adminRegions,
+      name: additionalAdminLevel
+        ? ((IbfLayerName.adminRegions +
+            String(additionalAdminLevel)) as IbfLayerName)
+        : IbfLayerName.adminRegions,
       label: IbfLayerLabel.adminRegions,
       type: IbfLayerType.shape,
       description: '',
       active: true,
       show: true,
       data: adminRegions,
-      viewCenter: true,
+      viewCenter: additionalAdminLevel ? false : true,
       colorProperty: this.state.defaultColorProperty,
       order: 0,
     });
@@ -563,8 +577,18 @@ export class MapService {
           this.adminLevelService.adminLevel,
         )
         .pipe(shareReplay(1));
-    } else if (layer.type !== IbfLayerType.wms) {
-      // In case layer is aggregate layer
+    } else if (layer.name.includes(IbfLayerName.adminRegions)) {
+      const adminLevel = Number(
+        layer.name.substr(layer.name.length - 1),
+      ) as AdminLevel;
+      layerData = this.apiService
+        .getAdminRegions(
+          this.country.countryCodeISO3,
+          this.timelineService.activeLeadTime,
+          adminLevel,
+        )
+        .pipe(shareReplay(1));
+    } else if (layer.group === IbfLayerGroup.aggregates) {
       layerData = this.getCombineAdminRegionData(
         this.country.countryCodeISO3,
         this.adminLevelService.adminLevel,
@@ -669,7 +693,7 @@ export class MapService {
     let unselectedFillOpacity = this.unselectedFillOpacity;
     const hoverFillOpacity = this.hoverFillOpacity;
 
-    if (layer.name === IbfLayerName.adminRegions) {
+    if (layer.name.includes(IbfLayerName.adminRegions)) {
       fillOpacity = 0.0;
       unselectedFillOpacity = 0.0;
     }
@@ -694,11 +718,23 @@ export class MapService {
   };
 
   getAdminRegionWeight = (layer: IbfLayer): number => {
-    return this.state.defaultWeight;
+    return layer.name === IbfLayerName.adminRegions
+      ? this.state.defaultWeight
+      : layer.name.includes(IbfLayerName.adminRegions)
+      ? this.adminLevelLowerThanDefault(layer.name)
+        ? 3
+        : 0.33
+      : this.state.defaultWeight;
+  };
+
+  adminLevelLowerThanDefault = (name: IbfLayerName): boolean => {
+    return (
+      name.substr(name.length - 1) < String(this.adminLevelService.adminLevel)
+    );
   };
 
   getAdminRegionColor = (layer: IbfLayer): string => {
-    return layer.name === IbfLayerName.adminRegions
+    return layer.name.includes(IbfLayerName.adminRegions)
       ? this.state.defaultColor
       : this.state.transparentColor;
   };
@@ -736,7 +772,6 @@ export class MapService {
       colorProperty,
       layer.colorBreaks,
     );
-    const trigger = this.eventService.state.activeTrigger;
 
     return (adminRegion) => {
       const fillColor = this.getAdminRegionFillColor(

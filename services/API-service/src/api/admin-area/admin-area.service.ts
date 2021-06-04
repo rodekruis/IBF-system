@@ -142,7 +142,12 @@ export class AdminAreaService {
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel })
       .andWhere('date = current_date');
 
-    if (placeCodes.length) {
+    const country = await this.countryRepository.findOne({
+      select: ['defaultAdminLevel'],
+      where: { countryCodeISO3: countryCodeISO3 },
+    });
+    // Only add triggered-area filter if this is the default admin level
+    if (placeCodes.length && adminLevel == country.defaultAdminLevel) {
       adminAreasScript = adminAreasScript.andWhere(
         'area."placeCode" IN (:...placeCodes)',
         { placeCodes: placeCodes },
