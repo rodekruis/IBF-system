@@ -36,7 +36,4 @@ export class AdminAreaEntity {
 
   @Column({ nullable: true })
   public glofasStation: string;
-
-  @Column()
-  public testColumn: string;
 }
