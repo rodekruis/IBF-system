@@ -21,7 +21,6 @@ SETTINGS = {
     "ZMB": {
         "model": 'glofas',
         'lead_times': {
-            "3-day": 3,
             "7-day": 7
         },
         'admin_level': 2,
