@@ -3,12 +3,12 @@ import { Test } from '@nestjs/testing';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserRO } from './user.interface';
+import { UserResponseObject } from './user.model';
 import { RolesGuard } from '../../roles.guard';
 import { UserRole } from './user-role.enum';
 import { UserStatus } from './user-status.enum';
 
-const userRo = {
+const userResponseObject = {
   user: {
     email: 'test@ibf.nl',
     token:
@@ -17,18 +17,18 @@ const userRo = {
 };
 
 class UserServiceMock {
-  public async findByEmail(): Promise<UserRO> {
-    return userRo;
+  public async findByEmail(): Promise<UserResponseObject> {
+    return userResponseObject;
   }
-  public async create(userData: CreateUserDto): Promise<UserRO> {
-    const userRo = {
+  public async create(userData: CreateUserDto): Promise<UserResponseObject> {
+    const userResponseObject = {
       user: {
         email: userData.email,
         token:
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJzdHJpZG5nIiwiZW1haWwiOiJ0ZXNkZnN0QHRlc3QubmwiLCJleHAiOjE1NjYwMzE4MzEuMjk0LCJpYXQiOjE1NjA4NDc4MzF9.tAKGcABFXNd2dRsvf3lZ-4KzUvKGeUkmuhrzGKdfLpo',
       },
     };
-    return userRo;
+    return userResponseObject;
   }
   public async findOne(): Promise<UserEntity> {
     const user = new UserEntity();
@@ -70,11 +70,14 @@ describe('UserController', (): void => {
     it('should return a user', async (): Promise<void> => {
       const spy = jest
         .spyOn(userService, 'findByEmail')
-        .mockImplementation((): Promise<UserRO> => Promise.resolve(userRo));
+        .mockImplementation(
+          (): Promise<UserResponseObject> =>
+            Promise.resolve(userResponseObject),
+        );
       const controllerResult = await userController.findMe('test@ibf.nl');
 
       expect(spy).toHaveBeenCalled();
-      expect(controllerResult).toStrictEqual(userRo);
+      expect(controllerResult).toStrictEqual(userResponseObject);
     });
   });
 
@@ -86,7 +89,7 @@ describe('UserController', (): void => {
       };
       const controllerResult = await userController.login(loginParameters);
 
-      expect(controllerResult).toStrictEqual(userRo);
+      expect(controllerResult).toStrictEqual(userResponseObject);
 
       const spy = jest
         .spyOn(userService, 'findOne')
@@ -112,11 +115,14 @@ describe('UserController', (): void => {
       };
       const spy = jest
         .spyOn(userService, 'create')
-        .mockImplementation((): Promise<UserRO> => Promise.resolve(userRo));
+        .mockImplementation(
+          (): Promise<UserResponseObject> =>
+            Promise.resolve(userResponseObject),
+        );
       const controllerResult = await userController.create(userValue);
 
       expect(spy).toHaveBeenCalled();
-      expect(controllerResult).toEqual(userRo);
+      expect(controllerResult).toEqual(userResponseObject);
     });
   });
 });

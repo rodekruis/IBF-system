@@ -28,7 +28,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   public firstName: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
   @IsNotEmpty()
@@ -42,6 +42,7 @@ export class CreateUserDto {
   @ApiProperty({
     example: UserRole.DisasterManager,
     default: UserRole.Guest,
+    enum: UserRole,
   })
   @IsEnum(UserRole)
   @IsNotEmpty()
@@ -49,7 +50,7 @@ export class CreateUserDto {
 
   @ApiProperty({
     example: ['UGA', 'KEN', 'ETH', 'ZMB'],
-    default: ['UGA'],
+    default: [],
   })
   @IsArray()
   @ArrayNotEmpty()
