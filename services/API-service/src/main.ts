@@ -5,6 +5,7 @@ import {
   SwaggerModule,
   DocumentBuilder,
   SwaggerDocumentOptions,
+  SwaggerCustomOptions,
 } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
@@ -12,20 +13,35 @@ async function bootstrap(): Promise<void> {
   const appOptions = { cors: true };
   const app = await NestFactory.create(ApplicationModule, appOptions);
   const apiVersion = '1.0';
+  const apiDocumentationTitle = 'IBF API Documentation';
+  const apiDocumentationFavicon =
+    'https://www.510.global/wp-content/uploads/2017/09/cropped-510-FLAVICON-01-32x32.png';
+  const apiDocumentationDescription =
+    'This page serves as the documentation of IBF API endpoints. Use the `/api/user/login` endpoint for the `Authorization Token` to access protected data.';
   app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder()
-    .setTitle('IBF API')
-    .setDescription(
-      'This page serves as the documentation of IBF API endpoints. Use the `/api/user/login` endpoint for the `Authorization Token` to access protected data.',
-    )
+    .setTitle(apiDocumentationTitle)
+    .setDescription(apiDocumentationDescription)
     .setVersion(apiVersion)
     .addServer(`${SCHEME}://`)
     .addBearerAuth()
     .build();
-  const options: SwaggerDocumentOptions = {};
-  const document = SwaggerModule.createDocument(app, config, options);
-  SwaggerModule.setup('/docs', app, document);
+  const swaggerDocumentOptions: SwaggerDocumentOptions = {};
+  const swaggerCustomOptions: SwaggerCustomOptions = {
+    swaggerOptions: {
+      docExpansion: 'none',
+    },
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: apiDocumentationTitle,
+    customfavIcon: apiDocumentationFavicon,
+  };
+  const document = SwaggerModule.createDocument(
+    app,
+    config,
+    swaggerDocumentOptions,
+  );
+  SwaggerModule.setup('/docs', app, document, swaggerCustomOptions);
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(process.env.PORT || PORT);
 }
