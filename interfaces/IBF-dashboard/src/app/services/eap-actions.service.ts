@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { Country } from '../models/country.model';
 
 @Injectable({
@@ -16,23 +15,14 @@ export class EapActionsService {
   constructor(
     private countryService: CountryService,
     private apiService: ApiService,
-    private mockScenarioService: MockScenarioService,
   ) {
     this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
-
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe(this.onMockScenarioChange);
   }
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-    this.loadDistrictsAndActions();
-  };
-
-  private onMockScenarioChange = () => {
     this.loadDistrictsAndActions();
   };
 

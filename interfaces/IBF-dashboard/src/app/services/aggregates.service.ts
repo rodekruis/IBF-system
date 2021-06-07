@@ -5,7 +5,6 @@ import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { Indicator } from 'src/app/types/indicator-group';
-import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { Country } from '../models/country.model';
 import { IbfLayerName } from '../types/ibf-layer';
 import { AdminLevelService } from './admin-level.service';
@@ -25,7 +24,6 @@ export class AggregatesService {
     private timelineService: TimelineService,
     private apiService: ApiService,
     private mapService: MapService,
-    private mockScenarioService: MockScenarioService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -34,10 +32,6 @@ export class AggregatesService {
     this.timelineService
       .getTimelineSubscription()
       .subscribe(this.onLeadTimeChange);
-
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe(this.onMockScenarioChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -47,10 +41,6 @@ export class AggregatesService {
 
   private onLeadTimeChange = () => {
     this.loadMetadataAndAggregates();
-  };
-
-  private onMockScenarioChange = () => {
-    this.loadAggregateInformation();
   };
 
   loadMetadataAndAggregates() {
