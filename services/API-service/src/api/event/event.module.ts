@@ -1,3 +1,4 @@
+import { EapActionsModule } from './../eap-actions/eap-actions.module';
 import { CountryModule } from './../country/country.module';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { UserModule } from './../user/user.module';
@@ -12,6 +13,7 @@ import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-are
   imports: [
     UserModule,
     CountryModule,
+    EapActionsModule,
     TypeOrmModule.forFeature([
       EventPlaceCodeEntity,
       TriggerPerLeadTime,

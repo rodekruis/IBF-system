@@ -36,19 +36,8 @@ export class EapActionsService {
     this.loadDistrictsAndActions();
   };
 
-  private onEAPActionByTriggeredArea = (triggeredArea) => (eapActions) => {
-    triggeredArea.eapActions = eapActions;
-  };
-
   private onTriggeredAreas = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-
-    for (const triggeredArea of this.triggeredAreas) {
-      this.apiService
-        .getEapActions(this.country.countryCodeISO3, triggeredArea.placeCode)
-        .subscribe(this.onEAPActionByTriggeredArea(triggeredArea));
-    }
-
     this.triggeredAreaSubject.next(this.triggeredAreas);
   };
 

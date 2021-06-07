@@ -27,5 +27,6 @@ import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
   ],
   controllers: [EapActionsController],
   providers: [EapActionsService],
+  exports: [EapActionsService],
 })
 export class EapActionsModule {}

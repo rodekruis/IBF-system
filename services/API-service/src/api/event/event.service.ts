@@ -1,3 +1,4 @@
+import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 /* eslint-disable @typescript-eslint/camelcase */
 import { EventPlaceCodeEntity } from './event-place-code.entity';
@@ -24,8 +25,13 @@ export class EventService {
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
 
   private countryService: CountryService;
-  public constructor(countryService: CountryService) {
+  private eapActionsService: EapActionsService;
+  public constructor(
+    countryService: CountryService,
+    eapActionsService: EapActionsService,
+  ) {
     this.countryService = countryService;
+    this.eapActionsService = eapActionsService;
   }
 
   public async getEventSummaryCountry(
@@ -108,6 +114,12 @@ export class EventService {
       })
       .orderBy('event."actionsValue"', 'DESC')
       .getRawMany();
+    for (const area of triggeredAreas) {
+      area.eapActions = await this.eapActionsService.getActionsWithStatus(
+        countryCodeISO3,
+        area.placeCode,
+      );
+    }
     return triggeredAreas;
   }
 
