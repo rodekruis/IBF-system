@@ -18,7 +18,6 @@ import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { DeleteUserDto } from './dto/delete-user.dto';
 import { RolesGuard } from '../../roles.guard';
 
-@ApiBearerAuth()
 @ApiTags('user')
 @Controller('user')
 export class UserController {
@@ -27,6 +26,7 @@ export class UserController {
     this.userService = userService;
   }
 
+  @ApiBearerAuth()
   @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Sign-up new user' })
   @UsePipes(new ValidationPipe())
@@ -54,6 +54,7 @@ export class UserController {
     return { user };
   }
 
+  @ApiBearerAuth()
   @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Change password of logged in user' })
   @Post('change-password')
@@ -64,6 +65,7 @@ export class UserController {
     return this.userService.update(userId, userData);
   }
 
+  @ApiBearerAuth()
   @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Get current user' })
   @Get()
@@ -71,6 +73,7 @@ export class UserController {
     return await this.userService.findByEmail(email);
   }
 
+  @ApiBearerAuth()
   @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Delete current user and storage' })
   @Post('delete')
