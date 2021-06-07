@@ -34,6 +34,7 @@ async function bootstrap(): Promise<void> {
     swaggerOptions: {
       docExpansion: 'list',
       defaultModelsExpandDepth: -1,
+      defaultModelExpandDepth: 9,
       deepLinking: true,
       persistAuthorization: true,
     },
