@@ -32,11 +32,10 @@ export class CountryEntity {
   @Column({ default: AdminLevel.adm1 })
   public defaultAdminLevel: AdminLevel;
 
-  @Column('text', {
-    array: true,
-    default: (): string => 'array[]::text[]',
+  @Column('json', {
+    default: {},
   })
-  public adminRegionLabels: string[];
+  public adminRegionLabels: JSON;
 
   @Column({ nullable: true })
   public eapLink: string;
@@ -78,3 +77,5 @@ export class CountryEntity {
   )
   public disasterTypes: DisasterEntity[];
 }
+
+class StringArray {}

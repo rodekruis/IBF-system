@@ -13,12 +13,24 @@
     "countryActiveLeadTimes": [
       "5-day"
     ],
-    "adminRegionLabels": [
-      "Regions",
-      "Districts",
-      "Counties",
-      "Parishes"
-    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Region",
+        "plural": "Regions"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "County",
+        "plural": "Counties"
+      },
+      "4": {
+        "singular": "Parish",
+        "plural": "Parishes"
+      }
+    },
     "eapLink": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd",
     "countryLogos": [
       "UGA-unma.png",
@@ -82,11 +94,20 @@
       "3-day",
       "7-day"
     ],
-    "adminRegionLabels": [
-      "Provinces",
-      "Districts",
-      "Wards"
-    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
     "eapLink": "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#bookmark=id.xa68na3bshzr",
     "countryLogos": [
       "ZMB-warma.png",
@@ -162,11 +183,20 @@
     "countryActiveLeadTimes": [
       "7-day"
     ],
-    "adminRegionLabels": [
-      "Counties",
-      "Subcounties",
-      "Wards"
-    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "County",
+        "plural": "Counties"
+      },
+      "2": {
+        "singular": "Subcounty",
+        "plural": "Subcounties"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
     "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9",
     "countryLogos": [
       "KEN-krcs.png"
@@ -241,11 +271,20 @@
         "valueHigh": 1.01
       }
     },
-    "adminRegionLabels": [
-      "Regions",
-      "Zones",
-      "Woredas"
-    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Region",
+        "plural": "Regions"
+      },
+      "2": {
+        "singular": "Zone",
+        "plural": "Zones"
+      },
+      "3": {
+        "singular": "Woreda",
+        "plural": "Woredas"
+      }
+    },
     "eapLink": "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx",
     "countryLogos": [
       "ETH-ercs.png"
@@ -291,11 +330,20 @@
       "7-day"
     ],
     "eapAlertClasses": {},
-    "adminRegionLabels": [
-      "Governorates",
-      "Marakiz",
-      "Districts"
-    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Governorate",
+        "plural": "Governorates"
+      },
+      "2": {
+        "singular": "Markaz",
+        "plural": "Marakiz"
+      },
+      "3": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
     "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0a248aa7f06fc4d149892726478ef0fe6&authkey=AWC-wu2bMWX0NRGu7aUjTe8&expiration=2022-02-24T23%3a00%3a00.000Z&rtime=DcUsZo3Z2Eg",
     "countryLogos": [
       "EGY-ercs.png"
@@ -341,11 +389,20 @@
       "2-month"
     ],
     "eapAlertClasses": {},
-    "adminRegionLabels": [
-      "Regions",
-      "Provinces",
-      "Component cities"
-    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Region",
+        "plural": "Regions"
+      },
+      "2": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "3": {
+        "singular": "Municipality",
+        "plural": "Municipalities"
+      }
+    },
     "eapLink": "https://example.org",
     "countryLogos": [
       "PHL-prc.jpg"
