@@ -27,10 +27,15 @@ async function bootstrap(): Promise<void> {
     .addServer(`${SCHEME}://`)
     .addBearerAuth()
     .build();
-  const swaggerDocumentOptions: SwaggerDocumentOptions = {};
+  const swaggerDocumentOptions: SwaggerDocumentOptions = {
+    ignoreGlobalPrefix: false,
+  };
   const swaggerCustomOptions: SwaggerCustomOptions = {
     swaggerOptions: {
-      docExpansion: 'none',
+      docExpansion: 'list',
+      defaultModelsExpandDepth: -1,
+      deepLinking: true,
+      persistAuthorization: true,
     },
     customCss: '.swagger-ui .topbar { display: none }',
     customSiteTitle: apiDocumentationTitle,
