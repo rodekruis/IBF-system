@@ -72,7 +72,9 @@ This applications uses [JSON Web Token](https://jwt.io/) (JWT) to handle authent
 
 ## Migration scripts
 
-We use TypeORM migrations to handle changes to the datamodel. Developers use the following process for this.
+We use TypeORM migrations to handle changes to the datamodel. This means that developers need to generate migration-files locally upon datamodel changes, which are subsequently (automatically) run before the API-service starts in another environment (both remote server and local environment of other developer).
+
+Developers use the following process for this.
 
 1. The attribute 'synchronize' in ormconfig.js is set to 'false' by default. This means that any changes in your entities in code are not automatically reflected in the datamodel.
 2. Otherwise TypeORM's migration:generate functionality cannot be used to automatically capture the difference between before (datamodel) and after (entities) state.
