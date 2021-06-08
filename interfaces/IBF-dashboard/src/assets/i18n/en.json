@@ -59,8 +59,7 @@
       "welcome": "Hello Aid worker HQ. There is <strong>no active trigger</strong> any more (as you can see in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
     },
     "active-event": {
-      "instruction": "The potentially affected areas are listed below in order of number of people potentially affected per area. You can keep track here per area which EAP-actions are to-do / done.",
-      "place-name": "District: <strong>{{ placeName }}</strong>",
+      "instruction": "The potentially exposed areas are listed below in order of number of people potentially exposed per area. You can select and submit the pre-planned anticipatory actions executed in each area and eventually close the event.",
       "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
       "exposed-population": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
       "submit-button-label": "Submit",
