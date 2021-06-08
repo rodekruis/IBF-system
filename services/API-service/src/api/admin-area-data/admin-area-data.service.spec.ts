@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { AdminAreaDataEntity } from './admin-area-data.entity';
 import { AdminAreaDataService } from './admin-area-data.service';
 
@@ -9,11 +10,13 @@ describe('AdminAreaDataService', (): void => {
   beforeEach(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
-        imports: [
-          TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([AdminAreaDataEntity]),
+        providers: [
+          AdminAreaDataService,
+          {
+            provide: getRepositoryToken(AdminAreaDataEntity),
+            useFactory: repositoryMockFactory,
+          },
         ],
-        providers: [AdminAreaDataService],
       }).compile();
 
       service = module.get<AdminAreaDataService>(AdminAreaDataService);

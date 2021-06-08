@@ -8,8 +8,12 @@ module.exports = {
   schema: 'IBF-app',
   entities: ['src/**/**.entity{.ts,.js}'],
   dropSchema: false,
-  synchronize: true,
+  synchronize: false,
   logging: ['error'],
   logger: 'advanced-console',
   maxQueryExecutionTime: 1000,
+  migrations: ['migration/*.ts'],
+  cli: {
+    migrationsDir: 'migration',
+  },
 };
