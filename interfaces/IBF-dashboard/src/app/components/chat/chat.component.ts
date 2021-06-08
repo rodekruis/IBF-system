@@ -178,6 +178,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
     this.triggeredAreas.find(filterTriggeredAreaByPlaceCode).submitDisabled =
       this.changedActions.length === 0;
+    this.changeDetectorRef.detectChanges();
   }
 
   private checkEAPAction = (action) => {
