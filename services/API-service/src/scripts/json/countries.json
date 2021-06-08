@@ -31,13 +31,13 @@
     "eapAlertClasses": {
       "no": {
         "label": "No action",
-        "color": "#d4d3d2",
+        "color": "ibf-gray",
         "valueLow": 0,
         "valueHigh": 0.8
       },
       "max": {
         "label": "Activate EAP",
-        "color": "var(--ion-color-ibf-salmon)",
+        "color": "ibf-purple",
         "valueLow": 0.8,
         "valueHigh": 1.01
       }
@@ -104,25 +104,25 @@
     "eapAlertClasses": {
       "no": {
         "label": "No action",
-        "color": "#d4d3d2",
+        "color": "ibf-gray",
         "valueLow": 0,
         "valueHigh": 0.6
       },
       "min": {
         "label": "Met office to monitor",
-        "color": "#ffff00",
+        "color": "ibf-yellow",
         "valueLow": 0.6,
         "valueHigh": 0.7
       },
       "med": {
         "label": "Alert IFRC / Prep evacuation / Warn communities",
-        "color": "#ffc000",
+        "color": "ibf-orange",
         "valueLow": 0.7,
         "valueHigh": 0.8
       },
       "max": {
         "label": "Activate EAP",
-        "color": "var(--ion-color-ibf-salmon)",
+        "color": "ibf-purple",
         "valueLow": 0.8,
         "valueHigh": 1.01
       }
@@ -184,13 +184,13 @@
     "eapAlertClasses": {
       "no": {
         "label": "No action",
-        "color": "#d4d3d2",
+        "color": "ibf-gray",
         "valueLow": 0,
         "valueHigh": 0.8
       },
       "max": {
         "label": "Activate EAP",
-        "color": "var(--ion-color-ibf-salmon)",
+        "color": "ibf-purple",
         "valueLow": 0.8,
         "valueHigh": 1.01
       }
@@ -243,13 +243,13 @@
     "eapAlertClasses": {
       "no": {
         "label": "No action",
-        "color": "#d4d3d2",
+        "color": "ibf-gray",
         "valueLow": 0,
         "valueHigh": 0.8
       },
       "max": {
         "label": "Activate EAP",
-        "color": "var(--ion-color-ibf-salmon)",
+        "color": "ibf-purple",
         "valueLow": 0.8,
         "valueHigh": 1.01
       }

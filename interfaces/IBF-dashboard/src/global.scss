@@ -147,22 +147,22 @@
 }
 .station-popup-no {
   .leaflet-popup-tip {
-    background-color: #d4d3d2;
+    background-color: var(--ion-color-ibf-gray);
   }
 }
 .station-popup-min {
   .leaflet-popup-tip {
-    background-color: #ffff00;
+    background-color: var(--ion-color-ibf-yellow);
   }
 }
 .station-popup-med {
   .leaflet-popup-tip {
-    background-color: #ffc000;
+    background-color: var(--ion-color-ibf-orange);
   }
 }
 .station-popup-max {
   .leaflet-popup-tip {
-    background-color: var(--ion-color-ibf-salmon);
+    background-color: var(--ion-color-ibf-purple);
   }
 }
 
