@@ -41,6 +41,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public changedActions: EapAction[] = [];
   public submitDisabled = true;
   public adminAreaLabel: string;
+  public disasterTypeLabel: string;
 
   constructor(
     private eapActionsService: EapActionsService,
@@ -73,6 +74,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.countrySubscription.unsubscribe();
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
@@ -89,6 +91,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (country) {
       this.adminAreaLabel =
         country.adminRegionLabels[country.defaultAdminLevel].singular;
+      // For now take first disasterType as we do not have multiple types per country. We will build in a 'selectedDisasterType' variable once that is needed.
+      this.disasterTypeLabel = country.disasterTypes[0].label;
     }
   };
 

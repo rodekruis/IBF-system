@@ -10,7 +10,6 @@ import { Country } from '../models/country.model';
   providedIn: 'root',
 })
 export class EventService {
-  public disasterType = 'flood';
   private country: Country;
 
   public state = {

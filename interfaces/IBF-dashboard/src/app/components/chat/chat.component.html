@@ -24,7 +24,11 @@
       <span
         [innerHTML]="
           'chat-component.new-event-active-trigger.welcome'
-            | translate: { days: eventService.state.triggerLeadTime }
+            | translate
+              : {
+                  days: eventService.state.triggerLeadTime,
+                  disasterTypeLabel: disasterTypeLabel
+                }
         "
       >
       </span>
@@ -32,7 +36,11 @@
         *ngIf="eventService.state.newEventEarlyTrigger"
         [innerHTML]="
           'chat-component.new-event-active-trigger.new-event-early-trigger'
-            | translate: { days: eventService.state.firstLeadTime }
+            | translate
+              : {
+                  days: eventService.state.firstLeadTime,
+                  disasterTypeLabel: disasterTypeLabel
+                }
         "
       ></span>
     </p>
@@ -59,7 +67,8 @@
           | translate
             : {
                 startDate: eventService.state.event.startDate,
-                days: eventService.state.firstLeadTime
+                days: eventService.state.firstLeadTime,
+                disasterTypeLabel: disasterTypeLabel
               }
       "
     ></p>
