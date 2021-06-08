@@ -25,8 +25,6 @@ import { Indicator } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
-import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
-import { MockScenario } from '../mocks/mock-scenario.enum';
 import { Country } from '../models/country.model';
 import { LayerActivation } from '../models/layer-activation.enum';
 import { breakKey } from '../models/map.model';
@@ -66,7 +64,6 @@ export class MapService {
   private popoverTexts: { [key: string]: string } = {};
   private country: Country;
   private placeCode: PlaceCode;
-  private mockScenario: MockScenario;
 
   constructor(
     private countryService: CountryService,
@@ -75,7 +72,6 @@ export class MapService {
     private apiService: ApiService,
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
-    private mockScenarioService: MockScenarioService,
     private translateService: TranslateService,
   ) {
     this.countryService
@@ -93,10 +89,6 @@ export class MapService {
     this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
-
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe(this.onMockScenarioChange);
 
     this.translateService
       .get('map-service.popover')
@@ -122,11 +114,6 @@ export class MapService {
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
     this.placeCode = placeCode;
-  };
-
-  private onMockScenarioChange = (mockScenario: MockScenario) => {
-    this.mockScenario = mockScenario;
-    this.loadCountryLayers();
   };
 
   private onTranslate = (translatedStrings) => {
@@ -526,7 +513,7 @@ export class MapService {
           type: 'FeatureCollection',
           features: [],
         });
-        const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}_${this.mockScenario}`;
+        const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}`;
         const layerActive = this.isLayerActive(active, layer, interactedLayer);
         if (this.layerDataCache[layerDataCacheKey]) {
           layerObservable = this.layerDataCache[layerDataCacheKey];
@@ -627,7 +614,7 @@ export class MapService {
     // Get the geometry from the admin region (this should re-use the cache if that is already loaded)
     const adminRegionsLayer = new IbfLayer();
     adminRegionsLayer.name = IbfLayerName.adminRegions;
-    const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${adminRegionsLayer.name}_${this.mockScenario}`;
+    const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${adminRegionsLayer.name}`;
     const adminRegionsObs = this.getLayerData(
       adminRegionsLayer,
       layerDataCacheKey,

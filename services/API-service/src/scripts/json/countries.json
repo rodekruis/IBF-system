@@ -87,7 +87,6 @@
       "triggerColName": "10yr_threshold"
     },
     "countryActiveLeadTimes": [
-      "3-day",
       "7-day"
     ],
     "adminRegionLabels": [
