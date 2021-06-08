@@ -1,3 +1,4 @@
+import { CountryService } from './../country/country.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
@@ -21,10 +22,16 @@ export class AdminAreaService {
 
   private helperService: HelperService;
   private eventService: EventService;
+  private countryService: CountryService;
 
-  public constructor(helperService: HelperService, eventService: EventService) {
+  public constructor(
+    helperService: HelperService,
+    eventService: EventService,
+    countryService: CountryService,
+  ) {
     this.helperService = helperService;
     this.eventService = eventService;
+    this.countryService = countryService;
   }
 
   public async getAdminAreasRaw(countryCodeISO3): Promise<any[]> {
@@ -115,7 +122,9 @@ export class AdminAreaService {
       countryCodeISO3,
       leadTime,
     );
-
+    const actionUnits = await this.countryService.getActionsUnitsForCountry(
+      countryCodeISO3,
+    );
     let adminAreasScript = this.adminAreaRepository
       .createQueryBuilder('area')
       .select([
@@ -130,7 +139,7 @@ export class AdminAreaService {
         'area.placeCode = dynamic.placeCode',
       )
       .addSelect([
-        'dynamic.value AS "population_affected"',
+        'dynamic.value AS "actionUnit"',
         'dynamic."leadTime"',
         'dynamic."date"',
       ])
@@ -139,7 +148,9 @@ export class AdminAreaService {
       })
       .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel })
-      .andWhere('date = current_date');
+      .andWhere('dynamic."indicator" = :indicator', {
+        indicator: actionUnits[0],
+      });
 
     if (placeCodes.length && countryCodeISO3 !== 'PHL') {
       adminAreasScript = adminAreasScript.andWhere(

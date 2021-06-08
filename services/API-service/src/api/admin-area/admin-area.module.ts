@@ -1,3 +1,4 @@
+import { CountryModule } from './../country/country.module';
 import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HelperService } from '../../shared/helper.service';
@@ -14,6 +15,7 @@ import { AdminAreaService } from './admin-area.service';
     UserModule,
     TypeOrmModule.forFeature([AdminAreaEntity, CountryEntity]),
     EventModule,
+    CountryModule,
   ],
   providers: [AdminAreaService, HelperService],
   controllers: [AdminAreaController],
