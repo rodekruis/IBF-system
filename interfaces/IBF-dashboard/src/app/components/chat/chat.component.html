@@ -112,7 +112,8 @@
             <ion-label
               [innerHTML]="
                 'chat-component.active-event.place-name'
-                  | translate: { adminAreaLabel: adminAreaLabel, placeName: area.name }
+                  | translate
+                    : { adminAreaLabel: adminAreaLabel, placeName: area.name }
               "
             ></ion-label
             ><br />

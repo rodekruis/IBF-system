@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class SingularAdminRegionLabels1623080335459
   implements MigrationInterface {
-  name = 'SingularAdminRegionLabels1623080335459';
+  public name = 'SingularAdminRegionLabels1623080335459';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
