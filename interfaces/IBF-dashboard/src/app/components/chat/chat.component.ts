@@ -91,7 +91,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (country) {
       this.adminAreaLabel =
         country.adminRegionLabels[country.defaultAdminLevel].singular;
-      // For now take first disasterType as we do not have multiple types per country. We will build in a 'selectedDisasterType' variable once that is needed.
+      // For now take 1st disasterType, because there's only 1 type per country.
+      // We will build in a 'selectedDisasterType' variable once that is needed.
       this.disasterTypeLabel = country.disasterTypes[0].label;
     }
   };
