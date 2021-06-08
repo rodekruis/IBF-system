@@ -1,3 +1,13 @@
+# [0.64.0](https://github.com/rodekruis/IBF-system/compare/v0.63.0...v0.64.0) (2021-06-08)
+
+
+### Features
+
+* add dynamic singular admin-area labels incl. migrations AB[#8136](https://github.com/rodekruis/IBF-system/issues/8136) ([f627303](https://github.com/rodekruis/IBF-system/commit/f627303c8d3a0a2660a2fc1a412d73d38df3e757))
+* change chat-intro wording AB[#8135](https://github.com/rodekruis/IBF-system/issues/8135) ([c955e74](https://github.com/rodekruis/IBF-system/commit/c955e74b224fc8e2efabf225deb9dc8483f52490))
+
+
+
 # [0.63.0](https://github.com/rodekruis/IBF-system/compare/v0.62.0...v0.63.0) (2021-06-08)
 
 
@@ -134,18 +144,6 @@
 
 * don't try download if mock AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([59924e4](https://github.com/rodekruis/IBF-system/commit/59924e42f702921963a4c4638e4a567711d4d86c))
 * remove changes other open branch AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([afd2edd](https://github.com/rodekruis/IBF-system/commit/afd2edd49158fc9bbc4cb5e1de84c2c846076e02))
-
-
-
-# [0.59.0](https://github.com/rodekruis/IBF-system/compare/v0.58.1...v0.59.0) (2021-05-03)
-
-
-### Features
-
-* add EGY red crescent branches AB[#7426](https://github.com/rodekruis/IBF-system/issues/7426) ([8776d73](https://github.com/rodekruis/IBF-system/commit/8776d7383c4478e44ee17f3c1c8796a66829d93d))
-* add rainfall extent info popup AB[#7422](https://github.com/rodekruis/IBF-system/issues/7422) ([b21c19e](https://github.com/rodekruis/IBF-system/commit/b21c19e179f726cfd8ab33e2fc56f4c45d484a84))
-* make info-popovers country-specific AB[#7423](https://github.com/rodekruis/IBF-system/issues/7423) ([0d69ae7](https://github.com/rodekruis/IBF-system/commit/0d69ae78fedbf85861f8c7274f2aacf2b0045eaf))
-* update flood susceptibility EGY AB[#7424](https://github.com/rodekruis/IBF-system/issues/7424) ([3c64947](https://github.com/rodekruis/IBF-system/commit/3c6494738505be3a2bb3b35cf6e1d6df2941a2ca))
 
 
 
