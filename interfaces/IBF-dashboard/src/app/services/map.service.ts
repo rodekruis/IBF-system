@@ -58,7 +58,6 @@ export class MapService {
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
     transparentColor: 'transparent',
-    defaultColorProperty: IbfLayerName.population_affected,
     defaultFillOpacity: 0.8,
     defaultWeight: 1,
   };
@@ -334,7 +333,7 @@ export class MapService {
       show: true,
       data: adminRegions,
       viewCenter: true,
-      colorProperty: this.state.defaultColorProperty,
+      colorProperty: this.country.disasterTypes[0].actionsUnit,
       order: 0,
     });
   }

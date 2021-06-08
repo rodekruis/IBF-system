@@ -139,7 +139,7 @@ export class AdminAreaService {
         'area.placeCode = dynamic.placeCode',
       )
       .addSelect([
-        'dynamic.value AS "actionUnit"',
+        `dynamic.value AS ${actionUnits[0]}`,
         'dynamic."leadTime"',
         'dynamic."date"',
       ])
