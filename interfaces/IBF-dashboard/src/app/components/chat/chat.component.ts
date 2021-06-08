@@ -7,8 +7,10 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
+import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
@@ -30,6 +32,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private closeEventPopup: object;
 
   private eapActionSubscription: Subscription;
+  private countrySubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private translateSubscription: Subscription;
 
@@ -37,11 +40,14 @@ export class ChatComponent implements OnInit, OnDestroy {
   public eapActions: EapAction[];
   public changedActions: EapAction[] = [];
   public submitDisabled = true;
+  public adminAreaLabel: string;
+  public disasterTypeLabel: string;
 
   constructor(
     private eapActionsService: EapActionsService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
+    private countryService: CountryService,
     private alertController: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
@@ -54,6 +60,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe(this.onCountryChange);
+
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
       .subscribe(this.onTriggeredAreasChange);
@@ -64,6 +74,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.countrySubscription.unsubscribe();
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
@@ -74,6 +85,16 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.updateFailureMessage = translatedStrings['update-failure'];
     this.promptButtonLabel = translatedStrings['prompt-button-label'];
     this.closeEventPopup = translatedStrings['close-event-popup'];
+  };
+
+  private onCountryChange = (country: Country) => {
+    if (country) {
+      this.adminAreaLabel =
+        country.adminRegionLabels[country.defaultAdminLevel].singular;
+      // For now take 1st disasterType, because there's only 1 type per country.
+      // We will build in a 'selectedDisasterType' variable once that is needed.
+      this.disasterTypeLabel = country.disasterTypes[0].label;
+    }
   };
 
   private onTriggeredAreasChange = (triggeredAreas) => {
@@ -254,7 +275,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private reloadEapAndTrigger() {
-    this.eapActionsService.loadDistrictsAndActions();
+    this.eapActionsService.loadAdminAreasAndActions();
     this.eventService.getTrigger();
   }
 }

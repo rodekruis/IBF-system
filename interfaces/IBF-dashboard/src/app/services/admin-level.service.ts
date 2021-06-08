@@ -18,10 +18,10 @@ export class AdminLevelService {
 
   private static loadAdminLevelLabels(country: Country): AdminLevelLabel {
     return {
-      adm1: country.adminRegionLabels[0],
-      adm2: country.adminRegionLabels[1],
-      adm3: country.adminRegionLabels[2],
-      adm4: country.adminRegionLabels[3],
+      adm1: country.adminRegionLabels[1].plural,
+      adm2: country.adminRegionLabels[2].plural,
+      adm3: country.adminRegionLabels[3].plural,
+      adm4: country.adminRegionLabels[4].plural,
     };
   }
 

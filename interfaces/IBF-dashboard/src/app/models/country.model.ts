@@ -6,7 +6,7 @@ export class Country {
   defaultAdminLevel: AdminLevel;
   countryName: string;
   countryActiveLeadTimes: LeadTime[];
-  adminRegionLabels: string[];
+  adminRegionLabels: AdminRegionLabels;
   eapLink: string;
   countryLogos: string[];
   eapAlertClasses?: EapAlertClasses;
@@ -25,6 +25,18 @@ export class EapAlertClass {
   color: string;
   valueLow: number;
   valueHigh: number;
+}
+
+export class AdminRegionLabels {
+  1: AdminRegionLabel;
+  2: AdminRegionLabel;
+  3: AdminRegionLabel;
+  4: AdminRegionLabel;
+}
+
+export class AdminRegionLabel {
+  singular: string;
+  plural: string;
 }
 
 export class DisasterType {
