@@ -29,11 +29,11 @@ export class EapActionsService {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-    this.loadDistrictsAndActions();
+    this.loadAdminAreasAndActions();
   };
 
   private onMockScenarioChange = () => {
-    this.loadDistrictsAndActions();
+    this.loadAdminAreasAndActions();
   };
 
   private onEAPActionByTriggeredArea = (triggeredArea) => (eapActions) => {
@@ -60,7 +60,7 @@ export class EapActionsService {
     }
   };
 
-  loadDistrictsAndActions() {
+  loadAdminAreasAndActions() {
     if (this.country) {
       this.apiService
         .getEvent(this.country.countryCodeISO3)
