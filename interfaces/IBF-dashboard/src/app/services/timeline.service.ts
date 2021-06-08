@@ -8,7 +8,6 @@ import {
   LeadTimeTriggerKey,
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
-import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { CountryTriggers } from '../models/country-triggers.model';
 import { Country } from '../models/country.model';
 
@@ -28,23 +27,14 @@ export class TimelineService {
   constructor(
     private countryService: CountryService,
     private apiService: ApiService,
-    private mockScenarioService: MockScenarioService,
   ) {
     this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
-
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe(this.onMockScenarioChange);
   }
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-    this.loadTimeStepButtons();
-  };
-
-  private onMockScenarioChange = () => {
     this.loadTimeStepButtons();
   };
 

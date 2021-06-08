@@ -10,7 +10,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { MockScenarioModule } from 'src/app/mocks/mock-scenario.module';
 import { LoaderInterceptorService } from 'src/app/services/loader.interceptor.service';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,7 +34,6 @@ export function createTranslateLoader(http: HttpClient) {
         environment.configuration === 'production' &&
         environment.useServiceWorker,
     }),
-    MockScenarioModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
