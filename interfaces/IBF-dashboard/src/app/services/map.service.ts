@@ -326,8 +326,7 @@ export class MapService {
   ) {
     this.addLayer({
       name: additionalAdminLevel
-        ? ((IbfLayerName.adminRegions +
-            String(additionalAdminLevel)) as IbfLayerName)
+        ? (`${IbfLayerName.adminRegions}${additionalAdminLevel}` as IbfLayerName)
         : IbfLayerName.adminRegions,
       label: IbfLayerLabel.adminRegions,
       type: IbfLayerType.shape,
