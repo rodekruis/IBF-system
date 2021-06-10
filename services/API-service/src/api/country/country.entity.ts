@@ -83,5 +83,3 @@ export class CountryEntity {
   )
   public disasterTypes: DisasterEntity[];
 }
-
-class StringArray {}
