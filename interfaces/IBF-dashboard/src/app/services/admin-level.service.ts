@@ -8,7 +8,9 @@ import { CountryService } from './country.service';
   providedIn: 'root',
 })
 export class AdminLevelService {
-  private adminLevelSubject = new BehaviorSubject<AdminLevel>(AdminLevel.adm1);
+  private adminLevelSubject = new BehaviorSubject<AdminLevel>(
+    AdminLevel.adminLevel1,
+  );
   public adminLevel: AdminLevel;
   public countryAdminLevels: AdminLevel[];
   public selectedAdminLevels: AdminLevel[];
@@ -18,23 +20,23 @@ export class AdminLevelService {
 
   private static loadAdminLevelLabels(country: Country): AdminLevelLabel {
     const adminLevelLabels = {
-      adm1: '',
-      adm2: '',
-      adm3: '',
-      adm4: '',
+      adminLevel1: '',
+      adminLevel2: '',
+      adminLevel3: '',
+      adminLevel4: '',
     };
 
     if (country.adminRegionLabels[1]) {
-      adminLevelLabels.adm1 = country.adminRegionLabels[1].plural;
+      adminLevelLabels.adminLevel1 = country.adminRegionLabels[1].plural;
     }
     if (country.adminRegionLabels[2]) {
-      adminLevelLabels.adm2 = country.adminRegionLabels[2].plural;
+      adminLevelLabels.adminLevel2 = country.adminRegionLabels[2].plural;
     }
     if (country.adminRegionLabels[3]) {
-      adminLevelLabels.adm3 = country.adminRegionLabels[3].plural;
+      adminLevelLabels.adminLevel3 = country.adminRegionLabels[3].plural;
     }
     if (country.adminRegionLabels[4]) {
-      adminLevelLabels.adm4 = country.adminRegionLabels[4].plural;
+      adminLevelLabels.adminLevel4 = country.adminRegionLabels[4].plural;
     }
 
     return adminLevelLabels;
