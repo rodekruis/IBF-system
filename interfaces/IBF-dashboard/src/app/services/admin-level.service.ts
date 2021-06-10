@@ -17,12 +17,27 @@ export class AdminLevelService {
   private country: Country;
 
   private static loadAdminLevelLabels(country: Country): AdminLevelLabel {
-    return {
-      adm1: country.adminRegionLabels[1].plural,
-      adm2: country.adminRegionLabels[2].plural,
-      adm3: country.adminRegionLabels[3].plural,
-      adm4: country.adminRegionLabels[4].plural,
+    const adminLevelLabels = {
+      adm1: '',
+      adm2: '',
+      adm3: '',
+      adm4: '',
     };
+
+    if (country.adminRegionLabels[1]) {
+      adminLevelLabels.adm1 = country.adminRegionLabels[1].plural;
+    }
+    if (country.adminRegionLabels[2]) {
+      adminLevelLabels.adm2 = country.adminRegionLabels[2].plural;
+    }
+    if (country.adminRegionLabels[3]) {
+      adminLevelLabels.adm3 = country.adminRegionLabels[3].plural;
+    }
+    if (country.adminRegionLabels[4]) {
+      adminLevelLabels.adm4 = country.adminRegionLabels[4].plural;
+    }
+
+    return adminLevelLabels;
   }
 
   constructor(private countryService: CountryService) {
