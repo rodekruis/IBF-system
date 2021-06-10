@@ -277,8 +277,10 @@ export class MapComponent implements OnDestroy {
         layer.colorBreaks,
       );
 
-      if (!layer.name.includes(IbfLayerName.adminRegions) &&
-        layer.group !== IbfLayerGroup.outline) {
+      if (
+        !layer.name.includes(IbfLayerName.adminRegions) &&
+        layer.group !== IbfLayerGroup.outline
+      ) {
         this.addLegend(this.map, colors, colorThreshold, layer);
       }
     }
@@ -455,14 +457,15 @@ export class MapComponent implements OnDestroy {
       (layer.name.includes(IbfLayerName.adminRegions)
         ? ''
         : layer.label +
-        ': ' +
-        this.numberFormat(
-          typeof feature.properties[layer.colorProperty] !== 'undefined'
-            ? feature.properties[layer.colorProperty]
-            : feature.properties.indicators[layer.colorProperty],
-          layer,
-        ) +
-        (layer.unit ? ' ' + layer.unit : '')));
+          ': ' +
+          this.numberFormat(
+            typeof feature.properties[layer.colorProperty] !== 'undefined'
+              ? feature.properties[layer.colorProperty]
+              : feature.properties.indicators[layer.colorProperty],
+            layer,
+          ) +
+          (layer.unit ? ' ' + layer.unit : ''))
+    );
   }
 
   private createThresHoldPopupAdminRegions(
@@ -537,7 +540,7 @@ export class MapComponent implements OnDestroy {
       <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
         <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
           <div style="border-radius:10px;height:20px;line-height:20px;background-color:${eapStatusColor}; color:${eapStatusColorText}; text-align:center; white-space: nowrap; min-width: 15%; width:${triggerWidth}%">${Math.round(
-            forecastValue,
+      forecastValue,
     )}</div> \
         </div> \
       </div> \
@@ -545,8 +548,8 @@ export class MapComponent implements OnDestroy {
       ${thresholdName}:</div> \
    \
   <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>'${Math.round(
-      thresholdValue
-    )}</strong></div></div> \
+    thresholdValue,
+  )}</strong></div></div> \
 </div> \
   <div style="background-color: ${eapStatusColor}; color:${eapStatusColorText}; padding: 10px; text-align: center; text-transform:uppercase"> \
     <strong>${eapStatusText}</strong> \
@@ -572,10 +575,10 @@ export class MapComponent implements OnDestroy {
           layer.group && layer.group === IbfLayerGroup.aggregates
             ? 'ibf-aggregate'
             : layer.name === IbfLayerName.adminRegions
-              ? 'overlayPane'
-              : layer.name.includes(IbfLayerName.adminRegions)
-                ? 'ibf-additional-admin-boundaries'
-                : 'overlayPane',
+            ? 'overlayPane'
+            : layer.name.includes(IbfLayerName.adminRegions)
+            ? 'ibf-additional-admin-boundaries'
+            : 'overlayPane',
         style: this.mapService.setAdminRegionStyle(layer),
         onEachFeature: (feature, element): void => {
           element.on('mouseover', this.onAdminRegionMouseOver);
@@ -750,7 +753,7 @@ export class MapComponent implements OnDestroy {
       ) {
         eapStatusText = eapAlertClasses[key].label;
         eapStatusColor = `var(--ion-color-${eapAlertClasses[key].color})`;
-        eapStatusColorText = `var(--ion-color-${eapAlertClasses[key].color}-contrast)`
+        eapStatusColorText = `var(--ion-color-${eapAlertClasses[key].color}-contrast)`;
       }
     });
     const headerColor =
@@ -778,9 +781,10 @@ export class MapComponent implements OnDestroy {
       this.timelineService.activeLeadTime || lastAvailableLeadTime;
     const unit = ' forecast river discharge (in m<sup>3</sup>/s)';
     const subtitle = `${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
-          ${markerProperties.forecastReturnPeriod
-        ? `<br>This corresponds to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years`
-        : ''
+          ${
+            markerProperties.forecastReturnPeriod
+              ? `<br>This corresponds to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years`
+              : ''
           }`;
 
     const thresholdName = 'Trigger activation threshold';

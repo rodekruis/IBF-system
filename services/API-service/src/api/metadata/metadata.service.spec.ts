@@ -1,3 +1,5 @@
+import { AreaOfFocusEntity } from './../eap-actions/area-of-focus.entity';
+import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
@@ -11,6 +13,9 @@ import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { CountryEntity } from '../country/country.entity';
 import { CountryService } from '../country/country.service';
+import { UserEntity } from '../user/user.entity';
+import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
+import { EapActionEntity } from '../eap-actions/eap-action.entity';
 
 describe('MetadataService', (): void => {
   let service: MetadataService;
@@ -23,6 +28,7 @@ describe('MetadataService', (): void => {
           HelperService,
           EventService,
           CountryService,
+          EapActionsService,
           {
             provide: getRepositoryToken(CountryEntity),
             useFactory: repositoryMockFactory,
@@ -45,6 +51,22 @@ describe('MetadataService', (): void => {
           },
           {
             provide: getRepositoryToken(LayerMetadataEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(UserEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(EapActionStatusEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(EapActionEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AreaOfFocusEntity),
             useFactory: repositoryMockFactory,
           },
         ],

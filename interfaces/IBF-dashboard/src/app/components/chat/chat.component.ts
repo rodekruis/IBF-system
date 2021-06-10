@@ -7,7 +7,7 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { Country, DisasterType } from 'src/app/models/country.model';
+import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -96,17 +96,25 @@ export class ChatComponent implements OnInit, OnDestroy {
       // We will build in a 'selectedDisasterType' variable once that is needed.
       this.disasterTypeLabel = country.disasterTypes[0].label;
       this.disasterTypeName = country.disasterTypes[0].disasterType;
-      this.disasterCategory = this.disasterTypeName === 'dengue' ? 'dengue' : ''
+      this.disasterCategory =
+        this.disasterTypeName === 'dengue' ? 'dengue' : '';
 
       if (this.disasterCategory === 'dengue') {
-        this.updateSuccessMessage = this.translatedStrings['dengue']['active-event']['update-success'];
-        this.updateFailureMessage = this.translatedStrings['dengue']['active-event']['update-failure'];
+        this.updateSuccessMessage = this.translatedStrings['dengue'][
+          'active-event'
+        ]['update-success'];
+        this.updateFailureMessage = this.translatedStrings['dengue'][
+          'active-event'
+        ]['update-failure'];
       } else {
-        this.updateSuccessMessage = this.translatedStrings['active-event']['update-success'];
-        this.updateFailureMessage = this.translatedStrings['active-event']['update-failure'];
+        this.updateSuccessMessage = this.translatedStrings['active-event'][
+          'update-success'
+        ];
+        this.updateFailureMessage = this.translatedStrings['active-event'][
+          'update-failure'
+        ];
       }
-      this.changeDetectorRef
-        .detectChanges();
+      this.changeDetectorRef.detectChanges();
     }
   };
 

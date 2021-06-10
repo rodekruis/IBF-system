@@ -1,3 +1,5 @@
+import { AreaOfFocusEntity } from './../eap-actions/area-of-focus.entity';
+import { UserEntity } from './../user/user.entity';
 import { CountryService } from './../country/country.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
@@ -10,6 +12,9 @@ import { EventService } from '../event/event.service';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { AdminAreaEntity } from './admin-area.entity';
 import { AdminAreaService } from './admin-area.service';
+import { EapActionsService } from '../eap-actions/eap-actions.service';
+import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
+import { EapActionEntity } from '../eap-actions/eap-action.entity';
 
 describe('AdminAreaService', (): void => {
   let service: AdminAreaService;
@@ -19,6 +24,7 @@ describe('AdminAreaService', (): void => {
       const module: TestingModule = await Test.createTestingModule({
         providers: [
           AdminAreaService,
+          EapActionsService,
           EventService,
           HelperService,
           CountryService,
@@ -40,6 +46,22 @@ describe('AdminAreaService', (): void => {
           },
           {
             provide: getRepositoryToken(CountryEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(UserEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(EapActionStatusEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(EapActionEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AreaOfFocusEntity),
             useFactory: repositoryMockFactory,
           },
         ],
