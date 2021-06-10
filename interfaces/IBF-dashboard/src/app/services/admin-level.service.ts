@@ -13,9 +13,7 @@ export class AdminLevelService {
   );
   public adminLevel: AdminLevel;
   public countryAdminLevels: AdminLevel[];
-  public selectedAdminLevels: AdminLevel[];
   public adminLevelLabel: AdminLevelLabel = new AdminLevelLabel();
-  public adminLayerState = true;
   private country: Country;
 
   private static loadAdminLevelLabels(country: Country): AdminLevelLabel {
@@ -53,7 +51,6 @@ export class AdminLevelService {
 
     if (this.country) {
       this.countryAdminLevels = country.adminLevels;
-      this.selectedAdminLevels = [this.country.defaultAdminLevel];
       this.setAdminLevel(this.country.defaultAdminLevel);
       this.adminLevelLabel = AdminLevelService.loadAdminLevelLabels(
         this.country,
@@ -68,9 +65,5 @@ export class AdminLevelService {
   public setAdminLevel(adminLevel: AdminLevel) {
     this.adminLevel = adminLevel;
     this.adminLevelSubject.next(this.adminLevel);
-  }
-
-  public loadAdditionalAdminLevel(adminLevel: AdminLevel) {
-    this.adminLevelSubject.next(adminLevel);
   }
 }

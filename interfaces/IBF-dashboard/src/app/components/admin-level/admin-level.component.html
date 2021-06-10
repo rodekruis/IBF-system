@@ -5,17 +5,12 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevels().includes(adminLevel.adminLevel1)
+      isAdminLevelActive(adminLevel.adminLevel1)
         ? 'ibf-royal-blue'
         : 'ibf-dark-blue'
     "
-    [disabled]="!getCountryAdminLevels().includes(adminLevel.adminLevel1)"
-    (click)="
-      setAdminLevelClick(
-        adminLevel.adminLevel1,
-        !adminLevelService.adminLayerState
-      )
-    "
+    [disabled]="isAdminLevelDisabled(adminLevel.adminLevel1)"
+    (click)="clickAdminLevelButton(adminLevel.adminLevel1)"
   >
     {{ getAdminLevelLabel(adminLevel.adminLevel1) }}
   </ion-button>
@@ -25,17 +20,12 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevels().includes(adminLevel.adminLevel2)
+      isAdminLevelActive(adminLevel.adminLevel2)
         ? 'ibf-royal-blue'
         : 'ibf-dark-blue'
     "
-    [disabled]="!getCountryAdminLevels().includes(adminLevel.adminLevel2)"
-    (click)="
-      setAdminLevelClick(
-        adminLevel.adminLevel2,
-        !adminLevelService.adminLayerState
-      )
-    "
+    [disabled]="isAdminLevelDisabled(adminLevel.adminLevel2)"
+    (click)="clickAdminLevelButton(adminLevel.adminLevel2)"
   >
     {{ getAdminLevelLabel(adminLevel.adminLevel2) }}
   </ion-button>
@@ -45,17 +35,12 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevels().includes(adminLevel.adminLevel3)
+      isAdminLevelActive(adminLevel.adminLevel3)
         ? 'ibf-royal-blue'
         : 'ibf-dark-blue'
     "
-    [disabled]="!getCountryAdminLevels().includes(adminLevel.adminLevel3)"
-    (click)="
-      setAdminLevelClick(
-        adminLevel.adminLevel3,
-        !adminLevelService.adminLayerState
-      )
-    "
+    [disabled]="isAdminLevelDisabled(adminLevel.adminLevel3)"
+    (click)="clickAdminLevelButton(adminLevel.adminLevel3)"
   >
     {{ getAdminLevelLabel(adminLevel.adminLevel3) }}
   </ion-button>
@@ -65,17 +50,12 @@
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevels().includes(adminLevel.adminLevel4)
+      isAdminLevelActive(adminLevel.adminLevel4)
         ? 'ibf-royal-blue'
         : 'ibf-dark-blue'
     "
-    [disabled]="!getCountryAdminLevels().includes(adminLevel.adminLevel4)"
-    (click)="
-      setAdminLevelClick(
-        adminLevel.adminLevel4,
-        !adminLevelService.adminLayerState
-      )
-    "
+    [disabled]="isAdminLevelDisabled(adminLevel.adminLevel4)"
+    (click)="clickAdminLevelButton(adminLevel.adminLevel4)"
   >
     {{ getAdminLevelLabel(adminLevel.adminLevel4) }}
   </ion-button>
