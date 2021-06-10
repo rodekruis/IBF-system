@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { MetadataService } from './metadata.service';
 import { LayerMetadataEntity } from './layer-metadata.entity';
@@ -18,13 +18,6 @@ describe('MetadataService', (): void => {
   beforeEach(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
-        imports: [
-          TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([
-            IndicatorMetadataEntity,
-            LayerMetadataEntity,
-          ]),
-        ],
         providers: [
           MetadataService,
           HelperService,
@@ -44,6 +37,14 @@ describe('MetadataService', (): void => {
           },
           {
             provide: getRepositoryToken(TriggerPerLeadTime),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(IndicatorMetadataEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(LayerMetadataEntity),
             useFactory: repositoryMockFactory,
           },
         ],

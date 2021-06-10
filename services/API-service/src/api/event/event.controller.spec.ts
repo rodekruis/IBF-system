@@ -8,8 +8,9 @@ import { UserEntity } from '../user/user.entity';
 import { UserModule } from '../user/user.module';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
-import { CountryEntity } from '../country/country.entity';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
+import { UserService } from '../user/user.service';
+import { CountryEntity } from '../country/country.entity';
 
 describe('EventController', (): void => {
   let controller: EventController;
@@ -17,20 +18,27 @@ describe('EventController', (): void => {
   beforeEach(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
-        imports: [
-          TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([
-            UserEntity,
-            EventPlaceCodeEntity,
-            AdminAreaDynamicDataEntity,
-            TriggerPerLeadTime,
-          ]),
-          UserModule,
-        ],
         controllers: [EventController],
         providers: [
           EventService,
           CountryService,
+          UserService,
+          {
+            provide: getRepositoryToken(UserEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(EventPlaceCodeEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AdminAreaDynamicDataEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(TriggerPerLeadTime),
+            useFactory: repositoryMockFactory,
+          },
           {
             provide: getRepositoryToken(CountryEntity),
             useFactory: repositoryMockFactory,

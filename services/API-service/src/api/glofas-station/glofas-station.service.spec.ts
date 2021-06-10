@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { HelperService } from '../../shared/helper.service';
 import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
@@ -11,14 +12,18 @@ describe('GlofasStationService', (): void => {
   beforeEach(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
-        imports: [
-          TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([
-            GlofasStationEntity,
-            GlofasStationForecastEntity,
-          ]),
+        providers: [
+          GlofasStationService,
+          HelperService,
+          {
+            provide: getRepositoryToken(GlofasStationEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(GlofasStationForecastEntity),
+            useFactory: repositoryMockFactory,
+          },
         ],
-        providers: [GlofasStationService, HelperService],
       }).compile();
 
       service = module.get<GlofasStationService>(GlofasStationService);

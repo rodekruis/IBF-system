@@ -61,12 +61,39 @@ export class AdminLevelComponent {
       this.adminLevelService.adminLayerState = !this.adminLevelService
         .adminLayerState;
     } else {
-      this.adminLevelService.setAdminLevel(adminLevel);
+      // This is in the long-term what this button should do, but not in the current 'hacky' solution
+      // this.adminLevelService.setAdminLevel(adminLevel);
+      if (this.adminLevelService.selectedAdminLevels.includes(adminLevel)) {
+        this.mapService.updateLayers(
+          (IbfLayerName.adminRegions + String(adminLevel)) as IbfLayerName,
+          false,
+          true,
+        );
+      } else {
+        this.adminLevelService.loadAdditionalAdminLevel(adminLevel);
+      }
+    }
+    this.toggleSelectedAdminLevels(adminLevel);
+  }
+
+  toggleSelectedAdminLevels(adminLevel: AdminLevel) {
+    if (this.adminLevelService.selectedAdminLevels.includes(adminLevel)) {
+      const index = this.adminLevelService.selectedAdminLevels.indexOf(
+        adminLevel,
+        0,
+      );
+      this.adminLevelService.selectedAdminLevels.splice(index, 1);
+    } else {
+      this.adminLevelService.selectedAdminLevels.push(adminLevel);
     }
   }
 
-  getSelectedAdminLevel() {
-    return this.adminLevelService.adminLevel;
+  getSelectedAdminLevels() {
+    return this.adminLevelService.selectedAdminLevels;
+  }
+
+  getCountryAdminLevels() {
+    return this.adminLevelService.countryAdminLevels;
   }
 
   public getAdminLevelLabel(adminLevel: AdminLevel): string {

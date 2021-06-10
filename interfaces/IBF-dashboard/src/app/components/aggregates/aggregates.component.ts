@@ -194,8 +194,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       if (this.country) {
         if (this.eventService.state.activeTrigger) {
           const adminAreaLabel = this.country.adminRegionLabels[
-            this.adminLevelService.adminLevel - 1
-          ];
+            this.adminLevelService.adminLevel
+          ].plural;
           headerLabel = `${this.triggeredAreas.length} ${this.exposedPrefix} ${adminAreaLabel}`;
         } else {
           headerLabel = `${this.allPrefix} ${this.country.countryName}`;

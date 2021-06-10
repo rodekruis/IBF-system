@@ -152,7 +152,16 @@ export class AdminAreaService {
         indicator: actionUnits[0],
       });
 
-    if (placeCodes.length && countryCodeISO3 !== 'PHL') {
+    const country = await this.countryRepository.findOne({
+      select: ['defaultAdminLevel'],
+      where: { countryCodeISO3: countryCodeISO3 },
+    });
+    // Only add triggered-area filter if this is the default admin level
+    if (
+      placeCodes.length &&
+      adminLevel == country.defaultAdminLevel &&
+      countryCodeISO3 !== 'PHL'
+    ) {
       adminAreasScript = adminAreasScript.andWhere(
         'area."placeCode" IN (:...placeCodes)',
         { placeCodes: placeCodes },

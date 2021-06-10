@@ -179,7 +179,7 @@ to execute each step, without further knowledge. Ask a developer who knows more.
     - Save admin-area-boundary file (.shp) for agreed upon admin-level as geojson (with extension .json) with the right column names in `services/API-service/src/scripts/git-lfs/`
     - Save Glofas_stations_locations_with_trigger_levels_<countryCodeISO3>.csv in the same folder
     - Save Glofas_station_per_admin_area_<countryCodeISO3>.csv in the same folder
-        - which (e.g.) 'districts' are triggered if station X is triggered?
+        - which admin-areas are triggered if station X is triggered?
         - note: this should include all admin-areas. If not mapped to any
           station, use 'no_station'
     - Potentially add extra code in seed-scripts (seed-amin-area.ts / seed-glofas-station.ts / etc.) to process new data correctly.

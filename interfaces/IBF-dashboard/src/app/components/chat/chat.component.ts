@@ -7,7 +7,7 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { Country } from 'src/app/models/country.model';
+import { Country, DisasterType } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -42,12 +42,16 @@ export class ChatComponent implements OnInit, OnDestroy {
   public eapActions: EapAction[];
   public changedActions: EapAction[] = [];
   public submitDisabled = true;
+  public adminAreaLabel: string;
+  public disasterTypeLabel: string;
+  public disasterTypeName: string;
+  public disasterCategory: string;
 
   constructor(
-    private countryService: CountryService,
     private eapActionsService: EapActionsService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
+    private countryService: CountryService,
     private alertController: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
@@ -86,21 +90,23 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onCountryChange = (country: Country) => {
     if (country) {
-      const genericKey = 'generic';
-      const activeEventKey = 'active-event';
-      this.activeDisasterType = country.disasterTypes[0].disasterType;
-      this.promptButtonLabel = this.translatedStrings[genericKey][
-        'prompt-button-label'
-      ];
-      this.closeEventPopup = this.translatedStrings[genericKey][
-        'close-event-popup'
-      ];
-      this.updateSuccessMessage = this.translatedStrings[
-        this.activeDisasterType
-      ][activeEventKey]['update-success'];
-      this.updateFailureMessage = this.translatedStrings[
-        this.activeDisasterType
-      ][activeEventKey]['update-failure'];
+      this.adminAreaLabel =
+        country.adminRegionLabels[country.defaultAdminLevel].singular;
+      // For now take 1st disasterType, because there's only 1 type per country.
+      // We will build in a 'selectedDisasterType' variable once that is needed.
+      this.disasterTypeLabel = country.disasterTypes[0].label;
+      this.disasterTypeName = country.disasterTypes[0].disasterType;
+      this.disasterCategory = this.disasterTypeName === 'dengue' ? 'dengue' : ''
+
+      if (this.disasterCategory === 'dengue') {
+        this.updateSuccessMessage = this.translatedStrings['dengue']['active-event']['update-success'];
+        this.updateFailureMessage = this.translatedStrings['dengue']['active-event']['update-failure'];
+      } else {
+        this.updateSuccessMessage = this.translatedStrings['active-event']['update-success'];
+        this.updateFailureMessage = this.translatedStrings['active-event']['update-failure'];
+      }
+      this.changeDetectorRef
+        .detectChanges();
     }
   };
 
@@ -261,7 +267,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   public closePlaceCodeEventPopup(triggeredArea): void {
     this.translateSubscription = this.translateService
-      .get(`chat-component.generic.close-event-popup.message`, {
+      .get(`chat-component.close-event-popup.message`, {
         placeCodeName: triggeredArea.name,
       })
       .subscribe(this.onClosePlaceCodeEventPopupByTriggeredArea(triggeredArea));
@@ -283,7 +289,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private reloadEapAndTrigger() {
-    this.eapActionsService.loadDistrictsAndActions();
+    this.eapActionsService.loadAdminAreasAndActions();
     this.eventService.getTrigger();
   }
 }

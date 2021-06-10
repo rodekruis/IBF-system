@@ -1,6 +1,6 @@
 import { CountryService } from './../country/country.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
@@ -17,10 +17,6 @@ describe('AdminAreaService', (): void => {
   beforeEach(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
-        imports: [
-          TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([AdminAreaEntity, CountryEntity]),
-        ],
         providers: [
           AdminAreaService,
           EventService,
@@ -36,6 +32,14 @@ describe('AdminAreaService', (): void => {
           },
           {
             provide: getRepositoryToken(TriggerPerLeadTime),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AdminAreaEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(CountryEntity),
             useFactory: repositoryMockFactory,
           },
         ],

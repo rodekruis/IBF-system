@@ -6,6 +6,7 @@ export class Station {
   forecastLevel: number;
   forecastTrigger: number;
   forecastProbability: number;
+  forecastReturnPeriod: number;
 }
 
 export class RedCrossBranch {

@@ -7,7 +7,7 @@
   },
   {
     "disasterType": "heavy-rain",
-    "label": "heavy rain",
+    "label": "heavy rainfal",
     "triggerUnit": "population",
     "actionsUnit": "population_affected"
   },

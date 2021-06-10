@@ -10,4 +10,5 @@ export enum Pane {
   outline = 'outline',
   ibfWms = 'ibf-wms',
   ibfAggregate = 'ibf-aggregate',
+  ibfAdditionalAdminBoundaries = 'ibf-additional-admin-boundaries'
 }
