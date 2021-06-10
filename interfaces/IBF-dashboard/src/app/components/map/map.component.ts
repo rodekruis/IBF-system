@@ -272,7 +272,7 @@ export class MapComponent implements OnDestroy {
         layer.colorBreaks,
       );
 
-      if (!layer.name.includes(IbfLayerName.adminRegions)) {
+      if (layer.group !== IbfLayerGroup.adminRegions) {
         this.addLegend(this.map, colors, colorThreshold, layer);
       }
     }
@@ -377,7 +377,7 @@ export class MapComponent implements OnDestroy {
   };
 
   private onAdminRegionClickByLayerAndFeatureAndElement = (
-    layer,
+    layer: IbfLayer,
     feature,
     element,
   ) => (): void => {
@@ -389,7 +389,7 @@ export class MapComponent implements OnDestroy {
       component: this.constructor.name,
     });
 
-    if (!layer.name.includes(IbfLayerName.adminRegions)) {
+    if (layer.group !== IbfLayerGroup.adminRegions) {
       this.placeCodeService.setPlaceCode({
         countryCodeISO3: feature.properties.countryCodeISO3,
         placeCodeName: feature.properties.name,
@@ -405,7 +405,7 @@ export class MapComponent implements OnDestroy {
           ? ' (Disputed borders)'
           : '') +
         '</strong><br/>' +
-        (layer.name.includes(IbfLayerName.adminRegions)
+        (layer.group === IbfLayerGroup.adminRegions
           ? ''
           : layer.label +
             ': ' +
@@ -426,20 +426,29 @@ export class MapComponent implements OnDestroy {
     }
   };
 
+  private getAdminRegionLayerPane(layer: IbfLayer): string {
+    let adminRegionLayerPane = 'overlayPane';
+    switch (layer.group) {
+      case IbfLayerGroup.aggregates:
+        adminRegionLayerPane = 'ibf-aggregate';
+        break;
+      case IbfLayerGroup.adminRegions:
+        adminRegionLayerPane = 'ibf-additional-admin-boundaries';
+        break;
+      default:
+        adminRegionLayerPane = 'overlayPane';
+        break;
+    }
+    return adminRegionLayerPane;
+  }
+
   private createAdminRegionsLayer(layer: IbfLayer): GeoJSON {
     if (!layer.data) {
       return;
     }
 
     const adminRegionsLayer = geoJSON(layer.data, {
-      pane:
-        layer.group && layer.group === IbfLayerGroup.aggregates
-          ? 'ibf-aggregate'
-          : layer.name === IbfLayerName.adminRegions
-          ? 'overlayPane'
-          : layer.name.includes(IbfLayerName.adminRegions)
-          ? 'ibf-additional-admin-boundaries'
-          : 'overlayPane',
+      pane: this.getAdminRegionLayerPane(layer),
       style: this.mapService.setAdminRegionStyle(layer),
       onEachFeature: (feature, element): void => {
         element.on('mouseover', this.onAdminRegionMouseOver);

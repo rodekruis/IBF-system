@@ -329,6 +329,7 @@ export class MapService {
         ? (`${IbfLayerName.adminRegions}${additionalAdminLevel}` as IbfLayerName)
         : IbfLayerName.adminRegions,
       label: IbfLayerLabel.adminRegions,
+      group: IbfLayerGroup.adminRegions,
       type: IbfLayerType.shape,
       description: '',
       active: true,
@@ -563,7 +564,7 @@ export class MapService {
           this.adminLevelService.adminLevel,
         )
         .pipe(shareReplay(1));
-    } else if (layer.name.includes(IbfLayerName.adminRegions)) {
+    } else if (layer.group === IbfLayerGroup.adminRegions) {
       const adminLevel = Number(
         layer.name.substr(layer.name.length - 1),
       ) as AdminLevel;
@@ -679,7 +680,7 @@ export class MapService {
     let unselectedFillOpacity = this.unselectedFillOpacity;
     const hoverFillOpacity = this.hoverFillOpacity;
 
-    if (layer.name.includes(IbfLayerName.adminRegions)) {
+    if (layer.group === IbfLayerGroup.adminRegions) {
       fillOpacity = 0.0;
       unselectedFillOpacity = 0.0;
     }
@@ -706,7 +707,7 @@ export class MapService {
   getAdminRegionWeight = (layer: IbfLayer): number => {
     return layer.name === IbfLayerName.adminRegions
       ? this.state.defaultWeight
-      : layer.name.includes(IbfLayerName.adminRegions)
+      : layer.group === IbfLayerGroup.adminRegions
       ? this.adminLevelLowerThanDefault(layer.name)
         ? 3
         : 0.33
@@ -720,7 +721,7 @@ export class MapService {
   };
 
   getAdminRegionColor = (layer: IbfLayer): string => {
-    return layer.name.includes(IbfLayerName.adminRegions)
+    return layer.group === IbfLayerGroup.adminRegions
       ? this.state.defaultColor
       : this.state.transparentColor;
   };

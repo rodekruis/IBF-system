@@ -99,6 +99,7 @@ export class IbfLayerWMS {
 
 export enum IbfLayerGroup {
   aggregates = 'aggregates',
+  adminRegions = 'adminRegions',
 }
 
 export class ColorBreaks {
