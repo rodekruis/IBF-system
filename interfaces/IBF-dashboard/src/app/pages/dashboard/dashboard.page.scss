@@ -42,11 +42,8 @@ app-export-view {
       flex-direction: column;
 
       .component-title {
-        background-color: var(--ion-color-ibf-royal-blue);
-
         .component-title-item {
           --background: transparent;
-          --color: var(--ion-color-ibf-royal-blue-contrast);
           --height: 40px;
           --min-height: 40px;
 
@@ -79,8 +76,6 @@ app-export-view {
           display: flex;
 
           ion-content {
-            --background: var(--ion-color-ibf-gray);
-
             .ibf-dashboard-left-column-right-sub-column-grid {
               display: flex;
               flex-flow: column nowrap;
@@ -95,10 +90,6 @@ app-export-view {
     .ibf-dashboard-right-column {
       display: flex;
       flex-direction: column;
-
-      .component-title {
-        background-color: var(--ion-color-ibf-gray);
-      }
 
       .component-content {
         flex-grow: 1;

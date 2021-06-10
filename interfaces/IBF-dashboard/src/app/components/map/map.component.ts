@@ -471,11 +471,11 @@ export class MapComponent implements OnDestroy {
     const forecastValue = feature['properties']['indicators'][layer.name];
     const featureTriggered = forecastValue > thresholdValue;
     const headerColor = featureTriggered
-      ? 'var(--ion-color-ibf-salmon)'
-      : 'var(--ion-color-ibf-royal-blue)';
+      ? 'var(--ion-color-ibf-triggered-primary)'
+      : 'var(--ion-color-ibf-non-triggered-primary)';
     const headerTextColor = featureTriggered
-      ? 'var(--ion-color-ibf-black)'
-      : 'var(--ion-color-ibf-white)';
+      ? 'var(--ion-color-ibf-triggered-primary-contrast)'
+      : 'var(--ion-color-ibf-non-triggered-primary-contrast)';
     const title = feature.properties.name;
 
     let lastAvailableLeadTime: LeadTime;
@@ -488,8 +488,8 @@ export class MapComponent implements OnDestroy {
     const timeUnit = lastAvailableLeadTime.split('-')[1];
     const subtitle = `${layer.label} for ${timeUnit} selected`;
     const eapStatusColor = featureTriggered
-      ? 'var(--ion-color-ibf-salmon)'
-      : '#d4d3d2';
+      ? 'var(--ion-color-ibf-triggered-primary)'
+      : 'var(--ion-color-ibf-non-triggered-primary)';
     const eapStatusText = featureTriggered
       ? 'ACTIVATE EARLY ACTIONS'
       : 'No action';
@@ -541,7 +541,7 @@ export class MapComponent implements OnDestroy {
       </div> \
       <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
         <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
-          <div style="border-radius:10px;height:20px;line-height:20px;background-color:var(--ion-color-ibf-royal-blue); color:white; text-align:center; white-space: nowrap; min-width: 15%; width:' +
+          <div style="border-radius:10px;height:20px;line-height:20px;background-color:var(--ion-color-ibf-non-triggered-primary); color:white; text-align:center; white-space: nowrap; min-width: 15%; width:' +
       triggerWidth +
       '%">' +
       Math.round(forecastValue) +
@@ -557,7 +557,7 @@ export class MapComponent implements OnDestroy {
 </div> \
   <div style="background-color: ' +
       eapStatuscolor +
-      '; color: var(--ion-color-ibf-black); padding: 10px; text-align: center; text-transform:uppercase"> \
+      '; color: var(--ion-color-ibf-white); padding: 10px; text-align: center; text-transform:uppercase"> \
     <strong>' +
       eapStatusText +
       '</strong> \
@@ -761,7 +761,7 @@ export class MapComponent implements OnDestroy {
     const headerColor =
       glofasProbability > eapAlertClasses.max.valueLow
         ? eapStatusColor
-        : 'var(--ion-color-ibf-royal-blue)';
+        : 'var(--ion-color-ibf-non-triggered-primary)';
     const headerTextColor =
       glofasProbability > eapAlertClasses.max.valueLow
         ? 'var(--ion-color-ibf-black)'

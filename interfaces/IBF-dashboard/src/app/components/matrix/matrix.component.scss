@@ -24,7 +24,7 @@
           cursor: pointer;
 
           &.layer-active {
-            --background: var(--ion-color-ibf-royal-blue);
+            --background: var(--ion-color-ibf-non-triggered-primary);
           }
 
           ion-row {
@@ -70,7 +70,7 @@
             }
 
             .layer-control-info-icon {
-              background: var(--ion-color-ibf-royal-blue);
+              background: var(--ion-color-ibf-non-triggered-primary);
               border-radius: 5px;
             }
           }

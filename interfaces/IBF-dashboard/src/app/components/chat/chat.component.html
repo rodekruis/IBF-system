@@ -18,9 +18,11 @@
           'chat-component.' + activeDisasterType + '.about-button-label'
             | translate
         "
+        color="ibf-white"
       ></app-about-btn>
       <app-video-guide-button
         data-test="chat-video-guide"
+        color="ibf-white"
       ></app-video-guide-button>
     </app-dialogue-turn>
     <!-- New event today -->
@@ -62,10 +64,11 @@
           'chat-component.' + activeDisasterType + '.about-button-label'
             | translate
         "
-        color="ibf-royal-blue"
+        color="ibf-white"
       ></app-about-btn>
       <app-video-guide-button
         data-cy="chat-video-guide"
+        color="ibf-white"
       ></app-video-guide-button>
     </app-dialogue-turn>
     <!-- Existing event, still trigger -->
@@ -93,9 +96,9 @@
           'chat-component.' + activeDisasterType + '.about-button-label'
             | translate
         "
-        color="ibf-royal-blue"
+        color="ibf-white"
       ></app-about-btn>
-      <app-video-guide-button></app-video-guide-button>
+      <app-video-guide-button color="ibf-white"></app-video-guide-button>
     </app-dialogue-turn>
     <!-- Old event -->
     <app-dialogue-turn
@@ -120,9 +123,9 @@
           'chat-component.' + activeDisasterType + '.about-button-label'
             | translate
         "
-        color="ibf-royal-blue"
+        color="ibf-white"
       ></app-about-btn>
-      <app-video-guide-button></app-video-guide-button>
+      <app-video-guide-button color="ibf-white"></app-video-guide-button>
     </app-dialogue-turn>
     <ng-container *ngIf="eventService.state.activeEvent">
       <app-dialogue-turn isConnected="true">
@@ -179,7 +182,7 @@
               <ion-checkbox
                 mode="ios"
                 slot="start"
-                color="ibf-royal-blue"
+                color="ibf-primary"
                 [checked]="action.checked"
                 name="action.action"
                 (ionChange)="
@@ -199,7 +202,7 @@
           <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
             <ion-button
               [disabled]="area.submitDisabled"
-              color="ibf-royal-blue"
+              color="ibf-primary"
               type="submit"
               expand="block"
               class="submit-button"
@@ -210,7 +213,7 @@
         <ion-button
           (click)="closePlaceCodeEventPopup(area)"
           [disabled]="area.activeTrigger"
-          color="ibf-royal-blue"
+          color="ibf-primary"
           expand="block"
           [translate]="'chat-component.generic.close-event-button'"
         ></ion-button>
