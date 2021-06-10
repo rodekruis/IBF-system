@@ -115,3 +115,11 @@ export class ColorBreak {
   valueLow: number;
   valueHigh: number;
 }
+
+export enum leafletPane {
+  overlayPane = 'overlayPane',
+  aggregatePane = 'ibf-aggregate',
+  adminBoundaryPane = 'ibf-admin-boundaries',
+  wmsPane = 'ibf-wms',
+  popupPane = 'popup',
+}

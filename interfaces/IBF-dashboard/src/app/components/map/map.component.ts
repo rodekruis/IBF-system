@@ -51,6 +51,7 @@ import {
   IbfLayerName,
   IbfLayerType,
   IbfLayerWMS,
+  leafletPane,
 } from 'src/app/types/ibf-layer';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
@@ -252,7 +253,7 @@ export class MapComponent implements OnDestroy {
     this.map = map;
     this.map.createPane('ibf-wms');
     this.map.createPane('ibf-aggregate');
-    this.map.createPane('ibf-additional-admin-boundaries');
+    this.map.createPane('ibf-admin-boundaries');
 
     this.triggerWindowResize();
   }
@@ -426,17 +427,17 @@ export class MapComponent implements OnDestroy {
     }
   };
 
-  private getAdminRegionLayerPane(layer: IbfLayer): string {
-    let adminRegionLayerPane = 'overlayPane';
+  private getAdminRegionLayerPane(layer: IbfLayer): leafletPane {
+    let adminRegionLayerPane = leafletPane.overlayPane;
     switch (layer.group) {
       case IbfLayerGroup.aggregates:
-        adminRegionLayerPane = 'ibf-aggregate';
+        adminRegionLayerPane = leafletPane.aggregatePane;
         break;
       case IbfLayerGroup.adminRegions:
-        adminRegionLayerPane = 'ibf-additional-admin-boundaries';
+        adminRegionLayerPane = leafletPane.adminBoundaryPane;
         break;
       default:
-        adminRegionLayerPane = 'overlayPane';
+        adminRegionLayerPane = leafletPane.overlayPane;
         break;
     }
     return adminRegionLayerPane;
