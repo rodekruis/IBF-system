@@ -251,9 +251,9 @@ export class MapComponent implements OnDestroy {
 
   onMapReady(map: Map) {
     this.map = map;
-    this.map.createPane('ibf-wms');
-    this.map.createPane('ibf-aggregate');
-    this.map.createPane('ibf-admin-boundaries');
+    this.map.createPane(leafletPane.wmsPane);
+    this.map.createPane(leafletPane.aggregatePane);
+    this.map.createPane(leafletPane.adminBoundaryPane);
 
     this.triggerWindowResize();
   }
@@ -475,7 +475,7 @@ export class MapComponent implements OnDestroy {
       return;
     }
     return tileLayer.wms(layerWMS.url, {
-      pane: 'ibf-wms',
+      pane: leafletPane.wmsPane,
       layers: layerWMS.name,
       format: layerWMS.format,
       version: layerWMS.version,
