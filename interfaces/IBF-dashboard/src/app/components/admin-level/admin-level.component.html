@@ -60,20 +60,23 @@
     {{ getAdminLevelLabel(adminLevel.adminLevel3) }}
   </ion-button>
   <ion-button
-    *ngIf="getAdminLevelLabel(adminLevel.adm4)"
+    *ngIf="getAdminLevelLabel(adminLevel.adminLevel4)"
     size="small"
     class="ibf-admin-level-button"
     fill="solid"
     [color]="
-      getSelectedAdminLevels().includes(adminLevel.adm4)
+      getSelectedAdminLevels().includes(adminLevel.adminLevel4)
         ? 'ibf-royal-blue'
         : 'ibf-dark-blue'
     "
-    [disabled]="!getCountryAdminLevels().includes(adminLevel.adm4)"
+    [disabled]="!getCountryAdminLevels().includes(adminLevel.adminLevel4)"
     (click)="
-      setAdminLevelClick(adminLevel.adm4, !adminLevelService.adminLayerState)
+      setAdminLevelClick(
+        adminLevel.adminLevel4,
+        !adminLevelService.adminLayerState
+      )
     "
   >
-    {{ getAdminLevelLabel(adminLevel.adm4) }}
+    {{ getAdminLevelLabel(adminLevel.adminLevel4) }}
   </ion-button>
 </div>
