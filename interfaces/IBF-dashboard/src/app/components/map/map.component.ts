@@ -528,7 +528,7 @@ export class MapComponent implements OnDestroy {
       Math.min(Math.round((forecastValue / thresholdValue) * 100), 115),
       0,
     );
-    const stationInfoPopup = `
+    const infoPopup = `
       <div style="background-color:${eapStatusColor}; color:${eapStatusColorText}; padding: 5px; margin-bottom: 5px"> \ \
         <strong>${title}
       </strong> \
@@ -555,7 +555,7 @@ export class MapComponent implements OnDestroy {
     <strong>${eapStatusText}</strong> \
   </div>`;
 
-    return stationInfoPopup;
+    return infoPopup;
   }
 
   private createAdminRegionsLayer(layer: IbfLayer): GeoJSON {
@@ -779,7 +779,6 @@ export class MapComponent implements OnDestroy {
 
     const leadTime =
       this.timelineService.activeLeadTime || lastAvailableLeadTime;
-    const unit = ' forecast river discharge (in m<sup>3</sup>/s)';
     const subtitle = `${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
           ${
             markerProperties.forecastReturnPeriod

@@ -71,21 +71,19 @@
       !eventService.state.newEvent
     "
   >
-    <span *ngIf="disasterTypeName !== 'dengue'">
-      <p
-        [innerHTML]="
-          'chat-component.' +
-            disasterCategory +
-            '.active-event-active-trigger.welcome'
-            | translate
-              : {
-                  startDate: eventService.state.event.startDate,
-                  timeUnits: eventService.state.firstLeadTime,
-                  disasterTypeLabel: disasterTypeLabel
-                }
-        "
-      ></p>
-    </span>
+    <p
+      [innerHTML]="
+        'chat-component.' +
+          disasterCategory +
+          '.active-event-active-trigger.welcome'
+          | translate
+            : {
+                startDate: eventService.state.event.startDate,
+                timeUnits: eventService.state.firstLeadTime,
+                disasterTypeLabel: disasterTypeLabel
+              }
+      "
+    ></p>
     <app-about-btn
       [btnLabel]="
         'chat-component.' + disasterCategory + '.about-button-label' | translate
