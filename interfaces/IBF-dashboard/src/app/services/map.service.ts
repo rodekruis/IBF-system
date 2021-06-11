@@ -35,13 +35,12 @@ import { AdminLevel } from '../types/admin-level';
 })
 export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
-  public layers = [] as IbfLayer[];
-  public activeLayerName: IbfLayerName;
+  private layers = [] as IbfLayer[];
   public alertColor = '#de9584';
   public safeColor = '#2c45fd';
   public hoverFillOpacity = 0.6;
-  public unselectedFillOpacity = 0.4;
-  public disputedBorderStyle = {
+  private unselectedFillOpacity = 0.4;
+  private disputedBorderStyle = {
     weight: 2,
     dashArray: '5 5',
     color: this.alertColor,
@@ -100,12 +99,8 @@ export class MapService {
     this.loadCountryLayers();
   };
 
-  private onAdminLevelChange = (adminLevel: AdminLevel) => {
-    if (adminLevel === this.adminLevelService.adminLevel) {
-      this.loadAdminRegionLayer(true);
-    } else {
-      this.loadAdminRegionLayer(true, adminLevel);
-    }
+  private onAdminLevelChange = (adminLevel: AdminLevel): void => {
+    this.loadAdminRegionLayer(true, adminLevel);
   };
 
   private onLeadTimeChange = () => {
@@ -116,7 +111,9 @@ export class MapService {
     this.placeCode = placeCode;
   };
 
-  private onTranslate = (translatedStrings) => {
+  private onTranslate = (
+    translatedStrings: { [key: string]: string } = {},
+  ): void => {
     this.popoverTexts = translatedStrings;
   };
 
@@ -133,7 +130,7 @@ export class MapService {
     return popoverText;
   }
 
-  private onLayerChange = (layers) => {
+  private onLayerChange = (layers: IbfLayerMetadata[]): void => {
     layers.forEach((layer: IbfLayerMetadata) => {
       let layerActive: boolean;
       if (layer.active === LayerActivation.yes) {
@@ -154,8 +151,14 @@ export class MapService {
           layer.leadTimeDependent ? this.timelineService.activeLeadTime : null,
           layer.legendColor,
         );
-      } else if (layer.name === IbfLayerName.adminRegions) {
-        this.loadAdminRegionLayer(layerActive);
+      } else if (layer.name === IbfLayerName.adminRegions1) {
+        this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel1);
+      } else if (layer.name === IbfLayerName.adminRegions2) {
+        this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel2);
+      } else if (layer.name === IbfLayerName.adminRegions3) {
+        this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel3);
+      } else if (layer.name === IbfLayerName.adminRegions4) {
+        this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel4);
       } else if (layer.name === IbfLayerName.glofasStations) {
         this.loadStationLayer(layerActive);
       } else if (layer.name === IbfLayerName.redCrossBranches) {
@@ -170,7 +173,7 @@ export class MapService {
     });
   };
 
-  public async loadCountryLayers() {
+  private async loadCountryLayers() {
     if (this.country) {
       this.apiService
         .getLayers(this.country.countryCodeISO3)
@@ -297,45 +300,35 @@ export class MapService {
     });
   }
 
-  public loadAdminRegionLayer(
-    layerActive: boolean,
-    additionalAdminLevel?: AdminLevel,
-  ) {
+  private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
     if (this.country) {
       if (layerActive) {
         this.apiService
           .getAdminRegions(
             this.country.countryCodeISO3,
             this.timelineService.activeLeadTime,
-            additionalAdminLevel || this.adminLevelService.adminLevel,
+            adminLevel,
           )
-          .subscribe((adminRegions) => {
-            additionalAdminLevel
-              ? this.addAdminRegionLayer(adminRegions, additionalAdminLevel)
-              : this.addAdminRegionLayer(adminRegions);
-          });
+          .subscribe((adminRegions) =>
+            this.addAdminRegionLayer(adminRegions, adminLevel),
+          );
       } else {
-        this.addAdminRegionLayer(null);
+        this.addAdminRegionLayer(null, adminLevel);
       }
     }
   }
 
-  private addAdminRegionLayer(
-    adminRegions: any,
-    additionalAdminLevel?: AdminLevel,
-  ) {
+  private addAdminRegionLayer(adminRegions: any, adminLevel: AdminLevel) {
     this.addLayer({
-      name: additionalAdminLevel
-        ? (`${IbfLayerName.adminRegions}${additionalAdminLevel}` as IbfLayerName)
-        : IbfLayerName.adminRegions,
-      label: IbfLayerLabel.adminRegions,
+      name: `${IbfLayerGroup.adminRegions}${adminLevel}` as IbfLayerName,
+      label: `${IbfLayerGroup.adminRegions}${adminLevel}` as IbfLayerLabel,
       group: IbfLayerGroup.adminRegions,
       type: IbfLayerType.shape,
       description: '',
-      active: true,
+      active: this.country.defaultAdminLevel === adminLevel,
       show: true,
       data: adminRegions,
-      viewCenter: additionalAdminLevel ? false : true,
+      viewCenter: this.country.defaultAdminLevel === adminLevel,
       colorProperty: this.state.defaultColorProperty,
       order: 0,
     });
@@ -359,7 +352,7 @@ export class MapService {
     }
   }
 
-  public addAggregateLayer(indicator: Indicator, adminRegions: any) {
+  private addAggregateLayer(indicator: Indicator, adminRegions: any) {
     this.addLayer({
       name: indicator.name,
       label: indicator.label,
@@ -380,13 +373,12 @@ export class MapService {
     });
   }
 
-  public hideAggregateLayers() {
-    this.layers.forEach((layer: IbfLayer) => {
-      if (layer.group === IbfLayerGroup.aggregates) {
-        this.updateLayers(layer.name, layer.active, false);
-      }
-    });
-  }
+  private filterAggregateLayers = (layer: IbfLayer): boolean =>
+    layer.group === IbfLayerGroup.aggregates;
+
+  public hideAggregateLayers = (): void => {
+    this.layers.filter(this.filterAggregateLayers).forEach(this.hideLayer);
+  };
 
   private loadWmsLayer(
     layerName: IbfLayerName,
@@ -422,7 +414,7 @@ export class MapService {
     }
   }
 
-  private addLayer(layer: IbfLayer) {
+  private addLayer(layer: IbfLayer): void {
     const { name, viewCenter, data } = layer;
     if (viewCenter && data && data.features && data.features.length) {
       const layerBounds = bbox(data);
@@ -434,7 +426,7 @@ export class MapService {
         : this.state.bounds;
     }
     this.layerSubject.next(layer);
-    const layerIndex = this.getLayerIndexById(name);
+    const layerIndex = this.getLayerIndexByName(name);
     if (layerIndex >= 0) {
       this.layers.splice(layerIndex, 1, layer);
     } else {
@@ -446,14 +438,17 @@ export class MapService {
     return this.layerSubject.asObservable();
   }
 
-  private getLayerIndexById(name: IbfLayerName): number {
-    return this.layers.findIndex((layer: IbfLayer) => {
-      return layer.name === name;
-    });
-  }
+  private getLayerIndexByName = (name: IbfLayerName): number =>
+    this.layers.findIndex((layer: IbfLayer) => layer.name === name);
 
-  private isLayerActive(active, layer, interactedLayer) {
-    const isActiveDefined = active != null;
+  public getLayerByName = (layerName: IbfLayerName): IbfLayer =>
+    this.layers[this.getLayerIndexByName(layerName)];
+
+  private isLayerActive = (
+    layer: IbfLayer,
+    interactedLayer: IbfLayer,
+  ): boolean => {
+    const isActiveDefined = interactedLayer.active != null;
     const isInteractedLayer = layer.name === interactedLayer.name;
     const isInteractedLayerGroup = layer.group === interactedLayer.group;
 
@@ -461,7 +456,7 @@ export class MapService {
 
     if (isActiveDefined && isInteractedLayerGroup) {
       if (isInteractedLayer) {
-        isActive = active;
+        isActive = interactedLayer.active;
       } else {
         if (layer.group) {
           isActive = false;
@@ -470,20 +465,24 @@ export class MapService {
     }
 
     return isActive;
-  }
+  };
 
-  private updateLayer = (
-    active: boolean,
-    show: boolean,
+  private isLayerShown = (
     layer: IbfLayer,
     interactedLayer: IbfLayer,
-  ) => (layerData) => {
+  ): boolean => {
+    return interactedLayer.show == null || layer.name !== interactedLayer.name
+      ? layer.show
+      : interactedLayer.show;
+  };
+
+  private updateLayer = (layer: IbfLayer) => (layerData) => {
     this.addLayer({
       name: layer.name,
       label: layer.label,
       type: layer.type,
       description: layer.description,
-      active,
+      active: layer.active,
       viewCenter: false,
       data: layerData,
       wms: layer.wms,
@@ -495,44 +494,57 @@ export class MapService {
       order: layer.order,
       unit: layer.unit,
       dynamic: layer.dynamic,
-      show:
-        show == null || layer.name !== interactedLayer.name ? layer.show : show,
+      show: layer.show,
     });
   };
 
-  public updateLayers(
-    name: IbfLayerName,
-    active: boolean,
-    show: boolean,
-  ): void {
-    const interactedLayerIndex = this.getLayerIndexById(name);
-    const interactedLayer = this.layers[interactedLayerIndex];
-    if (interactedLayerIndex >= 0) {
-      this.layers.forEach((layer: IbfLayer): void => {
-        let layerObservable: Observable<GeoJSON.FeatureCollection> = of({
-          type: 'FeatureCollection',
-          features: [],
-        });
-        const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}`;
-        const layerActive = this.isLayerActive(active, layer, interactedLayer);
-        if (this.layerDataCache[layerDataCacheKey]) {
-          layerObservable = this.layerDataCache[layerDataCacheKey];
-        } else if (layerActive) {
-          layerObservable = this.getLayerData(layer, layerDataCacheKey);
-        }
-        layerObservable.subscribe(
-          this.updateLayer(layerActive, show, layer, interactedLayer),
-        );
-      });
-    } else {
-      throw Error(`Layer '${name}' does not exist`);
-    }
-  }
+  public toggleLayer = (layer: IbfLayer): void => {
+    layer.active = !layer.active;
+    this.updateLayers(layer);
+  };
 
-  public getLayerData(
+  public activateLayer = (layer: IbfLayer): void => {
+    layer.active = true;
+    this.updateLayers(layer);
+  };
+
+  public deactivateLayer = (layer: IbfLayer): void => {
+    layer.active = false;
+    this.updateLayers(layer);
+  };
+
+  public showLayer = (layer: IbfLayer): void => {
+    layer.show = true;
+    this.updateLayers(layer);
+  };
+
+  public hideLayer = (layer: IbfLayer): void => {
+    layer.show = false;
+    this.updateLayers(layer);
+  };
+
+  private updateLayers = (newLayer: IbfLayer): void => {
+    this.layers.forEach((layer: IbfLayer): void => {
+      let layerObservable: Observable<GeoJSON.FeatureCollection> = of({
+        type: 'FeatureCollection',
+        features: [],
+      });
+      const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}`;
+      layer.active = this.isLayerActive(layer, newLayer);
+      layer.show = this.isLayerShown(layer, newLayer);
+      if (this.layerDataCache[layerDataCacheKey]) {
+        layerObservable = this.layerDataCache[layerDataCacheKey];
+      } else if (layer.active) {
+        layerObservable = this.getLayerData(layer, layerDataCacheKey);
+      }
+      layerObservable.subscribe(this.updateLayer(layer));
+    });
+  };
+
+  private getLayerData = (
     layer: IbfLayer,
     layerDataCacheKey: string,
-  ): Observable<GeoJSON.FeatureCollection> {
+  ): Observable<GeoJSON.FeatureCollection> => {
     let layerData: Observable<GeoJSON.FeatureCollection>;
     if (layer.name === IbfLayerName.waterpoints) {
       layerData = this.apiService
@@ -587,7 +599,7 @@ export class MapService {
     }
     this.layerDataCache[layerDataCacheKey] = layerData;
     return layerData;
-  }
+  };
 
   getCombineAdminRegionData(
     countryCodeISO3: string,

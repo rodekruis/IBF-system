@@ -8,7 +8,7 @@ import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { AdminLevel } from 'src/app/types/admin-level';
-import { IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
+import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
 
 @Component({
   selector: 'app-admin-level',
@@ -25,80 +25,42 @@ export class AdminLevelComponent {
     private eventService: EventService,
   ) {}
 
-  setAdminLevelClick(adminLevel: number, state: boolean): void {
+  public clickAdminLevelButton(adminLevel: AdminLevel): void {
+    const layer = this.getAdminLevelLayer(adminLevel);
+
     this.analyticsService.logEvent(AnalyticsEvent.adminLevel, {
       adminLevel,
-      adminLevelState: state,
+      adminLevelState: layer.active,
       page: AnalyticsPage.dashboard,
       isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });
 
-    this.setAdminLevel(adminLevel, state);
+    this.mapService.toggleLayer(layer);
   }
 
-  setAdminLevel(adminLevel: number, state: boolean): void {
-    if (this.adminLevelService.adminLevel === adminLevel) {
-      this.mapService.updateLayers(IbfLayerName.adminRegions, state, true);
-      const activeLayerName = this.mapService.layers.find(
-        (l) => l.active && l.group === IbfLayerGroup.aggregates,
-      )?.name;
-      if (activeLayerName) {
-        this.mapService.updateLayers(
-          IbfLayerName[activeLayerName],
-          state,
-          true,
-        );
-        this.mapService.activeLayerName = activeLayerName;
-      } else if (this.mapService.activeLayerName) {
-        this.mapService.updateLayers(
-          IbfLayerName[this.mapService.activeLayerName],
-          state,
-          true,
-        );
-      }
-      this.adminLevelService.adminLayerState = !this.adminLevelService
-        .adminLayerState;
-    } else {
-      // This is in the long-term what this button should do, but not in the current 'hacky' solution
-      // this.adminLevelService.setAdminLevel(adminLevel);
-      if (this.adminLevelService.selectedAdminLevels.includes(adminLevel)) {
-        this.mapService.updateLayers(
-          (IbfLayerName.adminRegions + String(adminLevel)) as IbfLayerName,
-          false,
-          true,
-        );
-      } else {
-        this.adminLevelService.loadAdditionalAdminLevel(adminLevel);
-      }
-    }
-    this.toggleSelectedAdminLevels(adminLevel);
+  public isAdminLevelActive(adminLevel: AdminLevel): boolean {
+    const layer = this.getAdminLevelLayer(adminLevel);
+    return layer ? layer.active : false;
   }
 
-  toggleSelectedAdminLevels(adminLevel: AdminLevel) {
-    if (this.adminLevelService.selectedAdminLevels.includes(adminLevel)) {
-      const index = this.adminLevelService.selectedAdminLevels.indexOf(
-        adminLevel,
-        0,
-      );
-      this.adminLevelService.selectedAdminLevels.splice(index, 1);
-    } else {
-      this.adminLevelService.selectedAdminLevels.push(adminLevel);
-    }
-  }
-
-  getSelectedAdminLevels() {
-    return this.adminLevelService.selectedAdminLevels;
-  }
-
-  getCountryAdminLevels() {
-    return this.adminLevelService.countryAdminLevels;
+  public isAdminLevelDisabled(adminLevel: AdminLevel): boolean {
+    return !this.adminLevelService.countryAdminLevels.includes(adminLevel);
   }
 
   public getAdminLevelLabel(adminLevel: AdminLevel): string {
     return this.adminLevelService.adminLevelLabel
       ? this.adminLevelService.adminLevelLabel[AdminLevel[adminLevel]]
       : `Admin Level ${adminLevel}`;
+  }
+
+  private getAdminLevelLayerName(adminLevel: AdminLevel): IbfLayerName {
+    return `${IbfLayerGroup.adminRegions}${adminLevel}` as IbfLayerName;
+  }
+
+  public getAdminLevelLayer(adminLevel: AdminLevel): IbfLayer {
+    const layerName = this.getAdminLevelLayerName(adminLevel);
+    return this.mapService.getLayerByName(layerName);
   }
 }

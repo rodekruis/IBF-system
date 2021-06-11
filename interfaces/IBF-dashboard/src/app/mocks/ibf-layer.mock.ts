@@ -1,4 +1,5 @@
 import {
+  IbfLayerGroup,
   IbfLayerLabel,
   IbfLayerName,
   IbfLayerType,
@@ -6,8 +7,9 @@ import {
 
 export default {
   type: IbfLayerType.point,
-  name: IbfLayerName.adminRegions,
-  label: IbfLayerLabel.adminRegions,
+  name: IbfLayerName.adminRegions2,
+  group: IbfLayerGroup.adminRegions,
+  label: IbfLayerLabel.adminRegions2,
   description: 'Mock Description',
   active: true,
   show: true,
