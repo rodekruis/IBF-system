@@ -119,10 +119,10 @@ export class AdminAreaService {
     leadTime: string,
     adminLevel: number,
   ): Promise<GeoJson> {
-    const placeCodes = await this.getTriggeredPlaceCodes(
-      countryCodeISO3,
-      leadTime,
-    );
+    const country = await this.countryRepository.findOne({
+      select: ['defaultAdminLevel'],
+      where: { countryCodeISO3: countryCodeISO3 },
+    });
 
     let adminAreasScript = this.adminAreaRepository
       .createQueryBuilder('area')
@@ -132,32 +132,40 @@ export class AdminAreaService {
         'ST_AsGeoJSON(area.geom)::json As geom',
         'area."countryCodeISO3"',
       ])
-      .leftJoin(
-        AdminAreaDynamicDataEntity,
-        'dynamic',
-        'area.placeCode = dynamic.placeCode',
-      )
-      .addSelect([
-        'dynamic.value AS "population_affected"',
-        'dynamic."leadTime"',
-        'dynamic."date"',
-      ])
       .where('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
-      .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel })
-      .andWhere('date = current_date');
+      .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
 
-    const country = await this.countryRepository.findOne({
-      select: ['defaultAdminLevel'],
-      where: { countryCodeISO3: countryCodeISO3 },
-    });
-    // Only add triggered-area filter if this is the default admin level
-    if (placeCodes.length && adminLevel == country.defaultAdminLevel) {
-      adminAreasScript = adminAreasScript.andWhere(
-        'area."placeCode" IN (:...placeCodes)',
-        { placeCodes: placeCodes },
+    if (adminLevel == country.defaultAdminLevel) {
+      adminAreasScript = adminAreasScript
+        .leftJoin(
+          AdminAreaDynamicDataEntity,
+          'dynamic',
+          'area.placeCode = dynamic.placeCode',
+        )
+        .addSelect([
+          'dynamic.value AS "population_affected"',
+          'dynamic."leadTime"',
+          'dynamic."date"',
+        ])
+        .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
+        .andWhere('date = current_date');
+
+      const placeCodes = await this.getTriggeredPlaceCodes(
+        countryCodeISO3,
+        leadTime,
+      );
+
+      if (placeCodes.length) {
+        adminAreasScript = adminAreasScript.andWhere(
+          'area."placeCode" IN (:...placeCodes)',
+          { placeCodes: placeCodes },
+        );
+      }
+    } else {
+      adminAreasScript = adminAreasScript.addSelect(
+        'null AS "population_affected"',
       );
     }
 
