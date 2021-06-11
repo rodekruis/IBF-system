@@ -8,21 +8,36 @@ import { CountryService } from './country.service';
   providedIn: 'root',
 })
 export class AdminLevelService {
-  private adminLevelSubject = new BehaviorSubject<AdminLevel>(AdminLevel.adm1);
+  private adminLevelSubject = new BehaviorSubject<AdminLevel>(
+    AdminLevel.adminLevel1,
+  );
   public adminLevel: AdminLevel;
   public countryAdminLevels: AdminLevel[];
-  public selectedAdminLevels: AdminLevel[];
   public adminLevelLabel: AdminLevelLabel = new AdminLevelLabel();
-  public adminLayerState = true;
   private country: Country;
 
   private static loadAdminLevelLabels(country: Country): AdminLevelLabel {
-    return {
-      adm1: country.adminRegionLabels[1].plural,
-      adm2: country.adminRegionLabels[2].plural,
-      adm3: country.adminRegionLabels[3].plural,
-      adm4: country.adminRegionLabels[4].plural,
+    const adminLevelLabels = {
+      adminLevel1: '',
+      adminLevel2: '',
+      adminLevel3: '',
+      adminLevel4: '',
     };
+
+    if (country.adminRegionLabels[1]) {
+      adminLevelLabels.adminLevel1 = country.adminRegionLabels[1].plural;
+    }
+    if (country.adminRegionLabels[2]) {
+      adminLevelLabels.adminLevel2 = country.adminRegionLabels[2].plural;
+    }
+    if (country.adminRegionLabels[3]) {
+      adminLevelLabels.adminLevel3 = country.adminRegionLabels[3].plural;
+    }
+    if (country.adminRegionLabels[4]) {
+      adminLevelLabels.adminLevel4 = country.adminRegionLabels[4].plural;
+    }
+
+    return adminLevelLabels;
   }
 
   constructor(private countryService: CountryService) {
@@ -36,7 +51,6 @@ export class AdminLevelService {
 
     if (this.country) {
       this.countryAdminLevels = country.adminLevels;
-      this.selectedAdminLevels = [this.country.defaultAdminLevel];
       this.setAdminLevel(this.country.defaultAdminLevel);
       this.adminLevelLabel = AdminLevelService.loadAdminLevelLabels(
         this.country,
@@ -51,9 +65,5 @@ export class AdminLevelService {
   public setAdminLevel(adminLevel: AdminLevel) {
     this.adminLevel = adminLevel;
     this.adminLevelSubject.next(this.adminLevel);
-  }
-
-  public loadAdditionalAdminLevel(adminLevel: AdminLevel) {
-    this.adminLevelSubject.next(adminLevel);
   }
 }

@@ -157,7 +157,7 @@ export class ApiService {
   getAdminRegions(
     countryCodeISO3: string,
     leadTime: string,
-    adminLevel: AdminLevel = AdminLevel.adm1,
+    adminLevel: AdminLevel = AdminLevel.adminLevel1,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
       `admin-areas/${countryCodeISO3}/${adminLevel}/${
@@ -170,7 +170,7 @@ export class ApiService {
   getAggregatesData(
     countryCodeISO3: string,
     leadTime: string,
-    adminLevel: AdminLevel = AdminLevel.adm1,
+    adminLevel: AdminLevel = AdminLevel.adminLevel1,
   ): Observable<any> {
     return this.get(
       `admin-areas/aggregates/${countryCodeISO3}/${adminLevel}/${

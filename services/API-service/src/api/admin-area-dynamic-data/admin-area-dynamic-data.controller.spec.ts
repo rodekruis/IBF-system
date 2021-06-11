@@ -1,4 +1,3 @@
-import { EventModule } from '../event/event.module';
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AdminAreaDynamicDataController } from './admin-area-dynamic-data.controller';
