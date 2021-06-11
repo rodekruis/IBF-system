@@ -1,3 +1,12 @@
+## [0.64.2](https://github.com/rodekruis/IBF-system/compare/v0.64.1...v0.64.2) (2021-06-11)
+
+
+### Bug Fixes
+
+* integration tests ([b5826cd](https://github.com/rodekruis/IBF-system/commit/b5826cd928ee5c7beef3a93aca877175d40ec7dd))
+
+
+
 ## [0.64.1](https://github.com/rodekruis/IBF-system/compare/v0.64.0...v0.64.1) (2021-06-11)
 
 
@@ -135,16 +144,6 @@
 ### Bug Fixes
 
 * update readme AB[#7563](https://github.com/rodekruis/IBF-system/issues/7563) ([667c279](https://github.com/rodekruis/IBF-system/commit/667c2799c2a24cd032280900bc8b1a6242431cd9))
-
-
-
-## [0.59.2](https://github.com/rodekruis/IBF-system/compare/v0.59.1...v0.59.2) (2021-05-11)
-
-
-### Bug Fixes
-
-* legend code requires data to not be null ([d0966d5](https://github.com/rodekruis/IBF-system/commit/d0966d5760d1b766c6fe2edc87ecc3b4077cf478))
-* use rxjs of instead of EMPTY AB[#7227](https://github.com/rodekruis/IBF-system/issues/7227) ([9a7ac5a](https://github.com/rodekruis/IBF-system/commit/9a7ac5afccffacf0568ed78f15e708be4a4df7a9))
 
 
 
