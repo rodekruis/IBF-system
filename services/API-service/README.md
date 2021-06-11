@@ -71,6 +71,6 @@ This applications uses [JSON Web Token](https://jwt.io/) (JWT) to handle authent
 
 ---
 
-## Swagger API docs
+## Documentation
 
-We use the NestJS swagger module for API documentation. [NestJS Swagger](https://github.com/nestjs/swagger) - [swagger.io](https://swagger.io/)
+We use [NestJS OpenAPI](https://docs.nestjs.com/openapi/introduction) for documentation. An example is explained in the [documentation guide](./DOCUMENATION.md).
