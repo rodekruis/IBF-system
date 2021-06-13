@@ -55,6 +55,7 @@ services:
             - 5437:5432
         networks:
             - pipeline-network
+        restart: unless-stopped
 
 volumes:
     ibf-local-db-data:
