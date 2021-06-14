@@ -1,3 +1,4 @@
+import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-component/backend-mock-scenario.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -45,6 +46,7 @@ import { VideoPopoverComponent } from './components/video-popover/video-popover.
     MatrixComponent,
     TimelineComponent,
     AggregatesComponent,
+    BackendMockScenarioComponent,
     ChatComponent,
     SourceInfoModalComponent,
     UserStateComponent,
@@ -74,6 +76,7 @@ import { VideoPopoverComponent } from './components/video-popover/video-popover.
     UserStateComponent,
     TimestampComponent,
     CountrySwitcherComponent,
+    BackendMockScenarioComponent,
     LogosComponent,
     AboutBtnComponent,
     DialogueTurnComponent,
