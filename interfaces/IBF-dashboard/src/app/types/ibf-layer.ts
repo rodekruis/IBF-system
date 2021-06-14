@@ -134,5 +134,5 @@ export enum LeafletPane {
   adminBoundaryPane = 'ibf-admin-boundaries',
   wmsPane = 'ibf-wms',
   popupPane = 'popup',
-  triggerOutline = 'triggerOutline',
+  outline = 'outline',
 }

@@ -121,12 +121,16 @@
 }
 
 .leaflet-ibf-admin-boundaries-pane {
-  z-index: 550;
+  z-index: 500;
 }
 
 .leaflet-ibf-wms-pane {
   z-index: 566;
   pointer-events: none;
+}
+
+.leaflet-outline {
+  z-index: 600;
 }
 
 .leaflet-popup-pane {

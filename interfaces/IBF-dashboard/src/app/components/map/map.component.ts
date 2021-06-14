@@ -256,8 +256,8 @@ export class MapComponent implements OnDestroy {
     this.map = map;
     this.map.createPane(LeafletPane.wmsPane);
     this.map.createPane(LeafletPane.adminBoundaryPane);
-    this.map.createPane(LeafletPane.triggerOutline);
-    this.map.getPane(LeafletPane.triggerOutline).style.zIndex = '650';
+    this.map.createPane(LeafletPane.outline);
+    this.map.getPane(LeafletPane.outline).style.zIndex = '600';
     this.map.createPane(LeafletPane.aggregatePane);
     this.triggerWindowResize();
   }
@@ -405,25 +405,7 @@ export class MapComponent implements OnDestroy {
       });
     }
 
-    if (layer.name !== IbfLayerName.adminRegions) {
-      const popup =
-        '<strong>' +
-        feature.properties.name +
-        (feature.properties.placeCode.includes('Disputed')
-          ? ' (Disputed borders)'
-          : '') +
-        '</strong><br/>' +
-        (layer.group === IbfLayerGroup.adminRegions
-          ? ''
-          : layer.label +
-            ': ' +
-            this.numberFormat(
-              typeof feature.properties[layer.colorProperty] !== 'undefined'
-                ? feature.properties[layer.colorProperty]
-                : feature.properties.indicators[layer.colorProperty],
-              layer,
-            ) +
-            (layer.unit ? ' ' + layer.unit : ''));
+    if (layer.group !== IbfLayerGroup.adminRegions) {
       if (feature.properties.placeCode === this.placeCode) {
         element.unbindPopup();
         this.placeCode = null;
@@ -506,7 +488,7 @@ export class MapComponent implements OnDestroy {
     feature,
     thresholdValue: number,
   ): string {
-    const forecastValue = feature['properties']['indicators'][layer.name];
+    const forecastValue = feature['properties'][layer.colorProperty];
     const featureTriggered = forecastValue > thresholdValue;
     const headerColor = featureTriggered
       ? 'var(--ion-color-ibf-trigger-alert-primary)'
@@ -524,7 +506,10 @@ export class MapComponent implements OnDestroy {
     }
 
     const timeUnit = lastAvailableLeadTime.split('-')[1];
-    const subtitle = `${layer.label} for ${timeUnit} selected`;
+
+    // The layer name (Potentical cases) should be set dynamically.
+    // It is hardcodes for now because of potential refactors
+    const subtitle = `Potential cases for current ${timeUnit} selected`;
     const eapStatusColor = featureTriggered
       ? 'var(--ion-color-ibf-trigger-alert-primary)'
       : 'var(--ion-color-ibf-no-alert-primary)';
@@ -598,7 +583,7 @@ export class MapComponent implements OnDestroy {
     let adminRegionsLayer: GeoJSON;
     if (layer.group === IbfLayerGroup.outline) {
       adminRegionsLayer = geoJSON(layer.data, {
-        pane: LeafletPane.triggerOutline,
+        pane: LeafletPane.outline,
         style: this.mapService.setOutlineLayerStyle(layer),
         interactive: false,
       });
