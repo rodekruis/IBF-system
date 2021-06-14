@@ -71,7 +71,7 @@
 .dialogue-turn.is-other {
   .dialogue-turn--speech-arrow {
     left: var(--dialogue-turn--margin-around-card-horizontal);
-    border-right-color: var(--ion-color-ibf-non-triggered-tertiary);
+    border-right-color: var(--ion-color-ibf-chat-not-self);
   }
 
   // Adjust for RTL: (Limited support: https://developer.mozilla.org/en-US/docs/Web/CSS/:dir#Browser_compatibility)
@@ -81,7 +81,7 @@
     border-right-color: transparent;
 
     right: var(--dialogue-turn--margin-around-card-horizontal);
-    border-left-color: var(--ion-color-ibf-gray);
+    border-left-color: var(--ion-color-ibf-chat-self);
   }
 }
 
@@ -97,7 +97,7 @@
 
   .dialogue-turn--speech-arrow {
     right: var(--dialogue-turn--margin-around-card-horizontal);
-    border-left-color: var(--ion-color-light);
+    border-left-color: var(--ion-color-ibf-chat-self);
   }
 
   // Adjust for RTL: (Limited support: https://developer.mozilla.org/en-US/docs/Web/CSS/:dir#Browser_compatibility)
@@ -107,7 +107,7 @@
     border-left-color: transparent;
 
     left: var(--dialogue-turn--margin-around-card-horizontal);
-    border-right-color: var(--ion-color-light);
+    border-right-color: var(--ion-color-ibf-chat-not-self);
   }
 }
 
