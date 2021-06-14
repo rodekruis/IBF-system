@@ -435,7 +435,7 @@ export class MapComponent implements OnDestroy {
 
   private bindPopupAdminRegions(layer: IbfLayer, feature, element): void {
     let popup: string;
-    if (layer.name !== IbfLayerName.potentialCases) {
+    if (layer.colorProperty !== IbfLayerName.potentialCases) {
       popup = this.createDefaultPopupAdminRegions(layer, feature);
       element.bindPopup(popup).openPopup();
       this.placeCode = feature.properties.placeCode;
@@ -506,7 +506,7 @@ export class MapComponent implements OnDestroy {
     feature,
     thresholdValue: number,
   ): string {
-    const forecastValue = feature['properties']['indicators'][layer.name];
+    const forecastValue = feature['properties'][layer.colorProperty];
     const featureTriggered = forecastValue > thresholdValue;
     const headerColor = featureTriggered
       ? 'var(--ion-color-ibf-triggered-primary)'
@@ -524,7 +524,10 @@ export class MapComponent implements OnDestroy {
     }
 
     const timeUnit = lastAvailableLeadTime.split('-')[1];
-    const subtitle = `${layer.label} for ${timeUnit} selected`;
+
+    // The layer name (Potentical cases) should be set dynamically.
+    // It is hardcodes for now because of potential refactors
+    const subtitle = `Potential cases for current ${timeUnit} selected`;
     const eapStatusColor = featureTriggered
       ? 'var(--ion-color-ibf-triggered-primary)'
       : 'var(--ion-color-ibf-non-triggered-primary)';
