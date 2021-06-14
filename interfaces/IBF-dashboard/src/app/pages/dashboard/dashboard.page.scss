@@ -27,6 +27,13 @@ app-export-view {
   height: 100%;
 }
 
+.today-button {
+  height: 40px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
 // The lay-out of the `ion-content`-area of the page/screen
 .page-structure {
   min-height: 100%;
@@ -42,21 +49,31 @@ app-export-view {
       flex-direction: column;
 
       .component-title {
+        
         .component-title-item {
           --background: transparent;
           --height: 40px;
           --min-height: 40px;
-
+          
           ion-button {
-            width: 160px;
             --box-shadow: none;
             text-transform: uppercase;
             opacity: 1;
 
+            app-date-button {
+              background-color: var(--ion-color-ibf-primary-contrast);
+              color: var(--ion-color-ibf-primary);
+              border: var(--ion-color-ibf-primary);
+              height: 38px;
+              width: 80px;
+              font-weight: 700;
+              padding: 6px;
+            }
+
             span {
               &.today {
                 font-size: 24px;
-                padding-right: 10px;
+                padding-left: 10px;
               }
             }
           }
