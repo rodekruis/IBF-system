@@ -31,7 +31,7 @@ export class MockDynamic {
   @IsString()
   public readonly secret: string;
   @ApiProperty({ example: 'UGA' })
-  @IsIn(['PHL', 'UGA'])
+  @IsIn(['PHL', 'UGA', 'ZMB'])
   public readonly countryCodeISO3: string;
   @ApiProperty()
   @IsNotEmpty()

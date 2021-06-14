@@ -51,6 +51,7 @@ import {
   IbfLayerName,
   IbfLayerType,
   IbfLayerWMS,
+  leafletPane,
 } from 'src/app/types/ibf-layer';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
@@ -250,8 +251,9 @@ export class MapComponent implements OnDestroy {
 
   onMapReady(map: Map) {
     this.map = map;
-    this.map.createPane('ibf-wms');
-    this.map.createPane('ibf-aggregate');
+    this.map.createPane(leafletPane.wmsPane);
+    this.map.createPane(leafletPane.aggregatePane);
+    this.map.createPane(leafletPane.adminBoundaryPane);
 
     this.triggerWindowResize();
   }
@@ -271,7 +273,7 @@ export class MapComponent implements OnDestroy {
         layer.colorBreaks,
       );
 
-      if (layer.name !== IbfLayerName.adminRegions) {
+      if (layer.group !== IbfLayerGroup.adminRegions) {
         this.addLegend(this.map, colors, colorThreshold, layer);
       }
     }
@@ -376,7 +378,7 @@ export class MapComponent implements OnDestroy {
   };
 
   private onAdminRegionClickByLayerAndFeatureAndElement = (
-    layer,
+    layer: IbfLayer,
     feature,
     element,
   ) => (): void => {
@@ -388,11 +390,13 @@ export class MapComponent implements OnDestroy {
       component: this.constructor.name,
     });
 
-    this.placeCodeService.setPlaceCode({
-      countryCodeISO3: feature.properties.countryCodeISO3,
-      placeCodeName: feature.properties.name,
-      placeCode: feature.properties.placeCode,
-    });
+    if (layer.group !== IbfLayerGroup.adminRegions) {
+      this.placeCodeService.setPlaceCode({
+        countryCodeISO3: feature.properties.countryCodeISO3,
+        placeCodeName: feature.properties.name,
+        placeCode: feature.properties.placeCode,
+      });
+    }
 
     if (layer.name !== IbfLayerName.adminRegions) {
       const popup =
@@ -402,15 +406,17 @@ export class MapComponent implements OnDestroy {
           ? ' (Disputed borders)'
           : '') +
         '</strong><br/>' +
-        layer.label +
-        ': ' +
-        this.numberFormat(
-          typeof feature.properties[layer.colorProperty] !== 'undefined'
-            ? feature.properties[layer.colorProperty]
-            : feature.properties.indicators[layer.colorProperty],
-          layer,
-        ) +
-        (layer.unit ? ' ' + layer.unit : '');
+        (layer.group === IbfLayerGroup.adminRegions
+          ? ''
+          : layer.label +
+            ': ' +
+            this.numberFormat(
+              typeof feature.properties[layer.colorProperty] !== 'undefined'
+                ? feature.properties[layer.colorProperty]
+                : feature.properties.indicators[layer.colorProperty],
+              layer,
+            ) +
+            (layer.unit ? ' ' + layer.unit : ''));
       if (feature.properties.placeCode === this.placeCode) {
         element.unbindPopup();
         this.placeCode = null;
@@ -421,16 +427,29 @@ export class MapComponent implements OnDestroy {
     }
   };
 
+  private getAdminRegionLayerPane(layer: IbfLayer): leafletPane {
+    let adminRegionLayerPane = leafletPane.overlayPane;
+    switch (layer.group) {
+      case IbfLayerGroup.aggregates:
+        adminRegionLayerPane = leafletPane.aggregatePane;
+        break;
+      case IbfLayerGroup.adminRegions:
+        adminRegionLayerPane = leafletPane.adminBoundaryPane;
+        break;
+      default:
+        adminRegionLayerPane = leafletPane.overlayPane;
+        break;
+    }
+    return adminRegionLayerPane;
+  }
+
   private createAdminRegionsLayer(layer: IbfLayer): GeoJSON {
     if (!layer.data) {
       return;
     }
 
     const adminRegionsLayer = geoJSON(layer.data, {
-      pane:
-        layer.group && layer.group === IbfLayerGroup.aggregates
-          ? 'ibf-aggregate'
-          : 'overlayPane',
+      pane: this.getAdminRegionLayerPane(layer),
       style: this.mapService.setAdminRegionStyle(layer),
       onEachFeature: (feature, element): void => {
         element.on('mouseover', this.onAdminRegionMouseOver);
@@ -456,7 +475,7 @@ export class MapComponent implements OnDestroy {
       return;
     }
     return tileLayer.wms(layerWMS.url, {
-      pane: 'ibf-wms',
+      pane: leafletPane.wmsPane,
       layers: layerWMS.name,
       format: layerWMS.format,
       version: layerWMS.version,
@@ -596,24 +615,18 @@ export class MapComponent implements OnDestroy {
     const glofasProbability = markerProperties.forecastProbability;
 
     let eapStatusText: string;
-    let eapStatuscolor: string;
+    let eapStatusColor: string;
+    let eapStatusColorText: string;
     Object.keys(eapAlertClasses).forEach((key) => {
       if (
         glofasProbability >= eapAlertClasses[key].valueLow &&
         glofasProbability < eapAlertClasses[key].valueHigh
       ) {
         eapStatusText = eapAlertClasses[key].label;
-        eapStatuscolor = eapAlertClasses[key].color;
+        eapStatusColor = `var(--ion-color-${eapAlertClasses[key].color})`;
+        eapStatusColorText = `var(--ion-color-${eapAlertClasses[key].color}-contrast)`;
       }
     });
-    const headerColor =
-      glofasProbability > eapAlertClasses.max.valueLow
-        ? eapStatuscolor
-        : 'var(--ion-color-ibf-royal-blue)';
-    const headerTextColor =
-      glofasProbability > eapAlertClasses.max.valueLow
-        ? 'var(--ion-color-ibf-black)'
-        : 'var(--ion-color-ibf-white)';
 
     const triggerWidth = Math.max(
       Math.min(
@@ -637,44 +650,39 @@ export class MapComponent implements OnDestroy {
     const leadTime =
       this.timelineService.activeLeadTime || lastAvailableLeadTime;
 
-    const stationInfoPopup =
-      '<div style="background-color: ' +
-      headerColor +
-      '; color: ' +
-      headerTextColor +
-      '; padding: 5px; margin-bottom: 5px"> \
-        <strong>' +
-      markerProperties.stationCode +
-      ' STATION: ' +
-      markerProperties.stationName +
-      '</strong> \
+    const stationInfoPopup = `
+      <div style="background-color:${eapStatusColor}; color:${eapStatusColorText}; padding: 5px; margin-bottom: 5px"> \
+        <strong>${markerProperties.stationCode} STATION:${
+      markerProperties.stationName
+    }</strong> \
       </div> \
       <div style="margin-left:5px"> \
-        <div style="margin-bottom:5px">' +
-      leadTime +
-      ' forecast river discharge (in m<sup>3</sup>/s) \
+        <div style="margin-bottom:5px"> \
+          ${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
+          ${
+            markerProperties.forecastReturnPeriod
+              ? `<br>This corresponds to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years`
+              : ''
+          } \
+        </div> \
+        <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
+          <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
+            <div style="border-radius:10px;height:20px;line-height:20px;background-color:${eapStatusColor}; color:${eapStatusColorText}; text-align:center; white-space: nowrap; min-width: 15%; width:${triggerWidth}%">${Math.round(
+      markerProperties.forecastLevel,
+    )}</div> \
+          </div> \
+        </div> \
+        <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
+          Trigger activation threshold: \
+        </div> \
+        <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>${Math.round(
+          markerProperties.triggerLevel,
+        )}</strong></div> \
       </div> \
-      <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
-        <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
-          <div style="border-radius:10px;height:20px;line-height:20px;background-color:var(--ion-color-ibf-royal-blue); color:white; text-align:center; white-space: nowrap; min-width: 15%; width:' +
-      triggerWidth +
-      '%">' +
-      Math.round(markerProperties.forecastLevel) +
-      '</div></div></div> \
-    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
-      Trigger activation threshold:</div> \
-   \
-  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>' +
-      Math.round(markerProperties.triggerLevel) +
-      '</strong></div></div> \
-</div> \
-  <div style="background-color: ' +
-      eapStatuscolor +
-      '; color: var(--ion-color-ibf-black); padding: 10px; text-align: center; text-transform:uppercase"> \
-    <strong>' +
-      eapStatusText +
-      '</strong> \
-  </div>';
+      <div style="background-color:${eapStatusColor}; color:${eapStatusColorText}; padding: 10px; text-align: center; text-transform:uppercase"> \
+        <strong>${eapStatusText}</strong> \
+      </div>
+      `;
 
     return stationInfoPopup;
   }

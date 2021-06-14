@@ -1,6 +1,6 @@
 export enum AdminLevel {
-  adm1 = 1,
-  adm2 = 2,
-  adm3 = 3,
-  adm4 = 4,
+  adminLevel1 = 1,
+  adminLevel2 = 2,
+  adminLevel3 = 3,
+  adminLevel4 = 4,
 }

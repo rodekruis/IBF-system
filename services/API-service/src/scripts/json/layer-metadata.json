@@ -94,9 +94,30 @@
     "active": "no"
   },
   {
+    "country_codes": "ZMB",
+    "name": "adminRegions1",
+    "label": "Admin Level 1",
+    "type": "shape",
+    "active": "yes"
+  },
+  {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
-    "name": "admin_regions",
-    "label": "Admin Regions",
+    "name": "adminRegions2",
+    "label": "Admin Level 2",
+    "type": "shape",
+    "active": "yes"
+  },
+  {
+    "country_codes": "ZMB",
+    "name": "adminRegions3",
+    "label": "Admin Level 3",
+    "type": "shape",
+    "active": "yes"
+  },
+  {
+    "country_codes": "",
+    "name": "adminRegions4",
+    "label": "Admin Level 4",
     "type": "shape",
     "active": "yes"
   }

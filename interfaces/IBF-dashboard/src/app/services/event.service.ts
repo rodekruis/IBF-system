@@ -3,14 +3,12 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
-import { MockScenarioService } from '../mocks/mock-scenario-service/mock-scenario.service';
 import { Country } from '../models/country.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
-  public disasterType = 'flood';
   private country: Country;
 
   public state = {
@@ -27,23 +25,14 @@ export class EventService {
     private timelineService: TimelineService,
     private apiService: ApiService,
     private countryService: CountryService,
-    private mockScenarioService: MockScenarioService,
   ) {
     this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
-
-    this.mockScenarioService
-      .getMockScenarioSubscription()
-      .subscribe(this.onMockScenarioChange);
   }
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-    this.getTrigger();
-  };
-
-  private onMockScenarioChange = () => {
     this.getTrigger();
   };
 

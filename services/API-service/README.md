@@ -35,8 +35,7 @@ The Docker container currently in development phase does NOT run a `npm start` c
 
 Run the application through:
 
-- `npm run start:dev` (uses `tswatch` instead of `nodemon`)
-- `npm run start:watch` (to use with `nodemon` for restart upon change)
+- `npm run start:dev` (uses `tswatch` for restart upon change)
 
 ## Start application on VM
 
@@ -59,7 +58,7 @@ Access Swagger API via `http://localhost:3000/docs`
 ## Other relevant NPM scripts
 
 - `npm start` - Start application
-- `npm run start:watch` - Start application in watch mode
+- `npm run start:dev` - Start application in watch mode
 - `npm run test` - run Jest test runner
 - `npm run start:prod` - Build application
 
@@ -74,3 +73,31 @@ This applications uses [JSON Web Token](https://jwt.io/) (JWT) to handle authent
 ## Documentation
 
 We use [NestJS OpenAPI](https://docs.nestjs.com/openapi/introduction) for documentation. An example is explained in the [documentation guide](./DOCUMENATION.md).
+
+## Migration scripts
+
+We use TypeORM migrations to handle changes to the datamodel. This means that developers need to generate migration-files locally upon datamodel changes, which are subsequently (automatically) run before the API-service starts in another environment (both remote server and local environment of other developer).
+
+Developers use the following process for this.
+
+1. The attribute 'synchronize' in ormconfig.js is set to 'false' by default. This means that any changes in your entities in code are not automatically reflected in the datamodel.
+2. Otherwise TypeORM's migration:generate functionality cannot be used to automatically capture the difference between before (datamodel) and after (entities) state.
+3. A developer develops + tests until running into a datamodel change. If that happens
+   - Generate a migration through `docker-compose exec ibf-api-service npm run migration:generate <MigrationName>`
+   - Immediately run the migration (by restarting ibf-api-service, as migration:run is run upon 'prestart')
+   - Test the feature
+   - Continue developing and repeat this process as many times as needed
+4. If - because of trial and error - the migration in the end turns out to be reverted or amended, it is up to the developer to decide to
+   - manually minimize the number of migration-scripts
+     - e.g. one migration and its reversal would exactly cancel out, so both can be deleted
+     - e.g. a column name change from A to B to C, could be merged to one migration script which renames from A to C
+   - or to not do this, as functionally it doesn't matter in the end. This does however 'pollute' the code-base and reduces the overview/readability on migrations.
+5. If a developer works on an (e.g. refactor) item that comes with a lot of datamodel changes, it is up to the developer to alternatively go for an approach
+   - where 'synchronize' is temporariliy changed to 'true', so that changes are immediately reflected, which allows for quicker development
+   - when a chunk of work is finished, the migration-script can be generated afterwards by
+     - stashing changes
+     - switching to different branch
+     - setting synchronize to false again
+     - populating stashed changes
+     - generating migration-script
+   - Keep in mind here that we want to keep migration scripts readable. So do not follow this process only once at the very end, but do it after every demarcated chunk of work.

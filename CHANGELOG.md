@@ -1,3 +1,68 @@
+## [0.64.3](https://github.com/rodekruis/IBF-system/compare/v0.64.2...v0.64.3) (2021-06-14)
+
+
+### Bug Fixes
+
+* add authorization to script endpoints ([8850e62](https://github.com/rodekruis/IBF-system/commit/8850e6202c9e364eba8ebd993325b24a3f2e8358))
+
+
+
+## [0.64.2](https://github.com/rodekruis/IBF-system/compare/v0.64.1...v0.64.2) (2021-06-11)
+
+
+### Bug Fixes
+
+* integration tests ([b5826cd](https://github.com/rodekruis/IBF-system/commit/b5826cd928ee5c7beef3a93aca877175d40ec7dd))
+
+
+
+## [0.64.1](https://github.com/rodekruis/IBF-system/compare/v0.64.0...v0.64.1) (2021-06-11)
+
+
+### Bug Fixes
+
+* adjust getAdminRegions to get right data for both default and other adminLevels AB[#8166](https://github.com/rodekruis/IBF-system/issues/8166) ([8da085a](https://github.com/rodekruis/IBF-system/commit/8da085a4f84d7ca459d1c0ede3515e6bc59ada91))
+* filter pipeline-admin areas by adminLevel AB[#8166](https://github.com/rodekruis/IBF-system/issues/8166) ([2b7b194](https://github.com/rodekruis/IBF-system/commit/2b7b194e46c79e2678a42718a7b7fc0a572ac6b0))
+* handle undefined admin level label ([882cfe1](https://github.com/rodekruis/IBF-system/commit/882cfe13d48dd285c1b42069d8fa1c368f611c34))
+
+
+
+# [0.64.0](https://github.com/rodekruis/IBF-system/compare/v0.63.0...v0.64.0) (2021-06-08)
+
+
+### Features
+
+* add dynamic singular admin-area labels incl. migrations AB[#8136](https://github.com/rodekruis/IBF-system/issues/8136) ([f627303](https://github.com/rodekruis/IBF-system/commit/f627303c8d3a0a2660a2fc1a412d73d38df3e757))
+* change chat-intro wording AB[#8135](https://github.com/rodekruis/IBF-system/issues/8135) ([c955e74](https://github.com/rodekruis/IBF-system/commit/c955e74b224fc8e2efabf225deb9dc8483f52490))
+
+
+
+# [0.63.0](https://github.com/rodekruis/IBF-system/compare/v0.62.0...v0.63.0) (2021-06-08)
+
+
+### Bug Fixes
+
+* adapt popup tip color as well AB[#8098](https://github.com/rodekruis/IBF-system/issues/8098) ([eb34118](https://github.com/rodekruis/IBF-system/commit/eb34118aa6315ddb76f8a391a90af95cc95eb5fd))
+* do not filter placeCode on other adminLevel AB[#8021](https://github.com/rodekruis/IBF-system/issues/8021) ([606db24](https://github.com/rodekruis/IBF-system/commit/606db2495243a6d5c7b05b3107eb74073f5e6e49))
+* email gets right leadTime only AB[#8090](https://github.com/rodekruis/IBF-system/issues/8090) ([1758b99](https://github.com/rodekruis/IBF-system/commit/1758b99fb29e87e04a09256083b091e9c66b6184))
+* pipeline build AB[#8097](https://github.com/rodekruis/IBF-system/issues/8097) ([e9cdde5](https://github.com/rodekruis/IBF-system/commit/e9cdde5a9f317d1e0c18892d2a5156a9dcf2211c))
+* pipeline build AB[#8097](https://github.com/rodekruis/IBF-system/issues/8097) ([4000c20](https://github.com/rodekruis/IBF-system/commit/4000c2036b671d6e5c28d742493c7e90ba83229d))
+* small update ward-mapping AB[#8019](https://github.com/rodekruis/IBF-system/issues/8019) ([5b85c8d](https://github.com/rodekruis/IBF-system/commit/5b85c8d335f0479c96c37766ea3bb96198bf3bc5))
+
+
+### Features
+
+* add mock station no-trigger but return period AB[#8102](https://github.com/rodekruis/IBF-system/issues/8102) ([277de93](https://github.com/rodekruis/IBF-system/commit/277de9312cee25455738c126b51c6408e62b1cd1))
+* add return period in glofas popup AB[#8099](https://github.com/rodekruis/IBF-system/issues/8099) ([c98292d](https://github.com/rodekruis/IBF-system/commit/c98292d257a8428231e82fa38e750fcbf9f1f270))
+* add ZMB to mock-endpoint AB[#8126](https://github.com/rodekruis/IBF-system/issues/8126) ([39d47d0](https://github.com/rodekruis/IBF-system/commit/39d47d002b7fce995559243442ac5500d06714d7))
+* change colors glofas-station-popup AB[#8098](https://github.com/rodekruis/IBF-system/issues/8098) ([c2c5f00](https://github.com/rodekruis/IBF-system/commit/c2c5f00c1fd5062a2de25170999b77d2e4a06683))
+* distinguish return period to use for flood extent & actual return period AB[#8100](https://github.com/rodekruis/IBF-system/issues/8100) ([1b5c353](https://github.com/rodekruis/IBF-system/commit/1b5c3538af30b0c327b04995e76a460812a0b66b))
+* enable seeding multiple adminLevels + seed adminLevel 1+3 ZMB AB[#8019](https://github.com/rodekruis/IBF-system/issues/8019) ([203e26f](https://github.com/rodekruis/IBF-system/commit/203e26f4934dbf5c08ea44b13a381ca95a838e85))
+* remove 3-day leadTime ZMB AB[#8131](https://github.com/rodekruis/IBF-system/issues/8131) ([938c1ce](https://github.com/rodekruis/IBF-system/commit/938c1ce986a887d1f6655d9268659009d8297a26))
+* show province/ward boundaries additionally AB[#8021](https://github.com/rodekruis/IBF-system/issues/8021) ([7355ee6](https://github.com/rodekruis/IBF-system/commit/7355ee609b1038313eed01843cfea0f975708692))
+
+
+
 # [0.62.0](https://github.com/rodekruis/IBF-system/compare/v0.61.1...v0.62.0) (2021-06-02)
 
 
@@ -79,56 +144,6 @@
 * Close event at the end of month for month lead time AB[#7408](https://github.com/rodekruis/IBF-system/issues/7408) ([5118366](https://github.com/rodekruis/IBF-system/commit/51183668415e62c4d7e683ec84f8b89e1fafeacf))
 * multiple dynamic layers in frontend AB[#7409](https://github.com/rodekruis/IBF-system/issues/7409) ([32971fa](https://github.com/rodekruis/IBF-system/commit/32971fa3b5f6d42a2915f2f9e1484d63f0a3bae6))
 * store and serve dynamic admin area data AB[#7417](https://github.com/rodekruis/IBF-system/issues/7417) ([716c6d6](https://github.com/rodekruis/IBF-system/commit/716c6d6c17d4c73a90b9937fc5580d066dd7a189))
-
-
-
-## [0.59.3](https://github.com/rodekruis/IBF-system/compare/v0.59.2...v0.59.3) (2021-05-11)
-
-
-### Bug Fixes
-
-* update readme AB[#7563](https://github.com/rodekruis/IBF-system/issues/7563) ([667c279](https://github.com/rodekruis/IBF-system/commit/667c2799c2a24cd032280900bc8b1a6242431cd9))
-
-
-
-## [0.59.2](https://github.com/rodekruis/IBF-system/compare/v0.59.1...v0.59.2) (2021-05-11)
-
-
-### Bug Fixes
-
-* legend code requires data to not be null ([d0966d5](https://github.com/rodekruis/IBF-system/commit/d0966d5760d1b766c6fe2edc87ecc3b4077cf478))
-* use rxjs of instead of EMPTY AB[#7227](https://github.com/rodekruis/IBF-system/issues/7227) ([9a7ac5a](https://github.com/rodekruis/IBF-system/commit/9a7ac5afccffacf0568ed78f15e708be4a4df7a9))
-
-
-
-## [0.59.1](https://github.com/rodekruis/IBF-system/compare/v0.59.0...v0.59.1) (2021-05-03)
-
-
-### Bug Fixes
-
-* don't try download if mock AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([59924e4](https://github.com/rodekruis/IBF-system/commit/59924e42f702921963a4c4638e4a567711d4d86c))
-* remove changes other open branch AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([afd2edd](https://github.com/rodekruis/IBF-system/commit/afd2edd49158fc9bbc4cb5e1de84c2c846076e02))
-
-
-
-# [0.59.0](https://github.com/rodekruis/IBF-system/compare/v0.58.1...v0.59.0) (2021-05-03)
-
-
-### Features
-
-* add EGY red crescent branches AB[#7426](https://github.com/rodekruis/IBF-system/issues/7426) ([8776d73](https://github.com/rodekruis/IBF-system/commit/8776d7383c4478e44ee17f3c1c8796a66829d93d))
-* add rainfall extent info popup AB[#7422](https://github.com/rodekruis/IBF-system/issues/7422) ([b21c19e](https://github.com/rodekruis/IBF-system/commit/b21c19e179f726cfd8ab33e2fc56f4c45d484a84))
-* make info-popovers country-specific AB[#7423](https://github.com/rodekruis/IBF-system/issues/7423) ([0d69ae7](https://github.com/rodekruis/IBF-system/commit/0d69ae78fedbf85861f8c7274f2aacf2b0045eaf))
-* update flood susceptibility EGY AB[#7424](https://github.com/rodekruis/IBF-system/issues/7424) ([3c64947](https://github.com/rodekruis/IBF-system/commit/3c6494738505be3a2bb3b35cf6e1d6df2941a2ca))
-
-
-
-## [0.58.1](https://github.com/rodekruis/IBF-system/compare/v0.58.0...v0.58.1) (2021-05-03)
-
-
-### Bug Fixes
-
-* log error message to help debug ([a784bec](https://github.com/rodekruis/IBF-system/commit/a784bec52b08d10993dc14405ba4db117d412d27))
 
 
 

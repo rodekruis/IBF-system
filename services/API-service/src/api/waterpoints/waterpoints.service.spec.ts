@@ -3,7 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpModule } from '@nestjs/common';
 import { CountryService } from '../country/country.service';
 import { CountryEntity } from '../country/country.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 
 describe('Waterpoints service', (): void => {
   let service: WaterpointsService;
@@ -11,12 +12,15 @@ describe('Waterpoints service', (): void => {
   beforeAll(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
-        imports: [
-          HttpModule,
-          TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([CountryEntity]),
+        imports: [HttpModule],
+        providers: [
+          WaterpointsService,
+          CountryService,
+          {
+            provide: getRepositoryToken(CountryEntity),
+            useFactory: repositoryMockFactory,
+          },
         ],
-        providers: [WaterpointsService, CountryService],
       }).compile();
 
       service = module.get<WaterpointsService>(WaterpointsService);

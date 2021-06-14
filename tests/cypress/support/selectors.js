@@ -9,4 +9,5 @@ export default {
     exportViewButton: "[data-test='export-view-button']",
     exportViewPopover: "[data-test='export-view-popover']",
     logoImage: "[data-test='logo-image']",
+    loader: "[data-test='loader']",
 };

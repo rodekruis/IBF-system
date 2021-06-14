@@ -1,4 +1,6 @@
 import constants from "./constants";
+import selectors from "./selectors";
+import 'cypress-wait-until';
 
 Cypress.Commands.add("waitForRequests", () => {
   cy.intercept({ method: "GET", url: "**" }).as("getHttp");
@@ -19,8 +21,8 @@ Cypress.Commands.add("login", () => {
     });
 
   cy.visit(constants.dashboardPagePath);
-  cy.intercept({ method: "GET", url: "**" }).as("getHttp");
-  cy.wait("@getHttp");
+  cy.waitForRequests();
+  cy.waitUntil(() => Cypress.$(selectors.loader).length === 0); // https://github.com/NoriSte/cypress-wait-until/issues/75#issuecomment-572685623
 });
 
 // Function that waits fo all promises to resolve

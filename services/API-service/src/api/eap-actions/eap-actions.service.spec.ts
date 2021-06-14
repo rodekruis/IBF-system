@@ -1,12 +1,13 @@
 import { CountryEntity } from './../country/country.entity';
 import { Test, TestingModule } from '@nestjs/testing';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionsService } from './eap-actions.service';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
+import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 
 describe('EapActionsService', (): void => {
   let service: EapActionsService;
@@ -14,18 +15,33 @@ describe('EapActionsService', (): void => {
   beforeEach(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
-        imports: [
-          TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([
-            UserEntity,
-            EapActionStatusEntity,
-            EapActionEntity,
-            AreaOfFocusEntity,
-            CountryEntity,
-            EventPlaceCodeEntity,
-          ]),
+        providers: [
+          EapActionsService,
+          {
+            provide: getRepositoryToken(UserEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(EapActionEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(EapActionStatusEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AreaOfFocusEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(CountryEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(EventPlaceCodeEntity),
+            useFactory: repositoryMockFactory,
+          },
         ],
-        providers: [EapActionsService],
       }).compile();
 
       service = module.get<EapActionsService>(EapActionsService);

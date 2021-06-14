@@ -47,6 +47,7 @@ export class GlofasStationService {
         'forecast."forecastLevel" AS "forecastLevel"',
         'forecast."forecastTrigger" AS "forecastTrigger"',
         'forecast."forecastProbability" AS "forecastProbability"',
+        'forecast."forecastReturnPeriod" AS "forecastReturnPeriod"',
       ])
       .leftJoin('station.stationForecasts', 'forecast')
       .where('"leadTime" = :leadTime', {
