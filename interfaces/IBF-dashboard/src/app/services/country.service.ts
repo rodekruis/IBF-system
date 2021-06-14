@@ -20,7 +20,9 @@ export class CountryService {
   }
 
   private onUserChange = (user: User) => {
-    this.getCountriesByUser(user);
+    if (user) {
+      this.getCountriesByUser(user);
+    }
   };
 
   public getCountriesByUser(user: User): void {

@@ -53,7 +53,6 @@ describe('MetadataService', (): void => {
             provide: getRepositoryToken(LayerMetadataEntity),
             useFactory: repositoryMockFactory,
           },
-<<<<<<< HEAD
           {
             provide: getRepositoryToken(UserEntity),
             useFactory: repositoryMockFactory,
@@ -70,8 +69,6 @@ describe('MetadataService', (): void => {
             provide: getRepositoryToken(AreaOfFocusEntity),
             useFactory: repositoryMockFactory,
           },
-=======
->>>>>>> origin/master
         ],
       }).compile();
 

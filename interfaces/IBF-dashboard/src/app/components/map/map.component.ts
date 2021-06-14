@@ -52,10 +52,11 @@ import {
   IbfLayerName,
   IbfLayerType,
   IbfLayerWMS,
+  LeafletPane,
 } from 'src/app/types/ibf-layer';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
-import { breakKey, Pane } from '../../models/map.model';
+import { breakKey } from '../../models/map.model';
 import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
@@ -253,12 +254,11 @@ export class MapComponent implements OnDestroy {
 
   onMapReady(map: Map) {
     this.map = map;
-    this.map.createPane(Pane.ibfWms);
-    this.map.createPane(Pane.outline);
-    this.map.getPane(Pane.outline).style.zIndex = '650';
-    this.map.createPane(Pane.ibfAggregate);
-    this.map.createPane(Pane.ibfAdditionalAdminBoundaries);
-
+    this.map.createPane(LeafletPane.wmsPane);
+    this.map.createPane(LeafletPane.adminBoundaryPane);
+    this.map.createPane(LeafletPane.triggerOutline);
+    this.map.getPane(LeafletPane.triggerOutline).style.zIndex = '650';
+    this.map.createPane(LeafletPane.aggregatePane);
     this.triggerWindowResize();
   }
 
@@ -278,7 +278,7 @@ export class MapComponent implements OnDestroy {
       );
 
       if (
-        !layer.name.includes(IbfLayerName.adminRegions) &&
+        layer.group !== IbfLayerGroup.adminRegions &&
         layer.group !== IbfLayerGroup.outline
       ) {
         this.addLegend(this.map, colors, colorThreshold, layer);
@@ -385,7 +385,7 @@ export class MapComponent implements OnDestroy {
   };
 
   private onAdminRegionClickByLayerAndFeatureAndElement = (
-    layer,
+    layer: IbfLayer,
     feature,
     element,
   ) => (): void => {
@@ -397,7 +397,7 @@ export class MapComponent implements OnDestroy {
       component: this.constructor.name,
     });
 
-    if (!layer.name.includes(IbfLayerName.adminRegions)) {
+    if (layer.group !== IbfLayerGroup.adminRegions) {
       this.placeCodeService.setPlaceCode({
         countryCodeISO3: feature.properties.countryCodeISO3,
         placeCodeName: feature.properties.name,
@@ -406,6 +406,24 @@ export class MapComponent implements OnDestroy {
     }
 
     if (layer.name !== IbfLayerName.adminRegions) {
+      const popup =
+        '<strong>' +
+        feature.properties.name +
+        (feature.properties.placeCode.includes('Disputed')
+          ? ' (Disputed borders)'
+          : '') +
+        '</strong><br/>' +
+        (layer.group === IbfLayerGroup.adminRegions
+          ? ''
+          : layer.label +
+            ': ' +
+            this.numberFormat(
+              typeof feature.properties[layer.colorProperty] !== 'undefined'
+                ? feature.properties[layer.colorProperty]
+                : feature.properties.indicators[layer.colorProperty],
+              layer,
+            ) +
+            (layer.unit ? ' ' + layer.unit : ''));
       if (feature.properties.placeCode === this.placeCode) {
         element.unbindPopup();
         this.placeCode = null;
@@ -446,6 +464,22 @@ export class MapComponent implements OnDestroy {
     }
   }
 
+  private getAdminRegionLayerPane(layer: IbfLayer): LeafletPane {
+    let adminRegionLayerPane = LeafletPane.overlayPane;
+    switch (layer.group) {
+      case IbfLayerGroup.aggregates:
+        adminRegionLayerPane = LeafletPane.aggregatePane;
+        break;
+      case IbfLayerGroup.adminRegions:
+        adminRegionLayerPane = LeafletPane.adminBoundaryPane;
+        break;
+      default:
+        adminRegionLayerPane = LeafletPane.overlayPane;
+        break;
+    }
+    return adminRegionLayerPane;
+  }
+
   private createDefaultPopupAdminRegions(layer: IbfLayer, feature): string {
     return (
       '<strong>' +
@@ -463,8 +497,7 @@ export class MapComponent implements OnDestroy {
               ? feature.properties[layer.colorProperty]
               : feature.properties.indicators[layer.colorProperty],
             layer,
-          ) +
-          (layer.unit ? ' ' + layer.unit : ''))
+          ))
     );
   }
 
@@ -565,20 +598,13 @@ export class MapComponent implements OnDestroy {
     let adminRegionsLayer: GeoJSON;
     if (layer.group === IbfLayerGroup.outline) {
       adminRegionsLayer = geoJSON(layer.data, {
-        pane: Pane.outline,
+        pane: LeafletPane.triggerOutline,
         style: this.mapService.setOutlineLayerStyle(layer),
         interactive: false,
       });
     } else {
       adminRegionsLayer = geoJSON(layer.data, {
-        pane:
-          layer.group && layer.group === IbfLayerGroup.aggregates
-            ? 'ibf-aggregate'
-            : layer.name === IbfLayerName.adminRegions
-            ? 'overlayPane'
-            : layer.name.includes(IbfLayerName.adminRegions)
-            ? 'ibf-additional-admin-boundaries'
-            : 'overlayPane',
+        pane: this.getAdminRegionLayerPane(layer),
         style: this.mapService.setAdminRegionStyle(layer),
         onEachFeature: (feature, element): void => {
           element.on('mouseover', this.onAdminRegionMouseOver);
@@ -604,7 +630,7 @@ export class MapComponent implements OnDestroy {
       return;
     }
     return tileLayer.wms(layerWMS.url, {
-      pane: Pane.ibfWms,
+      pane: LeafletPane.wmsPane,
       layers: layerWMS.name,
       format: layerWMS.format,
       version: layerWMS.version,

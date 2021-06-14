@@ -1,3 +1,14 @@
+## [0.64.1](https://github.com/rodekruis/IBF-system/compare/v0.64.0...v0.64.1) (2021-06-11)
+
+
+### Bug Fixes
+
+* adjust getAdminRegions to get right data for both default and other adminLevels AB[#8166](https://github.com/rodekruis/IBF-system/issues/8166) ([8da085a](https://github.com/rodekruis/IBF-system/commit/8da085a4f84d7ca459d1c0ede3515e6bc59ada91))
+* filter pipeline-admin areas by adminLevel AB[#8166](https://github.com/rodekruis/IBF-system/issues/8166) ([2b7b194](https://github.com/rodekruis/IBF-system/commit/2b7b194e46c79e2678a42718a7b7fc0a572ac6b0))
+* handle undefined admin level label ([882cfe1](https://github.com/rodekruis/IBF-system/commit/882cfe13d48dd285c1b42069d8fa1c368f611c34))
+
+
+
 # [0.64.0](https://github.com/rodekruis/IBF-system/compare/v0.63.0...v0.64.0) (2021-06-08)
 
 
@@ -134,16 +145,6 @@
 
 * legend code requires data to not be null ([d0966d5](https://github.com/rodekruis/IBF-system/commit/d0966d5760d1b766c6fe2edc87ecc3b4077cf478))
 * use rxjs of instead of EMPTY AB[#7227](https://github.com/rodekruis/IBF-system/issues/7227) ([9a7ac5a](https://github.com/rodekruis/IBF-system/commit/9a7ac5afccffacf0568ed78f15e708be4a4df7a9))
-
-
-
-## [0.59.1](https://github.com/rodekruis/IBF-system/compare/v0.59.0...v0.59.1) (2021-05-03)
-
-
-### Bug Fixes
-
-* don't try download if mock AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([59924e4](https://github.com/rodekruis/IBF-system/commit/59924e42f702921963a4c4638e4a567711d4d86c))
-* remove changes other open branch AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([afd2edd](https://github.com/rodekruis/IBF-system/commit/afd2edd49158fc9bbc4cb5e1de84c2c846076e02))
 
 
 

@@ -35,7 +35,7 @@ export class CountryEntity {
   })
   public adminLevels: AdminLevel[];
 
-  @Column({ default: AdminLevel.adm1 })
+  @Column({ default: AdminLevel.adminLevel1 })
   public defaultAdminLevel: AdminLevel;
 
   @Column('json', {
@@ -83,5 +83,3 @@ export class CountryEntity {
   )
   public disasterTypes: DisasterEntity[];
 }
-
-class StringArray {}

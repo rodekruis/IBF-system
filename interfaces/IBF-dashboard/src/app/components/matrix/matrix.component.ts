@@ -10,7 +10,12 @@ import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-contr
 import { AggregatesService } from 'src/app/services/aggregates.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
-import { IbfLayer, IbfLayerName, IbfLayerType } from 'src/app/types/ibf-layer';
+import {
+  IbfLayer,
+  IbfLayerGroup,
+  IbfLayerName,
+  IbfLayerType,
+} from 'src/app/types/ibf-layer';
 import { AdminLevelService } from '../../services/admin-level.service';
 
 @Component({
@@ -47,7 +52,7 @@ export class MatrixComponent implements OnDestroy {
       if (newLayerIndex >= 0) {
         this.layers.splice(newLayerIndex, 1, newLayer);
       } else {
-        if (!newLayer.name.includes(IbfLayerName.adminRegions)) {
+        if (newLayer.group !== IbfLayerGroup.adminRegions) {
           this.layers.push(newLayer);
         }
       }
@@ -84,52 +89,17 @@ export class MatrixComponent implements OnDestroy {
     this.layerSubscription.unsubscribe();
   }
 
-  updateLayerClick(
-    name: IbfLayerName,
-    active: boolean,
-    data: GeoJSON.FeatureCollection,
-  ): void {
+  public toggleLayer(layer: IbfLayer): void {
     this.analyticsService.logEvent(AnalyticsEvent.mapLayer, {
-      mapLayerName: name,
-      mapLayerStatus: active,
+      mapLayerName: layer.name,
+      mapLayerStatus: !layer.active,
       page: AnalyticsPage.dashboard,
       isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });
 
-    this.updateLayer(name, active, data);
-  }
-
-  private filterIndicatorByLayerName = (name) => (indicator) =>
-    indicator.name === name;
-
-  private filterAdminRegionsLayer = (layer) =>
-    layer.name === IbfLayerName.adminRegions;
-
-  public updateLayer(
-    name: IbfLayerName,
-    active: boolean,
-    data: GeoJSON.FeatureCollection,
-  ): void {
-    if (active && data && data.features.length === 0) {
-      const indicator = this.aggregatesService.indicators.find(
-        this.filterIndicatorByLayerName(name),
-      );
-    }
-    this.mapService.updateLayers(name, active, true);
-    this.mapService.activeLayerName = active ? name : null;
-    if (active) {
-      const adminRegionLayer = this.mapService.layers.find(
-        this.filterAdminRegionsLayer,
-      );
-      if (adminRegionLayer) {
-        adminRegionLayer.active = true;
-      }
-    }
-    if (active && !this.adminLevelService.adminLayerState) {
-      this.adminLevelService.adminLayerState = true;
-    }
+    this.mapService.toggleLayer(layer);
   }
 
   public async isLayerControlMenuOpen(): Promise<void> {

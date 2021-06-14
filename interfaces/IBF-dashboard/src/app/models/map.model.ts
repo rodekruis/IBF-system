@@ -5,10 +5,3 @@ export enum breakKey {
   break4 = 'break4',
   break5 = 'break5',
 }
-
-export enum Pane {
-  outline = 'outline',
-  ibfWms = 'ibf-wms',
-  ibfAggregate = 'ibf-aggregate',
-  ibfAdditionalAdminBoundaries = 'ibf-additional-admin-boundaries',
-}
