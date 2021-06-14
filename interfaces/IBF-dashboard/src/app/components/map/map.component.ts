@@ -30,6 +30,7 @@ import {
   LEAFLET_MAP_OPTIONS,
   LEAFLET_MAP_URL_TEMPLATE,
   LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
 } from 'src/app/config';
@@ -716,7 +717,7 @@ export class MapComponent implements OnDestroy {
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH),
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT),
     });
     markerInstance.bindPopup(this.createHealthSitePopup(markerProperties));
     markerInstance.on(

@@ -592,7 +592,7 @@ export class MapService {
           adminLevel,
         )
         .pipe(shareReplay(1));
-    } else if (layer.group === IbfLayerGroup.aggregates) {
+    } else if (layer.group === IbfLayerGroup.aggregates || layer.group === IbfLayerGroup.outline ) {
       layerData = this.getCombineAdminRegionData(
         this.country.countryCodeISO3,
         this.adminLevelService.adminLevel,

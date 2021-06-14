@@ -218,9 +218,9 @@
     "weightedAvg": true,
     "active": false,
     "colorBreaks": null,
-    "numberFormatMap": "perc",
+    "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
-    "numberFormatAggregate": "decimal4",
+    "numberFormatAggregate": "decimal0",
     "order": 4,
     "dynamic": false,
     "unit": "incidence"
