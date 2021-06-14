@@ -33,32 +33,32 @@ export class SeedAdminArea implements InterfaceScript {
     country,
     adminAreaRepository,
   ): Promise<void> {
-    const fileName = `./src/scripts/git-lfs/admin-boundaries/${country.countryCodeISO3}_adm${country.defaultAdminLevel}.json`;
-    const adminJsonRaw = fs.readFileSync(fileName, 'utf-8');
-    const adminJson = JSON.parse(adminJsonRaw);
-    await Promise.all(
-      adminJson.features.map(
-        (area): Promise<void> => {
-          return adminAreaRepository
-            .createQueryBuilder()
-            .insert()
-            .values({
-              countryCodeISO3: country.countryCodeISO3,
-              adminLevel: country.defaultAdminLevel,
-              name: area.properties[`ADM${country.defaultAdminLevel}_EN`],
-              placeCode:
-                area.properties[`ADM${country.defaultAdminLevel}_PCODE`],
-              placeCodeParent: area.properties[
-                `ADM${country.defaultAdminLevel - 1}_PCODE`
-              ]
-                ? area.properties[`ADM${country.defaultAdminLevel - 1}_PCODE`]
-                : null,
-              geom: (): string => this.geomFunction(area.geometry.coordinates),
-            })
-            .execute();
-        },
-      ),
-    );
+    country.adminLevels.forEach(async adminLevel => {
+      const fileName = `./src/scripts/git-lfs/admin-boundaries/${country.countryCodeISO3}_adm${adminLevel}.json`;
+      const adminJsonRaw = fs.readFileSync(fileName, 'utf-8');
+      const adminJson = JSON.parse(adminJsonRaw);
+      await Promise.all(
+        adminJson.features.map(
+          (area): Promise<void> => {
+            return adminAreaRepository
+              .createQueryBuilder()
+              .insert()
+              .values({
+                countryCodeISO3: country.countryCodeISO3,
+                adminLevel: adminLevel,
+                name: area.properties[`ADM${adminLevel}_EN`],
+                placeCode: area.properties[`ADM${adminLevel}_PCODE`],
+                placeCodeParent: area.properties[`ADM${adminLevel - 1}_PCODE`]
+                  ? area.properties[`ADM${adminLevel - 1}_PCODE`]
+                  : null,
+                geom: (): string =>
+                  this.geomFunction(area.geometry.coordinates),
+              })
+              .execute();
+          },
+        ),
+      );
+    });
   }
 
   private geomFunction(coordinates): string {

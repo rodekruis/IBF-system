@@ -30,10 +30,6 @@
       <app-country-switcher
         class="ion-align-items-center"
       ></app-country-switcher>
-      <app-mock-scenario class="ion-align-items-center"></app-mock-scenario>
-      <app-backend-mock-scenario
-        class="ion-align-items-center"
-      ></app-backend-mock-scenario>
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -88,21 +84,21 @@
           >
             <ion-col size="12">
               <ion-item
-              lines="none"
-              class="component-title-item"
-              color="ibf-primary"
+                lines="none"
+                class="component-title-item"
+                color="ibf-primary"
               >
                 <ion-button
-                slot="start"
-                class="ion-margin-end today-button"
-                [disabled]="true"
-                color="ibf-primary"
+                  slot="start"
+                  class="ion-margin-end today-button"
+                  [disabled]="true"
+                  color="ibf-primary"
                 >
                   <app-date-button></app-date-button>
                   <span
-                      class="today"
-                      [translate]="'dashboard-page.today'"
-                    ></span>
+                    class="today"
+                    [translate]="'dashboard-page.today'"
+                  ></span>
                 </ion-button>
                 <ion-thumbnail
                   slot="start"

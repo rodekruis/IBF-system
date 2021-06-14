@@ -49,12 +49,11 @@ app-export-view {
       flex-direction: column;
 
       .component-title {
-        
         .component-title-item {
           --background: transparent;
           --height: 40px;
           --min-height: 40px;
-          
+
           ion-button {
             --box-shadow: none;
             text-transform: uppercase;

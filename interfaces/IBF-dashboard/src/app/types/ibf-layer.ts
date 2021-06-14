@@ -56,7 +56,11 @@ export enum IbfLayerName {
   floodExtent = 'flood_extent',
   rainfallExtent = 'rainfall_extent',
   population = 'population',
-  adminRegions = 'admin_regions',
+  adminRegions = 'adminRegions',
+  adminRegions1 = 'adminRegions1',
+  adminRegions2 = 'adminRegions2',
+  adminRegions3 = 'adminRegions3',
+  adminRegions4 = 'adminRegions4',
   cropland = 'cropland',
   grassland = 'grassland',
   population_affected = 'population_affected',
@@ -84,7 +88,10 @@ export enum IbfLayerLabel {
   floodExtent = 'Flood extent',
   rainfallExtent = 'Rainfall extent',
   population = 'Population',
-  adminRegions = 'Admin Regions',
+  adminRegions1 = 'Admin Level 1',
+  adminRegions2 = 'Admin Level 2',
+  adminRegions3 = 'Admin Level 3',
+  adminRegions4 = 'Admin Level 4',
   cropland = 'Cropland',
   grassland = 'Grassland',
   covidRisk = 'Covid Risk',
@@ -104,6 +111,7 @@ export class IbfLayerWMS {
 export enum IbfLayerGroup {
   aggregates = 'aggregates',
   outline = 'outline',
+  adminRegions = 'adminRegions',
 }
 
 export class ColorBreaks {
@@ -118,4 +126,13 @@ export class ColorBreak {
   label: string;
   valueLow: number;
   valueHigh: number;
+}
+
+export enum LeafletPane {
+  overlayPane = 'overlayPane',
+  aggregatePane = 'ibf-aggregate',
+  adminBoundaryPane = 'ibf-admin-boundaries',
+  wmsPane = 'ibf-wms',
+  popupPane = 'popup',
+  triggerOutline = 'triggerOutline',
 }

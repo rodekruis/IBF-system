@@ -8,5 +8,5 @@ export default {
   loginPagePath: "/login",
   loginApiUrl: "/user/login",
   dashboardPagePath: "/",
-  waitForAngularTimeout: 60000,
+  waitForAngularTimeout: 25000,
 };

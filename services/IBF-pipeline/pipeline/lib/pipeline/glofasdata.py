@@ -39,7 +39,7 @@ class GlofasData:
             self.leadTimeLabel + '_' + countryCodeISO3 + '.json'
         self.GLOFAS_STATIONS = glofas_stations
         self.DISTRICT_MAPPING = district_mapping
-        self.current_date = CURRENT_DATE.strftime('%Y-%m-%d')
+        self.current_date = CURRENT_DATE.strftime('%Y%m%d')
 
     def process(self):
         if SETTINGS_SECRET[self.countryCodeISO3]['mock'] == False:
@@ -94,7 +94,7 @@ class GlofasData:
         tar.close()
 
     def makeApiRequest(self):
-        path = 'glofas/glofas-forecast-' + self.current_date.replace('-','') + '.nc'
+        path = 'glofas/glofas-forecast-' + self.current_date + '.nc'
         glofasDataFile = self.db.getDataFromDatalake(path)
         if glofasDataFile.status_code >= 400:
             raise ValueError()
@@ -337,6 +337,8 @@ class GlofasData:
                                 discharge = 8000
                             elif station['code'] == 'G1328':  # ZMB dummy flood station 2
                                 discharge = 9000
+                            elif station['code'] == 'G1319':  # ZMB dummy flood station 3
+                                discharge = 1400
                             else:
                                 discharge = 0
                         else:
@@ -406,19 +408,26 @@ class GlofasData:
             if trigger == 1:
                 if self.countryCodeISO3 == 'ZMB':
                     if fc >= row['threshold20Year']:
-                        return_period = 20
-                    elif fc >= row['threshold10Year']:
-                        return_period = 10
-                    elif fc >= row['threshold5Year']:
-                        return_period = 10
-                    elif fc >= row['threshold2Year']:
-                        return_period = 10
+                        return_period_flood_extent = 20
                     else:
-                        return_period = 0
+                        return_period_flood_extent = 10
                 else:
-                    return_period = 25
+                    return_period_flood_extent = 25
+            else:
+                return_period_flood_extent = None
+                
+            if fc >= row['threshold20Year']:
+                return_period = 20
+            elif fc >= row['threshold10Year']:
+                return_period = 10
+            elif fc >= row['threshold5Year']:
+                return_period = 5
+            elif fc >= row['threshold2Year']:
+                return_period = 2
             else:
                 return_period = None
+
+            df.at[index, 'fc_rp_flood_extent'] = return_period_flood_extent
             df.at[index, 'fc_rp'] = return_period
 
         out = df.to_json(orient='records')

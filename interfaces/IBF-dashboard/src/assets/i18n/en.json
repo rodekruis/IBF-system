@@ -53,60 +53,33 @@
     "title": "EAP Actions Summary"
   },
   "chat-component": {
-    "generic": {
+    "about-button-label": "About Trigger",
+    "no-event-no-trigger": {
+      "welcome": "Hello Aid worker HQ. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
+    },
+    "new-event-active-trigger": {
+      "welcome": "Hello Aid worker HQ. A new trigger warning for <strong>{{ timeUnits }} days from today</strong> has been activated for <strong>{{ disasterTypeLabel }}</strong>.",
+      "new-event-early-trigger": "The system however detects a trigger as soon as <strong>{{ timeUnits }} days from today</strong>, which was not detectable earlier."
+    },
+    "active-event-active-trigger": {
+      "welcome": "Hello Aid worker HQ. A trigger warning for <strong>{{ disasterTypeLabel }}</strong> has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ days }} days</strong> away."
+    },
+    "active-event-no-trigger": {
+      "welcome": "Hello Aid worker HQ. There is <strong>no active trigger</strong> any more (as you can see in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
+    },
+    "active-event": {
+      "instruction": "The potentially exposed areas are listed below in order of number of people potentially exposed per area. You can select and submit the pre-planned anticipatory actions executed in each area and eventually close the event.",
+      "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+      "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
       "submit-button-label": "Submit",
       "close-event-button": "Close Event",
+      "update-success": "EAP action(s) updated in database.",
+      "update-failure": "Failed to update EAP action(s) updated in database.",
       "prompt-button-label": "OK",
       "close-event-popup": {
         "message": "You are about to close the triggered event in {{ placeCodeName }}. This action can not be undone.",
         "confirm": "Close Event",
         "cancel": "Cancel"
-      }
-    },
-    "floods": {
-      "about-button-label": "About Trigger",
-      "no-event-no-trigger": {
-        "welcome": "Hello Aid worker HQ. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
-      },
-      "new-event-active-trigger": {
-        "welcome": "Hello Aid worker HQ. A new trigger warning for <strong>{{ days }} days from today</strong> has been activated for floods.",
-        "new-event-early-trigger": "The system however detects a trigger as soon as <strong>{{ days }} days from today</strong>, which was not detectable earlier."
-      },
-      "active-event-active-trigger": {
-        "welcome": "Hello Aid worker HQ. A trigger warning for floods has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ days }} days</strong> away."
-      },
-      "active-event-no-trigger": {
-        "welcome": "Hello Aid worker HQ. There is <strong>no active trigger</strong> any more (as you can see in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
-      },
-      "active-event": {
-        "instruction": "The potentially affected areas are listed below in order of number of people potentially affected per area. You can keep track here per area which EAP-actions are to-do / done.",
-        "place-name": "District: <strong>{{ placeName }}</strong>",
-        "exposed-population": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
-        "update-success": "EAP action(s) updated in database.",
-        "update-failure": "Failed to update EAP action(s) updated in database."
-      }
-    },
-    "heavy-rain": {
-      "about-button-label": "About Trigger",
-      "no-event-no-trigger": {
-        "welcome": "Hello Aid worker HQ. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
-      },
-      "new-event-active-trigger": {
-        "welcome": "Hello Aid worker HQ. A new trigger warning for <strong>{{ days }} days from today</strong> has been activated for floods.",
-        "new-event-early-trigger": "The system however detects a trigger as soon as <strong>{{ days }} days from today</strong>, which was not detectable earlier."
-      },
-      "active-event-active-trigger": {
-        "welcome": "Hello Aid worker HQ. A trigger warning for floods has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ days }} days</strong> away."
-      },
-      "active-event-no-trigger": {
-        "welcome": "Hello Aid worker HQ. There is <strong>no active trigger</strong> any more (as you can see in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
-      },
-      "active-event": {
-        "instruction": "The potentially affected areas are listed below in order of number of people potentially affected per area. You can keep track here per area which EAP-actions are to-do / done.",
-        "place-name": "District: <strong>{{ placeName }}</strong>",
-        "exposed-population": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
-        "update-success": "EAP action(s) updated in database.",
-        "update-failure": "Failed to update EAP action(s) updated in database."
       }
     },
     "dengue": {
@@ -115,8 +88,8 @@
         "welcome": "Hello Aid worker HQ. To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for dengue."
       },
       "new-event-active-trigger": {
-        "welcome": "Hello Aid worker HQ. A new dengue alert for <strong>{{ months }} month(s) from now</strong> has been activated.",
-        "new-event-early-trigger": "The system however detects an alert as soon as <strong>{{ months }} month(s) from now</strong>, which was not detectable earlier."
+        "welcome": "Hello Aid worker HQ. A new dengue alert for <strong>{{ timeUnits }} month(s) from now</strong> has been activated.",
+        "new-event-early-trigger": "The system however detects an alert as soon as <strong>{{ timeUnits }} month(s) from now</strong>, which was not detectable earlier."
       },
       "active-event-active-trigger": {
         "welcome": "Hello Aid worker HQ. A dengue alert has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ days }} month(s)</strong> away."
@@ -126,8 +99,7 @@
       },
       "active-event": {
         "instruction": "The potentially affected areas are listed below in order of number of people potentially affected per area. You can keep track here per area which SOP actions are to-do / done.",
-        "place-name": "Province: <strong>{{ placeName }}</strong>",
-        "exposed-population": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
+        "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
         "update-success": "SOP action(s) updated in database.",
         "update-failure": "Failed to update SOP action(s) updated in database."
       }

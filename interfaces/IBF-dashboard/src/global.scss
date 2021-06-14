@@ -120,6 +120,10 @@
   z-index: 533;
 }
 
+.leaflet-ibf-admin-boundaries-pane {
+  z-index: 550;
+}
+
 .leaflet-ibf-wms-pane {
   z-index: 566;
   pointer-events: none;
@@ -143,22 +147,22 @@
 }
 .trigger-popup-no {
   .leaflet-popup-tip {
-    background-color: #d4d3d2;
+    background-color: var(--ion-color-ibf-gray);
   }
 }
 .trigger-popup-min {
   .leaflet-popup-tip {
-    background-color: #ffff00;
+    background-color: var(--ion-color-ibf-yellow);
   }
 }
 .trigger-popup-med {
   .leaflet-popup-tip {
-    background-color: #ffc000;
+    background-color: var(--ion-color-ibf-orange);
   }
 }
 .trigger-popup-max {
   .leaflet-popup-tip {
-    background-color: var(--ion-color-ibf-salmon);
+    background-color: var(--ion-color-ibf-purple);
   }
 }
 

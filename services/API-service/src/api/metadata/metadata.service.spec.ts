@@ -1,5 +1,7 @@
+import { AreaOfFocusEntity } from './../eap-actions/area-of-focus.entity';
+import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { MetadataService } from './metadata.service';
 import { LayerMetadataEntity } from './layer-metadata.entity';
@@ -11,6 +13,9 @@ import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { CountryEntity } from '../country/country.entity';
 import { CountryService } from '../country/country.service';
+import { UserEntity } from '../user/user.entity';
+import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
+import { EapActionEntity } from '../eap-actions/eap-action.entity';
 
 describe('MetadataService', (): void => {
   let service: MetadataService;
@@ -18,18 +23,12 @@ describe('MetadataService', (): void => {
   beforeEach(
     async (): Promise<void> => {
       const module: TestingModule = await Test.createTestingModule({
-        imports: [
-          TypeOrmModule.forRoot(),
-          TypeOrmModule.forFeature([
-            IndicatorMetadataEntity,
-            LayerMetadataEntity,
-          ]),
-        ],
         providers: [
           MetadataService,
           HelperService,
           EventService,
           CountryService,
+          EapActionsService,
           {
             provide: getRepositoryToken(CountryEntity),
             useFactory: repositoryMockFactory,
@@ -44,6 +43,30 @@ describe('MetadataService', (): void => {
           },
           {
             provide: getRepositoryToken(TriggerPerLeadTime),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(IndicatorMetadataEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(LayerMetadataEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(UserEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(EapActionStatusEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(EapActionEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AreaOfFocusEntity),
             useFactory: repositoryMockFactory,
           },
         ],

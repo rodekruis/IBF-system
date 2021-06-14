@@ -29,14 +29,19 @@ export class CountryEntity {
   @Column({ default: CountryStatus.Active })
   public countryStatus: CountryStatus;
 
-  @Column({ default: AdminLevel.adm1 })
+  @Column('int', {
+    array: true,
+    default: (): string => 'array[]::int[]',
+  })
+  public adminLevels: AdminLevel[];
+
+  @Column({ default: AdminLevel.adminLevel1 })
   public defaultAdminLevel: AdminLevel;
 
-  @Column('text', {
-    array: true,
-    default: (): string => 'array[]::text[]',
+  @Column('json', {
+    default: {},
   })
-  public adminRegionLabels: string[];
+  public adminRegionLabels: JSON;
 
   @Column({ nullable: true })
   public eapLink: string;

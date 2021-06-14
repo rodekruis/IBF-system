@@ -35,9 +35,16 @@ export class AdminAreaService {
   }
 
   public async getAdminAreasRaw(countryCodeISO3): Promise<any[]> {
+    const country = await this.countryRepository.findOne({
+      select: ['defaultAdminLevel'],
+      where: { countryCodeISO3: countryCodeISO3 },
+    });
     return await this.adminAreaRepository.find({
       select: ['countryCodeISO3', 'name', 'placeCode', 'geom', 'glofasStation'],
-      where: { countryCodeISO3: countryCodeISO3 },
+      where: {
+        countryCodeISO3: countryCodeISO3,
+        adminLevel: country.defaultAdminLevel,
+      },
     });
   }
 
@@ -118,13 +125,14 @@ export class AdminAreaService {
     leadTime: string,
     adminLevel: number,
   ): Promise<GeoJson> {
-    const placeCodes = await this.getTriggeredPlaceCodes(
-      countryCodeISO3,
-      leadTime,
-    );
+    console.log('countryCodeISO3: ', countryCodeISO3);
     const actionUnits = await this.countryService.getActionsUnitsForCountry(
       countryCodeISO3,
     );
+    const country = await this.countryRepository.findOne({
+      select: ['defaultAdminLevel'],
+      where: { countryCodeISO3: countryCodeISO3 },
+    });
     let adminAreasScript = this.adminAreaRepository
       .createQueryBuilder('area')
       .select([
@@ -133,33 +141,46 @@ export class AdminAreaService {
         'ST_AsGeoJSON(area.geom)::json As geom',
         'area."countryCodeISO3"',
       ])
-      .leftJoin(
-        AdminAreaDynamicDataEntity,
-        'dynamic',
-        'area.placeCode = dynamic.placeCode',
-      )
-      .addSelect([
-        `dynamic.value AS ${actionUnits[0]}`,
-        'dynamic."leadTime"',
-        'dynamic."date"',
-      ])
       .where('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
-      .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel })
-      .andWhere('dynamic."indicator" = :indicator', {
-        indicator: actionUnits[0],
-      });
+      .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
+    // Only add triggered-area filter if this is the default admin level
+    if (adminLevel == country.defaultAdminLevel) {
+      adminAreasScript = adminAreasScript
+        .leftJoin(
+          AdminAreaDynamicDataEntity,
+          'dynamic',
+          'area.placeCode = dynamic.placeCode',
+        )
+        .addSelect([
+          `dynamic.value AS ${actionUnits[0]}`,
+          'dynamic."leadTime"',
+          'dynamic."date"',
+        ])
+        .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
+        .andWhere('dynamic."indicator" = :indicator', {
+          indicator: actionUnits[0],
+        });
 
-    if (placeCodes.length && countryCodeISO3 !== 'PHL') {
-      adminAreasScript = adminAreasScript.andWhere(
-        'area."placeCode" IN (:...placeCodes)',
-        { placeCodes: placeCodes },
+      const placeCodes = await this.getTriggeredPlaceCodes(
+        countryCodeISO3,
+        leadTime,
+      );
+
+      if (placeCodes.length && countryCodeISO3 !== 'PHL') {
+        adminAreasScript = adminAreasScript.andWhere(
+          'area."placeCode" IN (:...placeCodes)',
+          { placeCodes: placeCodes },
+        );
+      }
+    } else {
+      adminAreasScript = adminAreasScript.addSelect(
+        `null AS ${actionUnits[0]}`,
       );
     }
-
     const adminAreas = await adminAreasScript.getRawMany();
+    console.log('adminAreas: ', adminAreas);
 
     return this.helperService.toGeojson(adminAreas);
   }

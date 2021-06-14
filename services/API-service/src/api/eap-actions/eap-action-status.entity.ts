@@ -1,10 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinTable,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { UserEntity } from '../user/user.entity';
 import { EapActionEntity } from './eap-action.entity';
@@ -28,7 +22,6 @@ export class EapActionStatusEntity {
     (eventPlaceCode): EapActionStatusEntity[] =>
       eventPlaceCode.eapActionStatuses,
   )
-  @JoinTable()
   public eventPlaceCode: EventPlaceCodeEntity;
 
   @Column()
