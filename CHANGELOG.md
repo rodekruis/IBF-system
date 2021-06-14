@@ -1,3 +1,12 @@
+## [0.64.3](https://github.com/rodekruis/IBF-system/compare/v0.64.2...v0.64.3) (2021-06-14)
+
+
+### Bug Fixes
+
+* add authorization to script endpoints ([8850e62](https://github.com/rodekruis/IBF-system/commit/8850e6202c9e364eba8ebd993325b24a3f2e8358))
+
+
+
 ## [0.64.2](https://github.com/rodekruis/IBF-system/compare/v0.64.1...v0.64.2) (2021-06-11)
 
 
@@ -135,15 +144,6 @@
 * Close event at the end of month for month lead time AB[#7408](https://github.com/rodekruis/IBF-system/issues/7408) ([5118366](https://github.com/rodekruis/IBF-system/commit/51183668415e62c4d7e683ec84f8b89e1fafeacf))
 * multiple dynamic layers in frontend AB[#7409](https://github.com/rodekruis/IBF-system/issues/7409) ([32971fa](https://github.com/rodekruis/IBF-system/commit/32971fa3b5f6d42a2915f2f9e1484d63f0a3bae6))
 * store and serve dynamic admin area data AB[#7417](https://github.com/rodekruis/IBF-system/issues/7417) ([716c6d6](https://github.com/rodekruis/IBF-system/commit/716c6d6c17d4c73a90b9937fc5580d066dd7a189))
-
-
-
-## [0.59.3](https://github.com/rodekruis/IBF-system/compare/v0.59.2...v0.59.3) (2021-05-11)
-
-
-### Bug Fixes
-
-* update readme AB[#7563](https://github.com/rodekruis/IBF-system/issues/7563) ([667c279](https://github.com/rodekruis/IBF-system/commit/667c2799c2a24cd032280900bc8b1a6242431cd9))
 
 
 
