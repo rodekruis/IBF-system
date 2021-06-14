@@ -1,5 +1,17 @@
 .ibf-admin-level-buttons {
+  margin-left: 5px;
   .ibf-admin-level-button {
-    margin-right: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
+    text-transform: uppercase;
+    height: 16px;
+    font-size: 7px;
+    font-weight: 700;
   }
+}
+
+ion-button {
+  border: 1px solid var(--ion-color-ibf-primary);
+  --border-radius: 0;
+  --box-shadow: none;
 }

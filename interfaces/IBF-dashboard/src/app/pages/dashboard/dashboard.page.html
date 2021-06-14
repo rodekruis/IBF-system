@@ -6,7 +6,7 @@
 >
   <ion-menu-toggle menu="dev-control">
     <ion-header>
-      <ion-toolbar color="ibf-royal-blue">
+      <ion-toolbar color="ibf-primary">
         <ion-buttons slot="start">
           <ion-icon name="chevron-back-outline"></ion-icon>
         </ion-buttons>
@@ -83,12 +83,16 @@
             data-test="dashboard-title"
           >
             <ion-col size="12">
-              <ion-item lines="none" class="component-title-item">
+              <ion-item
+                lines="none"
+                class="component-title-item"
+                color="ibf-primary"
+              >
                 <ion-button
                   slot="start"
                   class="ion-margin-end today-button"
-                  color="transparent"
                   [disabled]="true"
+                  color="ibf-primary"
                 >
                   <span
                     class="today"
@@ -125,7 +129,7 @@
               sizeXl="5"
               class="ibf-dashboard-left-column-right-sub-column"
             >
-              <ion-content>
+              <ion-content color="ibf-tertiary">
                 <ion-grid
                   class="ibf-dashboard-left-column-right-sub-column-grid ion-justify-content-between ion-no-padding"
                 >

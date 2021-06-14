@@ -509,11 +509,11 @@ export class MapComponent implements OnDestroy {
     const forecastValue = feature['properties']['indicators'][layer.name];
     const featureTriggered = forecastValue > thresholdValue;
     const headerColor = featureTriggered
-      ? 'var(--ion-color-ibf-salmon)'
-      : 'var(--ion-color-ibf-royal-blue)';
+      ? 'var(--ion-color-ibf-triggered-primary)'
+      : 'var(--ion-color-ibf-non-triggered-primary)';
     const headerTextColor = featureTriggered
-      ? 'var(--ion-color-ibf-black)'
-      : 'var(--ion-color-ibf-white)';
+      ? 'var(--ion-color-ibf-triggered-primary-contrast)'
+      : 'var(--ion-color-ibf-non-triggered-primary-contrast)';
     const title = feature.properties.name;
 
     let lastAvailableLeadTime: LeadTime;
@@ -526,8 +526,8 @@ export class MapComponent implements OnDestroy {
     const timeUnit = lastAvailableLeadTime.split('-')[1];
     const subtitle = `${layer.label} for ${timeUnit} selected`;
     const eapStatusColor = featureTriggered
-      ? 'var(--ion-color-ibf-salmon)'
-      : 'var(--ion-color-ibf-royal-blue)';
+      ? 'var(--ion-color-ibf-triggered-primary)'
+      : 'var(--ion-color-ibf-non-triggered-primary)';
     const eapStatusText = featureTriggered
       ? 'ACTIVATE EARLY ACTIONS'
       : 'No action';
@@ -785,7 +785,7 @@ export class MapComponent implements OnDestroy {
     const headerColor =
       glofasProbability > eapAlertClasses.max.valueLow
         ? eapStatusColor
-        : 'var(--ion-color-ibf-royal-blue)';
+        : 'var(--ion-color-ibf-non-triggered-primary)';
     const headerTextColor =
       glofasProbability > eapAlertClasses.max.valueLow
         ? 'var(--ion-color-ibf-black)'

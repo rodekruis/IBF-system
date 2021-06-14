@@ -125,6 +125,7 @@ export class AdminAreaService {
     leadTime: string,
     adminLevel: number,
   ): Promise<GeoJson> {
+    console.log('countryCodeISO3: ', countryCodeISO3);
     const actionUnits = await this.countryService.getActionsUnitsForCountry(
       countryCodeISO3,
     );
@@ -179,6 +180,7 @@ export class AdminAreaService {
       );
     }
     const adminAreas = await adminAreasScript.getRawMany();
+    console.log('adminAreas: ', adminAreas);
 
     return this.helperService.toGeojson(adminAreas);
   }

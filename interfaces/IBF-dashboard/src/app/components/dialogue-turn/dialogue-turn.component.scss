@@ -23,7 +23,6 @@
     height: 40px !important;
 
     &.self-avatar {
-      background: var(--ion-color-medium);
       margin-right: 0.5em;
     }
 
@@ -72,7 +71,7 @@
 .dialogue-turn.is-other {
   .dialogue-turn--speech-arrow {
     left: var(--dialogue-turn--margin-around-card-horizontal);
-    border-right-color: var(--ion-color-ibf-gray);
+    border-right-color: var(--ion-color-ibf-non-triggered-tertiary);
   }
 
   // Adjust for RTL: (Limited support: https://developer.mozilla.org/en-US/docs/Web/CSS/:dir#Browser_compatibility)

@@ -65,9 +65,11 @@ export class EventService {
     const dashboardElement = document.getElementById('ibf-dashboard-interface');
     if (dashboardElement) {
       if (this.state.activeTrigger) {
+        dashboardElement.classList.remove('no-alert');
         dashboardElement.classList.add('trigger-alert');
       } else {
         dashboardElement.classList.remove('trigger-alert');
+        dashboardElement.classList.add('no-alert');
       }
     }
   };
