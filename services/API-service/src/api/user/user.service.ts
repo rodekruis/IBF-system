@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getRepository, In } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
-import { UserRO } from './user.interface';
+import { UserResponseObject } from './user.model';
 import { validate } from 'class-validator';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { HttpStatus } from '@nestjs/common';
@@ -41,7 +41,7 @@ export class UserService {
     });
   }
 
-  public async create(dto: CreateUserDto): Promise<UserRO> {
+  public async create(dto: CreateUserDto): Promise<UserResponseObject> {
     // check uniqueness of username
     const { email, password } = dto;
     const qb = await getRepository(UserEntity)
@@ -85,7 +85,10 @@ export class UserService {
     }
   }
 
-  public async update(userId: string, dto: UpdatePasswordDto): Promise<UserRO> {
+  public async update(
+    userId: string,
+    dto: UpdatePasswordDto,
+  ): Promise<UserResponseObject> {
     let toUpdate = await this.userRepository.findOne(userId, {
       relations: this.relations,
     });
@@ -119,7 +122,7 @@ export class UserService {
     await this.userRepository.delete(user.userId);
   }
 
-  public async findById(userId: string): Promise<UserRO> {
+  public async findById(userId: string): Promise<UserResponseObject> {
     const user = await this.userRepository.findOne(userId, {
       relations: this.relations,
     });
@@ -131,7 +134,7 @@ export class UserService {
     return this.buildUserRO(user);
   }
 
-  public async findByUsername(username: string): Promise<UserRO> {
+  public async findByUsername(username: string): Promise<UserResponseObject> {
     const user = await this.userRepository.findOne(
       { username: username },
       {
@@ -146,7 +149,7 @@ export class UserService {
     return this.buildUserRO(user);
   }
 
-  public async findByEmail(email: string): Promise<UserRO> {
+  public async findByEmail(email: string): Promise<UserResponseObject> {
     const user = await this.userRepository.findOne(
       { email: email },
       {
@@ -187,7 +190,7 @@ export class UserService {
     return result;
   }
 
-  private buildUserRO(user: UserEntity): UserRO {
+  private buildUserRO(user: UserEntity): UserResponseObject {
     const userRO = {
       email: user.email,
       token: this.generateJWT(user),
