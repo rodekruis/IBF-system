@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
+import { DateTime } from 'luxon';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
+import {
+  LeadTime,
+  LeadTimeTriggerKey,
+  LeadTimeUnit,
+} from 'src/app/types/lead-time';
 import { Country } from '../models/country.model';
 
 @Injectable({
@@ -19,7 +24,7 @@ export class EventService {
     newEventEarlyTrigger: null,
     triggerLeadTime: null,
     firstLeadTime: null,
-    firstLeadTimeNumberString: null,
+    firstLeadTimeName: null,
   };
 
   constructor(
@@ -82,12 +87,34 @@ export class EventService {
       }
     });
     this.state.firstLeadTime = firstKey;
-    this.state.firstLeadTimeNumberString = String(
-      this.state.firstLeadTime.replace(/[^\d]/g, ''),
-    );
+    this.getFirstTriggeredMonth();
     this.state.newEventEarlyTrigger =
       firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
   };
+
+  private getFirstTriggeredMonth(): void {
+    const timeUnitsInFuture = Number(this.state.firstLeadTime.split('-')[0]);
+    let futureDateTime: DateTime;
+    const today = DateTime.now();
+    if (this.state.firstLeadTime.includes('day')) {
+      futureDateTime = today.plus({ days: Number(timeUnitsInFuture) });
+    } else {
+      futureDateTime = today.plus({ months: Number(timeUnitsInFuture) });
+    }
+    const monthString = new Date(
+      futureDateTime.year,
+      futureDateTime.month - 1,
+      1,
+    ).toLocaleString('default', { month: 'long' });
+    if (
+      this.state.firstLeadTime &&
+      this.state.firstLeadTime.split('-')[1] === LeadTimeUnit.month
+    ) {
+      this.state.firstLeadTimeName = `${monthString} ${futureDateTime.year}`;
+    } else {
+      this.state.firstLeadTimeName = `${futureDateTime.day} ${monthString} ${futureDateTime.year}`;
+    }
+  }
 
   private getFirstTriggerDate() {
     if (this.country) {

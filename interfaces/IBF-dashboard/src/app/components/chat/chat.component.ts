@@ -99,21 +99,17 @@ export class ChatComponent implements OnInit, OnDestroy {
       // We will build in a 'selectedDisasterType' variable once that is needed.
       this.disasterTypeLabel = country.disasterTypes[0].label;
       this.disasterTypeName = country.disasterTypes[0].disasterType;
-      this.disasterCategory =
-        this.disasterTypeName === DisasterTypeKey.dengue
-          ? `${DisasterTypeKey.dengue}.`
-          : '';
-
       const activeEventsSelector = 'active-event';
       const updateSuccesSelector = 'update-success';
       const updateFailureSelector = 'update-failure';
-      if (this.disasterCategory === DisasterTypeKey.dengue) {
+      if (this.disasterTypeName === DisasterTypeKey.dengue) {
         this.updateSuccessMessage = this.translatedStrings[
           DisasterTypeKey.dengue
         ][activeEventsSelector][updateSuccesSelector];
         this.updateFailureMessage = this.translatedStrings[
           DisasterTypeKey.dengue
         ][activeEventsSelector][updateFailureSelector];
+        this.disasterCategory = `${DisasterTypeKey.dengue}.`;
       } else {
         this.updateSuccessMessage = this.translatedStrings[
           activeEventsSelector
@@ -121,6 +117,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.updateFailureMessage = this.translatedStrings[
           activeEventsSelector
         ][updateFailureSelector];
+        this.disasterCategory = '';
       }
       this.changeDetectorRef.detectChanges();
     }
