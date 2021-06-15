@@ -19,7 +19,7 @@ export class UserStateComponent implements OnDestroy {
   private authSubscription: Subscription;
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private loaderService: LoaderService,
     private analyticsService: AnalyticsService,
     private eventService: EventService,
