@@ -7,13 +7,14 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { Country } from 'src/app/models/country.model';
+import { Country, DisasterType } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EapAction } from 'src/app/types/eap-action';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 
@@ -97,21 +98,24 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.disasterTypeLabel = country.disasterTypes[0].label;
       this.disasterTypeName = country.disasterTypes[0].disasterType;
       this.disasterCategory =
-        this.disasterTypeName === 'dengue' ? 'dengue' : '';
+        this.disasterTypeName === DisasterTypeKey.dengue ? DisasterTypeKey.dengue : '';
 
-      if (this.disasterCategory === 'dengue') {
-        this.updateSuccessMessage = this.translatedStrings['dengue'][
-          'active-event'
-        ]['update-success'];
-        this.updateFailureMessage = this.translatedStrings['dengue'][
-          'active-event'
-        ]['update-failure'];
+      const activeEventsSelector = 'active-event'
+      const updateSuccesSelector = 'update-success'
+      const updateFailureSelector = 'update-failure'
+      if (this.disasterCategory === DisasterTypeKey.dengue) {
+        this.updateSuccessMessage = this.translatedStrings[DisasterTypeKey.dengue][
+          activeEventsSelector
+        ][updateSuccesSelector];
+        this.updateFailureMessage = this.translatedStrings[DisasterTypeKey.dengue][
+          activeEventsSelector
+        ][updateFailureSelector];
       } else {
-        this.updateSuccessMessage = this.translatedStrings['active-event'][
-          'update-success'
+        this.updateSuccessMessage = this.translatedStrings[activeEventsSelector][
+          updateSuccesSelector
         ];
-        this.updateFailureMessage = this.translatedStrings['active-event'][
-          'update-failure'
+        this.updateFailureMessage = this.translatedStrings[activeEventsSelector][
+          updateFailureSelector
         ];
       }
       this.changeDetectorRef.detectChanges();
