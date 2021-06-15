@@ -489,7 +489,8 @@ export class MapComponent implements OnDestroy {
     feature,
     thresholdValue: number,
   ): string {
-    const forecastValue = feature['properties'][layer.colorProperty];
+    const properties = 'properties';
+    const forecastValue = feature[properties][layer.colorProperty];
     const featureTriggered = forecastValue > thresholdValue;
     const headerColor = featureTriggered
       ? 'var(--ion-color-ibf-trigger-alert-primary)'
