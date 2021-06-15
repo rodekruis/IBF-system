@@ -509,9 +509,7 @@ export class MapComponent implements OnDestroy {
 
     const timeUnit = lastAvailableLeadTime.split('-')[1];
 
-    // The layer name (Potentical cases) should be set dynamically.
-    // It is hardcodes for now because of potential refactors
-    const subtitle = `Potential cases for current ${timeUnit} selected`;
+    const subtitle = `${layer.label} for current ${timeUnit} selected`;
     const eapStatusColor = featureTriggered
       ? 'var(--ion-color-ibf-trigger-alert-primary)'
       : 'var(--ion-color-ibf-no-alert-primary)';
