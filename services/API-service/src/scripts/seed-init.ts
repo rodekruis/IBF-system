@@ -51,7 +51,7 @@ export class SeedInit implements InterfaceScript {
     const disasterRepository = this.connection.getRepository(DisasterEntity);
     const disasterEntities = disasters.map(
       (disaster): DisasterEntity => {
-        let disasterEntity = new DisasterEntity();
+        const disasterEntity = new DisasterEntity();
         disasterEntity.disasterType = disaster.disasterType as DisasterType;
         disasterEntity.label = disaster.label;
         disasterEntity.triggerUnit = disaster.triggerUnit;
@@ -69,7 +69,7 @@ export class SeedInit implements InterfaceScript {
     const leadTimeEntities = await Promise.all(
       leadTimes.map(
         async (leadTime): Promise<LeadTimeEntity> => {
-          let leadTimeEntity = new LeadTimeEntity();
+          const leadTimeEntity = new LeadTimeEntity();
           leadTimeEntity.leadTimeName = leadTime.leadTimeName;
           leadTimeEntity.leadTimeLabel = leadTime.leadTimeLabel;
           leadTimeEntity.disasterTypes = await disasterRepository.find({
@@ -96,7 +96,7 @@ export class SeedInit implements InterfaceScript {
     const countryEntities = await Promise.all(
       selectedCountries.map(
         async (country): Promise<CountryEntity> => {
-          let countryEntity = new CountryEntity();
+          const countryEntity = new CountryEntity();
           countryEntity.countryCodeISO3 = country.countryCodeISO3;
           countryEntity.countryCodeISO2 = country.countryCodeISO2;
           countryEntity.countryName = country.countryName;
@@ -145,7 +145,7 @@ export class SeedInit implements InterfaceScript {
     const userEntities = await Promise.all(
       selectedUsers.map(
         async (user): Promise<UserEntity> => {
-          let userEntity = new UserEntity();
+          const userEntity = new UserEntity();
           userEntity.email = user.email;
           userEntity.username = user.username;
           userEntity.firstName = user.firstName;

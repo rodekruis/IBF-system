@@ -3,15 +3,13 @@ import { GeoJson, GeoJsonFeature } from './geo.model';
 
 @Injectable()
 export class HelperService {
-  public constructor() {}
-
   public toGeojson(rawResult): GeoJson {
     const geoJson: GeoJson = {
       type: 'FeatureCollection',
       features: [],
     };
     rawResult.forEach((i): void => {
-      let feature: GeoJsonFeature = {
+      const feature: GeoJsonFeature = {
         type: 'Feature',
         geometry: i.geom,
         properties: {},

@@ -23,7 +23,7 @@ export class SeedHelper {
     const stream = new Readable();
     stream.push(buffer.toString());
     stream.push(null);
-    let parsedData = [];
+    const parsedData = [];
     return await new Promise((resolve, reject): void => {
       stream
         .pipe(csv({ separator: separator }))

@@ -72,7 +72,7 @@ export class EventService {
     uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ): Promise<void> {
     const triggersPerLeadTime: TriggerPerLeadTime[] = [];
-    for (let leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
+    for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
       // Delete duplicates
       await this.triggerPerLeadTimeRepository.delete({
         date: new Date(),

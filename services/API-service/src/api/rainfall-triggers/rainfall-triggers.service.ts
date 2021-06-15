@@ -10,8 +10,6 @@ export class RainfallTriggersService {
     RainfallTriggersEntity
   >;
 
-  public constructor() {}
-
   public async getTriggerLevelsByCountry(
     countryCodeISO3,
   ): Promise<RainfallTriggersEntity[]> {

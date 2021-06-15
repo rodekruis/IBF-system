@@ -2,8 +2,6 @@ import * as jwt from 'jsonwebtoken';
 import { User } from '../api/user/user.model';
 
 export class BaseController {
-  public constructor() {}
-
   protected getUserIdFromToken(authorization): string {
     if (!authorization) return null;
 

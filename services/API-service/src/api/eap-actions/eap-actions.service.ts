@@ -21,8 +21,6 @@ export class EapActionsService {
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepository: Repository<EventPlaceCodeEntity>;
 
-  public constructor() {}
-
   public async checkAction(
     userId: string,
     eapAction: EapActionDto,

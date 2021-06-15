@@ -14,8 +14,6 @@ export class AdminAreaDataService {
   @InjectRepository(AdminAreaDataEntity)
   private readonly adminAreaDataRepository: Repository<AdminAreaDataEntity>;
 
-  public constructor() {}
-
   public async updateOrCreate(data): Promise<void> {
     const objArray = await this.csvBufferToArray(data.buffer);
     const validatedObjArray = await this.validateArray(objArray);
@@ -33,7 +31,7 @@ export class AdminAreaDataService {
     const stream = new Readable();
     stream.push(buffer.toString());
     stream.push(null);
-    let parsedData = [];
+    const parsedData = [];
     return await new Promise(function(resolve, reject) {
       stream
         .pipe(csv())
@@ -49,7 +47,7 @@ export class AdminAreaDataService {
     const errors = [];
     const validatatedArray = [];
     for (const [i, row] of csvArray.entries()) {
-      let data = new UploadAdminAreaDataDto();
+      const data = new UploadAdminAreaDataDto();
       data.countryCodeISO3 = row.countryCodeISO3;
       data.adminLevel = parseInt(row.adminLevel);
       data.placeCode = row.placeCode;

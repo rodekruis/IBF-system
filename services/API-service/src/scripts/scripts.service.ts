@@ -32,11 +32,10 @@ export class ScriptsService {
 
   public async mockCountry(mockInput: MockDynamic) {
     if (mockInput.removeEvents) {
-      const all = await this.eventPlaceCodeRepo.find()
-      await this.eventPlaceCodeRepo.remove(all)
+      const all = await this.eventPlaceCodeRepo.find();
+      await this.eventPlaceCodeRepo.remove(all);
     }
 
-    console.time('Mocking a country')
     const selectedCountry = countries.find((country): any => {
       if (mockInput.countryCodeISO3 === country.countryCodeISO3) {
         return country;
@@ -49,7 +48,6 @@ export class ScriptsService {
       await this.mockGlofasStations(selectedCountry, mockInput.triggered);
       await this.mockTriggerPerLeadTime(selectedCountry, mockInput.triggered);
     }
-    console.timeEnd('Mocking a country')
   }
 
   private async mockExposure(selectedCountry, triggered: boolean) {
@@ -69,12 +67,11 @@ export class ScriptsService {
     for (const unit of exposureUnits) {
       let exposureFileNameEnd: string;
       if (unit === DynamicIndicator.potentialThreshold) {
-        exposureFileNameEnd = '-potential-cases-threshold'
+        exposureFileNameEnd = '-potential-cases-threshold';
       } else {
-        exposureFileNameEnd = triggered ? '-triggered' : ''
+        exposureFileNameEnd = triggered ? '-triggered' : '';
       }
-      const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/upload-exposure-${selectedCountry.countryCodeISO3
-        }${exposureFileNameEnd}.json`;
+      const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/upload-exposure-${selectedCountry.countryCodeISO3}${exposureFileNameEnd}.json`;
 
       const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
       const exposure = JSON.parse(exposureRaw);
@@ -97,9 +94,8 @@ export class ScriptsService {
   private mockAmount(
     exposurePlacecodes: any,
     exposureUnit: DynamicIndicator,
-    triggered: boolean
-  ): [] {
-    console.time('Mock amount')
+    triggered: boolean,
+  ): any[] {
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     for (const pcodeData of copyOfExposureUnit) {
       if (exposureUnit === DynamicIndicator.potentialCases65) {
@@ -108,13 +104,20 @@ export class ScriptsService {
         pcodeData.amount = Math.round(pcodeData.amount * 0.2);
       } else if (exposureUnit === DynamicIndicator.alertThreshold) {
         if (!triggered) {
-          pcodeData.amount = 0
+          pcodeData.amount = 0;
         } else {
-          pcodeData.amount = ['PH137500000', 'PH137400000', 'PH133900000', 'PH137600000', 'PH031400000'].includes(pcodeData.placeCode) ? 1 : 0
-          }
+          pcodeData.amount = [
+            'PH137500000',
+            'PH137400000',
+            'PH133900000',
+            'PH137600000',
+            'PH031400000',
+          ].includes(pcodeData.placeCode)
+            ? 1
+            : 0;
         }
+      }
     }
-    console.timeEnd('Mock amount')
     return copyOfExposureUnit;
   }
 

@@ -40,7 +40,7 @@ export class ValidationPipe implements PipeTransform<string> {
   private buildError(errors): object {
     const result: object = {};
     errors.forEach((el): void => {
-      let prop = el.property;
+      const prop = el.property;
       Object.entries(el.constraints).forEach((constraint): void => {
         result[prop + constraint[0]] = `${constraint[1]}`;
       });
