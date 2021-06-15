@@ -50,7 +50,7 @@
     }
   },
   "areas-of-focus-summary-component": {
-    "title": "EAP Actions Summary"
+    "title": "Actions Summary"
   },
   "chat-component": {
     "about-button-label": "About Trigger",
@@ -92,7 +92,7 @@
         "new-event-early-trigger": "The system however detects an alert as soon as <strong>{{ timeUnits }} month(s) from now</strong>, which was not detectable earlier."
       },
       "active-event-active-trigger": {
-        "welcome": "Hello {{ name }}. A {{ disasterTypeLabel }} alert has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ days }} month(s)</strong> away."
+        "welcome": "Hello {{ name }}. A {{ disasterTypeLabel }} alert has earlier been activated on <strong>{{ startDate }}</strong>. The trigger is activated for <strong>{{ monthYear }}</strong>."
       },
       "active-event-no-trigger": {
         "welcome": "Hello {{ name }}. There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."

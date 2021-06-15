@@ -87,12 +87,12 @@ export class EventService {
       }
     });
     this.state.firstLeadTime = firstKey;
-    this.getFirstTriggeredMonth();
+    this.getFirstTriggeredString();
     this.state.newEventEarlyTrigger =
       firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
   };
 
-  private getFirstTriggeredMonth(): void {
+  private getFirstTriggeredString(): void {
     const timeUnitsInFuture = Number(this.state.firstLeadTime.split('-')[0]);
     let futureDateTime: DateTime;
     const today = DateTime.now();
