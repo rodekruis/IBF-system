@@ -5,8 +5,11 @@
   >
     <p
       [innerHTML]="
-        'chat-component.' + disasterCategory + '.no-event-no-trigger.welcome'
+        'chat-component.' + disasterCategory + 'no-event-no-trigger.welcome'
           | translate
+            : {
+                name: authService.displayName
+              }
       "
     ></p>
     <app-about-btn
@@ -28,9 +31,10 @@
         [innerHTML]="
           'chat-component.' +
             disasterCategory +
-            '.new-event-active-trigger.welcome'
+            'new-event-active-trigger.welcome'
             | translate
               : {
+                  name: authService.displayName,
                   timeUnits: eventService.state.triggerLeadTime,
                   disasterTypeLabel: disasterTypeLabel
                 }
@@ -42,7 +46,7 @@
         [innerHTML]="
           'chat-component.' +
             disasterCategory +
-            '.new-event-active-trigger.new-event-early-trigger'
+            'new-event-active-trigger.new-event-early-trigger'
             | translate
               : {
                   timeUnits: eventService.state.firstLeadTime,
@@ -54,7 +58,7 @@
     <app-about-btn
       data-test="chat-about-trigger"
       [btnLabel]="
-        'chat-component.' + disasterCategory + '.about-button-label' | translate
+        'chat-component.' + disasterCategory + 'about-button-label' | translate
       "
       color="ibf-white"
     >
@@ -76,9 +80,10 @@
       [innerHTML]="
         'chat-component.' +
           disasterCategory +
-          '.active-event-active-trigger.welcome'
+          'active-event-active-trigger.welcome'
           | translate
             : {
+                name: authService.displayName,
                 startDate: eventService.state.event.startDate,
                 timeUnits: eventService.state.firstLeadTime,
                 disasterTypeLabel: disasterTypeLabel
@@ -87,7 +92,7 @@
     ></p>
     <app-about-btn
       [btnLabel]="
-        'chat-component.' + disasterCategory + '.about-button-label' | translate
+        'chat-component.' + disasterCategory + 'about-button-label' | translate
       "
       color="ibf-white"
     ></app-about-btn>
@@ -104,6 +109,7 @@
           '.active-event-no-trigger.welcome'
           | translate
             : {
+                name: authService.displayName,
                 startDate: eventService.state.event.startDate,
                 endDate: eventService.state.event.endDate
               }
@@ -111,7 +117,7 @@
     ></p>
     <app-about-btn
       [btnLabel]="
-        'chat-component.' + disasterCategory + '.about-button-label' | translate
+        'chat-component.' + disasterCategory + 'about-button-label' | translate
       "
       color="ibf-white"
     ></app-about-btn>
@@ -121,7 +127,7 @@
     <app-dialogue-turn isConnected="true">
       <p
         [translate]="
-          'chat-component.' + disasterCategory + '.active-event.instruction'
+          'chat-component.' + disasterCategory + 'active-event.instruction'
             | translate
         "
       ></p>
@@ -151,7 +157,7 @@
             <ion-note
               size="small"
               [innerHTML]="
-                'chat-component.' + disasterCategory + '.active-event.exposed'
+                'chat-component.' + disasterCategory + 'active-event.exposed'
                   | translate
                     : {
                         exposedNumber: area['actionsValue'] | number: '.0-0'

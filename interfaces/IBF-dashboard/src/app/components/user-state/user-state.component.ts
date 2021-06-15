@@ -6,7 +6,6 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { User } from 'src/app/models/user/user.model';
 import { EventService } from 'src/app/services/event.service';
 import { LoaderService } from 'src/app/services/loader.service';
 
@@ -24,24 +23,11 @@ export class UserStateComponent implements OnDestroy {
     private loaderService: LoaderService,
     private analyticsService: AnalyticsService,
     private eventService: EventService,
-  ) {
-    this.authSubscription = this.authService
-      .getAuthSubscription()
-      .subscribe(this.setDisplayName);
-  }
+  ) {}
 
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
   }
-
-  setDisplayName = (user: User) => {
-    this.displayName = user
-      ? user.firstName +
-        (user.middleName ? ' ' + user.middleName : '') +
-        ' ' +
-        user.lastName
-      : '';
-  };
 
   public doLogout() {
     this.analyticsService.logEvent(AnalyticsEvent.logOut, {

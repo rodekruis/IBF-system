@@ -7,6 +7,7 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -50,6 +51,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(
     private eapActionsService: EapActionsService,
+    public authService: AuthService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private countryService: CountryService,
@@ -99,7 +101,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.disasterTypeName = country.disasterTypes[0].disasterType;
       this.disasterCategory =
         this.disasterTypeName === DisasterTypeKey.dengue
-          ? DisasterTypeKey.dengue
+          ? `${DisasterTypeKey.dengue}.`
           : '';
 
       const activeEventsSelector = 'active-event';

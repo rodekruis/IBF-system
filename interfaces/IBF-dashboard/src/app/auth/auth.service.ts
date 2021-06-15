@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/models/user/user.model';
 import { ApiService } from 'src/app/services/api.service';
 import { JwtService } from 'src/app/services/jwt.service';
@@ -9,11 +9,13 @@ import { UserRole } from '../models/user/user-role.enum';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
   private loggedIn = false;
   private userRole: UserRole;
   public redirectUrl: string;
   private authSubject = new BehaviorSubject<User>(null);
+  public displayName: string;
+  private authSubscription: Subscription;
 
   constructor(
     private apiService: ApiService,
@@ -21,6 +23,13 @@ export class AuthService {
     private router: Router,
   ) {
     this.checkLoggedInState();
+    this.authSubscription = this.getAuthSubscription().subscribe(
+      this.setDisplayName,
+    );
+  }
+
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
   }
 
   getAuthSubscription = (): Observable<User> => {
@@ -113,4 +122,13 @@ export class AuthService {
     this.authSubject.next(null);
     this.router.navigate(['/login']);
   }
+
+  setDisplayName = (user: User) => {
+    this.displayName = user
+      ? user.firstName +
+        (user.middleName ? ' ' + user.middleName : '') +
+        ' ' +
+        user.lastName
+      : '';
+  };
 }
