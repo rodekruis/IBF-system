@@ -7,7 +7,7 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { Country, DisasterType } from 'src/app/models/country.model';
+import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -98,25 +98,27 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.disasterTypeLabel = country.disasterTypes[0].label;
       this.disasterTypeName = country.disasterTypes[0].disasterType;
       this.disasterCategory =
-        this.disasterTypeName === DisasterTypeKey.dengue ? DisasterTypeKey.dengue : '';
+        this.disasterTypeName === DisasterTypeKey.dengue
+          ? DisasterTypeKey.dengue
+          : '';
 
-      const activeEventsSelector = 'active-event'
-      const updateSuccesSelector = 'update-success'
-      const updateFailureSelector = 'update-failure'
+      const activeEventsSelector = 'active-event';
+      const updateSuccesSelector = 'update-success';
+      const updateFailureSelector = 'update-failure';
       if (this.disasterCategory === DisasterTypeKey.dengue) {
-        this.updateSuccessMessage = this.translatedStrings[DisasterTypeKey.dengue][
+        this.updateSuccessMessage = this.translatedStrings[
+          DisasterTypeKey.dengue
+        ][activeEventsSelector][updateSuccesSelector];
+        this.updateFailureMessage = this.translatedStrings[
+          DisasterTypeKey.dengue
+        ][activeEventsSelector][updateFailureSelector];
+      } else {
+        this.updateSuccessMessage = this.translatedStrings[
           activeEventsSelector
         ][updateSuccesSelector];
-        this.updateFailureMessage = this.translatedStrings[DisasterTypeKey.dengue][
+        this.updateFailureMessage = this.translatedStrings[
           activeEventsSelector
         ][updateFailureSelector];
-      } else {
-        this.updateSuccessMessage = this.translatedStrings[activeEventsSelector][
-          updateSuccesSelector
-        ];
-        this.updateFailureMessage = this.translatedStrings[activeEventsSelector][
-          updateFailureSelector
-        ];
       }
       this.changeDetectorRef.detectChanges();
     }

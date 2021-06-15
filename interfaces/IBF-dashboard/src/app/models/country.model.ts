@@ -1,5 +1,5 @@
-import { DisasterTypeKey } from './../types/disaster-type-key';
 import { AdminLevel } from 'src/app/types/admin-level';
+import { DisasterTypeKey } from './../types/disaster-type-key';
 import { LeadTime } from './../types/lead-time';
 export class Country {
   countryCodeISO3: string;
