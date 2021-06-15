@@ -18,7 +18,7 @@ export const LEAFLET_MARKER_ICON_OPTIONS_BASE: IconOptions = {
   iconRetinaUrl: 'assets/markers/glofas-no.svg',
 };
 
-'health _facility.png'
+('health _facility.png');
 
 export const LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,

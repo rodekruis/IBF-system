@@ -1,4 +1,3 @@
-import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-component/backend-mock-scenario.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -29,6 +28,7 @@ import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
 import { VideoGuideButtonComponent } from './components/video-guide-button/video-guide-button.component';
 import { VideoPopoverComponent } from './components/video-popover/video-popover.component';
+import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-component/backend-mock-scenario.component';
 
 @NgModule({
   imports: [

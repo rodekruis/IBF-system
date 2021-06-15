@@ -21,7 +21,7 @@ import {
   IbfLayerType,
   IbfLayerWMS,
 } from 'src/app/types/ibf-layer';
-import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
+import { Indicator } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
@@ -351,6 +351,24 @@ export class MapService {
     }
   }
 
+  public loadOutlineLayer(indicator: Indicator) {
+    if (this.country) {
+      if (indicator.active && this.timelineService.activeLeadTime) {
+        this.getCombineAdminRegionData(
+          this.country.countryCodeISO3,
+          this.adminLevelService.adminLevel,
+          this.timelineService.activeLeadTime,
+          indicator.name,
+          indicator.dynamic,
+        ).subscribe((adminRegions) => {
+          this.addOutlineLayer(indicator, adminRegions);
+        });
+      } else {
+        this.addOutlineLayer(indicator, null);
+      }
+    }
+  }
+
   private addAggregateLayer(indicator: Indicator, adminRegions: any) {
     this.addLayer({
       name: indicator.name,
@@ -365,10 +383,28 @@ export class MapService {
       colorBreaks: indicator.colorBreaks,
       numberFormatMap: indicator.numberFormatMap,
       legendColor: '#969696',
-      group:
-        indicator.group === IndicatorGroup.outline
-          ? IbfLayerGroup.outline
-          : IbfLayerGroup.aggregates,
+      group: IbfLayerGroup.aggregates,
+      order: 20 + indicator.order,
+      dynamic: indicator.dynamic,
+      unit: indicator.unit,
+    });
+  }
+
+  private addOutlineLayer(indicator: Indicator, adminRegions: any) {
+    this.addLayer({
+      name: indicator.name,
+      label: indicator.label,
+      type: IbfLayerType.shape,
+      description: this.getPopoverText(indicator.name),
+      active: indicator.active,
+      show: true,
+      data: adminRegions,
+      viewCenter: true,
+      colorProperty: indicator.name,
+      colorBreaks: indicator.colorBreaks,
+      numberFormatMap: indicator.numberFormatMap,
+      legendColor: '#969696',
+      group: IbfLayerGroup.outline,
       order: 20 + indicator.order,
       dynamic: indicator.dynamic,
       unit: indicator.unit,
@@ -592,7 +628,10 @@ export class MapService {
           adminLevel,
         )
         .pipe(shareReplay(1));
-    } else if (layer.group === IbfLayerGroup.aggregates || layer.group === IbfLayerGroup.outline ) {
+    } else if (
+      layer.group === IbfLayerGroup.aggregates ||
+      layer.group === IbfLayerGroup.outline
+    ) {
       layerData = this.getCombineAdminRegionData(
         this.country.countryCodeISO3,
         this.adminLevelService.adminLevel,
