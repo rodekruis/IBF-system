@@ -35,7 +35,7 @@ SETTINGS = {
             'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/35e3a47b-65d0-9b15-ad8f-ac19300ef5b6.png",
             'triggerStatement': "TBD",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
-            'linkEAPSOP': "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#heading=h.gjdgxs",
+            'linkEAPSOP': "https://adore.ifrc.org/Download.aspx?FileId=357745",
             'linkSocialMedia': {
                 "type": "WhatsApp",
                 "url": "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin/"
@@ -80,12 +80,12 @@ SETTINGS = {
                 "rasterValue": 1
             }
         },
-        'bounding_box': [5, 33, -4, 42],        
+        'bounding_box': [5, 33, -4, 42],
         'email': {
             'logo': "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png",
             'triggerStatement': "TBD",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
-            'linkEAPSOP': "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/"      ,  
+            'linkEAPSOP': "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/",
             'linkSocialMedia': {
                 "type": "WhatsApp",
                 "url": "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/"
