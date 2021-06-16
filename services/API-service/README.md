@@ -70,6 +70,10 @@ This applications uses [JSON Web Token](https://jwt.io/) (JWT) to handle authent
 
 ---
 
+## Documentation
+
+We use [NestJS OpenAPI](https://docs.nestjs.com/openapi/introduction) for documentation. An example is explained in the [documentation guide](./DOCUMENATION.md).
+
 ## Migration scripts
 
 We use TypeORM migrations to handle changes to the datamodel. This means that developers need to generate migration-files locally upon datamodel changes, which are subsequently (automatically) run before the API-service starts in another environment (both remote server and local environment of other developer).

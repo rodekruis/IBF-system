@@ -1,9 +1,22 @@
-import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
-import { ApiOperation, ApiProperty } from '@nestjs/swagger';
+import {
+  Controller,
+  Post,
+  Body,
+  Res,
+  HttpStatus,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiProperty,
+  ApiTags,
+} from '@nestjs/swagger';
 import { IsIn, IsNotEmpty, IsString } from 'class-validator';
 import { Connection } from 'typeorm';
 import { SeedInit } from './seed-init';
 import { ScriptsService } from './scripts.service';
+import { RolesGuard } from '../roles.guard';
 
 class ResetDto {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -29,6 +42,9 @@ export class MockDynamic {
 }
 
 @Controller('scripts')
+@ApiTags('scripts')
+@ApiBearerAuth()
+@UseGuards(RolesGuard)
 export class ScriptsController {
   private connection: Connection;
 

@@ -1,5 +1,4 @@
 import selectors from "../../support/selectors";
-import constants from "../../support/constants";
 
 // test logos
 describe("Logos", () => {
