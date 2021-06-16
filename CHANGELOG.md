@@ -1,3 +1,12 @@
+## [0.64.5](https://github.com/rodekruis/IBF-system/compare/v0.64.4...v0.64.5) (2021-06-16)
+
+
+### Bug Fixes
+
+* update zambia eap link AB[#8207](https://github.com/rodekruis/IBF-system/issues/8207) ([a5f5b2b](https://github.com/rodekruis/IBF-system/commit/a5f5b2b62b1e6ee1f9b910e2ec44e5fc6c604d64))
+
+
+
 ## [0.64.4](https://github.com/rodekruis/IBF-system/compare/v0.64.3...v0.64.4) (2021-06-15)
 
 
@@ -106,17 +115,6 @@
 ### Features
 
 * update documentation AB[#6513](https://github.com/rodekruis/IBF-system/issues/6513) ([a9ac5ef](https://github.com/rodekruis/IBF-system/commit/a9ac5efbb4f88b33c9a0276f081f663b30b66adb))
-
-
-
-## [0.60.1](https://github.com/rodekruis/IBF-system/compare/v0.60.0...v0.60.1) (2021-05-21)
-
-
-### Bug Fixes
-
-* don't try download if mock AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([79699ab](https://github.com/rodekruis/IBF-system/commit/79699abe2123bc87300a04098e0f8ca518b2e109))
-* indentation ([a4de40e](https://github.com/rodekruis/IBF-system/commit/a4de40ef505c85d61abf7b0dcca177dd19b2eba8))
-* remove changes other open branch AB[#7447](https://github.com/rodekruis/IBF-system/issues/7447) ([bfdc3c2](https://github.com/rodekruis/IBF-system/commit/bfdc3c21f769b280e46e3dbd774e632550c5c44f))
 
 
 
