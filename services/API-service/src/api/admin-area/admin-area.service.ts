@@ -107,7 +107,6 @@ export class AdminAreaService {
       .where('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .andWhere('date = current_date')
       .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
     if (placeCodes.length) {
