@@ -1,3 +1,12 @@
+# [0.66.0](https://github.com/rodekruis/IBF-system/compare/v0.65.0...v0.66.0) (2021-06-18)
+
+
+### Features
+
+* switch UGA/KEN/ETH back to FTP AB[#8130](https://github.com/rodekruis/IBF-system/issues/8130) ([a44bd3a](https://github.com/rodekruis/IBF-system/commit/a44bd3a7be834099e738d2982dc00bd0545ead3e))
+
+
+
 # [0.65.0](https://github.com/rodekruis/IBF-system/compare/v0.64.5...v0.65.0) (2021-06-18)
 
 
@@ -153,15 +162,6 @@
 ### Features
 
 * add dmmu logo zambia AB[#6126](https://github.com/rodekruis/IBF-system/issues/6126) ([073702a](https://github.com/rodekruis/IBF-system/commit/073702aeac9f97531c83cc58d7ba61a81693a49d))
-
-
-
-## [0.61.1](https://github.com/rodekruis/IBF-system/compare/v0.61.0...v0.61.1) (2021-05-26)
-
-
-### Bug Fixes
-
-* unit tests ([7a4f869](https://github.com/rodekruis/IBF-system/commit/7a4f869fde1573be98261c7a40c53c46559450b7))
 
 
 
