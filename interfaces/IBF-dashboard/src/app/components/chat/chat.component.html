@@ -106,9 +106,7 @@
   >
     <p
       [innerHTML]="
-        'chat-component.' +
-          disasterCategory +
-          'active-event-no-trigger.welcome'
+        'chat-component.' + disasterCategory + 'active-event-no-trigger.welcome'
           | translate
             : {
                 name: authService.displayName,
