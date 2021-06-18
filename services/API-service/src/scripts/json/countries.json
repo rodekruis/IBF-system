@@ -5,13 +5,17 @@
     "countryName": "Uganda",
     "countryStatus": "active",
     "disasterType": "floods",
-    "adminLevels": [2],
+    "adminLevels": [
+      2
+    ],
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
-      "triggerColName": "5yr_threshold"
+      "triggerColName": "custom_threshold"
     },
-    "countryActiveLeadTimes": ["5-day"],
+    "countryActiveLeadTimes": [
+      "5-day"
+    ],
     "adminRegionLabels": {
       "1": {
         "singular": "Region",
@@ -31,7 +35,11 @@
       }
     },
     "eapLink": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd",
-    "countryLogos": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"],
+    "countryLogos": [
+      "UGA-unma.png",
+      "UGA-government.jpg",
+      "UGA-urcs.png"
+    ],
     "eapAlertClasses": {
       "no": {
         "label": "No action",
@@ -50,11 +58,26 @@
       "type": "Polygon",
       "coordinates": [
         [
-          [35.00105362800008, -1.48147434699996],
-          [35.00105362800008, 4.231367005000038],
-          [29.57216169200007, 4.231367005000038],
-          [29.57216169200007, -1.48147434699996],
-          [35.00105362800008, -1.48147434699996]
+          [
+            35.00105362800008,
+            -1.48147434699996
+          ],
+          [
+            35.00105362800008,
+            4.231367005000038
+          ],
+          [
+            29.57216169200007,
+            4.231367005000038
+          ],
+          [
+            29.57216169200007,
+            -1.48147434699996
+          ],
+          [
+            35.00105362800008,
+            -1.48147434699996
+          ]
         ]
       ]
     }
@@ -65,13 +88,19 @@
     "countryName": "Zambia",
     "countryStatus": "active",
     "disasterType": "floods",
-    "adminLevels": [1, 2, 3],
+    "adminLevels": [
+      1,
+      2,
+      3
+    ],
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_ZMB.csv",
       "triggerColName": "10yr_threshold"
     },
-    "countryActiveLeadTimes": ["7-day"],
+    "countryActiveLeadTimes": [
+      "7-day"
+    ],
     "adminRegionLabels": {
       "1": {
         "singular": "Province",
@@ -123,11 +152,26 @@
       "type": "Polygon",
       "coordinates": [
         [
-          [33.71243793900004, -18.07917628699994],
-          [33.71243793900004, -8.271976286999973],
-          [21.98003793900006, -8.271976286999973],
-          [21.98003793900006, -18.07917628699994],
-          [33.71243793900004, -18.07917628699994]
+          [
+            33.71243793900004,
+            -18.07917628699994
+          ],
+          [
+            33.71243793900004,
+            -8.271976286999973
+          ],
+          [
+            21.98003793900006,
+            -8.271976286999973
+          ],
+          [
+            21.98003793900006,
+            -18.07917628699994
+          ],
+          [
+            33.71243793900004,
+            -18.07917628699994
+          ]
         ]
       ]
     }
@@ -138,13 +182,17 @@
     "countryName": "Kenya",
     "countryStatus": "active",
     "disasterType": "floods",
-    "adminLevels": [1],
+    "adminLevels": [
+      1
+    ],
     "defaultAdminLevel": 1,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
       "triggerColName": "5yr_threshold"
     },
-    "countryActiveLeadTimes": ["7-day"],
+    "countryActiveLeadTimes": [
+      "7-day"
+    ],
     "adminRegionLabels": {
       "1": {
         "singular": "County",
@@ -160,7 +208,9 @@
       }
     },
     "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9",
-    "countryLogos": ["KEN-krcs.png"],
+    "countryLogos": [
+      "KEN-krcs.png"
+    ],
     "eapAlertClasses": {
       "no": {
         "label": "No action",
@@ -179,11 +229,26 @@
       "type": "Polygon",
       "coordinates": [
         [
-          [41.88752400000004, -4.720416999999941],
-          [41.88752400000004, 4.633819000000074],
-          [33.90958600000005, 4.633819000000074],
-          [33.90958600000005, -4.720416999999941],
-          [41.88752400000004, -4.720416999999941]
+          [
+            41.88752400000004,
+            -4.720416999999941
+          ],
+          [
+            41.88752400000004,
+            4.633819000000074
+          ],
+          [
+            33.90958600000005,
+            4.633819000000074
+          ],
+          [
+            33.90958600000005,
+            -4.720416999999941
+          ],
+          [
+            41.88752400000004,
+            -4.720416999999941
+          ]
         ]
       ]
     }
@@ -194,13 +259,17 @@
     "countryName": "Ethiopia",
     "countryStatus": "active",
     "disasterType": "floods",
-    "adminLevels": [2],
+    "adminLevels": [
+      2
+    ],
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
       "triggerColName": "10yr_threshold_7day"
     },
-    "countryActiveLeadTimes": ["7-day"],
+    "countryActiveLeadTimes": [
+      "7-day"
+    ],
     "eapAlertClasses": {
       "no": {
         "label": "No action",
@@ -230,16 +299,33 @@
       }
     },
     "eapLink": "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx",
-    "countryLogos": ["ETH-ercs.png"],
+    "countryLogos": [
+      "ETH-ercs.png"
+    ],
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
         [
-          [47.98824, 3.40667],
-          [47.98824, 14.84547690700003],
-          [32.9918, 14.84547690700003],
-          [32.9918, 3.40667],
-          [47.98824, 3.40667]
+          [
+            47.98824,
+            3.40667
+          ],
+          [
+            47.98824,
+            14.84547690700003
+          ],
+          [
+            32.9918,
+            14.84547690700003
+          ],
+          [
+            32.9918,
+            3.40667
+          ],
+          [
+            47.98824,
+            3.40667
+          ]
         ]
       ]
     }
@@ -250,9 +336,15 @@
     "countryName": "Egypt",
     "countryStatus": "active",
     "disasterType": "heavy-rain",
-    "adminLevels": [1],
+    "adminLevels": [
+      1
+    ],
     "defaultAdminLevel": 1,
-    "countryActiveLeadTimes": ["3-day", "5-day", "7-day"],
+    "countryActiveLeadTimes": [
+      "3-day",
+      "5-day",
+      "7-day"
+    ],
     "eapAlertClasses": {},
     "adminRegionLabels": {
       "1": {
@@ -269,16 +361,33 @@
       }
     },
     "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0a248aa7f06fc4d149892726478ef0fe6&authkey=AWC-wu2bMWX0NRGu7aUjTe8&expiration=2022-02-24T23%3a00%3a00.000Z&rtime=DcUsZo3Z2Eg",
-    "countryLogos": ["EGY-ercs.png"],
+    "countryLogos": [
+      "EGY-ercs.png"
+    ],
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
         [
-          [24.2069487572, 20.7481080291],
-          [37.3734557629, 20.7481080291],
-          [37.3734557629, 32.7651320716],
-          [24.2069487572, 32.7651320716],
-          [24.2069487572, 20.7481080291]
+          [
+            24.2069487572,
+            20.7481080291
+          ],
+          [
+            37.3734557629,
+            20.7481080291
+          ],
+          [
+            37.3734557629,
+            32.7651320716
+          ],
+          [
+            24.2069487572,
+            32.7651320716
+          ],
+          [
+            24.2069487572,
+            20.7481080291
+          ]
         ]
       ]
     }
@@ -289,9 +398,15 @@
     "countryName": "Philippines",
     "countryStatus": "active",
     "disasterType": "dengue",
-    "adminLevels": [2],
+    "adminLevels": [
+      2
+    ],
     "defaultAdminLevel": 2,
-    "countryActiveLeadTimes": ["0-month", "1-month", "2-month"],
+    "countryActiveLeadTimes": [
+      "0-month",
+      "1-month",
+      "2-month"
+    ],
     "eapAlertClasses": {},
     "adminRegionLabels": {
       "1": {
@@ -313,11 +428,26 @@
       "type": "Polygon",
       "coordinates": [
         [
-          [116.9666564465, 4.1242251549],
-          [114.8572814465, 21.4093058493],
-          [127.4256408215, 21.2865155817],
-          [126.9861876965, 4.56241516],
-          [116.9666564465, 4.1242251549]
+          [
+            116.9666564465,
+            4.1242251549
+          ],
+          [
+            114.8572814465,
+            21.4093058493
+          ],
+          [
+            127.4256408215,
+            21.2865155817
+          ],
+          [
+            126.9861876965,
+            4.56241516
+          ],
+          [
+            116.9666564465,
+            4.1242251549
+          ]
         ]
       ]
     }
