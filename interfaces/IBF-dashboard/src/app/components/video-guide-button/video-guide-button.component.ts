@@ -16,7 +16,7 @@ import { VideoPopoverComponent } from '../video-popover/video-popover.component'
 })
 export class VideoGuideButtonComponent {
   @Input()
-  public color = 'ibf-royal-blue';
+  public color = 'ibf-primary';
 
   constructor(
     private popoverController: PopoverController,

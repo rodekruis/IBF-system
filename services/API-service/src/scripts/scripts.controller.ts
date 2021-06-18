@@ -36,6 +36,9 @@ export class MockDynamic {
   @ApiProperty()
   @IsNotEmpty()
   public readonly triggered: boolean;
+  @ApiProperty({ example: true })
+  @IsNotEmpty()
+  public readonly removeEvents: boolean;
 }
 
 @Controller('scripts')
@@ -58,8 +61,8 @@ export class ScriptsController {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
-    let seed;
-    seed = new SeedInit(this.connection);
+
+    const seed = new SeedInit(this.connection);
     await seed.run();
     return res
       .status(HttpStatus.ACCEPTED)

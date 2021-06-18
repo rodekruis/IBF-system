@@ -28,6 +28,7 @@ import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
 import { VideoGuideButtonComponent } from './components/video-guide-button/video-guide-button.component';
 import { VideoPopoverComponent } from './components/video-popover/video-popover.component';
+import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-component/backend-mock-scenario.component';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { VideoPopoverComponent } from './components/video-popover/video-popover.
     MatrixComponent,
     TimelineComponent,
     AggregatesComponent,
+    BackendMockScenarioComponent,
     ChatComponent,
     SourceInfoModalComponent,
     UserStateComponent,
@@ -74,6 +76,7 @@ import { VideoPopoverComponent } from './components/video-popover/video-popover.
     UserStateComponent,
     TimestampComponent,
     CountrySwitcherComponent,
+    BackendMockScenarioComponent,
     LogosComponent,
     AboutBtnComponent,
     DialogueTurnComponent,

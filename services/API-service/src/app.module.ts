@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
-import { UserModule } from './api/user/user.module';
 import { HealthModule } from './health.module';
 import { EapActionsModule } from './api/eap-actions/eap-actions.module';
 import { ScriptsModule } from './scripts/scripts.module';
@@ -21,7 +20,6 @@ import { RainfallTriggersModule } from './api/rainfall-triggers/rainfall-trigger
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    UserModule,
     EapActionsModule,
     WaterpointsModule,
     ScriptsModule,
@@ -41,6 +39,4 @@ import { RainfallTriggersModule } from './api/rainfall-triggers/rainfall-trigger
   controllers: [AppController],
   providers: [],
 })
-export class ApplicationModule {
-  public constructor() {}
-}
+export class ApplicationModule {}

@@ -305,10 +305,16 @@
       "3": {
         "singular": "Municipality",
         "plural": "Municipalities"
+      },
+      "4": {
+        "singular": "Barangay",
+        "plural": "Barangays"
       }
     },
-    "eapLink": "https://example.org",
-    "countryLogos": ["PHL-prc.jpg"],
+    "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-13T22%3A00%3A00.000Z&e=tWGHbE",
+    "countryLogos": [
+      "PHL-prc.jpg"
+    ],
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [

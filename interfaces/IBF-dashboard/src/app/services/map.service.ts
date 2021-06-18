@@ -55,7 +55,6 @@ export class MapService {
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
     defaultColor: '#969696',
     transparentColor: 'transparent',
-    defaultColorProperty: IbfLayerName.population_affected,
     defaultFillOpacity: 0.8,
     defaultWeight: 1,
   };
@@ -329,25 +328,43 @@ export class MapService {
       show: true,
       data: adminRegions,
       viewCenter: this.country.defaultAdminLevel === adminLevel,
-      colorProperty: this.state.defaultColorProperty,
+      colorProperty: this.country.disasterTypes[0].actionsUnit,
       order: 0,
     });
   }
 
   public loadAggregateLayer(indicator: Indicator) {
     if (this.country) {
-      if (indicator.active) {
-        this.apiService
-          .getAdminRegions(
-            this.country.countryCodeISO3,
-            this.timelineService.activeLeadTime,
-            this.adminLevelService.adminLevel,
-          )
-          .subscribe((adminRegions) => {
-            this.addAggregateLayer(indicator, adminRegions);
-          });
+      if (indicator.active && this.timelineService.activeLeadTime) {
+        this.getCombineAdminRegionData(
+          this.country.countryCodeISO3,
+          this.adminLevelService.adminLevel,
+          this.timelineService.activeLeadTime,
+          indicator.name,
+          indicator.dynamic,
+        ).subscribe((adminRegions) => {
+          this.addAggregateLayer(indicator, adminRegions);
+        });
       } else {
         this.addAggregateLayer(indicator, null);
+      }
+    }
+  }
+
+  public loadOutlineLayer(indicator: Indicator) {
+    if (this.country) {
+      if (indicator.active && this.timelineService.activeLeadTime) {
+        this.getCombineAdminRegionData(
+          this.country.countryCodeISO3,
+          this.adminLevelService.adminLevel,
+          this.timelineService.activeLeadTime,
+          indicator.name,
+          indicator.dynamic,
+        ).subscribe((adminRegions) => {
+          this.addOutlineLayer(indicator, adminRegions);
+        });
+      } else {
+        this.addOutlineLayer(indicator, null);
       }
     }
   }
@@ -367,6 +384,27 @@ export class MapService {
       numberFormatMap: indicator.numberFormatMap,
       legendColor: '#969696',
       group: IbfLayerGroup.aggregates,
+      order: 20 + indicator.order,
+      dynamic: indicator.dynamic,
+      unit: indicator.unit,
+    });
+  }
+
+  private addOutlineLayer(indicator: Indicator, adminRegions: any) {
+    this.addLayer({
+      name: indicator.name,
+      label: indicator.label,
+      type: IbfLayerType.shape,
+      description: this.getPopoverText(indicator.name),
+      active: indicator.active,
+      show: true,
+      data: adminRegions,
+      viewCenter: true,
+      colorProperty: indicator.name,
+      colorBreaks: indicator.colorBreaks,
+      numberFormatMap: indicator.numberFormatMap,
+      legendColor: '#969696',
+      group: IbfLayerGroup.outline,
       order: 20 + indicator.order,
       dynamic: indicator.dynamic,
       unit: indicator.unit,
@@ -448,6 +486,9 @@ export class MapService {
     layer: IbfLayer,
     interactedLayer: IbfLayer,
   ): boolean => {
+    if (layer.group === IbfLayerGroup.outline) {
+      return true;
+    }
     const isActiveDefined = interactedLayer.active != null;
     const isInteractedLayer = layer.name === interactedLayer.name;
     const isInteractedLayerGroup = layer.group === interactedLayer.group;
@@ -587,12 +628,16 @@ export class MapService {
           adminLevel,
         )
         .pipe(shareReplay(1));
-    } else if (layer.group === IbfLayerGroup.aggregates) {
+    } else if (
+      layer.group === IbfLayerGroup.aggregates ||
+      layer.group === IbfLayerGroup.outline
+    ) {
       layerData = this.getCombineAdminRegionData(
         this.country.countryCodeISO3,
         this.adminLevelService.adminLevel,
         this.timelineService.activeLeadTime,
-        layer,
+        layer.name,
+        layer.dynamic,
       ).pipe(shareReplay(1));
     } else {
       layerData = of(null);
@@ -605,22 +650,23 @@ export class MapService {
     countryCodeISO3: string,
     adminLevel: AdminLevel,
     leadTime: LeadTime,
-    layer: IbfLayer,
+    layerName: IbfLayerName,
+    dynamic: boolean,
   ): Observable<GeoJSON.FeatureCollection> {
     // Do api request to get data layer
     let admDynamicDataObs: Observable<any>;
-    if (layer.dynamic) {
+    if (dynamic) {
       admDynamicDataObs = this.apiService.getAdminAreaDynamicData(
         countryCodeISO3,
         adminLevel,
         leadTime,
-        layer.name,
+        layerName,
       );
     } else {
       admDynamicDataObs = this.apiService.getAdminAreaData(
         countryCodeISO3,
         adminLevel,
-        layer.name,
+        layerName,
       );
     }
     // Get the geometry from the admin region (this should re-use the cache if that is already loaded)
@@ -645,7 +691,7 @@ export class MapService {
             },
           );
           area.properties.indicators = {};
-          area.properties.indicators[layer.name] = foundAdmDynamicEntry.value;
+          area.properties.indicators[layerName] = foundAdmDynamicEntry.value;
           updatedFeatures.push(area);
         }
         return adminRegions;
@@ -686,6 +732,15 @@ export class MapService {
 
     return adminRegionFillColor;
   };
+
+  getOutlineColor(colorPropertyValue) {
+    switch (true) {
+      case colorPropertyValue === 0:
+        return 0;
+      default:
+        return 1;
+    }
+  }
 
   getAdminRegionFillOpacity = (layer: IbfLayer, placeCode: string): number => {
     let fillOpacity = this.state.defaultFillOpacity;
@@ -762,6 +817,26 @@ export class MapService {
       break4: quantile(colorPropertyValues, 0.8),
     };
     return colorThreshold;
+  };
+
+  public setOutlineLayerStyle = (layer: IbfLayer) => {
+    const colorProperty = layer.colorProperty;
+    return (adminRegion) => {
+      const color = '#c22400';
+      const opacity = this.getOutlineColor(
+        typeof adminRegion.properties[colorProperty] !== 'undefined'
+          ? adminRegion.properties[colorProperty]
+          : adminRegion.properties.indicators[colorProperty],
+      );
+      const fillOpacity = 0;
+      const weight = 3;
+      return {
+        opacity,
+        color,
+        fillOpacity,
+        weight,
+      };
+    };
   };
 
   public setAdminRegionStyle = (layer: IbfLayer) => {

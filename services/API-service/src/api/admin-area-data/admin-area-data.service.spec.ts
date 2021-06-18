@@ -1,8 +1,10 @@
+import { CountryService } from './../country/country.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
+import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { AdminAreaDataEntity } from './admin-area-data.entity';
 import { AdminAreaDataService } from './admin-area-data.service';
+import { CountryEntity } from '../country/country.entity';
 
 describe('AdminAreaDataService', (): void => {
   let service: AdminAreaDataService;
@@ -14,6 +16,12 @@ describe('AdminAreaDataService', (): void => {
           AdminAreaDataService,
           {
             provide: getRepositoryToken(AdminAreaDataEntity),
+            useFactory: repositoryMockFactory,
+          },
+          AdminAreaDataService,
+          CountryService,
+          {
+            provide: getRepositoryToken(CountryEntity),
             useFactory: repositoryMockFactory,
           },
         ],

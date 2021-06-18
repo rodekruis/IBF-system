@@ -19,11 +19,11 @@ export class EventPlaceCodeEntity {
   @Column({ type: 'timestamp' })
   public startDate: Date;
 
-  @Column({ type: 'float8' })
-  public populationAffected: number;
+  @Column({ type: 'float8', nullable: true })
+  public actionsValue: number;
 
   @Column({ type: 'timestamp', nullable: true })
-  @Check(`"startDate" < "endDate"`)
+  @Check(`"startDate" <= "endDate"`)
   public endDate: Date;
 
   @Column({ type: 'timestamp', nullable: true })
@@ -38,6 +38,7 @@ export class EventPlaceCodeEntity {
   @OneToMany(
     (): typeof EapActionStatusEntity => EapActionStatusEntity,
     (eapActionStatus): EventPlaceCodeEntity => eapActionStatus.eventPlaceCode,
+    { onDelete: 'CASCADE' },
   )
   @JoinTable()
   public eapActionStatuses: EapActionStatusEntity[];

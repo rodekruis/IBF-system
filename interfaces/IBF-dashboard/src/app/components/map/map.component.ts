@@ -30,6 +30,7 @@ import {
   LEAFLET_MAP_OPTIONS,
   LEAFLET_MAP_URL_TEMPLATE,
   LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
 } from 'src/app/config';
@@ -40,6 +41,7 @@ import {
   Station,
   Waterpoint,
 } from 'src/app/models/poi.model';
+import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
@@ -51,11 +53,12 @@ import {
   IbfLayerName,
   IbfLayerType,
   IbfLayerWMS,
-  leafletPane,
+  LeafletPane,
 } from 'src/app/types/ibf-layer';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { breakKey } from '../../models/map.model';
+import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
   selector: 'app-map',
@@ -95,6 +98,7 @@ export class MapComponent implements OnDestroy {
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
     private analyticsService: AnalyticsService,
+    private apiService: ApiService,
   ) {
     this.layerSubscription = this.mapService
       .getLayerSubscription()
@@ -251,10 +255,11 @@ export class MapComponent implements OnDestroy {
 
   onMapReady(map: Map) {
     this.map = map;
-    this.map.createPane(leafletPane.wmsPane);
-    this.map.createPane(leafletPane.aggregatePane);
-    this.map.createPane(leafletPane.adminBoundaryPane);
-
+    this.map.createPane(LeafletPane.wmsPane);
+    this.map.createPane(LeafletPane.adminBoundaryPane);
+    this.map.createPane(LeafletPane.outline);
+    this.map.getPane(LeafletPane.outline).style.zIndex = '600';
+    this.map.createPane(LeafletPane.aggregatePane);
     this.triggerWindowResize();
   }
 
@@ -273,7 +278,10 @@ export class MapComponent implements OnDestroy {
         layer.colorBreaks,
       );
 
-      if (layer.group !== IbfLayerGroup.adminRegions) {
+      if (
+        layer.group !== IbfLayerGroup.adminRegions &&
+        layer.group !== IbfLayerGroup.outline
+      ) {
         this.addLegend(this.map, colors, colorThreshold, layer);
       }
     }
@@ -398,75 +406,205 @@ export class MapComponent implements OnDestroy {
       });
     }
 
-    if (layer.name !== IbfLayerName.adminRegions) {
-      const popup =
-        '<strong>' +
-        feature.properties.name +
-        (feature.properties.placeCode.includes('Disputed')
-          ? ' (Disputed borders)'
-          : '') +
-        '</strong><br/>' +
-        (layer.group === IbfLayerGroup.adminRegions
-          ? ''
-          : layer.label +
-            ': ' +
-            this.numberFormat(
-              typeof feature.properties[layer.colorProperty] !== 'undefined'
-                ? feature.properties[layer.colorProperty]
-                : feature.properties.indicators[layer.colorProperty],
-              layer,
-            ) +
-            (layer.unit ? ' ' + layer.unit : ''));
+    if (layer.group !== IbfLayerGroup.adminRegions) {
       if (feature.properties.placeCode === this.placeCode) {
         element.unbindPopup();
         this.placeCode = null;
       } else {
-        element.bindPopup(popup).openPopup();
-        this.placeCode = feature.properties.placeCode;
+        this.bindPopupAdminRegions(layer, feature, element);
       }
     }
   };
 
-  private getAdminRegionLayerPane(layer: IbfLayer): leafletPane {
-    let adminRegionLayerPane = leafletPane.overlayPane;
+  private bindPopupAdminRegions(layer: IbfLayer, feature, element): void {
+    let popup: string;
+    if (layer.name !== IbfLayerName.potentialCases) {
+      popup = this.createDefaultPopupAdminRegions(layer, feature);
+      element.bindPopup(popup).openPopup();
+      this.placeCode = feature.properties.placeCode;
+    } else {
+      this.apiService
+        .getAdminAreaDynamiceDataOne(
+          IbfLayerThreshold.potentialCasesThreshold,
+          feature.properties.placeCode,
+          this.country.countryActiveLeadTimes[
+            this.country.countryActiveLeadTimes.length - 1
+          ],
+        )
+        .subscribe((thresholdValue: number) => {
+          popup = this.createThresHoldPopupAdminRegions(
+            layer,
+            feature,
+            thresholdValue,
+          );
+          const popupOptions = {
+            minWidth: 300,
+            className: 'trigger-popup-max',
+          };
+          element.bindPopup(popup, popupOptions).openPopup();
+          this.placeCode = feature.properties.placeCode;
+        });
+    }
+  }
+
+  private getAdminRegionLayerPane(layer: IbfLayer): LeafletPane {
+    let adminRegionLayerPane = LeafletPane.overlayPane;
     switch (layer.group) {
       case IbfLayerGroup.aggregates:
-        adminRegionLayerPane = leafletPane.aggregatePane;
+        adminRegionLayerPane = LeafletPane.aggregatePane;
         break;
       case IbfLayerGroup.adminRegions:
-        adminRegionLayerPane = leafletPane.adminBoundaryPane;
+        adminRegionLayerPane = LeafletPane.adminBoundaryPane;
         break;
       default:
-        adminRegionLayerPane = leafletPane.overlayPane;
+        adminRegionLayerPane = LeafletPane.overlayPane;
         break;
     }
     return adminRegionLayerPane;
+  }
+
+  private createDefaultPopupAdminRegions(layer: IbfLayer, feature): string {
+    return (
+      '<strong>' +
+      feature.properties.name +
+      (feature.properties.placeCode.includes('Disputed')
+        ? ' (Disputed borders)'
+        : '') +
+      '</strong><br/>' +
+      (layer.name.includes(IbfLayerName.adminRegions)
+        ? ''
+        : layer.label +
+          ': ' +
+          this.numberFormat(
+            typeof feature.properties[layer.colorProperty] !== 'undefined'
+              ? feature.properties[layer.colorProperty]
+              : feature.properties.indicators[layer.colorProperty],
+            layer,
+          ))
+    );
+  }
+
+  private createThresHoldPopupAdminRegions(
+    layer: IbfLayer,
+    feature,
+    thresholdValue: number,
+  ): string {
+    const properties = 'properties';
+    const forecastValue = feature[properties][layer.colorProperty];
+    const featureTriggered = forecastValue > thresholdValue;
+    const headerColor = featureTriggered
+      ? 'var(--ion-color-ibf-trigger-alert-primary)'
+      : 'var(--ion-color-ibf-no-alert-primary)';
+    const headerTextColor = featureTriggered
+      ? 'var(--ion-color-ibf-trigger-alert-primary-contrast)'
+      : 'var(--ion-color-ibf-no-alert-primary-contrast)';
+    const title = feature.properties.name;
+
+    let lastAvailableLeadTime: LeadTime;
+    if (this.country) {
+      lastAvailableLeadTime = this.country.countryActiveLeadTimes[
+        this.country.countryActiveLeadTimes.length - 1
+      ];
+    }
+
+    const timeUnit = lastAvailableLeadTime.split('-')[1];
+
+    const subtitle = `${layer.label} for current ${timeUnit} selected`;
+    const eapStatusColor = featureTriggered
+      ? 'var(--ion-color-ibf-trigger-alert-primary)'
+      : 'var(--ion-color-ibf-no-alert-primary)';
+    const eapStatusText = featureTriggered
+      ? 'ACTIVATE EARLY ACTIONS'
+      : 'No action';
+    const thresholdName = 'Alert threshold';
+
+    return this.createThresholdPopup(
+      headerTextColor,
+      title,
+      eapStatusColor,
+      eapStatusText,
+      forecastValue,
+      thresholdValue,
+      subtitle,
+      thresholdName,
+    );
+  }
+
+  private createThresholdPopup(
+    eapStatusColorText: string,
+    title: string,
+    eapStatusColor: string,
+    eapStatusText: string,
+    forecastValue: number,
+    thresholdValue: number,
+    subtitle: string,
+    thresholdName: string,
+  ): string {
+    const triggerWidth = Math.max(
+      Math.min(Math.round((forecastValue / thresholdValue) * 100), 115),
+      0,
+    );
+    const infoPopup = `
+      <div style="background-color:${eapStatusColor}; color:${eapStatusColorText}; padding: 5px; margin-bottom: 5px"> \ \
+        <strong>${title}
+      </strong> \
+      </div> \
+      <div style="margin-left:5px"> \
+        <div style="margin-bottom:5px"> \
+      ${subtitle} \
+      </div> \
+      <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
+        <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
+          <div style="border-radius:10px;height:20px;line-height:20px;background-color:${eapStatusColor}; color:${eapStatusColorText}; text-align:center; white-space: nowrap; min-width: 15%; width:${triggerWidth}%">${Math.round(
+      forecastValue,
+    )}</div> \
+        </div> \
+      </div> \
+    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
+      ${thresholdName}:</div> \
+   \
+  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>${Math.round(
+    thresholdValue,
+  )}</strong></div></div> \
+</div> \
+  <div style="background-color: ${eapStatusColor}; color:${eapStatusColorText}; padding: 10px; text-align: center; text-transform:uppercase"> \
+    <strong>${eapStatusText}</strong> \
+  </div>`;
+
+    return infoPopup;
   }
 
   private createAdminRegionsLayer(layer: IbfLayer): GeoJSON {
     if (!layer.data) {
       return;
     }
-
-    const adminRegionsLayer = geoJSON(layer.data, {
-      pane: this.getAdminRegionLayerPane(layer),
-      style: this.mapService.setAdminRegionStyle(layer),
-      onEachFeature: (feature, element): void => {
-        element.on('mouseover', this.onAdminRegionMouseOver);
-        element.on('mouseout', (): void => {
-          adminRegionsLayer.resetStyle();
-        });
-        element.on(
-          'click',
-          this.onAdminRegionClickByLayerAndFeatureAndElement(
-            layer,
-            feature,
-            element,
-          ),
-        );
-      },
-    });
-
+    let adminRegionsLayer: GeoJSON;
+    if (layer.group === IbfLayerGroup.outline) {
+      adminRegionsLayer = geoJSON(layer.data, {
+        pane: LeafletPane.outline,
+        style: this.mapService.setOutlineLayerStyle(layer),
+        interactive: false,
+      });
+    } else {
+      adminRegionsLayer = geoJSON(layer.data, {
+        pane: this.getAdminRegionLayerPane(layer),
+        style: this.mapService.setAdminRegionStyle(layer),
+        onEachFeature: (feature, element): void => {
+          element.on('mouseover', this.onAdminRegionMouseOver);
+          element.on('mouseout', (): void => {
+            adminRegionsLayer.resetStyle();
+          });
+          element.on(
+            'click',
+            this.onAdminRegionClickByLayerAndFeatureAndElement(
+              layer,
+              feature,
+              element,
+            ),
+          );
+        },
+      });
+    }
     return adminRegionsLayer;
   }
 
@@ -475,7 +613,7 @@ export class MapComponent implements OnDestroy {
       return;
     }
     return tileLayer.wms(layerWMS.url, {
-      pane: leafletPane.wmsPane,
+      pane: LeafletPane.wmsPane,
       layers: layerWMS.name,
       format: layerWMS.format,
       version: layerWMS.version,
@@ -528,7 +666,7 @@ export class MapComponent implements OnDestroy {
           iconUrl: 'assets/markers/glofas-' + key + '.png',
           iconRetinaUrl: 'assets/markers/glofas-' + key + '.png',
         };
-        className = 'station-popup-' + key;
+        className = 'trigger-popup-' + key;
       }
     });
 
@@ -576,7 +714,7 @@ export class MapComponent implements OnDestroy {
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH),
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT),
     });
     markerInstance.bindPopup(this.createHealthSitePopup(markerProperties));
     markerInstance.on(
@@ -628,19 +766,12 @@ export class MapComponent implements OnDestroy {
       }
     });
 
-    const triggerWidth = Math.max(
-      Math.min(
-        Math.round(
-          (markerProperties.forecastLevel / markerProperties.triggerLevel) *
-            100,
-        ),
-        115,
-      ),
-      0,
-    );
+    const title =
+      markerProperties.stationCode +
+      ' STATION: ' +
+      markerProperties.stationName;
 
     let lastAvailableLeadTime: LeadTime;
-
     if (this.country) {
       lastAvailableLeadTime = this.country.countryActiveLeadTimes[
         this.country.countryActiveLeadTimes.length - 1
@@ -649,41 +780,24 @@ export class MapComponent implements OnDestroy {
 
     const leadTime =
       this.timelineService.activeLeadTime || lastAvailableLeadTime;
-
-    const stationInfoPopup = `
-      <div style="background-color:${eapStatusColor}; color:${eapStatusColorText}; padding: 5px; margin-bottom: 5px"> \
-        <strong>${markerProperties.stationCode} STATION:${
-      markerProperties.stationName
-    }</strong> \
-      </div> \
-      <div style="margin-left:5px"> \
-        <div style="margin-bottom:5px"> \
-          ${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
+    const subtitle = `${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
           ${
             markerProperties.forecastReturnPeriod
               ? `<br>This corresponds to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years`
               : ''
-          } \
-        </div> \
-        <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
-          <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
-            <div style="border-radius:10px;height:20px;line-height:20px;background-color:${eapStatusColor}; color:${eapStatusColorText}; text-align:center; white-space: nowrap; min-width: 15%; width:${triggerWidth}%">${Math.round(
-      markerProperties.forecastLevel,
-    )}</div> \
-          </div> \
-        </div> \
-        <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
-          Trigger activation threshold: \
-        </div> \
-        <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>${Math.round(
-          markerProperties.triggerLevel,
-        )}</strong></div> \
-      </div> \
-      <div style="background-color:${eapStatusColor}; color:${eapStatusColorText}; padding: 10px; text-align: center; text-transform:uppercase"> \
-        <strong>${eapStatusText}</strong> \
-      </div>
-      `;
+          }`;
 
+    const thresholdName = 'Trigger activation threshold';
+    const stationInfoPopup = this.createThresholdPopup(
+      eapStatusColorText,
+      title,
+      eapStatusColor,
+      eapStatusText,
+      markerProperties.forecastLevel,
+      markerProperties.triggerLevel,
+      subtitle,
+      thresholdName,
+    );
     return stationInfoPopup;
   }
 

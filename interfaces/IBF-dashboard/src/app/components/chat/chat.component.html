@@ -4,13 +4,19 @@
     *ngIf="!eventService.state.activeEvent && !eventService.state.activeTrigger"
   >
     <p
-      [innerHTML]="'chat-component.no-event-no-trigger.welcome' | translate"
+      [innerHTML]="
+        'chat-component.' + disasterCategory + 'no-event-no-trigger.welcome'
+          | translate
+            : {
+                name: authService.displayName
+              }
+      "
     ></p>
     <app-about-btn
       [btnLabel]="'chat-component.about-button-label' | translate"
-      color="ibf-royal-blue"
+      color="ibf-white"
     ></app-about-btn>
-    <app-video-guide-button></app-video-guide-button>
+    <app-video-guide-button color="ibf-white"></app-video-guide-button>
   </app-dialogue-turn>
   <!-- New event today -->
   <app-dialogue-turn
@@ -23,11 +29,15 @@
     <p>
       <span
         [innerHTML]="
-          'chat-component.new-event-active-trigger.welcome'
+          'chat-component.' +
+            disasterCategory +
+            'new-event-active-trigger.welcome'
             | translate
               : {
-                  days: eventService.state.triggerLeadTime,
-                  disasterTypeLabel: disasterTypeLabel
+                  name: authService.displayName,
+                  timeUnits: eventService.state.triggerLeadTime,
+                  disasterTypeLabel: disasterTypeLabel,
+                  monthYear: eventService.state.firstLeadTimeName
                 }
         "
       >
@@ -35,10 +45,12 @@
       <span
         *ngIf="eventService.state.newEventEarlyTrigger"
         [innerHTML]="
-          'chat-component.new-event-active-trigger.new-event-early-trigger'
+          'chat-component.' +
+            disasterCategory +
+            'new-event-active-trigger.new-event-early-trigger'
             | translate
               : {
-                  days: eventService.state.firstLeadTime,
+                  timeUnits: eventService.state.firstLeadTimeLabel,
                   disasterTypeLabel: disasterTypeLabel
                 }
         "
@@ -46,11 +58,15 @@
     </p>
     <app-about-btn
       data-test="chat-about-trigger"
-      [btnLabel]="'chat-component.about-button-label' | translate"
-      color="ibf-royal-blue"
-    ></app-about-btn>
+      [btnLabel]="
+        'chat-component.' + disasterCategory + 'about-button-label' | translate
+      "
+      color="ibf-white"
+    >
+    </app-about-btn>
     <app-video-guide-button
       data-test="chat-video-guide"
+      color="ibf-white"
     ></app-video-guide-button>
   </app-dialogue-turn>
   <!-- Existing event, still trigger -->
@@ -63,20 +79,26 @@
   >
     <p
       [innerHTML]="
-        'chat-component.active-event-active-trigger.welcome'
+        'chat-component.' +
+          disasterCategory +
+          'active-event-active-trigger.welcome'
           | translate
             : {
+                name: authService.displayName,
                 startDate: eventService.state.event.startDate,
-                days: eventService.state.firstLeadTime,
-                disasterTypeLabel: disasterTypeLabel
+                timeUnits: eventService.state.firstLeadTimeLabel,
+                disasterTypeLabel: disasterTypeLabel,
+                monthYear: eventService.state.firstLeadTimeName
               }
       "
     ></p>
     <app-about-btn
-      [btnLabel]="'chat-component.about-button-label' | translate"
-      color="ibf-royal-blue"
+      [btnLabel]="
+        'chat-component.' + disasterCategory + 'about-button-label' | translate
+      "
+      color="ibf-white"
     ></app-about-btn>
-    <app-video-guide-button></app-video-guide-button>
+    <app-video-guide-button color="ibf-white"></app-video-guide-button>
   </app-dialogue-turn>
   <!-- Old event -->
   <app-dialogue-turn
@@ -84,24 +106,30 @@
   >
     <p
       [innerHTML]="
-        'chat-component.active-event-no-trigger.welcome'
+        'chat-component.' + disasterCategory + 'active-event-no-trigger.welcome'
           | translate
             : {
+                name: authService.displayName,
                 startDate: eventService.state.event.startDate,
                 endDate: eventService.state.event.endDate
               }
       "
     ></p>
     <app-about-btn
-      [btnLabel]="'chat-component.about-button-label' | translate"
-      color="ibf-royal-blue"
+      [btnLabel]="
+        'chat-component.' + disasterCategory + 'about-button-label' | translate
+      "
+      color="ibf-white"
     ></app-about-btn>
-    <app-video-guide-button></app-video-guide-button>
+    <app-video-guide-button color="ibf-white"></app-video-guide-button>
   </app-dialogue-turn>
   <ng-container *ngIf="eventService.state.activeEvent">
     <app-dialogue-turn isConnected="true">
       <p
-        [translate]="'chat-component.active-event.instruction' | translate"
+        [translate]="
+          'chat-component.' + disasterCategory + 'active-event.instruction'
+            | translate
+        "
       ></p>
     </app-dialogue-turn>
     <app-dialogue-turn
@@ -129,11 +157,10 @@
             <ion-note
               size="small"
               [innerHTML]="
-                'chat-component.active-event.exposed-population'
+                'chat-component.' + disasterCategory + 'active-event.exposed'
                   | translate
                     : {
-                        exposedNumber:
-                          area['populationAffected'] | number: '.0-0'
+                        exposedNumber: area['actionsValue'] | number: '.0-0'
                       }
               "
             >
@@ -148,7 +175,7 @@
             <ion-checkbox
               mode="ios"
               slot="start"
-              color="ibf-royal-blue"
+              color="ibf-primary"
               [checked]="action.checked"
               name="action.action"
               (ionChange)="
@@ -161,14 +188,14 @@
             ></ion-checkbox>
             <ion-label class="action-label ion-text-wrap"
               ><strong>{{ action.aofLabel }}</strong
-              >: {{ action.label }}</ion-label
-            >
+              >: {{ action.label }}
+            </ion-label>
           </ion-item>
         </ion-list>
         <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
           <ion-button
             [disabled]="area.submitDisabled"
-            color="ibf-royal-blue"
+            color="ibf-primary"
             type="submit"
             expand="block"
             class="submit-button"
@@ -179,7 +206,7 @@
       <ion-button
         (click)="closePlaceCodeEventPopup(area)"
         [disabled]="area.activeTrigger"
-        color="ibf-royal-blue"
+        color="ibf-primary"
         expand="block"
         [translate]="'chat-component.active-event.close-event-button'"
       ></ion-button>

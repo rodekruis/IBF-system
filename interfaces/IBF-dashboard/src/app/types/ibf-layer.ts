@@ -38,6 +38,10 @@ export class IbfLayer {
   dynamic?: boolean;
 }
 
+export enum IbfLayerThreshold {
+  potentialCasesThreshold = 'potential_cases_threshold',
+}
+
 export enum IbfLayerType {
   point = 'point',
   shape = 'shape',
@@ -70,6 +74,10 @@ export enum IbfLayerName {
   roof_type = 'roof_type',
   covidRisk = 'covid_risk',
   healthSites = 'health_sites',
+  alertThreshold = 'alert_threshold',
+  potentialCases = 'potential_cases',
+  potentialCases65 = 'potential_cases_65',
+  potentialCasesU9 = 'potential_cases_U9',
 }
 
 export enum IbfLayerLabel {
@@ -102,6 +110,7 @@ export class IbfLayerWMS {
 
 export enum IbfLayerGroup {
   aggregates = 'aggregates',
+  outline = 'outline',
   adminRegions = 'adminRegions',
 }
 
@@ -119,10 +128,11 @@ export class ColorBreak {
   valueHigh: number;
 }
 
-export enum leafletPane {
+export enum LeafletPane {
   overlayPane = 'overlayPane',
   aggregatePane = 'ibf-aggregate',
   adminBoundaryPane = 'ibf-admin-boundaries',
   wmsPane = 'ibf-wms',
   popupPane = 'popup',
+  outline = 'outline',
 }

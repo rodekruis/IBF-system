@@ -1,3 +1,4 @@
+import { CountryService } from './../country/country.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
@@ -21,10 +22,16 @@ export class AdminAreaService {
 
   private helperService: HelperService;
   private eventService: EventService;
+  private countryService: CountryService;
 
-  public constructor(helperService: HelperService, eventService: EventService) {
+  public constructor(
+    helperService: HelperService,
+    eventService: EventService,
+    countryService: CountryService,
+  ) {
     this.helperService = helperService;
     this.eventService = eventService;
+    this.countryService = countryService;
   }
 
   public async getAdminAreasRaw(countryCodeISO3): Promise<any[]> {
@@ -110,7 +117,6 @@ export class AdminAreaService {
       );
     }
     const dynamicIndicators = await dynamicIndicatorsScript.getRawMany();
-
     return staticIndicators.concat(dynamicIndicators);
   }
 
@@ -119,11 +125,13 @@ export class AdminAreaService {
     leadTime: string,
     adminLevel: number,
   ): Promise<GeoJson> {
+    const actionUnits = await this.countryService.getActionsUnitsForCountry(
+      countryCodeISO3,
+    );
     const country = await this.countryRepository.findOne({
       select: ['defaultAdminLevel'],
       where: { countryCodeISO3: countryCodeISO3 },
     });
-
     let adminAreasScript = this.adminAreaRepository
       .createQueryBuilder('area')
       .select([
@@ -136,7 +144,7 @@ export class AdminAreaService {
         countryCodeISO3: countryCodeISO3,
       })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
-
+    // Only add triggered-area filter if this is the default admin level
     if (adminLevel == country.defaultAdminLevel) {
       adminAreasScript = adminAreasScript
         .leftJoin(
@@ -145,19 +153,21 @@ export class AdminAreaService {
           'area.placeCode = dynamic.placeCode',
         )
         .addSelect([
-          'dynamic.value AS "population_affected"',
+          `dynamic.value AS ${actionUnits[0]}`,
           'dynamic."leadTime"',
           'dynamic."date"',
         ])
         .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
-        .andWhere('date = current_date');
+        .andWhere('dynamic."indicator" = :indicator', {
+          indicator: actionUnits[0],
+        });
 
       const placeCodes = await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         leadTime,
       );
 
-      if (placeCodes.length) {
+      if (placeCodes.length && countryCodeISO3 !== 'PHL') {
         adminAreasScript = adminAreasScript.andWhere(
           'area."placeCode" IN (:...placeCodes)',
           { placeCodes: placeCodes },
@@ -165,10 +175,9 @@ export class AdminAreaService {
       }
     } else {
       adminAreasScript = adminAreasScript.addSelect(
-        'null AS "population_affected"',
+        `null AS ${actionUnits[0]}`,
       );
     }
-
     const adminAreas = await adminAreasScript.getRawMany();
 
     return this.helperService.toGeojson(adminAreas);

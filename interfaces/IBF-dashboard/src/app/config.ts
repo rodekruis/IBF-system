@@ -25,6 +25,13 @@ export const LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH: IconOptions = {
   iconRetinaUrl: 'assets/markers/red-cross.png',
 };
 
+export const LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT: IconOptions = {
+  ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  iconSize: [33, 33],
+  iconUrl: 'assets/markers/health-facility.png',
+  iconRetinaUrl: 'assets/markers/health-facility.png',
+};
+
 export const LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
   iconSize: [20, 33],

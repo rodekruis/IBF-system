@@ -1,3 +1,5 @@
+import { EapActionsModule } from './../eap-actions/eap-actions.module';
+import { CountryModule } from './../country/country.module';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { UserModule } from './../user/user.module';
 import { Module } from '@nestjs/common';
@@ -10,6 +12,8 @@ import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-are
 @Module({
   imports: [
     UserModule,
+    CountryModule,
+    EapActionsModule,
     TypeOrmModule.forFeature([
       EventPlaceCodeEntity,
       TriggerPerLeadTime,

@@ -7,6 +7,7 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -14,6 +15,7 @@ import { CountryService } from 'src/app/services/country.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EapAction } from 'src/app/types/eap-action';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 
@@ -25,14 +27,16 @@ import { IbfLayerName } from 'src/app/types/ibf-layer';
 export class ChatComponent implements OnInit, OnDestroy {
   public triggeredAreas: any[];
   public filteredAreas: any[];
+  public activeDisasterType: string;
 
+  private translatedStrings: object;
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
   private promptButtonLabel: string;
   private closeEventPopup: object;
 
-  private eapActionSubscription: Subscription;
   private countrySubscription: Subscription;
+  private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private translateSubscription: Subscription;
 
@@ -42,9 +46,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   public submitDisabled = true;
   public adminAreaLabel: string;
   public disasterTypeLabel: string;
+  public disasterTypeName: string;
+  public disasterCategory: string;
 
   constructor(
     private eapActionsService: EapActionsService,
+    public authService: AuthService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private countryService: CountryService,
@@ -55,7 +62,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private analyticsService: AnalyticsService,
   ) {
     this.translateSubscription = this.translateService
-      .get('chat-component.active-event')
+      .get('chat-component')
       .subscribe(this.onTranslate);
   }
 
@@ -81,10 +88,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private onTranslate = (translatedStrings) => {
-    this.updateSuccessMessage = translatedStrings['update-success'];
-    this.updateFailureMessage = translatedStrings['update-failure'];
-    this.promptButtonLabel = translatedStrings['prompt-button-label'];
-    this.closeEventPopup = translatedStrings['close-event-popup'];
+    this.translatedStrings = translatedStrings;
   };
 
   private onCountryChange = (country: Country) => {
@@ -94,12 +98,34 @@ export class ChatComponent implements OnInit, OnDestroy {
       // For now take 1st disasterType, because there's only 1 type per country.
       // We will build in a 'selectedDisasterType' variable once that is needed.
       this.disasterTypeLabel = country.disasterTypes[0].label;
+      this.disasterTypeName = country.disasterTypes[0].disasterType;
+      const activeEventsSelector = 'active-event';
+      const updateSuccesSelector = 'update-success';
+      const updateFailureSelector = 'update-failure';
+      if (this.disasterTypeName === DisasterTypeKey.dengue) {
+        this.updateSuccessMessage = this.translatedStrings[
+          DisasterTypeKey.dengue
+        ][activeEventsSelector][updateSuccesSelector];
+        this.updateFailureMessage = this.translatedStrings[
+          DisasterTypeKey.dengue
+        ][activeEventsSelector][updateFailureSelector];
+        this.disasterCategory = `${DisasterTypeKey.dengue}.`;
+      } else {
+        this.updateSuccessMessage = this.translatedStrings[
+          activeEventsSelector
+        ][updateSuccesSelector];
+        this.updateFailureMessage = this.translatedStrings[
+          activeEventsSelector
+        ][updateFailureSelector];
+        this.disasterCategory = '';
+      }
+      this.changeDetectorRef.detectChanges();
     }
   };
 
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-    this.filteredAreas = [...this.triggeredAreas];
+    this.filteredAreas = [];
     this.triggeredAreas.forEach(this.disableSubmitButtonForTriggeredArea);
   };
 
@@ -112,7 +138,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         filterTriggeredAreasByPlaceCode,
       );
     } else {
-      this.filteredAreas = [...this.triggeredAreas];
+      this.filteredAreas = [];
     }
     this.changeDetectorRef.detectChanges();
   };
@@ -171,6 +197,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
     this.triggeredAreas.find(filterTriggeredAreaByPlaceCode).submitDisabled =
       this.changedActions.length === 0;
+    this.changeDetectorRef.detectChanges();
   }
 
   private checkEAPAction = (action) => {
@@ -253,7 +280,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   public closePlaceCodeEventPopup(triggeredArea): void {
     this.translateSubscription = this.translateService
-      .get('chat-component.active-event.close-event-popup.message', {
+      .get(`chat-component.close-event-popup.message`, {
         placeCodeName: triggeredArea.name,
       })
       .subscribe(this.onClosePlaceCodeEventPopupByTriggeredArea(triggeredArea));

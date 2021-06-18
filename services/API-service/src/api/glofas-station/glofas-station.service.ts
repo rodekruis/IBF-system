@@ -66,7 +66,7 @@ export class GlofasStationService {
     uploadTriggerPerStation: UploadTriggerPerStationDto,
   ): Promise<GlofasStationForecastEntity[]> {
     const stationForecasts: GlofasStationForecastEntity[] = [];
-    for await (let station of uploadTriggerPerStation.stationForecasts) {
+    for await (const station of uploadTriggerPerStation.stationForecasts) {
       const glofasStation = await this.glofasStationRepository.findOne({
         where: { stationCode: station.stationCode },
       });

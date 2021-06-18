@@ -34,7 +34,6 @@ export class SeedAdminArea implements InterfaceScript {
     adminAreaRepository,
   ): Promise<void> {
     country.adminLevels.forEach(async adminLevel => {
-      console.log('adminLevel: ', adminLevel);
       const fileName = `./src/scripts/git-lfs/admin-boundaries/${country.countryCodeISO3}_adm${adminLevel}.json`;
       const adminJsonRaw = fs.readFileSync(fileName, 'utf-8');
       const adminJson = JSON.parse(adminJsonRaw);

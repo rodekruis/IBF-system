@@ -8,12 +8,17 @@ import fs from 'fs';
 import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-indicator';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { EventService } from '../api/event/event.service';
-
+import { InjectRepository } from '@nestjs/typeorm';
+import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
+import { Repository } from 'typeorm';
 @Injectable()
 export class ScriptsService {
   private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService;
   private readonly glofasStationService: GlofasStationService;
   private readonly eventService: EventService;
+
+  @InjectRepository(EventPlaceCodeEntity)
+  private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
 
   public constructor(
     adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -26,6 +31,11 @@ export class ScriptsService {
   }
 
   public async mockCountry(mockInput: MockDynamic) {
+    if (mockInput.removeEvents) {
+      const all = await this.eventPlaceCodeRepo.find();
+      await this.eventPlaceCodeRepo.remove(all);
+    }
+
     const selectedCountry = countries.find((country): any => {
       if (mockInput.countryCodeISO3 === country.countryCodeISO3) {
         return country;
@@ -41,37 +51,74 @@ export class ScriptsService {
   }
 
   private async mockExposure(selectedCountry, triggered: boolean) {
-    let exposureIndicators;
+    let exposureUnits;
     if (selectedCountry.countryCodeISO3 === 'PHL') {
-      exposureIndicators = [
-        DynamicIndicator.populationAffected,
+      exposureUnits = [
+        DynamicIndicator.alertThreshold,
         DynamicIndicator.potentialCases65,
         DynamicIndicator.potentialCasesU9,
+        DynamicIndicator.potentialCases,
+        DynamicIndicator.potentialThreshold,
       ];
     } else {
-      exposureIndicators = [DynamicIndicator.populationAffected];
+      exposureUnits = [DynamicIndicator.populationAffected];
     }
 
-    const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/upload-exposure-${
-      selectedCountry.countryCodeISO3
-    }${triggered ? '-triggered' : ''}.json`;
-    const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
-    const exposure = JSON.parse(exposureRaw);
+    for (const unit of exposureUnits) {
+      let exposureFileNameEnd: string;
+      if (unit === DynamicIndicator.potentialThreshold) {
+        exposureFileNameEnd = '-potential-cases-threshold';
+      } else {
+        exposureFileNameEnd = triggered ? '-triggered' : '';
+      }
+      const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/upload-exposure-${selectedCountry.countryCodeISO3}${exposureFileNameEnd}.json`;
 
-    for (const indicator of exposureIndicators) {
+      const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
+      const exposure = JSON.parse(exposureRaw);
+
       for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
         console.log(
-          `Seeding exposure for leadtime: ${activeLeadTime} indicator: ${indicator} for country: ${selectedCountry.countryCodeISO3}`,
+          `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3}`,
         );
         await this.adminAreaDynamicDataService.exposure({
           countryCodeISO3: selectedCountry.countryCodeISO3,
-          exposurePlaceCodes: exposure,
+          exposurePlaceCodes: this.mockAmount(exposure, unit, triggered),
           leadTime: activeLeadTime as LeadTime,
-          dynamicIndicator: indicator,
+          dynamicIndicator: unit,
           adminLevel: selectedCountry.defaultAdminLevel,
         });
       }
     }
+  }
+
+  private mockAmount(
+    exposurePlacecodes: any,
+    exposureUnit: DynamicIndicator,
+    triggered: boolean,
+  ): any[] {
+    const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
+    for (const pcodeData of copyOfExposureUnit) {
+      if (exposureUnit === DynamicIndicator.potentialCases65) {
+        pcodeData.amount = Math.round(pcodeData.amount * 0.1);
+      } else if (exposureUnit === DynamicIndicator.potentialCasesU9) {
+        pcodeData.amount = Math.round(pcodeData.amount * 0.2);
+      } else if (exposureUnit === DynamicIndicator.alertThreshold) {
+        if (!triggered) {
+          pcodeData.amount = 0;
+        } else {
+          pcodeData.amount = [
+            'PH137500000',
+            'PH137400000',
+            'PH133900000',
+            'PH137600000',
+            'PH031400000',
+          ].includes(pcodeData.placeCode)
+            ? 1
+            : 0;
+        }
+      }
+    }
+    return copyOfExposureUnit;
   }
 
   private async mockGlofasStations(selectedCountry, triggered: boolean) {

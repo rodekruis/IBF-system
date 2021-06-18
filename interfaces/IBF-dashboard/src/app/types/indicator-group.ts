@@ -3,6 +3,7 @@ import { ColorBreaks, IbfLayerLabel, IbfLayerName } from './ibf-layer';
 export enum IndicatorGroup {
   general = 'Exposure',
   vulnerability = 'Vulnerability',
+  outline = 'outline',
 }
 
 export class Indicator {
@@ -12,7 +13,7 @@ export class Indicator {
   active: boolean;
   numberFormatMap: NumberFormat;
   numberFormatAggregate: NumberFormat;
-  aggregateIndicator: boolean;
+  aggregateIndicator: string;
   weightedAvg: boolean;
   group: IndicatorGroup;
   colorBreaks?: ColorBreaks;

@@ -1,3 +1,4 @@
+import { CountryModule } from './../country/country.module';
 import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '../user/user.module';
@@ -13,6 +14,7 @@ import { EventModule } from '../event/event.module';
     HttpModule,
     UserModule,
     TypeOrmModule.forFeature([IndicatorMetadataEntity, LayerMetadataEntity]),
+    CountryModule,
     EventModule,
   ],
   providers: [MetadataService, HelperService],

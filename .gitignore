@@ -19,6 +19,7 @@ tests/cypress/videos
 inspect.docker-compose.config
 nginx/letsencrypt/*
 !nginx/letsencrypt/README.md
+push-test.sh
 
 # R specific:
 .Rproj.user

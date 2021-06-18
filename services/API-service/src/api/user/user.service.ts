@@ -20,8 +20,6 @@ export class UserService {
   private readonly countryRepository: Repository<CountryEntity>;
   private readonly relations: string[] = ['countries'];
 
-  public constructor() {}
-
   public async findAll(): Promise<UserEntity[]> {
     return await this.userRepository.find({
       relations: this.relations,
@@ -59,7 +57,7 @@ export class UserService {
     }
 
     // create new user
-    let newUser = new UserEntity();
+    const newUser = new UserEntity();
     newUser.email = email;
     newUser.username = dto.username;
     newUser.password = password;
@@ -89,10 +87,10 @@ export class UserService {
     userId: string,
     dto: UpdatePasswordDto,
   ): Promise<UserResponseObject> {
-    let toUpdate = await this.userRepository.findOne(userId, {
+    const toUpdate = await this.userRepository.findOne(userId, {
       relations: this.relations,
     });
-    let updated = toUpdate;
+    const updated = toUpdate;
     updated.password = crypto.createHmac('sha256', dto.password).digest('hex');
     const updatedUser = await this.userRepository.save(updated);
     return this.buildUserRO(updatedUser);
@@ -165,8 +163,8 @@ export class UserService {
   }
 
   public generateJWT(user: UserEntity): string {
-    let today = new Date();
-    let exp = new Date(today);
+    const today = new Date();
+    const exp = new Date(today);
     exp.setDate(today.getDate() + 60);
 
     const result = jwt.sign(

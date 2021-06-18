@@ -37,40 +37,71 @@
       },
       "population_over65": {
         "UGA": "Estimate exposed number of people over 65 years of age living in the flood extent area within the areas currently triggered. This number is calculated by multiplying the overall percentage of households with people over 65 years of age, by the total exposed population in that area. The number of people over 65 years of age in the flood extent is derived from the below sources.<br /><br />Source data:<ul><li>Population over 65: <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014.</li><li>Total Population: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href=\"https://www.ciesin.columbia.edu/data/hrsl/\">https://www.ciesin.columbia.edu/data/hrsl/</a></li><li>Flood extent: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].</li></ul>:"
+      },
+      "potential_cases": {
+        "PHL": "Number of potential dengue cases, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      },
+      "potential_cases_U9": {
+        "PHL": "Number of potential dengue cases among children under 9 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      },
+      "potential_cases_65": {
+        "PHL": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
       }
     }
   },
   "areas-of-focus-summary-component": {
-    "title": "EAP Actions Summary"
+    "title": "Actions Summary"
   },
   "chat-component": {
     "about-button-label": "About Trigger",
     "no-event-no-trigger": {
-      "welcome": "Hello Aid worker HQ. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
+      "welcome": "Hello {{ name }}. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
     },
     "new-event-active-trigger": {
-      "welcome": "Hello Aid worker HQ. A new trigger warning for <strong>{{ days }} days from today</strong> has been activated for <strong>{{ disasterTypeLabel }}</strong>.",
-      "new-event-early-trigger": "The system however detects a trigger as soon as <strong>{{ days }} days from today</strong>, which was not detectable earlier."
+      "welcome": "Hello {{ name }}. A new trigger warning for <strong>{{ timeUnits }} days from today</strong> has been activated for <strong>{{ disasterTypeLabel }}</strong>.",
+      "new-event-early-trigger": "The system however detects a trigger as soon as <strong>{{ timeUnits }} days from today</strong>, which was not detectable earlier."
     },
     "active-event-active-trigger": {
-      "welcome": "Hello Aid worker HQ. A trigger warning for <strong>{{ disasterTypeLabel }}</strong> has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ days }} days</strong> away."
+      "welcome": "Hello {{ name }} A trigger warning for <strong>{{ disasterTypeLabel }}</strong> has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ days }} days</strong> away."
     },
     "active-event-no-trigger": {
-      "welcome": "Hello Aid worker HQ. There is <strong>no active trigger</strong> any more (as you can see in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
+      "welcome": "Hello {{ name }}. There is <strong>no active trigger</strong> any more (as you can see in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
     },
     "active-event": {
-      "instruction": "The potentially exposed areas are listed below in order of number of people potentially exposed per area. You can select and submit the pre-planned anticipatory actions executed in each area and eventually close the event.",
-      "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
-      "exposed-population": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
-      "submit-button-label": "Submit",
-      "close-event-button": "Close Event",
+      "instruction": "Please select a triggered area on the map to monitor which EAP anticipatory actions. You can select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+      "place-name": "Potentially Affected: <br>{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+      "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
+      "submit-button-label": "Send",
+      "close-event-button": "Close Alert",
       "update-success": "EAP action(s) updated in database.",
       "update-failure": "Failed to update EAP action(s) updated in database.",
       "prompt-button-label": "OK",
       "close-event-popup": {
-        "message": "You are about to close the triggered event in {{ placeCodeName }}. This action can not be undone.",
-        "confirm": "Close Event",
+        "message": "Are you sure? You are about to close the alert in {{ placeCodeName }}. This action can not be undone.",
+        "confirm": "Close Alert",
         "cancel": "Cancel"
+      }
+    },
+    "dengue": {
+      "about-button-label": "About Dengue Alerts",
+      "no-event-no-trigger": {
+        "welcome": "Hello {{ name }}. To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for dengue activated."
+      },
+      "new-event-active-trigger": {
+        "welcome": "Hello {{ name }}. A {{ disasterTypeLabel }} alert for has been activated for <strong>{{ monthYear }}</strong>.",
+        "new-event-early-trigger": "The system however detects an alert as soon as <strong>{{ timeUnits }} month(s) from now</strong>, which was not detectable earlier."
+      },
+      "active-event-active-trigger": {
+        "welcome": "Hello {{ name }}. A {{ disasterTypeLabel }} alert has earlier been activated on <strong>{{ startDate }}</strong>. The trigger is activated for <strong>{{ monthYear }}</strong>."
+      },
+      "active-event-no-trigger": {
+        "welcome": "Hello {{ name }}. There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
+      },
+      "active-event": {
+        "instruction": "The potentially affected areas are highlighted in the map with a red outline. Please select the area on the map to monitor which SOP early actions are to do or done.",
+        "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
+        "update-success": "SOP action(s) updated in database.",
+        "update-failure": "Failed to update SOP action(s) updated in database."
       }
     }
   },
@@ -146,7 +177,7 @@
         "PHL": "Number of dengue cases per administrative division per year. <br /><br />Source: <a href=\"https://doh.gov.ph/statistics\">https://doh.gov.ph/statistics/</a>"
       },
       "dengue_incidence_average": {
-        "PHL": "Number of dengue cases per 1000 people per administrative division per year. <br /><br />Source: <a href=\"https://doh.gov.ph/statistics\">https://doh.gov.ph/statistics/</a>"
+        "PHL": "Number of dengue cases per 10.000.000 people per administrative division per year. <br /><br />Source: <a href=\"https://doh.gov.ph/statistics\">https://doh.gov.ph/statistics/</a>"
       },
       "potential_cases": {
         "PHL": "Number of potential dengue cases, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"

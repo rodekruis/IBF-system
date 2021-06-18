@@ -199,6 +199,17 @@ export class ApiService {
     );
   }
 
+  getAdminAreaDynamiceDataOne(
+    key: string,
+    placeCode: string,
+    leadTime: string,
+  ) {
+    return this.get(
+      `admin-area-dynamic-data/get/one/${key}/${placeCode}/${leadTime}`,
+      false,
+    );
+  }
+
   getAdminAreaDynamicData(
     countryCodeISO3: string,
     adminLevel: AdminLevel,
@@ -246,6 +257,24 @@ export class ApiService {
       'event/close-place-code',
       {
         eventPlaceCodeId,
+      },
+      false,
+    );
+  }
+
+  mockDynamicData(
+    secret: string,
+    countryCodeISO3: string,
+    triggered: boolean,
+    removeEvents: boolean,
+  ) {
+    return this.post(
+      'scripts/mock-dynamic-data',
+      {
+        secret,
+        countryCodeISO3,
+        triggered,
+        removeEvents,
       },
       false,
     );

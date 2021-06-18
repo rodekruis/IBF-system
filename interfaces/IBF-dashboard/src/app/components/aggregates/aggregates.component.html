@@ -1,7 +1,7 @@
 <div>
   <ion-grid class="ion-no-padding">
     <ion-item
-      color="medium"
+      color="ibf-secondary"
       lines="none"
       class="aggregate-header-item"
       [title]="
@@ -27,7 +27,7 @@
     <div *ngFor="let group of groups" data-test="aggregate-list">
       <ion-item
         *ngIf="group === indicatorGroupEnum.vulnerability"
-        color="medium"
+        color="ibf-secondary"
         lines="none"
         class="aggregate-header-item"
       >
@@ -35,11 +35,19 @@
           <span [translate]="'aggregates-component.exposed-subgroups'"></span>
         </ion-label>
       </ion-item>
-      <ion-row *ngFor="let indicator of indicators" class="ion-no-padding">
+      <ion-row
+        *ngFor="let indicator of indicators"
+        class="ion-no-padding"
+        color="ibf-white"
+      >
         <ng-container *ngIf="indicator.group === group">
           <ion-col size-lg="8" size-md="8" size-xs="8">
             <ion-item lines="inset" class="aggregate-item ion-no-padding">
-              <ion-thumbnail slot="start" class="aggregate-item-thumbnail">
+              <ion-thumbnail
+                slot="start"
+                class="aggregate-item-thumbnail"
+                color="ibf-tertiary"
+              >
                 <ion-img src="assets/icons/{{ indicator.icon }}"></ion-img>
               </ion-thumbnail>
               <ion-label class="aggregate-item-label" [title]="indicator.label">

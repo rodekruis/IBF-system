@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { Indicator } from 'src/app/types/indicator-group';
+import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
 import { Country } from '../models/country.model';
 import { IbfLayerName } from '../types/ibf-layer';
 import { AdminLevelService } from './admin-level.service';
@@ -52,7 +52,11 @@ export class AggregatesService {
   }
 
   private onIndicator = (indicator: Indicator) => {
-    this.mapService.loadAggregateLayer(indicator);
+    if (indicator.group === IndicatorGroup.outline) {
+      this.mapService.loadOutlineLayer(indicator);
+    } else {
+      this.mapService.loadAggregateLayer(indicator);
+    }
   };
 
   private onIndicatorChange = (indicators) => {
@@ -71,7 +75,7 @@ export class AggregatesService {
   private onEachIndicatorByFeatureAndAggregate = (feature, aggregate) => (
     indicator: Indicator,
   ) => {
-    if (indicator.aggregateIndicator) {
+    if (indicator.aggregateIndicator.includes(this.country.countryCodeISO3)) {
       const foundIndicator = feature.records.find(
         (a) => a.indicator === indicator.name,
       );
@@ -151,7 +155,7 @@ export class AggregatesService {
 
     if (placeCode === null || placeCode === aggregate.placeCode) {
       const indicatorWeight = weightedAverage
-        ? aggregate[IbfLayerName.population_affected]
+        ? aggregate[this.country.disasterTypes[0].actionsUnit]
         : 1;
       indicatorValue = indicatorWeight * aggregate[indicator];
     }
