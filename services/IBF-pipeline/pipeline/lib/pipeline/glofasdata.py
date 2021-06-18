@@ -48,10 +48,7 @@ class GlofasData:
         if SETTINGS_SECRET[self.countryCodeISO3]['mock'] == True:
             self.extractMockData()
         else:
-            if self.countryCodeISO3 == 'ZMB': #Temporarily keep using FTP for Zambia
-                self.extractFtpData()
-            else:
-                self.extractApiData()
+            self.extractFtpData()
         self.findTrigger()
 
     def removeOldGlofasData(self):
@@ -69,10 +66,7 @@ class GlofasData:
 
         while downloadDone == False and time.time() < end:
             try:
-                if self.countryCodeISO3 == 'ZMB': #Temporarily keep using FTP for Zambia
-                    self.makeFtpRequest()
-                else:
-                    self.makeApiRequest()
+                self.makeFtpRequest()
                 downloadDone = True
             except Exception as exception:
                 error = 'Download data failed. Trying again in {} minutes.\n{}'.format(timeToRetry//60, exception)
@@ -92,13 +86,6 @@ class GlofasData:
         tar = tarfile.open(self.inputPath + filename, "r:gz")
         tar.extractall(self.inputPath)
         tar.close()
-
-    def makeApiRequest(self):
-        path = 'glofas/glofas-forecast-' + self.current_date + '.nc'
-        glofasDataFile = self.db.getDataFromDatalake(path)
-        if glofasDataFile.status_code >= 400:
-            raise ValueError()
-        open(self.inputPath+'glofas-api-'+self.countryCodeISO3+'-'+self.current_date+'.nc', 'wb').write(glofasDataFile.content)
 
     def extractFtpData(self):
         print('\nExtracting Glofas (FTP) Data\n')
@@ -124,6 +111,11 @@ class GlofasData:
         for i in range(0, len(files)):
             logging.info("Extracting glofas data from %s", i)
             Filename = os.path.join(self.inputPath, files[i])
+            
+            # Skip old stations > need to be removed from FTP
+            if 'G5230_Na_ZambiaRedcross' in Filename or 'G5196_Uganda_Gauge' in Filename:
+                continue
+
             station = {}
             station['code'] = files[i].split(
                 '_')[2]
@@ -132,6 +124,7 @@ class GlofasData:
 
             # Get threshold for this specific station
             if station['code'] in df_thresholds['stationCode'] and station['code'] in df_district_mapping['glofasStation']:
+                
                 print(Filename)
                 threshold = df_thresholds[df_thresholds['stationCode'] ==
                                           station['code']][TRIGGER_LEVEL][0]
@@ -170,101 +163,6 @@ class GlofasData:
                         '_')[2]
 
             data.close()
-
-        # Add 'no_station'
-        for station_code in ['no_station']:
-            station = {}
-            station['code'] = station_code
-            station['fc'] = 0
-            station['fc_prob'] = 0
-            station['fc_trigger'] = 0
-            stations.append(station)
-
-        with open(self.extractedGlofasPath, 'w') as fp:
-            json.dump(stations, fp)
-            print('Extracted Glofas data - File saved')
-
-        with open(self.triggerPerDay, 'w') as fp:
-            json.dump([trigger_per_day], fp)
-            print('Extracted Glofas data - Trigger per day File saved')
-
-    def extractApiData(self):
-        print('\nExtracting Glofas (API) Data\n')
-
-        # Load input data
-        df_thresholds = pd.read_json(json.dumps(self.GLOFAS_STATIONS))
-        df_thresholds = df_thresholds.set_index("stationCode", drop=False)
-        df_district_mapping = pd.read_json(json.dumps(self.DISTRICT_MAPPING))
-        df_district_mapping = df_district_mapping.set_index("glofasStation", drop=False)
-
-        # Set up variables to fill
-        stations = []
-        trigger_per_day = {
-            '1-day': False,
-            '2-day': False,
-            '3-day': False,
-            '4-day': False,
-            '5-day': False,
-            '6-day': False,
-            '7-day': False,
-        }
-
-        # Load netCDF data
-        ncData = xr.open_dataset(self.inputPath+'glofas-api-'+self.countryCodeISO3+'-'+self.current_date+'.nc')
-
-        # Transform lon/lat values
-        lons=np.linspace(ncData.dis24.attrs['GRIB_longitudeOfFirstGridPointInDegrees'],
-                 ncData.dis24.attrs['GRIB_longitudeOfLastGridPointInDegrees'],
-                 num=ncData.dis24.attrs['GRIB_Nx'])
-        lats=np.linspace(ncData.dis24.attrs['GRIB_latitudeOfFirstGridPointInDegrees'],
-                    ncData.dis24.attrs['GRIB_latitudeOfLastGridPointInDegrees'],
-                    num=ncData.dis24.attrs['GRIB_Ny'])
-        ds=ncData['dis24']
-        ds.coords['latitude'] = lats
-        ds.coords['longitude'] = lons
-        ncData2=ds.to_dataset()
-
-        for index, row in df_thresholds.iterrows():
-            station = {}
-            station['code'] = row['stationCode']
-
-            if station['code'] in df_district_mapping['glofasStation'] and station['code'] != 'no_station':
-                print(station['code'])
-                threshold = df_thresholds[df_thresholds['stationCode'] ==
-                                          station['code']][TRIGGER_LEVEL][0]
-
-                for step in range(1, 8):
-                    # Loop through 51 ensembles, get forecast and compare to threshold
-                    ensemble_options = 51
-                    count = 0
-                    dis_sum = 0
-
-                    deltax=0.1
-                    st_lat=row['lat'] #34.05
-                    st_lon=row['lon'] #0.05
-                    for ensemble in range(1, ensemble_options):
-
-                        dischargeArray = ncData2['dis24'].sel(latitude=slice(st_lat+deltax,st_lat-deltax), longitude=slice(st_lon-deltax,st_lon+deltax),step=str(step)+' days',number=ensemble).values.flatten()
-                        discharge = np.nanmax(dischargeArray)
-
-                        if discharge >= threshold:
-                            count = count + 1
-                        dis_sum = dis_sum + discharge
-
-                    prob = count/ensemble_options
-                    dis_avg = dis_sum/ensemble_options
-                    station['fc'] = dis_avg
-                    station['fc_prob'] = prob
-                    station['fc_trigger'] = 1 if prob > TRIGGER_LEVELS['minimum'] else 0
-
-                    if station['fc_trigger'] == 1:
-                        trigger_per_day[str(step)+'-day'] = True
-
-                    if step == self.leadTimeValue:
-                        stations.append(station)
-                    station = {}
-                    station['code'] = row['stationCode']
-
 
         # Add 'no_station'
         for station_code in ['no_station']:
@@ -325,8 +223,8 @@ class GlofasData:
                         if SETTINGS_SECRET[self.countryCodeISO3]['if_mock_trigger'] == True:
                             if step < 5: # Only dummy trigger for 5-day and above
                                 discharge = 0
-                            elif station['code'] == 'DWRM1':  # UGA dummy flood station 1
-                                discharge = 1000
+                            elif station['code'] == 'G5220':  # UGA dummy flood station 1
+                                discharge = 600
                             elif station['code'] == 'G1067':  # ETH dummy flood station 1
                                 discharge = 1000
                             elif station['code'] == 'G1904':  # ETH dummy flood station 2
@@ -426,7 +324,7 @@ class GlofasData:
                 return_period = 2
             else:
                 return_period = None
-
+            
             df.at[index, 'fc_rp_flood_extent'] = return_period_flood_extent
             df.at[index, 'fc_rp'] = return_period
 
