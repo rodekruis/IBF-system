@@ -48,7 +48,7 @@ class GlofasData:
         if SETTINGS_SECRET[self.countryCodeISO3]['mock'] == True:
             self.extractMockData()
         else:
-            self.extractFtpData()
+            self.extractGlofasData()
         self.findTrigger()
 
     def removeOldGlofasData(self):
@@ -66,7 +66,7 @@ class GlofasData:
 
         while downloadDone == False and time.time() < end:
             try:
-                self.makeFtpRequest()
+                self.getGlofasData()
                 downloadDone = True
             except Exception as exception:
                 error = 'Download data failed. Trying again in {} minutes.\n{}'.format(timeToRetry//60, exception)
@@ -77,17 +77,18 @@ class GlofasData:
             raise ValueError('GLofas download failed for ' +
                             str(timeToTryDownload/3600) + ' hours, no new dataset was found')
 
-    def makeFtpRequest(self):
+    def getGlofasData(self):
         filename = GLOFAS_FILENAME + '_' + self.current_date + '00.tar.gz'
-        ftp_path = 'ftp://'+GLOFAS_USER+':'+GLOFAS_PW + '@' + GLOFAS_FTP
-        urllib.request.urlretrieve(ftp_path + filename,
-                                   self.inputPath + filename)
-
+        path = 'glofas/' + filename
+        glofasDataFile = self.db.getDataFromDatalake(path)
+        if glofasDataFile.status_code >= 400:
+            raise ValueError()
+        open(self.inputPath + filename, 'wb').write(glofasDataFile.content)
         tar = tarfile.open(self.inputPath + filename, "r:gz")
         tar.extractall(self.inputPath)
         tar.close()
 
-    def extractFtpData(self):
+    def extractGlofasData(self):
         print('\nExtracting Glofas (FTP) Data\n')
 
         files = [f for f in listdir(self.inputPath) if isfile(
