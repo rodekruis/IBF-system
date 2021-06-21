@@ -11,6 +11,7 @@ import { EventService } from '../api/event/event.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { Repository } from 'typeorm';
+import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 @Injectable()
 export class ScriptsService {
   private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService;
@@ -19,6 +20,8 @@ export class ScriptsService {
 
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
+  @InjectRepository(EapActionStatusEntity)
+  private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
 
   public constructor(
     adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -32,8 +35,13 @@ export class ScriptsService {
 
   public async mockCountry(mockInput: MockDynamic) {
     if (mockInput.removeEvents) {
-      const all = await this.eventPlaceCodeRepo.find();
-      await this.eventPlaceCodeRepo.remove(all);
+      const allEvents = await this.eventPlaceCodeRepo.find({
+        relations: ['eapActionStatuses'],
+      });
+      for (const event of allEvents) {
+        await this.eapActionStatusRepo.remove(event.eapActionStatuses);
+      }
+      await this.eventPlaceCodeRepo.remove(allEvents);
     }
 
     const selectedCountry = countries.find((country): any => {
