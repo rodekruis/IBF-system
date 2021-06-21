@@ -69,7 +69,7 @@
     },
     "active-event": {
       "instruction": "Please select a triggered area on the map to monitor which EAP anticipatory actions. You can select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-      "place-name": "Potentially Affected: <br>{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+      "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
       "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
       "submit-button-label": "Send",
       "close-event-button": "Close Alert",
