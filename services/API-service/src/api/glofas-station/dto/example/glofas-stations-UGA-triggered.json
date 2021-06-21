@@ -1,55 +1,55 @@
 [
   {
-    "stationCode": "DWRM1",
-    "forecastLevel": 1000,
+    "stationCode": "G5075",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G5160",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G5189",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G5196",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G5220",
+    "forecastLevel": 600,
     "forecastProbability": 1,
     "forecastTrigger": 1,
-    "forecastReturnPeriod": 25
+    "forecastReturnPeriod": 20
   },
   {
-    "stationCode": "DWRM2",
+    "stationCode": "G5227",
     "forecastLevel": 0,
     "forecastProbability": 0,
     "forecastTrigger": 0,
     "forecastReturnPeriod": null
   },
   {
-    "stationCode": "DWRM3",
+    "stationCode": "G5230",
     "forecastLevel": 0,
     "forecastProbability": 0,
     "forecastTrigger": 0,
     "forecastReturnPeriod": null
   },
   {
-    "stationCode": "DWRM7",
-    "forecastLevel": 0,
-    "forecastProbability": 0,
-    "forecastTrigger": 0,
-    "forecastReturnPeriod": null
-  },
-  {
-    "stationCode": "DWRM9",
-    "forecastLevel": 0,
-    "forecastProbability": 0,
-    "forecastTrigger": 0,
-    "forecastReturnPeriod": null
-  },
-  {
-    "stationCode": "DWRM10",
-    "forecastLevel": 0,
-    "forecastProbability": 0,
-    "forecastTrigger": 0,
-    "forecastReturnPeriod": null
-  },
-  {
-    "stationCode": "DWRM12",
-    "forecastLevel": 0,
-    "forecastProbability": 0,
-    "forecastTrigger": 0,
-    "forecastReturnPeriod": null
-  },
-  {
-    "stationCode": "DWRM14",
+    "stationCode": "G5317",
     "forecastLevel": 0,
     "forecastProbability": 0,
     "forecastTrigger": 0,
