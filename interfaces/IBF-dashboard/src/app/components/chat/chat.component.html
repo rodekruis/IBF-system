@@ -50,7 +50,7 @@
             'new-event-active-trigger.new-event-early-trigger'
             | translate
               : {
-                  timeUnits: eventService.state.firstLeadTime,
+                  timeUnits: eventService.state.firstLeadTimeLabel,
                   disasterTypeLabel: disasterTypeLabel
                 }
         "
@@ -86,7 +86,7 @@
             : {
                 name: authService.displayName,
                 startDate: eventService.state.event.startDate,
-                timeUnits: eventService.state.firstLeadTime,
+                timeUnits: eventService.state.firstLeadTimeLabel,
                 disasterTypeLabel: disasterTypeLabel,
                 monthYear: eventService.state.firstLeadTimeName
               }
@@ -106,9 +106,7 @@
   >
     <p
       [innerHTML]="
-        'chat-component.' +
-          disasterCategory +
-          '.active-event-no-trigger.welcome'
+        'chat-component.' + disasterCategory + 'active-event-no-trigger.welcome'
           | translate
             : {
                 name: authService.displayName,

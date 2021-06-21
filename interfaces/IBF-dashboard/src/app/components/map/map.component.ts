@@ -519,7 +519,6 @@ export class MapComponent implements OnDestroy {
     const thresholdName = 'Alert threshold';
 
     return this.createThresholdPopup(
-      headerColor,
       headerTextColor,
       title,
       eapStatusColor,
@@ -532,7 +531,6 @@ export class MapComponent implements OnDestroy {
   }
 
   private createThresholdPopup(
-    headerColor: string,
     eapStatusColorText: string,
     title: string,
     eapStatusColor: string,
@@ -565,7 +563,7 @@ export class MapComponent implements OnDestroy {
     <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
       ${thresholdName}:</div> \
    \
-  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>'${Math.round(
+  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>${Math.round(
     thresholdValue,
   )}</strong></div></div> \
 </div> \
@@ -767,14 +765,6 @@ export class MapComponent implements OnDestroy {
         eapStatusColorText = `var(--ion-color-${eapAlertClasses[key].color}-contrast)`;
       }
     });
-    const headerColor =
-      glofasProbability > eapAlertClasses.max.valueLow
-        ? eapStatusColor
-        : 'var(--ion-color-ibf-no-alert-primary)';
-    const headerTextColor =
-      glofasProbability > eapAlertClasses.max.valueLow
-        ? 'var(--ion-color-ibf-black)'
-        : 'var(--ion-color-ibf-white)';
 
     const title =
       markerProperties.stationCode +
@@ -799,13 +789,12 @@ export class MapComponent implements OnDestroy {
 
     const thresholdName = 'Trigger activation threshold';
     const stationInfoPopup = this.createThresholdPopup(
-      headerColor,
-      headerTextColor,
+      eapStatusColorText,
       title,
       eapStatusColor,
       eapStatusText,
       markerProperties.forecastLevel,
-      markerProperties.forecastTrigger,
+      markerProperties.triggerLevel,
       subtitle,
       thresholdName,
     );

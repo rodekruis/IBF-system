@@ -24,6 +24,7 @@ export class EventService {
     newEventEarlyTrigger: null,
     triggerLeadTime: null,
     firstLeadTime: null,
+    firstLeadTimeLabel: null,
     firstLeadTimeName: null,
   };
 
@@ -42,6 +43,14 @@ export class EventService {
     this.getTrigger();
   };
 
+  public getTrigger() {
+    if (this.country) {
+      this.apiService
+        .getEvent(this.country.countryCodeISO3)
+        .subscribe(this.onEvent);
+    }
+  }
+
   private onEvent = (event) => {
     this.state.event = event;
     this.state.activeEvent = !!this.state.event;
@@ -54,17 +63,8 @@ export class EventService {
 
     if (this.state.activeTrigger) {
       this.getFirstTriggerDate();
-      this.getTriggerLeadTime();
     }
   };
-
-  public getTrigger() {
-    if (this.country) {
-      this.apiService
-        .getEvent(this.country.countryCodeISO3)
-        .subscribe(this.onEvent);
-    }
-  }
 
   private setAlertState = () => {
     const dashboardElement = document.getElementById('ibf-dashboard-interface');
@@ -79,6 +79,14 @@ export class EventService {
     }
   };
 
+  private getFirstTriggerDate() {
+    if (this.country) {
+      this.apiService
+        .getTriggerPerLeadTime(this.country.countryCodeISO3)
+        .subscribe(this.onTriggerPerLeadTime);
+    }
+  }
+
   private onTriggerPerLeadTime = (timesteps) => {
     let firstKey = null;
     Object.keys(timesteps).forEach((key) => {
@@ -87,7 +95,10 @@ export class EventService {
       }
     });
     this.state.firstLeadTime = firstKey;
+    this.state.firstLeadTimeLabel =
+      LeadTimeTriggerKey[this.state.firstLeadTime];
     this.getFirstTriggeredString();
+    this.getTriggerLeadTime();
     this.state.newEventEarlyTrigger =
       firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
   };
@@ -116,21 +127,14 @@ export class EventService {
     }
   }
 
-  private getFirstTriggerDate() {
-    if (this.country) {
-      this.apiService
-        .getTriggerPerLeadTime(this.country.countryCodeISO3)
-        .subscribe(this.onTriggerPerLeadTime);
-    }
-  }
-
   private getTriggerLeadTime() {
     if (this.country) {
       let triggerLeadTime = null;
       this.country.countryActiveLeadTimes.forEach((leadTime: LeadTime) => {
         if (
           !triggerLeadTime &&
-          LeadTimeTriggerKey[leadTime] <= this.state.firstLeadTime
+          LeadTimeTriggerKey[leadTime] >=
+            LeadTimeTriggerKey[this.state.firstLeadTime]
         ) {
           triggerLeadTime = LeadTimeTriggerKey[leadTime];
         }

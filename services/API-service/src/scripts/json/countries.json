@@ -11,7 +11,7 @@
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
-      "triggerColName": "5yr_threshold"
+      "triggerColName": "custom_threshold"
     },
     "countryActiveLeadTimes": [
       "5-day"
@@ -115,7 +115,7 @@
         "plural": "Wards"
       }
     },
-    "eapLink": "https://docs.google.com/document/d/18SG6UklAYsY5EkVAINnZUH6D_tvry3Jh479mpVTehRU/edit?ts=5da1dba5#bookmark=id.xa68na3bshzr",
+    "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=357745",
     "countryLogos": [
       "ZMB-warma.png",
       "ZMB-government.svg",
