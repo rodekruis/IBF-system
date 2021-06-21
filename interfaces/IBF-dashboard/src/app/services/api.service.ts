@@ -143,7 +143,7 @@ export class ApiService {
   }
 
   getRecentDates(countryCodeISO3: string): Observable<any> {
-    return this.get(`event/recent-dates/${countryCodeISO3}`, false);
+    return this.get(`event/recent-date/${countryCodeISO3}`, false);
   }
 
   getTriggerPerLeadTime(countryCodeISO3: string): Observable<CountryTriggers> {

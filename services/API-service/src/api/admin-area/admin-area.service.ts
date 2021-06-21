@@ -95,6 +95,10 @@ export class AdminAreaService {
     }
     const staticIndicators = await staticIndicatorsScript.getRawMany();
 
+    const lastTriggeredDate = await this.eventService.getRecentDate(
+      countryCodeISO3,
+    );
+
     let dynamicIndicatorsScript = this.adminAreaRepository
       .createQueryBuilder('area')
       .select(['area."placeCode"'])
@@ -108,6 +112,9 @@ export class AdminAreaService {
         countryCodeISO3: countryCodeISO3,
       })
       .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
+      .andWhere('date = :lastTriggeredDate', {
+        lastTriggeredDate: lastTriggeredDate.date,
+      })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
     if (placeCodes.length) {
       dynamicIndicatorsScript = dynamicIndicatorsScript.andWhere(
@@ -145,6 +152,10 @@ export class AdminAreaService {
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
     // Only add triggered-area filter if this is the default admin level
     if (adminLevel == country.defaultAdminLevel) {
+      const lastTriggeredDate = await this.eventService.getRecentDate(
+        countryCodeISO3,
+      );
+
       adminAreasScript = adminAreasScript
         .leftJoin(
           AdminAreaDynamicDataEntity,
@@ -157,6 +168,9 @@ export class AdminAreaService {
           'dynamic."date"',
         ])
         .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
+        .andWhere('date = :lastTriggeredDate', {
+          lastTriggeredDate: lastTriggeredDate.date,
+        })
         .andWhere('dynamic."indicator" = :indicator', {
           indicator: actionUnits[0],
         });

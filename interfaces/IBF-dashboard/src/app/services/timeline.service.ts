@@ -74,9 +74,9 @@ export class TimelineService {
     }
   };
 
-  private onRecentDates = (dates) => {
-    if (dates.length > 0) {
-      this.state.today = DateTime.fromISO(dates[0].date);
+  private onRecentDates = (date) => {
+    if (date) {
+      this.state.today = DateTime.fromISO(date.date);
     }
 
     this.apiService

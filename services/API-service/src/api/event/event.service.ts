@@ -12,6 +12,7 @@ import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryService } from '../country/country.service';
+import { DateDto } from './dto/date.dto';
 
 @Injectable()
 export class EventService {
@@ -57,15 +58,12 @@ export class EventService {
     return eventSummary;
   }
 
-  public async getRecentDates(countryCodeISO3: string): Promise<object[]> {
+  public async getRecentDate(countryCodeISO3: string): Promise<DateDto> {
     const result = await this.triggerPerLeadTimeRepository.findOne({
       where: { countryCodeISO3: countryCodeISO3 },
       order: { date: 'DESC' },
     });
-    if (!result) {
-      return [];
-    }
-    return [{ date: new Date(result.date).toISOString() }];
+    return { date: new Date(result.date).toISOString() };
   }
 
   public async uploadTriggerPerLeadTime(
@@ -192,6 +190,8 @@ export class EventService {
       countryCodeISO3,
     );
 
+    const lastTriggeredDate = await this.getRecentDate(countryCodeISO3);
+
     const triggeredPlaceCodes = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
@@ -199,7 +199,9 @@ export class EventService {
         indicators: triggerIndicators,
       })
       .andWhere('value > 0')
-      .andWhere('date = current_date')
+      .andWhere('date = :lastTriggeredDate', {
+        lastTriggeredDate: lastTriggeredDate.date,
+      })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })

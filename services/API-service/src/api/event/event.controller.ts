@@ -33,11 +33,11 @@ export class EventController {
     );
   }
 
-  @ApiOperation({ summary: 'Get recent dates' })
+  @ApiOperation({ summary: 'Get recent date' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @Get('recent-dates/:countryCodeISO3')
+  @Get('recent-date/:countryCodeISO3')
   public async getRecentDate(@Param() params): Promise<object> {
-    return await this.eventService.getRecentDates(params.countryCodeISO3);
+    return await this.eventService.getRecentDate(params.countryCodeISO3);
   }
 
   @ApiOperation({ summary: 'Get trigger data per lead-time' })
