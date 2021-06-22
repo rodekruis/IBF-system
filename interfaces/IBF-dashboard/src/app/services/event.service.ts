@@ -151,6 +151,3 @@ export class EventService {
     }
   }
 }
-function moment(endDate: string) {
-  throw new Error('Function not implemented.');
-}
