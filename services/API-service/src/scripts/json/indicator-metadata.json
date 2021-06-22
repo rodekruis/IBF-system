@@ -22,7 +22,7 @@
     "group": "general",
     "icon": "Affected-population-white.svg",
     "weightedAvg": false,
-    "active": false,
+    "active": true,
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "PHL",
