@@ -8,10 +8,11 @@ ion-button {
   height: 100% !important;
   width: 90px;
   text-transform: uppercase;
+  --box-shadow: none;
 
   &.active {
     font-weight: bold;
-    border: solid;
+    border: 2px solid var(--ion-color-ibf-primary);
     border-width: 2px;
   }
 }
