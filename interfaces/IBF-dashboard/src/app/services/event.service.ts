@@ -59,12 +59,20 @@ export class EventService {
     this.state.newEvent =
       this.state.event?.startDate ===
       this.timelineService.state.today.toFormat('yyyy-LL-dd');
+    this.state.event.endDate = this.endDateToLastTriggerDate(
+      this.state.event.endDate,
+    );
     this.setAlertState();
 
     if (this.state.activeTrigger) {
       this.getFirstTriggerDate();
     }
   };
+
+  private endDateToLastTriggerDate(endDate: string): string {
+    const originalEndDate = DateTime.fromFormat(endDate, 'yyyy-LL-dd');
+    return originalEndDate.minus({ days: 7 }).toFormat('yyyy-LL-dd');
+  }
 
   private setAlertState = () => {
     const dashboardElement = document.getElementById('ibf-dashboard-interface');
@@ -142,4 +150,7 @@ export class EventService {
       this.state.triggerLeadTime = triggerLeadTime;
     }
   }
+}
+function moment(endDate: string) {
+  throw new Error('Function not implemented.');
 }
