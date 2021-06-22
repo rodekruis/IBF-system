@@ -68,7 +68,6 @@
 
   --ion-color-ibf-grey: #c2c2c2;
 
-
   .no-alert {
     /** base colors **/
     --ion-color-ibf-primary: var(--ion-color-ibf-no-alert-primary);
@@ -383,7 +382,9 @@
   --ion-color-base: var(--ion-color-ibf-no-alert-secondary);
   --ion-color-base-rgb: var(--ion-color-ibf-no-alert-secondary-rgb);
   --ion-color-contrast: var(--ion-color-ibf-no-alert-secondary-contrast);
-  --ion-color-contrast-rgb: var(--ion-color-ibf-no-alert-secondary-contrast-rgb);
+  --ion-color-contrast-rgb: var(
+    --ion-color-ibf-no-alert-secondary-contrast-rgb
+  );
   --ion-color-shade: var(--ion-color-ibf-no-alert-secondary-shade);
   --ion-color-tint: var(--ion-color-ibf-no-alert-secondary-tint);
 }
@@ -401,7 +402,9 @@
   --ion-color-base: var(--ion-color-ibf-trigger-alert-primary);
   --ion-color-base-rgb: var(--ion-color-ibf-trigger-alert-primary-rgb);
   --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary-contrast);
-  --ion-color-contrast-rgb: var(--ion-color-ibf-trigger-alert-primary-contrast-rgb);
+  --ion-color-contrast-rgb: var(
+    --ion-color-ibf-trigger-alert-primary-contrast-rgb
+  );
   --ion-color-shade: var(--ion-color-ibf-trigger-alert-primary-shade);
   --ion-color-tint: var(--ion-color-ibf-trigger-alert-primary-tint);
 }
@@ -410,7 +413,9 @@
   --ion-color-base: var(--ion-color-ibf-trigger-alert-secondary);
   --ion-color-base-rgb: var(--ion-color-ibf-trigger-alert-secondary-rgb);
   --ion-color-contrast: var(--ion-color-ibf-trigger-alert-secondary-contrast);
-  --ion-color-contrast-rgb: var(--ion-color-ibf-trigger-alert-secondary-contrast-rgb);
+  --ion-color-contrast-rgb: var(
+    --ion-color-ibf-trigger-alert-secondary-contrast-rgb
+  );
   --ion-color-shade: var(--ion-color-ibf-trigger-alert-secondary-shade);
   --ion-color-tint: var(--ion-color-ibf-trigger-alert-secondary-tint);
 }
@@ -419,7 +424,9 @@
   --ion-color-base: var(--ion-color-ibf-trigger-alert-tertiary);
   --ion-color-base-rgb: var(--ion-color-ibf-trigger-alert-tertiary-rgb);
   --ion-color-contrast: var(--ion-color-ibf-trigger-alert-tertiary-contrast);
-  --ion-color-contrast-rgb: var(--ion-color-ibf-trigger-alert-tertiary-contrast-rgb);
+  --ion-color-contrast-rgb: var(
+    --ion-color-ibf-trigger-alert-tertiary-contrast-rgb
+  );
   --ion-color-shade: var(--ion-color-ibf-trigger-alert-tertiary-shade);
   --ion-color-tint: var(--ion-color-ibf-trigger-alert-tertiary-tint);
 }
