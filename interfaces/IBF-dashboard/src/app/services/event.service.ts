@@ -59,9 +59,11 @@ export class EventService {
     this.state.newEvent =
       this.state.event?.startDate ===
       this.timelineService.state.today.toFormat('yyyy-LL-dd');
-    this.state.event.endDate = this.endDateToLastTriggerDate(
-      this.state.event.endDate,
-    );
+    if (event && event.endDate) {
+      this.state.event.endDate = this.endDateToLastTriggerDate(
+        this.state.event.endDate,
+      );
+    }
     this.setAlertState();
 
     if (this.state.activeTrigger) {
