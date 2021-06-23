@@ -401,11 +401,14 @@ export class MapComponent implements OnDestroy {
       component: this.constructor.name,
     });
 
-    this.placeCodeService.setPlaceCode({
-      countryCodeISO3: feature.properties.countryCodeISO3,
-      placeCodeName: feature.properties.name,
-      placeCode: feature.properties.placeCode,
-    });
+    const additionalAdminLevel = this.isAdditionalAdminLevel(layer);
+    if (!additionalAdminLevel) {
+      this.placeCodeService.setPlaceCode({
+        countryCodeISO3: feature.properties.countryCodeISO3,
+        placeCodeName: feature.properties.name,
+        placeCode: feature.properties.placeCode,
+      });
+    }
 
     if (feature.properties.placeCode === this.placeCode) {
       element.unbindPopup();
@@ -462,16 +465,19 @@ export class MapComponent implements OnDestroy {
     return adminRegionLayerPane;
   }
 
+  private isAdditionalAdminLevel(layer: IbfLayer) {
+    if (layer.group === IbfLayerGroup.adminRegions) {
+      const adminLevel = Number(layer.name.slice(-1)) as AdminLevel;
+      return adminLevel !== this.adminLevelService.adminLevel;
+    }
+  }
+
   private createDefaultPopupAdminRegions(layer: IbfLayer, feature): string {
     const activeAggregateLayer = this.mapService.layers.find(
       (l) => l.active && l.group === IbfLayerGroup.aggregates,
     );
 
-    let additionalAdminLevel: boolean;
-    if (layer.group === IbfLayerGroup.adminRegions) {
-      const adminLevel = Number(layer.name.slice(-1)) as AdminLevel;
-      additionalAdminLevel = adminLevel !== this.adminLevelService.adminLevel;
-    }
+    const additionalAdminLevel = this.isAdditionalAdminLevel(layer);
     return (
       '<strong>' +
       feature.properties.name +
