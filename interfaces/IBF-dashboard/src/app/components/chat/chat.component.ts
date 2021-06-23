@@ -125,7 +125,11 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-    this.filteredAreas = [];
+    if (this.disasterTypeName === DisasterTypeKey.dengue) {
+      this.filteredAreas = [];
+    } else {
+      this.filteredAreas = [...this.triggeredAreas];
+    }
     this.triggeredAreas.forEach(this.disableSubmitButtonForTriggeredArea);
   };
 
@@ -138,7 +142,11 @@ export class ChatComponent implements OnInit, OnDestroy {
         filterTriggeredAreasByPlaceCode,
       );
     } else {
-      this.filteredAreas = [];
+      if (this.disasterTypeName === DisasterTypeKey.dengue) {
+        this.filteredAreas = [];
+      } else {
+        this.filteredAreas = [...this.triggeredAreas];
+      }
     }
     this.changeDetectorRef.detectChanges();
   };

@@ -68,8 +68,8 @@
       "welcome": "Hello {{ name }}. There is <strong>no active trigger</strong> any more (as you can see in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
     },
     "active-event": {
-      "instruction": "Please select a triggered area on the map to monitor which EAP anticipatory actions. You can select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-      "place-name": "Potentially Affected: <br>{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+      "instruction": "The potentially exposed areas are listed below in order of number of people potentially exposed per area. You can select and send the pre-planned anticipatory actions executed in each area and eventually close the event. Select an area in the map, to show only the actions for that area.",
+      "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
       "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
       "submit-button-label": "Send",
       "close-event-button": "Close Alert",
@@ -187,6 +187,9 @@
       },
       "potential_cases_65": {
         "PHL": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      },
+      "alert_threshold": {
+        "PHL": "Administrative divisions that reached alert threshold, in terms of number of potential cases. <br /><br /> See definition at: <a href=\"https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/Forms/AllItems.aspx?id=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments%2FIBF%5Fdengue%5Ftechnical%5Fnote%2Epdf&parent=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments&p=true&originalPath=aHR0cHM6Ly9yb2Rla3J1aXMuc2hhcmVwb2ludC5jb20vc2l0ZXMvNTEwLUNSQVZLLTUxMC9fbGF5b3V0cy8xNS9ndWVzdGFjY2Vzcy5hc3B4P2RvY2lkPTBmOTI0OWIzNWRhNGQ0YzBhOTg1YjMzMzkzZmMzODhkZiZhdXRoa2V5PUFRU0xubmFmR0YtTTJ0MUNHSWcwaGRBJmV4cGlyYXRpb249MjAyMi0wNi0xNFQyMiUzYTAwJTNhMDAuMDAwWiZydGltZT1TS016R0dzeDJVZw\"> link to technical documentation</a>"
       }
     }
   }

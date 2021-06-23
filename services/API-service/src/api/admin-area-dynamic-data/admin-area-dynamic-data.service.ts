@@ -38,6 +38,7 @@ export class AdminAreaDynamicDataService {
       indicator: uploadExposure.dynamicIndicator,
       countryCodeISO3: uploadExposure.countryCodeISO3,
       leadTime: uploadExposure.leadTime,
+      date: new Date(),
     });
     console.timeEnd('delete');
     console.time('Insert exposure');

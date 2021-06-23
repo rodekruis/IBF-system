@@ -212,7 +212,7 @@
   {
     "country_codes": "PHL",
     "name": "dengue_incidence_average",
-    "label": "Dengue Incidence",
+    "label": "Dengue incidence (cases per year per 10M)",
     "group": "",
     "icon": "",
     "weightedAvg": true,
