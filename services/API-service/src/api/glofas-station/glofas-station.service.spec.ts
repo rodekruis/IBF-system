@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { HelperService } from '../../shared/helper.service';
+import { EventService } from '../event/event.service';
 import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
 import { GlofasStationService } from './glofas-station.service';
@@ -15,6 +16,7 @@ describe('GlofasStationService', (): void => {
         providers: [
           GlofasStationService,
           HelperService,
+          EventService,
           {
             provide: getRepositoryToken(GlofasStationEntity),
             useFactory: repositoryMockFactory,

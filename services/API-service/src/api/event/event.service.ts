@@ -216,6 +216,7 @@ export class EventService {
     const actionIndicatorsCountry = await this.countryService.getActionsUnitsForCountry(
       countryCodeISO3,
     );
+
     const q = this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
@@ -228,7 +229,9 @@ export class EventService {
         indicators: actionIndicatorsCountry,
       })
       .andWhere('value > 0')
-      .andWhere('date = current_date')
+      .andWhere('date = :lastTriggeredDate', {
+        lastTriggeredDate: lastTriggeredDate.date,
+      })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })

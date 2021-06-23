@@ -7,6 +7,7 @@ import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
 import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
 import { HelperService } from '../../shared/helper.service';
+import { EventService } from '../event/event.service';
 
 @Injectable()
 export class GlofasStationService {
@@ -18,9 +19,11 @@ export class GlofasStationService {
   >;
 
   private readonly helperService: HelperService;
+  private readonly eventService: EventService;
 
-  public constructor(helperService: HelperService) {
+  public constructor(helperService: HelperService, eventService: EventService) {
     this.helperService = helperService;
+    this.eventService = eventService;
   }
 
   public async getStationsByCountry(
@@ -35,6 +38,10 @@ export class GlofasStationService {
     countryCodeISO3: string,
     leadTime: LeadTime,
   ): Promise<GeoJson> {
+    const lastTriggeredDate = await this.eventService.getRecentDate(
+      countryCodeISO3,
+    );
+    console.log('lastTriggeredDate: ', lastTriggeredDate);
     const stationForecasts = await this.glofasStationRepository
       .createQueryBuilder('station')
       .select([
@@ -56,7 +63,9 @@ export class GlofasStationService {
       .andWhere('"countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .andWhere('date = current_date')
+      .andWhere('date = :lastTriggeredDate', {
+        lastTriggeredDate: lastTriggeredDate.date,
+      })
       .getRawMany();
 
     return this.helperService.toGeojson(stationForecasts);
