@@ -35,9 +35,9 @@ import { AdminLevel } from '../types/admin-level';
 })
 export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
-  private layers = [] as IbfLayer[];
-  public alertColor = '#de9584';
-  public safeColor = '#2c45fd';
+  public layers = [] as IbfLayer[];
+  public alertColor = 'var(--ion-color-ibf-trigger-alert-secondary)';
+  public safeColor = 'var(--ion-color-ibf-no-alert-secondary)';
   public hoverFillOpacity = 0.6;
   private unselectedFillOpacity = 0.4;
   private disputedBorderStyle = {

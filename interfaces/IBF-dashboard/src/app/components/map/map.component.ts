@@ -58,6 +58,8 @@ import {
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { breakKey } from '../../models/map.model';
+import { AdminLevelService } from '../../services/admin-level.service';
+import { AdminLevel } from '../../types/admin-level';
 import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
@@ -93,6 +95,7 @@ export class MapComponent implements OnDestroy {
 
   constructor(
     private countryService: CountryService,
+    private adminLevelService: AdminLevelService,
     private timelineService: TimelineService,
     private mapService: MapService,
     private placeCodeService: PlaceCodeService,
@@ -406,13 +409,11 @@ export class MapComponent implements OnDestroy {
       });
     }
 
-    if (layer.group !== IbfLayerGroup.adminRegions) {
-      if (feature.properties.placeCode === this.placeCode) {
-        element.unbindPopup();
-        this.placeCode = null;
-      } else {
-        this.bindPopupAdminRegions(layer, feature, element);
-      }
+    if (feature.properties.placeCode === this.placeCode) {
+      element.unbindPopup();
+      this.placeCode = null;
+    } else {
+      this.bindPopupAdminRegions(layer, feature, element);
     }
   };
 
@@ -464,6 +465,15 @@ export class MapComponent implements OnDestroy {
   }
 
   private createDefaultPopupAdminRegions(layer: IbfLayer, feature): string {
+    const activeAggregateLayer = this.mapService.layers.find(
+      (l) => l.active && l.group === IbfLayerGroup.aggregates,
+    );
+
+    let additionalAdminLevel: boolean;
+    if (layer.group === IbfLayerGroup.adminRegions) {
+      const adminLevel = Number(layer.name.slice(-1)) as AdminLevel;
+      additionalAdminLevel = adminLevel !== this.adminLevelService.adminLevel;
+    }
     return (
       '<strong>' +
       feature.properties.name +
@@ -471,9 +481,9 @@ export class MapComponent implements OnDestroy {
         ? ' (Disputed borders)'
         : '') +
       '</strong><br/>' +
-      (layer.name.includes(IbfLayerName.adminRegions)
+      (additionalAdminLevel || !activeAggregateLayer
         ? ''
-        : layer.label +
+        : activeAggregateLayer.label +
           ': ' +
           this.numberFormat(
             typeof feature.properties[layer.colorProperty] !== 'undefined'
