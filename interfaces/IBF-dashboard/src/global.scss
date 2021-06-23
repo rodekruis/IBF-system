@@ -166,3 +166,70 @@
 .ibf-layer-control-popover {
   --width: 400px;
 }
+
+.threshold-popup {
+  font-family: 'Montserrat', sans-serif;
+  .threshold-popup-title {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .threshold-popup-info-container {
+    padding: 10px;
+
+    .threshold-popup-subtitle {
+      margin-bottom:10px;
+    }  
+    .threshold-popup-bar {
+      border-radius:10px;
+      height:20px;
+      background-color: var(--ion-color-ibf-grey);
+      width: 100%;
+  
+      .threshold-popup-bar-safe-side {
+        border-radius:10px 0 0 10px;
+        height:20px;
+        background-color:#d4d3d2;
+        width: 80%;
+  
+        .threshold-popup-bar-actual-level {
+          border-radius:10px;
+          height:20px;
+          line-height:20px;
+          text-align:center;
+          white-space: nowrap;
+          min-width: 15%;
+        }
+      }
+    }
+  
+    .threshold-popup-name {
+      height:20px;
+      background-color:none;
+      border-right: dashed;
+      border-right-width: thin;
+      float: left;
+      width: 80%;
+      padding-top: 5px;
+      margin-bottom:10px;
+    }
+  
+    .threshold-popup-value{
+      height:20px;
+      background-color:none;
+      margin-left: 81%;
+      text-align: left;
+      width: 20%;
+      padding-top: 5px;
+      margin-bottom:10px;
+    }
+  }
+
+  .threshold-popup-status-text {
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+
+

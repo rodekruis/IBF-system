@@ -545,31 +545,31 @@ export class MapComponent implements OnDestroy {
       0,
     );
     const infoPopup = `
-      <div style="background-color:${eapStatusColor}; color:${eapStatusColorText}; padding: 5px; margin-bottom: 5px"> \ \
-        <strong>${title}
-      </strong> \
-      </div> \
-      <div style="margin-left:5px"> \
-        <div style="margin-bottom:5px"> \
-      ${subtitle} \
-      </div> \
-      <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
-        <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
-          <div style="border-radius:10px;height:20px;line-height:20px;background-color:${eapStatusColor}; color:${eapStatusColorText}; text-align:center; white-space: nowrap; min-width: 15%; width:${triggerWidth}%">${Math.round(
-      forecastValue,
-    )}</div> \
-        </div> \
-      </div> \
-    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
-      ${thresholdName}:</div> \
-   \
-  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>${Math.round(
-    thresholdValue,
-  )}</strong></div></div> \
-</div> \
-  <div style="background-color: ${eapStatusColor}; color:${eapStatusColorText}; padding: 10px; text-align: center; text-transform:uppercase"> \
-    <strong>${eapStatusText}</strong> \
-  </div>`;
+      <div class="threshold-popup">
+        <div class="threshold-popup-title" style="background-color:${eapStatusColor}; color:${eapStatusColorText};">
+          <strong>${title}</strong>
+        </div>
+        <div class="threshold-popup-info-container">
+          <div class="threshold-popup-subtitle">
+            ${subtitle}
+          </div>
+          <div class="threshold-popup-bar">
+            <div class="threshold-popup-bar-safe-side">
+              <div class="threshold-popup-bar-actual-level" style=" background-color:${eapStatusColor}; color:${eapStatusColorText}; width:${triggerWidth}%;">
+                ${Math.round(forecastValue,)}
+              </div>
+            </div>
+          </div>
+          <div class="threshold-popup-name">${thresholdName}:</div>
+          <div class="threshold-popup-value">
+            <strong>${Math.round(thresholdValue,)}</strong>
+          </div>
+        </div>
+        <div class="threshold-popup-status-text" style="background-color: ${eapStatusColor}; color:${eapStatusColorText};">
+          <strong>${eapStatusText}</strong>
+        </div>
+      </div>
+    `;
 
     return infoPopup;
   }
