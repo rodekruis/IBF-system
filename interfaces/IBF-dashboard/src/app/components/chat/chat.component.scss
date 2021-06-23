@@ -5,9 +5,25 @@ ion-content {
     font-size: 12px;
   }
 
-  .background-light {
+  ion-list {
+    background: var(--ion-color-ibf-chat-self);
+
     ion-item {
-      --background: none;
+      --background: var(--ion-color-ibf-chat-self);
+      border-bottom: 1px solid var(--ion-color-ibf-primary);
+  
+      ion-checkbox {
+        --background: var(--ion-color-ibf-chat-self);
+      }
+  
+      ion-label {
+        border: none;
+  
+        .action-aoflabel {
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+      }
     }
   }
 
@@ -28,3 +44,7 @@ ion-content {
 ion-checkbox {
   margin-inline-end: 8px !important;
 }
+
+ion-button {
+  --border-radius: 0;
+} 

@@ -8,6 +8,7 @@
 
   ion-card {
     box-shadow: none;
+    border-radius: 0;
   }
 }
 
@@ -21,6 +22,9 @@
     display: flex;
     width: 40px !important;
     height: 40px !important;
+
+    color: var(--ion-color-ibf-avatar-text);
+    background: var(--ion-color-ibf-avatar-bg);
 
     &.self-avatar {
       margin-right: 0.5em;
