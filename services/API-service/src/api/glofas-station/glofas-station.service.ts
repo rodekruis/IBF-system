@@ -41,7 +41,6 @@ export class GlofasStationService {
     const lastTriggeredDate = await this.eventService.getRecentDate(
       countryCodeISO3,
     );
-    console.log('lastTriggeredDate: ', lastTriggeredDate);
     const stationForecasts = await this.glofasStationRepository
       .createQueryBuilder('station')
       .select([

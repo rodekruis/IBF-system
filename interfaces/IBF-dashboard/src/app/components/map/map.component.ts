@@ -401,13 +401,11 @@ export class MapComponent implements OnDestroy {
       component: this.constructor.name,
     });
 
-    if (layer.group !== IbfLayerGroup.adminRegions) {
-      this.placeCodeService.setPlaceCode({
-        countryCodeISO3: feature.properties.countryCodeISO3,
-        placeCodeName: feature.properties.name,
-        placeCode: feature.properties.placeCode,
-      });
-    }
+    this.placeCodeService.setPlaceCode({
+      countryCodeISO3: feature.properties.countryCodeISO3,
+      placeCodeName: feature.properties.name,
+      placeCode: feature.properties.placeCode,
+    });
 
     if (feature.properties.placeCode === this.placeCode) {
       element.unbindPopup();
