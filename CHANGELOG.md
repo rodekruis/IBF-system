@@ -1,3 +1,12 @@
+## [0.67.2](https://github.com/rodekruis/IBF-system/compare/v0.67.1...v0.67.2) (2021-06-25)
+
+
+### Bug Fixes
+
+* drop table if exists ([5b7b861](https://github.com/rodekruis/IBF-system/commit/5b7b8618076a3736425862908b527d77a5e09441))
+
+
+
 ## [0.67.1](https://github.com/rodekruis/IBF-system/compare/v0.67.0...v0.67.1) (2021-06-25)
 
 
@@ -155,16 +164,6 @@
 * adjust getAdminRegions to get right data for both default and other adminLevels AB[#8166](https://github.com/rodekruis/IBF-system/issues/8166) ([8da085a](https://github.com/rodekruis/IBF-system/commit/8da085a4f84d7ca459d1c0ede3515e6bc59ada91))
 * filter pipeline-admin areas by adminLevel AB[#8166](https://github.com/rodekruis/IBF-system/issues/8166) ([2b7b194](https://github.com/rodekruis/IBF-system/commit/2b7b194e46c79e2678a42718a7b7fc0a572ac6b0))
 * handle undefined admin level label ([882cfe1](https://github.com/rodekruis/IBF-system/commit/882cfe13d48dd285c1b42069d8fa1c368f611c34))
-
-
-
-# [0.64.0](https://github.com/rodekruis/IBF-system/compare/v0.63.0...v0.64.0) (2021-06-08)
-
-
-### Features
-
-* add dynamic singular admin-area labels incl. migrations AB[#8136](https://github.com/rodekruis/IBF-system/issues/8136) ([f627303](https://github.com/rodekruis/IBF-system/commit/f627303c8d3a0a2660a2fc1a412d73d38df3e757))
-* change chat-intro wording AB[#8135](https://github.com/rodekruis/IBF-system/issues/8135) ([c955e74](https://github.com/rodekruis/IBF-system/commit/c955e74b224fc8e2efabf225deb9dc8483f52490))
 
 
 
