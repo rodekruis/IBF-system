@@ -10,6 +10,7 @@ import { GlofasStationModule } from '../api/glofas-station/glofas-station.module
 import { ScriptsService } from './scripts.service';
 import { EventModule } from '../api/event/event.module';
 import { UserModule } from '../api/user/user.module';
+import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 
 @Module({
   imports: [
@@ -17,7 +18,11 @@ import { UserModule } from '../api/user/user.module';
       migrations: [`src/migrations/*.{ts,js}`],
       entities: ['src/app/**/*.entity.{ts,js}'],
     }),
-    TypeOrmModule.forFeature([EventPlaceCodeEntity, EapActionStatusEntity]),
+    TypeOrmModule.forFeature([
+      EventPlaceCodeEntity,
+      EapActionStatusEntity,
+      AdminAreaEntity,
+    ]),
     AdminAreaDynamicDataModule,
     GlofasStationModule,
     EventModule,

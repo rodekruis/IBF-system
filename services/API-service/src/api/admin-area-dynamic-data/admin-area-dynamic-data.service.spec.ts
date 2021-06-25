@@ -13,6 +13,7 @@ import { CountryService } from '../country/country.service';
 import { UserEntity } from '../user/user.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 
 describe('AdminAreaDynamicDataService', (): void => {
   let service: AdminAreaDynamicDataService;
@@ -55,6 +56,10 @@ describe('AdminAreaDynamicDataService', (): void => {
           },
           {
             provide: getRepositoryToken(AreaOfFocusEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AdminAreaEntity),
             useFactory: repositoryMockFactory,
           },
         ],

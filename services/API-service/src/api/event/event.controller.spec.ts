@@ -14,6 +14,7 @@ import { CountryEntity } from '../country/country.entity';
 import { EapActionsService } from '../eap-actions/eap-actions.service';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 
 describe('EventController', (): void => {
   let controller: EventController;
@@ -61,6 +62,10 @@ describe('EventController', (): void => {
           },
           {
             provide: getRepositoryToken(AreaOfFocusEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AdminAreaEntity),
             useFactory: repositoryMockFactory,
           },
         ],
