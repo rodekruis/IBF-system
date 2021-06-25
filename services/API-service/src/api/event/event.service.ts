@@ -277,7 +277,7 @@ export class EventService {
       })
     ).map(area => area.adminArea.placeCode);
     const newEventAreas: EventPlaceCodeEntity[] = [];
-    for await (let area of affectedAreas) {
+    for await (const area of affectedAreas) {
       if (!existingUnclosedEventAreas.includes(area.placeCode)) {
         const adminArea = await this.adminAreaRepository.findOne({
           where: { placeCode: area.placeCode },
