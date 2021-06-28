@@ -46,7 +46,7 @@ export class SeedHelper {
       for (const entity of entities) {
         const repository = await this.connection.getRepository(entity.name);
         if (repository.metadata.schema === 'IBF-app') {
-          const q = `DROP TABLE \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
+          const q = `DROP TABLE IF EXISTS \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
           await repository.query(q);
         }
       }

@@ -1,18 +1,23 @@
+import { LeadTimeEntity } from './../lead-time/lead-time.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 /* eslint-disable @typescript-eslint/camelcase */
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { EventPlaceCodeDto } from './dto/event-place-code.dto';
-import { LessThan, Repository } from 'typeorm';
+import { LessThan, MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import {
+  LeadTime,
+  LeadTimeDayMonth,
+} from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryService } from '../country/country.service';
 import { DateDto } from './dto/date.dto';
+import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
 
 @Injectable()
 export class EventService {
@@ -22,6 +27,8 @@ export class EventService {
   private readonly adminAreaDynamicDataRepo: Repository<
     AdminAreaDynamicDataEntity
   >;
+  @InjectRepository(AdminAreaEntity)
+  private readonly adminAreaRepository: Repository<AdminAreaEntity>;
   @InjectRepository(TriggerPerLeadTime)
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
 
@@ -41,7 +48,7 @@ export class EventService {
     const eventSummary = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select('area."countryCodeISO3"')
-      .leftJoin(AdminAreaEntity, 'area', 'area.placeCode = event.placeCode')
+      .leftJoin('event.adminArea', 'area')
       .groupBy('area."countryCodeISO3"')
       .addSelect([
         'to_char(MAX("startDate") , \'yyyy-mm-dd\') AS "startDate"',
@@ -72,12 +79,10 @@ export class EventService {
     const triggersPerLeadTime: TriggerPerLeadTime[] = [];
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
       // Delete duplicates
-      await this.triggerPerLeadTimeRepository.delete({
-        date: new Date(),
-        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
-        leadTime: leadTime.leadTime as LeadTime,
-      });
-
+      await this.deleteDuplicates(
+        uploadTriggerPerLeadTimeDto.countryCodeISO3,
+        leadTime,
+      );
       const triggerPerLeadTime = new TriggerPerLeadTime();
       triggerPerLeadTime.date = new Date();
       triggerPerLeadTime.countryCodeISO3 =
@@ -91,19 +96,45 @@ export class EventService {
     await this.triggerPerLeadTimeRepository.save(triggersPerLeadTime);
   }
 
+  private async deleteDuplicates(
+    countryCodeISO3: string,
+    selectedLeadTime: TriggerPerLeadTimeDto,
+  ): Promise<void> {
+    const country = await this.countryService.findOne(countryCodeISO3);
+    if (
+      country.countryActiveLeadTimes[0].leadTimeName.includes(
+        LeadTimeDayMonth.month,
+      )
+    ) {
+      const date = new Date();
+      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      await this.triggerPerLeadTimeRepository.delete({
+        countryCodeISO3: countryCodeISO3,
+        leadTime: selectedLeadTime.leadTime as LeadTime,
+        date: MoreThan(firstDayOfMonth),
+      });
+    } else {
+      await this.triggerPerLeadTimeRepository.delete({
+        countryCodeISO3: countryCodeISO3,
+        leadTime: selectedLeadTime.leadTime as LeadTime,
+        date: new Date(),
+      });
+    }
+  }
+
   public async getTriggeredAreas(
     countryCodeISO3: string,
   ): Promise<TriggeredArea[]> {
     const triggeredAreas = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
-        'event."placeCode"',
+        'area."placeCode" AS "placeCode"',
         'area.name AS name',
         'event."actionsValue"',
         'event."eventPlaceCodeId"',
         'event."activeTrigger"',
       ])
-      .leftJoin(AdminAreaEntity, 'area', 'area.placeCode = event.placeCode')
+      .leftJoin('event.adminArea', 'area')
       .where('closed = :closed', {
         closed: false,
       })
@@ -209,6 +240,7 @@ export class EventService {
       .getRawMany();
 
     const triggerPlaceCodesArray = triggeredPlaceCodes.map(a => a.placeCode);
+
     if (triggerPlaceCodesArray.length === 0) {
       return [];
     }
@@ -216,6 +248,7 @@ export class EventService {
     const actionIndicatorsCountry = await this.countryService.getActionsUnitsForCountry(
       countryCodeISO3,
     );
+
     const q = this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
@@ -228,7 +261,9 @@ export class EventService {
         indicators: actionIndicatorsCountry,
       })
       .andWhere('value > 0')
-      .andWhere('date = current_date')
+      .andWhere('date = :lastTriggeredDate', {
+        lastTriggeredDate: lastTriggeredDate.date,
+      })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
@@ -243,12 +278,15 @@ export class EventService {
     const affectedAreasPlaceCodes = affectedAreas.map(area => area.placeCode);
     const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
       where: { closed: false },
+      relations: ['adminArea'],
     });
     let affectedArea;
     unclosedEventAreas.forEach(unclosedEventArea => {
-      if (affectedAreasPlaceCodes.includes(unclosedEventArea.placeCode)) {
+      if (
+        affectedAreasPlaceCodes.includes(unclosedEventArea.adminArea.placeCode)
+      ) {
         affectedArea = affectedAreas.find(
-          area => area.placeCode === unclosedEventArea.placeCode,
+          area => area.placeCode === unclosedEventArea.adminArea.placeCode,
         );
         unclosedEventArea.activeTrigger = true;
         unclosedEventArea.actionsValue = affectedArea.actionsValue;
@@ -264,13 +302,17 @@ export class EventService {
     const existingUnclosedEventAreas = (
       await this.eventPlaceCodeRepo.find({
         where: { closed: false },
+        relations: ['adminArea'],
       })
-    ).map(area => area.placeCode);
+    ).map(area => area.adminArea.placeCode);
     const newEventAreas: EventPlaceCodeEntity[] = [];
-    affectedAreas.forEach(area => {
+    for await (const area of affectedAreas) {
       if (!existingUnclosedEventAreas.includes(area.placeCode)) {
+        const adminArea = await this.adminAreaRepository.findOne({
+          where: { placeCode: area.placeCode },
+        });
         const eventArea = new EventPlaceCodeEntity();
-        eventArea.placeCode = area.placeCode;
+        eventArea.adminArea = adminArea;
         eventArea.actionsValue = +area.actionsValue;
         eventArea.startDate = new Date();
         eventArea.endDate = this.getEndDate(area.leadTime);
@@ -279,7 +321,7 @@ export class EventService {
         eventArea.manualClosedDate = null;
         newEventAreas.push(eventArea);
       }
-    });
+    }
     await this.eventPlaceCodeRepo.save(newEventAreas);
   }
 

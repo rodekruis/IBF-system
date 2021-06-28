@@ -8,6 +8,7 @@ import { EventService } from './event.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-are
       EventPlaceCodeEntity,
       TriggerPerLeadTime,
       AdminAreaDynamicDataEntity,
+      AdminAreaEntity,
     ]),
   ],
   controllers: [EventController],

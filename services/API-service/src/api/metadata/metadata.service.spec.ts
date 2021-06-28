@@ -16,6 +16,7 @@ import { CountryService } from '../country/country.service';
 import { UserEntity } from '../user/user.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 
 describe('MetadataService', (): void => {
   let service: MetadataService;
@@ -67,6 +68,10 @@ describe('MetadataService', (): void => {
           },
           {
             provide: getRepositoryToken(AreaOfFocusEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AdminAreaEntity),
             useFactory: repositoryMockFactory,
           },
         ],

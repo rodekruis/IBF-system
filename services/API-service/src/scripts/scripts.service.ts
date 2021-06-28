@@ -10,8 +10,9 @@ import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { EventService } from '../api/event/event.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
+import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 @Injectable()
 export class ScriptsService {
   private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService;
@@ -22,6 +23,8 @@ export class ScriptsService {
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
   @InjectRepository(EapActionStatusEntity)
   private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
+  @InjectRepository(AdminAreaEntity)
+  private readonly adminAreaRepo: Repository<AdminAreaEntity>;
 
   public constructor(
     adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -35,13 +38,19 @@ export class ScriptsService {
 
   public async mockCountry(mockInput: MockDynamic) {
     if (mockInput.removeEvents) {
-      const allEvents = await this.eventPlaceCodeRepo.find({
-        relations: ['eapActionStatuses'],
+      const countryAdminAreaIds = (
+        await this.adminAreaRepo.find({
+          where: { countryCodeISO3: mockInput.countryCodeISO3 },
+        })
+      ).map(area => area.id);
+      const allCountryEvents = await this.eventPlaceCodeRepo.find({
+        relations: ['eapActionStatuses', 'adminArea'],
+        where: { adminArea: In(countryAdminAreaIds) },
       });
-      for (const event of allEvents) {
+      for (const event of allCountryEvents) {
         await this.eapActionStatusRepo.remove(event.eapActionStatuses);
       }
-      await this.eventPlaceCodeRepo.remove(allEvents);
+      await this.eventPlaceCodeRepo.remove(allCountryEvents);
     }
 
     const selectedCountry = countries.find((country): any => {

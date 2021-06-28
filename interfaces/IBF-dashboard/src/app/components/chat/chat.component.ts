@@ -89,6 +89,12 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTranslate = (translatedStrings) => {
     this.translatedStrings = translatedStrings;
+    const activeEventsSelector = 'active-event';
+    const closeEventPopupSelector = 'close-event-popup';
+    const activeEvent = this.translatedStrings[activeEventsSelector];
+    if (activeEvent) {
+      this.closeEventPopup = activeEvent[closeEventPopupSelector];
+    }
   };
 
   private onCountryChange = (country: Country) => {
@@ -288,7 +294,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   public closePlaceCodeEventPopup(triggeredArea): void {
     this.translateSubscription = this.translateService
-      .get(`chat-component.close-event-popup.message`, {
+      .get('chat-component.active-event.close-event-popup.message', {
         placeCodeName: triggeredArea.name,
       })
       .subscribe(this.onClosePlaceCodeEventPopupByTriggeredArea(triggeredArea));

@@ -4,8 +4,10 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 
 @Entity('admin-area')
 export class AdminAreaEntity {
@@ -22,7 +24,7 @@ export class AdminAreaEntity {
   @Column()
   public adminLevel: number;
 
-  @Column()
+  @Column({ unique: true })
   public placeCode: string;
 
   @Column({ nullable: true })
@@ -36,4 +38,10 @@ export class AdminAreaEntity {
 
   @Column({ nullable: true })
   public glofasStation: string;
+
+  @OneToMany(
+    (): typeof EventPlaceCodeEntity => EventPlaceCodeEntity,
+    (eventPlaceCode): AdminAreaEntity => eventPlaceCode.adminArea,
+  )
+  public eventPlaceCodes: EventPlaceCodeEntity[];
 }

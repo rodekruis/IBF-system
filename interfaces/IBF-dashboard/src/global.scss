@@ -63,7 +63,7 @@
 }
 
 .leaflet-ibf-admin-boundaries-pane {
-  z-index: 500;
+  z-index: 550;
 }
 
 .leaflet-ibf-wms-pane {
@@ -108,7 +108,7 @@
 }
 .trigger-popup-max {
   .leaflet-popup-tip {
-    background-color: var(--ion-color-ibf-purple);
+    background-color: var(--ion-color-ibf-trigger-alert-primary);
   }
 }
 
