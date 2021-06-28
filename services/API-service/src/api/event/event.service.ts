@@ -173,7 +173,7 @@ export class EventService {
 
   public async getCountryAdminAreaIds(
     countryCodeISO3: string,
-  ): Promise<String[]> {
+  ): Promise<string[]> {
     return (
       await this.adminAreaRepository.find({
         select: ['id'],
