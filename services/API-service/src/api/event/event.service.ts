@@ -1,18 +1,23 @@
+import { LeadTimeEntity } from './../lead-time/lead-time.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 /* eslint-disable @typescript-eslint/camelcase */
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { EventPlaceCodeDto } from './dto/event-place-code.dto';
-import { LessThan, Repository } from 'typeorm';
+import { LessThan, MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import {
+  LeadTime,
+  LeadTimeDayMonth,
+} from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryService } from '../country/country.service';
 import { DateDto } from './dto/date.dto';
+import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
 
 @Injectable()
 export class EventService {
@@ -74,12 +79,10 @@ export class EventService {
     const triggersPerLeadTime: TriggerPerLeadTime[] = [];
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
       // Delete duplicates
-      await this.triggerPerLeadTimeRepository.delete({
-        date: new Date(),
-        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
-        leadTime: leadTime.leadTime as LeadTime,
-      });
-
+      await this.deleteDuplicates(
+        uploadTriggerPerLeadTimeDto.countryCodeISO3,
+        leadTime,
+      );
       const triggerPerLeadTime = new TriggerPerLeadTime();
       triggerPerLeadTime.date = new Date();
       triggerPerLeadTime.countryCodeISO3 =
@@ -91,6 +94,32 @@ export class EventService {
     }
 
     await this.triggerPerLeadTimeRepository.save(triggersPerLeadTime);
+  }
+
+  private async deleteDuplicates(
+    countryCodeISO3: string,
+    selectedLeadTime: TriggerPerLeadTimeDto,
+  ): Promise<void> {
+    const country = await this.countryService.findOne(countryCodeISO3);
+    if (
+      country.countryActiveLeadTimes[0].leadTimeName.includes(
+        LeadTimeDayMonth.month,
+      )
+    ) {
+      const date = new Date();
+      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      await this.triggerPerLeadTimeRepository.delete({
+        countryCodeISO3: countryCodeISO3,
+        leadTime: selectedLeadTime.leadTime as LeadTime,
+        date: MoreThan(firstDayOfMonth),
+      });
+    } else {
+      await this.triggerPerLeadTimeRepository.delete({
+        countryCodeISO3: countryCodeISO3,
+        leadTime: selectedLeadTime.leadTime as LeadTime,
+        date: new Date(),
+      });
+    }
   }
 
   public async getTriggeredAreas(
