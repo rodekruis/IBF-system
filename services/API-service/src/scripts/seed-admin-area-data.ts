@@ -4,6 +4,12 @@ import { Connection } from 'typeorm';
 import { AdminAreaDataEntity } from '../api/admin-area-data/admin-area-data.entity';
 import { SeedHelper } from './seed-helper';
 
+interface AdminAreaDataRecord {
+  placeCode: string;
+  indicator: string;
+  value: number;
+}
+
 @Injectable()
 export class SeedAdminAreaData implements InterfaceScript {
   private connection: Connection;
@@ -20,6 +26,35 @@ export class SeedAdminAreaData implements InterfaceScript {
       AdminAreaDataEntity,
     );
     const envCountries = process.env.COUNTRIES.split(',');
+
+    envCountries.forEach(async (countryCodeISO3: string) => {
+      const populationFilename = `./src/scripts/git-lfs/admin-area-data/population_${countryCodeISO3}.csv`;
+      try {
+        const populationData = await this.seedHelper.getCsvData(
+          populationFilename,
+        );
+        const adminAreaDataEntities = populationData
+          .filter(
+            (populationRecord: AdminAreaDataRecord) =>
+              populationRecord.value >= 0,
+          )
+          .map((populationRecord: AdminAreaDataRecord) => {
+            const adminAreaDataEntity = new AdminAreaDataEntity();
+            adminAreaDataEntity.countryCodeISO3 = countryCodeISO3;
+            adminAreaDataEntity.adminLevel = 2;
+            adminAreaDataEntity.placeCode = populationRecord.placeCode;
+            adminAreaDataEntity.indicator = populationRecord.indicator;
+            adminAreaDataEntity.value = populationRecord.value;
+            return adminAreaDataEntity;
+          });
+        this.adminAreaDataRepository.save(adminAreaDataEntities);
+      } catch (exception) {
+        console.error(
+          `Skipping population data for ${countryCodeISO3}`,
+          exception,
+        );
+      }
+    });
 
     // PHL
     if (envCountries.includes('PHL')) {
