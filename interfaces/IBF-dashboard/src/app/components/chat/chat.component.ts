@@ -89,9 +89,12 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTranslate = (translatedStrings) => {
     this.translatedStrings = translatedStrings;
-    this.closeEventPopup = this.translatedStrings['active-event'][
-      'close-event-popup'
-    ];
+    const activeEventsSelector = 'active-event';
+    const closeEventPopupSelector = 'close-event-popup';
+    const activeEvent = this.translatedStrings[activeEventsSelector];
+    if (activeEvent) {
+      this.closeEventPopup = activeEvent[closeEventPopupSelector];
+    }
   };
 
   private onCountryChange = (country: Country) => {
