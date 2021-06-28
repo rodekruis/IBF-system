@@ -22,6 +22,8 @@ export class EventService {
   private readonly adminAreaDynamicDataRepo: Repository<
     AdminAreaDynamicDataEntity
   >;
+  @InjectRepository(AdminAreaEntity)
+  private readonly adminAreaRepository: Repository<AdminAreaEntity>;
   @InjectRepository(TriggerPerLeadTime)
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
 
@@ -41,7 +43,7 @@ export class EventService {
     const eventSummary = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select('area."countryCodeISO3"')
-      .leftJoin(AdminAreaEntity, 'area', 'area.placeCode = event.placeCode')
+      .leftJoin('event.adminArea', 'area')
       .groupBy('area."countryCodeISO3"')
       .addSelect([
         'to_char(MAX("startDate") , \'yyyy-mm-dd\') AS "startDate"',
@@ -97,13 +99,13 @@ export class EventService {
     const triggeredAreas = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
-        'event."placeCode"',
+        'area."placeCode" AS "placeCode"',
         'area.name AS name',
         'event."actionsValue"',
         'event."eventPlaceCodeId"',
         'event."activeTrigger"',
       ])
-      .leftJoin(AdminAreaEntity, 'area', 'area.placeCode = event.placeCode')
+      .leftJoin('event.adminArea', 'area')
       .where('closed = :closed', {
         closed: false,
       })
@@ -209,6 +211,7 @@ export class EventService {
       .getRawMany();
 
     const triggerPlaceCodesArray = triggeredPlaceCodes.map(a => a.placeCode);
+
     if (triggerPlaceCodesArray.length === 0) {
       return [];
     }
@@ -246,12 +249,15 @@ export class EventService {
     const affectedAreasPlaceCodes = affectedAreas.map(area => area.placeCode);
     const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
       where: { closed: false },
+      relations: ['adminArea'],
     });
     let affectedArea;
     unclosedEventAreas.forEach(unclosedEventArea => {
-      if (affectedAreasPlaceCodes.includes(unclosedEventArea.placeCode)) {
+      if (
+        affectedAreasPlaceCodes.includes(unclosedEventArea.adminArea.placeCode)
+      ) {
         affectedArea = affectedAreas.find(
-          area => area.placeCode === unclosedEventArea.placeCode,
+          area => area.placeCode === unclosedEventArea.adminArea.placeCode,
         );
         unclosedEventArea.activeTrigger = true;
         unclosedEventArea.actionsValue = affectedArea.actionsValue;
@@ -267,13 +273,17 @@ export class EventService {
     const existingUnclosedEventAreas = (
       await this.eventPlaceCodeRepo.find({
         where: { closed: false },
+        relations: ['adminArea'],
       })
-    ).map(area => area.placeCode);
+    ).map(area => area.adminArea.placeCode);
     const newEventAreas: EventPlaceCodeEntity[] = [];
-    affectedAreas.forEach(area => {
+    for await (const area of affectedAreas) {
       if (!existingUnclosedEventAreas.includes(area.placeCode)) {
+        const adminArea = await this.adminAreaRepository.findOne({
+          where: { placeCode: area.placeCode },
+        });
         const eventArea = new EventPlaceCodeEntity();
-        eventArea.placeCode = area.placeCode;
+        eventArea.adminArea = adminArea;
         eventArea.actionsValue = +area.actionsValue;
         eventArea.startDate = new Date();
         eventArea.endDate = this.getEndDate(area.leadTime);
@@ -282,7 +292,7 @@ export class EventService {
         eventArea.manualClosedDate = null;
         newEventAreas.push(eventArea);
       }
-    });
+    }
     await this.eventPlaceCodeRepo.save(newEventAreas);
   }
 

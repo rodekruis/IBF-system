@@ -15,6 +15,7 @@ import { EapActionsService } from '../eap-actions/eap-actions.service';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
 import { AreaOfFocusEntity } from '../eap-actions/area-of-focus.entity';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 
 describe('AdminAreaDynamicController', (): void => {
   let controller: AdminAreaDynamicDataController;
@@ -63,6 +64,10 @@ describe('AdminAreaDynamicController', (): void => {
           },
           {
             provide: getRepositoryToken(AreaOfFocusEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AdminAreaEntity),
             useFactory: repositoryMockFactory,
           },
         ],

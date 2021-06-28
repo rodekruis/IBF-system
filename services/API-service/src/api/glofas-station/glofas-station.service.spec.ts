@@ -3,6 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
 import { CountryService } from '../country/country.service';
 import { AreaOfFocusEntity } from '../eap-actions/area-of-focus.entity';
@@ -67,6 +68,10 @@ describe('GlofasStationService', (): void => {
           },
           {
             provide: getRepositoryToken(AreaOfFocusEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AdminAreaEntity),
             useFactory: repositoryMockFactory,
           },
         ],

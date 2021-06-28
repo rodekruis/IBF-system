@@ -5,7 +5,9 @@ import {
   PrimaryGeneratedColumn,
   JoinTable,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 
 @Entity('event-place-code')
@@ -13,8 +15,11 @@ export class EventPlaceCodeEntity {
   @PrimaryGeneratedColumn('uuid')
   public eventPlaceCodeId: string;
 
-  @Column({})
-  public placeCode: string;
+  @ManyToOne(
+    (): typeof AdminAreaEntity => AdminAreaEntity,
+    (adminArea): EventPlaceCodeEntity[] => adminArea.eventPlaceCodes,
+  )
+  public adminArea: AdminAreaEntity;
 
   @Column({ type: 'timestamp' })
   public startDate: Date;
