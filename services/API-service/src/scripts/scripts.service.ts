@@ -38,11 +38,9 @@ export class ScriptsService {
 
   public async mockCountry(mockInput: MockDynamic) {
     if (mockInput.removeEvents) {
-      const countryAdminAreaIds = (
-        await this.adminAreaRepo.find({
-          where: { countryCodeISO3: mockInput.countryCodeISO3 },
-        })
-      ).map(area => area.id);
+      const countryAdminAreaIds = await this.eventService.getCountryAdminAreaIds(
+        mockInput.countryCodeISO3,
+      );
       const allCountryEvents = await this.eventPlaceCodeRepo.find({
         relations: ['eapActionStatuses', 'adminArea'],
         where: { adminArea: In(countryAdminAreaIds) },
