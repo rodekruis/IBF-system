@@ -10,6 +10,7 @@ import { EapActionsService } from './eap-actions.service';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { UserService } from '../user/user.service';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 
 describe('EapActionsController', (): void => {
   let controller: EapActionsController;
@@ -43,6 +44,10 @@ describe('EapActionsController', (): void => {
           },
           {
             provide: getRepositoryToken(EventPlaceCodeEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(AdminAreaEntity),
             useFactory: repositoryMockFactory,
           },
         ],
