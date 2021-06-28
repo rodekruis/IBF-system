@@ -1,3 +1,14 @@
+## [0.67.4](https://github.com/rodekruis/IBF-system/compare/v0.67.3...v0.67.4) (2021-06-28)
+
+
+### Bug Fixes
+
+* cheap eap-action AB[#8367](https://github.com/rodekruis/IBF-system/issues/8367) ([c565a58](https://github.com/rodekruis/IBF-system/commit/c565a583cb60fceff18d1bb038acb66d04a0c61b))
+* enable ZMB for mock from frontend AB[#8368](https://github.com/rodekruis/IBF-system/issues/8368) ([7416718](https://github.com/rodekruis/IBF-system/commit/7416718909027945449a2644ae28767e2e4ae133))
+* only update eventPlaceCode in exposure-endpoint for own country AB[#8391](https://github.com/rodekruis/IBF-system/issues/8391) ([193da5f](https://github.com/rodekruis/IBF-system/commit/193da5fea78a6d858ceb9451e943d3702af90a04))
+
+
+
 ## [0.67.3](https://github.com/rodekruis/IBF-system/compare/v0.67.2...v0.67.3) (2021-06-28)
 
 
@@ -155,15 +166,6 @@
 ### Bug Fixes
 
 * add authorization to script endpoints ([8850e62](https://github.com/rodekruis/IBF-system/commit/8850e6202c9e364eba8ebd993325b24a3f2e8358))
-
-
-
-## [0.64.2](https://github.com/rodekruis/IBF-system/compare/v0.64.1...v0.64.2) (2021-06-11)
-
-
-### Bug Fixes
-
-* integration tests ([b5826cd](https://github.com/rodekruis/IBF-system/commit/b5826cd928ee5c7beef3a93aca877175d40ec7dd))
 
 
 
