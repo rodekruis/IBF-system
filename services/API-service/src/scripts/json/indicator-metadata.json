@@ -17,7 +17,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
-    "name": "population",
+    "name": "populationTotal",
     "label": "Total Population",
     "group": "general",
     "icon": "Person2-white.svg",

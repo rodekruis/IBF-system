@@ -43,7 +43,7 @@ export class SeedAdminAreaData implements InterfaceScript {
             adminAreaDataEntity.countryCodeISO3 = countryCodeISO3;
             adminAreaDataEntity.adminLevel = 2;
             adminAreaDataEntity.placeCode = populationRecord.placeCode;
-            adminAreaDataEntity.indicator = populationRecord.indicator;
+            adminAreaDataEntity.indicator = 'populationTotal';
             adminAreaDataEntity.value = populationRecord.value;
             return adminAreaDataEntity;
           });
