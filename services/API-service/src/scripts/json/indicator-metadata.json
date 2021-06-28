@@ -16,6 +16,22 @@
     "unit": "people"
   },
   {
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
+    "name": "populationTotal",
+    "label": "Total Population",
+    "group": "general",
+    "icon": "Affected-population-white.svg",
+    "weightedAvg": false,
+    "active": false,
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,PHL",
+    "numberFormatAggregate": "decimal0",
+    "order": 1,
+    "dynamic": false,
+    "unit": "people"
+  },
+  {
     "country_codes": "PHL",
     "name": "potential_cases",
     "label": "Potential Cases",
