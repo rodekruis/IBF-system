@@ -1,3 +1,14 @@
+## [0.67.3](https://github.com/rodekruis/IBF-system/compare/v0.67.2...v0.67.3) (2021-06-28)
+
+
+### Bug Fixes
+
+* close event button AB[#8351](https://github.com/rodekruis/IBF-system/issues/8351) ([2190a88](https://github.com/rodekruis/IBF-system/commit/2190a88539df8b895615d8bf7d3dd92d5658818f))
+* only remove country's events in mock-endpoint AB[#8347](https://github.com/rodekruis/IBF-system/issues/8347) ([0d834c7](https://github.com/rodekruis/IBF-system/commit/0d834c71fbe6eadd6a786d6277913dee9056d094))
+* unit test AB[#8351](https://github.com/rodekruis/IBF-system/issues/8351) ([a84ded9](https://github.com/rodekruis/IBF-system/commit/a84ded9f1e76b5d718f56f89857300361aa32c1c))
+
+
+
 ## [0.67.2](https://github.com/rodekruis/IBF-system/compare/v0.67.1...v0.67.2) (2021-06-25)
 
 
@@ -153,17 +164,6 @@
 ### Bug Fixes
 
 * integration tests ([b5826cd](https://github.com/rodekruis/IBF-system/commit/b5826cd928ee5c7beef3a93aca877175d40ec7dd))
-
-
-
-## [0.64.1](https://github.com/rodekruis/IBF-system/compare/v0.64.0...v0.64.1) (2021-06-11)
-
-
-### Bug Fixes
-
-* adjust getAdminRegions to get right data for both default and other adminLevels AB[#8166](https://github.com/rodekruis/IBF-system/issues/8166) ([8da085a](https://github.com/rodekruis/IBF-system/commit/8da085a4f84d7ca459d1c0ede3515e6bc59ada91))
-* filter pipeline-admin areas by adminLevel AB[#8166](https://github.com/rodekruis/IBF-system/issues/8166) ([2b7b194](https://github.com/rodekruis/IBF-system/commit/2b7b194e46c79e2678a42718a7b7fc0a572ac6b0))
-* handle undefined admin level label ([882cfe1](https://github.com/rodekruis/IBF-system/commit/882cfe13d48dd285c1b42069d8fa1c368f611c34))
 
 
 
