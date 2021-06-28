@@ -83,7 +83,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
     let allowMock = false;
 
     if (this.country) {
-      allowMock = ['UGA', 'PHL'].includes(this.country.countryCodeISO3);
+      allowMock = ['UGA', 'PHL', 'ZMB'].includes(this.country.countryCodeISO3);
     }
     return allowMock;
   }
