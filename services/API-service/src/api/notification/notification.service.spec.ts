@@ -1,7 +1,7 @@
+import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
-import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDynamicDataService } from '../admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { CountryEntity } from '../country/country.entity';
 import { CountryService } from '../country/country.service';
@@ -15,6 +15,7 @@ import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { UserEntity } from '../user/user.entity';
 import { NotificationService } from './notification.service';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 
 describe('NotificationService', () => {
   let service: NotificationService;
@@ -56,6 +57,14 @@ describe('NotificationService', () => {
         },
         {
           provide: getRepositoryToken(IndicatorMetadataEntity),
+          useFactory: repositoryMockFactory,
+        },
+        {
+          provide: getRepositoryToken(AdminAreaDynamicDataEntity),
+          useFactory: repositoryMockFactory,
+        },
+        {
+          provide: getRepositoryToken(AdminAreaEntity),
           useFactory: repositoryMockFactory,
         },
         EventService,
