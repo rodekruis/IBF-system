@@ -10,7 +10,7 @@ import { DynamicIndicator } from './enum/dynamic-indicator';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
 import { EventService } from '../event/event.service';
-import fs from 'fs';
+
 @Injectable()
 export class AdminAreaDynamicDataService {
   @InjectRepository(AdminAreaDynamicDataEntity)

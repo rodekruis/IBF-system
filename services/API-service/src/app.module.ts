@@ -16,6 +16,7 @@ import { RedcrossBranchModule } from './api/redcross-branch/redcross-branch.modu
 import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.module';
 import { HealthSiteModule } from './api/health-site/health-site.module';
 import { RainfallTriggersModule } from './api/rainfall-triggers/rainfall-triggers.module';
+import { NotificationModule } from './api/notification/notification.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { RainfallTriggersModule } from './api/rainfall-triggers/rainfall-trigger
     HealthSiteModule,
     AdminAreaDataModule,
     RainfallTriggersModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [],

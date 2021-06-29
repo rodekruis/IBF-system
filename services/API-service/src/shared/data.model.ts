@@ -19,7 +19,7 @@ export class AggregateDataRecord {
 export class TriggeredArea {
   public placeCode: string;
   public name: string;
-  public population_affected: number;
+  public actionsValue: number;
 }
 
 export class EventSummaryCountry {
