@@ -822,7 +822,7 @@ export class MapService {
   public setOutlineLayerStyle = (layer: IbfLayer) => {
     const colorProperty = layer.colorProperty;
     return (adminRegion) => {
-      const color = '#c22400';
+      const color = 'var(--ion-color-ibf-trigger-alert-primary)';
       const opacity = this.getOutlineColor(
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
