@@ -18,7 +18,7 @@
   {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
     "name": "population_affected_percentage",
-    "label": "% of Exposed Population",
+    "label": "% of Total Population",
     "group": "general",
     "icon": "Affected-population-white.svg",
     "weightedAvg": false,
