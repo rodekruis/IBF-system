@@ -124,7 +124,22 @@ export class EventService {
 
   public async getTriggeredAreas(
     countryCodeISO3: string,
+    leadTime: string,
   ): Promise<TriggeredArea[]> {
+    const triggerIndidators = await this.countryService.getTriggerUnitsForCountry(
+      countryCodeISO3,
+    );
+    const result = await this.adminAreaDynamicDataRepo
+      .createQueryBuilder('dynamic')
+      .select(['dynamic.placeCode'])
+      .where('indicator = :indicator', { indicator: triggerIndidators[0] })
+      .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
+      .andWhere('value > 0')
+      .execute();
+    const triggeredPlaceCodesLeadTime = result.map(
+      element => element.dynamic_placeCode,
+    );
+
     const triggeredAreas = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
@@ -140,6 +155,9 @@ export class EventService {
       })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
+      })
+      .andWhere('area."placeCode" IN(:...placeCodes)', {
+        placeCodes: triggeredPlaceCodesLeadTime,
       })
       .orderBy('event."actionsValue"', 'DESC')
       .getRawMany();

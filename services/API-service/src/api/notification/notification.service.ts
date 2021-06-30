@@ -270,6 +270,7 @@ export class NotificationService {
   ): Promise<string> {
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
+      leadTime.leadTimeName,
     );
     let areaTableString = '';
     for (const area of triggeredAreas) {
