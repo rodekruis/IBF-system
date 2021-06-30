@@ -98,7 +98,7 @@
         "welcome": "Hello {{ name }}. There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
       },
       "active-event": {
-        "instruction": "The potentially affected areas are highlighted in the map with a red outline. Please select the area on the map to monitor which SOP early actions are to do or done.",
+        "instruction": "The areas above alert threshold are highlighted in the map with a red outline. On the month tabs above the map you can click on the tab to see the predictions for these areas. Please select the area on the map to monitor which SOP early actions are to do or done.",
         "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
         "update-success": "SOP action(s) updated in database.",
         "update-failure": "Failed to update SOP action(s) updated in database."
