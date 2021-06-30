@@ -420,7 +420,10 @@ export class MapComponent implements OnDestroy {
 
   private bindPopupAdminRegions(layer: IbfLayer, feature, element): void {
     let popup: string;
-    if (layer.name !== IbfLayerName.potentialCases) {
+    if (
+      layer.name !== IbfLayerName.potentialCases &&
+      layer.colorProperty !== IbfLayerName.potentialCases
+    ) {
       popup = this.createDefaultPopupAdminRegions(layer, feature);
       element.bindPopup(popup).openPopup();
       this.placeCode = feature.properties.placeCode;
