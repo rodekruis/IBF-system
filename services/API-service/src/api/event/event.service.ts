@@ -5,7 +5,8 @@ import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-a
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { EventPlaceCodeDto } from './dto/event-place-code.dto';
-import { LessThan, MoreThan, Repository } from 'typeorm';
+import { LessThan, MoreThan, Repository, In } from 'typeorm';
+
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   LeadTime,
@@ -218,9 +219,24 @@ export class EventService {
     await this.eventPlaceCodeRepo.save(eventPlaceCode);
   }
 
+  public async getCountryAdminAreaIds(
+    countryCodeISO3: string,
+  ): Promise<string[]> {
+    return (
+      await this.adminAreaRepository.find({
+        select: ['id'],
+        where: { countryCodeISO3: countryCodeISO3 },
+      })
+    ).map(area => area.id);
+  }
+
   public async processEventAreas(countryCodeISO3: string): Promise<void> {
-    // set all events to activeTrigger=false
-    const eventAreas = await this.eventPlaceCodeRepo.find();
+    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
+      countryCodeISO3,
+    );
+    const eventAreas = await this.eventPlaceCodeRepo.find({
+      where: { adminArea: { id: In(countryAdminAreaIds) } },
+    });
     eventAreas.forEach(area => (area.activeTrigger = false));
     await this.eventPlaceCodeRepo.save(eventAreas);
 
@@ -231,7 +247,7 @@ export class EventService {
     await this.addNewEventAreas(countryCodeISO3);
 
     // close old events
-    await this.closeEventsAutomatic();
+    await this.closeEventsAutomatic(countryCodeISO3);
   }
 
   private async getAffectedAreas(countryCodeISO3: string): Promise<any[]> {
@@ -294,8 +310,11 @@ export class EventService {
   ): Promise<void> {
     const affectedAreas = await this.getAffectedAreas(countryCodeISO3);
     const affectedAreasPlaceCodes = affectedAreas.map(area => area.placeCode);
+    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
+      countryCodeISO3,
+    );
     const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
-      where: { closed: false },
+      where: { closed: false, adminArea: In(countryAdminAreaIds) },
       relations: ['adminArea'],
     });
     let affectedArea;
@@ -316,10 +335,12 @@ export class EventService {
 
   private async addNewEventAreas(countryCodeISO3: string): Promise<void> {
     const affectedAreas = await this.getAffectedAreas(countryCodeISO3);
-
+    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
+      countryCodeISO3,
+    );
     const existingUnclosedEventAreas = (
       await this.eventPlaceCodeRepo.find({
-        where: { closed: false },
+        where: { closed: false, adminArea: In(countryAdminAreaIds) },
         relations: ['adminArea'],
       })
     ).map(area => area.adminArea.placeCode);
@@ -343,9 +364,15 @@ export class EventService {
     await this.eventPlaceCodeRepo.save(newEventAreas);
   }
 
-  private async closeEventsAutomatic() {
+  private async closeEventsAutomatic(countryCodeISO3: string) {
+    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
+      countryCodeISO3,
+    );
     const expiredEventAreas = await this.eventPlaceCodeRepo.find({
-      where: { endDate: LessThan(new Date()) },
+      where: {
+        endDate: LessThan(new Date()),
+        adminArea: In(countryAdminAreaIds),
+      },
     });
     expiredEventAreas.forEach(area => (area.closed = true));
     await this.eventPlaceCodeRepo.save(expiredEventAreas);

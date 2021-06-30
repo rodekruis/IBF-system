@@ -7,6 +7,7 @@ import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionDto } from './dto/eap-action.dto';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 
 @Injectable()
 export class EapActionsService {
@@ -20,6 +21,8 @@ export class EapActionsService {
   private readonly areaOfFocusRepository: Repository<AreaOfFocusEntity>;
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepository: Repository<EventPlaceCodeEntity>;
+  @InjectRepository(AdminAreaEntity)
+  private readonly adminAreaRepository: Repository<AdminAreaEntity>;
 
   public async checkAction(
     userId: string,
@@ -36,10 +39,15 @@ export class EapActionsService {
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
 
+    const adminArea = await this.adminAreaRepository.findOne({
+      select: ['id'],
+      where: { placeCode: eapAction.placeCode },
+    });
+
     const eventPlaceCode = await this.eventPlaceCodeRepository.findOne({
       where: {
         closed: false,
-        placeCode: eapAction.placeCode,
+        adminArea: { id: adminArea.id },
       },
     });
 
