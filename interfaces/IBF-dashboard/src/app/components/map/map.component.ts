@@ -419,12 +419,17 @@ export class MapComponent implements OnDestroy {
   };
 
   private bindPopupAdminRegions(layer: IbfLayer, feature, element): void {
+    console.log('layer: ', layer);
     let popup: string;
-    if (
-      layer.name !== IbfLayerName.potentialCases &&
-      layer.colorProperty !== IbfLayerName.potentialCases
-    ) {
-      popup = this.createDefaultPopupAdminRegions(layer, feature);
+    const activeAggregateLayer = this.mapService.layers.find(
+      (l) => l.active && l.group === IbfLayerGroup.aggregates,
+    );
+    if (activeAggregateLayer.name !== IbfLayerName.potentialCases) {
+      popup = this.createDefaultPopupAdminRegions(
+        layer,
+        activeAggregateLayer,
+        feature,
+      );
       element.bindPopup(popup).openPopup();
       this.placeCode = feature.properties.placeCode;
     } else {
@@ -438,7 +443,7 @@ export class MapComponent implements OnDestroy {
         )
         .subscribe((thresholdValue: number) => {
           popup = this.createThresHoldPopupAdminRegions(
-            layer,
+            activeAggregateLayer,
             feature,
             thresholdValue,
           );
@@ -475,11 +480,11 @@ export class MapComponent implements OnDestroy {
     }
   }
 
-  private createDefaultPopupAdminRegions(layer: IbfLayer, feature): string {
-    const activeAggregateLayer = this.mapService.layers.find(
-      (l) => l.active && l.group === IbfLayerGroup.aggregates,
-    );
-
+  private createDefaultPopupAdminRegions(
+    layer: IbfLayer,
+    activeAggregateLayer: IbfLayer,
+    feature,
+  ): string {
     const additionalAdminLevel = this.isAdditionalAdminLevel(layer);
     return (
       '<strong>' +
