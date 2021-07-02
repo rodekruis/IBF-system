@@ -37,7 +37,7 @@ SETTINGS = {
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://adore.ifrc.org/Download.aspx?FileId=357745",
             'linkVideo': "https://www.youtube.com/watch?v=O0PwZSpEhhc",
-            'linkPdf': "https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf",
+            'linkPdf':  "https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf",
             'linkSocialMedia': {
                 "type": "WhatsApp",
                 "url": "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin/"

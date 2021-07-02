@@ -23,6 +23,7 @@ def formatInfo(info, countryCodeISO3):
     placeholderLinkVideo = "(LINK-Video)"
     placeholderLinkPdf = "(LINK-PDF)"
 
+
     email_settings = SETTINGS[countryCodeISO3]['email']
     logo = email_settings['logo']
     triggerStatement = email_settings['triggerStatement']
