@@ -3,9 +3,11 @@ import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
 import { AdminAreaDataEntity } from '../api/admin-area-data/admin-area-data.entity';
 import { SeedHelper } from './seed-helper';
+import { AdminLevel } from 'src/api/country/admin-level.enum';
 
 interface AdminAreaDataRecord {
   placeCode: string;
+  adminLevel: AdminLevel;
   indicator: string;
   value: number;
 }
@@ -41,7 +43,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           .map((populationRecord: AdminAreaDataRecord) => {
             const adminAreaDataEntity = new AdminAreaDataEntity();
             adminAreaDataEntity.countryCodeISO3 = countryCodeISO3;
-            adminAreaDataEntity.adminLevel = 2;
+            adminAreaDataEntity.adminLevel = populationRecord.adminLevel;
             adminAreaDataEntity.placeCode = populationRecord.placeCode;
             adminAreaDataEntity.indicator = 'populationTotal';
             adminAreaDataEntity.value = populationRecord.value;
