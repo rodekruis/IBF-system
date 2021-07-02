@@ -42,6 +42,7 @@ export class AdminAreaDynamicDataService {
     });
     console.timeEnd('delete');
     console.time('Insert exposure');
+    const areas = [];
     for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
       const area = new AdminAreaDynamicDataEntity();
       area.indicator = uploadExposure.dynamicIndicator;
@@ -51,8 +52,9 @@ export class AdminAreaDynamicDataService {
       area.date = new Date();
       area.countryCodeISO3 = uploadExposure.countryCodeISO3;
       area.leadTime = uploadExposure.leadTime;
-      this.adminAreaDynamicDataRepo.save(area);
+      areas.push(area);
     }
+    this.adminAreaDynamicDataRepo.save(areas);
     console.timeEnd('Insert exposure');
 
     console.time('Insert trigger');
