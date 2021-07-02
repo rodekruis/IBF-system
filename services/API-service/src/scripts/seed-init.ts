@@ -115,7 +115,11 @@ export class SeedInit implements InterfaceScript {
             ),
           });
           countryEntity.disasterTypes = await disasterRepository.find({
-            where: { disasterType: country.disasterType },
+            where: country.disasterTypes.map(
+              (countryDisasterType: string): object => {
+                return { disasterType: countryDisasterType };
+              },
+            ),
           });
           countryEntity.countryLogos = country.countryLogos;
           countryEntity.eapAlertClasses = JSON.parse(

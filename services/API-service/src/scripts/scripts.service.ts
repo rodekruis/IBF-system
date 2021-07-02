@@ -59,7 +59,7 @@ export class ScriptsService {
 
     await this.mockExposure(selectedCountry, mockInput.triggered);
 
-    if (selectedCountry.disasterType === DisasterType.Floods) {
+    if (selectedCountry.disasterTypes.includes(DisasterType.Floods)) {
       await this.mockGlofasStations(selectedCountry, mockInput.triggered);
       await this.mockTriggerPerLeadTime(selectedCountry, mockInput.triggered);
     }
