@@ -39,6 +39,7 @@ jobs:
 
         env:
             SECRET: ${{ secrets.SECRET }}
+            MC_API: ${{ secrets.MC_API }}
 
         strategy:
             matrix:
