@@ -16,7 +16,7 @@
     "unit": "people"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY",
     "name": "population_affected_percentage",
     "label": "% of Total Population",
     "group": "general",
@@ -25,7 +25,7 @@
     "active": false,
     "colorBreaks": null,
     "numberFormatMap": "perc",
-    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,PHL",
+    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY",
     "numberFormatAggregate": "perc",
     "order": 1,
     "dynamic": true,
