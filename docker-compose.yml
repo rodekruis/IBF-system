@@ -38,6 +38,9 @@ services:
             - RESET_SECRET=${RESET_SECRET}
             - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
             - COUNTRIES=${COUNTRIES}
+            - DASHBOARD_URL=${DASHBOARD_URL}
+            - MC_API=${MC_API}
+            - MC_LIST_ID=${MC_LIST_ID}
         networks:
             web-server-network:
             pipeline-network:

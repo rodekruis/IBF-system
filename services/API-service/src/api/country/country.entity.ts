@@ -1,8 +1,10 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { BoundingBox } from '../../shared/geo.model';
@@ -11,6 +13,7 @@ import { UserEntity } from '../user/user.entity';
 import { AdminLevel } from './admin-level.enum';
 import { CountryStatus } from './country-status.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 
 @Entity('country')
 export class CountryEntity {
@@ -82,4 +85,10 @@ export class CountryEntity {
     (disasterType): CountryEntity[] => disasterType.countries,
   )
   public disasterTypes: DisasterEntity[];
+
+  @OneToOne(() => NotificationInfoEntity, {
+    cascade: true,
+  })
+  @JoinColumn()
+  public notificationInfo: NotificationInfoEntity;
 }

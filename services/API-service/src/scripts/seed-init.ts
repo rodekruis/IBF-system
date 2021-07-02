@@ -14,8 +14,10 @@ import { UserEntity } from '../api/user/user.entity';
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { DisasterEntity } from '../api/disaster/disaster.entity';
+import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
 
 import leadTimes from './json/lead-times.json';
+import notificationInfo from './json/notification-info.json';
 import countries from './json/countries.json';
 import users from './json/users.json';
 import areasOfFocus from './json/areas-of-focus.json';
@@ -88,7 +90,6 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed Countries...');
     const envCountries = process.env.COUNTRIES.split(',');
     const selectedCountries = countries.filter((country): boolean => {
-      console.log(`Seeding country ${country.countryCodeISO3}`);
       return envCountries.includes(country.countryCodeISO3);
     });
 
@@ -96,6 +97,7 @@ export class SeedInit implements InterfaceScript {
     const countryEntities = await Promise.all(
       selectedCountries.map(
         async (country): Promise<CountryEntity> => {
+          console.log(`Seeding country ${country.countryCodeISO3}`);
           const countryEntity = new CountryEntity();
           countryEntity.countryCodeISO3 = country.countryCodeISO3;
           countryEntity.countryCodeISO2 = country.countryCodeISO2;
@@ -122,6 +124,10 @@ export class SeedInit implements InterfaceScript {
             JSON.stringify([country.eapAlertClasses]),
           )[0];
           countryEntity.countryBoundingBox = country.countryBoundingBox;
+          countryEntity.notificationInfo = await this.createNotificationInfo(
+            country.countryCodeISO3,
+          );
+
           return countryEntity;
         },
       ),
@@ -230,6 +236,40 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed rainfall data...');
     const seedRainfallData = new SeedRainfallData(this.connection);
     await seedRainfallData.run();
+  }
+
+  private async createNotificationInfo(
+    countryCodeISO3: string,
+  ): Promise<NotificationInfoEntity> {
+    // ***** CREATE NOTIFICATION INFO *****
+    const notificationInfoRepository = this.connection.getRepository(
+      NotificationInfoEntity,
+    );
+    const notificationInfoEntity = new NotificationInfoEntity();
+    const notificationInfoCountry = notificationInfo.find(
+      (notificationInfoEntry): object => {
+        if (notificationInfoEntry.countryCodeISO3 === countryCodeISO3) {
+          return notificationInfoEntry;
+        }
+      },
+    );
+    if (!notificationInfoCountry) {
+      return;
+    }
+    notificationInfoEntity.logo = notificationInfoCountry.logo;
+    notificationInfoEntity.triggerStatement =
+      notificationInfoCountry.triggerStatement;
+    notificationInfoEntity.linkSocialMediaType =
+      notificationInfoCountry.linkSocialMediaType;
+    notificationInfoEntity.linkSocialMediaUrl =
+      notificationInfoCountry.linkSocialMediaUrl;
+    const saveResult = await notificationInfoRepository.save(
+      notificationInfoEntity,
+    );
+    const savedEntity = await notificationInfoRepository.findOne(
+      saveResult.notificationInfoId,
+    );
+    return savedEntity;
   }
 }
 
