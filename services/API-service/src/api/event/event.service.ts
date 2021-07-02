@@ -5,7 +5,7 @@ import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-a
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { EventPlaceCodeDto } from './dto/event-place-code.dto';
-import { LessThan, MoreThan, Repository, In } from 'typeorm';
+import { LessThan, MoreThanOrEqual, Repository, In } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import {
@@ -112,7 +112,7 @@ export class EventService {
       await this.triggerPerLeadTimeRepository.delete({
         countryCodeISO3: countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
-        date: MoreThan(firstDayOfMonth),
+        date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else {
       await this.triggerPerLeadTimeRepository.delete({

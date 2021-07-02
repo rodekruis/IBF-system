@@ -90,7 +90,6 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed Countries...');
     const envCountries = process.env.COUNTRIES.split(',');
     const selectedCountries = countries.filter((country): boolean => {
-      console.log(`Seeding country ${country.countryCodeISO3}`);
       return envCountries.includes(country.countryCodeISO3);
     });
 
@@ -98,6 +97,7 @@ export class SeedInit implements InterfaceScript {
     const countryEntities = await Promise.all(
       selectedCountries.map(
         async (country): Promise<CountryEntity> => {
+          console.log(`Seeding country ${country.countryCodeISO3}`);
           const countryEntity = new CountryEntity();
           countryEntity.countryCodeISO3 = country.countryCodeISO3;
           countryEntity.countryCodeISO2 = country.countryCodeISO2;

@@ -2,7 +2,7 @@ import { CountryService } from './../country/country.service';
 import { LeadTime, LeadTimeDayMonth } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { Injectable } from '@nestjs/common';
-import { MoreThan, Repository } from 'typeorm';
+import { MoreThanOrEqual, Repository } from 'typeorm';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
@@ -83,7 +83,7 @@ export class AdminAreaDynamicDataService {
         indicator: uploadExposure.dynamicIndicator,
         countryCodeISO3: uploadExposure.countryCodeISO3,
         leadTime: uploadExposure.leadTime,
-        date: MoreThan(firstDayOfMonth),
+        date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else {
       await this.adminAreaDynamicDataRepo.delete({
