@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { Country } from '../models/country.model';
+import { TimelineService } from './timeline.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +12,20 @@ export class EapActionsService {
   private triggeredAreaSubject = new BehaviorSubject<any[]>([]);
   private triggeredAreas: any[];
   private country: Country;
+  private event;
 
   constructor(
     private countryService: CountryService,
     private apiService: ApiService,
+    private timelineService: TimelineService,
   ) {
     this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
+
+    this.timelineService
+      .getTimelineSubscription()
+      .subscribe(this.onLeadTimeChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -36,12 +43,23 @@ export class EapActionsService {
   };
 
   private onEvent = (event) => {
-    if (event) {
-      this.apiService
-        .getTriggeredAreas(this.country.countryCodeISO3)
-        .subscribe(this.onTriggeredAreas);
+    this.event = event;
+    if (event && this.timelineService.activeLeadTime) {
+      this.getTriggeredAreasApi(this.timelineService.activeLeadTime);
     }
   };
+
+  private onLeadTimeChange = () => {
+    if (this.event && this.timelineService.activeLeadTime) {
+      this.getTriggeredAreasApi(this.timelineService.activeLeadTime);
+    }
+  };
+
+  private getTriggeredAreasApi(leadTime: string) {
+    this.apiService
+      .getTriggeredAreas(this.country.countryCodeISO3, leadTime)
+      .subscribe(this.onTriggeredAreas);
+  }
 
   loadAdminAreasAndActions() {
     if (this.country) {

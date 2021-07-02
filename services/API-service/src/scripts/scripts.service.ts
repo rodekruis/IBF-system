@@ -97,7 +97,12 @@ export class ScriptsService {
         );
         await this.adminAreaDynamicDataService.exposure({
           countryCodeISO3: selectedCountry.countryCodeISO3,
-          exposurePlaceCodes: this.mockAmount(exposure, unit, triggered),
+          exposurePlaceCodes: this.mockAmount(
+            exposure,
+            unit,
+            triggered,
+            activeLeadTime,
+          ),
           leadTime: activeLeadTime as LeadTime,
           dynamicIndicator: unit,
           adminLevel: selectedCountry.defaultAdminLevel,
@@ -110,6 +115,7 @@ export class ScriptsService {
     exposurePlacecodes: any,
     exposureUnit: DynamicIndicator,
     triggered: boolean,
+    activeLeadTime: string,
   ): any[] {
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     for (const pcodeData of copyOfExposureUnit) {
@@ -130,6 +136,12 @@ export class ScriptsService {
           ].includes(pcodeData.placeCode)
             ? 1
             : 0;
+          if (
+            activeLeadTime === LeadTime.month0 &&
+            pcodeData.placeCode == 'PH137500000'
+          ) {
+            pcodeData.amount = 0;
+          }
         }
       }
     }

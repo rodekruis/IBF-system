@@ -1,3 +1,27 @@
+# [0.68.0](https://github.com/rodekruis/IBF-system/compare/v0.67.4...v0.68.0) (2021-07-02)
+
+
+### Bug Fixes
+
+* AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) broken popups ([a624033](https://github.com/rodekruis/IBF-system/commit/a6240334f18a4b8086ec59fb98be0a1b0e854593))
+* AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) broken popups robuster fix ([6368928](https://github.com/rodekruis/IBF-system/commit/6368928b64f33d489f8ddd82590670e961259bf2))
+* AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) change chat go to actions text ([59fde43](https://github.com/rodekruis/IBF-system/commit/59fde43798ee47e51668d98b9b24acda72a9d530))
+* AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) eap actions document ([410a42b](https://github.com/rodekruis/IBF-system/commit/410a42bca8b1038413d2e7f391840f8603c4bf8f))
+* AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) send to save ([ec9c351](https://github.com/rodekruis/IBF-system/commit/ec9c35110d1dca1355ba0e89687c5ae8b8714be7))
+* Changed getTriggered areas to leadtime dependend AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) ([b0cef24](https://github.com/rodekruis/IBF-system/commit/b0cef244567e5b2fc733b2e2f2887e6aaabc467e))
+* Dengue cases are always active ([0a9dd77](https://github.com/rodekruis/IBF-system/commit/0a9dd77e5da10e4738abf5a6b0836698de1ac7b0))
+* PHL simplify geom ([4842998](https://github.com/rodekruis/IBF-system/commit/4842998ac7350aeb572c9aa1abde5cb8237f3b57))
+* remove month if upload in same month AB[#8366](https://github.com/rodekruis/IBF-system/issues/8366) ([79ea878](https://github.com/rodekruis/IBF-system/commit/79ea8787262b0a43feb59394bc02ef389e170d41))
+* tests ([e451cfe](https://github.com/rodekruis/IBF-system/commit/e451cfe9ed7b29169a0b85cd2ab8bef35ed4f3f9))
+* tests ([a245cab](https://github.com/rodekruis/IBF-system/commit/a245cabd7031b373e16760161f71f3474d8d0fd0))
+
+
+### Features
+
+* Send email from API service for PHL AB[#8292](https://github.com/rodekruis/IBF-system/issues/8292) ([9dd53e8](https://github.com/rodekruis/IBF-system/commit/9dd53e8a7367b52d09185c5035ce046ed7f7b52d))
+
+
+
 ## [0.67.4](https://github.com/rodekruis/IBF-system/compare/v0.67.3...v0.67.4) (2021-06-28)
 
 
@@ -157,15 +181,6 @@
 ### Bug Fixes
 
 * update uganda thresholds AB[#8168](https://github.com/rodekruis/IBF-system/issues/8168) ([69af881](https://github.com/rodekruis/IBF-system/commit/69af881f90f445d5bedbdceb95c94a4061284095))
-
-
-
-## [0.64.3](https://github.com/rodekruis/IBF-system/compare/v0.64.2...v0.64.3) (2021-06-14)
-
-
-### Bug Fixes
-
-* add authorization to script endpoints ([8850e62](https://github.com/rodekruis/IBF-system/commit/8850e6202c9e364eba8ebd993325b24a3f2e8358))
 
 
 

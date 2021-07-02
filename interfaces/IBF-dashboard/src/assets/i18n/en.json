@@ -71,7 +71,7 @@
       "instruction": "The potentially exposed areas are listed below in order of number of people potentially exposed per area. You can select and send the pre-planned anticipatory actions executed in each area and eventually close the event. Select an area in the map, to show only the actions for that area.",
       "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
       "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
-      "submit-button-label": "Send",
+      "submit-button-label": "Save",
       "close-event-button": "Close Alert",
       "update-success": "EAP action(s) updated in database.",
       "update-failure": "Failed to update EAP action(s) updated in database.",
@@ -98,7 +98,7 @@
         "welcome": "Hello {{ name }}. There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
       },
       "active-event": {
-        "instruction": "The potentially affected areas are highlighted in the map with a red outline. Please select the area on the map to monitor which SOP early actions are to do or done.",
+        "instruction": "The areas above alert threshold are highlighted in the map with a red outline. You can click on the month tabs above the map to see the predictions for each month. Please select the area on the map to monitor which early actions are to do or done.",
         "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
         "update-success": "SOP action(s) updated in database.",
         "update-failure": "Failed to update SOP action(s) updated in database."

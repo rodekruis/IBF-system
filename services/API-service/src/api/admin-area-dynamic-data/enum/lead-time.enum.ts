@@ -10,3 +10,8 @@ export enum LeadTime {
   month1 = '1-month',
   month2 = '2-month',
 }
+
+export enum LeadTimeDayMonth {
+  day = 'day',
+  month = 'month',
+}

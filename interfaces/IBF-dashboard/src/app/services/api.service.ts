@@ -180,8 +180,11 @@ export class ApiService {
     );
   }
 
-  getTriggeredAreas(countryCodeISO3: string) {
-    return this.get(`event/triggered-areas/${countryCodeISO3}`, false);
+  getTriggeredAreas(countryCodeISO3: string, leadTime: string) {
+    return this.get(
+      `event/triggered-areas/${countryCodeISO3}/${leadTime}`,
+      false,
+    );
   }
 
   getIndicators(countryCodeISO3: string) {

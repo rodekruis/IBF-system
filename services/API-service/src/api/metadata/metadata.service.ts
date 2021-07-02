@@ -52,9 +52,15 @@ export class MetadataService {
       countryCodeISO3,
     );
 
-    countryIndicators.find((i): boolean =>
+    const countryActionUnit = countryIndicators.find((i): boolean =>
       actionUnits.includes(i.name),
-    ).active = activeTrigger;
+    );
+
+    if (!countryActionUnit.active) {
+      countryIndicators.find((i): boolean =>
+        actionUnits.includes(i.name),
+      ).active = activeTrigger;
+    }
 
     return countryIndicators;
   }

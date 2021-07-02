@@ -51,9 +51,13 @@ export class EventController {
 
   @ApiOperation({ summary: 'Get triggered areas' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @Get('triggered-areas/:countryCodeISO3')
+  @ApiParam({ name: 'leadTime', required: true, type: 'string' })
+  @Get('triggered-areas/:countryCodeISO3/:leadTime')
   public async getTriggeredAreas(@Param() params): Promise<TriggeredArea[]> {
-    return await this.eventService.getTriggeredAreas(params.countryCodeISO3);
+    return await this.eventService.getTriggeredAreas(
+      params.countryCodeISO3,
+      params.leadTime,
+    );
   }
 
   @ApiOperation({ summary: 'Close place code event' })

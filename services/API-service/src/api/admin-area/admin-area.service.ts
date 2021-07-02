@@ -62,7 +62,7 @@ export class AdminAreaService {
     let placeCodes = [];
     if (parseInt(trigger) === 1) {
       placeCodes = (
-        await this.eventService.getTriggeredAreas(countryCodeISO3)
+        await this.eventService.getTriggeredAreas(countryCodeISO3, leadTime)
       ).map((triggeredArea): string => triggeredArea.placeCode);
     }
     return placeCodes;
