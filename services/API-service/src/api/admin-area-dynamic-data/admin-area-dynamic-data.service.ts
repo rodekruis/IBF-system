@@ -46,6 +46,7 @@ export class AdminAreaDynamicDataService {
       area.date = new Date();
       area.countryCodeISO3 = uploadExposure.countryCodeISO3;
       area.leadTime = uploadExposure.leadTime;
+      area.disasterType = uploadExposure.disasterType;
       areas.push(area);
     }
     this.adminAreaDynamicDataRepo.save(areas);
@@ -85,6 +86,7 @@ export class AdminAreaDynamicDataService {
         indicator: uploadExposure.dynamicIndicator,
         countryCodeISO3: uploadExposure.countryCodeISO3,
         leadTime: uploadExposure.leadTime,
+        disasterType: uploadExposure.disasterType,
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else {
@@ -92,6 +94,7 @@ export class AdminAreaDynamicDataService {
         indicator: uploadExposure.dynamicIndicator,
         countryCodeISO3: uploadExposure.countryCodeISO3,
         leadTime: uploadExposure.leadTime,
+        disasterType: uploadExposure.disasterType,
         date: new Date(),
       });
     }
@@ -105,6 +108,7 @@ export class AdminAreaDynamicDataService {
     const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
     uploadTriggerPerLeadTimeDto.countryCodeISO3 =
       uploadExposure.countryCodeISO3;
+    uploadTriggerPerLeadTimeDto.disasterType = uploadExposure.disasterType;
     uploadTriggerPerLeadTimeDto.triggersPerLeadTime = [
       {
         leadTime: uploadExposure.leadTime as LeadTime,

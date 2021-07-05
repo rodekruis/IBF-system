@@ -80,16 +80,15 @@ export class EventService {
     const triggersPerLeadTime: TriggerPerLeadTime[] = [];
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
       // Delete duplicates
-      await this.deleteDuplicates(
-        uploadTriggerPerLeadTimeDto.countryCodeISO3,
-        leadTime,
-      );
+      await this.deleteDuplicates(uploadTriggerPerLeadTimeDto, leadTime);
       const triggerPerLeadTime = new TriggerPerLeadTime();
       triggerPerLeadTime.date = new Date();
       triggerPerLeadTime.countryCodeISO3 =
         uploadTriggerPerLeadTimeDto.countryCodeISO3;
       triggerPerLeadTime.leadTime = leadTime.leadTime as LeadTime;
       triggerPerLeadTime.triggered = leadTime.triggered;
+      triggerPerLeadTime.disasterType =
+        uploadTriggerPerLeadTimeDto.disasterType;
 
       triggersPerLeadTime.push(triggerPerLeadTime);
     }
@@ -98,10 +97,12 @@ export class EventService {
   }
 
   private async deleteDuplicates(
-    countryCodeISO3: string,
+    uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
     selectedLeadTime: TriggerPerLeadTimeDto,
   ): Promise<void> {
-    const country = await this.countryService.findOne(countryCodeISO3);
+    const country = await this.countryService.findOne(
+      uploadTriggerPerLeadTimeDto.countryCodeISO3,
+    );
     if (
       country.countryActiveLeadTimes[0].leadTimeName.includes(
         LeadTimeDayMonth.month,
@@ -110,14 +111,16 @@ export class EventService {
       const date = new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       await this.triggerPerLeadTimeRepository.delete({
-        countryCodeISO3: countryCodeISO3,
+        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
+        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else {
       await this.triggerPerLeadTimeRepository.delete({
-        countryCodeISO3: countryCodeISO3,
+        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
+        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         date: new Date(),
       });
     }

@@ -14,7 +14,7 @@ export class DisasterEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column()
+  @Column({ unique: true })
   public disasterType: DisasterType;
 
   @Column()
