@@ -25,7 +25,7 @@ def main():
                 print('--------STARTING: ' + leadTimeLabel +
                       '--------------------------')
                 fc = Forecast(leadTimeLabel, leadTimeValue, COUNTRY_CODE,
-                              COUNTRY_SETTINGS['model'])
+                              COUNTRY_SETTINGS['model'], COUNTRY_SETTINGS['admin_level'])
                 if COUNTRY_SETTINGS['model'] == 'rainfall':
                     fc.rainfallData.process()
                 if COUNTRY_SETTINGS['model'] == 'glofas':

@@ -16,6 +16,38 @@
     "unit": "people"
   },
   {
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY",
+    "name": "population_affected_percentage",
+    "label": "% of Total Population",
+    "group": "general",
+    "icon": "Affected-population-white.svg",
+    "weightedAvg": false,
+    "active": false,
+    "colorBreaks": null,
+    "numberFormatMap": "perc",
+    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY",
+    "numberFormatAggregate": "perc",
+    "order": 1,
+    "dynamic": true,
+    "unit": "people"
+  },
+  {
+    "country_codes": "",
+    "name": "populationTotal",
+    "label": "Total Population",
+    "group": "general",
+    "icon": "Person2-white.svg",
+    "weightedAvg": false,
+    "active": false,
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": "",
+    "numberFormatAggregate": "decimal0",
+    "order": 1,
+    "dynamic": false,
+    "unit": "people"
+  },
+  {
     "country_codes": "PHL",
     "name": "potential_cases",
     "label": "Potential Cases",
