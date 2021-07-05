@@ -1,5 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -14,9 +13,8 @@ import { LoaderService } from 'src/app/services/loader.service';
   templateUrl: './user-state.component.html',
   styleUrls: ['./user-state.component.scss'],
 })
-export class UserStateComponent implements OnDestroy {
+export class UserStateComponent {
   public displayName: string;
-  private authSubscription: Subscription;
 
   constructor(
     public authService: AuthService,
@@ -24,10 +22,6 @@ export class UserStateComponent implements OnDestroy {
     private analyticsService: AnalyticsService,
     private eventService: EventService,
   ) {}
-
-  ngOnDestroy() {
-    this.authSubscription.unsubscribe();
-  }
 
   public doLogout() {
     this.analyticsService.logEvent(AnalyticsEvent.logOut, {

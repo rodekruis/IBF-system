@@ -76,17 +76,24 @@ export class ScriptsService {
         DynamicIndicator.potentialThreshold,
       ];
     } else {
-      exposureUnits = [DynamicIndicator.populationAffected];
+      exposureUnits = [
+        DynamicIndicator.populationAffected,
+        DynamicIndicator.populationAffectedPercentage,
+      ];
     }
 
     for (const unit of exposureUnits) {
-      let exposureFileNameEnd: string;
-      if (unit === DynamicIndicator.potentialThreshold) {
-        exposureFileNameEnd = '-potential-cases-threshold';
+      let fileName: string;
+      if (selectedCountry.countryCodeISO3 === 'PHL') {
+        if (unit === DynamicIndicator.potentialThreshold) {
+          fileName = 'upload-exposure-PHL-potential-cases-threshold';
+        } else fileName = `upload-exposure-PHL-${triggered ? 'triggered' : ''}`;
       } else {
-        exposureFileNameEnd = triggered ? '-triggered' : '';
+        fileName = `upload-${unit}-${selectedCountry.countryCodeISO3}-${
+          triggered ? 'triggered' : ''
+        }`;
       }
-      const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/upload-exposure-${selectedCountry.countryCodeISO3}${exposureFileNameEnd}.json`;
+      const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${fileName}.json`;
 
       const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
       const exposure = JSON.parse(exposureRaw);
@@ -117,6 +124,7 @@ export class ScriptsService {
     triggered: boolean,
     activeLeadTime: string,
   ): any[] {
+    // This only returns something different for PHL exposure-units
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     for (const pcodeData of copyOfExposureUnit) {
       if (exposureUnit === DynamicIndicator.potentialCases65) {

@@ -38,6 +38,12 @@ class DatabaseManager:
                 body = json.load(json_file)
                 self.apiPostRequest('admin-area-dynamic-data/exposure', body)
             print('Uploaded calculated_affected for indicator: ' + indicator)
+            if indicator == 'population':
+                with open(self.affectedFolder +
+                        'affected_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '_' + 'population_affected_percentage' + '.json') as json_file:
+                    body = json.load(json_file)
+                    self.apiPostRequest('admin-area-dynamic-data/exposure', body)
+                print('Uploaded calculated_affected for indicator: ' + 'population_affected_percentage')
 
     def uploadTriggerPerStation(self):
         df = pd.read_json(self.triggerFolder +

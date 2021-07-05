@@ -4,7 +4,11 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
+import {
+  Indicator,
+  IndicatorGroup,
+  NumberFormat,
+} from 'src/app/types/indicator-group';
 import { Country } from '../models/country.model';
 import { IbfLayerName } from '../types/ibf-layer';
 import { AdminLevelService } from './admin-level.service';
@@ -139,11 +143,23 @@ export class AggregatesService {
     weightedAverage: boolean,
     indicator: IbfLayerName,
     placeCode: string,
+    numberFormat: NumberFormat,
   ): number {
-    return this.aggregates.reduce(
+    let aggregateValue = this.aggregates.reduce(
       this.aggregateReducer(weightedAverage, indicator, placeCode),
       0,
     );
+
+    // normalize when reducing percentage values https://math.stackexchange.com/a/3381907/482513
+    if (
+      !placeCode &&
+      numberFormat === NumberFormat.perc &&
+      this.aggregates.length > 0
+    ) {
+      aggregateValue = aggregateValue / this.aggregates.length;
+    }
+
+    return aggregateValue;
   }
 
   private aggregateReducer = (

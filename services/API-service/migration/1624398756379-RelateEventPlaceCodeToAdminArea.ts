@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class RelateEventPlaceCodeToAdminArea1624398756379
   implements MigrationInterface {
-  name = 'RelateEventPlaceCodeToAdminArea1624398756379';
+  public name = 'RelateEventPlaceCodeToAdminArea1624398756379';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
