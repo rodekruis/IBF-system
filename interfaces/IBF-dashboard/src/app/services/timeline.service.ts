@@ -93,14 +93,20 @@ export class TimelineService {
     }
 
     this.apiService
-      .getTriggerPerLeadTime(this.country.countryCodeISO3)
+      .getTriggerPerLeadTime(
+        this.country.countryCodeISO3,
+        this.disasterType.disasterType,
+      )
       .subscribe(this.onTriggerPerLeadTime);
   };
 
   public loadTimeStepButtons(): void {
     if (this.country) {
       this.apiService
-        .getRecentDates(this.country.countryCodeISO3)
+        .getRecentDates(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
         .subscribe(this.onRecentDates);
     }
   }

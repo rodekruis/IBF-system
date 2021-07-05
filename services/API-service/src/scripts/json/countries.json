@@ -200,7 +200,7 @@
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
       "triggerColName": "10yr_threshold_7day"
     },
-    "countryActiveLeadTimes": ["7-day"],
+    "countryActiveLeadTimes": ["7-day", "0-month", "1-month", "2-month"],
     "eapAlertClasses": {
       "no": {
         "label": "No action",

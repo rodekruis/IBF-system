@@ -13,7 +13,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
-import { CountryCodeISO3Dto } from './dto/country-code-iso3.dto';
+import { SendEmailDto } from './dto/country-code-iso3.dto';
+import { send } from 'process';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -32,9 +33,10 @@ export class NotificationController {
   @Post('send')
   @ApiConsumes()
   @UseInterceptors()
-  public async exposure(
-    @Body() countryCodeISO3Dto: CountryCodeISO3Dto,
-  ): Promise<void> {
-    await this.notificationService.send(countryCodeISO3Dto.countryCodeISO3);
+  public async exposure(@Body() sendEmailDto: SendEmailDto): Promise<void> {
+    await this.notificationService.send(
+      sendEmailDto.countryCodeISO3,
+      sendEmailDto.disasterType,
+    );
   }
 }

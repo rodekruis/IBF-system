@@ -24,38 +24,48 @@ export class EventController {
 
   @ApiOperation({ summary: 'Get active event summary of a country' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @Get(':countryCodeISO3')
+  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @Get(':countryCodeISO3/:disasterType')
   public async getEventSummaryCountry(
     @Param() params,
   ): Promise<EventSummaryCountry> {
     return await this.eventService.getEventSummaryCountry(
       params.countryCodeISO3,
+      params.disasterType,
     );
   }
 
   @ApiOperation({ summary: 'Get recent date' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @Get('recent-date/:countryCodeISO3')
+  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @Get('recent-date/:countryCodeISO3/:disasterType')
   public async getRecentDate(@Param() params): Promise<object> {
-    return await this.eventService.getRecentDate(params.countryCodeISO3);
+    return await this.eventService.getRecentDate(
+      params.countryCodeISO3,
+      params.disasterType,
+    );
   }
 
   @ApiOperation({ summary: 'Get trigger data per lead-time' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @Get('triggers/:countryCodeISO3')
+  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @Get('triggers/:countryCodeISO3/:disasterType')
   public async getTriggerPerLeadtime(@Param() params): Promise<object> {
     return await this.eventService.getTriggerPerLeadtime(
       params.countryCodeISO3,
+      params.disasterType,
     );
   }
 
   @ApiOperation({ summary: 'Get triggered areas' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
-  @Get('triggered-areas/:countryCodeISO3/:leadTime')
+  @Get('triggered-areas/:countryCodeISO3/:disasterType/:leadTime')
   public async getTriggeredAreas(@Param() params): Promise<TriggeredArea[]> {
     return await this.eventService.getTriggeredAreas(
       params.countryCodeISO3,
+      params.disasterType,
       params.leadTime,
     );
   }

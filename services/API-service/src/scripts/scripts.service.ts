@@ -12,6 +12,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { In, Repository } from 'typeorm';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
+import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 
 @Injectable()
 export class ScriptsService {
@@ -23,6 +24,8 @@ export class ScriptsService {
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
   @InjectRepository(EapActionStatusEntity)
   private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
+  @InjectRepository(LeadTimeEntity)
+  private readonly leadTimeRepo: Repository<LeadTimeEntity>;
 
   public constructor(
     adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -115,22 +118,30 @@ export class ScriptsService {
       const exposure = JSON.parse(exposureRaw);
 
       for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
-        console.log(
-          `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3}`,
-        );
-        await this.adminAreaDynamicDataService.exposure({
-          countryCodeISO3: selectedCountry.countryCodeISO3,
-          exposurePlaceCodes: this.mockAmount(
-            exposure,
-            unit,
-            triggered,
-            activeLeadTime,
-          ),
-          leadTime: activeLeadTime as LeadTime,
-          dynamicIndicator: unit,
-          adminLevel: selectedCountry.defaultAdminLevel,
-          disasterType: disasterType,
+        const leadTime = await this.leadTimeRepo.findOne({
+          relations: ['disasterTypes'],
+          where: { leadTimeName: activeLeadTime },
         });
+        if (
+          leadTime.disasterTypes.map(d => d.disasterType).includes(disasterType)
+        ) {
+          console.log(
+            `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3}`,
+          );
+          await this.adminAreaDynamicDataService.exposure({
+            countryCodeISO3: selectedCountry.countryCodeISO3,
+            exposurePlaceCodes: this.mockAmount(
+              exposure,
+              unit,
+              triggered,
+              activeLeadTime,
+            ),
+            leadTime: activeLeadTime as LeadTime,
+            dynamicIndicator: unit,
+            adminLevel: selectedCountry.defaultAdminLevel,
+            disasterType: disasterType,
+          });
+        }
       }
     }
   }
@@ -141,7 +152,7 @@ export class ScriptsService {
     triggered: boolean,
     activeLeadTime: string,
   ): any[] {
-    // This only returns something different for PHL exposure-units
+    // This only returns something different for dengue exposure-units
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     for (const pcodeData of copyOfExposureUnit) {
       if (exposureUnit === DynamicIndicator.potentialCases65) {
@@ -158,6 +169,9 @@ export class ScriptsService {
             'PH133900000',
             'PH137600000',
             'PH031400000',
+            'ET0403',
+            'ET0505',
+            'ET0310',
           ].includes(pcodeData.placeCode)
             ? 1
             : 0;

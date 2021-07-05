@@ -1,6 +1,7 @@
 [
   {
     "country_codes": "UGA,ZMB,KEN,ETH",
+    "disasterType": "floods",
     "name": "flood_extent",
     "label": "Flood extent",
     "type": "wms",
@@ -10,6 +11,7 @@
   },
   {
     "country_codes": "EGY",
+    "disasterType": "heavy-rain",
     "name": "rainfall_extent",
     "label": "Rainfall extent",
     "type": "wms",
@@ -28,6 +30,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH",
+    "disasterType": "floods",
     "name": "cropland",
     "label": "Cropland",
     "type": "wms",
@@ -37,6 +40,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH",
+    "disasterType": "floods",
     "name": "grassland",
     "label": "Grassland",
     "type": "wms",
@@ -46,6 +50,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH",
+    "disasterType": "floods",
     "name": "glofas_stations",
     "label": "Glofas stations",
     "type": "point",
@@ -69,7 +74,8 @@
     "active": "no"
   },
   {
-    "country_codes": "PHL",
+    "country_codes": "PHL,ETH",
+    "disasterType": "dengue",
     "name": "health_sites",
     "label": "Health Sites",
     "type": "point",
@@ -86,6 +92,7 @@
   },
   {
     "country_codes": "EGY",
+    "disasterType": "heavy-rain",
     "name": "flood_susceptibility",
     "label": "Flood susceptibility",
     "type": "wms",

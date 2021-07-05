@@ -10,6 +10,7 @@ import { DynamicIndicator } from './enum/dynamic-indicator';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
 import { EventService } from '../event/event.service';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -17,6 +18,8 @@ export class AdminAreaDynamicDataService {
   private readonly adminAreaDynamicDataRepo: Repository<
     AdminAreaDynamicDataEntity
   >;
+  @InjectRepository(DisasterEntity)
+  private readonly disasterTypeRepository: Repository<DisasterEntity>;
 
   private eventService: EventService;
   private countryService: CountryService;
@@ -54,10 +57,12 @@ export class AdminAreaDynamicDataService {
 
     console.time('Insert trigger');
 
-    const triggerUnits = await this.countryService.getTriggerUnitsForCountry(
-      uploadExposure.countryCodeISO3,
-    );
-    if (triggerUnits.includes(uploadExposure.dynamicIndicator)) {
+    const triggerUnit = await this.disasterTypeRepository.findOne({
+      select: ['triggerUnit'],
+      where: { disasterType: uploadExposure.disasterType },
+    });
+
+    if (triggerUnit.triggerUnit === uploadExposure.dynamicIndicator) {
       await this.insertTrigger(uploadExposure);
     }
 
@@ -65,7 +70,10 @@ export class AdminAreaDynamicDataService {
 
     console.time('Process event areas');
 
-    await this.eventService.processEventAreas(uploadExposure.countryCodeISO3);
+    await this.eventService.processEventAreas(
+      uploadExposure.countryCodeISO3,
+      uploadExposure.disasterType,
+    );
     console.timeEnd('Process event areas');
   }
 

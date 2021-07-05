@@ -7,10 +7,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { EventModule } from '../event/event.module';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([TriggerPerLeadTime, AdminAreaDynamicDataEntity]),
+    TypeOrmModule.forFeature([
+      TriggerPerLeadTime,
+      AdminAreaDynamicDataEntity,
+      DisasterEntity,
+    ]),
     UserModule,
     EventModule,
     CountryModule,
