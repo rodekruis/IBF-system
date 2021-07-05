@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { Country, DisasterType } from '../../models/country.model';
@@ -9,7 +9,7 @@ import { CountryService } from '../../services/country.service';
   templateUrl: './disaster-type.component.html',
   styleUrls: ['./disaster-type.component.scss'],
 })
-export class DisasterTypeComponent {
+export class DisasterTypeComponent implements OnInit, OnDestroy {
   public disasterTypes: DisasterType[] = [];
 
   private countrySubscription: Subscription;
