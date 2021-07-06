@@ -94,7 +94,7 @@
     "active": "no"
   },
   {
-    "country_codes": "ZMB",
+    "country_codes": "ZMB,UGA",
     "name": "adminRegions1",
     "label": "Admin Level 1",
     "type": "shape",
@@ -108,14 +108,14 @@
     "active": "yes"
   },
   {
-    "country_codes": "ZMB",
+    "country_codes": "ZMB,UGA",
     "name": "adminRegions3",
     "label": "Admin Level 3",
     "type": "shape",
     "active": "yes"
   },
   {
-    "country_codes": "",
+    "country_codes": "UGA",
     "name": "adminRegions4",
     "label": "Admin Level 4",
     "type": "shape",

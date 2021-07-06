@@ -5,7 +5,7 @@
     "countryName": "Uganda",
     "countryStatus": "active",
     "disasterType": "floods",
-    "adminLevels": [2],
+    "adminLevels": [1, 2, 3, 4],
     "defaultAdminLevel": 2,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
