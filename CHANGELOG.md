@@ -1,3 +1,12 @@
+# [0.70.0](https://github.com/rodekruis/IBF-system/compare/v0.69.0...v0.70.0) (2021-07-06)
+
+
+### Features
+
+* rename parishes to sub-counties for uganda admin level AB[#8397](https://github.com/rodekruis/IBF-system/issues/8397) ([253a66a](https://github.com/rodekruis/IBF-system/commit/253a66aa420d2bcc6b623f934d13e0a4af9fc9a7))
+
+
+
 # [0.69.0](https://github.com/rodekruis/IBF-system/compare/v0.68.0...v0.69.0) (2021-07-05)
 
 
@@ -187,15 +196,6 @@
 * more variables added, changed map popup colors, started changing chat colors ([cef8e29](https://github.com/rodekruis/IBF-system/commit/cef8e299aac3719ab1fda1083a245fa6a7c0b101))
 * Swith mock scenarios in frontend AB[#8083](https://github.com/rodekruis/IBF-system/issues/8083) ([c9476ac](https://github.com/rodekruis/IBF-system/commit/c9476ac8a707aea3071a225037032fe0149827bd))
 * Threshold popup for potential cases AB[#7939](https://github.com/rodekruis/IBF-system/issues/7939) ([6c9d9f7](https://github.com/rodekruis/IBF-system/commit/6c9d9f73fe79cf250208270fc95d7c573f545302))
-
-
-
-## [0.64.5](https://github.com/rodekruis/IBF-system/compare/v0.64.4...v0.64.5) (2021-06-16)
-
-
-### Bug Fixes
-
-* update zambia eap link AB[#8207](https://github.com/rodekruis/IBF-system/issues/8207) ([a5f5b2b](https://github.com/rodekruis/IBF-system/commit/a5f5b2b62b1e6ee1f9b910e2ec44e5fc6c604d64))
 
 
 
