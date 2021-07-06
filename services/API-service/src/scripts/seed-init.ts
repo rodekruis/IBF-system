@@ -41,10 +41,12 @@ export class SeedInit implements InterfaceScript {
 
   public constructor(connection: Connection) {
     this.connection = connection;
-    this.seedHelper = new SeedHelper();
+    this.seedHelper = new SeedHelper(connection);
   }
 
   public async run(): Promise<void> {
+    await this.seedHelper.cleanAll();
+
     // ***** CREATE DISASTER *****
     console.log('Seed Disasters...');
     const disasterRepository = this.connection.getRepository(DisasterEntity);

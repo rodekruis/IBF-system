@@ -13,7 +13,7 @@ export class SeedHealthSites implements InterfaceScript {
 
   public constructor(connection: Connection) {
     this.connection = connection;
-    this.seedHelper = new SeedHelper();
+    this.seedHelper = new SeedHelper(connection);
   }
 
   public async run(): Promise<void> {
