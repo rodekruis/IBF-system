@@ -1,3 +1,36 @@
+# [0.70.0](https://github.com/rodekruis/IBF-system/compare/v0.69.0...v0.70.0) (2021-07-06)
+
+
+### Features
+
+* rename parishes to sub-counties for uganda admin level AB[#8397](https://github.com/rodekruis/IBF-system/issues/8397) ([253a66a](https://github.com/rodekruis/IBF-system/commit/253a66aa420d2bcc6b623f934d13e0a4af9fc9a7))
+
+
+
+# [0.69.0](https://github.com/rodekruis/IBF-system/compare/v0.68.0...v0.69.0) (2021-07-05)
+
+
+### Bug Fixes
+
+* no population data for PHL AB[#8469](https://github.com/rodekruis/IBF-system/issues/8469) ([66d6c79](https://github.com/rodekruis/IBF-system/commit/66d6c797e27bad4550d875f952b05a5c389f8e7e))
+* remove unnecessary subscription ([8b4cd2f](https://github.com/rodekruis/IBF-system/commit/8b4cd2ff2e69dc36563db6c75a64998cabe09164))
+* resolve conflict with population raster layer AB[#6385](https://github.com/rodekruis/IBF-system/issues/6385) ([b23f914](https://github.com/rodekruis/IBF-system/commit/b23f914b0b4419672a2593bd629d5d2e21313906))
+* separate population data for PHL ([0a85c46](https://github.com/rodekruis/IBF-system/commit/0a85c46e31ad769471dc3db810ce79c36a42d857))
+* use correct admin level value ([30ed795](https://github.com/rodekruis/IBF-system/commit/30ed795875770d76198da8a3407af2741d2aa89e))
+* use correct label for percentage of total population layer ([b2c4f17](https://github.com/rodekruis/IBF-system/commit/b2c4f17f4e645e14172265d5c41abd04261e6ea0))
+
+
+### Features
+
+* add popover information for total population AB[#8189](https://github.com/rodekruis/IBF-system/issues/8189) ([ee68c4c](https://github.com/rodekruis/IBF-system/commit/ee68c4cd7ddb9718b56ff1df0463bd7cbaf71f37))
+* add population to seed data AB[#8190](https://github.com/rodekruis/IBF-system/issues/8190) ([35bee5e](https://github.com/rodekruis/IBF-system/commit/35bee5e7333599afedec4939d2777e9e457b99b7))
+* add total population layer to the matrix component AB[#8188](https://github.com/rodekruis/IBF-system/issues/8188) ([bea7325](https://github.com/rodekruis/IBF-system/commit/bea732538d280592dd3a5d19861e063a374cc0ce))
+* calculate percentage of affected population and display on dashboard AB[#8384](https://github.com/rodekruis/IBF-system/issues/8384) ([b27fbd2](https://github.com/rodekruis/IBF-system/commit/b27fbd2cb879684af1efe4002698354ab3401711))
+* include 'pop aff perc' in mock-endpoint AB[#8468](https://github.com/rodekruis/IBF-system/issues/8468) ([b033da8](https://github.com/rodekruis/IBF-system/commit/b033da87038da48cda2cd2c368c31621dfb18e32))
+* rename indicator to reuse existing endpoint AB[#8191](https://github.com/rodekruis/IBF-system/issues/8191) ([f27f094](https://github.com/rodekruis/IBF-system/commit/f27f094c526104e0d9b0643a022039f8ed2c2994))
+
+
+
 # [0.68.0](https://github.com/rodekruis/IBF-system/compare/v0.67.4...v0.68.0) (2021-07-02)
 
 
@@ -163,24 +196,6 @@
 * more variables added, changed map popup colors, started changing chat colors ([cef8e29](https://github.com/rodekruis/IBF-system/commit/cef8e299aac3719ab1fda1083a245fa6a7c0b101))
 * Swith mock scenarios in frontend AB[#8083](https://github.com/rodekruis/IBF-system/issues/8083) ([c9476ac](https://github.com/rodekruis/IBF-system/commit/c9476ac8a707aea3071a225037032fe0149827bd))
 * Threshold popup for potential cases AB[#7939](https://github.com/rodekruis/IBF-system/issues/7939) ([6c9d9f7](https://github.com/rodekruis/IBF-system/commit/6c9d9f73fe79cf250208270fc95d7c573f545302))
-
-
-
-## [0.64.5](https://github.com/rodekruis/IBF-system/compare/v0.64.4...v0.64.5) (2021-06-16)
-
-
-### Bug Fixes
-
-* update zambia eap link AB[#8207](https://github.com/rodekruis/IBF-system/issues/8207) ([a5f5b2b](https://github.com/rodekruis/IBF-system/commit/a5f5b2b62b1e6ee1f9b910e2ec44e5fc6c604d64))
-
-
-
-## [0.64.4](https://github.com/rodekruis/IBF-system/compare/v0.64.3...v0.64.4) (2021-06-15)
-
-
-### Bug Fixes
-
-* update uganda thresholds AB[#8168](https://github.com/rodekruis/IBF-system/issues/8168) ([69af881](https://github.com/rodekruis/IBF-system/commit/69af881f90f445d5bedbdceb95c94a4061284095))
 
 
 
