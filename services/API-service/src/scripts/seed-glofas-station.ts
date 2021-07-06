@@ -17,7 +17,7 @@ export class SeedGlofasStation implements InterfaceScript {
 
   public constructor(connection: Connection) {
     this.connection = connection;
-    this.seedHelper = new SeedHelper(connection);
+    this.seedHelper = new SeedHelper();
   }
 
   public async run(): Promise<void> {

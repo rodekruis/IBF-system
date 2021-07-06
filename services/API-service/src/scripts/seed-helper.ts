@@ -1,15 +1,8 @@
-import { Connection } from 'typeorm';
 import fs from 'fs';
 import csv from 'csv-parser';
 import { Readable } from 'stream';
 
 export class SeedHelper {
-  private connection: Connection;
-
-  public constructor(connection: Connection) {
-    this.connection = connection;
-  }
-
   public async getCsvData(source: string): Promise<object[]> {
     const buffer = fs.readFileSync(source);
     let data = await this.csvBufferToArray(buffer, ',');
@@ -38,20 +31,5 @@ export class SeedHelper {
           resolve(parsedData);
         });
     });
-  }
-
-  public async cleanAll(): Promise<void> {
-    const entities = this.connection.entityMetadatas;
-    try {
-      for (const entity of entities) {
-        const repository = await this.connection.getRepository(entity.name);
-        if (repository.metadata.schema === 'IBF-app') {
-          const q = `DROP TABLE IF EXISTS \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
-          await repository.query(q);
-        }
-      }
-    } catch (error) {
-      throw new Error(`ERROR: Cleaning test db: ${error}`);
-    }
   }
 }
