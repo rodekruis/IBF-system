@@ -823,10 +823,10 @@ export class MapService {
       .map((feature) =>
         typeof feature.properties[colorProperty] !== 'undefined'
           ? feature.properties[colorProperty]
-          : feature.properties['population_affected'] !== 'undefined'
-          ? feature.properties['population_affected']
-          : feature.properties['potential_cases'] !== 'undefined'
-          ? feature.properties['potential_cases']
+          : feature.properties.population_affected !== 'undefined'
+          ? feature.properties.population_affected
+          : feature.properties.potential_cases !== 'undefined'
+          ? feature.properties.potential_cases
           : feature.properties.indicators[colorProperty],
       )
       .filter((v, i, a) => a.indexOf(v) === i);
@@ -861,10 +861,7 @@ export class MapService {
   };
 
   public setAdminRegionStyle = (layer: IbfLayer) => {
-    let colorProperty = layer.colorProperty;
-    if (layer.group === IbfLayerGroup.adminRegions) {
-      colorProperty;
-    }
+    const colorProperty = layer.colorProperty;
     const colorThreshold = this.getColorThreshold(
       layer.data,
       colorProperty,
@@ -875,10 +872,10 @@ export class MapService {
       const fillColor = this.getAdminRegionFillColor(
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
-          : adminRegion.properties['population_affected'] !== 'undefined'
-          ? adminRegion.properties['population_affected']
-          : adminRegion.properties['potential_cases'] !== 'undefined'
-          ? adminRegion.properties['potential_cases']
+          : adminRegion.properties.population_affected !== 'undefined'
+          ? adminRegion.properties.poplation_affected
+          : adminRegion.properties.potential_cases !== 'undefined'
+          ? adminRegion.properties.potential_cases
           : adminRegion.properties.indicators[colorProperty],
         colorThreshold,
         adminRegion.properties.placeCode,
