@@ -104,12 +104,12 @@ export class ScriptsService {
         if (unit === DynamicIndicator.potentialThreshold) {
           fileName = `upload-exposure-${selectedCountry.countryCodeISO3}-potential-cases-threshold`;
         } else
-          fileName = `upload-exposure-${selectedCountry.countryCodeISO3}-${
-            triggered ? 'triggered' : ''
+          fileName = `upload-exposure-${selectedCountry.countryCodeISO3}${
+            triggered ? '-triggered' : ''
           }`;
       } else {
-        fileName = `upload-${unit}-${selectedCountry.countryCodeISO3}-${
-          triggered ? 'triggered' : ''
+        fileName = `upload-${unit}-${selectedCountry.countryCodeISO3}${
+          triggered ? '-triggered' : ''
         }`;
       }
       const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${fileName}.json`;
@@ -169,9 +169,9 @@ export class ScriptsService {
             'PH133900000',
             'PH137600000',
             'PH031400000',
-            'ET0403',
-            'ET0505',
-            'ET0310',
+            'ET020303',
+            'ET042105',
+            'ET042104',
           ].includes(pcodeData.placeCode)
             ? 1
             : 0;

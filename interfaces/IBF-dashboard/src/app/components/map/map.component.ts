@@ -423,15 +423,10 @@ export class MapComponent implements OnDestroy {
     const activeAggregateLayer = this.mapService.layers.find(
       (l) => l.active && l.group === IbfLayerGroup.aggregates,
     );
-    if (activeAggregateLayer.name !== IbfLayerName.potentialCases) {
-      popup = this.createDefaultPopupAdminRegions(
-        layer,
-        activeAggregateLayer,
-        feature,
-      );
-      element.bindPopup(popup).openPopup();
-      this.placeCode = feature.properties.placeCode;
-    } else {
+    if (
+      activeAggregateLayer &&
+      activeAggregateLayer.name === IbfLayerName.potentialCases
+    ) {
       this.apiService
         .getAdminAreaDynamiceDataOne(
           IbfLayerThreshold.potentialCasesThreshold,
@@ -451,6 +446,14 @@ export class MapComponent implements OnDestroy {
           element.bindPopup(popup, popupOptions).openPopup();
           this.placeCode = feature.properties.placeCode;
         });
+    } else {
+      popup = this.createDefaultPopupAdminRegions(
+        layer,
+        activeAggregateLayer,
+        feature,
+      );
+      element.bindPopup(popup).openPopup();
+      this.placeCode = feature.properties.placeCode;
     }
   }
 

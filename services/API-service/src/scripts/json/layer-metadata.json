@@ -108,14 +108,14 @@
     "active": "yes"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
+    "country_codes": "UGA,ZMB,KEN,EGY,PHL",
     "name": "adminRegions2",
     "label": "Admin Level 2",
     "type": "shape",
     "active": "yes"
   },
   {
-    "country_codes": "ZMB",
+    "country_codes": "ZMB,ETH",
     "name": "adminRegions3",
     "label": "Admin Level 3",
     "type": "shape",

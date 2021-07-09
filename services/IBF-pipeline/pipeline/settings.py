@@ -98,7 +98,7 @@ SETTINGS = {
         'lead_times': {
             "7-day": 7
         },
-        'admin_level': 2,
+        'admin_level': 3,
         'EXPOSURE_DATA_SOURCES': {
             "population": {
                 "source": "population/worldpop_eth",
