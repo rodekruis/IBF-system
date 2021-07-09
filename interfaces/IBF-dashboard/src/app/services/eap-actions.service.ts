@@ -91,6 +91,7 @@ export class EapActionsService {
     return this.apiService.checkEapAction(
       action,
       this.country.countryCodeISO3,
+      this.disasterType.disasterType,
       status,
       placeCode,
     );

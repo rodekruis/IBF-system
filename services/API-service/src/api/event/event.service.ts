@@ -202,6 +202,7 @@ export class EventService {
     for (const area of triggeredAreas) {
       area.eapActions = await this.eapActionsService.getActionsWithStatus(
         countryCodeISO3,
+        disasterType,
         area.placeCode,
       );
     }

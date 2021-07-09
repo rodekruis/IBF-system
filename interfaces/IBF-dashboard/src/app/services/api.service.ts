@@ -258,13 +258,10 @@ export class ApiService {
     return this.get('eap-actions/areas-of-focus', false);
   }
 
-  getEapActions(countryCodeISO3: string, placeCode: string) {
-    return this.get(`eap-actions/${countryCodeISO3}/${placeCode}`, false);
-  }
-
   checkEapAction(
     action: string,
     countryCodeISO3: string,
+    disasterType: string,
     status: boolean,
     placeCode: string,
   ) {
@@ -273,6 +270,7 @@ export class ApiService {
       {
         action,
         countryCodeISO3,
+        disasterType,
         status,
         placeCode,
       },

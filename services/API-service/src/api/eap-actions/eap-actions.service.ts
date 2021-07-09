@@ -31,6 +31,7 @@ export class EapActionsService {
     const actionId = await this.eapActionRepository.findOne({
       where: {
         countryCodeISO3: eapAction.countryCodeISO3,
+        disasterType: eapAction.disasterType,
         action: eapAction.action,
       },
     });
@@ -47,6 +48,7 @@ export class EapActionsService {
     const eventPlaceCode = await this.eventPlaceCodeRepository.findOne({
       where: {
         closed: false,
+        disasterType: eapAction.disasterType,
         adminArea: { id: adminArea.id },
       },
     });
@@ -71,6 +73,7 @@ export class EapActionsService {
 
   public async getActionsWithStatus(
     countryCodeISO3: string,
+    disasterType: string,
     placeCode: string,
   ): Promise<EapActionEntity[]> {
     const mostRecentStatePerAction = await this.eapActionStatusRepository
@@ -104,6 +107,7 @@ export class EapActionsService {
         'area.id AS aof',
         'action."action"',
         'action."label"',
+        'action."disasterType"',
       ])
       .addSelect(
         'case when status."actionCheckedId" is null then false else status.status end AS checked',
@@ -118,6 +122,9 @@ export class EapActionsService {
       .leftJoin('action.areaOfFocus', 'area')
       .where('action."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
+      })
+      .andWhere('action."disasterType" = :disasterType', {
+        disasterType: disasterType,
       })
       .getRawMany();
 
