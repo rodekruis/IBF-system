@@ -1,7 +1,7 @@
-import { Connection } from 'typeorm';
 import fs from 'fs';
 import csv from 'csv-parser';
 import { Readable } from 'stream';
+import { Connection } from 'typeorm';
 
 export class SeedHelper {
   private connection: Connection;
