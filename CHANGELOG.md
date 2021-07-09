@@ -1,3 +1,12 @@
+## [0.71.1](https://github.com/rodekruis/IBF-system/compare/v0.71.0...v0.71.1) (2021-07-09)
+
+
+### Bug Fixes
+
+* truncate instead of drob before seed AB[#8485](https://github.com/rodekruis/IBF-system/issues/8485) ([76898a6](https://github.com/rodekruis/IBF-system/commit/76898a684a57af29bff97c95797b246c3c19c271))
+
+
+
 # [0.71.0](https://github.com/rodekruis/IBF-system/compare/v0.70.0...v0.71.0) (2021-07-09)
 
 
@@ -140,15 +149,6 @@
 ### Features
 
 * upate colors glofas stations AB# ([271590a](https://github.com/rodekruis/IBF-system/commit/271590a1001764cac5f5285bdca9cefbbaf09819))
-
-
-
-# [0.66.0](https://github.com/rodekruis/IBF-system/compare/v0.65.0...v0.66.0) (2021-06-18)
-
-
-### Features
-
-* switch UGA/KEN/ETH back to FTP AB[#8130](https://github.com/rodekruis/IBF-system/issues/8130) ([a44bd3a](https://github.com/rodekruis/IBF-system/commit/a44bd3a7be834099e738d2982dc00bd0545ead3e))
 
 
 
