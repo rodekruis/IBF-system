@@ -45,8 +45,7 @@ export class SeedInit implements InterfaceScript {
   }
 
   public async run(): Promise<void> {
-    await this.seedHelper.cleanAll();
-    await this.connection.synchronize(false);
+    await this.seedHelper.truncateAll();
 
     // ***** CREATE DISASTER *****
     console.log('Seed Disasters...');
