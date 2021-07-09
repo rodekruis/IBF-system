@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class AddDisasterType1624754191666 implements MigrationInterface {
-  name = 'AddDisasterType1624754191666';
+export class AddDisasterType1625820616215 implements MigrationInterface {
+  name = 'AddDisasterType1625820616215';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
@@ -15,6 +15,12 @@ export class AddDisasterType1624754191666 implements MigrationInterface {
     );
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."trigger-per-lead-time" ADD "disasterType" character varying`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "IBF-app"."indicator-metadata" ADD "disasterType" character varying`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "IBF-app"."layer-metadata" ADD "disasterType" character varying`,
     );
     await queryRunner.query(
       `COMMENT ON COLUMN "IBF-app"."disaster"."disasterType" IS NULL`,
@@ -54,6 +60,12 @@ export class AddDisasterType1624754191666 implements MigrationInterface {
     );
     await queryRunner.query(
       `COMMENT ON COLUMN "IBF-app"."disaster"."disasterType" IS NULL`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "IBF-app"."layer-metadata" DROP COLUMN "disasterType"`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "IBF-app"."indicator-metadata" DROP COLUMN "disasterType"`,
     );
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."trigger-per-lead-time" DROP COLUMN "disasterType"`,
