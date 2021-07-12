@@ -1,3 +1,25 @@
+# [0.73.0](https://github.com/rodekruis/IBF-system/compare/v0.72.1...v0.73.0) (2021-07-12)
+
+
+### Bug Fixes
+
+* add missing migration-script AB[#8471](https://github.com/rodekruis/IBF-system/issues/8471) ([796022e](https://github.com/rodekruis/IBF-system/commit/796022e2b7b09c1b279709ec2f772a4feb68cda2))
+* middlename not obligatory ([93f861f](https://github.com/rodekruis/IBF-system/commit/93f861f5a3b1e1daa285ac84c02690a33d4fccbd))
+
+
+### Features
+
+* add disasterType to datamodel, exposure endpionts, mock-endpoint and IBF-pipeline AB[#8475](https://github.com/rodekruis/IBF-system/issues/8475) ([d753310](https://github.com/rodekruis/IBF-system/commit/d753310238814e0c67f64f0b4bc2565f9e5ca160))
+* basic first setup of multi-hazard AB[#8471](https://github.com/rodekruis/IBF-system/issues/8471) ([d52b4e9](https://github.com/rodekruis/IBF-system/commit/d52b4e98d31b4ddfa21d3996d5ecb9978f014c7f))
+* disasterType throughout all GET endpoints and disaster-type subscriptions AB[#8471](https://github.com/rodekruis/IBF-system/issues/8471) ([e8bd235](https://github.com/rodekruis/IBF-system/commit/e8bd23557bc9867b8484d9d58ba70139b870644c))
+* process woreda boundaries ETH AB[#8506](https://github.com/rodekruis/IBF-system/issues/8506) ([b11118d](https://github.com/rodekruis/IBF-system/commit/b11118d6b65b54bf1d5c5cfb1e8c27a414f5cdc7))
+* split eap-actions by disasterType AB[#8471](https://github.com/rodekruis/IBF-system/issues/8471) ([1215edb](https://github.com/rodekruis/IBF-system/commit/1215edb8bb702da85211bc79fc8ce7b922357307))
+* update mock data to woreda level AB[#8508](https://github.com/rodekruis/IBF-system/issues/8508) ([551986a](https://github.com/rodekruis/IBF-system/commit/551986ad2189bbc02deb77e7b1edcb68da1dea98))
+* woreda-level ETH in pipeline/database/dashboard AB[#8507](https://github.com/rodekruis/IBF-system/issues/8507) ([221ced8](https://github.com/rodekruis/IBF-system/commit/221ced80f71c80c2c78af21413427965472ea7cf))
+* woreda-station mapping ETH AB[#8509](https://github.com/rodekruis/IBF-system/issues/8509) ([ab64ac3](https://github.com/rodekruis/IBF-system/commit/ab64ac34aba49b33be0a82b075de9dc02597dbe6))
+
+
+
 ## [0.72.1](https://github.com/rodekruis/IBF-system/compare/v0.72.0...v0.72.1) (2021-07-12)
 
 
@@ -122,15 +144,6 @@
 * close event button AB[#8351](https://github.com/rodekruis/IBF-system/issues/8351) ([2190a88](https://github.com/rodekruis/IBF-system/commit/2190a88539df8b895615d8bf7d3dd92d5658818f))
 * only remove country's events in mock-endpoint AB[#8347](https://github.com/rodekruis/IBF-system/issues/8347) ([0d834c7](https://github.com/rodekruis/IBF-system/commit/0d834c71fbe6eadd6a786d6277913dee9056d094))
 * unit test AB[#8351](https://github.com/rodekruis/IBF-system/issues/8351) ([a84ded9](https://github.com/rodekruis/IBF-system/commit/a84ded9f1e76b5d718f56f89857300361aa32c1c))
-
-
-
-## [0.67.2](https://github.com/rodekruis/IBF-system/compare/v0.67.1...v0.67.2) (2021-06-25)
-
-
-### Bug Fixes
-
-* drop table if exists ([5b7b861](https://github.com/rodekruis/IBF-system/commit/5b7b8618076a3736425862908b527d77a5e09441))
 
 
 
