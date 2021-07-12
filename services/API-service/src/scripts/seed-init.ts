@@ -201,14 +201,44 @@ export class SeedInit implements InterfaceScript {
     const indicatorRepository = this.connection.getRepository(
       IndicatorMetadataEntity,
     );
-    await indicatorRepository.save(
-      JSON.parse(JSON.stringify(indicatorMetadata)),
+    const indicators = JSON.parse(JSON.stringify(indicatorMetadata));
+    const indicatorEntities = await Promise.all(
+      indicators.map(
+        async (indicator): Promise<IndicatorMetadataEntity> => {
+          indicator.disasterTypes = await disasterRepository.find({
+            where: indicator.disasterTypes.map(
+              (indicatorDisasterType: string): object => {
+                return { disasterType: indicatorDisasterType };
+              },
+            ),
+          });
+          return indicator;
+        },
+      ),
     );
+
+    await indicatorRepository.save(indicatorEntities);
 
     // ***** CREATE LAYER METADATA *****
     console.log('Seed Layers...');
     const layerRepository = this.connection.getRepository(LayerMetadataEntity);
-    await layerRepository.save(JSON.parse(JSON.stringify(layerMetadata)));
+
+    const layers = JSON.parse(JSON.stringify(layerMetadata));
+    const layerEntities = await Promise.all(
+      layers.map(
+        async (layer): Promise<LayerMetadataEntity> => {
+          layer.disasterTypes = await disasterRepository.find({
+            where: layer.disasterTypes.map(
+              (layerDisasterType: string): object => {
+                return { disasterType: layerDisasterType };
+              },
+            ),
+          });
+          return layer;
+        },
+      ),
+    );
+    await layerRepository.save(layerEntities);
 
     // ***** SEED ADMIN-AREA DATA *****
     console.log('Seed Admin Areas...');

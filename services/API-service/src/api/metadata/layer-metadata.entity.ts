@@ -1,6 +1,6 @@
 import { IsIn } from 'class-validator';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { DisasterType } from '../disaster/disaster-type.enum';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Entity('layer-metadata')
 export class LayerMetadataEntity {
@@ -8,8 +8,11 @@ export class LayerMetadataEntity {
   public id: string;
   @Column()
   public country_codes: string;
-  @Column({ nullable: true })
-  public disasterType: DisasterType;
+  @ManyToMany(
+    (): typeof DisasterEntity => DisasterEntity,
+    (disasterTypes): LayerMetadataEntity[] => disasterTypes.layers,
+  )
+  public disasterTypes: DisasterEntity[];
   @Column()
   public name: string;
   @Column()
