@@ -34,7 +34,7 @@ class DatabaseManager:
     def addDisasterType(self):
         if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
             disasterType = 'floods'
-        elif disaster == 'rainfall':
+        elif SETTINGS[self.countryCodeISO3]['model'] == 'rainfall':
             disasterType = 'heavy-rain'
         return disasterType
 

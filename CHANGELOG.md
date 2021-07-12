@@ -1,3 +1,37 @@
+## [0.72.1](https://github.com/rodekruis/IBF-system/compare/v0.72.0...v0.72.1) (2021-07-12)
+
+
+### Bug Fixes
+
+* division by zero AB[#8572](https://github.com/rodekruis/IBF-system/issues/8572) ([904f29e](https://github.com/rodekruis/IBF-system/commit/904f29eae78c3cbf24fd2a02bb94203a9931742d))
+* EGY pipeline bug AB[#8572](https://github.com/rodekruis/IBF-system/issues/8572) ([04b2de2](https://github.com/rodekruis/IBF-system/commit/04b2de2ade3a4ab6ec4107b8c735985b7952afec))
+* mock-endpoint non-triggered AB[#8573](https://github.com/rodekruis/IBF-system/issues/8573) ([67c2a2b](https://github.com/rodekruis/IBF-system/commit/67c2a2bea99b78495c323ffb96b6e0805cc686bf))
+
+
+
+# [0.72.0](https://github.com/rodekruis/IBF-system/compare/v0.71.1...v0.72.0) (2021-07-09)
+
+
+### Bug Fixes
+
+* switch UGA district back to old placeCodes AB# ([746078f](https://github.com/rodekruis/IBF-system/commit/746078fdcf9feb2870d6958ea4d3c924f6e9088e))
+
+
+### Features
+
+* add admin boundaries and enable admin levels for uga AB[#8504](https://github.com/rodekruis/IBF-system/issues/8504) ([37f4693](https://github.com/rodekruis/IBF-system/commit/37f4693cacdcf71d1f46187e01707b849ea7b69c))
+
+
+
+## [0.71.1](https://github.com/rodekruis/IBF-system/compare/v0.71.0...v0.71.1) (2021-07-09)
+
+
+### Bug Fixes
+
+* truncate instead of drob before seed AB[#8485](https://github.com/rodekruis/IBF-system/issues/8485) ([76898a6](https://github.com/rodekruis/IBF-system/commit/76898a684a57af29bff97c95797b246c3c19c271))
+
+
+
 # [0.71.0](https://github.com/rodekruis/IBF-system/compare/v0.70.0...v0.71.0) (2021-07-09)
 
 
@@ -97,58 +131,6 @@
 ### Bug Fixes
 
 * drop table if exists ([5b7b861](https://github.com/rodekruis/IBF-system/commit/5b7b8618076a3736425862908b527d77a5e09441))
-
-
-
-## [0.67.1](https://github.com/rodekruis/IBF-system/compare/v0.67.0...v0.67.1) (2021-06-25)
-
-
-### Bug Fixes
-
-* update mock data non-triggered AB[#8285](https://github.com/rodekruis/IBF-system/issues/8285) ([14ca16f](https://github.com/rodekruis/IBF-system/commit/14ca16f98817fb2cb9dc1bd863649ce0f18f9db9))
-* update mock data to new UGA stations AB[#8285](https://github.com/rodekruis/IBF-system/issues/8285) ([33c95af](https://github.com/rodekruis/IBF-system/commit/33c95afece7788d5cadfc577bca03241102e8559))
-
-
-
-# [0.67.0](https://github.com/rodekruis/IBF-system/compare/v0.66.0...v0.67.0) (2021-06-23)
-
-
-### Bug Fixes
-
-* actions column width ([4ecb062](https://github.com/rodekruis/IBF-system/commit/4ecb062b03acea9f569b325b9ff09cb318a1553a))
-* Added documentation about alert threshold AB[#8240](https://github.com/rodekruis/IBF-system/issues/8240) ([f679c95](https://github.com/rodekruis/IBF-system/commit/f679c95d5e177e7e3a643a12c1e9f6abf90d1e11))
-* Alerthreshold layer begind point icons AB[#8244](https://github.com/rodekruis/IBF-system/issues/8244) ([d746e84](https://github.com/rodekruis/IBF-system/commit/d746e840325bd3b25bd18615cdcbc4cdaf12b760))
-* Change label dengue indici layer AB[#8241](https://github.com/rodekruis/IBF-system/issues/8241) ([428a7f0](https://github.com/rodekruis/IBF-system/commit/428a7f0a484422363dc48ba7f8073f444b10dce1))
-* changed timeline button colors to follow triggered / non triggered state ([c0eacd0](https://github.com/rodekruis/IBF-system/commit/c0eacd022702002daf28add6d88f25fefa7ba79e))
-* delete event and status in mock end point ([27287cb](https://github.com/rodekruis/IBF-system/commit/27287cb3c3c64df861674a3e876c615d7ee12d3c))
-* filter area on map-click AB[#8259](https://github.com/rodekruis/IBF-system/issues/8259) ([4e451b9](https://github.com/rodekruis/IBF-system/commit/4e451b98436e84b393bc834422881b89280db5e9))
-* format ([efbea9d](https://github.com/rodekruis/IBF-system/commit/efbea9dfdb7814a02cba6b3d7c383c276009994c))
-* get most recent date instead of current date in queries AB[#8288](https://github.com/rodekruis/IBF-system/issues/8288) ([e4decd2](https://github.com/rodekruis/IBF-system/commit/e4decd21f84191bc1a7a56dd3929f40553bfa5d1))
-* glofas-station-popup tip color AB[#8250](https://github.com/rodekruis/IBF-system/issues/8250) ([f00099c](https://github.com/rodekruis/IBF-system/commit/f00099ce1a77fbdda85210fb723730e92fbcafa1))
-* keep old events AB[#8195](https://github.com/rodekruis/IBF-system/issues/8195) ([b9d4b33](https://github.com/rodekruis/IBF-system/commit/b9d4b33821b5b5431322860bd588d69315b29756))
-* middle column shows incorrect numbers the second day AB[#8242](https://github.com/rodekruis/IBF-system/issues/8242) ([6f8dd2b](https://github.com/rodekruis/IBF-system/commit/6f8dd2b99cf0f3880cc4a316737fee37888719ae))
-* Only show selected region in chat if disaster type is dengue ([a954812](https://github.com/rodekruis/IBF-system/commit/a9548123f5b9eab0b3483dd1e0859082dfe4d96c))
-* place-code filtering for other adminlevels AB[#8259](https://github.com/rodekruis/IBF-system/issues/8259) ([56a16c6](https://github.com/rodekruis/IBF-system/commit/56a16c6235725f05c1f4243a364889f8a19b786c))
-* remove unnecessary line AB[#8250](https://github.com/rodekruis/IBF-system/issues/8250) ([0f217e5](https://github.com/rodekruis/IBF-system/commit/0f217e5b913dcac7c785e7433a6c7e858899cb67))
-* revert text change for showing all actions again for flood/rainfall AB[#8250](https://github.com/rodekruis/IBF-system/issues/8250) ([abb4d22](https://github.com/rodekruis/IBF-system/commit/abb4d220d63889f609eb2205fde51aee64c3bce1))
-* rm unused moment fn AB[#8206](https://github.com/rodekruis/IBF-system/issues/8206) ([bb99834](https://github.com/rodekruis/IBF-system/commit/bb9983485cf32e14bb12ea0e0323be440a287dc2))
-* show correct end-date instead of future date AB[#8206](https://github.com/rodekruis/IBF-system/issues/8206) ([0b4f596](https://github.com/rodekruis/IBF-system/commit/0b4f59690358ccd384e04a0519f1454f6c569ef4))
-* show last trigger-date in front-end for old event AB[#8206](https://github.com/rodekruis/IBF-system/issues/8206) ([c779a16](https://github.com/rodekruis/IBF-system/commit/c779a1668971f0f0d68fad0f67c0378dd4e09b6d))
-* show popups correctly for provinces/wards AB[#8259](https://github.com/rodekruis/IBF-system/issues/8259) ([4d0bb9b](https://github.com/rodekruis/IBF-system/commit/4d0bb9b8d0bd69d8bba5a348f1191572d2767412))
-
-
-### Features
-
-* upate colors glofas stations AB# ([271590a](https://github.com/rodekruis/IBF-system/commit/271590a1001764cac5f5285bdca9cefbbaf09819))
-
-
-
-# [0.66.0](https://github.com/rodekruis/IBF-system/compare/v0.65.0...v0.66.0) (2021-06-18)
-
-
-### Features
-
-* switch UGA/KEN/ETH back to FTP AB[#8130](https://github.com/rodekruis/IBF-system/issues/8130) ([a44bd3a](https://github.com/rodekruis/IBF-system/commit/a44bd3a7be834099e738d2982dc00bd0545ead3e))
 
 
 
