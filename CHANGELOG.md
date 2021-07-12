@@ -1,3 +1,17 @@
+# [0.74.0](https://github.com/rodekruis/IBF-system/compare/v0.73.0...v0.74.0) (2021-07-12)
+
+
+### Bug Fixes
+
+* show right indicator in admin-area popup AB[#8596](https://github.com/rodekruis/IBF-system/issues/8596) ([c29872f](https://github.com/rodekruis/IBF-system/commit/c29872f11c8bef72a9162e345b51b5f6fd1611d0))
+
+
+### Features
+
+* show total population in middle column AB[#8586](https://github.com/rodekruis/IBF-system/issues/8586) ([51089cb](https://github.com/rodekruis/IBF-system/commit/51089cb54810a4a17a9281992928e6394586c28f))
+
+
+
 # [0.73.0](https://github.com/rodekruis/IBF-system/compare/v0.72.1...v0.73.0) (2021-07-12)
 
 
@@ -133,17 +147,6 @@
 * cheap eap-action AB[#8367](https://github.com/rodekruis/IBF-system/issues/8367) ([c565a58](https://github.com/rodekruis/IBF-system/commit/c565a583cb60fceff18d1bb038acb66d04a0c61b))
 * enable ZMB for mock from frontend AB[#8368](https://github.com/rodekruis/IBF-system/issues/8368) ([7416718](https://github.com/rodekruis/IBF-system/commit/7416718909027945449a2644ae28767e2e4ae133))
 * only update eventPlaceCode in exposure-endpoint for own country AB[#8391](https://github.com/rodekruis/IBF-system/issues/8391) ([193da5f](https://github.com/rodekruis/IBF-system/commit/193da5fea78a6d858ceb9451e943d3702af90a04))
-
-
-
-## [0.67.3](https://github.com/rodekruis/IBF-system/compare/v0.67.2...v0.67.3) (2021-06-28)
-
-
-### Bug Fixes
-
-* close event button AB[#8351](https://github.com/rodekruis/IBF-system/issues/8351) ([2190a88](https://github.com/rodekruis/IBF-system/commit/2190a88539df8b895615d8bf7d3dd92d5658818f))
-* only remove country's events in mock-endpoint AB[#8347](https://github.com/rodekruis/IBF-system/issues/8347) ([0d834c7](https://github.com/rodekruis/IBF-system/commit/0d834c71fbe6eadd6a786d6277913dee9056d094))
-* unit test AB[#8351](https://github.com/rodekruis/IBF-system/issues/8351) ([a84ded9](https://github.com/rodekruis/IBF-system/commit/a84ded9f1e76b5d718f56f89857300361aa32c1c))
 
 
 
