@@ -1,3 +1,14 @@
+## [0.72.1](https://github.com/rodekruis/IBF-system/compare/v0.72.0...v0.72.1) (2021-07-12)
+
+
+### Bug Fixes
+
+* division by zero AB[#8572](https://github.com/rodekruis/IBF-system/issues/8572) ([904f29e](https://github.com/rodekruis/IBF-system/commit/904f29eae78c3cbf24fd2a02bb94203a9931742d))
+* EGY pipeline bug AB[#8572](https://github.com/rodekruis/IBF-system/issues/8572) ([04b2de2](https://github.com/rodekruis/IBF-system/commit/04b2de2ade3a4ab6ec4107b8c735985b7952afec))
+* mock-endpoint non-triggered AB[#8573](https://github.com/rodekruis/IBF-system/issues/8573) ([67c2a2b](https://github.com/rodekruis/IBF-system/commit/67c2a2bea99b78495c323ffb96b6e0805cc686bf))
+
+
+
 # [0.72.0](https://github.com/rodekruis/IBF-system/compare/v0.71.1...v0.72.0) (2021-07-09)
 
 
@@ -120,16 +131,6 @@
 ### Bug Fixes
 
 * drop table if exists ([5b7b861](https://github.com/rodekruis/IBF-system/commit/5b7b8618076a3736425862908b527d77a5e09441))
-
-
-
-## [0.67.1](https://github.com/rodekruis/IBF-system/compare/v0.67.0...v0.67.1) (2021-06-25)
-
-
-### Bug Fixes
-
-* update mock data non-triggered AB[#8285](https://github.com/rodekruis/IBF-system/issues/8285) ([14ca16f](https://github.com/rodekruis/IBF-system/commit/14ca16f98817fb2cb9dc1bd863649ce0f18f9db9))
-* update mock data to new UGA stations AB[#8285](https://github.com/rodekruis/IBF-system/issues/8285) ([33c95af](https://github.com/rodekruis/IBF-system/commit/33c95afece7788d5cadfc577bca03241102e8559))
 
 
 
