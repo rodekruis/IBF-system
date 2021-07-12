@@ -87,10 +87,10 @@ export class ScriptsService {
       if (selectedCountry.countryCodeISO3 === 'PHL') {
         if (unit === DynamicIndicator.potentialThreshold) {
           fileName = 'upload-exposure-PHL-potential-cases-threshold';
-        } else fileName = `upload-exposure-PHL-${triggered ? 'triggered' : ''}`;
+        } else fileName = `upload-exposure-PHL${triggered ? '-triggered' : ''}`;
       } else {
-        fileName = `upload-${unit}-${selectedCountry.countryCodeISO3}-${
-          triggered ? 'triggered' : ''
+        fileName = `upload-${unit}-${selectedCountry.countryCodeISO3}${
+          triggered ? '-triggered' : ''
         }`;
       }
       const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${fileName}.json`;
