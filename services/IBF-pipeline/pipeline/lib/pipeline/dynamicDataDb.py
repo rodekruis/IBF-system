@@ -30,6 +30,13 @@ class DatabaseManager:
             self.uploadTriggersPerLeadTime()
             self.uploadTriggerPerStation()
         self.uploadCalculatedAffected()
+    
+    def addDisasterType(self):
+        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
+            disasterType = 'floods'
+        elif SETTINGS[self.countryCodeISO3]['model'] == 'rainfall':
+            disasterType = 'heavy-rain'
+        return disasterType
 
     def uploadCalculatedAffected(self):
         for indicator, values in self.EXPOSURE_DATA_SOURCES.items():

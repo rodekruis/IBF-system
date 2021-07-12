@@ -85,7 +85,7 @@ class Exposure:
     def get_population_affected_percentage(self, population_affected):
         population_total = next((x for x in self.population_total if x['placeCode'] == population_affected['placeCode']), None)
         population_affected_percentage = 0.0
-        if population_total:
+        if population_total and population_total['value'] > 0:
             population_affected_percentage = population_affected['amount'] / population_total['value']
         return {
             'amount': population_affected_percentage,
