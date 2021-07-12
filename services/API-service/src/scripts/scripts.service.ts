@@ -12,7 +12,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { In, Repository } from 'typeorm';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
-import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
+import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
+
 @Injectable()
 export class ScriptsService {
   private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService;
@@ -23,8 +24,8 @@ export class ScriptsService {
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
   @InjectRepository(EapActionStatusEntity)
   private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
-  @InjectRepository(AdminAreaEntity)
-  private readonly adminAreaRepo: Repository<AdminAreaEntity>;
+  @InjectRepository(LeadTimeEntity)
+  private readonly leadTimeRepo: Repository<LeadTimeEntity>;
 
   public constructor(
     adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -43,7 +44,10 @@ export class ScriptsService {
       );
       const allCountryEvents = await this.eventPlaceCodeRepo.find({
         relations: ['eapActionStatuses', 'adminArea'],
-        where: { adminArea: In(countryAdminAreaIds) },
+        where: {
+          adminArea: In(countryAdminAreaIds),
+          disasterType: mockInput.disasterType,
+        },
       });
       for (const event of allCountryEvents) {
         await this.eapActionStatusRepo.remove(event.eapActionStatuses);
@@ -57,17 +61,29 @@ export class ScriptsService {
       }
     });
 
-    await this.mockExposure(selectedCountry, mockInput.triggered);
+    await this.mockExposure(
+      selectedCountry,
+      mockInput.disasterType,
+      mockInput.triggered,
+    );
 
-    if (selectedCountry.disasterType === DisasterType.Floods) {
+    if (mockInput.disasterType === DisasterType.Floods) {
       await this.mockGlofasStations(selectedCountry, mockInput.triggered);
-      await this.mockTriggerPerLeadTime(selectedCountry, mockInput.triggered);
+      await this.mockTriggerPerLeadTime(
+        selectedCountry,
+        mockInput.disasterType,
+        mockInput.triggered,
+      );
     }
   }
 
-  private async mockExposure(selectedCountry, triggered: boolean) {
+  private async mockExposure(
+    selectedCountry,
+    disasterType: DisasterType,
+    triggered: boolean,
+  ) {
     let exposureUnits;
-    if (selectedCountry.countryCodeISO3 === 'PHL') {
+    if (disasterType === DisasterType.Dengue) {
       exposureUnits = [
         DynamicIndicator.alertThreshold,
         DynamicIndicator.potentialCases65,
@@ -84,10 +100,13 @@ export class ScriptsService {
 
     for (const unit of exposureUnits) {
       let fileName: string;
-      if (selectedCountry.countryCodeISO3 === 'PHL') {
+      if (disasterType === DisasterType.Dengue) {
         if (unit === DynamicIndicator.potentialThreshold) {
-          fileName = 'upload-exposure-PHL-potential-cases-threshold';
-        } else fileName = `upload-exposure-PHL${triggered ? '-triggered' : ''}`;
+          fileName = `upload-exposure-${selectedCountry.countryCodeISO3}-potential-cases-threshold`;
+        } else
+          fileName = `upload-exposure-${selectedCountry.countryCodeISO3}${
+            triggered ? '-triggered' : ''
+          }`;
       } else {
         fileName = `upload-${unit}-${selectedCountry.countryCodeISO3}${
           triggered ? '-triggered' : ''
@@ -99,21 +118,30 @@ export class ScriptsService {
       const exposure = JSON.parse(exposureRaw);
 
       for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
-        console.log(
-          `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3}`,
-        );
-        await this.adminAreaDynamicDataService.exposure({
-          countryCodeISO3: selectedCountry.countryCodeISO3,
-          exposurePlaceCodes: this.mockAmount(
-            exposure,
-            unit,
-            triggered,
-            activeLeadTime,
-          ),
-          leadTime: activeLeadTime as LeadTime,
-          dynamicIndicator: unit,
-          adminLevel: selectedCountry.defaultAdminLevel,
+        const leadTime = await this.leadTimeRepo.findOne({
+          relations: ['disasterTypes'],
+          where: { leadTimeName: activeLeadTime },
         });
+        if (
+          leadTime.disasterTypes.map(d => d.disasterType).includes(disasterType)
+        ) {
+          console.log(
+            `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3}`,
+          );
+          await this.adminAreaDynamicDataService.exposure({
+            countryCodeISO3: selectedCountry.countryCodeISO3,
+            exposurePlaceCodes: this.mockAmount(
+              exposure,
+              unit,
+              triggered,
+              activeLeadTime,
+            ),
+            leadTime: activeLeadTime as LeadTime,
+            dynamicIndicator: unit,
+            adminLevel: selectedCountry.defaultAdminLevel,
+            disasterType: disasterType,
+          });
+        }
       }
     }
   }
@@ -124,7 +152,7 @@ export class ScriptsService {
     triggered: boolean,
     activeLeadTime: string,
   ): any[] {
-    // This only returns something different for PHL exposure-units
+    // This only returns something different for dengue exposure-units
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     for (const pcodeData of copyOfExposureUnit) {
       if (exposureUnit === DynamicIndicator.potentialCases65) {
@@ -141,6 +169,9 @@ export class ScriptsService {
             'PH133900000',
             'PH137600000',
             'PH031400000',
+            'ET020303',
+            'ET042105',
+            'ET042104',
           ].includes(pcodeData.placeCode)
             ? 1
             : 0;
@@ -175,7 +206,11 @@ export class ScriptsService {
     }
   }
 
-  private async mockTriggerPerLeadTime(selectedCountry, triggered: boolean) {
+  private async mockTriggerPerLeadTime(
+    selectedCountry,
+    disasterType: DisasterType,
+    triggered: boolean,
+  ) {
     const triggersFileName = `./src/api/event/dto/example/triggers-per-leadtime-${
       selectedCountry.countryCodeISO3
     }${triggered ? '-triggered' : ''}.json`;
@@ -185,6 +220,7 @@ export class ScriptsService {
     await this.eventService.uploadTriggerPerLeadTime({
       countryCodeISO3: selectedCountry.countryCodeISO3,
       triggersPerLeadTime: triggers,
+      disasterType: disasterType,
     });
   }
 }

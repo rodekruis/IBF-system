@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import { Country } from '../models/country.model';
+import { Country, DisasterType } from '../models/country.model';
+import { DisasterTypeService } from './disaster-type.service';
 import { TimelineService } from './timeline.service';
 
 @Injectable({
@@ -12,12 +13,14 @@ export class EapActionsService {
   private triggeredAreaSubject = new BehaviorSubject<any[]>([]);
   private triggeredAreas: any[];
   private country: Country;
+  private disasterType: DisasterType;
   private event;
 
   constructor(
     private countryService: CountryService,
     private apiService: ApiService,
     private timelineService: TimelineService,
+    private disasterTypeService: DisasterTypeService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -26,6 +29,10 @@ export class EapActionsService {
     this.timelineService
       .getTimelineSubscription()
       .subscribe(this.onLeadTimeChange);
+
+    this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -33,7 +40,8 @@ export class EapActionsService {
     this.loadAdminAreasAndActions();
   };
 
-  private onMockScenarioChange = () => {
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
     this.loadAdminAreasAndActions();
   };
 
@@ -56,15 +64,21 @@ export class EapActionsService {
   };
 
   private getTriggeredAreasApi(leadTime: string) {
-    this.apiService
-      .getTriggeredAreas(this.country.countryCodeISO3, leadTime)
-      .subscribe(this.onTriggeredAreas);
+    if (this.disasterType) {
+      this.apiService
+        .getTriggeredAreas(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+          leadTime,
+        )
+        .subscribe(this.onTriggeredAreas);
+    }
   }
 
   loadAdminAreasAndActions() {
-    if (this.country) {
+    if (this.country && this.disasterType) {
       this.apiService
-        .getEvent(this.country.countryCodeISO3)
+        .getEvent(this.country.countryCodeISO3, this.disasterType.disasterType)
         .subscribe(this.onEvent);
     }
   }
@@ -77,6 +91,7 @@ export class EapActionsService {
     return this.apiService.checkEapAction(
       action,
       this.country.countryCodeISO3,
+      this.disasterType.disasterType,
       status,
       placeCode,
     );

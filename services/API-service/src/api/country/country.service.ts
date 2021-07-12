@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
 import { CountryEntity } from './country.entity';
 
 @Injectable()
@@ -29,56 +27,5 @@ export class CountryService {
     return await this.countryRepository.findOne(findOneOptions, {
       relations: this.relations,
     });
-  }
-
-  public async getTriggerUnitsForCountry(
-    countryCodeISO3: string,
-  ): Promise<string[]> {
-    const disasterEntities = await this.geDisasterEntitiesForCountry(
-      countryCodeISO3,
-    );
-    const triggerUnits = [];
-    for (const disaster of disasterEntities) {
-      triggerUnits.push(disaster.triggerUnit);
-    }
-    return triggerUnits;
-  }
-
-  public async getActionsUnitsForCountry(
-    countryCodeISO3: string,
-  ): Promise<string[]> {
-    const disasterEntities = await this.geDisasterEntitiesForCountry(
-      countryCodeISO3,
-    );
-    const actionUnits = [];
-    for (const disaster of disasterEntities) {
-      actionUnits.push(disaster.actionsUnit);
-    }
-    return actionUnits;
-  }
-
-  public async geDisasterEntitiesForCountry(
-    countryCodeISO3: string,
-  ): Promise<DisasterEntity[]> {
-    const findOneOptions = {
-      countryCodeISO3: countryCodeISO3,
-    };
-    const country = await this.countryRepository.findOne(findOneOptions, {
-      relations: ['disasterTypes'],
-    });
-    return country.disasterTypes;
-  }
-
-  public async getDisasterTypesForCountry(
-    countryCodeISO3: string,
-  ): Promise<DisasterType[]> {
-    const disasterEntities = await this.geDisasterEntitiesForCountry(
-      countryCodeISO3,
-    );
-    const disasterTypes: DisasterType[] = [];
-    for (const disaster of disasterEntities) {
-      disasterTypes.push(disaster.disasterType);
-    }
-    return disasterTypes;
   }
 }

@@ -4,7 +4,7 @@
     "countryCodeISO2": "UG",
     "countryName": "Uganda",
     "countryStatus": "active",
-    "disasterType": "floods",
+    "disasterTypes": ["floods"],
     "adminLevels": [1, 2, 3, 4],
     "defaultAdminLevel": 2,
     "glofasStationInput": {
@@ -64,7 +64,7 @@
     "countryCodeISO2": "ZM",
     "countryName": "Zambia",
     "countryStatus": "active",
-    "disasterType": "floods",
+    "disasterTypes": ["floods"],
     "adminLevels": [1, 2, 3],
     "defaultAdminLevel": 2,
     "glofasStationInput": {
@@ -137,7 +137,7 @@
     "countryCodeISO2": "KE",
     "countryName": "Kenya",
     "countryStatus": "active",
-    "disasterType": "floods",
+    "disasterTypes": ["floods"],
     "adminLevels": [1],
     "defaultAdminLevel": 1,
     "glofasStationInput": {
@@ -193,14 +193,14 @@
     "countryCodeISO2": "ET",
     "countryName": "Ethiopia",
     "countryStatus": "active",
-    "disasterType": "floods",
-    "adminLevels": [2],
-    "defaultAdminLevel": 2,
+    "disasterTypes": ["floods", "dengue"],
+    "adminLevels": [3],
+    "defaultAdminLevel": 3,
     "glofasStationInput": {
       "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
       "triggerColName": "10yr_threshold_7day"
     },
-    "countryActiveLeadTimes": ["7-day"],
+    "countryActiveLeadTimes": ["7-day", "0-month", "1-month", "2-month"],
     "eapAlertClasses": {
       "no": {
         "label": "No action",
@@ -249,7 +249,7 @@
     "countryCodeISO2": "EG",
     "countryName": "Egypt",
     "countryStatus": "active",
-    "disasterType": "heavy-rain",
+    "disasterTypes": ["heavy-rain"],
     "adminLevels": [1],
     "defaultAdminLevel": 1,
     "countryActiveLeadTimes": ["3-day", "5-day", "7-day"],
@@ -288,7 +288,7 @@
     "countryCodeISO2": "PH",
     "countryName": "Philippines",
     "countryStatus": "active",
-    "disasterType": "dengue",
+    "disasterTypes": ["dengue"],
     "adminLevels": [2],
     "defaultAdminLevel": 2,
     "countryActiveLeadTimes": ["0-month", "1-month", "2-month"],

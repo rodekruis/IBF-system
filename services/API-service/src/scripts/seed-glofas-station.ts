@@ -32,7 +32,7 @@ export class SeedGlofasStation implements InterfaceScript {
         (country): Promise<void> => {
           if (
             envCountries.includes(country.countryCodeISO3) &&
-            country.disasterType === DisasterType.Floods
+            country.disasterTypes.includes(DisasterType.Floods)
           ) {
             return this.seedCountryGlofasStations(country);
           } else {

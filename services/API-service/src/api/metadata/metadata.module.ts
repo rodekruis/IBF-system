@@ -8,12 +8,17 @@ import { MetadataService } from './metadata.service';
 import { LayerMetadataEntity } from './layer-metadata.entity';
 import { HelperService } from '../../shared/helper.service';
 import { EventModule } from '../event/event.module';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Module({
   imports: [
     HttpModule,
     UserModule,
-    TypeOrmModule.forFeature([IndicatorMetadataEntity, LayerMetadataEntity]),
+    TypeOrmModule.forFeature([
+      IndicatorMetadataEntity,
+      LayerMetadataEntity,
+      DisasterEntity,
+    ]),
     CountryModule,
     EventModule,
   ],

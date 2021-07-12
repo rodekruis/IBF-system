@@ -419,27 +419,19 @@ export class MapComponent implements OnDestroy {
   };
 
   private bindPopupAdminRegions(layer: IbfLayer, feature, element): void {
-    console.log('layer: ', layer);
     let popup: string;
     const activeAggregateLayer = this.mapService.layers.find(
       (l) => l.active && l.group === IbfLayerGroup.aggregates,
     );
-    if (activeAggregateLayer.name !== IbfLayerName.potentialCases) {
-      popup = this.createDefaultPopupAdminRegions(
-        layer,
-        activeAggregateLayer,
-        feature,
-      );
-      element.bindPopup(popup).openPopup();
-      this.placeCode = feature.properties.placeCode;
-    } else {
+    if (
+      activeAggregateLayer &&
+      activeAggregateLayer.name === IbfLayerName.potentialCases
+    ) {
       this.apiService
         .getAdminAreaDynamiceDataOne(
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
-          this.country.countryActiveLeadTimes[
-            this.country.countryActiveLeadTimes.length - 1
-          ],
+          this.timelineService.activeLeadTime,
         )
         .subscribe((thresholdValue: number) => {
           popup = this.createThresHoldPopupAdminRegions(
@@ -454,6 +446,14 @@ export class MapComponent implements OnDestroy {
           element.bindPopup(popup, popupOptions).openPopup();
           this.placeCode = feature.properties.placeCode;
         });
+    } else {
+      popup = this.createDefaultPopupAdminRegions(
+        layer,
+        activeAggregateLayer,
+        feature,
+      );
+      element.bindPopup(popup).openPopup();
+      this.placeCode = feature.properties.placeCode;
     }
   }
 

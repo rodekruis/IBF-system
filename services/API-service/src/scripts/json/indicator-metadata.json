@@ -1,6 +1,7 @@
 [
   {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY",
+    "disasterType": "floods",
     "name": "population_affected",
     "label": "Exposed population",
     "group": "general",
@@ -17,6 +18,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY",
+    "disasterType": "floods",
     "name": "population_affected_percentage",
     "label": "% of Total Population",
     "group": "general",
@@ -48,7 +50,8 @@
     "unit": "people"
   },
   {
-    "country_codes": "PHL",
+    "country_codes": "PHL,ETH",
+    "disasterType": "dengue",
     "name": "potential_cases",
     "label": "Potential Cases",
     "group": "general",
@@ -57,7 +60,7 @@
     "active": true,
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
-    "aggregateIndicator": "PHL",
+    "aggregateIndicator": "PHL,ETH",
     "numberFormatAggregate": "decimal0",
     "order": 1,
     "dynamic": true,
@@ -290,7 +293,8 @@
     "lazyLoad": true
   },
   {
-    "country_codes": "PHL",
+    "country_codes": "PHL,ETH",
+    "disasterType": "dengue",
     "name": "alert_threshold",
     "label": "Alert Threshold Reached",
     "group": "outline",

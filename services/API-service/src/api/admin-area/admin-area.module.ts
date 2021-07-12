@@ -8,12 +8,13 @@ import { UserModule } from '../user/user.module';
 import { AdminAreaController } from './admin-area.controller';
 import { AdminAreaEntity } from './admin-area.entity';
 import { AdminAreaService } from './admin-area.service';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Module({
   imports: [
     HttpModule,
     UserModule,
-    TypeOrmModule.forFeature([AdminAreaEntity, CountryEntity]),
+    TypeOrmModule.forFeature([AdminAreaEntity, CountryEntity, DisasterEntity]),
     EventModule,
     CountryModule,
   ],

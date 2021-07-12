@@ -17,6 +17,7 @@ import { UserEntity } from '../user/user.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 describe('MetadataService', (): void => {
   let service: MetadataService;
@@ -72,6 +73,10 @@ describe('MetadataService', (): void => {
           },
           {
             provide: getRepositoryToken(AdminAreaEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(DisasterEntity),
             useFactory: repositoryMockFactory,
           },
         ],

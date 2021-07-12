@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { DisasterType } from '../disaster/disaster-type.enum';
 
 @Entity('indicator-metadata')
 export class IndicatorMetadataEntity {
@@ -6,6 +7,8 @@ export class IndicatorMetadataEntity {
   public id: string;
   @Column()
   public country_codes: string;
+  @Column({ nullable: true })
+  public disasterType: DisasterType;
   @Column()
   public name: string;
   @Column()

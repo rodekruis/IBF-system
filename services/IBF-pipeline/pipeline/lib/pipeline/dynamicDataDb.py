@@ -43,12 +43,14 @@ class DatabaseManager:
             with open(self.affectedFolder +
                       'affected_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '_' + indicator + '.json') as json_file:
                 body = json.load(json_file)
+                body['disasterType'] = self.addDisasterType()
                 self.apiPostRequest('admin-area-dynamic-data/exposure', body)
             print('Uploaded calculated_affected for indicator: ' + indicator)
             if indicator == 'population':
                 with open(self.affectedFolder +
                         'affected_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '_' + 'population_affected_percentage' + '.json') as json_file:
                     body = json.load(json_file)
+                    body['disasterType'] = self.addDisasterType()
                     self.apiPostRequest('admin-area-dynamic-data/exposure', body)
                 print('Uploaded calculated_affected for indicator: ' + 'population_affected_percentage')
 
@@ -84,6 +86,7 @@ class DatabaseManager:
                 'countryCodeISO3': self.countryCodeISO3,
                 'triggersPerLeadTime': triggersPerLeadTime
             }
+            body['disasterType'] = self.addDisasterType()
             self.apiPostRequest('event/triggers-per-leadtime', body)
         print('Uploaded triggers per leadTime')
 

@@ -9,7 +9,8 @@ import {
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
 import { CountryTriggers } from '../models/country-triggers.model';
-import { Country } from '../models/country.model';
+import { Country, DisasterType } from '../models/country.model';
+import { DisasterTypeService } from './disaster-type.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,18 +24,29 @@ export class TimelineService {
   private triggers: CountryTriggers;
   private timelineSubject = new BehaviorSubject<LeadTime>(null);
   private country: Country;
+  private disasterType: DisasterType;
 
   constructor(
     private countryService: CountryService,
+    private disasterTypeService: DisasterTypeService,
     private apiService: ApiService,
   ) {
     this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
+
+    this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
   }
 
   private onCountryChange = (country: Country) => {
     this.country = country;
+    this.loadTimeStepButtons();
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
     this.loadTimeStepButtons();
   };
 
@@ -62,8 +74,9 @@ export class TimelineService {
     this.triggers = triggers;
 
     if (this.triggers) {
-      const vissibleLeadTimes = this.getVisibleLeadTimes(this.country);
-      vissibleLeadTimes.map(this.leadTimeToLeadTimeButton);
+      this.state.timeStepButtons = [];
+      const visibleLeadTimes = this.getVisibleLeadTimes(this.country);
+      visibleLeadTimes.map(this.leadTimeToLeadTimeButton);
     }
 
     const enabledTimeStepButtons = this.state.timeStepButtons.filter(
@@ -80,14 +93,20 @@ export class TimelineService {
     }
 
     this.apiService
-      .getTriggerPerLeadTime(this.country.countryCodeISO3)
+      .getTriggerPerLeadTime(
+        this.country.countryCodeISO3,
+        this.disasterType.disasterType,
+      )
       .subscribe(this.onTriggerPerLeadTime);
   };
 
   public loadTimeStepButtons(): void {
     if (this.country) {
       this.apiService
-        .getRecentDates(this.country.countryCodeISO3)
+        .getRecentDates(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
         .subscribe(this.onRecentDates);
     }
   }
@@ -123,14 +142,12 @@ export class TimelineService {
   }
 
   private getVisibleLeadTimes(country: Country) {
-    const vissibleLeadTimes = [];
-    for (const disaster of country.disasterTypes) {
-      for (const leadTime of disaster.leadTimes) {
-        if (vissibleLeadTimes.indexOf(leadTime.leadTimeName) === -1) {
-          vissibleLeadTimes.push(leadTime.leadTimeName);
-        }
+    const visibleLeadTimes = [];
+    for (const leadTime of this.disasterType.leadTimes) {
+      if (visibleLeadTimes.indexOf(leadTime.leadTimeName) === -1) {
+        visibleLeadTimes.push(leadTime.leadTimeName);
       }
     }
-    return vissibleLeadTimes;
+    return visibleLeadTimes;
   }
 }

@@ -7,6 +7,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
+import { DisasterEntity } from '../disaster/disaster.entity';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 
@@ -27,6 +28,13 @@ export class EapActionEntity {
     referencedColumnName: 'countryCodeISO3',
   })
   public countryCodeISO3: string;
+
+  @ManyToOne((): typeof DisasterEntity => DisasterEntity)
+  @JoinColumn({
+    name: 'disasterType',
+    referencedColumnName: 'disasterType',
+  })
+  public disasterType: string;
 
   @ManyToOne(
     (): typeof AreaOfFocusEntity => AreaOfFocusEntity,

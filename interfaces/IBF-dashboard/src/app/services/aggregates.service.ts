@@ -9,9 +9,10 @@ import {
   IndicatorGroup,
   NumberFormat,
 } from 'src/app/types/indicator-group';
-import { Country } from '../models/country.model';
+import { Country, DisasterType } from '../models/country.model';
 import { IbfLayerName } from '../types/ibf-layer';
 import { AdminLevelService } from './admin-level.service';
+import { DisasterTypeService } from './disaster-type.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class AggregatesService {
   public indicators: Indicator[] = [];
   private aggregates = [];
   private country: Country;
+  private disasterType: DisasterType;
 
   constructor(
     private countryService: CountryService,
@@ -28,6 +30,7 @@ export class AggregatesService {
     private timelineService: TimelineService,
     private apiService: ApiService,
     private mapService: MapService,
+    private disasterTypeService: DisasterTypeService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -36,10 +39,19 @@ export class AggregatesService {
     this.timelineService
       .getTimelineSubscription()
       .subscribe(this.onLeadTimeChange);
+
+    this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
   }
 
   private onCountryChange = (country: Country) => {
     this.country = country;
+    this.loadMetadataAndAggregates();
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
     this.loadMetadataAndAggregates();
   };
 
@@ -48,9 +60,12 @@ export class AggregatesService {
   };
 
   loadMetadataAndAggregates() {
-    if (this.country) {
+    if (this.country && this.disasterType) {
       this.apiService
-        .getIndicators(this.country.countryCodeISO3)
+        .getIndicators(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
         .subscribe(this.onIndicatorChange);
     }
   }
@@ -128,10 +143,11 @@ export class AggregatesService {
   }
 
   loadAggregateInformation(): void {
-    if (this.country) {
+    if (this.country && this.disasterType) {
       this.apiService
         .getAggregatesData(
           this.country.countryCodeISO3,
+          this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           this.adminLevelService.adminLevel,
         )

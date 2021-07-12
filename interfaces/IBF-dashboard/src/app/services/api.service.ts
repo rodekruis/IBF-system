@@ -9,6 +9,7 @@ import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
+import { DisasterTypeKey } from '../types/disaster-type-key';
 
 @Injectable({
   providedIn: 'root',
@@ -142,25 +143,38 @@ export class ApiService {
     return this.get(`waterpoints/${countryCodeISO3}`, false);
   }
 
-  getRecentDates(countryCodeISO3: string): Observable<any> {
-    return this.get(`event/recent-date/${countryCodeISO3}`, false);
+  getRecentDates(
+    countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
+  ): Observable<any> {
+    return this.get(
+      `event/recent-date/${countryCodeISO3}/${disasterType}`,
+      false,
+    );
   }
 
-  getTriggerPerLeadTime(countryCodeISO3: string): Observable<CountryTriggers> {
-    return this.get(`event/triggers/${countryCodeISO3}`, false);
+  getTriggerPerLeadTime(
+    countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
+  ): Observable<CountryTriggers> {
+    return this.get(`event/triggers/${countryCodeISO3}/${disasterType}`, false);
   }
 
-  getEvent(countryCodeISO3: string): Observable<any> {
-    return this.get(`event/${countryCodeISO3}`, false);
+  getEvent(
+    countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
+  ): Observable<any> {
+    return this.get(`event/${countryCodeISO3}/${disasterType}`, false);
   }
 
   getAdminRegions(
     countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
     leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
-      `admin-areas/${countryCodeISO3}/${adminLevel}/${
+      `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}/${
         leadTime ? leadTime : ''
       }`,
       false,
@@ -169,26 +183,34 @@ export class ApiService {
 
   getAggregatesData(
     countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
     leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
   ): Observable<any> {
     return this.get(
-      `admin-areas/aggregates/${countryCodeISO3}/${adminLevel}/${
+      `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}/${
         leadTime ? leadTime : '{leadTime}'
       }`,
       false,
     );
   }
 
-  getTriggeredAreas(countryCodeISO3: string, leadTime: string) {
+  getTriggeredAreas(
+    countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
+    leadTime: string,
+  ) {
     return this.get(
-      `event/triggered-areas/${countryCodeISO3}/${leadTime}`,
+      `event/triggered-areas/${countryCodeISO3}/${disasterType}/${leadTime}`,
       false,
     );
   }
 
-  getIndicators(countryCodeISO3: string) {
-    return this.get(`metadata/indicators/${countryCodeISO3}`, false);
+  getIndicators(countryCodeISO3: string, disasterType: DisasterTypeKey) {
+    return this.get(
+      `metadata/indicators/${countryCodeISO3}/${disasterType}`,
+      false,
+    );
   }
 
   getAdminAreaData(
@@ -225,21 +247,21 @@ export class ApiService {
     );
   }
 
-  getLayers(countryCodeISO3: string) {
-    return this.get(`metadata/layers/${countryCodeISO3}`, false);
+  getLayers(countryCodeISO3: string, disasterType: DisasterTypeKey) {
+    return this.get(
+      `metadata/layers/${countryCodeISO3}/${disasterType}`,
+      false,
+    );
   }
 
   getAreasOfFocus() {
     return this.get('eap-actions/areas-of-focus', false);
   }
 
-  getEapActions(countryCodeISO3: string, placeCode: string) {
-    return this.get(`eap-actions/${countryCodeISO3}/${placeCode}`, false);
-  }
-
   checkEapAction(
     action: string,
     countryCodeISO3: string,
+    disasterType: string,
     status: boolean,
     placeCode: string,
   ) {
@@ -248,6 +270,7 @@ export class ApiService {
       {
         action,
         countryCodeISO3,
+        disasterType,
         status,
         placeCode,
       },

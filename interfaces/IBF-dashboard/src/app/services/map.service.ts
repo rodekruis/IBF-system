@@ -25,10 +25,11 @@ import { Indicator } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
-import { Country } from '../models/country.model';
+import { Country, DisasterType } from '../models/country.model';
 import { LayerActivation } from '../models/layer-activation.enum';
 import { breakKey } from '../models/map.model';
 import { AdminLevel } from '../types/admin-level';
+import { DisasterTypeService } from './disaster-type.service';
 
 @Injectable({
   providedIn: 'root',
@@ -61,6 +62,7 @@ export class MapService {
 
   private popoverTexts: { [key: string]: string } = {};
   private country: Country;
+  private disasterType: DisasterType;
   private placeCode: PlaceCode;
 
   constructor(
@@ -71,6 +73,7 @@ export class MapService {
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private translateService: TranslateService,
+    private disasterTypeService: DisasterTypeService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -88,6 +91,10 @@ export class MapService {
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
 
+    this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
+
     this.translateService
       .get('map-service.popover')
       .subscribe(this.onTranslate);
@@ -103,6 +110,12 @@ export class MapService {
   };
 
   private onLeadTimeChange = () => {
+    this.loadCountryLayers();
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
+    this.layers.forEach((layer) => (layer.show = false));
     this.loadCountryLayers();
   };
 
@@ -130,6 +143,7 @@ export class MapService {
   }
 
   private onLayerChange = (layers: IbfLayerMetadata[]): void => {
+    console.log('this.layers: ', this.layers);
     layers.forEach((layer: IbfLayerMetadata) => {
       let layerActive: boolean;
       if (layer.active === LayerActivation.yes) {
@@ -173,9 +187,9 @@ export class MapService {
   };
 
   private async loadCountryLayers() {
-    if (this.country) {
+    if (this.country && this.disasterType) {
       this.apiService
-        .getLayers(this.country.countryCodeISO3)
+        .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
         .subscribe(this.onLayerChange);
     }
   }
@@ -300,11 +314,12 @@ export class MapService {
   }
 
   private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
-    if (this.country) {
+    if (this.country && this.disasterType) {
       if (layerActive) {
         this.apiService
           .getAdminRegions(
             this.country.countryCodeISO3,
+            this.disasterType.disasterType,
             this.timelineService.activeLeadTime,
             adminLevel,
           )
@@ -328,7 +343,7 @@ export class MapService {
       show: true,
       data: adminRegions,
       viewCenter: this.country.defaultAdminLevel === adminLevel,
-      colorProperty: this.country.disasterTypes[0].actionsUnit,
+      colorProperty: this.disasterType.actionsUnit,
       order: 0,
     });
   }
@@ -570,7 +585,7 @@ export class MapService {
         type: 'FeatureCollection',
         features: [],
       });
-      const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}`;
+      const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}`;
       layer.active = this.isLayerActive(layer, newLayer);
       layer.show = this.isLayerShown(layer, newLayer);
       if (this.layerDataCache[layerDataCacheKey]) {
@@ -613,6 +628,7 @@ export class MapService {
       layerData = this.apiService
         .getAdminRegions(
           this.country.countryCodeISO3,
+          this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           this.adminLevelService.adminLevel,
         )
@@ -624,6 +640,7 @@ export class MapService {
       layerData = this.apiService
         .getAdminRegions(
           this.country.countryCodeISO3,
+          this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           adminLevel,
         )
@@ -806,6 +823,10 @@ export class MapService {
       .map((feature) =>
         typeof feature.properties[colorProperty] !== 'undefined'
           ? feature.properties[colorProperty]
+          : feature.properties.population_affected !== 'undefined'
+          ? feature.properties.population_affected
+          : feature.properties.potential_cases !== 'undefined'
+          ? feature.properties.potential_cases
           : feature.properties.indicators[colorProperty],
       )
       .filter((v, i, a) => a.indexOf(v) === i);
@@ -851,6 +872,10 @@ export class MapService {
       const fillColor = this.getAdminRegionFillColor(
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
+          : adminRegion.properties.population_affected !== 'undefined'
+          ? adminRegion.properties.poplation_affected
+          : adminRegion.properties.potential_cases !== 'undefined'
+          ? adminRegion.properties.potential_cases
           : adminRegion.properties.indicators[colorProperty],
         colorThreshold,
         adminRegion.properties.placeCode,

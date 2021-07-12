@@ -1,5 +1,6 @@
 import { IsIn } from 'class-validator';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { DisasterType } from '../disaster/disaster-type.enum';
 
 @Entity('layer-metadata')
 export class LayerMetadataEntity {
@@ -7,6 +8,8 @@ export class LayerMetadataEntity {
   public id: string;
   @Column()
   public country_codes: string;
+  @Column({ nullable: true })
+  public disasterType: DisasterType;
   @Column()
   public name: string;
   @Column()

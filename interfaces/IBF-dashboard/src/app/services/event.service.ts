@@ -8,13 +8,15 @@ import {
   LeadTimeTriggerKey,
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
-import { Country } from '../models/country.model';
+import { Country, DisasterType } from '../models/country.model';
+import { DisasterTypeService } from './disaster-type.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
   private country: Country;
+  private disasterType: DisasterType;
 
   public state = {
     event: null,
@@ -32,10 +34,15 @@ export class EventService {
     private timelineService: TimelineService,
     private apiService: ApiService,
     private countryService: CountryService,
+    private disasterTypeService: DisasterTypeService,
   ) {
     this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
+
+    this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -43,10 +50,15 @@ export class EventService {
     this.getTrigger();
   };
 
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
+    this.getTrigger();
+  };
+
   public getTrigger() {
-    if (this.country) {
+    if (this.country && this.disasterType) {
       this.apiService
-        .getEvent(this.country.countryCodeISO3)
+        .getEvent(this.country.countryCodeISO3, this.disasterType.disasterType)
         .subscribe(this.onEvent);
     }
   }
@@ -90,9 +102,12 @@ export class EventService {
   };
 
   private getFirstTriggerDate() {
-    if (this.country) {
+    if (this.country && this.disasterType) {
       this.apiService
-        .getTriggerPerLeadTime(this.country.countryCodeISO3)
+        .getTriggerPerLeadTime(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
         .subscribe(this.onTriggerPerLeadTime);
     }
   }

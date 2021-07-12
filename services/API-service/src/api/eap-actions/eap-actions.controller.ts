@@ -33,19 +33,6 @@ export class EapActionsController {
     return await this.eapActionsService.checkAction(userId, eapAction);
   }
 
-  @ApiOperation({ summary: 'Get EAP actions and status' })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'placeCode', required: true, type: 'string' })
-  @Get('/:countryCodeISO3/:placeCode')
-  public async getActionsWithStatus(
-    @Param() params,
-  ): Promise<EapActionEntity[]> {
-    return await this.eapActionsService.getActionsWithStatus(
-      params.countryCodeISO3,
-      params.placeCode,
-    );
-  }
-
   @ApiOperation({ summary: 'Get areas of focus' })
   @Get('areas-of-focus')
   public async getAreasOfFocus(): Promise<AreaOfFocusEntity[]> {
