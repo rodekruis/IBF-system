@@ -20,12 +20,18 @@ def formatInfo(info, countryCodeISO3):
     placeholderAdminAreaPlural = "(ADMIN-AREA-PLURAL)"
     placeholderAdminAreaSingular = "(ADMIN-AREA-SINGULAR)"
     placeholderDisasterType = "(DISASTER-TYPE)"
+    placeholderLinkVideo = "(LINK-Video)"
+    placeholderLinkPdf = "(LINK-PDF)"
+
 
     email_settings = SETTINGS[countryCodeISO3]['email']
     logo = email_settings['logo']
     triggerStatement = email_settings['triggerStatement']
     linkDashboard = email_settings['linkDashboard']
     linkEAPSOP = email_settings['linkEAPSOP']
+    linkVideo = email_settings['linkVideo']
+    linkPdf = email_settings['linkPdf']
+
     linkSocialMedia = email_settings['linkSocialMedia']
     adminAreaLabel = email_settings['adminAreaLabel']
     if SETTINGS[countryCodeISO3]['model'] == 'glofas':
@@ -109,6 +115,8 @@ def formatInfo(info, countryCodeISO3):
         .replace(placeholderAdminAreaPlural, adminAreaLabel[1].lower())
         .replace(placeholderDisasterType, disasterType)
         .replace(placeholderToday, today)
+        .replace(placeholderLinkVideo, linkVideo)
+        .replace(placeholderLinkPdf, linkPdf)
     )
 
     emailContent = {"subject": disasterType + " Warning: " + mainSubject, "html": htmlEmail}
