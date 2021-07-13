@@ -1,3 +1,12 @@
+## [0.75.1](https://github.com/rodekruis/IBF-system/compare/v0.75.0...v0.75.1) (2021-07-13)
+
+
+### Bug Fixes
+
+* sleep for 2 minutes before testing ([729214f](https://github.com/rodekruis/IBF-system/commit/729214fbbf57c6dde423a49ac890baa176dd271e))
+
+
+
 # [0.75.0](https://github.com/rodekruis/IBF-system/compare/v0.74.0...v0.75.0) (2021-07-13)
 
 
@@ -121,30 +130,6 @@
 * calculate percentage of affected population and display on dashboard AB[#8384](https://github.com/rodekruis/IBF-system/issues/8384) ([b27fbd2](https://github.com/rodekruis/IBF-system/commit/b27fbd2cb879684af1efe4002698354ab3401711))
 * include 'pop aff perc' in mock-endpoint AB[#8468](https://github.com/rodekruis/IBF-system/issues/8468) ([b033da8](https://github.com/rodekruis/IBF-system/commit/b033da87038da48cda2cd2c368c31621dfb18e32))
 * rename indicator to reuse existing endpoint AB[#8191](https://github.com/rodekruis/IBF-system/issues/8191) ([f27f094](https://github.com/rodekruis/IBF-system/commit/f27f094c526104e0d9b0643a022039f8ed2c2994))
-
-
-
-# [0.68.0](https://github.com/rodekruis/IBF-system/compare/v0.67.4...v0.68.0) (2021-07-02)
-
-
-### Bug Fixes
-
-* AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) broken popups ([a624033](https://github.com/rodekruis/IBF-system/commit/a6240334f18a4b8086ec59fb98be0a1b0e854593))
-* AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) broken popups robuster fix ([6368928](https://github.com/rodekruis/IBF-system/commit/6368928b64f33d489f8ddd82590670e961259bf2))
-* AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) change chat go to actions text ([59fde43](https://github.com/rodekruis/IBF-system/commit/59fde43798ee47e51668d98b9b24acda72a9d530))
-* AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) eap actions document ([410a42b](https://github.com/rodekruis/IBF-system/commit/410a42bca8b1038413d2e7f391840f8603c4bf8f))
-* AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) send to save ([ec9c351](https://github.com/rodekruis/IBF-system/commit/ec9c35110d1dca1355ba0e89687c5ae8b8714be7))
-* Changed getTriggered areas to leadtime dependend AB[#8428](https://github.com/rodekruis/IBF-system/issues/8428) ([b0cef24](https://github.com/rodekruis/IBF-system/commit/b0cef244567e5b2fc733b2e2f2887e6aaabc467e))
-* Dengue cases are always active ([0a9dd77](https://github.com/rodekruis/IBF-system/commit/0a9dd77e5da10e4738abf5a6b0836698de1ac7b0))
-* PHL simplify geom ([4842998](https://github.com/rodekruis/IBF-system/commit/4842998ac7350aeb572c9aa1abde5cb8237f3b57))
-* remove month if upload in same month AB[#8366](https://github.com/rodekruis/IBF-system/issues/8366) ([79ea878](https://github.com/rodekruis/IBF-system/commit/79ea8787262b0a43feb59394bc02ef389e170d41))
-* tests ([e451cfe](https://github.com/rodekruis/IBF-system/commit/e451cfe9ed7b29169a0b85cd2ab8bef35ed4f3f9))
-* tests ([a245cab](https://github.com/rodekruis/IBF-system/commit/a245cabd7031b373e16760161f71f3474d8d0fd0))
-
-
-### Features
-
-* Send email from API service for PHL AB[#8292](https://github.com/rodekruis/IBF-system/issues/8292) ([9dd53e8](https://github.com/rodekruis/IBF-system/commit/9dd53e8a7367b52d09185c5035ce046ed7f7b52d))
 
 
 
