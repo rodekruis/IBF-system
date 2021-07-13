@@ -12,6 +12,11 @@ export class SendEmailDto {
   @ApiProperty({ example: DisasterType.Dengue })
   @IsNotEmpty()
   @IsString()
-  @IsIn([DisasterType.Dengue, DisasterType.Floods, DisasterType.HeavyRain])
+  @IsIn([
+    DisasterType.Dengue,
+    DisasterType.Floods,
+    DisasterType.HeavyRain,
+    DisasterType.Malaria,
+  ])
   public disasterType: DisasterType;
 }

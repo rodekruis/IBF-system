@@ -35,7 +35,7 @@ export class MockDynamic {
   @IsIn(['PHL', 'UGA', 'ZMB', 'ETH'])
   public readonly countryCodeISO3: string;
   @ApiProperty({ example: DisasterType.Floods })
-  @IsIn([DisasterType.Floods, DisasterType.Dengue])
+  @IsIn([DisasterType.Floods, DisasterType.Dengue, DisasterType.Malaria])
   public readonly disasterType: DisasterType;
   @ApiProperty()
   @IsNotEmpty()

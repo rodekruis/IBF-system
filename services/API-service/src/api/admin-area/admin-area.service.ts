@@ -210,7 +210,11 @@ export class AdminAreaService {
         leadTime,
       );
 
-      if (placeCodes.length && disasterType !== DisasterType.Dengue) {
+      if (
+        placeCodes.length &&
+        disasterType !== DisasterType.Dengue &&
+        disasterType !== DisasterType.Malaria
+      ) {
         adminAreasScript = adminAreasScript.andWhere(
           'area."placeCode" IN (:...placeCodes)',
           { placeCodes: placeCodes },

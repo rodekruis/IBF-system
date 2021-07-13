@@ -115,7 +115,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-    if (this.disasterTypeName === DisasterTypeKey.dengue) {
+    if (
+      this.disasterTypeName === DisasterTypeKey.dengue ||
+      this.disasterTypeName === DisasterTypeKey.malaria
+    ) {
       this.filteredAreas = [];
     } else {
       this.filteredAreas = [...this.triggeredAreas];
@@ -132,7 +135,10 @@ export class ChatComponent implements OnInit, OnDestroy {
         filterTriggeredAreasByPlaceCode,
       );
     } else {
-      if (this.disasterTypeName === DisasterTypeKey.dengue) {
+      if (
+        this.disasterTypeName === DisasterTypeKey.dengue ||
+        this.disasterTypeName === DisasterTypeKey.malaria
+      ) {
         this.filteredAreas = [];
       } else {
         this.filteredAreas = [...this.triggeredAreas];
@@ -148,14 +154,17 @@ export class ChatComponent implements OnInit, OnDestroy {
       const activeEventsSelector = 'active-event';
       const updateSuccesSelector = 'update-success';
       const updateFailureSelector = 'update-failure';
-      if (this.disasterTypeName === DisasterTypeKey.dengue) {
+      if (
+        this.disasterTypeName === DisasterTypeKey.dengue ||
+        this.disasterTypeName === DisasterTypeKey.malaria
+      ) {
         this.updateSuccessMessage = this.translatedStrings[
-          DisasterTypeKey.dengue
+          this.disasterTypeName
         ][activeEventsSelector][updateSuccesSelector];
         this.updateFailureMessage = this.translatedStrings[
-          DisasterTypeKey.dengue
+          this.disasterTypeName
         ][activeEventsSelector][updateFailureSelector];
-        this.disasterCategory = `${DisasterTypeKey.dengue}.`;
+        this.disasterCategory = `${this.disasterTypeName}.`;
       } else {
         this.updateSuccessMessage = this.translatedStrings[
           activeEventsSelector
