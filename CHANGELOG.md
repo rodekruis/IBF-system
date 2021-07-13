@@ -1,3 +1,12 @@
+# [0.75.0](https://github.com/rodekruis/IBF-system/compare/v0.74.0...v0.75.0) (2021-07-13)
+
+
+### Features
+
+* use ftp instead of datalake AB[#8575](https://github.com/rodekruis/IBF-system/issues/8575) ([de7c8c6](https://github.com/rodekruis/IBF-system/commit/de7c8c61f39339e2eaaca371e6f0048b8aa761e9))
+
+
+
 # [0.74.0](https://github.com/rodekruis/IBF-system/compare/v0.73.0...v0.74.0) (2021-07-12)
 
 
@@ -136,17 +145,6 @@
 ### Features
 
 * Send email from API service for PHL AB[#8292](https://github.com/rodekruis/IBF-system/issues/8292) ([9dd53e8](https://github.com/rodekruis/IBF-system/commit/9dd53e8a7367b52d09185c5035ce046ed7f7b52d))
-
-
-
-## [0.67.4](https://github.com/rodekruis/IBF-system/compare/v0.67.3...v0.67.4) (2021-06-28)
-
-
-### Bug Fixes
-
-* cheap eap-action AB[#8367](https://github.com/rodekruis/IBF-system/issues/8367) ([c565a58](https://github.com/rodekruis/IBF-system/commit/c565a583cb60fceff18d1bb038acb66d04a0c61b))
-* enable ZMB for mock from frontend AB[#8368](https://github.com/rodekruis/IBF-system/issues/8368) ([7416718](https://github.com/rodekruis/IBF-system/commit/7416718909027945449a2644ae28767e2e4ae133))
-* only update eventPlaceCode in exposure-endpoint for own country AB[#8391](https://github.com/rodekruis/IBF-system/issues/8391) ([193da5f](https://github.com/rodekruis/IBF-system/commit/193da5fea78a6d858ceb9451e943d3702af90a04))
 
 
 
