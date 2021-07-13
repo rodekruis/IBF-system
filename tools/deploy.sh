@@ -56,8 +56,8 @@ function deploy() {
         docker-compose --env-file /dev/null config > inspect.docker-compose.config
         docker-compose --env-file /dev/null -f docker-compose.yml up -d --build
         docker-compose --env-file /dev/null restart
-        # wait 30 seconds for services to go live
-        sleep 30
+        # wait 2 minutes for services to go live
+        sleep 2m
     }
 
     function restart_webhook_service() {

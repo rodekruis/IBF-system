@@ -486,6 +486,11 @@ export class MapComponent implements OnDestroy {
     feature,
   ): string {
     const additionalAdminLevel = this.isAdditionalAdminLevel(layer);
+    if (!additionalAdminLevel) {
+      feature = activeAggregateLayer.data.features.find(
+        (f) => f.properties.placeCode === feature.properties.placeCode,
+      );
+    }
     return (
       '<strong>' +
       feature.properties.name +
@@ -498,10 +503,13 @@ export class MapComponent implements OnDestroy {
         : activeAggregateLayer.label +
           ': ' +
           this.numberFormat(
-            typeof feature.properties[layer.colorProperty] !== 'undefined'
-              ? feature.properties[layer.colorProperty]
-              : feature.properties.indicators[layer.colorProperty],
-            layer,
+            typeof feature.properties[activeAggregateLayer.colorProperty] !==
+              'undefined'
+              ? feature.properties[activeAggregateLayer.colorProperty]
+              : feature.properties.indicators[
+                  activeAggregateLayer.colorProperty
+                ],
+            activeAggregateLayer,
           ))
     );
   }
