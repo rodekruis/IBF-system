@@ -143,7 +143,6 @@ export class MapService {
   }
 
   private onLayerChange = (layers: IbfLayerMetadata[]): void => {
-    console.log('this.layers: ', this.layers);
     layers.forEach((layer: IbfLayerMetadata) => {
       let layerActive: boolean;
       if (layer.active === LayerActivation.yes) {
