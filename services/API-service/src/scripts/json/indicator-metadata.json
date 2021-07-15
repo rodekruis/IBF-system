@@ -174,8 +174,8 @@
     "dynamic": false
   },
   {
-    "country_codes": "UGA,PHL",
-    "disasterTypes": ["floods", "dengue"],
+    "country_codes": "UGA,PHL,ETH",
+    "disasterTypes": ["floods", "dengue", "malaria"],
     "name": "population_over65",
     "label": "Population 65+",
     "group": "vulnerability",
@@ -184,7 +184,7 @@
     "active": false,
     "colorBreaks": null,
     "numberFormatMap": "perc",
-    "aggregateIndicator": "UGA",
+    "aggregateIndicator": "UGA,ETH",
     "numberFormatAggregate": "decimal0",
     "order": 3,
     "dynamic": false
