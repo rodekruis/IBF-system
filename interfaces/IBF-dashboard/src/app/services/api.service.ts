@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { DEBUG_LOG } from 'src/app/config';
 import { CountryTriggers } from 'src/app/models/country-triggers.model';
-import { Country } from 'src/app/models/country.model';
+import { Country, DisasterType } from 'src/app/models/country.model';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { LeadTime } from 'src/app/types/lead-time';
@@ -290,17 +290,19 @@ export class ApiService {
 
   mockDynamicData(
     secret: string,
-    countryCodeISO3: string,
+    country: Country,
     triggered: boolean,
     removeEvents: boolean,
+    disasterType: DisasterType,
   ) {
     return this.post(
       'scripts/mock-dynamic-data',
       {
         secret,
-        countryCodeISO3,
+        countryCodeISO3: country.countryCodeISO3,
         triggered,
         removeEvents,
+        disasterType: disasterType.disasterType,
       },
       false,
     );

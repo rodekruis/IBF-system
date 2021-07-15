@@ -25,6 +25,28 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+.mock-scenario-alert {
+  --width: 50%;
+  --max-width: 500px;
+
+  .alert-button-group {
+    justify-content: space-around;
+    flex-direction: row;
+
+    .alert-button-role-cancel {
+      color: var(--ion-color-ibf-gray);
+    }
+
+    .no-trigger-scenario-button {
+      color: var(--ion-color-ibf-no-alert-primary);
+    }
+
+    .trigger-scenario-button {
+      color: var(--ion-color-ibf-trigger-alert-primary);
+    }
+  }
+}
+
 /*
  * Styling needed for dynamically created LEAFLET elements
  * --------------------------------------------------------
