@@ -110,6 +110,28 @@
         "update-success": "SOP action(s) updated in database.",
         "update-failure": "Failed to update SOP action(s) updated in database."
       }
+    },
+    "malaria": {
+      "about-button-label": "About Malaria Alerts",
+      "no-event-no-trigger": {
+        "welcome": "Hello {{ name }}. To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for malaria activated."
+      },
+      "new-event-active-trigger": {
+        "welcome": "Hello {{ name }}. A {{ disasterTypeLabel }} alert for has been activated for <strong>{{ monthYear }}</strong>.",
+        "new-event-early-trigger": "The system however detects an alert as soon as <strong>{{ timeUnits }} month(s) from now</strong>, which was not detectable earlier."
+      },
+      "active-event-active-trigger": {
+        "welcome": "Hello {{ name }}. A {{ disasterTypeLabel }} alert has earlier been activated on <strong>{{ startDate }}</strong>. The trigger is activated for <strong>{{ monthYear }}</strong>."
+      },
+      "active-event-no-trigger": {
+        "welcome": "Hello {{ name }}. There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
+      },
+      "active-event": {
+        "instruction": "The areas above alert threshold are highlighted in the map with a red outline. You can click on the month tabs above the map to see the predictions for each month. Please select the area on the map to monitor which early actions are to do or done.",
+        "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
+        "update-success": "SOP action(s) updated in database.",
+        "update-failure": "Failed to update SOP action(s) updated in database."
+      }
     }
   },
   "map-service": {

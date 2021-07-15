@@ -35,7 +35,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY",
-    "disasterTypes": ["floods", "heavy-rain"],
+    "disasterTypes": ["floods", "heavy-rain", "malaria"],
     "name": "populationTotal",
     "label": "Total Population",
     "group": "general",
@@ -52,7 +52,7 @@
   },
   {
     "country_codes": "PHL,ETH",
-    "disasterTypes": ["dengue"],
+    "disasterTypes": ["dengue", "malaria"],
     "name": "potential_cases",
     "label": "Potential Cases",
     "group": "general",
@@ -308,7 +308,7 @@
   },
   {
     "country_codes": "PHL,ETH",
-    "disasterTypes": ["dengue"],
+    "disasterTypes": ["dengue", "malaria"],
     "name": "alert_threshold",
     "label": "Alert Threshold Reached",
     "group": "outline",

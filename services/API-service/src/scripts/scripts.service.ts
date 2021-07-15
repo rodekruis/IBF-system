@@ -83,7 +83,10 @@ export class ScriptsService {
     triggered: boolean,
   ) {
     let exposureUnits;
-    if (disasterType === DisasterType.Dengue) {
+    if (
+      disasterType === DisasterType.Dengue ||
+      disasterType === DisasterType.Malaria
+    ) {
       exposureUnits = [
         DynamicIndicator.alertThreshold,
         DynamicIndicator.potentialCases65,
@@ -100,7 +103,10 @@ export class ScriptsService {
 
     for (const unit of exposureUnits) {
       let fileName: string;
-      if (disasterType === DisasterType.Dengue) {
+      if (
+        disasterType === DisasterType.Dengue ||
+        disasterType === DisasterType.Malaria
+      ) {
         if (unit === DynamicIndicator.potentialThreshold) {
           fileName = `upload-exposure-${selectedCountry.countryCodeISO3}-potential-cases-threshold`;
         } else
