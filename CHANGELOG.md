@@ -1,3 +1,12 @@
+## [0.76.2](https://github.com/rodekruis/IBF-system/compare/v0.76.1...v0.76.2) (2021-07-15)
+
+
+### Bug Fixes
+
+* legend should show non-zero values ([73fcda3](https://github.com/rodekruis/IBF-system/commit/73fcda340eb3eac17be9ab7a387c7d8fdb0d1a24))
+
+
+
 ## [0.76.1](https://github.com/rodekruis/IBF-system/compare/v0.76.0...v0.76.1) (2021-07-15)
 
 
@@ -101,20 +110,6 @@
 ### Bug Fixes
 
 * truncate instead of drob before seed AB[#8485](https://github.com/rodekruis/IBF-system/issues/8485) ([76898a6](https://github.com/rodekruis/IBF-system/commit/76898a684a57af29bff97c95797b246c3c19c271))
-
-
-
-# [0.71.0](https://github.com/rodekruis/IBF-system/compare/v0.70.0...v0.71.0) (2021-07-09)
-
-
-### Bug Fixes
-
-* use migrations properly with init AB[#8485](https://github.com/rodekruis/IBF-system/issues/8485) ([dbb28f9](https://github.com/rodekruis/IBF-system/commit/dbb28f9e00033662b41d98220052d184a2ec0895))
-
-
-### Features
-
-* clean database on seed ([02c16d2](https://github.com/rodekruis/IBF-system/commit/02c16d20a6d5cb43783c1d29fc7044b8ae9deecf))
 
 
 
