@@ -1,3 +1,12 @@
+# [0.77.0](https://github.com/rodekruis/IBF-system/compare/v0.76.3...v0.77.0) (2021-07-15)
+
+
+### Features
+
+* add potential cases under 5 layer for malaria ([af08d12](https://github.com/rodekruis/IBF-system/commit/af08d12968de010330dbb0d583f12a4a2298fcf9))
+
+
+
 ## [0.76.3](https://github.com/rodekruis/IBF-system/compare/v0.76.2...v0.76.3) (2021-07-15)
 
 
@@ -96,20 +105,6 @@
 * division by zero AB[#8572](https://github.com/rodekruis/IBF-system/issues/8572) ([904f29e](https://github.com/rodekruis/IBF-system/commit/904f29eae78c3cbf24fd2a02bb94203a9931742d))
 * EGY pipeline bug AB[#8572](https://github.com/rodekruis/IBF-system/issues/8572) ([04b2de2](https://github.com/rodekruis/IBF-system/commit/04b2de2ade3a4ab6ec4107b8c735985b7952afec))
 * mock-endpoint non-triggered AB[#8573](https://github.com/rodekruis/IBF-system/issues/8573) ([67c2a2b](https://github.com/rodekruis/IBF-system/commit/67c2a2bea99b78495c323ffb96b6e0805cc686bf))
-
-
-
-# [0.72.0](https://github.com/rodekruis/IBF-system/compare/v0.71.1...v0.72.0) (2021-07-09)
-
-
-### Bug Fixes
-
-* switch UGA district back to old placeCodes AB# ([746078f](https://github.com/rodekruis/IBF-system/commit/746078fdcf9feb2870d6958ea4d3c924f6e9088e))
-
-
-### Features
-
-* add admin boundaries and enable admin levels for uga AB[#8504](https://github.com/rodekruis/IBF-system/issues/8504) ([37f4693](https://github.com/rodekruis/IBF-system/commit/37f4693cacdcf71d1f46187e01707b849ea7b69c))
 
 
 
