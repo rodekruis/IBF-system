@@ -1,3 +1,12 @@
+## [0.76.1](https://github.com/rodekruis/IBF-system/compare/v0.76.0...v0.76.1) (2021-07-15)
+
+
+### Bug Fixes
+
+* disable dengue for ethiopia ([2533389](https://github.com/rodekruis/IBF-system/commit/2533389e4c3ca1760a861142f5c461c8661ebace))
+
+
+
 # [0.76.0](https://github.com/rodekruis/IBF-system/compare/v0.75.1...v0.76.0) (2021-07-15)
 
 
@@ -106,15 +115,6 @@
 ### Features
 
 * clean database on seed ([02c16d2](https://github.com/rodekruis/IBF-system/commit/02c16d20a6d5cb43783c1d29fc7044b8ae9deecf))
-
-
-
-# [0.70.0](https://github.com/rodekruis/IBF-system/compare/v0.69.0...v0.70.0) (2021-07-06)
-
-
-### Features
-
-* rename parishes to sub-counties for uganda admin level AB[#8397](https://github.com/rodekruis/IBF-system/issues/8397) ([253a66a](https://github.com/rodekruis/IBF-system/commit/253a66aa420d2bcc6b623f934d13e0a4af9fc9a7))
 
 
 
