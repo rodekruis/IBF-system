@@ -1,3 +1,12 @@
+## [0.76.3](https://github.com/rodekruis/IBF-system/compare/v0.76.2...v0.76.3) (2021-07-15)
+
+
+### Bug Fixes
+
+* remove hardcoding on dasbhoard and refactor mock alert ([1ee4644](https://github.com/rodekruis/IBF-system/commit/1ee4644b9888d6e10fd3a215da792229d090b640))
+
+
+
 ## [0.76.2](https://github.com/rodekruis/IBF-system/compare/v0.76.1...v0.76.2) (2021-07-15)
 
 
@@ -101,15 +110,6 @@
 ### Features
 
 * add admin boundaries and enable admin levels for uga AB[#8504](https://github.com/rodekruis/IBF-system/issues/8504) ([37f4693](https://github.com/rodekruis/IBF-system/commit/37f4693cacdcf71d1f46187e01707b849ea7b69c))
-
-
-
-## [0.71.1](https://github.com/rodekruis/IBF-system/compare/v0.71.0...v0.71.1) (2021-07-09)
-
-
-### Bug Fixes
-
-* truncate instead of drob before seed AB[#8485](https://github.com/rodekruis/IBF-system/issues/8485) ([76898a6](https://github.com/rodekruis/IBF-system/commit/76898a684a57af29bff97c95797b246c3c19c271))
 
 
 
