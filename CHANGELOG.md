@@ -1,3 +1,13 @@
+## [0.77.1](https://github.com/rodekruis/IBF-system/compare/v0.77.0...v0.77.1) (2021-07-15)
+
+
+### Bug Fixes
+
+* blank dev menu header and move mock scenario strings to ngx translate ([3039f20](https://github.com/rodekruis/IBF-system/commit/3039f20dbf29d26e30c77e2bce355abf1906549c))
+* include translate module in spec ([78a2e4e](https://github.com/rodekruis/IBF-system/commit/78a2e4e95abeeb94ee8cf6e04a92f2ca71fc8305))
+
+
+
 # [0.77.0](https://github.com/rodekruis/IBF-system/compare/v0.76.3...v0.77.0) (2021-07-15)
 
 
@@ -94,17 +104,6 @@
 * update mock data to woreda level AB[#8508](https://github.com/rodekruis/IBF-system/issues/8508) ([551986a](https://github.com/rodekruis/IBF-system/commit/551986ad2189bbc02deb77e7b1edcb68da1dea98))
 * woreda-level ETH in pipeline/database/dashboard AB[#8507](https://github.com/rodekruis/IBF-system/issues/8507) ([221ced8](https://github.com/rodekruis/IBF-system/commit/221ced80f71c80c2c78af21413427965472ea7cf))
 * woreda-station mapping ETH AB[#8509](https://github.com/rodekruis/IBF-system/issues/8509) ([ab64ac3](https://github.com/rodekruis/IBF-system/commit/ab64ac34aba49b33be0a82b075de9dc02597dbe6))
-
-
-
-## [0.72.1](https://github.com/rodekruis/IBF-system/compare/v0.72.0...v0.72.1) (2021-07-12)
-
-
-### Bug Fixes
-
-* division by zero AB[#8572](https://github.com/rodekruis/IBF-system/issues/8572) ([904f29e](https://github.com/rodekruis/IBF-system/commit/904f29eae78c3cbf24fd2a02bb94203a9931742d))
-* EGY pipeline bug AB[#8572](https://github.com/rodekruis/IBF-system/issues/8572) ([04b2de2](https://github.com/rodekruis/IBF-system/commit/04b2de2ade3a4ab6ec4107b8c735985b7952afec))
-* mock-endpoint non-triggered AB[#8573](https://github.com/rodekruis/IBF-system/issues/8573) ([67c2a2b](https://github.com/rodekruis/IBF-system/commit/67c2a2bea99b78495c323ffb96b6e0805cc686bf))
 
 
 
