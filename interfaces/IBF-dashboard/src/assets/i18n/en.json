@@ -12,7 +12,19 @@
   },
   "dashboard-page": {
     "dev-menu": {
-      "title": "Dev Mode"
+      "title": "Dev Mode",
+      "mock-scenario": {
+        "button-label": "Load Mock Scenario",
+        "alert-header": "Load Mock Scenario",
+        "alert-sub-header": "Current data will be overwritten.",
+        "alert-message": "Are you sure you want to mock the situation for {{ countryName }}?",
+        "alert-input-secret-placeholder": "Please enter the reset secret",
+        "alert-button-cancel": "Cancel",
+        "alert-button-no-trigger": "No Trigger",
+        "alert-button-trigger": "Trigger",
+        "alert-error-api-error": "Failed to set mock scenario.",
+        "alert-error-no-secret": "Reset secret cannot be empty."
+      }
     },
     "today": "TODAY",
     "situational-overview": "Situational Overview"
