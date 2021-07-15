@@ -193,7 +193,7 @@
     "countryCodeISO2": "ET",
     "countryName": "Ethiopia",
     "countryStatus": "active",
-    "disasterTypes": ["floods", "dengue", "malaria"],
+    "disasterTypes": ["floods", "malaria"],
     "adminLevels": [3],
     "defaultAdminLevel": 3,
     "glofasStationInput": {
