@@ -822,10 +822,6 @@ export class MapService {
       .map((feature) =>
         typeof feature.properties[colorProperty] !== 'undefined'
           ? feature.properties[colorProperty]
-          : feature.properties.population_affected !== 'undefined'
-          ? feature.properties.population_affected
-          : feature.properties.potential_cases !== 'undefined'
-          ? feature.properties.potential_cases
           : feature.properties.indicators[colorProperty],
       )
       .filter((v, i, a) => a.indexOf(v) === i);
