@@ -91,6 +91,7 @@ export class ScriptsService {
         DynamicIndicator.alertThreshold,
         DynamicIndicator.potentialCases65,
         DynamicIndicator.potentialCasesU9,
+        DynamicIndicator.potentialCasesU5,
         DynamicIndicator.potentialCases,
         DynamicIndicator.potentialThreshold,
       ];
@@ -163,7 +164,10 @@ export class ScriptsService {
     for (const pcodeData of copyOfExposureUnit) {
       if (exposureUnit === DynamicIndicator.potentialCases65) {
         pcodeData.amount = Math.round(pcodeData.amount * 0.1);
-      } else if (exposureUnit === DynamicIndicator.potentialCasesU9) {
+      } else if (
+        exposureUnit === DynamicIndicator.potentialCasesU9 ||
+        exposureUnit === DynamicIndicator.potentialCasesU5
+      ) {
         pcodeData.amount = Math.round(pcodeData.amount * 0.2);
       } else if (exposureUnit === DynamicIndicator.alertThreshold) {
         if (!triggered) {

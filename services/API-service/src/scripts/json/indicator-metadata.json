@@ -273,6 +273,23 @@
     "unit": "incidence"
   },
   {
+    "country_codes": "ETH",
+    "disasterTypes": ["malaria"],
+    "name": "potential_cases_U5",
+    "label": "Potential Cases U5",
+    "group": "vulnerability",
+    "icon": "Children-white.svg",
+    "weightedAvg": false,
+    "active": false,
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": "ETH",
+    "numberFormatAggregate": "decimal0",
+    "order": 5,
+    "dynamic": true,
+    "lazyLoad": true
+  },
+  {
     "country_codes": "PHL",
     "disasterTypes": ["dengue"],
     "name": "potential_cases_U9",
