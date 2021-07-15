@@ -46,13 +46,18 @@
         "UGA": "Estimate exposed number of people over 65 years of age living in the flood extent area within the areas currently triggered. This number is calculated by multiplying the overall percentage of households with people over 65 years of age, by the total exposed population in that area. The number of people over 65 years of age in the flood extent is derived from the below sources.<br /><br />Source data:<ul><li>Population over 65: <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014.</li><li>Total Population: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href=\"https://www.ciesin.columbia.edu/data/hrsl/\">https://www.ciesin.columbia.edu/data/hrsl/</a></li><li>Flood extent: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].</li></ul>:"
       },
       "potential_cases": {
-        "PHL": "Number of potential dengue cases, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+        "PHL": "Number of potential dengue cases, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>",
+        "ETH": "Number of potential malaria cases, based on malaria risk and demographic data."
+      },
+      "potential_cases_U5": {
+        "ETH": "Number of potential malaria cases among children under 5 years of age, based on malaria risk and demographic data."
       },
       "potential_cases_U9": {
         "PHL": "Number of potential dengue cases among children under 9 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
       },
       "potential_cases_65": {
-        "PHL": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+        "PHL": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>",
+        "ETH": "Number of potential malaria cases among people above 65 years of age, based on malaria risk and demographic data."
       }
     }
   },
@@ -214,16 +219,22 @@
         "PHL": "Number of dengue cases per 10.000.000 people per administrative division per year. <br /><br />Source: <a href=\"https://doh.gov.ph/statistics\">https://doh.gov.ph/statistics/</a>"
       },
       "potential_cases": {
-        "PHL": "Number of potential dengue cases, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+        "PHL": "Number of potential dengue cases, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>",
+        "ETH": "Number of potential malaria cases, based on malaria risk and demographic data."
+      },
+      "potential_cases_U5": {
+        "ETH": "Number of potential malaria cases among children under 5 years of age, based on malaria risk and demographic data."
       },
       "potential_cases_U9": {
         "PHL": "Number of potential dengue cases among children under 9 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
       },
       "potential_cases_65": {
-        "PHL": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+        "PHL": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>",
+        "ETH": "Number of potential malaria cases among people above 65 years of age, based on malaria risk and demographic data."
       },
       "alert_threshold": {
-        "PHL": "Administrative divisions that reached alert threshold, in terms of number of potential cases. <br /><br /> See definition at: <a href=\"https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/Forms/AllItems.aspx?id=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments%2FIBF%5Fdengue%5Ftechnical%5Fnote%2Epdf&parent=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments&p=true&originalPath=aHR0cHM6Ly9yb2Rla3J1aXMuc2hhcmVwb2ludC5jb20vc2l0ZXMvNTEwLUNSQVZLLTUxMC9fbGF5b3V0cy8xNS9ndWVzdGFjY2Vzcy5hc3B4P2RvY2lkPTBmOTI0OWIzNWRhNGQ0YzBhOTg1YjMzMzkzZmMzODhkZiZhdXRoa2V5PUFRU0xubmFmR0YtTTJ0MUNHSWcwaGRBJmV4cGlyYXRpb249MjAyMi0wNi0xNFQyMiUzYTAwJTNhMDAuMDAwWiZydGltZT1TS016R0dzeDJVZw\"> link to technical documentation</a>"
+        "PHL": "Administrative divisions that reached alert threshold, in terms of number of potential cases. <br /><br /> See definition at: <a href=\"https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/Forms/AllItems.aspx?id=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments%2FIBF%5Fdengue%5Ftechnical%5Fnote%2Epdf&parent=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments&p=true&originalPath=aHR0cHM6Ly9yb2Rla3J1aXMuc2hhcmVwb2ludC5jb20vc2l0ZXMvNTEwLUNSQVZLLTUxMC9fbGF5b3V0cy8xNS9ndWVzdGFjY2Vzcy5hc3B4P2RvY2lkPTBmOTI0OWIzNWRhNGQ0YzBhOTg1YjMzMzkzZmMzODhkZiZhdXRoa2V5PUFRU0xubmFmR0YtTTJ0MUNHSWcwaGRBJmV4cGlyYXRpb249MjAyMi0wNi0xNFQyMiUzYTAwJTNhMDAuMDAwWiZydGltZT1TS016R0dzeDJVZw\"> link to technical documentation</a>",
+        "ETH": "Administrative divisions that reached alert threshold, in terms of number of potential cases."
       }
     }
   }
