@@ -1,3 +1,12 @@
+# [0.78.0](https://github.com/rodekruis/IBF-system/compare/v0.77.2...v0.78.0) (2021-07-16)
+
+
+### Features
+
+* update glofas thresholds AB[#8936](https://github.com/rodekruis/IBF-system/issues/8936) ([00bbf27](https://github.com/rodekruis/IBF-system/commit/00bbf2735ad4d9f94a5d4794c11233bfa9262317))
+
+
+
 ## [0.77.2](https://github.com/rodekruis/IBF-system/compare/v0.77.1...v0.77.2) (2021-07-15)
 
 
@@ -77,20 +86,6 @@
 ### Features
 
 * use ftp instead of datalake AB[#8575](https://github.com/rodekruis/IBF-system/issues/8575) ([de7c8c6](https://github.com/rodekruis/IBF-system/commit/de7c8c61f39339e2eaaca371e6f0048b8aa761e9))
-
-
-
-# [0.74.0](https://github.com/rodekruis/IBF-system/compare/v0.73.0...v0.74.0) (2021-07-12)
-
-
-### Bug Fixes
-
-* show right indicator in admin-area popup AB[#8596](https://github.com/rodekruis/IBF-system/issues/8596) ([c29872f](https://github.com/rodekruis/IBF-system/commit/c29872f11c8bef72a9162e345b51b5f6fd1611d0))
-
-
-### Features
-
-* show total population in middle column AB[#8586](https://github.com/rodekruis/IBF-system/issues/8586) ([51089cb](https://github.com/rodekruis/IBF-system/commit/51089cb54810a4a17a9281992928e6394586c28f))
 
 
 
