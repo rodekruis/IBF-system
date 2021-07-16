@@ -193,7 +193,7 @@ PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'
 #########################
 
 # Glofas input
-GLOFAS_FTP = 'data-portal.ecmwf.int/ZambiaRedcross_glofas_point/'
+GLOFAS_FTP = 'data-portal.ecmwf.int/3.1/ZambiaRedcross_glofas_point/'
 GLOFAS_FILENAME = 'glofas_pointdata_ZambiaRedcross'
 
 # GFS rainfall input

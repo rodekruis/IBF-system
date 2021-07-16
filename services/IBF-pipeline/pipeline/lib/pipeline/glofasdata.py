@@ -66,8 +66,7 @@ class GlofasData:
 
         while downloadDone == False and time.time() < end:
             try:
-                # self.getGlofasData()
-                self.makeFtpRequest()
+                self.getGlofasData()
                 downloadDone = True
             except Exception as exception:
                 error = 'Download data failed. Trying again in {} minutes.\n{}'.format(timeToRetry//60, exception)
@@ -85,16 +84,6 @@ class GlofasData:
         if glofasDataFile.status_code >= 400:
             raise ValueError()
         open(self.inputPath + filename, 'wb').write(glofasDataFile.content)
-        tar = tarfile.open(self.inputPath + filename, "r:gz")
-        tar.extractall(self.inputPath)
-        tar.close()
-
-    def makeFtpRequest(self):
-        filename = GLOFAS_FILENAME + '_' + self.current_date + '00.tar.gz'
-        ftp_path = 'ftp://'+GLOFAS_USER+':'+GLOFAS_PW + '@' + GLOFAS_FTP
-        urllib.request.urlretrieve(ftp_path + filename,
-                                   self.inputPath + filename)
-
         tar = tarfile.open(self.inputPath + filename, "r:gz")
         tar.extractall(self.inputPath)
         tar.close()
@@ -123,7 +112,7 @@ class GlofasData:
         for i in range(0, len(files)):
             logging.info("Extracting glofas data from %s", i)
             Filename = os.path.join(self.inputPath, files[i])
-
+            
             # Skip old stations > need to be removed from FTP
             if 'G5230_Na_ZambiaRedcross' in Filename or 'G5196_Uganda_Gauge' in Filename:
                 continue
@@ -136,8 +125,8 @@ class GlofasData:
 
             # Get threshold for this specific station
             if station['code'] in df_thresholds['stationCode'] and station['code'] in df_district_mapping['glofasStation']:
-
-                print("Extracting file: {}".format(Filename))
+                
+                print(Filename)
                 threshold = df_thresholds[df_thresholds['stationCode'] ==
                                           station['code']][TRIGGER_LEVEL][0]
 
@@ -325,7 +314,7 @@ class GlofasData:
                     return_period_flood_extent = 25
             else:
                 return_period_flood_extent = None
-
+                
             if fc >= row['threshold20Year']:
                 return_period = 20
             elif fc >= row['threshold10Year']:
@@ -336,7 +325,7 @@ class GlofasData:
                 return_period = 2
             else:
                 return_period = None
-
+            
             df.at[index, 'fc_rp_flood_extent'] = return_period_flood_extent
             df.at[index, 'fc_rp'] = return_period
 
