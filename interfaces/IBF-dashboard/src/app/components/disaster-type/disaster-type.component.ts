@@ -11,6 +11,11 @@ import { CountryService } from '../../services/country.service';
 })
 export class DisasterTypeComponent implements OnInit, OnDestroy {
   public disasterTypes: DisasterType[] = [];
+  public DISASTER_TYPES_SVG_MAP = {
+    'floods': '/assets/icons/alert-black.svg',
+    'dengue': '/assets/icons/source-info.svg',
+    'heavy-rain': ''
+  }
 
   private countrySubscription: Subscription;
 
