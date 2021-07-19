@@ -43,3 +43,10 @@ export const LEAFLET_MAP_OPTIONS: MapOptions = {
   zoom: 5,
   layers: [],
 };
+
+export const DISASTER_TYPES_SVG_MAP = {
+  'floods': '/assets/icons/alert-black.svg',
+  'dengue': '/assets/icons/source-info.svg',
+  'malaria': '/assets/icons/source-info.svg',
+  'heavy-rain': ''
+}

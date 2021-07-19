@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { Country, DisasterType } from '../../models/country.model';
 import { CountryService } from '../../services/country.service';
+import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
 
 @Component({
   selector: 'app-disaster-type',
@@ -11,11 +12,8 @@ import { CountryService } from '../../services/country.service';
 })
 export class DisasterTypeComponent implements OnInit, OnDestroy {
   public disasterTypes: DisasterType[] = [];
-  public DISASTER_TYPES_SVG_MAP = {
-    'floods': '/assets/icons/alert-black.svg',
-    'dengue': '/assets/icons/source-info.svg',
-    'heavy-rain': ''
-  }
+  public disasterTypeMap = DISASTER_TYPES_SVG_MAP
+  public selectedDisasterType: string = null;
 
   private countrySubscription: Subscription;
 
@@ -42,5 +40,6 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
 
   public switchDisasterType(disasterType: DisasterType): void {
     this.disasterTypeService.setDisasterType(disasterType);
+    this.selectedDisasterType = disasterType.label;
   }
 }
