@@ -1,3 +1,12 @@
+## [0.78.1](https://github.com/rodekruis/IBF-system/compare/v0.78.0...v0.78.1) (2021-07-19)
+
+
+### Bug Fixes
+
+* use variable instead of function to prevent angular reload AB[#8552](https://github.com/rodekruis/IBF-system/issues/8552) ([a8cd3e0](https://github.com/rodekruis/IBF-system/commit/a8cd3e0ab011064c87081966641c2125e3baa825))
+
+
+
 # [0.78.0](https://github.com/rodekruis/IBF-system/compare/v0.77.2...v0.78.0) (2021-07-16)
 
 
@@ -77,15 +86,6 @@
 ### Bug Fixes
 
 * sleep for 2 minutes before testing ([729214f](https://github.com/rodekruis/IBF-system/commit/729214fbbf57c6dde423a49ac890baa176dd271e))
-
-
-
-# [0.75.0](https://github.com/rodekruis/IBF-system/compare/v0.74.0...v0.75.0) (2021-07-13)
-
-
-### Features
-
-* use ftp instead of datalake AB[#8575](https://github.com/rodekruis/IBF-system/issues/8575) ([de7c8c6](https://github.com/rodekruis/IBF-system/commit/de7c8c61f39339e2eaaca371e6f0048b8aa761e9))
 
 
 
