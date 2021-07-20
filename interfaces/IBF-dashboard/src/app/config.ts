@@ -45,8 +45,8 @@ export const LEAFLET_MAP_OPTIONS: MapOptions = {
 };
 
 export const DISASTER_TYPES_SVG_MAP = {
-  'floods': '/assets/icons/alert-black.svg',
-  'dengue': '/assets/icons/source-info.svg',
-  'malaria': '/assets/icons/source-info.svg',
-  'heavy-rain': ''
+  'floods': '/assets/icons/Flood.svg',
+  'dengue': '/assets/icons/Mosquito.svg',
+  'malaria': '/assets/icons/Mosquito.svg',
+  'heavy rainfal': '/assets/icons/Alert.svg',
 }
