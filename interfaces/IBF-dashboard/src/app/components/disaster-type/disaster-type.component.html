@@ -3,7 +3,6 @@
   [ngClass]="{'active': disasterType.label === selectedDisasterType}">
   <ion-tab-button (click)="switchDisasterType(disasterType)" [ngClass]="{'active': disasterType.label === selectedDisasterType}">
     <ion-icon
-      [color]="'danger'"
       [src]="disasterTypeMap[disasterType.label]">
     </ion-icon>
     <ion-label >{{ disasterType.label }}</ion-label>
