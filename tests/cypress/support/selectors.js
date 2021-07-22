@@ -10,4 +10,10 @@ export default {
     exportViewPopover: "[data-test='export-view-popover']",
     logoImage: "[data-test='logo-image']",
     loader: "[data-test='loader']",
+    videoGuide: "[data-test=video-guide-button]",
+    timelineButton: "app-timeline > .ion-no-padding",
+    list : "//*[starts-with(@class,'active')]/parent::ion-item/ion-button[starts-with(@class,'active')]",
+  
 };
+
+
