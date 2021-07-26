@@ -36,7 +36,7 @@ SETTINGS = {
             'triggerStatement': "TBD",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://adore.ifrc.org/Download.aspx?FileId=357745",
-            'linkVideo': "https://www.youtube.com/watch?v=q_xTy9PpCcE",
+            'linkVideo': "https://www.youtube-nocookie.com/embed/q_xTy9PpCcE",
             'linkPdf':  "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=099a8b8007d1c42ad9fb8d46ddfc76312&authkey=AQfJjA-3U7NeXqnWxJIgsbs&expiration=2022-07-19T22%3A00%3A00.000Z&e=12vFWG",
             'linkSocialMedia': {
                 "type": "WhatsApp",
@@ -63,7 +63,7 @@ SETTINGS = {
             'triggerStatement': "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x",
-            'linkVideo': "",
+            'linkVideo': "https://www.youtube-nocookie.com/embed/3hm4IeLP90g",
             'linkPdf': "https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf",
             'linkSocialMedia': {
                 "type": "WhatsApp",
@@ -207,9 +207,9 @@ GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 EMAIL_WITHOUT_TRIGGER = False
 
 # Notification email (True if hard-coded alternative for mailchimp is used)
-EMAIL_HARDCODE = True
+EMAIL_HARDCODE = False
 EMAIL_LIST_HARDCODE = [
-    'sthakre@rodekruis.nl'
+    'jannisvisser@redcross.nl'
 ]
 
 # Logging email settings

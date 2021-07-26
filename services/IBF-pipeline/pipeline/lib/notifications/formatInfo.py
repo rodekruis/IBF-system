@@ -132,7 +132,7 @@ def formatInfo(info, countryCodeISO3):
     """
     videoStr = ""
     if len(linkVideo) > 0:
-        videoStr = 'video' + linkVideoHTML
+        videoStr = 'Video' + linkVideoHTML
 
     pdfStr = ""
     if len(linkPdf) > 0:

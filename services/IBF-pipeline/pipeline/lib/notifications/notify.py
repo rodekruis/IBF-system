@@ -12,11 +12,9 @@ from settings import EMAIL_WITHOUT_TRIGGER, EMAIL_HARDCODE, EMAIL_LIST_HARDCODE,
 
 
 def notify(countryCodeISO3):
-    print("###### Inside Notify  ######")
     print(countryCodeISO3)
     if SETTINGS_SECRET[countryCodeISO3]["notify_email"]:
         floodInfo = getFloodInfo(countryCodeISO3)
-        print("###### floodInfo ######")
         print(floodInfo)
         if floodInfo["flood"] or EMAIL_WITHOUT_TRIGGER:
             formattedInfo = formatInfo(floodInfo, countryCodeISO3)
@@ -28,7 +26,6 @@ def notify(countryCodeISO3):
                 msg['Subject'] = formattedInfo['subject']
                 part = MIMEText(formattedInfo['html'], "html")
                 msg.attach(part)
-                print("###### formattedInfo['html'] ######")
                 print(formattedInfo['html'])
                 sendMailAlternative(EMAIL_LIST_HARDCODE, msg.as_string())
 
