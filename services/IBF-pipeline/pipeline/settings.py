@@ -36,8 +36,8 @@ SETTINGS = {
             'triggerStatement': "TBD",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://adore.ifrc.org/Download.aspx?FileId=357745",
-            'linkVideo': "https://www.youtube-nocookie.com/embed/3hm4IeLP90g",
-            'linkPdf':  "https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf",
+            'linkVideo': "https://www.youtube.com/watch?v=q_xTy9PpCcE",
+            'linkPdf':  "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=099a8b8007d1c42ad9fb8d46ddfc76312&authkey=AQfJjA-3U7NeXqnWxJIgsbs&expiration=2022-07-19T22%3A00%3A00.000Z&e=12vFWG",
             'linkSocialMedia': {
                 "type": "WhatsApp",
                 "url": "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin/"

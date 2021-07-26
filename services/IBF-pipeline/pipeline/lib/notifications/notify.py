@@ -54,7 +54,6 @@ def sendMailAlternative(receiver_email, message):
     except Exception as e:
         # Print any error messages to stdout
         print(e)
-        print("########## sthakre ############")
         logger.info(e)
     finally:
         server.quit()
