@@ -2,9 +2,11 @@ import constants from "./constants";
 import selectors from "./selectors";
 import 'cypress-wait-until';
 
+
 Cypress.Commands.add("waitForRequests", () => {
   cy.intercept({ method: "GET", url: "**" }).as("getHttp");
-  cy.wait("@getHttp");
+  //cy.wait("@getHttp");
+  cy.wait(constants.waitForRequest);
 });
 
 // Contains a list of custom Commands
@@ -50,3 +52,5 @@ Cypress.Commands.add("waitForAngular", () => {
 Cypress.Commands.overwrite("log", (subject, message) =>
   cy.task("log", message)
 );
+
+

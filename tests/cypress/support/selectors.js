@@ -10,4 +10,7 @@ export default {
     exportViewPopover: "[data-test='export-view-popover']",
     logoImage: "[data-test='logo-image']",
     loader: "[data-test='loader']",
+    videoGuide: "[data-test=video-guide-button]",
+    ActiveleadTimeButtons : "//*[starts-with(@class,'active')]",
+    
 };
