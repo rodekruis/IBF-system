@@ -1,3 +1,12 @@
+## [0.78.2](https://github.com/rodekruis/IBF-system/compare/v0.78.1...v0.78.2) (2021-07-27)
+
+
+### Bug Fixes
+
+* add red cross branches seed data for ethiopia AB[#8818](https://github.com/rodekruis/IBF-system/issues/8818) ([7e5c4c5](https://github.com/rodekruis/IBF-system/commit/7e5c4c5c28ec6a43f0873c681ff56342689fc242))
+
+
+
 ## [0.78.1](https://github.com/rodekruis/IBF-system/compare/v0.78.0...v0.78.1) (2021-07-19)
 
 
@@ -77,15 +86,6 @@
 ### Features
 
 * add malaria disaster type AB[#8641](https://github.com/rodekruis/IBF-system/issues/8641) ([b673512](https://github.com/rodekruis/IBF-system/commit/b673512a33b59c25a7c77add08c886d31657ff0e))
-
-
-
-## [0.75.1](https://github.com/rodekruis/IBF-system/compare/v0.75.0...v0.75.1) (2021-07-13)
-
-
-### Bug Fixes
-
-* sleep for 2 minutes before testing ([729214f](https://github.com/rodekruis/IBF-system/commit/729214fbbf57c6dde423a49ac890baa176dd271e))
 
 
 
