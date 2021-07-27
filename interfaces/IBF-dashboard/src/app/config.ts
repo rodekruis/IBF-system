@@ -1,5 +1,6 @@
 import { IconOptions, MapOptions } from 'leaflet';
 import { environment } from 'src/environments/environment';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 
 export const DEBUG_LOG = environment.configuration === 'development';
 
@@ -45,8 +46,8 @@ export const LEAFLET_MAP_OPTIONS: MapOptions = {
 };
 
 export const DISASTER_TYPES_SVG_MAP = {
-  'floods': '/assets/icons/Flood.svg',
-  'dengue': '/assets/icons/Mosquito.svg',
-  'malaria': '/assets/icons/Mosquito.svg',
-  'heavy rainfal': '/assets/icons/Alert.svg',
+  [DisasterTypeKey.floods]: '/assets/icons/Flood.svg',
+  [DisasterTypeKey.dengue]: '/assets/icons/Mosquito.svg',
+  [DisasterTypeKey.malaria]: '/assets/icons/Mosquito.svg',
+  [DisasterTypeKey.heavyRain]: '/assets/icons/Alert.svg',
 }
