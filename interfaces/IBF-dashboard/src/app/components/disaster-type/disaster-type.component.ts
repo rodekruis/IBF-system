@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { Country, DisasterType } from '../../models/country.model';
 import { CountryService } from '../../services/country.service';
-import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
-import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 
 @Component({
   selector: 'app-disaster-type',
