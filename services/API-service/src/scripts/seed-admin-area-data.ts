@@ -51,7 +51,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           });
         this.adminAreaDataRepository.save(adminAreaDataEntities);
       } catch (exception) {
-        console.error(`Skipping population data for ${countryCodeISO3}`);
+        console.error(`Skip Indicator: Population - ${countryCodeISO3}`);
       }
     });
 
