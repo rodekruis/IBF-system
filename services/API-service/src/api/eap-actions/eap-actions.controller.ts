@@ -1,14 +1,8 @@
-import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
 import { EapActionsService } from './eap-actions.service';
 import { UserDecorator } from '../user/user.decorator';
-import {
-  ApiBearerAuth,
-  ApiParam,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { EapActionDto } from './dto/eap-action.dto';
-import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { RolesGuard } from '../../roles.guard';

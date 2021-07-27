@@ -1,4 +1,3 @@
-import { UserModule } from './../user/user.module';
 import { AdminAreaEntity } from './../admin-area/admin-area.entity';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
