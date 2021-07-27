@@ -36,7 +36,7 @@ export class AdminAreaDynamicDataService {
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
     // Delete existing entries with same date, leadtime and countryCodeISO3 and unit type
-    const deleteDate = await this.deleteDynamicDuplicates(uploadExposure);
+    await this.deleteDynamicDuplicates(uploadExposure);
 
     console.time('Insert exposure');
     const areas = [];

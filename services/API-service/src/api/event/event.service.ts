@@ -1,4 +1,3 @@
-import { LeadTimeEntity } from './../lead-time/lead-time.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 /* eslint-disable @typescript-eslint/camelcase */
