@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { Country, DisasterType } from '../../models/country.model';
 import { CountryService } from '../../services/country.service';
 
@@ -11,6 +13,8 @@ import { CountryService } from '../../services/country.service';
 })
 export class DisasterTypeComponent implements OnInit, OnDestroy {
   public disasterTypes: DisasterType[] = [];
+  public disasterTypeMap = DISASTER_TYPES_SVG_MAP;
+  public selectedDisasterType: DisasterTypeKey = DisasterTypeKey.floods;
 
   private countrySubscription: Subscription;
 
@@ -37,5 +41,6 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
 
   public switchDisasterType(disasterType: DisasterType): void {
     this.disasterTypeService.setDisasterType(disasterType);
+    this.selectedDisasterType = disasterType.disasterType;
   }
 }

@@ -1,6 +1,12 @@
-<ion-tab-bar *ngFor="let disasterType of disasterTypes">
-  <ion-tab-button (click)="switchDisasterType(disasterType)">
-    <ion-icon name="warning"></ion-icon>
+<ion-tab-bar
+  *ngFor="let disasterType of disasterTypes"
+  [ngClass]="{ active: disasterType.disasterType === selectedDisasterType }"
+>
+  <ion-tab-button
+    (click)="switchDisasterType(disasterType)"
+    [ngClass]="{ active: disasterType.disasterType === selectedDisasterType }"
+  >
+    <ion-icon [src]="disasterTypeMap[disasterType.disasterType]"> </ion-icon>
     <ion-label>{{ disasterType.label }}</ion-label>
   </ion-tab-button>
 </ion-tab-bar>
