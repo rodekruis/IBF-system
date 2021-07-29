@@ -200,6 +200,19 @@ export class SeedAdminAreaData implements InterfaceScript {
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
+      // population_u5
+      fileName = `./src/scripts/git-lfs/admin-area-data/population_u5_ETH.csv`;
+      data = await this.seedHelper.getCsvData(fileName);
+      dataArray = data.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['ADM3_PCODE'],
+          indicator: 'population_u5',
+          value: area['ETH_children_under_five'],
+        };
+      });
+      await this.adminAreaDataRepository.save(dataArray);
     }
   }
 }
