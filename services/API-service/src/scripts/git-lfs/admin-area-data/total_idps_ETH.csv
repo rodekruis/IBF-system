@@ -1,0 +1,388 @@
+﻿ADM1_PCODE,Region,ADM2_PCODE,Zone,ADM3_PCODE,Woreda,Total IDPs
+ET14,Addis Ababa,ET1401,Akaki Sub City,ET140101,Woreda 09,368
+ET14,Addis Ababa,ET1401,Akaki Sub City,ET140101,Woreda 11,5486
+ET02,Afar,ET0201,Awsi /Zone 1,ET020104,Afambo,2112
+ET02,Afar,ET0201,Awsi /Zone 1,ET020104,Afambo,1961
+ET02,Afar,ET0201,Awsi /Zone 1,ET020104,Afambo,6542
+ET02,Afar,ET0201,Awsi /Zone 1,ET020103,Asayita,9248
+ET02,Afar,ET0201,Awsi /Zone 1,ET020103,Asayita,1265
+ET02,Afar,ET0201,Awsi /Zone 1,ET020101,Dubti,4635
+ET02,Afar,ET0201,Awsi /Zone 1,ET020102,Elidar,2056
+ET02,Afar,ET0201,Awsi /Zone 1,ET020105,Mile,2212
+ET02,Afar,ET0201,Awsi /Zone 1,ET020105,Mile,2685
+ET02,Afar,ET0201,Awsi /Zone 1,ET020108,Kori,182
+ET02,Afar,ET0201,Awsi /Zone 1,ET020109,Adar,786
+ET02,Afar,ET0201,Awsi /Zone 1,ET020106,Chifra,557
+ET02,Afar,ET0201,Awsi /Zone 1,ET020110,Gerani,9864
+ET02,Afar,ET0201,Awsi /Zone 1,ET020110,Gerani,695
+ET02,Afar,ET0204,Fanti /Zone 4,ET020405,Gulina,1087
+ET02,Afar,ET0204,Fanti /Zone 4,ET020403,Teru,1248
+ET02,Afar,ET0204,Fanti /Zone 4,ET020403,Teru,1981
+ET02,Afar,ET0204,Fanti /Zone 4,ET020402,Euwa,2872
+ET02,Afar,ET0204,Fanti /Zone 4,ET020404,Yalo,199
+ET02,Afar,ET0203,Gabi /Zone 3,ET020301,Amibara,11654
+ET02,Afar,ET0203,Gabi /Zone 3,ET020301,Amibara,10803
+ET02,Afar,ET0203,Gabi /Zone 3,ET020396,Awash town,4727
+ET02,Afar,ET0203,Gabi /Zone 3,ET020304,Dulecha,1620
+ET02,Afar,ET0203,Gabi /Zone 3,ET020304,Dulecha,6605
+ET02,Afar,ET0203,Gabi /Zone 3,ET020305,Gelalu,2963
+ET02,Afar,ET0203,Gabi /Zone 3,ET020305,Gelalu,8505
+ET02,Afar,ET0203,Gabi /Zone 3,ET020303,Gewane,8087
+ET02,Afar,ET0203,Gabi /Zone 3,ET020307,Hanruka,1964
+ET02,Afar,ET0203,Gabi /Zone 3,ET020307,Hanruka,3873
+ET02,Afar,ET0205,Hari /Zone 5,ET020504,Dalefage,916
+ET02,Afar,ET0205,Hari /Zone 5,ET020503,Dawe,1170
+ET02,Afar,ET0205,Hari /Zone 5,ET020505,Hadelela,1695
+ET02,Afar,ET0205,Hari /Zone 5,ET020502,Samurobi,291
+ET02,Afar,ET0205,Hari /Zone 5,ET020501,Telalek,501
+ET02,Afar,ET0205,Hari /Zone 5,ET020501,Telalek,168
+ET02,Afar,ET0202,Kilbati /Zone2,ET020207,Afdera,1719
+ET02,Afar,ET0202,Kilbati /Zone2,ET020205,Berahile,335
+ET02,Afar,ET0202,Kilbati /Zone2,ET020208,Bidu,171
+ET02,Afar,ET0202,Kilbati /Zone2,ET020208,Bidu,2016
+ET02,Afar,ET0202,Kilbati /Zone2,ET020206,Dalol,2112
+ET02,Afar,ET0202,Kilbati /Zone2,ET020201,Erebti,787
+ET02,Afar,ET0202,Kilbati /Zone2,ET020204,Megale,1546
+ET02,Afar,ET0202,Kilbati /Zone2,ET020203,Abaala,941
+ET03,Amhara,ET0309,Awi,ET030999,Chagni town,26207
+ET03,Amhara,ET0309,Awi,ET030907,Guagusa Shikudad,264
+ET03,Amhara,ET0309,Awi,ET030904,Guangua,9328
+ET03,Amhara,ET0311,Central Gondar,ET031199,Aykel town,3071
+ET03,Amhara,ET0311,Central Gondar,ET031108,Lay Armacho,77
+ET03,Amhara,ET0311,Central Gondar,ET031106,Chilga 1,812
+ET03,Amhara,ET0311,Central Gondar,ET031107,Tsegede (AM),665
+ET03,Amhara,ET0306,East Gojam,ET030615,Debre Markos town,199
+ET03,Amhara,ET0306,East Gojam,ET030604,Enebse Sarmder,203
+ET03,Amhara,ET0306,East Gojam,ET030610,Guzamn,562
+ET03,Amhara,ET0305,North Shewa (AM),ET030518,Minjar Shenkora,1277
+ET03,Amhara,ET0305,North Shewa (AM),ET030521,Menze Keya Gabriel,346
+ET03,Amhara,ET0305,North Shewa (AM),ET030520,Debre Berhan town,58
+ET03,Amhara,ET0305,North Shewa (AM),ET030505,Menze Gera Midir,108
+ET03,Amhara,ET0305,North Shewa (AM),ET030503,Ensaro,1211
+ET03,Amhara,ET0305,North Shewa (AM),ET030504,Moretna Jiru,473
+ET03,Amhara,ET0303,North Wello,ET030308,Habru,92
+ET03,Amhara,ET0303,North Wello,ET030307,Guba Lafto,395
+ET03,Amhara,ET0303,North Wello,ET030399,Kobo town,450
+ET03,Amhara,ET0303,North Wello,ET030398,Lalibela town,515
+ET03,Amhara,ET0303,North Wello,ET030397,Mersa town,267
+ET03,Amhara,ET0303,North Wello,ET030309,Woldiya town,59
+ET03,Amhara,ET0310,Oromia,ET031005,Dewa Harewa,183
+ET03,Amhara,ET0302,South Gondar,ET030211,Anda Bet,946
+ET03,Amhara,ET0302,South Gondar,ET030210,Debre Tabor town,1053
+ET03,Amhara,ET0302,South Gondar,ET030211,West Estite,2851
+ET03,Amhara,ET0302,South Gondar,ET030204,Farta,202
+ET03,Amhara,ET0302,South Gondar,ET030299,Adisezemen town,81
+ET03,Amhara,ET0302,South Gondar,ET030209,Dera (AM),97
+ET03,Amhara,ET0302,South Gondar,ET030212,Guna Begemider,119
+ET03,Amhara,ET0302,South Gondar,ET030215,Nefas Mewicha town,116
+ET03,Amhara,ET0302,South Gondar,ET030214,Sede Muja,1027
+ET03,Amhara,ET0302,South Gondar,ET030293,Woreta town,309
+ET03,Amhara,ET0304,South Wello,ET030407,Kalu,708
+ET03,Amhara,ET0304,South Wello,ET030405,Thehulederie,162
+ET03,Amhara,ET0304,South Wello,ET030404,Ambasel,87
+ET03,Amhara,ET0304,South Wello,ET030414,Jama,332
+ET03,Amhara,ET0304,South Wello,ET030423,Wereilu town,128
+ET03,Amhara,ET0304,South Wello,ET030401,Argoba,265
+ET03,Amhara,ET0308,Wag Hamra,ET030803,Dehana,134
+ET03,Amhara,ET0308,Wag Hamra,ET030804,Gaz Gibla,159
+ET03,Amhara,ET0308,Wag Hamra,ET030802,Sekota,165
+ET03,Amhara,ET0308,Wag Hamra,ET030801,Zequala,224
+ET03,Amhara,ET0307,West Gojam,ET030705,Sekela,7251
+ET03,Amhara,ET0307,West Gojam,ET030707,Dega Damot,3302
+ET03,Amhara,ET0307,West Gojam,ET030714,Finote Selam town,100
+ET03,Amhara,ET0312,West Gondar,ET031213,Metema,2812
+ET03,Amhara,ET0312,West Gondar,ET031214,Quara,589
+ET06,Benishangul Gumz,ET0603,Asosa,ET060306,Bilidigilu,486
+ET06,Benishangul Gumz,ET0604,Kemashi,ET060403,Kamashi,945
+ET06,Benishangul Gumz,ET0604,Kemashi,ET060404,Dembi,79
+ET06,Benishangul Gumz,ET0604,Kemashi,ET060405,Mizyiga,1599
+ET06,Benishangul Gumz,ET0604,Kemashi,ET060401,Zayi,787
+ET15,Dire Dawa,ET1501,Dire Dawa urban,ET150113,Kazira,4921
+ET12,Gambela,ET1202,Agnewak,ET120206,Gambela town,658
+ET12,Gambela,ET1202,Agnewak,ET120203,Gog,4297
+ET12,Gambela,ET1202,Agnewak,ET120204,Jore,409
+ET12,Gambela,ET1201,Nuwer,ET120103,Jikawo,3306
+ET12,Gambela,ET1201,Nuwer,ET120103,Jikawo,1695
+ET12,Gambela,ET1201,Nuwer,ET120102,Lare,18332
+ET12,Gambela,ET1201,Nuwer,ET120104,Wantawo,11206
+ET12,Gambela,ET1201,Nuwer,ET120104,Wantawo,2117
+ET13,Harari,ET1301,Harari,ET130109,Abadir,125
+ET13,Harari,ET1301,Harari,ET130108,Aboker,169
+ET13,Harari,ET1301,Harari,ET130107,Amir Nur,194
+ET13,Harari,ET1301,Harari,ET130104,Hakim,1589
+ET13,Harari,ET1301,Harari,ET130103,Jinela,199
+ET13,Harari,ET1301,Harari,ET130102,Shenkor,50
+ET13,Harari,ET1301,Harari,ET130101,Sofi,328
+ET04,Oromia,ET0408,Arsi,ET040815,Degeluna Tijo,127
+ET04,Oromia,ET0408,Arsi,ET040803,Golocha,90
+ET04,Oromia,ET0408,Arsi,ET040803,Golocha,2370
+ET04,Oromia,ET0408,Arsi,ET040817,Munessa,39
+ET04,Oromia,ET0408,Arsi,ET040801,Merti,129
+ET04,Oromia,ET0408,Arsi,ET040810,Amigna,136
+ET04,Oromia,ET0408,Arsi,ET040823,Bele Gesgar,112
+ET04,Oromia,ET0408,Arsi,ET040807,Hitosa,79
+ET04,Oromia,ET0408,Arsi,ET040812,Robe,503
+ET04,Oromia,ET0408,Arsi,ET040814,Shirka,420
+ET04,Oromia,ET0408,Arsi,ET040808,Sude,84
+ET04,Oromia,ET0408,Arsi,ET040802,Aseko,75
+ET04,Oromia,ET0408,Arsi,ET040822,Diksis,54
+ET04,Oromia,ET0411,Bale,ET041113,Meda Welabu,3511
+ET04,Oromia,ET0411,Bale,ET041114,Berbere,153
+ET04,Oromia,ET0411,Bale,ET041112,Mena/Delomena,189
+ET04,Oromia,ET0411,Bale,ET041115,Gura Damole,1152
+ET04,Oromia,ET0411,Bale,ET041106,Gasera,154
+ET04,Oromia,ET0411,Bale,ET041104,Agarfa,147
+ET04,Oromia,ET0411,Bale,ET041120,Goba town,57
+ET04,Oromia,ET0411,Bale,ET041109,Sinana,173
+ET04,Oromia,ET0412,Borena,ET041290,Guchi,56328
+ET04,Oromia,ET0412,Borena,ET041290,Guchi,13801
+ET04,Oromia,ET0412,Borena,ET041210,Moyale (OR),36728
+ET04,Oromia,ET0412,Borena,ET041210,Moyale (OR),22155
+ET04,Oromia,ET0412,Borena,ET041208,Arero,4632
+ET04,Oromia,ET0412,Borena,ET041298,Wachile,7226
+ET04,Oromia,ET0412,Borena,ET041220,Dhas,2100
+ET04,Oromia,ET0416,Buno Bedele,ET041608,Dedesa,9770
+ET04,Oromia,ET0421,East Bale,ET042102,Lege Hida,4020
+ET04,Oromia,ET0421,East Bale,ET042104,Rayitu,1559
+ET04,Oromia,ET0421,East Bale,ET042103,Ginir,456
+ET04,Oromia,ET0421,East Bale,ET042101,Gololcha Bale,60
+ET04,Oromia,ET0421,East Bale,,Dawe Serer,3802
+ET04,Oromia,ET0421,East Bale,ET042105,Seweyna,5532
+ET04,Oromia,ET0410,East Hararge,ET041004,Babile,5579
+ET04,Oromia,ET0410,East Hararge,ET041015,Chinaksen,16980
+ET04,Oromia,ET0410,East Hararge,ET041005,Fedis,13335
+ET04,Oromia,ET0410,East Hararge,ET041003,Gursum (OR),10851
+ET04,Oromia,ET0410,East Hararge,ET041008,Kersa (East Hararge),1724
+ET04,Oromia,ET0410,East Hararge,ET041098,Kumbi,28489
+ET04,Oromia,ET0410,East Hararge,ET041012,Melka Balo,1125
+ET04,Oromia,ET0410,East Hararge,ET041018,Meyu Muleke,17989
+ET04,Oromia,ET0410,East Hararge,ET041014,Midhaga Tola,1363
+ET04,Oromia,ET0410,East Hararge,ET041010,Goro Gutu,3131
+ET04,Oromia,ET0410,East Hararge,ET041001,Kombolcha,265
+ET04,Oromia,ET0410,East Hararge,ET041013,Bedeno,495
+ET04,Oromia,ET0410,East Hararge,ET041011,Deder,6952
+ET04,Oromia,ET0410,East Hararge,ET041089,Goro Muti,623
+ET04,Oromia,ET0410,East Hararge,ET041016,Girawa,600
+ET04,Oromia,ET0410,East Hararge,ET041006,Haro Maya,1080
+ET04,Oromia,ET0410,East Hararge,ET041006,Haro Maya,511
+ET04,Oromia,ET0410,East Hararge,ET041002,Jarso (East Hararghe),7612
+ET04,Oromia,ET0410,East Hararge,ET041007,Kurfa Chele,190
+ET04,Oromia,ET0410,East Hararge,ET041009,Meta,472
+ET04,Oromia,ET0410,East Hararge,ET041009,Meta,987
+ET04,Oromia,ET0410,East Hararge,ET041017,Golo Oda,844
+ET04,Oromia,ET0407,East Shewa,ET040701,Fentale,1466
+ET04,Oromia,ET0407,East Shewa,ET040701,Fentale,3150
+ET04,Oromia,ET0402,East Wellega,ET040210,Diga,6621
+ET04,Oromia,ET0402,East Wellega,ET040211,Sasiga,2464
+ET04,Oromia,ET0402,East Wellega,ET040211,Sasiga,18344
+ET04,Oromia,ET0402,East Wellega,ET040203,Gida Ayana,2000
+ET04,Oromia,ET0402,East Wellega,ET040204,Haro Limu,6496
+ET04,Oromia,ET0414,Guji,ET041410,Girja /Harenfema,390
+ET04,Oromia,ET0414,Guji,ET041413,Gora Dola,4013
+ET04,Oromia,ET0414,Guji,ET041497,Gumi Idalo,10703
+ET04,Oromia,ET0414,Guji,ET041407,Liben,22056
+ET04,Oromia,ET0414,Guji,ET041407,Liben,2020
+ET04,Oromia,ET0414,Guji,ET041407,Liben,17648
+ET04,Oromia,ET0414,Guji,ET041414,Negele town,1880
+ET04,Oromia,ET0404,Jimma,ET040495,Botor Tolay,8592
+ET04,Oromia,ET0404,Jimma,ET040405,Kersa (Jimma),5597
+ET04,Oromia,ET0404,Jimma,ET040412,Sigmo,79
+ET04,Oromia,ET0404,Jimma,ET040408,Gera,1331
+ET04,Oromia,ET0404,Jimma,ET040416,Gumay,132
+ET04,Oromia,ET0404,Jimma,ET040418,Jimma Town,3885
+ET04,Oromia,ET0404,Jimma,ET040413,Setema,74
+ET04,Oromia,ET0406,North Shewa (OR),ET040604,Kuyu,88
+ET04,Oromia,ET0406,North Shewa (OR),ET040603,Hidabu Abote,40
+ET04,Oromia,ET0406,North Shewa (OR),ET040601,Wara Jarso,592
+ET04,Oromia,ET0413,South West Shewa,ET041303,Waliso,44
+ET04,Oromia,ET0413,South West Shewa,ET041302,Wenchi,66
+ET04,Oromia,ET0413,South West Shewa,ET041311,Woliso town,113
+ET04,Oromia,ET0417,West Arsi,ET041706,Gedeb Asasa,185
+ET04,Oromia,ET0417,West Arsi,ET041702,Shala,86
+ET04,Oromia,ET0417,West Arsi,ET041712,Shashemene Zuria,246
+ET04,Oromia,ET0417,West Arsi,ET041701,Siraro,21929
+ET04,Oromia,ET0417,West Arsi,ET041710,Adaba,179
+ET04,Oromia,ET0417,West Arsi,ET041707,Dodola,114
+ET04,Oromia,ET0417,West Arsi,ET041798,Bishan Guracha,144
+ET04,Oromia,ET0415,West Guji,ET041517,Gelana (West Guji),27863
+ET04,Oromia,ET0415,West Guji,ET041517,Gelana (West Guji),13917
+ET04,Oromia,ET0415,West Guji,ET041518,Melka Soda,21684
+ET04,Oromia,ET0415,West Guji,ET041594,Suro Berguda,16534
+ET04,Oromia,ET0415,West Guji,ET041513,Abaya,1125
+ET04,Oromia,ET0415,West Guji,ET041513,Abaya,12782
+ET04,Oromia,ET0415,West Guji,ET041501,Bule Hora,3018
+ET04,Oromia,ET0415,West Guji,ET041501,Bule Hora,3601
+ET04,Oromia,ET0415,West Guji,ET041596,Birbirsa Kojowa,1794
+ET04,Oromia,ET0409,West Hararge,ET040991,Gumbi Bordede/Bordode,9275
+ET04,Oromia,ET0409,West Hararge,ET040902,Doba,809
+ET04,Oromia,ET0409,West Hararge,ET040901,Mieso,8946
+ET04,Oromia,ET0409,West Hararge,ET040913,Chiro Zuria,58
+ET04,Oromia,ET0409,West Hararge,ET040909,Daro Lebu,3185
+ET04,Oromia,ET0409,West Hararge,ET040912,Gemechis,80
+ET04,Oromia,ET0409,West Hararge,ET040903,Tulo (OR),427
+ET04,Oromia,ET0409,West Hararge,ET040908,Habro,298
+ET04,Oromia,ET0409,West Hararge,ET040915,"Hawi Gudina
+",352
+ET04,Oromia,ET0409,West Hararge,,Shanan Dhuuggo,157
+ET04,Oromia,ET0405,West Shewa,ET040510,Dendi,73
+ET04,Oromia,ET0405,West Shewa,ET040502,Jeldu,148
+ET04,Oromia,ET0405,West Shewa,ET040502,Jeldu,566
+ET04,Oromia,ET0405,West Shewa,ET040515,Ambo Town,128
+ET04,Oromia,ET0401,West Wellega,ET040102,Nejo,9016
+ET04,Oromia,ET0401,West Wellega,ET040106,Boji Dirmeji,1960
+ET04,Oromia,ET0401,West Wellega,ET040104,Lalo Asabi,1593
+ET04,Oromia,ET0401,West Wellega,ET040101,Mana Sibu,3908
+ET04,Oromia,ET0401,West Wellega,ET040103,Gimbi,141
+ET04,Oromia,ET0401,West Wellega,ET040193,Gimbi Town,992
+ET04,Oromia,ET0401,West Wellega,ET040197,Leta Sibu,3563
+ET04,Oromia,ET0401,West Wellega,ET040198,Mendi town,4417
+ET04,Oromia,ET0401,West Wellega,ET040105,Kiltu Kara,5737
+ET16,Sidama,ET1600,Sidama,ET160018,Hawasa /Tula Sub city,213
+ET16,Sidama,ET1600,Sidama,ET160032,Bilate Zuria,28468
+ET16,Sidama,ET1600,Sidama,ET160002,Hawassa Zuria,875
+ET07,SNNP,ET0712,Alle,ET071205,Alle Special,22234
+ET07,SNNP,ET0721,Amaro,ET072102,Amaro,22994
+ET07,SNNP,ET0711,Bench Sheko,ET071107,Mizan Aman town,2230
+ET07,SNNP,ET0711,Bench Sheko,ET071103,Debub Bench,5686
+ET07,SNNP,ET0711,Bench Sheko,ET071102,Gurafereda,4283
+ET07,SNNP,ET0722,Burji,ET072203,Burji Special,1260
+ET07,SNNP,ET0723,Derashe,ET072304,Derashe Special,22420
+ET07,SNNP,ET0710,Gamo,ET071015,Arba Minch Zuria,140
+ET07,SNNP,ET0710,Gamo,ET071005,Mirab Abaya,1971
+ET07,SNNP,ET0701,Guraghe,ET070106,Meskan,3499
+ET07,SNNP,ET0701,Guraghe,ET070118,Misrak Meskan,6123
+ET07,SNNP,ET0702,Hadiya,ET070207,Duna,656
+ET07,SNNP,ET0702,Hadiya,ET070205,Misrak Badawacho,2218
+ET07,SNNP,ET0702,Hadiya,ET070205,Misrak Badawacho,364
+ET07,SNNP,ET0702,Hadiya,ET070205,Misrak Badawacho,626
+ET07,SNNP,ET0709,Kefa,,Menjiwo,401
+ET07,SNNP,ET0703,Kembata Tibaro,ET070303,Kediada Gambela,2015
+ET07,SNNP,ET0713,Konso,ET071303,Karat Zuria,28245
+ET07,SNNP,ET0713,Konso,ET071302,Segen Zuria,17412
+ET07,SNNP,ET0718,Mirab Omo,ET071807,Maji,291
+ET07,SNNP,ET0720,Siltie,ET072005,Dalocha,677
+ET07,SNNP,ET0720,Siltie,ET072004,Mierab Azenet Berbere,994
+ET07,SNNP,ET0720,Siltie,ET072007,Misrak Azenet Berbere,404
+ET07,SNNP,ET0720,Siltie,ET072006,Sankura,374
+ET07,SNNP,ET0720,Siltie,ET072008,Wulbareg/Hulbareg,1248
+ET07,SNNP,ET0720,Siltie,ET072010,Worabe town,1666
+ET07,SNNP,ET0707,South Omo,ET070706,Dasenech /Kuraz,65571
+ET07,SNNP,ET0707,South Omo,ET070702,South Ari,245
+ET07,SNNP,ET0706,Wolayita,ET070612,Duguna Fango,2087
+ET07,SNNP,ET0706,Wolayita,ET070604,Humbo,627
+ET07,SNNP,ET0706,Wolayita,ET070610,Kindo Daddaye,3826
+ET07,SNNP,ET0706,Wolayita,ET070606,Kindo Koyesha,1556
+ET07,SNNP,ET0706,Wolayita,ET070621,Abela Abaya,3022
+ET07,SNNP,ET0706,Wolayita,ET070601,Boloso Sore,178
+ET07,SNNP,ET0706,Wolayita,ET070609,Damot Sore,779
+ET07,SNNP,ET0706,Wolayita,ET070603,Damot Woide,259
+ET07,SNNP,ET0724,Yem Special,ET072401,Yem SP Woreda,242
+ET05,Somali,ET0508,Afder,ET050802,Charati,1732
+ET05,Somali,ET0508,Afder,ET050802,Charati,2877
+ET05,Somali,ET0508,Afder,ET050808,Dolobay,11146
+ET05,Somali,ET0508,Afder,ET050808,Dolobay,2560
+ET05,Somali,ET0508,Afder,ET050806,Hargele,4951
+ET05,Somali,ET0508,Afder,ET050809,Raso,7971
+ET05,Somali,ET0508,Afder,ET050809,Raso,1153
+ET05,Somali,ET0508,Afder,ET050807,Barey,13042
+ET05,Somali,ET0508,Afder,ET050899,God-God,5410
+ET05,Somali,ET0508,Afder,ET050898,Kohle /Qoxle,7836
+ET05,Somali,ET0508,Afder,ET050804,Elkare /Serer,2695
+ET05,Somali,ET0508,Afder,ET050805,West Imi,1200
+ET05,Somali,ET0508,Afder,ET050805,West Imi,3064
+ET05,Somali,ET0511,Daawa,ET051104,Hudet,62734
+ET05,Somali,ET0511,Daawa,ET051103,Moyale (SM),67980
+ET05,Somali,ET0511,Daawa,ET051187,Mubarek,3993
+ET05,Somali,ET0511,Daawa,ET051187,Mubarek,1200
+ET05,Somali,ET0511,Daawa,ET051198,Qada Duma,3370
+ET05,Somali,ET0507,Doolo,ET050702,Bokh,4850
+ET05,Somali,ET0507,Doolo,ET050701,Danod,9648
+ET05,Somali,ET0507,Doolo,ET050788,Daratole,2954
+ET05,Somali,ET0507,Doolo,ET050799,Galhamur,2460
+ET05,Somali,ET0507,Doolo,ET050703,Galadi,10360
+ET05,Somali,ET0507,Doolo,ET050798,Lehel-Yucub,3360
+ET05,Somali,ET0507,Doolo,ET050798,Lehel-Yucub,11426
+ET05,Somali,ET0507,Doolo,ET050704,Warder,15559
+ET05,Somali,ET0504,Erer,ET050407,Lagahida,10938
+ET05,Somali,ET0504,Erer,ET050407,Lagahida,905
+ET05,Somali,ET0504,Erer,ET050408,Meyumuluka,6998
+ET05,Somali,ET0504,Erer,ET051004,Salahad,9488
+ET05,Somali,ET0504,Erer,ET050497,Qubi,9773
+ET05,Somali,ET0504,Erer,ET050497,Qubi,482
+ET05,Somali,ET0504,Erer,ET050499,Wangey,817
+ET05,Somali,ET0502,Fafan,ET050203,Babile (SM),94222
+ET05,Somali,ET0502,Fafan,ET050202,Gursum (SM),10778
+ET05,Somali,ET0502,Fafan,ET050207,Harshin,507
+ET05,Somali,ET0502,Fafan,ET050206,Kebribeyah,8140
+ET05,Somali,ET0502,Fafan,ET050283,Tuliguled,13292
+ET05,Somali,ET0502,Fafan,ET050293,Jigjiga town,1793
+ET05,Somali,ET0502,Fafan,ET050293,Jigjiga town,965
+ET05,Somali,ET0503,Jarar,ET050303,Aware,4903
+ET05,Somali,ET0503,Jarar,ET050392,Daror,3185
+ET05,Somali,ET0503,Jarar,ET050399,Dig,1500
+ET05,Somali,ET0503,Jarar,ET050304,Gashamo,15180
+ET05,Somali,ET0503,Jarar,ET050305,Gunagado,2691
+ET05,Somali,ET0503,Jarar,ET050306,Bilcil-Bur,2445
+ET05,Somali,ET0503,Jarar,ET050302,Degehabur,276
+ET05,Somali,ET0503,Jarar,ET050302,Degehabur,1172
+ET05,Somali,ET0505,Korahe,ET050599,Bodaley,342
+ET05,Somali,ET0505,Korahe,ET050504,Debeweyin,2378
+ET05,Somali,ET0505,Korahe,ET050504,Debeweyin,556
+ET05,Somali,ET0505,Korahe,ET050598,El-ogaden,1162
+ET05,Somali,ET0505,Korahe,ET050595,Goglo,2777
+ET05,Somali,ET0505,Korahe,ET050502,Kebridehar,3142
+ET05,Somali,ET0505,Korahe,ET050502,Kebridehar,3114
+ET05,Somali,ET0505,Korahe,ET050586,Marsin,3707
+ET05,Somali,ET0505,Korahe,ET050503,Shilabo,2793
+ET05,Somali,ET0505,Korahe,ET050597,Higloley,384
+ET05,Somali,ET0505,Korahe,ET050596,Lasdhankayre,323
+ET05,Somali,ET0505,Korahe,ET050501,Shaygosh,352
+ET05,Somali,ET0509,Liban,ET050991,Deka Suftu,32160
+ET05,Somali,ET0509,Liban,ET050902,Dolo Odo,2888
+ET05,Somali,ET0509,Liban,ET050902,Dolo Odo,3300
+ET05,Somali,ET0509,Liban,ET050902,Dolo Odo,1510
+ET05,Somali,ET0509,Liban,ET050901,Filtu,35795
+ET05,Somali,ET0509,Liban,ET050901,Filtu,536
+ET05,Somali,ET0509,Liban,ET050901,Filtu,218
+ET05,Somali,ET0509,Liban,ET050901,Filtu,1071
+ET05,Somali,ET0509,Liban,,Karsa Dulla,19563
+ET05,Somali,ET0509,Liban,ET050903,Goro Baqaqsa,6176
+ET05,Somali,ET0509,Liban,ET050904,Guradamole,12941
+ET05,Somali,ET0509,Liban,ET050999,Bokolmayo,9395
+ET05,Somali,ET0510,Nogob,ET051006,Dihun,6071
+ET05,Somali,ET0510,Nogob,ET051002,Elwayne,4826
+ET05,Somali,ET0510,Nogob,ET051003,Garbo,313
+ET05,Somali,ET0510,Nogob,ET051003,Garbo,10988
+ET05,Somali,ET0510,Nogob,ET051005,Sagag,277
+ET05,Somali,ET0510,Nogob,ET051005,Sagag,4574
+ET05,Somali,ET0510,Nogob,ET051001,Ayun,317
+ET05,Somali,ET0506,Shabelle,ET050699,Aba-Korow,671
+ET05,Somali,ET0506,Shabelle,ET050602,Adadle,12243
+ET05,Somali,ET0506,Shabelle,ET050602,Adadle,4962
+ET05,Somali,ET0506,Shabelle,ET050608,Berocano,1541
+ET05,Somali,ET0506,Shabelle,ET050603,Danan,5327
+ET05,Somali,ET0506,Shabelle,ET050601,East Imi,2604
+ET05,Somali,ET0506,Shabelle,ET050601,East Imi,354
+ET05,Somali,ET0506,Shabelle,ET050698,Elale,1407
+ET05,Somali,ET0506,Shabelle,ET050604,Gode,2221
+ET05,Somali,ET0506,Shabelle,ET050604,Gode,2173
+ET05,Somali,ET0506,Shabelle,ET050605,Kelafo,2349
+ET05,Somali,ET0506,Shabelle,ET050605,Kelafo,4955
+ET05,Somali,ET0506,Shabelle,ET050606,Mustahil,17748
+ET05,Somali,ET0506,Shabelle,ET050606,Mustahil,32859
+ET05,Somali,ET0501,Siti,ET050105,Afdem,23874
+ET05,Somali,ET0501,Siti,ET050105,Afdem,10078
+ET05,Somali,ET0501,Siti,ET050104,Erer (SM),2585
+ET05,Somali,ET0501,Siti,ET050104,Erer (SM),13479
+ET05,Somali,ET0501,Siti,ET050199,Gablalu,960
+ET05,Somali,ET0501,Siti,ET050199,Gablalu,12977
+ET05,Somali,ET0501,Siti,ET050199,Gablalu,3100
+ET05,Somali,ET0501,Siti,ET050198,Gota-Biki,2665
+ET05,Somali,ET0501,Siti,ET050198,Gota-Biki,1259
+ET05,Somali,ET0501,Siti,ET050106,Hadhagala,3102
+ET05,Somali,ET0501,Siti,ET050106,Hadhagala,4339
+ET05,Somali,ET0501,Siti,ET050107,Miesso,15576
+ET05,Somali,ET0501,Siti,ET050107,Miesso,14174
+ET05,Somali,ET0501,Siti,ET050107,Miesso,1080
+ET05,Somali,ET0501,Siti,ET050103,Shinile,3301
+ET05,Somali,ET0501,Siti,ET050102,Dembel,749
