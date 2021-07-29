@@ -149,19 +149,18 @@ export class SeedAdminAreaData implements InterfaceScript {
       });
       await this.adminAreaDataRepository.save(dataArray);
       // total_idps
-      // Comment out for now because of incorrect data
-      // fileName = `./src/scripts/git-lfs/admin-area-data/total_idps_ETH.csv`;
-      // data = await this.seedHelper.getCsvData(fileName);
-      // dataArray = data.map(area => {
-      //   return {
-      //     countryCodeISO3: countryCodeISO3,
-      //     adminLevel: adminlevel,
-      //     placeCode: area['ADM3_PCODE'],
-      //     indicator: 'total_idps',
-      //     value: area['Total IDPs'],
-      //   };
-      // });
-      // await this.adminAreaDataRepository.save(dataArray);
+      fileName = `./src/scripts/git-lfs/admin-area-data/total_idps_ETH.csv`;
+      data = await this.seedHelper.getCsvData(fileName);
+      dataArray = data.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['ADM3_PCODE'],
+          indicator: 'total_idps',
+          value: area['Total-IDPs'],
+        };
+      });
+      await this.adminAreaDataRepository.save(dataArray);
       // motorized_travel_time_to_health
       fileName = `./src/scripts/git-lfs/admin-area-data/travel_time_health_motorized_ETH.csv`;
       data = await this.seedHelper.getCsvData(fileName);
