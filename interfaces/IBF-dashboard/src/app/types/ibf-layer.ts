@@ -88,6 +88,11 @@ export enum IbfLayerName {
   walkingTravelTimeToHealth = 'walking_travel_time_to_health',
   travel_time_cities = 'travel_time_cities',
   population_u5 = 'population_u5',
+  ipcForecastShort = 'IPC_forecast_short',
+  ipcForecastLong = 'IPC_forecast_long',
+  hotspotGeneral = 'Hotspot_General',
+  hotspotWater = 'Hotspot_Water',
+  hotspotHealth = 'Hotspot_Health',
 }
 
 export enum IbfLayerLabel {
