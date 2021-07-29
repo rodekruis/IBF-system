@@ -867,10 +867,6 @@ export class MapService {
       const fillColor = this.getAdminRegionFillColor(
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
-          : adminRegion.properties.population_affected !== 'undefined'
-          ? adminRegion.properties.poplation_affected
-          : adminRegion.properties.potential_cases !== 'undefined'
-          ? adminRegion.properties.potential_cases
           : adminRegion.properties.indicators[colorProperty],
         colorThreshold,
         adminRegion.properties.placeCode,
