@@ -1,5 +1,5 @@
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
-import { DynamicIndicator } from './enum/dynamic-indicator';
+import { DynamicIndicator } from './enum/dynamic-data-unit';
 import { Body, Get, Param } from '@nestjs/common';
 import { Controller, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import {
