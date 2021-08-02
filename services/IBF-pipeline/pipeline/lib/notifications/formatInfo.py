@@ -20,9 +20,7 @@ def formatInfo(info, countryCodeISO3):
     placeholderAdminAreaPlural = "(ADMIN-AREA-PLURAL)"
     placeholderAdminAreaSingular = "(ADMIN-AREA-SINGULAR)"
     placeholderDisasterType = "(DISASTER-TYPE)"
-    placeholderLinkVideo = "(LINK-Video)"
-    placeholderLinkPdf = "(LINK-PDF)"
-
+    placeholderLinks = "(VIDEO-PDF-LINKS)"
 
     email_settings = SETTINGS[countryCodeISO3]['email']
     logo = email_settings['logo']
@@ -98,6 +96,61 @@ def formatInfo(info, countryCodeISO3):
     if len(leadTimeListHTML) < 1:
         leadTimeListHTML = "<li>No days from today</li>"
 
+
+    linkVideoHTML = f"""
+                    <a
+                        href="{linkVideo}"
+                        title="Video instructions"
+                        target="_blank"
+                        style="
+                        font-size: 14px;
+                        font-family: Helvetica,
+                            Arial,
+                            sans-serif;
+                        font-weight: bold;
+                        color: #0c0c0c;
+                        display: inline-block;
+                    " >
+                        here
+                    </a>
+    """
+    linkPdfHTML = f"""
+                     <a href="{linkPdf}"
+                        target="_blank"
+                        title="PDF instructions"
+                        style="
+                        font-size: 14px;
+                        font-family: Helvetica,
+                            Arial,
+                            sans-serif;
+                        font-weight: bold;
+                        color: #0c0c0c;
+                        display: inline-block;
+                        "  >
+                        here
+                    </a>
+    """
+    videoStr = ""
+    if len(linkVideo) > 0:
+        videoStr = 'Video' + linkVideoHTML
+
+    pdfStr = ""
+    if len(linkPdf) > 0:
+        pdfStr = 'PDF' + linkPdfHTML
+
+    andStr = ""
+    pdfAndVideoLinks = ""
+    if len(linkPdf) > 0 and len(linkVideo) > 0:
+        andStr = 'and'
+
+    if len(linkPdf) > 0 or len(linkVideo) > 0:
+        pdfAndVideoLinks = f"""
+                        See instructions for the dashboard in the form of a
+                        {videoStr}
+                        {andStr}
+                        {pdfStr}
+        """
+
     file = codecs.open("lib/notifications/flood-trigger-notification.html", "r")
     htmlTemplate = file.read()
 
@@ -115,8 +168,7 @@ def formatInfo(info, countryCodeISO3):
         .replace(placeholderAdminAreaPlural, adminAreaLabel[1].lower())
         .replace(placeholderDisasterType, disasterType)
         .replace(placeholderToday, today)
-        .replace(placeholderLinkVideo, linkVideo)
-        .replace(placeholderLinkPdf, linkPdf)
+        .replace(placeholderLinks, pdfAndVideoLinks)
     )
 
     emailContent = {"subject": disasterType + " Warning: " + mainSubject, "html": htmlEmail}

@@ -14,7 +14,6 @@ from settings import EMAIL_WITHOUT_TRIGGER
 def notify(countryCodeISO3):
     if SETTINGS_SECRET[countryCodeISO3]["notify_email"]:
         floodInfo = getFloodInfo(countryCodeISO3)
-
         if floodInfo["flood"] or EMAIL_WITHOUT_TRIGGER:
             formattedInfo = formatInfo(floodInfo, countryCodeISO3)
             mailchimpClient = EmailClient(MC_API, MC_USER)
