@@ -1,3 +1,12 @@
+## [0.78.3](https://github.com/rodekruis/IBF-system/compare/v0.78.2...v0.78.3) (2021-08-02)
+
+
+### Bug Fixes
+
+* get latest update of threshold value instead of first AB[#8876](https://github.com/rodekruis/IBF-system/issues/8876) ([e127907](https://github.com/rodekruis/IBF-system/commit/e127907209075ffe3c2b8454e6f7d0b9acd079fe))
+
+
+
 ## [0.78.2](https://github.com/rodekruis/IBF-system/compare/v0.78.1...v0.78.2) (2021-07-27)
 
 
@@ -77,15 +86,6 @@
 ### Bug Fixes
 
 * disable dengue for ethiopia ([2533389](https://github.com/rodekruis/IBF-system/commit/2533389e4c3ca1760a861142f5c461c8661ebace))
-
-
-
-# [0.76.0](https://github.com/rodekruis/IBF-system/compare/v0.75.1...v0.76.0) (2021-07-15)
-
-
-### Features
-
-* add malaria disaster type AB[#8641](https://github.com/rodekruis/IBF-system/issues/8641) ([b673512](https://github.com/rodekruis/IBF-system/commit/b673512a33b59c25a7c77add08c886d31657ff0e))
 
 
 
