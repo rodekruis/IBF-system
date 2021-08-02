@@ -213,6 +213,71 @@ export class SeedAdminAreaData implements InterfaceScript {
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
+      // Hotspot_General
+      fileName = `./src/scripts/git-lfs/admin-area-data/hotspot_general_ETH.csv`;
+      data = await this.seedHelper.getCsvData(fileName);
+      dataArray = data.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['placeCode'],
+          indicator: 'Hotspot_General',
+          value: area['amount'],
+        };
+      });
+      await this.adminAreaDataRepository.save(dataArray);
+      // Hotspot_Water
+      fileName = `./src/scripts/git-lfs/admin-area-data/hotspot_water_ETH.csv`;
+      data = await this.seedHelper.getCsvData(fileName);
+      dataArray = data.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['placeCode'],
+          indicator: 'Hotspot_Water',
+          value: area['amount'],
+        };
+      });
+      await this.adminAreaDataRepository.save(dataArray);
+      // Hotspot_Health
+      fileName = `./src/scripts/git-lfs/admin-area-data/hotspot_health_ETH.csv`;
+      data = await this.seedHelper.getCsvData(fileName);
+      dataArray = data.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['placeCode'],
+          indicator: 'Hotspot_Health',
+          value: area['amount'],
+        };
+      });
+      await this.adminAreaDataRepository.save(dataArray);
+      // IPC_forecast_short
+      fileName = `./src/scripts/git-lfs/admin-area-data/IPC_forecast_short_ETH.csv`;
+      data = await this.seedHelper.getCsvData(fileName);
+      dataArray = data.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['placeCode'],
+          indicator: 'IPC_forecast_short',
+          value: area['amount'],
+        };
+      });
+      await this.adminAreaDataRepository.save(dataArray);
+      // IPC_forecast_long
+      fileName = `./src/scripts/git-lfs/admin-area-data/IPC_forecast_long_ETH.csv`;
+      data = await this.seedHelper.getCsvData(fileName);
+      dataArray = data.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['placeCode'],
+          indicator: 'IPC_forecast_long',
+          value: area['amount'],
+        };
+      });
+      await this.adminAreaDataRepository.save(dataArray);
     }
   }
 }
