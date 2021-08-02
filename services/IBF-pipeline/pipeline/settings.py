@@ -36,8 +36,8 @@ SETTINGS = {
             'triggerStatement': "TBD",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://adore.ifrc.org/Download.aspx?FileId=357745",
-            'linkVideo': "https://www.youtube-nocookie.com/embed/3hm4IeLP90g",
-            'linkPdf':  "https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf",
+            'linkVideo': "https://www.youtube-nocookie.com/embed/q_xTy9PpCcE",
+            'linkPdf':  "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=099a8b8007d1c42ad9fb8d46ddfc76312&authkey=AQfJjA-3U7NeXqnWxJIgsbs&expiration=2022-07-19T22%3A00%3A00.000Z&e=12vFWG",
             'linkSocialMedia': {
                 "type": "WhatsApp",
                 "url": "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin/"
@@ -90,8 +90,8 @@ SETTINGS = {
             'triggerStatement': "TBD",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/",
-            'linkVideo': "https://www.youtube-nocookie.com/embed/3hm4IeLP90g",
-            'linkPdf': "https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf",
+            'linkVideo': "",
+            'linkPdf': "",
             'linkSocialMedia': {
                 "type": "WhatsApp",
                 "url": "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/"
@@ -117,8 +117,8 @@ SETTINGS = {
             'triggerStatement': "TBD",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/",
-            'linkVideo': "https://www.youtube-nocookie.com/embed/3hm4IeLP90g",
-            'linkPdf': "https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf",
+            'linkVideo': "",
+            'linkPdf': "",
             'linkSocialMedia': {
                 "type": "WhatsApp",
                 "url": "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/"
@@ -148,8 +148,8 @@ SETTINGS = {
                 corresponds to a 5-year return period heavy rainfall event.",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=07f11e3484d5241c58158cdd420e6134f&authkey=AVPI5OX8vf6JaBSLf2wX_xM&expiration=2022-04-08T22%3A00%3A00.000Z&e=nMtlu2",
-            'linkVideo': "https://www.youtube-nocookie.com/embed/3hm4IeLP90g",
-            'linkPdf': "https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf",
+            'linkVideo': "",
+            'linkPdf': "",
             'linkSocialMedia': {
                 "type": "Telegram",
                 "url": "https://t.me/joinchat/hLtvficJO-llZDE0/"
