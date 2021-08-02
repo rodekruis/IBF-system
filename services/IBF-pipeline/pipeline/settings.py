@@ -206,12 +206,6 @@ GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 # Notification email
 EMAIL_WITHOUT_TRIGGER = False
 
-# Notification email (True if hard-coded alternative for mailchimp is used)
-EMAIL_HARDCODE = False
-EMAIL_LIST_HARDCODE = [
-    'jannisvisser@redcross.nl'
-]
-
 # Logging email settings
 LOGGING = False  # If false send email on error
 LOGGLY_LINK = "https://rodekruis.loggly.com/"
