@@ -1,3 +1,15 @@
+## [0.78.4](https://github.com/rodekruis/IBF-system/compare/v0.78.3...v0.78.4) (2021-08-03)
+
+
+### Bug Fixes
+
+* remove broken email alternative AB[#8844](https://github.com/rodekruis/IBF-system/issues/8844) ([7ef0151](https://github.com/rodekruis/IBF-system/commit/7ef015179abd77c654ed72d199c72c7b1a275fef))
+* right video channel AB[#8864](https://github.com/rodekruis/IBF-system/issues/8864) ([e8fd6fd](https://github.com/rodekruis/IBF-system/commit/e8fd6fdce277298ba68df5d12a021c23c5fb723d))
+* right video channel AB[#8864](https://github.com/rodekruis/IBF-system/issues/8864) ([bf95cf8](https://github.com/rodekruis/IBF-system/commit/bf95cf84bb28afce11ebef96a9cc60f45c3ac8c5))
+* update mock forecast values ETH AB[#8810](https://github.com/rodekruis/IBF-system/issues/8810) ([ae8acbc](https://github.com/rodekruis/IBF-system/commit/ae8acbc9774938482aafce4bd85385cb5ae61eb7))
+
+
+
 ## [0.78.3](https://github.com/rodekruis/IBF-system/compare/v0.78.2...v0.78.3) (2021-08-02)
 
 
@@ -77,15 +89,6 @@
 ### Bug Fixes
 
 * legend should show non-zero values ([73fcda3](https://github.com/rodekruis/IBF-system/commit/73fcda340eb3eac17be9ab7a387c7d8fdb0d1a24))
-
-
-
-## [0.76.1](https://github.com/rodekruis/IBF-system/compare/v0.76.0...v0.76.1) (2021-07-15)
-
-
-### Bug Fixes
-
-* disable dengue for ethiopia ([2533389](https://github.com/rodekruis/IBF-system/commit/2533389e4c3ca1760a861142f5c461c8661ebace))
 
 
 
