@@ -251,6 +251,7 @@ to execute each step, without further knowledge. Ask a developer who knows more.
 - Add country in IBF-pipeline settings.py with model = 'rainfall'
 - Save geoserver output as rainfall_extent_<leadTime>_<countrYCode>
 
+[Known Issues](https://github.com/rodekruis/IBF-system/issues/826).
 
 ## Glossary
 
