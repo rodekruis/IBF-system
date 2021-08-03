@@ -63,7 +63,7 @@ SETTINGS = {
             'triggerStatement': "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>",
             'linkDashboard': os.getenv('DASHBOARD_URL'),
             'linkEAPSOP': "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x",
-            'linkVideo': "https://www.youtube-nocookie.com/embed/3hm4IeLP90g",
+            'linkVideo': "https://www.youtube-nocookie.com/embed/O3VlrH_pCeo",
             'linkPdf': "https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf",
             'linkSocialMedia': {
                 "type": "WhatsApp",
@@ -205,12 +205,6 @@ GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
 
 # Notification email
 EMAIL_WITHOUT_TRIGGER = False
-
-# Notification email (True if hard-coded alternative for mailchimp is used)
-EMAIL_HARDCODE = False
-EMAIL_LIST_HARDCODE = [
-    'jannisvisser@redcross.nl'
-]
 
 # Logging email settings
 LOGGING = False  # If false send email on error

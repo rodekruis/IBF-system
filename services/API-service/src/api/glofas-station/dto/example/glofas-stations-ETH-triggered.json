@@ -8,7 +8,7 @@
   },
   {
     "stationCode": "G1067",
-    "forecastLevel": 980.3921568627,
+    "forecastLevel": 5000,
     "forecastProbability": 0.9803921569,
     "forecastTrigger": 1,
     "forecastReturnPeriod": 10
@@ -43,7 +43,7 @@
   },
   {
     "stationCode": "G1904",
-    "forecastLevel": 1960.7843137255,
+    "forecastLevel": 15000,
     "forecastProbability": 0.9803921569,
     "forecastTrigger": 1,
     "forecastReturnPeriod": 10
