@@ -7,7 +7,7 @@ from lib.notifications.sendNotification import EmailClient
 from lib.notifications.getFloodInfo import getFloodInfo
 from lib.notifications.formatInfo import formatInfo
 from lib.logging.logglySetup import logger
-from secrets import MC_USER, MC_API, EMAIL_PASSWORD, SETTINGS_SECRET
+from secrets import MC_USER, MC_API, SETTINGS_SECRET
 from settings import EMAIL_WITHOUT_TRIGGER
 
 
