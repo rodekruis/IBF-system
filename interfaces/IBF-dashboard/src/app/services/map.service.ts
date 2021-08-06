@@ -115,7 +115,9 @@ export class MapService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.layers.forEach((layer) => (layer.show = false));
+    this.layers.forEach((layer) => {
+      this.hideLayer(layer);
+    });
     this.loadCountryLayers();
   };
 
