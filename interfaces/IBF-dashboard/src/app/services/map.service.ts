@@ -712,9 +712,9 @@ export class MapService {
             },
           );
           area.properties.indicators = {};
-          area.properties.indicators[layerName] = foundAdmDynamicEntry.value;
-          // ? foundAdmDynamicEntry.value
-          // : 0;
+          area.properties.indicators[layerName] = foundAdmDynamicEntry.value
+            ? foundAdmDynamicEntry.value
+            : 0;
           updatedFeatures.push(area);
         }
         return adminRegions;
