@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
@@ -18,8 +19,9 @@ import {
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator';
+import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { AdminAreaDataService } from './admin-area-data.service';
+import { UploadAdminAreaDataJsonDto } from './dto/upload-admin-area-data.dto';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -34,9 +36,9 @@ export class AdminAreaDataController {
 
   @UseGuards(RolesGuard)
   @ApiOperation({
-    summary: 'Upload admin-area data',
+    summary: 'Upload (and overwrite) indicator data via CSV',
   })
-  @Post('upload')
+  @Post('upload/csv')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
@@ -50,8 +52,21 @@ export class AdminAreaDataController {
     },
   })
   @UseInterceptors(FileInterceptor('file'))
-  public async upload(@UploadedFile() adminAreaData): Promise<void> {
-    await this.adminAreaDataService.updateOrCreate(adminAreaData);
+  public async uploadCsv(@UploadedFile() adminAreaData): Promise<void> {
+    await this.adminAreaDataService.uploadCsv(adminAreaData);
+  }
+
+  @UseGuards(RolesGuard)
+  @ApiOperation({
+    summary: 'Upload (and overwrite) indicator data via JSON',
+  })
+  @Post('upload/json')
+  @ApiConsumes()
+  @UseInterceptors()
+  public async uploadJson(
+    @Body() dataPlaceCode: UploadAdminAreaDataJsonDto,
+  ): Promise<void> {
+    await this.adminAreaDataService.uploadJson(dataPlaceCode);
   }
 
   @ApiOperation({ summary: 'Get admin-area data' })

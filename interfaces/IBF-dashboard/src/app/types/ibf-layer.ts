@@ -81,6 +81,18 @@ export enum IbfLayerName {
   potentialCases65 = 'potential_cases_65',
   potentialCasesU9 = 'potential_cases_U9',
   potentialCasesU5 = 'potential_cases_U5',
+  malariaRisk = 'malaria_risk',
+  malariaSuitableTemperature = 'malaria_suitable_temperature',
+  totalIdps = 'total_idps',
+  motorizedTravelTimeToHealth = 'motorized_travel_time_to_health',
+  walkingTravelTimeToHealth = 'walking_travel_time_to_health',
+  travel_time_cities = 'travel_time_cities',
+  population_u5 = 'population_u5',
+  ipcForecastShort = 'IPC_forecast_short',
+  ipcForecastLong = 'IPC_forecast_long',
+  hotspotGeneral = 'Hotspot_General',
+  hotspotWater = 'Hotspot_Water',
+  hotspotHealth = 'Hotspot_Health',
 }
 
 export enum IbfLayerLabel {
