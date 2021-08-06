@@ -1,3 +1,29 @@
+# [0.79.0](https://github.com/rodekruis/IBF-system/compare/v0.78.4...v0.79.0) (2021-08-06)
+
+
+### Bug Fixes
+
+* always get latest disasterType in updateLayer AB[#8676](https://github.com/rodekruis/IBF-system/issues/8676) ([0780d83](https://github.com/rodekruis/IBF-system/commit/0780d8362167a724cc80a5525ece731ce008fe14))
+* backup value if no placecode match found AB[#8827](https://github.com/rodekruis/IBF-system/issues/8827) ([27cfabd](https://github.com/rodekruis/IBF-system/commit/27cfabd0095e881a8074cf337214463842bb6d17))
+* color property bug AB[#8676](https://github.com/rodekruis/IBF-system/issues/8676) ([3064b9c](https://github.com/rodekruis/IBF-system/commit/3064b9c50c3585e24e6fbd0a10e01cfb90b458f9))
+* idp-data AB[#8819](https://github.com/rodekruis/IBF-system/issues/8819) ([c00cc37](https://github.com/rodekruis/IBF-system/commit/c00cc375d25fbc84f8c8c68968fb49c1a737a3dc))
+* keep own colorProperty for aggregage layers AB[#8676](https://github.com/rodekruis/IBF-system/issues/8676) ([e814378](https://github.com/rodekruis/IBF-system/commit/e81437869b2f2c75510d69f66ace2d5464e59d1e))
+* potential cases 65+ instead of population AB[#8834](https://github.com/rodekruis/IBF-system/issues/8834) ([688e4af](https://github.com/rodekruis/IBF-system/commit/688e4af8f032d818ae38526e137930618cd72eb5))
+* revert 2nd colorProperty entry to fix fill-colors in map AB[#8820](https://github.com/rodekruis/IBF-system/issues/8820) ([d3d45ed](https://github.com/rodekruis/IBF-system/commit/d3d45ed356fe84e98412ab34ab6fd69fba8f5ec7))
+* update hotspot labels AB[#8841](https://github.com/rodekruis/IBF-system/issues/8841) ([12fb864](https://github.com/rodekruis/IBF-system/commit/12fb864cf23a04bed1d4d768b063e85d2dd593bd))
+
+
+### Features
+
+* add endpoint to update static data AB[#8842](https://github.com/rodekruis/IBF-system/issues/8842) ([29d4e78](https://github.com/rodekruis/IBF-system/commit/29d4e783244bdc0af7c6ded5cac1c5036a44e64f))
+* add initial version of hotspot/ipc via seed AB[#8865](https://github.com/rodekruis/IBF-system/issues/8865) ([09c27db](https://github.com/rodekruis/IBF-system/commit/09c27db478958b3029bb7fafa6619eee88112e3b))
+* add population under 5 AB[#8818](https://github.com/rodekruis/IBF-system/issues/8818) ([ba2aa2b](https://github.com/rodekruis/IBF-system/commit/ba2aa2b8c53a2cc94d7772cba7d12ba9648d9ea7))
+* add static data via seed AB[#8819](https://github.com/rodekruis/IBF-system/issues/8819) ([e7c9ac0](https://github.com/rodekruis/IBF-system/commit/e7c9ac0cb85a788a6144c330cdb087deb4a007fc))
+* add static layers AB[#8819](https://github.com/rodekruis/IBF-system/issues/8819) ([1eaebb5](https://github.com/rodekruis/IBF-system/commit/1eaebb5a8c718bc54151f6e3292b6c4b093eae42))
+* create hotspot/ipc layers AB[#8841](https://github.com/rodekruis/IBF-system/issues/8841) ([9c64db4](https://github.com/rodekruis/IBF-system/commit/9c64db4e5146e341791a76363e81bdf15e6c58dc))
+
+
+
 ## [0.78.4](https://github.com/rodekruis/IBF-system/compare/v0.78.3...v0.78.4) (2021-08-03)
 
 
@@ -80,15 +106,6 @@
 ### Bug Fixes
 
 * remove hardcoding on dasbhoard and refactor mock alert ([1ee4644](https://github.com/rodekruis/IBF-system/commit/1ee4644b9888d6e10fd3a215da792229d090b640))
-
-
-
-## [0.76.2](https://github.com/rodekruis/IBF-system/compare/v0.76.1...v0.76.2) (2021-07-15)
-
-
-### Bug Fixes
-
-* legend should show non-zero values ([73fcda3](https://github.com/rodekruis/IBF-system/commit/73fcda340eb3eac17be9ab7a387c7d8fdb0d1a24))
 
 
 
