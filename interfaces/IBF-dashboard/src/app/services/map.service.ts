@@ -543,7 +543,7 @@ export class MapService {
       viewCenter: false,
       data: layerData,
       wms: layer.wms,
-      colorProperty: layer.colorProperty,
+      colorProperty: this.disasterType.actionsUnit,
       colorBreaks: layer.colorBreaks,
       numberFormatMap: layer.numberFormatMap,
       legendColor: layer.legendColor,
