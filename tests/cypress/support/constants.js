@@ -11,5 +11,6 @@ export default {
   dashboardPagePath: "/",
   waitForAngularTimeout: 25000,
   waitForRequest : 5000,
- 
-};
+  TotalPopulationText: " Total Population ",
+  ExposedPopulationText: " Exposed population ",
+ };

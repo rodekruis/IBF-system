@@ -12,5 +12,8 @@ export default {
     loader: "[data-test='loader']",
     videoGuide: "[data-test=video-guide-button]",
     ActiveleadTimeButtons : "//*[starts-with(@class,'active')]",
-    
-};
+    TotalPopulationName: "//*[starts-with(@class,'aggregate-item-label')][contains(text(),'Total')]",
+    ExposedPopulationName: "//*[starts-with(@class,'aggregate-item-label')][contains(text(),'Expose')]",
+    exposedPopulationNumber : "//*[starts-with(@title,'Exposed population')]//following::span[1]",
+    TotalPopulationNumber : "//*[starts-with(@title,'Exposed population')]//following::span[2]",
+  };
