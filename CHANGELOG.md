@@ -1,3 +1,12 @@
+## [0.79.1](https://github.com/rodekruis/IBF-system/compare/v0.79.0...v0.79.1) (2021-08-06)
+
+
+### Bug Fixes
+
+* forgot to uncomment AB[#8827](https://github.com/rodekruis/IBF-system/issues/8827) ([f01b47f](https://github.com/rodekruis/IBF-system/commit/f01b47fee8d1a1b2512949eba6335ea2abd7180d))
+
+
+
 # [0.79.0](https://github.com/rodekruis/IBF-system/compare/v0.78.4...v0.79.0) (2021-08-06)
 
 
@@ -97,15 +106,6 @@
 ### Features
 
 * add potential cases under 5 layer for malaria ([af08d12](https://github.com/rodekruis/IBF-system/commit/af08d12968de010330dbb0d583f12a4a2298fcf9))
-
-
-
-## [0.76.3](https://github.com/rodekruis/IBF-system/compare/v0.76.2...v0.76.3) (2021-07-15)
-
-
-### Bug Fixes
-
-* remove hardcoding on dasbhoard and refactor mock alert ([1ee4644](https://github.com/rodekruis/IBF-system/commit/1ee4644b9888d6e10fd3a215da792229d090b640))
 
 
 
