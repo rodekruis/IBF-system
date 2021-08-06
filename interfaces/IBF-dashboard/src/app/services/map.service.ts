@@ -543,7 +543,10 @@ export class MapService {
       viewCenter: false,
       data: layerData,
       wms: layer.wms,
-      colorProperty: this.disasterType.actionsUnit,
+      colorProperty:
+        layer.group === IbfLayerGroup.adminRegions
+          ? this.disasterType.actionsUnit
+          : layer.colorProperty,
       colorBreaks: layer.colorBreaks,
       numberFormatMap: layer.numberFormatMap,
       legendColor: layer.legendColor,
@@ -709,9 +712,9 @@ export class MapService {
             },
           );
           area.properties.indicators = {};
-          area.properties.indicators[layerName] = foundAdmDynamicEntry
-            ? foundAdmDynamicEntry.value
-            : 0;
+          area.properties.indicators[layerName] = foundAdmDynamicEntry.value;
+          // ? foundAdmDynamicEntry.value
+          // : 0;
           updatedFeatures.push(area);
         }
         return adminRegions;
