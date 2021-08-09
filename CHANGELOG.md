@@ -1,3 +1,12 @@
+## [0.79.4](https://github.com/rodekruis/IBF-system/compare/v0.79.3...v0.79.4) (2021-08-09)
+
+
+### Bug Fixes
+
+* use right leadtime when deleting existing exposure data AB[#8953](https://github.com/rodekruis/IBF-system/issues/8953) ([43bfca9](https://github.com/rodekruis/IBF-system/commit/43bfca9b61803d072b33448ac7a07711653326f0))
+
+
+
 ## [0.79.3](https://github.com/rodekruis/IBF-system/compare/v0.79.2...v0.79.3) (2021-08-09)
 
 
@@ -99,15 +108,6 @@
 ### Features
 
 * update glofas thresholds AB[#8936](https://github.com/rodekruis/IBF-system/issues/8936) ([00bbf27](https://github.com/rodekruis/IBF-system/commit/00bbf2735ad4d9f94a5d4794c11233bfa9262317))
-
-
-
-## [0.77.2](https://github.com/rodekruis/IBF-system/compare/v0.77.1...v0.77.2) (2021-07-15)
-
-
-### Bug Fixes
-
-* enable population over 65 for Ethiopia ([da2f3d7](https://github.com/rodekruis/IBF-system/commit/da2f3d7ce2cf6410a4e9e938b0d35f09e838da79))
 
 
 
