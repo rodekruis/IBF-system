@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { EventService } from 'src/app/services/event.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { Country, DisasterType } from '../../models/country.model';
 import { CountryService } from '../../services/country.service';
@@ -21,6 +22,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   constructor(
     public disasterTypeService: DisasterTypeService,
     private countryService: CountryService,
+    public eventService: EventService,
   ) {}
 
   ngOnInit() {
@@ -42,5 +44,6 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   public switchDisasterType(disasterType: DisasterType): void {
     this.disasterTypeService.setDisasterType(disasterType);
     this.selectedDisasterType = disasterType.disasterType;
+    console.log('', this.eventService.state.activeTrigger);
   }
 }
