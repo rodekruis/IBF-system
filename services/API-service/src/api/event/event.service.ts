@@ -233,8 +233,6 @@ export class EventService {
       );
       if (leadTimeIsTriggered) {
         result[leadTimeUnit] = String(Number(leadTimeIsTriggered.triggered));
-      } else {
-        result[leadTimeUnit] = '0';
       }
     }
     return result;
