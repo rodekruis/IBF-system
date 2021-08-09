@@ -50,24 +50,27 @@ export const DISASTER_TYPES_SVG_MAP = {
     selectedTriggered: '/assets/icons/Flood_Selected_Triggered.svg',
     selectedNonTriggered: '/assets/icons/Flood_Selected_Non Triggered.svg',
     nonSelectedTriggered: '/assets/icons/Flood_Not Selected_Triggered.svg',
-    nonSelectedNonTriggered: '/assets/icons/Flood_Not Selected_Non Triggered.svg'
+    nonSelectedNonTriggered:
+      '/assets/icons/Flood_Not Selected_Non Triggered.svg',
   },
   [DisasterTypeKey.malaria]: {
     selectedTriggered: '/assets/icons/Malaria_Selected_Triggered.svg',
     selectedNonTriggered: '/assets/icons/Malaria_Selected_Non Triggered.svg',
     nonSelectedTriggered: '/assets/icons/Malaria_Not Selected_Triggered.svg',
-    nonSelectedNonTriggered: '/assets/icons/Malaria_Not Selected_Non Triggered.svg'
+    nonSelectedNonTriggered:
+      '/assets/icons/Malaria_Not Selected_Non Triggered.svg',
   },
   [DisasterTypeKey.dengue]: {
     selectedTriggered: '/assets/icons/Malaria_Selected_Triggered.svg',
     selectedNonTriggered: '/assets/icons/Malaria_Selected_Non Triggered.svg',
     nonSelectedTriggered: '/assets/icons/Malaria_Not Selected_Triggered.svg',
-    nonSelectedNonTriggered: '/assets/icons/Malaria_Not Selected_Non Triggered.svg'
+    nonSelectedNonTriggered:
+      '/assets/icons/Malaria_Not Selected_Non Triggered.svg',
   },
   [DisasterTypeKey.heavyRain]: {
     selectedTriggered: '',
     selectedNonTriggered: '',
     nonSelectedTriggered: '',
-    nonSelectedNonTriggered: ''
-  }
+    nonSelectedNonTriggered: '',
+  },
 };
