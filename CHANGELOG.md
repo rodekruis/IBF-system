@@ -1,3 +1,12 @@
+## [0.79.3](https://github.com/rodekruis/IBF-system/compare/v0.79.2...v0.79.3) (2021-08-09)
+
+
+### Bug Fixes
+
+* trigger deploy ([b12762a](https://github.com/rodekruis/IBF-system/commit/b12762a10692d8c11c8ee63277d6bc7fb84dd6c0))
+
+
+
 ## [0.79.2](https://github.com/rodekruis/IBF-system/compare/v0.79.1...v0.79.2) (2021-08-09)
 
 
@@ -99,16 +108,6 @@
 ### Bug Fixes
 
 * enable population over 65 for Ethiopia ([da2f3d7](https://github.com/rodekruis/IBF-system/commit/da2f3d7ce2cf6410a4e9e938b0d35f09e838da79))
-
-
-
-## [0.77.1](https://github.com/rodekruis/IBF-system/compare/v0.77.0...v0.77.1) (2021-07-15)
-
-
-### Bug Fixes
-
-* blank dev menu header and move mock scenario strings to ngx translate ([3039f20](https://github.com/rodekruis/IBF-system/commit/3039f20dbf29d26e30c77e2bce355abf1906549c))
-* include translate module in spec ([78a2e4e](https://github.com/rodekruis/IBF-system/commit/78a2e4e95abeeb94ee8cf6e04a92f2ca71fc8305))
 
 
 
