@@ -80,14 +80,7 @@ export class AdminAreaDynamicDataService {
   private async deleteDynamicDuplicates(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
-    const country = await this.countryService.findOne(
-      uploadExposure.countryCodeISO3,
-    );
-    if (
-      country.countryActiveLeadTimes[0].leadTimeName.includes(
-        LeadTimeDayMonth.month,
-      )
-    ) {
+    if (uploadExposure.leadTime.includes(LeadTimeDayMonth.month)) {
       const date = new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       await this.adminAreaDynamicDataRepo.delete({
