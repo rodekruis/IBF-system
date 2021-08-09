@@ -45,6 +45,6 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   public switchDisasterType(disasterType: DisasterType): void {
     this.disasterTypeService.setDisasterType(disasterType);
     this.selectedDisasterType = disasterType.disasterType;
-    console.log("#####",this.eventService.state.activeTrigger);
+    console.log("",this.eventService.state.activeTrigger);
   }
 }
