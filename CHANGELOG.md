@@ -1,3 +1,15 @@
+## [0.79.2](https://github.com/rodekruis/IBF-system/compare/v0.79.1...v0.79.2) (2021-08-09)
+
+
+### Bug Fixes
+
+* call endpoints with unknown leadtime AB[#8927](https://github.com/rodekruis/IBF-system/issues/8927) ([41e3c77](https://github.com/rodekruis/IBF-system/commit/41e3c7735ac97b28e6ecd40b515dfa9497cca3a8))
+* make getdefaultleadtime disaster specific AB[#8927](https://github.com/rodekruis/IBF-system/issues/8927) ([bf39ff0](https://github.com/rodekruis/IBF-system/commit/bf39ff057c2fa4b16c51af4ac72ca086d7437722))
+* pop. affected 0 for floods AB[#8927](https://github.com/rodekruis/IBF-system/issues/8927) ([2662719](https://github.com/rodekruis/IBF-system/commit/26627190e3405a9e9ccb400b0871ae15d1eaa5ab))
+* unfound entry solution AB[#8827](https://github.com/rodekruis/IBF-system/issues/8827) ([fa8b8ca](https://github.com/rodekruis/IBF-system/commit/fa8b8ca7d8cd6e09be43b5d56b1e1da87391bcab))
+
+
+
 ## [0.79.1](https://github.com/rodekruis/IBF-system/compare/v0.79.0...v0.79.1) (2021-08-06)
 
 
@@ -97,15 +109,6 @@
 
 * blank dev menu header and move mock scenario strings to ngx translate ([3039f20](https://github.com/rodekruis/IBF-system/commit/3039f20dbf29d26e30c77e2bce355abf1906549c))
 * include translate module in spec ([78a2e4e](https://github.com/rodekruis/IBF-system/commit/78a2e4e95abeeb94ee8cf6e04a92f2ca71fc8305))
-
-
-
-# [0.77.0](https://github.com/rodekruis/IBF-system/compare/v0.76.3...v0.77.0) (2021-07-15)
-
-
-### Features
-
-* add potential cases under 5 layer for malaria ([af08d12](https://github.com/rodekruis/IBF-system/commit/af08d12968de010330dbb0d583f12a4a2298fcf9))
 
 
 
