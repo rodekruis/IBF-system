@@ -175,7 +175,7 @@ export class ApiService {
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
       `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}/${
-        leadTime ? leadTime : ''
+        leadTime ? leadTime : '{leadTime}'
       }`,
       false,
     );
@@ -189,7 +189,7 @@ export class ApiService {
   ): Observable<any> {
     return this.get(
       `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}/${
-        leadTime ? leadTime : ''
+        leadTime ? leadTime : '{leadTime}'
       }`,
       false,
     );

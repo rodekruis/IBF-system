@@ -56,8 +56,7 @@ export class AdminAreaService {
     disasterType: DisasterType,
     leadTime: string,
   ) {
-    if (!leadTime) {
-      leadTime = await this.getDefaultLeadTime(countryCodeISO3);
+    if (leadTime === '{leadTime}') {
     }
     const trigger = (
       await this.eventService.getTriggerPerLeadtime(
