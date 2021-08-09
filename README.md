@@ -111,7 +111,6 @@ Installation:
   - When the Cypress window opens click on 'Run X integration specs'
   - Alternatively run `npm run cypress:start` to run from commandline
 
-
 ## Releases
 
 See notable changes and the currently release version in the
