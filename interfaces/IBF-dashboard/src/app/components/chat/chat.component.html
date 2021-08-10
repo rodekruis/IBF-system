@@ -102,9 +102,7 @@
     <app-video-guide-button color="ibf-white"></app-video-guide-button>
   </app-dialogue-turn>
   <!-- Old event -->
-  <app-dialogue-turn
-    *ngIf="eventService.state.activeEvent && !eventService.state.activeTrigger"
-  >
+  <app-dialogue-turn *ngIf="eventService.isOldEvent()">
     <p
       [innerHTML]="
         'chat-component.' + disasterCategory + 'active-event-no-trigger.welcome'

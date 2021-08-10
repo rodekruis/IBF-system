@@ -115,18 +115,30 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-    this.filteredAreas = [];
+    this.setDefaultFilteredAreas();
     this.triggeredAreas.forEach(this.disableSubmitButtonForTriggeredArea);
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
-    const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
-      placeCode && triggeredArea.placeCode === placeCode.placeCode;
+    if (placeCode) {
+      const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
+        triggeredArea.placeCode === placeCode.placeCode;
 
-    this.filteredAreas = this.triggeredAreas.filter(
-      filterTriggeredAreasByPlaceCode,
-    );
+      this.filteredAreas = this.triggeredAreas.filter(
+        filterTriggeredAreasByPlaceCode,
+      );
+    } else {
+      this.setDefaultFilteredAreas();
+    }
     this.changeDetectorRef.detectChanges();
+  };
+
+  private setDefaultFilteredAreas = () => {
+    if (this.eventService.isOldEvent()) {
+      this.filteredAreas = [...this.triggeredAreas];
+    } else {
+      this.filteredAreas = [];
+    }
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
