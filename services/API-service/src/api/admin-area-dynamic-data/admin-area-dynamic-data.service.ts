@@ -160,6 +160,7 @@ export class AdminAreaDynamicDataService {
         leadTime: leadTime,
       })
       .select(['admin_area_dynamic_data.value AS value'])
+      .orderBy('admin_area_dynamic_data.date', 'DESC')
       .execute();
     return result[0].value;
   }
