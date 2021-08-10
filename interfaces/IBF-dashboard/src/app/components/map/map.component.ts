@@ -437,9 +437,10 @@ export class MapComponent implements OnDestroy {
         .getAdminAreaDynamiceDataOne(
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
-          this.country.countryActiveLeadTimes[
-            this.country.countryActiveLeadTimes.length - 1
-          ],
+          this.timelineService.activeLeadTime ||
+            this.country.countryActiveLeadTimes[
+              this.country.countryActiveLeadTimes.length - 1
+            ],
         )
         .subscribe((thresholdValue: number) => {
           popup = this.createThresHoldPopupAdminRegions(
