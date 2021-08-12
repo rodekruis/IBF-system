@@ -1,0 +1,27 @@
+.active {
+  background-color: var(--ion-color-ibf-chat-self);
+}
+.containerDiv {
+  line-height: 1px;
+  margin: 2px;
+  display: flex;
+}
+.containerOne {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.containerTwo {
+  display: block;
+  margin: 2px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+.containerThree {
+  font-size: 10px;
+  padding: 5px;
+  display: block;
+}

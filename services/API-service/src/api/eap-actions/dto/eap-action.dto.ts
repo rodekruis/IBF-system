@@ -14,6 +14,11 @@ export class EapActionDto {
 
   @ApiProperty()
   @IsNotEmpty()
+  @IsString()
+  public disasterType: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
   @IsBoolean()
   public status: boolean;
 

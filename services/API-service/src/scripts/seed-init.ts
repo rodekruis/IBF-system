@@ -45,8 +45,7 @@ export class SeedInit implements InterfaceScript {
   }
 
   public async run(): Promise<void> {
-    await this.seedHelper.cleanAll();
-    await this.connection.synchronize(false);
+    await this.seedHelper.truncateAll();
 
     // ***** CREATE DISASTER *****
     console.log('Seed Disasters...');
@@ -87,10 +86,9 @@ export class SeedInit implements InterfaceScript {
     await leadTimeRepository.save(leadTimeEntities);
 
     // ***** CREATE COUNTRIES *****
-    console.log('Seed Countries...');
+    console.log(`Seed Countries... ${process.env.COUNTRIES}`);
     const envCountries = process.env.COUNTRIES.split(',');
     const selectedCountries = countries.filter((country): boolean => {
-      console.log(`Seeding country ${country.countryCodeISO3}`);
       return envCountries.includes(country.countryCodeISO3);
     });
 
@@ -117,7 +115,11 @@ export class SeedInit implements InterfaceScript {
             ),
           });
           countryEntity.disasterTypes = await disasterRepository.find({
-            where: { disasterType: country.disasterType },
+            where: country.disasterTypes.map(
+              (countryDisasterType: string): object => {
+                return { disasterType: countryDisasterType };
+              },
+            ),
           });
           countryEntity.countryLogos = country.countryLogos;
           countryEntity.eapAlertClasses = JSON.parse(
@@ -198,14 +200,44 @@ export class SeedInit implements InterfaceScript {
     const indicatorRepository = this.connection.getRepository(
       IndicatorMetadataEntity,
     );
-    await indicatorRepository.save(
-      JSON.parse(JSON.stringify(indicatorMetadata)),
+    const indicators = JSON.parse(JSON.stringify(indicatorMetadata));
+    const indicatorEntities = await Promise.all(
+      indicators.map(
+        async (indicator): Promise<IndicatorMetadataEntity> => {
+          indicator.disasterTypes = await disasterRepository.find({
+            where: indicator.disasterTypes.map(
+              (indicatorDisasterType: string): object => {
+                return { disasterType: indicatorDisasterType };
+              },
+            ),
+          });
+          return indicator;
+        },
+      ),
     );
+
+    await indicatorRepository.save(indicatorEntities);
 
     // ***** CREATE LAYER METADATA *****
     console.log('Seed Layers...');
     const layerRepository = this.connection.getRepository(LayerMetadataEntity);
-    await layerRepository.save(JSON.parse(JSON.stringify(layerMetadata)));
+
+    const layers = JSON.parse(JSON.stringify(layerMetadata));
+    const layerEntities = await Promise.all(
+      layers.map(
+        async (layer): Promise<LayerMetadataEntity> => {
+          layer.disasterTypes = await disasterRepository.find({
+            where: layer.disasterTypes.map(
+              (layerDisasterType: string): object => {
+                return { disasterType: layerDisasterType };
+              },
+            ),
+          });
+          return layer;
+        },
+      ),
+    );
+    await layerRepository.save(layerEntities);
 
     // ***** SEED ADMIN-AREA DATA *****
     console.log('Seed Admin Areas...');

@@ -1,0 +1,58 @@
+<div class="containerDiv">
+  <div
+    *ngFor="let disasterType of disasterTypes"
+    (click)="switchDisasterType(disasterType)"
+    [ngClass]="{ active: disasterType.disasterType === selectedDisasterType }"
+    class="containerOne"
+  >
+    <ion-icon
+      *ngIf="
+        disasterType.disasterType === selectedDisasterType &&
+        !this.eventService.state.activeTrigger
+      "
+      class="ibf"
+      [src]="disasterTypeMap[disasterType.disasterType].selectedNonTriggered"
+      slot="start"
+      class="containerTwo"
+    >
+    </ion-icon>
+    <ion-icon
+      *ngIf="
+        disasterType.disasterType !== selectedDisasterType &&
+        !this.eventService.state.activeTrigger
+      "
+      class="ibf"
+      [src]="disasterTypeMap[disasterType.disasterType].nonSelectedNonTriggered"
+      slot="start"
+      class="containerTwo"
+    >
+    </ion-icon>
+    <ion-icon
+      *ngIf="
+        disasterType.disasterType === selectedDisasterType &&
+        this.eventService.state.activeTrigger
+      "
+      class="ibf"
+      [src]="disasterTypeMap[disasterType.disasterType].selectedTriggered"
+      slot="start"
+      class="containerTwo"
+    >
+    </ion-icon>
+    <ion-icon
+      *ngIf="
+        disasterType.disasterType !== selectedDisasterType &&
+        this.eventService.state.activeTrigger
+      "
+      class="ibf"
+      [src]="disasterTypeMap[disasterType.disasterType].nonSelectedTriggered"
+      slot="start"
+      class="containerTwo"
+    >
+    </ion-icon>
+    <ion-label
+      class="containerThree"
+      *ngIf="disasterType.disasterType === selectedDisasterType"
+      >{{ disasterType.label }}</ion-label
+    >
+  </div>
+</div>

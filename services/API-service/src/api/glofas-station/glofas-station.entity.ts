@@ -21,7 +21,7 @@ export class GlofasStationEntity {
   })
   public countryCodeISO3: string;
 
-  @Column({ unique: true })
+  @Column()
   public stationCode: string;
 
   @OneToMany(

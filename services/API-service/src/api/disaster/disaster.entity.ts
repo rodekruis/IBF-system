@@ -8,13 +8,15 @@ import {
 } from 'typeorm';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { DisasterType } from './disaster-type.enum';
+import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
+import { LayerMetadataEntity } from '../metadata/layer-metadata.entity';
 
 @Entity('disaster')
 export class DisasterEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column()
+  @Column({ unique: true })
   public disasterType: DisasterType;
 
   @Column()
@@ -39,4 +41,18 @@ export class DisasterEntity {
   )
   @JoinTable()
   public leadTimes: LeadTimeEntity[];
+
+  @ManyToMany(
+    (): typeof IndicatorMetadataEntity => IndicatorMetadataEntity,
+    (indicators): DisasterEntity[] => indicators.disasterTypes,
+  )
+  @JoinTable()
+  public indicators: IndicatorMetadataEntity[];
+
+  @ManyToMany(
+    (): typeof LayerMetadataEntity => LayerMetadataEntity,
+    (layers): DisasterEntity[] => layers.disasterTypes,
+  )
+  @JoinTable()
+  public layers: LayerMetadataEntity[];
 }

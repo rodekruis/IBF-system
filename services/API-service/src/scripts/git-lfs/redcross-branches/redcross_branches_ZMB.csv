@@ -1,42 +1,42 @@
-PROVINCE,branch_name,contact_person,M,F,number_of_volunteers,contact_address,lat,lon
-CENTRAL,ITEZHI TEZI,Mr. Mukunda Moote,22,14,36,Itezhi Tezhi Hospital,-15.736433,26.023031
-CENTRAL,KAPIRI MPOSHI,Mr. Frackson Ngosa,97,105,202,Plot 1565 Church Road,-13.978238,28.680802
-COPPERBELT,CHAMBESHI,Mr. Robinson Mubita,33,16,49,Next to Zambeef Chambeshi,-12.636107,28.064127
-COPPERBELT,CHILILABOMBWE,Mr. Wellingtone Mwape,32,40,72,Konkola Stadium,-12.360827,27.824196
-COPPERBELT,CHINGOLA,Mrs. Mirriam Lungu,39,80,119,Nakatinda Girls Secondary School,-12.547511,27.861613
-COPPERBELT,KALULUSHI,Mr. Rodrick Chimpala,126,4,210,Kalulushi High School,-12.842223,28.089179
-COPPERBELT,KITWE,Mr. Matine Sinyangwe ,63,117,150,Opposite Police post VML Riverside,-12.811484,28.199584
-COPPERBELT,LUANSHYA ,Mr. Elijah Mwaba,112,88,200,Mpatamuto Police Office Block,-13.104709,28.337291
-COPPERBELT,MASAITI,Mr. Mwape Bwalya,46,64,110,,-13.260612,28.405345
-COPPERBELT,MPONGWE,Mr. Binwell Mumba,70,47,117,District Agriculture Office,-13.511474,28.156639
-COPPERBELT,MUFULIRA,Mr. Simone R. Mubanga,67,85,152,Kantanshi Area,-12.55714,28.235541
-COPPERBELT,NDOLA,Mr. Henry Chinenga,116,120,236,4th Dr. Damie Street,-12.964312,28.644874
-EASTERN,CHIPATA,Mr. Peter Malasa,61,70,131,Plot No:62 off Obote Road ,-13.637489,32.639426
-EASTERN,KATETE,Mr. Ernest Mwansa,7,0,7,Katete Boma,-14.055947,32.045202
-EASTERN,LUNDAZI,Mr. Norasco Kangwa,20,15,35,Zyanganikaching Youth Resource,-12.290191,33.177413
-EASTERN,PETAUKE ,Mr. Stanley Yumba,85,65,150,Petauke Red Cross Office,-14.253733,31.325755
-LUAPULA,CHIENGE ,Mr. Stanley Siamwezi (Acting President),34,27,61,Chienge Red Cross Office,-8.657919,29.16089
-LUAPULA,MANSA,Mr. Wintony Chiboli,140,140,280,ALong Chembe Road,-11.213347,28.894581
-LUAPULA,NCHELENGE,Mr. Grandwell Chilukuta,253,147,400,ZRCS Project Offices,-9.352486,28.738443
-LUSAKA,CHILANGA,Mr. Kenneth Siajuwa,42,29,71,Munda Wanga Garden,-15.561631,28.272441
-LUSAKA,LUSAKA,Mr. Emmanuel Chibwe,172,330,502,Lusaka Redcross Office,-15.415147,28.311778
-LUSAKA,CHONGWE,Mr. Kennedy Tembo ,7,4,11,Chongwe Secondary School,-15.332565,28.678948
-LUSAKA,SIAVONGA,Mr. Felix Mungalatu,45,45,90,Siavonga,-16.535505,28.714227
-NORTH WESTERN,CHAVUMA,Mr. Jacob Samalapa,20,10,30,District Admin Office,-13.082801,22.688237
-NORTH WESTERN,KABOMPO,Mr. Hendrick Solochi,40,20,60,District Admin Office,-13.594392,24.202194
-NORTH WESTERN,MAYINGA,Mr. Ding'ombi Samanenga,80,30,110,Muza,-13.395631,24.314482
-NORTH WESTERN,SOLWEZI,Mr. Evans Chisengalumbwe ,80,120,200,Provincial Admin,-12.168191,26.391262
-NORTH WESTERN,ZAMBEZI,Mr. Crispin Machayi,23,20,43,District Admin Office,-13.543911,23.112015
-NORTHERN,LUWIINGU,Mr. Collins Makome,35,15,50,Building Offices,-10.248876,29.91899
-NORTHERN,MPULUNGU,Mr. Bornface Kabwe,21,14,35,Mpulunga Habour,-8.763652,31.107261
-NORTHERN,MUNGWI,Mr. Siyanga Silishebo,38,62,110,Chawama Hill Mungwi,-10.169557,31.347513
-NORTHERN,NSUMBU,Mr. Friday Chisulo,78,147,225,National Assembly Office,-8.523548,30.476298
-NORTHERN,KAPUTA,Mr. White Mwila,24,19,43,Kapata District Hospitaal,-8.47244,29.665993
-SOUTHERN,CHOMA,Mr. Regan Mwiiya,25,5,30,Choma Boma,-16.805746,26.995703
-SOUTHERN,KAZUNGULA,Mr. F. Syulikwa ,12,13,25,District Admin Office,-17.779956,25.2788
-SOUTHERN,LIVINGSTONE,Mr. Charles Ndopu,67,156,223,Henry Dunant Lodge,-17.849873,25.852932
-SOUTHERN,MAZABUKA ,Mr. Cosmas Beenzu,150,130,280,Galaba House,-15.855669,27.756056
-SOUTHERN,NAMWALA,Mr. Patrick Kalaluka,5,15,20,District Admin Office,-15.752564,26.441002
-WESTERN,LIMULUNGA ,Mr. Muyapekwa Mbumwae,4,66,10, Constituency  Office,-15.12665,23.151112
-WESTERN,MONGU,Mrs. Mukendwwa Nanzila,21,27,48,Along Mongu Road Lusaka,-15.267789,23.142807
-WESTERN,SISHEKE,Mr. Timothy Simpindu,95,62,157,District Admin office,-17.476738,24.287832
+branch_name,lat,lon,number_of_volunteers,contact_person,contact_number,contact_address
+ITEZHI TEZI,-15.736433,26.023031,36,Mr. Mukunda Moote,,Itezhi Tezhi Hospital
+KAPIRI MPOSHI,-13.978238,28.680802,202,Mr. Frackson Ngosa,,Plot 1565 Church Road
+CHAMBESHI,-12.636107,28.064127,49,Mr. Robinson Mubita,,Next to Zambeef Chambeshi
+CHILILABOMBWE,-12.360827,27.824196,72,Mr. Wellingtone Mwape,,Konkola Stadium
+CHINGOLA,-12.547511,27.861613,119,Mrs. Mirriam Lungu,,Nakatinda Girls Secondary School
+KALULUSHI,-12.842223,28.089179,210,Mr. Rodrick Chimpala,,Kalulushi High School
+KITWE,-12.811484,28.199584,150,Mr. Matine Sinyangweï¿½,,Opposite Police post VML Riverside
+LUANSHYAï¿½,-13.104709,28.337291,200,Mr. Elijah Mwaba,,Mpatamuto Police Office Block
+MASAITI,-13.260612,28.405345,110,Mr. Mwape Bwalya,,
+MPONGWE,-13.511474,28.156639,117,Mr. Binwell Mumba,,District Agriculture Office
+MUFULIRA,-12.55714,28.235541,152,Mr. Simone R. Mubanga,,Kantanshi Area
+NDOLA,-12.964312,28.644874,236,Mr. Henry Chinenga,,4th Dr. Damie Street
+CHIPATA,-13.637489,32.639426,131,Mr. Peter Malasa,,Plot No:62 off Obote Roadï¿½
+KATETE,-14.055947,32.045202,7,Mr. Ernest Mwansa,,Katete Boma
+LUNDAZI,-12.290191,33.177413,35,Mr. Norasco Kangwa,,Zyanganikaching Youth Resource
+PETAUKEï¿½,-14.253733,31.325755,150,Mr. Stanley Yumba,,Petauke Red Cross Office
+CHIENGEï¿½,-8.657919,29.16089,61,Mr. Stanley Siamwezi (Acting President),,Chienge Red Cross Office
+MANSA,-11.213347,28.894581,280,Mr. Wintony Chiboli,,ALong Chembe Road
+NCHELENGE,-9.352486,28.738443,400,Mr. Grandwell Chilukuta,,ZRCS Project Offices
+CHILANGA,-15.561631,28.272441,71,Mr. Kenneth Siajuwa,,Munda Wanga Garden
+LUSAKA,-15.415147,28.311778,502,Mr. Emmanuel Chibwe,,Lusaka Redcross Office
+CHONGWE,-15.332565,28.678948,11,Mr. Kennedy Temboï¿½,,Chongwe Secondary School
+SIAVONGA,-16.535505,28.714227,90,Mr. Felix Mungalatu,,Siavonga
+CHAVUMA,-13.082801,22.688237,30,Mr. Jacob Samalapa,,District Admin Office
+KABOMPO,-13.594392,24.202194,60,Mr. Hendrick Solochi,,District Admin Office
+MAYINGA,-13.395631,24.314482,110,Mr. Ding'ombi Samanenga,,Muza
+SOLWEZI,-12.168191,26.391262,200,Mr. Evans Chisengalumbweï¿½,,Provincial Admin
+ZAMBEZI,-13.543911,23.112015,43,Mr. Crispin Machayi,,District Admin Office
+LUWIINGU,-10.248876,29.91899,50,Mr. Collins Makome,,Building Offices
+MPULUNGU,-8.763652,31.107261,35,Mr. Bornface Kabwe,,Mpulunga Habour
+MUNGWI,-10.169557,31.347513,110,Mr. Siyanga Silishebo,,Chawama Hill Mungwi
+NSUMBU,-8.523548,30.476298,225,Mr. Friday Chisulo,,National Assembly Office
+KAPUTA,-8.47244,29.665993,43,Mr. White Mwila,,Kapata District Hospitaal
+CHOMA,-16.805746,26.995703,30,Mr. Regan Mwiiya,,Choma Boma
+KAZUNGULA,-17.779956,25.2788,25,Mr. F. Syulikwaï¿½,,District Admin Office
+LIVINGSTONE,-17.849873,25.852932,223,Mr. Charles Ndopu,,Henry Dunant Lodge
+MAZABUKAï¿½,-15.855669,27.756056,280,Mr. Cosmas Beenzu,,Galaba House
+NAMWALA,-15.752564,26.441002,20,Mr. Patrick Kalaluka,,District Admin Office
+LIMULUNGAï¿½,-15.12665,23.151112,10,Mr. Muyapekwa Mbumwae,,ï¿½Constituency ï¿½Office
+MONGU,-15.267789,23.142807,48,Mrs. Mukendwwa Nanzila,,Along Mongu Road Lusaka
+SISHEKE,-17.476738,24.287832,157,Mr. Timothy Simpindu,,District Admin office

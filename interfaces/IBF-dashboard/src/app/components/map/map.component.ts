@@ -419,28 +419,19 @@ export class MapComponent implements OnDestroy {
   };
 
   private bindPopupAdminRegions(layer: IbfLayer, feature, element): void {
-    console.log('layer: ', layer);
     let popup: string;
     const activeAggregateLayer = this.mapService.layers.find(
       (l) => l.active && l.group === IbfLayerGroup.aggregates,
     );
-    if (activeAggregateLayer.name !== IbfLayerName.potentialCases) {
-      popup = this.createDefaultPopupAdminRegions(
-        layer,
-        activeAggregateLayer,
-        feature,
-      );
-      element.bindPopup(popup).openPopup();
-      this.placeCode = feature.properties.placeCode;
-    } else {
+    if (
+      activeAggregateLayer &&
+      activeAggregateLayer.name === IbfLayerName.potentialCases
+    ) {
       this.apiService
         .getAdminAreaDynamiceDataOne(
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
-          this.timelineService.activeLeadTime ||
-            this.country.countryActiveLeadTimes[
-              this.country.countryActiveLeadTimes.length - 1
-            ],
+          this.timelineService.activeLeadTime,
         )
         .subscribe((thresholdValue: number) => {
           popup = this.createThresHoldPopupAdminRegions(
@@ -455,6 +446,14 @@ export class MapComponent implements OnDestroy {
           element.bindPopup(popup, popupOptions).openPopup();
           this.placeCode = feature.properties.placeCode;
         });
+    } else {
+      popup = this.createDefaultPopupAdminRegions(
+        layer,
+        activeAggregateLayer,
+        feature,
+      );
+      element.bindPopup(popup).openPopup();
+      this.placeCode = feature.properties.placeCode;
     }
   }
 
@@ -487,6 +486,11 @@ export class MapComponent implements OnDestroy {
     feature,
   ): string {
     const additionalAdminLevel = this.isAdditionalAdminLevel(layer);
+    if (!additionalAdminLevel) {
+      feature = activeAggregateLayer.data.features.find(
+        (f) => f.properties.placeCode === feature.properties.placeCode,
+      );
+    }
     return (
       '<strong>' +
       feature.properties.name +
@@ -499,10 +503,13 @@ export class MapComponent implements OnDestroy {
         : activeAggregateLayer.label +
           ': ' +
           this.numberFormat(
-            typeof feature.properties[layer.colorProperty] !== 'undefined'
-              ? feature.properties[layer.colorProperty]
-              : feature.properties.indicators[layer.colorProperty],
-            layer,
+            typeof feature.properties[activeAggregateLayer.colorProperty] !==
+              'undefined'
+              ? feature.properties[activeAggregateLayer.colorProperty]
+              : feature.properties.indicators[
+                  activeAggregateLayer.colorProperty
+                ],
+            activeAggregateLayer,
           ))
     );
   }
@@ -515,9 +522,6 @@ export class MapComponent implements OnDestroy {
     const properties = 'properties';
     const forecastValue = feature[properties][layer.colorProperty];
     const featureTriggered = forecastValue > thresholdValue;
-    const headerColor = featureTriggered
-      ? 'var(--ion-color-ibf-trigger-alert-primary)'
-      : 'var(--ion-color-ibf-no-alert-primary)';
     const headerTextColor = featureTriggered
       ? 'var(--ion-color-ibf-trigger-alert-primary-contrast)'
       : 'var(--ion-color-ibf-no-alert-primary-contrast)';

@@ -7,7 +7,6 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
-import { AggregatesService } from 'src/app/services/aggregates.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import {
@@ -16,7 +15,6 @@ import {
   IbfLayerName,
   IbfLayerType,
 } from 'src/app/types/ibf-layer';
-import { AdminLevelService } from '../../services/admin-level.service';
 
 @Component({
   selector: 'app-matrix',
@@ -34,10 +32,8 @@ export class MatrixComponent implements OnDestroy {
     private analyticsService: AnalyticsService,
     private eventService: EventService,
     private mapService: MapService,
-    private adminLevelService: AdminLevelService,
     private popoverController: PopoverController,
     private menuController: MenuController,
-    private aggregatesService: AggregatesService,
   ) {
     this.layerSubscription = this.mapService
       .getLayerSubscription()

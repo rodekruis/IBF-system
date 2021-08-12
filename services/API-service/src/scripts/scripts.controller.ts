@@ -17,6 +17,7 @@ import { Connection } from 'typeorm';
 import { SeedInit } from './seed-init';
 import { ScriptsService } from './scripts.service';
 import { RolesGuard } from '../roles.guard';
+import { DisasterType } from '../api/disaster/disaster-type.enum';
 
 class ResetDto {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -31,8 +32,11 @@ export class MockDynamic {
   @IsString()
   public readonly secret: string;
   @ApiProperty({ example: 'UGA' })
-  @IsIn(['PHL', 'UGA', 'ZMB'])
+  @IsIn(['PHL', 'UGA', 'ZMB', 'ETH'])
   public readonly countryCodeISO3: string;
+  @ApiProperty({ example: DisasterType.Floods })
+  @IsIn([DisasterType.Floods, DisasterType.Dengue, DisasterType.Malaria])
+  public readonly disasterType: DisasterType;
   @ApiProperty()
   @IsNotEmpty()
   public readonly triggered: boolean;

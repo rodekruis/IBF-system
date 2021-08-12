@@ -5,6 +5,16 @@ import { SeedHelper } from './seed-helper';
 import countries from './json/countries.json';
 import { RedcrossBranchEntity } from '../api/redcross-branch/redcross-branch.entity';
 
+interface RedCrossBranch {
+  branch_name: string;
+  lat: number;
+  lon: number;
+  number_of_volunteers: number;
+  contact_person: string;
+  contact_number: string;
+  contact_address: string;
+}
+
 @Injectable()
 export class SeedRedcrossBranches implements InterfaceScript {
   private connection: Connection;
@@ -44,25 +54,26 @@ export class SeedRedcrossBranches implements InterfaceScript {
 
       await Promise.all(
         redcrossBranchesData.map(
-          (branch): Promise<void> => {
+          (branch: RedCrossBranch): Promise<void> => {
             return this.redcrossBranchRepository
               .createQueryBuilder()
               .insert()
               .values({
                 countryCodeISO3: country.countryCodeISO3,
-                name: branch['branch_name'],
-                numberOfVolunteers: branch['number_of_volunteers'],
-                contactPerson: branch['contact_person'],
-                contactAddress: branch['contact_address'],
-                contactNumber: branch['contact_number'],
+                name: branch.branch_name,
+                numberOfVolunteers: branch.number_of_volunteers,
+                contactPerson: branch.contact_person,
+                contactAddress: branch.contact_address,
+                contactNumber: branch.contact_number,
                 geom: (): string =>
-                  `st_asgeojson(st_MakePoint(${branch['lon']}, ${branch['lat']}))::json`,
+                  `st_asgeojson(st_MakePoint(${branch.lon}, ${branch.lat}))::json`,
               })
               .execute();
           },
         ),
       );
     } catch {
+      console.error(`Skip Red Cross branches: ${country.countryCodeISO3}`);
       return Promise.resolve();
     }
   }

@@ -4,10 +4,15 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
-import { Country } from '../models/country.model';
+import {
+  Indicator,
+  IndicatorGroup,
+  NumberFormat,
+} from 'src/app/types/indicator-group';
+import { Country, DisasterType } from '../models/country.model';
 import { IbfLayerName } from '../types/ibf-layer';
 import { AdminLevelService } from './admin-level.service';
+import { DisasterTypeService } from './disaster-type.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +22,7 @@ export class AggregatesService {
   public indicators: Indicator[] = [];
   private aggregates = [];
   private country: Country;
+  private disasterType: DisasterType;
 
   constructor(
     private countryService: CountryService,
@@ -24,6 +30,7 @@ export class AggregatesService {
     private timelineService: TimelineService,
     private apiService: ApiService,
     private mapService: MapService,
+    private disasterTypeService: DisasterTypeService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -32,10 +39,19 @@ export class AggregatesService {
     this.timelineService
       .getTimelineSubscription()
       .subscribe(this.onLeadTimeChange);
+
+    this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
   }
 
   private onCountryChange = (country: Country) => {
     this.country = country;
+    this.loadMetadataAndAggregates();
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
     this.loadMetadataAndAggregates();
   };
 
@@ -44,9 +60,12 @@ export class AggregatesService {
   };
 
   loadMetadataAndAggregates() {
-    if (this.country) {
+    if (this.country && this.disasterType) {
       this.apiService
-        .getIndicators(this.country.countryCodeISO3)
+        .getIndicators(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
         .subscribe(this.onIndicatorChange);
     }
   }
@@ -124,10 +143,11 @@ export class AggregatesService {
   }
 
   loadAggregateInformation(): void {
-    if (this.country) {
+    if (this.country && this.disasterType) {
       this.apiService
         .getAggregatesData(
           this.country.countryCodeISO3,
+          this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           this.adminLevelService.adminLevel,
         )
@@ -139,11 +159,23 @@ export class AggregatesService {
     weightedAverage: boolean,
     indicator: IbfLayerName,
     placeCode: string,
+    numberFormat: NumberFormat,
   ): number {
-    return this.aggregates.reduce(
+    let aggregateValue = this.aggregates.reduce(
       this.aggregateReducer(weightedAverage, indicator, placeCode),
       0,
     );
+
+    // normalize when reducing percentage values https://math.stackexchange.com/a/3381907/482513
+    if (
+      !placeCode &&
+      numberFormat === NumberFormat.perc &&
+      this.aggregates.length > 0
+    ) {
+      aggregateValue = aggregateValue / this.aggregates.length;
+    }
+
+    return aggregateValue;
   }
 
   private aggregateReducer = (

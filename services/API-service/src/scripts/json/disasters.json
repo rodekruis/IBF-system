@@ -16,5 +16,11 @@
     "label": "dengue",
     "triggerUnit": "alert_threshold",
     "actionsUnit": "potential_cases"
+  },
+  {
+    "disasterType": "malaria",
+    "label": "malaria",
+    "triggerUnit": "alert_threshold",
+    "actionsUnit": "potential_cases"
   }
 ]

@@ -8,6 +8,7 @@ import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
 import { HelperService } from '../../shared/helper.service';
 import { EventService } from '../event/event.service';
+import { DisasterType } from '../disaster/disaster-type.enum';
 
 @Injectable()
 export class GlofasStationService {
@@ -40,6 +41,7 @@ export class GlofasStationService {
   ): Promise<GeoJson> {
     const lastTriggeredDate = await this.eventService.getRecentDate(
       countryCodeISO3,
+      DisasterType.Floods,
     );
     const stationForecasts = await this.glofasStationRepository
       .createQueryBuilder('station')

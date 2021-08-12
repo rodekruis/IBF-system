@@ -2,14 +2,15 @@ import { CountryService } from './../country/country.service';
 import { LeadTime, LeadTimeDayMonth } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { Injectable } from '@nestjs/common';
-import { MoreThan, Repository } from 'typeorm';
+import { MoreThanOrEqual, Repository } from 'typeorm';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
-import { DynamicIndicator } from './enum/dynamic-indicator';
+import { DynamicIndicator } from './enum/dynamic-data-unit';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
 import { EventService } from '../event/event.service';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -17,6 +18,8 @@ export class AdminAreaDynamicDataService {
   private readonly adminAreaDynamicDataRepo: Repository<
     AdminAreaDynamicDataEntity
   >;
+  @InjectRepository(DisasterEntity)
+  private readonly disasterTypeRepository: Repository<DisasterEntity>;
 
   private eventService: EventService;
   private countryService: CountryService;
@@ -33,9 +36,10 @@ export class AdminAreaDynamicDataService {
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
     // Delete existing entries with same date, leadtime and countryCodeISO3 and unit type
-    const deleteDate = await this.deleteDynamicDuplicates(uploadExposure);
+    await this.deleteDynamicDuplicates(uploadExposure);
 
     console.time('Insert exposure');
+    const areas = [];
     for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
       const area = new AdminAreaDynamicDataEntity();
       area.indicator = uploadExposure.dynamicIndicator;
@@ -45,16 +49,20 @@ export class AdminAreaDynamicDataService {
       area.date = new Date();
       area.countryCodeISO3 = uploadExposure.countryCodeISO3;
       area.leadTime = uploadExposure.leadTime;
-      this.adminAreaDynamicDataRepo.save(area);
+      area.disasterType = uploadExposure.disasterType;
+      areas.push(area);
     }
+    this.adminAreaDynamicDataRepo.save(areas);
     console.timeEnd('Insert exposure');
 
     console.time('Insert trigger');
 
-    const triggerUnits = await this.countryService.getTriggerUnitsForCountry(
-      uploadExposure.countryCodeISO3,
-    );
-    if (triggerUnits.includes(uploadExposure.dynamicIndicator)) {
+    const triggerUnit = await this.disasterTypeRepository.findOne({
+      select: ['triggerUnit'],
+      where: { disasterType: uploadExposure.disasterType },
+    });
+
+    if (triggerUnit.triggerUnit === uploadExposure.dynamicIndicator) {
       await this.insertTrigger(uploadExposure);
     }
 
@@ -62,34 +70,32 @@ export class AdminAreaDynamicDataService {
 
     console.time('Process event areas');
 
-    await this.eventService.processEventAreas(uploadExposure.countryCodeISO3);
+    await this.eventService.processEventAreas(
+      uploadExposure.countryCodeISO3,
+      uploadExposure.disasterType,
+    );
     console.timeEnd('Process event areas');
   }
 
   private async deleteDynamicDuplicates(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
-    const country = await this.countryService.findOne(
-      uploadExposure.countryCodeISO3,
-    );
-    if (
-      country.countryActiveLeadTimes[0].leadTimeName.includes(
-        LeadTimeDayMonth.month,
-      )
-    ) {
+    if (uploadExposure.leadTime.includes(LeadTimeDayMonth.month)) {
       const date = new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       await this.adminAreaDynamicDataRepo.delete({
         indicator: uploadExposure.dynamicIndicator,
         countryCodeISO3: uploadExposure.countryCodeISO3,
         leadTime: uploadExposure.leadTime,
-        date: MoreThan(firstDayOfMonth),
+        disasterType: uploadExposure.disasterType,
+        date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else {
       await this.adminAreaDynamicDataRepo.delete({
         indicator: uploadExposure.dynamicIndicator,
         countryCodeISO3: uploadExposure.countryCodeISO3,
         leadTime: uploadExposure.leadTime,
+        disasterType: uploadExposure.disasterType,
         date: new Date(),
       });
     }
@@ -103,6 +109,7 @@ export class AdminAreaDynamicDataService {
     const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
     uploadTriggerPerLeadTimeDto.countryCodeISO3 =
       uploadExposure.countryCodeISO3;
+    uploadTriggerPerLeadTimeDto.disasterType = uploadExposure.disasterType;
     uploadTriggerPerLeadTimeDto.triggersPerLeadTime = [
       {
         leadTime: uploadExposure.leadTime as LeadTime,

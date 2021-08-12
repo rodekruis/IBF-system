@@ -8,10 +8,11 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Country } from 'src/app/models/country.model';
+import { Country, DisasterType } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
@@ -38,6 +39,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
+  private disasterTypeSubscription: Subscription;
   private translateSubscription: Subscription;
 
   public indicatorName = IbfLayerName;
@@ -54,6 +56,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
+    private disasterTypeService: DisasterTypeService,
     private countryService: CountryService,
     private alertController: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
@@ -78,12 +81,17 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
+
+    this.disasterTypeSubscription = this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
   }
 
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
+    this.disasterTypeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
   }
 
@@ -101,37 +109,16 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (country) {
       this.adminAreaLabel =
         country.adminRegionLabels[country.defaultAdminLevel].singular;
-      // For now take 1st disasterType, because there's only 1 type per country.
-      // We will build in a 'selectedDisasterType' variable once that is needed.
-      this.disasterTypeLabel = country.disasterTypes[0].label;
-      this.disasterTypeName = country.disasterTypes[0].disasterType;
-      const activeEventsSelector = 'active-event';
-      const updateSuccesSelector = 'update-success';
-      const updateFailureSelector = 'update-failure';
-      if (this.disasterTypeName === DisasterTypeKey.dengue) {
-        this.updateSuccessMessage = this.translatedStrings[
-          DisasterTypeKey.dengue
-        ][activeEventsSelector][updateSuccesSelector];
-        this.updateFailureMessage = this.translatedStrings[
-          DisasterTypeKey.dengue
-        ][activeEventsSelector][updateFailureSelector];
-        this.disasterCategory = `${DisasterTypeKey.dengue}.`;
-      } else {
-        this.updateSuccessMessage = this.translatedStrings[
-          activeEventsSelector
-        ][updateSuccesSelector];
-        this.updateFailureMessage = this.translatedStrings[
-          activeEventsSelector
-        ][updateFailureSelector];
-        this.disasterCategory = '';
-      }
       this.changeDetectorRef.detectChanges();
     }
   };
 
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-    if (this.disasterTypeName === DisasterTypeKey.dengue) {
+    if (
+      this.disasterTypeName === DisasterTypeKey.dengue ||
+      this.disasterTypeName === DisasterTypeKey.malaria
+    ) {
       this.filteredAreas = [];
     } else {
       this.filteredAreas = [...this.triggeredAreas];
@@ -148,13 +135,47 @@ export class ChatComponent implements OnInit, OnDestroy {
         filterTriggeredAreasByPlaceCode,
       );
     } else {
-      if (this.disasterTypeName === DisasterTypeKey.dengue) {
+      if (
+        this.disasterTypeName === DisasterTypeKey.dengue ||
+        this.disasterTypeName === DisasterTypeKey.malaria
+      ) {
         this.filteredAreas = [];
       } else {
         this.filteredAreas = [...this.triggeredAreas];
       }
     }
     this.changeDetectorRef.detectChanges();
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    if (disasterType) {
+      this.disasterTypeLabel = disasterType.label;
+      this.disasterTypeName = disasterType.disasterType;
+      const activeEventsSelector = 'active-event';
+      const updateSuccesSelector = 'update-success';
+      const updateFailureSelector = 'update-failure';
+      if (
+        this.disasterTypeName === DisasterTypeKey.dengue ||
+        this.disasterTypeName === DisasterTypeKey.malaria
+      ) {
+        this.updateSuccessMessage = this.translatedStrings[
+          this.disasterTypeName
+        ][activeEventsSelector][updateSuccesSelector];
+        this.updateFailureMessage = this.translatedStrings[
+          this.disasterTypeName
+        ][activeEventsSelector][updateFailureSelector];
+        this.disasterCategory = `${this.disasterTypeName}.`;
+      } else {
+        this.updateSuccessMessage = this.translatedStrings[
+          activeEventsSelector
+        ][updateSuccesSelector];
+        this.updateFailureMessage = this.translatedStrings[
+          activeEventsSelector
+        ][updateFailureSelector];
+        this.disasterCategory = '';
+      }
+      this.changeDetectorRef.detectChanges();
+    }
   };
 
   // data needs to be reorganized to avoid the mess that follows

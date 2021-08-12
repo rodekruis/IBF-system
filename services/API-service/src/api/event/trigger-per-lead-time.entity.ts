@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../country/country.entity';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Entity('trigger-per-lead-time')
 export class TriggerPerLeadTime {
@@ -22,6 +23,13 @@ export class TriggerPerLeadTime {
     referencedColumnName: 'countryCodeISO3',
   })
   public countryCodeISO3: string;
+
+  @ManyToOne((): typeof DisasterEntity => DisasterEntity)
+  @JoinColumn({
+    name: 'disasterType',
+    referencedColumnName: 'disasterType',
+  })
+  public disasterType: string;
 
   @Column()
   public leadTime: LeadTime;

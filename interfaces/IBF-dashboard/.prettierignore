@@ -16,3 +16,5 @@ README.md
 
 # to import zone-testing in the right order for angular 11
 src/test.ts
+
+src/environments/environment.prod.ts

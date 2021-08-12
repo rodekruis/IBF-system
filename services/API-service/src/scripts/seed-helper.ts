@@ -1,7 +1,7 @@
-import { Connection } from 'typeorm';
 import fs from 'fs';
 import csv from 'csv-parser';
 import { Readable } from 'stream';
+import { Connection } from 'typeorm';
 
 export class SeedHelper {
   private connection: Connection;
@@ -40,13 +40,13 @@ export class SeedHelper {
     });
   }
 
-  public async cleanAll(): Promise<void> {
+  public async truncateAll(): Promise<void> {
     const entities = this.connection.entityMetadatas;
     try {
       for (const entity of entities) {
         const repository = await this.connection.getRepository(entity.name);
         if (repository.metadata.schema === 'IBF-app') {
-          const q = `DROP TABLE IF EXISTS \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
+          const q = `TRUNCATE TABLE \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
           await repository.query(q);
         }
       }

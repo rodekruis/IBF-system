@@ -23,7 +23,7 @@ export class RedcrossBranchEntity {
   public name: string;
 
   @Column({ nullable: true })
-  public numberOfVolunteers: string;
+  public numberOfVolunteers: number;
 
   @Column({ nullable: true })
   public contactPerson: string;

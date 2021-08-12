@@ -1,4 +1,5 @@
 import { IconOptions, MapOptions } from 'leaflet';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { environment } from 'src/environments/environment';
 
 export const DEBUG_LOG = environment.configuration === 'development';
@@ -42,4 +43,34 @@ export const LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT: IconOptions = {
 export const LEAFLET_MAP_OPTIONS: MapOptions = {
   zoom: 5,
   layers: [],
+};
+
+export const DISASTER_TYPES_SVG_MAP = {
+  [DisasterTypeKey.floods]: {
+    selectedTriggered: '/assets/icons/Flood_Selected_Triggered.svg',
+    selectedNonTriggered: '/assets/icons/Flood_Selected_Non Triggered.svg',
+    nonSelectedTriggered: '/assets/icons/Flood_Not Selected_Triggered.svg',
+    nonSelectedNonTriggered:
+      '/assets/icons/Flood_Not Selected_Non Triggered.svg',
+  },
+  [DisasterTypeKey.malaria]: {
+    selectedTriggered: '/assets/icons/Malaria_Selected_Triggered.svg',
+    selectedNonTriggered: '/assets/icons/Malaria_Selected_Non Triggered.svg',
+    nonSelectedTriggered: '/assets/icons/Malaria_Not Selected_Triggered.svg',
+    nonSelectedNonTriggered:
+      '/assets/icons/Malaria_Not Selected_Non Triggered.svg',
+  },
+  [DisasterTypeKey.dengue]: {
+    selectedTriggered: '/assets/icons/Malaria_Selected_Triggered.svg',
+    selectedNonTriggered: '/assets/icons/Malaria_Selected_Non Triggered.svg',
+    nonSelectedTriggered: '/assets/icons/Malaria_Not Selected_Triggered.svg',
+    nonSelectedNonTriggered:
+      '/assets/icons/Malaria_Not Selected_Non Triggered.svg',
+  },
+  [DisasterTypeKey.heavyRain]: {
+    selectedTriggered: '',
+    selectedNonTriggered: '',
+    nonSelectedTriggered: '',
+    nonSelectedNonTriggered: '',
+  },
 };

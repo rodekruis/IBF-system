@@ -15,6 +15,7 @@ import { AdminAreaService } from './admin-area.service';
 import { EapActionsService } from '../eap-actions/eap-actions.service';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 describe('AdminAreaService', (): void => {
   let service: AdminAreaService;
@@ -62,6 +63,10 @@ describe('AdminAreaService', (): void => {
           },
           {
             provide: getRepositoryToken(AreaOfFocusEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(DisasterEntity),
             useFactory: repositoryMockFactory,
           },
         ],

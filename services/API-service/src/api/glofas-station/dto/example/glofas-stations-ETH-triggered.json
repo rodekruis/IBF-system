@@ -1,0 +1,93 @@
+[
+  {
+    "stationCode": "G1045",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G1067",
+    "forecastLevel": 5000,
+    "forecastProbability": 0.9803921569,
+    "forecastTrigger": 1,
+    "forecastReturnPeriod": 10
+  },
+  {
+    "stationCode": "G1074",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G1603",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G1901",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G1902",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G1904",
+    "forecastLevel": 15000,
+    "forecastProbability": 0.9803921569,
+    "forecastTrigger": 1,
+    "forecastReturnPeriod": 10
+  },
+  {
+    "stationCode": "G4953",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G5056",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G5081",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G5115",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G6107",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  },
+  {
+    "stationCode": "G6109",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null
+  }
+]

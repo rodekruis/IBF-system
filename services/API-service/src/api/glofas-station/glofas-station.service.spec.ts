@@ -6,6 +6,7 @@ import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-are
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
 import { CountryService } from '../country/country.service';
+import { DisasterEntity } from '../disaster/disaster.entity';
 import { AreaOfFocusEntity } from '../eap-actions/area-of-focus.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
@@ -72,6 +73,10 @@ describe('GlofasStationService', (): void => {
           },
           {
             provide: getRepositoryToken(AdminAreaEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(DisasterEntity),
             useFactory: repositoryMockFactory,
           },
         ],

@@ -1,11 +1,10 @@
-import { LeadTimeEntity } from './../lead-time/lead-time.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 /* eslint-disable @typescript-eslint/camelcase */
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { EventPlaceCodeDto } from './dto/event-place-code.dto';
-import { LessThan, MoreThan, Repository, In } from 'typeorm';
+import { LessThan, MoreThanOrEqual, Repository, In } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import {
@@ -19,6 +18,8 @@ import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryService } from '../country/country.service';
 import { DateDto } from './dto/date.dto';
 import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
+import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Injectable()
 export class EventService {
@@ -32,6 +33,8 @@ export class EventService {
   private readonly adminAreaRepository: Repository<AdminAreaEntity>;
   @InjectRepository(TriggerPerLeadTime)
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
+  @InjectRepository(DisasterEntity)
+  private readonly disasterTypeRepository: Repository<DisasterEntity>;
 
   private countryService: CountryService;
   private eapActionsService: EapActionsService;
@@ -45,6 +48,7 @@ export class EventService {
 
   public async getEventSummaryCountry(
     countryCodeISO3: string,
+    disasterType: DisasterType,
   ): Promise<EventSummaryCountry> {
     const eventSummary = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
@@ -62,13 +66,19 @@ export class EventService {
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
+      .andWhere('event."disasterType" = :disasterType', {
+        disasterType: disasterType,
+      })
       .getRawOne();
     return eventSummary;
   }
 
-  public async getRecentDate(countryCodeISO3: string): Promise<DateDto> {
+  public async getRecentDate(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<DateDto> {
     const result = await this.triggerPerLeadTimeRepository.findOne({
-      where: { countryCodeISO3: countryCodeISO3 },
+      where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
       order: { date: 'DESC' },
     });
     return { date: new Date(result.date).toISOString() };
@@ -80,16 +90,15 @@ export class EventService {
     const triggersPerLeadTime: TriggerPerLeadTime[] = [];
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
       // Delete duplicates
-      await this.deleteDuplicates(
-        uploadTriggerPerLeadTimeDto.countryCodeISO3,
-        leadTime,
-      );
+      await this.deleteDuplicates(uploadTriggerPerLeadTimeDto, leadTime);
       const triggerPerLeadTime = new TriggerPerLeadTime();
       triggerPerLeadTime.date = new Date();
       triggerPerLeadTime.countryCodeISO3 =
         uploadTriggerPerLeadTimeDto.countryCodeISO3;
       triggerPerLeadTime.leadTime = leadTime.leadTime as LeadTime;
       triggerPerLeadTime.triggered = leadTime.triggered;
+      triggerPerLeadTime.disasterType =
+        uploadTriggerPerLeadTimeDto.disasterType;
 
       triggersPerLeadTime.push(triggerPerLeadTime);
     }
@@ -98,10 +107,12 @@ export class EventService {
   }
 
   private async deleteDuplicates(
-    countryCodeISO3: string,
+    uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
     selectedLeadTime: TriggerPerLeadTimeDto,
   ): Promise<void> {
-    const country = await this.countryService.findOne(countryCodeISO3);
+    const country = await this.countryService.findOne(
+      uploadTriggerPerLeadTimeDto.countryCodeISO3,
+    );
     if (
       country.countryActiveLeadTimes[0].leadTimeName.includes(
         LeadTimeDayMonth.month,
@@ -110,38 +121,51 @@ export class EventService {
       const date = new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       await this.triggerPerLeadTimeRepository.delete({
-        countryCodeISO3: countryCodeISO3,
+        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
-        date: MoreThan(firstDayOfMonth),
+        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
+        date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else {
       await this.triggerPerLeadTimeRepository.delete({
-        countryCodeISO3: countryCodeISO3,
+        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
+        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         date: new Date(),
       });
     }
   }
 
+  private async getTriggerUnit(disasterType: DisasterType): Promise<string> {
+    return (
+      await this.disasterTypeRepository.findOne({
+        select: ['triggerUnit'],
+        where: { disasterType: disasterType },
+      })
+    ).triggerUnit;
+  }
+
   public async getTriggeredAreas(
     countryCodeISO3: string,
+    disasterType: DisasterType,
     leadTime: string,
   ): Promise<TriggeredArea[]> {
-    const triggerIndidators = await this.countryService.getTriggerUnitsForCountry(
-      countryCodeISO3,
-    );
+    const triggerUnit = await this.getTriggerUnit(disasterType);
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .select(['dynamic.placeCode'])
-      .where('indicator = :indicator', { indicator: triggerIndidators[0] })
+      .where('indicator = :indicator', { indicator: triggerUnit })
       .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
       .andWhere('value > 0')
+      .andWhere('"disasterType" = :disasterType', {
+        disasterType: disasterType,
+      })
       .execute();
     const triggeredPlaceCodesLeadTime = result.map(
       element => element.dynamic_placeCode,
     );
 
-    const triggeredAreas = await this.eventPlaceCodeRepo
+    const triggeredAreasQuery = this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."placeCode" AS "placeCode"',
@@ -157,24 +181,44 @@ export class EventService {
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .andWhere('area."placeCode" IN(:...placeCodes)', {
-        placeCodes: triggeredPlaceCodesLeadTime,
+      .andWhere('"disasterType" = :disasterType', {
+        disasterType: disasterType,
       })
-      .orderBy('event."actionsValue"', 'DESC')
-      .getRawMany();
+      .orderBy('event."actionsValue"', 'DESC');
+
+    let triggeredAreas;
+
+    if (triggeredPlaceCodesLeadTime.length) {
+      triggeredAreas = await triggeredAreasQuery
+        .andWhere('area."placeCode" IN(:...placeCodes)', {
+          placeCodes: triggeredPlaceCodesLeadTime,
+        })
+        .getRawMany();
+    } else {
+      triggeredAreas = await triggeredAreasQuery.getRawMany();
+    }
+
     for (const area of triggeredAreas) {
       area.eapActions = await this.eapActionsService.getActionsWithStatus(
         countryCodeISO3,
+        disasterType,
         area.placeCode,
       );
     }
     return triggeredAreas;
   }
 
-  public async getTriggerPerLeadtime(countryCodeISO3: string): Promise<object> {
+  public async getTriggerPerLeadtime(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<object> {
     const latestDate = await this.getOneMaximumTriggerDate(countryCodeISO3);
     const triggersPerLeadTime = await this.triggerPerLeadTimeRepository.find({
-      where: { countryCodeISO3: countryCodeISO3, date: latestDate },
+      where: {
+        countryCodeISO3: countryCodeISO3,
+        date: latestDate,
+        disasterType: disasterType,
+      },
     });
     if (triggersPerLeadTime.length === 0) {
       return;
@@ -189,8 +233,6 @@ export class EventService {
       );
       if (leadTimeIsTriggered) {
         result[leadTimeUnit] = String(Number(leadTimeIsTriggered.triggered));
-      } else {
-        result[leadTimeUnit] = '0';
       }
     }
     return result;
@@ -230,38 +272,57 @@ export class EventService {
     ).map(area => area.id);
   }
 
-  public async processEventAreas(countryCodeISO3: string): Promise<void> {
+  private async getActionUnit(disasterType: DisasterType): Promise<string> {
+    return (
+      await this.disasterTypeRepository.findOne({
+        select: ['actionsUnit'],
+        where: { disasterType: disasterType },
+      })
+    ).actionsUnit;
+  }
+
+  public async processEventAreas(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<void> {
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
     );
     const eventAreas = await this.eventPlaceCodeRepo.find({
-      where: { adminArea: { id: In(countryAdminAreaIds) } },
+      where: {
+        adminArea: { id: In(countryAdminAreaIds) },
+        disasterType: disasterType,
+      },
     });
     eventAreas.forEach(area => (area.activeTrigger = false));
     await this.eventPlaceCodeRepo.save(eventAreas);
 
     // update active ones to true + update population and end_date
-    await this.updateExistingEventAreas(countryCodeISO3);
+    await this.updateExistingEventAreas(countryCodeISO3, disasterType);
 
     // add new ones
-    await this.addNewEventAreas(countryCodeISO3);
+    await this.addNewEventAreas(countryCodeISO3, disasterType);
 
     // close old events
     await this.closeEventsAutomatic(countryCodeISO3);
   }
 
-  private async getAffectedAreas(countryCodeISO3: string): Promise<any[]> {
-    const triggerIndicators = await this.countryService.getTriggerUnitsForCountry(
-      countryCodeISO3,
-    );
+  private async getAffectedAreas(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<any[]> {
+    const triggerUnit = await this.getTriggerUnit(disasterType);
 
-    const lastTriggeredDate = await this.getRecentDate(countryCodeISO3);
+    const lastTriggeredDate = await this.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
 
     const triggeredPlaceCodes = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
-      .where('indicator IN(:...indicators)', {
-        indicators: triggerIndicators,
+      .where('indicator = :indicator', {
+        indicator: triggerUnit,
       })
       .andWhere('value > 0')
       .andWhere('date = :lastTriggeredDate', {
@@ -279,9 +340,7 @@ export class EventService {
       return [];
     }
 
-    const actionIndicatorsCountry = await this.countryService.getActionsUnitsForCountry(
-      countryCodeISO3,
-    );
+    const actionUnit = await this.getActionUnit(disasterType);
 
     const q = this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
@@ -291,8 +350,8 @@ export class EventService {
       .where('"placeCode" IN(:...placeCodes)', {
         placeCodes: triggerPlaceCodesArray,
       })
-      .andWhere('indicator IN(:...indicators)', {
-        indicators: actionIndicatorsCountry,
+      .andWhere('indicator = :indicator', {
+        indicator: actionUnit,
       })
       .andWhere('value > 0')
       .andWhere('date = :lastTriggeredDate', {
@@ -307,8 +366,12 @@ export class EventService {
 
   private async updateExistingEventAreas(
     countryCodeISO3: string,
+    disasterType: DisasterType,
   ): Promise<void> {
-    const affectedAreas = await this.getAffectedAreas(countryCodeISO3);
+    const affectedAreas = await this.getAffectedAreas(
+      countryCodeISO3,
+      disasterType,
+    );
     const affectedAreasPlaceCodes = affectedAreas.map(area => area.placeCode);
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
@@ -333,14 +396,24 @@ export class EventService {
     await this.eventPlaceCodeRepo.save(unclosedEventAreas);
   }
 
-  private async addNewEventAreas(countryCodeISO3: string): Promise<void> {
-    const affectedAreas = await this.getAffectedAreas(countryCodeISO3);
+  private async addNewEventAreas(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<void> {
+    const affectedAreas = await this.getAffectedAreas(
+      countryCodeISO3,
+      disasterType,
+    );
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
     );
     const existingUnclosedEventAreas = (
       await this.eventPlaceCodeRepo.find({
-        where: { closed: false, adminArea: In(countryAdminAreaIds) },
+        where: {
+          closed: false,
+          adminArea: In(countryAdminAreaIds),
+          disasterType: disasterType,
+        },
         relations: ['adminArea'],
       })
     ).map(area => area.adminArea.placeCode);
@@ -358,6 +431,7 @@ export class EventService {
         eventArea.activeTrigger = true;
         eventArea.closed = false;
         eventArea.manualClosedDate = null;
+        eventArea.disasterType = disasterType;
         newEventAreas.push(eventArea);
       }
     }

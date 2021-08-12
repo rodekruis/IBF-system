@@ -11,14 +11,17 @@ import { EventService } from '../event/event.service';
 import { AggregateDataRecord } from 'src/shared/data.model';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
+import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Injectable()
 export class AdminAreaService {
   @InjectRepository(AdminAreaEntity)
   private readonly adminAreaRepository: Repository<AdminAreaEntity>;
-
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
+  @InjectRepository(DisasterEntity)
+  private readonly disasterTypeRepository: Repository<DisasterEntity>;
 
   private helperService: HelperService;
   private eventService: EventService;
@@ -50,19 +53,27 @@ export class AdminAreaService {
 
   private async getTriggeredPlaceCodes(
     countryCodeISO3: string,
+    disasterType: DisasterType,
     leadTime: string,
   ) {
-    if (!leadTime) {
-      leadTime = await this.getDefaultLeadTime(countryCodeISO3);
+    if (leadTime === '{leadTime}') {
+      leadTime = await this.getDefaultLeadTime(countryCodeISO3, disasterType);
     }
     const trigger = (
-      await this.eventService.getTriggerPerLeadtime(countryCodeISO3)
+      await this.eventService.getTriggerPerLeadtime(
+        countryCodeISO3,
+        disasterType,
+      )
     )[leadTime];
 
     let placeCodes = [];
     if (parseInt(trigger) === 1) {
       placeCodes = (
-        await this.eventService.getTriggeredAreas(countryCodeISO3, leadTime)
+        await this.eventService.getTriggeredAreas(
+          countryCodeISO3,
+          disasterType,
+          leadTime,
+        )
       ).map((triggeredArea): string => triggeredArea.placeCode);
     }
     return placeCodes;
@@ -70,11 +81,13 @@ export class AdminAreaService {
 
   public async getAggregatesData(
     countryCodeISO3: string,
+    disasterType: DisasterType,
     leadTime: string,
     adminLevel: number,
   ): Promise<AggregateDataRecord[]> {
     const placeCodes = await this.getTriggeredPlaceCodes(
       countryCodeISO3,
+      disasterType,
       leadTime,
     );
 
@@ -97,6 +110,7 @@ export class AdminAreaService {
 
     const lastTriggeredDate = await this.eventService.getRecentDate(
       countryCodeISO3,
+      disasterType,
     );
 
     let dynamicIndicatorsScript = this.adminAreaRepository
@@ -115,6 +129,9 @@ export class AdminAreaService {
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
+      .andWhere('"disasterType" = :disasterType', {
+        disasterType: disasterType,
+      })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
     if (placeCodes.length) {
       dynamicIndicatorsScript = dynamicIndicatorsScript.andWhere(
@@ -126,14 +143,22 @@ export class AdminAreaService {
     return staticIndicators.concat(dynamicIndicators);
   }
 
+  private async getActionUnit(disasterType: DisasterType): Promise<string> {
+    return (
+      await this.disasterTypeRepository.findOne({
+        select: ['actionsUnit'],
+        where: { disasterType: disasterType },
+      })
+    ).actionsUnit;
+  }
+
   public async getAdminAreas(
     countryCodeISO3: string,
+    disasterType: DisasterType,
     leadTime: string,
     adminLevel: number,
   ): Promise<GeoJson> {
-    const actionUnits = await this.countryService.getActionsUnitsForCountry(
-      countryCodeISO3,
-    );
+    const actionUnit = await this.getActionUnit(disasterType);
     const country = await this.countryRepository.findOne({
       select: ['defaultAdminLevel'],
       where: { countryCodeISO3: countryCodeISO3 },
@@ -154,6 +179,7 @@ export class AdminAreaService {
     if (adminLevel == country.defaultAdminLevel) {
       const lastTriggeredDate = await this.eventService.getRecentDate(
         countryCodeISO3,
+        disasterType,
       );
 
       adminAreasScript = adminAreasScript
@@ -163,7 +189,7 @@ export class AdminAreaService {
           'area.placeCode = dynamic.placeCode',
         )
         .addSelect([
-          `dynamic.value AS ${actionUnits[0]}`,
+          `dynamic.value AS ${actionUnit}`,
           'dynamic."leadTime"',
           'dynamic."date"',
         ])
@@ -171,49 +197,65 @@ export class AdminAreaService {
         .andWhere('date = :lastTriggeredDate', {
           lastTriggeredDate: lastTriggeredDate.date,
         })
+        .andWhere('"disasterType" = :disasterType', {
+          disasterType: disasterType,
+        })
         .andWhere('dynamic."indicator" = :indicator', {
-          indicator: actionUnits[0],
+          indicator: actionUnit,
         });
 
       const placeCodes = await this.getTriggeredPlaceCodes(
         countryCodeISO3,
+        disasterType,
         leadTime,
       );
 
-      if (placeCodes.length && countryCodeISO3 !== 'PHL') {
+      if (
+        placeCodes.length &&
+        disasterType !== DisasterType.Dengue &&
+        disasterType !== DisasterType.Malaria
+      ) {
         adminAreasScript = adminAreasScript.andWhere(
           'area."placeCode" IN (:...placeCodes)',
           { placeCodes: placeCodes },
         );
       }
     } else {
-      adminAreasScript = adminAreasScript.addSelect(
-        `null AS ${actionUnits[0]}`,
-      );
+      adminAreasScript = adminAreasScript.addSelect(`null AS ${actionUnit}`);
     }
     const adminAreas = await adminAreasScript.getRawMany();
 
     return this.helperService.toGeojson(adminAreas);
   }
 
-  private async getDefaultLeadTime(countryCodeISO3: string): Promise<string> {
-    const findOneOptions = {
-      countryCodeISO3: countryCodeISO3,
-    };
-    const country = await this.countryRepository.findOne(findOneOptions, {
+  private async getDefaultLeadTime(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<string> {
+    const country = await this.countryRepository.findOne({
+      where: { countryCodeISO3: countryCodeISO3 },
       relations: ['countryActiveLeadTimes'],
     });
-    for (const activeLeadTime of country.countryActiveLeadTimes) {
-      if (activeLeadTime.leadTimeName === LeadTime.day7) {
-        return activeLeadTime.leadTimeName;
-      }
+    const countryLeadTimes = country.countryActiveLeadTimes.map(
+      l => l.leadTimeName,
+    );
+    const disaster = await this.disasterTypeRepository.findOne({
+      where: { disasterType: disasterType },
+      relations: ['leadTimes'],
+    });
+    const disasterLeadTimes = disaster.leadTimes.map(l => l.leadTimeName);
+
+    // Intersection of country- and disaster-leadTimes
+    const leadTimes = countryLeadTimes.filter(leadTime =>
+      disasterLeadTimes.includes(leadTime),
+    );
+
+    if (leadTimes.includes(LeadTime.day7)) {
+      return LeadTime.day7;
+    } else if (leadTimes.includes(LeadTime.month0)) {
+      return LeadTime.month0;
+    } else {
+      return countryLeadTimes[0];
     }
-    for (const activeLeadTime of country.countryActiveLeadTimes) {
-      if (activeLeadTime.leadTimeName === LeadTime.month0) {
-        return activeLeadTime.leadTimeName;
-      }
-    }
-    // If country does not have 7 day or 1 month lead time return the first
-    return country.countryActiveLeadTimes[0].leadTimeName;
   }
 }

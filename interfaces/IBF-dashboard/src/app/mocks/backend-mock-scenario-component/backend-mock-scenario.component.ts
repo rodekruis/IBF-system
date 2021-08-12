@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { Country } from 'src/app/models/country.model';
+import { Country, DisasterType } from 'src/app/models/country.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 
 @Component({
   selector: 'app-backend-mock-scenario',
@@ -12,55 +14,129 @@ import { CountryService } from 'src/app/services/country.service';
 })
 export class BackendMockScenarioComponent implements OnInit, OnDestroy {
   private country: Country;
-  public countrySubscription: Subscription;
+  private countrySubscription: Subscription;
+
+  private disasterType: DisasterType;
+  private disasterTypeSubscription: Subscription;
+
+  private backendMockScenarioComponentTranslateNode =
+    'dashboard-page.dev-menu.mock-scenario';
+  private alertHeaderLabel: string;
+  private alertHeaderLabelNode = 'alert-header';
+  private alertSubHeaderLabel: string;
+  private alertSubHeaderLabelNode = 'alert-sub-header';
+  private alertMessage: string;
+  private alertMessageNode = 'alert-message';
+  private alertInputSecretPlaceholder: string;
+  private alertInputSecretPlaceholderNode = 'alert-input-secret-placeholder';
+  private alertButtonCancelLabel: string;
+  private alertButtonCancelLabelNode = 'alert-button-cancel';
+  private alertButtonNoTriggerLabel: string;
+  private alertButtonNoTriggerLabelNode = 'alert-button-no-trigger';
+  private alertButtonTriggerLabel: string;
+  private alertButtonTriggerLabelNode = 'alert-button-trigger';
+  private alertErrorApiError: string;
+  private alertErrorApiErrorNode = 'alert-error-api-error';
+  private alertErrorNoSecret: string;
+  private alertErrorNoSecretNode = 'alert-error-no-secret';
 
   constructor(
     public countryService: CountryService,
     public apiService: ApiService,
     private alertController: AlertController,
+    private toastController: ToastController,
+    private disasterTypeService: DisasterTypeService,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
+
+    this.disasterTypeSubscription = this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
   }
 
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
+    this.disasterTypeSubscription.unsubscribe();
   }
 
   private onCountryChange = (country: Country) => {
     this.country = country;
   };
 
-  public async handleBackendMockScenarioChange(): Promise<void> {
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
+  };
+
+  private onTranslate = (translatedStrings) => {
+    this.alertHeaderLabel = translatedStrings[this.alertHeaderLabelNode];
+    this.alertSubHeaderLabel = translatedStrings[this.alertSubHeaderLabelNode];
+    this.alertMessage = this.translateService.instant(
+      `${this.backendMockScenarioComponentTranslateNode}.${this.alertMessageNode}`,
+      {
+        countryName: this.country.countryName,
+      },
+    );
+    this.alertInputSecretPlaceholder =
+      translatedStrings[this.alertInputSecretPlaceholderNode];
+    this.alertButtonCancelLabel =
+      translatedStrings[this.alertButtonCancelLabelNode];
+    this.alertButtonNoTriggerLabel =
+      translatedStrings[this.alertButtonNoTriggerLabelNode];
+    this.alertButtonTriggerLabel =
+      translatedStrings[this.alertButtonTriggerLabelNode];
+    this.alertErrorApiError = translatedStrings[this.alertErrorApiErrorNode];
+    this.alertErrorNoSecret = translatedStrings[this.alertErrorNoSecretNode];
+    this.handleBackendMockScenarioChange();
+  };
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+    });
+    toast.present();
+  }
+
+  public onClickBackendMockScenarioChange = () => {
+    this.translateService
+      .get(this.backendMockScenarioComponentTranslateNode)
+      .subscribe(this.onTranslate);
+  };
+
+  private async handleBackendMockScenarioChange(): Promise<void> {
     const alert = await this.alertController.create({
-      message: `Are you sure you want to mock the backend of ${this.country.countryName}? Any real data will be overwritten. Please enter the reset secret:`,
+      cssClass: 'mock-scenario-alert',
+      header: this.alertHeaderLabel,
+      subHeader: this.alertSubHeaderLabel,
+      message: this.alertMessage,
       inputs: [
         {
           name: 'secret',
           type: 'text',
-          label: 'Enter secret:',
+          placeholder: this.alertInputSecretPlaceholder,
         },
       ],
       buttons: [
         {
-          text: 'Cancel',
-          handler: () => {
-            alert.dismiss(true);
-            return false;
-          },
+          text: this.alertButtonCancelLabel,
+          role: 'cancel',
         },
         {
-          text: 'Mock without trigger',
+          text: this.alertButtonNoTriggerLabel,
+          cssClass: 'no-trigger-scenario-button',
           handler: (data) => {
             this.mockApiRefresh(data.secret, false);
             return false;
           },
         },
         {
-          text: 'Mock with trigger',
+          text: this.alertButtonTriggerLabel,
+          cssClass: 'trigger-scenario-button',
           handler: (data) => {
             this.mockApiRefresh(data.secret, true);
             return false;
@@ -72,19 +148,21 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
   }
 
   private mockApiRefresh(secret: string, triggered: boolean) {
-    this.apiService
-      .mockDynamicData(secret, this.country.countryCodeISO3, triggered, true)
-      .subscribe({
-        next: () => window.location.reload(),
-      });
-  }
-
-  public allowMockScenarios(): boolean {
-    let allowMock = false;
-
-    if (this.country) {
-      allowMock = ['UGA', 'PHL', 'ZMB'].includes(this.country.countryCodeISO3);
+    if (secret) {
+      this.apiService
+        .mockDynamicData(
+          secret,
+          this.country,
+          triggered,
+          true,
+          this.disasterType,
+        )
+        .subscribe({
+          next: () => window.location.reload(),
+          error: () => this.presentToast(this.alertErrorApiError),
+        });
+    } else {
+      this.presentToast(this.alertErrorNoSecret);
     }
-    return allowMock;
   }
 }

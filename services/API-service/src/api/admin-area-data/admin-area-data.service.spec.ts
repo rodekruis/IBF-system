@@ -1,6 +1,6 @@
 import { CountryService } from './../country/country.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { AdminAreaDataEntity } from './admin-area-data.entity';
 import { AdminAreaDataService } from './admin-area-data.service';

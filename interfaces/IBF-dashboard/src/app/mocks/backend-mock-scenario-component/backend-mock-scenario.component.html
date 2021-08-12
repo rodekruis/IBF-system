@@ -1,5 +1,7 @@
-<ng-container *ngIf="allowMockScenarios()">
-  <ion-item button="true" (click)="handleBackendMockScenarioChange()"
-    >Backend mock Scenario
-  </ion-item>
+<ng-container>
+  <ion-item
+    button="true"
+    (click)="onClickBackendMockScenarioChange()"
+    [translate]="'dashboard-page.dev-menu.mock-scenario.button-label'"
+  ></ion-item>
 </ng-container>

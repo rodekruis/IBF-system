@@ -13,6 +13,7 @@ import { EapActionsService } from '../eap-actions/eap-actions.service';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 describe('Event service', (): void => {
   let service: EventService;
@@ -54,6 +55,10 @@ describe('Event service', (): void => {
           },
           {
             provide: getRepositoryToken(AdminAreaEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(DisasterEntity),
             useFactory: repositoryMockFactory,
           },
           EventService,

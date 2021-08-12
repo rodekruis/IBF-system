@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Entity('indicator-metadata')
 export class IndicatorMetadataEntity {
@@ -6,6 +7,11 @@ export class IndicatorMetadataEntity {
   public id: string;
   @Column()
   public country_codes: string;
+  @ManyToMany(
+    (): typeof DisasterEntity => DisasterEntity,
+    (disasterTypes): IndicatorMetadataEntity[] => disasterTypes.indicators,
+  )
+  public disasterTypes: DisasterEntity[];
   @Column()
   public name: string;
   @Column()

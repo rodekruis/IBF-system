@@ -17,7 +17,11 @@ import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
-import { Indicator, IndicatorGroup } from 'src/app/types/indicator-group';
+import {
+  Indicator,
+  IndicatorGroup,
+  NumberFormat,
+} from 'src/app/types/indicator-group';
 
 @Component({
   selector: 'app-aggregates',
@@ -177,11 +181,16 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return popoverText;
   }
 
-  public getAggregate(indicatorName: IbfLayerName, weightedAvg: boolean) {
+  public getAggregate(
+    indicatorName: IbfLayerName,
+    weightedAvg: boolean,
+    numberFormat: NumberFormat,
+  ) {
     return this.aggregatesService.getAggregate(
       weightedAvg,
       indicatorName,
       this.placeCode ? this.placeCode.placeCode : null,
+      numberFormat,
     );
   }
 

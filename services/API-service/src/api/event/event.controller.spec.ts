@@ -4,7 +4,7 @@ import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { EventService } from './event.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { EventController } from './event.controller';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
@@ -15,6 +15,7 @@ import { EapActionsService } from '../eap-actions/eap-actions.service';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 describe('EventController', (): void => {
   let controller: EventController;
@@ -66,6 +67,10 @@ describe('EventController', (): void => {
           },
           {
             provide: getRepositoryToken(AdminAreaEntity),
+            useFactory: repositoryMockFactory,
+          },
+          {
+            provide: getRepositoryToken(DisasterEntity),
             useFactory: repositoryMockFactory,
           },
         ],

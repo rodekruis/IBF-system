@@ -1,6 +1,7 @@
 [
   {
     "country_codes": "UGA,ZMB,KEN,ETH",
+    "disasterTypes": ["floods"],
     "name": "flood_extent",
     "label": "Flood extent",
     "type": "wms",
@@ -10,6 +11,7 @@
   },
   {
     "country_codes": "EGY",
+    "disasterTypes": ["heavy-rain"],
     "name": "rainfall_extent",
     "label": "Rainfall extent",
     "type": "wms",
@@ -19,6 +21,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
+    "disasterTypes": ["floods", "heavy-rain"],
     "name": "population",
     "label": "Population",
     "type": "wms",
@@ -28,6 +31,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH",
+    "disasterTypes": ["floods"],
     "name": "cropland",
     "label": "Cropland",
     "type": "wms",
@@ -37,6 +41,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH",
+    "disasterTypes": ["floods"],
     "name": "grassland",
     "label": "Grassland",
     "type": "wms",
@@ -46,6 +51,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH",
+    "disasterTypes": ["floods"],
     "name": "glofas_stations",
     "label": "Glofas stations",
     "type": "point",
@@ -54,6 +60,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH",
+    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria"],
     "name": "red_cross_branches",
     "label": "Red Cross branches",
     "type": "point",
@@ -62,6 +69,7 @@
   },
   {
     "country_codes": "EGY",
+    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria"],
     "name": "red_crescent_branches",
     "label": "Red Crescent branches",
     "type": "point",
@@ -69,7 +77,8 @@
     "active": "no"
   },
   {
-    "country_codes": "PHL",
+    "country_codes": "PHL,ETH",
+    "disasterTypes": ["dengue", "malaria"],
     "name": "health_sites",
     "label": "Health Sites",
     "type": "point",
@@ -78,6 +87,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH",
+    "disasterTypes": ["floods"],
     "name": "waterpoints",
     "label": "Waterpoints",
     "type": "point",
@@ -86,6 +96,7 @@
   },
   {
     "country_codes": "EGY",
+    "disasterTypes": ["heavy-rain"],
     "name": "flood_susceptibility",
     "label": "Flood susceptibility",
     "type": "wms",
@@ -94,28 +105,32 @@
     "active": "no"
   },
   {
-    "country_codes": "ZMB",
+    "country_codes": "ZMB,UGA",
+    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria"],
     "name": "adminRegions1",
     "label": "Admin Level 1",
     "type": "shape",
     "active": "yes"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
+    "country_codes": "UGA,ZMB,KEN,EGY,PHL",
+    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria"],
     "name": "adminRegions2",
     "label": "Admin Level 2",
     "type": "shape",
     "active": "yes"
   },
   {
-    "country_codes": "ZMB",
+    "country_codes": "ZMB,ETH,UGA",
+    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria"],
     "name": "adminRegions3",
     "label": "Admin Level 3",
     "type": "shape",
     "active": "yes"
   },
   {
-    "country_codes": "",
+    "country_codes": "UGA",
+    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria"],
     "name": "adminRegions4",
     "label": "Admin Level 4",
     "type": "shape",

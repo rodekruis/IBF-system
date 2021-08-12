@@ -10,7 +10,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator';
+import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
+import { DisasterType } from '../disaster/disaster-type.enum';
 
 class ReplaceKeyValue {
   replaceKey: string;
@@ -39,11 +40,17 @@ export class NotificationService {
     this.adminAreaDynamicDataService = adminAreaDynamicDataService;
   }
 
-  public async send(countryCodeISO3: string): Promise<void> {
+  public async send(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<void> {
     const country = await this.getCountryNotificationInfo(countryCodeISO3);
-    const replaceKeyValues = await this.createReplaceKeyValues(country);
+    const replaceKeyValues = await this.createReplaceKeyValues(
+      country,
+      disasterType,
+    );
     const emailHtml = this.formatEmail(replaceKeyValues);
-    const emailSubject = await this.getEmailSubject(country);
+    const emailSubject = await this.getEmailSubject(country, disasterType);
     this.sendEmail(emailSubject, emailHtml);
   }
 
@@ -73,12 +80,16 @@ export class NotificationService {
     await this.mailchimp.post(`/campaigns/${createResult.id}/actions/send`);
   }
 
-  private async getEmailSubject(country: CountryEntity): Promise<string> {
+  private async getEmailSubject(
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): Promise<string> {
     let subject = `${this.firstCharOfWordsToUpper(
       country.disasterTypes[0].label,
     )} Warning: `;
     const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
       country.countryCodeISO3,
+      disasterType,
     );
     const actionUnit = await this.indicatorRepository.findOne({
       name: country.disasterTypes[0].actionsUnit,
@@ -115,6 +126,7 @@ export class NotificationService {
 
   private async createReplaceKeyValues(
     country: CountryEntity,
+    disasterType: DisasterType,
   ): Promise<ReplaceKeyValue[]> {
     const emailKeyValueReplaceList = [
       {
@@ -123,7 +135,10 @@ export class NotificationService {
       },
       {
         replaceKey: '(TABLES-stacked)',
-        replaceValue: await this.getTriggerOverviewTables(country),
+        replaceValue: await this.getTriggerOverviewTables(
+          country,
+          disasterType,
+        ),
       },
       {
         replaceKey: this.placeholderToday,
@@ -131,7 +146,7 @@ export class NotificationService {
       },
       {
         replaceKey: '(LEAD-DATE-LIST)',
-        replaceValue: await this.getLeadTimeList(country),
+        replaceValue: await this.getLeadTimeList(country, disasterType),
       },
       {
         replaceKey: '(IMG-LOGO)',
@@ -185,9 +200,13 @@ export class NotificationService {
       .join(' ');
   }
 
-  private async getLeadTimeList(country: CountryEntity): Promise<string> {
+  private async getLeadTimeList(
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): Promise<string> {
     const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
       country.countryCodeISO3,
+      disasterType,
     );
     let leadTimeListHTML = '';
     for (const leadTime of country.countryActiveLeadTimes) {
@@ -202,15 +221,18 @@ export class NotificationService {
 
   private async getTriggerOverviewTables(
     country: CountryEntity,
+    disasterType: DisasterType,
   ): Promise<string> {
     const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
       country.countryCodeISO3,
+      disasterType,
     );
     let leadTimeTables = '';
     for (const leadTime of country.countryActiveLeadTimes) {
       if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
         const tableForLeadTime = await this.getTableForLeadTime(
           country,
+          disasterType,
           leadTime,
         );
         leadTimeTables = leadTimeTables + tableForLeadTime;
@@ -232,6 +254,7 @@ export class NotificationService {
 
   private async getTableForLeadTime(
     country: CountryEntity,
+    disasterType: DisasterType,
     leadTime: LeadTimeEntity,
   ): Promise<string> {
     const adminAreaLabels =
@@ -257,7 +280,11 @@ export class NotificationService {
       </thead>
       <tbody>
       <br>`;
-    const tableForLeadTimeMiddle = await this.getAreaTables(country, leadTime);
+    const tableForLeadTimeMiddle = await this.getAreaTables(
+      country,
+      disasterType,
+      leadTime,
+    );
     const tableForLeadTimeEnd = '</tbody></table>';
     const tableForLeadTime =
       tableForLeadTimeStart + tableForLeadTimeMiddle + tableForLeadTimeEnd;
@@ -266,10 +293,12 @@ export class NotificationService {
 
   private async getAreaTables(
     country: CountryEntity,
+    disasterType: DisasterType,
     leadTime: LeadTimeEntity,
   ): Promise<string> {
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
+      disasterType,
       leadTime.leadTimeName,
     );
     let areaTableString = '';

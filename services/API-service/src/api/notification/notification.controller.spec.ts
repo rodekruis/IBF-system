@@ -1,4 +1,3 @@
-import { UserModule } from './../user/user.module';
 import { AdminAreaEntity } from './../admin-area/admin-area.entity';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
@@ -19,6 +18,7 @@ import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { NotificationController } from './notification.controller';
 import { NotificationService } from './notification.service';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 describe('NotificationController', () => {
   let controller: NotificationController;
@@ -69,6 +69,10 @@ describe('NotificationController', () => {
         },
         {
           provide: getRepositoryToken(AdminAreaEntity),
+          useFactory: repositoryMockFactory,
+        },
+        {
+          provide: getRepositoryToken(DisasterEntity),
           useFactory: repositoryMockFactory,
         },
         EventService,

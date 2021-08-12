@@ -18,7 +18,7 @@ class Exposure:
 
     """Class used to calculate the exposure per exposure type"""
 
-    def __init__(self, leadTimeLabel, countryCodeISO3, admin_area_gdf, district_mapping=None):
+    def __init__(self, leadTimeLabel, countryCodeISO3, admin_area_gdf, population_total, admin_level, district_mapping=None):
         self.leadTimeLabel = leadTimeLabel
         self.countryCodeISO3 = countryCodeISO3
         if SETTINGS[countryCodeISO3]['model'] == 'glofas':
@@ -33,7 +33,9 @@ class Exposure:
         self.ADMIN_AREA_GDF = admin_area_gdf
         self.ADMIN_AREA_GDF_TMP_PATH = PIPELINE_OUTPUT+"admin-areas_TMP.shp"
         self.EXPOSURE_DATA_SOURCES = SETTINGS[countryCodeISO3]['EXPOSURE_DATA_SOURCES']
-        self.stats = []
+        self.admin_level = admin_level
+        if "population" in self.EXPOSURE_DATA_SOURCES:
+            self.population_total = population_total
 
     def callAllExposure(self):
         logger.info('Started calculating affected of %s',
@@ -45,22 +47,50 @@ class Exposure:
             self.outputRaster = GEOSERVER_OUTPUT + "0/" + \
                 values['source'] + self.leadTimeLabel
 
-            self.calcAffected(self.disasterExtentRaster,
-                              indicator, values['rasterValue'])
+            stats = self.calcAffected(self.disasterExtentRaster, indicator, values['rasterValue'])
 
             result = {
                 'countryCodeISO3': self.countryCodeISO3,
-                'exposurePlaceCodes': self.stats,
+                'exposurePlaceCodes': stats,
                 'leadTime': self.leadTimeLabel,
                 'dynamicIndicator': indicator + '_affected',
-                'adminLevel': SETTINGS[self.countryCodeISO3]['admin_level']
+                'adminLevel': self.admin_level
             }
 
             self.statsPath = PIPELINE_OUTPUT + 'calculated_affected/affected_' + \
                 self.leadTimeLabel + '_' + self.countryCodeISO3 + '_' + indicator + '.json'
+
             with open(self.statsPath, 'w') as fp:
                 json.dump(result, fp)
                 logger.info("Saved stats for %s", self.statsPath)
+
+            if self.population_total:
+                population_affected_percentage = list(map(self.get_population_affected_percentage, stats))
+
+                population_affected_percentage_file_path = PIPELINE_OUTPUT + 'calculated_affected/affected_' + \
+                    self.leadTimeLabel + '_' + self.countryCodeISO3 + '_' + 'population_affected_percentage' + '.json'
+
+                population_affected_percentage_records = {
+                    'countryCodeISO3': self.countryCodeISO3,
+                    'exposurePlaceCodes': population_affected_percentage,
+                    'leadTime': self.leadTimeLabel,
+                    'dynamicIndicator': 'population_affected_percentage',
+                    'adminLevel': self.admin_level
+                }
+
+                with open(population_affected_percentage_file_path, 'w') as fp:
+                    json.dump(population_affected_percentage_records, fp)
+                    logger.info("Saved stats for %s", population_affected_percentage_file_path)
+
+    def get_population_affected_percentage(self, population_affected):
+        population_total = next((x for x in self.population_total if x['placeCode'] == population_affected['placeCode']), None)
+        population_affected_percentage = 0.0
+        if population_total and population_total['value'] > 0:
+            population_affected_percentage = population_affected['amount'] / population_total['value']
+        return {
+            'amount': population_affected_percentage,
+            'placeCode': population_total['placeCode']
+        }
 
     def calcAffected(self, disasterExtentRaster, indicator, rasterValue):
         disasterExtentShapes = self.loadTiffAsShapes(disasterExtentRaster)
@@ -77,8 +107,7 @@ class Exposure:
         stats = self.calcStatsPerAdmin(
             indicator, disasterExtentShapes, rasterValue)
 
-        for item in stats:
-            self.stats.append(item)
+        return stats
 
     def calcStatsPerAdmin(self, indicator, disasterExtentShapes, rasterValue):
         if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':

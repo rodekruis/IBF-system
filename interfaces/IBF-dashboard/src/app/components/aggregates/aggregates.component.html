@@ -61,20 +61,29 @@
               <ion-label class="ion-text-right" data-test="aggregate-number">
                 <span *ngIf="indicator.numberFormatAggregate === 'decimal2'">
                   {{
-                    this.getAggregate(indicator.name, indicator.weightedAvg)
-                      | number: '.2-2'
+                    this.getAggregate(
+                      indicator.name,
+                      indicator.weightedAvg,
+                      indicator.numberFormatAggregate
+                    ) | number: '.2-2'
                   }}
                 </span>
                 <span *ngIf="indicator.numberFormatAggregate === 'decimal0'">
                   {{
-                    this.getAggregate(indicator.name, indicator.weightedAvg)
-                      | number: '.0-0'
+                    this.getAggregate(
+                      indicator.name,
+                      indicator.weightedAvg,
+                      indicator.numberFormatAggregate
+                    ) | number: '.0-0'
                   }}
                 </span>
                 <span *ngIf="indicator.numberFormatAggregate === 'perc'">
                   {{
-                    this.getAggregate(indicator.name, indicator.weightedAvg)
-                      | percent: '.0-0'
+                    this.getAggregate(
+                      indicator.name,
+                      indicator.weightedAvg,
+                      indicator.numberFormatAggregate
+                    ) | percent: '.0-0'
                   }}
                 </span>
               </ion-label>

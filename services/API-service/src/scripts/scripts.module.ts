@@ -11,6 +11,7 @@ import { ScriptsService } from './scripts.service';
 import { EventModule } from '../api/event/event.module';
 import { UserModule } from '../api/user/user.module';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
+import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
       EventPlaceCodeEntity,
       EapActionStatusEntity,
       AdminAreaEntity,
+      LeadTimeEntity,
     ]),
     AdminAreaDynamicDataModule,
     GlofasStationModule,

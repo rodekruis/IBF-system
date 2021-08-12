@@ -1,6 +1,7 @@
 [
   {
     "countryCodeISO3": "UGA",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -9,6 +10,7 @@
   },
   {
     "countryCodeISO3": "UGA",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -17,6 +19,7 @@
   },
   {
     "countryCodeISO3": "UGA",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -25,6 +28,7 @@
   },
   {
     "countryCodeISO3": "UGA",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -33,6 +37,7 @@
   },
   {
     "countryCodeISO3": "UGA",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -41,6 +46,7 @@
   },
   {
     "countryCodeISO3": "UGA",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -49,6 +55,7 @@
   },
   {
     "countryCodeISO3": "UGA",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -57,6 +64,7 @@
   },
   {
     "countryCodeISO3": "UGA",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -65,6 +73,7 @@
   },
   {
     "countryCodeISO3": "UGA",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -73,6 +82,7 @@
   },
   {
     "countryCodeISO3": "UGA",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -81,6 +91,7 @@
   },
   {
     "countryCodeISO3": "UGA",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -89,6 +100,7 @@
   },
   {
     "countryCodeISO3": "ZMB",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -97,6 +109,7 @@
   },
   {
     "countryCodeISO3": "ZMB",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -105,6 +118,7 @@
   },
   {
     "countryCodeISO3": "ZMB",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -113,6 +127,7 @@
   },
   {
     "countryCodeISO3": "ZMB",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -121,6 +136,7 @@
   },
   {
     "countryCodeISO3": "ZMB",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -129,6 +145,7 @@
   },
   {
     "countryCodeISO3": "ZMB",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -137,6 +154,7 @@
   },
   {
     "countryCodeISO3": "ZMB",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -145,6 +163,7 @@
   },
   {
     "countryCodeISO3": "ZMB",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -153,6 +172,7 @@
   },
   {
     "countryCodeISO3": "ZMB",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -161,6 +181,7 @@
   },
   {
     "countryCodeISO3": "ZMB",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "health"
     },
@@ -169,6 +190,7 @@
   },
   {
     "countryCodeISO3": "ZMB",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -177,6 +199,7 @@
   },
   {
     "countryCodeISO3": "KEN",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -185,6 +208,7 @@
   },
   {
     "countryCodeISO3": "KEN",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -193,6 +217,7 @@
   },
   {
     "countryCodeISO3": "KEN",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -201,6 +226,7 @@
   },
   {
     "countryCodeISO3": "KEN",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -209,6 +235,7 @@
   },
   {
     "countryCodeISO3": "KEN",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -217,6 +244,7 @@
   },
   {
     "countryCodeISO3": "KEN",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "health"
     },
@@ -225,6 +253,7 @@
   },
   {
     "countryCodeISO3": "KEN",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "health"
     },
@@ -233,6 +262,7 @@
   },
   {
     "countryCodeISO3": "KEN",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -241,6 +271,7 @@
   },
   {
     "countryCodeISO3": "KEN",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -249,6 +280,7 @@
   },
   {
     "countryCodeISO3": "ETH",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -257,6 +289,7 @@
   },
   {
     "countryCodeISO3": "ETH",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -265,6 +298,7 @@
   },
   {
     "countryCodeISO3": "ETH",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -273,6 +307,7 @@
   },
   {
     "countryCodeISO3": "ETH",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "drr"
     },
@@ -281,6 +316,7 @@
   },
   {
     "countryCodeISO3": "ETH",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -289,6 +325,7 @@
   },
   {
     "countryCodeISO3": "ETH",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "shelter"
     },
@@ -297,6 +334,7 @@
   },
   {
     "countryCodeISO3": "ETH",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -305,6 +343,7 @@
   },
   {
     "countryCodeISO3": "ETH",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -313,6 +352,7 @@
   },
   {
     "countryCodeISO3": "ETH",
+    "disasterType": "floods",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -320,7 +360,152 @@
     "label": "Relocating the livestock from flood zones (including evacuation in the worst case)"
   },
   {
+    "countryCodeISO3": "ETH",
+    "disasterType": "dengue",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-1",
+    "label": "Set up Dengue Emergency Medical Units (DEMUs)."
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "dengue",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-2",
+    "label": " Mobilize Community Heath Volunteers (CHV) to monitor and report suspected cases"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "dengue",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-3",
+    "label": "Community-based information dissemination on disease prevention and health promotion"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "dengue",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-4",
+    "label": "Social media campaign on prevention and control measures"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "dengue",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-5",
+    "label": "Psychosocial support through welfare desk"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "dengue",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-1",
+    "label": "Hygiene promotion on safe usage of water"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "dengue",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-2",
+    "label": "Cleaning of mosquito breeding sites, garbage disposal"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "dengue",
+    "areaOfFocus": {
+      "id": "inclusion"
+    },
+    "action": "inclusion-1",
+    "label": "Protection, gender and inclusion: ensure all staff is trained, distribute guidelines, assess minimum standards at DEMUs and welfare desks"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "malaria",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-1",
+    "label": "Set up Dengue Emergency Medical Units (DEMUs)."
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "malaria",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-2",
+    "label": " Mobilize Community Heath Volunteers (CHV) to monitor and report suspected cases"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "malaria",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-3",
+    "label": "Community-based information dissemination on disease prevention and health promotion"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "malaria",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-4",
+    "label": "Social media campaign on prevention and control measures"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "malaria",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-5",
+    "label": "Psychosocial support through welfare desk"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "malaria",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-1",
+    "label": "Hygiene promotion on safe usage of water"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "malaria",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-2",
+    "label": "Cleaning of mosquito breeding sites, garbage disposal"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "malaria",
+    "areaOfFocus": {
+      "id": "inclusion"
+    },
+    "action": "inclusion-1",
+    "label": "Protection, gender and inclusion: ensure all staff is trained, distribute guidelines, assess minimum standards at DEMUs and welfare desks"
+  },
+  {
     "countryCodeISO3": "PHL",
+    "disasterType": "dengue",
     "areaOfFocus": {
       "id": "livelihood"
     },
@@ -329,6 +514,7 @@
   },
   {
     "countryCodeISO3": "PHL",
+    "disasterType": "dengue",
     "areaOfFocus": {
       "id": "health"
     },
@@ -337,6 +523,7 @@
   },
   {
     "countryCodeISO3": "PHL",
+    "disasterType": "dengue",
     "areaOfFocus": {
       "id": "health"
     },
@@ -345,6 +532,7 @@
   },
   {
     "countryCodeISO3": "PHL",
+    "disasterType": "dengue",
     "areaOfFocus": {
       "id": "health"
     },
@@ -353,6 +541,7 @@
   },
   {
     "countryCodeISO3": "PHL",
+    "disasterType": "dengue",
     "areaOfFocus": {
       "id": "health"
     },
@@ -361,6 +550,7 @@
   },
   {
     "countryCodeISO3": "PHL",
+    "disasterType": "dengue",
     "areaOfFocus": {
       "id": "health"
     },
@@ -369,6 +559,7 @@
   },
   {
     "countryCodeISO3": "PHL",
+    "disasterType": "dengue",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -377,6 +568,7 @@
   },
   {
     "countryCodeISO3": "PHL",
+    "disasterType": "dengue",
     "areaOfFocus": {
       "id": "wash"
     },
@@ -385,6 +577,7 @@
   },
   {
     "countryCodeISO3": "PHL",
+    "disasterType": "dengue",
     "areaOfFocus": {
       "id": "inclusion"
     },

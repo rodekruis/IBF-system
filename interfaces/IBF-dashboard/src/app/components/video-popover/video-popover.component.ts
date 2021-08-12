@@ -9,15 +9,16 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./video-popover.component.scss'],
 })
 export class VideoPopoverComponent {
-  public videoUrl: string = environment.ibfVideoGuideUrl;
+  private videoUrl: string = environment.ibfVideoGuideUrl;
+  public safeVideoUrl: SafeResourceUrl;
 
   constructor(
     private popoverController: PopoverController,
     private domSanitizer: DomSanitizer,
-  ) {}
-
-  public getVideoUrl(): SafeResourceUrl {
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
+  ) {
+    this.safeVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
+      this.videoUrl,
+    );
   }
 
   public closePopover(): void {
