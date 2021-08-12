@@ -132,17 +132,15 @@ export class AdminAreaDynamicDataService {
     indicator: DynamicIndicator,
   ): Promise<AdminDataReturnDto[]> {
     const result = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('admin-area-dynamic-data')
+      .createQueryBuilder('dynamic')
       .where({
         countryCodeISO3: countryCodeISO3,
         adminLevel: Number(adminLevel),
         leadTime: leadTime,
         indicator: indicator,
       })
-      .select([
-        'admin-area-dynamic-data.value AS value',
-        'admin-area-dynamic-data.placeCode AS "placeCode"',
-      ])
+      .select(['dynamic.value AS value', 'dynamic.placeCode AS "placeCode"'])
+      .orderBy('dynamic.date', 'DESC')
       .execute();
     return result;
   }
@@ -153,14 +151,14 @@ export class AdminAreaDynamicDataService {
     leadTime: string,
   ): Promise<number> {
     const result = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('admin_area_dynamic_data')
+      .createQueryBuilder('dynamic')
       .where({
         indicator: indicator,
         placeCode: placeCode,
         leadTime: leadTime,
       })
-      .select(['admin_area_dynamic_data.value AS value'])
-      .orderBy('admin_area_dynamic_data.date', 'DESC')
+      .select(['dynamic.value AS value'])
+      .orderBy('dynamic.date', 'DESC')
       .execute();
     return result[0].value;
   }
