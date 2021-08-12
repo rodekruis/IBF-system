@@ -11,6 +11,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { UserRole } from '../user-role.enum';
 import { UserStatus } from '../user-status.enum';
+import countries from '../../../scripts/json/countries.json';
 
 export class CreateUserDto {
   @ApiProperty({ example: 'dunant@redcross.nl' })
@@ -48,7 +49,7 @@ export class CreateUserDto {
   public role: UserRole;
 
   @ApiProperty({
-    example: ['UGA', 'KEN', 'ETH', 'ZMB'],
+    example: countries.map(c => c.countryCodeISO3),
     default: [],
   })
   @IsArray()
