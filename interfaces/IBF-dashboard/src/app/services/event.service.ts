@@ -167,4 +167,6 @@ export class EventService {
       this.state.triggerLeadTime = triggerLeadTime;
     }
   }
+
+  public isOldEvent = () => this.state.activeEvent && !this.state.activeTrigger;
 }
