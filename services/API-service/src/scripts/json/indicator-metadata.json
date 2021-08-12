@@ -17,8 +17,8 @@
     "unit": "people"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE",
-    "disasterTypes": ["floods", "heavy-rain", "drought"],
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY",
+    "disasterTypes": ["floods", "heavy-rain"],
     "name": "population_affected_percentage",
     "label": "% of Total Population",
     "group": "general",

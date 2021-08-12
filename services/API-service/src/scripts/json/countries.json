@@ -334,7 +334,7 @@
     "disasterTypes": ["drought"],
     "adminLevels": [1],
     "defaultAdminLevel": 1,
-    "countryActiveLeadTimes": ["1-month", "2-month", "3-month"],
+    "countryActiveLeadTimes": ["1-month", "2-month"],
     "eapAlertClasses": {},
     "adminRegionLabels": {
       "1": {

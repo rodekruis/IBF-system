@@ -21,7 +21,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL,ZWE",
-    "disasterTypes": ["floods", "heavy-rain"],
+    "disasterTypes": ["floods", "heavy-rain", "drought"],
     "name": "population",
     "label": "Population",
     "type": "wms",

@@ -42,11 +42,11 @@
   {
     "leadTimeName": "1-month",
     "leadTimeLabel": "1-month",
-    "disasterTypes": ["dengue", "malaria"]
+    "disasterTypes": ["dengue", "malaria", "drought"]
   },
   {
     "leadTimeName": "2-month",
     "leadTimeLabel": "2-month",
-    "disasterTypes": ["dengue", "malaria"]
+    "disasterTypes": ["dengue", "malaria", "drought"]
   }
 ]
