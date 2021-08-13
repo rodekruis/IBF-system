@@ -18,9 +18,12 @@ export class SeedAdminArea implements InterfaceScript {
     const adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
     await Promise.all(
       countries.map(
-        (country): Promise<void> => {
+        async (country): Promise<void> => {
           if (envCountries.includes(country.countryCodeISO3)) {
-            return this.seedCountryAdminAreas(country, adminAreaRepository);
+            return await this.seedCountryAdminAreas(
+              country,
+              adminAreaRepository,
+            );
           } else {
             return Promise.resolve();
           }
