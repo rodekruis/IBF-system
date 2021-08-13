@@ -40,7 +40,7 @@ export class SeedAdminArea implements InterfaceScript {
       await Promise.all(
         adminJson.features.map(
           (area): Promise<void> => {
-            const adminAreas = adminAreaRepository
+            return adminAreaRepository
               .createQueryBuilder()
               .insert()
               .values({
@@ -55,7 +55,6 @@ export class SeedAdminArea implements InterfaceScript {
                   this.geomFunction(area.geometry.coordinates),
               })
               .execute();
-            return Promise.resolve(adminAreas);
           },
         ),
       );
