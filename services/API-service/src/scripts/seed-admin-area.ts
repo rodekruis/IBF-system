@@ -18,12 +18,9 @@ export class SeedAdminArea implements InterfaceScript {
     const adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
     await Promise.all(
       countries.map(
-        async (country): Promise<void> => {
+        (country): Promise<void> => {
           if (envCountries.includes(country.countryCodeISO3)) {
-            return await this.seedCountryAdminAreas(
-              country,
-              adminAreaRepository,
-            );
+            return this.seedCountryAdminAreas(country, adminAreaRepository);
           } else {
             return Promise.resolve();
           }
@@ -43,7 +40,7 @@ export class SeedAdminArea implements InterfaceScript {
       await Promise.all(
         adminJson.features.map(
           (area): Promise<void> => {
-            return adminAreaRepository
+            const adminAreas = adminAreaRepository
               .createQueryBuilder()
               .insert()
               .values({
@@ -58,6 +55,7 @@ export class SeedAdminArea implements InterfaceScript {
                   this.geomFunction(area.geometry.coordinates),
               })
               .execute();
+            return Promise.resolve(adminAreas);
           },
         ),
       );
