@@ -1,3 +1,13 @@
+## [0.81.2](https://github.com/rodekruis/IBF-system/compare/v0.81.1...v0.81.2) (2021-08-13)
+
+
+### Bug Fixes
+
+* change order of seed-script to maximize time between dependent queries AB[#9050](https://github.com/rodekruis/IBF-system/issues/9050) ([d35fbaf](https://github.com/rodekruis/IBF-system/commit/d35fbaf5eed53831dd858c1fe7591920d97d4f00))
+* forgot to turn back AB[#9050](https://github.com/rodekruis/IBF-system/issues/9050) ([76f6fa7](https://github.com/rodekruis/IBF-system/commit/76f6fa739cf062650f8059074834a8eb30b30566))
+
+
+
 ## [0.81.1](https://github.com/rodekruis/IBF-system/compare/v0.81.0...v0.81.1) (2021-08-13)
 
 
@@ -381,18 +391,6 @@
 ### Bug Fixes
 
 * trigger deploy ([b12762a](https://github.com/rodekruis/IBF-system/commit/b12762a10692d8c11c8ee63277d6bc7fb84dd6c0))
-
-
-
-## [0.79.2](https://github.com/rodekruis/IBF-system/compare/v0.79.1...v0.79.2) (2021-08-09)
-
-
-### Bug Fixes
-
-* call endpoints with unknown leadtime AB[#8927](https://github.com/rodekruis/IBF-system/issues/8927) ([41e3c77](https://github.com/rodekruis/IBF-system/commit/41e3c7735ac97b28e6ecd40b515dfa9497cca3a8))
-* make getdefaultleadtime disaster specific AB[#8927](https://github.com/rodekruis/IBF-system/issues/8927) ([bf39ff0](https://github.com/rodekruis/IBF-system/commit/bf39ff057c2fa4b16c51af4ac72ca086d7437722))
-* pop. affected 0 for floods AB[#8927](https://github.com/rodekruis/IBF-system/issues/8927) ([2662719](https://github.com/rodekruis/IBF-system/commit/26627190e3405a9e9ccb400b0871ae15d1eaa5ab))
-* unfound entry solution AB[#8827](https://github.com/rodekruis/IBF-system/issues/8827) ([fa8b8ca](https://github.com/rodekruis/IBF-system/commit/fa8b8ca7d8cd6e09be43b5d56b1e1da87391bcab))
 
 
 
