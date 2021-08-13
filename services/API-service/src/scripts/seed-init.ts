@@ -137,6 +137,11 @@ export class SeedInit implements InterfaceScript {
 
     await countryRepository.save(countryEntities);
 
+    // ***** SEED ADMIN-AREA DATA *****
+    console.log('Seed Admin Areas...');
+    const seedAdminArea = new SeedAdminArea(this.connection);
+    await seedAdminArea.run();
+
     // ***** CREATE USERS *****
     console.log('Seed Users...');
     let selectedUsers;
@@ -239,16 +244,6 @@ export class SeedInit implements InterfaceScript {
     );
     await layerRepository.save(layerEntities);
 
-    // ***** SEED ADMIN-AREA DATA *****
-    console.log('Seed Admin Areas...');
-    const seedAdminArea = new SeedAdminArea(this.connection);
-    await seedAdminArea.run();
-
-    // ***** SEED GLOFAS-STATION DATA *****
-    console.log('Seed Glofas Stations...');
-    const seedGlofasStation = new SeedGlofasStation(this.connection);
-    await seedGlofasStation.run();
-
     // ***** SEED RED CROSS BRANCHES DATA *****
     console.log('Seed Red Cross branches...');
     const seedRedcrossBranches = new SeedRedcrossBranches(this.connection);
@@ -268,6 +263,11 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed rainfall data...');
     const seedRainfallData = new SeedRainfallData(this.connection);
     await seedRainfallData.run();
+
+    // ***** SEED GLOFAS-STATION DATA *****
+    console.log('Seed Glofas Stations...');
+    const seedGlofasStation = new SeedGlofasStation(this.connection);
+    await seedGlofasStation.run();
   }
 
   private async createNotificationInfo(
