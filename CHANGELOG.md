@@ -1,3 +1,12 @@
+## [0.81.3](https://github.com/rodekruis/IBF-system/compare/v0.81.2...v0.81.3) (2021-08-13)
+
+
+### Bug Fixes
+
+* only process event areas for triggerUnit AB[#9051](https://github.com/rodekruis/IBF-system/issues/9051) ([b8f2c47](https://github.com/rodekruis/IBF-system/commit/b8f2c4740c143a103c45acfa80f9d409a1156b8d))
+
+
+
 ## [0.81.2](https://github.com/rodekruis/IBF-system/compare/v0.81.1...v0.81.2) (2021-08-13)
 
 
@@ -382,15 +391,6 @@
 ### Bug Fixes
 
 * use right leadtime when deleting existing exposure data AB[#8953](https://github.com/rodekruis/IBF-system/issues/8953) ([43bfca9](https://github.com/rodekruis/IBF-system/commit/43bfca9b61803d072b33448ac7a07711653326f0))
-
-
-
-## [0.79.3](https://github.com/rodekruis/IBF-system/compare/v0.79.2...v0.79.3) (2021-08-09)
-
-
-### Bug Fixes
-
-* trigger deploy ([b12762a](https://github.com/rodekruis/IBF-system/commit/b12762a10692d8c11c8ee63277d6bc7fb84dd6c0))
 
 
 
