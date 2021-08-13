@@ -1,3 +1,12 @@
+## [0.81.4](https://github.com/rodekruis/IBF-system/compare/v0.81.3...v0.81.4) (2021-08-13)
+
+
+### Bug Fixes
+
+* add await on saving dynamic data AB[#9051](https://github.com/rodekruis/IBF-system/issues/9051) ([048fb99](https://github.com/rodekruis/IBF-system/commit/048fb9992ad7077ead39c39b884d0d2e196711a1))
+
+
+
 ## [0.81.3](https://github.com/rodekruis/IBF-system/compare/v0.81.2...v0.81.3) (2021-08-13)
 
 
@@ -382,15 +391,6 @@
 ### Bug Fixes
 
 * threshold bug dengue hotfix AB[#8963](https://github.com/rodekruis/IBF-system/issues/8963) ([27b89f1](https://github.com/rodekruis/IBF-system/commit/27b89f15b646dc15aa595f70c14f213a1bd5eb76))
-
-
-
-## [0.79.4](https://github.com/rodekruis/IBF-system/compare/v0.79.3...v0.79.4) (2021-08-09)
-
-
-### Bug Fixes
-
-* use right leadtime when deleting existing exposure data AB[#8953](https://github.com/rodekruis/IBF-system/issues/8953) ([43bfca9](https://github.com/rodekruis/IBF-system/commit/43bfca9b61803d072b33448ac7a07711653326f0))
 
 
 
