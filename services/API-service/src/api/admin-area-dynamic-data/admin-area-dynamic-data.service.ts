@@ -52,7 +52,7 @@ export class AdminAreaDynamicDataService {
       area.disasterType = uploadExposure.disasterType;
       areas.push(area);
     }
-    this.adminAreaDynamicDataRepo.save(areas);
+    await this.adminAreaDynamicDataRepo.save(areas);
     console.timeEnd('Insert exposure');
 
     console.time('Process trigger');
