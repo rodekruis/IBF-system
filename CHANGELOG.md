@@ -1,3 +1,12 @@
+## [0.81.1](https://github.com/rodekruis/IBF-system/compare/v0.81.0...v0.81.1) (2021-08-13)
+
+
+### Bug Fixes
+
+* wait for admin-areas to finish seeding before continuing AB[#9050](https://github.com/rodekruis/IBF-system/issues/9050) ([2d1328c](https://github.com/rodekruis/IBF-system/commit/2d1328c88a9f799837118c08e7884affcfe7709b))
+
+
+
 # [0.81.0](https://github.com/rodekruis/IBF-system/compare/v0.80.0...v0.81.0) (2021-08-12)
 
 
@@ -384,15 +393,6 @@
 * make getdefaultleadtime disaster specific AB[#8927](https://github.com/rodekruis/IBF-system/issues/8927) ([bf39ff0](https://github.com/rodekruis/IBF-system/commit/bf39ff057c2fa4b16c51af4ac72ca086d7437722))
 * pop. affected 0 for floods AB[#8927](https://github.com/rodekruis/IBF-system/issues/8927) ([2662719](https://github.com/rodekruis/IBF-system/commit/26627190e3405a9e9ccb400b0871ae15d1eaa5ab))
 * unfound entry solution AB[#8827](https://github.com/rodekruis/IBF-system/issues/8827) ([fa8b8ca](https://github.com/rodekruis/IBF-system/commit/fa8b8ca7d8cd6e09be43b5d56b1e1da87391bcab))
-
-
-
-## [0.79.1](https://github.com/rodekruis/IBF-system/compare/v0.79.0...v0.79.1) (2021-08-06)
-
-
-### Bug Fixes
-
-* forgot to uncomment AB[#8827](https://github.com/rodekruis/IBF-system/issues/8827) ([f01b47f](https://github.com/rodekruis/IBF-system/commit/f01b47fee8d1a1b2512949eba6335ea2abd7180d))
 
 
 
