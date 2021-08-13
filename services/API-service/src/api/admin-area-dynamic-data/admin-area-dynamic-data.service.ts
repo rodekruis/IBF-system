@@ -55,7 +55,7 @@ export class AdminAreaDynamicDataService {
     this.adminAreaDynamicDataRepo.save(areas);
     console.timeEnd('Insert exposure');
 
-    console.time('Insert trigger');
+    console.time('Process trigger');
 
     const triggerUnit = await this.disasterTypeRepository.findOne({
       select: ['triggerUnit'],
@@ -64,17 +64,14 @@ export class AdminAreaDynamicDataService {
 
     if (triggerUnit.triggerUnit === uploadExposure.dynamicIndicator) {
       await this.insertTrigger(uploadExposure);
+
+      await this.eventService.processEventAreas(
+        uploadExposure.countryCodeISO3,
+        uploadExposure.disasterType,
+      );
     }
 
-    console.timeEnd('Insert trigger');
-
-    console.time('Process event areas');
-
-    await this.eventService.processEventAreas(
-      uploadExposure.countryCodeISO3,
-      uploadExposure.disasterType,
-    );
-    console.timeEnd('Process event areas');
+    console.timeEnd('Process trigger');
   }
 
   private async deleteDynamicDuplicates(
