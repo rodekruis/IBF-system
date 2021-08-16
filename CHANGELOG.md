@@ -1,3 +1,18 @@
+# [0.82.0](https://github.com/rodekruis/IBF-system/compare/v0.81.4...v0.82.0) (2021-08-16)
+
+
+### Features
+
+* add admin-boundary + population data AB[#8413](https://github.com/rodekruis/IBF-system/issues/8413) ([9628ab9](https://github.com/rodekruis/IBF-system/commit/9628ab931ae35a2a9c1303b653698324c9921279))
+* add drought icons AB[#8410](https://github.com/rodekruis/IBF-system/issues/8410) ([50e2432](https://github.com/rodekruis/IBF-system/commit/50e24320d3bf6310224178dc35b96be06819b800))
+* add population raster to geoserver AB[#8413](https://github.com/rodekruis/IBF-system/issues/8413) ([89b1ded](https://github.com/rodekruis/IBF-system/commit/89b1deda6830e00ec190c5ab238642d4d3d9e5d5))
+* add Zimbabwe + droughts, first steps AB[#7438](https://github.com/rodekruis/IBF-system/issues/7438) ([58afc0a](https://github.com/rodekruis/IBF-system/commit/58afc0ace73d8436e691bb55df7ab8d677985f00))
+* add zimbabwe to mock-endpoint AB[#9037](https://github.com/rodekruis/IBF-system/issues/9037) ([1049042](https://github.com/rodekruis/IBF-system/commit/1049042a52613f420873e5a902bbe3f288523ed6))
+* additional settings edits ZWE droughts AB[#8412](https://github.com/rodekruis/IBF-system/issues/8412) ([6175864](https://github.com/rodekruis/IBF-system/commit/6175864540dd40d87cef7d11efdb426485f7eabc))
+* set up layers+indicators AB[#8412](https://github.com/rodekruis/IBF-system/issues/8412) ([3995016](https://github.com/rodekruis/IBF-system/commit/3995016d17a806cf365b077e04031bfba6676bdc))
+
+
+
 ## [0.81.4](https://github.com/rodekruis/IBF-system/compare/v0.81.3...v0.81.4) (2021-08-13)
 
 
@@ -382,15 +397,6 @@
 
 * manually edit version-nr for manual hotfix AB[#8963](https://github.com/rodekruis/IBF-system/issues/8963) ([0650883](https://github.com/rodekruis/IBF-system/commit/0650883fece8e85ecd8693b289730c30df42d246))
 * manually udpate version-nr again for manual hotfix AB[#8963](https://github.com/rodekruis/IBF-system/issues/8963) ([94f7505](https://github.com/rodekruis/IBF-system/commit/94f7505f93d89b99c8ae10eafc1dea7ecb4c4676))
-
-
-
-## [0.67.5](https://github.com/rodekruis/IBF-system/compare/v0.79.4...v0.67.5) (2021-08-10)
-
-
-### Bug Fixes
-
-* threshold bug dengue hotfix AB[#8963](https://github.com/rodekruis/IBF-system/issues/8963) ([27b89f1](https://github.com/rodekruis/IBF-system/commit/27b89f15b646dc15aa595f70c14f213a1bd5eb76))
 
 
 
