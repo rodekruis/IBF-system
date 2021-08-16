@@ -325,5 +325,44 @@
         ]
       ]
     }
+  },
+  {
+    "countryCodeISO3": "ZWE",
+    "countryCodeISO2": "ZW",
+    "countryName": "Zimbabwe",
+    "countryStatus": "active",
+    "disasterTypes": ["drought"],
+    "adminLevels": [1],
+    "defaultAdminLevel": 1,
+    "countryActiveLeadTimes": ["1-month", "2-month"],
+    "eapAlertClasses": {},
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "eapLink": "",
+    "countryLogos": [],
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [33.0683413, -22.4241096],
+          [33.0683413, -15.6097033],
+          [25.2373, -15.6097033],
+          [25.2373, -22.4241096],
+          [33.0683413, -22.4241096]
+        ]
+      ]
+    }
   }
 ]

@@ -95,6 +95,8 @@ export class ScriptsService {
         DynamicIndicator.potentialCases,
         DynamicIndicator.potentialThreshold,
       ];
+    } else if (disasterType === DisasterType.Drought) {
+      exposureUnits = [DynamicIndicator.populationAffected];
     } else {
       exposureUnits = [
         DynamicIndicator.populationAffected,
