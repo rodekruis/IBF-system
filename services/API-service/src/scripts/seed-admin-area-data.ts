@@ -285,9 +285,9 @@ export class SeedAdminAreaData implements InterfaceScript {
       const countryCodeISO3 = 'ZWE';
       const adminlevel = 1;
       // ruminants
-      let fileName = `./src/scripts/git-lfs/admin-area-data/ruminants_ZWE.csv`;
-      let data = await this.seedHelper.getCsvData(fileName);
-      let dataArray = data.map(area => {
+      const fileName = `./src/scripts/git-lfs/admin-area-data/ruminants_ZWE.csv`;
+      const data = await this.seedHelper.getCsvData(fileName);
+      const dataArray = data.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
