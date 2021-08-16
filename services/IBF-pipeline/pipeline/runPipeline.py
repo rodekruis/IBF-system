@@ -9,6 +9,9 @@ from secrets import *
 
 
 def main():
+    soft_limit,hard_limit = resource.getrlimit(resource.RLIMIT_NOFILE)
+    resource.setrlimit(resource.RLIMIT_NOFILE, (10000, hard_limit))
+
     logger.info("Started Cron")
     startTime = time.time()
     print(str(datetime.datetime.now()))
