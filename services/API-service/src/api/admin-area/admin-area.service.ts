@@ -213,7 +213,8 @@ export class AdminAreaService {
       if (
         placeCodes.length &&
         disasterType !== DisasterType.Dengue &&
-        disasterType !== DisasterType.Malaria
+        disasterType !== DisasterType.Malaria &&
+        disasterType !== DisasterType.Drought
       ) {
         adminAreasScript = adminAreasScript.andWhere(
           'area."placeCode" IN (:...placeCodes)',
