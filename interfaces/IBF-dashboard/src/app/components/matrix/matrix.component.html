@@ -65,7 +65,9 @@
               [class.waterpoint-layer]="
                 layer.name === IbfLayerName.waterpoints && layer.active
               "
-              [class.outline-layer]="layer.name === IbfLayerName.alertThreshold && layer.active"
+              [class.outline-layer]="
+                layer.name === IbfLayerName.alertThreshold && layer.active
+              "
               [style.background]="layer.active ? layer.legendColor : null"
             ></ion-col>
             <ion-col
