@@ -96,7 +96,10 @@ export class ScriptsService {
         DynamicIndicator.potentialThreshold,
       ];
     } else if (disasterType === DisasterType.Drought) {
-      exposureUnits = [DynamicIndicator.populationAffected];
+      exposureUnits = [
+        DynamicIndicator.populationAffected,
+        DynamicIndicator.alertThreshold,
+      ];
     } else {
       exposureUnits = [
         DynamicIndicator.populationAffected,
@@ -121,7 +124,7 @@ export class ScriptsService {
           triggered ? '-triggered' : ''
         }`;
       }
-      const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${fileName}.json`;
+      const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${selectedCountry.countryCodeISO3}/${fileName}.json`;
 
       const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
       const exposure = JSON.parse(exposureRaw);
@@ -184,6 +187,9 @@ export class ScriptsService {
             'ET020303',
             'ET042105',
             'ET042104',
+            'ZW11',
+            'ZW12',
+            'ZW13',
           ].includes(pcodeData.placeCode)
             ? 1
             : 0;
