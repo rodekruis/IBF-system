@@ -279,6 +279,38 @@ export class SeedAdminAreaData implements InterfaceScript {
       });
       await this.adminAreaDataRepository.save(dataArray);
     }
+
+    // ZWE
+    if (envCountries.includes('ZWE')) {
+      const countryCodeISO3 = 'ZWE';
+      const adminlevel = 1;
+      // ruminants
+      let fileName = `./src/scripts/git-lfs/admin-area-data/ruminants_ZWE.csv`;
+      let data = await this.seedHelper.getCsvData(fileName);
+      let dataArray = data.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['placeCode'],
+          indicator: area['indicator'],
+          value: area['value'],
+        };
+      });
+      await this.adminAreaDataRepository.save(dataArray);
+      // drought_vulnerability
+      fileName = `./src/scripts/git-lfs/admin-area-data/drought_vulnerability_ZWE.csv`;
+      data = await this.seedHelper.getCsvData(fileName);
+      dataArray = data.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['placeCode'],
+          indicator: area['indicator'],
+          value: area['value'],
+        };
+      });
+      await this.adminAreaDataRepository.save(dataArray);
+    }
   }
 }
 

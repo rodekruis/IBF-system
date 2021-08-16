@@ -143,6 +143,9 @@ export class TimelineService {
 
   private getVisibleLeadTimes(country: Country) {
     const visibleLeadTimes = [];
+    this.disasterType.leadTimes.sort((a, b) =>
+      a.leadTimeName > b.leadTimeName ? 1 : -1,
+    );
     for (const leadTime of this.disasterType.leadTimes) {
       if (visibleLeadTimes.indexOf(leadTime.leadTimeName) === -1) {
         visibleLeadTimes.push(leadTime.leadTimeName);
