@@ -1,3 +1,13 @@
+## [0.82.1](https://github.com/rodekruis/IBF-system/compare/v0.82.0...v0.82.1) (2021-08-16)
+
+
+### Bug Fixes
+
+* increase max open files for pipeline when started from cron AB[#9056](https://github.com/rodekruis/IBF-system/issues/9056) ([3436ce7](https://github.com/rodekruis/IBF-system/commit/3436ce7edeb02ccc2b1812fd706a31b13b4534a0))
+* set limit in SETTINGS AB[#9056](https://github.com/rodekruis/IBF-system/issues/9056) ([c3a5ca6](https://github.com/rodekruis/IBF-system/commit/c3a5ca6f5dd94aae28f7c1480ce856cefad983c8))
+
+
+
 # [0.82.0](https://github.com/rodekruis/IBF-system/compare/v0.81.4...v0.82.0) (2021-08-16)
 
 
@@ -387,16 +397,6 @@
 ### Bug Fixes
 
 * use active leadtime to get threshold AB[#8963](https://github.com/rodekruis/IBF-system/issues/8963) ([6c7b176](https://github.com/rodekruis/IBF-system/commit/6c7b1766d48270d7a0a2046f4063e1ae8707ee3a))
-
-
-
-## [0.67.6](https://github.com/rodekruis/IBF-system/compare/v0.67.5...v0.67.6) (2021-08-10)
-
-
-### Bug Fixes
-
-* manually edit version-nr for manual hotfix AB[#8963](https://github.com/rodekruis/IBF-system/issues/8963) ([0650883](https://github.com/rodekruis/IBF-system/commit/0650883fece8e85ecd8693b289730c30df42d246))
-* manually udpate version-nr again for manual hotfix AB[#8963](https://github.com/rodekruis/IBF-system/issues/8963) ([94f7505](https://github.com/rodekruis/IBF-system/commit/94f7505f93d89b99c8ae10eafc1dea7ecb4c4676))
 
 
 
