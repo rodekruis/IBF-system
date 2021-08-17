@@ -1,3 +1,13 @@
+# [0.84.0](https://github.com/rodekruis/IBF-system/compare/v0.83.0...v0.84.0) (2021-08-17)
+
+
+### Features
+
+* added-heavy-rain-fall #AB8956 ([13c8e10](https://github.com/rodekruis/IBF-system/commit/13c8e1053e9d5b81e0fe3aee53c15a1fd9f396ce)), closes [#AB8956](https://github.com/rodekruis/IBF-system/issues/AB8956)
+* updated-with-test#AB8956 ([965ca60](https://github.com/rodekruis/IBF-system/commit/965ca6036aea3ea8952a3cec9004a5c5ed3fe4bf)), closes [updated-with-test#AB8956](https://github.com/updated-with-test/issues/AB8956)
+
+
+
 # [0.83.0](https://github.com/rodekruis/IBF-system/compare/v0.82.1...v0.83.0) (2021-08-16)
 
 
@@ -402,15 +412,6 @@
 * calculate percentage of affected population and display on dashboard AB[#8384](https://github.com/rodekruis/IBF-system/issues/8384) ([b27fbd2](https://github.com/rodekruis/IBF-system/commit/b27fbd2cb879684af1efe4002698354ab3401711))
 * include 'pop aff perc' in mock-endpoint AB[#8468](https://github.com/rodekruis/IBF-system/issues/8468) ([b033da8](https://github.com/rodekruis/IBF-system/commit/b033da87038da48cda2cd2c368c31621dfb18e32))
 * rename indicator to reuse existing endpoint AB[#8191](https://github.com/rodekruis/IBF-system/issues/8191) ([f27f094](https://github.com/rodekruis/IBF-system/commit/f27f094c526104e0d9b0643a022039f8ed2c2994))
-
-
-
-## [0.67.8](https://github.com/rodekruis/IBF-system/compare/v0.67.7...v0.67.8) (2021-08-12)
-
-
-### Bug Fixes
-
-* get most recent dynamic data instead of first > hotfix AB[#9028](https://github.com/rodekruis/IBF-system/issues/9028) ([416a182](https://github.com/rodekruis/IBF-system/commit/416a1827be58c98d74ad3d4572beb85b7d77a843))
 
 
 
