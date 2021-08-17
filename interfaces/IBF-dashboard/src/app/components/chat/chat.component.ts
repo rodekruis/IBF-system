@@ -115,14 +115,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-    if (
-      this.disasterTypeName === DisasterTypeKey.dengue ||
-      this.disasterTypeName === DisasterTypeKey.malaria
-    ) {
-      this.filteredAreas = [];
-    } else {
-      this.filteredAreas = [...this.triggeredAreas];
-    }
+    this.setDefaultFilteredAreas();
     this.triggeredAreas.forEach(this.disableSubmitButtonForTriggeredArea);
   };
 
@@ -135,16 +128,17 @@ export class ChatComponent implements OnInit, OnDestroy {
         filterTriggeredAreasByPlaceCode,
       );
     } else {
-      if (
-        this.disasterTypeName === DisasterTypeKey.dengue ||
-        this.disasterTypeName === DisasterTypeKey.malaria
-      ) {
-        this.filteredAreas = [];
-      } else {
-        this.filteredAreas = [...this.triggeredAreas];
-      }
+      this.setDefaultFilteredAreas();
     }
     this.changeDetectorRef.detectChanges();
+  };
+
+  private setDefaultFilteredAreas = () => {
+    if (this.eventService.isOldEvent()) {
+      this.filteredAreas = [...this.triggeredAreas];
+    } else {
+      this.filteredAreas = [];
+    }
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {

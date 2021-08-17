@@ -8,7 +8,7 @@ import {
 import { CountryEntity } from '../country/country.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
-import { DynamicIndicator } from './enum/dynamic-indicator';
+import { DynamicIndicator } from './enum/dynamic-data-unit';
 
 @Entity('admin-area-dynamic-data')
 export class AdminAreaDynamicDataEntity {

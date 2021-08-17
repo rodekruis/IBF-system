@@ -36,7 +36,8 @@
             | translate
               : {
                   name: authService.displayName,
-                  timeUnits: eventService.state.triggerLeadTime,
+                  leadTime: eventService.state.triggerLeadTime,
+                  timeUnit: eventService.state.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
                   monthYear: eventService.state.firstLeadTimeName
                 }
@@ -51,7 +52,8 @@
             'new-event-active-trigger.new-event-early-trigger'
             | translate
               : {
-                  timeUnits: eventService.state.firstLeadTimeLabel,
+                  leadTime: eventService.state.firstLeadTimeLabel,
+                  timeUnit: eventService.state.timeUnit,
                   disasterTypeLabel: disasterTypeLabel
                 }
         "
@@ -87,7 +89,8 @@
             : {
                 name: authService.displayName,
                 startDate: eventService.state.event.startDate,
-                timeUnits: eventService.state.firstLeadTimeLabel,
+                leadTime: eventService.state.firstLeadTimeLabel,
+                timeUnit: eventService.state.timeUnit,
                 disasterTypeLabel: disasterTypeLabel,
                 monthYear: eventService.state.firstLeadTimeName
               }
@@ -102,9 +105,7 @@
     <app-video-guide-button color="ibf-white"></app-video-guide-button>
   </app-dialogue-turn>
   <!-- Old event -->
-  <app-dialogue-turn
-    *ngIf="eventService.state.activeEvent && !eventService.state.activeTrigger"
-  >
+  <app-dialogue-turn *ngIf="eventService.isOldEvent()">
     <p
       [innerHTML]="
         'chat-component.' + disasterCategory + 'active-event-no-trigger.welcome'

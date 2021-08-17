@@ -8,7 +8,7 @@ export const environment = {
   useServiceWorker: false, // feature-flags
   geoserverUrl: 'http://localhost:8081/geoserver/ibf-system/wms', // geoserver
   ibfSystemVersion: 'v0.0.0', // version
-  ibfVideoGuideUrl: 'https://www.youtube-nocookie.com/embed/O0PwZSpEhhc', // video guide url
+  ibfVideoGuideUrl: 'https://www.youtube-nocookie.com/embed/O3VlrH_pCeo', // video guide url
   applicationInsightsInstrumentationKey: '', // application insights instrumentation key
   applicationInsightsUrl: '', // application insights url
 };

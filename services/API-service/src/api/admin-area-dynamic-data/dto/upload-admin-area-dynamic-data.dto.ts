@@ -11,7 +11,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { DynamicDataPlaceCodeDto } from './dynamic-data-place-code.dto';
 import exposure from './example/upload-exposure-PHL.json';
 import { LeadTime } from '../enum/lead-time.enum';
-import { DynamicIndicator } from '../enum/dynamic-indicator';
+import { DynamicIndicator } from '../enum/dynamic-data-unit';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 
 export class UploadAdminAreaDynamicDataDto {

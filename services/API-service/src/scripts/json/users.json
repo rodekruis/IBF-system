@@ -16,9 +16,7 @@
     "userRole": "disaster-manager",
     "password": "password",
     "userStatus": "active",
-    "countries": [
-      "UGA"
-    ]
+    "countries": ["UGA"]
   },
   {
     "email": "zambia@redcross.nl",
@@ -28,9 +26,17 @@
     "userRole": "disaster-manager",
     "password": "password",
     "userStatus": "active",
-    "countries": [
-      "ZMB"
-    ]
+    "countries": ["ZMB"]
+  },
+  {
+    "email": "zimbabwe@redcross.nl",
+    "username": "zimbabwe",
+    "firstName": "Zimbabwe",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["ZWE"]
   },
   {
     "email": "kenya@redcross.nl",
@@ -40,9 +46,7 @@
     "userRole": "disaster-manager",
     "password": "password",
     "userStatus": "active",
-    "countries": [
-      "KEN"
-    ]
+    "countries": ["KEN"]
   },
   {
     "email": "ethiopia@redcross.nl",
@@ -52,9 +56,7 @@
     "userRole": "disaster-manager",
     "password": "password",
     "userStatus": "active",
-    "countries": [
-      "ETH"
-    ]
+    "countries": ["ETH"]
   },
   {
     "email": "egypt@redcross.nl",
@@ -64,9 +66,7 @@
     "userRole": "disaster-manager",
     "password": "password",
     "userStatus": "active",
-    "countries": [
-      "EGY"
-    ]
+    "countries": ["EGY"]
   },
   {
     "email": "philippines@redcross.nl",
@@ -76,8 +76,6 @@
     "userRole": "disaster-manager",
     "password": "password",
     "userStatus": "active",
-    "countries": [
-      "PHL"
-    ]
+    "countries": ["PHL"]
   }
 ]

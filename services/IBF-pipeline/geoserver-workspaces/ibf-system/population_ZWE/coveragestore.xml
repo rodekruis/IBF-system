@@ -1,0 +1,14 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl-704e3117:17b3aa544e3:-7ffc</id>
+  <name>population_ZWE</name>
+  <description>population_ZWE</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2021-08-12 14:56:53.781 UTC</dateCreated>
+  <dateModified>2021-08-12 14:56:54.895 UTC</dateModified>
+  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/population_zwe_2019-07-01.tif</url>
+</coverageStore>

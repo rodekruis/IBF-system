@@ -56,8 +56,8 @@ export class AdminAreaService {
     disasterType: DisasterType,
     leadTime: string,
   ) {
-    if (!leadTime) {
-      leadTime = await this.getDefaultLeadTime(countryCodeISO3);
+    if (leadTime === '{leadTime}') {
+      leadTime = await this.getDefaultLeadTime(countryCodeISO3, disasterType);
     }
     const trigger = (
       await this.eventService.getTriggerPerLeadtime(
@@ -228,24 +228,34 @@ export class AdminAreaService {
     return this.helperService.toGeojson(adminAreas);
   }
 
-  private async getDefaultLeadTime(countryCodeISO3: string): Promise<string> {
-    const findOneOptions = {
-      countryCodeISO3: countryCodeISO3,
-    };
-    const country = await this.countryRepository.findOne(findOneOptions, {
+  private async getDefaultLeadTime(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<string> {
+    const country = await this.countryRepository.findOne({
+      where: { countryCodeISO3: countryCodeISO3 },
       relations: ['countryActiveLeadTimes'],
     });
-    for (const activeLeadTime of country.countryActiveLeadTimes) {
-      if (activeLeadTime.leadTimeName === LeadTime.day7) {
-        return activeLeadTime.leadTimeName;
-      }
+    const countryLeadTimes = country.countryActiveLeadTimes.map(
+      l => l.leadTimeName,
+    );
+    const disaster = await this.disasterTypeRepository.findOne({
+      where: { disasterType: disasterType },
+      relations: ['leadTimes'],
+    });
+    const disasterLeadTimes = disaster.leadTimes.map(l => l.leadTimeName);
+
+    // Intersection of country- and disaster-leadTimes
+    const leadTimes = countryLeadTimes.filter(leadTime =>
+      disasterLeadTimes.includes(leadTime),
+    );
+
+    if (leadTimes.includes(LeadTime.day7)) {
+      return LeadTime.day7;
+    } else if (leadTimes.includes(LeadTime.month0)) {
+      return LeadTime.month0;
+    } else {
+      return countryLeadTimes[0];
     }
-    for (const activeLeadTime of country.countryActiveLeadTimes) {
-      if (activeLeadTime.leadTimeName === LeadTime.month0) {
-        return activeLeadTime.leadTimeName;
-      }
-    }
-    // If country does not have 7 day or 1 month lead time return the first
-    return country.countryActiveLeadTimes[0].leadTimeName;
   }
 }

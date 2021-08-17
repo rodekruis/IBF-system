@@ -28,6 +28,7 @@ export class EventService {
     firstLeadTime: null,
     firstLeadTimeLabel: null,
     firstLeadTimeName: null,
+    timeUnit: null,
   };
 
   constructor(
@@ -161,10 +162,13 @@ export class EventService {
           LeadTimeTriggerKey[leadTime] >=
             LeadTimeTriggerKey[this.state.firstLeadTime]
         ) {
-          triggerLeadTime = LeadTimeTriggerKey[leadTime];
+          triggerLeadTime = leadTime;
         }
       });
-      this.state.triggerLeadTime = triggerLeadTime;
+      this.state.triggerLeadTime = LeadTimeTriggerKey[triggerLeadTime];
+      this.state.timeUnit = triggerLeadTime.split('-')[1];
     }
   }
+
+  public isOldEvent = () => this.state.activeEvent && !this.state.activeTrigger;
 }

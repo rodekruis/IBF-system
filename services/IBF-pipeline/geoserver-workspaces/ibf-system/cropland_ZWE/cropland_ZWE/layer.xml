@@ -1,0 +1,16 @@
+<layer>
+  <name>cropland_ZWE</name>
+  <id>LayerInfoImpl-28963df2:17b4da19fce:-7e82</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff6</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-28963df2:17b4da19fce:-7e83</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2021-08-16 11:22:16.990 UTC</dateCreated>
+</layer>
