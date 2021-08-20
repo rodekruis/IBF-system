@@ -31,12 +31,12 @@ export class UploadAdminAreaDynamicDataDto {
   @IsNumber()
   public adminLevel: number;
 
-  @ApiProperty({ example: '0-month' })
+  @ApiProperty({ example: LeadTime.month0 })
   @IsNotEmpty()
   @IsString()
   public leadTime: LeadTime;
 
-  @ApiProperty({ example: 'population_affected' })
+  @ApiProperty({ example: DynamicIndicator.populationAffected })
   @IsNotEmpty()
   @IsEnum(DynamicIndicator)
   @IsString()
