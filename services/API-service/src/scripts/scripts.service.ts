@@ -135,7 +135,10 @@ export class ScriptsService {
           where: { leadTimeName: activeLeadTime },
         });
         if (
-          leadTime.disasterTypes.map(d => d.disasterType).includes(disasterType)
+          leadTime.disasterTypes
+            .map(d => d.disasterType)
+            .includes(disasterType) &&
+          this.filterLeadTimesDrought(leadTime.leadTimeName, disasterType)
         ) {
           console.log(
             `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3}`,
@@ -146,7 +149,7 @@ export class ScriptsService {
               exposure,
               unit,
               triggered,
-              activeLeadTime,
+              disasterType,
             ),
             leadTime: activeLeadTime as LeadTime,
             dynamicIndicator: unit,
@@ -162,47 +165,62 @@ export class ScriptsService {
     exposurePlacecodes: any,
     exposureUnit: DynamicIndicator,
     triggered: boolean,
-    activeLeadTime: string,
+    disasterType: DisasterType,
   ): any[] {
-    // This only returns something different for dengue exposure-units
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
-    for (const pcodeData of copyOfExposureUnit) {
-      if (exposureUnit === DynamicIndicator.potentialCases65) {
-        pcodeData.amount = Math.round(pcodeData.amount * 0.1);
-      } else if (
-        exposureUnit === DynamicIndicator.potentialCasesU9 ||
-        exposureUnit === DynamicIndicator.potentialCasesU5
-      ) {
-        pcodeData.amount = Math.round(pcodeData.amount * 0.2);
-      } else if (exposureUnit === DynamicIndicator.alertThreshold) {
-        if (!triggered) {
-          pcodeData.amount = 0;
-        } else {
-          pcodeData.amount = [
-            'PH137500000',
-            'PH137400000',
-            'PH133900000',
-            'PH137600000',
-            'PH031400000',
-            'ET020303',
-            'ET042105',
-            'ET042104',
-            'ZW11',
-            'ZW12',
-            'ZW13',
-          ].includes(pcodeData.placeCode)
-            ? 1
-            : 0;
-          if (
-            activeLeadTime === LeadTime.month0 &&
-            pcodeData.placeCode == 'PH137500000'
-          ) {
+    // This only returns something different for dengue/malaria exposure-units
+    if ([DisasterType.Dengue, DisasterType.Malaria].includes(disasterType)) {
+      for (const pcodeData of copyOfExposureUnit) {
+        if (exposureUnit === DynamicIndicator.potentialCases65) {
+          pcodeData.amount = Math.round(pcodeData.amount * 0.1);
+        } else if (
+          exposureUnit === DynamicIndicator.potentialCasesU9 ||
+          exposureUnit === DynamicIndicator.potentialCasesU5
+        ) {
+          pcodeData.amount = Math.round(pcodeData.amount * 0.2);
+        } else if (exposureUnit === DynamicIndicator.alertThreshold) {
+          if (!triggered) {
             pcodeData.amount = 0;
+          } else {
+            pcodeData.amount = [
+              'PH137500000',
+              'PH137400000',
+              'PH133900000',
+              'PH137600000',
+              'PH031400000',
+              'ET020303',
+              'ET042105',
+              'ET042104',
+            ].includes(pcodeData.placeCode)
+              ? 1
+              : 0;
           }
         }
       }
     }
     return copyOfExposureUnit;
+  }
+
+  private filterLeadTimesDrought(leadTime: string, disasterType: DisasterType) {
+    if (disasterType !== DisasterType.Drought) {
+      return true;
+    }
+
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const nextAprilYear = now.getUTCMonth() > 3 ? currentYear + 1 : currentYear;
+    const nextAprilMonthFirstDay = new Date(nextAprilYear, 3, 1);
+
+    const leadTimeMonth = new Date(
+      now.setUTCMonth(now.getUTCMonth() + Number(leadTime.split('-')[0])),
+    );
+    const leadTimeMonthFirstDay = new Date(
+      leadTimeMonth.getFullYear(),
+      leadTimeMonth.getUTCMonth(),
+      1,
+    );
+
+    return nextAprilMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime();
   }
 
   private async mockGlofasStations(selectedCountry, triggered: boolean) {

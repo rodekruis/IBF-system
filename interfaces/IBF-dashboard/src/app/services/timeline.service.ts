@@ -75,7 +75,7 @@ export class TimelineService {
 
     if (this.triggers) {
       this.state.timeStepButtons = [];
-      const visibleLeadTimes = this.getVisibleLeadTimes(this.country);
+      const visibleLeadTimes = this.getVisibleLeadTimes();
       visibleLeadTimes.map(this.leadTimeToLeadTimeButton);
     }
 
@@ -137,20 +137,61 @@ export class TimelineService {
   private isLeadTimeDisabled(leadTime: LeadTime): boolean {
     const leadTimes = this.country ? this.country.countryActiveLeadTimes : [];
     const leadTimeIndex = leadTimes.indexOf(leadTime);
-    const leadTimeNotAvailable = leadTimeIndex < 0;
+
+    const leadTimeNotAvailable =
+      leadTimeIndex < 0 || !this.filterDroughtActiveLeadTime(leadTime);
+
     return leadTimeNotAvailable;
   }
 
-  private getVisibleLeadTimes(country: Country) {
+  private getVisibleLeadTimes() {
     const visibleLeadTimes = [];
     this.disasterType.leadTimes.sort((a, b) =>
-      a.leadTimeName > b.leadTimeName ? 1 : -1,
+      Number(LeadTimeTriggerKey[a.leadTimeName]) >
+      Number(LeadTimeTriggerKey[b.leadTimeName])
+        ? 1
+        : -1,
     );
     for (const leadTime of this.disasterType.leadTimes) {
-      if (visibleLeadTimes.indexOf(leadTime.leadTimeName) === -1) {
+      if (
+        visibleLeadTimes.indexOf(leadTime.leadTimeName) === -1 &&
+        this.filterDroughtVisibleLeadTime(leadTime.leadTimeName)
+      ) {
         visibleLeadTimes.push(leadTime.leadTimeName);
       }
     }
     return visibleLeadTimes;
+  }
+
+  private filterDroughtVisibleLeadTime(leadTime: LeadTime): boolean {
+    const nextAprilEndOfMonth = this.getNextAprilMonth();
+    const leadTimeMonth = this.getLeadTimeMonth(leadTime);
+
+    return leadTimeMonth < nextAprilEndOfMonth;
+  }
+
+  private filterDroughtActiveLeadTime(leadTime: LeadTime): boolean {
+    const nextAprilEndOfMonth = this.getNextAprilMonth();
+    const leadTimeMonth = this.getLeadTimeMonth(leadTime);
+
+    return (
+      nextAprilEndOfMonth.year === leadTimeMonth.year &&
+      nextAprilEndOfMonth.month === leadTimeMonth.month
+    );
+  }
+
+  private getNextAprilMonth(): DateTime {
+    const currentYear = DateTime.now().year;
+    const nextAprilYear =
+      DateTime.now().month > 4 ? currentYear + 1 : currentYear;
+    return DateTime.utc(nextAprilYear, 5).minus({
+      day: 1,
+    });
+  }
+
+  private getLeadTimeMonth(leadTime: LeadTime): DateTime {
+    return this.state.today.plus({
+      month: Number(LeadTimeTriggerKey[leadTime]),
+    });
   }
 }
