@@ -72,7 +72,7 @@ export class EventService {
   }
 
   private onGetDisasterTypeEvent = (disasterType: DisasterType) => (event) => {
-    disasterType.activeTrigger = event.activeTrigger || false
+    disasterType.activeTrigger = event.activeTrigger || false;
   };
 
   private onEvent = (event) => {

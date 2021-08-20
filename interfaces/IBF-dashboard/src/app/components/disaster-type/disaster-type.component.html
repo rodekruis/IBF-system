@@ -5,26 +5,28 @@
     [ngClass]="{ active: disasterType.disasterType === selectedDisasterType }"
     class="containerOne"
   >
-
-
-    <div *ngIf= "disasterType.disasterType === selectedDisasterType">
+    <div *ngIf="disasterType.disasterType === selectedDisasterType">
       <ion-icon
         class="ibf"
-        [src]="disasterType.activeTrigger ?
-          disasterTypeMap[disasterType.disasterType].selectedTriggered :
-          disasterTypeMap[disasterType.disasterType].selectedNonTriggered"
+        [src]="
+          disasterType.activeTrigger
+            ? disasterTypeMap[disasterType.disasterType].selectedTriggered
+            : disasterTypeMap[disasterType.disasterType].selectedNonTriggered
+        "
         slot="start"
         class="containerTwo"
       >
       </ion-icon>
     </div>
 
-    <div *ngIf= "disasterType.disasterType !== selectedDisasterType">
+    <div *ngIf="disasterType.disasterType !== selectedDisasterType">
       <ion-icon
         class="ibf"
-        [src]="disasterType.activeTrigger ?
-          disasterTypeMap[disasterType.disasterType].nonSelectedTriggered :
-          disasterTypeMap[disasterType.disasterType].nonSelectedNonTriggered"
+        [src]="
+          disasterType.activeTrigger
+            ? disasterTypeMap[disasterType.disasterType].nonSelectedTriggered
+            : disasterTypeMap[disasterType.disasterType].nonSelectedNonTriggered
+        "
         slot="start"
         class="containerTwo"
       >

@@ -38,8 +38,11 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   private onCountryChange = (country: Country) => {
     if (country) {
       this.disasterTypes = country.disasterTypes;
-      this.disasterTypes.forEach(disasterType => {
-        this.eventService.getTriggerByDisasterType(country.countryCodeISO3, disasterType);
+      this.disasterTypes.forEach((disasterType) => {
+        this.eventService.getTriggerByDisasterType(
+          country.countryCodeISO3,
+          disasterType,
+        );
       });
     }
   };
