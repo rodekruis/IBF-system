@@ -105,9 +105,8 @@
     4. The pipeline will run automatically every day through a cron job, which
        requires no additional set-up.
 5. Verify if the geoserver is set up correctly.
-    1. Check if the
-       [Geoserver](http://ibf.510.global/geoserver/web)
-       contains necessary layers.
+    1. Check if the [Geoserver](http://ibf.510.global/geoserver/web) contains
+       necessary layers.
 
 ### Useful Commands / Tools
 
