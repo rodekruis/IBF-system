@@ -183,6 +183,10 @@
       },
       "red_cross_branches": {
         "UGA": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Uganda Red Cross Society (URCS). Year: 2020.",
+        "ZWE": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Zimbabwe Red Cross Society (ZRCS). Year: 2021.",
+        "ZMB": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Zambia Red Cross Society (ZRCS). Year: 2020.",
+        "ETH": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Ethiopia Red Cross Society (ERCS). Year: 2020.",
+        "KEN": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Kenya Red Cross Society (KRCS). Year: 2020.",
         "EGY": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Egyptian Red Crescent Society (ERCS). Year: 2020."
       },
       "waterpoints": {
