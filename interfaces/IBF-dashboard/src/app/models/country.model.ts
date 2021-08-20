@@ -46,6 +46,7 @@ export class DisasterType {
   leadTimes: LeadTimeEntity[];
   actionsUnit: string;
   triggerUnit: string;
+  activeTrigger: boolean;
 }
 
 class LeadTimeEntity {

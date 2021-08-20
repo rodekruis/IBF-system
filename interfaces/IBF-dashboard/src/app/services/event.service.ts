@@ -64,6 +64,18 @@ export class EventService {
     }
   }
 
+  public getTriggerByDisasterType(country: string, disasterType: DisasterType) {
+    if (country && disasterType) {
+      this.apiService
+        .getEvent(country, disasterType.disasterType)
+        .subscribe(this.onGetDisasterTypeEvent(disasterType));
+    }
+  }
+
+  private onGetDisasterTypeEvent = (disasterType: DisasterType) => (event) => {
+    disasterType.activeTrigger = event.activeTrigger || false;
+  };
+
   private onEvent = (event) => {
     this.state.event = event;
     this.state.activeEvent = !!this.state.event;
