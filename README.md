@@ -98,6 +98,10 @@ These commands will install the IBF-system with listeners at,
 2. \*development only - [localhost:4200](http://localhost:4200) for the web
    interface
 
+### Troubleshoot installation issues
+Please read the troubleshoot guidlelines to support the insatllation of IBF in the
+[TROUBLESHOOT.md](/docs/TROUBLESHOOT.md)
+
 ## Integration tests
 
 ### Cypress
