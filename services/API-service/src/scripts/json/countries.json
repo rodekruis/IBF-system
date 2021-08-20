@@ -364,7 +364,11 @@
       }
     },
     "eapLink": "",
-    "countryLogos": [],
+    "countryLogos": [
+      "ZWE-ZRCS.png",
+      "ZWE-DanishRedCross.png",
+      "ZWE-FinnishRedCross.jpg"
+    ],
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
