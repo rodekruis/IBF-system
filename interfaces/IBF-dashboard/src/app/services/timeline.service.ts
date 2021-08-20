@@ -10,6 +10,7 @@ import {
 } from 'src/app/types/lead-time';
 import { CountryTriggers } from '../models/country-triggers.model';
 import { Country, DisasterType } from '../models/country.model';
+import { DisasterTypeKey } from '../types/disaster-type-key';
 import { DisasterTypeService } from './disaster-type.service';
 
 @Injectable({
@@ -58,14 +59,14 @@ export class TimelineService {
     leadTime: LeadTime,
     index: number,
   ): void => {
-    const isLeadTimeDisabled = this.isLeadTimeDisabled(leadTime);
+    const isLeadTimeEnabled = this.isLeadTimeEnabled(leadTime);
     const triggerKey = LeadTimeTriggerKey[leadTime];
     this.state.timeStepButtons[index] = {
       date: this.getLeadTimeDate(leadTime, triggerKey),
       unit: leadTime.split('-')[1] as LeadTimeUnit,
       value: leadTime,
       alert: this.triggers[leadTime] === '1',
-      disabled: isLeadTimeDisabled,
+      disabled: !isLeadTimeEnabled,
       active: false,
     };
   };
@@ -134,14 +135,15 @@ export class TimelineService {
     }
   }
 
-  private isLeadTimeDisabled(leadTime: LeadTime): boolean {
+  private isLeadTimeEnabled(leadTime: LeadTime): boolean {
     const leadTimes = this.country ? this.country.countryActiveLeadTimes : [];
     const leadTimeIndex = leadTimes.indexOf(leadTime);
 
-    const leadTimeNotAvailable =
-      leadTimeIndex < 0 || !this.filterDroughtActiveLeadTime(leadTime);
+    const leadTimeAvailable =
+      leadTimeIndex >= 0 &&
+      this.filterDroughtActiveLeadTime(this.disasterType, leadTime);
 
-    return leadTimeNotAvailable;
+    return leadTimeAvailable;
   }
 
   private getVisibleLeadTimes() {
@@ -155,7 +157,10 @@ export class TimelineService {
     for (const leadTime of this.disasterType.leadTimes) {
       if (
         visibleLeadTimes.indexOf(leadTime.leadTimeName) === -1 &&
-        this.filterDroughtVisibleLeadTime(leadTime.leadTimeName)
+        this.filterDroughtVisibleLeadTime(
+          this.disasterType,
+          leadTime.leadTimeName,
+        )
       ) {
         visibleLeadTimes.push(leadTime.leadTimeName);
       }
@@ -163,14 +168,27 @@ export class TimelineService {
     return visibleLeadTimes;
   }
 
-  private filterDroughtVisibleLeadTime(leadTime: LeadTime): boolean {
+  private filterDroughtVisibleLeadTime(
+    disasterType: DisasterType,
+    leadTime: LeadTime,
+  ): boolean {
+    if (disasterType.disasterType !== DisasterTypeKey.drought) {
+      return true;
+    }
     const nextAprilEndOfMonth = this.getNextAprilMonth();
     const leadTimeMonth = this.getLeadTimeMonth(leadTime);
 
     return leadTimeMonth < nextAprilEndOfMonth;
   }
 
-  private filterDroughtActiveLeadTime(leadTime: LeadTime): boolean {
+  private filterDroughtActiveLeadTime(
+    disasterType: DisasterType,
+    leadTime: LeadTime,
+  ): boolean {
+    if (disasterType.disasterType !== DisasterTypeKey.drought) {
+      return true;
+    }
+
     const nextAprilEndOfMonth = this.getNextAprilMonth();
     const leadTimeMonth = this.getLeadTimeMonth(leadTime);
 
