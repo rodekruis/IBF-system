@@ -6,7 +6,7 @@ import { MoreThanOrEqual, Repository } from 'typeorm';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
-import { DynamicIndicator } from './enum/dynamic-indicator';
+import { DynamicIndicator } from './enum/dynamic-data-unit';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
 import { EventService } from '../event/event.service';
@@ -52,10 +52,10 @@ export class AdminAreaDynamicDataService {
       area.disasterType = uploadExposure.disasterType;
       areas.push(area);
     }
-    this.adminAreaDynamicDataRepo.save(areas);
+    await this.adminAreaDynamicDataRepo.save(areas);
     console.timeEnd('Insert exposure');
 
-    console.time('Insert trigger');
+    console.time('Process trigger');
 
     const triggerUnit = await this.disasterTypeRepository.findOne({
       select: ['triggerUnit'],
@@ -64,30 +64,20 @@ export class AdminAreaDynamicDataService {
 
     if (triggerUnit.triggerUnit === uploadExposure.dynamicIndicator) {
       await this.insertTrigger(uploadExposure);
+
+      await this.eventService.processEventAreas(
+        uploadExposure.countryCodeISO3,
+        uploadExposure.disasterType,
+      );
     }
 
-    console.timeEnd('Insert trigger');
-
-    console.time('Process event areas');
-
-    await this.eventService.processEventAreas(
-      uploadExposure.countryCodeISO3,
-      uploadExposure.disasterType,
-    );
-    console.timeEnd('Process event areas');
+    console.timeEnd('Process trigger');
   }
 
   private async deleteDynamicDuplicates(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
-    const country = await this.countryService.findOne(
-      uploadExposure.countryCodeISO3,
-    );
-    if (
-      country.countryActiveLeadTimes[0].leadTimeName.includes(
-        LeadTimeDayMonth.month,
-      )
-    ) {
+    if (uploadExposure.leadTime.includes(LeadTimeDayMonth.month)) {
       const date = new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       await this.adminAreaDynamicDataRepo.delete({
@@ -146,17 +136,15 @@ export class AdminAreaDynamicDataService {
     indicator: DynamicIndicator,
   ): Promise<AdminDataReturnDto[]> {
     const result = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('admin-area-dynamic-data')
+      .createQueryBuilder('dynamic')
       .where({
         countryCodeISO3: countryCodeISO3,
         adminLevel: Number(adminLevel),
         leadTime: leadTime,
         indicator: indicator,
       })
-      .select([
-        'admin-area-dynamic-data.value AS value',
-        'admin-area-dynamic-data.placeCode AS "placeCode"',
-      ])
+      .select(['dynamic.value AS value', 'dynamic.placeCode AS "placeCode"'])
+      .orderBy('dynamic.date', 'DESC')
       .execute();
     return result;
   }
@@ -167,13 +155,14 @@ export class AdminAreaDynamicDataService {
     leadTime: string,
   ): Promise<number> {
     const result = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('admin_area_dynamic_data')
+      .createQueryBuilder('dynamic')
       .where({
         indicator: indicator,
         placeCode: placeCode,
         leadTime: leadTime,
       })
-      .select(['admin_area_dynamic_data.value AS value'])
+      .select(['dynamic.value AS value'])
+      .orderBy('dynamic.date', 'DESC')
       .execute();
     return result[0].value;
   }

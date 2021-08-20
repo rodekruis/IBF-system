@@ -115,7 +115,9 @@ export class MapService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.layers.forEach((layer) => (layer.show = false));
+    this.layers.forEach((layer) => {
+      this.hideLayer(layer);
+    });
     this.loadCountryLayers();
   };
 
@@ -541,7 +543,10 @@ export class MapService {
       viewCenter: false,
       data: layerData,
       wms: layer.wms,
-      colorProperty: layer.colorProperty,
+      colorProperty:
+        layer.group === IbfLayerGroup.adminRegions
+          ? this.disasterType.actionsUnit
+          : layer.colorProperty,
       colorBreaks: layer.colorBreaks,
       numberFormatMap: layer.numberFormatMap,
       legendColor: layer.legendColor,
@@ -707,7 +712,9 @@ export class MapService {
             },
           );
           area.properties.indicators = {};
-          area.properties.indicators[layerName] = foundAdmDynamicEntry.value;
+          area.properties.indicators[layerName] = foundAdmDynamicEntry
+            ? foundAdmDynamicEntry.value
+            : 0;
           updatedFeatures.push(area);
         }
         return adminRegions;
@@ -867,10 +874,6 @@ export class MapService {
       const fillColor = this.getAdminRegionFillColor(
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
-          : adminRegion.properties.population_affected !== 'undefined'
-          ? adminRegion.properties.poplation_affected
-          : adminRegion.properties.potential_cases !== 'undefined'
-          ? adminRegion.properties.potential_cases
           : adminRegion.properties.indicators[colorProperty],
         colorThreshold,
         adminRegion.properties.placeCode,

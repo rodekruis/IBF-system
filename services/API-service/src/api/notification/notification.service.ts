@@ -10,7 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator';
+import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { DisasterType } from '../disaster/disaster-type.enum';
 
 class ReplaceKeyValue {

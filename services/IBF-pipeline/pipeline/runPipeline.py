@@ -6,9 +6,13 @@ import time
 import datetime
 from settings import *
 from secrets import *
+import resource
 
 
 def main():
+    soft_limit,hard_limit = resource.getrlimit(resource.RLIMIT_NOFILE)
+    resource.setrlimit(resource.RLIMIT_NOFILE, (SOFT_LIMIT, hard_limit))
+
     logger.info("Started Cron")
     startTime = time.time()
     print(str(datetime.datetime.now()))

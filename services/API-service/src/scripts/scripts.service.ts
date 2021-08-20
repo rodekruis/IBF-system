@@ -5,7 +5,7 @@ import { GlofasStationService } from '../api/glofas-station/glofas-station.servi
 import { MockDynamic } from './scripts.controller';
 import countries from './json/countries.json';
 import fs from 'fs';
-import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-indicator';
+import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { EventService } from '../api/event/event.service';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -95,6 +95,8 @@ export class ScriptsService {
         DynamicIndicator.potentialCases,
         DynamicIndicator.potentialThreshold,
       ];
+    } else if (disasterType === DisasterType.Drought) {
+      exposureUnits = [DynamicIndicator.populationAffected];
     } else {
       exposureUnits = [
         DynamicIndicator.populationAffected,
