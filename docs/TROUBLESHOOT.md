@@ -1,54 +1,29 @@
-### Description
+## Description
 
-Upon running the <docker-compose -f docker-compose.yml -f docker-compose.override.yml up> all the containers are not started mentioned in the docker-compose file. Some containers throw certain errors mentioned below
-### Suggestion, with the benefit that changes in front-end code are immediately reflected.
+This guide is giving some additional tips for troubleshooting when setting up the IBF-system. However, start with the main [README](../README.md) file.
 
-◦	docker-compose up -d
-◦	docker-compose stop ibf-dashboard
-◦	cd interfaces/IBF-dashboard
-### To Start/Run the app
-◦	npm start
+### Expected behaviour after 
+To check if everything starts up correctly:
+- All containers mentioned in the docker-compose file /IBF-system/docker-compose.yml should be up and running. Check e.g. via `docker container ls`
+- Application should load and respond properly on http://localhost:4200
+- Check the logs of `ibf-api-service` via `docker-compose logs -f ibf-api-service`. Is it saying that the Nest application started successfully?
+- Can you visit the Swagger UI API documentation on http://localhost:3000/docs and try one of the GET endpoints?
 
-### Expected behaviour
-All containers mentioned in the docker-compose file /IBF-system/docker-compose.yml be up and running.
-Application should load and respond properly on the localhost:4200.
-
-### Desktop (please complete the following information):
-
-OS: MAC OS
-Browser : chrome
-Version : 92.*
-
-### Workaround
-    ◦	If the containers ibf-system_ibf-pipeline , ibf-system_ibf-api-service do not start.
-    ◦	If the container do not start automatically via the 'docker compose up' command. The workaround for this would be, manually start the container and run this command.
-
- docker-compose -f docker-compose.yml -f docker-compose.override.yml up
-
-### After step2 of readme if there is any problem to run the app 
-You can try below steps if there is any issue problem with existing setup:
-    ◦	throw away "IBF-app" schema of your local database : drop schema "IBF-app" cascade;
-    ◦	recreate "IBF-app" schema: create schema "IBF-app";
-    ◦	run the migration script: docker-compose exec ibf-api-service npm install
-    ◦	to check if the table exist (ex): select * from "IBF-app".disaster;
-	◦	restart api-service: "docker-compose restart ibf-api-service"
-    ◦	run: docker-compose up -d ibf-api-service
-	◦	wait until done, check with: "docker-compose logs -f ibf-api-service"
-	◦	run seed script: "docker-compose exec ibf-api-service npm run seed"
-	◦	run mock-endpoint : http://localhost:3000/docs/#/scripts/ScriptsController_mockDynamic
-
-    ◦   To check the endpoints
-    ◦   set up system (docker-compose up)
-    ◦   seed basic / static data (docker-compose exec ibf-api-service npm run seed)
-    ◦   load 1st set of dynamic data to get a working dashboard (> run pipeline or mock-endpoint, > do this per country, per disasterType)
-        Example:
-                {
-            "secret": "fill_in_secret",
-            "countryCodeISO3": "UGA",
-            "disasterType": "floods",
-            "triggered": true,
-            "removeEvents": true
-            }
+### Problem with existing database
+If there is a problem with your existing database schema, you can always try to start clean by recreating it:
+- Access the database via e.g. DBeaver
+- Alternatively, access it via commandline using 
+    - `docker-compose exec ibf-local-db bash`
+    - `psql -U <chosen local-db-username>`
+- Throw away schema via `drop schema "IBF-app" cascade;`
+- Recreate schema: `create schema "IBF-app";`
+- Exit the database again
+- Restart the ibf-api-service: `docker-compose restart ibf-api-service` or `docker-compose up -d ibf-api-service`
+- This will automatically run migration-scripts upon restart, which involves an "initial migration script" which creates all necessary tables.
+- Wait until done. Check via `docker-compose logs -f ibf-api-service`
+- As always (see main [README](../README.md))
+    - Run the seed-script
+    - Run pipeline or mock-endpoint
 
 
 ### Supporting docker commands

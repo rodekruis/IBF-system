@@ -48,8 +48,7 @@ services/IBF-pipeline/README.md)
 
     Fill in the variables with someone who has them.
 
-3. Whitelist your machine IP at the database server (unless using local
-   database)
+3. (Only if connecting local setup to remote database): Whitelist your machine IP at the database server
 
 ### Using Docker
 
@@ -60,7 +59,6 @@ docker-compose up # for development
 
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up # for development (explicit)
 
-Load database with data (see below)
 ```
 
 ### Without Docker (for local development)
@@ -68,26 +66,41 @@ Load database with data (see below)
 For local development you can also run and start the services and interface
 without docker:
 
-`cp .env services/API-service/.env` `npm run start`
+For API-service
+- `cp .env services/API-service/.env` 
+- `cd services/API-service`
+- `npm run start:dev`
+
+For IBF-dashboard
+- `cd interfaces/IBF-dashboard`
+- `npm start`
+
+Suggestion: only load IBF-dashboard outside of Docker. This has the benefit that changes in front-end code are immediately reflected, instead of having to rebuild.
+- `docker-compose up -d`
+- `docker-compose stop ibf-dashboard`
+- `cd interfaces/IBF-dashboard`
+- `npm start`
 
 ### Load (local) database with data
 
-Locally, a database-container will start (as opposed to remote servers, which
-are connected to a database-server). To (re)seed this database with data
-
--   (re)create schema
--   run seed script
-    -   docker-compose exec ibf-api-service npm run seed
--   run the pipeline for all countries
-    -   docker-compose exec ibf-pipeline python3 runPipeline.py
-    -   NOTE: try setting countries to mock in secrets.py if pipeline is failing
+When running Docker locally, a database-container will start (as opposed to remote servers, which
+are connected to a database-server). For setting up a fully working version of the IBF-dasbhoard 2 steps are needed.
+1. Seed database with initial static data
+  - docker-compose exec ibf-api-service npm run seed
+2. Post 1st batch of dynamic data to database
+  - by running IBF-pipeline (floods & heavy-rain only): 
+    - `docker-compose exec ibf-pipeline python3 runPipeline.py`
+    - change country-settings to mock in `secrets.py` for mocked data
+  - by calling mock-endpoint (UGA, ETH, PHL, ZMB, ZWE only)
+    - see API documentation: http://localhost:3000/docs/#/scripts/ScriptsController_mockDynamic
+    - call this endpoint once per country, per disasterType
 
 Adding new data
 
 -   Any new static data needs to be imported using a seed-script + corresponding
     TypeORM entity
 -   This includes e.g. geojson data
--   The only exception are raster-files, which need to be included in data.zip
+-   The only exception are raster-files, which need to be included in data.zip [here](https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/Forms/AllItems.aspx?id=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Impact%2Dbased%20forecasting%2FGeneral%5FData%2FProduction%20Data&p=true&originalPath=aHR0cHM6Ly9yb2Rla3J1aXMuc2hhcmVwb2ludC5jb20vc2l0ZXMvNTEwLUNSQVZLLTUxMC9fbGF5b3V0cy8xNS9ndWVzdGFjY2Vzcy5hc3B4P2ZvbGRlcmlkPTBmYTQ1NGU2ZGMwMDI0ZGJkYmE3YTE3ODY1NWJkYzIxNiZhdXRoa2V5PUFjcWhNODVKSFpZOGNjNkg3QlRLZ08wJmV4cGlyYXRpb249MjAyMS0xMS0yOVQyMyUzYTAwJTNhMDAuMDAwWiZydGltZT1zekJQVnJfSjJFZw)
     and transfered to all relevant servers.
 
 ### Installation result

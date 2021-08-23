@@ -10,10 +10,12 @@ This pipeline contains logic for 2 different disaster types / models: (will be s
 
 For the GloFAS pipeline to work (to be able to get in daily forecast data)
   - The IBF-pipeline needs to be able to connect to an Azure Datalake instance, which needs to be set up
-  - which in turn needs to contain a (daily triggered) Databricks pipeline to consume and store the data from the GloFAS API
+  - which in turn needs to be filled by an Azure Data Factory pipeline
+  - which in turn needs to be triggered daily via an Azure Logic App
   - Specifically this means that if this application is handed over to be hosted by someone other than 510
-    - the Datalake and Databricks resources need to be handed-over / replicated as well
-    - or the hoster needs to get access to the 510 Datalake + Databricks resources 
+    - the Datalake and ADF pipeline and Azure logic app resources need to be handed-over / replicated as well
+    - or the hoster needs to get access to the 510 Azure resources
+    - See IBF Project Document for more info and specific links to the above mentioned resources.
 
 ## Installation
 
