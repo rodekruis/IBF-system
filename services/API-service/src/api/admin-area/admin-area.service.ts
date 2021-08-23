@@ -13,6 +13,7 @@ import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-are
 import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 
 @Injectable()
 export class AdminAreaService {
@@ -85,11 +86,16 @@ export class AdminAreaService {
     leadTime: string,
     adminLevel: number,
   ): Promise<AggregateDataRecord[]> {
-    const placeCodes = await this.getTriggeredPlaceCodes(
-      countryCodeISO3,
-      disasterType,
-      leadTime,
-    );
+    const disaster = await this.getDisasterType(disasterType);
+    let placeCodes = [];
+    // If alertThreshold is triggerUnit, always show all admin-areas
+    if (disaster.triggerUnit !== DynamicIndicator.alertThreshold) {
+      placeCodes = await this.getTriggeredPlaceCodes(
+        countryCodeISO3,
+        disasterType,
+        leadTime,
+      );
+    }
 
     let staticIndicatorsScript = this.adminAreaRepository
       .createQueryBuilder('area')
@@ -143,13 +149,13 @@ export class AdminAreaService {
     return staticIndicators.concat(dynamicIndicators);
   }
 
-  private async getActionUnit(disasterType: DisasterType): Promise<string> {
-    return (
-      await this.disasterTypeRepository.findOne({
-        select: ['actionsUnit'],
-        where: { disasterType: disasterType },
-      })
-    ).actionsUnit;
+  private async getDisasterType(
+    disasterType: DisasterType,
+  ): Promise<DisasterEntity> {
+    return await this.disasterTypeRepository.findOne({
+      where: { disasterType: disasterType },
+      relations: ['leadTimes'],
+    });
   }
 
   public async getAdminAreas(
@@ -158,7 +164,7 @@ export class AdminAreaService {
     leadTime: string,
     adminLevel: number,
   ): Promise<GeoJson> {
-    const actionUnit = await this.getActionUnit(disasterType);
+    const disaster = await this.getDisasterType(disasterType);
     const country = await this.countryRepository.findOne({
       select: ['defaultAdminLevel'],
       where: { countryCodeISO3: countryCodeISO3 },
@@ -189,7 +195,7 @@ export class AdminAreaService {
           'area.placeCode = dynamic.placeCode',
         )
         .addSelect([
-          `dynamic.value AS ${actionUnit}`,
+          `dynamic.value AS ${disaster.actionsUnit}`,
           'dynamic."leadTime"',
           'dynamic."date"',
         ])
@@ -201,27 +207,27 @@ export class AdminAreaService {
           disasterType: disasterType,
         })
         .andWhere('dynamic."indicator" = :indicator', {
-          indicator: actionUnit,
+          indicator: disaster.actionsUnit,
         });
 
-      const placeCodes = await this.getTriggeredPlaceCodes(
-        countryCodeISO3,
-        disasterType,
-        leadTime,
-      );
-
-      if (
-        placeCodes.length &&
-        disasterType !== DisasterType.Dengue &&
-        disasterType !== DisasterType.Malaria
-      ) {
-        adminAreasScript = adminAreasScript.andWhere(
-          'area."placeCode" IN (:...placeCodes)',
-          { placeCodes: placeCodes },
+      // If alertThreshold is triggerUnit, always show all admin-areas
+      if (disaster.triggerUnit !== DynamicIndicator.alertThreshold) {
+        const placeCodes = await this.getTriggeredPlaceCodes(
+          countryCodeISO3,
+          disasterType,
+          leadTime,
         );
+        if (placeCodes.length) {
+          adminAreasScript = adminAreasScript.andWhere(
+            'area."placeCode" IN (:...placeCodes)',
+            { placeCodes: placeCodes },
+          );
+        }
       }
     } else {
-      adminAreasScript = adminAreasScript.addSelect(`null AS ${actionUnit}`);
+      adminAreasScript = adminAreasScript.addSelect(
+        `null AS ${disaster.actionsUnit}`,
+      );
     }
     const adminAreas = await adminAreasScript.getRawMany();
 
@@ -239,10 +245,7 @@ export class AdminAreaService {
     const countryLeadTimes = country.countryActiveLeadTimes.map(
       l => l.leadTimeName,
     );
-    const disaster = await this.disasterTypeRepository.findOne({
-      where: { disasterType: disasterType },
-      relations: ['leadTimes'],
-    });
+    const disaster = await this.getDisasterType(disasterType);
     const disasterLeadTimes = disaster.leadTimes.map(l => l.leadTimeName);
 
     // Intersection of country- and disaster-leadTimes

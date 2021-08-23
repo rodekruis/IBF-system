@@ -561,8 +561,8 @@
     "lazyLoad": true
   },
   {
-    "country_codes": "PHL,ETH",
-    "disasterTypes": ["dengue", "malaria"],
+    "country_codes": "PHL,ETH,ZWE",
+    "disasterTypes": ["dengue", "malaria", "drought"],
     "name": "alert_threshold",
     "label": "Alert Threshold Reached",
     "group": "outline",

@@ -37,7 +37,7 @@
   {
     "leadTimeName": "0-month",
     "leadTimeLabel": "0-month",
-    "disasterTypes": ["dengue", "malaria"]
+    "disasterTypes": ["dengue", "malaria", "drought"]
   },
   {
     "leadTimeName": "1-month",
@@ -48,5 +48,50 @@
     "leadTimeName": "2-month",
     "leadTimeLabel": "2-month",
     "disasterTypes": ["dengue", "malaria", "drought"]
+  },
+  {
+    "leadTimeName": "3-month",
+    "leadTimeLabel": "3-month",
+    "disasterTypes": ["drought"]
+  },
+  {
+    "leadTimeName": "4-month",
+    "leadTimeLabel": "4-month",
+    "disasterTypes": ["drought"]
+  },
+  {
+    "leadTimeName": "5-month",
+    "leadTimeLabel": "5-month",
+    "disasterTypes": ["drought"]
+  },
+  {
+    "leadTimeName": "6-month",
+    "leadTimeLabel": "6-month",
+    "disasterTypes": ["drought"]
+  },
+  {
+    "leadTimeName": "7-month",
+    "leadTimeLabel": "7-month",
+    "disasterTypes": ["drought"]
+  },
+  {
+    "leadTimeName": "8-month",
+    "leadTimeLabel": "8-month",
+    "disasterTypes": ["drought"]
+  },
+  {
+    "leadTimeName": "9-month",
+    "leadTimeLabel": "9-month",
+    "disasterTypes": ["drought"]
+  },
+  {
+    "leadTimeName": "10-month",
+    "leadTimeLabel": "10-month",
+    "disasterTypes": ["drought"]
+  },
+  {
+    "leadTimeName": "11-month",
+    "leadTimeLabel": "11-month",
+    "disasterTypes": ["drought"]
   }
 ]

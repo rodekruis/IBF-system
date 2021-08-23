@@ -334,7 +334,20 @@
     "disasterTypes": ["drought"],
     "adminLevels": [1],
     "defaultAdminLevel": 1,
-    "countryActiveLeadTimes": ["1-month", "2-month"],
+    "countryActiveLeadTimes": [
+      "0-month",
+      "1-month",
+      "2-month",
+      "3-month",
+      "4-month",
+      "5-month",
+      "6-month",
+      "7-month",
+      "8-month",
+      "9-month",
+      "10-month",
+      "11-month"
+    ],
     "eapAlertClasses": {},
     "adminRegionLabels": {
       "1": {
@@ -351,7 +364,11 @@
       }
     },
     "eapLink": "",
-    "countryLogos": [],
+    "countryLogos": [
+      "ZWE-ZRCS.png",
+      "ZWE-DanishRedCross.png",
+      "ZWE-FinnishRedCross.jpg"
+    ],
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [

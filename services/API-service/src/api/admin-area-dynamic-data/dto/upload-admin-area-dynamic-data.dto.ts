@@ -9,7 +9,7 @@ import {
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { DynamicDataPlaceCodeDto } from './dynamic-data-place-code.dto';
-import exposure from './example/upload-exposure-PHL.json';
+import exposure from './example/PHL/upload-exposure-PHL.json';
 import { LeadTime } from '../enum/lead-time.enum';
 import { DynamicIndicator } from '../enum/dynamic-data-unit';
 import { DisasterType } from '../../disaster/disaster-type.enum';
@@ -31,12 +31,12 @@ export class UploadAdminAreaDynamicDataDto {
   @IsNumber()
   public adminLevel: number;
 
-  @ApiProperty({ example: '0-month' })
+  @ApiProperty({ example: LeadTime.month0 })
   @IsNotEmpty()
   @IsString()
   public leadTime: LeadTime;
 
-  @ApiProperty({ example: 'population_affected' })
+  @ApiProperty({ example: DynamicIndicator.populationAffected })
   @IsNotEmpty()
   @IsEnum(DynamicIndicator)
   @IsString()
