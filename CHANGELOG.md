@@ -1,3 +1,27 @@
+# [0.85.0](https://github.com/rodekruis/IBF-system/compare/v0.84.1...v0.85.0) (2021-08-23)
+
+
+### Bug Fixes
+
+* add redcross-branch popup text per country AB[#9104](https://github.com/rodekruis/IBF-system/issues/9104) ([f6599cd](https://github.com/rodekruis/IBF-system/commit/f6599cd59c6d380b519693b6a7d7e7c8bc4269ef))
+* filter timeline btns only for drought AB[#9063](https://github.com/rodekruis/IBF-system/issues/9063) ([6b2c836](https://github.com/rodekruis/IBF-system/commit/6b2c836b04565ac2468dcc5656d21c0849f4772c))
+* lint ([d10236f](https://github.com/rodekruis/IBF-system/commit/d10236fd947e26b3c82c84713c82e455ac08f63c))
+* updated alert threshold layer info popup text AB[#9111](https://github.com/rodekruis/IBF-system/issues/9111) ([2c1efb5](https://github.com/rodekruis/IBF-system/commit/2c1efb5d5d7552ad0f206e6ac0d7878fa3ae5eca))
+
+
+### Features
+
+* activate 'alert_threshold' binary layer for zwe droughts AB[#9072](https://github.com/rodekruis/IBF-system/issues/9072) ([6040263](https://github.com/rodekruis/IBF-system/commit/6040263df0dc065d8748d2ea08554301ae104ef9))
+* add leadtimes for zwe drought AB[#9063](https://github.com/rodekruis/IBF-system/issues/9063) ([42a7ce2](https://github.com/rodekruis/IBF-system/commit/42a7ce24086c0b46d4920ed9b05aaa85f9a6d563))
+* add logo's zimbabwe AB[#9047](https://github.com/rodekruis/IBF-system/issues/9047) ([5ac7e88](https://github.com/rodekruis/IBF-system/commit/5ac7e887f1c85a96aff13b563ce55e6b43bd752f))
+* add popup texts AB[#9077](https://github.com/rodekruis/IBF-system/issues/9077) AB[#9076](https://github.com/rodekruis/IBF-system/issues/9076) ([c262aa0](https://github.com/rodekruis/IBF-system/commit/c262aa00193479d9b0f35fb64f09f9e60f5f59a3))
+* base showing all areas or not on alertThreshold triggerUnit AB[#9073](https://github.com/rodekruis/IBF-system/issues/9073) ([da378fd](https://github.com/rodekruis/IBF-system/commit/da378fdb5342efe8e4312ce926ab570f666eca0e))
+* give alert_threshold layer outline in legend AB[#9072](https://github.com/rodekruis/IBF-system/issues/9072) ([37b0bdd](https://github.com/rodekruis/IBF-system/commit/37b0bddf35ab34985e992dbd2618b355c248fdaa))
+* next april always active leadtime AB[#9063](https://github.com/rodekruis/IBF-system/issues/9063) ([3c01497](https://github.com/rodekruis/IBF-system/commit/3c014977cad1657b143cf0d2e7a6b9b2efc3752d))
+* show all areas for droughts AB[#9073](https://github.com/rodekruis/IBF-system/issues/9073) ([49226d0](https://github.com/rodekruis/IBF-system/commit/49226d096327690a57b5b9ab47cd3f4b7fcda4d4))
+
+
+
 ## [0.84.1](https://github.com/rodekruis/IBF-system/compare/v0.84.0...v0.84.1) (2021-08-20)
 
 
@@ -99,16 +123,6 @@
 ### Bug Fixes
 
 * wait for admin-areas to finish seeding before continuing AB[#9050](https://github.com/rodekruis/IBF-system/issues/9050) ([2d1328c](https://github.com/rodekruis/IBF-system/commit/2d1328c88a9f799837118c08e7884affcfe7709b))
-
-
-
-# [0.81.0](https://github.com/rodekruis/IBF-system/compare/v0.80.0...v0.81.0) (2021-08-12)
-
-
-### Features
-
-* hide eap actions when no place code is selected AB[#8880](https://github.com/rodekruis/IBF-system/issues/8880) ([b0affe0](https://github.com/rodekruis/IBF-system/commit/b0affe02ad0cb9e29e78d2785f22faa7c39b6ad0))
-* show all districts in old event scenario AB[#8881](https://github.com/rodekruis/IBF-system/issues/8881) ([ebd4047](https://github.com/rodekruis/IBF-system/commit/ebd40479755111ece5b5ddddd2a50bd9c5db82ce))
 
 
 
