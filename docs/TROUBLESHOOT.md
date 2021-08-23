@@ -1,12 +1,12 @@
 ### Description
 
 Upon running the <docker-compose -f docker-compose.yml -f docker-compose.override.yml up> all the containers are not started mentioned in the docker-compose file. Some containers throw certain errors mentioned below
-
-### To Start/Run the app
+### Suggestion, with the benefit that changes in front-end code are immediately reflected.
 
 ◦	docker-compose up -d
 ◦	docker-compose stop ibf-dashboard
 ◦	cd interfaces/IBF-dashboard
+### To Start/Run the app
 ◦	npm start
 
 ### Expected behaviour
@@ -26,15 +26,29 @@ Version : 92.*
  docker-compose -f docker-compose.yml -f docker-compose.override.yml up
 
 ### After step2 of readme if there is any problem to run the app 
-You can try below steps:
+You can try below steps if there is any issue problem with existing setup:
     ◦	throw away "IBF-app" schema of your local database : drop schema "IBF-app" cascade;
     ◦	recreate "IBF-app" schema: create schema "IBF-app";
-    ◦	select * from "IBF-app".disaster;
+    ◦	run the migration script: docker-compose exec ibf-api-service npm install
+    ◦	to check if the table exist (ex): select * from "IBF-app".disaster;
 	◦	restart api-service: "docker-compose restart ibf-api-service"
-    ◦	run: docker-compose exec ibf-api-service
+    ◦	run: docker-compose up -d ibf-api-service
 	◦	wait until done, check with: "docker-compose logs -f ibf-api-service"
 	◦	run seed script: "docker-compose exec ibf-api-service npm run seed"
 	◦	run mock-endpoint : http://localhost:3000/docs/#/scripts/ScriptsController_mockDynamic
+
+    ◦   To check the endpoints
+    ◦   set up system (docker-compose up)
+    ◦   seed basic / static data (docker-compose exec ibf-api-service npm run seed)
+    ◦   load 1st set of dynamic data to get a working dashboard (> run pipeline or mock-endpoint, > do this per country, per disasterType)
+        Example:
+                {
+            "secret": "fill_in_secret",
+            "countryCodeISO3": "UGA",
+            "disasterType": "floods",
+            "triggered": true,
+            "removeEvents": true
+            }
 
 
 ### Supporting docker commands
@@ -66,7 +80,7 @@ These below commands come in handy when you face such issue:
 9 To restart the IBF-api-service in docker:
     docker-compose restart ibf-api-service
 
-10 With a single command, you create and start all the services from your configuration:
+10 To install the IBF-api-services:
     docker-compose exec ibf-api-service npm install 
 
 
