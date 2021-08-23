@@ -178,7 +178,11 @@ export class TimelineService {
     const nextAprilEndOfMonth = this.getNextAprilMonth();
     const leadTimeMonth = this.getLeadTimeMonth(leadTime);
 
-    return leadTimeMonth < nextAprilEndOfMonth;
+    return (
+      leadTimeMonth <= nextAprilEndOfMonth && // hide months beyond next April
+      (leadTime !== LeadTime.month0 || // hide current month ..
+        this.filterDroughtActiveLeadTime(disasterType, leadTime)) // .. except if current month is next April
+    );
   }
 
   private filterDroughtActiveLeadTime(
@@ -189,27 +193,24 @@ export class TimelineService {
       return true;
     }
 
-    const nextAprilEndOfMonth = this.getNextAprilMonth();
+    const nextAprilMonth = this.getNextAprilMonth();
     const leadTimeMonth = this.getLeadTimeMonth(leadTime);
 
-    return (
-      nextAprilEndOfMonth.year === leadTimeMonth.year &&
-      nextAprilEndOfMonth.month === leadTimeMonth.month
-    );
+    return nextAprilMonth.equals(leadTimeMonth);
   }
 
   private getNextAprilMonth(): DateTime {
+    const aprilMonthNumber = 4;
     const currentYear = DateTime.now().year;
     const nextAprilYear =
-      DateTime.now().month > 4 ? currentYear + 1 : currentYear;
-    return DateTime.utc(nextAprilYear, 5).minus({
-      day: 1,
-    });
+      DateTime.now().month > aprilMonthNumber ? currentYear + 1 : currentYear;
+    return DateTime.utc(nextAprilYear, aprilMonthNumber, 1);
   }
 
   private getLeadTimeMonth(leadTime: LeadTime): DateTime {
-    return this.state.today.plus({
+    const leadTimeMonth = this.state.today.plus({
       month: Number(LeadTimeTriggerKey[leadTime]),
     });
+    return DateTime.utc(leadTimeMonth.year, leadTimeMonth.month, 1);
   }
 }
