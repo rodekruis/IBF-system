@@ -69,7 +69,6 @@ export class TimelineService {
       disabled: !isLeadTimeEnabled,
       active: false,
     };
-    console.log('this.state.timeStepButtons: ', this.state.timeStepButtons);
   };
 
   private onTriggerPerLeadTime = (triggers) => {
