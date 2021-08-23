@@ -1,3 +1,17 @@
+# [0.86.0](https://github.com/rodekruis/IBF-system/compare/v0.85.0...v0.86.0) (2021-08-23)
+
+
+### Bug Fixes
+
+* remove console.log ([366f3e9](https://github.com/rodekruis/IBF-system/commit/366f3e9fa1f5546be09cc0df0c142239ee303384))
+
+
+### Features
+
+* hide current month for drought except if next April AB[#9130](https://github.com/rodekruis/IBF-system/issues/9130) ([16c80ac](https://github.com/rodekruis/IBF-system/commit/16c80ac6f008fd1712b7fc87408b9aa9fef4449f))
+
+
+
 # [0.85.0](https://github.com/rodekruis/IBF-system/compare/v0.84.1...v0.85.0) (2021-08-23)
 
 
@@ -114,15 +128,6 @@
 
 * change order of seed-script to maximize time between dependent queries AB[#9050](https://github.com/rodekruis/IBF-system/issues/9050) ([d35fbaf](https://github.com/rodekruis/IBF-system/commit/d35fbaf5eed53831dd858c1fe7591920d97d4f00))
 * forgot to turn back AB[#9050](https://github.com/rodekruis/IBF-system/issues/9050) ([76f6fa7](https://github.com/rodekruis/IBF-system/commit/76f6fa739cf062650f8059074834a8eb30b30566))
-
-
-
-## [0.81.1](https://github.com/rodekruis/IBF-system/compare/v0.81.0...v0.81.1) (2021-08-13)
-
-
-### Bug Fixes
-
-* wait for admin-areas to finish seeding before continuing AB[#9050](https://github.com/rodekruis/IBF-system/issues/9050) ([2d1328c](https://github.com/rodekruis/IBF-system/commit/2d1328c88a9f799837118c08e7884affcfe7709b))
 
 
 
