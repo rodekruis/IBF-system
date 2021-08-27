@@ -295,6 +295,8 @@ export class SeedInit implements InterfaceScript {
       notificationInfoCountry.linkSocialMediaType;
     notificationInfoEntity.linkSocialMediaUrl =
       notificationInfoCountry.linkSocialMediaUrl;
+    notificationInfoEntity.linkVideo = notificationInfoCountry.linkVideo;
+    notificationInfoEntity.linkPdf = notificationInfoCountry.linkPdf;
     const saveResult = await notificationInfoRepository.save(
       notificationInfoEntity,
     );

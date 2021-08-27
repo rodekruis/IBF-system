@@ -1,22 +1,18 @@
 import { IsIn, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { DisasterType } from '../../disaster/disaster-type.enum';
+import countries from '../../../scripts/json/countries.json';
 
 export class SendEmailDto {
-  @ApiProperty({ example: 'PHL' })
+  @ApiProperty({ example: countries.map(c => c.countryCodeISO3).join(' | ') })
   @IsNotEmpty()
   @IsString()
-  @IsIn(['PHL', 'UGA'])
+  @IsIn(countries.map(c => c.countryCodeISO3))
   public countryCodeISO3: string;
 
-  @ApiProperty({ example: DisasterType.Dengue })
+  @ApiProperty({ example: Object.values(DisasterType).join(' | ') })
   @IsNotEmpty()
   @IsString()
-  @IsIn([
-    DisasterType.Dengue,
-    DisasterType.Floods,
-    DisasterType.HeavyRain,
-    DisasterType.Malaria,
-  ])
+  @IsIn(Object.values(DisasterType))
   public disasterType: DisasterType;
 }

@@ -16,4 +16,10 @@ export class NotificationInfoEntity {
 
   @Column({ nullable: true })
   public linkSocialMediaUrl: string;
+
+  @Column({ nullable: true })
+  public linkVideo: string;
+
+  @Column({ nullable: true })
+  public linkPdf: string;
 }

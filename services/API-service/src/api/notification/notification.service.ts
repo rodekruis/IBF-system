@@ -44,6 +44,9 @@ export class NotificationService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<void> {
+    // First wait for 30 seconds, to make sure the exposure-endpoint, which is called before this one, has finished
+    await new Promise(resolve => setTimeout(resolve, 30000));
+
     const event = await this.eventService.getEventSummaryCountry(
       countryCodeISO3,
       disasterType,
@@ -73,6 +76,9 @@ export class NotificationService {
       },
       recipients: {
         list_id: process.env.MC_LIST_ID,
+        segment_opts: {
+          saved_segment_id: 102274,
+        },
       },
       type: 'regular',
     };
@@ -196,8 +202,64 @@ export class NotificationService {
           country.disasterTypes[0].label,
         ),
       },
+      {
+        replaceKey: '(VIDEO-PDF-LINKS)',
+        replaceValue: this.getVideoPdfLinks(
+          country.notificationInfo.linkVideo,
+          country.notificationInfo.linkPdf,
+        ),
+      },
     ];
     return emailKeyValueReplaceList;
+  }
+
+  private getVideoPdfLinks(videoLink: string, pdfLink: string) {
+    const linkVideoHTML = `
+                    <a
+                        href="${videoLink}"
+                        title="Video instructions"
+                        target="_blank"
+                        style="
+                        font-size: 14px;
+                        font-family: Helvetica,
+                            Arial,
+                            sans-serif;
+                        font-weight: bold;
+                        color: #0c0c0c;
+                        display: inline-block;
+                    " >
+                        here
+                    </a>`;
+
+    const linkPdfHTML = `<a href="${pdfLink}"
+                        target="_blank"
+                        title="PDF instructions"
+                        style="
+                        font-size: 14px;
+                        font-family: Helvetica,
+                            Arial,
+                            sans-serif;
+                        font-weight: bold;
+                        color: #0c0c0c;
+                        display: inline-block;
+                        "  >
+                        here
+                    </a>`;
+    let videoStr = '';
+    if (videoLink) {
+      videoStr = 'Video' + linkVideoHTML;
+    }
+    let pdfStr = '';
+    if (pdfLink) {
+      pdfStr = 'PDF' + linkPdfHTML;
+    }
+    let andStr = '';
+    if (videoStr && pdfStr) {
+      andStr = 'and';
+    }
+    if (videoStr || pdfStr) {
+      return `See instructions for the dashboard in the form of a ${videoStr} ${andStr} ${pdfStr}`;
+    }
   }
 
   private firstCharOfWordsToUpper(input: string): string {
@@ -322,7 +384,7 @@ export class NotificationService {
           area.placeCode,
           leadTime.leadTimeName as LeadTime,
         );
-        const alertLevel = ''; //this needs some extra code to get the right level for floods
+        const alertLevel = ''; //Leave empty for now, as it is irrelevant any way (always 'Max. alert')
         const areaTable = `<tr class='notification-alerts-table-row'>
             <td align='center'>${Math.round(actionUnitValue)}</td>
             <td align='left'>${area.name}</td>
