@@ -9,7 +9,7 @@ import json
 from lib.logging.logglySetup import logger
 from lib.setup.setupConnection import get_db
 from settings import *
-from secrets import DB_SETTINGS, ADMIN_LOGIN, ADMIN_PASSWORD, DATALAKE_STORAGE_ACCOUNT_NAME, DATALAKE_STORAGE_ACCOUNT_KEY, DATALAKE_API_VERSION
+from secrets import DB_SETTINGS, ADMIN_LOGIN, ADMIN_PASSWORD, DATALAKE_STORAGE_ACCOUNT_NAME, DATALAKE_STORAGE_ACCOUNT_KEY, DATALAKE_API_VERSION, SETTINGS_SECRET
 
 
 class DatabaseManager:
@@ -30,6 +30,18 @@ class DatabaseManager:
             self.uploadTriggersPerLeadTime()
             self.uploadTriggerPerStation()
         self.uploadCalculatedAffected()
+    
+    def sendNotification(self):
+        leadTimes = SETTINGS[self.countryCodeISO3]['lead_times']
+        max_leadTime = max(leadTimes, key=leadTimes.get)
+
+        if SETTINGS_SECRET[self.countryCodeISO3]["notify_email"] and self.leadTimeLabel == max_leadTime:
+            body = {
+                'countryCodeISO3': self.countryCodeISO3,
+                'disasterType': self.addDisasterType()
+            } 
+            self.apiPostRequest('notification/send', body)
+
     
     def addDisasterType(self):
         if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':

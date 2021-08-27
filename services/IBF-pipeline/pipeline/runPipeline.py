@@ -1,5 +1,4 @@
 from lib.pipeline.forecast import Forecast
-from lib.notifications.notify import notify
 from lib.logging.logglySetup import logger
 import traceback
 import time
@@ -30,14 +29,14 @@ def main():
                       '--------------------------')
                 fc = Forecast(leadTimeLabel, leadTimeValue, COUNTRY_CODE,
                               COUNTRY_SETTINGS['model'], COUNTRY_SETTINGS['admin_level'])
-                if COUNTRY_SETTINGS['model'] == 'rainfall':
-                    fc.rainfallData.process()
-                if COUNTRY_SETTINGS['model'] == 'glofas':
-                    fc.glofasData.process()
-                    fc.floodExtent.calculate()
-                fc.exposure.callAllExposure()
+                # if COUNTRY_SETTINGS['model'] == 'rainfall':
+                #     fc.rainfallData.process()
+                # if COUNTRY_SETTINGS['model'] == 'glofas':
+                #     fc.glofasData.process()
+                #     fc.floodExtent.calculate()
+                # fc.exposure.callAllExposure()
                 fc.db.upload()
-            notify(COUNTRY_CODE)
+                fc.db.sendNotification()
 
     except Exception as e:
         # If a fatal exception occurs during the cronjob
