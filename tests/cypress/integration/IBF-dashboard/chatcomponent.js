@@ -44,14 +44,9 @@ describe("Chat component", () => {
        
           });
 
-    it("load and click About Trigger ", () => {
+    it("validate About Trigger ", () => {
 
             cy.get(selectors.AboutTrigger).should("be.visible")
-            .should("not.be.disabled");
-        
-            cy.get(selectors.AboutTrigger).click({ multiple: true });
-            
+            .should("not.be.disabled")
       });
-  
- 
 });
