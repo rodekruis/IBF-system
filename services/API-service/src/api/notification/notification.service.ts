@@ -45,7 +45,7 @@ export class NotificationService {
     disasterType: DisasterType,
   ): Promise<void> {
     // First wait for 30 seconds, to make sure the exposure-endpoint, which is called before this one, has finished
-    await new Promise(resolve => setTimeout(resolve, 30000));
+    // await new Promise(resolve => setTimeout(resolve, 30000));
 
     const event = await this.eventService.getEventSummaryCountry(
       countryCodeISO3,
@@ -121,7 +121,11 @@ export class NotificationService {
     });
     for (const leadTime of country.countryActiveLeadTimes) {
       if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
-        const totalActionUnit = 10;
+        const totalActionUnit = await this.eventService.getTotalAffectedPerLeadTime(
+          country.countryCodeISO3,
+          disasterType,
+          leadTime.leadTimeName,
+        );
         const subjectPart = `Estimate of ${actionUnit.label}: ${String(
           totalActionUnit,
         )} (${leadTime.leadTimeName}) `;
