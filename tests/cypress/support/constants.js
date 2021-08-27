@@ -9,4 +9,6 @@ export default {
   loginApiUrl: "/user/login",
   dashboardPagePath: "/",
   waitForAngularTimeout: 25000,
+  ExposedPopulationText:' Exposed population ',
+  TotalPopulationText:' Total Population '
 };

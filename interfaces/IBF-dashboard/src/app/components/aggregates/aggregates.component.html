@@ -1,9 +1,11 @@
 <div>
+  
   <ion-grid class="ion-no-padding">
     <ion-item
       color="ibf-secondary"
       lines="none"
       class="aggregate-header-item"
+      data-test="aggregate-title"
       [title]="
         ('aggregates-component.header-title-prefix' | translate) +
         ' ' +
@@ -14,6 +16,8 @@
         {{ getHeaderLabel() }}
       </ion-label>
       <ion-button
+
+      
         slot="end"
         fill="clear"
         *ngIf="placeCode"
@@ -50,15 +54,16 @@
               >
                 <ion-img src="assets/icons/{{ indicator.icon }}"></ion-img>
               </ion-thumbnail>
-              <ion-label class="aggregate-item-label" [title]="indicator.label">
+              <ion-label class="aggregate-item-label" [title]="indicator.label" >
                 <span *ngIf="indicator.weightedAvg"></span>
+                
                 {{ indicator.label }}
               </ion-label>
             </ion-item>
           </ion-col>
-          <ion-col size-lg="3" size-md="3" size-xs="3">
+          <ion-col size-lg="3" size-md="3" size-xs="3" >
             <ion-item class="aggregate-item-value ion-no-padding">
-              <ion-label class="ion-text-right" data-test="aggregate-number">
+              <ion-label class="ion-text-right" data-test="aggregate-number" >
                 <span *ngIf="indicator.numberFormatAggregate === 'decimal2'">
                   {{
                     this.getAggregate(
@@ -95,7 +100,7 @@
             size-xs="1"
             [title]="'aggregates-component.more-information' | translate"
           >
-            <ion-item class="aggregate-item-information-icon ion-no-padding">
+            <ion-item class="aggregate-item-information-icon ion-no-padding" data-test="icon-row">
               <ion-label class="ion-text-center">
                 <img
                   class="info-img"
