@@ -44,14 +44,22 @@ export class NotificationService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<void> {
-    const country = await this.getCountryNotificationInfo(countryCodeISO3);
-    const replaceKeyValues = await this.createReplaceKeyValues(
-      country,
+    const event = await this.eventService.getEventSummaryCountry(
+      countryCodeISO3,
       disasterType,
     );
-    const emailHtml = this.formatEmail(replaceKeyValues);
-    const emailSubject = await this.getEmailSubject(country, disasterType);
-    this.sendEmail(emailSubject, emailHtml);
+    if (event && event.activeTrigger) {
+      const country = await this.getCountryNotificationInfo(countryCodeISO3);
+      const replaceKeyValues = await this.createReplaceKeyValues(
+        country,
+        disasterType,
+      );
+      const emailHtml = this.formatEmail(replaceKeyValues);
+      const emailSubject = await this.getEmailSubject(country, disasterType);
+      this.sendEmail(emailSubject, emailHtml);
+    } else {
+      console.log('No email sent, as there is no active trigger');
+    }
   }
 
   private async sendEmail(subject: string, emailHtml: string): Promise<void> {
