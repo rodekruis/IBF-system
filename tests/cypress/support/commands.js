@@ -4,7 +4,7 @@ import 'cypress-wait-until';
 
 Cypress.Commands.add("waitForRequests", () => {
   cy.intercept({ method: "GET", url: "**" }).as("getHttp");
-  cy.wait("@getHttp");
+  cy.wait("@getHttp", {timeout: 10000})
 });
 
 // Contains a list of custom Commands
