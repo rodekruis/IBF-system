@@ -45,7 +45,7 @@ export class NotificationService {
     disasterType: DisasterType,
   ): Promise<void> {
     // First wait for 30 seconds, to make sure the exposure-endpoint, which is called before this one, has finished
-    // await new Promise(resolve => setTimeout(resolve, 30000));
+    await new Promise(resolve => setTimeout(resolve, 30000));
 
     const event = await this.eventService.getEventSummaryCountry(
       countryCodeISO3,
