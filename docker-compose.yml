@@ -41,6 +41,7 @@ services:
             - DASHBOARD_URL=${DASHBOARD_URL}
             - MC_API=${MC_API}
             - MC_LIST_ID=${MC_LIST_ID}
+            - MC_SEGMENTS=${MC_SEGMENTS}
         networks:
             web-server-network:
             pipeline-network:

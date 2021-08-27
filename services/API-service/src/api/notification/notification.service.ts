@@ -59,13 +59,24 @@ export class NotificationService {
       );
       const emailHtml = this.formatEmail(replaceKeyValues);
       const emailSubject = await this.getEmailSubject(country, disasterType);
-      this.sendEmail(emailSubject, emailHtml);
+      this.sendEmail(emailSubject, emailHtml, countryCodeISO3);
     } else {
       console.log('No email sent, as there is no active trigger');
     }
   }
 
-  private async sendEmail(subject: string, emailHtml: string): Promise<void> {
+  private getSegmentId(countryCodeISO3: string): number {
+    const segments = process.env.MC_SEGMENTS.split(',').map(segment =>
+      segment.split(':'),
+    );
+    return Number(segments.find(s => s[0] === countryCodeISO3)[1]);
+  }
+
+  private async sendEmail(
+    subject: string,
+    emailHtml: string,
+    countryCodeISO3: string,
+  ): Promise<void> {
     const campaignBody = {
       settings: {
         title: new Date().toISOString(),
@@ -77,7 +88,7 @@ export class NotificationService {
       recipients: {
         list_id: process.env.MC_LIST_ID,
         segment_opts: {
-          saved_segment_id: 102274,
+          saved_segment_id: this.getSegmentId(countryCodeISO3),
         },
       },
       type: 'regular',
