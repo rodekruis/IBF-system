@@ -12,4 +12,6 @@ export enum DynamicIndicator {
   hotspotGeneral = 'Hotspot_General',
   hotspotWater = 'Hotspot_Water',
   hotspotHealth = 'Hotspot_Health',
+  cattleExposed = 'cattle_exposed',
+  smallRuminantsExposed = 'small_ruminants_exposed',
 }

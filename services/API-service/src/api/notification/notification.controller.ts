@@ -13,7 +13,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
-import { SendEmailDto } from './dto/country-code-iso3.dto';
+import { SendEmailDto } from './dto/send-email.dto';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)

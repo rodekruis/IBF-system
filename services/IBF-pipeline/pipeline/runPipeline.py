@@ -1,5 +1,4 @@
 from lib.pipeline.forecast import Forecast
-from lib.notifications.notify import notify
 from lib.logging.logglySetup import logger
 import traceback
 import time
@@ -37,7 +36,7 @@ def main():
                     fc.floodExtent.calculate()
                 fc.exposure.callAllExposure()
                 fc.db.upload()
-            notify(COUNTRY_CODE)
+                fc.db.sendNotification()
 
     except Exception as e:
         # If a fatal exception occurs during the cronjob
