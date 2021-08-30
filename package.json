@@ -1,6 +1,6 @@
 {
   "name": "IBF-system",
-  "version": "0.87.0",
+  "version": "0.87.1",
   "private": true,
   "scripts": {
     "demo": "npx npm-run-all --print-label --parallel start open",
