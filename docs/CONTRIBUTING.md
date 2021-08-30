@@ -103,7 +103,30 @@ We follow
 [Google's Engineering Practices documentation](https://google.github.io/eng-practices/).
 Provide proof of review in the form of screenshots or output messages.
 
+## Datamodel migrations
+
+When making changes to the datamodel of the API-service (creating/editing any *.entity.ts files), you need to create a migration script to take these changes into affect.
+
+The process is 
+1. Make the changes in the *.entity.ts file
+2. Generate a migration-script with "docker-compose exec ibf-api-service npm run migration:generate <name-for-migration-script>"
+3. Restart the ibf-api-service >> this will always run any new migration-scripts, so in this case the just generated migration-script
+4. If more change required, then follow the above process as often as needed.
+
+NOTE: if you're making many datamodel changes at once, or are doing a lot of trial and error, you have another option.
+1. In services/API-service/ormconfig.js set `synchronize` to `true` and restart ibf-api-service.
+2. This will make sure that any changes you make to *.entity.ts files are automatically updated in your database tables, which allows for quicker development/testing.
+3. When you're done with all your changes, you will need to revert all changes temporarily to be able to create a migration script. There are multiple ways to do this, for example by stashing all your changes, or working with a new branch. Either way:
+    - stashing all your changes (git stash)
+    - let ibf-api-service restart, so that datamodel changes are reverted as well again
+    - set `synchronize` back to `false` and restart ibf-api-service
+    - get your stashed changes again (git stash pop)
+    - generate migration-script (see above)
+    - restart ibf-api-service (like above, to run the new migration-script)
+
+
 ## ! ! ! DO NOT ! ! !
 
 1. DO NOT manually change the version number in `package.json`
 2. DO NOT manually edit the [CHANGELOG.md](../CHANGELOG.md)
+3. DO NOT edit any existing migration-scripts in migration-folder (./services/API-service/migration/)
