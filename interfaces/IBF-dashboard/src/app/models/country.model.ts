@@ -8,7 +8,7 @@ export class Country {
   countryName: string;
   countryActiveLeadTimes: LeadTime[];
   adminRegionLabels: AdminRegionLabels;
-  eapLink: string;
+  eapLinks: EapLink[];
   countryLogos: string[];
   eapAlertClasses?: EapAlertClasses;
   disasterTypes: DisasterType[];
@@ -54,4 +54,12 @@ class LeadTimeEntity {
   leadTimeLabel: string;
   countries: Country[];
   disasterTypes: DisasterType[];
+}
+
+class EapLink {
+  [DisasterTypeKey.floods]?: string;
+  [DisasterTypeKey.heavyRain]?: string;
+  [DisasterTypeKey.drought]?: string;
+  [DisasterTypeKey.malaria]?: string;
+  [DisasterTypeKey.dengue]?: string;
 }

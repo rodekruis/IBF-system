@@ -30,7 +30,9 @@
         "plural": "Sub-Counties"
       }
     },
-    "eapLink": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd",
+    "eapLinks": {
+      "floods": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd"
+    },
     "countryLogos": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"],
     "eapAlertClasses": {
       "no": {
@@ -86,7 +88,9 @@
         "plural": "Wards"
       }
     },
-    "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=357745",
+    "eapLinks": {
+      "floods": "https://adore.ifrc.org/Download.aspx?FileId=357745"
+    },
     "countryLogos": [
       "ZMB-warma.png",
       "ZMB-government.svg",
@@ -159,7 +163,9 @@
         "plural": "Wards"
       }
     },
-    "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9",
+    "eapLinks": {
+      "floods": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9"
+    },
     "countryLogos": ["KEN-krcs.png"],
     "eapAlertClasses": {
       "no": {
@@ -229,7 +235,10 @@
         "plural": "Woredas"
       }
     },
-    "eapLink": "https://docs.google.com/document/d/1IQy_1pWvoT50o0ykjJTUclVrAedlHnkwj6QC7gXvk98/edit#bookmark=id.ysn0drq0f4nx",
+    "eapLinks": {
+      "floods": "https://adore.ifrc.org/Download.aspx?FileId=404862",
+      "malaria": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing"
+    },
     "countryLogos": ["ETH-ercs.png"],
     "countryBoundingBox": {
       "type": "Polygon",
@@ -268,7 +277,9 @@
         "plural": "Districts"
       }
     },
-    "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0a248aa7f06fc4d149892726478ef0fe6&authkey=AWC-wu2bMWX0NRGu7aUjTe8&expiration=2022-02-24T23%3a00%3a00.000Z&rtime=DcUsZo3Z2Eg",
+    "eapLinks": {
+      "heavy-rain": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0a248aa7f06fc4d149892726478ef0fe6&authkey=AWC-wu2bMWX0NRGu7aUjTe8&expiration=2022-02-24T23%3a00%3a00.000Z&rtime=DcUsZo3Z2Eg"
+    },
     "countryLogos": ["EGY-ercs.png"],
     "countryBoundingBox": {
       "type": "Polygon",
@@ -311,7 +322,9 @@
         "plural": "Barangays"
       }
     },
-    "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm",
+    "eapLinks": {
+      "dengue": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm"
+    },
     "countryLogos": ["PHL-prc.jpg"],
     "countryBoundingBox": {
       "type": "Polygon",
@@ -363,7 +376,9 @@
         "plural": "Wards"
       }
     },
-    "eapLink": "",
+    "eapLinks": {
+      "drought": ""
+    },
     "countryLogos": [
       "ZWE-ZRCS.png",
       "ZWE-DanishRedCross.png",

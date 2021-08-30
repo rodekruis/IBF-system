@@ -191,7 +191,7 @@ export class NotificationService {
       },
       {
         replaceKey: '(LINK-EAP-SOP)',
-        replaceValue: country.eapLink,
+        replaceValue: country.eapLinks[disasterType],
       },
       {
         replaceKey: '(SOCIAL-MEDIA-LINK)',

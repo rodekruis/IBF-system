@@ -106,7 +106,7 @@ export class SeedInit implements InterfaceScript {
           countryEntity.adminRegionLabels = JSON.parse(
             JSON.stringify(country.adminRegionLabels),
           );
-          countryEntity.eapLink = country.eapLink;
+          countryEntity.eapLinks = JSON.parse(JSON.stringify(country.eapLinks));
           countryEntity.countryActiveLeadTimes = await leadTimeRepository.find({
             where: country.countryActiveLeadTimes.map(
               (countryLeadTime: string): object => {

@@ -46,8 +46,8 @@ export class CountryEntity {
   })
   public adminRegionLabels: JSON;
 
-  @Column({ nullable: true })
-  public eapLink: string;
+  @Column('json', { default: {} })
+  public eapLinks: JSON;
 
   @Column('json', { nullable: true })
   public eapAlertClasses: JSON;
