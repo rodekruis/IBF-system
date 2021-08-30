@@ -1,3 +1,28 @@
+# [0.87.0](https://github.com/rodekruis/IBF-system/compare/v0.86.0...v0.87.0) (2021-08-30)
+
+
+### Bug Fixes
+
+* calculate total for email subject AB[#9227](https://github.com/rodekruis/IBF-system/issues/9227) ([e8c2257](https://github.com/rodekruis/IBF-system/commit/e8c2257d7b658694db24b0879a0f202b80b3de45))
+* forgot to uncomment AB[#8297](https://github.com/rodekruis/IBF-system/issues/8297) ([d8b0b81](https://github.com/rodekruis/IBF-system/commit/d8b0b81ab9ee9f4c165036ecb8dfe17cf435d969))
+
+
+### Features
+
+* 30 second wait for email-endpoint AB[#8297](https://github.com/rodekruis/IBF-system/issues/8297) ([41b6931](https://github.com/rodekruis/IBF-system/commit/41b6931c4d6d163175016c46e95d4099cc826236))
+* add dummy EAP-actions AB[#9228](https://github.com/rodekruis/IBF-system/issues/9228) ([14e39a1](https://github.com/rodekruis/IBF-system/commit/14e39a13c3bda929edcf86d282acc2bb87bfc231))
+* add exposed cattle & ruminants layer + icon + mock data AB[#9139](https://github.com/rodekruis/IBF-system/issues/9139) ([a8161cd](https://github.com/rodekruis/IBF-system/commit/a8161cd0440db4032d87711d2b0b78719d256a94))
+* add info popups exposec livestock AB[#9141](https://github.com/rodekruis/IBF-system/issues/9141) ([cb2c235](https://github.com/rodekruis/IBF-system/commit/cb2c235feada82976451fe1e47e18d316ba7479a))
+* add total cattle layer + data AB[#9138](https://github.com/rodekruis/IBF-system/issues/9138) ([05855c8](https://github.com/rodekruis/IBF-system/commit/05855c86bdecc0e5436274e0a8e46c4e3ad8b955))
+* call email endpoint from IBF-pipeline AB[#8297](https://github.com/rodekruis/IBF-system/issues/8297) ([d0347f6](https://github.com/rodekruis/IBF-system/commit/d0347f61654adc597dfcc8ab11fac6a5fb804a6a))
+* change email color to purple AB[#9175](https://github.com/rodekruis/IBF-system/issues/9175) ([f506c58](https://github.com/rodekruis/IBF-system/commit/f506c58b10ebb677ce4721cf4919c94da71daa80))
+* copy video-pdf-link code AB[#9221](https://github.com/rodekruis/IBF-system/issues/9221) ([210c4f9](https://github.com/rodekruis/IBF-system/commit/210c4f9ad69a32f1be537cad4a6d4df9ae1ffebd))
+* extend API + mock-endpoint for exposed cattle/ruminants AB[#9139](https://github.com/rodekruis/IBF-system/issues/9139) ([3e2c36a](https://github.com/rodekruis/IBF-system/commit/3e2c36a4966549c416f96712bb3080fee95bd211))
+* mail by segment-id AB[#9226](https://github.com/rodekruis/IBF-system/issues/9226) ([4893aa6](https://github.com/rodekruis/IBF-system/commit/4893aa605624a28c5bb2161cc8f7f36c3626babc))
+* only email if active trigger AB[#9224](https://github.com/rodekruis/IBF-system/issues/9224) ([e6f4a6a](https://github.com/rodekruis/IBF-system/commit/e6f4a6a5c13ec1bc9be5f2f772a49aebcfa5c63c))
+
+
+
 # [0.86.0](https://github.com/rodekruis/IBF-system/compare/v0.85.0...v0.86.0) (2021-08-23)
 
 
@@ -118,16 +143,6 @@
 ### Bug Fixes
 
 * only process event areas for triggerUnit AB[#9051](https://github.com/rodekruis/IBF-system/issues/9051) ([b8f2c47](https://github.com/rodekruis/IBF-system/commit/b8f2c4740c143a103c45acfa80f9d409a1156b8d))
-
-
-
-## [0.81.2](https://github.com/rodekruis/IBF-system/compare/v0.81.1...v0.81.2) (2021-08-13)
-
-
-### Bug Fixes
-
-* change order of seed-script to maximize time between dependent queries AB[#9050](https://github.com/rodekruis/IBF-system/issues/9050) ([d35fbaf](https://github.com/rodekruis/IBF-system/commit/d35fbaf5eed53831dd858c1fe7591920d97d4f00))
-* forgot to turn back AB[#9050](https://github.com/rodekruis/IBF-system/issues/9050) ([76f6fa7](https://github.com/rodekruis/IBF-system/commit/76f6fa739cf062650f8059074834a8eb30b30566))
 
 
 
