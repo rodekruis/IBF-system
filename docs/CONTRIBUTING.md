@@ -107,11 +107,13 @@ Provide proof of review in the form of screenshots or output messages.
 
 When making changes to the datamodel of the API-service (creating/editing any *.entity.ts files), you need to create a migration script to take these changes into affect.
 
+
 The process is 
 1. Make the changes in the *.entity.ts file
 2. Generate a migration-script with "docker-compose exec ibf-api-service npm run migration:generate <name-for-migration-script>"
 3. Restart the ibf-api-service >> this will always run any new migration-scripts, so in this case the just generated migration-script
 4. If more change required, then follow the above process as often as needed.
+5. See also [TypeORM migration documentation](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md)
 
 NOTE: if you're making many datamodel changes at once, or are doing a lot of trial and error, you have another option.
 1. In services/API-service/ormconfig.js set `synchronize` to `true` and restart ibf-api-service.
