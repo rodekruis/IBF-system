@@ -28,12 +28,12 @@ export class WaterpointsService {
     }
 
     const path =
-      `https://data.waterpointdata.org/resource/amwk-dedf.geojson` +
+      `https://data.waterpointdata.org/resource/jfkt-jmqa.geojson` +
       `?$where=water_source is not null` +
       ` AND water_source !='Lake'` +
-      ` AND within_polygon(location, '${countryWkt.right}')` +
+      ` AND within_polygon(geocoded_column, '${countryWkt.right}')` +
       `&$limit=100000` +
-      `&status_id=yes` +
+      `&status_id=Yes` +
       `&country_id=${country.countryCodeISO2}`;
 
     return new Promise((resolve, reject): void => {
@@ -42,7 +42,7 @@ export class WaterpointsService {
           const result = response.data;
           result.features.forEach((feature): void => {
             feature.properties = {
-              wpdxId: feature.properties.wpdx_id,
+              wpdxId: feature.properties.row_id,
               activityId: feature.properties.activity_id,
               type: feature.properties.water_source,
               reportDate: feature.properties.report_date.substr(0, 10),
