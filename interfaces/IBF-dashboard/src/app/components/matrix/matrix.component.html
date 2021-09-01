@@ -45,6 +45,7 @@
           <ion-row>
             <ion-col size="8" class="layer-control-label-col">
               <ion-item lines="none" class="ion-no-padding">
+          
                 <ion-label class="ion-no-margin" [title]="layer.label">
                   {{ layer.label }}
                 </ion-label>
@@ -69,6 +70,7 @@
                 layer.name === IbfLayerName.alertThreshold && layer.active
               "
               [style.background]="layer.active ? layer.legendColor : null"
+             
             ></ion-col>
             <ion-col
               size="2"
@@ -80,6 +82,7 @@
                 color="light"
                 class="layer-control-info-icon"
                 (click)="presentPopover($event, layer)"
+                data-test="matrix-icon"
               ></ion-icon>
             </ion-col>
           </ion-row>
