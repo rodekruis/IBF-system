@@ -5,6 +5,7 @@
       name="close-circle"
       size="large"
       (click)="closePopover()"
+      data-test='close-matrix-icon'
     ></ion-icon>
     <ion-card-title>
       {{ layer.label }}
@@ -13,5 +14,6 @@
   <ion-card-content
     class="ion-padding-top"
     [innerHTML]="layer.description"
+    data-test="matrix-popupinfo"
   ></ion-card-content>
 </ion-card>

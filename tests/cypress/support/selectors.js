@@ -24,7 +24,11 @@ export default {
   chat:"[data-test=chat]",
   aggregateTitle: "[data-test=aggregate-title]",
   AboutTrigger: "[data-test=chat-about-trigger]",
- 
+  layersOverview: "[data-test=layers-toggle]",
+  layermenu: "[data-test=layers-control-menu]",
+  matrixicon:  "[data-test=matrix-icon]",
+  layerpopupmessage: "[data-test=matrix-popupinfo]",
+  layersPopupcloseIcon:"[data-test=close-matrix-icon]"
 }; 
 
 
