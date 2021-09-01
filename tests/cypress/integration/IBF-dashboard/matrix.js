@@ -41,7 +41,7 @@ describe("Matrix Overview", () => {
              cy.wrap($el1).click()
              cy.get(selectors.layerpopupmessage).should("be.visible")
                .invoke("text").should("not.be.empty")
-            cy.get(selectors.layersPopupcloseIcon) .click({ multiple: true, force: true })
+            cy.get(selectors.layersPopupcloseIcon) .click({ multiple: true, force: true });
           
          })
         })   

@@ -28,7 +28,7 @@ export default {
   layermenu: "[data-test=layers-control-menu]",
   matrixicon:  "[data-test=matrix-icon]",
   layerpopupmessage: "[data-test=matrix-popupinfo]",
-  layersPopupcloseIcon:"[data-test=close-matrix-icon]"
+  layersPopupcloseIcon:"[data-test=close-matrix-icon]",
 }; 
 
 
