@@ -137,6 +137,12 @@ export class ApiService {
     return this.get(`health-sites/${countryCodeISO3}`, false);
   }
 
+  getDamSites(
+    countryCodeISO3: string,
+  ): Observable<GeoJSON.FeatureCollection> {
+    return this.get(`dam-sites/${countryCodeISO3}`, false);
+  }
+
   getWaterPoints(
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {

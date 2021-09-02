@@ -19,6 +19,14 @@ export const LEAFLET_MARKER_ICON_OPTIONS_BASE: IconOptions = {
   iconRetinaUrl: 'assets/markers/glofas-no.svg',
 };
 
+//DAM svg icon
+export const LEAFLET_MARKER_ICON_OPTIONS_DAM: IconOptions = {
+  ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  iconSize: [20, 33],
+  iconUrl: 'assets/markers/dam.png',
+  iconRetinaUrl: 'assets/markers/dam.png',
+};
+
 export const LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
   iconSize: [20, 33],

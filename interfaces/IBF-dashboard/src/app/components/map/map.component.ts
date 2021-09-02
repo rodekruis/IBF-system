@@ -32,12 +32,14 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_BASE,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
+  LEAFLET_MARKER_ICON_OPTIONS_DAM,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
 } from 'src/app/config';
 import { Country, EapAlertClasses } from 'src/app/models/country.model';
 import {
   HealthSite,
   RedCrossBranch,
+  DamSite,
   Station,
   Waterpoint,
 } from 'src/app/models/poi.model';
@@ -315,6 +317,11 @@ export class MapComponent implements OnDestroy {
       case IbfLayerName.redCrossBranches:
         return this.createMarkerRedCrossBranch(
           geoJsonPoint.properties as RedCrossBranch,
+          latlng,
+        );
+        case IbfLayerName.damSites:
+        return this.createMarkerDam(
+          geoJsonPoint.properties as DamSite,
           latlng,
         );
       case IbfLayerName.waterpoints:
@@ -733,6 +740,25 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
+  private createMarkerDam(
+    markerProperties: DamSite,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.damName;
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_DAM),
+    });
+    markerInstance.bindPopup(this.createMarkerDamPopup(markerProperties));
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.damSite),
+    );
+
+    return markerInstance;
+  }
+
   private createMarkerHealthSite(
     markerProperties: HealthSite,
     markerLatLng: LatLng,
@@ -852,6 +878,38 @@ export class MapComponent implements OnDestroy {
         'Contact number: ' +
         (markerProperties.contactNumber || '') +
         '</div>',
+    );
+    return branchInfoPopup;
+  }
+
+  private createMarkerDamPopup(markerProperties: DamSite): string {
+    const branchInfoPopup = (
+      '<div style="margin-bottom: 5px">' +
+      '<strong>Branch: ' +
+      markerProperties.damName +
+      '</strong>' +
+      '</div>'
+    ).concat(
+      '<div style="margin-bottom: 5px">' +
+        'Country: ' +
+        (markerProperties.countryCodeISO3 || '') +
+        '</div>',
+        '<div style="margin-bottom: 5px">' +
+        'Dam Name: ' +
+        (markerProperties.damName || '') +
+        '</div>',
+        '<div style="margin-bottom: 5px">' +
+        'Full Supply Capacity: ' +
+        (markerProperties.fullSupply || '') +
+        '</div>',
+      '<div style="margin-bottom: 5px">' +
+        'Current Capacity: ' +
+        (markerProperties.currentCapacity|| '') +
+        '</div>',
+      '<div style="margin-bottom: 5px">' +
+        'Percentage Full: ' +
+        (markerProperties.percentageFull || '') +
+        '</div>' 
     );
     return branchInfoPopup;
   }
