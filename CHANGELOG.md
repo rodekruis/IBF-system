@@ -1,3 +1,12 @@
+## [0.87.1](https://github.com/rodekruis/IBF-system/compare/v0.87.0...v0.87.1) (2021-08-30)
+
+
+### Bug Fixes
+
+* switch to new waterpoints dataset AB[#9112](https://github.com/rodekruis/IBF-system/issues/9112) ([14ef4c8](https://github.com/rodekruis/IBF-system/commit/14ef4c899b9e2c199323b9489e3727a73eed35f3))
+
+
+
 # [0.87.0](https://github.com/rodekruis/IBF-system/compare/v0.86.0...v0.87.0) (2021-08-30)
 
 
@@ -134,15 +143,6 @@
 ### Bug Fixes
 
 * add await on saving dynamic data AB[#9051](https://github.com/rodekruis/IBF-system/issues/9051) ([048fb99](https://github.com/rodekruis/IBF-system/commit/048fb9992ad7077ead39c39b884d0d2e196711a1))
-
-
-
-## [0.81.3](https://github.com/rodekruis/IBF-system/compare/v0.81.2...v0.81.3) (2021-08-13)
-
-
-### Bug Fixes
-
-* only process event areas for triggerUnit AB[#9051](https://github.com/rodekruis/IBF-system/issues/9051) ([b8f2c47](https://github.com/rodekruis/IBF-system/commit/b8f2c4740c143a103c45acfa80f9d409a1156b8d))
 
 
 
