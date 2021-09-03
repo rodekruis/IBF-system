@@ -12,6 +12,7 @@ import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 class ReplaceKeyValue {
   replaceKey: string;
@@ -24,6 +25,8 @@ export class NotificationService {
   private readonly countryRepository: Repository<CountryEntity>;
   @InjectRepository(IndicatorMetadataEntity)
   private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
+  @InjectRepository(DisasterEntity)
+  private readonly disasterRepository: Repository<DisasterEntity>;
   private eventService: EventService;
   private adminAreaDynamicDataService: AdminAreaDynamicDataService;
 
@@ -44,9 +47,6 @@ export class NotificationService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<void> {
-    // First wait for 30 seconds, to make sure the exposure-endpoint, which is called before this one, has finished
-    await new Promise(resolve => setTimeout(resolve, 30000));
-
     const event = await this.eventService.getEventSummaryCountry(
       countryCodeISO3,
       disasterType,
@@ -110,14 +110,14 @@ export class NotificationService {
     disasterType: DisasterType,
   ): Promise<string> {
     let subject = `${this.firstCharOfWordsToUpper(
-      country.disasterTypes[0].label,
+      (await this.getDisaster(disasterType)).label,
     )} Warning: `;
     const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
       country.countryCodeISO3,
       disasterType,
     );
     const actionUnit = await this.indicatorRepository.findOne({
-      name: country.disasterTypes[0].actionsUnit,
+      name: (await this.getDisaster(disasterType)).actionsUnit,
     });
     for (const leadTime of country.countryActiveLeadTimes) {
       if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
@@ -150,6 +150,14 @@ export class NotificationService {
 
     return await this.countryRepository.findOne(findOneOptions, {
       relations: relations,
+    });
+  }
+
+  private async getDisaster(
+    disasterType: DisasterType,
+  ): Promise<DisasterEntity> {
+    return await this.disasterRepository.findOne({
+      where: { disasterType: disasterType },
     });
   }
 
@@ -214,7 +222,7 @@ export class NotificationService {
       {
         replaceKey: '(DISASTER-TYPE)',
         replaceValue: this.firstCharOfWordsToUpper(
-          country.disasterTypes[0].label,
+          (await this.getDisaster(disasterType)).label,
         ),
       },
       {
@@ -345,7 +353,7 @@ export class NotificationService {
     const adminAreaLabels =
       country.adminRegionLabels[String(country.defaultAdminLevel)];
     const actionUnit = await this.indicatorRepository.findOne({
-      name: country.disasterTypes[0].actionsUnit,
+      name: (await this.getDisaster(disasterType)).actionsUnit,
     });
     const leadTimeValue = leadTime.leadTimeName.split('-')[0];
     const leadTimeUnit = leadTime.leadTimeName.split('-')[1];
@@ -386,16 +394,17 @@ export class NotificationService {
       disasterType,
       leadTime.leadTimeName,
     );
+    const disaster = await this.getDisaster(disasterType);
     let areaTableString = '';
     for (const area of triggeredAreas) {
       const triggerUnitValue = await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
-        country.disasterTypes[0].triggerUnit as DynamicIndicator,
+        disaster.triggerUnit as DynamicIndicator,
         area.placeCode,
         leadTime.leadTimeName as LeadTime,
       );
       if (triggerUnitValue > 0) {
         const actionUnitValue = await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
-          country.disasterTypes[0].actionsUnit as DynamicIndicator,
+          disaster.actionsUnit as DynamicIndicator,
           area.placeCode,
           leadTime.leadTimeName as LeadTime,
         );
