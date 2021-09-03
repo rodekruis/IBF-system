@@ -10,10 +10,7 @@ import { HelperService } from '../../shared/helper.service';
 @Injectable()
 export class DamSiteService {
   @InjectRepository(DamSiteEntity)
-  private readonly damSiteRepository: Repository<
-    DamSiteEntity
-  >;
-
+  private readonly damSiteRepository: Repository<DamSiteEntity>;
   private readonly helperService: HelperService;
   public constructor(helperService: HelperService) {
     this.helperService = helperService;
