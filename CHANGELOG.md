@@ -1,3 +1,26 @@
+# [0.88.0](https://github.com/rodekruis/IBF-system/compare/v0.87.1...v0.88.0) (2021-09-03)
+
+
+### Bug Fixes
+
+* get dynamic data by disaster type AB[#9253](https://github.com/rodekruis/IBF-system/issues/9253) ([afd1dd3](https://github.com/rodekruis/IBF-system/commit/afd1dd34fa7524e6f5f16bf3f9f97541d95450cc))
+* info popup feedback swati AB[#9143](https://github.com/rodekruis/IBF-system/issues/9143) ([22a7c99](https://github.com/rodekruis/IBF-system/commit/22a7c9966b42722a37e5e2c35902e6ebd1a19d36))
+* issue with eap-link AB[#9229](https://github.com/rodekruis/IBF-system/issues/9229) ([44a2fe7](https://github.com/rodekruis/IBF-system/commit/44a2fe73544aec4d9ad30aafc1a1f43e8fda381b))
+* make email more disaster-specific AB[#9213](https://github.com/rodekruis/IBF-system/issues/9213) ([696bc24](https://github.com/rodekruis/IBF-system/commit/696bc24a5d8fdb3a8ed65a499d6be3334a03f06e))
+* make getTriggerPerLeadtime disaster-specific AB[#9242](https://github.com/rodekruis/IBF-system/issues/9242) ([6732351](https://github.com/rodekruis/IBF-system/commit/673235166250b8717363cea9a2e44832be9dcf43))
+* upload 'alert_threshold' as last layer AB[#9235](https://github.com/rodekruis/IBF-system/issues/9235) ([97f376e](https://github.com/rodekruis/IBF-system/commit/97f376eef379f39505cf09a6f029e36d0a35999d))
+
+
+### Features
+
+* add eap-link ZWE AB[#9229](https://github.com/rodekruis/IBF-system/issues/9229) ([9aaec8d](https://github.com/rodekruis/IBF-system/commit/9aaec8dff9f1f0fbb5f12748fc04457034472703))
+* add more info popup texts ETH AB[#9143](https://github.com/rodekruis/IBF-system/issues/9143) ([8eb84d9](https://github.com/rodekruis/IBF-system/commit/8eb84d9f53ad91bbaf33fad7c4a011bcfe7dd69e))
+* add whatsapp-group link ZWE AB[#9234](https://github.com/rodekruis/IBF-system/issues/9234) ([ba99073](https://github.com/rodekruis/IBF-system/commit/ba99073b1de611fdde9f63ebb0189ea46b8ff311))
+* added layer info popup texts ETH AB[#9143](https://github.com/rodekruis/IBF-system/issues/9143) ([90fa37c](https://github.com/rodekruis/IBF-system/commit/90fa37c61e8459074751309b0d63e41bb4fa12fa))
+* eap-link disaster-specific + update links ETH AB[#9145](https://github.com/rodekruis/IBF-system/issues/9145) AB[#9144](https://github.com/rodekruis/IBF-system/issues/9144) ([0ea8cdb](https://github.com/rodekruis/IBF-system/commit/0ea8cdb8e7285788ffa035847ecf1a482ae267cc))
+
+
+
 ## [0.87.1](https://github.com/rodekruis/IBF-system/compare/v0.87.0...v0.87.1) (2021-08-30)
 
 
@@ -134,15 +157,6 @@
 * add zimbabwe to mock-endpoint AB[#9037](https://github.com/rodekruis/IBF-system/issues/9037) ([1049042](https://github.com/rodekruis/IBF-system/commit/1049042a52613f420873e5a902bbe3f288523ed6))
 * additional settings edits ZWE droughts AB[#8412](https://github.com/rodekruis/IBF-system/issues/8412) ([6175864](https://github.com/rodekruis/IBF-system/commit/6175864540dd40d87cef7d11efdb426485f7eabc))
 * set up layers+indicators AB[#8412](https://github.com/rodekruis/IBF-system/issues/8412) ([3995016](https://github.com/rodekruis/IBF-system/commit/3995016d17a806cf365b077e04031bfba6676bdc))
-
-
-
-## [0.81.4](https://github.com/rodekruis/IBF-system/compare/v0.81.3...v0.81.4) (2021-08-13)
-
-
-### Bug Fixes
-
-* add await on saving dynamic data AB[#9051](https://github.com/rodekruis/IBF-system/issues/9051) ([048fb99](https://github.com/rodekruis/IBF-system/commit/048fb9992ad7077ead39c39b884d0d2e196711a1))
 
 
 
