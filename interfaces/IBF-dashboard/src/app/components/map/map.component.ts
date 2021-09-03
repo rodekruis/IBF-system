@@ -30,16 +30,16 @@ import {
   LEAFLET_MAP_OPTIONS,
   LEAFLET_MAP_URL_TEMPLATE,
   LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  LEAFLET_MARKER_ICON_OPTIONS_DAM,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
-  LEAFLET_MARKER_ICON_OPTIONS_DAM,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
 } from 'src/app/config';
 import { Country, EapAlertClasses } from 'src/app/models/country.model';
 import {
+  DamSite,
   HealthSite,
   RedCrossBranch,
-  DamSite,
   Station,
   Waterpoint,
 } from 'src/app/models/poi.model';
@@ -319,11 +319,8 @@ export class MapComponent implements OnDestroy {
           geoJsonPoint.properties as RedCrossBranch,
           latlng,
         );
-        case IbfLayerName.damSites:
-        return this.createMarkerDam(
-          geoJsonPoint.properties as DamSite,
-          latlng,
-        );
+      case IbfLayerName.damSites:
+        return this.createMarkerDam(geoJsonPoint.properties as DamSite, latlng);
       case IbfLayerName.waterpoints:
         return this.createMarkerWaterpoint(
           geoJsonPoint.properties as Waterpoint,
@@ -751,10 +748,7 @@ export class MapComponent implements OnDestroy {
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_DAM),
     });
     markerInstance.bindPopup(this.createMarkerDamPopup(markerProperties));
-    markerInstance.on(
-      'click',
-      this.onMapMarkerClick(AnalyticsEvent.damSite),
-    );
+    markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.damSite));
 
     return markerInstance;
   }
@@ -894,22 +888,22 @@ export class MapComponent implements OnDestroy {
         'Country: ' +
         (markerProperties.countryCodeISO3 || '') +
         '</div>',
-        '<div style="margin-bottom: 5px">' +
+      '<div style="margin-bottom: 5px">' +
         'Dam Name: ' +
         (markerProperties.damName || '') +
         '</div>',
-        '<div style="margin-bottom: 5px">' +
+      '<div style="margin-bottom: 5px">' +
         'Full Supply Capacity: ' +
         (markerProperties.fullSupply || '') +
         '</div>',
       '<div style="margin-bottom: 5px">' +
         'Current Capacity: ' +
-        (markerProperties.currentCapacity|| '') +
+        (markerProperties.currentCapacity || '') +
         '</div>',
       '<div style="margin-bottom: 5px">' +
         'Percentage Full: ' +
         (markerProperties.percentageFull || '') +
-        '</div>' 
+        '</div>',
     );
     return branchInfoPopup;
   }

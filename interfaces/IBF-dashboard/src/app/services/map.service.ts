@@ -267,7 +267,7 @@ export class MapService {
           .getDamSites(this.country.countryCodeISO3)
           .subscribe((damSites) => {
             this.addDamSites(damSites);
-          });   
+          });
       } else {
         this.addDamSites(null);
       }
@@ -863,7 +863,8 @@ export class MapService {
       .map((feature) =>
         typeof feature.properties[colorProperty] !== 'undefined'
           ? feature.properties[colorProperty]
-          : feature.properties.indicators && feature.properties.indicators[colorProperty],
+          : feature.properties.indicators &&
+            feature.properties.indicators[colorProperty],
       )
       .filter((v, i, a) => a.indexOf(v) === i);
 
