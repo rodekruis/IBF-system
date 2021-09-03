@@ -280,7 +280,7 @@ export class MapService {
       label: IbfLayerLabel.damSites,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.damSites),
-      active: true,
+      active: false,
       show: true,
       data: damSites,
       viewCenter: false,
