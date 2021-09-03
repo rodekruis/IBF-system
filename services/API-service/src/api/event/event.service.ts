@@ -244,11 +244,14 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<object> {
-    const latestDate = await this.getOneMaximumTriggerDate(countryCodeISO3);
+    const lastTriggeredDate = await this.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
     const triggersPerLeadTime = await this.triggerPerLeadTimeRepository.find({
       where: {
         countryCodeISO3: countryCodeISO3,
-        date: latestDate,
+        date: lastTriggeredDate.date,
         disasterType: disasterType,
       },
     });
@@ -268,14 +271,6 @@ export class EventService {
       }
     }
     return result;
-  }
-
-  private async getOneMaximumTriggerDate(countryCodeISO3): Promise<Date> {
-    const result = await this.triggerPerLeadTimeRepository.findOne({
-      order: { date: 'DESC' },
-      where: { countryCodeISO3: countryCodeISO3 },
-    });
-    return result.date;
   }
 
   public async closeEventPcode(
