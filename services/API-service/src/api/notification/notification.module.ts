@@ -8,6 +8,7 @@ import { NotificationController } from './notification.controller';
 import { NotificationService } from './notification.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
       CountryEntity,
       NotificationInfoEntity,
       IndicatorMetadataEntity,
+      DisasterEntity,
     ]),
     UserModule,
     EventModule,

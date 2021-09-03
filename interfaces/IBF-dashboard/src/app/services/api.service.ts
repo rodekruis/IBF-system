@@ -240,9 +240,10 @@ export class ApiService {
     adminLevel: AdminLevel,
     leadTime: LeadTime,
     indicator: string,
+    disasterType: DisasterTypeKey,
   ) {
     return this.get(
-      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${leadTime}/${indicator}`,
+      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${leadTime}/${indicator}/${disasterType}`,
       false,
     );
   }

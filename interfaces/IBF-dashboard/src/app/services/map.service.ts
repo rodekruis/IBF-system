@@ -29,6 +29,7 @@ import { Country, DisasterType } from '../models/country.model';
 import { LayerActivation } from '../models/layer-activation.enum';
 import { breakKey } from '../models/map.model';
 import { AdminLevel } from '../types/admin-level';
+import { DisasterTypeKey } from '../types/disaster-type-key';
 import { DisasterTypeService } from './disaster-type.service';
 
 @Injectable({
@@ -354,6 +355,7 @@ export class MapService {
       if (indicator.active && this.timelineService.activeLeadTime) {
         this.getCombineAdminRegionData(
           this.country.countryCodeISO3,
+          this.disasterType.disasterType,
           this.adminLevelService.adminLevel,
           this.timelineService.activeLeadTime,
           indicator.name,
@@ -372,6 +374,7 @@ export class MapService {
       if (indicator.active && this.timelineService.activeLeadTime) {
         this.getCombineAdminRegionData(
           this.country.countryCodeISO3,
+          this.disasterType.disasterType,
           this.adminLevelService.adminLevel,
           this.timelineService.activeLeadTime,
           indicator.name,
@@ -655,6 +658,7 @@ export class MapService {
     ) {
       layerData = this.getCombineAdminRegionData(
         this.country.countryCodeISO3,
+        this.disasterType.disasterType,
         this.adminLevelService.adminLevel,
         this.timelineService.activeLeadTime,
         layer.name,
@@ -669,6 +673,7 @@ export class MapService {
 
   getCombineAdminRegionData(
     countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
     adminLevel: AdminLevel,
     leadTime: LeadTime,
     layerName: IbfLayerName,
@@ -682,6 +687,7 @@ export class MapService {
         adminLevel,
         leadTime,
         layerName,
+        disasterType,
       );
     } else {
       admDynamicDataObs = this.apiService.getAdminAreaData(
