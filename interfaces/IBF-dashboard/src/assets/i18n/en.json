@@ -69,7 +69,7 @@
       },
       "potential_cases_65": {
         "PHL": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>",
-        "ETH": "Elderly: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates"
+        "ETH": "Elderly: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates <a href=\"https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates\">https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>"
       },
       "small_ruminants_exposed": {
         "ZWE": "Exposed small ruminants per province. Small ruminants exists of the summarised number sheep & goats livestock numbers multiplied with the Livestock unit (LSU): 0.1 as reference unit to aggregate livestock from various species.<br /><br />Source Links:<ul><li><a href=\"https://ec.europa.eu/eurostat/statistics-explained/index.php/Glossary:Livestock_unit_(LSU)\">https://ec.europa.eu/eurostat/statistics-explained/index.php/Glossary:Livestock_unit_(LSU)</a>.<li>Source Zimbabwe: small ruminants (sheeps and goats) numbers within the 2nd round crop- and livestock assessment report 2020/2021 season. Published: 21st of April 2021. Source assessment: <a href=\"https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0\">https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0</a></li></ul>"
@@ -175,7 +175,7 @@
         "PHL": "Percentage of people living in female-headed households. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
       },
       "population_u5": {
-        "ETH": "undear age:vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates.<br /><br />Source Data: <a href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>"
+        "ETH": "Under age: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates.<br /><br />Source Data: <a href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>"
       },
       "population_u8": {
         "UGA": "Percentage of people under 8 years old.<br /><br />Source Data: <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014."
@@ -258,7 +258,7 @@
       },
       "potential_cases_65": {
         "PHL": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a href=\"https://data.humdata.org/dataset/philippines-pre-disaster-indicators\">https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>",
-        "ETH": "Elderly: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates"
+        "ETH": "Elderly: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates <a href=\"https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates\">https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>"
       },
       "small_ruminants": {
         "ZWE": "Small ruminants exists of the summarised number sheep & goats livestock numbers multiplied with the Livestock unit (LSU): 0.1 as reference unit to aggregate livestock from various species.<br /><br />Source Links:<ul><li><a href=\"https://ec.europa.eu/eurostat/statistics-explained/index.php/Glossary:Livestock_unit_(LSU)\">https://ec.europa.eu/eurostat/statistics-explained/index.php/Glossary:Livestock_unit_(LSU)</a>.<li>Source Zimbabwe: small ruminants (sheeps and goats) numbers within the 2nd round crop- and livestock assessment report 2020/2021 season. Published: 21st of April 2021. Source assessment: <a href=\"https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0\">https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0</a></li></ul>"
