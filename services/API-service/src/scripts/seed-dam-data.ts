@@ -43,7 +43,6 @@ export class SeedDamData implements InterfaceScript {
     const damSiteFileName = `./src/scripts/git-lfs/dam-sites/dam_sites_${country.countryCodeISO3}.csv`;
     const damSiteData = await this.seedHelper.getCsvData(damSiteFileName);
     const damSiteArray = damSiteData.map(pixel => {
-        console.log('######',pixel);
       return {
         damSiteId: pixel['ID'],
         countryCodeISO3: country.countryCodeISO3,
