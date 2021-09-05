@@ -50,8 +50,6 @@ export class SeedDamData implements InterfaceScript {
         longitude: pixel['longitude'],
         damName: pixel['DAM NAME'],
         fullSupply: pixel['FULL SUPPLY CAPACITY'],
-        currentCapacity: pixel['CURRENT CAPACITY'],
-        percentageFull: pixel['% FULL'],
         geom: (): string =>
           `st_asgeojson(st_MakePoint(${pixel['longitude']}, ${pixel['latitude']}))::json`,
       };

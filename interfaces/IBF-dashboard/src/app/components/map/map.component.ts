@@ -891,22 +891,14 @@ export class MapComponent implements OnDestroy {
       //   'Country: ' +
       //   (markerProperties.countryCodeISO3 || '') +
       //   '</div>',
-      '<div style="margin-bottom: 5px">' +
-        // 'Dam Name: ' +
-        // (markerProperties.damName || '') +
-        // '</div>',
+      // '<div style="margin-bottom: 5px">' +
+      //   'Dam Name: ' +
+      //   (markerProperties.damName || '') +
+      //   '</div>',
       '<div style="margin-bottom: 5px">' +
         'Full Supply Capacity: ' +
         (markerProperties.fullSupply || '') +
         '</div>',
-      // '<div style="margin-bottom: 5px">' +
-      //   'Current Capacity: ' +
-      //   (markerProperties.currentCapacity || '') +
-      //   '</div>',
-      // '<div style="margin-bottom: 5px">' +
-      //   'Percentage Full: ' +
-      //   (markerProperties.percentageFull || '') +
-      //   '</div>',
     );
     return branchInfoPopup;
   }

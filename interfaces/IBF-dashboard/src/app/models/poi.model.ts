@@ -31,9 +31,7 @@ export class HealthSite {
 export class DamSite {
   damName: string;
   countryCodeISO3: string;
-  percentageFull: string;
   fullSupply: string;
-  currentCapacity: string;
   latitude: string;
   longitude: string;
 }
