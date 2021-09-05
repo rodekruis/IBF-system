@@ -37,9 +37,9 @@ import {
 } from 'src/app/config';
 import { Country, EapAlertClasses } from 'src/app/models/country.model';
 import {
+  DamSite,
   HealthSite,
   RedCrossBranch,
-  DamSite,
   Station,
   Waterpoint,
 } from 'src/app/models/poi.model';
@@ -320,10 +320,7 @@ export class MapComponent implements OnDestroy {
           latlng,
         );
       case IbfLayerName.damSites:
-        return this.createMarkerDam(
-          geoJsonPoint.properties as DamSite, 
-          latlng,
-          );
+        return this.createMarkerDam(geoJsonPoint.properties as DamSite, latlng);
       case IbfLayerName.waterpoints:
         return this.createMarkerWaterpoint(
           geoJsonPoint.properties as Waterpoint,
