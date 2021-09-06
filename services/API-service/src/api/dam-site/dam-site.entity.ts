@@ -14,12 +14,6 @@ export class DamSiteEntity {
   @Column()
   public fullSupply: string;
 
-  // @Column()
-  // public currentCapacity: string;
-
-  // @Column()
-  // public percentageFull: string;
-
   @Column('json', { nullable: true })
   public geom: JSON;
 
