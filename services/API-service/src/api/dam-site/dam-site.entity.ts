@@ -12,9 +12,8 @@ export class DamSiteEntity {
   public damName: string;
 
   @Column()
-  public fullSupply: string;
+  public fullSupply: number;
 
   @Column('json', { nullable: true })
   public geom: JSON;
-
 }

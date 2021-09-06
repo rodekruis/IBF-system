@@ -495,23 +495,6 @@
   {
     "country_codes": "ZWE",
     "disasterTypes": ["drought"],
-    "name": "dam",
-    "label": "Dam",
-    "group": "",
-    "icon": "",
-    "weightedAvg": true,
-    "active": false,
-    "colorBreaks": null,
-    "numberFormatMap": "decimal2",
-    "aggregateIndicator": "",
-    "numberFormatAggregate": "decimal2",
-    "order": 4,
-    "dynamic": false,
-    "unit": "incidence"
-  },
-  {
-    "country_codes": "ZWE",
-    "disasterTypes": ["drought"],
     "name": "cattle",
     "label": "Total cattle",
     "group": "",

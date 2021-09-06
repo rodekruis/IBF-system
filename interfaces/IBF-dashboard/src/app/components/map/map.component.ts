@@ -884,18 +884,10 @@ export class MapComponent implements OnDestroy {
       '</strong>' +
       '</div>'
     ).concat(
-      // '<div style="margin-bottom: 5px">' +
-      //   'Country: ' +
-      //   (markerProperties.countryCodeISO3 || '') +
-      //   '</div>',
-      // '<div style="margin-bottom: 5px">' +
-      //   'Dam Name: ' +
-      //   (markerProperties.damName || '') +
-      //   '</div>',
       '<div style="margin-bottom: 5px">' +
         'Full Supply Capacity: ' +
-        (markerProperties.fullSupply || '') +
-        '</div>',
+        (parseInt(markerProperties.fullSupply) || '') +
+        ' million m<sup>3</sup></div>',
     );
     return branchInfoPopup;
   }

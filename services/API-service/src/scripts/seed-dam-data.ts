@@ -18,9 +18,7 @@ export class SeedDamData implements InterfaceScript {
   }
 
   public async run(): Promise<void> {
-    this.damSiteRepository = this.connection.getRepository(
-      DamSiteEntity,
-    );
+    this.damSiteRepository = this.connection.getRepository(DamSiteEntity);
 
     const envCountries = process.env.COUNTRIES.split(',');
     await Promise.all(
@@ -42,16 +40,15 @@ export class SeedDamData implements InterfaceScript {
   private async seedDamSiteData(country): Promise<void> {
     const damSiteFileName = `./src/scripts/git-lfs/dam-sites/dam_sites_${country.countryCodeISO3}.csv`;
     const damSiteData = await this.seedHelper.getCsvData(damSiteFileName);
-    const damSiteArray = damSiteData.map(pixel => {
+    const damSiteArray = damSiteData.map(dam => {
       return {
-        damSiteId: pixel['ID'],
         countryCodeISO3: country.countryCodeISO3,
-        latitude: pixel['latitude'],
-        longitude: pixel['longitude'],
-        damName: pixel['DAM NAME'],
-        fullSupply: pixel['FULL SUPPLY CAPACITY'],
+        latitude: dam['latitude'],
+        longitude: dam['longitude'],
+        damName: dam['DAM NAME'],
+        fullSupply: dam['FULL SUPPLY CAPACITY'],
         geom: (): string =>
-          `st_asgeojson(st_MakePoint(${pixel['longitude']}, ${pixel['latitude']}))::json`,
+          `st_asgeojson(st_MakePoint(${dam['longitude']}, ${dam['latitude']}))::json`,
       };
     });
 
