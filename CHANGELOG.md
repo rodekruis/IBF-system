@@ -1,3 +1,12 @@
+## [0.89.1](https://github.com/rodekruis/IBF-system/compare/v0.89.0...v0.89.1) (2021-09-06)
+
+
+### Bug Fixes
+
+* login email should support dot character AB[#9307](https://github.com/rodekruis/IBF-system/issues/9307) ([ecec53a](https://github.com/rodekruis/IBF-system/commit/ecec53a58bfca1a5dd65f48bd574cfc6972598a2))
+
+
+
 # [0.89.0](https://github.com/rodekruis/IBF-system/compare/v0.88.0...v0.89.0) (2021-09-06)
 
 
@@ -156,16 +165,6 @@
 * add grassland to geoserver AB[#9058](https://github.com/rodekruis/IBF-system/issues/9058) ([6a06da1](https://github.com/rodekruis/IBF-system/commit/6a06da18f369eeeca7e28e3fd546583241a837cd))
 * add rc branch data AB[#9060](https://github.com/rodekruis/IBF-system/issues/9060) ([bc8b1fa](https://github.com/rodekruis/IBF-system/commit/bc8b1fac0106526e318552e88c9edeb9248b12f9))
 * add ruminants layer + data AB[#9057](https://github.com/rodekruis/IBF-system/issues/9057) ([f1fa5a3](https://github.com/rodekruis/IBF-system/commit/f1fa5a3b172f9493733511ee957d652208df0c6c))
-
-
-
-## [0.82.1](https://github.com/rodekruis/IBF-system/compare/v0.82.0...v0.82.1) (2021-08-16)
-
-
-### Bug Fixes
-
-* increase max open files for pipeline when started from cron AB[#9056](https://github.com/rodekruis/IBF-system/issues/9056) ([3436ce7](https://github.com/rodekruis/IBF-system/commit/3436ce7edeb02ccc2b1812fd706a31b13b4534a0))
-* set limit in SETTINGS AB[#9056](https://github.com/rodekruis/IBF-system/issues/9056) ([c3a5ca6](https://github.com/rodekruis/IBF-system/commit/c3a5ca6f5dd94aae28f7c1480ce856cefad983c8))
 
 
 
