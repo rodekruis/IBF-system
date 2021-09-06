@@ -225,6 +225,9 @@
       "flood_vulnerability_index": {
         "UGA": "The disaster vulnerability index is a composite index for the context of exposure to the hazard and the capacity to anticipate, cope with and recover from the impacts of floods. The National Society and Technical Working group selected the following criteria below: (including their weight in the total score)<ul><li>20% Poverty: Poverty incidence</li><li>20% Gender: Female headed household</li><li>10% Age: Population below 8-years</li><li>10% Age: population 65+,</li><li>10 % type of construction: permanent wall type</li><li>10 %type of construction: permanent roof type</li><li>20% Refugees legal status #of displaced person</li></ul><br>For furhter information please refere to the Eap. For source links, see each individual layer."
       },
+      "dam": {
+        "ZWE": "This layer represents the locations of the dams, and their associated reservoirs in Zimbabwe. "
+      },
       "drought_vulnerability_index": {
         "ZWE": "The drought vulnerability index is a composite index for the context of exposure to drought and the capacity to anticipate, cope with and recover from the impacts of droughts. The ZRCS selected nine main criteria:<ul><li>14% Labor constrained households: 7 %unemployment rate 15+  and 7% economically non-active</li><li>15% Child, women and elderly headed households: 5% Female headed HH , 5% Head of Household (19-), 5% Head of Household (65+)</li><li>14% People with disabilities</li><li>15 % Pregnant and breast-feeding women, and children under five years: 5% pregnant women, 5% breast-feeding women, 5% children under five years</li><li>14 % Severe acute malnutrition</li><li>7% employment agriculture</li><li>7% cattle per km2</li><li>7% HIV prevalence</li><li>7% HIV ART Coverage</li></ul>"
       },

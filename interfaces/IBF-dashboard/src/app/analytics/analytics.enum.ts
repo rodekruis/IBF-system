@@ -17,6 +17,7 @@ export enum AnalyticsEvent {
   waterPoint = 'water-point',
   redCrossBranch = 'red-cross-branch',
   healthSite = 'health-site',
+  damSite = 'dam',
   mapMarker = 'map-marker',
   glofasStation = 'glofas-station',
   mapPlaceSelect = 'map-place-select',
