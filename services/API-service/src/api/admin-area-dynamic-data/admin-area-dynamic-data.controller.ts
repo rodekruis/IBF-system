@@ -12,6 +12,7 @@ import {
 import { RolesGuard } from '../../roles.guard';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
+import { DisasterType } from '../disaster/disaster-type.enum';
 @ApiBearerAuth()
 @ApiTags('admin-area-dynamic-data')
 @Controller('admin-area-dynamic-data')
@@ -39,7 +40,8 @@ export class AdminAreaDynamicDataController {
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
-  @Get(':countryCodeISO3/:adminLevel/:leadTime/:indicator')
+  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @Get(':countryCodeISO3/:adminLevel/:leadTime/:indicator/:disasterType')
   public async getAdminAreaData(
     @Param() params,
   ): Promise<AdminDataReturnDto[]> {
@@ -48,6 +50,7 @@ export class AdminAreaDynamicDataController {
       params.adminLevel,
       params.leadTime,
       params.indicator as DynamicIndicator,
+      params.disasterType as DisasterType,
     );
   }
 

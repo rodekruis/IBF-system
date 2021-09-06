@@ -11,6 +11,7 @@ import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
 import { EventService } from '../event/event.service';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterType } from '../disaster/disaster-type.enum';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -22,14 +23,9 @@ export class AdminAreaDynamicDataService {
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
 
   private eventService: EventService;
-  private countryService: CountryService;
 
-  public constructor(
-    countryService: CountryService,
-    eventService: EventService,
-  ) {
+  public constructor(eventService: EventService) {
     this.eventService = eventService;
-    this.countryService = countryService;
   }
 
   public async exposure(
@@ -134,6 +130,7 @@ export class AdminAreaDynamicDataService {
     adminLevel: string,
     leadTime: LeadTime,
     indicator: DynamicIndicator,
+    disasterType: DisasterType,
   ): Promise<AdminDataReturnDto[]> {
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
@@ -142,6 +139,7 @@ export class AdminAreaDynamicDataService {
         adminLevel: Number(adminLevel),
         leadTime: leadTime,
         indicator: indicator,
+        disasterType: disasterType,
       })
       .select(['dynamic.value AS value', 'dynamic.placeCode AS "placeCode"'])
       .orderBy('dynamic.date', 'DESC')

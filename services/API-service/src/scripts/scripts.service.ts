@@ -88,24 +88,24 @@ export class ScriptsService {
       disasterType === DisasterType.Malaria
     ) {
       exposureUnits = [
-        DynamicIndicator.alertThreshold,
         DynamicIndicator.potentialCases65,
         DynamicIndicator.potentialCasesU9,
         DynamicIndicator.potentialCasesU5,
         DynamicIndicator.potentialCases,
         DynamicIndicator.potentialThreshold,
+        DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
       ];
     } else if (disasterType === DisasterType.Drought) {
       exposureUnits = [
-        DynamicIndicator.alertThreshold,
         DynamicIndicator.populationAffected,
         DynamicIndicator.cattleExposed,
         DynamicIndicator.smallRuminantsExposed,
+        DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
       ];
     } else {
       exposureUnits = [
-        DynamicIndicator.populationAffected,
         DynamicIndicator.populationAffectedPercentage,
+        DynamicIndicator.populationAffected,
       ];
     }
 
