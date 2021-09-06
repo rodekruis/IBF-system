@@ -7,11 +7,7 @@ import { DamSiteService } from './dam-site.service';
 import { HelperService } from '../../shared/helper.service';
 
 @Module({
-  imports: [
-    HttpModule,
-    UserModule,
-    TypeOrmModule.forFeature([DamSiteEntity]),
-  ],
+  imports: [HttpModule, UserModule, TypeOrmModule.forFeature([DamSiteEntity])],
   providers: [DamSiteService, HelperService],
   controllers: [DamSiteController],
   exports: [DamSiteService],
