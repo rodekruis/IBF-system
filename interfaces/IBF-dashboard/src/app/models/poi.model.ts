@@ -31,7 +31,7 @@ export class HealthSite {
 export class DamSite {
   damName: string;
   countryCodeISO3: string;
-  fullSupply: string;
+  fullSupply: number;
   latitude: string;
   longitude: string;
 }

@@ -886,7 +886,7 @@ export class MapComponent implements OnDestroy {
     ).concat(
       '<div style="margin-bottom: 5px">' +
         'Full Supply Capacity: ' +
-        (parseInt(markerProperties.fullSupply) || '') +
+        (Math.round(markerProperties.fullSupply).toLocaleString() || '') +
         ' million m<sup>3</sup></div>',
     );
     return branchInfoPopup;
