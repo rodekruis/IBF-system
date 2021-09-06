@@ -19,7 +19,7 @@ export class SeedDamData implements InterfaceScript {
 
   public async run(): Promise<void> {
     this.damSiteRepository = this.connection.getRepository(
-        DamSiteEntity,
+      DamSiteEntity,
     );
 
     const envCountries = process.env.COUNTRIES.split(',');
