@@ -29,6 +29,7 @@ export default {
   matrixicon:  "[data-test=matrix-icon]",
   layerpopupmessage: "[data-test=matrix-popupinfo]",
   layersPopupcloseIcon:"[data-test=close-matrix-icon]",
+  mapoverview:"[data-test=leaflet-map]"
 }; 
 
 
