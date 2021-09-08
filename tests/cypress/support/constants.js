@@ -8,7 +8,8 @@ export default {
   loginPagePath: "/login",
   loginApiUrl: "/user/login",
   dashboardPagePath: "/",
-  waitForAngularTimeout: 25000,
   ExposedPopulationText:' Exposed population ',
-  TotalPopulationText:' Total Population '
+  TotalPopulationText:' Total Population ',
+  CattleExposedText: ' Cattle exposed ',
+  SmallRuminantsText: ' Small ruminants exposed '
 };

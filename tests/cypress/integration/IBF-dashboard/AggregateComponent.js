@@ -41,7 +41,23 @@ describe("Aggregate Component Test", () => {
         .should("be.visible").invoke("text")
         .should("not.be.empty")
     })
-        
+
+    it("Print Cattle Exposed & Small Ruminants text", () => {
+      cy.get(selectors.aggregateList).as("rows");
+      cy.get("@rows").then(($row)=>{
+          cy.wrap($row).contains(constants.CattleExposedText).invoke('text').should('not.be.empty')
+          cy.wrap($row).contains(constants.SmallRuminantsText).invoke('text').should('not.be.empty')
+        })
+      });
+
+  it("load and print No. of Cattle Exposed & Small Ruminants", () => {
+     cy.get(selectors.CattleExposedNumber)
+          .should("be.visible").invoke("text")
+          .should("not.be.empty");
+     cy.get(selectors.SamllRuminantNumber)
+      .should("be.visible").invoke("text")
+      .should("not.be.empty")
+  })
     it("loads and click Aggregate Popup Message", () => {  
       cy.get(selectors.AggregatePopupicon).should("be.visible").click();     
      }); 

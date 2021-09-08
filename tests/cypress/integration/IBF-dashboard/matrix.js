@@ -26,6 +26,7 @@ describe("Matrix Overview", () => {
              cy.wrap($el).contains('Cropland').click({ force: true });
              cy.wrap($el).contains('Grassland').click({ force: true });
              cy.wrap($el).contains('Total Population').click({ force: true });
+             cy.wrap($el).contains('Dam Sites').click({ force: true });
              cy.wrap($el).contains('Total cattle').click({ force: true });
              cy.wrap($el).contains('Drought').click({ force: true});
              cy.wrap($el).contains('Cattle').click({ force: true});

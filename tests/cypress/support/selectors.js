@@ -18,6 +18,8 @@ export default {
    aggregateNumber: "[data-test=aggregate-number]",
    ExposedaggregateNumber: ":nth-child(1)>>>[data-test=aggregate-number]",
    TotalaggregateNumber: ":nth-child(2)>>>[data-test=aggregate-number]",
+    CattleExposedNumber: ":nth-child(4)>>>[data-test=aggregate-number]",
+    SamllRuminantNumber: ":nth-child(5)>>>[data-test=aggregate-number]",
    AggregatePopupicon: ":nth-child(1)>>[data-test=icon-row]",
   disastertypes:"[data-test=disaster-Type]",
   disasterlabel: "[data-test=disaster-labelname]",
@@ -29,7 +31,9 @@ export default {
   matrixicon:  "[data-test=matrix-icon]",
   layerpopupmessage: "[data-test=matrix-popupinfo]",
   layersPopupcloseIcon:"[data-test=close-matrix-icon]",
-  mapoverview:"[data-test=leaflet-map]"
+  mapoverview:"[data-test=leaflet-map]",
+  ActionSummaryTitle: "[data-test=action-title]",
+  ActionSummarytype: "[data-test=action-summary-types]",
 }; 
 
 
