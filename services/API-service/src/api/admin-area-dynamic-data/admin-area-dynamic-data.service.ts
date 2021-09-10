@@ -12,6 +12,7 @@ import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-lea
 import { EventService } from '../event/event.service';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
+import fs from 'fs';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -163,5 +164,15 @@ export class AdminAreaDynamicDataService {
       .orderBy('dynamic.date', 'DESC')
       .execute();
     return result[0].value;
+  }
+
+  public async postRaster(data: any, subfolder: string): Promise<void> {
+    fs.writeFile(
+      `geoserver-volume/raster-files/output/${subfolder}/${data.originalname}`,
+      data.buffer,
+      err => {
+        if (err) throw err;
+      },
+    );
   }
 }

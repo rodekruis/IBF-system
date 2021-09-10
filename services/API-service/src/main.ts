@@ -37,6 +37,8 @@ async function bootstrap(): Promise<void> {
       defaultModelExpandDepth: 9,
       deepLinking: true,
       persistAuthorization: true,
+      tagsSorter: 'alpha',
+      operationsSorter: 'alpha',
     },
     customCss: '.swagger-ui .topbar { display: none }',
     customSiteTitle: apiDocumentationTitle,

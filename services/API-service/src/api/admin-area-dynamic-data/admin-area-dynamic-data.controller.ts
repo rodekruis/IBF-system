@@ -1,6 +1,6 @@
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { DynamicIndicator } from './enum/dynamic-data-unit';
-import { Body, Get, Param } from '@nestjs/common';
+import { Body, Get, Param, UploadedFile } from '@nestjs/common';
 import { Controller, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import {
   ApiOperation,
@@ -8,11 +8,13 @@ import {
   ApiBearerAuth,
   ApiTags,
   ApiParam,
+  ApiBody,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 import { DisasterType } from '../disaster/disaster-type.enum';
+import { FileInterceptor } from '@nestjs/platform-express';
 @ApiBearerAuth()
 @ApiTags('admin-area-dynamic-data')
 @Controller('admin-area-dynamic-data')
@@ -64,6 +66,34 @@ export class AdminAreaDynamicDataController {
       params.indicator as DynamicIndicator,
       params.placeCode,
       params.leadTime,
+    );
+  }
+
+  @ApiOperation({
+    summary: 'Post raster file',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @ApiParam({ name: 'subfolder', required: true, type: 'string' })
+  @Post('raster/:subfolder')
+  @UseInterceptors(FileInterceptor('file'))
+  public async postRaster(
+    @UploadedFile() rasterFileBlob,
+    @Param() params,
+  ): Promise<void> {
+    await this.adminAreaDynamicDataService.postRaster(
+      rasterFileBlob,
+      params.subfolder,
     );
   }
 }
