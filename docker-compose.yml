@@ -114,12 +114,12 @@ volumes:
     pipeline-geoserver:
         driver_opts:
             type: bind
-            device: ./services/IBF-pipeline/pipeline/data/raster
+            device: ./services/API-service/geoserver-volume/raster-files
             o: bind
     workspace-geoserver:
         driver_opts:
             type: bind
-            device: ./services/IBF-pipeline/geoserver-workspaces/ibf-system
+            device: ./services/API-service/geoserver-volume/geoserver-layers
             o: bind
     letsencrypt:
         driver_opts:

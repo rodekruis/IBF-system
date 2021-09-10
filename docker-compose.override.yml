@@ -34,8 +34,8 @@ services:
         ports:
             - 8081:8080
         volumes:
-            - ./services/IBF-pipeline/pipeline/data/raster:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
-            - ./services/IBF-pipeline/geoserver-workspaces/ibf-system:/opt/geoserver/data_dir/workspaces/ibf-system
+            - ./services/API-service/geoserver-volume/raster-files:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
+            - ./services/API-service/geoserver-volume/geoserver-layers:/opt/geoserver/data_dir/workspaces/ibf-system
 
     nginx:
         volumes:

@@ -25,3 +25,6 @@ logs
 *.log
 npm-debug.log*
 .npm
+
+# Raster-files
+geoserver-volume/raster-files/
