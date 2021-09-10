@@ -181,12 +181,14 @@ export class AdminAreaDynamicDataService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    fs.writeFile(
-      `geoserver-volume/raster-files/output/${subfolder}/${data.originalname}`,
-      data.buffer,
-      err => {
-        if (err) throw err;
-      },
-    );
+    try {
+      fs.writeFileSync(
+        `geoserver-volume/raster-files/output/${subfolder}/${data.originalname}`,
+        data.buffer,
+      );
+    } catch (e) {
+      console.error(e);
+      throw new HttpException('File not written: ' + e, HttpStatus.NOT_FOUND);
+    }
   }
 }

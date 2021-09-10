@@ -91,8 +91,6 @@ export class AdminAreaDynamicDataController {
     @UploadedFile() rasterFileBlob,
     @Param() params,
   ): Promise<void> {
-    console.log('params: ', params);
-    console.log('rasterFileBlob: ', rasterFileBlob);
     await this.adminAreaDynamicDataService.postRaster(
       rasterFileBlob,
       params.disasterType,
