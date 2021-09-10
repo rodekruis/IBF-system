@@ -68,6 +68,15 @@
     "active": "no"
   },
   {
+    "country_codes": "ZWE",
+    "disasterTypes": ["drought"],
+    "name": "dam",
+    "label": "Dam Sites",
+    "type": "point",
+    "leadTimeDependent": false,
+    "active": "no"
+  },
+  {
     "country_codes": "EGY",
     "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria"],
     "name": "red_crescent_branches",

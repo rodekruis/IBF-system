@@ -30,6 +30,7 @@ import SeedAdminArea from './seed-admin-area';
 import SeedGlofasStation from './seed-glofas-station';
 import { SeedHelper } from './seed-helper';
 import { SeedHealthSites } from './seed-health-sites';
+import { SeedDamData } from './seed-dam-data';
 import SeedRedcrossBranches from './seed-redcross-branches';
 import SeedAdminAreaData from './seed-admin-area-data';
 import SeedRainfallData from './seed-rainfall-data';
@@ -249,10 +250,15 @@ export class SeedInit implements InterfaceScript {
     const seedRedcrossBranches = new SeedRedcrossBranches(this.connection);
     await seedRedcrossBranches.run();
 
-    // ***** SEED RED CROSS BRANCHES DATA *****
+    // ***** SEED HEALTH SITES DATA *****
     console.log('Seed Health Sites...');
     const seedHealthSites = new SeedHealthSites(this.connection);
     await seedHealthSites.run();
+
+    // ***** SEED DAM SITES DATA *****
+    console.log('Seed Dam Sites...');
+    const seedDamSites = new SeedDamData(this.connection);
+    await seedDamSites.run();
 
     // ***** SEED INDICATOR DATA PER ADMIN AREA *****
     console.log('Seed Indicator data per admin-area...');

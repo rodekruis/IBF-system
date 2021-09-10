@@ -28,3 +28,10 @@ export class HealthSite {
   name: string;
   type: number;
 }
+export class DamSite {
+  damName: string;
+  countryCodeISO3: string;
+  fullSupply: number;
+  latitude: string;
+  longitude: string;
+}

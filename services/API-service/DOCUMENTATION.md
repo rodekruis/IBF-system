@@ -22,11 +22,12 @@ On [line 35](https://github.com/rodekruis/IBF-system/blob/master/services/API-se
 
 On [lines 36-40](https://github.com/rodekruis/IBF-system/blob/master/services/API-service/src/api/user/user.controller.ts#L36-L40), [ApiResponse decorator](https://docs.nestjs.com/openapi/decorators) allows us to describe what the [**response object**](https://github.com/rodekruis/IBF-system/blob/master/services/API-service/src/api/user/user.controller.ts#L39) would look like.
 
-On [line 48](https://github.com/rodekruis/IBF-system/blob/master/services/API-service/src/api/user/user.controller.ts#L48) sets the [expected structure](https://github.com/rodekruis/IBF-system/blob/master/services/API-service/src/api/user/dto/create-user.dto.ts#L15) of the **request body**. [ApiProperty decorator](https://docs.nestjs.com/openapi/decorators) allows us to provides *example* and *default* values via the `example` and `default` parameters respectively.
+On [line 48](https://github.com/rodekruis/IBF-system/blob/master/services/API-service/src/api/user/user.controller.ts#L48) sets the [expected structure](https://github.com/rodekruis/IBF-system/blob/master/services/API-service/src/api/user/dto/create-user.dto.ts#L15) of the **request body**. [ApiProperty decorator](https://docs.nestjs.com/openapi/decorators) allows us to provides _example_ and _default_ values via the `example` and `default` parameters respectively.
 
 If we make changes to any of the defined decorators and their parameters, we would see a corresponding visual change in the documentation page.
 
 ### Checklist
+
 1. Does the API have a description?
 2. Is the [security](https://docs.nestjs.com/openapi/security) level set appropriately?
 3. Is the [schema](https://docs.nestjs.com/openapi/types-and-parameters) valid for the endpoint?

@@ -30,12 +30,14 @@ import {
   LEAFLET_MAP_OPTIONS,
   LEAFLET_MAP_URL_TEMPLATE,
   LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  LEAFLET_MARKER_ICON_OPTIONS_DAM,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
 } from 'src/app/config';
 import { Country, EapAlertClasses } from 'src/app/models/country.model';
 import {
+  DamSite,
   HealthSite,
   RedCrossBranch,
   Station,
@@ -317,6 +319,8 @@ export class MapComponent implements OnDestroy {
           geoJsonPoint.properties as RedCrossBranch,
           latlng,
         );
+      case IbfLayerName.damSites:
+        return this.createMarkerDam(geoJsonPoint.properties as DamSite, latlng);
       case IbfLayerName.waterpoints:
         return this.createMarkerWaterpoint(
           geoJsonPoint.properties as Waterpoint,
@@ -733,6 +737,22 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
+  private createMarkerDam(
+    markerProperties: DamSite,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.damName;
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_DAM),
+    });
+    markerInstance.bindPopup(this.createMarkerDamPopup(markerProperties));
+    markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.damSite));
+
+    return markerInstance;
+  }
+
   private createMarkerHealthSite(
     markerProperties: HealthSite,
     markerLatLng: LatLng,
@@ -852,6 +872,22 @@ export class MapComponent implements OnDestroy {
         'Contact number: ' +
         (markerProperties.contactNumber || '') +
         '</div>',
+    );
+    return branchInfoPopup;
+  }
+
+  private createMarkerDamPopup(markerProperties: DamSite): string {
+    const branchInfoPopup = (
+      '<div style="margin-bottom: 5px">' +
+      '<strong>Branch: ' +
+      markerProperties.damName +
+      '</strong>' +
+      '</div>'
+    ).concat(
+      '<div style="margin-bottom: 5px">' +
+        'Full Supply Capacity: ' +
+        (Math.round(markerProperties.fullSupply).toLocaleString() || '') +
+        ' million m<sup>3</sup></div>',
     );
     return branchInfoPopup;
   }

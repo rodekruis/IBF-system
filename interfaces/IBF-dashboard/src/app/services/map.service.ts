@@ -184,6 +184,8 @@ export class MapService {
         this.loadWaterPointsLayer(layerActive);
       } else if (layer.name === IbfLayerName.healthSites) {
         this.loadHealthSites(layerActive);
+      } else if (layer.name === IbfLayerName.damSites) {
+        this.loadDamSites(layerActive);
       }
     });
   };
@@ -254,6 +256,34 @@ export class MapService {
       active: false,
       show: true,
       data: redCrossBranches,
+      viewCenter: false,
+      order: 1,
+    });
+  };
+
+  private loadDamSites = (layerActive: boolean) => {
+    if (this.country) {
+      if (layerActive) {
+        this.apiService
+          .getDamSites(this.country.countryCodeISO3)
+          .subscribe((damSites) => {
+            this.addDamSites(damSites);
+          });
+      } else {
+        this.addDamSites(null);
+      }
+    }
+  };
+
+  private addDamSites = (damSites: any) => {
+    this.addLayer({
+      name: IbfLayerName.damSites,
+      label: IbfLayerLabel.damSites,
+      type: IbfLayerType.point,
+      description: this.getPopoverText(IbfLayerName.damSites),
+      active: false,
+      show: true,
+      data: damSites,
       viewCenter: false,
       order: 1,
     });
@@ -624,6 +654,10 @@ export class MapService {
       layerData = this.apiService
         .getHealthSites(this.country.countryCodeISO3)
         .pipe(shareReplay(1));
+    } else if (layer.name === IbfLayerName.damSites) {
+      layerData = this.apiService
+        .getDamSites(this.country.countryCodeISO3)
+        .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.glofasStations) {
       layerData = this.apiService
         .getStations(
@@ -835,7 +869,8 @@ export class MapService {
       .map((feature) =>
         typeof feature.properties[colorProperty] !== 'undefined'
           ? feature.properties[colorProperty]
-          : feature.properties.indicators[colorProperty],
+          : feature.properties.indicators &&
+            feature.properties.indicators[colorProperty],
       )
       .filter((v, i, a) => a.indexOf(v) === i);
 

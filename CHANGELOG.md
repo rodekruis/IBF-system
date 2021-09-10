@@ -1,3 +1,36 @@
+## [0.89.1](https://github.com/rodekruis/IBF-system/compare/v0.89.0...v0.89.1) (2021-09-06)
+
+
+### Bug Fixes
+
+* login email should support dot character AB[#9307](https://github.com/rodekruis/IBF-system/issues/9307) ([ecec53a](https://github.com/rodekruis/IBF-system/commit/ecec53a58bfca1a5dd65f48bd574cfc6972598a2))
+
+
+
+# [0.89.0](https://github.com/rodekruis/IBF-system/compare/v0.88.0...v0.89.0) (2021-09-06)
+
+
+### Bug Fixes
+
+* changes dam layer AB[#9217](https://github.com/rodekruis/IBF-system/issues/9217) ([5e32bb0](https://github.com/rodekruis/IBF-system/commit/5e32bb0af5469e38d0e81b4a77f7580f18efddfe))
+* error ([dbebaaf](https://github.com/rodekruis/IBF-system/commit/dbebaaf536d86b9c75cdc8eb33d218c61b453c1a))
+* lint AB[#9217](https://github.com/rodekruis/IBF-system/issues/9217) ([3d8609e](https://github.com/rodekruis/IBF-system/commit/3d8609efcee30d64eaa9b12cc859a1c5f9f1efe0))
+* npm test AB[#9217](https://github.com/rodekruis/IBF-system/issues/9217) ([9913112](https://github.com/rodekruis/IBF-system/commit/9913112cbb7e8370b98301cc2ba19dbed8d5aff2))
+* removed spaces from dam site service ([a998319](https://github.com/rodekruis/IBF-system/commit/a998319432ee24ecf3b6455d3f58594dcf9e2da5))
+* review updates ([914e272](https://github.com/rodekruis/IBF-system/commit/914e272bb21fe77e5805ed9605e453b3cb7d8654))
+* seed dam AB[#9154](https://github.com/rodekruis/IBF-system/issues/9154) ([54ef0b4](https://github.com/rodekruis/IBF-system/commit/54ef0b4fe90c5a03a01336bfa50af05b79b8bd2d))
+* seed dam data file updated ([0a76f9a](https://github.com/rodekruis/IBF-system/commit/0a76f9ad7b3d83f35ef4e9a9cf4e0ae83fcc6ab1))
+* test result ([edd0d8a](https://github.com/rodekruis/IBF-system/commit/edd0d8a7c0c015795a08c8b74bf46564898ca5e1))
+
+
+### Features
+
+* add Dam layer AB[#9155](https://github.com/rodekruis/IBF-system/issues/9155) ([2cf0ff9](https://github.com/rodekruis/IBF-system/commit/2cf0ff9facb25e328ff05bcc3a1d8894a29bb4e9))
+* csv updated AB[#9217](https://github.com/rodekruis/IBF-system/issues/9217) ([71889ab](https://github.com/rodekruis/IBF-system/commit/71889abef60d043b59498b7526df0056c4df05a1))
+* implemented dam layer #AB9154 #AB9155 #AB9217 ([b3ae08f](https://github.com/rodekruis/IBF-system/commit/b3ae08fad54e3e088b64e5e615b7a2ac2f3a8b69)), closes [#AB9154](https://github.com/rodekruis/IBF-system/issues/AB9154) [#AB9155](https://github.com/rodekruis/IBF-system/issues/AB9155) [#AB9217](https://github.com/rodekruis/IBF-system/issues/AB9217)
+
+
+
 # [0.88.0](https://github.com/rodekruis/IBF-system/compare/v0.87.1...v0.88.0) (2021-09-03)
 
 
@@ -132,31 +165,6 @@
 * add grassland to geoserver AB[#9058](https://github.com/rodekruis/IBF-system/issues/9058) ([6a06da1](https://github.com/rodekruis/IBF-system/commit/6a06da18f369eeeca7e28e3fd546583241a837cd))
 * add rc branch data AB[#9060](https://github.com/rodekruis/IBF-system/issues/9060) ([bc8b1fa](https://github.com/rodekruis/IBF-system/commit/bc8b1fac0106526e318552e88c9edeb9248b12f9))
 * add ruminants layer + data AB[#9057](https://github.com/rodekruis/IBF-system/issues/9057) ([f1fa5a3](https://github.com/rodekruis/IBF-system/commit/f1fa5a3b172f9493733511ee957d652208df0c6c))
-
-
-
-## [0.82.1](https://github.com/rodekruis/IBF-system/compare/v0.82.0...v0.82.1) (2021-08-16)
-
-
-### Bug Fixes
-
-* increase max open files for pipeline when started from cron AB[#9056](https://github.com/rodekruis/IBF-system/issues/9056) ([3436ce7](https://github.com/rodekruis/IBF-system/commit/3436ce7edeb02ccc2b1812fd706a31b13b4534a0))
-* set limit in SETTINGS AB[#9056](https://github.com/rodekruis/IBF-system/issues/9056) ([c3a5ca6](https://github.com/rodekruis/IBF-system/commit/c3a5ca6f5dd94aae28f7c1480ce856cefad983c8))
-
-
-
-# [0.82.0](https://github.com/rodekruis/IBF-system/compare/v0.81.4...v0.82.0) (2021-08-16)
-
-
-### Features
-
-* add admin-boundary + population data AB[#8413](https://github.com/rodekruis/IBF-system/issues/8413) ([9628ab9](https://github.com/rodekruis/IBF-system/commit/9628ab931ae35a2a9c1303b653698324c9921279))
-* add drought icons AB[#8410](https://github.com/rodekruis/IBF-system/issues/8410) ([50e2432](https://github.com/rodekruis/IBF-system/commit/50e24320d3bf6310224178dc35b96be06819b800))
-* add population raster to geoserver AB[#8413](https://github.com/rodekruis/IBF-system/issues/8413) ([89b1ded](https://github.com/rodekruis/IBF-system/commit/89b1deda6830e00ec190c5ab238642d4d3d9e5d5))
-* add Zimbabwe + droughts, first steps AB[#7438](https://github.com/rodekruis/IBF-system/issues/7438) ([58afc0a](https://github.com/rodekruis/IBF-system/commit/58afc0ace73d8436e691bb55df7ab8d677985f00))
-* add zimbabwe to mock-endpoint AB[#9037](https://github.com/rodekruis/IBF-system/issues/9037) ([1049042](https://github.com/rodekruis/IBF-system/commit/1049042a52613f420873e5a902bbe3f288523ed6))
-* additional settings edits ZWE droughts AB[#8412](https://github.com/rodekruis/IBF-system/issues/8412) ([6175864](https://github.com/rodekruis/IBF-system/commit/6175864540dd40d87cef7d11efdb426485f7eabc))
-* set up layers+indicators AB[#8412](https://github.com/rodekruis/IBF-system/issues/8412) ([3995016](https://github.com/rodekruis/IBF-system/commit/3995016d17a806cf365b077e04031bfba6676bdc))
 
 
 
