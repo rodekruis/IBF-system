@@ -29,7 +29,7 @@ class RainfallData:
         self.leadTimeValue = leadTimeValue
         self.countryCodeISO3 = countryCodeISO3
         self.inputPath = PIPELINE_DATA + 'input/rainfall/'
-        self.rainrasterPath = GEOSERVER_OUTPUT + \
+        self.rainrasterPath = RASTER_OUTPUT + \
             '0/rainfall_extents/rain_rp_' + leadTimeLabel + '_' + countryCodeISO3 + '.tif'
         self.rainfall_triggers = rainfall_triggers
         self.ADMIN_AREA_GDF = admin_area_gdf

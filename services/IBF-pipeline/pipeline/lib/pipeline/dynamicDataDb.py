@@ -30,6 +30,7 @@ class DatabaseManager:
             self.uploadTriggersPerLeadTime()
             self.uploadTriggerPerStation()
         self.uploadCalculatedAffected()
+        self.uploadRasterFile()
     
     def sendNotification(self):
         leadTimes = SETTINGS[self.countryCodeISO3]['lead_times']
@@ -38,12 +39,12 @@ class DatabaseManager:
         if SETTINGS_SECRET[self.countryCodeISO3]["notify_email"] and self.leadTimeLabel == max_leadTime:
             body = {
                 'countryCodeISO3': self.countryCodeISO3,
-                'disasterType': self.addDisasterType()
+                'disasterType': self.getDisasterType()
             } 
-            self.apiPostRequest('notification/send', body)
+            self.apiPostRequest('notification/send', body=body)
 
     
-    def addDisasterType(self):
+    def getDisasterType(self):
         if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
             disasterType = 'floods'
         elif SETTINGS[self.countryCodeISO3]['model'] == 'rainfall':
@@ -55,16 +56,27 @@ class DatabaseManager:
             with open(self.affectedFolder +
                       'affected_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '_' + indicator + '.json') as json_file:
                 body = json.load(json_file)
-                body['disasterType'] = self.addDisasterType()
-                self.apiPostRequest('admin-area-dynamic-data/exposure', body)
+                body['disasterType'] = self.getDisasterType()
+                self.apiPostRequest('admin-area-dynamic-data/exposure', body=body)
             print('Uploaded calculated_affected for indicator: ' + indicator)
             if indicator == 'population':
                 with open(self.affectedFolder +
                         'affected_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '_' + 'population_affected_percentage' + '.json') as json_file:
                     body = json.load(json_file)
-                    body['disasterType'] = self.addDisasterType()
-                    self.apiPostRequest('admin-area-dynamic-data/exposure', body)
+                    body['disasterType'] = self.getDisasterType()
+                    self.apiPostRequest('admin-area-dynamic-data/exposure', body=body)
                 print('Uploaded calculated_affected for indicator: ' + 'population_affected_percentage')
+
+    def uploadRasterFile(self):
+        disasterType = self.getDisasterType()
+        if disasterType == 'floods':
+            rasterFile = RASTER_OUTPUT + '0/flood_extents/flood_extent_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '.tif'
+        elif disasterType == 'heavy-rain':
+            rasterFile = RASTER_OUTPUT + '0/rainfall_extents/rain_rp_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '.tif'
+        files = {'rasterFile': open(rasterFile,'rb')}
+        self.apiPostRequest('admin-area-dynamic-data/raster/' + disasterType, files=files)
+        print('Uploaded raster-file: ' + rasterFile)
+
 
     def uploadTriggerPerStation(self):
         df = pd.read_json(self.triggerFolder +
@@ -81,7 +93,7 @@ class DatabaseManager:
             'leadTime': self.leadTimeLabel,
             'stationForecasts': stationForecasts
         }
-        self.apiPostRequest('glofas-stations/triggers', body)
+        self.apiPostRequest('glofas-stations/triggers', body=body)
         print('Uploaded triggers per station')
 
     def uploadTriggersPerLeadTime(self):
@@ -98,8 +110,8 @@ class DatabaseManager:
                 'countryCodeISO3': self.countryCodeISO3,
                 'triggersPerLeadTime': triggersPerLeadTime
             }
-            body['disasterType'] = self.addDisasterType()
-            self.apiPostRequest('event/triggers-per-leadtime', body)
+            body['disasterType'] = self.getDisasterType()
+            self.apiPostRequest('event/triggers-per-leadtime', body=body)
         print('Uploaded triggers per leadTime')
 
     def apiGetRequest(self, path, countryCodeISO3):
@@ -112,14 +124,19 @@ class DatabaseManager:
         data = response.json()
         return(data)
 
-    def apiPostRequest(self, path, body):
+    def apiPostRequest(self, path, body=None, files=None):
         TOKEN = self.apiAuthenticate()
+
+        if body != None:
+            headers={'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json', 'Accept': 'application/json'}
+        elif files != None:
+            headers={'Authorization': 'Bearer ' + TOKEN}
 
         r = requests.post(
             API_SERVICE_URL + path,
             json=body,
-            headers={'Authorization': 'Bearer ' + TOKEN,
-                     'Content-Type': 'application/json', 'Accept': 'application/json'}
+            files=files,
+            headers=headers
         )
         if r.status_code >= 400:
             print(r.text)

@@ -113,9 +113,9 @@ API_LOGIN_URL = API_SERVICE_URL + 'user/login'
 ###################
 ## PATH SETTINGS ##
 ###################
-GEOSERVER_DATA = 'data/raster/'
-GEOSERVER_INPUT = GEOSERVER_DATA + 'input/'
-GEOSERVER_OUTPUT = GEOSERVER_DATA + 'output/'
+RASTER_DATA = 'data/raster/'
+RASTER_INPUT = RASTER_DATA + 'input/'
+RASTER_OUTPUT = RASTER_DATA + 'output/'
 PIPELINE_DATA = 'data/other/'
 PIPELINE_INPUT = PIPELINE_DATA + 'input/'
 PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'

@@ -1,7 +1,7 @@
 import { CountryService } from './../country/country.service';
 import { LeadTime, LeadTimeDayMonth } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { MoreThanOrEqual, Repository } from 'typeorm';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -166,7 +166,21 @@ export class AdminAreaDynamicDataService {
     return result[0].value;
   }
 
-  public async postRaster(data: any, subfolder: string): Promise<void> {
+  public async postRaster(
+    data: any,
+    disasterType: DisasterType,
+  ): Promise<void> {
+    let subfolder: string;
+    if (disasterType === DisasterType.Floods) {
+      subfolder = 'flood_extents';
+    } else if (disasterType === DisasterType.HeavyRain) {
+      subfolder = 'rainfall_extents';
+    } else {
+      throw new HttpException(
+        'Disaster Type not allowed',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     fs.writeFile(
       `geoserver-volume/raster-files/output/${subfolder}/${data.originalname}`,
       data.buffer,

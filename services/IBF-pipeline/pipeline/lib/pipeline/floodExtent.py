@@ -17,12 +17,12 @@ class FloodExtent:
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
         self.countryCodeISO3 = countryCodeISO3
-        self.inputPath = GEOSERVER_INPUT + "flood_extent/"
+        self.inputPath = RASTER_INPUT + "flood_extent/"
         self.outputPathAreas = PIPELINE_OUTPUT + 'flood_extents/'+ leadTimeLabel +'/'
         if SETTINGS[countryCodeISO3]['model'] == 'glofas':
-            self.outputPathMerge = GEOSERVER_OUTPUT + '0/flood_extents/flood_extent_'+ leadTimeLabel + '_' + countryCodeISO3 + '.tif'
+            self.outputPathMerge = RASTER_OUTPUT + '0/flood_extents/flood_extent_'+ leadTimeLabel + '_' + countryCodeISO3 + '.tif'
         elif SETTINGS[countryCodeISO3]['model'] == 'rainfall':
-            self.outputPathMerge = GEOSERVER_OUTPUT + '0/rainfall_extents/rain_rp_'+ leadTimeLabel + '_' + countryCodeISO3 + '.tif'
+            self.outputPathMerge = RASTER_OUTPUT + '0/rainfall_extents/rain_rp_'+ leadTimeLabel + '_' + countryCodeISO3 + '.tif'
         self.district_mapping = district_mapping
         self.ADMIN_AREA_GDF = admin_area_gdf
 

@@ -84,16 +84,18 @@ export class AdminAreaDynamicDataController {
       },
     },
   })
-  @ApiParam({ name: 'subfolder', required: true, type: 'string' })
-  @Post('raster/:subfolder')
-  @UseInterceptors(FileInterceptor('file'))
+  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @Post('raster/:disasterType')
+  @UseInterceptors(FileInterceptor('rasterFile'))
   public async postRaster(
     @UploadedFile() rasterFileBlob,
     @Param() params,
   ): Promise<void> {
+    console.log('params: ', params);
+    console.log('rasterFileBlob: ', rasterFileBlob);
     await this.adminAreaDynamicDataService.postRaster(
       rasterFileBlob,
-      params.subfolder,
+      params.disasterType,
     );
   }
 }

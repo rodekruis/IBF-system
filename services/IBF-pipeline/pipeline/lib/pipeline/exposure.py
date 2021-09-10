@@ -22,10 +22,10 @@ class Exposure:
         self.leadTimeLabel = leadTimeLabel
         self.countryCodeISO3 = countryCodeISO3
         if SETTINGS[countryCodeISO3]['model'] == 'glofas':
-            self.disasterExtentRaster = GEOSERVER_OUTPUT + \
+            self.disasterExtentRaster = RASTER_OUTPUT + \
                 '0/flood_extents/flood_extent_' + leadTimeLabel + '_' + countryCodeISO3 + '.tif'
         elif SETTINGS[countryCodeISO3]['model'] == 'rainfall':
-            self.disasterExtentRaster = GEOSERVER_OUTPUT + \
+            self.disasterExtentRaster = RASTER_OUTPUT + \
                 '0/rainfall_extents/rain_rp_' + leadTimeLabel + '_' + countryCodeISO3 + '.tif'
         self.selectionValue = 0.9
         self.outputPath = PIPELINE_OUTPUT + "out.tif"
@@ -43,8 +43,8 @@ class Exposure:
 
         for indicator, values in self.EXPOSURE_DATA_SOURCES.items():
             print('indicator: ', indicator)
-            self.inputRaster = GEOSERVER_INPUT + values['source'] + ".tif"
-            self.outputRaster = GEOSERVER_OUTPUT + "0/" + \
+            self.inputRaster = RASTER_INPUT + values['source'] + ".tif"
+            self.outputRaster = RASTER_OUTPUT + "0/" + \
                 values['source'] + self.leadTimeLabel
 
             stats = self.calcAffected(self.disasterExtentRaster, indicator, values['rasterValue'])
