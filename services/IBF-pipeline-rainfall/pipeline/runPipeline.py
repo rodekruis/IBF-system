@@ -32,8 +32,6 @@ def main():
                 fc.db.upload()
                 fc.db.sendNotification()
 
-                # time.sleep(5)
-
     except Exception as e:
         print(e)
 

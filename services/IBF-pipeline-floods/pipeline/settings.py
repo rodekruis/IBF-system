@@ -92,8 +92,8 @@ TRIGGER_LEVELS = {
 ## API SETTINGS ##
 ##################
 
-API_SERVICE_URL = 'http://host.docker.internal:3000/api/'   # 'host.docker.internal' can be used on Windows to access localhost of host machine
-#API_SERVICE_URL = 'https://ibf-test.510.global/api/'
+# API_SERVICE_URL = 'http://host.docker.internal:3000/api/'   # 'host.docker.internal' can be used on Windows to access localhost of host machine
+API_SERVICE_URL = 'https://ibf-test.510.global/api/'
 API_LOGIN_URL = API_SERVICE_URL + 'user/login'
 
 ###################

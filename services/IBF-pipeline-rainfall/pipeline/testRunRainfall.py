@@ -12,6 +12,8 @@ def main():
         for leadTimeLabel, leadTimeValue in LEAD_TIMES.items():
             fc = Forecast(leadTimeLabel, leadTimeValue)
             fc.rainfallData.process()
+    except Exception as e:
+        print(e)
 
     elapsedTime = str(time.time() - startTime)
     print(elapsedTime)
