@@ -292,7 +292,7 @@ export class ScriptsService {
     if (disasterType !== DisasterType.Floods) {
       return;
     }
-    for await (let leadTime of selectedCountry.countryActiveLeadTimes) {
+    for await (const leadTime of selectedCountry.countryActiveLeadTimes) {
       if (
         await this.filterCountryLeadTimesToDisasterLeadTimes(
           leadTime,
