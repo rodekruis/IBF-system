@@ -4,7 +4,8 @@ This is a series of scripts (which are running daily) which extracts all input d
 
 ## Prerequisites
 
-For the GloFAS pipeline to work (to be able to get in daily forecast data)
+1. Install Docker
+2. For the GloFAS pipeline to work (to be able to get in daily forecast data)
   - The IBF-pipeline needs to be able to connect to an Azure Datalake instance, which needs to be set up
   - which in turn needs to be filled by a Databricks pipeline
   - Specifically this means that if this application is handed over to be hosted by someone other than 510
@@ -12,19 +13,11 @@ For the GloFAS pipeline to work (to be able to get in daily forecast data)
     - or the hoster needs to get access to the 510 Azure resources
     - See IBF Project Document for more info and specific links to the 510-instances of above mentioned resources.
 
-## Stand-alone instalation
-
-We keep here the (outdate) readme for stand-alone installation. This is still possible, but you would need to make sure that other components such as the database and the API-service are also running. The best way to do so, is by starting up the IBF-system alltogether > see root README.
-
-### Prerequisites
-
-1. Install Docker
-
 ### Installation
 
 1. Clone this directory to `<your_local_directory>`/IBF-pipeline/
 2. Change `/pipeline/secrets.py.template` to `secrets.py` and fill in the necessary passwords.
-3. Find data.zip in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-11-29T23%3A00%3A00.000Z&e=qkUx50 and unzip in /pipeline/data.
+3. Find `data-floods.zip` in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-11-29T23%3A00%3A00.000Z&e=qkUx50 and unzip in /pipeline/data.
 
 ### Set up Data pipeline
 
@@ -43,6 +36,4 @@ remove container (to be able to recreate with same name): docker rm -f ibf-pipel
 ```
 python3 runPipeline.py
 ```
-
-3. Cronjob: locally, you probably don't want to run this automatically every day. If you want to, copy the cron command in /docker-compose.yml and replace the last line of /services/IBF-pipeline/Dockerfile with it.
 

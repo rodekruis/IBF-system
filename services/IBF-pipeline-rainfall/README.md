@@ -2,10 +2,6 @@
 
 This is a series of scripts (which will be run daily) which extracts all input data (static + dynamic), transforms them to create rainfall extents and calculated affected population, and loads the output to locations where they can be served to the dashoard.
 
-## Stand-alone instalation
-
-We keep here the (outdate) readme for stand-alone installation. This is still possible, but you would need to make sure that other components such as the database and the API-service are also running. The best way to do so, is by starting up the IBF-system alltogether > see root README.
-
 ### Prerequisites
 
 1. Install Docker
@@ -13,8 +9,8 @@ We keep here the (outdate) readme for stand-alone installation. This is still po
 ### Installation
 
 1. Clone this directory to `<your_local_directory>`/IBF-pipeline/
-2. Change `/pipeline/secrets.py.template` to `secrets.py` and fill in the necessary passwords.
-3. Find data.zip in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-11-29T23%3A00%3A00.000Z&e=qkUx50 and unzip in /pipeline/data.
+2. Change `/pipeline/secrets.py.template` to `secrets.py` and fill in the necessary secrets.
+3. Find `data-rainfall.zip` in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-11-29T23%3A00%3A00.000Z&e=qkUx50 and unzip in /pipeline/data.
 
 ### Set up Data pipeline
 
@@ -28,10 +24,8 @@ access container (if the container exists already): docker exec -it ibf-pipeline
 remove container (to be able to recreate with same name): docker rm -f ibf-pipeline-rainfall
 ```
 
-2. All other scripts are summarized in runPipeline.py (as it will be run daily). Test it through:
+2. All other scripts are summarized in runPipeline.py (as it will be run daily). Test it (from within Docker container) through:
 
 ```
 python3 runPipeline.py
 ```
-
-3. Cronjob: locally, you probably don't want to run this automatically every day. If you want to, copy the cron command in /docker-compose.yml and replace the last line of /services/IBF-pipeline/Dockerfile with it.
