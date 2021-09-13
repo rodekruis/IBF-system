@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 import json
 from settings import *
-from secrets import ADMIN_LOGIN, ADMIN_PASSWORD, DATALAKE_STORAGE_ACCOUNT_NAME, DATALAKE_STORAGE_ACCOUNT_KEY, DATALAKE_API_VERSION, SETTINGS_SECRET
+from secrets import *
 
 
 class DatabaseManager:
