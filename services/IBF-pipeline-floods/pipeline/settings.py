@@ -1,16 +1,21 @@
-import os
-from datetime import date, timedelta
 
+
+##################
+## API SETTINGS ##
+##################
+
+API_SERVICE_URL = 'http://host.docker.internal:3000/api/'   # 'host.docker.internal' can be used on Windows to access localhost of host machine
+# API_SERVICE_URL = 'https://ibf-test.510.global/api/'
+API_LOGIN_URL = API_SERVICE_URL + 'user/login'
 
 ##########################
 ## DEVELOPMENT SETTINGS ##
 ##########################
 
-# Change dummy-triggers per country (below) now
-
+from datetime import date, timedelta
 # Change this date only in case of specific testing purposes
-CURRENT_DATE = date.today()
-# CURRENT_DATE=date.today() - timedelta(1)
+# CURRENT_DATE = date.today()
+CURRENT_DATE=date.today() - timedelta(1) # to use yesterday's date
 
 
 ######################
@@ -19,7 +24,6 @@ CURRENT_DATE = date.today()
 
 SETTINGS = {
     "ZMB": {
-        "model": 'glofas',
         'lead_times': {
             "7-day": 7
         },
@@ -32,7 +36,6 @@ SETTINGS = {
         }
     },
     "UGA": {
-        "model": 'glofas',
         'lead_times': {
             "5-day": 5
         },
@@ -45,7 +48,6 @@ SETTINGS = {
         }
     },
     "KEN": {
-        "model": 'glofas',
         'lead_times': {
             "7-day": 7
         },
@@ -58,7 +60,6 @@ SETTINGS = {
         }
     },
     "ETH": {
-        "model": 'glofas',
         'lead_times': {
             "7-day": 7
         },
@@ -88,13 +89,7 @@ TRIGGER_LEVELS = {
     "maximum": 0.8
 }
 
-##################
-## API SETTINGS ##
-##################
 
-# API_SERVICE_URL = 'http://host.docker.internal:3000/api/'   # 'host.docker.internal' can be used on Windows to access localhost of host machine
-API_SERVICE_URL = 'https://ibf-test.510.global/api/'
-API_LOGIN_URL = API_SERVICE_URL + 'user/login'
 
 ###################
 ## PATH SETTINGS ##

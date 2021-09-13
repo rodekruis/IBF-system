@@ -1,13 +1,8 @@
-import psycopg2
-from psycopg2 import sql as psql
-from sqlalchemy import create_engine, text
 import pandas as pd
-import geopandas as gpd
 import requests
 import json
-from lib.setup.setupConnection import get_db
 from settings import *
-from secrets import DB_SETTINGS, ADMIN_LOGIN, ADMIN_PASSWORD, DATALAKE_STORAGE_ACCOUNT_NAME, DATALAKE_STORAGE_ACCOUNT_KEY, DATALAKE_API_VERSION, SETTINGS_SECRET
+from secrets import ADMIN_LOGIN, ADMIN_PASSWORD, DATALAKE_STORAGE_ACCOUNT_NAME, DATALAKE_STORAGE_ACCOUNT_KEY, DATALAKE_API_VERSION, SETTINGS_SECRET
 
 
 class DatabaseManager:
@@ -17,16 +12,13 @@ class DatabaseManager:
     def __init__(self, leadTimeLabel, countryCodeISO3):
         self.countryCodeISO3 = countryCodeISO3
         self.leadTimeLabel = leadTimeLabel
-        self.engine = create_engine(
-            'postgresql://'+DB_SETTINGS['user']+':'+DB_SETTINGS['password']+'@'+DB_SETTINGS['host']+':'+DB_SETTINGS['port']+'/'+DB_SETTINGS['db'])
         self.triggerFolder = PIPELINE_OUTPUT + "triggers_rp_per_station/"
         self.affectedFolder = PIPELINE_OUTPUT + "calculated_affected/"
         self.EXPOSURE_DATA_SOURCES = SETTINGS[countryCodeISO3]['EXPOSURE_DATA_SOURCES']
 
     def upload(self):
-        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
-            self.uploadTriggersPerLeadTime()
-            self.uploadTriggerPerStation()
+        self.uploadTriggersPerLeadTime()
+        self.uploadTriggerPerStation()
         self.uploadCalculatedAffected()
         self.uploadRasterFile()
     
@@ -43,8 +35,7 @@ class DatabaseManager:
 
     
     def getDisasterType(self):
-        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
-            disasterType = 'floods'
+        disasterType = 'floods'
         return disasterType
 
     def uploadCalculatedAffected(self):

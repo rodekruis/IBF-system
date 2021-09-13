@@ -98,17 +98,16 @@ class Exposure:
         return stats
 
     def calcStatsPerAdmin(self, indicator, disasterExtentShapes, rasterValue):
-        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
-            # Load trigger_data per station
-            path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + \
-                self.leadTimeLabel + '_' + self.countryCodeISO3 + '.json'
-            df_triggers = pd.read_json(path, orient='records')
-            df_triggers = df_triggers.set_index("stationCode", drop=False)
-            # Load assigned station per district
-            df_district_mapping = pd.read_json(
-                json.dumps(self.district_mapping))
-            df_district_mapping = df_district_mapping.set_index(
-                "placeCode", drop=False)
+        # Load trigger_data per station
+        path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + \
+            self.leadTimeLabel + '_' + self.countryCodeISO3 + '.json'
+        df_triggers = pd.read_json(path, orient='records')
+        df_triggers = df_triggers.set_index("stationCode", drop=False)
+        # Load assigned station per district
+        df_district_mapping = pd.read_json(
+            json.dumps(self.district_mapping))
+        df_district_mapping = df_district_mapping.set_index(
+            "placeCode", drop=False)
 
         stats = []
         with fiona.open(self.ADMIN_AREA_GDF_TMP_PATH, "r") as shapefile:
@@ -128,14 +127,9 @@ class Exposure:
                             area['properties']['placeCode']), self.outputPath, rasterValue)
 
                         # Overwrite non-triggered areas with positive exposure (due to rounding errors) to 0
-                        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
-                            if self.checkIfTriggeredArea(df_triggers, df_district_mapping, str(area['properties']['placeCode'])) == 0:
-                                statsDistrict = {'amount': 0, 'placeCode': str(
-                                    area['properties']['placeCode'])}
-                        if self.countryCodeISO3 == 'EGY':
-                            if 'EG' not in str(area['properties']['placeCode']):
-                                statsDistrict = {'amount': 0, 'placeCode': str(
-                                    area['properties']['placeCode'])}
+                        if self.checkIfTriggeredArea(df_triggers, df_district_mapping, str(area['properties']['placeCode'])) == 0:
+                            statsDistrict = {'amount': 0, 'placeCode': str(
+                                area['properties']['placeCode'])}
                     except (ValueError, rasterio.errors.RasterioIOError):
                         # If there is no disaster in the district set  the stats to 0
                         statsDistrict = {'amount': 0, 'placeCode': str(

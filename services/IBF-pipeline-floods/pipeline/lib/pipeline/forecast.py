@@ -9,7 +9,7 @@ import geopandas
 
 
 class Forecast:
-    def __init__(self, leadTimeLabel, leadTimeValue, countryCodeISO3, model, admin_level):
+    def __init__(self, leadTimeLabel, leadTimeValue, countryCodeISO3, admin_level):
         self.leadTimeLabel = leadTimeLabel
         self.leadTimeValue = leadTimeValue
         self.admin_level = admin_level
