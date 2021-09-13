@@ -28,7 +28,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe(this.onCountryChange);
+      .subscribe(this.onCountryChange); 
   }
 
   ngOnDestroy() {
@@ -37,14 +37,46 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
 
   private onCountryChange = (country: Country) => {
     if (country) {
-      this.disasterTypes = country.disasterTypes;
+      this.disasterTypes = country.disasterTypes
       this.disasterTypes.forEach((disasterType) => {
         this.eventService.getTriggerByDisasterType(
           country.countryCodeISO3,
           disasterType,
         );
       });
-      this.selectedDisasterType = this.disasterTypes[0].disasterType;
+      setTimeout(() => {
+        const floodDisasterType = country.disasterTypes.find((item) => {
+          return item.disasterType === DisasterTypeKey.floods
+        })
+        const activeDisasterTypes = country.disasterTypes.filter((item) => {
+          return item.activeTrigger
+        })
+        const nonActiveDisasterTypes = country.disasterTypes.filter((item) => {
+          return !item.activeTrigger
+        })
+        if(floodDisasterType.activeTrigger) {
+          const index = activeDisasterTypes.findIndex((item) => {
+            return item.disasterType === DisasterTypeKey.floods
+          })
+          activeDisasterTypes.splice(index, 1)
+          activeDisasterTypes.unshift(floodDisasterType)
+        } else {
+          const index = nonActiveDisasterTypes.findIndex((item) => {
+            return item.disasterType === DisasterTypeKey.floods
+          })
+          nonActiveDisasterTypes.splice(index, 1)
+          nonActiveDisasterTypes.unshift(floodDisasterType)
+        }
+        const sortedDisasterTypes = [...activeDisasterTypes, ...nonActiveDisasterTypes]
+        this.disasterTypes = sortedDisasterTypes;
+        const activeDisasterType = this.disasterTypes.find(item => item.activeTrigger)
+        if (activeDisasterType){
+          this.selectedDisasterType = DisasterTypeKey[activeDisasterType.disasterType]
+          this.disasterTypeService.setDisasterType(activeDisasterType)
+        } else {
+          this.selectedDisasterType = this.disasterTypes[0].disasterType;
+        }
+      }, 2000)
     }
   };
 
