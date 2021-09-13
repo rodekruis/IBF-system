@@ -57,7 +57,7 @@ class DatabaseManager:
     def uploadRasterFile(self):
         disasterType = self.getDisasterType()
         rasterFile = RASTER_OUTPUT + '0/flood_extents/flood_extent_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '.tif'
-        files = {'rasterFile': open(rasterFile,'rb')}
+        files = {'file': open(rasterFile,'rb')}
         self.apiPostRequest('admin-area-dynamic-data/raster/' + disasterType, files=files)
         print('Uploaded raster-file: ' + rasterFile)
 

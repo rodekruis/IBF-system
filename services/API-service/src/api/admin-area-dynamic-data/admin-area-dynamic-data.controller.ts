@@ -86,7 +86,7 @@ export class AdminAreaDynamicDataController {
   })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @Post('raster/:disasterType')
-  @UseInterceptors(FileInterceptor('rasterFile'))
+  @UseInterceptors(FileInterceptor('file'))
   public async postRaster(
     @UploadedFile() rasterFileBlob,
     @Param() params,

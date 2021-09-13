@@ -68,12 +68,17 @@ export class ScriptsService {
     );
 
     if (mockInput.disasterType === DisasterType.Floods) {
-      await this.mockGlofasStations(selectedCountry, mockInput.triggered);
+      await this.mockGlofasStations(
+        selectedCountry,
+        mockInput.disasterType,
+        mockInput.triggered,
+      );
       await this.mockTriggerPerLeadTime(
         selectedCountry,
         mockInput.disasterType,
         mockInput.triggered,
       );
+      await this.mockRasterFile(selectedCountry, mockInput.disasterType);
     }
   }
 
@@ -132,15 +137,12 @@ export class ScriptsService {
       const exposure = JSON.parse(exposureRaw);
 
       for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
-        const leadTime = await this.leadTimeRepo.findOne({
-          relations: ['disasterTypes'],
-          where: { leadTimeName: activeLeadTime },
-        });
         if (
-          leadTime.disasterTypes
-            .map(d => d.disasterType)
-            .includes(disasterType) &&
-          this.filterLeadTimesDrought(leadTime.leadTimeName, disasterType)
+          (await this.filterCountryLeadTimesToDisasterLeadTimes(
+            activeLeadTime,
+            disasterType,
+          )) &&
+          this.filterLeadTimesDrought(activeLeadTime, disasterType)
         ) {
           console.log(
             `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3}`,
@@ -161,6 +163,19 @@ export class ScriptsService {
         }
       }
     }
+  }
+
+  private async filterCountryLeadTimesToDisasterLeadTimes(
+    countryLeadTime: LeadTime,
+    disasterType: DisasterType,
+  ): Promise<boolean> {
+    const leadTime = await this.leadTimeRepo.findOne({
+      relations: ['disasterTypes'],
+      where: { leadTimeName: countryLeadTime },
+    });
+    return leadTime.disasterTypes
+      .map(d => d.disasterType)
+      .includes(disasterType);
   }
 
   private mockAmount(
@@ -225,7 +240,11 @@ export class ScriptsService {
     return nextAprilMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime();
   }
 
-  private async mockGlofasStations(selectedCountry, triggered: boolean) {
+  private async mockGlofasStations(
+    selectedCountry,
+    disasterType: DisasterType,
+    triggered: boolean,
+  ) {
     const stationsFileName = `./src/api/glofas-station/dto/example/glofas-stations-${
       selectedCountry.countryCodeISO3
     }${triggered ? '-triggered' : ''}.json`;
@@ -233,14 +252,21 @@ export class ScriptsService {
     const stations = JSON.parse(stationsRaw);
 
     for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
-      console.log(
-        `Seeding Glofas stations for leadtime: ${activeLeadTime} for country: ${selectedCountry.countryCodeISO3}`,
-      );
-      await this.glofasStationService.uploadTriggerDataPerStation({
-        countryCodeISO3: selectedCountry.countryCodeISO3,
-        stationForecasts: stations,
-        leadTime: activeLeadTime as LeadTime,
-      });
+      if (
+        await this.filterCountryLeadTimesToDisasterLeadTimes(
+          activeLeadTime,
+          disasterType,
+        )
+      ) {
+        console.log(
+          `Seeding Glofas stations for leadtime: ${activeLeadTime} for country: ${selectedCountry.countryCodeISO3}`,
+        );
+        await this.glofasStationService.uploadTriggerDataPerStation({
+          countryCodeISO3: selectedCountry.countryCodeISO3,
+          stationForecasts: stations,
+          leadTime: activeLeadTime as LeadTime,
+        });
+      }
     }
   }
 
@@ -260,5 +286,35 @@ export class ScriptsService {
       triggersPerLeadTime: triggers,
       disasterType: disasterType,
     });
+  }
+
+  private async mockRasterFile(selectedCountry, disasterType: DisasterType) {
+    if (disasterType !== DisasterType.Floods) {
+      return;
+    }
+    for await (let leadTime of selectedCountry.countryActiveLeadTimes) {
+      if (
+        await this.filterCountryLeadTimesToDisasterLeadTimes(
+          leadTime,
+          disasterType,
+        )
+      ) {
+        console.log(
+          `Seeding disaster extent raster file for leadtime: ${leadTime} for country: ${selectedCountry.countryCodeISO3}`,
+        );
+        const extentFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+        const file = fs.readFileSync(
+          `./geoserver-volume/raster-files/mock-output/${extentFileName}`,
+        );
+        const dataObject = {
+          originalname: extentFileName,
+          buffer: file,
+        };
+        await this.adminAreaDynamicDataService.postRaster(
+          dataObject,
+          disasterType,
+        );
+      }
+    }
   }
 }

@@ -27,4 +27,5 @@ npm-debug.log*
 .npm
 
 # Raster-files
-geoserver-volume/raster-files/
+geoserver-volume/raster-files/*
+!geoserver-volume/raster-files/README.md
