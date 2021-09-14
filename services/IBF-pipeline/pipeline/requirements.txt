@@ -25,7 +25,7 @@ mailchimp3==3.0.14
 MarkupSafe==1.1.1
 munch==2.5.0
 netCDF4==1.5.5.1
-numpy==1.19.5
+numpy==1.21.2
 pandas==1.1.5
 psycopg2-binary==2.8.6
 pycrypto==2.6.1
