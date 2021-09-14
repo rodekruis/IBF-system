@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
@@ -7,7 +7,6 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { SourceInfoModalComponent } from 'src/app/components/source-info-modal/source-info-modal.component';
 import { Country } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
@@ -22,6 +21,7 @@ import {
   IndicatorGroup,
   NumberFormat,
 } from 'src/app/types/indicator-group';
+import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
 
 @Component({
   selector: 'app-aggregates',
@@ -60,7 +60,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private eventService: EventService,
     private adminLevelService: AdminLevelService,
     private eapActionsService: EapActionsService,
-    private modalController: ModalController,
+    private popoverController: PopoverController,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
     private analyticsService: AnalyticsService,
@@ -148,12 +148,17 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   };
 
   public async moreInfo(indicator: Indicator): Promise<void> {
-    const modal = await this.modalController.create({
-      component: SourceInfoModalComponent,
-      cssClass: 'source-info-modal-class',
+    const popover = await this.popoverController.create({
+      component: LayerControlInfoPopoverComponent,
+      animated: true,
+      cssClass: 'ibf-indicator-information-popover',
+      translucent: true,
+      showBackdrop: true,
       componentProps: {
-        indicator,
-        text: this.getPopoverText(indicator.name),
+        layer: {
+          label: indicator.label,
+          description: this.getPopoverText(indicator.name),
+        },
       },
     });
 
@@ -165,7 +170,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       component: this.constructor.name,
     });
 
-    modal.present();
+    popover.present();
   }
 
   private getPopoverText(indicatorName: IbfLayerName): string {

@@ -23,7 +23,6 @@ import { LogosComponent } from './components/logos/logos.component';
 import { MapControlsComponent } from './components/map-controls/map-controls.component';
 import { MapComponent } from './components/map/map.component';
 import { MatrixComponent } from './components/matrix/matrix.component';
-import { SourceInfoModalComponent } from './components/source-info-modal/source-info-modal.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
@@ -49,7 +48,6 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     AggregatesComponent,
     BackendMockScenarioComponent,
     ChatComponent,
-    SourceInfoModalComponent,
     UserStateComponent,
     TimestampComponent,
     CountrySwitcherComponent,
@@ -74,7 +72,6 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     TimelineComponent,
     AggregatesComponent,
     ChatComponent,
-    SourceInfoModalComponent,
     UserStateComponent,
     TimestampComponent,
     CountrySwitcherComponent,
