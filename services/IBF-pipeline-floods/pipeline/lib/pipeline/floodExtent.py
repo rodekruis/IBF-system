@@ -2,11 +2,9 @@ import os
 import pandas as pd
 from pandas import DataFrame
 import json
-import logging
 import geopandas as gpd
 import rasterio
 from rasterio.merge import merge
-from lib.logging.logglySetup import logger
 from settings import *
 
 class FloodExtent:
@@ -19,10 +17,7 @@ class FloodExtent:
         self.countryCodeISO3 = countryCodeISO3
         self.inputPath = RASTER_INPUT + "flood_extent/"
         self.outputPathAreas = PIPELINE_OUTPUT + 'flood_extents/'+ leadTimeLabel +'/'
-        if SETTINGS[countryCodeISO3]['model'] == 'glofas':
-            self.outputPathMerge = RASTER_OUTPUT + '0/flood_extents/flood_extent_'+ leadTimeLabel + '_' + countryCodeISO3 + '.tif'
-        elif SETTINGS[countryCodeISO3]['model'] == 'rainfall':
-            self.outputPathMerge = RASTER_OUTPUT + '0/rainfall_extents/rain_rp_'+ leadTimeLabel + '_' + countryCodeISO3 + '.tif'
+        self.outputPathMerge = RASTER_OUTPUT + '0/flood_extents/flood_extent_'+ leadTimeLabel + '_' + countryCodeISO3 + '.tif'
         self.district_mapping = district_mapping
         self.ADMIN_AREA_GDF = admin_area_gdf
 
@@ -30,10 +25,6 @@ class FloodExtent:
         admin_gdf = self.ADMIN_AREA_GDF
 
         df_glofas = self.loadGlofasData()
-
-        logging.info("Create flood extent for %s",  self.leadTimeLabel)
-
-        logging.info('\nMaking flood extent - '+ self.leadTimeLabel+'\n')
 
         #Create new subfolder for current date
         if not os.path.exists(self.outputPathAreas):

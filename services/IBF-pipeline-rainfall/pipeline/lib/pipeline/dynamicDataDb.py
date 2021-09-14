@@ -1,15 +1,8 @@
-import psycopg2
-from psycopg2 import sql as psql
-from sqlalchemy import create_engine, text
 import pandas as pd
-import geopandas as gpd
 import requests
 import json
-
-from lib.logging.logglySetup import logger
-from lib.setup.setupConnection import get_db
 from settings import *
-from secrets import DB_SETTINGS, ADMIN_LOGIN, ADMIN_PASSWORD, DATALAKE_STORAGE_ACCOUNT_NAME, DATALAKE_STORAGE_ACCOUNT_KEY, DATALAKE_API_VERSION, SETTINGS_SECRET
+from secrets import *
 
 
 class DatabaseManager:
@@ -19,16 +12,11 @@ class DatabaseManager:
     def __init__(self, leadTimeLabel, countryCodeISO3):
         self.countryCodeISO3 = countryCodeISO3
         self.leadTimeLabel = leadTimeLabel
-        self.engine = create_engine(
-            'postgresql://'+DB_SETTINGS['user']+':'+DB_SETTINGS['password']+'@'+DB_SETTINGS['host']+':'+DB_SETTINGS['port']+'/'+DB_SETTINGS['db'])
         self.triggerFolder = PIPELINE_OUTPUT + "triggers_rp_per_station/"
         self.affectedFolder = PIPELINE_OUTPUT + "calculated_affected/"
         self.EXPOSURE_DATA_SOURCES = SETTINGS[countryCodeISO3]['EXPOSURE_DATA_SOURCES']
 
     def upload(self):
-        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
-            self.uploadTriggersPerLeadTime()
-            self.uploadTriggerPerStation()
         self.uploadCalculatedAffected()
         self.uploadRasterFile()
     
@@ -45,10 +33,7 @@ class DatabaseManager:
 
     
     def getDisasterType(self):
-        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
-            disasterType = 'floods'
-        elif SETTINGS[self.countryCodeISO3]['model'] == 'rainfall':
-            disasterType = 'heavy-rain'
+        disasterType = 'heavy-rain'
         return disasterType
 
     def uploadCalculatedAffected(self):
@@ -69,50 +54,10 @@ class DatabaseManager:
 
     def uploadRasterFile(self):
         disasterType = self.getDisasterType()
-        if disasterType == 'floods':
-            rasterFile = RASTER_OUTPUT + '0/flood_extents/flood_extent_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '.tif'
-        elif disasterType == 'heavy-rain':
-            rasterFile = RASTER_OUTPUT + '0/rainfall_extents/rain_rp_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '.tif'
+        rasterFile = RASTER_OUTPUT + '0/rainfall_extents/rain_rp_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + '.tif'
         files = {'file': open(rasterFile,'rb')}
         self.apiPostRequest('admin-area-dynamic-data/raster/' + disasterType, files=files)
         print('Uploaded raster-file: ' + rasterFile)
-
-
-    def uploadTriggerPerStation(self):
-        df = pd.read_json(self.triggerFolder +
-                          'triggers_rp_' + self.leadTimeLabel + '_' + self.countryCodeISO3 + ".json", orient='records')
-        dfStation = pd.DataFrame(index=df.index)
-        dfStation['stationCode'] = df['stationCode']
-        dfStation['forecastLevel'] = df['fc']
-        dfStation['forecastProbability'] = df['fc_prob']
-        dfStation['forecastTrigger'] = df['fc_trigger']
-        dfStation['forecastReturnPeriod'] = df['fc_rp']
-        stationForecasts = json.loads(dfStation.to_json(orient='records'))
-        body = {
-            'countryCodeISO3': self.countryCodeISO3,
-            'leadTime': self.leadTimeLabel,
-            'stationForecasts': stationForecasts
-        }
-        self.apiPostRequest('glofas-stations/triggers', body=body)
-        print('Uploaded triggers per station')
-
-    def uploadTriggersPerLeadTime(self):
-        with open(self.triggerFolder +
-                  'trigger_per_day_' + self.countryCodeISO3 + ".json") as json_file:
-            triggers = json.load(json_file)[0]
-            triggersPerLeadTime = []
-            for key in triggers:
-                triggersPerLeadTime.append({
-                    'leadTime': str(key),
-                    'triggered': triggers[key]
-                })
-            body = {
-                'countryCodeISO3': self.countryCodeISO3,
-                'triggersPerLeadTime': triggersPerLeadTime
-            }
-            body['disasterType'] = self.getDisasterType()
-            self.apiPostRequest('event/triggers-per-leadtime', body=body)
-        print('Uploaded triggers per leadTime')
 
     def apiGetRequest(self, path, countryCodeISO3):
         TOKEN = self.apiAuthenticate()

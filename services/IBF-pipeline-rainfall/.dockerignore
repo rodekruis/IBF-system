@@ -7,13 +7,16 @@
 
 # Configuration, secrets, etc:
 .env
-src/secrets.ts
+
+
+# Local data files
+pipeline/data/*
+!pipeline/data/README.md
 
 
 # Generated files
 dist
 coverage
-www
 
 
 # External code
@@ -26,6 +29,10 @@ logs
 npm-debug.log*
 .npm
 
-# Raster-files
-geoserver-volume/raster-files/*
-!geoserver-volume/raster-files/README.md
+# Secrets
+pipeline/secrets.py
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class

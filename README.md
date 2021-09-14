@@ -87,7 +87,13 @@ When running Docker locally, a database-container will start (as opposed to remo
 are connected to a database-server). For setting up a fully working version of the IBF-dasbhoard 2 steps are needed.
 1. Seed database with initial static data
   - docker-compose exec ibf-api-service npm run seed
-2. Post 1st batch of dynamic data to database
+2. Load initial raster data
+  - Get the file `raster-files.zip` from [this link](https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-11-29T23%3A00%3A00.000Z&e=qkUx50).
+  - Unzip it in `services/API-service/geoserver-volume/raster-files` folder, such that that folder now has subfolders:
+    - `input`-folder: static raster files that are served through 'geoserver' to the 'IBF-dashboard'
+    - `mock-output`-foldermock output raster files that are used by the mock-endpoint (see below)
+    - `output`-folder: currently empty, but any raster files that are posted to the API-service by IBF-pipelines (or mock endpoint) will be stored here, and Geoserver will be able to read them from here. 
+3. Post 1st batch of dynamic data to database
   - by running IBF-pipeline (floods & heavy-rain only): 
     - `docker-compose exec ibf-pipeline python3 runPipeline.py`
     - change country-settings to mock in `secrets.py` for mocked data

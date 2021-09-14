@@ -8,8 +8,6 @@ import numpy as np
 import pandas as pd
 from pandas import DataFrame
 import json
-
-from lib.logging.logglySetup import logger
 from settings import *
 import os
 
@@ -21,12 +19,8 @@ class Exposure:
     def __init__(self, leadTimeLabel, countryCodeISO3, admin_area_gdf, population_total, admin_level, district_mapping=None):
         self.leadTimeLabel = leadTimeLabel
         self.countryCodeISO3 = countryCodeISO3
-        if SETTINGS[countryCodeISO3]['model'] == 'glofas':
-            self.disasterExtentRaster = RASTER_OUTPUT + \
-                '0/flood_extents/flood_extent_' + leadTimeLabel + '_' + countryCodeISO3 + '.tif'
-        elif SETTINGS[countryCodeISO3]['model'] == 'rainfall':
-            self.disasterExtentRaster = RASTER_OUTPUT + \
-                '0/rainfall_extents/rain_rp_' + leadTimeLabel + '_' + countryCodeISO3 + '.tif'
+        self.disasterExtentRaster = RASTER_OUTPUT + \
+            '0/flood_extents/flood_extent_' + leadTimeLabel + '_' + countryCodeISO3 + '.tif'
         self.selectionValue = 0.9
         self.outputPath = PIPELINE_OUTPUT + "out.tif"
         self.district_mapping = district_mapping
@@ -38,9 +32,6 @@ class Exposure:
             self.population_total = population_total
 
     def callAllExposure(self):
-        logger.info('Started calculating affected of %s',
-                    self.disasterExtentRaster)
-
         for indicator, values in self.EXPOSURE_DATA_SOURCES.items():
             print('indicator: ', indicator)
             self.inputRaster = RASTER_INPUT + values['source'] + ".tif"
@@ -62,7 +53,6 @@ class Exposure:
 
             with open(self.statsPath, 'w') as fp:
                 json.dump(result, fp)
-                logger.info("Saved stats for %s", self.statsPath)
 
             if self.population_total:
                 population_affected_percentage = list(map(self.get_population_affected_percentage, stats))
@@ -80,7 +70,6 @@ class Exposure:
 
                 with open(population_affected_percentage_file_path, 'w') as fp:
                     json.dump(population_affected_percentage_records, fp)
-                    logger.info("Saved stats for %s", population_affected_percentage_file_path)
 
     def get_population_affected_percentage(self, population_affected):
         population_total = next((x for x in self.population_total if x['placeCode'] == population_affected['placeCode']), None)
@@ -102,7 +91,6 @@ class Exposure:
                     dest.write(affectedImage)
             except ValueError:
                 print('Rasters do not overlap')
-        logger.info("Wrote to " + self.outputRaster)
         self.ADMIN_AREA_GDF.to_file(self.ADMIN_AREA_GDF_TMP_PATH)
         stats = self.calcStatsPerAdmin(
             indicator, disasterExtentShapes, rasterValue)
@@ -110,17 +98,16 @@ class Exposure:
         return stats
 
     def calcStatsPerAdmin(self, indicator, disasterExtentShapes, rasterValue):
-        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
-            # Load trigger_data per station
-            path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + \
-                self.leadTimeLabel + '_' + self.countryCodeISO3 + '.json'
-            df_triggers = pd.read_json(path, orient='records')
-            df_triggers = df_triggers.set_index("stationCode", drop=False)
-            # Load assigned station per district
-            df_district_mapping = pd.read_json(
-                json.dumps(self.district_mapping))
-            df_district_mapping = df_district_mapping.set_index(
-                "placeCode", drop=False)
+        # Load trigger_data per station
+        path = PIPELINE_DATA+'output/triggers_rp_per_station/triggers_rp_' + \
+            self.leadTimeLabel + '_' + self.countryCodeISO3 + '.json'
+        df_triggers = pd.read_json(path, orient='records')
+        df_triggers = df_triggers.set_index("stationCode", drop=False)
+        # Load assigned station per district
+        df_district_mapping = pd.read_json(
+            json.dumps(self.district_mapping))
+        df_district_mapping = df_district_mapping.set_index(
+            "placeCode", drop=False)
 
         stats = []
         with fiona.open(self.ADMIN_AREA_GDF_TMP_PATH, "r") as shapefile:
@@ -140,14 +127,9 @@ class Exposure:
                             area['properties']['placeCode']), self.outputPath, rasterValue)
 
                         # Overwrite non-triggered areas with positive exposure (due to rounding errors) to 0
-                        if SETTINGS[self.countryCodeISO3]['model'] == 'glofas':
-                            if self.checkIfTriggeredArea(df_triggers, df_district_mapping, str(area['properties']['placeCode'])) == 0:
-                                statsDistrict = {'amount': 0, 'placeCode': str(
-                                    area['properties']['placeCode'])}
-                        if self.countryCodeISO3 == 'EGY':
-                            if 'EG' not in str(area['properties']['placeCode']):
-                                statsDistrict = {'amount': 0, 'placeCode': str(
-                                    area['properties']['placeCode'])}
+                        if self.checkIfTriggeredArea(df_triggers, df_district_mapping, str(area['properties']['placeCode'])) == 0:
+                            statsDistrict = {'amount': 0, 'placeCode': str(
+                                area['properties']['placeCode'])}
                     except (ValueError, rasterio.errors.RasterioIOError):
                         # If there is no disaster in the district set  the stats to 0
                         statsDistrict = {'amount': 0, 'placeCode': str(

@@ -3,11 +3,9 @@ import xarray as xr
 import numpy as np
 import pandas as pd
 from pandas import DataFrame
-import logging
 import urllib.request
 import urllib.error
 import time
-from lib.logging.logglySetup import logger
 from settings import *
 import math
 import geopandas as gpd
@@ -68,7 +66,7 @@ class RainfallData:
                     downloadDone = True
                     self.downloaded = True
                 except urllib.error.URLError:
-                    logger.info(
+                    print(
                         "GEFS download failed. "
                         "Trying again in 10 minutes")
                     time.sleep(timeToRetry)
@@ -184,8 +182,6 @@ class RainfallData:
                 continue
 
     def findTrigger(self):
-        logging.info("Started processing Rainfall data: " + self.leadTimeLabel)
-
         # Load (static) threshold values per station
         df_thresholds = pd.read_json(json.dumps(self.rainfall_triggers))
 
@@ -252,8 +248,6 @@ class RainfallData:
 
 
     def findTrigger_mock(self):
-        logging.info("Started processing glofas data: " + self.leadTimeLabel)
-
         # Load (static) threshold values per station
 
         df_thresholds = pd.read_json(json.dumps(self.rainfall_triggers))

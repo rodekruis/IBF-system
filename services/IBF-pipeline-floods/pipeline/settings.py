@@ -1,25 +1,9 @@
-import os
-from datetime import date, timedelta
-
-
-##########################
-## DEVELOPMENT SETTINGS ##
-##########################
-
-# Change dummy-triggers per country (below) now
-
-# Change this date only in case of specific testing purposes
-CURRENT_DATE = date.today()
-# CURRENT_DATE=date.today() - timedelta(1)
-
-
 ######################
 ## COUNTRY SETTINGS ##
 ######################
 
 SETTINGS = {
     "ZMB": {
-        "model": 'glofas',
         'lead_times': {
             "7-day": 7
         },
@@ -32,7 +16,6 @@ SETTINGS = {
         }
     },
     "UGA": {
-        "model": 'glofas',
         'lead_times': {
             "5-day": 5
         },
@@ -45,7 +28,6 @@ SETTINGS = {
         }
     },
     "KEN": {
-        "model": 'glofas',
         'lead_times': {
             "7-day": 7
         },
@@ -58,7 +40,6 @@ SETTINGS = {
         }
     },
     "ETH": {
-        "model": 'glofas',
         'lead_times': {
             "7-day": 7
         },
@@ -66,21 +47,6 @@ SETTINGS = {
         'EXPOSURE_DATA_SOURCES': {
             "population": {
                 "source": "population/worldpop_eth",
-                "rasterValue": 1
-            }
-        }
-    },
-    "EGY": {
-        "model": 'rainfall',
-        'admin_level': 1,
-        'lead_times': {
-            "3-day": 3,
-            "5-day": 5,
-            "7-day": 7
-        },
-        'EXPOSURE_DATA_SOURCES': {
-            "population": {
-                "source": "population/hrsl_egy_pop_resized_100",
                 "rasterValue": 1
             }
         }
@@ -103,12 +69,7 @@ TRIGGER_LEVELS = {
     "maximum": 0.8
 }
 
-##################
-## API SETTINGS ##
-##################
 
-API_SERVICE_URL = 'http://ibf-api-service:3000/api/'
-API_LOGIN_URL = API_SERVICE_URL + 'user/login'
 
 ###################
 ## PATH SETTINGS ##
@@ -125,28 +86,7 @@ PIPELINE_OUTPUT = PIPELINE_DATA + 'output/'
 #########################
 
 # Glofas input
-GLOFAS_FTP = 'data-portal.ecmwf.int/3.1/ZambiaRedcross_glofas_point/'
 GLOFAS_FILENAME = 'glofas_pointdata_ZambiaRedcross'
-
-# GFS rainfall input
-GFS_SOURCE = 'https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/'
-
-####################
-## EMAIL SETTINGS ##
-####################
-
-# Notification email
-EMAIL_WITHOUT_TRIGGER = False
-
-# Logging email settings
-LOGGING = False  # If false send email on error
-LOGGLY_LINK = "https://rodekruis.loggly.com/"
-FROM_EMAIL = "support@510.global"
-FROM_EMAIL_NAME = 'IBF Flood Trigger system'
-EMAIL_USERNAME = "sa_typhoon@redcross.nl" #"510.global.dashboards@gmail.com"
-LOGGING_TO_EMAIL_ADDRRESSES = [
-    "JannisVisser@redcross.nl"
-]
 
 
 #####################
