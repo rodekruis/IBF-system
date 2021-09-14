@@ -1,3 +1,22 @@
+# [0.90.0](https://github.com/rodekruis/IBF-system/compare/v0.89.1...v0.90.0) (2021-09-14)
+
+
+### Bug Fixes
+
+* edits separate pipelines AB[#9324](https://github.com/rodekruis/IBF-system/issues/9324) AB[#9325](https://github.com/rodekruis/IBF-system/issues/9325) ([7d7f8fc](https://github.com/rodekruis/IBF-system/commit/7d7f8fca945d5bc3f62c2b1dddae6c61f9627062))
+* make filewrite sync AB[#9321](https://github.com/rodekruis/IBF-system/issues/9321) ([0319545](https://github.com/rodekruis/IBF-system/commit/03195454d9b18de3abf6f784b59361456e32c515))
+
+
+### Features
+
+* add flood extent raster to mock AB[#9333](https://github.com/rodekruis/IBF-system/issues/9333) ([9d1c4ea](https://github.com/rodekruis/IBF-system/commit/9d1c4eada102b27418082d1c866513fb6efbb886))
+* call raster api from pipeline AB[#9330](https://github.com/rodekruis/IBF-system/issues/9330) ([ef14255](https://github.com/rodekruis/IBF-system/commit/ef142551a5b775b2c100feee8764b39a17a3c26c))
+* change geoserver volumes AB[#9322](https://github.com/rodekruis/IBF-system/issues/9322) ([a83c5ed](https://github.com/rodekruis/IBF-system/commit/a83c5eddd536c324a95c46c5d4194166c707abe1))
+* endpoint to post and save raster-files AB[#9321](https://github.com/rodekruis/IBF-system/issues/9321) ([85a116c](https://github.com/rodekruis/IBF-system/commit/85a116c5c16b762ac76b3ed88d50bd678f7795cf))
+* reuse popover for consistent style AB[#9327](https://github.com/rodekruis/IBF-system/issues/9327) ([8a8def7](https://github.com/rodekruis/IBF-system/commit/8a8def7c12a08a8c217e0b3e6b360da3f248932e))
+
+
+
 ## [0.89.1](https://github.com/rodekruis/IBF-system/compare/v0.89.0...v0.89.1) (2021-09-06)
 
 
@@ -142,29 +161,6 @@
 
 * added-heavy-rain-fall #AB8956 ([13c8e10](https://github.com/rodekruis/IBF-system/commit/13c8e1053e9d5b81e0fe3aee53c15a1fd9f396ce)), closes [#AB8956](https://github.com/rodekruis/IBF-system/issues/AB8956)
 * updated-with-test#AB8956 ([965ca60](https://github.com/rodekruis/IBF-system/commit/965ca6036aea3ea8952a3cec9004a5c5ed3fe4bf)), closes [updated-with-test#AB8956](https://github.com/updated-with-test/issues/AB8956)
-
-
-
-# [0.83.0](https://github.com/rodekruis/IBF-system/compare/v0.82.1...v0.83.0) (2021-08-16)
-
-
-### Bug Fixes
-
-* change mock-triggered provinces to non-cities to avoid confusion ([4361539](https://github.com/rodekruis/IBF-system/commit/43615390bb0e9048371c7f42a92f379a22dc70f9))
-* correct names drought logos ([eecbc5e](https://github.com/rodekruis/IBF-system/commit/eecbc5e7df01869721b0c030e3fed61632e38dc9))
-* lint ([641724e](https://github.com/rodekruis/IBF-system/commit/641724e28c89648fc4e60659aa0e3dfbcacbd618))
-* make timeUnit months/days in en.json dynamic ([c81a3fe](https://github.com/rodekruis/IBF-system/commit/c81a3fe32fa7e13bb85cd44e257e5df960f33b94))
-* order timeline-buttons by leadtime AB[#9053](https://github.com/rodekruis/IBF-system/issues/9053) ([a229386](https://github.com/rodekruis/IBF-system/commit/a2293863e6c86f5f79d671713eeb726b3b51d1f0))
-* use 1st disasterType as default AB[#7438](https://github.com/rodekruis/IBF-system/issues/7438) ([da6f7e7](https://github.com/rodekruis/IBF-system/commit/da6f7e77ece3a27aee69c0f00d8c3d9621d39f8b))
-
-
-### Features
-
-* add cropland to geoserver AB[#9059](https://github.com/rodekruis/IBF-system/issues/9059) ([c6de60b](https://github.com/rodekruis/IBF-system/commit/c6de60b9d016f52a9fefe6ebd4e7c34069abc44c))
-* add drought vulnerability data + layer AB[#9061](https://github.com/rodekruis/IBF-system/issues/9061) ([4c9e330](https://github.com/rodekruis/IBF-system/commit/4c9e3300f912d025e26bee23742f36018fcc337e))
-* add grassland to geoserver AB[#9058](https://github.com/rodekruis/IBF-system/issues/9058) ([6a06da1](https://github.com/rodekruis/IBF-system/commit/6a06da18f369eeeca7e28e3fd546583241a837cd))
-* add rc branch data AB[#9060](https://github.com/rodekruis/IBF-system/issues/9060) ([bc8b1fa](https://github.com/rodekruis/IBF-system/commit/bc8b1fac0106526e318552e88c9edeb9248b12f9))
-* add ruminants layer + data AB[#9057](https://github.com/rodekruis/IBF-system/issues/9057) ([f1fa5a3](https://github.com/rodekruis/IBF-system/commit/f1fa5a3b172f9493733511ee957d652208df0c6c))
 
 
 
