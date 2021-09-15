@@ -183,7 +183,7 @@ export class AdminAreaDynamicDataService {
     }
     try {
       fs.writeFileSync(
-        `geoserver-volume/raster-files/output/${subfolder}/${data.originalname}`,
+        `./geoserver-volume/raster-files/output/${subfolder}/${data.originalname}`,
         data.buffer,
       );
     } catch (e) {
