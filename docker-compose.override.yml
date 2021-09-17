@@ -13,7 +13,7 @@ services:
             - ibf-local-db
         networks:
             - web-server-network
-            - pipeline-network
+            - api-network
 
     ibf-dashboard:
         command: ["npm", "run", "start"]
@@ -54,7 +54,7 @@ services:
         ports:
             - 5437:5432
         networks:
-            - pipeline-network
+            - api-network
         restart: unless-stopped
 
 volumes:

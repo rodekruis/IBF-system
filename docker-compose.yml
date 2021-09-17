@@ -42,11 +42,11 @@ services:
             - MC_API=${MC_API}
             - MC_LIST_ID=${MC_LIST_ID}
             - MC_SEGMENTS=${MC_SEGMENTS}
+        volumes:
+            - api-root:/home/ibf/api-service
         networks:
             web-server-network:
-            pipeline-network:
-        depends_on:
-            - ibf-geoserver
+            api-network:
 
     ibf-dashboard:
         build:
@@ -91,17 +91,17 @@ services:
         volumes:
             - pipeline-root:/home/ibf
         networks:
-            pipeline-network:
+            api-network:
         restart: unless-stopped
 
     ibf-geoserver:
         image: kartoza/geoserver
         volumes:
-            - pipeline-geoserver:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
-            - workspace-geoserver:/opt/geoserver/data_dir/workspaces/ibf-system
+            - api-geoserver-files:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
+            - api-geoserver-workspace:/opt/geoserver/data_dir/workspaces/ibf-system
         networks:
             web-server-network:
-            pipeline-network:
+            api-network:
         restart: unless-stopped
 
 volumes:
@@ -111,12 +111,17 @@ volumes:
             type: bind
             device: ./services/IBF-pipeline
             o: bind
-    pipeline-geoserver:
+    api-root:
+        driver_opts:
+            type: bind
+            device: ./services/API-service
+            o: bind
+    api-geoserver-files:
         driver_opts:
             type: bind
             device: ./services/API-service/geoserver-volume/raster-files
             o: bind
-    workspace-geoserver:
+    api-geoserver-workspace:
         driver_opts:
             type: bind
             device: ./services/API-service/geoserver-volume/geoserver-layers
@@ -130,6 +135,6 @@ volumes:
 networks:
     web-server-network:
         driver: bridge
-    pipeline-network:
+    api-network:
         driver: bridge
     
