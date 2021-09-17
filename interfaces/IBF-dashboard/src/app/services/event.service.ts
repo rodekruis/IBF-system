@@ -64,7 +64,11 @@ export class EventService {
     }
   }
 
-  public getTriggerByDisasterType(country: string, disasterType: DisasterType, callback) {
+  public getTriggerByDisasterType(
+    country: string,
+    disasterType: DisasterType,
+    callback,
+  ) {
     if (country && disasterType) {
       this.apiService
         .getEvent(country, disasterType.disasterType)
@@ -72,9 +76,11 @@ export class EventService {
     }
   }
 
-  private onGetDisasterTypeEvent = (disasterType: DisasterType, callback) => (event) => {
+  private onGetDisasterTypeEvent = (disasterType: DisasterType, callback) => (
+    event,
+  ) => {
     disasterType.activeTrigger = event.activeTrigger || false;
-    callback(disasterType)
+    callback(disasterType);
   };
 
   private onEvent = (event) => {

@@ -38,16 +38,19 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
 
   private onGetDisasterTypeActiveTrigger = (country) => () => {
     if (this.disasterTypesCounter >= country.disasterTypes.length - 1) {
-      const activeDisasterType = country.disasterTypes.find(({activeTrigger}) => activeTrigger);
+      const activeDisasterType = country.disasterTypes.find(
+        ({ activeTrigger }) => activeTrigger,
+      );
       if (activeDisasterType) {
-        this.selectedDisasterType = DisasterTypeKey[activeDisasterType.disasterType];
+        this.selectedDisasterType =
+          DisasterTypeKey[activeDisasterType.disasterType];
         this.disasterTypeService.setDisasterType(activeDisasterType);
       } else {
         this.selectedDisasterType = this.disasterTypes[0].disasterType;
       }
     }
-    this.disasterTypesCounter++
-  }
+    this.disasterTypesCounter++;
+  };
 
   private onCountryChange = (country: Country) => {
     if (country) {
@@ -56,7 +59,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
         this.eventService.getTriggerByDisasterType(
           country.countryCodeISO3,
           disasterType,
-          this.onGetDisasterTypeActiveTrigger(country)
+          this.onGetDisasterTypeActiveTrigger(country),
         );
       });
     }
