@@ -13,6 +13,7 @@ import { CountryService } from '../../services/country.service';
   styleUrls: ['./disaster-type.component.scss'],
 })
 export class DisasterTypeComponent implements OnInit, OnDestroy {
+  public disasterTypesCounter = 1;
   public disasterTypes: DisasterType[] = [];
   public disasterTypeMap = DISASTER_TYPES_SVG_MAP;
   public selectedDisasterType: DisasterTypeKey;
@@ -35,6 +36,19 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
     this.countrySubscription.unsubscribe();
   }
 
+  private onGetDisasterTypeActiveTrigger = (country) => () => {
+    if (this.disasterTypesCounter >= country.disasterTypes.length - 1) {
+      const activeDisasterType = country.disasterTypes.find(({activeTrigger}) => activeTrigger);
+      if (activeDisasterType) {
+        this.selectedDisasterType = DisasterTypeKey[activeDisasterType.disasterType];
+        this.disasterTypeService.setDisasterType(activeDisasterType);
+      } else {
+        this.selectedDisasterType = this.disasterTypes[0].disasterType;
+      }
+    }
+    this.disasterTypesCounter++
+  }
+
   private onCountryChange = (country: Country) => {
     if (country) {
       this.disasterTypes = country.disasterTypes;
@@ -42,47 +56,9 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
         this.eventService.getTriggerByDisasterType(
           country.countryCodeISO3,
           disasterType,
+          this.onGetDisasterTypeActiveTrigger(country)
         );
       });
-      setTimeout(() => {
-        const floodDisasterType = country.disasterTypes.find((item) => {
-          return item.disasterType === DisasterTypeKey.floods;
-        });
-        const activeDisasterTypes = country.disasterTypes.filter((item) => {
-          return item.activeTrigger;
-        });
-        const nonActiveDisasterTypes = country.disasterTypes.filter((item) => {
-          return !item.activeTrigger;
-        });
-        if (floodDisasterType.activeTrigger) {
-          const index = activeDisasterTypes.findIndex((item) => {
-            return item.disasterType === DisasterTypeKey.floods;
-          });
-          activeDisasterTypes.splice(index, 1);
-          activeDisasterTypes.unshift(floodDisasterType);
-        } else {
-          const index = nonActiveDisasterTypes.findIndex((item) => {
-            return item.disasterType === DisasterTypeKey.floods;
-          });
-          nonActiveDisasterTypes.splice(index, 1);
-          nonActiveDisasterTypes.unshift(floodDisasterType);
-        }
-        const sortedDisasterTypes = [
-          ...activeDisasterTypes,
-          ...nonActiveDisasterTypes,
-        ];
-        this.disasterTypes = sortedDisasterTypes;
-        const activeDisasterType = this.disasterTypes.find(
-          (item) => item.activeTrigger,
-        );
-        if (activeDisasterType) {
-          this.selectedDisasterType =
-            DisasterTypeKey[activeDisasterType.disasterType];
-          this.disasterTypeService.setDisasterType(activeDisasterType);
-        } else {
-          this.selectedDisasterType = this.disasterTypes[0].disasterType;
-        }
-      }, 2000);
     }
   };
 
