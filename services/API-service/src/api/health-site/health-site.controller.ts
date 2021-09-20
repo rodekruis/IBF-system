@@ -3,9 +3,11 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
+import { GeoJson } from '../../shared/geo.model';
 import { HealthSiteEntity } from './health-site.entity';
 import { HealthSiteService } from './health-site.service';
 
@@ -20,11 +22,15 @@ export class HealthSiteController {
     this.healthSiteService = healthSiteService;
   }
 
-  // NOTE: this endpoint is to be used by the IBF-dashboard instead of the current one in data.controller.ts > TO DO
-  @ApiOperation({ summary: 'Get HealthSite by country' })
+  @ApiOperation({ summary: 'Get health sites for given country' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description: 'Health site locations and attributes in GEOJSON format.',
+    type: GeoJson,
+  })
   @Get(':countryCodeISO3')
-  public async getHelathSites(@Param() params): Promise<HealthSiteEntity[]> {
+  public async getHealthSites(@Param() params): Promise<GeoJson> {
     return await this.healthSiteService.getHealthSitesCountry(
       params.countryCodeISO3,
     );

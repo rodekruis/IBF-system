@@ -3,6 +3,7 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
@@ -23,8 +24,15 @@ export class GlofasStationController {
     this.glofasStationService = glofasStationService;
   }
 
-  @ApiOperation({ summary: 'Get Glofas stations by country' })
+  @ApiOperation({
+    summary: 'Get Glofas station locations and attributes for given country',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description: 'Glofas station locations and attributes for given country.',
+    type: [GlofasStationEntity],
+  })
   @Get(':countryCodeISO3')
   public async getStationsByCountry(
     @Param() params,
@@ -35,10 +43,16 @@ export class GlofasStationController {
   }
 
   @ApiOperation({
-    summary: 'Get Glofas stations forecast by leadtime and country',
+    summary: 'Get Glofas station forecast data for given country and leadtime',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Glofas station locations and attributes for given country in GEOJSON format.',
+    type: GeoJson,
+  })
   @Get(':countryCodeISO3/:leadTime')
   public async getStationForecastByLeadTime(@Param() params): Promise<GeoJson> {
     return await this.glofasStationService.getStationForecastByLeadTime(
@@ -47,7 +61,15 @@ export class GlofasStationController {
     );
   }
 
-  @ApiOperation({ summary: 'Upload Glofas forecast data per station' })
+  @ApiOperation({
+    summary:
+      'Upload Glofas forecast data per station (used by IBF Floods pipeline)',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded Glofas forecast data',
+    type: [GlofasStationForecastEntity],
+  })
   @Post('triggers')
   public async uploadTriggerDataPerStation(
     @Body() uploadTriggerPerStation: UploadTriggerPerStationDto,

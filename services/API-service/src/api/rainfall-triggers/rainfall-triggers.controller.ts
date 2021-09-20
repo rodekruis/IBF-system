@@ -3,6 +3,7 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
@@ -20,8 +21,17 @@ export class RainfallTriggersController {
     this.rainfallTriggersService = rainfallTriggersService;
   }
 
-  @ApiOperation({ summary: 'Get rainfall trigger levels by country' })
+  @ApiOperation({
+    summary:
+      'Get rainfall trigger levels for given country. (Used by IBF Heavy Rainfall pipeline.)',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Rainfall trigger levels per coordinate and lead-time for given country.',
+    type: [RainfallTriggersEntity],
+  })
   @Get(':countryCodeISO3')
   public async getTriggerLevels(
     @Param() params,

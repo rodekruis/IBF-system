@@ -5,6 +5,7 @@ import {
   ApiOperation,
   ApiParam,
   ApiBearerAuth,
+  ApiResponse,
 } from '@nestjs/swagger';
 import { GeoJson } from '../../shared/geo.model';
 import { WaterpointsService } from './waterpoints.service';
@@ -21,12 +22,25 @@ export class WaterpointsController {
     this.waterpointsService = waterpointsService;
   }
 
-  @ApiOperation({ summary: 'Get waterpoint data' })
+  @ApiOperation({
+    summary: 'Get waterpoint locations and attributes for country',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description: 'Waterpoint locations and attributes in GEOJSON format',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Country not found',
+  })
   @Get(':countryCodeISO3')
   public async getWaterpoints(
     @Param() params,
   ): Promise<AxiosResponse<GeoJson>> {
-    return await this.waterpointsService.getWaterpoints(params.countryCodeISO3);
+    const result = await this.waterpointsService.getWaterpoints(
+      params.countryCodeISO3,
+    );
+    return result;
   }
 }

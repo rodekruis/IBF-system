@@ -10,6 +10,7 @@ import {
   ApiBearerAuth,
   ApiConsumes,
   ApiOperation,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
@@ -27,7 +28,13 @@ export class NotificationController {
 
   @UseGuards(RolesGuard)
   @ApiOperation({
-    summary: 'Send notification about disaster to email recipients',
+    summary:
+      'Send e-mail notification about disaster to recipients for given country and disaster-type. (Used at the end of various IBF pipelines)',
+  })
+  @ApiResponse({
+    status: 200,
+    description:
+      'E-mail notification request sent (e-mails sent only if there is an active trigger)',
   })
   @Post('send')
   @ApiConsumes()
