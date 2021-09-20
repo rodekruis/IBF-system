@@ -64,16 +64,23 @@ export class EventService {
     }
   }
 
-  public getTriggerByDisasterType(country: string, disasterType: DisasterType) {
+  public getTriggerByDisasterType(
+    country: string,
+    disasterType: DisasterType,
+    callback,
+  ) {
     if (country && disasterType) {
       this.apiService
         .getEvent(country, disasterType.disasterType)
-        .subscribe(this.onGetDisasterTypeEvent(disasterType));
+        .subscribe(this.onGetDisasterTypeEvent(disasterType, callback));
     }
   }
 
-  private onGetDisasterTypeEvent = (disasterType: DisasterType) => (event) => {
-    disasterType.activeTrigger = event.activeTrigger || false;
+  private onGetDisasterTypeEvent = (disasterType: DisasterType, callback) => (
+    event,
+  ) => {
+    disasterType.activeTrigger = (event && event.activeTrigger) || false;
+    callback(disasterType);
   };
 
   private onEvent = (event) => {
