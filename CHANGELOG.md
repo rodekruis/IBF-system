@@ -1,3 +1,19 @@
+## [0.90.2](https://github.com/rodekruis/IBF-system/compare/v0.90.1...v0.90.2) (2021-09-20)
+
+
+### Bug Fixes
+
+* added sorting on disaster type AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([929750b](https://github.com/rodekruis/IBF-system/commit/929750b466ab1141ac39b8185f2a27b168db6ede))
+* code updated AB[#9317](https://github.com/rodekruis/IBF-system/issues/9317) AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([46df6b9](https://github.com/rodekruis/IBF-system/commit/46df6b9ce09e1512a517f768e999cce01d035ec5))
+* fixed default selection AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([2a4d520](https://github.com/rodekruis/IBF-system/commit/2a4d520cc14b1483e9ea7040303b5c23e54e8b0e))
+* lint AB[#9317](https://github.com/rodekruis/IBF-system/issues/9317) AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([641bfdd](https://github.com/rodekruis/IBF-system/commit/641bfdd93692f3bf0bf907555e3875b6eade43d8))
+* lint AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([726a146](https://github.com/rodekruis/IBF-system/commit/726a146e305e8b5940f74ca7ab1091f4ba8ee042))
+* lint AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([b1f7a2e](https://github.com/rodekruis/IBF-system/commit/b1f7a2e2fb06983a5d74e38a16b6c7ab87b8ac9c))
+* lint for AB[#9317](https://github.com/rodekruis/IBF-system/issues/9317) AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([530210f](https://github.com/rodekruis/IBF-system/commit/530210feadb74335385cfe777f2f7e9625329b5b))
+* show triggered disaster and fix left to right order of disaster AB[#9317](https://github.com/rodekruis/IBF-system/issues/9317) AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([85923ae](https://github.com/rodekruis/IBF-system/commit/85923ae2c326ee711e9f7c94c9fc221869505a35))
+
+
+
 ## [0.90.1](https://github.com/rodekruis/IBF-system/compare/v0.90.0...v0.90.1) (2021-09-17)
 
 
@@ -152,15 +168,6 @@
 * give alert_threshold layer outline in legend AB[#9072](https://github.com/rodekruis/IBF-system/issues/9072) ([37b0bdd](https://github.com/rodekruis/IBF-system/commit/37b0bddf35ab34985e992dbd2618b355c248fdaa))
 * next april always active leadtime AB[#9063](https://github.com/rodekruis/IBF-system/issues/9063) ([3c01497](https://github.com/rodekruis/IBF-system/commit/3c014977cad1657b143cf0d2e7a6b9b2efc3752d))
 * show all areas for droughts AB[#9073](https://github.com/rodekruis/IBF-system/issues/9073) ([49226d0](https://github.com/rodekruis/IBF-system/commit/49226d096327690a57b5b9ab47cd3f4b7fcda4d4))
-
-
-
-## [0.84.1](https://github.com/rodekruis/IBF-system/compare/v0.84.0...v0.84.1) (2021-08-20)
-
-
-### Bug Fixes
-
-* trigger deploy ([7095b4c](https://github.com/rodekruis/IBF-system/commit/7095b4c78cc464ae780ba0675fd81b773b69dd93))
 
 
 
