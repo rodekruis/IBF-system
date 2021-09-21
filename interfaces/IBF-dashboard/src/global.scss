@@ -247,3 +247,9 @@
 .ibf-indicator-information-popover {
   --width: 400px;
 }
+
+// https://stackoverflow.com/a/68240841/1753041
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
