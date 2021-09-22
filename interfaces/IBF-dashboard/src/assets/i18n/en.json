@@ -88,7 +88,7 @@
       "welcome": "Hello {{ name }}. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
     },
     "new-event-active-trigger": {
-      "welcome": "Hello {{ name }}. A new trigger warning for <strong>{{ leadTime }} {{ timeUnit }} from today</strong> has been activated for <strong>{{ disasterTypeLabel }}</strong>.",
+      "welcome": "Hello {{ name }}. A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}</strong> away.",
       "new-event-early-trigger": "The system however detects a trigger as soon as <strong>{{ leadTime }} {{ timeUnit }} from today</strong>, which was not detectable earlier."
     },
     "active-event-active-trigger": {
