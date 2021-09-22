@@ -92,7 +92,7 @@
       "new-event-early-trigger": "The system however detects a trigger as soon as <strong>{{ leadTime }} {{ timeUnit }} from today</strong>, which was not detectable earlier."
     },
     "active-event-active-trigger": {
-      "welcome": "Hello {{ name }} A trigger warning for <strong>{{ disasterTypeLabel }}</strong> has earlier been activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}</strong> away."
+      "welcome": "Hello {{ name }} A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}</strong> away."
     },
     "active-event-no-trigger": {
       "welcome": "Hello {{ name }}. There is <strong>no active trigger</strong> any more (as you can see in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
