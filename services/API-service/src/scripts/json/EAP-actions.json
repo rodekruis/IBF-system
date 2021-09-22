@@ -646,5 +646,68 @@
     },
     "action": "migration-1",
     "label": "Migration preliminary action"
+  },
+  {
+    "countryCodeISO3": "EGY",
+    "disasterType": "heavy-rain",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-1",
+    "label": "DRR preliminary action"
+  },
+  {
+    "countryCodeISO3": "EGY",
+    "disasterType": "heavy-rain",
+    "areaOfFocus": {
+      "id": "shelter"
+    },
+    "action": "shelter-1",
+    "label": "Shelter preliminary action"
+  },
+  {
+    "countryCodeISO3": "EGY",
+    "disasterType": "heavy-rain",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-1",
+    "label": "Livelihood preliminary action"
+  },
+  {
+    "countryCodeISO3": "EGY",
+    "disasterType": "heavy-rain",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-1",
+    "label": "Health preliminary action"
+  },
+  {
+    "countryCodeISO3": "EGY",
+    "disasterType": "heavy-rain",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-1",
+    "label": "WASH preliminary action"
+  },
+  {
+    "countryCodeISO3": "EGY",
+    "disasterType": "heavy-rain",
+    "areaOfFocus": {
+      "id": "inclusion"
+    },
+    "action": "inclusion-1",
+    "label": "Inclusion preliminary action"
+  },
+  {
+    "countryCodeISO3": "EGY",
+    "disasterType": "heavy-rain",
+    "areaOfFocus": {
+      "id": "migration"
+    },
+    "action": "migration-1",
+    "label": "Migration preliminary action"
   }
 ]
