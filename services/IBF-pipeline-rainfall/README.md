@@ -10,7 +10,7 @@ This is a series of scripts (which will be run daily) which extracts all input d
 
 1. Clone this directory to `<your_local_directory>`/IBF-pipeline/
 2. Change `/pipeline/secrets.py.template` to `secrets.py` and fill in the necessary secrets.
-3. Find `data-rainfall.zip` in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-11-29T23%3A00%3A00.000Z&e=qkUx50 and unzip in /pipeline/data.
+3. Find `data-rainfall.zip` in https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-11-29T23%3A00%3A00.000Z&e=qkUx50 and unzip in /pipeline/data, such that it now has subfolders /raster and /other.
 
 ### Set up Data pipeline
 
