@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserResponseObject } from './user.model';
-import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
+import { CreateUserDto, LoginUserDto } from './dto';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { UserDecorator } from './user.decorator';
 import { ValidationPipe } from '../../shared/pipes/validation.pipe';
@@ -19,10 +19,9 @@ import {
   ApiOperation,
   ApiResponse,
 } from '@nestjs/swagger';
-import { DeleteUserDto } from './dto/delete-user.dto';
 import { RolesGuard } from '../../roles.guard';
 
-@ApiTags('user')
+@ApiTags('-- user --')
 @Controller('user')
 export class UserController {
   private readonly userService: UserService;

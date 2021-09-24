@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -11,9 +12,11 @@ import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 
 @Entity('admin-area')
 export class AdminAreaEntity {
+  @ApiProperty({ example: '6b9b7669-4839-4fdb-9645-9070a27bda86' })
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
+  @ApiProperty({ example: 'UGA' })
   @ManyToOne((): typeof CountryEntity => CountryEntity)
   @JoinColumn({
     name: 'countryCodeISO3',
@@ -21,21 +24,27 @@ export class AdminAreaEntity {
   })
   public countryCodeISO3: string;
 
+  @ApiProperty({ example: 2 })
   @Column()
   public adminLevel: number;
 
+  @ApiProperty({ example: '21UGA001001' })
   @Column({ unique: true })
   public placeCode: string;
 
+  @ApiProperty({ example: 'Agago' })
   @Column({ nullable: true })
   public name: string;
 
+  @ApiProperty({ example: '21UGA001' })
   @Column({ nullable: true })
   public placeCodeParent: string;
 
+  @ApiProperty()
   @Column('geometry', { nullable: true })
   public geom: string;
 
+  @ApiProperty({ example: 'G5220' })
   @Column({ nullable: true })
   public glofasStation: string;
 

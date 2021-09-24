@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Geometry } from './geo.model';
 
 export class AdminAreaRecord {
@@ -11,20 +12,37 @@ export class AdminAreaRecord {
 }
 
 export class AggregateDataRecord {
+  @ApiProperty({ example: '21UGA001001' })
   public placeCode: string;
+
+  @ApiProperty({ example: 'population_affected' })
   public indicator: string;
+
+  @ApiProperty({ example: 100 })
   public value: number;
 }
 
 export class TriggeredArea {
+  @ApiProperty({ example: '21UGA001001' })
   public placeCode: string;
+
+  @ApiProperty({ example: 'Agago' })
   public name: string;
+
+  @ApiProperty({ example: 100 })
   public actionsValue: number;
 }
 
 export class EventSummaryCountry {
+  @ApiProperty({ example: 'UGA' })
   public countryCodeISO3: string;
+
+  @ApiProperty({ example: new Date().toISOString() })
   public startDate: string;
+
+  @ApiProperty({ example: new Date().toISOString() })
   public endDate: string;
+
+  @ApiProperty({ example: true })
   public activeTrigger: boolean;
 }

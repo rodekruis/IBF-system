@@ -50,7 +50,7 @@ export class GlofasStationController {
   @ApiResponse({
     status: 200,
     description:
-      'Glofas station locations and attributes for given country in GEOJSON format.',
+      'Glofas station forecast data for given country and leadtime in GEOJSON format.',
     type: GeoJson,
   })
   @Get(':countryCodeISO3/:leadTime')
@@ -67,7 +67,7 @@ export class GlofasStationController {
   })
   @ApiResponse({
     status: 201,
-    description: 'Uploaded Glofas forecast data',
+    description: 'Uploaded Glofas forecast data per station',
     type: [GlofasStationForecastEntity],
   })
   @Post('triggers')

@@ -7,6 +7,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
+import { GeoJson } from '../../shared/geo.model';
 import { CountryEntity } from '../country/country.entity';
 import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 
@@ -28,7 +29,7 @@ export class GlofasStationEntity {
   @Column()
   public stationCode: string;
 
-  @ApiProperty({ example: [] })
+  @ApiProperty({ example: [GlofasStationForecastEntity] })
   @OneToMany(
     (): typeof GlofasStationForecastEntity => GlofasStationForecastEntity,
     (station): GlofasStationEntity => station.glofasStation,
@@ -39,7 +40,11 @@ export class GlofasStationEntity {
   @Column({ nullable: true })
   public stationName: string;
 
-  @ApiProperty({ example: 10 })
+  @ApiProperty({
+    example: 10,
+    description:
+      'Water discharge level in m3/s above which the trigger is reached for this station.',
+  })
   @Column({ nullable: true, type: 'real' })
   public triggerLevel: string;
 
@@ -67,7 +72,7 @@ export class GlofasStationEntity {
   @Column({ nullable: true, type: 'double precision' })
   public lon: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: new GeoJson() })
   @Column('json', { nullable: true })
   public geom: JSON;
 }

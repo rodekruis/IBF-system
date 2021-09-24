@@ -5,11 +5,13 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
+import { DateDto, TriggerPerLeadTimeExampleDto } from './dto/date.dto';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -22,9 +24,18 @@ export class EventController {
     this.eventService = eventService;
   }
 
-  @ApiOperation({ summary: 'Get active event summary of a country' })
+  @ApiOperation({
+    summary:
+      'Get summary of active events - if any - for given country and disaster-type',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Summary of active events - if any - for given country and disaster-type.',
+    type: EventSummaryCountry,
+  })
   @Get(':countryCodeISO3/:disasterType')
   public async getEventSummaryCountry(
     @Param() params,
@@ -35,20 +46,38 @@ export class EventController {
     );
   }
 
-  @ApiOperation({ summary: 'Get recent date' })
+  @ApiOperation({
+    summary:
+      'Get date of last forecast-data-upload for given country and disaster-type.',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Date of last forecast-data-upload for given country and disaster-type.',
+    type: DateDto,
+  })
   @Get('recent-date/:countryCodeISO3/:disasterType')
-  public async getRecentDate(@Param() params): Promise<object> {
+  public async getRecentDate(@Param() params): Promise<DateDto> {
     return await this.eventService.getRecentDate(
       params.countryCodeISO3,
       params.disasterType,
     );
   }
 
-  @ApiOperation({ summary: 'Get trigger data per lead-time' })
+  @ApiOperation({
+    summary:
+      'Get yes/no trigger per lead-time for given country and disaster-type.',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Yes/no trigger per lead-time for given country and disaster-type.',
+    type: TriggerPerLeadTimeExampleDto,
+  })
   @Get('triggers/:countryCodeISO3/:disasterType')
   public async getTriggerPerLeadtime(@Param() params): Promise<object> {
     return await this.eventService.getTriggerPerLeadtime(
@@ -57,10 +86,19 @@ export class EventController {
     );
   }
 
-  @ApiOperation({ summary: 'Get triggered areas' })
+  @ApiOperation({
+    summary:
+      'Get triggered admin-areas for given country, disaster-type and lead-time.',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Triggered admin-areas for given country, disaster-type and lead-time.',
+    type: [TriggeredArea],
+  })
   @Get('triggered-areas/:countryCodeISO3/:disasterType/:leadTime')
   public async getTriggeredAreas(@Param() params): Promise<TriggeredArea[]> {
     return await this.eventService.getTriggeredAreas(
@@ -70,7 +108,15 @@ export class EventController {
     );
   }
 
-  @ApiOperation({ summary: 'Close place code event' })
+  @ApiOperation({ summary: 'Close event for given admin-area.' })
+  @ApiResponse({
+    status: 201,
+    description: 'Event closed for given admin-area.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No admin-area for this event.',
+  })
   @Post('close-place-code')
   public async closeEventPcode(
     @Body() eventPlaceCodeDto: EventPlaceCodeDto,
@@ -80,7 +126,13 @@ export class EventController {
 
   @UseGuards(RolesGuard)
   @ApiOperation({
-    summary: 'Upload trigger per leadtime data',
+    summary:
+      'Upload yes/no trigger data per leadtime for given country and disaster-type',
+  })
+  @ApiResponse({
+    status: 201,
+    description:
+      'Uploaded yes/no trigger data per leadtime for given country and disaster-type.',
   })
   @Post('triggers-per-leadtime')
   public async uploadTriggersPerLeadTime(

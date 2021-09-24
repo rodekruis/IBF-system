@@ -9,6 +9,7 @@ import {
   ApiTags,
   ApiParam,
   ApiBody,
+  ApiResponse,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
@@ -26,7 +27,13 @@ export class AdminAreaDynamicDataController {
 
   @UseGuards(RolesGuard)
   @ApiOperation({
-    summary: 'Upload exposure data at a regular interval',
+    summary:
+      'Upload and process dynamic (exposure) indicator data for given country, disaster-type and lead-time.',
+  })
+  @ApiResponse({
+    status: 201,
+    description:
+      'Uploaded and processed dynamic (exposure) indicator data for given country, disaster-type and lead-time.',
   })
   @Post('exposure')
   @ApiConsumes()
@@ -37,12 +44,21 @@ export class AdminAreaDynamicDataController {
     await this.adminAreaDynamicDataService.exposure(placeCodeExposure);
   }
 
-  @ApiOperation({ summary: 'Get dynamic admin-area data' })
+  @ApiOperation({
+    summary:
+      'Get dynamic admin-area data for given indicator, country, disaster-type and lead-time.',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Dynamic admin-area data for given indicator, country, disaster-type and lead-time.',
+    type: [AdminDataReturnDto],
+  })
   @Get(':countryCodeISO3/:adminLevel/:leadTime/:indicator/:disasterType')
   public async getAdminAreaData(
     @Param() params,
@@ -56,10 +72,17 @@ export class AdminAreaDynamicDataController {
     );
   }
 
-  @ApiOperation({ summary: 'Get admin-area data per placeCode' })
+  @ApiOperation({
+    summary: 'Get dynamic admin-area data value for one specific admin-area',
+  })
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
   @ApiParam({ name: 'placeCode', required: true, type: 'string' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description: 'Dynamic admin-area data value for one specific admin-area.',
+    type: Number,
+  })
   @Get('get/one/:indicator/:placeCode/:leadTime')
   public async getAdminAreaDataPerPcode(@Param() params): Promise<number> {
     return await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
@@ -70,7 +93,8 @@ export class AdminAreaDynamicDataController {
   }
 
   @ApiOperation({
-    summary: 'Post raster file',
+    summary:
+      'Upload raster file (.tif) such as a disaster-extent for given disaster-type (used by IBF-pipelines)',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -85,6 +109,19 @@ export class AdminAreaDynamicDataController {
     },
   })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded raster file for given disaster-type',
+  })
+  @ApiResponse({
+    status: 400,
+    description:
+      'Provided disaster-type not allowed (or other input mistake leading to Bad Request)',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Raster file not correctly written',
+  })
   @Post('raster/:disasterType')
   @UseInterceptors(FileInterceptor('file'))
   public async postRaster(

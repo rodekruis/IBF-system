@@ -35,7 +35,6 @@ export class AdminAreaDynamicDataService {
     // Delete existing entries with same date, leadtime and countryCodeISO3 and unit type
     await this.deleteDynamicDuplicates(uploadExposure);
 
-    console.time('Insert exposure');
     const areas = [];
     for (const exposurePlaceCode of uploadExposure.exposurePlaceCodes) {
       const area = new AdminAreaDynamicDataEntity();
@@ -50,9 +49,6 @@ export class AdminAreaDynamicDataService {
       areas.push(area);
     }
     await this.adminAreaDynamicDataRepo.save(areas);
-    console.timeEnd('Insert exposure');
-
-    console.time('Process trigger');
 
     const triggerUnit = await this.disasterTypeRepository.findOne({
       select: ['triggerUnit'],
@@ -67,8 +63,6 @@ export class AdminAreaDynamicDataService {
         uploadExposure.disasterType,
       );
     }
-
-    console.timeEnd('Process trigger');
   }
 
   private async deleteDynamicDuplicates(
