@@ -1,3 +1,12 @@
+## [0.90.4](https://github.com/rodekruis/IBF-system/compare/v0.90.3...v0.90.4) (2021-09-24)
+
+
+### Bug Fixes
+
+* changed title text to bold ([6f45ca6](https://github.com/rodekruis/IBF-system/commit/6f45ca64cb686b0521741ab13f351f5638c9aa50))
+
+
+
 ## [0.90.3](https://github.com/rodekruis/IBF-system/compare/v0.90.2...v0.90.3) (2021-09-21)
 
 
@@ -139,20 +148,6 @@
 * extend API + mock-endpoint for exposed cattle/ruminants AB[#9139](https://github.com/rodekruis/IBF-system/issues/9139) ([3e2c36a](https://github.com/rodekruis/IBF-system/commit/3e2c36a4966549c416f96712bb3080fee95bd211))
 * mail by segment-id AB[#9226](https://github.com/rodekruis/IBF-system/issues/9226) ([4893aa6](https://github.com/rodekruis/IBF-system/commit/4893aa605624a28c5bb2161cc8f7f36c3626babc))
 * only email if active trigger AB[#9224](https://github.com/rodekruis/IBF-system/issues/9224) ([e6f4a6a](https://github.com/rodekruis/IBF-system/commit/e6f4a6a5c13ec1bc9be5f2f772a49aebcfa5c63c))
-
-
-
-# [0.86.0](https://github.com/rodekruis/IBF-system/compare/v0.85.0...v0.86.0) (2021-08-23)
-
-
-### Bug Fixes
-
-* remove console.log ([366f3e9](https://github.com/rodekruis/IBF-system/commit/366f3e9fa1f5546be09cc0df0c142239ee303384))
-
-
-### Features
-
-* hide current month for drought except if next April AB[#9130](https://github.com/rodekruis/IBF-system/issues/9130) ([16c80ac](https://github.com/rodekruis/IBF-system/commit/16c80ac6f008fd1712b7fc87408b9aa9fef4449f))
 
 
 
