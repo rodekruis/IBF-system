@@ -1,3 +1,21 @@
+# [0.91.0](https://github.com/rodekruis/IBF-system/compare/v0.90.5...v0.91.0) (2021-09-24)
+
+
+### Bug Fixes
+
+* CHANGE TITLE TEXT IN CENTRAL COLUM TO BOLD AB[#9117](https://github.com/rodekruis/IBF-system/issues/9117) AB[#9482](https://github.com/rodekruis/IBF-system/issues/9482) AB[#9755](https://github.com/rodekruis/IBF-system/issues/9755) ([6e680e8](https://github.com/rodekruis/IBF-system/commit/6e680e8796a9a49ef61ad84b3ec0dd150e9d354a))
+* Changed trigger message AB[#6380](https://github.com/rodekruis/IBF-system/issues/6380) ([877a59e](https://github.com/rodekruis/IBF-system/commit/877a59e0d060b10ee6c214271e80f0a927a84867))
+* label to dummy AB[#6134](https://github.com/rodekruis/IBF-system/issues/6134) ([3cdd3ef](https://github.com/rodekruis/IBF-system/commit/3cdd3efdf2a7f468c28d7baaa937f3132ae398ee))
+* updated message AB[#6380](https://github.com/rodekruis/IBF-system/issues/6380) ([6a01b1e](https://github.com/rodekruis/IBF-system/commit/6a01b1ef292fd6569a176865d20179f01f0a1db8))
+* use dummy for all EGY (and only EGY) actions AB[#9490](https://github.com/rodekruis/IBF-system/issues/9490) ([9ea83f0](https://github.com/rodekruis/IBF-system/commit/9ea83f03579fd31b1e6ae09d1bba3023b1ad8791))
+
+
+### Features
+
+* add-dummy-eap-action AB[#6134](https://github.com/rodekruis/IBF-system/issues/6134) AB[#9490](https://github.com/rodekruis/IBF-system/issues/9490) ([32b43af](https://github.com/rodekruis/IBF-system/commit/32b43af7312067564c79d9a0fe6c3fb2581f9dc5))
+
+
+
 ## [0.90.5](https://github.com/rodekruis/IBF-system/compare/v0.90.4...v0.90.5) (2021-09-24)
 
 
@@ -123,15 +141,6 @@
 * add whatsapp-group link ZWE AB[#9234](https://github.com/rodekruis/IBF-system/issues/9234) ([ba99073](https://github.com/rodekruis/IBF-system/commit/ba99073b1de611fdde9f63ebb0189ea46b8ff311))
 * added layer info popup texts ETH AB[#9143](https://github.com/rodekruis/IBF-system/issues/9143) ([90fa37c](https://github.com/rodekruis/IBF-system/commit/90fa37c61e8459074751309b0d63e41bb4fa12fa))
 * eap-link disaster-specific + update links ETH AB[#9145](https://github.com/rodekruis/IBF-system/issues/9145) AB[#9144](https://github.com/rodekruis/IBF-system/issues/9144) ([0ea8cdb](https://github.com/rodekruis/IBF-system/commit/0ea8cdb8e7285788ffa035847ecf1a482ae267cc))
-
-
-
-## [0.87.1](https://github.com/rodekruis/IBF-system/compare/v0.87.0...v0.87.1) (2021-08-30)
-
-
-### Bug Fixes
-
-* switch to new waterpoints dataset AB[#9112](https://github.com/rodekruis/IBF-system/issues/9112) ([14ef4c8](https://github.com/rodekruis/IBF-system/commit/14ef4c899b9e2c199323b9489e3727a73eed35f3))
 
 
 
