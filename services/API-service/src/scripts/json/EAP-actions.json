@@ -591,7 +591,7 @@
       "id": "drr"
     },
     "action": "drr-1",
-    "label": "DRR preliminary action"
+    "label": "Dummy DRR preliminary action"
   },
   {
     "countryCodeISO3": "ZWE",
@@ -654,7 +654,7 @@
       "id": "drr"
     },
     "action": "drr-1",
-    "label": "DRR preliminary action"
+    "label": "Dummy DRR preliminary action"
   },
   {
     "countryCodeISO3": "EGY",
