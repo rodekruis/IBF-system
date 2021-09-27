@@ -84,7 +84,11 @@ export class ScriptsService {
       mockInput.disasterType === DisasterType.Floods ||
       mockInput.disasterType === DisasterType.HeavyRain
     ) {
-      await this.mockRasterFile(selectedCountry, mockInput.disasterType);
+      await this.mockRasterFile(
+        selectedCountry,
+        mockInput.disasterType,
+        mockInput.triggered,
+      );
     }
   }
 
@@ -294,7 +298,11 @@ export class ScriptsService {
     });
   }
 
-  private async mockRasterFile(selectedCountry, disasterType: DisasterType) {
+  private async mockRasterFile(
+    selectedCountry,
+    disasterType: DisasterType,
+    triggered: boolean,
+  ) {
     for await (const leadTime of selectedCountry.countryActiveLeadTimes) {
       if (
         await this.filterCountryLeadTimesToDisasterLeadTimes(
@@ -305,18 +313,24 @@ export class ScriptsService {
         console.log(
           `Seeding disaster extent raster file for leadtime: ${leadTime} for country: ${selectedCountry.countryCodeISO3}`,
         );
-        const filePrefix =
-          disasterType === DisasterType.Floods
-            ? 'flood_extent'
-            : DisasterType.HeavyRain
-            ? 'rain_rp'
-            : '';
-        const extentFileName = `${filePrefix}_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+
+        let sourceFileName, destFileName;
+        if (disasterType === DisasterType.Floods) {
+          sourceFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+          destFileName = sourceFileName;
+        } else if (disasterType === DisasterType.HeavyRain) {
+          // Use 3-day mock for every lead-time
+          sourceFileName = `rainfall_extent_3-day_${
+            selectedCountry.countryCodeISO3
+          }${triggered ? '-triggered' : ''}.tif`;
+          destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+        }
+
         const file = fs.readFileSync(
-          `./geoserver-volume/raster-files/mock-output/${extentFileName}`,
+          `./geoserver-volume/raster-files/mock-output/${sourceFileName}`,
         );
         const dataObject = {
-          originalname: extentFileName,
+          originalname: destFileName,
           buffer: file,
         };
         await this.adminAreaDynamicDataService.postRaster(
