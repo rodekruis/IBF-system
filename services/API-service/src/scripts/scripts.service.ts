@@ -78,6 +78,12 @@ export class ScriptsService {
         mockInput.disasterType,
         mockInput.triggered,
       );
+    }
+
+    if (
+      mockInput.disasterType === DisasterType.Floods ||
+      mockInput.disasterType === DisasterType.HeavyRain
+    ) {
       await this.mockRasterFile(selectedCountry, mockInput.disasterType);
     }
   }
@@ -289,9 +295,6 @@ export class ScriptsService {
   }
 
   private async mockRasterFile(selectedCountry, disasterType: DisasterType) {
-    if (disasterType !== DisasterType.Floods) {
-      return;
-    }
     for await (const leadTime of selectedCountry.countryActiveLeadTimes) {
       if (
         await this.filterCountryLeadTimesToDisasterLeadTimes(
@@ -302,7 +305,13 @@ export class ScriptsService {
         console.log(
           `Seeding disaster extent raster file for leadtime: ${leadTime} for country: ${selectedCountry.countryCodeISO3}`,
         );
-        const extentFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+        const filePrefix =
+          disasterType === DisasterType.Floods
+            ? 'flood_extent'
+            : DisasterType.HeavyRain
+            ? 'rain_rp'
+            : '';
+        const extentFileName = `${filePrefix}_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
         const file = fs.readFileSync(
           `./geoserver-volume/raster-files/mock-output/${extentFileName}`,
         );
