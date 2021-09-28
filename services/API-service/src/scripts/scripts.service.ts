@@ -43,13 +43,13 @@ export class ScriptsService {
   public async mockAll(mockAllInput: MockAll) {
     const envCountries = process.env.COUNTRIES.split(',');
 
-    for await (let countryCodeISO3 of envCountries) {
+    for await (const countryCodeISO3 of envCountries) {
       const country = await this.countryRepo.findOne({
         where: { countryCodeISO3: countryCodeISO3 },
         relations: ['disasterTypes'],
       });
 
-      for await (let disasterType of country.disasterTypes) {
+      for await (const disasterType of country.disasterTypes) {
         await this.mockCountry({
           secret: mockAllInput.secret,
           countryCodeISO3,
