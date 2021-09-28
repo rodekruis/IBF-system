@@ -10,6 +10,7 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiProperty,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { IsIn, IsNotEmpty, IsString } from 'class-validator';
@@ -51,6 +52,17 @@ export class MockDynamic {
   public readonly removeEvents: boolean;
 }
 
+export class MockAll {
+  @ApiProperty({ example: 'fill_in_secret' })
+  @IsNotEmpty()
+  @IsString()
+  public readonly secret: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  public readonly triggered: boolean;
+}
+
 @Controller('scripts')
 @ApiTags('scripts')
 @ApiBearerAuth()
@@ -90,6 +102,24 @@ export class ScriptsController {
     }
 
     const result = await this.scriptsService.mockCountry(body);
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @ApiOperation({
+    summary: 'Upload mock data for all countries and disaster-types at once',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for all countries and disaster-types',
+  })
+  @Post('/mock-all')
+  public async mockAll(@Body() body: MockAll, @Res() res): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+
+    const result = await this.scriptsService.mockAll(body);
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }

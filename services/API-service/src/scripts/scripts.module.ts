@@ -12,6 +12,7 @@ import { EventModule } from '../api/event/event.module';
 import { UserModule } from '../api/user/user.module';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
+import { CountryEntity } from '../api/country/country.entity';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
       EapActionStatusEntity,
       AdminAreaEntity,
       LeadTimeEntity,
+      CountryEntity,
     ]),
     AdminAreaDynamicDataModule,
     GlofasStationModule,

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
-import { MockDynamic } from './scripts.controller';
+import { MockAll, MockDynamic } from './scripts.controller';
 import countries from './json/countries.json';
 import fs from 'fs';
 import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
@@ -13,6 +13,7 @@ import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { In, Repository } from 'typeorm';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
+import { CountryEntity } from '../api/country/country.entity';
 
 @Injectable()
 export class ScriptsService {
@@ -26,6 +27,8 @@ export class ScriptsService {
   private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
   @InjectRepository(LeadTimeEntity)
   private readonly leadTimeRepo: Repository<LeadTimeEntity>;
+  @InjectRepository(CountryEntity)
+  private readonly countryRepo: Repository<CountryEntity>;
 
   public constructor(
     adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -35,6 +38,27 @@ export class ScriptsService {
     this.adminAreaDynamicDataService = adminAreaDynamicDataService;
     this.glofasStationService = glofasStationService;
     this.eventService = eventService;
+  }
+
+  public async mockAll(mockAllInput: MockAll) {
+    const envCountries = process.env.COUNTRIES.split(',');
+
+    for await (let countryCodeISO3 of envCountries) {
+      const country = await this.countryRepo.findOne({
+        where: { countryCodeISO3: countryCodeISO3 },
+        relations: ['disasterTypes'],
+      });
+
+      for await (let disasterType of country.disasterTypes) {
+        await this.mockCountry({
+          secret: mockAllInput.secret,
+          countryCodeISO3,
+          disasterType: disasterType.disasterType,
+          triggered: mockAllInput.triggered,
+          removeEvents: true,
+        });
+      }
+    }
   }
 
   public async mockCountry(mockInput: MockDynamic) {
