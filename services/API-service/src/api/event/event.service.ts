@@ -3,7 +3,10 @@ import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-a
 /* eslint-disable @typescript-eslint/camelcase */
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { EventPlaceCodeDto } from './dto/event-place-code.dto';
+import {
+  ActivationLogDto,
+  EventPlaceCodeDto,
+} from './dto/event-place-code.dto';
 import { LessThan, MoreThanOrEqual, Repository, In } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -238,6 +241,30 @@ export class EventService {
       );
     }
     return triggeredAreas;
+  }
+
+  public async getActivationLogData(): Promise<ActivationLogDto[]> {
+    return this.eventPlaceCodeRepo
+      .createQueryBuilder('event')
+      .select([
+        'area."countryCodeISO3" AS "countryCodeISO3"',
+        'event."disasterType"',
+        'area."placeCode" AS "placeCode"',
+        'area.name AS name',
+        'event."startDate"',
+        'case when event."manualClosedDate" is not null and event.closed = true then event."manualClosedDate" when event.closed = true then event."endDate" else null end as "endDate"',
+        'event.closed as closed',
+        'case when event."manualClosedDate" is not null then true else false end AS "manuallyClosed"',
+        'disaster."actionsUnit" as "exposureIndicator"',
+        'event."actionsValue" as "exposureValue"',
+        'event."eventPlaceCodeId" as "databaseId"',
+      ])
+      .leftJoin('event.adminArea', 'area')
+      .leftJoin('event.disasterType', 'disaster')
+      .orderBy('area."countryCodeISO3"', 'ASC')
+      .addOrderBy('event."disasterType"', 'ASC')
+      .addOrderBy('area."placeCode"', 'ASC')
+      .getRawMany();
   }
 
   public async getTriggerPerLeadtime(
