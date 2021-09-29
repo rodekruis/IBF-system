@@ -1,5 +1,4 @@
 <div class="containerDiv">
-  
   <div
     *ngFor="let disasterType of disasterTypes"
     (click)="switchDisasterType(disasterType)"
@@ -10,7 +9,6 @@
     <div *ngIf="disasterType.disasterType === selectedDisasterType">
       <ion-icon
         class="ibf"
-       
         [src]="
           disasterType.activeTrigger
             ? disasterTypeMap[disasterType.disasterType].selectedTriggered
@@ -36,7 +34,7 @@
       </ion-icon>
     </div>
     <ion-label
-    data-test="disaster-labelname"
+      data-test="disaster-labelname"
       class="containerThree"
       *ngIf="disasterType.disasterType === selectedDisasterType"
       >{{ disasterType.label }}</ion-label

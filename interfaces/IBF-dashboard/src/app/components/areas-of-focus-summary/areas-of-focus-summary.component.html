@@ -3,23 +3,27 @@
     *ngIf="triggeredAreas?.length"
     class="component-title"
     color="ibf-secondary"
-    data-test="action-title" 
+    data-test="action-title"
   >
     <ion-col size="12" size-md>
       <ion-item lines="none" class="component-title-item" color="ibf-secondary">
         <ion-label>
           <strong
-            [translate]="'areas-of-focus-summary-component.title'" 
+            [translate]="'areas-of-focus-summary-component.title'"
           ></strong>
         </ion-label>
       </ion-item>
     </ion-col>
   </ion-row>
-  <ion-row *ngFor="let areaOfFocus of areasOfFocus" class="ion-no-padding"  data-test="action-summary-types">
+  <ion-row
+    *ngFor="let areaOfFocus of areasOfFocus"
+    class="ion-no-padding"
+    data-test="action-summary-types"
+  >
     <ng-container>
       <ion-col size-lg="8" size-md="8" size-xs="8">
-        <ion-item lines="inset" class="areas-of-focus-item ion-no-padding"       >
-          <ion-thumbnail slot="start" class="areas-of-focus-item-thumbnail"> 
+        <ion-item lines="inset" class="areas-of-focus-item ion-no-padding">
+          <ion-thumbnail slot="start" class="areas-of-focus-item-thumbnail">
             <ion-img src="assets/icons/{{ areaOfFocus.icon }}"></ion-img>
           </ion-thumbnail>
           <ion-label
@@ -31,7 +35,7 @@
         </ion-item>
       </ion-col>
       <ion-col size-lg="4" size-md="4" size-xs="4">
-        <ion-item class="areas-of-focus-item-value ion-no-padding" > 
+        <ion-item class="areas-of-focus-item-value ion-no-padding">
           <ion-label class="ion-text-center">
             <span
               >{{ areaOfFocus.countChecked }} / {{ areaOfFocus.count }}</span

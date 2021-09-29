@@ -8,7 +8,7 @@
         <ion-buttons slot="end">
           <ion-icon name="chevron-back-outline"></ion-icon>
         </ion-buttons>
-        <ion-title data-test="layers-toggle" >Layers</ion-title>
+        <ion-title data-test="layers-toggle">Layers</ion-title>
       </ion-toolbar>
     </ion-header>
   </ion-menu-toggle>
@@ -45,7 +45,6 @@
           <ion-row>
             <ion-col size="8" class="layer-control-label-col">
               <ion-item lines="none" class="ion-no-padding">
-          
                 <ion-label class="ion-no-margin" [title]="layer.label">
                   {{ layer.label }}
                 </ion-label>
@@ -73,7 +72,6 @@
                 layer.name === IbfLayerName.alertThreshold && layer.active
               "
               [style.background]="layer.active ? layer.legendColor : null"
-             
             ></ion-col>
             <ion-col
               size="2"
