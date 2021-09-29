@@ -1,3 +1,12 @@
+# [0.92.0](https://github.com/rodekruis/IBF-system/compare/v0.91.0...v0.92.0) (2021-09-29)
+
+
+### Features
+
+* activation log endpoint AB[#9850](https://github.com/rodekruis/IBF-system/issues/9850) ([5915c0d](https://github.com/rodekruis/IBF-system/commit/5915c0d65fe16a3453640fd257196735292a91e6))
+
+
+
 # [0.91.0](https://github.com/rodekruis/IBF-system/compare/v0.90.5...v0.91.0) (2021-09-24)
 
 
@@ -118,29 +127,6 @@
 * add Dam layer AB[#9155](https://github.com/rodekruis/IBF-system/issues/9155) ([2cf0ff9](https://github.com/rodekruis/IBF-system/commit/2cf0ff9facb25e328ff05bcc3a1d8894a29bb4e9))
 * csv updated AB[#9217](https://github.com/rodekruis/IBF-system/issues/9217) ([71889ab](https://github.com/rodekruis/IBF-system/commit/71889abef60d043b59498b7526df0056c4df05a1))
 * implemented dam layer #AB9154 #AB9155 #AB9217 ([b3ae08f](https://github.com/rodekruis/IBF-system/commit/b3ae08fad54e3e088b64e5e615b7a2ac2f3a8b69)), closes [#AB9154](https://github.com/rodekruis/IBF-system/issues/AB9154) [#AB9155](https://github.com/rodekruis/IBF-system/issues/AB9155) [#AB9217](https://github.com/rodekruis/IBF-system/issues/AB9217)
-
-
-
-# [0.88.0](https://github.com/rodekruis/IBF-system/compare/v0.87.1...v0.88.0) (2021-09-03)
-
-
-### Bug Fixes
-
-* get dynamic data by disaster type AB[#9253](https://github.com/rodekruis/IBF-system/issues/9253) ([afd1dd3](https://github.com/rodekruis/IBF-system/commit/afd1dd34fa7524e6f5f16bf3f9f97541d95450cc))
-* info popup feedback swati AB[#9143](https://github.com/rodekruis/IBF-system/issues/9143) ([22a7c99](https://github.com/rodekruis/IBF-system/commit/22a7c9966b42722a37e5e2c35902e6ebd1a19d36))
-* issue with eap-link AB[#9229](https://github.com/rodekruis/IBF-system/issues/9229) ([44a2fe7](https://github.com/rodekruis/IBF-system/commit/44a2fe73544aec4d9ad30aafc1a1f43e8fda381b))
-* make email more disaster-specific AB[#9213](https://github.com/rodekruis/IBF-system/issues/9213) ([696bc24](https://github.com/rodekruis/IBF-system/commit/696bc24a5d8fdb3a8ed65a499d6be3334a03f06e))
-* make getTriggerPerLeadtime disaster-specific AB[#9242](https://github.com/rodekruis/IBF-system/issues/9242) ([6732351](https://github.com/rodekruis/IBF-system/commit/673235166250b8717363cea9a2e44832be9dcf43))
-* upload 'alert_threshold' as last layer AB[#9235](https://github.com/rodekruis/IBF-system/issues/9235) ([97f376e](https://github.com/rodekruis/IBF-system/commit/97f376eef379f39505cf09a6f029e36d0a35999d))
-
-
-### Features
-
-* add eap-link ZWE AB[#9229](https://github.com/rodekruis/IBF-system/issues/9229) ([9aaec8d](https://github.com/rodekruis/IBF-system/commit/9aaec8dff9f1f0fbb5f12748fc04457034472703))
-* add more info popup texts ETH AB[#9143](https://github.com/rodekruis/IBF-system/issues/9143) ([8eb84d9](https://github.com/rodekruis/IBF-system/commit/8eb84d9f53ad91bbaf33fad7c4a011bcfe7dd69e))
-* add whatsapp-group link ZWE AB[#9234](https://github.com/rodekruis/IBF-system/issues/9234) ([ba99073](https://github.com/rodekruis/IBF-system/commit/ba99073b1de611fdde9f63ebb0189ea46b8ff311))
-* added layer info popup texts ETH AB[#9143](https://github.com/rodekruis/IBF-system/issues/9143) ([90fa37c](https://github.com/rodekruis/IBF-system/commit/90fa37c61e8459074751309b0d63e41bb4fa12fa))
-* eap-link disaster-specific + update links ETH AB[#9145](https://github.com/rodekruis/IBF-system/issues/9145) AB[#9144](https://github.com/rodekruis/IBF-system/issues/9144) ([0ea8cdb](https://github.com/rodekruis/IBF-system/commit/0ea8cdb8e7285788ffa035847ecf1a482ae267cc))
 
 
 
