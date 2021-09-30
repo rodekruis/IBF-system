@@ -1,3 +1,12 @@
+## [0.92.1](https://github.com/rodekruis/IBF-system/compare/v0.92.0...v0.92.1) (2021-09-30)
+
+
+### Bug Fixes
+
+* lint AB[#9299](https://github.com/rodekruis/IBF-system/issues/9299) ([faabe9f](https://github.com/rodekruis/IBF-system/commit/faabe9fb459321e70bae3ac35d0c7dfed7e62a8f))
+
+
+
 # [0.92.0](https://github.com/rodekruis/IBF-system/compare/v0.91.0...v0.92.0) (2021-09-29)
 
 
@@ -103,30 +112,6 @@
 ### Bug Fixes
 
 * login email should support dot character AB[#9307](https://github.com/rodekruis/IBF-system/issues/9307) ([ecec53a](https://github.com/rodekruis/IBF-system/commit/ecec53a58bfca1a5dd65f48bd574cfc6972598a2))
-
-
-
-# [0.89.0](https://github.com/rodekruis/IBF-system/compare/v0.88.0...v0.89.0) (2021-09-06)
-
-
-### Bug Fixes
-
-* changes dam layer AB[#9217](https://github.com/rodekruis/IBF-system/issues/9217) ([5e32bb0](https://github.com/rodekruis/IBF-system/commit/5e32bb0af5469e38d0e81b4a77f7580f18efddfe))
-* error ([dbebaaf](https://github.com/rodekruis/IBF-system/commit/dbebaaf536d86b9c75cdc8eb33d218c61b453c1a))
-* lint AB[#9217](https://github.com/rodekruis/IBF-system/issues/9217) ([3d8609e](https://github.com/rodekruis/IBF-system/commit/3d8609efcee30d64eaa9b12cc859a1c5f9f1efe0))
-* npm test AB[#9217](https://github.com/rodekruis/IBF-system/issues/9217) ([9913112](https://github.com/rodekruis/IBF-system/commit/9913112cbb7e8370b98301cc2ba19dbed8d5aff2))
-* removed spaces from dam site service ([a998319](https://github.com/rodekruis/IBF-system/commit/a998319432ee24ecf3b6455d3f58594dcf9e2da5))
-* review updates ([914e272](https://github.com/rodekruis/IBF-system/commit/914e272bb21fe77e5805ed9605e453b3cb7d8654))
-* seed dam AB[#9154](https://github.com/rodekruis/IBF-system/issues/9154) ([54ef0b4](https://github.com/rodekruis/IBF-system/commit/54ef0b4fe90c5a03a01336bfa50af05b79b8bd2d))
-* seed dam data file updated ([0a76f9a](https://github.com/rodekruis/IBF-system/commit/0a76f9ad7b3d83f35ef4e9a9cf4e0ae83fcc6ab1))
-* test result ([edd0d8a](https://github.com/rodekruis/IBF-system/commit/edd0d8a7c0c015795a08c8b74bf46564898ca5e1))
-
-
-### Features
-
-* add Dam layer AB[#9155](https://github.com/rodekruis/IBF-system/issues/9155) ([2cf0ff9](https://github.com/rodekruis/IBF-system/commit/2cf0ff9facb25e328ff05bcc3a1d8894a29bb4e9))
-* csv updated AB[#9217](https://github.com/rodekruis/IBF-system/issues/9217) ([71889ab](https://github.com/rodekruis/IBF-system/commit/71889abef60d043b59498b7526df0056c4df05a1))
-* implemented dam layer #AB9154 #AB9155 #AB9217 ([b3ae08f](https://github.com/rodekruis/IBF-system/commit/b3ae08fad54e3e088b64e5e615b7a2ac2f3a8b69)), closes [#AB9154](https://github.com/rodekruis/IBF-system/issues/AB9154) [#AB9155](https://github.com/rodekruis/IBF-system/issues/AB9155) [#AB9217](https://github.com/rodekruis/IBF-system/issues/AB9217)
 
 
 
