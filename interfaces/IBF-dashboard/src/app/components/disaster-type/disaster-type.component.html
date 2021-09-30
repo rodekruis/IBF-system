@@ -2,6 +2,7 @@
   <div
     *ngFor="let disasterType of disasterTypes"
     (click)="switchDisasterType(disasterType)"
+    data-test="disaster-Type"
     [ngClass]="{ active: disasterType.disasterType === selectedDisasterType }"
     class="containerOne"
   >
@@ -33,6 +34,7 @@
       </ion-icon>
     </div>
     <ion-label
+      data-test="disaster-labelname"
       class="containerThree"
       *ngIf="disasterType.disasterType === selectedDisasterType"
       >{{ disasterType.label }}</ion-label
