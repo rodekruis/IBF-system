@@ -13,6 +13,7 @@ import { CountryService } from '../../services/country.service';
   styleUrls: ['./disaster-type.component.scss'],
 })
 export class DisasterTypeComponent implements OnInit, OnDestroy {
+  public disasterTypesCounter = 1;
   public disasterTypes: DisasterType[] = [];
   public disasterTypeMap = DISASTER_TYPES_SVG_MAP;
   public selectedDisasterType: DisasterTypeKey;
@@ -35,16 +36,35 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
     this.countrySubscription.unsubscribe();
   }
 
+  private onGetDisasterTypeActiveTrigger = (country) => () => {
+    if (this.disasterTypesCounter >= country.disasterTypes.length - 1) {
+      const activeDisasterType = country.disasterTypes.find(
+        ({ activeTrigger }) => activeTrigger,
+      );
+      if (activeDisasterType) {
+        this.selectedDisasterType =
+          DisasterTypeKey[activeDisasterType.disasterType];
+        this.disasterTypeService.setDisasterType(activeDisasterType);
+      } else {
+        this.selectedDisasterType = this.disasterTypes[0].disasterType;
+      }
+    }
+    this.disasterTypesCounter++;
+  };
+
   private onCountryChange = (country: Country) => {
     if (country) {
       this.disasterTypes = country.disasterTypes;
+      this.disasterTypes.sort((a, b) =>
+        a.disasterType > b.disasterType ? 1 : -1,
+      );
       this.disasterTypes.forEach((disasterType) => {
         this.eventService.getTriggerByDisasterType(
           country.countryCodeISO3,
           disasterType,
+          this.onGetDisasterTypeActiveTrigger(country),
         );
       });
-      this.selectedDisasterType = this.disasterTypes[0].disasterType;
     }
   };
 

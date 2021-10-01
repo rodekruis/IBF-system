@@ -1,4 +1,7 @@
-import { EventPlaceCodeDto } from './dto/event-place-code.dto';
+import {
+  ActivationLogDto,
+  EventPlaceCodeDto,
+} from './dto/event-place-code.dto';
 import { EventService } from './event.service';
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import {
@@ -108,6 +111,21 @@ export class EventController {
     );
   }
 
+  @ApiOperation({
+    summary:
+      'Get trigger activation data per country, disaster-type and admin-area.',
+  })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Trigger activation data per country, disaster-type and admin-area.',
+    type: [ActivationLogDto],
+  })
+  @Get('activation-log')
+  public async getActivationLogData(): Promise<ActivationLogDto[]> {
+    return await this.eventService.getActivationLogData();
+  }
+
   @ApiOperation({ summary: 'Close event for given admin-area.' })
   @ApiResponse({
     status: 201,
@@ -117,6 +135,7 @@ export class EventController {
     status: 404,
     description: 'No admin-area for this event.',
   })
+  @ApiOperation({ summary: 'Close place code event' })
   @Post('close-place-code')
   public async closeEventPcode(
     @Body() eventPlaceCodeDto: EventPlaceCodeDto,

@@ -3,6 +3,7 @@
     *ngIf="triggeredAreas?.length"
     class="component-title"
     color="ibf-secondary"
+    data-test="action-title"
   >
     <ion-col size="12" size-md>
       <ion-item lines="none" class="component-title-item" color="ibf-secondary">
@@ -14,7 +15,11 @@
       </ion-item>
     </ion-col>
   </ion-row>
-  <ion-row *ngFor="let areaOfFocus of areasOfFocus" class="ion-no-padding">
+  <ion-row
+    *ngFor="let areaOfFocus of areasOfFocus"
+    class="ion-no-padding"
+    data-test="action-summary-types"
+  >
     <ng-container>
       <ion-col size-lg="8" size-md="8" size-xs="8">
         <ion-item lines="inset" class="areas-of-focus-item ion-no-padding">

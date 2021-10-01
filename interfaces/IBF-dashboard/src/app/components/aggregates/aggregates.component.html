@@ -4,6 +4,7 @@
       color="ibf-secondary"
       lines="none"
       class="aggregate-header-item"
+      data-test="aggregate-title"
       [title]="
         ('aggregates-component.header-title-prefix' | translate) +
         ' ' +
@@ -52,6 +53,7 @@
               </ion-thumbnail>
               <ion-label class="aggregate-item-label" [title]="indicator.label">
                 <span *ngIf="indicator.weightedAvg"></span>
+
                 {{ indicator.label }}
               </ion-label>
             </ion-item>
@@ -95,12 +97,17 @@
             size-xs="1"
             [title]="'aggregates-component.more-information' | translate"
           >
-            <ion-item class="aggregate-item-information-icon ion-no-padding">
-              <img
-                class="info-img"
-                src="assets/icons/source-info.svg"
-                (click)="moreInfo(indicator)"
-              />
+            <ion-item
+              class="aggregate-item-information-icon ion-no-padding"
+              data-test="icon-row"
+            >
+              <ion-label class="ion-text-center">
+                <img
+                  class="info-img"
+                  src="assets/icons/source-info.svg"
+                  (click)="moreInfo(indicator)"
+                />
+              </ion-label>
             </ion-item>
           </ion-col>
         </ng-container>
