@@ -10,6 +10,7 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiProperty,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { IsIn, IsNotEmpty, IsString } from 'class-validator';
@@ -32,7 +33,7 @@ export class MockDynamic {
   @IsString()
   public readonly secret: string;
   @ApiProperty({ example: 'UGA' })
-  @IsIn(['PHL', 'UGA', 'ZMB', 'ETH', 'ZWE'])
+  @IsIn(['PHL', 'UGA', 'ZMB', 'ETH', 'ZWE', 'EGY'])
   public readonly countryCodeISO3: string;
   @ApiProperty({ example: DisasterType.Floods })
   @IsIn([
@@ -40,6 +41,7 @@ export class MockDynamic {
     DisasterType.Dengue,
     DisasterType.Malaria,
     DisasterType.Drought,
+    DisasterType.HeavyRain,
   ])
   public readonly disasterType: DisasterType;
   @ApiProperty()
@@ -48,6 +50,17 @@ export class MockDynamic {
   @ApiProperty({ example: true })
   @IsNotEmpty()
   public readonly removeEvents: boolean;
+}
+
+export class MockAll {
+  @ApiProperty({ example: 'fill_in_secret' })
+  @IsNotEmpty()
+  @IsString()
+  public readonly secret: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  public readonly triggered: boolean;
 }
 
 @Controller('scripts')
@@ -89,6 +102,24 @@ export class ScriptsController {
     }
 
     const result = await this.scriptsService.mockCountry(body);
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @ApiOperation({
+    summary: 'Upload mock data for all countries and disaster-types at once',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for all countries and disaster-types',
+  })
+  @Post('/mock-all')
+  public async mockAll(@Body() body: MockAll, @Res() res): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+
+    const result = await this.scriptsService.mockAll(body);
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }

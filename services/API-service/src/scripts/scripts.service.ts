@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
-import { MockDynamic } from './scripts.controller';
+import { MockAll, MockDynamic } from './scripts.controller';
 import countries from './json/countries.json';
 import fs from 'fs';
 import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
@@ -13,6 +13,7 @@ import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { In, Repository } from 'typeorm';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
+import { CountryEntity } from '../api/country/country.entity';
 
 @Injectable()
 export class ScriptsService {
@@ -26,6 +27,8 @@ export class ScriptsService {
   private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
   @InjectRepository(LeadTimeEntity)
   private readonly leadTimeRepo: Repository<LeadTimeEntity>;
+  @InjectRepository(CountryEntity)
+  private readonly countryRepo: Repository<CountryEntity>;
 
   public constructor(
     adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -35,6 +38,27 @@ export class ScriptsService {
     this.adminAreaDynamicDataService = adminAreaDynamicDataService;
     this.glofasStationService = glofasStationService;
     this.eventService = eventService;
+  }
+
+  public async mockAll(mockAllInput: MockAll) {
+    const envCountries = process.env.COUNTRIES.split(',');
+
+    for await (const countryCodeISO3 of envCountries) {
+      const country = await this.countryRepo.findOne({
+        where: { countryCodeISO3: countryCodeISO3 },
+        relations: ['disasterTypes'],
+      });
+
+      for await (const disasterType of country.disasterTypes) {
+        await this.mockCountry({
+          secret: mockAllInput.secret,
+          countryCodeISO3,
+          disasterType: disasterType.disasterType,
+          triggered: mockAllInput.triggered,
+          removeEvents: true,
+        });
+      }
+    }
   }
 
   public async mockCountry(mockInput: MockDynamic) {
@@ -78,7 +102,17 @@ export class ScriptsService {
         mockInput.disasterType,
         mockInput.triggered,
       );
-      await this.mockRasterFile(selectedCountry, mockInput.disasterType);
+    }
+
+    if (
+      mockInput.disasterType === DisasterType.Floods ||
+      mockInput.disasterType === DisasterType.HeavyRain
+    ) {
+      await this.mockRasterFile(
+        selectedCountry,
+        mockInput.disasterType,
+        mockInput.triggered,
+      );
     }
   }
 
@@ -288,10 +322,11 @@ export class ScriptsService {
     });
   }
 
-  private async mockRasterFile(selectedCountry, disasterType: DisasterType) {
-    if (disasterType !== DisasterType.Floods) {
-      return;
-    }
+  private async mockRasterFile(
+    selectedCountry,
+    disasterType: DisasterType,
+    triggered: boolean,
+  ) {
     for await (const leadTime of selectedCountry.countryActiveLeadTimes) {
       if (
         await this.filterCountryLeadTimesToDisasterLeadTimes(
@@ -302,12 +337,24 @@ export class ScriptsService {
         console.log(
           `Seeding disaster extent raster file for leadtime: ${leadTime} for country: ${selectedCountry.countryCodeISO3}`,
         );
-        const extentFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+
+        let sourceFileName, destFileName;
+        if (disasterType === DisasterType.Floods) {
+          sourceFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+          destFileName = sourceFileName;
+        } else if (disasterType === DisasterType.HeavyRain) {
+          // Use 3-day mock for every lead-time
+          sourceFileName = `rainfall_extent_3-day_${
+            selectedCountry.countryCodeISO3
+          }${triggered ? '-triggered' : ''}.tif`;
+          destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+        }
+
         const file = fs.readFileSync(
-          `./geoserver-volume/raster-files/mock-output/${extentFileName}`,
+          `./geoserver-volume/raster-files/mock-output/${sourceFileName}`,
         );
         const dataObject = {
-          originalname: extentFileName,
+          originalname: destFileName,
           buffer: file,
         };
         await this.adminAreaDynamicDataService.postRaster(
