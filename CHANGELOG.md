@@ -1,3 +1,12 @@
+## [0.93.1](https://github.com/rodekruis/IBF-system/compare/v0.93.0...v0.93.1) (2021-10-01)
+
+
+### Bug Fixes
+
+* chat intro text bug AB[#9874](https://github.com/rodekruis/IBF-system/issues/9874) ([a3484a4](https://github.com/rodekruis/IBF-system/commit/a3484a4675136f812f2e6dfdde3e9b8828593b49))
+
+
+
 # [0.93.0](https://github.com/rodekruis/IBF-system/compare/v0.92.1...v0.93.0) (2021-10-01)
 
 
@@ -102,25 +111,6 @@
 
 * correct file write path AB[#9379](https://github.com/rodekruis/IBF-system/issues/9379) ([e24d50a](https://github.com/rodekruis/IBF-system/commit/e24d50a46015c9512c2be9e742c45ba8744da268))
 * set volumes correctly AB[#9379](https://github.com/rodekruis/IBF-system/issues/9379) ([06e16d7](https://github.com/rodekruis/IBF-system/commit/06e16d7cfccf4c059e4cc7c0b29bcb1cfa94eb2f))
-
-
-
-# [0.90.0](https://github.com/rodekruis/IBF-system/compare/v0.89.1...v0.90.0) (2021-09-14)
-
-
-### Bug Fixes
-
-* edits separate pipelines AB[#9324](https://github.com/rodekruis/IBF-system/issues/9324) AB[#9325](https://github.com/rodekruis/IBF-system/issues/9325) ([7d7f8fc](https://github.com/rodekruis/IBF-system/commit/7d7f8fca945d5bc3f62c2b1dddae6c61f9627062))
-* make filewrite sync AB[#9321](https://github.com/rodekruis/IBF-system/issues/9321) ([0319545](https://github.com/rodekruis/IBF-system/commit/03195454d9b18de3abf6f784b59361456e32c515))
-
-
-### Features
-
-* add flood extent raster to mock AB[#9333](https://github.com/rodekruis/IBF-system/issues/9333) ([9d1c4ea](https://github.com/rodekruis/IBF-system/commit/9d1c4eada102b27418082d1c866513fb6efbb886))
-* call raster api from pipeline AB[#9330](https://github.com/rodekruis/IBF-system/issues/9330) ([ef14255](https://github.com/rodekruis/IBF-system/commit/ef142551a5b775b2c100feee8764b39a17a3c26c))
-* change geoserver volumes AB[#9322](https://github.com/rodekruis/IBF-system/issues/9322) ([a83c5ed](https://github.com/rodekruis/IBF-system/commit/a83c5eddd536c324a95c46c5d4194166c707abe1))
-* endpoint to post and save raster-files AB[#9321](https://github.com/rodekruis/IBF-system/issues/9321) ([85a116c](https://github.com/rodekruis/IBF-system/commit/85a116c5c16b762ac76b3ed88d50bd678f7795cf))
-* reuse popover for consistent style AB[#9327](https://github.com/rodekruis/IBF-system/issues/9327) ([8a8def7](https://github.com/rodekruis/IBF-system/commit/8a8def7c12a08a8c217e0b3e6b360da3f248932e))
 
 
 
