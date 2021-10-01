@@ -19,65 +19,9 @@
     ></app-about-btn>
     <app-video-guide-button color="ibf-white"></app-video-guide-button>
   </app-dialogue-turn>
-  <!-- New event today -->
+  <!-- Active event -->
   <app-dialogue-turn
-    *ngIf="
-      eventService.state.activeEvent &&
-      eventService.state.activeTrigger &&
-      eventService.state.newEvent
-    "
-  >
-    <p>
-      <span
-        [innerHTML]="
-          'chat-component.' +
-            disasterCategory +
-            'new-event-active-trigger.welcome'
-            | translate
-              : {
-                  name: authService.displayName,
-                  leadTime: eventService.state.triggerLeadTime,
-                  timeUnit: eventService.state.timeUnit,
-                  disasterTypeLabel: disasterTypeLabel,
-                  monthYear: eventService.state.firstLeadTimeName
-                }
-        "
-      >
-      </span>
-      <span
-        *ngIf="eventService.state.newEventEarlyTrigger"
-        [innerHTML]="
-          'chat-component.' +
-            disasterCategory +
-            'new-event-active-trigger.new-event-early-trigger'
-            | translate
-              : {
-                  leadTime: eventService.state.firstLeadTimeLabel,
-                  timeUnit: eventService.state.timeUnit,
-                  disasterTypeLabel: disasterTypeLabel
-                }
-        "
-      ></span>
-    </p>
-    <app-about-btn
-      [btnLabel]="
-        'chat-component.' + disasterCategory + 'about-button-label' | translate
-      "
-      color="ibf-white"
-    >
-    </app-about-btn>
-    <app-video-guide-button
-      data-test="chat-video-guide"
-      color="ibf-white"
-    ></app-video-guide-button>
-  </app-dialogue-turn>
-  <!-- Existing event, still trigger -->
-  <app-dialogue-turn
-    *ngIf="
-      eventService.state.activeEvent &&
-      eventService.state.activeTrigger &&
-      !eventService.state.newEvent
-    "
+    *ngIf="eventService.state.activeEvent && eventService.state.activeTrigger"
   >
     <p
       [innerHTML]="
