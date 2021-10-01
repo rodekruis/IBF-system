@@ -21,10 +21,7 @@
   </app-dialogue-turn>
   <!-- Active event -->
   <app-dialogue-turn
-    *ngIf="
-      eventService.state.activeEvent &&
-      eventService.state.activeTrigger
-    "
+    *ngIf="eventService.state.activeEvent && eventService.state.activeTrigger"
   >
     <p
       [innerHTML]="
