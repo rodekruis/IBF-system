@@ -42,8 +42,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
         ({ activeTrigger }) => activeTrigger,
       );
       if (activeDisasterType) {
-        this.selectedDisasterType =
-          DisasterTypeKey[activeDisasterType.disasterType];
+        this.selectedDisasterType = activeDisasterType.disasterType as DisasterTypeKey;
         this.disasterTypeService.setDisasterType(activeDisasterType);
       } else {
         this.selectedDisasterType = this.disasterTypes[0].disasterType;
