@@ -1,3 +1,12 @@
+## [0.93.2](https://github.com/rodekruis/IBF-system/compare/v0.93.1...v0.93.2) (2021-10-01)
+
+
+### Bug Fixes
+
+* show selected rain icon EGY AB[#9883](https://github.com/rodekruis/IBF-system/issues/9883) ([1be0c0f](https://github.com/rodekruis/IBF-system/commit/1be0c0f6c6d0128c8f4e58e19a8480f9868da862))
+
+
+
 ## [0.93.1](https://github.com/rodekruis/IBF-system/compare/v0.93.0...v0.93.1) (2021-10-01)
 
 
@@ -101,16 +110,6 @@
 * lint AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([b1f7a2e](https://github.com/rodekruis/IBF-system/commit/b1f7a2e2fb06983a5d74e38a16b6c7ab87b8ac9c))
 * lint for AB[#9317](https://github.com/rodekruis/IBF-system/issues/9317) AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([530210f](https://github.com/rodekruis/IBF-system/commit/530210feadb74335385cfe777f2f7e9625329b5b))
 * show triggered disaster and fix left to right order of disaster AB[#9317](https://github.com/rodekruis/IBF-system/issues/9317) AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([85923ae](https://github.com/rodekruis/IBF-system/commit/85923ae2c326ee711e9f7c94c9fc221869505a35))
-
-
-
-## [0.90.1](https://github.com/rodekruis/IBF-system/compare/v0.90.0...v0.90.1) (2021-09-17)
-
-
-### Bug Fixes
-
-* correct file write path AB[#9379](https://github.com/rodekruis/IBF-system/issues/9379) ([e24d50a](https://github.com/rodekruis/IBF-system/commit/e24d50a46015c9512c2be9e742c45ba8744da268))
-* set volumes correctly AB[#9379](https://github.com/rodekruis/IBF-system/issues/9379) ([06e16d7](https://github.com/rodekruis/IBF-system/commit/06e16d7cfccf4c059e4cc7c0b29bcb1cfa94eb2f))
 
 
 
