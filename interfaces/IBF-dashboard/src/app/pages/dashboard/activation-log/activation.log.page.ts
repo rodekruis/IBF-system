@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'activation-log',
+  selector: 'app-activation-log',
   templateUrl: './activation.log.page.html',
   styleUrls: ['./activation.log.page.scss'],
 })
-export class ActivationLogPage implements OnInit {
+export class ActivationLogPage implements OnInit, OnDestroy {
   private activationLogSubscription: Subscription;
   public activationLogs: any[];
 
