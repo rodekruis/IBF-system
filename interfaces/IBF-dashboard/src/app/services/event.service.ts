@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import { TimelineService } from 'src/app/services/timeline.service';
 import {
   LeadTime,
   LeadTimeTriggerKey,
@@ -22,8 +21,6 @@ export class EventService {
     event: null,
     activeEvent: null,
     activeTrigger: null,
-    newEvent: null,
-    newEventEarlyTrigger: null,
     triggerLeadTime: null,
     firstLeadTime: null,
     firstLeadTimeLabel: null,
@@ -32,7 +29,6 @@ export class EventService {
   };
 
   constructor(
-    private timelineService: TimelineService,
     private apiService: ApiService,
     private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
@@ -88,9 +84,6 @@ export class EventService {
     this.state.activeEvent = !!this.state.event;
     this.state.activeTrigger =
       this.state.event && this.state.event.activeTrigger;
-    this.state.newEvent =
-      this.state.event?.startDate ===
-      this.timelineService.state.today.toFormat('yyyy-LL-dd');
     if (event && event.endDate) {
       this.state.event.endDate = this.endDateToLastTriggerDate(
         this.state.event.endDate,
@@ -134,18 +127,18 @@ export class EventService {
 
   private onTriggerPerLeadTime = (timesteps) => {
     let firstKey = null;
-    Object.keys(timesteps).forEach((key) => {
-      if (timesteps[key] === '1') {
-        firstKey = !firstKey ? key : firstKey;
-      }
-    });
+    Object.keys(timesteps)
+      .sort((a, b) => (a > b ? 1 : -1))
+      .forEach((key) => {
+        if (timesteps[key] === '1') {
+          firstKey = !firstKey ? key : firstKey;
+        }
+      });
     this.state.firstLeadTime = firstKey;
     this.state.firstLeadTimeLabel =
       LeadTimeTriggerKey[this.state.firstLeadTime];
     this.getFirstTriggeredString();
     this.getTriggerLeadTime();
-    this.state.newEventEarlyTrigger =
-      firstKey < LeadTimeTriggerKey[this.timelineService.activeLeadTime];
   };
 
   private getFirstTriggeredString(): void {
