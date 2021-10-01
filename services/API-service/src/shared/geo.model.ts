@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class Poi {
   public code: string;
   public name: string;
@@ -19,9 +21,9 @@ export class RedCrossBranch extends Poi {
   public contactNumber: string;
 }
 
-export class GeoJson {
+export class Geometry {
   public type: string;
-  public features: GeoJsonFeature[];
+  public coordinates: number[];
 }
 
 export class GeoJsonFeature {
@@ -30,9 +32,19 @@ export class GeoJsonFeature {
   public properties: object;
 }
 
-export class Geometry {
+export class GeoJson {
+  @ApiProperty({ example: 'FeatureCollection' })
   public type: string;
-  public coordinates: number[];
+  @ApiProperty({
+    example: [
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [] },
+        properties: {},
+      },
+    ],
+  })
+  public features: GeoJsonFeature[];
 }
 
 export class BoundingBox {

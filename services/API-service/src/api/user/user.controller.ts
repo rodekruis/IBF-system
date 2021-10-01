@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserResponseObject } from './user.model';
-import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
+import { CreateUserDto, LoginUserDto } from './dto';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { UserDecorator } from './user.decorator';
 import { ValidationPipe } from '../../shared/pipes/validation.pipe';
@@ -19,10 +19,9 @@ import {
   ApiOperation,
   ApiResponse,
 } from '@nestjs/swagger';
-import { DeleteUserDto } from './dto/delete-user.dto';
 import { RolesGuard } from '../../roles.guard';
 
-@ApiTags('user')
+@ApiTags('-- user --')
 @Controller('user')
 export class UserController {
   private readonly userService: UserService;
@@ -38,10 +37,6 @@ export class UserController {
     description: 'New user email and login token',
     type: UserResponseObject,
   })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden',
-  })
   @UsePipes(new ValidationPipe())
   @Post()
   public async create(
@@ -53,6 +48,16 @@ export class UserController {
   @ApiOperation({ summary: 'Log in existing user' })
   @UsePipes(new ValidationPipe())
   @Post('login')
+  @ApiResponse({
+    status: 201,
+    description:
+      'Email and login token of logged-in user. To use other protected endpoints, copy this token and paste in in the "Authorize" button on top of this page.',
+    type: UserResponseObject,
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'A user with these credentials is not found.',
+  })
   public async login(
     @Body() loginUserDto: LoginUserDto,
   ): Promise<UserResponseObject> {
@@ -73,33 +78,16 @@ export class UserController {
 
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
-  @ApiOperation({ summary: 'Change password of logged in user' })
-  @Post('change-password')
-  public async update(
-    @UserDecorator('id') userId: string,
-    @Body() userData: UpdatePasswordDto,
-  ): Promise<UserResponseObject> {
-    return this.userService.update(userId, userData);
-  }
-
-  @ApiBearerAuth()
-  @UseGuards(RolesGuard)
-  @ApiOperation({ summary: 'Get current user' })
+  @ApiOperation({ summary: 'Get currently logged-in user' })
+  @ApiResponse({
+    status: 200,
+    description: 'Email and login token of currently logged-in user.',
+    type: UserResponseObject,
+  })
   @Get()
   public async findMe(
     @UserDecorator('email') email: string,
   ): Promise<UserResponseObject> {
     return await this.userService.findByEmail(email);
-  }
-
-  @ApiBearerAuth()
-  @UseGuards(RolesGuard)
-  @ApiOperation({ summary: 'Delete current user and storage' })
-  @Post('delete')
-  public async deleteAccount(
-    @UserDecorator('id') userId: string,
-    @Body() passwordData: DeleteUserDto,
-  ): Promise<void> {
-    return await this.userService.deleteAccount(userId, passwordData);
   }
 }

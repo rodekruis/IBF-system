@@ -15,6 +15,7 @@ import {
   ApiConsumes,
   ApiOperation,
   ApiParam,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
@@ -36,7 +37,15 @@ export class AdminAreaDataController {
 
   @UseGuards(RolesGuard)
   @ApiOperation({
-    summary: 'Upload (and overwrite) indicator data via CSV',
+    summary: 'Upload (and overwrite) static admin-area data via CSV',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded static admin-area data',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Validation errors in content of CSV',
   })
   @Post('upload/csv')
   @ApiConsumes('multipart/form-data')
@@ -58,7 +67,11 @@ export class AdminAreaDataController {
 
   @UseGuards(RolesGuard)
   @ApiOperation({
-    summary: 'Upload (and overwrite) indicator data via JSON',
+    summary: 'Upload (and overwrite) static admin-area data via JSON',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded static admin-area data',
   })
   @Post('upload/json')
   @ApiConsumes()
@@ -69,10 +82,18 @@ export class AdminAreaDataController {
     await this.adminAreaDataService.uploadJson(dataPlaceCode);
   }
 
-  @ApiOperation({ summary: 'Get admin-area data' })
+  @ApiOperation({
+    summary:
+      'Get static indicator data per admin-area for given indicator and country.',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description: 'Static data per admin-area for given indicator and country',
+    type: [AdminDataReturnDto],
+  })
   @Get(':countryCodeISO3/:adminLevel/:indicator')
   public async getAdminAreaData(
     @Param() params,

@@ -77,7 +77,11 @@ export class ScriptsController {
     this.scriptsService = scriptsService;
   }
 
-  @ApiOperation({ summary: 'Reset database' })
+  @ApiOperation({ summary: 'Reset database with original seed data' })
+  @ApiResponse({
+    status: 202,
+    description: 'Database reset with original seed data.',
+  })
   @Post('/reset')
   public async resetDb(@Body() body: ResetDto, @Res() res): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {
@@ -88,10 +92,17 @@ export class ScriptsController {
     await seed.run();
     return res
       .status(HttpStatus.ACCEPTED)
-      .send('Request received. The reset can take a minute.');
+      .send('Database reset with original seed data.');
   }
 
-  @ApiOperation({ summary: 'Mock dynamic data' })
+  @ApiOperation({
+    summary: 'Mock pipeline data for given country and disaster-type',
+  })
+  @ApiResponse({
+    status: 202,
+    description:
+      'Successfully uploaded mock pipeline data for given country and disaster-type.',
+  })
   @Post('/mock-dynamic-data')
   public async mockDynamic(
     @Body() body: MockDynamic,
@@ -101,9 +112,11 @@ export class ScriptsController {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
 
-    const result = await this.scriptsService.mockCountry(body);
+    await this.scriptsService.mockCountry(body);
 
-    return res.status(HttpStatus.ACCEPTED).send(result);
+    return res
+      .status(HttpStatus.ACCEPTED)
+      .send('Successfully uploaded mock pipeline data.');
   }
 
   @ApiOperation({

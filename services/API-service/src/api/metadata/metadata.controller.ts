@@ -3,6 +3,7 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
@@ -21,9 +22,18 @@ export class MetadataController {
     this.metadataService = metadataService;
   }
 
-  @ApiOperation({ summary: 'Get indicator metadata' })
+  @ApiOperation({
+    summary:
+      'Get metadata on all indicators (admin-area-layers) for given country and disaster-type',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Rainfall trigger levels per coordinate and lead-time for given country.',
+    type: [IndicatorMetadataEntity],
+  })
   @Get('indicators/:countryCodeISO3/:disasterType')
   public async getIndicators(
     @Param() params,
@@ -34,9 +44,17 @@ export class MetadataController {
     );
   }
 
-  @ApiOperation({ summary: 'Get layer metadata' })
+  @ApiOperation({
+    summary: 'Get metadata on all layers for given country and disaster-type',
+  })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Rainfall trigger levels per coordinate and lead-time for given country.',
+    type: [LayerMetadataEntity],
+  })
   @Get('layers/:countryCodeISO3/:disasterType')
   public async getLayers(@Param() params): Promise<LayerMetadataEntity[]> {
     return await this.metadataService.getLayersByCountry(

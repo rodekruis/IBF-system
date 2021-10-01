@@ -1,4 +1,9 @@
-import { HttpService, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpService,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { WKTStringFromGeometry } from 'wkt-io-ts';
 import { isRight } from 'fp-ts/lib/Either';
@@ -21,6 +26,9 @@ export class WaterpointsService {
     countryCodeISO3: string,
   ): Promise<AxiosResponse<GeoJson>> {
     const country = await this.countryService.findOne(countryCodeISO3);
+    if (!country) {
+      throw new HttpException('Country not found', HttpStatus.NOT_FOUND);
+    }
 
     const countryWkt = WKTStringFromGeometry.decode(country.countryBoundingBox);
     if (!isRight(countryWkt)) {

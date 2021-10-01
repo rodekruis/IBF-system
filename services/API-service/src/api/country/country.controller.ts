@@ -1,5 +1,10 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
@@ -15,7 +20,14 @@ export class CountryController {
     this.countryService = countryService;
   }
 
-  @ApiOperation({ summary: 'Get country data' })
+  @ApiOperation({
+    summary: 'Get available countries including their attributes',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Available countries including their attributes.',
+    type: [CountryEntity],
+  })
   @Get()
   public async getCountries(): Promise<CountryEntity[]> {
     return await this.countryService.findAll();

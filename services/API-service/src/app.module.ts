@@ -18,6 +18,7 @@ import { HealthSiteModule } from './api/health-site/health-site.module';
 import { DamSiteModule } from './api/dam-site/dam-site.module';
 import { RainfallTriggersModule } from './api/rainfall-triggers/rainfall-triggers.module';
 import { NotificationModule } from './api/notification/notification.module';
+import { UserModule } from './api/user/user.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { NotificationModule } from './api/notification/notification.module';
     AdminAreaDataModule,
     RainfallTriggersModule,
     NotificationModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [],

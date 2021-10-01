@@ -1,7 +1,12 @@
 import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
 import { EapActionsService } from './eap-actions.service';
 import { UserDecorator } from '../user/user.decorator';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { EapActionDto } from './dto/eap-action.dto';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
@@ -18,7 +23,12 @@ export class EapActionsController {
     this.eapActionsService = eapActionsService;
   }
 
-  @ApiOperation({ summary: 'Check EAP actions as done' })
+  @ApiOperation({ summary: 'Toggle status of EAP-action' })
+  @ApiResponse({
+    status: 201,
+    description: 'Updated status of EAP-action.',
+    type: EapActionStatusEntity,
+  })
   @Post()
   public async checkAction(
     @UserDecorator('id') userId: string,
@@ -27,7 +37,12 @@ export class EapActionsController {
     return await this.eapActionsService.checkAction(userId, eapAction);
   }
 
-  @ApiOperation({ summary: 'Get areas of focus' })
+  @ApiOperation({ summary: 'Get Areas of Focus (categories of EAP-actions)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Areas of focus.',
+    type: [AreaOfFocusEntity],
+  })
   @Get('areas-of-focus')
   public async getAreasOfFocus(): Promise<AreaOfFocusEntity[]> {
     return await this.eapActionsService.getAreasOfFocus();

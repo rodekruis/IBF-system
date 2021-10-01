@@ -3,9 +3,10 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { GeoJson } from '../../shared/geo.model';
+import { GeoJson, RedCrossBranch } from '../../shared/geo.model';
 import { RolesGuard } from '../../roles.guard';
 import { RedcrossBranchService } from './redcross-branch.service';
 
@@ -20,8 +21,13 @@ export class RedcrossBranchController {
     this.redcrossBranchService = redcrossBranchService;
   }
 
-  @ApiOperation({ summary: 'Get Red Cross branches by country' })
+  @ApiOperation({ summary: 'Get Red Cross branches for given country' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description: 'Red Cross branch locations and attributes in GEOJSON format',
+    type: GeoJson,
+  })
   @Get(':countryCodeISO3')
   public async getBranches(@Param() params): Promise<GeoJson> {
     return await this.redcrossBranchService.getBranchesByCountry(

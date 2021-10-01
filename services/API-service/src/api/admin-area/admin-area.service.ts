@@ -26,16 +26,10 @@ export class AdminAreaService {
 
   private helperService: HelperService;
   private eventService: EventService;
-  private countryService: CountryService;
 
-  public constructor(
-    helperService: HelperService,
-    eventService: EventService,
-    countryService: CountryService,
-  ) {
+  public constructor(helperService: HelperService, eventService: EventService) {
     this.helperService = helperService;
     this.eventService = eventService;
-    this.countryService = countryService;
   }
 
   public async getAdminAreasRaw(countryCodeISO3): Promise<any[]> {
