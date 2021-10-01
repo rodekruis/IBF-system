@@ -312,4 +312,8 @@ export class ApiService {
       false,
     );
   }
+
+  getActivationLogs() {
+    return this.get('event/activation-log', false);
+  }
 }

@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { SharedModule } from 'src/app/shared.module';
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
 import { DashboardPage } from './dashboard.page';
+import { ActivationLogPage } from './activation-log/activation.log.page';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { DashboardPage } from './dashboard.page';
     SharedModule,
     DashboardPageRoutingModule,
   ],
-  declarations: [DashboardPage],
+  declarations: [DashboardPage, ActivationLogPage],
 })
 export class DashboardPageModule {}
