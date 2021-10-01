@@ -24,12 +24,6 @@ services:
         volumes:
             - ./interfaces/IBF-dashboard:/home/node/app
 
-    ibf-pipeline:
-        ports:
-            - 5432:5432
-        volumes:
-            - ./services/IBF-pipeline:/home/ibf
-
     ibf-geoserver:
         ports:
             - 8081:8080
