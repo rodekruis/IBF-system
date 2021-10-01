@@ -1,3 +1,21 @@
+# [0.93.0](https://github.com/rodekruis/IBF-system/compare/v0.92.1...v0.93.0) (2021-10-01)
+
+
+### Bug Fixes
+
+* lint ([3e979a5](https://github.com/rodekruis/IBF-system/commit/3e979a5a1e5034d9a2ff52236924a457ab319d27))
+* no rainfall extent if no trigger (mock) AB[#9498](https://github.com/rodekruis/IBF-system/issues/9498) ([e3e6949](https://github.com/rodekruis/IBF-system/commit/e3e69496aa7ee851028b5a6e3d1b4e7c8d29bb79))
+* remove KEN from .env until needed AB[#9498](https://github.com/rodekruis/IBF-system/issues/9498) ([c86e5cb](https://github.com/rodekruis/IBF-system/commit/c86e5cb6403eff1aadd64378af83bdc1f8167a6f))
+* show admin1 boundaries EGY AB[#9885](https://github.com/rodekruis/IBF-system/issues/9885) ([e73da71](https://github.com/rodekruis/IBF-system/commit/e73da714e0154247099802e539f3306e5196faef))
+
+
+### Features
+
+* add egypt to mock-endpoint AB[#9498](https://github.com/rodekruis/IBF-system/issues/9498) ([234d332](https://github.com/rodekruis/IBF-system/commit/234d33278d53ba21823429953d0ea1e1731b080e))
+* add endpoint to mock all at once AB[#9498](https://github.com/rodekruis/IBF-system/issues/9498) ([2c0fb6e](https://github.com/rodekruis/IBF-system/commit/2c0fb6e95a7b65a19418c93278c2dd9f703a1d7e))
+
+
+
 ## [0.92.1](https://github.com/rodekruis/IBF-system/compare/v0.92.0...v0.92.1) (2021-09-30)
 
 
@@ -103,15 +121,6 @@
 * change geoserver volumes AB[#9322](https://github.com/rodekruis/IBF-system/issues/9322) ([a83c5ed](https://github.com/rodekruis/IBF-system/commit/a83c5eddd536c324a95c46c5d4194166c707abe1))
 * endpoint to post and save raster-files AB[#9321](https://github.com/rodekruis/IBF-system/issues/9321) ([85a116c](https://github.com/rodekruis/IBF-system/commit/85a116c5c16b762ac76b3ed88d50bd678f7795cf))
 * reuse popover for consistent style AB[#9327](https://github.com/rodekruis/IBF-system/issues/9327) ([8a8def7](https://github.com/rodekruis/IBF-system/commit/8a8def7c12a08a8c217e0b3e6b360da3f248932e))
-
-
-
-## [0.89.1](https://github.com/rodekruis/IBF-system/compare/v0.89.0...v0.89.1) (2021-09-06)
-
-
-### Bug Fixes
-
-* login email should support dot character AB[#9307](https://github.com/rodekruis/IBF-system/issues/9307) ([ecec53a](https://github.com/rodekruis/IBF-system/commit/ecec53a58bfca1a5dd65f48bd574cfc6972598a2))
 
 
 
