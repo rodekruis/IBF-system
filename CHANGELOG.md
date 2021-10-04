@@ -1,3 +1,18 @@
+# [0.95.0](https://github.com/rodekruis/IBF-system/compare/v0.94.0...v0.95.0) (2021-10-04)
+
+
+### Bug Fixes
+
+* correct english AB[#9873](https://github.com/rodekruis/IBF-system/issues/9873) ([58a5f0c](https://github.com/rodekruis/IBF-system/commit/58a5f0ce673864cfb45e2a11c1ee218928f52d75))
+* improved UX copy chat-text AB[#9873](https://github.com/rodekruis/IBF-system/issues/9873) ([1b6e0af](https://github.com/rodekruis/IBF-system/commit/1b6e0af0cbf47da7b78173f3079e210194cd27cf))
+
+
+### Features
+
+* add uncertainty to leadtime text in dashboard and email AB[#9873](https://github.com/rodekruis/IBF-system/issues/9873) ([267b1b1](https://github.com/rodekruis/IBF-system/commit/267b1b18dbf8ff319d379f835d60942bb205bae4))
+
+
+
 # [0.94.0](https://github.com/rodekruis/IBF-system/compare/v0.93.2...v0.94.0) (2021-10-04)
 
 
@@ -110,15 +125,6 @@
 ### Bug Fixes
 
 * changed title text to bold ([6f45ca6](https://github.com/rodekruis/IBF-system/commit/6f45ca64cb686b0521741ab13f351f5638c9aa50))
-
-
-
-## [0.90.3](https://github.com/rodekruis/IBF-system/compare/v0.90.2...v0.90.3) (2021-09-21)
-
-
-### Bug Fixes
-
-* input autofill style should be readable AB[#9486](https://github.com/rodekruis/IBF-system/issues/9486) ([b7cf6c2](https://github.com/rodekruis/IBF-system/commit/b7cf6c28a276b2ddfb38a9d332b901154a6a59c0))
 
 
 
