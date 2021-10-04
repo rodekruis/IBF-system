@@ -16,7 +16,6 @@ jobs:
         outputs:
             ibf-api-service: ${{ steps.filter.outputs.ibf-api-service }}
             ibf-dashboard: ${{ steps.filter.outputs.ibf-dashboard }}
-            ibf-pipeline: ${{ steps.filter.outputs.ibf-pipeline }}
 
         steps:
             - uses: actions/checkout@v2
@@ -28,8 +27,6 @@ jobs:
                         - "services/API-service/**"
                       ibf-dashboard:
                         - "interfaces/IBF-dashboard/**"
-                      ibf-pipeline:
-                        - "services/IBF-pipeline/**"
 
     ibf-api-service:
         needs: detect-changes
@@ -86,23 +83,8 @@ jobs:
             - run: docker build . --file Dockerfile --tag
                   rodekruis/ibf-dashboard:$(date +%s)
 
-    ibf-pipeline:
-        needs: detect-changes
-        if: ${{ needs.detect-changes.outputs.ibf-pipeline == 'true' }}
-
-        runs-on: ubuntu-latest
-
-        defaults:
-            run:
-                working-directory: "services/IBF-pipeline"
-
-        steps:
-            - uses: actions/checkout@v2
-            - run: docker build . --file Dockerfile --tag
-                  rodekruis/ibf-pipeline:$(date +%s)
-
     bump-version:
-        needs: [ibf-api-service, ibf-dashboard, ibf-pipeline]
+        needs: [ibf-api-service, ibf-dashboard]
         if: |
             always() &&
             github.event_name == 'push'

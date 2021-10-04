@@ -11,29 +11,29 @@
 **NOTE**: For now some background on IBF-terminology (e.g. triggers) is
 expected. This can be expanded on later.
 
-This is the repository for the IBF-system. It includes 2 main components.
+This is the repository for the IBF-system. It includes 2 main folders.
 
 1. [Services (backend)](./services/)
 
--   The `trigger model development scripts` are automated through (e.g. a daily
-    running) pipeline.
--   Results (as well as other related data) are stored in a database
--   Database content is returned through API-calls to some interface
+-   API-service 
+  - which accepts input from various IBF-pipelines, that upload impact forecast data to the IBF-system on regular intervals. (See 'Dependencies' below.)
+  - and which lets the IBF-dashboard - or other authorized accounts - retrieve data from the IBF-database. 
 
 2. [Interfaces (frontend)](./interfaces/)
 
--   Visualization of model results through dashboards
--   Dashboards might move from read-only to write-applications, where users can
-    also add (secondary) data through an interface
+-   IBF-dashboard
+  - showing all impact forecast data - either leading to a trigger or not - in a visual portal
+
+## Dependencies
+
+- The IBF-dashboard will not show meaningful information (or even load correctly) without impact forecast data being uploaded to it.
+- This data is provided by separate IBF-pipelines, that are not part of this repository, but are strongly connected.
+- See the 510 IBF Project Document for more info and links to the 510-instances of these pipelines per disaster-type.
+- For development/testing purposes, there are mock-endpoints and mock-data available to replace the need for these pipelines. (See 'Load local database with data' below.)
 
 ## System design (draft)
 
 ![IBF-system design (draft)](./system-design/ibf-system-design.PNG)
-
-## Prequisites
-
-The IBF-pipeline for GloFAS needs separate resources to be present (see
-services/IBF-pipeline/README.md)
 
 ## Installation
 
@@ -75,7 +75,7 @@ For IBF-dashboard
 - `cd interfaces/IBF-dashboard`
 - `npm start`
 
-Suggestion: only load IBF-dashboard outside of Docker. This has the benefit that changes in front-end code are immediately reflected, instead of having to rebuild.
+Suggestion: load everything through Docker, except IBF-dashboard. This has the benefit that changes in front-end code are immediately reflected, instead of having to rebuild.
 - `docker-compose up -d`
 - `docker-compose stop ibf-dashboard`
 - `cd interfaces/IBF-dashboard`
@@ -94,12 +94,11 @@ are connected to a database-server). For setting up a fully working version of t
     - `mock-output`-foldermock output raster files that are used by the mock-endpoint (see below)
     - `output`-folder: currently empty, but any raster files that are posted to the API-service by IBF-pipelines (or mock endpoint) will be stored here, and Geoserver will be able to read them from here. 
 3. Post 1st batch of dynamic data to database
-  - by running IBF-pipeline (floods & heavy-rain only): 
-    - `docker-compose exec ibf-pipeline python3 runPipeline.py`
-    - change country-settings to mock in `secrets.py` for mocked data
-  - by calling mock-endpoint (UGA, ETH, PHL, ZMB, ZWE only)
-    - see API documentation: http://localhost:3000/docs/#/scripts/ScriptsController_mockDynamic
-    - call this endpoint once per country, per disasterType
+  - by calling mock-endpoint
+    - see API documentation: http://localhost:3000/docs/#/scripts
+    - run for all countries and disaster-type at once: http://localhost:3000/docs/#/scripts/ScriptsController_mockAll 
+    - or run for 1 country and 1 disaster-type: http://localhost:3000/docs/#/scripts/ScriptsController_mockDynamic
+  - or by having external pipeline make a call to IBF-system
 
 Adding new data
 
@@ -113,7 +112,7 @@ Adding new data
 
 These commands will install the IBF-system with listeners at,
 
-1. [localhost](http://localhost) for the web server
+1. [localhost:3000/docs](http://localhost:3000/docs) for the API-service documentation
 2. \*development only - [localhost:4200](http://localhost:4200) for the web
    interface
 
@@ -208,6 +207,8 @@ to execute each step, without further knowledge. Ask a developer who knows more.
 
 ### Adding country with disaster type _Floods_
 
+NOTE: outdated!! Check with developers first.
+
 1. IBF-API-Service
     - Users:
         - Add user for country to src/scripts/users.json
@@ -236,7 +237,7 @@ to execute each step, without further knowledge. Ask a developer who knows more.
       other data that is not yet included in seed-script
         - COVID risk data (.csv) > uploaded through specifically created
           endpoint
-3. Geodata for IBF-pipline and IBF-geoserver (look at existing countries and
+3. Geodata for IBF-pipeline and IBF-geoserver (look at existing countries and
    files for examples in terms of format)
     - Save in `services/IBF-pipeline/pipeline/data` in the right subfolder ..
         - Flood extent raster (for at least 1 return period) + an 'empty' raster
@@ -301,11 +302,13 @@ to execute each step, without further knowledge. Ask a developer who knows more.
 
 ### Adding country with disaster type _Heavy rainfall_
 
+NOTE: outdated!! Check with developers first.
+
 -   Follow the 'flood' manual above as much as possible, with notable exceptions
 -   Input data database
     -   Rainfall_station_locations_with_trigger_levels.csv > currently not
         included in seed-script yet, but manually uploaded (through runSetup.py)
--   Input dat pipeline
+-   Input data pipeline
     -   There is no equivalent input to the flood extent raster. This is created
         in the pipeline.
 -   Add country in IBF-pipeline settings.py with model = 'rainfall'

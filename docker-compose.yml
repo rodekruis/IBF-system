@@ -75,25 +75,6 @@ services:
         networks:
             web-server-network:
 
-    ibf-pipeline:
-        build: ./services/IBF-pipeline
-        image: rodekruis/ibf-pipeline
-        environment:
-            - DB_HOST=${DB_HOST}
-            - DB_PORT=${DB_PORT}
-            - DB_DATABASE=${DB_DATABASE}
-            - DB_USERNAME=${DB_USERNAME}
-            - DB_PASSWORD=${DB_PASSWORD}
-            - COUNTRIES=${COUNTRIES}
-            - DASHBOARD_URL=${DASHBOARD_URL}
-            - EMAIL_NOTIFICATION=${EMAIL_NOTIFICATION}
-        command: /bin/sh ./entrypoint.sh
-        volumes:
-            - pipeline-root:/home/ibf
-        networks:
-            api-network:
-        restart: unless-stopped
-
     ibf-geoserver:
         image: kartoza/geoserver
         volumes:
@@ -106,11 +87,6 @@ services:
 
 volumes:
     ibf-dashboard-root:
-    pipeline-root:
-        driver_opts:
-            type: bind
-            device: ./services/IBF-pipeline
-            o: bind
     api-root:
         driver_opts:
             type: bind

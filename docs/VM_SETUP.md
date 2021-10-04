@@ -74,7 +74,7 @@
         4. `sudo chmod -R g+rwX /home/ibf-user/IBF-system`
            [Source](https://stackoverflow.com/a/6448326/1753041)
     2. Setup Environment Variables
-        1. Create `services/IBF-pipeline/pipeline/secrets.py`
+        1. [OLD - PIPELINE DECOUPLED NOW]: Create `services/IBF-pipeline/pipeline/secrets.py`
             1. `cp /home/ibf-user/IBF-system/services/IBF-pipeline/pipeline/secrets.py.template /home/ibf-user/IBF-system/services/IBF-pipeline/pipeline/secrets.py`
             2. Set the appropriate values in the
                `/home/ibf-user/IBF-system/services/IBF-pipeline/pipeline/secrets.py`
@@ -93,20 +93,17 @@
         5. `sudo service webhook start`
         6. Verification - `sudo service webhook status`
     4. `. tools/deploy.sh`
-4. Load base data for pipeline
+4. Set up geoserver
     1. Download
-       [these 2 data files](https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-08-27T22%3A00%3A00.000Z&e=MnocDf)
-    2. Unzip the files using `apt install unzip` and `unzip data.zip`,
-        1. `geodata.zip` into `services/IBF-pipeline/geoserver/geodata/`
-        2. `data.zip` into `services/IBF-pipeline/pipeline/data/`
-    3. You can verify that the pipeline runs correctly by going into the
-       container (`docker-compose exec ibf-pipeline bash`) and running
-       `python3 runPipeline.py`
-    4. The pipeline will run automatically every day through a cron job, which
-       requires no additional set-up.
-5. Verify if the geoserver is set up correctly.
-    1. Check if the [Geoserver](http://ibf.510.global/geoserver/web) contains
+       [raster-files.zip](https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-08-27T22%3A00%3A00.000Z&e=MnocDf)
+    2. Unzip the files using `apt install unzip` and `unzip raster-files.zip`, into  `services/API-service/geoserver-volume/raster-files/`
+    3. Check if the [Geoserver](http://ibf.510.global/geoserver/web) contains
        necessary layers.
+5. Verify that external pipeline works correctly
+    1. There should be an external pipeline able to upload impact forecast data to this VM. Please check this together with the pipeline owner or the applicable disaster-types.
+        - Pipeline runs without error
+        - Dashboard shows correct data (including disaster-extent raster)
+        - Email is received if applicable
 
 ### Useful Commands / Tools
 

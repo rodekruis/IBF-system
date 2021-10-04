@@ -23,39 +23,36 @@ If there is a problem with your existing database schema, you can always try to 
 - Wait until done. Check via `docker-compose logs -f ibf-api-service`
 - As always (see main [README](../README.md))
     - Run the seed-script
-    - Run pipeline or mock-endpoint
+    - Run mock-endpoint (or external pipeline)
 
 
 ### Supporting docker commands
 These below commands come in handy when you face such issue:
-1 The Docker compose command starts and runs your entire app:
+- The Docker compose command starts and runs your entire app:
     docker-compose up
 
-2 For dev environment we can use:
+- For dev environment we can use:
     docker-compose -f docker-compose.yml -f docker-compose.override.yml up
 
-3 Execute this will create a container named ibf-api-service and start a Bash session:
+- Execute this will create a container named ibf-api-service and start a Bash session:
     docker-compose exec ibf-api-service bash
 
-4 Execute this command will run the ibf-pipeline for all countries:
-    docker-compose exec ibf-pipeline python3 runPipeline.py
-
-5 To run seed script:
+- To run seed script:
     docker-compose exec ibf-api-service npm run seed
 
-6 Detached mode (-d) run command in the background:
+- Detached mode (-d) run command in the background:
     docker-compose up -d ibf-api-service:
 
-7 Create the Docker image from the Dockerfile in this folder through:
+- Create the Docker image from the Dockerfile in this folder through:
     docker build -t ibf-api-service
 
-8 To check the logs of IBF-api-service:
+- To check the logs of IBF-api-service:
     docker-compose logs -f ibf-api-service
 
-9 To restart the IBF-api-service in docker:
+- To restart the IBF-api-service in docker:
     docker-compose restart ibf-api-service
 
-10 To install the IBF-api-services:
+- To install the IBF-api-services:
     docker-compose exec ibf-api-service npm install 
 
 
