@@ -38,18 +38,17 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     if (items.length === 0) {
       return '';
     }
-    const cleanValues = (_key, value): any => (value === null ? '' : value);
 
-    const columns = Object.keys(items[0]);
+    const rowHeaders = Object.keys(items[0]);
 
-    let rows = items.map((row) =>
-      columns
-        .map((fieldName) => JSON.stringify(row[fieldName], cleanValues))
+    const rowList = items.map((rowData) =>
+      rowHeaders
+        .map((fieldName) => JSON.stringify(rowData[fieldName]))
         .join(', '),
     );
 
-    rows.unshift(columns.join(', ')); // Add header row
+    rowList.unshift(rowHeaders.join(', ')); // Add header row
 
-    return rows;
+    return rowList;
   }
 }
