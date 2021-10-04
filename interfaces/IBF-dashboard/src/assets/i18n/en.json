@@ -114,7 +114,7 @@
         "welcome": "Hello {{ name }}. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
       },
       "active-event-active-trigger": {
-        "welcome": "Hello {{ name }}. A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is now <strong>estimated around {{ leadTime }} {{ timeUnit }}(s)</strong> away."
+        "welcome": "Hello {{ name }}. A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
       },
       "active-event-no-trigger": {
         "welcome": "Hello {{ name }}. There is <strong>no active trigger</strong> any more (as can be seen in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
