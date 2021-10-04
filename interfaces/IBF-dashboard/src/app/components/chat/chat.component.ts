@@ -142,6 +142,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
+    const disasterTypesWithSpecificText = [
+      DisasterTypeKey.dengue,
+      DisasterTypeKey.heavyRain,
+      DisasterTypeKey.malaria,
+    ];
     if (disasterType) {
       this.disasterTypeLabel = disasterType.label;
       this.disasterTypeName = disasterType.disasterType;
@@ -149,8 +154,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       const updateSuccesSelector = 'update-success';
       const updateFailureSelector = 'update-failure';
       if (
-        this.disasterTypeName === DisasterTypeKey.dengue ||
-        this.disasterTypeName === DisasterTypeKey.malaria
+        disasterTypesWithSpecificText.includes(
+          this.disasterTypeName as DisasterTypeKey,
+        )
       ) {
         this.updateSuccessMessage = this.translatedStrings[
           this.disasterTypeName
