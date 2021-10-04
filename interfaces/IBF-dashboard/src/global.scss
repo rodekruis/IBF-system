@@ -25,6 +25,15 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+// Workaround for touch-screen laptops
+// See: https://github.com/ionic-team/ionic-framework/issues/19942#issuecomment-621944260
+// See: https://github.com/ionic-team/ionic-framework/blob/4.11.x/core/src/components/app/app.scss
+@media (any-pointer: fine) {
+  html.plt-mobile ion-app {
+    user-select: auto;
+  }
+}
+
 .mock-scenario-alert {
   --width: 50%;
   --max-width: 500px;

@@ -244,7 +244,7 @@ export class EventService {
   }
 
   public async getActivationLogData(): Promise<ActivationLogDto[]> {
-    return this.eventPlaceCodeRepo
+    return await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."countryCodeISO3" AS "countryCodeISO3"',
