@@ -31,7 +31,6 @@ export class ActivationLogPage implements OnInit, OnDestroy {
 
   private onFetchActivationLogs = (data) => {
     this.activationLogs = this.jsonToCsv(data);
-    console.log('this.activationLogs: ', this.activationLogs);
   };
 
   private jsonToCsv(items: any[]): any[] | string {
