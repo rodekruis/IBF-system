@@ -45,11 +45,11 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     let rows = items.map((row) =>
       columns
         .map((fieldName) => JSON.stringify(row[fieldName], cleanValues))
-        .join(','),
+        .join(', '),
     );
 
-    rows.unshift(columns.join(',')); // Add header row
+    rows.unshift(columns.join(', ')); // Add header row
 
-    return rows.join('\r\n');
+    return rows;
   }
 }
