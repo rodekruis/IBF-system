@@ -1,3 +1,28 @@
+# [0.94.0](https://github.com/rodekruis/IBF-system/compare/v0.93.2...v0.94.0) (2021-10-04)
+
+
+### Bug Fixes
+
+* AB[#8538](https://github.com/rodekruis/IBF-system/issues/8538) ([bf8f21c](https://github.com/rodekruis/IBF-system/commit/bf8f21c679cbe31e1ef5131a317147f4715fd536))
+* added files AB[#8538](https://github.com/rodekruis/IBF-system/issues/8538) ([92eaf7d](https://github.com/rodekruis/IBF-system/commit/92eaf7d3526efcba23c967ee8a7b881324fc6ce4))
+* added padding AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([8d3160c](https://github.com/rodekruis/IBF-system/commit/8d3160cecad0c7c4e96fa1526755b479c8893da0))
+* added scroll AB[#9489](https://github.com/rodekruis/IBF-system/issues/9489) ([c4edee7](https://github.com/rodekruis/IBF-system/commit/c4edee74ba6e3decc846afe03f9edb51e052dfc8))
+* error AB[#8538](https://github.com/rodekruis/IBF-system/issues/8538) ([e7e343f](https://github.com/rodekruis/IBF-system/commit/e7e343f0c894003609a1131da0e49c7875863936))
+* errors AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([da05a0b](https://github.com/rodekruis/IBF-system/commit/da05a0bdfb8a7995a7261c1c302be7551bd0793f))
+* lint AB[#8538](https://github.com/rodekruis/IBF-system/issues/8538) ([78664d0](https://github.com/rodekruis/IBF-system/commit/78664d05e39dfabd084f690f696799d699a3b2e3))
+* lint AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([ac757b6](https://github.com/rodekruis/IBF-system/commit/ac757b671af945dcba5e854143de1009d2e5d7aa))
+* make text selectable AB[#9489](https://github.com/rodekruis/IBF-system/issues/9489) ([7a86d84](https://github.com/rodekruis/IBF-system/commit/7a86d84567bb8b081acafbf153919a309584ba7a))
+* show in csv-format instead of json AB[#9489](https://github.com/rodekruis/IBF-system/issues/9489) ([d2ca8b2](https://github.com/rodekruis/IBF-system/commit/d2ca8b2ed51823f67d2be9af5f4b004f75dfd95c))
+
+
+### Features
+
+* added pages AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([71a015a](https://github.com/rodekruis/IBF-system/commit/71a015a26642970b17ad53df721b439045d89ecf))
+* diplayed raw text AB[#9489](https://github.com/rodekruis/IBF-system/issues/9489) ([631cbb4](https://github.com/rodekruis/IBF-system/commit/631cbb4bda9f6111bc2c22e266491c80c693dfb3))
+* link of activation page AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([f3841b0](https://github.com/rodekruis/IBF-system/commit/f3841b06e78727f6d21b799c34d98f18a8fe39c7))
+
+
+
 ## [0.93.2](https://github.com/rodekruis/IBF-system/compare/v0.93.1...v0.93.2) (2021-10-01)
 
 
@@ -94,22 +119,6 @@
 ### Bug Fixes
 
 * input autofill style should be readable AB[#9486](https://github.com/rodekruis/IBF-system/issues/9486) ([b7cf6c2](https://github.com/rodekruis/IBF-system/commit/b7cf6c28a276b2ddfb38a9d332b901154a6a59c0))
-
-
-
-## [0.90.2](https://github.com/rodekruis/IBF-system/compare/v0.90.1...v0.90.2) (2021-09-20)
-
-
-### Bug Fixes
-
-* added sorting on disaster type AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([929750b](https://github.com/rodekruis/IBF-system/commit/929750b466ab1141ac39b8185f2a27b168db6ede))
-* code updated AB[#9317](https://github.com/rodekruis/IBF-system/issues/9317) AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([46df6b9](https://github.com/rodekruis/IBF-system/commit/46df6b9ce09e1512a517f768e999cce01d035ec5))
-* fixed default selection AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([2a4d520](https://github.com/rodekruis/IBF-system/commit/2a4d520cc14b1483e9ea7040303b5c23e54e8b0e))
-* lint AB[#9317](https://github.com/rodekruis/IBF-system/issues/9317) AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([641bfdd](https://github.com/rodekruis/IBF-system/commit/641bfdd93692f3bf0bf907555e3875b6eade43d8))
-* lint AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([726a146](https://github.com/rodekruis/IBF-system/commit/726a146e305e8b5940f74ca7ab1091f4ba8ee042))
-* lint AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([b1f7a2e](https://github.com/rodekruis/IBF-system/commit/b1f7a2e2fb06983a5d74e38a16b6c7ab87b8ac9c))
-* lint for AB[#9317](https://github.com/rodekruis/IBF-system/issues/9317) AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([530210f](https://github.com/rodekruis/IBF-system/commit/530210feadb74335385cfe777f2f7e9625329b5b))
-* show triggered disaster and fix left to right order of disaster AB[#9317](https://github.com/rodekruis/IBF-system/issues/9317) AB[#9318](https://github.com/rodekruis/IBF-system/issues/9318) ([85923ae](https://github.com/rodekruis/IBF-system/commit/85923ae2c326ee711e9f7c94c9fc221869505a35))
 
 
 
