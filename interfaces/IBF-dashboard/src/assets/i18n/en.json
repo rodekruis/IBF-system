@@ -3,6 +3,9 @@
   "common": {
     "version": "Version"
   },
+  "activation-page": {
+    "activation-report": "Activation Report"
+  },
   "login-page": {
     "title": "Login",
     "welcome": "Hello! Welcome to IBF.",
