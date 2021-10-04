@@ -35,6 +35,7 @@ export class NotificationService {
   private fromEmailName = 'IBF system';
 
   private mailchimp = new Mailchimp(process.env.MC_API);
+
   public constructor(
     eventService: EventService,
     adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -305,8 +306,10 @@ export class NotificationService {
     for (const leadTime of country.countryActiveLeadTimes) {
       if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
         leadTimeListHTML = `${leadTimeListHTML}<li>${
-          leadTime.leadTimeLabel.split('-')[0]
-        } ${leadTime.leadTimeLabel.split('-')[1]}s from now</li>`;
+          disasterType === DisasterType.HeavyRain ? 'Estimated ' : ''
+        }${leadTime.leadTimeLabel.split('-')[0]} ${
+          leadTime.leadTimeLabel.split('-')[1]
+        }(s) from now</li>`;
       }
     }
     return leadTimeListHTML;
@@ -358,7 +361,9 @@ export class NotificationService {
     const leadTimeValue = leadTime.leadTimeName.split('-')[0];
     const leadTimeUnit = leadTime.leadTimeName.split('-')[1];
     const tableForLeadTimeStart = `<div>
-      <strong>Forecast ${leadTimeValue} ${leadTimeUnit}s from today (${
+      <strong>Forecast ${
+        disasterType === DisasterType.HeavyRain ? 'estimated ' : ''
+      }${leadTimeValue} ${leadTimeUnit}(s) from today (${
       this.placeholderToday
     }):</strong>
   </div>
