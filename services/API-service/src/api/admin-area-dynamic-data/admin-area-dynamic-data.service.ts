@@ -1,4 +1,3 @@
-import { CountryService } from './../country/country.service';
 import { LeadTime, LeadTimeDayMonth } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
@@ -50,17 +49,18 @@ export class AdminAreaDynamicDataService {
     }
     await this.adminAreaDynamicDataRepo.save(areas);
 
-    const triggerUnit = await this.disasterTypeRepository.findOne({
+    const disasterType = await this.disasterTypeRepository.findOne({
       select: ['triggerUnit'],
       where: { disasterType: uploadExposure.disasterType },
     });
 
-    if (triggerUnit.triggerUnit === uploadExposure.dynamicIndicator) {
+    if (disasterType.triggerUnit === uploadExposure.dynamicIndicator) {
       await this.insertTrigger(uploadExposure);
 
       await this.eventService.processEventAreas(
         uploadExposure.countryCodeISO3,
         uploadExposure.disasterType,
+        uploadExposure.adminLevel,
       );
     }
   }
@@ -75,6 +75,7 @@ export class AdminAreaDynamicDataService {
         indicator: uploadExposure.dynamicIndicator,
         countryCodeISO3: uploadExposure.countryCodeISO3,
         leadTime: uploadExposure.leadTime,
+        adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
         date: MoreThanOrEqual(firstDayOfMonth),
       });
@@ -83,6 +84,7 @@ export class AdminAreaDynamicDataService {
         indicator: uploadExposure.dynamicIndicator,
         countryCodeISO3: uploadExposure.countryCodeISO3,
         leadTime: uploadExposure.leadTime,
+        adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
         date: new Date(),
       });

@@ -1,0 +1,5434 @@
+[
+  {
+    "placeCode": "090612308",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612305",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612307",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612309",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612315",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612317",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612316",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512112",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612303",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612313",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612302",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612314",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612310",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612301",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612306",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612304",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612311",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211809",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211813",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211806",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211804",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211814",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211805",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211807",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211808",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211803",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211811",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211802",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211810",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211812",
+    "amount": 0
+  },
+  {
+    "placeCode": "100615019",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100615017",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100615020",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100615018",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100615016",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "020301802",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301821",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301820",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301803",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301822",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301801",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201613",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301806",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003525",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003403",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003627",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003312",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003317",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003316",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003626",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003519",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003606",
+    "amount": 0
+  },
+  {
+    "placeCode": "020703113",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003315",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003518",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003607",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003313",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003523",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003608",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003314",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003405",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003401",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003311",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003402",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003524",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003522",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003609",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003610",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003521",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003404",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003628",
+    "amount": 0
+  },
+  {
+    "placeCode": "021003520",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103819",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103822",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103818",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103817",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103821",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103820",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208915",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208913",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208914",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208922",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208912",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208918",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208920",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208916",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208921",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208917",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501115",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501004",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501116",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501002",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501112",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501003",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501006",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501005",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501113",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501007",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501110",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501001",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501111",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501008",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501114",
+    "amount": 0
+  },
+  {
+    "placeCode": "010501009",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013210",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013211",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013208",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013212",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013213",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013209",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207005",
+    "amount": 0
+  },
+  {
+    "placeCode": "050408027",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207212",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207216",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207217",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207214",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207213",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310510",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310518",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310521",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310515",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310520",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310517",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310514",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310512",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310511",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310516",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310519",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310513",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400816",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400814",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400817",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400813",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400812",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706918",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509921",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509922",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509808",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509809",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809213",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809210",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809201",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809205",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809209",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809204",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809211",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809203",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809202",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809212",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809207",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809208",
+    "amount": 0
+  },
+  {
+    "placeCode": "070809206",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107416",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107414",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107411",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107413",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107412",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107417",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107415",
+    "amount": 0
+  },
+  {
+    "placeCode": "100414415",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414326",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414410",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414320",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414412",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414318",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414409",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414321",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414317",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414316",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414411",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414414",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414327",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414413",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "090111518",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111526",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111604",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111517",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111601",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111521",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111515",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111606",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111520",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111605",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111527",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111607",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111525",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111603",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111519",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111602",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705511",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705509",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705515",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705420",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705414",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705422",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605204",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705306",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705307",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705308",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705510",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705417",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705512",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705419",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705513",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705421",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304728",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705516",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705305",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706915",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706914",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706919",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300602",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300601",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107302",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107310",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107308",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107305",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107303",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107309",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107307",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107301",
+    "amount": 0
+  },
+  {
+    "placeCode": "050408132",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107306",
+    "amount": 0
+  },
+  {
+    "placeCode": "050107304",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606603",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606609",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205722",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606605",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606607",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606612",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606602",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606604",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606606",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606611",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606608",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606613",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606601",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506203",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506204",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506201",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506205",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506202",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506206",
+    "amount": 0
+  },
+  {
+    "placeCode": "080711213",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400704",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400706",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400703",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400710",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400705",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400711",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400701",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400702",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400708",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400709",
+    "amount": 0
+  },
+  {
+    "placeCode": "010400707",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307108",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307106",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307113",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307104",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307109",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307102",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307115",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307103",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307111",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307114",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307112",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307101",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307107",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307110",
+    "amount": 0
+  },
+  {
+    "placeCode": "050307105",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111516",
+    "amount": 0
+  },
+  {
+    "placeCode": "090211801",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113301",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113304",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113311",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113308",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113309",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113306",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113302",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113303",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113314",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113307",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113310",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113312",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113313",
+    "amount": 0
+  },
+  {
+    "placeCode": "091113305",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103708",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103816",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103706",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103701",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103710",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103814",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103705",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103815",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103702",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103707",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103709",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103704",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103813",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103711",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103712",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208919",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208808",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208810",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208809",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208802",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208806",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208805",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208803",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208807",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208801",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208804",
+    "amount": 0
+  },
+  {
+    "placeCode": "100714701",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080711101",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100315",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100211",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100208",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100322",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100320",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100317",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100319",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100313",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100318",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100321",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207215",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100210",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100207",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100209",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100212",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100316",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100314",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300605",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201706",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201621",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201702",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201623",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902623",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201707",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201616",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201614",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201709",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201620",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201710",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201705",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201618",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201624",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201708",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201619",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201701",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201622",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201615",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201626",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101513",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201704",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201617",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201625",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201627",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201612",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201703",
+    "amount": 0
+  },
+  {
+    "placeCode": "020201611",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603004",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603011",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603015",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603005",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603016",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603002",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603001",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603007",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301819",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603009",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603014",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603006",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603012",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603010",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603013",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603008",
+    "amount": 0
+  },
+  {
+    "placeCode": "020603003",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709612",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509505",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509506",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509508",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509507",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509504",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509502",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509501",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509503",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300607",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300613",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300614",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300606",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300608",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300610",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300603",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300611",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300612",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300604",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200402",
+    "amount": 0
+  },
+  {
+    "placeCode": "060501011",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509920",
+    "amount": 0
+  },
+  {
+    "placeCode": "060501016",
+    "amount": 0
+  },
+  {
+    "placeCode": "060501018",
+    "amount": 0
+  },
+  {
+    "placeCode": "060501015",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509919",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509803",
+    "amount": 0
+  },
+  {
+    "placeCode": "060501012",
+    "amount": 0
+  },
+  {
+    "placeCode": "060501017",
+    "amount": 0
+  },
+  {
+    "placeCode": "060501013",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712403",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712405",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712404",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712408",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712406",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712407",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712401",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712402",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013201",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402109",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402320",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301817",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402108",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402224",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301811",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402227",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301805",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402228",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402319",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301814",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301809",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402225",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402013",
+    "amount": 0
+  },
+  {
+    "placeCode": "020401905",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301808",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402016",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402107",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402223",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301812",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301818",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402111",
+    "amount": 0
+  },
+  {
+    "placeCode": "020401906",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301810",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402318",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402222",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301815",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402110",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402226",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402321",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301813",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301807",
+    "amount": 0
+  },
+  {
+    "placeCode": "020401901",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402112",
+    "amount": 0
+  },
+  {
+    "placeCode": "020401904",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301816",
+    "amount": 0
+  },
+  {
+    "placeCode": "020402014",
+    "amount": 0
+  },
+  {
+    "placeCode": "020401902",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309116",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309006",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309114",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309002",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309117",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309005",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309112",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309110",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309008",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309004",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309007",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309113",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309115",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309109",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309111",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309001",
+    "amount": 0
+  },
+  {
+    "placeCode": "070309003",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605208",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605202",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605205",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605209",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605207",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605212",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705418",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605201",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605211",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605206",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605203",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605210",
+    "amount": 0
+  },
+  {
+    "placeCode": "030605213",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205718",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205720",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205721",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205716",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205715",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205717",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205719",
+    "amount": 0
+  },
+  {
+    "placeCode": "030103703",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204405",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204220",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204402",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204401",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204222",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204221",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204219",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204403",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204404",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610905",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610901",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610906",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610902",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610903",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610904",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100102",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100104",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100103",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100101",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100106",
+    "amount": 0
+  },
+  {
+    "placeCode": "010100105",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601202",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601206",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601422",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601205",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601204",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601201",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601309",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601311",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601310",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601203",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601308",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409410",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409407",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409401",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409405",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409402",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409409",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409406",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409408",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409403",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409404",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409412",
+    "amount": 0
+  },
+  {
+    "placeCode": "100514609",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514616",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514615",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514614",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514612",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514617",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514613",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514610",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514611",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100213811",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080711008",
+    "amount": 0
+  },
+  {
+    "placeCode": "030405016",
+    "amount": 0
+  },
+  {
+    "placeCode": "030405013",
+    "amount": 0
+  },
+  {
+    "placeCode": "030405018",
+    "amount": 0
+  },
+  {
+    "placeCode": "030405015",
+    "amount": 0
+  },
+  {
+    "placeCode": "030405017",
+    "amount": 0
+  },
+  {
+    "placeCode": "030405012",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913104",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913102",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913107",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913112",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913103",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913111",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913110",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913106",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913108",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913114",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913105",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913109",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913113",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204310",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204309",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204308",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204307",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204306",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204312",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204311",
+    "amount": 0
+  },
+  {
+    "placeCode": "070208811",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610117",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610203",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610208",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610201",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610207",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610209",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610202",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610204",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610205",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407920",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407502",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407710",
+    "amount": 0
+  },
+  {
+    "placeCode": "050408025",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407605",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407917",
+    "amount": 0
+  },
+  {
+    "placeCode": "050408026",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407814",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407919",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407501",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407816",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407921",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407606",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407609",
+    "amount": 0
+  },
+  {
+    "placeCode": "050408024",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407607",
+    "amount": 0
+  },
+  {
+    "placeCode": "050408130",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407712",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407813",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407918",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407711",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407608",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407504",
+    "amount": 0
+  },
+  {
+    "placeCode": "050408133",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407503",
+    "amount": 0
+  },
+  {
+    "placeCode": "050408129",
+    "amount": 0
+  },
+  {
+    "placeCode": "050408131",
+    "amount": 0
+  },
+  {
+    "placeCode": "050408028",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407815",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407923",
+    "amount": 0
+  },
+  {
+    "placeCode": "050407922",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705302",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304720",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304724",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304727",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304725",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705301",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304719",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705303",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304721",
+    "amount": 0
+  },
+  {
+    "placeCode": "030705304",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304723",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304722",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304726",
+    "amount": 0
+  },
+  {
+    "placeCode": "090411903",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412011",
+    "amount": 0
+  },
+  {
+    "placeCode": "090411905",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412007",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412008",
+    "amount": 0
+  },
+  {
+    "placeCode": "090411906",
+    "amount": 0
+  },
+  {
+    "placeCode": "090411901",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412013",
+    "amount": 0
+  },
+  {
+    "placeCode": "090411902",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412012",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412015",
+    "amount": 0
+  },
+  {
+    "placeCode": "090411904",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412010",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412009",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412216",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205808",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205812",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205810",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205601",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205813",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205603",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205809",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205604",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205811",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205605",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205607",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205614",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205606",
+    "amount": 0
+  },
+  {
+    "placeCode": "040205802",
+    "amount": 0
+  },
+  {
+    "placeCode": "040606610",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803203",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803201",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803202",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803212",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803208",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803210",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803204",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803211",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803206",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803213",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803205",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803207",
+    "amount": 0
+  },
+  {
+    "placeCode": "020803209",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509714",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509711",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509716",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509713",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509710",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509717",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509709",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509715",
+    "amount": 0
+  },
+  {
+    "placeCode": "070509712",
+    "amount": 0
+  },
+  {
+    "placeCode": "100113624",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113622",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113619",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113623",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113621",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113626",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113618",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113620",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "010200520",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200403",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200412",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200408",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200524",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200413",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200409",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200519",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200516",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200405",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200411",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200525",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200518",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200406",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200521",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200401",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200410",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200517",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200522",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200527",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200414",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200526",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200415",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200523",
+    "amount": 0
+  },
+  {
+    "placeCode": "010200407",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902811",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902815",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902624",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902819",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902813",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902701",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902703",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902812",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902702",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902814",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902707",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902628",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902710",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902817",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902704",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902818",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902816",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902709",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902627",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902820",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902708",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902626",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902621",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902705",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902622",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902706",
+    "amount": 0
+  },
+  {
+    "placeCode": "020401903",
+    "amount": 0
+  },
+  {
+    "placeCode": "020301804",
+    "amount": 0
+  },
+  {
+    "placeCode": "020702905",
+    "amount": 0
+  },
+  {
+    "placeCode": "020703111",
+    "amount": 0
+  },
+  {
+    "placeCode": "020702902",
+    "amount": 0
+  },
+  {
+    "placeCode": "020703117",
+    "amount": 0
+  },
+  {
+    "placeCode": "020703115",
+    "amount": 0
+  },
+  {
+    "placeCode": "020702904",
+    "amount": 0
+  },
+  {
+    "placeCode": "020702906",
+    "amount": 0
+  },
+  {
+    "placeCode": "020703112",
+    "amount": 0
+  },
+  {
+    "placeCode": "020702903",
+    "amount": 0
+  },
+  {
+    "placeCode": "020703116",
+    "amount": 0
+  },
+  {
+    "placeCode": "020703108",
+    "amount": 0
+  },
+  {
+    "placeCode": "020703114",
+    "amount": 0
+  },
+  {
+    "placeCode": "020703109",
+    "amount": 0
+  },
+  {
+    "placeCode": "020702907",
+    "amount": 0
+  },
+  {
+    "placeCode": "020703110",
+    "amount": 0
+  },
+  {
+    "placeCode": "020702901",
+    "amount": 0
+  },
+  {
+    "placeCode": "010300609",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506417",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506312",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506307",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506416",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506314",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506422",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506311",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506414",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506310",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506420",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506309",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506421",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506308",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506419",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506313",
+    "amount": 0
+  },
+  {
+    "placeCode": "040506418",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610119",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610122",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610120",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610112",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610114",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610111",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610113",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610118",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610121",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610116",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610210",
+    "amount": 0
+  },
+  {
+    "placeCode": "070610115",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706804",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108207",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108205",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108209",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108221",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108201",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108203",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108216",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108202",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108211",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108219",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108206",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409322",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409411",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108215",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108214",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108210",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108220",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108217",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108208",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108212",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409320",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108218",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108204",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108213",
+    "amount": 0
+  },
+  {
+    "placeCode": "070108222",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106504",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106512",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106501",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106513",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106506",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106511",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106502",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106510",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106507",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106509",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106508",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106503",
+    "amount": 0
+  },
+  {
+    "placeCode": "040106505",
+    "amount": 0
+  },
+  {
+    "placeCode": "100614805",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512107",
+    "amount": 0
+  },
+  {
+    "placeCode": "090612312",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512102",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512113",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512104",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512105",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512103",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512111",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512114",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512106",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512109",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512110",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512101",
+    "amount": 0
+  },
+  {
+    "placeCode": "090512108",
+    "amount": 0
+  },
+  {
+    "placeCode": "040306113",
+    "amount": 0
+  },
+  {
+    "placeCode": "040305905",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406002",
+    "amount": 0
+  },
+  {
+    "placeCode": "040305904",
+    "amount": 0
+  },
+  {
+    "placeCode": "040306112",
+    "amount": 0
+  },
+  {
+    "placeCode": "040306114",
+    "amount": 0
+  },
+  {
+    "placeCode": "040305902",
+    "amount": 0
+  },
+  {
+    "placeCode": "040305903",
+    "amount": 0
+  },
+  {
+    "placeCode": "040306110",
+    "amount": 0
+  },
+  {
+    "placeCode": "040305906",
+    "amount": 0
+  },
+  {
+    "placeCode": "040306111",
+    "amount": 0
+  },
+  {
+    "placeCode": "040305907",
+    "amount": 0
+  },
+  {
+    "placeCode": "040305901",
+    "amount": 0
+  },
+  {
+    "placeCode": "040306108",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412218",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412221",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412014",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412220",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412219",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412222",
+    "amount": 0
+  },
+  {
+    "placeCode": "090412217",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110303",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110301",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110305",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110307",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110308",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110310",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110304",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110309",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110302",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110313",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110306",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110312",
+    "amount": 0
+  },
+  {
+    "placeCode": "080110311",
+    "amount": 0
+  },
+  {
+    "placeCode": "030505101",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410605",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410609",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410617",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510708",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410604",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410612",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410603",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410621",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410607",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410611",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410602",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410610",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410618",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410601",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410622",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410614",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410619",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410620",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410616",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410615",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410606",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410608",
+    "amount": 0
+  },
+  {
+    "placeCode": "080410613",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208422",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208412",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208413",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208421",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208417",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208416",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208415",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208418",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208420",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208419",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310522",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310408",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310409",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310402",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310406",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310403",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310407",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310401",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310404",
+    "amount": 0
+  },
+  {
+    "placeCode": "080310405",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509801",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509807",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509805",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509804",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509806",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509810",
+    "amount": 0
+  },
+  {
+    "placeCode": "060509802",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101501",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101514",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101520",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101505",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101522",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101512",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101503",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101517",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101509",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101516",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101521",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101511",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101510",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101515",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101504",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101519",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101502",
+    "amount": 0
+  },
+  {
+    "placeCode": "020902625",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101518",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101507",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101508",
+    "amount": 0
+  },
+  {
+    "placeCode": "020101506",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207002",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207010",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207001",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207009",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207003",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207011",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207008",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207006",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207007",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013202",
+    "amount": 0
+  },
+  {
+    "placeCode": "050207004",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313004",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313007",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313006",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313003",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313002",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313005",
+    "amount": 0
+  },
+  {
+    "placeCode": "090913101",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313010",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313011",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313008",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313001",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313013",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313009",
+    "amount": 0
+  },
+  {
+    "placeCode": "090313012",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712621",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712513",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712622",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712516",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712618",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712514",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712509",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712510",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712517",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712620",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712511",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712512",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712515",
+    "amount": 0
+  },
+  {
+    "placeCode": "090712619",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111708",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111712",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111711",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111714",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111710",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111713",
+    "amount": 0
+  },
+  {
+    "placeCode": "100614804",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100614806",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100614802",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100614803",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100614801",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "030304614",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304501",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304613",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304503",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304616",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304509",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304505",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304506",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304508",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304618",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304510",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304502",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304615",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304617",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304612",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304504",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304611",
+    "amount": 0
+  },
+  {
+    "placeCode": "030304507",
+    "amount": 0
+  },
+  {
+    "placeCode": "010500921",
+    "amount": 0
+  },
+  {
+    "placeCode": "010500920",
+    "amount": 0
+  },
+  {
+    "placeCode": "010500919",
+    "amount": 0
+  },
+  {
+    "placeCode": "010500918",
+    "amount": 0
+  },
+  {
+    "placeCode": "010500917",
+    "amount": 0
+  },
+  {
+    "placeCode": "010500922",
+    "amount": 0
+  },
+  {
+    "placeCode": "080811411",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811307",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811416",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811308",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811412",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811301",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811309",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811305",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811303",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811415",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811302",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811413",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811306",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811310",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811304",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "080811414",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100213703",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213704",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213707",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213705",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103904",
+    "amount": 0
+  },
+  {
+    "placeCode": "060104018",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103901",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103912",
+    "amount": 0
+  },
+  {
+    "placeCode": "060104022",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103906",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103903",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103907",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103908",
+    "amount": 0
+  },
+  {
+    "placeCode": "060104020",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103911",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404805",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103902",
+    "amount": 0
+  },
+  {
+    "placeCode": "060104016",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103905",
+    "amount": 0
+  },
+  {
+    "placeCode": "060104019",
+    "amount": 0
+  },
+  {
+    "placeCode": "060104021",
+    "amount": 0
+  },
+  {
+    "placeCode": "060104015",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103910",
+    "amount": 0
+  },
+  {
+    "placeCode": "060103909",
+    "amount": 0
+  },
+  {
+    "placeCode": "060104017",
+    "amount": 0
+  },
+  {
+    "placeCode": "060104014",
+    "amount": 0
+  },
+  {
+    "placeCode": "060104013",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204113",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204116",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204117",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204115",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204118",
+    "amount": 0
+  },
+  {
+    "placeCode": "030204114",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208304",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208305",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208311",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208306",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208303",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208309",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208301",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208308",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208307",
+    "amount": 0
+  },
+  {
+    "placeCode": "060208302",
+    "amount": 0
+  },
+  {
+    "placeCode": "100113409",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113416",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113408",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113414",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113501",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113410",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113502",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113625",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113627",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113503",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113417",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113415",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113507",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113413",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113505",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113412",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113504",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113411",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100113506",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "030404922",
+    "amount": 0
+  },
+  {
+    "placeCode": "030405009",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404927",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404919",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404921",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404923",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404925",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404924",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404926",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706712",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706713",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706716",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706717",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706720",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706721",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706711",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706722",
+    "amount": 0
+  },
+  {
+    "placeCode": "100414328",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414202",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414201",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414206",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414208",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414207",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414203",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414205",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100414204",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "090812920",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812919",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812705",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812815",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812702",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812811",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812704",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812706",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812816",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812922",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812921",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812707",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812808",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812810",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812813",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812703",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812814",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812809",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812701",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812812",
+    "amount": 0
+  },
+  {
+    "placeCode": "090111709",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812817",
+    "amount": 0
+  },
+  {
+    "placeCode": "090812818",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502522",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502404",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502523",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502410",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502408",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502521",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502411",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502402",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502412",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502406",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502525",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502414",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502403",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502516",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502409",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502526",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502413",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502528",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502405",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502520",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502407",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502524",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502518",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502527",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502519",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502401",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502515",
+    "amount": 0
+  },
+  {
+    "placeCode": "020502517",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709609",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709610",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709606",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709604",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709611",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709603",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709602",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709607",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709605",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709608",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709601",
+    "amount": 0
+  },
+  {
+    "placeCode": "070709613",
+    "amount": 0
+  },
+  {
+    "placeCode": "060408512",
+    "amount": 0
+  },
+  {
+    "placeCode": "060408516",
+    "amount": 0
+  },
+  {
+    "placeCode": "060408515",
+    "amount": 0
+  },
+  {
+    "placeCode": "060408517",
+    "amount": 0
+  },
+  {
+    "placeCode": "060408510",
+    "amount": 0
+  },
+  {
+    "placeCode": "060408511",
+    "amount": 0
+  },
+  {
+    "placeCode": "060408513",
+    "amount": 0
+  },
+  {
+    "placeCode": "060408514",
+    "amount": 0
+  },
+  {
+    "placeCode": "100514501",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514508",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514504",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514503",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514502",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514505",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514507",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100514506",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "040306116",
+    "amount": 0
+  },
+  {
+    "placeCode": "040306115",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213702",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213919",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213917",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213920",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213813",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213916",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213918",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213701",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213922",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213706",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213921",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601312",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601315",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601417",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601316",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601421",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601420",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601314",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601313",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601419",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601418",
+    "amount": 0
+  },
+  {
+    "placeCode": "010601207",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510712",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510706",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510709",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510710",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510715",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510703",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510704",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510716",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510702",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510714",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510713",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510707",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510711",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510701",
+    "amount": 0
+  },
+  {
+    "placeCode": "080510705",
+    "amount": 0
+  },
+  {
+    "placeCode": "100314002",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314012",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314007",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314009",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314008",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314005",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314011",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314010",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314001",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314003",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314004",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314006",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314013",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "040406012",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406006",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406004",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406007",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406009",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406010",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406003",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406013",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406001",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406011",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406005",
+    "amount": 0
+  },
+  {
+    "placeCode": "040406008",
+    "amount": 0
+  },
+  {
+    "placeCode": "100614908",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100614912",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100614914",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100614911",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100614907",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100615015",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100614913",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100614910",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100614909",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100213812",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213815",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213809",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213810",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213814",
+    "amount": 0
+  },
+  {
+    "placeCode": "100213808",
+    "amount": 0
+  },
+  {
+    "placeCode": "100314118",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314120",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314116",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314117",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314121",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314114",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314122",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314119",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "100314115",
+    "amount": 0.1
+  },
+  {
+    "placeCode": "060608711",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608708",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608701",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608713",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608703",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608706",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608702",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608707",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608709",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608710",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608704",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608705",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706808",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706810",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706806",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706807",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706805",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706803",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706802",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706809",
+    "amount": 0
+  },
+  {
+    "placeCode": "040706801",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013204",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013203",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013205",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013206",
+    "amount": 0
+  },
+  {
+    "placeCode": "091013207",
+    "amount": 0
+  },
+  {
+    "placeCode": "060308608",
+    "amount": 0
+  },
+  {
+    "placeCode": "060308609",
+    "amount": 0
+  },
+  {
+    "placeCode": "060608712",
+    "amount": 0
+  },
+  {
+    "placeCode": "060308607",
+    "amount": 0
+  },
+  {
+    "placeCode": "060308603",
+    "amount": 0
+  },
+  {
+    "placeCode": "060308601",
+    "amount": 0
+  },
+  {
+    "placeCode": "060308605",
+    "amount": 0
+  },
+  {
+    "placeCode": "060308602",
+    "amount": 0
+  },
+  {
+    "placeCode": "060308604",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404803",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404807",
+    "amount": 0
+  },
+  {
+    "placeCode": "030405011",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404810",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404804",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404802",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404808",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404801",
+    "amount": 0
+  },
+  {
+    "placeCode": "030404806",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409321",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409318",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409314",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409317",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409316",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409319",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409413",
+    "amount": 0
+  },
+  {
+    "placeCode": "070409315",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610809",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610801",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610806",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610815",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610805",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610810",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610808",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610811",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610807",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610814",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610813",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610802",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610812",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610804",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610816",
+    "amount": 0
+  },
+  {
+    "placeCode": "080610803",
+    "amount": 0
+  }
+]

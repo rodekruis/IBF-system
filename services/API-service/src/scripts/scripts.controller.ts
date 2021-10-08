@@ -32,9 +32,11 @@ export class MockDynamic {
   @IsNotEmpty()
   @IsString()
   public readonly secret: string;
+
   @ApiProperty({ example: 'UGA' })
   @IsIn(['PHL', 'UGA', 'ZMB', 'ETH', 'ZWE', 'EGY'])
   public readonly countryCodeISO3: string;
+
   @ApiProperty({ example: DisasterType.Floods })
   @IsIn([
     DisasterType.Floods,
@@ -44,9 +46,11 @@ export class MockDynamic {
     DisasterType.HeavyRain,
   ])
   public readonly disasterType: DisasterType;
+
   @ApiProperty()
   @IsNotEmpty()
   public readonly triggered: boolean;
+
   @ApiProperty({ example: true })
   @IsNotEmpty()
   public readonly removeEvents: boolean;
