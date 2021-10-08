@@ -1,3 +1,12 @@
+## [0.95.1](https://github.com/rodekruis/IBF-system/compare/v0.95.0...v0.95.1) (2021-10-08)
+
+
+### Bug Fixes
+
+* PHL admin popups AB[#10024](https://github.com/rodekruis/IBF-system/issues/10024) ([3cc286c](https://github.com/rodekruis/IBF-system/commit/3cc286c99fd7804f5dc79f7ca0d8acd35ccf60ed))
+
+
+
 # [0.95.0](https://github.com/rodekruis/IBF-system/compare/v0.94.0...v0.95.0) (2021-10-04)
 
 
@@ -116,15 +125,6 @@
 ### Bug Fixes
 
 * increase nginx file size limit AB[#9798](https://github.com/rodekruis/IBF-system/issues/9798) ([3d4d108](https://github.com/rodekruis/IBF-system/commit/3d4d108ae74171d9891189e686fbfc80b880e22e))
-
-
-
-## [0.90.4](https://github.com/rodekruis/IBF-system/compare/v0.90.3...v0.90.4) (2021-09-24)
-
-
-### Bug Fixes
-
-* changed title text to bold ([6f45ca6](https://github.com/rodekruis/IBF-system/commit/6f45ca64cb686b0521741ab13f351f5638c9aa50))
 
 
 
