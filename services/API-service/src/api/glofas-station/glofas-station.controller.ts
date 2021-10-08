@@ -25,7 +25,8 @@ export class GlofasStationController {
   }
 
   @ApiOperation({
-    summary: 'Get Glofas station locations and attributes for given country',
+    summary:
+      'Get Glofas station locations and attributes for given country (used by IBF-pipeline)',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiResponse({
