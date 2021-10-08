@@ -26,4 +26,9 @@ export class GlofasStationForecastDto {
   @IsNumber()
   @IsOptional()
   public forecastReturnPeriod: number;
+
+  @ApiProperty({ example: 100 })
+  @IsNumber()
+  @IsOptional()
+  public triggerLevel: number;
 }

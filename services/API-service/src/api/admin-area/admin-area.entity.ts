@@ -44,10 +44,6 @@ export class AdminAreaEntity {
   @Column('geometry', { nullable: true })
   public geom: string;
 
-  @ApiProperty({ example: 'G5220' })
-  @Column({ nullable: true })
-  public glofasStation: string;
-
   @OneToMany(
     (): typeof EventPlaceCodeEntity => EventPlaceCodeEntity,
     (eventPlaceCode): AdminAreaEntity => eventPlaceCode.adminArea,
