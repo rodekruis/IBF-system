@@ -1,3 +1,12 @@
+## [0.95.2](https://github.com/rodekruis/IBF-system/compare/v0.95.1...v0.95.2) (2021-10-08)
+
+
+### Bug Fixes
+
+* trigger deploy ([7548fa0](https://github.com/rodekruis/IBF-system/commit/7548fa0aae98bf989091c19f21898b38bbe5b227))
+
+
+
 ## [0.95.1](https://github.com/rodekruis/IBF-system/compare/v0.95.0...v0.95.1) (2021-10-08)
 
 
@@ -116,15 +125,6 @@
 ### Features
 
 * add-dummy-eap-action AB[#6134](https://github.com/rodekruis/IBF-system/issues/6134) AB[#9490](https://github.com/rodekruis/IBF-system/issues/9490) ([32b43af](https://github.com/rodekruis/IBF-system/commit/32b43af7312067564c79d9a0fe6c3fb2581f9dc5))
-
-
-
-## [0.90.5](https://github.com/rodekruis/IBF-system/compare/v0.90.4...v0.90.5) (2021-09-24)
-
-
-### Bug Fixes
-
-* increase nginx file size limit AB[#9798](https://github.com/rodekruis/IBF-system/issues/9798) ([3d4d108](https://github.com/rodekruis/IBF-system/commit/3d4d108ae74171d9891189e686fbfc80b880e22e))
 
 
 
