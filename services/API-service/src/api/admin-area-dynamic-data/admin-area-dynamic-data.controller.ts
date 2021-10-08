@@ -83,7 +83,7 @@ export class AdminAreaDynamicDataController {
     description: 'Dynamic admin-area data value for one specific admin-area.',
     type: Number,
   })
-  @Get('get/one/:indicator/:placeCode/:leadTime')
+  @Get('single/:indicator/:placeCode/:leadTime')
   public async getAdminAreaDataPerPcode(@Param() params): Promise<number> {
     return await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
       params.indicator as DynamicIndicator,

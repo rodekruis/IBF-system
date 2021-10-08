@@ -234,7 +234,7 @@ export class ApiService {
     leadTime: string,
   ) {
     return this.get(
-      `admin-area-dynamic-data/get/one/${key}/${placeCode}/${leadTime}`,
+      `admin-area-dynamic-data/single/${key}/${placeCode}/${leadTime}`,
       false,
     );
   }

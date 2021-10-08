@@ -161,6 +161,7 @@ See notable changes and the currently release version in the
 -   [ ] Enter the release title to v0.27.9.
 -   [ ] Optional: Enter the release description from the
         [CHANGELOG](CHANGELOG.md) file.
+-   [ ] IMPORTANT: Before actually doing the release (and thus releasing to `staging`), check if any .ENV-variables on the server need to be updated. Do that by SSH'ing into the server and making the required changes. This will make sure the new release will use the updated .ENV-variables immediately.
 -   [ ] Click the 'Publish Release' button.
 
 The above steps should trigger the
@@ -177,6 +178,8 @@ published release. This takes a while (approx 20 mins) to update.
 -   Merged PR's to 'master' branch are automatically deployed to the
     test-server. (via [webhook](tools/webhook.service), see:
     [/tools#GitHub-webhook](tools/README.md#github-webhook))
+-   Run seed-script if seed-data or datamodel has changed
+-   Run 'mock-all' endpoint
 
 ### To "stage" environment
 
@@ -184,6 +187,8 @@ published release. This takes a while (approx 20 mins) to update.
     stage VM before publishing the release.
 -   When a [release](#release-checklist) is published, it is automatically
     deployed to the staging-server.
+-   Run seed-script if seed-data or datamodel has changed
+-   Run 'mock-all' endpoint
 
 ### To "production" environment
 
