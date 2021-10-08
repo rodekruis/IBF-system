@@ -7,10 +7,6 @@
     "disasterTypes": ["floods"],
     "adminLevels": [1, 2, 3, 4],
     "defaultAdminLevel": 2,
-    "glofasStationInput": {
-      "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
-      "triggerColName": "custom_threshold"
-    },
     "countryActiveLeadTimes": ["5-day"],
     "adminRegionLabels": {
       "1": {
@@ -69,10 +65,6 @@
     "disasterTypes": ["floods"],
     "adminLevels": [1, 2, 3],
     "defaultAdminLevel": 2,
-    "glofasStationInput": {
-      "fileName": "Glofas_station_locations_with_trigger_levels_ZMB.csv",
-      "triggerColName": "10yr_threshold"
-    },
     "countryActiveLeadTimes": ["7-day"],
     "adminRegionLabels": {
       "1": {
@@ -144,10 +136,6 @@
     "disasterTypes": ["floods"],
     "adminLevels": [1],
     "defaultAdminLevel": 1,
-    "glofasStationInput": {
-      "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
-      "triggerColName": "5yr_threshold"
-    },
     "countryActiveLeadTimes": ["7-day"],
     "adminRegionLabels": {
       "1": {
@@ -202,10 +190,6 @@
     "disasterTypes": ["floods", "malaria"],
     "adminLevels": [3],
     "defaultAdminLevel": 3,
-    "glofasStationInput": {
-      "fileName": "Glofas_station_locations_with_trigger_levels_IARP.csv",
-      "triggerColName": "10yr_threshold_7day"
-    },
     "countryActiveLeadTimes": ["7-day", "0-month", "1-month", "2-month"],
     "eapAlertClasses": {
       "no": {

@@ -50,12 +50,12 @@ export class GlofasStationService {
         '"leadTime"',
         '"stationCode"',
         '"stationName"',
-        '"triggerLevel"',
         'geom',
         'forecast."forecastLevel" AS "forecastLevel"',
         'forecast."forecastTrigger" AS "forecastTrigger"',
         'forecast."forecastProbability" AS "forecastProbability"',
         'forecast."forecastReturnPeriod" AS "forecastReturnPeriod"',
+        'forecast."triggerLevel" AS "triggerLevel"',
       ])
       .leftJoin('station.stationForecasts', 'forecast')
       .where('"leadTime" = :leadTime', {
@@ -81,7 +81,7 @@ export class GlofasStationService {
         where: { stationCode: station.stationCode },
       });
 
-      // Delete existsing entries with same date, leadTime and countryCodeISO3 and stationCode
+      // Delete existing entries with same date, leadTime and countryCodeISO3 and stationCode
       await this.glofasStationForecastRepository.delete({
         glofasStation: glofasStation,
         leadTime: uploadTriggerPerStation.leadTime,
@@ -96,6 +96,7 @@ export class GlofasStationService {
       stationForecast.forecastProbability = station.forecastProbability;
       stationForecast.forecastTrigger = station.forecastTrigger;
       stationForecast.forecastReturnPeriod = station.forecastReturnPeriod;
+      stationForecast.triggerLevel = station.triggerLevel;
       stationForecasts.push(stationForecast);
     }
     return await this.glofasStationForecastRepository.save(stationForecasts);

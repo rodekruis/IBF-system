@@ -48,4 +48,8 @@ export class GlofasStationForecastEntity {
   @ApiProperty({ example: 10 })
   @Column({ nullable: true })
   public forecastReturnPeriod: number;
+
+  @ApiProperty({ example: 100 })
+  @Column()
+  public triggerLevel: number;
 }

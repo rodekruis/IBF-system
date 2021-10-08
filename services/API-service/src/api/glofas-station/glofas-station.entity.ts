@@ -40,30 +40,6 @@ export class GlofasStationEntity {
   @Column({ nullable: true })
   public stationName: string;
 
-  @ApiProperty({
-    example: 10,
-    description:
-      'Water discharge level in m3/s above which the trigger is reached for this station.',
-  })
-  @Column({ nullable: true, type: 'real' })
-  public triggerLevel: string;
-
-  @ApiProperty({ example: 10 })
-  @Column({ nullable: true, type: 'real' })
-  public threshold2Year: string;
-
-  @ApiProperty({ example: 10 })
-  @Column({ nullable: true, type: 'real' })
-  public threshold5Year: string;
-
-  @ApiProperty({ example: 10 })
-  @Column({ nullable: true, type: 'real' })
-  public threshold10Year: string;
-
-  @ApiProperty({ example: 10 })
-  @Column({ nullable: true, type: 'real' })
-  public threshold20Year: string;
-
   @ApiProperty({ example: 10 })
   @Column({ nullable: true, type: 'double precision' })
   public lat: string;
