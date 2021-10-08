@@ -24,7 +24,7 @@ export class DecoupleGlofasTriggerLevels1633686048253
       `ALTER TABLE "IBF-app"."glofas-station" DROP COLUMN "threshold20Year"`,
     );
     await queryRunner.query(
-      `ALTER TABLE "IBF-app"."glofas-station-forecast" ADD "triggerLevel" integer NOT NULL`,
+      `ALTER TABLE "IBF-app"."glofas-station-forecast" ADD "triggerLevel" integer NOT NULL DEFAULT 0`,
     );
   }
 
