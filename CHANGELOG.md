@@ -1,3 +1,13 @@
+## [0.95.3](https://github.com/rodekruis/IBF-system/compare/v0.95.2...v0.95.3) (2021-10-08)
+
+
+### Bug Fixes
+
+* forgot to commit AB[#10030](https://github.com/rodekruis/IBF-system/issues/10030) ([a22b8be](https://github.com/rodekruis/IBF-system/commit/a22b8be7120a697ce1d59fa301fd2f09b966e8c2))
+* migration script default value new col AB[#10030](https://github.com/rodekruis/IBF-system/issues/10030) ([747409e](https://github.com/rodekruis/IBF-system/commit/747409e9b782d7301a5a3da0c5a71cbbe726a8a8))
+
+
+
 ## [0.95.2](https://github.com/rodekruis/IBF-system/compare/v0.95.1...v0.95.2) (2021-10-08)
 
 
@@ -107,24 +117,6 @@
 ### Features
 
 * activation log endpoint AB[#9850](https://github.com/rodekruis/IBF-system/issues/9850) ([5915c0d](https://github.com/rodekruis/IBF-system/commit/5915c0d65fe16a3453640fd257196735292a91e6))
-
-
-
-# [0.91.0](https://github.com/rodekruis/IBF-system/compare/v0.90.5...v0.91.0) (2021-09-24)
-
-
-### Bug Fixes
-
-* CHANGE TITLE TEXT IN CENTRAL COLUM TO BOLD AB[#9117](https://github.com/rodekruis/IBF-system/issues/9117) AB[#9482](https://github.com/rodekruis/IBF-system/issues/9482) AB[#9755](https://github.com/rodekruis/IBF-system/issues/9755) ([6e680e8](https://github.com/rodekruis/IBF-system/commit/6e680e8796a9a49ef61ad84b3ec0dd150e9d354a))
-* Changed trigger message AB[#6380](https://github.com/rodekruis/IBF-system/issues/6380) ([877a59e](https://github.com/rodekruis/IBF-system/commit/877a59e0d060b10ee6c214271e80f0a927a84867))
-* label to dummy AB[#6134](https://github.com/rodekruis/IBF-system/issues/6134) ([3cdd3ef](https://github.com/rodekruis/IBF-system/commit/3cdd3efdf2a7f468c28d7baaa937f3132ae398ee))
-* updated message AB[#6380](https://github.com/rodekruis/IBF-system/issues/6380) ([6a01b1e](https://github.com/rodekruis/IBF-system/commit/6a01b1ef292fd6569a176865d20179f01f0a1db8))
-* use dummy for all EGY (and only EGY) actions AB[#9490](https://github.com/rodekruis/IBF-system/issues/9490) ([9ea83f0](https://github.com/rodekruis/IBF-system/commit/9ea83f03579fd31b1e6ae09d1bba3023b1ad8791))
-
-
-### Features
-
-* add-dummy-eap-action AB[#6134](https://github.com/rodekruis/IBF-system/issues/6134) AB[#9490](https://github.com/rodekruis/IBF-system/issues/9490) ([32b43af](https://github.com/rodekruis/IBF-system/commit/32b43af7312067564c79d9a0fe6c3fb2581f9dc5))
 
 
 
