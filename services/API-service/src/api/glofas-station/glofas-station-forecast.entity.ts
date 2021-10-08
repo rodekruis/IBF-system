@@ -50,6 +50,6 @@ export class GlofasStationForecastEntity {
   public forecastReturnPeriod: number;
 
   @ApiProperty({ example: 100 })
-  @Column()
+  @Column({ default: 0 })
   public triggerLevel: number;
 }
