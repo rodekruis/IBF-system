@@ -61,7 +61,6 @@ import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { breakKey } from '../../models/map.model';
 import { AdminLevelService } from '../../services/admin-level.service';
-import { AdminLevel } from '../../types/admin-level';
 import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
@@ -393,7 +392,6 @@ export class MapComponent implements OnDestroy {
   };
 
   private onAdminRegionClickByLayerAndFeatureAndElement = (
-    layer: IbfLayer,
     feature,
     element,
   ) => (): void => {
@@ -405,24 +403,21 @@ export class MapComponent implements OnDestroy {
       component: this.constructor.name,
     });
 
-    const additionalAdminLevel = this.isAdditionalAdminLevel(layer);
-    if (!additionalAdminLevel) {
-      this.placeCodeService.setPlaceCode({
-        countryCodeISO3: feature.properties.countryCodeISO3,
-        placeCodeName: feature.properties.name,
-        placeCode: feature.properties.placeCode,
-      });
-    }
+    this.placeCodeService.setPlaceCode({
+      countryCodeISO3: feature.properties.countryCodeISO3,
+      placeCodeName: feature.properties.name,
+      placeCode: feature.properties.placeCode,
+    });
 
     if (feature.properties.placeCode === this.placeCode) {
       element.unbindPopup();
       this.placeCode = null;
     } else {
-      this.bindPopupAdminRegions(layer, feature, element);
+      this.bindPopupAdminRegions(feature, element);
     }
   };
 
-  private bindPopupAdminRegions(layer: IbfLayer, feature, element): void {
+  private bindPopupAdminRegions(feature, element): void {
     let popup: string;
     const activeAggregateLayer = this.mapService.layers.find(
       (l) => l.active && l.group === IbfLayerGroup.aggregates,
@@ -452,7 +447,6 @@ export class MapComponent implements OnDestroy {
         });
     } else {
       popup = this.createDefaultPopupAdminRegions(
-        layer,
         activeAggregateLayer,
         feature,
       );
@@ -477,24 +471,13 @@ export class MapComponent implements OnDestroy {
     return adminRegionLayerPane;
   }
 
-  private isAdditionalAdminLevel(layer: IbfLayer) {
-    if (layer.group === IbfLayerGroup.adminRegions) {
-      const adminLevel = Number(layer.name.slice(-1)) as AdminLevel;
-      return adminLevel !== this.adminLevelService.adminLevel;
-    }
-  }
-
   private createDefaultPopupAdminRegions(
-    layer: IbfLayer,
     activeAggregateLayer: IbfLayer,
     feature,
   ): string {
-    const additionalAdminLevel = this.isAdditionalAdminLevel(layer);
-    if (!additionalAdminLevel) {
-      feature = activeAggregateLayer.data.features.find(
-        (f) => f.properties.placeCode === feature.properties.placeCode,
-      );
-    }
+    feature = activeAggregateLayer.data.features.find(
+      (f) => f.properties.placeCode === feature.properties.placeCode,
+    );
     return (
       '<strong>' +
       feature.properties.name +
@@ -502,7 +485,7 @@ export class MapComponent implements OnDestroy {
         ? ' (Disputed borders)'
         : '') +
       '</strong><br/>' +
-      (additionalAdminLevel || !activeAggregateLayer
+      (!activeAggregateLayer
         ? ''
         : activeAggregateLayer.label +
           ': ' +
@@ -628,7 +611,6 @@ export class MapComponent implements OnDestroy {
           element.on(
             'click',
             this.onAdminRegionClickByLayerAndFeatureAndElement(
-              layer,
               feature,
               element,
             ),

@@ -64,7 +64,6 @@ export class MapService {
   private popoverTexts: { [key: string]: string } = {};
   private country: Country;
   private disasterType: DisasterType;
-  private adminLevel: AdminLevel;
   private placeCode: PlaceCode;
 
   constructor(
@@ -107,8 +106,7 @@ export class MapService {
     this.loadCountryLayers();
   };
 
-  private onAdminLevelChange = (adminLevel: AdminLevel): void => {
-    this.adminLevel = adminLevel;
+  private onAdminLevelChange = () => {
     this.layers.forEach((layer) => {
       this.hideLayer(layer);
     });
@@ -196,7 +194,7 @@ export class MapService {
   };
 
   private async loadCountryLayers() {
-    if (this.country && this.disasterType && this.adminLevel) {
+    if (this.country && this.disasterType) {
       this.apiService
         .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
         .subscribe(this.onLayerChange);
