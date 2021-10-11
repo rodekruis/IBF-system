@@ -1,3 +1,4 @@
+import { ConditionalExpr } from '@angular/compiler';
 import { Component } from '@angular/core';
 import {
   AnalyticsEvent,
@@ -27,7 +28,6 @@ export class AdminLevelComponent {
 
   public clickAdminLevelButton(adminLevel: AdminLevel): void {
     const layer = this.getAdminLevelLayer(adminLevel);
-
     this.analyticsService.logEvent(AnalyticsEvent.adminLevel, {
       adminLevel,
       adminLevelState: layer.active,
@@ -36,12 +36,14 @@ export class AdminLevelComponent {
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });
-
     this.mapService.toggleLayer(layer);
+    this.adminLevelService.setAdminLevel(adminLevel)
+
   }
 
   public isAdminLevelActive(adminLevel: AdminLevel): boolean {
     const layer = this.getAdminLevelLayer(adminLevel);
+   
     return layer ? layer.active : false;
   }
 
