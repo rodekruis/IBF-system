@@ -43,6 +43,10 @@ export class AggregatesService {
     this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
+
+    this.adminLevelService
+      .getAdminLevelSubscription()
+      .subscribe(this.onAdminLevelChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -56,6 +60,10 @@ export class AggregatesService {
   };
 
   private onLeadTimeChange = () => {
+    this.loadMetadataAndAggregates();
+  };
+
+  private onAdminLevelChange = () => {
     this.loadMetadataAndAggregates();
   };
 

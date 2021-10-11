@@ -27,16 +27,21 @@ export class AdminLevelComponent {
 
   public clickAdminLevelButton(adminLevel: AdminLevel): void {
     const layer = this.getAdminLevelLayer(adminLevel);
-    this.analyticsService.logEvent(AnalyticsEvent.adminLevel, {
-      adminLevel,
-      adminLevelState: layer.active,
-      page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
-      isActiveTrigger: this.eventService.state.activeTrigger,
-      component: this.constructor.name,
-    });
-    this.mapService.toggleLayer(layer);
-    this.adminLevelService.setAdminLevel(adminLevel);
+
+    if (adminLevel !== this.adminLevelService.adminLevel) {
+      this.adminLevelService.setAdminLevel(adminLevel);
+
+      this.analyticsService.logEvent(AnalyticsEvent.adminLevel, {
+        adminLevel,
+        adminLevelState: layer.active,
+        page: AnalyticsPage.dashboard,
+        isActiveEvent: this.eventService.state.activeEvent,
+        isActiveTrigger: this.eventService.state.activeTrigger,
+        component: this.constructor.name,
+      });
+    } else {
+      this.mapService.toggleLayer(layer);
+    }
   }
 
   public isAdminLevelActive(adminLevel: AdminLevel): boolean {

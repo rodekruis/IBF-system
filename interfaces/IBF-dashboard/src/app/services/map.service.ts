@@ -64,6 +64,7 @@ export class MapService {
   private popoverTexts: { [key: string]: string } = {};
   private country: Country;
   private disasterType: DisasterType;
+  private adminLevel: AdminLevel;
   private placeCode: PlaceCode;
 
   constructor(
@@ -107,7 +108,11 @@ export class MapService {
   };
 
   private onAdminLevelChange = (adminLevel: AdminLevel): void => {
-    this.loadAdminRegionLayer(true, adminLevel);
+    this.adminLevel = adminLevel;
+    this.layers.forEach((layer) => {
+      this.hideLayer(layer);
+    });
+    this.loadCountryLayers();
   };
 
   private onLeadTimeChange = () => {
@@ -191,7 +196,7 @@ export class MapService {
   };
 
   private async loadCountryLayers() {
-    if (this.country && this.disasterType) {
+    if (this.country && this.disasterType && this.adminLevel) {
       this.apiService
         .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
         .subscribe(this.onLayerChange);
@@ -371,10 +376,10 @@ export class MapService {
       group: IbfLayerGroup.adminRegions,
       type: IbfLayerType.shape,
       description: '',
-      active: this.country.defaultAdminLevel === adminLevel,
+      active: this.adminLevelService.adminLevel === adminLevel,
       show: true,
       data: adminRegions,
-      viewCenter: this.country.defaultAdminLevel === adminLevel,
+      viewCenter: this.adminLevelService.adminLevel === adminLevel,
       colorProperty: this.disasterType.actionsUnit,
       order: 0,
     });
