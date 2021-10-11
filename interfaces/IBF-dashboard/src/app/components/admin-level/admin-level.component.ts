@@ -1,4 +1,3 @@
-import { ConditionalExpr } from '@angular/compiler';
 import { Component } from '@angular/core';
 import {
   AnalyticsEvent,
@@ -37,13 +36,12 @@ export class AdminLevelComponent {
       component: this.constructor.name,
     });
     this.mapService.toggleLayer(layer);
-    this.adminLevelService.setAdminLevel(adminLevel)
-
+    this.adminLevelService.setAdminLevel(adminLevel);
   }
 
   public isAdminLevelActive(adminLevel: AdminLevel): boolean {
     const layer = this.getAdminLevelLayer(adminLevel);
-   
+
     return layer ? layer.active : false;
   }
 
