@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "name": "UGA_adm2",
+  "name": "UGA_adm2_new",
   "crs": {
     "type": "name",
     "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
@@ -9,18 +9,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Masaka",
         "ADM2_PCODE": "21UGA012009",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 0.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -171,18 +162,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Butebo",
         "ADM2_PCODE": "21UGA003004",
-        "ADM1_EN": "Bukedi",
-        "ADM1_PCODE": "21UGA003",
-        "dscodeadm2": 1.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -318,18 +300,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Alebtong",
         "ADM2_PCODE": "21UGA010001",
-        "ADM1_EN": "Lango",
-        "ADM1_PCODE": "21UGA010",
-        "dscodeadm2": 2.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -631,18 +604,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Bukedea",
         "ADM2_PCODE": "21UGA013002",
-        "ADM1_EN": "Teso",
-        "ADM1_PCODE": "21UGA013",
-        "dscodeadm2": 3.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -774,18 +738,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Busia",
         "ADM2_PCODE": "21UGA003002",
-        "ADM1_EN": "Bukedi",
-        "ADM1_PCODE": "21UGA003",
-        "dscodeadm2": 4.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -922,18 +877,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Moroto",
         "ADM2_PCODE": "21UGA008005",
-        "ADM1_EN": "Karamoja",
-        "ADM1_PCODE": "21UGA008",
-        "dscodeadm2": 5.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1144,18 +1090,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kabarole",
         "ADM2_PCODE": "21UGA014003",
-        "ADM1_EN": "Toro",
-        "ADM1_PCODE": "21UGA014",
-        "dscodeadm2": 6.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1438,18 +1375,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Masindi",
         "ADM2_PCODE": "21UGA004008",
-        "ADM1_EN": "Bunyoro",
-        "ADM1_PCODE": "21UGA004",
-        "dscodeadm2": 7.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1804,18 +1732,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kamuli",
         "ADM2_PCODE": "21UGA005007",
-        "ADM1_EN": "Busoga",
-        "ADM1_PCODE": "21UGA005",
-        "dscodeadm2": 8.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1992,18 +1911,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Budaka",
         "ADM2_PCODE": "21UGA003001",
-        "ADM1_EN": "Bukedi",
-        "ADM1_PCODE": "21UGA003",
-        "dscodeadm2": 9.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2095,18 +2005,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Maracha",
         "ADM2_PCODE": "21UGA015004",
-        "ADM1_EN": "West Nile",
-        "ADM1_PCODE": "21UGA015",
-        "dscodeadm2": 10.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2233,18 +2134,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Tororo",
         "ADM2_PCODE": "21UGA003007",
-        "ADM1_EN": "Bukedi",
-        "ADM1_PCODE": "21UGA003",
-        "dscodeadm2": 11.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2407,18 +2299,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kagadi",
         "ADM2_PCODE": "21UGA004003",
-        "ADM1_EN": "Bunyoro",
-        "ADM1_PCODE": "21UGA004",
-        "dscodeadm2": 12.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2629,18 +2512,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kalangala",
         "ADM2_PCODE": "21UGA012004",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 13.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2697,18 +2571,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Buikwe",
         "ADM2_PCODE": "21UGA011001",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 14.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2855,18 +2720,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Luwero",
         "ADM2_PCODE": "21UGA011007",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 15.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3091,18 +2947,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kole",
         "ADM2_PCODE": "21UGA010005",
-        "ADM1_EN": "Lango",
-        "ADM1_PCODE": "21UGA010",
-        "dscodeadm2": 16.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3298,18 +3145,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Amolatar",
         "ADM2_PCODE": "21UGA010002",
-        "ADM1_EN": "Lango",
-        "ADM1_PCODE": "21UGA010",
-        "dscodeadm2": 17.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3430,18 +3268,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Lamwo",
         "ADM2_PCODE": "21UGA001005",
-        "ADM1_EN": "Acholi",
-        "ADM1_PCODE": "21UGA001",
-        "dscodeadm2": 18.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3688,18 +3517,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Ibanda",
         "ADM2_PCODE": "21UGA002003",
-        "ADM1_EN": "Ankole",
-        "ADM1_PCODE": "21UGA002",
-        "dscodeadm2": 19.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3912,18 +3732,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Wakiso",
         "ADM2_PCODE": "21UGA011013",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 20.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4169,18 +3980,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kaabong",
         "ADM2_PCODE": "21UGA008003",
-        "ADM1_EN": "Karamoja",
-        "ADM1_PCODE": "21UGA008",
-        "dscodeadm2": 21.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4391,18 +4193,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Bunyangabu",
         "ADM2_PCODE": "21UGA014002",
-        "ADM1_EN": "Toro",
-        "ADM1_PCODE": "21UGA014",
-        "dscodeadm2": 22.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4553,18 +4346,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Iganga",
         "ADM2_PCODE": "21UGA005004",
-        "ADM1_EN": "Busoga",
-        "ADM1_PCODE": "21UGA005",
-        "dscodeadm2": 23.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4686,18 +4470,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Nakasongola",
         "ADM2_PCODE": "21UGA011012",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 24.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4948,18 +4723,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kaberamaido",
         "ADM2_PCODE": "21UGA013003",
-        "ADM1_EN": "Teso",
-        "ADM1_PCODE": "21UGA013",
-        "dscodeadm2": 25.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5107,18 +4873,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Namayingo",
         "ADM2_PCODE": "21UGA005010",
-        "ADM1_EN": "Busoga",
-        "ADM1_PCODE": "21UGA005",
-        "dscodeadm2": 26.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5236,18 +4993,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Rukungiri",
         "ADM2_PCODE": "21UGA009006",
-        "ADM1_EN": "Kigezi",
-        "ADM1_PCODE": "21UGA009",
-        "dscodeadm2": 27.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5504,18 +5252,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Mubende",
         "ADM2_PCODE": "21UGA011009",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 28.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5769,18 +5508,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Buvuma",
         "ADM2_PCODE": "21UGA011002",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 29.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5899,18 +5629,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Pakwach",
         "ADM2_PCODE": "21UGA015007",
-        "ADM1_EN": "West Nile",
-        "ADM1_PCODE": "21UGA015",
-        "dscodeadm2": 30.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6058,18 +5779,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Rubanda",
         "ADM2_PCODE": "21UGA009004",
-        "ADM1_EN": "Kigezi",
-        "ADM1_PCODE": "21UGA009",
-        "dscodeadm2": 31.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6226,18 +5938,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Luuka",
         "ADM2_PCODE": "21UGA005008",
-        "ADM1_EN": "Busoga",
-        "ADM1_PCODE": "21UGA005",
-        "dscodeadm2": 32.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6387,18 +6090,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Soroti",
         "ADM2_PCODE": "21UGA013009",
-        "ADM1_EN": "Teso",
-        "ADM1_PCODE": "21UGA013",
-        "dscodeadm2": 33.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6554,18 +6248,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kaliro",
         "ADM2_PCODE": "21UGA005006",
-        "ADM1_EN": "Busoga",
-        "ADM1_PCODE": "21UGA005",
-        "dscodeadm2": 34.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6680,18 +6365,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Omoro",
         "ADM2_PCODE": "21UGA001007",
-        "ADM1_EN": "Acholi",
-        "ADM1_PCODE": "21UGA001",
-        "dscodeadm2": 35.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -6928,18 +6604,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Rukiga",
         "ADM2_PCODE": "21UGA009005",
-        "ADM1_EN": "Kigezi",
-        "ADM1_PCODE": "21UGA009",
-        "dscodeadm2": 36.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -7093,18 +6760,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kween",
         "ADM2_PCODE": "21UGA006005",
-        "ADM1_EN": "Elgon",
-        "ADM1_PCODE": "21UGA006",
-        "dscodeadm2": 37.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -7277,18 +6935,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Amuru",
         "ADM2_PCODE": "21UGA001002",
-        "ADM1_EN": "Acholi",
-        "ADM1_PCODE": "21UGA001",
-        "dscodeadm2": 38.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -7720,18 +7369,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kitgum",
         "ADM2_PCODE": "21UGA001004",
-        "ADM1_EN": "Acholi",
-        "ADM1_PCODE": "21UGA001",
-        "dscodeadm2": 39.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8033,18 +7673,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kyegegwa",
         "ADM2_PCODE": "21UGA014006",
-        "ADM1_EN": "Toro",
-        "ADM1_PCODE": "21UGA014",
-        "dscodeadm2": 40.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8258,18 +7889,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Serere",
         "ADM2_PCODE": "21UGA013008",
-        "ADM1_EN": "Teso",
-        "ADM1_PCODE": "21UGA013",
-        "dscodeadm2": 41.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8398,18 +8020,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kanungu",
         "ADM2_PCODE": "21UGA009002",
-        "ADM1_EN": "Kigezi",
-        "ADM1_PCODE": "21UGA009",
-        "dscodeadm2": 42.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8662,18 +8275,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Zombo",
         "ADM2_PCODE": "21UGA015009",
-        "ADM1_EN": "West Nile",
-        "ADM1_PCODE": "21UGA015",
-        "dscodeadm2": 43.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8838,18 +8442,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Bukwo",
         "ADM2_PCODE": "21UGA006002",
-        "ADM1_EN": "Elgon",
-        "ADM1_PCODE": "21UGA006",
-        "dscodeadm2": 44.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -8966,18 +8561,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kyenjojo",
         "ADM2_PCODE": "21UGA014007",
-        "ADM1_EN": "Toro",
-        "ADM1_PCODE": "21UGA014",
-        "dscodeadm2": 45.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9242,18 +8828,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Jinja",
         "ADM2_PCODE": "21UGA005005",
-        "ADM1_EN": "Busoga",
-        "ADM1_PCODE": "21UGA005",
-        "dscodeadm2": 46.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9392,18 +8969,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kapchorwa",
         "ADM2_PCODE": "21UGA006004",
-        "ADM1_EN": "Elgon",
-        "ADM1_PCODE": "21UGA006",
-        "dscodeadm2": 47.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9513,18 +9081,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Butaleja",
         "ADM2_PCODE": "21UGA003003",
-        "ADM1_EN": "Bukedi",
-        "ADM1_PCODE": "21UGA003",
-        "dscodeadm2": 48.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9643,18 +9202,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Amuria",
         "ADM2_PCODE": "21UGA013001",
-        "ADM1_EN": "Teso",
-        "ADM1_PCODE": "21UGA013",
-        "dscodeadm2": 49.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -9907,18 +9457,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Sheema",
         "ADM2_PCODE": "21UGA002010",
-        "ADM1_EN": "Ankole",
-        "ADM1_PCODE": "21UGA002",
-        "dscodeadm2": 50.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10082,18 +9623,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Yumbe",
         "ADM2_PCODE": "21UGA015008",
-        "ADM1_EN": "West Nile",
-        "ADM1_PCODE": "21UGA015",
-        "dscodeadm2": 51.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10265,18 +9797,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kasese",
         "ADM2_PCODE": "21UGA014005",
-        "ADM1_EN": "Toro",
-        "ADM1_PCODE": "21UGA014",
-        "dscodeadm2": 52.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10487,18 +10010,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Rubirizi",
         "ADM2_PCODE": "21UGA002009",
-        "ADM1_EN": "Ankole",
-        "ADM1_PCODE": "21UGA002",
-        "dscodeadm2": 53.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10657,18 +10171,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Adjumani",
         "ADM2_PCODE": "21UGA015001",
-        "ADM1_EN": "West Nile",
-        "ADM1_PCODE": "21UGA015",
-        "dscodeadm2": 54.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -10931,18 +10436,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Buyende",
         "ADM2_PCODE": "21UGA005003",
-        "ADM1_EN": "Busoga",
-        "ADM1_PCODE": "21UGA005",
-        "dscodeadm2": 55.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11070,18 +10566,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kisoro",
         "ADM2_PCODE": "21UGA009003",
-        "ADM1_EN": "Kigezi",
-        "ADM1_PCODE": "21UGA009",
-        "dscodeadm2": 56.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11218,18 +10705,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Ntungamo",
         "ADM2_PCODE": "21UGA002008",
-        "ADM1_EN": "Ankole",
-        "ADM1_PCODE": "21UGA002",
-        "dscodeadm2": 57.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11471,18 +10949,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Mbarara",
         "ADM2_PCODE": "21UGA002006",
-        "ADM1_EN": "Ankole",
-        "ADM1_PCODE": "21UGA002",
-        "dscodeadm2": 58.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11710,18 +11179,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Nakapiripirit",
         "ADM2_PCODE": "21UGA008007",
-        "ADM1_EN": "Karamoja",
-        "ADM1_PCODE": "21UGA008",
-        "dscodeadm2": 59.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -11981,18 +11441,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Gulu",
         "ADM2_PCODE": "21UGA001003",
-        "ADM1_EN": "Acholi",
-        "ADM1_PCODE": "21UGA001",
-        "dscodeadm2": 60.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12199,18 +11650,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Bukomansimbi",
         "ADM2_PCODE": "21UGA012001",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 61.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12307,18 +11749,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kibaale",
         "ADM2_PCODE": "21UGA004005",
-        "ADM1_EN": "Bunyoro",
-        "ADM1_PCODE": "21UGA004",
-        "dscodeadm2": 62.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12488,18 +11921,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kikuube",
         "ADM2_PCODE": "21UGA004006",
-        "ADM1_EN": "Bunyoro",
-        "ADM1_PCODE": "21UGA004",
-        "dscodeadm2": 63.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12748,18 +12172,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Mpigi",
         "ADM2_PCODE": "21UGA012010",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 64.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -12932,18 +12347,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Dokolo",
         "ADM2_PCODE": "21UGA010004",
-        "ADM1_EN": "Lango",
-        "ADM1_PCODE": "21UGA010",
-        "dscodeadm2": 65.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13109,18 +12515,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Mitooma",
         "ADM2_PCODE": "21UGA002007",
-        "ADM1_EN": "Ankole",
-        "ADM1_PCODE": "21UGA002",
-        "dscodeadm2": 66.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13270,18 +12667,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Lwengo",
         "ADM2_PCODE": "21UGA012007",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 67.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13432,18 +12820,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kayunga",
         "ADM2_PCODE": "21UGA011004",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 68.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13628,18 +13007,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Lyantonde",
         "ADM2_PCODE": "21UGA012008",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 69.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13753,18 +13123,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Ssembabule",
         "ADM2_PCODE": "21UGA012012",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 70.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -13990,18 +13351,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Bududa",
         "ADM2_PCODE": "21UGA006001",
-        "ADM1_EN": "Elgon",
-        "ADM1_PCODE": "21UGA006",
-        "dscodeadm2": 71.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14091,18 +13443,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Agago",
         "ADM2_PCODE": "21UGA001001",
-        "ADM1_EN": "Acholi",
-        "ADM1_PCODE": "21UGA001",
-        "dscodeadm2": 72.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14357,18 +13700,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Apac",
         "ADM2_PCODE": "21UGA010003",
-        "ADM1_EN": "Lango",
-        "ADM1_PCODE": "21UGA010",
-        "dscodeadm2": 73.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14573,18 +13907,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Pallisa",
         "ADM2_PCODE": "21UGA003006",
-        "ADM1_EN": "Bukedi",
-        "ADM1_PCODE": "21UGA003",
-        "dscodeadm2": 74.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -14745,18 +14070,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Lira",
         "ADM2_PCODE": "21UGA010007",
-        "ADM1_EN": "Lango",
-        "ADM1_PCODE": "21UGA010",
-        "dscodeadm2": 75.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15041,18 +14357,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kotido",
         "ADM2_PCODE": "21UGA008004",
-        "ADM1_EN": "Karamoja",
-        "ADM1_PCODE": "21UGA008",
-        "dscodeadm2": 76.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15246,18 +14553,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Butambala",
         "ADM2_PCODE": "21UGA012002",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 77.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15421,18 +14719,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kalungu",
         "ADM2_PCODE": "21UGA012005",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 78.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15541,18 +14830,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Katakwi",
         "ADM2_PCODE": "21UGA013005",
-        "ADM1_EN": "Teso",
-        "ADM1_PCODE": "21UGA013",
-        "dscodeadm2": 79.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -15704,18 +14984,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kiruhura",
         "ADM2_PCODE": "21UGA002005",
-        "ADM1_EN": "Ankole",
-        "ADM1_PCODE": "21UGA002",
-        "dscodeadm2": 80.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16020,18 +15291,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Buliisa",
         "ADM2_PCODE": "21UGA004001",
-        "ADM1_EN": "Bunyoro",
-        "ADM1_PCODE": "21UGA004",
-        "dscodeadm2": 81.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16179,18 +15441,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kamwenge",
         "ADM2_PCODE": "21UGA014004",
-        "ADM1_EN": "Toro",
-        "ADM1_PCODE": "21UGA014",
-        "dscodeadm2": 82.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16516,18 +15769,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Manafwa",
         "ADM2_PCODE": "21UGA006006",
-        "ADM1_EN": "Elgon",
-        "ADM1_PCODE": "21UGA006",
-        "dscodeadm2": 83.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16625,18 +15869,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kyankwanzi",
         "ADM2_PCODE": "21UGA011006",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 84.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -16863,18 +16098,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Napak",
         "ADM2_PCODE": "21UGA008008",
-        "ADM1_EN": "Karamoja",
-        "ADM1_PCODE": "21UGA008",
-        "dscodeadm2": 85.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17031,18 +16257,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Buhweju",
         "ADM2_PCODE": "21UGA002001",
-        "ADM1_EN": "Ankole",
-        "ADM1_PCODE": "21UGA002",
-        "dscodeadm2": 86.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17178,18 +16395,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Namutumba",
         "ADM2_PCODE": "21UGA005011",
-        "ADM1_EN": "Busoga",
-        "ADM1_PCODE": "21UGA005",
-        "dscodeadm2": 87.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17291,18 +16499,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kiboga",
         "ADM2_PCODE": "21UGA011005",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 88.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17498,18 +16697,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Bugiri",
         "ADM2_PCODE": "21UGA005001",
-        "ADM1_EN": "Busoga",
-        "ADM1_PCODE": "21UGA005",
-        "dscodeadm2": 89.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17665,18 +16855,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Otuke",
         "ADM2_PCODE": "21UGA010008",
-        "ADM1_EN": "Lango",
-        "ADM1_PCODE": "21UGA010",
-        "dscodeadm2": 90.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17958,18 +17139,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kumi",
         "ADM2_PCODE": "21UGA013006",
-        "ADM1_EN": "Teso",
-        "ADM1_PCODE": "21UGA013",
-        "dscodeadm2": 91.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18096,18 +17268,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Arua",
         "ADM2_PCODE": "21UGA015002",
-        "ADM1_EN": "West Nile",
-        "ADM1_PCODE": "21UGA015",
-        "dscodeadm2": 92.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18457,18 +17620,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Sironko",
         "ADM2_PCODE": "21UGA006009",
-        "ADM1_EN": "Elgon",
-        "ADM1_PCODE": "21UGA006",
-        "dscodeadm2": 93.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18588,18 +17742,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Nebbi",
         "ADM2_PCODE": "21UGA015006",
-        "ADM1_EN": "West Nile",
-        "ADM1_PCODE": "21UGA015",
-        "dscodeadm2": 94.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18762,18 +17907,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kampala",
         "ADM2_PCODE": "21UGA007001",
-        "ADM1_EN": "Kampala",
-        "ADM1_PCODE": "21UGA007",
-        "dscodeadm2": 95.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -18851,18 +17987,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Pader",
         "ADM2_PCODE": "21UGA001008",
-        "ADM1_EN": "Acholi",
-        "ADM1_PCODE": "21UGA001",
-        "dscodeadm2": 96.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19198,18 +18325,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Mbale",
         "ADM2_PCODE": "21UGA006007",
-        "ADM1_EN": "Elgon",
-        "ADM1_PCODE": "21UGA006",
-        "dscodeadm2": 97.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19343,18 +18461,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kakumiro",
         "ADM2_PCODE": "21UGA004004",
-        "ADM1_EN": "Bunyoro",
-        "ADM1_PCODE": "21UGA004",
-        "dscodeadm2": 98.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19542,18 +18651,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Abim",
         "ADM2_PCODE": "21UGA008001",
-        "ADM1_EN": "Karamoja",
-        "ADM1_PCODE": "21UGA008",
-        "dscodeadm2": 99.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19754,18 +18854,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Ngora",
         "ADM2_PCODE": "21UGA013007",
-        "ADM1_EN": "Teso",
-        "ADM1_PCODE": "21UGA013",
-        "dscodeadm2": 100.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19887,18 +18978,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Mukono",
         "ADM2_PCODE": "21UGA011010",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 101.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20087,18 +19169,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kyotara",
         "ADM2_PCODE": "21UGA012006",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 102.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20235,18 +19308,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kabale",
         "ADM2_PCODE": "21UGA009001",
-        "ADM1_EN": "Kigezi",
-        "ADM1_PCODE": "21UGA009",
-        "dscodeadm2": 103.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20381,18 +19445,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Amudat",
         "ADM2_PCODE": "21UGA008002",
-        "ADM1_EN": "Karamoja",
-        "ADM1_PCODE": "21UGA008",
-        "dscodeadm2": 104.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20610,18 +19665,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Mayuge",
         "ADM2_PCODE": "21UGA005009",
-        "ADM1_EN": "Busoga",
-        "ADM1_PCODE": "21UGA005",
-        "dscodeadm2": 105.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20816,18 +19862,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Bushenyi",
         "ADM2_PCODE": "21UGA002002",
-        "ADM1_EN": "Ankole",
-        "ADM1_PCODE": "21UGA002",
-        "dscodeadm2": 106.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21019,18 +20056,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Nakaseke",
         "ADM2_PCODE": "21UGA011011",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 107.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21306,18 +20334,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Mityana",
         "ADM2_PCODE": "21UGA011008",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 108.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21540,18 +20559,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Isingiro",
         "ADM2_PCODE": "21UGA002004",
-        "ADM1_EN": "Ankole",
-        "ADM1_PCODE": "21UGA002",
-        "dscodeadm2": 109.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21748,18 +20758,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Ntoroko",
         "ADM2_PCODE": "21UGA014008",
-        "ADM1_EN": "Toro",
-        "ADM1_PCODE": "21UGA014",
-        "dscodeadm2": 110.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21954,18 +20955,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Nwoya",
         "ADM2_PCODE": "21UGA001006",
-        "ADM1_EN": "Acholi",
-        "ADM1_PCODE": "21UGA001",
-        "dscodeadm2": 111.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22352,18 +21344,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Bundibugyo",
         "ADM2_PCODE": "21UGA014001",
-        "ADM1_EN": "Toro",
-        "ADM1_PCODE": "21UGA014",
-        "dscodeadm2": 112.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22533,18 +21516,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kiryandongo",
         "ADM2_PCODE": "21UGA004007",
-        "ADM1_EN": "Bunyoro",
-        "ADM1_PCODE": "21UGA004",
-        "dscodeadm2": 113.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22789,18 +21763,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Namisindwa",
         "ADM2_PCODE": "21UGA006008",
-        "ADM1_EN": "Elgon",
-        "ADM1_PCODE": "21UGA006",
-        "dscodeadm2": 114.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -22900,18 +21865,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Oyam",
         "ADM2_PCODE": "21UGA010009",
-        "ADM1_EN": "Lango",
-        "ADM1_PCODE": "21UGA010",
-        "dscodeadm2": 115.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23130,18 +22086,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Koboko",
         "ADM2_PCODE": "21UGA015003",
-        "ADM1_EN": "West Nile",
-        "ADM1_PCODE": "21UGA015",
-        "dscodeadm2": 116.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23273,18 +22220,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Bulambuli",
         "ADM2_PCODE": "21UGA006003",
-        "ADM1_EN": "Elgon",
-        "ADM1_PCODE": "21UGA006",
-        "dscodeadm2": 117.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23464,18 +22402,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Gomba",
         "ADM2_PCODE": "21UGA012003",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 118.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23698,18 +22627,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Rakai",
         "ADM2_PCODE": "21UGA012011",
-        "ADM1_EN": "South Buganda",
-        "ADM1_PCODE": "21UGA012",
-        "dscodeadm2": 119.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -23840,18 +22760,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Moyo",
         "ADM2_PCODE": "21UGA015005",
-        "ADM1_EN": "West Nile",
-        "ADM1_PCODE": "21UGA015",
-        "dscodeadm2": 120.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24030,18 +22941,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kibuku",
         "ADM2_PCODE": "21UGA003005",
-        "ADM1_EN": "Bukedi",
-        "ADM1_PCODE": "21UGA003",
-        "dscodeadm2": 121.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24135,18 +23037,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kassanda",
         "ADM2_PCODE": "21UGA011003",
-        "ADM1_EN": "North Buganda",
-        "ADM1_PCODE": "21UGA011",
-        "dscodeadm2": 122.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG1"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24337,18 +23230,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Hoima",
         "ADM2_PCODE": "21UGA004002",
-        "ADM1_EN": "Bunyoro",
-        "ADM1_PCODE": "21UGA004",
-        "dscodeadm2": 123.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG4"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24594,18 +23478,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kwania",
         "ADM2_PCODE": "21UGA010006",
-        "ADM1_EN": "Lango",
-        "ADM1_PCODE": "21UGA010",
-        "dscodeadm2": 124.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24774,18 +23649,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Kapelebyong",
         "ADM2_PCODE": "21UGA013004",
-        "ADM1_EN": "Teso",
-        "ADM1_PCODE": "21UGA013",
-        "dscodeadm2": 125.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24989,18 +23855,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Nabilatuk",
         "ADM2_PCODE": "21UGA008006",
-        "ADM1_EN": "Karamoja",
-        "ADM1_PCODE": "21UGA008",
-        "dscodeadm2": 126.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG3"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -25182,18 +24039,9 @@
     {
       "type": "Feature",
       "properties": {
-        "adm0name": "Uganda",
-        "iso3": "UGA",
         "ADM2_EN": "Bugweri",
         "ADM2_PCODE": "21UGA005002",
-        "ADM1_EN": "Busoga",
-        "ADM1_PCODE": "21UGA005",
-        "dscodeadm2": 127.0,
-        "dscodeadm1": "N/A",
-        "source": "UBOS",
-        "srcdate": "2018-08-05",
-        "editby": "FICSS-UNHCR",
-        "editdate": "2018-08-13"
+        "ADM1_PCODE": "UG2"
       },
       "geometry": {
         "type": "MultiPolygon",
