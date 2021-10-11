@@ -183,6 +183,7 @@ export class EventService {
   public async getTriggeredAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    adminLevel: number,
     leadTime: string,
   ): Promise<TriggeredArea[]> {
     const triggerUnit = await this.getTriggerUnit(disasterType);
@@ -191,6 +192,9 @@ export class EventService {
       .select(['dynamic.placeCode'])
       .where('indicator = :indicator', { indicator: triggerUnit })
       .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
+      .andWhere('dynamic."adminLevel" = :adminLevel', {
+        adminLevel: adminLevel,
+      })
       .andWhere('value > 0')
       .andWhere('"disasterType" = :disasterType', {
         disasterType: disasterType,

@@ -35,6 +35,7 @@ export class AdminAreaService {
   private async getTriggeredPlaceCodes(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    adminLevel: number,
     leadTime: string,
   ) {
     if (leadTime === '{leadTime}') {
@@ -53,6 +54,7 @@ export class AdminAreaService {
         await this.eventService.getTriggeredAreas(
           countryCodeISO3,
           disasterType,
+          adminLevel,
           leadTime,
         )
       ).map((triggeredArea): string => triggeredArea.placeCode);
@@ -73,6 +75,7 @@ export class AdminAreaService {
       placeCodes = await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         disasterType,
+        adminLevel,
         leadTime,
       );
     }
@@ -161,53 +164,48 @@ export class AdminAreaService {
         countryCodeISO3: countryCodeISO3,
       })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
-    // Only add triggered-area filter if this is the default admin level
-    if (adminLevel == country.defaultAdminLevel) {
-      const lastTriggeredDate = await this.eventService.getRecentDate(
+
+    const lastTriggeredDate = await this.eventService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
+
+    adminAreasScript = adminAreasScript
+      .leftJoin(
+        AdminAreaDynamicDataEntity,
+        'dynamic',
+        'area.placeCode = dynamic.placeCode',
+      )
+      .addSelect([
+        `dynamic.value AS ${disaster.actionsUnit}`,
+        'dynamic."leadTime"',
+        'dynamic."date"',
+      ])
+      .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
+      .andWhere('date = :lastTriggeredDate', {
+        lastTriggeredDate: lastTriggeredDate.date,
+      })
+      .andWhere('"disasterType" = :disasterType', {
+        disasterType: disasterType,
+      })
+      .andWhere('dynamic."indicator" = :indicator', {
+        indicator: disaster.actionsUnit,
+      });
+
+    // If alertThreshold is triggerUnit, always show all admin-areas
+    if (disaster.triggerUnit !== DynamicIndicator.alertThreshold) {
+      const placeCodes = await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         disasterType,
+        adminLevel,
+        leadTime,
       );
-
-      adminAreasScript = adminAreasScript
-        .leftJoin(
-          AdminAreaDynamicDataEntity,
-          'dynamic',
-          'area.placeCode = dynamic.placeCode',
-        )
-        .addSelect([
-          `dynamic.value AS ${disaster.actionsUnit}`,
-          'dynamic."leadTime"',
-          'dynamic."date"',
-        ])
-        .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
-        .andWhere('date = :lastTriggeredDate', {
-          lastTriggeredDate: lastTriggeredDate.date,
-        })
-        .andWhere('"disasterType" = :disasterType', {
-          disasterType: disasterType,
-        })
-        .andWhere('dynamic."indicator" = :indicator', {
-          indicator: disaster.actionsUnit,
-        });
-
-      // If alertThreshold is triggerUnit, always show all admin-areas
-      if (disaster.triggerUnit !== DynamicIndicator.alertThreshold) {
-        const placeCodes = await this.getTriggeredPlaceCodes(
-          countryCodeISO3,
-          disasterType,
-          leadTime,
+      if (placeCodes.length) {
+        adminAreasScript = adminAreasScript.andWhere(
+          'area."placeCode" IN (:...placeCodes)',
+          { placeCodes: placeCodes },
         );
-        if (placeCodes.length) {
-          adminAreasScript = adminAreasScript.andWhere(
-            'area."placeCode" IN (:...placeCodes)',
-            { placeCodes: placeCodes },
-          );
-        }
       }
-    } else {
-      adminAreasScript = adminAreasScript.addSelect(
-        `null AS ${disaster.actionsUnit}`,
-      );
     }
     const adminAreas = await adminAreasScript.getRawMany();
 
