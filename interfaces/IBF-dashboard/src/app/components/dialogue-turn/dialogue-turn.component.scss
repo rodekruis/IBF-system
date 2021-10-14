@@ -81,7 +81,7 @@
     border-right-color: transparent;
 
     right: var(--dialogue-turn--margin-around-card-horizontal);
-    border-left-color: var(--ion-color-ibf-chat-self);
+    border-left-color: var(--ion-color-danger);
   }
 }
 
@@ -97,7 +97,7 @@
 
   .dialogue-turn--speech-arrow {
     right: var(--dialogue-turn--margin-around-card-horizontal);
-    border-left-color: var(--ion-color-ibf-chat-self);
+    border-left-color: var(--ion-color-danger);
   }
 
   // Adjust for RTL: (Limited support: https://developer.mozilla.org/en-US/docs/Web/CSS/:dir#Browser_compatibility)
@@ -123,6 +123,10 @@
   .dialogue-turn--content {
     transform-origin: top center;
   }
+}
+
+.dialogue-turn.is-warn {
+  background-color: red;
 }
 
 .dialogue-turn.is-pending {

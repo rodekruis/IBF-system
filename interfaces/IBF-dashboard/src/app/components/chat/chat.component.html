@@ -2,6 +2,19 @@
   <!-- No event -->
   <app-disaster-type></app-disaster-type>
   <app-dialogue-turn
+    isWarn="true"
+  >
+    <p 
+        [innerHTML]="
+        'chat-component.' + disasterCategory + 'warn-label.message'
+          | translate
+            : {
+                leadTime: eventService.state.firstLeadTimeLabel
+              }
+      "
+    ></p> 
+  </app-dialogue-turn>
+  <app-dialogue-turn
     *ngIf="!eventService.state.activeEvent && !eventService.state.activeTrigger"
   >
     <p
