@@ -9,6 +9,7 @@ import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
+import { PlaceCodeService } from '../../services/place-code.service';
 
 @Component({
   selector: 'app-admin-level',
@@ -23,6 +24,7 @@ export class AdminLevelComponent {
     private mapService: MapService,
     private analyticsService: AnalyticsService,
     private eventService: EventService,
+    private placeCodeService: PlaceCodeService,
   ) {}
 
   public clickAdminLevelButton(adminLevel: AdminLevel): void {
@@ -39,6 +41,8 @@ export class AdminLevelComponent {
         isActiveTrigger: this.eventService.state.activeTrigger,
         component: this.constructor.name,
       });
+
+      this.placeCodeService.clearPlaceCode();
     } else {
       this.mapService.toggleLayer(layer);
     }

@@ -20,7 +20,7 @@ import { DisasterTypeService } from './disaster-type.service';
 export class AggregatesService {
   private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
   public indicators: Indicator[] = [];
-  private aggregates = [];
+  public aggregates = [];
   private country: Country;
   private disasterType: DisasterType;
 
@@ -129,6 +129,7 @@ export class AggregatesService {
   private onAggregatesData = (records) => {
     const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
     this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
+    console.log('this.aggregates: ', this.aggregates);
   };
 
   private aggregateOnPlaceCode(array) {

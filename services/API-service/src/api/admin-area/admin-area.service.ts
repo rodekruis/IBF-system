@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from './admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
@@ -23,6 +23,10 @@ export class AdminAreaService {
   private readonly countryRepository: Repository<CountryEntity>;
   @InjectRepository(DisasterEntity)
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
+  @InjectRepository(AdminAreaDynamicDataEntity)
+  private readonly adminAreaDynamicDataRepo: Repository<
+    AdminAreaDynamicDataEntity
+  >;
 
   private helperService: HelperService;
   private eventService: EventService;
@@ -51,7 +55,7 @@ export class AdminAreaService {
     let placeCodes = [];
     if (parseInt(trigger) === 1) {
       placeCodes = (
-        await this.eventService.getTriggeredAreas(
+        await this.getTriggeredAreasPerAdminLevel(
           countryCodeISO3,
           disasterType,
           adminLevel,
@@ -60,6 +64,30 @@ export class AdminAreaService {
       ).map((triggeredArea): string => triggeredArea.placeCode);
     }
     return placeCodes;
+  }
+
+  private async getTriggeredAreasPerAdminLevel(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    adminLevel: number,
+    leadTime: string,
+  ): Promise<AdminAreaDynamicDataEntity[]> {
+    const triggerUnit = await this.eventService.getTriggerUnit(disasterType);
+    const lastTriggeredDate = await this.eventService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
+    return await this.adminAreaDynamicDataRepo.find({
+      where: {
+        countryCodeISO3: countryCodeISO3,
+        disasterType: disasterType,
+        adminLevel: adminLevel,
+        leadTime: leadTime,
+        value: MoreThan(0),
+        indicator: triggerUnit,
+        date: lastTriggeredDate.date,
+      },
+    });
   }
 
   public async getAggregatesData(

@@ -171,7 +171,7 @@ export class EventService {
     }
   }
 
-  private async getTriggerUnit(disasterType: DisasterType): Promise<string> {
+  public async getTriggerUnit(disasterType: DisasterType): Promise<string> {
     return (
       await this.disasterTypeRepository.findOne({
         select: ['triggerUnit'],
