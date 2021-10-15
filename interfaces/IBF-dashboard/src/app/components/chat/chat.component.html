@@ -2,8 +2,8 @@
   <app-disaster-type></app-disaster-type>
   <!-- No event -->
   <app-dialogue-turn isWarn="true">
-    <p 
-        [innerHTML]="
+    <p
+      [innerHTML]="
         'chat-component.' + disasterCategory + 'warn-label.message'
           | translate
             : {
@@ -61,10 +61,7 @@
     <app-video-guide-button color="ibf-white"></app-video-guide-button>
   </app-dialogue-turn>
   <!-- Old event -->
-  <app-dialogue-turn 
-    *ngIf="eventService.isOldEvent()" 
-    isConnected="true"
-  >
+  <app-dialogue-turn *ngIf="eventService.isOldEvent()" isConnected="true">
     <p
       [innerHTML]="
         'chat-component.' + disasterCategory + 'active-event-no-trigger.welcome'
