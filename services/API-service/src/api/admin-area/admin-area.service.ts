@@ -176,10 +176,6 @@ export class AdminAreaService {
     adminLevel: number,
   ): Promise<GeoJson> {
     const disaster = await this.getDisasterType(disasterType);
-    const country = await this.countryRepository.findOne({
-      select: ['defaultAdminLevel'],
-      where: { countryCodeISO3: countryCodeISO3 },
-    });
     let adminAreasScript = this.adminAreaRepository
       .createQueryBuilder('area')
       .select([

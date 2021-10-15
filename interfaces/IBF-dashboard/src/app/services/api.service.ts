@@ -229,11 +229,7 @@ export class ApiService {
     );
   }
 
-  getAdminAreaDynamiceDataOne(
-    key: string,
-    placeCode: string,
-    leadTime: string,
-  ) {
+  getAdminAreaDynamicDataOne(key: string, placeCode: string, leadTime: string) {
     return this.get(
       `admin-area-dynamic-data/single/${key}/${placeCode}/${leadTime}`,
       false,

@@ -207,11 +207,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     } else {
       if (this.country) {
         if (this.eventService.state.activeTrigger) {
-          const areaCount = this.aggregatesService.aggregates.length;
+          const areaCount = this.aggregatesService.nrTriggeredAreas;
           const adminAreaLabel = this.country.adminRegionLabels[
             this.adminLevelService.adminLevel
           ][areaCount > 1 ? 'plural' : 'singular'];
-          headerLabel = `${this.aggregatesService.aggregates.length} ${this.exposedPrefix} ${adminAreaLabel}`;
+          headerLabel = `${areaCount} ${this.exposedPrefix} ${adminAreaLabel}`;
         } else {
           headerLabel = `${this.allPrefix} ${this.country.countryName}`;
         }

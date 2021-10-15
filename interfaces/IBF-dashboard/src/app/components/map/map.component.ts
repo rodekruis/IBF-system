@@ -428,7 +428,7 @@ export class MapComponent implements OnDestroy {
       activeAggregateLayer.name === IbfLayerName.potentialCases
     ) {
       this.apiService
-        .getAdminAreaDynamiceDataOne(
+        .getAdminAreaDynamicDataOne(
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
           this.timelineService.activeLeadTime,

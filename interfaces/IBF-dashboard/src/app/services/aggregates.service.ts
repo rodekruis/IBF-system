@@ -20,7 +20,8 @@ import { DisasterTypeService } from './disaster-type.service';
 export class AggregatesService {
   private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
   public indicators: Indicator[] = [];
-  public aggregates = [];
+  private aggregates = [];
+  public nrTriggeredAreas: number = 0;
   private country: Country;
   private disasterType: DisasterType;
 
@@ -102,15 +103,13 @@ export class AggregatesService {
   private onEachIndicatorByFeatureAndAggregate = (feature, aggregate) => (
     indicator: Indicator,
   ) => {
-    if (indicator.aggregateIndicator.includes(this.country.countryCodeISO3)) {
-      const foundIndicator = feature.records.find(
-        (a) => a.indicator === indicator.name,
-      );
-      if (foundIndicator) {
-        aggregate[indicator.name] = foundIndicator.value;
-      } else {
-        aggregate[indicator.name] = 0;
-      }
+    const foundIndicator = feature.records.find(
+      (a) => a.indicator === indicator.name,
+    );
+    if (foundIndicator) {
+      aggregate[indicator.name] = foundIndicator.value;
+    } else {
+      aggregate[indicator.name] = 0;
     }
   };
 
@@ -118,7 +117,6 @@ export class AggregatesService {
     const aggregate = {
       placeCode: feature.placeCode,
     };
-
     this.indicators.forEach(
       this.onEachIndicatorByFeatureAndAggregate(feature, aggregate),
     );
@@ -129,7 +127,9 @@ export class AggregatesService {
   private onAggregatesData = (records) => {
     const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
     this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
-    console.log('this.aggregates: ', this.aggregates);
+    this.nrTriggeredAreas = this.aggregates.filter(
+      (a) => a[this.disasterType.triggerUnit] > 0,
+    ).length;
   };
 
   private aggregateOnPlaceCode(array) {
