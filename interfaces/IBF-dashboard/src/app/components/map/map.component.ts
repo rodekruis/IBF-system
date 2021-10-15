@@ -403,17 +403,18 @@ export class MapComponent implements OnDestroy {
       component: this.constructor.name,
     });
 
-    this.placeCodeService.setPlaceCode({
-      countryCodeISO3: feature.properties.countryCodeISO3,
-      placeCodeName: feature.properties.name,
-      placeCode: feature.properties.placeCode,
-    });
-
     if (feature.properties.placeCode === this.placeCode) {
       element.unbindPopup();
       this.placeCode = null;
+      this.placeCodeService.clearPlaceCode();
     } else {
       this.bindPopupAdminRegions(feature, element);
+      this.placeCode = feature.properties.placeCode;
+      this.placeCodeService.setPlaceCode({
+        countryCodeISO3: feature.properties.countryCodeISO3,
+        placeCodeName: feature.properties.name,
+        placeCode: feature.properties.placeCode,
+      });
     }
   };
 
@@ -443,7 +444,6 @@ export class MapComponent implements OnDestroy {
             className: 'trigger-popup-max',
           };
           element.bindPopup(popup, popupOptions).openPopup();
-          this.placeCode = feature.properties.placeCode;
         });
     } else {
       popup = this.createDefaultPopupAdminRegions(
@@ -451,7 +451,6 @@ export class MapComponent implements OnDestroy {
         feature,
       );
       element.bindPopup(popup).openPopup();
-      this.placeCode = feature.properties.placeCode;
     }
   }
 
