@@ -21,7 +21,7 @@ export class AggregatesService {
   private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
   public indicators: Indicator[] = [];
   private aggregates = [];
-  public nrTriggeredAreas: number = 0;
+  public nrTriggeredAreas: number;
   private country: Country;
   private disasterType: DisasterType;
 
