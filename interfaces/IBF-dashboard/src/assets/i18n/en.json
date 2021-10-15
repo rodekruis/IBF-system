@@ -88,7 +88,7 @@
   "chat-component": {
     "about-button-label": "About Trigger",
     "warn-label": {
-      "message": "Following information is based on the model last run on {{leadTime}}."
+      "message": "The information in this dashboard is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
     },
     "no-event-no-trigger": {
       "welcome": "Hello {{ name }}. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."

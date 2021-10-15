@@ -1,19 +1,20 @@
 <ion-content scrollY="true">
-  <!-- No event -->
   <app-disaster-type></app-disaster-type>
-  <app-dialogue-turn isWarn="true" isConnected="true">
-    <p
-      [innerHTML]="
+  <!-- No event -->
+  <app-dialogue-turn isWarn="true">
+    <p 
+        [innerHTML]="
         'chat-component.' + disasterCategory + 'warn-label.message'
           | translate
             : {
-                leadTime: eventService.state.firstLeadTimeLabel
+                lastModelRunDate: lastModelRunDate
               }
       "
     ></p>
   </app-dialogue-turn>
   <app-dialogue-turn
     *ngIf="!eventService.state.activeEvent && !eventService.state.activeTrigger"
+    isConnected="true"
   >
     <p
       [innerHTML]="
@@ -33,6 +34,7 @@
   <!-- Active event -->
   <app-dialogue-turn
     *ngIf="eventService.state.activeEvent && eventService.state.activeTrigger"
+    isConnected="true"
   >
     <p
       [innerHTML]="
@@ -59,7 +61,10 @@
     <app-video-guide-button color="ibf-white"></app-video-guide-button>
   </app-dialogue-turn>
   <!-- Old event -->
-  <app-dialogue-turn *ngIf="eventService.isOldEvent()">
+  <app-dialogue-turn 
+    *ngIf="eventService.isOldEvent()" 
+    isConnected="true"
+  >
     <p
       [innerHTML]="
         'chat-component.' + disasterCategory + 'active-event-no-trigger.welcome'

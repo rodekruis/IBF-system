@@ -50,6 +50,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterTypeLabel: string;
   public disasterTypeName: string;
   public disasterCategory: string;
+  private country: Country;
+  public lastModelRunDate: any;
 
   constructor(
     private eapActionsService: EapActionsService,
@@ -107,6 +109,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onCountryChange = (country: Country) => {
     if (country) {
+      this.country = country;
       this.adminAreaLabel =
         country.adminRegionLabels[country.defaultAdminLevel].singular;
       this.changeDetectorRef.detectChanges();
@@ -147,7 +150,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       DisasterTypeKey.heavyRain,
       DisasterTypeKey.malaria,
     ];
-    if (disasterType) {
+    if (this.country && disasterType) {
       this.disasterTypeLabel = disasterType.label;
       this.disasterTypeName = disasterType.disasterType;
       const activeEventsSelector = 'active-event';
@@ -174,8 +177,17 @@ export class ChatComponent implements OnInit, OnDestroy {
         ][updateFailureSelector];
         this.disasterCategory = '';
       }
+
+      this.apiService
+        .getRecentDates(this.country.countryCodeISO3, disasterType.disasterType)
+        .subscribe(this.onRecentDates);
+
       this.changeDetectorRef.detectChanges();
     }
+  };
+
+  private onRecentDates = (date) => {
+    this.lastModelRunDate = date.date;
   };
 
   // data needs to be reorganized to avoid the mess that follows
