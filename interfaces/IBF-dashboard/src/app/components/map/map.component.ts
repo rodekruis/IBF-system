@@ -282,7 +282,6 @@ export class MapComponent implements OnDestroy {
         layer.colorProperty,
         layer.colorBreaks,
       );
-      // console.log('####279###',this.mapService.state,colors,colorThreshold,this.eventService)
 
       if (
         layer.group !== IbfLayerGroup.adminRegions &&

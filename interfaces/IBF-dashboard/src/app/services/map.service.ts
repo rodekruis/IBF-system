@@ -770,7 +770,6 @@ export class MapService {
   ): string => {
     let adminRegionFillColor = this.state.defaultColor;
     const currentColorGradient = this.disasterType?.activeTrigger ? this.state.colorGradientTriggered : this.state.colorGradient;
-    // console.log('###774###',this.disasterType, this.eventService.state)
     
     switch (true) {
       case colorPropertyValue <= colorThreshold[breakKey.break1]:
@@ -916,7 +915,6 @@ export class MapService {
     );
 
     return (adminRegion) => {
-      // console.log('###AdminRegion###',adminRegion);
       const fillColor = this.getAdminRegionFillColor(
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
