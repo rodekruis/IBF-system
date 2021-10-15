@@ -35,9 +35,7 @@ export class DialogueTurnComponent implements OnInit {
 
   animate = false;
 
-  constructor(
-    private timelineService: TimelineService
-  ) {}
+  constructor(private timelineService: TimelineService) {}
 
   ngOnInit() {
     this.isSelf = this.actor === Actor.self;
@@ -50,9 +48,9 @@ export class DialogueTurnComponent implements OnInit {
   }
 
   public isLastModelDateStale = () => {
-    const nowDate = DateTime.now()
-    const recentDate = this.timelineService.state.today
-    const diff = nowDate.diff(recentDate, ['hours'])
-    return this.isWarn && diff.toObject().hours > 24
+    const nowDate = DateTime.now();
+    const recentDate = this.timelineService.state.today;
+    const diff = nowDate.diff(recentDate, ['hours']);
+    return this.isWarn && diff.toObject().hours > 24;
   };
 }

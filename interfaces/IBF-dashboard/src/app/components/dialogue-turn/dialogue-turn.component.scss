@@ -106,13 +106,12 @@
   // Reset LTR-styles first:
   left: auto;
   height: 16px;
-  width: 16px;;
+  width: 16px;
   border-right-color: transparent;
 
   right: var(--dialogue-turn--margin-around-card-horizontal);
   border-left-color: red;
 }
-
 
 .dialogue-turn.is-self {
   .dialogue-turn--actor {
