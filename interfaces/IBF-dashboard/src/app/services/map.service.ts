@@ -55,7 +55,13 @@ export class MapService {
       [20, 20],
     ] as LatLngBoundsLiteral,
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
-    colorGradientTriggered: ['#E3D5F3', '#D1B6F0', '#BD94EC', '#A16AE1', '#792CD3'],
+    colorGradientTriggered: [
+      '#E3D5F3',
+      '#D1B6F0',
+      '#BD94EC',
+      '#A16AE1',
+      '#792CD3',
+    ],
     defaultColor: '#969696',
     transparentColor: 'transparent',
     defaultFillOpacity: 0.8,
@@ -769,8 +775,10 @@ export class MapService {
     placeCode: string,
   ): string => {
     let adminRegionFillColor = this.state.defaultColor;
-    const currentColorGradient = this.disasterType?.activeTrigger ? this.state.colorGradientTriggered : this.state.colorGradient;
-    
+    const currentColorGradient = this.disasterType?.activeTrigger
+      ? this.state.colorGradientTriggered
+      : this.state.colorGradient;
+
     switch (true) {
       case colorPropertyValue <= colorThreshold[breakKey.break1]:
         adminRegionFillColor = currentColorGradient[0];
