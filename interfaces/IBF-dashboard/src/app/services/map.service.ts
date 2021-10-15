@@ -55,6 +55,7 @@ export class MapService {
       [20, 20],
     ] as LatLngBoundsLiteral,
     colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
+    colorGradientTriggered: ['#E3D5F3', '#D1B6F0', '#BD94EC', '#A16AE1', '#792CD3'],
     defaultColor: '#969696',
     transparentColor: 'transparent',
     defaultFillOpacity: 0.8,
@@ -768,21 +769,24 @@ export class MapService {
     placeCode: string,
   ): string => {
     let adminRegionFillColor = this.state.defaultColor;
+    const currentColorGradient = this.disasterType?.activeTrigger ? this.state.colorGradientTriggered : this.state.colorGradient;
+    // console.log('###774###',this.disasterType, this.eventService.state)
+    
     switch (true) {
       case colorPropertyValue <= colorThreshold[breakKey.break1]:
-        adminRegionFillColor = this.state.colorGradient[0];
+        adminRegionFillColor = currentColorGradient[0];
         break;
       case colorPropertyValue <= colorThreshold[breakKey.break2]:
-        adminRegionFillColor = this.state.colorGradient[1];
+        adminRegionFillColor = currentColorGradient[1];
         break;
       case colorPropertyValue <= colorThreshold[breakKey.break3]:
-        adminRegionFillColor = this.state.colorGradient[2];
+        adminRegionFillColor = currentColorGradient[2];
         break;
       case colorPropertyValue <= colorThreshold[breakKey.break4]:
-        adminRegionFillColor = this.state.colorGradient[3];
+        adminRegionFillColor = currentColorGradient[3];
         break;
       case colorPropertyValue > colorThreshold[breakKey.break5]:
-        adminRegionFillColor = this.state.colorGradient[4];
+        adminRegionFillColor = currentColorGradient[4];
         break;
       default:
         adminRegionFillColor = this.state.defaultColor;
@@ -912,6 +916,7 @@ export class MapService {
     );
 
     return (adminRegion) => {
+      // console.log('###AdminRegion###',adminRegion);
       const fillColor = this.getAdminRegionFillColor(
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
