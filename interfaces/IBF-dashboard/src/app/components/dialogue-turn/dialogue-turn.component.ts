@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
+import { TimelineService } from 'src/app/services/timeline.service';
 
 enum Actor {
   system = 'system',
@@ -34,7 +35,9 @@ export class DialogueTurnComponent implements OnInit {
 
   animate = false;
 
-  constructor() {}
+  constructor(
+    private timelineService: TimelineService
+  ) {}
 
   ngOnInit() {
     this.isSelf = this.actor === Actor.self;
@@ -45,4 +48,11 @@ export class DialogueTurnComponent implements OnInit {
   show() {
     this.isSpoken = true;
   }
+
+  public isLastModelDateStale = () => {
+    const nowDate = DateTime.now()
+    const recentDate = this.timelineService.state.today
+    const diff = nowDate.diff(recentDate, ['hours'])
+    return this.isWarn && diff.toObject().hours > 24
+  };
 }

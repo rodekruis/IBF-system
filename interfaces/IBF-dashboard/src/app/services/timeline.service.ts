@@ -73,7 +73,6 @@ export class TimelineService {
 
   private onTriggerPerLeadTime = (triggers) => {
     this.triggers = triggers;
-
     if (this.triggers) {
       this.state.timeStepButtons = [];
       const visibleLeadTimes = this.getVisibleLeadTimes();
