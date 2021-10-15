@@ -1,3 +1,12 @@
+## [0.95.4](https://github.com/rodekruis/IBF-system/compare/v0.95.3...v0.95.4) (2021-10-15)
+
+
+### Bug Fixes
+
+* revert removal of pipeline endpoint AB[#10029](https://github.com/rodekruis/IBF-system/issues/10029) ([162b8a0](https://github.com/rodekruis/IBF-system/commit/162b8a03db5340483da4947f84deb9b4adc43d99))
+
+
+
 ## [0.95.3](https://github.com/rodekruis/IBF-system/compare/v0.95.2...v0.95.3) (2021-10-08)
 
 
@@ -108,15 +117,6 @@
 ### Bug Fixes
 
 * lint AB[#9299](https://github.com/rodekruis/IBF-system/issues/9299) ([faabe9f](https://github.com/rodekruis/IBF-system/commit/faabe9fb459321e70bae3ac35d0c7dfed7e62a8f))
-
-
-
-# [0.92.0](https://github.com/rodekruis/IBF-system/compare/v0.91.0...v0.92.0) (2021-09-29)
-
-
-### Features
-
-* activation log endpoint AB[#9850](https://github.com/rodekruis/IBF-system/issues/9850) ([5915c0d](https://github.com/rodekruis/IBF-system/commit/5915c0d65fe16a3453640fd257196735292a91e6))
 
 
 
