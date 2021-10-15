@@ -276,7 +276,9 @@ export class MapComponent implements OnDestroy {
     if (layer.type === IbfLayerType.shape) {
       layer.leafletLayer = this.createAdminRegionsLayer(layer);
 
-      const colors = this.eventService.state.activeTrigger ? this.mapService.state.colorGradientTriggered : this.mapService.state.colorGradient;
+      const colors = this.eventService.state.activeTrigger
+        ? this.mapService.state.colorGradientTriggered
+        : this.mapService.state.colorGradient;
       const colorThreshold = this.mapService.getColorThreshold(
         layer.data,
         layer.colorProperty,
