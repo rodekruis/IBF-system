@@ -1,3 +1,19 @@
+# [0.96.0](https://github.com/rodekruis/IBF-system/compare/v0.95.4...v0.96.0) (2021-10-18)
+
+
+### Bug Fixes
+
+* updated spelling mistakes AB[#10210](https://github.com/rodekruis/IBF-system/issues/10210) ([82b1d8c](https://github.com/rodekruis/IBF-system/commit/82b1d8c78c22b564e2fb03764465cfd93f347a5e))
+* zwe popup text feedback AB[#10144](https://github.com/rodekruis/IBF-system/issues/10144) ([20bdb89](https://github.com/rodekruis/IBF-system/commit/20bdb897e46f1641283650a4cb4bb6b3bab8272f))
+
+
+### Features
+
+* updated file AB[#10144](https://github.com/rodekruis/IBF-system/issues/10144) ([3de6aef](https://github.com/rodekruis/IBF-system/commit/3de6aef3cf4cc0fb8313ae77861f194c114d5fe7))
+* ZWE-popup-upadated AB[#10144](https://github.com/rodekruis/IBF-system/issues/10144) ([e8f5bd8](https://github.com/rodekruis/IBF-system/commit/e8f5bd810742ad2d4a5b2d66a6fa25acfe38038d))
+
+
+
 ## [0.95.4](https://github.com/rodekruis/IBF-system/compare/v0.95.3...v0.95.4) (2021-10-15)
 
 
@@ -108,15 +124,6 @@
 
 * add egypt to mock-endpoint AB[#9498](https://github.com/rodekruis/IBF-system/issues/9498) ([234d332](https://github.com/rodekruis/IBF-system/commit/234d33278d53ba21823429953d0ea1e1731b080e))
 * add endpoint to mock all at once AB[#9498](https://github.com/rodekruis/IBF-system/issues/9498) ([2c0fb6e](https://github.com/rodekruis/IBF-system/commit/2c0fb6e95a7b65a19418c93278c2dd9f703a1d7e))
-
-
-
-## [0.92.1](https://github.com/rodekruis/IBF-system/compare/v0.92.0...v0.92.1) (2021-09-30)
-
-
-### Bug Fixes
-
-* lint AB[#9299](https://github.com/rodekruis/IBF-system/issues/9299) ([faabe9f](https://github.com/rodekruis/IBF-system/commit/faabe9fb459321e70bae3ac35d0c7dfed7e62a8f))
 
 
 
