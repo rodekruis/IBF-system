@@ -62,7 +62,7 @@ export class MapService {
       '#A16AE1',
       '#792CD3',
     ],
-    defaultColor: '#BD94EC',
+    defaultColor: '#969696',
     transparentColor: 'transparent',
     defaultFillOpacity: 0.8,
     defaultWeight: 1,
@@ -792,7 +792,7 @@ export class MapService {
       case colorPropertyValue <= colorThreshold[breakKey.break4]:
         adminRegionFillColor = currentColorGradient[3];
         break;
-      case colorPropertyValue > colorThreshold[breakKey.break5]:
+      case colorPropertyValue > colorThreshold[breakKey.break4]:
         adminRegionFillColor = currentColorGradient[4];
         break;
       default:
