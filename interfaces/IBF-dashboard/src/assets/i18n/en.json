@@ -98,7 +98,7 @@
       "welcome": "Hello {{ name }}. There is <strong>no active trigger</strong> any more (as can be seen in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
     },
     "active-event": {
-      "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+      "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event. These actions are only available on the main admin-level.",
       "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
       "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
       "submit-button-label": "Save",
