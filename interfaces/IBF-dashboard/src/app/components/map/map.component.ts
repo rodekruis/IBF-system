@@ -170,7 +170,9 @@ export class MapComponent implements OnDestroy {
   };
 
   private numberFormat(d, layer) {
-    if (layer.numberFormatMap === NumberFormat.perc) {
+    if (d === null) {
+      return null;
+    } else if (layer.numberFormatMap === NumberFormat.perc) {
       return Math.round(d * 100) + '%';
     } else if (layer.numberFormatMap === NumberFormat.decimal2) {
       return Math.round(d * 100) / 100;
@@ -207,13 +209,12 @@ export class MapComponent implements OnDestroy {
       this.legends[layer.name].onAdd = () => {
         const div = DomUtil.create('div', 'info legend');
         const grades = [
-          0,
+          colorThreshold[breakKey.break0],
           colorThreshold[breakKey.break1],
           colorThreshold[breakKey.break2],
           colorThreshold[breakKey.break3],
           colorThreshold[breakKey.break4],
         ];
-
         let labels;
         if (layer.colorBreaks) {
           labels = [
@@ -232,10 +233,12 @@ export class MapComponent implements OnDestroy {
         div.innerHTML +=
           `<div><b>${layer.label}</b>` +
           (layer.unit ? ' (' + layer.unit + ')' : '') +
-          `</div>`;
+          `</div><i style="background:` +
+          this.mapService.state.noDataColor +
+          `"></i> No data<br>`;
 
         for (let i = 0; i < grades.length; i++) {
-          if (i === 0 || grades[i] > grades[i - 1]) {
+          if (grades[i] !== null && (i === 0 || grades[i] > grades[i - 1])) {
             div.innerHTML +=
               '<i style="background:' +
               getColor(grades[i] + 0.0001) +

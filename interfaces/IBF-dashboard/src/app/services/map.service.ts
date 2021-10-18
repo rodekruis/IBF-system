@@ -63,6 +63,7 @@ export class MapService {
       '#792CD3',
     ],
     defaultColor: '#969696',
+    noDataColor: '#fcf2d4',
     transparentColor: 'transparent',
     defaultFillOpacity: 0.8,
     defaultWeight: 1,
@@ -764,7 +765,7 @@ export class MapService {
           area.properties.indicators = {};
           area.properties.indicators[layerName] = foundAdmDynamicEntry
             ? foundAdmDynamicEntry.value
-            : 0;
+            : null;
           updatedFeatures.push(area);
         }
         return adminRegions;
@@ -783,6 +784,9 @@ export class MapService {
       : this.state.colorGradient;
 
     switch (true) {
+      case colorPropertyValue === null:
+        adminRegionFillColor = this.state.noDataColor;
+        break;
       case colorPropertyValue <= colorThreshold[breakKey.break1]:
         adminRegionFillColor = currentColorGradient[0];
         break;
@@ -873,6 +877,7 @@ export class MapService {
   public getColorThreshold = (adminRegions, colorProperty, colorBreaks) => {
     if (colorBreaks) {
       return {
+        break0: 0,
         break1: colorBreaks['1'].valueHigh,
         break2: colorBreaks['2'].valueHigh,
         break3: colorBreaks['3'].valueHigh,
@@ -889,6 +894,7 @@ export class MapService {
       .filter((v, i, a) => a.indexOf(v) === i);
 
     const colorThreshold = {
+      break0: quantile(colorPropertyValues, 0.0),
       break1: quantile(colorPropertyValues, 0.2),
       break2: quantile(colorPropertyValues, 0.4),
       break3: quantile(colorPropertyValues, 0.6),
