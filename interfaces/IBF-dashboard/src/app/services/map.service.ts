@@ -62,7 +62,7 @@ export class MapService {
       '#A16AE1',
       '#792CD3',
     ],
-    defaultColor: '#969696',
+    defaultColor: '#BD94EC',
     transparentColor: 'transparent',
     defaultFillOpacity: 0.8,
     defaultWeight: 1,
