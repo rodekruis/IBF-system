@@ -1,3 +1,12 @@
+## [0.97.1](https://github.com/rodekruis/IBF-system/compare/v0.97.0...v0.97.1) (2021-10-18)
+
+
+### Bug Fixes
+
+* popup text fixes AB[#10131](https://github.com/rodekruis/IBF-system/issues/10131) ([89e627d](https://github.com/rodekruis/IBF-system/commit/89e627d80cbaff265234d93d3b67aa989da874f8))
+
+
+
 # [0.97.0](https://github.com/rodekruis/IBF-system/compare/v0.96.0...v0.97.0) (2021-10-18)
 
 
@@ -115,15 +124,6 @@
 ### Bug Fixes
 
 * show selected rain icon EGY AB[#9883](https://github.com/rodekruis/IBF-system/issues/9883) ([1be0c0f](https://github.com/rodekruis/IBF-system/commit/1be0c0f6c6d0128c8f4e58e19a8480f9868da862))
-
-
-
-## [0.93.1](https://github.com/rodekruis/IBF-system/compare/v0.93.0...v0.93.1) (2021-10-01)
-
-
-### Bug Fixes
-
-* chat intro text bug AB[#9874](https://github.com/rodekruis/IBF-system/issues/9874) ([a3484a4](https://github.com/rodekruis/IBF-system/commit/a3484a4675136f812f2e6dfdde3e9b8828593b49))
 
 
 
