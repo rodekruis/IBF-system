@@ -25,6 +25,21 @@ export class AdminAreaController {
 
   @ApiOperation({
     summary:
+      'Get admin-area boundaries and attributes for given country in raw format (used by IBF-pipelines)',
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description: 'Admin-area boundaries and attributes for given country',
+    type: [AdminAreaEntity],
+  })
+  @Get('raw/:countryCodeISO3')
+  public async getAdminAreasRaw(@Param() params): Promise<any[]> {
+    return await this.adminAreaService.getAdminAreasRaw(params.countryCodeISO3);
+  }
+
+  @ApiOperation({
+    summary:
       'Get (relevant) admin-areas boundaries and attributes for given country, disater-type and lead-time (as GeoJSON)',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })

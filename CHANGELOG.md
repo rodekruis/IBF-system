@@ -1,3 +1,55 @@
+## [0.97.1](https://github.com/rodekruis/IBF-system/compare/v0.97.0...v0.97.1) (2021-10-18)
+
+
+### Bug Fixes
+
+* popup text fixes AB[#10131](https://github.com/rodekruis/IBF-system/issues/10131) ([89e627d](https://github.com/rodekruis/IBF-system/commit/89e627d80cbaff265234d93d3b67aa989da874f8))
+
+
+
+# [0.97.0](https://github.com/rodekruis/IBF-system/compare/v0.96.0...v0.97.0) (2021-10-18)
+
+
+### Bug Fixes
+
+* correct color breaks AB[#10165](https://github.com/rodekruis/IBF-system/issues/10165) ([c2f3058](https://github.com/rodekruis/IBF-system/commit/c2f305865f80ef2c0025c613506766e49451f1fc))
+* lint AB[#10165](https://github.com/rodekruis/IBF-system/issues/10165) ([98d04af](https://github.com/rodekruis/IBF-system/commit/98d04af9ec3f2df94815a1ff8210a46a811fc162))
+* lint AB[#10165](https://github.com/rodekruis/IBF-system/issues/10165) ([7b8137e](https://github.com/rodekruis/IBF-system/commit/7b8137ebd2e84ba6a7d1ae4d655f06601c74f443))
+* removed commented code AB[#10165](https://github.com/rodekruis/IBF-system/issues/10165) ([725593c](https://github.com/rodekruis/IBF-system/commit/725593c41141da989c5103faa7089df168a6a162))
+* updated highest color to purple ([6d39703](https://github.com/rodekruis/IBF-system/commit/6d3970327ff48332e2910742d4736726fd9e409d))
+
+
+### Features
+
+* changed gradient color into purple for triggered state AB[#9103](https://github.com/rodekruis/IBF-system/issues/9103) ([195414c](https://github.com/rodekruis/IBF-system/commit/195414c714599abf06d021fcfae1b6b0f9d5bef1))
+
+
+
+# [0.96.0](https://github.com/rodekruis/IBF-system/compare/v0.95.4...v0.96.0) (2021-10-18)
+
+
+### Bug Fixes
+
+* updated spelling mistakes AB[#10210](https://github.com/rodekruis/IBF-system/issues/10210) ([82b1d8c](https://github.com/rodekruis/IBF-system/commit/82b1d8c78c22b564e2fb03764465cfd93f347a5e))
+* zwe popup text feedback AB[#10144](https://github.com/rodekruis/IBF-system/issues/10144) ([20bdb89](https://github.com/rodekruis/IBF-system/commit/20bdb897e46f1641283650a4cb4bb6b3bab8272f))
+
+
+### Features
+
+* updated file AB[#10144](https://github.com/rodekruis/IBF-system/issues/10144) ([3de6aef](https://github.com/rodekruis/IBF-system/commit/3de6aef3cf4cc0fb8313ae77861f194c114d5fe7))
+* ZWE-popup-upadated AB[#10144](https://github.com/rodekruis/IBF-system/issues/10144) ([e8f5bd8](https://github.com/rodekruis/IBF-system/commit/e8f5bd810742ad2d4a5b2d66a6fa25acfe38038d))
+
+
+
+## [0.95.4](https://github.com/rodekruis/IBF-system/compare/v0.95.3...v0.95.4) (2021-10-15)
+
+
+### Bug Fixes
+
+* revert removal of pipeline endpoint AB[#10029](https://github.com/rodekruis/IBF-system/issues/10029) ([162b8a0](https://github.com/rodekruis/IBF-system/commit/162b8a03db5340483da4947f84deb9b4adc43d99))
+
+
+
 ## [0.95.3](https://github.com/rodekruis/IBF-system/compare/v0.95.2...v0.95.3) (2021-10-08)
 
 
@@ -72,51 +124,6 @@
 ### Bug Fixes
 
 * show selected rain icon EGY AB[#9883](https://github.com/rodekruis/IBF-system/issues/9883) ([1be0c0f](https://github.com/rodekruis/IBF-system/commit/1be0c0f6c6d0128c8f4e58e19a8480f9868da862))
-
-
-
-## [0.93.1](https://github.com/rodekruis/IBF-system/compare/v0.93.0...v0.93.1) (2021-10-01)
-
-
-### Bug Fixes
-
-* chat intro text bug AB[#9874](https://github.com/rodekruis/IBF-system/issues/9874) ([a3484a4](https://github.com/rodekruis/IBF-system/commit/a3484a4675136f812f2e6dfdde3e9b8828593b49))
-
-
-
-# [0.93.0](https://github.com/rodekruis/IBF-system/compare/v0.92.1...v0.93.0) (2021-10-01)
-
-
-### Bug Fixes
-
-* lint ([3e979a5](https://github.com/rodekruis/IBF-system/commit/3e979a5a1e5034d9a2ff52236924a457ab319d27))
-* no rainfall extent if no trigger (mock) AB[#9498](https://github.com/rodekruis/IBF-system/issues/9498) ([e3e6949](https://github.com/rodekruis/IBF-system/commit/e3e69496aa7ee851028b5a6e3d1b4e7c8d29bb79))
-* remove KEN from .env until needed AB[#9498](https://github.com/rodekruis/IBF-system/issues/9498) ([c86e5cb](https://github.com/rodekruis/IBF-system/commit/c86e5cb6403eff1aadd64378af83bdc1f8167a6f))
-* show admin1 boundaries EGY AB[#9885](https://github.com/rodekruis/IBF-system/issues/9885) ([e73da71](https://github.com/rodekruis/IBF-system/commit/e73da714e0154247099802e539f3306e5196faef))
-
-
-### Features
-
-* add egypt to mock-endpoint AB[#9498](https://github.com/rodekruis/IBF-system/issues/9498) ([234d332](https://github.com/rodekruis/IBF-system/commit/234d33278d53ba21823429953d0ea1e1731b080e))
-* add endpoint to mock all at once AB[#9498](https://github.com/rodekruis/IBF-system/issues/9498) ([2c0fb6e](https://github.com/rodekruis/IBF-system/commit/2c0fb6e95a7b65a19418c93278c2dd9f703a1d7e))
-
-
-
-## [0.92.1](https://github.com/rodekruis/IBF-system/compare/v0.92.0...v0.92.1) (2021-09-30)
-
-
-### Bug Fixes
-
-* lint AB[#9299](https://github.com/rodekruis/IBF-system/issues/9299) ([faabe9f](https://github.com/rodekruis/IBF-system/commit/faabe9fb459321e70bae3ac35d0c7dfed7e62a8f))
-
-
-
-# [0.92.0](https://github.com/rodekruis/IBF-system/compare/v0.91.0...v0.92.0) (2021-09-29)
-
-
-### Features
-
-* activation log endpoint AB[#9850](https://github.com/rodekruis/IBF-system/issues/9850) ([5915c0d](https://github.com/rodekruis/IBF-system/commit/5915c0d65fe16a3453640fd257196735292a91e6))
 
 
 
