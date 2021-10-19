@@ -47,10 +47,5 @@ export class DialogueTurnComponent implements OnInit {
     this.isSpoken = true;
   }
 
-  public isLastModelDateStale = () => {
-    const nowDate = DateTime.now();
-    const recentDate = this.timelineService.state.today;
-    const diff = nowDate.diff(recentDate, ['hours']);
-    return this.isWarn && diff.toObject().hours > 24;
-  };
+  
 }

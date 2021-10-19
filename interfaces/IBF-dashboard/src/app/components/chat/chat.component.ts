@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, Subscription } from 'rxjs';
+import { DateTime } from 'luxon';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -52,6 +53,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterCategory: string;
   private country: Country;
   public lastModelRunDate: any;
+  public isWarn: boolean = false;
 
   constructor(
     private eapActionsService: EapActionsService,
@@ -188,6 +190,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onRecentDates = (date) => {
     this.lastModelRunDate = date.date;
+    this.isLastModelDateStale(this.lastModelRunDate)
   };
 
   // data needs to be reorganized to avoid the mess that follows
@@ -352,4 +355,16 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.eapActionsService.loadAdminAreasAndActions();
     this.eventService.getTrigger();
   }
+
+  private isLastModelDateStale = (recentDate) => {
+    const nowDate = DateTime.now();
+    const diff = nowDate.diff(recentDate, ['hours']);
+    if (diff.toObject().hours > 24){
+      this.isWarn = true;
+    } else {
+      this.isWarn = false;
+    }
+  };
+
+  // toFormat('yyyy-LL-dd')
 }
