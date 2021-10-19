@@ -365,6 +365,4 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.isWarn = false;
     }
   };
-
-  // toFormat('yyyy-LL-dd')
 }
