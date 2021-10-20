@@ -359,7 +359,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private isLastModelDateStale = (recentDate) => {
     const nowDate = DateTime.now();
     const diff = nowDate.diff(recentDate, ['hours']);
-    if (diff.toObject().hours > 24){
+    if (diff.toObject().hours > (24 + (24 * .1))){
       this.isWarn = true;
     } else {
       this.isWarn = false;
