@@ -91,13 +91,13 @@
       "message": "Hello {{ name }}. The information in this dashboard is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
     },
     "no-event-no-trigger": {
-      "welcome": "Hello {{ name }}. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
+      "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
     },
     "active-event-active-trigger": {
-      "welcome": "Hello {{ name }}. A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
+      "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
     },
     "active-event-no-trigger": {
-      "welcome": "Hello {{ name }}. There is <strong>no active trigger</strong> any more (as can be seen in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
+      "welcome": "There is <strong>no active trigger</strong> any more (as can be seen in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
     },
     "active-event": {
       "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
@@ -117,16 +117,16 @@
     "heavy-rain": {
       "about-button-label": "About Trigger",
       "warn-label": {
-        "message": "Warn message will come here. {{ leadTime }}"
+      "message": "Hello {{ name }}. The information in this dashboard is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
       },
       "no-event-no-trigger": {
-        "welcome": "Hello {{ name }}. To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
+        "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
       },
       "active-event-active-trigger": {
-        "welcome": "Hello {{ name }}. A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
+        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
       },
       "active-event-no-trigger": {
-        "welcome": "Hello {{ name }}. There is <strong>no active trigger</strong> any more (as can be seen in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
+        "welcome": "There is <strong>no active trigger</strong> any more (as can be seen in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
       },
       "active-event": {
         "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
@@ -147,16 +147,16 @@
     "dengue": {
       "about-button-label": "About Dengue Alerts",
       "warn-label": {
-        "message": "Warn message will come here. {{ leadTime }}"
+      "message": "Hello {{ name }}. The information in this dashboard is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
       },
       "no-event-no-trigger": {
-        "welcome": "Hello {{ name }}. To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for dengue activated."
+        "welcome": "To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for dengue activated."
       },
       "active-event-active-trigger": {
-        "welcome": "Hello {{ name }}. A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. The trigger is activated for <strong>{{ monthYear }}</strong>."
+        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. The trigger is activated for <strong>{{ monthYear }}</strong>."
       },
       "active-event-no-trigger": {
-        "welcome": "Hello {{ name }}. There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
+        "welcome": "There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
       },
       "active-event": {
         "instruction": "The areas above alert threshold are highlighted in the map with a red outline. You can click on the month tabs above the map to see the predictions for each month. Please select the area on the map to monitor which early actions are to do or done.",
@@ -168,16 +168,16 @@
     "malaria": {
       "about-button-label": "About Malaria Alerts",
       "warn-label": {
-        "message": "Warn message will come here. {{ leadTime }}"
+      "message": "Hello {{ name }}. The information in this dashboard is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
       },
       "no-event-no-trigger": {
-        "welcome": "Hello {{ name }}. To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for malaria activated."
+        "welcome": "To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for malaria activated."
       },
       "active-event-active-trigger": {
-        "welcome": "Hello {{ name }}. A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. The trigger is activated for <strong>{{ monthYear }}</strong>."
+        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. The trigger is activated for <strong>{{ monthYear }}</strong>."
       },
       "active-event-no-trigger": {
-        "welcome": "Hello {{ name }}. There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
+        "welcome": "There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
       },
       "active-event": {
         "instruction": "The areas above alert threshold are highlighted in the map with a red outline. You can click on the month tabs above the map to see the predictions for each month. Please select the area on the map to monitor which early actions are to do or done.",
