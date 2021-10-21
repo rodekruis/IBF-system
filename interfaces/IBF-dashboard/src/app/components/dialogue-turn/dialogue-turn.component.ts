@@ -46,6 +46,4 @@ export class DialogueTurnComponent implements OnInit {
   show() {
     this.isSpoken = true;
   }
-
-  
 }
