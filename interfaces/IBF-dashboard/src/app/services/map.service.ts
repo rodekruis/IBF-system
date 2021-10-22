@@ -405,9 +405,10 @@ export class MapService {
 
   public loadAggregateLayer(indicator: Indicator) {
     if (this.country) {
-      const layerActive =
-        indicator.active ||
-        this.adminLevelService.activeLayerNames.includes(indicator.name);
+      const layerActive = this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(indicator.name)
+        : indicator.active;
+
       if (layerActive && this.timelineService.activeLeadTime) {
         this.getCombineAdminRegionData(
           this.country.countryCodeISO3,

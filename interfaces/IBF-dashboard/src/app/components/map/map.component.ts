@@ -248,7 +248,7 @@ export class MapComponent implements OnDestroy {
           if (grades[i] !== null && (i === 0 || grades[i] > grades[i - 1])) {
             div.innerHTML +=
               '<i style="background:' +
-              getColor(grades[i] + 0.0001) +
+              getColor(grades[i]) +
               '"></i> ' +
               this.numberFormat(grades[i], layer) +
               (typeof grades[i + 1] !== 'undefined'
