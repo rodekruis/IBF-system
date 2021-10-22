@@ -170,15 +170,10 @@ export class AdminAreaService {
   }
 
   public async getAdminAreasRaw(countryCodeISO3): Promise<any[]> {
-    const country = await this.countryRepository.findOne({
-      select: ['defaultAdminLevel'],
-      where: { countryCodeISO3: countryCodeISO3 },
-    });
     return await this.adminAreaRepository.find({
-      select: ['countryCodeISO3', 'name', 'placeCode', 'geom'],
+      select: ['countryCodeISO3', 'name', 'placeCode', 'adminLevel', 'geom'],
       where: {
         countryCodeISO3: countryCodeISO3,
-        adminLevel: country.defaultAdminLevel,
       },
     });
   }
