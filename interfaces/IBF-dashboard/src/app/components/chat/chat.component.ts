@@ -54,7 +54,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterCategory: string;
   private country: Country;
   public lastModelRunDate: any;
-  public isWarn: boolean = false;
+  public isWarn = false;
 
   constructor(
     private eapActionsService: EapActionsService,
