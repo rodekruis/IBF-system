@@ -1,3 +1,12 @@
+## [0.98.1](https://github.com/rodekruis/IBF-system/compare/v0.98.0...v0.98.1) (2021-10-22)
+
+
+### Bug Fixes
+
+* get admin-areas for pipeline by admin-level AB[#10323](https://github.com/rodekruis/IBF-system/issues/10323) ([c8ee6f6](https://github.com/rodekruis/IBF-system/commit/c8ee6f69ee9ac70aa18da27e88910aa7b629624b))
+
+
+
 # [0.98.0](https://github.com/rodekruis/IBF-system/compare/v0.97.1...v0.98.0) (2021-10-22)
 
 
@@ -120,31 +129,6 @@
 ### Features
 
 * add uncertainty to leadtime text in dashboard and email AB[#9873](https://github.com/rodekruis/IBF-system/issues/9873) ([267b1b1](https://github.com/rodekruis/IBF-system/commit/267b1b18dbf8ff319d379f835d60942bb205bae4))
-
-
-
-# [0.94.0](https://github.com/rodekruis/IBF-system/compare/v0.93.2...v0.94.0) (2021-10-04)
-
-
-### Bug Fixes
-
-* AB[#8538](https://github.com/rodekruis/IBF-system/issues/8538) ([bf8f21c](https://github.com/rodekruis/IBF-system/commit/bf8f21c679cbe31e1ef5131a317147f4715fd536))
-* added files AB[#8538](https://github.com/rodekruis/IBF-system/issues/8538) ([92eaf7d](https://github.com/rodekruis/IBF-system/commit/92eaf7d3526efcba23c967ee8a7b881324fc6ce4))
-* added padding AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([8d3160c](https://github.com/rodekruis/IBF-system/commit/8d3160cecad0c7c4e96fa1526755b479c8893da0))
-* added scroll AB[#9489](https://github.com/rodekruis/IBF-system/issues/9489) ([c4edee7](https://github.com/rodekruis/IBF-system/commit/c4edee74ba6e3decc846afe03f9edb51e052dfc8))
-* error AB[#8538](https://github.com/rodekruis/IBF-system/issues/8538) ([e7e343f](https://github.com/rodekruis/IBF-system/commit/e7e343f0c894003609a1131da0e49c7875863936))
-* errors AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([da05a0b](https://github.com/rodekruis/IBF-system/commit/da05a0bdfb8a7995a7261c1c302be7551bd0793f))
-* lint AB[#8538](https://github.com/rodekruis/IBF-system/issues/8538) ([78664d0](https://github.com/rodekruis/IBF-system/commit/78664d05e39dfabd084f690f696799d699a3b2e3))
-* lint AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([ac757b6](https://github.com/rodekruis/IBF-system/commit/ac757b671af945dcba5e854143de1009d2e5d7aa))
-* make text selectable AB[#9489](https://github.com/rodekruis/IBF-system/issues/9489) ([7a86d84](https://github.com/rodekruis/IBF-system/commit/7a86d84567bb8b081acafbf153919a309584ba7a))
-* show in csv-format instead of json AB[#9489](https://github.com/rodekruis/IBF-system/issues/9489) ([d2ca8b2](https://github.com/rodekruis/IBF-system/commit/d2ca8b2ed51823f67d2be9af5f4b004f75dfd95c))
-
-
-### Features
-
-* added pages AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([71a015a](https://github.com/rodekruis/IBF-system/commit/71a015a26642970b17ad53df721b439045d89ecf))
-* diplayed raw text AB[#9489](https://github.com/rodekruis/IBF-system/issues/9489) ([631cbb4](https://github.com/rodekruis/IBF-system/commit/631cbb4bda9f6111bc2c22e266491c80c693dfb3))
-* link of activation page AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([f3841b0](https://github.com/rodekruis/IBF-system/commit/f3841b06e78727f6d21b799c34d98f18a8fe39c7))
 
 
 
