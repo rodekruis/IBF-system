@@ -86,7 +86,6 @@ export class SeedAdminAreaData implements InterfaceScript {
     // UGA
     if (envCountries.includes('UGA')) {
       const countryCodeISO3 = 'UGA';
-      const adminlevel = 2;
       // Flood vulnerability
       const floodVulnerabilityFilename = `./src/scripts/git-lfs/admin-area-data/flood_vulnerability_UGA.csv`;
       const floodVulnerabilityData = await this.seedHelper.getCsvData(
@@ -95,7 +94,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       const floodVulnerabilityDataArray = floodVulnerabilityData.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
-          adminLevel: adminlevel,
+          adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: area['indicator'],
           value: area['value'],
@@ -109,7 +108,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       const covidRiskDataArray = covidRiskData.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
-          adminLevel: adminlevel,
+          adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: area['indicator'],
           value: area['value'],
