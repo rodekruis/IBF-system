@@ -8,6 +8,7 @@ import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { EventModule } from '../event/event.module';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { CountryEntity } from '../country/country.entity';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { DisasterEntity } from '../disaster/disaster.entity';
       TriggerPerLeadTime,
       AdminAreaDynamicDataEntity,
       DisasterEntity,
+      CountryEntity,
     ]),
     UserModule,
     EventModule,

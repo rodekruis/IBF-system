@@ -63,6 +63,7 @@ export class MapService {
       '#792CD3',
     ],
     defaultColor: '#969696',
+    noDataColor: '#fcf2d4',
     transparentColor: 'transparent',
     defaultFillOpacity: 0.8,
     defaultWeight: 1,
@@ -113,8 +114,11 @@ export class MapService {
     this.loadCountryLayers();
   };
 
-  private onAdminLevelChange = (adminLevel: AdminLevel): void => {
-    this.loadAdminRegionLayer(true, adminLevel);
+  private onAdminLevelChange = () => {
+    this.layers.forEach((layer) => {
+      this.hideLayer(layer);
+    });
+    this.loadCountryLayers();
   };
 
   private onLeadTimeChange = () => {
@@ -226,7 +230,11 @@ export class MapService {
       label: IbfLayerLabel.glofasStations,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.glofasStations),
-      active: true,
+      active: this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(
+            IbfLayerName.glofasStations,
+          )
+        : true,
       show: true,
       data: stations,
       viewCenter: false,
@@ -260,7 +268,9 @@ export class MapService {
       label,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.redCrossBranches),
-      active: false,
+      active: this.adminLevelService.activeLayerNames.includes(
+        IbfLayerName.redCrossBranches,
+      ),
       show: true,
       data: redCrossBranches,
       viewCenter: false,
@@ -288,7 +298,9 @@ export class MapService {
       label: IbfLayerLabel.damSites,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.damSites),
-      active: false,
+      active: this.adminLevelService.activeLayerNames.includes(
+        IbfLayerName.damSites,
+      ),
       show: true,
       data: damSites,
       viewCenter: false,
@@ -316,7 +328,9 @@ export class MapService {
       label: IbfLayerLabel.healthSites,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.healthSites),
-      active: false,
+      active: this.adminLevelService.activeLayerNames.includes(
+        IbfLayerName.healthSites,
+      ),
       show: true,
       data: healthSites,
       viewCenter: false,
@@ -344,7 +358,9 @@ export class MapService {
       label: IbfLayerLabel.waterpoints,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.waterpoints),
-      active: false,
+      active: this.adminLevelService.activeLayerNames.includes(
+        IbfLayerName.waterpoints,
+      ),
       show: true,
       data: waterPoints,
       viewCenter: false,
@@ -378,10 +394,10 @@ export class MapService {
       group: IbfLayerGroup.adminRegions,
       type: IbfLayerType.shape,
       description: '',
-      active: this.country.defaultAdminLevel === adminLevel,
+      active: this.adminLevelService.adminLevel === adminLevel,
       show: true,
       data: adminRegions,
-      viewCenter: this.country.defaultAdminLevel === adminLevel,
+      viewCenter: this.adminLevelService.adminLevel === adminLevel,
       colorProperty: this.disasterType.actionsUnit,
       order: 0,
     });
@@ -389,7 +405,11 @@ export class MapService {
 
   public loadAggregateLayer(indicator: Indicator) {
     if (this.country) {
-      if (indicator.active && this.timelineService.activeLeadTime) {
+      const layerActive = this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(indicator.name)
+        : indicator.active;
+
+      if (layerActive && this.timelineService.activeLeadTime) {
         this.getCombineAdminRegionData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
@@ -398,10 +418,10 @@ export class MapService {
           indicator.name,
           indicator.dynamic,
         ).subscribe((adminRegions) => {
-          this.addAggregateLayer(indicator, adminRegions);
+          this.addAggregateLayer(indicator, adminRegions, layerActive);
         });
       } else {
-        this.addAggregateLayer(indicator, null);
+        this.addAggregateLayer(indicator, null, layerActive);
       }
     }
   }
@@ -425,13 +445,17 @@ export class MapService {
     }
   }
 
-  private addAggregateLayer(indicator: Indicator, adminRegions: any) {
+  private addAggregateLayer(
+    indicator: Indicator,
+    adminRegions: any,
+    active: boolean,
+  ) {
     this.addLayer({
       name: indicator.name,
       label: indicator.label,
       type: IbfLayerType.shape,
       description: this.getPopoverText(indicator.name),
-      active: indicator.active,
+      active,
       show: true,
       data: adminRegions,
       viewCenter: true,
@@ -579,7 +603,9 @@ export class MapService {
       label: layer.label,
       type: layer.type,
       description: layer.description,
-      active: layer.active,
+      active: this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(layer.name)
+        : layer.active,
       viewCenter: false,
       data: layerData,
       wms: layer.wms,
@@ -594,12 +620,15 @@ export class MapService {
       order: layer.order,
       unit: layer.unit,
       dynamic: layer.dynamic,
-      show: layer.show,
+      show: this.adminLevelService.activeLayerNames.includes(layer.name)
+        ? true
+        : layer.show,
     });
   };
 
   public toggleLayer = (layer: IbfLayer): void => {
     layer.active = !layer.active;
+    this.adminLevelService.activeLayerNames = [];
     this.updateLayers(layer);
   };
 
@@ -761,7 +790,7 @@ export class MapService {
           area.properties.indicators = {};
           area.properties.indicators[layerName] = foundAdmDynamicEntry
             ? foundAdmDynamicEntry.value
-            : 0;
+            : null;
           updatedFeatures.push(area);
         }
         return adminRegions;
@@ -780,6 +809,9 @@ export class MapService {
       : this.state.colorGradient;
 
     switch (true) {
+      case colorPropertyValue === null:
+        adminRegionFillColor = this.state.noDataColor;
+        break;
       case colorPropertyValue <= colorThreshold[breakKey.break1]:
         adminRegionFillColor = currentColorGradient[0];
         break;
@@ -870,6 +902,7 @@ export class MapService {
   public getColorThreshold = (adminRegions, colorProperty, colorBreaks) => {
     if (colorBreaks) {
       return {
+        break0: 0,
         break1: colorBreaks['1'].valueHigh,
         break2: colorBreaks['2'].valueHigh,
         break3: colorBreaks['3'].valueHigh,
@@ -886,6 +919,7 @@ export class MapService {
       .filter((v, i, a) => a.indexOf(v) === i);
 
     const colorThreshold = {
+      break0: quantile(colorPropertyValues, 0.0),
       break1: quantile(colorPropertyValues, 0.2),
       break2: quantile(colorPropertyValues, 0.4),
       break3: quantile(colorPropertyValues, 0.6),

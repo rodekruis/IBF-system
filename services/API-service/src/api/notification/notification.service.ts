@@ -397,6 +397,7 @@ export class NotificationService {
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
       disasterType,
+      country.defaultAdminLevel,
       leadTime.leadTimeName,
     );
     const disaster = await this.getDisaster(disasterType);

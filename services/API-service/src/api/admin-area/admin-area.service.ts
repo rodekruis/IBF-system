@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from './admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
@@ -23,6 +23,10 @@ export class AdminAreaService {
   private readonly countryRepository: Repository<CountryEntity>;
   @InjectRepository(DisasterEntity)
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
+  @InjectRepository(AdminAreaDynamicDataEntity)
+  private readonly adminAreaDynamicDataRepo: Repository<
+    AdminAreaDynamicDataEntity
+  >;
 
   private helperService: HelperService;
   private eventService: EventService;
@@ -35,6 +39,7 @@ export class AdminAreaService {
   private async getTriggeredPlaceCodes(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    adminLevel: number,
     leadTime: string,
   ) {
     if (leadTime === '{leadTime}') {
@@ -50,14 +55,39 @@ export class AdminAreaService {
     let placeCodes = [];
     if (parseInt(trigger) === 1) {
       placeCodes = (
-        await this.eventService.getTriggeredAreas(
+        await this.getTriggeredAreasPerAdminLevel(
           countryCodeISO3,
           disasterType,
+          adminLevel,
           leadTime,
         )
       ).map((triggeredArea): string => triggeredArea.placeCode);
     }
     return placeCodes;
+  }
+
+  private async getTriggeredAreasPerAdminLevel(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    adminLevel: number,
+    leadTime: string,
+  ): Promise<AdminAreaDynamicDataEntity[]> {
+    const triggerUnit = await this.eventService.getTriggerUnit(disasterType);
+    const lastTriggeredDate = await this.eventService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
+    return await this.adminAreaDynamicDataRepo.find({
+      where: {
+        countryCodeISO3: countryCodeISO3,
+        disasterType: disasterType,
+        adminLevel: adminLevel,
+        leadTime: leadTime,
+        value: MoreThan(0),
+        indicator: triggerUnit,
+        date: lastTriggeredDate.date,
+      },
+    });
   }
 
   public async getAggregatesData(
@@ -73,6 +103,7 @@ export class AdminAreaService {
       placeCodes = await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         disasterType,
+        adminLevel,
         leadTime,
       );
     }
@@ -159,10 +190,6 @@ export class AdminAreaService {
     adminLevel: number,
   ): Promise<GeoJson> {
     const disaster = await this.getDisasterType(disasterType);
-    const country = await this.countryRepository.findOne({
-      select: ['defaultAdminLevel'],
-      where: { countryCodeISO3: countryCodeISO3 },
-    });
     let adminAreasScript = this.adminAreaRepository
       .createQueryBuilder('area')
       .select([
@@ -175,53 +202,48 @@ export class AdminAreaService {
         countryCodeISO3: countryCodeISO3,
       })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
-    // Only add triggered-area filter if this is the default admin level
-    if (adminLevel == country.defaultAdminLevel) {
-      const lastTriggeredDate = await this.eventService.getRecentDate(
+
+    const lastTriggeredDate = await this.eventService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
+
+    adminAreasScript = adminAreasScript
+      .leftJoin(
+        AdminAreaDynamicDataEntity,
+        'dynamic',
+        'area.placeCode = dynamic.placeCode',
+      )
+      .addSelect([
+        `dynamic.value AS ${disaster.actionsUnit}`,
+        'dynamic."leadTime"',
+        'dynamic."date"',
+      ])
+      .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
+      .andWhere('date = :lastTriggeredDate', {
+        lastTriggeredDate: lastTriggeredDate.date,
+      })
+      .andWhere('"disasterType" = :disasterType', {
+        disasterType: disasterType,
+      })
+      .andWhere('dynamic."indicator" = :indicator', {
+        indicator: disaster.actionsUnit,
+      });
+
+    // If alertThreshold is triggerUnit, always show all admin-areas
+    if (disaster.triggerUnit !== DynamicIndicator.alertThreshold) {
+      const placeCodes = await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         disasterType,
+        adminLevel,
+        leadTime,
       );
-
-      adminAreasScript = adminAreasScript
-        .leftJoin(
-          AdminAreaDynamicDataEntity,
-          'dynamic',
-          'area.placeCode = dynamic.placeCode',
-        )
-        .addSelect([
-          `dynamic.value AS ${disaster.actionsUnit}`,
-          'dynamic."leadTime"',
-          'dynamic."date"',
-        ])
-        .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
-        .andWhere('date = :lastTriggeredDate', {
-          lastTriggeredDate: lastTriggeredDate.date,
-        })
-        .andWhere('"disasterType" = :disasterType', {
-          disasterType: disasterType,
-        })
-        .andWhere('dynamic."indicator" = :indicator', {
-          indicator: disaster.actionsUnit,
-        });
-
-      // If alertThreshold is triggerUnit, always show all admin-areas
-      if (disaster.triggerUnit !== DynamicIndicator.alertThreshold) {
-        const placeCodes = await this.getTriggeredPlaceCodes(
-          countryCodeISO3,
-          disasterType,
-          leadTime,
+      if (placeCodes.length) {
+        adminAreasScript = adminAreasScript.andWhere(
+          'area."placeCode" IN (:...placeCodes)',
+          { placeCodes: placeCodes },
         );
-        if (placeCodes.length) {
-          adminAreasScript = adminAreasScript.andWhere(
-            'area."placeCode" IN (:...placeCodes)',
-            { placeCodes: placeCodes },
-          );
-        }
       }
-    } else {
-      adminAreasScript = adminAreasScript.addSelect(
-        `null AS ${disaster.actionsUnit}`,
-      );
     }
     const adminAreas = await adminAreasScript.getRawMany();
 

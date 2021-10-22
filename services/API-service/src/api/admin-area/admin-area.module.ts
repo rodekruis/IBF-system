@@ -9,12 +9,18 @@ import { AdminAreaController } from './admin-area.controller';
 import { AdminAreaEntity } from './admin-area.entity';
 import { AdminAreaService } from './admin-area.service';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 
 @Module({
   imports: [
     HttpModule,
     UserModule,
-    TypeOrmModule.forFeature([AdminAreaEntity, CountryEntity, DisasterEntity]),
+    TypeOrmModule.forFeature([
+      AdminAreaEntity,
+      CountryEntity,
+      DisasterEntity,
+      AdminAreaDynamicDataEntity,
+    ]),
     EventModule,
     CountryModule,
   ],

@@ -61,7 +61,6 @@ import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { breakKey } from '../../models/map.model';
 import { AdminLevelService } from '../../services/admin-level.service';
-import { AdminLevel } from '../../types/admin-level';
 import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
@@ -171,7 +170,9 @@ export class MapComponent implements OnDestroy {
   };
 
   private numberFormat(d, layer) {
-    if (layer.numberFormatMap === NumberFormat.perc) {
+    if (d === null) {
+      return null;
+    } else if (layer.numberFormatMap === NumberFormat.perc) {
       return Math.round(d * 100) + '%';
     } else if (layer.numberFormatMap === NumberFormat.decimal2) {
       return Math.round(d * 100) / 100;
@@ -208,13 +209,12 @@ export class MapComponent implements OnDestroy {
       this.legends[layer.name].onAdd = () => {
         const div = DomUtil.create('div', 'info legend');
         const grades = [
-          0,
+          colorThreshold[breakKey.break0],
           colorThreshold[breakKey.break1],
           colorThreshold[breakKey.break2],
           colorThreshold[breakKey.break3],
           colorThreshold[breakKey.break4],
         ];
-
         let labels;
         if (layer.colorBreaks) {
           labels = [
@@ -232,14 +232,23 @@ export class MapComponent implements OnDestroy {
 
         div.innerHTML +=
           `<div><b>${layer.label}</b>` +
-          (layer.unit ? ' (' + layer.unit + ')' : '') +
-          `</div>`;
+          (layer.unit ? ' (' + layer.unit + ')' : '');
+
+        const noDataEntryFound = layer.data.features.find(
+          (f) => f.properties.indicators[layer.name] === null,
+        );
+        if (noDataEntryFound) {
+          div.innerHTML +=
+            `</div><i style="background:` +
+            this.mapService.state.noDataColor +
+            `"></i> No data<br>`;
+        }
 
         for (let i = 0; i < grades.length; i++) {
-          if (i === 0 || grades[i] > grades[i - 1]) {
+          if (grades[i] !== null && (i === 0 || grades[i] > grades[i - 1])) {
             div.innerHTML +=
               '<i style="background:' +
-              getColor(grades[i] + 0.0001) +
+              getColor(grades[i]) +
               '"></i> ' +
               this.numberFormat(grades[i], layer) +
               (typeof grades[i + 1] !== 'undefined'
@@ -395,7 +404,6 @@ export class MapComponent implements OnDestroy {
   };
 
   private onAdminRegionClickByLayerAndFeatureAndElement = (
-    layer: IbfLayer,
     feature,
     element,
   ) => (): void => {
@@ -407,24 +415,22 @@ export class MapComponent implements OnDestroy {
       component: this.constructor.name,
     });
 
-    const additionalAdminLevel = this.isAdditionalAdminLevel(layer);
-    if (!additionalAdminLevel) {
+    if (feature.properties.placeCode === this.placeCode) {
+      element.unbindPopup();
+      this.placeCode = null;
+      this.placeCodeService.clearPlaceCode();
+    } else {
+      this.bindPopupAdminRegions(feature, element);
+      this.placeCode = feature.properties.placeCode;
       this.placeCodeService.setPlaceCode({
         countryCodeISO3: feature.properties.countryCodeISO3,
         placeCodeName: feature.properties.name,
         placeCode: feature.properties.placeCode,
       });
     }
-
-    if (feature.properties.placeCode === this.placeCode) {
-      element.unbindPopup();
-      this.placeCode = null;
-    } else {
-      this.bindPopupAdminRegions(layer, feature, element);
-    }
   };
 
-  private bindPopupAdminRegions(layer: IbfLayer, feature, element): void {
+  private bindPopupAdminRegions(feature, element): void {
     let popup: string;
     const activeAggregateLayer = this.mapService.layers.find(
       (l) => l.active && l.group === IbfLayerGroup.aggregates,
@@ -434,7 +440,7 @@ export class MapComponent implements OnDestroy {
       activeAggregateLayer.name === IbfLayerName.potentialCases
     ) {
       this.apiService
-        .getAdminAreaDynamiceDataOne(
+        .getAdminAreaDynamicDataOne(
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
           this.timelineService.activeLeadTime,
@@ -450,16 +456,13 @@ export class MapComponent implements OnDestroy {
             className: 'trigger-popup-max',
           };
           element.bindPopup(popup, popupOptions).openPopup();
-          this.placeCode = feature.properties.placeCode;
         });
     } else {
       popup = this.createDefaultPopupAdminRegions(
-        layer,
         activeAggregateLayer,
         feature,
       );
       element.bindPopup(popup).openPopup();
-      this.placeCode = feature.properties.placeCode;
     }
   }
 
@@ -479,24 +482,13 @@ export class MapComponent implements OnDestroy {
     return adminRegionLayerPane;
   }
 
-  private isAdditionalAdminLevel(layer: IbfLayer) {
-    if (layer.group === IbfLayerGroup.adminRegions) {
-      const adminLevel = Number(layer.name.slice(-1)) as AdminLevel;
-      return adminLevel !== this.adminLevelService.adminLevel;
-    }
-  }
-
   private createDefaultPopupAdminRegions(
-    layer: IbfLayer,
     activeAggregateLayer: IbfLayer,
     feature,
   ): string {
-    const additionalAdminLevel = this.isAdditionalAdminLevel(layer);
-    if (!additionalAdminLevel) {
-      feature = activeAggregateLayer.data.features.find(
-        (f) => f.properties.placeCode === feature.properties.placeCode,
-      );
-    }
+    feature = activeAggregateLayer.data.features.find(
+      (f) => f.properties.placeCode === feature.properties.placeCode,
+    );
     return (
       '<strong>' +
       feature.properties.name +
@@ -504,7 +496,7 @@ export class MapComponent implements OnDestroy {
         ? ' (Disputed borders)'
         : '') +
       '</strong><br/>' +
-      (additionalAdminLevel || !activeAggregateLayer
+      (!activeAggregateLayer
         ? ''
         : activeAggregateLayer.label +
           ': ' +
@@ -630,7 +622,6 @@ export class MapComponent implements OnDestroy {
           element.on(
             'click',
             this.onAdminRegionClickByLayerAndFeatureAndElement(
-              layer,
               feature,
               element,
             ),

@@ -1,4 +1,3 @@
-import { CountryService } from './../country/country.service';
 import { LeadTime, LeadTimeDayMonth } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
@@ -13,6 +12,7 @@ import { EventService } from '../event/event.service';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import fs from 'fs';
+import { CountryEntity } from '../country/country.entity';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -22,6 +22,8 @@ export class AdminAreaDynamicDataService {
   >;
   @InjectRepository(DisasterEntity)
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
+  @InjectRepository(CountryEntity)
+  private readonly countryRepository: Repository<CountryEntity>;
 
   private eventService: EventService;
 
@@ -50,17 +52,26 @@ export class AdminAreaDynamicDataService {
     }
     await this.adminAreaDynamicDataRepo.save(areas);
 
-    const triggerUnit = await this.disasterTypeRepository.findOne({
+    const disasterType = await this.disasterTypeRepository.findOne({
       select: ['triggerUnit'],
       where: { disasterType: uploadExposure.disasterType },
     });
 
-    if (triggerUnit.triggerUnit === uploadExposure.dynamicIndicator) {
+    const country = await this.countryRepository.findOne({
+      select: ['defaultAdminLevel'],
+      where: { countryCodeISO3: uploadExposure.countryCodeISO3 },
+    });
+
+    if (
+      disasterType.triggerUnit === uploadExposure.dynamicIndicator &&
+      country.defaultAdminLevel === uploadExposure.adminLevel
+    ) {
       await this.insertTrigger(uploadExposure);
 
       await this.eventService.processEventAreas(
         uploadExposure.countryCodeISO3,
         uploadExposure.disasterType,
+        uploadExposure.adminLevel,
       );
     }
   }
@@ -75,6 +86,7 @@ export class AdminAreaDynamicDataService {
         indicator: uploadExposure.dynamicIndicator,
         countryCodeISO3: uploadExposure.countryCodeISO3,
         leadTime: uploadExposure.leadTime,
+        adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
         date: MoreThanOrEqual(firstDayOfMonth),
       });
@@ -83,6 +95,7 @@ export class AdminAreaDynamicDataService {
         indicator: uploadExposure.dynamicIndicator,
         countryCodeISO3: uploadExposure.countryCodeISO3,
         leadTime: uploadExposure.leadTime,
+        adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
         date: new Date(),
       });

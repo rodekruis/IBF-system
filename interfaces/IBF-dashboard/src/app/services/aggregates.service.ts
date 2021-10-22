@@ -21,6 +21,7 @@ export class AggregatesService {
   private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
   public indicators: Indicator[] = [];
   private aggregates = [];
+  public nrTriggeredAreas: number;
   private country: Country;
   private disasterType: DisasterType;
 
@@ -43,6 +44,10 @@ export class AggregatesService {
     this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
+
+    this.adminLevelService
+      .getAdminLevelSubscription()
+      .subscribe(this.onAdminLevelChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -56,6 +61,10 @@ export class AggregatesService {
   };
 
   private onLeadTimeChange = () => {
+    this.loadMetadataAndAggregates();
+  };
+
+  private onAdminLevelChange = () => {
     this.loadMetadataAndAggregates();
   };
 
@@ -94,15 +103,13 @@ export class AggregatesService {
   private onEachIndicatorByFeatureAndAggregate = (feature, aggregate) => (
     indicator: Indicator,
   ) => {
-    if (indicator.aggregateIndicator.includes(this.country.countryCodeISO3)) {
-      const foundIndicator = feature.records.find(
-        (a) => a.indicator === indicator.name,
-      );
-      if (foundIndicator) {
-        aggregate[indicator.name] = foundIndicator.value;
-      } else {
-        aggregate[indicator.name] = 0;
-      }
+    const foundIndicator = feature.records.find(
+      (a) => a.indicator === indicator.name,
+    );
+    if (foundIndicator) {
+      aggregate[indicator.name] = foundIndicator.value;
+    } else {
+      aggregate[indicator.name] = 0;
     }
   };
 
@@ -110,7 +117,6 @@ export class AggregatesService {
     const aggregate = {
       placeCode: feature.placeCode,
     };
-
     this.indicators.forEach(
       this.onEachIndicatorByFeatureAndAggregate(feature, aggregate),
     );
@@ -121,6 +127,9 @@ export class AggregatesService {
   private onAggregatesData = (records) => {
     const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
     this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
+    this.nrTriggeredAreas = this.aggregates.filter(
+      (a) => a[this.disasterType.triggerUnit] > 0,
+    ).length;
   };
 
   private aggregateOnPlaceCode(array) {

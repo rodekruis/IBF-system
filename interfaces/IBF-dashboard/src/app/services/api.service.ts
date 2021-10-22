@@ -202,10 +202,11 @@ export class ApiService {
   getTriggeredAreas(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
+    adminLevel: number,
     leadTime: string,
   ) {
     return this.get(
-      `event/triggered-areas/${countryCodeISO3}/${disasterType}/${leadTime}`,
+      `event/triggered-areas/${countryCodeISO3}/${adminLevel}/${disasterType}/${leadTime}`,
       false,
     );
   }
@@ -228,11 +229,7 @@ export class ApiService {
     );
   }
 
-  getAdminAreaDynamiceDataOne(
-    key: string,
-    placeCode: string,
-    leadTime: string,
-  ) {
+  getAdminAreaDynamicDataOne(key: string, placeCode: string, leadTime: string) {
     return this.get(
       `admin-area-dynamic-data/single/${key}/${placeCode}/${leadTime}`,
       false,

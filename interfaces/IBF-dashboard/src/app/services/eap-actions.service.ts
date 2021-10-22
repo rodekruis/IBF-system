@@ -3,6 +3,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { Country, DisasterType } from '../models/country.model';
+import { AdminLevel } from '../types/admin-level';
+import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { TimelineService } from './timeline.service';
 
@@ -14,6 +16,7 @@ export class EapActionsService {
   private triggeredAreas: any[];
   private country: Country;
   private disasterType: DisasterType;
+  private adminLevel: AdminLevel;
   private event;
 
   constructor(
@@ -21,6 +24,7 @@ export class EapActionsService {
     private apiService: ApiService,
     private timelineService: TimelineService,
     private disasterTypeService: DisasterTypeService,
+    private adminLevelService: AdminLevelService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -33,6 +37,10 @@ export class EapActionsService {
     this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
+
+    this.adminLevelService
+      .getAdminLevelSubscription()
+      .subscribe(this.onAdminLevelChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -53,22 +61,42 @@ export class EapActionsService {
   private onEvent = (event) => {
     this.event = event;
     if (event && this.timelineService.activeLeadTime) {
-      this.getTriggeredAreasApi(this.timelineService.activeLeadTime);
+      this.getTriggeredAreasApi(
+        this.timelineService.activeLeadTime,
+        this.adminLevel || this.country.defaultAdminLevel,
+      );
     }
   };
 
   private onLeadTimeChange = () => {
-    if (this.event && this.timelineService.activeLeadTime) {
-      this.getTriggeredAreasApi(this.timelineService.activeLeadTime);
+    if (this.event && this.timelineService.activeLeadTime && this.adminLevel) {
+      this.getTriggeredAreasApi(
+        this.timelineService.activeLeadTime,
+        this.adminLevel,
+      );
     }
   };
 
-  private getTriggeredAreasApi(leadTime: string) {
+  private onAdminLevelChange = (adminLevel: AdminLevel) => {
+    if (
+      this.event &&
+      this.timelineService.activeLeadTime &&
+      this.adminLevelService.adminLevel
+    ) {
+      this.getTriggeredAreasApi(
+        this.timelineService.activeLeadTime,
+        adminLevel,
+      );
+    }
+  };
+
+  private getTriggeredAreasApi(leadTime: string, adminLevel: AdminLevel) {
     if (this.disasterType) {
       this.apiService
         .getTriggeredAreas(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
+          adminLevel,
           leadTime,
         )
         .subscribe(this.onTriggeredAreas);

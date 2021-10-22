@@ -149,51 +149,54 @@ export class ScriptsService {
     }
 
     for (const unit of exposureUnits) {
-      let fileName: string;
-      if (
-        disasterType === DisasterType.Dengue ||
-        disasterType === DisasterType.Malaria
-      ) {
-        if (unit === DynamicIndicator.potentialThreshold) {
-          fileName = `upload-exposure-${selectedCountry.countryCodeISO3}-potential-cases-threshold`;
-        } else
-          fileName = `upload-exposure-${selectedCountry.countryCodeISO3}${
-            triggered ? '-triggered' : ''
-          }`;
-      } else {
-        fileName = `upload-${unit}-${selectedCountry.countryCodeISO3}${
-          triggered ? '-triggered' : ''
-        }`;
-      }
-      const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${selectedCountry.countryCodeISO3}/${fileName}.json`;
-
-      const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
-      const exposure = JSON.parse(exposureRaw);
-
-      for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
+      for (const adminLevel of selectedCountry.adminLevels) {
+        let fileName: string;
         if (
-          (await this.filterCountryLeadTimesToDisasterLeadTimes(
-            activeLeadTime,
-            disasterType,
-          )) &&
-          this.filterLeadTimesDrought(activeLeadTime, disasterType)
+          disasterType === DisasterType.Dengue ||
+          disasterType === DisasterType.Malaria
         ) {
-          console.log(
-            `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3}`,
-          );
-          await this.adminAreaDynamicDataService.exposure({
-            countryCodeISO3: selectedCountry.countryCodeISO3,
-            exposurePlaceCodes: this.mockAmount(
-              exposure,
-              unit,
-              triggered,
+          if (unit === DynamicIndicator.potentialThreshold) {
+            fileName = `upload-exposure-${selectedCountry.countryCodeISO3}-potential-cases-threshold`;
+          } else
+            fileName = `upload-exposure-${selectedCountry.countryCodeISO3}${
+              triggered ? '-triggered' : ''
+            }`;
+        } else {
+          fileName = `upload-${unit}-${selectedCountry.countryCodeISO3}-${adminLevel}`;
+        }
+        const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${selectedCountry.countryCodeISO3}/${fileName}.json`;
+
+        const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
+        const exposure = JSON.parse(exposureRaw);
+        if (!triggered) {
+          exposure.forEach(area => (area.amount = 0));
+        }
+
+        for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
+          if (
+            (await this.filterCountryLeadTimesToDisasterLeadTimes(
+              activeLeadTime,
               disasterType,
-            ),
-            leadTime: activeLeadTime as LeadTime,
-            dynamicIndicator: unit,
-            adminLevel: selectedCountry.defaultAdminLevel,
-            disasterType: disasterType,
-          });
+            )) &&
+            this.filterLeadTimesDrought(activeLeadTime, disasterType)
+          ) {
+            console.log(
+              `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3} for adminLevel: ${adminLevel}`,
+            );
+            await this.adminAreaDynamicDataService.exposure({
+              countryCodeISO3: selectedCountry.countryCodeISO3,
+              exposurePlaceCodes: this.mockAmount(
+                exposure,
+                unit,
+                triggered,
+                disasterType,
+              ),
+              leadTime: activeLeadTime as LeadTime,
+              dynamicIndicator: unit,
+              adminLevel: adminLevel,
+              disasterType: disasterType,
+            });
+          }
         }
       }
     }

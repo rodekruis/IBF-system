@@ -171,7 +171,7 @@ export class EventService {
     }
   }
 
-  private async getTriggerUnit(disasterType: DisasterType): Promise<string> {
+  public async getTriggerUnit(disasterType: DisasterType): Promise<string> {
     return (
       await this.disasterTypeRepository.findOne({
         select: ['triggerUnit'],
@@ -183,6 +183,7 @@ export class EventService {
   public async getTriggeredAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    adminLevel: number,
     leadTime: string,
   ): Promise<TriggeredArea[]> {
     const triggerUnit = await this.getTriggerUnit(disasterType);
@@ -191,6 +192,9 @@ export class EventService {
       .select(['dynamic.placeCode'])
       .where('indicator = :indicator', { indicator: triggerUnit })
       .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
+      .andWhere('dynamic."adminLevel" = :adminLevel', {
+        adminLevel: adminLevel,
+      })
       .andWhere('value > 0')
       .andWhere('"disasterType" = :disasterType', {
         disasterType: disasterType,
@@ -338,6 +342,7 @@ export class EventService {
   public async processEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    adminLevel: number,
   ): Promise<void> {
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
@@ -352,10 +357,14 @@ export class EventService {
     await this.eventPlaceCodeRepo.save(eventAreas);
 
     // update active ones to true + update population and end_date
-    await this.updateExistingEventAreas(countryCodeISO3, disasterType);
+    await this.updateExistingEventAreas(
+      countryCodeISO3,
+      disasterType,
+      adminLevel,
+    );
 
     // add new ones
-    await this.addNewEventAreas(countryCodeISO3, disasterType);
+    await this.addNewEventAreas(countryCodeISO3, disasterType, adminLevel);
 
     // close old events
     await this.closeEventsAutomatic(countryCodeISO3);
@@ -364,6 +373,7 @@ export class EventService {
   private async getAffectedAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    adminLevel: number,
   ): Promise<any[]> {
     const triggerUnit = await this.getTriggerUnit(disasterType);
 
@@ -384,6 +394,9 @@ export class EventService {
       })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
+      })
+      .andWhere('area."adminLevel" = :adminLevel', {
+        adminLevel: adminLevel,
       })
       .groupBy('area."placeCode"')
       .getRawMany();
@@ -414,6 +427,9 @@ export class EventService {
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
+      .andWhere('area."adminLevel" = :adminLevel', {
+        adminLevel: adminLevel,
+      })
       .groupBy('area."placeCode"');
     return await q.getRawMany();
   }
@@ -421,10 +437,12 @@ export class EventService {
   private async updateExistingEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    adminLevel: number,
   ): Promise<void> {
     const affectedAreas = await this.getAffectedAreas(
       countryCodeISO3,
       disasterType,
+      adminLevel,
     );
     const affectedAreasPlaceCodes = affectedAreas.map(area => area.placeCode);
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
@@ -453,10 +471,12 @@ export class EventService {
   private async addNewEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    adminLevel: number,
   ): Promise<void> {
     const affectedAreas = await this.getAffectedAreas(
       countryCodeISO3,
       disasterType,
+      adminLevel,
     );
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,

@@ -9,6 +9,7 @@ import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
+import { PlaceCodeService } from '../../services/place-code.service';
 
 @Component({
   selector: 'app-admin-level',
@@ -23,25 +24,36 @@ export class AdminLevelComponent {
     private mapService: MapService,
     private analyticsService: AnalyticsService,
     private eventService: EventService,
+    private placeCodeService: PlaceCodeService,
   ) {}
 
   public clickAdminLevelButton(adminLevel: AdminLevel): void {
     const layer = this.getAdminLevelLayer(adminLevel);
 
-    this.analyticsService.logEvent(AnalyticsEvent.adminLevel, {
-      adminLevel,
-      adminLevelState: layer.active,
-      page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
-      isActiveTrigger: this.eventService.state.activeTrigger,
-      component: this.constructor.name,
-    });
+    if (adminLevel !== this.adminLevelService.adminLevel) {
+      this.adminLevelService.activeLayerNames = this.mapService.layers
+        .filter((l) => l.active)
+        .map((l) => l.name);
+      this.adminLevelService.setAdminLevel(adminLevel);
 
-    this.mapService.toggleLayer(layer);
+      this.analyticsService.logEvent(AnalyticsEvent.adminLevel, {
+        adminLevel,
+        adminLevelState: layer.active,
+        page: AnalyticsPage.dashboard,
+        isActiveEvent: this.eventService.state.activeEvent,
+        isActiveTrigger: this.eventService.state.activeTrigger,
+        component: this.constructor.name,
+      });
+
+      this.placeCodeService.clearPlaceCode();
+    } else {
+      this.mapService.toggleLayer(layer);
+    }
   }
 
   public isAdminLevelActive(adminLevel: AdminLevel): boolean {
     const layer = this.getAdminLevelLayer(adminLevel);
+
     return layer ? layer.active : false;
   }
 
