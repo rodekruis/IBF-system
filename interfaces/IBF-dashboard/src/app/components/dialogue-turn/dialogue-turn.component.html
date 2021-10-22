@@ -6,7 +6,8 @@
     'is-other ion-justify-content-start': !isSelf,
     'is-self ion-justify-content-end': isSelf,
     'is-pending': animate && !isSpoken,
-    'is-spoken': animate && isSpoken
+    'is-spoken': animate && isSpoken,
+    'is-warn': isWarn
   }"
 >
   <div class="dialogue-turn--actor">
@@ -38,5 +39,6 @@
         <small><app-timestamp [timestamp]="timestamp"></app-timestamp></small>
       </ion-card-content>
     </ion-card>
+    <span class="dialogue-turn--speech-arrow"></span>
   </div>
 </div>

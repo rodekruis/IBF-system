@@ -1,7 +1,6 @@
 <ion-content scrollY="true">
   <app-disaster-type></app-disaster-type>
-  <!-- No event -->
-  <app-dialogue-turn isWarn="isWarn">
+  <app-dialogue-turn [isWarn]="isWarn">
     <p
       [innerHTML]="
         'chat-component.' + disasterCategory + 'warn-label.message'
@@ -13,6 +12,8 @@
       "
     ></p>
   </app-dialogue-turn>
+
+  <!-- No event -->
   <app-dialogue-turn
     *ngIf="!eventService.state.activeEvent && !eventService.state.activeTrigger"
     isConnected="true"
@@ -82,6 +83,7 @@
     ></app-about-btn>
     <app-video-guide-button color="ibf-white"></app-video-guide-button>
   </app-dialogue-turn>
+  
   <ng-container *ngIf="eventService.state.activeEvent">
     <app-dialogue-turn isConnected="true">
       <p

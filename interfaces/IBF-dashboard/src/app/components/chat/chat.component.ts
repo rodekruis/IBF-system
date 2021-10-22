@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { forkJoin, Subscription } from 'rxjs';
 import { DateTime } from 'luxon';
+import { forkJoin, Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -190,7 +190,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onRecentDates = (date) => {
     this.lastModelRunDate = date.date;
-    this.isLastModelDateStale(this.lastModelRunDate)
+    this.isLastModelDateStale(this.lastModelRunDate);
   };
 
   // data needs to be reorganized to avoid the mess that follows
@@ -359,7 +359,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private isLastModelDateStale = (recentDate) => {
     const nowDate = DateTime.now();
     const diff = nowDate.diff(recentDate, ['hours']);
-    if (diff.toObject().hours > (24 + (24 * .1))){
+    if (diff.toObject().hours > 24 + 24 * 0.1) {
       this.isWarn = true;
     } else {
       this.isWarn = false;
