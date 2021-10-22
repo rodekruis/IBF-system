@@ -454,7 +454,7 @@ export class MapService {
       label: indicator.label,
       type: IbfLayerType.shape,
       description: this.getPopoverText(indicator.name),
-      active: active,
+      active,
       show: true,
       data: adminRegions,
       viewCenter: true,
