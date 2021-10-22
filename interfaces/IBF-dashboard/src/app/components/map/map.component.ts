@@ -199,6 +199,9 @@ export class MapComponent implements OnDestroy {
   };
 
   public addLegend(map, colors, colorThreshold, layer: IbfLayer) {
+    if (layer.name === IbfLayerName.populationTotal) {
+      console.log('addLegend: ', layer);
+    }
     if (this.legends[layer.name]) {
       map.removeControl(this.legends[layer.name]);
     }
@@ -232,10 +235,17 @@ export class MapComponent implements OnDestroy {
 
         div.innerHTML +=
           `<div><b>${layer.label}</b>` +
-          (layer.unit ? ' (' + layer.unit + ')' : '') +
-          `</div><i style="background:` +
-          this.mapService.state.noDataColor +
-          `"></i> No data<br>`;
+          (layer.unit ? ' (' + layer.unit + ')' : '');
+
+        const noDataEntryFound = layer.data.features.find(
+          (f) => f.properties.indicators[layer.name] === null,
+        );
+        if (noDataEntryFound) {
+          div.innerHTML +=
+            `</div><i style="background:` +
+            this.mapService.state.noDataColor +
+            `"></i> No data<br>`;
+        }
 
         for (let i = 0; i < grades.length; i++) {
           if (grades[i] !== null && (i === 0 || grades[i] > grades[i - 1])) {
