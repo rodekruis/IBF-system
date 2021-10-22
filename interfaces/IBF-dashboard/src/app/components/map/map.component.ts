@@ -771,21 +771,20 @@ export class MapComponent implements OnDestroy {
   ): Marker {
     const markerTitle = markerProperties.name;
 
-    let markerInstance
+    let markerInstance;
 
-    if (markerProperties.type === 'hospital'){
+    if (markerProperties.type === 'hospital') {
       markerInstance = marker(markerLatLng, {
         title: markerTitle,
         icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL),
       });
     } else {
-        markerInstance = marker(markerLatLng, {
+      markerInstance = marker(markerLatLng, {
         title: markerTitle,
         icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT),
       });
     }
 
-    
     markerInstance.bindPopup(this.createHealthSitePopup(markerProperties));
     markerInstance.on(
       'click',
