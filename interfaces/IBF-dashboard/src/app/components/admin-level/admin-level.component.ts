@@ -31,6 +31,9 @@ export class AdminLevelComponent {
     const layer = this.getAdminLevelLayer(adminLevel);
 
     if (adminLevel !== this.adminLevelService.adminLevel) {
+      this.adminLevelService.activeLayerNames = this.mapService.layers
+        .filter((l) => l.active)
+        .map((l) => l.name);
       this.adminLevelService.setAdminLevel(adminLevel);
 
       this.analyticsService.logEvent(AnalyticsEvent.adminLevel, {

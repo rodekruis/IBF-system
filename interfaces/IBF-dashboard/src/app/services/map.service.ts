@@ -230,7 +230,11 @@ export class MapService {
       label: IbfLayerLabel.glofasStations,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.glofasStations),
-      active: true,
+      active: this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(
+            IbfLayerName.glofasStations,
+          )
+        : true,
       show: true,
       data: stations,
       viewCenter: false,
@@ -264,7 +268,9 @@ export class MapService {
       label,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.redCrossBranches),
-      active: false,
+      active: this.adminLevelService.activeLayerNames.includes(
+        IbfLayerName.redCrossBranches,
+      ),
       show: true,
       data: redCrossBranches,
       viewCenter: false,
@@ -292,7 +298,9 @@ export class MapService {
       label: IbfLayerLabel.damSites,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.damSites),
-      active: false,
+      active: this.adminLevelService.activeLayerNames.includes(
+        IbfLayerName.damSites,
+      ),
       show: true,
       data: damSites,
       viewCenter: false,
@@ -320,7 +328,9 @@ export class MapService {
       label: IbfLayerLabel.healthSites,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.healthSites),
-      active: false,
+      active: this.adminLevelService.activeLayerNames.includes(
+        IbfLayerName.healthSites,
+      ),
       show: true,
       data: healthSites,
       viewCenter: false,
@@ -348,7 +358,9 @@ export class MapService {
       label: IbfLayerLabel.waterpoints,
       type: IbfLayerType.point,
       description: this.getPopoverText(IbfLayerName.waterpoints),
-      active: false,
+      active: this.adminLevelService.activeLayerNames.includes(
+        IbfLayerName.waterpoints,
+      ),
       show: true,
       data: waterPoints,
       viewCenter: false,
@@ -393,7 +405,10 @@ export class MapService {
 
   public loadAggregateLayer(indicator: Indicator) {
     if (this.country) {
-      if (indicator.active && this.timelineService.activeLeadTime) {
+      const layerActive =
+        indicator.active ||
+        this.adminLevelService.activeLayerNames.includes(indicator.name);
+      if (layerActive && this.timelineService.activeLeadTime) {
         this.getCombineAdminRegionData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
@@ -402,10 +417,10 @@ export class MapService {
           indicator.name,
           indicator.dynamic,
         ).subscribe((adminRegions) => {
-          this.addAggregateLayer(indicator, adminRegions);
+          this.addAggregateLayer(indicator, adminRegions, layerActive);
         });
       } else {
-        this.addAggregateLayer(indicator, null);
+        this.addAggregateLayer(indicator, null, layerActive);
       }
     }
   }
@@ -429,13 +444,17 @@ export class MapService {
     }
   }
 
-  private addAggregateLayer(indicator: Indicator, adminRegions: any) {
+  private addAggregateLayer(
+    indicator: Indicator,
+    adminRegions: any,
+    active: boolean,
+  ) {
     this.addLayer({
       name: indicator.name,
       label: indicator.label,
       type: IbfLayerType.shape,
       description: this.getPopoverText(indicator.name),
-      active: indicator.active,
+      active: active,
       show: true,
       data: adminRegions,
       viewCenter: true,
@@ -583,7 +602,9 @@ export class MapService {
       label: layer.label,
       type: layer.type,
       description: layer.description,
-      active: layer.active,
+      active: this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(layer.name)
+        : layer.active,
       viewCenter: false,
       data: layerData,
       wms: layer.wms,
@@ -598,12 +619,15 @@ export class MapService {
       order: layer.order,
       unit: layer.unit,
       dynamic: layer.dynamic,
-      show: layer.show,
+      show: this.adminLevelService.activeLayerNames.includes(layer.name)
+        ? true
+        : layer.show,
     });
   };
 
   public toggleLayer = (layer: IbfLayer): void => {
     layer.active = !layer.active;
+    this.adminLevelService.activeLayerNames = [];
     this.updateLayers(layer);
   };
 

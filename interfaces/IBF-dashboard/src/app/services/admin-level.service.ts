@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AdminLevel, AdminLevelLabel } from 'src/app/types/admin-level';
 import { Country } from '../models/country.model';
+import { IbfLayerName } from '../types/ibf-layer';
 import { CountryService } from './country.service';
 
 @Injectable({
@@ -15,6 +16,7 @@ export class AdminLevelService {
   public countryAdminLevels: AdminLevel[];
   public adminLevelLabel: AdminLevelLabel = new AdminLevelLabel();
   private country: Country;
+  public activeLayerNames: IbfLayerName[] = [];
 
   private static loadAdminLevelLabels(country: Country): AdminLevelLabel {
     const adminLevelLabels = {
