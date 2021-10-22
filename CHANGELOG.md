@@ -1,3 +1,33 @@
+# [0.98.0](https://github.com/rodekruis/IBF-system/compare/v0.97.1...v0.98.0) (2021-10-22)
+
+
+### Bug Fixes
+
+* change trigger level to double precision AB[#9854](https://github.com/rodekruis/IBF-system/issues/9854) ([f77e519](https://github.com/rodekruis/IBF-system/commit/f77e5196c58a632b77753ff9e6d04c3198bc5c8b))
+* lint ([fb54638](https://github.com/rodekruis/IBF-system/commit/fb54638feac45f7d8fe218576bfb34a85ec75a21))
+* lint AB[#10102](https://github.com/rodekruis/IBF-system/issues/10102) ([ff404fe](https://github.com/rodekruis/IBF-system/commit/ff404fe61c8c73310e1a4686ac16016089863569))
+* new uga pcodes + added mock-data all levels AB[#10125](https://github.com/rodekruis/IBF-system/issues/10125) ([a542ba4](https://github.com/rodekruis/IBF-system/commit/a542ba4c4793488274b240d87cf71459a2c5474c))
+* only show 'no data' in legend if 'no data' present AB[#10043](https://github.com/rodekruis/IBF-system/issues/10043) ([da2eba9](https://github.com/rodekruis/IBF-system/commit/da2eba9fbf8f7234fead2ca8b96291802b9283fb))
+* remove old 'additionalAdminLevel' popup code AB[#10039](https://github.com/rodekruis/IBF-system/issues/10039) ([50529d8](https://github.com/rodekruis/IBF-system/commit/50529d86577ea17a5e3b6b7ef4a48854826e5808))
+* show triggered areas nr AB[#10146](https://github.com/rodekruis/IBF-system/issues/10146) ([29c2493](https://github.com/rodekruis/IBF-system/commit/29c24933655935120c1764223e62ed7089e135bf))
+* test ([5847e6b](https://github.com/rodekruis/IBF-system/commit/5847e6b7f6830a893ceae6df5dd6362b3a119c78))
+
+
+### Features
+
+* aggregate static data UGA AB[#10250](https://github.com/rodekruis/IBF-system/issues/10250) ([3f20608](https://github.com/rodekruis/IBF-system/commit/3f20608bbd4c3451f1ae3b03c53bdbac335bac80))
+* apply multi-adm-level in back-end where needed AB[#10040](https://github.com/rodekruis/IBF-system/issues/10040) ([affac62](https://github.com/rodekruis/IBF-system/commit/affac62a89b539e263a82abe956e2d1fe4068fdb))
+* apply multi-admin-level throughout frontend AB[#10041](https://github.com/rodekruis/IBF-system/issues/10041) ([898cbfa](https://github.com/rodekruis/IBF-system/commit/898cbfaf6b588a8b7573bbbe5dfad41a8eb8f184))
+* chat-text: only actions for main admin-level AB[#10043](https://github.com/rodekruis/IBF-system/issues/10043) ([fa72c29](https://github.com/rodekruis/IBF-system/commit/fa72c29f28b97c177bbd562d3fd228d59cd3583b))
+* clear placecode on adminlevel switch AB[#10217](https://github.com/rodekruis/IBF-system/issues/10217) ([4b7563e](https://github.com/rodekruis/IBF-system/commit/4b7563ea37588cd87841fb5f7d53baec68472238))
+* mock data other adm-levels ZMB AB[#10046](https://github.com/rodekruis/IBF-system/issues/10046) ([422ddc3](https://github.com/rodekruis/IBF-system/commit/422ddc33b7112b4a199be94e5d14870ea1ca1bb4))
+* only show eap-actions on main admin-level AB[#10146](https://github.com/rodekruis/IBF-system/issues/10146) ([560fef1](https://github.com/rodekruis/IBF-system/commit/560fef1822e07ed51a69648237955bda1abba179))
+* preserve layer-selection upon admin-level change AB[#10045](https://github.com/rodekruis/IBF-system/issues/10045) ([983bc72](https://github.com/rodekruis/IBF-system/commit/983bc7237968957f9edfd06aa00671ccd3b3e713))
+* show 'no data' in map AB[#10043](https://github.com/rodekruis/IBF-system/issues/10043) ([43d5b89](https://github.com/rodekruis/IBF-system/commit/43d5b893330b52192913aa55b3b315f27244539b))
+* showing ward and provinces to middle column AB[#10103](https://github.com/rodekruis/IBF-system/issues/10103) AB[#10102](https://github.com/rodekruis/IBF-system/issues/10102) ([bf2b06f](https://github.com/rodekruis/IBF-system/commit/bf2b06fd098400aa4c966014c60bee5322c41223))
+
+
+
 ## [0.97.1](https://github.com/rodekruis/IBF-system/compare/v0.97.0...v0.97.1) (2021-10-18)
 
 
@@ -115,15 +145,6 @@
 * added pages AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([71a015a](https://github.com/rodekruis/IBF-system/commit/71a015a26642970b17ad53df721b439045d89ecf))
 * diplayed raw text AB[#9489](https://github.com/rodekruis/IBF-system/issues/9489) ([631cbb4](https://github.com/rodekruis/IBF-system/commit/631cbb4bda9f6111bc2c22e266491c80c693dfb3))
 * link of activation page AB[#9483](https://github.com/rodekruis/IBF-system/issues/9483) ([f3841b0](https://github.com/rodekruis/IBF-system/commit/f3841b06e78727f6d21b799c34d98f18a8fe39c7))
-
-
-
-## [0.93.2](https://github.com/rodekruis/IBF-system/compare/v0.93.1...v0.93.2) (2021-10-01)
-
-
-### Bug Fixes
-
-* show selected rain icon EGY AB[#9883](https://github.com/rodekruis/IBF-system/issues/9883) ([1be0c0f](https://github.com/rodekruis/IBF-system/commit/1be0c0f6c6d0128c8f4e58e19a8480f9868da862))
 
 
 
