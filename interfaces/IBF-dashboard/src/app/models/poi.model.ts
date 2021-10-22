@@ -26,7 +26,7 @@ export class Waterpoint {
 
 export class HealthSite {
   name: string;
-  type: number;
+  type: string;
 }
 export class DamSite {
   damName: string;
