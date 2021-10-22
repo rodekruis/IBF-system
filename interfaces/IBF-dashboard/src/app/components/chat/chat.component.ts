@@ -20,6 +20,7 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EapAction } from 'src/app/types/eap-action';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
+import { LeadTimeUnit } from '../../types/lead-time';
 
 @Component({
   selector: 'app-chat',
@@ -182,15 +183,15 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       this.apiService
         .getRecentDates(this.country.countryCodeISO3, disasterType.disasterType)
-        .subscribe(this.onRecentDates);
+        .subscribe((date) => this.onRecentDates(date, disasterType));
 
       this.changeDetectorRef.detectChanges();
     }
   };
 
-  private onRecentDates = (date) => {
+  private onRecentDates = (date, disasterType: DisasterType) => {
     this.lastModelRunDate = date.date;
-    this.isLastModelDateStale(this.lastModelRunDate);
+    this.isLastModelDateStale(this.lastModelRunDate, disasterType);
   };
 
   // data needs to be reorganized to avoid the mess that follows
@@ -356,10 +357,24 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.eventService.getTrigger();
   }
 
-  private isLastModelDateStale = (recentDate) => {
+  private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
+    const percentageOvertimeAllowed = 0.1; //10%
+
+    const updateFrequency = disasterType.leadTimes[0].leadTimeName.split(
+      '-',
+    )[1] as LeadTimeUnit;
+    const durationUnit =
+      updateFrequency === LeadTimeUnit.day
+        ? 'days'
+        : updateFrequency === LeadTimeUnit.month
+        ? 'months'
+        : null;
+
     const nowDate = DateTime.now();
-    const diff = nowDate.diff(recentDate, ['hours']);
-    if (diff.toObject().hours > 24 + 24 * 0.1) {
+    const diff = nowDate
+      .diff(DateTime.fromISO(recentDate), durationUnit)
+      .toObject();
+    if (diff[durationUnit] > 1 + percentageOvertimeAllowed) {
       this.isWarn = true;
     } else {
       this.isWarn = false;
