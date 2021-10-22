@@ -88,7 +88,7 @@
   "chat-component": {
     "about-button-label": "About Trigger",
     "warn-label": {
-      "message": "Hello {{ name }}. The information in this dashboard is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
+      "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
     },
     "no-event-no-trigger": {
       "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
@@ -117,7 +117,7 @@
     "heavy-rain": {
       "about-button-label": "About Trigger",
       "warn-label": {
-      "message": "Hello {{ name }}. The information in this dashboard is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
+        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
       },
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
@@ -147,7 +147,7 @@
     "dengue": {
       "about-button-label": "About Dengue Alerts",
       "warn-label": {
-      "message": "Hello {{ name }}. The information in this dashboard is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
+        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
       },
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for dengue activated."
@@ -168,7 +168,7 @@
     "malaria": {
       "about-button-label": "About Malaria Alerts",
       "warn-label": {
-      "message": "Hello {{ name }}. The information in this dashboard is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
+        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
       },
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for malaria activated."

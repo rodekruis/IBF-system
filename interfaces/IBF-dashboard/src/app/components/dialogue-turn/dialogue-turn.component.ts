@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
-import { TimelineService } from 'src/app/services/timeline.service';
 
 enum Actor {
   system = 'system',
@@ -35,7 +34,7 @@ export class DialogueTurnComponent implements OnInit {
 
   animate = false;
 
-  constructor(private timelineService: TimelineService) {}
+  constructor() {}
 
   ngOnInit() {
     this.isSelf = this.actor === Actor.self;

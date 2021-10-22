@@ -87,66 +87,6 @@
   border-radius: 0;
 }
 
-// trigger alert colors
-// .trigger-alert {
-//   .ibf-dashboard-left-column {
-//     .component-title {
-//       background-color: var(--ion-color-ibf-salmon) !important;
-
-//       .component-title-item,
-//       .today-button {
-//         color: var(--ion-color-ibf-black) !important;
-
-//         .component-title-thumbnail {
-//           display: block !important;
-//           background-image: url('assets/icons/alert-black.svg') !important;
-//         }
-//       }
-//     }
-
-//     .component-content {
-//       app-dialogue-turn {
-//         .dialogue-turn:not(.is-self) {
-//           .dialogue-turn--content {
-//             ion-card {
-//               background: var(--ion-color-ibf-salmon) !important;
-//             }
-//           }
-//         }
-
-//         .dialogue-turn.is-other {
-//           .dialogue-turn--speech-arrow {
-//             border-right-color: var(--ion-color-ibf-salmon) !important;
-//           }
-
-//           .dialogue-turn--speech-arrow:dir(rtl) {
-//             border-left-color: var(--ion-color-ibf-salmon) !important;
-//           }
-//         }
-//       }
-
-//       app-aggregates {
-//         .aggregate-item-value,
-//         .aggregate-item-information-icon {
-//           --background: var(--ion-color-ibf-salmon-light) !important;
-//         }
-//       }
-
-//       app-areas-of-focus-summary {
-//         .component-title {
-//           background-color: var(--ion-color-ibf-salmon) !important;
-//         }
-
-//         .areas-of-focus-item-value {
-//           --background: var(--ion-color-ibf-salmon-light) !important;
-//         }
-//       }
-//     }
-//   }
-// }
-
-// leaflet map
-
 .leaflet-ibf-aggregate-pane {
   z-index: 533;
 }
