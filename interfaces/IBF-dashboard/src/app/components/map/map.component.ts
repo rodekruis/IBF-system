@@ -40,6 +40,7 @@ import { Country, EapAlertClasses } from 'src/app/models/country.model';
 import {
   DamSite,
   HealthSite,
+  HealthSiteType,
   RedCrossBranch,
   Station,
   Waterpoint,
@@ -773,24 +774,25 @@ export class MapComponent implements OnDestroy {
 
     let markerInstance;
 
-    if (markerProperties.type === 'hospital') {
+    if (markerProperties.type === HealthSiteType.hospital) {
       markerInstance = marker(markerLatLng, {
         title: markerTitle,
         icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL),
       });
-    } else {
+    } else if(markerProperties.type === HealthSiteType.clinic) {
       markerInstance = marker(markerLatLng, {
         title: markerTitle,
         icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT),
       });
     }
-
-    markerInstance.bindPopup(this.createHealthSitePopup(markerProperties));
-    markerInstance.on(
-      'click',
-      this.onMapMarkerClick(AnalyticsEvent.healthSite),
-    );
-
+    if (markerInstance) {
+      markerInstance.bindPopup(this.createHealthSitePopup(markerProperties));
+      markerInstance.on(
+        'click',
+        this.onMapMarkerClick(AnalyticsEvent.healthSite),
+      );
+    }
+    
     return markerInstance;
   }
 
