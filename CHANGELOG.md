@@ -1,3 +1,20 @@
+# [0.100.0](https://github.com/rodekruis/IBF-system/compare/v0.99.0...v0.100.0) (2021-10-25)
+
+
+### Bug Fixes
+
+* lint ([be6921e](https://github.com/rodekruis/IBF-system/commit/be6921e4b7b7c8459dd9bbc24e137a35fb030de1))
+* lint AB[#10018](https://github.com/rodekruis/IBF-system/issues/10018) ([2ccde94](https://github.com/rodekruis/IBF-system/commit/2ccde9495c9613ee59a5a258a2c289dcb1e910c9))
+
+
+### Features
+
+* added hospital AB[#10018](https://github.com/rodekruis/IBF-system/issues/10018) ([f4b9126](https://github.com/rodekruis/IBF-system/commit/f4b9126441f5cec7dffbe85d7fc5d1de90ce07b5))
+* added hospital marker for PHL ([e52f2b9](https://github.com/rodekruis/IBF-system/commit/e52f2b98c2e03b131a2b1dd5845558927f013896))
+* updated maxClusterRadius AB[#10018](https://github.com/rodekruis/IBF-system/issues/10018) ([469ee0e](https://github.com/rodekruis/IBF-system/commit/469ee0e084f81ae7ee2233512e4c74c0704bed3b))
+
+
+
 # [0.99.0](https://github.com/rodekruis/IBF-system/compare/v0.98.1...v0.99.0) (2021-10-25)
 
 
@@ -117,15 +134,6 @@
 ### Bug Fixes
 
 * trigger deploy ([7548fa0](https://github.com/rodekruis/IBF-system/commit/7548fa0aae98bf989091c19f21898b38bbe5b227))
-
-
-
-## [0.95.1](https://github.com/rodekruis/IBF-system/compare/v0.95.0...v0.95.1) (2021-10-08)
-
-
-### Bug Fixes
-
-* PHL admin popups AB[#10024](https://github.com/rodekruis/IBF-system/issues/10024) ([3cc286c](https://github.com/rodekruis/IBF-system/commit/3cc286c99fd7804f5dc79f7ca0d8acd35ccf60ed))
 
 
 
