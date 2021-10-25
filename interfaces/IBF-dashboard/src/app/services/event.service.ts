@@ -81,9 +81,11 @@ export class EventService {
 
   private onEvent = (event) => {
     this.state.event = event;
-    this.state.event.startDate = DateTime.fromISO(
-      this.state.event.startDate,
-    ).toFormat('cccc, dd LLLL');
+    if (event && event.startDate) {
+      this.state.event.startDate = DateTime.fromISO(
+        this.state.event.startDate,
+      ).toFormat('cccc, dd LLLL');
+    }
 
     this.state.activeEvent = !!this.state.event;
     this.state.activeTrigger =
