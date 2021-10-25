@@ -1,3 +1,15 @@
+# [0.99.0](https://github.com/rodekruis/IBF-system/compare/v0.98.1...v0.99.0) (2021-10-25)
+
+
+### Features
+
+* added dashboard video ([18e3575](https://github.com/rodekruis/IBF-system/commit/18e3575686b602167f4f374a643266e86f7451fd))
+* added video link for PHL AB[#10016](https://github.com/rodekruis/IBF-system/issues/10016) ([d9a94fc](https://github.com/rodekruis/IBF-system/commit/d9a94fcb406273cc01a51869c145f2e571af42c1))
+* reverted AB[#10287](https://github.com/rodekruis/IBF-system/issues/10287) ([282dae1](https://github.com/rodekruis/IBF-system/commit/282dae18b849f290ff6068cc358d4b5ef9d3d7ec))
+* updated dashboard link AB[#10287](https://github.com/rodekruis/IBF-system/issues/10287) ([02ae397](https://github.com/rodekruis/IBF-system/commit/02ae397232749b9c7e442e70670fcec87aa5342e))
+
+
+
 ## [0.98.1](https://github.com/rodekruis/IBF-system/compare/v0.98.0...v0.98.1) (2021-10-22)
 
 
@@ -114,21 +126,6 @@
 ### Bug Fixes
 
 * PHL admin popups AB[#10024](https://github.com/rodekruis/IBF-system/issues/10024) ([3cc286c](https://github.com/rodekruis/IBF-system/commit/3cc286c99fd7804f5dc79f7ca0d8acd35ccf60ed))
-
-
-
-# [0.95.0](https://github.com/rodekruis/IBF-system/compare/v0.94.0...v0.95.0) (2021-10-04)
-
-
-### Bug Fixes
-
-* correct english AB[#9873](https://github.com/rodekruis/IBF-system/issues/9873) ([58a5f0c](https://github.com/rodekruis/IBF-system/commit/58a5f0ce673864cfb45e2a11c1ee218928f52d75))
-* improved UX copy chat-text AB[#9873](https://github.com/rodekruis/IBF-system/issues/9873) ([1b6e0af](https://github.com/rodekruis/IBF-system/commit/1b6e0af0cbf47da7b78173f3079e210194cd27cf))
-
-
-### Features
-
-* add uncertainty to leadtime text in dashboard and email AB[#9873](https://github.com/rodekruis/IBF-system/issues/9873) ([267b1b1](https://github.com/rodekruis/IBF-system/commit/267b1b18dbf8ff319d379f835d60942bb205bae4))
 
 
 
