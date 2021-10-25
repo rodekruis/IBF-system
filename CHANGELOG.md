@@ -1,3 +1,12 @@
+## [0.100.1](https://github.com/rodekruis/IBF-system/compare/v0.100.0...v0.100.1) (2021-10-25)
+
+
+### Bug Fixes
+
+* generic email pattern AB[#10337](https://github.com/rodekruis/IBF-system/issues/10337) ([0fbf821](https://github.com/rodekruis/IBF-system/commit/0fbf821b08a9c441ad3929c187606549c698330a))
+
+
+
 # [0.100.0](https://github.com/rodekruis/IBF-system/compare/v0.99.0...v0.100.0) (2021-10-25)
 
 
@@ -125,15 +134,6 @@
 
 * forgot to commit AB[#10030](https://github.com/rodekruis/IBF-system/issues/10030) ([a22b8be](https://github.com/rodekruis/IBF-system/commit/a22b8be7120a697ce1d59fa301fd2f09b966e8c2))
 * migration script default value new col AB[#10030](https://github.com/rodekruis/IBF-system/issues/10030) ([747409e](https://github.com/rodekruis/IBF-system/commit/747409e9b782d7301a5a3da0c5a71cbbe726a8a8))
-
-
-
-## [0.95.2](https://github.com/rodekruis/IBF-system/compare/v0.95.1...v0.95.2) (2021-10-08)
-
-
-### Bug Fixes
-
-* trigger deploy ([7548fa0](https://github.com/rodekruis/IBF-system/commit/7548fa0aae98bf989091c19f21898b38bbe5b227))
 
 
 
