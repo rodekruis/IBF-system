@@ -1,3 +1,12 @@
+## [0.101.1](https://github.com/rodekruis/IBF-system/compare/v0.101.0...v0.101.1) (2021-10-25)
+
+
+### Bug Fixes
+
+* startdate if no event AB[#10349](https://github.com/rodekruis/IBF-system/issues/10349) ([66caf7b](https://github.com/rodekruis/IBF-system/commit/66caf7b40c2b688b04b051d8fdd1d7291b624495))
+
+
+
 # [0.101.0](https://github.com/rodekruis/IBF-system/compare/v0.100.2...v0.101.0) (2021-10-25)
 
 
@@ -135,22 +144,6 @@
 ### Features
 
 * changed gradient color into purple for triggered state AB[#9103](https://github.com/rodekruis/IBF-system/issues/9103) ([195414c](https://github.com/rodekruis/IBF-system/commit/195414c714599abf06d021fcfae1b6b0f9d5bef1))
-
-
-
-# [0.96.0](https://github.com/rodekruis/IBF-system/compare/v0.95.4...v0.96.0) (2021-10-18)
-
-
-### Bug Fixes
-
-* updated spelling mistakes AB[#10210](https://github.com/rodekruis/IBF-system/issues/10210) ([82b1d8c](https://github.com/rodekruis/IBF-system/commit/82b1d8c78c22b564e2fb03764465cfd93f347a5e))
-* zwe popup text feedback AB[#10144](https://github.com/rodekruis/IBF-system/issues/10144) ([20bdb89](https://github.com/rodekruis/IBF-system/commit/20bdb897e46f1641283650a4cb4bb6b3bab8272f))
-
-
-### Features
-
-* updated file AB[#10144](https://github.com/rodekruis/IBF-system/issues/10144) ([3de6aef](https://github.com/rodekruis/IBF-system/commit/3de6aef3cf4cc0fb8313ae77861f194c114d5fe7))
-* ZWE-popup-upadated AB[#10144](https://github.com/rodekruis/IBF-system/issues/10144) ([e8f5bd8](https://github.com/rodekruis/IBF-system/commit/e8f5bd810742ad2d4a5b2d66a6fa25acfe38038d))
 
 
 
