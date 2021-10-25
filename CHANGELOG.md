@@ -1,3 +1,12 @@
+## [0.100.2](https://github.com/rodekruis/IBF-system/compare/v0.100.1...v0.100.2) (2021-10-25)
+
+
+### Bug Fixes
+
+* zoom and pan while layer-menu open AB[#10257](https://github.com/rodekruis/IBF-system/issues/10257) ([7059557](https://github.com/rodekruis/IBF-system/commit/705955784b656b46ec1bb7a3c7d49babba75cf88))
+
+
+
 ## [0.100.1](https://github.com/rodekruis/IBF-system/compare/v0.100.0...v0.100.1) (2021-10-25)
 
 
@@ -124,16 +133,6 @@
 ### Bug Fixes
 
 * revert removal of pipeline endpoint AB[#10029](https://github.com/rodekruis/IBF-system/issues/10029) ([162b8a0](https://github.com/rodekruis/IBF-system/commit/162b8a03db5340483da4947f84deb9b4adc43d99))
-
-
-
-## [0.95.3](https://github.com/rodekruis/IBF-system/compare/v0.95.2...v0.95.3) (2021-10-08)
-
-
-### Bug Fixes
-
-* forgot to commit AB[#10030](https://github.com/rodekruis/IBF-system/issues/10030) ([a22b8be](https://github.com/rodekruis/IBF-system/commit/a22b8be7120a697ce1d59fa301fd2f09b966e8c2))
-* migration script default value new col AB[#10030](https://github.com/rodekruis/IBF-system/issues/10030) ([747409e](https://github.com/rodekruis/IBF-system/commit/747409e9b782d7301a5a3da0c5a71cbbe726a8a8))
 
 
 
