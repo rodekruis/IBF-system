@@ -51,7 +51,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public adminAreaLabel: string;
   public disasterTypeLabel: string;
   public disasterTypeName: string;
-  public disasterCategory: string;
+  public disasterCategory: string = '';
   private country: Country;
   public lastModelRunDate: any;
   public isWarn = false;
