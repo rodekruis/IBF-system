@@ -26,8 +26,14 @@ export class Waterpoint {
 
 export class HealthSite {
   name: string;
-  type: number;
+  type: string;
 }
+
+export enum HealthSiteType {
+  hospital = 'hospital',
+  clinic = 'clinic',
+}
+
 export class DamSite {
   damName: string;
   countryCodeISO3: string;

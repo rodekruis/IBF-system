@@ -32,6 +32,7 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_BASE,
   LEAFLET_MARKER_ICON_OPTIONS_DAM,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
+  LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
 } from 'src/app/config';
@@ -39,6 +40,7 @@ import { Country, EapAlertClasses } from 'src/app/models/country.model';
 import {
   DamSite,
   HealthSite,
+  HealthSiteType,
   RedCrossBranch,
   Station,
   Waterpoint,
@@ -390,6 +392,15 @@ export class MapComponent implements OnDestroy {
       });
       waterPointClusterLayer.addLayer(mapLayer);
       return waterPointClusterLayer;
+    }
+
+    if (layer.name === IbfLayerName.healthSites) {
+      const healthSiteClusterLayer = markerClusterGroup({
+        iconCreateFunction: this.getIconCreateFunction,
+        maxClusterRadius: 10,
+      });
+      healthSiteClusterLayer.addLayer(mapLayer);
+      return healthSiteClusterLayer;
     }
     return mapLayer;
   }
@@ -752,15 +763,26 @@ export class MapComponent implements OnDestroy {
   ): Marker {
     const markerTitle = markerProperties.name;
 
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
-      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT),
-    });
-    markerInstance.bindPopup(this.createHealthSitePopup(markerProperties));
-    markerInstance.on(
-      'click',
-      this.onMapMarkerClick(AnalyticsEvent.healthSite),
-    );
+    let markerInstance;
+
+    if (markerProperties.type === HealthSiteType.hospital) {
+      markerInstance = marker(markerLatLng, {
+        title: markerTitle,
+        icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL),
+      });
+    } else if (markerProperties.type === HealthSiteType.clinic) {
+      markerInstance = marker(markerLatLng, {
+        title: markerTitle,
+        icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT),
+      });
+    }
+    if (markerInstance) {
+      markerInstance.bindPopup(this.createHealthSitePopup(markerProperties));
+      markerInstance.on(
+        'click',
+        this.onMapMarkerClick(AnalyticsEvent.healthSite),
+      );
+    }
 
     return markerInstance;
   }
