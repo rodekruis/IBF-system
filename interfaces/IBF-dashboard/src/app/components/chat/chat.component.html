@@ -1,6 +1,6 @@
 <ion-content scrollY="true">
   <app-disaster-type></app-disaster-type>
-  <app-dialogue-turn *ngIf="lastModelRunDate" [isWarn]="isWarn">
+  <app-dialogue-turn [isWarn]="isWarn">
     <p
       [innerHTML]="
         'chat-component.' + disasterCategory + 'warn-label.message'

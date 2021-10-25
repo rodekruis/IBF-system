@@ -53,7 +53,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterTypeName: string;
   public disasterCategory: string = '';
   private country: Country;
-  public lastModelRunDate: any;
+  public lastModelRunDate: string;
+  private lastModelRunDateFormat = 'cccc, dd LLLL HH:mm';
   public isWarn = false;
 
   constructor(
@@ -190,11 +191,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private onRecentDates = (date, disasterType: DisasterType) => {
-    this.lastModelRunDate = date.date;
-    this.isLastModelDateStale(this.lastModelRunDate, disasterType);
+    const recentDate = date.timestamp || date.date;
+    this.lastModelRunDate = recentDate
+      ? DateTime.fromISO(recentDate).toFormat(this.lastModelRunDateFormat)
+      : 'unknown';
+    this.isLastModelDateStale(recentDate, disasterType);
   };
-
-  // data needs to be reorganized to avoid the mess that follows
 
   private disableSubmitButtonForTriggeredArea = (triggeredArea) =>
     (triggeredArea.submitDisabled = true);
@@ -358,6 +360,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
+    console.log('recentDate: ', recentDate);
     const percentageOvertimeAllowed = 0.1; //10%
 
     const updateFrequency = disasterType.leadTimes[0].leadTimeName.split(
@@ -374,6 +377,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     const diff = nowDate
       .diff(DateTime.fromISO(recentDate), durationUnit)
       .toObject();
+    console.log('diff: ', diff);
     if (diff[durationUnit] > 1 + percentageOvertimeAllowed) {
       this.isWarn = true;
     } else {
