@@ -60,7 +60,6 @@ import {
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { breakKey } from '../../models/map.model';
-import { AdminLevelService } from '../../services/admin-level.service';
 import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
@@ -96,7 +95,6 @@ export class MapComponent implements OnDestroy {
 
   constructor(
     private countryService: CountryService,
-    private adminLevelService: AdminLevelService,
     private timelineService: TimelineService,
     private mapService: MapService,
     private placeCodeService: PlaceCodeService,
@@ -187,15 +185,17 @@ export class MapComponent implements OnDestroy {
     colors,
     colorThreshold,
   ) => (feature) => {
-    return feature > colorThreshold[breakKey.break4]
-      ? colors[4]
-      : feature > colorThreshold[breakKey.break3]
-      ? colors[3]
-      : feature > colorThreshold[breakKey.break2]
-      ? colors[2]
-      : feature > colorThreshold[breakKey.break1]
+    return feature === colorThreshold[breakKey.break0]
+      ? colors[0]
+      : feature === colorThreshold[breakKey.break1]
       ? colors[1]
-      : colors[0];
+      : feature === colorThreshold[breakKey.break2]
+      ? colors[2]
+      : feature === colorThreshold[breakKey.break3]
+      ? colors[3]
+      : feature === colorThreshold[breakKey.break4]
+      ? colors[4]
+      : null;
   };
 
   public addLegend(map, colors, colorThreshold, layer: IbfLayer) {
