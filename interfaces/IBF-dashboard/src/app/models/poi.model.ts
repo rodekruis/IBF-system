@@ -30,10 +30,10 @@ export class HealthSite {
 }
 
 export enum HealthSiteType {
-  hospital= 'hospital',
+  hospital = 'hospital',
   clinic = 'clinic',
-  }
-    
+}
+
 export class DamSite {
   damName: string;
   countryCodeISO3: string;

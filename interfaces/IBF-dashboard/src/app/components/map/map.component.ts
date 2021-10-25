@@ -779,7 +779,7 @@ export class MapComponent implements OnDestroy {
         title: markerTitle,
         icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL),
       });
-    } else if(markerProperties.type === HealthSiteType.clinic) {
+    } else if (markerProperties.type === HealthSiteType.clinic) {
       markerInstance = marker(markerLatLng, {
         title: markerTitle,
         icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT),
@@ -792,7 +792,7 @@ export class MapComponent implements OnDestroy {
         this.onMapMarkerClick(AnalyticsEvent.healthSite),
       );
     }
-    
+
     return markerInstance;
   }
 
