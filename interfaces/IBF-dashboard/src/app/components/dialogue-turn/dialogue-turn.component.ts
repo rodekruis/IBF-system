@@ -24,6 +24,9 @@ export class DialogueTurnComponent implements OnInit {
   @Input()
   isConnected = false;
 
+  @Input()
+  isWarn = false;
+
   isSelf: boolean;
   isSystem: boolean;
 

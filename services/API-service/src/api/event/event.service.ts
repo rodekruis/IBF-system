@@ -116,18 +116,23 @@ export class EventService {
       where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
       order: { date: 'DESC' },
     });
-    return { date: new Date(result.date).toISOString() };
+    return {
+      date: new Date(result.date).toISOString(),
+      timestamp: new Date(result.timestamp),
+    };
   }
 
   public async uploadTriggerPerLeadTime(
     uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ): Promise<void> {
     const triggersPerLeadTime: TriggerPerLeadTime[] = [];
+    const timestamp = new Date();
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
       // Delete duplicates
       await this.deleteDuplicates(uploadTriggerPerLeadTimeDto, leadTime);
       const triggerPerLeadTime = new TriggerPerLeadTime();
       triggerPerLeadTime.date = new Date();
+      triggerPerLeadTime.timestamp = timestamp;
       triggerPerLeadTime.countryCodeISO3 =
         uploadTriggerPerLeadTimeDto.countryCodeISO3;
       triggerPerLeadTime.leadTime = leadTime.leadTime as LeadTime;

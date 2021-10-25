@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { DateTime } from 'luxon';
 import { forkJoin, Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -19,6 +20,7 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EapAction } from 'src/app/types/eap-action';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
+import { LeadTimeUnit } from '../../types/lead-time';
 
 @Component({
   selector: 'app-chat',
@@ -49,7 +51,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   public adminAreaLabel: string;
   public disasterTypeLabel: string;
   public disasterTypeName: string;
-  public disasterCategory: string;
+  public disasterCategory = '';
+  private country: Country;
+  public lastModelRunDate: string;
+  private lastModelRunDateFormat = 'cccc, dd LLLL HH:mm';
+  public isWarn = false;
 
   constructor(
     private eapActionsService: EapActionsService,
@@ -107,6 +113,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onCountryChange = (country: Country) => {
     if (country) {
+      this.country = country;
       this.adminAreaLabel =
         country.adminRegionLabels[country.defaultAdminLevel].singular;
       this.changeDetectorRef.detectChanges();
@@ -147,7 +154,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       DisasterTypeKey.heavyRain,
       DisasterTypeKey.malaria,
     ];
-    if (disasterType) {
+    if (this.country && disasterType) {
       this.disasterTypeLabel = disasterType.label;
       this.disasterTypeName = disasterType.disasterType;
       const activeEventsSelector = 'active-event';
@@ -174,11 +181,22 @@ export class ChatComponent implements OnInit, OnDestroy {
         ][updateFailureSelector];
         this.disasterCategory = '';
       }
+
+      this.apiService
+        .getRecentDates(this.country.countryCodeISO3, disasterType.disasterType)
+        .subscribe((date) => this.onRecentDates(date, disasterType));
+
       this.changeDetectorRef.detectChanges();
     }
   };
 
-  // data needs to be reorganized to avoid the mess that follows
+  private onRecentDates = (date, disasterType: DisasterType) => {
+    const recentDate = date.timestamp || date.date;
+    this.lastModelRunDate = recentDate
+      ? DateTime.fromISO(recentDate).toFormat(this.lastModelRunDateFormat)
+      : 'unknown';
+    this.isLastModelDateStale(recentDate, disasterType);
+  };
 
   private disableSubmitButtonForTriggeredArea = (triggeredArea) =>
     (triggeredArea.submitDisabled = true);
@@ -340,4 +358,30 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.eapActionsService.loadAdminAreasAndActions();
     this.eventService.getTrigger();
   }
+
+  private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
+    console.log('recentDate: ', recentDate);
+    const percentageOvertimeAllowed = 0.1; // 10%
+
+    const updateFrequency = disasterType.leadTimes[0].leadTimeName.split(
+      '-',
+    )[1] as LeadTimeUnit;
+    const durationUnit =
+      updateFrequency === LeadTimeUnit.day
+        ? 'days'
+        : updateFrequency === LeadTimeUnit.month
+        ? 'months'
+        : null;
+
+    const nowDate = DateTime.now();
+    const diff = nowDate
+      .diff(DateTime.fromISO(recentDate), durationUnit)
+      .toObject();
+    console.log('diff: ', diff);
+    if (diff[durationUnit] > 1 + percentageOvertimeAllowed) {
+      this.isWarn = true;
+    } else {
+      this.isWarn = false;
+    }
+  };
 }

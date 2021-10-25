@@ -81,6 +81,10 @@ export class EventService {
 
   private onEvent = (event) => {
     this.state.event = event;
+    this.state.event.startDate = DateTime.fromISO(
+      this.state.event.startDate,
+    ).toFormat('cccc, dd LLLL');
+
     this.state.activeEvent = !!this.state.event;
     this.state.activeTrigger =
       this.state.event && this.state.event.activeTrigger;
@@ -98,7 +102,7 @@ export class EventService {
 
   private endDateToLastTriggerDate(endDate: string): string {
     const originalEndDate = DateTime.fromFormat(endDate, 'yyyy-LL-dd');
-    return originalEndDate.minus({ days: 7 }).toFormat('yyyy-LL-dd');
+    return originalEndDate.minus({ days: 7 }).toFormat('cccc, dd LLLL');
   }
 
   private setAlertState = () => {

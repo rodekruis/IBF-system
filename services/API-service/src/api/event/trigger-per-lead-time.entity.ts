@@ -17,6 +17,9 @@ export class TriggerPerLeadTime {
   @Column({ type: 'date' })
   public date: Date;
 
+  @Column({ type: 'timestamp', nullable: true })
+  public timestamp: Date;
+
   @ManyToOne((): typeof CountryEntity => CountryEntity)
   @JoinColumn({
     name: 'countryCodeISO3',
