@@ -388,7 +388,7 @@ export class MapComponent implements OnDestroy {
     if (layer.name === IbfLayerName.healthSites) {
       const healthSiteClusterLayer = markerClusterGroup({
         iconCreateFunction: this.getIconCreateFunction,
-        maxClusterRadius: 50,
+        maxClusterRadius: 10,
       });
       healthSiteClusterLayer.addLayer(mapLayer);
       return healthSiteClusterLayer;
