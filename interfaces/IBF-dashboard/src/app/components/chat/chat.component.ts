@@ -361,7 +361,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
     console.log('recentDate: ', recentDate);
-    const percentageOvertimeAllowed = 0.1; //10%
+    const percentageOvertimeAllowed = 0.1; // 10%
 
     const updateFrequency = disasterType.leadTimes[0].leadTimeName.split(
       '-',
