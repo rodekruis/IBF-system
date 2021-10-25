@@ -4,4 +4,5 @@ export enum DisasterTypeKey {
   dengue = 'dengue',
   malaria = 'malaria',
   drought = 'drought',
+  typhoon = 'typhoon',
 }

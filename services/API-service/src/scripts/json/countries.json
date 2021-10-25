@@ -283,10 +283,10 @@
     "countryCodeISO2": "PH",
     "countryName": "Philippines",
     "countryStatus": "active",
-    "disasterTypes": ["dengue"],
-    "adminLevels": [2],
+    "disasterTypes": ["dengue", "typhoon"],
+    "adminLevels": [2, 3],
     "defaultAdminLevel": 2,
-    "countryActiveLeadTimes": ["0-month", "1-month", "2-month"],
+    "countryActiveLeadTimes": ["0-month", "1-month", "2-month", "72-hour"],
     "eapAlertClasses": {},
     "adminRegionLabels": {
       "1": {
@@ -307,7 +307,8 @@
       }
     },
     "eapLinks": {
-      "dengue": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm"
+      "dengue": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm",
+      "typhoon": ""
     },
     "countryLogos": ["PHL-prc.jpg"],
     "countryBoundingBox": {

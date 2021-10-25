@@ -116,10 +116,17 @@ export class EventService {
       where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
       order: { date: 'DESC' },
     });
-    return {
-      date: new Date(result.date).toISOString(),
-      timestamp: new Date(result.timestamp),
-    };
+    if (result) {
+      return {
+        date: new Date(result.date).toISOString(),
+        timestamp: new Date(result.timestamp),
+      };
+    } else {
+      return {
+        date: null,
+        timestamp: null,
+      };
+    }
   }
 
   public async uploadTriggerPerLeadTime(

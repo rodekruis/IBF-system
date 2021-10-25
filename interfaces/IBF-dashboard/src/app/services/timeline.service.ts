@@ -65,7 +65,10 @@ export class TimelineService {
       date: this.getLeadTimeDate(leadTime, triggerKey),
       unit: leadTime.split('-')[1] as LeadTimeUnit,
       value: leadTime,
-      alert: this.triggers[leadTime] === '1',
+      alert:
+        this.triggers &&
+        this.triggers[leadTime] &&
+        this.triggers[leadTime] === '1',
       disabled: !isLeadTimeEnabled,
       active: false,
     };
@@ -73,11 +76,10 @@ export class TimelineService {
 
   private onTriggerPerLeadTime = (triggers) => {
     this.triggers = triggers;
-    if (this.triggers) {
-      this.state.timeStepButtons = [];
-      const visibleLeadTimes = this.getVisibleLeadTimes();
-      visibleLeadTimes.map(this.leadTimeToLeadTimeButton);
-    }
+
+    this.state.timeStepButtons = [];
+    const visibleLeadTimes = this.getVisibleLeadTimes();
+    visibleLeadTimes.map(this.leadTimeToLeadTimeButton);
 
     const enabledTimeStepButtons = this.state.timeStepButtons.filter(
       (timeStepButton) => !timeStepButton.disabled,

@@ -28,5 +28,11 @@
     "label": "drought",
     "triggerUnit": "alert_threshold",
     "actionsUnit": "population_affected"
+  },
+  {
+    "disasterType": "typhoon",
+    "label": "typhoon",
+    "triggerUnit": "alert_threshold",
+    "actionsUnit": "population_affected"
   }
 ]

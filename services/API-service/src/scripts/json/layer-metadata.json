@@ -87,7 +87,7 @@
   },
   {
     "country_codes": "PHL,ETH",
-    "disasterTypes": ["dengue", "malaria"],
+    "disasterTypes": ["dengue", "malaria", "typhoon"],
     "name": "health_sites",
     "label": "Health Sites",
     "type": "point",
@@ -115,7 +115,14 @@
   },
   {
     "country_codes": "ZMB,UGA,ZWE,EGY",
-    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
+    "disasterTypes": [
+      "floods",
+      "heavy-rain",
+      "dengue",
+      "malaria",
+      "drought",
+      "typhoon"
+    ],
     "name": "adminRegions1",
     "label": "Admin Level 1",
     "type": "shape",
@@ -130,8 +137,8 @@
     "active": "yes"
   },
   {
-    "country_codes": "ZMB,ETH,UGA",
-    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
+    "country_codes": "ZMB,ETH,UGA,PHL",
+    "disasterTypes": ["floods", "heavy-rain", "malaria", "drought", "typhoon"],
     "name": "adminRegions3",
     "label": "Admin Level 3",
     "type": "shape",
@@ -139,7 +146,14 @@
   },
   {
     "country_codes": "UGA",
-    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
+    "disasterTypes": [
+      "floods",
+      "heavy-rain",
+      "dengue",
+      "malaria",
+      "drought",
+      "typhoon"
+    ],
     "name": "adminRegions4",
     "label": "Admin Level 4",
     "type": "shape",

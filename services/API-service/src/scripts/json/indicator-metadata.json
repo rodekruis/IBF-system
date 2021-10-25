@@ -1,7 +1,7 @@
 [
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE",
-    "disasterTypes": ["floods", "heavy-rain", "drought"],
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
+    "disasterTypes": ["floods", "heavy-rain", "drought", "typhoon"],
     "name": "population_affected",
     "label": "Exposed population",
     "group": "general",
@@ -612,8 +612,8 @@
     "lazyLoad": true
   },
   {
-    "country_codes": "PHL,ETH,ZWE",
-    "disasterTypes": ["dengue", "malaria", "drought"],
+    "country_codes": "PHL,ETH,ZWE,PHL",
+    "disasterTypes": ["dengue", "malaria", "drought", "typhoon"],
     "name": "alert_threshold",
     "label": "Alert Threshold Reached",
     "group": "outline",

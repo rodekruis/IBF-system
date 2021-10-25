@@ -18,6 +18,13 @@ export enum LeadTime {
   month9 = '9-month',
   month10 = '10-month',
   month11 = '11-month',
+  hour24 = '24-hour',
+  hour48 = '48-hour',
+  hour72 = '72-hour',
+  hour96 = '96-hour',
+  hour120 = '120-hour',
+  hour144 = '144-hour',
+  hour168 = '168-hour',
 }
 
 export enum LeadTimeTriggerKey {
@@ -40,9 +47,17 @@ export enum LeadTimeTriggerKey {
   '9-month' = '9',
   '10-month' = '10',
   '11-month' = '11',
+  '24-hour' = '24',
+  '48-hour' = '48',
+  '72-hour' = '72',
+  '96-hour' = '96',
+  '120-hour' = '120',
+  '144-hour' = '144',
+  '116844-hour' = '168',
 }
 
 export enum LeadTimeUnit {
   day = 'day',
   month = 'month',
+  hour = 'hour',
 }
