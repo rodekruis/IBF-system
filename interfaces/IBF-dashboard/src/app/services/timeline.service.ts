@@ -61,6 +61,7 @@ export class TimelineService {
   ): void => {
     const isLeadTimeEnabled = this.isLeadTimeEnabled(leadTime);
     const triggerKey = LeadTimeTriggerKey[leadTime];
+    console.log('#########',this.state.timeStepButtons,leadTime,triggerKey)
     this.state.timeStepButtons[index] = {
       date: this.getLeadTimeDate(leadTime, triggerKey),
       unit: leadTime.split('-')[1] as LeadTimeUnit,
@@ -128,9 +129,12 @@ export class TimelineService {
     this.timelineSubject.next(this.activeLeadTime);
   }
 
+  // need to handle hour lead time wrt typhoon
   private getLeadTimeDate(leadTime: LeadTime, triggerKey: string) {
     if (leadTime.includes('day')) {
       return this.state.today.plus({ days: Number(triggerKey) });
+    } else if (leadTime.includes('hour')) {
+      return this.state.today.plus({ hours: Number(triggerKey) });
     } else {
       return this.state.today.plus({ months: Number(triggerKey) });
     }

@@ -13,14 +13,20 @@ export class DateButtonComponent implements OnInit {
 
   private dateFormat = 'ccc dd';
   private monthFormat = 'LLL yyyy';
+  private hourFormat = 'HH:mm dd ccc';
   public displayDate: string;
   public displayMonth: string;
+  public displayHour: string;
+
 
   constructor() {}
 
   ngOnInit() {
     if (this.unit === LeadTimeUnit.day) {
       this.displayDate = this.date.toFormat(this.dateFormat);
+    }
+    if (this.unit === LeadTimeUnit.hour) {
+      this.displayHour = this.date.toFormat(this.hourFormat);
     }
     this.displayMonth = this.date.toFormat(this.monthFormat);
   }

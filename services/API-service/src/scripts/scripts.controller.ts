@@ -44,6 +44,7 @@ export class MockDynamic {
     DisasterType.Malaria,
     DisasterType.Drought,
     DisasterType.HeavyRain,
+    DisasterType.Typhoon,
   ])
   public readonly disasterType: DisasterType;
 

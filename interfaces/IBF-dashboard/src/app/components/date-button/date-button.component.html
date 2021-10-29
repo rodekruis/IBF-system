@@ -1,4 +1,8 @@
 <span>
+  <div *ngIf="displayHour">
+    <span class="hour">{{ displayHour }}</span>
+    <br />
+  </div>
   <div *ngIf="displayDate">
     <span class="date">{{ displayDate }}</span>
     <br />

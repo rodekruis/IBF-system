@@ -18,6 +18,13 @@ export enum LeadTime {
   month9 = '9-month',
   month10 = '10-month',
   month11 = '11-month',
+  hour24 = '24-hour',
+  hour48 = '48-hour',
+  hour72 = '72-hour',
+  hour96 = '96-hour',
+  hour120 = '120-hour',
+  hour144 = '144-hour',
+  hour168 = '168-hour',
 }
 
 export enum LeadTimeDayMonth {
