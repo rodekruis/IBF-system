@@ -9,7 +9,7 @@ import {
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { DynamicDataPlaceCodeDto } from '../../admin-area-dynamic-data/dto/dynamic-data-place-code.dto';
-import indicatorData from '../../admin-area-dynamic-data/dto/example/ETH/upload-exposure-ETH-triggered.json';
+import indicatorData from '../../admin-area-dynamic-data/dto/example/ETH/malaria/upload-exposure.json';
 import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { AdminLevel } from '../../country/admin-level.enum';
 import { JoinColumn, ManyToOne } from 'typeorm';
