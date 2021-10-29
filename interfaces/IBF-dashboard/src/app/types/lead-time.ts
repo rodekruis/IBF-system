@@ -53,7 +53,7 @@ export enum LeadTimeTriggerKey {
   '96-hour' = '96',
   '120-hour' = '120',
   '144-hour' = '144',
-  '116844-hour' = '168',
+  '168-hour' = '168',
 }
 
 export enum LeadTimeUnit {

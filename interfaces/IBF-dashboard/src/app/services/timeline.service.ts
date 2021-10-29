@@ -90,8 +90,10 @@ export class TimelineService {
   };
 
   private onRecentDates = (date) => {
-    if (date) {
-      this.state.today = DateTime.fromISO(date.date);
+    if (date.timestamp) {
+      this.state.today = DateTime.fromISO(date.timestamp);
+    } else {
+      this.state.today = DateTime.now();
     }
 
     this.apiService
