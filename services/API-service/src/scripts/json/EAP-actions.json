@@ -505,6 +505,33 @@
   },
   {
     "countryCodeISO3": "PHL",
+    "disasterType": "typhoon",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-1",
+    "label": "Early Harvesting"
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "disasterType": "typhoon",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-2",
+    "label": "Evacuation Of Livestock And Assets"
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "disasterType": "typhoon",
+    "areaOfFocus": {
+      "id": "shelter"
+    },
+    "action": "shelter-1",
+    "label": "Distribution Of Shelter Strengthening Kit (SSK)"
+  },
+  {
+    "countryCodeISO3": "PHL",
     "disasterType": "dengue",
     "areaOfFocus": {
       "id": "livelihood"
