@@ -213,12 +213,16 @@ export class NotificationService {
       {
         replaceKey: '(ADMIN-AREA-PLURAL)',
         replaceValue:
-          country.adminRegionLabels[String(country.defaultAdminLevel)].plural,
+          country.adminRegionLabels[
+            String(country.disasterTypeSettings[disasterType].defaultAdminLevel)
+          ].plural,
       },
       {
         replaceKey: '(ADMIN-AREA-SINGULAR)',
         replaceValue:
-          country.adminRegionLabels[String(country.defaultAdminLevel)].singular,
+          country.adminRegionLabels[
+            String(country.disasterTypeSettings[disasterType].defaultAdminLevel)
+          ].singular,
       },
       {
         replaceKey: '(DISASTER-TYPE)',
@@ -354,7 +358,9 @@ export class NotificationService {
     leadTime: LeadTimeEntity,
   ): Promise<string> {
     const adminAreaLabels =
-      country.adminRegionLabels[String(country.defaultAdminLevel)];
+      country.adminRegionLabels[
+        String(country.disasterTypeSettings[disasterType].defaultAdminLevel)
+      ];
     const actionUnit = await this.indicatorRepository.findOne({
       name: (await this.getDisaster(disasterType)).actionsUnit,
     });
@@ -397,7 +403,7 @@ export class NotificationService {
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
       disasterType,
-      country.defaultAdminLevel,
+      country.disasterTypeSettings[disasterType].defaultAdminLevel,
       leadTime.leadTimeName,
     );
     const disaster = await this.getDisaster(disasterType);

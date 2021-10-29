@@ -53,6 +53,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterTypeName: string;
   public disasterCategory = '';
   private country: Country;
+  private disasterType: DisasterType;
   public lastModelRunDate: string;
   private lastModelRunDateFormat = 'cccc, dd LLLL HH:mm';
   public isWarn = false;
@@ -112,11 +113,19 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private onCountryChange = (country: Country) => {
-    if (country) {
-      this.country = country;
+    this.country = country;
+    if (this.country) {
+      const disasterType =
+        this.disasterType.disasterType ||
+        this.country.disasterTypes[0].disasterType;
       this.adminAreaLabel =
-        country.adminRegionLabels[country.defaultAdminLevel].singular;
+        country.adminRegionLabels[
+          country.disasterTypeSettings[disasterType].defaultAdminLevel
+        ].singular;
       this.changeDetectorRef.detectChanges();
+    }
+    if (this.country && this.disasterType) {
+      this.setupChatText();
     }
   };
 
@@ -149,45 +158,55 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
+    if (this.country && this.disasterType) {
+      this.setupChatText();
+    }
+  };
+
+  private setupChatText = () => {
     const disasterTypesWithSpecificText = [
       DisasterTypeKey.dengue,
       DisasterTypeKey.heavyRain,
       DisasterTypeKey.malaria,
     ];
-    if (this.country && disasterType) {
-      this.disasterTypeLabel = disasterType.label;
-      this.disasterTypeName = disasterType.disasterType;
-      const activeEventsSelector = 'active-event';
-      const updateSuccesSelector = 'update-success';
-      const updateFailureSelector = 'update-failure';
-      if (
-        disasterTypesWithSpecificText.includes(
-          this.disasterTypeName as DisasterTypeKey,
-        )
-      ) {
-        this.updateSuccessMessage = this.translatedStrings[
-          this.disasterTypeName
-        ][activeEventsSelector][updateSuccesSelector];
-        this.updateFailureMessage = this.translatedStrings[
-          this.disasterTypeName
-        ][activeEventsSelector][updateFailureSelector];
-        this.disasterCategory = `${this.disasterTypeName}.`;
-      } else {
-        this.updateSuccessMessage = this.translatedStrings[
-          activeEventsSelector
-        ][updateSuccesSelector];
-        this.updateFailureMessage = this.translatedStrings[
-          activeEventsSelector
-        ][updateFailureSelector];
-        this.disasterCategory = '';
-      }
-
-      this.apiService
-        .getRecentDates(this.country.countryCodeISO3, disasterType.disasterType)
-        .subscribe((date) => this.onRecentDates(date, disasterType));
-
-      this.changeDetectorRef.detectChanges();
+    this.disasterTypeLabel = this.disasterType.label;
+    this.disasterTypeName = this.disasterType.disasterType;
+    const activeEventsSelector = 'active-event';
+    const updateSuccesSelector = 'update-success';
+    const updateFailureSelector = 'update-failure';
+    if (
+      disasterTypesWithSpecificText.includes(
+        this.disasterTypeName as DisasterTypeKey,
+      )
+    ) {
+      this.updateSuccessMessage = this.translatedStrings[this.disasterTypeName][
+        activeEventsSelector
+      ][updateSuccesSelector];
+      this.updateFailureMessage = this.translatedStrings[this.disasterTypeName][
+        activeEventsSelector
+      ][updateFailureSelector];
+      this.disasterCategory = `${this.disasterTypeName}.`;
+    } else {
+      this.updateSuccessMessage = this.translatedStrings[activeEventsSelector][
+        updateSuccesSelector
+      ];
+      this.updateFailureMessage = this.translatedStrings[activeEventsSelector][
+        updateFailureSelector
+      ];
+      this.disasterCategory = '';
     }
+
+    this.apiService
+      .getRecentDates(
+        this.country.countryCodeISO3,
+        this.disasterType.disasterType,
+      )
+      .subscribe((date) => {
+        this.onRecentDates(date, this.disasterType);
+      });
+
+    this.changeDetectorRef.detectChanges();
   };
 
   private onRecentDates = (date, disasterType: DisasterType) => {
@@ -360,14 +379,14 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
-    console.log('recentDate: ', recentDate);
     const percentageOvertimeAllowed = 0.1; // 10%
 
     const updateFrequency = disasterType.leadTimes[0].leadTimeName.split(
       '-',
     )[1] as LeadTimeUnit;
     const durationUnit =
-      updateFrequency === LeadTimeUnit.day
+      updateFrequency === LeadTimeUnit.day ||
+      updateFrequency === LeadTimeUnit.hour
         ? 'days'
         : updateFrequency === LeadTimeUnit.month
         ? 'months'
@@ -377,7 +396,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     const diff = nowDate
       .diff(DateTime.fromISO(recentDate), durationUnit)
       .toObject();
-    console.log('diff: ', diff);
     if (diff[durationUnit] > 1 + percentageOvertimeAllowed) {
       this.isWarn = true;
     } else {

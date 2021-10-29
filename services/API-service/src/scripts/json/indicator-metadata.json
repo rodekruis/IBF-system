@@ -10,7 +10,7 @@
     "active": false,
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
-    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,ZWE",
+    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
     "numberFormatAggregate": "decimal0",
     "order": 1,
     "dynamic": true,

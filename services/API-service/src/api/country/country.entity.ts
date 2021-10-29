@@ -38,16 +38,11 @@ export class CountryEntity {
   @Column({ default: CountryStatus.Active })
   public countryStatus: CountryStatus;
 
-  @ApiProperty({ example: [1, 2, 3, 4] })
-  @Column('int', {
-    array: true,
-    default: (): string => 'array[]::int[]',
+  @ApiProperty({
+    example: { floods: { adminLevels: [3], defaultAdminLevel: 3 } },
   })
-  public adminLevels: AdminLevel[];
-
-  @ApiProperty({ example: 2 })
-  @Column({ default: AdminLevel.adminLevel1 })
-  public defaultAdminLevel: AdminLevel;
+  @Column('json', { default: {} })
+  public disasterTypeSettings: JSON;
 
   @ApiProperty({
     example: {

@@ -3,8 +3,9 @@ import { DisasterTypeKey } from './../types/disaster-type-key';
 import { LeadTime } from './../types/lead-time';
 export class Country {
   countryCodeISO3: string;
+  disasterTypeSettings: DisasterTypeSettings;
   adminLevels: AdminLevel[];
-  defaultAdminLevel: AdminLevel;
+  defaultAdminLevel: AdminLevels;
   countryName: string;
   countryActiveLeadTimes: LeadTime[];
   adminRegionLabels: AdminRegionLabels;
@@ -12,6 +13,11 @@ export class Country {
   countryLogos: string[];
   eapAlertClasses?: EapAlertClasses;
   disasterTypes: DisasterType[];
+}
+
+export class DisasterTypeSettings {
+  adminLevels: AdminLevel[];
+  defaultAdminLevel: AdminLevels;
 }
 
 export class EapAlertClasses {
@@ -62,4 +68,14 @@ class EapLinks {
   [DisasterTypeKey.drought]?: string;
   [DisasterTypeKey.malaria]?: string;
   [DisasterTypeKey.dengue]?: string;
+  [DisasterTypeKey.typhoon]?: string;
+}
+
+class AdminLevels {
+  [DisasterTypeKey.floods]?: AdminLevel;
+  [DisasterTypeKey.heavyRain]?: AdminLevel;
+  [DisasterTypeKey.drought]?: AdminLevel;
+  [DisasterTypeKey.malaria]?: AdminLevel;
+  [DisasterTypeKey.dengue]?: AdminLevel;
+  [DisasterTypeKey.typhoon]?: AdminLevel;
 }

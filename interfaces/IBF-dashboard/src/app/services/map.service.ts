@@ -130,6 +130,9 @@ export class MapService {
     this.layers.forEach((layer) => {
       this.hideLayer(layer);
     });
+    this.layers
+      .filter((layer) => layer.group === IbfLayerGroup.adminRegions)
+      .forEach(this.deactivateLayer);
     this.loadCountryLayers();
   };
 
@@ -368,8 +371,24 @@ export class MapService {
     });
   }
 
+  private leadTimeMatchesDisaster = (
+    leadTime: LeadTime,
+    disasterType: DisasterType,
+  ) => {
+    return disasterType.leadTimes
+      .map((leadTime) => leadTime.leadTimeName)
+      .includes(leadTime);
+  };
+
   private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
-    if (this.country && this.disasterType) {
+    if (
+      this.country &&
+      this.disasterType &&
+      this.leadTimeMatchesDisaster(
+        this.timelineService.activeLeadTime,
+        this.disasterType,
+      )
+    ) {
       if (layerActive) {
         this.apiService
           .getAdminRegions(
