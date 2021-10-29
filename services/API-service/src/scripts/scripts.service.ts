@@ -141,6 +141,11 @@ export class ScriptsService {
         DynamicIndicator.smallRuminantsExposed,
         DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
       ];
+    } else if (disasterType === DisasterType.Typhoon) {
+      exposureUnits = [
+        DynamicIndicator.populationAffected,
+        DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
+      ];
     } else {
       exposureUnits = [
         DynamicIndicator.populationAffectedPercentage,
@@ -149,26 +154,25 @@ export class ScriptsService {
     }
 
     for (const unit of exposureUnits) {
-      for (const adminLevel of selectedCountry.adminLevels) {
+      for (const adminLevel of selectedCountry.disasterTypeSettings[
+        disasterType
+      ].adminLevels) {
         let fileName: string;
         if (
           disasterType === DisasterType.Dengue ||
           disasterType === DisasterType.Malaria
         ) {
           if (unit === DynamicIndicator.potentialThreshold) {
-            fileName = `upload-exposure-${selectedCountry.countryCodeISO3}-potential-cases-threshold`;
-          } else
-            fileName = `upload-exposure-${selectedCountry.countryCodeISO3}${
-              triggered ? '-triggered' : ''
-            }`;
+            fileName = `upload-exposure-potential-cases-threshold`;
+          } else fileName = `upload-exposure`;
         } else {
-          fileName = `upload-${unit}-${selectedCountry.countryCodeISO3}-${adminLevel}`;
+          fileName = `upload-${unit}-${adminLevel}`;
         }
-        const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${selectedCountry.countryCodeISO3}/${fileName}.json`;
-
+        const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${selectedCountry.countryCodeISO3}/${disasterType}/${fileName}.json`;
         const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
         const exposure = JSON.parse(exposureRaw);
-        if (!triggered) {
+
+        if (!triggered && unit !== DynamicIndicator.potentialThreshold) {
           exposure.forEach(area => (area.amount = 0));
         }
 

@@ -65,7 +65,7 @@
   },
   {
     "placeCode": "PH031400000",
-    "amount": 413
+    "amount": 613
   },
   {
     "placeCode": "PH021500000",
@@ -333,18 +333,18 @@
   },
   {
     "placeCode": "PH137500000",
-    "amount": 191
+    "amount": 1191
   },
   {
     "placeCode": "PH137400000",
-    "amount": 311
+    "amount": 1311
   },
   {
     "placeCode": "PH133900000",
-    "amount": 117
+    "amount": 1117
   },
   {
     "placeCode": "PH137600000",
-    "amount": 246
+    "amount": 1246
   }
 ]

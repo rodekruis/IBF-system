@@ -1289,7 +1289,7 @@
   },
   {
     "placeCode": "ET020303",
-    "amount": 0
+    "amount": 1000
   },
   {
     "placeCode": "ET050290",
@@ -2717,7 +2717,7 @@
   },
   {
     "placeCode": "ET042104",
-    "amount": 0
+    "amount": 2000
   },
   {
     "placeCode": "ET031214",
@@ -4017,7 +4017,7 @@
   },
   {
     "placeCode": "ET042105",
-    "amount": 0
+    "amount": 1200
   },
   {
     "placeCode": "ET041109",
