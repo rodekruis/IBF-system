@@ -61,7 +61,6 @@ export class TimelineService {
   ): void => {
     const isLeadTimeEnabled = this.isLeadTimeEnabled(leadTime);
     const triggerKey = LeadTimeTriggerKey[leadTime];
-    console.log('#########',this.state.timeStepButtons,leadTime,triggerKey)
     this.state.timeStepButtons[index] = {
       date: this.getLeadTimeDate(leadTime, triggerKey),
       unit: leadTime.split('-')[1] as LeadTimeUnit,
