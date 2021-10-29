@@ -1,3 +1,12 @@
+## [0.101.3](https://github.com/rodekruis/IBF-system/compare/v0.101.2...v0.101.3) (2021-10-29)
+
+
+### Bug Fixes
+
+* double color in legend AB[#10348](https://github.com/rodekruis/IBF-system/issues/10348) ([18205eb](https://github.com/rodekruis/IBF-system/commit/18205eb0f597bdc5b139d57095c0149f6d82faa1))
+
+
+
 ## [0.101.2](https://github.com/rodekruis/IBF-system/compare/v0.101.1...v0.101.2) (2021-10-29)
 
 
@@ -126,15 +135,6 @@
 * preserve layer-selection upon admin-level change AB[#10045](https://github.com/rodekruis/IBF-system/issues/10045) ([983bc72](https://github.com/rodekruis/IBF-system/commit/983bc7237968957f9edfd06aa00671ccd3b3e713))
 * show 'no data' in map AB[#10043](https://github.com/rodekruis/IBF-system/issues/10043) ([43d5b89](https://github.com/rodekruis/IBF-system/commit/43d5b893330b52192913aa55b3b315f27244539b))
 * showing ward and provinces to middle column AB[#10103](https://github.com/rodekruis/IBF-system/issues/10103) AB[#10102](https://github.com/rodekruis/IBF-system/issues/10102) ([bf2b06f](https://github.com/rodekruis/IBF-system/commit/bf2b06fd098400aa4c966014c60bee5322c41223))
-
-
-
-## [0.97.1](https://github.com/rodekruis/IBF-system/compare/v0.97.0...v0.97.1) (2021-10-18)
-
-
-### Bug Fixes
-
-* popup text fixes AB[#10131](https://github.com/rodekruis/IBF-system/issues/10131) ([89e627d](https://github.com/rodekruis/IBF-system/commit/89e627d80cbaff265234d93d3b67aa989da874f8))
 
 
 
