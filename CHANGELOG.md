@@ -1,3 +1,12 @@
+## [0.101.2](https://github.com/rodekruis/IBF-system/compare/v0.101.1...v0.101.2) (2021-10-29)
+
+
+### Bug Fixes
+
+* rename file AB[#10362](https://github.com/rodekruis/IBF-system/issues/10362) ([cefd121](https://github.com/rodekruis/IBF-system/commit/cefd121f1355a89840f81835c6b24b011e9138de))
+
+
+
 ## [0.101.1](https://github.com/rodekruis/IBF-system/compare/v0.101.0...v0.101.1) (2021-10-25)
 
 
@@ -126,24 +135,6 @@
 ### Bug Fixes
 
 * popup text fixes AB[#10131](https://github.com/rodekruis/IBF-system/issues/10131) ([89e627d](https://github.com/rodekruis/IBF-system/commit/89e627d80cbaff265234d93d3b67aa989da874f8))
-
-
-
-# [0.97.0](https://github.com/rodekruis/IBF-system/compare/v0.96.0...v0.97.0) (2021-10-18)
-
-
-### Bug Fixes
-
-* correct color breaks AB[#10165](https://github.com/rodekruis/IBF-system/issues/10165) ([c2f3058](https://github.com/rodekruis/IBF-system/commit/c2f305865f80ef2c0025c613506766e49451f1fc))
-* lint AB[#10165](https://github.com/rodekruis/IBF-system/issues/10165) ([98d04af](https://github.com/rodekruis/IBF-system/commit/98d04af9ec3f2df94815a1ff8210a46a811fc162))
-* lint AB[#10165](https://github.com/rodekruis/IBF-system/issues/10165) ([7b8137e](https://github.com/rodekruis/IBF-system/commit/7b8137ebd2e84ba6a7d1ae4d655f06601c74f443))
-* removed commented code AB[#10165](https://github.com/rodekruis/IBF-system/issues/10165) ([725593c](https://github.com/rodekruis/IBF-system/commit/725593c41141da989c5103faa7089df168a6a162))
-* updated highest color to purple ([6d39703](https://github.com/rodekruis/IBF-system/commit/6d3970327ff48332e2910742d4736726fd9e409d))
-
-
-### Features
-
-* changed gradient color into purple for triggered state AB[#9103](https://github.com/rodekruis/IBF-system/issues/9103) ([195414c](https://github.com/rodekruis/IBF-system/commit/195414c714599abf06d021fcfae1b6b0f9d5bef1))
 
 
 
