@@ -18,7 +18,6 @@ export class DateButtonComponent implements OnInit {
   public displayMonth: string;
   public displayHour: string;
 
-
   constructor() {}
 
   ngOnInit() {
