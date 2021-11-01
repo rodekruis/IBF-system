@@ -90,7 +90,6 @@ export class AdminLevelService {
 
   public setAdminLevel(adminLevel: AdminLevel) {
     this.adminLevel = adminLevel;
-    console.log('this.adminLevel: ', this.adminLevel);
     this.adminLevelSubject.next(this.adminLevel);
   }
 }

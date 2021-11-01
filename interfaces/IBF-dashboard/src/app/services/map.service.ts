@@ -616,7 +616,28 @@ export class MapService {
       : interactedLayer.show;
   };
 
+  private checkAdminLevelMatchesDisasterType(layer: IbfLayer): boolean {
+    if (layer.group !== IbfLayerGroup.adminRegions) {
+      return true;
+    }
+    const adminLevel = Number(
+      layer.name.substr(layer.name.length - 1),
+    ) as AdminLevel;
+    if (
+      this.country.disasterTypeSettings[
+        this.disasterType.disasterType
+      ].adminLevels.includes(adminLevel)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   private updateLayer = (layer: IbfLayer) => (layerData) => {
+    if (!this.checkAdminLevelMatchesDisasterType(layer)) {
+      return;
+    }
     this.addLayer({
       name: layer.name,
       label: layer.label,
