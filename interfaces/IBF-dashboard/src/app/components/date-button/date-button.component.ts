@@ -11,9 +11,9 @@ export class DateButtonComponent implements OnInit {
   @Input() date = DateTime.now();
   @Input() unit = LeadTimeUnit.day;
 
-  private dateFormat = 'ccc dd';
-  private monthFormat = 'LLL yyyy';
-  private hourFormat = 'HH:mm dd ccc';
+  private dateFormat = 'dd ccc';
+  private monthFormat = 'ccc dd LLL';
+  private hourFormat = 'HH:mm a';
   public displayDate: string;
   public displayMonth: string;
   public displayHour: string;
