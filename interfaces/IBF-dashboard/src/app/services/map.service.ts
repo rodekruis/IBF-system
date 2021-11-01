@@ -375,9 +375,7 @@ export class MapService {
     leadTime: LeadTime,
     disasterType: DisasterType,
   ) => {
-    return disasterType.leadTimes
-      .map((leadTime) => leadTime.leadTimeName)
-      .includes(leadTime);
+    return disasterType.leadTimes.map((l) => l.leadTimeName).includes(leadTime);
   };
 
   private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
