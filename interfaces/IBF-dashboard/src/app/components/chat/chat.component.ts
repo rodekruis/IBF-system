@@ -168,6 +168,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     const disasterTypesWithSpecificText = [
       DisasterTypeKey.dengue,
       DisasterTypeKey.heavyRain,
+      DisasterTypeKey.typhoon,
       DisasterTypeKey.malaria,
     ];
     this.disasterTypeLabel = this.disasterType.label;
