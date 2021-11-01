@@ -2,19 +2,18 @@ import {
   Column,
   Entity,
   JoinColumn,
-  JoinTable,
   ManyToMany,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { BoundingBox } from '../../shared/geo.model';
-import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { UserEntity } from '../user/user.entity';
-import { AdminLevel } from './admin-level.enum';
 import { CountryStatus } from './country-status.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 
 @Entity('country')
 export class CountryEntity {
@@ -38,11 +37,11 @@ export class CountryEntity {
   @Column({ default: CountryStatus.Active })
   public countryStatus: CountryStatus;
 
-  @ApiProperty({
-    example: { floods: { adminLevels: [3], defaultAdminLevel: 3 } },
-  })
-  @Column('json', { default: {} })
-  public disasterTypeSettings: JSON;
+  @OneToMany(
+    () => CountryDisasterSettingsEntity,
+    (settings): CountryEntity => settings.country,
+  )
+  public countryDisasterSettings: CountryDisasterSettingsEntity[];
 
   @ApiProperty({
     example: {
@@ -60,35 +59,6 @@ export class CountryEntity {
     default: {},
   })
   public adminRegionLabels: JSON;
-
-  @ApiProperty({
-    example: {
-      floods: 'https://docs.google.com',
-    },
-  })
-  @Column('json', {
-    default: {},
-  })
-  public eapLinks: JSON;
-
-  @ApiProperty({
-    example: {
-      no: {
-        label: 'No action',
-        color: 'ibf-gray',
-        valueLow: 0,
-        valueHigh: 0.8,
-      },
-      max: {
-        label: 'Activate EAP',
-        color: 'ibf-trigger-alert-primary',
-        valueLow: 0.8,
-        valueHigh: 1.01,
-      },
-    },
-  })
-  @Column('json', { nullable: true })
-  public eapAlertClasses: JSON;
 
   @ApiProperty({
     example: ['logo1.svg', 'logo2.png'],
@@ -115,14 +85,6 @@ export class CountryEntity {
   @ApiProperty({ example: new Date() })
   @Column('json', { nullable: true })
   public glofasStationInput: JSON;
-
-  @ApiProperty()
-  @ManyToMany(
-    (): typeof LeadTimeEntity => LeadTimeEntity,
-    (leadTime): CountryEntity[] => leadTime.countries,
-  )
-  @JoinTable()
-  public countryActiveLeadTimes: LeadTimeEntity[];
 
   @ManyToMany(
     (): typeof UserEntity => UserEntity,

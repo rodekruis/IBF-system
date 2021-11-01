@@ -34,8 +34,8 @@ export class SeedAdminArea implements InterfaceScript {
     adminAreaRepository,
   ): Promise<void> {
     const countryAdminLevels = [];
-    Object.keys(country.disasterTypeSettings).forEach(key => {
-      country.disasterTypeSettings[key].adminLevels.forEach(adminLevel => {
+    country.countryDisasterSettings.forEach(countryDisaster => {
+      countryDisaster.adminLevels.forEach(adminLevel => {
         if (!countryAdminLevels.includes(adminLevel)) {
           countryAdminLevels.push(adminLevel);
         }

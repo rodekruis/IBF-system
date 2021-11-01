@@ -142,7 +142,11 @@ export class TimelineService {
   }
 
   private isLeadTimeEnabled(leadTime: LeadTime): boolean {
-    const leadTimes = this.country ? this.country.countryActiveLeadTimes : [];
+    const leadTimes = this.country
+      ? this.country.countryDisasterSettings.find(
+          (s) => s.disasterType === this.disasterType.disasterType,
+        ).activeLeadTimes
+      : [];
     const leadTimeIndex = leadTimes.indexOf(leadTime);
 
     const leadTimeAvailable =

@@ -161,9 +161,9 @@ export class EventService {
       uploadTriggerPerLeadTimeDto.countryCodeISO3,
     );
     if (
-      country.countryActiveLeadTimes[0].leadTimeName.includes(
-        LeadTimeDayMonth.month,
-      )
+      country.countryDisasterSettings
+        .find(s => s.disasterType === uploadTriggerPerLeadTimeDto.disasterType)
+        .activeLeadTimes[0].leadTimeName.includes(LeadTimeDayMonth.month)
     ) {
       const date = new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);

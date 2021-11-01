@@ -64,8 +64,9 @@ export class EapActionsService {
       this.getTriggeredAreasApi(
         this.timelineService.activeLeadTime,
         this.adminLevel ||
-          this.country.disasterTypeSettings[this.disasterType.disasterType]
-            .defaultAdminLevel,
+          this.country.countryDisasterSettings.find(
+            (s) => s.disasterType === this.disasterType.disasterType,
+          ).defaultAdminLevel,
       );
     }
   };

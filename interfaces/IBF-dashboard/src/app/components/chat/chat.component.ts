@@ -120,7 +120,9 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.country.disasterTypes[0].disasterType;
       this.adminAreaLabel =
         country.adminRegionLabels[
-          country.disasterTypeSettings[disasterType].defaultAdminLevel
+          country.countryDisasterSettings.find(
+            (s) => s.disasterType === this.disasterType.disasterType,
+          ).defaultAdminLevel
         ].singular;
       this.changeDetectorRef.detectChanges();
     }

@@ -74,12 +74,13 @@ export class AdminLevelService {
   };
 
   private processAdminLevel() {
-    this.countryAdminLevels = this.country.disasterTypeSettings[
-      this.disasterType.disasterType
-    ].adminLevels;
+    this.countryAdminLevels = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).adminLevels;
     this.setAdminLevel(
-      this.country.disasterTypeSettings[this.disasterType.disasterType]
-        .defaultAdminLevel,
+      this.country.countryDisasterSettings.find(
+        (s) => s.disasterType === this.disasterType.disasterType,
+      ).defaultAdminLevel,
     );
     this.adminLevelLabel = AdminLevelService.loadAdminLevelLabels(this.country);
   }

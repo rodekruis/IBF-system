@@ -1,4 +1,3 @@
-import { CountryService } from './../country/country.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
@@ -251,25 +250,21 @@ export class AdminAreaService {
   ): Promise<string> {
     const country = await this.countryRepository.findOne({
       where: { countryCodeISO3: countryCodeISO3 },
-      relations: ['countryActiveLeadTimes'],
+      relations: [
+        'countryDisasterSettings',
+        'countryDisasterSettings.activeLeadTimes',
+      ],
     });
-    const countryLeadTimes = country.countryActiveLeadTimes.map(
-      l => l.leadTimeName,
-    );
-    const disaster = await this.getDisasterType(disasterType);
-    const disasterLeadTimes = disaster.leadTimes.map(l => l.leadTimeName);
-
-    // Intersection of country- and disaster-leadTimes
-    const leadTimes = countryLeadTimes.filter(leadTime =>
-      disasterLeadTimes.includes(leadTime),
-    );
+    const leadTimes = country.countryDisasterSettings
+      .find(s => s.disasterType === disasterType)
+      .activeLeadTimes.map(l => l.leadTimeName);
 
     if (leadTimes.includes(LeadTime.day7)) {
       return LeadTime.day7;
     } else if (leadTimes.includes(LeadTime.month0)) {
       return LeadTime.month0;
     } else {
-      return countryLeadTimes[0];
+      return leadTimes[0];
     }
   }
 }

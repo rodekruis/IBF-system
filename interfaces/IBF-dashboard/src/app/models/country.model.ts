@@ -3,21 +3,20 @@ import { DisasterTypeKey } from './../types/disaster-type-key';
 import { LeadTime } from './../types/lead-time';
 export class Country {
   countryCodeISO3: string;
-  disasterTypeSettings: DisasterTypeSettings;
-  adminLevels: AdminLevel[];
-  defaultAdminLevel: AdminLevels;
+  countryDisasterSettings: CountryDisasterSettings[];
   countryName: string;
-  countryActiveLeadTimes: LeadTime[];
   adminRegionLabels: AdminRegionLabels;
-  eapLinks: EapLinks;
   countryLogos: string[];
-  eapAlertClasses?: EapAlertClasses;
   disasterTypes: DisasterType[];
 }
 
-export class DisasterTypeSettings {
+export class CountryDisasterSettings {
+  disasterType: DisasterTypeKey;
   adminLevels: AdminLevel[];
-  defaultAdminLevel: AdminLevels;
+  defaultAdminLevel: AdminLevel;
+  activeLeadTimes: LeadTime[];
+  eapLink: string;
+  eapAlertClasses?: EapAlertClasses;
 }
 
 export class EapAlertClasses {
@@ -60,22 +59,4 @@ class LeadTimeEntity {
   leadTimeLabel: string;
   countries: Country[];
   disasterTypes: DisasterType[];
-}
-
-class EapLinks {
-  [DisasterTypeKey.floods]?: string;
-  [DisasterTypeKey.heavyRain]?: string;
-  [DisasterTypeKey.drought]?: string;
-  [DisasterTypeKey.malaria]?: string;
-  [DisasterTypeKey.dengue]?: string;
-  [DisasterTypeKey.typhoon]?: string;
-}
-
-class AdminLevels {
-  [DisasterTypeKey.floods]?: AdminLevel;
-  [DisasterTypeKey.heavyRain]?: AdminLevel;
-  [DisasterTypeKey.drought]?: AdminLevel;
-  [DisasterTypeKey.malaria]?: AdminLevel;
-  [DisasterTypeKey.dengue]?: AdminLevel;
-  [DisasterTypeKey.typhoon]?: AdminLevel;
 }

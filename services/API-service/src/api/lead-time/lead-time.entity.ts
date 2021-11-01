@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
-import { CountryEntity } from '../country/country.entity';
+import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
 @Entity('lead-time')
 export class LeadTimeEntity {
@@ -13,10 +13,10 @@ export class LeadTimeEntity {
   public leadTimeLabel: string;
 
   @ManyToMany(
-    (): typeof CountryEntity => CountryEntity,
-    (country): LeadTimeEntity[] => country.countryActiveLeadTimes,
+    (): typeof CountryDisasterSettingsEntity => CountryDisasterSettingsEntity,
+    (country): LeadTimeEntity[] => country.activeLeadTimes,
   )
-  public countries: CountryEntity[];
+  public countries: CountryDisasterSettingsEntity[];
 
   @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
   public created: Date;

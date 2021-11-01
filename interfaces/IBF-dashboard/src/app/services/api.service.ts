@@ -109,9 +109,12 @@ export class ApiService {
     return this.get('country', false).pipe(
       map((countries) => {
         return countries.map((country) => {
-          country.countryActiveLeadTimes = country.countryActiveLeadTimes.map(
-            (leadTime) => leadTime.leadTimeName,
-          );
+          country.countryDisasterSettings.map((disaster) => {
+            disaster.activeLeadTimes = disaster.activeLeadTimes.map(
+              (leadTime) => leadTime.leadTimeName,
+            );
+            return disaster;
+          });
           return country;
         });
       }),

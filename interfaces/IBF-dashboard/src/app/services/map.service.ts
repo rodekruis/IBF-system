@@ -624,9 +624,9 @@ export class MapService {
       layer.name.substr(layer.name.length - 1),
     ) as AdminLevel;
     if (
-      this.country.disasterTypeSettings[
-        this.disasterType.disasterType
-      ].adminLevels.includes(adminLevel)
+      this.country.countryDisasterSettings
+        .find((s) => s.disasterType === this.disasterType.disasterType)
+        .adminLevels.includes(adminLevel)
     ) {
       return true;
     } else {
