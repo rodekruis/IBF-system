@@ -1,3 +1,5 @@
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+
 export enum LeadTime {
   day1 = '1-day',
   day2 = '2-day',
@@ -60,4 +62,14 @@ export enum LeadTimeUnit {
   day = 'day',
   month = 'month',
   hour = 'hour',
+}
+
+export enum DateFormats {
+  default = 'ccc dd',
+  typhoon = 'dd ccc',
+}
+
+export enum MonthFormats {
+  default = 'LLL yyyy',
+  typhoon = 'ccc dd LLL',
 }
