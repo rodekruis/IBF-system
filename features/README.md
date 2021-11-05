@@ -19,14 +19,9 @@ Features of the IBF-portal are described in this folder in a standardizes way us
 
 ### For IBF-portal user
 
-- [Visit Log in page](IBF-portal-user/Visit_login_page.feature)
+- [Use Log in page](IBF-portal-user/Use_login_page.feature)
 - IBF-dashboard page
-    - [Header section](IBF-portal-user/dashboard-page/View_use_header_section.feature)
-      - View section
-      - Log out
-      - Export View
-    - [Menu Section](IBF-portal-user/dashboard-page/View_situational_overview_section.feature)
-      - Menu list
+    - [Use header section](IBF-portal-user/dashboard-page/Use_header_section.feature)
     - Situational Overview section
       - View
     - Chat section
@@ -63,10 +58,7 @@ Features of the IBF-portal are described in this folder in a standardizes way us
 
 ### For Dashboard admin-user
 
-- Open & View menu
-- Switch country
-- Upload mock data
-- Open activation report
+- [Use Dev Menu](IBF-portal-admin-user/Use_dev_menu.feature)
 
 ### For API admin-user 
 

@@ -1,5 +1,5 @@
 @ibf-portal-user
-Feature: View login page
+Feature: Use login page
 
   Background:
     Given any not logged in user

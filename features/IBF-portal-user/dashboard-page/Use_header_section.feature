@@ -1,5 +1,6 @@
 @ibf-portal-user
 Feature: View and use header section
+
 Background:
     Given the user logged-in into the IBF-portal
     And is viewing the Dashboard page
