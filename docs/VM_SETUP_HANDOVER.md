@@ -32,8 +32,9 @@
 
     1. Create user group - `sudo groupadd ibf-users`
     2. Add `ibf-user` to group - `sudo usermod -a -G ibf-users ibf-user`
-    3. Add users to group - `sudo usermod -a -G ibf-users <user-name>`
         1. Command to verify group members - `grep ibf-users /etc/group`
+    3. Create `ibf-user` group if not already present
+        1. `mkdir /home/ibf-user`
     4. Change access of shared directory - `/home/ibf-user`
         1. `chgrp -Rf ibf-users /home/ibf-user`
         2. `sudo chown -R ibf-user:ibf-users /home/ibf-user`
@@ -53,37 +54,28 @@
 2. Install Software
     1. NodeJS
        [Source](https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions)
-        1. `curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
-        2. `sudo apt-get install -y nodejs`
-        3. Verification - `node -v`
-    2. Docker [Source](https://docs.docker.com/engine/install/ubuntu/)
-        1. `sudo apt-get remove docker docker-engine docker.io containerd runc`
-        2. `sudo apt-get update`
-        3. `sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common`
-        4. `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
-        5. `sudo apt-key fingerprint 0EBFCD88`
-        6. `sudo add-apt-repository \ "deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) \ stable"`
-        7. `sudo apt-get update`
-        8. `sudo apt-get install docker-ce docker-ce-cli containerd.io`
-        9. Allow users to access docker commands
-            1. `sudo usermod -aG docker grahman@rodekruis.nl`
+        1. Follow the instructions in the source-link.
+        2. Allow users to access docker commands
+            1. `sudo usermod -aG docker ibf-user`
             2. Verification - `grep docker /etc/group`
-        10. Verification - `docker -v`
+        3. Verification - `docker -v`
     3. Docker Compose
        [Source](https://docs.docker.com/compose/install/#install-compose-on-linux-systems)
-        1. `sudo curl -L "[https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$](https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$)(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose`
+        1. Follow the instructions in the source-link.
         2. `sudo chmod +x /usr/local/bin/docker-compose`
         3. Verification - `docker-compose -v`
 
 3. Setup IBF-system
     1. Setup GIT
-        1. `git clone https://github.com/<your-fork>/IBF-system.git`
-        2. Set the repo config to allow group access -
+        1. `cd /home/ibf-user`
+        2. `git clone https://github.com/<your-fork>/IBF-system.git`
+        3. `cd IBF-system`
+        4. Set the repo config to allow group access -
            `git config core.sharedRepository group`
            [Source](https://stackoverflow.com/a/6448326/1753041)
-        3. `sudo chgrp -R ibf-users /home/ibf-user/IBF-system`
+        5. `sudo chgrp -R ibf-users /home/ibf-user/IBF-system`
            [Source](https://stackoverflow.com/a/6448326/1753041)
-        4. `sudo chmod -R g+rwX /home/ibf-user/IBF-system`
+        6. `sudo chmod -R g+rwX /home/ibf-user/IBF-system`
            [Source](https://stackoverflow.com/a/6448326/1753041)
     2. Setup Environment Variables
         1. Create `/home/ibf-user/IBF-system/.env` through `cp /home/ibf-user/IBF-system/handover.example.env /home/ibf-user/IBF-system/.env`
@@ -101,9 +93,9 @@
             - `ibf-geoserver`
             - `nginx`
             - (`ibf-dashboard` is only started up temporarily, but is closed again once the production build is done)
-        2. Check running dashboard at https://<ip>/login
-        3. Check running API service at https://<ip>/docs
-        4. Check running Geoserver at https://<ip>/geoserver
+        2. Check running dashboard at `https://<ip>/login`
+        3. Check running API service at `https://<ip>/docs`
+        4. Check running Geoserver at `https://<ip>/geoserver`
 
 4. Load initial data
     1. Download
@@ -128,7 +120,7 @@
         5. Run the workflow manually once to fill the database with a first batch of data, which is needed for a working dashboard
 
 6. Test
-    1. Open the dashboard at https://<ip>/login 
+    1. Open the dashboard at `https://<ip>/login `
     2. Log in with the admin-account
         - dunant@redcross.nl
         - ADMIN_PASSWORD set in `.env`
@@ -136,7 +128,7 @@
     4. Note that the dashboard is probably showing in non-trigger mode, as most days of the year no trigger is predicted. If you want to check also the trigger-mode, you need upload mock trigger data in some way. Check with IBF-development team for assistance.
 
 7. Create users
-    1. Open https://<ip>/docs
+    1. Open `https://<ip>/docs`
     2. Follow the instructions to log in with the admin-user
     3. Use the 'Sign up new user' endpoint to create new users
     4. Send each created user an e-mail with the password you just created 
