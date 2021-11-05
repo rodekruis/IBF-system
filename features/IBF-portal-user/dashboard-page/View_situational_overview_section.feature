@@ -4,8 +4,8 @@ Background:
     Given any logged-in user on menu-bar-section of header
 
 
-Scenario: View login page
-    When the user clicks meanu-icon on left of IBF-dashboard
+Scenario: View Menu list
+    When the user clicks on menu-icon of IBF-dashboard
     Then the menu section open up
     And it contains menu list
     And the menu list contains 'Version', 'Country', 'Load Mock Scenario', 'Activation Report'
