@@ -25,7 +25,7 @@ Scenario: View header in triggered mode
 
 Scenario: View header in Non-triggered mode
     Given any logged in user 
-    When the user logged-in into triggered mode 
+    When the user logged-in into non triggered mode 
     Then 'Log-out' button display in navy-blue color
 
 
@@ -43,7 +43,7 @@ Scenario: View header in triggered mode
 
 Scenario: View header in Non-triggered mode
     Given any logged in user 
-    When the user logged-in into triggered mode 
+    When the user logged-in into non triggered mode 
     Then 'Export View' button display in navy-blue color
 
 Scenario: Log in unsuccessfully
@@ -53,8 +53,3 @@ Scenario: Log in unsuccessfully
     And 'email' and 'password' fields are emptied
     And 'log in' button is disabled again
     And the user cannot rediret to dashboard
-
-
-
-
-
