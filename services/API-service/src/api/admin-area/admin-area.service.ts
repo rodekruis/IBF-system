@@ -171,7 +171,14 @@ export class AdminAreaService {
 
   public async getAdminAreasRaw(countryCodeISO3): Promise<any[]> {
     return await this.adminAreaRepository.find({
-      select: ['countryCodeISO3', 'name', 'placeCode', 'adminLevel', 'geom'],
+      select: [
+        'countryCodeISO3',
+        'name',
+        'placeCode',
+        'placeCodeParent',
+        'adminLevel',
+        'geom',
+      ],
       where: {
         countryCodeISO3: countryCodeISO3,
       },
