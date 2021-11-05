@@ -133,6 +133,7 @@ export class MapComponent implements OnDestroy {
     this.layerSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
+    this.disasterTypeSubscription.unsubscribe();
   }
 
   private filterLayerByLayerName = (newLayer) => (layer) =>
@@ -700,11 +701,12 @@ export class MapComponent implements OnDestroy {
     let markerIcon: IconOptions;
     let className: string;
 
-    const eapAlertClasses = this.country
-      ? this.country.countryDisasterSettings.find(
+    const eapAlertClasses =
+      (this.country &&
+        this.country.countryDisasterSettings.find(
           (s) => s.disasterType === this.disasterType.disasterType,
-        ).eapAlertClasses
-      : new EapAlertClasses();
+        ).eapAlertClasses) ||
+      ({} as EapAlertClasses);
 
     const glofasProbability = markerProperties.forecastProbability;
     Object.keys(eapAlertClasses).forEach((key) => {
@@ -826,11 +828,12 @@ export class MapComponent implements OnDestroy {
   }
 
   private createMarkerStationPopup(markerProperties: Station): string {
-    const eapAlertClasses = this.country
-      ? this.country.countryDisasterSettings.find(
+    const eapAlertClasses =
+      (this.country &&
+        this.country.countryDisasterSettings.find(
           (s) => s.disasterType === this.disasterType.disasterType,
-        ).eapAlertClasses
-      : new EapAlertClasses();
+        ).eapAlertClasses) ||
+      ({} as EapAlertClasses);
     const glofasProbability = markerProperties.forecastProbability;
 
     let eapStatusText: string;

@@ -114,18 +114,13 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-    if (this.country) {
-      const disasterType =
-        this.disasterType.disasterType ||
-        this.country.disasterTypes[0].disasterType;
-      this.adminAreaLabel =
-        country.adminRegionLabels[
-          country.countryDisasterSettings.find(
-            (s) => s.disasterType === this.disasterType.disasterType,
-          ).defaultAdminLevel
-        ].singular;
-      this.changeDetectorRef.detectChanges();
+    if (this.country && this.disasterType) {
+      this.setupChatText();
     }
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
     if (this.country && this.disasterType) {
       this.setupChatText();
     }
@@ -159,14 +154,16 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   };
 
-  private onDisasterTypeChange = (disasterType: DisasterType) => {
-    this.disasterType = disasterType;
-    if (this.country && this.disasterType) {
-      this.setupChatText();
-    }
-  };
-
   private setupChatText = () => {
+    const disasterType =
+      this.disasterType?.disasterType ||
+      this.country.disasterTypes[0].disasterType;
+    const adminLevel = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType,
+    ).defaultAdminLevel;
+    this.adminAreaLabel = this.country.adminRegionLabels[adminLevel].singular;
+    this.changeDetectorRef.detectChanges();
+
     const disasterTypesWithSpecificText = [
       DisasterTypeKey.dengue,
       DisasterTypeKey.heavyRain,

@@ -126,14 +126,16 @@ export class MapService {
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
-    this.disasterType = disasterType;
-    this.layers.forEach((layer) => {
-      this.hideLayer(layer);
-    });
-    this.layers
-      .filter((layer) => layer.group === IbfLayerGroup.adminRegions)
-      .forEach(this.deactivateLayer);
-    this.loadCountryLayers();
+    if (disasterType) {
+      this.disasterType = disasterType;
+      this.layers.forEach((layer) => {
+        this.hideLayer(layer);
+      });
+      this.layers
+        .filter((layer) => layer.group === IbfLayerGroup.adminRegions)
+        .forEach(this.deactivateLayer);
+      this.loadCountryLayers();
+    }
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
@@ -658,8 +660,8 @@ export class MapService {
       order: layer.order,
       unit: layer.unit,
       dynamic: layer.dynamic,
-      show: this.adminLevelService.activeLayerNames.includes(layer.name)
-        ? true
+      show: this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(layer.name)
         : layer.show,
     });
   };

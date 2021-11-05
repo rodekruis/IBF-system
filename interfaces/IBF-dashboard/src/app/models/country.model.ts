@@ -20,10 +20,10 @@ export class CountryDisasterSettings {
 }
 
 export class EapAlertClasses {
-  no: EapAlertClass;
-  min: EapAlertClass;
-  med: EapAlertClass;
-  max: EapAlertClass;
+  no?: EapAlertClass;
+  min?: EapAlertClass;
+  med?: EapAlertClass;
+  max?: EapAlertClass;
 }
 
 export class EapAlertClass {

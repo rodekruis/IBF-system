@@ -69,7 +69,7 @@ export class MockAll {
 }
 
 @Controller('scripts')
-@ApiTags('scripts')
+@ApiTags('--- mock/seed data ---')
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
 export class ScriptsController {

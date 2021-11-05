@@ -23,7 +23,7 @@ export class DisasterTypeService {
 
     if (this.country) {
       this.countryDisasterTypes = country.disasterTypes;
-      this.setDisasterType(country.disasterTypes[0]);
+      this.disasterType = country.disasterTypes[0];
     }
   };
 

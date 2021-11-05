@@ -13,6 +13,7 @@ export class AdminLevelService {
   private adminLevelSubject = new BehaviorSubject<AdminLevel>(
     AdminLevel.adminLevel1,
   );
+  public oldAdminLevel: AdminLevel = null;
   public adminLevel: AdminLevel;
   public countryAdminLevels: AdminLevel[];
   public adminLevelLabel: AdminLevelLabel = new AdminLevelLabel();
@@ -91,6 +92,9 @@ export class AdminLevelService {
 
   public setAdminLevel(adminLevel: AdminLevel) {
     this.adminLevel = adminLevel;
-    this.adminLevelSubject.next(this.adminLevel);
+    if (this.adminLevel !== this.oldAdminLevel) {
+      this.adminLevelSubject.next(this.adminLevel);
+    }
+    this.oldAdminLevel = this.adminLevel;
   }
 }
