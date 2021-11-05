@@ -25,7 +25,9 @@ Features of the IBF-portal are described in this folder in a standardizes way us
       - View section
       - Log out
       - Export View
-    - [Situational Overview section](IBF-portal-user/dashboard-page/View_situational_overview_section.feature)
+    - [Menu Section](IBF-portal-user/dashboard-page/View_situational_overview_section.feature)
+      - Menu list
+    - Situational Overview section
       - View
     - Chat section
       - View section
