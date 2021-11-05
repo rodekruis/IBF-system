@@ -1,5 +1,3 @@
-import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
-
 export enum LeadTime {
   day1 = '1-day',
   day2 = '2-day',
