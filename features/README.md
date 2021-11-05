@@ -21,7 +21,7 @@ Features of the IBF-portal are described in this folder in a standardizes way us
 
 - [Visit Log in page](IBF-portal-user/Visit_login_page.feature)
 - IBF-dashboard page
-    - [Header section](IBF-portal-user/dashboard-page/View_user_header_section.feature)
+    - [Header section](IBF-portal-user/dashboard-page/View_use_header_section.feature)
       - View section
       - Log out
       - Export View
