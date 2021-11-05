@@ -1,3 +1,12 @@
+## [0.102.1](https://github.com/rodekruis/IBF-system/compare/v0.102.0...v0.102.1) (2021-11-05)
+
+
+### Bug Fixes
+
+* return placeCodeParent AB[#10042](https://github.com/rodekruis/IBF-system/issues/10042) ([003097d](https://github.com/rodekruis/IBF-system/commit/003097d56588ba91117b45c86aa03b3224620f5b))
+
+
+
 # [0.102.0](https://github.com/rodekruis/IBF-system/compare/v0.101.3...v0.102.0) (2021-11-01)
 
 
@@ -111,15 +120,6 @@
 * added video link for PHL AB[#10016](https://github.com/rodekruis/IBF-system/issues/10016) ([d9a94fc](https://github.com/rodekruis/IBF-system/commit/d9a94fcb406273cc01a51869c145f2e571af42c1))
 * reverted AB[#10287](https://github.com/rodekruis/IBF-system/issues/10287) ([282dae1](https://github.com/rodekruis/IBF-system/commit/282dae18b849f290ff6068cc358d4b5ef9d3d7ec))
 * updated dashboard link AB[#10287](https://github.com/rodekruis/IBF-system/issues/10287) ([02ae397](https://github.com/rodekruis/IBF-system/commit/02ae397232749b9c7e442e70670fcec87aa5342e))
-
-
-
-## [0.98.1](https://github.com/rodekruis/IBF-system/compare/v0.98.0...v0.98.1) (2021-10-22)
-
-
-### Bug Fixes
-
-* get admin-areas for pipeline by admin-level AB[#10323](https://github.com/rodekruis/IBF-system/issues/10323) ([c8ee6f6](https://github.com/rodekruis/IBF-system/commit/c8ee6f69ee9ac70aa18da27e88910aa7b629624b))
 
 
 
