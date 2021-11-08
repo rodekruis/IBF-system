@@ -140,7 +140,10 @@ export class ScriptsService {
       ];
     } else if (disasterType === DisasterType.Typhoon) {
       exposureUnits = [
-        DynamicIndicator.populationAffected,
+        DynamicIndicator.windspeed,
+        DynamicIndicator.rainfall,
+        DynamicIndicator.housesAffected,
+        DynamicIndicator.probabilisticHousesAffected,
         DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
       ];
     } else {
