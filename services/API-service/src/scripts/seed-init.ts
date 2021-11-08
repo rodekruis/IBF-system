@@ -15,6 +15,7 @@ import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { DisasterEntity } from '../api/disaster/disaster.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
+import { CountryDisasterSettingsEntity } from '../api/country/country-disaster.entity';
 
 import leadTimes from './json/lead-times.json';
 import notificationInfo from './json/notification-info.json';
@@ -94,6 +95,10 @@ export class SeedInit implements InterfaceScript {
     });
 
     const countryRepository = this.connection.getRepository(CountryEntity);
+    const countryDisasterSettingsRepo = this.connection.getRepository(
+      CountryDisasterSettingsEntity,
+    );
+
     const countryEntities = await Promise.all(
       selectedCountries.map(
         async (country): Promise<CountryEntity> => {
@@ -102,19 +107,9 @@ export class SeedInit implements InterfaceScript {
           countryEntity.countryCodeISO2 = country.countryCodeISO2;
           countryEntity.countryName = country.countryName;
           countryEntity.countryStatus = country.countryStatus as CountryStatus;
-          countryEntity.adminLevels = country.adminLevels as AdminLevel[];
-          countryEntity.defaultAdminLevel = country.defaultAdminLevel as AdminLevel;
           countryEntity.adminRegionLabels = JSON.parse(
             JSON.stringify(country.adminRegionLabels),
           );
-          countryEntity.eapLinks = JSON.parse(JSON.stringify(country.eapLinks));
-          countryEntity.countryActiveLeadTimes = await leadTimeRepository.find({
-            where: country.countryActiveLeadTimes.map(
-              (countryLeadTime: string): object => {
-                return { leadTimeName: countryLeadTime };
-              },
-            ),
-          });
           countryEntity.disasterTypes = await disasterRepository.find({
             where: country.disasterTypes.map(
               (countryDisasterType: string): object => {
@@ -123,13 +118,45 @@ export class SeedInit implements InterfaceScript {
             ),
           });
           countryEntity.countryLogos = country.countryLogos;
-          countryEntity.eapAlertClasses = JSON.parse(
-            JSON.stringify([country.eapAlertClasses]),
-          )[0];
           countryEntity.countryBoundingBox = country.countryBoundingBox;
           countryEntity.notificationInfo = await this.createNotificationInfo(
             country.countryCodeISO3,
           );
+          countryEntity.countryDisasterSettings = [];
+
+          await countryRepository.save(countryEntity);
+
+          country.countryDisasterSettings.forEach(async disaster => {
+            const countryDisasterSettingsEntity = new CountryDisasterSettingsEntity();
+            countryDisasterSettingsEntity.country = await countryRepository.findOne(
+              {
+                where: { countryCodeISO3: country.countryCodeISO3 },
+              },
+            );
+            countryDisasterSettingsEntity.disasterType = disaster.disasterType as DisasterType;
+            countryDisasterSettingsEntity.adminLevels = disaster.adminLevels as AdminLevel[];
+            countryDisasterSettingsEntity.defaultAdminLevel = disaster.defaultAdminLevel as AdminLevel;
+            countryDisasterSettingsEntity.eapLink = disaster.eapLink;
+            countryDisasterSettingsEntity.eapAlertClasses = JSON.parse(
+              JSON.stringify([disaster.eapAlertClasses]),
+            )[0];
+            countryDisasterSettingsEntity.activeLeadTimes = await leadTimeRepository.find(
+              {
+                where: disaster.activeLeadTimes.map(
+                  (countryLeadTime: string): object => {
+                    return { leadTimeName: countryLeadTime };
+                  },
+                ),
+              },
+            );
+            const saveResult = await countryDisasterSettingsRepo.save(
+              countryDisasterSettingsEntity,
+            );
+            const savedEntity = await countryDisasterSettingsRepo.findOne(
+              saveResult.countryDisasterSettingsId,
+            );
+            countryEntity.countryDisasterSettings.push(savedEntity);
+          });
 
           return countryEntity;
         },

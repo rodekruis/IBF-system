@@ -36,7 +36,11 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
 } from 'src/app/config';
-import { Country, EapAlertClasses } from 'src/app/models/country.model';
+import {
+  Country,
+  DisasterType,
+  EapAlertClasses,
+} from 'src/app/models/country.model';
 import {
   DamSite,
   HealthSite,
@@ -62,6 +66,7 @@ import {
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { breakKey } from '../../models/map.model';
+import { DisasterTypeService } from '../../services/disaster-type.service';
 import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
@@ -74,11 +79,13 @@ export class MapComponent implements OnDestroy {
   public layers: IbfLayer[] = [];
   private placeCode: string;
   private country: Country;
+  private disasterType: DisasterType;
 
   public legends: { [key: string]: Control } = {};
 
   private layerSubscription: Subscription;
   private countrySubscription: Subscription;
+  private disasterTypeSubscription: Subscription;
   private placeCodeSubscription: Subscription;
 
   private osmTileLayer = tileLayer(LEAFLET_MAP_URL_TEMPLATE, {
@@ -97,6 +104,7 @@ export class MapComponent implements OnDestroy {
 
   constructor(
     private countryService: CountryService,
+    private disasterTypeService: DisasterTypeService,
     private timelineService: TimelineService,
     private mapService: MapService,
     private placeCodeService: PlaceCodeService,
@@ -112,6 +120,10 @@ export class MapComponent implements OnDestroy {
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
 
+    this.disasterTypeSubscription = this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
+
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
@@ -121,6 +133,7 @@ export class MapComponent implements OnDestroy {
     this.layerSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
+    this.disasterTypeSubscription.unsubscribe();
   }
 
   private filterLayerByLayerName = (newLayer) => (layer) =>
@@ -156,6 +169,10 @@ export class MapComponent implements OnDestroy {
     this.country = country;
   };
 
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
+  };
+
   private onPlaceCodeChange = (): void => {
     this.layers.forEach((layer: IbfLayer): void => {
       if (layer.leafletLayer && 'resetStyle' in layer.leafletLayer) {
@@ -187,17 +204,15 @@ export class MapComponent implements OnDestroy {
     colors,
     colorThreshold,
   ) => (feature) => {
-    return feature === colorThreshold[breakKey.break0]
-      ? colors[0]
-      : feature === colorThreshold[breakKey.break1]
-      ? colors[1]
-      : feature === colorThreshold[breakKey.break2]
-      ? colors[2]
-      : feature === colorThreshold[breakKey.break3]
-      ? colors[3]
-      : feature === colorThreshold[breakKey.break4]
+    return feature > colorThreshold[breakKey.break4]
       ? colors[4]
-      : null;
+      : feature > colorThreshold[breakKey.break3]
+      ? colors[3]
+      : feature > colorThreshold[breakKey.break2]
+      ? colors[2]
+      : feature > colorThreshold[breakKey.break1]
+      ? colors[1]
+      : colors[0];
   };
 
   public addLegend(map, colors, colorThreshold, layer: IbfLayer) {
@@ -538,9 +553,10 @@ export class MapComponent implements OnDestroy {
 
     let lastAvailableLeadTime: LeadTime;
     if (this.country) {
-      lastAvailableLeadTime = this.country.countryActiveLeadTimes[
-        this.country.countryActiveLeadTimes.length - 1
-      ];
+      const leadTimes = this.country.countryDisasterSettings.find(
+        (s) => s.disasterType === this.disasterType.disasterType,
+      ).activeLeadTimes;
+      lastAvailableLeadTime = leadTimes[leadTimes.length - 1];
     }
 
     const timeUnit = lastAvailableLeadTime.split('-')[1];
@@ -685,9 +701,12 @@ export class MapComponent implements OnDestroy {
     let markerIcon: IconOptions;
     let className: string;
 
-    const eapAlertClasses = this.country
-      ? this.country.eapAlertClasses
-      : new EapAlertClasses();
+    const eapAlertClasses =
+      (this.country &&
+        this.country.countryDisasterSettings.find(
+          (s) => s.disasterType === this.disasterType.disasterType,
+        ).eapAlertClasses) ||
+      ({} as EapAlertClasses);
 
     const glofasProbability = markerProperties.forecastProbability;
     Object.keys(eapAlertClasses).forEach((key) => {
@@ -809,9 +828,12 @@ export class MapComponent implements OnDestroy {
   }
 
   private createMarkerStationPopup(markerProperties: Station): string {
-    const eapAlertClasses = this.country
-      ? this.country.eapAlertClasses
-      : new EapAlertClasses();
+    const eapAlertClasses =
+      (this.country &&
+        this.country.countryDisasterSettings.find(
+          (s) => s.disasterType === this.disasterType.disasterType,
+        ).eapAlertClasses) ||
+      ({} as EapAlertClasses);
     const glofasProbability = markerProperties.forecastProbability;
 
     let eapStatusText: string;
@@ -835,9 +857,10 @@ export class MapComponent implements OnDestroy {
 
     let lastAvailableLeadTime: LeadTime;
     if (this.country) {
-      lastAvailableLeadTime = this.country.countryActiveLeadTimes[
-        this.country.countryActiveLeadTimes.length - 1
-      ];
+      const leadTimes = this.country.countryDisasterSettings.find(
+        (s) => s.disasterType === this.disasterType.disasterType,
+      ).activeLeadTimes;
+      lastAvailableLeadTime = leadTimes[leadTimes.length - 1];
     }
 
     const leadTime =

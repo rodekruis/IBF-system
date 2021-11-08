@@ -120,7 +120,9 @@ export class NotificationService {
     const actionUnit = await this.indicatorRepository.findOne({
       name: (await this.getDisaster(disasterType)).actionsUnit,
     });
-    for (const leadTime of country.countryActiveLeadTimes) {
+    for (const leadTime of country.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).activeLeadTimes) {
       if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
         const totalActionUnit = await this.eventService.getTotalAffectedPerLeadTime(
           country.countryCodeISO3,
@@ -143,7 +145,6 @@ export class NotificationService {
       countryCodeISO3: countryCodeISO3,
     };
     const relations = [
-      'countryActiveLeadTimes',
       'disasterTypes',
       'disasterTypes.leadTimes',
       'notificationInfo',
@@ -200,7 +201,9 @@ export class NotificationService {
       },
       {
         replaceKey: '(LINK-EAP-SOP)',
-        replaceValue: country.eapLinks[disasterType],
+        replaceValue: country.countryDisasterSettings.find(
+          s => s.disasterType === disasterType,
+        ).eapLink,
       },
       {
         replaceKey: '(SOCIAL-MEDIA-LINK)',
@@ -213,12 +216,24 @@ export class NotificationService {
       {
         replaceKey: '(ADMIN-AREA-PLURAL)',
         replaceValue:
-          country.adminRegionLabels[String(country.defaultAdminLevel)].plural,
+          country.adminRegionLabels[
+            String(
+              country.countryDisasterSettings.find(
+                s => s.disasterType === disasterType,
+              ).defaultAdminLevel,
+            )
+          ].plural,
       },
       {
         replaceKey: '(ADMIN-AREA-SINGULAR)',
         replaceValue:
-          country.adminRegionLabels[String(country.defaultAdminLevel)].singular,
+          country.adminRegionLabels[
+            String(
+              country.countryDisasterSettings.find(
+                s => s.disasterType === disasterType,
+              ).defaultAdminLevel,
+            )
+          ].singular,
       },
       {
         replaceKey: '(DISASTER-TYPE)',
@@ -303,7 +318,9 @@ export class NotificationService {
       disasterType,
     );
     let leadTimeListHTML = '';
-    for (const leadTime of country.countryActiveLeadTimes) {
+    for (const leadTime of country.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).activeLeadTimes) {
       if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
         leadTimeListHTML = `${leadTimeListHTML}<li>${
           disasterType === DisasterType.HeavyRain ? 'Estimated ' : ''
@@ -324,7 +341,9 @@ export class NotificationService {
       disasterType,
     );
     let leadTimeTables = '';
-    for (const leadTime of country.countryActiveLeadTimes) {
+    for (const leadTime of country.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).activeLeadTimes) {
       if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
         const tableForLeadTime = await this.getTableForLeadTime(
           country,
@@ -354,7 +373,13 @@ export class NotificationService {
     leadTime: LeadTimeEntity,
   ): Promise<string> {
     const adminAreaLabels =
-      country.adminRegionLabels[String(country.defaultAdminLevel)];
+      country.adminRegionLabels[
+        String(
+          country.countryDisasterSettings.find(
+            s => s.disasterType === disasterType,
+          ).defaultAdminLevel,
+        )
+      ];
     const actionUnit = await this.indicatorRepository.findOne({
       name: (await this.getDisaster(disasterType)).actionsUnit,
     });
@@ -397,7 +422,8 @@ export class NotificationService {
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
       disasterType,
-      country.defaultAdminLevel,
+      country.countryDisasterSettings.find(s => s.disasterType === disasterType)
+        .defaultAdminLevel,
       leadTime.leadTimeName,
     );
     const disaster = await this.getDisaster(disasterType);

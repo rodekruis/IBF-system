@@ -93,5 +93,40 @@
     "leadTimeName": "11-month",
     "leadTimeLabel": "11-month",
     "disasterTypes": ["drought"]
+  },
+  {
+    "leadTimeName": "24-hour",
+    "leadTimeLabel": "24-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "48-hour",
+    "leadTimeLabel": "48-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "72-hour",
+    "leadTimeLabel": "72-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "96-hour",
+    "leadTimeLabel": "96-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "120-hour",
+    "leadTimeLabel": "120-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "144-hour",
+    "leadTimeLabel": "144-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "168-hour",
+    "leadTimeLabel": "168-hour",
+    "disasterTypes": ["typhoon"]
   }
 ]

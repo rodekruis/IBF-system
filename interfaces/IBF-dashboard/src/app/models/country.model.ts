@@ -3,22 +3,27 @@ import { DisasterTypeKey } from './../types/disaster-type-key';
 import { LeadTime } from './../types/lead-time';
 export class Country {
   countryCodeISO3: string;
-  adminLevels: AdminLevel[];
-  defaultAdminLevel: AdminLevel;
+  countryDisasterSettings: CountryDisasterSettings[];
   countryName: string;
-  countryActiveLeadTimes: LeadTime[];
   adminRegionLabels: AdminRegionLabels;
-  eapLinks: EapLinks;
   countryLogos: string[];
-  eapAlertClasses?: EapAlertClasses;
   disasterTypes: DisasterType[];
 }
 
+export class CountryDisasterSettings {
+  disasterType: DisasterTypeKey;
+  adminLevels: AdminLevel[];
+  defaultAdminLevel: AdminLevel;
+  activeLeadTimes: LeadTime[];
+  eapLink: string;
+  eapAlertClasses?: EapAlertClasses;
+}
+
 export class EapAlertClasses {
-  no: EapAlertClass;
-  min: EapAlertClass;
-  med: EapAlertClass;
-  max: EapAlertClass;
+  no?: EapAlertClass;
+  min?: EapAlertClass;
+  med?: EapAlertClass;
+  max?: EapAlertClass;
 }
 
 export class EapAlertClass {
@@ -54,12 +59,4 @@ class LeadTimeEntity {
   leadTimeLabel: string;
   countries: Country[];
   disasterTypes: DisasterType[];
-}
-
-class EapLinks {
-  [DisasterTypeKey.floods]?: string;
-  [DisasterTypeKey.heavyRain]?: string;
-  [DisasterTypeKey.drought]?: string;
-  [DisasterTypeKey.malaria]?: string;
-  [DisasterTypeKey.dengue]?: string;
 }

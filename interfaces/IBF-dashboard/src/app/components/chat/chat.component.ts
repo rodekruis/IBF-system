@@ -114,11 +114,13 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-    if (this.country) {
-      this.adminAreaLabel =
-        country.adminRegionLabels[country.defaultAdminLevel].singular;
-      this.changeDetectorRef.detectChanges();
+    if (this.country && this.disasterType) {
+      this.setupChatText();
     }
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
     if (this.country && this.disasterType) {
       this.setupChatText();
     }
@@ -152,17 +154,20 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   };
 
-  private onDisasterTypeChange = (disasterType: DisasterType) => {
-    this.disasterType = disasterType;
-    if (this.country && this.disasterType) {
-      this.setupChatText();
-    }
-  };
-
   private setupChatText = () => {
+    const disasterType =
+      this.disasterType?.disasterType ||
+      this.country.disasterTypes[0].disasterType;
+    const adminLevel = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType,
+    ).defaultAdminLevel;
+    this.adminAreaLabel = this.country.adminRegionLabels[adminLevel].singular;
+    this.changeDetectorRef.detectChanges();
+
     const disasterTypesWithSpecificText = [
       DisasterTypeKey.dengue,
       DisasterTypeKey.heavyRain,
+      DisasterTypeKey.typhoon,
       DisasterTypeKey.malaria,
     ];
     this.disasterTypeLabel = this.disasterType.label;
@@ -380,7 +385,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       '-',
     )[1] as LeadTimeUnit;
     const durationUnit =
-      updateFrequency === LeadTimeUnit.day
+      updateFrequency === LeadTimeUnit.day ||
+      updateFrequency === LeadTimeUnit.hour
         ? 'days'
         : updateFrequency === LeadTimeUnit.month
         ? 'months'

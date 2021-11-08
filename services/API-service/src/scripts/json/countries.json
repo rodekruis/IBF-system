@@ -5,9 +5,29 @@
     "countryName": "Uganda",
     "countryStatus": "active",
     "disasterTypes": ["floods"],
-    "adminLevels": [1, 2, 3, 4],
-    "defaultAdminLevel": 2,
-    "countryActiveLeadTimes": ["5-day"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3, 4],
+        "defaultAdminLevel": 2,
+        "activeLeadTimes": ["5-day"],
+        "eapLink": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-gray",
+            "valueLow": 0,
+            "valueHigh": 0.8
+          },
+          "max": {
+            "label": "Activate EAP",
+            "color": "ibf-trigger-alert-primary",
+            "valueLow": 0.8,
+            "valueHigh": 1.01
+          }
+        }
+      }
+    ],
     "adminRegionLabels": {
       "1": {
         "singular": "Region",
@@ -26,24 +46,7 @@
         "plural": "Sub-Counties"
       }
     },
-    "eapLinks": {
-      "floods": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd"
-    },
     "countryLogos": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"],
-    "eapAlertClasses": {
-      "no": {
-        "label": "No action",
-        "color": "ibf-gray",
-        "valueLow": 0,
-        "valueHigh": 0.8
-      },
-      "max": {
-        "label": "Activate EAP",
-        "color": "ibf-trigger-alert-primary",
-        "valueLow": 0.8,
-        "valueHigh": 1.01
-      }
-    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
@@ -63,9 +66,41 @@
     "countryName": "Zambia",
     "countryStatus": "active",
     "disasterTypes": ["floods"],
-    "adminLevels": [1, 2, 3],
-    "defaultAdminLevel": 2,
-    "countryActiveLeadTimes": ["7-day"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 2,
+        "activeLeadTimes": ["7-day"],
+        "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=357745",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-gray",
+            "valueLow": 0,
+            "valueHigh": 0.6
+          },
+          "min": {
+            "label": "Met office to monitor",
+            "color": "ibf-yellow",
+            "valueLow": 0.6,
+            "valueHigh": 0.7
+          },
+          "med": {
+            "label": "Alert IFRC / Prep evacuation / Warn communities",
+            "color": "ibf-orange",
+            "valueLow": 0.7,
+            "valueHigh": 0.8
+          },
+          "max": {
+            "label": "Activate EAP",
+            "color": "ibf-trigger-alert-primary",
+            "valueLow": 0.8,
+            "valueHigh": 1.01
+          }
+        }
+      }
+    ],
     "adminRegionLabels": {
       "1": {
         "singular": "Province",
@@ -80,41 +115,12 @@
         "plural": "Wards"
       }
     },
-    "eapLinks": {
-      "floods": "https://adore.ifrc.org/Download.aspx?FileId=357745"
-    },
     "countryLogos": [
       "ZMB-warma.png",
       "ZMB-government.svg",
       "ZMB-zrcs.png",
       "ZMB-dmmu.jpeg"
     ],
-    "eapAlertClasses": {
-      "no": {
-        "label": "No action",
-        "color": "ibf-gray",
-        "valueLow": 0,
-        "valueHigh": 0.6
-      },
-      "min": {
-        "label": "Met office to monitor",
-        "color": "ibf-yellow",
-        "valueLow": 0.6,
-        "valueHigh": 0.7
-      },
-      "med": {
-        "label": "Alert IFRC / Prep evacuation / Warn communities",
-        "color": "ibf-orange",
-        "valueLow": 0.7,
-        "valueHigh": 0.8
-      },
-      "max": {
-        "label": "Activate EAP",
-        "color": "ibf-trigger-alert-primary",
-        "valueLow": 0.8,
-        "valueHigh": 1.01
-      }
-    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
@@ -134,9 +140,29 @@
     "countryName": "Kenya",
     "countryStatus": "active",
     "disasterTypes": ["floods"],
-    "adminLevels": [1],
-    "defaultAdminLevel": 1,
-    "countryActiveLeadTimes": ["7-day"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": ["7-day"],
+        "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-gray",
+            "valueLow": 0,
+            "valueHigh": 0.8
+          },
+          "max": {
+            "label": "Activate EAP",
+            "color": "ibf-trigger-alert-primary",
+            "valueLow": 0.8,
+            "valueHigh": 1.01
+          }
+        }
+      }
+    ],
     "adminRegionLabels": {
       "1": {
         "singular": "County",
@@ -151,24 +177,7 @@
         "plural": "Wards"
       }
     },
-    "eapLinks": {
-      "floods": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9"
-    },
     "countryLogos": ["KEN-krcs.png"],
-    "eapAlertClasses": {
-      "no": {
-        "label": "No action",
-        "color": "ibf-gray",
-        "valueLow": 0,
-        "valueHigh": 0.8
-      },
-      "max": {
-        "label": "Activate EAP",
-        "color": "ibf-trigger-alert-primary",
-        "valueLow": 0.8,
-        "valueHigh": 1.01
-      }
-    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
@@ -188,23 +197,36 @@
     "countryName": "Ethiopia",
     "countryStatus": "active",
     "disasterTypes": ["floods", "malaria"],
-    "adminLevels": [3],
-    "defaultAdminLevel": 3,
-    "countryActiveLeadTimes": ["7-day", "0-month", "1-month", "2-month"],
-    "eapAlertClasses": {
-      "no": {
-        "label": "No action",
-        "color": "ibf-gray",
-        "valueLow": 0,
-        "valueHigh": 0.8
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [3],
+        "defaultAdminLevel": 3,
+        "activeLeadTimes": ["7-day"],
+        "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=404862",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-gray",
+            "valueLow": 0,
+            "valueHigh": 0.8
+          },
+          "max": {
+            "label": "Activate EAP",
+            "color": "ibf-trigger-alert-primary",
+            "valueLow": 0.8,
+            "valueHigh": 1.01
+          }
+        }
       },
-      "max": {
-        "label": "Activate EAP",
-        "color": "ibf-trigger-alert-primary",
-        "valueLow": 0.8,
-        "valueHigh": 1.01
+      {
+        "disasterType": "malaria",
+        "adminLevels": [3],
+        "defaultAdminLevel": 3,
+        "activeLeadTimes": ["0-month", "1-month", "2-month"],
+        "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing"
       }
-    },
+    ],
     "adminRegionLabels": {
       "1": {
         "singular": "Region",
@@ -218,10 +240,6 @@
         "singular": "Woreda",
         "plural": "Woredas"
       }
-    },
-    "eapLinks": {
-      "floods": "https://adore.ifrc.org/Download.aspx?FileId=404862",
-      "malaria": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing"
     },
     "countryLogos": ["ETH-ercs.png"],
     "countryBoundingBox": {
@@ -243,10 +261,15 @@
     "countryName": "Egypt",
     "countryStatus": "active",
     "disasterTypes": ["heavy-rain"],
-    "adminLevels": [1],
-    "defaultAdminLevel": 1,
-    "countryActiveLeadTimes": ["3-day", "5-day", "7-day"],
-    "eapAlertClasses": {},
+    "countryDisasterSettings": [
+      {
+        "disasterType": "heavy-rain",
+        "adminLevels": [1],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": ["3-day", "5-day", "7-day"],
+        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0a248aa7f06fc4d149892726478ef0fe6&authkey=AWC-wu2bMWX0NRGu7aUjTe8&expiration=2022-02-24T23%3a00%3a00.000Z&rtime=DcUsZo3Z2Eg"
+      }
+    ],
     "adminRegionLabels": {
       "1": {
         "singular": "Governorate",
@@ -260,9 +283,6 @@
         "singular": "District",
         "plural": "Districts"
       }
-    },
-    "eapLinks": {
-      "heavy-rain": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0a248aa7f06fc4d149892726478ef0fe6&authkey=AWC-wu2bMWX0NRGu7aUjTe8&expiration=2022-02-24T23%3a00%3a00.000Z&rtime=DcUsZo3Z2Eg"
     },
     "countryLogos": ["EGY-ercs.png"],
     "countryBoundingBox": {
@@ -283,11 +303,23 @@
     "countryCodeISO2": "PH",
     "countryName": "Philippines",
     "countryStatus": "active",
-    "disasterTypes": ["dengue"],
-    "adminLevels": [2],
-    "defaultAdminLevel": 2,
-    "countryActiveLeadTimes": ["0-month", "1-month", "2-month"],
-    "eapAlertClasses": {},
+    "disasterTypes": ["dengue", "typhoon"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "dengue",
+        "adminLevels": [2],
+        "defaultAdminLevel": 2,
+        "activeLeadTimes": ["0-month", "1-month", "2-month"],
+        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm"
+      },
+      {
+        "disasterType": "typhoon",
+        "adminLevels": [3],
+        "defaultAdminLevel": 3,
+        "activeLeadTimes": ["72-hour"],
+        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=019cd8c5dca4240d5bacca0756bbf6703&authkey=AUnDxa6EBrEIYrzZGBbKkGE&expiration=2022-10-17T22%3A00%3A00.000Z&e=caLZ0C"
+      }
+    ],
     "adminRegionLabels": {
       "1": {
         "singular": "Region",
@@ -305,9 +337,6 @@
         "singular": "Barangay",
         "plural": "Barangays"
       }
-    },
-    "eapLinks": {
-      "dengue": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm"
     },
     "countryLogos": ["PHL-prc.jpg"],
     "countryBoundingBox": {
@@ -329,23 +358,28 @@
     "countryName": "Zimbabwe",
     "countryStatus": "active",
     "disasterTypes": ["drought"],
-    "adminLevels": [1],
-    "defaultAdminLevel": 1,
-    "countryActiveLeadTimes": [
-      "0-month",
-      "1-month",
-      "2-month",
-      "3-month",
-      "4-month",
-      "5-month",
-      "6-month",
-      "7-month",
-      "8-month",
-      "9-month",
-      "10-month",
-      "11-month"
+    "countryDisasterSettings": [
+      {
+        "disasterType": "drought",
+        "adminLevels": [1],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-month",
+          "1-month",
+          "2-month",
+          "3-month",
+          "4-month",
+          "5-month",
+          "6-month",
+          "7-month",
+          "8-month",
+          "9-month",
+          "10-month",
+          "11-month"
+        ],
+        "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
+      }
     ],
-    "eapAlertClasses": {},
     "adminRegionLabels": {
       "1": {
         "singular": "Province",
@@ -359,9 +393,6 @@
         "singular": "Ward",
         "plural": "Wards"
       }
-    },
-    "eapLinks": {
-      "drought": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
     },
     "countryLogos": [
       "ZWE-ZRCS.png",

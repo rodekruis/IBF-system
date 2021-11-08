@@ -12,7 +12,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { In, Repository } from 'typeorm';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
-import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 import { CountryEntity } from '../api/country/country.entity';
 
 @Injectable()
@@ -25,8 +24,6 @@ export class ScriptsService {
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
   @InjectRepository(EapActionStatusEntity)
   private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
-  @InjectRepository(LeadTimeEntity)
-  private readonly leadTimeRepo: Repository<LeadTimeEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepo: Repository<CountryEntity>;
 
@@ -141,6 +138,11 @@ export class ScriptsService {
         DynamicIndicator.smallRuminantsExposed,
         DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
       ];
+    } else if (disasterType === DisasterType.Typhoon) {
+      exposureUnits = [
+        DynamicIndicator.populationAffected,
+        DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
+      ];
     } else {
       exposureUnits = [
         DynamicIndicator.populationAffectedPercentage,
@@ -149,37 +151,32 @@ export class ScriptsService {
     }
 
     for (const unit of exposureUnits) {
-      for (const adminLevel of selectedCountry.adminLevels) {
+      for (const adminLevel of selectedCountry.countryDisasterSettings.find(
+        s => s.disasterType === disasterType,
+      ).adminLevels) {
         let fileName: string;
         if (
           disasterType === DisasterType.Dengue ||
           disasterType === DisasterType.Malaria
         ) {
           if (unit === DynamicIndicator.potentialThreshold) {
-            fileName = `upload-exposure-${selectedCountry.countryCodeISO3}-potential-cases-threshold`;
-          } else
-            fileName = `upload-exposure-${selectedCountry.countryCodeISO3}${
-              triggered ? '-triggered' : ''
-            }`;
+            fileName = `upload-exposure-potential-cases-threshold`;
+          } else fileName = `upload-exposure`;
         } else {
-          fileName = `upload-${unit}-${selectedCountry.countryCodeISO3}-${adminLevel}`;
+          fileName = `upload-${unit}-${adminLevel}`;
         }
-        const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${selectedCountry.countryCodeISO3}/${fileName}.json`;
-
+        const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${selectedCountry.countryCodeISO3}/${disasterType}/${fileName}.json`;
         const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
         const exposure = JSON.parse(exposureRaw);
-        if (!triggered) {
+
+        if (!triggered && unit !== DynamicIndicator.potentialThreshold) {
           exposure.forEach(area => (area.amount = 0));
         }
 
-        for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
-          if (
-            (await this.filterCountryLeadTimesToDisasterLeadTimes(
-              activeLeadTime,
-              disasterType,
-            )) &&
-            this.filterLeadTimesDrought(activeLeadTime, disasterType)
-          ) {
+        for (const activeLeadTime of selectedCountry.countryDisasterSettings.find(
+          s => s.disasterType === disasterType,
+        ).activeLeadTimes) {
+          if (this.filterLeadTimesDrought(activeLeadTime, disasterType)) {
             console.log(
               `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3} for adminLevel: ${adminLevel}`,
             );
@@ -200,19 +197,6 @@ export class ScriptsService {
         }
       }
     }
-  }
-
-  private async filterCountryLeadTimesToDisasterLeadTimes(
-    countryLeadTime: LeadTime,
-    disasterType: DisasterType,
-  ): Promise<boolean> {
-    const leadTime = await this.leadTimeRepo.findOne({
-      relations: ['disasterTypes'],
-      where: { leadTimeName: countryLeadTime },
-    });
-    return leadTime.disasterTypes
-      .map(d => d.disasterType)
-      .includes(disasterType);
   }
 
   private mockAmount(
@@ -288,22 +272,17 @@ export class ScriptsService {
     const stationsRaw = fs.readFileSync(stationsFileName, 'utf-8');
     const stations = JSON.parse(stationsRaw);
 
-    for (const activeLeadTime of selectedCountry.countryActiveLeadTimes) {
-      if (
-        await this.filterCountryLeadTimesToDisasterLeadTimes(
-          activeLeadTime,
-          disasterType,
-        )
-      ) {
-        console.log(
-          `Seeding Glofas stations for leadtime: ${activeLeadTime} for country: ${selectedCountry.countryCodeISO3}`,
-        );
-        await this.glofasStationService.uploadTriggerDataPerStation({
-          countryCodeISO3: selectedCountry.countryCodeISO3,
-          stationForecasts: stations,
-          leadTime: activeLeadTime as LeadTime,
-        });
-      }
+    for (const activeLeadTime of selectedCountry.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).activeLeadTimes) {
+      console.log(
+        `Seeding Glofas stations for leadtime: ${activeLeadTime} for country: ${selectedCountry.countryCodeISO3}`,
+      );
+      await this.glofasStationService.uploadTriggerDataPerStation({
+        countryCodeISO3: selectedCountry.countryCodeISO3,
+        stationForecasts: stations,
+        leadTime: activeLeadTime as LeadTime,
+      });
     }
   }
 
@@ -330,41 +309,36 @@ export class ScriptsService {
     disasterType: DisasterType,
     triggered: boolean,
   ) {
-    for await (const leadTime of selectedCountry.countryActiveLeadTimes) {
-      if (
-        await this.filterCountryLeadTimesToDisasterLeadTimes(
-          leadTime,
-          disasterType,
-        )
-      ) {
-        console.log(
-          `Seeding disaster extent raster file for leadtime: ${leadTime} for country: ${selectedCountry.countryCodeISO3}`,
-        );
+    for await (const leadTime of selectedCountry.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).activeLeadTimes) {
+      console.log(
+        `Seeding disaster extent raster file for leadtime: ${leadTime} for country: ${selectedCountry.countryCodeISO3}`,
+      );
 
-        let sourceFileName, destFileName;
-        if (disasterType === DisasterType.Floods) {
-          sourceFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-          destFileName = sourceFileName;
-        } else if (disasterType === DisasterType.HeavyRain) {
-          // Use 3-day mock for every lead-time
-          sourceFileName = `rainfall_extent_3-day_${
-            selectedCountry.countryCodeISO3
-          }${triggered ? '-triggered' : ''}.tif`;
-          destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-        }
-
-        const file = fs.readFileSync(
-          `./geoserver-volume/raster-files/mock-output/${sourceFileName}`,
-        );
-        const dataObject = {
-          originalname: destFileName,
-          buffer: file,
-        };
-        await this.adminAreaDynamicDataService.postRaster(
-          dataObject,
-          disasterType,
-        );
+      let sourceFileName, destFileName;
+      if (disasterType === DisasterType.Floods) {
+        sourceFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+        destFileName = sourceFileName;
+      } else if (disasterType === DisasterType.HeavyRain) {
+        // Use 3-day mock for every lead-time
+        sourceFileName = `rainfall_extent_3-day_${
+          selectedCountry.countryCodeISO3
+        }${triggered ? '-triggered' : ''}.tif`;
+        destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
       }
+
+      const file = fs.readFileSync(
+        `./geoserver-volume/raster-files/mock-output/${sourceFileName}`,
+      );
+      const dataObject = {
+        originalname: destFileName,
+        buffer: file,
+      };
+      await this.adminAreaDynamicDataService.postRaster(
+        dataObject,
+        disasterType,
+      );
     }
   }
 }

@@ -44,6 +44,7 @@ export class MockDynamic {
     DisasterType.Malaria,
     DisasterType.Drought,
     DisasterType.HeavyRain,
+    DisasterType.Typhoon,
   ])
   public readonly disasterType: DisasterType;
 
@@ -68,7 +69,7 @@ export class MockAll {
 }
 
 @Controller('scripts')
-@ApiTags('scripts')
+@ApiTags('--- mock/seed data ---')
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
 export class ScriptsController {

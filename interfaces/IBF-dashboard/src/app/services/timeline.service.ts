@@ -65,7 +65,10 @@ export class TimelineService {
       date: this.getLeadTimeDate(leadTime, triggerKey),
       unit: leadTime.split('-')[1] as LeadTimeUnit,
       value: leadTime,
-      alert: this.triggers[leadTime] === '1',
+      alert:
+        this.triggers &&
+        this.triggers[leadTime] &&
+        this.triggers[leadTime] === '1',
       disabled: !isLeadTimeEnabled,
       active: false,
     };
@@ -73,11 +76,10 @@ export class TimelineService {
 
   private onTriggerPerLeadTime = (triggers) => {
     this.triggers = triggers;
-    if (this.triggers) {
-      this.state.timeStepButtons = [];
-      const visibleLeadTimes = this.getVisibleLeadTimes();
-      visibleLeadTimes.map(this.leadTimeToLeadTimeButton);
-    }
+
+    this.state.timeStepButtons = [];
+    const visibleLeadTimes = this.getVisibleLeadTimes();
+    visibleLeadTimes.map(this.leadTimeToLeadTimeButton);
 
     const enabledTimeStepButtons = this.state.timeStepButtons.filter(
       (timeStepButton) => !timeStepButton.disabled,
@@ -88,8 +90,10 @@ export class TimelineService {
   };
 
   private onRecentDates = (date) => {
-    if (date) {
-      this.state.today = DateTime.fromISO(date.date);
+    if (date.timestamp) {
+      this.state.today = DateTime.fromISO(date.timestamp);
+    } else {
+      this.state.today = DateTime.now();
     }
 
     this.apiService
@@ -101,7 +105,7 @@ export class TimelineService {
   };
 
   public loadTimeStepButtons(): void {
-    if (this.country) {
+    if (this.country && this.disasterType) {
       this.apiService
         .getRecentDates(
           this.country.countryCodeISO3,
@@ -126,16 +130,23 @@ export class TimelineService {
     this.timelineSubject.next(this.activeLeadTime);
   }
 
+  // need to handle hour lead time wrt typhoon
   private getLeadTimeDate(leadTime: LeadTime, triggerKey: string) {
     if (leadTime.includes('day')) {
       return this.state.today.plus({ days: Number(triggerKey) });
+    } else if (leadTime.includes('hour')) {
+      return this.state.today.plus({ hours: Number(triggerKey) });
     } else {
       return this.state.today.plus({ months: Number(triggerKey) });
     }
   }
 
   private isLeadTimeEnabled(leadTime: LeadTime): boolean {
-    const leadTimes = this.country ? this.country.countryActiveLeadTimes : [];
+    const leadTimes = this.country
+      ? this.country.countryDisasterSettings.find(
+          (s) => s.disasterType === this.disasterType.disasterType,
+        ).activeLeadTimes
+      : [];
     const leadTimeIndex = leadTimes.indexOf(leadTime);
 
     const leadTimeAvailable =

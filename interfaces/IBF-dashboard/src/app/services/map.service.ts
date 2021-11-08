@@ -126,11 +126,16 @@ export class MapService {
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
-    this.disasterType = disasterType;
-    this.layers.forEach((layer) => {
-      this.hideLayer(layer);
-    });
-    this.loadCountryLayers();
+    if (disasterType) {
+      this.disasterType = disasterType;
+      this.layers.forEach((layer) => {
+        this.hideLayer(layer);
+      });
+      this.layers
+        .filter((layer) => layer.group === IbfLayerGroup.adminRegions)
+        .forEach(this.deactivateLayer);
+      this.loadCountryLayers();
+    }
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
@@ -368,8 +373,22 @@ export class MapService {
     });
   }
 
+  private leadTimeMatchesDisaster = (
+    leadTime: LeadTime,
+    disasterType: DisasterType,
+  ) => {
+    return disasterType.leadTimes.map((l) => l.leadTimeName).includes(leadTime);
+  };
+
   private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
-    if (this.country && this.disasterType) {
+    if (
+      this.country &&
+      this.disasterType &&
+      this.leadTimeMatchesDisaster(
+        this.timelineService.activeLeadTime,
+        this.disasterType,
+      )
+    ) {
       if (layerActive) {
         this.apiService
           .getAdminRegions(
@@ -597,7 +616,28 @@ export class MapService {
       : interactedLayer.show;
   };
 
+  private checkAdminLevelMatchesDisasterType(layer: IbfLayer): boolean {
+    if (layer.group !== IbfLayerGroup.adminRegions) {
+      return true;
+    }
+    const adminLevel = Number(
+      layer.name.substr(layer.name.length - 1),
+    ) as AdminLevel;
+    if (
+      this.country.countryDisasterSettings
+        .find((s) => s.disasterType === this.disasterType.disasterType)
+        .adminLevels.includes(adminLevel)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   private updateLayer = (layer: IbfLayer) => (layerData) => {
+    if (!this.checkAdminLevelMatchesDisasterType(layer)) {
+      return;
+    }
     this.addLayer({
       name: layer.name,
       label: layer.label,
@@ -620,8 +660,8 @@ export class MapService {
       order: layer.order,
       unit: layer.unit,
       dynamic: layer.dynamic,
-      show: this.adminLevelService.activeLayerNames.includes(layer.name)
-        ? true
+      show: this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(layer.name)
         : layer.show,
     });
   };

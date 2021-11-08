@@ -58,13 +58,15 @@ export class AdminAreaDynamicDataService {
     });
 
     const country = await this.countryRepository.findOne({
-      select: ['defaultAdminLevel'],
+      relations: ['countryDisasterSettings'],
       where: { countryCodeISO3: uploadExposure.countryCodeISO3 },
     });
 
     if (
       disasterType.triggerUnit === uploadExposure.dynamicIndicator &&
-      country.defaultAdminLevel === uploadExposure.adminLevel
+      country.countryDisasterSettings.find(
+        s => s.disasterType === uploadExposure.disasterType,
+      ).defaultAdminLevel === uploadExposure.adminLevel
     ) {
       await this.insertTrigger(uploadExposure);
 

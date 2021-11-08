@@ -63,7 +63,11 @@ export class AboutBtnComponent implements OnDestroy {
     });
 
     if (this.country && this.disasterType) {
-      window.open(this.country.eapLinks[this.disasterType.disasterType]);
+      window.open(
+        this.country.countryDisasterSettings.find(
+          (s) => s.disasterType === this.disasterType.disasterType,
+        ).eapLink,
+      );
     }
   }
 }

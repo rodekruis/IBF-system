@@ -95,4 +95,14 @@ export const DISASTER_TYPES_SVG_MAP = {
     nonSelectedNonTriggered:
       '/assets/icons/Heavy Rain_Not Selected_Not Triggered.svg',
   },
+  [DisasterTypeKey.typhoon]: {
+    selectedTriggered:
+      '/assets/icons/TyphoonHurricaneCyclone_Selected_Triggered.svg',
+    selectedNonTriggered:
+      '/assets/icons/TyphoonHurricaneCyclone_Selected_Not Triggered.svg',
+    nonSelectedTriggered:
+      '/assets/icons/TyphoonHurricaneCyclone_Not Selected_Triggered.svg',
+    nonSelectedNonTriggered:
+      '/assets/icons/TyphoonHurricaneCyclone_Not Selected_Not Triggered.svg',
+  },
 };

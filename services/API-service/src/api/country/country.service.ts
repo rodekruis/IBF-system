@@ -8,7 +8,8 @@ export class CountryService {
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
   private readonly relations: string[] = [
-    'countryActiveLeadTimes',
+    'countryDisasterSettings',
+    'countryDisasterSettings.activeLeadTimes',
     'disasterTypes',
     'disasterTypes.leadTimes',
   ];

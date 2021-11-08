@@ -116,10 +116,17 @@ export class EventService {
       where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
       order: { date: 'DESC' },
     });
-    return {
-      date: new Date(result.date).toISOString(),
-      timestamp: new Date(result.timestamp),
-    };
+    if (result) {
+      return {
+        date: new Date(result.date).toISOString(),
+        timestamp: new Date(result.timestamp),
+      };
+    } else {
+      return {
+        date: null,
+        timestamp: null,
+      };
+    }
   }
 
   public async uploadTriggerPerLeadTime(
@@ -154,9 +161,9 @@ export class EventService {
       uploadTriggerPerLeadTimeDto.countryCodeISO3,
     );
     if (
-      country.countryActiveLeadTimes[0].leadTimeName.includes(
-        LeadTimeDayMonth.month,
-      )
+      country.countryDisasterSettings
+        .find(s => s.disasterType === uploadTriggerPerLeadTimeDto.disasterType)
+        .activeLeadTimes[0].leadTimeName.includes(LeadTimeDayMonth.month)
     ) {
       const date = new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);

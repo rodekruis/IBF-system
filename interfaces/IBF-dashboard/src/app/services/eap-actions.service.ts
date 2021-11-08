@@ -63,16 +63,22 @@ export class EapActionsService {
     if (event && this.timelineService.activeLeadTime) {
       this.getTriggeredAreasApi(
         this.timelineService.activeLeadTime,
-        this.adminLevel || this.country.defaultAdminLevel,
+        this.adminLevel ||
+          this.country.countryDisasterSettings.find(
+            (s) => s.disasterType === this.disasterType.disasterType,
+          ).defaultAdminLevel,
       );
     }
   };
 
   private onLeadTimeChange = () => {
-    if (this.event && this.timelineService.activeLeadTime && this.adminLevel) {
+    if (this.event && this.timelineService.activeLeadTime) {
       this.getTriggeredAreasApi(
         this.timelineService.activeLeadTime,
-        this.adminLevel,
+        this.adminLevel ||
+          this.country.countryDisasterSettings.find(
+            (s) => s.disasterType === this.disasterType.disasterType,
+          ).defaultAdminLevel,
       );
     }
   };
@@ -91,11 +97,11 @@ export class EapActionsService {
   };
 
   private getTriggeredAreasApi(leadTime: string, adminLevel: AdminLevel) {
-    if (this.disasterType) {
+    if (this.disasterTypeService.disasterType) {
       this.apiService
         .getTriggeredAreas(
           this.country.countryCodeISO3,
-          this.disasterType.disasterType,
+          this.disasterTypeService.disasterType.disasterType,
           adminLevel,
           leadTime,
         )

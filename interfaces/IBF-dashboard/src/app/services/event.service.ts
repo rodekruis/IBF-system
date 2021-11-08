@@ -81,7 +81,7 @@ export class EventService {
 
   private onEvent = (event) => {
     this.state.event = event;
-    if (event && event.startDate) {
+    if (event) {
       this.state.event.startDate = DateTime.fromISO(
         this.state.event.startDate,
       ).toFormat('cccc, dd LLLL');
@@ -172,19 +172,21 @@ export class EventService {
   }
 
   private getTriggerLeadTime() {
-    if (this.country) {
+    if (this.country && this.disasterType) {
       let triggerLeadTime = null;
-      this.country.countryActiveLeadTimes.forEach((leadTime: LeadTime) => {
-        if (
-          !triggerLeadTime &&
-          LeadTimeTriggerKey[leadTime] >=
-            LeadTimeTriggerKey[this.state.firstLeadTime]
-        ) {
-          triggerLeadTime = leadTime;
-        }
-      });
-      this.state.triggerLeadTime = LeadTimeTriggerKey[triggerLeadTime];
-      this.state.timeUnit = triggerLeadTime.split('-')[1];
+      this.country.countryDisasterSettings
+        .find((s) => s.disasterType === this.disasterType.disasterType)
+        .activeLeadTimes.forEach((leadTime: LeadTime) => {
+          if (
+            !triggerLeadTime &&
+            LeadTimeTriggerKey[leadTime] >=
+              LeadTimeTriggerKey[this.state.firstLeadTime]
+          ) {
+            triggerLeadTime = leadTime;
+            this.state.triggerLeadTime = LeadTimeTriggerKey[triggerLeadTime];
+            this.state.timeUnit = triggerLeadTime.split('-')[1];
+          }
+        });
     }
   }
 

@@ -53,8 +53,9 @@ export class AdminLevelComponent {
 
   public isAdminLevelActive(adminLevel: AdminLevel): boolean {
     const layer = this.getAdminLevelLayer(adminLevel);
+    const layerActive = layer ? layer.active : false;
 
-    return layer ? layer.active : false;
+    return layerActive && !this.isAdminLevelDisabled(adminLevel);
   }
 
   public isAdminLevelDisabled(adminLevel: AdminLevel): boolean {
