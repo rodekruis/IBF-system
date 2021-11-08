@@ -1,3 +1,12 @@
+## [0.103.1](https://github.com/rodekruis/IBF-system/compare/v0.103.0...v0.103.1) (2021-11-08)
+
+
+### Bug Fixes
+
+* non-triggered state broken AB[#10582](https://github.com/rodekruis/IBF-system/issues/10582) ([d4e11f1](https://github.com/rodekruis/IBF-system/commit/d4e11f13a3e2a4353cf3ec32d61837052937e138))
+
+
+
 # [0.103.0](https://github.com/rodekruis/IBF-system/compare/v0.102.1...v0.103.0) (2021-11-08)
 
 
@@ -120,23 +129,6 @@
 ### Bug Fixes
 
 * generic email pattern AB[#10337](https://github.com/rodekruis/IBF-system/issues/10337) ([0fbf821](https://github.com/rodekruis/IBF-system/commit/0fbf821b08a9c441ad3929c187606549c698330a))
-
-
-
-# [0.100.0](https://github.com/rodekruis/IBF-system/compare/v0.99.0...v0.100.0) (2021-10-25)
-
-
-### Bug Fixes
-
-* lint ([be6921e](https://github.com/rodekruis/IBF-system/commit/be6921e4b7b7c8459dd9bbc24e137a35fb030de1))
-* lint AB[#10018](https://github.com/rodekruis/IBF-system/issues/10018) ([2ccde94](https://github.com/rodekruis/IBF-system/commit/2ccde9495c9613ee59a5a258a2c289dcb1e910c9))
-
-
-### Features
-
-* added hospital AB[#10018](https://github.com/rodekruis/IBF-system/issues/10018) ([f4b9126](https://github.com/rodekruis/IBF-system/commit/f4b9126441f5cec7dffbe85d7fc5d1de90ce07b5))
-* added hospital marker for PHL ([e52f2b9](https://github.com/rodekruis/IBF-system/commit/e52f2b98c2e03b131a2b1dd5845558927f013896))
-* updated maxClusterRadius AB[#10018](https://github.com/rodekruis/IBF-system/issues/10018) ([469ee0e](https://github.com/rodekruis/IBF-system/commit/469ee0e084f81ae7ee2233512e4c74c0704bed3b))
 
 
 
