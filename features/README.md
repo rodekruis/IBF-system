@@ -22,9 +22,9 @@ Features of the IBF-portal are described in this folder in a standardizes way us
 - [Use Log in page](IBF-portal-user/Use_login_page.feature)
 - IBF-dashboard page
     - [Use header section](IBF-portal-user/dashboard-page/Use_header_section.feature)
-    - Situational Overview section
+    - [Situational Overview section](IBF-portal-user/dashboard-page/Use_header_section.feature)
       - View
-    - Chat section
+    - [Chat section](IBF-portal-user/dashboard-page/Use_chat_section.feature)
       - View section
       - Switch Disaster Type
       - Click about trigger

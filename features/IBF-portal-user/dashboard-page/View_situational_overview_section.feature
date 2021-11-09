@@ -1,5 +1,5 @@
 @ibf-portal-admin-user
-Feature: Use dev menu section
+Feature: Use situational overview section
 
 Background:
     Given a logged-in "admin" user on the dashboard page
