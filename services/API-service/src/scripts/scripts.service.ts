@@ -143,7 +143,7 @@ export class ScriptsService {
         DynamicIndicator.windspeed,
         DynamicIndicator.rainfall,
         DynamicIndicator.housesAffected,
-        DynamicIndicator.probabilisticHousesAffected,
+        DynamicIndicator.probWithin50Km,
         DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
       ];
     } else {

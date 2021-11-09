@@ -97,7 +97,7 @@ export enum IbfLayerName {
   windspeed = 'windspeed',
   rainfall = 'rainfall',
   housesAffected = 'houses_affected',
-  probabilisticHousesAffected = 'probabilistic_houses_affected',
+  probWithin50Km = 'prob_within_50km',
 }
 
 export enum IbfLayerLabel {

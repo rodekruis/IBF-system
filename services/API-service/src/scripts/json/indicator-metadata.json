@@ -682,8 +682,8 @@
   {
     "country_codes": "PHL",
     "disasterTypes": ["typhoon"],
-    "name": "probabilistic_houses_affected",
-    "label": "Probabilistic houses affected",
+    "name": "prob_within_50km",
+    "label": "Prob within 50km",
     "group": "general",
     "icon": "Person2-white.svg",
     "weightedAvg": false,
