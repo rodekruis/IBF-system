@@ -33,7 +33,7 @@ Features of the IBF-portal are described in this folder in a standardizes way us
         - View
         - Check EAP-action
         - Close event
-    - Aggregate section
+    - [Aggregate section](IBF-portal-user/dashboard-page/Use_aggregate_section.feature)
       - View
       - Click info buttons
     - Area of Focus summary
