@@ -38,7 +38,7 @@ Features of the IBF-portal are described in this folder in a standardizes way us
       - Click info buttons
     - [Area of Focus summary](IBF-portal-user/dashboard-page/Use_area_of_focus_section.feature)
       - View
-    - Timeline section
+    - [Timeline section](IBF-portal-user/dashboard-page/Use_timeline_section.feature)
       - View
       - Switch leadtime
     - Admin-level section
