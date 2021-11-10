@@ -36,7 +36,7 @@ Features of the IBF-portal are described in this folder in a standardizes way us
     - [Aggregate section](IBF-portal-user/dashboard-page/Use_aggregate_section.feature)
       - View
       - Click info buttons
-    - Area of Focus summary
+    - [Area of Focus summary](IBF-portal-user/dashboard-page/Use_area_of_focus_section.feature)
       - View
     - Timeline section
       - View
