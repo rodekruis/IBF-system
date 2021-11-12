@@ -683,7 +683,7 @@
     "country_codes": "PHL",
     "disasterTypes": ["typhoon"],
     "name": "prob_within_50km",
-    "label": "Prob within 50km",
+    "label": "Prob. of within 50km of track",
     "group": "general",
     "icon": "Person2-white.svg",
     "weightedAvg": false,
