@@ -41,7 +41,7 @@ Features of the IBF-portal are described in this folder in a standardizes way us
     - [Timeline section](IBF-portal-user/dashboard-page/Use_timeline_section.feature)
       - View
       - Switch leadtime
-    - Admin-level section
+    - [Admin-level section](IBF-portal-user/dashboard-page/Use_admin_level_section.feature)
       - View
       - Switch admin-level
     - Map section

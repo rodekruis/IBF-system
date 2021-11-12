@@ -7,6 +7,43 @@ Background:
 
 Scenario: Use chat section
     When the user login into the dashboard
+    Then there is a chat section on the left of dashboard
+    And it contains different disaster types as per slected country
+    And it contains triggered and non-triggered mode
+    And the user selects the disasters
+    And the user can see differnt results as per selected disaster
+ 
+
+Scenario: View Disaster in triggered mode
+    When the disaster is in triggered mode
+    Then it displays as a default selected disaster to user
+    And it displays in dark purple color
+    And user can see 2 more disaster in triggered mode
+    And only 1 disaster is in dark purple it shows default selected disaster
+    And if it is triggered but not selcted then it shows disaster icons with purple outline
+    And it indicated to user that disaster type is activated/triggered for selected country
+    And the dashboard displays purple for whole daashboard
+    And displays areas affected with that disaster
+    And it displays area/data in map with default admin_level for selected country
+    And disasters contains lead-time as per there type
+    And displays lead-time in day/months/hours/years
+    And it also displays default selcted layers from matrix section
+
+Scenario: View Disaster in non-triggered mode
+    When the disaster is in non-triggered mode
+    Then the IBF-dashboard truns into gray color
+    And it displays in disaster icons in navy blue color
+    And the user can see 2 or more disasters in non-triggered mode
+    And it displays selecte disater with dask navy-vlue color
+    And it also contains disater which are non-triggered but not selected 
+    And it disaplys that disater icons with nav-blue outline
+    And it indicates to user that the disaster type is not activated for that country
+    And it does not shows any default selection for that country
+    And does not display default admin-level
+    And diplays no data and selected area in the map
+
+Scenario: Use chat section
+    When the user login into the dashboard
     Then there is a chat section with 'IBF' logo speech arrow
     And chat section contains 3 chat box
     And first section gives the information of last model run
@@ -60,9 +97,7 @@ Scenario: Use chat section for non-triggered startDate
     When the disaster tpye is non-triggered 
     Then chat sections grayed out
     And it contains 2 chat boxes of chat section
-    And firsst chat section shows the lastRunDate 
-    And secont chat section showss that there is no trigger activated
-    And 'About trigger' and 'video' and works the same 
-    And it does not shows trigger date anf information
-
-
+    And first chat section shows the lastRunDate 
+    And second chat section showss that there is no trigger activated
+    And the 'About trigger' and 'video' buttons works the same 
+    And it does not shows trigger date and information
