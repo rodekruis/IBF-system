@@ -12,6 +12,7 @@ import { CountryTriggers } from '../models/country-triggers.model';
 import { Country, DisasterType } from '../models/country.model';
 import { DisasterTypeKey } from '../types/disaster-type-key';
 import { DisasterTypeService } from './disaster-type.service';
+import { EventService } from './event.service';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,7 @@ export class TimelineService {
   constructor(
     private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
+    private eventService: EventService,
     private apiService: ApiService,
   ) {
     this.countryService
@@ -151,7 +153,7 @@ export class TimelineService {
 
     const leadTimeAvailable =
       leadTimeIndex >= 0 &&
-      this.filterDroughtActiveLeadTime(this.disasterType, leadTime);
+      this.filterActiveLeadTimePerDisasterType(this.disasterType, leadTime);
 
     return leadTimeAvailable;
   }
@@ -167,7 +169,7 @@ export class TimelineService {
     for (const leadTime of this.disasterType.leadTimes) {
       if (
         visibleLeadTimes.indexOf(leadTime.leadTimeName) === -1 &&
-        this.filterDroughtVisibleLeadTime(
+        this.filterVisibleLeadTimePerDisasterType(
           this.disasterType,
           leadTime.leadTimeName,
         )
@@ -178,35 +180,38 @@ export class TimelineService {
     return visibleLeadTimes;
   }
 
-  private filterDroughtVisibleLeadTime(
+  private filterVisibleLeadTimePerDisasterType(
     disasterType: DisasterType,
     leadTime: LeadTime,
   ): boolean {
-    if (disasterType.disasterType !== DisasterTypeKey.drought) {
+    if (disasterType.disasterType === DisasterTypeKey.drought) {
+      const nextAprilEndOfMonth = this.getNextAprilMonth();
+      const leadTimeMonth = this.getLeadTimeMonth(leadTime);
+
+      return (
+        leadTimeMonth <= nextAprilEndOfMonth && // hide months beyond next April
+        (leadTime !== LeadTime.month0 || // hide current month ..
+          this.filterActiveLeadTimePerDisasterType(disasterType, leadTime)) // .. except if current month is next April
+      );
+    } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
+      return leadTime === this.eventService.state.firstLeadTime;
+    } else {
       return true;
     }
-    const nextAprilEndOfMonth = this.getNextAprilMonth();
-    const leadTimeMonth = this.getLeadTimeMonth(leadTime);
-
-    return (
-      leadTimeMonth <= nextAprilEndOfMonth && // hide months beyond next April
-      (leadTime !== LeadTime.month0 || // hide current month ..
-        this.filterDroughtActiveLeadTime(disasterType, leadTime)) // .. except if current month is next April
-    );
   }
 
-  private filterDroughtActiveLeadTime(
+  private filterActiveLeadTimePerDisasterType(
     disasterType: DisasterType,
     leadTime: LeadTime,
   ): boolean {
-    if (disasterType.disasterType !== DisasterTypeKey.drought) {
+    if (disasterType.disasterType === DisasterTypeKey.drought) {
+      const nextAprilMonth = this.getNextAprilMonth();
+      const leadTimeMonth = this.getLeadTimeMonth(leadTime);
+
+      return nextAprilMonth.equals(leadTimeMonth);
+    } else {
       return true;
     }
-
-    const nextAprilMonth = this.getNextAprilMonth();
-    const leadTimeMonth = this.getLeadTimeMonth(leadTime);
-
-    return nextAprilMonth.equals(leadTimeMonth);
   }
 
   private getNextAprilMonth(): DateTime {

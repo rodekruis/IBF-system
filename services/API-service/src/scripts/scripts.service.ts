@@ -179,7 +179,9 @@ export class ScriptsService {
         for (const activeLeadTime of selectedCountry.countryDisasterSettings.find(
           s => s.disasterType === disasterType,
         ).activeLeadTimes) {
-          if (this.filterLeadTimesDrought(activeLeadTime, disasterType)) {
+          if (
+            this.filterLeadTimesPerDisasterType(activeLeadTime, disasterType)
+          ) {
             console.log(
               `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3} for adminLevel: ${adminLevel}`,
             );
@@ -242,26 +244,34 @@ export class ScriptsService {
     return copyOfExposureUnit;
   }
 
-  private filterLeadTimesDrought(leadTime: string, disasterType: DisasterType) {
-    if (disasterType !== DisasterType.Drought) {
+  private filterLeadTimesPerDisasterType(
+    leadTime: string,
+    disasterType: DisasterType,
+  ) {
+    if (disasterType === DisasterType.Drought) {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const nextAprilYear =
+        now.getUTCMonth() > 3 ? currentYear + 1 : currentYear;
+      const nextAprilMonthFirstDay = new Date(nextAprilYear, 3, 1);
+
+      const leadTimeMonth = new Date(
+        now.setUTCMonth(now.getUTCMonth() + Number(leadTime.split('-')[0])),
+      );
+      const leadTimeMonthFirstDay = new Date(
+        leadTimeMonth.getFullYear(),
+        leadTimeMonth.getUTCMonth(),
+        1,
+      );
+
+      return (
+        nextAprilMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime()
+      );
+    } else if (disasterType === DisasterType.Typhoon) {
+      return leadTime === LeadTime.hour72;
+    } else {
       return true;
     }
-
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const nextAprilYear = now.getUTCMonth() > 3 ? currentYear + 1 : currentYear;
-    const nextAprilMonthFirstDay = new Date(nextAprilYear, 3, 1);
-
-    const leadTimeMonth = new Date(
-      now.setUTCMonth(now.getUTCMonth() + Number(leadTime.split('-')[0])),
-    );
-    const leadTimeMonthFirstDay = new Date(
-      leadTimeMonth.getFullYear(),
-      leadTimeMonth.getUTCMonth(),
-      1,
-    );
-
-    return nextAprilMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime();
   }
 
   private async mockGlofasStations(

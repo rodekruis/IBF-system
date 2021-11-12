@@ -179,8 +179,8 @@ export class EventService {
         .activeLeadTimes.forEach((leadTime: LeadTime) => {
           if (
             !triggerLeadTime &&
-            LeadTimeTriggerKey[leadTime] >=
-              LeadTimeTriggerKey[this.state.firstLeadTime]
+            Number(LeadTimeTriggerKey[leadTime]) >=
+              Number(LeadTimeTriggerKey[this.state.firstLeadTime])
           ) {
             triggerLeadTime = leadTime;
             this.state.triggerLeadTime = LeadTimeTriggerKey[triggerLeadTime];
