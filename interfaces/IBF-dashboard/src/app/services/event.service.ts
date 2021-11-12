@@ -151,7 +151,7 @@ export class EventService {
     const timeUnitsInFuture = Number(this.state.firstLeadTime.split('-')[0]);
     let futureDateTime: DateTime;
     const today = DateTime.now();
-    if (this.state.firstLeadTime.includes('day')) {
+    if (this.state.firstLeadTime.includes(LeadTimeUnit.day)) {
       futureDateTime = today.plus({ days: Number(timeUnitsInFuture) });
     } else {
       futureDateTime = today.plus({ months: Number(timeUnitsInFuture) });

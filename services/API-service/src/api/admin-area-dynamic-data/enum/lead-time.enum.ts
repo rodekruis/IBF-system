@@ -140,7 +140,8 @@ export enum LeadTime {
   hour120 = '120-hour',
 }
 
-export enum LeadTimeDayMonth {
+export enum LeadTimeUnit {
   day = 'day',
+  hour = 'hour',
   month = 'month',
 }

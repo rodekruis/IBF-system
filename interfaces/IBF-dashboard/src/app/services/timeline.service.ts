@@ -132,11 +132,10 @@ export class TimelineService {
     this.timelineSubject.next(this.activeLeadTime);
   }
 
-  // need to handle hour lead time wrt typhoon
   private getLeadTimeDate(leadTime: LeadTime, triggerKey: string) {
-    if (leadTime.includes('day')) {
+    if (leadTime.includes(LeadTimeUnit.day)) {
       return this.state.today.plus({ days: Number(triggerKey) });
-    } else if (leadTime.includes('hour')) {
+    } else if (leadTime.includes(LeadTimeUnit.hour)) {
       return this.state.today.plus({ hours: Number(triggerKey) });
     } else {
       return this.state.today.plus({ months: Number(triggerKey) });
