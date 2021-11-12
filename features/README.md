@@ -44,13 +44,13 @@ Features of the IBF-portal are described in this folder in a standardizes way us
     - [Admin-level section](IBF-portal-user/dashboard-page/Use_admin_level_section.feature)
       - View
       - Switch admin-level
-    - Map section
+    - [Map section](IBF-portal-user/dashboard-page/Use_map_section.feature)
       - View
       - Click admin-area
       - Click on point-layer markers
       - Zoom in to a marker-cluster layer
       - Toggle matrix section
-    - Matrix section
+    - [Matrix section](IBF-portal-user/dashboard-page/Use_matrix_section.feature)
       - View
       - Toggle layer
       - Click info button
