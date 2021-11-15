@@ -28,9 +28,3 @@ Scenario: View layer info buttons of matrix section
     Then the ueer can read the information about the layer
     And it gives the information with present/last year data which consist with particular disaster 
     And it contains the source link to get the more details
-
-
-
-
-
-
