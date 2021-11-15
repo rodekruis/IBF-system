@@ -5,7 +5,6 @@ Background:
     Given the user logged-in into the IBF-portal
     And is viewing the map on IBf-Dashboard page
 
-
 Scenario: View map
     When the user logged-in into the IBF-dashboard
     Then user see the map on dashboard
