@@ -193,7 +193,10 @@ export class TimelineService {
           this.filterActiveLeadTimePerDisasterType(disasterType, leadTime)) // .. except if current month is next April
       );
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
-      return leadTime === this.eventService.state.firstLeadTime;
+      const leadTimeModulo24 = Number(leadTime.split('-')[0]) % 24;
+      const eventLeadTimeModulo24 =
+        Number(this.eventService.state.firstLeadTime.split('-')[0]) % 24;
+      return leadTimeModulo24 === eventLeadTimeModulo24;
     } else {
       return true;
     }
@@ -208,6 +211,8 @@ export class TimelineService {
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);
 
       return nextAprilMonth.equals(leadTimeMonth);
+    } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
+      return leadTime === this.eventService.state.firstLeadTime;
     } else {
       return true;
     }
