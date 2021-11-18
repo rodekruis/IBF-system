@@ -31,9 +31,7 @@ export class UserStateComponent implements OnInit {
     private eventService: EventService,
     public disasterTypeService: DisasterTypeService,
     public countryService: CountryService,
-    
   ) {
-    
   }
 
   ngOnInit() {
