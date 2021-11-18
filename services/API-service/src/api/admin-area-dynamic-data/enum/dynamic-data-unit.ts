@@ -14,4 +14,8 @@ export enum DynamicIndicator {
   hotspotHealth = 'Hotspot_Health',
   cattleExposed = 'cattle_exposed',
   smallRuminantsExposed = 'small_ruminants_exposed',
+  windspeed = 'windspeed',
+  rainfall = 'rainfall',
+  housesAffected = 'houses_affected',
+  probWithin50Km = 'prob_within_50km',
 }

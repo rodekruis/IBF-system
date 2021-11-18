@@ -94,6 +94,10 @@ export enum IbfLayerName {
   hotspotGeneral = 'Hotspot_General',
   hotspotWater = 'Hotspot_Water',
   hotspotHealth = 'Hotspot_Health',
+  windspeed = 'windspeed',
+  rainfall = 'rainfall',
+  housesAffected = 'houses_affected',
+  probWithin50Km = 'prob_within_50km',
 }
 
 export enum IbfLayerLabel {

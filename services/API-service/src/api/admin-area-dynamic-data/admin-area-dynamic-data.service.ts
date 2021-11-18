@@ -1,4 +1,4 @@
-import { LeadTime, LeadTimeDayMonth } from './enum/lead-time.enum';
+import { LeadTime, LeadTimeUnit } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { MoreThanOrEqual, Repository } from 'typeorm';
@@ -45,6 +45,7 @@ export class AdminAreaDynamicDataService {
       area.adminLevel = uploadExposure.adminLevel;
       area.placeCode = exposurePlaceCode.placeCode;
       area.date = new Date();
+      area.timestamp = new Date();
       area.countryCodeISO3 = uploadExposure.countryCodeISO3;
       area.leadTime = uploadExposure.leadTime;
       area.disasterType = uploadExposure.disasterType;
@@ -81,7 +82,7 @@ export class AdminAreaDynamicDataService {
   private async deleteDynamicDuplicates(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
-    if (uploadExposure.leadTime.includes(LeadTimeDayMonth.month)) {
+    if (uploadExposure.leadTime.includes(LeadTimeUnit.month)) {
       const date = new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       await this.adminAreaDynamicDataRepo.delete({
@@ -91,6 +92,23 @@ export class AdminAreaDynamicDataService {
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
         date: MoreThanOrEqual(firstDayOfMonth),
+      });
+    } else if (uploadExposure.leadTime.includes(LeadTimeUnit.hour)) {
+      // The update frequency is 12 hours, so dividing up in 2 12-hour intervals
+      const last12hourInterval = new Date();
+      if (last12hourInterval.getHours() >= 12) {
+        last12hourInterval.setHours(12, 0, 0, 0);
+      } else {
+        last12hourInterval.setHours(0, 0, 0, 0);
+      }
+      await this.adminAreaDynamicDataRepo.delete({
+        indicator: uploadExposure.dynamicIndicator,
+        countryCodeISO3: uploadExposure.countryCodeISO3,
+        leadTime: uploadExposure.leadTime,
+        adminLevel: uploadExposure.adminLevel,
+        disasterType: uploadExposure.disasterType,
+        date: new Date(),
+        timestamp: MoreThanOrEqual(last12hourInterval),
       });
     } else {
       await this.adminAreaDynamicDataRepo.delete({
