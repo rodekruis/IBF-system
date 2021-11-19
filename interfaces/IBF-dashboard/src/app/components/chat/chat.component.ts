@@ -381,22 +381,32 @@ export class ChatComponent implements OnInit, OnDestroy {
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
     const percentageOvertimeAllowed = 0.1; // 10%
 
-    const updateFrequency = disasterType.leadTimes[0].leadTimeName.split(
+    const updateFrequencyUnit = disasterType.leadTimes[0].leadTimeName.split(
       '-',
     )[1] as LeadTimeUnit;
+
     const durationUnit =
-      updateFrequency === LeadTimeUnit.day ||
-      updateFrequency === LeadTimeUnit.hour
+      updateFrequencyUnit === LeadTimeUnit.day
         ? 'days'
-        : updateFrequency === LeadTimeUnit.month
+        : updateFrequencyUnit === LeadTimeUnit.hour
+        ? 'hours'
+        : updateFrequencyUnit === LeadTimeUnit.month
         ? 'months'
+        : null;
+    const durationUnitValue =
+      updateFrequencyUnit === LeadTimeUnit.day
+        ? 1
+        : updateFrequencyUnit === LeadTimeUnit.hour
+        ? 12
+        : updateFrequencyUnit === LeadTimeUnit.month
+        ? 1
         : null;
 
     const nowDate = DateTime.now();
     const diff = nowDate
       .diff(DateTime.fromISO(recentDate), durationUnit)
       .toObject();
-    if (diff[durationUnit] > 1 + percentageOvertimeAllowed) {
+    if (diff[durationUnit] > durationUnitValue + percentageOvertimeAllowed) {
       this.isWarn = true;
     } else {
       this.isWarn = false;

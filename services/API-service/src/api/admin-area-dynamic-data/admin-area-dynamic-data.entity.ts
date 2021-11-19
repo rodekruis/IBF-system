@@ -41,6 +41,9 @@ export class AdminAreaDynamicDataEntity {
   @Column({ type: 'date' })
   public date: Date;
 
+  @Column({ type: 'timestamp', nullable: true })
+  public timestamp: Date;
+
   @Column({ nullable: true, type: 'real' })
   public value: number;
 

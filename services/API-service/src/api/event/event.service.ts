@@ -12,7 +12,7 @@ import { LessThan, MoreThanOrEqual, Repository, In } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   LeadTime,
-  LeadTimeDayMonth,
+  LeadTimeUnit,
 } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
@@ -160,11 +160,10 @@ export class EventService {
     const country = await this.countryService.findOne(
       uploadTriggerPerLeadTimeDto.countryCodeISO3,
     );
-    if (
-      country.countryDisasterSettings
-        .find(s => s.disasterType === uploadTriggerPerLeadTimeDto.disasterType)
-        .activeLeadTimes[0].leadTimeName.includes(LeadTimeDayMonth.month)
-    ) {
+    const leadTime = country.countryDisasterSettings.find(
+      s => s.disasterType === uploadTriggerPerLeadTimeDto.disasterType,
+    ).activeLeadTimes[0].leadTimeName;
+    if (leadTime.includes(LeadTimeUnit.month)) {
       const date = new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       await this.triggerPerLeadTimeRepository.delete({
@@ -172,6 +171,21 @@ export class EventService {
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         date: MoreThanOrEqual(firstDayOfMonth),
+      });
+    } else if (leadTime.includes(LeadTimeUnit.hour)) {
+      // The update frequency is 12 hours, so dividing up in 2 12-hour intervals
+      const last12hourInterval = new Date();
+      if (last12hourInterval.getHours() >= 12) {
+        last12hourInterval.setHours(12, 0, 0, 0);
+      } else {
+        last12hourInterval.setHours(0, 0, 0, 0);
+      }
+      await this.triggerPerLeadTimeRepository.delete({
+        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
+        leadTime: selectedLeadTime.leadTime as LeadTime,
+        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
+        date: new Date(),
+        timestamp: MoreThanOrEqual(last12hourInterval),
       });
     } else {
       await this.triggerPerLeadTimeRepository.delete({
@@ -540,7 +554,7 @@ export class EventService {
 
   private getEndDate(leadTime: LeadTime): Date {
     const today = new Date();
-    return leadTime.includes('month')
+    return leadTime.includes(LeadTimeUnit.month)
       ? new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59)
       : new Date(today.setDate(today.getDate() + 7));
   }
