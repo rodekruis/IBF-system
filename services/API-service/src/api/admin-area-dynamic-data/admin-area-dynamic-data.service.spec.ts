@@ -15,6 +15,7 @@ import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { HelperService } from '../../shared/helper.service';
 
 describe('AdminAreaDynamicDataService', (): void => {
   let service: AdminAreaDynamicDataService;
@@ -26,6 +27,7 @@ describe('AdminAreaDynamicDataService', (): void => {
           AdminAreaDynamicDataService,
           EventService,
           EapActionsService,
+          HelperService,
           CountryService,
           {
             provide: getRepositoryToken(CountryEntity),

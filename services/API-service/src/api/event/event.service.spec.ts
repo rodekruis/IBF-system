@@ -14,6 +14,7 @@ import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { HelperService } from '../../shared/helper.service';
 
 describe('Event service', (): void => {
   let service: EventService;
@@ -64,6 +65,7 @@ describe('Event service', (): void => {
           EventService,
           CountryService,
           EapActionsService,
+          HelperService,
         ],
       }).compile();
 
