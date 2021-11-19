@@ -27,8 +27,6 @@ export class HelperService {
     disasterType: DisasterType,
     triggeredDate?: Date,
   ) {
-    console.log('disasterType: ', disasterType);
-    console.log('triggeredDate: ', triggeredDate);
     // This function was made to accomodate 'typhoon' setting where upload-frequency is '12 hours'
     // This means that endpoint cannot only check on date = lastTriggeredDate.date, but should also check on the right 12-hour interval
     // However to be able to use this function generically also for other disasterTypes (freq '1 day'), it returns last 24-hour interval (midnight)
@@ -47,7 +45,6 @@ export class HelperService {
       // If other disaster-type set to 'midnight'
       lastInterval.setHours(0, 0, 0, 0);
     }
-    console.log('lastInterval: ', lastInterval);
     return lastInterval;
   }
 }
