@@ -98,19 +98,19 @@
             class="component-title ion-justify-content-start ion-align-items-start"
             data-test="dashboard-title"
           >
+
             <ion-col size="12">
               <ion-item
                 lines="none"
                 class="component-title-item"
-                color="ibf-primary"
+                color="ibf-white"
               >
                 <ion-button
                   slot="start"
                   class="ion-margin-end today-button"
-                  [disabled]="true"
-                  color="ibf-primary"
+                  color="ibf-white"
                 >
-                  <app-date-button></app-date-button>
+                <app-disaster-type></app-disaster-type>
                   <span
                     class="today"
                     [translate]="'dashboard-page.today'"
@@ -120,11 +120,6 @@
                   slot="start"
                   class="component-title-thumbnail"
                 ></ion-thumbnail>
-                <ion-label>
-                  <strong
-                    [translate]="'dashboard-page.situational-overview'"
-                  ></strong>
-                </ion-label>
               </ion-item>
             </ion-col>
           </ion-row>
