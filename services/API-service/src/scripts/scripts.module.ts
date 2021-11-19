@@ -13,6 +13,7 @@ import { UserModule } from '../api/user/user.module';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 import { CountryEntity } from '../api/country/country.entity';
+import { TyphoonTrackModule } from '../api/typhoon-track/typhoon-track.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { CountryEntity } from '../api/country/country.entity';
     AdminAreaDynamicDataModule,
     GlofasStationModule,
     EventModule,
+    TyphoonTrackModule,
     UserModule,
   ],
   providers: [SeedInit, ScriptsService],

@@ -23,6 +23,7 @@ import { DateDto } from './dto/date.dto';
 import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { HelperService } from '../../shared/helper.service';
 
 @Injectable()
 export class EventService {
@@ -39,15 +40,11 @@ export class EventService {
   @InjectRepository(DisasterEntity)
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
 
-  private countryService: CountryService;
-  private eapActionsService: EapActionsService;
   public constructor(
-    countryService: CountryService,
-    eapActionsService: EapActionsService,
-  ) {
-    this.countryService = countryService;
-    this.eapActionsService = eapActionsService;
-  }
+    private countryService: CountryService,
+    private eapActionsService: EapActionsService,
+    private helperService: HelperService,
+  ) {}
 
   public async getEventSummaryCountry(
     countryCodeISO3: string,
@@ -55,9 +52,10 @@ export class EventService {
   ): Promise<EventSummaryCountry> {
     const eventSummary = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
-      .select('area."countryCodeISO3"')
+      .select(['area."countryCodeISO3"', 'event."eventName"'])
       .leftJoin('event.adminArea', 'area')
       .groupBy('area."countryCodeISO3"')
+      .addGroupBy('event."eventName"')
       .addSelect([
         'to_char(MAX("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
@@ -103,6 +101,12 @@ export class EventService {
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
+      .andWhere('timestamp >= :last12hourInterval', {
+        last12hourInterval: this.helperService.getLast12hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
+      })
       .getRawOne();
 
     return result.totalAffected;
@@ -114,7 +118,7 @@ export class EventService {
   ): Promise<DateDto> {
     const result = await this.triggerPerLeadTimeRepository.findOne({
       where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
-      order: { date: 'DESC' },
+      order: { timestamp: 'DESC' },
     });
     if (result) {
       return {
@@ -173,19 +177,16 @@ export class EventService {
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else if (leadTime.includes(LeadTimeUnit.hour)) {
-      // The update frequency is 12 hours, so dividing up in 2 12-hour intervals
-      const last12hourInterval = new Date();
-      if (last12hourInterval.getHours() >= 12) {
-        last12hourInterval.setHours(12, 0, 0, 0);
-      } else {
-        last12hourInterval.setHours(0, 0, 0, 0);
-      }
       await this.triggerPerLeadTimeRepository.delete({
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         date: new Date(),
-        timestamp: MoreThanOrEqual(last12hourInterval),
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(
+            uploadTriggerPerLeadTimeDto.disasterType,
+          ),
+        ),
       });
     } else {
       await this.triggerPerLeadTimeRepository.delete({
@@ -309,6 +310,12 @@ export class EventService {
       where: {
         countryCodeISO3: countryCodeISO3,
         date: lastTriggeredDate.date,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(
+            disasterType,
+            lastTriggeredDate.timestamp,
+          ),
+        ),
         disasterType: disasterType,
       },
     });
@@ -369,6 +376,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
+    eventName: string,
   ): Promise<void> {
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
@@ -390,7 +398,12 @@ export class EventService {
     );
 
     // add new ones
-    await this.addNewEventAreas(countryCodeISO3, disasterType, adminLevel);
+    await this.addNewEventAreas(
+      countryCodeISO3,
+      disasterType,
+      adminLevel,
+      eventName,
+    );
 
     // close old events
     await this.closeEventsAutomatic(countryCodeISO3);
@@ -417,6 +430,12 @@ export class EventService {
       .andWhere('value > 0')
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
+      })
+      .andWhere('timestamp >= :last12hourInterval', {
+        last12hourInterval: this.helperService.getLast12hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
       })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
@@ -449,6 +468,12 @@ export class EventService {
       .andWhere('value > 0')
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
+      })
+      .andWhere('timestamp >= :last12hourInterval', {
+        last12hourInterval: this.helperService.getLast12hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
       })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
@@ -498,6 +523,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
+    eventName: string,
   ): Promise<void> {
     const affectedAreas = await this.getAffectedAreas(
       countryCodeISO3,
@@ -525,6 +551,7 @@ export class EventService {
         });
         const eventArea = new EventPlaceCodeEntity();
         eventArea.adminArea = adminArea;
+        eventArea.eventName = eventName;
         eventArea.actionsValue = +area.actionsValue;
         eventArea.startDate = new Date();
         eventArea.endDate = this.getEndDate(area.leadTime);

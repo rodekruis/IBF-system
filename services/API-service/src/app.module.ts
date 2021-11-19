@@ -19,6 +19,7 @@ import { DamSiteModule } from './api/dam-site/dam-site.module';
 import { RainfallTriggersModule } from './api/rainfall-triggers/rainfall-triggers.module';
 import { NotificationModule } from './api/notification/notification.module';
 import { UserModule } from './api/user/user.module';
+import { TyphoonTrackModule } from './api/typhoon-track/typhoon-track.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { UserModule } from './api/user/user.module';
     DamSiteModule,
     AdminAreaDataModule,
     RainfallTriggersModule,
+    TyphoonTrackModule,
     NotificationModule,
     UserModule,
   ],
