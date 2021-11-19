@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Country, DisasterType } from 'src/app/models/country.model';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { CountryService } from 'src/app/services/country.service';
-import { Country,DisasterType } from 'src/app/models/country.model';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-state',
@@ -31,14 +31,13 @@ export class UserStateComponent implements OnInit {
     private eventService: EventService,
     public disasterTypeService: DisasterTypeService,
     public countryService: CountryService,
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
-      this.disasterTypeSubscription = this.disasterTypeService
+    this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
   }
