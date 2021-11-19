@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { repositoryMockFactory } from '../../mock/repositoryMock.factory';
 import { HelperService } from '../../shared/helper.service';
+import { EventService } from '../event/event.service';
 import { TyphoonTrackEntity } from './typhoon-track.entity';
 import { TyphoonTrackService } from './typhoon-track.service';
 
@@ -14,6 +15,7 @@ describe('TyphoonTrackService', (): void => {
         providers: [
           TyphoonTrackService,
           HelperService,
+          EventService,
           {
             provide: getRepositoryToken(TyphoonTrackEntity),
             useFactory: repositoryMockFactory,
