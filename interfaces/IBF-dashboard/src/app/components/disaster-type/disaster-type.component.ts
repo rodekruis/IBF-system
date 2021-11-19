@@ -41,12 +41,12 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
       const activeDisasterType = country.disasterTypes.find(
         ({ activeTrigger }) => activeTrigger,
       );
-      if (activeDisasterType) {
-        this.selectedDisasterType = activeDisasterType.disasterType as DisasterTypeKey;
-        this.disasterTypeService.setDisasterType(activeDisasterType);
-      } else {
-        this.selectedDisasterType = this.disasterTypes[0].disasterType;
-      }
+
+      const disasterType = activeDisasterType
+        ? activeDisasterType
+        : this.disasterTypes[0];
+      this.selectedDisasterType = disasterType.disasterType as DisasterTypeKey;
+      this.disasterTypeService.setDisasterType(disasterType);
     }
     this.disasterTypesCounter++;
   };
