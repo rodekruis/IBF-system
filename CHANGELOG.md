@@ -1,3 +1,22 @@
+# [0.105.0](https://github.com/rodekruis/IBF-system/compare/v0.104.0...v0.105.0) (2021-11-19)
+
+
+### Bug Fixes
+
+* get last typhoon data only AB[#10828](https://github.com/rodekruis/IBF-system/issues/10828) ([4de193b](https://github.com/rodekruis/IBF-system/commit/4de193bf869258db7f32e5df8a5befb0142ac1e0))
+* set 72-hour as standard leadtime non-trigger AB[#10831](https://github.com/rodekruis/IBF-system/issues/10831) ([0e607ce](https://github.com/rodekruis/IBF-system/commit/0e607cef4cd03a4dfb05b639fa5f0feafd1a3832))
+
+
+### Features
+
+* add event name AB[#10723](https://github.com/rodekruis/IBF-system/issues/10723) ([0ec36c8](https://github.com/rodekruis/IBF-system/commit/0ec36c8f4b28175e64b376aaab5340e0dd1624df))
+* add track entity+endpoint AB[#10715](https://github.com/rodekruis/IBF-system/issues/10715) ([f5d635b](https://github.com/rodekruis/IBF-system/commit/f5d635ba629a981162504311fcdc4bc3d08e086f))
+* apply 12-hour interval AB[#10828](https://github.com/rodekruis/IBF-system/issues/10828) ([da31d7a](https://github.com/rodekruis/IBF-system/commit/da31d7ad4571d56e26b1d818355cf5df5fb60b56))
+* mock data typhoon track AB[#10716](https://github.com/rodekruis/IBF-system/issues/10716) ([2714eac](https://github.com/rodekruis/IBF-system/commit/2714eac0b9b3c6b80795bfe0782748eceb739480))
+* show event-name in chat AB[#10724](https://github.com/rodekruis/IBF-system/issues/10724) ([6026d12](https://github.com/rodekruis/IBF-system/commit/6026d1243c7bbdc7ca6fa4c21220e5fa7c64a626))
+
+
+
 # [0.104.0](https://github.com/rodekruis/IBF-system/compare/v0.103.1...v0.104.0) (2021-11-19)
 
 
@@ -134,15 +153,6 @@
 * changes in class AB[#10164](https://github.com/rodekruis/IBF-system/issues/10164) ([bc3b465](https://github.com/rodekruis/IBF-system/commit/bc3b4650e3896567d1f0f7f10d000d7621c71ddc))
 * format lastmodelrun-date AB[#10309](https://github.com/rodekruis/IBF-system/issues/10309) ([f5eba04](https://github.com/rodekruis/IBF-system/commit/f5eba041ce28c7bd1671c4947c75bc3c02736e50))
 * save upload-time as well AB[#10213](https://github.com/rodekruis/IBF-system/issues/10213) ([fd98e13](https://github.com/rodekruis/IBF-system/commit/fd98e13f87575e7f47c6627376c86a475f2a1e3b))
-
-
-
-## [0.100.2](https://github.com/rodekruis/IBF-system/compare/v0.100.1...v0.100.2) (2021-10-25)
-
-
-### Bug Fixes
-
-* zoom and pan while layer-menu open AB[#10257](https://github.com/rodekruis/IBF-system/issues/10257) ([7059557](https://github.com/rodekruis/IBF-system/commit/705955784b656b46ec1bb7a3c7d49babba75cf88))
 
 
 
