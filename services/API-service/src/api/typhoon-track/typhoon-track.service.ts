@@ -48,18 +48,11 @@ export class TyphoonTrackService {
   private async deleteDuplicates(
     uploadTyphoonTrack: UploadTyphoonTrackDto,
   ): Promise<void> {
-    // The update frequency is 12 hours, so dividing up in 2 12-hour intervals
-    const last12hourInterval = new Date();
-    if (last12hourInterval.getHours() >= 12) {
-      last12hourInterval.setHours(12, 0, 0, 0);
-    } else {
-      last12hourInterval.setHours(0, 0, 0, 0);
-    }
     await this.typhoonTrackRepository.delete({
       countryCodeISO3: uploadTyphoonTrack.countryCodeISO3,
       leadTime: uploadTyphoonTrack.leadTime,
       date: new Date(),
-      timestamp: MoreThanOrEqual(last12hourInterval),
+      timestamp: MoreThanOrEqual(this.helperService.getLast12hourInterval()),
     });
   }
 
@@ -71,24 +64,17 @@ export class TyphoonTrackService {
       countryCodeISO3,
       DisasterType.Typhoon,
     );
-    const typhoonTrackPoints = await this.typhoonTrackRepository
-      .createQueryBuilder('track')
-      .select([
-        '"countryCodeISO3"',
-        '"leadTime"',
-        '"timestampOfTrackpoint"',
-        'geom',
-      ])
-      .where('"leadTime" = :leadTime', {
+    const typhoonTrackPoints = await this.typhoonTrackRepository.find({
+      select: ['countryCodeISO3', 'leadTime', 'timestampOfTrackpoint', 'geom'],
+      where: {
         leadTime: leadTime,
-      })
-      .andWhere('"countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('date = :lastTriggeredDate', {
-        lastTriggeredDate: lastTriggeredDate.date,
-      })
-      .getRawMany();
+        date: lastTriggeredDate.date,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(lastTriggeredDate.date),
+        ),
+      },
+    });
 
     return this.helperService.toGeojson(typhoonTrackPoints);
   }

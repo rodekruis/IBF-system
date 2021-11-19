@@ -13,6 +13,7 @@ import { DisasterEntity } from '../disaster/disaster.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import fs from 'fs';
 import { CountryEntity } from '../country/country.entity';
+import { HelperService } from '../../shared/helper.service';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -25,11 +26,10 @@ export class AdminAreaDynamicDataService {
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
 
-  private eventService: EventService;
-
-  public constructor(eventService: EventService) {
-    this.eventService = eventService;
-  }
+  public constructor(
+    private eventService: EventService,
+    private helperService: HelperService,
+  ) {}
 
   public async exposure(
     uploadExposure: UploadAdminAreaDynamicDataDto,
@@ -94,13 +94,6 @@ export class AdminAreaDynamicDataService {
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else if (uploadExposure.leadTime.includes(LeadTimeUnit.hour)) {
-      // The update frequency is 12 hours, so dividing up in 2 12-hour intervals
-      const last12hourInterval = new Date();
-      if (last12hourInterval.getHours() >= 12) {
-        last12hourInterval.setHours(12, 0, 0, 0);
-      } else {
-        last12hourInterval.setHours(0, 0, 0, 0);
-      }
       await this.adminAreaDynamicDataRepo.delete({
         indicator: uploadExposure.dynamicIndicator,
         countryCodeISO3: uploadExposure.countryCodeISO3,
@@ -108,7 +101,7 @@ export class AdminAreaDynamicDataService {
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
         date: new Date(),
-        timestamp: MoreThanOrEqual(last12hourInterval),
+        timestamp: MoreThanOrEqual(this.helperService.getLast12hourInterval()),
       });
     } else {
       await this.adminAreaDynamicDataRepo.delete({

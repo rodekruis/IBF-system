@@ -23,6 +23,7 @@ import { DateDto } from './dto/date.dto';
 import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { HelperService } from '../../shared/helper.service';
 
 @Injectable()
 export class EventService {
@@ -39,15 +40,11 @@ export class EventService {
   @InjectRepository(DisasterEntity)
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
 
-  private countryService: CountryService;
-  private eapActionsService: EapActionsService;
   public constructor(
-    countryService: CountryService,
-    eapActionsService: EapActionsService,
-  ) {
-    this.countryService = countryService;
-    this.eapActionsService = eapActionsService;
-  }
+    private countryService: CountryService,
+    private eapActionsService: EapActionsService,
+    private helperService: HelperService,
+  ) {}
 
   public async getEventSummaryCountry(
     countryCodeISO3: string,
@@ -173,19 +170,12 @@ export class EventService {
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else if (leadTime.includes(LeadTimeUnit.hour)) {
-      // The update frequency is 12 hours, so dividing up in 2 12-hour intervals
-      const last12hourInterval = new Date();
-      if (last12hourInterval.getHours() >= 12) {
-        last12hourInterval.setHours(12, 0, 0, 0);
-      } else {
-        last12hourInterval.setHours(0, 0, 0, 0);
-      }
       await this.triggerPerLeadTimeRepository.delete({
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         date: new Date(),
-        timestamp: MoreThanOrEqual(last12hourInterval),
+        timestamp: MoreThanOrEqual(this.helperService.getLast12hourInterval()),
       });
     } else {
       await this.triggerPerLeadTimeRepository.delete({
