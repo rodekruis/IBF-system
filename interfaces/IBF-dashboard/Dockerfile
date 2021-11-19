@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-RUN apk update && apk add python make g++ git
+RUN apk update && apk add python3 make g++ git
 
 RUN mkdir -p /home/node/app/node_modules && mkdir -p /home/node/app/www && chown -R node:node /home/node/app
 
