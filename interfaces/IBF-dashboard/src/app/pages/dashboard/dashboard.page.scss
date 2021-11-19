@@ -38,6 +38,10 @@ app-export-view {
   padding: 0;
 }
 
+.noHover{
+  pointer-events: none;
+}
+
 // The lay-out of the `ion-content`-area of the page/screen
 .page-structure {
   min-height: 100%;

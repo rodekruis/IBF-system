@@ -107,13 +107,17 @@
                 <ion-button
                   slot="start"
                   class="ion-margin-end today-button"
+                  [disabled]="true"
                   color="ibf-white"
                 >
                   <app-disaster-type></app-disaster-type>
+
                   <span
                     class="today"
                     [translate]="'dashboard-page.today'"
                   ></span>
+                <app-date-button></app-date-button>
+
                 </ion-button>
                 <ion-thumbnail
                   slot="start"
