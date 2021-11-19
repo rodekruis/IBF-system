@@ -215,7 +215,6 @@ export class TimelineService {
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       const relevantLeadTime =
         this.eventService.state.firstLeadTime || LeadTime.hour72;
-      console.log('relevantLeadTime: ', relevantLeadTime);
       return leadTime === relevantLeadTime;
     } else {
       return true;
