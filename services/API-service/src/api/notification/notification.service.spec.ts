@@ -17,6 +17,7 @@ import { UserEntity } from '../user/user.entity';
 import { NotificationService } from './notification.service';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { HelperService } from '../../shared/helper.service';
 
 describe('NotificationService', () => {
   let service: NotificationService;
@@ -77,6 +78,7 @@ describe('NotificationService', () => {
         EapActionsService,
         NotificationService,
         AdminAreaDynamicDataService,
+        HelperService,
       ],
     }).compile();
 
