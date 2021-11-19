@@ -1,3 +1,26 @@
+# [0.104.0](https://github.com/rodekruis/IBF-system/compare/v0.103.1...v0.104.0) (2021-11-19)
+
+
+### Bug Fixes
+
+* error fixed AB[#10711](https://github.com/rodekruis/IBF-system/issues/10711) ([1173a29](https://github.com/rodekruis/IBF-system/commit/1173a29cd255a84e401e0db8cad9659a3516f632))
+* label of prob within 50km layer AB[#10589](https://github.com/rodekruis/IBF-system/issues/10589) ([a290e81](https://github.com/rodekruis/IBF-system/commit/a290e8193ee66d3c7a1b37ea369f12d0513c826a))
+* reverted windspeed AB[#10594](https://github.com/rodekruis/IBF-system/issues/10594) ([71d364d](https://github.com/rodekruis/IBF-system/commit/71d364da94deb22c284491f5c269d24e493223d4))
+* updated layer name into probWithin50Km AB[#10589](https://github.com/rodekruis/IBF-system/issues/10589) ([4b31bae](https://github.com/rodekruis/IBF-system/commit/4b31baece71949e67651d466cac9fabf4440440e))
+* updated mock data AB[#10594](https://github.com/rodekruis/IBF-system/issues/10594) ([fae12b3](https://github.com/rodekruis/IBF-system/commit/fae12b37efba81829b76acc60225163e5762d100))
+
+
+### Features
+
+* change lead-time setup typhoon AB[#10670](https://github.com/rodekruis/IBF-system/issues/10670) ([27f05bd](https://github.com/rodekruis/IBF-system/commit/27f05bdb0f18d1937a2c99fae7fd262e393cd600))
+* change lead-time setup typhoon AB[#10670](https://github.com/rodekruis/IBF-system/issues/10670) ([e541013](https://github.com/rodekruis/IBF-system/commit/e541013bf444dea86a5b15f9ef1151c054db8241))
+* dynamic layers typhoon + mock-data AB[#10227](https://github.com/rodekruis/IBF-system/issues/10227) ([e4e367c](https://github.com/rodekruis/IBF-system/commit/e4e367ca9f19d9479a766a0e1ac40abd3a64ef39))
+* mock data AB[#10594](https://github.com/rodekruis/IBF-system/issues/10594) ([4cc3474](https://github.com/rodekruis/IBF-system/commit/4cc3474ea525302cb60d990a59df54d62042965a))
+* process new leadtimeunit AB[#10229](https://github.com/rodekruis/IBF-system/issues/10229) ([7a76886](https://github.com/rodekruis/IBF-system/commit/7a76886a88e7dc97f01d07fd371dedc2b150f332))
+* show timeline-btns 24,48H before/after lead-time for typhoon AB[#10702](https://github.com/rodekruis/IBF-system/issues/10702) ([a8ebc1e](https://github.com/rodekruis/IBF-system/commit/a8ebc1e24a9eb4247b716109d26be81c4aa631e9))
+
+
+
 ## [0.103.1](https://github.com/rodekruis/IBF-system/compare/v0.103.0...v0.103.1) (2021-11-08)
 
 
@@ -120,15 +143,6 @@
 ### Bug Fixes
 
 * zoom and pan while layer-menu open AB[#10257](https://github.com/rodekruis/IBF-system/issues/10257) ([7059557](https://github.com/rodekruis/IBF-system/commit/705955784b656b46ec1bb7a3c7d49babba75cf88))
-
-
-
-## [0.100.1](https://github.com/rodekruis/IBF-system/compare/v0.100.0...v0.100.1) (2021-10-25)
-
-
-### Bug Fixes
-
-* generic email pattern AB[#10337](https://github.com/rodekruis/IBF-system/issues/10337) ([0fbf821](https://github.com/rodekruis/IBF-system/commit/0fbf821b08a9c441ad3929c187606549c698330a))
 
 
 
