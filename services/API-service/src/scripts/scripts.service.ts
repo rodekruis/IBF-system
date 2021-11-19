@@ -13,13 +13,10 @@ import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { In, Repository } from 'typeorm';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 import { CountryEntity } from '../api/country/country.entity';
+import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 
 @Injectable()
 export class ScriptsService {
-  private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService;
-  private readonly glofasStationService: GlofasStationService;
-  private readonly eventService: EventService;
-
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
   @InjectRepository(EapActionStatusEntity)
@@ -28,14 +25,11 @@ export class ScriptsService {
   private readonly countryRepo: Repository<CountryEntity>;
 
   public constructor(
-    adminAreaDynamicDataService: AdminAreaDynamicDataService,
-    glofasStationService: GlofasStationService,
-    eventService: EventService,
-  ) {
-    this.adminAreaDynamicDataService = adminAreaDynamicDataService;
-    this.glofasStationService = glofasStationService;
-    this.eventService = eventService;
-  }
+    private adminAreaDynamicDataService: AdminAreaDynamicDataService,
+    private glofasStationService: GlofasStationService,
+    private typhoonTrackService: TyphoonTrackService,
+    private eventService: EventService,
+  ) {}
 
   public async mockAll(mockAllInput: MockAll) {
     const envCountries = process.env.COUNTRIES.split(',');
@@ -110,6 +104,10 @@ export class ScriptsService {
         mockInput.disasterType,
         mockInput.triggered,
       );
+    }
+
+    if (mockInput.disasterType === DisasterType.Typhoon) {
+      await this.mockTyphoonTrack(selectedCountry);
     }
   }
 
@@ -272,6 +270,23 @@ export class ScriptsService {
     } else {
       return true;
     }
+  }
+
+  private async mockTyphoonTrack(selectedCountry) {
+    const trackFileName = `./src/api/typhoon-track/dto/example/typhoon-track-${selectedCountry.countryCodeISO3}.json`;
+    const trackRaw = fs.readFileSync(trackFileName, 'utf-8');
+    const track = JSON.parse(trackRaw);
+
+    const mockLeadTime = LeadTime.hour72;
+
+    console.log(
+      `Seeding Typhoon track for leadtime: ${mockLeadTime} for country: ${selectedCountry.countryCodeISO3}`,
+    );
+    await this.typhoonTrackService.uploadTyphoonTrack({
+      countryCodeISO3: selectedCountry.countryCodeISO3,
+      leadTime: mockLeadTime as LeadTime,
+      trackpointDetails: track,
+    });
   }
 
   private async mockGlofasStations(
