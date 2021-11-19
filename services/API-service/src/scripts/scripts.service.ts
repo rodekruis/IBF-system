@@ -195,10 +195,19 @@ export class ScriptsService {
               dynamicIndicator: unit,
               adminLevel: adminLevel,
               disasterType: disasterType,
+              eventName: this.getEventName(disasterType),
             });
           }
         }
       }
+    }
+  }
+
+  private getEventName(disasterType: DisasterType): string {
+    if (disasterType === DisasterType.Typhoon) {
+      return 'Mock typhoon';
+    } else {
+      return null;
     }
   }
 

@@ -52,9 +52,10 @@ export class EventService {
   ): Promise<EventSummaryCountry> {
     const eventSummary = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
-      .select('area."countryCodeISO3"')
+      .select(['area."countryCodeISO3"', 'event."eventName"'])
       .leftJoin('event.adminArea', 'area')
       .groupBy('area."countryCodeISO3"')
+      .addGroupBy('event."eventName"')
       .addSelect([
         'to_char(MAX("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
@@ -375,6 +376,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
+    eventName: string,
   ): Promise<void> {
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
@@ -396,7 +398,12 @@ export class EventService {
     );
 
     // add new ones
-    await this.addNewEventAreas(countryCodeISO3, disasterType, adminLevel);
+    await this.addNewEventAreas(
+      countryCodeISO3,
+      disasterType,
+      adminLevel,
+      eventName,
+    );
 
     // close old events
     await this.closeEventsAutomatic(countryCodeISO3);
@@ -516,6 +523,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
+    eventName: string,
   ): Promise<void> {
     const affectedAreas = await this.getAffectedAreas(
       countryCodeISO3,
@@ -543,6 +551,7 @@ export class EventService {
         });
         const eventArea = new EventPlaceCodeEntity();
         eventArea.adminArea = adminArea;
+        eventArea.eventName = eventName;
         eventArea.actionsValue = +area.actionsValue;
         eventArea.startDate = new Date();
         eventArea.endDate = this.getEndDate(area.leadTime);

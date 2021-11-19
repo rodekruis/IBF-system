@@ -75,6 +75,7 @@ export class AdminAreaDynamicDataService {
         uploadExposure.countryCodeISO3,
         uploadExposure.disasterType,
         uploadExposure.adminLevel,
+        uploadExposure.eventName,
       );
     }
   }
