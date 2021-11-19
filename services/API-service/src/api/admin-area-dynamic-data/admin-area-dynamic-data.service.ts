@@ -101,7 +101,9 @@ export class AdminAreaDynamicDataService {
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
         date: new Date(),
-        timestamp: MoreThanOrEqual(this.helperService.getLast12hourInterval()),
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(uploadExposure.disasterType),
+        ),
       });
     } else {
       await this.adminAreaDynamicDataRepo.delete({

@@ -100,6 +100,12 @@ export class EventService {
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
+      .andWhere('timestamp >= :last12hourInterval', {
+        last12hourInterval: this.helperService.getLast12hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
+      })
       .getRawOne();
 
     return result.totalAffected;
@@ -111,7 +117,7 @@ export class EventService {
   ): Promise<DateDto> {
     const result = await this.triggerPerLeadTimeRepository.findOne({
       where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
-      order: { date: 'DESC' },
+      order: { timestamp: 'DESC' },
     });
     if (result) {
       return {
@@ -175,7 +181,11 @@ export class EventService {
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         date: new Date(),
-        timestamp: MoreThanOrEqual(this.helperService.getLast12hourInterval()),
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(
+            uploadTriggerPerLeadTimeDto.disasterType,
+          ),
+        ),
       });
     } else {
       await this.triggerPerLeadTimeRepository.delete({
@@ -299,6 +309,12 @@ export class EventService {
       where: {
         countryCodeISO3: countryCodeISO3,
         date: lastTriggeredDate.date,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(
+            disasterType,
+            lastTriggeredDate.timestamp,
+          ),
+        ),
         disasterType: disasterType,
       },
     });
@@ -408,6 +424,12 @@ export class EventService {
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
+      .andWhere('timestamp >= :last12hourInterval', {
+        last12hourInterval: this.helperService.getLast12hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
+      })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
@@ -439,6 +461,12 @@ export class EventService {
       .andWhere('value > 0')
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
+      })
+      .andWhere('timestamp >= :last12hourInterval', {
+        last12hourInterval: this.helperService.getLast12hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
       })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,

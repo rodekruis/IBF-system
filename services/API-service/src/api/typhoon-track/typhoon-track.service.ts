@@ -52,7 +52,9 @@ export class TyphoonTrackService {
       countryCodeISO3: uploadTyphoonTrack.countryCodeISO3,
       leadTime: uploadTyphoonTrack.leadTime,
       date: new Date(),
-      timestamp: MoreThanOrEqual(this.helperService.getLast12hourInterval()),
+      timestamp: MoreThanOrEqual(
+        this.helperService.getLast12hourInterval(DisasterType.Typhoon),
+      ),
     });
   }
 
@@ -71,7 +73,10 @@ export class TyphoonTrackService {
         countryCodeISO3: countryCodeISO3,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(lastTriggeredDate.date),
+          this.helperService.getLast12hourInterval(
+            DisasterType.Typhoon,
+            lastTriggeredDate.timestamp,
+          ),
         ),
       },
     });
