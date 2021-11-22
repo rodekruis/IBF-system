@@ -27,13 +27,10 @@ export class AdminAreaService {
     AdminAreaDynamicDataEntity
   >;
 
-  private helperService: HelperService;
-  private eventService: EventService;
-
-  public constructor(helperService: HelperService, eventService: EventService) {
-    this.helperService = helperService;
-    this.eventService = eventService;
-  }
+  public constructor(
+    private helperService: HelperService,
+    private eventService: EventService,
+  ) {}
 
   private async getTriggeredPlaceCodes(
     countryCodeISO3: string,
@@ -263,10 +260,56 @@ export class AdminAreaService {
           { placeCodes: placeCodes },
         );
       }
+    } else {
+      const placeCodesToShow = await this.getPlaceCodesToShow(
+        countryCodeISO3,
+        disasterType,
+        adminLevel,
+        leadTime,
+      );
+      if (placeCodesToShow.length) {
+        adminAreasScript = adminAreasScript.andWhere(
+          'area."placeCode" IN (:...placeCodes)',
+          { placeCodes: placeCodesToShow },
+        );
+      }
     }
     const adminAreas = await adminAreasScript.getRawMany();
 
     return this.helperService.toGeojson(adminAreas);
+  }
+
+  private async getPlaceCodesToShow(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    adminLevel: number,
+    leadTime: string,
+  ) {
+    if (leadTime === '{leadTime}') {
+      leadTime = await this.getDefaultLeadTime(countryCodeISO3, disasterType);
+    }
+    const lastTriggeredDate = await this.eventService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
+    const adminAreasToShow = await this.adminAreaDynamicDataRepo.find({
+      where: {
+        countryCodeISO3: countryCodeISO3,
+        disasterType: disasterType,
+        adminLevel: adminLevel,
+        leadTime: leadTime,
+        date: lastTriggeredDate.date,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(
+            disasterType,
+            lastTriggeredDate.timestamp,
+          ),
+        ),
+        indicator: DynamicIndicator.showAdminArea,
+        value: 1,
+      },
+    });
+    return adminAreasToShow.map(area => area.placeCode);
   }
 
   private async getDefaultLeadTime(
