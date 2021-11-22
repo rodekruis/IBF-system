@@ -1,4 +1,4 @@
-# Features
+# Table of Contents
 
 <!-- TOC: -->
 
@@ -15,45 +15,25 @@
 
 ## All features / scenario's
 
-Features of the IBF-portal are described in this folder in a standardizes way using the [Gherkin-language](https://cucumber.io/docs/gherkin/).
+IMPORTANT: 
+- A major distinction in every feature is whether the Portal is in TRIGGERED or NON-TRIGGERED mode.
+- These distinctions are made within each file.
+- In practice there can be a 3rd more rare scenario: OLD-EVENT. Where not further specified, this falls under NON-TRIGGERED.
 
 ### For IBF-portal user
 
-- [Use Log in page](IBF-portal-user/Use_login_page.feature)
-- IBF-dashboard page
-    - [Use header section](IBF-portal-user/dashboard-page/Use_header_section.feature)
-    - [Situational Overview section](IBF-portal-user/dashboard-page/Use_header_section.feature)
-      - View
-    - [Chat section](IBF-portal-user/dashboard-page/Use_chat_section.feature)
-      - View section
-      - Switch Disaster Type
-      - Click about trigger
-      - Click video guide
-      - Actions per triggered area
-        - View
-        - Check EAP-action
-        - Close event
-    - [Aggregate section](IBF-portal-user/dashboard-page/Use_aggregate_section.feature)
-      - View
-      - Click info buttons
-    - [Area of Focus summary](IBF-portal-user/dashboard-page/Use_area_of_focus_section.feature)
-      - View
-    - [Timeline section](IBF-portal-user/dashboard-page/Use_timeline_section.feature)
-      - View
-      - Switch leadtime
-    - [Admin-level section](IBF-portal-user/dashboard-page/Use_admin_level_section.feature)
-      - View
-      - Switch admin-level
-    - [Map section](IBF-portal-user/dashboard-page/Use_map_section.feature)
-      - View
-      - Click admin-area
-      - Click on point-layer markers
-      - Zoom in to a marker-cluster layer
-      - Toggle matrix section
-    - [Matrix section](IBF-portal-user/dashboard-page/Use_matrix_section.feature)
-      - View
-      - Toggle layer
-      - Click info button
+- Log-in page
+    - [Use Log in page](IBF-portal-user/Use_login_page.feature)
+- IBF-portal page
+    - [Use Header section](IBF-portal-user/dashboard-page/Use_header_section.feature)
+    - [Use Situational Overview section](IBF-portal-user/dashboard-page/Use_situational_overview_section.feature)
+    - [Use Chat section](IBF-portal-user/dashboard-page/Use_chat_section.feature)
+    - [Use Aggregate section](IBF-portal-user/dashboard-page/Use_aggregate_section.feature)
+    - [View Area-of-focus summary](IBF-portal-user/dashboard-page/View_area_of_focus_section.feature)
+    - [Use Timeline section](IBF-portal-user/dashboard-page/Use_timeline_section.feature)
+    - [Use Admin-level section](IBF-portal-user/dashboard-page/Use_admin_level_section.feature)
+    - [Use Map section](IBF-portal-user/dashboard-page/Use_map_section.feature)
+    - [Use Layers section](IBF-portal-user/dashboard-page/Use_layers_section.feature)
 
 
 ### For Dashboard admin-user
@@ -65,11 +45,15 @@ Features of the IBF-portal are described in this folder in a standardizes way us
 From Swagger UI:
 
 - Create user
+- Update static data
 
 
 ### For external pipeline user
 
-- Upload dynamic data
+- Run external pipeline
+  - Upload data
+  - Create and send email
+  - 
   - (Email and how it looks is part of this "scenario")
 
 
