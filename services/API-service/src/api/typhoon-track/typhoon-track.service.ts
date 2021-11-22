@@ -50,7 +50,6 @@ export class TyphoonTrackService {
   ): Promise<void> {
     await this.typhoonTrackRepository.delete({
       countryCodeISO3: uploadTyphoonTrack.countryCodeISO3,
-      leadTime: uploadTyphoonTrack.leadTime,
       date: new Date(),
       timestamp: MoreThanOrEqual(
         this.helperService.getLast12hourInterval(DisasterType.Typhoon),
