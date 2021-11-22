@@ -139,8 +139,9 @@ export class EventService {
     const triggersPerLeadTime: TriggerPerLeadTime[] = [];
     const timestamp = new Date();
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
-      // Delete duplicates
+      // Delete existing entries in case of a re-run of the pipeline for some reason
       await this.deleteDuplicates(uploadTriggerPerLeadTimeDto, leadTime);
+
       const triggerPerLeadTime = new TriggerPerLeadTime();
       triggerPerLeadTime.date = new Date();
       triggerPerLeadTime.timestamp = timestamp;
@@ -177,9 +178,9 @@ export class EventService {
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else if (leadTime.includes(LeadTimeUnit.hour)) {
+      // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
       await this.triggerPerLeadTimeRepository.delete({
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
-        leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         date: new Date(),
         timestamp: MoreThanOrEqual(

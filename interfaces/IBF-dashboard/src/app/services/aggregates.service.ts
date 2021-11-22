@@ -170,6 +170,13 @@ export class AggregatesService {
     placeCode: string,
     numberFormat: NumberFormat,
   ): number {
+    if (
+      this.disasterType &&
+      this.indicators.find((i) => i.name === this.disasterType.actionsUnit)
+        .numberFormatAggregate === NumberFormat.perc
+    ) {
+      weightedAverage = false;
+    }
     let aggregateValue = this.aggregates.reduce(
       this.aggregateReducer(weightedAverage, indicator, placeCode),
       0,
@@ -183,7 +190,6 @@ export class AggregatesService {
     ) {
       aggregateValue = aggregateValue / this.aggregates.length;
     }
-
     return aggregateValue;
   }
 
@@ -196,7 +202,7 @@ export class AggregatesService {
 
     if (placeCode === null || placeCode === aggregate.placeCode) {
       const indicatorWeight = weightedAverage
-        ? aggregate[this.country.disasterTypes[0].actionsUnit]
+        ? aggregate[this.disasterType.actionsUnit]
         : 1;
       indicatorValue = indicatorWeight * aggregate[indicator];
     }

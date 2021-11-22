@@ -1,19 +1,19 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class TrackpointDetailsDto {
   @ApiProperty({ example: 90.0 })
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   public lat: string;
 
   @ApiProperty({ example: 90.0 })
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   public lon: string;
 
   @ApiProperty({ example: new Date() })
   @IsNotEmpty()
-  @IsNumber()
+  @IsString()
   public timestampOfTrackpoint: Date;
 }

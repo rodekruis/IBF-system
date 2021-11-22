@@ -34,7 +34,7 @@ export class AdminAreaDynamicDataService {
   public async exposure(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
-    // Delete existing entries with same date, leadtime and countryCodeISO3 and unit type
+    // Delete existing entries in case of a re-run of the pipeline for some reason
     await this.deleteDynamicDuplicates(uploadExposure);
 
     const areas = [];
@@ -95,10 +95,10 @@ export class AdminAreaDynamicDataService {
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else if (uploadExposure.leadTime.includes(LeadTimeUnit.hour)) {
+      // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
       await this.adminAreaDynamicDataRepo.delete({
         indicator: uploadExposure.dynamicIndicator,
         countryCodeISO3: uploadExposure.countryCodeISO3,
-        leadTime: uploadExposure.leadTime,
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
         date: new Date(),
