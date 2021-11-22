@@ -1,3 +1,18 @@
+# [0.106.0](https://github.com/rodekruis/IBF-system/compare/v0.105.0...v0.106.0) (2021-11-22)
+
+
+### Bug Fixes
+
+* track upload format AB[#10840](https://github.com/rodekruis/IBF-system/issues/10840) ([19d6b19](https://github.com/rodekruis/IBF-system/commit/19d6b19e7ad7834437a7af50768089b110181294))
+
+
+### Features
+
+* also overwrite existing data with different leadtime for typhoon AB[#10836](https://github.com/rodekruis/IBF-system/issues/10836) ([67910e1](https://github.com/rodekruis/IBF-system/commit/67910e1a66786697b4d6839ed1ed907522932fde))
+* change exposure indicators typhoon AB[#10840](https://github.com/rodekruis/IBF-system/issues/10840) ([63607ef](https://github.com/rodekruis/IBF-system/commit/63607ef5b5356db95aa8ddce593cb04961b1c71e))
+
+
+
 # [0.105.0](https://github.com/rodekruis/IBF-system/compare/v0.104.0...v0.105.0) (2021-11-19)
 
 
@@ -126,33 +141,6 @@
 ### Bug Fixes
 
 * startdate if no event AB[#10349](https://github.com/rodekruis/IBF-system/issues/10349) ([66caf7b](https://github.com/rodekruis/IBF-system/commit/66caf7b40c2b688b04b051d8fdd1d7291b624495))
-
-
-
-# [0.101.0](https://github.com/rodekruis/IBF-system/compare/v0.100.2...v0.101.0) (2021-10-25)
-
-
-### Bug Fixes
-
-* changes AB[#10212](https://github.com/rodekruis/IBF-system/issues/10212) ([324e52b](https://github.com/rodekruis/IBF-system/commit/324e52b65c0d1c20c4cf6d9e07feebfdaa3a424a))
-* chat-component-and-lint  AB[#8806](https://github.com/rodekruis/IBF-system/issues/8806) ([b4609d5](https://github.com/rodekruis/IBF-system/commit/b4609d576e25a4a497fec55e9a39270ee3fca1bd))
-* lint ([bd34c27](https://github.com/rodekruis/IBF-system/commit/bd34c27730563dbe6b057421dda3505636d239aa))
-* lint ([3d953be](https://github.com/rodekruis/IBF-system/commit/3d953bebe15da14d9bb05766cc7e820eb2f6c1fa))
-* lint AB[#10238](https://github.com/rodekruis/IBF-system/issues/10238) ([e22a53a](https://github.com/rodekruis/IBF-system/commit/e22a53a921cce3303fe29bb225496d1eee2401ab))
-* speech-arrow AB[#10212](https://github.com/rodekruis/IBF-system/issues/10212) ([67aebf0](https://github.com/rodekruis/IBF-system/commit/67aebf051c78fce007c9dd24d0275435e01336e6))
-* update AB[#10212](https://github.com/rodekruis/IBF-system/issues/10212) ([9762ecd](https://github.com/rodekruis/IBF-system/commit/9762ecd95b4ea8e90fd7acf1420b45434696d919))
-* update on comments AB[#10212](https://github.com/rodekruis/IBF-system/issues/10212) ([852ee6e](https://github.com/rodekruis/IBF-system/commit/852ee6e3144fb215d7bb3423ee7197ff5fe2c4aa))
-
-
-### Features
-
-* AB[#10212](https://github.com/rodekruis/IBF-system/issues/10212) ([aad42d9](https://github.com/rodekruis/IBF-system/commit/aad42d9ccb43b8508b75272e36f95a448d1209a8))
-* added error message AB[#10164](https://github.com/rodekruis/IBF-system/issues/10164) ([652fa11](https://github.com/rodekruis/IBF-system/commit/652fa11890dd709d91eb235c8e2da3b97d78b296))
-* added message accroding to lastModelRunDateTIme AB[#8806](https://github.com/rodekruis/IBF-system/issues/8806) ([daf81fa](https://github.com/rodekruis/IBF-system/commit/daf81fa16ca18f4a483e98cf7b1ce13ef7639b0f))
-* allow monthly frequency AB[#10308](https://github.com/rodekruis/IBF-system/issues/10308) ([f68ece4](https://github.com/rodekruis/IBF-system/commit/f68ece44efbd716e40df872e713d06a0d8eaa7ac))
-* changes in class AB[#10164](https://github.com/rodekruis/IBF-system/issues/10164) ([bc3b465](https://github.com/rodekruis/IBF-system/commit/bc3b4650e3896567d1f0f7f10d000d7621c71ddc))
-* format lastmodelrun-date AB[#10309](https://github.com/rodekruis/IBF-system/issues/10309) ([f5eba04](https://github.com/rodekruis/IBF-system/commit/f5eba041ce28c7bd1671c4947c75bc3c02736e50))
-* save upload-time as well AB[#10213](https://github.com/rodekruis/IBF-system/issues/10213) ([fd98e13](https://github.com/rodekruis/IBF-system/commit/fd98e13f87575e7f47c6627376c86a475f2a1e3b))
 
 
 
