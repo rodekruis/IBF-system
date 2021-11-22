@@ -156,6 +156,10 @@ export class AdminAreaDynamicDataService {
     indicator: DynamicIndicator,
     disasterType: DisasterType,
   ): Promise<AdminDataReturnDto[]> {
+    const lastTriggeredDate = await this.eventService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .where({
@@ -164,6 +168,10 @@ export class AdminAreaDynamicDataService {
         leadTime: leadTime,
         indicator: indicator,
         disasterType: disasterType,
+        date: lastTriggeredDate.date,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(disasterType),
+        ),
       })
       .select(['dynamic.value AS value', 'dynamic.placeCode AS "placeCode"'])
       .orderBy('dynamic.date', 'DESC')

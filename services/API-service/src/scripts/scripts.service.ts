@@ -142,6 +142,7 @@ export class ScriptsService {
         DynamicIndicator.rainfall,
         DynamicIndicator.housesAffected,
         DynamicIndicator.probWithin50Km,
+        DynamicIndicator.showAdminArea,
         DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
       ];
     } else {
