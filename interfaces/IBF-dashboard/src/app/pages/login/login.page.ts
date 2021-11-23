@@ -7,6 +7,10 @@ import {
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { VideoPopoverComponent } from 'src/app/components/video-popover/video-popover.component';
 import { environment } from 'src/environments/environment';
+import { Country } from 'src/app/models/country.model';
+import { CountryService } from 'src/app/services/country.service';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-login',
@@ -15,15 +19,24 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginPage implements OnInit {
   public version: string = environment.ibfSystemVersion;
+  public country: Country;
+  public countrySubscription: Subscription;
 
   constructor(
     private popoverController: PopoverController,
     private analyticsService: AnalyticsService,
+    public countryService: CountryService,
   ) {}
 
   ngOnInit() {
     this.analyticsService.logPageView(AnalyticsPage.login);
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe(this.onCountryChange);
   }
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+  };
 
   async presentPopover(): Promise<void> {
     const popover = await this.popoverController.create({

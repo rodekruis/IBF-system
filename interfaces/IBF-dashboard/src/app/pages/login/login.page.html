@@ -5,21 +5,27 @@
         <ion-icon name="apps" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title
+    <span class="ion-float-start">
+      <ion-title
+        class="center-heading"
+        size="medium"
+        data-test="heading-display-name-label"
+      >
+        <span>
+          IBF PORTAL <strong>{{ country?.countryName }}</strong>
+        </span>
+      </ion-title>
+    </span>
+    <ion-buttons slot="end"
+      style="border-radius: 25px;"
+      size="small"
+      fill="solid"
+      
+    >
+      <ion-title
       [translate]="'login-page.title'"
       data-test="page-title"
     ></ion-title>
-    <ion-buttons slot="end">
-      <ion-button
-        href="https://github.com/rodekruis/IBF-system/releases/tag/{{
-          version
-        }}"
-        [title]="('common.version' | translate) + ' ' + version"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        {{ version }}
-      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
