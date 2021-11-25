@@ -128,6 +128,13 @@ export class ApiService {
     return this.get(`glofas-stations/${countryCodeISO3}/${leadTime}`, false);
   }
 
+  getTyphoonTracks(
+    countryCodeISO3: string,
+    leadTime: LeadTime = LeadTime.day7,
+  ): Observable<GeoJSON.FeatureCollection> {
+    return this.get(`glofas-stations/${countryCodeISO3}/${leadTime}`, false);
+  }
+
   getRedCrossBranches(
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {

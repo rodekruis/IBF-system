@@ -50,6 +50,7 @@ export enum IbfLayerType {
 
 export enum IbfLayerName {
   glofasStations = 'glofas_stations',
+  typhoonTracks = 'typhoon_tracks',
   redCrossBranches = 'red_cross_branches',
   redCrescentBranches = 'red_crescent_branches',
   waterpoints = 'waterpoints',
@@ -102,6 +103,7 @@ export enum IbfLayerName {
 
 export enum IbfLayerLabel {
   glofasStations = 'Glofas stations',
+  typhoonTracks = 'Typhoon tracks',
   redCrossBranches = 'Red Cross branches',
   redCrescentBranches = 'Red Crescent branches',
   waterpoints = 'Waterpoints',

@@ -2,6 +2,8 @@
 export class Station {
   stationName: string;
   stationCode: string;
+  typhoonTrackName: string;
+  typhoonTrackCode: string;
   triggerLevel: number;
   forecastLevel: number;
   forecastTrigger: number;
@@ -9,6 +11,19 @@ export class Station {
   forecastReturnPeriod: number;
 }
 
+export class TyphoonTrack {
+  date: Date;
+  timestamp: Date;
+  timestampOfTrackpoint: Date;
+  // typhoonTrackName: string;
+  // typhoonTrackCode: string;
+  // triggerLevel: number;
+  // forecastLevel: number;
+  // forecastTrigger: number;
+  // forecastProbability: number;
+  // forecastReturnPeriod: number;
+ 
+}
 export class RedCrossBranch {
   name: string;
   numberOfVolunteers: number;

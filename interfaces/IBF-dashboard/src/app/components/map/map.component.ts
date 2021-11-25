@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
+import { dateNow } from '@microsoft/applicationinsights-core-js';
 import {
   Control,
   divIcon,
@@ -30,6 +31,7 @@ import {
   LEAFLET_MAP_OPTIONS,
   LEAFLET_MAP_URL_TEMPLATE,
   LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  // LEAFLET_MARKER_ICON_OPTIONS_TYPHOON_TRACK,
   LEAFLET_MARKER_ICON_OPTIONS_DAM,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL,
@@ -47,6 +49,7 @@ import {
   HealthSiteType,
   RedCrossBranch,
   Station,
+  TyphoonTrack,
   Waterpoint,
 } from 'src/app/models/poi.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -345,6 +348,11 @@ export class MapComponent implements OnDestroy {
       case IbfLayerName.redCrossBranches:
         return this.createMarkerRedCrossBranch(
           geoJsonPoint.properties as RedCrossBranch,
+          latlng,
+        );
+        case IbfLayerName.typhoonTracks:
+        return this.createMarkerTyphoonTrack(
+          geoJsonPoint.properties as TyphoonTrack,
           latlng,
         );
       case IbfLayerName.damSites:
@@ -693,6 +701,16 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
+  // private createMarkerTyphoonTrack(markerLatLng: LatLng): Marker {
+  //   const markerInstance = marker(markerLatLng, {
+  //     icon: icon(LEAFLET_MARKER_ICON_OPTIONS_TYPHOON_TRACK),
+  //   });
+
+  //   markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.mapMarker));
+
+  //   return markerInstance;
+  // }
+
   private createMarkerStation(
     markerProperties: Station,
     markerLatLng: LatLng,
@@ -740,6 +758,56 @@ export class MapComponent implements OnDestroy {
 
     return markerInstance;
   }
+
+
+  private createMarkerTyphoonTrack(
+    markerProperties: TyphoonTrack,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.date;
+    let markerIcon: IconOptions;
+    let className: string;
+
+    const eapAlertClasses =
+      (this.country &&
+        this.country.countryDisasterSettings.find(
+          (s) => s.disasterType === this.disasterType.disasterType,
+        ).eapAlertClasses) ||
+      ({} as EapAlertClasses);
+
+    const typhoonTrackProbability = markerProperties.timestamp;
+    Object.keys(eapAlertClasses).forEach((key) => {
+      if (
+        typhoonTrackProbability >= eapAlertClasses[key].valueLow &&
+        typhoonTrackProbability < eapAlertClasses[key].valueHigh
+      ) {
+        markerIcon = {
+          ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+          iconSize: [25, 41],
+          iconUrl: 'assets/markers/glofas-' + key + '.png',
+          iconRetinaUrl: 'assets/markers/glofas-' + key + '.png',
+        };
+        className = 'trigger-popup-' + key;
+      }
+    });
+
+    const markerInstance = marker(markerLatLng, {
+      icon: markerIcon ? icon(markerIcon) : divIcon(),
+      zIndexOffset: 700,
+    });
+    markerInstance.bindPopup(this.createMarkerTyphoonTrackPopup(markerProperties), {
+      minWidth: 300,
+      className,
+    });
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.typhoonTrack),
+    );
+
+    return markerInstance;
+  }
+
+ 
 
   private createMarkerRedCrossBranch(
     markerProperties: RedCrossBranch,
@@ -884,6 +952,85 @@ export class MapComponent implements OnDestroy {
       thresholdName,
     );
     return stationInfoPopup;
+  }
+
+  // private createMarkerTyphoonTrackPopup(markerProperties: TyphoonTrack): string {
+  //   const eapAlertClasses =
+  //     (this.country &&
+  //       this.country.countryDisasterSettings.find(
+  //         (s) => s.disasterType === this.disasterType.disasterType,
+  //       ).eapAlertClasses) ||
+  //     ({} as EapAlertClasses);
+  //   const typhoonTrackProbability = markerProperties.forecastProbability;
+
+  //   let eapStatusText: string;
+  //   let eapStatusColor: string;
+  //   let eapStatusColorText: string;
+  //   Object.keys(eapAlertClasses).forEach((key) => {
+  //     if (
+  //       typhoonTrackProbability >= eapAlertClasses[key].valueLow &&
+  //       typhoonTrackProbability < eapAlertClasses[key].valueHigh
+  //     ) {
+  //       eapStatusText = eapAlertClasses[key].label;
+  //       eapStatusColor = `var(--ion-color-${eapAlertClasses[key].color})`;
+  //       eapStatusColorText = `var(--ion-color-${eapAlertClasses[key].color}-contrast)`;
+  //     }
+  //   });
+
+  //   const title =
+  //     markerProperties.typhoonTrackCode +
+  //     ' TYPHOONTRACK: ' +
+  //     markerProperties.typhoonTrackName;
+
+  //   let lastAvailableLeadTime: LeadTime;
+  //   if (this.country) {
+  //     const leadTimes = this.country.countryDisasterSettings.find(
+  //       (s) => s.disasterType === this.disasterType.disasterType,
+  //     ).activeLeadTimes;
+  //     lastAvailableLeadTime = leadTimes[leadTimes.length - 1];
+  //   }
+
+  //   const leadTime =
+  //     this.timelineService.activeLeadTime || lastAvailableLeadTime;
+  //   const subtitle = `${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
+  //         ${
+  //           markerProperties.forecastReturnPeriod
+  //             ? `<br>This corresponds to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years`
+  //             : ''
+  //         }`;
+
+  //   const thresholdName = 'Trigger activation threshold';
+  //   const typhoonTrackInfoPopup = this.createThresholdPopup(
+  //     eapStatusColorText,
+  //     title,
+  //     eapStatusColor,
+  //     eapStatusText,
+  //     markerProperties.forecastLevel,
+  //     markerProperties.triggerLevel,
+  //     subtitle,
+  //     thresholdName,
+  //   );
+  //   return typhoonTrackInfoPopup;
+  // }
+
+  private createMarkerTyphoonTrackPopup(markerProperties: TyphoonTrack): string {
+    const branchInfoPopup = (
+      '<div style="margin-bottom: 5px">' +
+      '<strong>Branch: ' +
+      markerProperties.date +
+      '</strong>' +
+      '</div>'
+    ).concat(
+      '<div style="margin-bottom: 5px">' +
+        'timestamp : ' +
+        markerProperties.date +
+        '</div>',
+      // '<div style="margin-bottom: 5px">' +
+      //   'timestampOfTrackpoint: ' +
+      //   (Math.round(markerProperties.fullSupply).toLocaleString() || '') +
+      //   ' million m<sup>3</sup></div>',
+    );
+    return branchInfoPopup;
   }
 
   private createMarkerRedCrossPopup(markerProperties: RedCrossBranch): string {

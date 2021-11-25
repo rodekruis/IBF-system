@@ -29,6 +29,7 @@ import disasters from './json/disasters.json';
 
 import SeedAdminArea from './seed-admin-area';
 import SeedGlofasStation from './seed-glofas-station';
+import SeedTyphoonTrack from './seed-typhoon-track';
 import { SeedHelper } from './seed-helper';
 import { SeedHealthSites } from './seed-health-sites';
 import { SeedDamData } from './seed-dam-data';
@@ -301,7 +302,12 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed Glofas Stations...');
     const seedGlofasStation = new SeedGlofasStation(this.connection);
     await seedGlofasStation.run();
-  }
+
+    // ***** SEED TYPHOON-TRACK DATA *****
+    console.log('Seed Typhoon Track...');
+    const seedTyphoonTrack = new SeedTyphoonTrack(this.connection);
+    await seedTyphoonTrack.run();
+      }
 
   private async createNotificationInfo(
     countryCodeISO3: string,

@@ -19,6 +19,14 @@ export const LEAFLET_MARKER_ICON_OPTIONS_BASE: IconOptions = {
   iconRetinaUrl: 'assets/markers/glofas-no.svg',
 };
 
+// export const LEAFLET_MARKER_ICON_OPTIONS_BASE: IconOptions = {
+//   iconSize: [25, 41],
+//   iconAnchor: [13, 41],
+//   popupAnchor: [0, -30],
+//   iconUrl: 'assets/markers/glofas-no.svg',
+//   iconRetinaUrl: 'assets/markers/glofas-no.svg',
+// };
+
 export const LEAFLET_MARKER_ICON_OPTIONS_DAM: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
   iconSize: [20, 33],
