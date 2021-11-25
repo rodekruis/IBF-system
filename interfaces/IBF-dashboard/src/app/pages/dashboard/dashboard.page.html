@@ -98,7 +98,10 @@
             class="component-title ion-justify-content-start ion-align-items-start"
             data-test="dashboard-title"
           >
-            <ion-col size="12">
+            <ion-col 
+            class="ion-no-padding"
+            class="shadow"
+            >
               <ion-item
                 lines="none"
                 class="component-title-item"
@@ -106,23 +109,34 @@
               >
                 <ion-button
                   slot="start"
-                  class="ion-margin-end today-button"
-                  [disabled]="true"
+                  class="ion-no-margin today-button"
                   color="ibf-white"
                 >
                   <app-disaster-type></app-disaster-type>
-
-                  <span
+                </ion-button>
+                <ion-button 
+                  slot="start"
+                  class="today-button ion-no-margin"
+                  [disabled]="true"
+                  color="ibf-white"
+                    >
+                    <span
                     class="today"
                     [translate]="'dashboard-page.today'"
-                  ></span>
+                    >
+                    </span>
                 <app-date-button></app-date-button>
-
-                </ion-button>
-                <ion-thumbnail
+                <!-- <ion-button
                   slot="start"
-                  class="component-title-thumbnail"
-                ></ion-thumbnail>
+                  class="today-button ion-no-margin"
+                  [disabled]="true"
+                  color="ibf-white"
+                > -->
+                  <app-timeline 
+                  class="button-border-line"
+                  ></app-timeline>
+                <!-- </ion-button> -->
+              </ion-button>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -162,7 +176,7 @@
             </ion-col>
           </ion-row>
         </ion-col>
-
+        
         <ion-col
           sizeXs="12"
           sizeMd="7"
@@ -170,11 +184,13 @@
           sizeXl="7"
           class="ibf-dashboard-right-column ion-no-padding"
         >
-          <ion-row class="component-title">
-            <ion-col>
-              <app-timeline></app-timeline>
+            <ion-row>
+            <ion-col> 
+            <br />
+            <br />
+            <br />
             </ion-col>
-          </ion-row>
+            </ion-row>
           <ion-row class="component-content">
             <ion-col>
               <app-matrix></app-matrix>
