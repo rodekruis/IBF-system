@@ -98,10 +98,7 @@
             class="component-title ion-justify-content-start ion-align-items-start"
             data-test="dashboard-title"
           >
-            <ion-col 
-            class="ion-no-padding"
-            class="shadow"
-            >
+            <ion-col class="ion-no-padding" class="shadow">
               <ion-item
                 lines="none"
                 class="component-title-item"
@@ -114,7 +111,7 @@
                 >
                   <app-disaster-type></app-disaster-type>
                 </ion-button>
-                <ion-button 
+                <ion-button
                   slot="start"
                   class="today-button ion-no-margin"
                   [disabled]="true"
@@ -135,7 +132,7 @@
             </ion-col>
           </ion-row>
         </ion-col>
-        
+
         <ion-col
           sizeXs="12"
           sizeMd="9"
@@ -144,7 +141,7 @@
           class="ibf-dashboard-right-column ion-no-padding"
         >
           <ion-row>
-            <ion-col> 
+            <ion-col>
               <app-timeline class="button-border-line"></app-timeline>
             </ion-col>
           </ion-row>
@@ -173,12 +170,7 @@
                 </ion-grid>
               </ion-content>
             </ion-col>
-            <ion-col 
-              sizeXs="12"
-              sizeMd="9"
-              sizeLg="9"
-              sizeXl="9"
-            >
+            <ion-col sizeXs="12" sizeMd="9" sizeLg="9" sizeXl="9">
               <app-matrix></app-matrix>
               <ion-content id="ibf-dashboard-map">
                 <app-map-controls></app-map-controls>

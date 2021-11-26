@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { VideoPopoverComponent } from 'src/app/components/video-popover/video-popover.component';
-import { environment } from 'src/environments/environment';
 import { Country } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
-import { Subscription } from 'rxjs';
-
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
