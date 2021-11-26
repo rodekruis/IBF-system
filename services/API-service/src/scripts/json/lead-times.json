@@ -693,5 +693,245 @@
     "leadTimeName": "120-hour",
     "leadTimeLabel": "120-hour",
     "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "121-hour",
+    "leadTimeLabel": "121-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "122-hour",
+    "leadTimeLabel": "122-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "123-hour",
+    "leadTimeLabel": "123-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "124-hour",
+    "leadTimeLabel": "124-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "125-hour",
+    "leadTimeLabel": "125-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "126-hour",
+    "leadTimeLabel": "126-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "127-hour",
+    "leadTimeLabel": "127-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "128-hour",
+    "leadTimeLabel": "128-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "129-hour",
+    "leadTimeLabel": "129-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "130-hour",
+    "leadTimeLabel": "130-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "131-hour",
+    "leadTimeLabel": "131-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "132-hour",
+    "leadTimeLabel": "132-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "133-hour",
+    "leadTimeLabel": "133-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "134-hour",
+    "leadTimeLabel": "134-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "135-hour",
+    "leadTimeLabel": "135-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "136-hour",
+    "leadTimeLabel": "136-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "137-hour",
+    "leadTimeLabel": "137-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "138-hour",
+    "leadTimeLabel": "138-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "139-hour",
+    "leadTimeLabel": "139-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "140-hour",
+    "leadTimeLabel": "140-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "141-hour",
+    "leadTimeLabel": "141-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "142-hour",
+    "leadTimeLabel": "142-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "143-hour",
+    "leadTimeLabel": "143-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "144-hour",
+    "leadTimeLabel": "144-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "145-hour",
+    "leadTimeLabel": "145-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "146-hour",
+    "leadTimeLabel": "146-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "147-hour",
+    "leadTimeLabel": "147-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "148-hour",
+    "leadTimeLabel": "148-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "149-hour",
+    "leadTimeLabel": "149-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "150-hour",
+    "leadTimeLabel": "150-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "151-hour",
+    "leadTimeLabel": "151-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "152-hour",
+    "leadTimeLabel": "152-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "153-hour",
+    "leadTimeLabel": "153-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "154-hour",
+    "leadTimeLabel": "154-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "155-hour",
+    "leadTimeLabel": "155-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "156-hour",
+    "leadTimeLabel": "156-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "157-hour",
+    "leadTimeLabel": "157-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "158-hour",
+    "leadTimeLabel": "158-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "159-hour",
+    "leadTimeLabel": "159-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "160-hour",
+    "leadTimeLabel": "160-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "161-hour",
+    "leadTimeLabel": "161-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "162-hour",
+    "leadTimeLabel": "162-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "163-hour",
+    "leadTimeLabel": "163-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "164-hour",
+    "leadTimeLabel": "164-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "165-hour",
+    "leadTimeLabel": "165-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "166-hour",
+    "leadTimeLabel": "166-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "167-hour",
+    "leadTimeLabel": "167-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
+    "leadTimeName": "168-hour",
+    "leadTimeLabel": "168-hour",
+    "disasterTypes": ["typhoon"]
   }
 ]
