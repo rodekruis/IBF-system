@@ -67,7 +67,7 @@ export class UserStateComponent implements OnInit {
   }
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
-    this.disasterType = disasterType?.disasterType?.toUpperCase();
+    this.disasterType = disasterType?.disasterType;
   };
 
   public doLogout() {
