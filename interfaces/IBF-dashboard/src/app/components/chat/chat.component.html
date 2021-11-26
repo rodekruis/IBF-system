@@ -49,7 +49,8 @@
                 leadTime: eventService.state.firstLeadTimeLabel,
                 timeUnit: eventService.state.timeUnit,
                 disasterTypeLabel: disasterTypeLabel,
-                monthYear: eventService.state.firstLeadTimeName
+                monthYear: eventService.state.firstLeadTimeName,
+                eventName: eventService.state.event.eventName
               }
       "
     ></p>
@@ -70,7 +71,8 @@
             : {
                 name: authService.displayName,
                 startDate: eventService.state.event.startDate,
-                endDate: eventService.state.event.endDate
+                endDate: eventService.state.event.endDate,
+                eventName: eventService.state.event.eventName
               }
       "
     ></p>

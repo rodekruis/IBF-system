@@ -10,6 +10,7 @@ import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { HelperService } from '../../shared/helper.service';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { DisasterEntity } from '../disaster/disaster.entity';
     ]),
   ],
   controllers: [EventController],
-  providers: [EventService],
+  providers: [EventService, HelperService],
   exports: [EventService],
 })
 export class EventModule {}

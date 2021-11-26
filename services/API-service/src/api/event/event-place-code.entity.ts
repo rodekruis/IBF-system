@@ -30,6 +30,9 @@ export class EventPlaceCodeEntity {
   })
   public disasterType: string;
 
+  @Column({ nullable: true })
+  public eventName: string;
+
   @Column({ type: 'timestamp' })
   public startDate: Date;
 

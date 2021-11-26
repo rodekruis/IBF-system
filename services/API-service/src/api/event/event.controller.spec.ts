@@ -16,6 +16,7 @@ import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EapActionEntity } from '../eap-actions/eap-action.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { HelperService } from '../../shared/helper.service';
 
 describe('EventController', (): void => {
   let controller: EventController;
@@ -29,6 +30,7 @@ describe('EventController', (): void => {
           CountryService,
           UserService,
           EapActionsService,
+          HelperService,
           {
             provide: getRepositoryToken(UserEntity),
             useFactory: repositoryMockFactory,

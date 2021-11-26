@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   ValidateNested,
 } from 'class-validator';
@@ -47,4 +48,9 @@ export class UploadAdminAreaDynamicDataDto {
   @IsEnum(DisasterType)
   @IsString()
   public disasterType: DisasterType;
+
+  @ApiProperty({ example: 'Typhoon name' })
+  @IsOptional()
+  @IsString()
+  public eventName: string;
 }

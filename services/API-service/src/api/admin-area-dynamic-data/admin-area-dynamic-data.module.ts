@@ -9,6 +9,7 @@ import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { EventModule } from '../event/event.module';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { CountryEntity } from '../country/country.entity';
+import { HelperService } from '../../shared/helper.service';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { CountryEntity } from '../country/country.entity';
     EventModule,
     CountryModule,
   ],
-  providers: [AdminAreaDynamicDataService],
+  providers: [AdminAreaDynamicDataService, HelperService],
   controllers: [AdminAreaDynamicDataController],
   exports: [AdminAreaDynamicDataService],
 })

@@ -43,14 +43,29 @@ export class EventService {
   }
 
   private onCountryChange = (country: Country) => {
+    this.resetState();
     this.country = country;
     this.getTrigger();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.resetState();
     this.disasterType = disasterType;
     this.getTrigger();
   };
+
+  private resetState() {
+    this.state = {
+      event: null,
+      activeEvent: null,
+      activeTrigger: null,
+      triggerLeadTime: null,
+      firstLeadTime: null,
+      firstLeadTimeLabel: null,
+      firstLeadTimeName: null,
+      timeUnit: null,
+    };
+  }
 
   public getTrigger() {
     if (this.country && this.disasterType) {
