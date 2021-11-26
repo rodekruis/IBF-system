@@ -24,7 +24,7 @@ Features of the IBF-portal are described in this folder in a standardizes way us
     - [Use header section](IBF-portal-user/dashboard-page/Use_header_section.feature)
     - [Situational Overview section](IBF-portal-user/dashboard-page/Use_header_section.feature)
       - View
-    - [Chat section](IBF-portal-user/dashboard-page/Use_chat_section.feature)
+    - [Chat section](IBF-portal-user/dashboard-page/Use_chat_section/Use_chat_section.feature)
       - View section
       - Switch Disaster Type
       - Click about trigger
@@ -33,6 +33,16 @@ Features of the IBF-portal are described in this folder in a standardizes way us
         - View
         - Check EAP-action
         - Close event
+
+          - - [All disaster Which disaaster type is present for specific country](IBF-portal-user/dashboard-page/Use_chat_section/All-disaster-types)
+          - [floods](IBF-portal-user/dashboard-page/Use_chat_section/All-disaster-types/floods)
+          - [malaria](IBF-portal-user/dashboard-page/Use_chat_section/All-disaster-types/malaria)
+          - [dengue](IBF-portal-user/dashboard-page/Use_chat_section/All-disaster-types/dengue)
+          - [heavy rainfall](IBF-portal-user/dashboard-page/Use_chat_section/All-disaster-types/heavy-rainfall)
+          - [drought](IBF-portal-user/dashboard-page/Use_chat_section/All-disaster-types/drought)
+          - [typhoon](IBF-portal-user/dashboard-page/Use_chat_section/All-disaster-types/typhoon) 
+        
+
     - [Aggregate section](IBF-portal-user/dashboard-page/Use_aggregate_section.feature)
       - View
       - Click info buttons
@@ -54,6 +64,7 @@ Features of the IBF-portal are described in this folder in a standardizes way us
       - View
       - Toggle layer
       - Click info button
+
 
 
 ### For Dashboard admin-user

@@ -1,0 +1,47 @@
+@ibf-portal-user
+Feature: View and use disasters of chat section
+
+Background:
+    Given the user logged-in into the IBF-portal
+    And is viewing the flood disaster of Chat section
+
+Scenario: Use chat section
+    When the user login into the dashboard
+    Then the user can see disaster icon placed within chat section
+    And the user able to see different disastors for different country selection
+
+Scenario: View disaster for different countries
+    When the user selects the countries
+    Then the user can see different disaster for selected country
+    And it contains the disasters in triggered, non-triggered status
+
+Scenario: View of heavy rainfall disaster triggered state 
+    When the user selects a country having 'heavy rainfall' disaster triggered
+    Then the user finds the heavy rainfall disaster-icon is default selected (if the other disasters are not active)
+    And the user finds the heavy rainfall icon in purple color
+    And it containd the information of last-model-run date
+    And this disaster selection converts the dashboard in purple color
+    And the user can find the lead-time of 'heavy rainfall' in days within timeline section
+    And it contains the information within chatbox with previous and upcoming triggered date for heavy rainfall
+    And the triggered disaster selection reflects changes on map,timline,admin-level,layers
+    And the user can see the data of exposed population,Rainfall,Flood Susceptibility etc.
+    And reflect diiferent layers for 'heavy rainfall'
+ 
+Scenario: View of heavy rainfall disaster active/inactive state 
+    When there are two or more disasters
+    Then the user can see the icons in purple and navy-blue color
+    And if the disaster is triggeed and selected it will reflects disaster button with filled purple color
+    And if the disaster is triggered but not selected then reflects button with purple boundry
+    And if the disaster is non-triggered but selected then reflects button in filled navy-blue color
+    And if the disaster is non-triggered and not-selected then reflects with navy-blue boundry
+
+    Scenario: View of heavy rainfall disaster Non-Triggered state 
+    When the user selects a country having 'heavy rainfall' disaster non-triggered
+    Then the user finds the heavy rainfall icon in navy-blue color
+    And this disaster selection converts the dashboard in navy-blue color
+    And the user can find the lead-time of 'heavy rainfall' in days within timeline section
+    And it contains the information within chatbox with last model run date
+    And it contains information that the disasters is not-active state
+    And the non-triggered disaster selection reflects No changes on the map,timline,admin-level,layers
+
+  
