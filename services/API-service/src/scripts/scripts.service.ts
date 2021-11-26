@@ -62,6 +62,7 @@ export class ScriptsService {
         where: {
           adminArea: In(countryAdminAreaIds),
           disasterType: mockInput.disasterType,
+          eventName: this.getEventName(mockInput.disasterType),
         },
       });
       for (const event of allCountryEvents) {
@@ -306,6 +307,7 @@ export class ScriptsService {
     await this.typhoonTrackService.uploadTyphoonTrack({
       countryCodeISO3: selectedCountry.countryCodeISO3,
       leadTime: mockLeadTime as LeadTime,
+      eventName: this.getEventName(DisasterType.Typhoon),
       trackpointDetails: triggered ? track : [],
     });
   }
@@ -350,6 +352,7 @@ export class ScriptsService {
       countryCodeISO3: selectedCountry.countryCodeISO3,
       triggersPerLeadTime: triggers,
       disasterType: disasterType,
+      eventName: this.getEventName(disasterType),
     });
   }
 

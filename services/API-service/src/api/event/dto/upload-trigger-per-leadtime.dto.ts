@@ -2,6 +2,7 @@ import {
   IsArray,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   ValidateNested,
 } from 'class-validator';
@@ -22,6 +23,11 @@ export class UploadTriggerPerLeadTimeDto {
   @IsEnum(DisasterType)
   @IsString()
   public disasterType: DisasterType;
+
+  @ApiProperty({ example: 'Typhoon name' })
+  @IsOptional()
+  @IsString()
+  public eventName: string;
 
   @ApiProperty({ example: triggers })
   @IsArray()

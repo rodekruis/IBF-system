@@ -32,6 +32,9 @@ export class AdminAreaDynamicDataEntity {
   @Column()
   public adminLevel: number;
 
+  @Column({ nullable: true })
+  public eventName: string;
+
   @Column()
   public placeCode: string;
 

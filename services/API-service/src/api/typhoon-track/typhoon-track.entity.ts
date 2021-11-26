@@ -37,6 +37,9 @@ export class TyphoonTrackEntity {
   @Column({ type: 'timestamp', nullable: true })
   public timestampOfTrackpoint: Date;
 
+  @Column({ nullable: true })
+  public eventName: string;
+
   @ApiProperty({ example: new GeoJson() })
   @Column('json', { nullable: true })
   public geom: JSON;

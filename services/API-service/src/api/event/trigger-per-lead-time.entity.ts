@@ -37,6 +37,9 @@ export class TriggerPerLeadTime {
   @Column()
   public leadTime: LeadTime;
 
+  @Column({ nullable: true })
+  public eventName: string;
+
   @Column({ default: false })
   public triggered: boolean;
 }
