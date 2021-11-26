@@ -62,8 +62,8 @@ export class UserStateComponent implements OnInit {
       this.capitalizeFirstLetter(this.environmentConfiguration);
   };
 
-  private capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  private capitalizeFirstLetter(toCapitalize: string) {
+    return toCapitalize.charAt(0).toUpperCase() + toCapitalize.slice(1);
   }
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
