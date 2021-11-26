@@ -7,7 +7,8 @@ Feature: Use login page
   Scenario: View login page
     When the user visits the IBF-portal URL
     Then the user is redirected automatically to the login page
-    And it contains a header bar with a menu-icon and the text 'Login' and the version-number
+    And it contains a header bar with a menu-icon on the left and the version-number on the left
+    And the header contains the text 'IBF PORTAL' followed by the country-name if the environment contains just one country (production) and the environment-name (development/test/stage) otherwise
     And it shows a 'Welcome to IBF' speech bubble that explains where the user is
     And it contains a link to a video guide
     And it contains a warning about browsers to use

@@ -7,7 +7,7 @@ Background:
 Scenario: View the timeline section with 1 active lead-time in NON-TRIGGERED mode
     Given there is only one active lead-time
     When the user enters the dashboard page
-    Then the user sees the Timeline section above the Use_map_section
+    Then the user sees the Timeline section above the map section
     And it contains a row of "timeline" buttons
     And each button contains a mention of month, day and/or time depending on the disaster-type
     And it has one "enabled" and "selected" button, the only "active" lead-time and thus also the "selected" lead-time
