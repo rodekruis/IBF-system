@@ -1,3 +1,15 @@
+# [0.108.0](https://github.com/rodekruis/IBF-system/compare/v0.107.0...v0.108.0) (2021-11-26)
+
+
+### Features
+
+* extend lead-time options typhoon to 7 days AB[#10928](https://github.com/rodekruis/IBF-system/issues/10928) ([bbcea55](https://github.com/rodekruis/IBF-system/commit/bbcea5512940c8148fec5e4786a5f7a6fc031104))
+* save data of multiple events AB[#10931](https://github.com/rodekruis/IBF-system/issues/10931) ([b7dd9a0](https://github.com/rodekruis/IBF-system/commit/b7dd9a083877f0da5348c1a0e0c984fbf60f8bdb))
+* track layer AB[#10717](https://github.com/rodekruis/IBF-system/issues/10717) ([8224f29](https://github.com/rodekruis/IBF-system/commit/8224f299753c4ff992c03ab4772307cadf8ea24a))
+* typhoon track in dashboard AB[#10717](https://github.com/rodekruis/IBF-system/issues/10717) AB[#10718](https://github.com/rodekruis/IBF-system/issues/10718) ([9880f1b](https://github.com/rodekruis/IBF-system/commit/9880f1b98f794dcd9dbd9dd5a6beb3fcfa8aef81))
+
+
+
 # [0.107.0](https://github.com/rodekruis/IBF-system/compare/v0.106.0...v0.107.0) (2021-11-22)
 
 
@@ -133,15 +145,6 @@
 ### Bug Fixes
 
 * double color in legend AB[#10348](https://github.com/rodekruis/IBF-system/issues/10348) ([18205eb](https://github.com/rodekruis/IBF-system/commit/18205eb0f597bdc5b139d57095c0149f6d82faa1))
-
-
-
-## [0.101.2](https://github.com/rodekruis/IBF-system/compare/v0.101.1...v0.101.2) (2021-10-29)
-
-
-### Bug Fixes
-
-* rename file AB[#10362](https://github.com/rodekruis/IBF-system/issues/10362) ([cefd121](https://github.com/rodekruis/IBF-system/commit/cefd121f1355a89840f81835c6b24b011e9138de))
 
 
 
