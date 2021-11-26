@@ -17,6 +17,7 @@ import { EapActionEntity } from '../eap-actions/eap-action.entity';
 import { AreaOfFocusEntity } from '../eap-actions/area-of-focus.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { HelperService } from '../../shared/helper.service';
 
 describe('AdminAreaDynamicController', (): void => {
   let controller: AdminAreaDynamicDataController;
@@ -30,6 +31,7 @@ describe('AdminAreaDynamicController', (): void => {
           CountryService,
           UserService,
           EventService,
+          HelperService,
           EapActionsService,
           {
             provide: getRepositoryToken(AdminAreaDynamicDataEntity),

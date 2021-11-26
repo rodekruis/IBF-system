@@ -13,7 +13,6 @@ export class SeedGlofasStation implements InterfaceScript {
   private connection: Connection;
   private readonly seedHelper: SeedHelper;
   private glofasStationRepository;
-  private adminAreaRepository;
 
   public constructor(connection: Connection) {
     this.connection = connection;
@@ -25,7 +24,6 @@ export class SeedGlofasStation implements InterfaceScript {
     this.glofasStationRepository = this.connection.getRepository(
       GlofasStationEntity,
     );
-    this.adminAreaRepository = this.connection.getRepository(AdminAreaEntity);
 
     await Promise.all(
       countries.map(

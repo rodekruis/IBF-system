@@ -1,6 +1,6 @@
 FROM node:10-alpine
 
-RUN apk update && apk add python make g++ git
+RUN apk update && apk add python3 make g++ git
 
 RUN mkdir --parents /home/ibf/api-service/node_modules && chown -R node:node /home/ibf/api-service
 

@@ -18,4 +18,5 @@ export enum DynamicIndicator {
   rainfall = 'rainfall',
   housesAffected = 'houses_affected',
   probWithin50Km = 'prob_within_50km',
+  showAdminArea = 'show_admin_area',
 }

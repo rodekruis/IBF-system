@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { MoreThan, Repository } from 'typeorm';
+import { MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from './admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
@@ -27,13 +27,10 @@ export class AdminAreaService {
     AdminAreaDynamicDataEntity
   >;
 
-  private helperService: HelperService;
-  private eventService: EventService;
-
-  public constructor(helperService: HelperService, eventService: EventService) {
-    this.helperService = helperService;
-    this.eventService = eventService;
-  }
+  public constructor(
+    private helperService: HelperService,
+    private eventService: EventService,
+  ) {}
 
   private async getTriggeredPlaceCodes(
     countryCodeISO3: string,
@@ -85,6 +82,12 @@ export class AdminAreaService {
         value: MoreThan(0),
         indicator: triggerUnit,
         date: lastTriggeredDate.date,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(
+            disasterType,
+            lastTriggeredDate.timestamp,
+          ),
+        ),
       },
     });
   }
@@ -144,6 +147,12 @@ export class AdminAreaService {
       .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
+      })
+      .andWhere('timestamp >= :last12hourInterval', {
+        last12hourInterval: this.helperService.getLast12hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
       })
       .andWhere('"disasterType" = :disasterType', {
         disasterType: disasterType,
@@ -224,6 +233,12 @@ export class AdminAreaService {
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
+      .andWhere('timestamp >= :last12hourInterval', {
+        last12hourInterval: this.helperService.getLast12hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
+      })
       .andWhere('"disasterType" = :disasterType', {
         disasterType: disasterType,
       })
@@ -245,10 +260,56 @@ export class AdminAreaService {
           { placeCodes: placeCodes },
         );
       }
+    } else {
+      const placeCodesToShow = await this.getPlaceCodesToShow(
+        countryCodeISO3,
+        disasterType,
+        adminLevel,
+        leadTime,
+      );
+      if (placeCodesToShow.length) {
+        adminAreasScript = adminAreasScript.andWhere(
+          'area."placeCode" IN (:...placeCodes)',
+          { placeCodes: placeCodesToShow },
+        );
+      }
     }
     const adminAreas = await adminAreasScript.getRawMany();
 
     return this.helperService.toGeojson(adminAreas);
+  }
+
+  private async getPlaceCodesToShow(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    adminLevel: number,
+    leadTime: string,
+  ) {
+    if (leadTime === '{leadTime}') {
+      leadTime = await this.getDefaultLeadTime(countryCodeISO3, disasterType);
+    }
+    const lastTriggeredDate = await this.eventService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
+    const adminAreasToShow = await this.adminAreaDynamicDataRepo.find({
+      where: {
+        countryCodeISO3: countryCodeISO3,
+        disasterType: disasterType,
+        adminLevel: adminLevel,
+        leadTime: leadTime,
+        date: lastTriggeredDate.date,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(
+            disasterType,
+            lastTriggeredDate.timestamp,
+          ),
+        ),
+        indicator: DynamicIndicator.showAdminArea,
+        value: 1,
+      },
+    });
+    return adminAreasToShow.map(area => area.placeCode);
   }
 
   private async getDefaultLeadTime(

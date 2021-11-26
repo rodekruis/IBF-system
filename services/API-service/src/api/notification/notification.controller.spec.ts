@@ -19,6 +19,7 @@ import { UserService } from '../user/user.service';
 import { NotificationController } from './notification.controller';
 import { NotificationService } from './notification.service';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { HelperService } from '../../shared/helper.service';
 
 describe('NotificationController', () => {
   let controller: NotificationController;
@@ -81,6 +82,7 @@ describe('NotificationController', () => {
         NotificationService,
         AdminAreaDynamicDataService,
         UserService,
+        HelperService,
       ],
     }).compile();
 
