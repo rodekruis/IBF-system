@@ -11,7 +11,7 @@ export class DamSiteEntity {
   @Column()
   public damName: string;
 
-  @Column()
+  @Column({ nullable: true })
   public fullSupply: number;
 
   @Column('json', { nullable: true })

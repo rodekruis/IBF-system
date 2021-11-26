@@ -15,6 +15,10 @@ export class UploadTyphoonTrackDto {
   @IsString()
   public leadTime: LeadTime;
 
+  @ApiProperty({ example: 'Typhoon name' })
+  @IsString()
+  public eventName: string;
+
   @ApiProperty({ example: [] })
   @IsArray()
   @ValidateNested()
