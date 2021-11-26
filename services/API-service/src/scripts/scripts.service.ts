@@ -107,7 +107,7 @@ export class ScriptsService {
     }
 
     if (mockInput.disasterType === DisasterType.Typhoon) {
-      await this.mockTyphoonTrack(selectedCountry);
+      await this.mockTyphoonTrack(selectedCountry, mockInput.triggered);
     }
   }
 
@@ -282,10 +282,21 @@ export class ScriptsService {
     }
   }
 
-  private async mockTyphoonTrack(selectedCountry) {
+  private async mockTyphoonTrack(selectedCountry, triggered: boolean) {
     const trackFileName = `./src/api/typhoon-track/dto/example/typhoon-track-${selectedCountry.countryCodeISO3}.json`;
     const trackRaw = fs.readFileSync(trackFileName, 'utf-8');
     const track = JSON.parse(trackRaw);
+
+    // Overwrite timestamps of trackpoints to align with today's date
+    // Make sure that the moment of landfall lies just ahead
+    let i = -23;
+    for (const trackpoint of track) {
+      const now = new Date();
+      trackpoint.timestampOfTrackpoint = new Date(
+        now.getTime() + i * (1000 * 60 * 60 * 6),
+      );
+      i += 1;
+    }
 
     const mockLeadTime = LeadTime.hour72;
 
@@ -295,7 +306,7 @@ export class ScriptsService {
     await this.typhoonTrackService.uploadTyphoonTrack({
       countryCodeISO3: selectedCountry.countryCodeISO3,
       leadTime: mockLeadTime as LeadTime,
-      trackpointDetails: track,
+      trackpointDetails: triggered ? track : [],
     });
   }
 
