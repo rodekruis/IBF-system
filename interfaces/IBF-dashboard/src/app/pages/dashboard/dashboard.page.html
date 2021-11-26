@@ -89,9 +89,9 @@
       <ion-row class="page-structure--content">
         <ion-col
           sizeXs="12"
-          sizeMd="5"
-          sizeLg="5"
-          sizeXl="5"
+          sizeMd="3"
+          sizeLg="3"
+          sizeXl="3"
           class="ibf-dashboard-left-column ion-no-padding"
         >
           <ion-row
@@ -109,7 +109,7 @@
               >
                 <ion-button
                   slot="start"
-                  class="ion-no-margin today-button"
+                  class="ion-no-margin ion-no-padding"
                   color="ibf-white"
                 >
                   <app-disaster-type></app-disaster-type>
@@ -119,47 +119,46 @@
                   class="today-button ion-no-margin"
                   [disabled]="true"
                   color="ibf-white"
-                    >
-                    <span
+                >
+                  <span
                     class="today"
                     [translate]="'dashboard-page.today'"
-                    >
-                    </span>
-                <app-date-button></app-date-button>
-                <!-- <ion-button
-                  slot="start"
-                  class="today-button ion-no-margin"
-                  [disabled]="true"
-                  color="ibf-white"
-                > -->
-                  <app-timeline 
-                  class="button-border-line"
-                  ></app-timeline>
-                <!-- </ion-button> -->
-              </ion-button>
+                  ></span>
+                  <app-date-button></app-date-button>
+                </ion-button>
               </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="component-content">
+            <ion-col class="ion-no-padding">
+              <app-chat></app-chat>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        
+        <ion-col
+          sizeXs="12"
+          sizeMd="9"
+          sizeLg="9"
+          sizeXl="9"
+          class="ibf-dashboard-right-column ion-no-padding"
+        >
+          <ion-row>
+            <ion-col> 
+              <app-timeline class="button-border-line"></app-timeline>
             </ion-col>
           </ion-row>
           <ion-row class="component-content">
             <ion-col
               sizeXs="12"
-              sizeMd="7"
-              sizeLg="7"
-              sizeXl="7"
-              class="ibf-dashboard-left-column-left-sub-column ion-no-padding"
-            >
-              <app-chat></app-chat>
-            </ion-col>
-            <ion-col
-              sizeXs="12"
-              sizeMd="5"
-              sizeLg="5"
-              sizeXl="5"
-              class="ibf-dashboard-left-column-right-sub-column"
+              sizeMd="3"
+              sizeLg="3"
+              sizeXl="3"
+              class="ibf-dashboard-right-column-left-sub-column"
             >
               <ion-content color="ibf-tertiary">
                 <ion-grid
-                  class="ibf-dashboard-left-column-right-sub-column-grid ion-justify-content-between ion-no-padding"
+                  class="ibf-dashboard-right-column-left-sub-column-grid ion-justify-content-between ion-no-padding"
                 >
                   <ion-row>
                     <ion-col>
@@ -174,25 +173,12 @@
                 </ion-grid>
               </ion-content>
             </ion-col>
-          </ion-row>
-        </ion-col>
-        
-        <ion-col
-          sizeXs="12"
-          sizeMd="7"
-          sizeLg="7"
-          sizeXl="7"
-          class="ibf-dashboard-right-column ion-no-padding"
-        >
-            <ion-row>
-            <ion-col> 
-            <br />
-            <br />
-            <br />
-            </ion-col>
-            </ion-row>
-          <ion-row class="component-content">
-            <ion-col>
+            <ion-col 
+              sizeXs="12"
+              sizeMd="9"
+              sizeLg="9"
+              sizeXl="9"
+            >
               <app-matrix></app-matrix>
               <ion-content id="ibf-dashboard-map">
                 <app-map-controls></app-map-controls>
