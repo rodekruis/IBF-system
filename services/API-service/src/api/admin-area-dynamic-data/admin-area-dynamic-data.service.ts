@@ -49,6 +49,7 @@ export class AdminAreaDynamicDataService {
       area.countryCodeISO3 = uploadExposure.countryCodeISO3;
       area.leadTime = uploadExposure.leadTime;
       area.disasterType = uploadExposure.disasterType;
+      area.eventName = uploadExposure.eventName;
       areas.push(area);
     }
     await this.adminAreaDynamicDataRepo.save(areas);
@@ -92,6 +93,7 @@ export class AdminAreaDynamicDataService {
         leadTime: uploadExposure.leadTime,
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
+        eventName: uploadExposure.eventName,
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else if (uploadExposure.leadTime.includes(LeadTimeUnit.hour)) {
@@ -102,6 +104,7 @@ export class AdminAreaDynamicDataService {
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
         date: new Date(),
+        eventName: uploadExposure.eventName,
         timestamp: MoreThanOrEqual(
           this.helperService.getLast12hourInterval(uploadExposure.disasterType),
         ),
@@ -113,6 +116,7 @@ export class AdminAreaDynamicDataService {
         leadTime: uploadExposure.leadTime,
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
+        eventName: uploadExposure.eventName,
         date: new Date(),
       });
     }
@@ -127,6 +131,7 @@ export class AdminAreaDynamicDataService {
     uploadTriggerPerLeadTimeDto.countryCodeISO3 =
       uploadExposure.countryCodeISO3;
     uploadTriggerPerLeadTimeDto.disasterType = uploadExposure.disasterType;
+    uploadTriggerPerLeadTimeDto.eventName = uploadExposure.eventName;
     uploadTriggerPerLeadTimeDto.triggersPerLeadTime = [
       {
         leadTime: uploadExposure.leadTime as LeadTime,

@@ -7,7 +7,7 @@ import {
   ActivationLogDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
-import { LessThan, MoreThanOrEqual, Repository, In } from 'typeorm';
+import { LessThan, MoreThanOrEqual, Repository, In, MoreThan } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import {
@@ -50,6 +50,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<EventSummaryCountry> {
+    // This takes - for now - the first out of potentially multiple events
     const eventSummary = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select(['area."countryCodeISO3"', 'event."eventName"'])
@@ -151,6 +152,7 @@ export class EventService {
       triggerPerLeadTime.triggered = leadTime.triggered;
       triggerPerLeadTime.disasterType =
         uploadTriggerPerLeadTimeDto.disasterType;
+      triggerPerLeadTime.eventName = uploadTriggerPerLeadTimeDto.eventName;
 
       triggersPerLeadTime.push(triggerPerLeadTime);
     }
@@ -175,6 +177,7 @@ export class EventService {
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
+        eventName: uploadTriggerPerLeadTimeDto.eventName,
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else if (leadTime.includes(LeadTimeUnit.hour)) {
@@ -182,6 +185,7 @@ export class EventService {
       await this.triggerPerLeadTimeRepository.delete({
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
+        eventName: uploadTriggerPerLeadTimeDto.eventName,
         date: new Date(),
         timestamp: MoreThanOrEqual(
           this.helperService.getLast12hourInterval(
@@ -194,6 +198,7 @@ export class EventService {
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
+        eventName: uploadTriggerPerLeadTimeDto.eventName,
         date: new Date(),
       });
     }
@@ -386,6 +391,7 @@ export class EventService {
       where: {
         adminArea: { id: In(countryAdminAreaIds) },
         disasterType: disasterType,
+        eventName: eventName,
       },
     });
     eventAreas.forEach(area => (area.activeTrigger = false));
@@ -396,6 +402,7 @@ export class EventService {
       countryCodeISO3,
       disasterType,
       adminLevel,
+      eventName,
     );
 
     // add new ones
@@ -414,6 +421,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
+    eventName: string,
   ): Promise<any[]> {
     const triggerUnit = await this.getTriggerUnit(disasterType);
 
@@ -422,28 +430,27 @@ export class EventService {
       disasterType,
     );
 
-    const triggeredPlaceCodes = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('area')
-      .select('area."placeCode"')
-      .where('indicator = :indicator', {
-        indicator: triggerUnit,
-      })
-      .andWhere('value > 0')
-      .andWhere('date = :lastTriggeredDate', {
-        lastTriggeredDate: lastTriggeredDate.date,
-      })
-      .andWhere('timestamp >= :last12hourInterval', {
-        last12hourInterval: this.helperService.getLast12hourInterval(
+    const whereFilters = {
+      indicator: triggerUnit,
+      value: MoreThan(0),
+      date: lastTriggeredDate.date,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getLast12hourInterval(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
-      })
-      .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('area."adminLevel" = :adminLevel', {
-        adminLevel: adminLevel,
-      })
+      ),
+      countryCodeISO3: countryCodeISO3,
+      adminLevel: adminLevel,
+    };
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
+    }
+
+    const triggeredPlaceCodes = await this.adminAreaDynamicDataRepo
+      .createQueryBuilder('area')
+      .select('area."placeCode"')
+      .where(whereFilters)
       .groupBy('area."placeCode"')
       .getRawMany();
 
@@ -455,33 +462,30 @@ export class EventService {
 
     const actionUnit = await this.getActionUnit(disasterType);
 
+    const whereOptions = {
+      placeCode: In(triggerPlaceCodesArray),
+      indicator: actionUnit,
+      value: MoreThan(0),
+      date: lastTriggeredDate.date,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getLast12hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
+      ),
+      countryCodeISO3: countryCodeISO3,
+      adminLevel: adminLevel,
+    };
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
+    }
+
     const q = this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
       .addSelect('MAX(area.value) AS "actionsValue"')
       .addSelect('MAX(area."leadTime") AS "leadTime"')
-      .where('"placeCode" IN(:...placeCodes)', {
-        placeCodes: triggerPlaceCodesArray,
-      })
-      .andWhere('indicator = :indicator', {
-        indicator: actionUnit,
-      })
-      .andWhere('value > 0')
-      .andWhere('date = :lastTriggeredDate', {
-        lastTriggeredDate: lastTriggeredDate.date,
-      })
-      .andWhere('timestamp >= :last12hourInterval', {
-        last12hourInterval: this.helperService.getLast12hourInterval(
-          disasterType,
-          lastTriggeredDate.timestamp,
-        ),
-      })
-      .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('area."adminLevel" = :adminLevel', {
-        adminLevel: adminLevel,
-      })
+      .where(whereOptions)
       .groupBy('area."placeCode"');
     return await q.getRawMany();
   }
@@ -490,18 +494,25 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
+    eventName: string,
   ): Promise<void> {
     const affectedAreas = await this.getAffectedAreas(
       countryCodeISO3,
       disasterType,
       adminLevel,
+      eventName,
     );
     const affectedAreasPlaceCodes = affectedAreas.map(area => area.placeCode);
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
     );
     const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
-      where: { closed: false, adminArea: In(countryAdminAreaIds) },
+      where: {
+        closed: false,
+        adminArea: In(countryAdminAreaIds),
+        disasterType: disasterType,
+        eventName: eventName,
+      },
       relations: ['adminArea'],
     });
     let affectedArea;
@@ -530,6 +541,7 @@ export class EventService {
       countryCodeISO3,
       disasterType,
       adminLevel,
+      eventName,
     );
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
@@ -540,6 +552,7 @@ export class EventService {
           closed: false,
           adminArea: In(countryAdminAreaIds),
           disasterType: disasterType,
+          eventName: eventName,
         },
         relations: ['adminArea'],
       })

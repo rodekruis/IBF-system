@@ -19,6 +19,7 @@ import {
   point,
   tileLayer,
 } from 'leaflet';
+import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -47,6 +48,7 @@ import {
   HealthSiteType,
   RedCrossBranch,
   Station,
+  TyphoonTrackPoint,
   Waterpoint,
 } from 'src/app/models/poi.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -80,6 +82,7 @@ export class MapComponent implements OnDestroy {
   private placeCode: string;
   private country: Country;
   private disasterType: DisasterType;
+  public lastModelRunDate: string;
 
   public legends: { [key: string]: Control } = {};
 
@@ -171,6 +174,21 @@ export class MapComponent implements OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
+    if (this.country) {
+      this.apiService
+        .getRecentDates(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
+        .subscribe((date) => {
+          this.onRecentDates(date);
+        });
+    }
+  };
+
+  private onRecentDates = (date) => {
+    this.lastModelRunDate = date.timestamp || date.date;
   };
 
   private onPlaceCodeChange = (): void => {
@@ -345,6 +363,11 @@ export class MapComponent implements OnDestroy {
       case IbfLayerName.redCrossBranches:
         return this.createMarkerRedCrossBranch(
           geoJsonPoint.properties as RedCrossBranch,
+          latlng,
+        );
+      case IbfLayerName.typhoonTrack:
+        return this.createMarkerTyphoonTrack(
+          geoJsonPoint.properties as TyphoonTrackPoint,
           latlng,
         );
       case IbfLayerName.damSites:
@@ -741,6 +764,34 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
+  private createMarkerTyphoonTrack(
+    markerProperties: TyphoonTrackPoint,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = DateTime.fromISO(
+      markerProperties.timestampOfTrackpoint,
+    ).toFormat('cccc, dd LLLL HH:mm');
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: divIcon({
+        className:
+          DateTime.fromISO(markerProperties.timestampOfTrackpoint) >
+          DateTime.fromISO(this.lastModelRunDate)
+            ? 'typhoon-track-icon-future'
+            : 'typhoon-track-icon-past',
+      }),
+      zIndexOffset: 700,
+    });
+    markerInstance.bindPopup(this.createMarkerTyphoonTrackPopup(markerTitle));
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.typhoonTrack),
+    );
+
+    return markerInstance;
+  }
+
   private createMarkerRedCrossBranch(
     markerProperties: RedCrossBranch,
     markerLatLng: LatLng,
@@ -884,6 +935,15 @@ export class MapComponent implements OnDestroy {
       thresholdName,
     );
     return stationInfoPopup;
+  }
+
+  private createMarkerTyphoonTrackPopup(markerTitle: string): string {
+    const trackpointInfoPopup =
+      '<div style="margin-bottom: 5px">' +
+      '<strong>Typhoon passes here at</strong>:<br>' +
+      markerTitle +
+      '</div>';
+    return trackpointInfoPopup;
   }
 
   private createMarkerRedCrossPopup(markerProperties: RedCrossBranch): string {

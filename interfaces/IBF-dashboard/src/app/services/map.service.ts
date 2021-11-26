@@ -192,6 +192,8 @@ export class MapService {
         this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel4);
       } else if (layer.name === IbfLayerName.glofasStations) {
         this.loadStationLayer(layerActive);
+      } else if (layer.name === IbfLayerName.typhoonTrack) {
+        this.loadTyphoonTrackLayer(layerActive);
       } else if (layer.name === IbfLayerName.redCrossBranches) {
         this.loadRedCrossBranchesLayer(layer.label, layerActive);
       } else if (layer.name === IbfLayerName.redCrescentBranches) {
@@ -242,6 +244,39 @@ export class MapService {
         : true,
       show: true,
       data: stations,
+      viewCenter: false,
+      order: 0,
+    });
+  };
+
+  private loadTyphoonTrackLayer(layerActive: boolean) {
+    if (this.country) {
+      if (layerActive) {
+        this.apiService
+          .getTyphoonTrack(
+            this.country.countryCodeISO3,
+            this.timelineService.activeLeadTime,
+          )
+          .subscribe(this.addTyphoonTrackLayer);
+      } else {
+        this.addTyphoonTrackLayer(null);
+      }
+    }
+  }
+
+  private addTyphoonTrackLayer = (typhoonTrack: any) => {
+    this.addLayer({
+      name: IbfLayerName.typhoonTrack,
+      label: IbfLayerLabel.typhoonTrack,
+      type: IbfLayerType.point,
+      description: this.getPopoverText(IbfLayerName.typhoonTrack),
+      active: this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(
+            IbfLayerName.typhoonTrack,
+          )
+        : true,
+      show: true,
+      data: typhoonTrack,
       viewCenter: false,
       order: 0,
     });
@@ -737,6 +772,13 @@ export class MapService {
     } else if (layer.name === IbfLayerName.glofasStations) {
       layerData = this.apiService
         .getStations(
+          this.country.countryCodeISO3,
+          this.timelineService.activeLeadTime,
+        )
+        .pipe(shareReplay(1));
+    } else if (layer.name === IbfLayerName.typhoonTrack) {
+      layerData = this.apiService
+        .getTyphoonTrack(
           this.country.countryCodeISO3,
           this.timelineService.activeLeadTime,
         )

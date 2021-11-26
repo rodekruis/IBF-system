@@ -1,3 +1,45 @@
+# [0.109.0](https://github.com/rodekruis/IBF-system/compare/v0.108.0...v0.109.0) (2021-11-26)
+
+
+### Bug Fixes
+
+* AB[#10606](https://github.com/rodekruis/IBF-system/issues/10606) ([830eb7f](https://github.com/rodekruis/IBF-system/commit/830eb7ff92fb118fa5af089d00112e718346bf6c))
+* added admin level and other updates AB[#10608](https://github.com/rodekruis/IBF-system/issues/10608) ([7dbf975](https://github.com/rodekruis/IBF-system/commit/7dbf9751a019bf245f2fd97934ab75b209273d6c))
+* added area-of-focus AB[#10607](https://github.com/rodekruis/IBF-system/issues/10607) ([0d29e88](https://github.com/rodekruis/IBF-system/commit/0d29e88e789aa85cfd33fec63dfae59029f8f08c))
+* added timeline section AB[#10609](https://github.com/rodekruis/IBF-system/issues/10609) ([4954e31](https://github.com/rodekruis/IBF-system/commit/4954e31bc734fae71c3db3a11ae58267e6ab1bdd))
+* changed file name AB[#10570](https://github.com/rodekruis/IBF-system/issues/10570) ([5f62b57](https://github.com/rodekruis/IBF-system/commit/5f62b578083d99c74cc24855530cec907e64f31c))
+* changes AB[#10561](https://github.com/rodekruis/IBF-system/issues/10561) ([5021bbc](https://github.com/rodekruis/IBF-system/commit/5021bbc6de5f3983fa2e57bba91e21b53634c13f))
+* test cases for Situational Overview section AB[#10570](https://github.com/rodekruis/IBF-system/issues/10570) ([cd2999f](https://github.com/rodekruis/IBF-system/commit/cd2999fe6960b0ec4cd470649d8f4835b5d63d9b))
+* updated AB[#10570](https://github.com/rodekruis/IBF-system/issues/10570) ([34f66e2](https://github.com/rodekruis/IBF-system/commit/34f66e2d63e24ad031081944e60e1fa0fbd20e2d))
+
+
+### Features
+
+* AB[#10574](https://github.com/rodekruis/IBF-system/issues/10574) ([af330bf](https://github.com/rodekruis/IBF-system/commit/af330bfdc8fefa6307bf3118f06148677748eab2))
+* added Aggregate sectionAB[#10606](https://github.com/rodekruis/IBF-system/issues/10606) ([55855c6](https://github.com/rodekruis/IBF-system/commit/55855c6f726dfb18beba913c0bfc5e32adee6fc8))
+* added map section AB[#10641](https://github.com/rodekruis/IBF-system/issues/10641) ([02749f3](https://github.com/rodekruis/IBF-system/commit/02749f365dc31a3f1dc8acbf3b21f803b96b9f3a))
+* added map section AB[#10641](https://github.com/rodekruis/IBF-system/issues/10641) ([6ef474c](https://github.com/rodekruis/IBF-system/commit/6ef474c4d9a33c3aa5ae34589b87f191746a6a8c))
+* added matrix componenet AB[#10640](https://github.com/rodekruis/IBF-system/issues/10640) ([d1588d5](https://github.com/rodekruis/IBF-system/commit/d1588d5cf7b45f8c316875b5b35c36b9c874691d))
+* added situational overview AB[#10575](https://github.com/rodekruis/IBF-system/issues/10575) ([f3f7fbd](https://github.com/rodekruis/IBF-system/commit/f3f7fbdc45d50711ac88691b5afeb8168c943e0a))
+* header section AB[#10561](https://github.com/rodekruis/IBF-system/issues/10561) ([1df0779](https://github.com/rodekruis/IBF-system/commit/1df0779a62806ef61a7f27e43faa3fff60e533f4))
+* header section AB[#10561](https://github.com/rodekruis/IBF-system/issues/10561) ([31fa740](https://github.com/rodekruis/IBF-system/commit/31fa740fd5e2ef2e85f9d7f0575f84506ebd3404))
+* set up gherkin secenarios menu + login page AB[#10541](https://github.com/rodekruis/IBF-system/issues/10541) ([9d560ff](https://github.com/rodekruis/IBF-system/commit/9d560ff3610587d5765f233e7405a96257fe0785))
+* test scenarios AB[#9994](https://github.com/rodekruis/IBF-system/issues/9994) ([8fe3f7a](https://github.com/rodekruis/IBF-system/commit/8fe3f7aa7d26f2ba839f8f01faa2dc7366c6fe38))
+
+
+
+# [0.108.0](https://github.com/rodekruis/IBF-system/compare/v0.107.0...v0.108.0) (2021-11-26)
+
+
+### Features
+
+* extend lead-time options typhoon to 7 days AB[#10928](https://github.com/rodekruis/IBF-system/issues/10928) ([bbcea55](https://github.com/rodekruis/IBF-system/commit/bbcea5512940c8148fec5e4786a5f7a6fc031104))
+* save data of multiple events AB[#10931](https://github.com/rodekruis/IBF-system/issues/10931) ([b7dd9a0](https://github.com/rodekruis/IBF-system/commit/b7dd9a083877f0da5348c1a0e0c984fbf60f8bdb))
+* track layer AB[#10717](https://github.com/rodekruis/IBF-system/issues/10717) ([8224f29](https://github.com/rodekruis/IBF-system/commit/8224f299753c4ff992c03ab4772307cadf8ea24a))
+* typhoon track in dashboard AB[#10717](https://github.com/rodekruis/IBF-system/issues/10717) AB[#10718](https://github.com/rodekruis/IBF-system/issues/10718) ([9880f1b](https://github.com/rodekruis/IBF-system/commit/9880f1b98f794dcd9dbd9dd5a6beb3fcfa8aef81))
+
+
+
 # [0.107.0](https://github.com/rodekruis/IBF-system/compare/v0.106.0...v0.107.0) (2021-11-22)
 
 
@@ -124,24 +166,6 @@
 ### Features
 
 * updated format and link AB[#10237](https://github.com/rodekruis/IBF-system/issues/10237) ([d758905](https://github.com/rodekruis/IBF-system/commit/d758905808e83a2b6f5fc678968862ee4d8f2331))
-
-
-
-## [0.101.3](https://github.com/rodekruis/IBF-system/compare/v0.101.2...v0.101.3) (2021-10-29)
-
-
-### Bug Fixes
-
-* double color in legend AB[#10348](https://github.com/rodekruis/IBF-system/issues/10348) ([18205eb](https://github.com/rodekruis/IBF-system/commit/18205eb0f597bdc5b139d57095c0149f6d82faa1))
-
-
-
-## [0.101.2](https://github.com/rodekruis/IBF-system/compare/v0.101.1...v0.101.2) (2021-10-29)
-
-
-### Bug Fixes
-
-* rename file AB[#10362](https://github.com/rodekruis/IBF-system/issues/10362) ([cefd121](https://github.com/rodekruis/IBF-system/commit/cefd121f1355a89840f81835c6b24b011e9138de))
 
 
 

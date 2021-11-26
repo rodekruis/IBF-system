@@ -21,6 +21,7 @@ export enum AnalyticsEvent {
   damSite = 'dam',
   mapMarker = 'map-marker',
   glofasStation = 'glofas-station',
+  typhoonTrack = 'typhoon-track',
   mapPlaceSelect = 'map-place-select',
   leadTime = 'lead-time',
   closeEvent = 'close-event',
