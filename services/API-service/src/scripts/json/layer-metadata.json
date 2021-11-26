@@ -59,6 +59,15 @@
     "active": "yes"
   },
   {
+    "country_codes": "PHL",
+    "disasterTypes": ["typhoon"],
+    "name": "typhoon_track",
+    "label": "Typhoon track",
+    "type": "point",
+    "leadTimeDependent": false,
+    "active": "yes"
+  },
+  {
     "country_codes": "UGA,ZMB,KEN,ETH,ZWE",
     "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
     "name": "red_cross_branches",

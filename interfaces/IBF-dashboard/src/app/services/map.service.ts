@@ -192,7 +192,7 @@ export class MapService {
         this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel4);
       } else if (layer.name === IbfLayerName.glofasStations) {
         this.loadStationLayer(layerActive);
-      } else if (layer.name === IbfLayerName.typhoonTracks) {
+      } else if (layer.name === IbfLayerName.typhoonTrack) {
         this.loadTyphoonTrackLayer(layerActive);
       } else if (layer.name === IbfLayerName.redCrossBranches) {
         this.loadRedCrossBranchesLayer(layer.label, layerActive);
@@ -249,20 +249,34 @@ export class MapService {
     });
   };
 
+  private loadTyphoonTrackLayer(layerActive: boolean) {
+    if (this.country) {
+      if (layerActive) {
+        this.apiService
+          .getTyphoonTrack(
+            this.country.countryCodeISO3,
+            this.timelineService.activeLeadTime,
+          )
+          .subscribe(this.addTyphoonTrackLayer);
+      } else {
+        this.addTyphoonTrackLayer(null);
+      }
+    }
+  }
 
-  private loadTyphoonTrackLayer = (typhoonTracks: any) => {
+  private addTyphoonTrackLayer = (typhoonTrack: any) => {
     this.addLayer({
-      name: IbfLayerName.typhoonTracks,
-      label: IbfLayerLabel.typhoonTracks,
+      name: IbfLayerName.typhoonTrack,
+      label: IbfLayerLabel.typhoonTrack,
       type: IbfLayerType.point,
-      description: this.getPopoverText(IbfLayerName.typhoonTracks),
+      description: this.getPopoverText(IbfLayerName.typhoonTrack),
       active: this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(
-            IbfLayerName.typhoonTracks,
+            IbfLayerName.typhoonTrack,
           )
         : true,
       show: true,
-      data: typhoonTracks,
+      data: typhoonTrack,
       viewCenter: false,
       order: 0,
     });
@@ -762,14 +776,13 @@ export class MapService {
           this.timelineService.activeLeadTime,
         )
         .pipe(shareReplay(1));
-
-      } else if (layer.name === IbfLayerName.typhoonTracks) {
-        layerData = this.apiService
-          .getStations(
-            this.country.countryCodeISO3,
-            this.timelineService.activeLeadTime,
-          )
-          .pipe(shareReplay(1));
+    } else if (layer.name === IbfLayerName.typhoonTrack) {
+      layerData = this.apiService
+        .getTyphoonTrack(
+          this.country.countryCodeISO3,
+          this.timelineService.activeLeadTime,
+        )
+        .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.adminRegions) {
       layerData = this.apiService
         .getAdminRegions(

@@ -1,6 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
-import { dateNow } from '@microsoft/applicationinsights-core-js';
 import {
   Control,
   divIcon,
@@ -20,6 +19,7 @@ import {
   point,
   tileLayer,
 } from 'leaflet';
+import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -31,7 +31,6 @@ import {
   LEAFLET_MAP_OPTIONS,
   LEAFLET_MAP_URL_TEMPLATE,
   LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  // LEAFLET_MARKER_ICON_OPTIONS_TYPHOON_TRACK,
   LEAFLET_MARKER_ICON_OPTIONS_DAM,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL,
@@ -49,7 +48,7 @@ import {
   HealthSiteType,
   RedCrossBranch,
   Station,
-  TyphoonTrack,
+  TyphoonTrackPoint,
   Waterpoint,
 } from 'src/app/models/poi.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -83,6 +82,7 @@ export class MapComponent implements OnDestroy {
   private placeCode: string;
   private country: Country;
   private disasterType: DisasterType;
+  public lastModelRunDate: string;
 
   public legends: { [key: string]: Control } = {};
 
@@ -174,6 +174,21 @@ export class MapComponent implements OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
+    if (this.country) {
+      this.apiService
+        .getRecentDates(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
+        .subscribe((date) => {
+          this.onRecentDates(date);
+        });
+    }
+  };
+
+  private onRecentDates = (date) => {
+    this.lastModelRunDate = date.timestamp || date.date;
   };
 
   private onPlaceCodeChange = (): void => {
@@ -350,9 +365,9 @@ export class MapComponent implements OnDestroy {
           geoJsonPoint.properties as RedCrossBranch,
           latlng,
         );
-        case IbfLayerName.typhoonTracks:
+      case IbfLayerName.typhoonTrack:
         return this.createMarkerTyphoonTrack(
-          geoJsonPoint.properties as TyphoonTrack,
+          geoJsonPoint.properties as TyphoonTrackPoint,
           latlng,
         );
       case IbfLayerName.damSites:
@@ -701,16 +716,6 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
-  // private createMarkerTyphoonTrack(markerLatLng: LatLng): Marker {
-  //   const markerInstance = marker(markerLatLng, {
-  //     icon: icon(LEAFLET_MARKER_ICON_OPTIONS_TYPHOON_TRACK),
-  //   });
-
-  //   markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.mapMarker));
-
-  //   return markerInstance;
-  // }
-
   private createMarkerStation(
     markerProperties: Station,
     markerLatLng: LatLng,
@@ -759,46 +764,26 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
-
   private createMarkerTyphoonTrack(
-    markerProperties: TyphoonTrack,
+    markerProperties: TyphoonTrackPoint,
     markerLatLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.date;
-    let markerIcon: IconOptions;
-    let className: string;
-
-    const eapAlertClasses =
-      (this.country &&
-        this.country.countryDisasterSettings.find(
-          (s) => s.disasterType === this.disasterType.disasterType,
-        ).eapAlertClasses) ||
-      ({} as EapAlertClasses);
-
-    const typhoonTrackProbability = markerProperties.timestamp;
-    Object.keys(eapAlertClasses).forEach((key) => {
-      if (
-        typhoonTrackProbability >= eapAlertClasses[key].valueLow &&
-        typhoonTrackProbability < eapAlertClasses[key].valueHigh
-      ) {
-        markerIcon = {
-          ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-          iconSize: [25, 41],
-          iconUrl: 'assets/markers/glofas-' + key + '.png',
-          iconRetinaUrl: 'assets/markers/glofas-' + key + '.png',
-        };
-        className = 'trigger-popup-' + key;
-      }
-    });
+    const markerTitle = DateTime.fromISO(
+      markerProperties.timestampOfTrackpoint,
+    ).toFormat('cccc, dd LLLL HH:mm');
 
     const markerInstance = marker(markerLatLng, {
-      icon: markerIcon ? icon(markerIcon) : divIcon(),
+      title: markerTitle,
+      icon: divIcon({
+        className:
+          DateTime.fromISO(markerProperties.timestampOfTrackpoint) >
+          DateTime.fromISO(this.lastModelRunDate)
+            ? 'typhoon-track-icon-future'
+            : 'typhoon-track-icon-past',
+      }),
       zIndexOffset: 700,
     });
-    markerInstance.bindPopup(this.createMarkerTyphoonTrackPopup(markerProperties), {
-      minWidth: 300,
-      className,
-    });
+    markerInstance.bindPopup(this.createMarkerTyphoonTrackPopup(markerTitle));
     markerInstance.on(
       'click',
       this.onMapMarkerClick(AnalyticsEvent.typhoonTrack),
@@ -806,8 +791,6 @@ export class MapComponent implements OnDestroy {
 
     return markerInstance;
   }
-
- 
 
   private createMarkerRedCrossBranch(
     markerProperties: RedCrossBranch,
@@ -954,83 +937,13 @@ export class MapComponent implements OnDestroy {
     return stationInfoPopup;
   }
 
-  // private createMarkerTyphoonTrackPopup(markerProperties: TyphoonTrack): string {
-  //   const eapAlertClasses =
-  //     (this.country &&
-  //       this.country.countryDisasterSettings.find(
-  //         (s) => s.disasterType === this.disasterType.disasterType,
-  //       ).eapAlertClasses) ||
-  //     ({} as EapAlertClasses);
-  //   const typhoonTrackProbability = markerProperties.forecastProbability;
-
-  //   let eapStatusText: string;
-  //   let eapStatusColor: string;
-  //   let eapStatusColorText: string;
-  //   Object.keys(eapAlertClasses).forEach((key) => {
-  //     if (
-  //       typhoonTrackProbability >= eapAlertClasses[key].valueLow &&
-  //       typhoonTrackProbability < eapAlertClasses[key].valueHigh
-  //     ) {
-  //       eapStatusText = eapAlertClasses[key].label;
-  //       eapStatusColor = `var(--ion-color-${eapAlertClasses[key].color})`;
-  //       eapStatusColorText = `var(--ion-color-${eapAlertClasses[key].color}-contrast)`;
-  //     }
-  //   });
-
-  //   const title =
-  //     markerProperties.typhoonTrackCode +
-  //     ' TYPHOONTRACK: ' +
-  //     markerProperties.typhoonTrackName;
-
-  //   let lastAvailableLeadTime: LeadTime;
-  //   if (this.country) {
-  //     const leadTimes = this.country.countryDisasterSettings.find(
-  //       (s) => s.disasterType === this.disasterType.disasterType,
-  //     ).activeLeadTimes;
-  //     lastAvailableLeadTime = leadTimes[leadTimes.length - 1];
-  //   }
-
-  //   const leadTime =
-  //     this.timelineService.activeLeadTime || lastAvailableLeadTime;
-  //   const subtitle = `${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
-  //         ${
-  //           markerProperties.forecastReturnPeriod
-  //             ? `<br>This corresponds to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years`
-  //             : ''
-  //         }`;
-
-  //   const thresholdName = 'Trigger activation threshold';
-  //   const typhoonTrackInfoPopup = this.createThresholdPopup(
-  //     eapStatusColorText,
-  //     title,
-  //     eapStatusColor,
-  //     eapStatusText,
-  //     markerProperties.forecastLevel,
-  //     markerProperties.triggerLevel,
-  //     subtitle,
-  //     thresholdName,
-  //   );
-  //   return typhoonTrackInfoPopup;
-  // }
-
-  private createMarkerTyphoonTrackPopup(markerProperties: TyphoonTrack): string {
-    const branchInfoPopup = (
+  private createMarkerTyphoonTrackPopup(markerTitle: string): string {
+    const trackpointInfoPopup =
       '<div style="margin-bottom: 5px">' +
-      '<strong>Branch: ' +
-      markerProperties.date +
-      '</strong>' +
-      '</div>'
-    ).concat(
-      '<div style="margin-bottom: 5px">' +
-        'timestamp : ' +
-        markerProperties.date +
-        '</div>',
-      // '<div style="margin-bottom: 5px">' +
-      //   'timestampOfTrackpoint: ' +
-      //   (Math.round(markerProperties.fullSupply).toLocaleString() || '') +
-      //   ' million m<sup>3</sup></div>',
-    );
-    return branchInfoPopup;
+      '<strong>Typhoon passes here at</strong>:<br>' +
+      markerTitle +
+      '</div>';
+    return trackpointInfoPopup;
   }
 
   private createMarkerRedCrossPopup(markerProperties: RedCrossBranch): string {

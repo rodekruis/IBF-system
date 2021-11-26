@@ -11,18 +11,8 @@ export class Station {
   forecastReturnPeriod: number;
 }
 
-export class TyphoonTrack {
-  date: Date;
-  timestamp: Date;
-  timestampOfTrackpoint: Date;
-  // typhoonTrackName: string;
-  // typhoonTrackCode: string;
-  // triggerLevel: number;
-  // forecastLevel: number;
-  // forecastTrigger: number;
-  // forecastProbability: number;
-  // forecastReturnPeriod: number;
- 
+export class TyphoonTrackPoint {
+  timestampOfTrackpoint: string;
 }
 export class RedCrossBranch {
   name: string;
