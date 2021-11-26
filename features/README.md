@@ -18,7 +18,7 @@
 IMPORTANT: 
 - A major distinction in every feature is whether the Portal is in TRIGGERED or NON-TRIGGERED mode.
 - These distinctions are made within each file.
-- In practice there can be a 3rd more rare scenario: OLD-EVENT. Where not further specified, this falls under NON-TRIGGERED.
+- In practice there can be a 3rd (more rare) scenario: OLD-EVENT. This is sometimes explicity mentioned. Where not further specified, it falls under NON-TRIGGERED.
 
 ### For IBF-portal user
 
@@ -35,27 +35,29 @@ IMPORTANT:
     - [Use Map section](IBF-portal-user/dashboard-page/Use_map_section.feature)
     - [Use Layers section](IBF-portal-user/dashboard-page/Use_layers_section.feature)
 
-
 ### For Dashboard admin-user
+
+These are actions run from the dev-menu in the dashboard, accessible only to an admin-user.
 
 - [Use Dev Menu](IBF-portal-admin-user/Use_dev_menu.feature)
 
 ### For API admin-user 
 
-From Swagger UI:
+These are actions run from the Swagger UI (<ibf-url>/docs).
 
-- Create user
+- Create new user
 - Update static data
 
+### For external pipeline (user)
 
-### For external pipeline user
+In practice, the pipeline is often time-scheduled and not manually triggered by a user. But nonetheless the processes that follow from this action (such as email) must be described somewhere.
 
 - Run external pipeline
   - Upload data
   - Create and send email
-  - 
-  - (Email and how it looks is part of this "scenario")
-
+- Upload mock data
+  - Upload mock data for all countries and disasters at once
+  - Upload mock data for a specific country and disasterptype
 
 ---
 
