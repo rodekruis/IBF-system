@@ -63,11 +63,8 @@
           </ion-button>
         </ion-menu-toggle>
       </ion-buttons>
-      <app-user-state></app-user-state>
+      <app-user-state [isLoggedIn]="true"></app-user-state>
       <ion-row slot="end" class="ion-align-items-center">
-        <ion-col>
-          <app-export-view class="ion-align-items-center"></app-export-view>
-        </ion-col>
         <ion-col size="auto">
           <app-logos></app-logos>
         </ion-col>

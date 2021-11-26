@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -11,6 +11,8 @@ import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { environment } from '../../../environments/environment';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-user-state',
@@ -18,8 +20,13 @@ import { LoaderService } from 'src/app/services/loader.service';
   styleUrls: ['./user-state.component.scss'],
 })
 export class UserStateComponent implements OnInit {
+  @Input()
+  public isLoggedIn: boolean;
+
+  public environmentConfiguration = environment.configuration;
+
   public displayName: string;
-  public country: Country;
+  public countryName: string;
   public countrySubscription: Subscription;
   public disasterTypeSubscription: Subscription;
   public disasterType: string;
@@ -31,6 +38,7 @@ export class UserStateComponent implements OnInit {
     private eventService: EventService,
     public disasterTypeService: DisasterTypeService,
     public countryService: CountryService,
+    public apiService: ApiService,
   ) {}
 
   ngOnInit() {
@@ -40,11 +48,23 @@ export class UserStateComponent implements OnInit {
     this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
+
+    this.apiService.getCountries().subscribe((countries) => {
+      if (countries.length === 1) {
+        this.onCountryChange(countries[0]);
+      }
+    });
   }
 
   private onCountryChange = (country: Country) => {
-    this.country = country;
+    this.countryName =
+      country?.countryName ||
+      this.capitalizeFirstLetter(this.environmentConfiguration);
   };
+
+  private capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType?.disasterType?.toUpperCase();

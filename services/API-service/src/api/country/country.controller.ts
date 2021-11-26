@@ -5,12 +5,10 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { RolesGuard } from '../../roles.guard';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
 
 @ApiBearerAuth()
-@UseGuards(RolesGuard)
 @ApiTags('country')
 @Controller('country')
 export class CountryController {

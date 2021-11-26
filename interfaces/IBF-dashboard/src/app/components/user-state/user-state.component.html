@@ -5,12 +5,21 @@
     data-test="heading-display-name-label"
   >
     <span>
-      IBF PORTAL <strong>{{ country?.countryName }} {{ disasterType }}</strong>
+      IBF PORTAL <strong>{{ countryName }} {{ disasterType }}</strong>
     </span>
+  </ion-title>
+</span>
+<span class="ion-float-end" *ngIf="isLoggedIn">
+  <ion-title size="small" data-test="user-display-name-label"
+    >Logged In As:</ion-title
+  >
+  <ion-title size="small" data-test="user-display-name">
+    <strong>{{ authService.displayName }}</strong>
   </ion-title>
 </span>
 
 <ion-button
+  *ngIf="isLoggedIn"
   class="ion-float-end"
   type="button"
   [title]="'Log Out'"
