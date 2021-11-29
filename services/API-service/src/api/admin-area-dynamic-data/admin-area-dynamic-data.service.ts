@@ -175,7 +175,10 @@ export class AdminAreaDynamicDataService {
         disasterType: disasterType,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(disasterType),
+          this.helperService.getLast12hourInterval(
+            disasterType,
+            lastTriggeredDate.timestamp,
+          ),
         ),
       })
       .select(['dynamic.value AS value', 'dynamic.placeCode AS "placeCode"'])
