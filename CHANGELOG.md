@@ -1,3 +1,12 @@
+## [0.110.1](https://github.com/rodekruis/IBF-system/compare/v0.110.0...v0.110.1) (2021-11-29)
+
+
+### Bug Fixes
+
+* all admin-areas get red outline AB[#10939](https://github.com/rodekruis/IBF-system/issues/10939) ([9ee4ed7](https://github.com/rodekruis/IBF-system/commit/9ee4ed7ef68954e742a499dc1add2b574b7608bd))
+
+
+
 # [0.110.0](https://github.com/rodekruis/IBF-system/compare/v0.109.0...v0.110.0) (2021-11-29)
 
 
@@ -165,15 +174,6 @@
 * differentiate adminLevel by disasterType AB[#10458](https://github.com/rodekruis/IBF-system/issues/10458) ([a098568](https://github.com/rodekruis/IBF-system/commit/a098568a09f4e407a7aff66f24bfcd772b4dc436))
 * removed console.log AB[#10266](https://github.com/rodekruis/IBF-system/issues/10266) Ab[#10267](https://github.com/rodekruis/IBF-system/issues/10267) AB[#10347](https://github.com/rodekruis/IBF-system/issues/10347) ([36f1307](https://github.com/rodekruis/IBF-system/commit/36f1307fdc9f397b9ea032dbdb35857bf678a59c))
 * updated time format AB[#10266](https://github.com/rodekruis/IBF-system/issues/10266) ([3c1192b](https://github.com/rodekruis/IBF-system/commit/3c1192bf7691d9290c889633dd922dc37ae95d7e))
-
-
-
-## [0.102.1](https://github.com/rodekruis/IBF-system/compare/v0.102.0...v0.102.1) (2021-11-05)
-
-
-### Bug Fixes
-
-* return placeCodeParent AB[#10042](https://github.com/rodekruis/IBF-system/issues/10042) ([003097d](https://github.com/rodekruis/IBF-system/commit/003097d56588ba91117b45c86aa03b3224620f5b))
 
 
 
