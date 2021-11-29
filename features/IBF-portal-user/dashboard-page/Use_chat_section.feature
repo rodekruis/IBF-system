@@ -8,39 +8,7 @@ Background:
 Scenario: View chat section
     When the user enters the dashboard page
     Then the user sees the Chat section on the left of the page
-    And it contains a "disaster-type selector" (see details below)
-    And it contains a "chat section" (see details below)
-
-Scenario: View Disaster-type selector with 1 "disaster-type"
-    Given the "country" has only 1 "disaster-type"
-    When the users views the disaster-type selector
-    Then the user sees 1 icon representing a disaster-type
-    And it is always "selected", meaning colored background with white icon.
-    And a text label of the disaster-type is below the icon
-
-Scenario: View Disaster-type selector with multiple "disaster-types"
-    Given the "country" has more than 1 "disaster-type"
-    When the users views the disaster-type selector
-    Then the user sees 2 or more icons representing a disaster-type
-    And only one is "selected", meaning colored background with white icon, and text label
-    And the others are "unselected", meaning white background with colored icon and no text label
-    And the "triggered" disaster-types are purple with white
-    And the "non-triggered" disaster-types are navy-blue with white 
-    And the "default selected" disaster-type is always the "triggered"
-    And if multiple, it is the first from the left
-    And if none, then the far-left icon is selected
-    And the rest of the dashboard is indeed showing data relating to the "selected" disaster-type
-
-Scenario: Switch Disaster-type
-    Given the "country" has more than 1 "disaster-type"
-    When the user clicks on a "non-selected" disaster-type
-    Then the icon switches to "selected" mode
-    And the previous selected icon switches to "unselected" mode
-    And the data of the rest the dashboard updates to the new "selected" disaster-type
-
-Scenario: View Chat section
-    When the user views the chat-section
-    Then there are multiple "speech-bubbles" containing information
+    And it contains multiple "speech-bubbles" with information
     And the speech-bubbles have grey background in NON-TRIGGERED mode
     And the speech-bubbles have purple background in TRIGGERED mode
     And each speech-bubble has a timestamp (of now) in the bottomright corner
@@ -62,7 +30,7 @@ Scenario: View general trigger information
     And it mentions when the event this trigger belongs to first started
     And it mentions for when the trigger is expected
     And the exact UX copy differs between disaster-types (Potentially: document in more detail)
-    And it contains 2 buttons 'About Trigger' and 'Video Guide'
+    And it contains 3 buttons 'About Trigger' and 'Video Guide' and 'Export View'
 
 Scenario: Click 'About Trigger' 
     When the user clicks on "About Trigger" button
@@ -73,6 +41,12 @@ Scenario: Click 'About Trigger'
 Scenario: Click 'View video'
     When the user clicks on 'Video Guide' button
     Then a popup opens where the video can be played
+
+Scenario: Click 'Export view'
+    When the user clicks the "Export View" button in the header
+    Then the popup open with the message and shows a link to take screenshot
+    And the user can follow the instructions provided 
+    And can close the popup window if do not need to take screenshot
 
 Scenario: View further instructions
     Given the dashboard is in TRIGGERED state

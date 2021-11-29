@@ -1,4 +1,15 @@
 <span class="ion-float-start">
+  <ion-title
+    class="center-heading"
+    size="medium"
+    data-test="heading-display-name-label"
+  >
+    <span>
+      IBF PORTAL <strong>{{ countryName }} {{ disasterType }}</strong>
+    </span>
+  </ion-title>
+</span>
+<span class="ion-float-end" *ngIf="isLoggedIn">
   <ion-title size="small" data-test="user-display-name-label"
     >Logged In As:</ion-title
   >
@@ -8,6 +19,7 @@
 </span>
 
 <ion-button
+  *ngIf="isLoggedIn"
   class="ion-float-end"
   type="button"
   [title]="'Log Out'"

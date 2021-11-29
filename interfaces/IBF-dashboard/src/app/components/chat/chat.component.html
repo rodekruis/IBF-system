@@ -1,5 +1,4 @@
 <ion-content scrollY="true">
-  <app-disaster-type></app-disaster-type>
   <app-dialogue-turn [isWarn]="isWarn">
     <p
       [innerHTML]="
@@ -32,6 +31,7 @@
       color="ibf-white"
     ></app-about-btn>
     <app-video-guide-button color="ibf-white"></app-video-guide-button>
+    <app-export-view class="ion-align-items-center"></app-export-view>
   </app-dialogue-turn>
   <!-- Active event -->
   <app-dialogue-turn
@@ -62,6 +62,7 @@
       color="ibf-white"
     ></app-about-btn>
     <app-video-guide-button color="ibf-white"></app-video-guide-button>
+    <app-export-view class="ion-align-items-center"></app-export-view>
   </app-dialogue-turn>
   <!-- Old event -->
   <app-dialogue-turn *ngIf="eventService.isOldEvent()" isConnected="true">
@@ -84,6 +85,7 @@
       color="ibf-white"
     ></app-about-btn>
     <app-video-guide-button color="ibf-white"></app-video-guide-button>
+    <app-export-view class="ion-align-items-center"></app-export-view>
   </app-dialogue-turn>
 
   <ng-container *ngIf="eventService.state.activeEvent">
