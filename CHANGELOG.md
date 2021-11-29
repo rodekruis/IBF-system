@@ -1,3 +1,26 @@
+# [0.110.0](https://github.com/rodekruis/IBF-system/compare/v0.109.0...v0.110.0) (2021-11-29)
+
+
+### Bug Fixes
+
+* lint AB[#10770](https://github.com/rodekruis/IBF-system/issues/10770) ([5ad5be8](https://github.com/rodekruis/IBF-system/commit/5ad5be84b6c2f7e764a36f3801c0c57c7e37503a))
+* lint AB[#10772](https://github.com/rodekruis/IBF-system/issues/10772) ([2aa457a](https://github.com/rodekruis/IBF-system/commit/2aa457a21988b9a02188534ad9ffe11f384a3b50))
+* updates AB[#10772](https://github.com/rodekruis/IBF-system/issues/10772) ([06ec2d6](https://github.com/rodekruis/IBF-system/commit/06ec2d6c384e3933a903ea92d965d34b4dda2d1f))
+
+
+### Features
+
+* added new design AB[#10772](https://github.com/rodekruis/IBF-system/issues/10772) ([d727338](https://github.com/rodekruis/IBF-system/commit/d727338e2389c5da683634eb8643781bbeaa785a))
+* added new segment section AB[#10772](https://github.com/rodekruis/IBF-system/issues/10772) AB[#10770](https://github.com/rodekruis/IBF-system/issues/10770) ([105b814](https://github.com/rodekruis/IBF-system/commit/105b814585f09ceaa08eb37e7d920234cd825263))
+* added new title segment 9121-sthakre ([2c6d609](https://github.com/rodekruis/IBF-system/commit/2c6d609bf3de021c7dce7cbdbebba492d455de88))
+* added new title segment-sthakre ([7585867](https://github.com/rodekruis/IBF-system/commit/758586719e8be6652cce80bad22a46d054364a5a))
+* change today-bar AB[#10772](https://github.com/rodekruis/IBF-system/issues/10772) ([2706340](https://github.com/rodekruis/IBF-system/commit/270634043684b623eb9277c2375b4748a7e9dea5))
+* login page AB[#9121](https://github.com/rodekruis/IBF-system/issues/9121) ([51cddab](https://github.com/rodekruis/IBF-system/commit/51cddabafaeaebfa3b54d5cb2b92bdfe9b48c44b))
+* new design AB[#9123](https://github.com/rodekruis/IBF-system/issues/9123) ([5ecab28](https://github.com/rodekruis/IBF-system/commit/5ecab28b4c5eaabee7246a94120cd564cc844132))
+* title section AB[#10770](https://github.com/rodekruis/IBF-system/issues/10770) ([5907fc3](https://github.com/rodekruis/IBF-system/commit/5907fc385bcc472f1e2a365f93c4f3fe168b2eb1))
+
+
+
 # [0.109.0](https://github.com/rodekruis/IBF-system/compare/v0.108.0...v0.109.0) (2021-11-26)
 
 
@@ -151,21 +174,6 @@
 ### Bug Fixes
 
 * return placeCodeParent AB[#10042](https://github.com/rodekruis/IBF-system/issues/10042) ([003097d](https://github.com/rodekruis/IBF-system/commit/003097d56588ba91117b45c86aa03b3224620f5b))
-
-
-
-# [0.102.0](https://github.com/rodekruis/IBF-system/compare/v0.101.3...v0.102.0) (2021-11-01)
-
-
-### Bug Fixes
-
-* health sites info popup + legend AB[#10474](https://github.com/rodekruis/IBF-system/issues/10474) ([cf8e027](https://github.com/rodekruis/IBF-system/commit/cf8e0278a36a9545c5222280ff0d6382ce1cfee3))
-* updated AB[#10237](https://github.com/rodekruis/IBF-system/issues/10237) ([e9d869a](https://github.com/rodekruis/IBF-system/commit/e9d869ae78d03f37d2850d514d69d944e625b58f))
-
-
-### Features
-
-* updated format and link AB[#10237](https://github.com/rodekruis/IBF-system/issues/10237) ([d758905](https://github.com/rodekruis/IBF-system/commit/d758905808e83a2b6f5fc678968862ee4d8f2331))
 
 
 
