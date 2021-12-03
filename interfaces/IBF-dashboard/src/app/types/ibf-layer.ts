@@ -57,6 +57,7 @@ export enum IbfLayerName {
   floodExtent = 'flood_extent',
   rainfallExtent = 'rainfall_extent',
   population = 'population',
+  vulnerableGroups = 'vulnerable_groups',
   adminRegions = 'adminRegions',
   adminRegions1 = 'adminRegions1',
   adminRegions2 = 'adminRegions2',
@@ -104,6 +105,7 @@ export enum IbfLayerName {
 export enum IbfLayerLabel {
   glofasStations = 'Glofas stations',
   typhoonTrack = 'Typhoon track',
+  vulnerableGroups = 'Vulnerable Groups',
   redCrossBranches = 'Red Cross branches',
   redCrescentBranches = 'Red Crescent branches',
   waterpoints = 'Waterpoints',

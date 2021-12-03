@@ -49,6 +49,7 @@ import {
   RedCrossBranch,
   Station,
   TyphoonTrackPoint,
+  VulnerableGroups,
   Waterpoint,
 } from 'src/app/models/poi.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -368,6 +369,11 @@ export class MapComponent implements OnDestroy {
       case IbfLayerName.typhoonTrack:
         return this.createMarkerTyphoonTrack(
           geoJsonPoint.properties as TyphoonTrackPoint,
+          latlng,
+        );
+      case IbfLayerName.vulnerableGroups:
+        return this.createMarkerVulnerableGroups(
+          geoJsonPoint.properties as VulnerableGroups,
           latlng,
         );
       case IbfLayerName.damSites:
@@ -792,6 +798,34 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
+  private createMarkerVulnerableGroups(
+    markerProperties: VulnerableGroups,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = DateTime.fromISO(
+      markerProperties.timestampOfVulnerableGroups,
+    ).toFormat('cccc, dd LLLL HH:mm');
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: divIcon({
+        className:
+          DateTime.fromISO(markerProperties.timestampOfVulnerableGroups) >
+          DateTime.fromISO(this.lastModelRunDate)
+            ? 'typhoon-track-icon-future'
+            : 'typhoon-track-icon-past',
+      }),
+      zIndexOffset: 700,
+    });
+    markerInstance.bindPopup(this.createMarkerVulnerableGroupsPopup(markerTitle));
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.vulnerableGroups),
+    );
+
+    return markerInstance;
+  }
+
   private createMarkerRedCrossBranch(
     markerProperties: RedCrossBranch,
     markerLatLng: LatLng,
@@ -944,6 +978,15 @@ export class MapComponent implements OnDestroy {
       markerTitle +
       '</div>';
     return trackpointInfoPopup;
+  }
+
+  private createMarkerVulnerableGroupsPopup(markerTitle: string): string {
+    const vulnerableGroupsInfoPopup =
+      '<div style="margin-bottom: 5px">' +
+      '<strong>Typhoon passes here at</strong>:<br>' +
+      markerTitle +
+      '</div>';
+    return vulnerableGroupsInfoPopup;
   }
 
   private createMarkerRedCrossPopup(markerProperties: RedCrossBranch): string {

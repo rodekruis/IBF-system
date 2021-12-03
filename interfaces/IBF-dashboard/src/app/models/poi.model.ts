@@ -14,6 +14,10 @@ export class Station {
 export class TyphoonTrackPoint {
   timestampOfTrackpoint: string;
 }
+
+export class VulnerableGroups {
+  timestampOfVulnerableGroups: string;
+}
 export class RedCrossBranch {
   name: string;
   numberOfVolunteers: number;

@@ -135,6 +135,13 @@ export class ApiService {
     return this.get(`typhoon-track/${countryCodeISO3}/${leadTime}`, false);
   }
 
+  getVulnerableGroups(
+    countryCodeISO3: string,
+    leadTime: LeadTime,
+  ): Observable<GeoJSON.FeatureCollection> {
+    return this.get(`vulnerable-groups/${countryCodeISO3}/${leadTime}`, false);
+  }
+
   getRedCrossBranches(
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {

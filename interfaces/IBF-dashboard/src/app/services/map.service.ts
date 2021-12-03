@@ -194,6 +194,8 @@ export class MapService {
         this.loadStationLayer(layerActive);
       } else if (layer.name === IbfLayerName.typhoonTrack) {
         this.loadTyphoonTrackLayer(layerActive);
+      } else if (layer.name === IbfLayerName.vulnerableGroups) {
+        this.loadVulnerableGroupsLayer(layerActive);
       } else if (layer.name === IbfLayerName.redCrossBranches) {
         this.loadRedCrossBranchesLayer(layer.label, layerActive);
       } else if (layer.name === IbfLayerName.redCrescentBranches) {
@@ -282,6 +284,39 @@ export class MapService {
     });
   };
 
+
+  private loadVulnerableGroupsLayer(layerActive: boolean) {
+    if (this.country) {
+      if (layerActive) {
+        this.apiService
+          .getVulnerableGroups(
+            this.country.countryCodeISO3,
+            this.timelineService.activeLeadTime,
+          )
+          .subscribe(this.addVulnerableGroupsLayer);
+      } else {
+        this.addVulnerableGroupsLayer(null);
+      }
+    }
+  }
+
+  private addVulnerableGroupsLayer = (vulnerableGroups: any) => {
+    this.addLayer({
+      name: IbfLayerName.vulnerableGroups,
+      label: IbfLayerLabel.vulnerableGroups,
+      type: IbfLayerType.point,
+      description: this.getPopoverText(IbfLayerName.vulnerableGroups),
+      active: this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(
+            IbfLayerName.vulnerableGroups,
+          )
+        : true,
+      show: true,
+      data: vulnerableGroups,
+      viewCenter: false,
+      order: 0,
+    });
+  };
   private loadRedCrossBranchesLayer = (
     label: IbfLayerLabel,
     layerActive: boolean,
@@ -783,6 +818,13 @@ export class MapService {
           this.timelineService.activeLeadTime,
         )
         .pipe(shareReplay(1));
+    } else if (layer.name === IbfLayerName.vulnerableGroups) {
+          layerData = this.apiService
+            .getVulnerableGroups(
+              this.country.countryCodeISO3,
+              this.timelineService.activeLeadTime,
+            )
+            .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.adminRegions) {
       layerData = this.apiService
         .getAdminRegions(

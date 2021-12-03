@@ -200,6 +200,18 @@
   border-radius: 50%;
 }
 
+.typhoon-track-icon-future {
+  background: var(--ion-color-ibf-trigger-alert-primary);
+  border: 1px solid var(--ion-color-ibf-no-alert-primary);
+  border-radius: 50%;
+}
+
+.typhoon-track-icon-past {
+  background: var(--ion-color-ibf-no-alert-secondary);
+  border: 1px solid var(--ion-color-ibf-no-alert-primary);
+  border-radius: 50%;
+}
+
 .ibf-video-guide-popover {
   --width: 600px;
 }

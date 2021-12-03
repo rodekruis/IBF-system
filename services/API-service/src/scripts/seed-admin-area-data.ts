@@ -57,6 +57,8 @@ export class SeedAdminAreaData implements InterfaceScript {
 
     // PHL
     if (envCountries.includes('PHL')) {
+      const countryCodeISO3 = 'PHL';
+      const adminlevel = 3;
       // vulnerability_dengue_data_ibfera_PHL
       const dengueVulnerabilityFilename = `./src/scripts/git-lfs/admin-area-data/vulnerability_dengue_data_ibfera_PHL.csv`;
       const dengueVulnerabilityData = await this.seedHelper.getCsvData(
@@ -70,8 +72,8 @@ export class SeedAdminAreaData implements InterfaceScript {
               .createQueryBuilder()
               .insert()
               .values({
-                countryCodeISO3: 'PHL',
-                adminLevel: 2,
+                countryCodeISO3: 'countryCodeISO3',
+                adminLevel: adminlevel,
                 placeCode: area['placeCode'],
                 indicator: area['indicator'],
                 value: area['value'],

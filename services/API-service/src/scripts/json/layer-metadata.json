@@ -68,6 +68,15 @@
     "active": "yes"
   },
   {
+    "country_codes": "PHL",
+    "disasterTypes": ["typhoon"],
+    "name": "vulnerable_groups",
+    "label": "Vulnerable Groups",
+    "type": "point",
+    "leadTimeDependent": false,
+    "active": "yes"
+  },
+  {
     "country_codes": "UGA,ZMB,KEN,ETH,ZWE",
     "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
     "name": "red_cross_branches",

@@ -22,6 +22,7 @@ export enum AnalyticsEvent {
   mapMarker = 'map-marker',
   glofasStation = 'glofas-station',
   typhoonTrack = 'typhoon-track',
+  vulnerableGroups = 'vulnerable-groups',
   mapPlaceSelect = 'map-place-select',
   leadTime = 'lead-time',
   closeEvent = 'close-event',

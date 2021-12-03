@@ -14,6 +14,7 @@ import { In, Repository } from 'typeorm';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 import { CountryEntity } from '../api/country/country.entity';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
+import { VulnerableGroupsService} from '../api/vulnerable-groups/vulnerable-groups.service';
 
 @Injectable()
 export class ScriptsService {
@@ -28,6 +29,7 @@ export class ScriptsService {
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private glofasStationService: GlofasStationService,
     private typhoonTrackService: TyphoonTrackService,
+    private vulnerableGroupsService: VulnerableGroupsService,
     private eventService: EventService,
   ) {}
 
@@ -109,6 +111,10 @@ export class ScriptsService {
 
     if (mockInput.disasterType === DisasterType.Typhoon) {
       await this.mockTyphoonTrack(selectedCountry, mockInput.triggered);
+    }
+
+    if (mockInput.disasterType === DisasterType.Typhoon) {
+      await this.mockVulnerableGroups(selectedCountry, mockInput.triggered);
     }
   }
 
@@ -309,6 +315,36 @@ export class ScriptsService {
       leadTime: mockLeadTime as LeadTime,
       eventName: this.getEventName(DisasterType.Typhoon),
       trackpointDetails: triggered ? track : [],
+    });
+  }
+
+
+  private async mockVulnerableGroups(selectedCountry, triggered: boolean) {
+    const vulnerableGroupFileName = `./src/api/typhoon-track/dto/example/typhoon-track-${selectedCountry.countryCodeISO3}.json`;
+    const vulnerableGroupRaw = fs.readFileSync(vulnerableGroupFileName, 'utf-8');
+    const vulnerableGroups = JSON.parse(vulnerableGroupRaw);
+
+    // Overwrite timestamps of trackpoints to align with today's date
+    // Make sure that the moment of landfall lies just ahead
+    let i = -23;
+    for (const vulnerableGroup of vulnerableGroups) {
+      const now = new Date();
+      vulnerableGroup.timestampOfVulnerableGroups = new Date(
+        now.getTime() + i * (1000 * 60 * 60 * 6),
+      );
+      i += 1;
+    }
+
+    const mockLeadTime = LeadTime.hour72;
+
+    console.log(
+      `Seeding Vulnerable groups for leadtime: ${mockLeadTime} for country: ${selectedCountry.countryCodeISO3}`,
+    );
+    await this.vulnerableGroupsService.uploadVulnerableGroups({
+      countryCodeISO3: selectedCountry.countryCodeISO3,
+      leadTime: mockLeadTime as LeadTime,
+      eventName: this.getEventName(DisasterType.Typhoon),
+     vulnerableGroupsDetails: triggered ? vulnerableGroups : [],
     });
   }
 
