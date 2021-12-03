@@ -160,6 +160,7 @@ export class AdminAreaDynamicDataService {
     leadTime: LeadTime,
     indicator: DynamicIndicator,
     disasterType: DisasterType,
+    eventName: string,
   ): Promise<AdminDataReturnDto[]> {
     const lastTriggeredDate = await this.eventService.getRecentDate(
       countryCodeISO3,
@@ -173,6 +174,7 @@ export class AdminAreaDynamicDataService {
         leadTime: leadTime,
         indicator: indicator,
         disasterType: disasterType,
+        eventName: eventName === 'no-name' ? null : eventName,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
           this.helperService.getLast12hourInterval(
@@ -191,6 +193,7 @@ export class AdminAreaDynamicDataService {
     indicator: DynamicIndicator,
     placeCode: string,
     leadTime: string,
+    eventName: string,
   ): Promise<number> {
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
@@ -198,6 +201,7 @@ export class AdminAreaDynamicDataService {
         indicator: indicator,
         placeCode: placeCode,
         leadTime: leadTime,
+        eventName: eventName === 'no-name' ? null : eventName,
       })
       .select(['dynamic.value AS value'])
       .orderBy('dynamic.date', 'DESC')

@@ -98,7 +98,7 @@ export class EventService {
   private onEvent = (events) => {
     this.state.events = events;
 
-    for (let event of this.state.events) {
+    for (const event of this.state.events) {
       event.startDate = DateTime.fromISO(event.startDate).toFormat(
         'cccc, dd LLLL',
       );
@@ -161,7 +161,7 @@ export class EventService {
       });
 
     const event =
-      this.state.events.find((event) => event.eventName === eventName) ||
+      this.state.events.find((e) => e.eventName === eventName) ||
       this.state.events[0];
 
     event.firstLeadTime = firstKey;

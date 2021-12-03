@@ -366,6 +366,7 @@ export class NotificationService {
           country,
           disasterType,
           leadTime,
+          eventName,
         );
         leadTimeTables = leadTimeTables + tableForLeadTime;
       }
@@ -388,6 +389,7 @@ export class NotificationService {
     country: CountryEntity,
     disasterType: DisasterType,
     leadTime: LeadTimeEntity,
+    eventName: string,
   ): Promise<string> {
     const adminAreaLabels =
       country.adminRegionLabels[
@@ -424,6 +426,7 @@ export class NotificationService {
       country,
       disasterType,
       leadTime,
+      eventName,
     );
     const tableForLeadTimeEnd = '</tbody></table>';
     const tableForLeadTime =
@@ -435,6 +438,7 @@ export class NotificationService {
     country: CountryEntity,
     disasterType: DisasterType,
     leadTime: LeadTimeEntity,
+    eventName: string,
   ): Promise<string> {
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
@@ -442,6 +446,7 @@ export class NotificationService {
       country.countryDisasterSettings.find(s => s.disasterType === disasterType)
         .defaultAdminLevel,
       leadTime.leadTimeName,
+      eventName,
     );
     const disaster = await this.getDisaster(disasterType);
     let areaTableString = '';
@@ -450,12 +455,14 @@ export class NotificationService {
         disaster.triggerUnit as DynamicIndicator,
         area.placeCode,
         leadTime.leadTimeName as LeadTime,
+        eventName,
       );
       if (triggerUnitValue > 0) {
         const actionUnitValue = await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
           disaster.actionsUnit as DynamicIndicator,
           area.placeCode,
           leadTime.leadTimeName as LeadTime,
+          eventName,
         );
         const alertLevel = ''; //Leave empty for now, as it is irrelevant any way (always 'Max. alert')
         const areaTable = `<tr class='notification-alerts-table-row'>

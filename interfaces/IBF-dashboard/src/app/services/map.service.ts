@@ -472,6 +472,7 @@ export class MapService {
           this.adminLevelService.adminLevel,
           this.timelineService.activeLeadTime,
           indicator.name,
+          this.eventService.state.event?.eventName,
           indicator.dynamic,
         ).subscribe((adminRegions) => {
           this.addAggregateLayer(indicator, adminRegions, layerActive);
@@ -491,6 +492,7 @@ export class MapService {
           this.adminLevelService.adminLevel,
           this.timelineService.activeLeadTime,
           indicator.name,
+          this.eventService.state.event?.eventName,
           indicator.dynamic,
         ).subscribe((adminRegions) => {
           this.addOutlineLayer(indicator, adminRegions);
@@ -819,6 +821,7 @@ export class MapService {
         this.adminLevelService.adminLevel,
         this.timelineService.activeLeadTime,
         layer.name,
+        this.eventService.state.event?.eventName,
         layer.dynamic,
       ).pipe(shareReplay(1));
     } else {
@@ -834,6 +837,7 @@ export class MapService {
     adminLevel: AdminLevel,
     leadTime: LeadTime,
     layerName: IbfLayerName,
+    eventName: string,
     dynamic: boolean,
   ): Observable<GeoJSON.FeatureCollection> {
     // Do api request to get data layer
@@ -845,6 +849,7 @@ export class MapService {
         leadTime,
         layerName,
         disasterType,
+        eventName,
       );
     } else {
       admDynamicDataObs = this.apiService.getAdminAreaData(

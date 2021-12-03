@@ -1,7 +1,7 @@
 [
   { "placeCode": "PH012801000", "amount": 1 },
-  { "placeCode": "PH012802000", "amount": 0 },
-  { "placeCode": "PH012803000", "amount": 0 },
+  { "placeCode": "PH012802000", "amount": 1 },
+  { "placeCode": "PH012803000", "amount": 1 },
   { "placeCode": "PH012804000", "amount": 1 },
   { "placeCode": "PH012805000", "amount": 0 },
   { "placeCode": "PH012807000", "amount": 1 },

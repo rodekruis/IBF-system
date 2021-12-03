@@ -217,6 +217,7 @@ export class EventService {
     disasterType: DisasterType,
     adminLevel: number,
     leadTime: string,
+    eventName: string,
   ): Promise<TriggeredArea[]> {
     const triggerUnit = await this.getTriggerUnit(disasterType);
     const result = await this.adminAreaDynamicDataRepo
@@ -274,6 +275,7 @@ export class EventService {
         countryCodeISO3,
         disasterType,
         area.placeCode,
+        eventName === 'no-name' ? null : eventName,
       );
     }
     return triggeredAreas;

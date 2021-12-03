@@ -64,7 +64,6 @@ export class TyphoonTrackService {
     leadTime: LeadTime,
     eventName: string,
   ): Promise<GeoJson> {
-    console.log('eventName: ', eventName);
     const lastTriggeredDate = await this.eventService.getRecentDate(
       countryCodeISO3,
       DisasterType.Typhoon,

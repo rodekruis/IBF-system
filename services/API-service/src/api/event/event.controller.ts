@@ -99,19 +99,23 @@ export class EventController {
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
+  @ApiParam({ name: 'eventName', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
       'Triggered admin-areas for given country, disaster-type and lead-time.',
     type: [TriggeredArea],
   })
-  @Get('triggered-areas/:countryCodeISO3/:adminLevel/:disasterType/:leadTime')
+  @Get(
+    'triggered-areas/:countryCodeISO3/:adminLevel/:disasterType/:leadTime/:eventName',
+  )
   public async getTriggeredAreas(@Param() params): Promise<TriggeredArea[]> {
     return await this.eventService.getTriggeredAreas(
       params.countryCodeISO3,
       params.disasterType,
       params.adminLevel,
       params.leadTime,
+      params.eventName,
     );
   }
 

@@ -6,6 +6,7 @@ import { Country, DisasterType } from '../models/country.model';
 import { AdminLevel } from '../types/admin-level';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
+import { EventService } from './event.service';
 import { TimelineService } from './timeline.service';
 
 @Injectable({
@@ -25,6 +26,7 @@ export class EapActionsService {
     private timelineService: TimelineService,
     private disasterTypeService: DisasterTypeService,
     private adminLevelService: AdminLevelService,
+    private eventService: EventService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -104,6 +106,7 @@ export class EapActionsService {
           this.disasterTypeService.disasterType.disasterType,
           adminLevel,
           leadTime,
+          this.eventService.state.event?.eventName,
         )
         .subscribe(this.onTriggeredAreas);
     }
@@ -121,13 +124,19 @@ export class EapActionsService {
     return this.triggeredAreaSubject.asObservable();
   }
 
-  checkEapAction(action: string, status: boolean, placeCode: string) {
+  checkEapAction(
+    action: string,
+    status: boolean,
+    placeCode: string,
+    eventName: string,
+  ) {
     return this.apiService.checkEapAction(
       action,
       this.country.countryCodeISO3,
       this.disasterType.disasterType,
       status,
       placeCode,
+      eventName,
     );
   }
 }

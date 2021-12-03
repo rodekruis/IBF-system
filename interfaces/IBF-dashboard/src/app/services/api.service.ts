@@ -227,9 +227,12 @@ export class ApiService {
     disasterType: DisasterTypeKey,
     adminLevel: number,
     leadTime: string,
+    eventName: string,
   ) {
     return this.get(
-      `event/triggered-areas/${countryCodeISO3}/${adminLevel}/${disasterType}/${leadTime}`,
+      `event/triggered-areas/${countryCodeISO3}/${adminLevel}/${disasterType}/${leadTime}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }
@@ -252,9 +255,16 @@ export class ApiService {
     );
   }
 
-  getAdminAreaDynamicDataOne(key: string, placeCode: string, leadTime: string) {
+  getAdminAreaDynamicDataOne(
+    key: string,
+    placeCode: string,
+    leadTime: string,
+    eventName: string,
+  ) {
     return this.get(
-      `admin-area-dynamic-data/single/${key}/${placeCode}/${leadTime}`,
+      `admin-area-dynamic-data/single/${key}/${placeCode}/${leadTime}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }
@@ -265,9 +275,12 @@ export class ApiService {
     leadTime: LeadTime,
     indicator: string,
     disasterType: DisasterTypeKey,
+    eventName: string,
   ) {
     return this.get(
-      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${leadTime}/${indicator}/${disasterType}`,
+      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${leadTime}/${indicator}/${disasterType}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }
@@ -289,6 +302,7 @@ export class ApiService {
     disasterType: string,
     status: boolean,
     placeCode: string,
+    eventName: string,
   ) {
     return this.post(
       'eap-actions',
@@ -298,6 +312,7 @@ export class ApiService {
         disasterType,
         status,
         placeCode,
+        eventName: eventName || 'no-name',
       },
       false,
     );

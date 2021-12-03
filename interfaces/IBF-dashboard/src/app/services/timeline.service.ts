@@ -137,6 +137,11 @@ export class TimelineService {
       this.filterLeadTimeButtonByLeadTime(timeStepButtonValue),
     ).active = true;
     this.timelineSubject.next(this.activeLeadTime);
+
+    const event = this.eventService.state.events.find(
+      (e) => (e.firstLeadTime as LeadTime) === this.activeLeadTime,
+    );
+    this.eventService.setEvent(event);
   }
 
   private getLeadTimeDate(leadTime: LeadTime, triggerKey: string) {
@@ -233,7 +238,7 @@ export class TimelineService {
         ? events.map((e) => e.firstLeadTime)
         : [LeadTime.hour72];
       const relevantLeadTimesModulo24 = relevantLeadTimes.map(
-        (leadTime) => Number(LeadTimeTriggerKey[leadTime]) % 24,
+        (lt) => Number(LeadTimeTriggerKey[lt]) % 24,
       );
       const leadTimeModulo24 = Number(leadTime.split('-')[0]) % 24;
       return relevantLeadTimesModulo24.includes(leadTimeModulo24);
