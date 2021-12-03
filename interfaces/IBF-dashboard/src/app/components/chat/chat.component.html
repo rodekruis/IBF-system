@@ -40,7 +40,8 @@
     *ngIf="eventService.state.activeEvent && eventService.state.activeTrigger"
     isConnected="true"
   >
-    <p *ngFor="let event of eventService.state.events"
+    <p
+      *ngFor="let event of eventService.state.events"
       [innerHTML]="
         'chat-component.' +
           disasterCategory +

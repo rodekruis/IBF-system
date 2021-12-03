@@ -15,6 +15,7 @@ import {
 export class DateButtonComponent implements OnInit {
   @Input() date = DateTime.now();
   @Input() unit = LeadTimeUnit.day;
+  @Input() active: boolean;
 
   private dateFormat = '';
   private monthFormat = '';
@@ -36,7 +37,11 @@ export class DateButtonComponent implements OnInit {
       this.displayDate = this.date.toFormat(this.dateFormat);
     }
     if (this.unit === LeadTimeUnit.hour) {
-      this.displayHour = this.date.toFormat(this.hourFormat);
+      if (this.active) {
+        this.displayHour = this.date.toFormat(this.hourFormat);
+      } else {
+        this.displayHour = '';
+      }
     }
     this.displayMonth = this.date.toFormat(this.monthFormat);
   }

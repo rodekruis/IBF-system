@@ -432,7 +432,7 @@ export class MapService {
             this.disasterType.disasterType,
             this.timelineService.activeLeadTime,
             adminLevel,
-            this.eventService.state.event.eventName,
+            this.eventService.state.event?.eventName,
           )
           .subscribe((adminRegions) =>
             this.addAdminRegionLayer(adminRegions, adminLevel),
@@ -806,7 +806,7 @@ export class MapService {
           this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           adminLevel,
-          this.eventService.state.event.eventName,
+          this.eventService.state.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (

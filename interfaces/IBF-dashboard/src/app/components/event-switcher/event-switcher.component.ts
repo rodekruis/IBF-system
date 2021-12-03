@@ -40,7 +40,9 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
 
   public switchEvent(event: EventSummary): void {
     this.selectedEventName = event.eventName;
-    this.timelineService.handleTimeStepButtonClick(event.firstLeadTime);
+    if (this.timelineService.state.timeStepButtons.length) {
+      this.timelineService.handleTimeStepButtonClick(event.firstLeadTime);
+    }
     this.eventService.setEvent(event);
   }
 }
