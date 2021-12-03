@@ -126,7 +126,7 @@ export class ScriptsService {
     selectedCountry,
     disasterType: DisasterType,
     triggered: boolean,
-    eventNr: number = 1,
+    eventNr = 1,
   ) {
     let exposureUnits;
     if (
@@ -224,10 +224,7 @@ export class ScriptsService {
     }
   }
 
-  private getEventName(
-    disasterType: DisasterType,
-    eventNr: number = 1,
-  ): string {
+  private getEventName(disasterType: DisasterType, eventNr = 1): string {
     if (disasterType === DisasterType.Typhoon) {
       return `Mock typhoon ${eventNr}`;
     } else {
@@ -235,7 +232,7 @@ export class ScriptsService {
     }
   }
 
-  private getTyphoonLeadTime(eventNr: number = 1): string {
+  private getTyphoonLeadTime(eventNr = 1): string {
     if (eventNr === 1) {
       return LeadTime.hour72;
     } else if (eventNr === 2) {
@@ -286,7 +283,7 @@ export class ScriptsService {
   private filterLeadTimesPerDisasterType(
     leadTime: string,
     disasterType: DisasterType,
-    eventNr: number = 1,
+    eventNr = 1,
   ) {
     if (disasterType === DisasterType.Drought) {
       const now = new Date();
@@ -317,7 +314,7 @@ export class ScriptsService {
   private async mockTyphoonTrack(
     selectedCountry,
     triggered: boolean,
-    eventNr: number = 1,
+    eventNr = 1,
   ) {
     const trackFileName = `./src/api/typhoon-track/dto/example/typhoon-track-${
       selectedCountry.countryCodeISO3
@@ -379,7 +376,7 @@ export class ScriptsService {
     selectedCountry,
     disasterType: DisasterType,
     triggered: boolean,
-    eventNr: number = 1,
+    eventNr = 1,
   ) {
     const triggersFileName = `./src/api/event/dto/example/triggers-per-leadtime-${
       selectedCountry.countryCodeISO3
