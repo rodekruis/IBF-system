@@ -26,16 +26,6 @@
       </ion-button>
     </ion-item>
     <div *ngFor="let group of groups" data-test="aggregate-list">
-      <ion-item
-        *ngIf="group === indicatorGroupEnum.vulnerability"
-        color="ibf-secondary"
-        lines="none"
-        class="aggregate-header-item"
-      >
-        <ion-label>
-          <span [translate]="'aggregates-component.exposed-subgroups'"></span>
-        </ion-label>
-      </ion-item>
       <ion-row
         *ngFor="let indicator of indicators"
         class="ion-no-padding"
