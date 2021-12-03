@@ -12,7 +12,6 @@ Scenario: View aggregate section
     And each indicator has an "icon", a "label", a "value" and an "info-button"
     And the list might be split in two groups
     And the indicators above are the "main" exposure variable (and 'total population')
-    And if there is a second group it is headed by a second header with label 'of which .."
     And the indicators below are more detailed exposured variables
     And the indicators differ per country and disaster-type.
 
