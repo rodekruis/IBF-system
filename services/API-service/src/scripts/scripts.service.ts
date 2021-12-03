@@ -213,6 +213,10 @@ export class ScriptsService {
     }
   }
 
+  private getTyphoonLeadTime(): string {
+    return LeadTime.hour72;
+  }
+
   private mockAmount(
     exposurePlacecodes: any,
     exposureUnit: DynamicIndicator,
@@ -277,7 +281,7 @@ export class ScriptsService {
         nextAprilMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime()
       );
     } else if (disasterType === DisasterType.Typhoon) {
-      return leadTime === LeadTime.hour72;
+      return leadTime === this.getTyphoonLeadTime();
     } else {
       return true;
     }
@@ -299,7 +303,7 @@ export class ScriptsService {
       i += 1;
     }
 
-    const mockLeadTime = LeadTime.hour72;
+    const mockLeadTime = this.getTyphoonLeadTime();
 
     console.log(
       `Seeding Typhoon track for leadtime: ${mockLeadTime} for country: ${selectedCountry.countryCodeISO3}`,

@@ -1,0 +1,32 @@
+<div 
+  *ngIf="eventService.state.events.length > 1"
+  class="containerDiv"
+>
+  <div
+    *ngFor="let event of eventService.state.events"
+  >
+    <div *ngIf="event.eventName === selectedEventName">
+      <ion-button
+        class="ibf"
+        slot="start"
+        color="ibf-primary"
+        size="small"
+        (click)="switchEvent(event)"
+      >
+        {{ event.eventName }}
+      </ion-button>
+    </div>
+
+    <div *ngIf="event.eventName !== selectedEventName">
+      <ion-button
+        class="ibf"
+        slot="start"
+        color="ibf-white"
+        size="small"
+        (click)="switchEvent(event)"
+      >
+        {{ event.eventName }}
+      </ion-button>
+    </div>
+  </div>
+</div>

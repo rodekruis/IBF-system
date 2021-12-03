@@ -10,6 +10,7 @@ import { AdminLevel } from 'src/app/types/admin-level';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { DisasterTypeKey } from '../types/disaster-type-key';
+import { EventSummary } from './event.service';
 
 @Injectable({
   providedIn: 'root',
@@ -131,8 +132,12 @@ export class ApiService {
   getTyphoonTrack(
     countryCodeISO3: string,
     leadTime: LeadTime,
+    eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`typhoon-track/${countryCodeISO3}/${leadTime}`, false);
+    return this.get(
+      `typhoon-track/${countryCodeISO3}/${leadTime}/${eventName}`,
+      false,
+    );
   }
 
   getRedCrossBranches(
@@ -170,14 +175,20 @@ export class ApiService {
   getTriggerPerLeadTime(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
+    eventName: string,
   ): Observable<CountryTriggers> {
-    return this.get(`event/triggers/${countryCodeISO3}/${disasterType}`, false);
+    return this.get(
+      `event/triggers/${countryCodeISO3}/${disasterType}/${
+        eventName || 'no-name'
+      }`,
+      false,
+    );
   }
 
   getEvent(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
-  ): Observable<any> {
+  ): Observable<EventSummary> {
     return this.get(`event/${countryCodeISO3}/${disasterType}`, false);
   }
 
@@ -186,11 +197,12 @@ export class ApiService {
     disasterType: DisasterTypeKey,
     leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
+    eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
       `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}/${
         leadTime ? leadTime : '{leadTime}'
-      }`,
+      }/${eventName || 'no-name'}`,
       false,
     );
   }
@@ -200,11 +212,12 @@ export class ApiService {
     disasterType: DisasterTypeKey,
     leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
+    eventName: string,
   ): Observable<any> {
     return this.get(
       `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}/${
         leadTime ? leadTime : '{leadTime}'
-      }`,
+      }/${eventName || 'no-name'}`,
       false,
     );
   }

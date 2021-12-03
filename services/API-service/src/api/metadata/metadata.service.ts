@@ -30,7 +30,7 @@ export class MetadataService {
       countryCodeISO3,
       disasterType,
     );
-    const activeTrigger = event && event.activeTrigger;
+    const activeTrigger = event.length && event[0].activeTrigger;
 
     const indicators = await this.indicatorRepository.find({
       relations: ['disasterTypes'],

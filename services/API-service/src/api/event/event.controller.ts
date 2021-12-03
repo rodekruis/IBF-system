@@ -42,7 +42,7 @@ export class EventController {
   @Get(':countryCodeISO3/:disasterType')
   public async getEventSummaryCountry(
     @Param() params,
-  ): Promise<EventSummaryCountry> {
+  ): Promise<EventSummaryCountry[]> {
     return await this.eventService.getEventSummaryCountry(
       params.countryCodeISO3,
       params.disasterType,
@@ -75,17 +75,19 @@ export class EventController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'eventName', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
       'Yes/no trigger per lead-time for given country and disaster-type.',
     type: TriggerPerLeadTimeExampleDto,
   })
-  @Get('triggers/:countryCodeISO3/:disasterType')
+  @Get('triggers/:countryCodeISO3/:disasterType/:eventName')
   public async getTriggerPerLeadtime(@Param() params): Promise<object> {
     return await this.eventService.getTriggerPerLeadtime(
       params.countryCodeISO3,
       params.disasterType,
+      params.eventName,
     );
   }
 

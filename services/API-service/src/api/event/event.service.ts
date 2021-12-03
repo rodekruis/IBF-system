@@ -49,8 +49,7 @@ export class EventService {
   public async getEventSummaryCountry(
     countryCodeISO3: string,
     disasterType: DisasterType,
-  ): Promise<EventSummaryCountry> {
-    // This takes - for now - the first out of potentially multiple events
+  ): Promise<EventSummaryCountry[]> {
     const eventSummary = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select(['area."countryCodeISO3"', 'event."eventName"'])
@@ -71,7 +70,7 @@ export class EventService {
       .andWhere('event."disasterType" = :disasterType', {
         disasterType: disasterType,
       })
-      .getRawOne();
+      .getRawMany();
     return eventSummary;
   }
 
@@ -307,6 +306,7 @@ export class EventService {
   public async getTriggerPerLeadtime(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    eventName: string,
   ): Promise<object> {
     const lastTriggeredDate = await this.getRecentDate(
       countryCodeISO3,
@@ -323,6 +323,7 @@ export class EventService {
           ),
         ),
         disasterType: disasterType,
+        eventName: eventName === 'no-name' ? null : eventName,
       },
     });
     if (triggersPerLeadTime.length === 0) {

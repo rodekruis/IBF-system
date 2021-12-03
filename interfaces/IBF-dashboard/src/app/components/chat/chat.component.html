@@ -10,6 +10,14 @@
               }
       "
     ></p>
+    <app-about-btn
+      [btnLabel]="
+        'chat-component.' + disasterCategory + 'about-button-label' | translate
+      "
+      color="ibf-white"
+    ></app-about-btn>
+    <app-video-guide-button color="ibf-white"></app-video-guide-button>
+    <app-export-view class="ion-align-items-center"></app-export-view>
   </app-dialogue-turn>
 
   <!-- No event -->
@@ -26,19 +34,13 @@
               }
       "
     ></p>
-    <app-about-btn
-      [btnLabel]="'chat-component.about-button-label' | translate"
-      color="ibf-white"
-    ></app-about-btn>
-    <app-video-guide-button color="ibf-white"></app-video-guide-button>
-    <app-export-view class="ion-align-items-center"></app-export-view>
   </app-dialogue-turn>
   <!-- Active event -->
   <app-dialogue-turn
     *ngIf="eventService.state.activeEvent && eventService.state.activeTrigger"
     isConnected="true"
   >
-    <p
+    <p *ngFor="let event of eventService.state.events"
       [innerHTML]="
         'chat-component.' +
           disasterCategory +
@@ -46,23 +48,16 @@
           | translate
             : {
                 name: authService.displayName,
-                startDate: eventService.state.event.startDate,
-                leadTime: eventService.state.firstLeadTimeLabel,
-                timeUnit: eventService.state.timeUnit,
+                startDate: event.startDate,
+                leadTime: event.firstLeadTimeLabel,
+                timeUnit: event.timeUnit,
                 disasterTypeLabel: disasterTypeLabel,
-                monthYear: eventService.state.firstLeadTimeName,
-                eventName: eventService.state.event.eventName
+                monthYear: event.firstLeadTimeName,
+                eventName: event.eventName
               }
       "
     ></p>
-    <app-about-btn
-      [btnLabel]="
-        'chat-component.' + disasterCategory + 'about-button-label' | translate
-      "
-      color="ibf-white"
-    ></app-about-btn>
-    <app-video-guide-button color="ibf-white"></app-video-guide-button>
-    <app-export-view class="ion-align-items-center"></app-export-view>
+    <app-event-switcher></app-event-switcher>
   </app-dialogue-turn>
   <!-- Old event -->
   <app-dialogue-turn *ngIf="eventService.isOldEvent()" isConnected="true">
@@ -78,14 +73,6 @@
               }
       "
     ></p>
-    <app-about-btn
-      [btnLabel]="
-        'chat-component.' + disasterCategory + 'about-button-label' | translate
-      "
-      color="ibf-white"
-    ></app-about-btn>
-    <app-video-guide-button color="ibf-white"></app-video-guide-button>
-    <app-export-view class="ion-align-items-center"></app-export-view>
   </app-dialogue-turn>
 
   <ng-container *ngIf="eventService.state.activeEvent">

@@ -58,9 +58,9 @@ export class EapActionsService {
     this.triggeredAreaSubject.next(this.triggeredAreas);
   };
 
-  private onEvent = (event) => {
-    this.event = event;
-    if (event && this.timelineService.activeLeadTime) {
+  private onEvent = (events) => {
+    this.event = events[0];
+    if (this.event && this.timelineService.activeLeadTime) {
       this.getTriggeredAreasApi(
         this.timelineService.activeLeadTime,
         this.adminLevel ||

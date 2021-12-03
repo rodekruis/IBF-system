@@ -256,6 +256,7 @@ export class MapService {
           .getTyphoonTrack(
             this.country.countryCodeISO3,
             this.timelineService.activeLeadTime,
+            this.eventService.state.event?.eventName,
           )
           .subscribe(this.addTyphoonTrackLayer);
       } else {
@@ -431,6 +432,7 @@ export class MapService {
             this.disasterType.disasterType,
             this.timelineService.activeLeadTime,
             adminLevel,
+            this.eventService.state.event.eventName,
           )
           .subscribe((adminRegions) =>
             this.addAdminRegionLayer(adminRegions, adminLevel),
@@ -781,6 +783,7 @@ export class MapService {
         .getTyphoonTrack(
           this.country.countryCodeISO3,
           this.timelineService.activeLeadTime,
+          this.eventService.state.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.adminRegions) {
@@ -790,6 +793,7 @@ export class MapService {
           this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           this.adminLevelService.adminLevel,
+          this.eventService.state.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (layer.group === IbfLayerGroup.adminRegions) {
@@ -802,6 +806,7 @@ export class MapService {
           this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           adminLevel,
+          this.eventService.state.event.eventName,
         )
         .pipe(shareReplay(1));
     } else if (

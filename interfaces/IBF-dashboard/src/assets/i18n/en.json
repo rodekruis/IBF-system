@@ -155,7 +155,7 @@
         "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
       },
       "active-event-active-trigger": {
-        "welcome": "A trigger warning for typhoon <strong>{{ eventName }}</strong> was activated on <strong>{{ startDate }}</strong>. It is estimated to make landfall <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
+        "welcome": "A trigger warning for typhoon <strong>{{ eventName }}</strong> was activated on <strong>{{ startDate }}</strong>. It is estimated to make landfall <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now.<br><br>"
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> for typhoon <strong>{{ eventName }}</strong> any more (as can be seen in the map). However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."

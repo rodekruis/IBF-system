@@ -62,7 +62,9 @@ export class TyphoonTrackService {
   public async getTyphoonTrack(
     countryCodeISO3: string,
     leadTime: LeadTime,
+    eventName: string,
   ): Promise<GeoJson> {
+    console.log('eventName: ', eventName);
     const lastTriggeredDate = await this.eventService.getRecentDate(
       countryCodeISO3,
       DisasterType.Typhoon,
@@ -73,6 +75,7 @@ export class TyphoonTrackService {
         leadTime: leadTime,
         countryCodeISO3: countryCodeISO3,
         date: lastTriggeredDate.date,
+        eventName: eventName,
         timestamp: MoreThanOrEqual(
           this.helperService.getLast12hourInterval(
             DisasterType.Typhoon,

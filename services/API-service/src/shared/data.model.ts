@@ -45,4 +45,7 @@ export class EventSummaryCountry {
 
   @ApiProperty({ example: true })
   public activeTrigger: boolean;
+
+  @ApiProperty({ example: 'Mock typhoon' })
+  public eventName: string;
 }
