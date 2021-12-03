@@ -13,7 +13,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { IsIn, IsNotEmpty, IsString } from 'class-validator';
+import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Connection } from 'typeorm';
 import { SeedInit } from './seed-init';
 import { ScriptsService } from './scripts.service';
@@ -55,6 +55,10 @@ export class MockDynamic {
   @ApiProperty({ example: true })
   @IsNotEmpty()
   public readonly removeEvents: boolean;
+
+  @ApiProperty({ example: 1 })
+  @IsOptional()
+  public readonly eventNr: number;
 }
 
 export class MockAll {
