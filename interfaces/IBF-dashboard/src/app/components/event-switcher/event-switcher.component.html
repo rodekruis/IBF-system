@@ -1,4 +1,4 @@
-<div *ngIf="eventService.state.events.length > 1" class="containerDiv">
+<div *ngIf="multipleActiveEvents()" class="containerDiv">
   <div *ngFor="let event of eventService.state.events">
     <div *ngIf="event.eventName === selectedEventName">
       <ion-button

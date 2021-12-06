@@ -72,11 +72,13 @@ export class AggregatesService {
   };
 
   loadMetadataAndAggregates() {
+    this.disasterType = this.disasterTypeService.disasterType;
     if (this.country && this.disasterType) {
       this.apiService
         .getIndicators(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
+          this.eventService.state.event?.eventName,
         )
         .subscribe(this.onIndicatorChange);
     }

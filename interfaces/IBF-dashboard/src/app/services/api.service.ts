@@ -237,9 +237,15 @@ export class ApiService {
     );
   }
 
-  getIndicators(countryCodeISO3: string, disasterType: DisasterTypeKey) {
+  getIndicators(
+    countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
+    eventName: string,
+  ) {
     return this.get(
-      `metadata/indicators/${countryCodeISO3}/${disasterType}`,
+      `metadata/indicators/${countryCodeISO3}/${disasterType}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }

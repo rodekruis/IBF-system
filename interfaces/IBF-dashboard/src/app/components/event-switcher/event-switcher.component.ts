@@ -39,6 +39,14 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
     this.leadTimeSubscription.unsubscribe();
   }
 
+  public multipleActiveEvents() {
+    return (
+      this.eventService.state.events.filter(
+        (e: EventSummary) => e.activeTrigger,
+      ).length > 1
+    );
+  }
+
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     if (disasterType?.disasterType) {
       this.selectedEventName = this.eventService.state.event?.eventName;

@@ -40,24 +40,26 @@
     *ngIf="eventService.state.activeEvent && eventService.state.activeTrigger"
     isConnected="true"
   >
-    <p
-      *ngFor="let event of eventService.state.events"
-      [innerHTML]="
-        'chat-component.' +
-          disasterCategory +
-          'active-event-active-trigger.welcome'
-          | translate
-            : {
-                name: authService.displayName,
-                startDate: event.startDate,
-                leadTime: event.firstLeadTimeLabel,
-                timeUnit: event.timeUnit,
-                disasterTypeLabel: disasterTypeLabel,
-                monthYear: event.yearMonth,
-                eventName: event.eventName
-              }
-      "
-    ></p>
+    <ng-container *ngFor="let event of eventService.state.events">
+      <p *ngIf="event.activeTrigger"
+        [innerHTML]="
+          'chat-component.' +
+            disasterCategory +
+            'active-event-active-trigger.welcome'
+            | translate
+              : {
+                  name: authService.displayName,
+                  startDate: event.startDate,
+                  leadTime: event.firstLeadTimeLabel,
+                  timeUnit: event.timeUnit,
+                  disasterTypeLabel: disasterTypeLabel,
+                  monthYear: event.yearMonth,
+                  eventName: event.eventName
+                }
+        "
+      ></p>
+    </ng-container>
+    
     <app-event-switcher></app-event-switcher>
   </app-dialogue-turn>
   <!-- Old event -->

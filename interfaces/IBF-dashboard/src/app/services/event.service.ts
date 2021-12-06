@@ -94,7 +94,7 @@ export class EventService {
     events,
   ) => {
     disasterType.activeTrigger =
-      (events.length && events[0].activeTrigger) || false;
+      events.filter((e: EventSummary) => e.activeTrigger).length > 0 || false;
     callback(disasterType);
   };
 

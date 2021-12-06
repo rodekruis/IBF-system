@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { eventNames } from 'process';
 import { Repository } from 'typeorm';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
@@ -25,12 +26,15 @@ export class MetadataService {
   public async getIndicatorsByCountry(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    eventName: string,
   ): Promise<IndicatorMetadataEntity[]> {
-    const event = await this.eventService.getEventSummaryCountry(
+    const events = await this.eventService.getEventSummaryCountry(
       countryCodeISO3,
       disasterType,
     );
-    const activeTrigger = event.length && event[0].activeTrigger;
+    eventName = eventName === 'no-name' ? null : eventName;
+    const event = events.find(e => e.eventName === eventName);
+    const activeTrigger = event && event.activeTrigger;
 
     const indicators = await this.indicatorRepository.find({
       relations: ['disasterTypes'],
