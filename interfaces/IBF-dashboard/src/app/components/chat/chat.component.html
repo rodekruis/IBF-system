@@ -41,7 +41,8 @@
     isConnected="true"
   >
     <ng-container *ngFor="let event of eventService.state.events">
-      <p *ngIf="event.activeTrigger"
+      <p
+        *ngIf="event.activeTrigger"
         [innerHTML]="
           'chat-component.' +
             disasterCategory +
@@ -59,7 +60,7 @@
         "
       ></p>
     </ng-container>
-    
+
     <app-event-switcher></app-event-switcher>
   </app-dialogue-turn>
   <!-- Old event -->
