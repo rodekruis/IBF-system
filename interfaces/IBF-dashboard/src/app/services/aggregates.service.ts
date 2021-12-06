@@ -67,6 +67,7 @@ export class AggregatesService {
   };
 
   private onAdminLevelChange = () => {
+    this.disasterType = this.disasterTypeService.disasterType;
     this.loadMetadataAndAggregates();
   };
 
