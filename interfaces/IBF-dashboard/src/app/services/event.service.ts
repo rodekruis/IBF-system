@@ -114,7 +114,8 @@ export class EventService {
     this.setEvent(events[0]);
     this.state.activeEvent = !!this.state.event;
     this.state.activeTrigger =
-      this.state.event && this.state.event.activeTrigger;
+      this.state.event &&
+      this.state.events.filter((e: EventSummary) => e.activeTrigger).length > 0;
 
     this.setAlertState();
   };
@@ -169,7 +170,8 @@ export class EventService {
 
     event.firstLeadTime = firstKey;
     event.firstLeadTimeLabel = LeadTimeTriggerKey[firstKey];
-    event.timeUnit = firstKey.split('-')[1];
+    event.timeUnit = firstKey?.split('-')[1];
+
     if (event.timeUnit === LeadTimeUnit.month) {
       event.yearMonth = this.getYearMOnth(firstKey);
     }

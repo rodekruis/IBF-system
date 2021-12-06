@@ -138,9 +138,11 @@ export class TimelineService {
     ).active = true;
     this.timelineSubject.next(this.activeLeadTime);
 
-    const event = this.eventService.state.events.find(
-      (e) => (e.firstLeadTime as LeadTime) === this.activeLeadTime,
-    );
+    const event = this.eventService.state.activeTrigger
+      ? this.eventService.state.events.find(
+          (e) => (e.firstLeadTime as LeadTime) === this.activeLeadTime,
+        )
+      : this.eventService.state.event;
     this.eventService.setEvent(event);
   }
 
@@ -178,6 +180,7 @@ export class TimelineService {
         : -1,
     );
     for (const leadTime of this.disasterType.leadTimes) {
+      // Push first only active lead-times ..
       if (
         visibleLeadTimes.indexOf(leadTime.leadTimeName) === -1 &&
         this.isLeadTimeEnabled(leadTime.leadTimeName)
@@ -186,6 +189,7 @@ export class TimelineService {
       }
     }
     for (const leadTime of this.disasterType.leadTimes) {
+      // .. and then all other lead-times
       if (
         visibleLeadTimes.indexOf(leadTime.leadTimeName) === -1 &&
         this.showNonActiveLeadTimes(visibleLeadTimes, leadTime.leadTimeName) &&
@@ -234,7 +238,7 @@ export class TimelineService {
       );
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       const events = this.eventService.state.events;
-      const relevantLeadTimes = events.length
+      const relevantLeadTimes = this.eventService.state.activeTrigger
         ? events.map((e) => e.firstLeadTime)
         : [LeadTime.hour72];
       const relevantLeadTimesModulo24 = relevantLeadTimes.map(
@@ -258,7 +262,7 @@ export class TimelineService {
       return nextAprilMonth.equals(leadTimeMonth);
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       const events = this.eventService.state.events;
-      const relevantLeadTimes = events.length
+      const relevantLeadTimes = this.eventService.state.activeTrigger
         ? events.map((e) => e.firstLeadTime)
         : [LeadTime.hour72];
       return relevantLeadTimes.includes(leadTime);
