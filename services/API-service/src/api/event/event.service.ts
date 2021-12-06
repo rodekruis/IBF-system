@@ -247,14 +247,13 @@ export class EventService {
         'event."activeTrigger"',
       ])
       .leftJoin('event.adminArea', 'area')
-      .where('closed = :closed', {
+      .where({
         closed: false,
+        disasterType: disasterType,
+        eventName: eventName,
       })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('"disasterType" = :disasterType', {
-        disasterType: disasterType,
       })
       .orderBy('event."actionsValue"', 'DESC');
 
@@ -287,6 +286,7 @@ export class EventService {
       .select([
         'area."countryCodeISO3" AS "countryCodeISO3"',
         'event."disasterType"',
+        'COALESCE(event."eventName", \'no name\') AS "eventName"',
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
         'event."startDate"',

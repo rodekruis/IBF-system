@@ -81,7 +81,6 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   };
 
   private calculateEAPActionStatus(triggeredAreas): void {
-    console.log('triggeredAreas: ', triggeredAreas);
     const onEachAreaOfFocus = (areaOfFocus) => {
       areaOfFocus.count = 0;
       areaOfFocus.countChecked = 0;
