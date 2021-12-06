@@ -14,7 +14,7 @@ export class EventSummary {
   eventName: string;
   firstLeadTime?: string;
   firstLeadTimeLabel?: string;
-  firstLeadTimeName?: string;
+  yearMonth?: string;
   timeUnit?: string;
 }
 
@@ -70,7 +70,10 @@ export class EventService {
   public getTrigger() {
     if (this.country && this.disasterType) {
       this.apiService
-        .getEvent(this.country.countryCodeISO3, this.disasterType.disasterType)
+        .getEventsSummary(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
         .subscribe(this.onEvent);
     }
   }
@@ -82,7 +85,7 @@ export class EventService {
   ) {
     if (country && disasterType) {
       this.apiService
-        .getEvent(country, disasterType.disasterType)
+        .getEventsSummary(country, disasterType.disasterType)
         .subscribe(this.onGetDisasterTypeEvent(disasterType, callback));
     }
   }
@@ -168,7 +171,7 @@ export class EventService {
     event.firstLeadTimeLabel = LeadTimeTriggerKey[firstKey];
     event.timeUnit = firstKey.split('-')[1];
     if (event.timeUnit === LeadTimeUnit.month) {
-      event.firstLeadTimeName = this.getYearMOnth(firstKey);
+      event.yearMonth = this.getYearMOnth(firstKey);
     }
   };
 

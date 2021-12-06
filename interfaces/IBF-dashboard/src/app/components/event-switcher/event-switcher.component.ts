@@ -41,13 +41,15 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     if (disasterType.disasterType) {
-      this.switchEvent(this.eventService.state.event);
+      this.selectedEventName = this.eventService.state.event?.eventName;
     }
   };
 
   private onLeadTimeChange = (leadTime: LeadTime) => {
     if (leadTime) {
-      this.selectedEventName = this.eventService.state.event?.eventName;
+      this.selectedEventName = this.eventService.state.events.find(
+        (e) => e.firstLeadTime === leadTime,
+      )?.eventName;
     }
   };
 
@@ -56,6 +58,5 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
     if (this.timelineService.state.timeStepButtons.length) {
       this.timelineService.handleTimeStepButtonClick(event.firstLeadTime);
     }
-    this.eventService.setEvent(event);
   }
 }

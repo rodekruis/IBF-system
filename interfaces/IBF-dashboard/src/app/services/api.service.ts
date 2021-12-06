@@ -185,7 +185,7 @@ export class ApiService {
     );
   }
 
-  getEvent(
+  getEventsSummary(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
   ): Observable<EventSummary> {

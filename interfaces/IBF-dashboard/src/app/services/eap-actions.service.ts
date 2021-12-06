@@ -115,7 +115,10 @@ export class EapActionsService {
   loadAdminAreasAndActions() {
     if (this.country && this.disasterType) {
       this.apiService
-        .getEvent(this.country.countryCodeISO3, this.disasterType.disasterType)
+        .getEventsSummary(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
         .subscribe(this.onEvent);
     }
   }
