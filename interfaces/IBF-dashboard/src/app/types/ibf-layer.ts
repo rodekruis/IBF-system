@@ -84,6 +84,8 @@ export enum IbfLayerName {
   potentialCasesU9 = 'potential_cases_U9',
   potentialCasesU5 = 'potential_cases_U5',
   malariaRisk = 'malaria_risk',
+  vulnerableGroup = 'vulnerable_group',
+  vulnerableHousing = 'vulnerable_housing',
   malariaSuitableTemperature = 'malaria_suitable_temperature',
   totalIdps = 'total_idps',
   motorizedTravelTimeToHealth = 'motorized_travel_time_to_health',

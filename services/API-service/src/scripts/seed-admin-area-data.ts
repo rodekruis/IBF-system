@@ -57,6 +57,38 @@ export class SeedAdminAreaData implements InterfaceScript {
 
     // PHL
     if (envCountries.includes('PHL')) {
+      const countryCodeISO3 = 'PHL';
+      const adminlevel = 3;
+
+        // vulnerable_group
+      let vulnerableGrouopfileName = `./src/scripts/git-lfs/admin-area-data/vulnerable_group_PHL.csv`;
+      let vulnerableGroupdata = await this.seedHelper.getCsvData(vulnerableGrouopfileName);
+      let vulnerableGroupDataArray = vulnerableGroupdata.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['PCODE_MUN_CTY'],
+          indicator: 'vulnerable_group',
+          value: area['percentage_vul_group'],
+        };
+      });
+      await this.adminAreaDataRepository.save(vulnerableGroupDataArray);
+
+        // vulnerable_housing
+      let vulnerableHousingFileName = `./src/scripts/git-lfs/admin-area-data/vulnerable_group_PHL.csv`;
+      let vulnerableHousingData = await this.seedHelper.getCsvData(vulnerableHousingFileName);
+      let vulnerableHousingDataArray = vulnerableHousingData.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['PCODE_MUN_CTY'],
+          indicator: 'vulnerable_group',
+          value: area['percentage_vul_group'],
+        };
+      });
+      await this.adminAreaDataRepository.save(vulnerableHousingDataArray);
+
+
       // vulnerability_dengue_data_ibfera_PHL
       const dengueVulnerabilityFilename = `./src/scripts/git-lfs/admin-area-data/vulnerability_dengue_data_ibfera_PHL.csv`;
       const dengueVulnerabilityData = await this.seedHelper.getCsvData(
