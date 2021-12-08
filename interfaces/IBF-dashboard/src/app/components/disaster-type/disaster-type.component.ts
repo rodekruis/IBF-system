@@ -13,7 +13,7 @@ import { CountryService } from '../../services/country.service';
   styleUrls: ['./disaster-type.component.scss'],
 })
 export class DisasterTypeComponent implements OnInit, OnDestroy {
-  public disasterTypesCounter = 1;
+  public disasterTypesCounter = 0;
   public disasterTypes: DisasterType[] = [];
   public disasterTypeMap = DISASTER_TYPES_SVG_MAP;
   public selectedDisasterType: DisasterTypeKey;
@@ -37,7 +37,8 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   }
 
   private onGetDisasterTypeActiveTrigger = (country) => () => {
-    if (this.disasterTypesCounter >= country.disasterTypes.length - 1) {
+    this.disasterTypesCounter++;
+    if (this.disasterTypesCounter === country.disasterTypes.length) {
       const activeDisasterType = country.disasterTypes.find(
         ({ activeTrigger }) => activeTrigger,
       );
@@ -48,11 +49,11 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
       this.selectedDisasterType = disasterType.disasterType as DisasterTypeKey;
       this.disasterTypeService.setDisasterType(disasterType);
     }
-    this.disasterTypesCounter++;
   };
 
   private onCountryChange = (country: Country) => {
     if (country) {
+      this.disasterTypesCounter = 0;
       this.disasterTypes = country.disasterTypes;
       this.disasterTypes.sort((a, b) =>
         a.disasterType > b.disasterType ? 1 : -1,
