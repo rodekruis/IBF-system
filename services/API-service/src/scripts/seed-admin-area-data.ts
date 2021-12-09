@@ -60,10 +60,10 @@ export class SeedAdminAreaData implements InterfaceScript {
       const countryCodeISO3 = 'PHL';
       const adminlevel = 3;
 
-        // vulnerable_group
-      let vulnerableGrouopfileName = `./src/scripts/git-lfs/admin-area-data/vulnerable_group_PHL.csv`;
-      let vulnerableGroupdata = await this.seedHelper.getCsvData(vulnerableGrouopfileName);
-      let vulnerableGroupDataArray = vulnerableGroupdata.map(area => {
+      // vulnerable_group
+      const vulnerableGrouopFileName = `./src/scripts/git-lfs/admin-area-data/vulnerable_group_PHL.csv`;
+      const vulnerableGroupData = await this.seedHelper.getCsvData(vulnerableGrouopFileName);
+      const vulnerableGroupDataArray = vulnerableGroupData.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
@@ -75,9 +75,9 @@ export class SeedAdminAreaData implements InterfaceScript {
       await this.adminAreaDataRepository.save(vulnerableGroupDataArray);
 
         // vulnerable_housing
-      let vulnerableHousingFileName = `./src/scripts/git-lfs/admin-area-data/vulnerable_group_PHL.csv`;
-      let vulnerableHousingData = await this.seedHelper.getCsvData(vulnerableHousingFileName);
-      let vulnerableHousingDataArray = vulnerableHousingData.map(area => {
+      const vulnerableHousingFileName = `./src/scripts/git-lfs/admin-area-data/vulnerable_group_PHL.csv`;
+      const vulnerableHousingData = await this.seedHelper.getCsvData(vulnerableHousingFileName);
+      const vulnerableHousingDataArray = vulnerableHousingData.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
