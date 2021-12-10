@@ -7,7 +7,14 @@ import {
   ActivationLogDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
-import { LessThan, MoreThanOrEqual, Repository, In, MoreThan } from 'typeorm';
+import {
+  LessThan,
+  MoreThanOrEqual,
+  Repository,
+  In,
+  MoreThan,
+  IsNull,
+} from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import {
@@ -250,7 +257,7 @@ export class EventService {
       .where({
         closed: false,
         disasterType: disasterType,
-        eventName: eventName,
+        eventName: eventName === 'no-name' ? IsNull() : eventName,
       })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
@@ -325,7 +332,7 @@ export class EventService {
           ),
         ),
         disasterType: disasterType,
-        eventName: eventName === 'no-name' ? null : eventName,
+        eventName: eventName === 'no-name' ? IsNull() : eventName,
       },
     });
     if (triggersPerLeadTime.length === 0) {

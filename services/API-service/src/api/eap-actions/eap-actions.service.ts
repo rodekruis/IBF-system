@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionDto } from './dto/eap-action.dto';
@@ -51,7 +51,7 @@ export class EapActionsService {
         disasterType: eapAction.disasterType,
         adminArea: { id: adminArea.id },
         eventName:
-          eapAction.eventName === 'no-name' ? null : eapAction.eventName,
+          eapAction.eventName === 'no-name' ? IsNull() : eapAction.eventName,
       },
     });
 

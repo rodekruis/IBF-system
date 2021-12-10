@@ -1,7 +1,7 @@
 import { LeadTime, LeadTimeUnit } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { MoreThanOrEqual, Repository } from 'typeorm';
+import { IsNull, MoreThanOrEqual, Repository } from 'typeorm';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
@@ -174,7 +174,7 @@ export class AdminAreaDynamicDataService {
         leadTime: leadTime,
         indicator: indicator,
         disasterType: disasterType,
-        eventName: eventName === 'no-name' ? null : eventName,
+        eventName: eventName === 'no-name' ? IsNull() : eventName,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
           this.helperService.getLast12hourInterval(
@@ -201,7 +201,7 @@ export class AdminAreaDynamicDataService {
         indicator: indicator,
         placeCode: placeCode,
         leadTime: leadTime,
-        eventName: eventName === 'no-name' ? null : eventName,
+        eventName: eventName === 'no-name' ? IsNull() : eventName,
       })
       .select(['dynamic.value AS value'])
       .orderBy('dynamic.date', 'DESC')
