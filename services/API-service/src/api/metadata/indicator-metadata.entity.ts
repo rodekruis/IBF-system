@@ -28,10 +28,6 @@ export class IndicatorMetadataEntity {
   @Column()
   public label: string;
 
-  @ApiProperty()
-  @Column()
-  public group: string;
-
   @ApiProperty({ example: 'logo.svg' })
   @Column()
   public icon: string;
@@ -40,9 +36,9 @@ export class IndicatorMetadataEntity {
   @Column()
   public weightedAvg: boolean;
 
-  @ApiProperty({ example: true })
+  @ApiProperty({ example: 'yes' })
   @Column()
-  public active: boolean;
+  public active: string;
 
   @ApiProperty({
     example: {

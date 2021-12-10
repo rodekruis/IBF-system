@@ -1,21 +1,15 @@
+import { LayerActivation } from '../models/layer-activation.enum';
 import { ColorBreaks, IbfLayerLabel, IbfLayerName } from './ibf-layer';
-
-export enum IndicatorGroup {
-  general = 'Exposure',
-  vulnerability = 'Vulnerability',
-  outline = 'outline',
-}
 
 export class Indicator {
   name: IbfLayerName;
   label: IbfLayerLabel;
   icon: string;
-  active: boolean;
+  active: LayerActivation;
   numberFormatMap: NumberFormat;
   numberFormatAggregate: NumberFormat;
   aggregateIndicator: string;
   weightedAvg: boolean;
-  group: IndicatorGroup;
   colorBreaks?: ColorBreaks;
   order: number;
   unit?: string;

@@ -10,8 +10,11 @@ Scenario: View aggregate section
     And it has a header which mentions the current selection
     And it has a list of exposure indicators 
     And each indicator has an "icon", a "label", a "value" and an "info-button"
-    And the list might be split in two groups
-    And the indicators above are the "main" exposure variable (and 'total population')
+    And the first indicator is the main exposure variable
+        - 'Exposed population' for Floods, Drought, Heavy-rain
+        - 'Potential cases' for Dengue, Malaria
+        - 'Houses affected' for Typhoon
+    And the next indicator is 'Total population' if available (not for Typhoon)
     And the indicators below are more detailed exposured variables
     And the indicators differ per country and disaster-type.
 
