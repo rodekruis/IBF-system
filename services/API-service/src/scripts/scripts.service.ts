@@ -54,6 +54,10 @@ export class ScriptsService {
   }
 
   public async mockCountry(mockInput: MockDynamic) {
+    // EventNr > 1 only allowed/sensible for typhoon, otherwise replace by 1
+    const eventNr =
+      mockInput.disasterType === DisasterType.Typhoon ? mockInput.eventNr : 1;
+
     if (mockInput.removeEvents) {
       const countryAdminAreaIds = await this.eventService.getCountryAdminAreaIds(
         mockInput.countryCodeISO3,
@@ -63,10 +67,7 @@ export class ScriptsService {
         where: {
           adminArea: In(countryAdminAreaIds),
           disasterType: mockInput.disasterType,
-          eventName: this.getEventName(
-            mockInput.disasterType,
-            mockInput.eventNr,
-          ),
+          eventName: this.getEventName(mockInput.disasterType, eventNr),
         },
       });
       for (const event of allCountryEvents) {
@@ -85,7 +86,7 @@ export class ScriptsService {
       selectedCountry,
       mockInput.disasterType,
       mockInput.triggered,
-      mockInput.eventNr,
+      eventNr,
     );
 
     if (mockInput.disasterType === DisasterType.Floods) {
@@ -98,7 +99,7 @@ export class ScriptsService {
         selectedCountry,
         mockInput.disasterType,
         mockInput.triggered,
-        mockInput.eventNr,
+        eventNr,
       );
     }
 
@@ -117,7 +118,7 @@ export class ScriptsService {
       await this.mockTyphoonTrack(
         selectedCountry,
         mockInput.triggered,
-        mockInput.eventNr,
+        eventNr,
       );
     }
   }
@@ -180,7 +181,7 @@ export class ScriptsService {
           fileName = `upload-${unit}-${adminLevel}`;
         }
         if (eventNr > 1) {
-          fileName = `${fileName}-eventNr-${eventNr}`;
+          fileName = `${fileName}-eventNr-2`;
         }
 
         const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${selectedCountry.countryCodeISO3}/${disasterType}/${fileName}.json`;
@@ -237,6 +238,8 @@ export class ScriptsService {
       return LeadTime.hour72;
     } else if (eventNr === 2) {
       return LeadTime.hour114;
+    } else {
+      return `${114 + eventNr}-hour` as LeadTime;
     }
   }
 
@@ -318,7 +321,7 @@ export class ScriptsService {
   ) {
     const trackFileName = `./src/api/typhoon-track/dto/example/typhoon-track-${
       selectedCountry.countryCodeISO3
-    }${eventNr > 1 ? `-eventNr-${eventNr}` : ''}.json`;
+    }${eventNr > 1 ? `-eventNr-2` : ''}.json`;
 
     const trackRaw = fs.readFileSync(trackFileName, 'utf-8');
     const track = JSON.parse(trackRaw);
