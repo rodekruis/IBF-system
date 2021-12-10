@@ -5,7 +5,17 @@
     data-test="heading-display-name-label"
   >
     <span>
-      IBF PORTAL <strong>{{ countryName }} {{ disasterType }}</strong>
+      IBF PORTAL <strong>{{ countryName }} </strong> 
+        <strong [ngClass]="{ active: activeTriggerMsg === 'TRIGGERED'}">
+          {{ disasterType }} {{ activeTriggerMsg }}
+        </strong>
+        
+          <ion-icon *ngIf="activeTriggerMsg === 'TRIGGERED'"
+            class="ibf"
+            src="assets/icons/Alert Triangle.svg"
+            slot="start"
+            class="containerTwo"
+          ></ion-icon>
     </span>
   </ion-title>
 </span>

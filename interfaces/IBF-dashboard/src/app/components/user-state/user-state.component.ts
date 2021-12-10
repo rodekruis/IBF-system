@@ -30,6 +30,7 @@ export class UserStateComponent implements OnInit {
   public countrySubscription: Subscription;
   public disasterTypeSubscription: Subscription;
   public disasterType: string;
+  public activeTriggerMsg: string;
 
   constructor(
     public authService: AuthService,
@@ -68,6 +69,7 @@ export class UserStateComponent implements OnInit {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType?.disasterType;
+    this.activeTriggerMsg = disasterType?.activeTrigger ? 'TRIGGERED' : 'NON-TRIGGERED';
   };
 
   public doLogout() {
