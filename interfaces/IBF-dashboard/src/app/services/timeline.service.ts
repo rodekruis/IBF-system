@@ -201,7 +201,6 @@ export class TimelineService {
         visibleLeadTimes.push(leadTime.leadTimeName);
       }
     }
-    console.log('visibleLeadTimes: ', visibleLeadTimes);
     return visibleLeadTimes.sort((a, b) =>
       Number(LeadTimeTriggerKey[a]) > Number(LeadTimeTriggerKey[b]) ? 1 : -1,
     );
