@@ -163,7 +163,7 @@ export class MapService {
 
   private onLayerChange = (layers: IbfLayerMetadata[]): void => {
     layers.forEach((layer: IbfLayerMetadata) => {
-      let layerActive = this.getActiveState(layer);
+      const layerActive = this.getActiveState(layer);
       if (layer.type === IbfLayerType.wms) {
         this.loadWmsLayer(
           layer.name,
