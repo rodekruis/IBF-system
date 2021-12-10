@@ -69,7 +69,9 @@ export class UserStateComponent implements OnInit {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType?.disasterType;
-    this.activeTriggerMsg = disasterType?.activeTrigger ? 'TRIGGERED' : 'NON-TRIGGERED';
+    this.activeTriggerMsg = disasterType?.activeTrigger
+      ? 'TRIGGERED'
+      : 'NON-TRIGGERED';
   };
 
   public doLogout() {
