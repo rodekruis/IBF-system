@@ -6,8 +6,10 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { GeoJson } from '../../shared/geo.model';
+import { UserRole } from '../user/user-role.enum';
 import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
 import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
@@ -62,6 +64,7 @@ export class GlofasStationController {
     );
   }
 
+  @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
       'Upload Glofas forecast data per station (used by IBF Floods pipeline)',

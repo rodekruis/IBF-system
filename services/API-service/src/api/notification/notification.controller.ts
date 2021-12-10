@@ -15,6 +15,8 @@ import {
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { SendEmailDto } from './dto/send-email.dto';
+import { Roles } from '../../roles.decorator';
+import { UserRole } from '../user/user-role.enum';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -26,7 +28,7 @@ export class NotificationController {
     this.notificationService = notificationService;
   }
 
-  @UseGuards(RolesGuard)
+  @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
       'Send e-mail notification about disaster to recipients for given country and disaster-type. (Used at the end of various IBF pipelines)',

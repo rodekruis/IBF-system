@@ -140,6 +140,7 @@ export class UserService {
     const userRO = {
       email: user.email,
       token: this.generateJWT(user),
+      userRole: user.userRole,
     };
 
     return { user: userRO };
