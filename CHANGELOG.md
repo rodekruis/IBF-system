@@ -1,3 +1,12 @@
+# [0.111.0](https://github.com/rodekruis/IBF-system/compare/v0.110.2...v0.111.0) (2021-12-10)
+
+
+### Features
+
+* of-which removed from test aggregate cases AB[#11068](https://github.com/rodekruis/IBF-system/issues/11068) ([a8d9f00](https://github.com/rodekruis/IBF-system/commit/a8d9f00d10424924c9664ba7e91fb425d301cd41))
+
+
+
 ## [0.110.2](https://github.com/rodekruis/IBF-system/compare/v0.110.1...v0.110.2) (2021-11-29)
 
 
@@ -145,15 +154,6 @@
 * mock data AB[#10594](https://github.com/rodekruis/IBF-system/issues/10594) ([4cc3474](https://github.com/rodekruis/IBF-system/commit/4cc3474ea525302cb60d990a59df54d62042965a))
 * process new leadtimeunit AB[#10229](https://github.com/rodekruis/IBF-system/issues/10229) ([7a76886](https://github.com/rodekruis/IBF-system/commit/7a76886a88e7dc97f01d07fd371dedc2b150f332))
 * show timeline-btns 24,48H before/after lead-time for typhoon AB[#10702](https://github.com/rodekruis/IBF-system/issues/10702) ([a8ebc1e](https://github.com/rodekruis/IBF-system/commit/a8ebc1e24a9eb4247b716109d26be81c4aa631e9))
-
-
-
-## [0.103.1](https://github.com/rodekruis/IBF-system/compare/v0.103.0...v0.103.1) (2021-11-08)
-
-
-### Bug Fixes
-
-* non-triggered state broken AB[#10582](https://github.com/rodekruis/IBF-system/issues/10582) ([d4e11f1](https://github.com/rodekruis/IBF-system/commit/d4e11f13a3e2a4353cf3ec32d61837052937e138))
 
 
 
