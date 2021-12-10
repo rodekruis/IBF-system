@@ -52,19 +52,8 @@ export class MetadataService {
           metadata.disasterTypes
             .map(d => d.disasterType)
             .includes(disasterType) &&
-          metadata.group !== 'outline',
+          metadata.active !== 'if-trigger',
       );
-    }
-    const actionUnit = await this.getActionUnit(disasterType);
-
-    const countryActionUnit = countryIndicators.find(
-      (i): boolean => actionUnit === i.name,
-    );
-
-    if (!countryActionUnit.active) {
-      countryIndicators.find(
-        (i): boolean => actionUnit === i.name,
-      ).active = activeTrigger;
     }
 
     return countryIndicators;
