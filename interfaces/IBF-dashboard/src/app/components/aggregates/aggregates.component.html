@@ -25,92 +25,80 @@
         <ion-icon name="close" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-item>
-    <div *ngFor="let group of groups" data-test="aggregate-list">
-      <ion-item
-        *ngIf="group === indicatorGroupEnum.vulnerability"
-        color="ibf-secondary"
-        lines="none"
-        class="aggregate-header-item"
-      >
-        <ion-label>
-          <span [translate]="'aggregates-component.exposed-subgroups'"></span>
-        </ion-label>
-      </ion-item>
+    <div data-test="aggregate-list">
       <ion-row
         *ngFor="let indicator of indicators"
         class="ion-no-padding"
         color="ibf-white"
       >
-        <ng-container *ngIf="indicator.group === group">
-          <ion-col size-lg="8" size-md="8" size-xs="8">
-            <ion-item lines="inset" class="aggregate-item ion-no-padding">
-              <ion-thumbnail
-                slot="start"
-                class="aggregate-item-thumbnail"
-                color="ibf-tertiary"
-              >
-                <ion-img src="assets/icons/{{ indicator.icon }}"></ion-img>
-              </ion-thumbnail>
-              <ion-label class="aggregate-item-label" [title]="indicator.label">
-                <span *ngIf="indicator.weightedAvg"></span>
-
-                {{ indicator.label }}
-              </ion-label>
-            </ion-item>
-          </ion-col>
-          <ion-col size-lg="3" size-md="3" size-xs="3">
-            <ion-item class="aggregate-item-value ion-no-padding">
-              <ion-label class="ion-text-right" data-test="aggregate-number">
-                <span *ngIf="indicator.numberFormatAggregate === 'decimal2'">
-                  {{
-                    this.getAggregate(
-                      indicator.name,
-                      indicator.weightedAvg,
-                      indicator.numberFormatAggregate
-                    ) | number: '.2-2'
-                  }}
-                </span>
-                <span *ngIf="indicator.numberFormatAggregate === 'decimal0'">
-                  {{
-                    this.getAggregate(
-                      indicator.name,
-                      indicator.weightedAvg,
-                      indicator.numberFormatAggregate
-                    ) | number: '.0-0'
-                  }}
-                </span>
-                <span *ngIf="indicator.numberFormatAggregate === 'perc'">
-                  {{
-                    this.getAggregate(
-                      indicator.name,
-                      indicator.weightedAvg,
-                      indicator.numberFormatAggregate
-                    ) | percent: '.0-0'
-                  }}
-                </span>
-              </ion-label>
-            </ion-item>
-          </ion-col>
-          <ion-col
-            size-lg="1"
-            size-md="1"
-            size-xs="1"
-            [title]="'aggregates-component.more-information' | translate"
-          >
-            <ion-item
-              class="aggregate-item-information-icon ion-no-padding"
-              data-test="icon-row"
+        <ion-col size-lg="8" size-md="8" size-xs="8">
+          <ion-item lines="inset" class="aggregate-item ion-no-padding">
+            <ion-thumbnail
+              slot="start"
+              class="aggregate-item-thumbnail"
+              color="ibf-tertiary"
             >
-              <ion-label class="ion-text-center">
-                <img
-                  class="info-img"
-                  src="assets/icons/source-info.svg"
-                  (click)="moreInfo(indicator)"
-                />
-              </ion-label>
-            </ion-item>
-          </ion-col>
-        </ng-container>
+              <ion-img src="assets/icons/{{ indicator.icon }}"></ion-img>
+            </ion-thumbnail>
+            <ion-label class="aggregate-item-label" [title]="indicator.label">
+              <span *ngIf="indicator.weightedAvg"></span>
+
+              {{ indicator.label }}
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size-lg="3" size-md="3" size-xs="3">
+          <ion-item class="aggregate-item-value ion-no-padding">
+            <ion-label class="ion-text-right" data-test="aggregate-number">
+              <span *ngIf="indicator.numberFormatAggregate === 'decimal2'">
+                {{
+                  this.getAggregate(
+                    indicator.name,
+                    indicator.weightedAvg,
+                    indicator.numberFormatAggregate
+                  ) | number: '.2-2'
+                }}
+              </span>
+              <span *ngIf="indicator.numberFormatAggregate === 'decimal0'">
+                {{
+                  this.getAggregate(
+                    indicator.name,
+                    indicator.weightedAvg,
+                    indicator.numberFormatAggregate
+                  ) | number: '.0-0'
+                }}
+              </span>
+              <span *ngIf="indicator.numberFormatAggregate === 'perc'">
+                {{
+                  this.getAggregate(
+                    indicator.name,
+                    indicator.weightedAvg,
+                    indicator.numberFormatAggregate
+                  ) | percent: '.0-0'
+                }}
+              </span>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col
+          size-lg="1"
+          size-md="1"
+          size-xs="1"
+          [title]="'aggregates-component.more-information' | translate"
+        >
+          <ion-item
+            class="aggregate-item-information-icon ion-no-padding"
+            data-test="icon-row"
+          >
+            <ion-label class="ion-text-center">
+              <img
+                class="info-img"
+                src="assets/icons/source-info.svg"
+                (click)="moreInfo(indicator)"
+              />
+            </ion-label>
+          </ion-item>
+        </ion-col>
       </ion-row>
     </div>
   </ion-grid>

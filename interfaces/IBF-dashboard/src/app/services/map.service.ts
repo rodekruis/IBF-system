@@ -163,17 +163,7 @@ export class MapService {
 
   private onLayerChange = (layers: IbfLayerMetadata[]): void => {
     layers.forEach((layer: IbfLayerMetadata) => {
-      let layerActive: boolean;
-      if (layer.active === LayerActivation.yes) {
-        layerActive = true;
-      } else if (
-        layer.active === LayerActivation.ifTrigger &&
-        this.eventService.state.activeTrigger
-      ) {
-        layerActive = true;
-      } else {
-        layerActive = false;
-      }
+      const layerActive = this.getActiveState(layer);
       if (layer.type === IbfLayerType.wms) {
         this.loadWmsLayer(
           layer.name,
@@ -463,7 +453,7 @@ export class MapService {
     if (this.country) {
       const layerActive = this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(indicator.name)
-        : indicator.active;
+        : this.getActiveState(indicator);
 
       if (layerActive && this.timelineService.activeLeadTime) {
         this.getCombineAdminRegionData(
@@ -483,9 +473,21 @@ export class MapService {
     }
   }
 
+  private getActiveState(indicatorOrLayer: Indicator | IbfLayerMetadata) {
+    return indicatorOrLayer.active === LayerActivation.yes
+      ? true
+      : indicatorOrLayer.active === LayerActivation.ifTrigger &&
+        this.eventService.state.activeTrigger
+      ? true
+      : false;
+  }
+
   public loadOutlineLayer(indicator: Indicator) {
     if (this.country) {
-      if (indicator.active && this.timelineService.activeLeadTime) {
+      if (
+        this.getActiveState(indicator) &&
+        this.timelineService.activeLeadTime
+      ) {
         this.getCombineAdminRegionData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
@@ -534,7 +536,7 @@ export class MapService {
       label: indicator.label,
       type: IbfLayerType.shape,
       description: this.getPopoverText(indicator.name),
-      active: indicator.active,
+      active: this.getActiveState(indicator),
       show: true,
       data: adminRegions,
       viewCenter: true,

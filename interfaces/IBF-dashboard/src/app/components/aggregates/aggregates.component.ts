@@ -16,11 +16,7 @@ import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
-import {
-  Indicator,
-  IndicatorGroup,
-  NumberFormat,
-} from 'src/app/types/indicator-group';
+import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
 
 @Component({
@@ -30,7 +26,6 @@ import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/
 })
 export class AggregatesComponent implements OnInit, OnDestroy {
   public indicators: Indicator[] = [];
-  public groups: IndicatorGroup[] = [];
   public placeCode: PlaceCode;
   private country: Country;
   private aggregateComponentTranslateNode = 'aggregates-component';
@@ -38,9 +33,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private exposedPrefixTranslateNode = 'exposed-prefix';
   private allPrefixTranslateNode = 'all-prefix';
   private popoverTranslateNode = 'popover';
-
-  public indicatorGroupEnum = IndicatorGroup;
-  private triggeredAreas: any[];
 
   private defaultHeaderLabel: string;
   private exposedPrefix: string;
@@ -84,10 +76,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.indicatorSubscription = this.aggregatesService
       .getIndicators()
       .subscribe(this.onIndicatorChange);
-
-    this.eapActionSubscription = this.eapActionsService
-      .getTriggeredAreas()
-      .subscribe(this.onTriggeredAreasChange);
   }
 
   ngOnDestroy() {
@@ -121,30 +109,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       indicator.aggregateIndicator.includes(this.country.countryCodeISO3);
 
     this.indicators = newIndicators.filter(filterAggregateIndicators);
-
-    const typecastIndicatorGroup = (indicator: Indicator) => {
-      indicator.group = IndicatorGroup[indicator.group];
-    };
-    this.indicators.forEach(typecastIndicatorGroup);
-
-    this.groups = [];
-
-    for (const group in IndicatorGroup) {
-      if (IndicatorGroup[group]) {
-        const indicatorGroup = IndicatorGroup[group];
-
-        const filterIndicatorByIndicatorGroup = (indicator: Indicator) =>
-          indicator.group === indicatorGroup;
-
-        if (this.indicators.find(filterIndicatorByIndicatorGroup)) {
-          this.groups.push(indicatorGroup);
-        }
-      }
-    }
-  };
-
-  private onTriggeredAreasChange = (triggeredAreas) => {
-    this.triggeredAreas = triggeredAreas;
   };
 
   public async moreInfo(indicator: Indicator): Promise<void> {

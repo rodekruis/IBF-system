@@ -38,7 +38,7 @@
     "default-header-label": "...Loading",
     "exposed-prefix": "Exposed",
     "all-prefix": "All",
-    "exposed-subgroups": "of which ..",
+    "exposed-subgroups": "",
     "popover": {
       "population_affected": {
         "UGA": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href=\"https://www.ciesin.columbia.edu/data/hrsl/\">https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].",
@@ -372,6 +372,12 @@
       },
       "malaria_risk": {
         "ETH": "Malaria risk:Spatial limits of Plasmodium vivax malaria transmission (0-none 2- high)  <a href=\"https://malariaatlas.org/\">https://malariaatlas.org/</a>"
+      },
+      "vulnerable_group": {
+        "PHL": "TBD"
+      },
+      "vulnerable_housing": {
+        "PHL": "TBD"
       },
       "total_idps": {
         "ETH": "Total Internally Displaced People (IDPs) DTM Ethiopia National Displacement Report 7_2022"
