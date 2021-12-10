@@ -373,6 +373,12 @@
       "malaria_risk": {
         "ETH": "Malaria risk:Spatial limits of Plasmodium vivax malaria transmission (0-none 2- high)  <a href=\"https://malariaatlas.org/\">https://malariaatlas.org/</a>"
       },
+      "vulnerable_group": {
+        "PHL": "TBD"
+      },
+      "vulnerable_housing": {
+        "PHL": "TBD"
+      },
       "total_idps": {
         "ETH": "Total Internally Displaced People (IDPs) DTM Ethiopia National Displacement Report 7_2022"
       },
