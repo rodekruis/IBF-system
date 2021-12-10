@@ -12,16 +12,7 @@ ion-button {
 
   &.active {
     font-weight: bold;
-    border: 2px solid var(--ion-color-ibf-outline-red);
+    border: 2px solid var(--ion-color-ibf-primary);
     border-width: 2px;
-    border-bottom-right-radius: 1px;
-    border-bottom: 3px solid rgb(218, 10, 10);
-  }
-
-  &.nonactive {
-    font-weight: bold;
-    border: 2px solid var(--ion-color-ibf-black);
-    border-width: 2px;
-    border-bottom: 3px solid rgb(230, 226, 226);
   }
 }
