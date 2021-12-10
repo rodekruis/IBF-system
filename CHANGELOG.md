@@ -1,3 +1,19 @@
+# [0.112.0](https://github.com/rodekruis/IBF-system/compare/v0.111.0...v0.112.0) (2021-12-10)
+
+
+### Bug Fixes
+
+* update missing data AB[#11156](https://github.com/rodekruis/IBF-system/issues/11156) ([0caaa03](https://github.com/rodekruis/IBF-system/commit/0caaa0330c66a0411125c3657a4565aa71ec9552))
+
+
+### Features
+
+* static layer AB[#10230](https://github.com/rodekruis/IBF-system/issues/10230) ([cc4ca6b](https://github.com/rodekruis/IBF-system/commit/cc4ca6b1d188e62404674f6fd152b19bb7b7be64))
+* static layers typhoon AB[#10720](https://github.com/rodekruis/IBF-system/issues/10720) ([1e0bded](https://github.com/rodekruis/IBF-system/commit/1e0bdedba03f3ffbd65fa507e127ec078e6a6c25))
+* update AB[#10721](https://github.com/rodekruis/IBF-system/issues/10721) ([c513185](https://github.com/rodekruis/IBF-system/commit/c513185ca5a8a5d239f6b372150a91627a508e87))
+
+
+
 # [0.111.0](https://github.com/rodekruis/IBF-system/compare/v0.110.2...v0.111.0) (2021-12-10)
 
 
@@ -131,29 +147,6 @@
 * apply 12-hour interval AB[#10828](https://github.com/rodekruis/IBF-system/issues/10828) ([da31d7a](https://github.com/rodekruis/IBF-system/commit/da31d7ad4571d56e26b1d818355cf5df5fb60b56))
 * mock data typhoon track AB[#10716](https://github.com/rodekruis/IBF-system/issues/10716) ([2714eac](https://github.com/rodekruis/IBF-system/commit/2714eac0b9b3c6b80795bfe0782748eceb739480))
 * show event-name in chat AB[#10724](https://github.com/rodekruis/IBF-system/issues/10724) ([6026d12](https://github.com/rodekruis/IBF-system/commit/6026d1243c7bbdc7ca6fa4c21220e5fa7c64a626))
-
-
-
-# [0.104.0](https://github.com/rodekruis/IBF-system/compare/v0.103.1...v0.104.0) (2021-11-19)
-
-
-### Bug Fixes
-
-* error fixed AB[#10711](https://github.com/rodekruis/IBF-system/issues/10711) ([1173a29](https://github.com/rodekruis/IBF-system/commit/1173a29cd255a84e401e0db8cad9659a3516f632))
-* label of prob within 50km layer AB[#10589](https://github.com/rodekruis/IBF-system/issues/10589) ([a290e81](https://github.com/rodekruis/IBF-system/commit/a290e8193ee66d3c7a1b37ea369f12d0513c826a))
-* reverted windspeed AB[#10594](https://github.com/rodekruis/IBF-system/issues/10594) ([71d364d](https://github.com/rodekruis/IBF-system/commit/71d364da94deb22c284491f5c269d24e493223d4))
-* updated layer name into probWithin50Km AB[#10589](https://github.com/rodekruis/IBF-system/issues/10589) ([4b31bae](https://github.com/rodekruis/IBF-system/commit/4b31baece71949e67651d466cac9fabf4440440e))
-* updated mock data AB[#10594](https://github.com/rodekruis/IBF-system/issues/10594) ([fae12b3](https://github.com/rodekruis/IBF-system/commit/fae12b37efba81829b76acc60225163e5762d100))
-
-
-### Features
-
-* change lead-time setup typhoon AB[#10670](https://github.com/rodekruis/IBF-system/issues/10670) ([27f05bd](https://github.com/rodekruis/IBF-system/commit/27f05bdb0f18d1937a2c99fae7fd262e393cd600))
-* change lead-time setup typhoon AB[#10670](https://github.com/rodekruis/IBF-system/issues/10670) ([e541013](https://github.com/rodekruis/IBF-system/commit/e541013bf444dea86a5b15f9ef1151c054db8241))
-* dynamic layers typhoon + mock-data AB[#10227](https://github.com/rodekruis/IBF-system/issues/10227) ([e4e367c](https://github.com/rodekruis/IBF-system/commit/e4e367ca9f19d9479a766a0e1ac40abd3a64ef39))
-* mock data AB[#10594](https://github.com/rodekruis/IBF-system/issues/10594) ([4cc3474](https://github.com/rodekruis/IBF-system/commit/4cc3474ea525302cb60d990a59df54d62042965a))
-* process new leadtimeunit AB[#10229](https://github.com/rodekruis/IBF-system/issues/10229) ([7a76886](https://github.com/rodekruis/IBF-system/commit/7a76886a88e7dc97f01d07fd371dedc2b150f332))
-* show timeline-btns 24,48H before/after lead-time for typhoon AB[#10702](https://github.com/rodekruis/IBF-system/issues/10702) ([a8ebc1e](https://github.com/rodekruis/IBF-system/commit/a8ebc1e24a9eb4247b716109d26be81c4aa631e9))
 
 
 
