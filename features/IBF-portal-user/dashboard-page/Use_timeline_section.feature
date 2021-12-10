@@ -38,14 +38,24 @@ Scenario: View timeline-section for disaster-type "drought"
     And if the current month is "April" only 1 button is shown: "next April" (an exception is made to show the current month)
     And if the current month is "May" 11 buttons are shown: "June" up until "next April"
 
-Scenario: View timeline-section for disaster-type "typhoon"
+Scenario: View timeline-section for disaster-type "typhoon" with 1 event
     Given the disaster-type is "typhoon"
     When the users views the timeline section
     Then it shows one "active" and "selected" lead time
-    And this is not a standard value, but is calculated in the pipeline as "time until landfall" (rounded to whole hours): e.g. "55 hours"
-    And in addition to this a disabled button for X-24, X-48, etc. is placed until reaching 0: so "31 hours", "7 hours"
-    And the same for X+24, X+48, etc. until reaching 120: so "79 hours", "103" hours.
+    And this is not a standard value, but is calculated in the pipeline as "time until landfall" (rounded to whole hours): e.g. "72 hours"
+    And this leadtime is shown as "date and time" of landfall time 
+    And additionally to the active button, a disabled button for each day before and after the day of landfall is placed, with a maximum of 7 days from now
     And these buttons are just to place the expected landfall in some visual context, and to create familiarity compared to other "disaster types"
+    And the inactive leadtimes is shown only as "date", as "time" is not relevant for a day without landfall
+
+Scenario: View timeline-section for disaster-type "typhoon" with 2 or more events
+    Given the disaster-type is "typhoon"
+    Given there are 2 more events (see 'API-admin-user/Upload_mock_data.feature' for instructions how to upload additional events)
+    When the users views the timeline section
+    Then it shows 2 or more "active" and "selected" lead time buttons
+    And these are shown as "date and time" of landfall time for each event
+    And if there are 2 active lead-times on the same day, then that means there will be 2 buttons for that day (including time)
+    And additionally to the active buttons, a disabled button for each day before, in between, and after the days of landfall is placed, with a maximum of 7 days from now
 
 Scenario: View the timeline section in TRIGGERED mode
     Given the dashboard is in TRIGGERED mode
@@ -66,6 +76,7 @@ Scenario: Select different lead-time
     And if TRIGGERED the number of exposed admin-areas mentioned in the header of the "aggregates section" can vary
     And the values of the indicators in the "aggregates section" can vary
     And the "chat"/"area-of-focus"/"admin-level"/"layers" section do NOT change based on different lead-time
+    And - if the different lead-times relate to different events (typhoon only) - then the event-button in the chat-section also switches to the event belonging to the new lead-time. 
 
 Scenario: Select different leadtime in TRIGGERED mode
     Given the dashboard is in TRIGGERED mode
