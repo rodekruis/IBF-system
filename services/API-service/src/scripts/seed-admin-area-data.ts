@@ -62,7 +62,9 @@ export class SeedAdminAreaData implements InterfaceScript {
 
       // vulnerable_group
       const vulnerableGrouopFileName = `./src/scripts/git-lfs/admin-area-data/vulnerable_group_PHL.csv`;
-      const vulnerableGroupData = await this.seedHelper.getCsvData(vulnerableGrouopFileName);
+      const vulnerableGroupData = await this.seedHelper.getCsvData(
+        vulnerableGrouopFileName,
+      );
       const vulnerableGroupDataArray = vulnerableGroupData.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
@@ -74,20 +76,21 @@ export class SeedAdminAreaData implements InterfaceScript {
       });
       await this.adminAreaDataRepository.save(vulnerableGroupDataArray);
 
-        // vulnerable_housing
-      const vulnerableHousingFileName = `./src/scripts/git-lfs/admin-area-data/vulnerable_group_PHL.csv`;
-      const vulnerableHousingData = await this.seedHelper.getCsvData(vulnerableHousingFileName);
+      // vulnerable_housing
+      const vulnerableHousingFileName = `./src/scripts/git-lfs/admin-area-data/vulnerable_housing_PHL.csv`;
+      const vulnerableHousingData = await this.seedHelper.getCsvData(
+        vulnerableHousingFileName,
+      );
       const vulnerableHousingDataArray = vulnerableHousingData.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
-          placeCode: area['PCODE_MUN_CTY'],
-          indicator: 'vulnerable_group',
-          value: area['percentage_vul_group'],
+          placeCode: area['PCODE_Mun_City'],
+          indicator: 'vulnerable_housing',
+          value: area['percentage_vul_housing'],
         };
       });
       await this.adminAreaDataRepository.save(vulnerableHousingDataArray);
-
 
       // vulnerability_dengue_data_ibfera_PHL
       const dengueVulnerabilityFilename = `./src/scripts/git-lfs/admin-area-data/vulnerability_dengue_data_ibfera_PHL.csv`;
