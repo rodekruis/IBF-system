@@ -2,9 +2,11 @@
   <div *ngFor="let event of eventService.state.events">
     <div *ngIf="event.eventName === selectedEventName">
       <ion-button
+        shape="block"
         class="ibf"
+        class="button-label"
         slot="start"
-        color="ibf-primary"
+        color="ibf-secondary"
         size="small"
         (click)="switchEvent(event)"
       >
@@ -15,6 +17,7 @@
     <div *ngIf="event.eventName !== selectedEventName">
       <ion-button
         class="ibf"
+        shape="block"
         slot="start"
         color="ibf-white"
         size="small"
