@@ -175,7 +175,7 @@ export class SeedInit implements InterfaceScript {
     let selectedUsers;
     if (process.env.PRODUCTION_DATA_SERVER === 'yes') {
       selectedUsers = users.filter((user): boolean => {
-        return user.userRole === 'admin';
+        return user.userRole === UserRole.Admin;
       });
       selectedUsers[0].password = process.env.ADMIN_PASSWORD;
     } else {

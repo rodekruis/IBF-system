@@ -88,7 +88,9 @@ export class UserService {
       relations: this.relations,
     });
     if (!user) {
-      const errors = { User: ' not found' };
+      const errors = {
+        User: 'No user found with this id. Possibly update token.',
+      };
       throw new HttpException({ errors }, HttpStatus.UNAUTHORIZED);
     }
 

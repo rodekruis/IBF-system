@@ -14,6 +14,7 @@ import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 import { CountryEntity } from '../api/country/country.entity';
 import { TyphoonTrackModule } from '../api/typhoon-track/typhoon-track.module';
+import SeedProd from './seed-prod';
 
 @Module({
   imports: [
@@ -34,7 +35,7 @@ import { TyphoonTrackModule } from '../api/typhoon-track/typhoon-track.module';
     TyphoonTrackModule,
     UserModule,
   ],
-  providers: [SeedInit, ScriptsService],
+  providers: [SeedInit, SeedProd, ScriptsService],
   controllers: [ScriptsController],
 })
 export class ScriptsModule {}
