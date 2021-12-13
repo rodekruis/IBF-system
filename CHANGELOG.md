@@ -1,3 +1,21 @@
+# [0.113.0](https://github.com/rodekruis/IBF-system/compare/v0.112.0...v0.113.0) (2021-12-10)
+
+
+### Bug Fixes
+
+* alert button and removed red border AB[#11150](https://github.com/rodekruis/IBF-system/issues/11150) AB[#11171](https://github.com/rodekruis/IBF-system/issues/11171) ([267ab92](https://github.com/rodekruis/IBF-system/commit/267ab9246a423ee5659da05cc8171200d9e70ac0))
+* clean up unused icons & names AB[#11150](https://github.com/rodekruis/IBF-system/issues/11150) ([169f422](https://github.com/rodekruis/IBF-system/commit/169f4224db1a47a10e9823d0a6ae9bd5066b1a41))
+
+
+### Features
+
+* added icon AB[#11150](https://github.com/rodekruis/IBF-system/issues/11150) ([6f0fdd3](https://github.com/rodekruis/IBF-system/commit/6f0fdd3b58b400d1086b8ffad2fd86ae19a297dd))
+* lint AB[#11149](https://github.com/rodekruis/IBF-system/issues/11149) ([3369a65](https://github.com/rodekruis/IBF-system/commit/3369a65c17e6d244863aa133fe1c80afcf2915f0))
+* updated icon name AB[#11150](https://github.com/rodekruis/IBF-system/issues/11150) ([1f12d17](https://github.com/rodekruis/IBF-system/commit/1f12d17a21abd952eba38dbd172b73ebdf322e36))
+* updated top bar AB[#11149](https://github.com/rodekruis/IBF-system/issues/11149) ([356e31a](https://github.com/rodekruis/IBF-system/commit/356e31a756c6de9e12f8974172a6bb380288a005))
+
+
+
 # [0.112.0](https://github.com/rodekruis/IBF-system/compare/v0.111.0...v0.112.0) (2021-12-10)
 
 
@@ -128,25 +146,6 @@
 
 * also overwrite existing data with different leadtime for typhoon AB[#10836](https://github.com/rodekruis/IBF-system/issues/10836) ([67910e1](https://github.com/rodekruis/IBF-system/commit/67910e1a66786697b4d6839ed1ed907522932fde))
 * change exposure indicators typhoon AB[#10840](https://github.com/rodekruis/IBF-system/issues/10840) ([63607ef](https://github.com/rodekruis/IBF-system/commit/63607ef5b5356db95aa8ddce593cb04961b1c71e))
-
-
-
-# [0.105.0](https://github.com/rodekruis/IBF-system/compare/v0.104.0...v0.105.0) (2021-11-19)
-
-
-### Bug Fixes
-
-* get last typhoon data only AB[#10828](https://github.com/rodekruis/IBF-system/issues/10828) ([4de193b](https://github.com/rodekruis/IBF-system/commit/4de193bf869258db7f32e5df8a5befb0142ac1e0))
-* set 72-hour as standard leadtime non-trigger AB[#10831](https://github.com/rodekruis/IBF-system/issues/10831) ([0e607ce](https://github.com/rodekruis/IBF-system/commit/0e607cef4cd03a4dfb05b639fa5f0feafd1a3832))
-
-
-### Features
-
-* add event name AB[#10723](https://github.com/rodekruis/IBF-system/issues/10723) ([0ec36c8](https://github.com/rodekruis/IBF-system/commit/0ec36c8f4b28175e64b376aaab5340e0dd1624df))
-* add track entity+endpoint AB[#10715](https://github.com/rodekruis/IBF-system/issues/10715) ([f5d635b](https://github.com/rodekruis/IBF-system/commit/f5d635ba629a981162504311fcdc4bc3d08e086f))
-* apply 12-hour interval AB[#10828](https://github.com/rodekruis/IBF-system/issues/10828) ([da31d7a](https://github.com/rodekruis/IBF-system/commit/da31d7ad4571d56e26b1d818355cf5df5fb60b56))
-* mock data typhoon track AB[#10716](https://github.com/rodekruis/IBF-system/issues/10716) ([2714eac](https://github.com/rodekruis/IBF-system/commit/2714eac0b9b3c6b80795bfe0782748eceb739480))
-* show event-name in chat AB[#10724](https://github.com/rodekruis/IBF-system/issues/10724) ([6026d12](https://github.com/rodekruis/IBF-system/commit/6026d1243c7bbdc7ca6fa4c21220e5fa7c64a626))
 
 
 
