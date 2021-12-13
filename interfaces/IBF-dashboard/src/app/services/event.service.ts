@@ -101,14 +101,16 @@ export class EventService {
   private onEvent = (events) => {
     this.state.events = events;
 
-    for (const event of this.state.events) {
-      event.startDate = DateTime.fromISO(event.startDate).toFormat(
-        'cccc, dd LLLL',
-      );
-      if (event.endDate) {
-        event.endDate = this.endDateToLastTriggerDate(event.endDate);
+    if (events.length) {
+      for (const event of this.state.events) {
+        event.startDate = DateTime.fromISO(event.startDate).toFormat(
+          'cccc, dd LLLL',
+        );
+        if (event.endDate) {
+          event.endDate = this.endDateToLastTriggerDate(event.endDate);
+        }
+        this.getFirstTriggerDate(event);
       }
-      this.getFirstTriggerDate(event);
     }
 
     this.setEvent(events[0]);
