@@ -1,3 +1,12 @@
+## [0.114.2](https://github.com/rodekruis/IBF-system/compare/v0.114.1...v0.114.2) (2021-12-13)
+
+
+### Bug Fixes
+
+* create admin-user on startup AB[#11211](https://github.com/rodekruis/IBF-system/issues/11211) ([51c887f](https://github.com/rodekruis/IBF-system/commit/51c887f41c1d61a3aefcb97ad9c5ce6afadb0940))
+
+
+
 ## [0.114.1](https://github.com/rodekruis/IBF-system/compare/v0.114.0...v0.114.1) (2021-12-13)
 
 
@@ -147,18 +156,6 @@
 * header section AB[#10561](https://github.com/rodekruis/IBF-system/issues/10561) ([31fa740](https://github.com/rodekruis/IBF-system/commit/31fa740fd5e2ef2e85f9d7f0575f84506ebd3404))
 * set up gherkin secenarios menu + login page AB[#10541](https://github.com/rodekruis/IBF-system/issues/10541) ([9d560ff](https://github.com/rodekruis/IBF-system/commit/9d560ff3610587d5765f233e7405a96257fe0785))
 * test scenarios AB[#9994](https://github.com/rodekruis/IBF-system/issues/9994) ([8fe3f7a](https://github.com/rodekruis/IBF-system/commit/8fe3f7aa7d26f2ba839f8f01faa2dc7366c6fe38))
-
-
-
-# [0.108.0](https://github.com/rodekruis/IBF-system/compare/v0.107.0...v0.108.0) (2021-11-26)
-
-
-### Features
-
-* extend lead-time options typhoon to 7 days AB[#10928](https://github.com/rodekruis/IBF-system/issues/10928) ([bbcea55](https://github.com/rodekruis/IBF-system/commit/bbcea5512940c8148fec5e4786a5f7a6fc031104))
-* save data of multiple events AB[#10931](https://github.com/rodekruis/IBF-system/issues/10931) ([b7dd9a0](https://github.com/rodekruis/IBF-system/commit/b7dd9a083877f0da5348c1a0e0c984fbf60f8bdb))
-* track layer AB[#10717](https://github.com/rodekruis/IBF-system/issues/10717) ([8224f29](https://github.com/rodekruis/IBF-system/commit/8224f299753c4ff992c03ab4772307cadf8ea24a))
-* typhoon track in dashboard AB[#10717](https://github.com/rodekruis/IBF-system/issues/10717) AB[#10718](https://github.com/rodekruis/IBF-system/issues/10718) ([9880f1b](https://github.com/rodekruis/IBF-system/commit/9880f1b98f794dcd9dbd9dd5a6beb3fcfa8aef81))
 
 
 
