@@ -108,12 +108,13 @@
       "submit-button-label": "Save",
       "close-event-button": "Close Alert",
       "update-success": "EAP action(s) updated in database.",
-      "update-failure": "Failed to update EAP action(s) updated in database.",
+      "update-failure": "Failed to update EAP action(s) in database.",
       "prompt-button-label": "OK",
       "close-event-popup": {
         "message": "Are you sure? You are about to close the alert in {{ placeCodeName }}. This action can not be undone.",
         "confirm": "Close Alert",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "failure": "Failed to close alert."
       }
     },
     "heavy-rain": {

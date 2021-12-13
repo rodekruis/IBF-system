@@ -370,6 +370,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
     this.apiService.closeEventPlaceCode(eventPlaceCodeId).subscribe({
       next: () => this.reloadEapAndTrigger(),
+      error: () => this.actionResult(this.closeEventPopup['failure']),
     });
   }
 
