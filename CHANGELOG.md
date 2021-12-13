@@ -1,3 +1,12 @@
+## [0.114.1](https://github.com/rodekruis/IBF-system/compare/v0.114.0...v0.114.1) (2021-12-13)
+
+
+### Bug Fixes
+
+* adjust ux copy AB[#11213](https://github.com/rodekruis/IBF-system/issues/11213) ([f9d67ab](https://github.com/rodekruis/IBF-system/commit/f9d67aba2dfced428296d2685025d64cb2a1e836))
+
+
+
 # [0.114.0](https://github.com/rodekruis/IBF-system/compare/v0.113.0...v0.114.0) (2021-12-13)
 
 
@@ -150,16 +159,6 @@
 * save data of multiple events AB[#10931](https://github.com/rodekruis/IBF-system/issues/10931) ([b7dd9a0](https://github.com/rodekruis/IBF-system/commit/b7dd9a083877f0da5348c1a0e0c984fbf60f8bdb))
 * track layer AB[#10717](https://github.com/rodekruis/IBF-system/issues/10717) ([8224f29](https://github.com/rodekruis/IBF-system/commit/8224f299753c4ff992c03ab4772307cadf8ea24a))
 * typhoon track in dashboard AB[#10717](https://github.com/rodekruis/IBF-system/issues/10717) AB[#10718](https://github.com/rodekruis/IBF-system/issues/10718) ([9880f1b](https://github.com/rodekruis/IBF-system/commit/9880f1b98f794dcd9dbd9dd5a6beb3fcfa8aef81))
-
-
-
-# [0.107.0](https://github.com/rodekruis/IBF-system/compare/v0.106.0...v0.107.0) (2021-11-22)
-
-
-### Features
-
-* filter municipalities to show typhoon AB[#10726](https://github.com/rodekruis/IBF-system/issues/10726) ([167ba32](https://github.com/rodekruis/IBF-system/commit/167ba3288d83f9f6ba51e7e62fd858a072878203))
-* mock data 'show_admin_area' layer AB[#10838](https://github.com/rodekruis/IBF-system/issues/10838) ([0bef59f](https://github.com/rodekruis/IBF-system/commit/0bef59fa5e75676255a28ee3906f03b40e0ccf31))
 
 
 
