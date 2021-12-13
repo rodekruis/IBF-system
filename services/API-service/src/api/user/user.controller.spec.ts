@@ -38,6 +38,7 @@ class UserServiceMock {
     user.email = 'test@ibf.nl';
     user.password =
       'c90f86e09c3461da52b3d8bc80ccd6a0d0cb893b1a41bd461e8ed31fa21c9b6e';
+    user.userRole = UserRole.DisasterManager;
     return user;
   }
   public generateJWT(): string {
