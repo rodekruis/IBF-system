@@ -6,8 +6,10 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { GeoJson } from '../../shared/geo.model';
+import { UserRole } from '../user/user-role.enum';
 import { UploadTyphoonTrackDto } from './dto/upload-typhoon-track';
 import { TyphoonTrackEntity } from './typhoon-track.entity';
 import { TyphoonTrackService } from './typhoon-track.service';
@@ -23,6 +25,7 @@ export class TyphoonTrackController {
     this.typhoonTrackService = typhoonTrackService;
   }
 
+  @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary: 'Upload typhoon track data (used by IBF Typhoon pipeline)',
   })

@@ -20,6 +20,8 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
+import { UserRole } from './user-role.enum';
+import { Roles } from '../../roles.decorator';
 
 @ApiTags('-- user --')
 @Controller('user')
@@ -31,6 +33,7 @@ export class UserController {
 
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Sign-up new user' })
   @ApiResponse({
     status: 201,
@@ -67,10 +70,11 @@ export class UserController {
     }
 
     const token = await this.userService.generateJWT(_user);
-    const { email } = _user;
+    const { email, userRole } = _user;
     const user = {
       email,
       token,
+      userRole,
     };
 
     return { user };

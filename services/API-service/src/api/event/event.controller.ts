@@ -15,6 +15,8 @@ import { RolesGuard } from '../../roles.guard';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
 import { DateDto, TriggerPerLeadTimeExampleDto } from './dto/date.dto';
+import { Roles } from '../../roles.decorator';
+import { UserRole } from '../user/user-role.enum';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -115,12 +117,12 @@ export class EventController {
 
   @ApiOperation({
     summary:
-      'Get trigger activation data per country, disaster-type and admin-area.',
+      'Get past and current trigger activation data per admin-area and disaster-type.',
   })
   @ApiResponse({
     status: 200,
     description:
-      'Trigger activation data per country, disaster-type and admin-area.',
+      'Past and current trigger activation data per admin-area and disaster-type.',
     type: [ActivationLogDto],
   })
   @Get('activation-log')
@@ -128,6 +130,7 @@ export class EventController {
     return await this.eventService.getActivationLogData();
   }
 
+  @Roles(UserRole.DisasterManager)
   @ApiOperation({ summary: 'Close event for given admin-area.' })
   @ApiResponse({
     status: 201,
@@ -145,7 +148,7 @@ export class EventController {
     return await this.eventService.closeEventPcode(eventPlaceCodeDto);
   }
 
-  @UseGuards(RolesGuard)
+  @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
       'Upload yes/no trigger data per leadtime for given country and disaster-type',

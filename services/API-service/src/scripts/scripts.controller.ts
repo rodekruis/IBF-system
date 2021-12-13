@@ -19,6 +19,8 @@ import { SeedInit } from './seed-init';
 import { ScriptsService } from './scripts.service';
 import { RolesGuard } from '../roles.guard';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { Roles } from '../roles.decorator';
+import { UserRole } from '../api/user/user-role.enum';
 
 class ResetDto {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -82,6 +84,7 @@ export class ScriptsController {
     this.scriptsService = scriptsService;
   }
 
+  @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Reset database with original seed data' })
   @ApiResponse({
     status: 202,
@@ -100,6 +103,7 @@ export class ScriptsController {
       .send('Database reset with original seed data.');
   }
 
+  @Roles(UserRole.Admin)
   @ApiOperation({
     summary: 'Mock pipeline data for given country and disaster-type',
   })
@@ -124,6 +128,7 @@ export class ScriptsController {
       .send('Successfully uploaded mock pipeline data.');
   }
 
+  @Roles(UserRole.Admin)
   @ApiOperation({
     summary: 'Upload mock data for all countries and disaster-types at once',
   })

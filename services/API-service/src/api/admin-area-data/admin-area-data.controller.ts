@@ -18,9 +18,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
+import { UserRole } from '../user/user-role.enum';
 import { AdminAreaDataService } from './admin-area-data.service';
 import { UploadAdminAreaDataJsonDto } from './dto/upload-admin-area-data.dto';
 
@@ -35,7 +37,7 @@ export class AdminAreaDataController {
     this.adminAreaDataService = adminAreaDataService;
   }
 
-  @UseGuards(RolesGuard)
+  @Roles(UserRole.DisasterManager)
   @ApiOperation({
     summary: 'Upload (and overwrite) static admin-area data via CSV',
   })
@@ -65,7 +67,7 @@ export class AdminAreaDataController {
     await this.adminAreaDataService.uploadCsv(adminAreaData);
   }
 
-  @UseGuards(RolesGuard)
+  @Roles(UserRole.DisasterManager)
   @ApiOperation({
     summary: 'Upload (and overwrite) static admin-area data via JSON',
   })

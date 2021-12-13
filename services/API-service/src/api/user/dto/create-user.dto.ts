@@ -3,6 +3,7 @@ import {
   IsArray,
   IsEmail,
   IsEnum,
+  IsIn,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -12,6 +13,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { UserRole } from '../user-role.enum';
 import { UserStatus } from '../user-status.enum';
 import countries from '../../../scripts/json/countries.json';
+
+const userRoleArray = Object.values(UserRole).map(item => String(item));
 
 export class CreateUserDto {
   @ApiProperty({ example: 'dunant@redcross.nl' })
@@ -40,11 +43,10 @@ export class CreateUserDto {
   public lastName: string;
 
   @ApiProperty({
-    example: UserRole.DisasterManager,
-    default: UserRole.Guest,
-    enum: UserRole,
+    enum: userRoleArray,
+    example: userRoleArray.join(' | '),
   })
-  @IsEnum(UserRole)
+  @IsIn(userRoleArray)
   @IsNotEmpty()
   public role: UserRole;
 

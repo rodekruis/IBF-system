@@ -8,7 +8,6 @@ import {
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { GeoJson } from '../../shared/geo.model';
-import { HealthSiteEntity } from './health-site.entity';
 import { HealthSiteService } from './health-site.service';
 
 @ApiBearerAuth()

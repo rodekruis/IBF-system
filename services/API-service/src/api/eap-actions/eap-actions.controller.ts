@@ -11,6 +11,8 @@ import { EapActionDto } from './dto/eap-action.dto';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { RolesGuard } from '../../roles.guard';
+import { Roles } from '../../roles.decorator';
+import { UserRole } from '../user/user-role.enum';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -23,6 +25,7 @@ export class EapActionsController {
     this.eapActionsService = eapActionsService;
   }
 
+  @Roles(UserRole.DisasterManager)
   @ApiOperation({ summary: 'Toggle status of EAP-action' })
   @ApiResponse({
     status: 201,

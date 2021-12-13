@@ -16,7 +16,11 @@ import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-d
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Roles } from '../../roles.decorator';
+import { UserRole } from '../user/user-role.enum';
+
 @ApiBearerAuth()
+@UseGuards(RolesGuard)
 @ApiTags('admin-area-dynamic-data')
 @Controller('admin-area-dynamic-data')
 export class AdminAreaDynamicDataController {
@@ -25,7 +29,7 @@ export class AdminAreaDynamicDataController {
     this.adminAreaDynamicDataService = adminAreaDynamicDataService;
   }
 
-  @UseGuards(RolesGuard)
+  @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
       'Upload and process dynamic (exposure) indicator data for given country, disaster-type and lead-time.',
@@ -92,6 +96,7 @@ export class AdminAreaDynamicDataController {
     );
   }
 
+  @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
       'Upload raster file (.tif) such as a disaster-extent for given disaster-type (used by IBF-pipelines)',

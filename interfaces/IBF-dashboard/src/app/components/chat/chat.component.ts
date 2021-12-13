@@ -368,8 +368,11 @@ export class ChatComponent implements OnInit, OnDestroy {
       isActiveTrigger: this.eventService.state.activeTrigger,
       placeCode,
     });
+    const failureTranslateNode = 'failure';
     this.apiService.closeEventPlaceCode(eventPlaceCodeId).subscribe({
       next: () => this.reloadEapAndTrigger(),
+      error: () =>
+        this.actionResult(this.closeEventPopup[failureTranslateNode]),
     });
   }
 

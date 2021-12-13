@@ -13,6 +13,7 @@ const userResponseObject = {
     email: 'test@ibf.nl',
     token:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJzdHJpZG5nIiwiZW1haWwiOiJ0ZXNkZnN0QHRlc3QubmwiLCJleHAiOjE1NjYwMzE4MzEuMjk0LCJpYXQiOjE1NjA4NDc4MzF9.tAKGcABFXNd2dRsvf3lZ-4KzUvKGeUkmuhrzGKdfLpo',
+    userRole: UserRole.DisasterManager,
   },
 };
 
@@ -26,6 +27,7 @@ class UserServiceMock {
         email: userData.email,
         token:
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJzdHJpZG5nIiwiZW1haWwiOiJ0ZXNkZnN0QHRlc3QubmwiLCJleHAiOjE1NjYwMzE4MzEuMjk0LCJpYXQiOjE1NjA4NDc4MzF9.tAKGcABFXNd2dRsvf3lZ-4KzUvKGeUkmuhrzGKdfLpo',
+        userRole: UserRole.DisasterManager,
       },
     };
     return userResponseObject;
@@ -36,6 +38,7 @@ class UserServiceMock {
     user.email = 'test@ibf.nl';
     user.password =
       'c90f86e09c3461da52b3d8bc80ccd6a0d0cb893b1a41bd461e8ed31fa21c9b6e';
+    user.userRole = UserRole.DisasterManager;
     return user;
   }
   public generateJWT(): string {
