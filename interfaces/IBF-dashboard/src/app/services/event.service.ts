@@ -14,7 +14,7 @@ export class EventSummary {
   eventName: string;
   firstLeadTime?: string;
   firstLeadTimeLabel?: string;
-  yearMonth?: string;
+  firstLeadTimeDate?: string;
   timeUnit?: string;
 }
 
@@ -172,21 +172,36 @@ export class EventService {
     event.firstLeadTimeLabel = LeadTimeTriggerKey[firstKey];
     event.timeUnit = firstKey?.split('-')[1];
 
-    if (event.timeUnit === LeadTimeUnit.month) {
-      event.yearMonth = this.getYearMOnth(firstKey);
-    }
+    event.firstLeadTimeDate = this.getFirstLeadTimeDate(
+      firstKey,
+      event.timeUnit,
+    );
   };
 
-  private getYearMOnth(firstKey): string {
+  private getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit): string {
     const timeUnitsInFuture = Number(LeadTimeTriggerKey[firstKey]);
     const today = DateTime.now();
-    const futureDateTime = today.plus({ months: Number(timeUnitsInFuture) });
+    const futureDateTime =
+      timeUnit === LeadTimeUnit.month
+        ? today.plus({ months: Number(timeUnitsInFuture) })
+        : timeUnit === LeadTimeUnit.day
+        ? today.plus({ days: Number(timeUnitsInFuture) })
+        : timeUnit === LeadTimeUnit.hour
+        ? today.plus({ hours: Number(timeUnitsInFuture) })
+        : null;
     const monthString = new Date(
       futureDateTime.year,
       futureDateTime.month - 1,
       1,
     ).toLocaleString('default', { month: 'long' });
-    return `${monthString} ${futureDateTime.year}`;
+
+    if (timeUnit === LeadTimeUnit.month) {
+      return `${monthString} ${futureDateTime.year}`;
+    } else if (timeUnit === LeadTimeUnit.day) {
+      return `${futureDateTime.day} ${monthString} ${futureDateTime.year}`;
+    } else if (timeUnit === LeadTimeUnit.hour) {
+      return futureDateTime.toFormat('cccc, dd LLLL HH:00');
+    }
   }
 
   public isOldEvent = () => this.state.activeEvent && !this.state.activeTrigger;

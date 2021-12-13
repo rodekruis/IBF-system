@@ -19,7 +19,7 @@ export class DateButtonComponent implements OnInit {
 
   private dateFormat = '';
   private monthFormat = '';
-  private hourFormat = 'HH:mm a';
+  private hourFormat = 'HH:00 a';
   public displayDate: string;
   public displayMonth: string;
   public displayHour: string;
