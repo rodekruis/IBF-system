@@ -23,7 +23,7 @@ export class TimelineService {
     today: DateTime.now(),
     timeStepButtons: [],
   };
-  private triggers: CountryTriggers;
+  private triggersAllEvents: CountryTriggers;
   private timelineSubject = new BehaviorSubject<LeadTime>(null);
   private country: Country;
   private disasterType: DisasterType;
@@ -68,16 +68,16 @@ export class TimelineService {
       unit: leadTime.split('-')[1] as LeadTimeUnit,
       value: leadTime,
       alert:
-        this.triggers &&
-        this.triggers[leadTime] &&
-        this.triggers[leadTime] === '1',
+        this.triggersAllEvents &&
+        this.triggersAllEvents[leadTime] &&
+        this.triggersAllEvents[leadTime] === '1',
       disabled: !isLeadTimeEnabled,
       active: false,
     };
   };
 
   private onTriggerPerLeadTime = (triggers) => {
-    this.triggers = triggers;
+    this.triggersAllEvents = { ...this.triggersAllEvents, ...triggers };
 
     this.state.timeStepButtons = [];
     const visibleLeadTimes = this.getVisibleLeadTimes();
@@ -98,12 +98,19 @@ export class TimelineService {
       this.state.today = DateTime.now();
     }
 
-    this.apiService
-      .getTriggerPerLeadTime(
-        this.country.countryCodeISO3,
-        this.disasterType.disasterType,
-      )
-      .subscribe(this.onTriggerPerLeadTime);
+    const events = this.eventService.state.events;
+    for (const event of events) {
+      this.apiService
+        .getTriggerPerLeadTime(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+          event?.eventName,
+        )
+        .subscribe(this.onTriggerPerLeadTime);
+    }
+    if (!events || !events.length) {
+      this.onTriggerPerLeadTime(null);
+    }
   };
 
   public loadTimeStepButtons(): void {
@@ -130,6 +137,13 @@ export class TimelineService {
       this.filterLeadTimeButtonByLeadTime(timeStepButtonValue),
     ).active = true;
     this.timelineSubject.next(this.activeLeadTime);
+
+    const event = this.eventService.state.activeTrigger
+      ? this.eventService.state.events.find(
+          (e) => (e.firstLeadTime as LeadTime) === this.activeLeadTime,
+        )
+      : this.eventService.state.event;
+    this.eventService.setEvent(event);
   }
 
   private getLeadTimeDate(leadTime: LeadTime, triggerKey: string) {
@@ -166,8 +180,19 @@ export class TimelineService {
         : -1,
     );
     for (const leadTime of this.disasterType.leadTimes) {
+      // Push first only active lead-times ..
       if (
         visibleLeadTimes.indexOf(leadTime.leadTimeName) === -1 &&
+        this.isLeadTimeEnabled(leadTime.leadTimeName)
+      ) {
+        visibleLeadTimes.push(leadTime.leadTimeName);
+      }
+    }
+    for (const leadTime of this.disasterType.leadTimes) {
+      // .. and then all other lead-times
+      if (
+        visibleLeadTimes.indexOf(leadTime.leadTimeName) === -1 &&
+        this.showNonActiveLeadTimes(visibleLeadTimes, leadTime.leadTimeName) &&
         this.filterVisibleLeadTimePerDisasterType(
           this.disasterType,
           leadTime.leadTimeName,
@@ -176,7 +201,25 @@ export class TimelineService {
         visibleLeadTimes.push(leadTime.leadTimeName);
       }
     }
-    return visibleLeadTimes;
+    return visibleLeadTimes.sort((a, b) =>
+      Number(LeadTimeTriggerKey[a]) > Number(LeadTimeTriggerKey[b]) ? 1 : -1,
+    );
+  }
+
+  private showNonActiveLeadTimes(leadTimes, leadTimeName) {
+    return (
+      !leadTimes
+        .map((leadTime) => this.getDateFromLeadTime(leadTime))
+        .includes(this.getDateFromLeadTime(leadTimeName)) ||
+      this.isLeadTimeEnabled(leadTimeName)
+    );
+  }
+
+  private getDateFromLeadTime(leadTime) {
+    return this.getLeadTimeDate(
+      leadTime,
+      LeadTimeTriggerKey[leadTime],
+    ).toISODate();
   }
 
   private filterVisibleLeadTimePerDisasterType(
@@ -193,11 +236,15 @@ export class TimelineService {
           this.filterActiveLeadTimePerDisasterType(disasterType, leadTime)) // .. except if current month is next April
       );
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
-      const relevantLeadTime =
-        this.eventService.state.firstLeadTime || LeadTime.hour72;
+      const events = this.eventService.state.events;
+      const relevantLeadTimes = this.eventService.state.activeTrigger
+        ? events.map((e) => e.firstLeadTime)
+        : [LeadTime.hour72];
+      const relevantLeadTimesModulo24 = relevantLeadTimes.map(
+        (lt) => Number(LeadTimeTriggerKey[lt]) % 24,
+      );
       const leadTimeModulo24 = Number(leadTime.split('-')[0]) % 24;
-      const eventLeadTimeModulo24 = Number(relevantLeadTime.split('-')[0]) % 24;
-      return leadTimeModulo24 === eventLeadTimeModulo24;
+      return relevantLeadTimesModulo24.includes(leadTimeModulo24);
     } else {
       return true;
     }
@@ -213,9 +260,11 @@ export class TimelineService {
 
       return nextAprilMonth.equals(leadTimeMonth);
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
-      const relevantLeadTime =
-        this.eventService.state.firstLeadTime || LeadTime.hour72;
-      return leadTime === relevantLeadTime;
+      const events = this.eventService.state.events;
+      const relevantLeadTimes = this.eventService.state.activeTrigger
+        ? events.map((e) => e.firstLeadTime)
+        : [LeadTime.hour72];
+      return relevantLeadTimes.includes(leadTime);
     } else {
       return true;
     }

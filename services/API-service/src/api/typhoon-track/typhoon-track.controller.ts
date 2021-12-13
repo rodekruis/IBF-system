@@ -48,17 +48,19 @@ export class TyphoonTrackController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
+  @ApiParam({ name: 'eventName', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
       'Typhoon track data for given country and leadtime in GEOJSON format.',
     type: GeoJson,
   })
-  @Get(':countryCodeISO3/:leadTime')
+  @Get(':countryCodeISO3/:leadTime/:eventName')
   public async getTyphoonTrack(@Param() params): Promise<GeoJson> {
     return await this.typhoonTrackService.getTyphoonTrack(
       params.countryCodeISO3,
       params.leadTime,
+      params.eventName,
     );
   }
 }

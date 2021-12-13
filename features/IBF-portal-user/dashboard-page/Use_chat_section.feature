@@ -22,14 +22,6 @@ Scenario: View last model run information
     And it mentions the date and time of the last model run update. 
     And it has red background if the last model run date is too long ago
     And the threshold for this is if it is more than 1 upload-interval + 10% ago (e.g. 1 day + 10% in case of floods)
-
-Scenario: View general trigger information
-    When the user views the 2nd speech bubble
-    Then if NON-TRIGGERED it mentions there are 'no triggers'
-    And if TRIGGERED it mentions there is a trigger
-    And it mentions when the event this trigger belongs to first started
-    And it mentions for when the trigger is expected
-    And the exact UX copy differs between disaster-types (Potentially: document in more detail)
     And it contains 3 buttons 'About Trigger' and 'Video Guide' and 'Export View'
 
 Scenario: Click 'About Trigger' 
@@ -47,6 +39,35 @@ Scenario: Click 'Export view'
     Then the popup open with the message and shows a link to take screenshot
     And the user can follow the instructions provided 
     And can close the popup window if do not need to take screenshot
+
+Scenario: View general trigger information
+    When the user views the 2nd speech bubble
+    Then if NON-TRIGGERED it mentions there are 'no triggers'
+    And if TRIGGERED it mentions there is a trigger
+    And it mentions when the event this trigger belongs to first started
+    And it mentions for when the trigger is expected
+    And it mentions the name of the event if applicable (typhoon only)
+    And the exact UX copy differs between disaster-types (Potentially: document in more detail)
+
+Scenario: View general trigger information with 2 or more active events
+    Given the selected 'disaster-type' is 'typhoon' 
+    Given there are 2 or more active events (see 'API-admin-user/Upload_mock_data.feature' for instructions how to upload additional events)
+    When the user views the 2nd speech bubble
+    Then it mentions a paragraph per event with event-details such as name, start-date, arrival-time.
+    And it contains a button for each event
+    And the first event/button is the selected event and has a 'selected styling'
+    And the other buttons have a 'non-selected' styling
+    And all info in the map by default refers to the 1st event
+    And the timeline sections has just as many active timeline-buttons as there are events
+
+Scenario: Switch event
+    Given the selected 'disaster-type' is 'typhoon' 
+    Given there are 2 or more active events (see 'API-admin-user/Upload_mock_data.feature' for instructions how to upload additional events)
+    When the user clicks a non-selected event button
+    Then that button switches to active state
+    And the previously active button switches to inactive state
+    And the selected timeline-button in the timeline-section also switches to the one related to the new event
+    And all data in the dashboard switches to the new event
 
 Scenario: View further instructions
     Given the dashboard is in TRIGGERED state

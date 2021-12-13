@@ -52,14 +52,19 @@ export class NotificationService {
       countryCodeISO3,
       disasterType,
     );
-    if (event && event.activeTrigger) {
+    if (event.length && event[0].activeTrigger) {
       const country = await this.getCountryNotificationInfo(countryCodeISO3);
       const replaceKeyValues = await this.createReplaceKeyValues(
         country,
         disasterType,
+        event[0].eventName,
       );
       const emailHtml = this.formatEmail(replaceKeyValues);
-      const emailSubject = await this.getEmailSubject(country, disasterType);
+      const emailSubject = await this.getEmailSubject(
+        country,
+        disasterType,
+        event[0].eventName,
+      );
       this.sendEmail(emailSubject, emailHtml, countryCodeISO3);
     } else {
       console.log('No email sent, as there is no active trigger');
@@ -109,6 +114,7 @@ export class NotificationService {
   private async getEmailSubject(
     country: CountryEntity,
     disasterType: DisasterType,
+    eventName: string,
   ): Promise<string> {
     let subject = `${this.firstCharOfWordsToUpper(
       (await this.getDisaster(disasterType)).label,
@@ -116,6 +122,7 @@ export class NotificationService {
     const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
       country.countryCodeISO3,
       disasterType,
+      eventName,
     );
     const actionUnit = await this.indicatorRepository.findOne({
       name: (await this.getDisaster(disasterType)).actionsUnit,
@@ -166,6 +173,7 @@ export class NotificationService {
   private async createReplaceKeyValues(
     country: CountryEntity,
     disasterType: DisasterType,
+    eventName: string,
   ): Promise<ReplaceKeyValue[]> {
     const emailKeyValueReplaceList = [
       {
@@ -177,6 +185,7 @@ export class NotificationService {
         replaceValue: await this.getTriggerOverviewTables(
           country,
           disasterType,
+          eventName,
         ),
       },
       {
@@ -185,7 +194,11 @@ export class NotificationService {
       },
       {
         replaceKey: '(LEAD-DATE-LIST)',
-        replaceValue: await this.getLeadTimeList(country, disasterType),
+        replaceValue: await this.getLeadTimeList(
+          country,
+          disasterType,
+          eventName,
+        ),
       },
       {
         replaceKey: '(IMG-LOGO)',
@@ -312,10 +325,12 @@ export class NotificationService {
   private async getLeadTimeList(
     country: CountryEntity,
     disasterType: DisasterType,
+    eventName: string,
   ): Promise<string> {
     const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
       country.countryCodeISO3,
       disasterType,
+      eventName,
     );
     let leadTimeListHTML = '';
     for (const leadTime of country.countryDisasterSettings.find(
@@ -335,10 +350,12 @@ export class NotificationService {
   private async getTriggerOverviewTables(
     country: CountryEntity,
     disasterType: DisasterType,
+    eventName: string,
   ): Promise<string> {
     const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
       country.countryCodeISO3,
       disasterType,
+      eventName,
     );
     let leadTimeTables = '';
     for (const leadTime of country.countryDisasterSettings.find(
@@ -349,6 +366,7 @@ export class NotificationService {
           country,
           disasterType,
           leadTime,
+          eventName,
         );
         leadTimeTables = leadTimeTables + tableForLeadTime;
       }
@@ -371,6 +389,7 @@ export class NotificationService {
     country: CountryEntity,
     disasterType: DisasterType,
     leadTime: LeadTimeEntity,
+    eventName: string,
   ): Promise<string> {
     const adminAreaLabels =
       country.adminRegionLabels[
@@ -407,6 +426,7 @@ export class NotificationService {
       country,
       disasterType,
       leadTime,
+      eventName,
     );
     const tableForLeadTimeEnd = '</tbody></table>';
     const tableForLeadTime =
@@ -418,6 +438,7 @@ export class NotificationService {
     country: CountryEntity,
     disasterType: DisasterType,
     leadTime: LeadTimeEntity,
+    eventName: string,
   ): Promise<string> {
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
@@ -425,6 +446,7 @@ export class NotificationService {
       country.countryDisasterSettings.find(s => s.disasterType === disasterType)
         .defaultAdminLevel,
       leadTime.leadTimeName,
+      eventName,
     );
     const disaster = await this.getDisaster(disasterType);
     let areaTableString = '';
@@ -433,12 +455,14 @@ export class NotificationService {
         disaster.triggerUnit as DynamicIndicator,
         area.placeCode,
         leadTime.leadTimeName as LeadTime,
+        eventName,
       );
       if (triggerUnitValue > 0) {
         const actionUnitValue = await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
           disaster.actionsUnit as DynamicIndicator,
           area.placeCode,
           leadTime.leadTimeName as LeadTime,
+          eventName,
         );
         const alertLevel = ''; //Leave empty for now, as it is irrelevant any way (always 'Max. alert')
         const areaTable = `<tr class='notification-alerts-table-row'>

@@ -493,6 +493,7 @@ export class MapComponent implements OnDestroy {
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
           this.timelineService.activeLeadTime,
+          this.eventService.state.event?.eventName,
         )
         .subscribe((thresholdValue: number) => {
           popup = this.createThresHoldPopupAdminRegions(

@@ -47,12 +47,17 @@ export class ScriptsService {
           disasterType: disasterType.disasterType,
           triggered: mockAllInput.triggered,
           removeEvents: true,
+          eventNr: 1,
         });
       }
     }
   }
 
   public async mockCountry(mockInput: MockDynamic) {
+    // EventNr > 1 only allowed/sensible for typhoon, otherwise replace by 1
+    const eventNr =
+      mockInput.disasterType === DisasterType.Typhoon ? mockInput.eventNr : 1;
+
     if (mockInput.removeEvents) {
       const countryAdminAreaIds = await this.eventService.getCountryAdminAreaIds(
         mockInput.countryCodeISO3,
@@ -62,7 +67,7 @@ export class ScriptsService {
         where: {
           adminArea: In(countryAdminAreaIds),
           disasterType: mockInput.disasterType,
-          eventName: this.getEventName(mockInput.disasterType),
+          eventName: this.getEventName(mockInput.disasterType, eventNr),
         },
       });
       for (const event of allCountryEvents) {
@@ -81,6 +86,7 @@ export class ScriptsService {
       selectedCountry,
       mockInput.disasterType,
       mockInput.triggered,
+      eventNr,
     );
 
     if (mockInput.disasterType === DisasterType.Floods) {
@@ -93,6 +99,7 @@ export class ScriptsService {
         selectedCountry,
         mockInput.disasterType,
         mockInput.triggered,
+        eventNr,
       );
     }
 
@@ -108,7 +115,11 @@ export class ScriptsService {
     }
 
     if (mockInput.disasterType === DisasterType.Typhoon) {
-      await this.mockTyphoonTrack(selectedCountry, mockInput.triggered);
+      await this.mockTyphoonTrack(
+        selectedCountry,
+        mockInput.triggered,
+        eventNr,
+      );
     }
   }
 
@@ -116,6 +127,7 @@ export class ScriptsService {
     selectedCountry,
     disasterType: DisasterType,
     triggered: boolean,
+    eventNr = 1,
   ) {
     let exposureUnits;
     if (
@@ -168,6 +180,10 @@ export class ScriptsService {
         } else {
           fileName = `upload-${unit}-${adminLevel}`;
         }
+        if (eventNr > 1) {
+          fileName = `${fileName}-eventNr-2`;
+        }
+
         const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${selectedCountry.countryCodeISO3}/${disasterType}/${fileName}.json`;
         const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
         const exposure = JSON.parse(exposureRaw);
@@ -180,7 +196,11 @@ export class ScriptsService {
           s => s.disasterType === disasterType,
         ).activeLeadTimes) {
           if (
-            this.filterLeadTimesPerDisasterType(activeLeadTime, disasterType)
+            this.filterLeadTimesPerDisasterType(
+              activeLeadTime,
+              disasterType,
+              eventNr,
+            )
           ) {
             console.log(
               `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3} for adminLevel: ${adminLevel}`,
@@ -197,7 +217,7 @@ export class ScriptsService {
               dynamicIndicator: unit,
               adminLevel: adminLevel,
               disasterType: disasterType,
-              eventName: this.getEventName(disasterType),
+              eventName: this.getEventName(disasterType, eventNr),
             });
           }
         }
@@ -205,11 +225,21 @@ export class ScriptsService {
     }
   }
 
-  private getEventName(disasterType: DisasterType): string {
+  private getEventName(disasterType: DisasterType, eventNr = 1): string {
     if (disasterType === DisasterType.Typhoon) {
-      return 'Mock typhoon';
+      return `Mock typhoon ${eventNr}`;
     } else {
       return null;
+    }
+  }
+
+  private getTyphoonLeadTime(eventNr = 1): string {
+    if (eventNr === 1) {
+      return LeadTime.hour72;
+    } else if (eventNr === 2) {
+      return LeadTime.hour114;
+    } else {
+      return `${114 + eventNr}-hour` as LeadTime;
     }
   }
 
@@ -256,6 +286,7 @@ export class ScriptsService {
   private filterLeadTimesPerDisasterType(
     leadTime: string,
     disasterType: DisasterType,
+    eventNr = 1,
   ) {
     if (disasterType === DisasterType.Drought) {
       const now = new Date();
@@ -277,14 +308,21 @@ export class ScriptsService {
         nextAprilMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime()
       );
     } else if (disasterType === DisasterType.Typhoon) {
-      return leadTime === LeadTime.hour72;
+      return leadTime === this.getTyphoonLeadTime(eventNr);
     } else {
       return true;
     }
   }
 
-  private async mockTyphoonTrack(selectedCountry, triggered: boolean) {
-    const trackFileName = `./src/api/typhoon-track/dto/example/typhoon-track-${selectedCountry.countryCodeISO3}.json`;
+  private async mockTyphoonTrack(
+    selectedCountry,
+    triggered: boolean,
+    eventNr = 1,
+  ) {
+    const trackFileName = `./src/api/typhoon-track/dto/example/typhoon-track-${
+      selectedCountry.countryCodeISO3
+    }${eventNr > 1 ? `-eventNr-2` : ''}.json`;
+
     const trackRaw = fs.readFileSync(trackFileName, 'utf-8');
     const track = JSON.parse(trackRaw);
 
@@ -299,7 +337,7 @@ export class ScriptsService {
       i += 1;
     }
 
-    const mockLeadTime = LeadTime.hour72;
+    const mockLeadTime = this.getTyphoonLeadTime(eventNr);
 
     console.log(
       `Seeding Typhoon track for leadtime: ${mockLeadTime} for country: ${selectedCountry.countryCodeISO3}`,
@@ -307,7 +345,7 @@ export class ScriptsService {
     await this.typhoonTrackService.uploadTyphoonTrack({
       countryCodeISO3: selectedCountry.countryCodeISO3,
       leadTime: mockLeadTime as LeadTime,
-      eventName: this.getEventName(DisasterType.Typhoon),
+      eventName: this.getEventName(DisasterType.Typhoon, eventNr),
       trackpointDetails: triggered ? track : [],
     });
   }
@@ -341,6 +379,7 @@ export class ScriptsService {
     selectedCountry,
     disasterType: DisasterType,
     triggered: boolean,
+    eventNr = 1,
   ) {
     const triggersFileName = `./src/api/event/dto/example/triggers-per-leadtime-${
       selectedCountry.countryCodeISO3
@@ -352,7 +391,7 @@ export class ScriptsService {
       countryCodeISO3: selectedCountry.countryCodeISO3,
       triggersPerLeadTime: triggers,
       disasterType: disasterType,
-      eventName: this.getEventName(disasterType),
+      eventName: this.getEventName(disasterType, eventNr),
     });
   }
 

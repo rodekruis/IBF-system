@@ -26,4 +26,8 @@ export class EapActionDto {
   @IsNotEmpty()
   @IsString()
   public placeCode: string;
+
+  @ApiProperty()
+  @IsString()
+  public eventName: string;
 }

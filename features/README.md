@@ -14,7 +14,6 @@
 ---
 
 ## All features / scenario's
-
 IMPORTANT: 
 - A major distinction in every feature is whether the Portal is in TRIGGERED or NON-TRIGGERED mode.
 - These distinctions are made within each file.
@@ -45,8 +44,10 @@ These are actions run from the dev-menu in the dashboard, accessible only to an 
 
 These are actions run from the Swagger UI (<ibf-url>/docs).
 
+- Log in
 - Create new user
 - Update static data
+- [Upload mock data](API-admin-user/Upload_mock_data.feature)
 
 ### For external pipeline (user)
 
@@ -55,9 +56,6 @@ In practice, the pipeline is often time-scheduled and not manually triggered by 
 - Run external pipeline
   - Upload data
   - Create and send email
-- Upload mock data
-  - Upload mock data for all countries and disasters at once
-  - Upload mock data for a specific country and disasterptype
 
 ---
 

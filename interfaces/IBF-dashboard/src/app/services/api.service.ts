@@ -10,6 +10,7 @@ import { AdminLevel } from 'src/app/types/admin-level';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { DisasterTypeKey } from '../types/disaster-type-key';
+import { EventSummary } from './event.service';
 
 @Injectable({
   providedIn: 'root',
@@ -131,8 +132,12 @@ export class ApiService {
   getTyphoonTrack(
     countryCodeISO3: string,
     leadTime: LeadTime,
+    eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`typhoon-track/${countryCodeISO3}/${leadTime}`, false);
+    return this.get(
+      `typhoon-track/${countryCodeISO3}/${leadTime}/${eventName}`,
+      false,
+    );
   }
 
   getRedCrossBranches(
@@ -170,14 +175,20 @@ export class ApiService {
   getTriggerPerLeadTime(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
+    eventName: string,
   ): Observable<CountryTriggers> {
-    return this.get(`event/triggers/${countryCodeISO3}/${disasterType}`, false);
+    return this.get(
+      `event/triggers/${countryCodeISO3}/${disasterType}/${
+        eventName || 'no-name'
+      }`,
+      false,
+    );
   }
 
-  getEvent(
+  getEventsSummary(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
-  ): Observable<any> {
+  ): Observable<EventSummary> {
     return this.get(`event/${countryCodeISO3}/${disasterType}`, false);
   }
 
@@ -186,11 +197,12 @@ export class ApiService {
     disasterType: DisasterTypeKey,
     leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
+    eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
       `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}/${
         leadTime ? leadTime : '{leadTime}'
-      }`,
+      }/${eventName || 'no-name'}`,
       false,
     );
   }
@@ -200,11 +212,12 @@ export class ApiService {
     disasterType: DisasterTypeKey,
     leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
+    eventName: string,
   ): Observable<any> {
     return this.get(
       `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}/${
         leadTime ? leadTime : '{leadTime}'
-      }`,
+      }/${eventName || 'no-name'}`,
       false,
     );
   }
@@ -214,16 +227,25 @@ export class ApiService {
     disasterType: DisasterTypeKey,
     adminLevel: number,
     leadTime: string,
+    eventName: string,
   ) {
     return this.get(
-      `event/triggered-areas/${countryCodeISO3}/${adminLevel}/${disasterType}/${leadTime}`,
+      `event/triggered-areas/${countryCodeISO3}/${adminLevel}/${disasterType}/${leadTime}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }
 
-  getIndicators(countryCodeISO3: string, disasterType: DisasterTypeKey) {
+  getIndicators(
+    countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
+    eventName: string,
+  ) {
     return this.get(
-      `metadata/indicators/${countryCodeISO3}/${disasterType}`,
+      `metadata/indicators/${countryCodeISO3}/${disasterType}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }
@@ -239,9 +261,16 @@ export class ApiService {
     );
   }
 
-  getAdminAreaDynamicDataOne(key: string, placeCode: string, leadTime: string) {
+  getAdminAreaDynamicDataOne(
+    key: string,
+    placeCode: string,
+    leadTime: string,
+    eventName: string,
+  ) {
     return this.get(
-      `admin-area-dynamic-data/single/${key}/${placeCode}/${leadTime}`,
+      `admin-area-dynamic-data/single/${key}/${placeCode}/${leadTime}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }
@@ -252,9 +281,12 @@ export class ApiService {
     leadTime: LeadTime,
     indicator: string,
     disasterType: DisasterTypeKey,
+    eventName: string,
   ) {
     return this.get(
-      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${leadTime}/${indicator}/${disasterType}`,
+      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${leadTime}/${indicator}/${disasterType}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }
@@ -276,6 +308,7 @@ export class ApiService {
     disasterType: string,
     status: boolean,
     placeCode: string,
+    eventName: string,
   ) {
     return this.post(
       'eap-actions',
@@ -285,6 +318,7 @@ export class ApiService {
         disasterType,
         status,
         placeCode,
+        eventName: eventName || 'no-name',
       },
       false,
     );

@@ -46,19 +46,21 @@ export class AdminAreaController {
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'leadTime', required: false, type: 'string' })
+  @ApiParam({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
       '(Relevant) admin-areas boundaries and attributes for given country, disater-type and lead-time',
     type: GeoJson,
   })
-  @Get(':countryCodeISO3/:disasterType/:adminLevel/:leadTime?')
+  @Get(':countryCodeISO3/:disasterType/:adminLevel/:leadTime?/:eventName?')
   public async getAdminAreas(@Param() params): Promise<GeoJson> {
     return await this.adminAreaService.getAdminAreas(
       params.countryCodeISO3,
       params.disasterType,
       params.leadTime,
       params.adminLevel,
+      params.eventName,
     );
   }
 
@@ -70,13 +72,16 @@ export class AdminAreaController {
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'leadTime', required: false, type: 'string' })
+  @ApiParam({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
       'Static and dynamic data per admin-area and indicator for given country, disaster-type, leadTime',
     type: [AggregateDataRecord],
   })
-  @Get('aggregates/:countryCodeISO3/:disasterType/:adminLevel/:leadTime?')
+  @Get(
+    'aggregates/:countryCodeISO3/:disasterType/:adminLevel/:leadTime?/:eventName?',
+  )
   public async getAggregatesData(
     @Param() params,
   ): Promise<AggregateDataRecord[]> {
@@ -85,6 +90,7 @@ export class AdminAreaController {
       params.disasterType,
       params.leadTime,
       params.adminLevel,
+      params.eventName,
     );
   }
 }

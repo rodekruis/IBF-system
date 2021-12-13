@@ -37,6 +37,7 @@ export class AdminAreaService {
     disasterType: DisasterType,
     adminLevel: number,
     leadTime: string,
+    eventName: string,
   ) {
     if (leadTime === '{leadTime}') {
       leadTime = await this.getDefaultLeadTime(countryCodeISO3, disasterType);
@@ -45,6 +46,7 @@ export class AdminAreaService {
       await this.eventService.getTriggerPerLeadtime(
         countryCodeISO3,
         disasterType,
+        eventName,
       )
     )[leadTime];
 
@@ -97,6 +99,7 @@ export class AdminAreaService {
     disasterType: DisasterType,
     leadTime: string,
     adminLevel: number,
+    eventName: string,
   ): Promise<AggregateDataRecord[]> {
     const disaster = await this.getDisasterType(disasterType);
     let placeCodes = [];
@@ -107,6 +110,7 @@ export class AdminAreaService {
         disasterType,
         adminLevel,
         leadTime,
+        eventName,
       );
     }
 
@@ -198,6 +202,7 @@ export class AdminAreaService {
     disasterType: DisasterType,
     leadTime: string,
     adminLevel: number,
+    eventName: string,
   ): Promise<GeoJson> {
     const disaster = await this.getDisasterType(disasterType);
     let adminAreasScript = this.adminAreaRepository
@@ -253,6 +258,7 @@ export class AdminAreaService {
         disasterType,
         adminLevel,
         leadTime,
+        eventName,
       );
       if (placeCodes.length) {
         adminAreasScript = adminAreasScript.andWhere(

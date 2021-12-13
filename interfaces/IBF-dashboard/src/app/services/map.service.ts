@@ -246,6 +246,7 @@ export class MapService {
           .getTyphoonTrack(
             this.country.countryCodeISO3,
             this.timelineService.activeLeadTime,
+            this.eventService.state.event?.eventName,
           )
           .subscribe(this.addTyphoonTrackLayer);
       } else {
@@ -421,6 +422,7 @@ export class MapService {
             this.disasterType.disasterType,
             this.timelineService.activeLeadTime,
             adminLevel,
+            this.eventService.state.event?.eventName,
           )
           .subscribe((adminRegions) =>
             this.addAdminRegionLayer(adminRegions, adminLevel),
@@ -460,6 +462,7 @@ export class MapService {
           this.adminLevelService.adminLevel,
           this.timelineService.activeLeadTime,
           indicator.name,
+          this.eventService.state.event?.eventName,
           indicator.dynamic,
         ).subscribe((adminRegions) => {
           this.addAggregateLayer(indicator, adminRegions, layerActive);
@@ -491,6 +494,7 @@ export class MapService {
           this.adminLevelService.adminLevel,
           this.timelineService.activeLeadTime,
           indicator.name,
+          this.eventService.state.event?.eventName,
           indicator.dynamic,
         ).subscribe((adminRegions) => {
           this.addOutlineLayer(indicator, adminRegions);
@@ -783,6 +787,7 @@ export class MapService {
         .getTyphoonTrack(
           this.country.countryCodeISO3,
           this.timelineService.activeLeadTime,
+          this.eventService.state.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.adminRegions) {
@@ -792,6 +797,7 @@ export class MapService {
           this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           this.adminLevelService.adminLevel,
+          this.eventService.state.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (layer.group === IbfLayerGroup.adminRegions) {
@@ -804,6 +810,7 @@ export class MapService {
           this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           adminLevel,
+          this.eventService.state.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (
@@ -816,6 +823,7 @@ export class MapService {
         this.adminLevelService.adminLevel,
         this.timelineService.activeLeadTime,
         layer.name,
+        this.eventService.state.event?.eventName,
         layer.dynamic,
       ).pipe(shareReplay(1));
     } else {
@@ -831,6 +839,7 @@ export class MapService {
     adminLevel: AdminLevel,
     leadTime: LeadTime,
     layerName: IbfLayerName,
+    eventName: string,
     dynamic: boolean,
   ): Observable<GeoJSON.FeatureCollection> {
     // Do api request to get data layer
@@ -842,6 +851,7 @@ export class MapService {
         leadTime,
         layerName,
         disasterType,
+        eventName,
       );
     } else {
       admDynamicDataObs = this.apiService.getAdminAreaData(

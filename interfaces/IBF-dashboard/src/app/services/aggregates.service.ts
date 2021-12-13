@@ -9,6 +9,7 @@ import { Country, DisasterType } from '../models/country.model';
 import { IbfLayerName } from '../types/ibf-layer';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
+import { EventService } from './event.service';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,7 @@ export class AggregatesService {
     private apiService: ApiService,
     private mapService: MapService,
     private disasterTypeService: DisasterTypeService,
+    private eventService: EventService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -61,15 +63,18 @@ export class AggregatesService {
   };
 
   private onAdminLevelChange = () => {
+    this.disasterType = this.disasterTypeService.disasterType;
     this.loadMetadataAndAggregates();
   };
 
   loadMetadataAndAggregates() {
+    this.disasterType = this.disasterTypeService.disasterType;
     if (this.country && this.disasterType) {
       this.apiService
         .getIndicators(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
+          this.eventService.state.event?.eventName,
         )
         .subscribe(this.onIndicatorChange);
     }
@@ -155,6 +160,7 @@ export class AggregatesService {
           this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           this.adminLevelService.adminLevel,
+          this.eventService.state.event?.eventName,
         )
         .subscribe(this.onAggregatesData);
     }

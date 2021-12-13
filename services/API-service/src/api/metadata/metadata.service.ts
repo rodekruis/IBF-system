@@ -25,11 +25,14 @@ export class MetadataService {
   public async getIndicatorsByCountry(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    eventName: string,
   ): Promise<IndicatorMetadataEntity[]> {
-    const event = await this.eventService.getEventSummaryCountry(
+    const events = await this.eventService.getEventSummaryCountry(
       countryCodeISO3,
       disasterType,
     );
+    eventName = eventName === 'no-name' ? null : eventName;
+    const event = events.find(e => e.eventName === eventName);
     const activeTrigger = event && event.activeTrigger;
 
     const indicators = await this.indicatorRepository.find({

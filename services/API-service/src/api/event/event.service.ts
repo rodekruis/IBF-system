@@ -7,7 +7,14 @@ import {
   ActivationLogDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
-import { LessThan, MoreThanOrEqual, Repository, In, MoreThan } from 'typeorm';
+import {
+  LessThan,
+  MoreThanOrEqual,
+  Repository,
+  In,
+  MoreThan,
+  IsNull,
+} from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import {
@@ -49,8 +56,7 @@ export class EventService {
   public async getEventSummaryCountry(
     countryCodeISO3: string,
     disasterType: DisasterType,
-  ): Promise<EventSummaryCountry> {
-    // This takes - for now - the first out of potentially multiple events
+  ): Promise<EventSummaryCountry[]> {
     const eventSummary = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select(['area."countryCodeISO3"', 'event."eventName"'])
@@ -71,7 +77,7 @@ export class EventService {
       .andWhere('event."disasterType" = :disasterType', {
         disasterType: disasterType,
       })
-      .getRawOne();
+      .getRawMany();
     return eventSummary;
   }
 
@@ -218,6 +224,7 @@ export class EventService {
     disasterType: DisasterType,
     adminLevel: number,
     leadTime: string,
+    eventName: string,
   ): Promise<TriggeredArea[]> {
     const triggerUnit = await this.getTriggerUnit(disasterType);
     const result = await this.adminAreaDynamicDataRepo
@@ -247,14 +254,13 @@ export class EventService {
         'event."activeTrigger"',
       ])
       .leftJoin('event.adminArea', 'area')
-      .where('closed = :closed', {
+      .where({
         closed: false,
+        disasterType: disasterType,
+        eventName: eventName === 'no-name' ? IsNull() : eventName,
       })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('"disasterType" = :disasterType', {
-        disasterType: disasterType,
       })
       .orderBy('event."actionsValue"', 'DESC');
 
@@ -275,6 +281,7 @@ export class EventService {
         countryCodeISO3,
         disasterType,
         area.placeCode,
+        eventName === 'no-name' ? null : eventName,
       );
     }
     return triggeredAreas;
@@ -286,6 +293,7 @@ export class EventService {
       .select([
         'area."countryCodeISO3" AS "countryCodeISO3"',
         'event."disasterType"',
+        'COALESCE(event."eventName", \'no name\') AS "eventName"',
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
         'event."startDate"',
@@ -307,6 +315,7 @@ export class EventService {
   public async getTriggerPerLeadtime(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    eventName: string,
   ): Promise<object> {
     const lastTriggeredDate = await this.getRecentDate(
       countryCodeISO3,
@@ -323,6 +332,7 @@ export class EventService {
           ),
         ),
         disasterType: disasterType,
+        eventName: eventName === 'no-name' ? IsNull() : eventName,
       },
     });
     if (triggersPerLeadTime.length === 0) {

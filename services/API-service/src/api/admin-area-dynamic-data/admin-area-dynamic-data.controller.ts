@@ -57,13 +57,16 @@ export class AdminAreaDynamicDataController {
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'eventName', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
       'Dynamic admin-area data for given indicator, country, disaster-type and lead-time.',
     type: [AdminDataReturnDto],
   })
-  @Get(':countryCodeISO3/:adminLevel/:leadTime/:indicator/:disasterType')
+  @Get(
+    ':countryCodeISO3/:adminLevel/:leadTime/:indicator/:disasterType/:eventName',
+  )
   public async getAdminAreaData(
     @Param() params,
   ): Promise<AdminDataReturnDto[]> {
@@ -73,6 +76,7 @@ export class AdminAreaDynamicDataController {
       params.leadTime,
       params.indicator as DynamicIndicator,
       params.disasterType as DisasterType,
+      params.eventName,
     );
   }
 
@@ -82,17 +86,19 @@ export class AdminAreaDynamicDataController {
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
   @ApiParam({ name: 'placeCode', required: true, type: 'string' })
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
+  @ApiParam({ name: 'eventName', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
     description: 'Dynamic admin-area data value for one specific admin-area.',
     type: Number,
   })
-  @Get('single/:indicator/:placeCode/:leadTime')
+  @Get('single/:indicator/:placeCode/:leadTime/:eventName')
   public async getAdminAreaDataPerPcode(@Param() params): Promise<number> {
     return await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
       params.indicator as DynamicIndicator,
       params.placeCode,
       params.leadTime,
+      params.eventName,
     );
   }
 

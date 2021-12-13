@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionDto } from './dto/eap-action.dto';
@@ -50,6 +50,8 @@ export class EapActionsService {
         closed: false,
         disasterType: eapAction.disasterType,
         adminArea: { id: adminArea.id },
+        eventName:
+          eapAction.eventName === 'no-name' ? IsNull() : eapAction.eventName,
       },
     });
 
@@ -75,15 +77,18 @@ export class EapActionsService {
     countryCodeISO3: string,
     disasterType: string,
     placeCode: string,
+    eventName: string,
   ): Promise<EapActionEntity[]> {
-    const mostRecentStatePerAction = await this.eapActionStatusRepository
+    const mostRecentStatePerAction = this.eapActionStatusRepository
       .createQueryBuilder('status')
       .select(['status."actionCheckedId"', 'status."placeCode"'])
+      .leftJoin('status.eventPlaceCode', 'event')
+      .where('event."eventName" = :eventName', { eventName: eventName })
       .groupBy('status."actionCheckedId"')
       .addGroupBy('status."placeCode"')
       .addSelect(['MAX(status.timestamp) AS "max_timestamp"']);
 
-    const eapActionsStates = await this.eapActionStatusRepository
+    const eapActionsStates = this.eapActionStatusRepository
       .createQueryBuilder('status')
       .select([
         'status."actionCheckedId"',
@@ -98,6 +103,7 @@ export class EapActionsService {
       .setParameters(mostRecentStatePerAction.getParameters())
       .leftJoin('status.eventPlaceCode', 'event')
       .where('status.timestamp = recent.max_timestamp')
+      .andWhere('event."eventName" = :eventName', { eventName: eventName })
       .andWhere('event.closed = false');
 
     const eapActions = await this.eapActionRepository

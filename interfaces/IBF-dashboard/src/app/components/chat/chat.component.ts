@@ -277,6 +277,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       action.action,
       action.checked,
       action.placeCode,
+      this.eventService.state.event?.eventName,
     );
   };
 

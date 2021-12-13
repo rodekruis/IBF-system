@@ -2,13 +2,21 @@ import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import {
-  LeadTime,
-  LeadTimeTriggerKey,
-  LeadTimeUnit,
-} from 'src/app/types/lead-time';
+import { LeadTimeTriggerKey, LeadTimeUnit } from 'src/app/types/lead-time';
 import { Country, DisasterType } from '../models/country.model';
 import { DisasterTypeService } from './disaster-type.service';
+
+export class EventSummary {
+  countryCodeISO3: string;
+  startDate: string;
+  endDate: string;
+  activeTrigger: boolean;
+  eventName: string;
+  firstLeadTime?: string;
+  firstLeadTimeLabel?: string;
+  yearMonth?: string;
+  timeUnit?: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -18,14 +26,10 @@ export class EventService {
   private disasterType: DisasterType;
 
   public state = {
+    events: null,
     event: null,
     activeEvent: null,
     activeTrigger: null,
-    triggerLeadTime: null,
-    firstLeadTime: null,
-    firstLeadTimeLabel: null,
-    firstLeadTimeName: null,
-    timeUnit: null,
   };
 
   constructor(
@@ -56,21 +60,20 @@ export class EventService {
 
   private resetState() {
     this.state = {
+      events: null,
       event: null,
       activeEvent: null,
       activeTrigger: null,
-      triggerLeadTime: null,
-      firstLeadTime: null,
-      firstLeadTimeLabel: null,
-      firstLeadTimeName: null,
-      timeUnit: null,
     };
   }
 
   public getTrigger() {
     if (this.country && this.disasterType) {
       this.apiService
-        .getEvent(this.country.countryCodeISO3, this.disasterType.disasterType)
+        .getEventsSummary(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
         .subscribe(this.onEvent);
     }
   }
@@ -82,39 +85,39 @@ export class EventService {
   ) {
     if (country && disasterType) {
       this.apiService
-        .getEvent(country, disasterType.disasterType)
+        .getEventsSummary(country, disasterType.disasterType)
         .subscribe(this.onGetDisasterTypeEvent(disasterType, callback));
     }
   }
 
   private onGetDisasterTypeEvent = (disasterType: DisasterType, callback) => (
-    event,
+    events,
   ) => {
-    disasterType.activeTrigger = (event && event.activeTrigger) || false;
+    disasterType.activeTrigger =
+      events.filter((e: EventSummary) => e.activeTrigger).length > 0 || false;
     callback(disasterType);
   };
 
-  private onEvent = (event) => {
-    this.state.event = event;
-    if (event) {
-      this.state.event.startDate = DateTime.fromISO(
-        this.state.event.startDate,
-      ).toFormat('cccc, dd LLLL');
+  private onEvent = (events) => {
+    this.state.events = events;
+
+    for (const event of this.state.events) {
+      event.startDate = DateTime.fromISO(event.startDate).toFormat(
+        'cccc, dd LLLL',
+      );
+      if (event.endDate) {
+        event.endDate = this.endDateToLastTriggerDate(event.endDate);
+      }
+      this.getFirstTriggerDate(event);
     }
 
+    this.setEvent(events[0]);
     this.state.activeEvent = !!this.state.event;
     this.state.activeTrigger =
-      this.state.event && this.state.event.activeTrigger;
-    if (event && event.endDate) {
-      this.state.event.endDate = this.endDateToLastTriggerDate(
-        this.state.event.endDate,
-      );
-    }
-    this.setAlertState();
+      this.state.event &&
+      this.state.events.filter((e: EventSummary) => e.activeTrigger).length > 0;
 
-    if (this.state.activeTrigger) {
-      this.getFirstTriggerDate();
-    }
+    this.setAlertState();
   };
 
   private endDateToLastTriggerDate(endDate: string): string {
@@ -135,75 +138,60 @@ export class EventService {
     }
   };
 
-  private getFirstTriggerDate() {
+  private getFirstTriggerDate(event) {
     if (this.country && this.disasterType) {
       this.apiService
         .getTriggerPerLeadTime(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
+          event.eventName,
         )
-        .subscribe(this.onTriggerPerLeadTime);
+        .subscribe((response) =>
+          this.onTriggerPerLeadTime(response, event.eventName),
+        );
     }
   }
 
-  private onTriggerPerLeadTime = (timesteps) => {
+  private onTriggerPerLeadTime = (timesteps, eventName) => {
     let firstKey = null;
     Object.keys(timesteps)
-      .sort((a, b) => (a > b ? 1 : -1))
+      .sort((a, b) =>
+        Number(LeadTimeTriggerKey[a]) > Number(LeadTimeTriggerKey[b]) ? 1 : -1,
+      )
       .forEach((key) => {
         if (timesteps[key] === '1') {
           firstKey = !firstKey ? key : firstKey;
         }
       });
-    this.state.firstLeadTime = firstKey;
-    this.state.firstLeadTimeLabel =
-      LeadTimeTriggerKey[this.state.firstLeadTime];
-    this.getFirstTriggeredString();
-    this.getTriggerLeadTime();
+
+    const event =
+      this.state.events.find((e) => e.eventName === eventName) ||
+      this.state.events[0];
+
+    event.firstLeadTime = firstKey;
+    event.firstLeadTimeLabel = LeadTimeTriggerKey[firstKey];
+    event.timeUnit = firstKey?.split('-')[1];
+
+    if (event.timeUnit === LeadTimeUnit.month) {
+      event.yearMonth = this.getYearMOnth(firstKey);
+    }
   };
 
-  private getFirstTriggeredString(): void {
-    const timeUnitsInFuture = Number(this.state.firstLeadTime.split('-')[0]);
-    let futureDateTime: DateTime;
+  private getYearMOnth(firstKey): string {
+    const timeUnitsInFuture = Number(LeadTimeTriggerKey[firstKey]);
     const today = DateTime.now();
-    if (this.state.firstLeadTime.includes(LeadTimeUnit.day)) {
-      futureDateTime = today.plus({ days: Number(timeUnitsInFuture) });
-    } else {
-      futureDateTime = today.plus({ months: Number(timeUnitsInFuture) });
-    }
+    const futureDateTime = today.plus({ months: Number(timeUnitsInFuture) });
     const monthString = new Date(
       futureDateTime.year,
       futureDateTime.month - 1,
       1,
     ).toLocaleString('default', { month: 'long' });
-    if (
-      this.state.firstLeadTime &&
-      this.state.firstLeadTime.split('-')[1] === LeadTimeUnit.month
-    ) {
-      this.state.firstLeadTimeName = `${monthString} ${futureDateTime.year}`;
-    } else {
-      this.state.firstLeadTimeName = `${futureDateTime.day} ${monthString} ${futureDateTime.year}`;
-    }
-  }
-
-  private getTriggerLeadTime() {
-    if (this.country && this.disasterType) {
-      let triggerLeadTime = null;
-      this.country.countryDisasterSettings
-        .find((s) => s.disasterType === this.disasterType.disasterType)
-        .activeLeadTimes.forEach((leadTime: LeadTime) => {
-          if (
-            !triggerLeadTime &&
-            Number(LeadTimeTriggerKey[leadTime]) >=
-              Number(LeadTimeTriggerKey[this.state.firstLeadTime])
-          ) {
-            triggerLeadTime = leadTime;
-            this.state.triggerLeadTime = LeadTimeTriggerKey[triggerLeadTime];
-            this.state.timeUnit = triggerLeadTime.split('-')[1];
-          }
-        });
-    }
+    return `${monthString} ${futureDateTime.year}`;
   }
 
   public isOldEvent = () => this.state.activeEvent && !this.state.activeTrigger;
+
+  public setEvent(event: EventSummary) {
+    this.state.event = event;
+  }
 }
