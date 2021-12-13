@@ -117,12 +117,12 @@ export class EventController {
 
   @ApiOperation({
     summary:
-      'Get trigger activation data per country, disaster-type and admin-area.',
+      'Get past and current trigger activation data per admin-area and disaster-type.',
   })
   @ApiResponse({
     status: 200,
     description:
-      'Trigger activation data per country, disaster-type and admin-area.',
+      'Past and current trigger activation data per admin-area and disaster-type.',
     type: [ActivationLogDto],
   })
   @Get('activation-log')
