@@ -1,3 +1,12 @@
+## [0.114.4](https://github.com/rodekruis/IBF-system/compare/v0.114.3...v0.114.4) (2021-12-14)
+
+
+### Bug Fixes
+
+* use eventName if null AB[#11230](https://github.com/rodekruis/IBF-system/issues/11230) ([7524284](https://github.com/rodekruis/IBF-system/commit/75242848b851f111987ef0fa9e5baaf583b46226))
+
+
+
 ## [0.114.3](https://github.com/rodekruis/IBF-system/compare/v0.114.2...v0.114.3) (2021-12-13)
 
 
@@ -112,29 +121,6 @@
 ### Bug Fixes
 
 * all admin-areas get red outline AB[#10939](https://github.com/rodekruis/IBF-system/issues/10939) ([9ee4ed7](https://github.com/rodekruis/IBF-system/commit/9ee4ed7ef68954e742a499dc1add2b574b7608bd))
-
-
-
-# [0.110.0](https://github.com/rodekruis/IBF-system/compare/v0.109.0...v0.110.0) (2021-11-29)
-
-
-### Bug Fixes
-
-* lint AB[#10770](https://github.com/rodekruis/IBF-system/issues/10770) ([5ad5be8](https://github.com/rodekruis/IBF-system/commit/5ad5be84b6c2f7e764a36f3801c0c57c7e37503a))
-* lint AB[#10772](https://github.com/rodekruis/IBF-system/issues/10772) ([2aa457a](https://github.com/rodekruis/IBF-system/commit/2aa457a21988b9a02188534ad9ffe11f384a3b50))
-* updates AB[#10772](https://github.com/rodekruis/IBF-system/issues/10772) ([06ec2d6](https://github.com/rodekruis/IBF-system/commit/06ec2d6c384e3933a903ea92d965d34b4dda2d1f))
-
-
-### Features
-
-* added new design AB[#10772](https://github.com/rodekruis/IBF-system/issues/10772) ([d727338](https://github.com/rodekruis/IBF-system/commit/d727338e2389c5da683634eb8643781bbeaa785a))
-* added new segment section AB[#10772](https://github.com/rodekruis/IBF-system/issues/10772) AB[#10770](https://github.com/rodekruis/IBF-system/issues/10770) ([105b814](https://github.com/rodekruis/IBF-system/commit/105b814585f09ceaa08eb37e7d920234cd825263))
-* added new title segment 9121-sthakre ([2c6d609](https://github.com/rodekruis/IBF-system/commit/2c6d609bf3de021c7dce7cbdbebba492d455de88))
-* added new title segment-sthakre ([7585867](https://github.com/rodekruis/IBF-system/commit/758586719e8be6652cce80bad22a46d054364a5a))
-* change today-bar AB[#10772](https://github.com/rodekruis/IBF-system/issues/10772) ([2706340](https://github.com/rodekruis/IBF-system/commit/270634043684b623eb9277c2375b4748a7e9dea5))
-* login page AB[#9121](https://github.com/rodekruis/IBF-system/issues/9121) ([51cddab](https://github.com/rodekruis/IBF-system/commit/51cddabafaeaebfa3b54d5cb2b92bdfe9b48c44b))
-* new design AB[#9123](https://github.com/rodekruis/IBF-system/issues/9123) ([5ecab28](https://github.com/rodekruis/IBF-system/commit/5ecab28b4c5eaabee7246a94120cd564cc844132))
-* title section AB[#10770](https://github.com/rodekruis/IBF-system/issues/10770) ([5907fc3](https://github.com/rodekruis/IBF-system/commit/5907fc385bcc472f1e2a365f93c4f3fe168b2eb1))
 
 
 
