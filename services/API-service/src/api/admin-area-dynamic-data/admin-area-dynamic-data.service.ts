@@ -93,7 +93,7 @@ export class AdminAreaDynamicDataService {
         leadTime: uploadExposure.leadTime,
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
-        eventName: uploadExposure.eventName,
+        eventName: uploadExposure.eventName || IsNull(),
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else if (uploadExposure.leadTime.includes(LeadTimeUnit.hour)) {
@@ -104,7 +104,7 @@ export class AdminAreaDynamicDataService {
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
         date: new Date(),
-        eventName: uploadExposure.eventName,
+        eventName: uploadExposure.eventName || IsNull(),
         timestamp: MoreThanOrEqual(
           this.helperService.getLast12hourInterval(uploadExposure.disasterType),
         ),
@@ -116,7 +116,7 @@ export class AdminAreaDynamicDataService {
         leadTime: uploadExposure.leadTime,
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
-        eventName: uploadExposure.eventName,
+        eventName: uploadExposure.eventName || IsNull(),
         date: new Date(),
       });
     }
