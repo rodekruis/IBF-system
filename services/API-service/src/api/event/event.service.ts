@@ -183,7 +183,7 @@ export class EventService {
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
-        eventName: uploadTriggerPerLeadTimeDto.eventName,
+        eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else if (leadTime.includes(LeadTimeUnit.hour)) {
@@ -191,7 +191,7 @@ export class EventService {
       await this.triggerPerLeadTimeRepository.delete({
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
-        eventName: uploadTriggerPerLeadTimeDto.eventName,
+        eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
         date: new Date(),
         timestamp: MoreThanOrEqual(
           this.helperService.getLast12hourInterval(
@@ -204,7 +204,7 @@ export class EventService {
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
-        eventName: uploadTriggerPerLeadTimeDto.eventName,
+        eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
         date: new Date(),
       });
     }
@@ -401,7 +401,7 @@ export class EventService {
       where: {
         adminArea: { id: In(countryAdminAreaIds) },
         disasterType: disasterType,
-        eventName: eventName,
+        eventName: eventName || IsNull(),
       },
     });
     eventAreas.forEach(area => (area.activeTrigger = false));
@@ -521,7 +521,7 @@ export class EventService {
         closed: false,
         adminArea: In(countryAdminAreaIds),
         disasterType: disasterType,
-        eventName: eventName,
+        eventName: eventName || IsNull(),
       },
       relations: ['adminArea'],
     });
@@ -562,7 +562,7 @@ export class EventService {
           closed: false,
           adminArea: In(countryAdminAreaIds),
           disasterType: disasterType,
-          eventName: eventName,
+          eventName: eventName || IsNull(),
         },
         relations: ['adminArea'],
       })
