@@ -99,7 +99,7 @@ export class TimelineService {
     }
 
     const events = this.eventService.state.events;
-    if (events.length) {
+    if (events?.length) {
       for (const event of events) {
         this.apiService
           .getTriggerPerLeadTime(

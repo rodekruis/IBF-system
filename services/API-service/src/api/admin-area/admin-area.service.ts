@@ -112,6 +112,13 @@ export class AdminAreaService {
         leadTime,
         eventName,
       );
+    } else {
+      placeCodes = await this.getPlaceCodesToShow(
+        countryCodeISO3,
+        disasterType,
+        adminLevel,
+        leadTime,
+      );
     }
 
     let staticIndicatorsScript = this.adminAreaRepository
@@ -252,33 +259,28 @@ export class AdminAreaService {
       });
 
     // If alertThreshold is triggerUnit, always show all admin-areas
+    let placeCodes = [];
     if (disaster.triggerUnit !== DynamicIndicator.alertThreshold) {
-      const placeCodes = await this.getTriggeredPlaceCodes(
+      placeCodes = await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         disasterType,
         adminLevel,
         leadTime,
         eventName,
       );
-      if (placeCodes.length) {
-        adminAreasScript = adminAreasScript.andWhere(
-          'area."placeCode" IN (:...placeCodes)',
-          { placeCodes: placeCodes },
-        );
-      }
     } else {
-      const placeCodesToShow = await this.getPlaceCodesToShow(
+      placeCodes = await this.getPlaceCodesToShow(
         countryCodeISO3,
         disasterType,
         adminLevel,
         leadTime,
       );
-      if (placeCodesToShow.length) {
-        adminAreasScript = adminAreasScript.andWhere(
-          'area."placeCode" IN (:...placeCodes)',
-          { placeCodes: placeCodesToShow },
-        );
-      }
+    }
+    if (placeCodes.length) {
+      adminAreasScript = adminAreasScript.andWhere(
+        'area."placeCode" IN (:...placeCodes)',
+        { placeCodes: placeCodes },
+      );
     }
     const adminAreas = await adminAreasScript.getRawMany();
 

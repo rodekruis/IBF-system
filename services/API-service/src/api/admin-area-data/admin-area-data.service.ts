@@ -99,7 +99,7 @@ export class AdminAreaDataService {
   public async getAdminAreaData(
     countryCodeISO3: string,
     adminLevel: string,
-    indicator: DynamicIndicator,
+    indicator: string,
   ): Promise<AdminDataReturnDto[]> {
     const result = await this.adminAreaDataRepository
       .createQueryBuilder('admin-area-data')
