@@ -2,13 +2,13 @@
   {
     "disasterType": "floods",
     "label": "floods",
-    "triggerUnit": "population_affected",
+    "triggerUnit": "alert_threshold",
     "actionsUnit": "population_affected"
   },
   {
     "disasterType": "heavy-rain",
     "label": "heavy rainfall",
-    "triggerUnit": "population_affected",
+    "triggerUnit": "alert_threshold",
     "actionsUnit": "population_affected"
   },
   {

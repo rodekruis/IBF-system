@@ -162,6 +162,7 @@ export class ScriptsService {
       exposureUnits = [
         DynamicIndicator.populationAffectedPercentage,
         DynamicIndicator.populationAffected,
+        DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
       ];
     }
 
