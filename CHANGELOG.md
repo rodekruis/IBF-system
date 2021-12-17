@@ -1,3 +1,12 @@
+## [0.114.5](https://github.com/rodekruis/IBF-system/compare/v0.114.4...v0.114.5) (2021-12-17)
+
+
+### Bug Fixes
+
+* don't loop over events if empty AB[#11230](https://github.com/rodekruis/IBF-system/issues/11230) ([c670935](https://github.com/rodekruis/IBF-system/commit/c6709351e5e9fbd2a0735e259857c0259c1eb7c6))
+
+
+
 ## [0.114.4](https://github.com/rodekruis/IBF-system/compare/v0.114.3...v0.114.4) (2021-12-14)
 
 
@@ -112,15 +121,6 @@
 ### Bug Fixes
 
 * remove shadow top-bar AB[#10927](https://github.com/rodekruis/IBF-system/issues/10927) ([12aacab](https://github.com/rodekruis/IBF-system/commit/12aacabb34ea2027ee5a699d22c9b0262d250f0b))
-
-
-
-## [0.110.1](https://github.com/rodekruis/IBF-system/compare/v0.110.0...v0.110.1) (2021-11-29)
-
-
-### Bug Fixes
-
-* all admin-areas get red outline AB[#10939](https://github.com/rodekruis/IBF-system/issues/10939) ([9ee4ed7](https://github.com/rodekruis/IBF-system/commit/9ee4ed7ef68954e742a499dc1add2b574b7608bd))
 
 
 
