@@ -10,6 +10,7 @@ export class Indicator {
   numberFormatAggregate: NumberFormat;
   aggregateIndicator: string;
   weightedAvg: boolean;
+  weightVar: IbfLayerName;
   colorBreaks?: ColorBreaks;
   order: number;
   unit?: string;

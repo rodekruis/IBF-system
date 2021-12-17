@@ -11,6 +11,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 1,
     "dynamic": true,
     "unit": "people"
@@ -27,6 +28,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": "",
     "numberFormatAggregate": "perc",
+    "weightvar": null,
     "order": 1,
     "dynamic": true,
     "unit": "people"
@@ -43,6 +45,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,ZWE",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 2,
     "dynamic": false,
     "unit": "people"
@@ -59,6 +62,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "PHL,ETH",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 1,
     "dynamic": true,
     "unit": "people"
@@ -101,6 +105,7 @@
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 3,
     "dynamic": false
   },
@@ -116,6 +121,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 4,
     "dynamic": false
   },
@@ -131,6 +137,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": "UGA",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 4,
     "dynamic": false
   },
@@ -146,6 +153,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 4,
     "dynamic": false
   },
@@ -161,6 +169,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": "UGA",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 4,
     "dynamic": false
   },
@@ -176,6 +185,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": "",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 4,
     "dynamic": false
   },
@@ -191,6 +201,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": "UGA",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 4,
     "dynamic": false
   },
@@ -206,6 +217,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 4,
     "dynamic": false
   },
@@ -221,6 +233,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 4,
     "dynamic": false
   },
@@ -236,6 +249,7 @@
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 3,
     "dynamic": false,
     "lazyLoad": false
@@ -252,6 +266,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 4,
     "dynamic": false,
     "lazyLoad": false
@@ -268,6 +283,7 @@
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 4,
     "dynamic": false,
     "lazyLoad": false
@@ -284,6 +300,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 4,
     "dynamic": false,
     "lazyLoad": false
@@ -300,6 +317,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 4,
     "dynamic": false,
     "lazyLoad": false
@@ -316,6 +334,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 4,
     "dynamic": false,
     "lazyLoad": false
@@ -332,6 +351,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 4,
     "dynamic": false,
     "lazyLoad": false
@@ -348,6 +368,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 3,
     "dynamic": false,
     "lazyLoad": false
@@ -364,6 +385,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 3,
     "dynamic": false,
     "lazyLoad": false
@@ -380,6 +402,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 3,
     "dynamic": false,
     "lazyLoad": false
@@ -396,6 +419,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 3,
     "dynamic": false,
     "lazyLoad": false
@@ -412,6 +436,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 3,
     "dynamic": false,
     "lazyLoad": false
@@ -428,6 +453,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 4,
     "dynamic": false,
     "unit": "cases"
@@ -438,12 +464,13 @@
     "name": "vulnerable_group",
     "label": "Vulnerable Groups",
     "icon": "",
-    "weightedAvg": true,
+    "weightedAvg": false,
     "active": "no",
     "colorBreaks": null,
     "numberFormatMap": "perc",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 4,
     "dynamic": false,
     "lazyLoad": false
@@ -454,12 +481,13 @@
     "name": "vulnerable_housing",
     "label": "Vulnerable Housing",
     "icon": "",
-    "weightedAvg": true,
+    "weightedAvg": false,
     "active": "no",
     "colorBreaks": null,
     "numberFormatMap": "perc",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
+    "weightvar": null,
     "order": 4,
     "dynamic": false,
     "lazyLoad": false
@@ -493,6 +521,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 4,
     "dynamic": false,
     "unit": "incidence"
@@ -509,6 +538,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 3,
     "dynamic": false,
     "unit": "incidence"
@@ -525,6 +555,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 3,
     "dynamic": false,
     "unit": "incidence"
@@ -541,6 +572,7 @@
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
     "numberFormatAggregate": "decimal2",
+    "weightvar": null,
     "order": 3,
     "dynamic": false,
     "unit": "incidence"
@@ -557,6 +589,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "ETH",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 2,
     "dynamic": true,
     "lazyLoad": true
@@ -573,6 +606,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "PHL",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 2,
     "dynamic": true,
     "lazyLoad": true
@@ -589,6 +623,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "PHL",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 2,
     "dynamic": true,
     "lazyLoad": true
@@ -605,6 +640,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "ZWE",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 2,
     "dynamic": true,
     "lazyLoad": true
@@ -621,6 +657,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "ZWE",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 2,
     "dynamic": true,
     "lazyLoad": true
@@ -637,6 +674,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 0,
     "dynamic": true,
     "lazyLoad": true
@@ -653,6 +691,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": "PHL",
     "numberFormatAggregate": "perc",
+    "weightVar": "total_houses",
     "order": 2,
     "dynamic": true,
     "lazyLoad": true
@@ -669,6 +708,7 @@
     "numberFormatMap": "perc",
     "aggregateIndicator": "",
     "numberFormatAggregate": "perc",
+    "weightvar": null,
     "order": 2,
     "dynamic": true,
     "lazyLoad": true
@@ -685,6 +725,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 2,
     "dynamic": true,
     "lazyLoad": true
@@ -701,6 +742,7 @@
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "decimal0",
+    "weightvar": null,
     "order": 2,
     "dynamic": true,
     "lazyLoad": true
