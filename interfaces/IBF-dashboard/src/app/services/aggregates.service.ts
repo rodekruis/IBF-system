@@ -182,7 +182,7 @@ export class AggregatesService {
         ).name;
       }
     }
-    let weighedSum = this.aggregates.reduce(
+    const weighedSum = this.aggregates.reduce(
       this.aggregateReducer(
         weightedAverage,
         indicator,
@@ -194,7 +194,7 @@ export class AggregatesService {
 
     let aggregateValue: number;
     if (numberFormat === NumberFormat.perc) {
-      let sumOfWeights = this.aggregates.reduce(
+      const sumOfWeights = this.aggregates.reduce(
         this.aggregateReducer(false, weighingIndicatorName, null, placeCode),
         0,
       );
