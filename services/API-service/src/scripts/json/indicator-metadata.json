@@ -466,6 +466,23 @@
   },
   {
     "country_codes": "PHL",
+    "disasterTypes": ["typhoon"],
+    "name": "total_houses",
+    "label": "Total houses",
+    "icon": "",
+    "weightedAvg": false,
+    "active": "no",
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": "",
+    "numberFormatAggregate": "",
+    "weightVar": null,
+    "order": -99,
+    "dynamic": false,
+    "lazyLoad": true
+  },
+  {
+    "country_codes": "PHL",
     "disasterTypes": ["dengue"],
     "name": "dengue_incidence_average",
     "label": "Dengue incidence (cases per year per 10M)",
