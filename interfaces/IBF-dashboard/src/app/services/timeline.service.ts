@@ -99,14 +99,16 @@ export class TimelineService {
     }
 
     const events = this.eventService.state.events;
-    for (const event of events) {
-      this.apiService
-        .getTriggerPerLeadTime(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-          event?.eventName,
-        )
-        .subscribe(this.onTriggerPerLeadTime);
+    if (events.length) {
+      for (const event of events) {
+        this.apiService
+          .getTriggerPerLeadTime(
+            this.country.countryCodeISO3,
+            this.disasterType.disasterType,
+            event?.eventName,
+          )
+          .subscribe(this.onTriggerPerLeadTime);
+      }
     }
     if (!events || !events.length) {
       this.onTriggerPerLeadTime(null);
