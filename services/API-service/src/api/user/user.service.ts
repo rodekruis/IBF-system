@@ -97,16 +97,30 @@ export class UserService {
     return this.buildUserRO(user);
   }
 
-  public async update(dto: UpdatePasswordDto): Promise<UserResponseObject> {
-    const user = await this.userRepository.findOne(
-      { email: dto.email },
-      {
+  public async update(
+    loggedInUserId: string,
+    dto: UpdatePasswordDto,
+  ): Promise<UserResponseObject> {
+    let user: UserEntity;
+    if (dto.email) {
+      user = await this.userRepository.findOne(
+        { email: dto.email },
+        {
+          relations: this.relations,
+        },
+      );
+      if (!user) {
+        const errors = { email: dto.email + ' not found' };
+        throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+      }
+    } else {
+      user = await this.userRepository.findOne(loggedInUserId, {
         relations: this.relations,
-      },
-    );
-    if (!user) {
-      const errors = { email: dto.email + ' not found' };
-      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+      });
+      if (!user) {
+        const errors = { user: 'No logged in user found' };
+        throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+      }
     }
     const password = crypto.createHmac('sha256', dto.password).digest('hex');
     await this.userRepository.save({

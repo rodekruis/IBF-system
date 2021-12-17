@@ -1,5 +1,4 @@
 import {
-  Get,
   Post,
   Body,
   Controller,
@@ -21,6 +20,7 @@ import {
 import { RolesGuard } from '../../roles.guard';
 import { UserRole } from './user-role.enum';
 import { Roles } from '../../roles.decorator';
+import { UserDecorator } from './user.decorator';
 
 @ApiTags('-- user --')
 @Controller('user')
@@ -84,7 +84,10 @@ export class UserController {
   @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Change password of user' })
   @Post('change-password')
-  public async update(@Body() userData: UpdatePasswordDto): Promise<any> {
-    return this.userService.update(userData);
+  public async update(
+    @UserDecorator('userId') loggedInUserId: string,
+    @Body() userData: UpdatePasswordDto,
+  ): Promise<any> {
+    return this.userService.update(loggedInUserId, userData);
   }
 }
