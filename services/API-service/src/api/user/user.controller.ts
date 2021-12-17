@@ -9,9 +9,8 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserResponseObject } from './user.model';
-import { CreateUserDto, LoginUserDto } from './dto';
+import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
-import { UserDecorator } from './user.decorator';
 import { ValidationPipe } from '../../shared/pipes/validation.pipe';
 import {
   ApiTags,
@@ -82,16 +81,10 @@ export class UserController {
 
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
-  @ApiOperation({ summary: 'Get currently logged-in user' })
-  @ApiResponse({
-    status: 200,
-    description: 'Email and login token of currently logged-in user.',
-    type: UserResponseObject,
-  })
-  @Get()
-  public async findMe(
-    @UserDecorator('email') email: string,
-  ): Promise<UserResponseObject> {
-    return await this.userService.findByEmail(email);
+  @Roles(UserRole.Admin)
+  @ApiOperation({ summary: 'Change password of user' })
+  @Post('change-password')
+  public async update(@Body() userData: UpdatePasswordDto): Promise<any> {
+    return this.userService.update(userData);
   }
 }

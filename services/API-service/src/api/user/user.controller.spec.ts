@@ -18,9 +18,6 @@ const userResponseObject = {
 };
 
 class UserServiceMock {
-  public async findByEmail(): Promise<UserResponseObject> {
-    return userResponseObject;
-  }
   public async create(userData: CreateUserDto): Promise<UserResponseObject> {
     const userResponseObject = {
       user: {
@@ -68,21 +65,6 @@ describe('UserController', (): void => {
       userController = module.get<UserController>(UserController);
     },
   );
-
-  describe('findMe', (): void => {
-    it('should return a user', async (): Promise<void> => {
-      const spy = jest
-        .spyOn(userService, 'findByEmail')
-        .mockImplementation(
-          (): Promise<UserResponseObject> =>
-            Promise.resolve(userResponseObject),
-        );
-      const controllerResult = await userController.findMe('test@ibf.nl');
-
-      expect(spy).toHaveBeenCalled();
-      expect(controllerResult).toStrictEqual(userResponseObject);
-    });
-  });
 
   describe('login', (): void => {
     it('should return a user', async (): Promise<void> => {

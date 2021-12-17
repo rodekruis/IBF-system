@@ -97,18 +97,22 @@ export class UserService {
     return this.buildUserRO(user);
   }
 
-  public async findByEmail(email: string): Promise<UserResponseObject> {
+  public async update(dto: UpdatePasswordDto): Promise<UserResponseObject> {
     const user = await this.userRepository.findOne(
-      { email: email },
+      { email: dto.email },
       {
         relations: this.relations,
       },
     );
     if (!user) {
-      const errors = { email: email + ' not found' };
-      console.log(errors);
+      const errors = { email: dto.email + ' not found' };
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
+    const password = crypto.createHmac('sha256', dto.password).digest('hex');
+    await this.userRepository.save({
+      userId: user.userId,
+      password,
+    });
     return this.buildUserRO(user);
   }
 
