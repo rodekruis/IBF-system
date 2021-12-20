@@ -44,7 +44,7 @@ These are actions run from the dev-menu in the dashboard, accessible only to an 
 
 These are actions run from the Swagger UI (<ibf-url>/docs).
 
-- Log in
+- [Log in](API-admin-user/Log_in.feature)
 - Create new user
 - Update static data
 - [Upload mock data](API-admin-user/Upload_mock_data.feature)
