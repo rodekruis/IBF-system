@@ -103,8 +103,12 @@ export class AdminAreaService {
   ): Promise<AggregateDataRecord[]> {
     const disaster = await this.getDisasterType(disasterType);
     let placeCodes = [];
-    // If alertThreshold is triggerUnit, always show all admin-areas
-    if (disaster.triggerUnit !== DynamicIndicator.alertThreshold) {
+    // For these disaster-types show only triggered areas. For others show all.
+    if (
+      [DisasterType.Floods, DisasterType.HeavyRain].includes(
+        disaster.disasterType,
+      )
+    ) {
       placeCodes = await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         disasterType,
@@ -260,7 +264,11 @@ export class AdminAreaService {
 
     // If alertThreshold is triggerUnit, always show all admin-areas
     let placeCodes = [];
-    if (disaster.triggerUnit !== DynamicIndicator.alertThreshold) {
+    if (
+      [DisasterType.Floods, DisasterType.HeavyRain].includes(
+        disaster.disasterType,
+      )
+    ) {
       placeCodes = await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         disasterType,

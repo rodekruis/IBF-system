@@ -663,8 +663,15 @@
     "lazyLoad": true
   },
   {
-    "country_codes": "PHL,ETH,ZWE",
-    "disasterTypes": ["dengue", "malaria", "drought", "typhoon"],
+    "country_codes": "PHL,ETH,ZWE,EGY,UGA,ZMB,KEN",
+    "disasterTypes": [
+      "dengue",
+      "malaria",
+      "drought",
+      "typhoon",
+      "floods",
+      "heavy-rain"
+    ],
     "name": "alert_threshold",
     "label": "Alert Threshold Reached",
     "icon": "Person2-white.svg",
