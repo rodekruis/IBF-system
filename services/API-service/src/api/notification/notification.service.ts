@@ -148,6 +148,8 @@ export class NotificationService {
       'disasterTypes',
       'disasterTypes.leadTimes',
       'notificationInfo',
+      'countryDisasterSettings',
+      'countryDisasterSettings.activeLeadTimes',
     ];
 
     return await this.countryRepository.findOne(findOneOptions, {
