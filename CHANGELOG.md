@@ -1,3 +1,18 @@
+# [0.115.0](https://github.com/rodekruis/IBF-system/compare/v0.114.5...v0.115.0) (2021-12-20)
+
+
+### Bug Fixes
+
+* aggregate calculation AB[#11232](https://github.com/rodekruis/IBF-system/issues/11232) ([e653484](https://github.com/rodekruis/IBF-system/commit/e653484a978b6483bb15a19e669a0007915b4e50))
+
+
+### Features
+
+* add total houses as data, not as layer AB[#11231](https://github.com/rodekruis/IBF-system/issues/11231) ([4a8f853](https://github.com/rodekruis/IBF-system/commit/4a8f8538690520957ddfbaf385b515ac63afe394))
+* add weight var to indicators AB[#11235](https://github.com/rodekruis/IBF-system/issues/11235) ([f1dd2b9](https://github.com/rodekruis/IBF-system/commit/f1dd2b9418c5eb7276a9e7af9fbf7858f91506f0))
+
+
+
 ## [0.114.5](https://github.com/rodekruis/IBF-system/compare/v0.114.4...v0.114.5) (2021-12-17)
 
 
@@ -112,15 +127,6 @@
 ### Features
 
 * of-which removed from test aggregate cases AB[#11068](https://github.com/rodekruis/IBF-system/issues/11068) ([a8d9f00](https://github.com/rodekruis/IBF-system/commit/a8d9f00d10424924c9664ba7e91fb425d301cd41))
-
-
-
-## [0.110.2](https://github.com/rodekruis/IBF-system/compare/v0.110.1...v0.110.2) (2021-11-29)
-
-
-### Bug Fixes
-
-* remove shadow top-bar AB[#10927](https://github.com/rodekruis/IBF-system/issues/10927) ([12aacab](https://github.com/rodekruis/IBF-system/commit/12aacabb34ea2027ee5a699d22c9b0262d250f0b))
 
 
 
