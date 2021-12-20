@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/models/user/user.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -114,7 +114,7 @@ export class AuthService implements OnDestroy {
     this.router.navigate(['/']);
   };
 
-  private onLoginError = async ({error}) => {
+  private onLoginError = async ({ error }) => {
     const toast = await this.toastController.create({
       message: `Authentication Failed: ${error?.message}`,
       duration: 2000,
