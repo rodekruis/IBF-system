@@ -1,3 +1,12 @@
+## [0.117.1](https://github.com/rodekruis/IBF-system/compare/v0.117.0...v0.117.1) (2021-12-20)
+
+
+### Bug Fixes
+
+* no-trigger layers bug AB[#11576](https://github.com/rodekruis/IBF-system/issues/11576) ([fc7ac3d](https://github.com/rodekruis/IBF-system/commit/fc7ac3dd079f7f38ebdada974e532b64ad381864))
+
+
+
 # [0.117.0](https://github.com/rodekruis/IBF-system/compare/v0.103.2...v0.117.0) (2021-12-20)
 
 
@@ -356,35 +365,6 @@
 ### Bug Fixes
 
 * adjust ux copy AB[#11213](https://github.com/rodekruis/IBF-system/issues/11213) ([f9d67ab](https://github.com/rodekruis/IBF-system/commit/f9d67aba2dfced428296d2685025d64cb2a1e836))
-
-
-
-# [0.114.0](https://github.com/rodekruis/IBF-system/compare/v0.113.0...v0.114.0) (2021-12-13)
-
-
-### Bug Fixes
-
-* alert if close event fails AB[#11199](https://github.com/rodekruis/IBF-system/issues/11199) ([9b1d0d4](https://github.com/rodekruis/IBF-system/commit/9b1d0d4c4e45cbc26bd29e6a3e9eaf7a7bad5118))
-* check EAP-action AB[#11074](https://github.com/rodekruis/IBF-system/issues/11074) ([65aa1f7](https://github.com/rodekruis/IBF-system/commit/65aa1f7c808e67a8c7a595ff3e3d23cc6fb85398))
-* disasterTypeCounter AB[#11074](https://github.com/rodekruis/IBF-system/issues/11074) ([17118ed](https://github.com/rodekruis/IBF-system/commit/17118edd97cacd904db3ad8e404665f66da3ce5d))
-* final changes old-event AB[#11079](https://github.com/rodekruis/IBF-system/issues/11079) ([b3f97e8](https://github.com/rodekruis/IBF-system/commit/b3f97e86eaf03f4bc2e8c8e475d7c160fb385df8))
-* improve login explanation AB[#10953](https://github.com/rodekruis/IBF-system/issues/10953) ([bce2f3e](https://github.com/rodekruis/IBF-system/commit/bce2f3e8d1993a15096c15bac50ce75d300c9256))
-* old-event if 1 event AB[#11079](https://github.com/rodekruis/IBF-system/issues/11079) ([719eac5](https://github.com/rodekruis/IBF-system/commit/719eac5aee4859b4c237deba5462b3c6416d5ac8))
-* old-event if 2 events AB[#11079](https://github.com/rodekruis/IBF-system/issues/11079) ([ec89776](https://github.com/rodekruis/IBF-system/commit/ec897763adb928026b1052aaa6d034cec2466973))
-* selected event AB[#11078](https://github.com/rodekruis/IBF-system/issues/11078) ([e8341ae](https://github.com/rodekruis/IBF-system/commit/e8341aeff655d25d7b1f787715723662e74adf5f))
-* switch disaster-type non-trigger AB[#11072](https://github.com/rodekruis/IBF-system/issues/11072) ([32fe24a](https://github.com/rodekruis/IBF-system/commit/32fe24a43626507e8d3d67cf3a3e0f83ab67d6b7))
-* update API doc activation endpoint AB[#11200](https://github.com/rodekruis/IBF-system/issues/11200) ([3530453](https://github.com/rodekruis/IBF-system/commit/3530453adf7c8e8e7d3af7f58a9a624ade6a10ab))
-
-
-### Features
-
-* improved chat section AB[#10944](https://github.com/rodekruis/IBF-system/issues/10944) ([c2936e1](https://github.com/rodekruis/IBF-system/commit/c2936e106d0ee20f0bd82206896f71e62ed0ee6a))
-* lint AB[#10944](https://github.com/rodekruis/IBF-system/issues/10944) ([38497a4](https://github.com/rodekruis/IBF-system/commit/38497a4ffe5fc520c7b70300b0639d677bb023c7))
-* mock data for 2nd typhoon event AB[#10966](https://github.com/rodekruis/IBF-system/issues/10966) ([4482e0c](https://github.com/rodekruis/IBF-system/commit/4482e0c415e8a2a23f4f6c6ca608739d3cf8b20c))
-* more setup AB[#10943](https://github.com/rodekruis/IBF-system/issues/10943) ([d79672a](https://github.com/rodekruis/IBF-system/commit/d79672adb30315fb7f3e4e008f76ddae34a044f4))
-* set up roles per endpoint AB[#10951](https://github.com/rodekruis/IBF-system/issues/10951) ([186182e](https://github.com/rodekruis/IBF-system/commit/186182e8a51d7c7985b6b3647642590d2c57bc5e))
-* show multiple events AB[#10943](https://github.com/rodekruis/IBF-system/issues/10943) ([4c0c287](https://github.com/rodekruis/IBF-system/commit/4c0c287c5d0ca1effe490824e8c253bf0e09429c))
-* show non-active leadtimes typhoon AB[#10945](https://github.com/rodekruis/IBF-system/issues/10945) ([4a82ca6](https://github.com/rodekruis/IBF-system/commit/4a82ca66074b5c32a3d56fbbbbb84e94725414c4))
 
 
 
