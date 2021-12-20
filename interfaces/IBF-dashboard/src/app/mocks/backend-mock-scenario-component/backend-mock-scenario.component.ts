@@ -31,6 +31,8 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
   private alertInputSecretPlaceholderNode = 'alert-input-secret-placeholder';
   private alertButtonCancelLabel: string;
   private alertButtonCancelLabelNode = 'alert-button-cancel';
+  private alertButtonOldEventLabel: string;
+  private alertButtonOldEventLabelNode = 'alert-button-old-event';
   private alertButtonNoTriggerLabel: string;
   private alertButtonNoTriggerLabelNode = 'alert-button-no-trigger';
   private alertButtonTriggerLabel: string;
@@ -87,6 +89,8 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
       translatedStrings[this.alertButtonCancelLabelNode];
     this.alertButtonNoTriggerLabel =
       translatedStrings[this.alertButtonNoTriggerLabelNode];
+    this.alertButtonOldEventLabel =
+      translatedStrings[this.alertButtonOldEventLabelNode];
     this.alertButtonTriggerLabel =
       translatedStrings[this.alertButtonTriggerLabelNode];
     this.alertErrorApiError = translatedStrings[this.alertErrorApiErrorNode];
@@ -127,10 +131,18 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           role: 'cancel',
         },
         {
+          text: this.alertButtonOldEventLabel,
+          cssClass: 'no-trigger-scenario-button',
+          handler: (data) => {
+            this.mockApiRefresh(data.secret, true, true, true, alert);
+            return false;
+          },
+        },
+        {
           text: this.alertButtonNoTriggerLabel,
           cssClass: 'no-trigger-scenario-button',
           handler: (data) => {
-            this.mockApiRefresh(data.secret, false, alert);
+            this.mockApiRefresh(data.secret, false, true, false, alert);
             return false;
           },
         },
@@ -138,7 +150,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           text: this.alertButtonTriggerLabel,
           cssClass: 'trigger-scenario-button',
           handler: (data) => {
-            this.mockApiRefresh(data.secret, true, alert);
+            this.mockApiRefresh(data.secret, true, true, false, alert);
             alert.dismiss(true);
             return false;
           },
@@ -151,6 +163,8 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
   private mockApiRefresh(
     secret: string,
     triggered: boolean,
+    removeEvents: boolean,
+    oldEvent: boolean,
     alert: HTMLIonAlertElement,
   ) {
     if (secret) {
@@ -159,19 +173,25 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           secret,
           this.country,
           triggered,
-          true,
+          removeEvents,
           this.disasterType,
           1,
         )
         .subscribe({
           next: () => {
             this.countryService.selectCountry(this.country.countryCodeISO3);
+            if (oldEvent) {
+              this.mockApiRefresh(secret, false, false, false, alert);
+            }
             alert.dismiss(true);
           },
           error: (response) => {
             // Somehow the endpoint returns an error together with the 202 status.. Ignore.
             if (response.status === 202) {
               this.countryService.selectCountry(this.country.countryCodeISO3);
+              if (oldEvent) {
+                this.mockApiRefresh(secret, false, false, false, alert);
+              }
               alert.dismiss(true);
             } else {
               console.log('response: ', response);
