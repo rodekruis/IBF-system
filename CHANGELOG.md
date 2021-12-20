@@ -1,3 +1,12 @@
+# [0.116.0](https://github.com/rodekruis/IBF-system/compare/v0.115.0...v0.116.0) (2021-12-20)
+
+
+### Features
+
+* use alert_threshold in all disasters AB[#11251](https://github.com/rodekruis/IBF-system/issues/11251) ([edd9cb0](https://github.com/rodekruis/IBF-system/commit/edd9cb064eedb26a32c57a41967b91d99721f5d7))
+
+
+
 # [0.115.0](https://github.com/rodekruis/IBF-system/compare/v0.114.5...v0.115.0) (2021-12-20)
 
 
@@ -118,15 +127,6 @@
 * static layer AB[#10230](https://github.com/rodekruis/IBF-system/issues/10230) ([cc4ca6b](https://github.com/rodekruis/IBF-system/commit/cc4ca6b1d188e62404674f6fd152b19bb7b7be64))
 * static layers typhoon AB[#10720](https://github.com/rodekruis/IBF-system/issues/10720) ([1e0bded](https://github.com/rodekruis/IBF-system/commit/1e0bdedba03f3ffbd65fa507e127ec078e6a6c25))
 * update AB[#10721](https://github.com/rodekruis/IBF-system/issues/10721) ([c513185](https://github.com/rodekruis/IBF-system/commit/c513185ca5a8a5d239f6b372150a91627a508e87))
-
-
-
-# [0.111.0](https://github.com/rodekruis/IBF-system/compare/v0.110.2...v0.111.0) (2021-12-10)
-
-
-### Features
-
-* of-which removed from test aggregate cases AB[#11068](https://github.com/rodekruis/IBF-system/issues/11068) ([a8d9f00](https://github.com/rodekruis/IBF-system/commit/a8d9f00d10424924c9664ba7e91fb425d301cd41))
 
 
 
