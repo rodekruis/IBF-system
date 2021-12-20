@@ -50,7 +50,7 @@ ion-content {
   }
 
   ion-icon {
-    font-size: 34px;
+    font-size: 48px;
     color: var(--ion-color-ibf-no-alert-primary);
     background: var(--ion-color-ibf-no-alert-primary-contrast);
     border-radius: 50%;
@@ -63,4 +63,11 @@ ion-content {
 app-timestamp {
   height: 24px;
   display: block;
+}
+
+.container {
+  height: 48px;
+  width: 48px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
