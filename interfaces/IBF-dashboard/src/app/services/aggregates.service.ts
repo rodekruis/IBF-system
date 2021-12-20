@@ -125,7 +125,21 @@ export class AggregatesService {
     return aggregate;
   };
 
-  private onAggregatesData = (records) => {
+  loadAggregateInformation(): void {
+    if (this.country && this.disasterType) {
+      this.apiService
+        .getAggregatesData(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+          this.timelineService.activeLeadTime,
+          this.adminLevelService.adminLevel,
+          this.eventService.state.event?.eventName,
+        )
+        .subscribe(this.onAggregateData);
+    }
+  }
+
+  private onAggregateData = (records) => {
     const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
     this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
     this.nrTriggeredAreas = this.aggregates.filter(
@@ -152,50 +166,42 @@ export class AggregatesService {
     return groupsByPlaceCode;
   }
 
-  loadAggregateInformation(): void {
-    if (this.country && this.disasterType) {
-      this.apiService
-        .getAggregatesData(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-          this.timelineService.activeLeadTime,
-          this.adminLevelService.adminLevel,
-          this.eventService.state.event?.eventName,
-        )
-        .subscribe(this.onAggregatesData);
-    }
-  }
-
   getAggregate(
     weightedAverage: boolean,
     indicator: IbfLayerName,
     placeCode: string,
     numberFormat: NumberFormat,
   ): number {
+    let weighingIndicatorName: IbfLayerName;
     if (this.disasterType) {
-      const weighingIndicator = this.indicators.find(
-        (i) => i.name === this.disasterType.actionsUnit,
-      );
-      if (
-        weighingIndicator &&
-        weighingIndicator.numberFormatAggregate === NumberFormat.perc
-      ) {
-        weightedAverage = false;
+      weighingIndicatorName = this.indicators.find((i) => i.name === indicator)
+        .weightVar;
+      if (!weighingIndicatorName) {
+        weighingIndicatorName = this.indicators.find(
+          (i) => i.name === this.disasterType.actionsUnit,
+        ).name;
       }
     }
-
-    let aggregateValue = this.aggregates.reduce(
-      this.aggregateReducer(weightedAverage, indicator, placeCode),
+    const weighedSum = this.aggregates.reduce(
+      this.aggregateReducer(
+        weightedAverage,
+        indicator,
+        weighingIndicatorName,
+        placeCode,
+      ),
       0,
     );
 
-    // normalize when reducing percentage values https://math.stackexchange.com/a/3381907/482513
-    if (
-      !placeCode &&
-      numberFormat === NumberFormat.perc &&
-      this.aggregates.length > 0
-    ) {
-      aggregateValue = aggregateValue / this.aggregates.length;
+    let aggregateValue: number;
+    if (numberFormat === NumberFormat.perc) {
+      const sumOfWeights = this.aggregates.reduce(
+        this.aggregateReducer(false, weighingIndicatorName, null, placeCode),
+        0,
+      );
+      aggregateValue =
+        sumOfWeights === 0 ? weighedSum : weighedSum / sumOfWeights;
+    } else {
+      aggregateValue = weighedSum;
     }
     return aggregateValue;
   }
@@ -203,13 +209,14 @@ export class AggregatesService {
   private aggregateReducer = (
     weightedAverage: boolean,
     indicator: IbfLayerName,
+    weighingIndicator: IbfLayerName,
     placeCode: string,
   ) => (accumulator, aggregate) => {
     let indicatorValue = 0;
 
     if (placeCode === null || placeCode === aggregate.placeCode) {
       const indicatorWeight = weightedAverage
-        ? aggregate[this.disasterType.actionsUnit]
+        ? aggregate[weighingIndicator]
         : 1;
       indicatorValue = indicatorWeight * aggregate[indicator];
     }
