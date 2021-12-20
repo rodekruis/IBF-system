@@ -103,7 +103,7 @@ export class AdminAreaDataController {
     return await this.adminAreaDataService.getAdminAreaData(
       params.countryCodeISO3,
       params.adminLevel,
-      params.indicator as DynamicIndicator,
+      params.indicator,
     );
   }
 }
