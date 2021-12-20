@@ -130,7 +130,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           text: this.alertButtonNoTriggerLabel,
           cssClass: 'no-trigger-scenario-button',
           handler: (data) => {
-            this.mockApiRefresh(data.secret, false);
+            this.mockApiRefresh(data.secret, false, alert);
             return false;
           },
         },
@@ -138,7 +138,8 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           text: this.alertButtonTriggerLabel,
           cssClass: 'trigger-scenario-button',
           handler: (data) => {
-            this.mockApiRefresh(data.secret, true);
+            this.mockApiRefresh(data.secret, true, alert);
+            alert.dismiss(true);
             return false;
           },
         },
@@ -147,7 +148,11 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
     alert.present();
   }
 
-  private mockApiRefresh(secret: string, triggered: boolean) {
+  private mockApiRefresh(
+    secret: string,
+    triggered: boolean,
+    alert: HTMLIonAlertElement,
+  ) {
     if (secret) {
       this.apiService
         .mockDynamicData(
@@ -156,10 +161,23 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           triggered,
           true,
           this.disasterType,
+          1,
         )
         .subscribe({
-          next: () => window.location.reload(),
-          error: () => this.presentToast(this.alertErrorApiError),
+          next: () => {
+            this.countryService.selectCountry(this.country.countryCodeISO3);
+            alert.dismiss(true);
+          },
+          error: (response) => {
+            // Somehow the endpoint returns an error together with the 202 status.. Ignore.
+            if (response.status === 202) {
+              this.countryService.selectCountry(this.country.countryCodeISO3);
+              alert.dismiss(true);
+            } else {
+              console.log('response: ', response);
+              this.presentToast(this.alertErrorApiError);
+            }
+          },
         });
     } else {
       this.presentToast(this.alertErrorNoSecret);
