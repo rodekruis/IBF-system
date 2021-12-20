@@ -179,7 +179,7 @@ export class AggregatesService {
       if (!weighingIndicatorName) {
         weighingIndicatorName = this.indicators.find(
           (i) => i.name === this.disasterType.actionsUnit,
-        ).name;
+        )?.name;
       }
     }
     const weighedSum = this.aggregates.reduce(
