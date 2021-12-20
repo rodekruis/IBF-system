@@ -46,7 +46,6 @@ export class TimelineService {
   private onCountryChange = (country: Country) => {
     this.triggersAllEvents = null;
     this.country = country;
-    this.loadTimeStepButtons();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {

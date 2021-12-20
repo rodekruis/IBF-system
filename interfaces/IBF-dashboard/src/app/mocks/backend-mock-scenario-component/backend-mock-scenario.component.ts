@@ -178,21 +178,11 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           1,
         )
         .subscribe({
-          next: () => {
-            this.countryService.selectCountry(this.country.countryCodeISO3);
-            if (oldEvent) {
-              this.mockApiRefresh(secret, false, false, false, alert);
-            }
-            alert.dismiss(true);
-          },
+          next: () => this.processMockSuccess(secret, oldEvent, alert),
           error: (response) => {
             // Somehow the endpoint returns an error together with the 202 status.. Ignore.
             if (response.status === 202) {
-              this.countryService.selectCountry(this.country.countryCodeISO3);
-              if (oldEvent) {
-                this.mockApiRefresh(secret, false, false, false, alert);
-              }
-              alert.dismiss(true);
+              this.processMockSuccess(secret, oldEvent, alert);
             } else {
               console.log('response: ', response);
               this.presentToast(this.alertErrorApiError);
@@ -202,5 +192,13 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
     } else {
       this.presentToast(this.alertErrorNoSecret);
     }
+  }
+
+  private processMockSuccess(secret, oldEvent, alert) {
+    this.countryService.selectCountry(this.country.countryCodeISO3);
+    if (oldEvent) {
+      this.mockApiRefresh(secret, false, false, false, alert);
+    }
+    alert.dismiss(true);
   }
 }
