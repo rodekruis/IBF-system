@@ -8,7 +8,7 @@ import { JwtService } from 'src/app/services/jwt.service';
 import { UserRole } from '../models/user/user-role.enum';
 
 const HTTP_STATUS_MESSAGE_MAP = {
-  '401': 'Email and/or password unknown',
+  401: 'Email and/or password unknown',
 };
 @Injectable({
   providedIn: 'root',
