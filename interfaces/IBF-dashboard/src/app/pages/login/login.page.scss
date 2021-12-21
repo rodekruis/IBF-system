@@ -66,10 +66,13 @@ app-timestamp {
 }
 
 .container {
-  height: 48px;
-  width: 48px;
+text-align: center;
+}
+
+.disaster-type-icon {
+  height: 32px;
+  width: 32px;
   margin: 0px 5px 0px 5px;
   cursor: pointer;
   padding-right: 10px;
-  display:inline;
 }

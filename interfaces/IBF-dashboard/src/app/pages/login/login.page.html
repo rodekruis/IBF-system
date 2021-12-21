@@ -24,17 +24,18 @@
 <ion-content>
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size-xs="12" size-sm="10" size-md="8" size-lg="6" size-xl="4" style="text-align: center;">
+      <ion-col size-xs="12" size-sm="10" size-md="8" size-lg="6" size-xl="4">
         <span
           *ngFor="let disasterType of disasterTypes"
           data-test="disaster-Type"
           class="container"
         >
           <ion-icon
+            [disabled]="true"
             class="ibf"
-            [src]="disasterTypeMap[disasterType.disasterType].selectedNonTriggered"
+            [src]="getIconByCountry(disasterType)"
             slot="start"
-            class="containerTwo"
+            class="disaster-type-icon"
           >
           </ion-icon>
         </span>

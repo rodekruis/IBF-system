@@ -41,6 +41,14 @@ export class LoginPage implements OnInit {
     this.country = country;
   };
 
+  public getIconByCountry = (disasterType: DisasterType) => {
+    if (this.country?.disasterTypes?.includes(disasterType)) {
+      return this.disasterTypeMap[disasterType?.disasterType].selectedNonTriggered
+    } else {
+      return this.disasterTypeMap[disasterType?.disasterType].nonSelectedNonTriggered
+    }
+  }
+
   private onGetAllCountries = (countries: Country[]) => {
     countries.forEach((country: Country) => {  
       country.disasterTypes.forEach((disasterType : DisasterType) => {
@@ -50,7 +58,6 @@ export class LoginPage implements OnInit {
         }
       })
     })
-    console.log('########',this.disasterTypes)
   };
 
   async presentPopover(): Promise<void> {
