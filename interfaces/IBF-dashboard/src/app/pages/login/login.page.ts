@@ -7,10 +7,10 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { VideoPopoverComponent } from 'src/app/components/video-popover/video-popover.component';
+import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
 import { environment } from 'src/environments/environment';
-import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
 
 @Component({
   selector: 'app-login',
@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
-    this.countryService.getAllCountries().subscribe(this.onGetAllCountries)
+    this.countryService.getAllCountries().subscribe(this.onGetAllCountries);
   }
   private onCountryChange = (country: Country) => {
     this.country = country;
@@ -43,21 +43,25 @@ export class LoginPage implements OnInit {
 
   public getIconByCountry = (disasterType: DisasterType) => {
     if (this.country?.disasterTypes?.includes(disasterType)) {
-      return this.disasterTypeMap[disasterType?.disasterType].selectedNonTriggered
+      return this.disasterTypeMap[disasterType?.disasterType]
+        .selectedNonTriggered;
     } else {
-      return this.disasterTypeMap[disasterType?.disasterType].nonSelectedNonTriggered
+      return this.disasterTypeMap[disasterType?.disasterType]
+        .nonSelectedNonTriggered;
     }
-  }
+  };
 
   private onGetAllCountries = (countries: Country[]) => {
-    countries.forEach((country: Country) => {  
-      country.disasterTypes.forEach((disasterType : DisasterType) => {
-        const isExist = this.disasterTypes.find((item) => item.label === disasterType.label)
-        if(!isExist) {
-          this.disasterTypes.push(disasterType)
+    countries.forEach((country: Country) => {
+      country.disasterTypes.forEach((disasterType: DisasterType) => {
+        const isExist = this.disasterTypes.find(
+          (item) => item.label === disasterType.label,
+        );
+        if (!isExist) {
+          this.disasterTypes.push(disasterType);
         }
-      })
-    })
+      });
+    });
   };
 
   async presentPopover(): Promise<void> {
