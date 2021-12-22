@@ -17,7 +17,7 @@
     fill="solid"
     data-test="time-line-button"
     [class.active]="timeStepButton.active"
-    [class.nonactive]="timeStepButton.nonactive"
+    [class.nonactive]="!timeStepButton.active"
     (click)="handleTimeStepButtonClick(timeStepButton.value)"
   >
     <app-date-button
