@@ -8,7 +8,7 @@ import {
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { VideoPopoverComponent } from 'src/app/components/video-popover/video-popover.component';
 import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
-import { Country, DisasterType } from 'src/app/models/country.model';
+import { Country } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
 import { environment } from 'src/environments/environment';
 
@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
   public version: string = environment.ibfSystemVersion;
   public country: Country;
   public countrySubscription: Subscription;
-  public disasterTypes: DisasterType[] = [];
+  public disasterTypes: string[] = [];
   public disasterTypeMap = DISASTER_TYPES_SVG_MAP;
 
   constructor(
@@ -35,33 +35,25 @@ export class LoginPage implements OnInit {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
-    this.countryService.getAllCountries().subscribe(this.onGetAllCountries);
   }
   private onCountryChange = (country: Country) => {
+    this.disasterTypes = Object.keys(DISASTER_TYPES_SVG_MAP)
     this.country = country;
   };
 
-  public getIconByCountry = (disasterType: DisasterType) => {
-    if (this.country?.disasterTypes?.includes(disasterType)) {
-      return this.disasterTypeMap[disasterType?.disasterType]
+  public getIconByCountry = (disasterType: string) => {
+    if (!this.country) {
+      return this.disasterTypeMap[disasterType]
+        .selectedNonTriggered;
+    }
+    const countryDisasterTypes = this.country?.disasterTypes.map((item) => item.label)
+    if (countryDisasterTypes?.includes(disasterType)) {
+      return this.disasterTypeMap[disasterType]
         .selectedNonTriggered;
     } else {
-      return this.disasterTypeMap[disasterType?.disasterType]
+      return this.disasterTypeMap[disasterType]
         .nonSelectedNonTriggered;
     }
-  };
-
-  private onGetAllCountries = (countries: Country[]) => {
-    countries.forEach((country: Country) => {
-      country.disasterTypes.forEach((disasterType: DisasterType) => {
-        const isExist = this.disasterTypes.find(
-          (item) => item.label === disasterType.label,
-        );
-        if (!isExist) {
-          this.disasterTypes.push(disasterType);
-        }
-      });
-    });
   };
 
   async presentPopover(): Promise<void> {
