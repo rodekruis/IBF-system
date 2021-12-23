@@ -37,22 +37,21 @@ export class LoginPage implements OnInit {
       .subscribe(this.onCountryChange);
   }
   private onCountryChange = (country: Country) => {
-    this.disasterTypes = Object.keys(DISASTER_TYPES_SVG_MAP)
+    this.disasterTypes = Object.keys(DISASTER_TYPES_SVG_MAP);
     this.country = country;
   };
 
   public getIconByCountry = (disasterType: string) => {
     if (!this.country) {
-      return this.disasterTypeMap[disasterType]
-        .selectedNonTriggered;
+      return this.disasterTypeMap[disasterType].selectedNonTriggered;
     }
-    const countryDisasterTypes = this.country?.disasterTypes.map((item) => item.label)
+    const countryDisasterTypes = this.country?.disasterTypes.map(
+      (item) => item.label,
+    );
     if (countryDisasterTypes?.includes(disasterType)) {
-      return this.disasterTypeMap[disasterType]
-        .selectedNonTriggered;
+      return this.disasterTypeMap[disasterType].selectedNonTriggered;
     } else {
-      return this.disasterTypeMap[disasterType]
-        .nonSelectedNonTriggered;
+      return this.disasterTypeMap[disasterType].nonSelectedNonTriggered;
     }
   };
 
