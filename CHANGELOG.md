@@ -1,3 +1,19 @@
+# [0.119.0](https://github.com/rodekruis/IBF-system/compare/v0.118.0...v0.119.0) (2022-01-03)
+
+
+### Bug Fixes
+
+* country switcher AB[#11252](https://github.com/rodekruis/IBF-system/issues/11252) ([8a11cb6](https://github.com/rodekruis/IBF-system/commit/8a11cb6971b44f5ba8206d594cefcd2376e77ad7))
+* load mock scenario AB[#11253](https://github.com/rodekruis/IBF-system/issues/11253) ([74679fb](https://github.com/rodekruis/IBF-system/commit/74679fbbb1ec352539a75e8e532eeed5bc3a0dd0))
+* test case AB[#11606](https://github.com/rodekruis/IBF-system/issues/11606) ([cb90c32](https://github.com/rodekruis/IBF-system/commit/cb90c325935017634a6f45a7588734439bf4aca6))
+
+
+### Features
+
+* enable 'old-event' in dev-menu AB[#11544](https://github.com/rodekruis/IBF-system/issues/11544) ([a825157](https://github.com/rodekruis/IBF-system/commit/a82515782fe3d9117fbb0e0885cf7ddd8ded7782))
+
+
+
 # [0.118.0](https://github.com/rodekruis/IBF-system/compare/v0.117.1...v0.118.0) (2021-12-22)
 
 
@@ -366,15 +382,6 @@
 ### Bug Fixes
 
 * events bug AB[#11259](https://github.com/rodekruis/IBF-system/issues/11259) ([0bdff0d](https://github.com/rodekruis/IBF-system/commit/0bdff0d938a8a6166f69a435b5b9ef332f49b769))
-
-
-
-## [0.114.2](https://github.com/rodekruis/IBF-system/compare/v0.114.1...v0.114.2) (2021-12-13)
-
-
-### Bug Fixes
-
-* create admin-user on startup AB[#11211](https://github.com/rodekruis/IBF-system/issues/11211) ([51c887f](https://github.com/rodekruis/IBF-system/commit/51c887f41c1d61a3aefcb97ad9c5ce6afadb0940))
 
 
 
