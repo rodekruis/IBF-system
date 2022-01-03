@@ -1,8 +1,8 @@
-## Description
+## Local set up
 
 This guide is giving some additional tips for troubleshooting when setting up the IBF-system. However, start with the main [README](../README.md) file.
 
-### Expected behaviour after 
+### Expected behaviour after set-up
 To check if everything starts up correctly:
 - All containers mentioned in the docker-compose file /IBF-system/docker-compose.yml should be up and running. Check e.g. via `docker container ls`
 - Application should load and respond properly on http://localhost:4200
@@ -24,7 +24,6 @@ If there is a problem with your existing database schema, you can always try to 
 - As always (see main [README](../README.md))
     - Run the seed-script
     - Run mock-endpoint (or external pipeline)
-
 
 ### Supporting docker commands
 These below commands come in handy when you face such issue:
@@ -55,6 +54,20 @@ These below commands come in handy when you face such issue:
 - To install the IBF-api-services:
     docker-compose exec ibf-api-service npm install 
 
-
-### docker help
 You can refer this official docker document [here](https://docs.docker.com/engine/reference/commandline/compose_exec/)
+
+
+## Deploy
+
+### API-service
+
+Sometimes there is an issue with installing all packages for ibf-api-service. You run into a 'ts-node not found' error in the logs of the ibf-api-service.
+- sudo -i
+- cd /home/ibf-user/IBF-system/services/API-service
+- rm -r node_modules
+- cd /home/ibf-user/IBF-system
+- chown -R ibf-user:ibf-users .
+- exit (switch to normal user)
+- cd /home/ibf-user/IBF-system/services/API-service
+- npm install
+- docker-compose restart ibf-api-service
