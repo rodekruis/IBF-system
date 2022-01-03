@@ -92,6 +92,22 @@ export class SeedAdminAreaData implements InterfaceScript {
       });
       await this.adminAreaDataRepository.save(vulnerableHousingDataArray);
 
+      // total_houses
+      const totalHousesFileName = `./src/scripts/git-lfs/admin-area-data/total_houses_PHL.csv`;
+      const totalHousesData = await this.seedHelper.getCsvData(
+        totalHousesFileName,
+      );
+      const totalHousesDataArray = totalHousesData.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: adminlevel,
+          placeCode: area['Municipality_City Code'],
+          indicator: 'total_houses',
+          value: area['Housing Units'],
+        };
+      });
+      await this.adminAreaDataRepository.save(totalHousesDataArray);
+
       // vulnerability_dengue_data_ibfera_PHL
       const dengueVulnerabilityFilename = `./src/scripts/git-lfs/admin-area-data/vulnerability_dengue_data_ibfera_PHL.csv`;
       const dengueVulnerabilityData = await this.seedHelper.getCsvData(

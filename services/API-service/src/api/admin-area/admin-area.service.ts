@@ -103,14 +103,25 @@ export class AdminAreaService {
   ): Promise<AggregateDataRecord[]> {
     const disaster = await this.getDisasterType(disasterType);
     let placeCodes = [];
-    // If alertThreshold is triggerUnit, always show all admin-areas
-    if (disaster.triggerUnit !== DynamicIndicator.alertThreshold) {
+    // For these disaster-types show only triggered areas. For others show all.
+    if (
+      [DisasterType.Floods, DisasterType.HeavyRain].includes(
+        disaster.disasterType,
+      )
+    ) {
       placeCodes = await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         disasterType,
         adminLevel,
         leadTime,
         eventName,
+      );
+    } else {
+      placeCodes = await this.getPlaceCodesToShow(
+        countryCodeISO3,
+        disasterType,
+        adminLevel,
+        leadTime,
       );
     }
 
@@ -252,33 +263,32 @@ export class AdminAreaService {
       });
 
     // If alertThreshold is triggerUnit, always show all admin-areas
-    if (disaster.triggerUnit !== DynamicIndicator.alertThreshold) {
-      const placeCodes = await this.getTriggeredPlaceCodes(
+    let placeCodes = [];
+    if (
+      [DisasterType.Floods, DisasterType.HeavyRain].includes(
+        disaster.disasterType,
+      )
+    ) {
+      placeCodes = await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         disasterType,
         adminLevel,
         leadTime,
         eventName,
       );
-      if (placeCodes.length) {
-        adminAreasScript = adminAreasScript.andWhere(
-          'area."placeCode" IN (:...placeCodes)',
-          { placeCodes: placeCodes },
-        );
-      }
     } else {
-      const placeCodesToShow = await this.getPlaceCodesToShow(
+      placeCodes = await this.getPlaceCodesToShow(
         countryCodeISO3,
         disasterType,
         adminLevel,
         leadTime,
       );
-      if (placeCodesToShow.length) {
-        adminAreasScript = adminAreasScript.andWhere(
-          'area."placeCode" IN (:...placeCodes)',
-          { placeCodes: placeCodesToShow },
-        );
-      }
+    }
+    if (placeCodes.length) {
+      adminAreasScript = adminAreasScript.andWhere(
+        'area."placeCode" IN (:...placeCodes)',
+        { placeCodes: placeCodes },
+      );
     }
     const adminAreas = await adminAreasScript.getRawMany();
 

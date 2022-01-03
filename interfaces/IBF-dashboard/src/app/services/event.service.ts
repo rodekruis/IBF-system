@@ -156,15 +156,19 @@ export class EventService {
 
   private onTriggerPerLeadTime = (timesteps, eventName) => {
     let firstKey = null;
-    Object.keys(timesteps)
-      .sort((a, b) =>
-        Number(LeadTimeTriggerKey[a]) > Number(LeadTimeTriggerKey[b]) ? 1 : -1,
-      )
-      .forEach((key) => {
-        if (timesteps[key] === '1') {
-          firstKey = !firstKey ? key : firstKey;
-        }
-      });
+    if (timesteps) {
+      Object.keys(timesteps)
+        .sort((a, b) =>
+          Number(LeadTimeTriggerKey[a]) > Number(LeadTimeTriggerKey[b])
+            ? 1
+            : -1,
+        )
+        .forEach((key) => {
+          if (timesteps[key] === '1') {
+            firstKey = !firstKey ? key : firstKey;
+          }
+        });
+    }
 
     const event =
       this.state.events.find((e) => e.eventName === eventName) ||
@@ -174,10 +178,9 @@ export class EventService {
     event.firstLeadTimeLabel = LeadTimeTriggerKey[firstKey];
     event.timeUnit = firstKey?.split('-')[1];
 
-    event.firstLeadTimeDate = this.getFirstLeadTimeDate(
-      firstKey,
-      event.timeUnit,
-    );
+    event.firstLeadTimeDate = firstKey
+      ? this.getFirstLeadTimeDate(firstKey, event.timeUnit)
+      : null;
   };
 
   private getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit): string {

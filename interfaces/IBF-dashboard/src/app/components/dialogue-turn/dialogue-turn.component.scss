@@ -26,17 +26,16 @@
       margin-right: 0.5em;
     }
 
-    &.system-avatar {
-      color: black;
-      background: white;
-      border: grey solid 1px;
-      margin-left: 0.5em;
-    }
-
     b,
     ion-icon {
       margin: auto;
     }
+  }
+
+  .system-avatar {
+    height: 40px;
+    width: 40px;
+    margin-left: 0.5em;
   }
 }
 

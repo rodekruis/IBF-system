@@ -1,11 +1,15 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/models/user/user.model';
 import { ApiService } from 'src/app/services/api.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { UserRole } from '../models/user/user-role.enum';
 
+const HTTP_STATUS_MESSAGE_MAP = {
+  401: 'Email and/or password unknown',
+};
 @Injectable({
   providedIn: 'root',
 })
@@ -21,6 +25,7 @@ export class AuthService implements OnDestroy {
     private apiService: ApiService,
     private jwtService: JwtService,
     private router: Router,
+    private toastController: ToastController,
   ) {
     this.checkLoggedInState();
     this.authSubscription = this.getAuthSubscription().subscribe(
@@ -112,7 +117,14 @@ export class AuthService implements OnDestroy {
     this.router.navigate(['/']);
   };
 
-  private onLoginError = (error) => {
+  private onLoginError = async ({ error }) => {
+    const message =
+      HTTP_STATUS_MESSAGE_MAP[error?.statusCode] || error?.message;
+    const toast = await this.toastController.create({
+      message: `Authentication Failed: ${message}`,
+      duration: 5000,
+    });
+    toast.present();
     console.error('AuthService error: ', error);
   };
 

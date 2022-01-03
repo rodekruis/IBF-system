@@ -111,7 +111,6 @@ export class MapService {
 
   private onCountryChange = (country: Country): void => {
     this.country = country;
-    this.loadCountryLayers();
   };
 
   private onAdminLevelChange = () => {
@@ -415,7 +414,10 @@ export class MapService {
         this.disasterType,
       )
     ) {
-      if (layerActive) {
+      if (
+        layerActive &&
+        this.checkCountryDisasterTypeMatch(this.country, this.disasterType)
+      ) {
         this.apiService
           .getAdminRegions(
             this.country.countryCodeISO3,
@@ -664,11 +666,10 @@ export class MapService {
     const adminLevel = Number(
       layer.name.substr(layer.name.length - 1),
     ) as AdminLevel;
-    if (
-      this.country.countryDisasterSettings
-        .find((s) => s.disasterType === this.disasterType.disasterType)
-        .adminLevels.includes(adminLevel)
-    ) {
+    const settings = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    );
+    if (settings?.adminLevels.includes(adminLevel)) {
       return true;
     } else {
       return false;
@@ -790,7 +791,10 @@ export class MapService {
           this.eventService.state.event?.eventName,
         )
         .pipe(shareReplay(1));
-    } else if (layer.name === IbfLayerName.adminRegions) {
+    } else if (
+      layer.name === IbfLayerName.adminRegions &&
+      this.checkCountryDisasterTypeMatch(this.country, this.disasterType)
+    ) {
       layerData = this.apiService
         .getAdminRegions(
           this.country.countryCodeISO3,
@@ -800,7 +804,10 @@ export class MapService {
           this.eventService.state.event?.eventName,
         )
         .pipe(shareReplay(1));
-    } else if (layer.group === IbfLayerGroup.adminRegions) {
+    } else if (
+      layer.group === IbfLayerGroup.adminRegions &&
+      this.checkCountryDisasterTypeMatch(this.country, this.disasterType)
+    ) {
       const adminLevel = Number(
         layer.name.substr(layer.name.length - 1),
       ) as AdminLevel;
@@ -832,6 +839,15 @@ export class MapService {
     this.layerDataCache[layerDataCacheKey] = layerData;
     return layerData;
   };
+
+  public checkCountryDisasterTypeMatch(
+    country: Country,
+    disasterType: DisasterType,
+  ): boolean {
+    return !!country.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType.disasterType,
+    );
+  }
 
   getCombineAdminRegionData(
     countryCodeISO3: string,
