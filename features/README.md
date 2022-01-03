@@ -45,15 +45,15 @@ These are actions run from the dev-menu in the dashboard, accessible only to an 
 These are actions run from the Swagger UI (<ibf-url>/docs).
 
 - [Log in](API-admin-user/Log_in.feature)
-- Create new user
-- Update static data
+- [Create new user](API-admin-user/Create_new_user.feature)
 - [Upload mock data](API-admin-user/Upload_mock_data.feature)
+- Update static data
 
 ### For external pipeline (user)
 
 In practice, the pipeline is often time-scheduled and not manually triggered by a user. But nonetheless the processes that follow from this action (such as email) must be described somewhere.
 
-- Run external pipeline
+- [Run pipeline](pipeline-user/Run_pipeline.feature)
   - Upload data
   - Create and send email
 
