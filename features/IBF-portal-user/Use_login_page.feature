@@ -42,7 +42,7 @@ Feature: Use login page
     Given a successfully filled in login form
     Given the credentials are not known to IBF-system
     When the user clicks "log in" 
-    Then no feedback message is shown at the moment (should be improved in future)
+    Then the feedback message is shown as "Authentication Failed: Email and/or password unknown"
     And 'email' and 'password' fields are emptied
     And 'log in' button is disabled again
   
