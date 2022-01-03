@@ -18,6 +18,7 @@ import { DisasterTypeComponent } from './components/disaster-type/disaster-type.
 import { EventSwitcherComponent } from './components/event-switcher/event-switcher.component';
 import { ExportViewPopoverComponent } from './components/export-view-popover/export-view-popover.component';
 import { ExportViewComponent } from './components/export-view/export-view.component';
+import { ForgotPasswordPopoverComponent } from './components/forgot-password-popover/forgot-password-popover.component';
 import { LayerControlInfoPopoverComponent } from './components/layer-control-info-popover/layer-control-info-popover.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LogosComponent } from './components/logos/logos.component';
@@ -30,7 +31,6 @@ import { UserStateComponent } from './components/user-state/user-state.component
 import { VideoGuideButtonComponent } from './components/video-guide-button/video-guide-button.component';
 import { VideoPopoverComponent } from './components/video-popover/video-popover.component';
 import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-component/backend-mock-scenario.component';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -66,6 +66,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     VideoGuideButtonComponent,
     DisasterTypeComponent,
     EventSwitcherComponent,
+    ForgotPasswordPopoverComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -93,6 +94,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     DisasterTypeComponent,
     EventSwitcherComponent,
     TranslateModule,
+    ForgotPasswordPopoverComponent,
   ],
 })
 export class SharedModule {}

@@ -17,5 +17,8 @@ export const environment = {
   applicationInsightsUrl: '${
     process.env.NG_APPLICATION_INSIGHTS_URL
   }', // application insights url endpoint
+  supportEmailAddress: '${
+    process.env.SUPPORT_EMAIL_ADDRESS
+  }', // email address for support
 };
 `;

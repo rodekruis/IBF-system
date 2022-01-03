@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { LoginFormComponent } from './login-form.component';
 
@@ -19,6 +20,7 @@ describe('LoginFormComponent', () => {
           FormsModule,
           HttpClientTestingModule,
           RouterTestingModule,
+          TranslateModule.forRoot(),
         ],
         providers: [{ provide: AuthService }],
       }).compileComponents();
