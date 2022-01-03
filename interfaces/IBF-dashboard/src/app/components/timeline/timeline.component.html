@@ -1,11 +1,11 @@
-<ion-item lines="none" class="ion-no-padding">
+<ion-item lines="none" class="ion-no-padding nonactive">
   <ion-progress-bar
     type="indeterminate"
     color="ibf-gray"
     class="ion-margin"
     *ngIf="timelineService.state.timeStepButtons.length < 1"
   ></ion-progress-bar>
-  <ion-button
+    <ion-button
     *ngFor="let timeStepButton of timelineService.state.timeStepButtons"
     expand="full"
     disabled="{{ timeStepButton.disabled }}"
@@ -17,7 +17,7 @@
     fill="solid"
     data-test="time-line-button"
     [class.active]="timeStepButton.active"
-    [class.nonactive]="!timeStepButton.active"
+    
     (click)="handleTimeStepButtonClick(timeStepButton.value)"
   >
     <app-date-button

@@ -330,8 +330,7 @@ export class AdminAreaService {
       ],
     });
     const leadTimes = country.countryDisasterSettings
-      .find(s => s.disasterType === disasterType)
-      .activeLeadTimes.map(l => l.leadTimeName);
+      .find(s => s.disasterType === disasterType)?.activeLeadTimes.map(l => l.leadTimeName);
 
     if (leadTimes.includes(LeadTime.day7)) {
       return LeadTime.day7;
