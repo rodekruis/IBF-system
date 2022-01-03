@@ -13,9 +13,10 @@
   <div class="dialogue-turn--actor">
     <ng-container [ngSwitch]="actor">
       <ng-container *ngSwitchCase="allActors.system">
-        <ion-avatar class="system-avatar" color="ibf-primary">
-          <b>IBF</b>
-        </ion-avatar>
+        <ion-icon class="system-avatar" src="assets/icons/ibf-logo.svg"></ion-icon>
+        <!-- <ion-avatar class="system-avatar" color="ibf-primary">
+    
+        </ion-avatar> -->
       </ng-container>
       <ng-container *ngSwitchCase="allActors.self">
         <ion-avatar class="self-avatar" color="ibf-secondary">

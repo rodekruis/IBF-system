@@ -26,7 +26,7 @@
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size-xs="12" size-sm="10" size-md="8" size-lg="6" size-xl="4">
         <span
-          *ngFor="let disasterType of disasterTypes"
+          *ngFor="let disasterType of allDisasterTypes"
           data-test="disaster-Type"
           class="container"
         >
@@ -35,6 +35,7 @@
             [src]="getIconByCountry(disasterType)"
             slot="start"
             class="disaster-type-icon"
+            [title]="disasterType"
           >
           </ion-icon>
         </span>

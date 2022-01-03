@@ -8,7 +8,7 @@ import {
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { VideoPopoverComponent } from 'src/app/components/video-popover/video-popover.component';
 import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
-import { Country } from 'src/app/models/country.model';
+import { Country, DisasterType } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
 import { environment } from 'src/environments/environment';
 
@@ -21,7 +21,8 @@ export class LoginPage implements OnInit {
   public version: string = environment.ibfSystemVersion;
   public country: Country;
   public countrySubscription: Subscription;
-  public disasterTypes: string[] = [];
+  public envDisasterTypes: string[] = [];
+  public allDisasterTypes: string[] = [];
   public disasterTypeMap = DISASTER_TYPES_SVG_MAP;
 
   constructor(
@@ -32,27 +33,30 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.analyticsService.logPageView(AnalyticsPage.login);
-    this.countrySubscription = this.countryService
-      .getCountrySubscription()
-      .subscribe(this.onCountryChange);
+
+    this.allDisasterTypes = Object.keys(DISASTER_TYPES_SVG_MAP);
+    this.countryService.getAllCountries().subscribe(this.onGetAllCountries);
   }
-  private onCountryChange = (country: Country) => {
-    this.disasterTypes = Object.keys(DISASTER_TYPES_SVG_MAP);
-    this.country = country;
-  };
 
   public getIconByCountry = (disasterType: string) => {
-    if (!this.country) {
-      return this.disasterTypeMap[disasterType].selectedNonTriggered;
-    }
-    const countryDisasterTypes = this.country?.disasterTypes.map(
-      (item) => item.label,
-    );
-    if (countryDisasterTypes?.includes(disasterType)) {
+    if (this.envDisasterTypes?.includes(disasterType)) {
       return this.disasterTypeMap[disasterType].selectedNonTriggered;
     } else {
-      return this.disasterTypeMap[disasterType].nonSelectedNonTriggered;
+      return this.disasterTypeMap[disasterType].disabled;
     }
+  };
+
+  private onGetAllCountries = (countries: Country[]) => {
+    countries.forEach((country: Country) => {
+      country.disasterTypes.forEach((disasterType: DisasterType) => {
+        const isExist = this.envDisasterTypes.find(
+          (item) => item === disasterType.disasterType,
+        );
+        if (!isExist) {
+          this.envDisasterTypes.push(disasterType.disasterType);
+        }
+      });
+    });
   };
 
   async presentPopover(): Promise<void> {
