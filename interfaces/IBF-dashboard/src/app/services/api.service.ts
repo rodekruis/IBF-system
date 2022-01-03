@@ -340,6 +340,7 @@ export class ApiService {
     triggered: boolean,
     removeEvents: boolean,
     disasterType: DisasterType,
+    eventNr: number,
   ) {
     return this.post(
       'scripts/mock-dynamic-data',
@@ -349,6 +350,7 @@ export class ApiService {
         triggered,
         removeEvents,
         disasterType: disasterType.disasterType,
+        eventNr,
       },
       false,
     );
