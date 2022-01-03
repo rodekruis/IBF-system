@@ -1,3 +1,20 @@
+# [0.121.0](https://github.com/rodekruis/IBF-system/compare/v0.120.0...v0.121.0) (2022-01-03)
+
+
+### Bug Fixes
+
+* lint ([ee60328](https://github.com/rodekruis/IBF-system/commit/ee60328abbce0e6499188535266e020f1fe1100a))
+* red outline if trigger AB[#11754](https://github.com/rodekruis/IBF-system/issues/11754) ([756f53a](https://github.com/rodekruis/IBF-system/commit/756f53a24052cdf1e483f0476c042b2f96348d17))
+
+
+### Features
+
+* move today-btn to right AB[#11753](https://github.com/rodekruis/IBF-system/issues/11753) ([77de289](https://github.com/rodekruis/IBF-system/commit/77de2898cd49c7a7ba06591aa629825c440fee92))
+* red box AB[#9125](https://github.com/rodekruis/IBF-system/issues/9125) ([4ccfe25](https://github.com/rodekruis/IBF-system/commit/4ccfe25d5b2ba5d1b19a96eca151769518acc89a))
+* updated new timeline ([b99c002](https://github.com/rodekruis/IBF-system/commit/b99c002f9c67bdacb9eeaacddb1d4e3b8cac5eb8))
+
+
+
 # [0.120.0](https://github.com/rodekruis/IBF-system/compare/v0.119.0...v0.120.0) (2022-01-03)
 
 
@@ -386,15 +403,6 @@
 ### Bug Fixes
 
 * don't loop over events if empty AB[#11230](https://github.com/rodekruis/IBF-system/issues/11230) ([c670935](https://github.com/rodekruis/IBF-system/commit/c6709351e5e9fbd2a0735e259857c0259c1eb7c6))
-
-
-
-## [0.114.4](https://github.com/rodekruis/IBF-system/compare/v0.114.3...v0.114.4) (2021-12-14)
-
-
-### Bug Fixes
-
-* use eventName if null AB[#11230](https://github.com/rodekruis/IBF-system/issues/11230) ([7524284](https://github.com/rodekruis/IBF-system/commit/75242848b851f111987ef0fa9e5baaf583b46226))
 
 
 
