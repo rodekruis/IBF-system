@@ -25,8 +25,22 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size-xs="12" size-sm="10" size-md="8" size-lg="6" size-xl="4">
+        <span
+          *ngFor="let disasterType of allDisasterTypes"
+          data-test="disaster-Type"
+          class="container"
+        >
+          <ion-icon
+            class="ibf"
+            [src]="getIconByCountry(disasterType)"
+            slot="start"
+            class="disaster-type-icon"
+            [title]="disasterType"
+          >
+          </ion-icon>
+        </span>
         <ion-card class="ibf-welcome-card">
-          <ion-icon name="chatbubbles"></ion-icon>
+          <ion-icon src="assets/icons/ibf-logo.svg"></ion-icon>
           <ion-card-header>
             <ion-card-title [translate]="'login-page.welcome'">
             </ion-card-title>

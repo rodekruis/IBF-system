@@ -9,13 +9,15 @@ Feature: Use login page
     Then the user is redirected automatically to the login page
     And it contains a header bar with a menu-icon on the left and the version-number on the left
     And the header contains the text 'IBF PORTAL' followed by the country-name if the environment contains just one country (production) and the environment-name (development/test/stage) otherwise
-    And it shows a all the disaster's icon above the speech bubble that explains disasters present for selected country(production) in navy blue and for all countries on environments(development/test/stag)
-    And it shows a 'Welcome to IBF' speech bubble that explains where the user is
+    And it shows a 'Welcome to IBF' speech bubble with IBF logo that explains where the user is
     And it contains a link to a video guide
     And it contains a warning about browsers to use
     And it contains the date and time
     And it contains a login form with "email" and "password" 
     And it contains a disabled "log in" button
+    And above the 'welcome-card' it shows all disaster-types currently included anywhere in IBF
+    And all icons for disaster-types included for countries included on the current environment/server are in "navy-blue" and others in "grey"
+    And when hovering over an icon it shows the disaster-type name     
   
   Scenario: Click version-number
     Given a user on the login-page
