@@ -114,9 +114,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-    if (this.country && this.disasterType) {
-      this.setupChatText();
-    }
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {

@@ -44,8 +44,8 @@ export class TimelineService {
   }
 
   private onCountryChange = (country: Country) => {
+    this.triggersAllEvents = null;
     this.country = country;
-    this.loadTimeStepButtons();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
@@ -99,7 +99,7 @@ export class TimelineService {
     }
 
     const events = this.eventService.state.events;
-    if (events.length) {
+    if (events?.length) {
       for (const event of events) {
         this.apiService
           .getTriggerPerLeadTime(

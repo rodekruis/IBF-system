@@ -9,7 +9,7 @@ Feature: Use login page
     Then the user is redirected automatically to the login page
     And it contains a header bar with a menu-icon on the left and the version-number on the left
     And the header contains the text 'IBF PORTAL' followed by the country-name if the environment contains just one country (production) and the environment-name (development/test/stage) otherwise
-    And it shows a 'Welcome to IBF' card with IBF logo that explains where the user is
+    And it shows a 'Welcome to IBF' speech bubble with IBF logo that explains where the user is
     And it contains a link to a video guide
     And it contains a warning about browsers to use
     And it contains the date and time
@@ -44,7 +44,7 @@ Feature: Use login page
     Given a successfully filled in login form
     Given the credentials are not known to IBF-system
     When the user clicks "log in" 
-    Then no feedback message is shown at the moment (should be improved in future)
+    Then the feedback message is shown as "Authentication Failed: Email and/or password unknown"
     And 'email' and 'password' fields are emptied
     And 'log in' button is disabled again
   

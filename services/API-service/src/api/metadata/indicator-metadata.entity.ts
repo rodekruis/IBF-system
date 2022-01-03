@@ -36,6 +36,10 @@ export class IndicatorMetadataEntity {
   @Column()
   public weightedAvg: boolean;
 
+  @ApiProperty({ example: 'total_houses', nullable: true })
+  @Column()
+  public weightVar: string;
+
   @ApiProperty({ example: 'yes' })
   @Column()
   public active: string;
