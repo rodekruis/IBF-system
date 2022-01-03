@@ -23,6 +23,7 @@
         "alert-message": "Are you sure you want to mock the situation for {{ countryName }}?",
         "alert-input-secret-placeholder": "Please enter the reset secret",
         "alert-button-cancel": "Cancel",
+        "alert-button-old-event": "Old event",
         "alert-button-no-trigger": "No Trigger",
         "alert-button-trigger": "Trigger",
         "alert-error-api-error": "Failed to set mock scenario.",

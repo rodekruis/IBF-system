@@ -60,10 +60,6 @@ export class AdminLevelService {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-
-    if (this.country && this.disasterType) {
-      this.processAdminLevel();
-    }
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
