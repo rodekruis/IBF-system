@@ -156,7 +156,7 @@ export class ScriptsService {
       );
     } else {
       throw new HttpException(
-        'Scenario not allowed or not covered yet',
+        'Scenario not covered yet',
         HttpStatus.BAD_REQUEST,
       );
     }
