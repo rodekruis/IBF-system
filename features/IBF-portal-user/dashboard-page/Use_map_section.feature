@@ -27,11 +27,11 @@ Scenario: View map in NON-TRIGGERED mode
 Scenario: View map in TRIGGERED mode
     Given the dashboard is in TRIGGERED mode
     When the users views the map
-    Then it shows a selection of admin-areas dependent on disaseter-type
+    Then it shows a selection of admin-areas dependent on disaster-type
         - For 'floods' and 'heavy-rain' only the triggered areas are shown
         - For 'dengue', 'malaria', 'drought' the whole country is shown
         - For 'typhoon' a custom selection is shown based on specific pipeline-input (practically this is somewhere in-between the above 2 options)
-    And it shows by default the 'Alert threshold' layer as red outline for 'dengue', 'malaria', 'drought', 'typhoon'
+    And it shows by default the 'Alert threshold' layer as red outline
     And it shows as main exposure shape layer
         - 'Exposed population' for 'floods', 'heavy rain', 'drought'
         - 'Potential cases' for 'dengue', 'malaria'
