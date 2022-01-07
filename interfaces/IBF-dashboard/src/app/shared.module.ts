@@ -10,6 +10,7 @@ import { AboutBtnComponent } from './components/about-btn/about-btn.component';
 import { AdminLevelComponent } from './components/admin-level/admin-level.component';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
 import { AreasOfFocusSummaryComponent } from './components/areas-of-focus-summary/areas-of-focus-summary.component';
+import { ChangePasswordPopoverComponent } from './components/change-password-popover/change-password-popover.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CountrySwitcherComponent } from './components/country-switcher/country-switcher.component';
 import { DateButtonComponent } from './components/date-button/date-button.component';
@@ -31,6 +32,7 @@ import { UserStateComponent } from './components/user-state/user-state.component
 import { VideoGuideButtonComponent } from './components/video-guide-button/video-guide-button.component';
 import { VideoPopoverComponent } from './components/video-popover/video-popover.component';
 import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-component/backend-mock-scenario.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -67,6 +69,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     DisasterTypeComponent,
     EventSwitcherComponent,
     ForgotPasswordPopoverComponent,
+    ChangePasswordPopoverComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -95,6 +98,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     EventSwitcherComponent,
     TranslateModule,
     ForgotPasswordPopoverComponent,
+    ChangePasswordPopoverComponent,
   ],
 })
 export class SharedModule {}

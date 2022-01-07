@@ -24,7 +24,11 @@
     >Logged In As:</ion-title
   >
   <ion-title size="small" data-test="user-display-name">
-    <strong>{{ authService.displayName }}</strong>
+    <strong
+      (click)="presentPopover()"
+      style="cursor: pointer; text-decoration: underline"
+      >{{ authService.displayName }}</strong
+    >
   </ion-title>
 </span>
 
