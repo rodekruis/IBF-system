@@ -101,13 +101,17 @@ export class TimelineService {
     const events = this.eventService.state.events;
     if (events?.length) {
       for (const event of events) {
-        this.apiService
-          .getTriggerPerLeadTime(
-            this.country.countryCodeISO3,
-            this.disasterType.disasterType,
-            event?.eventName,
-          )
-          .subscribe(this.onTriggerPerLeadTime);
+        if (event.activeTrigger) {
+          this.apiService
+            .getTriggerPerLeadTime(
+              this.country.countryCodeISO3,
+              this.disasterType.disasterType,
+              event?.eventName,
+            )
+            .subscribe(this.onTriggerPerLeadTime);
+        } else {
+          this.onTriggerPerLeadTime(null);
+        }
       }
     }
     if (!events || !events.length) {
