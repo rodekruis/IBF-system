@@ -143,4 +143,30 @@ export class AuthService implements OnDestroy {
         user.lastName
       : '';
   };
+
+  changePassword(password: string) {
+    console.log('authService changePassword');
+    return this.apiService
+      .changePassword(password)
+      .subscribe(this.onPasswordChanged, this.onChangePasswordError);
+  }
+
+  private onPasswordChanged = async (res) => {
+    const toast = await this.toastController.create({
+      message: `Password changed successfully`,
+      duration: 5000,
+    });
+    toast.present();
+  };
+
+  private onChangePasswordError = async (error) => {
+    const message =
+      HTTP_STATUS_MESSAGE_MAP[error?.statusCode] || error?.message;
+    const toast = await this.toastController.create({
+      message: `Authentication Failed: ${message}`,
+      duration: 5000,
+    });
+    toast.present();
+    console.error('AuthService error: ', error);
+  };
 }

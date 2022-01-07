@@ -1,5 +1,7 @@
 # Test scenario's
+
 IMPORTANT: 
+
 - A major distinction in every feature is whether the Portal is in TRIGGERED or NON-TRIGGERED mode.
 - These distinctions are made within each file.
 - In practice there can be a 3rd (more rare) scenario: OLD-EVENT. This is sometimes explicity mentioned. Where not further specified, it falls under NON-TRIGGERED.
@@ -7,17 +9,18 @@ IMPORTANT:
 ### For IBF-portal user
 
 - Log-in page
-    - [Use Log in page](IBF-portal-user/Use_login_page.feature)
+  - [Use Log in page](IBF-portal-user/Use_login_page.feature)
 - IBF-portal page
-    - [Use Header section](IBF-portal-user/dashboard-page/Use_header_section.feature)
-    - [Use Situational Overview section](IBF-portal-user/dashboard-page/Use_situational_overview_section.feature)
-    - [Use Chat section](IBF-portal-user/dashboard-page/Use_chat_section.feature)
-    - [Use Aggregate section](IBF-portal-user/dashboard-page/Use_aggregate_section.feature)
-    - [View Area-of-focus summary](IBF-portal-user/dashboard-page/View_area_of_focus_section.feature)
-    - [Use Timeline section](IBF-portal-user/dashboard-page/Use_timeline_section.feature)
-    - [Use Admin-level section](IBF-portal-user/dashboard-page/Use_admin_level_section.feature)
-    - [Use Map section](IBF-portal-user/dashboard-page/Use_map_section.feature)
-    - [Use Layers section](IBF-portal-user/dashboard-page/Use_layers_section.feature)
+  - [Use Header section](IBF-portal-user/dashboard-page/Use_header_section.feature)
+  - [Change own password](IBF-portal-user/dashboard-page/Change_password.feature)
+  - [Use Situational Overview section](IBF-portal-user/dashboard-page/Use_situational_overview_section.feature)
+  - [Use Chat section](IBF-portal-user/dashboard-page/Use_chat_section.feature)
+  - [Use Aggregate section](IBF-portal-user/dashboard-page/Use_aggregate_section.feature)
+  - [View Area-of-focus summary](IBF-portal-user/dashboard-page/View_area_of_focus_section.feature)
+  - [Use Timeline section](IBF-portal-user/dashboard-page/Use_timeline_section.feature)
+  - [Use Admin-level section](IBF-portal-user/dashboard-page/Use_admin_level_section.feature)
+  - [Use Map section](IBF-portal-user/dashboard-page/Use_map_section.feature)
+  - [Use Layers section](IBF-portal-user/dashboard-page/Use_layers_section.feature)
 
 ### For Dashboard admin-user
 
@@ -25,12 +28,13 @@ These are actions run from the dev-menu in the dashboard, accessible only to an 
 
 - [Use Dev Menu](IBF-portal-admin-user/Use_dev_menu.feature)
 
-### For API admin-user 
+### For API admin-user
 
 These are actions run from the Swagger UI (<ibf-url>/docs).
 
 - [Log in](API-admin-user/Log_in.feature)
 - [Create new user](API-admin-user/Create_new_user.feature)
+- [Change password other user](API-admin-user/Change_password.feature)
 - [Upload mock data](API-admin-user/Upload_mock_data.feature)
 - Update static data
 

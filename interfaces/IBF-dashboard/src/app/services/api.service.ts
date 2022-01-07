@@ -106,6 +106,15 @@ export class ApiService {
     );
   }
 
+  changePassword(password: string): Observable<any> {
+    console.log('aaaaaApiService : changePassword()');
+    this.log('ApiService : changePassword()');
+
+    return this.post('user/change-password', {
+      password,
+    });
+  }
+
   getCountries(): Observable<Country[]> {
     return this.get('country', false).pipe(
       map((countries) => {

@@ -9,8 +9,8 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { HttpStatus } from '@nestjs/common';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
-import { DeleteUserDto } from './dto/delete-user.dto';
 import { CountryEntity } from '../country/country.entity';
+import { UserRole } from './user-role.enum';
 
 @Injectable()
 export class UserService {
@@ -97,19 +97,46 @@ export class UserService {
     return this.buildUserRO(user);
   }
 
-  public async findByEmail(email: string): Promise<UserResponseObject> {
-    const user = await this.userRepository.findOne(
-      { email: email },
-      {
-        relations: this.relations,
-      },
-    );
-    if (!user) {
-      const errors = { email: email + ' not found' };
-      console.log(errors);
+  public async update(
+    loggedInUserId: string,
+    dto: UpdatePasswordDto,
+  ): Promise<UserResponseObject> {
+    let updateUser: UserEntity;
+    const loggedInUser = await this.userRepository.findOne(loggedInUserId, {
+      relations: this.relations,
+    });
+    if (!loggedInUser) {
+      const errors = { user: 'No logged in user found' };
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
-    return this.buildUserRO(user);
+
+    if (dto.email) {
+      if (loggedInUser.userRole !== UserRole.Admin) {
+        const errors = {
+          User:
+            'You can only use this endpoint with email-property if you are an admin-user',
+        };
+        throw new HttpException({ errors }, HttpStatus.UNAUTHORIZED);
+      }
+      updateUser = await this.userRepository.findOne(
+        { email: dto.email },
+        {
+          relations: this.relations,
+        },
+      );
+      if (!updateUser) {
+        const errors = { email: dto.email + ' not found' };
+        throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+      }
+    } else {
+      updateUser = loggedInUser;
+    }
+    const password = crypto.createHmac('sha256', dto.password).digest('hex');
+    await this.userRepository.save({
+      userId: updateUser.userId,
+      password,
+    });
+    return this.buildUserRO(updateUser);
   }
 
   public generateJWT(user: UserEntity): string {

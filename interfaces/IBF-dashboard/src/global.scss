@@ -200,8 +200,29 @@
   border-radius: 50%;
 }
 
+.popover-window-card {
+  border: 2px solid var(--ion-color-ibf-primary);
+  margin: 0;
+
+  .popover-close-button {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+  }
+
+  ion-card-content.ion-padding-top {
+    padding-top: var(--ion-padding, 16px) !important;
+  }
+}
+
 .ibf-video-guide-popover {
   --width: 600px;
+}
+
+.ibf-forgot-password-popover {
+  --width: 400px;
 }
 
 .ibf-layer-control-popover,
