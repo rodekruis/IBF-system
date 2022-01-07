@@ -50,17 +50,33 @@ ion-content {
   }
 
   ion-icon {
-    font-size: 34px;
+    font-size: 48px;
     color: var(--ion-color-ibf-no-alert-primary);
     background: var(--ion-color-ibf-no-alert-primary-contrast);
     border-radius: 50%;
     padding: 6px;
     position: absolute;
     right: -48px;
+
+    &.person {
+      font-size: 34px !important;
+    }
   }
 }
 
 app-timestamp {
   height: 24px;
   display: block;
+}
+
+.container {
+  text-align: center;
+  margin-left: 20px;
+}
+
+.disaster-type-icon {
+  height: 32px;
+  width: 32px;
+  margin: 0px 5px 0px 5px;
+  padding-right: 10px;
 }

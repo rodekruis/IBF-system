@@ -29,6 +29,10 @@ export class CountryService {
     this.apiService.getCountries().subscribe(this.onCountriesByUser(user));
   }
 
+  public getAllCountries(): Observable<Country[]> {
+    return this.apiService.getCountries();
+  }
+
   getCountrySubscription = (): Observable<Country> => {
     return this.countrySubject.asObservable();
   };
@@ -37,6 +41,10 @@ export class CountryService {
     this.countries = countries;
     this.filterCountriesByUser(user);
   };
+
+  // private onGetAllCountries = () => (countries) => {
+  //   this.countries = countries;
+  // };
 
   private filterCountryByCountryCodeISO3 = (countryCodeISO3) => (country) =>
     country.countryCodeISO3 === countryCodeISO3;

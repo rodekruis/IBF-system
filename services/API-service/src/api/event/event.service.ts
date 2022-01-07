@@ -393,16 +393,22 @@ export class EventService {
     disasterType: DisasterType,
     adminLevel: number,
     eventName: string,
+    trigger: boolean,
   ): Promise<void> {
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
     );
+    const whereFilters = {
+      adminArea: { id: In(countryAdminAreaIds) },
+      disasterType: disasterType,
+    };
+    // This makes sure that - if non-trigger - all events (i.e. yesterday's active event) are put to non-active.
+    // This requires that - in case of multiple (typhoon) events - the non-triggered ones are uploaded first.
+    if (trigger) {
+      whereFilters['eventName'] = eventName || IsNull();
+    }
     const eventAreas = await this.eventPlaceCodeRepo.find({
-      where: {
-        adminArea: { id: In(countryAdminAreaIds) },
-        disasterType: disasterType,
-        eventName: eventName || IsNull(),
-      },
+      where: whereFilters,
     });
     eventAreas.forEach(area => (area.activeTrigger = false));
     await this.eventPlaceCodeRepo.save(eventAreas);
@@ -452,10 +458,8 @@ export class EventService {
       ),
       countryCodeISO3: countryCodeISO3,
       adminLevel: adminLevel,
+      eventName: eventName || IsNull(),
     };
-    if (eventName) {
-      whereFilters['eventName'] = eventName;
-    }
 
     const triggeredPlaceCodes = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')

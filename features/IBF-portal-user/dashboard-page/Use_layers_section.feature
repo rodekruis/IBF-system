@@ -43,7 +43,7 @@ Scenario: View layers section in NON-TRIGGERED mode
 Scenario: View layers section in TRIGGERED mode
     Given the dashboard is in TRIGGERED mode
     When the users views the open layers section
-    Then it shows the red outline 'Alert threshold' layer for 'dengue', 'malaria', 'drought', 'typhoon'
+    Then it shows the red outline 'Alert threshold' layer
     And it shows as main exposure shape layer
         - 'Exposed population' for 'floods', 'heavy rain', 'drought'
         - 'Potential cases' for 'dengue', 'malaria'

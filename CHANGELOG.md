@@ -1,3 +1,58 @@
+# [0.122.0](https://github.com/rodekruis/IBF-system/compare/v0.121.0...v0.122.0) (2022-01-07)
+
+
+### Bug Fixes
+
+* deactivate typhoon event when trigger is done AB[#11645](https://github.com/rodekruis/IBF-system/issues/11645) ([109d9ed](https://github.com/rodekruis/IBF-system/commit/109d9ed1da55ddcd5674423cc3f615458ef22f40))
+* person avatar login page width AB[#9122](https://github.com/rodekruis/IBF-system/issues/9122) ([a18ff05](https://github.com/rodekruis/IBF-system/commit/a18ff05d41a281011762ebf58ce80c03269ed159))
+
+
+### Features
+
+* mock endpoint for specific typhoon scenarios AB[#11755](https://github.com/rodekruis/IBF-system/issues/11755) ([36aeb3a](https://github.com/rodekruis/IBF-system/commit/36aeb3ad63911a162273645c1b600fc1b75bd516))
+* move 'today' to right ([f0bbe49](https://github.com/rodekruis/IBF-system/commit/f0bbe49c97b13e6004637e700242a161ff780c1f))
+
+
+
+# [0.121.0](https://github.com/rodekruis/IBF-system/compare/v0.120.0...v0.121.0) (2022-01-03)
+
+
+### Bug Fixes
+
+* lint ([ee60328](https://github.com/rodekruis/IBF-system/commit/ee60328abbce0e6499188535266e020f1fe1100a))
+* red outline if trigger AB[#11754](https://github.com/rodekruis/IBF-system/issues/11754) ([756f53a](https://github.com/rodekruis/IBF-system/commit/756f53a24052cdf1e483f0476c042b2f96348d17))
+
+
+### Features
+
+* move today-btn to right AB[#11753](https://github.com/rodekruis/IBF-system/issues/11753) ([77de289](https://github.com/rodekruis/IBF-system/commit/77de2898cd49c7a7ba06591aa629825c440fee92))
+* red box AB[#9125](https://github.com/rodekruis/IBF-system/issues/9125) ([4ccfe25](https://github.com/rodekruis/IBF-system/commit/4ccfe25d5b2ba5d1b19a96eca151769518acc89a))
+* updated new timeline ([b99c002](https://github.com/rodekruis/IBF-system/commit/b99c002f9c67bdacb9eeaacddb1d4e3b8cac5eb8))
+
+
+
+# [0.120.0](https://github.com/rodekruis/IBF-system/compare/v0.119.0...v0.120.0) (2022-01-03)
+
+
+### Bug Fixes
+
+* changes login screen AB[#9122](https://github.com/rodekruis/IBF-system/issues/9122) ([37cecff](https://github.com/rodekruis/IBF-system/commit/37cecff26555f376f3b6315907ea81feae41e546))
+* lint AB[#11298](https://github.com/rodekruis/IBF-system/issues/11298) ([9726540](https://github.com/rodekruis/IBF-system/commit/9726540dcffb42f04e292f57fc964bfef0ac2eea))
+* lint AB[#11657](https://github.com/rodekruis/IBF-system/issues/11657) AB[#11658](https://github.com/rodekruis/IBF-system/issues/11658)--no-verify ([0e8ee26](https://github.com/rodekruis/IBF-system/commit/0e8ee26fea7fa97a0bf282a158a118c168cd5ce8))
+* test case updated AB[#11655](https://github.com/rodekruis/IBF-system/issues/11655) ([46cca29](https://github.com/rodekruis/IBF-system/commit/46cca29c8a0aebfe10bef1c1db301d8dcac2108c))
+
+
+### Features
+
+* Ab[#11298](https://github.com/rodekruis/IBF-system/issues/11298) ([b1e9fd8](https://github.com/rodekruis/IBF-system/commit/b1e9fd8f5b0756320943c316036e35eb8e7522a3))
+* AB[#1165](https://github.com/rodekruis/IBF-system/issues/1165) AB[#11657](https://github.com/rodekruis/IBF-system/issues/11657) AB[#11658](https://github.com/rodekruis/IBF-system/issues/11658) ([93120b3](https://github.com/rodekruis/IBF-system/commit/93120b3fb9360680125fe6d7f0dcaa37f9419d97))
+* added disaster icons to login page ([3581ad6](https://github.com/rodekruis/IBF-system/commit/3581ad6f4d4327bc8adea8f4b15b7af5b2d1356c))
+* added new ibf icon AB[#9122](https://github.com/rodekruis/IBF-system/issues/9122) ([9cb299f](https://github.com/rodekruis/IBF-system/commit/9cb299fb5f7e69218ca1f7e14bee144f6b569ef7))
+* icons updated AB[#11298](https://github.com/rodekruis/IBF-system/issues/11298) ([d51f02e](https://github.com/rodekruis/IBF-system/commit/d51f02ee0e8558ac83f9808daf2d4d9aeda4396c))
+* new login page behaviour with disaster icons AB[#11298](https://github.com/rodekruis/IBF-system/issues/11298) ([21e06ac](https://github.com/rodekruis/IBF-system/commit/21e06acbd6d402a7df0322ac50d8de0e16c098ec))
+
+
+
 # [0.119.0](https://github.com/rodekruis/IBF-system/compare/v0.118.0...v0.119.0) (2022-01-03)
 
 
@@ -355,33 +410,6 @@
 
 * add total houses as data, not as layer AB[#11231](https://github.com/rodekruis/IBF-system/issues/11231) ([4a8f853](https://github.com/rodekruis/IBF-system/commit/4a8f8538690520957ddfbaf385b515ac63afe394))
 * add weight var to indicators AB[#11235](https://github.com/rodekruis/IBF-system/issues/11235) ([f1dd2b9](https://github.com/rodekruis/IBF-system/commit/f1dd2b9418c5eb7276a9e7af9fbf7858f91506f0))
-
-
-
-## [0.114.5](https://github.com/rodekruis/IBF-system/compare/v0.114.4...v0.114.5) (2021-12-17)
-
-
-### Bug Fixes
-
-* don't loop over events if empty AB[#11230](https://github.com/rodekruis/IBF-system/issues/11230) ([c670935](https://github.com/rodekruis/IBF-system/commit/c6709351e5e9fbd2a0735e259857c0259c1eb7c6))
-
-
-
-## [0.114.4](https://github.com/rodekruis/IBF-system/compare/v0.114.3...v0.114.4) (2021-12-14)
-
-
-### Bug Fixes
-
-* use eventName if null AB[#11230](https://github.com/rodekruis/IBF-system/issues/11230) ([7524284](https://github.com/rodekruis/IBF-system/commit/75242848b851f111987ef0fa9e5baaf583b46226))
-
-
-
-## [0.114.3](https://github.com/rodekruis/IBF-system/compare/v0.114.2...v0.114.3) (2021-12-13)
-
-
-### Bug Fixes
-
-* events bug AB[#11259](https://github.com/rodekruis/IBF-system/issues/11259) ([0bdff0d](https://github.com/rodekruis/IBF-system/commit/0bdff0d938a8a6166f69a435b5b9ef332f49b769))
 
 
 

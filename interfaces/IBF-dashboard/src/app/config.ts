@@ -66,6 +66,7 @@ export const DISASTER_TYPES_SVG_MAP = {
     nonSelectedTriggered: '/assets/icons/Flood_Not Selected_Triggered.svg',
     nonSelectedNonTriggered:
       '/assets/icons/Flood_Not Selected_Non Triggered.svg',
+    disabled: '/assets/icons/Flood_Disabled.svg',
   },
   [DisasterTypeKey.malaria]: {
     selectedTriggered: '/assets/icons/Malaria_Selected_Triggered.svg',
@@ -73,6 +74,7 @@ export const DISASTER_TYPES_SVG_MAP = {
     nonSelectedTriggered: '/assets/icons/Malaria_Not Selected_Triggered.svg',
     nonSelectedNonTriggered:
       '/assets/icons/Malaria_Not Selected_Non Triggered.svg',
+    disabled: '/assets/icons/Malaria_Disabled.svg',
   },
   [DisasterTypeKey.dengue]: {
     selectedTriggered: '/assets/icons/Dengue_Selected_Triggered.svg',
@@ -80,6 +82,7 @@ export const DISASTER_TYPES_SVG_MAP = {
     nonSelectedTriggered: '/assets/icons/Dengue_Not Selected_Triggered.svg',
     nonSelectedNonTriggered:
       '/assets/icons/Dengue_Not Selected_Non Triggered.svg',
+    disabled: '/assets/icons/Dengue_Disabled.svg',
   },
   [DisasterTypeKey.drought]: {
     selectedTriggered: '/assets/icons/Drought_Selected_Triggered.svg',
@@ -87,6 +90,7 @@ export const DISASTER_TYPES_SVG_MAP = {
     nonSelectedTriggered: '/assets/icons/Drought_Not Selected_Triggered.svg',
     nonSelectedNonTriggered:
       '/assets/icons/Drought_Not Selected_Not Triggered.svg',
+    disabled: '/assets/icons/Drought_Disabled.svg',
   },
   [DisasterTypeKey.heavyRain]: {
     selectedTriggered: '/assets/icons/Heavy Rain_Selected_Triggered.svg',
@@ -94,6 +98,7 @@ export const DISASTER_TYPES_SVG_MAP = {
     nonSelectedTriggered: '/assets/icons/Heavy Rain_Not Selected_Triggered.svg',
     nonSelectedNonTriggered:
       '/assets/icons/Heavy Rain_Not Selected_Not Triggered.svg',
+    disabled: '/assets/icons/Heavy Rain_Disabled.svg',
   },
   [DisasterTypeKey.typhoon]: {
     selectedTriggered:
@@ -104,5 +109,6 @@ export const DISASTER_TYPES_SVG_MAP = {
       '/assets/icons/TyphoonHurricaneCyclone_Not Selected_Triggered.svg',
     nonSelectedNonTriggered:
       '/assets/icons/TyphoonHurricaneCyclone_Not Selected_Not Triggered.svg',
+    disabled: '/assets/icons/TyphoonHurricaneCyclone_Disabled.svg',
   },
 };

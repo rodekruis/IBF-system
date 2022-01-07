@@ -60,8 +60,8 @@ Scenario: View timeline-section for disaster-type "typhoon" with 2 or more event
 Scenario: View the timeline section in TRIGGERED mode
     Given the dashboard is in TRIGGERED mode
     When the users views the timeline section
-    Then at least one of the "active lead time" buttons is purple instead of grey
-    And the "selected lead time" is automatically the triggered/purple lead-time
+    Then at least one of the "active lead time" buttons is purple instead of grey and it has a red outline
+    And the "selected lead time" is automatically the triggered/purple lead-time and it has a thicker red outline then non-selected but triggered lead-times
     And if multiple it is the most left / earliest of the triggered lead-times
     And also "inactive"/"disabled" lead-times can be purple instead of grey, meaning that a trigger is detected for this lead-time, even though it is not clickable/examinable.
     And e.g. in the case of floods, this enables the user to follow day-by-day how far the flood is still away, even though the main actionable lead-time remains constant.

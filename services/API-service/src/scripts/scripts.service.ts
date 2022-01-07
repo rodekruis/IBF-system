@@ -1,8 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
-import { MockAll, MockDynamic } from './scripts.controller';
+import {
+  MockAll,
+  MockDynamic,
+  MockTyphoonScenario,
+  TyphoonScenario,
+} from './scripts.controller';
 import countries from './json/countries.json';
 import fs from 'fs';
 import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
@@ -123,11 +128,46 @@ export class ScriptsService {
     }
   }
 
+  public async mockTyphoonScenario(mockTyphoonScenario: MockTyphoonScenario) {
+    // For now ignore the 'multi-event cases' in this specific scenario endpoint > so eventNr = 1 always
+    // Always assume 'removeEvents' = false, because this endpoint is meant to simulate a real-world consecutive serie of api-calls
+    if (mockTyphoonScenario.scenario === TyphoonScenario.EventTrigger) {
+      // Scenario 'eventTrigger' is equal to using the normal mock-endpoint for typhoon with 'triggered = true'
+      await this.mockCountry({
+        countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
+        disasterType: DisasterType.Typhoon,
+        triggered: true,
+        removeEvents: false,
+        eventNr: 1,
+        secret: mockTyphoonScenario.secret,
+      });
+    } else if (mockTyphoonScenario.scenario === TyphoonScenario.NoEvent) {
+      const selectedCountry = countries.find((country): any => {
+        if (mockTyphoonScenario.countryCodeISO3 === country.countryCodeISO3) {
+          return country;
+        }
+      });
+      await this.mockExposure(
+        selectedCountry,
+        DisasterType.Typhoon,
+        false,
+        1,
+        TyphoonScenario.NoEvent,
+      );
+    } else {
+      throw new HttpException(
+        'Scenario not covered yet',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
   private async mockExposure(
     selectedCountry,
     disasterType: DisasterType,
     triggered: boolean,
     eventNr = 1,
+    typhoonScenario?: TyphoonScenario,
   ) {
     let exposureUnits;
     if (
@@ -153,11 +193,17 @@ export class ScriptsService {
       exposureUnits = [
         DynamicIndicator.windspeed,
         DynamicIndicator.rainfall,
-        DynamicIndicator.housesAffected,
         DynamicIndicator.probWithin50Km,
         DynamicIndicator.showAdminArea,
+        DynamicIndicator.housesAffected,
         DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
       ];
+      if (typhoonScenario === TyphoonScenario.NoEvent) {
+        exposureUnits = [
+          DynamicIndicator.housesAffected,
+          DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
+        ];
+      }
     } else {
       exposureUnits = [
         DynamicIndicator.populationAffectedPercentage,
@@ -201,6 +247,7 @@ export class ScriptsService {
               activeLeadTime,
               disasterType,
               eventNr,
+              typhoonScenario,
             )
           ) {
             console.log(
@@ -218,7 +265,11 @@ export class ScriptsService {
               dynamicIndicator: unit,
               adminLevel: adminLevel,
               disasterType: disasterType,
-              eventName: this.getEventName(disasterType, eventNr),
+              eventName: this.getEventName(
+                disasterType,
+                eventNr,
+                typhoonScenario,
+              ),
             });
           }
         }
@@ -226,17 +277,28 @@ export class ScriptsService {
     }
   }
 
-  private getEventName(disasterType: DisasterType, eventNr = 1): string {
-    if (disasterType === DisasterType.Typhoon) {
-      return `Mock typhoon ${eventNr}`;
-    } else {
+  private getEventName(
+    disasterType: DisasterType,
+    eventNr = 1,
+    typhoonScenario?: TyphoonScenario,
+  ): string {
+    if (disasterType !== DisasterType.Typhoon) {
       return null;
+    } else if (typhoonScenario === TyphoonScenario.NoEvent) {
+      return null;
+    } else {
+      return `Mock typhoon ${eventNr}`;
     }
   }
 
-  private getTyphoonLeadTime(eventNr = 1): string {
-    if (eventNr === 1) {
+  private getTyphoonLeadTime(
+    eventNr = 1,
+    typhoonScenario?: TyphoonScenario,
+  ): string {
+    if (typhoonScenario === TyphoonScenario.NoEvent) {
       return LeadTime.hour72;
+    } else if (eventNr === 1) {
+      return LeadTime.hour48;
     } else if (eventNr === 2) {
       return LeadTime.hour114;
     } else {
@@ -288,6 +350,7 @@ export class ScriptsService {
     leadTime: string,
     disasterType: DisasterType,
     eventNr = 1,
+    typhoonScenario?: TyphoonScenario,
   ) {
     if (disasterType === DisasterType.Drought) {
       const now = new Date();
@@ -309,7 +372,7 @@ export class ScriptsService {
         nextAprilMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime()
       );
     } else if (disasterType === DisasterType.Typhoon) {
-      return leadTime === this.getTyphoonLeadTime(eventNr);
+      return leadTime === this.getTyphoonLeadTime(eventNr, typhoonScenario);
     } else {
       return true;
     }

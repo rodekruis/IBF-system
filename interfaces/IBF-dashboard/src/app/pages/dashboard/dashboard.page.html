@@ -109,7 +109,7 @@
                   <app-disaster-type></app-disaster-type>
                 </ion-button>
                 <ion-button
-                  slot="start"
+                  slot="end"
                   class="today-button ion-no-margin"
                   [disabled]="true"
                   color="ibf-white"
@@ -118,6 +118,13 @@
                     class="today"
                     [translate]="'dashboard-page.today'"
                   ></span>
+                </ion-button>
+                <ion-button
+                  slot="end"
+                  class="today-date-button ion-no-margin ion-no-padding"
+                  [disabled]="true"
+                  color="ibf-primary"
+                >
                   <app-date-button></app-date-button>
                 </ion-button>
               </ion-item>

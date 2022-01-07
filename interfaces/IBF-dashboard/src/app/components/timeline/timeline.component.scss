@@ -15,4 +15,14 @@ ion-button {
     border: 2px solid var(--ion-color-ibf-primary);
     border-width: 2px;
   }
+
+  &.alert {
+    border: 1px solid var(--ion-color-ibf-outline-red) !important;
+    border-width: 2px;
+  }
+
+  &.alert.active {
+    border: 2px solid var(--ion-color-ibf-outline-red) !important;
+    border-width: 2px;
+  }
 }
