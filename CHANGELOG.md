@@ -1,3 +1,19 @@
+# [0.122.0](https://github.com/rodekruis/IBF-system/compare/v0.121.0...v0.122.0) (2022-01-07)
+
+
+### Bug Fixes
+
+* deactivate typhoon event when trigger is done AB[#11645](https://github.com/rodekruis/IBF-system/issues/11645) ([109d9ed](https://github.com/rodekruis/IBF-system/commit/109d9ed1da55ddcd5674423cc3f615458ef22f40))
+* person avatar login page width AB[#9122](https://github.com/rodekruis/IBF-system/issues/9122) ([a18ff05](https://github.com/rodekruis/IBF-system/commit/a18ff05d41a281011762ebf58ce80c03269ed159))
+
+
+### Features
+
+* mock endpoint for specific typhoon scenarios AB[#11755](https://github.com/rodekruis/IBF-system/issues/11755) ([36aeb3a](https://github.com/rodekruis/IBF-system/commit/36aeb3ad63911a162273645c1b600fc1b75bd516))
+* move 'today' to right ([f0bbe49](https://github.com/rodekruis/IBF-system/commit/f0bbe49c97b13e6004637e700242a161ff780c1f))
+
+
+
 # [0.121.0](https://github.com/rodekruis/IBF-system/compare/v0.120.0...v0.121.0) (2022-01-03)
 
 
@@ -394,15 +410,6 @@
 
 * add total houses as data, not as layer AB[#11231](https://github.com/rodekruis/IBF-system/issues/11231) ([4a8f853](https://github.com/rodekruis/IBF-system/commit/4a8f8538690520957ddfbaf385b515ac63afe394))
 * add weight var to indicators AB[#11235](https://github.com/rodekruis/IBF-system/issues/11235) ([f1dd2b9](https://github.com/rodekruis/IBF-system/commit/f1dd2b9418c5eb7276a9e7af9fbf7858f91506f0))
-
-
-
-## [0.114.5](https://github.com/rodekruis/IBF-system/compare/v0.114.4...v0.114.5) (2021-12-17)
-
-
-### Bug Fixes
-
-* don't loop over events if empty AB[#11230](https://github.com/rodekruis/IBF-system/issues/11230) ([c670935](https://github.com/rodekruis/IBF-system/commit/c6709351e5e9fbd2a0735e259857c0259c1eb7c6))
 
 
 
