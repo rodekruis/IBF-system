@@ -57,6 +57,10 @@ ion-content {
     padding: 6px;
     position: absolute;
     right: -48px;
+
+    &.person {
+      font-size: 34px !important;
+    }
   }
 }
 
