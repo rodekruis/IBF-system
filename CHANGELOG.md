@@ -1,3 +1,13 @@
+# [0.123.0](https://github.com/rodekruis/IBF-system/compare/v0.122.0...v0.123.0) (2022-01-07)
+
+
+### Features
+
+* add 'create user' scenarios AB[#11258](https://github.com/rodekruis/IBF-system/issues/11258) ([6841b8f](https://github.com/rodekruis/IBF-system/commit/6841b8f0f361a83857b5d410e46b400b5991e21a))
+* run pipeline scenario AB[#11758](https://github.com/rodekruis/IBF-system/issues/11758) ([81e3382](https://github.com/rodekruis/IBF-system/commit/81e338241b4246dc227ac2bd47c3dcc5eb16d32b))
+
+
+
 # [0.122.0](https://github.com/rodekruis/IBF-system/compare/v0.121.0...v0.122.0) (2022-01-07)
 
 
@@ -395,21 +405,6 @@
 ### Features
 
 * use alert_threshold in all disasters AB[#11251](https://github.com/rodekruis/IBF-system/issues/11251) ([edd9cb0](https://github.com/rodekruis/IBF-system/commit/edd9cb064eedb26a32c57a41967b91d99721f5d7))
-
-
-
-# [0.115.0](https://github.com/rodekruis/IBF-system/compare/v0.114.5...v0.115.0) (2021-12-20)
-
-
-### Bug Fixes
-
-* aggregate calculation AB[#11232](https://github.com/rodekruis/IBF-system/issues/11232) ([e653484](https://github.com/rodekruis/IBF-system/commit/e653484a978b6483bb15a19e669a0007915b4e50))
-
-
-### Features
-
-* add total houses as data, not as layer AB[#11231](https://github.com/rodekruis/IBF-system/issues/11231) ([4a8f853](https://github.com/rodekruis/IBF-system/commit/4a8f8538690520957ddfbaf385b515ac63afe394))
-* add weight var to indicators AB[#11235](https://github.com/rodekruis/IBF-system/issues/11235) ([f1dd2b9](https://github.com/rodekruis/IBF-system/commit/f1dd2b9418c5eb7276a9e7af9fbf7858f91506f0))
 
 
 
