@@ -81,7 +81,6 @@ export class UserController {
 
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
-  @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Change password of user' })
   @Post('change-password')
   public async update(
