@@ -109,6 +109,8 @@ export class MatrixComponent implements OnDestroy {
 
   getLayersInOrder(): IbfLayer[] {
     // Filter out layers with negative order-value (quick hack)
-    return this.layers.filter((layer) => layer.order > 0).sort(this.sortLayers);
+    return this.layers
+      .filter((layer) => layer.order >= 0)
+      .sort(this.sortLayers);
   }
 }
