@@ -13,7 +13,13 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsIn,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Connection } from 'typeorm';
 import { SeedInit } from './seed-init';
 import { ScriptsService } from './scripts.service';
@@ -72,6 +78,30 @@ export class MockAll {
   @ApiProperty()
   @IsNotEmpty()
   public readonly triggered: boolean;
+}
+
+export enum TyphoonScenario {
+  NoEvent = 'noEvent',
+  EventNoLandfall = 'eventNoLandfall',
+  EventNoTrigger = 'eventNoTrigger',
+  EventTrigger = 'eventTrigger',
+}
+
+export class MockTyphoonScenario {
+  @ApiProperty({ example: 'fill_in_secret' })
+  @IsNotEmpty()
+  @IsString()
+  public readonly secret: string;
+
+  @ApiProperty({ example: 'PHL' })
+  @IsIn(['PHL'])
+  public readonly countryCodeISO3: string;
+
+  @ApiProperty({
+    example: `${TyphoonScenario.EventTrigger} | ${TyphoonScenario.NoEvent}`,
+  })
+  @IsEnum(TyphoonScenario)
+  public readonly scenario: TyphoonScenario;
 }
 
 @Controller('scripts')
@@ -147,6 +177,28 @@ export class ScriptsController {
     }
 
     const result = await this.scriptsService.mockAll(body);
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload mock data for specific typhoon scenario',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for specific typhoon scenario',
+  })
+  @Post('/mock-typhoon-scenario')
+  public async mockTyphoonScenario(
+    @Body() body: MockTyphoonScenario,
+    @Res() res,
+  ): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+
+    const result = await this.scriptsService.mockTyphoonScenario(body);
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }
