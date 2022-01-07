@@ -1,6 +1,17 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
   ApiOperation,
   ApiParam,
   ApiResponse,
@@ -9,6 +20,11 @@ import {
 import { GeoJson, RedCrossBranch } from '../../shared/geo.model';
 import { RolesGuard } from '../../roles.guard';
 import { RedcrossBranchService } from './redcross-branch.service';
+import { Roles } from '../../roles.decorator';
+import { UploadAdminAreaDataJsonDto } from '../admin-area-data/dto/upload-admin-area-data.dto';
+import { UserRole } from '../user/user-role.enum';
+import { UploadRedCrossBranchJsonDto } from './dto/upload-red-cross-branch.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -31,6 +47,60 @@ export class RedcrossBranchController {
   @Get(':countryCodeISO3')
   public async getBranches(@Param() params): Promise<GeoJson> {
     return await this.redcrossBranchService.getBranchesByCountry(
+      params.countryCodeISO3,
+    );
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload (and overwrite) Red Cross branch data via JSON',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded Red Cross branch data',
+  })
+  @Post('upload/json')
+  @ApiConsumes()
+  @UseInterceptors()
+  public async uploadJson(
+    @Body() uploadRedCrossBranchJson: UploadRedCrossBranchJsonDto,
+  ): Promise<void> {
+    await this.redcrossBranchService.uploadJson(uploadRedCrossBranchJson);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload (and overwrite) static admin-area data via CSV',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded static admin-area data',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Validation errors in content of CSV',
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Post('upload/csv/:countryCodeISO3')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  public async uploadCsv(
+    @UploadedFile() redCrossBranchData,
+    @Param() params,
+  ): Promise<void> {
+    await this.redcrossBranchService.uploadCsv(
+      redCrossBranchData,
       params.countryCodeISO3,
     );
   }
