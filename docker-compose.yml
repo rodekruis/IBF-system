@@ -60,6 +60,7 @@ services:
                 - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
                 - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
                 - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
+                - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
         image: rodekruis/ibf-dashboard
         environment:
             - NG_CONFIGURATION=${NG_CONFIGURATION}
@@ -70,6 +71,7 @@ services:
             - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
             - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
             - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
+            - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
         volumes:
             - ibf-dashboard-root:/home/node/app/www
         networks:
