@@ -1,3 +1,12 @@
+## [0.126.2](https://github.com/rodekruis/IBF-system/compare/v0.126.1...v0.126.2) (2022-01-10)
+
+
+### Bug Fixes
+
+* add support email in dockerfile AB[#11841](https://github.com/rodekruis/IBF-system/issues/11841) ([3b24d69](https://github.com/rodekruis/IBF-system/commit/3b24d6932beee7805490e235b608f78f8f9bdfcf))
+
+
+
 ## [0.126.1](https://github.com/rodekruis/IBF-system/compare/v0.126.0...v0.126.1) (2022-01-10)
 
 
@@ -129,25 +138,6 @@
 ### Features
 
 * enable 'old-event' in dev-menu AB[#11544](https://github.com/rodekruis/IBF-system/issues/11544) ([a825157](https://github.com/rodekruis/IBF-system/commit/a82515782fe3d9117fbb0e0885cf7ddd8ded7782))
-
-
-
-# [0.118.0](https://github.com/rodekruis/IBF-system/compare/v0.117.1...v0.118.0) (2021-12-22)
-
-
-### Bug Fixes
-
-* lint Ab[#11581](https://github.com/rodekruis/IBF-system/issues/11581) ([6638882](https://github.com/rodekruis/IBF-system/commit/66388826becd3c40fce11a9d724d9d2ed3ddfcae))
-* timeline bug AB[#10965](https://github.com/rodekruis/IBF-system/issues/10965) ([d59f174](https://github.com/rodekruis/IBF-system/commit/d59f1748a7a02e2cc018b9cc74351af8568c9bd1))
-
-
-### Features
-
-* added notification if login fails AB[#11318](https://github.com/rodekruis/IBF-system/issues/11318) ([9b234bf](https://github.com/rodekruis/IBF-system/commit/9b234bf9dd246d61359df49935bc29868adc9f08))
-* feedback processed AB[#11581](https://github.com/rodekruis/IBF-system/issues/11581) ([1ea0703](https://github.com/rodekruis/IBF-system/commit/1ea0703e1df50bdbe44585d41e92f6939c2ddd0e))
-* finish test scenarios AB[#11257](https://github.com/rodekruis/IBF-system/issues/11257) ([1f5f7ef](https://github.com/rodekruis/IBF-system/commit/1f5f7ef35ed2b335655aa511372c5bc60c65f9f2))
-* lint AB[#11318](https://github.com/rodekruis/IBF-system/issues/11318) AB[#6377](https://github.com/rodekruis/IBF-system/issues/6377) ([b523221](https://github.com/rodekruis/IBF-system/commit/b523221025cc11026855f16581f335861c40fc88))
-* updated test case AB[#11606](https://github.com/rodekruis/IBF-system/issues/11606) ([f805dc4](https://github.com/rodekruis/IBF-system/commit/f805dc48bc9de3c66f99eb61548bd33d5be7c5ce))
 
 
 
