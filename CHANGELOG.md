@@ -1,3 +1,13 @@
+# [0.125.0](https://github.com/rodekruis/IBF-system/compare/v0.124.0...v0.125.0) (2022-01-10)
+
+
+### Features
+
+* upload red cross branch data AB[#11594](https://github.com/rodekruis/IBF-system/issues/11594) ([e1055b5](https://github.com/rodekruis/IBF-system/commit/e1055b5b883eb691081bf84cdbc88c4d8f9de16e))
+* upload/overwrite point layers data AB[#11594](https://github.com/rodekruis/IBF-system/issues/11594) ([ee8e53f](https://github.com/rodekruis/IBF-system/commit/ee8e53fcf6c52affd38fd3d4aba0dc9de135cb6f))
+
+
+
 # [0.124.0](https://github.com/rodekruis/IBF-system/compare/v0.123.0...v0.124.0) (2022-01-07)
 
 
@@ -407,15 +417,6 @@
 * process new leadtimeunit AB[#10229](https://github.com/rodekruis/IBF-system/issues/10229) ([7a76886](https://github.com/rodekruis/IBF-system/commit/7a76886a88e7dc97f01d07fd371dedc2b150f332))
 * set up gherkin secenarios menu + login page AB[#10541](https://github.com/rodekruis/IBF-system/issues/10541) ([9d560ff](https://github.com/rodekruis/IBF-system/commit/9d560ff3610587d5765f233e7405a96257fe0785))
 * show timeline-btns 24,48H before/after lead-time for typhoon AB[#10702](https://github.com/rodekruis/IBF-system/issues/10702) ([a8ebc1e](https://github.com/rodekruis/IBF-system/commit/a8ebc1e24a9eb4247b716109d26be81c4aa631e9))
-
-
-
-## [0.103.2](https://github.com/rodekruis/IBF-system/compare/v0.116.0...v0.103.2) (2021-12-20)
-
-
-### Bug Fixes
-
-* email endpoint AB[#11557](https://github.com/rodekruis/IBF-system/issues/11557) ([d4e2a38](https://github.com/rodekruis/IBF-system/commit/d4e2a387e93c3be442a1aa83c8a88e1cb106f7cf))
 
 
 
