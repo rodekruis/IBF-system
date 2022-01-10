@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { Readable } from 'typeorm/platform/PlatformTools';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { GeoJson, GeoJsonFeature } from './geo.model';
+import csv from 'csv-parser';
 
 @Injectable()
 export class HelperService {
@@ -46,5 +48,21 @@ export class HelperService {
       lastInterval.setHours(0, 0, 0, 0);
     }
     return lastInterval;
+  }
+
+  public async csvBufferToArray(buffer): Promise<object[]> {
+    const stream = new Readable();
+    stream.push(buffer.toString());
+    stream.push(null);
+    const parsedData = [];
+    return await new Promise(function(resolve, reject) {
+      stream
+        .pipe(csv())
+        .on('error', error => reject(error))
+        .on('data', row => parsedData.push(row))
+        .on('end', () => {
+          resolve(parsedData);
+        });
+    });
   }
 }

@@ -70,11 +70,11 @@ export class RedcrossBranchController {
 
   @Roles(UserRole.Admin)
   @ApiOperation({
-    summary: 'Upload (and overwrite) static admin-area data via CSV',
+    summary: 'Upload (and overwrite) red cross branch data via CSV',
   })
   @ApiResponse({
     status: 201,
-    description: 'Uploaded static admin-area data',
+    description: 'Uploaded red cross branch data',
   })
   @ApiResponse({
     status: 400,

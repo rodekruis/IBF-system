@@ -43,12 +43,10 @@ export class SeedDamData implements InterfaceScript {
     const damSiteArray = damSiteData.map(dam => {
       return {
         countryCodeISO3: country.countryCodeISO3,
-        latitude: dam['latitude'],
-        longitude: dam['longitude'],
-        damName: dam['DAM NAME'],
-        fullSupply: dam['FULL SUPPLY CAPACITY'],
+        damName: dam['dam_name'],
+        fullSupply: dam['full_supply_capacity'],
         geom: (): string =>
-          `st_asgeojson(st_MakePoint(${dam['longitude']}, ${dam['latitude']}))::json`,
+          `st_asgeojson(st_MakePoint(${dam['lon']}, ${dam['lat']}))::json`,
       };
     });
 

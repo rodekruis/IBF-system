@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
@@ -19,13 +19,10 @@ export class GlofasStationService {
     GlofasStationForecastEntity
   >;
 
-  private readonly helperService: HelperService;
-  private readonly eventService: EventService;
-
-  public constructor(helperService: HelperService, eventService: EventService) {
-    this.helperService = helperService;
-    this.eventService = eventService;
-  }
+  public constructor(
+    private readonly helperService: HelperService,
+    private readonly eventService: EventService,
+  ) {}
 
   public async getStationsByCountry(
     countryCodeISO3: string,

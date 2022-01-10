@@ -1,24 +1,24 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Readable } from 'stream';
 import { Repository } from 'typeorm';
 import { AdminAreaDataEntity } from './admin-area-data.entity';
-import csv from 'csv-parser';
 import {
   UploadAdminAreaDataCsvDto,
   UploadAdminAreaDataJsonDto,
 } from './dto/upload-admin-area-data.dto';
 import { validate } from 'class-validator';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
+import { HelperService } from '../../shared/helper.service';
 
 @Injectable()
 export class AdminAreaDataService {
   @InjectRepository(AdminAreaDataEntity)
   private readonly adminAreaDataRepository: Repository<AdminAreaDataEntity>;
 
+  public constructor(private readonly helperService: HelperService) {}
+
   public async uploadCsv(data): Promise<void> {
-    const objArray = await this.csvBufferToArray(data.buffer);
+    const objArray = await this.helperService.csvBufferToArray(data.buffer);
     const validatedObjArray = await this.validateArray(objArray);
 
     validatedObjArray.forEach(record => {
@@ -28,22 +28,6 @@ export class AdminAreaDataService {
       });
     });
     await this.adminAreaDataRepository.save(validatedObjArray);
-  }
-
-  public async csvBufferToArray(buffer): Promise<object[]> {
-    const stream = new Readable();
-    stream.push(buffer.toString());
-    stream.push(null);
-    const parsedData = [];
-    return await new Promise(function(resolve, reject) {
-      stream
-        .pipe(csv())
-        .on('error', error => reject(error))
-        .on('data', row => parsedData.push(row))
-        .on('end', () => {
-          resolve(parsedData);
-        });
-    });
   }
 
   public async validateArray(csvArray): Promise<object[]> {

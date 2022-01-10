@@ -10,19 +10,13 @@ import {
   UploadRedCrossBranchJsonDto,
 } from './dto/upload-red-cross-branch.dto';
 import { validate } from 'class-validator';
-import { Readable } from 'typeorm/platform/PlatformTools';
-import csv from 'csv-parser';
 
 @Injectable()
 export class RedcrossBranchService {
   @InjectRepository(RedcrossBranchEntity)
   private readonly redcrossBranchRepository: Repository<RedcrossBranchEntity>;
 
-  private readonly helperService: HelperService;
-
-  public constructor(helperService: HelperService) {
-    this.helperService = helperService;
-  }
+  public constructor(private readonly helperService: HelperService) {}
 
   public async getBranchesByCountry(countryCodeISO3): Promise<GeoJson> {
     const branches = await this.redcrossBranchRepository.find({
@@ -58,7 +52,7 @@ export class RedcrossBranchService {
   }
 
   public async uploadCsv(data, countryCodeISO3: string): Promise<void> {
-    const objArray = await this.csvBufferToArray(data.buffer);
+    const objArray = await this.helperService.csvBufferToArray(data.buffer);
     const validatedObjArray = (await this.validateArray(
       objArray,
     )) as RedCrossBranchDto[];
@@ -71,24 +65,7 @@ export class RedcrossBranchService {
     await this.uploadJson(uploadRedCrossBranchJson);
   }
 
-  public async csvBufferToArray(buffer): Promise<object[]> {
-    const stream = new Readable();
-    stream.push(buffer.toString());
-    stream.push(null);
-    const parsedData = [];
-    return await new Promise(function(resolve, reject) {
-      stream
-        .pipe(csv())
-        .on('error', error => reject(error))
-        .on('data', row => parsedData.push(row))
-        .on('end', () => {
-          resolve(parsedData);
-        });
-    });
-  }
-
   public async validateArray(csvArray): Promise<object[]> {
-    console.log('csvArray: ', csvArray);
     const errors = [];
     const validatatedArray = [];
     for (const [i, row] of csvArray.entries()) {
@@ -100,9 +77,7 @@ export class RedcrossBranchService {
       data.contact_number = row.contact_number;
       data.contact_person = row.contact_person;
       data.number_of_volunteers = row.number_of_volunteers;
-      console.log('data: ', data);
       const result = await validate(data);
-      console.log('result: ', result);
       if (result.length > 0) {
         const errorObj = { lineNunber: i + 1, validationError: result };
         errors.push(errorObj);
