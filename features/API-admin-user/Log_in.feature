@@ -7,14 +7,14 @@ Background:
     Given a user on the Swagger UI page at <ibf-url>/docs
 
 Scenario: Successfully get token
-    Given the user has inlog credentials
+    Given the user has log-in credentials
     Given the user is using the `/api/user/login` endpoint
     Given the user has filled in existing 'email' and 'password'
     When the user clicks 'Execute'
     Then a user is returned including a 'token' attribute
 
 Scenario: Successully authorize using token
-    Given the user has succesfully gotten a token (see previous scenario)
+    Given the user has succesfully obtained a token (see previous scenario)
     Given the user has filled this in in the 'Authorize' button in the topright of the Swagger UI page
     Given the user has pressed 'Authorize'
     When the user calls the `api/authentication` endpoint 

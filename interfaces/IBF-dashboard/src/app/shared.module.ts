@@ -10,6 +10,7 @@ import { AboutBtnComponent } from './components/about-btn/about-btn.component';
 import { AdminLevelComponent } from './components/admin-level/admin-level.component';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
 import { AreasOfFocusSummaryComponent } from './components/areas-of-focus-summary/areas-of-focus-summary.component';
+import { ChangePasswordPopoverComponent } from './components/change-password-popover/change-password-popover.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { CountrySwitcherComponent } from './components/country-switcher/country-switcher.component';
 import { DateButtonComponent } from './components/date-button/date-button.component';
@@ -18,6 +19,7 @@ import { DisasterTypeComponent } from './components/disaster-type/disaster-type.
 import { EventSwitcherComponent } from './components/event-switcher/event-switcher.component';
 import { ExportViewPopoverComponent } from './components/export-view-popover/export-view-popover.component';
 import { ExportViewComponent } from './components/export-view/export-view.component';
+import { ForgotPasswordPopoverComponent } from './components/forgot-password-popover/forgot-password-popover.component';
 import { LayerControlInfoPopoverComponent } from './components/layer-control-info-popover/layer-control-info-popover.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LogosComponent } from './components/logos/logos.component';
@@ -66,6 +68,8 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     VideoGuideButtonComponent,
     DisasterTypeComponent,
     EventSwitcherComponent,
+    ForgotPasswordPopoverComponent,
+    ChangePasswordPopoverComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -93,6 +97,8 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     DisasterTypeComponent,
     EventSwitcherComponent,
     TranslateModule,
+    ForgotPasswordPopoverComponent,
+    ChangePasswordPopoverComponent,
   ],
 })
 export class SharedModule {}

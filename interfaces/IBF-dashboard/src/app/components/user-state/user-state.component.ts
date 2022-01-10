@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -13,6 +14,7 @@ import { EventService } from 'src/app/services/event.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from '../../../environments/environment';
 import { ApiService } from '../../services/api.service';
+import { ChangePasswordPopoverComponent } from '../change-password-popover/change-password-popover.component';
 
 @Component({
   selector: 'app-user-state',
@@ -40,6 +42,7 @@ export class UserStateComponent implements OnInit {
     public disasterTypeService: DisasterTypeService,
     public countryService: CountryService,
     public apiService: ApiService,
+    private popoverController: PopoverController,
   ) {}
 
   ngOnInit() {
@@ -87,5 +90,17 @@ export class UserStateComponent implements OnInit {
     this.loaderService.setLoader('logout', false);
     this.authService.logout();
     window.location.reload();
+  }
+
+  public async presentPopover() {
+    const popover = await this.popoverController.create({
+      component: ChangePasswordPopoverComponent,
+      animated: true,
+      cssClass: 'ibf-forgot-password-popover',
+      translucent: true,
+      showBackdrop: true,
+    });
+
+    popover.present();
   }
 }

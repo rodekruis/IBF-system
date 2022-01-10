@@ -11,4 +11,5 @@ export const environment = {
   ibfVideoGuideUrl: 'https://www.youtube-nocookie.com/embed/O3VlrH_pCeo', // video guide url
   applicationInsightsInstrumentationKey: '', // application insights instrumentation key
   applicationInsightsUrl: '', // application insights url
+  supportEmailAddress: 'ibf-support@510.global',
 };

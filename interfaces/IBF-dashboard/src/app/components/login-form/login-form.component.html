@@ -46,4 +46,11 @@
     Log In
     <ion-icon slot="end" name="enter"></ion-icon>
   </ion-button>
+  <div (click)="presentPopover()" class="ion-margin-vertical">
+    <ion-text
+      style="cursor: pointer; text-decoration: underline"
+      color="ibf-no-alert-primary"
+      >{{ 'login-page.forgot-password' | translate }}</ion-text
+    >
+  </div>
 </form>
