@@ -9,6 +9,7 @@ Scenario: Upload and overwrite static admin-area data via CSV
     Given the user is using the `/api/admin-area-data/upload/csv` endpoint
     Given the user has selected a CSV file
     Given the file is of the right format, having the columns 'countryCodeISO3', 'adminLevel', 'placeCode', 'indicator', 'value'
+        > see 'services/API-service/src/scripts/git-lfs/admin-area-data/' for examples
     When the user clicks 'Execute'
     Then this data is uploaded
     And it overwrites any existing 'placeCode'-'indicator' combinations, if present
@@ -31,6 +32,7 @@ Scenario: Upload and overwrite point data via CSV
         - Redcross branches: lat,lon,branchName,numberOfVolunteers,contactPerson,contactNumber,contactAddress
         - Health sites: lat,lon,name,type
         - Dam sites: lat,lon,damName,fullSupplyCapacity
+        > see 'services/API-service/src/scripts/git-lfs/<point-data-folder>/' for examples
     When the user clicks 'Execute'
     Then this data is uploaded 
     And it overwrites any existing entries for the provided country
