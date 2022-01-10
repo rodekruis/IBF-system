@@ -1,3 +1,12 @@
+## [0.126.1](https://github.com/rodekruis/IBF-system/compare/v0.126.0...v0.126.1) (2022-01-10)
+
+
+### Bug Fixes
+
+* pass support email as var to dashboard AB[#11841](https://github.com/rodekruis/IBF-system/issues/11841) ([020bd7e](https://github.com/rodekruis/IBF-system/commit/020bd7e6b37bef740a0e6fba1998ef692cb360d8))
+
+
+
 # [0.126.0](https://github.com/rodekruis/IBF-system/compare/v0.125.0...v0.126.0) (2022-01-10)
 
 
@@ -139,15 +148,6 @@
 * finish test scenarios AB[#11257](https://github.com/rodekruis/IBF-system/issues/11257) ([1f5f7ef](https://github.com/rodekruis/IBF-system/commit/1f5f7ef35ed2b335655aa511372c5bc60c65f9f2))
 * lint AB[#11318](https://github.com/rodekruis/IBF-system/issues/11318) AB[#6377](https://github.com/rodekruis/IBF-system/issues/6377) ([b523221](https://github.com/rodekruis/IBF-system/commit/b523221025cc11026855f16581f335861c40fc88))
 * updated test case AB[#11606](https://github.com/rodekruis/IBF-system/issues/11606) ([f805dc4](https://github.com/rodekruis/IBF-system/commit/f805dc48bc9de3c66f99eb61548bd33d5be7c5ce))
-
-
-
-## [0.117.1](https://github.com/rodekruis/IBF-system/compare/v0.117.0...v0.117.1) (2021-12-20)
-
-
-### Bug Fixes
-
-* no-trigger layers bug AB[#11576](https://github.com/rodekruis/IBF-system/issues/11576) ([fc7ac3d](https://github.com/rodekruis/IBF-system/commit/fc7ac3dd079f7f38ebdada974e532b64ad381864))
 
 
 
