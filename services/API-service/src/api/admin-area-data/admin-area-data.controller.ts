@@ -21,7 +21,6 @@ import {
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaDataService } from './admin-area-data.service';
 import { UploadAdminAreaDataJsonDto } from './dto/upload-admin-area-data.dto';
@@ -37,7 +36,7 @@ export class AdminAreaDataController {
     this.adminAreaDataService = adminAreaDataService;
   }
 
-  @Roles(UserRole.DisasterManager)
+  @Roles(UserRole.Admin)
   @ApiOperation({
     summary: 'Upload (and overwrite) static admin-area data via CSV',
   })
@@ -67,7 +66,7 @@ export class AdminAreaDataController {
     await this.adminAreaDataService.uploadCsv(adminAreaData);
   }
 
-  @Roles(UserRole.DisasterManager)
+  @Roles(UserRole.Admin)
   @ApiOperation({
     summary: 'Upload (and overwrite) static admin-area data via JSON',
   })

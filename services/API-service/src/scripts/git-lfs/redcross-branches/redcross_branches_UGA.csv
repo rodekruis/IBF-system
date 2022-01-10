@@ -1,4 +1,4 @@
-branch_name,lat,lon,number_of_volunteers,contact_person,contact_number,contact_address
+branchName,lat,lon,numberOfVolunteers,contactPerson,contactNumber,contactAddress
 ADJUMANI,3.384403111,31.78175665,,,,
 APAC,1.986180451,32.52472533,,,,
 ARUA,3.024493647,30.90898402,,,,

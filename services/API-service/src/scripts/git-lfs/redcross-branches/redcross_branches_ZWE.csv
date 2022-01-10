@@ -1,4 +1,4 @@
-lon,lat,ADM2_EN,ADM2_PCODE,ADM1_EN,ADM1_PCODE,ADM0_EN,ADM0_PCODE,branch_name,rc_type,zrcs_branchesdate,zrcs_branchesvalidOn
+lon,lat,ADM2_EN,ADM2_PCODE,ADM1_EN,ADM1_PCODE,ADM0_EN,ADM0_PCODE,branchName,rc_type,zrcs_branchesdate,zrcs_branchesvalidOn
 31.0321121,-17.7875747,Harare,ZW1921,Harare,ZW19,Zimbabwe,ZW,Zimbabwe Red Cross Society (Head Office),Head Office,31 08 2018,11 09 2018
 32.6378126,-19.0000113,Mutare Urban,ZW1121,Manicaland,ZW11,Zimbabwe,ZW,"Zimbabwe Red Cross, Manicaland",,31 08 2018,11 09 2018
 31.0532573,-17.8236949,Harare,ZW1921,Harare,ZW19,Zimbabwe,ZW,Zimbabwe Red Cross Society Training Centre,Training centre,31 08 2018,11 09 2018
