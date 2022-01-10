@@ -1,4 +1,4 @@
-branch_name,lat,lon,number_of_volunteers,contact_person,contact_number,contact_address
+branchName,lat,lon,numberOfVolunteers,contactPerson,contactNumber,contactAddress
 CAIRO BRANCH,30.02746479,31.24878848,,,23626683,Zinhuom Building/ Al-SaidaZienab
 ALEXANDRIA BRANCH,31.19856493,29.90772039,,,33921099,Al-Horaya Road
 GIZA BRANCH,30.01656225,31.17472479,,,35858483,Kafr Tohormos/ Talbia

@@ -53,23 +53,6 @@ export class RedcrossBranchController {
 
   @Roles(UserRole.Admin)
   @ApiOperation({
-    summary: 'Upload (and overwrite) Red Cross branch data via JSON',
-  })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded Red Cross branch data',
-  })
-  @Post('upload/json')
-  @ApiConsumes()
-  @UseInterceptors()
-  public async uploadJson(
-    @Body() uploadRedCrossBranchJson: UploadRedCrossBranchJsonDto,
-  ): Promise<void> {
-    await this.redcrossBranchService.uploadJson(uploadRedCrossBranchJson);
-  }
-
-  @Roles(UserRole.Admin)
-  @ApiOperation({
     summary: 'Upload (and overwrite) red cross branch data via CSV',
   })
   @ApiResponse({

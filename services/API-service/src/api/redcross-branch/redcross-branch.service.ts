@@ -39,11 +39,11 @@ export class RedcrossBranchService {
         .insert()
         .values({
           countryCodeISO3: uploadRedCrossBranchJson.countryCodeISO3,
-          name: branch.branch_name,
-          numberOfVolunteers: branch.number_of_volunteers,
-          contactPerson: branch.contact_person,
-          contactAddress: branch.contact_address,
-          contactNumber: branch.contact_number,
+          name: branch.branchName,
+          numberOfVolunteers: branch.numberOfVolunteers,
+          contactPerson: branch.contactPerson,
+          contactAddress: branch.contactAddress,
+          contactNumber: branch.contactNumber,
           geom: (): string =>
             `st_asgeojson(st_MakePoint(${branch.lon}, ${branch.lat}))::json`,
         })
@@ -70,13 +70,13 @@ export class RedcrossBranchService {
     const validatatedArray = [];
     for (const [i, row] of csvArray.entries()) {
       const data = new UploadRedCrossBranchCsvDto();
-      data.branch_name = row.branch_name;
+      data.branchName = row.branchName;
       data.lat = row.lat;
       data.lon = row.lon;
-      data.contact_address = row.contact_address;
-      data.contact_number = row.contact_number;
-      data.contact_person = row.contact_person;
-      data.number_of_volunteers = row.number_of_volunteers;
+      data.contactAddress = row.contactAddress;
+      data.contactNumber = row.contactNumber;
+      data.contactPerson = row.contactPerson;
+      data.numberOfVolunteers = row.numberOfVolunteers;
       const result = await validate(data);
       if (result.length > 0) {
         const errorObj = { lineNunber: i + 1, validationError: result };

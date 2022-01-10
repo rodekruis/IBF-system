@@ -1,4 +1,4 @@
-branch_name,lat,lon,number_of_volunteers,contact_person,contact_number,contact_address
+branchName,lat,lon,numberOfVolunteers,contactPerson,contactNumber,contactAddress
 Addis Ababa,9.04,38.748,,,,
 Somalia,9.351,42.8,,,,
 Afar,11.793,41.009,,,,

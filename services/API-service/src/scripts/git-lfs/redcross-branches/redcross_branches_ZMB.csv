@@ -1,4 +1,4 @@
-branch_name,lat,lon,number_of_volunteers,contact_person,contact_number,contact_address
+branchName,lat,lon,numberOfVolunteers,contactPerson,contactNumber,contactAddress
 ITEZHI TEZI,-15.736433,26.023031,36,Mr. Mukunda Moote,,Itezhi Tezhi Hospital
 KAPIRI MPOSHI,-13.978238,28.680802,202,Mr. Frackson Ngosa,,Plot 1565 Church Road
 CHAMBESHI,-12.636107,28.064127,49,Mr. Robinson Mubita,,Next to Zambeef Chambeshi

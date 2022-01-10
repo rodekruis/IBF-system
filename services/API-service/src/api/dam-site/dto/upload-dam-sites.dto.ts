@@ -8,10 +8,10 @@ export class DamSiteDto {
   @ApiProperty({ example: 'name' })
   @IsNotEmpty()
   @IsString()
-  public dam_name: string;
+  public damName: string;
 
   @ApiProperty({ example: 0 })
-  public full_supply_capacity: number;
+  public fullSupplyCapacity: number;
 
   @ApiProperty({ example: 0 })
   @IsNotEmpty()

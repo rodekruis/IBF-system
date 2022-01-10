@@ -37,8 +37,8 @@ export class DamSiteService {
         .insert()
         .values({
           countryCodeISO3: uploadDamSiteJsonDto.countryCodeISO3,
-          damName: branch.dam_name,
-          fullSupply: branch.full_supply_capacity,
+          damName: branch.damName,
+          fullSupply: branch.fullSupplyCapacity,
           geom: (): string =>
             `st_asgeojson(st_MakePoint(${branch.lon}, ${branch.lat}))::json`,
         })
@@ -65,8 +65,8 @@ export class DamSiteService {
     const validatatedArray = [];
     for (const [i, row] of csvArray.entries()) {
       const data = new UploadDamSiteCsvDto();
-      data.dam_name = row.dam_name;
-      data.full_supply_capacity = row.full_supply_capacity;
+      data.damName = row.damName;
+      data.fullSupplyCapacity = row.fullSupplyCapacity;
       data.lat = row.lat;
       data.lon = row.lon;
       const result = await validate(data);

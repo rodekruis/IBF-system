@@ -14,7 +14,7 @@ export class RedCrossBranchDto {
   @ApiProperty({ example: 'branch name' })
   @IsNotEmpty()
   @IsString()
-  public branch_name: string;
+  public branchName: string;
 
   @ApiProperty({ example: 0 })
   @IsNotEmpty()
@@ -27,22 +27,22 @@ export class RedCrossBranchDto {
   @ApiProperty({ example: 3 })
   @IsString()
   @IsOptional()
-  public number_of_volunteers: number;
+  public numberOfVolunteers: number;
 
   @ApiProperty()
   @IsString()
   @IsOptional()
-  public contact_person: string;
+  public contactPerson: string;
 
   @ApiProperty()
   @IsString()
   @IsOptional()
-  public contact_address: string;
+  public contactAddress: string;
 
   @ApiProperty()
   @IsString()
   @IsOptional()
-  public contact_number: string;
+  public contactNumber: string;
 }
 
 export class UploadRedCrossBranchCsvDto extends RedCrossBranchDto {}

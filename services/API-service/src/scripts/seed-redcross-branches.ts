@@ -6,13 +6,13 @@ import countries from './json/countries.json';
 import { RedcrossBranchEntity } from '../api/redcross-branch/redcross-branch.entity';
 
 interface RedCrossBranch {
-  branch_name: string;
+  branchName: string;
   lat: number;
   lon: number;
-  number_of_volunteers: number;
-  contact_person: string;
-  contact_number: string;
-  contact_address: string;
+  numberOfVolunteers: number;
+  contactPerson: string;
+  contactNumber: string;
+  contactAddress: string;
 }
 
 @Injectable()
@@ -60,11 +60,11 @@ export class SeedRedcrossBranches implements InterfaceScript {
               .insert()
               .values({
                 countryCodeISO3: country.countryCodeISO3,
-                name: branch.branch_name,
-                numberOfVolunteers: branch.number_of_volunteers,
-                contactPerson: branch.contact_person,
-                contactAddress: branch.contact_address,
-                contactNumber: branch.contact_number,
+                name: branch.branchName,
+                numberOfVolunteers: branch.numberOfVolunteers,
+                contactPerson: branch.contactPerson,
+                contactAddress: branch.contactAddress,
+                contactNumber: branch.contactNumber,
                 geom: (): string =>
                   `st_asgeojson(st_MakePoint(${branch.lon}, ${branch.lat}))::json`,
               })
