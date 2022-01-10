@@ -97,13 +97,13 @@ jobs:
               with:
                   abort-after-seconds: 1800
               env:
-                  GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - uses: actions/checkout@v2
 
             - name: Bump version and push tag
               uses: TriPSs/conventional-changelog-action@v3
               with:
-                  github-token: ${{ secrets.ACTIONS_TOKEN }}
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
                   git-message: "chore(release): {version}"
                   release-count: 10
