@@ -36,7 +36,7 @@ These are actions run from the Swagger UI (<ibf-url>/docs).
 - [Create new user](API-admin-user/Create_new_user.feature)
 - [Change password other user](API-admin-user/Change_password.feature)
 - [Upload mock data](API-admin-user/Upload_mock_data.feature)
-- Update static data
+- [Update static data](API-admin-user/Update_static_data.feature)
 
 ### For pipeline (user)
 
