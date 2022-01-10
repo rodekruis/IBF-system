@@ -6,10 +6,6 @@ Interfaces of the IBF-system.
 -   Dashboards might move from read-only to write-applications, where users can
     also add (secondary) data through an interface
 
-A current example here is the `FBF Zambia interface`:
-<https://fbf-zambia.510.global/> with code at
-<https://github.com/rodekruis/CommunityRisk/tree/fbf-zambia>.
-
 ---
 
 ## IBF dashboard
