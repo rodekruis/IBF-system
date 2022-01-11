@@ -20,6 +20,7 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EapAction } from 'src/app/types/eap-action';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
+import { TimelineService } from '../../services/timeline.service';
 import { LeadTimeUnit } from '../../types/lead-time';
 
 @Component({
@@ -64,6 +65,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private disasterTypeService: DisasterTypeService,
+    private timelineService: TimelineService,
     private countryService: CountryService,
     private alertController: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
@@ -130,7 +132,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
-    if (placeCode) {
+    const activeLeadTime = this.timelineService.state.timeStepButtons.find(
+      (t) => t.value === this.timelineService.activeLeadTime,
+    );
+    if (placeCode && activeLeadTime.alert) {
       const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
         triggeredArea.placeCode === placeCode.placeCode;
 
