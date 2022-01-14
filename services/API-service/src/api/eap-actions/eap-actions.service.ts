@@ -83,7 +83,9 @@ export class EapActionsService {
       .createQueryBuilder('status')
       .select(['status."actionCheckedId"', 'status."placeCode"'])
       .leftJoin('status.eventPlaceCode', 'event')
-      .where('event."eventName" = :eventName', { eventName: eventName })
+      .where('coalesce(event."eventName",\'null\') = :eventName', {
+        eventName: eventName || 'null',
+      })
       .groupBy('status."actionCheckedId"')
       .addGroupBy('status."placeCode"')
       .addSelect(['MAX(status.timestamp) AS "max_timestamp"']);
@@ -103,7 +105,9 @@ export class EapActionsService {
       .setParameters(mostRecentStatePerAction.getParameters())
       .leftJoin('status.eventPlaceCode', 'event')
       .where('status.timestamp = recent.max_timestamp')
-      .andWhere('event."eventName" = :eventName', { eventName: eventName })
+      .andWhere('coalesce(event."eventName",\'null\') = :eventName', {
+        eventName: eventName || 'null',
+      })
       .andWhere('event.closed = false');
 
     const eapActions = await this.eapActionRepository
