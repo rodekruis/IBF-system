@@ -83,11 +83,19 @@ export class TimelineService {
     const visibleLeadTimes = this.getVisibleLeadTimes();
     visibleLeadTimes.map(this.leadTimeToLeadTimeButton);
 
-    const enabledTimeStepButtons = this.state.timeStepButtons.filter(
-      (timeStepButton) => !timeStepButton.disabled,
+    // filter enabled + triggered lead-times
+    let toShowTimeStepButtons = this.state.timeStepButtons.filter(
+      (timeStepButton) => !timeStepButton.disabled && timeStepButton.alert,
     );
-    if (enabledTimeStepButtons.length > 0) {
-      this.handleTimeStepButtonClick(enabledTimeStepButtons[0].value);
+    // except if that leads to empty set: filter enabled lead-times
+    if (toShowTimeStepButtons.length === 0) {
+      toShowTimeStepButtons = this.state.timeStepButtons.filter(
+        (timeStepButton) => !timeStepButton.disabled,
+      );
+    }
+    // and take first one of this set as active lead-time
+    if (toShowTimeStepButtons.length > 0) {
+      this.handleTimeStepButtonClick(toShowTimeStepButtons[0].value);
     }
   };
 
