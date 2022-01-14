@@ -1,3 +1,14 @@
+## [0.126.5](https://github.com/rodekruis/IBF-system/compare/v0.126.4...v0.126.5) (2022-01-14)
+
+
+### Bug Fixes
+
+* check eap action AB[#11824](https://github.com/rodekruis/IBF-system/issues/11824) ([f2a340a](https://github.com/rodekruis/IBF-system/commit/f2a340a7d1251d73bba05c727d6660bd1a62a0dd))
+* only show eap-actions from triggered lead-time AB[#11821](https://github.com/rodekruis/IBF-system/issues/11821) ([1281237](https://github.com/rodekruis/IBF-system/commit/1281237fa1cc1c63e337ffad438089f3f00ddbc8))
+* show triggered lead-time by default AB[#11820](https://github.com/rodekruis/IBF-system/issues/11820) ([c862ac8](https://github.com/rodekruis/IBF-system/commit/c862ac82b897aa60491996f2cf227f7e87367691))
+
+
+
 ## [0.126.4](https://github.com/rodekruis/IBF-system/compare/v0.126.3...v0.126.4) (2022-01-14)
 
 
@@ -101,23 +112,6 @@
 
 * mock endpoint for specific typhoon scenarios AB[#11755](https://github.com/rodekruis/IBF-system/issues/11755) ([36aeb3a](https://github.com/rodekruis/IBF-system/commit/36aeb3ad63911a162273645c1b600fc1b75bd516))
 * move 'today' to right ([f0bbe49](https://github.com/rodekruis/IBF-system/commit/f0bbe49c97b13e6004637e700242a161ff780c1f))
-
-
-
-# [0.121.0](https://github.com/rodekruis/IBF-system/compare/v0.120.0...v0.121.0) (2022-01-03)
-
-
-### Bug Fixes
-
-* lint ([ee60328](https://github.com/rodekruis/IBF-system/commit/ee60328abbce0e6499188535266e020f1fe1100a))
-* red outline if trigger AB[#11754](https://github.com/rodekruis/IBF-system/issues/11754) ([756f53a](https://github.com/rodekruis/IBF-system/commit/756f53a24052cdf1e483f0476c042b2f96348d17))
-
-
-### Features
-
-* move today-btn to right AB[#11753](https://github.com/rodekruis/IBF-system/issues/11753) ([77de289](https://github.com/rodekruis/IBF-system/commit/77de2898cd49c7a7ba06591aa629825c440fee92))
-* red box AB[#9125](https://github.com/rodekruis/IBF-system/issues/9125) ([4ccfe25](https://github.com/rodekruis/IBF-system/commit/4ccfe25d5b2ba5d1b19a96eca151769518acc89a))
-* updated new timeline ([b99c002](https://github.com/rodekruis/IBF-system/commit/b99c002f9c67bdacb9eeaacddb1d4e3b8cac5eb8))
 
 
 
