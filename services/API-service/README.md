@@ -12,11 +12,6 @@ Switch to the repository folder
 
     cd services/API-service/
 
-Set the environment variables with the right values from someone who knows:
-
-    cp example.env .env
-    source .env
-
 ## Start application locally
 
 Create the Docker image from the Dockerfile in this folder through:
