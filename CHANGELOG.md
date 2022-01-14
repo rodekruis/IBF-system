@@ -1,3 +1,12 @@
+## [0.126.4](https://github.com/rodekruis/IBF-system/compare/v0.126.3...v0.126.4) (2022-01-14)
+
+
+### Bug Fixes
+
+* change user-state layout ([dd95cc9](https://github.com/rodekruis/IBF-system/commit/dd95cc925b95dc950a5c8b345f9f0c71f30e1e75))
+
+
+
 ## [0.126.3](https://github.com/rodekruis/IBF-system/compare/v0.126.2...v0.126.3) (2022-01-14)
 
 
@@ -109,28 +118,6 @@
 * move today-btn to right AB[#11753](https://github.com/rodekruis/IBF-system/issues/11753) ([77de289](https://github.com/rodekruis/IBF-system/commit/77de2898cd49c7a7ba06591aa629825c440fee92))
 * red box AB[#9125](https://github.com/rodekruis/IBF-system/issues/9125) ([4ccfe25](https://github.com/rodekruis/IBF-system/commit/4ccfe25d5b2ba5d1b19a96eca151769518acc89a))
 * updated new timeline ([b99c002](https://github.com/rodekruis/IBF-system/commit/b99c002f9c67bdacb9eeaacddb1d4e3b8cac5eb8))
-
-
-
-# [0.120.0](https://github.com/rodekruis/IBF-system/compare/v0.119.0...v0.120.0) (2022-01-03)
-
-
-### Bug Fixes
-
-* changes login screen AB[#9122](https://github.com/rodekruis/IBF-system/issues/9122) ([37cecff](https://github.com/rodekruis/IBF-system/commit/37cecff26555f376f3b6315907ea81feae41e546))
-* lint AB[#11298](https://github.com/rodekruis/IBF-system/issues/11298) ([9726540](https://github.com/rodekruis/IBF-system/commit/9726540dcffb42f04e292f57fc964bfef0ac2eea))
-* lint AB[#11657](https://github.com/rodekruis/IBF-system/issues/11657) AB[#11658](https://github.com/rodekruis/IBF-system/issues/11658)--no-verify ([0e8ee26](https://github.com/rodekruis/IBF-system/commit/0e8ee26fea7fa97a0bf282a158a118c168cd5ce8))
-* test case updated AB[#11655](https://github.com/rodekruis/IBF-system/issues/11655) ([46cca29](https://github.com/rodekruis/IBF-system/commit/46cca29c8a0aebfe10bef1c1db301d8dcac2108c))
-
-
-### Features
-
-* Ab[#11298](https://github.com/rodekruis/IBF-system/issues/11298) ([b1e9fd8](https://github.com/rodekruis/IBF-system/commit/b1e9fd8f5b0756320943c316036e35eb8e7522a3))
-* AB[#1165](https://github.com/rodekruis/IBF-system/issues/1165) AB[#11657](https://github.com/rodekruis/IBF-system/issues/11657) AB[#11658](https://github.com/rodekruis/IBF-system/issues/11658) ([93120b3](https://github.com/rodekruis/IBF-system/commit/93120b3fb9360680125fe6d7f0dcaa37f9419d97))
-* added disaster icons to login page ([3581ad6](https://github.com/rodekruis/IBF-system/commit/3581ad6f4d4327bc8adea8f4b15b7af5b2d1356c))
-* added new ibf icon AB[#9122](https://github.com/rodekruis/IBF-system/issues/9122) ([9cb299f](https://github.com/rodekruis/IBF-system/commit/9cb299fb5f7e69218ca1f7e14bee144f6b569ef7))
-* icons updated AB[#11298](https://github.com/rodekruis/IBF-system/issues/11298) ([d51f02e](https://github.com/rodekruis/IBF-system/commit/d51f02ee0e8558ac83f9808daf2d4d9aeda4396c))
-* new login page behaviour with disaster icons AB[#11298](https://github.com/rodekruis/IBF-system/issues/11298) ([21e06ac](https://github.com/rodekruis/IBF-system/commit/21e06acbd6d402a7df0322ac50d8de0e16c098ec))
 
 
 
