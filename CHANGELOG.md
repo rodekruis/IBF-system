@@ -1,3 +1,12 @@
+## [0.126.3](https://github.com/rodekruis/IBF-system/compare/v0.126.2...v0.126.3) (2022-01-14)
+
+
+### Bug Fixes
+
+* update readme installation info AB[#11588](https://github.com/rodekruis/IBF-system/issues/11588) ([450c803](https://github.com/rodekruis/IBF-system/commit/450c8030eac40c12234ba405050583403089739c))
+
+
+
 ## [0.126.2](https://github.com/rodekruis/IBF-system/compare/v0.126.1...v0.126.2) (2022-01-10)
 
 
@@ -122,22 +131,6 @@
 * added new ibf icon AB[#9122](https://github.com/rodekruis/IBF-system/issues/9122) ([9cb299f](https://github.com/rodekruis/IBF-system/commit/9cb299fb5f7e69218ca1f7e14bee144f6b569ef7))
 * icons updated AB[#11298](https://github.com/rodekruis/IBF-system/issues/11298) ([d51f02e](https://github.com/rodekruis/IBF-system/commit/d51f02ee0e8558ac83f9808daf2d4d9aeda4396c))
 * new login page behaviour with disaster icons AB[#11298](https://github.com/rodekruis/IBF-system/issues/11298) ([21e06ac](https://github.com/rodekruis/IBF-system/commit/21e06acbd6d402a7df0322ac50d8de0e16c098ec))
-
-
-
-# [0.119.0](https://github.com/rodekruis/IBF-system/compare/v0.118.0...v0.119.0) (2022-01-03)
-
-
-### Bug Fixes
-
-* country switcher AB[#11252](https://github.com/rodekruis/IBF-system/issues/11252) ([8a11cb6](https://github.com/rodekruis/IBF-system/commit/8a11cb6971b44f5ba8206d594cefcd2376e77ad7))
-* load mock scenario AB[#11253](https://github.com/rodekruis/IBF-system/issues/11253) ([74679fb](https://github.com/rodekruis/IBF-system/commit/74679fbbb1ec352539a75e8e532eeed5bc3a0dd0))
-* test case AB[#11606](https://github.com/rodekruis/IBF-system/issues/11606) ([cb90c32](https://github.com/rodekruis/IBF-system/commit/cb90c325935017634a6f45a7588734439bf4aca6))
-
-
-### Features
-
-* enable 'old-event' in dev-menu AB[#11544](https://github.com/rodekruis/IBF-system/issues/11544) ([a825157](https://github.com/rodekruis/IBF-system/commit/a82515782fe3d9117fbb0e0885cf7ddd8ded7782))
 
 
 
