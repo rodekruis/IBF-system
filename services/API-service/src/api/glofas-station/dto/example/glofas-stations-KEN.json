@@ -1,0 +1,234 @@
+[
+  {
+    "stationCode": "G5125",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5142",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5179",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5198",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5216",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "KEGVS11",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "KEGVS15",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "KEGVS19",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5171",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5299",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "KEGVS5",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5092",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5173",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5195",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5332",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5450",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5015",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5194",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5305",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "KEGVS3",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5118",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5197",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "KEGVS13",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5170",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5224",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "KEGVS21",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5147",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "G5218",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  },
+  {
+    "stationCode": "KEGVS23",
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 500
+  }
+]

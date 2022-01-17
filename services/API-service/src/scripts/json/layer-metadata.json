@@ -123,7 +123,7 @@
     "active": "no"
   },
   {
-    "country_codes": "ZMB,UGA,ZWE,EGY",
+    "country_codes": "ZMB,UGA,ZWE,EGY,KEN",
     "disasterTypes": [
       "floods",
       "heavy-rain",
@@ -138,7 +138,7 @@
     "active": "yes"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,PHL",
+    "country_codes": "UGA,ZMB,PHL",
     "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
     "name": "adminRegions2",
     "label": "Admin Level 2",
