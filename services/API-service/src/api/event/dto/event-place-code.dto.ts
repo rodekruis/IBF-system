@@ -16,6 +16,9 @@ export class ActivationLogDto {
   @ApiProperty({ example: DisasterType.Floods })
   public disasterType: string;
 
+  @ApiProperty({ example: 'Event A' })
+  public eventName: string;
+
   @ApiProperty({ example: '21UGA001001' })
   public placeCode: string;
 
@@ -42,4 +45,19 @@ export class ActivationLogDto {
 
   @ApiProperty({ example: '57084ea4-cac9-4f29-b955-fe9f08beb588' })
   public databaseId: string;
+
+  constructor() {
+    this.countryCodeISO3 = null;
+    this.disasterType = null;
+    this.eventName = null;
+    this.placeCode = null;
+    this.name = null;
+    this.startDate = null;
+    this.endDate = null;
+    this.closed = null;
+    this.manuallyClosed = null;
+    this.exposureIndicator = null;
+    this.exposureValue = null;
+    this.databaseId = null;
+  }
 }
