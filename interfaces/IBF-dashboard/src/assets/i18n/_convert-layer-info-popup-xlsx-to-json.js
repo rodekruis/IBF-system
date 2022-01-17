@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
+var fs = require('fs');
 var XLSX = require('xlsx');
-var path = 'src/assets/i18n/';
-var workbook = XLSX.readFile(path + 'layer-popup-info.xlsx');
 
+var path = '';
+var workbook = XLSX.readFile(path + 'layer-popup-info.xlsx');
 var worksheet = workbook.Sheets['Sheet1'];
+
 var data = '';
 for (z in worksheet) {
   if (z[0] === '!') continue;
