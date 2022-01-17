@@ -2,7 +2,8 @@
 
 const fs = require('fs');
 var XLSX = require('xlsx');
-var workbook = XLSX.readFile('layer-popup-info.xlsx');
+var path = 'src/assets/i18n/'
+var workbook = XLSX.readFile(path+'layer-popup-info.xlsx');
 
 var worksheet = workbook.Sheets['Sheet1'];
 var data = '';
@@ -22,8 +23,13 @@ for (z in worksheet) {
     data += value;
   }
 }
+var popupsJson = JSON.parse(data);
 
-fs.writeFile('layer-popup-info.json', data, function (err) {
+var translationFile = JSON.parse(fs.readFileSync(path+'en.json', 'utf8'));
+translationFile['layer-info-popups'] = popupsJson;
+
+
+fs.writeFile(path+'en.json', JSON.stringify(translationFile), function (err) {
   if (err) {
     return console.log(err);
   }

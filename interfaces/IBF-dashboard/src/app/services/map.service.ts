@@ -105,7 +105,7 @@ export class MapService {
       .subscribe(this.onDisasterTypeChange);
 
     this.translateService
-      .get('map-service.popover')
+      .get('layer-info-popups.matrix')
       .subscribe(this.onTranslate);
   }
 
