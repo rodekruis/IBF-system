@@ -1,3 +1,13 @@
+# [0.127.0](https://github.com/rodekruis/IBF-system/compare/v0.126.5...v0.127.0) (2022-01-17)
+
+
+### Features
+
+* add kenya AB[#11835](https://github.com/rodekruis/IBF-system/issues/11835) ([0deeab4](https://github.com/rodekruis/IBF-system/commit/0deeab40e3b4f7c77812ac0e852c32a882e93ba8))
+* add kenya floods mock data AB[#11836](https://github.com/rodekruis/IBF-system/issues/11836) ([44d0c3c](https://github.com/rodekruis/IBF-system/commit/44d0c3cd7b9038ce68dbdffa190512daaea95038))
+
+
+
 ## [0.126.5](https://github.com/rodekruis/IBF-system/compare/v0.126.4...v0.126.5) (2022-01-14)
 
 
@@ -96,22 +106,6 @@
 
 * add 'create user' scenarios AB[#11258](https://github.com/rodekruis/IBF-system/issues/11258) ([6841b8f](https://github.com/rodekruis/IBF-system/commit/6841b8f0f361a83857b5d410e46b400b5991e21a))
 * run pipeline scenario AB[#11758](https://github.com/rodekruis/IBF-system/issues/11758) ([81e3382](https://github.com/rodekruis/IBF-system/commit/81e338241b4246dc227ac2bd47c3dcc5eb16d32b))
-
-
-
-# [0.122.0](https://github.com/rodekruis/IBF-system/compare/v0.121.0...v0.122.0) (2022-01-07)
-
-
-### Bug Fixes
-
-* deactivate typhoon event when trigger is done AB[#11645](https://github.com/rodekruis/IBF-system/issues/11645) ([109d9ed](https://github.com/rodekruis/IBF-system/commit/109d9ed1da55ddcd5674423cc3f615458ef22f40))
-* person avatar login page width AB[#9122](https://github.com/rodekruis/IBF-system/issues/9122) ([a18ff05](https://github.com/rodekruis/IBF-system/commit/a18ff05d41a281011762ebf58ce80c03269ed159))
-
-
-### Features
-
-* mock endpoint for specific typhoon scenarios AB[#11755](https://github.com/rodekruis/IBF-system/issues/11755) ([36aeb3a](https://github.com/rodekruis/IBF-system/commit/36aeb3ad63911a162273645c1b600fc1b75bd516))
-* move 'today' to right ([f0bbe49](https://github.com/rodekruis/IBF-system/commit/f0bbe49c97b13e6004637e700242a161ff780c1f))
 
 
 
