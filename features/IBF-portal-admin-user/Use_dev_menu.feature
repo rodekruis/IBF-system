@@ -42,11 +42,3 @@ Scenario: Load mock data unsuccessfully
     And the user has filled in an incorrect secret
     And clicks "Old event" or "No Trigger" or "Trigger"
     Then a message appears that says 'Failed to set mock scenario'
-
-Scenario: View Activation Report
-    When the user clicks on "Activation Report" from menu
-    Then the 'activation-report' page opens up in a new tab
-    And it contains 'disaster-activation-data' for all the countries
-    And it contains 'country-code','disaster-type','placecode','name','startDate','endDate','closed','manualyClosed','exposureIndicator','exposureValue','databaseId'
-    And it is in CSV-format, so that it can easily be copied to Excel
-
