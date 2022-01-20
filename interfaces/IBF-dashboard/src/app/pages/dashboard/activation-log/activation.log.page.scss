@@ -2,6 +2,11 @@
   overflow: auto;
 }
 
-.activation-log-row {
-  padding: 5px;
+th,
+td {
+  padding: 8px;
+  border: 1px solid var(--ion-color-ibf-grey);
+  text-align: left;
+  word-break: break-all;
+  font-size: 10px;
 }

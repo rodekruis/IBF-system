@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { AboutBtnComponent } from './components/about-btn/about-btn.component';
+import { ActivationLogButtonComponent } from './components/activation-log-button/activation-log-button.component';
 import { AdminLevelComponent } from './components/admin-level/admin-level.component';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
 import { AreasOfFocusSummaryComponent } from './components/areas-of-focus-summary/areas-of-focus-summary.component';
@@ -32,7 +33,6 @@ import { UserStateComponent } from './components/user-state/user-state.component
 import { VideoGuideButtonComponent } from './components/video-guide-button/video-guide-button.component';
 import { VideoPopoverComponent } from './components/video-popover/video-popover.component';
 import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-component/backend-mock-scenario.component';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -70,6 +70,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     EventSwitcherComponent,
     ForgotPasswordPopoverComponent,
     ChangePasswordPopoverComponent,
+    ActivationLogButtonComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -99,6 +100,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     TranslateModule,
     ForgotPasswordPopoverComponent,
     ChangePasswordPopoverComponent,
+    ActivationLogButtonComponent,
   ],
 })
 export class SharedModule {}
