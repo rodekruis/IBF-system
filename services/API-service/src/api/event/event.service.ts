@@ -288,7 +288,7 @@ export class EventService {
   }
 
   public async getActivationLogData(): Promise<ActivationLogDto[]> {
-    return await this.eventPlaceCodeRepo
+    const result = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."countryCodeISO3" AS "countryCodeISO3"',
@@ -310,6 +310,11 @@ export class EventService {
       .addOrderBy('event."disasterType"', 'ASC')
       .addOrderBy('area."placeCode"', 'ASC')
       .getRawMany();
+    if (!result.length) {
+      return [new ActivationLogDto()];
+    }
+
+    return result;
   }
 
   public async getTriggerPerLeadtime(
