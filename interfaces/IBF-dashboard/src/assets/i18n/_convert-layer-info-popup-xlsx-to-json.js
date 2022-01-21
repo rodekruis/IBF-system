@@ -19,7 +19,7 @@ for (z in worksheet) {
     }
   }
   var col = z.substring(0, tt);
-  if (col === 'P') {
+  if (col === 'Q') {
     var value = worksheet[z].v;
     data += value;
   }

@@ -9,6 +9,7 @@ Run script to convert XLSX to JSON through `node _convert-layer-info-popup-xlsx-
 - The file `layer-popup-info.xlsx` should at any time contain rows for all layers in IBF-dashboard that require popup-texts.
 - SW-DEV is responsible for keeping this up to date
 - This involves all entries from `indicator-metadata.json` and all 'point' and 'wms' layers from `layer-metadata.json`
+- Extend the formula-columns downward
 
 2. Adding/editing info popup
 
