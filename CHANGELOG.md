@@ -1,3 +1,13 @@
+## [0.128.1](https://github.com/rodekruis/IBF-system/compare/v0.128.0...v0.128.1) (2022-01-21)
+
+
+### Bug Fixes
+
+* make page name nlrc-agnostic AB[#11934](https://github.com/rodekruis/IBF-system/issues/11934) ([1f8744d](https://github.com/rodekruis/IBF-system/commit/1f8744d05bd3c8f4139f12995117939114ccd81d))
+* show country-name on production login page AB[#12018](https://github.com/rodekruis/IBF-system/issues/12018) ([854811d](https://github.com/rodekruis/IBF-system/commit/854811d291aa05dd0b3b8cd633be50091607ee8a))
+
+
+
 # [0.128.0](https://github.com/rodekruis/IBF-system/compare/v0.127.0...v0.128.0) (2022-01-21)
 
 
@@ -87,26 +97,6 @@
 
 * upload red cross branch data AB[#11594](https://github.com/rodekruis/IBF-system/issues/11594) ([e1055b5](https://github.com/rodekruis/IBF-system/commit/e1055b5b883eb691081bf84cdbc88c4d8f9de16e))
 * upload/overwrite point layers data AB[#11594](https://github.com/rodekruis/IBF-system/issues/11594) ([ee8e53f](https://github.com/rodekruis/IBF-system/commit/ee8e53fcf6c52affd38fd3d4aba0dc9de135cb6f))
-
-
-
-# [0.124.0](https://github.com/rodekruis/IBF-system/compare/v0.123.0...v0.124.0) (2022-01-07)
-
-
-### Bug Fixes
-
-* correct test scenarios AB[#11604](https://github.com/rodekruis/IBF-system/issues/11604) AB[#11605](https://github.com/rodekruis/IBF-system/issues/11605) ([a42656b](https://github.com/rodekruis/IBF-system/commit/a42656b48a2b5ce06b45445db94d5d04b3a5c495))
-* do not change password rules AB[#11245](https://github.com/rodekruis/IBF-system/issues/11245) ([a06bce3](https://github.com/rodekruis/IBF-system/commit/a06bce3848bdb516825aebfa8c43fb627b7a8393))
-* unrelated ([07d89bc](https://github.com/rodekruis/IBF-system/commit/07d89bc2b52a64ed08972e40e1a5dd16818ee346))
-* use endpoint from dashboard as non-admin AB[#11351](https://github.com/rodekruis/IBF-system/issues/11351) ([d7cf634](https://github.com/rodekruis/IBF-system/commit/d7cf634c758af24d66173d669618bb3b6904303d))
-
-
-### Features
-
-* change password popover AB[#11245](https://github.com/rodekruis/IBF-system/issues/11245) AB[#11244](https://github.com/rodekruis/IBF-system/issues/11244) ([bf79165](https://github.com/rodekruis/IBF-system/commit/bf791659f9a0bf3eba26222fea1087761b4419e5))
-* update logged in user pwd if no email AB[#11351](https://github.com/rodekruis/IBF-system/issues/11351) ([8432d08](https://github.com/rodekruis/IBF-system/commit/8432d08208f45793b5a1a3febf32dd7d59e286a6))
-* update password AB[#11240](https://github.com/rodekruis/IBF-system/issues/11240) ([4180c67](https://github.com/rodekruis/IBF-system/commit/4180c676c62343e98f8b255d2c904d93a4d769f1))
-* update test scenarios AB[#11604](https://github.com/rodekruis/IBF-system/issues/11604) AB[#11605](https://github.com/rodekruis/IBF-system/issues/11605) ([eb19650](https://github.com/rodekruis/IBF-system/commit/eb19650dd664b0c28238f2a37da3916720e4ad13))
 
 
 
