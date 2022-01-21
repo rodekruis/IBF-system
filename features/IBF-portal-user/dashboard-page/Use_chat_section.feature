@@ -30,9 +30,17 @@ Scenario: Click 'About Trigger'
     And if it is a Google Sheet it might scroll automatically to the specific 'trigger' section of the EAP
     And if it is a PDF this is not possible and it loads at the top.
 
-Scenario: Click 'View video'
+Scenario: Click 'Video Guide'
     When the user clicks on 'Video Guide' button
     Then a popup opens where the video can be played
+
+Scenario: Click 'Activation Log'
+    When the user clicks on 'Activation Log' button
+    Then the 'activation-log' page opens up in a new tab
+    And it contains 'disaster-activation-data' for all the countries
+    And it contains 'country-code','disaster-type','placecode','name','startDate','endDate','closed','manualyClosed','exposureIndicator','exposureValue','databaseId'
+    And it is in a table
+    And it can easily be copied to Excel
 
 Scenario: Click 'Export view'
     When the user clicks the "Export View" button in the header

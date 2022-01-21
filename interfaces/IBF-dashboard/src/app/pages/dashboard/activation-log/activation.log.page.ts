@@ -11,7 +11,12 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ActivationLogPage implements OnInit, OnDestroy {
   private activationLogSubscription: Subscription;
-  public activationLogs: any[] | string;
+  public activationLogs:
+    | {
+        headerData: string[];
+        rowsData: any[];
+      }
+    | string;
 
   constructor(
     private apiService: ApiService,
@@ -33,21 +38,19 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     this.activationLogs = this.jsonToCsv(data);
   };
 
-  private jsonToCsv(items: any[]): any[] | string {
+  private jsonToCsv(
+    items: any[],
+  ): { headerData: string[]; rowsData: any[] } | string {
     if (items.length === 0) {
       return '';
     }
 
-    const rowHeaders = Object.keys(items[0]);
+    const headerData = Object.keys(items[0]);
 
-    const rowList = items.map((rowData) =>
-      rowHeaders
-        .map((fieldName) => JSON.stringify(rowData[fieldName]))
-        .join(', '),
+    const rowsData = items.map((rowData) =>
+      headerData.map((fieldName) => rowData[fieldName]),
     );
 
-    rowList.unshift(rowHeaders.join(', ')); // Add header row
-
-    return rowList;
+    return { headerData, rowsData };
   }
 }
