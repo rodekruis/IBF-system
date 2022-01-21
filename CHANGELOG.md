@@ -1,3 +1,14 @@
+# [0.128.0](https://github.com/rodekruis/IBF-system/compare/v0.127.0...v0.128.0) (2022-01-21)
+
+
+### Features
+
+* move log lint to frontend AB[#11829](https://github.com/rodekruis/IBF-system/issues/11829) AB[#11935](https://github.com/rodekruis/IBF-system/issues/11935) ([3789b47](https://github.com/rodekruis/IBF-system/commit/3789b477b38f90e728311d5eef94b72ab1874f04))
+* return column headers ico empty activation log AB[#11830](https://github.com/rodekruis/IBF-system/issues/11830) ([132fdad](https://github.com/rodekruis/IBF-system/commit/132fdadf300a74877931cf4c3f8468316d07266c))
+* update test scenario #AB11936 ([a7a91cc](https://github.com/rodekruis/IBF-system/commit/a7a91cc57a61820d96bb9da43b8d04944eb0a208)), closes [#AB11936](https://github.com/rodekruis/IBF-system/issues/AB11936)
+
+
+
 # [0.127.0](https://github.com/rodekruis/IBF-system/compare/v0.126.5...v0.127.0) (2022-01-17)
 
 
@@ -96,16 +107,6 @@
 * update logged in user pwd if no email AB[#11351](https://github.com/rodekruis/IBF-system/issues/11351) ([8432d08](https://github.com/rodekruis/IBF-system/commit/8432d08208f45793b5a1a3febf32dd7d59e286a6))
 * update password AB[#11240](https://github.com/rodekruis/IBF-system/issues/11240) ([4180c67](https://github.com/rodekruis/IBF-system/commit/4180c676c62343e98f8b255d2c904d93a4d769f1))
 * update test scenarios AB[#11604](https://github.com/rodekruis/IBF-system/issues/11604) AB[#11605](https://github.com/rodekruis/IBF-system/issues/11605) ([eb19650](https://github.com/rodekruis/IBF-system/commit/eb19650dd664b0c28238f2a37da3916720e4ad13))
-
-
-
-# [0.123.0](https://github.com/rodekruis/IBF-system/compare/v0.122.0...v0.123.0) (2022-01-07)
-
-
-### Features
-
-* add 'create user' scenarios AB[#11258](https://github.com/rodekruis/IBF-system/issues/11258) ([6841b8f](https://github.com/rodekruis/IBF-system/commit/6841b8f0f361a83857b5d410e46b400b5991e21a))
-* run pipeline scenario AB[#11758](https://github.com/rodekruis/IBF-system/issues/11758) ([81e3382](https://github.com/rodekruis/IBF-system/commit/81e338241b4246dc227ac2bd47c3dcc5eb16d32b))
 
 
 
