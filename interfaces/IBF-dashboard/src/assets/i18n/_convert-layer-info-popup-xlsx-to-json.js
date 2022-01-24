@@ -5,7 +5,7 @@ var XLSX = require('xlsx');
 
 var path = '';
 var workbook = XLSX.readFile(path + 'layer-popup-info.xlsx');
-var worksheet = workbook.Sheets['Sheet1'];
+var worksheet = workbook.Sheets['data'];
 
 var data = '';
 for (z in worksheet) {

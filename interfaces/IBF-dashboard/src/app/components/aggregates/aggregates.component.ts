@@ -60,7 +60,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       .subscribe(this.onTranslate);
 
     this.translateLayerInfoPopupsSubscription = this.translateService
-      .get('layer-info-popups.aggregates')
+      .get('layer-info-popups.aggregates-section')
       .subscribe(this.onTranslateLayerInfoPopups);
   }
 
