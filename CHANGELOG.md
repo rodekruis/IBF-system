@@ -1,3 +1,13 @@
+## [0.128.2](https://github.com/rodekruis/IBF-system/compare/v0.128.1...v0.128.2) (2022-01-24)
+
+
+### Bug Fixes
+
+* correct ibf logo AB[#11811](https://github.com/rodekruis/IBF-system/issues/11811) ([170d80f](https://github.com/rodekruis/IBF-system/commit/170d80f4daf06380650d8e0657a693e10faac94b))
+* distinguish dengue & malaria icons AB[#11812](https://github.com/rodekruis/IBF-system/issues/11812) ([1d28708](https://github.com/rodekruis/IBF-system/commit/1d28708cf56e1a58cc9068704626d8114d9482f8))
+
+
+
 ## [0.128.1](https://github.com/rodekruis/IBF-system/compare/v0.128.0...v0.128.1) (2022-01-21)
 
 
@@ -87,16 +97,6 @@
 ### Features
 
 * add change pwd to account-creation-email template AB[#11805](https://github.com/rodekruis/IBF-system/issues/11805) ([100f66b](https://github.com/rodekruis/IBF-system/commit/100f66b83145ca47399eceb5fe50c1dbfb350104))
-
-
-
-# [0.125.0](https://github.com/rodekruis/IBF-system/compare/v0.124.0...v0.125.0) (2022-01-10)
-
-
-### Features
-
-* upload red cross branch data AB[#11594](https://github.com/rodekruis/IBF-system/issues/11594) ([e1055b5](https://github.com/rodekruis/IBF-system/commit/e1055b5b883eb691081bf84cdbc88c4d8f9de16e))
-* upload/overwrite point layers data AB[#11594](https://github.com/rodekruis/IBF-system/issues/11594) ([ee8e53f](https://github.com/rodekruis/IBF-system/commit/ee8e53fcf6c52affd38fd3d4aba0dc9de135cb6f))
 
 
 
