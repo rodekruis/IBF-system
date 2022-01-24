@@ -1,3 +1,12 @@
+## [0.128.4](https://github.com/rodekruis/IBF-system/compare/v0.128.3...v0.128.4) (2022-01-24)
+
+
+### Bug Fixes
+
+* hide 'logged in as' in login page AB[#12047](https://github.com/rodekruis/IBF-system/issues/12047) ([371afcc](https://github.com/rodekruis/IBF-system/commit/371afcc93933f06b5ca722ba96a3a44b3e9808f1))
+
+
+
 ## [0.128.3](https://github.com/rodekruis/IBF-system/compare/v0.128.2...v0.128.3) (2022-01-24)
 
 
@@ -83,15 +92,6 @@
 ### Bug Fixes
 
 * add support email in dockerfile AB[#11841](https://github.com/rodekruis/IBF-system/issues/11841) ([3b24d69](https://github.com/rodekruis/IBF-system/commit/3b24d6932beee7805490e235b608f78f8f9bdfcf))
-
-
-
-## [0.126.1](https://github.com/rodekruis/IBF-system/compare/v0.126.0...v0.126.1) (2022-01-10)
-
-
-### Bug Fixes
-
-* pass support email as var to dashboard AB[#11841](https://github.com/rodekruis/IBF-system/issues/11841) ([020bd7e](https://github.com/rodekruis/IBF-system/commit/020bd7e6b37bef740a0e6fba1998ef692cb360d8))
 
 
 
