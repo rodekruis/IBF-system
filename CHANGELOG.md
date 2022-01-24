@@ -1,3 +1,13 @@
+## [0.128.5](https://github.com/rodekruis/IBF-system/compare/v0.128.4...v0.128.5) (2022-01-24)
+
+
+### Bug Fixes
+
+* also remove disaster-type from login page AB[#12057](https://github.com/rodekruis/IBF-system/issues/12057) ([8eed888](https://github.com/rodekruis/IBF-system/commit/8eed8881333dd895826154b4f2611c27927a1876))
+* remove triggered state from login page AB[#12057](https://github.com/rodekruis/IBF-system/issues/12057) ([a3652b9](https://github.com/rodekruis/IBF-system/commit/a3652b9963402d973fe379f117c559e46f3621ee))
+
+
+
 ## [0.128.4](https://github.com/rodekruis/IBF-system/compare/v0.128.3...v0.128.4) (2022-01-24)
 
 
@@ -83,15 +93,6 @@
 ### Bug Fixes
 
 * update readme installation info AB[#11588](https://github.com/rodekruis/IBF-system/issues/11588) ([450c803](https://github.com/rodekruis/IBF-system/commit/450c8030eac40c12234ba405050583403089739c))
-
-
-
-## [0.126.2](https://github.com/rodekruis/IBF-system/compare/v0.126.1...v0.126.2) (2022-01-10)
-
-
-### Bug Fixes
-
-* add support email in dockerfile AB[#11841](https://github.com/rodekruis/IBF-system/issues/11841) ([3b24d69](https://github.com/rodekruis/IBF-system/commit/3b24d6932beee7805490e235b608f78f8f9bdfcf))
 
 
 
