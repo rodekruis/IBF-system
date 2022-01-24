@@ -9,7 +9,8 @@
         <span>
           IBF PORTAL <strong>{{ countryName }} </strong>
           <strong [ngClass]="{ active: activeTriggerMsg === 'TRIGGERED' }">
-            {{ disasterType }} {{ activeTriggerMsg }}
+            {{ disasterType }}
+            <span *ngIf="isLoggedIn">{{ activeTriggerMsg }}</span>
           </strong>
           <ion-icon
             *ngIf="activeTriggerMsg === 'TRIGGERED'"
