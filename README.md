@@ -158,18 +158,16 @@ Installation: 0. (Potentially on Ubuntu?:
 
 ## Releases
 
-See notable changes and the currently release version in the
+See notable changes and the currently released version in the
 [CHANGELOG](CHANGELOG.md).
 
 ### Release Checklist
 
 - [ ] Check if the latest integration tests passed on
       [Cypress Dashboard](https://dashboard.cypress.io/projects/jkaw7k/runs?branches=%5B%5D&committers=%5B%5D&flaky=%5B%5D&page=1&status=%5B%5D&tags=%5B%5D&timeRange=%7B%22startDate%22%3A%221970-01-01%22%2C%22endDate%22%3A%222038-01-19%22%7D).
-- [ ] Pick a tag to release. Let's say we want to release the tag
-      [v0.27.9](https://github.com/rodekruis/IBF-system/releases/tag/v0.27.9)
-      on GitHub.
-- [ ] Click the 'Edit Tag' button.
-- [ ] Enter the release title to v0.27.9.
+- [ ] Pick a tag to release. Generally this is the latest tag in [tags](https://github.com/rodekruis/IBF-system/tags).
+- [ ] Click the 'Create release' button.
+- [ ] Enter as release title the tag-name (e.g. v0.128.5).
 - [ ] Optional: Enter the release description from the
       [CHANGELOG](CHANGELOG.md) file.
 - [ ] IMPORTANT: Before actually doing the release (and thus releasing to `staging`), check if any .ENV-variables on the server need to be updated. Do that by SSH'ing into the server and making the required changes. This will make sure the new release will use the updated .ENV-variables immediately.
@@ -186,10 +184,11 @@ published release. This takes a while (approx 20 mins) to update.
 
 - Make sure to verify if the environment-settings are appropriately set on the
   test VM before merging the PR.
-- Merged PR's to 'master' branch are automatically deployed to the
-  test-server. (via [webhook](tools/webhook.service), see:
+- Merging a PR to master will lead to creation of a new tag (e.g. v0.128.5), but ONLY if the PR includes at least 1 commit with a commit message starting with 'feat: ' or 'fix: ' (following [Conventional Commit](https://conventionalcommits.org/))
+- The tag creation in turn will lead to an automatic deploy to the test-server (via [webhook](tools/webhook.service), see:
   [/tools#GitHub-webhook](tools/README.md#github-webhook))
-- Run seed-script if seed-data or datamodel has changed
+- Wait until deploy is ready (by checking when the new version-number has appeared on the login-page of IBF-dashboard)
+- Run seed-script
 - Run 'mock-all' endpoint
 
 ### To "stage" environment
@@ -198,7 +197,8 @@ published release. This takes a while (approx 20 mins) to update.
   stage VM before publishing the release.
 - When a [release](#release-checklist) is published, it is automatically
   deployed to the staging-server.
-- Run seed-script if seed-data or datamodel has changed
+- Wait until deploy is ready (by checking when the new version-number has appeared on the login-page of IBF-dashboard)
+- Run seed-script
 - Run 'mock-all' endpoint
 
 ### To "production" environment
