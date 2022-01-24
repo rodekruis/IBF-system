@@ -70,8 +70,6 @@ export class AdminAreaDynamicDataService {
         s => s.disasterType === uploadExposure.disasterType,
       ).defaultAdminLevel === uploadExposure.adminLevel
     ) {
-      await this.insertTrigger(uploadExposure);
-
       await this.eventService.processEventAreas(
         uploadExposure.countryCodeISO3,
         uploadExposure.disasterType,
@@ -79,6 +77,8 @@ export class AdminAreaDynamicDataService {
         uploadExposure.eventName,
         await this.isThereTrigger(uploadExposure.exposurePlaceCodes),
       );
+
+      await this.insertTrigger(uploadExposure);
     }
   }
 

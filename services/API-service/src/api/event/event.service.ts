@@ -57,17 +57,27 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<EventSummaryCountry[]> {
+    const lastTriggeredDate = await this.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
     const eventSummary = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
-      .select(['area."countryCodeISO3"', 'event."eventName"'])
+      .select([
+        'area."countryCodeISO3"',
+        'event."eventName"',
+        ':lastTriggeredDate AS "lastModelRunDate"',
+      ])
       .leftJoin('event.adminArea', 'area')
       .groupBy('area."countryCodeISO3"')
       .addGroupBy('event."eventName"')
       .addSelect([
         'to_char(MAX("startDate") , \'yyyy-mm-dd\') AS "startDate"',
+        'to_char(MAX(CASE WHEN DATE("startDateEvent") > :lastTriggeredDate THEN NULL ELSE "startDateEvent" END) , \'yyyy-mm-dd\') AS "startDateEvent"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."activeTrigger"::int)::boolean AS "activeTrigger"',
       ])
+      .setParameter('lastTriggeredDate', lastTriggeredDate.date)
       .where('closed = :closed', {
         closed: false,
       })
@@ -161,9 +171,34 @@ export class EventService {
       triggerPerLeadTime.eventName = uploadTriggerPerLeadTimeDto.eventName;
 
       triggersPerLeadTime.push(triggerPerLeadTime);
+
+      if (leadTime.leadTime === LeadTime.day1 && leadTime.triggered) {
+        await this.addActualEventStartDate(uploadTriggerPerLeadTimeDto);
+      }
     }
 
     await this.triggerPerLeadTimeRepository.save(triggersPerLeadTime);
+  }
+
+  private async addActualEventStartDate(
+    uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
+  ) {
+    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
+      uploadTriggerPerLeadTimeDto.countryCodeISO3,
+    );
+    const events = await this.eventPlaceCodeRepo.find({
+      where: {
+        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
+        adminArea: { id: In(countryAdminAreaIds) },
+        startDateEvent: IsNull(),
+      },
+    });
+    const today = new Date();
+    const tomorrow = today.setDate(today.getDate() + 1);
+    for await (let event of events) {
+      event.startDateEvent = new Date(tomorrow);
+      await this.eventPlaceCodeRepo.save(event);
+    }
   }
 
   private async deleteDuplicates(

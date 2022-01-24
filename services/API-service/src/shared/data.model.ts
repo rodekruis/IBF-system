@@ -38,7 +38,13 @@ export class EventSummaryCountry {
   public countryCodeISO3: string;
 
   @ApiProperty({ example: new Date().toISOString() })
+  public lastModelRunDate: string;
+
+  @ApiProperty({ example: new Date().toISOString() })
   public startDate: string;
+
+  @ApiProperty({ example: new Date().toISOString() })
+  public startDateEvent: string;
 
   @ApiProperty({ example: new Date().toISOString() })
   public endDate: string;
