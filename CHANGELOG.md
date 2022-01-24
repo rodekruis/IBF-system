@@ -1,3 +1,12 @@
+## [0.128.3](https://github.com/rodekruis/IBF-system/compare/v0.128.2...v0.128.3) (2022-01-24)
+
+
+### Bug Fixes
+
+* disabled versions login page AB[#11812](https://github.com/rodekruis/IBF-system/issues/11812) ([7f18dbc](https://github.com/rodekruis/IBF-system/commit/7f18dbc246bec039db40115f44bd48f517c3af31))
+
+
+
 ## [0.128.2](https://github.com/rodekruis/IBF-system/compare/v0.128.1...v0.128.2) (2022-01-24)
 
 
@@ -83,20 +92,6 @@
 ### Bug Fixes
 
 * pass support email as var to dashboard AB[#11841](https://github.com/rodekruis/IBF-system/issues/11841) ([020bd7e](https://github.com/rodekruis/IBF-system/commit/020bd7e6b37bef740a0e6fba1998ef692cb360d8))
-
-
-
-# [0.126.0](https://github.com/rodekruis/IBF-system/compare/v0.125.0...v0.126.0) (2022-01-10)
-
-
-### Bug Fixes
-
-* today button no rounded corners AB[#11753](https://github.com/rodekruis/IBF-system/issues/11753) ([5c4012d](https://github.com/rodekruis/IBF-system/commit/5c4012d776cbb4ec4cd9fa4aaa2b52c3bd18340f))
-
-
-### Features
-
-* add change pwd to account-creation-email template AB[#11805](https://github.com/rodekruis/IBF-system/issues/11805) ([100f66b](https://github.com/rodekruis/IBF-system/commit/100f66b83145ca47399eceb5fe50c1dbfb350104))
 
 
 
