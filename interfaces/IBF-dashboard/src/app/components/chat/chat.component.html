@@ -40,7 +40,7 @@
   <app-dialogue-turn
     *ngIf="eventService.state.activeEvent && eventService.state.activeTrigger"
     isConnected="true"
-  >    
+  >
     <!-- Event not started yet -->
     <ng-container *ngFor="let event of eventService.state.events">
       <p

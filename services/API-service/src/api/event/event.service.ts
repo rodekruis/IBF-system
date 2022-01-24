@@ -195,7 +195,7 @@ export class EventService {
     });
     const today = new Date();
     const tomorrow = today.setDate(today.getDate() + 1);
-    for await (let event of events) {
+    for await (const event of events) {
       event.startDateEvent = new Date(tomorrow);
       await this.eventPlaceCodeRepo.save(event);
     }
