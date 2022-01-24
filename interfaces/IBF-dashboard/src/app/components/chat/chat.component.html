@@ -36,14 +36,34 @@
       "
     ></p>
   </app-dialogue-turn>
-  <!-- Active event -->
+  <!-- Active trigger -->
   <app-dialogue-turn
     *ngIf="eventService.state.activeEvent && eventService.state.activeTrigger"
     isConnected="true"
-  >
+  >    
+    <!-- Event not started yet -->
     <ng-container *ngFor="let event of eventService.state.events">
       <p
-        *ngIf="event.activeTrigger"
+        *ngIf="!event.startDateEvent"
+        [innerHTML]="
+          'chat-component.' +
+            disasterCategory +
+            'no-event-active-trigger.welcome'
+            | translate
+              : {
+                  name: authService.displayName,
+                  startDate: event.startDate,
+                  leadTime: event.firstLeadTimeLabel,
+                  timeUnit: event.timeUnit,
+                  disasterTypeLabel: disasterTypeLabel,
+                  firstLeadTimeDate: event.firstLeadTimeDate,
+                  eventName: event.eventName
+                }
+        "
+      ></p>
+      <!-- Event started -->
+      <p
+        *ngIf="event.startDateEvent"
         [innerHTML]="
           'chat-component.' +
             disasterCategory +
@@ -52,7 +72,8 @@
               : {
                   name: authService.displayName,
                   startDate: event.startDate,
-                  leadTime: event.firstLeadTimeLabel,
+                  startDateEvent: event.startDateEvent,
+                  timeOngoing: event.timeOngoing,
                   timeUnit: event.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
                   firstLeadTimeDate: event.firstLeadTimeDate,

@@ -8,7 +8,9 @@ import { DisasterTypeService } from './disaster-type.service';
 
 export class EventSummary {
   countryCodeISO3: string;
+  lastModelRunDate: string;
   startDate: string;
+  startDateEvent: string;
   endDate: string;
   activeTrigger: boolean;
   eventName: string;
@@ -177,6 +179,15 @@ export class EventService {
     event.firstLeadTime = firstKey;
     event.firstLeadTimeLabel = LeadTimeTriggerKey[firstKey];
     event.timeUnit = firstKey?.split('-')[1];
+
+    if (event.startDateEvent) {
+      const lastModelRunDate = DateTime.fromISO(event.lastModelRunDate);
+      event.timeOngoing = Math.ceil(
+        lastModelRunDate
+          .diff(DateTime.fromISO(event.startDateEvent), ['days'])
+          .toObject().days,
+      );
+    }
 
     event.firstLeadTimeDate = firstKey
       ? this.getFirstLeadTimeDate(firstKey, event.timeUnit)
