@@ -38,6 +38,7 @@ services:
             - RESET_SECRET=${RESET_SECRET}
             - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
             - COUNTRIES=${COUNTRIES}
+            - DISASTER_TYPES=${DISASTER_TYPES}
             - DASHBOARD_URL=${DASHBOARD_URL}
             - MC_API=${MC_API}
             - MC_LIST_ID=${MC_LIST_ID}
