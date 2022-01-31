@@ -143,8 +143,8 @@
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [1],
-        "defaultAdminLevel": 1,
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 2,
         "activeLeadTimes": ["7-day"],
         "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9",
         "eapAlertClasses": {
