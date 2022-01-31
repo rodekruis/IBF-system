@@ -5,7 +5,12 @@
 - The file `layer-popup-info.xlsx` should at any time contain rows for all layers in IBF-dashboard that require popup-texts.
 - SW-DEV is responsible for keeping this up to date
 - This involves all entries from `indicator-metadata.json` and all 'point' and 'wms' layers from `layer-metadata.json`
-- Extend the formula-columns downward
+- To update the `layer-popup-info.xlsx` follow these instructions:
+  - from [interfaces\IBF-dashboard\src\assets\i18n](interfaces\IBF-dashboard\src\assets\i18n) folder run `node _add-info-popup-xlsx-columns.js`
+  - open the newly created `new-lines.csv` file with a text editor
+  - copy the content and paste in the `layer-popup-info.xlsx` under the last updated line
+  - unhide columns `H:Q` and extend the formulas to the new lines
+  - select all the cells (old and new) from column `A` to `Q` and do a custom sort by the first three columns (`section`, `layer`, `countryCodeISO3`)
 
 2. [DATA-DEV] Adding/editing info popup
 
