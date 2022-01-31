@@ -31,7 +31,7 @@ export class NotificationService {
   private adminAreaDynamicDataService: AdminAreaDynamicDataService;
 
   private placeholderToday = '(TODAY)';
-  private fromEmail = 'support@510.global';
+  private fromEmail = process.env.SUPPORT_EMAIL_ADDRESS;
   private fromEmailName = 'IBF system';
 
   private mailchimp = new Mailchimp(process.env.MC_API);
