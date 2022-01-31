@@ -1,3 +1,23 @@
+# [0.130.0](https://github.com/rodekruis/IBF-system/compare/v0.129.1...v0.130.0) (2022-01-31)
+
+
+### Bug Fixes
+
+* edits xlsx AB[#11832](https://github.com/rodekruis/IBF-system/issues/11832) ([007d036](https://github.com/rodekruis/IBF-system/commit/007d0368214d07ca8a7e6086348ae2f50326eef6))
+* process feedback AB[#12042](https://github.com/rodekruis/IBF-system/issues/12042) ([652f827](https://github.com/rodekruis/IBF-system/commit/652f82714fa8dd6351050fc97aad85dcd1f577b2))
+* update missing data + small fixes AB[#11958](https://github.com/rodekruis/IBF-system/issues/11958) ([6e7237c](https://github.com/rodekruis/IBF-system/commit/6e7237c011d39754ffc025ee3eea03583cd8fd2a))
+
+
+### Features
+
+* convert xlsx to json AB[#11832](https://github.com/rodekruis/IBF-system/issues/11832) ([cb9bfe6](https://github.com/rodekruis/IBF-system/commit/cb9bfe696aa901463e1771cc2d636e324e4ef6d8))
+* create csv with new lines to add ([2bb7da8](https://github.com/rodekruis/IBF-system/commit/2bb7da8da63858324237c0f6bd702c551a7a9e4e))
+* create xlsx info popups AB[#11831](https://github.com/rodekruis/IBF-system/issues/11831) ([dea8850](https://github.com/rodekruis/IBF-system/commit/dea88505f5063c01fb10d0645a60f15f37cae879))
+* lock cells except d, e, f, g AB[#12022](https://github.com/rodekruis/IBF-system/issues/12022) ([8814145](https://github.com/rodekruis/IBF-system/commit/8814145584313e4ee9182a304a5de4d67d3d93f0))
+* paste converted json into en.json AB[#11833](https://github.com/rodekruis/IBF-system/issues/11833) ([da99e98](https://github.com/rodekruis/IBF-system/commit/da99e989d8ba9faf24e192e525344ae8a3f30876))
+
+
+
 ## [0.129.1](https://github.com/rodekruis/IBF-system/compare/v0.129.0...v0.129.1) (2022-01-31)
 
 
@@ -82,17 +102,6 @@
 
 * add kenya AB[#11835](https://github.com/rodekruis/IBF-system/issues/11835) ([0deeab4](https://github.com/rodekruis/IBF-system/commit/0deeab40e3b4f7c77812ac0e852c32a882e93ba8))
 * add kenya floods mock data AB[#11836](https://github.com/rodekruis/IBF-system/issues/11836) ([44d0c3c](https://github.com/rodekruis/IBF-system/commit/44d0c3cd7b9038ce68dbdffa190512daaea95038))
-
-
-
-## [0.126.5](https://github.com/rodekruis/IBF-system/compare/v0.126.4...v0.126.5) (2022-01-14)
-
-
-### Bug Fixes
-
-* check eap action AB[#11824](https://github.com/rodekruis/IBF-system/issues/11824) ([f2a340a](https://github.com/rodekruis/IBF-system/commit/f2a340a7d1251d73bba05c727d6660bd1a62a0dd))
-* only show eap-actions from triggered lead-time AB[#11821](https://github.com/rodekruis/IBF-system/issues/11821) ([1281237](https://github.com/rodekruis/IBF-system/commit/1281237fa1cc1c63e337ffad438089f3f00ddbc8))
-* show triggered lead-time by default AB[#11820](https://github.com/rodekruis/IBF-system/issues/11820) ([c862ac8](https://github.com/rodekruis/IBF-system/commit/c862ac82b897aa60491996f2cf227f7e87367691))
 
 
 
