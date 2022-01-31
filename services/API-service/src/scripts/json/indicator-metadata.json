@@ -1,6 +1,6 @@
 [
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE",
     "disasterTypes": ["floods", "heavy-rain", "drought"],
     "name": "population_affected",
     "label": "Exposed population",
