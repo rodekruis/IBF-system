@@ -359,13 +359,15 @@ export class ScriptsService {
         now.getUTCMonth() > 3 ? currentYear + 1 : currentYear;
       const nextAprilMonthFirstDay = new Date(nextAprilYear, 3, 1);
 
-      const leadTimeMonth = new Date(
-        now.setUTCMonth(now.getUTCMonth() + Number(leadTime.split('-')[0])),
+      const currentMonthFirstDay = new Date(
+        now.getFullYear(),
+        now.getUTCMonth(),
+        1,
       );
       const leadTimeMonthFirstDay = new Date(
-        leadTimeMonth.getFullYear(),
-        leadTimeMonth.getUTCMonth(),
-        1,
+        currentMonthFirstDay.setUTCMonth(
+          now.getUTCMonth() + Number(leadTime.split('-')[0]),
+        ),
       );
 
       return (

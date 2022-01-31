@@ -629,7 +629,7 @@
     "lazyLoad": true
   },
   {
-    "country_codes": "ZWE",
+    "country_codes": "ZWE,KEN",
     "disasterTypes": ["drought"],
     "name": "cattle_exposed",
     "label": "Cattle exposed",
@@ -638,7 +638,7 @@
     "active": "no",
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
-    "aggregateIndicator": "ZWE",
+    "aggregateIndicator": "ZWE,KEN",
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 2,
@@ -646,7 +646,7 @@
     "lazyLoad": true
   },
   {
-    "country_codes": "ZWE",
+    "country_codes": "ZWE,KEN",
     "disasterTypes": ["drought"],
     "name": "small_ruminants_exposed",
     "label": "Small ruminants exposed",
@@ -655,7 +655,7 @@
     "active": "no",
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
-    "aggregateIndicator": "ZWE",
+    "aggregateIndicator": "ZWE,KEN",
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 2,

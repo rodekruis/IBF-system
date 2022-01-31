@@ -27,7 +27,8 @@ export class SeedDamData implements InterfaceScript {
         (country): Promise<void> => {
           if (
             envCountries.includes(country.countryCodeISO3) &&
-            country.disasterTypes.includes(DisasterType.Drought)
+            country.disasterTypes.includes(DisasterType.Drought) &&
+            country.countryCodeISO3 === 'ZWE'
           ) {
             return this.seedDamSiteData(country);
           } else {
