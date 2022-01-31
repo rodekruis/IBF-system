@@ -1,3 +1,12 @@
+## [0.129.1](https://github.com/rodekruis/IBF-system/compare/v0.129.0...v0.129.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* mailchimp from-address env-var AB[#12171](https://github.com/rodekruis/IBF-system/issues/12171) ([c1d2d0f](https://github.com/rodekruis/IBF-system/commit/c1d2d0f28114952c49fa083aca219cf60bbfa8a3))
+
+
+
 # [0.129.0](https://github.com/rodekruis/IBF-system/compare/v0.128.5...v0.129.0) (2022-01-28)
 
 
@@ -84,15 +93,6 @@
 * check eap action AB[#11824](https://github.com/rodekruis/IBF-system/issues/11824) ([f2a340a](https://github.com/rodekruis/IBF-system/commit/f2a340a7d1251d73bba05c727d6660bd1a62a0dd))
 * only show eap-actions from triggered lead-time AB[#11821](https://github.com/rodekruis/IBF-system/issues/11821) ([1281237](https://github.com/rodekruis/IBF-system/commit/1281237fa1cc1c63e337ffad438089f3f00ddbc8))
 * show triggered lead-time by default AB[#11820](https://github.com/rodekruis/IBF-system/issues/11820) ([c862ac8](https://github.com/rodekruis/IBF-system/commit/c862ac82b897aa60491996f2cf227f7e87367691))
-
-
-
-## [0.126.4](https://github.com/rodekruis/IBF-system/compare/v0.126.3...v0.126.4) (2022-01-14)
-
-
-### Bug Fixes
-
-* change user-state layout ([dd95cc9](https://github.com/rodekruis/IBF-system/commit/dd95cc925b95dc950a5c8b345f9f0c71f30e1e75))
 
 
 
