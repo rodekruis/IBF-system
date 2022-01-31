@@ -44,7 +44,7 @@ Scenario: View aggregate section after area-selection in map
     Then the "values" in the aggregate section update
     And they refer now to only the selected area
     And the top header updates to the name of the selected area
-    And an X appears in the right of the top header, which - if clicked - reverts the area-selection
+    And an X appears in the right of the top header in the aggregate section, which - if clicked - reverts the area-selection
     And this is the same effect as clicking the selected admin-area in the map a 2nd time
 
 
