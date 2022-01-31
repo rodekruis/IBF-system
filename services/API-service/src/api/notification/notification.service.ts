@@ -83,7 +83,6 @@ export class NotificationService {
     emailHtml: string,
     countryCodeISO3: string,
   ): Promise<void> {
-    console.log('this.fromEmail: ', this.fromEmail);
     const campaignBody = {
       settings: {
         title: new Date().toISOString(),
