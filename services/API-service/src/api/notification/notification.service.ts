@@ -89,7 +89,6 @@ export class NotificationService {
         subject_line: subject,
         from_name: this.fromEmailName,
         reply_to: this.fromEmail,
-
         auto_tweet: false,
       },
       recipients: {
