@@ -31,7 +31,7 @@ export class NotificationService {
   private adminAreaDynamicDataService: AdminAreaDynamicDataService;
 
   private placeholderToday = '(TODAY)';
-  private fromEmail = 'support@510.global';
+  private fromEmail = process.env.SUPPORT_EMAIL_ADDRESS;
   private fromEmailName = 'IBF system';
 
   private mailchimp = new Mailchimp(process.env.MC_API);
@@ -83,12 +83,14 @@ export class NotificationService {
     emailHtml: string,
     countryCodeISO3: string,
   ): Promise<void> {
+    console.log('this.fromEmail: ', this.fromEmail);
     const campaignBody = {
       settings: {
         title: new Date().toISOString(),
         subject_line: subject,
         from_name: this.fromEmailName,
         reply_to: this.fromEmail,
+
         auto_tweet: false,
       },
       recipients: {
