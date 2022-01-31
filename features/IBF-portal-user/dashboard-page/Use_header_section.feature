@@ -17,12 +17,10 @@ Scenario: View header of dashboard page
 Scenario: View header in Triggered mode
     When the user is viewing the Header section
     Then 'Log-out' button displays in purple color
-    Then 'Export View' button displays in purple color
 
 Scenario: View header in Non-triggered mode
     When the user is viewing the Header section
     Then 'Log-out' button displays in navy-blue color
-    Then 'Export View' button displays in navy-blue color
 
 Scenario: Logout
     When the user clicks the "Log Out" button in the header
