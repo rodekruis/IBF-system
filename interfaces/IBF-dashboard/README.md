@@ -7,6 +7,7 @@ Welcome to the GitHub repository of the [IBF-dashboard](http://ibf.510.global/),
 - [Getting Started](#getting-started)
 - [Documentation](#documentation)
 - [Other resources](#other-resources)
+- [Loading layer info popup descriptions](#loading-the-layer-info-popup-descriptions)
 
 ## Setup development environment
 
@@ -74,3 +75,7 @@ Documentation of the tools and libraries used.
 
 - Leaflet Markers  
   For easily exchangeable marker-images, see: <https://github.com/pointhi/leaflet-color-markers>
+
+## Loading the layer info popup descriptions
+
+See specific readme [here](./src/assets/i18n/README.md)
