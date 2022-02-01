@@ -1,3 +1,12 @@
+# [0.131.0](https://github.com/rodekruis/IBF-system/compare/v0.130.0...v0.131.0) (2022-02-01)
+
+
+### Features
+
+* make KEN floods multi adm-level AB[#12046](https://github.com/rodekruis/IBF-system/issues/12046) ([e281a1b](https://github.com/rodekruis/IBF-system/commit/e281a1bbbcd62d2d5e884a80c4cb03198e10a053))
+
+
+
 # [0.130.0](https://github.com/rodekruis/IBF-system/compare/v0.129.1...v0.130.0) (2022-01-31)
 
 
@@ -92,16 +101,6 @@
 * move log lint to frontend AB[#11829](https://github.com/rodekruis/IBF-system/issues/11829) AB[#11935](https://github.com/rodekruis/IBF-system/issues/11935) ([3789b47](https://github.com/rodekruis/IBF-system/commit/3789b477b38f90e728311d5eef94b72ab1874f04))
 * return column headers ico empty activation log AB[#11830](https://github.com/rodekruis/IBF-system/issues/11830) ([132fdad](https://github.com/rodekruis/IBF-system/commit/132fdadf300a74877931cf4c3f8468316d07266c))
 * update test scenario #AB11936 ([a7a91cc](https://github.com/rodekruis/IBF-system/commit/a7a91cc57a61820d96bb9da43b8d04944eb0a208)), closes [#AB11936](https://github.com/rodekruis/IBF-system/issues/AB11936)
-
-
-
-# [0.127.0](https://github.com/rodekruis/IBF-system/compare/v0.126.5...v0.127.0) (2022-01-17)
-
-
-### Features
-
-* add kenya AB[#11835](https://github.com/rodekruis/IBF-system/issues/11835) ([0deeab4](https://github.com/rodekruis/IBF-system/commit/0deeab40e3b4f7c77812ac0e852c32a882e93ba8))
-* add kenya floods mock data AB[#11836](https://github.com/rodekruis/IBF-system/issues/11836) ([44d0c3c](https://github.com/rodekruis/IBF-system/commit/44d0c3cd7b9038ce68dbdffa190512daaea95038))
 
 
 
