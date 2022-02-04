@@ -29,7 +29,7 @@
   {
     "countryCodeISO3": "KEN",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png",
-    "triggerStatement": "TBD",
+    "triggerStatement": "This EAP will be triggered when GloFAS issues a forecast where a trigger level will be exceeded and the probability of exceedance is at least the probability indicated. Three trigger levels were defined for this EAP:<ul><li>Stations in Nzoia  Basin a 5-year return period discharge (5.3m level/469.8 m3/s) with 85 % probability of exceedance</li><li>Stations in Athi Basin a 5 year return period discharge period discharge (469.236 m3/s) with 85% probability of exceedance</li><li>Stations in Tana Basin a 5-year return period discharge with (5.1m/ 1191.6 m3/s) 85% probability of exceedance</li></ul>",
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/",
     "linkVideo": null,
