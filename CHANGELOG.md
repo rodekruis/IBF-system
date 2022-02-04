@@ -1,3 +1,12 @@
+# [0.132.0](https://github.com/rodekruis/IBF-system/compare/v0.131.0...v0.132.0) (2022-02-04)
+
+
+### Features
+
+* set up basic KEN Drought AB[#12076](https://github.com/rodekruis/IBF-system/issues/12076) ([7aa07d0](https://github.com/rodekruis/IBF-system/commit/7aa07d01d5281985e574917f823bda2351b5f57c))
+
+
+
 # [0.131.0](https://github.com/rodekruis/IBF-system/compare/v0.130.0...v0.131.0) (2022-02-01)
 
 
@@ -90,17 +99,6 @@
 
 * make page name nlrc-agnostic AB[#11934](https://github.com/rodekruis/IBF-system/issues/11934) ([1f8744d](https://github.com/rodekruis/IBF-system/commit/1f8744d05bd3c8f4139f12995117939114ccd81d))
 * show country-name on production login page AB[#12018](https://github.com/rodekruis/IBF-system/issues/12018) ([854811d](https://github.com/rodekruis/IBF-system/commit/854811d291aa05dd0b3b8cd633be50091607ee8a))
-
-
-
-# [0.128.0](https://github.com/rodekruis/IBF-system/compare/v0.127.0...v0.128.0) (2022-01-21)
-
-
-### Features
-
-* move log lint to frontend AB[#11829](https://github.com/rodekruis/IBF-system/issues/11829) AB[#11935](https://github.com/rodekruis/IBF-system/issues/11935) ([3789b47](https://github.com/rodekruis/IBF-system/commit/3789b477b38f90e728311d5eef94b72ab1874f04))
-* return column headers ico empty activation log AB[#11830](https://github.com/rodekruis/IBF-system/issues/11830) ([132fdad](https://github.com/rodekruis/IBF-system/commit/132fdadf300a74877931cf4c3f8468316d07266c))
-* update test scenario #AB11936 ([a7a91cc](https://github.com/rodekruis/IBF-system/commit/a7a91cc57a61820d96bb9da43b8d04944eb0a208)), closes [#AB11936](https://github.com/rodekruis/IBF-system/issues/AB11936)
 
 
 
