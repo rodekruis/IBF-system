@@ -1,3 +1,13 @@
+## [0.132.2](https://github.com/rodekruis/IBF-system/compare/v0.132.1...v0.132.2) (2022-02-04)
+
+
+### Bug Fixes
+
+* make value column wider AB[#12260](https://github.com/rodekruis/IBF-system/issues/12260) ([ee05014](https://github.com/rodekruis/IBF-system/commit/ee05014d0d08a4be7b2018750f790dd33a4fc499))
+* wrap text if small screen AB[#12070](https://github.com/rodekruis/IBF-system/issues/12070) ([b36f81f](https://github.com/rodekruis/IBF-system/commit/b36f81f0dd7991a65d4f4e66c9f72e534cb91897))
+
+
+
 ## [0.132.1](https://github.com/rodekruis/IBF-system/compare/v0.132.0...v0.132.1) (2022-02-04)
 
 
@@ -89,16 +99,6 @@
 ### Bug Fixes
 
 * disabled versions login page AB[#11812](https://github.com/rodekruis/IBF-system/issues/11812) ([7f18dbc](https://github.com/rodekruis/IBF-system/commit/7f18dbc246bec039db40115f44bd48f517c3af31))
-
-
-
-## [0.128.2](https://github.com/rodekruis/IBF-system/compare/v0.128.1...v0.128.2) (2022-01-24)
-
-
-### Bug Fixes
-
-* correct ibf logo AB[#11811](https://github.com/rodekruis/IBF-system/issues/11811) ([170d80f](https://github.com/rodekruis/IBF-system/commit/170d80f4daf06380650d8e0657a693e10faac94b))
-* distinguish dengue & malaria icons AB[#11812](https://github.com/rodekruis/IBF-system/issues/11812) ([1d28708](https://github.com/rodekruis/IBF-system/commit/1d28708cf56e1a58cc9068704626d8114d9482f8))
 
 
 
