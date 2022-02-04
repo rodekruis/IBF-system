@@ -1,3 +1,13 @@
+## [0.132.1](https://github.com/rodekruis/IBF-system/compare/v0.132.0...v0.132.1) (2022-02-04)
+
+
+### Bug Fixes
+
+* markers at right anchor AB[#12071](https://github.com/rodekruis/IBF-system/issues/12071) ([47eec38](https://github.com/rodekruis/IBF-system/commit/47eec3819da89df45c2d1633192e638b2cfadd85))
+* wrap text if small screen AB[#12070](https://github.com/rodekruis/IBF-system/issues/12070) ([3c8b767](https://github.com/rodekruis/IBF-system/commit/3c8b767195cada39d52c5032709324a579ed2ee9))
+
+
+
 # [0.132.0](https://github.com/rodekruis/IBF-system/compare/v0.131.0...v0.132.0) (2022-02-04)
 
 
@@ -89,16 +99,6 @@
 
 * correct ibf logo AB[#11811](https://github.com/rodekruis/IBF-system/issues/11811) ([170d80f](https://github.com/rodekruis/IBF-system/commit/170d80f4daf06380650d8e0657a693e10faac94b))
 * distinguish dengue & malaria icons AB[#11812](https://github.com/rodekruis/IBF-system/issues/11812) ([1d28708](https://github.com/rodekruis/IBF-system/commit/1d28708cf56e1a58cc9068704626d8114d9482f8))
-
-
-
-## [0.128.1](https://github.com/rodekruis/IBF-system/compare/v0.128.0...v0.128.1) (2022-01-21)
-
-
-### Bug Fixes
-
-* make page name nlrc-agnostic AB[#11934](https://github.com/rodekruis/IBF-system/issues/11934) ([1f8744d](https://github.com/rodekruis/IBF-system/commit/1f8744d05bd3c8f4139f12995117939114ccd81d))
-* show country-name on production login page AB[#12018](https://github.com/rodekruis/IBF-system/issues/12018) ([854811d](https://github.com/rodekruis/IBF-system/commit/854811d291aa05dd0b3b8cd633be50091607ee8a))
 
 
 
