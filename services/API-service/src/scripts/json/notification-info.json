@@ -20,7 +20,7 @@
   {
     "countryCodeISO3": "ZMB",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/35e3a47b-65d0-9b15-ad8f-ac19300ef5b6.png",
-    "triggerStatement": "TBD",
+    "triggerStatement": "The trigger is activated if the daily issued GLOFAS forecast reports a water discharge that exceeds the threshold corresponding to a 10y return period flood in one or more GLOFAS stations. The EAP will be triggered with a lead time of 7 days.",
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin/",
     "linkVideo": "https://www.youtube-nocookie.com/embed/q_xTy9PpCcE",
