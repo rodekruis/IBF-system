@@ -180,13 +180,17 @@ export class EventService {
     event.firstLeadTimeLabel = LeadTimeTriggerKey[firstKey];
     event.timeUnit = firstKey?.split('-')[1];
 
+    // event.startDate = '2022-02-01';
+    // event.startDateEvent = '2022-02-07';
+    // event.lastModelRunDate = '2022-02-09';
     if (event.startDateEvent) {
       const lastModelRunDate = DateTime.fromISO(event.lastModelRunDate);
-      event.timeOngoing = Math.ceil(
-        lastModelRunDate
-          .diff(DateTime.fromISO(event.startDateEvent), ['days'])
-          .toObject().days,
-      );
+      event.timeOngoing =
+        Math.ceil(
+          lastModelRunDate
+            .diff(DateTime.fromISO(event.startDateEvent), ['days'])
+            .toObject().days,
+        ) + 1;
     }
 
     event.firstLeadTimeDate = firstKey

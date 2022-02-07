@@ -66,7 +66,7 @@ export class EventService {
       .select([
         'area."countryCodeISO3"',
         'event."eventName"',
-        ':lastTriggeredDate AS "lastModelRunDate"',
+        'to_char(cast(:lastTriggeredDate as date), \'yyyy-mm-dd\') AS "lastModelRunDate"',
       ])
       .leftJoin('event.adminArea', 'area')
       .groupBy('area."countryCodeISO3"')
