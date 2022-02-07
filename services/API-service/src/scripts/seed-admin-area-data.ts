@@ -168,6 +168,26 @@ export class SeedAdminAreaData implements InterfaceScript {
       await this.adminAreaDataRepository.save(covidRiskDataArray);
     }
 
+    // KEN
+    if (envCountries.includes('KEN')) {
+      const countryCodeISO3 = 'KEN';
+      // Flood vulnerability
+      const floodVulnerabilityFilename = `./src/scripts/git-lfs/admin-area-data/flood_vulnerability_KEN.csv`;
+      const floodVulnerabilityData = await this.seedHelper.getCsvData(
+        floodVulnerabilityFilename,
+      );
+      const floodVulnerabilityDataArray = floodVulnerabilityData.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: area['adminLevel'],
+          placeCode: area['placeCode'],
+          indicator: area['indicator'],
+          value: area['value'],
+        };
+      });
+      await this.adminAreaDataRepository.save(floodVulnerabilityDataArray);
+    }
+
     // ETH
     if (envCountries.includes('ETH')) {
       const countryCodeISO3 = 'ETH';

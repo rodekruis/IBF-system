@@ -68,7 +68,7 @@
     "unit": "people"
   },
   {
-    "country_codes": "UGA",
+    "country_codes": "UGA,KEN",
     "disasterTypes": ["floods"],
     "name": "flood_vulnerability_index",
     "label": "Flood Vulnerability Index",
