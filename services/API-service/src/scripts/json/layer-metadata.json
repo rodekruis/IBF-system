@@ -95,8 +95,8 @@
     "active": "no"
   },
   {
-    "country_codes": "PHL,ETH",
-    "disasterTypes": ["dengue", "malaria", "typhoon"],
+    "country_codes": "PHL,ETH,KEN",
+    "disasterTypes": ["floods", "dengue", "malaria", "typhoon"],
     "name": "health_sites",
     "label": "Health Sites",
     "type": "point",
