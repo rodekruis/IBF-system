@@ -183,6 +183,10 @@ export class EventService {
   private async addActualEventStartDate(
     uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ) {
+    // Here we assume that the 1st time a trigger for tomorrow is recorded (for 'floods' only) ..
+    // .. this implies an 'actual event start date' and set that on 'tomorrow'.
+    // Officially, we do not know if the event actually starts tomorrow ..
+    // .. but for simplicity of wording we assume so in all var-names.
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       uploadTriggerPerLeadTimeDto.countryCodeISO3,
     );
