@@ -91,7 +91,9 @@
   <app-dialogue-turn *ngIf="eventService.isOldEvent()" isConnected="true">
     <p
       [innerHTML]="
-        'chat-component.' + disasterTypeName + '.active-event-no-trigger.welcome'
+        'chat-component.' +
+          disasterTypeName +
+          '.active-event-no-trigger.welcome'
           | translate
             : {
                 name: authService.displayName,
