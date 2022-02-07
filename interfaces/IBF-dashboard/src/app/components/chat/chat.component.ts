@@ -63,7 +63,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private disasterTypeService: DisasterTypeService,
-    private timelineService: TimelineService,
+    public timelineService: TimelineService,
     private countryService: CountryService,
     private alertController: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
