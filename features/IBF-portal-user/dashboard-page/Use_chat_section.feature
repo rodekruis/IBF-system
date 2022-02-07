@@ -22,7 +22,7 @@ Scenario: View last model run information
     And it mentions the date and time of the last model run update. 
     And it has red background if the last model run date is too long ago
     And the threshold for this is if it is more than 1 upload-interval + 10% ago (e.g. 1 day + 10% in case of floods)
-    And it contains 3 buttons 'About Trigger' and 'Video Guide' and 'Export View'
+    And it contains 4 buttons 'About Trigger' and 'Video Guide' and 'Activation Log' and 'Export View'
 
 Scenario: Click 'About Trigger' 
     When the user clicks on "About Trigger" button

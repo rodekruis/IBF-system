@@ -139,12 +139,12 @@
     "countryCodeISO2": "KE",
     "countryName": "Kenya",
     "countryStatus": "active",
-    "disasterTypes": ["floods"],
+    "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [1],
-        "defaultAdminLevel": 1,
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 2,
         "activeLeadTimes": ["7-day"],
         "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9",
         "eapAlertClasses": {
@@ -161,6 +161,26 @@
             "valueHigh": 1.01
           }
         }
+      },
+      {
+        "disasterType": "drought",
+        "adminLevels": [1],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-month",
+          "1-month",
+          "2-month",
+          "3-month",
+          "4-month",
+          "5-month",
+          "6-month",
+          "7-month",
+          "8-month",
+          "9-month",
+          "10-month",
+          "11-month"
+        ],
+        "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9"
       }
     ],
     "adminRegionLabels": {

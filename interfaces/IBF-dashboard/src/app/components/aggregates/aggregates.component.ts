@@ -12,7 +12,6 @@ import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { AggregatesService } from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
-import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
@@ -32,7 +31,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private defaultHeaderLabelTranslateNode = 'default-header-label';
   private exposedPrefixTranslateNode = 'exposed-prefix';
   private allPrefixTranslateNode = 'all-prefix';
-  private popoverTranslateNode = 'popover';
 
   private defaultHeaderLabel: string;
   private exposedPrefix: string;
@@ -43,6 +41,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private translateSubscription: Subscription;
+  private translateLayerInfoPopupsSubscription: Subscription;
   private eapActionSubscription: Subscription;
 
   constructor(
@@ -51,7 +50,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
     private adminLevelService: AdminLevelService,
-    private eapActionsService: EapActionsService,
     private popoverController: PopoverController,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
@@ -60,6 +58,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.translateSubscription = this.translateService
       .get(this.aggregateComponentTranslateNode)
       .subscribe(this.onTranslate);
+
+    this.translateLayerInfoPopupsSubscription = this.translateService
+      .get('layer-info-popups.aggregates-section')
+      .subscribe(this.onTranslateLayerInfoPopups);
   }
 
   ngOnInit() {
@@ -83,6 +85,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
+    this.translateLayerInfoPopupsSubscription.unsubscribe();
     this.eapActionSubscription.unsubscribe();
   }
 
@@ -91,7 +94,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       translatedStrings[this.defaultHeaderLabelTranslateNode];
     this.exposedPrefix = translatedStrings[this.exposedPrefixTranslateNode];
     this.allPrefix = translatedStrings[this.allPrefixTranslateNode];
-    this.popoverTexts = translatedStrings[this.popoverTranslateNode];
+  };
+
+  private onTranslateLayerInfoPopups = (translatedStrings) => {
+    this.popoverTexts = translatedStrings;
   };
 
   private onCountryChange = (country: Country) => {

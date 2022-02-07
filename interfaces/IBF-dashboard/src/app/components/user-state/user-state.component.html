@@ -8,7 +8,10 @@
       >
         <span>
           IBF PORTAL <strong>{{ countryName }} </strong>
-          <strong [ngClass]="{ active: activeTriggerMsg === 'TRIGGERED' }">
+          <strong
+            *ngIf="isLoggedIn"
+            [ngClass]="{ active: activeTriggerMsg === 'TRIGGERED' }"
+          >
             {{ disasterType }} {{ activeTriggerMsg }}
           </strong>
           <ion-icon
@@ -40,23 +43,25 @@
 
         <ion-item lines="none">
           <ion-col class="ion-no-padding">
-            <ion-title
-              size="small"
-              data-test="user-display-name-label"
-              class="ion-no-padding"
-              >Logged In As:</ion-title
-            >
-            <ion-title
-              size="small"
-              data-test="user-display-name"
-              class="ion-no-padding"
-            >
-              <strong
-                (click)="presentPopover()"
-                style="cursor: pointer; text-decoration: underline"
-                >{{ authService.displayName }}</strong
+            <ng-container *ngIf="isLoggedIn">
+              <ion-title
+                size="small"
+                data-test="user-display-name-label"
+                class="ion-no-padding"
+                >Logged In As:</ion-title
               >
-            </ion-title>
+              <ion-title
+                size="small"
+                data-test="user-display-name"
+                class="ion-no-padding"
+              >
+                <strong
+                  (click)="presentPopover()"
+                  style="cursor: pointer; text-decoration: underline"
+                  >{{ authService.displayName }}</strong
+                >
+              </ion-title>
+            </ng-container>
           </ion-col>
         </ion-item>
       </ion-row>

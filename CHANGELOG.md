@@ -1,102 +1,104 @@
-## [0.128.1](https://github.com/rodekruis/IBF-system/compare/v0.128.0...v0.128.1) (2022-01-21)
+## [0.132.2](https://github.com/rodekruis/IBF-system/compare/v0.132.1...v0.132.2) (2022-02-04)
 
 
 ### Bug Fixes
 
-* make page name nlrc-agnostic AB[#11934](https://github.com/rodekruis/IBF-system/issues/11934) ([1f8744d](https://github.com/rodekruis/IBF-system/commit/1f8744d05bd3c8f4139f12995117939114ccd81d))
-* show country-name on production login page AB[#12018](https://github.com/rodekruis/IBF-system/issues/12018) ([854811d](https://github.com/rodekruis/IBF-system/commit/854811d291aa05dd0b3b8cd633be50091607ee8a))
+* make value column wider AB[#12260](https://github.com/rodekruis/IBF-system/issues/12260) ([ee05014](https://github.com/rodekruis/IBF-system/commit/ee05014d0d08a4be7b2018750f790dd33a4fc499))
+* wrap text if small screen AB[#12070](https://github.com/rodekruis/IBF-system/issues/12070) ([b36f81f](https://github.com/rodekruis/IBF-system/commit/b36f81f0dd7991a65d4f4e66c9f72e534cb91897))
 
 
 
-# [0.128.0](https://github.com/rodekruis/IBF-system/compare/v0.127.0...v0.128.0) (2022-01-21)
+## [0.132.1](https://github.com/rodekruis/IBF-system/compare/v0.132.0...v0.132.1) (2022-02-04)
+
+
+### Bug Fixes
+
+* markers at right anchor AB[#12071](https://github.com/rodekruis/IBF-system/issues/12071) ([47eec38](https://github.com/rodekruis/IBF-system/commit/47eec3819da89df45c2d1633192e638b2cfadd85))
+* wrap text if small screen AB[#12070](https://github.com/rodekruis/IBF-system/issues/12070) ([3c8b767](https://github.com/rodekruis/IBF-system/commit/3c8b767195cada39d52c5032709324a579ed2ee9))
+
+
+
+# [0.132.0](https://github.com/rodekruis/IBF-system/compare/v0.131.0...v0.132.0) (2022-02-04)
 
 
 ### Features
 
-* move log lint to frontend AB[#11829](https://github.com/rodekruis/IBF-system/issues/11829) AB[#11935](https://github.com/rodekruis/IBF-system/issues/11935) ([3789b47](https://github.com/rodekruis/IBF-system/commit/3789b477b38f90e728311d5eef94b72ab1874f04))
-* return column headers ico empty activation log AB[#11830](https://github.com/rodekruis/IBF-system/issues/11830) ([132fdad](https://github.com/rodekruis/IBF-system/commit/132fdadf300a74877931cf4c3f8468316d07266c))
-* update test scenario #AB11936 ([a7a91cc](https://github.com/rodekruis/IBF-system/commit/a7a91cc57a61820d96bb9da43b8d04944eb0a208)), closes [#AB11936](https://github.com/rodekruis/IBF-system/issues/AB11936)
+* set up basic KEN Drought AB[#12076](https://github.com/rodekruis/IBF-system/issues/12076) ([7aa07d0](https://github.com/rodekruis/IBF-system/commit/7aa07d01d5281985e574917f823bda2351b5f57c))
 
 
 
-# [0.127.0](https://github.com/rodekruis/IBF-system/compare/v0.126.5...v0.127.0) (2022-01-17)
-
-
-### Features
-
-* add kenya AB[#11835](https://github.com/rodekruis/IBF-system/issues/11835) ([0deeab4](https://github.com/rodekruis/IBF-system/commit/0deeab40e3b4f7c77812ac0e852c32a882e93ba8))
-* add kenya floods mock data AB[#11836](https://github.com/rodekruis/IBF-system/issues/11836) ([44d0c3c](https://github.com/rodekruis/IBF-system/commit/44d0c3cd7b9038ce68dbdffa190512daaea95038))
-
-
-
-## [0.126.5](https://github.com/rodekruis/IBF-system/compare/v0.126.4...v0.126.5) (2022-01-14)
-
-
-### Bug Fixes
-
-* check eap action AB[#11824](https://github.com/rodekruis/IBF-system/issues/11824) ([f2a340a](https://github.com/rodekruis/IBF-system/commit/f2a340a7d1251d73bba05c727d6660bd1a62a0dd))
-* only show eap-actions from triggered lead-time AB[#11821](https://github.com/rodekruis/IBF-system/issues/11821) ([1281237](https://github.com/rodekruis/IBF-system/commit/1281237fa1cc1c63e337ffad438089f3f00ddbc8))
-* show triggered lead-time by default AB[#11820](https://github.com/rodekruis/IBF-system/issues/11820) ([c862ac8](https://github.com/rodekruis/IBF-system/commit/c862ac82b897aa60491996f2cf227f7e87367691))
-
-
-
-## [0.126.4](https://github.com/rodekruis/IBF-system/compare/v0.126.3...v0.126.4) (2022-01-14)
-
-
-### Bug Fixes
-
-* change user-state layout ([dd95cc9](https://github.com/rodekruis/IBF-system/commit/dd95cc925b95dc950a5c8b345f9f0c71f30e1e75))
-
-
-
-## [0.126.3](https://github.com/rodekruis/IBF-system/compare/v0.126.2...v0.126.3) (2022-01-14)
-
-
-### Bug Fixes
-
-* update readme installation info AB[#11588](https://github.com/rodekruis/IBF-system/issues/11588) ([450c803](https://github.com/rodekruis/IBF-system/commit/450c8030eac40c12234ba405050583403089739c))
-
-
-
-## [0.126.2](https://github.com/rodekruis/IBF-system/compare/v0.126.1...v0.126.2) (2022-01-10)
-
-
-### Bug Fixes
-
-* add support email in dockerfile AB[#11841](https://github.com/rodekruis/IBF-system/issues/11841) ([3b24d69](https://github.com/rodekruis/IBF-system/commit/3b24d6932beee7805490e235b608f78f8f9bdfcf))
-
-
-
-## [0.126.1](https://github.com/rodekruis/IBF-system/compare/v0.126.0...v0.126.1) (2022-01-10)
-
-
-### Bug Fixes
-
-* pass support email as var to dashboard AB[#11841](https://github.com/rodekruis/IBF-system/issues/11841) ([020bd7e](https://github.com/rodekruis/IBF-system/commit/020bd7e6b37bef740a0e6fba1998ef692cb360d8))
-
-
-
-# [0.126.0](https://github.com/rodekruis/IBF-system/compare/v0.125.0...v0.126.0) (2022-01-10)
-
-
-### Bug Fixes
-
-* today button no rounded corners AB[#11753](https://github.com/rodekruis/IBF-system/issues/11753) ([5c4012d](https://github.com/rodekruis/IBF-system/commit/5c4012d776cbb4ec4cd9fa4aaa2b52c3bd18340f))
+# [0.131.0](https://github.com/rodekruis/IBF-system/compare/v0.130.0...v0.131.0) (2022-02-01)
 
 
 ### Features
 
-* add change pwd to account-creation-email template AB[#11805](https://github.com/rodekruis/IBF-system/issues/11805) ([100f66b](https://github.com/rodekruis/IBF-system/commit/100f66b83145ca47399eceb5fe50c1dbfb350104))
+* make KEN floods multi adm-level AB[#12046](https://github.com/rodekruis/IBF-system/issues/12046) ([e281a1b](https://github.com/rodekruis/IBF-system/commit/e281a1bbbcd62d2d5e884a80c4cb03198e10a053))
 
 
 
-# [0.125.0](https://github.com/rodekruis/IBF-system/compare/v0.124.0...v0.125.0) (2022-01-10)
+# [0.130.0](https://github.com/rodekruis/IBF-system/compare/v0.129.1...v0.130.0) (2022-01-31)
+
+
+### Bug Fixes
+
+* edits xlsx AB[#11832](https://github.com/rodekruis/IBF-system/issues/11832) ([007d036](https://github.com/rodekruis/IBF-system/commit/007d0368214d07ca8a7e6086348ae2f50326eef6))
+* process feedback AB[#12042](https://github.com/rodekruis/IBF-system/issues/12042) ([652f827](https://github.com/rodekruis/IBF-system/commit/652f82714fa8dd6351050fc97aad85dcd1f577b2))
+* update missing data + small fixes AB[#11958](https://github.com/rodekruis/IBF-system/issues/11958) ([6e7237c](https://github.com/rodekruis/IBF-system/commit/6e7237c011d39754ffc025ee3eea03583cd8fd2a))
 
 
 ### Features
 
-* upload red cross branch data AB[#11594](https://github.com/rodekruis/IBF-system/issues/11594) ([e1055b5](https://github.com/rodekruis/IBF-system/commit/e1055b5b883eb691081bf84cdbc88c4d8f9de16e))
-* upload/overwrite point layers data AB[#11594](https://github.com/rodekruis/IBF-system/issues/11594) ([ee8e53f](https://github.com/rodekruis/IBF-system/commit/ee8e53fcf6c52affd38fd3d4aba0dc9de135cb6f))
+* convert xlsx to json AB[#11832](https://github.com/rodekruis/IBF-system/issues/11832) ([cb9bfe6](https://github.com/rodekruis/IBF-system/commit/cb9bfe696aa901463e1771cc2d636e324e4ef6d8))
+* create csv with new lines to add ([2bb7da8](https://github.com/rodekruis/IBF-system/commit/2bb7da8da63858324237c0f6bd702c551a7a9e4e))
+* create xlsx info popups AB[#11831](https://github.com/rodekruis/IBF-system/issues/11831) ([dea8850](https://github.com/rodekruis/IBF-system/commit/dea88505f5063c01fb10d0645a60f15f37cae879))
+* lock cells except d, e, f, g AB[#12022](https://github.com/rodekruis/IBF-system/issues/12022) ([8814145](https://github.com/rodekruis/IBF-system/commit/8814145584313e4ee9182a304a5de4d67d3d93f0))
+* paste converted json into en.json AB[#11833](https://github.com/rodekruis/IBF-system/issues/11833) ([da99e98](https://github.com/rodekruis/IBF-system/commit/da99e989d8ba9faf24e192e525344ae8a3f30876))
+
+
+
+## [0.129.1](https://github.com/rodekruis/IBF-system/compare/v0.129.0...v0.129.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* mailchimp from-address env-var AB[#12171](https://github.com/rodekruis/IBF-system/issues/12171) ([c1d2d0f](https://github.com/rodekruis/IBF-system/commit/c1d2d0f28114952c49fa083aca219cf60bbfa8a3))
+
+
+
+# [0.129.0](https://github.com/rodekruis/IBF-system/compare/v0.128.5...v0.129.0) (2022-01-28)
+
+
+### Features
+
+* disaster-types env specific AB[#12060](https://github.com/rodekruis/IBF-system/issues/12060) ([25c9e33](https://github.com/rodekruis/IBF-system/commit/25c9e339771ef9780d4ef21480c1fdee75283cca))
+
+
+
+## [0.128.5](https://github.com/rodekruis/IBF-system/compare/v0.128.4...v0.128.5) (2022-01-24)
+
+
+### Bug Fixes
+
+* also remove disaster-type from login page AB[#12057](https://github.com/rodekruis/IBF-system/issues/12057) ([8eed888](https://github.com/rodekruis/IBF-system/commit/8eed8881333dd895826154b4f2611c27927a1876))
+* remove triggered state from login page AB[#12057](https://github.com/rodekruis/IBF-system/issues/12057) ([a3652b9](https://github.com/rodekruis/IBF-system/commit/a3652b9963402d973fe379f117c559e46f3621ee))
+
+
+
+## [0.128.4](https://github.com/rodekruis/IBF-system/compare/v0.128.3...v0.128.4) (2022-01-24)
+
+
+### Bug Fixes
+
+* hide 'logged in as' in login page AB[#12047](https://github.com/rodekruis/IBF-system/issues/12047) ([371afcc](https://github.com/rodekruis/IBF-system/commit/371afcc93933f06b5ca722ba96a3a44b3e9808f1))
+
+
+
+## [0.128.3](https://github.com/rodekruis/IBF-system/compare/v0.128.2...v0.128.3) (2022-01-24)
+
+
+### Bug Fixes
+
+* disabled versions login page AB[#11812](https://github.com/rodekruis/IBF-system/issues/11812) ([7f18dbc](https://github.com/rodekruis/IBF-system/commit/7f18dbc246bec039db40115f44bd48f517c3af31))
 
 
 

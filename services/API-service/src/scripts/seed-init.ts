@@ -98,6 +98,7 @@ export class SeedInit implements InterfaceScript {
     const countryDisasterSettingsRepo = this.connection.getRepository(
       CountryDisasterSettingsEntity,
     );
+    const envDisasterTypes = process.env.DISASTER_TYPES.split(',');
 
     const countryEntities = await Promise.all(
       selectedCountries.map(
@@ -111,11 +112,11 @@ export class SeedInit implements InterfaceScript {
             JSON.stringify(country.adminRegionLabels),
           );
           countryEntity.disasterTypes = await disasterRepository.find({
-            where: country.disasterTypes.map(
-              (countryDisasterType: string): object => {
+            where: country.disasterTypes
+              .filter(disasterType => envDisasterTypes.includes(disasterType))
+              .map((countryDisasterType: string): object => {
                 return { disasterType: countryDisasterType };
-              },
-            ),
+              }),
           });
           countryEntity.countryLogos = country.countryLogos;
           countryEntity.countryBoundingBox = country.countryBoundingBox;
