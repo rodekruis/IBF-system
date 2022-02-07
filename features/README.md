@@ -45,6 +45,13 @@ In practice, the pipeline is often time-scheduled and not manually triggered by 
 - [Run pipeline](pipeline-user/Run_pipeline.feature)
 
 ---
+
+# Test results
+
+Test results of the above scenarios are recorded in [feature-test-report.xlsx](./feature-test-report.xlsx).
+
+---
+
 # Theory
 
 ### Reference

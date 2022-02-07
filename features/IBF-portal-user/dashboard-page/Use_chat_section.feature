@@ -56,6 +56,14 @@ Scenario: View general trigger information
     And it mentions for when the trigger is expected
     And it mentions the name of the event if applicable (typhoon only)
     And the exact UX copy differs between disaster-types (Potentially: document in more detail)
+    - floods:
+        And it mentions the date when the trigger first started
+        And it mentions for which lead time the trigger is activated
+        And it mentions how many days the event is away now
+        And - if for multiple days on '1 day away' - it mentions for how long it has been on '1 day away' 
+    And if OLD-EVENT it mentions there is no active trigger any more
+    And it mentions that EAP-actions can still be seen for 7 days
+    And it mentions the start date of the trigger and the end date 
 
 Scenario: View general trigger information with 2 or more active events
     Given the selected 'disaster-type' is 'typhoon' 
