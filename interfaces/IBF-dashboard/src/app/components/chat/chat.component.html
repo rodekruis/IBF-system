@@ -2,7 +2,7 @@
   <app-dialogue-turn [isWarn]="isWarn">
     <p
       [innerHTML]="
-        'chat-component.' + disasterCategory + 'warn-label.message'
+        'chat-component.' + disasterTypeName + '.warn-label.message'
           | translate
             : {
                 lastModelRunDate: lastModelRunDate,
@@ -12,7 +12,7 @@
     ></p>
     <app-about-btn
       [btnLabel]="
-        'chat-component.' + disasterCategory + 'about-button-label' | translate
+        'chat-component.' + disasterTypeName + '.about-button-label' | translate
       "
       color="ibf-white"
     ></app-about-btn>
@@ -28,7 +28,7 @@
   >
     <p
       [innerHTML]="
-        'chat-component.' + disasterCategory + 'no-event-no-trigger.welcome'
+        'chat-component.' + disasterTypeName + '.no-event-no-trigger.welcome'
           | translate
             : {
                 name: authService.displayName
@@ -46,8 +46,8 @@
         *ngIf="event.activeTrigger"
         [innerHTML]="
           'chat-component.' +
-            disasterCategory +
-            'active-event-active-trigger.welcome'
+            disasterTypeName +
+            '.active-event-active-trigger.welcome'
             | translate
               : {
                   name: authService.displayName,
@@ -68,7 +68,7 @@
   <app-dialogue-turn *ngIf="eventService.isOldEvent()" isConnected="true">
     <p
       [innerHTML]="
-        'chat-component.' + disasterCategory + 'active-event-no-trigger.welcome'
+        'chat-component.' + disasterTypeName + '.active-event-no-trigger.welcome'
           | translate
             : {
                 name: authService.displayName,
@@ -84,7 +84,7 @@
     <app-dialogue-turn isConnected="true">
       <p
         [translate]="
-          'chat-component.' + disasterCategory + 'active-event.instruction'
+          'chat-component.' + disasterTypeName + '.active-event.instruction'
             | translate
         "
       ></p>
@@ -114,7 +114,7 @@
             <ion-note
               size="small"
               [innerHTML]="
-                'chat-component.' + disasterCategory + 'active-event.exposed'
+                'chat-component.' + disasterTypeName + '.active-event.exposed'
                   | translate
                     : {
                         exposedNumber: area['actionsValue'] | number: '.0-0'
