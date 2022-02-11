@@ -104,14 +104,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTranslate = (translatedStrings) => {
     this.translatedStrings = translatedStrings;
-    const activeEventsSelector = 'active-event';
-    const closeEventPopupSelector = 'close-event-popup';
-    const activeEvent = this.translatedStrings[this.disasterTypeName][
-      activeEventsSelector
-    ];
-    if (activeEvent) {
-      this.closeEventPopup = activeEvent[closeEventPopupSelector];
-    }
   };
 
   private onCountryChange = (country: Country) => {
@@ -171,6 +163,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     const activeEventsSelector = 'active-event';
     const updateSuccesSelector = 'update-success';
     const updateFailureSelector = 'update-failure';
+    const closeEventPopupSelector = 'close-event-popup';
 
     this.updateSuccessMessage = this.translatedStrings[this.disasterTypeName][
       activeEventsSelector
@@ -178,6 +171,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.updateFailureMessage = this.translatedStrings[this.disasterTypeName][
       activeEventsSelector
     ][updateFailureSelector];
+    this.closeEventPopup = this.translatedStrings[this.disasterTypeName][
+      activeEventsSelector
+    ][closeEventPopupSelector];
 
     this.apiService
       .getRecentDates(
@@ -335,9 +331,12 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   public closePlaceCodeEventPopup(triggeredArea): void {
     this.translateSubscription = this.translateService
-      .get('chat-component.active-event.close-event-popup.message', {
-        placeCodeName: triggeredArea.name,
-      })
+      .get(
+        `chat-component.${this.disasterTypeName}.active-event.close-event-popup.message`,
+        {
+          placeCodeName: triggeredArea.name,
+        },
+      )
       .subscribe(this.onClosePlaceCodeEventPopupByTriggeredArea(triggeredArea));
   }
 

@@ -179,9 +179,18 @@
       },
       "active-event": {
         "instruction": "The areas above alert threshold are highlighted in the map with a red outline. You can click on the month tabs above the map to see the predictions for each month. Please select the area on the map to monitor which early actions are to do or done.",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
+        "submit-button-label": "Save",
+        "close-event-button": "Close Alert",
         "update-success": "SOP action(s) updated in database.",
-        "update-failure": "Failed to update SOP action(s) updated in database."
+        "update-failure": "Failed to update SOP action(s) updated in database.",
+        "prompt-button-label": "OK",
+        "close-event-popup": {
+          "message": "Are you sure? You are about to close the alert in {{ placeCodeName }}. This action can not be undone.",
+          "confirm": "Close Alert",
+          "cancel": "Cancel"
+        }
       }
     },
     "malaria": {
@@ -200,9 +209,18 @@
       },
       "active-event": {
         "instruction": "The areas above alert threshold are highlighted in the map with a red outline. You can click on the month tabs above the map to see the predictions for each month. Please select the area on the map to monitor which early actions are to do or done.",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
+        "submit-button-label": "Save",
+        "close-event-button": "Close Alert",
         "update-success": "SOP action(s) updated in database.",
-        "update-failure": "Failed to update SOP action(s) updated in database."
+        "update-failure": "Failed to update SOP action(s) updated in database.",
+        "prompt-button-label": "OK",
+        "close-event-popup": {
+          "message": "Are you sure? You are about to close the alert in {{ placeCodeName }}. This action can not be undone.",
+          "confirm": "Close Alert",
+          "cancel": "Cancel"
+        }
       }
     }
   },
