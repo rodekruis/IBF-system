@@ -56,9 +56,8 @@ export class SeedAdminArea implements InterfaceScript {
                 adminLevel: adminLevel,
                 name: area.properties[`ADM${adminLevel}_EN`],
                 placeCode: area.properties[`ADM${adminLevel}_PCODE`],
-                placeCodeParent: area.properties[`ADM${adminLevel - 1}_PCODE`]
-                  ? area.properties[`ADM${adminLevel - 1}_PCODE`]
-                  : null,
+                placeCodeParent:
+                  area.properties[`ADM${adminLevel - 1}_PCODE`] || null,
                 geom: (): string =>
                   this.geomFunction(area.geometry.coordinates),
               })
