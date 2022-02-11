@@ -20,7 +20,7 @@
   {
     "countryCodeISO3": "ZMB",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/35e3a47b-65d0-9b15-ad8f-ac19300ef5b6.png",
-    "triggerStatement": "TBD",
+    "triggerStatement": "The trigger is activated if the daily issued GLOFAS forecast reports a water discharge that exceeds the threshold corresponding to a 10y return period flood in one or more GLOFAS stations. The EAP will be triggered with a lead time of 7 days.",
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin/",
     "linkVideo": "https://www.youtube-nocookie.com/embed/q_xTy9PpCcE",
@@ -38,7 +38,7 @@
   {
     "countryCodeISO3": "ETH",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png",
-    "triggerStatement": "TBD",
+    "triggerStatement": "The ERCS will act based on the developed trigger table when the Global Floods awareness system forecast indicates a level of river discharge greater or equal to a level of 10 years return period with a probability of at least 75% forecast uncertainty within 7 days lead time period.",
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/",
     "linkVideo": null,
