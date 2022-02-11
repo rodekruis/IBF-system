@@ -55,9 +55,7 @@ export class EventService {
   }
 
   private onCountryChange = (country: Country) => {
-    this.resetState();
     this.country = country;
-    this.getTrigger();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
@@ -68,7 +66,6 @@ export class EventService {
 
   private resetState() {
     this.state = this.nullState;
-    this.setStateSubscriptionObject();
   }
 
   public getTrigger() {
@@ -117,14 +114,13 @@ export class EventService {
       }
     }
 
-    this.setEvent(events[0]);
-    this.state.activeEvent = !!this.state.event;
+    this.state.activeEvent = !!events[0];
     this.state.activeTrigger =
-      this.state.event &&
+      events[0] &&
       this.state.events.filter((e: EventSummary) => e.activeTrigger).length > 0;
+    this.setEvent(events[0]);
 
     this.setAlertState();
-    this.setStateSubscriptionObject();
   };
 
   private endDateToLastTriggerDate(endDate: string): string {

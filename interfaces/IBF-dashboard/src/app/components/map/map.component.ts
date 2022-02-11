@@ -181,8 +181,12 @@ export class MapComponent implements OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+  };
 
-    if (this.country) {
+  private onEventStateChage(eventState: EventState) {
+    this.eventState = eventState;
+
+    if (this.country && this.disasterType) {
       this.apiService
         .getRecentDates(
           this.country.countryCodeISO3,
@@ -192,7 +196,7 @@ export class MapComponent implements OnDestroy {
           this.onRecentDates(date);
         });
     }
-  };
+  }
 
   private onRecentDates = (date) => {
     this.lastModelRunDate = date.timestamp || date.date;
@@ -1032,9 +1036,5 @@ export class MapComponent implements OnDestroy {
         '</div>',
     );
     return waterpointInfoPopup;
-  }
-
-  private onEventStateChage(eventState: EventState) {
-    this.eventState = eventState;
   }
 }

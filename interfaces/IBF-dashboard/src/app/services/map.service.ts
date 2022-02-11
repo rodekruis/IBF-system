@@ -140,7 +140,7 @@ export class MapService {
       this.layers
         .filter((layer) => layer.group === IbfLayerGroup.adminRegions)
         .forEach(this.deactivateLayer);
-      this.loadCountryLayers();
+      // this.loadCountryLayers();
     }
   };
 

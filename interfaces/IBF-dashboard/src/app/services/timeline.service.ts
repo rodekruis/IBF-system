@@ -56,7 +56,6 @@ export class TimelineService {
   private onCountryChange = (country: Country) => {
     this.triggersAllEvents = null;
     this.country = country;
-    this.setStateSubscriptionObject();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
@@ -110,8 +109,6 @@ export class TimelineService {
     if (toShowTimeStepButtons.length > 0) {
       this.handleTimeStepButtonClick(toShowTimeStepButtons[0].value);
     }
-
-    this.setStateSubscriptionObject();
   };
 
   private onRecentDates = (date) => {
@@ -140,8 +137,6 @@ export class TimelineService {
     if (!events || !events.length) {
       this.onTriggerPerLeadTime(null);
     }
-
-    this.setStateSubscriptionObject();
   };
 
   public loadTimeStepButtons(): void {
@@ -153,8 +148,6 @@ export class TimelineService {
         )
         .subscribe(this.onRecentDates);
     }
-
-    this.setStateSubscriptionObject();
   }
 
   private deactivateLeadTimeButton = (leadTimeButton) =>
@@ -255,8 +248,6 @@ export class TimelineService {
       LeadTimeTriggerKey[leadTime],
     ).toISODate();
 
-    this.setStateSubscriptionObject();
-
     return date;
   }
 
@@ -267,8 +258,6 @@ export class TimelineService {
     if (disasterType.disasterType === DisasterTypeKey.drought) {
       const nextAprilEndOfMonth = this.getNextAprilMonth();
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);
-
-      this.setStateSubscriptionObject();
 
       return (
         leadTimeMonth <= nextAprilEndOfMonth && // hide months beyond next April
@@ -327,6 +316,7 @@ export class TimelineService {
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
+    this.loadTimeStepButtons();
   };
 
   private setStateSubscriptionObject() {
