@@ -6,6 +6,7 @@ import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { Country, DisasterType } from '../models/country.model';
+import { EventState } from '../types/event-state';
 import { IbfLayerName } from '../types/ibf-layer';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
@@ -21,6 +22,7 @@ export class AggregatesService {
   public nrTriggeredAreas: number;
   private country: Country;
   private disasterType: DisasterType;
+  private eventState: EventState;
 
   constructor(
     private countryService: CountryService,
@@ -46,6 +48,10 @@ export class AggregatesService {
     this.adminLevelService
       .getAdminLevelSubscription()
       .subscribe(this.onAdminLevelChange);
+
+    this.eventService
+      .getEventStateSubscription()
+      .subscribe(this.onEventStateChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -81,7 +87,7 @@ export class AggregatesService {
         .getIndicators(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
         )
         .subscribe(this.onIndicatorChange);
     }
@@ -140,7 +146,7 @@ export class AggregatesService {
           this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           this.adminLevelService.adminLevel,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
         )
         .subscribe(this.onAggregateData);
     }
@@ -230,4 +236,8 @@ export class AggregatesService {
 
     return accumulator + indicatorValue;
   };
+
+  private onEventStateChange(eventState: EventState) {
+    this.eventState = eventState;
+  }
 }

@@ -57,6 +57,7 @@ import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { EventState } from 'src/app/types/event-state';
 import {
   IbfLayer,
   IbfLayerGroup,
@@ -83,6 +84,7 @@ export class MapComponent implements OnDestroy {
   private country: Country;
   private disasterType: DisasterType;
   public lastModelRunDate: string;
+  public eventState: EventState;
 
   public legends: { [key: string]: Control } = {};
 
@@ -90,6 +92,7 @@ export class MapComponent implements OnDestroy {
   private countrySubscription: Subscription;
   private disasterTypeSubscription: Subscription;
   private placeCodeSubscription: Subscription;
+  private eventStateSubscription: Subscription;
 
   private osmTileLayer = tileLayer(LEAFLET_MAP_URL_TEMPLATE, {
     attribution: LEAFLET_MAP_ATTRIBUTION,
@@ -130,6 +133,10 @@ export class MapComponent implements OnDestroy {
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
+
+    this.eventStateSubscription = this.eventService
+      .getEventStateSubscription()
+      .subscribe(this.onEventStateChage);
   }
 
   ngOnDestroy() {
@@ -320,7 +327,7 @@ export class MapComponent implements OnDestroy {
     if (layer.type === IbfLayerType.shape) {
       layer.leafletLayer = this.createAdminRegionsLayer(layer);
 
-      const colors = this.eventService.state.activeTrigger
+      const colors = this.eventState?.activeTrigger
         ? this.mapService.state.colorGradientTriggered
         : this.mapService.state.colorGradient;
       const colorThreshold = this.mapService.getColorThreshold(
@@ -446,7 +453,7 @@ export class MapComponent implements OnDestroy {
   private onAdminRegionMouseOver = (event): void => {
     event.target.setStyle({
       fillOpacity: this.mapService.hoverFillOpacity,
-      fillColor: this.eventService.state.activeTrigger
+      fillColor: this.eventState?.activeTrigger
         ? this.mapService.alertColor
         : this.mapService.safeColor,
     });
@@ -493,7 +500,7 @@ export class MapComponent implements OnDestroy {
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
           this.timelineService.activeLeadTime,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
         )
         .subscribe((thresholdValue: number) => {
           popup = this.createThresHoldPopupAdminRegions(
@@ -1025,5 +1032,9 @@ export class MapComponent implements OnDestroy {
         '</div>',
     );
     return waterpointInfoPopup;
+  }
+
+  private onEventStateChage(eventState: EventState) {
+    this.eventState = eventState;
   }
 }

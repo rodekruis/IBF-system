@@ -3,27 +3,29 @@
     type="indeterminate"
     color="ibf-gray"
     class="ion-margin"
-    *ngIf="timelineService.state.timeStepButtons.length < 1"
+    *ngIf="timelineState.timeStepButtons.length < 1; else timelineButtons"
   ></ion-progress-bar>
-  <ion-button
-    *ngFor="let timeStepButton of timelineService.state.timeStepButtons"
-    expand="full"
-    disabled="{{ timeStepButton.disabled }}"
-    color="{{
-      timeStepButton.alert
-        ? 'ibf-trigger-alert-tertiary'
-        : 'ibf-no-alert-tertiary'
-    }}"
-    fill="solid"
-    data-test="time-line-button"
-    [class.active]="timeStepButton.active"
-    [class.alert]="timeStepButton.alert && !timeStepButton.disabled"
-    (click)="handleTimeStepButtonClick(timeStepButton.value)"
-  >
-    <app-date-button
-      [date]="timeStepButton.date"
-      [unit]="timeStepButton.unit"
-      [active]="!timeStepButton.disabled"
-    ></app-date-button>
-  </ion-button>
+  <ng-template #timelineButtons>
+    <ion-button
+      *ngFor="let timeStepButton of timelineState.timeStepButtons"
+      expand="full"
+      disabled="{{ timeStepButton.disabled }}"
+      color="{{
+        timeStepButton.alert
+          ? 'ibf-trigger-alert-tertiary'
+          : 'ibf-no-alert-tertiary'
+      }}"
+      fill="solid"
+      data-test="time-line-button"
+      [class.active]="timeStepButton.active"
+      [class.alert]="timeStepButton.alert && !timeStepButton?.disabled"
+      (click)="handleTimeStepButtonClick(timeStepButton.value)"
+    >
+      <app-date-button
+        [date]="timeStepButton.date"
+        [unit]="timeStepButton.unit"
+        [active]="!timeStepButton.disabled"
+      ></app-date-button>
+    </ion-button>
+  </ng-template>
 </ion-item>

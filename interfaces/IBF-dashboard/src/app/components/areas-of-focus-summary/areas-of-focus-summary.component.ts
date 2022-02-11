@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { EventState } from 'src/app/types/event-state';
 
 @Component({
   selector: 'app-areas-of-focus-summary',
@@ -15,10 +16,12 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private areasOfFocusSubscription: Subscription;
+  private eventStateSubscription: Subscription;
 
   public areasOfFocus: any[];
   public triggeredAreas: any[];
   public trigger: boolean;
+  public eventState: EventState;
 
   constructor(
     private eapActionsService: EapActionsService,
@@ -36,6 +39,10 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
+
+    this.eventStateSubscription = this.eventService
+      .getEventStateSubscription()
+      .subscribe(this.onEventStateChange);
   }
 
   ngOnDestroy() {
@@ -103,5 +110,9 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     this.areasOfFocusSubscription = this.apiService
       .getAreasOfFocus()
       .subscribe(onAreasOfFocusChange);
+  }
+
+  private onEventStateChange(eventState: EventState) {
+    this.eventState = eventState;
   }
 }

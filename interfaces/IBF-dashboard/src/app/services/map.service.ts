@@ -30,6 +30,7 @@ import { LayerActivation } from '../models/layer-activation.enum';
 import { breakKey } from '../models/map.model';
 import { AdminLevel } from '../types/admin-level';
 import { DisasterTypeKey } from '../types/disaster-type-key';
+import { EventState } from '../types/event-state';
 import { DisasterTypeService } from './disaster-type.service';
 
 @Injectable({
@@ -69,6 +70,8 @@ export class MapService {
     defaultWeight: 1,
   };
 
+  public eventState: EventState;
+
   private popoverTexts: { [key: string]: string } = {};
   private country: Country;
   private disasterType: DisasterType;
@@ -107,6 +110,10 @@ export class MapService {
     this.translateService
       .get('layer-info-popups.layers-section')
       .subscribe(this.onTranslate);
+
+    this.eventService
+      .getEventStateSubscription()
+      .subscribe(this.onEventStateChange);
   }
 
   private onCountryChange = (country: Country): void => {
@@ -245,7 +252,7 @@ export class MapService {
           .getTyphoonTrack(
             this.country.countryCodeISO3,
             this.timelineService.activeLeadTime,
-            this.eventService.state.event?.eventName,
+            this.eventState?.event?.eventName,
           )
           .subscribe(this.addTyphoonTrackLayer);
       } else {
@@ -424,7 +431,7 @@ export class MapService {
             this.disasterType.disasterType,
             this.timelineService.activeLeadTime,
             adminLevel,
-            this.eventService.state.event?.eventName,
+            this.eventState?.event?.eventName,
           )
           .subscribe((adminRegions) =>
             this.addAdminRegionLayer(adminRegions, adminLevel),
@@ -464,7 +471,7 @@ export class MapService {
           this.adminLevelService.adminLevel,
           this.timelineService.activeLeadTime,
           indicator.name,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
           indicator.dynamic,
         ).subscribe((adminRegions) => {
           this.addAggregateLayer(indicator, adminRegions, layerActive);
@@ -479,7 +486,7 @@ export class MapService {
     return indicatorOrLayer.active === LayerActivation.yes
       ? true
       : indicatorOrLayer.active === LayerActivation.ifTrigger &&
-        this.eventService.state.activeTrigger
+        this.eventState?.activeTrigger
       ? true
       : false;
   }
@@ -496,7 +503,7 @@ export class MapService {
           this.adminLevelService.adminLevel,
           this.timelineService.activeLeadTime,
           indicator.name,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
           indicator.dynamic,
         ).subscribe((adminRegions) => {
           this.addOutlineLayer(indicator, adminRegions);
@@ -788,7 +795,7 @@ export class MapService {
         .getTyphoonTrack(
           this.country.countryCodeISO3,
           this.timelineService.activeLeadTime,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (
@@ -801,7 +808,7 @@ export class MapService {
           this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           this.adminLevelService.adminLevel,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (
@@ -817,7 +824,7 @@ export class MapService {
           this.disasterType.disasterType,
           this.timelineService.activeLeadTime,
           adminLevel,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (
@@ -830,7 +837,7 @@ export class MapService {
         this.adminLevelService.adminLevel,
         this.timelineService.activeLeadTime,
         layer.name,
-        this.eventService.state.event?.eventName,
+        this.eventState?.event?.eventName,
         layer.dynamic,
       ).pipe(shareReplay(1));
     } else {
@@ -941,7 +948,7 @@ export class MapService {
         adminRegionFillColor = this.state.defaultColor;
     }
     if (this.placeCode && this.placeCode.placeCode === placeCode) {
-      adminRegionFillColor = this.eventService.state.activeTrigger
+      adminRegionFillColor = this.eventState?.activeTrigger
         ? this.alertColor
         : this.safeColor;
     }
@@ -1095,4 +1102,8 @@ export class MapService {
       };
     };
   };
+
+  private onEventStateChange(eventState: any) {
+    this.eventState = eventState;
+  }
 }

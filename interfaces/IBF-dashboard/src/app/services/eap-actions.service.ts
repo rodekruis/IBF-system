@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { Country, DisasterType } from '../models/country.model';
 import { AdminLevel } from '../types/admin-level';
+import { EventState } from '../types/event-state';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
@@ -19,6 +20,7 @@ export class EapActionsService {
   private disasterType: DisasterType;
   private adminLevel: AdminLevel;
   private event;
+  private eventState: EventState;
 
   constructor(
     private countryService: CountryService,
@@ -43,6 +45,10 @@ export class EapActionsService {
     this.adminLevelService
       .getAdminLevelSubscription()
       .subscribe(this.onAdminLevelChange);
+
+    this.eventService
+      .getEventStateSubscription()
+      .subscribe(this.onEventStatusChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -106,7 +112,7 @@ export class EapActionsService {
           this.disasterTypeService.disasterType.disasterType,
           adminLevel,
           leadTime,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
         )
         .subscribe(this.onTriggeredAreas);
     }
@@ -141,5 +147,9 @@ export class EapActionsService {
       placeCode,
       eventName,
     );
+  }
+
+  private onEventStatusChange(eventState: EventState) {
+    this.eventState = eventState;
   }
 }

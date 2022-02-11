@@ -19,7 +19,9 @@ import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EapAction } from 'src/app/types/eap-action';
+import { EventState } from 'src/app/types/event-state';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
+import { TimelineState } from 'src/app/types/timeline-state';
 import { TimelineService } from '../../services/timeline.service';
 import { LeadTimeUnit } from '../../types/lead-time';
 
@@ -32,6 +34,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   public triggeredAreas: any[];
   public filteredAreas: any[];
   public activeDisasterType: string;
+  public eventState: EventState;
+  public timelineState: TimelineState;
 
   private translatedStrings: object;
   private updateSuccessMessage: string;
@@ -44,6 +48,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   private placeCodeSubscription: Subscription;
   private disasterTypeSubscription: Subscription;
   private translateSubscription: Subscription;
+  private eventStateSubscription: Subscription;
+  private timelineStateSubscription: Subscription;
 
   public indicatorName = IbfLayerName;
   public eapActions: EapAction[];
@@ -94,6 +100,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
+
+    this.eventStateSubscription = this.eventService
+      .getEventStateSubscription()
+      .subscribe(this.onEventStateChange);
+
+    this.timelineStateSubscription = this.timelineService
+      .getTimelineStateSubscription()
+      .subscribe(this.onTimelineStateChange);
   }
 
   ngOnDestroy() {
@@ -102,6 +116,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.placeCodeSubscription.unsubscribe();
     this.disasterTypeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
+    this.eventStateSubscription.unsubscribe();
   }
 
   private onTranslate = (translatedStrings) => {
@@ -132,7 +147,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
-    const activeLeadTime = this.timelineService.state.timeStepButtons.find(
+    const activeLeadTime = this.timelineState.timeStepButtons.find(
       (t) => t.value === this.timelineService.activeLeadTime,
     );
     if (placeCode && activeLeadTime.alert) {
@@ -279,7 +294,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       action.action,
       action.checked,
       action.placeCode,
-      this.eventService.state.event?.eventName,
+      this.eventState?.event?.eventName,
     );
   };
 
@@ -418,4 +433,12 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.isWarn = false;
     }
   };
+
+  private onEventStateChange(eventState: EventState) {
+    this.eventState = eventState;
+  }
+
+  private onTimelineStateChange(timelineState: TimelineState) {
+    this.timelineState = timelineState;
+  }
 }

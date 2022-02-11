@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { LeadTimeTriggerKey, LeadTimeUnit } from 'src/app/types/lead-time';
 import { Country, DisasterType } from '../models/country.model';
+import { EventState } from '../types/event-state';
 import { DisasterTypeService } from './disaster-type.service';
 
 export class EventSummary {
@@ -25,12 +27,18 @@ export class EventService {
   private country: Country;
   private disasterType: DisasterType;
 
-  public state = {
+  private nullState = {
     events: null,
     event: null,
     activeEvent: null,
     activeTrigger: null,
   };
+
+  public state = this.nullState;
+
+  public stateSubscriptionObject = new BehaviorSubject<EventState>(
+    this.nullState,
+  );
 
   constructor(
     private apiService: ApiService,
@@ -59,12 +67,8 @@ export class EventService {
   };
 
   private resetState() {
-    this.state = {
-      events: null,
-      event: null,
-      activeEvent: null,
-      activeTrigger: null,
-    };
+    this.state = this.nullState;
+    this.setStateSubscriptionObject();
   }
 
   public getTrigger() {
@@ -120,6 +124,7 @@ export class EventService {
       this.state.events.filter((e: EventSummary) => e.activeTrigger).length > 0;
 
     this.setAlertState();
+    this.setStateSubscriptionObject();
   };
 
   private endDateToLastTriggerDate(endDate: string): string {
@@ -138,6 +143,8 @@ export class EventService {
         dashboardElement.classList.add('no-alert');
       }
     }
+
+    this.setStateSubscriptionObject();
   };
 
   private getFirstTriggerDate(event) {
@@ -181,6 +188,8 @@ export class EventService {
     event.firstLeadTimeDate = firstKey
       ? this.getFirstLeadTimeDate(firstKey, event.timeUnit)
       : null;
+
+    this.setStateSubscriptionObject();
   };
 
   private getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit): string {
@@ -213,5 +222,15 @@ export class EventService {
 
   public setEvent(event: EventSummary) {
     this.state.event = event;
+
+    this.setStateSubscriptionObject();
+  }
+
+  private setStateSubscriptionObject() {
+    this.stateSubscriptionObject.next(this.state);
+  }
+
+  getEventStateSubscription(): Observable<EventState> {
+    return this.stateSubscriptionObject.asObservable();
   }
 }
