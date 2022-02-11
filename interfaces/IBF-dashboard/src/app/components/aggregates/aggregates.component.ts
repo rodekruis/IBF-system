@@ -203,7 +203,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.placeCodeService.clearPlaceCode();
   }
 
-  private onEventStateChange(eventState: EventState) {
+  private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-  }
+  };
 }

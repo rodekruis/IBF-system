@@ -112,7 +112,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       .subscribe(onAreasOfFocusChange);
   }
 
-  private onEventStateChange(eventState: EventState) {
+  private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-  }
+  };
 }

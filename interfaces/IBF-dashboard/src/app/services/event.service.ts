@@ -143,8 +143,6 @@ export class EventService {
         dashboardElement.classList.add('no-alert');
       }
     }
-
-    this.setStateSubscriptionObject();
   };
 
   private getFirstTriggerDate(event) {
@@ -188,8 +186,6 @@ export class EventService {
     event.firstLeadTimeDate = firstKey
       ? this.getFirstLeadTimeDate(firstKey, event.timeUnit)
       : null;
-
-    this.setStateSubscriptionObject();
   };
 
   private getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit): string {
@@ -230,7 +226,7 @@ export class EventService {
     this.stateSubscriptionObject.next(this.state);
   }
 
-  getEventStateSubscription(): Observable<EventState> {
+  public getEventStateSubscription(): Observable<EventState> {
     return this.stateSubscriptionObject.asObservable();
   }
 }

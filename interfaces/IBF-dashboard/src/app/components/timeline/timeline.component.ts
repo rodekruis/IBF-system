@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { DateTime } from 'luxon';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -20,15 +14,10 @@ import { TimelineState } from 'src/app/types/timeline-state';
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimelineComponent implements OnInit, OnDestroy {
   private timelineStateSubscription: Subscription;
-
-  public timelineState: TimelineState = {
-    today: DateTime.now(),
-    timeStepButtons: [],
-  };
+  public timelineState: TimelineState;
 
   constructor(
     public timelineService: TimelineService,
@@ -56,8 +45,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
     this.timelineService.handleTimeStepButtonClick(leadTime);
   }
 
-  private onTimelineStateChange(timelineState: TimelineState) {
-    console.log('timelineState: ', timelineState);
+  private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
-  }
+  };
 }

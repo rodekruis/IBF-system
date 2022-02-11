@@ -499,7 +499,7 @@ export class MapComponent implements OnDestroy {
         .getAdminAreaDynamicDataOne(
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
-          this.timelineService.activeLeadTime,
+          this.timelineService.state.activeLeadTime,
           this.eventState?.event?.eventName,
         )
         .subscribe((thresholdValue: number) => {
@@ -923,7 +923,7 @@ export class MapComponent implements OnDestroy {
     }
 
     const leadTime =
-      this.timelineService.activeLeadTime || lastAvailableLeadTime;
+      this.timelineService.state.activeLeadTime || lastAvailableLeadTime;
     const subtitle = `${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
           ${
             markerProperties.forecastReturnPeriod

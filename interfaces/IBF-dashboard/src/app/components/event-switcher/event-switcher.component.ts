@@ -6,7 +6,6 @@ import { TimelineState } from 'src/app/types/timeline-state';
 import { DisasterType } from '../../models/country.model';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { TimelineService } from '../../services/timeline.service';
-import { LeadTime } from '../../types/lead-time';
 
 @Component({
   selector: 'app-event-switcher',
@@ -20,7 +19,6 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   public timelineState: TimelineState;
 
   private disasterTypeSubscription: Subscription;
-  private leadTimeSubscription: Subscription;
   private eventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
 
@@ -35,10 +33,6 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
 
-    this.leadTimeSubscription = this.timelineService
-      .getTimelineSubscription()
-      .subscribe(this.onLeadTimeChange);
-
     this.eventStateSubscription = this.eventService
       .getEventStateSubscription()
       .subscribe(this.onEventStateChange);
@@ -50,7 +44,6 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.disasterTypeSubscription.unsubscribe();
-    this.leadTimeSubscription.unsubscribe();
     this.eventStateSubscription.unsubscribe();
     this.timelineStateSubscription.unsubscribe();
   }
@@ -68,10 +61,11 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
     }
   };
 
-  private onLeadTimeChange = (leadTime: LeadTime) => {
-    if (leadTime) {
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
+    if (timelineState.activeLeadTime) {
       this.selectedEventName = this.eventState?.events.find(
-        (e) => e.firstLeadTime === leadTime,
+        (e) => e.firstLeadTime === timelineState.activeLeadTime,
       )?.eventName;
     }
   };
@@ -83,11 +77,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
     }
   }
 
-  private onEventStateChange(eventState: EventState) {
+  private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-  }
-
-  private onTimelineStateChange(timelineState: TimelineState) {
-    this.timelineState = timelineState;
-  }
+  };
 }

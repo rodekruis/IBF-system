@@ -8,6 +8,7 @@ import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { Country, DisasterType } from '../models/country.model';
 import { EventState } from '../types/event-state';
 import { IbfLayerName } from '../types/ibf-layer';
+import { TimelineState } from '../types/timeline-state';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
@@ -23,6 +24,7 @@ export class AggregatesService {
   private country: Country;
   private disasterType: DisasterType;
   private eventState: EventState;
+  public timelineState: TimelineState;
 
   constructor(
     private countryService: CountryService,
@@ -38,8 +40,8 @@ export class AggregatesService {
       .subscribe(this.onCountryChange);
 
     this.timelineService
-      .getTimelineSubscription()
-      .subscribe(this.onLeadTimeChange);
+      .getTimelineStateSubscription()
+      .subscribe(this.onTimelineStateChange);
 
     this.disasterTypeService
       .getDisasterTypeSubscription()
@@ -64,12 +66,18 @@ export class AggregatesService {
     this.loadMetadataAndAggregates();
   };
 
-  private onLeadTimeChange = () => {
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
     this.loadMetadataAndAggregates();
   };
 
   private onAdminLevelChange = () => {
     this.disasterType = this.disasterTypeService.disasterType;
+    this.loadMetadataAndAggregates();
+  };
+
+  private onEventStateChange = (eventState: EventState) => {
+    this.eventState = eventState;
     this.loadMetadataAndAggregates();
   };
 
@@ -144,7 +152,7 @@ export class AggregatesService {
         .getAggregatesData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.timelineService.activeLeadTime,
+          this.timelineService.state.activeLeadTime,
           this.adminLevelService.adminLevel,
           this.eventState?.event?.eventName,
         )
@@ -236,8 +244,4 @@ export class AggregatesService {
 
     return accumulator + indicatorValue;
   };
-
-  private onEventStateChange(eventState: EventState) {
-    this.eventState = eventState;
-  }
 }

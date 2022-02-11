@@ -20,17 +20,16 @@ import { EventService } from './event.service';
   providedIn: 'root',
 })
 export class TimelineService {
-  public activeLeadTime: LeadTime;
   private startingState: TimelineState = {
     today: DateTime.now(),
     timeStepButtons: [],
+    activeLeadTime: null,
   };
-  private state = this.startingState;
-  private stateSubscriptionObject = new BehaviorSubject<TimelineState>(
+  public state = this.startingState;
+  private timelineStateSubject = new BehaviorSubject<TimelineState>(
     this.startingState,
   );
   private triggersAllEvents: CountryTriggers;
-  private timelineSubject = new BehaviorSubject<LeadTime>(null);
   private country: Country;
   private disasterType: DisasterType;
   private eventState: EventState;
@@ -65,8 +64,8 @@ export class TimelineService {
     this.loadTimeStepButtons();
   };
 
-  getTimelineSubscription(): Observable<LeadTime> {
-    return this.timelineSubject.asObservable();
+  public getTimelineStateSubscription(): Observable<TimelineState> {
+    return this.timelineStateSubject.asObservable();
   }
 
   private leadTimeToLeadTimeButton = (
@@ -165,16 +164,15 @@ export class TimelineService {
     leadTimeButton.value === leadTime;
 
   public handleTimeStepButtonClick(timeStepButtonValue) {
-    this.activeLeadTime = timeStepButtonValue;
+    this.state.activeLeadTime = timeStepButtonValue;
     this.state.timeStepButtons.forEach(this.deactivateLeadTimeButton);
     this.state.timeStepButtons.find(
       this.filterLeadTimeButtonByLeadTime(timeStepButtonValue),
     ).active = true;
-    this.timelineSubject.next(this.activeLeadTime);
 
     const event = this.eventState?.activeTrigger
       ? this.eventState?.events.find(
-          (e) => (e.firstLeadTime as LeadTime) === this.activeLeadTime,
+          (e) => (e.firstLeadTime as LeadTime) === this.state.activeLeadTime,
         )
       : this.eventState?.event;
     this.eventService.setEvent(event);
@@ -327,15 +325,11 @@ export class TimelineService {
     return DateTime.utc(leadTimeMonth.year, leadTimeMonth.month, 1);
   }
 
-  private onEventStateChange(eventState: EventState) {
+  private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-  }
+  };
 
   private setStateSubscriptionObject() {
-    this.stateSubscriptionObject.next(this.state);
-  }
-
-  public getTimelineStateSubscription(): Observable<TimelineState> {
-    return this.stateSubscriptionObject.asObservable();
+    this.timelineStateSubject.next(this.state);
   }
 }

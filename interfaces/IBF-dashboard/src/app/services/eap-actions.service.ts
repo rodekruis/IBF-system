@@ -5,6 +5,7 @@ import { CountryService } from 'src/app/services/country.service';
 import { Country, DisasterType } from '../models/country.model';
 import { AdminLevel } from '../types/admin-level';
 import { EventState } from '../types/event-state';
+import { TimelineState } from '../types/timeline-state';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
@@ -21,6 +22,7 @@ export class EapActionsService {
   private adminLevel: AdminLevel;
   private event;
   private eventState: EventState;
+  public timelineState: TimelineState;
 
   constructor(
     private countryService: CountryService,
@@ -35,8 +37,8 @@ export class EapActionsService {
       .subscribe(this.onCountryChange);
 
     this.timelineService
-      .getTimelineSubscription()
-      .subscribe(this.onLeadTimeChange);
+      .getTimelineStateSubscription()
+      .subscribe(this.onTimelineStateChange);
 
     this.disasterTypeService
       .getDisasterTypeSubscription()
@@ -68,9 +70,9 @@ export class EapActionsService {
 
   private onEvent = (events) => {
     this.event = events[0];
-    if (this.event && this.timelineService.activeLeadTime) {
+    if (this.event && this.timelineService.state.activeLeadTime) {
       this.getTriggeredAreasApi(
-        this.timelineService.activeLeadTime,
+        this.timelineService.state.activeLeadTime,
         this.adminLevel ||
           this.country.countryDisasterSettings.find(
             (s) => s.disasterType === this.disasterType.disasterType,
@@ -79,10 +81,11 @@ export class EapActionsService {
     }
   };
 
-  private onLeadTimeChange = () => {
-    if (this.event && this.timelineService.activeLeadTime) {
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
+    if (this.event && this.timelineState.activeLeadTime) {
       this.getTriggeredAreasApi(
-        this.timelineService.activeLeadTime,
+        this.timelineState.activeLeadTime,
         this.adminLevel ||
           this.country.countryDisasterSettings.find(
             (s) => s.disasterType === this.disasterType.disasterType,
@@ -94,13 +97,10 @@ export class EapActionsService {
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
     if (
       this.event &&
-      this.timelineService.activeLeadTime &&
+      this.timelineState?.activeLeadTime &&
       this.adminLevelService.adminLevel
     ) {
-      this.getTriggeredAreasApi(
-        this.timelineService.activeLeadTime,
-        adminLevel,
-      );
+      this.getTriggeredAreasApi(this.timelineState?.activeLeadTime, adminLevel);
     }
   };
 

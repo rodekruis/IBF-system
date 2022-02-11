@@ -147,8 +147,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
-    const activeLeadTime = this.timelineState.timeStepButtons.find(
-      (t) => t.value === this.timelineService.activeLeadTime,
+    const activeLeadTime = this.timelineState?.timeStepButtons.find(
+      (t) => t.value === this.timelineState?.activeLeadTime,
     );
     if (placeCode && activeLeadTime.alert) {
       const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
@@ -434,11 +434,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   };
 
-  private onEventStateChange(eventState: EventState) {
+  private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-  }
+  };
 
-  private onTimelineStateChange(timelineState: TimelineState) {
+  private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
-  }
+  };
 }
