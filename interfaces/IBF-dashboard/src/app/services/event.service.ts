@@ -181,7 +181,8 @@ export class EventService {
     event.timeUnit = firstKey?.split('-')[1];
 
     // Leave these lines in to be able quick test/demo various scenarios concerning status of upcoming event.
-    // Note that you also need to change '1-day' lead-time to 'true' in 'triggers-per-leadtime-<country>-triggered.json' for a country to test this properly
+    // Note that you also need to change '1-day' lead-time to 'true' in 'triggers-per-leadtime-<country>-triggered.json' ..
+    // ..for a country to test this properly
     // event.startDate = '2022-02-05';
     // event.startDateEvent = '2022-02-07';
     // event.lastModelRunDate = '2022-02-11';
