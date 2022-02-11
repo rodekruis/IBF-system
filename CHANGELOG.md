@@ -1,3 +1,13 @@
+# [0.133.0](https://github.com/rodekruis/IBF-system/compare/v0.132.2...v0.133.0) (2022-02-11)
+
+
+### Features
+
+* update glofas stations KEN mock data AB[#12272](https://github.com/rodekruis/IBF-system/issues/12272) ([8b5268e](https://github.com/rodekruis/IBF-system/commit/8b5268e823740f4bdb0751f48b732f43e75f4866))
+* update used glofas stations seed AB[#12271](https://github.com/rodekruis/IBF-system/issues/12271) ([810f275](https://github.com/rodekruis/IBF-system/commit/810f2759fed371900f9313537c935b3b0d1b33c8))
+
+
+
 ## [0.132.2](https://github.com/rodekruis/IBF-system/compare/v0.132.1...v0.132.2) (2022-02-04)
 
 
@@ -90,15 +100,6 @@
 ### Bug Fixes
 
 * hide 'logged in as' in login page AB[#12047](https://github.com/rodekruis/IBF-system/issues/12047) ([371afcc](https://github.com/rodekruis/IBF-system/commit/371afcc93933f06b5ca722ba96a3a44b3e9808f1))
-
-
-
-## [0.128.3](https://github.com/rodekruis/IBF-system/compare/v0.128.2...v0.128.3) (2022-01-24)
-
-
-### Bug Fixes
-
-* disabled versions login page AB[#11812](https://github.com/rodekruis/IBF-system/issues/11812) ([7f18dbc](https://github.com/rodekruis/IBF-system/commit/7f18dbc246bec039db40115f44bd48f517c3af31))
 
 
 
