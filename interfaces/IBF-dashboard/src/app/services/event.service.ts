@@ -180,9 +180,11 @@ export class EventService {
     event.firstLeadTimeLabel = LeadTimeTriggerKey[firstKey];
     event.timeUnit = firstKey?.split('-')[1];
 
-    // event.startDate = '2022-02-01';
+    // Leave these lines in to be able quick test/demo various scenarios concerning status of upcoming event.
+    // Note that you also need to change '1-day' lead-time to 'true' in 'triggers-per-leadtime-<country>-triggered.json' for a country to test this properly
+    // event.startDate = '2022-02-05';
     // event.startDateEvent = '2022-02-07';
-    // event.lastModelRunDate = '2022-02-09';
+    // event.lastModelRunDate = '2022-02-11';
     if (event.startDateEvent) {
       const lastModelRunDate = DateTime.fromISO(event.lastModelRunDate);
       event.timeOngoing =
