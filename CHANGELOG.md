@@ -1,3 +1,12 @@
+## [0.133.2](https://github.com/rodekruis/IBF-system/compare/v0.133.1...v0.133.2) (2022-02-11)
+
+
+### Bug Fixes
+
+* new adm3 boundary data AB[#12347](https://github.com/rodekruis/IBF-system/issues/12347) ([c2feb15](https://github.com/rodekruis/IBF-system/commit/c2feb154300acd7e0d5c5302edf87a29a20b7e83))
+
+
+
 ## [0.133.1](https://github.com/rodekruis/IBF-system/compare/v0.133.0...v0.133.1) (2022-02-11)
 
 
@@ -94,16 +103,6 @@
 ### Features
 
 * disaster-types env specific AB[#12060](https://github.com/rodekruis/IBF-system/issues/12060) ([25c9e33](https://github.com/rodekruis/IBF-system/commit/25c9e339771ef9780d4ef21480c1fdee75283cca))
-
-
-
-## [0.128.5](https://github.com/rodekruis/IBF-system/compare/v0.128.4...v0.128.5) (2022-01-24)
-
-
-### Bug Fixes
-
-* also remove disaster-type from login page AB[#12057](https://github.com/rodekruis/IBF-system/issues/12057) ([8eed888](https://github.com/rodekruis/IBF-system/commit/8eed8881333dd895826154b4f2611c27927a1876))
-* remove triggered state from login page AB[#12057](https://github.com/rodekruis/IBF-system/issues/12057) ([a3652b9](https://github.com/rodekruis/IBF-system/commit/a3652b9963402d973fe379f117c559e46f3621ee))
 
 
 
