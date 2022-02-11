@@ -107,7 +107,9 @@
           <ion-col size-lg="10" size-md="10" size-xs="10">
             <ion-label
               [innerHTML]="
-                'chat-component.' + disasterTypeName + '.active-event.place-name'
+                'chat-component.' +
+                  disasterTypeName +
+                  '.active-event.place-name'
                   | translate
                     : { adminAreaLabel: adminAreaLabel, placeName: area.name }
               "
@@ -158,7 +160,11 @@
             type="submit"
             expand="block"
             class="submit-button"
-            [innerHTML]="'chat-component.' + disasterTypeName + '.active-event.submit-button-label' | translate"
+            [innerHTML]="
+              'chat-component.' +
+                disasterTypeName +
+                '.active-event.submit-button-label' | translate
+            "
           ></ion-button>
         </ion-row>
       </form>
@@ -167,7 +173,11 @@
         [disabled]="area.activeTrigger"
         color="ibf-primary"
         expand="block"
-        [innerHTML]="'chat-component.' + disasterTypeName + '.active-event.close-event-button' | translate"
+        [innerHTML]="
+          'chat-component.' +
+            disasterTypeName +
+            '.active-event.close-event-button' | translate
+        "
       ></ion-button>
     </app-dialogue-turn>
   </ng-container>
