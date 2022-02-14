@@ -62,12 +62,10 @@ export class AggregatesService {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-    this.loadMetadataAndAggregates();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.loadMetadataAndAggregates();
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {

@@ -55,7 +55,6 @@ export class EapActionsService {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-    this.loadAdminAreasAndActions();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
@@ -105,11 +104,11 @@ export class EapActionsService {
   };
 
   private getTriggeredAreasApi(leadTime: string, adminLevel: AdminLevel) {
-    if (this.disasterTypeService.disasterType) {
+    if (this.disasterType) {
       this.apiService
         .getTriggeredAreas(
           this.country.countryCodeISO3,
-          this.disasterTypeService.disasterType.disasterType,
+          this.disasterType.disasterType,
           adminLevel,
           leadTime,
           this.eventState?.event?.eventName,
