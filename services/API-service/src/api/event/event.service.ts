@@ -64,7 +64,7 @@ export class EventService {
       .groupBy('area."countryCodeISO3"')
       .addGroupBy('event."eventName"')
       .addSelect([
-        'to_char(MAX("startDate") , \'yyyy-mm-dd\') AS "startDate"',
+        'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."activeTrigger"::int)::boolean AS "activeTrigger"',
       ])
