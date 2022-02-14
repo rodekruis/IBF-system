@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import { LeadTimeTriggerKey, LeadTimeUnit } from 'src/app/types/lead-time';
+import {
+  LeadTime,
+  LeadTimeTriggerKey,
+  LeadTimeUnit,
+} from 'src/app/types/lead-time';
 import { Country, DisasterType } from '../models/country.model';
+import { EventState } from '../types/event-state';
 import { DisasterTypeService } from './disaster-type.service';
 
 export class EventSummary {
@@ -25,12 +31,21 @@ export class EventService {
   private country: Country;
   private disasterType: DisasterType;
 
-  public state = {
+  private nullState = {
     events: null,
     event: null,
     activeEvent: null,
     activeTrigger: null,
   };
+
+  public state = this.nullState;
+
+  public initialEventStateSubject = new BehaviorSubject<EventState>(
+    this.nullState,
+  );
+  public manualEventStateSubject = new BehaviorSubject<EventState>(
+    this.nullState,
+  );
 
   constructor(
     private apiService: ApiService,
@@ -47,9 +62,7 @@ export class EventService {
   }
 
   private onCountryChange = (country: Country) => {
-    this.resetState();
     this.country = country;
-    this.getTrigger();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
@@ -58,13 +71,37 @@ export class EventService {
     this.getTrigger();
   };
 
+  public switchEvent(leadTime: LeadTime) {
+    const event = this.state.activeTrigger
+      ? this.state.events.find(
+          (e) => (e.firstLeadTime as LeadTime) === leadTime,
+        )
+      : this.state.event;
+    // Trigger a different 'event' subject in this case ..
+    // .. so that timelineService can distinguish between initial event switch and manual event switch
+    this.setEventManually(event);
+  }
+
+  public setEventInitially(event: EventSummary) {
+    this.state.event = event;
+    this.initialEventStateSubject.next(this.state);
+  }
+
+  public setEventManually(event: EventSummary) {
+    this.state.event = event;
+    this.manualEventStateSubject.next(this.state);
+  }
+
+  public getInitialEventStateSubscription(): Observable<EventState> {
+    return this.initialEventStateSubject.asObservable();
+  }
+
+  public getManualEventStateSubscription(): Observable<EventState> {
+    return this.manualEventStateSubject.asObservable();
+  }
+
   private resetState() {
-    this.state = {
-      events: null,
-      event: null,
-      activeEvent: null,
-      activeTrigger: null,
-    };
+    this.state = this.nullState;
   }
 
   public getTrigger() {
@@ -113,11 +150,11 @@ export class EventService {
       }
     }
 
-    this.setEvent(events[0]);
-    this.state.activeEvent = !!this.state.event;
+    this.state.activeEvent = !!events[0];
     this.state.activeTrigger =
-      this.state.event &&
+      events[0] &&
       this.state.events.filter((e: EventSummary) => e.activeTrigger).length > 0;
+    this.setEventInitially(events[0]);
 
     this.setAlertState();
   };
@@ -210,8 +247,4 @@ export class EventService {
   }
 
   public isOldEvent = () => this.state.activeEvent && !this.state.activeTrigger;
-
-  public setEvent(event: EventSummary) {
-    this.state.event = event;
-  }
 }

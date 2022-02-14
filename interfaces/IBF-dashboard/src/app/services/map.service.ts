@@ -30,6 +30,8 @@ import { LayerActivation } from '../models/layer-activation.enum';
 import { breakKey } from '../models/map.model';
 import { AdminLevel } from '../types/admin-level';
 import { DisasterTypeKey } from '../types/disaster-type-key';
+import { EventState } from '../types/event-state';
+import { TimelineState } from '../types/timeline-state';
 import { DisasterTypeService } from './disaster-type.service';
 
 @Injectable({
@@ -69,6 +71,10 @@ export class MapService {
     defaultWeight: 1,
   };
 
+  public eventState: EventState;
+  public timelineState: TimelineState;
+  public adminLevel: AdminLevel;
+
   private popoverTexts: { [key: string]: string } = {};
   private country: Country;
   private disasterType: DisasterType;
@@ -93,8 +99,8 @@ export class MapService {
       .subscribe(this.onAdminLevelChange);
 
     this.timelineService
-      .getTimelineSubscription()
-      .subscribe(this.onLeadTimeChange);
+      .getTimelineStateSubscription()
+      .subscribe(this.onTimelineStateChange);
 
     this.placeCodeService
       .getPlaceCodeSubscription()
@@ -107,20 +113,30 @@ export class MapService {
     this.translateService
       .get('layer-info-popups.layers-section')
       .subscribe(this.onTranslate);
+
+    this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStateChange);
+
+    this.eventService
+      .getManualEventStateSubscription()
+      .subscribe(this.onEventStateChange);
   }
 
   private onCountryChange = (country: Country): void => {
     this.country = country;
   };
 
-  private onAdminLevelChange = () => {
+  private onAdminLevelChange = (adminLevel: AdminLevel) => {
+    this.adminLevel = adminLevel;
     this.layers.forEach((layer) => {
       this.hideLayer(layer);
     });
     this.loadCountryLayers();
   };
 
-  private onLeadTimeChange = () => {
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
     this.loadCountryLayers();
   };
 
@@ -133,8 +149,12 @@ export class MapService {
       this.layers
         .filter((layer) => layer.group === IbfLayerGroup.adminRegions)
         .forEach(this.deactivateLayer);
-      this.loadCountryLayers();
     }
+  };
+
+  private onEventStateChange = (eventState: any) => {
+    this.eventState = eventState;
+    this.loadCountryLayers();
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
@@ -168,7 +188,7 @@ export class MapService {
           layer.name,
           layer.label,
           layerActive,
-          layer.leadTimeDependent ? this.timelineService.activeLeadTime : null,
+          layer.leadTimeDependent ? this.timelineState.activeLeadTime : null,
           layer.legendColor,
         );
       } else if (layer.name === IbfLayerName.adminRegions1) {
@@ -198,7 +218,13 @@ export class MapService {
   };
 
   private async loadCountryLayers() {
-    if (this.country && this.disasterType) {
+    if (
+      this.country &&
+      this.disasterType &&
+      this.eventState &&
+      this.timelineState &&
+      this.adminLevel
+    ) {
       this.apiService
         .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
         .subscribe(this.onLayerChange);
@@ -211,7 +237,7 @@ export class MapService {
         this.apiService
           .getStations(
             this.country.countryCodeISO3,
-            this.timelineService.activeLeadTime,
+            this.timelineState.activeLeadTime,
           )
           .subscribe(this.addStationLayer);
       } else {
@@ -244,8 +270,8 @@ export class MapService {
         this.apiService
           .getTyphoonTrack(
             this.country.countryCodeISO3,
-            this.timelineService.activeLeadTime,
-            this.eventService.state.event?.eventName,
+            this.timelineState.activeLeadTime,
+            this.eventState?.event?.eventName,
           )
           .subscribe(this.addTyphoonTrackLayer);
       } else {
@@ -410,7 +436,7 @@ export class MapService {
       this.country &&
       this.disasterType &&
       this.leadTimeMatchesDisaster(
-        this.timelineService.activeLeadTime,
+        this.timelineState.activeLeadTime,
         this.disasterType,
       )
     ) {
@@ -422,9 +448,9 @@ export class MapService {
           .getAdminRegions(
             this.country.countryCodeISO3,
             this.disasterType.disasterType,
-            this.timelineService.activeLeadTime,
+            this.timelineState.activeLeadTime,
             adminLevel,
-            this.eventService.state.event?.eventName,
+            this.eventState?.event?.eventName,
           )
           .subscribe((adminRegions) =>
             this.addAdminRegionLayer(adminRegions, adminLevel),
@@ -442,10 +468,10 @@ export class MapService {
       group: IbfLayerGroup.adminRegions,
       type: IbfLayerType.shape,
       description: '',
-      active: this.adminLevelService.adminLevel === adminLevel,
+      active: this.adminLevel === adminLevel,
       show: true,
       data: adminRegions,
-      viewCenter: this.adminLevelService.adminLevel === adminLevel,
+      viewCenter: this.adminLevel === adminLevel,
       colorProperty: this.disasterType.actionsUnit,
       order: 0,
     });
@@ -457,14 +483,14 @@ export class MapService {
         ? this.adminLevelService.activeLayerNames.includes(indicator.name)
         : this.getActiveState(indicator);
 
-      if (layerActive && this.timelineService.activeLeadTime) {
+      if (layerActive && this.timelineState.activeLeadTime) {
         this.getCombineAdminRegionData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.adminLevelService.adminLevel,
-          this.timelineService.activeLeadTime,
+          this.adminLevel,
+          this.timelineState.activeLeadTime,
           indicator.name,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
           indicator.dynamic,
         ).subscribe((adminRegions) => {
           this.addAggregateLayer(indicator, adminRegions, layerActive);
@@ -479,24 +505,21 @@ export class MapService {
     return indicatorOrLayer.active === LayerActivation.yes
       ? true
       : indicatorOrLayer.active === LayerActivation.ifTrigger &&
-        this.eventService.state.activeTrigger
+        this.eventState?.activeTrigger
       ? true
       : false;
   }
 
   public loadOutlineLayer(indicator: Indicator) {
     if (this.country) {
-      if (
-        this.getActiveState(indicator) &&
-        this.timelineService.activeLeadTime
-      ) {
+      if (this.getActiveState(indicator) && this.timelineState.activeLeadTime) {
         this.getCombineAdminRegionData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.adminLevelService.adminLevel,
-          this.timelineService.activeLeadTime,
+          this.adminLevel,
+          this.timelineState.activeLeadTime,
           indicator.name,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
           indicator.dynamic,
         ).subscribe((adminRegions) => {
           this.addOutlineLayer(indicator, adminRegions);
@@ -740,7 +763,7 @@ export class MapService {
         type: 'FeatureCollection',
         features: [],
       });
-      const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}`;
+      const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineState.activeLeadTime}_${this.adminLevel}_${layer.name}`;
       layer.active = this.isLayerActive(layer, newLayer);
       layer.show = this.isLayerShown(layer, newLayer);
       if (this.layerDataCache[layerDataCacheKey]) {
@@ -780,15 +803,15 @@ export class MapService {
       layerData = this.apiService
         .getStations(
           this.country.countryCodeISO3,
-          this.timelineService.activeLeadTime,
+          this.timelineState.activeLeadTime,
         )
         .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.typhoonTrack) {
       layerData = this.apiService
         .getTyphoonTrack(
           this.country.countryCodeISO3,
-          this.timelineService.activeLeadTime,
-          this.eventService.state.event?.eventName,
+          this.timelineState.activeLeadTime,
+          this.eventState?.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (
@@ -799,9 +822,9 @@ export class MapService {
         .getAdminRegions(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.timelineService.activeLeadTime,
-          this.adminLevelService.adminLevel,
-          this.eventService.state.event?.eventName,
+          this.timelineState.activeLeadTime,
+          this.adminLevel,
+          this.eventState?.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (
@@ -815,9 +838,9 @@ export class MapService {
         .getAdminRegions(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.timelineService.activeLeadTime,
+          this.timelineState.activeLeadTime,
           adminLevel,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (
@@ -827,10 +850,10 @@ export class MapService {
       layerData = this.getCombineAdminRegionData(
         this.country.countryCodeISO3,
         this.disasterType.disasterType,
-        this.adminLevelService.adminLevel,
-        this.timelineService.activeLeadTime,
+        this.adminLevel,
+        this.timelineState.activeLeadTime,
         layer.name,
-        this.eventService.state.event?.eventName,
+        this.eventState?.event?.eventName,
         layer.dynamic,
       ).pipe(shareReplay(1));
     } else {
@@ -879,7 +902,7 @@ export class MapService {
     // Get the geometry from the admin region (this should re-use the cache if that is already loaded)
     const adminRegionsLayer = new IbfLayer();
     adminRegionsLayer.name = IbfLayerName.adminRegions;
-    const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineService.activeLeadTime}_${this.adminLevelService.adminLevel}_${adminRegionsLayer.name}`;
+    const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineState.activeLeadTime}_${this.adminLevel}_${adminRegionsLayer.name}`;
     const adminRegionsObs = this.getLayerData(
       adminRegionsLayer,
       layerDataCacheKey,
@@ -941,7 +964,7 @@ export class MapService {
         adminRegionFillColor = this.state.defaultColor;
     }
     if (this.placeCode && this.placeCode.placeCode === placeCode) {
-      adminRegionFillColor = this.eventService.state.activeTrigger
+      adminRegionFillColor = this.eventState?.activeTrigger
         ? this.alertColor
         : this.safeColor;
     }
@@ -998,9 +1021,7 @@ export class MapService {
   };
 
   adminLevelLowerThanDefault = (name: IbfLayerName): boolean => {
-    return (
-      name.substr(name.length - 1) < String(this.adminLevelService.adminLevel)
-    );
+    return name.substr(name.length - 1) < String(this.adminLevel);
   };
 
   getAdminRegionColor = (layer: IbfLayer): string => {

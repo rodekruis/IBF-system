@@ -1,5 +1,5 @@
 <div *ngIf="multipleActiveEvents()" class="containerDiv">
-  <div *ngFor="let event of eventService.state.events">
+  <div *ngFor="let event of eventState?.events">
     <div *ngIf="event.eventName === selectedEventName">
       <ion-button
         shape="block"

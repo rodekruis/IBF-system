@@ -6,7 +6,10 @@ import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { Country, DisasterType } from '../models/country.model';
+import { AdminLevel } from '../types/admin-level';
+import { EventState } from '../types/event-state';
 import { IbfLayerName } from '../types/ibf-layer';
+import { TimelineState } from '../types/timeline-state';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
@@ -21,6 +24,9 @@ export class AggregatesService {
   public nrTriggeredAreas: number;
   private country: Country;
   private disasterType: DisasterType;
+  private eventState: EventState;
+  public timelineState: TimelineState;
+  private adminLevel: AdminLevel;
 
   constructor(
     private countryService: CountryService,
@@ -36,8 +42,8 @@ export class AggregatesService {
       .subscribe(this.onCountryChange);
 
     this.timelineService
-      .getTimelineSubscription()
-      .subscribe(this.onLeadTimeChange);
+      .getTimelineStateSubscription()
+      .subscribe(this.onTimelineStateChange);
 
     this.disasterTypeService
       .getDisasterTypeSubscription()
@@ -46,32 +52,46 @@ export class AggregatesService {
     this.adminLevelService
       .getAdminLevelSubscription()
       .subscribe(this.onAdminLevelChange);
+
+    this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStateChange);
+
+    this.eventService
+      .getManualEventStateSubscription()
+      .subscribe(this.onEventStateChange);
   }
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-    this.loadMetadataAndAggregates();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+  };
+
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
     this.loadMetadataAndAggregates();
   };
 
-  private onLeadTimeChange = () => {
+  private onAdminLevelChange = (adminLevel: AdminLevel) => {
+    this.adminLevel = adminLevel;
     this.loadMetadataAndAggregates();
   };
 
-  private onAdminLevelChange = () => {
-    this.disasterType = this.disasterTypeService.disasterType;
+  private onEventStateChange = (eventState: EventState) => {
+    this.eventState = eventState;
     this.loadMetadataAndAggregates();
   };
 
   loadMetadataAndAggregates() {
-    this.disasterType = this.disasterTypeService.disasterType;
     if (
       this.country &&
       this.disasterType &&
+      this.eventState &&
+      this.timelineState &&
+      this.adminLevel &&
       this.mapService.checkCountryDisasterTypeMatch(
         this.country,
         this.disasterType,
@@ -81,7 +101,7 @@ export class AggregatesService {
         .getIndicators(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.eventService.state.event?.eventName,
+          this.eventState.event?.eventName,
         )
         .subscribe(this.onIndicatorChange);
     }
@@ -138,9 +158,9 @@ export class AggregatesService {
         .getAggregatesData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.timelineService.activeLeadTime,
-          this.adminLevelService.adminLevel,
-          this.eventService.state.event?.eventName,
+          this.timelineState.activeLeadTime,
+          this.adminLevel,
+          this.eventState.event?.eventName,
         )
         .subscribe(this.onAggregateData);
     }

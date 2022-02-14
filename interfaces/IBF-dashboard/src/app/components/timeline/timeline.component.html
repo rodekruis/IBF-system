@@ -3,10 +3,10 @@
     type="indeterminate"
     color="ibf-gray"
     class="ion-margin"
-    *ngIf="timelineService.state.timeStepButtons.length < 1"
+    *ngIf="timelineState.timeStepButtons.length < 1"
   ></ion-progress-bar>
   <ion-button
-    *ngFor="let timeStepButton of timelineService.state.timeStepButtons"
+    *ngFor="let timeStepButton of timelineState.timeStepButtons"
     expand="full"
     disabled="{{ timeStepButton.disabled }}"
     color="{{
@@ -17,7 +17,7 @@
     fill="solid"
     data-test="time-line-button"
     [class.active]="timeStepButton.active"
-    [class.alert]="timeStepButton.alert && !timeStepButton.disabled"
+    [class.alert]="timeStepButton.alert && !timeStepButton?.disabled"
     (click)="handleTimeStepButtonClick(timeStepButton.value)"
   >
     <app-date-button

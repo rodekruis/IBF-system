@@ -57,6 +57,7 @@ import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { EventState } from 'src/app/types/event-state';
 import {
   IbfLayer,
   IbfLayerGroup,
@@ -69,6 +70,7 @@ import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { breakKey } from '../../models/map.model';
 import { DisasterTypeService } from '../../services/disaster-type.service';
+import { TimelineState } from '../../types/timeline-state';
 import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
@@ -83,6 +85,8 @@ export class MapComponent implements OnDestroy {
   private country: Country;
   private disasterType: DisasterType;
   public lastModelRunDate: string;
+  public eventState: EventState;
+  public timelineState: TimelineState;
 
   public legends: { [key: string]: Control } = {};
 
@@ -90,6 +94,9 @@ export class MapComponent implements OnDestroy {
   private countrySubscription: Subscription;
   private disasterTypeSubscription: Subscription;
   private placeCodeSubscription: Subscription;
+  private initialEventStateSubscription: Subscription;
+  private manualEventStateSubscription: Subscription;
+  private timelineStateSubscription: Subscription;
 
   private osmTileLayer = tileLayer(LEAFLET_MAP_URL_TEMPLATE, {
     attribution: LEAFLET_MAP_ATTRIBUTION,
@@ -130,6 +137,18 @@ export class MapComponent implements OnDestroy {
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
+
+    this.initialEventStateSubscription = this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStateChage);
+
+    this.manualEventStateSubscription = this.eventService
+      .getManualEventStateSubscription()
+      .subscribe(this.onEventStateChage);
+
+    this.timelineStateSubscription = this.timelineService
+      .getTimelineStateSubscription()
+      .subscribe(this.onTimelineStateChange);
   }
 
   ngOnDestroy() {
@@ -137,6 +156,9 @@ export class MapComponent implements OnDestroy {
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.disasterTypeSubscription.unsubscribe();
+    this.initialEventStateSubscription.unsubscribe();
+    this.manualEventStateSubscription.unsubscribe();
+    this.timelineStateSubscription.unsubscribe();
   }
 
   private filterLayerByLayerName = (newLayer) => (layer) =>
@@ -174,8 +196,16 @@ export class MapComponent implements OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+  };
 
-    if (this.country) {
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
+  };
+
+  private onEventStateChage = (eventState: EventState) => {
+    this.eventState = eventState;
+
+    if (this.country && this.disasterType) {
       this.apiService
         .getRecentDates(
           this.country.countryCodeISO3,
@@ -320,7 +350,7 @@ export class MapComponent implements OnDestroy {
     if (layer.type === IbfLayerType.shape) {
       layer.leafletLayer = this.createAdminRegionsLayer(layer);
 
-      const colors = this.eventService.state.activeTrigger
+      const colors = this.eventState?.activeTrigger
         ? this.mapService.state.colorGradientTriggered
         : this.mapService.state.colorGradient;
       const colorThreshold = this.mapService.getColorThreshold(
@@ -446,7 +476,7 @@ export class MapComponent implements OnDestroy {
   private onAdminRegionMouseOver = (event): void => {
     event.target.setStyle({
       fillOpacity: this.mapService.hoverFillOpacity,
-      fillColor: this.eventService.state.activeTrigger
+      fillColor: this.eventState?.activeTrigger
         ? this.mapService.alertColor
         : this.mapService.safeColor,
     });
@@ -492,8 +522,8 @@ export class MapComponent implements OnDestroy {
         .getAdminAreaDynamicDataOne(
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
-          this.timelineService.activeLeadTime,
-          this.eventService.state.event?.eventName,
+          this.timelineState.activeLeadTime,
+          this.eventState?.event?.eventName,
         )
         .subscribe((thresholdValue: number) => {
           popup = this.createThresHoldPopupAdminRegions(
@@ -915,8 +945,7 @@ export class MapComponent implements OnDestroy {
       lastAvailableLeadTime = leadTimes[leadTimes.length - 1];
     }
 
-    const leadTime =
-      this.timelineService.activeLeadTime || lastAvailableLeadTime;
+    const leadTime = this.timelineState.activeLeadTime || lastAvailableLeadTime;
     const subtitle = `${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
           ${
             markerProperties.forecastReturnPeriod

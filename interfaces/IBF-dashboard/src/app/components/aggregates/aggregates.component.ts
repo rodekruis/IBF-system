@@ -14,6 +14,7 @@ import { AggregatesService } from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { EventState } from 'src/app/types/event-state';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
@@ -37,12 +38,16 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private allPrefix: string;
   private popoverTexts: { [key: string]: string } = {};
 
+  private eventState: EventState;
+
   private indicatorSubscription: Subscription;
   private countrySubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private translateSubscription: Subscription;
   private translateLayerInfoPopupsSubscription: Subscription;
   private eapActionSubscription: Subscription;
+  private initialEventStateSubscription: Subscription;
+  private manualEventStateSubscription: Subscription;
 
   constructor(
     private countryService: CountryService,
@@ -62,11 +67,17 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.translateLayerInfoPopupsSubscription = this.translateService
       .get('layer-info-popups.aggregates-section')
       .subscribe(this.onTranslateLayerInfoPopups);
+
+    this.initialEventStateSubscription = this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStateChange);
+
+    this.manualEventStateSubscription = this.eventService
+      .getManualEventStateSubscription()
+      .subscribe(this.onEventStateChange);
   }
 
   ngOnInit() {
-    this.aggregatesService.loadMetadataAndAggregates();
-
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
@@ -87,6 +98,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.translateSubscription.unsubscribe();
     this.translateLayerInfoPopupsSubscription.unsubscribe();
     this.eapActionSubscription.unsubscribe();
+    this.initialEventStateSubscription.unsubscribe();
+    this.manualEventStateSubscription.unsubscribe();
   }
 
   private onTranslate = (translatedStrings) => {
@@ -176,7 +189,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       headerLabel = this.placeCode.placeCodeName;
     } else {
       if (this.country) {
-        if (this.eventService.state.activeTrigger) {
+        if (this.eventState?.activeTrigger) {
           const areaCount = this.aggregatesService.nrTriggeredAreas;
           const adminAreaLabel = this.country.adminRegionLabels[
             this.adminLevelService.adminLevel
@@ -194,4 +207,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public clearPlaceCode() {
     this.placeCodeService.clearPlaceCode();
   }
+
+  private onEventStateChange = (eventState: EventState) => {
+    this.eventState = eventState;
+  };
 }

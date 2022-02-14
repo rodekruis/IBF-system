@@ -4,9 +4,11 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { Country, DisasterType } from '../models/country.model';
 import { AdminLevel } from '../types/admin-level';
+import { EventState } from '../types/event-state';
+import { TimelineState } from '../types/timeline-state';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
-import { EventService } from './event.service';
+import { EventService, EventSummary } from './event.service';
 import { TimelineService } from './timeline.service';
 
 @Injectable({
@@ -18,7 +20,9 @@ export class EapActionsService {
   private country: Country;
   private disasterType: DisasterType;
   private adminLevel: AdminLevel;
-  private event;
+  private event: EventSummary;
+  private eventState: EventState;
+  public timelineState: TimelineState;
 
   constructor(
     private countryService: CountryService,
@@ -33,8 +37,8 @@ export class EapActionsService {
       .subscribe(this.onCountryChange);
 
     this.timelineService
-      .getTimelineSubscription()
-      .subscribe(this.onLeadTimeChange);
+      .getTimelineStateSubscription()
+      .subscribe(this.onTimelineStateChange);
 
     this.disasterTypeService
       .getDisasterTypeSubscription()
@@ -43,11 +47,14 @@ export class EapActionsService {
     this.adminLevelService
       .getAdminLevelSubscription()
       .subscribe(this.onAdminLevelChange);
+
+    this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStatusChange);
   }
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-    this.loadAdminAreasAndActions();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
@@ -62,9 +69,9 @@ export class EapActionsService {
 
   private onEvent = (events) => {
     this.event = events[0];
-    if (this.event && this.timelineService.activeLeadTime) {
+    if (this.event && this.timelineState.activeLeadTime) {
       this.getTriggeredAreasApi(
-        this.timelineService.activeLeadTime,
+        this.timelineState.activeLeadTime,
         this.adminLevel ||
           this.country.countryDisasterSettings.find(
             (s) => s.disasterType === this.disasterType.disasterType,
@@ -73,10 +80,11 @@ export class EapActionsService {
     }
   };
 
-  private onLeadTimeChange = () => {
-    if (this.event && this.timelineService.activeLeadTime) {
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
+    if (this.event && this.timelineState.activeLeadTime) {
       this.getTriggeredAreasApi(
-        this.timelineService.activeLeadTime,
+        this.timelineState.activeLeadTime,
         this.adminLevel ||
           this.country.countryDisasterSettings.find(
             (s) => s.disasterType === this.disasterType.disasterType,
@@ -86,27 +94,20 @@ export class EapActionsService {
   };
 
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
-    if (
-      this.event &&
-      this.timelineService.activeLeadTime &&
-      this.adminLevelService.adminLevel
-    ) {
-      this.getTriggeredAreasApi(
-        this.timelineService.activeLeadTime,
-        adminLevel,
-      );
+    if (this.event && this.timelineState?.activeLeadTime && adminLevel) {
+      this.getTriggeredAreasApi(this.timelineState?.activeLeadTime, adminLevel);
     }
   };
 
   private getTriggeredAreasApi(leadTime: string, adminLevel: AdminLevel) {
-    if (this.disasterTypeService.disasterType) {
+    if (this.disasterType) {
       this.apiService
         .getTriggeredAreas(
           this.country.countryCodeISO3,
-          this.disasterTypeService.disasterType.disasterType,
+          this.disasterType.disasterType,
           adminLevel,
           leadTime,
-          this.eventService.state.event?.eventName,
+          this.eventState?.event?.eventName,
         )
         .subscribe(this.onTriggeredAreas);
     }
@@ -141,5 +142,9 @@ export class EapActionsService {
       placeCode,
       eventName,
     );
+  }
+
+  private onEventStatusChange(eventState: EventState) {
+    this.eventState = eventState;
   }
 }

@@ -23,7 +23,7 @@
 
   <!-- No event -->
   <app-dialogue-turn
-    *ngIf="!eventService.state.activeEvent && !eventService.state.activeTrigger"
+    *ngIf="!eventState?.activeEvent && !eventState?.activeTrigger"
     isConnected="true"
   >
     <p
@@ -38,10 +38,10 @@
   </app-dialogue-turn>
   <!-- Active event -->
   <app-dialogue-turn
-    *ngIf="eventService.state.activeEvent && eventService.state.activeTrigger"
+    *ngIf="eventState?.activeEvent && eventState?.activeTrigger"
     isConnected="true"
   >
-    <ng-container *ngFor="let event of eventService.state.events">
+    <ng-container *ngFor="let event of eventState?.events">
       <p
         *ngIf="event.activeTrigger"
         [innerHTML]="
@@ -72,15 +72,15 @@
           | translate
             : {
                 name: authService.displayName,
-                startDate: eventService.state.event.startDate,
-                endDate: eventService.state.event.endDate,
-                eventName: eventService.state.event.eventName
+                startDate: eventState?.event.startDate,
+                endDate: eventState?.event.endDate,
+                eventName: eventState?.event.eventName
               }
       "
     ></p>
   </app-dialogue-turn>
 
-  <ng-container *ngIf="eventService.state.activeEvent">
+  <ng-container *ngIf="eventState?.activeEvent">
     <app-dialogue-turn isConnected="true">
       <p
         [translate]="

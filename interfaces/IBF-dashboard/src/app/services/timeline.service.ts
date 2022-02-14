@@ -11,6 +11,8 @@ import {
 import { CountryTriggers } from '../models/country-triggers.model';
 import { Country, DisasterType } from '../models/country.model';
 import { DisasterTypeKey } from '../types/disaster-type-key';
+import { EventState } from '../types/event-state';
+import { TimelineState } from '../types/timeline-state';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
 
@@ -18,15 +20,19 @@ import { EventService } from './event.service';
   providedIn: 'root',
 })
 export class TimelineService {
-  public activeLeadTime: LeadTime;
-  public state = {
+  private startingState: TimelineState = {
     today: DateTime.now(),
     timeStepButtons: [],
+    activeLeadTime: null,
   };
+  public state = this.startingState;
+  private timelineStateSubject = new BehaviorSubject<TimelineState>(
+    this.startingState,
+  );
   private triggersAllEvents: CountryTriggers;
-  private timelineSubject = new BehaviorSubject<LeadTime>(null);
   private country: Country;
   private disasterType: DisasterType;
+  private eventState: EventState;
 
   constructor(
     private countryService: CountryService,
@@ -41,6 +47,14 @@ export class TimelineService {
     this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
+
+    this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onInitialEventStateChange);
+
+    this.eventService
+      .getManualEventStateSubscription()
+      .subscribe(this.onManualEventStateChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -50,11 +64,21 @@ export class TimelineService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.loadTimeStepButtons();
   };
 
-  getTimelineSubscription(): Observable<LeadTime> {
-    return this.timelineSubject.asObservable();
+  private onInitialEventStateChange = (eventState: EventState) => {
+    this.eventState = eventState;
+    if (this.country && this.disasterType) {
+      this.loadTimeStepButtons();
+    }
+  };
+
+  private onManualEventStateChange = (eventState: EventState) => {
+    this.eventState = eventState;
+  };
+
+  public getTimelineStateSubscription(): Observable<TimelineState> {
+    return this.timelineStateSubject.asObservable();
   }
 
   private leadTimeToLeadTimeButton = (
@@ -106,7 +130,7 @@ export class TimelineService {
       this.state.today = DateTime.now();
     }
 
-    const events = this.eventService.state.events;
+    const events = this.eventState?.events;
     if (events?.length) {
       for (const event of events) {
         if (event.activeTrigger) {
@@ -145,19 +169,13 @@ export class TimelineService {
     leadTimeButton.value === leadTime;
 
   public handleTimeStepButtonClick(timeStepButtonValue) {
-    this.activeLeadTime = timeStepButtonValue;
+    this.state.activeLeadTime = timeStepButtonValue;
     this.state.timeStepButtons.forEach(this.deactivateLeadTimeButton);
     this.state.timeStepButtons.find(
       this.filterLeadTimeButtonByLeadTime(timeStepButtonValue),
     ).active = true;
-    this.timelineSubject.next(this.activeLeadTime);
 
-    const event = this.eventService.state.activeTrigger
-      ? this.eventService.state.events.find(
-          (e) => (e.firstLeadTime as LeadTime) === this.activeLeadTime,
-        )
-      : this.eventService.state.event;
-    this.eventService.setEvent(event);
+    this.timelineStateSubject.next(this.state);
   }
 
   private getLeadTimeDate(leadTime: LeadTime, triggerKey: string) {
@@ -230,10 +248,12 @@ export class TimelineService {
   }
 
   private getDateFromLeadTime(leadTime) {
-    return this.getLeadTimeDate(
+    const date = this.getLeadTimeDate(
       leadTime,
       LeadTimeTriggerKey[leadTime],
     ).toISODate();
+
+    return date;
   }
 
   private filterVisibleLeadTimePerDisasterType(
@@ -250,8 +270,8 @@ export class TimelineService {
           this.filterActiveLeadTimePerDisasterType(disasterType, leadTime)) // .. except if current month is next April
       );
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
-      const events = this.eventService.state.events;
-      const relevantLeadTimes = this.eventService.state.activeTrigger
+      const events = this.eventState?.events;
+      const relevantLeadTimes = this.eventState?.activeTrigger
         ? events.map((e) => e.firstLeadTime)
         : [LeadTime.hour72];
       const relevantLeadTimesModulo24 = relevantLeadTimes.map(
@@ -274,8 +294,8 @@ export class TimelineService {
 
       return nextAprilMonth.equals(leadTimeMonth);
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
-      const events = this.eventService.state.events;
-      const relevantLeadTimes = this.eventService.state.activeTrigger
+      const events = this.eventState?.events;
+      const relevantLeadTimes = this.eventState?.activeTrigger
         ? events.map((e) => e.firstLeadTime)
         : [LeadTime.hour72];
       return relevantLeadTimes.includes(leadTime);
