@@ -78,8 +78,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.aggregatesService.loadMetadataAndAggregates();
-
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);

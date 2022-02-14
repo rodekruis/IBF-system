@@ -8,7 +8,7 @@ import { EventState } from '../types/event-state';
 import { TimelineState } from '../types/timeline-state';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
-import { EventService } from './event.service';
+import { EventService, EventSummary } from './event.service';
 import { TimelineService } from './timeline.service';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class EapActionsService {
   private country: Country;
   private disasterType: DisasterType;
   private adminLevel: AdminLevel;
-  private event;
+  private event: EventSummary;
   private eventState: EventState;
   public timelineState: TimelineState;
 
@@ -94,11 +94,7 @@ export class EapActionsService {
   };
 
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
-    if (
-      this.event &&
-      this.timelineState?.activeLeadTime &&
-      this.adminLevelService.adminLevel
-    ) {
+    if (this.event && this.timelineState?.activeLeadTime && adminLevel) {
       this.getTriggeredAreasApi(this.timelineState?.activeLeadTime, adminLevel);
     }
   };

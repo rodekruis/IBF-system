@@ -73,6 +73,7 @@ export class MapService {
 
   public eventState: EventState;
   public timelineState: TimelineState;
+  public adminLevel: AdminLevel;
 
   private popoverTexts: { [key: string]: string } = {};
   private country: Country;
@@ -126,7 +127,8 @@ export class MapService {
     this.country = country;
   };
 
-  private onAdminLevelChange = () => {
+  private onAdminLevelChange = (adminLevel: AdminLevel) => {
+    this.adminLevel = adminLevel;
     this.layers.forEach((layer) => {
       this.hideLayer(layer);
     });
@@ -216,7 +218,13 @@ export class MapService {
   };
 
   private async loadCountryLayers() {
-    if (this.country && this.disasterType) {
+    if (
+      this.country &&
+      this.disasterType &&
+      this.eventState &&
+      this.timelineState &&
+      this.adminLevel
+    ) {
       this.apiService
         .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
         .subscribe(this.onLayerChange);
@@ -460,10 +468,10 @@ export class MapService {
       group: IbfLayerGroup.adminRegions,
       type: IbfLayerType.shape,
       description: '',
-      active: this.adminLevelService.adminLevel === adminLevel,
+      active: this.adminLevel === adminLevel,
       show: true,
       data: adminRegions,
-      viewCenter: this.adminLevelService.adminLevel === adminLevel,
+      viewCenter: this.adminLevel === adminLevel,
       colorProperty: this.disasterType.actionsUnit,
       order: 0,
     });
@@ -479,7 +487,7 @@ export class MapService {
         this.getCombineAdminRegionData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.adminLevelService.adminLevel,
+          this.adminLevel,
           this.timelineState.activeLeadTime,
           indicator.name,
           this.eventState?.event?.eventName,
@@ -508,7 +516,7 @@ export class MapService {
         this.getCombineAdminRegionData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.adminLevelService.adminLevel,
+          this.adminLevel,
           this.timelineState.activeLeadTime,
           indicator.name,
           this.eventState?.event?.eventName,
@@ -755,7 +763,7 @@ export class MapService {
         type: 'FeatureCollection',
         features: [],
       });
-      const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineState.activeLeadTime}_${this.adminLevelService.adminLevel}_${layer.name}`;
+      const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineState.activeLeadTime}_${this.adminLevel}_${layer.name}`;
       layer.active = this.isLayerActive(layer, newLayer);
       layer.show = this.isLayerShown(layer, newLayer);
       if (this.layerDataCache[layerDataCacheKey]) {
@@ -815,7 +823,7 @@ export class MapService {
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
           this.timelineState.activeLeadTime,
-          this.adminLevelService.adminLevel,
+          this.adminLevel,
           this.eventState?.event?.eventName,
         )
         .pipe(shareReplay(1));
@@ -842,7 +850,7 @@ export class MapService {
       layerData = this.getCombineAdminRegionData(
         this.country.countryCodeISO3,
         this.disasterType.disasterType,
-        this.adminLevelService.adminLevel,
+        this.adminLevel,
         this.timelineState.activeLeadTime,
         layer.name,
         this.eventState?.event?.eventName,
@@ -894,7 +902,7 @@ export class MapService {
     // Get the geometry from the admin region (this should re-use the cache if that is already loaded)
     const adminRegionsLayer = new IbfLayer();
     adminRegionsLayer.name = IbfLayerName.adminRegions;
-    const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineState.activeLeadTime}_${this.adminLevelService.adminLevel}_${adminRegionsLayer.name}`;
+    const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.timelineState.activeLeadTime}_${this.adminLevel}_${adminRegionsLayer.name}`;
     const adminRegionsObs = this.getLayerData(
       adminRegionsLayer,
       layerDataCacheKey,
@@ -1013,9 +1021,7 @@ export class MapService {
   };
 
   adminLevelLowerThanDefault = (name: IbfLayerName): boolean => {
-    return (
-      name.substr(name.length - 1) < String(this.adminLevelService.adminLevel)
-    );
+    return name.substr(name.length - 1) < String(this.adminLevel);
   };
 
   getAdminRegionColor = (layer: IbfLayer): string => {

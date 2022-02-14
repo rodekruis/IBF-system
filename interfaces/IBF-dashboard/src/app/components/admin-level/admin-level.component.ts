@@ -34,6 +34,7 @@ export class AdminLevelComponent {
       this.adminLevelService.activeLayerNames = this.mapService.layers
         .filter((l) => l.active)
         .map((l) => l.name);
+      this.placeCodeService.clearPlaceCode();
       this.adminLevelService.setAdminLevel(adminLevel);
 
       this.analyticsService.logEvent(AnalyticsEvent.adminLevel, {
@@ -44,8 +45,6 @@ export class AdminLevelComponent {
         isActiveTrigger: this.eventService.state.activeTrigger,
         component: this.constructor.name,
       });
-
-      this.placeCodeService.clearPlaceCode();
     } else {
       this.mapService.toggleLayer(layer);
     }

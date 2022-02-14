@@ -6,6 +6,7 @@ import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { Country, DisasterType } from '../models/country.model';
+import { AdminLevel } from '../types/admin-level';
 import { EventState } from '../types/event-state';
 import { IbfLayerName } from '../types/ibf-layer';
 import { TimelineState } from '../types/timeline-state';
@@ -25,6 +26,7 @@ export class AggregatesService {
   private disasterType: DisasterType;
   private eventState: EventState;
   public timelineState: TimelineState;
+  private adminLevel: AdminLevel;
 
   constructor(
     private countryService: CountryService,
@@ -73,8 +75,8 @@ export class AggregatesService {
     this.loadMetadataAndAggregates();
   };
 
-  private onAdminLevelChange = () => {
-    this.disasterType = this.disasterTypeService.disasterType;
+  private onAdminLevelChange = (adminLevel: AdminLevel) => {
+    this.adminLevel = adminLevel;
     this.loadMetadataAndAggregates();
   };
 
@@ -84,10 +86,12 @@ export class AggregatesService {
   };
 
   loadMetadataAndAggregates() {
-    this.disasterType = this.disasterTypeService.disasterType;
     if (
       this.country &&
       this.disasterType &&
+      this.eventState &&
+      this.timelineState &&
+      this.adminLevel &&
       this.mapService.checkCountryDisasterTypeMatch(
         this.country,
         this.disasterType,
@@ -97,7 +101,7 @@ export class AggregatesService {
         .getIndicators(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.eventState?.event?.eventName,
+          this.eventState.event?.eventName,
         )
         .subscribe(this.onIndicatorChange);
     }
@@ -155,8 +159,8 @@ export class AggregatesService {
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
           this.timelineState.activeLeadTime,
-          this.adminLevelService.adminLevel,
-          this.eventState?.event?.eventName,
+          this.adminLevel,
+          this.eventState.event?.eventName,
         )
         .subscribe(this.onAggregateData);
     }
