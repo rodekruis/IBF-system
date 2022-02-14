@@ -145,13 +145,13 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private getPopoverText(indicatorName: IbfLayerName): string {
     let popoverText = '';
-    if (this.popoverTexts[indicatorName]) {
-      const countryCodeToUse = this.popoverTexts[indicatorName][
+    if (
+      this.popoverTexts[indicatorName] &&
+      this.popoverTexts[indicatorName][this.country.countryCodeISO3]
+    ) {
+      popoverText = this.popoverTexts[indicatorName][
         this.country.countryCodeISO3
-      ]
-        ? this.country.countryCodeISO3
-        : 'UGA';
-      popoverText = this.popoverTexts[indicatorName][countryCodeToUse];
+      ];
     }
     return popoverText;
   }
