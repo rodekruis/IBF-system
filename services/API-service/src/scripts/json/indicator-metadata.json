@@ -9,7 +9,7 @@
     "active": "if-trigger",
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
-    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
+    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,ZWE",
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 1,
