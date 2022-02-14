@@ -16,7 +16,8 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private areasOfFocusSubscription: Subscription;
-  private eventStateSubscription: Subscription;
+  private initialEventStateSubscription: Subscription;
+  private manualEventStateSubscription: Subscription;
 
   public areasOfFocus: any[];
   public triggeredAreas: any[];
@@ -40,8 +41,12 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
 
-    this.eventStateSubscription = this.eventService
-      .getEventStateSubscription()
+    this.initialEventStateSubscription = this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStateChange);
+
+    this.manualEventStateSubscription = this.eventService
+      .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
   }
 
@@ -49,6 +54,8 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.areasOfFocusSubscription.unsubscribe();
+    this.initialEventStateSubscription.unsubscribe();
+    this.manualEventStateSubscription.unsubscribe();
   }
 
   private onTriggeredAreasChange = (triggeredAreas) => {

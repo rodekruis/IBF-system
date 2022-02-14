@@ -6,6 +6,7 @@ import { TimelineState } from 'src/app/types/timeline-state';
 import { DisasterType } from '../../models/country.model';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { TimelineService } from '../../services/timeline.service';
+import { LeadTime } from '../../types/lead-time';
 
 @Component({
   selector: 'app-event-switcher',
@@ -19,7 +20,8 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   public timelineState: TimelineState;
 
   private disasterTypeSubscription: Subscription;
-  private eventStateSubscription: Subscription;
+  private initialEventStateSubscription: Subscription;
+  private manualEventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
 
   constructor(
@@ -33,8 +35,12 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
 
-    this.eventStateSubscription = this.eventService
-      .getEventStateSubscription()
+    this.initialEventStateSubscription = this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStateChange);
+
+    this.manualEventStateSubscription = this.eventService
+      .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
 
     this.timelineStateSubscription = this.timelineService
@@ -44,7 +50,8 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.disasterTypeSubscription.unsubscribe();
-    this.eventStateSubscription.unsubscribe();
+    this.initialEventStateSubscription.unsubscribe();
+    this.manualEventStateSubscription.unsubscribe();
     this.timelineStateSubscription.unsubscribe();
   }
 
@@ -74,6 +81,8 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
     this.selectedEventName = event.eventName;
     if (this.timelineState.timeStepButtons?.length) {
       this.timelineService.handleTimeStepButtonClick(event.firstLeadTime);
+      // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
+      this.eventService.switchEvent(event.firstLeadTime as LeadTime);
     }
   }
 

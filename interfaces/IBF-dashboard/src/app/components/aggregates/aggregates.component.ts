@@ -46,7 +46,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private translateSubscription: Subscription;
   private translateLayerInfoPopupsSubscription: Subscription;
   private eapActionSubscription: Subscription;
-  private eventStateSubscription: Subscription;
+  private initialEventStateSubscription: Subscription;
+  private manualEventStateSubscription: Subscription;
 
   constructor(
     private countryService: CountryService,
@@ -67,8 +68,12 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       .get('layer-info-popups.aggregates-section')
       .subscribe(this.onTranslateLayerInfoPopups);
 
-    this.eventStateSubscription = this.eventService
-      .getEventStateSubscription()
+    this.initialEventStateSubscription = this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStateChange);
+
+    this.manualEventStateSubscription = this.eventService
+      .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
   }
 
@@ -95,6 +100,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.translateSubscription.unsubscribe();
     this.translateLayerInfoPopupsSubscription.unsubscribe();
     this.eapActionSubscription.unsubscribe();
+    this.initialEventStateSubscription.unsubscribe();
+    this.manualEventStateSubscription.unsubscribe();
   }
 
   private onTranslate = (translatedStrings) => {

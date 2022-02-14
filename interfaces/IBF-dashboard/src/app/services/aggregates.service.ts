@@ -52,7 +52,11 @@ export class AggregatesService {
       .subscribe(this.onAdminLevelChange);
 
     this.eventService
-      .getEventStateSubscription()
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStateChange);
+
+    this.eventService
+      .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
   }
 

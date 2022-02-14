@@ -49,8 +49,12 @@ export class TimelineService {
       .subscribe(this.onDisasterTypeChange);
 
     this.eventService
-      .getEventStateSubscription()
-      .subscribe(this.onEventStateChange);
+      .getInitialEventStateSubscription()
+      .subscribe(this.onInitialEventStateChange);
+
+    this.eventService
+      .getManualEventStateSubscription()
+      .subscribe(this.onManualEventStateChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -60,7 +64,17 @@ export class TimelineService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.loadTimeStepButtons();
+  };
+
+  private onInitialEventStateChange = (eventState: EventState) => {
+    this.eventState = eventState;
+    if (this.country && this.disasterType) {
+      this.loadTimeStepButtons();
+    }
+  };
+
+  private onManualEventStateChange = (eventState: EventState) => {
+    this.eventState = eventState;
   };
 
   public getTimelineStateSubscription(): Observable<TimelineState> {
@@ -84,8 +98,6 @@ export class TimelineService {
       disabled: !isLeadTimeEnabled,
       active: false,
     };
-
-    this.setStateSubscriptionObject();
   };
 
   private onTriggerPerLeadTime = (triggers) => {
@@ -163,14 +175,7 @@ export class TimelineService {
       this.filterLeadTimeButtonByLeadTime(timeStepButtonValue),
     ).active = true;
 
-    const event = this.eventState?.activeTrigger
-      ? this.eventState?.events.find(
-          (e) => (e.firstLeadTime as LeadTime) === this.state.activeLeadTime,
-        )
-      : this.eventState?.event;
-    this.eventService.setEvent(event);
-
-    this.setStateSubscriptionObject();
+    this.timelineStateSubject.next(this.state);
   }
 
   private getLeadTimeDate(leadTime: LeadTime, triggerKey: string) {
@@ -312,14 +317,5 @@ export class TimelineService {
       month: Number(LeadTimeTriggerKey[leadTime]),
     });
     return DateTime.utc(leadTimeMonth.year, leadTimeMonth.month, 1);
-  }
-
-  private onEventStateChange = (eventState: EventState) => {
-    this.eventState = eventState;
-    this.loadTimeStepButtons();
-  };
-
-  private setStateSubscriptionObject() {
-    this.timelineStateSubject.next(this.state);
   }
 }

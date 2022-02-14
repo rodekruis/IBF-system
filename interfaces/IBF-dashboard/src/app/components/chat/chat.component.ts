@@ -48,7 +48,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   private placeCodeSubscription: Subscription;
   private disasterTypeSubscription: Subscription;
   private translateSubscription: Subscription;
-  private eventStateSubscription: Subscription;
+  private initialEventStateSubscription: Subscription;
+  private manualEventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
 
   public indicatorName = IbfLayerName;
@@ -101,8 +102,12 @@ export class ChatComponent implements OnInit, OnDestroy {
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
 
-    this.eventStateSubscription = this.eventService
-      .getEventStateSubscription()
+    this.initialEventStateSubscription = this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStateChange);
+
+    this.manualEventStateSubscription = this.eventService
+      .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
 
     this.timelineStateSubscription = this.timelineService
@@ -116,7 +121,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.placeCodeSubscription.unsubscribe();
     this.disasterTypeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
-    this.eventStateSubscription.unsubscribe();
+    this.initialEventStateSubscription.unsubscribe();
+    this.manualEventStateSubscription.unsubscribe();
+    this.timelineStateSubscription.unsubscribe();
   }
 
   private onTranslate = (translatedStrings) => {

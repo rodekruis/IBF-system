@@ -43,6 +43,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
     });
 
     this.timelineService.handleTimeStepButtonClick(leadTime);
+    // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
+    this.eventService.switchEvent(leadTime);
   }
 
   private onTimelineStateChange = (timelineState: TimelineState) => {

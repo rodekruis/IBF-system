@@ -112,7 +112,11 @@ export class MapService {
       .subscribe(this.onTranslate);
 
     this.eventService
-      .getEventStateSubscription()
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStateChange);
+
+    this.eventService
+      .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
   }
 

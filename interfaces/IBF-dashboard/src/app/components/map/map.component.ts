@@ -135,7 +135,7 @@ export class MapComponent implements OnDestroy {
       .subscribe(this.onPlaceCodeChange);
 
     this.eventStateSubscription = this.eventService
-      .getEventStateSubscription()
+      .getInitialEventStateSubscription()
       .subscribe(this.onEventStateChage);
   }
 
@@ -144,6 +144,7 @@ export class MapComponent implements OnDestroy {
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.disasterTypeSubscription.unsubscribe();
+    this.eventStateSubscription.unsubscribe();
   }
 
   private filterLayerByLayerName = (newLayer) => (layer) =>
@@ -183,7 +184,7 @@ export class MapComponent implements OnDestroy {
     this.disasterType = disasterType;
   };
 
-  private onEventStateChage(eventState: EventState) {
+  private onEventStateChage = (eventState: EventState) => {
     this.eventState = eventState;
 
     if (this.country && this.disasterType) {
@@ -196,7 +197,7 @@ export class MapComponent implements OnDestroy {
           this.onRecentDates(date);
         });
     }
-  }
+  };
 
   private onRecentDates = (date) => {
     this.lastModelRunDate = date.timestamp || date.date;

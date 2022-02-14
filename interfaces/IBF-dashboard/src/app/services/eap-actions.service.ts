@@ -49,7 +49,7 @@ export class EapActionsService {
       .subscribe(this.onAdminLevelChange);
 
     this.eventService
-      .getEventStateSubscription()
+      .getInitialEventStateSubscription()
       .subscribe(this.onEventStatusChange);
   }
 
