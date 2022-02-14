@@ -1,3 +1,12 @@
+## [0.133.4](https://github.com/rodekruis/IBF-system/compare/v0.133.3...v0.133.4) (2022-02-14)
+
+
+### Bug Fixes
+
+* show minimum startDate trigger AB[#12370](https://github.com/rodekruis/IBF-system/issues/12370) ([988a7c7](https://github.com/rodekruis/IBF-system/commit/988a7c7fd3fcab43e50aebab65fe7b7ec75c8716))
+
+
+
 ## [0.133.3](https://github.com/rodekruis/IBF-system/compare/v0.133.2...v0.133.3) (2022-02-14)
 
 
@@ -101,15 +110,6 @@
 * create xlsx info popups AB[#11831](https://github.com/rodekruis/IBF-system/issues/11831) ([dea8850](https://github.com/rodekruis/IBF-system/commit/dea88505f5063c01fb10d0645a60f15f37cae879))
 * lock cells except d, e, f, g AB[#12022](https://github.com/rodekruis/IBF-system/issues/12022) ([8814145](https://github.com/rodekruis/IBF-system/commit/8814145584313e4ee9182a304a5de4d67d3d93f0))
 * paste converted json into en.json AB[#11833](https://github.com/rodekruis/IBF-system/issues/11833) ([da99e98](https://github.com/rodekruis/IBF-system/commit/da99e989d8ba9faf24e192e525344ae8a3f30876))
-
-
-
-## [0.129.1](https://github.com/rodekruis/IBF-system/compare/v0.129.0...v0.129.1) (2022-01-31)
-
-
-### Bug Fixes
-
-* mailchimp from-address env-var AB[#12171](https://github.com/rodekruis/IBF-system/issues/12171) ([c1d2d0f](https://github.com/rodekruis/IBF-system/commit/c1d2d0f28114952c49fa083aca219cf60bbfa8a3))
 
 
 
