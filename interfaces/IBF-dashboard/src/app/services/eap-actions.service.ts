@@ -70,9 +70,9 @@ export class EapActionsService {
 
   private onEvent = (events) => {
     this.event = events[0];
-    if (this.event && this.timelineService.state.activeLeadTime) {
+    if (this.event && this.timelineState.activeLeadTime) {
       this.getTriggeredAreasApi(
-        this.timelineService.state.activeLeadTime,
+        this.timelineState.activeLeadTime,
         this.adminLevel ||
           this.country.countryDisasterSettings.find(
             (s) => s.disasterType === this.disasterType.disasterType,

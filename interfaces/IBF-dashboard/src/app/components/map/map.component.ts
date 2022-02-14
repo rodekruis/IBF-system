@@ -70,6 +70,7 @@ import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { breakKey } from '../../models/map.model';
 import { DisasterTypeService } from '../../services/disaster-type.service';
+import { TimelineState } from '../../types/timeline-state';
 import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
@@ -85,6 +86,7 @@ export class MapComponent implements OnDestroy {
   private disasterType: DisasterType;
   public lastModelRunDate: string;
   public eventState: EventState;
+  public timelineState: TimelineState;
 
   public legends: { [key: string]: Control } = {};
 
@@ -92,7 +94,9 @@ export class MapComponent implements OnDestroy {
   private countrySubscription: Subscription;
   private disasterTypeSubscription: Subscription;
   private placeCodeSubscription: Subscription;
-  private eventStateSubscription: Subscription;
+  private initialEventStateSubscription: Subscription;
+  private manualEventStateSubscription: Subscription;
+  private timelineStateSubscription: Subscription;
 
   private osmTileLayer = tileLayer(LEAFLET_MAP_URL_TEMPLATE, {
     attribution: LEAFLET_MAP_ATTRIBUTION,
@@ -134,9 +138,17 @@ export class MapComponent implements OnDestroy {
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
 
-    this.eventStateSubscription = this.eventService
+    this.initialEventStateSubscription = this.eventService
       .getInitialEventStateSubscription()
       .subscribe(this.onEventStateChage);
+
+    this.manualEventStateSubscription = this.eventService
+      .getManualEventStateSubscription()
+      .subscribe(this.onEventStateChage);
+
+    this.timelineStateSubscription = this.timelineService
+      .getTimelineStateSubscription()
+      .subscribe(this.onTimelineStateChange);
   }
 
   ngOnDestroy() {
@@ -144,7 +156,9 @@ export class MapComponent implements OnDestroy {
     this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.disasterTypeSubscription.unsubscribe();
-    this.eventStateSubscription.unsubscribe();
+    this.initialEventStateSubscription.unsubscribe();
+    this.manualEventStateSubscription.unsubscribe();
+    this.timelineStateSubscription.unsubscribe();
   }
 
   private filterLayerByLayerName = (newLayer) => (layer) =>
@@ -182,6 +196,10 @@ export class MapComponent implements OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+  };
+
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
   };
 
   private onEventStateChage = (eventState: EventState) => {
@@ -504,7 +522,7 @@ export class MapComponent implements OnDestroy {
         .getAdminAreaDynamicDataOne(
           IbfLayerThreshold.potentialCasesThreshold,
           feature.properties.placeCode,
-          this.timelineService.state.activeLeadTime,
+          this.timelineState.activeLeadTime,
           this.eventState?.event?.eventName,
         )
         .subscribe((thresholdValue: number) => {
@@ -927,8 +945,7 @@ export class MapComponent implements OnDestroy {
       lastAvailableLeadTime = leadTimes[leadTimes.length - 1];
     }
 
-    const leadTime =
-      this.timelineService.state.activeLeadTime || lastAvailableLeadTime;
+    const leadTime = this.timelineState.activeLeadTime || lastAvailableLeadTime;
     const subtitle = `${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
           ${
             markerProperties.forecastReturnPeriod

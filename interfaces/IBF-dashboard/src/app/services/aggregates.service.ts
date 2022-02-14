@@ -156,7 +156,7 @@ export class AggregatesService {
         .getAggregatesData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.timelineService.state.activeLeadTime,
+          this.timelineState.activeLeadTime,
           this.adminLevelService.adminLevel,
           this.eventState?.event?.eventName,
         )

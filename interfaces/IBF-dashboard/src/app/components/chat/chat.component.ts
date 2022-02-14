@@ -147,6 +147,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   };
 
+  private onEventStateChange = (eventState: EventState) => {
+    this.eventState = eventState;
+  };
+
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
+  };
+
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
     this.setDefaultFilteredAreas();
@@ -439,13 +447,5 @@ export class ChatComponent implements OnInit, OnDestroy {
     } else {
       this.isWarn = false;
     }
-  };
-
-  private onEventStateChange = (eventState: EventState) => {
-    this.eventState = eventState;
-  };
-
-  private onTimelineStateChange = (timelineState: TimelineState) => {
-    this.timelineState = timelineState;
   };
 }
