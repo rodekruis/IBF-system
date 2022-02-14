@@ -32,7 +32,7 @@ export class AdminLevelComponent {
 
     if (adminLevel !== this.adminLevelService.adminLevel) {
       this.adminLevelService.activeLayerNames = this.mapService.layers
-        .filter((l) => l.active)
+        .filter((l) => l.active && l.group !== IbfLayerGroup.adminRegions)
         .map((l) => l.name);
       this.placeCodeService.clearPlaceCode();
       this.adminLevelService.setAdminLevel(adminLevel);
