@@ -77,7 +77,8 @@ export class EventService {
           (e) => (e.firstLeadTime as LeadTime) === leadTime,
         )
       : this.state.event;
-    // Trigger a different 'event' subject in this case, so that timelineService can distinguish between initial event switch and manual event switch
+    // Trigger a different 'event' subject in this case ..
+    // .. so that timelineService can distinguish between initial event switch and manual event switch
     this.setEventManually(event);
   }
 
