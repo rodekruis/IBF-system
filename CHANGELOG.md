@@ -1,3 +1,14 @@
+## [0.133.5](https://github.com/rodekruis/IBF-system/compare/v0.133.4...v0.133.5) (2022-02-18)
+
+
+### Bug Fixes
+
+* alert vs trigger AB[#12278](https://github.com/rodekruis/IBF-system/issues/12278) ([72b518e](https://github.com/rodekruis/IBF-system/commit/72b518e078fe27089b60d2f514721de22bf112ce))
+* better visible color for triggered non-active leadtime btns AB[#12360](https://github.com/rodekruis/IBF-system/issues/12360) ([3ba92cb](https://github.com/rodekruis/IBF-system/commit/3ba92cba447906bcbb26cc98fd595a1f6ebef8e0))
+* mistakes AB[#12278](https://github.com/rodekruis/IBF-system/issues/12278) ([6b23e63](https://github.com/rodekruis/IBF-system/commit/6b23e63d087261abeb1ca880b27fe76339a4a42d))
+
+
+
 ## [0.133.4](https://github.com/rodekruis/IBF-system/compare/v0.133.3...v0.133.4) (2022-02-14)
 
 
@@ -90,26 +101,6 @@
 ### Features
 
 * make KEN floods multi adm-level AB[#12046](https://github.com/rodekruis/IBF-system/issues/12046) ([e281a1b](https://github.com/rodekruis/IBF-system/commit/e281a1bbbcd62d2d5e884a80c4cb03198e10a053))
-
-
-
-# [0.130.0](https://github.com/rodekruis/IBF-system/compare/v0.129.1...v0.130.0) (2022-01-31)
-
-
-### Bug Fixes
-
-* edits xlsx AB[#11832](https://github.com/rodekruis/IBF-system/issues/11832) ([007d036](https://github.com/rodekruis/IBF-system/commit/007d0368214d07ca8a7e6086348ae2f50326eef6))
-* process feedback AB[#12042](https://github.com/rodekruis/IBF-system/issues/12042) ([652f827](https://github.com/rodekruis/IBF-system/commit/652f82714fa8dd6351050fc97aad85dcd1f577b2))
-* update missing data + small fixes AB[#11958](https://github.com/rodekruis/IBF-system/issues/11958) ([6e7237c](https://github.com/rodekruis/IBF-system/commit/6e7237c011d39754ffc025ee3eea03583cd8fd2a))
-
-
-### Features
-
-* convert xlsx to json AB[#11832](https://github.com/rodekruis/IBF-system/issues/11832) ([cb9bfe6](https://github.com/rodekruis/IBF-system/commit/cb9bfe696aa901463e1771cc2d636e324e4ef6d8))
-* create csv with new lines to add ([2bb7da8](https://github.com/rodekruis/IBF-system/commit/2bb7da8da63858324237c0f6bd702c551a7a9e4e))
-* create xlsx info popups AB[#11831](https://github.com/rodekruis/IBF-system/issues/11831) ([dea8850](https://github.com/rodekruis/IBF-system/commit/dea88505f5063c01fb10d0645a60f15f37cae879))
-* lock cells except d, e, f, g AB[#12022](https://github.com/rodekruis/IBF-system/issues/12022) ([8814145](https://github.com/rodekruis/IBF-system/commit/8814145584313e4ee9182a304a5de4d67d3d93f0))
-* paste converted json into en.json AB[#11833](https://github.com/rodekruis/IBF-system/issues/11833) ([da99e98](https://github.com/rodekruis/IBF-system/commit/da99e989d8ba9faf24e192e525344ae8a3f30876))
 
 
 
