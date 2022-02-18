@@ -1,7 +1,7 @@
 [
   {
     "placeCode": "KE019",
-    "amount": 0.1
+    "amount": 0
   },
   {
     "placeCode": "KE034",
@@ -113,7 +113,7 @@
   },
   {
     "placeCode": "KE005",
-    "amount": 0
+    "amount": 0.024288615
   },
   {
     "placeCode": "KE043",
@@ -181,7 +181,7 @@
   },
   {
     "placeCode": "KE004",
-    "amount": 0
+    "amount": 0.23239265
   },
   {
     "placeCode": "KE024",
