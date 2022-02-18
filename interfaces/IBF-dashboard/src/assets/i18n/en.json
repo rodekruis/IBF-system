@@ -325,6 +325,7 @@
         "EGY": "Flood susceptibility identifies the most vulnerable areas based on physical characteristics that determine the propensity for flooding” (Vojtek and Vojtekova, 2019). The mapping of flood susceptible areas involves the analysis of multiple criteria for different characteristics of the region that collectively contribute to the likelihood of floods.<br/><br/>Nine influencing parameters based on a variety of satellite imagery and spatial datasets are the input factors of the model, such as topographical (Elevation model, Slope), physical (Land cover, Hydrological soil group) and hydrological properties (Height Above Nearest Drainage, Distance from Nearest Drainage, Topographic Wetness Index Slope, Rain intensity, Rain duration). Set of weights based on expert knowledge (The Analytical Hierarchical Process) from REACH (2019) was adapted in this analysis.<br/><br/><strong>LEGEND:</strong> There are 4 classes of flood susceptibility. The higher the flood susceptibility, the darker blue the color.<br/><br/>SOURCES:<ul><li>REACH. Yemen Flood Susceptibility. 2019. <a href='https://reliefweb.int/sites/reliefweb.int/files/resources/REACH_YEM_MethodologyNote_HVA_FloodSusceptibility_01APR2020_EN_V2.pdf'>https://reliefweb.int/sites/reliefweb.int/files/resources/REACH_YEM_MethodologyNote_HVA_FloodSusceptibility_01APR2020_EN_V2.pdf</a></li><li>Vojtek, M.; Vojteková, J. Flood Susceptibility Mapping on a National Scale in Slovakia Using the Analytical Hierarchy Process. Water 2019, 11, 364. <a href='https://doi.org/10.3390/w11020364'>https://doi.org/10.3390/w11020364</a></li></ul>"
       },
       "flood_vulnerability_index": {
+        "KEN": "",
         "UGA": "The disaster vulnerability index is a composite index for the context of exposure to the hazard and the capacity to anticipate, cope with and recover from the impacts of floods. The National Society and Technical Working group selected the following criteria below: (including their weight in the total score)<ul><li>20% Poverty: Poverty incidence</li><li>20% Gender: Female headed household</li><li>10% Age: Population below 8-years</li><li>10% Age: population 65+,</li><li>10 % type of construction: permanent wall type</li><li>10 %type of construction: permanent roof type</li><li>20% Refugees legal status #of displaced person</li></ul><br>For furhter information please refere to the Eap. For source links, see each individual layer."
       },
       "glofas_stations": {
@@ -342,6 +343,7 @@
       },
       "health_sites": {
         "ETH": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>",
+        "KEN": "",
         "PHL": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>"
       },
       "Hotspot_General": {

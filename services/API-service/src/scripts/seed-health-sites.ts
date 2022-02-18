@@ -48,8 +48,8 @@ export class SeedHealthSites implements InterfaceScript {
               .insert()
               .values({
                 countryCodeISO3: country.countryCodeISO3,
-                name: branch['name'],
-                type: branch['type'],
+                name: branch['name'] || '-',
+                type: branch['type'] || '-',
                 geom: (): string =>
                   `st_MakePoint(${branch['lon']}, ${branch['lat']})`,
               })
