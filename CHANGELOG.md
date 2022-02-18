@@ -1,3 +1,12 @@
+## [0.134.3](https://github.com/rodekruis/IBF-system/compare/v0.134.2...v0.134.3) (2022-02-18)
+
+
+### Bug Fixes
+
+* update manual links AB[#12446](https://github.com/rodekruis/IBF-system/issues/12446) ([9966bdd](https://github.com/rodekruis/IBF-system/commit/9966bdd7fd331dfb11bd15b08db038100a743cb9))
+
+
+
 ## [0.134.2](https://github.com/rodekruis/IBF-system/compare/v0.134.1...v0.134.2) (2022-02-18)
 
 
@@ -103,16 +112,6 @@
 
 * update glofas stations KEN mock data AB[#12272](https://github.com/rodekruis/IBF-system/issues/12272) ([8b5268e](https://github.com/rodekruis/IBF-system/commit/8b5268e823740f4bdb0751f48b732f43e75f4866))
 * update used glofas stations seed AB[#12271](https://github.com/rodekruis/IBF-system/issues/12271) ([810f275](https://github.com/rodekruis/IBF-system/commit/810f2759fed371900f9313537c935b3b0d1b33c8))
-
-
-
-## [0.132.2](https://github.com/rodekruis/IBF-system/compare/v0.132.1...v0.132.2) (2022-02-04)
-
-
-### Bug Fixes
-
-* make value column wider AB[#12260](https://github.com/rodekruis/IBF-system/issues/12260) ([ee05014](https://github.com/rodekruis/IBF-system/commit/ee05014d0d08a4be7b2018750f790dd33a4fc499))
-* wrap text if small screen AB[#12070](https://github.com/rodekruis/IBF-system/issues/12070) ([b36f81f](https://github.com/rodekruis/IBF-system/commit/b36f81f0dd7991a65d4f4e66c9f72e534cb91897))
 
 
 
