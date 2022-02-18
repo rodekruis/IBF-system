@@ -1,3 +1,12 @@
+## [0.134.2](https://github.com/rodekruis/IBF-system/compare/v0.134.1...v0.134.2) (2022-02-18)
+
+
+### Bug Fixes
+
+* hide flood_extent in drought AB[#12436](https://github.com/rodekruis/IBF-system/issues/12436) ([e16d70b](https://github.com/rodekruis/IBF-system/commit/e16d70b8d446b52bdc3fd1fc961b422f965f4988))
+
+
+
 ## [0.134.1](https://github.com/rodekruis/IBF-system/compare/v0.134.0...v0.134.1) (2022-02-18)
 
 
@@ -104,16 +113,6 @@
 
 * make value column wider AB[#12260](https://github.com/rodekruis/IBF-system/issues/12260) ([ee05014](https://github.com/rodekruis/IBF-system/commit/ee05014d0d08a4be7b2018750f790dd33a4fc499))
 * wrap text if small screen AB[#12070](https://github.com/rodekruis/IBF-system/issues/12070) ([b36f81f](https://github.com/rodekruis/IBF-system/commit/b36f81f0dd7991a65d4f4e66c9f72e534cb91897))
-
-
-
-## [0.132.1](https://github.com/rodekruis/IBF-system/compare/v0.132.0...v0.132.1) (2022-02-04)
-
-
-### Bug Fixes
-
-* markers at right anchor AB[#12071](https://github.com/rodekruis/IBF-system/issues/12071) ([47eec38](https://github.com/rodekruis/IBF-system/commit/47eec3819da89df45c2d1633192e638b2cfadd85))
-* wrap text if small screen AB[#12070](https://github.com/rodekruis/IBF-system/issues/12070) ([3c8b767](https://github.com/rodekruis/IBF-system/commit/3c8b767195cada39d52c5032709324a579ed2ee9))
 
 
 
