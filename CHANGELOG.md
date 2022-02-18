@@ -1,3 +1,12 @@
+## [0.134.4](https://github.com/rodekruis/IBF-system/compare/v0.134.3...v0.134.4) (2022-02-18)
+
+
+### Bug Fixes
+
+* use video url in backend AB[#12446](https://github.com/rodekruis/IBF-system/issues/12446) ([f1a1413](https://github.com/rodekruis/IBF-system/commit/f1a1413908ee6eb83e6944af7810a81acdd953c2))
+
+
+
 ## [0.134.3](https://github.com/rodekruis/IBF-system/compare/v0.134.2...v0.134.3) (2022-02-18)
 
 
@@ -102,16 +111,6 @@
 * update EAP-actions AB[#11937](https://github.com/rodekruis/IBF-system/issues/11937) ([d38dddb](https://github.com/rodekruis/IBF-system/commit/d38dddbbc591e1dbcdb1b52020e0afe38f89817c))
 * update trigger statement KEN floods AB[#11937](https://github.com/rodekruis/IBF-system/issues/11937) ([656c5a2](https://github.com/rodekruis/IBF-system/commit/656c5a2e06a9b29dd59f9925f0e578b71befe587))
 * update zmb trigger statement AB[#12277](https://github.com/rodekruis/IBF-system/issues/12277) ([6322556](https://github.com/rodekruis/IBF-system/commit/632255625c6a2db6c62a34554a52ef1803995fea))
-
-
-
-# [0.133.0](https://github.com/rodekruis/IBF-system/compare/v0.132.2...v0.133.0) (2022-02-11)
-
-
-### Features
-
-* update glofas stations KEN mock data AB[#12272](https://github.com/rodekruis/IBF-system/issues/12272) ([8b5268e](https://github.com/rodekruis/IBF-system/commit/8b5268e823740f4bdb0751f48b732f43e75f4866))
-* update used glofas stations seed AB[#12271](https://github.com/rodekruis/IBF-system/issues/12271) ([810f275](https://github.com/rodekruis/IBF-system/commit/810f2759fed371900f9313537c935b3b0d1b33c8))
 
 
 
