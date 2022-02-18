@@ -17,7 +17,6 @@ import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
-import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
@@ -59,7 +58,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   public adminAreaLabel: string;
   public disasterTypeLabel: string;
   public disasterTypeName: string;
-  public disasterCategory = '';
   private country: Country;
   private disasterType: DisasterType;
   public lastModelRunDate: string;
@@ -128,12 +126,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTranslate = (translatedStrings) => {
     this.translatedStrings = translatedStrings;
-    const activeEventsSelector = 'active-event';
-    const closeEventPopupSelector = 'close-event-popup';
-    const activeEvent = this.translatedStrings[activeEventsSelector];
-    if (activeEvent) {
-      this.closeEventPopup = activeEvent[closeEventPopupSelector];
-    }
   };
 
   private onCountryChange = (country: Country) => {
@@ -196,38 +188,22 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.adminAreaLabel = this.country.adminRegionLabels[adminLevel].singular;
     this.changeDetectorRef.detectChanges();
 
-    const disasterTypesWithSpecificText = [
-      DisasterTypeKey.dengue,
-      DisasterTypeKey.heavyRain,
-      DisasterTypeKey.typhoon,
-      DisasterTypeKey.malaria,
-    ];
     this.disasterTypeLabel = this.disasterType.label;
     this.disasterTypeName = this.disasterType.disasterType;
     const activeEventsSelector = 'active-event';
     const updateSuccesSelector = 'update-success';
     const updateFailureSelector = 'update-failure';
-    if (
-      disasterTypesWithSpecificText.includes(
-        this.disasterTypeName as DisasterTypeKey,
-      )
-    ) {
-      this.updateSuccessMessage = this.translatedStrings[this.disasterTypeName][
-        activeEventsSelector
-      ][updateSuccesSelector];
-      this.updateFailureMessage = this.translatedStrings[this.disasterTypeName][
-        activeEventsSelector
-      ][updateFailureSelector];
-      this.disasterCategory = `${this.disasterTypeName}.`;
-    } else {
-      this.updateSuccessMessage = this.translatedStrings[activeEventsSelector][
-        updateSuccesSelector
-      ];
-      this.updateFailureMessage = this.translatedStrings[activeEventsSelector][
-        updateFailureSelector
-      ];
-      this.disasterCategory = '';
-    }
+    const closeEventPopupSelector = 'close-event-popup';
+
+    this.updateSuccessMessage = this.translatedStrings[this.disasterTypeName][
+      activeEventsSelector
+    ][updateSuccesSelector];
+    this.updateFailureMessage = this.translatedStrings[this.disasterTypeName][
+      activeEventsSelector
+    ][updateFailureSelector];
+    this.closeEventPopup = this.translatedStrings[this.disasterTypeName][
+      activeEventsSelector
+    ][closeEventPopupSelector];
 
     this.apiService
       .getRecentDates(
@@ -385,9 +361,12 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   public closePlaceCodeEventPopup(triggeredArea): void {
     this.translateSubscription = this.translateService
-      .get('chat-component.active-event.close-event-popup.message', {
-        placeCodeName: triggeredArea.name,
-      })
+      .get(
+        `chat-component.${this.disasterTypeName}.active-event.close-event-popup.message`,
+        {
+          placeCodeName: triggeredArea.name,
+        },
+      )
       .subscribe(this.onClosePlaceCodeEventPopupByTriggeredArea(triggeredArea));
   }
 

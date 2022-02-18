@@ -41,36 +41,7 @@
   },
   "areas-of-focus-summary-component": { "title": "Actions Summary" },
   "chat-component": {
-    "about-button-label": "About Trigger",
-    "warn-label": {
-      "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
-    },
-    "no-event-no-trigger": {
-      "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
-    },
-    "active-event-active-trigger": {
-      "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
-    },
-    "active-event-no-trigger": {
-      "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
-    },
-    "active-event": {
-      "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event. These actions are only available on the main admin-level.",
-      "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
-      "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
-      "submit-button-label": "Save",
-      "close-event-button": "Close Alert",
-      "update-success": "EAP action(s) updated in database.",
-      "update-failure": "Failed to update EAP action(s) in database.",
-      "prompt-button-label": "OK",
-      "close-event-popup": {
-        "message": "Are you sure? You are about to close the alert in {{ placeCodeName }}. This action can not be undone.",
-        "confirm": "Close Alert",
-        "cancel": "Cancel",
-        "failure": "Failed to close alert."
-      }
-    },
-    "heavy-rain": {
+    "floods": {
       "about-button-label": "About Trigger",
       "warn-label": {
         "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
@@ -79,10 +50,72 @@
         "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
       },
       "active-event-active-trigger": {
-        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
+        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
+      },
+      "active-event": {
+        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event. These actions are only available on the main admin-level.",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+        "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
+        "submit-button-label": "Save",
+        "close-event-button": "Close trigger",
+        "update-success": "EAP action(s) updated in database.",
+        "update-failure": "Failed to update EAP action(s) in database.",
+        "prompt-button-label": "OK",
+        "close-event-popup": {
+          "message": "Are you sure? You are about to close the trigger in {{ placeCodeName }}. This action can not be undone.",
+          "confirm": "Close trigger",
+          "cancel": "Cancel",
+          "failure": "Failed to close trigger."
+        }
+      }
+    },
+    "drought": {
+      "about-button-label": "About Trigger",
+      "warn-label": {
+        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
+      },
+      "no-event-no-trigger": {
+        "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
+      },
+      "active-event-active-trigger": {
+        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
+      },
+      "active-event-no-trigger": {
+        "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
+      },
+      "active-event": {
+        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event. These actions are only available on the main admin-level.",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+        "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
+        "submit-button-label": "Save",
+        "close-event-button": "Close Trigger",
+        "update-success": "EAP action(s) updated in database.",
+        "update-failure": "Failed to update EAP action(s) in database.",
+        "prompt-button-label": "OK",
+        "close-event-popup": {
+          "message": "Are you sure? You are about to close the trigger in {{ placeCodeName }}. This action can not be undone.",
+          "confirm": "Close Trigger",
+          "cancel": "Cancel",
+          "failure": "Failed to close trigger."
+        }
+      }
+    },
+    "heavy-rain": {
+      "about-button-label": "About Alert",
+      "warn-label": {
+        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
+      },
+      "no-event-no-trigger": {
+        "welcome": "To your right is the map of your country. You can turn other layers on and off. There is currently <strong>no alert</strong> activated."
+      },
+      "active-event-active-trigger": {
+        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
+      },
+      "active-event-no-trigger": {
+        "welcome": "There is <strong>no active alert</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
       },
       "active-event": {
         "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
@@ -119,13 +152,13 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
-        "close-event-button": "Close Alert",
+        "close-event-button": "Close Trigger",
         "update-success": "EAP action(s) updated in database.",
         "update-failure": "Failed to update EAP action(s) updated in database.",
         "prompt-button-label": "OK",
         "close-event-popup": {
-          "message": "Are you sure? You are about to close the alert in {{ placeCodeName }}. This action can not be undone.",
-          "confirm": "Close Alert",
+          "message": "Are you sure? You are about to close the trigger in {{ placeCodeName }}. This action can not be undone.",
+          "confirm": "Close Trigger",
           "cancel": "Cancel"
         }
       }
@@ -139,16 +172,25 @@
         "welcome": "To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for dengue activated."
       },
       "active-event-active-trigger": {
-        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. The trigger is activated for <strong>{{ firstLeadTimeDate }}</strong>."
+        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. The alert is activated for <strong>{{ firstLeadTimeDate }}</strong>."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
       },
       "active-event": {
         "instruction": "The areas above alert threshold are highlighted in the map with a red outline. You can click on the month tabs above the map to see the predictions for each month. Please select the area on the map to monitor which early actions are to do or done.",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
+        "submit-button-label": "Save",
+        "close-event-button": "Close Alert",
         "update-success": "SOP action(s) updated in database.",
-        "update-failure": "Failed to update SOP action(s) updated in database."
+        "update-failure": "Failed to update SOP action(s) updated in database.",
+        "prompt-button-label": "OK",
+        "close-event-popup": {
+          "message": "Are you sure? You are about to close the alert in {{ placeCodeName }}. This action can not be undone.",
+          "confirm": "Close Alert",
+          "cancel": "Cancel"
+        }
       }
     },
     "malaria": {
@@ -160,16 +202,25 @@
         "welcome": "To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for malaria activated."
       },
       "active-event-active-trigger": {
-        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. The trigger is activated for <strong>{{ firstLeadTimeDate }}</strong>."
+        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. The alert is activated for <strong>{{ firstLeadTimeDate }}</strong>."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
       },
       "active-event": {
         "instruction": "The areas above alert threshold are highlighted in the map with a red outline. You can click on the month tabs above the map to see the predictions for each month. Please select the area on the map to monitor which early actions are to do or done.",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
+        "submit-button-label": "Save",
+        "close-event-button": "Close Alert",
         "update-success": "SOP action(s) updated in database.",
-        "update-failure": "Failed to update SOP action(s) updated in database."
+        "update-failure": "Failed to update SOP action(s) updated in database.",
+        "prompt-button-label": "OK",
+        "close-event-popup": {
+          "message": "Are you sure? You are about to close the alert in {{ placeCodeName }}. This action can not be undone.",
+          "confirm": "Close Alert",
+          "cancel": "Cancel"
+        }
       }
     }
   },
