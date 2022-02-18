@@ -1,3 +1,13 @@
+## [0.134.1](https://github.com/rodekruis/IBF-system/compare/v0.134.0...v0.134.1) (2022-02-18)
+
+
+### Bug Fixes
+
+* update mock data KEN floods AB[#11954](https://github.com/rodekruis/IBF-system/issues/11954) ([c782b6b](https://github.com/rodekruis/IBF-system/commit/c782b6b2aa477e7cd9312fbe3a35a2439f452049))
+* updated sharepoint link AB[#11954](https://github.com/rodekruis/IBF-system/issues/11954) ([4b9c780](https://github.com/rodekruis/IBF-system/commit/4b9c7805e912616a5db675867dda96b1e861cc48))
+
+
+
 # [0.134.0](https://github.com/rodekruis/IBF-system/compare/v0.133.5...v0.134.0) (2022-02-18)
 
 
@@ -104,15 +114,6 @@
 
 * markers at right anchor AB[#12071](https://github.com/rodekruis/IBF-system/issues/12071) ([47eec38](https://github.com/rodekruis/IBF-system/commit/47eec3819da89df45c2d1633192e638b2cfadd85))
 * wrap text if small screen AB[#12070](https://github.com/rodekruis/IBF-system/issues/12070) ([3c8b767](https://github.com/rodekruis/IBF-system/commit/3c8b767195cada39d52c5032709324a579ed2ee9))
-
-
-
-# [0.132.0](https://github.com/rodekruis/IBF-system/compare/v0.131.0...v0.132.0) (2022-02-04)
-
-
-### Features
-
-* set up basic KEN Drought AB[#12076](https://github.com/rodekruis/IBF-system/issues/12076) ([7aa07d0](https://github.com/rodekruis/IBF-system/commit/7aa07d01d5281985e574917f823bda2351b5f57c))
 
 
 
