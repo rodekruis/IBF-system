@@ -238,13 +238,13 @@ export class MapComponent implements OnDestroy {
     if (d === null) {
       return null;
     } else if (layer.numberFormatMap === NumberFormat.perc) {
-      return Math.round(d * 100) + '%';
+      return Math.round(d * 100).toLocaleString() + '%';
     } else if (layer.numberFormatMap === NumberFormat.decimal2) {
-      return Math.round(d * 100) / 100;
+      return (Math.round(d * 100) / 100).toLocaleString();
     } else if (layer.numberFormatMap === NumberFormat.decimal0) {
-      return Math.round(d);
+      return Math.round(d).toLocaleString();
     } else {
-      return Math.round(d);
+      return Math.round(d).toLocaleString();
     }
   }
 

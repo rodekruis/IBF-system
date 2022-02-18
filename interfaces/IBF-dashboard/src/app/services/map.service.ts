@@ -127,29 +127,18 @@ export class MapService {
     this.country = country;
   };
 
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
+  };
+
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
     this.adminLevel = adminLevel;
-    this.layers.forEach((layer) => {
-      this.hideLayer(layer);
-    });
     this.loadCountryLayers();
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
     this.loadCountryLayers();
-  };
-
-  private onDisasterTypeChange = (disasterType: DisasterType) => {
-    if (disasterType) {
-      this.disasterType = disasterType;
-      this.layers.forEach((layer) => {
-        this.hideLayer(layer);
-      });
-      this.layers
-        .filter((layer) => layer.group === IbfLayerGroup.adminRegions)
-        .forEach(this.deactivateLayer);
-    }
   };
 
   private onEventStateChange = (eventState: any) => {
@@ -218,6 +207,13 @@ export class MapService {
   };
 
   private async loadCountryLayers() {
+    this.layers.forEach((layer) => {
+      this.hideLayer(layer);
+    });
+    this.layers
+      .filter((layer) => layer.group === IbfLayerGroup.adminRegions)
+      .forEach(this.deactivateLayer);
+
     if (
       this.country &&
       this.disasterType &&
