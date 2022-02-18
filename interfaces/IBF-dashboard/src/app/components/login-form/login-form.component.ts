@@ -23,9 +23,11 @@ export class LoginFormComponent {
   ) {}
 
   public onSubmit() {
-    this.authService.login(this.model.email, this.model.password).add(() => {
-      this.loginForm.resetForm();
-    });
+    this.authService
+      .login(this.model.email.toLowerCase(), this.model.password)
+      .add(() => {
+        this.loginForm.resetForm();
+      });
   }
 
   public async presentPopover(): Promise<void> {
