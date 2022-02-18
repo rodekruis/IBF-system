@@ -44,6 +44,7 @@ services:
             - MC_LIST_ID=${MC_LIST_ID}
             - MC_SEGMENTS=${MC_SEGMENTS}
             - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
+            - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
         volumes:
             - api-root:/home/ibf/api-service
         networks:
