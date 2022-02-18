@@ -1,3 +1,24 @@
+# [0.134.0](https://github.com/rodekruis/IBF-system/compare/v0.133.5...v0.134.0) (2022-02-18)
+
+
+### Bug Fixes
+
+* remove UGA as fallback for info popups AB[#12268](https://github.com/rodekruis/IBF-system/issues/12268) ([b7d7205](https://github.com/rodekruis/IBF-system/commit/b7d720579c269e1902e9907fced630658d77e3df))
+* update AB[#12366](https://github.com/rodekruis/IBF-system/issues/12366) ([6f3379a](https://github.com/rodekruis/IBF-system/commit/6f3379aa0e2c2787687be40a43d1af5f0386d87c))
+* update flood vulnerability data KEN AB[#12267](https://github.com/rodekruis/IBF-system/issues/12267) ([abd2a2f](https://github.com/rodekruis/IBF-system/commit/abd2a2f2f5d3e7140213bb6c2d5f9a0caeb23514))
+* update vulnerability data AB[#12366](https://github.com/rodekruis/IBF-system/issues/12366) ([039d75d](https://github.com/rodekruis/IBF-system/commit/039d75d580c51ee2782801a87c6e586df362eec8))
+* update vulnerability data AB[#12366](https://github.com/rodekruis/IBF-system/issues/12366) ([482351f](https://github.com/rodekruis/IBF-system/commit/482351fcf08baed78137ba55e32ef2dd97328186))
+
+
+### Features
+
+* add flood vul data + layer AB[#12267](https://github.com/rodekruis/IBF-system/issues/12267) ([8c8442b](https://github.com/rodekruis/IBF-system/commit/8c8442b148fea4c1208007aa2d394a5cced9a5d2))
+* add health sites data + layer AB[#12266](https://github.com/rodekruis/IBF-system/issues/12266) ([5929f58](https://github.com/rodekruis/IBF-system/commit/5929f58cf544e6a8ac1ac8c109cd2972fd1a4bbb))
+* add redcross branch data AB[#12265](https://github.com/rodekruis/IBF-system/issues/12265) ([c5ad7e0](https://github.com/rodekruis/IBF-system/commit/c5ad7e0c9b0319d8a8aff990666d6ac0649e7adb))
+* updated layer popup info xlsx with new layers AB[#12268](https://github.com/rodekruis/IBF-system/issues/12268) ([b96f959](https://github.com/rodekruis/IBF-system/commit/b96f959f2b51f2777bbc6c0a60756d8a9a90fb57))
+
+
+
 ## [0.133.5](https://github.com/rodekruis/IBF-system/compare/v0.133.4...v0.133.5) (2022-02-18)
 
 
@@ -92,15 +113,6 @@
 ### Features
 
 * set up basic KEN Drought AB[#12076](https://github.com/rodekruis/IBF-system/issues/12076) ([7aa07d0](https://github.com/rodekruis/IBF-system/commit/7aa07d01d5281985e574917f823bda2351b5f57c))
-
-
-
-# [0.131.0](https://github.com/rodekruis/IBF-system/compare/v0.130.0...v0.131.0) (2022-02-01)
-
-
-### Features
-
-* make KEN floods multi adm-level AB[#12046](https://github.com/rodekruis/IBF-system/issues/12046) ([e281a1b](https://github.com/rodekruis/IBF-system/commit/e281a1bbbcd62d2d5e884a80c4cb03198e10a053))
 
 
 
