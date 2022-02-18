@@ -1,11 +1,11 @@
 [
   {
     "stationCode": "G5142",
-    "forecastLevel": 600,
-    "forecastProbability": 1,
-    "forecastTrigger": 1,
-    "forecastReturnPeriod": 10,
-    "triggerLevel": 500
+    "forecastLevel": 0,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 469
   },
   {
     "stationCode": "G5195",
@@ -13,14 +13,14 @@
     "forecastProbability": 0,
     "forecastTrigger": 0,
     "forecastReturnPeriod": null,
-    "triggerLevel": 500
+    "triggerLevel": 469
   },
   {
     "stationCode": "G5305",
-    "forecastLevel": 0,
-    "forecastProbability": 0,
-    "forecastTrigger": 0,
-    "forecastReturnPeriod": null,
-    "triggerLevel": 500
+    "forecastLevel": 2941.1764705882,
+    "forecastProbability": 0.9803921569,
+    "forecastTrigger": 1,
+    "forecastReturnPeriod": 10,
+    "triggerLevel": 1191
   }
 ]

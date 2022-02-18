@@ -69,15 +69,15 @@
   },
   {
     "placeCode": "KE004018",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "KE004019",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "KE004020",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "KE005021",
@@ -85,7 +85,7 @@
   },
   {
     "placeCode": "KE005022",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "KE006023",
@@ -373,27 +373,27 @@
   },
   {
     "placeCode": "KE019094",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "KE019095",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "KE019096",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "KE019097",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "KE019098",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "KE019099",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "KE020100",
