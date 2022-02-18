@@ -41,7 +41,8 @@ export class UserService {
 
   public async create(dto: CreateUserDto): Promise<UserResponseObject> {
     // check uniqueness of username
-    const { email, password } = dto;
+    let { email, password } = dto;
+    email = email.toLowerCase();
     const qb = await getRepository(UserEntity)
       .createQueryBuilder('user')
       .where('user.email = :email', { email });
