@@ -12,8 +12,6 @@ export class MetadataService {
   @InjectRepository(LayerMetadataEntity)
   private readonly layerRepository: Repository<LayerMetadataEntity>;
 
-  public constructor() {}
-
   public async getIndicatorsByCountryAndDisaster(
     countryCodeISO3: string,
     disasterType: DisasterType,

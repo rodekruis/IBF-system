@@ -20,6 +20,7 @@ import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.enti
 import { CountryEntity } from '../api/country/country.entity';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { MetadataService } from '../api/metadata/metadata.service';
+import { AdminLevel } from '../api/country/admin-level.enum';
 
 @Injectable()
 export class ScriptsService {
@@ -132,7 +133,7 @@ export class ScriptsService {
 
   public async mockTyphoonScenario(mockTyphoonScenario: MockTyphoonScenario) {
     // For now ignore the 'multi-event cases' in this specific scenario endpoint > so eventNr = 1 always
-    // Always assume 'removeEvents' = false, because this endpoint is meant to simulate a real-world consecutive serie of api-calls
+    // Always assume 'removeEvents' = false, because this endpoint is meant to simulate a real-world consecutive series of API-calls
     if (mockTyphoonScenario.scenario === TyphoonScenario.EventTrigger) {
       // Scenario 'eventTrigger' is equal to using the normal mock-endpoint for typhoon with 'triggered = true'
       await this.mockCountry({
@@ -172,56 +173,10 @@ export class ScriptsService {
     typhoonScenario?: TyphoonScenario,
   ) {
     // Define indicators to upload ..
-    let exposureUnits;
-    if (
-      disasterType === DisasterType.Dengue ||
-      disasterType === DisasterType.Malaria
-    ) {
-      exposureUnits = [
-        DynamicIndicator.potentialCases65,
-        DynamicIndicator.potentialCasesU9,
-        DynamicIndicator.potentialCasesU5,
-        DynamicIndicator.potentialCases,
-        DynamicIndicator.potentialThreshold,
-        DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
-      ];
-    } else if (disasterType === DisasterType.Drought) {
-      exposureUnits = [
-        DynamicIndicator.populationAffected,
-        DynamicIndicator.cattleExposed,
-        DynamicIndicator.smallRuminantsExposed,
-        DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
-      ];
-    } else if (disasterType === DisasterType.Typhoon) {
-      exposureUnits = [
-        DynamicIndicator.windspeed,
-        DynamicIndicator.rainfall,
-        DynamicIndicator.probWithin50Km,
-        DynamicIndicator.showAdminArea,
-        DynamicIndicator.housesAffected,
-        DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
-      ];
-      if (typhoonScenario === TyphoonScenario.NoEvent) {
-        exposureUnits = [
-          DynamicIndicator.housesAffected,
-          DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
-        ];
-      }
-    } else {
-      exposureUnits = [
-        DynamicIndicator.populationAffectedPercentage,
-        DynamicIndicator.populationAffected,
-        DynamicIndicator.alertThreshold, // NOTE: Must be as last in current set up!
-      ];
-    }
-
-    // Filter out indicators that are not applicable for this country
-    const indicators = await this.metadataService.getIndicatorsByCountryAndDisaster(
+    const exposureUnits = await this.getIndicators(
       selectedCountry.countryCodeISO3,
       disasterType,
-    );
-    exposureUnits = exposureUnits.filter(unit =>
-      indicators.map(i => i.name).includes(unit),
+      typhoonScenario,
     );
 
     // For every indicator ..
@@ -231,57 +186,122 @@ export class ScriptsService {
         s => s.disasterType === disasterType,
       ).adminLevels) {
         // Get the right mock-data-file
-        let fileName = `upload-${unit}-${adminLevel}`;
-        if (eventNr > 1) {
-          fileName = `${fileName}-eventNr-2`;
-        }
-        const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${selectedCountry.countryCodeISO3}/${disasterType}/${fileName}.json`;
-        const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
-        const exposure = JSON.parse(exposureRaw);
-
-        // If non-triggered, replace all values by 0
-        if (!triggered && unit !== DynamicIndicator.potentialThreshold) {
-          exposure.forEach(area => (area.amount = 0));
-        }
+        const exposure = await this.getMockData(
+          unit,
+          adminLevel,
+          eventNr,
+          selectedCountry.countryCodeISO3,
+          disasterType,
+          triggered,
+        );
 
         // For every lead-time .. (repeat the same data for every lead-time)
-        for (const activeLeadTime of selectedCountry.countryDisasterSettings.find(
-          s => s.disasterType === disasterType,
-        ).activeLeadTimes) {
-          if (
-            this.filterLeadTimesPerDisasterType(
-              activeLeadTime,
+        for (const activeLeadTime of this.getLeadTimes(
+          selectedCountry,
+          disasterType,
+          eventNr,
+          typhoonScenario,
+        )) {
+          // Upload mock exposure data
+          console.log(
+            `Seeding exposure for country: ${selectedCountry.countryCodeISO3} for disasterType: ${disasterType} for adminLevel: ${adminLevel} for leadtime: ${activeLeadTime} for unit: ${unit} `,
+          );
+          await this.adminAreaDynamicDataService.exposure({
+            countryCodeISO3: selectedCountry.countryCodeISO3,
+            exposurePlaceCodes: this.mockAmount(
+              exposure,
+              unit,
+              triggered,
+              disasterType,
+            ),
+            leadTime: activeLeadTime as LeadTime,
+            dynamicIndicator: unit,
+            adminLevel: adminLevel,
+            disasterType: disasterType,
+            eventName: this.getEventName(
               disasterType,
               eventNr,
               typhoonScenario,
-            )
-          ) {
-            // Upload mock exposure data
-            console.log(
-              `Seeding exposure for country: ${selectedCountry.countryCodeISO3} for disasterType: ${disasterType} for adminLevel: ${adminLevel} for leadtime: ${activeLeadTime} for unit: ${unit} `,
-            );
-            await this.adminAreaDynamicDataService.exposure({
-              countryCodeISO3: selectedCountry.countryCodeISO3,
-              exposurePlaceCodes: this.mockAmount(
-                exposure,
-                unit,
-                triggered,
-                disasterType,
-              ),
-              leadTime: activeLeadTime as LeadTime,
-              dynamicIndicator: unit,
-              adminLevel: adminLevel,
-              disasterType: disasterType,
-              eventName: this.getEventName(
-                disasterType,
-                eventNr,
-                typhoonScenario,
-              ),
-            });
-          }
+            ),
+          });
         }
       }
     }
+  }
+
+  private async getIndicators(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    typhoonScenario: TyphoonScenario,
+  ) {
+    const indicators = await this.metadataService.getIndicatorsByCountryAndDisaster(
+      countryCodeISO3,
+      disasterType,
+    );
+    let exposureUnits = indicators
+      .filter(ind => ind.dynamic)
+      .map(ind => ind.name as DynamicIndicator);
+
+    if (
+      disasterType === DisasterType.Dengue ||
+      disasterType === DisasterType.Malaria
+    ) {
+      exposureUnits.push(DynamicIndicator.potentialThreshold);
+    } else if (disasterType === DisasterType.Typhoon) {
+      exposureUnits.push(DynamicIndicator.showAdminArea);
+      if (typhoonScenario === TyphoonScenario.NoEvent) {
+        exposureUnits = [
+          DynamicIndicator.housesAffected,
+          DynamicIndicator.alertThreshold,
+        ];
+      }
+    }
+    // Make sure 'alert threshold' is uploaded last
+    return exposureUnits.sort((a, b) =>
+      a === DynamicIndicator.alertThreshold ? 1 : -1,
+    );
+  }
+
+  private getMockData(
+    unit: DynamicIndicator,
+    adminLevel: AdminLevel,
+    eventNr: number,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    triggered: boolean,
+  ) {
+    let fileName = `upload-${unit}-${adminLevel}`;
+    if (eventNr > 1) {
+      fileName = `${fileName}-eventNr-2`;
+    }
+    const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${countryCodeISO3}/${disasterType}/${fileName}.json`;
+    const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
+    const exposure = JSON.parse(exposureRaw);
+
+    // If non-triggered, replace all values by 0
+    if (!triggered && unit !== DynamicIndicator.potentialThreshold) {
+      exposure.forEach(area => (area.amount = 0));
+    }
+    return exposure;
+  }
+
+  private getLeadTimes(
+    selectedCountry: any,
+    disasterType: DisasterType,
+    eventNr: number,
+    typhoonScenario: TyphoonScenario,
+  ) {
+    const leadTimes = selectedCountry.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).activeLeadTimes;
+    return leadTimes.filter(leadTime =>
+      this.filterLeadTimesPerDisasterType(
+        leadTime,
+        disasterType,
+        eventNr,
+        typhoonScenario,
+      ),
+    );
   }
 
   private getEventName(
