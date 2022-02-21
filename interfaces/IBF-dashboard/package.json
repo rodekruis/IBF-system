@@ -41,7 +41,7 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "@turf/center": "^6.0.1",
     "@turf/invariant": "^6.1.2",
-    "dotenv": "^8.2.0",
+    "dotenv": "^16.0.0",
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "luxon": "^1.26.0",
