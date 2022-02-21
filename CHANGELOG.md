@@ -1,3 +1,14 @@
+## [0.134.5](https://github.com/rodekruis/IBF-system/compare/v0.134.4...v0.134.5) (2022-02-21)
+
+
+### Bug Fixes
+
+* change pattern + lowercase submit AB[#12445](https://github.com/rodekruis/IBF-system/issues/12445) ([e734fc1](https://github.com/rodekruis/IBF-system/commit/e734fc1e6effac7e146b14135642f352e794f3ef))
+* lowercase email on create user AB[#12447](https://github.com/rodekruis/IBF-system/issues/12447) ([2e14ec2](https://github.com/rodekruis/IBF-system/commit/2e14ec2a40e94c097bb3b23ef996863702a71968))
+* use let only for email AB[#12447](https://github.com/rodekruis/IBF-system/issues/12447) ([0638490](https://github.com/rodekruis/IBF-system/commit/06384906c3055662520f213aaabb38fb9d99af62))
+
+
+
 ## [0.134.4](https://github.com/rodekruis/IBF-system/compare/v0.134.3...v0.134.4) (2022-02-18)
 
 
@@ -98,19 +109,6 @@
 ### Bug Fixes
 
 * new adm3 boundary data AB[#12347](https://github.com/rodekruis/IBF-system/issues/12347) ([c2feb15](https://github.com/rodekruis/IBF-system/commit/c2feb154300acd7e0d5c5302edf87a29a20b7e83))
-
-
-
-## [0.133.1](https://github.com/rodekruis/IBF-system/compare/v0.133.0...v0.133.1) (2022-02-11)
-
-
-### Bug Fixes
-
-* typo ([bdd98bb](https://github.com/rodekruis/IBF-system/commit/bdd98bb5e8d62c088fbb5162605f53c90feb8e0b))
-* update eap link KEN floods AB[#11937](https://github.com/rodekruis/IBF-system/issues/11937) ([fdd5d15](https://github.com/rodekruis/IBF-system/commit/fdd5d15af08366deb70512c0234bab42c245c2df))
-* update EAP-actions AB[#11937](https://github.com/rodekruis/IBF-system/issues/11937) ([d38dddb](https://github.com/rodekruis/IBF-system/commit/d38dddbbc591e1dbcdb1b52020e0afe38f89817c))
-* update trigger statement KEN floods AB[#11937](https://github.com/rodekruis/IBF-system/issues/11937) ([656c5a2](https://github.com/rodekruis/IBF-system/commit/656c5a2e06a9b29dd59f9925f0e578b71befe587))
-* update zmb trigger statement AB[#12277](https://github.com/rodekruis/IBF-system/issues/12277) ([6322556](https://github.com/rodekruis/IBF-system/commit/632255625c6a2db6c62a34554a52ef1803995fea))
 
 
 
