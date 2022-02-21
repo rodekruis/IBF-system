@@ -39,10 +39,9 @@ export class MetadataController {
   public async getIndicators(
     @Param() params,
   ): Promise<IndicatorMetadataEntity[]> {
-    return await this.metadataService.getIndicatorsByCountry(
+    return await this.metadataService.getIndicatorsByCountryAndDisaster(
       params.countryCodeISO3,
       params.disasterType,
-      params.eventName,
     );
   }
 
@@ -59,7 +58,7 @@ export class MetadataController {
   })
   @Get('layers/:countryCodeISO3/:disasterType')
   public async getLayers(@Param() params): Promise<LayerMetadataEntity[]> {
-    return await this.metadataService.getLayersByCountry(
+    return await this.metadataService.getLayersByCountryAndDisaster(
       params.countryCodeISO3,
       params.disasterType,
     );

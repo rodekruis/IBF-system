@@ -27,11 +27,10 @@ Scenario: Open Layers section
     And if a "shape" layer then "grey" (TO DO: should this update after we changed map-colors to purple?)
     And if an "outline" layer ("Alert threshold") then grey with a red outline
 
-
 Scenario: View layers section in NON-TRIGGERED mode
     Given the dashboard is in NON-TRIGGERED mode
     When the users views the open layers section
-    Then it does not show the red outline 'Alert threshold' layer 
+    Then it does show the red outline 'Alert threshold' layer activated
     And depending on disaster-type a default exposure layer is activated
         - 'Exposed population' for 'floods', 'heavy rain', 'drought' is NOT activated, as it is always 0 anyway
         - 'Houses affected' for 'typhoon' is NOT activated
@@ -43,7 +42,7 @@ Scenario: View layers section in NON-TRIGGERED mode
 Scenario: View layers section in TRIGGERED mode
     Given the dashboard is in TRIGGERED mode
     When the users views the open layers section
-    Then it shows the red outline 'Alert threshold' layer
+    Then it shows the red outline 'Alert threshold' layer activated
     And it shows as main exposure shape layer
         - 'Exposed population' for 'floods', 'heavy rain', 'drought'
         - 'Potential cases' for 'dengue', 'malaria'
@@ -61,7 +60,7 @@ Scenario: Unselect selected layer
 Scenario: Unselect 'Alert threshold' layer
     When the user unselects the 'Alert threshold' layer
     Then nothing happens as this is not possible
-    And the red outline always stays visible in the map
+    And the red outline always stays visible in the map (or not if 'NON-TRIGGERED')
  
 Scenario: Select unselected layer
     When the user selects an unselected layer

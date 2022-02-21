@@ -15,6 +15,7 @@ import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 import { CountryEntity } from '../api/country/country.entity';
 import { TyphoonTrackModule } from '../api/typhoon-track/typhoon-track.module';
 import SeedProd from './seed-prod';
+import { MetadataModule } from '../api/metadata/metadata.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import SeedProd from './seed-prod';
     EventModule,
     TyphoonTrackModule,
     UserModule,
+    MetadataModule,
   ],
   providers: [SeedInit, SeedProd, ScriptsService],
   controllers: [ScriptsController],

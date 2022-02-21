@@ -629,7 +629,7 @@
     "lazyLoad": true
   },
   {
-    "country_codes": "ZWE,KEN",
+    "country_codes": "ZWE",
     "disasterTypes": ["drought"],
     "name": "cattle_exposed",
     "label": "Cattle exposed",
@@ -646,7 +646,7 @@
     "lazyLoad": true
   },
   {
-    "country_codes": "ZWE,KEN",
+    "country_codes": "ZWE",
     "disasterTypes": ["drought"],
     "name": "small_ruminants_exposed",
     "label": "Small ruminants exposed",

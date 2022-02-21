@@ -261,13 +261,12 @@ export class TimelineService {
     leadTime: LeadTime,
   ): boolean {
     if (disasterType.disasterType === DisasterTypeKey.drought) {
-      const nextAprilEndOfMonth = this.getNextAprilMonth();
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);
-
+      const nextForecastMonthEndOfMonth = this.getNextForecastMonth();
       return (
-        leadTimeMonth <= nextAprilEndOfMonth && // hide months beyond next April
+        leadTimeMonth <= nextForecastMonthEndOfMonth && // hide months beyond next Forecast month
         (leadTime !== LeadTime.month0 || // hide current month ..
-          this.filterActiveLeadTimePerDisasterType(disasterType, leadTime)) // .. except if current month is next April
+          this.filterActiveLeadTimePerDisasterType(disasterType, leadTime)) // .. except if current month is next Forecast month
       );
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       const events = this.eventState?.events;
@@ -289,10 +288,10 @@ export class TimelineService {
     leadTime: LeadTime,
   ): boolean {
     if (disasterType.disasterType === DisasterTypeKey.drought) {
-      const nextAprilMonth = this.getNextAprilMonth();
+      const nextForecastMonth = this.getNextForecastMonth();
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);
 
-      return nextAprilMonth.equals(leadTimeMonth);
+      return nextForecastMonth.equals(leadTimeMonth);
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       const events = this.eventState?.events;
       const relevantLeadTimes = this.eventState?.activeTrigger
@@ -304,12 +303,29 @@ export class TimelineService {
     }
   }
 
-  private getNextAprilMonth(): DateTime {
-    const aprilMonthNumber = 4;
+  private getNextForecastMonth(): DateTime {
     const currentYear = DateTime.now().year;
-    const nextAprilYear =
-      DateTime.now().month > aprilMonthNumber ? currentYear + 1 : currentYear;
-    return DateTime.utc(nextAprilYear, aprilMonthNumber, 1);
+    const currentMonth = DateTime.now().month;
+
+    const forecastMonthNumbers = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastMonths;
+
+    let forecastMonthNumber: number;
+    forecastMonthNumbers
+      .sort((a, b) => (a > b ? -1 : 1))
+      .forEach((month) => {
+        if (currentMonth <= month) {
+          forecastMonthNumber = month;
+        }
+      });
+    if (!forecastMonthNumber) {
+      forecastMonthNumber =
+        forecastMonthNumbers[forecastMonthNumbers.length - 1];
+    }
+    const nextForecastMonthYear =
+      currentMonth > forecastMonthNumber ? currentYear + 1 : currentYear;
+    return DateTime.utc(nextForecastMonthYear, forecastMonthNumber, 1);
   }
 
   private getLeadTimeMonth(leadTime: LeadTime): DateTime {

@@ -506,26 +506,6 @@ export class MapService {
       : false;
   }
 
-  public loadOutlineLayer(indicator: Indicator) {
-    if (this.country) {
-      if (this.getActiveState(indicator) && this.timelineState.activeLeadTime) {
-        this.getCombineAdminRegionData(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-          this.adminLevel,
-          this.timelineState.activeLeadTime,
-          indicator.name,
-          this.eventState?.event?.eventName,
-          indicator.dynamic,
-        ).subscribe((adminRegions) => {
-          this.addOutlineLayer(indicator, adminRegions);
-        });
-      } else {
-        this.addOutlineLayer(indicator, null);
-      }
-    }
-  }
-
   private addAggregateLayer(
     indicator: Indicator,
     adminRegions: any,
@@ -544,28 +524,10 @@ export class MapService {
       colorBreaks: indicator.colorBreaks,
       numberFormatMap: indicator.numberFormatMap,
       legendColor: '#969696',
-      group: IbfLayerGroup.aggregates,
-      order: 20 + indicator.order,
-      dynamic: indicator.dynamic,
-      unit: indicator.unit,
-    });
-  }
-
-  private addOutlineLayer(indicator: Indicator, adminRegions: any) {
-    this.addLayer({
-      name: indicator.name,
-      label: indicator.label,
-      type: IbfLayerType.shape,
-      description: this.getPopoverText(indicator.name),
-      active: this.getActiveState(indicator),
-      show: true,
-      data: adminRegions,
-      viewCenter: true,
-      colorProperty: indicator.name,
-      colorBreaks: indicator.colorBreaks,
-      numberFormatMap: indicator.numberFormatMap,
-      legendColor: '#969696',
-      group: IbfLayerGroup.outline,
+      group:
+        indicator.name === IbfLayerName.alertThreshold
+          ? IbfLayerGroup.outline
+          : IbfLayerGroup.aggregates,
       order: 20 + indicator.order,
       dynamic: indicator.dynamic,
       unit: indicator.unit,
