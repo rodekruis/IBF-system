@@ -2,8 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
-import { EventService } from '../event/event.service';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { LayerMetadataEntity } from './layer-metadata.entity';
 
@@ -13,56 +11,24 @@ export class MetadataService {
   private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
   @InjectRepository(LayerMetadataEntity)
   private readonly layerRepository: Repository<LayerMetadataEntity>;
-  @InjectRepository(DisasterEntity)
-  private readonly disasterTypeRepository: Repository<DisasterEntity>;
 
-  private readonly eventService: EventService;
+  public constructor() {}
 
-  public constructor(eventService: EventService) {
-    this.eventService = eventService;
-  }
-
-  public async getIndicatorsByCountry(
+  public async getIndicatorsByCountryAndDisaster(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    eventName: string,
   ): Promise<IndicatorMetadataEntity[]> {
-    const events = await this.eventService.getEventSummaryCountry(
-      countryCodeISO3,
-      disasterType,
-    );
-    eventName = eventName === 'no-name' ? null : eventName;
-    const event = events.find(e => e.eventName === eventName);
-    const activeTrigger = event && event.activeTrigger;
-
     const indicators = await this.indicatorRepository.find({
       relations: ['disasterTypes'],
     });
-
-    let countryIndicators = [];
-    if (activeTrigger) {
-      countryIndicators = indicators.filter(
-        (metadata: IndicatorMetadataEntity): boolean =>
-          metadata.country_codes.split(',').includes(countryCodeISO3) &&
-          metadata.disasterTypes
-            .map(d => d.disasterType)
-            .includes(disasterType),
-      );
-    } else {
-      countryIndicators = indicators.filter(
-        (metadata: IndicatorMetadataEntity): boolean =>
-          metadata.country_codes.split(',').includes(countryCodeISO3) &&
-          metadata.disasterTypes
-            .map(d => d.disasterType)
-            .includes(disasterType) &&
-          metadata.active !== 'if-trigger',
-      );
-    }
-
-    return countryIndicators;
+    return indicators.filter(
+      (metadata: IndicatorMetadataEntity): boolean =>
+        metadata.country_codes.split(',').includes(countryCodeISO3) &&
+        metadata.disasterTypes.map(d => d.disasterType).includes(disasterType),
+    );
   }
 
-  public async getLayersByCountry(
+  public async getLayersByCountryAndDisaster(
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<LayerMetadataEntity[]> {
@@ -75,14 +41,5 @@ export class MetadataService {
         metadata.country_codes.split(',').includes(countryCodeISO3) &&
         metadata.disasterTypes.map(d => d.disasterType).includes(disasterType),
     );
-  }
-
-  private async getActionUnit(disasterType: DisasterType): Promise<string> {
-    return (
-      await this.disasterTypeRepository.findOne({
-        select: ['actionsUnit'],
-        where: { disasterType: disasterType },
-      })
-    ).actionsUnit;
   }
 }

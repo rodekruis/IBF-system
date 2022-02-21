@@ -16,7 +16,6 @@ Scenario: View map in NON-TRIGGERED mode
     Given the dashboard is in NON-TRIGGERED mode
     When the users views the map
     Then it shows all admin-areas for the entire country
-    And the 'Alert threshold' layer is not shown (nor available in "layers" section)
     And depending on disaster-type a default exposure layer is activated
         - 'Exposed population' for 'floods', 'heavy rain', 'drought' is NOT activated, as it is always 0 anyway
         - 'Houses affected' for 'typhoon' is NOT activated

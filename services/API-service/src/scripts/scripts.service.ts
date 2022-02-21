@@ -19,6 +19,7 @@ import { In, Repository } from 'typeorm';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 import { CountryEntity } from '../api/country/country.entity';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
+import { MetadataService } from '../api/metadata/metadata.service';
 
 @Injectable()
 export class ScriptsService {
@@ -34,6 +35,7 @@ export class ScriptsService {
     private glofasStationService: GlofasStationService,
     private typhoonTrackService: TyphoonTrackService,
     private eventService: EventService,
+    private metadataService: MetadataService,
   ) {}
 
   public async mockAll(mockAllInput: MockAll) {
@@ -169,6 +171,7 @@ export class ScriptsService {
     eventNr = 1,
     typhoonScenario?: TyphoonScenario,
   ) {
+    // Define indicators to upload ..
     let exposureUnits;
     if (
       disasterType === DisasterType.Dengue ||
@@ -212,33 +215,36 @@ export class ScriptsService {
       ];
     }
 
+    // Filter out indicators that are not applicable for this country
+    const indicators = await this.metadataService.getIndicatorsByCountryAndDisaster(
+      selectedCountry.countryCodeISO3,
+      disasterType,
+    );
+    exposureUnits = exposureUnits.filter(unit =>
+      indicators.map(i => i.name).includes(unit),
+    );
+
+    // For every indicator ..
     for (const unit of exposureUnits) {
+      // For every admin-level ..
       for (const adminLevel of selectedCountry.countryDisasterSettings.find(
         s => s.disasterType === disasterType,
       ).adminLevels) {
-        let fileName: string;
-        if (
-          disasterType === DisasterType.Dengue ||
-          disasterType === DisasterType.Malaria
-        ) {
-          if (unit === DynamicIndicator.potentialThreshold) {
-            fileName = `upload-exposure-potential-cases-threshold`;
-          } else fileName = `upload-exposure`;
-        } else {
-          fileName = `upload-${unit}-${adminLevel}`;
-        }
+        // Get the right mock-data-file
+        let fileName = `upload-${unit}-${adminLevel}`;
         if (eventNr > 1) {
           fileName = `${fileName}-eventNr-2`;
         }
-
         const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${selectedCountry.countryCodeISO3}/${disasterType}/${fileName}.json`;
         const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
         const exposure = JSON.parse(exposureRaw);
 
+        // If non-triggered, replace all values by 0
         if (!triggered && unit !== DynamicIndicator.potentialThreshold) {
           exposure.forEach(area => (area.amount = 0));
         }
 
+        // For every lead-time .. (repeat the same data for every lead-time)
         for (const activeLeadTime of selectedCountry.countryDisasterSettings.find(
           s => s.disasterType === disasterType,
         ).activeLeadTimes) {
@@ -250,8 +256,9 @@ export class ScriptsService {
               typhoonScenario,
             )
           ) {
+            // Upload mock exposure data
             console.log(
-              `Seeding exposure for leadtime: ${activeLeadTime} unit: ${unit} for country: ${selectedCountry.countryCodeISO3} for adminLevel: ${adminLevel}`,
+              `Seeding exposure for country: ${selectedCountry.countryCodeISO3} for disasterType: ${disasterType} for adminLevel: ${adminLevel} for leadtime: ${activeLeadTime} for unit: ${unit} `,
             );
             await this.adminAreaDynamicDataService.exposure({
               countryCodeISO3: selectedCountry.countryCodeISO3,
@@ -406,7 +413,7 @@ export class ScriptsService {
     const mockLeadTime = this.getTyphoonLeadTime(eventNr);
 
     console.log(
-      `Seeding Typhoon track for leadtime: ${mockLeadTime} for country: ${selectedCountry.countryCodeISO3}`,
+      `Seeding Typhoon track for country: ${selectedCountry.countryCodeISO3} for leadtime: ${mockLeadTime} `,
     );
     await this.typhoonTrackService.uploadTyphoonTrack({
       countryCodeISO3: selectedCountry.countryCodeISO3,
@@ -431,7 +438,7 @@ export class ScriptsService {
       s => s.disasterType === disasterType,
     ).activeLeadTimes) {
       console.log(
-        `Seeding Glofas stations for leadtime: ${activeLeadTime} for country: ${selectedCountry.countryCodeISO3}`,
+        `Seeding Glofas stations for country: ${selectedCountry.countryCodeISO3} for leadtime: ${activeLeadTime}`,
       );
       await this.glofasStationService.uploadTriggerDataPerStation({
         countryCodeISO3: selectedCountry.countryCodeISO3,
@@ -470,7 +477,7 @@ export class ScriptsService {
       s => s.disasterType === disasterType,
     ).activeLeadTimes) {
       console.log(
-        `Seeding disaster extent raster file for leadtime: ${leadTime} for country: ${selectedCountry.countryCodeISO3}`,
+        `Seeding disaster extent raster file for country: ${selectedCountry.countryCodeISO3} for leadtime: ${leadTime}`,
       );
 
       let sourceFileName, destFileName;

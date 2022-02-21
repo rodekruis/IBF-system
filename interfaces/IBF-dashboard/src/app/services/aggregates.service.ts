@@ -107,18 +107,12 @@ export class AggregatesService {
     }
   }
 
-  private onIndicator = (indicator: Indicator) => {
-    if (indicator.name === IbfLayerName.alertThreshold) {
-      this.mapService.loadOutlineLayer(indicator);
-    } else {
-      this.mapService.loadAggregateLayer(indicator);
-    }
-  };
-
   private onIndicatorChange = (indicators) => {
     this.indicators = indicators;
     this.mapService.hideAggregateLayers();
-    this.indicators.forEach(this.onIndicator);
+    this.indicators.forEach((indicator) =>
+      this.mapService.loadAggregateLayer(indicator),
+    );
     this.indicatorSubject.next(this.indicators);
 
     this.loadAggregateInformation();
