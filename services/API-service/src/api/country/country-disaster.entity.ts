@@ -54,6 +54,10 @@ export class CountryDisasterSettingsEntity {
   @JoinTable()
   public activeLeadTimes: LeadTimeEntity[];
 
+  @ApiProperty({ example: [3, 10] })
+  @Column('json', { nullable: true })
+  public droughtForecastMonths: JSON;
+
   @ApiProperty({
     example: 'https://docs.google.com',
   })

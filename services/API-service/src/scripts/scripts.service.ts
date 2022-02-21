@@ -296,6 +296,7 @@ export class ScriptsService {
     ).activeLeadTimes;
     return leadTimes.filter(leadTime =>
       this.filterLeadTimesPerDisasterType(
+        selectedCountry,
         leadTime,
         disasterType,
         eventNr,
@@ -374,6 +375,7 @@ export class ScriptsService {
   }
 
   private filterLeadTimesPerDisasterType(
+    selectedCountry: any,
     leadTime: string,
     disasterType: DisasterType,
     eventNr = 1,
@@ -382,10 +384,7 @@ export class ScriptsService {
     if (disasterType === DisasterType.Drought) {
       const now = new Date();
       const currentYear = now.getFullYear();
-      const nextAprilYear =
-        now.getUTCMonth() > 3 ? currentYear + 1 : currentYear;
-      const nextAprilMonthFirstDay = new Date(nextAprilYear, 3, 1);
-
+      const currentMonth = now.getUTCMonth();
       const currentMonthFirstDay = new Date(
         now.getFullYear(),
         now.getUTCMonth(),
@@ -393,12 +392,36 @@ export class ScriptsService {
       );
       const leadTimeMonthFirstDay = new Date(
         currentMonthFirstDay.setUTCMonth(
-          now.getUTCMonth() + Number(leadTime.split('-')[0]),
+          currentMonth + Number(leadTime.split('-')[0]),
         ),
       );
 
+      const forecastMonthNumbers = selectedCountry.countryDisasterSettings.find(
+        s => s.disasterType === disasterType,
+      ).droughtForecastMonths;
+
+      let forecastMonthNumber: number;
+      forecastMonthNumbers
+        .sort((a, b) => (a > b ? -1 : 1))
+        .forEach(month => {
+          if (currentMonth < month) {
+            forecastMonthNumber = month;
+          }
+        });
+      if (!forecastMonthNumber) {
+        forecastMonthNumber =
+          forecastMonthNumbers[forecastMonthNumbers.length - 1];
+      }
+
+      const nextForecastMonthYear =
+        currentMonth >= forecastMonthNumber ? currentYear + 1 : currentYear;
+      const nextForecastMonthFirstDay = new Date(
+        nextForecastMonthYear,
+        forecastMonthNumber - 1,
+        1,
+      );
       return (
-        nextAprilMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime()
+        nextForecastMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime()
       );
     } else if (disasterType === DisasterType.Typhoon) {
       return leadTime === this.getTyphoonLeadTime(eventNr, typhoonScenario);
