@@ -1,3 +1,18 @@
+# [0.135.0](https://github.com/rodekruis/IBF-system/compare/v0.134.5...v0.135.0) (2022-02-21)
+
+
+### Bug Fixes
+
+* further clean up seed script AB[#12466](https://github.com/rodekruis/IBF-system/issues/12466) ([7fa448a](https://github.com/rodekruis/IBF-system/commit/7fa448ad32775cdbca2ac54184699880b6162c98))
+* remove cattle/ruminants + some refactoring AB[#12466](https://github.com/rodekruis/IBF-system/issues/12466) ([d9d43de](https://github.com/rodekruis/IBF-system/commit/d9d43de71a2dc127632d3f3c609d8736cb07bbdb))
+
+
+### Features
+
+* KEN drought next march/october AB[#12465](https://github.com/rodekruis/IBF-system/issues/12465) ([f10088f](https://github.com/rodekruis/IBF-system/commit/f10088ff9615c75788f913679274b7024e59e2a8))
+
+
+
 ## [0.134.5](https://github.com/rodekruis/IBF-system/compare/v0.134.4...v0.134.5) (2022-02-21)
 
 
@@ -100,15 +115,6 @@
 * remove unncessary function calls AB[#12362](https://github.com/rodekruis/IBF-system/issues/12362) ([7e20cb2](https://github.com/rodekruis/IBF-system/commit/7e20cb2f73b285cdba9a245ba263b935cfe6e01c))
 * some cleanup AB[#12290](https://github.com/rodekruis/IBF-system/issues/12290) ([6a610ec](https://github.com/rodekruis/IBF-system/commit/6a610eccb0e628b4219ba80786dcdc1b46dedfae))
 * subscription issues AB[#12291](https://github.com/rodekruis/IBF-system/issues/12291) ([a83f852](https://github.com/rodekruis/IBF-system/commit/a83f8522e3fe81f5a06d513a572a404e0a3d8fcd))
-
-
-
-## [0.133.2](https://github.com/rodekruis/IBF-system/compare/v0.133.1...v0.133.2) (2022-02-11)
-
-
-### Bug Fixes
-
-* new adm3 boundary data AB[#12347](https://github.com/rodekruis/IBF-system/issues/12347) ([c2feb15](https://github.com/rodekruis/IBF-system/commit/c2feb154300acd7e0d5c5302edf87a29a20b7e83))
 
 
 
