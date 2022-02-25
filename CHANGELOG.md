@@ -1,3 +1,19 @@
+# [0.137.0](https://github.com/rodekruis/IBF-system/compare/v0.136.0...v0.137.0) (2022-02-25)
+
+
+### Bug Fixes
+
+* add step to popup readme AB[#12440](https://github.com/rodekruis/IBF-system/issues/12440) ([5e58b42](https://github.com/rodekruis/IBF-system/commit/5e58b429cf976d6952308f749dfb29265a0c32d9))
+
+
+### Features
+
+* add mock data AB[#12472](https://github.com/rodekruis/IBF-system/issues/12472) ([001d31b](https://github.com/rodekruis/IBF-system/commit/001d31b5e7fb09dadf81038c8b497e691e468083))
+* add new layers AB[#12471](https://github.com/rodekruis/IBF-system/issues/12471) ([73fe744](https://github.com/rodekruis/IBF-system/commit/73fe74405275bd0f1f767adcfe76a14961e35320))
+* update info popup xlsx AB[#12473](https://github.com/rodekruis/IBF-system/issues/12473) ([e088701](https://github.com/rodekruis/IBF-system/commit/e08870131f83aa5cfff7df8bfc76da3038e15e0c))
+
+
+
 # [0.136.0](https://github.com/rodekruis/IBF-system/compare/v0.135.0...v0.136.0) (2022-02-25)
 
 
@@ -99,15 +115,6 @@
 * alert vs trigger AB[#12278](https://github.com/rodekruis/IBF-system/issues/12278) ([72b518e](https://github.com/rodekruis/IBF-system/commit/72b518e078fe27089b60d2f514721de22bf112ce))
 * better visible color for triggered non-active leadtime btns AB[#12360](https://github.com/rodekruis/IBF-system/issues/12360) ([3ba92cb](https://github.com/rodekruis/IBF-system/commit/3ba92cba447906bcbb26cc98fd595a1f6ebef8e0))
 * mistakes AB[#12278](https://github.com/rodekruis/IBF-system/issues/12278) ([6b23e63](https://github.com/rodekruis/IBF-system/commit/6b23e63d087261abeb1ca880b27fe76339a4a42d))
-
-
-
-## [0.133.4](https://github.com/rodekruis/IBF-system/compare/v0.133.3...v0.133.4) (2022-02-14)
-
-
-### Bug Fixes
-
-* show minimum startDate trigger AB[#12370](https://github.com/rodekruis/IBF-system/issues/12370) ([988a7c7](https://github.com/rodekruis/IBF-system/commit/988a7c7fd3fcab43e50aebab65fe7b7ec75c8716))
 
 
 
