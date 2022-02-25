@@ -1,3 +1,27 @@
+# [0.136.0](https://github.com/rodekruis/IBF-system/compare/v0.135.0...v0.136.0) (2022-02-25)
+
+
+### Features
+
+* process ken floods popups AB[#12270](https://github.com/rodekruis/IBF-system/issues/12270) ([4ebdb77](https://github.com/rodekruis/IBF-system/commit/4ebdb77bc2c179af70175b62d0bf287844fb0a91))
+
+
+
+# [0.135.0](https://github.com/rodekruis/IBF-system/compare/v0.134.5...v0.135.0) (2022-02-21)
+
+
+### Bug Fixes
+
+* further clean up seed script AB[#12466](https://github.com/rodekruis/IBF-system/issues/12466) ([7fa448a](https://github.com/rodekruis/IBF-system/commit/7fa448ad32775cdbca2ac54184699880b6162c98))
+* remove cattle/ruminants + some refactoring AB[#12466](https://github.com/rodekruis/IBF-system/issues/12466) ([d9d43de](https://github.com/rodekruis/IBF-system/commit/d9d43de71a2dc127632d3f3c609d8736cb07bbdb))
+
+
+### Features
+
+* KEN drought next march/october AB[#12465](https://github.com/rodekruis/IBF-system/issues/12465) ([f10088f](https://github.com/rodekruis/IBF-system/commit/f10088ff9615c75788f913679274b7024e59e2a8))
+
+
+
 ## [0.134.5](https://github.com/rodekruis/IBF-system/compare/v0.134.4...v0.134.5) (2022-02-21)
 
 
@@ -84,31 +108,6 @@
 ### Bug Fixes
 
 * show minimum startDate trigger AB[#12370](https://github.com/rodekruis/IBF-system/issues/12370) ([988a7c7](https://github.com/rodekruis/IBF-system/commit/988a7c7fd3fcab43e50aebab65fe7b7ec75c8716))
-
-
-
-## [0.133.3](https://github.com/rodekruis/IBF-system/compare/v0.133.2...v0.133.3) (2022-02-14)
-
-
-### Bug Fixes
-
-* create event and timeline state subs AB[#12291](https://github.com/rodekruis/IBF-system/issues/12291) ([c4bd95a](https://github.com/rodekruis/IBF-system/commit/c4bd95a7bcab1fb7c1312efedb1c123c1de0db73))
-* ignore adminregion layer itself while preserving layers during active adminlevel switch AB[#12066](https://github.com/rodekruis/IBF-system/issues/12066) ([c91daf2](https://github.com/rodekruis/IBF-system/commit/c91daf286f6a023978327a5733e7c4fa014fed5f))
-* infinite loop AB[#12361](https://github.com/rodekruis/IBF-system/issues/12361) ([24ef29d](https://github.com/rodekruis/IBF-system/commit/24ef29d701b4d07212dddb1ce0134a90540637f4))
-* more cleanup AB[#12362](https://github.com/rodekruis/IBF-system/issues/12362) ([c053497](https://github.com/rodekruis/IBF-system/commit/c053497c0e91d06cd34485722bd1a224216f5e39))
-* remove occurence of timelineService.state AB[#12362](https://github.com/rodekruis/IBF-system/issues/12362) ([9bc3590](https://github.com/rodekruis/IBF-system/commit/9bc359037070ae15dbfc53fd582231ba371845f8))
-* remove unncessary function calls AB[#12362](https://github.com/rodekruis/IBF-system/issues/12362) ([7e20cb2](https://github.com/rodekruis/IBF-system/commit/7e20cb2f73b285cdba9a245ba263b935cfe6e01c))
-* some cleanup AB[#12290](https://github.com/rodekruis/IBF-system/issues/12290) ([6a610ec](https://github.com/rodekruis/IBF-system/commit/6a610eccb0e628b4219ba80786dcdc1b46dedfae))
-* subscription issues AB[#12291](https://github.com/rodekruis/IBF-system/issues/12291) ([a83f852](https://github.com/rodekruis/IBF-system/commit/a83f8522e3fe81f5a06d513a572a404e0a3d8fcd))
-
-
-
-## [0.133.2](https://github.com/rodekruis/IBF-system/compare/v0.133.1...v0.133.2) (2022-02-11)
-
-
-### Bug Fixes
-
-* new adm3 boundary data AB[#12347](https://github.com/rodekruis/IBF-system/issues/12347) ([c2feb15](https://github.com/rodekruis/IBF-system/commit/c2feb154300acd7e0d5c5302edf87a29a20b7e83))
 
 
 

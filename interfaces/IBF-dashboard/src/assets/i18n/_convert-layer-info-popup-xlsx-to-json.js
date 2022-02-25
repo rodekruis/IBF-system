@@ -21,6 +21,7 @@ for (z in worksheet) {
   var col = z.substring(0, tt);
   if (col === 'Q') {
     var value = worksheet[z].v;
+    value = value.replace(/(\r\n|\n|\r)/gm, ''); // Remove linebreaks
     data += value;
   }
 }
@@ -31,7 +32,7 @@ translationFile['layer-info-popups'] = popupsJson;
 
 fs.writeFile(path + 'en.json', JSON.stringify(translationFile), function (err) {
   if (err) {
-    return console.log(err);
+    return console.log('err', err);
   }
   console.log('The file was saved!');
 });

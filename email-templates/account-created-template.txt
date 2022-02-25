@@ -1,7 +1,6 @@
 Dear reader,
  
-Below are the credentials, for you to access the IBF operational dashboard. The version of the IBF dashboard that has been released to you is version v0.103.1
-This is the operational dashboard, which means the flood triggers are real.
+Below are the credentials, for you to access the IBF operational dashboard. This is the operational dashboard, which means any observed triggers/alerts are real.
 
 If you experience problems in using the dashboard that please communicate with us via email and we will let you know when the problem can be fixed. 
  
