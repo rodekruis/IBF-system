@@ -57,3 +57,8 @@
   - `node _convert-layer-info-popup-xlsx-to-json.js`
 - check if dashboard runs without errors
 - open popups for added/edited layers to see if text comes out right (use the 'date of change' column G for this)
+- Merge PR and check if available on test environment
+
+7. [DATA-DEV] Review if popup text comes out as intended
+
+- DATA-DEV checks out popups for added/edited layers to see if text comes out as intended
