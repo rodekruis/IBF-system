@@ -21,7 +21,7 @@ for (z in worksheet) {
   var col = z.substring(0, tt);
   if (col === 'Q') {
     var value = worksheet[z].v;
-    value = value.replace(/(\r\n|\n|\r)/gm, ""); // Remove linebreaks
+    value = value.replace(/(\r\n|\n|\r)/gm, ''); // Remove linebreaks
     data += value;
   }
 }
