@@ -33,6 +33,7 @@ import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { TimelineState } from '../types/timeline-state';
 import { DisasterTypeService } from './disaster-type.service';
+import { EapActionsService } from './eap-actions.service';
 
 @Injectable({
   providedIn: 'root',
@@ -74,6 +75,7 @@ export class MapService {
   public eventState: EventState;
   public timelineState: TimelineState;
   public adminLevel: AdminLevel;
+  public triggeredAreas: any[];
 
   private popoverTexts: { [key: string]: string } = {};
   private country: Country;
@@ -89,6 +91,7 @@ export class MapService {
     private placeCodeService: PlaceCodeService,
     private translateService: TranslateService,
     private disasterTypeService: DisasterTypeService,
+    private eapActionsService: EapActionsService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -121,6 +124,10 @@ export class MapService {
     this.eventService
       .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
+
+    this.eapActionsService
+      .getTriggeredAreas()
+      .subscribe(this.onTriggeredAreasChange);
   }
 
   private onCountryChange = (country: Country): void => {
@@ -143,6 +150,11 @@ export class MapService {
 
   private onEventStateChange = (eventState: any) => {
     this.eventState = eventState;
+    this.loadCountryLayers();
+  };
+
+  private onTriggeredAreasChange = (triggeredAreas: any[]) => {
+    this.triggeredAreas = triggeredAreas;
     this.loadCountryLayers();
   };
 
@@ -219,7 +231,8 @@ export class MapService {
       this.disasterType &&
       this.eventState &&
       this.timelineState &&
-      this.adminLevel
+      this.adminLevel &&
+      this.triggeredAreas
     ) {
       this.apiService
         .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
@@ -899,7 +912,14 @@ export class MapService {
       ? this.state.colorGradientTriggered
       : this.state.colorGradient;
 
+    const areaState = this.triggeredAreas.find(
+      (area) => area.placeCode === placeCode,
+    );
+
     switch (true) {
+      case areaState?.stopped:
+        adminRegionFillColor = this.state.colorGradient[0];
+        break;
       case colorPropertyValue === null:
         adminRegionFillColor = this.state.noDataColor;
         break;
@@ -922,9 +942,10 @@ export class MapService {
         adminRegionFillColor = this.state.defaultColor;
     }
     if (this.placeCode && this.placeCode.placeCode === placeCode) {
-      adminRegionFillColor = this.eventState?.activeTrigger
-        ? this.alertColor
-        : this.safeColor;
+      adminRegionFillColor =
+        this.eventState?.activeTrigger && !areaState?.stopped
+          ? this.alertColor
+          : this.safeColor;
     }
 
     return adminRegionFillColor;
