@@ -358,7 +358,7 @@ export class EventService {
     return result;
   }
 
-  public async closeEventPcode(
+  public async stopTrigger(
     eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
     const eventPlaceCode = await this.eventPlaceCodeRepo.findOne(

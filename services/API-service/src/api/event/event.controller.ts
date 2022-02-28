@@ -137,21 +137,20 @@ export class EventController {
   }
 
   @Roles(UserRole.DisasterManager)
-  @ApiOperation({ summary: 'Close event for given admin-area.' })
+  @ApiOperation({ summary: 'Stop trigger for given admin-area.' })
   @ApiResponse({
     status: 201,
-    description: 'Event closed for given admin-area.',
+    description: 'Trigger stopped for given admin-area.',
   })
   @ApiResponse({
     status: 404,
     description: 'No admin-area for this event.',
   })
-  @ApiOperation({ summary: 'Close place code event' })
-  @Post('close-place-code')
-  public async closeEventPcode(
+  @Post('stop-trigger')
+  public async stopTrigger(
     @Body() eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
-    return await this.eventService.closeEventPcode(eventPlaceCodeDto);
+    return await this.eventService.stopTrigger(eventPlaceCodeDto);
   }
 
   @Roles(UserRole.PipelineUser)

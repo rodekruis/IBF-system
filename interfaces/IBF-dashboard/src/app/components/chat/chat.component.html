@@ -169,14 +169,14 @@
         </ion-row>
       </form>
       <ion-button
-        (click)="closePlaceCodeEventPopup(area)"
-        [disabled]="area.activeTrigger"
+        (click)="openStopTriggerPopup(area)"
+        [disabled]="!area.activeTrigger"
         color="ibf-primary"
         expand="block"
         [innerHTML]="
           'chat-component.' +
             disasterTypeName +
-            '.active-event.close-event-button' | translate
+            '.active-event.stop-trigger-button' | translate
         "
       ></ion-button>
     </app-dialogue-turn>
