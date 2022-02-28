@@ -8,7 +8,7 @@ export class RelationEventUser1646050748658 implements MigrationInterface {
       `ALTER TABLE "IBF-app"."event-place-code" RENAME COLUMN "manualClosedDate" TO "manualStoppedDate"`,
     );
     await queryRunner.query(
-      `ALTER TABLE "IBF-app"."event-place-code" RENAME COLUMN "closed" TO "stopped"`,
+      `ALTER TABLE "IBF-app"."event-place-code" ADD "stopped" boolean NOT NULL DEFAULT false`,
     );
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."event-place-code" ADD "userUserId" uuid`,
@@ -26,7 +26,7 @@ export class RelationEventUser1646050748658 implements MigrationInterface {
       `ALTER TABLE "IBF-app"."event-place-code" DROP COLUMN "userUserId"`,
     );
     await queryRunner.query(
-      `ALTER TABLE "IBF-app"."event-place-code" RENAME COLUMN "stopped" TO "closed"`,
+      `ALTER TABLE "IBF-app"."event-place-code" DROP COLUMN "stopped"`,
     );
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."event-place-code" RENAME COLUMN "manualStoppedDate" TO "manualClosedDate"`,

@@ -83,7 +83,10 @@
   </app-dialogue-turn>
 
   <ng-container *ngIf="eventState?.activeEvent">
-    <app-dialogue-turn *ngIf="stoppedAreas.length === 0 && filteredAreas.length === 0" isConnected="true">
+    <app-dialogue-turn
+      *ngIf="stoppedAreas.length === 0 && filteredAreas.length === 0"
+      isConnected="true"
+    >
       <p
         [translate]="
           'chat-component.' + disasterTypeName + '.active-event.instruction'

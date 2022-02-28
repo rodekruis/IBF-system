@@ -53,6 +53,9 @@ export class EventPlaceCodeEntity {
   @Column({ default: false })
   public stopped: boolean;
 
+  @Column({ default: false })
+  public closed: boolean;
+
   @OneToMany(
     (): typeof EapActionStatusEntity => EapActionStatusEntity,
     (eapActionStatus): EventPlaceCodeEntity => eapActionStatus.eventPlaceCode,

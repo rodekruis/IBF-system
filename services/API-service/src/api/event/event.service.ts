@@ -541,7 +541,7 @@ export class EventService {
     );
     const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
       where: {
-        stopped: false,
+        closed: false,
         adminArea: In(countryAdminAreaIds),
         disasterType: disasterType,
         eventName: eventName || IsNull(),
@@ -582,7 +582,7 @@ export class EventService {
     const existingUnclosedEventAreas = (
       await this.eventPlaceCodeRepo.find({
         where: {
-          stopped: false,
+          closed: false,
           adminArea: In(countryAdminAreaIds),
           disasterType: disasterType,
           eventName: eventName || IsNull(),
@@ -622,7 +622,7 @@ export class EventService {
         adminArea: In(countryAdminAreaIds),
       },
     });
-    expiredEventAreas.forEach(area => (area.stopped = true));
+    expiredEventAreas.forEach(area => (area.closed = true));
     await this.eventPlaceCodeRepo.save(expiredEventAreas);
   }
 
