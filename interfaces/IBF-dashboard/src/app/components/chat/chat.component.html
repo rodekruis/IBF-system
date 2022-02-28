@@ -92,6 +92,24 @@
       ></p>
     </app-dialogue-turn>
     <app-dialogue-turn
+      *ngFor="let area of stoppedAreas; first as isFirst"
+      [isConnected]="true"
+      [isStopped]="true"
+    >
+      <p
+        [innerHTML]="
+          'chat-component.' + disasterTypeName + '.stopped-event.intro'
+            | translate
+              : {
+                  placeCodeName: area.name,
+                  startDate: area.startDate,
+                  stoppedDate: area.stoppedDate,
+                  displayName: area.displayName || 'unknown'
+                }
+        "
+      ></p>
+    </app-dialogue-turn>
+    <app-dialogue-turn
       actor="self"
       *ngFor="let area of filteredAreas; first as isFirst"
       [isConnected]="!isFirst"

@@ -11,6 +11,7 @@ import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-are
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { HelperService } from '../../shared/helper.service';
+import { UserEntity } from '../user/user.entity';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { HelperService } from '../../shared/helper.service';
       AdminAreaDynamicDataEntity,
       AdminAreaEntity,
       DisasterEntity,
+      UserEntity,
     ]),
   ],
   controllers: [EventController],

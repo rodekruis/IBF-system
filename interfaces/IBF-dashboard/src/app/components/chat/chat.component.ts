@@ -32,6 +32,7 @@ import { LeadTimeUnit } from '../../types/lead-time';
 export class ChatComponent implements OnInit, OnDestroy {
   public triggeredAreas: any[];
   public filteredAreas: any[];
+  public stoppedAreas: any[];
   public activeDisasterType: string;
   public eventState: EventState;
   public timelineState: TimelineState;
@@ -150,7 +151,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
     this.setDefaultFilteredAreas();
-    this.triggeredAreas.forEach(this.disableSubmitButtonForTriggeredArea);
+    this.triggeredAreas.forEach((area) => {
+      this.disableSubmitButtonForTriggeredArea(area);
+      area.startDate = DateTime.fromISO(area.startDate).toFormat(
+        'cccc, dd LLLL',
+      );
+      area.stoppedDate = DateTime.fromISO(area.stoppedDate).toFormat(
+        'cccc, dd LLLL',
+      );
+    });
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
@@ -161,11 +170,15 @@ export class ChatComponent implements OnInit, OnDestroy {
       const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
         triggeredArea.placeCode === placeCode.placeCode;
 
-      this.filteredAreas = this.triggeredAreas.filter(
-        filterTriggeredAreasByPlaceCode,
-      );
+      this.filteredAreas = this.triggeredAreas
+        .filter(filterTriggeredAreasByPlaceCode)
+        .filter((a) => !a.stopped);
+      this.stoppedAreas = this.triggeredAreas
+        .filter(filterTriggeredAreasByPlaceCode)
+        .filter((a) => a.stopped);
     } else {
       this.setDefaultFilteredAreas();
+      this.stoppedAreas = [];
     }
     this.changeDetectorRef.detectChanges();
   };

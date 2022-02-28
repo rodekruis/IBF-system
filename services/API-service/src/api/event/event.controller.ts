@@ -17,6 +17,7 @@ import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
 import { DateDto, TriggerPerLeadTimeExampleDto } from './dto/date.dto';
 import { Roles } from '../../roles.decorator';
 import { UserRole } from '../user/user-role.enum';
+import { UserDecorator } from '../user/user.decorator';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -148,9 +149,10 @@ export class EventController {
   })
   @Post('stop-trigger')
   public async stopTrigger(
+    @UserDecorator('id') userId: string,
     @Body() eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
-    return await this.eventService.stopTrigger(eventPlaceCodeDto);
+    return await this.eventService.stopTrigger(userId, eventPlaceCodeDto);
   }
 
   @Roles(UserRole.PipelineUser)

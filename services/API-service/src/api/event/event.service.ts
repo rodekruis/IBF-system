@@ -31,6 +31,7 @@ import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { HelperService } from '../../shared/helper.service';
+import { UserEntity } from '../user/user.entity';
 
 @Injectable()
 export class EventService {
@@ -46,6 +47,8 @@ export class EventService {
   private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
   @InjectRepository(DisasterEntity)
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
+  @InjectRepository(UserEntity)
+  private readonly userRepository: Repository<UserEntity>;
 
   public constructor(
     private countryService: CountryService,
@@ -68,8 +71,8 @@ export class EventService {
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."activeTrigger"::int)::boolean AS "activeTrigger"',
       ])
-      .where('closed = :closed', {
-        closed: false,
+      .where('stopped = :stopped', {
+        stopped: false,
       })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
@@ -252,10 +255,14 @@ export class EventService {
         'event."actionsValue"',
         'event."eventPlaceCodeId"',
         'event."activeTrigger"',
+        'event."stopped"',
+        'event."startDate"',
+        'event."manualStoppedDate" AS "stoppedDate"',
+        '"user"."firstName" || \' \' || "user"."lastName" AS "displayName"',
       ])
       .leftJoin('event.adminArea', 'area')
+      .leftJoin('event.user', 'user')
       .where({
-        closed: false,
         disasterType: disasterType,
         eventName: eventName === 'no-name' ? IsNull() : eventName,
       })
@@ -297,9 +304,9 @@ export class EventService {
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
         'event."startDate"',
-        'case when event."manualClosedDate" is not null and event.closed = true then event."manualClosedDate" when event.closed = true then event."endDate" else null end as "endDate"',
-        'event.closed as closed',
-        'case when event."manualClosedDate" is not null then true else false end AS "manuallyClosed"',
+        'case when event."manualStoppedDate" is not null and event.stopped = true then event."manualStoppedDate" when event.stopped = true then event."endDate" else null end as "endDate"',
+        'event.stopped as stopped',
+        'case when event."manualStoppedDate" is not null then true else false end AS "manuallyStopped"',
         'disaster."actionsUnit" as "exposureIndicator"',
         'event."actionsValue" as "exposureValue"',
         'event."eventPlaceCodeId" as "databaseId"',
@@ -359,8 +366,14 @@ export class EventService {
   }
 
   public async stopTrigger(
+    userId: string,
     eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
+    const user = await this.userRepository.findOne(userId);
+    if (!user) {
+      const errors = 'User not found';
+      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+    }
     const eventPlaceCode = await this.eventPlaceCodeRepo.findOne(
       eventPlaceCodeDto.eventPlaceCodeId,
     );
@@ -368,8 +381,9 @@ export class EventService {
       const errors = 'Event placeCode not found';
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
-    eventPlaceCode.closed = true;
-    eventPlaceCode.manualClosedDate = new Date();
+    eventPlaceCode.stopped = true;
+    eventPlaceCode.manualStoppedDate = new Date();
+    eventPlaceCode.user = user;
     await this.eventPlaceCodeRepo.save(eventPlaceCode);
   }
 
@@ -527,7 +541,7 @@ export class EventService {
     );
     const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
       where: {
-        closed: false,
+        stopped: false,
         adminArea: In(countryAdminAreaIds),
         disasterType: disasterType,
         eventName: eventName || IsNull(),
@@ -568,7 +582,7 @@ export class EventService {
     const existingUnclosedEventAreas = (
       await this.eventPlaceCodeRepo.find({
         where: {
-          closed: false,
+          stopped: false,
           adminArea: In(countryAdminAreaIds),
           disasterType: disasterType,
           eventName: eventName || IsNull(),
@@ -589,8 +603,8 @@ export class EventService {
         eventArea.startDate = new Date();
         eventArea.endDate = this.getEndDate(area.leadTime);
         eventArea.activeTrigger = true;
-        eventArea.closed = false;
-        eventArea.manualClosedDate = null;
+        eventArea.stopped = false;
+        eventArea.manualStoppedDate = null;
         eventArea.disasterType = disasterType;
         newEventAreas.push(eventArea);
       }
@@ -608,7 +622,7 @@ export class EventService {
         adminArea: In(countryAdminAreaIds),
       },
     });
-    expiredEventAreas.forEach(area => (area.closed = true));
+    expiredEventAreas.forEach(area => (area.stopped = true));
     await this.eventPlaceCodeRepo.save(expiredEventAreas);
   }
 

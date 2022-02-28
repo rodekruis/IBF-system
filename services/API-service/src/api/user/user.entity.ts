@@ -13,6 +13,7 @@ import { CountryEntity } from '../country/country.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { UserRole } from './user-role.enum';
 import { UserStatus } from './user-status.enum';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -74,4 +75,10 @@ export class UserEntity {
     (action): UserEntity => action.user,
   )
   public actions: EapActionStatusEntity[];
+
+  @OneToMany(
+    (): typeof EventPlaceCodeEntity => EventPlaceCodeEntity,
+    (placeCode): UserEntity => placeCode.user,
+  )
+  public stoppedTriggers: EventPlaceCodeEntity[];
 }

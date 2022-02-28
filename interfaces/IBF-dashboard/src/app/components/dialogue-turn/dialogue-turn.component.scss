@@ -151,6 +151,16 @@
   }
 }
 
+.dialogue-turn.is-stopped {
+  .dialogue-turn--content {
+    ion-card {
+      background-color: var(--ion-color-ibf-no-alert-tertiary) !important;
+      color: var(--ion-color-ibf-no-alert-tertiary-contrast) !important;
+      border: var(--ion-color-ibf-no-alert-tertiary-contrast) solid;
+    }
+  }
+}
+
 .dialogue-turn.is-spoken {
   .dialogue-turn--content {
     animation-name: speak;

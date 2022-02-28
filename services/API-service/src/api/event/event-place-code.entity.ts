@@ -11,6 +11,7 @@ import {
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
+import { UserEntity } from '../user/user.entity';
 
 @Entity('event-place-code')
 export class EventPlaceCodeEntity {
@@ -44,13 +45,13 @@ export class EventPlaceCodeEntity {
   public endDate: Date;
 
   @Column({ type: 'timestamp', nullable: true })
-  public manualClosedDate: Date;
+  public manualStoppedDate: Date;
 
   @Column({ default: true })
   public activeTrigger: boolean;
 
   @Column({ default: false })
-  public closed: boolean;
+  public stopped: boolean;
 
   @OneToMany(
     (): typeof EapActionStatusEntity => EapActionStatusEntity,
@@ -59,4 +60,10 @@ export class EventPlaceCodeEntity {
   )
   @JoinTable()
   public eapActionStatuses: EapActionStatusEntity[];
+
+  @ManyToOne(
+    (): typeof UserEntity => UserEntity,
+    (user): EventPlaceCodeEntity[] => user.stoppedTriggers,
+  )
+  public user: UserEntity;
 }
