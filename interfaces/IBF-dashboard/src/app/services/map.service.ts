@@ -994,16 +994,16 @@ export class MapService {
 
   public getColorThreshold = (adminRegions, colorProperty, colorBreaks) => {
     if (colorBreaks) {
-      const colorThreshold = {
+      const colorThresholdWithBreaks = {
         break0: 0,
       };
       Object.keys(colorBreaks).forEach((colorBreak) => {
         if (colorBreaks[String(Number(colorBreak) + 1)]) {
-          colorThreshold[`break${colorBreak}`] =
+          colorThresholdWithBreaks[`break${colorBreak}`] =
             colorBreaks[colorBreak].valueHigh;
         }
       });
-      return colorThreshold;
+      return colorThresholdWithBreaks;
     }
     const colorPropertyValues = adminRegions.features
       .map((feature) =>
