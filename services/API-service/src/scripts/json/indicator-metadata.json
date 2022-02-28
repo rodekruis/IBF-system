@@ -758,11 +758,32 @@
     "country_codes": "KEN",
     "disasterTypes": ["drought"],
     "name": "drought_phase_classification",
-    "label": "Drought Phase Classification",
+    "label": "Drought phase classification",
     "icon": "",
     "weightedAvg": false,
     "active": "no",
-    "colorBreaks": null,
+    "colorBreaks": {
+      "1": {
+        "label": "Normal",
+        "valueLow": 1,
+        "valueHigh": 1
+      },
+      "2": {
+        "label": "Alert",
+        "valueLow": 2,
+        "valueHigh": 2
+      },
+      "3": {
+        "label": "Alarm",
+        "valueLow": 3,
+        "valueHigh": 3
+      },
+      "4": {
+        "label": "Recovery",
+        "valueLow": 4,
+        "valueHigh": 4
+      }
+    },
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
@@ -775,11 +796,37 @@
     "country_codes": "KEN",
     "disasterTypes": ["drought"],
     "name": "vegetation_condition",
-    "label": "Vegetation Condition",
+    "label": "Vegetation condition",
     "icon": "",
     "weightedAvg": false,
     "active": "no",
-    "colorBreaks": null,
+    "colorBreaks": {
+      "1": {
+        "label": "Extreme",
+        "valueLow": 1,
+        "valueHigh": 1
+      },
+      "2": {
+        "label": "Severe vegetation deficit",
+        "valueLow": 2,
+        "valueHigh": 2
+      },
+      "3": {
+        "label": "Moderate vegetation deficit",
+        "valueLow": 3,
+        "valueHigh": 3
+      },
+      "4": {
+        "label": "Normal vegetation greenness",
+        "valueLow": 4,
+        "valueHigh": 4
+      },
+      "5": {
+        "label": "Vegetation greenness above normal",
+        "valueLow": 5,
+        "valueHigh": 5
+      }
+    },
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
@@ -791,12 +838,28 @@
   {
     "country_codes": "KEN",
     "disasterTypes": ["drought"],
-    "name": "milk_production",
-    "label": "Milk Production",
+    "name": "livestock_body_condition",
+    "label": "Livestock body condition",
     "icon": "",
     "weightedAvg": false,
     "active": "no",
-    "colorBreaks": null,
+    "colorBreaks": {
+      "1": {
+        "label": "Poor",
+        "valueLow": 1,
+        "valueHigh": 1
+      },
+      "2": {
+        "label": "Fair",
+        "valueLow": 2,
+        "valueHigh": 2
+      },
+      "3": {
+        "label": "Good",
+        "valueLow": 3,
+        "valueHigh": 3
+      }
+    },
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
