@@ -107,8 +107,7 @@ export class EapActionsService {
       .where('status.timestamp = recent.max_timestamp')
       .andWhere('coalesce(event."eventName",\'null\') = :eventName', {
         eventName: eventName || 'null',
-      })
-      .andWhere('event.stopped = false');
+      });
 
     const eapActions = await this.eapActionRepository
       .createQueryBuilder('action')

@@ -12,6 +12,7 @@ import { IbfLayerName } from '../types/ibf-layer';
 import { TimelineState } from '../types/timeline-state';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
+import { EapActionsService } from './eap-actions.service';
 import { EventService } from './event.service';
 
 @Injectable({
@@ -27,6 +28,7 @@ export class AggregatesService {
   private eventState: EventState;
   public timelineState: TimelineState;
   private adminLevel: AdminLevel;
+  public triggeredAreas: any[];
 
   constructor(
     private countryService: CountryService,
@@ -36,6 +38,7 @@ export class AggregatesService {
     private mapService: MapService,
     private disasterTypeService: DisasterTypeService,
     private eventService: EventService,
+    private eapActionsService: EapActionsService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -60,6 +63,10 @@ export class AggregatesService {
     this.eventService
       .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
+
+    this.eapActionsService
+      .getTriggeredAreas()
+      .subscribe(this.onTriggeredAreasChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -85,6 +92,11 @@ export class AggregatesService {
     this.loadMetadataAndAggregates();
   };
 
+  private onTriggeredAreasChange = (triggeredAreas: any[]) => {
+    this.triggeredAreas = triggeredAreas;
+    this.loadMetadataAndAggregates();
+  };
+
   loadMetadataAndAggregates() {
     if (
       this.country &&
@@ -92,6 +104,7 @@ export class AggregatesService {
       this.eventState &&
       this.timelineState &&
       this.adminLevel &&
+      this.triggeredAreas &&
       this.mapService.checkCountryDisasterTypeMatch(
         this.country,
         this.disasterType,
@@ -128,7 +141,12 @@ export class AggregatesService {
     const foundIndicator = feature.records.find(
       (a) => a.indicator === indicator.name,
     );
-    if (foundIndicator) {
+    const areaState = this.triggeredAreas.find(
+      (area) => area.placeCode === feature.placeCode,
+    );
+    if (areaState?.stopped && indicator.dynamic) {
+      aggregate[indicator.name] = 0;
+    } else if (foundIndicator) {
       aggregate[indicator.name] = foundIndicator.value;
     } else {
       aggregate[indicator.name] = 0;
