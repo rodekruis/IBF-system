@@ -56,7 +56,8 @@
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
       },
       "active-event": {
-        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event. These actions are only available on the main admin-level.",
+        "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
+        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
@@ -72,7 +73,9 @@
         }
       },
       "stopped-event": {
-        "intro": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "overview": "The following {{ nrStoppedAreas }} {{adminAreaLabelPlural}} were manually stopped and listed below in order of {{ actionIndicator }}.",
+        "instruction": "To see when this was done and by whom, click on the area in the map.",
+        "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "drought": {
@@ -90,7 +93,8 @@
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
       },
       "active-event": {
-        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event. These actions are only available on the main admin-level.",
+        "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
+        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
@@ -106,41 +110,9 @@
         }
       },
       "stopped-event": {
-        "intro": "The drought trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
-      }
-    },
-    "heavy-rain": {
-      "about-button-label": "About Alert",
-      "warn-label": {
-        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
-      },
-      "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn other layers on and off. There is currently <strong>no alert</strong> activated."
-      },
-      "active-event-active-trigger": {
-        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
-      },
-      "active-event-no-trigger": {
-        "welcome": "There is <strong>no active alert</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
-      },
-      "active-event": {
-        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
-        "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
-        "submit-button-label": "Save",
-        "stop-trigger-button": "Stop alert",
-        "update-success": "EAP action(s) updated in database.",
-        "update-failure": "Failed to update EAP action(s) updated in database.",
-        "prompt-button-label": "OK",
-        "stop-trigger-popup": {
-          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
-          "confirm": "Yes, stop alert",
-          "cancel": "No, keep alert",
-          "failure": "Failed to stop alert."
-        }
-      },
-      "stopped-event": {
-        "intro": "The heavy rainfall alert for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "overview": "The following {{ nrStoppedAreas }} {{adminAreaLabelPlural}} were manually stopped and listed below in order of {{ actionIndicator }}.",
+        "instruction": "To see when this was done and by whom, click on the area in the map.",
+        "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "typhoon": {
@@ -158,6 +130,7 @@
         "welcome": "There is <strong>no active trigger</strong> for typhoon <strong>{{ eventName }}</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
       },
       "active-event": {
+        "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
         "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
@@ -174,7 +147,46 @@
         }
       },
       "stopped-event": {
-        "intro": "The typhoon trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "overview": "The following {{ nrStoppedAreas }} {{adminAreaLabelPlural}} were manually stopped and listed below in order of {{ actionIndicator }}.",
+        "instruction": "To see when this was done and by whom, click on the area in the map.",
+        "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+      }
+    },
+    "heavy-rain": {
+      "about-button-label": "About Alert",
+      "warn-label": {
+        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
+      },
+      "no-event-no-trigger": {
+        "welcome": "To your right is the map of your country. You can turn other layers on and off. There is currently <strong>no alert</strong> activated."
+      },
+      "active-event-active-trigger": {
+        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
+      },
+      "active-event-no-trigger": {
+        "welcome": "There is <strong>no active alert</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here for 7 days after the end-date."
+      },
+      "active-event": {
+        "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
+        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+        "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
+        "submit-button-label": "Save",
+        "stop-trigger-button": "Stop alert",
+        "update-success": "SOP action(s) updated in database.",
+        "update-failure": "Failed to update SOP action(s) updated in database.",
+        "prompt-button-label": "OK",
+        "stop-trigger-popup": {
+          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
+          "confirm": "Yes, stop alert",
+          "cancel": "No, keep alert",
+          "failure": "Failed to stop alert."
+        }
+      },
+      "stopped-event": {
+        "overview": "The following {{ nrStoppedAreas }} {{adminAreaLabelPlural}} were manually stopped and listed below in order of {{ actionIndicator }}.",
+        "instruction": "To see when this was done and by whom, click on the area in the map.",
+        "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "dengue": {
@@ -192,6 +204,7 @@
         "welcome": "There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
       },
       "active-event": {
+        "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
         "instruction": "The areas above alert threshold are highlighted in the map with a red outline. You can click on the month tabs above the map to see the predictions for each month. Please select the area on the map to monitor which early actions are to do or done.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
@@ -208,7 +221,9 @@
         }
       },
       "stopped-event": {
-        "intro": "The dengue alert for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "overview": "The following {{ nrStoppedAreas }} {{adminAreaLabelPlural}} were manually stopped and listed below in order of {{ actionIndicator }}.",
+        "instruction": "To see when this was done and by whom, click on the area in the map.",
+        "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "malaria": {
@@ -226,6 +241,7 @@
         "welcome": "There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. This event stays visible here until the end of the month."
       },
       "active-event": {
+        "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
         "instruction": "The areas above alert threshold are highlighted in the map with a red outline. You can click on the month tabs above the map to see the predictions for each month. Please select the area on the map to monitor which early actions are to do or done.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
@@ -242,7 +258,9 @@
         }
       },
       "stopped-event": {
-        "intro": "The malaria alert for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "overview": "The following {{ nrStoppedAreas }} {{adminAreaLabelPlural}} were manually stopped and listed below in order of {{ actionIndicator }}.",
+        "instruction": "To see when this was done and by whom, click on the area in the map.",
+        "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     }
   },
