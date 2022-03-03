@@ -149,7 +149,7 @@ export class EventController {
   })
   @Post('stop-trigger')
   public async stopTrigger(
-    @UserDecorator('id') userId: string,
+    @UserDecorator('userId') userId: string,
     @Body() eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
     return await this.eventService.stopTrigger(userId, eventPlaceCodeDto);
