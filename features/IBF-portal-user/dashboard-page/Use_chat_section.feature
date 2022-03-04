@@ -38,7 +38,7 @@ Scenario: Click 'Activation Log'
     When the user clicks on 'Activation Log' button
     Then the 'activation-log' page opens up in a new tab
     And it contains 'disaster-activation-data' for all the countries
-    And it contains 'country-code','disaster-type','placecode','name','startDate','endDate','closed','manualyClosed','exposureIndicator','exposureValue','databaseId'
+    And it contains 'country-code','disaster-type','placecode','name','startDate','endDate','stopped','manuallyStopped','exposureIndicator','exposureValue','databaseId'
     And it is in a table
     And it can easily be copied to Excel
 
@@ -119,5 +119,5 @@ Scenario: Close event
     When the user clicks the 'close alert' button
     Then a popup appears that asks if you are sure
     And if confirmed the dashboard updates, and the area is now no longer visible in the list
-    And the event is now closed with today's date in the database
+    And the event is now stopped with today's date in the database
     And as such reflected in the "activation report"

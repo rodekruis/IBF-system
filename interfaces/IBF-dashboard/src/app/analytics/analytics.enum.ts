@@ -24,5 +24,5 @@ export enum AnalyticsEvent {
   typhoonTrack = 'typhoon-track',
   mapPlaceSelect = 'map-place-select',
   leadTime = 'lead-time',
-  closeEvent = 'close-event',
+  stopTrigger = 'stop-trigger',
 }

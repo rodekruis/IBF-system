@@ -83,11 +83,32 @@
   </app-dialogue-turn>
 
   <ng-container *ngIf="eventState?.activeEvent">
-    <app-dialogue-turn isConnected="true">
+    <app-dialogue-turn
+      *ngIf="stoppedAreas.length === 0 && filteredAreas.length === 0"
+      isConnected="true"
+    >
       <p
         [translate]="
           'chat-component.' + disasterTypeName + '.active-event.instruction'
             | translate
+        "
+      ></p>
+    </app-dialogue-turn>
+    <app-dialogue-turn
+      *ngFor="let area of stoppedAreas; first as isFirst"
+      [isConnected]="true"
+      [isStopped]="true"
+    >
+      <p
+        [innerHTML]="
+          'chat-component.' + disasterTypeName + '.stopped-event.intro'
+            | translate
+              : {
+                  placeCodeName: area.name,
+                  startDate: area.startDate,
+                  stoppedDate: area.stoppedDate,
+                  displayName: area.displayName || 'unknown'
+                }
         "
       ></p>
     </app-dialogue-turn>
@@ -169,14 +190,14 @@
         </ion-row>
       </form>
       <ion-button
-        (click)="closePlaceCodeEventPopup(area)"
-        [disabled]="area.activeTrigger"
+        (click)="openStopTriggerPopup(area)"
+        [disabled]="!area.activeTrigger"
         color="ibf-primary"
         expand="block"
         [innerHTML]="
           'chat-component.' +
             disasterTypeName +
-            '.active-event.close-event-button' | translate
+            '.active-event.stop-trigger-button' | translate
         "
       ></ion-button>
     </app-dialogue-turn>

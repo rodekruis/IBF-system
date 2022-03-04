@@ -31,6 +31,18 @@ export class TriggeredArea {
 
   @ApiProperty({ example: 100 })
   public actionsValue: number;
+
+  @ApiProperty({ example: false })
+  public stopped: boolean;
+
+  @ApiProperty({ example: new Date().toISOString() })
+  public startDate: string;
+
+  @ApiProperty({ example: new Date().toISOString() })
+  public stoppedDate: string;
+
+  @ApiProperty({ example: 'Henry Dunant' })
+  public displayName: string;
 }
 
 export class EventSummaryCountry {

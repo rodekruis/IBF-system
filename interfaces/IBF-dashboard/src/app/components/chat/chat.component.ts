@@ -32,6 +32,7 @@ import { LeadTimeUnit } from '../../types/lead-time';
 export class ChatComponent implements OnInit, OnDestroy {
   public triggeredAreas: any[];
   public filteredAreas: any[];
+  public stoppedAreas: any[];
   public activeDisasterType: string;
   public eventState: EventState;
   public timelineState: TimelineState;
@@ -40,7 +41,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
   private promptButtonLabel: string;
-  private closeEventPopup: object;
+  private stopTriggerPopup: object;
 
   private countrySubscription: Subscription;
   private eapActionSubscription: Subscription;
@@ -150,7 +151,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
     this.setDefaultFilteredAreas();
-    this.triggeredAreas.forEach(this.disableSubmitButtonForTriggeredArea);
+    this.triggeredAreas.forEach((area) => {
+      this.disableSubmitButtonForTriggeredArea(area);
+      area.startDate = DateTime.fromISO(area.startDate).toFormat(
+        'cccc, dd LLLL',
+      );
+      area.stoppedDate = DateTime.fromISO(area.stoppedDate).toFormat(
+        'cccc, dd LLLL',
+      );
+    });
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
@@ -161,11 +170,15 @@ export class ChatComponent implements OnInit, OnDestroy {
       const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
         triggeredArea.placeCode === placeCode.placeCode;
 
-      this.filteredAreas = this.triggeredAreas.filter(
-        filterTriggeredAreasByPlaceCode,
-      );
+      this.filteredAreas = this.triggeredAreas
+        .filter(filterTriggeredAreasByPlaceCode)
+        .filter((a) => !a.stopped);
+      this.stoppedAreas = this.triggeredAreas
+        .filter(filterTriggeredAreasByPlaceCode)
+        .filter((a) => a.stopped);
     } else {
       this.setDefaultFilteredAreas();
+      this.stoppedAreas = [];
     }
     this.changeDetectorRef.detectChanges();
   };
@@ -193,7 +206,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     const activeEventsSelector = 'active-event';
     const updateSuccesSelector = 'update-success';
     const updateFailureSelector = 'update-failure';
-    const closeEventPopupSelector = 'close-event-popup';
+    const stopTriggerPopupSelector = 'stop-trigger-popup';
 
     this.updateSuccessMessage = this.translatedStrings[this.disasterTypeName][
       activeEventsSelector
@@ -201,9 +214,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.updateFailureMessage = this.translatedStrings[this.disasterTypeName][
       activeEventsSelector
     ][updateFailureSelector];
-    this.closeEventPopup = this.translatedStrings[this.disasterTypeName][
+    this.stopTriggerPopup = this.translatedStrings[this.disasterTypeName][
       activeEventsSelector
-    ][closeEventPopupSelector];
+    ][stopTriggerPopupSelector];
 
     this.apiService
       .getRecentDates(
@@ -329,7 +342,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     alert.present();
   }
 
-  private onClosePlaceCodeEventPopupByTriggeredArea = (triggeredArea) => async (
+  private onStopTriggerByTriggeredArea = (triggeredArea) => async (
     message,
   ): Promise<void> => {
     const cancelTranslateNode = 'cancel';
@@ -339,15 +352,15 @@ export class ChatComponent implements OnInit, OnDestroy {
       message,
       buttons: [
         {
-          text: this.closeEventPopup[cancelTranslateNode],
+          text: this.stopTriggerPopup[cancelTranslateNode],
           handler: () => {
-            console.log('Cancel close place code');
+            console.log('Cancel stop trigger');
           },
         },
         {
-          text: this.closeEventPopup[confirmTranslateNode],
+          text: this.stopTriggerPopup[confirmTranslateNode],
           handler: () => {
-            this.closePlaceCodeEvent(
+            this.stopTrigger(
               triggeredArea.eventPlaceCodeId,
               triggeredArea.placeCode,
             );
@@ -359,32 +372,29 @@ export class ChatComponent implements OnInit, OnDestroy {
     alert.present();
   };
 
-  public closePlaceCodeEventPopup(triggeredArea): void {
+  public openStopTriggerPopup(triggeredArea): void {
     this.translateSubscription = this.translateService
       .get(
-        `chat-component.${this.disasterTypeName}.active-event.close-event-popup.message`,
+        `chat-component.${this.disasterTypeName}.active-event.stop-trigger-popup.message`,
         {
           placeCodeName: triggeredArea.name,
         },
       )
-      .subscribe(this.onClosePlaceCodeEventPopupByTriggeredArea(triggeredArea));
+      .subscribe(this.onStopTriggerByTriggeredArea(triggeredArea));
   }
 
-  public closePlaceCodeEvent(
-    eventPlaceCodeId: string,
-    placeCode: string,
-  ): void {
-    this.analyticsService.logEvent(AnalyticsEvent.closeEvent, {
+  public stopTrigger(eventPlaceCodeId: string, placeCode: string): void {
+    this.analyticsService.logEvent(AnalyticsEvent.stopTrigger, {
       page: AnalyticsPage.dashboard,
       isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       placeCode,
     });
     const failureTranslateNode = 'failure';
-    this.apiService.closeEventPlaceCode(eventPlaceCodeId).subscribe({
+    this.apiService.stopTrigger(eventPlaceCodeId).subscribe({
       next: () => this.reloadEapAndTrigger(),
       error: () =>
-        this.actionResult(this.closeEventPopup[failureTranslateNode]),
+        this.actionResult(this.stopTriggerPopup[failureTranslateNode]),
     });
   }
 

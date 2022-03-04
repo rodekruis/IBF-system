@@ -60,16 +60,19 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
-        "close-event-button": "Close trigger",
+        "stop-trigger-button": "Stop trigger",
         "update-success": "EAP action(s) updated in database.",
         "update-failure": "Failed to update EAP action(s) in database.",
         "prompt-button-label": "OK",
-        "close-event-popup": {
-          "message": "Are you sure? You are about to close the trigger in {{ placeCodeName }}. This action can not be undone.",
-          "confirm": "Close trigger",
-          "cancel": "Cancel",
-          "failure": "Failed to close trigger."
+        "stop-trigger-popup": {
+          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
+          "confirm": "Yes, stop trigger",
+          "cancel": "No, keep trigger",
+          "failure": "Failed to stop trigger."
         }
+      },
+      "stopped-event": {
+        "intro": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "drought": {
@@ -91,16 +94,19 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
-        "close-event-button": "Close Trigger",
+        "stop-trigger-button": "Stop trigger",
         "update-success": "EAP action(s) updated in database.",
         "update-failure": "Failed to update EAP action(s) in database.",
         "prompt-button-label": "OK",
-        "close-event-popup": {
-          "message": "Are you sure? You are about to close the trigger in {{ placeCodeName }}. This action can not be undone.",
-          "confirm": "Close Trigger",
-          "cancel": "Cancel",
-          "failure": "Failed to close trigger."
+        "stop-trigger-popup": {
+          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
+          "confirm": "Yes, stop trigger",
+          "cancel": "No, keep trigger",
+          "failure": "Failed to stop trigger."
         }
+      },
+      "stopped-event": {
+        "intro": "The drought trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "heavy-rain": {
@@ -122,15 +128,19 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
-        "close-event-button": "Close Alert",
+        "stop-trigger-button": "Stop alert",
         "update-success": "EAP action(s) updated in database.",
         "update-failure": "Failed to update EAP action(s) updated in database.",
         "prompt-button-label": "OK",
-        "close-event-popup": {
-          "message": "Are you sure? You are about to close the alert in {{ placeCodeName }}. This action can not be undone.",
-          "confirm": "Close Alert",
-          "cancel": "Cancel"
+        "stop-trigger-popup": {
+          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
+          "confirm": "Yes, stop alert",
+          "cancel": "No, keep alert",
+          "failure": "Failed to stop alert."
         }
+      },
+      "stopped-event": {
+        "intro": "The heavy rainfall alert for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "typhoon": {
@@ -152,15 +162,19 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
-        "close-event-button": "Close Trigger",
+        "stop-trigger-button": "Stop trigger",
         "update-success": "EAP action(s) updated in database.",
         "update-failure": "Failed to update EAP action(s) updated in database.",
         "prompt-button-label": "OK",
-        "close-event-popup": {
-          "message": "Are you sure? You are about to close the trigger in {{ placeCodeName }}. This action can not be undone.",
-          "confirm": "Close Trigger",
-          "cancel": "Cancel"
+        "stop-trigger-popup": {
+          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
+          "confirm": "Yes, stop trigger",
+          "cancel": "No, keep trigger",
+          "failure": "Failed to stop trigger."
         }
+      },
+      "stopped-event": {
+        "intro": "The typhoon trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "dengue": {
@@ -182,15 +196,19 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
-        "close-event-button": "Close Alert",
+        "stop-trigger-button": "Stop alert",
         "update-success": "SOP action(s) updated in database.",
         "update-failure": "Failed to update SOP action(s) updated in database.",
         "prompt-button-label": "OK",
-        "close-event-popup": {
-          "message": "Are you sure? You are about to close the alert in {{ placeCodeName }}. This action can not be undone.",
-          "confirm": "Close Alert",
-          "cancel": "Cancel"
+        "stop-trigger-popup": {
+          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
+          "confirm": "Yes, stop alert",
+          "cancel": "No, keep alert",
+          "failure": "Failed to stop alert."
         }
+      },
+      "stopped-event": {
+        "intro": "The dengue alert for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "malaria": {
@@ -212,15 +230,19 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Potential cases: up to <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
-        "close-event-button": "Close Alert",
+        "stop-trigger-button": "Stop alert",
         "update-success": "SOP action(s) updated in database.",
         "update-failure": "Failed to update SOP action(s) updated in database.",
         "prompt-button-label": "OK",
-        "close-event-popup": {
-          "message": "Are you sure? You are about to close the alert in {{ placeCodeName }}. This action can not be undone.",
-          "confirm": "Close Alert",
-          "cancel": "Cancel"
+        "stop-trigger-popup": {
+          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
+          "confirm": "Yes, stop alert",
+          "cancel": "No, keep alert",
+          "failure": "Failed to stop alert."
         }
+      },
+      "stopped-event": {
+        "intro": "The malaria alert for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     }
   },

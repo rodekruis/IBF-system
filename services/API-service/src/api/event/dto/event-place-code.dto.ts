@@ -32,10 +32,10 @@ export class ActivationLogDto {
   public endDate: string;
 
   @ApiProperty({ example: false })
-  public closed: boolean;
+  public stopped: boolean;
 
   @ApiProperty({ example: false })
-  public manuallyClosed: boolean;
+  public manuallyStopped: boolean;
 
   @ApiProperty({ example: 'population_affected' })
   public exposureIndicator: string;
@@ -54,8 +54,8 @@ export class ActivationLogDto {
     this.name = null;
     this.startDate = null;
     this.endDate = null;
-    this.closed = null;
-    this.manuallyClosed = null;
+    this.stopped = null;
+    this.manuallyStopped = null;
     this.exposureIndicator = null;
     this.exposureValue = null;
     this.databaseId = null;

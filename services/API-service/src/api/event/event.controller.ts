@@ -17,6 +17,7 @@ import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
 import { DateDto, TriggerPerLeadTimeExampleDto } from './dto/date.dto';
 import { Roles } from '../../roles.decorator';
 import { UserRole } from '../user/user-role.enum';
+import { UserDecorator } from '../user/user.decorator';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -137,21 +138,21 @@ export class EventController {
   }
 
   @Roles(UserRole.DisasterManager)
-  @ApiOperation({ summary: 'Close event for given admin-area.' })
+  @ApiOperation({ summary: 'Stop trigger for given admin-area.' })
   @ApiResponse({
     status: 201,
-    description: 'Event closed for given admin-area.',
+    description: 'Trigger stopped for given admin-area.',
   })
   @ApiResponse({
     status: 404,
     description: 'No admin-area for this event.',
   })
-  @ApiOperation({ summary: 'Close place code event' })
-  @Post('close-place-code')
-  public async closeEventPcode(
+  @Post('stop-trigger')
+  public async stopTrigger(
+    @UserDecorator('userId') userId: string,
     @Body() eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
-    return await this.eventService.closeEventPcode(eventPlaceCodeDto);
+    return await this.eventService.stopTrigger(userId, eventPlaceCodeDto);
   }
 
   @Roles(UserRole.PipelineUser)

@@ -333,9 +333,9 @@ export class ApiService {
     );
   }
 
-  closeEventPlaceCode(eventPlaceCodeId: string) {
+  stopTrigger(eventPlaceCodeId: string) {
     return this.post(
-      'event/close-place-code',
+      'event/stop-trigger',
       {
         eventPlaceCodeId,
       },
