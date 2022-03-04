@@ -1041,7 +1041,12 @@ export class MapService {
   public setOutlineLayerStyle = (layer: IbfLayer) => {
     const colorProperty = layer.colorProperty;
     return (adminRegion) => {
-      const color = 'var(--ion-color-ibf-outline-red)';
+      const areaState = this.triggeredAreas.find(
+        (area) => area.placeCode === adminRegion?.properties?.placeCode,
+      );
+      const color = areaState?.stopped
+        ? '#000000'
+        : 'var(--ion-color-ibf-outline-red)';
       const opacity = this.getOutlineColor(
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
