@@ -80,19 +80,17 @@ export class UserStateComponent implements OnInit {
       DisasterTypeKey.typhoon,
     ];
     this.disasterType = disasterType?.disasterType;
+    const eapNode = eapDisasterTypes.includes(
+      this.disasterType as DisasterTypeKey,
+    )
+      ? 'eap'
+      : 'no-eap';
+    const yesNode = disasterType?.activeTrigger ? 'yes' : 'no';
 
     this.translateService
       .get('dashboard-page.triggered-message')
       .subscribe((triggerTexts) => {
-        this.activeTriggerMsg = eapDisasterTypes.includes(
-          this.disasterType as DisasterTypeKey,
-        )
-          ? disasterType?.activeTrigger
-            ? triggerTexts['eap']['yes']
-            : triggerTexts['eap']['no']
-          : disasterType?.activeTrigger
-          ? triggerTexts['no-eap']['yes']
-          : triggerTexts['no-eap']['no'];
+        this.activeTriggerMsg = triggerTexts[eapNode][yesNode];
       });
   };
 
