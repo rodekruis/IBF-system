@@ -33,7 +33,7 @@ export class UserStateComponent implements OnInit {
   public countryName: string;
   public countrySubscription: Subscription;
   public disasterTypeSubscription: Subscription;
-  public disasterType: string;
+  public disasterType: DisasterType;
   public activeTriggerMsg: string;
 
   constructor(
@@ -74,24 +74,24 @@ export class UserStateComponent implements OnInit {
   }
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
-    const eapDisasterTypes = [
-      DisasterTypeKey.floods,
-      DisasterTypeKey.drought,
-      DisasterTypeKey.typhoon,
-    ];
-    this.disasterType = disasterType?.disasterType;
-    const eapNode = eapDisasterTypes.includes(
-      this.disasterType as DisasterTypeKey,
-    )
-      ? 'eap'
-      : 'no-eap';
-    const yesNode = disasterType?.activeTrigger ? 'yes' : 'no';
+    this.disasterType = disasterType;
+    if (this.disasterType) {
+      const eapDisasterTypes = [
+        DisasterTypeKey.floods,
+        DisasterTypeKey.drought,
+        DisasterTypeKey.typhoon,
+      ];
+      const eapNode = eapDisasterTypes.includes(this.disasterType.disasterType)
+        ? 'eap'
+        : 'no-eap';
+      const yesNode = this.disasterType.activeTrigger ? 'yes' : 'no';
 
-    this.translateService
-      .get('dashboard-page.triggered-message')
-      .subscribe((triggerTexts) => {
-        this.activeTriggerMsg = triggerTexts[eapNode][yesNode];
-      });
+      this.translateService
+        .get('dashboard-page.triggered-message')
+        .subscribe((triggerTexts) => {
+          this.activeTriggerMsg = triggerTexts[eapNode][yesNode];
+        });
+    }
   };
 
   public doLogout() {

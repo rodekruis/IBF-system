@@ -213,7 +213,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private setupChatText = () => {
-    if (this.country && this.disasterType && this.indicators) {
+    if (this.country && this.disasterType && this.indicators.length) {
       const disasterType =
         this.disasterType?.disasterType ||
         this.country.disasterTypes[0].disasterType;
