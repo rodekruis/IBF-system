@@ -29,7 +29,16 @@
       }
     },
     "today": "TODAY",
-    "situational-overview": "Situational Overview"
+    "triggered-message": {
+      "eap": {
+        "yes": "TRIGGERED",
+        "no": "NON-TRIGGERED"
+      },
+      "no-eap": {
+        "yes": "ALERT",
+        "no": "NO ALERTS"
+      }
+    }
   },
   "aggregates-component": {
     "header-title-prefix": "Situation in",

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -14,6 +15,7 @@ import { EventService } from 'src/app/services/event.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from '../../../environments/environment';
 import { ApiService } from '../../services/api.service';
+import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { ChangePasswordPopoverComponent } from '../change-password-popover/change-password-popover.component';
 
 @Component({
@@ -43,6 +45,7 @@ export class UserStateComponent implements OnInit {
     public countryService: CountryService,
     public apiService: ApiService,
     private popoverController: PopoverController,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -71,10 +74,26 @@ export class UserStateComponent implements OnInit {
   }
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
+    const eapDisasterTypes = [
+      DisasterTypeKey.floods,
+      DisasterTypeKey.drought,
+      DisasterTypeKey.typhoon,
+    ];
     this.disasterType = disasterType?.disasterType;
-    this.activeTriggerMsg = disasterType?.activeTrigger
-      ? 'TRIGGERED'
-      : 'NON-TRIGGERED';
+
+    this.translateService
+      .get('dashboard-page.triggered-message')
+      .subscribe((triggerTexts) => {
+        this.activeTriggerMsg = eapDisasterTypes.includes(
+          this.disasterType as DisasterTypeKey,
+        )
+          ? disasterType?.activeTrigger
+            ? triggerTexts['eap']['yes']
+            : triggerTexts['eap']['no']
+          : disasterType?.activeTrigger
+          ? triggerTexts['no-eap']['yes']
+          : triggerTexts['no-eap']['no'];
+      });
   };
 
   public doLogout() {
