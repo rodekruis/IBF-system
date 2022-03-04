@@ -1,3 +1,19 @@
+# [0.139.0](https://github.com/rodekruis/IBF-system/compare/v0.138.0...v0.139.0) (2022-03-04)
+
+
+### Bug Fixes
+
+* updates AB[#12701](https://github.com/rodekruis/IBF-system/issues/12701) ([e988e3e](https://github.com/rodekruis/IBF-system/commit/e988e3e87afe49fef8b9f90a8017a7b0a665f5a8))
+* use active instead of triggered list AB[#12628](https://github.com/rodekruis/IBF-system/issues/12628) ([5d2bd5d](https://github.com/rodekruis/IBF-system/commit/5d2bd5d8ce3bd25565b99f55404152618ee078cf))
+* use alert instead of trigger also in header AB[#12701](https://github.com/rodekruis/IBF-system/issues/12701) ([66a1ad6](https://github.com/rodekruis/IBF-system/commit/66a1ad6b0dd382c38098578cf032b2def7cafaac))
+
+
+### Features
+
+* overview of stopped and active triggered areas AB[#12628](https://github.com/rodekruis/IBF-system/issues/12628) AB[#12629](https://github.com/rodekruis/IBF-system/issues/12629) ([08bfe68](https://github.com/rodekruis/IBF-system/commit/08bfe68a9824ede5e51a000b1a9022a47e0c8215))
+
+
+
 # [0.138.0](https://github.com/rodekruis/IBF-system/compare/v0.137.2...v0.138.0) (2022-03-04)
 
 
@@ -104,15 +120,6 @@
 ### Bug Fixes
 
 * update manual links AB[#12446](https://github.com/rodekruis/IBF-system/issues/12446) ([9966bdd](https://github.com/rodekruis/IBF-system/commit/9966bdd7fd331dfb11bd15b08db038100a743cb9))
-
-
-
-## [0.134.2](https://github.com/rodekruis/IBF-system/compare/v0.134.1...v0.134.2) (2022-02-18)
-
-
-### Bug Fixes
-
-* hide flood_extent in drought AB[#12436](https://github.com/rodekruis/IBF-system/issues/12436) ([e16d70b](https://github.com/rodekruis/IBF-system/commit/e16d70b8d446b52bdc3fd1fc961b422f965f4988))
 
 
 
