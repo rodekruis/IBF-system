@@ -19,9 +19,10 @@ import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
-import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { TimelineState } from 'src/app/types/timeline-state';
+import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
+import { Indicator } from '../../types/indicator-group';
 import { LeadTimeUnit } from '../../types/lead-time';
 
 @Component({
@@ -31,11 +32,14 @@ import { LeadTimeUnit } from '../../types/lead-time';
 })
 export class ChatComponent implements OnInit, OnDestroy {
   public triggeredAreas: any[];
-  public filteredAreas: any[];
+  public activeAreas: any[];
+  public filteredActiveAreas: any[];
   public stoppedAreas: any[];
+  public filteredStoppedAreas: any[];
   public activeDisasterType: string;
   public eventState: EventState;
   public timelineState: TimelineState;
+  private indicators: Indicator[];
 
   private translatedStrings: object;
   private updateSuccessMessage: string;
@@ -51,14 +55,16 @@ export class ChatComponent implements OnInit, OnDestroy {
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
+  private indicatorSubscription: Subscription;
 
-  public indicatorName = IbfLayerName;
   public eapActions: EapAction[];
   public changedActions: EapAction[] = [];
   public submitDisabled = true;
   public adminAreaLabel: string;
+  public adminAreaLabelPlural: string;
   public disasterTypeLabel: string;
   public disasterTypeName: string;
+  public actionIndicatorLabel: string;
   private country: Country;
   private disasterType: DisasterType;
   public lastModelRunDate: string;
@@ -73,6 +79,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private disasterTypeService: DisasterTypeService,
     private timelineService: TimelineService,
     private countryService: CountryService,
+    private aggregatesService: AggregatesService,
     private alertController: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
@@ -112,6 +119,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.timelineStateSubscription = this.timelineService
       .getTimelineStateSubscription()
       .subscribe(this.onTimelineStateChange);
+
+    this.indicatorSubscription = this.aggregatesService
+      .getIndicators()
+      .subscribe(this.onIndicatorChange);
   }
 
   ngOnDestroy() {
@@ -123,6 +134,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
     this.timelineStateSubscription.unsubscribe();
+    this.indicatorSubscription.unsubscribe();
   }
 
   private onTranslate = (translatedStrings) => {
@@ -135,9 +147,12 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    if (this.country && this.disasterType) {
-      this.setupChatText();
-    }
+    this.setupChatText();
+  };
+
+  private onIndicatorChange = (indicators: Indicator[]) => {
+    this.indicators = indicators;
+    this.setupChatText();
   };
 
   private onEventStateChange = (eventState: EventState) => {
@@ -151,6 +166,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
     this.setDefaultFilteredAreas();
+    this.triggeredAreas.sort((a, b) =>
+      a.actionsValue > b.actionsValue ? -1 : 1,
+    );
     this.triggeredAreas.forEach((area) => {
       this.disableSubmitButtonForTriggeredArea(area);
       area.startDate = DateTime.fromISO(area.startDate).toFormat(
@@ -160,6 +178,8 @@ export class ChatComponent implements OnInit, OnDestroy {
         'cccc, dd LLLL',
       );
     });
+    this.stoppedAreas = this.triggeredAreas.filter((area) => area.stopped);
+    this.activeAreas = this.triggeredAreas.filter((area) => !area.stopped);
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
@@ -170,64 +190,74 @@ export class ChatComponent implements OnInit, OnDestroy {
       const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
         triggeredArea.placeCode === placeCode.placeCode;
 
-      this.filteredAreas = this.triggeredAreas
-        .filter(filterTriggeredAreasByPlaceCode)
-        .filter((a) => !a.stopped);
-      this.stoppedAreas = this.triggeredAreas
-        .filter(filterTriggeredAreasByPlaceCode)
-        .filter((a) => a.stopped);
+      this.filteredActiveAreas = this.activeAreas.filter(
+        filterTriggeredAreasByPlaceCode,
+      );
+      this.filteredStoppedAreas = this.stoppedAreas.filter(
+        filterTriggeredAreasByPlaceCode,
+      );
     } else {
       this.setDefaultFilteredAreas();
-      this.stoppedAreas = [];
     }
     this.changeDetectorRef.detectChanges();
   };
 
   private setDefaultFilteredAreas = () => {
     if (this.eventService.isOldEvent()) {
-      this.filteredAreas = [...this.triggeredAreas];
+      this.filteredActiveAreas = [...this.activeAreas];
+      this.filteredStoppedAreas = [...this.stoppedAreas];
     } else {
-      this.filteredAreas = [];
+      this.filteredActiveAreas = [];
+      this.filteredStoppedAreas = [];
     }
   };
 
   private setupChatText = () => {
-    const disasterType =
-      this.disasterType?.disasterType ||
-      this.country.disasterTypes[0].disasterType;
-    const adminLevel = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === disasterType,
-    ).defaultAdminLevel;
-    this.adminAreaLabel = this.country.adminRegionLabels[adminLevel].singular;
-    this.changeDetectorRef.detectChanges();
+    if (this.country && this.disasterType && this.indicators.length) {
+      const disasterType =
+        this.disasterType?.disasterType ||
+        this.country.disasterTypes[0].disasterType;
+      const adminLevel = this.country.countryDisasterSettings.find(
+        (s) => s.disasterType === disasterType,
+      ).defaultAdminLevel;
+      this.adminAreaLabel = this.country.adminRegionLabels[adminLevel].singular;
+      this.adminAreaLabelPlural = this.country.adminRegionLabels[
+        adminLevel
+      ].plural.toLowerCase();
+      this.changeDetectorRef.detectChanges();
 
-    this.disasterTypeLabel = this.disasterType.label;
-    this.disasterTypeName = this.disasterType.disasterType;
-    const activeEventsSelector = 'active-event';
-    const updateSuccesSelector = 'update-success';
-    const updateFailureSelector = 'update-failure';
-    const stopTriggerPopupSelector = 'stop-trigger-popup';
+      this.disasterTypeLabel = this.disasterType.label;
+      this.disasterTypeName = this.disasterType.disasterType;
+      this.actionIndicatorLabel = this.indicators
+        .find((indicator) => indicator.name === this.disasterType.actionsUnit)
+        .label.toLowerCase();
 
-    this.updateSuccessMessage = this.translatedStrings[this.disasterTypeName][
-      activeEventsSelector
-    ][updateSuccesSelector];
-    this.updateFailureMessage = this.translatedStrings[this.disasterTypeName][
-      activeEventsSelector
-    ][updateFailureSelector];
-    this.stopTriggerPopup = this.translatedStrings[this.disasterTypeName][
-      activeEventsSelector
-    ][stopTriggerPopupSelector];
+      const activeEventsSelector = 'active-event';
+      const updateSuccesSelector = 'update-success';
+      const updateFailureSelector = 'update-failure';
+      const stopTriggerPopupSelector = 'stop-trigger-popup';
 
-    this.apiService
-      .getRecentDates(
-        this.country.countryCodeISO3,
-        this.disasterType.disasterType,
-      )
-      .subscribe((date) => {
-        this.onRecentDates(date, this.disasterType);
-      });
+      this.updateSuccessMessage = this.translatedStrings[this.disasterTypeName][
+        activeEventsSelector
+      ][updateSuccesSelector];
+      this.updateFailureMessage = this.translatedStrings[this.disasterTypeName][
+        activeEventsSelector
+      ][updateFailureSelector];
+      this.stopTriggerPopup = this.translatedStrings[this.disasterTypeName][
+        activeEventsSelector
+      ][stopTriggerPopupSelector];
 
-    this.changeDetectorRef.detectChanges();
+      this.apiService
+        .getRecentDates(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
+        .subscribe((date) => {
+          this.onRecentDates(date, this.disasterType);
+        });
+
+      this.changeDetectorRef.detectChanges();
+    }
   };
 
   private onRecentDates = (date, disasterType: DisasterType) => {

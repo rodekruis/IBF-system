@@ -10,12 +10,12 @@
           IBF PORTAL <strong>{{ countryName }} </strong>
           <strong
             *ngIf="isLoggedIn"
-            [ngClass]="{ active: activeTriggerMsg === 'TRIGGERED' }"
+            [ngClass]="{ active: disasterType?.activeTrigger }"
           >
-            {{ disasterType }} {{ activeTriggerMsg }}
+            {{ disasterType?.disasterType }} {{ activeTriggerMsg }}
           </strong>
           <ion-icon
-            *ngIf="activeTriggerMsg === 'TRIGGERED'"
+            *ngIf="disasterType?.activeTrigger"
             class="ibf"
             src="/assets/icons/Alert_Title_Purple.svg"
             slot="start"
