@@ -252,15 +252,42 @@ export class MapComponent implements OnDestroy {
     colors,
     colorThreshold,
   ) => (feature) => {
-    return feature > colorThreshold[breakKey.break4]
-      ? colors[4]
-      : feature > colorThreshold[breakKey.break3]
-      ? colors[3]
-      : feature > colorThreshold[breakKey.break2]
-      ? colors[2]
-      : feature > colorThreshold[breakKey.break1]
+    return feature <= colorThreshold[breakKey.break1] ||
+      !colorThreshold[breakKey.break1]
+      ? colors[0]
+      : feature <= colorThreshold[breakKey.break2] ||
+        !colorThreshold[breakKey.break2]
       ? colors[1]
-      : colors[0];
+      : feature <= colorThreshold[breakKey.break3] ||
+        !colorThreshold[breakKey.break3]
+      ? colors[2]
+      : feature <= colorThreshold[breakKey.break4] ||
+        !colorThreshold[breakKey.break4]
+      ? colors[3]
+      : colors[4];
+  };
+
+  private getLabel = (grades, layer, labels) => (i) => {
+    const label = labels ? '  -  ' + labels[i] : '';
+    if (layer.colorBreaks) {
+      const valueLow = layer.colorBreaks && layer.colorBreaks[i + 1]?.valueLow;
+      const valueHigh =
+        layer.colorBreaks && layer.colorBreaks[i + 1]?.valueHigh;
+      if (valueLow === valueHigh) {
+        return valueHigh + label + '<br/>';
+      } else {
+        return valueLow + '&ndash;' + valueHigh + label + '<br/>';
+      }
+    } else {
+      const number1 = this.numberFormat(grades[i], layer);
+      const number2 = this.numberFormat(grades[i + 1], layer);
+      return (
+        number1 +
+        (typeof grades[i + 1] !== 'undefined' ? '&ndash;' + number2 : '+') +
+        label +
+        '<br/>'
+      );
+    }
   };
 
   public addLegend(map, colors, colorThreshold, layer: IbfLayer) {
@@ -273,27 +300,19 @@ export class MapComponent implements OnDestroy {
       this.legends[layer.name].setPosition('bottomleft');
       this.legends[layer.name].onAdd = () => {
         const div = DomUtil.create('div', 'info legend');
-        const grades = [
-          colorThreshold[breakKey.break0],
-          colorThreshold[breakKey.break1],
-          colorThreshold[breakKey.break2],
-          colorThreshold[breakKey.break3],
-          colorThreshold[breakKey.break4],
-        ];
+        const grades = Object.values(colorThreshold);
         let labels;
         if (layer.colorBreaks) {
-          labels = [
-            layer.colorBreaks['1'].label,
-            layer.colorBreaks['2'].label,
-            layer.colorBreaks['3'].label,
-            layer.colorBreaks['4'].label,
-            layer.colorBreaks['5'].label,
-          ];
+          labels = Object.values(layer.colorBreaks).map(
+            (colorBreak) => colorBreak.label,
+          );
         }
         const getColor = this.getFeatureColorByColorsAndColorThresholds(
           colors,
           colorThreshold,
         );
+
+        const getLabel = this.getLabel(grades, layer, labels);
 
         div.innerHTML +=
           `<div><b>${layer.label}</b>` +
@@ -303,25 +322,14 @@ export class MapComponent implements OnDestroy {
           (f) => f.properties.indicators[layer.name] === null,
         );
         if (noDataEntryFound) {
-          div.innerHTML +=
-            `</div><i style="background:` +
-            this.mapService.state.noDataColor +
-            `"></i> No data<br>`;
+          div.innerHTML += `</div><i style="background:${this.mapService.state.noDataColor}"></i> No data<br>`;
         }
 
         for (let i = 0; i < grades.length; i++) {
           if (grades[i] !== null && (i === 0 || grades[i] > grades[i - 1])) {
-            div.innerHTML +=
-              '<i style="background:' +
-              getColor(grades[i]) +
-              '"></i> ' +
-              this.numberFormat(grades[i], layer) +
-              (typeof grades[i + 1] !== 'undefined'
-                ? '&ndash;' +
-                  this.numberFormat(grades[i + 1], layer) +
-                  (labels ? '  -  ' + labels[i] : '') +
-                  '<br/>'
-                : '+' + (labels ? '  -  ' + labels[i] : ''));
+            div.innerHTML += `<i style="background:${getColor(
+              grades[i + 1],
+            )}"></i> ${getLabel(i)}`;
           }
         }
 

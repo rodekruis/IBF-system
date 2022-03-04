@@ -923,16 +923,20 @@ export class MapService {
       case colorPropertyValue === null:
         adminRegionFillColor = this.state.noDataColor;
         break;
-      case colorPropertyValue <= colorThreshold[breakKey.break1]:
+      case colorPropertyValue <= colorThreshold[breakKey.break1] ||
+        !colorThreshold[breakKey.break1]:
         adminRegionFillColor = currentColorGradient[0];
         break;
-      case colorPropertyValue <= colorThreshold[breakKey.break2]:
+      case colorPropertyValue <= colorThreshold[breakKey.break2] ||
+        !colorThreshold[breakKey.break2]:
         adminRegionFillColor = currentColorGradient[1];
         break;
-      case colorPropertyValue <= colorThreshold[breakKey.break3]:
+      case colorPropertyValue <= colorThreshold[breakKey.break3] ||
+        !colorThreshold[breakKey.break3]:
         adminRegionFillColor = currentColorGradient[2];
         break;
-      case colorPropertyValue <= colorThreshold[breakKey.break4]:
+      case colorPropertyValue <= colorThreshold[breakKey.break4] ||
+        !colorThreshold[breakKey.break4]:
         adminRegionFillColor = currentColorGradient[3];
         break;
       case colorPropertyValue > colorThreshold[breakKey.break4]:
@@ -1011,13 +1015,16 @@ export class MapService {
 
   public getColorThreshold = (adminRegions, colorProperty, colorBreaks) => {
     if (colorBreaks) {
-      return {
+      const colorThresholdWithBreaks = {
         break0: 0,
-        break1: colorBreaks['1'].valueHigh,
-        break2: colorBreaks['2'].valueHigh,
-        break3: colorBreaks['3'].valueHigh,
-        break4: colorBreaks['4'].valueHigh,
       };
+      Object.keys(colorBreaks).forEach((colorBreak) => {
+        if (colorBreaks[String(Number(colorBreak) + 1)]) {
+          colorThresholdWithBreaks[`break${colorBreak}`] =
+            colorBreaks[colorBreak].valueHigh;
+        }
+      });
+      return colorThresholdWithBreaks;
     }
     const colorPropertyValues = adminRegions.features
       .map((feature) =>
@@ -1041,7 +1048,12 @@ export class MapService {
   public setOutlineLayerStyle = (layer: IbfLayer) => {
     const colorProperty = layer.colorProperty;
     return (adminRegion) => {
-      const color = 'var(--ion-color-ibf-outline-red)';
+      const areaState = this.triggeredAreas.find(
+        (area) => area.placeCode === adminRegion?.properties?.placeCode,
+      );
+      const color = areaState?.stopped
+        ? '#000000'
+        : 'var(--ion-color-ibf-outline-red)';
       const opacity = this.getOutlineColor(
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]

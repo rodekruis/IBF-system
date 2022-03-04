@@ -34,7 +34,7 @@ export class EapActionsController {
   })
   @Post()
   public async checkAction(
-    @UserDecorator('id') userId: string,
+    @UserDecorator('userId') userId: string,
     @Body() eapAction: EapActionDto,
   ): Promise<EapActionStatusEntity> {
     return await this.eapActionsService.checkAction(userId, eapAction);
