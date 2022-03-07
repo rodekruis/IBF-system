@@ -165,7 +165,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-    this.setDefaultFilteredAreas();
     this.triggeredAreas.sort((a, b) =>
       a.actionsValue > b.actionsValue ? -1 : 1,
     );
@@ -183,6 +182,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
     this.stoppedAreas = this.triggeredAreas.filter((area) => area.stopped);
     this.activeAreas = this.triggeredAreas.filter((area) => !area.stopped);
+    this.setDefaultFilteredAreas();
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
@@ -207,8 +207,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private setDefaultFilteredAreas = () => {
     if (this.eventService.isOldEvent()) {
-      this.filteredActiveAreas = [...this.activeAreas];
-      this.filteredStoppedAreas = [...this.stoppedAreas];
+      this.filteredActiveAreas = [...this.triggeredAreas];
+      this.filteredStoppedAreas = [];
     } else {
       this.filteredActiveAreas = [];
       this.filteredStoppedAreas = [];

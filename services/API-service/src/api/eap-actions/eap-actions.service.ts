@@ -47,7 +47,7 @@ export class EapActionsService {
 
     const eventPlaceCode = await this.eventPlaceCodeRepository.findOne({
       where: {
-        stopped: false,
+        closed: false,
         disasterType: eapAction.disasterType,
         adminArea: { id: adminArea.id },
         eventName:
@@ -107,7 +107,8 @@ export class EapActionsService {
       .where('status.timestamp = recent.max_timestamp')
       .andWhere('coalesce(event."eventName",\'null\') = :eventName', {
         eventName: eventName || 'null',
-      });
+      })
+      .andWhere('event.closed = false');
 
     const eapActions = await this.eapActionRepository
       .createQueryBuilder('action')

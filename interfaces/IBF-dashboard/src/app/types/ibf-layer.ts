@@ -102,6 +102,9 @@ export enum IbfLayerName {
   rainfall = 'rainfall',
   housesAffected = 'houses_affected',
   probWithin50Km = 'prob_within_50km',
+  droughtPhaseClassification = 'drought_phase_classification',
+  vegetationCondition = 'vegetation_condition',
+  livestockBodyCondition = 'livestock_body_condition',
 }
 
 export enum IbfLayerLabel {
