@@ -1,3 +1,15 @@
+## [0.139.1](https://github.com/rodekruis/IBF-system/compare/v0.139.0...v0.139.1) (2022-03-07)
+
+
+### Bug Fixes
+
+* activation log AB[#12708](https://github.com/rodekruis/IBF-system/issues/12708) ([9fb2534](https://github.com/rodekruis/IBF-system/commit/9fb2534b6f8382566ea6bdcc355eeedb9bffd93f))
+* add intervention layers KEN drought to allowed input AB[#12733](https://github.com/rodekruis/IBF-system/issues/12733) ([51bb4e1](https://github.com/rodekruis/IBF-system/commit/51bb4e1e66aeaaeb897f545c2f35a9bdc896711f))
+* add missing country filter on getTriggeredAreas AB[#12707](https://github.com/rodekruis/IBF-system/issues/12707) ([ab101ff](https://github.com/rodekruis/IBF-system/commit/ab101ff565ed6df63a5c97766eb5414e1b0f3754))
+* old-event mode AB[#12707](https://github.com/rodekruis/IBF-system/issues/12707) ([aaefd16](https://github.com/rodekruis/IBF-system/commit/aaefd166b527c21963a156582c9210670fabe83e))
+
+
+
 # [0.139.0](https://github.com/rodekruis/IBF-system/compare/v0.138.0...v0.139.0) (2022-03-04)
 
 
@@ -111,15 +123,6 @@
 ### Bug Fixes
 
 * use video url in backend AB[#12446](https://github.com/rodekruis/IBF-system/issues/12446) ([f1a1413](https://github.com/rodekruis/IBF-system/commit/f1a1413908ee6eb83e6944af7810a81acdd953c2))
-
-
-
-## [0.134.3](https://github.com/rodekruis/IBF-system/compare/v0.134.2...v0.134.3) (2022-02-18)
-
-
-### Bug Fixes
-
-* update manual links AB[#12446](https://github.com/rodekruis/IBF-system/issues/12446) ([9966bdd](https://github.com/rodekruis/IBF-system/commit/9966bdd7fd331dfb11bd15b08db038100a743cb9))
 
 
 
