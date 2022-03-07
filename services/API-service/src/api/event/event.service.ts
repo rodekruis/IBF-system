@@ -71,8 +71,8 @@ export class EventService {
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."activeTrigger"::int)::boolean AS "activeTrigger"',
       ])
-      .where('stopped = :stopped', {
-        stopped: false,
+      .where('closed = :closed', {
+        closed: false,
       })
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
@@ -262,6 +262,7 @@ export class EventService {
       .leftJoin('event.adminArea', 'area')
       .leftJoin('event.user', 'user')
       .where({
+        closed: false,
         disasterType: disasterType,
         eventName: eventName === 'no-name' ? IsNull() : eventName,
       })
