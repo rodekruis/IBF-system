@@ -83,87 +83,89 @@
   </app-dialogue-turn>
 
   <ng-container *ngIf="eventState?.activeEvent">
-    <app-dialogue-turn
-      *ngIf="
-        activeAreas.length &&
-        filteredStoppedAreas.length === 0 &&
-        filteredActiveAreas.length === 0
-      "
-      isConnected="true"
-    >
-      <p
-        [translate]="
-          'chat-component.' + disasterTypeName + '.active-event.overview'
-            | translate
-              : {
-                  nrTriggeredAreas: activeAreas.length,
-                  adminAreaLabelPlural: adminAreaLabelPlural,
-                  actionIndicator: actionIndicatorLabel
-                }
+    <ng-container *ngIf="eventState?.activeTrigger">
+      <app-dialogue-turn
+        *ngIf="
+          activeAreas.length &&
+          filteredStoppedAreas.length === 0 &&
+          filteredActiveAreas.length === 0
         "
-      ></p>
-      <ul>
-        <li *ngFor="let area of activeAreas">
-          <p>{{ area.name }} ({{ area.actionsValue | number: '.0-0' }})</p>
-        </li>
-      </ul>
-      <p
-        [translate]="
-          'chat-component.' + disasterTypeName + '.active-event.instruction'
-            | translate
+        isConnected="true"
+      >
+        <p
+          [translate]="
+            'chat-component.' + disasterTypeName + '.active-event.overview'
+              | translate
+                : {
+                    nrTriggeredAreas: activeAreas.length,
+                    adminAreaLabelPlural: adminAreaLabelPlural,
+                    actionIndicator: actionIndicatorLabel
+                  }
+          "
+        ></p>
+        <ul>
+          <li *ngFor="let area of activeAreas">
+            <p>{{ area.name }} ({{ area.actionsValue | number: '.0-0' }})</p>
+          </li>
+        </ul>
+        <p
+          [translate]="
+            'chat-component.' + disasterTypeName + '.active-event.instruction'
+              | translate
+          "
+        ></p>
+      </app-dialogue-turn>
+      <app-dialogue-turn
+        *ngIf="
+          stoppedAreas.length &&
+          filteredStoppedAreas.length === 0 &&
+          filteredActiveAreas.length === 0
         "
-      ></p>
-    </app-dialogue-turn>
-    <app-dialogue-turn
-      *ngIf="
-        stoppedAreas.length &&
-        filteredStoppedAreas.length === 0 &&
-        filteredActiveAreas.length === 0
-      "
-      isConnected="true"
-      [isStopped]="true"
-    >
-      <p
-        [translate]="
-          'chat-component.' + disasterTypeName + '.stopped-event.overview'
-            | translate
-              : {
-                  nrStoppedAreas: stoppedAreas.length,
-                  adminAreaLabelPlural: adminAreaLabelPlural,
-                  actionIndicator: actionIndicatorLabel
-                }
-        "
-      ></p>
-      <ul>
-        <li *ngFor="let area of stoppedAreas">
-          <p>{{ area.name }} ({{ area.actionsValue | number: '.0-0' }})</p>
-        </li>
-      </ul>
-      <p
-        [translate]="
-          'chat-component.' + disasterTypeName + '.stopped-event.instruction'
-            | translate
-        "
-      ></p>
-    </app-dialogue-turn>
-    <app-dialogue-turn
-      *ngFor="let area of filteredStoppedAreas; first as isFirst"
-      [isConnected]="true"
-      [isStopped]="true"
-    >
-      <p
-        [innerHTML]="
-          'chat-component.' + disasterTypeName + '.stopped-event.area'
-            | translate
-              : {
-                  placeCodeName: area.name,
-                  startDate: area.startDate,
-                  stoppedDate: area.stoppedDate,
-                  displayName: area.displayName || 'unknown'
-                }
-        "
-      ></p>
-    </app-dialogue-turn>
+        isConnected="true"
+        [isStopped]="true"
+      >
+        <p
+          [translate]="
+            'chat-component.' + disasterTypeName + '.stopped-event.overview'
+              | translate
+                : {
+                    nrStoppedAreas: stoppedAreas.length,
+                    adminAreaLabelPlural: adminAreaLabelPlural,
+                    actionIndicator: actionIndicatorLabel
+                  }
+          "
+        ></p>
+        <ul>
+          <li *ngFor="let area of stoppedAreas">
+            <p>{{ area.name }} ({{ area.actionsValue | number: '.0-0' }})</p>
+          </li>
+        </ul>
+        <p
+          [translate]="
+            'chat-component.' + disasterTypeName + '.stopped-event.instruction'
+              | translate
+          "
+        ></p>
+      </app-dialogue-turn>
+      <app-dialogue-turn
+        *ngFor="let area of filteredStoppedAreas; first as isFirst"
+        [isConnected]="true"
+        [isStopped]="true"
+      >
+        <p
+          [innerHTML]="
+            'chat-component.' + disasterTypeName + '.stopped-event.area'
+              | translate
+                : {
+                    placeCodeName: area.name,
+                    startDate: area.startDate,
+                    stoppedDate: area.stoppedDate,
+                    displayName: area.displayName || 'unknown'
+                  }
+          "
+        ></p>
+      </app-dialogue-turn>
+    </ng-container>
     <app-dialogue-turn
       actor="self"
       *ngFor="let area of filteredActiveAreas; first as isFirst"

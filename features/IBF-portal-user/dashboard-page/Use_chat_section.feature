@@ -54,7 +54,7 @@ Scenario: View general trigger information
     And if TRIGGERED it mentions there is a trigger
     And it mentions when the event this trigger belongs to first started
     And it mentions for when the trigger is expected
-    And it mentions the name of the event if applicable (typhoon only)
+    And it mentions the name of the event if applicable ('typhoon' only)
     And the exact UX copy differs between disaster-types (Potentially: document in more detail)
 
 Scenario: View general trigger information with 2 or more active events
@@ -77,29 +77,53 @@ Scenario: Switch event
     And the selected timeline-button in the timeline-section also switches to the one related to the new event
     And all data in the dashboard switches to the new event
 
-Scenario: View further instructions
+Scenario: View overview & further instructions
     Given the dashboard is in TRIGGERED state
+    Given the selected "admin level" is the "default admin level"
+    Given there are no areas for which the trigger is stopped
     When the user views the 3rd speech bubble
-    Then it mentions instructions that you can click an area in the map 
+    Then it mentions an overview of the triggered areas, sorted by the "action unit" of that disaster type (e.g. "exposed population")
+    And it mentions instructions that you can click an area in the map 
     And if done so, that you can perform additional actions per area.
-    And it mentions that these are only available on the main admin level.
+    And no such speech bubble is available on other admin levels then the default admin level
 
-Scenario: View chat-section after area-selection in map
+Scenario: View overview & further instructions WITH "stopped" areas
+    Given there are areas for which the trigger is stopped
+    Given for the rest the same as scenario above
+    Then the same applies as scenario above
+    And additionally there is a separate 4th speech bubble which lists stopped areas
+    And it is grey colorded (as "NON-TRIGGERED") with black border
+    And it mentions the stopped areas in same order as scenario above
+    And it mentions instructions that you can click a stopped area in the map
+
+Scenario: View chat-section after area-selection in map of "non-stopped" area
+    Given the area is not "stopped"
     When the user selects a triggered area from map (see 'Use_map_section.feature')
-    Then a new speech bubble appears in the chat section
+    Then the speech bubbles giving overview of active and stopped areas disappear
+    And a new speech bubble appears in the chat section
     And it is pointed to the right instead of the left
     And it contains the "admin area" type and name 
     And it contains the relevant "action unit" type and value (e.g. "Exposed population" or "Potential cases")
     And it contains a list of all EAP-actions (same for every area) with "area of focus" name and "action" description
     And it shows which EAP-actions are already "checked" via the "checkbox"
     And it contains a disabled "save" button
-    And it contains a disabled "close alert" button
+    And it contains an enabled "close trigger/alert" button
+
+Scenario: View chat-section after area-selection in map of "stopped" area
+    Given the area is "stopped"
+    When the user selects a triggered area from map (see 'Use_map_section.feature')
+    Then the speech bubbles giving overview of active and stopped areas disappear
+    And a new speech bubble appears in the chat section
+    And it is grey colorded (as "NON-TRIGGERED") with black border
+    And it mentions the start date of this trigger
+    And the stop date
+    And the user who stopped it
 
 Scenario: View EAP-actions per area in OLD-EVENT mode
     Given the dashboard is in OLD-EVENT mode
     When the users views the chat section
     Then the additional actions per area automatically show for ALL triggered areas
-    And the 'close alert' button is enabled
+    And the 'close trigger/alert' button is disabled
 
 Scenario: Check or uncheck EAP-actions per triggered area
     Given the EAP-action speech-bubble is showing for one or more areas
@@ -114,10 +138,12 @@ Scenario: Check or uncheck EAP-actions per triggered area
     And it closes again by clicking outside of it
     And (after refreshing) the Area-of-Focus summary will have updated (see 'Use_area_of_focus_section.feature')
 
-Scenario: Close event
-    Given the dashboard is in OLD-EVENT mode
-    When the user clicks the 'close alert' button
+Scenario: Stop trigger
+    Given the dashboard is in TRIGGERED mode
+    When the user clicks the 'close trigger/alert' button
     Then a popup appears that asks if you are sure
-    And if confirmed the dashboard updates, and the area is now no longer visible in the list
+    And if confirmed the dashboard updates
+    And the area will now show as grey with black border in the map
+    And the lists of active vs stopped areas in the chat section will have updated
     And the event is now stopped with today's date in the database
     And as such reflected in the "activation report"
