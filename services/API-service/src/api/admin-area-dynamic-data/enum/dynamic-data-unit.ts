@@ -19,4 +19,7 @@ export enum DynamicIndicator {
   housesAffected = 'houses_affected',
   probWithin50Km = 'prob_within_50km',
   showAdminArea = 'show_admin_area',
+  droughtPhaseClassification = 'drought_phase_classification',
+  vegetationCondition = 'vegetation_condition',
+  livestockBodyCondition = 'livestock_body_condition',
 }
