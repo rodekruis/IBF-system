@@ -1,3 +1,12 @@
+## [0.139.2](https://github.com/rodekruis/IBF-system/compare/v0.139.1...v0.139.2) (2022-03-07)
+
+
+### Bug Fixes
+
+* put back use of 'closed' at various places AB[#12748](https://github.com/rodekruis/IBF-system/issues/12748) ([b6fd674](https://github.com/rodekruis/IBF-system/commit/b6fd6748ce0c4e00d490866eba11f874ff69e7bd))
+
+
+
 ## [0.139.1](https://github.com/rodekruis/IBF-system/compare/v0.139.0...v0.139.1) (2022-03-07)
 
 
@@ -114,15 +123,6 @@
 * change pattern + lowercase submit AB[#12445](https://github.com/rodekruis/IBF-system/issues/12445) ([e734fc1](https://github.com/rodekruis/IBF-system/commit/e734fc1e6effac7e146b14135642f352e794f3ef))
 * lowercase email on create user AB[#12447](https://github.com/rodekruis/IBF-system/issues/12447) ([2e14ec2](https://github.com/rodekruis/IBF-system/commit/2e14ec2a40e94c097bb3b23ef996863702a71968))
 * use let only for email AB[#12447](https://github.com/rodekruis/IBF-system/issues/12447) ([0638490](https://github.com/rodekruis/IBF-system/commit/06384906c3055662520f213aaabb38fb9d99af62))
-
-
-
-## [0.134.4](https://github.com/rodekruis/IBF-system/compare/v0.134.3...v0.134.4) (2022-02-18)
-
-
-### Bug Fixes
-
-* use video url in backend AB[#12446](https://github.com/rodekruis/IBF-system/issues/12446) ([f1a1413](https://github.com/rodekruis/IBF-system/commit/f1a1413908ee6eb83e6944af7810a81acdd953c2))
 
 
 
