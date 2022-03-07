@@ -66,7 +66,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterTypeName: string;
   public actionIndicatorLabel: string;
   private country: Country;
-  private disasterType: DisasterType;
+  public disasterType: DisasterType;
   public lastModelRunDate: string;
   private lastModelRunDateFormat = 'cccc, dd LLLL HH:mm';
   public isWarn = false;
