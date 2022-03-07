@@ -229,6 +229,10 @@ export class EventService {
     leadTime: string,
     eventName: string,
   ): Promise<TriggeredArea[]> {
+    const lastTriggeredDate = await this.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
     const triggerUnit = await this.getTriggerUnit(disasterType);
     const triggeredAreasRaw = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
@@ -240,6 +244,14 @@ export class EventService {
         adminLevel: adminLevel,
         disasterType: disasterType,
         countryCodeISO3: countryCodeISO3,
+        eventName: eventName === 'no-name' ? IsNull() : eventName,
+        date: lastTriggeredDate.date,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(
+            disasterType,
+            lastTriggeredDate.timestamp,
+          ),
+        ),
       })
       .execute();
     const triggeredPlaceCodes = triggeredAreasRaw.map(
