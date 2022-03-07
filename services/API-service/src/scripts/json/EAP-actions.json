@@ -285,7 +285,8 @@
       "id": "drr"
     },
     "action": "drr-1",
-    "label": "DRR preliminary action (dummy)"
+    "label": "DRR preliminary action (dummy)",
+    "month": 6
   },
   {
     "countryCodeISO3": "KEN",
@@ -294,7 +295,8 @@
       "id": "shelter"
     },
     "action": "shelter-1",
-    "label": "Shelter preliminary action (dummy)"
+    "label": "Shelter preliminary action (dummy)",
+    "month": 5
   },
   {
     "countryCodeISO3": "KEN",
@@ -303,7 +305,8 @@
       "id": "livelihood"
     },
     "action": "livelihood-1",
-    "label": "Livelihood preliminary action (dummy)"
+    "label": "Livelihood preliminary action (dummy)",
+    "month": 4
   },
   {
     "countryCodeISO3": "KEN",
@@ -312,7 +315,8 @@
       "id": "health"
     },
     "action": "health-1",
-    "label": "Health preliminary action (dummy)"
+    "label": "Health preliminary action (dummy)",
+    "month": 3
   },
   {
     "countryCodeISO3": "KEN",
@@ -321,7 +325,8 @@
       "id": "wash"
     },
     "action": "wash-1",
-    "label": "WASH preliminary action (dummy)"
+    "label": "WASH preliminary action (dummy)",
+    "month": 3
   },
   {
     "countryCodeISO3": "KEN",
@@ -330,7 +335,8 @@
       "id": "inclusion"
     },
     "action": "inclusion-1",
-    "label": "Inclusion preliminary action (dummy)"
+    "label": "Inclusion preliminary action (dummy)",
+    "month": 2
   },
   {
     "countryCodeISO3": "KEN",
@@ -339,7 +345,8 @@
       "id": "migration"
     },
     "action": "migration-1",
-    "label": "Migration preliminary action (dummy)"
+    "label": "Migration preliminary action (dummy)",
+    "month": 1
   },
   {
     "countryCodeISO3": "ETH",
