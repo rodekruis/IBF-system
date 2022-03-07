@@ -171,12 +171,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     );
     this.triggeredAreas.forEach((area) => {
       this.disableSubmitButtonForTriggeredArea(area);
-      area.startDate = DateTime.fromISO(area.startDate).toFormat(
-        'cccc, dd LLLL',
-      );
-      area.stoppedDate = DateTime.fromISO(area.stoppedDate).toFormat(
-        'cccc, dd LLLL',
-      );
+      this.formatDates(area);
+      this.filterEapActionsByMonth(area);
     });
     this.stoppedAreas = this.triggeredAreas.filter((area) => area.stopped);
     this.activeAreas = this.triggeredAreas.filter((area) => !area.stopped);
@@ -270,6 +266,26 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private disableSubmitButtonForTriggeredArea = (triggeredArea) =>
     (triggeredArea.submitDisabled = true);
+
+  private formatDates = (triggeredArea) => {
+    triggeredArea.startDate = DateTime.fromISO(
+      triggeredArea.startDate,
+    ).toFormat('cccc, dd LLLL');
+    triggeredArea.stoppedDate = DateTime.fromISO(
+      triggeredArea.stoppedDate,
+    ).toFormat('cccc, dd LLLL');
+  };
+
+  private filterEapActionsByMonth = (triggeredArea) =>
+    (triggeredArea.filteredEapActions = triggeredArea.eapActions.filter(
+      (action) =>
+        !action.month ||
+        action.month ===
+          DateTime.fromFormat(
+            this.lastModelRunDate,
+            this.lastModelRunDateFormat,
+          ).month,
+    ));
 
   private filterTriggeredAreaByPlaceCode = (placeCode) => (triggeredArea) =>
     triggeredArea.placeCode === placeCode;

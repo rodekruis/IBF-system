@@ -117,6 +117,7 @@ export class EapActionsService {
         'action."action"',
         'action."label"',
         'action."disasterType"',
+        'action."month"',
       ])
       .addSelect(
         'case when status."actionCheckedId" is null then false else status.status end AS checked',
