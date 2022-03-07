@@ -1,3 +1,39 @@
+# [0.139.0](https://github.com/rodekruis/IBF-system/compare/v0.138.0...v0.139.0) (2022-03-04)
+
+
+### Bug Fixes
+
+* updates AB[#12701](https://github.com/rodekruis/IBF-system/issues/12701) ([e988e3e](https://github.com/rodekruis/IBF-system/commit/e988e3e87afe49fef8b9f90a8017a7b0a665f5a8))
+* use active instead of triggered list AB[#12628](https://github.com/rodekruis/IBF-system/issues/12628) ([5d2bd5d](https://github.com/rodekruis/IBF-system/commit/5d2bd5d8ce3bd25565b99f55404152618ee078cf))
+* use alert instead of trigger also in header AB[#12701](https://github.com/rodekruis/IBF-system/issues/12701) ([66a1ad6](https://github.com/rodekruis/IBF-system/commit/66a1ad6b0dd382c38098578cf032b2def7cafaac))
+
+
+### Features
+
+* overview of stopped and active triggered areas AB[#12628](https://github.com/rodekruis/IBF-system/issues/12628) AB[#12629](https://github.com/rodekruis/IBF-system/issues/12629) ([08bfe68](https://github.com/rodekruis/IBF-system/commit/08bfe68a9824ede5e51a000b1a9022a47e0c8215))
+
+
+
+# [0.138.0](https://github.com/rodekruis/IBF-system/compare/v0.137.2...v0.138.0) (2022-03-04)
+
+
+### Bug Fixes
+
+* also change this occurence of same bug AB[#12631](https://github.com/rodekruis/IBF-system/issues/12631) ([fd27e9c](https://github.com/rodekruis/IBF-system/commit/fd27e9ce96cdb51ce015428d70e8c323621846cd))
+* wrong user in stopped chat bubble AB[#12631](https://github.com/rodekruis/IBF-system/issues/12631) ([714234b](https://github.com/rodekruis/IBF-system/commit/714234b0714584b594febe7ff0e1d000c5278121))
+
+
+### Features
+
+* add black border to stopped area AB[#12632](https://github.com/rodekruis/IBF-system/issues/12632) ([c6fc313](https://github.com/rodekruis/IBF-system/commit/c6fc31384e882492a6adbc048f823b8bbc0e4625))
+* closing events automatically is different from stopping AB[#12617](https://github.com/rodekruis/IBF-system/issues/12617) AB[#12616](https://github.com/rodekruis/IBF-system/issues/12616) ([88d6f41](https://github.com/rodekruis/IBF-system/commit/88d6f41901f8b5dc8be4313b9a855c3493b41341))
+* color stopped areas grey in map AB[#12612](https://github.com/rodekruis/IBF-system/issues/12612) ([bda0792](https://github.com/rodekruis/IBF-system/commit/bda0792282d6fa5595cbbbe102b18b36b66d3807))
+* new grey speech bubble on stopped area AB[#12611](https://github.com/rodekruis/IBF-system/issues/12611) ([3bd15bb](https://github.com/rodekruis/IBF-system/commit/3bd15bb2674b2a3544a78f951af29c0c4ffdcda8))
+* redirect 'close event' to 'stop trigger' AB[#12608](https://github.com/rodekruis/IBF-system/issues/12608) AB[#12609](https://github.com/rodekruis/IBF-system/issues/12609) ([9e9fa12](https://github.com/rodekruis/IBF-system/commit/9e9fa12709fe0800f2a9201a22a2248d9ecbcff6))
+* set dynamic aggregate values to 0 for stopped areas AB[#12613](https://github.com/rodekruis/IBF-system/issues/12613) ([299063a](https://github.com/rodekruis/IBF-system/commit/299063a9242ce13e7c6f04aa37b63840325fbc72))
+
+
+
 ## [0.137.2](https://github.com/rodekruis/IBF-system/compare/v0.137.1...v0.137.2) (2022-02-28)
 
 
@@ -84,25 +120,6 @@
 ### Bug Fixes
 
 * update manual links AB[#12446](https://github.com/rodekruis/IBF-system/issues/12446) ([9966bdd](https://github.com/rodekruis/IBF-system/commit/9966bdd7fd331dfb11bd15b08db038100a743cb9))
-
-
-
-## [0.134.2](https://github.com/rodekruis/IBF-system/compare/v0.134.1...v0.134.2) (2022-02-18)
-
-
-### Bug Fixes
-
-* hide flood_extent in drought AB[#12436](https://github.com/rodekruis/IBF-system/issues/12436) ([e16d70b](https://github.com/rodekruis/IBF-system/commit/e16d70b8d446b52bdc3fd1fc961b422f965f4988))
-
-
-
-## [0.134.1](https://github.com/rodekruis/IBF-system/compare/v0.134.0...v0.134.1) (2022-02-18)
-
-
-### Bug Fixes
-
-* update mock data KEN floods AB[#11954](https://github.com/rodekruis/IBF-system/issues/11954) ([c782b6b](https://github.com/rodekruis/IBF-system/commit/c782b6b2aa477e7cd9312fbe3a35a2439f452049))
-* updated sharepoint link AB[#11954](https://github.com/rodekruis/IBF-system/issues/11954) ([4b9c780](https://github.com/rodekruis/IBF-system/commit/4b9c7805e912616a5db675867dda96b1e861cc48))
 
 
 
