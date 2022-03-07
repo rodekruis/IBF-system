@@ -230,21 +230,20 @@ export class EventService {
     eventName: string,
   ): Promise<TriggeredArea[]> {
     const triggerUnit = await this.getTriggerUnit(disasterType);
-    const result = await this.adminAreaDynamicDataRepo
+    const triggeredAreasRaw = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
-      .select(['dynamic.placeCode'])
-      .where('indicator = :indicator', { indicator: triggerUnit })
-      .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
-      .andWhere('dynamic."adminLevel" = :adminLevel', {
+      .select(['dynamic.placeCode AS "placeCode"'])
+      .where({
+        indicator: triggerUnit,
+        value: MoreThan(0),
+        leadTime: leadTime,
         adminLevel: adminLevel,
-      })
-      .andWhere('value > 0')
-      .andWhere('"disasterType" = :disasterType', {
         disasterType: disasterType,
+        countryCodeISO3: countryCodeISO3,
       })
       .execute();
-    const triggeredPlaceCodesLeadTime = result.map(
-      element => element.dynamic_placeCode,
+    const triggeredPlaceCodes = triggeredAreasRaw.map(
+      element => element.placeCode,
     );
 
     const triggeredAreasQuery = this.eventPlaceCodeRepo
@@ -273,10 +272,10 @@ export class EventService {
 
     let triggeredAreas;
 
-    if (triggeredPlaceCodesLeadTime.length) {
+    if (triggeredPlaceCodes.length) {
       triggeredAreas = await triggeredAreasQuery
         .andWhere('area."placeCode" IN(:...placeCodes)', {
-          placeCodes: triggeredPlaceCodesLeadTime,
+          placeCodes: triggeredPlaceCodes,
         })
         .getRawMany();
     } else {
