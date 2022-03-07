@@ -346,7 +346,7 @@
     },
     "action": "migration-1",
     "label": "Migration preliminary action (dummy)",
-    "month": 1
+    "month": 12
   },
   {
     "countryCodeISO3": "ETH",

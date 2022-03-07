@@ -173,6 +173,13 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.disableSubmitButtonForTriggeredArea(area);
       this.formatDates(area);
       this.filterEapActionsByMonth(area);
+      area.eapActions.forEach((action) => {
+        action.monthLong = DateTime.utc(
+          2022, // year does not matter, this is just about getting month name from month number
+          action.month,
+          1,
+        ).monthLong;
+      });
     });
     this.stoppedAreas = this.triggeredAreas.filter((area) => area.stopped);
     this.activeAreas = this.triggeredAreas.filter((area) => !area.stopped);
@@ -276,16 +283,26 @@ export class ChatComponent implements OnInit, OnDestroy {
     ).toFormat('cccc, dd LLLL');
   };
 
-  private filterEapActionsByMonth = (triggeredArea) =>
-    (triggeredArea.filteredEapActions = triggeredArea.eapActions.filter(
-      (action) =>
-        !action.month ||
-        action.month ===
-          DateTime.fromFormat(
-            this.lastModelRunDate,
-            this.lastModelRunDateFormat,
-          ).month,
-    ));
+  private filterEapActionsByMonth = (triggeredArea) => {
+    const currentMonth = DateTime.fromFormat(
+      this.lastModelRunDate,
+      this.lastModelRunDateFormat,
+    ).month;
+    triggeredArea.filteredEapActions = triggeredArea.eapActions
+      .filter(
+        (action) =>
+          !action.month || // If no month provided, then we assume static EAP-actions and show all
+          this.shiftMonth(action.month) <= this.shiftMonth(currentMonth),
+      )
+      .sort((a, b) =>
+        this.shiftMonth(a.month) > this.shiftMonth(b.month) ? 1 : -1,
+      );
+  };
+
+  // (X + 2) modulo 12 is a hacky method for "starting the year" in november instead of january.
+  // This will be replaced soon anyway by a more appropriate 'auto clear out'.
+  // which will also be at 2 moments in the year, instead of just one.
+  private shiftMonth = (monthNumber: number) => (monthNumber + 2) % 12;
 
   private filterTriggeredAreaByPlaceCode = (placeCode) => (triggeredArea) =>
     triggeredArea.placeCode === placeCode;

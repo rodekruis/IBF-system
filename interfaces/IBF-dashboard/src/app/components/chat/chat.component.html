@@ -221,8 +221,8 @@
               "
             ></ion-checkbox>
             <ion-label class="action-label ion-text-wrap"
-              ><strong>{{ action.aofLabel }}</strong
-              >: {{ action.label }}
+              ><strong>{{ action.aofLabel }}: </strong
+              >{{ action.label }}<span *ngIf="action.month"><strong> ({{action.monthLong}})</strong></span>
             </ion-label>
           </ion-item>
         </ion-list>

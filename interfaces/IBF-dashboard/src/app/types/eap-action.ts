@@ -4,4 +4,6 @@ export class EapAction {
   label: string;
   checked: boolean;
   placeCode: string;
+  month: number;
+  monthLong: string;
 }
