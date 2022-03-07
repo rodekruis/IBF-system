@@ -285,18 +285,8 @@
       "id": "drr"
     },
     "action": "drr-1",
-    "label": "DRR preliminary action (dummy)",
-    "month": 6
-  },
-  {
-    "countryCodeISO3": "KEN",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
-    "action": "shelter-1",
-    "label": "Shelter preliminary action (dummy)",
-    "month": 5
+    "label": "Pre agreement with suppliers on Procurement",
+    "month": 7
   },
   {
     "countryCodeISO3": "KEN",
@@ -305,18 +295,8 @@
       "id": "livelihood"
     },
     "action": "livelihood-1",
-    "label": "Livelihood preliminary action (dummy)",
-    "month": 4
-  },
-  {
-    "countryCodeISO3": "KEN",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "health"
-    },
-    "action": "health-1",
-    "label": "Health preliminary action (dummy)",
-    "month": 3
+    "label": "Market Analysis",
+    "month": 7
   },
   {
     "countryCodeISO3": "KEN",
@@ -325,28 +305,238 @@
       "id": "wash"
     },
     "action": "wash-1",
-    "label": "WASH preliminary action (dummy)",
-    "month": 3
+    "label": "Activities for cash for water",
+    "month": 7
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
     "areaOfFocus": {
-      "id": "inclusion"
+      "id": "livelihood"
     },
-    "action": "inclusion-1",
-    "label": "Inclusion preliminary action (dummy)",
+    "action": "livelihood-2",
+    "label": "CVA or Market based intervention",
+    "month": 8
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-2",
+    "label": "Cash for water",
+    "month": 8
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-3",
+    "label": "Disseminating early warning information",
+    "month": 9
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-3",
+    "label": "Rangeland management",
+    "month": 9
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-2",
+    "label": "Distribute pasture seed",
+    "month": 9
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-3",
+    "label": "Advocation pasture management",
+    "month": 9
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-3",
+    "label": "Installation of mass water storage tanks",
+    "month": 9
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-4",
+    "label": "Rapid assessment of water facilities",
+    "month": 9
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-5",
+    "label": "Destilting of water pans, repair of earth dams",
+    "month": 9
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-6",
+    "label": "Prioritize key/critical water facilites seed",
+    "month": 10
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-7",
+    "label": "Preparatory activities for cash for water",
+    "month": 12
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-4",
+    "label": "Market Analysis",
+    "month": 1
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-8",
+    "label": "Cash for water",
+    "month": 1
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-5",
+    "label": "CVA or market based intervention",
     "month": 2
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
     "areaOfFocus": {
-      "id": "migration"
+      "id": "drr"
     },
-    "action": "migration-1",
-    "label": "Migration preliminary action (dummy)",
-    "month": 12
+    "action": "drr-4",
+    "label": "Destilting of water pans, repair of earth dams",
+    "month": 2
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-9",
+    "label": "Rapid assessment of water facilities",
+    "month": 2
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-10",
+    "label": "Installation of mass water storage tanks",
+    "month": 2
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-5",
+    "label": "Dissemination early warning information",
+    "month": 2
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-6",
+    "label": "Distribute pasture seed",
+    "month": 2
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-6",
+    "label": "Rangeland management",
+    "month": 2
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-7",
+    "label": "Advocation pasture management",
+    "month": 2
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-7",
+    "label": "Pre agreement with suppliers on procurement",
+    "month": 2
+  },
+  {
+    "countryCodeISO3": "KEN",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-11",
+    "label": "Prioritize key critical water facilities",
+    "month": 3
   },
   {
     "countryCodeISO3": "ETH",
