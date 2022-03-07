@@ -39,6 +39,13 @@ Scenario: View map in TRIGGERED mode
     And it shows the legend relating to the default shape layer
     And depending on disaster-type other point/raster layers are default activated (e.g. 'flood extent', 'Glofas stations') where applicable
 
+Scenario: View map in TRIGGERED mode with "stopped" areas
+    Given there are "stopped" areas
+    When the users views the map
+    Then everything those as in the scenario above
+    And "stopped" areas are grey instead of a shade of purple 
+    And it has a black outline instead of a red outline for the "alert threshold" layer
+
 Scenario: View legend
     Given a shape-layer is "selected" in the map
     When the users views the legend in the bottom-left of the map
@@ -53,7 +60,6 @@ Scenario: View legend
 
     And if the map contains admin-areas with 'no data' for this layer, then an additional 'no data' row is on top
     And it has a light-yellow color
-
 
 Scenario: Click point-layer marker
     When the user clicks on the point-layer marker eg red-cross
@@ -93,7 +99,7 @@ Scenario: Click admin-area in the map in TRIGGERED mode
     Then the same happens as in above scenario
 
     When the user clicks on a "triggered" admin-area
-    Then - in addition to the above - the chat-section shows the EAP-actions for that admin-area
+    Then - in addition to the above - the chat-section updates (as described in 'Use_chat_section.feature')
     And the 'Area of focus' section filters to only the numbers specifically for that area 
 
 
