@@ -202,15 +202,16 @@
             >
             </ion-note>
             <br />
-            <div *ngIf="isKenDrought()" class="ion-margin-bottom">
+            <div *ngIf="isDrought()" class="ion-margin-bottom">
               <ion-note
                 size="small"
                 *ngIf="area?.filteredEapActions as actions"
               >
-                {{ 'chat-component.drought.ken-triggers.opening' | translate }}
-                <span
-                  *ngFor="let trigger of kenDroughtTriggers(); last as isLast"
-                >
+                <span *ngIf="droughtTriggers().length > 0">{{
+                  'chat-component.drought.ken-triggers.opening' | translate
+                }}</span>
+
+                <span *ngFor="let trigger of droughtTriggers(); last as isLast">
                   <strong>{{ trigger }}</strong
                   ><span *ngIf="!isLast"> and the </span>
                 </span>

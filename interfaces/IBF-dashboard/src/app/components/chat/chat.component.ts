@@ -23,7 +23,7 @@ import { TimelineState } from 'src/app/types/timeline-state';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
 import { Indicator } from '../../types/indicator-group';
-import { LeadTime, LeadTimeUnit } from '../../types/lead-time';
+import { LeadTimeUnit } from '../../types/lead-time';
 
 @Component({
   selector: 'app-chat',
@@ -501,75 +501,57 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   };
 
-  public isKenDrought() {
+  public isDrought() {
+    const forecastMonthNumbers = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastMonths;
+
+    return forecastMonthNumbers;
+
     return (
       this.country?.countryCodeISO3 === 'KEN' &&
       this.disasterType?.disasterType === 'drought'
     );
   }
 
-  public kenDroughtTriggers(): [] {
+  public droughtTriggers(): [] {
     const currentMonthKey = 'c';
     const currentMonth = this.timelineState?.today[currentMonthKey].month;
 
-    const ondForecast =
-      this.translateService.instant('chat-component.drought.ken-triggers.ond') +
-      ' ' +
-      this.translateService.instant(
-        'chat-component.drought.ken-triggers.forecast',
-      );
-    const mamForecast =
-      this.translateService.instant('chat-component.drought.ken-triggers.mam') +
-      ' ' +
-      this.translateService.instant(
-        'chat-component.drought.ken-triggers.forecast',
-      );
-    const ondBelow =
-      this.translateService.instant(
-        'chat-component.drought.ken-triggers.below-average',
-      ) +
-      ' ' +
-      this.translateService.instant('chat-component.drought.ken-triggers.ond');
-    const mamBelow =
-      this.translateService.instant(
-        'chat-component.drought.ken-triggers.below-average',
-      ) +
-      ' ' +
-      this.translateService.get('chat-component.drought.ken-triggers.mam');
+    const ondForecast = `${this.translateService.instant(
+      'chat-component.drought.ken-triggers.ond',
+    )} ${this.translateService.instant(
+      'chat-component.drought.ken-triggers.forecast',
+    )}`;
+    const mamForecast = `${this.translateService.instant(
+      'chat-component.drought.ken-triggers.mam',
+    )} ${this.translateService.instant(
+      'chat-component.drought.ken-triggers.forecast',
+    )}`;
+    const ondBelow = `${this.translateService.instant(
+      'chat-component.drought.ken-triggers.below-average',
+    )} ${this.translateService.instant(
+      'chat-component.drought.ken-triggers.ond',
+    )}`;
+    const mamBelow = `${this.translateService.instant(
+      'chat-component.drought.ken-triggers.below-average',
+    )} ${this.translateService.get('chat-component.drought.ken-triggers.mam')}`;
 
     const triggers = {
-      1: {
-        [LeadTime.month0]: [ondBelow],
-      },
-      2: {
-        [LeadTime.month0]: [ondBelow],
-        [LeadTime.month1]: [ondBelow],
-      },
-      3: {
-        [LeadTime.month0]: [mamForecast],
-        [LeadTime.month1]: [ondBelow, mamForecast],
-        [LeadTime.month2]: [ondBelow, mamForecast],
-      },
-      7: {
-        [LeadTime.month0]: [mamBelow],
-      },
-      8: {
-        [LeadTime.month0]: [ondForecast],
-        [LeadTime.month1]: [mamBelow, ondForecast],
-      },
-      9: {
-        [LeadTime.month0]: [ondForecast],
-        [LeadTime.month1]: [mamBelow, ondForecast],
-        [LeadTime.month2]: [mamBelow, ondForecast],
-      },
-      10: {
-        [LeadTime.month0]: [ondForecast],
-        [LeadTime.month1]: [ondForecast],
-        [LeadTime.month2]: [mamBelow, ondForecast],
-        [LeadTime.month3]: [mamBelow, ondForecast],
-      },
+      12: [ondBelow],
+      1: [ondBelow],
+      2: [ondBelow, mamForecast],
+      3: [],
+      4: [],
+      5: [],
+      6: [mamBelow],
+      7: [mamBelow, ondForecast],
+      8: [mamBelow, ondForecast],
+      9: [mamBelow, ondForecast],
+      10: [],
+      11: [],
     };
 
-    return triggers[currentMonth][this.eventState.event.firstLeadTime];
+    return triggers[currentMonth];
   }
 }
