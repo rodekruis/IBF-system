@@ -174,8 +174,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.filterEapActionsByMonth(area);
       area.eapActions.forEach((action) => {
         action.monthLong = DateTime.utc(
-          2022, // year does not matter, this is just about getting month name from month number
-          action.month,
+          2022, // year does not matter, this is just about converting month-number to month-name
+          (action.month + 1) % 12, // The due-by date of actions lies one month later then when it's added
           1,
         ).monthLong;
       });
