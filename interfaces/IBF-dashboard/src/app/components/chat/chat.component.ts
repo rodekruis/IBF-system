@@ -509,7 +509,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public kenDroughtTriggers(): [] {
-    const currentMonth = this.timelineState?.today['c'].month;
+    const currentMonthKey = 'c';
+    const currentMonth = this.timelineState?.today[currentMonthKey].month;
 
     const ondForecast =
       this.translateService.instant('chat-component.drought.ken-triggers.ond') +
