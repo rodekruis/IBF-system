@@ -1,12 +1,14 @@
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { AreaOfFocusEntity } from '../area-of-focus.entity';
 
-export class EapActionDto {
+export class AddEapActionsDto {
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
-  public action: string;
+  public eapActions: EapActionDto[];
+}
 
+class EapActionDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -19,15 +21,19 @@ export class EapActionDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsBoolean()
-  public status: boolean;
+  public areaOfFocus: AreaOfFocusEntity;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  public placeCode: string;
+  public action: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsString()
-  public eventName: string;
+  public label: string;
+
+  @ApiProperty()
+  @IsNumber()
+  public month: number;
 }

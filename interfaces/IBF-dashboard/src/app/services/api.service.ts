@@ -320,7 +320,7 @@ export class ApiService {
     eventName: string,
   ) {
     return this.post(
-      'eap-actions',
+      'eap-actions/check',
       {
         action,
         countryCodeISO3,

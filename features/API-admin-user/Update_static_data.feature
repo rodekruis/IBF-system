@@ -38,7 +38,16 @@ Scenario: Upload and overwrite point data via CSV
     And it overwrites any existing entries for the provided country
 
 Scenario: Upload/overwrite EAP-actions data
-    >> NOT YET POSSIBLE
+    Given there are new/edited EAP-actions
+    Given the user is using the POST `/api/eap-actions` endpoint
+    Given the user has filled in one or more EAP-actions in the appropriate format, including 
+        - 'countryCodeISO3', 'disasterType', 'action', 'label' as strings
+        - 'areaOfFocus' in the format `{"id": "drr"}`
+        - optionally 'month' as number
+    When the user clics 'Execute'
+    Then this data uploaded
+    And it overwrites any known combinations of 'countryCodeISO3', 'disasterType' and 'action'
+    And creates new entries for unknown combinations
 
 Scenario: Upload/overwrite admin-area boundary data
     >> NOT YET POSSIBLE
