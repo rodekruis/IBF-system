@@ -29,7 +29,7 @@ export class EapActionsService {
     eapActions: AddEapActionsDto,
   ): Promise<EapActionEntity[]> {
     const eapActionsToSave = [];
-    for await (let eapAction of eapActions.eapActions) {
+    for await (const eapAction of eapActions.eapActions) {
       const existingEapAction = await this.eapActionRepository.findOne({
         where: {
           countryCodeISO3: eapAction.countryCodeISO3,
