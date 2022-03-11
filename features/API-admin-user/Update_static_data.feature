@@ -40,7 +40,7 @@ Scenario: Upload and overwrite point data via CSV
 Scenario: Upload/overwrite EAP-actions data
     Given there are new/edited EAP-actions
     Given the user is using the POST `/api/eap-actions` endpoint
-    Given the user has filled in one or more EAP-actions in the appropriate format, including 
+    Given the user has filled in for 'eap-actions' attribute an array with one or more EAP-actions in the appropriate format, including 
         - 'countryCodeISO3', 'disasterType', 'action', 'label' as strings
         - 'areaOfFocus' in the format `{"id": "drr"}`
         - optionally 'month' as number

@@ -2,38 +2,49 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { AreaOfFocusEntity } from '../area-of-focus.entity';
 
-export class AddEapActionsDto {
-  @ApiProperty()
-  @IsNotEmpty()
-  public eapActions: EapActionDto[];
-}
-
 class EapActionDto {
-  @ApiProperty()
+  @ApiProperty({ example: 'UGA' })
   @IsNotEmpty()
   @IsString()
   public countryCodeISO3: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'floods' })
   @IsNotEmpty()
   @IsString()
   public disasterType: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: JSON.parse(JSON.stringify({ id: 'drr' })) })
   @IsNotEmpty()
   public areaOfFocus: AreaOfFocusEntity;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'drr-1' })
   @IsNotEmpty()
   @IsString()
   public action: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'DRR dummy action' })
   @IsNotEmpty()
   @IsString()
   public label: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: null })
   @IsNumber()
   public month: number;
+}
+
+export class AddEapActionsDto {
+  @ApiProperty({
+    example: [
+      {
+        countryCodeISO3: 'UGA',
+        disasterType: 'floods',
+        action: 'drr-1',
+        areaOfFocus: { id: 'drr' },
+        label: 'DRR dummy action',
+        month: null,
+      },
+    ],
+  })
+  @IsNotEmpty()
+  public eapActions: EapActionDto[];
 }
