@@ -1,3 +1,12 @@
+## [0.139.3](https://github.com/rodekruis/IBF-system/compare/v0.139.2...v0.139.3) (2022-03-11)
+
+
+### Bug Fixes
+
+* missing disaster-type in filter AB[#12841](https://github.com/rodekruis/IBF-system/issues/12841) ([0de5a0b](https://github.com/rodekruis/IBF-system/commit/0de5a0bf799c86569652e03bba59a7fe596213d2))
+
+
+
 ## [0.139.2](https://github.com/rodekruis/IBF-system/compare/v0.139.1...v0.139.2) (2022-03-07)
 
 
@@ -112,17 +121,6 @@
 ### Features
 
 * KEN drought next march/october AB[#12465](https://github.com/rodekruis/IBF-system/issues/12465) ([f10088f](https://github.com/rodekruis/IBF-system/commit/f10088ff9615c75788f913679274b7024e59e2a8))
-
-
-
-## [0.134.5](https://github.com/rodekruis/IBF-system/compare/v0.134.4...v0.134.5) (2022-02-21)
-
-
-### Bug Fixes
-
-* change pattern + lowercase submit AB[#12445](https://github.com/rodekruis/IBF-system/issues/12445) ([e734fc1](https://github.com/rodekruis/IBF-system/commit/e734fc1e6effac7e146b14135642f352e794f3ef))
-* lowercase email on create user AB[#12447](https://github.com/rodekruis/IBF-system/issues/12447) ([2e14ec2](https://github.com/rodekruis/IBF-system/commit/2e14ec2a40e94c097bb3b23ef996863702a71968))
-* use let only for email AB[#12447](https://github.com/rodekruis/IBF-system/issues/12447) ([0638490](https://github.com/rodekruis/IBF-system/commit/06384906c3055662520f213aaabb38fb9d99af62))
 
 
 
