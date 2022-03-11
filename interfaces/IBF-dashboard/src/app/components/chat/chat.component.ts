@@ -284,6 +284,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private filterEapActionsByMonth = (triggeredArea) => {
+    // SIMULATE: Change 'currentMonth' manually to simulate a different month
     const currentMonth = DateTime.fromFormat(
       this.lastModelRunDate,
       this.lastModelRunDateFormat,
@@ -292,17 +293,38 @@ export class ChatComponent implements OnInit, OnDestroy {
       .filter(
         (action) =>
           !action.month || // If no month provided, then we assume static EAP-actions and show all
-          this.shiftMonth(action.month) <= this.shiftMonth(currentMonth),
+          this.showMonthlyAction(action.month, currentMonth),
       )
       .sort((a, b) =>
-        this.shiftMonth(a.month) > this.shiftMonth(b.month) ? 1 : -1,
+        a.month && this.shiftYear(a.month) > this.shiftYear(b.month) ? 1 : -1,
       );
   };
 
-  // (X + 2) modulo 12 is a hacky method for "starting the year" in november instead of january.
-  // This will be replaced soon anyway by a more appropriate 'auto clear out'.
-  // which will also be at 2 moments in the year, instead of just one.
-  private shiftMonth = (monthNumber: number) => (monthNumber + 2) % 12;
+  private showMonthlyAction(month, currentMonth) {
+    if (!this.getDroughtForecastMonths()) {
+      return;
+    }
+    const monthBeforeCurrentMonth =
+      this.shiftYear(month) <= this.shiftYear(currentMonth);
+    // TO DO: make this generic instead of hard-coded
+    if (currentMonth < 3 || currentMonth >= 10) {
+      return [10, 11, 12, 1, 2].includes(month) && monthBeforeCurrentMonth;
+    } else if (currentMonth >= 3 && currentMonth < 10) {
+      return [3, 4, 5, 6, 7, 8, 9].includes(month) && monthBeforeCurrentMonth;
+    }
+  }
+
+  // This makes the year "start" at the moment of one of the "droughtForecastMonths" instead of in January ..
+  // .. thereby making sure that the order is correct: 'december' comes before 'january', etc.
+  private shiftYear = (monthNumber: number) => {
+    const droughtForecastMonths = this.getDroughtForecastMonths();
+    return (monthNumber + 12 - droughtForecastMonths[0]) % 12;
+  };
+
+  private getDroughtForecastMonths = () =>
+    this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastMonths;
 
   private filterTriggeredAreaByPlaceCode = (placeCode) => (triggeredArea) =>
     triggeredArea.placeCode === placeCode;
@@ -467,17 +489,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public showClearoutWarning() {
-    const forecastMonthNumbers = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtForecastMonths;
-    if (!forecastMonthNumbers) {
+    const droughtForecastMonths = this.getDroughtForecastMonths();
+    if (!droughtForecastMonths) {
       return;
     }
     const currentMonth = DateTime.fromFormat(
       this.lastModelRunDate,
       this.lastModelRunDateFormat,
     ).plus({ months: 1 }).month; // add 1 month, because pipeline run (end of) september should trigger the warning for october
-    return forecastMonthNumbers.includes(currentMonth);
+    return droughtForecastMonths.includes(currentMonth);
   }
 
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {

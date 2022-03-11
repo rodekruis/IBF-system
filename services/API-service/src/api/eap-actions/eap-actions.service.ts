@@ -119,6 +119,7 @@ export class EapActionsService {
       .where('coalesce(event."eventName",\'null\') = :eventName', {
         eventName: eventName || 'null',
       })
+      .andWhere('event.closed = false')
       .groupBy('status."actionCheckedId"')
       .addGroupBy('status."placeCode"')
       .addSelect(['MAX(status.timestamp) AS "max_timestamp"']);
