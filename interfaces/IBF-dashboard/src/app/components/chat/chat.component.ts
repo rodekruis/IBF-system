@@ -554,8 +554,8 @@ export class ChatComponent implements OnInit, OnDestroy {
         [LeadTime.month0]: [mamBelow],
       },
       8: {
-        [LeadTime.month0]: [mamBelow],
-        [LeadTime.month1]: [mamBelow],
+        [LeadTime.month0]: [ondForecast],
+        [LeadTime.month1]: [mamBelow, ondForecast],
       },
       9: {
         [LeadTime.month0]: [ondForecast],
