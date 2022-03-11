@@ -384,7 +384,7 @@ export class ScriptsService {
     if (disasterType === DisasterType.Drought) {
       const now = new Date();
       const currentYear = now.getFullYear();
-      const currentMonth = now.getUTCMonth();
+      const currentUTCMonth = now.getUTCMonth();
       const currentMonthFirstDay = new Date(
         now.getFullYear(),
         now.getUTCMonth(),
@@ -392,7 +392,7 @@ export class ScriptsService {
       );
       const leadTimeMonthFirstDay = new Date(
         currentMonthFirstDay.setUTCMonth(
-          currentMonth + Number(leadTime.split('-')[0]),
+          currentUTCMonth + Number(leadTime.split('-')[0]),
         ),
       );
 
@@ -404,7 +404,8 @@ export class ScriptsService {
       forecastMonthNumbers
         .sort((a, b) => (a > b ? -1 : 1))
         .forEach(month => {
-          if (currentMonth < month) {
+          if (currentUTCMonth + 1 < month) {
+            // add 1 because 'currentUTCmonth' starts at 0, while 'month' does not
             forecastMonthNumber = month;
           }
         });
@@ -414,7 +415,7 @@ export class ScriptsService {
       }
 
       const nextForecastMonthYear =
-        currentMonth >= forecastMonthNumber ? currentYear + 1 : currentYear;
+        currentUTCMonth >= forecastMonthNumber ? currentYear + 1 : currentYear;
       const nextForecastMonthFirstDay = new Date(
         nextForecastMonthYear,
         forecastMonthNumber - 1,

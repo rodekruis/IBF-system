@@ -304,8 +304,8 @@ export class TimelineService {
   }
 
   private getNextForecastMonth(): DateTime {
-    const currentYear = DateTime.now().year;
-    const currentMonth = DateTime.now().month;
+    const currentYear = this.state.today.year;
+    const currentMonth = this.state.today.month;
 
     const forecastMonthNumbers = this.country.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType.disasterType,
@@ -315,7 +315,7 @@ export class TimelineService {
     forecastMonthNumbers
       .sort((a, b) => (a > b ? -1 : 1))
       .forEach((month) => {
-        if (currentMonth <= month) {
+        if (currentMonth < month) {
           forecastMonthNumber = month;
         }
       });
