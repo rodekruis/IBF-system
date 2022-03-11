@@ -478,6 +478,7 @@ export class EventService {
       ),
       countryCodeISO3: countryCodeISO3,
       adminLevel: adminLevel,
+      disasterType: disasterType,
       eventName: eventName || IsNull(),
     };
 
@@ -509,6 +510,7 @@ export class EventService {
       ),
       countryCodeISO3: countryCodeISO3,
       adminLevel: adminLevel,
+      disasterType: disasterType,
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
