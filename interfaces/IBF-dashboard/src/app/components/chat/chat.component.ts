@@ -175,7 +175,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       area.eapActions.forEach((action) => {
         action.monthLong = DateTime.utc(
           2022, // year does not matter, this is just about converting month-number to month-name
-          (action.month + 1) % 12, // The due-by date of actions lies one month later then when it's added
+          action.month === 12 ? 1 : action.month + 1, // The due-by date of actions lies one month later then when it's added
           1,
         ).monthLong;
       });
@@ -464,6 +464,20 @@ export class ChatComponent implements OnInit, OnDestroy {
   private reloadEapAndTrigger() {
     this.eapActionsService.loadAdminAreasAndActions();
     this.eventService.getTrigger();
+  }
+
+  public showClearoutWarning() {
+    const forecastMonthNumbers = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastMonths;
+    if (!forecastMonthNumbers) {
+      return;
+    }
+    const currentMonth = DateTime.fromFormat(
+      this.lastModelRunDate,
+      this.lastModelRunDateFormat,
+    ).plus({ months: 1 }).month; // add 1 month, because pipeline run (end of) september should trigger the warning for october
+    return forecastMonthNumbers.includes(currentMonth);
   }
 
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {

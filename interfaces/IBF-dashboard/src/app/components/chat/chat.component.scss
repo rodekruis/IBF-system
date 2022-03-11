@@ -25,6 +25,11 @@ ion-content {
   font-size: small;
 }
 
+.clear-out-warning {
+  color: var(--ion-color-danger);
+  font-weight: bold;
+}
+
 ion-checkbox {
   margin-inline-end: 8px !important;
 }

@@ -114,6 +114,15 @@
               | translate
           "
         ></p>
+        <p
+          class="clear-out-warning"
+          *ngIf="showClearoutWarning()"
+          [translate]="
+            'chat-component.' +
+              disasterTypeName +
+              '.active-event.clear-out-warning' | translate
+          "
+        ></p>
       </app-dialogue-turn>
       <app-dialogue-turn
         *ngIf="
@@ -225,6 +234,15 @@
                 the following <strong>{{ actions.length }}</strong> actions
                 should be taken.
               </ion-note>
+              <p
+                class="clear-out-warning"
+                *ngIf="showClearoutWarning()"
+                [translate]="
+                  'chat-component.' +
+                    disasterTypeName +
+                    '.active-event.clear-out-warning' | translate
+                "
+              ></p>
             </div>
           </ion-col>
         </ion-row>
