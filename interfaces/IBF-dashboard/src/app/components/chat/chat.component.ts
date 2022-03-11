@@ -156,12 +156,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private onEventStateChange = (eventState: EventState) => {
-    console.log('==== LOG eventState: ', eventState);
     this.eventState = eventState;
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
-    console.log('==== LOG timelineState: ', timelineState);
     this.timelineState = timelineState;
   };
 
@@ -512,7 +510,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   public kenDroughtTriggers(): [] {
     const currentMonth = this.timelineState?.today['c'].month;
-    console.log('===LOG currentMonth: ', currentMonth);
 
     const ondForecast =
       this.translateService.instant('chat-component.drought.ken-triggers.ond') +
