@@ -301,7 +301,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private showMonthlyAction(month, currentMonth) {
-    if (!this.getDroughtForecastMonths()) {
+    if (!this.showMonthlyEapActions()) {
       return;
     }
     const monthBeforeCurrentMonth =
@@ -325,6 +325,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.country.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType.disasterType,
     ).droughtForecastMonths;
+
+  private showMonthlyEapActions = () =>
+    this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).showMonthlyEapActions;
 
   private filterTriggeredAreaByPlaceCode = (placeCode) => (triggeredArea) =>
     triggeredArea.placeCode === placeCode;
@@ -489,10 +494,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public showClearoutWarning() {
-    const droughtForecastMonths = this.getDroughtForecastMonths();
-    if (!droughtForecastMonths) {
+    if (!this.showMonthlyEapActions()) {
       return;
     }
+    const droughtForecastMonths = this.getDroughtForecastMonths();
     const currentMonth = DateTime.fromFormat(
       this.lastModelRunDate,
       this.lastModelRunDateFormat,
@@ -536,10 +541,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   public showEapActionForecasts() {
-    return (
-      this.country?.countryCodeISO3 === 'KEN' &&
-      this.disasterType?.disasterType === 'drought'
-    );
+    return this.showMonthlyEapActions();
   }
 
   public getForecastInfo(): [] {

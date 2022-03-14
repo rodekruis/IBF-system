@@ -17,6 +17,7 @@ export class CountryDisasterSettings {
   activeLeadTimes: LeadTime[];
   droughtForecastMonths: number[];
   eapLink: string;
+  showMonthlyEapActions: boolean;
   eapAlertClasses?: EapAlertClasses;
 }
 
