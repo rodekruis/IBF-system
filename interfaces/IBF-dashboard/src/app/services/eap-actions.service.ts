@@ -100,22 +100,18 @@ export class EapActionsService {
   };
 
   private filterEapActionsByMonth = (triggeredArea) => {
+    if (!this.disasterTypeSettings.showMonthlyEapActions) {
+      return;
+    }
     const currentMonth = this.timelineState.today.month;
     triggeredArea.filteredEapActions = triggeredArea.eapActions
-      .filter(
-        (action) =>
-          !action.month || // If no month provided, then we assume static EAP-actions and show all
-          this.showMonthlyAction(action.month, currentMonth),
-      )
+      .filter((action) => this.showMonthlyAction(action.month, currentMonth))
       .sort((a, b) =>
         a.month && this.shiftYear(a.month) > this.shiftYear(b.month) ? 1 : -1,
       );
   };
 
   private showMonthlyAction(month, currentMonth) {
-    if (!this.disasterTypeSettings.showMonthlyEapActions) {
-      return;
-    }
     const monthBeforeCurrentMonth =
       this.shiftYear(month) <= this.shiftYear(currentMonth);
     // TO DO: make this generic instead of hard-coded
