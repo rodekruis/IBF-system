@@ -35,6 +35,11 @@
               }
       "
     ></p>
+    <p
+      class="clear-out-message"
+      *ngIf="!!clearOutMessage"
+      [innerHTML]="clearOutMessage"
+    ></p>
   </app-dialogue-turn>
   <!-- Active event -->
   <app-dialogue-turn
@@ -63,6 +68,12 @@
     </ng-container>
 
     <app-event-switcher></app-event-switcher>
+    
+    <p
+      class="clear-out-message"
+      *ngIf="!!clearOutMessage"
+      [innerHTML]="clearOutMessage"
+    ></p>
   </app-dialogue-turn>
   <!-- Old event -->
   <app-dialogue-turn *ngIf="eventService.isOldEvent()" isConnected="true">
@@ -79,6 +90,11 @@
                 eventName: eventState?.event.eventName
               }
       "
+    ></p>
+    <p
+      class="clear-out-message"
+      *ngIf="!!clearOutMessage"
+      [innerHTML]="clearOutMessage"
     ></p>
   </app-dialogue-turn>
 
@@ -112,15 +128,6 @@
           [translate]="
             'chat-component.' + disasterTypeName + '.active-event.instruction'
               | translate
-          "
-        ></p>
-        <p
-          class="clear-out-warning"
-          *ngIf="showClearoutWarning()"
-          [translate]="
-            'chat-component.' +
-              disasterTypeName +
-              '.active-event.clear-out-warning' | translate
           "
         ></p>
       </app-dialogue-turn>
@@ -216,7 +223,7 @@
                 size="small"
                 *ngIf="area?.filteredEapActions as actions"
               >
-                <span *ngIf="getForecastInfo().length > 0"
+                <span *ngIf="forecastInfo.length"
                   >{{
                     'chat-component.drought.active-event.forecast-info.opening'
                       | translate
@@ -224,7 +231,7 @@
                 </span>
 
                 <span
-                  *ngFor="let forecast of getForecastInfo(); last as isLast"
+                  *ngFor="let forecast of forecastInfo; last as isLast"
                 >
                   <strong>{{ forecast }}</strong
                   ><span *ngIf="!isLast">
@@ -237,19 +244,10 @@
                 {{ ' ' }}
                 <span
                   [innerHTML]="
-                    getNumberOfActions(actions.length, getForecastInfo().length)
+                    getNumberOfActions(actions.length, forecastInfo.length)
                   "
                 ></span>
               </ion-note>
-              <p
-                class="clear-out-warning"
-                *ngIf="showClearoutWarning()"
-                [translate]="
-                  'chat-component.' +
-                    disasterTypeName +
-                    '.active-event.clear-out-warning' | translate
-                "
-              ></p>
             </div>
           </ion-col>
         </ion-row>

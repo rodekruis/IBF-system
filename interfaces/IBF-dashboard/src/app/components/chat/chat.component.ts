@@ -65,6 +65,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterTypeLabel: string;
   public disasterTypeName: string;
   public actionIndicatorLabel: string;
+  public clearOutMessage: string;
+  public forecastInfo: string[];
   private country: Country;
   public disasterType: DisasterType;
   public lastModelRunDate: string;
@@ -161,6 +163,12 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
+    // SIMULATE: change this to simulate different months (only in chat-component)
+    // const addMonthsToCurrentDate = -1;
+    // this.timelineState.today = this.timelineState.today.plus({
+    //   months: addMonthsToCurrentDate,
+    // });
+    this.setupChatText();
   };
 
   private onTriggeredAreasChange = (triggeredAreas) => {
@@ -216,7 +224,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private setupChatText = () => {
-    if (this.country && this.disasterType && this.indicators.length) {
+    if (
+      this.country &&
+      this.disasterType &&
+      this.indicators.length &&
+      this.timelineState
+    ) {
       const disasterType =
         this.disasterType?.disasterType ||
         this.country.disasterTypes[0].disasterType;
@@ -234,6 +247,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.actionIndicatorLabel = this.indicators
         .find((indicator) => indicator.name === this.disasterType.actionsUnit)
         .label.toLowerCase();
+      this.clearOutMessage = this.getClearOutMessage();
+      this.getForecastInfo();
 
       const activeEventsSelector = 'active-event';
       const updateSuccesSelector = 'update-success';
@@ -250,23 +265,16 @@ export class ChatComponent implements OnInit, OnDestroy {
         activeEventsSelector
       ][stopTriggerPopupSelector];
 
-      this.apiService
-        .getRecentDates(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-        )
-        .subscribe((date) => {
-          this.onRecentDates(date, this.disasterType);
-        });
+      this.setLastModelRunDate(this.disasterType);
 
       this.changeDetectorRef.detectChanges();
     }
   };
 
-  private onRecentDates = (date, disasterType: DisasterType) => {
-    const recentDate = date.timestamp || date.date;
+  private setLastModelRunDate = (disasterType: DisasterType) => {
+    const recentDate = this.timelineState.today;
     this.lastModelRunDate = recentDate
-      ? DateTime.fromISO(recentDate).toFormat(this.lastModelRunDateFormat)
+      ? recentDate.toFormat(this.lastModelRunDateFormat)
       : 'unknown';
     this.isLastModelDateStale(recentDate, disasterType);
   };
@@ -284,11 +292,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private filterEapActionsByMonth = (triggeredArea) => {
-    // SIMULATE: Change 'currentMonth' manually to simulate a different month
-    const currentMonth = DateTime.fromFormat(
-      this.lastModelRunDate,
-      this.lastModelRunDateFormat,
-    ).month;
+    const currentMonth = this.timelineState.today.month;
     triggeredArea.filteredEapActions = triggeredArea.eapActions
       .filter(
         (action) =>
@@ -322,8 +326,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private getDroughtForecastMonths = () =>
-    this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
+    this.country?.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType?.disasterType,
     ).droughtForecastMonths;
 
   private filterTriggeredAreaByPlaceCode = (placeCode) => (triggeredArea) =>
@@ -488,16 +492,24 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.eventService.getTrigger();
   }
 
-  public showClearoutWarning() {
+  public getClearOutMessage() {
     const droughtForecastMonths = this.getDroughtForecastMonths();
     if (!droughtForecastMonths) {
       return;
     }
-    const currentMonth = DateTime.fromFormat(
-      this.lastModelRunDate,
-      this.lastModelRunDateFormat,
-    ).plus({ months: 1 }).month; // add 1 month, because pipeline run (end of) september should trigger the warning for october
-    return droughtForecastMonths.includes(currentMonth);
+    const currentMonth = this.timelineState.today.month;
+    const nextMonth = this.timelineState.today.plus({ months: 1 }).month;
+    if (droughtForecastMonths.includes(currentMonth)) {
+      return this.translateService.instant(
+        'chat-component.drought.clear-out.message',
+      );
+    } else if (droughtForecastMonths.includes(nextMonth)) {
+      return this.translateService.instant(
+        'chat-component.drought.clear-out.warning',
+      );
+    } else {
+      return;
+    }
   }
 
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
@@ -542,9 +554,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     );
   }
 
-  public getForecastInfo(): [] {
-    const currentMonthKey = 'c';
-    const currentMonth = this.timelineState?.today[currentMonthKey].month;
+  public getForecastInfo() {
+    const currentMonth = this.timelineState?.today.month;
 
     const ondForecast = `${this.translateService.instant(
       'chat-component.drought.active-event.forecast-info.ond',
@@ -582,7 +593,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       11: [],
     };
 
-    return forecasts[currentMonth];
+    this.forecastInfo = forecasts[currentMonth];
   }
 
   public getNumberOfActions(nrActions: number, nrForecasts: number) {
