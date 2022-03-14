@@ -555,7 +555,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     const text = this.translateService.instant(
       'chat-component.drought.active-event.forecast-info.actions',
       {
-        nrActions: nrActions,
+        nrActions,
       },
     );
     if (nrForecasts === 0) {
