@@ -202,25 +202,24 @@
             >
             </ion-note>
             <br />
-            <div *ngIf="isDrought()" class="ion-margin-bottom">
+            <div *ngIf="showEapActionForecasts()" class="ion-margin-bottom">
               <ion-note
                 size="small"
                 *ngIf="area?.filteredEapActions as actions"
               >
-                <span *ngIf="droughtTriggers().length > 0">{{
-                  'chat-component.drought.ken-triggers.opening' | translate
-                }}</span>
+                <span *ngIf="getForecastInfo().length > 0">{{
+                  'chat-component.drought.active-event.forecast-info.opening' | translate
+                }} </span>
 
-                <span *ngFor="let trigger of droughtTriggers(); last as isLast">
-                  <strong>{{ trigger }}</strong
-                  ><span *ngIf="!isLast"> and the </span>
+                <span *ngFor="let forecast of getForecastInfo(); last as isLast">
+                  <strong>{{ forecast }}</strong
+                  ><span *ngIf="!isLast"> {{
+                    'chat-component.drought.active-event.forecast-info.and' | translate
+                  }} </span>
                 </span>
                 {{ ' ' }}
                 <span
-                  [innerHTML]="
-                    'chat-component.drought.ken-triggers.actions'
-                      | translate: { nrActions: actions.length }
-                  "
+                  [innerHTML]="getNumberOfActions(actions.length, getForecastInfo().length)"
                 ></span>
               </ion-note>
             </div>

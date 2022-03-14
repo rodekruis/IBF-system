@@ -501,43 +501,39 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   };
 
-  public isDrought() {
-    const forecastMonthNumbers = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtForecastMonths;
-
-    return forecastMonthNumbers;
-
+  public showEapActionForecasts() {
     return (
       this.country?.countryCodeISO3 === 'KEN' &&
       this.disasterType?.disasterType === 'drought'
     );
   }
 
-  public droughtTriggers(): [] {
+  public getForecastInfo(): [] {
     const currentMonthKey = 'c';
     const currentMonth = this.timelineState?.today[currentMonthKey].month;
 
     const ondForecast = `${this.translateService.instant(
-      'chat-component.drought.ken-triggers.ond',
+      'chat-component.drought.active-event.forecast-info.ond',
     )} ${this.translateService.instant(
-      'chat-component.drought.ken-triggers.forecast',
+      'chat-component.drought.forecast-info.forecast',
     )}`;
     const mamForecast = `${this.translateService.instant(
-      'chat-component.drought.ken-triggers.mam',
+      'chat-component.drought.active-event.forecast-info.mam',
     )} ${this.translateService.instant(
-      'chat-component.drought.ken-triggers.forecast',
+      'chat-component.drought.active-event.forecast-info.forecast',
     )}`;
     const ondBelow = `${this.translateService.instant(
-      'chat-component.drought.ken-triggers.below-average',
+      'chat-component.drought.active-event.forecast-info.below-average',
     )} ${this.translateService.instant(
-      'chat-component.drought.ken-triggers.ond',
+      'chat-component.drought.active-event.forecast-info.ond',
     )}`;
     const mamBelow = `${this.translateService.instant(
-      'chat-component.drought.ken-triggers.below-average',
-    )} ${this.translateService.get('chat-component.drought.ken-triggers.mam')}`;
+      'chat-component.drought.active-event.forecast-info.below-average',
+    )} ${this.translateService.instant(
+      'chat-component.drought.active-event.forecast-info.mam',
+    )}`;
 
-    const triggers = {
+    const forecasts = {
       12: [ondBelow],
       1: [ondBelow],
       2: [ondBelow, mamForecast],
@@ -552,6 +548,20 @@ export class ChatComponent implements OnInit, OnDestroy {
       11: [],
     };
 
-    return triggers[currentMonth];
+    return forecasts[currentMonth];
+  }
+
+  public getNumberOfActions(nrActions: number, nrForecasts: number) {
+    const text = this.translateService.instant(
+      'chat-component.drought.active-event.forecast-info.actions',
+      {
+        nrActions: nrActions,
+      },
+    );
+    if (nrForecasts === 0) {
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    } else {
+      return text;
+    }
   }
 }

@@ -106,6 +106,15 @@
         "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
+        "forecast-info": {
+          "opening": "Due to the",
+          "and": "and the ",
+          "mam": "MAM",
+          "ond": "OND",
+          "below-average": "Below Average",
+          "forecast": "Forecast",
+          "actions": "the following <strong>{{ nrActions }}</strong> actions should be taken."
+        },
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop trigger",
         "update-success": "EAP action(s) updated in database.",
@@ -122,14 +131,6 @@
         "overview": "The following {{ nrStoppedAreas }} {{adminAreaLabelPlural}} were manually stopped and listed below in order of {{ actionIndicator }}.",
         "instruction": "To see when this was done and by whom, click on the area in the map.",
         "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
-      },
-      "ken-triggers": {
-        "opening": "Due to the",
-        "mam": "MAM",
-        "ond": "OND",
-        "below-average": "Below Average",
-        "forecast": "Forecast",
-        "actions": "the following <strong>{{ nrActions }}</strong> actions should be taken"
       }
     },
     "typhoon": {
