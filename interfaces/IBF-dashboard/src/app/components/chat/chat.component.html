@@ -68,7 +68,7 @@
     </ng-container>
 
     <app-event-switcher></app-event-switcher>
-    
+
     <p
       class="clear-out-message"
       *ngIf="!!clearOutMessage"
@@ -230,9 +230,7 @@
                   }}
                 </span>
 
-                <span
-                  *ngFor="let forecast of forecastInfo; last as isLast"
-                >
+                <span *ngFor="let forecast of forecastInfo; last as isLast">
                   <strong>{{ forecast }}</strong
                   ><span *ngIf="!isLast">
                     {{
