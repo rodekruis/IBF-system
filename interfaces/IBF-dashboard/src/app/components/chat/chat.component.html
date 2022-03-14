@@ -218,7 +218,7 @@
             >
             </ion-note>
             <br />
-            <div *ngIf="showEapActionForecasts()" class="ion-margin-bottom">
+            <div *ngIf="disasterTypeSettings?.showMonthlyEapActions" class="ion-margin-bottom">
               <ion-note
                 size="small"
                 *ngIf="area?.filteredEapActions as actions"
