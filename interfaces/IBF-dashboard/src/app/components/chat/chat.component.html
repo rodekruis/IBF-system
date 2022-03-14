@@ -207,19 +207,29 @@
                 size="small"
                 *ngIf="area?.filteredEapActions as actions"
               >
-                <span *ngIf="getForecastInfo().length > 0">{{
-                  'chat-component.drought.active-event.forecast-info.opening' | translate
-                }} </span>
+                <span *ngIf="getForecastInfo().length > 0"
+                  >{{
+                    'chat-component.drought.active-event.forecast-info.opening'
+                      | translate
+                  }}
+                </span>
 
-                <span *ngFor="let forecast of getForecastInfo(); last as isLast">
+                <span
+                  *ngFor="let forecast of getForecastInfo(); last as isLast"
+                >
                   <strong>{{ forecast }}</strong
-                  ><span *ngIf="!isLast"> {{
-                    'chat-component.drought.active-event.forecast-info.and' | translate
-                  }} </span>
+                  ><span *ngIf="!isLast">
+                    {{
+                      'chat-component.drought.active-event.forecast-info.and'
+                        | translate
+                    }}
+                  </span>
                 </span>
                 {{ ' ' }}
                 <span
-                  [innerHTML]="getNumberOfActions(actions.length, getForecastInfo().length)"
+                  [innerHTML]="
+                    getNumberOfActions(actions.length, getForecastInfo().length)
+                  "
                 ></span>
               </ion-note>
             </div>
