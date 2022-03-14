@@ -144,6 +144,8 @@ export class SeedInit implements InterfaceScript {
             countryDisasterSettingsEntity.droughtForecastMonths = JSON.parse(
               JSON.stringify(disaster.droughtForecastMonths),
             );
+            countryDisasterSettingsEntity.showMonthlyEapActions =
+              disaster.showMonthlyEapActions;
             countryDisasterSettingsEntity.activeLeadTimes = await leadTimeRepository.find(
               {
                 where: disaster.activeLeadTimes.map(

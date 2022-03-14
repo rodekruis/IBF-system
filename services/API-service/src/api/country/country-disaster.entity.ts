@@ -58,6 +58,10 @@ export class CountryDisasterSettingsEntity {
   @Column('json', { nullable: true })
   public droughtForecastMonths: JSON;
 
+  @ApiProperty({ example: false })
+  @Column({ default: false })
+  public showMonthlyEapActions: boolean;
+
   @ApiProperty({
     example: 'https://docs.google.com',
   })
