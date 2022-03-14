@@ -534,4 +534,68 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.isWarn = false;
     }
   };
+
+  public showEapActionForecasts() {
+    return (
+      this.country?.countryCodeISO3 === 'KEN' &&
+      this.disasterType?.disasterType === 'drought'
+    );
+  }
+
+  public getForecastInfo(): [] {
+    const currentMonthKey = 'c';
+    const currentMonth = this.timelineState?.today[currentMonthKey].month;
+
+    const ondForecast = `${this.translateService.instant(
+      'chat-component.drought.active-event.forecast-info.ond',
+    )} ${this.translateService.instant(
+      'chat-component.drought.forecast-info.forecast',
+    )}`;
+    const mamForecast = `${this.translateService.instant(
+      'chat-component.drought.active-event.forecast-info.mam',
+    )} ${this.translateService.instant(
+      'chat-component.drought.active-event.forecast-info.forecast',
+    )}`;
+    const ondBelow = `${this.translateService.instant(
+      'chat-component.drought.active-event.forecast-info.below-average',
+    )} ${this.translateService.instant(
+      'chat-component.drought.active-event.forecast-info.ond',
+    )}`;
+    const mamBelow = `${this.translateService.instant(
+      'chat-component.drought.active-event.forecast-info.below-average',
+    )} ${this.translateService.instant(
+      'chat-component.drought.active-event.forecast-info.mam',
+    )}`;
+
+    const forecasts = {
+      12: [ondBelow],
+      1: [ondBelow],
+      2: [ondBelow, mamForecast],
+      3: [],
+      4: [],
+      5: [],
+      6: [mamBelow],
+      7: [mamBelow, ondForecast],
+      8: [mamBelow, ondForecast],
+      9: [mamBelow, ondForecast],
+      10: [],
+      11: [],
+    };
+
+    return forecasts[currentMonth];
+  }
+
+  public getNumberOfActions(nrActions: number, nrForecasts: number) {
+    const text = this.translateService.instant(
+      'chat-component.drought.active-event.forecast-info.actions',
+      {
+        nrActions,
+      },
+    );
+    if (nrForecasts === 0) {
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    } else {
+      return text;
+    }
+  }
 }

@@ -211,28 +211,35 @@
             >
             </ion-note>
             <br />
-            <div
-              *ngIf="disasterType?.disasterType === 'drought'"
-              class="ion-margin-bottom"
-            >
+            <div *ngIf="showEapActionForecasts()" class="ion-margin-bottom">
               <ion-note
                 size="small"
                 *ngIf="area?.filteredEapActions as actions"
               >
-                Due to
+                <span *ngIf="getForecastInfo().length > 0"
+                  >{{
+                    'chat-component.drought.active-event.forecast-info.opening'
+                      | translate
+                  }}
+                </span>
+
                 <span
-                  *ngIf="[12, 1, 2, 3].includes(timelineState?.today?.c?.month)"
-                  ><strong>the MAM forecast</strong> and
-                  <strong>the below average OND</strong></span
+                  *ngFor="let forecast of getForecastInfo(); last as isLast"
                 >
+                  <strong>{{ forecast }}</strong
+                  ><span *ngIf="!isLast">
+                    {{
+                      'chat-component.drought.active-event.forecast-info.and'
+                        | translate
+                    }}
+                  </span>
+                </span>
+                {{ ' ' }}
                 <span
-                  *ngIf="[7, 8, 9, 10].includes(timelineState?.today?.c?.month)"
-                  ><strong>the OND forecast</strong> and
-                  <strong>the below average MAM</strong></span
-                >
-                <span> and <strong>Failed harvest</strong> </span>
-                the following <strong>{{ actions.length }}</strong> actions
-                should be taken.
+                  [innerHTML]="
+                    getNumberOfActions(actions.length, getForecastInfo().length)
+                  "
+                ></span>
               </ion-note>
               <p
                 class="clear-out-warning"

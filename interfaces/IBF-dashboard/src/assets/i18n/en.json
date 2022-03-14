@@ -103,10 +103,19 @@
       },
       "active-event": {
         "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
-        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
-        "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
         "clear-out-warning": "Please be aware that the EAP-actions related to this trigger will be automatically cleared out after this month, due to the next forecast season.",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+        "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
+        "forecast-info": {
+          "opening": "Due to the",
+          "and": "and the ",
+          "mam": "MAM",
+          "ond": "OND",
+          "below-average": "Below Average",
+          "forecast": "Forecast",
+          "actions": "the following <strong>{{ nrActions }}</strong> actions should be taken."
+        },
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop trigger",
         "update-success": "EAP action(s) updated in database.",
