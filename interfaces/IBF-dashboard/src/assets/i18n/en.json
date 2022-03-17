@@ -113,10 +113,10 @@
         "forecast-info": {
           "opening": "Due to the",
           "and": "and the ",
-          "mam": "MAM",
-          "ond": "OND",
-          "below-average": "Below Average",
-          "forecast": "Forecast",
+          "below-average-mam": "Below Average MAM",
+          "below-average-ond": "Below Average OND",
+          "mam-forecast": "MAM Forecast",
+          "ond-forecast": "OND Forecast",
           "actions": "the following <strong>{{ nrActions }}</strong> actions should be taken."
         },
         "submit-button-label": "Save",

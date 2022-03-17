@@ -19,6 +19,7 @@ export class CountryDisasterSettings {
   eapLink: string;
   showMonthlyEapActions: boolean;
   eapAlertClasses?: EapAlertClasses;
+  monthlyForecastInfo?: {};
 }
 
 export class EapAlertClasses {

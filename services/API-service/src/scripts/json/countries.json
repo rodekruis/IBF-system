@@ -13,6 +13,7 @@
         "activeLeadTimes": ["5-day"],
         "droughtForecastMonths": null,
         "showMonthlyEapActions": false,
+        "monthlyForecastInfo": null,
         "eapLink": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd",
         "eapAlertClasses": {
           "no": {
@@ -76,6 +77,7 @@
         "activeLeadTimes": ["7-day"],
         "droughtForecastMonths": null,
         "showMonthlyEapActions": false,
+        "monthlyForecastInfo": null,
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=357745",
         "eapAlertClasses": {
           "no": {
@@ -152,6 +154,7 @@
         "activeLeadTimes": ["7-day"],
         "droughtForecastMonths": null,
         "showMonthlyEapActions": false,
+        "monthlyForecastInfo": null,
         "eapLink": "https://kenyaredcross-my.sharepoint.com/:w:/g/personal/saado_halima_redcross_or_ke/ETp6Vml__etKk-C2KAqH4XIBrIJmAMT58mqA_iQlCZtuKw?rtime=FJll0Rbn2Ug",
         "eapAlertClasses": {
           "no": {
@@ -188,6 +191,21 @@
         ],
         "droughtForecastMonths": [3, 10],
         "showMonthlyEapActions": true,
+        "monthlyForecastInfo": {
+          "prefix": "chat-component.drought.active-event.forecast-info",
+          "12": ["below-average-ond"],
+          "1": ["below-average-ond"],
+          "2": ["below-average-ond", "mam-forecast"],
+          "3": [],
+          "4": [],
+          "5": [],
+          "6": ["below-average-mam"],
+          "7": ["below-average-mam", "ond-forecast"],
+          "8": ["below-average-mam", "ond-forecast"],
+          "9": ["below-average-mam", "ond-forecast"],
+          "10": [],
+          "11": []
+        },
         "eapLink": "https://docs.google.com/document/d/1nEfCDx0aV0yBebIjeGHalXMAVUNM8XgR/edit#bookmark=id.jtmxnnw2k1z9"
       }
     ],
@@ -233,6 +251,7 @@
         "activeLeadTimes": ["7-day"],
         "droughtForecastMonths": null,
         "showMonthlyEapActions": false,
+        "monthlyForecastInfo": null,
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=404862",
         "eapAlertClasses": {
           "no": {
@@ -256,6 +275,7 @@
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
         "droughtForecastMonths": null,
         "showMonthlyEapActions": false,
+        "monthlyForecastInfo": null,
         "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing"
       }
     ],
@@ -301,6 +321,7 @@
         "activeLeadTimes": ["3-day", "5-day", "7-day"],
         "droughtForecastMonths": null,
         "showMonthlyEapActions": false,
+        "monthlyForecastInfo": null,
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0a248aa7f06fc4d149892726478ef0fe6&authkey=AWC-wu2bMWX0NRGu7aUjTe8&expiration=2022-02-24T23%3a00%3a00.000Z&rtime=DcUsZo3Z2Eg"
       }
     ],
@@ -346,6 +367,7 @@
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
         "droughtForecastMonths": null,
         "showMonthlyEapActions": false,
+        "monthlyForecastInfo": null,
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm"
       },
       {
@@ -524,6 +546,7 @@
         ],
         "droughtForecastMonths": null,
         "showMonthlyEapActions": false,
+        "monthlyForecastInfo": null,
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=019cd8c5dca4240d5bacca0756bbf6703&authkey=AUnDxa6EBrEIYrzZGBbKkGE&expiration=2022-10-17T22%3A00%3A00.000Z&e=caLZ0C"
       }
     ],
@@ -586,6 +609,7 @@
         ],
         "droughtForecastMonths": [4],
         "showMonthlyEapActions": false,
+        "monthlyForecastInfo": null,
         "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
       }
     ],
