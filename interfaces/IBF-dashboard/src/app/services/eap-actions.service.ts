@@ -103,23 +103,43 @@ export class EapActionsService {
     if (!this.disasterTypeSettings.showMonthlyEapActions) {
       return;
     }
+
+    const periods = [];
+    const shiftedYear = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      .map((m) => {
+        const newMonthValue =
+          (m + this.disasterTypeSettings.droughtForecastMonths[0] - 1) % 12;
+        return newMonthValue > 0 ? newMonthValue : 12;
+      })
+      .reverse();
+
+    let period = [];
+    shiftedYear.forEach((m) => {
+      period.push(m);
+      if (this.disasterTypeSettings.droughtForecastMonths.includes(m)) {
+        periods.push(period);
+        period = [];
+      }
+    });
+
     const currentMonth = this.timelineState.today.month;
+
+    const currentPeriod = periods.find((p) => p.includes(currentMonth));
+
     triggeredArea.filteredEapActions = triggeredArea.eapActions
-      .filter((action) => this.showMonthlyAction(action.month, currentMonth))
+      .filter((action) =>
+        this.showMonthlyAction(action.month, currentMonth, currentPeriod),
+      )
       .sort((a, b) =>
         a.month && this.shiftYear(a.month) > this.shiftYear(b.month) ? 1 : -1,
       );
   };
 
-  private showMonthlyAction(month, currentMonth) {
+  private showMonthlyAction(month, currentMonth, currentPeriod) {
     const monthBeforeCurrentMonth =
       this.shiftYear(month) <= this.shiftYear(currentMonth);
-    // TO DO: make this generic instead of hard-coded
-    if (currentMonth < 3 || currentMonth >= 10) {
-      return [10, 11, 12, 1, 2].includes(month) && monthBeforeCurrentMonth;
-    } else if (currentMonth >= 3 && currentMonth < 10) {
-      return [3, 4, 5, 6, 7, 8, 9].includes(month) && monthBeforeCurrentMonth;
-    }
+
+    return currentPeriod.includes(month) && monthBeforeCurrentMonth;
   }
 
   // This makes the year "start" at the moment of one of the "droughtForecastMonths" instead of in January ..
