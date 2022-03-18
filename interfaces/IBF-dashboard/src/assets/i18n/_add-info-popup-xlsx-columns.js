@@ -5,6 +5,7 @@ const XLSX = require('xlsx');
 
 const indicatorMetadata = require('../../../../../services/API-service/src/scripts/json/indicator-metadata.json');
 const layerMetadata = require('../../../../../services/API-service/src/scripts/json/layer-metadata.json');
+const countries = require('../../../../../services/API-service/src/scripts/json/countries.json');
 
 const path = '';
 const xlsxFileName = 'layer-popup-info.xlsx';
@@ -20,8 +21,8 @@ const sectionNames = {
   layerIndicator: 'layers-section',
 };
 
-const columnsToCheck = ['A', 'B', 'C'];
-const headers = { A: 'section', B: 'layer', C: 'countryCodeISO3' };
+const columnsToCheck = ['A', 'B', 'C', 'D'];
+const headers = { A: 'section', B: 'layer', C: 'countryCodeISO3', D: 'disasterType' };
 
 let existingDataInXLSX = [];
 let indicatorsFromJSON = [];
@@ -31,21 +32,33 @@ const populateIndicators = () => {
   indicatorMetadata.forEach((indicator) => {
     indicator.country_codes.split(',').forEach((cc) => {
       if (cc !== '') {
-        indicatorsFromJSON.push({
-          section: sectionNames.generalIndicator,
-          layer: indicator.name,
-          countryCodeISO3: cc,
-        });
+        const country = countries.find(country => country.countryCodeISO3 === cc);
+        indicator.disasterTypes.forEach(disasterType => {
+          if (country.disasterTypes.includes(disasterType)) {
+            indicatorsFromJSON.push({
+              section: sectionNames.generalIndicator,
+              layer: indicator.name,
+              countryCodeISO3: cc,
+              disasterType: disasterType,
+            });
+          }
+        })
       }
     });
 
     indicator.aggregateIndicator.split(',').forEach((cc) => {
       if (cc !== '') {
-        indicatorsFromJSON.push({
-          section: sectionNames.aggregateIndicator,
-          layer: indicator.name,
-          countryCodeISO3: cc,
-        });
+        const country = countries.find(country => country.countryCodeISO3 === cc);
+        indicator.disasterTypes.forEach(disasterType => {
+          if (country.disasterTypes.includes(disasterType)) {
+            indicatorsFromJSON.push({
+              section: sectionNames.aggregateIndicator,
+              layer: indicator.name,
+              countryCodeISO3: cc,
+              disasterType: disasterType,
+            });
+          }
+        })
       }
     });
   });
@@ -54,11 +67,17 @@ const populateIndicators = () => {
     if (layer.type === 'wms' || layer.type === 'point') {
       layer.country_codes.split(',').forEach((cc) => {
         if (cc !== '') {
-          indicatorsFromJSON.push({
-            section: sectionNames.layerIndicator,
-            layer: layer.name,
-            countryCodeISO3: cc,
-          });
+          const country = countries.find(country => country.countryCodeISO3 === cc);
+          layer.disasterTypes.forEach(disasterType => {
+            if (country.disasterTypes.includes(disasterType)) {
+              indicatorsFromJSON.push({
+                section: sectionNames.layerIndicator,
+                layer: layer.name,
+                countryCodeISO3: cc,
+                disasterType: disasterType,
+              });
+            }
+          })
         }
       });
     }
@@ -103,7 +122,8 @@ const compareData = () => {
       (xlsxRow) =>
         indicator.section === xlsxRow.section &&
         indicator.layer === xlsxRow.layer &&
-        indicator.countryCodeISO3 === xlsxRow.countryCodeISO3,
+        indicator.countryCodeISO3 === xlsxRow.countryCodeISO3 &&
+        indicator.disasterType === xlsxRow.disasterType,
     );
 
     if (index === -1) {

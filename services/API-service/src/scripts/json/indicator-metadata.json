@@ -126,7 +126,7 @@
     "dynamic": false
   },
   {
-    "country_codes": "UGA,PHL",
+    "country_codes": "UGA",
     "disasterTypes": ["floods"],
     "name": "female_head_hh",
     "label": "Female-headed household",
@@ -638,7 +638,7 @@
     "active": "no",
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
-    "aggregateIndicator": "ZWE,KEN",
+    "aggregateIndicator": "ZWE",
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 2,
@@ -655,7 +655,7 @@
     "active": "no",
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
-    "aggregateIndicator": "ZWE,KEN",
+    "aggregateIndicator": "ZWE",
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 2,
