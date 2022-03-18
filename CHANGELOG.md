@@ -1,3 +1,19 @@
+# [0.141.0](https://github.com/rodekruis/IBF-system/compare/v0.140.0...v0.141.0) (2022-03-18)
+
+
+### Bug Fixes
+
+* add class to drought_phase_classification AB[#12970](https://github.com/rodekruis/IBF-system/issues/12970) ([efd1632](https://github.com/rodekruis/IBF-system/commit/efd163297fd5150f5737abc1a177240f06a044da))
+* add disaster-type to info popups xlsx AB[#12727](https://github.com/rodekruis/IBF-system/issues/12727) ([976f49b](https://github.com/rodekruis/IBF-system/commit/976f49bb598b7af3e3250e2542864d48e877dc97))
+
+
+### Features
+
+* add drought vulnerability ken-drought AB[#12725](https://github.com/rodekruis/IBF-system/issues/12725) ([1eabff6](https://github.com/rodekruis/IBF-system/commit/1eabff676e0fab27512fdf5b404c0eb02100aac8))
+* add eap-link KEN droughts AB[#12726](https://github.com/rodekruis/IBF-system/issues/12726) ([420af82](https://github.com/rodekruis/IBF-system/commit/420af82e132959e0939b1422335c370cc2688eab))
+
+
+
 # [0.140.0](https://github.com/rodekruis/IBF-system/compare/v0.139.3...v0.140.0) (2022-03-18)
 
 
@@ -142,15 +158,6 @@
 * add mock data AB[#12472](https://github.com/rodekruis/IBF-system/issues/12472) ([001d31b](https://github.com/rodekruis/IBF-system/commit/001d31b5e7fb09dadf81038c8b497e691e468083))
 * add new layers AB[#12471](https://github.com/rodekruis/IBF-system/issues/12471) ([73fe744](https://github.com/rodekruis/IBF-system/commit/73fe74405275bd0f1f767adcfe76a14961e35320))
 * update info popup xlsx AB[#12473](https://github.com/rodekruis/IBF-system/issues/12473) ([e088701](https://github.com/rodekruis/IBF-system/commit/e08870131f83aa5cfff7df8bfc76da3038e15e0c))
-
-
-
-# [0.136.0](https://github.com/rodekruis/IBF-system/compare/v0.135.0...v0.136.0) (2022-02-25)
-
-
-### Features
-
-* process ken floods popups AB[#12270](https://github.com/rodekruis/IBF-system/issues/12270) ([4ebdb77](https://github.com/rodekruis/IBF-system/commit/4ebdb77bc2c179af70175b62d0bf287844fb0a91))
 
 
 
