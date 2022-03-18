@@ -561,7 +561,7 @@
     "unit": "incidence"
   },
   {
-    "country_codes": "ZWE",
+    "country_codes": "ZWE,KEN",
     "disasterTypes": ["drought"],
     "name": "drought_vulnerability_index",
     "label": "Drought vulnerability index",
