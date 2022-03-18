@@ -779,9 +779,14 @@
         "valueHigh": 3
       },
       "4": {
-        "label": "Recovery",
+        "label": "Emergency",
         "valueLow": 4,
         "valueHigh": 4
+      },
+      "5": {
+        "label": "Recovery",
+        "valueLow": 5,
+        "valueHigh": 5
       }
     },
     "numberFormatMap": "decimal2",
