@@ -22,7 +22,12 @@ const sectionNames = {
 };
 
 const columnsToCheck = ['A', 'B', 'C', 'D'];
-const headers = { A: 'section', B: 'layer', C: 'countryCodeISO3', D: 'disasterType' };
+const headers = {
+  A: 'section',
+  B: 'layer',
+  C: 'countryCodeISO3',
+  D: 'disasterType',
+};
 
 let existingDataInXLSX = [];
 let indicatorsFromJSON = [];
@@ -32,8 +37,10 @@ const populateIndicators = () => {
   indicatorMetadata.forEach((indicator) => {
     indicator.country_codes.split(',').forEach((cc) => {
       if (cc !== '') {
-        const country = countries.find(country => country.countryCodeISO3 === cc);
-        indicator.disasterTypes.forEach(disasterType => {
+        const country = countries.find(
+          (country) => country.countryCodeISO3 === cc,
+        );
+        indicator.disasterTypes.forEach((disasterType) => {
           if (country.disasterTypes.includes(disasterType)) {
             indicatorsFromJSON.push({
               section: sectionNames.generalIndicator,
@@ -42,14 +49,16 @@ const populateIndicators = () => {
               disasterType: disasterType,
             });
           }
-        })
+        });
       }
     });
 
     indicator.aggregateIndicator.split(',').forEach((cc) => {
       if (cc !== '') {
-        const country = countries.find(country => country.countryCodeISO3 === cc);
-        indicator.disasterTypes.forEach(disasterType => {
+        const country = countries.find(
+          (country) => country.countryCodeISO3 === cc,
+        );
+        indicator.disasterTypes.forEach((disasterType) => {
           if (country.disasterTypes.includes(disasterType)) {
             indicatorsFromJSON.push({
               section: sectionNames.aggregateIndicator,
@@ -58,7 +67,7 @@ const populateIndicators = () => {
               disasterType: disasterType,
             });
           }
-        })
+        });
       }
     });
   });
@@ -67,8 +76,10 @@ const populateIndicators = () => {
     if (layer.type === 'wms' || layer.type === 'point') {
       layer.country_codes.split(',').forEach((cc) => {
         if (cc !== '') {
-          const country = countries.find(country => country.countryCodeISO3 === cc);
-          layer.disasterTypes.forEach(disasterType => {
+          const country = countries.find(
+            (country) => country.countryCodeISO3 === cc,
+          );
+          layer.disasterTypes.forEach((disasterType) => {
             if (country.disasterTypes.includes(disasterType)) {
               indicatorsFromJSON.push({
                 section: sectionNames.layerIndicator,
@@ -77,7 +88,7 @@ const populateIndicators = () => {
                 disasterType: disasterType,
               });
             }
-          })
+          });
         }
       });
     }
