@@ -96,16 +96,29 @@
         "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
       },
       "active-event-active-trigger": {
-        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
+        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was activated on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
+      },
+      "clear-out": {
+        "warning": "Please be aware that the EAP-actions related to this trigger will be automatically cleared out by the IBF-system after this month, due to the start of the next rainy season.",
+        "message": "Old EAP-actions have been automatically cleared out by the IBF-system, due to the start of the next rainy season."
       },
       "active-event": {
         "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
         "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
+        "forecast-info": {
+          "opening": "Due to the",
+          "and": "and the ",
+          "below-average-mam": "Below Average MAM",
+          "below-average-ond": "Below Average OND",
+          "mam-forecast": "MAM Forecast",
+          "ond-forecast": "OND Forecast",
+          "actions": "the following <strong>{{ nrActions }}</strong> actions should be taken."
+        },
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop trigger",
         "update-success": "EAP action(s) updated in database.",

@@ -68,6 +68,18 @@ Scenario: View general trigger information with 2 or more active events
     And all info in the map by default refers to the 1st event
     And the timeline sections has just as many active timeline-buttons as there are events
 
+Scenario: View general trigger information with clear-out warning or message
+    Given the 'showMonthlyEapActions' is 'true' (currently only for Kenya Droughts)
+    Given 1 or more 'droughtForecastMonths' are provided (October & March, for Kenya Droughts)
+    Given the current month (month of last (mock) pipeline run) is one month before one of the 'droughtForecastMonths' 
+    When the user views the 2nd speech bubble
+    Then - in addition to the normal information - it mentions a second paragraph
+    And it is red-colored and bold
+    And it reads that the EAP-actions related to the current trigger will be automatically cleared out after this month
+    ------
+    Given - instead - that the current month (month of last (mock) pipeline run) is exactly one of the 'droughtForecastMonths' 
+    Then the message reads that the EAP-actions have been automatically cleared out after this month
+
 Scenario: Switch event
     Given the selected 'disaster-type' is 'typhoon' 
     Given there are 2 or more active events (see 'API-admin-user/Upload_mock_data.feature' for instructions how to upload additional events)
@@ -96,8 +108,9 @@ Scenario: View overview & further instructions WITH "stopped" areas
     And it mentions the stopped areas in same order as scenario above
     And it mentions instructions that you can click a stopped area in the map
 
-Scenario: View chat-section after area-selection in map of "non-stopped" area
+Scenario: View chat-section after area-selection in map
     Given the area is not "stopped"
+    Given EAP-actions are static and not monthly ('showMonthlyEapActions = false')
     When the user selects a triggered area from map (see 'Use_map_section.feature')
     Then the speech bubbles giving overview of active and stopped areas disappear
     And a new speech bubble appears in the chat section
@@ -107,7 +120,17 @@ Scenario: View chat-section after area-selection in map of "non-stopped" area
     And it contains a list of all EAP-actions (same for every area) with "area of focus" name and "action" description
     And it shows which EAP-actions are already "checked" via the "checkbox"
     And it contains a disabled "save" button
-    And it contains an enabled "close trigger/alert" button
+    And it contains an enabled "stop trigger/alert" button
+
+Scenario: View chat-section after area-selection in map with monthly actions
+    Given the area is not "stopped"
+    Given EAP-actions are monthly ('showMonthlyEapActions = true') - currently only Kenya Drought
+    When the user selects a triggered area from map (see 'Use_map_section.feature')
+    Then everything happens as above
+    And additionally above the EAP-action a sentence appears on which sources lead to the actions
+    And it mentions how many actions there are
+    And only the action up until the current month are shown
+    And behind the action in brackets and bold the month to complete the action is shown
 
 Scenario: View chat-section after area-selection in map of "stopped" area
     Given the area is "stopped"
@@ -123,7 +146,7 @@ Scenario: View EAP-actions per area in OLD-EVENT mode
     Given the dashboard is in OLD-EVENT mode
     When the users views the chat section
     Then the additional actions per area automatically show for ALL triggered areas
-    And the 'close trigger/alert' button is disabled
+    And the 'stop trigger/alert' button is disabled
 
 Scenario: Check or uncheck EAP-actions per triggered area
     Given the EAP-action speech-bubble is showing for one or more areas
@@ -140,7 +163,7 @@ Scenario: Check or uncheck EAP-actions per triggered area
 
 Scenario: Stop trigger
     Given the dashboard is in TRIGGERED mode
-    When the user clicks the 'close trigger/alert' button
+    When the user clicks the 'stop trigger/alert' button
     Then a popup appears that asks if you are sure
     And if confirmed the dashboard updates
     And the area will now show as grey with black border in the map

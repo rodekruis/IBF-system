@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
+import { DateTime } from 'luxon';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import { Country, DisasterType } from '../models/country.model';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from '../models/country.model';
 import { AdminLevel } from '../types/admin-level';
 import { EventState } from '../types/event-state';
 import { TimelineState } from '../types/timeline-state';
@@ -19,6 +24,7 @@ export class EapActionsService {
   public triggeredAreas: any[];
   private country: Country;
   private disasterType: DisasterType;
+  public disasterTypeSettings: CountryDisasterSettings;
   private adminLevel: AdminLevel;
   private event: EventSummary;
   private eventState: EventState;
@@ -59,12 +65,89 @@ export class EapActionsService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+    this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    );
     this.loadAdminAreasAndActions();
   };
 
   private onTriggeredAreas = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
+    this.triggeredAreas.sort((a, b) =>
+      a.actionsValue > b.actionsValue ? -1 : 1,
+    );
+    this.triggeredAreas.forEach((area) => {
+      this.formatDates(area);
+      this.filterEapActionsByMonth(area);
+      area.eapActions.forEach((action) => {
+        action.monthLong = DateTime.utc(
+          2022, // year does not matter, this is just about converting month-number to month-name
+          action.month === 12 ? 1 : action.month + 1, // The due-by date of actions lies one month later then when it's added
+          1,
+        ).monthLong;
+      });
+    });
     this.triggeredAreaSubject.next(this.triggeredAreas);
+  };
+
+  private formatDates = (triggeredArea) => {
+    triggeredArea.startDate = DateTime.fromISO(
+      triggeredArea.startDate,
+    ).toFormat('cccc, dd LLLL');
+    triggeredArea.stoppedDate = DateTime.fromISO(
+      triggeredArea.stoppedDate,
+    ).toFormat('cccc, dd LLLL');
+  };
+
+  private filterEapActionsByMonth = (triggeredArea) => {
+    if (!this.disasterTypeSettings.showMonthlyEapActions) {
+      return;
+    }
+
+    const periods = [];
+    const shiftedYear = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      .map((m) => {
+        const newMonthValue =
+          (m + this.disasterTypeSettings.droughtForecastMonths[0] - 1) % 12;
+        return newMonthValue > 0 ? newMonthValue : 12;
+      })
+      .reverse();
+
+    let period = [];
+    shiftedYear.forEach((m) => {
+      period.push(m);
+      if (this.disasterTypeSettings.droughtForecastMonths.includes(m)) {
+        periods.push(period);
+        period = [];
+      }
+    });
+
+    const currentMonth = this.timelineState.today.month;
+
+    const currentPeriod = periods.find((p) => p.includes(currentMonth));
+
+    triggeredArea.filteredEapActions = triggeredArea.eapActions
+      .filter((action) =>
+        this.showMonthlyAction(action.month, currentMonth, currentPeriod),
+      )
+      .sort((a, b) =>
+        a.month && this.shiftYear(a.month) > this.shiftYear(b.month) ? 1 : -1,
+      );
+  };
+
+  private showMonthlyAction(month, currentMonth, currentPeriod) {
+    const monthBeforeCurrentMonth =
+      this.shiftYear(month) <= this.shiftYear(currentMonth);
+
+    return currentPeriod.includes(month) && monthBeforeCurrentMonth;
+  }
+
+  // This makes the year "start" at the moment of one of the "droughtForecastMonths" instead of in January ..
+  // .. thereby making sure that the order is correct: 'december' comes before 'january', etc.
+  private shiftYear = (monthNumber: number) => {
+    const droughtForecastMonths = this.disasterTypeSettings
+      .droughtForecastMonths;
+    return (monthNumber + 12 - droughtForecastMonths[0]) % 12;
   };
 
   private onEvent = (events) => {
@@ -72,10 +155,7 @@ export class EapActionsService {
     if (this.event && this.timelineState.activeLeadTime) {
       this.getTriggeredAreasApi(
         this.timelineState.activeLeadTime,
-        this.adminLevel ||
-          this.country.countryDisasterSettings.find(
-            (s) => s.disasterType === this.disasterType.disasterType,
-          ).defaultAdminLevel,
+        this.adminLevel || this.disasterTypeSettings.defaultAdminLevel,
       );
     }
   };
@@ -85,10 +165,7 @@ export class EapActionsService {
     if (this.event && this.timelineState.activeLeadTime) {
       this.getTriggeredAreasApi(
         this.timelineState.activeLeadTime,
-        this.adminLevel ||
-          this.country.countryDisasterSettings.find(
-            (s) => s.disasterType === this.disasterType.disasterType,
-          ).defaultAdminLevel,
+        this.adminLevel || this.disasterTypeSettings.defaultAdminLevel,
       );
     }
   };

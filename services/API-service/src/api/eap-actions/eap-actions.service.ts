@@ -4,10 +4,11 @@ import { UserEntity } from '../user/user.entity';
 import { IsNull, Repository } from 'typeorm';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
-import { EapActionDto } from './dto/eap-action.dto';
+import { CheckEapActionDto } from './dto/check-eap-action.dto';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
+import { AddEapActionsDto } from './dto/eap-action.dto';
 
 @Injectable()
 export class EapActionsService {
@@ -24,9 +25,41 @@ export class EapActionsService {
   @InjectRepository(AdminAreaEntity)
   private readonly adminAreaRepository: Repository<AdminAreaEntity>;
 
+  public async addOrUpdateEapActions(
+    eapActions: AddEapActionsDto,
+  ): Promise<EapActionEntity[]> {
+    const eapActionsToSave = [];
+    for await (const eapAction of eapActions.eapActions) {
+      const existingEapAction = await this.eapActionRepository.findOne({
+        where: {
+          countryCodeISO3: eapAction.countryCodeISO3,
+          disasterType: eapAction.disasterType,
+          action: eapAction.action,
+        },
+      });
+      if (existingEapAction) {
+        existingEapAction.label = eapAction.label;
+        existingEapAction.areaOfFocus = eapAction.areaOfFocus;
+        existingEapAction.month = eapAction.month;
+        eapActionsToSave.push(existingEapAction);
+        continue;
+      }
+
+      const newEapAction = new EapActionEntity();
+      newEapAction.countryCodeISO3 = eapAction.countryCodeISO3;
+      newEapAction.disasterType = eapAction.disasterType;
+      newEapAction.action = eapAction.action;
+      newEapAction.label = eapAction.label;
+      newEapAction.areaOfFocus = eapAction.areaOfFocus;
+      newEapAction.month = eapAction.month;
+      eapActionsToSave.push(newEapAction);
+    }
+    return await this.eapActionRepository.save(eapActionsToSave);
+  }
+
   public async checkAction(
     userId: string,
-    eapAction: EapActionDto,
+    eapAction: CheckEapActionDto,
   ): Promise<EapActionStatusEntity> {
     const actionId = await this.eapActionRepository.findOne({
       where: {
@@ -86,6 +119,7 @@ export class EapActionsService {
       .where('coalesce(event."eventName",\'null\') = :eventName', {
         eventName: eventName || 'null',
       })
+      .andWhere('event.closed = false')
       .groupBy('status."actionCheckedId"')
       .addGroupBy('status."placeCode"')
       .addSelect(['MAX(status.timestamp) AS "max_timestamp"']);
@@ -118,6 +152,7 @@ export class EapActionsService {
         'action."action"',
         'action."label"',
         'action."disasterType"',
+        'action."month"',
       ])
       .addSelect(
         'case when status."actionCheckedId" is null then false else status.status end AS checked',

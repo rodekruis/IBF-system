@@ -9,7 +9,11 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Country, DisasterType } from 'src/app/models/country.model';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -38,14 +42,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   public filteredStoppedAreas: any[];
   public activeDisasterType: string;
   public eventState: EventState;
-  public timelineState: TimelineState;
+  private timelineState: TimelineState;
   private indicators: Indicator[];
 
-  private translatedStrings: object;
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
   private promptButtonLabel: string;
-  private stopTriggerPopup: object;
 
   private countrySubscription: Subscription;
   private eapActionSubscription: Subscription;
@@ -65,8 +67,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterTypeLabel: string;
   public disasterTypeName: string;
   public actionIndicatorLabel: string;
+  public clearOutMessage: string;
+  public forecastInfo: string[];
   private country: Country;
-  private disasterType: DisasterType;
+  public disasterType: DisasterType;
+  public disasterTypeSettings: CountryDisasterSettings;
   public lastModelRunDate: string;
   private lastModelRunDateFormat = 'cccc, dd LLLL HH:mm';
   public isWarn = false;
@@ -85,11 +90,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private apiService: ApiService,
     private analyticsService: AnalyticsService,
-  ) {
-    this.translateSubscription = this.translateService
-      .get('chat-component')
-      .subscribe(this.onTranslate);
-  }
+  ) {}
 
   ngOnInit() {
     this.countrySubscription = this.countryService
@@ -137,16 +138,15 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.indicatorSubscription.unsubscribe();
   }
 
-  private onTranslate = (translatedStrings) => {
-    this.translatedStrings = translatedStrings;
-  };
-
   private onCountryChange = (country: Country) => {
     this.country = country;
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+    this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    );
     this.setupChatText();
   };
 
@@ -161,21 +161,18 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
+    // SIMULATE: change this to simulate different months (only in chat-component)
+    // const addMonthsToCurrentDate = -1;
+    // this.timelineState.today = this.timelineState.today.plus({
+    //   months: addMonthsToCurrentDate,
+    // });
+    this.setupChatText();
   };
 
   private onTriggeredAreasChange = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-    this.triggeredAreas.sort((a, b) =>
-      a.actionsValue > b.actionsValue ? -1 : 1,
-    );
     this.triggeredAreas.forEach((area) => {
       this.disableSubmitButtonForTriggeredArea(area);
-      area.startDate = DateTime.fromISO(area.startDate).toFormat(
-        'cccc, dd LLLL',
-      );
-      area.stoppedDate = DateTime.fromISO(area.stoppedDate).toFormat(
-        'cccc, dd LLLL',
-      );
     });
     this.stoppedAreas = this.triggeredAreas.filter((area) => area.stopped);
     this.activeAreas = this.triggeredAreas.filter((area) => !area.stopped);
@@ -213,13 +210,13 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private setupChatText = () => {
-    if (this.country && this.disasterType && this.indicators.length) {
-      const disasterType =
-        this.disasterType?.disasterType ||
-        this.country.disasterTypes[0].disasterType;
-      const adminLevel = this.country.countryDisasterSettings.find(
-        (s) => s.disasterType === disasterType,
-      ).defaultAdminLevel;
+    if (
+      this.country &&
+      this.disasterType &&
+      this.indicators.length &&
+      this.timelineState
+    ) {
+      const adminLevel = this.disasterTypeSettings.defaultAdminLevel;
       this.adminAreaLabel = this.country.adminRegionLabels[adminLevel].singular;
       this.adminAreaLabelPlural = this.country.adminRegionLabels[
         adminLevel
@@ -231,39 +228,26 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.actionIndicatorLabel = this.indicators
         .find((indicator) => indicator.name === this.disasterType.actionsUnit)
         .label.toLowerCase();
+      this.clearOutMessage = this.getClearOutMessage();
+      this.getForecastInfo();
 
-      const activeEventsSelector = 'active-event';
-      const updateSuccesSelector = 'update-success';
-      const updateFailureSelector = 'update-failure';
-      const stopTriggerPopupSelector = 'stop-trigger-popup';
+      this.updateSuccessMessage = this.translateService.instant(
+        `chat-component.${this.disasterTypeName}.active-event.update-success`,
+      );
+      this.updateFailureMessage = this.translateService.instant(
+        `chat-component.${this.disasterTypeName}.active-event.update-failure`,
+      );
 
-      this.updateSuccessMessage = this.translatedStrings[this.disasterTypeName][
-        activeEventsSelector
-      ][updateSuccesSelector];
-      this.updateFailureMessage = this.translatedStrings[this.disasterTypeName][
-        activeEventsSelector
-      ][updateFailureSelector];
-      this.stopTriggerPopup = this.translatedStrings[this.disasterTypeName][
-        activeEventsSelector
-      ][stopTriggerPopupSelector];
-
-      this.apiService
-        .getRecentDates(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-        )
-        .subscribe((date) => {
-          this.onRecentDates(date, this.disasterType);
-        });
+      this.setLastModelRunDate(this.disasterType);
 
       this.changeDetectorRef.detectChanges();
     }
   };
 
-  private onRecentDates = (date, disasterType: DisasterType) => {
-    const recentDate = date.timestamp || date.date;
+  private setLastModelRunDate = (disasterType: DisasterType) => {
+    const recentDate = this.timelineState.today;
     this.lastModelRunDate = recentDate
-      ? DateTime.fromISO(recentDate).toFormat(this.lastModelRunDateFormat)
+      ? recentDate.toFormat(this.lastModelRunDateFormat)
       : 'unknown';
     this.isLastModelDateStale(recentDate, disasterType);
   };
@@ -372,23 +356,28 @@ export class ChatComponent implements OnInit, OnDestroy {
     alert.present();
   }
 
-  private onStopTriggerByTriggeredArea = (triggeredArea) => async (
-    message,
-  ): Promise<void> => {
-    const cancelTranslateNode = 'cancel';
-    const confirmTranslateNode = 'confirm';
-
+  public async openStopTriggerPopup(triggeredArea): Promise<void> {
+    const message = this.translateService.instant(
+      `chat-component.${this.disasterTypeName}.active-event.stop-trigger-popup.message`,
+      {
+        placeCodeName: triggeredArea.name,
+      },
+    );
     const alert = await this.alertController.create({
       message,
       buttons: [
         {
-          text: this.stopTriggerPopup[cancelTranslateNode],
+          text: this.translateService.instant(
+            `chat-component.${this.disasterTypeName}.active-event.stop-trigger-popup.cancel`,
+          ),
           handler: () => {
             console.log('Cancel stop trigger');
           },
         },
         {
-          text: this.stopTriggerPopup[confirmTranslateNode],
+          text: this.translateService.instant(
+            `chat-component.${this.disasterTypeName}.active-event.stop-trigger-popup.confirm`,
+          ),
           handler: () => {
             this.stopTrigger(
               triggeredArea.eventPlaceCodeId,
@@ -400,17 +389,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
 
     alert.present();
-  };
-
-  public openStopTriggerPopup(triggeredArea): void {
-    this.translateSubscription = this.translateService
-      .get(
-        `chat-component.${this.disasterTypeName}.active-event.stop-trigger-popup.message`,
-        {
-          placeCodeName: triggeredArea.name,
-        },
-      )
-      .subscribe(this.onStopTriggerByTriggeredArea(triggeredArea));
   }
 
   public stopTrigger(eventPlaceCodeId: string, placeCode: string): void {
@@ -420,17 +398,41 @@ export class ChatComponent implements OnInit, OnDestroy {
       isActiveTrigger: this.eventService.state.activeTrigger,
       placeCode,
     });
-    const failureTranslateNode = 'failure';
     this.apiService.stopTrigger(eventPlaceCodeId).subscribe({
       next: () => this.reloadEapAndTrigger(),
       error: () =>
-        this.actionResult(this.stopTriggerPopup[failureTranslateNode]),
+        this.actionResult(
+          this.translateService.instant(
+            `chat-component.${this.disasterTypeName}.active-event.stop-trigger-popup.failure`,
+          ),
+        ),
     });
   }
 
   private reloadEapAndTrigger() {
     this.eapActionsService.loadAdminAreasAndActions();
     this.eventService.getTrigger();
+  }
+
+  public getClearOutMessage() {
+    if (!this.disasterTypeSettings.showMonthlyEapActions) {
+      return;
+    }
+    const droughtForecastMonths = this.disasterTypeSettings
+      .droughtForecastMonths;
+    const currentMonth = this.timelineState.today.month;
+    const nextMonth = this.timelineState.today.plus({ months: 1 }).month;
+    if (droughtForecastMonths.includes(currentMonth)) {
+      return this.translateService.instant(
+        'chat-component.drought.clear-out.message',
+      );
+    } else if (droughtForecastMonths.includes(nextMonth)) {
+      return this.translateService.instant(
+        'chat-component.drought.clear-out.warning',
+      );
+    } else {
+      return;
+    }
   }
 
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
@@ -467,4 +469,33 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.isWarn = false;
     }
   };
+
+  public getForecastInfo() {
+    if (!this.disasterTypeSettings.monthlyForecastInfo) {
+      return;
+    }
+
+    const currentMonth = this.timelineState.today.month;
+
+    const prefixKey = 'prefix';
+    const prefix = this.disasterTypeSettings.monthlyForecastInfo[prefixKey];
+
+    this.forecastInfo = this.disasterTypeSettings.monthlyForecastInfo[
+      currentMonth
+    ].map((forecast) => this.translateService.instant(`${prefix}.${forecast}`));
+  }
+
+  public getNumberOfActions(nrActions: number, nrForecasts: number) {
+    const text = this.translateService.instant(
+      'chat-component.drought.active-event.forecast-info.actions',
+      {
+        nrActions,
+      },
+    );
+    if (nrForecasts === 0) {
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    } else {
+      return text;
+    }
+  }
 }
