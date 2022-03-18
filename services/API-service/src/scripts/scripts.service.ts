@@ -387,7 +387,7 @@ export class ScriptsService {
       const currentUTCMonth = now.getUTCMonth();
       const currentMonthFirstDay = new Date(
         now.getFullYear(),
-        now.getUTCMonth(),
+        currentUTCMonth,
         1,
       );
       const leadTimeMonthFirstDay = new Date(

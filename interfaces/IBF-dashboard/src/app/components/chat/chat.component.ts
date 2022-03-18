@@ -42,7 +42,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public filteredStoppedAreas: any[];
   public activeDisasterType: string;
   public eventState: EventState;
-  public timelineState: TimelineState;
+  private timelineState: TimelineState;
   private indicators: Indicator[];
 
   private updateSuccessMessage: string;
@@ -162,10 +162,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
     // SIMULATE: change this to simulate different months (only in chat-component)
-    const addMonthsToCurrentDate = -1;
-    this.timelineState.today = this.timelineState.today.plus({
-      months: addMonthsToCurrentDate,
-    });
+    // const addMonthsToCurrentDate = -1;
+    // this.timelineState.today = this.timelineState.today.plus({
+    //   months: addMonthsToCurrentDate,
+    // });
     this.setupChatText();
   };
 
