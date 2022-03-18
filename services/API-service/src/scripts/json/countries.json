@@ -11,9 +11,6 @@
         "adminLevels": [1, 2, 3, 4],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["5-day"],
-        "droughtForecastMonths": null,
-        "showMonthlyEapActions": false,
-        "monthlyForecastInfo": null,
         "eapLink": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd",
         "eapAlertClasses": {
           "no": {
@@ -75,9 +72,6 @@
         "adminLevels": [1, 2, 3],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["7-day"],
-        "droughtForecastMonths": null,
-        "showMonthlyEapActions": false,
-        "monthlyForecastInfo": null,
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=357745",
         "eapAlertClasses": {
           "no": {
@@ -152,9 +146,6 @@
         "adminLevels": [1, 2, 3],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["7-day"],
-        "droughtForecastMonths": null,
-        "showMonthlyEapActions": false,
-        "monthlyForecastInfo": null,
         "eapLink": "https://kenyaredcross-my.sharepoint.com/:w:/g/personal/saado_halima_redcross_or_ke/ETp6Vml__etKk-C2KAqH4XIBrIJmAMT58mqA_iQlCZtuKw?rtime=FJll0Rbn2Ug",
         "eapAlertClasses": {
           "no": {
@@ -249,9 +240,6 @@
         "adminLevels": [3],
         "defaultAdminLevel": 3,
         "activeLeadTimes": ["7-day"],
-        "droughtForecastMonths": null,
-        "showMonthlyEapActions": false,
-        "monthlyForecastInfo": null,
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=404862",
         "eapAlertClasses": {
           "no": {
@@ -273,9 +261,6 @@
         "adminLevels": [3],
         "defaultAdminLevel": 3,
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
-        "droughtForecastMonths": null,
-        "showMonthlyEapActions": false,
-        "monthlyForecastInfo": null,
         "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing"
       }
     ],
@@ -319,9 +304,6 @@
         "adminLevels": [1],
         "defaultAdminLevel": 1,
         "activeLeadTimes": ["3-day", "5-day", "7-day"],
-        "droughtForecastMonths": null,
-        "showMonthlyEapActions": false,
-        "monthlyForecastInfo": null,
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0a248aa7f06fc4d149892726478ef0fe6&authkey=AWC-wu2bMWX0NRGu7aUjTe8&expiration=2022-02-24T23%3a00%3a00.000Z&rtime=DcUsZo3Z2Eg"
       }
     ],
@@ -365,9 +347,6 @@
         "adminLevels": [2],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
-        "droughtForecastMonths": null,
-        "showMonthlyEapActions": false,
-        "monthlyForecastInfo": null,
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm"
       },
       {
@@ -544,9 +523,6 @@
           "167-hour",
           "168-hour"
         ],
-        "droughtForecastMonths": null,
-        "showMonthlyEapActions": false,
-        "monthlyForecastInfo": null,
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=019cd8c5dca4240d5bacca0756bbf6703&authkey=AUnDxa6EBrEIYrzZGBbKkGE&expiration=2022-10-17T22%3A00%3A00.000Z&e=caLZ0C"
       }
     ],
@@ -608,8 +584,6 @@
           "11-month"
         ],
         "droughtForecastMonths": [4],
-        "showMonthlyEapActions": false,
-        "monthlyForecastInfo": null,
         "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
       }
     ],

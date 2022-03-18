@@ -81,10 +81,10 @@ export class SeedInit implements InterfaceScript {
       defaultAdminLevel: number;
       activeLeadTimes: string[];
       eapLink: string;
-      eapAlertClasses?: {};
-      droughtForecastMonths?: number[];
-      showMonthlyEapActions?: boolean;
-      monthlyForecastInfo?: {};
+      eapAlertClasses?: {} = null;
+      droughtForecastMonths?: number[] = null;
+      showMonthlyEapActions?: boolean = false;
+      monthlyForecastInfo?: {} = null;
     }
 
     await disasterRepository.save(disasterEntities);
@@ -164,17 +164,17 @@ export class SeedInit implements InterfaceScript {
             countryDisasterSettingsEntity.adminLevels = disaster.adminLevels as AdminLevel[];
             countryDisasterSettingsEntity.defaultAdminLevel = disaster.defaultAdminLevel as AdminLevel;
             countryDisasterSettingsEntity.eapLink = disaster.eapLink;
-            countryDisasterSettingsEntity.eapAlertClasses = JSON.parse(
-              JSON.stringify([disaster.eapAlertClasses]),
-            )[0];
-            countryDisasterSettingsEntity.droughtForecastMonths = JSON.parse(
-              JSON.stringify(disaster.droughtForecastMonths),
-            );
+            countryDisasterSettingsEntity.eapAlertClasses = disaster.eapAlertClasses
+              ? JSON.parse(JSON.stringify([disaster.eapAlertClasses]))[0]
+              : null;
+            countryDisasterSettingsEntity.droughtForecastMonths = disaster.droughtForecastMonths
+              ? JSON.parse(JSON.stringify(disaster.droughtForecastMonths))
+              : null;
             countryDisasterSettingsEntity.showMonthlyEapActions =
               disaster.showMonthlyEapActions;
-            countryDisasterSettingsEntity.monthlyForecastInfo = JSON.parse(
-              JSON.stringify(disaster.monthlyForecastInfo),
-            );
+            countryDisasterSettingsEntity.monthlyForecastInfo = disaster.monthlyForecastInfo
+              ? JSON.parse(JSON.stringify(disaster.monthlyForecastInfo))
+              : null;
             countryDisasterSettingsEntity.activeLeadTimes = await leadTimeRepository.find(
               {
                 where: disaster.activeLeadTimes.map(
