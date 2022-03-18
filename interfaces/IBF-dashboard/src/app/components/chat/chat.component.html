@@ -35,6 +35,11 @@
               }
       "
     ></p>
+    <p
+      class="clear-out-message"
+      *ngIf="!!clearOutMessage"
+      [innerHTML]="clearOutMessage"
+    ></p>
   </app-dialogue-turn>
   <!-- Active event -->
   <app-dialogue-turn
@@ -63,6 +68,12 @@
     </ng-container>
 
     <app-event-switcher></app-event-switcher>
+
+    <p
+      class="clear-out-message"
+      *ngIf="!!clearOutMessage"
+      [innerHTML]="clearOutMessage"
+    ></p>
   </app-dialogue-turn>
   <!-- Old event -->
   <app-dialogue-turn *ngIf="eventService.isOldEvent()" isConnected="true">
@@ -79,6 +90,11 @@
                 eventName: eventState?.event.eventName
               }
       "
+    ></p>
+    <p
+      class="clear-out-message"
+      *ngIf="!!clearOutMessage"
+      [innerHTML]="clearOutMessage"
     ></p>
   </app-dialogue-turn>
 
@@ -201,11 +217,44 @@
               "
             >
             </ion-note>
+            <br />
+            <div
+              *ngIf="disasterTypeSettings?.showMonthlyEapActions"
+              class="ion-margin-bottom"
+            >
+              <ion-note
+                size="small"
+                *ngIf="area?.filteredEapActions as actions"
+              >
+                <span *ngIf="forecastInfo.length"
+                  >{{
+                    'chat-component.drought.active-event.forecast-info.opening'
+                      | translate
+                  }}
+                </span>
+
+                <span *ngFor="let forecast of forecastInfo; last as isLast">
+                  <strong>{{ forecast }}</strong
+                  ><span *ngIf="!isLast">
+                    {{
+                      'chat-component.drought.active-event.forecast-info.and'
+                        | translate
+                    }}
+                  </span>
+                </span>
+                {{ ' ' }}
+                <span
+                  [innerHTML]="
+                    getNumberOfActions(actions.length, forecastInfo.length)
+                  "
+                ></span>
+              </ion-note>
+            </div>
           </ion-col>
         </ion-row>
         <ion-list class="background-light">
           <ion-item
-            *ngFor="let action of area.eapActions"
+            *ngFor="let action of area.filteredEapActions"
             class="ion-no-padding"
           >
             <ion-checkbox
@@ -223,8 +272,10 @@
               "
             ></ion-checkbox>
             <ion-label class="action-label ion-text-wrap"
-              ><strong>{{ action.aofLabel }}</strong
-              >: {{ action.label }}
+              ><strong>{{ action.aofLabel }}: </strong>{{ action.label
+              }}<span *ngIf="action.month"
+                ><strong> ({{ action.monthLong }})</strong></span
+              >
             </ion-label>
           </ion-item>
         </ion-list>

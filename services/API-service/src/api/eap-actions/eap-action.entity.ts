@@ -22,6 +22,9 @@ export class EapActionEntity {
   @Column()
   public label: string;
 
+  @Column({ nullable: true })
+  public month: number;
+
   @ManyToOne((): typeof CountryEntity => CountryEntity)
   @JoinColumn({
     name: 'countryCodeISO3',

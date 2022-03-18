@@ -1,33 +1,50 @@
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { AreaOfFocusEntity } from '../area-of-focus.entity';
 
-export class EapActionDto {
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  public action: string;
-
-  @ApiProperty()
+class EapActionDto {
+  @ApiProperty({ example: 'UGA' })
   @IsNotEmpty()
   @IsString()
   public countryCodeISO3: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'floods' })
   @IsNotEmpty()
   @IsString()
   public disasterType: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: JSON.parse(JSON.stringify({ id: 'drr' })) })
   @IsNotEmpty()
-  @IsBoolean()
-  public status: boolean;
+  public areaOfFocus: AreaOfFocusEntity;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'drr-1' })
   @IsNotEmpty()
   @IsString()
-  public placeCode: string;
+  public action: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'DRR dummy action' })
+  @IsNotEmpty()
   @IsString()
-  public eventName: string;
+  public label: string;
+
+  @ApiProperty({ example: null })
+  @IsNumber()
+  public month: number;
+}
+
+export class AddEapActionsDto {
+  @ApiProperty({
+    example: [
+      {
+        countryCodeISO3: 'UGA',
+        disasterType: 'floods',
+        action: 'drr-1',
+        areaOfFocus: { id: 'drr' },
+        label: 'DRR dummy action',
+        month: null,
+      },
+    ],
+  })
+  @IsNotEmpty()
+  public eapActions: EapActionDto[];
 }
