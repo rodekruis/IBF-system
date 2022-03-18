@@ -172,11 +172,14 @@ export class MapService {
     let popoverText = '';
     if (
       this.popoverTexts[indicatorName] &&
-      this.popoverTexts[indicatorName][this.country.countryCodeISO3]
+      this.popoverTexts[indicatorName][this.country.countryCodeISO3] &&
+      this.popoverTexts[indicatorName][this.country.countryCodeISO3][
+        this.disasterType.disasterType
+      ]
     ) {
       popoverText = this.popoverTexts[indicatorName][
         this.country.countryCodeISO3
-      ];
+      ][this.disasterType.disasterType];
     }
     return popoverText;
   }

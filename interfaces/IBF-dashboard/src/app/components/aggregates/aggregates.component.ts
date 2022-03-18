@@ -7,7 +7,7 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { Country } from 'src/app/models/country.model';
+import { Country, DisasterType } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { AggregatesService } from 'src/app/services/aggregates.service';
@@ -17,6 +17,7 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EventState } from 'src/app/types/event-state';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
+import { DisasterTypeService } from '../../services/disaster-type.service';
 import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
 
 @Component({
@@ -28,6 +29,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public indicators: Indicator[] = [];
   public placeCode: PlaceCode;
   private country: Country;
+  private disasterType: DisasterType;
   private aggregateComponentTranslateNode = 'aggregates-component';
   private defaultHeaderLabelTranslateNode = 'default-header-label';
   private exposedPrefixTranslateNode = 'exposed-prefix';
@@ -42,6 +44,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private indicatorSubscription: Subscription;
   private countrySubscription: Subscription;
+  private disasterTypeSubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private translateSubscription: Subscription;
   private translateLayerInfoPopupsSubscription: Subscription;
@@ -51,6 +54,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   constructor(
     private countryService: CountryService,
+    private disasterTypeService: DisasterTypeService,
     private aggregatesService: AggregatesService,
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
@@ -82,6 +86,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
 
+    this.disasterTypeSubscription = this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
+
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
@@ -94,6 +102,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.indicatorSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
+    this.disasterTypeSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
     this.translateLayerInfoPopupsSubscription.unsubscribe();
@@ -115,6 +124,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
@@ -160,11 +173,14 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     let popoverText = '';
     if (
       this.popoverTexts[indicatorName] &&
-      this.popoverTexts[indicatorName][this.country.countryCodeISO3]
+      this.popoverTexts[indicatorName][this.country.countryCodeISO3] &&
+      this.popoverTexts[indicatorName][this.country.countryCodeISO3][
+        this.disasterType.disasterType
+      ]
     ) {
       popoverText = this.popoverTexts[indicatorName][
         this.country.countryCodeISO3
-      ];
+      ][this.disasterType.disasterType];
     }
     return popoverText;
   }
