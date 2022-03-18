@@ -81,10 +81,10 @@ export class SeedInit implements InterfaceScript {
       defaultAdminLevel: number;
       activeLeadTimes: string[];
       eapLink: string;
-      eapAlertClasses?: {} = null;
-      droughtForecastMonths?: number[] = null;
-      showMonthlyEapActions?: boolean = false;
-      monthlyForecastInfo?: {} = null;
+      eapAlertClasses?: {};
+      droughtForecastMonths?: number[];
+      showMonthlyEapActions?: boolean;
+      monthlyForecastInfo?: {};
     }
 
     await disasterRepository.save(disasterEntities);
