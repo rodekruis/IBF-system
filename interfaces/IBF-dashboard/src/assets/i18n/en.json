@@ -102,8 +102,8 @@
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
       },
       "clear-out": {
-        "warning": "Please be aware that the EAP-actions related to this trigger will be automatically cleared out by the IBF-system after this month, due to the start of the next forecast season starting.",
-        "message": "Old EAP-actions have been automatically cleared out by the IBF-system, due to the start of the next forecast season."
+        "warning": "Please be aware that the EAP-actions related to this trigger will be automatically cleared out by the IBF-system after this month, due to the start of the next rainy season starting.",
+        "message": "Old EAP-actions have been automatically cleared out by the IBF-system, due to the start of the next rainy season."
       },
       "active-event": {
         "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
