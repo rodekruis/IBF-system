@@ -63,6 +63,30 @@ export class SeedInit implements InterfaceScript {
       },
     );
 
+    class Country {
+      countryCodeISO3: string;
+      countryCodeISO2: string;
+      countryName: string;
+      countryStatus: string;
+      disasterTypes: string[];
+      countryDisasterSettings: CountryDisasterSettings[];
+      adminRegionLabels: {};
+      countryLogos: string[];
+      countryBoundingBox: {};
+    }
+
+    class CountryDisasterSettings {
+      disasterType: string;
+      adminLevels: number[];
+      defaultAdminLevel: number;
+      activeLeadTimes: string[];
+      eapLink: string;
+      eapAlertClasses?: {};
+      droughtForecastMonths?: number[];
+      showMonthlyEapActions?: boolean;
+      monthlyForecastInfo?: {};
+    }
+
     await disasterRepository.save(disasterEntities);
 
     // ***** CREATE LEAD TIMES *****
@@ -102,7 +126,7 @@ export class SeedInit implements InterfaceScript {
 
     const countryEntities = await Promise.all(
       selectedCountries.map(
-        async (country): Promise<CountryEntity> => {
+        async (country: Country): Promise<CountryEntity> => {
           const countryEntity = new CountryEntity();
           countryEntity.countryCodeISO3 = country.countryCodeISO3;
           countryEntity.countryCodeISO2 = country.countryCodeISO2;
@@ -119,7 +143,9 @@ export class SeedInit implements InterfaceScript {
               }),
           });
           countryEntity.countryLogos = country.countryLogos;
-          countryEntity.countryBoundingBox = country.countryBoundingBox;
+          countryEntity.countryBoundingBox = JSON.parse(
+            JSON.stringify(country.countryBoundingBox),
+          );
           countryEntity.notificationInfo = await this.createNotificationInfo(
             country.countryCodeISO3,
           );
