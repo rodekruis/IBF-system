@@ -42,10 +42,6 @@ export class CountryService {
     this.filterCountriesByUser(user);
   };
 
-  // private onGetAllCountries = () => (countries) => {
-  //   this.countries = countries;
-  // };
-
   private filterCountryByCountryCodeISO3 = (countryCodeISO3) => (country) =>
     country.countryCodeISO3 === countryCodeISO3;
 
@@ -62,7 +58,9 @@ export class CountryService {
     if (!user || !user.countries) {
       this.countries = [];
     } else {
-      this.countries = this.countries.filter(this.filterCountryByUser(user));
+      this.countries = this.countries
+        .filter(this.filterCountryByUser(user))
+        .sort((a, b) => (a.countryName > b.countryName ? 1 : -1));
       if (this.countries.length > 0) {
         this.selectCountry(this.countries[0].countryCodeISO3);
       }
