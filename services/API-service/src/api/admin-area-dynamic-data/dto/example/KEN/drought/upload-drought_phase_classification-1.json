@@ -1,38 +1,38 @@
 [
   {
     "placeCode": "KE002",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE009",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE010",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE011",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE023",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE025",
-    "mount": 2.0
+    "amount": 2.0
   },
   {
     "placeCode": "KE030",
-    "mount": 2.0
+    "amount": 2.0
   },
   {
     "placeCode": "KE033",
-    "mount": 2.0
+    "amount": 2.0
   },
   {
     "placeCode": "KE034",
-    "mount": 2.0
+    "amount": 2.0
   }
 ]

@@ -1,86 +1,86 @@
 [
   {
     "placeCode": "KE002",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE003",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE004",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE005",
-    "mount": 4.0
+    "amount": 4.0
   },
   {
     "placeCode": "KE006",
-    "mount": 4.0
+    "amount": 4.0
   },
   {
     "placeCode": "KE007",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE008",
-    "mount": 4.0
+    "amount": 4.0
   },
   {
     "placeCode": "KE009",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE010",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE011",
-    "mount": 2.0
+    "amount": 2.0
   },
   {
     "placeCode": "KE012",
-    "mount": 3.0
+    "amount": 3.0
   },
   {
     "placeCode": "KE014",
-    "mount": 5.0
+    "amount": 5.0
   },
   {
     "placeCode": "KE015",
-    "mount": 5.0
+    "amount": 5.0
   },
   {
     "placeCode": "KE017",
-    "mount": 4.0
+    "amount": 4.0
   },
   {
     "placeCode": "KE019",
-    "mount": 5.0
+    "amount": 5.0
   },
   {
     "placeCode": "KE023",
-    "mount": 5.0
+    "amount": 5.0
   },
   {
     "placeCode": "KE025",
-    "mount": 5.0
+    "amount": 5.0
   },
   {
     "placeCode": "KE030",
-    "mount": 4.0
+    "amount": 4.0
   },
   {
     "placeCode": "KE031",
-    "mount": 5.0
+    "amount": 5.0
   },
   {
     "placeCode": "KE033",
-    "mount": 5.0
+    "amount": 5.0
   },
   {
     "placeCode": "KE034",
-    "mount": 5.0
+    "amount": 5.0
   }
 ]
