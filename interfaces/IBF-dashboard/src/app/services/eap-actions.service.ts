@@ -80,11 +80,13 @@ export class EapActionsService {
       this.formatDates(area);
       this.filterEapActionsByMonth(area);
       area.eapActions.forEach((action) => {
-        action.monthLong = DateTime.utc(
-          2022, // year does not matter, this is just about converting month-number to month-name
-          action.month === 12 ? 1 : action.month + 1, // The due-by date of actions lies one month later then when it's added
-          1,
-        ).monthLong;
+        action.monthLong = action.month
+          ? DateTime.utc(
+              2022, // year does not matter, this is just about converting month-number to month-name
+              action.month === 12 ? 1 : action.month + 1, // The due-by date of actions lies one month later then when it's added
+              1,
+            ).monthLong
+          : null;
       });
     });
     this.triggeredAreaSubject.next(this.triggeredAreas);
@@ -126,7 +128,7 @@ export class EapActionsService {
 
     const currentPeriod = periods.find((p) => p.includes(currentMonth));
 
-    triggeredArea.filteredEapActions = triggeredArea.eapActions
+    triggeredArea.eapActions = triggeredArea.eapActions
       .filter((action) =>
         this.showMonthlyAction(action.month, currentMonth, currentPeriod),
       )

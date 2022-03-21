@@ -224,7 +224,7 @@
             >
               <ion-note
                 size="small"
-                *ngIf="area?.filteredEapActions as actions"
+                *ngIf="area?.eapActions as actions"
               >
                 <span *ngIf="forecastInfo.length"
                   >{{
@@ -254,7 +254,7 @@
         </ion-row>
         <ion-list class="background-light">
           <ion-item
-            *ngFor="let action of area.filteredEapActions"
+            *ngFor="let action of area.eapActions"
             class="ion-no-padding"
           >
             <ion-checkbox
