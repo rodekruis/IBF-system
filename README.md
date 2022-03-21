@@ -199,8 +199,10 @@ published release. This takes a while (approx 20 mins) to update.
 
 - Make sure to verify if the [environment variables](./example.env) are
   appropriately set on the VM.
+- SSH into the production server
 - Manually run the [deploy script](./tools/deploy.sh) with the tag which
   should be deployed for the specific country.
+- In case of issues with the api-service restart after deployment has finished, check the [API-service section](/docs/TROUBLESHOOT.md#api-service) of the TROUBLESHOOT file
 
 ## Contributing to IBF
 
