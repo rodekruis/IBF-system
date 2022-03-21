@@ -1,3 +1,32 @@
+## [0.141.3](https://github.com/rodekruis/IBF-system/compare/v0.141.2...v0.141.3) (2022-03-21)
+
+
+### Bug Fixes
+
+* update readme deploy info AB[#12989](https://github.com/rodekruis/IBF-system/issues/12989) ([eb5d434](https://github.com/rodekruis/IBF-system/commit/eb5d4347c6fe962c6be26853f9567c4ef023075f))
+
+
+
+## [0.141.2](https://github.com/rodekruis/IBF-system/compare/v0.141.1...v0.141.2) (2022-03-21)
+
+
+### Bug Fixes
+
+* process pdf-links in code + order countries alphabetically AB[#12462](https://github.com/rodekruis/IBF-system/issues/12462) ([57a3dc8](https://github.com/rodekruis/IBF-system/commit/57a3dc81cd3103857a276864928493a88ff2cf61))
+* typo AB[#12478](https://github.com/rodekruis/IBF-system/issues/12478) ([6a2e20d](https://github.com/rodekruis/IBF-system/commit/6a2e20dc361043fc5aa7c1cb35e52d92972debb8))
+* update mock data ken drought AB[#12478](https://github.com/rodekruis/IBF-system/issues/12478) ([4b0a6e1](https://github.com/rodekruis/IBF-system/commit/4b0a6e158e9e9a5352f70072b457b22072803585))
+
+
+
+## [0.141.1](https://github.com/rodekruis/IBF-system/compare/v0.141.0...v0.141.1) (2022-03-21)
+
+
+### Bug Fixes
+
+* show static eap-actions AB[#13010](https://github.com/rodekruis/IBF-system/issues/13010) ([97ff7d8](https://github.com/rodekruis/IBF-system/commit/97ff7d8ccf9fcf3c4ab196856730d5198863191f))
+
+
+
 # [0.141.0](https://github.com/rodekruis/IBF-system/compare/v0.140.0...v0.141.0) (2022-03-18)
 
 
@@ -122,42 +151,6 @@
 * new grey speech bubble on stopped area AB[#12611](https://github.com/rodekruis/IBF-system/issues/12611) ([3bd15bb](https://github.com/rodekruis/IBF-system/commit/3bd15bb2674b2a3544a78f951af29c0c4ffdcda8))
 * redirect 'close event' to 'stop trigger' AB[#12608](https://github.com/rodekruis/IBF-system/issues/12608) AB[#12609](https://github.com/rodekruis/IBF-system/issues/12609) ([9e9fa12](https://github.com/rodekruis/IBF-system/commit/9e9fa12709fe0800f2a9201a22a2248d9ecbcff6))
 * set dynamic aggregate values to 0 for stopped areas AB[#12613](https://github.com/rodekruis/IBF-system/issues/12613) ([299063a](https://github.com/rodekruis/IBF-system/commit/299063a9242ce13e7c6f04aa37b63840325fbc72))
-
-
-
-## [0.137.2](https://github.com/rodekruis/IBF-system/compare/v0.137.1...v0.137.2) (2022-02-28)
-
-
-### Bug Fixes
-
-* change shadow variable name AB[#12622](https://github.com/rodekruis/IBF-system/issues/12622) ([a3fcf56](https://github.com/rodekruis/IBF-system/commit/a3fcf566dca6a3c15023bdf52026144da7f2ff3c))
-* updates intervention layers AB[#12592](https://github.com/rodekruis/IBF-system/issues/12592) ([d7c5bb1](https://github.com/rodekruis/IBF-system/commit/d7c5bb1ec5989068ea36e328a59bf967054984dd))
-
-
-
-## [0.137.1](https://github.com/rodekruis/IBF-system/compare/v0.137.0...v0.137.1) (2022-02-28)
-
-
-### Bug Fixes
-
-* en.json format AB[#12607](https://github.com/rodekruis/IBF-system/issues/12607) ([5b3527d](https://github.com/rodekruis/IBF-system/commit/5b3527d22765a11966679158ec85715ea09ea48a))
-* rewrite xlsx and en.json files AB[#12607](https://github.com/rodekruis/IBF-system/issues/12607) ([6c3b88d](https://github.com/rodekruis/IBF-system/commit/6c3b88d2054a274407b2e2de1b0a36c76f02444f))
-
-
-
-# [0.137.0](https://github.com/rodekruis/IBF-system/compare/v0.136.0...v0.137.0) (2022-02-25)
-
-
-### Bug Fixes
-
-* add step to popup readme AB[#12440](https://github.com/rodekruis/IBF-system/issues/12440) ([5e58b42](https://github.com/rodekruis/IBF-system/commit/5e58b429cf976d6952308f749dfb29265a0c32d9))
-
-
-### Features
-
-* add mock data AB[#12472](https://github.com/rodekruis/IBF-system/issues/12472) ([001d31b](https://github.com/rodekruis/IBF-system/commit/001d31b5e7fb09dadf81038c8b497e691e468083))
-* add new layers AB[#12471](https://github.com/rodekruis/IBF-system/issues/12471) ([73fe744](https://github.com/rodekruis/IBF-system/commit/73fe74405275bd0f1f767adcfe76a14961e35320))
-* update info popup xlsx AB[#12473](https://github.com/rodekruis/IBF-system/issues/12473) ([e088701](https://github.com/rodekruis/IBF-system/commit/e08870131f83aa5cfff7df8bfc76da3038e15e0c))
 
 
 

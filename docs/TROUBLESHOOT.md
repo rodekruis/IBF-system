@@ -59,7 +59,16 @@ You can refer this official docker document [here](https://docs.docker.com/engin
 
 ## Deploy
 
-### API-service
+### Running deploy-script not in sudo mode
+
+Currently the deploy-script must be run in sudo mode. This is aimed to be imrpoved. If you mistakenly run it as a normal user, you need the following to get it working again.
+- sudo -i
+- cd /home/ibf-user/IBF-system
+- git reset --hard <version-number>
+- . ./tools/deploy.sh <version-number>
+- chown -R ibf-user:ibf-users .
+
+### Install packages in API-service
 
 Sometimes there is an issue with installing all packages for ibf-api-service. You run into a 'ts-node not found' error in the logs of the ibf-api-service.
 - sudo -i

@@ -222,10 +222,7 @@
               *ngIf="disasterTypeSettings?.showMonthlyEapActions"
               class="ion-margin-bottom"
             >
-              <ion-note
-                size="small"
-                *ngIf="area?.filteredEapActions as actions"
-              >
+              <ion-note size="small" *ngIf="area?.eapActions as actions">
                 <span *ngIf="forecastInfo.length"
                   >{{
                     'chat-component.drought.active-event.forecast-info.opening'
@@ -254,7 +251,7 @@
         </ion-row>
         <ion-list class="background-light">
           <ion-item
-            *ngFor="let action of area.filteredEapActions"
+            *ngFor="let action of area.eapActions"
             class="ion-no-padding"
           >
             <ion-checkbox
