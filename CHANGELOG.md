@@ -1,3 +1,12 @@
+## [0.141.4](https://github.com/rodekruis/IBF-system/compare/v0.141.3...v0.141.4) (2022-03-21)
+
+
+### Bug Fixes
+
+* merge versions xlsx AB[#13015](https://github.com/rodekruis/IBF-system/issues/13015) ([a2c8d09](https://github.com/rodekruis/IBF-system/commit/a2c8d09320d3d2c34f0e507ca9befce30bf5657c))
+
+
+
 ## [0.141.3](https://github.com/rodekruis/IBF-system/compare/v0.141.2...v0.141.3) (2022-03-21)
 
 
@@ -131,26 +140,6 @@
 ### Features
 
 * overview of stopped and active triggered areas AB[#12628](https://github.com/rodekruis/IBF-system/issues/12628) AB[#12629](https://github.com/rodekruis/IBF-system/issues/12629) ([08bfe68](https://github.com/rodekruis/IBF-system/commit/08bfe68a9824ede5e51a000b1a9022a47e0c8215))
-
-
-
-# [0.138.0](https://github.com/rodekruis/IBF-system/compare/v0.137.2...v0.138.0) (2022-03-04)
-
-
-### Bug Fixes
-
-* also change this occurence of same bug AB[#12631](https://github.com/rodekruis/IBF-system/issues/12631) ([fd27e9c](https://github.com/rodekruis/IBF-system/commit/fd27e9ce96cdb51ce015428d70e8c323621846cd))
-* wrong user in stopped chat bubble AB[#12631](https://github.com/rodekruis/IBF-system/issues/12631) ([714234b](https://github.com/rodekruis/IBF-system/commit/714234b0714584b594febe7ff0e1d000c5278121))
-
-
-### Features
-
-* add black border to stopped area AB[#12632](https://github.com/rodekruis/IBF-system/issues/12632) ([c6fc313](https://github.com/rodekruis/IBF-system/commit/c6fc31384e882492a6adbc048f823b8bbc0e4625))
-* closing events automatically is different from stopping AB[#12617](https://github.com/rodekruis/IBF-system/issues/12617) AB[#12616](https://github.com/rodekruis/IBF-system/issues/12616) ([88d6f41](https://github.com/rodekruis/IBF-system/commit/88d6f41901f8b5dc8be4313b9a855c3493b41341))
-* color stopped areas grey in map AB[#12612](https://github.com/rodekruis/IBF-system/issues/12612) ([bda0792](https://github.com/rodekruis/IBF-system/commit/bda0792282d6fa5595cbbbe102b18b36b66d3807))
-* new grey speech bubble on stopped area AB[#12611](https://github.com/rodekruis/IBF-system/issues/12611) ([3bd15bb](https://github.com/rodekruis/IBF-system/commit/3bd15bb2674b2a3544a78f951af29c0c4ffdcda8))
-* redirect 'close event' to 'stop trigger' AB[#12608](https://github.com/rodekruis/IBF-system/issues/12608) AB[#12609](https://github.com/rodekruis/IBF-system/issues/12609) ([9e9fa12](https://github.com/rodekruis/IBF-system/commit/9e9fa12709fe0800f2a9201a22a2248d9ecbcff6))
-* set dynamic aggregate values to 0 for stopped areas AB[#12613](https://github.com/rodekruis/IBF-system/issues/12613) ([299063a](https://github.com/rodekruis/IBF-system/commit/299063a9242ce13e7c6f04aa37b63840325fbc72))
 
 
 
