@@ -1,3 +1,12 @@
+## [0.141.3](https://github.com/rodekruis/IBF-system/compare/v0.141.2...v0.141.3) (2022-03-21)
+
+
+### Bug Fixes
+
+* update readme deploy info AB[#12989](https://github.com/rodekruis/IBF-system/issues/12989) ([eb5d434](https://github.com/rodekruis/IBF-system/commit/eb5d4347c6fe962c6be26853f9567c4ef023075f))
+
+
+
 ## [0.141.2](https://github.com/rodekruis/IBF-system/compare/v0.141.1...v0.141.2) (2022-03-21)
 
 
@@ -142,16 +151,6 @@
 * new grey speech bubble on stopped area AB[#12611](https://github.com/rodekruis/IBF-system/issues/12611) ([3bd15bb](https://github.com/rodekruis/IBF-system/commit/3bd15bb2674b2a3544a78f951af29c0c4ffdcda8))
 * redirect 'close event' to 'stop trigger' AB[#12608](https://github.com/rodekruis/IBF-system/issues/12608) AB[#12609](https://github.com/rodekruis/IBF-system/issues/12609) ([9e9fa12](https://github.com/rodekruis/IBF-system/commit/9e9fa12709fe0800f2a9201a22a2248d9ecbcff6))
 * set dynamic aggregate values to 0 for stopped areas AB[#12613](https://github.com/rodekruis/IBF-system/issues/12613) ([299063a](https://github.com/rodekruis/IBF-system/commit/299063a9242ce13e7c6f04aa37b63840325fbc72))
-
-
-
-## [0.137.2](https://github.com/rodekruis/IBF-system/compare/v0.137.1...v0.137.2) (2022-02-28)
-
-
-### Bug Fixes
-
-* change shadow variable name AB[#12622](https://github.com/rodekruis/IBF-system/issues/12622) ([a3fcf56](https://github.com/rodekruis/IBF-system/commit/a3fcf566dca6a3c15023bdf52026144da7f2ff3c))
-* updates intervention layers AB[#12592](https://github.com/rodekruis/IBF-system/issues/12592) ([d7c5bb1](https://github.com/rodekruis/IBF-system/commit/d7c5bb1ec5989068ea36e328a59bf967054984dd))
 
 
 
