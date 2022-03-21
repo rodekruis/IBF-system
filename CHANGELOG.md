@@ -1,3 +1,14 @@
+## [0.141.2](https://github.com/rodekruis/IBF-system/compare/v0.141.1...v0.141.2) (2022-03-21)
+
+
+### Bug Fixes
+
+* process pdf-links in code + order countries alphabetically AB[#12462](https://github.com/rodekruis/IBF-system/issues/12462) ([57a3dc8](https://github.com/rodekruis/IBF-system/commit/57a3dc81cd3103857a276864928493a88ff2cf61))
+* typo AB[#12478](https://github.com/rodekruis/IBF-system/issues/12478) ([6a2e20d](https://github.com/rodekruis/IBF-system/commit/6a2e20dc361043fc5aa7c1cb35e52d92972debb8))
+* update mock data ken drought AB[#12478](https://github.com/rodekruis/IBF-system/issues/12478) ([4b0a6e1](https://github.com/rodekruis/IBF-system/commit/4b0a6e158e9e9a5352f70072b457b22072803585))
+
+
+
 ## [0.141.1](https://github.com/rodekruis/IBF-system/compare/v0.141.0...v0.141.1) (2022-03-21)
 
 
@@ -141,16 +152,6 @@
 
 * change shadow variable name AB[#12622](https://github.com/rodekruis/IBF-system/issues/12622) ([a3fcf56](https://github.com/rodekruis/IBF-system/commit/a3fcf566dca6a3c15023bdf52026144da7f2ff3c))
 * updates intervention layers AB[#12592](https://github.com/rodekruis/IBF-system/issues/12592) ([d7c5bb1](https://github.com/rodekruis/IBF-system/commit/d7c5bb1ec5989068ea36e328a59bf967054984dd))
-
-
-
-## [0.137.1](https://github.com/rodekruis/IBF-system/compare/v0.137.0...v0.137.1) (2022-02-28)
-
-
-### Bug Fixes
-
-* en.json format AB[#12607](https://github.com/rodekruis/IBF-system/issues/12607) ([5b3527d](https://github.com/rodekruis/IBF-system/commit/5b3527d22765a11966679158ec85715ea09ea48a))
-* rewrite xlsx and en.json files AB[#12607](https://github.com/rodekruis/IBF-system/issues/12607) ([6c3b88d](https://github.com/rodekruis/IBF-system/commit/6c3b88d2054a274407b2e2de1b0a36c76f02444f))
 
 
 
