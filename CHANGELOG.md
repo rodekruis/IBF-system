@@ -1,3 +1,12 @@
+## [0.141.1](https://github.com/rodekruis/IBF-system/compare/v0.141.0...v0.141.1) (2022-03-21)
+
+
+### Bug Fixes
+
+* show static eap-actions AB[#13010](https://github.com/rodekruis/IBF-system/issues/13010) ([97ff7d8](https://github.com/rodekruis/IBF-system/commit/97ff7d8ccf9fcf3c4ab196856730d5198863191f))
+
+
+
 # [0.141.0](https://github.com/rodekruis/IBF-system/compare/v0.140.0...v0.141.0) (2022-03-18)
 
 
@@ -142,22 +151,6 @@
 
 * en.json format AB[#12607](https://github.com/rodekruis/IBF-system/issues/12607) ([5b3527d](https://github.com/rodekruis/IBF-system/commit/5b3527d22765a11966679158ec85715ea09ea48a))
 * rewrite xlsx and en.json files AB[#12607](https://github.com/rodekruis/IBF-system/issues/12607) ([6c3b88d](https://github.com/rodekruis/IBF-system/commit/6c3b88d2054a274407b2e2de1b0a36c76f02444f))
-
-
-
-# [0.137.0](https://github.com/rodekruis/IBF-system/compare/v0.136.0...v0.137.0) (2022-02-25)
-
-
-### Bug Fixes
-
-* add step to popup readme AB[#12440](https://github.com/rodekruis/IBF-system/issues/12440) ([5e58b42](https://github.com/rodekruis/IBF-system/commit/5e58b429cf976d6952308f749dfb29265a0c32d9))
-
-
-### Features
-
-* add mock data AB[#12472](https://github.com/rodekruis/IBF-system/issues/12472) ([001d31b](https://github.com/rodekruis/IBF-system/commit/001d31b5e7fb09dadf81038c8b497e691e468083))
-* add new layers AB[#12471](https://github.com/rodekruis/IBF-system/issues/12471) ([73fe744](https://github.com/rodekruis/IBF-system/commit/73fe74405275bd0f1f767adcfe76a14961e35320))
-* update info popup xlsx AB[#12473](https://github.com/rodekruis/IBF-system/issues/12473) ([e088701](https://github.com/rodekruis/IBF-system/commit/e08870131f83aa5cfff7df8bfc76da3038e15e0c))
 
 
 
