@@ -192,17 +192,19 @@ published release. This takes a while (approx 20 mins) to update.
 - When a [release](#release-checklist) is published, it is automatically
   deployed to the staging-server.
 - Wait until deploy is ready (by checking when the new version-number has appeared on the login-page of IBF-dashboard)
+- Note that the deployment logs can be followed in `/var/tmp/ibf-<yyyy-mm-dd>.stdout.log`
 - Run seed-script
 - Run 'mock-all' endpoint
 
 ### To "production" environment
 
+- SSH into the production server
 - Make sure to verify if the [environment variables](./example.env) are
   appropriately set on the VM.
-- SSH into the production server
+- Currently the deploy-script must be run in sudo-mode. See [this section](/docs/TROUBLESHOOT.md#running-deploy-script-not-in-sudo-mode) of the TROUBLESHOOT guide.
 - Manually run the [deploy script](./tools/deploy.sh) with the tag which
   should be deployed for the specific country.
-- In case of issues with the api-service restart after deployment has finished, check the [API-service section](/docs/TROUBLESHOOT.md#api-service) of the TROUBLESHOOT file
+- Sometimes npm packages are not all automatically correctly installed. In case of issues with the api-service restart after deployment has finished, check the [this section](/docs/TROUBLESHOOT.md#install-packages-in-api-service) of the TROUBLESHOOT guide
 
 ## Contributing to IBF
 
