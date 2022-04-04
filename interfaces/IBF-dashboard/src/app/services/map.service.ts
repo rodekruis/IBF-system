@@ -1087,8 +1087,8 @@ export class MapService {
           ? adminRegion.properties[colorProperty]
           : typeof adminRegion.properties.indicators !== 'undefined'
           ? adminRegion.properties.indicators[colorProperty]
-          : null;
-      if (colorPropertyValue) {
+          : 'undefined';
+      if (colorPropertyValue !== 'undefined') {
         const fillColor = this.getAdminRegionFillColor(
           colorPropertyValue,
           colorThreshold,
