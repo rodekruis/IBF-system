@@ -1,0 +1,350 @@
+[
+  {
+    "placeCode": "PH012800000",
+    "amount": 100000
+  },
+  {
+    "placeCode": "PH012900000",
+    "amount": 250000
+  },
+  {
+    "placeCode": "PH013300000",
+    "amount": 124000
+  },
+  {
+    "placeCode": "PH015500000",
+    "amount": 26000
+  },
+  {
+    "placeCode": "PH020900000",
+    "amount": 20000
+  },
+  {
+    "placeCode": "PH021500000",
+    "amount": 400000
+  },
+  {
+    "placeCode": "PH023100000",
+    "amount": 87000
+  },
+  {
+    "placeCode": "PH025000000",
+    "amount": 150000
+  },
+  {
+    "placeCode": "PH025700000",
+    "amount": 63000
+  },
+  {
+    "placeCode": "PH030800000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH031400000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH034900000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH035400000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH036900000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH037100000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH037700000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH041000000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH042100000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH043400000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH045600000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH045800000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH050500000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH051600000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH051700000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH052000000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH054100000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH056200000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH060400000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH060600000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH061900000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH063000000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH064500000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH067900000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH071200000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH072200000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH074600000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH076100000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH082600000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH083700000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH084800000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH086000000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH086400000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH087800000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH097200000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH097300000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH098300000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH099700000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH101300000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH101800000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH103500000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH104200000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH104300000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH112300000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH112400000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH112500000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH118200000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH118600000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH124700000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH126300000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH126500000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH128000000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH129800000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH133900000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH137400000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH137500000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH137600000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH140100000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH141100000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH142700000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH143200000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH144400000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH148100000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH150700000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH153600000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH153800000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH156600000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH157000000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH160200000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH160300000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH166700000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH166800000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH168500000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH174000000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH175100000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH175200000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH175300000",
+    "amount": 0
+  },
+  {
+    "placeCode": "PH175900000",
+    "amount": 0
+  }
+]
