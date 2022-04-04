@@ -186,6 +186,24 @@ export class SeedAdminAreaData implements InterfaceScript {
         };
       });
       await this.adminAreaDataRepository.save(floodVulnerabilityDataArray);
+
+      // Drought vulnerability
+      const droughtVulnerabilityFilename = `./src/scripts/git-lfs/admin-area-data/drought_vulnerability_KEN.csv`;
+      const droughtVulnerabilityData = await this.seedHelper.getCsvData(
+        droughtVulnerabilityFilename,
+      );
+      const droughtVulnerabilityDataArray = droughtVulnerabilityData.map(
+        area => {
+          return {
+            countryCodeISO3: countryCodeISO3,
+            adminLevel: area['adminLevel'],
+            placeCode: area['placeCode'],
+            indicator: area['indicator'],
+            value: area['value'],
+          };
+        },
+      );
+      await this.adminAreaDataRepository.save(droughtVulnerabilityDataArray);
     }
 
     // ETH
