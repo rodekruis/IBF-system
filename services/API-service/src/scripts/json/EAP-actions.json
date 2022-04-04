@@ -875,28 +875,10 @@
     "countryCodeISO3": "PHL",
     "disasterType": "floods",
     "areaOfFocus": {
-      "id": "inclusion"
-    },
-    "action": "inclusion-99",
-    "label": "Test action"
-  },
-  {
-    "countryCodeISO3": "PHL",
-    "disasterType": "floods",
-    "areaOfFocus": {
       "id": "drr"
     },
-    "action": "drr-99",
-    "label": "Awareness raising"
-  },
-  {
-    "countryCodeISO3": "PHL",
-    "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-99",
-    "label": "Community sensitization and awareness (health risk, preventive measures of floods, hygiene)"
+    "action": "drr-1",
+    "label": "DRR preliminary action (dummy)"
   },
   {
     "countryCodeISO3": "PHL",
@@ -904,8 +886,8 @@
     "areaOfFocus": {
       "id": "shelter"
     },
-    "action": "shelter-99",
-    "label": "Cleaning water sources/desilting drainage channels/dredging in Urban areas"
+    "action": "shelter-1",
+    "label": "Shelter preliminary action (dummy)"
   },
   {
     "countryCodeISO3": "PHL",
@@ -913,8 +895,35 @@
     "areaOfFocus": {
       "id": "livelihood"
     },
-    "action": "livelihood-99",
-    "label": "Livestock protection such as pre-identification of alternative pasturelands and relocation of kraals to elevated grounds."
+    "action": "livelihood-1",
+    "label": "Livelihood preliminary action (dummy)"
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-1",
+    "label": "Health preliminary action (dummy)"
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-1",
+    "label": "WASH preliminary action (dummy)"
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "inclusion"
+    },
+    "action": "inclusion-1",
+    "label": "Inclusion preliminary action (dummy)"
   },
   {
     "countryCodeISO3": "PHL",
@@ -922,8 +931,8 @@
     "areaOfFocus": {
       "id": "migration"
     },
-    "action": "migration-99",
-    "label": "Migration preliminary action"
+    "action": "migration-1",
+    "label": "Migration preliminary action (dummy)"
   },
   {
     "countryCodeISO3": "ZWE",
