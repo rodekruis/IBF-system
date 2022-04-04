@@ -224,7 +224,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       this.disasterTypeLabel = this.disasterType.label;
       this.disasterTypeName = this.disasterType.disasterType;
-      let actionIndicator = this.indicators.find((indicator) => {
+      const actionIndicator = this.indicators.find((indicator) => {
         return indicator.name === this.disasterType.actionsUnit;
       });
       this.actionIndicatorLabel = actionIndicator?.label.toLowerCase();
