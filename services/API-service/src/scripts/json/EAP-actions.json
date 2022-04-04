@@ -872,6 +872,60 @@
     "label": "Protection, gender and inclusion: ensure all staff is trained, distribute guidelines, assess minimum standards at DEMUs and welfare desks"
   },
   {
+    "countryCodeISO3": "PHL",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "inclusion"
+    },
+    "action": "inclusion-99",
+    "label": "Test action"
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-99",
+    "label": "Awareness raising"
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-99",
+    "label": "Community sensitization and awareness (health risk, preventive measures of floods, hygiene)"
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "shelter"
+    },
+    "action": "shelter-99",
+    "label": "Cleaning water sources/desilting drainage channels/dredging in Urban areas"
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-99",
+    "label": "Livestock protection such as pre-identification of alternative pasturelands and relocation of kraals to elevated grounds."
+  },
+  {
+    "countryCodeISO3": "PHL",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "migration"
+    },
+    "action": "migration-99",
+    "label": "Migration preliminary action"
+  },
+  {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
     "areaOfFocus": {
