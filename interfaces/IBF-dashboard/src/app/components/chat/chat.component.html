@@ -106,6 +106,7 @@
           filteredActiveAreas.length === 0
         "
         isConnected="true"
+        [isTriggered]="true"
       >
         <p
           [translate]="
@@ -185,6 +186,7 @@
       actor="self"
       *ngFor="let area of filteredActiveAreas; first as isFirst"
       [isConnected]="!isFirst"
+      [isTriggered]="true"
     >
       <form (submit)="submitEapAction(area.placeCode)">
         <ion-row>
