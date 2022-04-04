@@ -1,0 +1,16 @@
+<layer>
+  <name>flood_extent_5-day_PHL</name>
+  <id>LayerInfoImpl-4543eaa1:17ff4814709:-7fea</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-4543eaa1:17ff4814709:-7feb</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2022-04-04 13:03:40.243 UTC</dateCreated>
+</layer>
