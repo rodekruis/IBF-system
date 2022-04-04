@@ -1082,32 +1082,38 @@ export class MapService {
     );
 
     return (adminRegion) => {
-      const fillColor = this.getAdminRegionFillColor(
+      const colorPropertyValue =
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
-          : adminRegion.properties.indicators[colorProperty],
-        colorThreshold,
-        adminRegion.properties.placeCode,
-      );
-      const fillOpacity = this.getAdminRegionFillOpacity(
-        layer,
-        adminRegion.properties.placeCode,
-      );
-      let weight = this.getAdminRegionWeight(layer);
-      let color = this.getAdminRegionColor(layer);
-      let dashArray;
-      if (adminRegion.properties.placeCode.includes('Disputed')) {
-        dashArray = this.disputedBorderStyle.dashArray;
-        weight = this.disputedBorderStyle.weight;
-        color = this.disputedBorderStyle.color;
+          : typeof adminRegion.properties.indicators !== 'undefined'
+          ? adminRegion.properties.indicators[colorProperty]
+          : null;
+      if (colorPropertyValue) {
+        const fillColor = this.getAdminRegionFillColor(
+          colorPropertyValue,
+          colorThreshold,
+          adminRegion.properties.placeCode,
+        );
+        const fillOpacity = this.getAdminRegionFillOpacity(
+          layer,
+          adminRegion.properties.placeCode,
+        );
+        let weight = this.getAdminRegionWeight(layer);
+        let color = this.getAdminRegionColor(layer);
+        let dashArray;
+        if (adminRegion.properties.placeCode.includes('Disputed')) {
+          dashArray = this.disputedBorderStyle.dashArray;
+          weight = this.disputedBorderStyle.weight;
+          color = this.disputedBorderStyle.color;
+        }
+        return {
+          fillColor,
+          fillOpacity,
+          weight,
+          color,
+          dashArray,
+        };
       }
-      return {
-        fillColor,
-        fillOpacity,
-        weight,
-        color,
-        dashArray,
-      };
     };
   };
 }
