@@ -340,7 +340,7 @@
     "countryCodeISO2": "PH",
     "countryName": "Philippines",
     "countryStatus": "active",
-    "disasterTypes": ["dengue", "typhoon"],
+    "disasterTypes": ["dengue", "typhoon", "floods"],
     "countryDisasterSettings": [
       {
         "disasterType": "dengue",
@@ -524,6 +524,27 @@
           "168-hour"
         ],
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=019cd8c5dca4240d5bacca0756bbf6703&authkey=AUnDxa6EBrEIYrzZGBbKkGE&expiration=2022-10-17T22%3A00%3A00.000Z&e=caLZ0C"
+      },
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 2,
+        "activeLeadTimes": ["5-day"],
+        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/Doc.aspx?sourcedoc=%7B7F74266C-B7EE-4610-9989-85F453CDC2F7%7D&file=EAP%20Flood_Philippines_2020_v4.docx",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-gray",
+            "valueLow": 0,
+            "valueHigh": 0.8
+          },
+          "max": {
+            "label": "Activate EAP",
+            "color": "ibf-trigger-alert-primary",
+            "valueLow": 0.8,
+            "valueHigh": 1.01
+          }
+        }
       }
     ],
     "adminRegionLabels": {
