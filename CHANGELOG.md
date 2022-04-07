@@ -1,3 +1,32 @@
+# [0.142.0](https://github.com/rodekruis/IBF-system/compare/v0.141.4...v0.142.0) (2022-04-04)
+
+
+### Bug Fixes
+
+* add countryCode column to facilitate upload via endpoint instead of seed AB[#13254](https://github.com/rodekruis/IBF-system/issues/13254) ([f10be2e](https://github.com/rodekruis/IBF-system/commit/f10be2e3817f28a28a6e7305cc2b839370130593))
+* align glofas mock data AB[#13113](https://github.com/rodekruis/IBF-system/issues/13113) ([329f260](https://github.com/rodekruis/IBF-system/commit/329f260b422dc2077f252d2bcfe95c50cd263e90))
+* blue color AB[#13257](https://github.com/rodekruis/IBF-system/issues/13257) ([32b93ef](https://github.com/rodekruis/IBF-system/commit/32b93efa3bbbded3db630b84b355dfab945fd6e5))
+* change default admlevel PHL floods to 2 AB[#13253](https://github.com/rodekruis/IBF-system/issues/13253) ([748567a](https://github.com/rodekruis/IBF-system/commit/748567aa0f209f68f746ec42a4512965553b5d17))
+* correct GLOFAS latlon AB[#13022](https://github.com/rodekruis/IBF-system/issues/13022) ([d6c88cf](https://github.com/rodekruis/IBF-system/commit/d6c88cfcc0f5b038f9fe81b205da2bb5697a5edf))
+* get indicator data after it loaded ([f50b622](https://github.com/rodekruis/IBF-system/commit/f50b622c8b1902dc1c0e4b10090ab504e9fadd75))
+* uniform eap-action names AB[#13021](https://github.com/rodekruis/IBF-system/issues/13021) ([5f11fff](https://github.com/rodekruis/IBF-system/commit/5f11fff7061eb06069e37c6ae4e8046aae8e1f8d))
+* update mock data AB[#13023](https://github.com/rodekruis/IBF-system/issues/13023) ([5065880](https://github.com/rodekruis/IBF-system/commit/50658807f11dcf90b1e200ac473bb234ad929701))
+* update readme deploy info AB[#12989](https://github.com/rodekruis/IBF-system/issues/12989) ([c5a25d1](https://github.com/rodekruis/IBF-system/commit/c5a25d1d01ebda5973b4df6abf5706dcff6bdc86))
+
+
+### Features
+
+* add dummy eap actions AB[#13021](https://github.com/rodekruis/IBF-system/issues/13021) ([a2d172b](https://github.com/rodekruis/IBF-system/commit/a2d172b2276f1dc4d01d40a574f7604eacf3b262))
+* add dummy population total AB[#13254](https://github.com/rodekruis/IBF-system/issues/13254) ([7c41cf0](https://github.com/rodekruis/IBF-system/commit/7c41cf022bcd705b2fdad243b598e2446f46d1a2))
+* add floods to PHL in countries.json AB[#13019](https://github.com/rodekruis/IBF-system/issues/13019) ([d50e2eb](https://github.com/rodekruis/IBF-system/commit/d50e2ebfe755106443178e3804b0e3765b0f1bb5))
+* add GLOFAS stations AB[#13022](https://github.com/rodekruis/IBF-system/issues/13022) ([144a965](https://github.com/rodekruis/IBF-system/commit/144a965d582df01f2178c60a88b8b3827943ab97))
+* add layers ([36dcb0b](https://github.com/rodekruis/IBF-system/commit/36dcb0be6341cc7c347d6a1f2ff54a52092aa46a))
+* add mock data AB[#13023](https://github.com/rodekruis/IBF-system/issues/13023) ([3725273](https://github.com/rodekruis/IBF-system/commit/372527364f3df54f5fa80cddb69de5a6ce8f77c3))
+* add PHL adm1 boundaries AB[#13113](https://github.com/rodekruis/IBF-system/issues/13113) ([d33ab1d](https://github.com/rodekruis/IBF-system/commit/d33ab1d12d6f23da7a6377ab99ae7df3a22b7dd3))
+* enable flood extent AB[#13252](https://github.com/rodekruis/IBF-system/issues/13252) ([ac11960](https://github.com/rodekruis/IBF-system/commit/ac11960a2e47f2d49d3ba15ad9a3e7c0087dec3a))
+
+
+
 ## [0.141.4](https://github.com/rodekruis/IBF-system/compare/v0.141.3...v0.141.4) (2022-03-21)
 
 
@@ -124,22 +153,6 @@
 * add intervention layers KEN drought to allowed input AB[#12733](https://github.com/rodekruis/IBF-system/issues/12733) ([51bb4e1](https://github.com/rodekruis/IBF-system/commit/51bb4e1e66aeaaeb897f545c2f35a9bdc896711f))
 * add missing country filter on getTriggeredAreas AB[#12707](https://github.com/rodekruis/IBF-system/issues/12707) ([ab101ff](https://github.com/rodekruis/IBF-system/commit/ab101ff565ed6df63a5c97766eb5414e1b0f3754))
 * old-event mode AB[#12707](https://github.com/rodekruis/IBF-system/issues/12707) ([aaefd16](https://github.com/rodekruis/IBF-system/commit/aaefd166b527c21963a156582c9210670fabe83e))
-
-
-
-# [0.139.0](https://github.com/rodekruis/IBF-system/compare/v0.138.0...v0.139.0) (2022-03-04)
-
-
-### Bug Fixes
-
-* updates AB[#12701](https://github.com/rodekruis/IBF-system/issues/12701) ([e988e3e](https://github.com/rodekruis/IBF-system/commit/e988e3e87afe49fef8b9f90a8017a7b0a665f5a8))
-* use active instead of triggered list AB[#12628](https://github.com/rodekruis/IBF-system/issues/12628) ([5d2bd5d](https://github.com/rodekruis/IBF-system/commit/5d2bd5d8ce3bd25565b99f55404152618ee078cf))
-* use alert instead of trigger also in header AB[#12701](https://github.com/rodekruis/IBF-system/issues/12701) ([66a1ad6](https://github.com/rodekruis/IBF-system/commit/66a1ad6b0dd382c38098578cf032b2def7cafaac))
-
-
-### Features
-
-* overview of stopped and active triggered areas AB[#12628](https://github.com/rodekruis/IBF-system/issues/12628) AB[#12629](https://github.com/rodekruis/IBF-system/issues/12629) ([08bfe68](https://github.com/rodekruis/IBF-system/commit/08bfe68a9824ede5e51a000b1a9022a47e0c8215))
 
 
 

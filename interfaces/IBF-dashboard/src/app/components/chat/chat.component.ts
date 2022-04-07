@@ -147,7 +147,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType.disasterType,
     );
-    this.setupChatText();
   };
 
   private onIndicatorChange = (indicators: Indicator[]) => {
@@ -225,9 +224,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       this.disasterTypeLabel = this.disasterType.label;
       this.disasterTypeName = this.disasterType.disasterType;
-      this.actionIndicatorLabel = this.indicators
-        .find((indicator) => indicator.name === this.disasterType.actionsUnit)
-        .label.toLowerCase();
+      const actionIndicator = this.indicators.find((indicator) => {
+        return indicator.name === this.disasterType.actionsUnit;
+      });
+      this.actionIndicatorLabel = actionIndicator?.label.toLowerCase();
       this.clearOutMessage = this.getClearOutMessage();
       this.getForecastInfo();
 
