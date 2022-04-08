@@ -1,3 +1,18 @@
+# [0.144.0](https://github.com/rodekruis/IBF-system/compare/v0.143.0...v0.144.0) (2022-04-08)
+
+
+### Bug Fixes
+
+* change PHL floods 5-day to 3-day AB[#13347](https://github.com/rodekruis/IBF-system/issues/13347) ([560006e](https://github.com/rodekruis/IBF-system/commit/560006e56a7d7dab0e42c8255c628fe0af2c0f7c))
+* update population PHL AB[#13261](https://github.com/rodekruis/IBF-system/issues/13261) ([d1037a4](https://github.com/rodekruis/IBF-system/commit/d1037a44971d9e7c546d2af17fc81f0789e7d12e))
+
+
+### Features
+
+* add drought vulnerability seed data KEN AB[#12725](https://github.com/rodekruis/IBF-system/issues/12725) ([edd39cd](https://github.com/rodekruis/IBF-system/commit/edd39cd6bd9ac079fac3a097f3d5a1010d78ca9e))
+
+
+
 # [0.143.0](https://github.com/rodekruis/IBF-system/compare/v0.142.0...v0.143.0) (2022-04-08)
 
 
@@ -141,15 +156,6 @@
 ### Bug Fixes
 
 * missing disaster-type in filter AB[#12841](https://github.com/rodekruis/IBF-system/issues/12841) ([0de5a0b](https://github.com/rodekruis/IBF-system/commit/0de5a0bf799c86569652e03bba59a7fe596213d2))
-
-
-
-## [0.139.2](https://github.com/rodekruis/IBF-system/compare/v0.139.1...v0.139.2) (2022-03-07)
-
-
-### Bug Fixes
-
-* put back use of 'closed' at various places AB[#12748](https://github.com/rodekruis/IBF-system/issues/12748) ([b6fd674](https://github.com/rodekruis/IBF-system/commit/b6fd6748ce0c4e00d490866eba11f874ff69e7bd))
 
 
 
