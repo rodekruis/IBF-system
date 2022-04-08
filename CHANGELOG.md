@@ -1,3 +1,19 @@
+# [0.145.0](https://github.com/rodekruis/IBF-system/compare/v0.144.0...v0.145.0) (2022-04-08)
+
+
+### Bug Fixes
+
+* clear placecode on area trigger stop AB[#13353](https://github.com/rodekruis/IBF-system/issues/13353) ([4f4885c](https://github.com/rodekruis/IBF-system/commit/4f4885c4f3cc2668ce9b695dc92e1c1a5458e162))
+
+
+### Features
+
+* change chatbox color to light purple AB[#13238](https://github.com/rodekruis/IBF-system/issues/13238) ([cfe88e3](https://github.com/rodekruis/IBF-system/commit/cfe88e3bea7aee701f37122aff59fb57bc048527))
+* red outline for speech bubbles related to triggered areas AB[#13246](https://github.com/rodekruis/IBF-system/issues/13246) ([8e2a349](https://github.com/rodekruis/IBF-system/commit/8e2a349d6a05e918939e7cf31790934947ea176f))
+* red text instead of red background for delayed model run AB[#13245](https://github.com/rodekruis/IBF-system/issues/13245) ([e70d284](https://github.com/rodekruis/IBF-system/commit/e70d28463cd13f557d1e571f1771d791078850b2))
+
+
+
 # [0.144.0](https://github.com/rodekruis/IBF-system/compare/v0.143.0...v0.144.0) (2022-04-08)
 
 
@@ -147,15 +163,6 @@
 * show clear-out warning AB[#12851](https://github.com/rodekruis/IBF-system/issues/12851) ([7ec1e87](https://github.com/rodekruis/IBF-system/commit/7ec1e87c6e80b7bcd0f2300f4c1ad11eb2df1461))
 * update chat OND, MAM text AB[#12724](https://github.com/rodekruis/IBF-system/issues/12724) ([9b588ac](https://github.com/rodekruis/IBF-system/commit/9b588ac925a3c26a2f9f0bd51e42a6a5e0a61d03))
 * update KEN droughts EAPs AB[#12740](https://github.com/rodekruis/IBF-system/issues/12740) ([6cc0c9a](https://github.com/rodekruis/IBF-system/commit/6cc0c9a4b955e5714ce4ea99a2cecd7754a48e17))
-
-
-
-## [0.139.3](https://github.com/rodekruis/IBF-system/compare/v0.139.2...v0.139.3) (2022-03-11)
-
-
-### Bug Fixes
-
-* missing disaster-type in filter AB[#12841](https://github.com/rodekruis/IBF-system/issues/12841) ([0de5a0b](https://github.com/rodekruis/IBF-system/commit/0de5a0bf799c86569652e03bba59a7fe596213d2))
 
 
 
