@@ -529,7 +529,7 @@
         "disasterType": "floods",
         "adminLevels": [1, 2, 3],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["5-day"],
+        "activeLeadTimes": ["3-day"],
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/Doc.aspx?sourcedoc=%7B7F74266C-B7EE-4610-9989-85F453CDC2F7%7D&file=EAP%20Flood_Philippines_2020_v4.docx",
         "eapAlertClasses": {
           "no": {
