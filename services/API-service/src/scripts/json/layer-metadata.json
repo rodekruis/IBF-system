@@ -114,7 +114,7 @@
     "active": "no"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,ZWE,PHL",
+    "country_codes": "UGA,ZMB,KEN,ETH,ZWE",
     "disasterTypes": ["floods", "drought"],
     "name": "waterpoints",
     "label": "Waterpoints",
