@@ -1,0 +1,133 @@
+<coverage>
+  <id>CoverageInfoImpl--3a14bddf:1800809b566:-7f54</id>
+  <name>riceland_PHL</name>
+  <nativeName>phl_riceland</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl-48cab08a:175ace47603:-7ffa</id>
+  </namespace>
+  <title>riceland_PHL</title>
+  <description>Generated from GeoTIFF</description>
+  <keywords>
+    <string>phl_riceland</string>
+    <string>WCS</string>
+    <string>GeoTIFF</string>
+  </keywords>
+  <nativeCRS class="projected">PROJCS[&quot;WGS 84 / UTM zone 51N&quot;, 
+  GEOGCS[&quot;WGS 84&quot;, 
+    DATUM[&quot;World Geodetic System 1984&quot;, 
+      SPHEROID[&quot;WGS 84&quot;, 6378137.0, 298.257223563, AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]], 
+      AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]], 
+    PRIMEM[&quot;Greenwich&quot;, 0.0, AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]], 
+    UNIT[&quot;degree&quot;, 0.017453292519943295], 
+    AXIS[&quot;Geodetic longitude&quot;, EAST], 
+    AXIS[&quot;Geodetic latitude&quot;, NORTH], 
+    AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]], 
+  PROJECTION[&quot;Transverse_Mercator&quot;, AUTHORITY[&quot;EPSG&quot;,&quot;9807&quot;]], 
+  PARAMETER[&quot;central_meridian&quot;, 123.0], 
+  PARAMETER[&quot;latitude_of_origin&quot;, 0.0], 
+  PARAMETER[&quot;scale_factor&quot;, 0.9996], 
+  PARAMETER[&quot;false_easting&quot;, 500000.0], 
+  PARAMETER[&quot;false_northing&quot;, 0.0], 
+  UNIT[&quot;m&quot;, 1.0], 
+  AXIS[&quot;Easting&quot;, EAST], 
+  AXIS[&quot;Northing&quot;, NORTH], 
+  AUTHORITY[&quot;EPSG&quot;,&quot;32651&quot;]]</nativeCRS>
+  <srs>EPSG:32651</srs>
+  <nativeBoundingBox>
+    <minx>-197800.0</minx>
+    <maxx>901900.0</maxx>
+    <miny>592900.0</miny>
+    <maxy>2183500.0</maxy>
+    <crs class="projected">EPSG:32651</crs>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>116.35649491571824</minx>
+    <maxx>126.83277272507782</maxx>
+    <miny>5.331722038171434</miny>
+    <maxy>19.743038506926442</maxy>
+    <crs>EPSG:4326</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>REPROJECT_TO_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <metadata>
+    <entry key="DirectDownload.Key">
+      <directDownloadSettings>
+        <directDownloadEnabled>false</directDownloadEnabled>
+        <maxDownloadSize>0</maxDownloadSize>
+      </directDownloadSettings>
+    </entry>
+    <entry key="cachingEnabled">false</entry>
+    <entry key="dirName">riceland_PHL_phl_riceland</entry>
+  </metadata>
+  <store class="coverageStore">
+    <id>CoverageStoreInfoImpl--3a14bddf:1800809b566:-7f56</id>
+  </store>
+  <serviceConfiguration>false</serviceConfiguration>
+  <simpleConversionEnabled>false</simpleConversionEnabled>
+  <nativeFormat>GeoTIFF</nativeFormat>
+  <grid dimension="2">
+    <range>
+      <low>0 0</low>
+      <high>10997 15906</high>
+    </range>
+    <transform>
+      <scaleX>100.0</scaleX>
+      <scaleY>-100.0</scaleY>
+      <shearX>0.0</shearX>
+      <shearY>0.0</shearY>
+      <translateX>-197750.0</translateX>
+      <translateY>2183450.0</translateY>
+    </transform>
+    <crs>EPSG:32651</crs>
+  </grid>
+  <supportedFormats>
+    <string>GIF</string>
+    <string>PNG</string>
+    <string>JPEG</string>
+    <string>TIFF</string>
+    <string>GEOTIFF</string>
+  </supportedFormats>
+  <interpolationMethods>
+    <string>nearest neighbor</string>
+    <string>bilinear</string>
+    <string>bicubic</string>
+  </interpolationMethods>
+  <defaultInterpolationMethod>nearest neighbor</defaultInterpolationMethod>
+  <dimensions>
+    <coverageDimension>
+      <name>GRAY_INDEX</name>
+      <description>GridSampleDimension[-Infinity,Infinity]</description>
+      <range>
+        <min>-inf</min>
+        <max>inf</max>
+      </range>
+      <nullValues>
+        <double>-9999.0</double>
+      </nullValues>
+      <dimensionType>
+        <name>REAL_32BITS</name>
+      </dimensionType>
+    </coverageDimension>
+  </dimensions>
+  <requestSRS>
+    <string>EPSG:32651</string>
+  </requestSRS>
+  <responseSRS>
+    <string>EPSG:32651</string>
+  </responseSRS>
+  <parameters>
+    <entry>
+      <string>InputTransparentColor</string>
+      <null/>
+    </entry>
+    <entry>
+      <string>SUGGESTED_TILE_SIZE</string>
+      <string>512,512</string>
+    </entry>
+    <entry>
+      <string>RescalePixels</string>
+      <boolean>true</boolean>
+    </entry>
+  </parameters>
+  <nativeCoverageName>phl_riceland</nativeCoverageName>
+</coverage>

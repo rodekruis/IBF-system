@@ -1,0 +1,17 @@
+<layer>
+  <name>riceland_PHL</name>
+  <id>LayerInfoImpl--3a14bddf:1800809b566:-7f53</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff6</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl--3a14bddf:1800809b566:-7f54</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2022-04-08 13:09:42.654 UTC</dateCreated>
+  <dateModified>2022-04-08 13:10:59.677 UTC</dateModified>
+</layer>
