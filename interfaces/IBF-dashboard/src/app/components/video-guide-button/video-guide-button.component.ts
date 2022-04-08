@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import {
   AnalyticsEvent,
@@ -15,9 +15,6 @@ import { VideoPopoverComponent } from '../video-popover/video-popover.component'
   styleUrls: ['./video-guide-button.component.scss'],
 })
 export class VideoGuideButtonComponent {
-  @Input()
-  public color = 'ibf-primary';
-
   constructor(
     private popoverController: PopoverController,
     private analyticsService: AnalyticsService,

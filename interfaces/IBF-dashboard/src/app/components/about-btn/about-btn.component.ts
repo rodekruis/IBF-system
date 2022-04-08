@@ -18,8 +18,6 @@ import { DisasterTypeService } from '../../services/disaster-type.service';
 export class AboutBtnComponent implements OnDestroy {
   @Input()
   public btnLabel: string;
-  @Input()
-  public color: string;
 
   private country: Country;
   private countrySubscription: Subscription;

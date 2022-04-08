@@ -14,11 +14,10 @@
       [btnLabel]="
         'chat-component.' + disasterTypeName + '.about-button-label' | translate
       "
-      color="ibf-white"
     ></app-about-btn>
-    <app-video-guide-button color="ibf-white"></app-video-guide-button>
+    <app-video-guide-button></app-video-guide-button>
     <app-activation-log-button></app-activation-log-button>
-    <app-export-view class="ion-align-items-center"></app-export-view>
+    <app-export-view></app-export-view>
   </app-dialogue-turn>
 
   <!-- No event -->
@@ -107,6 +106,7 @@
           filteredActiveAreas.length === 0
         "
         isConnected="true"
+        [isTriggered]="true"
       >
         <p
           [translate]="
@@ -186,6 +186,7 @@
       actor="self"
       *ngFor="let area of filteredActiveAreas; first as isFirst"
       [isConnected]="!isFirst"
+      [isTriggered]="true"
     >
       <form (submit)="submitEapAction(area.placeCode)">
         <ion-row>

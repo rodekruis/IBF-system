@@ -69,19 +69,14 @@
 }
 
 .dialogue-turn.is-other.is-warn {
-  .dialogue-turn--speech-arrow {
-    left: var(--dialogue-turn--margin-around-card-horizontal);
-    border-right-color: var(--ion-color-danger);
-  }
+  .dialogue-turn--content {
+    ion-card-content {
+      color: var(--ion-color-danger);
 
-  // Adjust for RTL: (Limited support: https://developer.mozilla.org/en-US/docs/Web/CSS/:dir#Browser_compatibility)
-  .dialogue-turn--speech-arrow:dir(rtl) {
-    // Reset LTR-styles first:
-    left: auto;
-    border-right-color: transparent;
-
-    right: var(--dialogue-turn--margin-around-card-horizontal);
-    border-left-color: var(--ion-color-danger);
+      app-timestamp {
+        color: var(--ion-color-ibf-primary);
+      }
+    }
   }
 }
 
@@ -157,6 +152,14 @@
       background-color: var(--ion-color-ibf-no-alert-tertiary) !important;
       color: var(--ion-color-ibf-no-alert-tertiary-contrast) !important;
       border: var(--ion-color-ibf-no-alert-tertiary-contrast) solid;
+    }
+  }
+}
+
+.dialogue-turn.is-triggered {
+  .dialogue-turn--content {
+    ion-card {
+      border: var(--ion-color-ibf-outline-red) solid;
     }
   }
 }

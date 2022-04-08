@@ -8,7 +8,8 @@
     'is-pending': animate && !isSpoken,
     'is-spoken': animate && isSpoken,
     'is-warn': isWarn,
-    'is-stopped': isStopped
+    'is-stopped': isStopped,
+    'is-triggered': isTriggered
   }"
 >
   <div class="dialogue-turn--actor">
@@ -27,11 +28,7 @@
     </ng-container>
   </div>
   <div class="dialogue-turn--content">
-    <ion-card
-      [color]="
-        isSelf ? 'ibf-chat-self' : isWarn ? 'danger' : 'ibf-chat-not-self'
-      "
-    >
+    <ion-card [color]="isSelf ? 'ibf-chat-self' : 'ibf-chat-not-self'">
       <ion-card-content>
         <ng-content></ng-content>
         <small><app-timestamp [timestamp]="timestamp"></app-timestamp></small>
