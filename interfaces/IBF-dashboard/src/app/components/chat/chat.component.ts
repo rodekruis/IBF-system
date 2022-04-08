@@ -412,6 +412,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private reloadEapAndTrigger() {
     this.eapActionsService.loadAdminAreasAndActions();
     this.eventService.getTrigger();
+    this.placeCodeService.clearPlaceCode();
   }
 
   public getClearOutMessage() {
