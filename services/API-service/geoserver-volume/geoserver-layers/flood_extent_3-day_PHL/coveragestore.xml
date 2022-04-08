@@ -1,0 +1,13 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl--3a14bddf:1800809b566:-7ffb</id>
+  <name>flood_extent_3-day_PHL</name>
+  <description>flood_extent_3-day_PHL</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2022-04-08 07:52:28.520 UTC</dateCreated>
+  <url>file:workspaces/ibf-system/ibf-pipeline/output/flood_extents/flood_extent_3-day_PHL.tif</url>
+</coverageStore>

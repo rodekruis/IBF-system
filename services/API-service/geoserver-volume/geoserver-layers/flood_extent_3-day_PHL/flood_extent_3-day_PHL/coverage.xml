@@ -1,14 +1,14 @@
 <coverage>
-  <id>CoverageInfoImpl-4543eaa1:17ff4814709:-7feb</id>
-  <name>flood_extent_5-day_PHL</name>
-  <nativeName>flood_extent_5-day_PHL</nativeName>
+  <id>CoverageInfoImpl--3a14bddf:1800809b566:-7ff9</id>
+  <name>flood_extent_3-day_PHL</name>
+  <nativeName>flood_extent_3-day_PHL</nativeName>
   <namespace>
     <id>NamespaceInfoImpl-48cab08a:175ace47603:-7ffa</id>
   </namespace>
-  <title>flood_extent_5-day_PHL</title>
+  <title>flood_extent_3-day_PHL</title>
   <description>Generated from GeoTIFF</description>
   <keywords>
-    <string>flood_extent_5-day_PHL</string>
+    <string>flood_extent_3-day_PHL</string>
     <string>WCS</string>
     <string>GeoTIFF</string>
   </keywords>
@@ -46,10 +46,10 @@
       </directDownloadSettings>
     </entry>
     <entry key="cachingEnabled">false</entry>
-    <entry key="dirName">flood_extent_5-day_PHL_flood_extent_5-day_PHL</entry>
+    <entry key="dirName">flood_extent_3-day_PHL_flood_extent_3-day_PHL</entry>
   </metadata>
   <store class="coverageStore">
-    <id>CoverageStoreInfoImpl-4543eaa1:17ff4814709:-7fec</id>
+    <id>CoverageStoreInfoImpl--3a14bddf:1800809b566:-7ffb</id>
   </store>
   <serviceConfiguration>false</serviceConfiguration>
   <simpleConversionEnabled>false</simpleConversionEnabled>
@@ -118,5 +118,5 @@
       <boolean>true</boolean>
     </entry>
   </parameters>
-  <nativeCoverageName>flood_extent_5-day_PHL</nativeCoverageName>
+  <nativeCoverageName>flood_extent_3-day_PHL</nativeCoverageName>
 </coverage>

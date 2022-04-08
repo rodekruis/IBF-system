@@ -80,7 +80,7 @@
     "weightvar": null,
     "order": 1,
     "dynamic": true,
-    "unit": "people"
+    "unit": "cases"
   },
   {
     "country_codes": "UGA,KEN",
@@ -615,8 +615,7 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 3,
-    "dynamic": false,
-    "unit": "incidence"
+    "dynamic": false
   },
   {
     "country_codes": "ZWE",
@@ -634,8 +633,7 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 3,
-    "dynamic": false,
-    "unit": "incidence"
+    "dynamic": false
   },
   {
     "country_codes": "ZWE,KEN",
@@ -653,8 +651,7 @@
     "numberFormatAggregate": "decimal2",
     "weightvar": null,
     "order": 3,
-    "dynamic": false,
-    "unit": "incidence"
+    "dynamic": false
   },
   {
     "country_codes": "ETH",
