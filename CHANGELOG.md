@@ -1,3 +1,12 @@
+# [0.143.0](https://github.com/rodekruis/IBF-system/compare/v0.142.0...v0.143.0) (2022-04-08)
+
+
+### Features
+
+* update population csv AB[#13242](https://github.com/rodekruis/IBF-system/issues/13242) ([1dbaa06](https://github.com/rodekruis/IBF-system/commit/1dbaa063c9132afb5c83fc8773e09c9885d6bba0))
+
+
+
 # [0.142.0](https://github.com/rodekruis/IBF-system/compare/v0.141.4...v0.142.0) (2022-04-04)
 
 
@@ -141,18 +150,6 @@
 ### Bug Fixes
 
 * put back use of 'closed' at various places AB[#12748](https://github.com/rodekruis/IBF-system/issues/12748) ([b6fd674](https://github.com/rodekruis/IBF-system/commit/b6fd6748ce0c4e00d490866eba11f874ff69e7bd))
-
-
-
-## [0.139.1](https://github.com/rodekruis/IBF-system/compare/v0.139.0...v0.139.1) (2022-03-07)
-
-
-### Bug Fixes
-
-* activation log AB[#12708](https://github.com/rodekruis/IBF-system/issues/12708) ([9fb2534](https://github.com/rodekruis/IBF-system/commit/9fb2534b6f8382566ea6bdcc355eeedb9bffd93f))
-* add intervention layers KEN drought to allowed input AB[#12733](https://github.com/rodekruis/IBF-system/issues/12733) ([51bb4e1](https://github.com/rodekruis/IBF-system/commit/51bb4e1e66aeaaeb897f545c2f35a9bdc896711f))
-* add missing country filter on getTriggeredAreas AB[#12707](https://github.com/rodekruis/IBF-system/issues/12707) ([ab101ff](https://github.com/rodekruis/IBF-system/commit/ab101ff565ed6df63a5c97766eb5414e1b0f3754))
-* old-event mode AB[#12707](https://github.com/rodekruis/IBF-system/issues/12707) ([aaefd16](https://github.com/rodekruis/IBF-system/commit/aaefd166b527c21963a156582c9210670fabe83e))
 
 
 
