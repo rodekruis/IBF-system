@@ -1,3 +1,19 @@
+# [0.147.0](https://github.com/rodekruis/IBF-system/compare/v0.146.0...v0.147.0) (2022-04-11)
+
+
+### Bug Fixes
+
+* rm waterpoints PHL AB[#13243](https://github.com/rodekruis/IBF-system/issues/13243) ([4eac81e](https://github.com/rodekruis/IBF-system/commit/4eac81e17e537f3b0af33e0ae468ad3e45f10796))
+* udpate PDF manual links AB[#13231](https://github.com/rodekruis/IBF-system/issues/13231) ([6f3cd09](https://github.com/rodekruis/IBF-system/commit/6f3cd09261e83a59c103d89384098d7b780990a2))
+
+
+### Features
+
+* add riceland layer AB[#13249](https://github.com/rodekruis/IBF-system/issues/13249) ([bc7d9a2](https://github.com/rodekruis/IBF-system/commit/bc7d9a2a6f5d1903afb19d3beebd16e8876767f9))
+* update layers popup xlsx AB[#13243](https://github.com/rodekruis/IBF-system/issues/13243) ([1655da3](https://github.com/rodekruis/IBF-system/commit/1655da3bae1980874224f966319da6c9ec9a1d71))
+
+
+
 # [0.146.0](https://github.com/rodekruis/IBF-system/compare/v0.145.0...v0.146.0) (2022-04-08)
 
 
@@ -116,22 +132,6 @@
 ### Bug Fixes
 
 * show static eap-actions AB[#13010](https://github.com/rodekruis/IBF-system/issues/13010) ([97ff7d8](https://github.com/rodekruis/IBF-system/commit/97ff7d8ccf9fcf3c4ab196856730d5198863191f))
-
-
-
-# [0.141.0](https://github.com/rodekruis/IBF-system/compare/v0.140.0...v0.141.0) (2022-03-18)
-
-
-### Bug Fixes
-
-* add class to drought_phase_classification AB[#12970](https://github.com/rodekruis/IBF-system/issues/12970) ([efd1632](https://github.com/rodekruis/IBF-system/commit/efd163297fd5150f5737abc1a177240f06a044da))
-* add disaster-type to info popups xlsx AB[#12727](https://github.com/rodekruis/IBF-system/issues/12727) ([976f49b](https://github.com/rodekruis/IBF-system/commit/976f49bb598b7af3e3250e2542864d48e877dc97))
-
-
-### Features
-
-* add drought vulnerability ken-drought AB[#12725](https://github.com/rodekruis/IBF-system/issues/12725) ([1eabff6](https://github.com/rodekruis/IBF-system/commit/1eabff676e0fab27512fdf5b404c0eb02100aac8))
-* add eap-link KEN droughts AB[#12726](https://github.com/rodekruis/IBF-system/issues/12726) ([420af82](https://github.com/rodekruis/IBF-system/commit/420af82e132959e0939b1422335c370cc2688eab))
 
 
 
