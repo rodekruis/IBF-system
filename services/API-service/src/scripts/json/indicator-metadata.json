@@ -1,11 +1,7 @@
 [
   {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
-    "disasterTypes": [
-      "floods",
-      "heavy-rain",
-      "drought"
-    ],
+    "disasterTypes": ["floods", "heavy-rain", "drought"],
     "name": "population_affected",
     "label": "Exposed population",
     "icon": "Affected-population-white.svg",
@@ -22,10 +18,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
-    "disasterTypes": [
-      "floods",
-      "heavy-rain"
-    ],
+    "disasterTypes": ["floods", "heavy-rain"],
     "name": "population_affected_percentage",
     "label": "% of Total Population",
     "icon": "Affected-population-white.svg",
@@ -42,12 +35,7 @@
   },
   {
     "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
-    "disasterTypes": [
-      "floods",
-      "heavy-rain",
-      "malaria",
-      "drought"
-    ],
+    "disasterTypes": ["floods", "heavy-rain", "malaria", "drought"],
     "name": "populationTotal",
     "label": "Total Population",
     "icon": "Person2-white.svg",
@@ -64,10 +52,7 @@
   },
   {
     "country_codes": "PHL,ETH",
-    "disasterTypes": [
-      "dengue",
-      "malaria"
-    ],
+    "disasterTypes": ["dengue", "malaria"],
     "name": "potential_cases",
     "label": "Potential Cases",
     "icon": "Affected-population-white.svg",
@@ -84,9 +69,7 @@
   },
   {
     "country_codes": "UGA,KEN",
-    "disasterTypes": [
-      "floods"
-    ],
+    "disasterTypes": ["floods"],
     "name": "flood_vulnerability_index",
     "label": "Flood Vulnerability Index",
     "icon": "Affected-population-white.svg",
@@ -128,9 +111,7 @@
   },
   {
     "country_codes": "UGA",
-    "disasterTypes": [
-      "floods"
-    ],
+    "disasterTypes": ["floods"],
     "name": "poverty_incidence",
     "label": "Poverty incidence",
     "icon": "Poverty-white.svg",
@@ -146,9 +127,7 @@
   },
   {
     "country_codes": "UGA",
-    "disasterTypes": [
-      "floods"
-    ],
+    "disasterTypes": ["floods"],
     "name": "female_head_hh",
     "label": "Female-headed household",
     "icon": "Person2-white.svg",
@@ -164,10 +143,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "floods",
-      "malaria"
-    ],
+    "disasterTypes": ["floods", "malaria"],
     "name": "population_u5",
     "label": "Population U5",
     "icon": "Children-white.svg",
@@ -183,9 +159,7 @@
   },
   {
     "country_codes": "UGA",
-    "disasterTypes": [
-      "floods"
-    ],
+    "disasterTypes": ["floods"],
     "name": "population_u8",
     "label": "Population U8",
     "icon": "Children-white.svg",
@@ -201,9 +175,7 @@
   },
   {
     "country_codes": "PHL",
-    "disasterTypes": [
-      "dengue"
-    ],
+    "disasterTypes": ["dengue"],
     "name": "population_u9",
     "label": "Population U9",
     "icon": "Children-white.svg",
@@ -218,11 +190,24 @@
     "dynamic": false
   },
   {
-    "country_codes": "UGA,PHL",
-    "disasterTypes": [
-      "floods",
-      "dengue"
-    ],
+    "country_codes": "UGA",
+    "disasterTypes": ["floods"],
+    "name": "population_over65",
+    "label": "Population 65+",
+    "icon": "Elderly-white.svg",
+    "weightedAvg": true,
+    "active": "no",
+    "colorBreaks": null,
+    "numberFormatMap": "perc",
+    "aggregateIndicator": "UGA",
+    "numberFormatAggregate": "decimal0",
+    "weightvar": null,
+    "order": 4,
+    "dynamic": false
+  },
+  {
+    "country_codes": "PHL",
+    "disasterTypes": ["dengue"],
     "name": "population_over65",
     "label": "Population 65+",
     "icon": "Elderly-white.svg",
@@ -238,9 +223,7 @@
   },
   {
     "country_codes": "UGA",
-    "disasterTypes": [
-      "floods"
-    ],
+    "disasterTypes": ["floods"],
     "name": "wall_type",
     "label": "Permanent wall type",
     "icon": "House-white.svg",
@@ -256,9 +239,7 @@
   },
   {
     "country_codes": "UGA",
-    "disasterTypes": [
-      "floods"
-    ],
+    "disasterTypes": ["floods"],
     "name": "roof_type",
     "label": "Permanent roof type",
     "icon": "House-white.svg",
@@ -274,9 +255,7 @@
   },
   {
     "country_codes": "UGA",
-    "disasterTypes": [
-      "floods"
-    ],
+    "disasterTypes": ["floods"],
     "name": "covid_risk",
     "label": "COVID Risk",
     "icon": "",
@@ -293,9 +272,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "malaria"
-    ],
+    "disasterTypes": ["malaria"],
     "name": "malaria_risk",
     "label": "Malaria risk",
     "icon": "",
@@ -312,9 +289,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "malaria"
-    ],
+    "disasterTypes": ["malaria"],
     "name": "malaria_suitable_temperature",
     "label": "Malaria suitable temperature",
     "icon": "",
@@ -331,10 +306,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "floods",
-      "malaria"
-    ],
+    "disasterTypes": ["floods", "malaria"],
     "name": "total_idps",
     "label": "Total IDPs",
     "icon": "",
@@ -351,9 +323,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "malaria"
-    ],
+    "disasterTypes": ["malaria"],
     "name": "motorized_travel_time_to_health",
     "label": "Motorized travel time to health facility",
     "icon": "",
@@ -370,9 +340,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "malaria"
-    ],
+    "disasterTypes": ["malaria"],
     "name": "walking_travel_time_to_health",
     "label": "Walking travel time to health facility",
     "icon": "",
@@ -389,10 +357,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "floods",
-      "malaria"
-    ],
+    "disasterTypes": ["floods", "malaria"],
     "name": "travel_time_cities",
     "label": "Travel time to city",
     "icon": "",
@@ -409,9 +374,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "floods"
-    ],
+    "disasterTypes": ["floods"],
     "name": "IPC_forecast_short",
     "label": "IPC forecast (short)",
     "icon": "",
@@ -428,9 +391,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "malaria"
-    ],
+    "disasterTypes": ["malaria"],
     "name": "IPC_forecast_long",
     "label": "IPC forecast (long)",
     "icon": "",
@@ -447,9 +408,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "floods"
-    ],
+    "disasterTypes": ["floods"],
     "name": "Hotspot_General",
     "label": "Woreda need priority class",
     "icon": "",
@@ -466,9 +425,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "floods"
-    ],
+    "disasterTypes": ["floods"],
     "name": "Hotspot_Water",
     "label": "WASH need priority class",
     "icon": "",
@@ -485,9 +442,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "malaria"
-    ],
+    "disasterTypes": ["malaria"],
     "name": "Hotspot_Health",
     "label": "Health need priority class",
     "icon": "",
@@ -504,9 +459,7 @@
   },
   {
     "country_codes": "PHL",
-    "disasterTypes": [
-      "dengue"
-    ],
+    "disasterTypes": ["dengue"],
     "name": "dengue_cases_average",
     "label": "Dengue Cases Average",
     "icon": "Affected-population-white.svg",
@@ -523,10 +476,7 @@
   },
   {
     "country_codes": "PHL",
-    "disasterTypes": [
-      "typhoon",
-      "floods"
-    ],
+    "disasterTypes": ["typhoon", "floods"],
     "name": "vulnerable_group",
     "label": "Vulnerable Groups",
     "icon": "",
@@ -543,10 +493,7 @@
   },
   {
     "country_codes": "PHL",
-    "disasterTypes": [
-      "typhoon",
-      "floods"
-    ],
+    "disasterTypes": ["typhoon", "floods"],
     "name": "vulnerable_housing",
     "label": "Vulnerable Housing",
     "icon": "",
@@ -563,9 +510,7 @@
   },
   {
     "country_codes": "PHL",
-    "disasterTypes": [
-      "typhoon"
-    ],
+    "disasterTypes": ["typhoon"],
     "name": "total_houses",
     "label": "Total houses",
     "icon": "",
@@ -582,9 +527,7 @@
   },
   {
     "country_codes": "PHL",
-    "disasterTypes": [
-      "dengue"
-    ],
+    "disasterTypes": ["dengue"],
     "name": "dengue_incidence_average",
     "label": "Dengue incidence (cases per year per 10M)",
     "icon": "",
@@ -601,9 +544,7 @@
   },
   {
     "country_codes": "ZWE",
-    "disasterTypes": [
-      "drought"
-    ],
+    "disasterTypes": ["drought"],
     "name": "small_ruminants",
     "label": "Total small ruminants",
     "icon": "",
@@ -619,9 +560,7 @@
   },
   {
     "country_codes": "ZWE",
-    "disasterTypes": [
-      "drought"
-    ],
+    "disasterTypes": ["drought"],
     "name": "cattle",
     "label": "Total cattle",
     "icon": "",
@@ -637,9 +576,7 @@
   },
   {
     "country_codes": "ZWE,KEN",
-    "disasterTypes": [
-      "drought"
-    ],
+    "disasterTypes": ["drought"],
     "name": "drought_vulnerability_index",
     "label": "Drought vulnerability index",
     "icon": "",
@@ -655,9 +592,7 @@
   },
   {
     "country_codes": "ETH",
-    "disasterTypes": [
-      "malaria"
-    ],
+    "disasterTypes": ["malaria"],
     "name": "potential_cases_U5",
     "label": "Potential Cases U5",
     "icon": "Children-white.svg",
@@ -674,9 +609,7 @@
   },
   {
     "country_codes": "PHL",
-    "disasterTypes": [
-      "dengue"
-    ],
+    "disasterTypes": ["dengue"],
     "name": "potential_cases_U9",
     "label": "Potential Cases U9",
     "icon": "Children-white.svg",
@@ -693,10 +626,7 @@
   },
   {
     "country_codes": "PHL,ETH",
-    "disasterTypes": [
-      "dengue",
-      "malaria"
-    ],
+    "disasterTypes": ["dengue", "malaria"],
     "name": "potential_cases_65",
     "label": "Potential Cases 65+",
     "icon": "Elderly-white.svg",
@@ -713,9 +643,7 @@
   },
   {
     "country_codes": "ZWE",
-    "disasterTypes": [
-      "drought"
-    ],
+    "disasterTypes": ["drought"],
     "name": "cattle_exposed",
     "label": "Cattle exposed",
     "icon": "Livestock.svg",
@@ -732,9 +660,7 @@
   },
   {
     "country_codes": "ZWE",
-    "disasterTypes": [
-      "drought"
-    ],
+    "disasterTypes": ["drought"],
     "name": "small_ruminants_exposed",
     "label": "Small ruminants exposed",
     "icon": "Livestock.svg",
@@ -775,9 +701,7 @@
   },
   {
     "country_codes": "PHL",
-    "disasterTypes": [
-      "typhoon"
-    ],
+    "disasterTypes": ["typhoon"],
     "name": "houses_affected",
     "label": "% of houses affected",
     "icon": "Person2-white.svg",
@@ -794,9 +718,7 @@
   },
   {
     "country_codes": "PHL",
-    "disasterTypes": [
-      "typhoon"
-    ],
+    "disasterTypes": ["typhoon"],
     "name": "prob_within_50km",
     "label": "Prob. of within 50km of track",
     "icon": "Person2-white.svg",
@@ -813,9 +735,7 @@
   },
   {
     "country_codes": "PHL",
-    "disasterTypes": [
-      "typhoon"
-    ],
+    "disasterTypes": ["typhoon"],
     "name": "windspeed",
     "label": "Maximum windspeed",
     "icon": "Person2-white.svg",
@@ -832,9 +752,7 @@
   },
   {
     "country_codes": "PHL",
-    "disasterTypes": [
-      "typhoon"
-    ],
+    "disasterTypes": ["typhoon"],
     "name": "rainfall",
     "label": "Accumulative rainfall",
     "icon": "Person2-white.svg",
@@ -851,9 +769,7 @@
   },
   {
     "country_codes": "KEN",
-    "disasterTypes": [
-      "drought"
-    ],
+    "disasterTypes": ["drought"],
     "name": "drought_phase_classification",
     "label": "Drought phase classification",
     "icon": "",
@@ -896,9 +812,7 @@
   },
   {
     "country_codes": "KEN",
-    "disasterTypes": [
-      "drought"
-    ],
+    "disasterTypes": ["drought"],
     "name": "vegetation_condition",
     "label": "Vegetation condition",
     "icon": "",
@@ -941,9 +855,7 @@
   },
   {
     "country_codes": "KEN",
-    "disasterTypes": [
-      "drought"
-    ],
+    "disasterTypes": ["drought"],
     "name": "livestock_body_condition",
     "label": "Livestock body condition",
     "icon": "",
