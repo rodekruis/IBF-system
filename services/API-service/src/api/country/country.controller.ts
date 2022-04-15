@@ -1,7 +1,8 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
+  ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -21,13 +22,14 @@ export class CountryController {
   @ApiOperation({
     summary: 'Get available countries including their attributes',
   })
+  @ApiParam({ name: 'countryCodesISO3', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
     description: 'Available countries including their attributes.',
     type: [CountryEntity],
   })
-  @Get()
-  public async getCountries(): Promise<CountryEntity[]> {
-    return await this.countryService.findAll();
+  @Get(':countryCodesISO3')
+  public async getCountries(@Param() params): Promise<CountryEntity[]> {
+    return await this.countryService.findCountries(params?.countryCodesISO3);
   }
 }

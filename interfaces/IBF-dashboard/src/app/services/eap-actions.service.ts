@@ -154,38 +154,32 @@ export class EapActionsService {
 
   private onEvent = (events) => {
     this.event = events[0];
-    if (this.event && this.timelineState.activeLeadTime) {
-      this.getTriggeredAreasApi(
-        this.timelineState.activeLeadTime,
-        this.adminLevel || this.disasterTypeSettings.defaultAdminLevel,
-      );
-    }
+    this.getTriggeredAreasApi();
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
-    if (this.event && this.timelineState.activeLeadTime) {
-      this.getTriggeredAreasApi(
-        this.timelineState.activeLeadTime,
-        this.adminLevel || this.disasterTypeSettings.defaultAdminLevel,
-      );
-    }
+    this.getTriggeredAreasApi();
   };
 
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
-    if (this.event && this.timelineState?.activeLeadTime && adminLevel) {
-      this.getTriggeredAreasApi(this.timelineState?.activeLeadTime, adminLevel);
-    }
+    this.adminLevel = adminLevel;
+    this.getTriggeredAreasApi();
   };
 
-  private getTriggeredAreasApi(leadTime: string, adminLevel: AdminLevel) {
-    if (this.disasterType) {
+  private getTriggeredAreasApi() {
+    if (
+      this.disasterType &&
+      this.adminLevel &&
+      this.timelineState?.activeLeadTime &&
+      this.event
+    ) {
       this.apiService
         .getTriggeredAreas(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          adminLevel,
-          leadTime,
+          this.adminLevel,
+          this.timelineState.activeLeadTime,
           this.eventState?.event?.eventName,
         )
         .subscribe(this.onTriggeredAreas);

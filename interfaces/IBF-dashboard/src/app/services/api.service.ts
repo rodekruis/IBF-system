@@ -115,8 +115,8 @@ export class ApiService {
     });
   }
 
-  getCountries(): Observable<Country[]> {
-    return this.get('country', false).pipe(
+  getCountries(countryCodesISO3?: string): Observable<Country[]> {
+    return this.get(`country/${countryCodesISO3}`, false).pipe(
       map((countries) => {
         return countries.map((country) => {
           country.countryDisasterSettings.map((disaster) => {

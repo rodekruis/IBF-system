@@ -26,7 +26,9 @@ export class CountryService {
   };
 
   public getCountriesByUser(user: User): void {
-    this.apiService.getCountries().subscribe(this.onCountriesByUser(user));
+    this.apiService
+      .getCountries(user.countries.join(','))
+      .subscribe(this.onCountriesByUser(user));
   }
 
   public getAllCountries(): Observable<Country[]> {

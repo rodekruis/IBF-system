@@ -56,11 +56,11 @@ export class UserStateComponent implements OnInit {
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
 
-    this.apiService.getCountries().subscribe((countries) => {
-      if (countries.length === 1) {
-        this.onCountryChange(countries[0]);
-      }
-    });
+    // this.apiService.getCountries().subscribe((countries) => {
+    //   if (countries.length === 1) {
+    //     this.onCountryChange(countries[0]);
+    //   }
+    // });
   }
 
   private onCountryChange = (country: Country) => {
