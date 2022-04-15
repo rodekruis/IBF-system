@@ -1,3 +1,17 @@
+# [0.148.0](https://github.com/rodekruis/IBF-system/compare/v0.147.0...v0.148.0) (2022-04-15)
+
+
+### Bug Fixes
+
+* update mock data AB[#13240](https://github.com/rodekruis/IBF-system/issues/13240) ([c872bb3](https://github.com/rodekruis/IBF-system/commit/c872bb31d8e34d0c2e74ecdabd5db8f629f0633b))
+
+
+### Features
+
+* flood extent multiple classes AB[#13421](https://github.com/rodekruis/IBF-system/issues/13421) ([4adbe09](https://github.com/rodekruis/IBF-system/commit/4adbe0967ecaaef6c4abca7cb3314c871544b20d))
+
+
+
 # [0.147.0](https://github.com/rodekruis/IBF-system/compare/v0.146.0...v0.147.0) (2022-04-11)
 
 
@@ -123,15 +137,6 @@
 * process pdf-links in code + order countries alphabetically AB[#12462](https://github.com/rodekruis/IBF-system/issues/12462) ([57a3dc8](https://github.com/rodekruis/IBF-system/commit/57a3dc81cd3103857a276864928493a88ff2cf61))
 * typo AB[#12478](https://github.com/rodekruis/IBF-system/issues/12478) ([6a2e20d](https://github.com/rodekruis/IBF-system/commit/6a2e20dc361043fc5aa7c1cb35e52d92972debb8))
 * update mock data ken drought AB[#12478](https://github.com/rodekruis/IBF-system/issues/12478) ([4b0a6e1](https://github.com/rodekruis/IBF-system/commit/4b0a6e158e9e9a5352f70072b457b22072803585))
-
-
-
-## [0.141.1](https://github.com/rodekruis/IBF-system/compare/v0.141.0...v0.141.1) (2022-03-21)
-
-
-### Bug Fixes
-
-* show static eap-actions AB[#13010](https://github.com/rodekruis/IBF-system/issues/13010) ([97ff7d8](https://github.com/rodekruis/IBF-system/commit/97ff7d8ccf9fcf3c4ab196856730d5198863191f))
 
 
 
