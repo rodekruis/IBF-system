@@ -151,7 +151,7 @@
     ion-card {
       background-color: var(--ion-color-ibf-no-alert-tertiary) !important;
       color: var(--ion-color-ibf-no-alert-tertiary-contrast) !important;
-      border: var(--ion-color-ibf-no-alert-tertiary-contrast) solid;
+      border: var(--ion-color-ibf-no-alert-tertiary-contrast) solid 2px;
     }
   }
 }
@@ -159,7 +159,7 @@
 .dialogue-turn.is-triggered {
   .dialogue-turn--content {
     ion-card {
-      border: var(--ion-color-ibf-outline-red) solid;
+      border: var(--ion-color-ibf-outline-red) solid 2px;
     }
   }
 }

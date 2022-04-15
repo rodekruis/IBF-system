@@ -1,19 +1,19 @@
 [
   {
     "stationCode": "G1966",
-    "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
-    "forecastReturnPeriod": null,
-    "triggerLevel": 4000
+    "forecastLevel": 18627.4509803922,
+    "forecastProbability": 1,
+    "forecastTrigger": 1,
+    "forecastReturnPeriod": 20,
+    "triggerLevel": 522
   },
   {
     "stationCode": "G1967",
-    "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
-    "forecastReturnPeriod": null,
-    "triggerLevel": 4000
+    "forecastLevel": 11176.4705882353,
+    "forecastProbability": 1,
+    "forecastTrigger": 1,
+    "forecastReturnPeriod": 20,
+    "triggerLevel": 556
   },
   {
     "stationCode": "G1969",
@@ -26,8 +26,8 @@
   {
     "stationCode": "G1970",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.5,
-    "forecastTrigger": 1,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
     "forecastReturnPeriod": null,
     "triggerLevel": 4000
   },
@@ -49,10 +49,10 @@
   },
   {
     "stationCode": "G4630",
-    "forecastLevel": 5000,
-    "forecastProbability": 1,
-    "forecastTrigger": 1,
-    "forecastReturnPeriod": 25,
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
     "triggerLevel": 4000
   },
   {

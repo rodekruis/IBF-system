@@ -1,39 +1,39 @@
 [
   {
     "placeCode": "PH012800000",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "PH012900000",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "PH013300000",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "PH015500000",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "PH020900000",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "PH021500000",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "PH023100000",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "PH025000000",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "PH025700000",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "PH030800000",
@@ -41,7 +41,7 @@
   },
   {
     "placeCode": "PH031400000",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "PH034900000",
@@ -49,11 +49,11 @@
   },
   {
     "placeCode": "PH035400000",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "PH036900000",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "PH037100000",
