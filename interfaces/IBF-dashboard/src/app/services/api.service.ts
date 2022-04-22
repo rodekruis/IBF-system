@@ -107,16 +107,15 @@ export class ApiService {
   }
 
   changePassword(password: string): Observable<any> {
-    console.log('aaaaaApiService : changePassword()');
     this.log('ApiService : changePassword()');
-
     return this.post('user/change-password', {
       password,
     });
   }
 
   getCountries(countryCodesISO3?: string): Observable<Country[]> {
-    return this.get(`country/${countryCodesISO3}`, false).pipe(
+    const path = countryCodesISO3 ? `country/${countryCodesISO3}` : 'country';
+    return this.get(path, false).pipe(
       map((countries) => {
         return countries.map((country) => {
           country.countryDisasterSettings.map((disaster) => {

@@ -14,20 +14,20 @@ export class CountryService {
     'disasterTypes.leadTimes',
   ];
 
-  public async findCountries(
+  public async getAllCountries(): Promise<CountryEntity[]> {
+    return await this.countryRepository.find({
+      relations: this.relations,
+    });
+  }
+
+  public async getCountries(
     countryCodesISO3?: string,
   ): Promise<CountryEntity[]> {
-    if (countryCodesISO3 !== 'undefined') {
-      const countryCodes = countryCodesISO3.split(',');
-      return await this.countryRepository.find({
-        where: { countryCodeISO3: In(countryCodes) },
-        relations: this.relations,
-      });
-    } else {
-      return await this.countryRepository.find({
-        relations: this.relations,
-      });
-    }
+    const countryCodes = countryCodesISO3.split(',');
+    return await this.countryRepository.find({
+      where: { countryCodeISO3: In(countryCodes) },
+      relations: this.relations,
+    });
   }
 
   public async findOne(countryCodeISO3: string): Promise<CountryEntity> {

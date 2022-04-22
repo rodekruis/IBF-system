@@ -20,7 +20,20 @@ export class CountryController {
   }
 
   @ApiOperation({
-    summary: 'Get available countries including their attributes',
+    summary: 'Get all countries including their attributes',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Available countries including their attributes.',
+    type: [CountryEntity],
+  })
+  @Get()
+  public async getAllCountries(): Promise<CountryEntity[]> {
+    return await this.countryService.getAllCountries();
+  }
+
+  @ApiOperation({
+    summary: 'Get countries including their attributes by list of countryCodes',
   })
   @ApiParam({ name: 'countryCodesISO3', required: false, type: 'string' })
   @ApiResponse({
@@ -30,6 +43,6 @@ export class CountryController {
   })
   @Get(':countryCodesISO3')
   public async getCountries(@Param() params): Promise<CountryEntity[]> {
-    return await this.countryService.findCountries(params?.countryCodesISO3);
+    return await this.countryService.getCountries(params?.countryCodesISO3);
   }
 }
