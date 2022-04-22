@@ -1,3 +1,19 @@
+## [0.149.1](https://github.com/rodekruis/IBF-system/compare/v0.149.0...v0.149.1) (2022-04-22)
+
+
+### Bug Fixes
+
+* check on filled triggeredAreas array if trigger AB[#13372](https://github.com/rodekruis/IBF-system/issues/13372) ([a69db2b](https://github.com/rodekruis/IBF-system/commit/a69db2bc79875a71550ac5e4428ef1de17ae2775))
+* clean up country calls AB[#13369](https://github.com/rodekruis/IBF-system/issues/13369) ([7e10fb0](https://github.com/rodekruis/IBF-system/commit/7e10fb0585f47165ab2b79f3a7f30c38e80d71bb))
+* don't load areas-of-focus at start AB[#13368](https://github.com/rodekruis/IBF-system/issues/13368) ([55b7f52](https://github.com/rodekruis/IBF-system/commit/55b7f52716ca91d765818076c94722ec4cfdd8a7))
+* remove calling api with unknown leadtime AB[#13371](https://github.com/rodekruis/IBF-system/issues/13371) ([3f6f87b](https://github.com/rodekruis/IBF-system/commit/3f6f87b8b7b1ca751be43c63c3fbe188d192c8df))
+* remove eventSummary from eap service AB[#13370](https://github.com/rodekruis/IBF-system/issues/13370) ([b8409c7](https://github.com/rodekruis/IBF-system/commit/b8409c7024a13a711bbc46a29c858d5d1afbe696))
+* remove recentDate from map component AB[#13370](https://github.com/rodekruis/IBF-system/issues/13370) ([7790de0](https://github.com/rodekruis/IBF-system/commit/7790de0253f2ffbb417dc620480c56c31a883f9b))
+* small changes AB[#13370](https://github.com/rodekruis/IBF-system/issues/13370) ([b763d48](https://github.com/rodekruis/IBF-system/commit/b763d488494ee16dad29ebec0fe3cf5b5263bfff))
+* small improvements API-calls analysis AB[#13361](https://github.com/rodekruis/IBF-system/issues/13361) ([5cf732a](https://github.com/rodekruis/IBF-system/commit/5cf732a8df5886f718c086af717e9769fa8be00f))
+
+
+
 # [0.149.0](https://github.com/rodekruis/IBF-system/compare/v0.148.0...v0.149.0) (2022-04-15)
 
 
@@ -126,15 +142,6 @@
 ### Bug Fixes
 
 * merge versions xlsx AB[#13015](https://github.com/rodekruis/IBF-system/issues/13015) ([a2c8d09](https://github.com/rodekruis/IBF-system/commit/a2c8d09320d3d2c34f0e507ca9befce30bf5657c))
-
-
-
-## [0.141.3](https://github.com/rodekruis/IBF-system/compare/v0.141.2...v0.141.3) (2022-03-21)
-
-
-### Bug Fixes
-
-* update readme deploy info AB[#12989](https://github.com/rodekruis/IBF-system/issues/12989) ([eb5d434](https://github.com/rodekruis/IBF-system/commit/eb5d4347c6fe962c6be26853f9567c4ef023075f))
 
 
 
