@@ -24,10 +24,10 @@ export class EapActionsService {
   public triggeredAreas: any[];
   private country: Country;
   private disasterType: DisasterType;
-  public disasterTypeSettings: CountryDisasterSettings;
+  private disasterTypeSettings: CountryDisasterSettings;
   private adminLevel: AdminLevel;
   private eventState: EventState;
-  public timelineState: TimelineState;
+  private timelineState: TimelineState;
 
   constructor(
     private countryService: CountryService,
@@ -67,8 +67,42 @@ export class EapActionsService {
     this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType.disasterType,
     );
-    this.loadAdminAreasAndActions();
   };
+
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
+    this.getTriggeredAreasApi();
+  };
+
+  private onEventStatusChange = (eventState: EventState) => {
+    this.eventState = eventState;
+    this.getTriggeredAreasApi();
+  };
+
+  private onAdminLevelChange = (adminLevel: AdminLevel) => {
+    this.adminLevel = adminLevel;
+    this.getTriggeredAreasApi();
+  };
+
+  public getTriggeredAreasApi() {
+    if (
+      this.country &&
+      this.disasterType &&
+      this.adminLevel &&
+      this.timelineState?.activeLeadTime &&
+      this.eventState
+    ) {
+      this.apiService
+        .getTriggeredAreas(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+          this.adminLevel,
+          this.timelineState.activeLeadTime,
+          this.eventState.event?.eventName,
+        )
+        .subscribe(this.onTriggeredAreas);
+    }
+  }
 
   private onTriggeredAreas = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
@@ -90,6 +124,10 @@ export class EapActionsService {
     });
     this.triggeredAreaSubject.next(this.triggeredAreas);
   };
+
+  getTriggeredAreas(): Observable<any[]> {
+    return this.triggeredAreaSubject.asObservable();
+  }
 
   private formatDates = (triggeredArea) => {
     triggeredArea.startDate = DateTime.fromISO(
@@ -151,42 +189,6 @@ export class EapActionsService {
     return (monthNumber + 12 - droughtForecastMonths[0]) % 12;
   };
 
-  private onTimelineStateChange = (timelineState: TimelineState) => {
-    this.timelineState = timelineState;
-    this.getTriggeredAreasApi();
-  };
-
-  private onAdminLevelChange = (adminLevel: AdminLevel) => {
-    this.adminLevel = adminLevel;
-    this.getTriggeredAreasApi();
-  };
-
-  private getTriggeredAreasApi() {
-    if (
-      this.disasterType &&
-      this.adminLevel &&
-      this.timelineState?.activeLeadTime
-    ) {
-      this.apiService
-        .getTriggeredAreas(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-          this.adminLevel,
-          this.timelineState.activeLeadTime,
-          this.eventState?.event?.eventName,
-        )
-        .subscribe(this.onTriggeredAreas);
-    }
-  }
-
-  loadAdminAreasAndActions() {
-    this.getTriggeredAreasApi();
-  }
-
-  getTriggeredAreas(): Observable<any[]> {
-    return this.triggeredAreaSubject.asObservable();
-  }
-
   checkEapAction(
     action: string,
     status: boolean,
@@ -201,9 +203,5 @@ export class EapActionsService {
       placeCode,
       eventName,
     );
-  }
-
-  private onEventStatusChange(eventState: EventState) {
-    this.eventState = eventState;
   }
 }
