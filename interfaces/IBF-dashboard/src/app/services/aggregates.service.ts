@@ -104,7 +104,8 @@ export class AggregatesService {
       this.eventState &&
       this.timelineState &&
       this.adminLevel &&
-      this.triggeredAreas &&
+      ((this.eventState.activeEvent && this.triggeredAreas.length) ||
+        !this.eventState.activeEvent) &&
       this.mapService.checkCountryDisasterTypeMatch(
         this.country,
         this.disasterType,
