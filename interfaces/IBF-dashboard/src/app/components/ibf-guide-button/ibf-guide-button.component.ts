@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import {
@@ -16,7 +16,7 @@ import { VideoPopoverComponent } from '../video-popover/video-popover.component'
   templateUrl: './ibf-guide-button.component.html',
   styleUrls: ['./ibf-guide-button.component.scss'],
 })
-export class IbfGuideButtonComponent {
+export class IbfGuideButtonComponent implements OnDestroy {
   private countrySubscription: Subscription;
   private pdfUrl: string;
   private videoUrl: string;

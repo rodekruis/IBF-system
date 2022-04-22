@@ -58,7 +58,8 @@ export class LoginPage implements OnInit {
         }
       });
     });
-    // For now take on login-page (where country is unknown) the first country. This'll work on current 1-country-production, and on other servers does not matter.
+    // For now take on login-page (where country is unknown) the first country.
+    // This'll work on current 1-country-production, and on other servers does not matter.
     this.pdfUrl = countries[0].notificationInfo.linkPdf;
   };
 

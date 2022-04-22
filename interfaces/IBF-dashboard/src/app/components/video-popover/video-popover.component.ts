@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PopoverController } from '@ionic/angular';
 
@@ -7,7 +7,7 @@ import { PopoverController } from '@ionic/angular';
   templateUrl: './video-popover.component.html',
   styleUrls: ['./video-popover.component.scss'],
 })
-export class VideoPopoverComponent {
+export class VideoPopoverComponent implements OnInit {
   public pdfUrl: string;
   public videoUrl: string;
   public safeVideoUrl: SafeResourceUrl;
