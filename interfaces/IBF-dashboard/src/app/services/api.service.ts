@@ -107,16 +107,15 @@ export class ApiService {
   }
 
   changePassword(password: string): Observable<any> {
-    console.log('aaaaaApiService : changePassword()');
     this.log('ApiService : changePassword()');
-
     return this.post('user/change-password', {
       password,
     });
   }
 
-  getCountries(): Observable<Country[]> {
-    return this.get('country', false).pipe(
+  getCountries(countryCodesISO3?: string): Observable<Country[]> {
+    const path = countryCodesISO3 ? `country/${countryCodesISO3}` : 'country';
+    return this.get(path, false).pipe(
       map((countries) => {
         return countries.map((country) => {
           country.countryDisasterSettings.map((disaster) => {
@@ -209,9 +208,9 @@ export class ApiService {
     eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
-      `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}/${
-        leadTime ? leadTime : '{leadTime}'
-      }/${eventName || 'no-name'}`,
+      `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}/${leadTime}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }
@@ -224,9 +223,9 @@ export class ApiService {
     eventName: string,
   ): Observable<any> {
     return this.get(
-      `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}/${
-        leadTime ? leadTime : '{leadTime}'
-      }/${eventName || 'no-name'}`,
+      `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}/${leadTime}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }

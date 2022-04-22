@@ -104,7 +104,8 @@ export class AggregatesService {
       this.eventState &&
       this.timelineState &&
       this.adminLevel &&
-      this.triggeredAreas &&
+      ((this.eventState.activeEvent && this.triggeredAreas.length) ||
+        !this.eventState.activeEvent) &&
       this.mapService.checkCountryDisasterTypeMatch(
         this.country,
         this.disasterType,
@@ -165,7 +166,13 @@ export class AggregatesService {
   };
 
   loadAggregateInformation(): void {
-    if (this.country && this.disasterType) {
+    if (
+      this.country &&
+      this.disasterType &&
+      this.timelineState.activeLeadTime &&
+      this.adminLevel &&
+      this.eventState
+    ) {
       this.apiService
         .getAggregatesData(
           this.country.countryCodeISO3,

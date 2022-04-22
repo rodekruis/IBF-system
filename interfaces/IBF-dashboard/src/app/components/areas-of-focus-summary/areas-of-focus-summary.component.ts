@@ -15,7 +15,6 @@ import { EventState } from 'src/app/types/event-state';
 export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
-  private areasOfFocusSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
 
@@ -53,7 +52,6 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
-    this.areasOfFocusSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
   }
@@ -114,9 +112,9 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     };
 
     // Get areas of focus from db
-    this.areasOfFocusSubscription = this.apiService
-      .getAreasOfFocus()
-      .subscribe(onAreasOfFocusChange);
+    if (triggeredAreas.length) {
+      this.apiService.getAreasOfFocus().subscribe(onAreasOfFocusChange);
+    }
   }
 
   private onEventStateChange = (eventState: EventState) => {

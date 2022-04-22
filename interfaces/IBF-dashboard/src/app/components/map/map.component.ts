@@ -140,11 +140,11 @@ export class MapComponent implements OnDestroy {
 
     this.initialEventStateSubscription = this.eventService
       .getInitialEventStateSubscription()
-      .subscribe(this.onEventStateChage);
+      .subscribe(this.onEventStateChange);
 
     this.manualEventStateSubscription = this.eventService
       .getManualEventStateSubscription()
-      .subscribe(this.onEventStateChage);
+      .subscribe(this.onEventStateChange);
 
     this.timelineStateSubscription = this.timelineService
       .getTimelineStateSubscription()
@@ -202,23 +202,10 @@ export class MapComponent implements OnDestroy {
     this.timelineState = timelineState;
   };
 
-  private onEventStateChage = (eventState: EventState) => {
+  private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
 
-    if (this.country && this.disasterType) {
-      this.apiService
-        .getRecentDates(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-        )
-        .subscribe((date) => {
-          this.onRecentDates(date);
-        });
-    }
-  };
-
-  private onRecentDates = (date) => {
-    this.lastModelRunDate = date.timestamp || date.date;
+    this.lastModelRunDate = this.timelineState?.today.toUTC().toString();
   };
 
   private onPlaceCodeChange = (): void => {
