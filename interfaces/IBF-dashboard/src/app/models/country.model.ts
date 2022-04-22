@@ -8,6 +8,7 @@ export class Country {
   adminRegionLabels: AdminRegionLabels;
   countryLogos: string[];
   disasterTypes: DisasterType[];
+  notificationInfo: NotificationInfo;
 }
 
 export class CountryDisasterSettings {
@@ -20,6 +21,11 @@ export class CountryDisasterSettings {
   showMonthlyEapActions: boolean;
   eapAlertClasses?: EapAlertClasses;
   monthlyForecastInfo?: {};
+}
+
+export class NotificationInfo {
+  linkVideo: string;
+  linkPdf: string;
 }
 
 export class EapAlertClasses {

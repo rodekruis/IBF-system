@@ -6,16 +6,28 @@
       (click)="closePopover()"
       class="popover-close-button"
     ></ion-icon>
-    <ion-card-title>IBF Video Guide</ion-card-title>
+    <ion-card-title>{{
+      'ibf-guide-component.title' | translate
+    }}</ion-card-title>
   </ion-card-header>
-  <ion-card-content class="ion-padding-top ion-text-center">
-    <iframe
-      width="560"
-      height="315"
-      [src]="safeVideoUrl"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
+  <ion-card-content class="ion-padding-top">
+    <div>
+      <strong>{{ 'ibf-guide-component.pdf' | translate }}: </strong
+      ><a href="{{ pdfUrl }}" target="_blank">
+        {{ 'ibf-guide-component.click' | translate }}
+      </a>
+    </div>
+    <br />
+    <div>
+      <strong>{{ 'ibf-guide-component.video' | translate }}:</strong>
+      <iframe
+        width="560"
+        height="315"
+        [src]="safeVideoUrl"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
   </ion-card-content>
 </ion-card>

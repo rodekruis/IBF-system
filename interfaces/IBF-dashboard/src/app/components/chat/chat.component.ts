@@ -69,7 +69,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public actionIndicatorLabel: string;
   public clearOutMessage: string;
   public forecastInfo: string[];
-  private country: Country;
+  public country: Country;
   public disasterType: DisasterType;
   public disasterTypeSettings: CountryDisasterSettings;
   public lastModelRunDate: string;

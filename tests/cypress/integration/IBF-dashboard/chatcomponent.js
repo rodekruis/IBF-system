@@ -28,8 +28,8 @@ describe("Chat component", () => {
 
 
   
-    it("loads VideoGuide button", () => {
-            cy.get(selectors.videoGuidebutton)
+    it("loads IbfGuide button", () => {
+            cy.get(selectors.ibfGuidebutton)
               .should("be.visible")
               .should("not.be.disabled");
     
@@ -38,8 +38,8 @@ describe("Chat component", () => {
           
     it("click and close video guide button", () => {
           
-            cy.get(selectors.videoGuidebutton).click();
-            cy.get(selectors.videoGuideclosebutton).click();
+            cy.get(selectors.ibfGuidebutton).click();
+            cy.get(selectors.ibfGuideclosebutton).click();
 
        
           });

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PopoverController } from '@ionic/angular';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-video-popover',
@@ -9,13 +8,16 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./video-popover.component.scss'],
 })
 export class VideoPopoverComponent {
-  private videoUrl: string = environment.ibfVideoGuideUrl;
+  public pdfUrl: string;
+  public videoUrl: string;
   public safeVideoUrl: SafeResourceUrl;
 
   constructor(
     private popoverController: PopoverController,
     private domSanitizer: DomSanitizer,
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.safeVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
       this.videoUrl,
     );

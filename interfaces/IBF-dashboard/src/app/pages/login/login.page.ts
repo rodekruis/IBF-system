@@ -24,6 +24,7 @@ export class LoginPage implements OnInit {
   public envDisasterTypes: string[] = [];
   public allDisasterTypes: string[] = [];
   public disasterTypeMap = DISASTER_TYPES_SVG_MAP;
+  private pdfUrl: string;
 
   constructor(
     private popoverController: PopoverController,
@@ -57,6 +58,8 @@ export class LoginPage implements OnInit {
         }
       });
     });
+    // For now take on login-page (where country is unknown) the first country. This'll work on current 1-country-production, and on other servers does not matter.
+    this.pdfUrl = countries[0].notificationInfo.linkPdf;
   };
 
   async presentPopover(): Promise<void> {
@@ -64,14 +67,15 @@ export class LoginPage implements OnInit {
       component: VideoPopoverComponent,
       componentProps: {
         videoUrl: environment.ibfVideoGuideUrl,
+        pdfUrl: this.pdfUrl,
       },
       animated: true,
-      cssClass: 'ibf-video-guide-popover',
+      cssClass: 'ibf-guide-popover',
       translucent: true,
       showBackdrop: true,
     });
 
-    this.analyticsService.logEvent(AnalyticsEvent.watchVideoGuide, {
+    this.analyticsService.logEvent(AnalyticsEvent.watchIbfGuide, {
       page: AnalyticsPage.login,
       component: this.constructor.name,
     });

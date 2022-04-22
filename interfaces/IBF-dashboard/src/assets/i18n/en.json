@@ -6,7 +6,7 @@
     "title": "Login",
     "welcome": "Hello! Welcome to IBF.",
     "instruction": "This chat will guide you through the system. You will find it to the left of the screen. Please login below.",
-    "video": "Click to watch the IBF Video Guide.",
+    "video": "Click for the IBF Guide.",
     "note": "NOTE: This dashboard works best in Chrome, Firefox, Safari and Microsoft Edge. The dashboard is not compatible with Internet Explorer.",
     "forgot-password": "Forgot password?",
     "forgot-password-message": "If you forgot your password please send a request to "
@@ -43,6 +43,12 @@
     "exposed-subgroups": ""
   },
   "areas-of-focus-summary-component": { "title": "Actions Summary" },
+  "ibf-guide-component": {
+    "title": "IBF Guide",
+    "pdf": "PDF",
+    "click": "click here",
+    "video": "Video"
+  },
   "chat-component": {
     "floods": {
       "about-button-label": "About Trigger",
