@@ -13,7 +13,7 @@ import { EventState } from '../types/event-state';
 import { TimelineState } from '../types/timeline-state';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
-import { EventService, EventSummary } from './event.service';
+import { EventService } from './event.service';
 import { TimelineService } from './timeline.service';
 
 @Injectable({
@@ -26,7 +26,6 @@ export class EapActionsService {
   private disasterType: DisasterType;
   public disasterTypeSettings: CountryDisasterSettings;
   private adminLevel: AdminLevel;
-  private event: EventSummary;
   private eventState: EventState;
   public timelineState: TimelineState;
 
@@ -152,11 +151,6 @@ export class EapActionsService {
     return (monthNumber + 12 - droughtForecastMonths[0]) % 12;
   };
 
-  private onEvent = (events) => {
-    this.event = events[0];
-    this.getTriggeredAreasApi();
-  };
-
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
     this.getTriggeredAreasApi();
@@ -171,8 +165,7 @@ export class EapActionsService {
     if (
       this.disasterType &&
       this.adminLevel &&
-      this.timelineState?.activeLeadTime &&
-      this.event
+      this.timelineState?.activeLeadTime
     ) {
       this.apiService
         .getTriggeredAreas(
@@ -187,14 +180,7 @@ export class EapActionsService {
   }
 
   loadAdminAreasAndActions() {
-    if (this.country && this.disasterType) {
-      this.apiService
-        .getEventsSummary(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-        )
-        .subscribe(this.onEvent);
-    }
+    this.getTriggeredAreasApi();
   }
 
   getTriggeredAreas(): Observable<any[]> {
