@@ -205,20 +205,7 @@ export class MapComponent implements OnDestroy {
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
 
-    if (this.country && this.disasterType) {
-      this.apiService
-        .getRecentDates(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-        )
-        .subscribe((date) => {
-          this.onRecentDates(date);
-        });
-    }
-  };
-
-  private onRecentDates = (date) => {
-    this.lastModelRunDate = date.timestamp || date.date;
+    this.lastModelRunDate = this.timelineState?.today.toUTC().toString();
   };
 
   private onPlaceCodeChange = (): void => {
