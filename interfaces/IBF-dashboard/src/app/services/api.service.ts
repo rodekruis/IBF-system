@@ -208,9 +208,9 @@ export class ApiService {
     eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(
-      `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}/${
-        leadTime ? leadTime : '{leadTime}'
-      }/${eventName || 'no-name'}`,
+      `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}/${leadTime}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }
@@ -223,9 +223,9 @@ export class ApiService {
     eventName: string,
   ): Observable<any> {
     return this.get(
-      `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}/${
-        leadTime ? leadTime : '{leadTime}'
-      }/${eventName || 'no-name'}`,
+      `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}/${leadTime}/${
+        eventName || 'no-name'
+      }`,
       false,
     );
   }

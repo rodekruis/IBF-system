@@ -165,7 +165,13 @@ export class AggregatesService {
   };
 
   loadAggregateInformation(): void {
-    if (this.country && this.disasterType) {
+    if (
+      this.country &&
+      this.disasterType &&
+      this.timelineState.activeLeadTime &&
+      this.adminLevel &&
+      this.eventState
+    ) {
       this.apiService
         .getAggregatesData(
           this.country.countryCodeISO3,

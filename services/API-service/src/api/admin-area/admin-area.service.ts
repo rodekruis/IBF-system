@@ -39,9 +39,6 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
   ) {
-    if (leadTime === '{leadTime}') {
-      leadTime = await this.getDefaultLeadTime(countryCodeISO3, disasterType);
-    }
     const trigger = (
       await this.eventService.getTriggerPerLeadtime(
         countryCodeISO3,
@@ -301,9 +298,6 @@ export class AdminAreaService {
     adminLevel: number,
     leadTime: string,
   ) {
-    if (leadTime === '{leadTime}') {
-      leadTime = await this.getDefaultLeadTime(countryCodeISO3, disasterType);
-    }
     const lastTriggeredDate = await this.eventService.getRecentDate(
       countryCodeISO3,
       disasterType,
@@ -326,29 +320,5 @@ export class AdminAreaService {
       },
     });
     return adminAreasToShow.map(area => area.placeCode);
-  }
-
-  private async getDefaultLeadTime(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-  ): Promise<string> {
-    const country = await this.countryRepository.findOne({
-      where: { countryCodeISO3: countryCodeISO3 },
-      relations: [
-        'countryDisasterSettings',
-        'countryDisasterSettings.activeLeadTimes',
-      ],
-    });
-    const leadTimes = country.countryDisasterSettings
-      .find(s => s.disasterType === disasterType)
-      ?.activeLeadTimes.map(l => l.leadTimeName);
-
-    if (leadTimes.includes(LeadTime.day7)) {
-      return LeadTime.day7;
-    } else if (leadTimes.includes(LeadTime.month0)) {
-      return LeadTime.month0;
-    } else {
-      return leadTimes[0];
-    }
   }
 }
