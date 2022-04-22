@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { VideoPopoverComponent } from './video-popover.component';
 
 describe('VideoPopoverComponent', () => {
@@ -11,7 +12,11 @@ describe('VideoPopoverComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [VideoPopoverComponent],
-        imports: [IonicModule, HttpClientTestingModule],
+        imports: [
+          IonicModule,
+          HttpClientTestingModule,
+          TranslateModule.forRoot(),
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(VideoPopoverComponent);
