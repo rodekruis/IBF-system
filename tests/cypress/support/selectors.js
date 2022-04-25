@@ -1,7 +1,9 @@
 export default {
+  disasterButton: {
+    selected: "[data-test='selected-disaster']",
+  },
   timeline: {
     timelineButton: '[data-test=timeline-button]',
-    timelineButtonActive: '[data-test=timeline-button].active',
   },
   pageTitle: "[data-test='page-title']",
   inputUser: "[data-test='input-user'] input",
@@ -34,6 +36,4 @@ export default {
   mapoverview: '[data-test=leaflet-map]',
   ActionSummaryTitle: '[data-test=action-title]',
   ActionSummarytype: '[data-test=action-summary-types]',
-  triggerActiveTrue: "[data-test='trigger-active-true']",
-  triggerActiveFalse: "[data-test='trigger-active-false']",
 };

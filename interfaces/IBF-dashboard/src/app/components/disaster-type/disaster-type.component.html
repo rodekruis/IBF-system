@@ -19,7 +19,8 @@
         "
         slot="start"
         class="containerTwo"
-        [attr.data-test]="'trigger-active-' + disasterType.activeTrigger"
+        data-test="selected-disaster"
+        [class.triggered]="disasterType.activeTrigger"
       >
       </ion-icon>
     </div>

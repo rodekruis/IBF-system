@@ -70,10 +70,9 @@ Cypress.Commands.add('waitForAngular', () => {
 
 /* check trigger*/
 Cypress.Commands.add('isStatusTriggered', () => {
-  cy.get(selectors.triggerActiveTrue);
-});
-Cypress.Commands.add('isStatusNonTriggered', () => {
-  cy.get(selectors.triggerActiveFalse);
+  return cy.get(selectors.disasterButton.selected).then((button) => {
+    return button.hasClass('triggered');
+  });
 });
 
 Cypress.Commands.overwrite('log', (subject, message) =>
