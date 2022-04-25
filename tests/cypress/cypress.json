@@ -1,13 +1,13 @@
 {
-    "baseUrl": "http://localhost:4200",
-    "env": {
-        "apiUrl": "http://localhost:3000/api"
-    },
-    "projectId": "jkaw7k",
-    "fixturesFolder": "tests/cypress/fixtures",
-    "integrationFolder": "tests/cypress/integration",
-    "pluginsFile": "tests/cypress/plugins/index.js",
-    "screenshotsFolder": "tests/cypress/screenshots",
-    "videosFolder": "tests/cypress/videos",
-    "supportFile": "tests/cypress/support/index.js"
+  "baseUrl": "http://localhost:4200",
+  "env": {
+    "apiUrl": "https://ibf-test.510.global/api"
+  },
+  "projectId": "jkaw7k",
+  "fixturesFolder": "tests/cypress/fixtures",
+  "integrationFolder": "tests/cypress/integration",
+  "pluginsFile": "tests/cypress/plugins/index.js",
+  "screenshotsFolder": "tests/cypress/screenshots",
+  "videosFolder": "tests/cypress/videos",
+  "supportFile": "tests/cypress/support/index.js"
 }
