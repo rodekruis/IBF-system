@@ -2,16 +2,16 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { VideoPopoverComponent } from './video-popover.component';
+import { IbfBuidePopoverComponent } from './ibf-guide-popover.component';
 
-describe('VideoPopoverComponent', () => {
-  let component: VideoPopoverComponent;
-  let fixture: ComponentFixture<VideoPopoverComponent>;
+describe('IbfBuidePopoverComponent', () => {
+  let component: IbfBuidePopoverComponent;
+  let fixture: ComponentFixture<IbfBuidePopoverComponent>;
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [VideoPopoverComponent],
+        declarations: [IbfBuidePopoverComponent],
         imports: [
           IonicModule,
           HttpClientTestingModule,
@@ -19,7 +19,7 @@ describe('VideoPopoverComponent', () => {
         ],
       }).compileComponents();
 
-      fixture = TestBed.createComponent(VideoPopoverComponent);
+      fixture = TestBed.createComponent(IbfBuidePopoverComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
     }),

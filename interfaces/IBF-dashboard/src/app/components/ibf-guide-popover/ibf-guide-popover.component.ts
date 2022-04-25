@@ -3,11 +3,11 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PopoverController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-video-popover',
-  templateUrl: './video-popover.component.html',
-  styleUrls: ['./video-popover.component.scss'],
+  selector: 'app-ibf-guide-popover',
+  templateUrl: './ibf-guide-popover.component.html',
+  styleUrls: ['./ibf-guide-popover.component.scss'],
 })
-export class VideoPopoverComponent implements OnInit {
+export class IbfBuidePopoverComponent implements OnInit {
   public pdfUrl: string;
   public videoUrl: string;
   public safeVideoUrl: SafeResourceUrl;
@@ -21,6 +21,10 @@ export class VideoPopoverComponent implements OnInit {
     this.safeVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
       this.videoUrl,
     );
+  }
+
+  public openPdfManual(): void {
+    window.open(this.pdfUrl, '_blank');
   }
 
   public closePopover(): void {

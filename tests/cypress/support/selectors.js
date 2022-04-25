@@ -11,7 +11,7 @@ export default {
   logoImage: "[data-test='logo-image']",
   loader: "[data-test='loader']",
   ibfGuidebutton: "[data-test=ibf-guide-button]",
-  ibfGuideclosebutton: "[data-test=video-popover] .icon-large",
+  ibfGuideclosebutton: "[data-test=ibf-guide-popover] .icon-large",
   timelineButton :"[data-test=time-line-button]",
   timelineButtonActive :"[data-test=time-line-button].active",
    aggregateList: "[data-test=aggregate-list]",

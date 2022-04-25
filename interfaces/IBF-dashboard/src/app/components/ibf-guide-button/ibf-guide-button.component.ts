@@ -9,7 +9,7 @@ import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { EventService } from 'src/app/services/event.service';
 import { Country } from '../../models/country.model';
 import { CountryService } from '../../services/country.service';
-import { VideoPopoverComponent } from '../video-popover/video-popover.component';
+import { IbfBuidePopoverComponent } from '../ibf-guide-popover/ibf-guide-popover.component';
 
 @Component({
   selector: 'app-ibf-guide-button',
@@ -18,8 +18,8 @@ import { VideoPopoverComponent } from '../video-popover/video-popover.component'
 })
 export class IbfGuideButtonComponent implements OnDestroy {
   private countrySubscription: Subscription;
-  private pdfUrl: string;
   private videoUrl: string;
+  private pdfUrl: string;
 
   constructor(
     private countryService: CountryService,
@@ -45,7 +45,7 @@ export class IbfGuideButtonComponent implements OnDestroy {
 
   async presentPopover(): Promise<void> {
     const popover = await this.popoverController.create({
-      component: VideoPopoverComponent,
+      component: IbfBuidePopoverComponent,
       componentProps: {
         videoUrl: this.videoUrl,
         pdfUrl: this.pdfUrl,
