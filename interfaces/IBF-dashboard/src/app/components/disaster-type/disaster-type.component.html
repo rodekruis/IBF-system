@@ -6,7 +6,10 @@
     [ngClass]="{ active: disasterType.disasterType === selectedDisasterType }"
     class="containerOne"
   >
-    <div *ngIf="disasterType.disasterType === selectedDisasterType">
+    <div
+      *ngIf="disasterType.disasterType === selectedDisasterType"
+      [attr.data-test]="'selected-disaster-' + disasterType.disasterType"
+    >
       <ion-icon
         class="ibf"
         [src]="
@@ -16,6 +19,7 @@
         "
         slot="start"
         class="containerTwo"
+        [attr.data-test]="'trigger-active-' + disasterType.activeTrigger"
       >
       </ion-icon>
     </div>
