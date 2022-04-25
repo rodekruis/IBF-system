@@ -1,7 +1,7 @@
 {
     "baseUrl": "http://localhost:4200",
     "env": {
-        "apiUrl": "https://ibf-test.510.global/api"
+        "apiUrl": "http://localhost:3000/api"
     },
     "projectId": "jkaw7k",
     "fixturesFolder": "tests/cypress/fixtures",

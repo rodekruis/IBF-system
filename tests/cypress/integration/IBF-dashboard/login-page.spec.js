@@ -1,57 +1,45 @@
-import selectors from "../../support/selectors";
-import constants from "../../support/constants";
+import selectors from '../../support/selectors';
+import constants from '../../support/constants';
 
 // test login
-describe("Login Page", () => {
-    beforeEach(() => {
-        cy.visit(constants.loginPagePath);
+describe('Login Page', () => {
+  beforeEach(() => {
+    cy.visit(constants.loginPagePath);
+  });
+
+  it('loads', () => {
+    cy.url().should((url) => {
+      expect(url).to.match(
+        new RegExp(
+          '^' + Cypress.config().baseUrl + constants.loginPagePath + '$',
+        ),
+      );
+      expect(localStorage.getItem(constants.loginToken)).not.to.exist;
     });
 
-    it("loads", () => {
-        cy.url().should((url) => {
-            expect(url).to.match(
-                new RegExp(
-                    "^" +
-                        Cypress.config().baseUrl +
-                        constants.loginPagePath +
-                        "$"
-                )
-            );
-            expect(localStorage.getItem(constants.loginToken)).not.to.exist;
-        });
+    cy.get(selectors.inputUser).should('be.visible').should('be.enabled');
 
-        cy.get(selectors.pageTitle)
-            .should("be.visible")
-            .contains(constants.loginPageTitle);
+    cy.get(selectors.inputPassword).should('be.visible').should('be.enabled');
 
-        cy.get(selectors.inputUser).should("be.visible").should("be.enabled");
+    cy.get(selectors.inputSubmit)
+      .should('be.visible')
+      .should('not.be.disabled');
+  });
 
-        cy.get(selectors.inputPassword)
-            .should("be.visible")
-            .should("be.enabled");
+  it('allows login', () => {
+    cy.get(selectors.inputUser).type(Cypress.env(constants.envLoginUser));
+    cy.get(selectors.inputPassword).type(
+      Cypress.env(constants.envLoginPassword),
+    );
+    cy.get(selectors.inputSubmit).click();
 
-        cy.get(selectors.inputSubmit)
-            .should("be.visible")
-            .should("not.be.disabled");
+    cy.url().should((url) => {
+      expect(url).to.match(
+        new RegExp(
+          '^' + Cypress.config().baseUrl + constants.dashboardPagePath + '$',
+        ),
+      );
+      expect(localStorage.getItem(constants.loginToken)).to.exist;
     });
-
-    it("allows login", () => {
-        cy.get(selectors.inputUser).type(Cypress.env(constants.envLoginUser));
-        cy.get(selectors.inputPassword).type(
-            Cypress.env(constants.envLoginPassword)
-        );
-        cy.get(selectors.inputSubmit).click();
-
-        cy.url().should((url) => {
-            expect(url).to.match(
-                new RegExp(
-                    "^" +
-                        Cypress.config().baseUrl +
-                        constants.dashboardPagePath +
-                        "$"
-                )
-            );
-            expect(localStorage.getItem(constants.loginToken)).to.exist;
-        });
-    });
+  });
 });
