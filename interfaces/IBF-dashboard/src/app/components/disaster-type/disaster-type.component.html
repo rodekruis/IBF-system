@@ -2,7 +2,7 @@
   <div
     *ngFor="let disasterType of disasterTypes"
     (click)="switchDisasterType(disasterType)"
-    data-test="disaster-Type"
+    data-test="disaster-type-button"
     [ngClass]="{ active: disasterType.disasterType === selectedDisasterType }"
     class="containerOne"
   >

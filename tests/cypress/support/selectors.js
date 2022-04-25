@@ -1,6 +1,7 @@
 export default {
-  disasterButton: {
+  disasterType: {
     selected: "[data-test='selected-disaster']",
+    disasterTypeButtons: '[data-test=disaster-type-button]',
   },
   timeline: {
     timelineButton: '[data-test=timeline-button]',
@@ -23,8 +24,6 @@ export default {
   ExposedaggregateNumber: ':nth-child(1)>>>[data-test=aggregate-number]',
   TotalaggregateNumber: ':nth-child(2)>>>[data-test=aggregate-number]',
   AggregatePopupicon: ':nth-child(1)>>[data-test=icon-row]',
-  disastertypes: '[data-test=disaster-Type]',
-  disasterlabel: '[data-test=disaster-labelname]',
   chat: '[data-test=chat]',
   aggregateTitle: '[data-test=aggregate-title]',
   AboutTrigger: '[data-test=chat-about-trigger]',
