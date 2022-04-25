@@ -67,6 +67,7 @@ Cypress.Commands.add('waitForAngular', () => {
       });
     });
 });
+
 /* check trigger*/
 Cypress.Commands.add('isStatusTriggered', () => {
   cy.get(selectors.triggerActiveTrue);

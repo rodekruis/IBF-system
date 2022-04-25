@@ -1,4 +1,8 @@
 export default {
+  timeline: {
+    timelineButton: '[data-test=timeline-button]',
+    timelineButtonActive: '[data-test=timeline-button].active',
+  },
   pageTitle: "[data-test='page-title']",
   inputUser: "[data-test='input-user'] input",
   inputPassword: "[data-test='input-password'] input",
@@ -12,14 +16,10 @@ export default {
   loader: "[data-test='loader']",
   videoGuidebutton: '[data-test=video-guide-button]',
   videoGuideclosebutton: '[data-test=video-popover] .icon-large',
-  timelineButton: '[data-test=time-line-button]',
-  timelineButtonActive: '[data-test=time-line-button].active',
   aggregateList: '[data-test=aggregate-list]',
   aggregateNumber: '[data-test=aggregate-number]',
   ExposedaggregateNumber: ':nth-child(1)>>>[data-test=aggregate-number]',
   TotalaggregateNumber: ':nth-child(2)>>>[data-test=aggregate-number]',
-  CattleExposedNumber: ':nth-child(4)>>>[data-test=aggregate-number]',
-  SamllRuminantNumber: ':nth-child(5)>>>[data-test=aggregate-number]',
   AggregatePopupicon: ':nth-child(1)>>[data-test=icon-row]',
   disastertypes: '[data-test=disaster-Type]',
   disasterlabel: '[data-test=disaster-labelname]',
