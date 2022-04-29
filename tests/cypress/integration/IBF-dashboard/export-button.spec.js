@@ -1,20 +1,19 @@
-import selectors from "../../support/selectors";
-import constants from "../../support/constants";
+import selectors from '../../support/selectors';
 
 // test export button
-describe("Export Button", () => {
+describe('Export Button', () => {
   beforeEach(() => {
     cy.login();
   });
 
-  it("loads", () => {
+  it('loads', () => {
     cy.get(selectors.exportViewButton)
-      .should("be.visible")
-      .should("not.be.disabled");
+      .should('be.visible')
+      .should('not.be.disabled');
   });
 
-  it("opens popup", () => {
+  it('opens popup', () => {
     cy.get(selectors.exportViewButton).click();
-    cy.get(selectors.exportViewPopover).should("be.visible");
+    cy.get(selectors.exportViewPopover).should('be.visible');
   });
 });
