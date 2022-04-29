@@ -48,4 +48,19 @@ describe('timeline component', () => {
       }
     });
   });
+
+  // Tests for 3nd disaster-type
+  it('Disaster type 3: validate timeline buttons', () => {
+    //check if there are 2 disasters
+    cy.get(selectors.disasterType.disasterTypeButtons).then((buttons) => {
+      if (buttons.length > 2) {
+        // click 2nd disaster-type
+        cy.get(selectors.disasterType.disasterTypeButtons).eq(2).click();
+        // wait for all requests to finish
+        cy.wait(15000);
+
+        cy.executeTimelineTests();
+      }
+    });
+  });
 });
