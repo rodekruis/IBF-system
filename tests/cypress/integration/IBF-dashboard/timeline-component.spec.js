@@ -36,11 +36,16 @@ describe('timeline component', () => {
 
   // Tests for 2nd disaster-type
   it('Disaster type 2: validate timeline buttons', () => {
-    // click 2nd disaster-type
-    cy.get(selectors.disasterType.disasterTypeButtons).eq(1).click();
-    // wait for all requests to finish
-    cy.wait(15000);
+    //check if there are 2 disasters
+    cy.get(selectors.disasterType.disasterTypeButtons).then((buttons) => {
+      if (buttons.length > 1) {
+        // click 2nd disaster-type
+        cy.get(selectors.disasterType.disasterTypeButtons).eq(1).click();
+        // wait for all requests to finish
+        cy.wait(15000);
 
-    cy.executeTimelineTests();
+        cy.executeTimelineTests();
+      }
+    });
   });
 });
