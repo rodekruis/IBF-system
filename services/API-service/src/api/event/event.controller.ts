@@ -132,9 +132,16 @@ export class EventController {
       'Past and current trigger activation data per admin-area and disaster-type.',
     type: [ActivationLogDto],
   })
-  @Get('activation-log')
-  public async getActivationLogData(): Promise<ActivationLogDto[]> {
-    return await this.eventService.getActivationLogData();
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @Get('activation-log/:countryCodeISO3/:disasterType')
+  public async getActivationLogData(
+    @Param() params,
+  ): Promise<ActivationLogDto[]> {
+    return await this.eventService.getActivationLogData(
+      params.countryCodeISO3,
+      params.disasterType,
+    );
   }
 
   @Roles(UserRole.DisasterManager)
