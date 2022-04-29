@@ -9,7 +9,8 @@
     "video": "Click to watch the IBF Video Guide.",
     "note": "NOTE: This dashboard works best in Chrome, Firefox, Safari and Microsoft Edge. The dashboard is not compatible with Internet Explorer.",
     "forgot-password": "Forgot password?",
-    "forgot-password-message": "If you forgot your password please send a request to "
+    "forgot-password-message": "If you forgot your password please send a request to ",
+    "production-live": "Live"
   },
   "dashboard-page": {
     "dev-menu": {

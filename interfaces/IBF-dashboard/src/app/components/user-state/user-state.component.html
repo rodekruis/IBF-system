@@ -8,11 +8,10 @@
       >
         <span>
           IBF PORTAL
-
           <strong
-            *ngIf="!isLoggedIn && environmentConfiguration === 'development'"
+            *ngIf="!isLoggedIn"
           >
-            {{ countryName }}</strong
+            {{ showEnvironmentLabel(environmentConfiguration) }}</strong
           >
           <strong
             *ngIf="isLoggedIn"
@@ -22,7 +21,7 @@
             {{ disasterType?.disasterType }} {{ activeTriggerMsg }}
           </strong>
           <ion-icon
-            *ngIf="disasterType?.activeTrigger"
+            *ngIf="isLoggedIn && disasterType?.activeTrigger"
             class="ibf"
             src="/assets/icons/Alert_Title_Purple.svg"
             slot="start"

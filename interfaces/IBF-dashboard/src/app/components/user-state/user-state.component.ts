@@ -55,24 +55,18 @@ export class UserStateComponent implements OnInit {
     this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
-
-    if (!this.authService.isLoggedIn()) {
-      this.apiService.getCountries().subscribe((countries) => {
-        if (countries.length === 1) {
-          this.onCountryChange(countries[0]);
-        }
-      });
-    }
   }
 
   private onCountryChange = (country: Country) => {
-    this.countryName =
-      country?.countryName ||
-      this.capitalizeFirstLetter(this.environmentConfiguration);
+    if (country) {
+      this.countryName = country.countryName;
+    }
   };
 
-  private capitalizeFirstLetter(toCapitalize: string) {
-    return toCapitalize.charAt(0).toUpperCase() + toCapitalize.slice(1);
+  public showEnvironmentLabel(environmentConfiguration: string) {
+    return environmentConfiguration === 'production'
+      ? this.translateService.instant('login-page.production-live')
+      : environmentConfiguration;
   }
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
