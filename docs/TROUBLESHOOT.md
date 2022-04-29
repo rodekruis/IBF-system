@@ -80,3 +80,10 @@ Sometimes there is an issue with installing all packages for ibf-api-service. Yo
 - cd /home/ibf-user/IBF-system/services/API-service
 - npm install
 - docker-compose restart ibf-api-service
+
+### 502 Bad Gateway on API-calls/Swagger UI
+
+Sometimes for unknown reasons the API & Swagger are unavailable, while 'docker-compose logs ibf-api-service' tells you that the API is running correctly.
+- On the server run 'docker-compose restart nginx' in this case
+- which will usually solve it.
+

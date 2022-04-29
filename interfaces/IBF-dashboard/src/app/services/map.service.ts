@@ -235,7 +235,8 @@ export class MapService {
       this.eventState &&
       this.timelineState &&
       this.adminLevel &&
-      this.triggeredAreas
+      ((this.eventState.activeEvent && this.triggeredAreas.length) ||
+        !this.eventState.activeEvent)
     ) {
       this.apiService
         .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)

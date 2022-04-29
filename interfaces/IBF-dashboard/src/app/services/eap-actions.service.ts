@@ -13,7 +13,7 @@ import { EventState } from '../types/event-state';
 import { TimelineState } from '../types/timeline-state';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
-import { EventService, EventSummary } from './event.service';
+import { EventService } from './event.service';
 import { TimelineService } from './timeline.service';
 
 @Injectable({
@@ -24,11 +24,10 @@ export class EapActionsService {
   public triggeredAreas: any[];
   private country: Country;
   private disasterType: DisasterType;
-  public disasterTypeSettings: CountryDisasterSettings;
+  private disasterTypeSettings: CountryDisasterSettings;
   private adminLevel: AdminLevel;
-  private event: EventSummary;
   private eventState: EventState;
-  public timelineState: TimelineState;
+  private timelineState: TimelineState;
 
   constructor(
     private countryService: CountryService,
@@ -68,8 +67,42 @@ export class EapActionsService {
     this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType.disasterType,
     );
-    this.loadAdminAreasAndActions();
   };
+
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
+    this.getTriggeredAreasApi();
+  };
+
+  private onEventStatusChange = (eventState: EventState) => {
+    this.eventState = eventState;
+    this.getTriggeredAreasApi();
+  };
+
+  private onAdminLevelChange = (adminLevel: AdminLevel) => {
+    this.adminLevel = adminLevel;
+    this.getTriggeredAreasApi();
+  };
+
+  public getTriggeredAreasApi() {
+    if (
+      this.country &&
+      this.disasterType &&
+      this.adminLevel &&
+      this.timelineState?.activeLeadTime &&
+      this.eventState
+    ) {
+      this.apiService
+        .getTriggeredAreas(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+          this.adminLevel,
+          this.timelineState.activeLeadTime,
+          this.eventState.event?.eventName,
+        )
+        .subscribe(this.onTriggeredAreas);
+    }
+  }
 
   private onTriggeredAreas = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
@@ -91,6 +124,10 @@ export class EapActionsService {
     });
     this.triggeredAreaSubject.next(this.triggeredAreas);
   };
+
+  getTriggeredAreas(): Observable<any[]> {
+    return this.triggeredAreaSubject.asObservable();
+  }
 
   private formatDates = (triggeredArea) => {
     triggeredArea.startDate = DateTime.fromISO(
@@ -152,61 +189,6 @@ export class EapActionsService {
     return (monthNumber + 12 - droughtForecastMonths[0]) % 12;
   };
 
-  private onEvent = (events) => {
-    this.event = events[0];
-    if (this.event && this.timelineState.activeLeadTime) {
-      this.getTriggeredAreasApi(
-        this.timelineState.activeLeadTime,
-        this.adminLevel || this.disasterTypeSettings.defaultAdminLevel,
-      );
-    }
-  };
-
-  private onTimelineStateChange = (timelineState: TimelineState) => {
-    this.timelineState = timelineState;
-    if (this.event && this.timelineState.activeLeadTime) {
-      this.getTriggeredAreasApi(
-        this.timelineState.activeLeadTime,
-        this.adminLevel || this.disasterTypeSettings.defaultAdminLevel,
-      );
-    }
-  };
-
-  private onAdminLevelChange = (adminLevel: AdminLevel) => {
-    if (this.event && this.timelineState?.activeLeadTime && adminLevel) {
-      this.getTriggeredAreasApi(this.timelineState?.activeLeadTime, adminLevel);
-    }
-  };
-
-  private getTriggeredAreasApi(leadTime: string, adminLevel: AdminLevel) {
-    if (this.disasterType) {
-      this.apiService
-        .getTriggeredAreas(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-          adminLevel,
-          leadTime,
-          this.eventState?.event?.eventName,
-        )
-        .subscribe(this.onTriggeredAreas);
-    }
-  }
-
-  loadAdminAreasAndActions() {
-    if (this.country && this.disasterType) {
-      this.apiService
-        .getEventsSummary(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-        )
-        .subscribe(this.onEvent);
-    }
-  }
-
-  getTriggeredAreas(): Observable<any[]> {
-    return this.triggeredAreaSubject.asObservable();
-  }
-
   checkEapAction(
     action: string,
     status: boolean,
@@ -221,9 +203,5 @@ export class EapActionsService {
       placeCode,
       eventName,
     );
-  }
-
-  private onEventStatusChange(eventState: EventState) {
-    this.eventState = eventState;
   }
 }

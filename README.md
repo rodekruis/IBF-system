@@ -139,11 +139,7 @@ Installation: 0. (Potentially on Ubuntu?:
 - If it fails, find out why and/or install Cypress in some other way (e.g.
   `npm install cypress`)
 
-2.  Set necessary environment variables, for example by using a CYPRESS\_\*
-    prefix (see https://docs.cypress.io/guides/guides/environment-variables for
-    more)
-
-- e.g. on Windows Powershell: $env:CYPRESS_LOGIN_USER = "<login>"
+2.  Set necessary environment variables by copying `cypress.env.json.example` to `cypress.env.json` and filling in the variables.
 
 3.  Run `npm run cypress:open`
 
