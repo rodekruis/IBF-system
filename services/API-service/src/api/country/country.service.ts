@@ -12,6 +12,7 @@ export class CountryService {
     'countryDisasterSettings.activeLeadTimes',
     'disasterTypes',
     'disasterTypes.leadTimes',
+    'notificationInfo',
   ];
 
   public async getAllCountries(): Promise<CountryEntity[]> {

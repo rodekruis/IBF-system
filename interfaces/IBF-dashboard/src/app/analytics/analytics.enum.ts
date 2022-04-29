@@ -5,7 +5,7 @@ export enum AnalyticsPage {
 }
 
 export enum AnalyticsEvent {
-  watchVideoGuide = 'watch-video-guide',
+  watchIbfGuide = 'watch-ibf-guide',
   aboutTrigger = 'about-trigger',
   aggregateInformation = 'aggregate-information',
   adminLevel = 'admin-level',

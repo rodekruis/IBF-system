@@ -50,11 +50,14 @@
             </ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            <ion-card-title
+            <ion-button
               (click)="presentPopover()"
-              [translate]="'login-page.video'"
+              color="ibf-white"
+              size="small"
+              expand="block"
             >
-            </ion-card-title>
+              {{ 'ibf-guide-component.title' | translate }}
+            </ion-button>
             <br />
             <span [translate]="'login-page.note'"></span>
           </ion-card-content>
