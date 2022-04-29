@@ -1,24 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PopoverController } from '@ionic/angular';
-import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-video-popover',
-  templateUrl: './video-popover.component.html',
-  styleUrls: ['./video-popover.component.scss'],
+  selector: 'app-ibf-guide-popover',
+  templateUrl: './ibf-guide-popover.component.html',
+  styleUrls: ['./ibf-guide-popover.component.scss'],
 })
-export class VideoPopoverComponent {
-  private videoUrl: string = environment.ibfVideoGuideUrl;
+export class IbfGuidePopoverComponent implements OnInit {
+  public pdfUrl: string;
+  public videoUrl: string;
   public safeVideoUrl: SafeResourceUrl;
 
   constructor(
     private popoverController: PopoverController,
     private domSanitizer: DomSanitizer,
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.safeVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
       this.videoUrl,
     );
+  }
+
+  public openPdfManual(): void {
+    window.open(this.pdfUrl, '_blank');
   }
 
   public closePopover(): void {

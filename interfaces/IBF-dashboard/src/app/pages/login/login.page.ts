@@ -6,7 +6,7 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { VideoPopoverComponent } from 'src/app/components/video-popover/video-popover.component';
+import { IbfGuidePopoverComponent } from 'src/app/components/ibf-guide-popover/ibf-guide-popover.component';
 import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
@@ -24,6 +24,7 @@ export class LoginPage implements OnInit {
   public envDisasterTypes: string[] = [];
   public allDisasterTypes: string[] = [];
   public disasterTypeMap = DISASTER_TYPES_SVG_MAP;
+  private pdfUrl: string;
 
   constructor(
     private popoverController: PopoverController,
@@ -57,21 +58,25 @@ export class LoginPage implements OnInit {
         }
       });
     });
+    // For now take on login-page (where country is unknown) the first country.
+    // This'll work on current 1-country-production, and on other servers does not matter.
+    this.pdfUrl = countries[0].notificationInfo.linkPdf;
   };
 
   async presentPopover(): Promise<void> {
     const popover = await this.popoverController.create({
-      component: VideoPopoverComponent,
+      component: IbfGuidePopoverComponent,
       componentProps: {
         videoUrl: environment.ibfVideoGuideUrl,
+        pdfUrl: this.pdfUrl,
       },
       animated: true,
-      cssClass: 'ibf-video-guide-popover',
+      cssClass: 'ibf-guide-popover',
       translucent: true,
       showBackdrop: true,
     });
 
-    this.analyticsService.logEvent(AnalyticsEvent.watchVideoGuide, {
+    this.analyticsService.logEvent(AnalyticsEvent.watchIbfGuide, {
       page: AnalyticsPage.login,
       component: this.constructor.name,
     });
