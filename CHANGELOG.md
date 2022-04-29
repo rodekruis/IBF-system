@@ -1,3 +1,25 @@
+# [0.150.0](https://github.com/rodekruis/IBF-system/compare/v0.149.1...v0.150.0) (2022-04-29)
+
+
+### Bug Fixes
+
+* also add 3rd disaster-type AB[#13500](https://github.com/rodekruis/IBF-system/issues/13500) ([cc49216](https://github.com/rodekruis/IBF-system/commit/cc492168e43d5ec0bf51514783b9ab01b57fd62a))
+* revert apiUrl AB[#13485](https://github.com/rodekruis/IBF-system/issues/13485) ([d5aac2b](https://github.com/rodekruis/IBF-system/commit/d5aac2b5f8bd51346cde904376ddff78db5cfaf1))
+* run second test only if there are 2 button ([f296237](https://github.com/rodekruis/IBF-system/commit/f296237346f38d05499e1c11c1d408202a612d7f))
+* test across multiple disaster-types AB[#13500](https://github.com/rodekruis/IBF-system/issues/13500) ([9b6f948](https://github.com/rodekruis/IBF-system/commit/9b6f9482456f454cc470262dd749633d3445f2a7))
+
+
+### Features
+
+* add cypress readme on testing setup AB[#13478](https://github.com/rodekruis/IBF-system/issues/13478) ([a8dd8e5](https://github.com/rodekruis/IBF-system/commit/a8dd8e5dca36709b2f9536a5d775624ed8e756d6))
+* add new timeline tests AB[#13480](https://github.com/rodekruis/IBF-system/issues/13480) ([756615e](https://github.com/rodekruis/IBF-system/commit/756615eb07f5b01ec370c791cba72b041685c15e))
+* add trigger status check AB[#13480](https://github.com/rodekruis/IBF-system/issues/13480) ([dfdc9c2](https://github.com/rodekruis/IBF-system/commit/dfdc9c23d102899dd1ce2044fb1722a033314ab9))
+* beginning timeline tests AB[#13480](https://github.com/rodekruis/IBF-system/issues/13480) ([88fb1e9](https://github.com/rodekruis/IBF-system/commit/88fb1e9189a993414bba5726509fa7a5c6ca5fbd))
+* enable prettier + clean up code AB[#13485](https://github.com/rodekruis/IBF-system/issues/13485) ([06cfcfc](https://github.com/rodekruis/IBF-system/commit/06cfcfc9ee8cd7cdec6e7f3dc748114719c6c92e))
+* improve env setup AB[#13492](https://github.com/rodekruis/IBF-system/issues/13492) ([6c5baa2](https://github.com/rodekruis/IBF-system/commit/6c5baa2f338caba76e13b546baab22714b8a78d3))
+
+
+
 ## [0.149.1](https://github.com/rodekruis/IBF-system/compare/v0.149.0...v0.149.1) (2022-04-22)
 
 
@@ -133,15 +155,6 @@
 * add mock data AB[#13023](https://github.com/rodekruis/IBF-system/issues/13023) ([3725273](https://github.com/rodekruis/IBF-system/commit/372527364f3df54f5fa80cddb69de5a6ce8f77c3))
 * add PHL adm1 boundaries AB[#13113](https://github.com/rodekruis/IBF-system/issues/13113) ([d33ab1d](https://github.com/rodekruis/IBF-system/commit/d33ab1d12d6f23da7a6377ab99ae7df3a22b7dd3))
 * enable flood extent AB[#13252](https://github.com/rodekruis/IBF-system/issues/13252) ([ac11960](https://github.com/rodekruis/IBF-system/commit/ac11960a2e47f2d49d3ba15ad9a3e7c0087dec3a))
-
-
-
-## [0.141.4](https://github.com/rodekruis/IBF-system/compare/v0.141.3...v0.141.4) (2022-03-21)
-
-
-### Bug Fixes
-
-* merge versions xlsx AB[#13015](https://github.com/rodekruis/IBF-system/issues/13015) ([a2c8d09](https://github.com/rodekruis/IBF-system/commit/a2c8d09320d3d2c34f0e507ca9befce30bf5657c))
 
 
 
