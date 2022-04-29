@@ -1,3 +1,20 @@
+# [0.151.0](https://github.com/rodekruis/IBF-system/compare/v0.150.1...v0.151.0) (2022-04-29)
+
+
+### Bug Fixes
+
+* new design ibf guide popover AB[#13476](https://github.com/rodekruis/IBF-system/issues/13476) ([9e66433](https://github.com/rodekruis/IBF-system/commit/9e66433afc53be88010cd1e87ec3151d980ee7ff))
+* remove again test file ([3db8dab](https://github.com/rodekruis/IBF-system/commit/3db8dabd1ecbb2ddf1a1bf95f3029e6b8f227366))
+* typo on popup name ([efa3e17](https://github.com/rodekruis/IBF-system/commit/efa3e170ace712c808f4ed958e5cc906de814ddc))
+* update popup text ([a632414](https://github.com/rodekruis/IBF-system/commit/a632414aa787fea63ed833192f926f669a455f92))
+
+
+### Features
+
+* add PDF link in video popup AB[#13474](https://github.com/rodekruis/IBF-system/issues/13474) ([e09ce81](https://github.com/rodekruis/IBF-system/commit/e09ce81dc9997ca78035707cb1b2029f7d9f1231))
+
+
+
 ## [0.150.1](https://github.com/rodekruis/IBF-system/compare/v0.150.0...v0.150.1) (2022-04-29)
 
 
@@ -126,15 +143,6 @@
 ### Features
 
 * add drought vulnerability seed data KEN AB[#12725](https://github.com/rodekruis/IBF-system/issues/12725) ([edd39cd](https://github.com/rodekruis/IBF-system/commit/edd39cd6bd9ac079fac3a097f3d5a1010d78ca9e))
-
-
-
-# [0.143.0](https://github.com/rodekruis/IBF-system/compare/v0.142.0...v0.143.0) (2022-04-08)
-
-
-### Features
-
-* update population csv AB[#13242](https://github.com/rodekruis/IBF-system/issues/13242) ([1dbaa06](https://github.com/rodekruis/IBF-system/commit/1dbaa063c9132afb5c83fc8773e09c9885d6bba0))
 
 
 
