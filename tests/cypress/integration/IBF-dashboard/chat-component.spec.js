@@ -6,12 +6,6 @@ describe('Chat component', () => {
     cy.login();
   });
 
-  it('loads DisasterType', () => {
-    cy.get(selectors.disastertypes)
-      .should('be.visible')
-      .should('not.be.disabled');
-  });
-
   it('load and validate intro messages and followup messages', () => {
     cy.get(selectors.chat)
       .should('be.visible')
