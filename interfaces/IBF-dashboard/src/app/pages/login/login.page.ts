@@ -6,7 +6,7 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { IbfBuidePopoverComponent } from 'src/app/components/ibf-guide-popover/ibf-guide-popover.component';
+import { IbfGuidePopoverComponent } from 'src/app/components/ibf-guide-popover/ibf-guide-popover.component';
 import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
@@ -65,7 +65,7 @@ export class LoginPage implements OnInit {
 
   async presentPopover(): Promise<void> {
     const popover = await this.popoverController.create({
-      component: IbfBuidePopoverComponent,
+      component: IbfGuidePopoverComponent,
       componentProps: {
         videoUrl: environment.ibfVideoGuideUrl,
         pdfUrl: this.pdfUrl,

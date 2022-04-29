@@ -22,7 +22,7 @@ import { ExportViewPopoverComponent } from './components/export-view-popover/exp
 import { ExportViewComponent } from './components/export-view/export-view.component';
 import { ForgotPasswordPopoverComponent } from './components/forgot-password-popover/forgot-password-popover.component';
 import { IbfGuideButtonComponent } from './components/ibf-guide-button/ibf-guide-button.component';
-import { IbfBuidePopoverComponent } from './components/ibf-guide-popover/ibf-guide-popover.component';
+import { IbfGuidePopoverComponent } from './components/ibf-guide-popover/ibf-guide-popover.component';
 import { LayerControlInfoPopoverComponent } from './components/layer-control-info-popover/layer-control-info-popover.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LogosComponent } from './components/logos/logos.component';
@@ -64,7 +64,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ExportViewComponent,
     ExportViewPopoverComponent,
     DateButtonComponent,
-    IbfBuidePopoverComponent,
+    IbfGuidePopoverComponent,
     IbfGuideButtonComponent,
     DisasterTypeComponent,
     EventSwitcherComponent,
@@ -93,7 +93,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ExportViewComponent,
     ExportViewPopoverComponent,
     DateButtonComponent,
-    IbfBuidePopoverComponent,
+    IbfGuidePopoverComponent,
     IbfGuideButtonComponent,
     DisasterTypeComponent,
     EventSwitcherComponent,

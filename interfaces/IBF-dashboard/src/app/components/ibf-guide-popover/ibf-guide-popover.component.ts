@@ -7,7 +7,7 @@ import { PopoverController } from '@ionic/angular';
   templateUrl: './ibf-guide-popover.component.html',
   styleUrls: ['./ibf-guide-popover.component.scss'],
 })
-export class IbfBuidePopoverComponent implements OnInit {
+export class IbfGuidePopoverComponent implements OnInit {
   public pdfUrl: string;
   public videoUrl: string;
   public safeVideoUrl: SafeResourceUrl;

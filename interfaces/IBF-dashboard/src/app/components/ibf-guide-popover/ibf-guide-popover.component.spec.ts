@@ -2,16 +2,16 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { IbfBuidePopoverComponent } from './ibf-guide-popover.component';
+import { IbfGuidePopoverComponent } from './ibf-guide-popover.component';
 
-describe('IbfBuidePopoverComponent', () => {
-  let component: IbfBuidePopoverComponent;
-  let fixture: ComponentFixture<IbfBuidePopoverComponent>;
+describe('IbfGuidePopoverComponent', () => {
+  let component: IbfGuidePopoverComponent;
+  let fixture: ComponentFixture<IbfGuidePopoverComponent>;
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [IbfBuidePopoverComponent],
+        declarations: [IbfGuidePopoverComponent],
         imports: [
           IonicModule,
           HttpClientTestingModule,
@@ -19,7 +19,7 @@ describe('IbfBuidePopoverComponent', () => {
         ],
       }).compileComponents();
 
-      fixture = TestBed.createComponent(IbfBuidePopoverComponent);
+      fixture = TestBed.createComponent(IbfGuidePopoverComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
     }),
