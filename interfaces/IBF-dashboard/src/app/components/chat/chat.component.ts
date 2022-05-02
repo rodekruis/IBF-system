@@ -131,7 +131,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.disasterTypeSubscription.unsubscribe();
-    this.translateSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
     this.timelineStateSubscription.unsubscribe();
