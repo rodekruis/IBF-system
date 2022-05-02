@@ -1,3 +1,12 @@
+## [0.153.1](https://github.com/rodekruis/IBF-system/compare/v0.153.0...v0.153.1) (2022-05-02)
+
+
+### Bug Fixes
+
+* process what's new url AB[#13612](https://github.com/rodekruis/IBF-system/issues/13612) ([44a119c](https://github.com/rodekruis/IBF-system/commit/44a119cf73e8e1bda42bc2295cbf6bc813dce783))
+
+
+
 # [0.153.0](https://github.com/rodekruis/IBF-system/compare/v0.152.0...v0.153.0) (2022-05-02)
 
 
@@ -127,20 +136,6 @@
 
 * add riceland layer AB[#13249](https://github.com/rodekruis/IBF-system/issues/13249) ([bc7d9a2](https://github.com/rodekruis/IBF-system/commit/bc7d9a2a6f5d1903afb19d3beebd16e8876767f9))
 * update layers popup xlsx AB[#13243](https://github.com/rodekruis/IBF-system/issues/13243) ([1655da3](https://github.com/rodekruis/IBF-system/commit/1655da3bae1980874224f966319da6c9ec9a1d71))
-
-
-
-# [0.146.0](https://github.com/rodekruis/IBF-system/compare/v0.145.0...v0.146.0) (2022-04-08)
-
-
-### Bug Fixes
-
-* small updates AB[#12985](https://github.com/rodekruis/IBF-system/issues/12985) ([d9acf3a](https://github.com/rodekruis/IBF-system/commit/d9acf3a13675caaec7651b0c36c24f560741f10d))
-
-
-### Features
-
-* KEN drought + PHL floods popup info AB[#12985](https://github.com/rodekruis/IBF-system/issues/12985) ([1d4ce95](https://github.com/rodekruis/IBF-system/commit/1d4ce959da7c86c99049a4c295530e98fd8bd288))
 
 
 
