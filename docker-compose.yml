@@ -1,121 +1,122 @@
-version: "3.8"
+version: '3.8'
 
 services:
-    nginx:
-        image: staticfloat/nginx-certbot
-        ports:
-            - 80:80
-            - 443:443
-        environment:
-            CERTBOT_EMAIL: ${CERTBOT_EMAIL}
-            ENVSUBST_VARS: FQDN
-            FQDN: ${FQDN}
-        volumes:
-            - ./nginx/conf.d:/etc/nginx/user.conf.d
-            - ibf-dashboard-root:/var/www/ibf-dashboard
-            - letsencrypt:/etc/letsencrypt
-        networks:
-            web-server-network:
-        restart: unless-stopped
+  nginx:
+    image: staticfloat/nginx-certbot
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      CERTBOT_EMAIL: ${CERTBOT_EMAIL}
+      ENVSUBST_VARS: FQDN
+      FQDN: ${FQDN}
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/user.conf.d
+      - ibf-dashboard-root:/var/www/ibf-dashboard
+      - letsencrypt:/etc/letsencrypt
+    networks:
+      web-server-network:
+    restart: unless-stopped
 
-    ibf-api-service:
-        build:
-            context: ./services/API-service
-            args:
-                - NODE_ENV=${NODE_ENV}
-        image: rodekruis/ibf-api-service
-        environment:
-            - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-            - DB_TYPE=${DB_TYPE}
-            - DB_HOST=${DB_HOST}
-            - DB_PORT=${DB_PORT}
-            - DB_DATABASE=${DB_DATABASE}
-            - DB_USERNAME=${DB_USERNAME}
-            - DB_PASSWORD=${DB_PASSWORD}
-            - NODE_ENV=${NODE_ENV}
-            - PRODUCTION_DATA_SERVER=${PRODUCTION_DATA_SERVER}
-            - SECRET=${SECRET}
-            - RESET_SECRET=${RESET_SECRET}
-            - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
-            - COUNTRIES=${COUNTRIES}
-            - DISASTER_TYPES=${DISASTER_TYPES}
-            - DASHBOARD_URL=${DASHBOARD_URL}
-            - MC_API=${MC_API}
-            - MC_LIST_ID=${MC_LIST_ID}
-            - MC_SEGMENTS=${MC_SEGMENTS}
-            - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
-            - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
-        volumes:
-            - api-root:/home/ibf/api-service
-        networks:
-            web-server-network:
-            api-network:
+  ibf-api-service:
+    build:
+      context: ./services/API-service
+      args:
+        - NODE_ENV=${NODE_ENV}
+    image: rodekruis/ibf-api-service
+    environment:
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - DB_TYPE=${DB_TYPE}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - NODE_ENV=${NODE_ENV}
+      - PRODUCTION_DATA_SERVER=${PRODUCTION_DATA_SERVER}
+      - SECRET=${SECRET}
+      - RESET_SECRET=${RESET_SECRET}
+      - WATERPOINTDATA_TOKEN=${WATERPOINTDATA_TOKEN}
+      - COUNTRIES=${COUNTRIES}
+      - DISASTER_TYPES=${DISASTER_TYPES}
+      - DASHBOARD_URL=${DASHBOARD_URL}
+      - MC_API=${MC_API}
+      - MC_LIST_ID=${MC_LIST_ID}
+      - MC_SEGMENTS=${MC_SEGMENTS}
+      - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
+      - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
+    volumes:
+      - api-root:/home/ibf/api-service
+    networks:
+      web-server-network:
+      api-network:
 
-    ibf-dashboard:
-        build:
-            context: ./interfaces/IBF-dashboard
-            args:
-                - NG_CONFIGURATION=${NG_CONFIGURATION}
-                - NG_API_URL=${NG_API_URL}
-                - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
-                - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
-                - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
-                - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
-                - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
-                - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
-                - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
-        image: rodekruis/ibf-dashboard
-        environment:
-            - NG_CONFIGURATION=${NG_CONFIGURATION}
-            - NG_API_URL=${NG_API_URL}
-            - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
-            - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
-            - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
-            - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
-            - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
-            - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
-            - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
-        volumes:
-            - ibf-dashboard-root:/home/node/app/www
-        networks:
-            web-server-network:
+  ibf-dashboard:
+    build:
+      context: ./interfaces/IBF-dashboard
+      args:
+        - NG_CONFIGURATION=${NG_CONFIGURATION}
+        - NG_API_URL=${NG_API_URL}
+        - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
+        - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
+        - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
+        - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
+        - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
+        - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
+        - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
+        - WHATS_NEW_URL=${WHATS_NEW_URL}
+    image: rodekruis/ibf-dashboard
+    environment:
+      - NG_CONFIGURATION=${NG_CONFIGURATION}
+      - NG_API_URL=${NG_API_URL}
+      - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
+      - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
+      - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
+      - NG_IBF_VIDEO_GUIDE_URL=${NG_IBF_VIDEO_GUIDE_URL}
+      - NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY=${NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}
+      - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
+      - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
+      - WHATS_NEW_URL=${WHATS_NEW_URL}
+    volumes:
+      - ibf-dashboard-root:/home/node/app/www
+    networks:
+      web-server-network:
 
-    ibf-geoserver:
-        image: kartoza/geoserver
-        volumes:
-            - api-geoserver-files:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
-            - api-geoserver-workspace:/opt/geoserver/data_dir/workspaces/ibf-system
-        networks:
-            web-server-network:
-            api-network:
-        restart: unless-stopped
+  ibf-geoserver:
+    image: kartoza/geoserver
+    volumes:
+      - api-geoserver-files:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
+      - api-geoserver-workspace:/opt/geoserver/data_dir/workspaces/ibf-system
+    networks:
+      web-server-network:
+      api-network:
+    restart: unless-stopped
 
 volumes:
-    ibf-dashboard-root:
-    api-root:
-        driver_opts:
-            type: bind
-            device: ./services/API-service
-            o: bind
-    api-geoserver-files:
-        driver_opts:
-            type: bind
-            device: ./services/API-service/geoserver-volume/raster-files
-            o: bind
-    api-geoserver-workspace:
-        driver_opts:
-            type: bind
-            device: ./services/API-service/geoserver-volume/geoserver-layers
-            o: bind
-    letsencrypt:
-        driver_opts:
-            type: bind
-            device: ./nginx/letsencrypt
-            o: bind
+  ibf-dashboard-root:
+  api-root:
+    driver_opts:
+      type: bind
+      device: ./services/API-service
+      o: bind
+  api-geoserver-files:
+    driver_opts:
+      type: bind
+      device: ./services/API-service/geoserver-volume/raster-files
+      o: bind
+  api-geoserver-workspace:
+    driver_opts:
+      type: bind
+      device: ./services/API-service/geoserver-volume/geoserver-layers
+      o: bind
+  letsencrypt:
+    driver_opts:
+      type: bind
+      device: ./nginx/letsencrypt
+      o: bind
 
 networks:
-    web-server-network:
-        driver: bridge
-    api-network:
-        driver: bridge
-    
+  web-server-network:
+    driver: bridge
+  api-network:
+    driver: bridge
