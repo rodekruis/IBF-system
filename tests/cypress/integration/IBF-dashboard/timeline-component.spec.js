@@ -29,7 +29,7 @@ describe('timeline component', () => {
   it('Disaster type 1: validate timeline buttons', () => {
     // click 1st disaster-type not necessary as it is loaded by default
     // wait for all requests to finish
-    cy.wait(5000);
+    cy.waitForRequests();
 
     cy.executeTimelineTests();
   });
@@ -42,7 +42,7 @@ describe('timeline component', () => {
         // click 2nd disaster-type
         cy.get(selectors.disasterType.disasterTypeButtons).eq(1).click();
         // wait for all requests to finish
-        cy.wait(15000);
+        cy.waitForRequests();
 
         cy.executeTimelineTests();
       }
@@ -57,7 +57,7 @@ describe('timeline component', () => {
         // click 2nd disaster-type
         cy.get(selectors.disasterType.disasterTypeButtons).eq(2).click();
         // wait for all requests to finish
-        cy.wait(15000);
+        cy.waitForRequests();
 
         cy.executeTimelineTests();
       }
