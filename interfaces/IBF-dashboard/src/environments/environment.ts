@@ -14,4 +14,6 @@ export const environment = {
   applicationInsightsInstrumentationKey: '', // application insights instrumentation key
   applicationInsightsUrl: '', // application insights url
   supportEmailAddress: 'ibf-support@510.global',
+  whatsNewUrl:
+    'https://github.com/rodekruis/IBF-system/blob/master/WHAT_IS_NEW_IN_IBF.md',
 };
