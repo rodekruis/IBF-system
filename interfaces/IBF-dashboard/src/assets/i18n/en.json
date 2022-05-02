@@ -58,10 +58,8 @@
   },
   "ibf-guide-component": {
     "title": "IBF Guide",
-    "pdf-and-video": "PDF and Video Guide",
-    "description": "To get a quick guide on how this dashboard works you can look at either the video guide below or the PDF manual here.",
-    "pdf": "PDF Manual",
-    "video": "Video Guide"
+    "video-pdf-description": "To get a quick guide on how this dashboard works you can look at either the video guide below or the PDF manual <a href='{{pdfUrl}}' target='_blank'>here</a>.",
+    "whats-new-description": "To learn what new features have recently been added to the IBF Portal click <a href='{{whatsNewUrl}}' target='_blank'>here</a>."
   },
   "chat-component": {
     "floods": {
