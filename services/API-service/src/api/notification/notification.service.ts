@@ -259,7 +259,7 @@ export class NotificationService {
       {
         replaceKey: '(VIDEO-PDF-LINKS)',
         replaceValue: this.getVideoPdfLinks(
-          process.env.NG_IBF_VIDEO_GUIDE_URL,
+          country.notificationInfo.linkVideo,
           country.notificationInfo.linkPdf,
         ),
       },
