@@ -11,21 +11,27 @@
     }}</ion-card-title>
   </ion-card-header>
   <ion-card-content class="ion-padding-top">
+    <p
+      [innerHTML]="
+        'ibf-guide-component.video-pdf-description'
+          | translate
+            : {
+                pdfUrl: pdfUrl
+              }
+      "
+    ></p>
+    <br/>
+    <p
+      [innerHTML]="
+        'ibf-guide-component.whats-new-description'
+          | translate
+            : {
+                whatsNewUrl: whatsNewUrl
+              }
+      "
+    ></p>
+    <br/>
     <div>
-      <strong>{{ 'ibf-guide-component.pdf-and-video' | translate }}: </strong>
-    </div>
-    <br />
-    <div>
-      {{ 'ibf-guide-component.description' | translate }}
-    </div>
-    <div class="ion-text-center">
-      <ion-button color="ibf-no-alert-primary" (click)="openPdfManual()">
-        {{ 'ibf-guide-component.pdf' | translate }}
-      </ion-button>
-    </div>
-    <br />
-    <div>
-      <strong>{{ 'ibf-guide-component.video' | translate }}:</strong>
       <iframe
         width="560"
         height="315"
@@ -34,19 +40,6 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       ></iframe>
-    </div>
-    <br />
-    <div>
-      <strong>{{ 'ibf-guide-component.whats-new-title' | translate }}: </strong>
-    </div>
-    <br />
-    <div>
-      {{ 'ibf-guide-component.whats-new-description' | translate }}
-    </div>
-    <div class="ion-text-center">
-      <ion-button color="ibf-no-alert-primary" (click)="openWhatsNew()">
-        {{ 'ibf-guide-component.whats-new-button' | translate }}
-      </ion-button>
     </div>
   </ion-card-content>
 </ion-card>

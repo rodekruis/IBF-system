@@ -12,7 +12,7 @@ export class IbfGuidePopoverComponent implements OnInit {
   public pdfUrl: string;
   public videoUrl: string;
   public safeVideoUrl: SafeResourceUrl;
-  public whatsNewUrl: string;
+  public whatsNewUrl: string = environment.whatsNewUrl;
 
   constructor(
     private popoverController: PopoverController,
@@ -23,14 +23,6 @@ export class IbfGuidePopoverComponent implements OnInit {
     this.safeVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
       this.videoUrl,
     );
-  }
-
-  public openPdfManual(): void {
-    window.open(this.pdfUrl, '_blank');
-  }
-
-  public openWhatsNew(): void {
-    window.open(environment.whatsNewUrl, '_blank');
   }
 
   public closePopover(): void {
