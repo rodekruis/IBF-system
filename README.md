@@ -148,8 +148,10 @@ Installation: 0. (Potentially on Ubuntu?:
 
 ## Releases
 
-See notable changes and the currently released version in the
-[CHANGELOG](CHANGELOG.md).
+See notable changes and the currently released version in
+
+- [CHANGELOG](CHANGELOG.md), which is automatically created based on commit messages
+- [What's new in IBF](./WHAT_IS_NEW_IN_IBF.md), which is manually created at every release (see also release checklist below)
 
 ### Release Checklist
 
@@ -158,10 +160,9 @@ See notable changes and the currently released version in the
 - [ ] Pick a tag to release. Generally this is the latest tag in [tags](https://github.com/rodekruis/IBF-system/tags).
 - [ ] Click the 'Create release' button.
 - [ ] Enter as release title the tag-name (e.g. v0.128.5).
-- [ ] Optional: Enter the release description from the
-      [CHANGELOG](CHANGELOG.md) file.
-- [ ] IMPORTANT: Before actually doing the release (and thus releasing to `staging`), check if any .ENV-variables on the server need to be updated. Do that by SSH'ing into the server and making the required changes. This will make sure the new release will use the updated .ENV-variables immediately.
+- [ ] **IMPORTANT**: Before actually doing the release (and thus releasing to `staging`), check if any .ENV-variables on the server need to be updated. Do that by SSH'ing into the server and making the required changes. This will make sure the new release will use the updated .ENV-variables immediately.
 - [ ] Click the 'Publish Release' button.
+- [ ] **IMPORTANT**: Add changes relevant to the end-user in [What's new in IBF](./WHAT_IS_NEW_IN_IBF.md)
 
 The above steps should trigger the
 [release webhook](https://github.com/rodekruis/IBF-system/settings/hooks/240449523)
