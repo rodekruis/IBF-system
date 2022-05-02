@@ -21,5 +21,6 @@ export const environment = {
   supportEmailAddress: '${
     process.env.SUPPORT_EMAIL_ADDRESS
   }', // email address for support
+  whatsNewUrl: '${process.env.WHATS_NEW_URL}', // WHAT_IS_NEW_IN_IBF.md url
 };
 `;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PopoverController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-ibf-guide-popover',
@@ -11,6 +12,7 @@ export class IbfGuidePopoverComponent implements OnInit {
   public pdfUrl: string;
   public videoUrl: string;
   public safeVideoUrl: SafeResourceUrl;
+  public whatsNewUrl: string;
 
   constructor(
     private popoverController: PopoverController,
@@ -25,6 +27,10 @@ export class IbfGuidePopoverComponent implements OnInit {
 
   public openPdfManual(): void {
     window.open(this.pdfUrl, '_blank');
+  }
+
+  public openWhatsNew(): void {
+    window.open(environment.whatsNewUrl, '_blank');
   }
 
   public closePopover(): void {

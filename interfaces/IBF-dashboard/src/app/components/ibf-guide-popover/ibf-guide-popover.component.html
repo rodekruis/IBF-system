@@ -35,5 +35,18 @@
         allowfullscreen
       ></iframe>
     </div>
+    <br />
+    <div>
+      <strong>{{ 'ibf-guide-component.whats-new-title' | translate }}: </strong>
+    </div>
+    <br />
+    <div>
+      {{ 'ibf-guide-component.whats-new-description' | translate }}
+    </div>
+    <div class="ion-text-center">
+      <ion-button color="ibf-no-alert-primary" (click)="openWhatsNew()">
+        {{ 'ibf-guide-component.whats-new-button' | translate }}
+      </ion-button>
+    </div>
   </ion-card-content>
 </ion-card>
