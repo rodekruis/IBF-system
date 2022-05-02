@@ -1,3 +1,16 @@
+# [0.152.0](https://github.com/rodekruis/IBF-system/compare/v0.151.0...v0.152.0) (2022-05-02)
+
+
+### Features
+
+* add generic pdf link env AB[#13510](https://github.com/rodekruis/IBF-system/issues/13510) ([7e9ad9a](https://github.com/rodekruis/IBF-system/commit/7e9ad9a34124faa5df4b27113cf8fa8276c76f5e))
+* hide country name on login-page AB[#13507](https://github.com/rodekruis/IBF-system/issues/13507) ([00a3ab7](https://github.com/rodekruis/IBF-system/commit/00a3ab7976cf0958043f42bafe946366f160a142))
+* make activation-log country & disaster specific AB[#13509](https://github.com/rodekruis/IBF-system/issues/13509) ([3053896](https://github.com/rodekruis/IBF-system/commit/30538965138130f884e2e0ec77f644a7f48650ec))
+* show 'live' on prod login page AB[#13507](https://github.com/rodekruis/IBF-system/issues/13507) ([380c0f0](https://github.com/rodekruis/IBF-system/commit/380c0f0a27f7864a147d0e811966e5e718c98057))
+* specify disaster-type / country combinations to load on server AB[#13568](https://github.com/rodekruis/IBF-system/issues/13568) ([78ebed9](https://github.com/rodekruis/IBF-system/commit/78ebed9b0ddb97b1f6863e657d97c9a3e767538d))
+
+
+
 # [0.151.0](https://github.com/rodekruis/IBF-system/compare/v0.150.1...v0.151.0) (2022-04-29)
 
 
@@ -128,21 +141,6 @@
 * change chatbox color to light purple AB[#13238](https://github.com/rodekruis/IBF-system/issues/13238) ([cfe88e3](https://github.com/rodekruis/IBF-system/commit/cfe88e3bea7aee701f37122aff59fb57bc048527))
 * red outline for speech bubbles related to triggered areas AB[#13246](https://github.com/rodekruis/IBF-system/issues/13246) ([8e2a349](https://github.com/rodekruis/IBF-system/commit/8e2a349d6a05e918939e7cf31790934947ea176f))
 * red text instead of red background for delayed model run AB[#13245](https://github.com/rodekruis/IBF-system/issues/13245) ([e70d284](https://github.com/rodekruis/IBF-system/commit/e70d28463cd13f557d1e571f1771d791078850b2))
-
-
-
-# [0.144.0](https://github.com/rodekruis/IBF-system/compare/v0.143.0...v0.144.0) (2022-04-08)
-
-
-### Bug Fixes
-
-* change PHL floods 5-day to 3-day AB[#13347](https://github.com/rodekruis/IBF-system/issues/13347) ([560006e](https://github.com/rodekruis/IBF-system/commit/560006e56a7d7dab0e42c8255c628fe0af2c0f7c))
-* update population PHL AB[#13261](https://github.com/rodekruis/IBF-system/issues/13261) ([d1037a4](https://github.com/rodekruis/IBF-system/commit/d1037a44971d9e7c546d2af17fc81f0789e7d12e))
-
-
-### Features
-
-* add drought vulnerability seed data KEN AB[#12725](https://github.com/rodekruis/IBF-system/issues/12725) ([edd39cd](https://github.com/rodekruis/IBF-system/commit/edd39cd6bd9ac079fac3a097f3d5a1010d78ca9e))
 
 
 
