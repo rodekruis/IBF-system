@@ -1,3 +1,19 @@
+# [0.153.0](https://github.com/rodekruis/IBF-system/compare/v0.152.0...v0.153.0) (2022-05-02)
+
+
+### Bug Fixes
+
+* bit.ly video links AB[#13591](https://github.com/rodekruis/IBF-system/issues/13591) ([cb7f196](https://github.com/rodekruis/IBF-system/commit/cb7f1966cadb949b3abf52a138d1fd7ca3564a6e))
+* guide popup in line with new design AB[#13593](https://github.com/rodekruis/IBF-system/issues/13593) ([23b24d0](https://github.com/rodekruis/IBF-system/commit/23b24d09ea16c136306e9f98ec2617b53f066d35))
+
+
+### Features
+
+* add what's new link AB[#13593](https://github.com/rodekruis/IBF-system/issues/13593) ([419fae0](https://github.com/rodekruis/IBF-system/commit/419fae0e3de95cb1ed02c75ee13cca9c7eaf942c))
+* added md file + initial fill AB[#13595](https://github.com/rodekruis/IBF-system/issues/13595) ([6e3f299](https://github.com/rodekruis/IBF-system/commit/6e3f299e66552ed82f60c00ac2ba5ff656c1946f))
+
+
+
 # [0.152.0](https://github.com/rodekruis/IBF-system/compare/v0.151.0...v0.152.0) (2022-05-02)
 
 
@@ -125,22 +141,6 @@
 ### Features
 
 * KEN drought + PHL floods popup info AB[#12985](https://github.com/rodekruis/IBF-system/issues/12985) ([1d4ce95](https://github.com/rodekruis/IBF-system/commit/1d4ce959da7c86c99049a4c295530e98fd8bd288))
-
-
-
-# [0.145.0](https://github.com/rodekruis/IBF-system/compare/v0.144.0...v0.145.0) (2022-04-08)
-
-
-### Bug Fixes
-
-* clear placecode on area trigger stop AB[#13353](https://github.com/rodekruis/IBF-system/issues/13353) ([4f4885c](https://github.com/rodekruis/IBF-system/commit/4f4885c4f3cc2668ce9b695dc92e1c1a5458e162))
-
-
-### Features
-
-* change chatbox color to light purple AB[#13238](https://github.com/rodekruis/IBF-system/issues/13238) ([cfe88e3](https://github.com/rodekruis/IBF-system/commit/cfe88e3bea7aee701f37122aff59fb57bc048527))
-* red outline for speech bubbles related to triggered areas AB[#13246](https://github.com/rodekruis/IBF-system/issues/13246) ([8e2a349](https://github.com/rodekruis/IBF-system/commit/8e2a349d6a05e918939e7cf31790934947ea176f))
-* red text instead of red background for delayed model run AB[#13245](https://github.com/rodekruis/IBF-system/issues/13245) ([e70d284](https://github.com/rodekruis/IBF-system/commit/e70d28463cd13f557d1e571f1771d791078850b2))
 
 
 
