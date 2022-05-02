@@ -11,6 +11,7 @@ export const environment = {
   geoserverUrl: '${process.env.NG_GEOSERVER_URL}', // geoserver
   ibfSystemVersion: '${process.env.NG_IBF_SYSTEM_VERSION}', // version
   ibfVideoGuideUrl: '${process.env.NG_IBF_VIDEO_GUIDE_URL}', // video guide url
+  ibfPdfGuideUrl: '${process.env.NG_IBF_PDF_GUIDE_URL}', // video guide url
   applicationInsightsInstrumentationKey: '${
     process.env.NG_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY
   }', // application insights instrumentation key

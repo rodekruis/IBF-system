@@ -48,7 +48,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private placeCodeSubscription: Subscription;
   private translateSubscription: Subscription;
   private translateLayerInfoPopupsSubscription: Subscription;
-  private eapActionSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
 
@@ -106,7 +105,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.placeCodeSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
     this.translateLayerInfoPopupsSubscription.unsubscribe();
-    this.eapActionSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
   }

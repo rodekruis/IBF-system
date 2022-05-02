@@ -53,7 +53,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private disasterTypeSubscription: Subscription;
-  private translateSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
@@ -131,7 +130,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.disasterTypeSubscription.unsubscribe();
-    this.translateSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
     this.timelineStateSubscription.unsubscribe();

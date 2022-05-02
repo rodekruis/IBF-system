@@ -306,8 +306,11 @@ export class EventService {
     return triggeredAreas;
   }
 
-  public async getActivationLogData(): Promise<ActivationLogDto[]> {
-    const result = await this.eventPlaceCodeRepo
+  public async getActivationLogData(
+    countryCodeISO3: string,
+    disasterType: string,
+  ): Promise<ActivationLogDto[]> {
+    const baseQuery = this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."countryCodeISO3" AS "countryCodeISO3"',
@@ -328,8 +331,22 @@ export class EventService {
       .leftJoin('event.disasterType', 'disaster')
       .orderBy('area."countryCodeISO3"', 'ASC')
       .addOrderBy('event."disasterType"', 'ASC')
-      .addOrderBy('area."placeCode"', 'ASC')
-      .getRawMany();
+      .addOrderBy('area."placeCode"', 'ASC');
+
+    let result;
+    if (countryCodeISO3 === 'all' || disasterType === 'all') {
+      result = await baseQuery.getRawMany();
+    } else {
+      result = await baseQuery
+        .where('event."disasterType" = :disasterType', {
+          disasterType: disasterType,
+        })
+        .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
+          countryCodeISO3: countryCodeISO3,
+        })
+        .getRawMany();
+    }
+
     if (!result.length) {
       return [new ActivationLogDto()];
     }
