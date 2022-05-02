@@ -1,3 +1,13 @@
+## [0.153.2](https://github.com/rodekruis/IBF-system/compare/v0.153.1...v0.153.2) (2022-05-02)
+
+
+### Bug Fixes
+
+* process pdf URL env AB[#13612](https://github.com/rodekruis/IBF-system/issues/13612) ([5e9a786](https://github.com/rodekruis/IBF-system/commit/5e9a786a0941b565b737825c46981bf881f80830))
+* typos AB[#13595](https://github.com/rodekruis/IBF-system/issues/13595) ([6a1a89c](https://github.com/rodekruis/IBF-system/commit/6a1a89c4a6e3c3ccb09edff6ac484f2d066887c4))
+
+
+
 ## [0.153.1](https://github.com/rodekruis/IBF-system/compare/v0.153.0...v0.153.1) (2022-05-02)
 
 
@@ -120,22 +130,6 @@
 ### Features
 
 * flood extent multiple classes AB[#13421](https://github.com/rodekruis/IBF-system/issues/13421) ([4adbe09](https://github.com/rodekruis/IBF-system/commit/4adbe0967ecaaef6c4abca7cb3314c871544b20d))
-
-
-
-# [0.147.0](https://github.com/rodekruis/IBF-system/compare/v0.146.0...v0.147.0) (2022-04-11)
-
-
-### Bug Fixes
-
-* rm waterpoints PHL AB[#13243](https://github.com/rodekruis/IBF-system/issues/13243) ([4eac81e](https://github.com/rodekruis/IBF-system/commit/4eac81e17e537f3b0af33e0ae468ad3e45f10796))
-* udpate PDF manual links AB[#13231](https://github.com/rodekruis/IBF-system/issues/13231) ([6f3cd09](https://github.com/rodekruis/IBF-system/commit/6f3cd09261e83a59c103d89384098d7b780990a2))
-
-
-### Features
-
-* add riceland layer AB[#13249](https://github.com/rodekruis/IBF-system/issues/13249) ([bc7d9a2](https://github.com/rodekruis/IBF-system/commit/bc7d9a2a6f5d1903afb19d3beebd16e8876767f9))
-* update layers popup xlsx AB[#13243](https://github.com/rodekruis/IBF-system/issues/13243) ([1655da3](https://github.com/rodekruis/IBF-system/commit/1655da3bae1980874224f966319da6c9ec9a1d71))
 
 
 
