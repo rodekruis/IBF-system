@@ -1,10 +1,10 @@
-# What is new in iBF?
+# What is new in IBF?
 
-Find here the latest changes per version of the IBF-system. See notes at the bottom.
+Find here the latest changes to the IBF-system. See notes at the bottom.
 
 ### v0.151.0 - 29-04-2022
 
-- The “video guide” popup (both in login page & dashboard page) contains now also a link to the PDF manual, and is now called “IBF guide” popup.
+- The "video guide" popup (both in login page & dashboard page) contains now also a link to the PDF manual, and is now called "IBF guide" popup.
 
 ### v0.149.0 - 15-04-2022
 
