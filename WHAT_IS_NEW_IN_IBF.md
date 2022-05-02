@@ -1,6 +1,6 @@
 # What is new in IBF?
 
-Find here the latest changes per version of the IBF-system. See notes at the bottom.
+Find here the latest changes to the IBF-system. See notes at the bottom.
 
 ### v0.151.0 - 29-04-2022
 
