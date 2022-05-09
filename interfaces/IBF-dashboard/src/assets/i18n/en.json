@@ -78,7 +78,7 @@
       },
       "active-event": {
         "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
-        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+        "instruction": "The triggered areas are highlighted in the map with a red outline. Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
@@ -119,7 +119,7 @@
       },
       "active-event": {
         "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
-        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+        "instruction": "The triggered areas are highlighted in the map with a red outline. Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "forecast-info": {
@@ -165,7 +165,7 @@
       },
       "active-event": {
         "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
-        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+        "instruction": "The triggered areas are highlighted in the map with a red outline. Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
@@ -202,7 +202,7 @@
       },
       "active-event": {
         "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
-        "instruction": "Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+        "instruction": "The areas above alert threshold are highlighted in the map with a red outline. Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
