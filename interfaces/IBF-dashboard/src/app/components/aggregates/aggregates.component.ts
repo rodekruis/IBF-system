@@ -28,6 +28,7 @@ import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/
 export class AggregatesComponent implements OnInit, OnDestroy {
   public indicators: Indicator[] = [];
   public placeCode: PlaceCode;
+  public placeCodeHover: PlaceCode;
   private country: Country;
   private disasterType: DisasterType;
   private aggregateComponentTranslateNode = 'aggregates-component';
@@ -46,6 +47,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
   private disasterTypeSubscription: Subscription;
   private placeCodeSubscription: Subscription;
+  private placeCodeHoverSubscription: Subscription;
   private translateSubscription: Subscription;
   private translateLayerInfoPopupsSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
@@ -93,6 +95,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
 
+    this.placeCodeHoverSubscription = this.placeCodeService
+      .getPlaceCodeHoverSubscription()
+      .subscribe(this.onPlaceCodeHoverChange);
+
     this.indicatorSubscription = this.aggregatesService
       .getIndicators()
       .subscribe(this.onIndicatorChange);
@@ -103,6 +109,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.countrySubscription.unsubscribe();
     this.disasterTypeSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
+    this.placeCodeHoverSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
     this.translateLayerInfoPopupsSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
@@ -130,6 +137,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
     this.placeCode = placeCode;
+    this.changeDetectorRef.detectChanges();
+  };
+
+  private onPlaceCodeHoverChange = (placeCode: PlaceCode) => {
+    this.placeCodeHover = placeCode;
     this.changeDetectorRef.detectChanges();
   };
 
@@ -188,10 +200,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     weightedAvg: boolean,
     numberFormat: NumberFormat,
   ) {
+    const placeCode = this.placeCode || this.placeCodeHover;
     return this.aggregatesService.getAggregate(
       weightedAvg,
       indicatorName,
-      this.placeCode ? this.placeCode.placeCode : null,
+      placeCode ? placeCode.placeCode : null,
       numberFormat,
     );
   }
@@ -199,8 +212,9 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public getHeaderLabel() {
     let headerLabel = this.defaultHeaderLabel;
 
-    if (this.placeCode) {
-      headerLabel = this.placeCode.placeCodeName;
+    const placeCode = this.placeCode || this.placeCodeHover;
+    if (placeCode) {
+      headerLabel = placeCode.placeCodeName;
     } else {
       if (this.country) {
         if (this.eventState?.activeTrigger) {

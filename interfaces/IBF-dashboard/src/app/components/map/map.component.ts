@@ -474,18 +474,12 @@ export class MapComponent implements OnDestroy {
         feature.properties.placeCode,
       ),
     );
+    this.placeCodeService.setPlaceCodeHover({
+      countryCodeISO3: feature.properties.countryCodeISO3,
+      placeCodeName: feature.properties.name,
+      placeCode: feature.properties.placeCode,
+    });
   };
-
-  // private onAdminRegionMouseoverByLayerAndFeatureAndElement = (
-  //   feature,
-  // ) => (): void => {
-  //   this.placeCode = feature.properties.placeCode;
-  //   this.placeCodeService.setPlaceCode({
-  //     countryCodeISO3: feature.properties.countryCodeISO3,
-  //     placeCodeName: feature.properties.name,
-  //     placeCode: feature.properties.placeCode,
-  //   });
-  // };
 
   private onAdminRegionClickByLayerAndFeatureAndElement = (
     feature,
@@ -704,6 +698,7 @@ export class MapComponent implements OnDestroy {
           element.on('mouseover', this.onAdminRegionMouseOver(feature));
           element.on('mouseout', (): void => {
             adminRegionsLayer.resetStyle();
+            this.placeCodeService.clearPlaceCodeHover();
           });
           element.on(
             'click',

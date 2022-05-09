@@ -7,6 +7,7 @@ import { PlaceCode } from 'src/app/models/place-code.model';
 })
 export class PlaceCodeService {
   private placeCodeSubject = new BehaviorSubject<PlaceCode>(null);
+  private placeCodeHoverSubject = new BehaviorSubject<PlaceCode>(null);
 
   constructor() {}
 
@@ -32,5 +33,29 @@ export class PlaceCodeService {
 
   clearPlaceCode = (): void => {
     this.placeCodeSubject.next(null);
+  };
+
+  getPlaceCodeHoverSubscription(): Observable<PlaceCode> {
+    return this.placeCodeHoverSubject.asObservable();
+  }
+
+  setPlaceCodeHover = (newPlaceCode: PlaceCode): void => {
+    this.getPlaceCodeHoverSubscription().subscribe(
+      this.onPlaceCodeHoverChangeByPlaceCode,
+    );
+    this.placeCodeHoverSubject.next(newPlaceCode);
+  };
+
+  private onPlaceCodeHoverChangeByPlaceCode = (newPlaceCode: PlaceCode) => (
+    oldPlaceCode: PlaceCode,
+  ) => {
+    if (oldPlaceCode && newPlaceCode) {
+      newPlaceCode =
+        oldPlaceCode.placeCode === newPlaceCode.placeCode ? null : newPlaceCode;
+    }
+  };
+
+  clearPlaceCodeHover = (): void => {
+    this.placeCodeHoverSubject.next(null);
   };
 }
