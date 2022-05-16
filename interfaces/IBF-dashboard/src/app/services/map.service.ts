@@ -41,14 +41,16 @@ import { EapActionsService } from './eap-actions.service';
 export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
   public layers = [] as IbfLayer[];
-  public alertColor = 'var(--ion-color-ibf-trigger-alert-secondary)';
-  public safeColor = 'var(--ion-color-ibf-no-alert-secondary)';
-  public hoverFillOpacity = 0.6;
-  private unselectedFillOpacity = 0.4;
+  public selectedOutlineColor = {
+    triggered: '#737373',
+    nonTriggered: 'var(--ion-color-ibf-no-alert-primary)',
+  };
+  private stoppedTriggerColor = 'var(--ion-color-ibf-black)';
+  private triggeredAreaColor = 'var(--ion-color-ibf-outline-red)';
   private disputedBorderStyle = {
     weight: 2,
     dashArray: '5 5',
-    color: this.alertColor,
+    color: null,
   };
   private layerDataCache = {};
 
@@ -949,17 +951,11 @@ export class MapService {
       default:
         adminRegionFillColor = this.state.defaultColor;
     }
-    if (this.placeCode && this.placeCode.placeCode === placeCode) {
-      adminRegionFillColor =
-        this.eventState?.activeTrigger && !areaState?.stopped
-          ? this.alertColor
-          : this.safeColor;
-    }
 
     return adminRegionFillColor;
   };
 
-  getOutlineColor(colorPropertyValue) {
+  getOutlineOpacity(colorPropertyValue) {
     switch (true) {
       case colorPropertyValue === 0:
         return 0;
@@ -970,12 +966,9 @@ export class MapService {
 
   getAdminRegionFillOpacity = (layer: IbfLayer, placeCode: string): number => {
     let fillOpacity = this.state.defaultFillOpacity;
-    let unselectedFillOpacity = this.unselectedFillOpacity;
-    const hoverFillOpacity = this.hoverFillOpacity;
 
     if (layer.group === IbfLayerGroup.adminRegions) {
       fillOpacity = 0.0;
-      unselectedFillOpacity = 0.0;
     }
 
     if (
@@ -986,35 +979,52 @@ export class MapService {
       fillOpacity = 0.0;
     }
 
-    if (this.placeCode) {
-      if (this.placeCode.placeCode === placeCode) {
-        fillOpacity = hoverFillOpacity;
-      } else {
-        fillOpacity = unselectedFillOpacity;
-      }
-    }
-
     return fillOpacity;
   };
 
-  getAdminRegionWeight = (layer: IbfLayer): number => {
-    return layer.name === IbfLayerName.adminRegions
-      ? this.state.defaultWeight
-      : layer.group === IbfLayerGroup.adminRegions
-      ? this.adminLevelLowerThanDefault(layer.name)
-        ? 3
-        : 0.33
-      : this.state.defaultWeight;
+  getAdminRegionWeight = (layer: IbfLayer, placeCode: string): number => {
+    let weight =
+      layer.name === IbfLayerName.adminRegions
+        ? this.state.defaultWeight
+        : layer.group === IbfLayerGroup.adminRegions
+        ? this.adminLevelLowerThanDefault(layer.name)
+          ? 3
+          : 0.33
+        : this.state.defaultWeight;
+
+    if (this.placeCode) {
+      const areaState = this.triggeredAreas.find(
+        (area) => area.placeCode === placeCode,
+      );
+      if (this.placeCode.placeCode === placeCode && !areaState) {
+        weight = 3; // Give weight of selected non-triggered area of 3 (from nothing)
+      }
+    }
+
+    return weight;
   };
 
   adminLevelLowerThanDefault = (name: IbfLayerName): boolean => {
     return name.substr(name.length - 1) < String(this.adminLevel);
   };
 
-  getAdminRegionColor = (layer: IbfLayer): string => {
-    return layer.group === IbfLayerGroup.adminRegions
-      ? this.state.defaultColor
-      : this.state.transparentColor;
+  getAdminRegionColor = (layer: IbfLayer, placeCode: string): string => {
+    let color =
+      layer.group === IbfLayerGroup.adminRegions
+        ? this.state.defaultColor
+        : this.state.transparentColor;
+
+    if (this.placeCode) {
+      const areaState = this.triggeredAreas.find(
+        (area) => area.placeCode === placeCode,
+      );
+      if (this.placeCode.placeCode === placeCode && !areaState) {
+        color = this.selectedOutlineColor[
+          this.disasterType?.activeTrigger ? 'triggered' : 'nonTriggered'
+        ];
+      }
+    }
+    return color;
   };
 
   public getColorThreshold = (adminRegions, colorProperty, colorBreaks) => {
@@ -1052,19 +1062,25 @@ export class MapService {
   public setOutlineLayerStyle = (layer: IbfLayer) => {
     const colorProperty = layer.colorProperty;
     return (adminRegion) => {
+      const placeCode = adminRegion?.properties?.placeCode;
       const areaState = this.triggeredAreas.find(
-        (area) => area.placeCode === adminRegion?.properties?.placeCode,
+        (area) => area.placeCode === placeCode,
       );
       const color = areaState?.stopped
-        ? '#000000'
-        : 'var(--ion-color-ibf-outline-red)';
-      const opacity = this.getOutlineColor(
+        ? this.stoppedTriggerColor
+        : this.triggeredAreaColor;
+      const opacity = this.getOutlineOpacity(
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
           : adminRegion.properties.indicators[colorProperty],
       );
       const fillOpacity = 0;
-      const weight = 3;
+      let weight = 3;
+      if (this.placeCode) {
+        if (this.placeCode.placeCode !== placeCode && areaState) {
+          weight = 1; // Decrease weight of unselected triggered areas from 3 to 1
+        }
+      }
       return {
         opacity,
         color,
@@ -1099,8 +1115,14 @@ export class MapService {
           layer,
           adminRegion.properties.placeCode,
         );
-        let weight = this.getAdminRegionWeight(layer);
-        let color = this.getAdminRegionColor(layer);
+        let weight = this.getAdminRegionWeight(
+          layer,
+          adminRegion.properties.placeCode,
+        );
+        let color = this.getAdminRegionColor(
+          layer,
+          adminRegion.properties.placeCode,
+        );
         let dashArray;
         if (adminRegion.properties.placeCode.includes('Disputed')) {
           dashArray = this.disputedBorderStyle.dashArray;
@@ -1116,5 +1138,29 @@ export class MapService {
         };
       }
     };
+  };
+
+  public setAdminRegionMouseOverStyle = (placeCode: string) => {
+    const areaState = this.triggeredAreas.find(
+      (area) => area.placeCode === placeCode,
+    );
+    if (!areaState) {
+      return {
+        color: this.selectedOutlineColor[
+          this.disasterType?.activeTrigger ? 'triggered' : 'nonTriggered'
+        ],
+        weight: 3,
+      };
+    } else if (areaState.stopped) {
+      return {
+        color: this.stoppedTriggerColor,
+        weight: 5,
+      };
+    } else {
+      return {
+        color: this.triggeredAreaColor,
+        weight: 5,
+      };
+    }
   };
 }

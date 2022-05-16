@@ -468,12 +468,16 @@ export class MapComponent implements OnDestroy {
     return mapLayer;
   }
 
-  private onAdminRegionMouseOver = (event): void => {
-    event.target.setStyle({
-      fillOpacity: this.mapService.hoverFillOpacity,
-      fillColor: this.eventState?.activeTrigger
-        ? this.mapService.alertColor
-        : this.mapService.safeColor,
+  private onAdminRegionMouseOver = (feature) => (event): void => {
+    event.target.setStyle(
+      this.mapService.setAdminRegionMouseOverStyle(
+        feature.properties.placeCode,
+      ),
+    );
+    this.placeCodeService.setPlaceCodeHover({
+      countryCodeISO3: feature.properties.countryCodeISO3,
+      placeCodeName: feature.properties.name,
+      placeCode: feature.properties.placeCode,
     });
   };
 
@@ -691,9 +695,10 @@ export class MapComponent implements OnDestroy {
         pane: this.getAdminRegionLayerPane(layer),
         style: this.mapService.setAdminRegionStyle(layer),
         onEachFeature: (feature, element): void => {
-          element.on('mouseover', this.onAdminRegionMouseOver);
+          element.on('mouseover', this.onAdminRegionMouseOver(feature));
           element.on('mouseout', (): void => {
             adminRegionsLayer.resetStyle();
+            this.placeCodeService.clearPlaceCodeHover();
           });
           element.on(
             'click',
