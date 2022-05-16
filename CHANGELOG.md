@@ -1,3 +1,14 @@
+# [0.155.0](https://github.com/rodekruis/IBF-system/compare/v0.154.0...v0.155.0) (2022-05-16)
+
+
+### Features
+
+* add pop data level 1 and 2 AB[#13793](https://github.com/rodekruis/IBF-system/issues/13793) ([de5761a](https://github.com/rodekruis/IBF-system/commit/de5761a600bfe0a83e988e2cbb432955a3c1a3b0))
+* make eth floods multi-admin AB[#13791](https://github.com/rodekruis/IBF-system/issues/13791) ([e231a91](https://github.com/rodekruis/IBF-system/commit/e231a9156dc62d52d098c61b7bad9b6716dcd884))
+* update redcross branch data AB[#13792](https://github.com/rodekruis/IBF-system/issues/13792) ([3e73ede](https://github.com/rodekruis/IBF-system/commit/3e73edeaff2906b2b6067ed35a9d6b0920363807))
+
+
+
 # [0.154.0](https://github.com/rodekruis/IBF-system/compare/v0.153.2...v0.154.0) (2022-05-16)
 
 
@@ -122,15 +133,6 @@
 * remove recentDate from map component AB[#13370](https://github.com/rodekruis/IBF-system/issues/13370) ([7790de0](https://github.com/rodekruis/IBF-system/commit/7790de0253f2ffbb417dc620480c56c31a883f9b))
 * small changes AB[#13370](https://github.com/rodekruis/IBF-system/issues/13370) ([b763d48](https://github.com/rodekruis/IBF-system/commit/b763d488494ee16dad29ebec0fe3cf5b5263bfff))
 * small improvements API-calls analysis AB[#13361](https://github.com/rodekruis/IBF-system/issues/13361) ([5cf732a](https://github.com/rodekruis/IBF-system/commit/5cf732a8df5886f718c086af717e9769fa8be00f))
-
-
-
-# [0.149.0](https://github.com/rodekruis/IBF-system/compare/v0.148.0...v0.149.0) (2022-04-15)
-
-
-### Features
-
-* info popups PHL floods AB[#13244](https://github.com/rodekruis/IBF-system/issues/13244) ([9b6d777](https://github.com/rodekruis/IBF-system/commit/9b6d777fefe7b5b928e94bd60600d08a04af2e3f))
 
 
 
