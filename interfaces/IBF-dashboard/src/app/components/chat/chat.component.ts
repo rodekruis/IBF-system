@@ -491,7 +491,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         nrActions,
       },
     );
-    if (nrForecasts === 0) {
+    if (!nrForecasts) {
       return text.charAt(0).toUpperCase() + text.slice(1);
     } else {
       return text;

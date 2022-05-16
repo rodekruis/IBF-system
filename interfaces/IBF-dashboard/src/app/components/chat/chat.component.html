@@ -224,7 +224,7 @@
               class="ion-margin-bottom"
             >
               <ion-note size="small" *ngIf="area?.eapActions as actions">
-                <span *ngIf="forecastInfo.length"
+                <span *ngIf="forecastInfo?.length"
                   >{{
                     'chat-component.drought.active-event.forecast-info.opening'
                       | translate
@@ -243,7 +243,7 @@
                 {{ ' ' }}
                 <span
                   [innerHTML]="
-                    getNumberOfActions(actions.length, forecastInfo.length)
+                    getNumberOfActions(actions.length, forecastInfo?.length)
                   "
                 ></span>
               </ion-note>

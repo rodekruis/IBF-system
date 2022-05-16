@@ -621,78 +621,6 @@
   },
   {
     "countryCodeISO3": "ETH",
-    "disasterType": "dengue",
-    "areaOfFocus": {
-      "id": "health"
-    },
-    "action": "health-1",
-    "label": "Set up Dengue Emergency Medical Units (DEMUs)."
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "dengue",
-    "areaOfFocus": {
-      "id": "health"
-    },
-    "action": "health-2",
-    "label": " Mobilize Community Heath Volunteers (CHV) to monitor and report suspected cases"
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "dengue",
-    "areaOfFocus": {
-      "id": "health"
-    },
-    "action": "health-3",
-    "label": "Community-based information dissemination on disease prevention and health promotion"
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "dengue",
-    "areaOfFocus": {
-      "id": "health"
-    },
-    "action": "health-4",
-    "label": "Social media campaign on prevention and control measures"
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "dengue",
-    "areaOfFocus": {
-      "id": "health"
-    },
-    "action": "health-5",
-    "label": "Psychosocial support through welfare desk"
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "dengue",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-1",
-    "label": "Hygiene promotion on safe usage of water"
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "dengue",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-2",
-    "label": "Cleaning of mosquito breeding sites, garbage disposal"
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "dengue",
-    "areaOfFocus": {
-      "id": "inclusion"
-    },
-    "action": "inclusion-1",
-    "label": "Protection, gender and inclusion: ensure all staff is trained, distribute guidelines, assess minimum standards at DEMUs and welfare desks"
-  },
-  {
-    "countryCodeISO3": "ETH",
     "disasterType": "malaria",
     "areaOfFocus": {
       "id": "health"
@@ -762,6 +690,266 @@
     },
     "action": "inclusion-1",
     "label": "Protection, gender and inclusion: ensure all staff is trained, distribute guidelines, assess minimum standards at DEMUs and welfare desks"
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-1",
+    "label": "Market analysis",
+    "month": 6
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-1",
+    "label": "Pre-agreement with suppliers on procurement",
+    "month": 6
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-1",
+    "label": "Preparatory activities for cash for water",
+    "month": 6
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-2",
+    "label": "CVA or Market-based intervention",
+    "month": 7
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-2",
+    "label": "Cash for water",
+    "month": 7
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-2",
+    "label": "Disseminating early warning information",
+    "month": 8
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-3",
+    "label": "Rangeland management",
+    "month": 8
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-3",
+    "label": "Distribute pasture seed",
+    "month": 8
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-4",
+    "label": "Advocation pasture management",
+    "month": 8
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-3",
+    "label": "Installation of mass water storage tanks",
+    "month": 8
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-4",
+    "label": "Rapid assessment of water facilities",
+    "month": 8
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-5",
+    "label": "Destilting of water pans, repair of earth dams",
+    "month": 8
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-6",
+    "label": "Prioritize key/critical water facilites seed",
+    "month": 9
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-5",
+    "label": "Market Analysis",
+    "month": 12
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-7",
+    "label": "Preparatory activities for cash for water",
+    "month": 12
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-8",
+    "label": "Cash for water",
+    "month": 12
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-6",
+    "label": "CVA or market-based intervention",
+    "month": 1
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-7",
+    "label": "Distribute pasture seed",
+    "month": 1
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-8",
+    "label": "Advocation pasture management",
+    "month": 1
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-4",
+    "label": "Dissemination early warning information",
+    "month": 1
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-5",
+    "label": "Rangeland management",
+    "month": 1
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-6",
+    "label": "Pre-agreement with suppliers on procurement",
+    "month": 1
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-9",
+    "label": "Rapid assessment of water facilities",
+    "month": 1
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-10",
+    "label": "Installation of mass water storage tanks",
+    "month": 1
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "wash-11",
+    "label": "Destilting of water pans, repair of earth dams",
+    "month": 1
+  },
+  {
+    "countryCodeISO3": "ETH",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-12",
+    "label": "Prioritize key/critical water facilities",
+    "month": 2
   },
   {
     "countryCodeISO3": "PHL",

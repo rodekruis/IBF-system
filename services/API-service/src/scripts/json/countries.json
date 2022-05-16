@@ -233,7 +233,7 @@
     "countryCodeISO2": "ET",
     "countryName": "Ethiopia",
     "countryStatus": "active",
-    "disasterTypes": ["floods", "malaria"],
+    "disasterTypes": ["floods", "malaria", "drought"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -262,6 +262,28 @@
         "defaultAdminLevel": 3,
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
         "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing"
+      },
+      {
+        "disasterType": "drought",
+        "adminLevels": [2],
+        "defaultAdminLevel": 2,
+        "activeLeadTimes": [
+          "0-month",
+          "1-month",
+          "2-month",
+          "3-month",
+          "4-month",
+          "5-month",
+          "6-month",
+          "7-month",
+          "8-month",
+          "9-month",
+          "10-month",
+          "11-month"
+        ],
+        "droughtForecastMonths": [3, 10],
+        "showMonthlyEapActions": true,
+        "eapLink": "https://drive.google.com/file/d/129ni2VlAxg5GngqoszmVjlaRFEuLwLph/view"
       }
     ],
     "adminRegionLabels": {

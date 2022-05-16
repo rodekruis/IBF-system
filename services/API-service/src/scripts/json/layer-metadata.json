@@ -10,8 +10,8 @@
     "active": "if-trigger"
   },
   {
-    "country_codes": "EGY",
-    "disasterTypes": ["heavy-rain"],
+    "country_codes": "EGY,ETH",
+    "disasterTypes": ["heavy-rain", "drought"],
     "name": "rainfall_extent",
     "label": "Rainfall extent",
     "type": "wms",
@@ -142,7 +142,7 @@
   },
   {
     "country_codes": "UGA,ZMB,PHL,KEN,ETH",
-    "disasterTypes": ["floods", "dengue"],
+    "disasterTypes": ["floods", "dengue", "drought"],
     "name": "adminRegions2",
     "label": "Admin Level 2",
     "type": "shape",

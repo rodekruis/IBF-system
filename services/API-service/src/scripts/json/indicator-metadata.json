@@ -885,5 +885,38 @@
     "order": 2,
     "dynamic": true,
     "lazyLoad": true
+  },
+  {
+    "country_codes": "ETH",
+    "disasterTypes": ["drought"],
+    "name": "nutrition_need_priority_class",
+    "label": "Nutrition need priority class",
+    "icon": "",
+    "weightedAvg": false,
+    "active": "no",
+    "colorBreaks": {
+      "1": {
+        "label": "Poor",
+        "valueLow": 1,
+        "valueHigh": 1
+      },
+      "2": {
+        "label": "Fair",
+        "valueLow": 2,
+        "valueHigh": 2
+      },
+      "3": {
+        "label": "Good",
+        "valueLow": 3,
+        "valueHigh": 3
+      }
+    },
+    "numberFormatMap": "decimal2",
+    "aggregateIndicator": "",
+    "numberFormatAggregate": "",
+    "weightvar": null,
+    "order": 2,
+    "dynamic": true,
+    "lazyLoad": true
   }
 ]
