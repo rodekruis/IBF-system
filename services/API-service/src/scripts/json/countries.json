@@ -237,8 +237,8 @@
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [3],
-        "defaultAdminLevel": 3,
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 2,
         "activeLeadTimes": ["7-day"],
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=404862",
         "eapAlertClasses": {
