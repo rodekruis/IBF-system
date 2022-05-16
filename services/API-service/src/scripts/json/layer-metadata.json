@@ -142,7 +142,7 @@
   },
   {
     "country_codes": "UGA,ZMB,PHL,KEN,ETH",
-    "disasterTypes": ["floods", "dengue"],
+    "disasterTypes": ["floods", "dengue", "drought"],
     "name": "adminRegions2",
     "label": "Admin Level 2",
     "type": "shape",
