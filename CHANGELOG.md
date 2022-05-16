@@ -1,3 +1,14 @@
+# [0.156.0](https://github.com/rodekruis/IBF-system/compare/v0.155.0...v0.156.0) (2022-05-16)
+
+
+### Features
+
+* basic mock data ETH drought AB[#13796](https://github.com/rodekruis/IBF-system/issues/13796) ([05aba14](https://github.com/rodekruis/IBF-system/commit/05aba14e8c680a5b500b7593274147772330a059))
+* set up basic ETH drought dashboard AB[#13795](https://github.com/rodekruis/IBF-system/issues/13795) ([c03b915](https://github.com/rodekruis/IBF-system/commit/c03b9155824fa38e12980c1226130017ec3ffc5e))
+* set up dynamic layers + mock data AB[#13798](https://github.com/rodekruis/IBF-system/issues/13798) ([637fc6f](https://github.com/rodekruis/IBF-system/commit/637fc6f5ecbb356b7499c8b6915d73e31cb1fdfb))
+
+
+
 # [0.155.0](https://github.com/rodekruis/IBF-system/compare/v0.154.0...v0.155.0) (2022-05-16)
 
 
@@ -117,22 +128,6 @@
 * beginning timeline tests AB[#13480](https://github.com/rodekruis/IBF-system/issues/13480) ([88fb1e9](https://github.com/rodekruis/IBF-system/commit/88fb1e9189a993414bba5726509fa7a5c6ca5fbd))
 * enable prettier + clean up code AB[#13485](https://github.com/rodekruis/IBF-system/issues/13485) ([06cfcfc](https://github.com/rodekruis/IBF-system/commit/06cfcfc9ee8cd7cdec6e7f3dc748114719c6c92e))
 * improve env setup AB[#13492](https://github.com/rodekruis/IBF-system/issues/13492) ([6c5baa2](https://github.com/rodekruis/IBF-system/commit/6c5baa2f338caba76e13b546baab22714b8a78d3))
-
-
-
-## [0.149.1](https://github.com/rodekruis/IBF-system/compare/v0.149.0...v0.149.1) (2022-04-22)
-
-
-### Bug Fixes
-
-* check on filled triggeredAreas array if trigger AB[#13372](https://github.com/rodekruis/IBF-system/issues/13372) ([a69db2b](https://github.com/rodekruis/IBF-system/commit/a69db2bc79875a71550ac5e4428ef1de17ae2775))
-* clean up country calls AB[#13369](https://github.com/rodekruis/IBF-system/issues/13369) ([7e10fb0](https://github.com/rodekruis/IBF-system/commit/7e10fb0585f47165ab2b79f3a7f30c38e80d71bb))
-* don't load areas-of-focus at start AB[#13368](https://github.com/rodekruis/IBF-system/issues/13368) ([55b7f52](https://github.com/rodekruis/IBF-system/commit/55b7f52716ca91d765818076c94722ec4cfdd8a7))
-* remove calling api with unknown leadtime AB[#13371](https://github.com/rodekruis/IBF-system/issues/13371) ([3f6f87b](https://github.com/rodekruis/IBF-system/commit/3f6f87b8b7b1ca751be43c63c3fbe188d192c8df))
-* remove eventSummary from eap service AB[#13370](https://github.com/rodekruis/IBF-system/issues/13370) ([b8409c7](https://github.com/rodekruis/IBF-system/commit/b8409c7024a13a711bbc46a29c858d5d1afbe696))
-* remove recentDate from map component AB[#13370](https://github.com/rodekruis/IBF-system/issues/13370) ([7790de0](https://github.com/rodekruis/IBF-system/commit/7790de0253f2ffbb417dc620480c56c31a883f9b))
-* small changes AB[#13370](https://github.com/rodekruis/IBF-system/issues/13370) ([b763d48](https://github.com/rodekruis/IBF-system/commit/b763d488494ee16dad29ebec0fe3cf5b5263bfff))
-* small improvements API-calls analysis AB[#13361](https://github.com/rodekruis/IBF-system/issues/13361) ([5cf732a](https://github.com/rodekruis/IBF-system/commit/5cf732a8df5886f718c086af717e9769fa8be00f))
 
 
 
