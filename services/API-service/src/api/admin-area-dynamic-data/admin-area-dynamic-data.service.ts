@@ -217,7 +217,9 @@ export class AdminAreaDynamicDataService {
     let subfolder: string;
     if (disasterType === DisasterType.Floods) {
       subfolder = 'flood_extents';
-    } else if (disasterType === DisasterType.HeavyRain) {
+    } else if (
+      [DisasterType.HeavyRain, DisasterType.Drought].includes(disasterType)
+    ) {
       subfolder = 'rainfall_extents';
     } else {
       throw new HttpException(

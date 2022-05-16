@@ -1,0 +1,16 @@
+<layer>
+  <name>rainfall_extent_6-month_ETH</name>
+  <id>LayerInfoImpl-5ef537a5:180cc991e86:-7fc2</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-5ef537a5:180cc991e86:-7fc3</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2022-05-16 11:58:44.717 UTC</dateCreated>
+</layer>
