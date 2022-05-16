@@ -8,11 +8,15 @@ Cypress.Commands.add('waitForRequests', () => {
 });
 
 // Contains a list of custom Commands
-Cypress.Commands.add('login', () => {
+Cypress.Commands.add('login', (countryEmail) => {
   const apiUrl = Cypress.env(constants.envApiUrl);
 
+  const email = countryEmail
+    ? countryEmail
+    : Cypress.env(constants.envLoginUser);
+
   cy.request('POST', apiUrl + constants.loginApiUrl, {
-    email: Cypress.env(constants.envLoginUser),
+    email,
     password: Cypress.env(constants.envLoginPassword),
   })
     .as('post')
@@ -75,6 +79,6 @@ Cypress.Commands.add('isStatusTriggered', () => {
   });
 });
 
-Cypress.Commands.overwrite('log', (subject, message) =>
-  cy.task('log', message),
-);
+// Cypress.Commands.overwrite('log', (subject, message) =>
+//   cy.task('log', message),
+// );

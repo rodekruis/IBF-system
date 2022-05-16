@@ -1,5 +1,5 @@
-import selectors from '../../support/selectors';
-import constants from '../../support/constants';
+import selectors from '../selectors';
+import constants from '../constants';
 
 // Aggregate Component Test
 describe('Aggregate Component Test', () => {
