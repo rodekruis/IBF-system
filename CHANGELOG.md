@@ -1,3 +1,19 @@
+# [0.157.0](https://github.com/rodekruis/IBF-system/compare/v0.156.0...v0.157.0) (2022-05-16)
+
+
+### Bug Fixes
+
+* move old tests AB[#13776](https://github.com/rodekruis/IBF-system/issues/13776) ([e6af5ee](https://github.com/rodekruis/IBF-system/commit/e6af5ee9b963b0bf1fc74a6f8bffaeb1be13a0dc))
+* use waitForRequest instead of wait AB[#13598](https://github.com/rodekruis/IBF-system/issues/13598) ([1da677c](https://github.com/rodekruis/IBF-system/commit/1da677ce03e4831d1fc5bf23a3e77a31d7941c9e))
+
+
+### Features
+
+* add one test file per country AB[#13776](https://github.com/rodekruis/IBF-system/issues/13776) ([d6fae10](https://github.com/rodekruis/IBF-system/commit/d6fae10efd6122a12e2f0468884d589ae1ffadf7))
+* improve test functions AB[#13600](https://github.com/rodekruis/IBF-system/issues/13600) ([fc2c780](https://github.com/rodekruis/IBF-system/commit/fc2c7803252555bd02bb5cbdf75c9be800e6f1d1))
+
+
+
 # [0.156.0](https://github.com/rodekruis/IBF-system/compare/v0.155.0...v0.156.0) (2022-05-16)
 
 
@@ -106,28 +122,6 @@
 ### Bug Fixes
 
 * remove test AB[#13493](https://github.com/rodekruis/IBF-system/issues/13493) ([4799102](https://github.com/rodekruis/IBF-system/commit/4799102dff0e09268e300f3296584ddb7fbb48af))
-
-
-
-# [0.150.0](https://github.com/rodekruis/IBF-system/compare/v0.149.1...v0.150.0) (2022-04-29)
-
-
-### Bug Fixes
-
-* also add 3rd disaster-type AB[#13500](https://github.com/rodekruis/IBF-system/issues/13500) ([cc49216](https://github.com/rodekruis/IBF-system/commit/cc492168e43d5ec0bf51514783b9ab01b57fd62a))
-* revert apiUrl AB[#13485](https://github.com/rodekruis/IBF-system/issues/13485) ([d5aac2b](https://github.com/rodekruis/IBF-system/commit/d5aac2b5f8bd51346cde904376ddff78db5cfaf1))
-* run second test only if there are 2 button ([f296237](https://github.com/rodekruis/IBF-system/commit/f296237346f38d05499e1c11c1d408202a612d7f))
-* test across multiple disaster-types AB[#13500](https://github.com/rodekruis/IBF-system/issues/13500) ([9b6f948](https://github.com/rodekruis/IBF-system/commit/9b6f9482456f454cc470262dd749633d3445f2a7))
-
-
-### Features
-
-* add cypress readme on testing setup AB[#13478](https://github.com/rodekruis/IBF-system/issues/13478) ([a8dd8e5](https://github.com/rodekruis/IBF-system/commit/a8dd8e5dca36709b2f9536a5d775624ed8e756d6))
-* add new timeline tests AB[#13480](https://github.com/rodekruis/IBF-system/issues/13480) ([756615e](https://github.com/rodekruis/IBF-system/commit/756615eb07f5b01ec370c791cba72b041685c15e))
-* add trigger status check AB[#13480](https://github.com/rodekruis/IBF-system/issues/13480) ([dfdc9c2](https://github.com/rodekruis/IBF-system/commit/dfdc9c23d102899dd1ce2044fb1722a033314ab9))
-* beginning timeline tests AB[#13480](https://github.com/rodekruis/IBF-system/issues/13480) ([88fb1e9](https://github.com/rodekruis/IBF-system/commit/88fb1e9189a993414bba5726509fa7a5c6ca5fbd))
-* enable prettier + clean up code AB[#13485](https://github.com/rodekruis/IBF-system/issues/13485) ([06cfcfc](https://github.com/rodekruis/IBF-system/commit/06cfcfc9ee8cd7cdec6e7f3dc748114719c6c92e))
-* improve env setup AB[#13492](https://github.com/rodekruis/IBF-system/issues/13492) ([6c5baa2](https://github.com/rodekruis/IBF-system/commit/6c5baa2f338caba76e13b546baab22714b8a78d3))
 
 
 
