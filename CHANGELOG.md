@@ -1,3 +1,18 @@
+# [0.154.0](https://github.com/rodekruis/IBF-system/compare/v0.153.2...v0.154.0) (2022-05-16)
+
+
+### Bug Fixes
+
+* mention red outline in chat for all disaster-types AB[#13607](https://github.com/rodekruis/IBF-system/issues/13607) ([4a73c85](https://github.com/rodekruis/IBF-system/commit/4a73c85dbe971e85058471e4efd37ac2c61e9335))
+
+
+### Features
+
+* draw focus to selected area via outline AB[#13606](https://github.com/rodekruis/IBF-system/issues/13606) ([b254494](https://github.com/rodekruis/IBF-system/commit/b254494c0cf83212a8efafec1a0fdce454134f57))
+* update area-name in aggregate component on hover in map AB[#13609](https://github.com/rodekruis/IBF-system/issues/13609) ([4b239cb](https://github.com/rodekruis/IBF-system/commit/4b239cb3c7e2029fd16e169db2ef75f441f7fa64))
+
+
+
 ## [0.153.2](https://github.com/rodekruis/IBF-system/compare/v0.153.1...v0.153.2) (2022-05-02)
 
 
@@ -116,20 +131,6 @@
 ### Features
 
 * info popups PHL floods AB[#13244](https://github.com/rodekruis/IBF-system/issues/13244) ([9b6d777](https://github.com/rodekruis/IBF-system/commit/9b6d777fefe7b5b928e94bd60600d08a04af2e3f))
-
-
-
-# [0.148.0](https://github.com/rodekruis/IBF-system/compare/v0.147.0...v0.148.0) (2022-04-15)
-
-
-### Bug Fixes
-
-* update mock data AB[#13240](https://github.com/rodekruis/IBF-system/issues/13240) ([c872bb3](https://github.com/rodekruis/IBF-system/commit/c872bb31d8e34d0c2e74ecdabd5db8f629f0633b))
-
-
-### Features
-
-* flood extent multiple classes AB[#13421](https://github.com/rodekruis/IBF-system/issues/13421) ([4adbe09](https://github.com/rodekruis/IBF-system/commit/4adbe0967ecaaef6c4abca7cb3314c871544b20d))
 
 
 
