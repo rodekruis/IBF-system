@@ -1,190 +1,58 @@
-branchName,lat,lon,numberOfVolunteers,contactPerson,contactNumber,contactAddress
-Addis Ababa,9.04,38.748,,,,
-Somalia,9.351,42.8,,,,
-Afar,11.793,41.009,,,,
-Dire Dawa,9.597,41.851,,,,
-Gambela,8.251,34.588,,,,
-Harar,9.315,42.119,,,,
-Benshangul-gumuz,10.06,34.544,,,,
-Amhara,11.586,37.376,,,,
-Oromia,8.957,38.759,,,,
-SNNP,7.033,38.494,,,,
-Tigray,13.499,39.466,,,,
-Head Office,9.015,38.756,,,,
-Debrebirhan,10,39.542,,,,
-�Shewarobit,10,39.899,,,,
-�Zemero,10,39.448,,,,
-Merssa,12,39.659,,,,
-�Kobo,12,39.631,,,,
-�Lalibela,12,39.05,,,,
-Sekota,13,39.035,,,,
-�Motta,11,37.882,,,,
-�Bichena,10,38.201,,,,
-�Amanuel,10,37.566,,,,
-�Rebui Gebya,11,37.767,,,,
-�Bibugne,11,37.737,,,,
-Dejen,10,38.148,,,,
-Basoliben,10,37.746,,,,
-Mertulemariam,11,38.27,,,,
-Bekoji town and Surrounding,8,39.255,,,,
-Hetosa,8,39.232,,,,
-Lode Hetosa,8,39.357,,,,
-Robe,7,40.006,,,,
-Merti,8,39.83,,,,
-Goba Town,7,39.973,,,,
-Ginnir Town,7,40.713,,,,
-Dello Menna,6,39.85,,,,
-Gurawa,9,41.837,,,,
-Deder,9,41.443,,,,
-Ada�a Woreda,9,38.973,,,,
-Adamitulu jido kombolcha,8,38.714,,,,
-Lumee wareda,9,39.13,,,,
-Gobu Sayo,9,36.959,,,,
-Leka Dulacha,9,36.488,,,,
-Sasiga,9,36.465,,,,
-Haro Limu,9,36.506,,,,
-Guto Gida,9,36.506,,,,
-Walmera,9,38.487,,,,
-Galan,9,38.824,,,,
-Walmera,9,38.572,,,,
-Goma Branch,8,36.584,,,,
-Omo Nada,8,37.25,,,,
-Setema,8,36.948,,,,
-NonoBenja,9,37.11,,,,
-Shabe Sombo,8,36.512,,,,
-Dedo,8,36.882,,,,
-Gera,8,36.25,,,,
-LimuKossa,8,36.949,,,,
-Sigmo,8,36.102,,,,
-LimuSeka,8,36.804,,,,
-dembidolo,9,34.794,,,,
-Anfillo,8,34.585,,,,
-Gidami,9,34.611,,,,
-Becho,9,38.215,,,,
-Ameya,9,37.757,,,,
-Dodola,7,39.184,,,,
-Adaba,7,39.389,,,,
-Negele Arsi,8,39.248,,,,
-Gedeb Hasasa,7,39.195,,,,
-Bedesa Town,9,40.779,,,,
-Guba Koricha,9,40.555,,,,
-Jibat,9,37.473,,,,
-Dano,9,37.264,,,,
-Jeldu,9,38.081,,,,
-Toke Kutaye,9,37.759,,,,
-Semen bench,7,35.642,,,,
-Shibench,7,35.674,,,,
-Yekki,7,35.362,,,,
-Maji,6,35.584,,,,
-Tap,,,,,,
-chencha,6,37.577,,,,
-Melo,6,36.632,,,,
-Bonkie,6,37.307,,,,
-Zala,7,37.269,,,,
-Kucha,6,37.454,,,,
-Dermalo,6,37.303,,,,
-Geze gofa,6,36.809,,,,
-Dita,,,,,,
-Kemba,6,37.173,,,,
-Oyida,6,36.846,,,,
-Uba debre tseyahe,6,36.885,,,,
-Demba gofa,6,36.88,,,,
-Butajera,8,38.374,,,,
-Enemorena enere,8,37.833,,,,
-Cheha,,,,,,
-Sodo,7,37.758,,,,
-Yirgalem,7,38.411,,,,
-Aleta wondo,7,38.424,,,,
-Wensho,7,38.329,,,,
-Hawasa zuria,7,38.502,,,,
-Boricha,7,38.37,,,,
-Hula,6,38.522,,,,
-Bursa,7,38.602,,,,
-Selamago,6,36.132,,,,
-Boditei,7,37.856,,,,
-Damot woinda,7,37.935,,,,
-Offa,7,37.559,,,,
-Kido koiysha,7,37.498,,,,
-�Alamata,12,39.554,,,,
-�Korem,13,39.518,,,,
-�Ofila,13,39.513,,,,
-�Raya -Alamata,12,39.555,,,,
-Abi adi,14,39.002,,,,
-Laelay Adiabo,14,38.17,,,,
-Adigrat,14,39.465,,,,
-Hintalo Wajerat,13,39.516,,,,
-Wolkayit,14,37.32,,,,
-Emba Alaje,13,39.527,,,,
-Adwa,14,38.888,,,,
-Astbi-wonberta,14,39.739,,,,
-Axum,14,38.736,,,,
-Erob,15,39.558,,,,
-Weri leke,14,39.248,,,,
-Asgede Tsimbla,14,38.184,,,,
-Ahferom,14,39.152,,,,
-Gulomekeda,,,,,,
-Saesi-tsada-emba,14,39.574,,,,
-Degua temben,14,39.171,,,,
-Hawzien,14,39.431,,,,
-Setit Humera,14,36.626,,,,
-Tsegede,13,37.379,,,,
-Maichew town,13,39.539,,,,
-Tselemti,14,38.143,,,,
-Kafta Humera,14,36.564,,,,
-Raya-Azebo,13,39.648,,,,
-Mekele,13,39.468,,,,
-Enderta,13,39.542,,,,
-Mereb leke,14,38.786,,,,
-Saharti Samre,13,39.209,,,,
-Medebay zana,14,38.477,,,,
-Naeder adet,14,38.341,,,,
-Tahtay Adyabo,14,37.773,,,,
-shire,14,38.283,,,,
-Kilte awlaelo,14,39.602,,,,
-Wukro,14,39.6,,,,
-Tahtay maichew,14,38.596,,,,
-Tanqua abergele,13,38.996,,,,
-East Gojjam,10.337,37.732,,,,
-W/Gojjam,10.68,37.259,,,,
-S/ Gondar,11.857,38.007,,,,
-N/Gondar,12.61,37.465,,,,
-N/Wollo and Waghimra,11.826,39.593,,,,
-S/Wollo and Oromia,11.118,39.632,,,,
-N/Shoa,9.678,39.533,,,,
-Centeral tigray,14.121,38.731,,,,
-Southern tigray,12.784,39.54,,,,
-Tahtay koraro,14.102,38.284,,,,
-Eastern tigray,14.284,39.461,,,,
-Arsi Zonal Branch,7.955,39.132,,,,
-Borena Zonal Branch,4.895,38.092,,,,
-Iluababor Zonal Branch,8.307,35.583,,,,
-Jimma Zonal Branch,7.684,36.847,,,,
-S/W/ Shoa  Zonal Branch,8.534,37.969,,,,
-West Shoa Zonal Branch,8.984,37.856,,,,
-East  Shoa Zonal Branch,8.549,39.264,,,,
-West Arsi Zonal Branch,7.208,38.606,,,,
-East Wollega Zonal Branch,9.09,36.549,,,,
-West Wollega Zonal Branch,9.178,35.834,,,,
-Bale Zonal Branch,7.131,40.008,,,,
-West Harerghe Zonal Branch,9.088,40.865,,,,
-Guji Zonal Branch,5.337,39.577,,,,
-Finfine Zuria Zonal Branch,8.91,38.628,,,,
-Kelem Wellega Zonal Branch,8.538,34.802,,,,
-North Shoa Zonal Branch,9.781,38.738,,,,
-West Guji Zonal Branch,5.642,38.238,,,,
-buno bedele Zonal Branch,8.455,36.351,,,,
-East Hararge,9.311,42.132,,,,
-Hadiya,7.555,37.859,,,,
-south omo,5.791,36.569,,,,
-Guraghe,8.289,37.781,,,,
-Bench maji,6.997,35.59,,,,
-silte,7.854,38.188,,,,
-Gedio,6.414,38.312,,,,
-Basketo,6.301,36.622,,,,
-kefa,7.267,36.246,,,,
-segen,5.339,37.438,,,,
-sodo (wolayta),6.849,37.758,,,,
-Durame(kembata-tembaro),7.245,37.907,,,,
-Hawasa(Sidama),7.054,38.48,,,,
-Arbaminch(Gamogofa),6.028,37.549,,,,
-kulito(Alaba),7.312,38.091,,,,
+branchName,BranchLevel,Town,Zone,Region,lat,lon,contactNumber,contactPerson,contactAddress,YearOfestablishment,numberOfBDRT,numberOfVolunteers,HumanResource,Targetpoulation
+ERCS HQ,Head Quarter ,Addis Ababa,Addis Ababa,Federal city,9.015023,38.756177,962-05-96-55,Getachew Ta'a,getachew.ta'a@redcrosseth.org,1935,,47000,,
+Addis Ababa,Regional Branch ,Addis Ababa,Addis Ababa,Oromia,9.039416,38.753197,911-07-34-59,Esrael gesese,esrael.gesese@redcrosseth,1973,,,,3041002
+Oromia,Regional Branch ,Addis Ababa,Addis Ababa,Oromia,9.011663,38.747045,911-84-22-46,Mohammed Jemal,mohammed.jemal@redcrosseth.org ,1993,53,127905,702,31738956
+Arsi Branch,Zonal Branch,Assela,Arsi,Oromia,7.96405,39.133757,911-53-61-05,Wagi Degafa,wagi.degafa@redcrosseth.org, 1973,6,11394,58,3572336
+Borena Branch,Zonal Branch,Yabelo,Borana,Oromia,4.893069,38.092013,913-41-53-49,Aisha Muhamad,Aisha.muhamad@dcrosseth.org, 2006,1,1186,8,534257
+Illubabor Branch,Zonal Branch,Mattu,Illubabor,Oromia,8.295953,35.583974,977-36-48-92,Feyisa Abdu,feyisa.abdu@redcrosseth.org, 1973,0,7676,30,987191
+Jimma Branch,Zonal Branch,Jimma,Jimma,Oromia,7.672136,36.846886,917-82-10-64,Aisha Rago,aisha.rago@redcrosseth.org, 1973,14,7576,67,3500000
+S/W/ Shoa Branch,Zonal Branch,Woliso,Southwest showa,Oromia,8.542781,37.973512,911-95-44-29,Alemayehu Mamo,alemayehu.mamo@redcrosseth.org, 1983,2,14467,44,1101129
+West Shoa Branch,Zonal Branch,Ambo,West Shoa Branch,Oromia,8.982603,37.870036,911-89-41-40,Workneh Mekonnen,workneh.mekonnen@redcrosseth.org, 1995,3,17095,34,2058676
+East  Shoa Branch,Zonal Branch,Adama,East  Shoa ,Oromia,8.543512,39.27937,916-04-78-20,Buseri Bunda,buseri.bunda@redcrosseth.org, 1973,3,8393,69,2192459
+West Arsi Branch,Zonal Branch,Shashamane,West Arsi ,Oromia,7.196143,38.608494,945-59-35-98,Kemal Abdella,kemal.abdella@redcrosseth.org, 1999,2,6072,68,2807429
+East Wollega Branch,Zonal Branch,Nekemte,East Wollega ,Oromia,9.091265,36.547086,909-76-64-05,Firew Hailu,firew.hailu@redcrosseth.org, 1973,3,1510,63,332128
+West Wollega Branch,Zonal Branch,Gimbi,West Wollega ,Oromia,9.167002,35.839021,911-05-32-05,Mengistu Senbeta,mengistu.senbeta@redcrosseth.org, 1997,3,454,35,1823270
+West Harerghe Branch,Zonal Branch,Chiro,West Harerghe ,Oromia,9.079527,40.865219,915-73-47-25,Mohammed Seid,mohamed.abdulhamid@redcrosseth.org, 1982,3,6306,42,2723850
+East Haraghe Branch,Zonal Branch,Harer,East Haraghe ,Oromia,9.292036,42.144227,933-44-60-00,Ketema Habtamu,ketema.habtamu@redcrosseth.org,2009,3,11205,19,3699252
+Guji Branch,Zonal Branch,Negele Borena,Guji ,Oromia,5.334136,39.581791,913-41-53-49,Yohannes Feyisa,yohannes.feyisa@redcrosseth.org, 1982,2,10226,18,1434110
+Finfine Special Zone ,Zonal Branch,Sabeta,Finfine Special Zone,Oromia,8.911231,38.626765,917-77-75-51,Gezaheng Desalenge,gezahegne.desalegne@redcrosseth.org,2009,2,14687,28,1021615
+Kelem Wellega Branch,coordination office,Dambi dolo,Kelem Wellega ,Oromia,8.535663,34.799437,912-74-07-27,Teferi Teso,teferi.teso@redcrosseth.org,2009,0,2242,22,1061361
+West Guji ,coordination office,Bule Hora,West Guji ,Oromia,5.633134,38.238865,917-81-42-52,Doktor Bogale,doktor.bogale@redcrosseth.org,2009,0,417,8,1198631
+North shoa ,coordination office,Fiche,North shoa ,Oromia,9.77122,38.739395,939-7130-09,Mengistu Belachew,mengistu.belachew@redcrosseth.org,2010,0,1200,13,1561000
+Buno Beddele cordination office,coordination office,Beddle,Buno Beddele zone,Oromia,8.45261,36.355588,963-38-68-44,Bacha Birhanu,bacha.birhanu@redcrosseth.org,2010,1,2226,23,73009
+Horoguduru wollega,coordination office,Shambu,Horoguduru wollega,Oromia,9.568043,37.10137,912-37-82-57,Tadele Dheresa,tadele.dheresa@redcrosseth.org,2012,0,206,4,803582
+Amhara,Regional Branch ,Bahir Dar,Bahir Dar,Amhara,11.588249,37.385806,918-72-85-27,Shambel Wale,shambel.wale@redcrosseth.org,2005,,42,,311724
+East Gojjam,Zonal Branch,Debremarkos,East Gojjam,Amhara,10.337215,37.731744,918-27-02-71,Berhanu Temesgen,berhanu.temesgen@redcrosse.org,1978,,1722,,2539491
+W/Gojjam,Zonal Branch,Fenote selam ,W/Gojjam,Amhara,10.680354,37.259324,918-05-88-08,Yazachew Yemane,yazachew.yemane@redcrosseth.org,1973,,1271,,3780447
+S/ Gondar,Zonal Branch,Debre tabor,S/ Gondar,Amhara,11.857381,38.00729,967-77-03-83,Abebaw Brihanu,abebaw.brihanu@redcrosseth,1985,,316,,2435345
+N/Gondar,Zonal Branch,Gondar,N/Gondar,Amhara,12.609925,37.465206,918-70-84-333,Atalel Tarekegn,atalel.tarekegn@redcrosseth.org,1973,,606,,3704740
+N/Wollo,Zonal Branch,weldiya,N/Wollo+ Waghimra,Amhara,11.826216,39.592513,921-63-68-98,Leulseged Sisay,leulseged.sisay@redcrosseth.org,1984,,369,,2211555
+S/Wollo,Zonal Branch,Dessie ,S/Wollo+Oromia,Amhara,11.118184,39.632496,911-03-73-17,Melaku chekol,melaku.chekol@redcrosseth.org,1968,,1103,,3634801
+N/Shoa,Zonal Branch,Debre Berhan ,N/Shoa,Amhara,9.677914,39.533397,,Demitew Emishaw,damitew.emishaw@redcrosseth.org ,1978,,1177,,2151896
+SNNPR,Regional Branch ,Hawasa ,Hawasa ,SNNPE,7.050375,38.485269,462-208516,Ibrahim Temam,ibrahim.temam@redcrosseth.org,,,,,
+Welaita,Zonal Branch,Sodo,Welaita,SNNPE,6.82292,37.75026,911-73-21-64,Seifu Worku,seifu.worku@redcrosseth.org,1976,,612,,1641922
+Hadiya,Zonal Branch,Hossana,Hadiya,SNNPE,7.549685,37.855545,912-30-21-78,Kefyalew Kassa,kefyalew.kassa@redcrosseth.org,1979,,,,1711091
+Kembata Tambaro,Zonal Branch,Durame,Kembata Tambaro,SNNPE,7.245017,37.906837,911-53-36-78,Abebe Dotamo,abebe.dotamo@redcrosseth.org,1985,,497,,895570
+South Omo,Zonal Branch,Jinkaa,South Omo,SNNPE,5.790951,36.569262,916-71-16-21,Akna Akata,akna.akata@redcrosseth.org,1982,,667,,790798
+Gurage,Zonal Branch,Wolkite,Gurage,SNNPE,8.29355,37.78532,913-25-64-84,mussie bekele,mussie.bekele@redcrosseth.org,1998,,1998,,1500000
+Bench Maji ,Zonal Branch,Mizan Tefar,Bench Maji ,SNNPE,6.997347,35.589919,913-01-10-02,Fikadu Ejeta,fikadu.ejeta@redcrosseth.org,1982,,1982,,652531
+Gamugofa,Zonal Branch,Arba Minch,Gamugofa,SNNPE,6.03576,37.55903,913-28-90-76,Sileshi Sisay,sileshi.sisay@redcrosseth.org,1969,,1969,,1736236
+Siltie Zone,Zonal Branch,Werabe,Siltie Zone,SNNPE,7.853674,38.187753,911-57-07-44,Muhaba Hussen,muhaba.hussen@redcrosseth.org,2003,,2003,,852253
+Halaba Sp. Woreda,Zonal Branch,Kulito,Halaba Special zone,SNNPE,7.312235,38.091075,926-99-34-06,Neima Mohammed,neima.mohammed@redcrosseth.org,2002,,172,,500000
+Gedeo Zone,Zonal Branch,Dilla,Gedeo Zone,SNNPE,6.414358,38.311997,916428457,Wondwosen Daka,Wondwosen.Daka@redcrosseth.org,1976,,1976,,1000000
+Basketo,Zonal Branch,lesaka,Basketo,SNNPE,6.300979,36.625883,916-70-49-66,Dandao Gebremichael,dandao.gebremichael@redcrosseth.org,,,0,,56689
+Keffa,Zonal Branch,Bonga,Keffa,SNNPE,7.267499,36.246225,912-18-52-59,Alemayehu Kebede,alemayehu.kebede@redcrosseth.org,,,0,,1206004
+Segen ,Zonal Branch,Konso,Segen ,SNNPE,5.339743,37.441509,912-15-28-04,Shakayto Roba,shakayto.roba@redcrosseth.org,,,,,
+Tigray,Regional Branch ,Mekelle ,Mekelle ,Tigray,13.488703,39.467862,914-70-18-70,Berhanu Mekonnen,berhanu.mekonnen@redcrosseth.org,,,160,,350000
+Central Tig.,Zonal Branch,Axum,Central Tig.,Tigray,14.116202,38.738561,914-74-41-99,Roman Zemichael,roman.zemichael@redcrosseth.org,2005,,3350,,1380920
+Eastern Tig.,Zonal Branch,Adigrat,Eastern Tig.,Tigray,14.280581,39.4631,914 72-39-34,Berhane Alemu,berhane.alemu@redcrosseth.org,2005,,567,,958650
+North West ,Zonal Branch,Shire E/sillase,North West ,Tigray,14.105801,38.288917,914-77-89-31,Tewodros Mulaw,tewodros.mulaw@redcrosseth.org,2005,,777,,950000
+Southern Tig,Zonal Branch,Maychew,Southern Tig,Tigray,12.781153,39.536963,914-78-53-43,Belay Gebru,belay.gebru@redcrosseth.org,2005,,177,,1193401
+Sidama ,Regional Branch ,Hawasa,Sidama ,Sidama ,6.7372,38.4008,916-02-03-47,Kibru Tilahune,kibru.tilahune@redcrosseth.org,2012,,529,,6484000
+Moyale,Coordination office,Moyale ,Moyale,Oromia,3.5657,39.04264,911-77-25-69,Tsegaye Desta,tsegaye.desta@redcrosseth.org,2006,,1100,,375000
+Benshangul,Regional Branch ,Asosa,Benshangul,Benshangul,10.059766,34.548199,989425639,Shebabew Assegea,shebabew.assegae@redcrosseth.org,1990,,2239,,1066001
+Dire Dawa,Regional Branch ,Dire Dawa,Dire Dawa,Federal city,9.600875,41.850142,915-76-04-42,Bahar Adem,bahar.adem@redcrosseth.org,1975,1,963,,445000
+Gambella,Regional Branch ,Gambella,Gambella,Gambella,8.24719,34.591597,911-11 71 54,Changkuoth David,changkuoth.david@redcrosseth.org,1982,1,202,22,446500
+Harari,Regional Branch ,Harar,Harari,Harari,9.313202,42.117176,910-60-16-44,Asfaw Senbeto,asfaw.senbeto@redcrosseth.org,1974,6,120,16,270031
+Afar Regional Branch,Regional Branch ,Samera,Afar Regional ,Afar Regional ,11.794974,41.009941,910-14-12-70,Ali Sualih,ali.sualih@redcrosseth.org,1985 E.C ,7,1200,23,2153000
+Somali ,Regional Branch ,Jigjiga,Fafen,Somali,9.353105,42.800911,0911-97-73-95,Ahmed Abdi,ahmed.abdi@redcrosseth.org,1977,24,200,32,5148989
