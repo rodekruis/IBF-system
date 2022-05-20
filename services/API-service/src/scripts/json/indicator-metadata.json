@@ -896,27 +896,75 @@
     "active": "no",
     "colorBreaks": {
       "1": {
-        "label": "Poor",
+        "label": "No priority",
+        "valueLow": 0,
+        "valueHigh": 0
+      },
+      "2": {
+        "label": "Priority 1",
         "valueLow": 1,
         "valueHigh": 1
       },
-      "2": {
-        "label": "Fair",
+      "3": {
+        "label": "Priority 2",
         "valueLow": 2,
         "valueHigh": 2
       },
-      "3": {
-        "label": "Good",
+      "4": {
+        "label": "Priority 3",
         "valueLow": 3,
         "valueHigh": 3
       }
     },
-    "numberFormatMap": "decimal2",
+    "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
     "weightvar": null,
     "order": 2,
     "dynamic": true,
     "lazyLoad": true
+  },
+  {
+    "country_codes": "ETH",
+    "disasterTypes": ["drought"],
+    "name": "IPC_forecast_long_dynamic",
+    "label": "IPC forecast (long)",
+    "icon": "",
+    "weightedAvg": true,
+    "active": "no",
+    "colorBreaks": {
+      "1": {
+        "label": "Minimal",
+        "valueLow": 1,
+        "valueHigh": 1
+      },
+      "2": {
+        "label": "Stressed",
+        "valueLow": 2,
+        "valueHigh": 2
+      },
+      "3": {
+        "label": "Crisis",
+        "valueLow": 3,
+        "valueHigh": 3
+      },
+      "4": {
+        "label": "Emergency",
+        "valueLow": 4,
+        "valueHigh": 4
+      },
+      "5": {
+        "label": "Famine",
+        "valueLow": 5,
+        "valueHigh": 5
+      }
+    },
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": "",
+    "numberFormatAggregate": "",
+    "weightvar": null,
+    "order": 3,
+    "dynamic": true,
+    "lazyLoad": false
   }
 ]

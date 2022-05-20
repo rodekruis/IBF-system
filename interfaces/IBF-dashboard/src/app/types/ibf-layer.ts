@@ -95,6 +95,7 @@ export enum IbfLayerName {
   population_u5 = 'population_u5',
   ipcForecastShort = 'IPC_forecast_short',
   ipcForecastLong = 'IPC_forecast_long',
+  ipcForecastLongDynamic = 'IPC_forecast_long_dynamic',
   hotspotGeneral = 'Hotspot_General',
   hotspotWater = 'Hotspot_Water',
   hotspotHealth = 'Hotspot_Health',
