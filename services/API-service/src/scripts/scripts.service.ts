@@ -342,11 +342,10 @@ export class ScriptsService {
     leadTime: string,
     disasterType: DisasterType,
   ) {
-    let now: Date;
-    now = new Date();
+    const now = new Date();
     // SIMULATE: change this to simulate different months (only in chat-component)
     // const addMonthsToCurrentDate = -4;
-    // now = new Date(now.setMonth(now.getMonth() + addMonthsToCurrentDate));
+    // const now = new Date(now.setMonth(now.getMonth() + addMonthsToCurrentDate));
     const currentYear = now.getFullYear();
     const currentUTCMonth = now.getUTCMonth();
     const currentMonthFirstDay = new Date(
