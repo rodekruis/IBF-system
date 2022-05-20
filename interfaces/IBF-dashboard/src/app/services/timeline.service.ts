@@ -309,13 +309,29 @@ export class TimelineService {
   ): boolean {
     if (disasterType.disasterType === DisasterTypeKey.drought) {
       if (this.checkStickyDroughtSeason()) {
+        // If sticky/prolonged drought seasons ..
         const triggeredLeadTimes = Object.keys(this.triggersAllEvents);
+        // .. show all triggered lead times only
         if (triggeredLeadTimes.length) {
           return triggeredLeadTimes.includes(leadTime);
         } else {
-          return leadTime === LeadTime.month0;
+          // .. if there are none, show 0-month if that is available and return early ..
+          const droughtSeasons = this.country.countryDisasterSettings.find(
+            (s) => s.disasterType === this.disasterType.disasterType,
+          ).droughtForecastMonths;
+          for (const season of droughtSeasons) {
+            for (const month of season) {
+              if (
+                this.state.today.month === month &&
+                leadTime === LeadTime.month0
+              ) {
+                return true;
+              }
+            }
+          }
         }
       }
+      // .. otherwise continue with the flow for non-sticky drought seasons to determine 1st available lead time
       const nextForecastMonth = this.getNextForecastMonth();
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);
       return nextForecastMonth.equals(leadTimeMonth);
