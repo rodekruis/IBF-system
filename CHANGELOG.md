@@ -1,3 +1,18 @@
+# [0.158.0](https://github.com/rodekruis/IBF-system/compare/v0.157.0...v0.158.0) (2022-05-20)
+
+
+### Bug Fixes
+
+* update ipc + nutrition layers AB[#13832](https://github.com/rodekruis/IBF-system/issues/13832) AB[#13847](https://github.com/rodekruis/IBF-system/issues/13847) ([6f0d257](https://github.com/rodekruis/IBF-system/commit/6f0d25754ea52f04bed8f54e2d8868359652d61c))
+* update KEN video link AB[#13720](https://github.com/rodekruis/IBF-system/issues/13720) ([3f8edb3](https://github.com/rodekruis/IBF-system/commit/3f8edb3c877a811860702d8a4cbbc355ec4f6891))
+
+
+### Features
+
+* add eap-link eth drought AB[#13886](https://github.com/rodekruis/IBF-system/issues/13886) ([a53ff6d](https://github.com/rodekruis/IBF-system/commit/a53ff6df7a0f05277677e00eb308bcce6ae73447))
+
+
+
 # [0.157.0](https://github.com/rodekruis/IBF-system/compare/v0.156.0...v0.157.0) (2022-05-16)
 
 
@@ -113,15 +128,6 @@
 ### Features
 
 * add PDF link in video popup AB[#13474](https://github.com/rodekruis/IBF-system/issues/13474) ([e09ce81](https://github.com/rodekruis/IBF-system/commit/e09ce81dc9997ca78035707cb1b2029f7d9f1231))
-
-
-
-## [0.150.1](https://github.com/rodekruis/IBF-system/compare/v0.150.0...v0.150.1) (2022-04-29)
-
-
-### Bug Fixes
-
-* remove test AB[#13493](https://github.com/rodekruis/IBF-system/issues/13493) ([4799102](https://github.com/rodekruis/IBF-system/commit/4799102dff0e09268e300f3296584ddb7fbb48af))
 
 
 
