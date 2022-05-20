@@ -82,7 +82,7 @@ export class SeedInit implements InterfaceScript {
       activeLeadTimes: string[];
       eapLink: string;
       eapAlertClasses?: {};
-      droughtForecastMonths?: number[];
+      droughtForecastMonths?: number[][];
       showMonthlyEapActions?: boolean;
       monthlyForecastInfo?: {};
     }

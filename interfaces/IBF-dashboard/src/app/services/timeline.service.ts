@@ -129,6 +129,11 @@ export class TimelineService {
     } else {
       this.state.today = DateTime.now();
     }
+    // SIMULATE: change this to simulate different months (only in chat-component)
+    // const addMonthsToCurrentDate = -4;
+    // this.state.today = this.state.today.plus({
+    //   months: addMonthsToCurrentDate,
+    // });
 
     const events = this.eventState?.events;
     if (events?.length) {
@@ -256,11 +261,26 @@ export class TimelineService {
     return date;
   }
 
+  private checkStickyDroughtSeason() {
+    const droughtSeasons = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastMonths;
+    for (const season of droughtSeasons) {
+      if (season.length > 1) {
+        return true;
+      }
+    }
+  }
+
   private filterVisibleLeadTimePerDisasterType(
     disasterType: DisasterType,
     leadTime: LeadTime,
   ): boolean {
     if (disasterType.disasterType === DisasterTypeKey.drought) {
+      if (this.checkStickyDroughtSeason()) {
+        return true;
+      }
+
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);
       const nextForecastMonthEndOfMonth = this.getNextForecastMonth();
       return (
@@ -288,9 +308,16 @@ export class TimelineService {
     leadTime: LeadTime,
   ): boolean {
     if (disasterType.disasterType === DisasterTypeKey.drought) {
+      if (this.checkStickyDroughtSeason()) {
+        const triggeredLeadTimes = Object.keys(this.triggersAllEvents);
+        if (triggeredLeadTimes.length) {
+          return triggeredLeadTimes.includes(leadTime);
+        } else {
+          return leadTime === LeadTime.month0;
+        }
+      }
       const nextForecastMonth = this.getNextForecastMonth();
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);
-
       return nextForecastMonth.equals(leadTimeMonth);
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       const events = this.eventState?.events;
@@ -307,9 +334,9 @@ export class TimelineService {
     const currentYear = this.state.today.year;
     const currentMonth = this.state.today.month;
 
-    const forecastMonthNumbers = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtForecastMonths;
+    const forecastMonthNumbers = this.country.countryDisasterSettings
+      .find((s) => s.disasterType === this.disasterType.disasterType)
+      .droughtForecastMonths.map((month) => month[0]);
 
     let forecastMonthNumber: number;
     forecastMonthNumbers

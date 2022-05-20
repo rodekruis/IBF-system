@@ -321,6 +321,86 @@ export class ScriptsService {
     }
   }
 
+  private filterLeadTimesPerDisasterType(
+    selectedCountry: any,
+    leadTime: string,
+    disasterType: DisasterType,
+    eventNr = 1,
+    typhoonScenario?: TyphoonScenario,
+  ) {
+    if (disasterType === DisasterType.Drought) {
+      return this.getDroughtLeadTime(selectedCountry, leadTime, disasterType);
+    } else if (disasterType === DisasterType.Typhoon) {
+      return leadTime === this.getTyphoonLeadTime(eventNr, typhoonScenario);
+    } else {
+      return true;
+    }
+  }
+
+  private getDroughtLeadTime(
+    selectedCountry: any,
+    leadTime: string,
+    disasterType: DisasterType,
+  ) {
+    let now: Date;
+    now = new Date();
+    // SIMULATE: change this to simulate different months (only in chat-component)
+    // const addMonthsToCurrentDate = -4;
+    // now = new Date(now.setMonth(now.getMonth() + addMonthsToCurrentDate));
+    const currentYear = now.getFullYear();
+    const currentUTCMonth = now.getUTCMonth();
+    const currentMonthFirstDay = new Date(
+      now.getFullYear(),
+      currentUTCMonth,
+      1,
+    );
+    const leadTimeMonthFirstDay = new Date(
+      currentMonthFirstDay.setUTCMonth(
+        currentUTCMonth + Number(leadTime.split('-')[0]),
+      ),
+    );
+
+    const forecastSeasons = selectedCountry.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).droughtForecastMonths;
+
+    // If current month is one of the months in the seasons, always use '0-month' and return early ..
+    for (const season of forecastSeasons) {
+      for (const month of season) {
+        if (currentUTCMonth + 1 === month && leadTime === LeadTime.month0) {
+          return true;
+        }
+      }
+    }
+
+    // .. For other cases, continue to find the next forecast month
+    const forecastMonthNumbers = forecastSeasons.map(month => month[0]);
+    let forecastMonthNumber: number;
+    forecastMonthNumbers
+      .sort((a, b) => (a > b ? -1 : 1))
+      .forEach(month => {
+        if (currentUTCMonth + 1 < month) {
+          // add 1 because 'currentUTCmonth' starts at 0, while 'month' does not
+          forecastMonthNumber = month;
+        }
+      });
+    if (!forecastMonthNumber) {
+      forecastMonthNumber =
+        forecastMonthNumbers[forecastMonthNumbers.length - 1];
+    }
+
+    const nextForecastMonthYear =
+      currentUTCMonth >= forecastMonthNumber ? currentYear + 1 : currentYear;
+    const nextForecastMonthFirstDay = new Date(
+      nextForecastMonthYear,
+      forecastMonthNumber - 1,
+      1,
+    );
+    return (
+      nextForecastMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime()
+    );
+  }
+
   private getTyphoonLeadTime(
     eventNr = 1,
     typhoonScenario?: TyphoonScenario,
@@ -374,63 +454,6 @@ export class ScriptsService {
       }
     }
     return copyOfExposureUnit;
-  }
-
-  private filterLeadTimesPerDisasterType(
-    selectedCountry: any,
-    leadTime: string,
-    disasterType: DisasterType,
-    eventNr = 1,
-    typhoonScenario?: TyphoonScenario,
-  ) {
-    if (disasterType === DisasterType.Drought) {
-      const now = new Date();
-      const currentYear = now.getFullYear();
-      const currentUTCMonth = now.getUTCMonth();
-      const currentMonthFirstDay = new Date(
-        now.getFullYear(),
-        currentUTCMonth,
-        1,
-      );
-      const leadTimeMonthFirstDay = new Date(
-        currentMonthFirstDay.setUTCMonth(
-          currentUTCMonth + Number(leadTime.split('-')[0]),
-        ),
-      );
-
-      const forecastMonthNumbers = selectedCountry.countryDisasterSettings.find(
-        s => s.disasterType === disasterType,
-      ).droughtForecastMonths;
-
-      let forecastMonthNumber: number;
-      forecastMonthNumbers
-        .sort((a, b) => (a > b ? -1 : 1))
-        .forEach(month => {
-          if (currentUTCMonth + 1 < month) {
-            // add 1 because 'currentUTCmonth' starts at 0, while 'month' does not
-            forecastMonthNumber = month;
-          }
-        });
-      if (!forecastMonthNumber) {
-        forecastMonthNumber =
-          forecastMonthNumbers[forecastMonthNumbers.length - 1];
-      }
-
-      const nextForecastMonthYear =
-        currentUTCMonth >= forecastMonthNumber ? currentYear + 1 : currentYear;
-      const nextForecastMonthFirstDay = new Date(
-        nextForecastMonthYear,
-        forecastMonthNumber - 1,
-        1,
-      );
-      return (
-        nextForecastMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime()
-      );
-    } else if (disasterType === DisasterType.Typhoon) {
-      return leadTime === this.getTyphoonLeadTime(eventNr, typhoonScenario);
-    } else {
-      return true;
-    }
   }
 
   private async mockTyphoonTrack(

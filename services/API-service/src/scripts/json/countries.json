@@ -180,7 +180,7 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": [3, 10],
+        "droughtForecastMonths": [[3], [10]],
         "showMonthlyEapActions": true,
         "monthlyForecastInfo": {
           "prefix": "chat-component.drought.active-event.forecast-info",
@@ -281,7 +281,10 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": [3, 10],
+        "droughtForecastMonths": [
+          [2, 3, 4, 5],
+          [6, 7, 8, 9]
+        ],
         "showMonthlyEapActions": true,
         "eapLink": "https://docs.google.com/document/d/1uAzLuGLiBChjyEHZ4RjArodrGN1tgX18PlL8ZK13Dj4"
       }
@@ -626,7 +629,7 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": [4],
+        "droughtForecastMonths": [[4]],
         "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
       }
     ],

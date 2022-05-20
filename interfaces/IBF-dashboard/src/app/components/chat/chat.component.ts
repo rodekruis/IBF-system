@@ -417,8 +417,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (!this.disasterTypeSettings.showMonthlyEapActions) {
       return;
     }
-    const droughtForecastMonths = this.disasterTypeSettings
-      .droughtForecastMonths;
+    const droughtForecastMonths = this.disasterTypeSettings.droughtForecastMonths.map(
+      (months) => months[months.length - 1],
+    );
     const currentMonth = this.timelineState.today.month;
     const nextMonth = this.timelineState.today.plus({ months: 1 }).month;
     if (droughtForecastMonths.includes(currentMonth)) {

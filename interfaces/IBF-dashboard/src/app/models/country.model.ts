@@ -16,7 +16,7 @@ export class CountryDisasterSettings {
   adminLevels: AdminLevel[];
   defaultAdminLevel: AdminLevel;
   activeLeadTimes: LeadTime[];
-  droughtForecastMonths: number[];
+  droughtForecastMonths: number[][];
   eapLink: string;
   showMonthlyEapActions: boolean;
   eapAlertClasses?: EapAlertClasses;
