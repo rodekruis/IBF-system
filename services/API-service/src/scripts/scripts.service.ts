@@ -215,6 +215,8 @@ export class ScriptsService {
               unit,
               triggered,
               disasterType,
+              selectedCountry,
+              activeLeadTime,
             ),
             leadTime: activeLeadTime as LeadTime,
             dynamicIndicator: unit,
@@ -441,6 +443,8 @@ export class ScriptsService {
     exposureUnit: DynamicIndicator,
     triggered: boolean,
     disasterType: DisasterType,
+    selectedCountry,
+    activeLeadTime: LeadTime,
   ): any[] {
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     // This only returns something different for dengue/malaria exposure-units
@@ -471,6 +475,15 @@ export class ScriptsService {
               : 0;
           }
         }
+      }
+    } else if (
+      selectedCountry.countryCodeISO3 === 'ETH' &&
+      disasterType === DisasterType.Drought &&
+      Number(activeLeadTime.split('-')[0]) > 3
+    ) {
+      // Hard-code lead-times of more then 3 months to non-trigger
+      for (const pcodeData of copyOfExposureUnit) {
+        pcodeData.amount = 0;
       }
     }
     return copyOfExposureUnit;
