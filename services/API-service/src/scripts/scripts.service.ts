@@ -344,8 +344,8 @@ export class ScriptsService {
   ) {
     const now = new Date();
     // SIMULATE: change this to simulate different months (only in chat-component)
-    // const addMonthsToCurrentDate = -4;
-    // const now = new Date(now.setMonth(now.getMonth() + addMonthsToCurrentDate));
+    // const addMonthsToCurrentDate = -1;
+    // now = new Date(now.setMonth(now.getMonth() + addMonthsToCurrentDate));
     const currentYear = now.getFullYear();
     const currentUTCMonth = now.getUTCMonth();
     const currentMonthFirstDay = new Date(
@@ -359,10 +359,31 @@ export class ScriptsService {
       ),
     );
 
-    const forecastSeasons = selectedCountry.countryDisasterSettings.find(
+    const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
     ).droughtForecastMonths;
 
+    let useLeadTimeForMock: boolean = false;
+    for (const area of Object.keys(forecastSeasonAreas)) {
+      useLeadTimeForMock = this.useLeadTimeForMock(
+        forecastSeasonAreas[area],
+        leadTime,
+        leadTimeMonthFirstDay,
+        currentUTCMonth,
+        currentYear,
+      );
+      if (useLeadTimeForMock) break;
+    }
+    return useLeadTimeForMock;
+  }
+
+  private useLeadTimeForMock(
+    forecastSeasons: any,
+    leadTime: string,
+    leadTimeMonthFirstDay: Date,
+    currentUTCMonth: number,
+    currentYear: number,
+  ) {
     // If current month is one of the months in the seasons, always use '0-month' and return early ..
     for (const season of forecastSeasons) {
       for (const month of season) {

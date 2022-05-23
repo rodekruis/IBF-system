@@ -417,16 +417,22 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (!this.disasterTypeSettings.showMonthlyEapActions) {
       return;
     }
-    const droughtForecastMonths = this.disasterTypeSettings.droughtForecastMonths.map(
-      (months) => months[months.length - 1],
-    );
+    const forecastSeasonAreas = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastMonths;
+    let forecastMonthNumbers = [];
+    for (const area of Object.values(forecastSeasonAreas)) {
+      const forecastSeasons = area.map((months) => months[months.length - 1]);
+      forecastMonthNumbers = [...forecastMonthNumbers, ...forecastSeasons];
+    }
+
     const currentMonth = this.timelineState.today.month;
     const nextMonth = this.timelineState.today.plus({ months: 1 }).month;
-    if (droughtForecastMonths.includes(currentMonth)) {
+    if (forecastMonthNumbers.includes(currentMonth)) {
       return this.translateService.instant(
         'chat-component.drought.clear-out.message',
       );
-    } else if (droughtForecastMonths.includes(nextMonth)) {
+    } else if (forecastMonthNumbers.includes(nextMonth)) {
       return this.translateService.instant(
         'chat-component.drought.clear-out.warning',
       );

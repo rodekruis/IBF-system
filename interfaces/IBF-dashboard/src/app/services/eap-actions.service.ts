@@ -143,16 +143,11 @@ export class EapActionsService {
       return;
     }
 
+    const forecastMonthNumbers = this.getForecastMonthNumbers();
     const periods = [];
     const shiftedYear = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
       .map((m) => {
-        const newMonthValue =
-          (m +
-            this.disasterTypeSettings.droughtForecastMonths.map(
-              (month) => month[0],
-            )[0] -
-            1) %
-          12;
+        const newMonthValue = (m + forecastMonthNumbers[0] - 1) % 12;
         return newMonthValue > 0 ? newMonthValue : 12;
       })
       .reverse();
@@ -160,11 +155,7 @@ export class EapActionsService {
     let period = [];
     shiftedYear.forEach((m) => {
       period.push(m);
-      if (
-        this.disasterTypeSettings.droughtForecastMonths
-          .map((month) => month[0])
-          .includes(m)
-      ) {
+      if (forecastMonthNumbers.includes(m)) {
         periods.push(period);
         period = [];
       }
@@ -183,6 +174,18 @@ export class EapActionsService {
       );
   };
 
+  private getForecastMonthNumbers() {
+    const forecastSeasonAreas = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastMonths;
+    let forecastMonthNumbers = [];
+    for (const area of Object.values(forecastSeasonAreas)) {
+      const forecastSeasons = area.map((month) => month[0]);
+      forecastMonthNumbers = [...forecastMonthNumbers, ...forecastSeasons];
+    }
+    return forecastMonthNumbers;
+  }
+
   private showMonthlyAction(month, currentMonth, currentPeriod) {
     const monthBeforeCurrentMonth =
       this.shiftYear(month) <= this.shiftYear(currentMonth);
@@ -193,7 +196,7 @@ export class EapActionsService {
   // This makes the year "start" at the moment of one of the "droughtForecastMonths" instead of in January ..
   // .. thereby making sure that the order is correct: 'december' comes before 'january', etc.
   private shiftYear = (monthNumber: number) => {
-    const droughtForecastMonths = this.disasterTypeSettings.droughtForecastMonths.map(
+    const droughtForecastMonths = this.getForecastMonthNumbers().map(
       (month) => month[0],
     );
     return (monthNumber + 12 - droughtForecastMonths[0]) % 12;

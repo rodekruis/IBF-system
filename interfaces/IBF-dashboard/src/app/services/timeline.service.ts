@@ -130,7 +130,7 @@ export class TimelineService {
       this.state.today = DateTime.now();
     }
     // SIMULATE: change this to simulate different months (only in chat-component)
-    // const addMonthsToCurrentDate = -4;
+    // const addMonthsToCurrentDate = -1;
     // this.state.today = this.state.today.plus({
     //   months: addMonthsToCurrentDate,
     // });
@@ -262,12 +262,14 @@ export class TimelineService {
   }
 
   private checkStickyDroughtSeason() {
-    const droughtSeasons = this.country.countryDisasterSettings.find(
+    const forecastSeasonAreas = this.country.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType.disasterType,
     ).droughtForecastMonths;
-    for (const season of droughtSeasons) {
-      if (season.length > 1) {
-        return true;
+    for (const area of Object.values(forecastSeasonAreas)) {
+      for (const season of area) {
+        if (season.length > 1) {
+          return true;
+        }
       }
     }
   }
@@ -316,16 +318,18 @@ export class TimelineService {
           return triggeredLeadTimes.includes(leadTime);
         } else {
           // .. if there are none, show 0-month if that is available and return early ..
-          const droughtSeasons = this.country.countryDisasterSettings.find(
+          const forecastSeasonAreas = this.country.countryDisasterSettings.find(
             (s) => s.disasterType === this.disasterType.disasterType,
           ).droughtForecastMonths;
-          for (const season of droughtSeasons) {
-            for (const month of season) {
-              if (
-                this.state.today.month === month &&
-                leadTime === LeadTime.month0
-              ) {
-                return true;
+          for (const area of Object.values(forecastSeasonAreas)) {
+            for (const season of area) {
+              for (const month of season) {
+                if (
+                  this.state.today.month === month &&
+                  leadTime === LeadTime.month0
+                ) {
+                  return true;
+                }
               }
             }
           }
@@ -350,9 +354,14 @@ export class TimelineService {
     const currentYear = this.state.today.year;
     const currentMonth = this.state.today.month;
 
-    const forecastMonthNumbers = this.country.countryDisasterSettings
-      .find((s) => s.disasterType === this.disasterType.disasterType)
-      .droughtForecastMonths.map((month) => month[0]);
+    const forecastSeasonAreas = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastMonths;
+    let forecastMonthNumbers = [];
+    for (const area of Object.values(forecastSeasonAreas)) {
+      const forecastSeasons = area.map((month) => month[0]);
+      forecastMonthNumbers = [...forecastMonthNumbers, ...forecastSeasons];
+    }
 
     let forecastMonthNumber: number;
     forecastMonthNumbers
