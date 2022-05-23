@@ -365,7 +365,7 @@ export class ScriptsService {
       s => s.disasterType === disasterType,
     ).droughtForecastMonths;
 
-    let useLeadTimeForMock: boolean = false;
+    let useLeadTimeForMock = false;
     for (const area of Object.keys(forecastSeasonAreas)) {
       useLeadTimeForMock = this.useLeadTimeForMock(
         forecastSeasonAreas[area],
