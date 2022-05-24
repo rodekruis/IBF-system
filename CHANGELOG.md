@@ -1,3 +1,12 @@
+## [0.158.1](https://github.com/rodekruis/IBF-system/compare/v0.158.0...v0.158.1) (2022-05-24)
+
+
+### Bug Fixes
+
+* udpate adm2 boundaries AB[#13924](https://github.com/rodekruis/IBF-system/issues/13924) ([119c2f3](https://github.com/rodekruis/IBF-system/commit/119c2f3ab8ef3dce10030cd751c3c0c63c554021))
+
+
+
 # [0.158.0](https://github.com/rodekruis/IBF-system/compare/v0.157.0...v0.158.0) (2022-05-20)
 
 
@@ -111,23 +120,6 @@
 * make activation-log country & disaster specific AB[#13509](https://github.com/rodekruis/IBF-system/issues/13509) ([3053896](https://github.com/rodekruis/IBF-system/commit/30538965138130f884e2e0ec77f644a7f48650ec))
 * show 'live' on prod login page AB[#13507](https://github.com/rodekruis/IBF-system/issues/13507) ([380c0f0](https://github.com/rodekruis/IBF-system/commit/380c0f0a27f7864a147d0e811966e5e718c98057))
 * specify disaster-type / country combinations to load on server AB[#13568](https://github.com/rodekruis/IBF-system/issues/13568) ([78ebed9](https://github.com/rodekruis/IBF-system/commit/78ebed9b0ddb97b1f6863e657d97c9a3e767538d))
-
-
-
-# [0.151.0](https://github.com/rodekruis/IBF-system/compare/v0.150.1...v0.151.0) (2022-04-29)
-
-
-### Bug Fixes
-
-* new design ibf guide popover AB[#13476](https://github.com/rodekruis/IBF-system/issues/13476) ([9e66433](https://github.com/rodekruis/IBF-system/commit/9e66433afc53be88010cd1e87ec3151d980ee7ff))
-* remove again test file ([3db8dab](https://github.com/rodekruis/IBF-system/commit/3db8dabd1ecbb2ddf1a1bf95f3029e6b8f227366))
-* typo on popup name ([efa3e17](https://github.com/rodekruis/IBF-system/commit/efa3e170ace712c808f4ed958e5cc906de814ddc))
-* update popup text ([a632414](https://github.com/rodekruis/IBF-system/commit/a632414aa787fea63ed833192f926f669a455f92))
-
-
-### Features
-
-* add PDF link in video popup AB[#13474](https://github.com/rodekruis/IBF-system/issues/13474) ([e09ce81](https://github.com/rodekruis/IBF-system/commit/e09ce81dc9997ca78035707cb1b2029f7d9f1231))
 
 
 
