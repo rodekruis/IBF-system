@@ -113,7 +113,9 @@ export class ScriptsService {
 
     if (
       mockInput.disasterType === DisasterType.Floods ||
-      mockInput.disasterType === DisasterType.HeavyRain
+      mockInput.disasterType === DisasterType.HeavyRain ||
+      (mockInput.disasterType === DisasterType.Drought &&
+        selectedCountry.countryCodeISO3 === 'ETH')
     ) {
       await this.mockRasterFile(
         selectedCountry,
@@ -531,6 +533,12 @@ export class ScriptsService {
       } else if (disasterType === DisasterType.HeavyRain) {
         // Use 3-day mock for every lead-time
         sourceFileName = `rainfall_extent_3-day_${
+          selectedCountry.countryCodeISO3
+        }${triggered ? '-triggered' : ''}.tif`;
+        destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+      } else if (disasterType === DisasterType.Drought) {
+        // Use 0-month mock for every lead-time
+        sourceFileName = `rainfall_extent_0-month_${
           selectedCountry.countryCodeISO3
         }${triggered ? '-triggered' : ''}.tif`;
         destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;

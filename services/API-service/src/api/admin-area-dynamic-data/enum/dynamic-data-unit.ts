@@ -7,8 +7,7 @@ export enum DynamicIndicator {
   alertThreshold = 'alert_threshold',
   potentialCases = 'potential_cases',
   potentialThreshold = 'potential_cases_threshold',
-  ipcForecastShort = 'IPC_forecast_short',
-  ipcForecastLong = 'IPC_forecast_long',
+  ipcForecastLongDynamic = 'IPC_forecast_long_dynamic',
   hotspotGeneral = 'Hotspot_General',
   hotspotWater = 'Hotspot_Water',
   hotspotHealth = 'Hotspot_Health',
@@ -22,4 +21,5 @@ export enum DynamicIndicator {
   droughtPhaseClassification = 'drought_phase_classification',
   vegetationCondition = 'vegetation_condition',
   livestockBodyCondition = 'livestock_body_condition',
+  nutritionNeedPriorityClass = 'nutrition_need_priority_class',
 }

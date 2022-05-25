@@ -261,9 +261,15 @@ export class MapComponent implements OnDestroy {
       const valueHigh =
         layer.colorBreaks && layer.colorBreaks[i + 1]?.valueHigh;
       if (valueLow === valueHigh) {
-        return valueHigh + label + '<br/>';
+        return this.numberFormat(valueHigh, layer) + label + '<br/>';
       } else {
-        return valueLow + '&ndash;' + valueHigh + label + '<br/>';
+        return (
+          this.numberFormat(valueLow, layer) +
+          '&ndash;' +
+          this.numberFormat(valueHigh, layer) +
+          label +
+          '<br/>'
+        );
       }
     } else {
       const number1 = this.numberFormat(grades[i], layer);
@@ -288,6 +294,8 @@ export class MapComponent implements OnDestroy {
       this.legends[layer.name].onAdd = () => {
         const div = DomUtil.create('div', 'info legend');
         const grades = Object.values(colorThreshold);
+
+        console.log('grades: ', grades);
         let labels;
         if (layer.colorBreaks) {
           labels = Object.values(layer.colorBreaks).map(
