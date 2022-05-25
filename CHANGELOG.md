@@ -1,3 +1,13 @@
+## [0.158.2](https://github.com/rodekruis/IBF-system/compare/v0.158.1...v0.158.2) (2022-05-25)
+
+
+### Bug Fixes
+
+* change hotspot + ipc layers to static AB[#13954](https://github.com/rodekruis/IBF-system/issues/13954) ([880f7f5](https://github.com/rodekruis/IBF-system/commit/880f7f550745ac41c348b31e82283715a241d72f))
+* udpate adm2 boundaries AB[#13924](https://github.com/rodekruis/IBF-system/issues/13924) ([ef29b9f](https://github.com/rodekruis/IBF-system/commit/ef29b9f934c5c533ec2bdffca297c5eaca2a4b7f))
+
+
+
 ## [0.158.1](https://github.com/rodekruis/IBF-system/compare/v0.158.0...v0.158.1) (2022-05-24)
 
 
@@ -107,19 +117,6 @@
 
 * add what's new link AB[#13593](https://github.com/rodekruis/IBF-system/issues/13593) ([419fae0](https://github.com/rodekruis/IBF-system/commit/419fae0e3de95cb1ed02c75ee13cca9c7eaf942c))
 * added md file + initial fill AB[#13595](https://github.com/rodekruis/IBF-system/issues/13595) ([6e3f299](https://github.com/rodekruis/IBF-system/commit/6e3f299e66552ed82f60c00ac2ba5ff656c1946f))
-
-
-
-# [0.152.0](https://github.com/rodekruis/IBF-system/compare/v0.151.0...v0.152.0) (2022-05-02)
-
-
-### Features
-
-* add generic pdf link env AB[#13510](https://github.com/rodekruis/IBF-system/issues/13510) ([7e9ad9a](https://github.com/rodekruis/IBF-system/commit/7e9ad9a34124faa5df4b27113cf8fa8276c76f5e))
-* hide country name on login-page AB[#13507](https://github.com/rodekruis/IBF-system/issues/13507) ([00a3ab7](https://github.com/rodekruis/IBF-system/commit/00a3ab7976cf0958043f42bafe946366f160a142))
-* make activation-log country & disaster specific AB[#13509](https://github.com/rodekruis/IBF-system/issues/13509) ([3053896](https://github.com/rodekruis/IBF-system/commit/30538965138130f884e2e0ec77f644a7f48650ec))
-* show 'live' on prod login page AB[#13507](https://github.com/rodekruis/IBF-system/issues/13507) ([380c0f0](https://github.com/rodekruis/IBF-system/commit/380c0f0a27f7864a147d0e811966e5e718c98057))
-* specify disaster-type / country combinations to load on server AB[#13568](https://github.com/rodekruis/IBF-system/issues/13568) ([78ebed9](https://github.com/rodekruis/IBF-system/commit/78ebed9b0ddb97b1f6863e657d97c9a3e767538d))
 
 
 
