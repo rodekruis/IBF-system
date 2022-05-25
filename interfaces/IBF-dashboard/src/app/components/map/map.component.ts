@@ -284,7 +284,6 @@ export class MapComponent implements OnDestroy {
   };
 
   public addLegend(map, colors, colorThreshold, layer: IbfLayer) {
-    console.log('colorThreshold: ', colorThreshold);
     if (this.legends[layer.name]) {
       map.removeControl(this.legends[layer.name]);
     }
