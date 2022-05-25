@@ -294,8 +294,6 @@ export class MapComponent implements OnDestroy {
       this.legends[layer.name].onAdd = () => {
         const div = DomUtil.create('div', 'info legend');
         const grades = Object.values(colorThreshold);
-
-        console.log('grades: ', grades);
         let labels;
         if (layer.colorBreaks) {
           labels = Object.values(layer.colorBreaks).map(

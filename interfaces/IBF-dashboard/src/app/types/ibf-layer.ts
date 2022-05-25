@@ -95,10 +95,10 @@ export enum IbfLayerName {
   population_u5 = 'population_u5',
   ipcForecastShort = 'IPC_forecast_short',
   ipcForecastLong = 'IPC_forecast_long',
-  ipcForecastLongDynamic = 'IPC_forecast_long_dynamic',
   hotspotGeneral = 'Hotspot_General',
   hotspotWater = 'Hotspot_Water',
   hotspotHealth = 'Hotspot_Health',
+  hotspotNutrition = 'Hotspot_Nutrition',
   windspeed = 'windspeed',
   rainfall = 'rainfall',
   housesAffected = 'houses_affected',
@@ -106,7 +106,6 @@ export enum IbfLayerName {
   droughtPhaseClassification = 'drought_phase_classification',
   vegetationCondition = 'vegetation_condition',
   livestockBodyCondition = 'livestock_body_condition',
-  nutritionNeedPriorityClass = 'nutrition_need_priority_class',
 }
 
 export enum IbfLayerLabel {
