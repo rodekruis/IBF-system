@@ -64,6 +64,18 @@
                 }
         "
       ></p>
+      <p
+        *ngIf="event.activeTrigger && otherLeadTimes"
+        [innerHTML]="
+          'chat-component.' +
+            disasterTypeName +
+            '.active-event-active-trigger.other-leadtimes'
+            | translate
+              : {
+                  otherLeadTimes: otherLeadTimes
+                }
+        "
+      ></p>
     </ng-container>
 
     <app-event-switcher></app-event-switcher>

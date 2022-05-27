@@ -342,6 +342,7 @@ export class ScriptsService {
   private getCurrentMonthInfoDrought(leadTime: LeadTime) {
     const now = new Date();
     // SIMULATE: change this to simulate different months (only in chat-component)
+    // let now = new Date();
     // const addMonthsToCurrentDate = -1;
     // now = new Date(now.setMonth(now.getMonth() + addMonthsToCurrentDate));
     const currentYear = now.getFullYear();

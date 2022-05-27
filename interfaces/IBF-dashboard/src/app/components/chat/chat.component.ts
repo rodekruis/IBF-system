@@ -44,6 +44,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public eventState: EventState;
   private timelineState: TimelineState;
   private indicators: Indicator[];
+  public otherLeadTimes: string;
 
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
@@ -235,6 +236,16 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.updateFailureMessage = this.translateService.instant(
         `chat-component.${this.disasterTypeName}.active-event.update-failure`,
       );
+
+      this.otherLeadTimes = this.timelineState.timeStepButtons
+        .filter(
+          (b) => b.alert && b.value !== this.eventState.event.firstLeadTime,
+        )
+        .map((b) =>
+          this.eventService.getFirstLeadTimeDate(b.value, LeadTimeUnit.month),
+        )
+        .join(' and ');
+      console.log('this.otherLeadTimes: ', this.otherLeadTimes);
 
       this.setLastModelRunDate(this.disasterType);
 
