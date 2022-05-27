@@ -9,8 +9,8 @@ See [main README](../../README.md) for instructions to use
 - The Cypress tests are automatically run on ibf-test after every deploy there, as part of the `deploy.sh` script.
 - It does not run on other servers because of a check on `[[ $NODE_ENV="test" ]]`
 - Env-vars are stored in the main .env. Currently tests are only executed for the 1st country logged in to with the given user.
-- results are stored in https://dashboard.cypress.io/projects/jkaw7k/runs
-- and a badge of the latest test run is always shown in the [main README](../../README.md)
+- Results are stored in https://dashboard.cypress.io/projects/jkaw7k/runs
+- And a badge of the latest test run is always shown in the [main README](../../README.md)
 
 ## Testing setup
 
@@ -18,12 +18,30 @@ The primary objective of integration testing is to automatically test beyond the
 
 This means that every tests should ideally be executed across
 
-- all countries
-  - not currently implemented
-  - can be achieved by logging in as admin, and using the country-switcher
-  - or by logging in with different country-users
-- all disaster-types per country
-  - currently implemented for timeline-component only
-- both triggered and non-triggered state for each disaster-type
-  - not currently implemented
-  - can be achieved by simulating mock scenario
+- All countries
+
+  - Achieved by having a test file per country.
+
+    Every file contains the country manager email for login, and calls common testing functions defined (for the moment) in [test-functions.js](./support/test-functions.js).
+
+  - When a new country is added a new `<country>.spec.ts` should be created, containing the same code as the other country files.
+
+- All disaster-types per country
+
+  - Currently implemented for timeline-component only.
+
+    The timeline-component function iterates through disaster-type buttons and performs the test.
+
+    `EXCEPTION`: test on PHL typhoon won't run for now because it times out and prevents other countries' tests to run. It is skipped by using the following code:
+
+    ```
+    if (countryName === 'PHILIPPINES' && index === 2) {
+      return;
+    }
+    ```
+
+    Please check and adjust this code if a new disaster type is added to PHL.
+
+- Both triggered and non-triggered state for each disaster-type
+  - Not currently implemented
+  - Can be achieved by simulating mock scenario
