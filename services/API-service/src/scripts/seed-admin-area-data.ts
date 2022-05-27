@@ -307,7 +307,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       dataArray = data.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
-          adminLevel: adminlevel,
+          adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'Hotspot_General',
           value: area['amount'],
@@ -320,7 +320,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       dataArray = data.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
-          adminLevel: adminlevel,
+          adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'Hotspot_Water',
           value: area['amount'],
@@ -333,9 +333,22 @@ export class SeedAdminAreaData implements InterfaceScript {
       dataArray = data.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
-          adminLevel: adminlevel,
+          adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'Hotspot_Health',
+          value: area['amount'],
+        };
+      });
+      await this.adminAreaDataRepository.save(dataArray);
+      // Hotspot_Nutrition
+      fileName = `./src/scripts/git-lfs/admin-area-data/hotspot_nutrition_ETH.csv`;
+      data = await this.seedHelper.getCsvData(fileName);
+      dataArray = data.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: area['adminLevel'],
+          placeCode: area['placeCode'],
+          indicator: 'Hotspot_Nutrition',
           value: area['amount'],
         };
       });
@@ -346,7 +359,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       dataArray = data.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
-          adminLevel: adminlevel,
+          adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'IPC_forecast_short',
           value: area['amount'],
@@ -359,7 +372,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       dataArray = data.map(area => {
         return {
           countryCodeISO3: countryCodeISO3,
-          adminLevel: adminlevel,
+          adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'IPC_forecast_long',
           value: area['amount'],
