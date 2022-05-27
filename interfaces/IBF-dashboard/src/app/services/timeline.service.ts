@@ -284,7 +284,7 @@ export class TimelineService {
       }
 
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);
-      const nextForecastMonthEndOfMonth = this.getNextForecastMonth();
+      const nextForecastMonthEndOfMonth = this.getNextForecastMonth(false);
       return (
         leadTimeMonth <= nextForecastMonthEndOfMonth && // hide months beyond next Forecast month
         (leadTime !== LeadTime.month0 || // hide current month ..
@@ -309,36 +309,26 @@ export class TimelineService {
     disasterType: DisasterType,
     leadTime: LeadTime,
   ): boolean {
+    const leadTimeMonth = this.getLeadTimeMonth(leadTime);
     if (disasterType.disasterType === DisasterTypeKey.drought) {
       if (this.checkStickyDroughtSeason()) {
         // If sticky/prolonged drought seasons ..
-        const triggeredLeadTimes = Object.keys(this.triggersAllEvents);
+        const triggeredLeadTimes = Object.keys(this.triggersAllEvents).filter(
+          (leadTime) => this.triggersAllEvents[leadTime] === '1',
+        );
         // .. show all triggered lead times only
         if (triggeredLeadTimes.length) {
           return triggeredLeadTimes.includes(leadTime);
         } else {
-          // .. if there are none, show 0-month if that is available and return early ..
-          const forecastSeasonAreas = this.country.countryDisasterSettings.find(
-            (s) => s.disasterType === this.disasterType.disasterType,
-          ).droughtForecastMonths;
-          for (const area of Object.values(forecastSeasonAreas)) {
-            for (const season of area) {
-              for (const month of season) {
-                if (
-                  this.state.today.month === month &&
-                  leadTime === LeadTime.month0
-                ) {
-                  return true;
-                }
-              }
-            }
-          }
+          // .. if there are none, show only first available leadTime month
+          const nextForecastMonth = this.getNextForecastMonth(true);
+          return nextForecastMonth.equals(leadTimeMonth);
         }
+      } else {
+        // .. otherwise determine first available leadtime month
+        const nextForecastMonth = this.getNextForecastMonth(false);
+        return nextForecastMonth.equals(leadTimeMonth);
       }
-      // .. otherwise continue with the flow for non-sticky drought seasons to determine 1st available lead time
-      const nextForecastMonth = this.getNextForecastMonth();
-      const leadTimeMonth = this.getLeadTimeMonth(leadTime);
-      return nextForecastMonth.equals(leadTimeMonth);
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       const events = this.eventState?.events;
       const relevantLeadTimes = this.eventState?.activeTrigger
@@ -350,7 +340,7 @@ export class TimelineService {
     }
   }
 
-  private getNextForecastMonth(): DateTime {
+  private getNextForecastMonth(sticky: boolean): DateTime {
     const currentYear = this.state.today.year;
     const currentMonth = this.state.today.month;
 
@@ -359,7 +349,13 @@ export class TimelineService {
     ).droughtForecastMonths;
     let forecastMonthNumbers = [];
     for (const area of Object.values(forecastSeasonAreas)) {
-      const forecastSeasons = area.map((month) => month[0]);
+      const forecastSeasons = area.map((season) => {
+        const filteredSeason = sticky
+          ? season.filter((month) => month >= currentMonth)
+          : season;
+        return filteredSeason[0];
+      });
+
       forecastMonthNumbers = [...forecastMonthNumbers, ...forecastSeasons];
     }
 
@@ -367,8 +363,14 @@ export class TimelineService {
     forecastMonthNumbers
       .sort((a, b) => (a > b ? -1 : 1))
       .forEach((month) => {
-        if (currentMonth < month) {
-          forecastMonthNumber = month;
+        if (sticky) {
+          if (currentMonth <= month) {
+            forecastMonthNumber = month;
+          }
+        } else {
+          if (currentMonth < month) {
+            forecastMonthNumber = month;
+          }
         }
       });
     if (!forecastMonthNumber) {

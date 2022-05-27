@@ -491,7 +491,8 @@ export class ScriptsService {
       }
     } else if (
       selectedCountry.countryCodeISO3 === 'ETH' &&
-      disasterType === DisasterType.Drought
+      disasterType === DisasterType.Drought &&
+      triggered
     ) {
       if (Number(activeLeadTime.split('-')[0]) > 3) {
         // Hard-code lead-times of more then 3 months to non-trigger

@@ -245,7 +245,6 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.eventService.getFirstLeadTimeDate(b.value, LeadTimeUnit.month),
         )
         .join(' and ');
-      console.log('this.otherLeadTimes: ', this.otherLeadTimes);
 
       this.setLastModelRunDate(this.disasterType);
 
