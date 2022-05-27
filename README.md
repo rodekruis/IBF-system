@@ -130,21 +130,23 @@ Please read the troubleshoot guidlelines to support the insatllation of IBF in t
 ### Cypress
 
 We use Cypress for automated integration testing in this project.
-Installation: 0. (Potentially on Ubuntu?:
-`sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb`)
+Installation:
 
-1.  In root folder `npm install --only=dev`
+0. (Potentially on Ubuntu?:
+   `sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb`)
 
-- This should download and install Cypress
-- If it fails, find out why and/or install Cypress in some other way (e.g.
-  `npm install cypress`)
+1. In root folder `npm install --only=dev`
 
-2.  Set necessary environment variables by copying `cypress.env.json.example` to `cypress.env.json` and filling in the variables.
+   - This should download and install Cypress
+   - If it fails, find out why and/or install Cypress in some other way (e.g.
+     `npm install cypress`)
 
-3.  Run `npm run cypress:open`
+2. Set necessary environment variables by copying `cypress.env.json.example` to `cypress.env.json` and filling in the variables.
 
-- When the Cypress window opens click on 'Run X integration specs'
-- Alternatively run `npm run cypress:start` to run from commandline
+3. Run `npm run cypress:open`
+
+   - When the Cypress window opens click on 'Run X integration specs'
+   - Alternatively run `npm run cypress:start` to run from commandline
 
 ## Releases
 
