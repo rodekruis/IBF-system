@@ -339,11 +339,7 @@ export class ScriptsService {
     }
   }
 
-  private getDroughtLeadTime(
-    selectedCountry: any,
-    leadTime: string,
-    disasterType: DisasterType,
-  ) {
+  private getCurrentMonthInfoDrought(leadTime: LeadTime) {
     const now = new Date();
     // SIMULATE: change this to simulate different months (only in chat-component)
     // const addMonthsToCurrentDate = -1;
@@ -360,7 +356,23 @@ export class ScriptsService {
         currentUTCMonth + Number(leadTime.split('-')[0]),
       ),
     );
+    return {
+      currentYear,
+      currentUTCMonth,
+      leadTimeMonthFirstDay,
+    };
+  }
 
+  private getDroughtLeadTime(
+    selectedCountry: any,
+    leadTime: string,
+    disasterType: DisasterType,
+  ) {
+    const {
+      currentYear,
+      currentUTCMonth,
+      leadTimeMonthFirstDay,
+    } = this.getCurrentMonthInfoDrought(leadTime as LeadTime);
     const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
     ).droughtForecastMonths;
@@ -478,15 +490,67 @@ export class ScriptsService {
       }
     } else if (
       selectedCountry.countryCodeISO3 === 'ETH' &&
-      disasterType === DisasterType.Drought &&
-      Number(activeLeadTime.split('-')[0]) > 3
+      disasterType === DisasterType.Drought
     ) {
-      // Hard-code lead-times of more then 3 months to non-trigger
-      for (const pcodeData of copyOfExposureUnit) {
-        pcodeData.amount = 0;
+      if (Number(activeLeadTime.split('-')[0]) > 3) {
+        // Hard-code lead-times of more then 3 months to non-trigger
+        for (const pcodeData of copyOfExposureUnit) {
+          pcodeData.amount = 0;
+        }
+      } else {
+        // Hard-code that only areas of right region are triggered per selected leadtime
+        const areas = this.getEthDroughtAreasPerRegion(
+          selectedCountry,
+          disasterType,
+          activeLeadTime,
+        );
+        for (const pcodeData of copyOfExposureUnit) {
+          if (areas.includes(pcodeData.placeCode)) {
+            if (exposureUnit === DynamicIndicator.alertThreshold) {
+              pcodeData.amount = 1;
+            } else if (exposureUnit === DynamicIndicator.populationAffected) {
+              pcodeData.amount = 1000;
+            }
+          } else {
+            pcodeData.amount = 0;
+          }
+        }
       }
     }
     return copyOfExposureUnit;
+  }
+
+  private getEthDroughtAreasPerRegion(
+    selectedCountry,
+    disasterType: DisasterType,
+    leadTime: LeadTime,
+  ): string[] {
+    const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).droughtForecastMonths;
+    const {
+      currentUTCMonth,
+      leadTimeMonthFirstDay,
+    } = this.getCurrentMonthInfoDrought(leadTime as LeadTime);
+    const month = leadTimeMonthFirstDay.getMonth() + 1;
+    let triggeredAreas = [];
+    for (const area of Object.keys(forecastSeasonAreas)) {
+      for (const season of forecastSeasonAreas[area]) {
+        const filteredSeason = season.filter(
+          seasonMonth => seasonMonth >= currentUTCMonth + 1,
+        );
+        if (filteredSeason[0] === month) {
+          if (area === 'Belg') {
+            triggeredAreas = [...triggeredAreas, ...['ET0721']];
+          } else if (area === 'Northern') {
+            triggeredAreas = [...triggeredAreas, ...['ET0201']];
+          } else if (area === 'Southern') {
+            triggeredAreas = [...triggeredAreas, ...['ET0508']];
+          }
+        }
+      }
+    }
+    return triggeredAreas;
   }
 
   private async mockTyphoonTrack(
