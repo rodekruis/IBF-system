@@ -1,3 +1,12 @@
+## [0.158.3](https://github.com/rodekruis/IBF-system/compare/v0.158.2...v0.158.3) (2022-05-27)
+
+
+### Bug Fixes
+
+* allow hotspot/ipc layer names AB[#13954](https://github.com/rodekruis/IBF-system/issues/13954) ([ee9e9b9](https://github.com/rodekruis/IBF-system/commit/ee9e9b946a3757ba9324965375b945370e52fa89))
+
+
+
 ## [0.158.2](https://github.com/rodekruis/IBF-system/compare/v0.158.1...v0.158.2) (2022-05-25)
 
 
@@ -101,22 +110,6 @@
 ### Bug Fixes
 
 * process what's new url AB[#13612](https://github.com/rodekruis/IBF-system/issues/13612) ([44a119c](https://github.com/rodekruis/IBF-system/commit/44a119cf73e8e1bda42bc2295cbf6bc813dce783))
-
-
-
-# [0.153.0](https://github.com/rodekruis/IBF-system/compare/v0.152.0...v0.153.0) (2022-05-02)
-
-
-### Bug Fixes
-
-* bit.ly video links AB[#13591](https://github.com/rodekruis/IBF-system/issues/13591) ([cb7f196](https://github.com/rodekruis/IBF-system/commit/cb7f1966cadb949b3abf52a138d1fd7ca3564a6e))
-* guide popup in line with new design AB[#13593](https://github.com/rodekruis/IBF-system/issues/13593) ([23b24d0](https://github.com/rodekruis/IBF-system/commit/23b24d09ea16c136306e9f98ec2617b53f066d35))
-
-
-### Features
-
-* add what's new link AB[#13593](https://github.com/rodekruis/IBF-system/issues/13593) ([419fae0](https://github.com/rodekruis/IBF-system/commit/419fae0e3de95cb1ed02c75ee13cca9c7eaf942c))
-* added md file + initial fill AB[#13595](https://github.com/rodekruis/IBF-system/issues/13595) ([6e3f299](https://github.com/rodekruis/IBF-system/commit/6e3f299e66552ed82f60c00ac2ba5ff656c1946f))
 
 
 
