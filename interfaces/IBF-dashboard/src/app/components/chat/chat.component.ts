@@ -438,17 +438,25 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     const currentMonth = this.timelineState.today.month;
     const nextMonth = this.timelineState.today.plus({ months: 1 }).month;
-    if (forecastMonthNumbers.includes(currentMonth)) {
-      return this.translateService.instant(
-        'chat-component.drought.clear-out.message',
-      );
-    } else if (forecastMonthNumbers.includes(nextMonth)) {
-      return this.translateService.instant(
-        'chat-component.drought.clear-out.warning',
-      );
-    } else {
-      return;
+    let translateKey;
+    if (Object.values(forecastSeasonAreas).length === 1) {
+      if (forecastMonthNumbers.includes(currentMonth)) {
+        translateKey = 'chat-component.drought.clear-out.national.message';
+      } else if (forecastMonthNumbers.includes(nextMonth)) {
+        translateKey = 'chat-component.drought.clear-out.national.warning';
+      }
+    } else if (Object.values(forecastSeasonAreas).length > 1) {
+      // The cut-off for relevant month is one month different for ETH then for KEN
+      // (due to end-of-month vs middle-of-mont?? MUST BE IMPROVED...)
+      if (forecastMonthNumbers.includes(currentMonth - 1)) {
+        translateKey = 'chat-component.drought.clear-out.regional.message';
+      } else if (forecastMonthNumbers.includes(nextMonth - 1)) {
+        translateKey = 'chat-component.drought.clear-out.regional.warning';
+      } else {
+        return;
+      }
     }
+    return this.translateService.instant(translateKey);
   }
 
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {

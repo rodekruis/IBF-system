@@ -23,5 +23,4 @@ export enum DynamicIndicator {
   droughtPhaseClassification = 'drought_phase_classification',
   vegetationCondition = 'vegetation_condition',
   livestockBodyCondition = 'livestock_body_condition',
-  nutritionNeedPriorityClass = 'nutrition_need_priority_class',
 }
