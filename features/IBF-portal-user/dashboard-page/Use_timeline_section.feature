@@ -29,14 +29,27 @@ Scenario: View the timeline section with multiple active lead-times in NON-TRIGG
     And it has exactly one "selected" button, the "selected lead time"
     And the "selected" lead-time is the most left / earliest of the "active lead times"
 
-Scenario: View timeline-section for disaster-type "drought"
+Scenario: View timeline-section for disaster-type "drought" without "sticky seasons"
     Given the disaster-type is "drought"
+    Given the seasons are not "sticky" (i.e. Zimbabwe & Kenya)
     When the users views the timeline section
-    Then it shows a button for every month from "next month" up to "next April"
-    And only "next April" is an "active" and thus the "selected" lead time
-    And if the current month is "March" only 1 button is shown (as "next month" = "next April")
-    And if the current month is "April" only 1 button is shown: "next April" (an exception is made to show the current month)
-    And if the current month is "May" 11 buttons are shown: "June" up until "next April"
+    Then it shows a button for every month from "next month" up to the "next forecast month" for which a drought is predicted (or not)
+        - Kenya: Next March or next October
+        - Zimbabwe: Next April
+    And only the "next forecast month" is an "active" and thus the "selected" lead time
+    And if the current month is 1 before the "next forecast month" only 1 button is shown (as "next month" = "next April")
+    And if the current month is equal to "next forecast month" only 1 button is shown: "next forecast month" itself (an exception is made to show the current month)
+    And if the current month is 1 month after the "next forecast month" then 11 buttons are shown
+
+Scenario: View timeline-section for disaster-type "drought" with "sticky seasons"
+    Given the disaster-type is "drought"
+    Given the seasons are "sticky" (i.e. Ethiopia)
+    When the users views the timeline section
+    Then it shows all 12 month buttons, starting with the current month
+    And if NON-TRIGGERED there can only be one active (and thus selected) lead-time
+    And if TRIGGERED it can show multiple active lead times, but only if they are all TRIGGERED
+    And the first active leadtime is selected
+    And if multiple active leadtimes, this is mentioned in the chat-section
 
 Scenario: View timeline-section for disaster-type "typhoon" with 1 event
     Given the disaster-type is "typhoon"

@@ -56,6 +56,7 @@ Scenario: View general trigger information
     And it mentions for when the trigger is expected
     And it mentions the name of the event if applicable ('typhoon' only)
     And the exact UX copy differs between disaster-types (Potentially: document in more detail)
+    And for 'drought' if there are multiple triggered lead-times, then the other ones are mentioned here with instructions to look at them
 
 Scenario: View general trigger information with 2 or more active events
     Given the selected 'disaster-type' is 'typhoon' 
