@@ -314,7 +314,7 @@ export class TimelineService {
       if (this.checkStickyDroughtSeason()) {
         // If sticky/prolonged drought seasons ..
         const triggeredLeadTimes = Object.keys(this.triggersAllEvents).filter(
-          (leadTime) => this.triggersAllEvents[leadTime] === '1',
+          (lt) => this.triggersAllEvents[lt] === '1',
         );
         // .. show all triggered lead times only
         if (triggeredLeadTimes.length) {
