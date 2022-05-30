@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
@@ -15,7 +15,7 @@ import { TimelineState } from '../../types/timeline-state';
   templateUrl: './date-button.component.html',
   styleUrls: ['./date-button.component.scss'],
 })
-export class DateButtonComponent implements OnInit {
+export class DateButtonComponent implements OnInit, OnDestroy {
   @Input() date: DateTime;
   @Input() unit = LeadTimeUnit.day;
   @Input() active: boolean;

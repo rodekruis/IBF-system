@@ -82,10 +82,20 @@ export class SeedInit implements InterfaceScript {
       activeLeadTimes: string[];
       eapLink: string;
       eapAlertClasses?: {};
-      droughtForecastMonths?: any;
+      droughtForecastMonths?: {};
       droughtEndOfMonthPipeline?: boolean;
+      droughtAreas?: {};
       showMonthlyEapActions?: boolean;
       monthlyForecastInfo?: {};
+    }
+
+    class EapAction {
+      countryCodeISO3: string;
+      disasterType: string;
+      areaOfFocus: {};
+      action: string;
+      label: string;
+      month?: {};
     }
 
     await disasterRepository.save(disasterEntities);
@@ -189,6 +199,9 @@ export class SeedInit implements InterfaceScript {
               : null;
             countryDisasterSettingsEntity.droughtEndOfMonthPipeline =
               disaster.droughtEndOfMonthPipeline;
+            countryDisasterSettingsEntity.droughtAreas = disaster.droughtAreas
+              ? JSON.parse(JSON.stringify(disaster.droughtAreas))
+              : null;
             countryDisasterSettingsEntity.showMonthlyEapActions =
               disaster.showMonthlyEapActions;
             countryDisasterSettingsEntity.monthlyForecastInfo = disaster.monthlyForecastInfo
@@ -276,11 +289,13 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE EAP ACTIONS *****
     console.log('Seed EAP Actions...');
-    const filteredAction = eapActions.filter((action): boolean => {
-      return envCountries.includes(action.countryCodeISO3);
-    });
+    const filteredActions: EapAction[] = eapActions.filter(
+      (action: EapAction): boolean => {
+        return envCountries.includes(action.countryCodeISO3);
+      },
+    );
     const eapActionRepository = this.connection.getRepository(EapActionEntity);
-    await eapActionRepository.save(filteredAction);
+    await eapActionRepository.save(filteredActions);
 
     // ***** CREATE INDICATOR METADATA *****
     console.log('Seed Indicators...');

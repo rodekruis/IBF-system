@@ -284,7 +284,9 @@
             <ion-label class="action-label ion-text-wrap"
               ><strong>{{ action.aofLabel }}: </strong>{{ action.label
               }}<span *ngIf="action.month"
-                ><strong> ({{ action.monthLong }})</strong></span
+                ><strong>
+                  ({{ action.monthLong[getRegion(area.placeCode)] }})</strong
+                ></span
               >
             </ion-label>
           </ion-item>

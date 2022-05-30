@@ -427,9 +427,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (!this.disasterTypeSettings.showMonthlyEapActions) {
       return;
     }
-    const forecastSeasonAreas = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtForecastMonths;
+    const forecastSeasonAreas: [][][] = Object.values(
+      this.country.countryDisasterSettings.find(
+        (s) => s.disasterType === this.disasterType.disasterType,
+      ).droughtForecastMonths,
+    );
     let forecastMonthNumbers = [];
     for (const area of Object.values(forecastSeasonAreas)) {
       const forecastSeasons = area.map((months) => months[months.length - 1]);
@@ -522,4 +524,23 @@ export class ChatComponent implements OnInit, OnDestroy {
       return text;
     }
   }
+
+  public getRegion = (placeCode: string): string => {
+    if (!this.disasterTypeSettings.droughtAreas) {
+      return 'National';
+    } else {
+      for (const droughtArea of Object.keys(
+        this.disasterTypeSettings.droughtAreas,
+      )) {
+        if (
+          this.disasterTypeSettings.droughtAreas[droughtArea].includes(
+            placeCode,
+          )
+        ) {
+          return droughtArea;
+          break;
+        }
+      }
+    }
+  };
 }

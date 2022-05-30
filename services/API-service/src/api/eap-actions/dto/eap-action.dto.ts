@@ -28,8 +28,7 @@ class EapActionDto {
   public label: string;
 
   @ApiProperty({ example: null })
-  @IsNumber()
-  public month: number;
+  public month: JSON;
 }
 
 export class AddEapActionsDto {
