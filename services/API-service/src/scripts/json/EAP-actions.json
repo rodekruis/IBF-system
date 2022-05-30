@@ -743,370 +743,76 @@
     "action": "inclusion-1",
     "label": "Protection, gender and inclusion: ensure all staff is trained, distribute guidelines, assess minimum standards at DEMUs and welfare desks"
   },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
-    "action": "livelihood-1",
-    "label": "Market analysis",
-    "month": {
-      "Belg": 5,
-      "Northern": 5,
-      "Southern": 5
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-1",
-    "label": "Pre-agreement with suppliers on procurement",
-    "month": {
-      "Belg": 6,
-      "Northern": 7,
-      "Southern": 10
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-1",
-    "label": "Preparatory activities for cash for water",
-    "month": {
-      "Belg": 6,
-      "Northern": 7,
-      "Southern": 10
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
-    "action": "livelihood-2",
-    "label": "CVA or Market-based intervention",
-    "month": {
-      "Belg": 6,
-      "Northern": 7,
-      "Southern": 10
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-2",
-    "label": "Cash for water",
-    "month": {
-      "Belg": 6,
-      "Northern": 7,
-      "Southern": 10
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-2",
-    "label": "Disseminating early warning information",
-    "month": {
-      "Belg": 6,
-      "Northern": 7,
-      "Southern": 10
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-3",
-    "label": "Rangeland management",
-    "month": {
-      "Belg": 6,
-      "Northern": 7,
-      "Southern": 10
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
-    "action": "livelihood-3",
-    "label": "Distribute pasture seed",
-    "month": {
-      "Belg": 6,
-      "Northern": 7,
-      "Southern": 10
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
-    "action": "livelihood-4",
-    "label": "Advocation pasture management",
-    "month": {
-      "Belg": 6,
-      "Northern": 7,
-      "Southern": 10
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-3",
-    "label": "Installation of mass water storage tanks",
-    "month": {
-      "Belg": 6,
-      "Northern": 7,
-      "Southern": 10
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-4",
-    "label": "Rapid assessment of water facilities",
-    "month": {
-      "Belg": 7,
-      "Northern": 8,
-      "Southern": 11
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-5",
-    "label": "Destilting of water pans, repair of earth dams",
-    "month": {
-      "Belg": 7,
-      "Northern": 8,
-      "Southern": 11
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-6",
-    "label": "Prioritize key/critical water facilites seed",
-    "month": {
-      "Belg": 7,
-      "Northern": 8,
-      "Southern": 11
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
-    "action": "livelihood-5",
-    "label": "Market Analysis",
-    "month": {
-      "Belg": 7,
-      "Northern": 8,
-      "Southern": 11
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-7",
-    "label": "Preparatory activities for cash for water",
-    "month": {
-      "Belg": 7,
-      "Northern": 8,
-      "Southern": 11
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-8",
-    "label": "Cash for water",
-    "month": {
-      "Belg": 7,
-      "Northern": 8,
-      "Southern": 11
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
-    "action": "livelihood-6",
-    "label": "CVA or market-based intervention",
-    "month": {
-      "Belg": 7,
-      "Northern": 8,
-      "Southern": 11
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
-    "action": "livelihood-7",
-    "label": "Distribute pasture seed",
-    "month": {
-      "Belg": 7,
-      "Northern": 8,
-      "Southern": 11
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
-    "action": "livelihood-8",
-    "label": "Advocation pasture management",
-    "month": {
-      "Belg": 8,
-      "Northern": 9,
-      "Southern": 12
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-4",
-    "label": "Dissemination early warning information",
-    "month": {
-      "Belg": 8,
-      "Northern": 9,
-      "Southern": 12
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-5",
-    "label": "Rangeland management",
-    "month": {
-      "Belg": 8,
-      "Northern": 9,
-      "Southern": 12
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-6",
-    "label": "Pre-agreement with suppliers on procurement",
-    "month": {
-      "Belg": 8,
-      "Northern": 9,
-      "Southern": 12
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-9",
-    "label": "Rapid assessment of water facilities",
-    "month": {
-      "Belg": 8,
-      "Northern": 9,
-      "Southern": 12
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-10",
-    "label": "Installation of mass water storage tanks",
-    "month": {
-      "Belg": 8,
-      "Northern": 9,
-      "Southern": 12
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "wash-11",
-    "label": "Destilting of water pans, repair of earth dams",
-    "month": {
-      "Belg": 8,
-      "Northern": 9,
-      "Southern": 12
-    }
-  },
-  {
-    "countryCodeISO3": "ETH",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-12",
-    "label": "Prioritize key/critical water facilities",
-    "month": {
-      "Belg": 8,
-      "Northern": 9,
-      "Southern": 12
-    }
-  },
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a1","label": "A1 Rehabilitation of critical water facilities (boreholes, shallow wells, hand-dug wells with","month": {"Belg": 	2	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a2","label": "A2. Demarcate and preserve drought time water sources (boreholes, birkas, ponds etc.)","month": {"Belg": 	1	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a3","label": "A3. Promote water preservation and wise utilization techniques","month": {"Belg": 	1	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a4","label": "A4. Introduce water preservation and wise utilization techniques","month": {"Belg": 	2	,"Northern":	2	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a5","label": "A5. Engage the WSH sector - Water treatment","month": {"Belg": 	3	,"Northern":	2	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a6","label": "A6. Awareness creation","month": {"Belg": 	1	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a7","label": "A7. Conflict negotiation","month": {"Belg": 	3	,"Northern":	2	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a8","label": "A8. Pre-position of relevant medicines (for malaria, water-borne diseases, first aid equipment, mosquito nets)","month": {"Belg": 	2	,"Northern":	2	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a9","label": "A9. Promote awareness on water born disease control (such as cholera), use of mosquito net, basic sanitation (latrine, hand washing, drinking water treatment etc.)","month": {"Belg": 	1	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a10","label": "A10. Support water harvesting in schools/other social service providers","month": {"Belg": 	2	,"Northern":	2	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a11","label": "A11. Training for Red Cross local staff, DAS, health extensions, local leaders","month": {"Belg": 	1	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-1-a12","label": "A12. Cleaning and de-silting of water sources - river, springs, wells to avoid mosquitoes breeding in stagnant water","month": {"Belg": 	2	,"Northern":	2	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a1","label": "A1 Rehabilitation of critical water facilities (boreholes, shallow wells, hand-dug wells with","month": {"Belg": 	6	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a2","label": "A2. Demarcate and preserve drought time water sources (boreholes, birkas, ponds etc.)","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a3","label": "A3. Promote water preservation and wise utilization techniques","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a4","label": "A4. Introduce water preservation and wise utilization techniques","month": {"Belg": 	6	,"Northern":	7	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a5","label": "A5. Engage the WSH sector - Water treatment","month": {"Belg": 	7	,"Northern":	7	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a6","label": "A6. Awareness creation","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a7","label": "A7. Conflict negotiation","month": {"Belg": 	7	,"Northern":	7	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a8","label": "A8. Pre-position of relevant medicines (for malaria, water-borne diseases, first aid equipment, mosquito nets)","month": {"Belg": 	6	,"Northern":	6	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a9","label": "A9. Promote awareness on water born disease control (such as cholera), use of mosquito net, basic sanitation (latrine, hand washing, drinking water treatment etc.)","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a10","label": "A10. Support water harvesting in schools/other social service providers","month": {"Belg": 	6	,"Northern":	6	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a11","label": "A11. Training for Red Cross local staff, DAS, health extensions, local leaders","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "wash"},"action": "eth-2-a12","label": "A12. Cleaning and de-silting of water sources - river, springs, wells to avoid mosquitoes breeding in stagnant water","month": {"Belg": 	6	,"Northern":	7	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-1-b1","label": "B1. Promote food saving","month": {"Belg": 	3	,"Northern":	2	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-1-b2","label": "B2. Promote planting of short maturing and drought tolerant vegetable and crop varieties","month": {"Belg": 	1	,"Northern":	null	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-1-b3","label": "B3. Preposition short maturing, drought tolerant vegetable, healty and nutritious crop and vegetable varieties","month": {"Belg": 	1	,"Northern":	null	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-1-b4","label": "B4. Provide and distribute short maturing, drought tolerant vegetable, healty and nutritious crop and vegetable varieties","month": {"Belg": 	2	,"Northern":	null	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-1-b5","label": "B5. Promote safe usage of alternative foods (wild foods, fishing, hunting etc.)","month": {"Belg": 	2	,"Northern":	2	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-1-b6","label": "B6, Water harvesting on the farmland + soil moisture conservation","month": {"Belg": 	2	,"Northern":	2	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-1-b7","label": "B7. Asset protection intervention, through cash for work / food for work","month": {"Belg": 	2	,"Northern":	3	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-1-b8","label": "B8. Providing improved storage materials/equipment (triple bag, metal silo) to reduce post harvest losses","month": {"Belg": 	2	,"Northern":	null	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-1-b9","label": "B9. Training for Red Cross local staff, DAS, health extensions, local leaders","month": {"Belg": 	1	,"Northern":	1	,"Southern": 	null	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-1-b10","label": "B10. Training selected women on screening of early malnutrition signs and symptoms to refer to health centers","month": {"Belg": 	1	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-1-b11","label": "B11. Awareness creation for target communities","month": {"Belg": 	1	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-2-b1","label": "B1. Promote food saving","month": {"Belg": 	6	,"Northern":	6	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-2-b2","label": "B2. Promote planting of short maturing and drought tolerant vegetable and crop varieties","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-2-b3","label": "B3. Preposition short maturing, drought tolerant vegetable, healty and nutritious crop and vegetable varieties","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-2-b4","label": "B4. Provide and distribute short maturing, drought tolerant vegetable, healty and nutritious crop and vegetable varieties","month": {"Belg": 	6	,"Northern":	7	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-2-b5","label": "B5. Promote safe usage of alternative foods (wild foods, fishing, hunting etc.)","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-2-b6","label": "B6, Water harvesting on the farmland + soil moisture conservation","month": {"Belg": 	6	,"Northern":	6	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-2-b7","label": "B7. Asset protection intervention, through cash for work / food for work","month": {"Belg": 	6	,"Northern":	7	,"Southern": 	3	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-2-b8","label": "B8. Providing improved storage materials/equipment (triple bag, metal silo) to reduce post harvest losses","month": {"Belg": 	6	,"Northern":	6	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-2-b9","label": "B9. Training for Red Cross local staff, DAS, health extensions, local leaders","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-2-b10","label": "B10. Training selected women on screening of early malnutrition signs and symptoms to refer to health centers","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "food"},"action": "eth-2-b11","label": "B11. Awareness creation for target communities","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c1","label": "C1. Vaccination","month": {"Belg": 	3	,"Northern":	2	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c2","label": "C2. Pre-stocking of vet medicines and equipment","month": {"Belg": 	2	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c3","label": "C3. Provide short maturing forage seed/planting for livestock and cash for abimal feed production","month": {"Belg": 	2	,"Northern":	null	,"Southern": 	null	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c4","label": "C4. Engage cooperatives, private investors in provision of animal feed and contract signing","month": {"Belg": 	2	,"Northern":	2	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c5","label": "C5. Provide cash/in kind for animal feed","month": {"Belg": 	4	,"Northern":	3	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c6","label": "C6. Promote systematic destocking (together with marketing)","month": {"Belg": 	3	,"Northern":	3	,"Southern": 	11	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c7","label": "C7. Promote systematic migration with livestock to other pasture and water available areas (herd splitting like browsers can stay behind a bit longer) whenever it is applicable","month": {"Belg": 	4	,"Northern":	4	,"Southern": 	11	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c8","label": "C8. Conflict resolution or negotiation of resource sharing","month": {"Belg": 	3	,"Northern":	3	,"Southern": 	10	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c9","label": "C9. Introduce temporary slaughter houses (communities also can make dry meat-qwanta) whenever it is applicable","month": {"Belg": 	5	,"Northern":	5	,"Southern": 	12	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c10","label": "C10. Promoting area closure (rangeland management)","month": {"Belg": 	2	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c11","label": "C11. Training for Red Cross local staff, DAS, health extension, local leaders","month": {"Belg": 	1	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-1-c12","label": "C12. Awareness creation","month": {"Belg": 	1	,"Northern":	1	,"Southern": 	9	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c1","label": "C1. Vaccination","month": {"Belg": 	6	,"Northern":	7	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c2","label": "C2. Pre-stocking of vet medicines and equipment","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c3","label": "C3. Provide short maturing forage seed/planting for livestock and cash for abimal feed production","month": {"Belg": 	6	,"Northern":	6	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c4","label": "C4. Engage cooperatives, private investors in provision of animal feed and contract signing","month": {"Belg": 	6	,"Northern":	7	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c5","label": "C5. Provide cash/in kind for animal feed","month": {"Belg": 	7	,"Northern":	8	,"Southern": 	3	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c6","label": "C6. Promote systematic destocking (together with marketing)","month": {"Belg": 	7	,"Northern":	8	,"Southern": 	3	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c7","label": "C7. Promote systematic migration with livestock to other pasture and water available areas (herd splitting like browsers can stay behind a bit longer) whenever it is applicable","month": {"Belg": 	7	,"Northern":	8	,"Southern": 	3	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c8","label": "C8. Conflict resolution or negotiation of resource sharing","month": {"Belg": 	6	,"Northern":	7	,"Southern": 	2	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c9","label": "C9. Introduce temporary slaughter houses (communities also can make dry meat-qwanta) whenever it is applicable","month": {"Belg": 	8	,"Northern":	9	,"Southern": 	5	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c10","label": "C10. Promoting area closure (rangeland management)","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c11","label": "C11. Training for Red Cross local staff, DAS, health extension, local leaders","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
+  {"countryCodeISO3": "ETH","disasterType": "drought","areaOfFocus": {"id": "livestock"},"action": "eth-2-c12","label": "C12. Awareness creation","month": {"Belg": 	5	,"Northern":	6	,"Southern": 	1	}},
   {
     "countryCodeISO3": "PHL",
     "disasterType": "typhoon",
