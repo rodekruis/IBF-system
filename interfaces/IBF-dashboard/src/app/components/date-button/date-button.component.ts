@@ -16,7 +16,7 @@ import { TimelineState } from '../../types/timeline-state';
   styleUrls: ['./date-button.component.scss'],
 })
 export class DateButtonComponent implements OnInit, OnDestroy {
-  @Input() date: DateTime;
+  @Input() date = DateTime.now();
   @Input() unit = LeadTimeUnit.day;
   @Input() active: boolean;
   @Input() todayButton: boolean;
