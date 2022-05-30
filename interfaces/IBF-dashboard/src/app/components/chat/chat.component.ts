@@ -456,7 +456,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         return;
       }
     }
-    return this.translateService.instant(translateKey);
+    return translateKey ? this.translateService.instant(translateKey) : null;
   }
 
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
