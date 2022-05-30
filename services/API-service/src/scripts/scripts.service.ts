@@ -362,6 +362,15 @@ export class ScriptsService {
     const now = date || new Date();
     let currentMonthFirstDay: Date;
     currentMonthFirstDay = new Date(now.getFullYear(), now.getUTCMonth(), 1);
+
+    const endOfMonthPipeline = selectedCountry.countryDisasterSettings.find(
+      s => s.disasterType === DisasterType.Drought,
+    ).droughtEndOfMonthPipeline;
+    if (endOfMonthPipeline) {
+      currentMonthFirstDay = new Date(
+        currentMonthFirstDay.setMonth(currentMonthFirstDay.getMonth() + 1),
+      );
+    }
     const currentYear = currentMonthFirstDay.getFullYear();
     const currentUTCMonth = currentMonthFirstDay.getUTCMonth();
 
@@ -511,7 +520,7 @@ export class ScriptsService {
         }
       }
     } else if (
-      selectedCountry.countryCodeISO3 === 'ETH' &&
+      ['ETH', 'KEN'].includes(selectedCountry.countryCodeISO3) &&
       disasterType === DisasterType.Drought &&
       triggered
     ) {
@@ -520,7 +529,7 @@ export class ScriptsService {
         for (const pcodeData of copyOfExposureUnit) {
           pcodeData.amount = 0;
         }
-      } else {
+      } else if (selectedCountry.countryCodeISO3 === 'ETH') {
         // Hard-code that only areas of right region are triggered per selected leadtime
         const areas = this.getEthDroughtAreasPerRegion(
           selectedCountry,

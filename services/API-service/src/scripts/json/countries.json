@@ -180,7 +180,13 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": { "National": [[3], [10]] },
+        "droughtForecastMonths": {
+          "National": [
+            [3, 4, 5],
+            [10, 11, 12]
+          ]
+        },
+        "droughtEndOfMonthPipeline": true,
         "showMonthlyEapActions": true,
         "monthlyForecastInfo": {
           "prefix": "chat-component.drought.active-event.forecast-info",

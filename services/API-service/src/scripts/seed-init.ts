@@ -83,6 +83,7 @@ export class SeedInit implements InterfaceScript {
       eapLink: string;
       eapAlertClasses?: {};
       droughtForecastMonths?: any;
+      droughtEndOfMonthPipeline?: boolean;
       showMonthlyEapActions?: boolean;
       monthlyForecastInfo?: {};
     }
@@ -186,6 +187,8 @@ export class SeedInit implements InterfaceScript {
             countryDisasterSettingsEntity.droughtForecastMonths = disaster.droughtForecastMonths
               ? JSON.parse(JSON.stringify(disaster.droughtForecastMonths))
               : null;
+            countryDisasterSettingsEntity.droughtEndOfMonthPipeline =
+              disaster.droughtEndOfMonthPipeline;
             countryDisasterSettingsEntity.showMonthlyEapActions =
               disaster.showMonthlyEapActions;
             countryDisasterSettingsEntity.monthlyForecastInfo = disaster.monthlyForecastInfo
