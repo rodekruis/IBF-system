@@ -44,6 +44,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public eventState: EventState;
   private timelineState: TimelineState;
   private indicators: Indicator[];
+  public otherLeadTimes: string;
 
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
@@ -236,6 +237,15 @@ export class ChatComponent implements OnInit, OnDestroy {
         `chat-component.${this.disasterTypeName}.active-event.update-failure`,
       );
 
+      this.otherLeadTimes = this.timelineState.timeStepButtons
+        .filter(
+          (b) => b.alert && b.value !== this.eventState.event.firstLeadTime,
+        )
+        .map((b) =>
+          this.eventService.getFirstLeadTimeDate(b.value, LeadTimeUnit.month),
+        )
+        .join(' and ');
+
       this.setLastModelRunDate(this.disasterType);
 
       this.changeDetectorRef.detectChanges();
@@ -417,21 +427,38 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (!this.disasterTypeSettings.showMonthlyEapActions) {
       return;
     }
-    const droughtForecastMonths = this.disasterTypeSettings
-      .droughtForecastMonths;
+    const forecastSeasonAreas: [][][] = Object.values(
+      this.country.countryDisasterSettings.find(
+        (s) => s.disasterType === this.disasterType.disasterType,
+      ).droughtForecastMonths,
+    );
+    let forecastMonthNumbers = [];
+    for (const area of Object.values(forecastSeasonAreas)) {
+      const forecastSeasons = area.map((months) => months[months.length - 1]);
+      forecastMonthNumbers = [...forecastMonthNumbers, ...forecastSeasons];
+    }
+
     const currentMonth = this.timelineState.today.month;
     const nextMonth = this.timelineState.today.plus({ months: 1 }).month;
-    if (droughtForecastMonths.includes(currentMonth)) {
-      return this.translateService.instant(
-        'chat-component.drought.clear-out.message',
-      );
-    } else if (droughtForecastMonths.includes(nextMonth)) {
-      return this.translateService.instant(
-        'chat-component.drought.clear-out.warning',
-      );
-    } else {
-      return;
+    let translateKey;
+    if (Object.values(forecastSeasonAreas).length === 1) {
+      if (forecastMonthNumbers.includes(currentMonth)) {
+        translateKey = 'chat-component.drought.clear-out.national.message';
+      } else if (forecastMonthNumbers.includes(nextMonth)) {
+        translateKey = 'chat-component.drought.clear-out.national.warning';
+      }
+    } else if (Object.values(forecastSeasonAreas).length > 1) {
+      // The cut-off for relevant month is one month different for ETH then for KEN
+      // (due to end-of-month vs middle-of-mont?? MUST BE IMPROVED...)
+      if (forecastMonthNumbers.includes(currentMonth - 1)) {
+        translateKey = 'chat-component.drought.clear-out.regional.message';
+      } else if (forecastMonthNumbers.includes(nextMonth - 1)) {
+        translateKey = 'chat-component.drought.clear-out.regional.warning';
+      } else {
+        return;
+      }
     }
+    return translateKey ? this.translateService.instant(translateKey) : null;
   }
 
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
@@ -497,4 +524,23 @@ export class ChatComponent implements OnInit, OnDestroy {
       return text;
     }
   }
+
+  public getRegion = (placeCode: string): string => {
+    if (!this.disasterTypeSettings.droughtAreas) {
+      return 'National';
+    } else {
+      for (const droughtArea of Object.keys(
+        this.disasterTypeSettings.droughtAreas,
+      )) {
+        if (
+          this.disasterTypeSettings.droughtAreas[droughtArea].includes(
+            placeCode,
+          )
+        ) {
+          return droughtArea;
+          break;
+        }
+      }
+    }
+  };
 }

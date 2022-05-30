@@ -56,6 +56,7 @@ export class ScriptsService {
           triggered: mockAllInput.triggered,
           removeEvents: true,
           eventNr: 1,
+          date: new Date(),
         });
       }
     }
@@ -95,6 +96,7 @@ export class ScriptsService {
       mockInput.disasterType,
       mockInput.triggered,
       eventNr,
+      new Date(mockInput.date),
     );
 
     if (mockInput.disasterType === DisasterType.Floods) {
@@ -145,6 +147,7 @@ export class ScriptsService {
         removeEvents: false,
         eventNr: 1,
         secret: mockTyphoonScenario.secret,
+        date: new Date(),
       });
     } else if (mockTyphoonScenario.scenario === TyphoonScenario.NoEvent) {
       const selectedCountry = countries.find((country): any => {
@@ -157,6 +160,7 @@ export class ScriptsService {
         DisasterType.Typhoon,
         false,
         1,
+        new Date(),
         TyphoonScenario.NoEvent,
       );
     } else {
@@ -172,6 +176,7 @@ export class ScriptsService {
     disasterType: DisasterType,
     triggered: boolean,
     eventNr = 1,
+    date: Date,
     typhoonScenario?: TyphoonScenario,
   ) {
     // Define indicators to upload ..
@@ -203,6 +208,7 @@ export class ScriptsService {
           disasterType,
           eventNr,
           typhoonScenario,
+          date,
         )) {
           // Upload mock exposure data
           console.log(
@@ -215,6 +221,9 @@ export class ScriptsService {
               unit,
               triggered,
               disasterType,
+              selectedCountry,
+              activeLeadTime,
+              date,
             ),
             leadTime: activeLeadTime as LeadTime,
             dynamicIndicator: unit,
@@ -292,6 +301,7 @@ export class ScriptsService {
     disasterType: DisasterType,
     eventNr: number,
     typhoonScenario: TyphoonScenario,
+    date: Date,
   ) {
     const leadTimes = selectedCountry.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
@@ -302,6 +312,7 @@ export class ScriptsService {
         leadTime,
         disasterType,
         eventNr,
+        date,
         typhoonScenario,
       ),
     );
@@ -319,6 +330,139 @@ export class ScriptsService {
     } else {
       return `Mock typhoon ${eventNr}`;
     }
+  }
+
+  private filterLeadTimesPerDisasterType(
+    selectedCountry: any,
+    leadTime: string,
+    disasterType: DisasterType,
+    eventNr = 1,
+    date: Date,
+    typhoonScenario?: TyphoonScenario,
+  ) {
+    if (disasterType === DisasterType.Drought) {
+      return this.getDroughtLeadTime(
+        selectedCountry,
+        leadTime,
+        disasterType,
+        date,
+      );
+    } else if (disasterType === DisasterType.Typhoon) {
+      return leadTime === this.getTyphoonLeadTime(eventNr, typhoonScenario);
+    } else {
+      return true;
+    }
+  }
+
+  private getCurrentMonthInfoDrought(
+    leadTime: LeadTime,
+    date: Date,
+    selectedCountry,
+  ) {
+    const now = date || new Date();
+    let currentMonthFirstDay: Date;
+    currentMonthFirstDay = new Date(now.getFullYear(), now.getUTCMonth(), 1);
+
+    const endOfMonthPipeline = selectedCountry.countryDisasterSettings.find(
+      s => s.disasterType === DisasterType.Drought,
+    ).droughtEndOfMonthPipeline;
+    if (endOfMonthPipeline) {
+      currentMonthFirstDay = new Date(
+        currentMonthFirstDay.setMonth(currentMonthFirstDay.getMonth() + 1),
+      );
+    }
+    const currentYear = currentMonthFirstDay.getFullYear();
+    const currentUTCMonth = currentMonthFirstDay.getUTCMonth();
+
+    const leadTimeMonthFirstDay = new Date(
+      currentMonthFirstDay.setUTCMonth(
+        currentUTCMonth + Number(leadTime.split('-')[0]),
+      ),
+    );
+    return {
+      currentYear,
+      currentUTCMonth,
+      leadTimeMonthFirstDay,
+    };
+  }
+
+  private getDroughtLeadTime(
+    selectedCountry: any,
+    leadTime: string,
+    disasterType: DisasterType,
+    date: Date,
+  ) {
+    const {
+      currentYear,
+      currentUTCMonth,
+      leadTimeMonthFirstDay,
+    } = this.getCurrentMonthInfoDrought(
+      leadTime as LeadTime,
+      date,
+      selectedCountry,
+    );
+    const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).droughtForecastMonths;
+
+    let useLeadTimeForMock = false;
+    for (const area of Object.keys(forecastSeasonAreas)) {
+      useLeadTimeForMock = this.useLeadTimeForMock(
+        forecastSeasonAreas[area],
+        leadTime,
+        leadTimeMonthFirstDay,
+        currentUTCMonth,
+        currentYear,
+      );
+      if (useLeadTimeForMock) break;
+    }
+    return useLeadTimeForMock;
+  }
+
+  private useLeadTimeForMock(
+    forecastSeasons: any,
+    leadTime: string,
+    leadTimeMonthFirstDay: Date,
+    currentUTCMonth: number,
+    currentYear: number,
+  ) {
+    // If current month is one of the months in the seasons, always use '0-month' and return early ..
+    if (leadTime === LeadTime.month0) {
+      for (const season of forecastSeasons) {
+        for (const month of season) {
+          if (currentUTCMonth + 1 === month) {
+            return true;
+          }
+        }
+      }
+    }
+
+    // .. For other cases, continue to find the next forecast month
+    const forecastMonthNumbers = forecastSeasons.map(month => month[0]);
+    let forecastMonthNumber: number;
+    forecastMonthNumbers
+      .sort((a, b) => (a > b ? -1 : 1))
+      .forEach(month => {
+        if (currentUTCMonth + 1 < month) {
+          // add 1 because 'currentUTCmonth' starts at 0, while 'month' does not
+          forecastMonthNumber = month;
+        }
+      });
+    if (!forecastMonthNumber) {
+      forecastMonthNumber =
+        forecastMonthNumbers[forecastMonthNumbers.length - 1];
+    }
+
+    const nextForecastMonthYear =
+      currentUTCMonth >= forecastMonthNumber ? currentYear + 1 : currentYear;
+    const nextForecastMonthFirstDay = new Date(
+      nextForecastMonthYear,
+      forecastMonthNumber - 1,
+      1,
+    );
+    return (
+      nextForecastMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime()
+    );
   }
 
   private getTyphoonLeadTime(
@@ -341,6 +485,9 @@ export class ScriptsService {
     exposureUnit: DynamicIndicator,
     triggered: boolean,
     disasterType: DisasterType,
+    selectedCountry,
+    activeLeadTime: LeadTime,
+    date: Date,
   ): any[] {
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     // This only returns something different for dengue/malaria exposure-units
@@ -372,65 +519,76 @@ export class ScriptsService {
           }
         }
       }
+    } else if (
+      ['ETH', 'KEN'].includes(selectedCountry.countryCodeISO3) &&
+      disasterType === DisasterType.Drought &&
+      triggered
+    ) {
+      if (Number(activeLeadTime.split('-')[0]) > 3) {
+        // Hard-code lead-times of more then 3 months to non-trigger
+        for (const pcodeData of copyOfExposureUnit) {
+          pcodeData.amount = 0;
+        }
+      } else if (selectedCountry.countryCodeISO3 === 'ETH') {
+        // Hard-code that only areas of right region are triggered per selected leadtime
+        const areas = this.getEthDroughtAreasPerRegion(
+          selectedCountry,
+          disasterType,
+          activeLeadTime,
+          date,
+        );
+        for (const pcodeData of copyOfExposureUnit) {
+          if (areas.includes(pcodeData.placeCode)) {
+            if (exposureUnit === DynamicIndicator.alertThreshold) {
+              pcodeData.amount = 1;
+            } else if (exposureUnit === DynamicIndicator.populationAffected) {
+              pcodeData.amount = 1000;
+            }
+          } else {
+            pcodeData.amount = 0;
+          }
+        }
+      }
     }
     return copyOfExposureUnit;
   }
 
-  private filterLeadTimesPerDisasterType(
-    selectedCountry: any,
-    leadTime: string,
+  private getEthDroughtAreasPerRegion(
+    selectedCountry,
     disasterType: DisasterType,
-    eventNr = 1,
-    typhoonScenario?: TyphoonScenario,
-  ) {
-    if (disasterType === DisasterType.Drought) {
-      const now = new Date();
-      const currentYear = now.getFullYear();
-      const currentUTCMonth = now.getUTCMonth();
-      const currentMonthFirstDay = new Date(
-        now.getFullYear(),
-        currentUTCMonth,
-        1,
-      );
-      const leadTimeMonthFirstDay = new Date(
-        currentMonthFirstDay.setUTCMonth(
-          currentUTCMonth + Number(leadTime.split('-')[0]),
-        ),
-      );
-
-      const forecastMonthNumbers = selectedCountry.countryDisasterSettings.find(
-        s => s.disasterType === disasterType,
-      ).droughtForecastMonths;
-
-      let forecastMonthNumber: number;
-      forecastMonthNumbers
-        .sort((a, b) => (a > b ? -1 : 1))
-        .forEach(month => {
-          if (currentUTCMonth + 1 < month) {
-            // add 1 because 'currentUTCmonth' starts at 0, while 'month' does not
-            forecastMonthNumber = month;
+    leadTime: LeadTime,
+    date: Date,
+  ): string[] {
+    const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).droughtForecastMonths;
+    const {
+      currentUTCMonth,
+      leadTimeMonthFirstDay,
+    } = this.getCurrentMonthInfoDrought(
+      leadTime as LeadTime,
+      date,
+      selectedCountry,
+    );
+    const month = leadTimeMonthFirstDay.getMonth() + 1;
+    let triggeredAreas = [];
+    for (const area of Object.keys(forecastSeasonAreas)) {
+      for (const season of forecastSeasonAreas[area]) {
+        const filteredSeason = season.filter(
+          seasonMonth => seasonMonth >= currentUTCMonth + 1,
+        );
+        if (filteredSeason[0] === month) {
+          if (area === 'Belg') {
+            triggeredAreas = [...triggeredAreas, ...['ET0721']];
+          } else if (area === 'Northern') {
+            triggeredAreas = [...triggeredAreas, ...['ET0201']];
+          } else if (area === 'Southern') {
+            triggeredAreas = [...triggeredAreas, ...['ET0508']];
           }
-        });
-      if (!forecastMonthNumber) {
-        forecastMonthNumber =
-          forecastMonthNumbers[forecastMonthNumbers.length - 1];
+        }
       }
-
-      const nextForecastMonthYear =
-        currentUTCMonth >= forecastMonthNumber ? currentYear + 1 : currentYear;
-      const nextForecastMonthFirstDay = new Date(
-        nextForecastMonthYear,
-        forecastMonthNumber - 1,
-        1,
-      );
-      return (
-        nextForecastMonthFirstDay.getTime() === leadTimeMonthFirstDay.getTime()
-      );
-    } else if (disasterType === DisasterType.Typhoon) {
-      return leadTime === this.getTyphoonLeadTime(eventNr, typhoonScenario);
-    } else {
-      return true;
     }
+    return triggeredAreas;
   }
 
   private async mockTyphoonTrack(

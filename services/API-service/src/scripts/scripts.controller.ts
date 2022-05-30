@@ -67,6 +67,10 @@ export class MockDynamic {
   @ApiProperty({ example: 1 })
   @IsOptional()
   public readonly eventNr: number;
+
+  @ApiProperty({ example: new Date() })
+  @IsOptional()
+  public readonly date: Date;
 }
 
 export class MockAll {

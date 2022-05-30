@@ -60,6 +60,10 @@ export class CountryDisasterSettingsEntity {
 
   @ApiProperty({ example: false })
   @Column({ default: false })
+  public droughtEndOfMonthPipeline: boolean;
+
+  @ApiProperty({ example: false })
+  @Column({ default: false })
   public showMonthlyEapActions: boolean;
 
   @ApiProperty()
@@ -90,4 +94,8 @@ export class CountryDisasterSettingsEntity {
   })
   @Column('json', { nullable: true })
   public eapAlertClasses: JSON;
+
+  @ApiProperty()
+  @Column('json', { nullable: true })
+  public droughtAreas: JSON;
 }

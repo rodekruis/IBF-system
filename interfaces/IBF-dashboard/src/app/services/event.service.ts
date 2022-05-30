@@ -220,7 +220,7 @@ export class EventService {
       : null;
   };
 
-  private getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit): string {
+  public getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit): string {
     const timeUnitsInFuture = Number(LeadTimeTriggerKey[firstKey]);
     const today = DateTime.now();
     const futureDateTime =

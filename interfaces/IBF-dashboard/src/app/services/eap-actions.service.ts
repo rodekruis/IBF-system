@@ -113,13 +113,20 @@ export class EapActionsService {
       this.formatDates(area);
       this.filterEapActionsByMonth(area);
       area.eapActions.forEach((action) => {
-        action.monthLong = action.month
-          ? DateTime.utc(
-              2022, // year does not matter, this is just about converting month-number to month-name
-              action.month === 12 ? 1 : action.month + 1, // The due-by date of actions lies one month later then when it's added
-              1,
-            ).monthLong
-          : null;
+        if (action.month) {
+          Object.defineProperty(action, 'monthLong', {
+            value: {},
+          });
+          for (const region of Object.keys(action.month)) {
+            Object.defineProperty(action.monthLong, region, {
+              value: DateTime.utc(
+                2022, // year does not matter, this is just about converting month-number to month-name
+                action.month[region] === 12 ? 1 : action.month[region] + 1, // Add 1 to due-by date
+                1,
+              ).monthLong,
+            });
+          }
+        }
       });
     });
     this.triggeredAreaSubject.next(this.triggeredAreas);
@@ -143,50 +150,78 @@ export class EapActionsService {
       return;
     }
 
-    const periods = [];
-    const shiftedYear = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-      .map((m) => {
-        const newMonthValue =
-          (m + this.disasterTypeSettings.droughtForecastMonths[0] - 1) % 12;
-        return newMonthValue > 0 ? newMonthValue : 12;
-      })
-      .reverse();
+    const nationwideKey = 'National';
 
+    let region: string;
+    if (!this.disasterTypeSettings.droughtAreas) {
+      region = nationwideKey;
+    } else {
+      for (const droughtArea of Object.keys(
+        this.disasterTypeSettings.droughtAreas,
+      )) {
+        if (
+          this.disasterTypeSettings.droughtAreas[droughtArea].includes(
+            triggeredArea.placeCode,
+          )
+        ) {
+          region = droughtArea;
+          break;
+        }
+      }
+    }
+
+    const seasonEnds = this.disasterTypeSettings.droughtForecastMonths[region]
+      .map((season) => season[season.length - 1])
+      .sort((a, b) => b - a);
+
+    const periods = [];
+    const shiftedYear = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((m) => {
+      const newMonthValue = (m + seasonEnds[0]) % 12;
+      return newMonthValue > 0 ? newMonthValue : 12;
+    });
     let period = [];
     shiftedYear.forEach((m) => {
       period.push(m);
-      if (this.disasterTypeSettings.droughtForecastMonths.includes(m)) {
+      if (seasonEnds.includes(m)) {
         periods.push(period);
         period = [];
       }
     });
 
     const currentMonth = this.timelineState.today.month;
-
     const currentPeriod = periods.find((p) => p.includes(currentMonth));
 
     triggeredArea.eapActions = triggeredArea.eapActions
       .filter((action) =>
-        this.showMonthlyAction(action.month, currentMonth, currentPeriod),
+        this.showMonthlyAction(
+          action.month[region],
+          currentMonth,
+          currentPeriod,
+          region,
+        ),
       )
       .sort((a, b) =>
-        a.month && this.shiftYear(a.month) > this.shiftYear(b.month) ? 1 : -1,
+        a.month[region] &&
+        this.shiftYear(a.month[region], region) >
+          this.shiftYear(b.month[region], region)
+          ? 1
+          : -1,
       );
   };
-
-  private showMonthlyAction(month, currentMonth, currentPeriod) {
+  private showMonthlyAction(month, currentMonth, currentPeriod, region) {
     const monthBeforeCurrentMonth =
-      this.shiftYear(month) <= this.shiftYear(currentMonth);
+      this.shiftYear(month, region) <= this.shiftYear(currentMonth, region);
 
     return currentPeriod.includes(month) && monthBeforeCurrentMonth;
   }
 
   // This makes the year "start" at the moment of one of the "droughtForecastMonths" instead of in January ..
   // .. thereby making sure that the order is correct: 'december' comes before 'january', etc.
-  private shiftYear = (monthNumber: number) => {
-    const droughtForecastMonths = this.disasterTypeSettings
-      .droughtForecastMonths;
-    return (monthNumber + 12 - droughtForecastMonths[0]) % 12;
+  private shiftYear = (monthNumber: number, region: string) => {
+    const seasonBeginnings = this.disasterTypeSettings.droughtForecastMonths[
+      region
+    ].map((season) => season[0]);
+    return (monthNumber + 12 - seasonBeginnings[0]) % 12;
   };
 
   checkEapAction(

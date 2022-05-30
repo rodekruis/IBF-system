@@ -64,6 +64,18 @@
                 }
         "
       ></p>
+      <p
+        *ngIf="event.activeTrigger && otherLeadTimes"
+        [innerHTML]="
+          'chat-component.' +
+            disasterTypeName +
+            '.active-event-active-trigger.other-leadtimes'
+            | translate
+              : {
+                  otherLeadTimes: otherLeadTimes
+                }
+        "
+      ></p>
     </ng-container>
 
     <app-event-switcher></app-event-switcher>
@@ -272,7 +284,9 @@
             <ion-label class="action-label ion-text-wrap"
               ><strong>{{ action.aofLabel }}: </strong>{{ action.label
               }}<span *ngIf="action.month"
-                ><strong> ({{ action.monthLong }})</strong></span
+                ><strong>
+                  ({{ action.monthLong[getRegion(area.placeCode)] }})</strong
+                ></span
               >
             </ion-label>
           </ion-item>

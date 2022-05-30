@@ -4,13 +4,22 @@
     "countryCodeISO2": "UG",
     "countryName": "Uganda",
     "countryStatus": "active",
-    "disasterTypes": ["floods"],
+    "disasterTypes": [
+      "floods"
+    ],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [1, 2, 3, 4],
+        "adminLevels": [
+          1,
+          2,
+          3,
+          4
+        ],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["5-day"],
+        "activeLeadTimes": [
+          "5-day"
+        ],
         "eapLink": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd",
         "eapAlertClasses": {
           "no": {
@@ -46,16 +55,35 @@
         "plural": "Sub-Counties"
       }
     },
-    "countryLogos": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"],
+    "countryLogos": [
+      "UGA-unma.png",
+      "UGA-government.jpg",
+      "UGA-urcs.png"
+    ],
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
         [
-          [35.00105362800008, -1.48147434699996],
-          [35.00105362800008, 4.231367005000038],
-          [29.57216169200007, 4.231367005000038],
-          [29.57216169200007, -1.48147434699996],
-          [35.00105362800008, -1.48147434699996]
+          [
+            35.00105362800008,
+            -1.48147434699996
+          ],
+          [
+            35.00105362800008,
+            4.231367005000038
+          ],
+          [
+            29.57216169200007,
+            4.231367005000038
+          ],
+          [
+            29.57216169200007,
+            -1.48147434699996
+          ],
+          [
+            35.00105362800008,
+            -1.48147434699996
+          ]
         ]
       ]
     }
@@ -65,13 +93,21 @@
     "countryCodeISO2": "ZM",
     "countryName": "Zambia",
     "countryStatus": "active",
-    "disasterTypes": ["floods"],
+    "disasterTypes": [
+      "floods"
+    ],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [1, 2, 3],
+        "adminLevels": [
+          1,
+          2,
+          3
+        ],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["7-day"],
+        "activeLeadTimes": [
+          "7-day"
+        ],
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=357745",
         "eapAlertClasses": {
           "no": {
@@ -125,11 +161,26 @@
       "type": "Polygon",
       "coordinates": [
         [
-          [33.71243793900004, -18.07917628699994],
-          [33.71243793900004, -8.271976286999973],
-          [21.98003793900006, -8.271976286999973],
-          [21.98003793900006, -18.07917628699994],
-          [33.71243793900004, -18.07917628699994]
+          [
+            33.71243793900004,
+            -18.07917628699994
+          ],
+          [
+            33.71243793900004,
+            -8.271976286999973
+          ],
+          [
+            21.98003793900006,
+            -8.271976286999973
+          ],
+          [
+            21.98003793900006,
+            -18.07917628699994
+          ],
+          [
+            33.71243793900004,
+            -18.07917628699994
+          ]
         ]
       ]
     }
@@ -139,13 +190,22 @@
     "countryCodeISO2": "KE",
     "countryName": "Kenya",
     "countryStatus": "active",
-    "disasterTypes": ["floods", "drought"],
+    "disasterTypes": [
+      "floods",
+      "drought"
+    ],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [1, 2, 3],
+        "adminLevels": [
+          1,
+          2,
+          3
+        ],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["7-day"],
+        "activeLeadTimes": [
+          "7-day"
+        ],
         "eapLink": "https://kenyaredcross-my.sharepoint.com/:w:/g/personal/saado_halima_redcross_or_ke/ETp6Vml__etKk-C2KAqH4XIBrIJmAMT58mqA_iQlCZtuKw?rtime=FJll0Rbn2Ug",
         "eapAlertClasses": {
           "no": {
@@ -164,7 +224,9 @@
       },
       {
         "disasterType": "drought",
-        "adminLevels": [1],
+        "adminLevels": [
+          1
+        ],
         "defaultAdminLevel": 1,
         "activeLeadTimes": [
           "0-month",
@@ -180,20 +242,44 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": [3, 10],
+        "droughtForecastMonths": {
+          "National": [
+            [3, 4, 5],
+            [10, 11, 12]
+          ]
+        },
+        "droughtEndOfMonthPipeline": true,
         "showMonthlyEapActions": true,
         "monthlyForecastInfo": {
           "prefix": "chat-component.drought.active-event.forecast-info",
-          "12": ["below-average-ond"],
-          "1": ["below-average-ond"],
-          "2": ["below-average-ond", "mam-forecast"],
+          "12": [
+            "below-average-ond"
+          ],
+          "1": [
+            "below-average-ond"
+          ],
+          "2": [
+            "below-average-ond",
+            "mam-forecast"
+          ],
           "3": [],
           "4": [],
           "5": [],
-          "6": ["below-average-mam"],
-          "7": ["below-average-mam", "ond-forecast"],
-          "8": ["below-average-mam", "ond-forecast"],
-          "9": ["below-average-mam", "ond-forecast"],
+          "6": [
+            "below-average-mam"
+          ],
+          "7": [
+            "below-average-mam",
+            "ond-forecast"
+          ],
+          "8": [
+            "below-average-mam",
+            "ond-forecast"
+          ],
+          "9": [
+            "below-average-mam",
+            "ond-forecast"
+          ],
           "10": [],
           "11": []
         },
@@ -214,16 +300,33 @@
         "plural": "Wards"
       }
     },
-    "countryLogos": ["KEN-krcs.png"],
+    "countryLogos": [
+      "KEN-krcs.png"
+    ],
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
         [
-          [41.88752400000004, -4.720416999999941],
-          [41.88752400000004, 4.633819000000074],
-          [33.90958600000005, 4.633819000000074],
-          [33.90958600000005, -4.720416999999941],
-          [41.88752400000004, -4.720416999999941]
+          [
+            41.88752400000004,
+            -4.720416999999941
+          ],
+          [
+            41.88752400000004,
+            4.633819000000074
+          ],
+          [
+            33.90958600000005,
+            4.633819000000074
+          ],
+          [
+            33.90958600000005,
+            -4.720416999999941
+          ],
+          [
+            41.88752400000004,
+            -4.720416999999941
+          ]
         ]
       ]
     }
@@ -233,13 +336,23 @@
     "countryCodeISO2": "ET",
     "countryName": "Ethiopia",
     "countryStatus": "active",
-    "disasterTypes": ["floods", "malaria", "drought"],
+    "disasterTypes": [
+      "floods",
+      "malaria",
+      "drought"
+    ],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [1, 2, 3],
+        "adminLevels": [
+          1,
+          2,
+          3
+        ],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["7-day"],
+        "activeLeadTimes": [
+          "7-day"
+        ],
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=404862",
         "eapAlertClasses": {
           "no": {
@@ -258,14 +371,22 @@
       },
       {
         "disasterType": "malaria",
-        "adminLevels": [3],
+        "adminLevels": [
+          3
+        ],
         "defaultAdminLevel": 3,
-        "activeLeadTimes": ["0-month", "1-month", "2-month"],
+        "activeLeadTimes": [
+          "0-month",
+          "1-month",
+          "2-month"
+        ],
         "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing"
       },
       {
         "disasterType": "drought",
-        "adminLevels": [2],
+        "adminLevels": [
+          2
+        ],
         "defaultAdminLevel": 2,
         "activeLeadTimes": [
           "0-month",
@@ -281,7 +402,110 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": [3, 10],
+        "droughtForecastMonths": {
+          "Belg": [
+            [
+              2,
+              3,
+              4,
+              5
+            ],
+            [
+              6,
+              7,
+              8,
+              9
+            ]
+          ],
+          "Northern": [
+            [
+              3,
+              4,
+              5
+            ],
+            [
+              7,
+              8,
+              9
+            ]
+          ],
+          "Southern": [
+            [
+              3,
+              4,
+              5
+            ],
+            [
+              10,
+              11,
+              12
+            ]
+          ]
+        },
+        "droughtAreas": {
+          "Belg": [
+            "ET0721",
+            "ET0408",
+            "ET0722",
+            "ET0717",
+            "ET0723",
+            "ET0410",
+            "ET0407",
+            "ET0710",
+            "ET0705",
+            "ET0715",
+            "ET0701",
+            "ET0702",
+            "ET0714",
+            "ET1301",
+            "ET0703",
+            "ET0713",
+            "ET0107",
+            "ET0305",
+            "ET0406",
+            "ET0303",
+            "ET0310",
+            "ET1600",
+            "ET0720",
+            "ET0106",
+            "ET0707",
+            "ET0304",
+            "ET0104",
+            "ET0417",
+            "ET0415",
+            "ET0409",
+            "ET0706",
+            "ET0724"
+          ],
+          "Northern": [
+            "ET0201",
+            "ET1502",
+            "ET1501",
+            "ET0103",
+            "ET0204",
+            "ET0203",
+            "ET0205",
+            "ET0202",
+            "ET0501"
+          ],
+          "Southern": [
+            "ET0508",
+            "ET0712",
+            "ET0411",
+            "ET0412",
+            "ET0511",
+            "ET0507",
+            "ET0421",
+            "ET0504",
+            "ET0502",
+            "ET0414",
+            "ET0503",
+            "ET0505",
+            "ET0509",
+            "ET0510",
+            "ET0506"
+          ]
+        },
         "showMonthlyEapActions": true,
         "eapLink": "https://docs.google.com/document/d/1uAzLuGLiBChjyEHZ4RjArodrGN1tgX18PlL8ZK13Dj4"
       }
@@ -300,16 +524,33 @@
         "plural": "Woredas"
       }
     },
-    "countryLogos": ["ETH-ercs.png"],
+    "countryLogos": [
+      "ETH-ercs.png"
+    ],
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
         [
-          [47.98824, 3.40667],
-          [47.98824, 14.84547690700003],
-          [32.9918, 14.84547690700003],
-          [32.9918, 3.40667],
-          [47.98824, 3.40667]
+          [
+            47.98824,
+            3.40667
+          ],
+          [
+            47.98824,
+            14.84547690700003
+          ],
+          [
+            32.9918,
+            14.84547690700003
+          ],
+          [
+            32.9918,
+            3.40667
+          ],
+          [
+            47.98824,
+            3.40667
+          ]
         ]
       ]
     }
@@ -319,13 +560,21 @@
     "countryCodeISO2": "EG",
     "countryName": "Egypt",
     "countryStatus": "active",
-    "disasterTypes": ["heavy-rain"],
+    "disasterTypes": [
+      "heavy-rain"
+    ],
     "countryDisasterSettings": [
       {
         "disasterType": "heavy-rain",
-        "adminLevels": [1],
+        "adminLevels": [
+          1
+        ],
         "defaultAdminLevel": 1,
-        "activeLeadTimes": ["3-day", "5-day", "7-day"],
+        "activeLeadTimes": [
+          "3-day",
+          "5-day",
+          "7-day"
+        ],
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0a248aa7f06fc4d149892726478ef0fe6&authkey=AWC-wu2bMWX0NRGu7aUjTe8&expiration=2022-02-24T23%3a00%3a00.000Z&rtime=DcUsZo3Z2Eg"
       }
     ],
@@ -343,16 +592,33 @@
         "plural": "Districts"
       }
     },
-    "countryLogos": ["EGY-ercs.png"],
+    "countryLogos": [
+      "EGY-ercs.png"
+    ],
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
         [
-          [24.2069487572, 20.7481080291],
-          [37.3734557629, 20.7481080291],
-          [37.3734557629, 32.7651320716],
-          [24.2069487572, 32.7651320716],
-          [24.2069487572, 20.7481080291]
+          [
+            24.2069487572,
+            20.7481080291
+          ],
+          [
+            37.3734557629,
+            20.7481080291
+          ],
+          [
+            37.3734557629,
+            32.7651320716
+          ],
+          [
+            24.2069487572,
+            32.7651320716
+          ],
+          [
+            24.2069487572,
+            20.7481080291
+          ]
         ]
       ]
     }
@@ -362,18 +628,30 @@
     "countryCodeISO2": "PH",
     "countryName": "Philippines",
     "countryStatus": "active",
-    "disasterTypes": ["dengue", "typhoon", "floods"],
+    "disasterTypes": [
+      "dengue",
+      "typhoon",
+      "floods"
+    ],
     "countryDisasterSettings": [
       {
         "disasterType": "dengue",
-        "adminLevels": [2],
+        "adminLevels": [
+          2
+        ],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["0-month", "1-month", "2-month"],
+        "activeLeadTimes": [
+          "0-month",
+          "1-month",
+          "2-month"
+        ],
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm"
       },
       {
         "disasterType": "typhoon",
-        "adminLevels": [3],
+        "adminLevels": [
+          3
+        ],
         "defaultAdminLevel": 3,
         "activeLeadTimes": [
           "1-hour",
@@ -549,9 +827,15 @@
       },
       {
         "disasterType": "floods",
-        "adminLevels": [1, 2, 3],
+        "adminLevels": [
+          1,
+          2,
+          3
+        ],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["3-day"],
+        "activeLeadTimes": [
+          "3-day"
+        ],
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/Doc.aspx?sourcedoc=%7B7F74266C-B7EE-4610-9989-85F453CDC2F7%7D&file=EAP%20Flood_Philippines_2020_v4.docx",
         "eapAlertClasses": {
           "no": {
@@ -587,16 +871,33 @@
         "plural": "Barangays"
       }
     },
-    "countryLogos": ["PHL-prc.jpg"],
+    "countryLogos": [
+      "PHL-prc.jpg"
+    ],
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
         [
-          [116.9666564465, 4.1242251549],
-          [114.8572814465, 21.4093058493],
-          [127.4256408215, 21.2865155817],
-          [126.9861876965, 4.56241516],
-          [116.9666564465, 4.1242251549]
+          [
+            116.9666564465,
+            4.1242251549
+          ],
+          [
+            114.8572814465,
+            21.4093058493
+          ],
+          [
+            127.4256408215,
+            21.2865155817
+          ],
+          [
+            126.9861876965,
+            4.56241516
+          ],
+          [
+            116.9666564465,
+            4.1242251549
+          ]
         ]
       ]
     }
@@ -606,11 +907,15 @@
     "countryCodeISO2": "ZW",
     "countryName": "Zimbabwe",
     "countryStatus": "active",
-    "disasterTypes": ["drought"],
+    "disasterTypes": [
+      "drought"
+    ],
     "countryDisasterSettings": [
       {
         "disasterType": "drought",
-        "adminLevels": [1],
+        "adminLevels": [
+          1
+        ],
         "defaultAdminLevel": 1,
         "activeLeadTimes": [
           "0-month",
@@ -626,7 +931,7 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": [4],
+        "droughtForecastMonths": { "National": [[4]] },
         "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
       }
     ],
@@ -653,11 +958,26 @@
       "type": "Polygon",
       "coordinates": [
         [
-          [33.0683413, -22.4241096],
-          [33.0683413, -15.6097033],
-          [25.2373, -15.6097033],
-          [25.2373, -22.4241096],
-          [33.0683413, -22.4241096]
+          [
+            33.0683413,
+            -22.4241096
+          ],
+          [
+            33.0683413,
+            -15.6097033
+          ],
+          [
+            25.2373,
+            -15.6097033
+          ],
+          [
+            25.2373,
+            -22.4241096
+          ],
+          [
+            33.0683413,
+            -22.4241096
+          ]
         ]
       ]
     }

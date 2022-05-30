@@ -129,6 +129,11 @@ export class TimelineService {
     } else {
       this.state.today = DateTime.now();
     }
+    // SIMULATE: change this to simulate different months (only in chat-component)
+    // const addMonthsToCurrentDate = -1;
+    // this.state.today = this.state.today.plus({
+    //   months: addMonthsToCurrentDate,
+    // });
 
     const events = this.eventState?.events;
     if (events?.length) {
@@ -183,7 +188,14 @@ export class TimelineService {
       return this.state.today.plus({ days: Number(triggerKey) });
     } else if (leadTime.includes(LeadTimeUnit.hour)) {
       return this.state.today.plus({ hours: Number(triggerKey) });
-    } else {
+    } else if (leadTime.includes(LeadTimeUnit.month)) {
+      if (
+        this.country.countryDisasterSettings.find(
+          (s) => s.disasterType === this.disasterType.disasterType,
+        ).droughtEndOfMonthPipeline
+      ) {
+        return this.state.today.plus({ months: Number(triggerKey) + 1 });
+      }
       return this.state.today.plus({ months: Number(triggerKey) });
     }
   }
@@ -256,17 +268,37 @@ export class TimelineService {
     return date;
   }
 
+  private checkStickyDroughtSeason() {
+    for (const area of this.getForecastSeasonAreas()) {
+      for (const season of area) {
+        if (season.length > 1) {
+          return true;
+        }
+      }
+    }
+  }
+
+  private checkRegionalDroughtSeason() {
+    const forecastSeasonAreas = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastMonths;
+    return Object.values(forecastSeasonAreas).length > 1;
+  }
+
   private filterVisibleLeadTimePerDisasterType(
     disasterType: DisasterType,
     leadTime: LeadTime,
   ): boolean {
     if (disasterType.disasterType === DisasterTypeKey.drought) {
+      if (this.checkRegionalDroughtSeason()) {
+        return true;
+      }
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);
-      const nextForecastMonthEndOfMonth = this.getNextForecastMonth();
+      const nextForecastMonthEndOfMonth = this.getNextForecastMonth(
+        this.checkStickyDroughtSeason(),
+      );
       return (
-        leadTimeMonth <= nextForecastMonthEndOfMonth && // hide months beyond next Forecast month
-        (leadTime !== LeadTime.month0 || // hide current month ..
-          this.filterActiveLeadTimePerDisasterType(disasterType, leadTime)) // .. except if current month is next Forecast month
+        leadTimeMonth <= nextForecastMonthEndOfMonth // hide months beyond next Forecast month
       );
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       const events = this.eventState?.events;
@@ -287,11 +319,24 @@ export class TimelineService {
     disasterType: DisasterType,
     leadTime: LeadTime,
   ): boolean {
+    const leadTimeMonth = this.getLeadTimeMonth(leadTime);
     if (disasterType.disasterType === DisasterTypeKey.drought) {
-      const nextForecastMonth = this.getNextForecastMonth();
-      const leadTimeMonth = this.getLeadTimeMonth(leadTime);
-
-      return nextForecastMonth.equals(leadTimeMonth);
+      if (this.checkRegionalDroughtSeason()) {
+        // If regional drought seasons (and thus potentially multiple triggers) ..
+        const triggeredLeadTimes = Object.keys(this.triggersAllEvents).filter(
+          (lt) => this.triggersAllEvents[lt] === '1',
+        );
+        // .. show all triggered lead times only
+        if (triggeredLeadTimes.length) {
+          return triggeredLeadTimes.includes(leadTime);
+        }
+      } else {
+        // .. otherwise determine first available leadtime month
+        const nextForecastMonth = this.getNextForecastMonth(
+          this.checkStickyDroughtSeason(),
+        );
+        return nextForecastMonth.equals(leadTimeMonth);
+      }
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       const events = this.eventState?.events;
       const relevantLeadTimes = this.eventState?.activeTrigger
@@ -303,19 +348,35 @@ export class TimelineService {
     }
   }
 
-  private getNextForecastMonth(): DateTime {
-    const currentYear = this.state.today.year;
-    const currentMonth = this.state.today.month;
+  private getNextForecastMonth(sticky: boolean): DateTime {
+    let todayLeadTime = this.state.today;
+    if (
+      this.country.countryDisasterSettings.find(
+        (s) => s.disasterType === this.disasterType.disasterType,
+      ).droughtEndOfMonthPipeline
+    ) {
+      todayLeadTime = this.state.today.plus({ month: 1 });
+    }
+    const currentYear = todayLeadTime.year;
+    const currentMonth = todayLeadTime.month;
 
-    const forecastMonthNumbers = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtForecastMonths;
+    let forecastMonthNumbers = [];
+    for (const area of this.getForecastSeasonAreas()) {
+      const forecastSeasons = area.map((season) => {
+        const filteredSeason = sticky
+          ? season.filter((month) => month >= currentMonth)
+          : season;
+        return filteredSeason[0];
+      });
+
+      forecastMonthNumbers = [...forecastMonthNumbers, ...forecastSeasons];
+    }
 
     let forecastMonthNumber: number;
     forecastMonthNumbers
       .sort((a, b) => (a > b ? -1 : 1))
       .forEach((month) => {
-        if (currentMonth < month) {
+        if (currentMonth <= month) {
           forecastMonthNumber = month;
         }
       });
@@ -329,9 +390,24 @@ export class TimelineService {
   }
 
   private getLeadTimeMonth(leadTime: LeadTime): DateTime {
+    const addMonths =
+      Number(LeadTimeTriggerKey[leadTime]) +
+      (this.country.countryDisasterSettings.find(
+        (s) => s.disasterType === this.disasterType.disasterType,
+      ).droughtEndOfMonthPipeline
+        ? 1
+        : 0);
     const leadTimeMonth = this.state.today.plus({
-      month: Number(LeadTimeTriggerKey[leadTime]),
+      month: addMonths,
     });
     return DateTime.utc(leadTimeMonth.year, leadTimeMonth.month, 1);
   }
+
+  private getForecastSeasonAreas = (): [][][] => {
+    return Object.values(
+      this.country.countryDisasterSettings.find(
+        (s) => s.disasterType === this.disasterType.disasterType,
+      ).droughtForecastMonths,
+    );
+  };
 }

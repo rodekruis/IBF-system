@@ -1,21 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
+import { Subscription } from 'rxjs';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import {
   DateFormats,
   LeadTimeUnit,
   MonthFormats,
 } from 'src/app/types/lead-time';
+import { TimelineService } from '../../services/timeline.service';
+import { TimelineState } from '../../types/timeline-state';
 
 @Component({
   selector: 'app-date-button',
   templateUrl: './date-button.component.html',
   styleUrls: ['./date-button.component.scss'],
 })
-export class DateButtonComponent implements OnInit {
+export class DateButtonComponent implements OnInit, OnDestroy {
   @Input() date = DateTime.now();
   @Input() unit = LeadTimeUnit.day;
   @Input() active: boolean;
+  @Input() todayButton: boolean;
 
   private dateFormat = '';
   private monthFormat = '';
@@ -24,9 +28,28 @@ export class DateButtonComponent implements OnInit {
   public displayMonth: string;
   public displayHour: string;
 
-  constructor(public disasterTypeService: DisasterTypeService) {}
+  private timelineStateSubscription: Subscription;
+
+  constructor(
+    public disasterTypeService: DisasterTypeService,
+    private timelineService: TimelineService,
+  ) {}
 
   ngOnInit() {
+    this.timelineStateSubscription = this.timelineService
+      .getTimelineStateSubscription()
+      .subscribe(this.onTimelineStateChange);
+  }
+
+  ngOnDestroy() {
+    this.timelineStateSubscription.unsubscribe();
+  }
+
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    if (this.todayButton) {
+      this.date = timelineState.today;
+    }
+
     this.dateFormat =
       DateFormats[this.disasterTypeService?.disasterType?.disasterType] ||
       DateFormats.default;
@@ -44,5 +67,5 @@ export class DateButtonComponent implements OnInit {
       }
     }
     this.displayMonth = this.date.toFormat(this.monthFormat);
-  }
+  };
 }
