@@ -2,6 +2,12 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
+### v0.158.3 - 30-05-2022
+
+- Areas in the map that are hovered over or clicked on, are now highlighted via thicker borders, instead of via different color shades.
+- Also when hovering over an area, the area name appears in the middle column.
+- Ethiopia Floods now offers multiple administrative levels.
+
 ### v0.151.0 - 29-04-2022
 
 - The "video guide" popup (both in login page & dashboard page) contains now also a link to the PDF manual, and is now called "IBF guide" popup.
