@@ -121,7 +121,7 @@ export class EapActionsService {
             Object.defineProperty(action.monthLong, region, {
               value: DateTime.utc(
                 2022, // year does not matter, this is just about converting month-number to month-name
-                action.month[region] === 12 ? 1 : action.month[region] + 1, // The due-by date of actions lies one month later then when it's added
+                action.month[region] === 12 ? 1 : action.month[region] + 1, // Add 1 to due-by date
                 1,
               ).monthLong,
             });
