@@ -56,6 +56,7 @@ export class ScriptsService {
           triggered: mockAllInput.triggered,
           removeEvents: true,
           eventNr: 1,
+          date: new Date(),
         });
       }
     }
@@ -95,6 +96,7 @@ export class ScriptsService {
       mockInput.disasterType,
       mockInput.triggered,
       eventNr,
+      new Date(mockInput.date),
     );
 
     if (mockInput.disasterType === DisasterType.Floods) {
@@ -145,6 +147,7 @@ export class ScriptsService {
         removeEvents: false,
         eventNr: 1,
         secret: mockTyphoonScenario.secret,
+        date: new Date(),
       });
     } else if (mockTyphoonScenario.scenario === TyphoonScenario.NoEvent) {
       const selectedCountry = countries.find((country): any => {
@@ -157,6 +160,7 @@ export class ScriptsService {
         DisasterType.Typhoon,
         false,
         1,
+        new Date(),
         TyphoonScenario.NoEvent,
       );
     } else {
@@ -172,6 +176,7 @@ export class ScriptsService {
     disasterType: DisasterType,
     triggered: boolean,
     eventNr = 1,
+    date: Date,
     typhoonScenario?: TyphoonScenario,
   ) {
     // Define indicators to upload ..
@@ -203,6 +208,7 @@ export class ScriptsService {
           disasterType,
           eventNr,
           typhoonScenario,
+          date,
         )) {
           // Upload mock exposure data
           console.log(
@@ -217,6 +223,7 @@ export class ScriptsService {
               disasterType,
               selectedCountry,
               activeLeadTime,
+              date,
             ),
             leadTime: activeLeadTime as LeadTime,
             dynamicIndicator: unit,
@@ -294,6 +301,7 @@ export class ScriptsService {
     disasterType: DisasterType,
     eventNr: number,
     typhoonScenario: TyphoonScenario,
+    date: Date,
   ) {
     const leadTimes = selectedCountry.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
@@ -304,6 +312,7 @@ export class ScriptsService {
         leadTime,
         disasterType,
         eventNr,
+        date,
         typhoonScenario,
       ),
     );
@@ -328,10 +337,16 @@ export class ScriptsService {
     leadTime: string,
     disasterType: DisasterType,
     eventNr = 1,
+    date: Date,
     typhoonScenario?: TyphoonScenario,
   ) {
     if (disasterType === DisasterType.Drought) {
-      return this.getDroughtLeadTime(selectedCountry, leadTime, disasterType);
+      return this.getDroughtLeadTime(
+        selectedCountry,
+        leadTime,
+        disasterType,
+        date,
+      );
     } else if (disasterType === DisasterType.Typhoon) {
       return leadTime === this.getTyphoonLeadTime(eventNr, typhoonScenario);
     } else {
@@ -339,19 +354,17 @@ export class ScriptsService {
     }
   }
 
-  private getCurrentMonthInfoDrought(leadTime: LeadTime) {
-    const now = new Date();
-    // SIMULATE: change this to simulate different months (only in chat-component)
-    // let now = new Date();
-    // const addMonthsToCurrentDate = -1;
-    // now = new Date(now.setMonth(now.getMonth() + addMonthsToCurrentDate));
-    const currentYear = now.getFullYear();
-    const currentUTCMonth = now.getUTCMonth();
-    const currentMonthFirstDay = new Date(
-      now.getFullYear(),
-      currentUTCMonth,
-      1,
-    );
+  private getCurrentMonthInfoDrought(
+    leadTime: LeadTime,
+    date: Date,
+    selectedCountry,
+  ) {
+    const now = date || new Date();
+    let currentMonthFirstDay: Date;
+    currentMonthFirstDay = new Date(now.getFullYear(), now.getUTCMonth(), 1);
+    const currentYear = currentMonthFirstDay.getFullYear();
+    const currentUTCMonth = currentMonthFirstDay.getUTCMonth();
+
     const leadTimeMonthFirstDay = new Date(
       currentMonthFirstDay.setUTCMonth(
         currentUTCMonth + Number(leadTime.split('-')[0]),
@@ -368,12 +381,17 @@ export class ScriptsService {
     selectedCountry: any,
     leadTime: string,
     disasterType: DisasterType,
+    date: Date,
   ) {
     const {
       currentYear,
       currentUTCMonth,
       leadTimeMonthFirstDay,
-    } = this.getCurrentMonthInfoDrought(leadTime as LeadTime);
+    } = this.getCurrentMonthInfoDrought(
+      leadTime as LeadTime,
+      date,
+      selectedCountry,
+    );
     const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
     ).droughtForecastMonths;
@@ -400,10 +418,12 @@ export class ScriptsService {
     currentYear: number,
   ) {
     // If current month is one of the months in the seasons, always use '0-month' and return early ..
-    for (const season of forecastSeasons) {
-      for (const month of season) {
-        if (currentUTCMonth + 1 === month && leadTime === LeadTime.month0) {
-          return true;
+    if (leadTime === LeadTime.month0) {
+      for (const season of forecastSeasons) {
+        for (const month of season) {
+          if (currentUTCMonth + 1 === month) {
+            return true;
+          }
         }
       }
     }
@@ -458,6 +478,7 @@ export class ScriptsService {
     disasterType: DisasterType,
     selectedCountry,
     activeLeadTime: LeadTime,
+    date: Date,
   ): any[] {
     const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     // This only returns something different for dengue/malaria exposure-units
@@ -505,6 +526,7 @@ export class ScriptsService {
           selectedCountry,
           disasterType,
           activeLeadTime,
+          date,
         );
         for (const pcodeData of copyOfExposureUnit) {
           if (areas.includes(pcodeData.placeCode)) {
@@ -526,6 +548,7 @@ export class ScriptsService {
     selectedCountry,
     disasterType: DisasterType,
     leadTime: LeadTime,
+    date: Date,
   ): string[] {
     const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
@@ -533,7 +556,11 @@ export class ScriptsService {
     const {
       currentUTCMonth,
       leadTimeMonthFirstDay,
-    } = this.getCurrentMonthInfoDrought(leadTime as LeadTime);
+    } = this.getCurrentMonthInfoDrought(
+      leadTime as LeadTime,
+      date,
+      selectedCountry,
+    );
     const month = leadTimeMonthFirstDay.getMonth() + 1;
     let triggeredAreas = [];
     for (const area of Object.keys(forecastSeasonAreas)) {
