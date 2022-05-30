@@ -22,8 +22,10 @@ export class EapActionEntity {
   @Column()
   public label: string;
 
-  @Column({ nullable: true })
-  public month: number;
+  @Column('json', {
+    default: {},
+  })
+  public month: JSON;
 
   @ManyToOne((): typeof CountryEntity => CountryEntity)
   @JoinColumn({

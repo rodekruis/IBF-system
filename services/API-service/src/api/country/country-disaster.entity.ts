@@ -90,4 +90,8 @@ export class CountryDisasterSettingsEntity {
   })
   @Column('json', { nullable: true })
   public eapAlertClasses: JSON;
+
+  @ApiProperty()
+  @Column('json', { nullable: true })
+  public droughtAreas: JSON;
 }

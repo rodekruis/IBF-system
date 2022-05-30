@@ -286,7 +286,9 @@
     },
     "action": "livelihood-1",
     "label": "Market analysis",
-    "month": 6
+    "month": {
+      "National": 6
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -296,7 +298,9 @@
     },
     "action": "drr-1",
     "label": "Pre-agreement with suppliers on procurement",
-    "month": 6
+    "month": {
+      "National": 6
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -306,7 +310,9 @@
     },
     "action": "wash-1",
     "label": "Preparatory activities for cash for water",
-    "month": 6
+    "month": {
+      "National": 6
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -316,7 +322,9 @@
     },
     "action": "livelihood-2",
     "label": "CVA or Market-based intervention",
-    "month": 7
+    "month": {
+      "National": 7
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -326,7 +334,9 @@
     },
     "action": "wash-2",
     "label": "Cash for water",
-    "month": 7
+    "month": {
+      "National": 7
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -336,7 +346,9 @@
     },
     "action": "drr-2",
     "label": "Disseminating early warning information",
-    "month": 8
+    "month": {
+      "National": 8
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -346,7 +358,9 @@
     },
     "action": "drr-3",
     "label": "Rangeland management",
-    "month": 8
+    "month": {
+      "National": 8
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -356,7 +370,9 @@
     },
     "action": "livelihood-3",
     "label": "Distribute pasture seed",
-    "month": 8
+    "month": {
+      "National": 8
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -366,7 +382,9 @@
     },
     "action": "livelihood-4",
     "label": "Advocation pasture management",
-    "month": 8
+    "month": {
+      "National": 8
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -376,7 +394,9 @@
     },
     "action": "wash-3",
     "label": "Installation of mass water storage tanks",
-    "month": 8
+    "month": {
+      "National": 8
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -386,7 +406,9 @@
     },
     "action": "wash-4",
     "label": "Rapid assessment of water facilities",
-    "month": 8
+    "month": {
+      "National": 8
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -396,7 +418,9 @@
     },
     "action": "wash-5",
     "label": "Destilting of water pans, repair of earth dams",
-    "month": 8
+    "month": {
+      "National": 8
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -406,7 +430,9 @@
     },
     "action": "wash-6",
     "label": "Prioritize key/critical water facilites seed",
-    "month": 9
+    "month": {
+      "National": 9
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -416,7 +442,9 @@
     },
     "action": "livelihood-5",
     "label": "Market Analysis",
-    "month": 12
+    "month": {
+      "National": 12
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -426,7 +454,9 @@
     },
     "action": "wash-7",
     "label": "Preparatory activities for cash for water",
-    "month": 12
+    "month": {
+      "National": 12
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -436,7 +466,9 @@
     },
     "action": "wash-8",
     "label": "Cash for water",
-    "month": 12
+    "month": {
+      "National": 12
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -446,7 +478,9 @@
     },
     "action": "livelihood-6",
     "label": "CVA or market-based intervention",
-    "month": 1
+    "month": {
+      "National": 1
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -456,7 +490,9 @@
     },
     "action": "livelihood-7",
     "label": "Distribute pasture seed",
-    "month": 1
+    "month": {
+      "National": 1
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -466,7 +502,9 @@
     },
     "action": "livelihood-8",
     "label": "Advocation pasture management",
-    "month": 1
+    "month": {
+      "National": 1
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -476,7 +514,9 @@
     },
     "action": "drr-4",
     "label": "Dissemination early warning information",
-    "month": 1
+    "month": {
+      "National": 1
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -486,7 +526,9 @@
     },
     "action": "drr-5",
     "label": "Rangeland management",
-    "month": 1
+    "month": {
+      "National": 1
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -496,7 +538,9 @@
     },
     "action": "drr-6",
     "label": "Pre-agreement with suppliers on procurement",
-    "month": 1
+    "month": {
+      "National": 1
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -506,7 +550,9 @@
     },
     "action": "wash-9",
     "label": "Rapid assessment of water facilities",
-    "month": 1
+    "month": {
+      "National": 1
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -516,7 +562,9 @@
     },
     "action": "wash-10",
     "label": "Installation of mass water storage tanks",
-    "month": 1
+    "month": {
+      "National": 1
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -526,7 +574,9 @@
     },
     "action": "wash-11",
     "label": "Destilting of water pans, repair of earth dams",
-    "month": 1
+    "month": {
+      "National": 1
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -536,7 +586,9 @@
     },
     "action": "wash-12",
     "label": "Prioritize key/critical water facilities",
-    "month": 2
+    "month": {
+      "National": 2
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -699,7 +751,11 @@
     },
     "action": "livelihood-1",
     "label": "Market analysis",
-    "month": 6
+    "month": {
+      "Belg": 5,
+      "Northern": 5,
+      "Southern": 5
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -709,7 +765,11 @@
     },
     "action": "drr-1",
     "label": "Pre-agreement with suppliers on procurement",
-    "month": 6
+    "month": {
+      "Belg": 6,
+      "Northern": 7,
+      "Southern": 10
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -719,7 +779,11 @@
     },
     "action": "wash-1",
     "label": "Preparatory activities for cash for water",
-    "month": 6
+    "month": {
+      "Belg": 6,
+      "Northern": 7,
+      "Southern": 10
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -729,7 +793,11 @@
     },
     "action": "livelihood-2",
     "label": "CVA or Market-based intervention",
-    "month": 7
+    "month": {
+      "Belg": 6,
+      "Northern": 7,
+      "Southern": 10
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -739,7 +807,11 @@
     },
     "action": "wash-2",
     "label": "Cash for water",
-    "month": 7
+    "month": {
+      "Belg": 6,
+      "Northern": 7,
+      "Southern": 10
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -749,7 +821,11 @@
     },
     "action": "drr-2",
     "label": "Disseminating early warning information",
-    "month": 8
+    "month": {
+      "Belg": 6,
+      "Northern": 7,
+      "Southern": 10
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -759,7 +835,11 @@
     },
     "action": "drr-3",
     "label": "Rangeland management",
-    "month": 8
+    "month": {
+      "Belg": 6,
+      "Northern": 7,
+      "Southern": 10
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -769,7 +849,11 @@
     },
     "action": "livelihood-3",
     "label": "Distribute pasture seed",
-    "month": 8
+    "month": {
+      "Belg": 6,
+      "Northern": 7,
+      "Southern": 10
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -779,7 +863,11 @@
     },
     "action": "livelihood-4",
     "label": "Advocation pasture management",
-    "month": 8
+    "month": {
+      "Belg": 6,
+      "Northern": 7,
+      "Southern": 10
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -789,7 +877,11 @@
     },
     "action": "wash-3",
     "label": "Installation of mass water storage tanks",
-    "month": 8
+    "month": {
+      "Belg": 6,
+      "Northern": 7,
+      "Southern": 10
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -799,7 +891,11 @@
     },
     "action": "wash-4",
     "label": "Rapid assessment of water facilities",
-    "month": 8
+    "month": {
+      "Belg": 7,
+      "Northern": 8,
+      "Southern": 11
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -809,7 +905,11 @@
     },
     "action": "wash-5",
     "label": "Destilting of water pans, repair of earth dams",
-    "month": 8
+    "month": {
+      "Belg": 7,
+      "Northern": 8,
+      "Southern": 11
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -819,7 +919,11 @@
     },
     "action": "wash-6",
     "label": "Prioritize key/critical water facilites seed",
-    "month": 9
+    "month": {
+      "Belg": 7,
+      "Northern": 8,
+      "Southern": 11
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -829,7 +933,11 @@
     },
     "action": "livelihood-5",
     "label": "Market Analysis",
-    "month": 12
+    "month": {
+      "Belg": 7,
+      "Northern": 8,
+      "Southern": 11
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -839,7 +947,11 @@
     },
     "action": "wash-7",
     "label": "Preparatory activities for cash for water",
-    "month": 12
+    "month": {
+      "Belg": 7,
+      "Northern": 8,
+      "Southern": 11
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -849,7 +961,11 @@
     },
     "action": "wash-8",
     "label": "Cash for water",
-    "month": 12
+    "month": {
+      "Belg": 7,
+      "Northern": 8,
+      "Southern": 11
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -859,7 +975,11 @@
     },
     "action": "livelihood-6",
     "label": "CVA or market-based intervention",
-    "month": 1
+    "month": {
+      "Belg": 7,
+      "Northern": 8,
+      "Southern": 11
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -869,7 +989,11 @@
     },
     "action": "livelihood-7",
     "label": "Distribute pasture seed",
-    "month": 1
+    "month": {
+      "Belg": 7,
+      "Northern": 8,
+      "Southern": 11
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -879,7 +1003,11 @@
     },
     "action": "livelihood-8",
     "label": "Advocation pasture management",
-    "month": 1
+    "month": {
+      "Belg": 8,
+      "Northern": 9,
+      "Southern": 12
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -889,7 +1017,11 @@
     },
     "action": "drr-4",
     "label": "Dissemination early warning information",
-    "month": 1
+    "month": {
+      "Belg": 8,
+      "Northern": 9,
+      "Southern": 12
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -899,7 +1031,11 @@
     },
     "action": "drr-5",
     "label": "Rangeland management",
-    "month": 1
+    "month": {
+      "Belg": 8,
+      "Northern": 9,
+      "Southern": 12
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -909,7 +1045,11 @@
     },
     "action": "drr-6",
     "label": "Pre-agreement with suppliers on procurement",
-    "month": 1
+    "month": {
+      "Belg": 8,
+      "Northern": 9,
+      "Southern": 12
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -919,7 +1059,11 @@
     },
     "action": "wash-9",
     "label": "Rapid assessment of water facilities",
-    "month": 1
+    "month": {
+      "Belg": 8,
+      "Northern": 9,
+      "Southern": 12
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -929,7 +1073,11 @@
     },
     "action": "wash-10",
     "label": "Installation of mass water storage tanks",
-    "month": 1
+    "month": {
+      "Belg": 8,
+      "Northern": 9,
+      "Southern": 12
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -939,7 +1087,11 @@
     },
     "action": "wash-11",
     "label": "Destilting of water pans, repair of earth dams",
-    "month": 1
+    "month": {
+      "Belg": 8,
+      "Northern": 9,
+      "Southern": 12
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -949,7 +1101,11 @@
     },
     "action": "wash-12",
     "label": "Prioritize key/critical water facilities",
-    "month": 2
+    "month": {
+      "Belg": 8,
+      "Northern": 9,
+      "Southern": 12
+    }
   },
   {
     "countryCodeISO3": "PHL",
