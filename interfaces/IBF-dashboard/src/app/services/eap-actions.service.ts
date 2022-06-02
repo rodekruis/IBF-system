@@ -9,6 +9,7 @@ import {
   DisasterType,
 } from '../models/country.model';
 import { AdminLevel } from '../types/admin-level';
+import { EapAction } from '../types/eap-action';
 import { EventState } from '../types/event-state';
 import { TimelineState } from '../types/timeline-state';
 import { AdminLevelService } from './admin-level.service';
@@ -121,7 +122,7 @@ export class EapActionsService {
             Object.defineProperty(action.monthLong, region, {
               value: DateTime.utc(
                 2022, // year does not matter, this is just about converting month-number to month-name
-                action.month[region] === 12 ? 1 : action.month[region] + 1, // Add 1 to due-by date
+                action.month[region] === 12 ? 1 : action.month[region], // Add 1 to due-by date
                 1,
               ).monthLong,
             });
@@ -192,13 +193,8 @@ export class EapActionsService {
     const currentPeriod = periods.find((p) => p.includes(currentMonth));
 
     triggeredArea.eapActions = triggeredArea.eapActions
-      .filter((action) =>
-        this.showMonthlyAction(
-          action.month[region],
-          currentMonth,
-          currentPeriod,
-          region,
-        ),
+      .filter((action: EapAction) =>
+        this.showMonthlyAction(action, currentMonth, currentPeriod, region),
       )
       .sort((a, b) =>
         a.month[region] &&
@@ -208,11 +204,60 @@ export class EapActionsService {
           : -1,
       );
   };
-  private showMonthlyAction(month, currentMonth, currentPeriod, region) {
+  private showMonthlyAction(action, currentMonth, currentPeriod, region) {
+    const month = action.month[region];
+
+    // TODO find a way to avoid using this hardcoded filter to manage the "Belg" May overlap
+    const belgMayFirstSeasonActions = ['eth-1-c9'];
+    const belgMaySecondSeasonActions = [
+      'eth-2-a2',
+      'eth-2-a3',
+      'eth-2-a6',
+      'eth-2-a9',
+      'eth-2-a11',
+      'eth-2-b2',
+      'eth-2-b3',
+      'eth-2-b5',
+      'eth-2-b9',
+      'eth-2-b10',
+      'eth-2-b11',
+      'eth-2-c2',
+      'eth-2-c10',
+      'eth-2-c11',
+      'eth-2-c12',
+    ];
+
+    if (region === 'Belg') {
+      if (currentMonth === 5) {
+        if (this.timelineState.activeLeadTime === '0-month') {
+          if (belgMaySecondSeasonActions.includes(action.action)) {
+            return false;
+          }
+        } else {
+          if (belgMayFirstSeasonActions.includes(action.action)) {
+            return false;
+          }
+          if (belgMaySecondSeasonActions.includes(action.action)) {
+            return true;
+          }
+        }
+      }
+      if (currentMonth > 5) {
+        if (belgMayFirstSeasonActions.includes(action.action)) {
+          return false;
+        }
+        if (belgMaySecondSeasonActions.includes(action.action)) {
+          return true;
+        }
+      }
+    }
+
     const monthBeforeCurrentMonth =
       this.shiftYear(month, region) <= this.shiftYear(currentMonth, region);
 
-    return currentPeriod.includes(month) && monthBeforeCurrentMonth;
+    const show = currentPeriod.includes(month) && monthBeforeCurrentMonth;
+
+    return show;
   }
 
   // This makes the year "start" at the moment of one of the "droughtForecastMonths" instead of in January ..
