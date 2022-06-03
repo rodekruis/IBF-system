@@ -55,7 +55,6 @@ export class ScriptsService {
           disasterType: disasterType.disasterType,
           triggered: mockAllInput.triggered,
           removeEvents: true,
-          eventNr: 1,
           date: new Date(),
         });
       }
@@ -64,11 +63,10 @@ export class ScriptsService {
 
   public async mockCountry(
     mockInput: MockDynamic,
+    eventNr?: number,
     typhoonScenario?: TyphoonScenario,
   ) {
-    // EventNr > 1 only allowed/sensible for typhoon, otherwise replace by 1
-    const eventNr =
-      mockInput.disasterType === DisasterType.Typhoon ? mockInput.eventNr : 1;
+    eventNr = eventNr || 1;
 
     if (mockInput.removeEvents) {
       const countryAdminAreaIds = await this.eventService.getCountryAdminAreaIds(
@@ -136,19 +134,20 @@ export class ScriptsService {
   }
 
   public async mockTyphoonScenario(mockTyphoonScenario: MockTyphoonScenario) {
-    // For now ignore the 'multi-event cases' in this specific scenario endpoint > so eventNr = 1 always
-    // Always assume 'removeEvents' = false, because this endpoint is meant to simulate a real-world consecutive series of API-calls
     if (mockTyphoonScenario.scenario === TyphoonScenario.EventTrigger) {
       // Scenario 'eventTrigger' is equal to using the normal mock-endpoint for typhoon with 'triggered = true'
-      await this.mockCountry({
-        countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
-        disasterType: DisasterType.Typhoon,
-        triggered: true,
-        removeEvents: false,
-        eventNr: 1,
-        secret: mockTyphoonScenario.secret,
-        date: new Date(),
-      });
+      await this.mockCountry(
+        {
+          countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
+          disasterType: DisasterType.Typhoon,
+          triggered: true,
+          removeEvents: mockTyphoonScenario.removeEvents,
+          secret: mockTyphoonScenario.secret,
+          date: new Date(),
+        },
+        mockTyphoonScenario.eventNr,
+        TyphoonScenario.EventTrigger,
+      );
     } else if (
       mockTyphoonScenario.scenario === TyphoonScenario.EventNoTrigger
     ) {
@@ -157,25 +156,24 @@ export class ScriptsService {
           countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
           disasterType: DisasterType.Typhoon,
           triggered: false,
-          removeEvents: false,
-          eventNr: 1,
+          removeEvents: mockTyphoonScenario.removeEvents,
           secret: mockTyphoonScenario.secret,
           date: new Date(),
         },
+        mockTyphoonScenario.eventNr,
         TyphoonScenario.EventNoTrigger,
       );
     } else if (mockTyphoonScenario.scenario === TyphoonScenario.NoEvent) {
-      const selectedCountry = countries.find((country): any => {
-        if (mockTyphoonScenario.countryCodeISO3 === country.countryCodeISO3) {
-          return country;
-        }
-      });
-      await this.mockExposure(
-        selectedCountry,
-        DisasterType.Typhoon,
-        false,
-        1,
-        new Date(),
+      await this.mockCountry(
+        {
+          countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
+          disasterType: DisasterType.Typhoon,
+          triggered: false,
+          removeEvents: mockTyphoonScenario.removeEvents,
+          secret: mockTyphoonScenario.secret,
+          date: new Date(),
+        },
+        mockTyphoonScenario.eventNr,
         TyphoonScenario.NoEvent,
       );
     } else {

@@ -58,9 +58,6 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-    this.eventState.events.sort((a, b) =>
-      a.thresholdReached < b.thresholdReached ? 1 : -1,
-    );
   };
 
   public multipleActiveEvents() {
@@ -96,7 +93,6 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   }
 
   public getColor(event: EventSummary): string {
-    console.log('event: ', event);
     return event.thresholdReached
       ? 'ibf-trigger-alert-secondary'
       : 'ibf-no-alert-secondary';

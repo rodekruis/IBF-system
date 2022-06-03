@@ -64,10 +64,6 @@ export class MockDynamic {
   @IsNotEmpty()
   public readonly removeEvents: boolean;
 
-  @ApiProperty({ example: 1 })
-  @IsOptional()
-  public readonly eventNr: number;
-
   @ApiProperty({ example: new Date() })
   @IsOptional()
   public readonly date: Date;
@@ -106,6 +102,14 @@ export class MockTyphoonScenario {
   })
   @IsEnum(TyphoonScenario)
   public readonly scenario: TyphoonScenario;
+
+  @ApiProperty({ example: 1 })
+  @IsOptional()
+  public readonly eventNr: number;
+
+  @ApiProperty({ example: true })
+  @IsNotEmpty()
+  public readonly removeEvents: boolean;
 }
 
 @Controller('scripts')
