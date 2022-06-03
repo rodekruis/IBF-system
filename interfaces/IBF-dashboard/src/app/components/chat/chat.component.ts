@@ -19,7 +19,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
-import { EventService } from 'src/app/services/event.service';
+import { EventService, EventSummary } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
@@ -28,7 +28,7 @@ import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { Indicator } from '../../types/indicator-group';
-import { LeadTimeUnit } from '../../types/lead-time';
+import { LeadTime, LeadTimeUnit } from '../../types/lead-time';
 
 @Component({
   selector: 'app-chat',
@@ -237,7 +237,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.updateFailureMessage = this.translateService.instant(
         `chat-component.${this.disasterTypeName}.active-event.update-failure`,
       );
-
       if (this.disasterType.disasterType === DisasterTypeKey.drought) {
         this.otherLeadTimes = this.timelineState.timeStepButtons
           .filter(
@@ -541,9 +540,22 @@ export class ChatComponent implements OnInit, OnDestroy {
           )
         ) {
           return droughtArea;
-          break;
         }
       }
     }
   };
+
+  public showLandfallText(event: EventSummary) {
+    return (
+      this.disasterTypeName === DisasterTypeKey.typhoon &&
+      event.firstLeadTime !== LeadTime.hour0
+    );
+  }
+
+  public showNoLandfallText(event: EventSummary) {
+    return (
+      this.disasterTypeName === DisasterTypeKey.typhoon &&
+      event.firstLeadTime == LeadTime.hour0
+    );
+  }
 }

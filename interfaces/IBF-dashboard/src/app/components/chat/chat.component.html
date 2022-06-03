@@ -46,24 +46,42 @@
     isConnected="true"
   >
     <ng-container *ngFor="let event of eventState?.events">
-      <p
-        *ngIf="event.activeTrigger && event.thresholdReached"
-        [innerHTML]="
-          'chat-component.' +
-            disasterTypeName +
-            '.active-event-active-trigger.welcome'
-            | translate
-              : {
-                  name: authService.displayName,
-                  startDate: event.startDate,
-                  leadTime: event.firstLeadTimeLabel,
-                  timeUnit: event.timeUnit,
-                  disasterTypeLabel: disasterTypeLabel,
-                  firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName: event.eventName
-                }
-        "
-      ></p>
+      <p *ngIf="event.activeTrigger && event.thresholdReached">
+        <span
+          [innerHTML]="
+            'chat-component.' +
+              disasterTypeName +
+              '.active-event-active-trigger.welcome'
+              | translate
+                : {
+                    name: authService.displayName,
+                    startDate: event.startDate,
+                    leadTime: event.firstLeadTimeLabel,
+                    timeUnit: event.timeUnit,
+                    disasterTypeLabel: disasterTypeLabel,
+                    firstLeadTimeDate: event.firstLeadTimeDate,
+                    eventName: event.eventName
+                  }
+          "
+        ></span>
+        <span
+          *ngIf="showLandfallText(event)"
+          [innerHTML]="
+            'chat-component.typhoon.active-event-active-trigger.landfall'
+              | translate
+                : {
+                    firstLeadTimeDate: event.firstLeadTimeDate
+                  }
+          "
+        ></span>
+        <span
+          *ngIf="showNoLandfallText(event)"
+          [innerHTML]="
+            'chat-component.typhoon.active-event-active-trigger.no-landfall'
+              | translate
+          "
+        ></span>
+      </p>
       <p
         *ngIf="event.activeTrigger && otherLeadTimes"
         [innerHTML]="
