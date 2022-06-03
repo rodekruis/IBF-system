@@ -167,6 +167,9 @@
       "active-event-active-trigger": {
         "welcome": "A trigger warning for typhoon <strong>{{ eventName }}</strong> was activated on <strong>{{ startDate }}</strong>. It is estimated to make landfall at <strong>{{ firstLeadTimeDate }}</strong>.<br><br>"
       },
+      "active-event-below-trigger": {
+        "welcome": "A warning for typhoon <strong>{{ eventName }}</strong> was activated on <strong>{{ startDate }}</strong>, but it is currently not predicted to reach trigger thresholds. It is estimated to make landfall at <strong>{{ firstLeadTimeDate }}</strong>.<br><br>"
+      },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> for typhoon <strong>{{ eventName }}</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
       },
@@ -174,7 +177,7 @@
         "overview": "There are {{ nrTriggeredAreas }} {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
         "instruction": "The triggered areas are highlighted in the map with a red outline. Please select the area on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
-        "exposed": "Exposed Population: <strong>{{ exposedNumber }}</strong>",
+        "exposed": "Houses affected %: <strong>{{ exposedNumber }}</strong>",
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop trigger",
         "update-success": "EAP action(s) updated in database.",
