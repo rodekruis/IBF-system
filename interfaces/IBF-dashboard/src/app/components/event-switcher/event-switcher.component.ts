@@ -18,6 +18,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   public selectedEventName: string;
   public eventState: EventState;
   public timelineState: TimelineState;
+  public c;
 
   private disasterTypeSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
@@ -55,6 +56,13 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
     this.timelineStateSubscription.unsubscribe();
   }
 
+  private onEventStateChange = (eventState: EventState) => {
+    this.eventState = eventState;
+    this.eventState.events.sort((a, b) =>
+      a.thresholdReached < b.thresholdReached ? 1 : -1,
+    );
+  };
+
   public multipleActiveEvents() {
     return (
       this.eventState?.events.filter((e: EventSummary) => e.activeTrigger)
@@ -74,6 +82,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
       this.selectedEventName = this.eventState?.events.find(
         (e) => e.firstLeadTime === timelineState.activeLeadTime,
       )?.eventName;
+      this.eventService.switchEvent(timelineState.activeLeadTime);
     }
   };
 
@@ -86,7 +95,10 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
     }
   }
 
-  private onEventStateChange = (eventState: EventState) => {
-    this.eventState = eventState;
-  };
+  public getColor(event: EventSummary): string {
+    console.log('event: ', event);
+    return event.thresholdReached
+      ? 'ibf-trigger-alert-secondary'
+      : 'ibf-no-alert-secondary';
+  }
 }

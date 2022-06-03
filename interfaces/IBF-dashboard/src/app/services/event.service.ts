@@ -87,11 +87,13 @@ export class EventService {
   public setEventInitially(event: EventSummary) {
     this.state.event = event;
     this.initialEventStateSubject.next(this.state);
+    this.setAlertState();
   }
 
   public setEventManually(event: EventSummary) {
     this.state.event = event;
     this.manualEventStateSubject.next(this.state);
+    this.setAlertState();
   }
 
   public getInitialEventStateSubscription(): Observable<EventState> {
@@ -157,13 +159,11 @@ export class EventService {
     this.state.activeTrigger =
       events[0] &&
       this.state.events.filter((e: EventSummary) => e.activeTrigger).length > 0;
-    this.state.thresholdReached =
-      events[0] &&
+    this.state.thresholdReached = events[0];
+    events[0] &&
       this.state.events.filter((e: EventSummary) => e.thresholdReached).length >
         0;
     this.setEventInitially(events[0]);
-
-    this.setAlertState();
   };
 
   private endDateToLastTriggerDate(endDate: string): string {
@@ -174,7 +174,7 @@ export class EventService {
   private setAlertState = () => {
     const dashboardElement = document.getElementById('ibf-dashboard-interface');
     if (dashboardElement) {
-      if (this.state.thresholdReached) {
+      if (this.state.event.thresholdReached) {
         dashboardElement.classList.remove('no-alert');
         dashboardElement.classList.add('trigger-alert');
       } else {
