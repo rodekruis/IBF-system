@@ -62,7 +62,10 @@ export class ScriptsService {
     }
   }
 
-  public async mockCountry(mockInput: MockDynamic) {
+  public async mockCountry(
+    mockInput: MockDynamic,
+    typhoonScenario?: TyphoonScenario,
+  ) {
     // EventNr > 1 only allowed/sensible for typhoon, otherwise replace by 1
     const eventNr =
       mockInput.disasterType === DisasterType.Typhoon ? mockInput.eventNr : 1;
@@ -97,6 +100,7 @@ export class ScriptsService {
       mockInput.triggered,
       eventNr,
       new Date(mockInput.date),
+      typhoonScenario,
     );
 
     if (mockInput.disasterType === DisasterType.Floods) {
@@ -127,11 +131,7 @@ export class ScriptsService {
     }
 
     if (mockInput.disasterType === DisasterType.Typhoon) {
-      await this.mockTyphoonTrack(
-        selectedCountry,
-        mockInput.triggered,
-        eventNr,
-      );
+      await this.mockTyphoonTrack(selectedCountry, typhoonScenario, eventNr);
     }
   }
 
@@ -149,6 +149,21 @@ export class ScriptsService {
         secret: mockTyphoonScenario.secret,
         date: new Date(),
       });
+    } else if (
+      mockTyphoonScenario.scenario === TyphoonScenario.EventNoTrigger
+    ) {
+      await this.mockCountry(
+        {
+          countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
+          disasterType: DisasterType.Typhoon,
+          triggered: false,
+          removeEvents: false,
+          eventNr: 1,
+          secret: mockTyphoonScenario.secret,
+          date: new Date(),
+        },
+        TyphoonScenario.EventNoTrigger,
+      );
     } else if (mockTyphoonScenario.scenario === TyphoonScenario.NoEvent) {
       const selectedCountry = countries.find((country): any => {
         if (mockTyphoonScenario.countryCodeISO3 === country.countryCodeISO3) {
@@ -200,6 +215,7 @@ export class ScriptsService {
           selectedCountry.countryCodeISO3,
           disasterType,
           triggered,
+          typhoonScenario,
         );
 
         // For every lead-time .. (repeat the same data for every lead-time)
@@ -280,6 +296,7 @@ export class ScriptsService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     triggered: boolean,
+    typhoonScenario?: TyphoonScenario,
   ) {
     let fileName = `upload-${unit}-${adminLevel}`;
     if (eventNr > 1) {
@@ -289,6 +306,13 @@ export class ScriptsService {
     const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
     const exposure = JSON.parse(exposureRaw);
 
+    // For typhoon event-no-trigger case, set only alert-threshold to 0
+    if (typhoonScenario === TyphoonScenario.EventNoTrigger) {
+      if (unit === DynamicIndicator.alertThreshold) {
+        exposure.forEach(area => (area.amount = 0));
+      }
+      return exposure;
+    }
     // If non-triggered, replace all values by 0
     if (!triggered && unit !== DynamicIndicator.potentialThreshold) {
       exposure.forEach(area => (area.amount = 0));
@@ -327,6 +351,8 @@ export class ScriptsService {
       return null;
     } else if (typhoonScenario === TyphoonScenario.NoEvent) {
       return null;
+      // } else if (typhoonScenario === TyphoonScenario.EventNoTrigger) {
+      //   return `Mock below-trigger-typhoon ${eventNr}`;
     } else {
       return `Mock typhoon ${eventNr}`;
     }
@@ -593,7 +619,7 @@ export class ScriptsService {
 
   private async mockTyphoonTrack(
     selectedCountry,
-    triggered: boolean,
+    typhoonScenario: TyphoonScenario,
     eventNr = 1,
   ) {
     const trackFileName = `./src/api/typhoon-track/dto/example/typhoon-track-${
@@ -623,7 +649,8 @@ export class ScriptsService {
       countryCodeISO3: selectedCountry.countryCodeISO3,
       leadTime: mockLeadTime as LeadTime,
       eventName: this.getEventName(DisasterType.Typhoon, eventNr),
-      trackpointDetails: triggered ? track : [],
+      trackpointDetails:
+        typhoonScenario === TyphoonScenario.NoEvent ? [] : track,
     });
   }
 
