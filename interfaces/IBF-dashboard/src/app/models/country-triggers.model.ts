@@ -9,4 +9,5 @@ export class CountryTriggers {
   7: string;
   countryCodeISO3: string;
   date: string;
+  eventName: string;
 }

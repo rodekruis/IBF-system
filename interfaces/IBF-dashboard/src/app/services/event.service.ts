@@ -16,6 +16,7 @@ export class EventSummary {
   countryCodeISO3: string;
   startDate: string;
   endDate: string;
+  thresholdReached: boolean;
   activeTrigger: boolean;
   eventName: string;
   firstLeadTime?: string;
@@ -35,6 +36,7 @@ export class EventService {
     events: null,
     event: null,
     activeEvent: null,
+    thresholdReached: null,
     activeTrigger: null,
   };
 
@@ -131,7 +133,8 @@ export class EventService {
     events,
   ) => {
     disasterType.activeTrigger =
-      events.filter((e: EventSummary) => e.activeTrigger).length > 0 || false;
+      events.filter((e: EventSummary) => e.activeTrigger && e.thresholdReached)
+        .length > 0 || false;
     callback(disasterType);
   };
 
@@ -154,6 +157,10 @@ export class EventService {
     this.state.activeTrigger =
       events[0] &&
       this.state.events.filter((e: EventSummary) => e.activeTrigger).length > 0;
+    this.state.thresholdReached =
+      events[0] &&
+      this.state.events.filter((e: EventSummary) => e.thresholdReached).length >
+        0;
     this.setEventInitially(events[0]);
 
     this.setAlertState();
@@ -167,7 +174,7 @@ export class EventService {
   private setAlertState = () => {
     const dashboardElement = document.getElementById('ibf-dashboard-interface');
     if (dashboardElement) {
-      if (this.state.activeTrigger) {
+      if (this.state.thresholdReached) {
         dashboardElement.classList.remove('no-alert');
         dashboardElement.classList.add('trigger-alert');
       } else {
@@ -195,6 +202,7 @@ export class EventService {
     let firstKey = null;
     if (timesteps) {
       Object.keys(timesteps)
+        .filter((key) => Object.values(LeadTime).includes(key as LeadTime))
         .sort((a, b) =>
           Number(LeadTimeTriggerKey[a]) > Number(LeadTimeTriggerKey[b])
             ? 1

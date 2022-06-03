@@ -5,4 +5,5 @@ export class EventState {
   event: EventSummary;
   activeEvent: EventSummary;
   activeTrigger: any;
+  thresholdReached: boolean;
 }

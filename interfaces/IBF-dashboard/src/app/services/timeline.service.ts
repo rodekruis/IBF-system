@@ -94,7 +94,8 @@ export class TimelineService {
       alert:
         this.triggersAllEvents &&
         this.triggersAllEvents[leadTime] &&
-        this.triggersAllEvents[leadTime] === '1',
+        this.triggersAllEvents[leadTime] === '1' &&
+        this.triggersAllEvents[`${leadTime}-thresholdReached`] === '1',
       disabled: !isLeadTimeEnabled,
       active: false,
     };
