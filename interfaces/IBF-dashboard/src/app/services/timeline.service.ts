@@ -320,8 +320,8 @@ export class TimelineService {
     disasterType: DisasterType,
     leadTime: LeadTime,
   ): boolean {
-    const leadTimeMonth = this.getLeadTimeMonth(leadTime);
     if (disasterType.disasterType === DisasterTypeKey.drought) {
+      const leadTimeMonth = this.getLeadTimeMonth(leadTime);
       if (this.checkRegionalDroughtSeason()) {
         // If regional drought seasons (and thus potentially multiple triggers) ..
         const triggeredLeadTimes = Object.keys(this.triggersAllEvents).filter(

@@ -85,6 +85,7 @@ export enum TyphoonScenario {
   EventNoLandfall = 'eventNoLandfall',
   EventNoTrigger = 'eventNoTrigger',
   EventTrigger = 'eventTrigger',
+  EventAfterLandfall = 'eventAfterLandfall',
 }
 
 export class MockTyphoonScenario {
@@ -98,7 +99,7 @@ export class MockTyphoonScenario {
   public readonly countryCodeISO3: string;
 
   @ApiProperty({
-    example: `${TyphoonScenario.EventTrigger} | ${TyphoonScenario.EventNoTrigger} | ${TyphoonScenario.NoEvent}`,
+    example: `${TyphoonScenario.EventTrigger} | ${TyphoonScenario.EventNoTrigger} | ${TyphoonScenario.NoEvent}  | ${TyphoonScenario.EventAfterLandfall}`,
   })
   @IsEnum(TyphoonScenario)
   public readonly scenario: TyphoonScenario;
