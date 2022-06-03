@@ -128,6 +128,8 @@ export class AdminAreaDynamicDataService {
   ): Promise<void> {
     const trigger = this.isThereTrigger(uploadExposure.exposurePlaceCodes);
 
+    const eventBelowTrigger = !trigger && !!uploadExposure.eventName;
+
     const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
     uploadTriggerPerLeadTimeDto.countryCodeISO3 =
       uploadExposure.countryCodeISO3;
@@ -136,7 +138,8 @@ export class AdminAreaDynamicDataService {
     uploadTriggerPerLeadTimeDto.triggersPerLeadTime = [
       {
         leadTime: uploadExposure.leadTime as LeadTime,
-        triggered: trigger,
+        triggered: trigger || eventBelowTrigger,
+        thresholdReached: trigger && !eventBelowTrigger,
       },
     ];
     await this.eventService.uploadTriggerPerLeadTime(

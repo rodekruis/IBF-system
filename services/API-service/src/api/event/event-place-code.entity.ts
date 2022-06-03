@@ -34,6 +34,9 @@ export class EventPlaceCodeEntity {
   @Column({ nullable: true })
   public eventName: string;
 
+  @Column({ default: true })
+  public thresholdReached: boolean;
+
   @Column({ type: 'timestamp' })
   public startDate: Date;
 

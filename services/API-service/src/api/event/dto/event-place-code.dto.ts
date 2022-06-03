@@ -1,6 +1,14 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { DisasterType } from '../../disaster/disaster-type.enum';
+import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
+
+export class AffectedAreaDto {
+  public placeCode: string;
+  public actionsValue: number;
+  public triggerValue: number;
+  public leadTime: LeadTime;
+}
 
 export class EventPlaceCodeDto {
   @ApiProperty()

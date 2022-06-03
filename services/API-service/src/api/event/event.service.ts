@@ -5,6 +5,7 @@ import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
   ActivationLogDto,
+  AffectedAreaDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
 import {
@@ -70,6 +71,7 @@ export class EventService {
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."activeTrigger"::int)::boolean AS "activeTrigger"',
+        'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
       ])
       .where('closed = :closed', {
         closed: false,
@@ -159,6 +161,8 @@ export class EventService {
         uploadTriggerPerLeadTimeDto.countryCodeISO3;
       triggerPerLeadTime.leadTime = leadTime.leadTime as LeadTime;
       triggerPerLeadTime.triggered = leadTime.triggered;
+      triggerPerLeadTime.thresholdReached =
+        leadTime.triggered && leadTime.thresholdReached;
       triggerPerLeadTime.disasterType =
         uploadTriggerPerLeadTimeDto.disasterType;
       triggerPerLeadTime.eventName = uploadTriggerPerLeadTimeDto.eventName;
@@ -329,6 +333,7 @@ export class EventService {
       ])
       .leftJoin('event.adminArea', 'area')
       .leftJoin('event.disasterType', 'disaster')
+      .where({ thresholdReached: true })
       .orderBy('area."countryCodeISO3"', 'ASC')
       .addOrderBy('event."disasterType"', 'ASC')
       .addOrderBy('area."placeCode"', 'ASC');
@@ -338,7 +343,7 @@ export class EventService {
       result = await baseQuery.getRawMany();
     } else {
       result = await baseQuery
-        .where('event."disasterType" = :disasterType', {
+        .andWhere('event."disasterType" = :disasterType', {
           disasterType: disasterType,
         })
         .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
@@ -390,6 +395,12 @@ export class EventService {
       );
       if (leadTimeIsTriggered) {
         result[leadTimeUnit] = String(Number(leadTimeIsTriggered.triggered));
+        // if event-name (= if typhoon), then also add if the threshold is reached
+        if (triggersPerLeadTime[0].eventName) {
+          result[`${leadTimeUnit}-thresholdReached`] = String(
+            Number(leadTimeIsTriggered.thresholdReached),
+          );
+        }
       }
     }
     return result;
@@ -487,7 +498,7 @@ export class EventService {
     disasterType: DisasterType,
     adminLevel: number,
     eventName: string,
-  ): Promise<any[]> {
+  ): Promise<AffectedAreaDto[]> {
     const triggerUnit = await this.getTriggerUnit(disasterType);
 
     const lastTriggeredDate = await this.getRecentDate(
@@ -497,7 +508,6 @@ export class EventService {
 
     const whereFilters = {
       indicator: triggerUnit,
-      value: MoreThan(0),
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
         this.helperService.getLast12hourInterval(
@@ -514,7 +524,9 @@ export class EventService {
     const triggeredPlaceCodes = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
+      .addSelect('MAX(area.value) AS "triggerValue"')
       .where(whereFilters)
+      .andWhere('(area.value > 0 OR area."eventName" is not null)') // Also allow value=0 entries that have an event-name (= typhoon below trigger)
       .groupBy('area."placeCode"')
       .getRawMany();
 
@@ -529,7 +541,6 @@ export class EventService {
     const whereOptions = {
       placeCode: In(triggerPlaceCodesArray),
       indicator: actionUnit,
-      value: MoreThan(0),
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
         this.helperService.getLast12hourInterval(
@@ -545,14 +556,23 @@ export class EventService {
       whereFilters['eventName'] = eventName;
     }
 
-    const q = this.adminAreaDynamicDataRepo
+    const affectedAreas: AffectedAreaDto[] = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
       .addSelect('MAX(area.value) AS "actionsValue"')
       .addSelect('MAX(area."leadTime") AS "leadTime"')
       .where(whereOptions)
-      .groupBy('area."placeCode"');
-    return await q.getRawMany();
+      .andWhere('(area.value > 0 OR area."eventName" is not null)') // Also allow value=0 entries that have an event-name (= typhoon below trigger)
+      .groupBy('area."placeCode"')
+      .getRawMany();
+
+    for (const area of affectedAreas) {
+      area.triggerValue = triggeredPlaceCodes.find(
+        p => p.placeCode === area.placeCode,
+      ).triggerValue;
+    }
+
+    return affectedAreas;
   }
 
   private async updateExistingEventAreas(
@@ -580,7 +600,7 @@ export class EventService {
       },
       relations: ['adminArea'],
     });
-    let affectedArea;
+    let affectedArea: AffectedAreaDto;
     unclosedEventAreas.forEach(unclosedEventArea => {
       if (
         affectedAreasPlaceCodes.includes(unclosedEventArea.adminArea.placeCode)
@@ -589,6 +609,7 @@ export class EventService {
           area => area.placeCode === unclosedEventArea.adminArea.placeCode,
         );
         unclosedEventArea.activeTrigger = true;
+        unclosedEventArea.thresholdReached = affectedArea.triggerValue > 0;
         unclosedEventArea.actionsValue = affectedArea.actionsValue;
         unclosedEventArea.endDate = this.getEndDate(affectedArea.leadTime);
       }
@@ -631,6 +652,7 @@ export class EventService {
         const eventArea = new EventPlaceCodeEntity();
         eventArea.adminArea = adminArea;
         eventArea.eventName = eventName;
+        eventArea.thresholdReached = area.triggerValue > 0;
         eventArea.actionsValue = +area.actionsValue;
         eventArea.startDate = new Date();
         eventArea.endDate = this.getEndDate(area.leadTime);
