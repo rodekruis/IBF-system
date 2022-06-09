@@ -151,123 +151,172 @@ export class EapActionsService {
       return;
     }
 
+    const region = this.getRegion(triggeredArea);
+
+    const periods = this.getActionPeriods(region);
+
+    const currentPeriod = periods.find((p) =>
+      p.includes(this.getCurrentMonth()),
+    );
+
+    currentPeriod.unshift(
+      ...this.currentPeriodOverlapAddition(region, currentPeriod[0]),
+    );
+
+    const actionMonthInCurrentPeriod = (action: EapAction) =>
+      currentPeriod.includes(action.month[region]);
+    const actionMonthBeforeCurrentMonth = (action: EapAction) =>
+      currentPeriod.indexOf(action.month[region]) <=
+      currentPeriod.indexOf(this.getCurrentMonth());
+
+    triggeredArea.eapActions = triggeredArea.eapActions
+      .filter(
+        (action: EapAction) =>
+          actionMonthInCurrentPeriod(action) &&
+          actionMonthBeforeCurrentMonth(action),
+      )
+      .filter((action: EapAction) =>
+        this.actionOverlapFilter(region, action.month[region], action.action),
+      )
+      .sort(
+        (a, b) =>
+          a.month[region] &&
+          this.getShiftedYear(region).indexOf(a.month[region]) -
+            this.getShiftedYear(region).indexOf(b.month[region]),
+      );
+  };
+
+  private getRegion(triggeredArea): string {
     const nationwideKey = 'National';
 
-    let region: string;
     if (!this.disasterTypeSettings.droughtAreas) {
-      region = nationwideKey;
-    } else {
-      for (const droughtArea of Object.keys(
-        this.disasterTypeSettings.droughtAreas,
-      )) {
-        if (
-          this.disasterTypeSettings.droughtAreas[droughtArea].includes(
-            triggeredArea.placeCode,
-          )
-        ) {
-          region = droughtArea;
-          break;
-        }
-      }
+      return nationwideKey;
     }
 
-    const seasonEnds = this.disasterTypeSettings.droughtForecastMonths[region]
+    const droughtAreas = Object.keys(this.disasterTypeSettings.droughtAreas);
+    const isTriggeredAreaInDroughtArea = (droughtArea): boolean =>
+      this.disasterTypeSettings.droughtAreas[droughtArea].includes(
+        triggeredArea.placeCode,
+      );
+    for (const droughtArea of droughtAreas) {
+      if (isTriggeredAreaInDroughtArea(droughtArea)) {
+        return droughtArea;
+      }
+    }
+  }
+
+  private getSeasonEnds(region): number[] {
+    return this.disasterTypeSettings.droughtForecastMonths[region]
       .map((season) => season[season.length - 1])
       .sort((a, b) => b - a);
+  }
 
-    const periods = [];
-    const shiftedYear = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((m) => {
-      const newMonthValue = (m + seasonEnds[0]) % 12;
+  private getShiftedYear(region): number[] {
+    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((m) => {
+      const newMonthValue = (m + this.getSeasonEnds(region)[0]) % 12;
       return newMonthValue > 0 ? newMonthValue : 12;
     });
+  }
+
+  private getActionPeriods(region): number[][] {
+    const periods = [];
     let period = [];
-    shiftedYear.forEach((m) => {
-      period.push(m);
-      if (seasonEnds.includes(m)) {
+    for (const month of this.getShiftedYear(region)) {
+      period.push(month);
+      if (this.getSeasonEnds(region).includes(month)) {
         periods.push(period);
         period = [];
       }
-    });
+    }
 
-    const currentMonth = this.timelineState.today.month;
-    const currentPeriod = periods.find((p) => p.includes(currentMonth));
+    return periods;
+  }
 
-    triggeredArea.eapActions = triggeredArea.eapActions
-      .filter((action: EapAction) =>
-        this.showMonthlyAction(action, currentMonth, currentPeriod, region),
-      )
-      .sort((a, b) =>
-        a.month[region] &&
-        this.shiftYear(a.month[region], region) >
-          this.shiftYear(b.month[region], region)
-          ? 1
-          : -1,
-      );
-  };
-  private showMonthlyAction(action, currentMonth, currentPeriod, region) {
-    const month = action.month[region];
-
-    // TODO find a way to avoid using this hardcoded filter to manage the "Belg" May overlap
-    const belgMayFirstSeasonActions = ['eth-1-c9'];
-    const belgMaySecondSeasonActions = [
-      'eth-2-a2',
-      'eth-2-a3',
-      'eth-2-a6',
-      'eth-2-a9',
-      'eth-2-a11',
-      'eth-2-b2',
-      'eth-2-b3',
-      'eth-2-b5',
-      'eth-2-b9',
-      'eth-2-b10',
-      'eth-2-b11',
-      'eth-2-c2',
-      'eth-2-c10',
-      'eth-2-c11',
-      'eth-2-c12',
-    ];
-
-    if (region === 'Belg') {
-      if (currentMonth === 5) {
-        if (this.timelineState.activeLeadTime === '0-month') {
-          if (belgMaySecondSeasonActions.includes(action.action)) {
-            return false;
-          }
-        } else {
-          if (belgMayFirstSeasonActions.includes(action.action)) {
-            return false;
-          }
-          if (belgMaySecondSeasonActions.includes(action.action)) {
-            return true;
-          }
-        }
+  private currentPeriodOverlapAddition(
+    region: string,
+    periodStart: number,
+  ): number[] {
+    if (this.disasterType.disasterType === 'drought') {
+      if (
+        this.country.countryCodeISO3 === 'ETH' &&
+        region === 'Belg' &&
+        periodStart === 6
+      ) {
+        return [5];
       }
-      if (currentMonth > 5) {
-        if (belgMayFirstSeasonActions.includes(action.action)) {
-          return false;
-        }
-        if (belgMaySecondSeasonActions.includes(action.action)) {
-          return true;
-        }
+
+      if (this.country.countryCodeISO3 === 'KEN' && periodStart === 1) {
+        return [12];
       }
     }
 
-    const monthBeforeCurrentMonth =
-      this.shiftYear(month, region) <= this.shiftYear(currentMonth, region);
-
-    const show = currentPeriod.includes(month) && monthBeforeCurrentMonth;
-
-    return show;
+    return [];
   }
 
-  // This makes the year "start" at the moment of one of the "droughtForecastMonths" instead of in January ..
-  // .. thereby making sure that the order is correct: 'december' comes before 'january', etc.
-  private shiftYear = (monthNumber: number, region: string) => {
-    const seasonBeginnings = this.disasterTypeSettings.droughtForecastMonths[
-      region
-    ].map((season) => season[0]);
-    return (monthNumber + 12 - seasonBeginnings[0]) % 12;
-  };
+  private actionOverlapFilter(
+    region: string,
+    actionMonth: number,
+    actionId: string,
+  ): boolean {
+    if (this.disasterType.disasterType !== 'drought') {
+      return true;
+    }
+
+    const country = this.country.countryCodeISO3;
+
+    if (!['ETH', 'KEN'].includes(country)) {
+      return true;
+    }
+
+    if (country === 'ETH') {
+      if (region !== 'Belg' || ![5, 6].includes(this.getCurrentMonth())) {
+        return true;
+      }
+
+      if (actionMonth != 5) {
+        return true;
+      }
+
+      const actions = {
+        5: ['eth-1-c9'],
+        6: [
+          'eth-2-a2',
+          'eth-2-a3',
+          'eth-2-a6',
+          'eth-2-a9',
+          'eth-2-a11',
+          'eth-2-b2',
+          'eth-2-b3',
+          'eth-2-b5',
+          'eth-2-b9',
+          'eth-2-b10',
+          'eth-2-b11',
+          'eth-2-c2',
+          'eth-2-c10',
+          'eth-2-c11',
+          'eth-2-c12',
+        ],
+      };
+      return actions[this.getCurrentMonth()].includes(actionId);
+    }
+
+    if (country === 'KEN') {
+      if (![12, 1].includes(this.getCurrentMonth())) {
+        return true;
+      }
+
+      if (actionMonth != 12) {
+        return true;
+      }
+
+      const actions = {
+        12: [],
+        1: ['livelihood-5', 'wash-7', 'wash-8'],
+      };
+
+      return actions[this.getCurrentMonth()].includes(actionId);
+    }
+  }
 
   checkEapAction(
     action: string,
@@ -283,5 +332,11 @@ export class EapActionsService {
       placeCode,
       eventName,
     );
+  }
+
+  private getCurrentMonth(): number {
+    // SIMULATE: uncomment the line below and change the number to simulate different months
+    // return 9;
+    return this.timelineState.today.month;
   }
 }
