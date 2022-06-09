@@ -68,7 +68,7 @@ export class AdminAreaDynamicDataService {
       disasterType.triggerUnit === uploadExposure.dynamicIndicator &&
       country.countryDisasterSettings.find(
         s => s.disasterType === uploadExposure.disasterType,
-      ).defaultAdminLevel === uploadExposure.adminLevel
+      )?.defaultAdminLevel === uploadExposure.adminLevel
     ) {
       await this.insertTrigger(uploadExposure);
 

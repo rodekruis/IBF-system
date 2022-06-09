@@ -178,8 +178,8 @@ export class EventService {
     );
     const leadTime = country.countryDisasterSettings.find(
       s => s.disasterType === uploadTriggerPerLeadTimeDto.disasterType,
-    ).activeLeadTimes[0].leadTimeName;
-    if (leadTime.includes(LeadTimeUnit.month)) {
+    )?.activeLeadTimes[0].leadTimeName;
+    if (leadTime?.includes(LeadTimeUnit.month)) {
       const date = new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       await this.triggerPerLeadTimeRepository.delete({
@@ -189,7 +189,7 @@ export class EventService {
         eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
         date: MoreThanOrEqual(firstDayOfMonth),
       });
-    } else if (leadTime.includes(LeadTimeUnit.hour)) {
+    } else if (leadTime?.includes(LeadTimeUnit.hour)) {
       // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
       await this.triggerPerLeadTimeRepository.delete({
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
