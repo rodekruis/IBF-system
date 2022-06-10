@@ -279,7 +279,7 @@ export class EapActionsService {
         return true;
       }
 
-      if (actionMonth != 5) {
+      if (actionMonth !== 5) {
         return true;
       }
 
@@ -311,7 +311,7 @@ export class EapActionsService {
         return true;
       }
 
-      if (actionMonth != 12) {
+      if (actionMonth !== 12) {
         return true;
       }
 
