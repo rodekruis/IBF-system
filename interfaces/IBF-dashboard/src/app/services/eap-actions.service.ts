@@ -11,6 +11,7 @@ import {
 import { AdminLevel } from '../types/admin-level';
 import { EapAction } from '../types/eap-action';
 import { EventState } from '../types/event-state';
+import { LeadTime } from '../types/lead-time';
 import { TimelineState } from '../types/timeline-state';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
@@ -283,27 +284,36 @@ export class EapActionsService {
         return true;
       }
 
-      const actions = {
-        5: ['eth-1-c9'],
-        6: [
-          'eth-2-a2',
-          'eth-2-a3',
-          'eth-2-a6',
-          'eth-2-a9',
-          'eth-2-a11',
-          'eth-2-b2',
-          'eth-2-b3',
-          'eth-2-b5',
-          'eth-2-b9',
-          'eth-2-b10',
-          'eth-2-b11',
-          'eth-2-c2',
-          'eth-2-c10',
-          'eth-2-c11',
-          'eth-2-c12',
-        ],
+      const firstSeasonMayActions = ['eth-1-c9'];
+      const secondSeasonMayActions = [
+        'eth-2-a2',
+        'eth-2-a3',
+        'eth-2-a6',
+        'eth-2-a9',
+        'eth-2-a11',
+        'eth-2-b2',
+        'eth-2-b3',
+        'eth-2-b5',
+        'eth-2-b9',
+        'eth-2-b10',
+        'eth-2-b11',
+        'eth-2-c2',
+        'eth-2-c10',
+        'eth-2-c11',
+        'eth-2-c12',
+      ];
+      const mayActionsToShow = {
+        5: {
+          [LeadTime.month0]: firstSeasonMayActions,
+          [LeadTime.month1]: secondSeasonMayActions,
+        },
+        6: {
+          [LeadTime.month0]: secondSeasonMayActions,
+        },
       };
-      return actions[this.getCurrentMonth()].includes(actionId);
+      return mayActionsToShow[this.getCurrentMonth()][
+        this.getActiveLeadtime()
+      ].includes(actionId);
     }
 
     if (country === 'KEN') {
@@ -315,12 +325,22 @@ export class EapActionsService {
         return true;
       }
 
-      const actions = {
-        12: [],
-        1: ['livelihood-5', 'wash-7', 'wash-8'],
+      const firstSeasonDecemberActions = [];
+      const secondSeasonDecemberActions = ['livelihood-5', 'wash-7', 'wash-8'];
+
+      const decemberActionsToShow = {
+        12: {
+          [LeadTime.month0]: firstSeasonDecemberActions,
+          [LeadTime.month1]: secondSeasonDecemberActions,
+        },
+        1: {
+          [LeadTime.month0]: secondSeasonDecemberActions,
+        },
       };
 
-      return actions[this.getCurrentMonth()].includes(actionId);
+      return decemberActionsToShow[this.getCurrentMonth()][
+        this.getActiveLeadtime()
+      ].includes(actionId);
     }
   }
 
@@ -344,5 +364,13 @@ export class EapActionsService {
     // SIMULATE: uncomment the line below and change the number to simulate different months
     // return 9;
     return this.timelineState.today.month;
+  }
+
+  private getActiveLeadtime(): LeadTime {
+    console.log(
+      '=== this.timelineState.activeLeadTime: ',
+      this.timelineState.activeLeadTime,
+    );
+    return this.timelineState.activeLeadTime;
   }
 }
