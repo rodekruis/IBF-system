@@ -42,4 +42,7 @@ export class TriggerPerLeadTime {
 
   @Column({ default: false })
   public triggered: boolean;
+
+  @Column({ default: true })
+  public thresholdReached: boolean;
 }

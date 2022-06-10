@@ -1,25 +1,13 @@
 <div *ngIf="multipleActiveEvents()" class="containerDiv">
   <div *ngFor="let event of eventState?.events">
-    <div *ngIf="event.eventName === selectedEventName">
+    <div>
       <ion-button
-        shape="block"
-        class="ibf"
-        class="button-label"
-        slot="start"
-        color="ibf-secondary"
-        size="small"
-        (click)="switchEvent(event)"
-      >
-        {{ event.eventName }}
-      </ion-button>
-    </div>
-
-    <div *ngIf="event.eventName !== selectedEventName">
-      <ion-button
-        class="ibf"
+        class="ibf event-switch-button"
+        [class.triggered]="event.thresholdReached"
+        [class.selected]="event.eventName === selectedEventName"
         shape="block"
         slot="start"
-        color="ibf-white"
+        [color]="getColor(event)"
         size="small"
         (click)="switchEvent(event)"
       >

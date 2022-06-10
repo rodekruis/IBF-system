@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 
@@ -12,4 +12,9 @@ export class TriggerPerLeadTimeDto {
   @IsNotEmpty()
   @IsBoolean()
   public triggered: boolean;
+
+  @ApiProperty({ default: false })
+  @IsOptional()
+  @IsBoolean()
+  public thresholdReached: boolean;
 }

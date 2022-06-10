@@ -26,6 +26,7 @@ import { EventState } from 'src/app/types/event-state';
 import { TimelineState } from 'src/app/types/timeline-state';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
+import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { Indicator } from '../../types/indicator-group';
 import { LeadTimeUnit } from '../../types/lead-time';
 
@@ -237,14 +238,16 @@ export class ChatComponent implements OnInit, OnDestroy {
         `chat-component.${this.disasterTypeName}.active-event.update-failure`,
       );
 
-      this.otherLeadTimes = this.timelineState.timeStepButtons
-        .filter(
-          (b) => b.alert && b.value !== this.eventState.event.firstLeadTime,
-        )
-        .map((b) =>
-          this.eventService.getFirstLeadTimeDate(b.value, LeadTimeUnit.month),
-        )
-        .join(' and ');
+      if (this.disasterType.disasterType === DisasterTypeKey.drought) {
+        this.otherLeadTimes = this.timelineState.timeStepButtons
+          .filter(
+            (b) => b.alert && b.value !== this.eventState.event.firstLeadTime,
+          )
+          .map((b) =>
+            this.eventService.getFirstLeadTimeDate(b.value, LeadTimeUnit.month),
+          )
+          .join(' and ');
+      }
 
       this.setLastModelRunDate(this.disasterType);
 

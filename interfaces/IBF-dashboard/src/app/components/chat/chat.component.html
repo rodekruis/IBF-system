@@ -47,7 +47,7 @@
   >
     <ng-container *ngFor="let event of eventState?.events">
       <p
-        *ngIf="event.activeTrigger"
+        *ngIf="event.activeTrigger && event.thresholdReached"
         [innerHTML]="
           'chat-component.' +
             disasterTypeName +
@@ -73,6 +73,22 @@
             | translate
               : {
                   otherLeadTimes: otherLeadTimes
+                }
+        "
+      ></p>
+    </ng-container>
+    <ng-container *ngFor="let event of eventState?.events">
+      <p
+        *ngIf="event.activeTrigger && !event.thresholdReached"
+        [innerHTML]="
+          'chat-component.' +
+            disasterTypeName +
+            '.active-event-below-trigger.welcome'
+            | translate
+              : {
+                  startDate: event.startDate,
+                  firstLeadTimeDate: event.firstLeadTimeDate,
+                  eventName: event.eventName
                 }
         "
       ></p>
@@ -109,7 +125,9 @@
     ></p>
   </app-dialogue-turn>
 
-  <ng-container *ngIf="eventState?.activeEvent">
+  <ng-container
+    *ngIf="eventState?.activeEvent && eventState?.event?.thresholdReached"
+  >
     <ng-container *ngIf="eventState?.activeTrigger">
       <app-dialogue-turn
         *ngIf="

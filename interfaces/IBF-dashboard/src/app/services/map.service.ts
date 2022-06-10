@@ -914,7 +914,7 @@ export class MapService {
     placeCode: string,
   ): string => {
     let adminRegionFillColor = this.state.defaultColor;
-    const currentColorGradient = this.disasterType?.activeTrigger
+    const currentColorGradient = this.eventState?.event?.thresholdReached
       ? this.state.colorGradientTriggered
       : this.state.colorGradient;
 

@@ -28,6 +28,16 @@
   display: block;
 }
 
-.button-label {
+.event-switch-button {
+  --border-width: 1px;
+  --border-style: solid;
+}
+
+.selected {
   font-weight: 700;
+  --border-width: 2px;
+}
+
+.triggered {
+  --border-color: var(--ion-color-ibf-outline-red) !important;
 }

@@ -55,17 +55,18 @@ export class ScriptsService {
           disasterType: disasterType.disasterType,
           triggered: mockAllInput.triggered,
           removeEvents: true,
-          eventNr: 1,
           date: new Date(),
         });
       }
     }
   }
 
-  public async mockCountry(mockInput: MockDynamic) {
-    // EventNr > 1 only allowed/sensible for typhoon, otherwise replace by 1
-    const eventNr =
-      mockInput.disasterType === DisasterType.Typhoon ? mockInput.eventNr : 1;
+  public async mockCountry(
+    mockInput: MockDynamic,
+    eventNr?: number,
+    typhoonScenario?: TyphoonScenario,
+  ) {
+    eventNr = eventNr || 1;
 
     if (mockInput.removeEvents) {
       const countryAdminAreaIds = await this.eventService.getCountryAdminAreaIds(
@@ -97,6 +98,7 @@ export class ScriptsService {
       mockInput.triggered,
       eventNr,
       new Date(mockInput.date),
+      typhoonScenario,
     );
 
     if (mockInput.disasterType === DisasterType.Floods) {
@@ -127,40 +129,51 @@ export class ScriptsService {
     }
 
     if (mockInput.disasterType === DisasterType.Typhoon) {
-      await this.mockTyphoonTrack(
-        selectedCountry,
-        mockInput.triggered,
-        eventNr,
-      );
+      await this.mockTyphoonTrack(selectedCountry, typhoonScenario, eventNr);
     }
   }
 
   public async mockTyphoonScenario(mockTyphoonScenario: MockTyphoonScenario) {
-    // For now ignore the 'multi-event cases' in this specific scenario endpoint > so eventNr = 1 always
-    // Always assume 'removeEvents' = false, because this endpoint is meant to simulate a real-world consecutive series of API-calls
     if (mockTyphoonScenario.scenario === TyphoonScenario.EventTrigger) {
       // Scenario 'eventTrigger' is equal to using the normal mock-endpoint for typhoon with 'triggered = true'
-      await this.mockCountry({
-        countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
-        disasterType: DisasterType.Typhoon,
-        triggered: true,
-        removeEvents: false,
-        eventNr: 1,
-        secret: mockTyphoonScenario.secret,
-        date: new Date(),
-      });
+      await this.mockCountry(
+        {
+          countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
+          disasterType: DisasterType.Typhoon,
+          triggered: true,
+          removeEvents: mockTyphoonScenario.removeEvents,
+          secret: mockTyphoonScenario.secret,
+          date: new Date(),
+        },
+        mockTyphoonScenario.eventNr,
+        TyphoonScenario.EventTrigger,
+      );
+    } else if (
+      mockTyphoonScenario.scenario === TyphoonScenario.EventNoTrigger
+    ) {
+      await this.mockCountry(
+        {
+          countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
+          disasterType: DisasterType.Typhoon,
+          triggered: false,
+          removeEvents: mockTyphoonScenario.removeEvents,
+          secret: mockTyphoonScenario.secret,
+          date: new Date(),
+        },
+        mockTyphoonScenario.eventNr,
+        TyphoonScenario.EventNoTrigger,
+      );
     } else if (mockTyphoonScenario.scenario === TyphoonScenario.NoEvent) {
-      const selectedCountry = countries.find((country): any => {
-        if (mockTyphoonScenario.countryCodeISO3 === country.countryCodeISO3) {
-          return country;
-        }
-      });
-      await this.mockExposure(
-        selectedCountry,
-        DisasterType.Typhoon,
-        false,
-        1,
-        new Date(),
+      await this.mockCountry(
+        {
+          countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
+          disasterType: DisasterType.Typhoon,
+          triggered: false,
+          removeEvents: mockTyphoonScenario.removeEvents,
+          secret: mockTyphoonScenario.secret,
+          date: new Date(),
+        },
+        mockTyphoonScenario.eventNr,
         TyphoonScenario.NoEvent,
       );
     } else {
@@ -200,6 +213,7 @@ export class ScriptsService {
           selectedCountry.countryCodeISO3,
           disasterType,
           triggered,
+          typhoonScenario,
         );
 
         // For every lead-time .. (repeat the same data for every lead-time)
@@ -280,6 +294,7 @@ export class ScriptsService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     triggered: boolean,
+    typhoonScenario?: TyphoonScenario,
   ) {
     let fileName = `upload-${unit}-${adminLevel}`;
     if (eventNr > 1) {
@@ -289,6 +304,13 @@ export class ScriptsService {
     const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
     const exposure = JSON.parse(exposureRaw);
 
+    // For typhoon event-no-trigger case, set only alert-threshold to 0
+    if (typhoonScenario === TyphoonScenario.EventNoTrigger) {
+      if (unit === DynamicIndicator.alertThreshold) {
+        exposure.forEach(area => (area.amount = 0));
+      }
+      return exposure;
+    }
     // If non-triggered, replace all values by 0
     if (!triggered && unit !== DynamicIndicator.potentialThreshold) {
       exposure.forEach(area => (area.amount = 0));
@@ -327,6 +349,8 @@ export class ScriptsService {
       return null;
     } else if (typhoonScenario === TyphoonScenario.NoEvent) {
       return null;
+      // } else if (typhoonScenario === TyphoonScenario.EventNoTrigger) {
+      //   return `Mock below-trigger-typhoon ${eventNr}`;
     } else {
       return `Mock typhoon ${eventNr}`;
     }
@@ -593,7 +617,7 @@ export class ScriptsService {
 
   private async mockTyphoonTrack(
     selectedCountry,
-    triggered: boolean,
+    typhoonScenario: TyphoonScenario,
     eventNr = 1,
   ) {
     const trackFileName = `./src/api/typhoon-track/dto/example/typhoon-track-${
@@ -623,7 +647,8 @@ export class ScriptsService {
       countryCodeISO3: selectedCountry.countryCodeISO3,
       leadTime: mockLeadTime as LeadTime,
       eventName: this.getEventName(DisasterType.Typhoon, eventNr),
-      trackpointDetails: triggered ? track : [],
+      trackpointDetails:
+        typhoonScenario === TyphoonScenario.NoEvent ? [] : track,
     });
   }
 
