@@ -118,11 +118,17 @@ export class EapActionsService {
           Object.defineProperty(action, 'monthLong', {
             value: {},
           });
+          // EXCEPTION
+          // We add 1 month to the due by date for KEN actions because it's assumed the due date is the month after the actionMonth
+          const monthAddition = this.country.countryCodeISO3 === 'KEN' ? 1 : 0;
+          const decemberValue = this.country.countryCodeISO3 === 'KEN' ? 1 : 12;
           for (const region of Object.keys(action.month)) {
             Object.defineProperty(action.monthLong, region, {
               value: DateTime.utc(
                 2022, // year does not matter, this is just about converting month-number to month-name
-                action.month[region] === 12 ? 1 : action.month[region] + 1, // Add 1 to due-by date
+                action.month[region] === 12
+                  ? decemberValue
+                  : action.month[region] + monthAddition,
                 1,
               ).monthLong,
             });
