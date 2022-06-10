@@ -1,3 +1,27 @@
+# [0.161.0](https://github.com/rodekruis/IBF-system/compare/v0.160.0...v0.161.0) (2022-06-10)
+
+
+### Bug Fixes
+
+* add KEN exception to monthLong calculation AB[#14167](https://github.com/rodekruis/IBF-system/issues/14167) ([938d61c](https://github.com/rodekruis/IBF-system/commit/938d61c2819cb7ef9b935e92cd473f0eeeb3c786))
+* add leadtime to overlap filter ([187c19f](https://github.com/rodekruis/IBF-system/commit/187c19f110b91f41d02987f55df935713d6a7559))
+* KEN season overlap AB[#13994](https://github.com/rodekruis/IBF-system/issues/13994) ([d24da61](https://github.com/rodekruis/IBF-system/commit/d24da61354d0265b2b55c6941f42b355c55f3602))
+* lint ([af370a7](https://github.com/rodekruis/IBF-system/commit/af370a7f76495e91e8e1a1463f8d2ecc507e3602))
+* may overlap bug AB[#14173](https://github.com/rodekruis/IBF-system/issues/14173) ([ae44c03](https://github.com/rodekruis/IBF-system/commit/ae44c03e64195f152cf6adcd2f6c9e295346765d))
+* pop ETH seed data AB[#14022](https://github.com/rodekruis/IBF-system/issues/14022) ([293748a](https://github.com/rodekruis/IBF-system/commit/293748a012ec2335d1a12e68768fcb47a26a62fd))
+* remove custom areas of focus AB[#13811](https://github.com/rodekruis/IBF-system/issues/13811) ([c2e5e76](https://github.com/rodekruis/IBF-system/commit/c2e5e76babbe099308c8a8ecf81fb43bbab824bc))
+* remove ken eap-actions +1 month exception AB[#14167](https://github.com/rodekruis/IBF-system/issues/14167) ([72eb6a0](https://github.com/rodekruis/IBF-system/commit/72eb6a04e14707716740636eef38abf13c907ea7))
+* revert to old monthlong calculation AB[#14167](https://github.com/rodekruis/IBF-system/issues/14167) ([9426787](https://github.com/rodekruis/IBF-system/commit/94267873141506244f601185ae965814715ebba6))
+* show 1st upcoming leadtime btn if no triggers AB[#14173](https://github.com/rodekruis/IBF-system/issues/14173) ([d7cb766](https://github.com/rodekruis/IBF-system/commit/d7cb766f0fc205515584e02de2a95491bc66246b))
+
+
+### Features
+
+* handle ETH+KEN overlap AB[#13993](https://github.com/rodekruis/IBF-system/issues/13993) AB[#13994](https://github.com/rodekruis/IBF-system/issues/13994) ([dfcecf5](https://github.com/rodekruis/IBF-system/commit/dfcecf5331d608995fbbee2a344af351c9e5264c))
+* hardcode Belg May overlap AB[#13993](https://github.com/rodekruis/IBF-system/issues/13993) ([ee89895](https://github.com/rodekruis/IBF-system/commit/ee898954d8cdcf76500e5716b8e21f98419fb66d))
+
+
+
 # [0.160.0](https://github.com/rodekruis/IBF-system/compare/v0.159.0...v0.160.0) (2022-06-10)
 
 
@@ -121,21 +145,6 @@
 * add pop data level 1 and 2 AB[#13793](https://github.com/rodekruis/IBF-system/issues/13793) ([de5761a](https://github.com/rodekruis/IBF-system/commit/de5761a600bfe0a83e988e2cbb432955a3c1a3b0))
 * make eth floods multi-admin AB[#13791](https://github.com/rodekruis/IBF-system/issues/13791) ([e231a91](https://github.com/rodekruis/IBF-system/commit/e231a9156dc62d52d098c61b7bad9b6716dcd884))
 * update redcross branch data AB[#13792](https://github.com/rodekruis/IBF-system/issues/13792) ([3e73ede](https://github.com/rodekruis/IBF-system/commit/3e73edeaff2906b2b6067ed35a9d6b0920363807))
-
-
-
-# [0.154.0](https://github.com/rodekruis/IBF-system/compare/v0.153.2...v0.154.0) (2022-05-16)
-
-
-### Bug Fixes
-
-* mention red outline in chat for all disaster-types AB[#13607](https://github.com/rodekruis/IBF-system/issues/13607) ([4a73c85](https://github.com/rodekruis/IBF-system/commit/4a73c85dbe971e85058471e4efd37ac2c61e9335))
-
-
-### Features
-
-* draw focus to selected area via outline AB[#13606](https://github.com/rodekruis/IBF-system/issues/13606) ([b254494](https://github.com/rodekruis/IBF-system/commit/b254494c0cf83212a8efafec1a0fdce454134f57))
-* update area-name in aggregate component on hover in map AB[#13609](https://github.com/rodekruis/IBF-system/issues/13609) ([4b239cb](https://github.com/rodekruis/IBF-system/commit/4b239cb3c7e2029fd16e169db2ef75f441f7fa64))
 
 
 
