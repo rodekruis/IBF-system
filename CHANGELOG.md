@@ -1,3 +1,21 @@
+# [0.160.0](https://github.com/rodekruis/IBF-system/compare/v0.159.0...v0.160.0) (2022-06-10)
+
+
+### Bug Fixes
+
+* improve typhoon mock endpoint AB[#13997](https://github.com/rodekruis/IBF-system/issues/13997) ([1e65f93](https://github.com/rodekruis/IBF-system/commit/1e65f9304680619080b461e87d4d2cc9e3990d08))
+
+
+### Features
+
+* adapt chat section to below-threshold event AB[#13998](https://github.com/rodekruis/IBF-system/issues/13998) ([4d2f470](https://github.com/rodekruis/IBF-system/commit/4d2f4703db02b0c96f081d82629e2e469d6e288d))
+* add below-threshold event to event-table with distinguishing boolean AB[#13995](https://github.com/rodekruis/IBF-system/issues/13995) ([c3195da](https://github.com/rodekruis/IBF-system/commit/c3195daedb1404401b9ad5af433233644070d30e))
+* add event-no-trigger to mock AB[#13997](https://github.com/rodekruis/IBF-system/issues/13997) ([114e116](https://github.com/rodekruis/IBF-system/commit/114e116e535ffd00848cf327db6365ddbe53dbc9))
+* handle multi-event case AB[#13999](https://github.com/rodekruis/IBF-system/issues/13999) ([d1a2d8a](https://github.com/rodekruis/IBF-system/commit/d1a2d8a828cbc309efb081e72ba655e96bda5b34))
+* process below vs above threshold event everywhere AB[#13996](https://github.com/rodekruis/IBF-system/issues/13996) ([1d5793b](https://github.com/rodekruis/IBF-system/commit/1d5793b0c54f29b4c18ee2eb262926e4846784c0))
+
+
+
 # [0.159.0](https://github.com/rodekruis/IBF-system/compare/v0.158.3...v0.159.0) (2022-05-30)
 
 
@@ -118,16 +136,6 @@
 
 * draw focus to selected area via outline AB[#13606](https://github.com/rodekruis/IBF-system/issues/13606) ([b254494](https://github.com/rodekruis/IBF-system/commit/b254494c0cf83212a8efafec1a0fdce454134f57))
 * update area-name in aggregate component on hover in map AB[#13609](https://github.com/rodekruis/IBF-system/issues/13609) ([4b239cb](https://github.com/rodekruis/IBF-system/commit/4b239cb3c7e2029fd16e169db2ef75f441f7fa64))
-
-
-
-## [0.153.2](https://github.com/rodekruis/IBF-system/compare/v0.153.1...v0.153.2) (2022-05-02)
-
-
-### Bug Fixes
-
-* process pdf URL env AB[#13612](https://github.com/rodekruis/IBF-system/issues/13612) ([5e9a786](https://github.com/rodekruis/IBF-system/commit/5e9a786a0941b565b737825c46981bf881f80830))
-* typos AB[#13595](https://github.com/rodekruis/IBF-system/issues/13595) ([6a1a89c](https://github.com/rodekruis/IBF-system/commit/6a1a89c4a6e3c3ccb09edff6ac484f2d066887c4))
 
 
 
