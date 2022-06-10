@@ -153,17 +153,22 @@ export class EapActionsService {
     }
 
     const region = this.getRegion(triggeredArea);
-
     const periods = this.getActionPeriods(region);
 
+    let monthOfSelectedLeadTime =
+      this.getCurrentMonth() + Number(this.getActiveLeadtime().split('-')[0]);
+    monthOfSelectedLeadTime =
+      monthOfSelectedLeadTime > 12
+        ? monthOfSelectedLeadTime - 12
+        : monthOfSelectedLeadTime;
+
     const currentPeriod = periods.find((p) =>
-      p.includes(this.getCurrentMonth()),
+      p.includes(monthOfSelectedLeadTime),
     );
 
     currentPeriod.unshift(
       ...this.currentPeriodOverlapAddition(region, currentPeriod[0]),
     );
-
     const actionMonthInCurrentPeriod = (action: EapAction) =>
       currentPeriod.includes(action.month[region]);
     const actionMonthBeforeCurrentMonth = (action: EapAction) =>
@@ -237,18 +242,16 @@ export class EapActionsService {
     region: string,
     periodStart: number,
   ): number[] {
-    if (this.disasterType.disasterType === 'drought') {
-      if (
-        this.country.countryCodeISO3 === 'ETH' &&
-        region === 'Belg' &&
-        periodStart === 6
-      ) {
-        return [5];
-      }
+    if (
+      this.country.countryCodeISO3 === 'ETH' &&
+      region === 'Belg' &&
+      periodStart === 6
+    ) {
+      return [5];
+    }
 
-      if (this.country.countryCodeISO3 === 'KEN' && periodStart === 1) {
-        return [12];
-      }
+    if (this.country.countryCodeISO3 === 'KEN' && periodStart === 1) {
+      return [12];
     }
 
     return [];
@@ -259,12 +262,7 @@ export class EapActionsService {
     actionMonth: number,
     actionId: string,
   ): boolean {
-    if (this.disasterType.disasterType !== 'drought') {
-      return true;
-    }
-
     const country = this.country.countryCodeISO3;
-
     if (!['ETH', 'KEN'].includes(country)) {
       return true;
     }
@@ -368,10 +366,6 @@ export class EapActionsService {
   }
 
   private getActiveLeadtime(): LeadTime {
-    console.log(
-      '=== this.timelineState.activeLeadTime: ',
-      this.timelineState.activeLeadTime,
-    );
     return this.timelineState.activeLeadTime;
   }
 }
