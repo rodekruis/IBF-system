@@ -331,6 +331,11 @@ export class TimelineService {
         if (triggeredLeadTimes.length) {
           return triggeredLeadTimes.includes(leadTime);
         }
+        // .. otherwise determine first available leadtime month
+        const nextForecastMonth = this.getNextForecastMonth(
+          this.checkStickyDroughtSeason(),
+        );
+        return nextForecastMonth.equals(leadTimeMonth);
       } else {
         // .. otherwise determine first available leadtime month
         const nextForecastMonth = this.getNextForecastMonth(
