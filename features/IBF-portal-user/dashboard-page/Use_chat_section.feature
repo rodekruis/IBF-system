@@ -125,12 +125,13 @@ Scenario: View chat-section after area-selection in map
 
 Scenario: View chat-section after area-selection in map with monthly actions
     Given the area is not "stopped"
-    Given EAP-actions are monthly ('showMonthlyEapActions = true') - currently only Kenya Drought
+    Given EAP-actions are monthly ('showMonthlyEapActions = true') - currently only Kenya and Ethiopia Drought
     When the user selects a triggered area from map (see 'Use_map_section.feature')
     Then everything happens as above
     And additionally above the EAP-action a sentence appears on which sources lead to the actions
     And it mentions how many actions there are
     And only the action up until the current month are shown
+    And if there is an overlap of seasons, actions not relevant to the selected season are not shown
     And behind the action in brackets and bold the month to complete the action is shown
 
 Scenario: View chat-section after area-selection in map of "stopped" area
