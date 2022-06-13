@@ -1,3 +1,12 @@
+## [0.161.1](https://github.com/rodekruis/IBF-system/compare/v0.161.0...v0.161.1) (2022-06-13)
+
+
+### Bug Fixes
+
+* conflicts typhoon*drought AB[#14188](https://github.com/rodekruis/IBF-system/issues/14188) ([caa7c49](https://github.com/rodekruis/IBF-system/commit/caa7c49c397b982b0b3deaf5c70e4ef296d1f051))
+
+
+
 # [0.161.0](https://github.com/rodekruis/IBF-system/compare/v0.160.0...v0.161.0) (2022-06-10)
 
 
@@ -134,17 +143,6 @@
 * basic mock data ETH drought AB[#13796](https://github.com/rodekruis/IBF-system/issues/13796) ([05aba14](https://github.com/rodekruis/IBF-system/commit/05aba14e8c680a5b500b7593274147772330a059))
 * set up basic ETH drought dashboard AB[#13795](https://github.com/rodekruis/IBF-system/issues/13795) ([c03b915](https://github.com/rodekruis/IBF-system/commit/c03b9155824fa38e12980c1226130017ec3ffc5e))
 * set up dynamic layers + mock data AB[#13798](https://github.com/rodekruis/IBF-system/issues/13798) ([637fc6f](https://github.com/rodekruis/IBF-system/commit/637fc6f5ecbb356b7499c8b6915d73e31cb1fdfb))
-
-
-
-# [0.155.0](https://github.com/rodekruis/IBF-system/compare/v0.154.0...v0.155.0) (2022-05-16)
-
-
-### Features
-
-* add pop data level 1 and 2 AB[#13793](https://github.com/rodekruis/IBF-system/issues/13793) ([de5761a](https://github.com/rodekruis/IBF-system/commit/de5761a600bfe0a83e988e2cbb432955a3c1a3b0))
-* make eth floods multi-admin AB[#13791](https://github.com/rodekruis/IBF-system/issues/13791) ([e231a91](https://github.com/rodekruis/IBF-system/commit/e231a9156dc62d52d098c61b7bad9b6716dcd884))
-* update redcross branch data AB[#13792](https://github.com/rodekruis/IBF-system/issues/13792) ([3e73ede](https://github.com/rodekruis/IBF-system/commit/3e73edeaff2906b2b6067ed35a9d6b0920363807))
 
 
 
