@@ -18,6 +18,7 @@ export enum LeadTime {
   month9 = '9-month',
   month10 = '10-month',
   month11 = '11-month',
+  hour0 = '0-hour',
   hour1 = '1-hour',
   hour2 = '2-hour',
   hour3 = '3-hour',

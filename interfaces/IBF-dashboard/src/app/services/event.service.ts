@@ -73,11 +73,9 @@ export class EventService {
     this.getTrigger();
   };
 
-  public switchEvent(leadTime: LeadTime) {
+  public switchEvent(eventName: string) {
     const event = this.state.activeTrigger
-      ? this.state.events.find(
-          (e) => (e.firstLeadTime as LeadTime) === leadTime,
-        )
+      ? this.state.events.find((e) => e.eventName === eventName)
       : this.state.event;
     // Trigger a different 'event' subject in this case ..
     // .. so that timelineService can distinguish between initial event switch and manual event switch

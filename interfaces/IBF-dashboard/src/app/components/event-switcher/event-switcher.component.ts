@@ -6,7 +6,6 @@ import { TimelineState } from 'src/app/types/timeline-state';
 import { DisasterType } from '../../models/country.model';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { TimelineService } from '../../services/timeline.service';
-import { LeadTime } from '../../types/lead-time';
 
 @Component({
   selector: 'app-event-switcher',
@@ -81,7 +80,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
       )?.eventName;
       if (this.eventState.events.length > 1) {
         // Only trigger event-switch if there are multiple events
-        this.eventService.switchEvent(timelineState.activeLeadTime);
+        this.eventService.switchEvent(this.selectedEventName);
       }
     }
   };
@@ -89,9 +88,12 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   public switchEvent(event: EventSummary): void {
     this.selectedEventName = event.eventName;
     if (this.timelineState.timeStepButtons?.length) {
-      this.timelineService.handleTimeStepButtonClick(event.firstLeadTime);
+      if (event.firstLeadTime !== this.timelineState.activeLeadTime) {
+        // Only do this, when leadtime actually changes (so not for typhoon case with 2 events with same leadtime)
+        this.timelineService.handleTimeStepButtonClick(event.firstLeadTime);
+      }
       // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
-      this.eventService.switchEvent(event.firstLeadTime as LeadTime);
+      this.eventService.switchEvent(event.eventName);
     }
   }
 

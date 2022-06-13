@@ -46,7 +46,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
     // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
     if (this.eventService.state.events.length > 1) {
       // Only trigger event-switch if there are multiple events
-      this.eventService.switchEvent(leadTime);
+      this.eventService.switchEvent(this.eventService.state.event.eventName);
     }
   }
 

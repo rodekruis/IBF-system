@@ -176,6 +176,21 @@ export class ScriptsService {
         mockTyphoonScenario.eventNr,
         TyphoonScenario.NoEvent,
       );
+    } else if (
+      mockTyphoonScenario.scenario === TyphoonScenario.EventAfterLandfall
+    ) {
+      await this.mockCountry(
+        {
+          countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
+          disasterType: DisasterType.Typhoon,
+          triggered: true,
+          removeEvents: mockTyphoonScenario.removeEvents,
+          secret: mockTyphoonScenario.secret,
+          date: new Date(),
+        },
+        mockTyphoonScenario.eventNr,
+        TyphoonScenario.EventAfterLandfall,
+      );
     } else {
       throw new HttpException(
         'Scenario not covered yet',
@@ -493,7 +508,9 @@ export class ScriptsService {
     eventNr = 1,
     typhoonScenario?: TyphoonScenario,
   ): string {
-    if (typhoonScenario === TyphoonScenario.NoEvent) {
+    if (typhoonScenario === TyphoonScenario.EventAfterLandfall) {
+      return LeadTime.hour0;
+    } else if (typhoonScenario === TyphoonScenario.NoEvent) {
       return LeadTime.hour72;
     } else if (eventNr === 1) {
       return LeadTime.hour48;
@@ -629,7 +646,7 @@ export class ScriptsService {
 
     // Overwrite timestamps of trackpoints to align with today's date
     // Make sure that the moment of landfall lies just ahead
-    let i = -23;
+    let i = typhoonScenario === TyphoonScenario.EventAfterLandfall ? -29 : -23;
     for (const trackpoint of track) {
       const now = new Date();
       trackpoint.timestampOfTrackpoint = new Date(
@@ -638,7 +655,7 @@ export class ScriptsService {
       i += 1;
     }
 
-    const mockLeadTime = this.getTyphoonLeadTime(eventNr);
+    const mockLeadTime = this.getTyphoonLeadTime(eventNr, typhoonScenario);
 
     console.log(
       `Seeding Typhoon track for country: ${selectedCountry.countryCodeISO3} for leadtime: ${mockLeadTime} `,

@@ -95,6 +95,11 @@
     "disasterTypes": ["drought"]
   },
   {
+    "leadTimeName": "0-hour",
+    "leadTimeLabel": "0-hour",
+    "disasterTypes": ["typhoon"]
+  },
+  {
     "leadTimeName": "1-hour",
     "leadTimeLabel": "1-hour",
     "disasterTypes": ["typhoon"]
