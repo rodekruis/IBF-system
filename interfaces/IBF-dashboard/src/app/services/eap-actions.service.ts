@@ -115,7 +115,7 @@ export class EapActionsService {
       this.formatDates(area);
       this.filterEapActionsByMonth(area);
       area.eapActions.forEach((action) => {
-        if (action.month) {
+        if (Object.keys(action.month).length) {
           Object.defineProperty(action, 'monthLong', {
             value: {},
           });
@@ -128,6 +128,8 @@ export class EapActionsService {
               ).monthLong,
             });
           }
+        } else {
+          action.month = null;
         }
       });
     });
