@@ -395,12 +395,9 @@ export class EventService {
       );
       if (leadTimeIsTriggered) {
         result[leadTimeUnit] = String(Number(leadTimeIsTriggered.triggered));
-        // if event-name (= if typhoon), then also add if the threshold is reached
-        if (triggersPerLeadTime[0].eventName) {
-          result[`${leadTimeUnit}-thresholdReached`] = String(
-            Number(leadTimeIsTriggered.thresholdReached),
-          );
-        }
+        result[`${leadTimeUnit}-thresholdReached`] = String(
+          Number(leadTimeIsTriggered.thresholdReached),
+        );
       }
     }
     return result;

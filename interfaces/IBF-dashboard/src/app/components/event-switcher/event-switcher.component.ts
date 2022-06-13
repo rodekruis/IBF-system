@@ -79,7 +79,10 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
       this.selectedEventName = this.eventState?.events.find(
         (e) => e.firstLeadTime === timelineState.activeLeadTime,
       )?.eventName;
-      this.eventService.switchEvent(timelineState.activeLeadTime);
+      if (this.eventState.events.length > 1) {
+        // Only trigger event-switch if there are multiple events
+        this.eventService.switchEvent(timelineState.activeLeadTime);
+      }
     }
   };
 
