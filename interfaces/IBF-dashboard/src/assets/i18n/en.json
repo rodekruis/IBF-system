@@ -166,7 +166,7 @@
       },
       "active-event-active-trigger": {
         "welcome": "A trigger warning for typhoon <strong>{{ eventName }}</strong> was activated on <strong>{{ startDate }}</strong>. ",
-        "landfall": "It is estimated to make landfall at <strong>{{ firstLeadTimeDate }}</strong>.<br><br>",
+        "landfall": "It is estimated to arrive at (point closest to) land at <strong>{{ firstLeadTimeDate }}</strong>.<br><br>",
         "no-landfall": "It has already made landfall.<br><br>"
       },
       "active-event-below-trigger": {
