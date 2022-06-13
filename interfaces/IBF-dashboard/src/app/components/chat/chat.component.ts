@@ -68,6 +68,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterTypeLabel: string;
   public disasterTypeName: string;
   public actionIndicatorLabel: string;
+  public actionIndicatorNumberFormat: string;
   public clearOutMessage: string;
   public forecastInfo: string[];
   public country: Country;
@@ -228,6 +229,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         return indicator.name === this.disasterType.actionsUnit;
       });
       this.actionIndicatorLabel = actionIndicator?.label.toLowerCase();
+      this.actionIndicatorNumberFormat = actionIndicator?.numberFormatMap;
       this.clearOutMessage = this.getClearOutMessage();
       this.getForecastInfo();
 
