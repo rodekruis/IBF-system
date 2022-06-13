@@ -2,23 +2,23 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
-### v0.158.3 - 30-05-2022
+### 30-05-2022 (v0.158.3)
 
-- Areas in the map that are hovered over or clicked on, are now highlighted via thicker borders, instead of via different color shades.
-- Also when hovering over an area, the area name appears in the middle column.
-- Ethiopia Floods now offers multiple administrative levels.
+- All IBF: Areas in the map that are hovered over or clicked on, are now highlighted via thicker borders, instead of via different color shades.
+- All IBF: Also when hovering over an area, the area name appears in the middle column.
+- Ethiopia Floods: now offers multiple administrative levels.
 
-### v0.151.0 - 29-04-2022
+### 29-04-2022 (v0.151.0)
 
-- The "video guide" popup (both in login page & dashboard page) contains now also a link to the PDF manual, and is now called "IBF guide" popup.
+- All IBF: The "video guide" popup (both in login page & dashboard page) contains now also a link to the PDF manual, and is now called "IBF guide" popup.
 
-### v0.149.0 - 15-04-2022
+### 15-04-2022 (v0.149.0)
 
-- Color changes in the "chat" section of IBF-portal. Speech bubbles in the triggered state are now light purple instead of dark purple. The speech bubbles related to triggered areas now have a red outline just like the red outline of triggered areas in the map.
+- All IBF: Color changes in the "chat" section of IBF-portal. Speech bubbles in the triggered state are now light purple instead of dark purple. The speech bubbles related to triggered areas now have a red outline just like the red outline of triggered areas in the map.
 
-### v0.141.4 - 04-04-2022
+### 04-04-2022 (v0.141.4)
 
-- "Stop mechanism" added. By clicking on any triggered area in the map, the trigger/alert for that area can be stopped. "Stopped" areas can be recognized by a black outline in the map, and are summarized in a corresponding speech bubble with black outline the "chat" section.
+- All IBF: "Stop mechanism" added. By clicking on any triggered area in the map, the trigger/alert for that area can be stopped. "Stopped" areas can be recognized by a black outline in the map, and are summarized in a corresponding speech bubble with black outline the "chat" section.
 
 ## Notes
 

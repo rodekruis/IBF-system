@@ -33,14 +33,5 @@
     "id": "migration",
     "label": "Migration",
     "icon": "Internally-displaced.svg"
-  },
-  {"id": "food",
-    "label": "Food and nutrition impact",
-    "icon": "Livelihood.svg"
-  },
-  {
-    "id": "livestock",
-    "label": "Livestock health and production",
-    "icon": "Livestock.svg"
   }
 ]
