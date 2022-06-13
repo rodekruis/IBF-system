@@ -134,7 +134,13 @@ export class ScriptsService {
   }
 
   public async mockTyphoonScenario(mockTyphoonScenario: MockTyphoonScenario) {
-    if (mockTyphoonScenario.scenario === TyphoonScenario.EventTrigger) {
+    if (
+      [
+        TyphoonScenario.EventTrigger,
+        TyphoonScenario.EventAfterLandfall,
+        TyphoonScenario.EventNoLandfall,
+      ].includes(mockTyphoonScenario.scenario)
+    ) {
       // Scenario 'eventTrigger' is equal to using the normal mock-endpoint for typhoon with 'triggered = true'
       await this.mockCountry(
         {
@@ -146,10 +152,12 @@ export class ScriptsService {
           date: new Date(),
         },
         mockTyphoonScenario.eventNr,
-        TyphoonScenario.EventTrigger,
+        mockTyphoonScenario.scenario,
       );
     } else if (
-      mockTyphoonScenario.scenario === TyphoonScenario.EventNoTrigger
+      [TyphoonScenario.EventNoTrigger, TyphoonScenario.NoEvent].includes(
+        mockTyphoonScenario.scenario,
+      )
     ) {
       await this.mockCountry(
         {
@@ -161,41 +169,10 @@ export class ScriptsService {
           date: new Date(),
         },
         mockTyphoonScenario.eventNr,
-        TyphoonScenario.EventNoTrigger,
-      );
-    } else if (mockTyphoonScenario.scenario === TyphoonScenario.NoEvent) {
-      await this.mockCountry(
-        {
-          countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
-          disasterType: DisasterType.Typhoon,
-          triggered: false,
-          removeEvents: mockTyphoonScenario.removeEvents,
-          secret: mockTyphoonScenario.secret,
-          date: new Date(),
-        },
-        mockTyphoonScenario.eventNr,
-        TyphoonScenario.NoEvent,
-      );
-    } else if (
-      mockTyphoonScenario.scenario === TyphoonScenario.EventAfterLandfall
-    ) {
-      await this.mockCountry(
-        {
-          countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
-          disasterType: DisasterType.Typhoon,
-          triggered: true,
-          removeEvents: mockTyphoonScenario.removeEvents,
-          secret: mockTyphoonScenario.secret,
-          date: new Date(),
-        },
-        mockTyphoonScenario.eventNr,
-        TyphoonScenario.EventAfterLandfall,
+        mockTyphoonScenario.scenario,
       );
     } else {
-      throw new HttpException(
-        'Scenario not covered yet',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException('Not a known scenario', HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -637,9 +614,13 @@ export class ScriptsService {
     typhoonScenario: TyphoonScenario,
     eventNr = 1,
   ) {
-    const trackFileName = `./src/api/typhoon-track/dto/example/typhoon-track-${
+    const filePath = './src/api/typhoon-track/dto/example';
+    let trackFileName = `${filePath}/typhoon-track-${
       selectedCountry.countryCodeISO3
     }${eventNr > 1 ? `-eventNr-2` : ''}.json`;
+    if (typhoonScenario === TyphoonScenario.EventNoLandfall) {
+      trackFileName = `${filePath}/typhoon-track-${selectedCountry.countryCodeISO3}-no-landfall.json`;
+    }
 
     const trackRaw = fs.readFileSync(trackFileName, 'utf-8');
     const track = JSON.parse(trackRaw);
