@@ -1,0 +1,247 @@
+[
+  {
+    "lat": 18.3,
+    "lon": 122.7,
+    "timestampOfTrackpoint": "11/12/2021 11:47"
+  },
+  {
+    "lat": 18.35833333,
+    "lon": 122.6666667,
+    "timestampOfTrackpoint": "11/12/2021 17:47"
+  },
+  {
+    "lat": 18.41666667,
+    "lon": 122.6333333,
+    "timestampOfTrackpoint": "11/12/2021 23:47"
+  },
+  {
+    "lat": 18.475,
+    "lon": 122.6,
+    "timestampOfTrackpoint": "11/13/2021 5:47"
+  },
+  {
+    "lat": 18.53333333,
+    "lon": 122.5666667,
+    "timestampOfTrackpoint": "11/13/2021 11:47"
+  },
+  {
+    "lat": 18.59166667,
+    "lon": 122.5333333,
+    "timestampOfTrackpoint": "11/13/2021 17:47"
+  },
+  {
+    "lat": 18.65,
+    "lon": 122.5,
+    "timestampOfTrackpoint": "11/13/2021 23:47"
+  },
+  {
+    "lat": 18.70833333,
+    "lon": 122.4666667,
+    "timestampOfTrackpoint": "11/14/2021 5:47"
+  },
+  {
+    "lat": 18.76666667,
+    "lon": 122.4333333,
+    "timestampOfTrackpoint": "11/14/2021 11:47"
+  },
+  {
+    "lat": 18.825,
+    "lon": 122.4,
+    "timestampOfTrackpoint": "11/14/2021 17:47"
+  },
+  {
+    "lat": 18.88333333,
+    "lon": 122.3666667,
+    "timestampOfTrackpoint": "11/14/2021 23:47"
+  },
+  {
+    "lat": 18.94166667,
+    "lon": 122.3333333,
+    "timestampOfTrackpoint": "11/15/2021 5:47"
+  },
+  {
+    "lat": 19,
+    "lon": 122.3,
+    "timestampOfTrackpoint": "11/15/2021 11:47"
+  },
+  {
+    "lat": 19.06666667,
+    "lon": 122.275,
+    "timestampOfTrackpoint": "11/15/2021 17:47"
+  },
+  {
+    "lat": 19.13333333,
+    "lon": 122.25,
+    "timestampOfTrackpoint": "11/15/2021 23:47"
+  },
+  {
+    "lat": 19.2,
+    "lon": 122.225,
+    "timestampOfTrackpoint": "11/16/2021 5:47"
+  },
+  {
+    "lat": 19.26666667,
+    "lon": 122.2,
+    "timestampOfTrackpoint": "11/16/2021 11:47"
+  },
+  {
+    "lat": 19.33333333,
+    "lon": 122.175,
+    "timestampOfTrackpoint": "11/16/2021 17:47"
+  },
+  {
+    "lat": 19.4,
+    "lon": 122.15,
+    "timestampOfTrackpoint": "11/16/2021 23:47"
+  },
+  {
+    "lat": 19.46666667,
+    "lon": 122.125,
+    "timestampOfTrackpoint": "11/17/2021 5:47"
+  },
+  {
+    "lat": 19.53333333,
+    "lon": 122.1,
+    "timestampOfTrackpoint": "11/17/2021 11:47"
+  },
+  {
+    "lat": 19.6,
+    "lon": 122.075,
+    "timestampOfTrackpoint": "11/17/2021 17:47"
+  },
+  {
+    "lat": 19.66666667,
+    "lon": 122.05,
+    "timestampOfTrackpoint": "11/17/2021 23:47"
+  },
+  {
+    "lat": 19.73333333,
+    "lon": 122.025,
+    "timestampOfTrackpoint": "11/18/2021 5:47"
+  },
+  {
+    "lat": 19.8,
+    "lon": 122,
+    "timestampOfTrackpoint": "11/18/2021 11:47"
+  },
+  {
+    "lat": 19.85833333,
+    "lon": 121.975,
+    "timestampOfTrackpoint": "11/18/2021 17:47"
+  },
+  {
+    "lat": 19.91666667,
+    "lon": 121.95,
+    "timestampOfTrackpoint": "11/18/2021 23:47"
+  },
+  {
+    "lat": 19.975,
+    "lon": 121.925,
+    "timestampOfTrackpoint": "11/19/2021 5:47"
+  },
+  {
+    "lat": 20.03333333,
+    "lon": 121.9,
+    "timestampOfTrackpoint": "11/19/2021 11:47"
+  },
+  {
+    "lat": 20.09166667,
+    "lon": 121.875,
+    "timestampOfTrackpoint": "11/19/2021 17:47"
+  },
+  {
+    "lat": 20.15,
+    "lon": 121.85,
+    "timestampOfTrackpoint": "11/19/2021 23:47"
+  },
+  {
+    "lat": 20.20833333,
+    "lon": 121.825,
+    "timestampOfTrackpoint": "11/20/2021 5:47"
+  },
+  {
+    "lat": 20.26666667,
+    "lon": 121.8,
+    "timestampOfTrackpoint": "11/20/2021 11:47"
+  },
+  {
+    "lat": 20.325,
+    "lon": 121.775,
+    "timestampOfTrackpoint": "11/20/2021 17:47"
+  },
+  {
+    "lat": 20.38333333,
+    "lon": 121.75,
+    "timestampOfTrackpoint": "11/20/2021 23:47"
+  },
+  {
+    "lat": 20.44166667,
+    "lon": 121.725,
+    "timestampOfTrackpoint": "11/21/2021 5:47"
+  },
+  {
+    "lat": 20.5,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/21/2021 11:47"
+  },
+  {
+    "lat": 20.55833333,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/21/2021 17:47"
+  },
+  {
+    "lat": 20.61666667,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/21/2021 23:47"
+  },
+  {
+    "lat": 20.675,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/22/2021 5:47"
+  },
+  {
+    "lat": 20.73333333,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/22/2021 11:47"
+  },
+  {
+    "lat": 20.79166667,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/22/2021 17:47"
+  },
+  {
+    "lat": 20.85,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/22/2021 23:47"
+  },
+  {
+    "lat": 20.90833333,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/23/2021 5:47"
+  },
+  {
+    "lat": 20.96666667,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/23/2021 11:47"
+  },
+  {
+    "lat": 21.025,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/23/2021 17:47"
+  },
+  {
+    "lat": 21.08333333,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/23/2021 23:47"
+  },
+  {
+    "lat": 21.14166667,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/24/2021 5:47"
+  },
+  {
+    "lat": 21.2,
+    "lon": 121.7,
+    "timestampOfTrackpoint": "11/24/2021 11:47"
+  }
+]
