@@ -1,3 +1,18 @@
+# [0.162.0](https://github.com/rodekruis/IBF-system/compare/v0.161.1...v0.162.0) (2022-06-13)
+
+
+### Bug Fixes
+
+* solve 2 events with same lead time case AB[#14004](https://github.com/rodekruis/IBF-system/issues/14004) ([7f73f21](https://github.com/rodekruis/IBF-system/commit/7f73f211d31561a77e38f6475449747c2206017b))
+
+
+### Features
+
+* facilitate 0-hour upload AB[#14002](https://github.com/rodekruis/IBF-system/issues/14002) ([3bf5425](https://github.com/rodekruis/IBF-system/commit/3bf5425b9532eff499fd2f54956cc8b5f9adc5e2))
+* mention already landfall AB[#14003](https://github.com/rodekruis/IBF-system/issues/14003) ([cd136a4](https://github.com/rodekruis/IBF-system/commit/cd136a42cc9d67072c3ec3af6c46bc212ce32986))
+
+
+
 ## [0.161.1](https://github.com/rodekruis/IBF-system/compare/v0.161.0...v0.161.1) (2022-06-13)
 
 
@@ -132,17 +147,6 @@
 
 * add one test file per country AB[#13776](https://github.com/rodekruis/IBF-system/issues/13776) ([d6fae10](https://github.com/rodekruis/IBF-system/commit/d6fae10efd6122a12e2f0468884d589ae1ffadf7))
 * improve test functions AB[#13600](https://github.com/rodekruis/IBF-system/issues/13600) ([fc2c780](https://github.com/rodekruis/IBF-system/commit/fc2c7803252555bd02bb5cbdf75c9be800e6f1d1))
-
-
-
-# [0.156.0](https://github.com/rodekruis/IBF-system/compare/v0.155.0...v0.156.0) (2022-05-16)
-
-
-### Features
-
-* basic mock data ETH drought AB[#13796](https://github.com/rodekruis/IBF-system/issues/13796) ([05aba14](https://github.com/rodekruis/IBF-system/commit/05aba14e8c680a5b500b7593274147772330a059))
-* set up basic ETH drought dashboard AB[#13795](https://github.com/rodekruis/IBF-system/issues/13795) ([c03b915](https://github.com/rodekruis/IBF-system/commit/c03b9155824fa38e12980c1226130017ec3ffc5e))
-* set up dynamic layers + mock data AB[#13798](https://github.com/rodekruis/IBF-system/issues/13798) ([637fc6f](https://github.com/rodekruis/IBF-system/commit/637fc6f5ecbb356b7499c8b6915d73e31cb1fdfb))
 
 
 
