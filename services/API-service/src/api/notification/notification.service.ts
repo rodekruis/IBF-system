@@ -289,8 +289,16 @@ export class NotificationService {
         replaceValue: new Date().toLocaleDateString(),
       },
       {
-        replaceKey: '(LEAD-DATE-LIST)',
-        replaceValue: await this.getLeadTimeList(country, disasterType, events),
+        replaceKey: '(LEAD-DATE-LIST-SHORT)',
+        replaceValue: (
+          await this.getLeadTimeList(country, disasterType, events)
+        )['leadTimeListShort'],
+      },
+      {
+        replaceKey: '(LEAD-DATE-LIST-LONG)',
+        replaceValue: (
+          await this.getLeadTimeList(country, disasterType, events)
+        )['leadTimeListLong'],
       },
       {
         replaceKey: '(IMG-LOGO)',
@@ -418,25 +426,44 @@ export class NotificationService {
     country: CountryEntity,
     disasterType: DisasterType,
     events: EventSummaryCountry[],
-  ): Promise<string> {
+  ): Promise<object> {
     const triggeredLeadTimes = await this.getLeadTimesAcrossEvents(
       country.countryCodeISO3,
       disasterType,
       events,
     );
-    let leadTimeListHTML = '';
+    let leadTimeListShort = '';
+    let leadTimeListLong = '';
     for (const leadTime of country.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
     ).activeLeadTimes) {
       if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
-        leadTimeListHTML = `${leadTimeListHTML}<li>${
-          disasterType === DisasterType.HeavyRain ? 'Estimated ' : ''
-        }${leadTime.leadTimeLabel.split('-')[0]} ${
-          leadTime.leadTimeLabel.split('-')[1]
-        }(s) from now</li>`;
+        for await (const event of events) {
+          // for each event ..
+          const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
+            country.countryCodeISO3,
+            disasterType,
+            event.eventName,
+          );
+          if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
+            // .. find the right leadtime
+            leadTimeListShort = `${leadTimeListShort}<li>${
+              leadTime.leadTimeLabel.split('-')[0]
+            } ${leadTime.leadTimeLabel.split('-')[1]}(s) from now</li>`;
+            leadTimeListLong = `${leadTimeListLong}<li>${
+              event.eventName ? `${event.eventName}: ` : ''
+            }${disasterType === DisasterType.HeavyRain ? 'Estimated ' : ''}${
+              leadTime.leadTimeLabel.split('-')[0]
+            } ${leadTime.leadTimeLabel.split('-')[1]}(s) from now ${
+              event.thresholdReached
+                ? ' <strong>(trigger reached)</strong>'
+                : ' (trigger not reached)'
+            }</li>`;
+          }
+        }
       }
     }
-    return leadTimeListHTML;
+    return { leadTimeListShort, leadTimeListLong };
   }
 
   private async getLeadTimesAcrossEvents(
@@ -478,7 +505,10 @@ export class NotificationService {
             disasterType,
             event.eventName,
           );
-          if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
+          if (
+            triggeredLeadTimes[leadTime.leadTimeName] === '1' &&
+            event.thresholdReached // Only show table if trigger reached
+          ) {
             // .. find the right leadtime
             const tableForLeadTime = await this.getTableForLeadTime(
               country,
@@ -573,21 +603,14 @@ export class NotificationService {
     const disaster = await this.getDisaster(disasterType);
     let areaTableString = '';
     for (const area of triggeredAreas) {
-      const triggerUnitValue = await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
-        disaster.triggerUnit as DynamicIndicator,
+      const actionUnitValue = await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
+        disaster.actionsUnit as DynamicIndicator,
         area.placeCode,
         leadTime.leadTimeName as LeadTime,
         eventName,
       );
-      if (triggerUnitValue > 0) {
-        const actionUnitValue = await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
-          disaster.actionsUnit as DynamicIndicator,
-          area.placeCode,
-          leadTime.leadTimeName as LeadTime,
-          eventName,
-        );
-        const alertLevel = ''; //Leave empty for now, as it is irrelevant any way (always 'Max. alert')
-        const areaTable = `<tr class='notification-alerts-table-row'>
+      const alertLevel = ''; //Leave empty for now, as it is irrelevant any way (always 'Max. alert')
+      const areaTable = `<tr class='notification-alerts-table-row'>
             <td align='center'>${this.formatActionUnitValue(
               actionUnitValue,
               actionUnit,
@@ -595,8 +618,7 @@ export class NotificationService {
             <td align='left'>${area.name}</td>
             <td align='center'>${alertLevel}</td>
           </tr>`;
-        areaTableString = areaTableString + areaTable;
-      }
+      areaTableString = areaTableString + areaTable;
     }
     return areaTableString;
   }
