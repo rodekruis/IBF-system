@@ -90,44 +90,6 @@ export class EventService {
     return eventSummary;
   }
 
-  public async getTotalAffectedPerLeadTime(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    leadTime: string,
-  ): Promise<number> {
-    const lastTriggeredDate = await this.getRecentDate(
-      countryCodeISO3,
-      disasterType,
-    );
-    const actionUnit = await this.getActionUnit(disasterType);
-
-    const result = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('dynamic')
-      .select('SUM(value)', 'totalAffected')
-      .where('indicator = :indicator', {
-        indicator: actionUnit,
-      })
-      .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
-      .andWhere('"disasterType" = :disasterType', {
-        disasterType: disasterType,
-      })
-      .andWhere('"countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('date = :lastTriggeredDate', {
-        lastTriggeredDate: lastTriggeredDate.date,
-      })
-      .andWhere('timestamp >= :last12hourInterval', {
-        last12hourInterval: this.helperService.getLast12hourInterval(
-          disasterType,
-          lastTriggeredDate.timestamp,
-        ),
-      })
-      .getRawOne();
-
-    return result.totalAffected;
-  }
-
   public async getRecentDate(
     countryCodeISO3: string,
     disasterType: DisasterType,

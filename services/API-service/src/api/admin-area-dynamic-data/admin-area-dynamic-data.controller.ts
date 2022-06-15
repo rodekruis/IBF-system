@@ -67,7 +67,7 @@ export class AdminAreaDynamicDataController {
   @Get(
     ':countryCodeISO3/:adminLevel/:leadTime/:indicator/:disasterType/:eventName',
   )
-  public async getAdminAreaData(
+  public async getAdminAreaDynamicData(
     @Param() params,
   ): Promise<AdminDataReturnDto[]> {
     return await this.adminAreaDynamicDataService.getAdminAreaDynamicData(

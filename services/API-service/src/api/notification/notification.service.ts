@@ -14,6 +14,8 @@ import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-u
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { EventSummaryCountry } from '../../shared/data.model';
+import { AdminAreaDataService } from '../admin-area-data/admin-area-data.service';
+import { AdminAreaService } from '../admin-area/admin-area.service';
 
 class ReplaceKeyValue {
   replaceKey: string;
@@ -28,8 +30,6 @@ export class NotificationService {
   private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
   @InjectRepository(DisasterEntity)
   private readonly disasterRepository: Repository<DisasterEntity>;
-  private eventService: EventService;
-  private adminAreaDynamicDataService: AdminAreaDynamicDataService;
 
   private placeholderToday = '(TODAY)';
   private fromEmail = process.env.SUPPORT_EMAIL_ADDRESS;
@@ -38,12 +38,11 @@ export class NotificationService {
   private mailchimp = new Mailchimp(process.env.MC_API);
 
   public constructor(
-    eventService: EventService,
-    adminAreaDynamicDataService: AdminAreaDynamicDataService,
-  ) {
-    this.eventService = eventService;
-    this.adminAreaDynamicDataService = adminAreaDynamicDataService;
-  }
+    private readonly eventService: EventService,
+    private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
+    private readonly adminAreaDataService: AdminAreaDataService,
+    private readonly adminAreaService: AdminAreaService,
+  ) {}
 
   public async send(
     countryCodeISO3: string,
@@ -135,18 +134,109 @@ export class NotificationService {
       s => s.disasterType === disasterType,
     ).activeLeadTimes) {
       if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
-        const totalActionUnit = await this.eventService.getTotalAffectedPerLeadTime(
-          country.countryCodeISO3,
-          disasterType,
-          leadTime.leadTimeName,
-        );
-        const subjectPart = `Estimate of ${actionUnit.label}: ${String(
-          totalActionUnit,
-        )} (${leadTime.leadTimeName}) `;
-        subject = subject + subjectPart;
+        for await (const event of events) {
+          // for each event ..
+          const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
+            country.countryCodeISO3,
+            disasterType,
+            event.eventName,
+          );
+          if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
+            // .. find the right leadtime
+            const totalActionUnitValue = await this.getTotalAffectedPerLeadTime(
+              country,
+              disasterType,
+              leadTime.leadTimeName as LeadTime,
+              event.eventName,
+            );
+            const subjectPart = `Estimate of ${
+              actionUnit.label
+            }: ${this.formatActionUnitValue(
+              totalActionUnitValue,
+              actionUnit,
+            )} (${leadTime.leadTimeName}) `;
+            subject = subject + subjectPart;
+          }
+        }
       }
     }
     return subject;
+  }
+
+  private async getTotalAffectedPerLeadTime(
+    country: CountryEntity,
+    disasterType: DisasterType,
+    leadTime: LeadTime,
+    eventName: string,
+  ) {
+    const actionUnit = await this.indicatorRepository.findOne({
+      name: (await this.getDisaster(disasterType)).actionsUnit,
+    });
+    const adminLevel = country.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).defaultAdminLevel;
+
+    let actionUnitValues = await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
+      country.countryCodeISO3,
+      String(adminLevel),
+      leadTime,
+      actionUnit.name as DynamicIndicator,
+      disasterType,
+      eventName,
+    );
+
+    // Filter on only the areas that are also shown in dashboard, to get same aggregate metric
+    const placeCodesToShow = await this.adminAreaService.getPlaceCodes(
+      country.countryCodeISO3,
+      disasterType,
+      leadTime,
+      adminLevel,
+      eventName,
+    );
+    actionUnitValues = actionUnitValues.filter(row =>
+      placeCodesToShow.includes(row.placeCode),
+    );
+
+    if (!actionUnit.weightedAvg) {
+      // If no weightedAvg, then return early with simple sum
+      return actionUnitValues.reduce(
+        (sum, current) => sum + Number(current.value),
+        0,
+      );
+    } else {
+      const weighingIndicator = actionUnit.weightVar;
+      const weighingIndicatorValues = await this.adminAreaDataService.getAdminAreaData(
+        country.countryCodeISO3,
+        String(adminLevel),
+        weighingIndicator as DynamicIndicator,
+      );
+      weighingIndicatorValues.forEach(row => {
+        row['weight'] = row.value;
+        delete row.value;
+      });
+
+      const mergedValues = [];
+      for (let i = 0; i < actionUnitValues.length; i++) {
+        mergedValues.push({
+          ...actionUnitValues[i],
+          ...weighingIndicatorValues.find(
+            itmInner => itmInner.placeCode === actionUnitValues[i].placeCode,
+          ),
+        });
+      }
+
+      const sumofWeighedValues = mergedValues.reduce(
+        (sum, current) =>
+          sum +
+          (current.weight ? Number(current.weight) : 0) * Number(current.value),
+        0,
+      );
+      const sumOfWeights = mergedValues.reduce(
+        (sum, current) => sum + (current.weight ? Number(current.weight) : 0),
+        0,
+      );
+      return sumofWeighedValues / sumOfWeights;
+    }
   }
 
   private async getCountryNotificationInfo(
@@ -457,6 +547,7 @@ export class NotificationService {
       disasterType,
       leadTime,
       eventName,
+      actionUnit,
     );
     const tableForLeadTimeEnd = '</tbody></table>';
     const tableForLeadTime =
@@ -469,6 +560,7 @@ export class NotificationService {
     disasterType: DisasterType,
     leadTime: LeadTimeEntity,
     eventName: string,
+    actionUnit: IndicatorMetadataEntity,
   ): Promise<string> {
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
@@ -496,7 +588,10 @@ export class NotificationService {
         );
         const alertLevel = ''; //Leave empty for now, as it is irrelevant any way (always 'Max. alert')
         const areaTable = `<tr class='notification-alerts-table-row'>
-            <td align='center'>${Math.round(actionUnitValue)}</td>
+            <td align='center'>${this.formatActionUnitValue(
+              actionUnitValue,
+              actionUnit,
+            )}</td>
             <td align='left'>${area.name}</td>
             <td align='center'>${alertLevel}</td>
           </tr>`;
@@ -504,6 +599,23 @@ export class NotificationService {
       }
     }
     return areaTableString;
+  }
+
+  private formatActionUnitValue(
+    value: number,
+    actionUnit: IndicatorMetadataEntity,
+  ) {
+    if (value === null) {
+      return null;
+    } else if (actionUnit.numberFormatMap === 'perc') {
+      return Math.round(value * 100).toLocaleString() + '%';
+    } else if (actionUnit.numberFormatMap === 'decimal2') {
+      return (Math.round(value * 100) / 100).toLocaleString();
+    } else if (actionUnit.numberFormatMap === 'decimal0') {
+      return Math.round(value).toLocaleString();
+    } else {
+      return Math.round(value).toLocaleString();
+    }
   }
 
   private formatEmail(emailKeyValueReplaceList: ReplaceKeyValue[]): string {
