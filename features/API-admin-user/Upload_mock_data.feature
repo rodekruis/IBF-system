@@ -60,6 +60,7 @@ Scenario: Upload 2nd/3rd/etc. Typhoon event
     Given user has already created an active event (see scenario TRIGGERED state)
     Given the user is subsquently using the `/api/scripts/mock-dynamic-data` endpoint a 2nd time
     Given the user changes 'eventNr' to 2/3/etc
+    Given the user selects one scenario between ('eventTrigger', 'eventNoTrigger', 'eventAfterLandfall')
     Given the user leaves all other input the same
     When the user clicks 'Execute'
     Then mock data is uploaded for a 2nd/3rd/etc active event
