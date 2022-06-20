@@ -52,7 +52,7 @@ Scenario: View general trigger information
     When the user views the 2nd speech bubble
     Then if NON-TRIGGERED it mentions there are 'no triggers'
     And if TRIGGERED it mentions there is a trigger
-    And if EVENT WITHOUT TRIGGER it mentions an activated event below threshold ('typhoon' only)
+    And if EVENT-WITHOUT-TRIGGER it mentions an activated event below threshold ('typhoon' only)
     And it mentions when the event this trigger belongs to first started
     And it mentions for when the trigger is expected
     And it mentions the name of the event if applicable ('typhoon' only)
@@ -72,9 +72,9 @@ Scenario: View general trigger information with 2 or more active events
 
 Scenario: View general trigger information when event already made landfall ('typhoon' only)
     Given the selected 'disaster-type' is 'typhoon'
+    Given the event has already made landfall (i.e. leadTime = '0-hour')
     When the user views the 2nd speech bubble
-    And the typhoon has already made landfall
-    Then it mentions the name of the event, the date it was activated and that it already made landfall
+    Then it mentions - in addition to earlier scenarios - that it already made landfall
 
 Scenario: View general trigger information with clear-out warning or message
     Given the 'showMonthlyEapActions' is 'true' (currently only for Kenya Droughts)
