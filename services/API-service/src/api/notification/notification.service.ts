@@ -154,7 +154,11 @@ export class NotificationService {
             }: ${this.formatActionUnitValue(
               totalActionUnitValue,
               actionUnit,
-            )} (${leadTime.leadTimeName}) `;
+            )} (${
+              leadTime.leadTimeName === '0-hour'
+                ? 'Already made landfall'
+                : leadTime.leadTimeName
+            }) `;
             subject = subject + subjectPart;
           }
         }
@@ -447,14 +451,23 @@ export class NotificationService {
           );
           if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
             // .. find the right leadtime
+
+            const leadTimeFromNow = `${leadTime.leadTimeLabel.split('-')[0]} ${
+              leadTime.leadTimeLabel.split('-')[1]
+            }(s) from now`;
+
+            const alreadyMadeLandfall = 'Already made landfall';
+
+            const zeroHour = leadTime.leadTimeName === '0-hour';
+
             leadTimeListShort = `${leadTimeListShort}<li>${
-              leadTime.leadTimeLabel.split('-')[0]
-            } ${leadTime.leadTimeLabel.split('-')[1]}(s) from now</li>`;
+              zeroHour ? alreadyMadeLandfall : leadTimeFromNow
+            }</li>`;
             leadTimeListLong = `${leadTimeListLong}<li>${
               event.eventName ? `${event.eventName}: ` : ''
             }${disasterType === DisasterType.HeavyRain ? 'Estimated ' : ''}${
-              leadTime.leadTimeLabel.split('-')[0]
-            } ${leadTime.leadTimeLabel.split('-')[1]}(s) from now ${
+              zeroHour ? alreadyMadeLandfall : leadTimeFromNow
+            } ${
               event.thresholdReached
                 ? ' <strong>(trigger reached)</strong>'
                 : ' (trigger not reached)'
@@ -554,12 +567,19 @@ export class NotificationService {
     });
     const leadTimeValue = leadTime.leadTimeName.split('-')[0];
     const leadTimeUnit = leadTime.leadTimeName.split('-')[1];
+
+    const alreadyMadeLandfall = 'Already made landfall';
+
+    const zeroHour = leadTime.leadTimeName === '0-hour';
+
     const tableForLeadTimeStart = `<div>
-      <strong>Forecast ${
-        disasterType === DisasterType.HeavyRain ? 'estimated ' : ''
-      }${leadTimeValue} ${leadTimeUnit}(s) from today (${
-      this.placeholderToday
-    }):</strong>
+      <strong>${
+        zeroHour
+          ? alreadyMadeLandfall
+          : `Forecast ${
+              disasterType === DisasterType.HeavyRain ? 'estimated ' : ''
+            }${leadTimeValue} ${leadTimeUnit}(s) from`
+      } today (${this.placeholderToday}):</strong>
   </div>
   <table class="notification-alerts-table">
       <caption class="notification-alerts-table-caption">The following table lists all the exposed ${adminAreaLabels.plural.toLowerCase()} in order of ${actionUnit.label.toLowerCase()},</caption>
