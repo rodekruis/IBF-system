@@ -24,7 +24,6 @@ Scenario: Upload mock data for TRIGGERED state (active event) for specific count
     Given the user has filled in 'triggered = true'
     Given the user has filled in 'removeEvents = true'
     Given the user has filled in 'country' and 'disaster-type' (exact right formats)
-    Given the user has filled in 'eventNr = 1' 
     When the user clicks 'Execute'
     Then mock data is uploaded for the chosen 'country' and 'disaster-type'
     And it is in triggered state
@@ -55,25 +54,30 @@ Scenario: Upload mock data for OLD-EVENT state for specific country & disaster-t
     And the chat section is showing EAP-actions for all old triggered areas
     And see other feature files to look for correct behaviour of old event, by Ctrl+F on 'OLD-EVENT'
 
+Scenario: Upload Typhoon-specific events
+    Given the disaster-type is 'Typhoon'
+    Given the user uses the '/api/scripts/mock-typhoon-scenario' endpoint
+    Given the user fills in one of the available 'scenario' options
+    Given the user fills in 'eventNr = 1'
+    When the user clicks 'Execute'
+    Then the mock data is uploaded for the given 'scenario'
+        - eventTrigger: exact same result as using '/api/scripts/mock-dynamic-data' endpoint with 'triggered = true'
+        - noEvent: exact same result as using '/api/scripts/mock-dynamic-data' endpoint with 'triggered = false'
+        - eventNoTrigger: produces event that does not reach trigger threshold
+        - eventAfterLandfall: produces (triggered) event that has already made landfall (i.e. leadTime = '0-hour')
+        - eventNoLandafall: produces (triggered) event with a track that does not make landfall
+
 Scenario: Upload 2nd/3rd/etc. Typhoon event
     Given the disaster-type is 'Typhoon'
-    Given user has already created an active event (see scenario TRIGGERED state)
-    Given the user is subsquently using the `/api/scripts/mock-dynamic-data` endpoint a 2nd time
-    Given the user changes 'eventNr' to 2/3/etc
-    Given the user leaves all other input the same
+    Given user has already created an event (see above)
+    Given the user is subsquently using the `/api/scripts/mock-typhoon-scenario` 
+    Given the user fills in 'eventNr' as 2/3/etc
     When the user clicks 'Execute'
-    Then mock data is uploaded for a 2nd/3rd/etc active event
+    Then mock data is uploaded for a 2nd/3rd/etc event
     And the dashboard should be opened/refreshed to check all of this 
     And the chat-section should show 2/3/etc event buttons in the 2nd speech-bubble
     And the timeline-section should show 2/3/etc active lead-time buttons
 
-Scenario: Upload 2nd event for other disaster-type
-    Given the disaster-type is NOT 'Typhoon'
-    Given the user is using the `/api/scripts/mock-dynamic-data` endpoint
-    Given user fills in eventNr = 2 or more
-    When the user clicks 'Execute'
-    Then eventNr is automatically switched back to 1 in the back-endpoint
-    And processes correctly given that input
 
 
 

@@ -1,3 +1,29 @@
+# [0.163.0](https://github.com/rodekruis/IBF-system/compare/v0.162.0...v0.163.0) (2022-06-20)
+
+
+### Features
+
+* edit test scenarios AB[#13971](https://github.com/rodekruis/IBF-system/issues/13971) ([bdb84de](https://github.com/rodekruis/IBF-system/commit/bdb84ded649cb69ef3361d841a6e29d13b4d4aae))
+* edit typhoon no trigger scenarios AB[#14001](https://github.com/rodekruis/IBF-system/issues/14001) ([212a5bd](https://github.com/rodekruis/IBF-system/commit/212a5bd70c0ec3ed92b7f5737420936507827e2b))
+* test scenarios after landfall AB[#14005](https://github.com/rodekruis/IBF-system/issues/14005) ([4083833](https://github.com/rodekruis/IBF-system/commit/40838338eb4b1e6bb2860065e32539ec57f7d7b5))
+
+
+
+# [0.162.0](https://github.com/rodekruis/IBF-system/compare/v0.161.1...v0.162.0) (2022-06-13)
+
+
+### Bug Fixes
+
+* solve 2 events with same lead time case AB[#14004](https://github.com/rodekruis/IBF-system/issues/14004) ([7f73f21](https://github.com/rodekruis/IBF-system/commit/7f73f211d31561a77e38f6475449747c2206017b))
+
+
+### Features
+
+* facilitate 0-hour upload AB[#14002](https://github.com/rodekruis/IBF-system/issues/14002) ([3bf5425](https://github.com/rodekruis/IBF-system/commit/3bf5425b9532eff499fd2f54956cc8b5f9adc5e2))
+* mention already landfall AB[#14003](https://github.com/rodekruis/IBF-system/issues/14003) ([cd136a4](https://github.com/rodekruis/IBF-system/commit/cd136a42cc9d67072c3ec3af6c46bc212ce32986))
+
+
+
 ## [0.161.1](https://github.com/rodekruis/IBF-system/compare/v0.161.0...v0.161.1) (2022-06-13)
 
 
@@ -116,33 +142,6 @@
 ### Features
 
 * add eap-link eth drought AB[#13886](https://github.com/rodekruis/IBF-system/issues/13886) ([a53ff6d](https://github.com/rodekruis/IBF-system/commit/a53ff6df7a0f05277677e00eb308bcce6ae73447))
-
-
-
-# [0.157.0](https://github.com/rodekruis/IBF-system/compare/v0.156.0...v0.157.0) (2022-05-16)
-
-
-### Bug Fixes
-
-* move old tests AB[#13776](https://github.com/rodekruis/IBF-system/issues/13776) ([e6af5ee](https://github.com/rodekruis/IBF-system/commit/e6af5ee9b963b0bf1fc74a6f8bffaeb1be13a0dc))
-* use waitForRequest instead of wait AB[#13598](https://github.com/rodekruis/IBF-system/issues/13598) ([1da677c](https://github.com/rodekruis/IBF-system/commit/1da677ce03e4831d1fc5bf23a3e77a31d7941c9e))
-
-
-### Features
-
-* add one test file per country AB[#13776](https://github.com/rodekruis/IBF-system/issues/13776) ([d6fae10](https://github.com/rodekruis/IBF-system/commit/d6fae10efd6122a12e2f0468884d589ae1ffadf7))
-* improve test functions AB[#13600](https://github.com/rodekruis/IBF-system/issues/13600) ([fc2c780](https://github.com/rodekruis/IBF-system/commit/fc2c7803252555bd02bb5cbdf75c9be800e6f1d1))
-
-
-
-# [0.156.0](https://github.com/rodekruis/IBF-system/compare/v0.155.0...v0.156.0) (2022-05-16)
-
-
-### Features
-
-* basic mock data ETH drought AB[#13796](https://github.com/rodekruis/IBF-system/issues/13796) ([05aba14](https://github.com/rodekruis/IBF-system/commit/05aba14e8c680a5b500b7593274147772330a059))
-* set up basic ETH drought dashboard AB[#13795](https://github.com/rodekruis/IBF-system/issues/13795) ([c03b915](https://github.com/rodekruis/IBF-system/commit/c03b9155824fa38e12980c1226130017ec3ffc5e))
-* set up dynamic layers + mock data AB[#13798](https://github.com/rodekruis/IBF-system/issues/13798) ([637fc6f](https://github.com/rodekruis/IBF-system/commit/637fc6f5ecbb356b7499c8b6915d73e31cb1fdfb))
 
 
 

@@ -70,6 +70,18 @@ Scenario: View timeline-section for disaster-type "typhoon" with 2 or more event
     And if there are 2 active lead-times on the same day, then that means there will be 2 buttons for that day (including time)
     And additionally to the active buttons, a disabled button for each day before, in between, and after the days of landfall is placed, with a maximum of 7 days from now
 
+Scenario: View timeline-section for disaster-type "typhoon" after landfall
+    Given the disaster-type is "typhoon"
+    Given the event has already made landfall
+    When the users views the timeline section
+    Then the calculated lead time of this event is 0 hours, and the time shown is thus the same time as the time in the 'today' button
+
+Scenario: View timeline-section for disaster-type "typhoon" without landfall
+    Given the disaster-type is "typhoon"
+    Given the event will not make landfall
+    When the users views the timeline section
+    Then the calculated lead time of this event is not the 'time until landfall' (like normal typhoon events) but the 'time until point closest to landfall'
+    
 Scenario: View the timeline section in TRIGGERED mode
     Given the dashboard is in TRIGGERED mode
     When the users views the timeline section

@@ -1,10 +1,11 @@
 # Test scenario's
 
-IMPORTANT: 
+IMPORTANT:
 
 - A major distinction in every feature is whether the Portal is in TRIGGERED or NON-TRIGGERED mode.
 - These distinctions are made within each file.
-- In practice there can be a 3rd (more rare) scenario: OLD-EVENT. This is sometimes explicity mentioned. Where not further specified, it falls under NON-TRIGGERED.
+- There can be a 3rd (more rare) scenario: OLD-EVENT. This is sometimes explicity mentioned. Where not further specified, it falls under NON-TRIGGERED.
+- A 4th scenario (currently 'typhoon' only) is EVENT-WITHOUT-TRIGGER
 
 ### For IBF-portal user
 
@@ -45,6 +46,7 @@ In practice, the pipeline is often time-scheduled and not manually triggered by 
 - [Run pipeline](pipeline-user/Run_pipeline.feature)
 
 ---
+
 # Theory
 
 ### Reference
