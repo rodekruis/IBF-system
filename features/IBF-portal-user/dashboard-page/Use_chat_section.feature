@@ -70,6 +70,12 @@ Scenario: View general trigger information with 2 or more active events
     And all info in the map by default refers to the 1st event
     And the timeline sections has just as many active timeline-buttons as there are events
 
+Scenario: View general trigger information when event already made landfall ('typhoon' only)
+    Given the selected 'disaster-type' is 'typhoon'
+    When the user views the 2nd speech bubble
+    And the typhoon has already made landfall
+    Then it mentions the name of the event, the date it was activated and that it already made landfall
+
 Scenario: View general trigger information with clear-out warning or message
     Given the 'showMonthlyEapActions' is 'true' (currently only for Kenya Droughts)
     Given 1 or more 'droughtForecastMonths' are provided (October & March, for Kenya Droughts)
