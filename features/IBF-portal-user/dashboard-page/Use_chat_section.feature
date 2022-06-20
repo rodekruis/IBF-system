@@ -52,6 +52,7 @@ Scenario: View general trigger information
     When the user views the 2nd speech bubble
     Then if NON-TRIGGERED it mentions there are 'no triggers'
     And if TRIGGERED it mentions there is a trigger
+    And if EVENT-WITHOUT-TRIGGER it mentions an activated event below threshold ('typhoon' only)
     And it mentions when the event this trigger belongs to first started
     And it mentions for when the trigger is expected
     And it mentions the name of the event if applicable ('typhoon' only)
@@ -68,6 +69,12 @@ Scenario: View general trigger information with 2 or more active events
     And the other buttons have a 'non-selected' styling
     And all info in the map by default refers to the 1st event
     And the timeline sections has just as many active timeline-buttons as there are events
+
+Scenario: View general trigger information when event already made landfall ('typhoon' only)
+    Given the selected 'disaster-type' is 'typhoon'
+    Given the event has already made landfall (i.e. leadTime = '0-hour')
+    When the user views the 2nd speech bubble
+    Then it mentions - in addition to earlier scenarios - that it already made landfall
 
 Scenario: View general trigger information with clear-out warning or message
     Given the 'showMonthlyEapActions' is 'true' (currently only for Kenya Droughts)
@@ -125,12 +132,13 @@ Scenario: View chat-section after area-selection in map
 
 Scenario: View chat-section after area-selection in map with monthly actions
     Given the area is not "stopped"
-    Given EAP-actions are monthly ('showMonthlyEapActions = true') - currently only Kenya Drought
+    Given EAP-actions are monthly ('showMonthlyEapActions = true') - currently only Kenya and Ethiopia Drought
     When the user selects a triggered area from map (see 'Use_map_section.feature')
     Then everything happens as above
     And additionally above the EAP-action a sentence appears on which sources lead to the actions
     And it mentions how many actions there are
     And only the action up until the current month are shown
+    And if there is an overlap of seasons, actions not relevant to the selected season are not shown
     And behind the action in brackets and bold the month to complete the action is shown
 
 Scenario: View chat-section after area-selection in map of "stopped" area
