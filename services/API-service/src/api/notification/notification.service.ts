@@ -37,6 +37,8 @@ export class NotificationService {
 
   private mailchimp = new Mailchimp(process.env.MC_API);
 
+  private alreadyArrived = 'Already arrived at (point closest to) land';
+
   public constructor(
     private readonly eventService: EventService,
     private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -156,7 +158,7 @@ export class NotificationService {
               actionUnit,
             )} (${
               leadTime.leadTimeName === '0-hour'
-                ? 'Already made landfall'
+                ? this.alreadyArrived
                 : leadTime.leadTimeName
             }) `;
             subject = subject + subjectPart;
@@ -454,19 +456,17 @@ export class NotificationService {
 
             const leadTimeFromNow = `${leadTime.leadTimeLabel.split('-')[0]} ${
               leadTime.leadTimeLabel.split('-')[1]
-            }(s) from now`;
-
-            const alreadyMadeLandfall = 'Already made landfall';
+            }(s) from now to (point closest to) land`;
 
             const zeroHour = leadTime.leadTimeName === '0-hour';
 
             leadTimeListShort = `${leadTimeListShort}<li>${
-              zeroHour ? alreadyMadeLandfall : leadTimeFromNow
+              zeroHour ? this.alreadyArrived : leadTimeFromNow
             }</li>`;
             leadTimeListLong = `${leadTimeListLong}<li>${
               event.eventName ? `${event.eventName}: ` : ''
             }${disasterType === DisasterType.HeavyRain ? 'Estimated ' : ''}${
-              zeroHour ? alreadyMadeLandfall : leadTimeFromNow
+              zeroHour ? this.alreadyArrived : leadTimeFromNow
             } ${
               event.thresholdReached
                 ? ' <strong>(trigger reached)</strong>'
@@ -568,14 +568,12 @@ export class NotificationService {
     const leadTimeValue = leadTime.leadTimeName.split('-')[0];
     const leadTimeUnit = leadTime.leadTimeName.split('-')[1];
 
-    const alreadyMadeLandfall = 'Already made landfall';
-
     const zeroHour = leadTime.leadTimeName === '0-hour';
 
     const tableForLeadTimeStart = `<div>
       <strong>${
         zeroHour
-          ? alreadyMadeLandfall
+          ? this.alreadyArrived
           : `Forecast ${
               disasterType === DisasterType.HeavyRain ? 'estimated ' : ''
             }${leadTimeValue} ${leadTimeUnit}(s) from`
