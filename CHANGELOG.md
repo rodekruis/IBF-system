@@ -1,3 +1,14 @@
+# [0.163.0](https://github.com/rodekruis/IBF-system/compare/v0.162.0...v0.163.0) (2022-06-20)
+
+
+### Features
+
+* edit test scenarios AB[#13971](https://github.com/rodekruis/IBF-system/issues/13971) ([bdb84de](https://github.com/rodekruis/IBF-system/commit/bdb84ded649cb69ef3361d841a6e29d13b4d4aae))
+* edit typhoon no trigger scenarios AB[#14001](https://github.com/rodekruis/IBF-system/issues/14001) ([212a5bd](https://github.com/rodekruis/IBF-system/commit/212a5bd70c0ec3ed92b7f5737420936507827e2b))
+* test scenarios after landfall AB[#14005](https://github.com/rodekruis/IBF-system/issues/14005) ([4083833](https://github.com/rodekruis/IBF-system/commit/40838338eb4b1e6bb2860065e32539ec57f7d7b5))
+
+
+
 # [0.162.0](https://github.com/rodekruis/IBF-system/compare/v0.161.1...v0.162.0) (2022-06-13)
 
 
@@ -131,22 +142,6 @@
 ### Features
 
 * add eap-link eth drought AB[#13886](https://github.com/rodekruis/IBF-system/issues/13886) ([a53ff6d](https://github.com/rodekruis/IBF-system/commit/a53ff6df7a0f05277677e00eb308bcce6ae73447))
-
-
-
-# [0.157.0](https://github.com/rodekruis/IBF-system/compare/v0.156.0...v0.157.0) (2022-05-16)
-
-
-### Bug Fixes
-
-* move old tests AB[#13776](https://github.com/rodekruis/IBF-system/issues/13776) ([e6af5ee](https://github.com/rodekruis/IBF-system/commit/e6af5ee9b963b0bf1fc74a6f8bffaeb1be13a0dc))
-* use waitForRequest instead of wait AB[#13598](https://github.com/rodekruis/IBF-system/issues/13598) ([1da677c](https://github.com/rodekruis/IBF-system/commit/1da677ce03e4831d1fc5bf23a3e77a31d7941c9e))
-
-
-### Features
-
-* add one test file per country AB[#13776](https://github.com/rodekruis/IBF-system/issues/13776) ([d6fae10](https://github.com/rodekruis/IBF-system/commit/d6fae10efd6122a12e2f0468884d589ae1ffadf7))
-* improve test functions AB[#13600](https://github.com/rodekruis/IBF-system/issues/13600) ([fc2c780](https://github.com/rodekruis/IBF-system/commit/fc2c7803252555bd02bb5cbdf75c9be800e6f1d1))
 
 
 
