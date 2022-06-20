@@ -24,6 +24,7 @@ export class LoginPage implements OnInit {
   public envDisasterTypes: string[] = [];
   public allDisasterTypes: string[] = [];
   public disasterTypeMap = DISASTER_TYPES_SVG_MAP;
+  public environmentConfiguration = environment.configuration;
 
   constructor(
     private popoverController: PopoverController,

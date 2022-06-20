@@ -65,7 +65,9 @@ export class UserStateComponent implements OnInit {
 
   public showEnvironmentLabel(environmentConfiguration: string) {
     return environmentConfiguration === 'production'
-      ? this.translateService.instant('login-page.production-live')
+      ? this.translateService.instant('login-page.environment-label.production')
+      : environmentConfiguration === 'stage'
+      ? this.translateService.instant('login-page.environment-label.stage')
       : environmentConfiguration;
   }
 
