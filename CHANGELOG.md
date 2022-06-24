@@ -1,3 +1,13 @@
+# [0.164.0](https://github.com/rodekruis/IBF-system/compare/v0.163.0...v0.164.0) (2022-06-24)
+
+
+### Features
+
+* change staging banner UX copy AB[#14269](https://github.com/rodekruis/IBF-system/issues/14269) ([495fd15](https://github.com/rodekruis/IBF-system/commit/495fd158828168641f539cac2b71a355c5141e4f))
+* upgrade stage-banner + show in all pages AB[#14260](https://github.com/rodekruis/IBF-system/issues/14260) ([3d7f2d3](https://github.com/rodekruis/IBF-system/commit/3d7f2d318295f9ffa9c27c56b20d73853170aa1e))
+
+
+
 # [0.163.0](https://github.com/rodekruis/IBF-system/compare/v0.162.0...v0.163.0) (2022-06-20)
 
 
@@ -127,21 +137,6 @@
 ### Bug Fixes
 
 * udpate adm2 boundaries AB[#13924](https://github.com/rodekruis/IBF-system/issues/13924) ([119c2f3](https://github.com/rodekruis/IBF-system/commit/119c2f3ab8ef3dce10030cd751c3c0c63c554021))
-
-
-
-# [0.158.0](https://github.com/rodekruis/IBF-system/compare/v0.157.0...v0.158.0) (2022-05-20)
-
-
-### Bug Fixes
-
-* update ipc + nutrition layers AB[#13832](https://github.com/rodekruis/IBF-system/issues/13832) AB[#13847](https://github.com/rodekruis/IBF-system/issues/13847) ([6f0d257](https://github.com/rodekruis/IBF-system/commit/6f0d25754ea52f04bed8f54e2d8868359652d61c))
-* update KEN video link AB[#13720](https://github.com/rodekruis/IBF-system/issues/13720) ([3f8edb3](https://github.com/rodekruis/IBF-system/commit/3f8edb3c877a811860702d8a4cbbc355ec4f6891))
-
-
-### Features
-
-* add eap-link eth drought AB[#13886](https://github.com/rodekruis/IBF-system/issues/13886) ([a53ff6d](https://github.com/rodekruis/IBF-system/commit/a53ff6df7a0f05277677e00eb308bcce6ae73447))
 
 
 
