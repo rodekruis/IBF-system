@@ -37,7 +37,7 @@ export class NotificationService {
 
   private mailchimp = new Mailchimp(process.env.MC_API);
 
-  private alreadyArrived = 'Already arrived at (point closest to) land';
+  private alreadyReached = 'Already reached (the point closest to) land';
 
   public constructor(
     private readonly eventService: EventService,
@@ -158,7 +158,7 @@ export class NotificationService {
               actionUnit,
             )} (${
               leadTime.leadTimeName === '0-hour'
-                ? this.alreadyArrived
+                ? this.alreadyReached
                 : leadTime.leadTimeName
             }) `;
             subject = subject + subjectPart;
@@ -456,17 +456,21 @@ export class NotificationService {
 
             const leadTimeFromNow = `${leadTime.leadTimeLabel.split('-')[0]} ${
               leadTime.leadTimeLabel.split('-')[1]
-            }(s) from now to (point closest to) land`;
+            }(s)${
+              disasterType === DisasterType.Typhoon
+                ? ' from now to (point closest to) land'
+                : ''
+            }`;
 
             const zeroHour = leadTime.leadTimeName === '0-hour';
 
             leadTimeListShort = `${leadTimeListShort}<li>${
-              zeroHour ? this.alreadyArrived : leadTimeFromNow
+              zeroHour ? this.alreadyReached : leadTimeFromNow
             }</li>`;
             leadTimeListLong = `${leadTimeListLong}<li>${
               event.eventName ? `${event.eventName}: ` : ''
             }${disasterType === DisasterType.HeavyRain ? 'Estimated ' : ''}${
-              zeroHour ? this.alreadyArrived : leadTimeFromNow
+              zeroHour ? this.alreadyReached : leadTimeFromNow
             } ${
               event.thresholdReached
                 ? ' <strong>(trigger reached)</strong>'
@@ -573,7 +577,7 @@ export class NotificationService {
     const tableForLeadTimeStart = `<div>
       <strong>${
         zeroHour
-          ? this.alreadyArrived
+          ? this.alreadyReached
           : `Forecast ${
               disasterType === DisasterType.HeavyRain ? 'estimated ' : ''
             }${leadTimeValue} ${leadTimeUnit}(s) from`
