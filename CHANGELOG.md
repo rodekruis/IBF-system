@@ -1,3 +1,12 @@
+## [0.167.1](https://github.com/rodekruis/IBF-system/compare/v0.167.0...v0.167.1) (2022-07-01)
+
+
+### Bug Fixes
+
+* update dam marker popup string AB[#14364](https://github.com/rodekruis/IBF-system/issues/14364) ([3c1c560](https://github.com/rodekruis/IBF-system/commit/3c1c560f9584eead21b498b2d875523edafdfb8e))
+
+
+
 # [0.167.0](https://github.com/rodekruis/IBF-system/compare/v0.166.0...v0.167.0) (2022-07-01)
 
 
@@ -135,33 +144,6 @@
 * add event-no-trigger to mock AB[#13997](https://github.com/rodekruis/IBF-system/issues/13997) ([114e116](https://github.com/rodekruis/IBF-system/commit/114e116e535ffd00848cf327db6365ddbe53dbc9))
 * handle multi-event case AB[#13999](https://github.com/rodekruis/IBF-system/issues/13999) ([d1a2d8a](https://github.com/rodekruis/IBF-system/commit/d1a2d8a828cbc309efb081e72ba655e96bda5b34))
 * process below vs above threshold event everywhere AB[#13996](https://github.com/rodekruis/IBF-system/issues/13996) ([1d5793b](https://github.com/rodekruis/IBF-system/commit/1d5793b0c54f29b4c18ee2eb262926e4846784c0))
-
-
-
-# [0.159.0](https://github.com/rodekruis/IBF-system/compare/v0.158.3...v0.159.0) (2022-05-30)
-
-
-### Bug Fixes
-
-* clearout message bug AB[#13979](https://github.com/rodekruis/IBF-system/issues/13979) ([2880d8f](https://github.com/rodekruis/IBF-system/commit/2880d8f805c7337e144733846d490e90b123ae82))
-* don't show irrelevant non-trigger leadtimes AB[#13973](https://github.com/rodekruis/IBF-system/issues/13973) ([731a140](https://github.com/rodekruis/IBF-system/commit/731a14080aeebd1cbca7d238098b21ac68c89db7))
-* show available leadtime if no triggers AB[#13802](https://github.com/rodekruis/IBF-system/issues/13802) ([195f7b3](https://github.com/rodekruis/IBF-system/commit/195f7b36435c437b9cde9dc450144c099e993b15))
-* specify mock-data per region AB[#13912](https://github.com/rodekruis/IBF-system/issues/13912) ([b2c8a3e](https://github.com/rodekruis/IBF-system/commit/b2c8a3e38fecc14f25b272e3b3431e670f4b7259))
-
-
-### Features
-
-* adapt clear-out messages AB[#13812](https://github.com/rodekruis/IBF-system/issues/13812) ([dc3dc4f](https://github.com/rodekruis/IBF-system/commit/dc3dc4f481fc85ba28dc97eb16178d31fd2cd8b7))
-* add note in speech bubble AB[#13806](https://github.com/rodekruis/IBF-system/issues/13806) ([0b4ce95](https://github.com/rodekruis/IBF-system/commit/0b4ce952ecd5c152a6bbd30a7f960a35e5a88dde))
-* create prolonged drought seasons AB[#13802](https://github.com/rodekruis/IBF-system/issues/13802) ([070e834](https://github.com/rodekruis/IBF-system/commit/070e8341778a2437733d46ae16260bc92fc2689b))
-* give date as input for mock AB[#13979](https://github.com/rodekruis/IBF-system/issues/13979) ([d11ca6c](https://github.com/rodekruis/IBF-system/commit/d11ca6c526729abd131d5e7114dd8cf533b90327))
-* hard-code non-trigger >3 months mock AB[#13913](https://github.com/rodekruis/IBF-system/issues/13913) ([fcaa071](https://github.com/rodekruis/IBF-system/commit/fcaa071fcc07f4fd1e123a44ee59eea1e5e7dbd2))
-* make ken seasons sticky AB[#13979](https://github.com/rodekruis/IBF-system/issues/13979) ([1de90cf](https://github.com/rodekruis/IBF-system/commit/1de90cf4e0bdb1acf32498fe46896736b6020f4f))
-* new month in chat AB[#13810](https://github.com/rodekruis/IBF-system/issues/13810) ([c64a1d6](https://github.com/rodekruis/IBF-system/commit/c64a1d6c280539d061af4d9aeea4e2f1d6a702c5))
-* process seed-data + temp actions AB[#13810](https://github.com/rodekruis/IBF-system/issues/13810) ([76edafc](https://github.com/rodekruis/IBF-system/commit/76edafce284c9b908473081d0623b3922fbed0f6))
-* real EAP actions for ETH drought AB[#13811](https://github.com/rodekruis/IBF-system/issues/13811) ([8c94d18](https://github.com/rodekruis/IBF-system/commit/8c94d18913a698ce3e8d1cb0f0bcbbfdbddf547e))
-* set today-btn to recent date AB[#13979](https://github.com/rodekruis/IBF-system/issues/13979) ([a3c9ffe](https://github.com/rodekruis/IBF-system/commit/a3c9ffeda380deaf5eb3b6a571ff0380a9eb067c))
-* split drought seasons by region AB[#13805](https://github.com/rodekruis/IBF-system/issues/13805) ([3464b86](https://github.com/rodekruis/IBF-system/commit/3464b864ea26f209c02620f77514eb54ebda6b80))
 
 
 
