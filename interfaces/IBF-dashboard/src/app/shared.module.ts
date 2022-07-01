@@ -17,6 +17,7 @@ import { CountrySwitcherComponent } from './components/country-switcher/country-
 import { DateButtonComponent } from './components/date-button/date-button.component';
 import { DialogueTurnComponent } from './components/dialogue-turn/dialogue-turn.component';
 import { DisasterTypeComponent } from './components/disaster-type/disaster-type.component';
+import { DisclaimerToolbarComponent } from './components/disclaimer-toolbar/disclaimer-toolbar.component';
 import { EventSwitcherComponent } from './components/event-switcher/event-switcher.component';
 import { ExportViewPopoverComponent } from './components/export-view-popover/export-view-popover.component';
 import { ExportViewComponent } from './components/export-view/export-view.component';
@@ -71,6 +72,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ForgotPasswordPopoverComponent,
     ChangePasswordPopoverComponent,
     ActivationLogButtonComponent,
+    DisclaimerToolbarComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -101,6 +103,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ForgotPasswordPopoverComponent,
     ChangePasswordPopoverComponent,
     ActivationLogButtonComponent,
+    DisclaimerToolbarComponent,
   ],
 })
 export class SharedModule {}

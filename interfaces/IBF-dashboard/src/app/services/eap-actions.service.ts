@@ -94,15 +94,22 @@ export class EapActionsService {
       this.timelineState?.activeLeadTime &&
       this.eventState
     ) {
-      this.apiService
-        .getTriggeredAreas(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-          this.adminLevel,
-          this.timelineState.activeLeadTime,
-          this.eventState.event?.eventName,
+      if (
+        this.disasterTypeSettings.adminLevels.includes(this.adminLevel) &&
+        this.disasterTypeSettings.activeLeadTimes.includes(
+          this.timelineState?.activeLeadTime,
         )
-        .subscribe(this.onTriggeredAreas);
+      ) {
+        this.apiService
+          .getTriggeredAreas(
+            this.country.countryCodeISO3,
+            this.disasterType.disasterType,
+            this.adminLevel,
+            this.timelineState.activeLeadTime,
+            this.eventState.event?.eventName,
+          )
+          .subscribe(this.onTriggeredAreas);
+      }
     }
   }
 

@@ -46,6 +46,14 @@ Scenario: View map in TRIGGERED mode with "stopped" areas
     And "stopped" areas are grey instead of a shade of purple 
     And it has a black outline instead of a red outline for the "alert threshold" layer
 
+Scenario: View map in EVENT-WITHOUT-TRIGGER mode ('typhoon' only)
+    Given the selected disaster type is 'typhoon'
+    Given the event is EVENT-WITHOUT-TRIGGER: an event that didn't reach the trigger threshold
+    When the users views the map
+    Then a typhoon track is shown
+    And it shows a selection of admin-areas in gradients of grey, according to the percentage of 'Houses affected'
+    And the dashboard is in NON-TRIGGERED mode
+
 Scenario: View legend
     Given a shape-layer is "selected" in the map
     When the users views the legend in the bottom-left of the map

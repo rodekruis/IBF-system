@@ -171,6 +171,21 @@ export class ScriptsService {
         mockTyphoonScenario.eventNr,
         mockTyphoonScenario.scenario,
       );
+    } else if (
+      mockTyphoonScenario.scenario === TyphoonScenario.EventAfterLandfall
+    ) {
+      await this.mockCountry(
+        {
+          countryCodeISO3: mockTyphoonScenario.countryCodeISO3,
+          disasterType: DisasterType.Typhoon,
+          triggered: true,
+          removeEvents: mockTyphoonScenario.removeEvents,
+          secret: mockTyphoonScenario.secret,
+          date: new Date(),
+        },
+        mockTyphoonScenario.eventNr,
+        TyphoonScenario.EventAfterLandfall,
+      );
     } else {
       throw new HttpException('Not a known scenario', HttpStatus.BAD_REQUEST);
     }

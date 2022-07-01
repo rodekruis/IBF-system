@@ -69,15 +69,7 @@
         </ion-col>
       </ion-row>
     </ion-toolbar>
-    <ion-toolbar
-      *ngIf="environmentConfiguration === 'stage'"
-      class="disclaimer-toolbar"
-      color="ibf-primary"
-    >
-      <ion-title class="ion-text-center" size="small"
-        >Environment: {{ environmentConfiguration }}</ion-title
-      >
-    </ion-toolbar>
+    <app-disclaimer-toolbar></app-disclaimer-toolbar>
   </ion-header>
 
   <ion-content>

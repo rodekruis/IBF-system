@@ -1,18 +1,37 @@
-<div class="activation-log-container">
-  <table class="ion-text" *ngIf="activationLogs" ngClass="ion-margin">
-    <thead *ngIf="activationLogs['headerData']">
-      <tr>
-        <th *ngFor="let header of activationLogs['headerData']">
-          {{ header }}
-        </th>
-      </tr>
-    </thead>
-    <tbody *ngIf="activationLogs['rowsData']">
-      <tr *ngFor="let row of activationLogs['rowsData']">
-        <td *ngFor="let data of row">
-          {{ data }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div>
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button title="Home">
+          <ion-icon name="apps" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <app-user-state [isLoggedIn]="true"></app-user-state>
+      <ion-row slot="end" class="ion-align-items-center">
+        <ion-col size="auto">
+          <app-logos></app-logos>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+    <app-disclaimer-toolbar></app-disclaimer-toolbar>
+  </ion-header>
+
+  <div class="activation-log-container">
+    <table class="ion-text" *ngIf="activationLogs" ngClass="ion-margin">
+      <thead *ngIf="activationLogs['headerData']">
+        <tr>
+          <th *ngFor="let header of activationLogs['headerData']">
+            {{ header }}
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngIf="activationLogs['rowsData']">
+        <tr *ngFor="let row of activationLogs['rowsData']">
+          <td *ngFor="let data of row">
+            {{ data }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

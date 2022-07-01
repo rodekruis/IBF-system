@@ -1,3 +1,49 @@
+# [0.166.0](https://github.com/rodekruis/IBF-system/compare/v0.165.0...v0.166.0) (2022-07-01)
+
+
+### Bug Fixes
+
+* add missing popup text AB[#14360](https://github.com/rodekruis/IBF-system/issues/14360) ([d67f882](https://github.com/rodekruis/IBF-system/commit/d67f882d7abf0c5f60618c7ffa11699260b5146c))
+* remove unwanted characters from xlsx AB[#14320](https://github.com/rodekruis/IBF-system/issues/14320) ([22fb60e](https://github.com/rodekruis/IBF-system/commit/22fb60e07403e52aeef93437edb287428416249d))
+* sort xlsx AB[#14320](https://github.com/rodekruis/IBF-system/issues/14320) ([d9dc121](https://github.com/rodekruis/IBF-system/commit/d9dc121efdd069f45a5db37d3baa390d10ac2103))
+
+
+### Features
+
+* process new layers AB[#13978](https://github.com/rodekruis/IBF-system/issues/13978) ([2e44ff4](https://github.com/rodekruis/IBF-system/commit/2e44ff4fba613f4f33b32182c6b5dc19442f03bf))
+
+
+
+# [0.165.0](https://github.com/rodekruis/IBF-system/compare/v0.164.0...v0.165.0) (2022-06-24)
+
+
+### Features
+
+* add demo user AB[#14312](https://github.com/rodekruis/IBF-system/issues/14312) ([38857c1](https://github.com/rodekruis/IBF-system/commit/38857c172e48726754b0bbf68a5b5d34c3bf105e))
+
+
+
+# [0.164.0](https://github.com/rodekruis/IBF-system/compare/v0.163.0...v0.164.0) (2022-06-24)
+
+
+### Features
+
+* change staging banner UX copy AB[#14269](https://github.com/rodekruis/IBF-system/issues/14269) ([495fd15](https://github.com/rodekruis/IBF-system/commit/495fd158828168641f539cac2b71a355c5141e4f))
+* upgrade stage-banner + show in all pages AB[#14260](https://github.com/rodekruis/IBF-system/issues/14260) ([3d7f2d3](https://github.com/rodekruis/IBF-system/commit/3d7f2d318295f9ffa9c27c56b20d73853170aa1e))
+
+
+
+# [0.163.0](https://github.com/rodekruis/IBF-system/compare/v0.162.0...v0.163.0) (2022-06-20)
+
+
+### Features
+
+* edit test scenarios AB[#13971](https://github.com/rodekruis/IBF-system/issues/13971) ([bdb84de](https://github.com/rodekruis/IBF-system/commit/bdb84ded649cb69ef3361d841a6e29d13b4d4aae))
+* edit typhoon no trigger scenarios AB[#14001](https://github.com/rodekruis/IBF-system/issues/14001) ([212a5bd](https://github.com/rodekruis/IBF-system/commit/212a5bd70c0ec3ed92b7f5737420936507827e2b))
+* test scenarios after landfall AB[#14005](https://github.com/rodekruis/IBF-system/issues/14005) ([4083833](https://github.com/rodekruis/IBF-system/commit/40838338eb4b1e6bb2860065e32539ec57f7d7b5))
+
+
+
 # [0.162.0](https://github.com/rodekruis/IBF-system/compare/v0.161.1...v0.162.0) (2022-06-13)
 
 
@@ -97,56 +143,6 @@
 ### Bug Fixes
 
 * allow hotspot/ipc layer names AB[#13954](https://github.com/rodekruis/IBF-system/issues/13954) ([ee9e9b9](https://github.com/rodekruis/IBF-system/commit/ee9e9b946a3757ba9324965375b945370e52fa89))
-
-
-
-## [0.158.2](https://github.com/rodekruis/IBF-system/compare/v0.158.1...v0.158.2) (2022-05-25)
-
-
-### Bug Fixes
-
-* change hotspot + ipc layers to static AB[#13954](https://github.com/rodekruis/IBF-system/issues/13954) ([880f7f5](https://github.com/rodekruis/IBF-system/commit/880f7f550745ac41c348b31e82283715a241d72f))
-* udpate adm2 boundaries AB[#13924](https://github.com/rodekruis/IBF-system/issues/13924) ([ef29b9f](https://github.com/rodekruis/IBF-system/commit/ef29b9f934c5c533ec2bdffca297c5eaca2a4b7f))
-
-
-
-## [0.158.1](https://github.com/rodekruis/IBF-system/compare/v0.158.0...v0.158.1) (2022-05-24)
-
-
-### Bug Fixes
-
-* udpate adm2 boundaries AB[#13924](https://github.com/rodekruis/IBF-system/issues/13924) ([119c2f3](https://github.com/rodekruis/IBF-system/commit/119c2f3ab8ef3dce10030cd751c3c0c63c554021))
-
-
-
-# [0.158.0](https://github.com/rodekruis/IBF-system/compare/v0.157.0...v0.158.0) (2022-05-20)
-
-
-### Bug Fixes
-
-* update ipc + nutrition layers AB[#13832](https://github.com/rodekruis/IBF-system/issues/13832) AB[#13847](https://github.com/rodekruis/IBF-system/issues/13847) ([6f0d257](https://github.com/rodekruis/IBF-system/commit/6f0d25754ea52f04bed8f54e2d8868359652d61c))
-* update KEN video link AB[#13720](https://github.com/rodekruis/IBF-system/issues/13720) ([3f8edb3](https://github.com/rodekruis/IBF-system/commit/3f8edb3c877a811860702d8a4cbbc355ec4f6891))
-
-
-### Features
-
-* add eap-link eth drought AB[#13886](https://github.com/rodekruis/IBF-system/issues/13886) ([a53ff6d](https://github.com/rodekruis/IBF-system/commit/a53ff6df7a0f05277677e00eb308bcce6ae73447))
-
-
-
-# [0.157.0](https://github.com/rodekruis/IBF-system/compare/v0.156.0...v0.157.0) (2022-05-16)
-
-
-### Bug Fixes
-
-* move old tests AB[#13776](https://github.com/rodekruis/IBF-system/issues/13776) ([e6af5ee](https://github.com/rodekruis/IBF-system/commit/e6af5ee9b963b0bf1fc74a6f8bffaeb1be13a0dc))
-* use waitForRequest instead of wait AB[#13598](https://github.com/rodekruis/IBF-system/issues/13598) ([1da677c](https://github.com/rodekruis/IBF-system/commit/1da677ce03e4831d1fc5bf23a3e77a31d7941c9e))
-
-
-### Features
-
-* add one test file per country AB[#13776](https://github.com/rodekruis/IBF-system/issues/13776) ([d6fae10](https://github.com/rodekruis/IBF-system/commit/d6fae10efd6122a12e2f0468884d589ae1ffadf7))
-* improve test functions AB[#13600](https://github.com/rodekruis/IBF-system/issues/13600) ([fc2c780](https://github.com/rodekruis/IBF-system/commit/fc2c7803252555bd02bb5cbdf75c9be800e6f1d1))
 
 
 
