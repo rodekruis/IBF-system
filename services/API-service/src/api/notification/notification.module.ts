@@ -9,6 +9,8 @@ import { NotificationService } from './notification.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { AdminAreaDataModule } from '../admin-area-data/admin-area-data.module';
+import { AdminAreaModule } from '../admin-area/admin-area.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { DisasterEntity } from '../disaster/disaster.entity';
     UserModule,
     EventModule,
     AdminAreaDynamicDataModule,
+    AdminAreaDataModule,
+    AdminAreaModule,
   ],
   controllers: [NotificationController],
   providers: [NotificationService],

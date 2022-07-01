@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from './admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
 import { EventService } from '../event/event.service';
@@ -18,8 +17,6 @@ import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-u
 export class AdminAreaService {
   @InjectRepository(AdminAreaEntity)
   private readonly adminAreaRepository: Repository<AdminAreaEntity>;
-  @InjectRepository(CountryEntity)
-  private readonly countryRepository: Repository<CountryEntity>;
   @InjectRepository(DisasterEntity)
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
   @InjectRepository(AdminAreaDynamicDataEntity)
@@ -91,22 +88,16 @@ export class AdminAreaService {
     });
   }
 
-  public async getAggregatesData(
+  public async getPlaceCodes(
     countryCodeISO3: string,
     disasterType: DisasterType,
     leadTime: string,
     adminLevel: number,
     eventName: string,
-  ): Promise<AggregateDataRecord[]> {
-    const disaster = await this.getDisasterType(disasterType);
-    let placeCodes = [];
+  ) {
     // For these disaster-types show only triggered areas. For others show all.
-    if (
-      [DisasterType.Floods, DisasterType.HeavyRain].includes(
-        disaster.disasterType,
-      )
-    ) {
-      placeCodes = await this.getTriggeredPlaceCodes(
+    if ([DisasterType.Floods, DisasterType.HeavyRain].includes(disasterType)) {
+      return await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         disasterType,
         adminLevel,
@@ -114,14 +105,29 @@ export class AdminAreaService {
         eventName,
       );
     } else {
-      placeCodes = await this.getPlaceCodesToShow(
+      return await this.getPlaceCodesToShow(
         countryCodeISO3,
         disasterType,
         adminLevel,
         leadTime,
       );
     }
+  }
 
+  public async getAggregatesData(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    leadTime: string,
+    adminLevel: number,
+    eventName: string,
+  ): Promise<AggregateDataRecord[]> {
+    const placeCodes = await this.getPlaceCodes(
+      countryCodeISO3,
+      disasterType,
+      leadTime,
+      adminLevel,
+      eventName,
+    );
     let staticIndicatorsScript = this.adminAreaRepository
       .createQueryBuilder('area')
       .select(['area."placeCode"'])
@@ -259,28 +265,13 @@ export class AdminAreaService {
         indicator: disaster.actionsUnit,
       });
 
-    // If alertThreshold is triggerUnit, always show all admin-areas
-    let placeCodes = [];
-    if (
-      [DisasterType.Floods, DisasterType.HeavyRain].includes(
-        disaster.disasterType,
-      )
-    ) {
-      placeCodes = await this.getTriggeredPlaceCodes(
-        countryCodeISO3,
-        disasterType,
-        adminLevel,
-        leadTime,
-        eventName,
-      );
-    } else {
-      placeCodes = await this.getPlaceCodesToShow(
-        countryCodeISO3,
-        disasterType,
-        adminLevel,
-        leadTime,
-      );
-    }
+    const placeCodes = await this.getPlaceCodes(
+      countryCodeISO3,
+      disasterType,
+      leadTime,
+      adminLevel,
+      eventName,
+    );
     if (placeCodes.length) {
       adminAreasScript = adminAreasScript.andWhere(
         'area."placeCode" IN (:...placeCodes)',
