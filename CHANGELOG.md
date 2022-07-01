@@ -1,3 +1,19 @@
+# [0.166.0](https://github.com/rodekruis/IBF-system/compare/v0.165.0...v0.166.0) (2022-07-01)
+
+
+### Bug Fixes
+
+* add missing popup text AB[#14360](https://github.com/rodekruis/IBF-system/issues/14360) ([d67f882](https://github.com/rodekruis/IBF-system/commit/d67f882d7abf0c5f60618c7ffa11699260b5146c))
+* remove unwanted characters from xlsx AB[#14320](https://github.com/rodekruis/IBF-system/issues/14320) ([22fb60e](https://github.com/rodekruis/IBF-system/commit/22fb60e07403e52aeef93437edb287428416249d))
+* sort xlsx AB[#14320](https://github.com/rodekruis/IBF-system/issues/14320) ([d9dc121](https://github.com/rodekruis/IBF-system/commit/d9dc121efdd069f45a5db37d3baa390d10ac2103))
+
+
+### Features
+
+* process new layers AB[#13978](https://github.com/rodekruis/IBF-system/issues/13978) ([2e44ff4](https://github.com/rodekruis/IBF-system/commit/2e44ff4fba613f4f33b32182c6b5dc19442f03bf))
+
+
+
 # [0.165.0](https://github.com/rodekruis/IBF-system/compare/v0.164.0...v0.165.0) (2022-06-24)
 
 
@@ -127,16 +143,6 @@
 ### Bug Fixes
 
 * allow hotspot/ipc layer names AB[#13954](https://github.com/rodekruis/IBF-system/issues/13954) ([ee9e9b9](https://github.com/rodekruis/IBF-system/commit/ee9e9b946a3757ba9324965375b945370e52fa89))
-
-
-
-## [0.158.2](https://github.com/rodekruis/IBF-system/compare/v0.158.1...v0.158.2) (2022-05-25)
-
-
-### Bug Fixes
-
-* change hotspot + ipc layers to static AB[#13954](https://github.com/rodekruis/IBF-system/issues/13954) ([880f7f5](https://github.com/rodekruis/IBF-system/commit/880f7f550745ac41c348b31e82283715a241d72f))
-* udpate adm2 boundaries AB[#13924](https://github.com/rodekruis/IBF-system/issues/13924) ([ef29b9f](https://github.com/rodekruis/IBF-system/commit/ef29b9f934c5c533ec2bdffca297c5eaca2a4b7f))
 
 
 
