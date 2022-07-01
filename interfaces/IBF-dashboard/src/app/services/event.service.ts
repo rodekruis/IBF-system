@@ -171,7 +171,10 @@ export class EventService {
   private setAlertState = () => {
     const dashboardElement = document.getElementById('ibf-dashboard-interface');
     if (dashboardElement) {
-      if (this.state.event?.thresholdReached) {
+      if (
+        this.state.event?.activeTrigger &&
+        this.state.event?.thresholdReached
+      ) {
         dashboardElement.classList.remove('no-alert');
         dashboardElement.classList.add('trigger-alert');
       } else {

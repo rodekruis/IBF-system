@@ -76,6 +76,10 @@ export class EventService {
       .where('closed = :closed', {
         closed: false,
       })
+      .andWhere(
+        // in case of 'typhoon' filter also on activeTrigger = true, thereby disabling old-event scenario
+        '(event."disasterType" <> \'typhoon\' OR (event."disasterType" = \'typhoon\' AND event."activeTrigger" = true))',
+      )
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })

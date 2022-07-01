@@ -99,7 +99,7 @@ export class MockTyphoonScenario {
   public readonly countryCodeISO3: string;
 
   @ApiProperty({
-    example: `${TyphoonScenario.EventTrigger} | ${TyphoonScenario.EventNoTrigger} | ${TyphoonScenario.NoEvent}  | ${TyphoonScenario.EventAfterLandfall}`,
+    example: Object.values(TyphoonScenario).join(' | '),
   })
   @IsEnum(TyphoonScenario)
   public readonly scenario: TyphoonScenario;

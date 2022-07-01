@@ -169,7 +169,15 @@
         ></p>
         <ul>
           <li *ngFor="let area of activeAreas">
-            <p>{{ area.name }} ({{ area.actionsValue | number: '.0-0' }})</p>
+            <p>
+              {{ area.name }} (<span
+                *ngIf="actionIndicatorNumberFormat === 'decimal0'"
+                >{{ area.actionsValue | number: '.0-0' }}</span
+              ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
+                area.actionsValue | percent: '.0-0'
+              }}</span
+              >)
+            </p>
           </li>
         </ul>
         <p
@@ -201,7 +209,15 @@
         ></p>
         <ul>
           <li *ngFor="let area of stoppedAreas">
-            <p>{{ area.name }} ({{ area.actionsValue | number: '.0-0' }})</p>
+            <p>
+              {{ area.name }} (<span
+                *ngIf="actionIndicatorNumberFormat === 'decimal0'"
+                >{{ area.actionsValue | number: '.0-0' }}</span
+              ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
+                area.actionsValue | percent: '.0-0'
+              }}</span
+              >)
+            </p>
           </li>
         </ul>
         <p
@@ -255,16 +271,21 @@
               "
             ></ion-label
             ><br />
-            <ion-note
-              size="small"
-              [innerHTML]="
-                'chat-component.' + disasterTypeName + '.active-event.exposed'
-                  | translate
-                    : {
-                        exposedNumber: area['actionsValue'] | number: '.0-0'
-                      }
-              "
-            >
+            <ion-note size="small">
+              <span
+                [innerHTML]="
+                  'chat-component.' + disasterTypeName + '.active-event.exposed'
+                    | translate
+                "
+              ></span>
+              <strong
+                ><span *ngIf="actionIndicatorNumberFormat === 'decimal0'">
+                  {{ area.actionsValue | number: '.0-0' }}
+                </span>
+                <span *ngIf="actionIndicatorNumberFormat === 'perc'">
+                  {{ area.actionsValue | percent: '.0-0' }}</span
+                >
+              </strong>
             </ion-note>
             <br />
             <div

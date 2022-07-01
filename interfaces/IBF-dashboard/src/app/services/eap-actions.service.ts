@@ -94,15 +94,22 @@ export class EapActionsService {
       this.timelineState?.activeLeadTime &&
       this.eventState
     ) {
-      this.apiService
-        .getTriggeredAreas(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-          this.adminLevel,
-          this.timelineState.activeLeadTime,
-          this.eventState.event?.eventName,
+      if (
+        this.disasterTypeSettings.adminLevels.includes(this.adminLevel) &&
+        this.disasterTypeSettings.activeLeadTimes.includes(
+          this.timelineState?.activeLeadTime,
         )
-        .subscribe(this.onTriggeredAreas);
+      ) {
+        this.apiService
+          .getTriggeredAreas(
+            this.country.countryCodeISO3,
+            this.disasterType.disasterType,
+            this.adminLevel,
+            this.timelineState.activeLeadTime,
+            this.eventState.event?.eventName,
+          )
+          .subscribe(this.onTriggeredAreas);
+      }
     }
   }
 
@@ -115,7 +122,7 @@ export class EapActionsService {
       this.formatDates(area);
       this.filterEapActionsByMonth(area);
       area.eapActions.forEach((action) => {
-        if (action.month) {
+        if (Object.keys(action.month).length) {
           Object.defineProperty(action, 'monthLong', {
             value: {},
           });
@@ -128,6 +135,8 @@ export class EapActionsService {
               ).monthLong,
             });
           }
+        } else {
+          action.month = null;
         }
       });
     });
