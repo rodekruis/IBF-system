@@ -1015,7 +1015,7 @@ export class MapComponent implements OnDestroy {
   private createMarkerDamPopup(markerProperties: DamSite): string {
     const branchInfoPopup = (
       '<div style="margin-bottom: 5px">' +
-      '<strong>Branch: ' +
+      '<strong>Dam: ' +
       markerProperties.damName +
       '</strong>' +
       '</div>'
