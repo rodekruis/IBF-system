@@ -505,14 +505,26 @@ export class ChatComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const currentMonth = this.timelineState.today.month;
+    const forecastInfoSeed = {
+      KEN: () => {
+        const currentMonth = this.timelineState.today.month;
 
-    const prefixKey = 'prefix';
-    const prefix = this.disasterTypeSettings.monthlyForecastInfo[prefixKey];
+        const prefixKey = 'prefix';
+        const prefix = this.disasterTypeSettings.monthlyForecastInfo[prefixKey];
 
-    this.forecastInfo = this.disasterTypeSettings.monthlyForecastInfo[
-      currentMonth
-    ].map((forecast) => this.translateService.instant(`${prefix}.${forecast}`));
+        return this.disasterTypeSettings.monthlyForecastInfo[
+          currentMonth
+        ].map((forecast) =>
+          this.translateService.instant(`${prefix}.${forecast}`),
+        );
+      },
+      ZWE: () => {
+        const messageKey = 'message';
+        return this.disasterTypeSettings.monthlyForecastInfo[messageKey];
+      },
+    };
+
+    this.forecastInfo = forecastInfoSeed[this.country.countryCodeISO3]();
   }
 
   public getNumberOfActions(nrActions: number, nrForecasts: number) {
