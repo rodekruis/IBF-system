@@ -114,6 +114,10 @@
 
     <app-event-switcher></app-event-switcher>
 
+    <p *ngIf="forecastInfo && country?.countryCodeISO3 === 'ZWE'">
+      {{ forecastInfo }}
+    </p>
+
     <p
       class="clear-out-message"
       *ngIf="!!clearOutMessage"
@@ -292,45 +296,33 @@
               *ngIf="disasterTypeSettings?.showMonthlyEapActions"
               class="ion-margin-bottom"
             >
-              <ng-container *ngIf="forecastInfo">
-                <ng-container [ngSwitch]="country.countryCodeISO3">
-                  <ng-container *ngSwitchCase="'KEN'">
-                    <ion-note size="small" *ngIf="area?.eapActions as actions">
-                      <span *ngIf="forecastInfo?.length"
-                        >{{
-                          'chat-component.drought.active-event.forecast-info.opening'
-                            | translate
-                        }}
-                      </span>
+              <ng-container
+                *ngIf="forecastInfo && country?.countryCodeISO3 === 'KEN'"
+              >
+                <ion-note size="small" *ngIf="area?.eapActions as actions">
+                  <span *ngIf="forecastInfo?.length"
+                    >{{
+                      'chat-component.drought.active-event.forecast-info.opening'
+                        | translate
+                    }}
+                  </span>
 
-                      <span
-                        *ngFor="let forecast of forecastInfo; last as isLast"
-                      >
-                        <strong>{{ forecast }}</strong
-                        ><span *ngIf="!isLast">
-                          {{
-                            'chat-component.drought.active-event.forecast-info.and'
-                              | translate
-                          }}
-                        </span>
-                      </span>
-                      {{ ' ' }}
-                      <span
-                        [innerHTML]="
-                          getNumberOfActions(
-                            actions.length,
-                            forecastInfo?.length
-                          )
-                        "
-                      ></span>
-                    </ion-note>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'ZWE'">
-                    <ion-note size="small">
-                      {{ forecastInfo }}
-                    </ion-note>
-                  </ng-container>
-                </ng-container>
+                  <span *ngFor="let forecast of forecastInfo; last as isLast">
+                    <strong>{{ forecast }}</strong
+                    ><span *ngIf="!isLast">
+                      {{
+                        'chat-component.drought.active-event.forecast-info.and'
+                          | translate
+                      }}
+                    </span>
+                  </span>
+                  {{ ' ' }}
+                  <span
+                    [innerHTML]="
+                      getNumberOfActions(actions.length, forecastInfo?.length)
+                    "
+                  ></span>
+                </ion-note>
               </ng-container>
             </div>
           </ion-col>

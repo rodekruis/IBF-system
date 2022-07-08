@@ -952,7 +952,7 @@
           ]
         },
         "monthlyForecastInfo": {
-          "message": "The forecast relative to the current month runs on the 20th of the month"
+          "message": "The IBF Portal will load the forecast for the current month around the 20th of each month."
         },
         "showMonthlyEapActions": true,
         "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
