@@ -1898,19 +1898,13 @@
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
     "areaOfFocus": {
-      "id": "drr"
+      "id": "livelihood"
     },
-    "action": "drr-1",
-    "label": "DRR preliminary action"
-  },
-  {
-    "countryCodeISO3": "ZWE",
-    "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
-    "action": "shelter-1",
-    "label": "Shelter preliminary action"
+    "action": "zwe-drought-01",
+    "label": "Beneficiary identification and Registration",
+    "month": {
+      "National": 10
+    }
   },
   {
     "countryCodeISO3": "ZWE",
@@ -1918,44 +1912,119 @@
     "areaOfFocus": {
       "id": "livelihood"
     },
-    "action": "livelihood-1",
-    "label": "Livelihood preliminary action"
+    "action": "zwe-drought-02",
+    "label": "Distribution of Drought Tolerant Seed",
+    "month": {
+      "National": 11
+    }
   },
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
     "areaOfFocus": {
-      "id": "health"
+      "id": "livelihood"
     },
-    "action": "health-1",
-    "label": "Health preliminary action"
+    "action": "zwe-drought-03",
+    "label": "Purchase of dipping and dosing chemicals",
+    "month": {
+      "National": 11
+    }
   },
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
     "areaOfFocus": {
-      "id": "wash"
+      "id": "livelihood"
     },
-    "action": "wash-1",
-    "label": "WASH preliminary action"
+    "action": "zwe-drought-04",
+    "label": "Manning of dipping tanks and community mobilisation",
+    "month": {
+      "National": 12
+    }
   },
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
     "areaOfFocus": {
-      "id": "inclusion"
+      "id": "livelihood"
     },
-    "action": "inclusion-1",
-    "label": "Inclusion preliminary action"
+    "action": "zwe-drought-05",
+    "label": "Identification of Boreholes",
+    "month": {
+      "National": 4
+    }
   },
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
     "areaOfFocus": {
-      "id": "migration"
+      "id": "livelihood"
     },
-    "action": "migration-1",
-    "label": "Migration preliminary action"
+    "action": "zwe-drought-06",
+    "label": "Repair and rehabilitation of Boreholes",
+    "month": {
+      "National": 5
+    }
+  },
+  {
+    "countryCodeISO3": "ZWE",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zwe-drought-07",
+    "label": "Beneficiary identification and Registration",
+    "month": {
+      "National": 3
+    }
+  },
+  {
+    "countryCodeISO3": "ZWE",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zwe-drought-08",
+    "label": "Confirm minimum expenditure basket",
+    "month": {
+      "National": 4
+    }
+  },
+  {
+    "countryCodeISO3": "ZWE",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zwe-drought-09",
+    "label": "Initiate Framework Contracts",
+    "month": {
+      "National": 5
+    }
+  },
+  {
+    "countryCodeISO3": "ZWE",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zwe-drought-10",
+    "label": "Supplementary feeding to target schools",
+    "month": {
+      "National": 7
+    }
+  },
+  {
+    "countryCodeISO3": "ZWE",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zwe-drought-11",
+    "label": "MPCT to target households",
+    "month": {
+      "National": 7
+    }
   },
   {
     "countryCodeISO3": "EGY",
