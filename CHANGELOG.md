@@ -1,3 +1,17 @@
+# [0.168.0](https://github.com/rodekruis/IBF-system/compare/v0.167.3...v0.168.0) (2022-07-11)
+
+
+### Features
+
+* add actions AB[#14371](https://github.com/rodekruis/IBF-system/issues/14371) ([157078a](https://github.com/rodekruis/IBF-system/commit/157078ab32e789bb31833a7b4a6ba075a8e4f5cf))
+* add icon and change seed data AB[#14373](https://github.com/rodekruis/IBF-system/issues/14373) ([0a1689e](https://github.com/rodekruis/IBF-system/commit/0a1689e6ecde0a9c30324aed45925e0f29dc0dec))
+* add sticky season AB[#14363](https://github.com/rodekruis/IBF-system/issues/14363) ([6623ace](https://github.com/rodekruis/IBF-system/commit/6623ace25d2c78aac2357a79aad8dde8da2c417b))
+* add ZWE demo user AB[#14426](https://github.com/rodekruis/IBF-system/issues/14426) ([ae1bf74](https://github.com/rodekruis/IBF-system/commit/ae1bf74a09d63c13bf9b32fcd688e14b54394243))
+* handle ZWE forecast message AB[#14372](https://github.com/rodekruis/IBF-system/issues/14372) ([1bf314b](https://github.com/rodekruis/IBF-system/commit/1bf314bd2039895ce19a11cfab03e4f14ee43b73))
+* move ZWE forecastinfo to 2nd bubble AB[#14372](https://github.com/rodekruis/IBF-system/issues/14372) ([0cdc9d0](https://github.com/rodekruis/IBF-system/commit/0cdc9d074ac1b488b9354d1cbadf7ce445cdb47a))
+
+
+
 ## [0.167.3](https://github.com/rodekruis/IBF-system/compare/v0.167.2...v0.167.3) (2022-07-11)
 
 
@@ -112,15 +126,6 @@
 
 * facilitate 0-hour upload AB[#14002](https://github.com/rodekruis/IBF-system/issues/14002) ([3bf5425](https://github.com/rodekruis/IBF-system/commit/3bf5425b9532eff499fd2f54956cc8b5f9adc5e2))
 * mention already landfall AB[#14003](https://github.com/rodekruis/IBF-system/issues/14003) ([cd136a4](https://github.com/rodekruis/IBF-system/commit/cd136a42cc9d67072c3ec3af6c46bc212ce32986))
-
-
-
-## [0.161.1](https://github.com/rodekruis/IBF-system/compare/v0.161.0...v0.161.1) (2022-06-13)
-
-
-### Bug Fixes
-
-* conflicts typhoon*drought AB[#14188](https://github.com/rodekruis/IBF-system/issues/14188) ([caa7c49](https://github.com/rodekruis/IBF-system/commit/caa7c49c397b982b0b3deaf5c70e4ef296d1f051))
 
 
 
