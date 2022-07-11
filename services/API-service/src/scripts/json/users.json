@@ -100,5 +100,17 @@
     "userRole": "admin",
     "password": "ibf-portal",
     "userStatus": "active"
+  },
+  {
+    "email": "ibf-zimbabwe@redcross.nl",
+    "username": "ibf-zimbabwe@redcross.nl",
+    "firstName": "Zimbabwe",
+    "lastName": "Demo User",
+    "userRole": "disaster-manager",
+    "password": "IBF-Portal",
+    "userStatus": "active",
+    "countries": [
+      "ZWE"
+    ]
   }
 ]
