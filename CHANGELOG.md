@@ -1,3 +1,13 @@
+## [0.167.2](https://github.com/rodekruis/IBF-system/compare/v0.167.1...v0.167.2) (2022-07-08)
+
+
+### Bug Fixes
+
+* correct PHL floods eapLink AB[#14421](https://github.com/rodekruis/IBF-system/issues/14421) ([956d8ee](https://github.com/rodekruis/IBF-system/commit/956d8eec08488d2792466d55d3853742bf03227f))
+* correct PHL trigger statement AB[#14421](https://github.com/rodekruis/IBF-system/issues/14421) ([ee65ccb](https://github.com/rodekruis/IBF-system/commit/ee65ccba83bb6221abed002b734ebfdf39e59d66))
+
+
+
 ## [0.167.1](https://github.com/rodekruis/IBF-system/compare/v0.167.0...v0.167.1) (2022-07-01)
 
 
@@ -126,24 +136,6 @@
 
 * handle ETH+KEN overlap AB[#13993](https://github.com/rodekruis/IBF-system/issues/13993) AB[#13994](https://github.com/rodekruis/IBF-system/issues/13994) ([dfcecf5](https://github.com/rodekruis/IBF-system/commit/dfcecf5331d608995fbbee2a344af351c9e5264c))
 * hardcode Belg May overlap AB[#13993](https://github.com/rodekruis/IBF-system/issues/13993) ([ee89895](https://github.com/rodekruis/IBF-system/commit/ee898954d8cdcf76500e5716b8e21f98419fb66d))
-
-
-
-# [0.160.0](https://github.com/rodekruis/IBF-system/compare/v0.159.0...v0.160.0) (2022-06-10)
-
-
-### Bug Fixes
-
-* improve typhoon mock endpoint AB[#13997](https://github.com/rodekruis/IBF-system/issues/13997) ([1e65f93](https://github.com/rodekruis/IBF-system/commit/1e65f9304680619080b461e87d4d2cc9e3990d08))
-
-
-### Features
-
-* adapt chat section to below-threshold event AB[#13998](https://github.com/rodekruis/IBF-system/issues/13998) ([4d2f470](https://github.com/rodekruis/IBF-system/commit/4d2f4703db02b0c96f081d82629e2e469d6e288d))
-* add below-threshold event to event-table with distinguishing boolean AB[#13995](https://github.com/rodekruis/IBF-system/issues/13995) ([c3195da](https://github.com/rodekruis/IBF-system/commit/c3195daedb1404401b9ad5af433233644070d30e))
-* add event-no-trigger to mock AB[#13997](https://github.com/rodekruis/IBF-system/issues/13997) ([114e116](https://github.com/rodekruis/IBF-system/commit/114e116e535ffd00848cf327db6365ddbe53dbc9))
-* handle multi-event case AB[#13999](https://github.com/rodekruis/IBF-system/issues/13999) ([d1a2d8a](https://github.com/rodekruis/IBF-system/commit/d1a2d8a828cbc309efb081e72ba655e96bda5b34))
-* process below vs above threshold event everywhere AB[#13996](https://github.com/rodekruis/IBF-system/issues/13996) ([1d5793b](https://github.com/rodekruis/IBF-system/commit/1d5793b0c54f29b4c18ee2eb262926e4846784c0))
 
 
 
