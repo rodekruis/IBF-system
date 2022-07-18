@@ -1,282 +1,282 @@
-[
-  {
-    "lon": 133.0424805,
-    "lat": 13.23760796,
-    "timestampOfTrackpoint": "11-12-2021 11:47:56"
-  },
-  {
-    "lon": 132.8000488,
-    "lat": 13.29999924,
-    "timestampOfTrackpoint": "11-13-2021 11:47:56"
-  },
-  {
-    "lon": 132.5725098,
-    "lat": 13.39987183,
-    "timestampOfTrackpoint": "11-14-2021 11:47:56"
-  },
-  {
-    "lon": 132.166626,
-    "lat": 13.56666756,
-    "timestampOfTrackpoint": "11-15-2021 11:47:56"
-  },
-  {
-    "lon": 131.5549316,
-    "lat": 13.62534523,
-    "timestampOfTrackpoint": "11-16-2021 11:47:56"
-  },
-  {
-    "lon": 130.9299316,
-    "lat": 13.65999985,
-    "timestampOfTrackpoint": "11-17-2021 11:47:56"
-  },
-  {
-    "lon": 130.4033203,
-    "lat": 13.69976997,
-    "timestampOfTrackpoint": "11-18-2021 11:47:56"
-  },
-  {
-    "lon": 129.9769287,
-    "lat": 13.73846054,
-    "timestampOfTrackpoint": "11-19-2021 11:47:56"
-  },
-  {
-    "lon": 129.6118164,
-    "lat": 13.78232956,
-    "timestampOfTrackpoint": "11-20-2021 11:47:56"
-  },
-  {
-    "lon": 129.2467041,
-    "lat": 13.79333115,
-    "timestampOfTrackpoint": "11-21-2021 11:47:56"
-  },
-  {
-    "lon": 128.7967529,
-    "lat": 13.72883606,
-    "timestampOfTrackpoint": "11-22-2021 11:47:56"
-  },
-  {
-    "lon": 128.3249512,
-    "lat": 13.64999962,
-    "timestampOfTrackpoint": "11-23-2021 11:47:56"
-  },
-  {
-    "lon": 127.9080811,
-    "lat": 13.62742615,
-    "timestampOfTrackpoint": "11-24-2021 11:47:56"
-  },
-  {
-    "lon": 127.5250244,
-    "lat": 13.64999962,
-    "timestampOfTrackpoint": "11-25-2021 11:47:56"
-  },
-  {
-    "lon": 127.15625,
-    "lat": 13.70433426,
-    "timestampOfTrackpoint": "11-26-2021 11:47:56"
-  },
-  {
-    "lon": 126.8249512,
-    "lat": 13.79999924,
-    "timestampOfTrackpoint": "11-27-2021 11:47:56"
-  },
-  {
-    "lon": 126.5424805,
-    "lat": 13.91116142,
-    "timestampOfTrackpoint": "11-28-2021 11:47:56"
-  },
-  {
-    "lon": 126.2750244,
-    "lat": 14.07500076,
-    "timestampOfTrackpoint": "11-29-2021 11:47:56"
-  },
-  {
-    "lon": 126.0107422,
-    "lat": 14.3472805,
-    "timestampOfTrackpoint": "11-30-2021 11:47:56"
-  },
-  {
-    "lon": 125.6750488,
-    "lat": 14.57500076,
-    "timestampOfTrackpoint": "12-1-2021 11:47:56"
-  },
-  {
-    "lon": 125.2000732,
-    "lat": 14.62251282,
-    "timestampOfTrackpoint": "12-2-2021 11:47:56"
-  },
-  {
-    "lon": 124.6500244,
-    "lat": 14.54999924,
-    "timestampOfTrackpoint": "12-3-2021 11:47:56"
-  },
-  {
-    "lon": 124.067627,
-    "lat": 14.39082336,
-    "timestampOfTrackpoint": "12-4-2021 11:47:56"
-  },
-  {
-    "lon": 123.5500488,
-    "lat": 14.25,
-    "timestampOfTrackpoint": "12-5-2021 11:47:56"
-  },
-  {
-    "lon": 123.227417,
-    "lat": 14.22658157,
-    "timestampOfTrackpoint": "12-6-2021 11:47:56"
-  },
-  {
-    "lon": 122.9499512,
-    "lat": 14.35000038,
-    "timestampOfTrackpoint": "12-7-2021 11:47:56"
-  },
-  {
-    "lon": 122.6043701,
-    "lat": 14.64592934,
-    "timestampOfTrackpoint": "12-8-2021 11:47:56"
-  },
-  {
-    "lon": 122.1500244,
-    "lat": 15.02499962,
-    "timestampOfTrackpoint": "12-9-2021 11:47:56"
-  },
-  {
-    "lon": 121.5311279,
-    "lat": 15.39326668,
-    "timestampOfTrackpoint": "12-10-2021 11:47:56"
-  },
-  {
-    "lon": 120.8249512,
-    "lat": 15.67499924,
-    "timestampOfTrackpoint": "12-11-2021 11:47:56"
-  },
-  {
-    "lon": 120.1313477,
-    "lat": 15.76800156,
-    "timestampOfTrackpoint": "12-12-2021 11:47:56"
-  },
-  {
-    "lon": 119.4499512,
-    "lat": 15.77499962,
-    "timestampOfTrackpoint": "12-13-2021 11:47:56"
-  },
-  {
-    "lon": 118.8041992,
-    "lat": 15.80106163,
-    "timestampOfTrackpoint": "12-14-2021 11:47:56"
-  },
-  {
-    "lon": 118.1999512,
-    "lat": 15.85000038,
-    "timestampOfTrackpoint": "12-15-2021 11:47:56"
-  },
-  {
-    "lon": 117.6630859,
-    "lat": 15.96513176,
-    "timestampOfTrackpoint": "12-16-2021 11:47:56"
-  },
-  {
-    "lon": 117.0999756,
-    "lat": 16.10000038,
-    "timestampOfTrackpoint": "12-17-2021 11:47:56"
-  },
-  {
-    "lon": 116.4078369,
-    "lat": 16.18690109,
-    "timestampOfTrackpoint": "12-18-2021 11:47:56"
-  },
-  {
-    "lon": 115.6750488,
-    "lat": 16.29999924,
-    "timestampOfTrackpoint": "12-19-2021 11:47:56"
-  },
-  {
-    "lon": 114.9912109,
-    "lat": 16.49336243,
-    "timestampOfTrackpoint": "12-20-2021 11:47:56"
-  },
-  {
-    "lon": 114.3000488,
-    "lat": 16.72499847,
-    "timestampOfTrackpoint": "12-21-2021 11:47:56"
-  },
-  {
-    "lon": 113.56604,
-    "lat": 16.94233704,
-    "timestampOfTrackpoint": "12-22-2021 11:47:56"
-  },
-  {
-    "lon": 112.8249512,
-    "lat": 20.17500114,
-    "timestampOfTrackpoint": "12-23-2021 11:47:56"
-  },
-  {
-    "lon": 112.118042,
-    "lat": 20.4407959,
-    "timestampOfTrackpoint": "12-24-2021 11:47:56"
-  },
-  {
-    "lon": 111.4000244,
-    "lat": 20.70000076,
-    "timestampOfTrackpoint": "12-25-2021 11:47:56"
-  },
-  {
-    "lon": 110.6604004,
-    "lat": 20.92375946,
-    "timestampOfTrackpoint": "12-26-2021 11:47:56"
-  },
-  {
-    "lon": 109.8499756,
-    "lat": 21.10000038,
-    "timestampOfTrackpoint": "12-27-2021 11:47:56"
-  },
-  {
-    "lon": 108.8828125,
-    "lat": 21.21365738,
-    "timestampOfTrackpoint": "12-28-2021 11:47:56"
-  },
-  {
-    "lon": 107.9499512,
-    "lat": 21.30000114,
-    "timestampOfTrackpoint": "12-29-2021 11:47:56"
-  },
-  {
-    "lon": 107.2441406,
-    "lat": 21.40417099,
-    "timestampOfTrackpoint": "12-30-2021 11:47:56"
-  },
-  {
-    "lon": 106.6600342,
-    "lat": 21.53333282,
-    "timestampOfTrackpoint": "12-31-2021 11:47:56"
-  },
-  {
-    "lon": 106.0073242,
-    "lat": 21.68348694,
-    "timestampOfTrackpoint": "1-1-2022 11:47:56"
-  },
-  {
-    "lon": 105.291626,
-    "lat": 21.875,
-    "timestampOfTrackpoint": "1-2-2022 11:47:56"
-  },
-  {
-    "lon": 104.5015869,
-    "lat": 22.1374836,
-    "timestampOfTrackpoint": "1-3-2022 11:47:56"
-  },
-  {
-    "lon": 103.7142334,
-    "lat": 22.4285717,
-    "timestampOfTrackpoint": "1-4-2022 11:47:56"
-  },
-  {
-    "lon": 102.9094238,
-    "lat": 22.79045105,
-    "timestampOfTrackpoint": "1-5-2022 11:47:56"
-  },
-  {
-    "lon": 102.1999512,
-    "lat": 23.15000153,
-    "timestampOfTrackpoint": "1-6-2022 11:47:56"
-  }
-]
+  [
+    {
+      "lon": 133.0424805,
+      "lat": 16.17750,
+      "timestampOfTrackpoint": "11-12-2021 11:47:56"
+    },
+    {
+      "lon": 132.8000488,
+      "lat": 16.36614,
+      "timestampOfTrackpoint": "11-13-2021 11:47:56"
+    },
+    {
+      "lon": 132.5725098,
+      "lat": 16.38317,
+      "timestampOfTrackpoint": "11-14-2021 11:47:56"
+    },
+    {
+      "lon": 132.166626,
+      "lat": 16.40707,
+      "timestampOfTrackpoint": "11-15-2021 11:47:56"
+    },
+    {
+      "lon": 131.5549316,
+      "lat": 16.51131,
+      "timestampOfTrackpoint": "11-16-2021 11:47:56"
+    },
+    {
+      "lon": 130.9299316,
+      "lat": 16.52353,
+      "timestampOfTrackpoint": "11-17-2021 11:47:56"
+    },
+    {
+      "lon": 130.4033203,
+      "lat": 16.53273,
+      "timestampOfTrackpoint": "11-18-2021 11:47:56"
+    },
+    {
+      "lon": 129.9769287,
+      "lat": 16.56340,
+      "timestampOfTrackpoint": "11-19-2021 11:47:56"
+    },
+    {
+      "lon": 129.6118164,
+      "lat": 16.61308,
+      "timestampOfTrackpoint": "11-20-2021 11:47:56"
+    },
+    {
+      "lon": 129.2467041,
+      "lat": 16.69068,
+      "timestampOfTrackpoint": "11-21-2021 11:47:56"
+    },
+    {
+      "lon": 128.7967529,
+      "lat": 16.81954,
+      "timestampOfTrackpoint": "11-22-2021 11:47:56"
+    },
+    {
+      "lon": 128.3249512,
+      "lat": 16.86288,
+      "timestampOfTrackpoint": "11-23-2021 11:47:56"
+    },
+    {
+      "lon": 127.9080811,
+      "lat": 16.90930,
+      "timestampOfTrackpoint": "11-24-2021 11:47:56"
+    },
+    {
+      "lon": 127.5250244,
+      "lat": 16.98168,
+      "timestampOfTrackpoint": "11-25-2021 11:47:56"
+    },
+    {
+      "lon": 127.15625,
+      "lat": 17.00325,
+      "timestampOfTrackpoint": "11-26-2021 11:47:56"
+    },
+    {
+      "lon": 126.8249512,
+      "lat": 17.07789,
+      "timestampOfTrackpoint": "11-27-2021 11:47:56"
+    },
+    {
+      "lon": 126.5424805,
+      "lat": 17.40952,
+      "timestampOfTrackpoint": "11-28-2021 11:47:56"
+    },
+    {
+      "lon": 126.2750244,
+      "lat": 17.57366,
+      "timestampOfTrackpoint": "11-29-2021 11:47:56"
+    },
+    {
+      "lon": 126.0107422,
+      "lat": 17.59539,
+      "timestampOfTrackpoint": "11-30-2021 11:47:56"
+    },
+    {
+      "lon": 125.6750488,
+      "lat": 17.74582,
+      "timestampOfTrackpoint": "12-1-2021 11:47:56"
+    },
+    {
+      "lon": 125.2000732,
+      "lat": 18.09054,
+      "timestampOfTrackpoint": "12-2-2021 11:47:56"
+    },
+    {
+      "lon": 124.6500244,
+      "lat": 18.14217,
+      "timestampOfTrackpoint": "12-3-2021 11:47:56"
+    },
+    {
+      "lon": 124.067627,
+      "lat": 18.21992,
+      "timestampOfTrackpoint": "12-4-2021 11:47:56"
+    },
+    {
+      "lon": 123.5500488,
+      "lat": 18.24900,
+      "timestampOfTrackpoint": "12-5-2021 11:47:56"
+    },
+    {
+      "lon": 123.227417,
+      "lat": 18.28374,
+      "timestampOfTrackpoint": "12-6-2021 11:47:56"
+    },
+    {
+      "lon": 122.9499512,
+      "lat": 18.35296,
+      "timestampOfTrackpoint": "12-7-2021 11:47:56"
+    },
+    {
+      "lon": 122.6043701,
+      "lat": 18.41908,
+      "timestampOfTrackpoint": "12-8-2021 11:47:56"
+    },
+    {
+      "lon": 122.1500244,
+      "lat": 18.47870,
+      "timestampOfTrackpoint": "12-9-2021 11:47:56"
+    },
+    {
+      "lon": 121.5311279,
+      "lat": 18.35489,
+      "timestampOfTrackpoint": "12-10-2021 11:47:56"
+    },
+    {
+      "lon": 120.8249512,
+      "lat": 18.28971,
+      "timestampOfTrackpoint": "12-11-2021 11:47:56"
+    },
+    {
+      "lon": 120.1313477,
+      "lat": 18.21456,
+      "timestampOfTrackpoint": "12-12-2021 11:47:56"
+    },
+    {
+      "lon": 119.4499512,
+      "lat": 18.19414,
+      "timestampOfTrackpoint": "12-13-2021 11:47:56"
+    },
+    {
+      "lon": 118.8041992,
+      "lat": 18.08787,
+      "timestampOfTrackpoint": "12-14-2021 11:47:56"
+    },
+    {
+      "lon": 118.1999512,
+      "lat": 18.15281,
+      "timestampOfTrackpoint": "12-15-2021 11:47:56"
+    },
+    {
+      "lon": 117.6630859,
+      "lat": 18.34444,
+      "timestampOfTrackpoint": "12-16-2021 11:47:56"
+    },
+    {
+      "lon": 117.0999756,
+      "lat": 18.40170,
+      "timestampOfTrackpoint": "12-17-2021 11:47:56"
+    },
+    {
+      "lon": 116.4078369,
+      "lat": 18.45247,
+      "timestampOfTrackpoint": "12-18-2021 11:47:56"
+    },
+    {
+      "lon": 115.6750488,
+      "lat": 18.49699,
+      "timestampOfTrackpoint": "12-19-2021 11:47:56"
+    },
+    {
+      "lon": 114.9912109,
+      "lat": 18.78560,
+      "timestampOfTrackpoint": "12-20-2021 11:47:56"
+    },
+    {
+      "lon": 114.3000488,
+      "lat": 19.00084,
+      "timestampOfTrackpoint": "12-21-2021 11:47:56"
+    },
+    {
+      "lon": 113.56604,
+      "lat": 19.03371,
+      "timestampOfTrackpoint": "12-22-2021 11:47:56"
+    },
+    {
+      "lon": 112.8249512,
+      "lat": 19.54551,
+      "timestampOfTrackpoint": "12-23-2021 11:47:56"
+    },
+    {
+      "lon": 112.118042,
+      "lat": 19.57848,
+      "timestampOfTrackpoint": "12-24-2021 11:47:56"
+    },
+    {
+      "lon": 111.4000244,
+      "lat": 19.77135,
+      "timestampOfTrackpoint": "12-25-2021 11:47:56"
+    },
+    {
+      "lon": 110.6604004,
+      "lat": 19.81590,
+      "timestampOfTrackpoint": "12-26-2021 11:47:56"
+    },
+    {
+      "lon": 109.8499756,
+      "lat": 19.81810,
+      "timestampOfTrackpoint": "12-27-2021 11:47:56"
+    },
+    {
+      "lon": 108.8828125,
+      "lat": 19.86369,
+      "timestampOfTrackpoint": "12-28-2021 11:47:56"
+    },
+    {
+      "lon": 107.9499512,
+      "lat": 19.96379,
+      "timestampOfTrackpoint": "12-29-2021 11:47:56"
+    },
+    {
+      "lon": 107.2441406,
+      "lat": 19.99112,
+      "timestampOfTrackpoint": "12-30-2021 11:47:56"
+    },
+    {
+      "lon": 106.6600342,
+      "lat": 20.08442,
+      "timestampOfTrackpoint": "12-31-2021 11:47:56"
+    },
+    {
+      "lon": 106.0073242,
+      "lat": 20.52159,
+      "timestampOfTrackpoint": "1-1-2022 11:47:56"
+    },
+    {
+      "lon": 105.291626,
+      "lat": 21.57619,
+      "timestampOfTrackpoint": "1-2-2022 11:47:56"
+    },
+    {
+      "lon": 104.5015869,
+      "lat": 21.65294,
+      "timestampOfTrackpoint": "1-3-2022 11:47:56"
+    },
+    {
+      "lon": 103.7142334,
+      "lat": 21.70227,
+      "timestampOfTrackpoint": "1-4-2022 11:47:56"
+    },
+    {
+      "lon": 102.9094238,
+      "lat": 21.75459,
+      "timestampOfTrackpoint": "1-5-2022 11:47:56"
+    },
+    {
+      "lon": 102.1999512,
+      "lat": 21.83988,
+      "timestampOfTrackpoint": "1-6-2022 11:47:56"
+    }
+  ]
