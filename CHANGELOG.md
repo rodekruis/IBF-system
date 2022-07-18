@@ -1,3 +1,12 @@
+# [0.169.0](https://github.com/rodekruis/IBF-system/compare/v0.168.0...v0.169.0) (2022-07-18)
+
+
+### Features
+
+* update ZWE trigger statement AB[#14474](https://github.com/rodekruis/IBF-system/issues/14474) ([0f07831](https://github.com/rodekruis/IBF-system/commit/0f078314f7bba4987f95abdf256c014f5377d3c0))
+
+
+
 # [0.168.0](https://github.com/rodekruis/IBF-system/compare/v0.167.3...v0.168.0) (2022-07-11)
 
 
@@ -111,21 +120,6 @@
 * edit test scenarios AB[#13971](https://github.com/rodekruis/IBF-system/issues/13971) ([bdb84de](https://github.com/rodekruis/IBF-system/commit/bdb84ded649cb69ef3361d841a6e29d13b4d4aae))
 * edit typhoon no trigger scenarios AB[#14001](https://github.com/rodekruis/IBF-system/issues/14001) ([212a5bd](https://github.com/rodekruis/IBF-system/commit/212a5bd70c0ec3ed92b7f5737420936507827e2b))
 * test scenarios after landfall AB[#14005](https://github.com/rodekruis/IBF-system/issues/14005) ([4083833](https://github.com/rodekruis/IBF-system/commit/40838338eb4b1e6bb2860065e32539ec57f7d7b5))
-
-
-
-# [0.162.0](https://github.com/rodekruis/IBF-system/compare/v0.161.1...v0.162.0) (2022-06-13)
-
-
-### Bug Fixes
-
-* solve 2 events with same lead time case AB[#14004](https://github.com/rodekruis/IBF-system/issues/14004) ([7f73f21](https://github.com/rodekruis/IBF-system/commit/7f73f211d31561a77e38f6475449747c2206017b))
-
-
-### Features
-
-* facilitate 0-hour upload AB[#14002](https://github.com/rodekruis/IBF-system/issues/14002) ([3bf5425](https://github.com/rodekruis/IBF-system/commit/3bf5425b9532eff499fd2f54956cc8b5f9adc5e2))
-* mention already landfall AB[#14003](https://github.com/rodekruis/IBF-system/issues/14003) ([cd136a4](https://github.com/rodekruis/IBF-system/commit/cd136a42cc9d67072c3ec3af6c46bc212ce32986))
 
 
 
