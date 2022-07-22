@@ -1,3 +1,22 @@
+# [0.170.0](https://github.com/rodekruis/IBF-system/compare/v0.169.1...v0.170.0) (2022-07-22)
+
+
+### Bug Fixes
+
+* test ([38062c4](https://github.com/rodekruis/IBF-system/commit/38062c4447790380a5e02d3cdf0fb173369849d9))
+* test + prettier AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([8657426](https://github.com/rodekruis/IBF-system/commit/86574263b51edaa96447db53d05e373678d7d1c1))
+
+
+### Features
+
+* add action-result popover AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([e780bfd](https://github.com/rodekruis/IBF-system/commit/e780bfdd4a15bc8523e28cb8b810bd581ff752d8))
+* add action-result popover AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([bb7fe7a](https://github.com/rodekruis/IBF-system/commit/bb7fe7a86e4e826b3c5dfad187620a594942d710))
+* add new popover to shared module AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([98ebe20](https://github.com/rodekruis/IBF-system/commit/98ebe20d39a3c7b9221ac1286b1da8d9d7433b2d))
+* add translatable strings AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([8604794](https://github.com/rodekruis/IBF-system/commit/86047948582d9c8e9df1a92acaccc44ac3efa4ae))
+* remove alerts from chat component AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([e45abc5](https://github.com/rodekruis/IBF-system/commit/e45abc52291cf236781fb6a694e59a057eb95d79))
+
+
+
 ## [0.169.1](https://github.com/rodekruis/IBF-system/compare/v0.169.0...v0.169.1) (2022-07-18)
 
 
@@ -108,16 +127,6 @@
 ### Features
 
 * add demo user AB[#14312](https://github.com/rodekruis/IBF-system/issues/14312) ([38857c1](https://github.com/rodekruis/IBF-system/commit/38857c172e48726754b0bbf68a5b5d34c3bf105e))
-
-
-
-# [0.164.0](https://github.com/rodekruis/IBF-system/compare/v0.163.0...v0.164.0) (2022-06-24)
-
-
-### Features
-
-* change staging banner UX copy AB[#14269](https://github.com/rodekruis/IBF-system/issues/14269) ([495fd15](https://github.com/rodekruis/IBF-system/commit/495fd158828168641f539cac2b71a355c5141e4f))
-* upgrade stage-banner + show in all pages AB[#14260](https://github.com/rodekruis/IBF-system/issues/14260) ([3d7f2d3](https://github.com/rodekruis/IBF-system/commit/3d7f2d318295f9ffa9c27c56b20d73853170aa1e))
 
 
 
