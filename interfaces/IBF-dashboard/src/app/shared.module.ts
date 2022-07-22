@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { AboutBtnComponent } from './components/about-btn/about-btn.component';
+import { ActionResultPopoverComponent } from './components/action-result-popover/action-result-popover.component';
 import { ActivationLogButtonComponent } from './components/activation-log-button/activation-log-button.component';
 import { AdminLevelComponent } from './components/admin-level/admin-level.component';
 import { AggregatesComponent } from './components/aggregates/aggregates.component';
@@ -30,6 +31,7 @@ import { LogosComponent } from './components/logos/logos.component';
 import { MapControlsComponent } from './components/map-controls/map-controls.component';
 import { MapComponent } from './components/map/map.component';
 import { MatrixComponent } from './components/matrix/matrix.component';
+import { StopTriggerPopoverComponent } from './components/stop-trigger-popover/stop-trigger-popover.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
@@ -73,6 +75,8 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ChangePasswordPopoverComponent,
     ActivationLogButtonComponent,
     DisclaimerToolbarComponent,
+    ActionResultPopoverComponent,
+    StopTriggerPopoverComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -104,6 +108,8 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ChangePasswordPopoverComponent,
     ActivationLogButtonComponent,
     DisclaimerToolbarComponent,
+    ActionResultPopoverComponent,
+    StopTriggerPopoverComponent,
   ],
 })
 export class SharedModule {}
