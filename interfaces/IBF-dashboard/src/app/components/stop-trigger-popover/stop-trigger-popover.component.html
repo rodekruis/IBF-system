@@ -6,7 +6,11 @@
       (click)="closePopover()"
       class="popover-close-button"
     ></ion-icon>
-    <ion-card-title>Action Result</ion-card-title>
+    <ion-card-title>{{
+      'chat-component.' +
+        disasterTypeName +
+        '.active-event.stop-trigger-popup.header' | translate
+    }}</ion-card-title>
   </ion-card-header>
   <ion-card-content class="ion-padding-top ion-text-center">
     <ion-item lines="none" class="ion-margin-bottom">
