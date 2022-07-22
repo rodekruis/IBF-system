@@ -63,7 +63,7 @@ export class MatrixComponent implements OnDestroy {
     const popover = await this.popoverController.create({
       component: LayerControlInfoPopoverComponent,
       animated: true,
-      cssClass: 'ibf-layer-control-popover',
+      cssClass: 'ibf-popover ibf-popover-normal',
       translucent: true,
       showBackdrop: true,
       componentProps: { layer },

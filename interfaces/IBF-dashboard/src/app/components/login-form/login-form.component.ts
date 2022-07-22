@@ -34,7 +34,7 @@ export class LoginFormComponent {
     const popover = await this.popoverController.create({
       component: ForgotPasswordPopoverComponent,
       animated: true,
-      cssClass: 'ibf-forgot-password-popover',
+      cssClass: 'ibf-popover ibf-popover-normal',
       translucent: true,
       showBackdrop: true,
     });
