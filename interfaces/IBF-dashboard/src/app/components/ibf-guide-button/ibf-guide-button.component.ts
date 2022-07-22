@@ -51,7 +51,7 @@ export class IbfGuideButtonComponent implements OnDestroy {
         pdfUrl: this.pdfUrl,
       },
       animated: true,
-      cssClass: 'ibf-guide-popover',
+      cssClass: 'ibf-popover ibf-popover-large',
       translucent: true,
       showBackdrop: true,
     });

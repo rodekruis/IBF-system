@@ -157,7 +157,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     const popover = await this.popoverController.create({
       component: LayerControlInfoPopoverComponent,
       animated: true,
-      cssClass: 'ibf-indicator-information-popover',
+      cssClass: 'ibf-popover ibf-popover-normal',
       translucent: true,
       showBackdrop: true,
       componentProps: {

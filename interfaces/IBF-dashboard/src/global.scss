@@ -200,34 +200,31 @@
   border-radius: 50%;
 }
 
-.popover-window-card {
-  border: 2px solid var(--ion-color-ibf-primary);
-  margin: 0;
-
-  .popover-close-button {
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    z-index: 1;
+.ibf-popover {
+  &.ibf-popover-normal {
+    --width: 400px;
   }
 
-  ion-card-content.ion-padding-top {
-    padding-top: var(--ion-padding, 16px) !important;
+  &.ibf-popover-large {
+    --width: 600px;
   }
-}
 
-.ibf-guide-popover {
-  --width: 600px;
-}
+  .popover-window-card {
+    border: 2px solid var(--ion-color-ibf-primary);
+    margin: 0;
 
-.ibf-forgot-password-popover {
-  --width: 400px;
-}
+    .popover-close-button {
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      z-index: 1;
+    }
 
-.ibf-layer-control-popover,
-.ibf-indicator-information-popover {
-  --width: 400px;
+    ion-card-content.ion-padding-top {
+      padding-top: var(--ion-padding, 16px) !important;
+    }
+  }
 }
 
 // https://stackoverflow.com/a/68240841/1753041
