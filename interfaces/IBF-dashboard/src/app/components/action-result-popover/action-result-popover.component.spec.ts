@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { ActionResultPopoverComponent } from './action-result-popover.component';
 
 describe('ActionResultPopoverComponent', () => {
@@ -10,7 +11,7 @@ describe('ActionResultPopoverComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [ActionResultPopoverComponent],
-        imports: [IonicModule.forRoot()],
+        imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ActionResultPopoverComponent);
