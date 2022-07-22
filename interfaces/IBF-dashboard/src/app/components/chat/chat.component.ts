@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 import { forkJoin, Subscription } from 'rxjs';
@@ -29,6 +29,8 @@ import { TimelineService } from '../../services/timeline.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { Indicator } from '../../types/indicator-group';
 import { LeadTime, LeadTimeUnit } from '../../types/lead-time';
+import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
+import { StopTriggerPopoverComponent } from '../stop-trigger-popover/stop-trigger-popover.component';
 
 @Component({
   selector: 'app-chat',
@@ -87,11 +89,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     private timelineService: TimelineService,
     private countryService: CountryService,
     private aggregatesService: AggregatesService,
-    private alertController: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
     private apiService: ApiService,
     private analyticsService: AnalyticsService,
+    private popoverController: PopoverController,
   ) {}
 
   ngOnInit() {
@@ -352,55 +354,51 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private async actionResult(resultMessage: string): Promise<void> {
-    const alert = await this.alertController.create({
-      message: resultMessage,
-      buttons: [
-        {
-          text: this.promptButtonLabel,
-          handler: () => {
-            alert.dismiss(true);
-            return false;
-          },
-        },
-      ],
+    const popover = await this.popoverController.create({
+      component: ActionResultPopoverComponent,
+      animated: true,
+      cssClass: 'ibf-popover ibf-popover-normal',
+      translucent: true,
+      showBackdrop: true,
+      componentProps: {
+        message: resultMessage,
+      },
     });
 
-    alert.present();
+    await popover.present();
   }
 
   public async openStopTriggerPopup(triggeredArea): Promise<void> {
-    const message = this.translateService.instant(
-      `chat-component.${this.disasterTypeName}.active-event.stop-trigger-popup.message`,
-      {
+    const popover = await this.popoverController.create({
+      component: StopTriggerPopoverComponent,
+      animated: true,
+      cssClass: 'ibf-popover ibf-popover-normal',
+      translucent: true,
+      showBackdrop: true,
+      componentProps: {
+        disasterTypeName: this.disasterTypeName,
         placeCodeName: triggeredArea.name,
       },
-    );
-    const alert = await this.alertController.create({
-      message,
-      buttons: [
-        {
-          text: this.translateService.instant(
-            `chat-component.${this.disasterTypeName}.active-event.stop-trigger-popup.cancel`,
-          ),
-          handler: () => {
-            console.log('Cancel stop trigger');
-          },
-        },
-        {
-          text: this.translateService.instant(
-            `chat-component.${this.disasterTypeName}.active-event.stop-trigger-popup.confirm`,
-          ),
-          handler: () => {
-            this.stopTrigger(
-              triggeredArea.eventPlaceCodeId,
-              triggeredArea.placeCode,
-            );
-          },
-        },
-      ],
     });
 
-    alert.present();
+    await popover.present();
+
+    popover.onDidDismiss().then((res) => {
+      if (!res) {
+        return;
+      }
+
+      if (!res.role) {
+        return;
+      }
+
+      if (res.role === 'confirm') {
+        this.stopTrigger(
+          triggeredArea.eventPlaceCodeId,
+          triggeredArea.placeCode,
+        );
+      }
+    });
   }
 
   public stopTrigger(eventPlaceCodeId: string, placeCode: string): void {
