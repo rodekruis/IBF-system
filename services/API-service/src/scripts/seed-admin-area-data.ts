@@ -206,6 +206,19 @@ export class SeedAdminAreaData implements InterfaceScript {
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
+      // IPC_forecast_long
+      fileName = `./src/scripts/git-lfs/admin-area-data/IPC_forecast_long_UGA.csv`;
+      data = await this.seedHelper.getCsvData(fileName);
+      dataArray = data.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: area['adminLevel'],
+          placeCode: area['placeCode'],
+          indicator: 'IPC_forecast_long',
+          value: area['amount'],
+        };
+      });
+      await this.adminAreaDataRepository.save(dataArray);
     }
 
     // KEN

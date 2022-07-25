@@ -416,7 +416,7 @@
     "lazyLoad": false
   },
   {
-    "country_codes": "ETH",
+    "country_codes": "ETH,UGA",
     "disasterTypes": ["malaria", "drought"],
     "name": "IPC_forecast_long",
     "label": "IPC forecast (long)",
