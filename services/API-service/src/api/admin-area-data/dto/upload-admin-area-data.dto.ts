@@ -10,7 +10,7 @@ import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { DynamicDataPlaceCodeDto } from '../../admin-area-dynamic-data/dto/dynamic-data-place-code.dto';
 import indicatorData from '../../admin-area-dynamic-data/dto/example/ETH/malaria/upload-potential_cases-3.json';
-import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
+import { UpdateableStaticIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { AdminLevel } from '../../country/admin-level.enum';
 import { JoinColumn, ManyToOne } from 'typeorm';
 import { CountryEntity } from '../../country/country.entity';
@@ -34,7 +34,7 @@ export class UploadAdminAreaDataCsvDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  public indicator: number;
+  public indicator: string;
 
   @ApiProperty()
   @IsNumber()
@@ -59,9 +59,9 @@ export class UploadAdminAreaDataJsonDto {
 
   @ApiProperty({ example: 'Hotspot_General' })
   @IsNotEmpty()
-  @IsEnum(DynamicIndicator)
+  @IsEnum(UpdateableStaticIndicator)
   @IsString()
-  public indicator: DynamicIndicator;
+  public indicator: UpdateableStaticIndicator;
 
   @ApiProperty({ example: indicatorData })
   @IsArray()
