@@ -2,7 +2,9 @@
   {
     "countryCodeISO3": "UGA",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c44cb471-0595-454d-aad6-d1050553315f.png",
-    "triggerStatement": "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>",
+    "triggerStatement": {
+      "floods": "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>"
+    },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Jt7jMX3BydCD07MFExLUUs/",
     "linkVideo": "https://bit.ly/IBF-video-Uganda",
@@ -11,7 +13,11 @@
   {
     "countryCodeISO3": "PHL",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/af6240bf-bdd3-9982-9ca5-44f7e5a71f01.jpg",
-    "triggerStatement": "The Flood Early Action Protocol will be triggered 3 days before the flood when the forecast of the GloFAS is predicting with more than 70% probability the occurrence of a 1 in 5 years flood (at least), in any of the 4 targeted river basins. Then the corresponding flood extent will be overlayed on the rice crop map to estimate the flood impact in the concerned river basin, allowing the selection of the municipalities where to focus the anticipatory actions (where for instance the predicted impact is more than 50% of crops possibly affected, or between 30-50%)",
+    "triggerStatement": {
+      "floods": "The Flood Early Action Protocol will be triggered 3 days before the flood when the forecast of the GloFAS is predicting with more than 70% probability the occurrence of a 1 in 5 years flood (at least), in any of the 4 targeted river basins. Then the corresponding flood extent will be overlayed on the rice crop map to estimate the flood impact in the concerned river basin, allowing the selection of the municipalities where to focus the anticipatory actions (where for instance the predicted impact is more than 50% of crops possibly affected, or between 30-50%)",
+      "dengue": null,
+      "typhoon": null
+    },
     "linkSocialMediaType": null,
     "linkSocialMediaUrl": null,
     "linkVideo": "https://bit.ly/IBF-video-Philippines",
@@ -20,7 +26,9 @@
   {
     "countryCodeISO3": "ZMB",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/35e3a47b-65d0-9b15-ad8f-ac19300ef5b6.png",
-    "triggerStatement": "The trigger is activated if the daily issued GLOFAS forecast reports a water discharge that exceeds the threshold corresponding to a 10y return period flood in one or more GLOFAS stations. The EAP will be triggered with a lead time of 7 days.",
+    "triggerStatement": {
+      "floods": "The trigger is activated if the daily issued GLOFAS forecast reports a water discharge that exceeds the threshold corresponding to a 10y return period flood in one or more GLOFAS stations. The EAP will be triggered with a lead time of 7 days."
+    },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin/",
     "linkVideo": "https://bit.ly/IBF-video-Zambia",
@@ -29,7 +37,10 @@
   {
     "countryCodeISO3": "KEN",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png",
-    "triggerStatement": "This EAP will be triggered when GloFAS issues a forecast where a trigger level will be exceeded and the probability of exceedance is at least the probability indicated. Three trigger levels were defined for this EAP:<ul><li>Stations in Nzoia  Basin a 5-year return period discharge (5.3m level/469.8 m3/s) with 85 % probability of exceedance</li><li>Stations in Athi Basin a 5 year return period discharge period discharge (469.236 m3/s) with 85% probability of exceedance</li><li>Stations in Tana Basin a 5-year return period discharge with (5.1m/ 1191.6 m3/s) 85% probability of exceedance</li></ul>",
+    "triggerStatement": {
+      "floods": "This EAP will be triggered when GloFAS issues a forecast where a trigger level will be exceeded and the probability of exceedance is at least the probability indicated. Three trigger levels were defined for this EAP:<ul><li>Stations in Nzoia  Basin a 5-year return period discharge (5.3m level/469.8 m3/s) with 85 % probability of exceedance</li><li>Stations in Athi Basin a 5 year return period discharge period discharge (469.236 m3/s) with 85% probability of exceedance</li><li>Stations in Tana Basin a 5-year return period discharge with (5.1m/ 1191.6 m3/s) 85% probability of exceedance</li></ul>",
+      "drought": null
+    },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/",
     "linkVideo": "https://bit.ly/IBF-video-Kenya",
@@ -38,7 +49,11 @@
   {
     "countryCodeISO3": "ETH",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png",
-    "triggerStatement": "The ERCS will act based on the developed trigger table when the Global Floods awareness system forecast indicates a level of river discharge greater or equal to a level of 10 years return period with a probability of at least 75% forecast uncertainty within 7 days lead time period.",
+    "triggerStatement": {
+      "floods": "The ERCS will act based on the developed trigger table when the Global Floods awareness system forecast indicates a level of river discharge greater or equal to a level of 10 years return period with a probability of at least 75% forecast uncertainty within 7 days lead time period.",
+      "malaria": null,
+      "drought": null
+    },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/",
     "linkVideo": "https://bit.ly/IBF-video-Ethiopia",
@@ -47,7 +62,9 @@
   {
     "countryCodeISO3": "EGY",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/6907dc6e-311a-402b-b97d-551f04ef3d0b.png",
-    "triggerStatement": "Egyptian RCS can respond accordingly to their EAP/ SOP when the rainfall forecast from Global Forecast System for the lead times of 3- or 5- or 7 days exceeds the defined thresholds, which will be anticipated to occur in some regions of Egypt. The defined threshold corresponds to a 5-year return period heavy rainfall event.",
+    "triggerStatement": {
+      "heavy-rain": "Egyptian RCS can respond accordingly to their EAP/ SOP when the rainfall forecast from Global Forecast System for the lead times of 3- or 5- or 7 days exceeds the defined thresholds, which will be anticipated to occur in some regions of Egypt. The defined threshold corresponds to a 5-year return period heavy rainfall event."
+    },
     "linkSocialMediaType": "Telegram",
     "linkSocialMediaUrl": "https://t.me/joinchat/hLtvficJO-llZDE0/",
     "linkVideo": "https://bit.ly/IBF-video-Egypt",
@@ -56,7 +73,9 @@
   {
     "countryCodeISO3": "ZWE",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/ff56e5b1-f3be-1d68-be49-7898ba16be81.png",
-    "triggerStatement": "When the ENSO-based September forecast of the 510 Impact-based Forecast model anticipates a once-in-six year drought event, a first set of early actions addressing crop losses and livestock deaths is activated. In March, FEWSNET forecast of IPC 4 and above will trigger further actions devoted to reducing the impacts of livestock deaths and food insecurity.",
+    "triggerStatement": {
+      "drought": "When the ENSO-based September forecast of the 510 Impact-based Forecast model anticipates a once-in-six year drought event, a first set of early actions addressing crop losses and livestock deaths is activated. In March, FEWSNET forecast of IPC 4 and above will trigger further actions devoted to reducing the impacts of livestock deaths and food insecurity."
+    },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/FfVimuGRHHiJSk0BU7nGQT/",
     "linkVideo": "https://bit.ly/IBF-video-Zimbabwe",
