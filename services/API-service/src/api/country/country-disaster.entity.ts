@@ -56,7 +56,7 @@ export class CountryDisasterSettingsEntity {
 
   @ApiProperty({ example: [3, 10] })
   @Column('json', { nullable: true })
-  public droughtForecastMonths: JSON;
+  public droughtForecastSeasons: JSON;
 
   @ApiProperty({ example: false })
   @Column({ default: false })
