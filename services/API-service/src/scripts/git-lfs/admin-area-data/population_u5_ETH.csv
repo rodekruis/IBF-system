@@ -1,4 +1,4 @@
-id,ADM3_PCODE,ETH_children_under_five,ETH_elderly_60_plus
+id,placeCode,value,ETH_elderly_60_plus
 1,ET050699,2336.54526,709.737448
 2,ET020203,4077.724302,650.25844
 3,ET020209,5418.925661,939.430353

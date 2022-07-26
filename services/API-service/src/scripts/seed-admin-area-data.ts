@@ -69,9 +69,9 @@ export class SeedAdminAreaData implements InterfaceScript {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
-          placeCode: area['PCODE_MUN_CTY'],
+          placeCode: area['placeCode'],
           indicator: 'vulnerable_group',
-          value: area['percentage_vul_group'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(vulnerableGroupDataArray);
@@ -85,9 +85,9 @@ export class SeedAdminAreaData implements InterfaceScript {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
-          placeCode: area['PCODE_Mun_City'],
+          placeCode: area['placeCode'],
           indicator: 'vulnerable_housing',
-          value: area['percentage_vul_housing'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(vulnerableHousingDataArray);
@@ -101,9 +101,9 @@ export class SeedAdminAreaData implements InterfaceScript {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
-          placeCode: area['Municipality_City Code'],
+          placeCode: area['placeCode'],
           indicator: 'total_houses',
-          value: area['Housing Units'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(totalHousesDataArray);
@@ -215,7 +215,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'IPC_forecast_long',
-          value: area['amount'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -270,9 +270,9 @@ export class SeedAdminAreaData implements InterfaceScript {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
-          placeCode: area['ADM3_PCODE'],
+          placeCode: area['placeCode'],
           indicator: 'malaria_risk',
-          value: area['Pv Malaria risk'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -283,9 +283,9 @@ export class SeedAdminAreaData implements InterfaceScript {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
-          placeCode: area['ADM3_PCODE'],
+          placeCode: area['placeCode'],
           indicator: 'malaria_suitable_temperature',
-          value: area['Temp_Suitability.Pv'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -296,9 +296,9 @@ export class SeedAdminAreaData implements InterfaceScript {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
-          placeCode: area['ADM3_PCODE'],
+          placeCode: area['placeCode'],
           indicator: 'total_idps',
-          value: area['Total-IDPs'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -309,9 +309,9 @@ export class SeedAdminAreaData implements InterfaceScript {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
-          placeCode: area['ADM3_PCODE'],
+          placeCode: area['placeCode'],
           indicator: 'motorized_travel_time_to_health',
-          value: area['TRAVEL TIME TO HEALTH CENTRES BY MOTORISED TRANSPORT'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -322,9 +322,9 @@ export class SeedAdminAreaData implements InterfaceScript {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
-          placeCode: area['ADM3_PCODE'],
+          placeCode: area['placeCode'],
           indicator: 'walking_travel_time_to_health',
-          value: area['TRAVEL TIME TO HEALTH CENTRE_WALK'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -335,9 +335,9 @@ export class SeedAdminAreaData implements InterfaceScript {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
-          placeCode: area['ADM3_PCODE'],
+          placeCode: area['placeCode'],
           indicator: 'travel_time_cities',
-          value: area['travel_time_cities'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -348,9 +348,9 @@ export class SeedAdminAreaData implements InterfaceScript {
         return {
           countryCodeISO3: countryCodeISO3,
           adminLevel: adminlevel,
-          placeCode: area['ADM3_PCODE'],
+          placeCode: area['placeCode'],
           indicator: 'population_u5',
-          value: area['ETH_children_under_five'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -363,7 +363,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'Hotspot_General',
-          value: area['amount'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -376,7 +376,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'Hotspot_Water',
-          value: area['amount'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -389,7 +389,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'Hotspot_Health',
-          value: area['amount'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -402,7 +402,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'Hotspot_Nutrition',
-          value: area['amount'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -415,7 +415,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'IPC_forecast_short',
-          value: area['amount'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
@@ -428,7 +428,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           adminLevel: area['adminLevel'],
           placeCode: area['placeCode'],
           indicator: 'IPC_forecast_long',
-          value: area['amount'],
+          value: area['value'],
         };
       });
       await this.adminAreaDataRepository.save(dataArray);
