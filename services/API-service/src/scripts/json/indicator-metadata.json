@@ -964,7 +964,7 @@
     "lazyLoad": true
   },
   {
-    "country_codes": "KEN",
+    "country_codes": "KEN,UGA",
     "disasterTypes": ["drought"],
     "name": "vegetation_condition",
     "label": "Vegetation condition",
