@@ -42,12 +42,18 @@ export class TimelineComponent implements OnInit, OnDestroy {
       component: this.constructor.name,
     });
 
-    this.timelineService.handleTimeStepButtonClick(leadTime);
-    // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
+    // Only trigger event-switch if there are multiple events
     if (this.eventService.state.events.length > 1) {
-      // Only trigger event-switch if there are multiple events
-      this.eventService.switchEvent(this.eventService.state.event.eventName);
+      // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
+      const clickedEvent = this.eventService.state.events.find(
+        (e) =>
+          e.firstLeadTime === leadTime &&
+          e.eventName !== this.eventService.state.event.eventName,
+      );
+      this.eventService.switchEvent(clickedEvent.eventName);
     }
+
+    this.timelineService.handleTimeStepButtonClick(leadTime);
   }
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
