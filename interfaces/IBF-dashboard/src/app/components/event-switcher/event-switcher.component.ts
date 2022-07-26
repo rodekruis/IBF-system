@@ -89,13 +89,15 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
 
   public switchEvent(event: EventSummary): void {
     this.selectedEventName = event.eventName;
+
     if (this.timelineState.timeStepButtons?.length) {
+      // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
+      this.eventService.switchEvent(event.eventName);
+
       if (event.firstLeadTime !== this.timelineState.activeLeadTime) {
         // Only do this, when leadtime actually changes (so not for typhoon case with 2 events with same leadtime)
         this.timelineService.handleTimeStepButtonClick(event.firstLeadTime);
       }
-      // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
-      this.eventService.switchEvent(event.eventName);
     }
   }
 
