@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EventService, EventSummary } from 'src/app/services/event.service';
 import { EventState } from 'src/app/types/event-state';
@@ -13,7 +13,6 @@ import { TimelineService } from '../../services/timeline.service';
   styleUrls: ['./event-switcher.component.scss'],
 })
 export class EventSwitcherComponent implements OnInit, OnDestroy {
-  public events: EventSummary[] = [];
   public selectedEventName: string;
   public eventState: EventState;
   public timelineState: TimelineState;
@@ -23,6 +22,9 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
+
+  @Input()
+  public event: EventSummary;
 
   constructor(
     private disasterTypeService: DisasterTypeService,

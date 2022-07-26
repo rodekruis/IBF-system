@@ -41,11 +41,12 @@
     ></p>
   </app-dialogue-turn>
   <!-- Active event -->
-  <app-dialogue-turn
-    *ngIf="eventState?.activeEvent && eventState?.activeTrigger"
-    isConnected="true"
-  >
-    <ng-container *ngFor="let event of eventState?.events">
+  <ng-container *ngIf="eventState?.activeEvent && eventState?.activeTrigger">
+    <app-dialogue-turn
+      *ngFor="let event of eventState?.events"
+      [isTriggered]="event.thresholdReached"
+      isConnected="true"
+    >
       <p *ngIf="event.activeTrigger && event.thresholdReached">
         <span
           [innerHTML]="
@@ -94,8 +95,7 @@
                 }
         "
       ></p>
-    </ng-container>
-    <ng-container *ngFor="let event of eventState?.events">
+
       <p
         *ngIf="event.activeTrigger && !event.thresholdReached"
         [innerHTML]="
@@ -110,20 +110,20 @@
                 }
         "
       ></p>
-    </ng-container>
 
-    <app-event-switcher></app-event-switcher>
+      <app-event-switcher [event]="event"></app-event-switcher>
 
-    <p *ngIf="forecastInfo && country?.countryCodeISO3 === 'ZWE'">
-      {{ forecastInfo }}
-    </p>
+      <p *ngIf="forecastInfo && country?.countryCodeISO3 === 'ZWE'">
+        {{ forecastInfo }}
+      </p>
 
-    <p
-      class="clear-out-message"
-      *ngIf="!!clearOutMessage"
-      [innerHTML]="clearOutMessage"
-    ></p>
-  </app-dialogue-turn>
+      <p
+        class="clear-out-message"
+        *ngIf="!!clearOutMessage"
+        [innerHTML]="clearOutMessage"
+      ></p>
+    </app-dialogue-turn>
+  </ng-container>
   <!-- Old event -->
   <app-dialogue-turn *ngIf="eventService.isOldEvent()" isConnected="true">
     <p
