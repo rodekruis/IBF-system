@@ -440,21 +440,27 @@ export class ChatComponent implements OnInit, OnDestroy {
       forecastMonthNumbers = [...forecastMonthNumbers, ...forecastSeasons];
     }
 
-    const currentMonth = this.timelineState.today.month;
-    const nextMonth = this.timelineState.today.plus({ months: 1 }).month;
+    const droughtEndOfMonthPipeline = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtEndOfMonthPipeline;
+    const currentMonth = this.timelineState.today.plus({
+      months: droughtEndOfMonthPipeline ? 1 : 0,
+    });
+    const nextMonth = currentMonth.plus({
+      months: 1,
+    });
+
     let translateKey;
     if (Object.values(forecastSeasonAreas).length === 1) {
-      if (forecastMonthNumbers.includes(currentMonth)) {
+      if (forecastMonthNumbers.includes(currentMonth.month - 1)) {
         translateKey = 'chat-component.drought.clear-out.national.message';
-      } else if (forecastMonthNumbers.includes(nextMonth)) {
+      } else if (forecastMonthNumbers.includes(nextMonth.month - 1)) {
         translateKey = 'chat-component.drought.clear-out.national.warning';
       }
     } else if (Object.values(forecastSeasonAreas).length > 1) {
-      // The cut-off for relevant month is one month different for ETH then for KEN
-      // (due to end-of-month vs middle-of-mont?? MUST BE IMPROVED...)
-      if (forecastMonthNumbers.includes(currentMonth - 1)) {
+      if (forecastMonthNumbers.includes(currentMonth.month - 1)) {
         translateKey = 'chat-component.drought.clear-out.regional.message';
-      } else if (forecastMonthNumbers.includes(nextMonth - 1)) {
+      } else if (forecastMonthNumbers.includes(nextMonth.month - 1)) {
         translateKey = 'chat-component.drought.clear-out.regional.warning';
       } else {
         return;
