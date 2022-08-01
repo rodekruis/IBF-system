@@ -1,3 +1,12 @@
+## [0.172.1](https://github.com/rodekruis/IBF-system/compare/v0.172.0...v0.172.1) (2022-08-01)
+
+
+### Bug Fixes
+
+* correct mock data to 0-1 values AB[#14657](https://github.com/rodekruis/IBF-system/issues/14657) ([6de1272](https://github.com/rodekruis/IBF-system/commit/6de127226c3ca8b9bf87dd7ff99d681a8fad517a))
+
+
+
 # [0.172.0](https://github.com/rodekruis/IBF-system/compare/v0.171.0...v0.172.0) (2022-08-01)
 
 
@@ -109,34 +118,6 @@
 ### Bug Fixes
 
 * update dam marker popup string AB[#14364](https://github.com/rodekruis/IBF-system/issues/14364) ([3c1c560](https://github.com/rodekruis/IBF-system/commit/3c1c560f9584eead21b498b2d875523edafdfb8e))
-
-
-
-# [0.167.0](https://github.com/rodekruis/IBF-system/compare/v0.166.0...v0.167.0) (2022-07-01)
-
-
-### Bug Fixes
-
-* chat showing all municipalities AB[#14267](https://github.com/rodekruis/IBF-system/issues/14267) ([d603f5b](https://github.com/rodekruis/IBF-system/commit/d603f5b881fd1e17eab4292b376a2096124e7788))
-* disable old-event scenario for typhoon AB[#14095](https://github.com/rodekruis/IBF-system/issues/14095) ([18e0844](https://github.com/rodekruis/IBF-system/commit/18e08448c3a191357adee476520d4a1a93efc626))
-* number format exposed areas AB[#14186](https://github.com/rodekruis/IBF-system/issues/14186) ([450407d](https://github.com/rodekruis/IBF-system/commit/450407dc6457b34f1be58a3188d49eb8b8d1dd78))
-* numberformat + aggregate calculation AB[#14211](https://github.com/rodekruis/IBF-system/issues/14211) ([f029024](https://github.com/rodekruis/IBF-system/commit/f029024ce4c85bd373353118749fb2edd0fdf4e5))
-* remove empty brackets if no action-month AB[#14197](https://github.com/rodekruis/IBF-system/issues/14197) ([a9bcb2c](https://github.com/rodekruis/IBF-system/commit/a9bcb2c5cef3dfda2324751ae15ebfd59c75e54f))
-
-
-### Features
-
-* add PHL trigger statement AB[#14263](https://github.com/rodekruis/IBF-system/issues/14263) ([1fdc6d3](https://github.com/rodekruis/IBF-system/commit/1fdc6d33fc518b7f1fde69cd4806519148896343))
-* change UX copy after SPD check AB[#14214](https://github.com/rodekruis/IBF-system/issues/14214) ([d83de73](https://github.com/rodekruis/IBF-system/commit/d83de7367686cd99ef75316e0e87a0de786c3a5b))
-* handle 0-hours events AB[#14213](https://github.com/rodekruis/IBF-system/issues/14213) ([eb1301a](https://github.com/rodekruis/IBF-system/commit/eb1301a74186e1bf62ad2f0f7622e76807156d21))
-* include no-landfall in mock scenarios AB[#14184](https://github.com/rodekruis/IBF-system/issues/14184) ([67c4221](https://github.com/rodekruis/IBF-system/commit/67c4221cc525ea69cb8b9fb6018b608dad7d0374))
-* make email fit for multi-event AB[#14210](https://github.com/rodekruis/IBF-system/issues/14210) ([10ba1fe](https://github.com/rodekruis/IBF-system/commit/10ba1fedb3dbedae383691ab275e54b7f2f8120b))
-* make ux copy generic for no-landfall case AB[#14185](https://github.com/rodekruis/IBF-system/issues/14185) ([4ec6107](https://github.com/rodekruis/IBF-system/commit/4ec610706936e222df36c95f53c3b6e5c205f707))
-* make ux copy of live event generic for no-landfall case AB[#14194](https://github.com/rodekruis/IBF-system/issues/14194) ([b5d66d7](https://github.com/rodekruis/IBF-system/commit/b5d66d76e0a9442bab0d739eae72bac79fc7bd62))
-* mention eventname + trhreshold-reached AB[#14212](https://github.com/rodekruis/IBF-system/issues/14212) ([72237a6](https://github.com/rodekruis/IBF-system/commit/72237a6b257ca0977672fe5ff172fab9d5618f91))
-* no landfall track data AB[#14183](https://github.com/rodekruis/IBF-system/issues/14183) ([8bf9bb9](https://github.com/rodekruis/IBF-system/commit/8bf9bb941a6a506673b32edb194cb53c8dd3baaa))
-* process no landfall events AB[#14214](https://github.com/rodekruis/IBF-system/issues/14214) ([23041e6](https://github.com/rodekruis/IBF-system/commit/23041e685a3120b4f726733a927e02906bfb75b0))
-* update typhoon track AB[#14313](https://github.com/rodekruis/IBF-system/issues/14313) ([4f2b936](https://github.com/rodekruis/IBF-system/commit/4f2b93651804cc4382ff1176120cfadda3856ec8))
 
 
 
