@@ -1,3 +1,18 @@
+# [0.172.0](https://github.com/rodekruis/IBF-system/compare/v0.171.0...v0.172.0) (2022-08-01)
+
+
+### Bug Fixes
+
+* mention if not available AB[#14617](https://github.com/rodekruis/IBF-system/issues/14617) ([d84587d](https://github.com/rodekruis/IBF-system/commit/d84587dbeca7df6234ae68070452ebbc011c6759))
+
+
+### Features
+
+* change trigger statement to disastertype-specific AB[#14615](https://github.com/rodekruis/IBF-system/issues/14615) ([7adbd12](https://github.com/rodekruis/IBF-system/commit/7adbd12613a9b3dcddf701b3e34b82029bb7329a))
+* get trigger statement by disastertype AB[#14617](https://github.com/rodekruis/IBF-system/issues/14617) ([2544580](https://github.com/rodekruis/IBF-system/commit/25445807f47462d8d3d87859c409c636bfb2b86b))
+
+
+
 # [0.171.0](https://github.com/rodekruis/IBF-system/compare/v0.170.0...v0.171.0) (2022-08-01)
 
 
@@ -122,22 +137,6 @@
 * no landfall track data AB[#14183](https://github.com/rodekruis/IBF-system/issues/14183) ([8bf9bb9](https://github.com/rodekruis/IBF-system/commit/8bf9bb941a6a506673b32edb194cb53c8dd3baaa))
 * process no landfall events AB[#14214](https://github.com/rodekruis/IBF-system/issues/14214) ([23041e6](https://github.com/rodekruis/IBF-system/commit/23041e685a3120b4f726733a927e02906bfb75b0))
 * update typhoon track AB[#14313](https://github.com/rodekruis/IBF-system/issues/14313) ([4f2b936](https://github.com/rodekruis/IBF-system/commit/4f2b93651804cc4382ff1176120cfadda3856ec8))
-
-
-
-# [0.166.0](https://github.com/rodekruis/IBF-system/compare/v0.165.0...v0.166.0) (2022-07-01)
-
-
-### Bug Fixes
-
-* add missing popup text AB[#14360](https://github.com/rodekruis/IBF-system/issues/14360) ([d67f882](https://github.com/rodekruis/IBF-system/commit/d67f882d7abf0c5f60618c7ffa11699260b5146c))
-* remove unwanted characters from xlsx AB[#14320](https://github.com/rodekruis/IBF-system/issues/14320) ([22fb60e](https://github.com/rodekruis/IBF-system/commit/22fb60e07403e52aeef93437edb287428416249d))
-* sort xlsx AB[#14320](https://github.com/rodekruis/IBF-system/issues/14320) ([d9dc121](https://github.com/rodekruis/IBF-system/commit/d9dc121efdd069f45a5db37d3baa390d10ac2103))
-
-
-### Features
-
-* process new layers AB[#13978](https://github.com/rodekruis/IBF-system/issues/13978) ([2e44ff4](https://github.com/rodekruis/IBF-system/commit/2e44ff4fba613f4f33b32182c6b5dc19442f03bf))
 
 
 
