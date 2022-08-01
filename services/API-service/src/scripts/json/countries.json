@@ -60,7 +60,7 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": {
+        "droughtForecastSeasons": {
           "National": {
             "firstSeason": {
               "rainMonths": [
