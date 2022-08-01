@@ -1,3 +1,23 @@
+# [0.171.0](https://github.com/rodekruis/IBF-system/compare/v0.170.0...v0.171.0) (2022-08-01)
+
+
+### Bug Fixes
+
+* clearout message timing AB[#14581](https://github.com/rodekruis/IBF-system/issues/14581) ([40c1309](https://github.com/rodekruis/IBF-system/commit/40c1309f01d9616e2fa96882035e798ead2dfe23))
+* make csv column names more uniform AB[#14566](https://github.com/rodekruis/IBF-system/issues/14566) ([81f9756](https://github.com/rodekruis/IBF-system/commit/81f97567f9e6c4d4249d793a81afa5ef551a3a00))
+* refactor dynamic vs updateable static indicator AB[#14568](https://github.com/rodekruis/IBF-system/issues/14568) ([7f29b2a](https://github.com/rodekruis/IBF-system/commit/7f29b2ac91e7dc42e11c22e1ac8c8af97d930b8d))
+* update eap-link uga drought AB[#14625](https://github.com/rodekruis/IBF-system/issues/14625) ([e955346](https://github.com/rodekruis/IBF-system/commit/e955346ea34c7184f91f27bb576fddf80f70cd8a))
+
+
+### Features
+
+* basic dashboard uga drought AB[#14565](https://github.com/rodekruis/IBF-system/issues/14565) ([367f5ef](https://github.com/rodekruis/IBF-system/commit/367f5efde6298bca27f36702649f2a2dc34d8f83))
+* extend IPC long to UGA AB[#14567](https://github.com/rodekruis/IBF-system/issues/14567) ([95b7030](https://github.com/rodekruis/IBF-system/commit/95b7030b80eca157e9a8384102ba62da866239f0))
+* extend vegetation_contition to UGA AB[#14566](https://github.com/rodekruis/IBF-system/issues/14566) ([cfa7141](https://github.com/rodekruis/IBF-system/commit/cfa71418c22b2a2215cf1fe4abc715380d838170))
+* mock eap-actions UGA drought AB[#14571](https://github.com/rodekruis/IBF-system/issues/14571) ([051a390](https://github.com/rodekruis/IBF-system/commit/051a3904441ea22b9a63ac2128d997d273d72f68))
+
+
+
 # [0.170.0](https://github.com/rodekruis/IBF-system/compare/v0.169.1...v0.170.0) (2022-07-22)
 
 
@@ -118,15 +138,6 @@
 ### Features
 
 * process new layers AB[#13978](https://github.com/rodekruis/IBF-system/issues/13978) ([2e44ff4](https://github.com/rodekruis/IBF-system/commit/2e44ff4fba613f4f33b32182c6b5dc19442f03bf))
-
-
-
-# [0.165.0](https://github.com/rodekruis/IBF-system/compare/v0.164.0...v0.165.0) (2022-06-24)
-
-
-### Features
-
-* add demo user AB[#14312](https://github.com/rodekruis/IBF-system/issues/14312) ([38857c1](https://github.com/rodekruis/IBF-system/commit/38857c172e48726754b0bbf68a5b5d34c3bf105e))
 
 
 
