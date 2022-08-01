@@ -312,7 +312,7 @@ export class NotificationService {
       },
       {
         replaceKey: '(TRIGGER-STATEMENT)',
-        replaceValue: country.notificationInfo.triggerStatement,
+        replaceValue: country.notificationInfo.triggerStatement[disasterType],
       },
       {
         replaceKey: '(LINK-DASHBOARD)',

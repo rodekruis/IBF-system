@@ -99,6 +99,78 @@
     "label": "Cash and voucher Assistance (CVA) to facilitate evacuation and meet shelter needs to the affected population"
   },
   {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-1",
+    "label": "DRR preliminary action",
+    "month": {
+      "National": 4
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "shelter"
+    },
+    "action": "shelter-1",
+    "label": "Shelter preliminary action",
+    "month": {
+      "National": 5
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-1",
+    "label": "Livelihood preliminary action",
+    "month": {
+      "National": 6
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-1",
+    "label": "Health preliminary action",
+    "month": {
+      "National": 9
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-1",
+    "label": "WASH preliminary action",
+    "month": {
+      "National": 10
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "inclusion"
+    },
+    "action": "inclusion-1",
+    "label": "Inclusion preliminary action",
+    "month": {
+      "National": 11
+    }
+  },
+  {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
     "areaOfFocus": {
