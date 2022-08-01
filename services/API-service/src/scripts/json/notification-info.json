@@ -15,8 +15,8 @@
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/af6240bf-bdd3-9982-9ca5-44f7e5a71f01.jpg",
     "triggerStatement": {
       "floods": "The Flood Early Action Protocol will be triggered 3 days before the flood when the forecast of the GloFAS is predicting with more than 70% probability the occurrence of a 1 in 5 years flood (at least), in any of the 4 targeted river basins. Then the corresponding flood extent will be overlayed on the rice crop map to estimate the flood impact in the concerned river basin, allowing the selection of the municipalities where to focus the anticipatory actions (where for instance the predicted impact is more than 50% of crops possibly affected, or between 30-50%)",
-      "dengue": null,
-      "typhoon": null
+      "dengue": "Not currently available",
+      "typhoon": "Not currently available"
     },
     "linkSocialMediaType": null,
     "linkSocialMediaUrl": null,
@@ -39,7 +39,7 @@
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png",
     "triggerStatement": {
       "floods": "This EAP will be triggered when GloFAS issues a forecast where a trigger level will be exceeded and the probability of exceedance is at least the probability indicated. Three trigger levels were defined for this EAP:<ul><li>Stations in Nzoia  Basin a 5-year return period discharge (5.3m level/469.8 m3/s) with 85 % probability of exceedance</li><li>Stations in Athi Basin a 5 year return period discharge period discharge (469.236 m3/s) with 85% probability of exceedance</li><li>Stations in Tana Basin a 5-year return period discharge with (5.1m/ 1191.6 m3/s) 85% probability of exceedance</li></ul>",
-      "drought": null
+      "drought": "Not currently available"
     },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/",
@@ -51,8 +51,8 @@
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png",
     "triggerStatement": {
       "floods": "The ERCS will act based on the developed trigger table when the Global Floods awareness system forecast indicates a level of river discharge greater or equal to a level of 10 years return period with a probability of at least 75% forecast uncertainty within 7 days lead time period.",
-      "malaria": null,
-      "drought": null
+      "malaria": "Not currently available",
+      "drought": "Not currently available"
     },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/",
