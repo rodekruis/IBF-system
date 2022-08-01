@@ -434,7 +434,7 @@ export class ScriptsService {
     );
     const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
-    ).droughtForecastMonths;
+    ).droughtForecastSeasons;
 
     let useLeadTimeForMock = false;
     for (const area of Object.keys(forecastSeasonAreas)) {
@@ -594,7 +594,7 @@ export class ScriptsService {
   ): string[] {
     const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
-    ).droughtForecastMonths;
+    ).droughtForecastSeasons;
     const {
       currentUTCMonth,
       leadTimeMonthFirstDay,
