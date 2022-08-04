@@ -1,6 +1,15 @@
-<div *ngIf="multipleActiveEvents()" class="containerDiv">
-  <div>
+<div *ngIf="multipleActiveEvents()">
+  <div *ngIf="event.eventName === selectedEventName">
+    <p>
+      <strong>{{
+        'chat-component.typhoon.event-switcher.current-event-message'
+          | translate
+      }}</strong>
+    </p>
+  </div>
+  <div class="containerDiv">
     <ion-button
+      *ngIf="event.eventName !== selectedEventName"
       class="ibf event-switch-button"
       [class.triggered]="event.thresholdReached"
       [class.selected]="event.eventName === selectedEventName"
@@ -10,7 +19,10 @@
       size="small"
       (click)="switchEvent(event)"
     >
-      {{ event.eventName }}
+      {{
+        'chat-component.typhoon.event-switcher.switch-event-button-prefix'
+          | translate
+      }}{{ event.eventName }}
     </ion-button>
   </div>
 </div>
