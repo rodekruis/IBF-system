@@ -159,7 +159,9 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-    this.eventState.events.sort((a, b) => (a.startDate > b.startDate ? 1 : -1));
+    this.eventState?.events?.sort((a, b) =>
+      a.startDate > b.startDate ? 1 : -1,
+    );
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
