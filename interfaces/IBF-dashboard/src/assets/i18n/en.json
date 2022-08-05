@@ -120,12 +120,12 @@
       },
       "clear-out": {
         "regional": {
-          "warning": "Please be aware that the EAP-actions for some areas related to this trigger will be automatically cleared out by the IBF-system after this month, due to the start of the next rainy season in those areas.",
-          "message": "Old EAP-actions for some areas have been automatically cleared out by the IBF-system, due to the start of the next rainy season in those areas."
+          "warning": "Please be aware that the EAP-actions for some areas related to this trigger will be automatically cleared out by the IBF-Portal after this month, due to the start of the next rainy season in those areas.",
+          "message": "Old EAP-actions for some areas have been automatically cleared out by the IBF-Portal, due to the start of the next rainy season in those areas."
         },
         "national": {
-          "warning": "Please be aware that the EAP-actions related to this trigger will be automatically cleared out by the IBF-system after this month, due to the start of the next rainy season.",
-          "message": "Old EAP-actions have been automatically cleared out by the IBF-system, due to the start of the next rainy season."
+          "warning": "Please be aware that the EAP-actions related to this trigger will be automatically cleared out by the IBF-Portal after this month, due to the start of the next rainy season.",
+          "message": "Old EAP-actions have been automatically cleared out by the IBF-Portal, due to the start of the next rainy season."
         }
       },
       "active-event": {

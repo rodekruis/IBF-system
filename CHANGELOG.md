@@ -1,3 +1,19 @@
+# [0.173.0](https://github.com/rodekruis/IBF-system/compare/v0.172.1...v0.173.0) (2022-08-05)
+
+
+### Bug Fixes
+
+* switch event before api call AB[#14614](https://github.com/rodekruis/IBF-system/issues/14614) ([1e2696f](https://github.com/rodekruis/IBF-system/commit/1e2696f02fd64b7d13c2927e3f058bcee26145d2))
+* use correct event on timeline click AB[#14614](https://github.com/rodekruis/IBF-system/issues/14614) ([8cfebca](https://github.com/rodekruis/IBF-system/commit/8cfebca27a819135ecbbe16a6fbac7783e4a92e2))
+
+
+### Features
+
+* replace current btn with text AB[#14642](https://github.com/rodekruis/IBF-system/issues/14642) ([9c5be2d](https://github.com/rodekruis/IBF-system/commit/9c5be2d6d4d31f3aa68f411214fc0f88f4a27420))
+* split eventswitcher AB[#14542](https://github.com/rodekruis/IBF-system/issues/14542) ([6000cef](https://github.com/rodekruis/IBF-system/commit/6000cefd061843d16b15b9135a307790f372eacc))
+
+
+
 ## [0.172.1](https://github.com/rodekruis/IBF-system/compare/v0.172.0...v0.172.1) (2022-08-01)
 
 
@@ -109,15 +125,6 @@
 
 * correct PHL floods eapLink AB[#14421](https://github.com/rodekruis/IBF-system/issues/14421) ([956d8ee](https://github.com/rodekruis/IBF-system/commit/956d8eec08488d2792466d55d3853742bf03227f))
 * correct PHL trigger statement AB[#14421](https://github.com/rodekruis/IBF-system/issues/14421) ([ee65ccb](https://github.com/rodekruis/IBF-system/commit/ee65ccba83bb6221abed002b734ebfdf39e59d66))
-
-
-
-## [0.167.1](https://github.com/rodekruis/IBF-system/compare/v0.167.0...v0.167.1) (2022-07-01)
-
-
-### Bug Fixes
-
-* update dam marker popup string AB[#14364](https://github.com/rodekruis/IBF-system/issues/14364) ([3c1c560](https://github.com/rodekruis/IBF-system/commit/3c1c560f9584eead21b498b2d875523edafdfb8e))
 
 
 
