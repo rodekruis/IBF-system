@@ -202,6 +202,10 @@
         "overview": "The following {{ nrStoppedAreas }} {{adminAreaLabelPlural}} were manually stopped and listed below in order of {{ actionIndicator }}.",
         "instruction": "To see when this was done and by whom, click on the area in the map.",
         "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+      },
+      "event-switcher": {
+        "current-event-message": "The map is currently showing this event.",
+        "switch-event-button-prefix": "Show "
       }
     },
     "heavy-rain": {
