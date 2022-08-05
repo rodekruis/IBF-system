@@ -33,7 +33,7 @@ export class NotificationService {
 
   private placeholderToday = '(TODAY)';
   private fromEmail = process.env.SUPPORT_EMAIL_ADDRESS;
-  private fromEmailName = 'IBF system';
+  private fromEmailName = 'IBF portal';
 
   private mailchimp = new Mailchimp(process.env.MC_API);
 
