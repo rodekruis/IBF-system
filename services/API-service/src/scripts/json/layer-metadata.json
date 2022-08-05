@@ -150,7 +150,7 @@
   },
   {
     "country_codes": "ZMB,ETH,UGA,PHL,KEN",
-    "disasterTypes": ["floods", "malaria", "typhoon"],
+    "disasterTypes": ["floods", "malaria", "typhoon", "drought"],
     "name": "adminRegions3",
     "label": "Admin Level 3",
     "type": "shape",
@@ -158,7 +158,7 @@
   },
   {
     "country_codes": "UGA",
-    "disasterTypes": ["floods"],
+    "disasterTypes": ["floods", "drought"],
     "name": "adminRegions4",
     "label": "Admin Level 4",
     "type": "shape",

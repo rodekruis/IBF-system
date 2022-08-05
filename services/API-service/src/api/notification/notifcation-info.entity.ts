@@ -8,8 +8,8 @@ export class NotificationInfoEntity {
   @Column()
   public logo: string;
 
-  @Column()
-  public triggerStatement: string;
+  @Column('json', { default: {} })
+  public triggerStatement: JSON;
 
   @Column({ nullable: true })
   public linkSocialMediaType: string;

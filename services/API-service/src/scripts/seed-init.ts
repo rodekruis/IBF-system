@@ -391,8 +391,9 @@ export class SeedInit implements InterfaceScript {
       return;
     }
     notificationInfoEntity.logo = notificationInfoCountry.logo;
-    notificationInfoEntity.triggerStatement =
-      notificationInfoCountry.triggerStatement;
+    notificationInfoEntity.triggerStatement = JSON.parse(
+      JSON.stringify(notificationInfoCountry.triggerStatement),
+    );
     notificationInfoEntity.linkSocialMediaType =
       notificationInfoCountry.linkSocialMediaType;
     notificationInfoEntity.linkSocialMediaUrl =
