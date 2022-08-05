@@ -18,10 +18,13 @@ import {
 export class CountryService {
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
+  @InjectRepository(DisasterEntity)
   private readonly disasterRepository: Repository<DisasterEntity>;
+  @InjectRepository(CountryDisasterSettingsEntity)
   private readonly countryDisasterSettingsRepository: Repository<
     CountryDisasterSettingsEntity
   >;
+  @InjectRepository(LeadTimeEntity)
   private readonly leadTimeRepository: Repository<LeadTimeEntity>;
 
   private readonly relations: string[] = [
@@ -106,7 +109,7 @@ export class CountryService {
       const existingDisaster = await this.countryDisasterSettingsRepository.findOne(
         {
           where: {
-            countryCodeISO3: country.countryCodeISO3,
+            country: country,
             disasterType: disaster.disasterType,
           },
         },
