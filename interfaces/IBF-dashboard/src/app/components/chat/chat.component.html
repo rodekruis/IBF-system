@@ -45,6 +45,8 @@
     <app-dialogue-turn
       *ngFor="let event of eventState?.events"
       [isTriggered]="event.thresholdReached"
+      [isNotTriggered]="!event.thresholdReached"
+      [isSelected]="event.eventName === eventState?.event.eventName"
       isConnected="true"
     >
       <p *ngIf="event.activeTrigger && event.thresholdReached">
