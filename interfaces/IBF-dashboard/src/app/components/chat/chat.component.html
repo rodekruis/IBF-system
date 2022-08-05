@@ -161,12 +161,13 @@
         [isTriggered]="true"
       >
         <p
-          [translate]="
+          [innerHTML]="
             'chat-component.' + disasterTypeName + '.active-event.overview'
               | translate
                 : {
                     nrTriggeredAreas: activeAreas.length,
                     adminAreaLabelPlural: adminAreaLabelPlural,
+                    eventName: eventState?.event.eventName,
                     actionIndicator: actionIndicatorLabel
                   }
           "
@@ -201,12 +202,13 @@
         [isStopped]="true"
       >
         <p
-          [translate]="
+          [innerHTML]="
             'chat-component.' + disasterTypeName + '.stopped-event.overview'
               | translate
                 : {
                     nrStoppedAreas: stoppedAreas.length,
                     adminAreaLabelPlural: adminAreaLabelPlural,
+                    eventName: eventState?.event.eventName,
                     actionIndicator: actionIndicatorLabel
                   }
           "
