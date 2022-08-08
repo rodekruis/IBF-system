@@ -16,13 +16,22 @@ export class CountryDisasterSettings {
   adminLevels: AdminLevel[];
   defaultAdminLevel: AdminLevel;
   activeLeadTimes: LeadTime[];
-  droughtForecastMonths: {};
+  droughtForecastSeasons: DroughtForecastSeasons;
   droughtAreas: {};
   eapLink: string;
   showMonthlyEapActions: boolean;
   droughtEndOfMonthPipeline?: boolean;
   eapAlertClasses?: EapAlertClasses;
   monthlyForecastInfo?: {};
+}
+
+export class DroughtForecastSeasons {
+  [area: string]: {
+    [season: string]: {
+      rainMonths: number[];
+      actionMonths: number[];
+    };
+  };
 }
 
 export class NotificationInfo {

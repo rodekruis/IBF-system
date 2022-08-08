@@ -30,6 +30,7 @@ export class EapActionsService {
   private adminLevel: AdminLevel;
   private eventState: EventState;
   private timelineState: TimelineState;
+  private currentRainSeasonName: string;
 
   constructor(
     private countryService: CountryService,
@@ -130,7 +131,7 @@ export class EapActionsService {
             Object.defineProperty(action.monthLong, region, {
               value: DateTime.utc(
                 2022, // year does not matter, this is just about converting month-number to month-name
-                action.month[region],
+                action.month[region][this.currentRainSeasonName],
                 1,
               ).monthLong,
             });
@@ -162,7 +163,6 @@ export class EapActionsService {
     }
 
     const region = this.getRegion(triggeredArea);
-    const periods = this.getActionPeriods(region);
 
     let monthOfSelectedLeadTime =
       this.getCurrentMonth() + Number(this.getActiveLeadtime().split('-')[0]);
@@ -171,33 +171,39 @@ export class EapActionsService {
         ? monthOfSelectedLeadTime - 12
         : monthOfSelectedLeadTime;
 
-    const currentPeriod = periods.find((p) =>
-      p.includes(monthOfSelectedLeadTime),
+    this.currentRainSeasonName = this.getCurrentRainSeasonName(
+      region,
+      monthOfSelectedLeadTime,
     );
 
-    currentPeriod.unshift(
-      ...this.currentPeriodOverlapAddition(region, currentPeriod[0]),
-    );
-    const actionMonthInCurrentPeriod = (action: EapAction) =>
-      currentPeriod.includes(action.month[region]);
+    const currentActionSeasonMonths = this.disasterTypeSettings
+      .droughtForecastSeasons[region][this.currentRainSeasonName].actionMonths;
+
+    const actionMonthInCurrentActionSeasonMonths = (action: EapAction) =>
+      currentActionSeasonMonths.includes(
+        action.month[region][this.currentRainSeasonName],
+      );
+
     const actionMonthBeforeCurrentMonth = (action: EapAction) =>
-      currentPeriod.indexOf(action.month[region]) <=
-      currentPeriod.indexOf(this.getCurrentMonth());
+      currentActionSeasonMonths.indexOf(
+        action.month[region][this.currentRainSeasonName],
+      ) <= currentActionSeasonMonths.indexOf(this.getCurrentMonth());
 
     triggeredArea.eapActions = triggeredArea.eapActions
       .filter(
         (action: EapAction) =>
-          actionMonthInCurrentPeriod(action) &&
+          actionMonthInCurrentActionSeasonMonths(action) &&
           actionMonthBeforeCurrentMonth(action),
-      )
-      .filter((action: EapAction) =>
-        this.actionOverlapFilter(region, action.month[region], action.action),
       )
       .sort(
         (a, b) =>
           a.month[region] &&
-          this.getShiftedYear(region).indexOf(a.month[region]) -
-            this.getShiftedYear(region).indexOf(b.month[region]),
+          currentActionSeasonMonths.indexOf(
+            a.month[region][this.currentRainSeasonName],
+          ) -
+            currentActionSeasonMonths.indexOf(
+              b.month[region][this.currentRainSeasonName],
+            ),
       );
   };
 
@@ -220,128 +226,12 @@ export class EapActionsService {
     }
   }
 
-  private getSeasonEnds(region): number[] {
-    return this.disasterTypeSettings.droughtForecastMonths[region]
-      .map((season) => season[season.length - 1])
-      .sort((a, b) => b - a);
-  }
-
-  private getShiftedYear(region): number[] {
-    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((m) => {
-      const newMonthValue = (m + this.getSeasonEnds(region)[0]) % 12;
-      return newMonthValue > 0 ? newMonthValue : 12;
-    });
-  }
-
-  private getActionPeriods(region): number[][] {
-    const periods = [];
-    let period = [];
-    for (const month of this.getShiftedYear(region)) {
-      period.push(month);
-      if (this.getSeasonEnds(region).includes(month)) {
-        periods.push(period);
-        period = [];
+  private getCurrentRainSeasonName(region, monthOfSelectedLeadTime): string {
+    const seasons = this.disasterTypeSettings.droughtForecastSeasons[region];
+    for (const season of Object.keys(seasons)) {
+      if (seasons[season].rainMonths.includes(monthOfSelectedLeadTime)) {
+        return season;
       }
-    }
-
-    return periods;
-  }
-
-  private currentPeriodOverlapAddition(
-    region: string,
-    periodStart: number,
-  ): number[] {
-    if (
-      this.country.countryCodeISO3 === 'ETH' &&
-      region === 'Belg' &&
-      periodStart === 6
-    ) {
-      return [5];
-    }
-
-    if (this.country.countryCodeISO3 === 'KEN' && periodStart === 1) {
-      return [12];
-    }
-
-    return [];
-  }
-
-  private actionOverlapFilter(
-    region: string,
-    actionMonth: number,
-    actionId: string,
-  ): boolean {
-    const country = this.country.countryCodeISO3;
-    if (!['ETH', 'KEN'].includes(country)) {
-      return true;
-    }
-
-    if (country === 'ETH') {
-      if (region !== 'Belg' || ![5, 6].includes(this.getCurrentMonth())) {
-        return true;
-      }
-
-      if (actionMonth !== 5) {
-        return true;
-      }
-
-      const firstSeasonMayActions = ['eth-1-c9'];
-      const secondSeasonMayActions = [
-        'eth-2-a2',
-        'eth-2-a3',
-        'eth-2-a6',
-        'eth-2-a9',
-        'eth-2-a11',
-        'eth-2-b2',
-        'eth-2-b3',
-        'eth-2-b5',
-        'eth-2-b9',
-        'eth-2-b10',
-        'eth-2-b11',
-        'eth-2-c2',
-        'eth-2-c10',
-        'eth-2-c11',
-        'eth-2-c12',
-      ];
-      const mayActionsToShow = {
-        5: {
-          [LeadTime.month0]: firstSeasonMayActions,
-          [LeadTime.month1]: secondSeasonMayActions,
-        },
-        6: {
-          [LeadTime.month0]: secondSeasonMayActions,
-        },
-      };
-      return mayActionsToShow[this.getCurrentMonth()][
-        this.getActiveLeadtime()
-      ].includes(actionId);
-    }
-
-    if (country === 'KEN') {
-      if (![12, 1].includes(this.getCurrentMonth())) {
-        return true;
-      }
-
-      if (actionMonth !== 12) {
-        return true;
-      }
-
-      const firstSeasonDecemberActions = [];
-      const secondSeasonDecemberActions = ['livelihood-5', 'wash-7', 'wash-8'];
-
-      const decemberActionsToShow = {
-        12: {
-          [LeadTime.month0]: firstSeasonDecemberActions,
-          [LeadTime.month1]: secondSeasonDecemberActions,
-        },
-        1: {
-          [LeadTime.month0]: secondSeasonDecemberActions,
-        },
-      };
-
-      return decemberActionsToShow[this.getCurrentMonth()][
-        this.getActiveLeadtime()
-      ].includes(actionId);
     }
   }
 
