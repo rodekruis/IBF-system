@@ -31,6 +31,8 @@ export class ScriptsService {
   @InjectRepository(CountryEntity)
   private readonly countryRepo: Repository<CountryEntity>;
 
+  private rainMonthsKey = 'rainMonths';
+
   public constructor(
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private glofasStationService: GlofasStationService,
@@ -451,16 +453,17 @@ export class ScriptsService {
   }
 
   private useLeadTimeForMock(
-    forecastSeasons: any,
+    forecastSeasons,
     leadTime: string,
     leadTimeMonthFirstDay: Date,
     currentUTCMonth: number,
     currentYear: number,
   ) {
     // If current month is one of the months in the seasons, always use '0-month' and return early ..
+
     if (leadTime === LeadTime.month0) {
-      for (const season of forecastSeasons) {
-        for (const month of season) {
+      for (const season of Object.values(forecastSeasons)) {
+        for (const month of season[this.rainMonthsKey]) {
           if (currentUTCMonth + 1 === month) {
             return true;
           }
@@ -469,7 +472,9 @@ export class ScriptsService {
     }
 
     // .. For other cases, continue to find the next forecast month
-    const forecastMonthNumbers = forecastSeasons.map(month => month[0]);
+    const forecastMonthNumbers = Object.values(forecastSeasons).map(
+      season => season[this.rainMonthsKey][0],
+    );
     let forecastMonthNumber: number;
     forecastMonthNumbers
       .sort((a, b) => (a > b ? -1 : 1))
@@ -605,9 +610,10 @@ export class ScriptsService {
     );
     const month = leadTimeMonthFirstDay.getMonth() + 1;
     let triggeredAreas = [];
+
     for (const area of Object.keys(forecastSeasonAreas)) {
-      for (const season of forecastSeasonAreas[area]) {
-        const filteredSeason = season.filter(
+      for (const season of Object.values(forecastSeasonAreas[area])) {
+        const filteredSeason = season[this.rainMonthsKey].filter(
           seasonMonth => seasonMonth >= currentUTCMonth + 1,
         );
         if (filteredSeason[0] === month) {
