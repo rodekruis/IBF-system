@@ -26,7 +26,7 @@
         "button-label": "Load Mock Scenario",
         "alert-header": "Load Mock Scenario",
         "alert-sub-header": "Current data will be overwritten.",
-        "alert-message": "Are you sure you want to mock the situation for {{ countryName }}?",
+        "alert-message": "Are you sure you want to mock the situation for <strong>{{ countryName }} {{ disasterTypeLabel }}</strong>?",
         "alert-input-secret-placeholder": "Please enter the reset secret",
         "alert-button-cancel": "Cancel",
         "alert-button-old-event": "Old event",
