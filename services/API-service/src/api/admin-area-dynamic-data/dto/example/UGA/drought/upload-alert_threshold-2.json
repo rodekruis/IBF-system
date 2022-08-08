@@ -1,6 +1,6 @@
 [
   {
-    "amount": 1,
+    "amount": 0,
     "placeCode": "21UGA003001"
   },
   {
@@ -28,7 +28,7 @@
     "placeCode": "21UGA003004"
   },
   {
-    "amount": 1,
+    "amount": 0,
     "placeCode": "21UGA003003"
   },
   {
@@ -68,7 +68,7 @@
     "placeCode": "21UGA004003"
   },
   {
-    "amount": 0,
+    "amount": 1,
     "placeCode": "21UGA008003"
   },
   {
@@ -292,7 +292,7 @@
     "placeCode": "21UGA004002"
   },
   {
-    "amount": 0,
+    "amount": 1,
     "placeCode": "21UGA008004"
   },
   {

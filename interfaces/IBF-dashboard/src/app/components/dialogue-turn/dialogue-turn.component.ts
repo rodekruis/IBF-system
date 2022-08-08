@@ -33,6 +33,12 @@ export class DialogueTurnComponent implements OnInit {
   @Input()
   isTriggered = false;
 
+  @Input()
+  isNotTriggered = false;
+
+  @Input()
+  isSelected = true;
+
   isSelf: boolean;
   isSystem: boolean;
 

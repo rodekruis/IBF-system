@@ -33,7 +33,7 @@
   },
   {
     "placeCode": "UG30800201",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG20350101",
@@ -657,11 +657,11 @@
   },
   {
     "placeCode": "UG20280102",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG20360101",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG41240101",
@@ -789,7 +789,7 @@
   },
   {
     "placeCode": "UG20280101",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG20540102",
@@ -1249,7 +1249,7 @@
   },
   {
     "placeCode": "UG20360106",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG10120112",
@@ -1293,7 +1293,7 @@
   },
   {
     "placeCode": "UG20360107",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG10020103",
@@ -1325,7 +1325,7 @@
   },
   {
     "placeCode": "UG20360104",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG20400302",
@@ -1333,7 +1333,7 @@
   },
   {
     "placeCode": "UG20370102",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG20520108",
@@ -1369,7 +1369,7 @@
   },
   {
     "placeCode": "UG20360102",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG20480102",
@@ -1377,7 +1377,7 @@
   },
   {
     "placeCode": "UG20360105",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG10220101",
@@ -1385,7 +1385,7 @@
   },
   {
     "placeCode": "UG20370101",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG41240104",
@@ -1429,7 +1429,7 @@
   },
   {
     "placeCode": "UG20360103",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG41060102",
@@ -1713,7 +1713,7 @@
   },
   {
     "placeCode": "UG30750102",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG20450205",
@@ -1829,7 +1829,7 @@
   },
   {
     "placeCode": "UG20280201",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG20510105",
@@ -1841,7 +1841,7 @@
   },
   {
     "placeCode": "UG30750103",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG20350207",
@@ -1873,7 +1873,7 @@
   },
   {
     "placeCode": "UG30750101",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG20410104",
@@ -1885,7 +1885,7 @@
   },
   {
     "placeCode": "UG20280202",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG41110105",
@@ -1909,7 +1909,7 @@
   },
   {
     "placeCode": "UG20360108",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG30900101",
@@ -2081,7 +2081,7 @@
   },
   {
     "placeCode": "UG30800101",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG41290302",
@@ -2117,7 +2117,7 @@
   },
   {
     "placeCode": "UG20360109",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG41290103",
@@ -2209,7 +2209,7 @@
   },
   {
     "placeCode": "UG20280104",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG10160101",
@@ -2229,11 +2229,11 @@
   },
   {
     "placeCode": "UG20370103",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG20280103",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG41030105",
@@ -2241,7 +2241,7 @@
   },
   {
     "placeCode": "UG30750104",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG10230101",
@@ -2289,7 +2289,7 @@
   },
   {
     "placeCode": "UG30750105",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG10070103",
@@ -2297,7 +2297,7 @@
   },
   {
     "placeCode": "UG20280204",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG30730108",
@@ -2341,7 +2341,7 @@
   },
   {
     "placeCode": "UG30750106",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG41130108",
@@ -2413,7 +2413,7 @@
   },
   {
     "placeCode": "UG20370104",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG10060102",
@@ -2425,7 +2425,7 @@
   },
   {
     "placeCode": "UG20280203",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG20340113",
@@ -2605,7 +2605,7 @@
   },
   {
     "placeCode": "UG20370105",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG41140105",
@@ -2617,7 +2617,7 @@
   },
   {
     "placeCode": "UG30760115",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG10130105",
@@ -2637,7 +2637,7 @@
   },
   {
     "placeCode": "UG30750108",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG41090205",
@@ -2701,7 +2701,7 @@
   },
   {
     "placeCode": "UG30760114",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG20450206",
@@ -2769,7 +2769,7 @@
   },
   {
     "placeCode": "UG30750107",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG10080102",
@@ -2869,7 +2869,7 @@
   },
   {
     "placeCode": "UG20280205",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG41310104",
@@ -2965,7 +2965,7 @@
   },
   {
     "placeCode": "UG30760116",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG10100203",
@@ -3337,7 +3337,7 @@
   },
   {
     "placeCode": "UG30800102",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG30990108",
@@ -3633,7 +3633,7 @@
   },
   {
     "placeCode": "UG30750111",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG20350209",
@@ -3733,7 +3733,7 @@
   },
   {
     "placeCode": "UG30750112",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG10140205",
@@ -3765,7 +3765,7 @@
   },
   {
     "placeCode": "UG30760118",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG30880102",
@@ -3857,11 +3857,11 @@
   },
   {
     "placeCode": "UG30750109",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG30750110",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG30780105",
@@ -3877,7 +3877,7 @@
   },
   {
     "placeCode": "UG20280105",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG30640106",
@@ -3885,7 +3885,7 @@
   },
   {
     "placeCode": "UG30760117",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG30890102",
@@ -4301,7 +4301,7 @@
   },
   {
     "placeCode": "UG20280206",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG41300106",
@@ -4365,7 +4365,7 @@
   },
   {
     "placeCode": "UG20280106",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG10210404",
@@ -4377,7 +4377,7 @@
   },
   {
     "placeCode": "UG20360110",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG30990110",
@@ -4545,7 +4545,7 @@
   },
   {
     "placeCode": "UG20280107",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG20540122",
@@ -4717,7 +4717,7 @@
   },
   {
     "placeCode": "UG30760119",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG10100205",
@@ -4737,7 +4737,7 @@
   },
   {
     "placeCode": "UG30800202",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG41010106",
@@ -4757,7 +4757,7 @@
   },
   {
     "placeCode": "UG30800103",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG20520114",
@@ -4781,7 +4781,7 @@
   },
   {
     "placeCode": "UG20360112",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG41030109",
@@ -4825,7 +4825,7 @@
   },
   {
     "placeCode": "UG20360111",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG10260503",
@@ -5317,7 +5317,7 @@
   },
   {
     "placeCode": "UG30800104",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG30770108",
@@ -5417,7 +5417,7 @@
   },
   {
     "placeCode": "UG20370106",
-    "amount": 5
+    "amount": 0
   },
   {
     "placeCode": "UG30840109",
@@ -5577,11 +5577,11 @@
   },
   {
     "placeCode": "UG30760120",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG30750113",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG30980104",
@@ -5673,7 +5673,7 @@
   },
   {
     "placeCode": "UG30800105",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG41260108",
@@ -5845,7 +5845,7 @@
   },
   {
     "placeCode": "UG30800203",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG41330302",
@@ -6025,7 +6025,7 @@
   },
   {
     "placeCode": "UG30800204",
-    "amount": 0
+    "amount": 5
   },
   {
     "placeCode": "UG10140208",
