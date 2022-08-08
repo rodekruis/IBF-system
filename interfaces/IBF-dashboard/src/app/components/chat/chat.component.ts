@@ -160,7 +160,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
     this.eventState?.events?.sort((a, b) =>
-      a.startDate > b.startDate ? 1 : -1,
+      Number(a.firstLeadTime?.split('-')[0]) >
+      Number(b.firstLeadTime?.split('-')[0])
+        ? 1
+        : a.startDate > b.startDate
+        ? 1
+        : -1,
     );
   };
 
