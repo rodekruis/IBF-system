@@ -107,7 +107,10 @@
     "action": "drr-1",
     "label": "DRR preliminary action",
     "month": {
-      "National": 4
+      "National": {
+        "firstSeason": 4,
+        "secondSeason": 9
+      }
     }
   },
   {
@@ -119,7 +122,10 @@
     "action": "shelter-1",
     "label": "Shelter preliminary action",
     "month": {
-      "National": 5
+      "National": {
+        "firstSeason": 5,
+        "secondSeason": 10
+      }
     }
   },
   {
@@ -131,7 +137,10 @@
     "action": "livelihood-1",
     "label": "Livelihood preliminary action",
     "month": {
-      "National": 6
+      "National": {
+        "firstSeason": 6,
+        "secondSeason": 11
+      }
     }
   },
   {
@@ -143,7 +152,10 @@
     "action": "health-1",
     "label": "Health preliminary action",
     "month": {
-      "National": 9
+      "National": {
+        "firstSeason": 4,
+        "secondSeason": 9
+      }
     }
   },
   {
@@ -155,7 +167,10 @@
     "action": "wash-1",
     "label": "WASH preliminary action",
     "month": {
-      "National": 10
+      "National": {
+        "firstSeason": 5,
+        "secondSeason": 10
+      }
     }
   },
   {
@@ -167,7 +182,10 @@
     "action": "inclusion-1",
     "label": "Inclusion preliminary action",
     "month": {
-      "National": 11
+      "National": {
+        "firstSeason": 6,
+        "secondSeason": 11
+      }
     }
   },
   {
