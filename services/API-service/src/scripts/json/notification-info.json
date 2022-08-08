@@ -40,7 +40,7 @@
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png",
     "triggerStatement": {
       "floods": "This EAP will be triggered when GloFAS issues a forecast where a trigger level will be exceeded and the probability of exceedance is at least the probability indicated. Three trigger levels were defined for this EAP:<ul><li>Stations in Nzoia  Basin a 5-year return period discharge (5.3m level/469.8 m3/s) with 85 % probability of exceedance</li><li>Stations in Athi Basin a 5 year return period discharge period discharge (469.236 m3/s) with 85% probability of exceedance</li><li>Stations in Tana Basin a 5-year return period discharge with (5.1m/ 1191.6 m3/s) 85% probability of exceedance</li></ul>",
-      "drought": "Not currently available"
+      "drought": "The EAP will be triggered based on two parameters; 3-month average Vegetation Condition Index (VCI3M) and the 3-month Standardized Precipitation Index (SPI3). An alert is given, if the VCI value drops below 30% with at least 33% chance of exceedance. VCI is supplemented by the SPI Forecast from KMD with a threshold value below -0.98 and a 30% probability of exceedance. The lead-time of the forecast is up to 12 weeks."
     },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/",
@@ -52,8 +52,8 @@
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png",
     "triggerStatement": {
       "floods": "The ERCS will act based on the developed trigger table when the Global Floods awareness system forecast indicates a level of river discharge greater or equal to a level of 10 years return period with a probability of at least 75% forecast uncertainty within 7 days lead time period.",
-      "malaria": "Not currently available",
-      "drought": "Not currently available"
+      "malaria": "An alert is released when two conditions are simultaneously met. First, the relative number of malaria cases is anomalous according to WHO guidelines, by comparing it to its monthly averages. Second, the absolute number of malaria cases is high and thus likely to require humanitarian intervention.",
+      "drought": "Rainfall forecast based on NMA/ICPAC will be used as the primary trigger mechanism before the start of the season. This trigger will provide information with a lead time of up to 1 months. The trigger values for this trigger are for more than 50% of the geographical area of a zone(Admin level 2) a Drier than normal conditions(SPI3< -1) are predicted based on the 1 month Standard precipitation index (SPI3). The SPI3 values will be based on seasonal rainfall forecast issued by NMA/ICPAC. In addition to the above requirement the probability of below normal rain should be at 45% based on probabilistic forecast information provided by NMA/ICPAC."
     },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/",
