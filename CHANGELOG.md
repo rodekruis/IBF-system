@@ -1,3 +1,15 @@
+## [0.173.3](https://github.com/rodekruis/IBF-system/compare/v0.173.2...v0.173.3) (2022-08-08)
+
+
+### Bug Fixes
+
+* handle sticky actions in frontend AB[#14576](https://github.com/rodekruis/IBF-system/issues/14576) ([8577967](https://github.com/rodekruis/IBF-system/commit/8577967a8f761aadb0d58ec8154c1379c64b6ad2))
+* handle sticky actions in mock AB[#14576](https://github.com/rodekruis/IBF-system/issues/14576) ([10685ba](https://github.com/rodekruis/IBF-system/commit/10685baf58d2f5efff339af0172276d51b721eee))
+* remove checkStickyDroughtSeason ([b2d34e0](https://github.com/rodekruis/IBF-system/commit/b2d34e0603ca29043bf0876aeaa7d8cdc419257b))
+* update UGA eap-actions AB[#14646](https://github.com/rodekruis/IBF-system/issues/14646) ([facbf11](https://github.com/rodekruis/IBF-system/commit/facbf11d7baaca6837d653de4563f8af406154f3))
+
+
+
 ## [0.173.2](https://github.com/rodekruis/IBF-system/compare/v0.173.1...v0.173.2) (2022-08-08)
 
 
@@ -119,20 +131,6 @@
 ### Features
 
 * update ZWE trigger statement AB[#14474](https://github.com/rodekruis/IBF-system/issues/14474) ([0f07831](https://github.com/rodekruis/IBF-system/commit/0f078314f7bba4987f95abdf256c014f5377d3c0))
-
-
-
-# [0.168.0](https://github.com/rodekruis/IBF-system/compare/v0.167.3...v0.168.0) (2022-07-11)
-
-
-### Features
-
-* add actions AB[#14371](https://github.com/rodekruis/IBF-system/issues/14371) ([157078a](https://github.com/rodekruis/IBF-system/commit/157078ab32e789bb31833a7b4a6ba075a8e4f5cf))
-* add icon and change seed data AB[#14373](https://github.com/rodekruis/IBF-system/issues/14373) ([0a1689e](https://github.com/rodekruis/IBF-system/commit/0a1689e6ecde0a9c30324aed45925e0f29dc0dec))
-* add sticky season AB[#14363](https://github.com/rodekruis/IBF-system/issues/14363) ([6623ace](https://github.com/rodekruis/IBF-system/commit/6623ace25d2c78aac2357a79aad8dde8da2c417b))
-* add ZWE demo user AB[#14426](https://github.com/rodekruis/IBF-system/issues/14426) ([ae1bf74](https://github.com/rodekruis/IBF-system/commit/ae1bf74a09d63c13bf9b32fcd688e14b54394243))
-* handle ZWE forecast message AB[#14372](https://github.com/rodekruis/IBF-system/issues/14372) ([1bf314b](https://github.com/rodekruis/IBF-system/commit/1bf314bd2039895ce19a11cfab03e4f14ee43b73))
-* move ZWE forecastinfo to 2nd bubble AB[#14372](https://github.com/rodekruis/IBF-system/issues/14372) ([0cdc9d0](https://github.com/rodekruis/IBF-system/commit/0cdc9d074ac1b488b9354d1cbadf7ce445cdb47a))
 
 
 
