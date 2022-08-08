@@ -418,23 +418,8 @@ export class EventService {
     eventName: string,
     trigger: boolean,
   ): Promise<void> {
-    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
-      countryCodeISO3,
-    );
-    const whereFilters = {
-      adminArea: { id: In(countryAdminAreaIds) },
-      disasterType: disasterType,
-    };
-    // This makes sure that - if non-trigger - all events (i.e. yesterday's active event) are put to non-active.
-    // This requires that - in case of multiple (typhoon) events - the non-triggered ones are uploaded first.
-    if (trigger) {
-      whereFilters['eventName'] = eventName || IsNull();
-    }
-    const eventAreas = await this.eventPlaceCodeRepo.find({
-      where: whereFilters,
-    });
-    eventAreas.forEach(area => (area.activeTrigger = false));
-    await this.eventPlaceCodeRepo.save(eventAreas);
+    // First set all events to inactive
+    await this.setAllEventsToInactive(countryCodeISO3, disasterType);
 
     // update active ones to true + update population and end_date
     await this.updateExistingEventAreas(
@@ -454,6 +439,29 @@ export class EventService {
 
     // close old events
     await this.closeEventsAutomatic(countryCodeISO3);
+  }
+
+  private async setAllEventsToInactive(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ) {
+    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
+      countryCodeISO3,
+    );
+    // only set records that are not updated yet in this sequence of pipeline runs (e.g. multiple events in 1 day)
+    // after the 1st event this means everything is updated ..
+    // .. and from the 2nd event onwards if will not be set to activeTrigger=false again
+    const cutoffDate = this.helperService.getLast12hourInterval(disasterType);
+
+    const eventAreas = await this.eventPlaceCodeRepo.find({
+      where: {
+        adminArea: { id: In(countryAdminAreaIds) },
+        disasterType: disasterType,
+        endDate: LessThan(await this.getEndDate(disasterType, cutoffDate)),
+      },
+    });
+    eventAreas.forEach(area => (area.activeTrigger = false));
+    await this.eventPlaceCodeRepo.save(eventAreas);
   }
 
   private async getAffectedAreas(
@@ -564,7 +572,7 @@ export class EventService {
       relations: ['adminArea'],
     });
     let affectedArea: AffectedAreaDto;
-    unclosedEventAreas.forEach(unclosedEventArea => {
+    for await (const unclosedEventArea of unclosedEventAreas) {
       if (
         affectedAreasPlaceCodes.includes(unclosedEventArea.adminArea.placeCode)
       ) {
@@ -574,9 +582,9 @@ export class EventService {
         unclosedEventArea.activeTrigger = true;
         unclosedEventArea.thresholdReached = affectedArea.triggerValue > 0;
         unclosedEventArea.actionsValue = affectedArea.actionsValue;
-        unclosedEventArea.endDate = this.getEndDate(affectedArea.leadTime);
+        unclosedEventArea.endDate = await this.getEndDate(disasterType);
       }
-    });
+    }
     await this.eventPlaceCodeRepo.save(unclosedEventAreas);
   }
 
@@ -618,7 +626,7 @@ export class EventService {
         eventArea.thresholdReached = area.triggerValue > 0;
         eventArea.actionsValue = +area.actionsValue;
         eventArea.startDate = new Date();
-        eventArea.endDate = this.getEndDate(area.leadTime);
+        eventArea.endDate = await this.getEndDate(disasterType);
         eventArea.activeTrigger = true;
         eventArea.stopped = false;
         eventArea.manualStoppedDate = null;
@@ -643,9 +651,23 @@ export class EventService {
     await this.eventPlaceCodeRepo.save(expiredEventAreas);
   }
 
-  private getEndDate(leadTime: LeadTime): Date {
-    const today = new Date();
-    return leadTime.includes(LeadTimeUnit.month)
+  private async getEndDate(
+    disasterType: DisasterType,
+    passedDate?: Date,
+  ): Promise<Date> {
+    const today = passedDate || new Date();
+    console.log('today: ', today);
+    const disasterTypeEntity = await this.disasterTypeRepository.findOne({
+      where: { disasterType: disasterType },
+      relations: ['leadTimes'],
+    });
+    console.log(
+      'disasterTypeEntity: ',
+      disasterTypeEntity.leadTimes[0].leadTimeName,
+    );
+    return disasterTypeEntity.leadTimes[0].leadTimeName.includes(
+      LeadTimeUnit.month,
+    )
       ? new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59)
       : new Date(today.setDate(today.getDate() + 7));
   }

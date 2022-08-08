@@ -81,6 +81,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
       `${this.backendMockScenarioComponentTranslateNode}.${this.alertMessageNode}`,
       {
         countryName: this.country.countryName,
+        disasterTypeLabel: this.disasterType.disasterType,
       },
     );
     this.alertInputSecretPlaceholder =
