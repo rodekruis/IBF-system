@@ -1,3 +1,12 @@
+## [0.173.4](https://github.com/rodekruis/IBF-system/compare/v0.173.3...v0.173.4) (2022-08-08)
+
+
+### Bug Fixes
+
+* eventName errors AB[#14760](https://github.com/rodekruis/IBF-system/issues/14760) ([218698c](https://github.com/rodekruis/IBF-system/commit/218698c3b90756743854e46232694e07840dd024))
+
+
+
 ## [0.173.3](https://github.com/rodekruis/IBF-system/compare/v0.173.2...v0.173.3) (2022-08-08)
 
 
@@ -122,15 +131,6 @@
 ### Bug Fixes
 
 * improve eventNoTrigger track AB[#14473](https://github.com/rodekruis/IBF-system/issues/14473) ([e1d67d7](https://github.com/rodekruis/IBF-system/commit/e1d67d7c6e0c2e5e09884c0f256a3f39ccbd34e7))
-
-
-
-# [0.169.0](https://github.com/rodekruis/IBF-system/compare/v0.168.0...v0.169.0) (2022-07-18)
-
-
-### Features
-
-* update ZWE trigger statement AB[#14474](https://github.com/rodekruis/IBF-system/issues/14474) ([0f07831](https://github.com/rodekruis/IBF-system/commit/0f078314f7bba4987f95abdf256c014f5377d3c0))
 
 
 
