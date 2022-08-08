@@ -269,16 +269,6 @@ export class TimelineService {
     return date;
   }
 
-  // private checkStickyDroughtSeason() {
-  //   for (const area of this.getForecastSeasonAreas()) {
-  //     for (const season of area) {
-  //       if (season.length > 1) {
-  //         return true;
-  //       }
-  //     }
-  //   }
-  // }
-
   private checkRegionalDroughtSeason() {
     const forecastSeasonAreas = this.country.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType.disasterType,
