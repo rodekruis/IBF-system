@@ -437,15 +437,22 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (!this.disasterTypeSettings.showMonthlyEapActions) {
       return;
     }
-    const forecastSeasonAreas: [][][] = Object.values(
-      this.country.countryDisasterSettings.find(
-        (s) => s.disasterType === this.disasterType.disasterType,
-      ).droughtForecastMonths,
-    );
+
+    const droughtForecastSeasons = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastSeasons;
+
+    const forecastAreas = Object.keys(droughtForecastSeasons);
+
     let forecastMonthNumbers = [];
-    for (const area of Object.values(forecastSeasonAreas)) {
-      const forecastSeasons = area.map((months) => months[months.length - 1]);
-      forecastMonthNumbers = [...forecastMonthNumbers, ...forecastSeasons];
+    for (const area of forecastAreas) {
+      for (const season of Object.keys(droughtForecastSeasons[area])) {
+        const rainMonths = droughtForecastSeasons[area][season].rainMonths;
+        forecastMonthNumbers = [
+          ...forecastMonthNumbers,
+          rainMonths[rainMonths.length - 1],
+        ];
+      }
     }
 
     const droughtEndOfMonthPipeline = this.country.countryDisasterSettings.find(
@@ -459,13 +466,13 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
 
     let translateKey;
-    if (Object.values(forecastSeasonAreas).length === 1) {
+    if (Object.values(forecastAreas).length === 1) {
       if (forecastMonthNumbers.includes(currentMonth.month - 1)) {
         translateKey = 'chat-component.drought.clear-out.national.message';
       } else if (forecastMonthNumbers.includes(nextMonth.month - 1)) {
         translateKey = 'chat-component.drought.clear-out.national.warning';
       }
-    } else if (Object.values(forecastSeasonAreas).length > 1) {
+    } else if (Object.values(forecastAreas).length > 1) {
       if (forecastMonthNumbers.includes(currentMonth.month - 1)) {
         translateKey = 'chat-component.drought.clear-out.regional.message';
       } else if (forecastMonthNumbers.includes(nextMonth.month - 1)) {
