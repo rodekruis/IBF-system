@@ -63,6 +63,7 @@ export class TimelineService {
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.triggersAllEvents = null;
     this.disasterType = disasterType;
   };
 
