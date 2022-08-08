@@ -1,3 +1,16 @@
+## [0.173.2](https://github.com/rodekruis/IBF-system/compare/v0.173.1...v0.173.2) (2022-08-08)
+
+
+### Bug Fixes
+
+* bug when switching to no-trigger drought AB[#14757](https://github.com/rodekruis/IBF-system/issues/14757) ([9e3353d](https://github.com/rodekruis/IBF-system/commit/9e3353d3fece35e556eea32493c3f615150ce1bf))
+* correctly show multiple no-trigger events AB[#14718](https://github.com/rodekruis/IBF-system/issues/14718) ([25a8d73](https://github.com/rodekruis/IBF-system/commit/25a8d739ddf975b5d92d990e5fc8a10b625861e5))
+* mention disastertype in mock interface ([94e9c91](https://github.com/rodekruis/IBF-system/commit/94e9c914f903c473b2f88b80ce3640e2971a1814))
+* trigger statements ETH KEN ([5d9ac53](https://github.com/rodekruis/IBF-system/commit/5d9ac539117c0bf226e1d54f7b7364e760c842f0))
+* trigger statements PHL ([f2f5960](https://github.com/rodekruis/IBF-system/commit/f2f596064dea9009d1e0684b1a1b31234de88d5a))
+
+
+
 ## [0.173.1](https://github.com/rodekruis/IBF-system/compare/v0.173.0...v0.173.1) (2022-08-08)
 
 
@@ -120,15 +133,6 @@
 * add ZWE demo user AB[#14426](https://github.com/rodekruis/IBF-system/issues/14426) ([ae1bf74](https://github.com/rodekruis/IBF-system/commit/ae1bf74a09d63c13bf9b32fcd688e14b54394243))
 * handle ZWE forecast message AB[#14372](https://github.com/rodekruis/IBF-system/issues/14372) ([1bf314b](https://github.com/rodekruis/IBF-system/commit/1bf314bd2039895ce19a11cfab03e4f14ee43b73))
 * move ZWE forecastinfo to 2nd bubble AB[#14372](https://github.com/rodekruis/IBF-system/issues/14372) ([0cdc9d0](https://github.com/rodekruis/IBF-system/commit/0cdc9d074ac1b488b9354d1cbadf7ce445cdb47a))
-
-
-
-## [0.167.3](https://github.com/rodekruis/IBF-system/compare/v0.167.2...v0.167.3) (2022-07-11)
-
-
-### Bug Fixes
-
-* remove space in eap-link AB[#14424](https://github.com/rodekruis/IBF-system/issues/14424) ([3aba6f0](https://github.com/rodekruis/IBF-system/commit/3aba6f06d1f2c0b87a553a2aff9512a78ebe2c08))
 
 
 
