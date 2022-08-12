@@ -42,7 +42,7 @@ export class MockDynamic {
   public readonly secret: string;
 
   @ApiProperty({ example: 'UGA' })
-  @IsIn(['PHL', 'UGA', 'ZMB', 'ETH', 'ZWE', 'EGY', 'KEN'])
+  @IsIn(process.env.COUNTRIES.split(','))
   public readonly countryCodeISO3: string;
 
   @ApiProperty({ example: DisasterType.Floods })

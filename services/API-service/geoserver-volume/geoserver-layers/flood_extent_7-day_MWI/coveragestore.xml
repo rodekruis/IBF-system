@@ -1,0 +1,13 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl--7318a913:182910ebd85:-7ff0</id>
+  <name>flood_extent_7-day_MWI</name>
+  <description>flood_extent_7-day_MWI</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2022-08-12 09:34:11.11 UTC</dateCreated>
+  <url>file:workspaces/ibf-system/ibf-pipeline/mock-output/flood_extent_7-day_MWI.tif</url>
+</coverageStore>

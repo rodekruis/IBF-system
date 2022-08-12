@@ -478,6 +478,26 @@ export class SeedAdminAreaData implements InterfaceScript {
       });
       await this.adminAreaDataRepository.save(dataArray);
     }
+
+    // MWI
+    if (envCountries.includes('MWI')) {
+      const countryCodeISO3 = 'MWI';
+      // Flood vulnerability
+      const floodVulnerabilityFilename = `./src/scripts/git-lfs/admin-area-data/flood_vulnerability_MWI.csv`;
+      const floodVulnerabilityData = await this.seedHelper.getCsvData(
+        floodVulnerabilityFilename,
+      );
+      const floodVulnerabilityDataArray = floodVulnerabilityData.map(area => {
+        return {
+          countryCodeISO3: countryCodeISO3,
+          adminLevel: area['adminLevel'],
+          placeCode: area['placeCode'],
+          indicator: area['indicator'],
+          value: area['value'],
+        };
+      });
+      await this.adminAreaDataRepository.save(floodVulnerabilityDataArray);
+    }
   }
 }
 

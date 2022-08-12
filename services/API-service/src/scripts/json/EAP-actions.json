@@ -288,6 +288,123 @@
     "label": "Identify the potential sanitation facilities at the evacuation centres. Pre-position and distribution of soap and 20 litre water storage containers."
   },
   {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-1",
+    "label": "Distribution of Pure/ Aquatabs and buckets"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-2",
+    "label": "Distribution of Soap, hygiene and dignity kits"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-3",
+    "label": "Protection of critical WASH infrastructure"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-1",
+    "label": "Early warning messaging"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-2",
+    "label": "Assisted Evacuations orders"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-3",
+    "label": "Search and Rescue teams deployment"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-4",
+    "label": "Activate contingency plans"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "shelter"
+    },
+    "action": "shelter-1",
+    "label": "Establishment of camps/ Camp management structures"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "shelter"
+    },
+    "action": "shelter-2",
+    "label": "Preposition tents and shelter kits"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "shelter"
+    },
+    "action": "shelter-3",
+    "label": "Distribution of waterproof bags"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-1",
+    "label": "MPCT - Cash for work for reinforcement of infrastructure"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-2",
+    "label": "Preposition and distribution of NFI’s"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-3",
+    "label": "Cash and Voucher Assistance"
+  },
+  {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
     "areaOfFocus": {

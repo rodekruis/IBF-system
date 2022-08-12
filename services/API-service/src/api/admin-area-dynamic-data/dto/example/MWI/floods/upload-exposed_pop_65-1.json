@@ -1,7 +1,7 @@
 [
   {
     "placeCode": "MW1",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "MW2",
@@ -9,6 +9,6 @@
   },
   {
     "placeCode": "MW3",
-    "amount": 0
+    "amount": 60
   }
 ]

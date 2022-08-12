@@ -1,0 +1,16 @@
+<layer>
+  <name>flood_extent_7-day_MWI</name>
+  <id>LayerInfoImpl--7318a913:182910ebd85:-7fee</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl--7318a913:182910ebd85:-7fef</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2022-08-12 09:34:29.380 UTC</dateCreated>
+</layer>
