@@ -60,6 +60,16 @@
     "active": "no"
   },
   {
+    "country_codes": "MWI",
+    "disasterTypes": ["floods"],
+    "name": "cyclone_risk",
+    "label": "Cyclone risk",
+    "type": "wms",
+    "legendColor": "#3690c0",
+    "leadTimeDependent": false,
+    "active": "no"
+  },
+  {
     "country_codes": "UGA,ZMB,KEN,ETH,PHL,MWI",
     "disasterTypes": ["floods"],
     "name": "glofas_stations",

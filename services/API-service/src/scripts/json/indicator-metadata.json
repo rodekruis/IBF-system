@@ -92,7 +92,7 @@
     "unit": "cases"
   },
   {
-    "country_codes": "UGA,KEN",
+    "country_codes": "UGA,KEN,MWI",
     "disasterTypes": ["floods"],
     "name": "flood_vulnerability_index",
     "label": "Flood Vulnerability Index",

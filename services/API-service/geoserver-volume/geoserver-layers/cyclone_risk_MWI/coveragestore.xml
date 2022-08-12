@@ -1,0 +1,13 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl--7318a913:182910ebd85:-7d98</id>
+  <name>cyclone_risk_MWI</name>
+  <description>cyclone_risk_MWI</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2022-08-12 13:09:40.18 UTC</dateCreated>
+  <url>file:workspaces/ibf-system/ibf-pipeline/input/disaster_risk/cyclone_risk.tif</url>
+</coverageStore>
