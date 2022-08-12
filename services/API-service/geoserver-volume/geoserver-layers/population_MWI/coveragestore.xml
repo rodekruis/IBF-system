@@ -1,0 +1,13 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl--7318a913:182910ebd85:-7ff6</id>
+  <name>population_MWI</name>
+  <description>population_MWI</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2022-08-12 07:59:18.669 UTC</dateCreated>
+  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/MWI_population_202208091346.tif</url>
+</coverageStore>

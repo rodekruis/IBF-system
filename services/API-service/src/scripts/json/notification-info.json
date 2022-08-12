@@ -81,5 +81,16 @@
     "linkSocialMediaUrl": "https://chat.whatsapp.com/FfVimuGRHHiJSk0BU7nGQT/",
     "linkVideo": "https://bit.ly/IBF-video-Zimbabwe",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zimbabwe-Published.pdf"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/ff56e5b1-f3be-1d68-be49-7898ba16be81.png",
+    "triggerStatement": {
+      "floods": "Not currently available"
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": "https://bit.ly/IBF-video-Zambia",
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zambia-Published.pdf"
   }
 ]

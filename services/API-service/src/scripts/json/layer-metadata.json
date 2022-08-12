@@ -1,6 +1,6 @@
 [
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,PHL",
+    "country_codes": "UGA,ZMB,KEN,ETH,PHL,MWI",
     "disasterTypes": ["floods"],
     "name": "flood_extent",
     "label": "Flood extent",
@@ -20,7 +20,7 @@
     "active": "yes"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI",
     "disasterTypes": ["floods", "heavy-rain", "drought"],
     "name": "population",
     "label": "Population",
@@ -60,7 +60,7 @@
     "active": "no"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,PHL",
+    "country_codes": "UGA,ZMB,KEN,ETH,PHL,MWI",
     "disasterTypes": ["floods"],
     "name": "glofas_stations",
     "label": "Glofas stations",
@@ -78,7 +78,7 @@
     "active": "yes"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,ZWE,PHL",
+    "country_codes": "UGA,ZMB,KEN,ETH,ZWE,PHL,MWI",
     "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
     "name": "red_cross_branches",
     "label": "Red Cross branches",
@@ -114,7 +114,7 @@
     "active": "no"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,ZWE",
+    "country_codes": "UGA,ZMB,KEN,ETH,ZWE,MWI",
     "disasterTypes": ["floods", "drought"],
     "name": "waterpoints",
     "label": "Waterpoints",
@@ -133,7 +133,7 @@
     "active": "no"
   },
   {
-    "country_codes": "ZMB,UGA,ZWE,EGY,KEN,PHL,ETH",
+    "country_codes": "ZMB,UGA,ZWE,EGY,KEN,PHL,ETH,MWI",
     "disasterTypes": ["floods", "heavy-rain", "drought"],
     "name": "adminRegions1",
     "label": "Admin Level 1",
@@ -141,7 +141,7 @@
     "active": "yes"
   },
   {
-    "country_codes": "UGA,ZMB,PHL,KEN,ETH",
+    "country_codes": "UGA,ZMB,PHL,KEN,ETH,MWI",
     "disasterTypes": ["floods", "dengue", "drought"],
     "name": "adminRegions2",
     "label": "Admin Level 2",
@@ -149,7 +149,7 @@
     "active": "yes"
   },
   {
-    "country_codes": "ZMB,ETH,UGA,PHL,KEN",
+    "country_codes": "ZMB,ETH,UGA,PHL,KEN,MWI",
     "disasterTypes": ["floods", "malaria", "typhoon", "drought"],
     "name": "adminRegions3",
     "label": "Admin Level 3",
