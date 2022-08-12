@@ -1,0 +1,42 @@
+[
+  {
+    "stationCode": "G1724",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 2837
+  },
+  {
+    "stationCode": "G2001",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 2818
+  },
+  {
+    "stationCode": "G5669",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 2661
+  },
+  {
+    "stationCode": "G5670",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 84
+  },
+  {
+    "stationCode": "G5694",
+    "forecastLevel": 0.0,
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 2794
+  }
+]
