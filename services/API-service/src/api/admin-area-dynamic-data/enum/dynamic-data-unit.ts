@@ -17,6 +17,8 @@ export enum DynamicIndicator {
   droughtPhaseClassification = 'drought_phase_classification',
   vegetationCondition = 'vegetation_condition',
   livestockBodyCondition = 'livestock_body_condition',
+  exposedPopU5 = 'exposed_pop_u5',
+  exposedPop65 = 'exposed_pop_65',
 }
 
 export enum UpdateableStaticIndicator {

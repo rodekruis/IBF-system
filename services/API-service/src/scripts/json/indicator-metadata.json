@@ -182,6 +182,38 @@
     "dynamic": false
   },
   {
+    "country_codes": "MWI",
+    "disasterTypes": ["floods"],
+    "name": "exposed_pop_u5",
+    "label": "Exposed population U5",
+    "icon": "Children-white.svg",
+    "weightedAvg": false,
+    "active": "no",
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": "MWI",
+    "numberFormatAggregate": "decimal0",
+    "weightvar": null,
+    "order": 2,
+    "dynamic": true
+  },
+  {
+    "country_codes": "MWI",
+    "disasterTypes": ["floods"],
+    "name": "exposed_pop_65",
+    "label": "Exposed population 65+",
+    "icon": "Elderly-white.svg",
+    "weightedAvg": false,
+    "active": "no",
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": "MWI",
+    "numberFormatAggregate": "decimal0",
+    "weightvar": null,
+    "order": 2,
+    "dynamic": true
+  },
+  {
     "country_codes": "UGA",
     "disasterTypes": ["floods"],
     "name": "population_u8",
