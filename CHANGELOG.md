@@ -1,3 +1,12 @@
+## [0.173.5](https://github.com/rodekruis/IBF-system/compare/v0.173.4...v0.173.5) (2022-08-12)
+
+
+### Bug Fixes
+
+* update Portal URL in template AB[#14844](https://github.com/rodekruis/IBF-system/issues/14844) ([a079f0f](https://github.com/rodekruis/IBF-system/commit/a079f0f5702ffd3bf8db9b3b7dab631981c8f25f))
+
+
+
 ## [0.173.4](https://github.com/rodekruis/IBF-system/compare/v0.173.3...v0.173.4) (2022-08-08)
 
 
@@ -122,15 +131,6 @@
 * add new popover to shared module AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([98ebe20](https://github.com/rodekruis/IBF-system/commit/98ebe20d39a3c7b9221ac1286b1da8d9d7433b2d))
 * add translatable strings AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([8604794](https://github.com/rodekruis/IBF-system/commit/86047948582d9c8e9df1a92acaccc44ac3efa4ae))
 * remove alerts from chat component AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([e45abc5](https://github.com/rodekruis/IBF-system/commit/e45abc52291cf236781fb6a694e59a057eb95d79))
-
-
-
-## [0.169.1](https://github.com/rodekruis/IBF-system/compare/v0.169.0...v0.169.1) (2022-07-18)
-
-
-### Bug Fixes
-
-* improve eventNoTrigger track AB[#14473](https://github.com/rodekruis/IBF-system/issues/14473) ([e1d67d7](https://github.com/rodekruis/IBF-system/commit/e1d67d7c6e0c2e5e09884c0f256a3f39ccbd34e7))
 
 
 
