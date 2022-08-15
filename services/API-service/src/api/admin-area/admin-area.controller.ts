@@ -1,6 +1,15 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
+  ApiConsumes,
   ApiOperation,
   ApiParam,
   ApiResponse,
@@ -11,6 +20,8 @@ import { RolesGuard } from '../../roles.guard';
 import { AdminAreaService } from './admin-area.service';
 import { AggregateDataRecord } from '../../shared/data.model';
 import { AdminAreaEntity } from './admin-area.entity';
+import { Roles } from '../../roles.decorator';
+import { UserRole } from '../user/user-role.enum';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -21,6 +32,28 @@ export class AdminAreaController {
 
   public constructor(adminAreaService: AdminAreaService) {
     this.adminAreaService = adminAreaService;
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({ summary: 'Adds or updates (if existing) admin-areas' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiResponse({
+    status: 201,
+    description: 'Added and/or Updated admin-areas.',
+  })
+  @Post('geojson/:countryCodeISO3/:adminLevel')
+  @ApiConsumes()
+  @UseInterceptors()
+  public async addOrUpdateAdminAreas(
+    @Param() params,
+    @Body() adminAreaGeoJson: GeoJson,
+  ): Promise<void> {
+    await this.adminAreaService.addOrUpdateAdminAreas(
+      params.countryCodeISO3,
+      params.adminLevel,
+      adminAreaGeoJson,
+    );
   }
 
   @ApiOperation({
