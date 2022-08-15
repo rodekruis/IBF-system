@@ -28,7 +28,7 @@ export class HelperService {
   public getLast12hourInterval(
     disasterType: DisasterType,
     triggeredDate?: Date,
-  ) {
+  ): Date {
     // This function was made to accomodate 'typhoon' setting where upload-frequency is '12 hours'
     // This means that endpoint cannot only check on date = lastTriggeredDate.date, but should also check on the right 12-hour interval
     // However to be able to use this function generically also for other disasterTypes (freq '1 day'), it returns last 24-hour interval (midnight)

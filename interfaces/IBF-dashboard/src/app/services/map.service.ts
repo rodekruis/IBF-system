@@ -889,7 +889,7 @@ export class MapService {
     return zip(admDynamicDataObs, adminRegionsObs).pipe(
       map(([admDynamicData, adminRegions]) => {
         const updatedFeatures = [];
-        for (const area of adminRegions.features) {
+        for (const area of adminRegions?.features || []) {
           const foundAdmDynamicEntry = admDynamicData.find(
             (admDynamicEntry): number => {
               if (area.properties.placeCode === admDynamicEntry.placeCode) {

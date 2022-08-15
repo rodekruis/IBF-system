@@ -348,17 +348,16 @@ export class ApiService {
     triggered: boolean,
     removeEvents: boolean,
     disasterType: DisasterType,
-    eventNr: number,
   ) {
     return this.post(
       'scripts/mock-dynamic-data',
       {
         secret,
         countryCodeISO3: country.countryCodeISO3,
+        disasterType: disasterType.disasterType,
         triggered,
         removeEvents,
-        disasterType: disasterType.disasterType,
-        eventNr,
+        date: new Date(),
       },
       false,
     );

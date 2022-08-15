@@ -81,6 +81,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
       `${this.backendMockScenarioComponentTranslateNode}.${this.alertMessageNode}`,
       {
         countryName: this.country.countryName,
+        disasterTypeLabel: this.disasterType.disasterType,
       },
     );
     this.alertInputSecretPlaceholder =
@@ -175,7 +176,6 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           triggered,
           removeEvents,
           this.disasterType,
-          1,
         )
         .subscribe({
           next: () => this.processMockSuccess(secret, oldEvent, alert),

@@ -45,11 +45,17 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": {
-          "National": [
-            [7, 8],
-            [12, 1]
-          ]
+        "droughtForecastSeasons": {
+          "National": {
+            "firstSeason": {
+              "rainMonths": [7, 8],
+              "actionMonths": [4, 5, 6, 7, 8]
+            },
+            "secondSeason": {
+              "rainMonths": [12, 1],
+              "actionMonths": [9, 10, 11, 12, 1]
+            }
+          }
         },
         "droughtEndOfMonthPipeline": false,
         "showMonthlyEapActions": true,
@@ -163,6 +169,75 @@
     }
   },
   {
+    "countryCodeISO3": "MWI",
+    "countryCodeISO2": "MW",
+    "countryName": "Malawi",
+    "countryStatus": "active",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 2,
+        "activeLeadTimes": ["7-day"],
+        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=035b1d36a17c94db1855152253a141227&authkey=AePN7DrtvirE98a6YfPlDLM&expiration=2023-08-09T22%3A00%3A00.000Z&e=6YZPE0",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-gray",
+            "valueLow": 0,
+            "valueHigh": 0.6
+          },
+          "min": {
+            "label": "Met office to monitor",
+            "color": "ibf-yellow",
+            "valueLow": 0.6,
+            "valueHigh": 0.7
+          },
+          "med": {
+            "label": "Alert IFRC / Prep evacuation / Warn communities",
+            "color": "ibf-orange",
+            "valueLow": 0.7,
+            "valueHigh": 0.8
+          },
+          "max": {
+            "label": "Activate EAP",
+            "color": "ibf-trigger-alert-primary",
+            "valueLow": 0.8,
+            "valueHigh": 1.01
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Region",
+        "plural": "Regions"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Traditional Authority",
+        "plural": "Traditional Authorities"
+      }
+    },
+    "countryLogos": ["MWI-mrcs.png", "ZWE-DanishRedCross.png"],
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [35.7719047381, -16.8012997372],
+          [35.7719047381, -9.23059905359],
+          [32.6881653175, -9.23059905359],
+          [32.6881653175, -16.8012997372],
+          [35.7719047381, -16.8012997372]
+        ]
+      ]
+    }
+  },
+  {
     "countryCodeISO3": "KEN",
     "countryCodeISO2": "KE",
     "countryName": "Kenya",
@@ -208,11 +283,17 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": {
-          "National": [
-            [3, 4, 5],
-            [10, 11, 12]
-          ]
+        "droughtForecastSeasons": {
+          "National": {
+            "firstSeason": {
+              "rainMonths": [3, 4, 5],
+              "actionMonths": [12, 1, 2, 3, 4, 5]
+            },
+            "secondSeason": {
+              "rainMonths": [10, 11, 12],
+              "actionMonths": [6, 7, 8, 9, 10, 11, 12]
+            }
+          }
         },
         "droughtEndOfMonthPipeline": true,
         "showMonthlyEapActions": true,
@@ -315,19 +396,37 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": {
-          "Belg": [
-            [2, 3, 4, 5],
-            [6, 7, 8, 9]
-          ],
-          "Northern": [
-            [3, 4, 5],
-            [7, 8, 9]
-          ],
-          "Southern": [
-            [3, 4, 5],
-            [10, 11, 12]
-          ]
+        "droughtForecastSeasons": {
+          "Belg": {
+            "firstSeason": {
+              "rainMonths": [2, 3, 4, 5],
+              "actionMonths": [10, 11, 12, 1, 2, 3, 4, 5]
+            },
+            "secondSeason": {
+              "rainMonths": [6, 7, 8, 9],
+              "actionMonths": [5, 6, 7, 8, 9]
+            }
+          },
+          "Northern": {
+            "firstSeason": {
+              "rainMonths": [3, 4, 5],
+              "actionMonths": [10, 11, 12, 1, 2, 3, 4, 5]
+            },
+            "secondSeason": {
+              "rainMonths": [7, 8, 9],
+              "actionMonths": [6, 7, 8, 9]
+            }
+          },
+          "Southern": {
+            "firstSeason": {
+              "rainMonths": [3, 4, 5],
+              "actionMonths": [1, 2, 3, 4, 5]
+            },
+            "secondSeason": {
+              "rainMonths": [10, 11, 12],
+              "actionMonths": [6, 7, 8, 9, 10, 11, 12]
+            }
+          }
         },
         "droughtAreas": {
           "Belg": [
@@ -738,8 +837,13 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastMonths": {
-          "National": [[4, 5, 6, 7, 8]]
+        "droughtForecastSeasons": {
+          "National": {
+            "firstSeason": {
+              "rainMonths": [4, 5, 6, 7, 8],
+              "actionMonths": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8]
+            }
+          }
         },
         "monthlyForecastInfo": {
           "message": "The IBF Portal will load the forecast for the current month around the 20th of each month."

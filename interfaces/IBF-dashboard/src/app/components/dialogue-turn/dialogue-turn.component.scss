@@ -156,10 +156,29 @@
   }
 }
 
+.dialogue-turn.is-not-triggered {
+  .dialogue-turn--content {
+    ion-card {
+      background-color: var(--ion-color-ibf-no-alert-tertiary) !important;
+      color: var(--ion-color-ibf-black) !important;
+    }
+  }
+}
+
 .dialogue-turn.is-triggered {
   .dialogue-turn--content {
     ion-card {
-      border: var(--ion-color-ibf-outline-red) solid 2px;
+      background-color: var(--ion-color-ibf-trigger-alert-tertiary) !important;
+      color: var(--ion-color-ibf-trigger-alert-tertiary-contrast) !important;
+      border: var(--ion-color-ibf-outline-red) solid 1px;
+    }
+  }
+
+  &.is-selected {
+    .dialogue-turn--content {
+      ion-card {
+        border: var(--ion-color-ibf-outline-red) solid 2px;
+      }
     }
   }
 }

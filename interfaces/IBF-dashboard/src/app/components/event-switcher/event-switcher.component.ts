@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EventService, EventSummary } from 'src/app/services/event.service';
 import { EventState } from 'src/app/types/event-state';
@@ -13,7 +13,6 @@ import { TimelineService } from '../../services/timeline.service';
   styleUrls: ['./event-switcher.component.scss'],
 })
 export class EventSwitcherComponent implements OnInit, OnDestroy {
-  public events: EventSummary[] = [];
   public selectedEventName: string;
   public eventState: EventState;
   public timelineState: TimelineState;
@@ -23,6 +22,9 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
+
+  @Input()
+  public event: EventSummary;
 
   constructor(
     private disasterTypeService: DisasterTypeService,
@@ -87,13 +89,15 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
 
   public switchEvent(event: EventSummary): void {
     this.selectedEventName = event.eventName;
+
     if (this.timelineState.timeStepButtons?.length) {
+      // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
+      this.eventService.switchEvent(event.eventName);
+
       if (event.firstLeadTime !== this.timelineState.activeLeadTime) {
         // Only do this, when leadtime actually changes (so not for typhoon case with 2 events with same leadtime)
         this.timelineService.handleTimeStepButtonClick(event.firstLeadTime);
       }
-      // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
-      this.eventService.switchEvent(event.eventName);
     }
   }
 

@@ -42,7 +42,7 @@ export class SeedGlofasStation implements InterfaceScript {
   }
 
   private async seedCountryGlofasStations(country): Promise<void> {
-    const glofasStationDataFileName = `./src/scripts/git-lfs/glofas-stations/Glofas_station_locations_with_trigger_levels_${country.countryCodeISO3}.csv`;
+    const glofasStationDataFileName = `./src/scripts/git-lfs/glofas-stations/Glofas_station_locations_${country.countryCodeISO3}.csv`;
     const glofasStationData = await this.seedHelper.getCsvData(
       glofasStationDataFileName,
     );

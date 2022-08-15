@@ -1,6 +1,30 @@
 [
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
+    "country_codes": "PHL,ETH,ZWE,EGY,UGA,ZMB,KEN,MWI",
+    "disasterTypes": [
+      "dengue",
+      "malaria",
+      "drought",
+      "typhoon",
+      "floods",
+      "heavy-rain"
+    ],
+    "name": "alert_threshold",
+    "label": "Alert Threshold Reached",
+    "icon": "Person2-white.svg",
+    "weightedAvg": false,
+    "active": "if-trigger",
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": "",
+    "numberFormatAggregate": "decimal0",
+    "weightvar": null,
+    "order": 0,
+    "dynamic": true,
+    "lazyLoad": true
+  },
+  {
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI",
     "disasterTypes": ["floods", "heavy-rain", "drought"],
     "name": "population_affected",
     "label": "Exposed population",
@@ -9,7 +33,7 @@
     "active": "if-trigger",
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
-    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
+    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI",
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 1,
@@ -17,7 +41,7 @@
     "unit": "people"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL",
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY,PHL,MWI",
     "disasterTypes": ["floods", "heavy-rain"],
     "name": "population_affected_percentage",
     "label": "% of Total Population",
@@ -34,7 +58,7 @@
     "unit": "people"
   },
   {
-    "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
+    "country_codes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI",
     "disasterTypes": ["floods", "heavy-rain", "malaria", "drought"],
     "name": "populationTotal",
     "label": "Total Population",
@@ -43,7 +67,7 @@
     "active": "no",
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
-    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL",
+    "aggregateIndicator": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI",
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 2,
@@ -68,7 +92,7 @@
     "unit": "cases"
   },
   {
-    "country_codes": "UGA,KEN",
+    "country_codes": "UGA,KEN,MWI",
     "disasterTypes": ["floods"],
     "name": "flood_vulnerability_index",
     "label": "Flood Vulnerability Index",
@@ -156,6 +180,38 @@
     "weightvar": null,
     "order": 4,
     "dynamic": false
+  },
+  {
+    "country_codes": "MWI",
+    "disasterTypes": ["floods"],
+    "name": "exposed_pop_u5",
+    "label": "Exposed population U5",
+    "icon": "Children-white.svg",
+    "weightedAvg": false,
+    "active": "no",
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": "MWI",
+    "numberFormatAggregate": "decimal0",
+    "weightvar": null,
+    "order": 2,
+    "dynamic": true
+  },
+  {
+    "country_codes": "MWI",
+    "disasterTypes": ["floods"],
+    "name": "exposed_pop_65",
+    "label": "Exposed population 65+",
+    "icon": "Elderly-white.svg",
+    "weightedAvg": false,
+    "active": "no",
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": "MWI",
+    "numberFormatAggregate": "decimal0",
+    "weightvar": null,
+    "order": 2,
+    "dynamic": true
   },
   {
     "country_codes": "UGA",
@@ -825,30 +881,6 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 2,
-    "dynamic": true,
-    "lazyLoad": true
-  },
-  {
-    "country_codes": "PHL,ETH,ZWE,EGY,UGA,ZMB,KEN",
-    "disasterTypes": [
-      "dengue",
-      "malaria",
-      "drought",
-      "typhoon",
-      "floods",
-      "heavy-rain"
-    ],
-    "name": "alert_threshold",
-    "label": "Alert Threshold Reached",
-    "icon": "Person2-white.svg",
-    "weightedAvg": false,
-    "active": "if-trigger",
-    "colorBreaks": null,
-    "numberFormatMap": "decimal0",
-    "aggregateIndicator": "",
-    "numberFormatAggregate": "decimal0",
-    "weightvar": null,
-    "order": 0,
     "dynamic": true,
     "lazyLoad": true
   },
