@@ -22,18 +22,17 @@ export class CountryController {
     this.countryService = countryService;
   }
 
-  @Roles(UserRole.DisasterManager)
+  @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Adds or updates (if existing) country' })
   @ApiResponse({
     status: 201,
     description: 'Added and/or Updated country-properties.',
-    type: [CountryEntity],
   })
   @Post()
   public async addOrUpdateCountries(
-    @Body() eapActions: AddCountriesDto,
+    @Body() countries: AddCountriesDto,
   ): Promise<void> {
-    await this.countryService.addOrUpdateCountries(eapActions);
+    await this.countryService.addOrUpdateCountries(countries);
   }
 
   @ApiOperation({
