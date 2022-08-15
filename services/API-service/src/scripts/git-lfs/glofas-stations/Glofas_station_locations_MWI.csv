@@ -1,6 +1,6 @@
-lat_alt,lon_alt,station_code,station_name,lon,lat
--16.45,35.05,G1724,Na,35.145,-16.515
--16.25,34.95,G2001,Na,34.965,-16.245
--15.05,35.25,G5669,Liwonde,35.21412,-15.06725
--16.25,35.25,G5670,Sinoya South,35.30707,-16.22309
--16.05,34.85,G5694,Chikwawa,34.80286,-16.03287
+lat,lon,station_code,station_name
+-16.45,35.05,G1724,Na
+-16.25,34.95,G2001,Na
+-15.05,35.25,G5669,Liwonde
+-16.25,35.25,G5670,Sinoya South
+-16.05,34.85,G5694,Chikwawa
