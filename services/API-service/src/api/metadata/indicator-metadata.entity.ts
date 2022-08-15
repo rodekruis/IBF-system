@@ -11,7 +11,7 @@ export class IndicatorMetadataEntity {
 
   @ApiProperty({ example: process.env.COUNTRIES })
   @Column()
-  public country_codes: string;
+  public countryCodes: string;
 
   @ApiProperty({ example: [{ disasterType: DisasterType.Floods }] })
   @ManyToMany(

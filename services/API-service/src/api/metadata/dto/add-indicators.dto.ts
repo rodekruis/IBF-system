@@ -13,7 +13,7 @@ import { DisasterType } from '../../disaster/disaster-type.enum';
 export class IndicatorDto {
   @ApiProperty({ example: process.env.COUNTRIES })
   @IsString()
-  public country_codes: string;
+  public countryCodes: string;
 
   @ApiProperty({ example: [{ disasterType: DisasterType.Floods }] })
   @IsEnum(DisasterType)

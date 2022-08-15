@@ -35,7 +35,7 @@ let indicatorsToAdd = [];
 
 const populateIndicators = () => {
   indicatorMetadata.forEach((indicator) => {
-    indicator.country_codes.split(',').forEach((cc) => {
+    indicator.countryCodes.split(',').forEach((cc) => {
       if (cc !== '') {
         const country = countries.find(
           (country) => country.countryCodeISO3 === cc,
@@ -74,7 +74,7 @@ const populateIndicators = () => {
 
   layerMetadata.forEach((layer) => {
     if (layer.type === 'wms' || layer.type === 'point') {
-      layer.country_codes.split(',').forEach((cc) => {
+      layer.countryCodes.split(',').forEach((cc) => {
         if (cc !== '') {
           const country = countries.find(
             (country) => country.countryCodeISO3 === cc,

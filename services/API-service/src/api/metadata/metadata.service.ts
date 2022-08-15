@@ -48,7 +48,7 @@ export class MetadataService {
     indicatorEntity: IndicatorMetadataEntity,
     indicator: IndicatorDto,
   ): Promise<IndicatorMetadataEntity> {
-    indicatorEntity.country_codes = indicator.country_codes;
+    indicatorEntity.countryCodes = indicator.countryCodes;
     indicatorEntity.disasterTypes = await this.disasterRepository.find({
       where: indicator.disasterTypes.map(
         (countryDisasterType: DisasterType): object => {
@@ -103,7 +103,7 @@ export class MetadataService {
     layerEntity: LayerMetadataEntity,
     layer: LayerDto,
   ): Promise<LayerMetadataEntity> {
-    layerEntity.country_codes = layer.country_codes;
+    layerEntity.countryCodes = layer.countryCodes;
     layerEntity.disasterTypes = await this.disasterRepository.find({
       where: layer.disasterTypes.map(
         (countryDisasterType: DisasterType): object => {
@@ -129,7 +129,7 @@ export class MetadataService {
     });
     return indicators.filter(
       (metadata: IndicatorMetadataEntity): boolean =>
-        metadata.country_codes.split(',').includes(countryCodeISO3) &&
+        metadata.countryCodes.split(',').includes(countryCodeISO3) &&
         metadata.disasterTypes.map(d => d.disasterType).includes(disasterType),
     );
   }
@@ -144,7 +144,7 @@ export class MetadataService {
 
     return layers.filter(
       (metadata: LayerMetadataEntity): boolean =>
-        metadata.country_codes.split(',').includes(countryCodeISO3) &&
+        metadata.countryCodes.split(',').includes(countryCodeISO3) &&
         metadata.disasterTypes.map(d => d.disasterType).includes(disasterType),
     );
   }
