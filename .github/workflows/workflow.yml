@@ -18,7 +18,7 @@ jobs:
             ibf-dashboard: ${{ steps.filter.outputs.ibf-dashboard }}
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - uses: dorny/paths-filter@v2
               id: filter
               with:
@@ -47,7 +47,7 @@ jobs:
                 working-directory: "services/API-service"
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v3.4.1
               with:
@@ -73,7 +73,7 @@ jobs:
                 working-directory: "interfaces/IBF-dashboard"
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v3.4.1
               with:
@@ -99,7 +99,7 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
             - name: Bump version and push tag
               uses: TriPSs/conventional-changelog-action@v3
