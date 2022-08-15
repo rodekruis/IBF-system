@@ -126,16 +126,7 @@ export class CountryDisasterSettingsDto {
 
 export class AddCountriesDto {
   @ApiProperty({
-    example: [
-      {
-        countryCodeISO3: 'UGA',
-        disasterType: 'floods',
-        action: 'drr-1',
-        areaOfFocus: { id: 'drr' },
-        label: 'DRR dummy action',
-        month: null,
-      },
-    ],
+    example: [{}],
   })
   @IsNotEmpty()
   public countries: CountryDto[];

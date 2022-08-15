@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterEntity } from '../disaster/disaster.entity';
+import { AddIndicatorsDto, IndicatorDto } from './dto/add-indicators.dto';
+import { AddLayersDto, LayerDto } from './dto/add-layers.dto';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { LayerMetadataEntity } from './layer-metadata.entity';
 
@@ -11,6 +14,111 @@ export class MetadataService {
   private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
   @InjectRepository(LayerMetadataEntity)
   private readonly layerRepository: Repository<LayerMetadataEntity>;
+  @InjectRepository(DisasterEntity)
+  private readonly disasterRepository: Repository<DisasterEntity>;
+
+  public async addOrUpdateIndicators(
+    indicators: AddIndicatorsDto,
+  ): Promise<IndicatorMetadataEntity[]> {
+    const indicatorsToSave = [];
+    for await (const indicator of indicators.indicators) {
+      let existingIndicator = await this.indicatorRepository.findOne({
+        where: {
+          name: indicator.name,
+        },
+      });
+      if (existingIndicator) {
+        existingIndicator = await this.addOrUpdateIndicator(
+          existingIndicator,
+          indicator,
+        );
+        indicatorsToSave.push(existingIndicator);
+        continue;
+      }
+
+      let newIndicator = new IndicatorMetadataEntity();
+      newIndicator.name = indicator.name;
+      newIndicator = await this.addOrUpdateIndicator(newIndicator, indicator);
+      indicatorsToSave.push(newIndicator);
+    }
+    return await this.indicatorRepository.save(indicatorsToSave);
+  }
+
+  private async addOrUpdateIndicator(
+    indicatorEntity: IndicatorMetadataEntity,
+    indicator: IndicatorDto,
+  ): Promise<IndicatorMetadataEntity> {
+    indicatorEntity.country_codes = indicator.country_codes;
+    indicatorEntity.disasterTypes = await this.disasterRepository.find({
+      where: indicator.disasterTypes.map(
+        (countryDisasterType: DisasterType): object => {
+          return { disasterType: countryDisasterType };
+        },
+      ),
+    });
+    indicatorEntity.label = indicator.label;
+    indicatorEntity.icon = indicator.icon;
+    indicatorEntity.weightedAvg = indicator.weightedAvg;
+    indicatorEntity.weightVar = indicator.weightVar;
+    indicatorEntity.active = indicator.active;
+    indicatorEntity.colorBreaks = JSON.parse(
+      JSON.stringify(indicator.colorBreaks),
+    );
+    indicatorEntity.numberFormatMap = indicator.numberFormatMap;
+    indicatorEntity.aggregateIndicator = indicator.aggregateIndicator;
+    indicatorEntity.numberFormatAggregate = indicator.numberFormatAggregate;
+    indicatorEntity.order = indicator.order;
+    indicatorEntity.dynamic = indicator.dynamic;
+    indicatorEntity.unit = indicator.unit;
+    indicatorEntity.lazyLoad = indicator.lazyLoad;
+
+    return indicatorEntity;
+  }
+
+  public async addOrUpdateLayers(
+    layers: AddLayersDto,
+  ): Promise<LayerMetadataEntity[]> {
+    const layersToSave = [];
+    for await (const layer of layers.layers) {
+      let existingLayer = await this.layerRepository.findOne({
+        where: {
+          name: layer.name,
+        },
+      });
+      if (existingLayer) {
+        existingLayer = await this.addOrUpdateLayer(existingLayer, layer);
+        layersToSave.push(existingLayer);
+        continue;
+      }
+
+      let newLayer = new LayerMetadataEntity();
+      newLayer.name = layer.name;
+      newLayer = await this.addOrUpdateLayer(newLayer, layer);
+      layersToSave.push(newLayer);
+    }
+    return await this.layerRepository.save(layersToSave);
+  }
+
+  private async addOrUpdateLayer(
+    layerEntity: LayerMetadataEntity,
+    layer: LayerDto,
+  ): Promise<LayerMetadataEntity> {
+    layerEntity.country_codes = layer.country_codes;
+    layerEntity.disasterTypes = await this.disasterRepository.find({
+      where: layer.disasterTypes.map(
+        (countryDisasterType: DisasterType): object => {
+          return { disasterType: countryDisasterType };
+        },
+      ),
+    });
+    layerEntity.label = layer.label;
+    layerEntity.type = layer.type;
+    layerEntity.legendColor = layer.legendColor;
+    layerEntity.leadTimeDependent = layer.leadTimeDependent;
+    layerEntity.active = layer.active;
+
+    return layerEntity;
+  }
 
   public async getIndicatorsByCountryAndDisaster(
     countryCodeISO3: string,
