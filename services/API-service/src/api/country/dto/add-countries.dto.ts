@@ -2,11 +2,9 @@ import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { OneToMany, Column, ManyToMany, OneToOne, JoinColumn } from 'typeorm';
 import { BoundingBox } from '../../../shared/geo.model';
-import { DisasterEntity } from '../../disaster/disaster.entity';
 import { NotificationInfoEntity } from '../../notification/notifcation-info.entity';
 import { UserEntity } from '../../user/user.entity';
 import { CountryDisasterSettingsEntity } from '../country-disaster.entity';
-import { CountryStatus } from '../country-status.enum';
 import { CountryEntity } from '../country.entity';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { AdminLevel } from '../admin-level.enum';
@@ -21,9 +19,6 @@ export class CountryDto {
 
   @ApiProperty({ example: 'Uganda' })
   public countryName: string;
-
-  @ApiProperty({ example: true })
-  public countryStatus: CountryStatus;
 
   @OneToMany(
     () => CountryDisasterSettingsEntity,
@@ -61,9 +56,6 @@ export class CountryDto {
   @ApiProperty({ example: new Date() })
   public created: Date;
 
-  @ApiProperty({ example: new Date() })
-  public glofasStationInput: JSON;
-
   @ManyToMany(
     (): typeof UserEntity => UserEntity,
     (user): CountryEntity[] => user.countries,
@@ -94,7 +86,7 @@ export class CountryDisasterSettingsDto {
   public activeLeadTimes: LeadTime[];
 
   @ApiProperty({ example: [3, 10] })
-  public droughtForecastMonths: JSON;
+  public droughtForecastSeasons: JSON;
 
   @ApiProperty({ example: false })
   public droughtEndOfMonthPipeline: boolean;

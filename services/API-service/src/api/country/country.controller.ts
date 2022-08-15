@@ -23,7 +23,7 @@ export class CountryController {
   }
 
   @Roles(UserRole.DisasterManager)
-  @ApiOperation({ summary: 'Add/update country (properties)' })
+  @ApiOperation({ summary: 'Adds or updates (if existing) country' })
   @ApiResponse({
     status: 201,
     description: 'Added and/or Updated country-properties.',

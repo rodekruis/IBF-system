@@ -6,7 +6,6 @@ import { DisasterEntity } from '../disaster/disaster.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { AdminLevel } from './admin-level.enum';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
-import { CountryStatus } from './country-status.enum';
 import { CountryEntity } from './country.entity';
 import {
   AddCountriesDto,
@@ -86,7 +85,6 @@ export class CountryService {
   ) {
     countryEntity.countryCodeISO2 = country.countryCodeISO2;
     countryEntity.countryName = country.countryName;
-    countryEntity.countryStatus = country.countryStatus as CountryStatus;
     countryEntity.adminRegionLabels = JSON.parse(
       JSON.stringify(country.adminRegionLabels),
     );
@@ -148,8 +146,8 @@ export class CountryService {
     countryDisasterSettingsEntity.eapAlertClasses = disaster.eapAlertClasses
       ? JSON.parse(JSON.stringify([disaster.eapAlertClasses]))[0]
       : null;
-    countryDisasterSettingsEntity.droughtForecastMonths = disaster.droughtForecastMonths
-      ? JSON.parse(JSON.stringify(disaster.droughtForecastMonths))
+    countryDisasterSettingsEntity.droughtForecastSeasons = disaster.droughtForecastSeasons
+      ? JSON.parse(JSON.stringify(disaster.droughtForecastSeasons))
       : null;
     countryDisasterSettingsEntity.droughtEndOfMonthPipeline =
       disaster.droughtEndOfMonthPipeline;
