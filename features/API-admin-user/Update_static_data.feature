@@ -49,14 +49,42 @@ Scenario: Upload/overwrite EAP-actions data
     And it overwrites any known combinations of 'countryCodeISO3', 'disasterType' and 'action'
     And creates new entries for unknown combinations
 
-Scenario: Upload/overwrite admin-area boundary data
-    >> NOT YET POSSIBLE
+Scenario: Update countries via endpoint
+    Given the role of the user is 'admin'
+    Given the user is using the `/api/country` POST endpoint
+    Then the user copies the full modified country JSON object(s) inside the 'countries' array
+    When the user clicks 'Execute'
+    Then this data uploaded
+    And it overwrites any known countries
+    And creates new entries for unknown countries
+
+Scenario: Update indicator-metadata.json via endpoint
+    Given the role of the user is 'admin'
+    Given the user is using the `/api/metadata/indicators` POST endpoint
+    Then the user copies the full modified indicator JSON object(s) inside the 'indicators' array
+    When the user clicks 'Execute'
+    Then this data uploaded
+    And it overwrites any known indicators
+    And creates new entries for unknown indicatos
+
+Scenario: Update layer-metadata via endpoint
+    Given the role of the user is 'admin'
+    Given the user is using the `/api/metadata/layers` POST endpoint
+    Then the user copies the full modified layer JSON object(s) inside the 'layers' array
+    When the user clicks 'Execute'
+    Then this data uploaded
+    And it overwrites any known layers
+    And creates new entries for unknown layers
+
+Scenario: Update admi-data boundaries via endpoint
+    Given the role of the user is 'admin'
+    Given the user is using the `/api/admin-areas/geojson/{countryCodeISO3}/{adminLevel}` POST endpoint
+    Then the user fills in the 'adminLevel' and 'countryCodeISO3' text-fields
+    Then the user copies the full modified admin-area JSON object inside the text-area
+    When the user clicks 'Execute'
+    Then this data uploaded
+    And it overwrites an existing admin-area or creates a new one if unknown
 
 Scenario: Upload/overwrite static raster data
     >> NOT YET POSSIBLE
-
-Scenario: Upload/overwrite layer/indicator attributes
-    >> NOT YET POSSIBLE
-
-
 
