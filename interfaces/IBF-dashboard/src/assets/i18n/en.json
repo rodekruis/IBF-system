@@ -1,11 +1,7 @@
 {
   "app-name": "IBF-dashboard",
-  "common": {
-    "version": "Version"
-  },
-  "activation-page": {
-    "activation-report": "Open all activations"
-  },
+  "common": { "version": "Version" },
+  "activation-page": { "activation-report": "Open all activations" },
   "login-page": {
     "title": "Login",
     "welcome": "Hello! Welcome to IBF.",
@@ -14,10 +10,7 @@
     "note": "NOTE: This dashboard works best in Chrome, Firefox, Safari and Microsoft Edge. The dashboard is not compatible with Internet Explorer.",
     "forgot-password": "Forgot password?",
     "forgot-password-message": "If you forgot your password please send a request to ",
-    "environment-label": {
-      "production": "Live",
-      "stage": "Demo"
-    }
+    "environment-label": { "production": "Live", "stage": "Demo" }
   },
   "dashboard-page": {
     "dev-menu": {
@@ -38,14 +31,8 @@
     },
     "today": "TODAY",
     "triggered-message": {
-      "eap": {
-        "yes": "TRIGGERED",
-        "no": "NON-TRIGGERED"
-      },
-      "no-eap": {
-        "yes": "ALERT",
-        "no": "NO ALERTS"
-      }
+      "eap": { "yes": "TRIGGERED", "no": "NON-TRIGGERED" },
+      "no-eap": { "yes": "ALERT", "no": "NO ALERTS" }
     }
   },
   "aggregates-component": {
@@ -56,9 +43,7 @@
     "all-prefix": "All",
     "exposed-subgroups": ""
   },
-  "areas-of-focus-summary-component": {
-    "title": "Actions Summary"
-  },
+  "areas-of-focus-summary-component": { "title": "Actions Summary" },
   "ibf-guide-component": {
     "title": "IBF Guide",
     "video-pdf-description": "To get a quick guide on how this dashboard works you can look at either the video guide below or the PDF manual <a href='{{pdfUrl}}' target='_blank'>here</a>.",
@@ -322,11 +307,7 @@
         "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
-    "common": {
-      "save-action": {
-        "header": "Action Result"
-      }
-    }
+    "common": { "save-action": { "header": "Action Result" } }
   },
   "layer-info-popups": {
     "aggregates-section": {
@@ -334,6 +315,12 @@
         "ZWE": {
           "drought": "<p>Number of exposed cattle is calculated by the cattle per province within the droughts alert threshold reached area currently triggered. Livestock numbers cattle exists of the number of cattle multiplied with the Livestock unit (LSU): 1.0 as reference unit, which is the grazing equivalent of one adult dairy cow producing 3000 kg of milk annually, without additional concentrated foodstuffs.&nbsp;</p><p>Source Links :</p><ul>    <li>Number of cattle mentioned within the 2nd round crop- and livestock assessment report 2020/2021 season. Published: 21st of April 2021.</li>    <li>Source assessment:<br><a data-fr-linked='true' href='https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0'>https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0</a></li>    <li>Source Livestock unit (LSU) <a href='https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)'>&nbsp;https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)</a></li></ul>"
         }
+      },
+      "exposed_pop_65": {
+        "MWI": { "floods": "TBD. This layer is based on UBR data." }
+      },
+      "exposed_pop_u5": {
+        "MWI": { "floods": "TBD. This layer is based on UBR data." }
       },
       "female_head_hh": {
         "UGA": {
@@ -350,17 +337,21 @@
           "heavy-rain": "Number of people exposed is calculated by the population living in the rainfall extent area within the governorates currently triggered. The number of people and the rainfall extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br/>Explanation Rainfall Extent: Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset.<br>The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
         },
         "ETH": {
-          "floods": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].",
-          "drought": "Number of people exposed is calculated by the population living within the districts currently triggered. The number of people per district are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+          "drought": "Number of people exposed is calculated by the population living within the districts currently triggered. The number of people per district are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
+          "floods": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
         },
         "KEN": {
           "drought": "<p>Number of people exposed is calculated by the population living in the county triggered by the exceedance of the drought alert threshold. The number of people and the drought extent is derived from the below sources.</p><p>Source Links:</p><ul>    <li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;https://www.ciesin.columbia.edu/data/hrsl/</li>    <li>Source Drought Extent based on the SPI3 and VCI3M forecast information: for example, see August 2020 bulletin from Taita Taveta county; http://www.ndma.go.ke/index.php/resource-center/early-warning-reports/send/3-taita-taveta/5771-taita-taveta-august-2020</li></ul>",
+          "floods": "<p>Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.</p><p>Source Links:</p><ul>    <li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li>     <li>Source Flood Extent: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].</li> </ul> <p><br></p>"
+        },
+        "MWI": {
           "floods": "<p>Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.</p><p>Source Links:</p><ul>    <li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li>     <li>Source Flood Extent: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].</li> </ul> <p><br></p>"
         },
         "PHL": {
           "floods": "<p>Number of people exposed is calculated by the population living in the flood extent area within the Manucipality currently triggered. The number of people and the flood extent are derived from the below sources.</p><p>Source Links:</p><ul><li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li><li>Source Flood Extent: The flood extent maps are generated by the National Operational Assesment of Hazards(NOAH) project.<a href='https://noah.up.edu.ph/'>https://noah.up.edu.ph/</a> The 25-year rain return flood hazard maps show low, medium, and high flood hazards represented as yellow, orange, and red respectively. Flood hazards consider take both the height and velocity of the water into consideration and calculates the hazard levels based on the danger they pose to people and structures. Generally, for an average Filipino with a height of 5’ 6”, areas with flood depths from the knee down can be considered to have low hazard levels. Those with flood depths ranging from the knee to neck are considered to have medium hazard levels, and those covered with floods that are higher than the neck have high hazard levels. However, since the flow velocity is also considered, areas that have shallow but fast-flowing flood waters may have a higher hazard level than that denoted by the height of the flood covering it.</li></ul><p><br></p>"
         },
         "UGA": {
+          "drought": "",
           "floods": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
         },
         "ZMB": {
@@ -385,18 +376,22 @@
           "heavy-rain": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "ETH": {
+          "drought": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
           "floods": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
-          "malaria": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
-          "drought": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+          "malaria": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "KEN": {
           "drought": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
+          "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>"
+        },
+        "MWI": {
           "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>"
         },
         "PHL": {
           "floods": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "UGA": {
+          "drought": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
           "floods": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "ZMB": {
@@ -440,39 +435,36 @@
     },
     "layers-section": {
       "alert_threshold": {
-        "EGY": {
-          "heavy-rain": "TBD"
-        },
+        "EGY": { "heavy-rain": "TBD" },
         "ETH": {
+          "drought": "",
           "floods": "",
-          "malaria": "An alert is released when two conditions are simultaneously the relative number of malaria cases is anomalous accordance to WHO guidelines, by comparing it to its monthly averages, the second condition is that the absolute number of malaria cases is high and thus likely to require humanitarian intervention.",
-          "drought": ""
+          "malaria": "An alert is released when two conditions are simultaneously the relative number of malaria cases is anomalous accordance to WHO guidelines, by comparing it to its monthly averages, the second condition is that the absolute number of malaria cases is high and thus likely to require humanitarian intervention."
         },
         "KEN": {
           "drought": "<p>The layer shows each county within the Northern and Eastern Livelihood zones trigged based on two parameters; the 3-month average Vegetation Condition Index (VCI3M) and the 3-month Standardised Precipitation Index (SPI3). An alert is given, if the VCI value drops below 30% with at least a 33% chance of exceedance. &nbsp;VCI is supplemented by the SPI Forecast from KMD with a threshold value below -0.98 and a 30% probability of exceedance. The lead-time of the forecast is up to 12 weeks.&nbsp;</p><p>Source links:&nbsp;</p><p>Kenya Meteorological Department (KMD), &nbsp;Regional Centre for Mapping of Resources for Development (RCMRD), and TAMSAT ALERT (University of Reading)</p><p>For further information please refer to the EAP</p>",
           "floods": "<p>The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) &gt; 0.5.</p><p><strong>Source link</strong>: <a href='https://www.globalfloods.eu/'>https://www.globalfloods.eu/</a></p><p><strong>Latest updated:&nbsp;</strong>September 2021</p><p><br></p>"
         },
+        "MWI": { "floods": "" },
         "PHL": {
           "dengue": "Administrative divisions that reached alert threshold, in terms of number of potential cases. <br /><br /> See definition at: <a href='https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/Forms/AllItems.aspx?id=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments%2FIBF%5Fdengue%5Ftechnical%5Fnote%2Epdf&parent=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments&p=true&originalPath=aHR0cHM6Ly9yb2Rla3J1aXMuc2hhcmVwb2ludC5jb20vc2l0ZXMvNTEwLUNSQVZLLTUxMC9fbGF5b3V0cy8xNS9ndWVzdGFjY2Vzcy5hc3B4P2RvY2lkPTBmOTI0OWIzNWRhNGQ0YzBhOTg1YjMzMzkzZmMzODhkZiZhdXRoa2V5PUFRU0xubmFmR0YtTTJ0MUNHSWcwaGRBJmV4cGlyYXRpb249MjAyMi0wNi0xNFQyMiUzYTAwJTNhMDAuMDAwWiZydGltZT1TS016R0dzeDJVZw'> link to technical documentation</a>",
           "floods": "<p>The layer shows each county triggered based on two parameters from the 3-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 50% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the  manucipalities where the False Alarm Ratio (RAR) &gt;0.5</p><p><strong>Source link</strong>: <a href='https://www.globalfloods.eu/'>https://www.globalfloods.eu/</a></p><p><strong>Latest updated:&nbsp;</strong>September 2021</p><p><br></p>",
           "typhoon": "<p>The predicted impact (72 hours before landfall) is more than 10% of houses being totally damaged at municipal level, in at least 3 municipalities. The source for predicted impact is 510 typhoon impact prediction model</p>"
         },
-        "UGA": {
-          "floods": "TBD"
-        },
-        "ZMB": {
-          "floods": "TBD"
-        },
+        "UGA": { "drought": "", "floods": "TBD" },
+        "ZMB": { "floods": "TBD" },
         "ZWE": {
           "drought": "<p>The layer shows each province in the country with a drought risk at the end of the growing season (April), and as such determine which provinces are triggered when at least one of their districts is expected to face a +/- 6 year return period drought.</p> <p>The drought model is to assess a drought prediction skill of the 3-month running average Ni&ntilde;o 3.4 values and initiates a drought risk when there is a potential negative crop yield anomaly predicted. The model is developed based on the XGBoost algorithm tested and trained with historical ENSO: Seasonal ERSSTv5 and CHIRPS Rainfall data in relation to historical negative crop yield anomalies in April, which is used as drought impact proxy. Loss of crops, livestock loss, and child malnutrition and stunting are indicated by the ZRCS DRM working group and representatives from IFRC, PNS, and Red Cross Climate Centre (RCCC) &nbsp;as targeted drought impact</p><p>Source links:</p><ul><li>ENSO: Seasonal ERSSTv5 (1991-2020 base period) 3-month running average in Ni&ntilde;o 3.4 (5oNorth-5oSouth) (170-120oWest)) <a href='https://www.cpc.ncep.noaa.gov/data/indices/3mth.nino34.91-20.ascii.txt'>https://www.cpc.ncep.noaa.gov/data/indices/3mth.nino34.91-20.ascii.txt</a></li><li>CHIRPS: Rainfall Estimates from Rain Gauge and Satellite Observations | Climate Hazards Center - UC Santa Barbara (<a href='https://www.chc.ucsb.edu/data/chirps'>https://www.chc.ucsb.edu/data/chirps</a>)&nbsp;</li>     <li>Crop Yield data: Izumi, Toshichika (2019): Global dataset of historical yields v1.2 and v1.3 aligned version. PANGAEA, <a href='https://doi.org/10.1594/PANGAEA.909132'>https://doi.org/10.1594/PANGAEA.909132</a>,Supplement to Iizumi, Toshichika; Sakai, T (2020): The global dataset of historical yields for major crops 1981&ndash;2016. Scientific Data, 7(1), <a href='https://doi.org/10.1038/s41597-020-0433-7'>https://doi.org/10.1038/s41597-020-0433-7</a></li> </ul>"
         }
       },
       "cattle": {
+        "UGA": { "drought": "" },
         "ZWE": {
           "drought": "<p>Livestock numbers cattle exists of the number of cattle multiplied with the Livestock unit (LSU): 1.0 &nbsp;as reference unit to aggregate livestock from various species, which is the grazing equivalent of one adult dairy cow producing 3000 kg of milk annually, without additional concentrated foodstuffs.</p> <p>Source Links :</p> <ul>     <li>Number of cattle mentioned within the 2nd round crop- and livestock assessment report 2020/2021 season. Published: 21st of April 2021.</li>     <li>Source assessment:<br><a data-fr-linked='true' href='https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0'>https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0</a></li>     <li>Source Livestock unit (LSU) <a href='https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)'>&nbsp;https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)</a></li> </ul>"
         }
       },
       "cattle_exposed": {
+        "UGA": { "drought": "" },
         "ZWE": {
           "drought": "<p>Number of exposed cattle is calculated by the cattle per province within the droughts alert threshold reached area currently triggered. Livestock numbers cattle exists of the number of cattle multiplied with the Livestock unit (LSU): 1.0 as reference unit, which is the grazing equivalent of one adult dairy cow producing 3000 kg of milk annually, without additional concentrated foodstuffs.&nbsp;</p><p>Source Links :</p> <ul>     <li>Number of cattle mentioned within the 2nd round crop- and livestock assessment report 2020/2021 season. Published: 21st of April 2021.</li>     <li>Source assessment:<br><a data-fr-linked='true' href='https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0'>https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0</a></li>     <li>Source Livestock unit (LSU) <a href='https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)'>&nbsp;https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)</a></li> </ul>"
         }
@@ -484,14 +476,15 @@
       },
       "cropland": {
         "ETH": {
-          "floods": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined cropland: consists of 3 land use types<ol><li>rainfed cropland</li><li>mosaic cropland - 50-70% cropland & 20-50% vegetation (grassland/shrubland/forest)</li><li>mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) & 20-50% cropland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010",
-          "drought": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined cropland: consists of 3 land use types<ol><li>rainfed cropland</li><li>mosaic cropland - 50-70% cropland & 20-50% vegetation (grassland/shrubland/forest)</li><li>mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) & 20-50% cropland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
+          "drought": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined cropland: consists of 3 land use types<ol><li>rainfed cropland</li><li>mosaic cropland - 50-70% cropland & 20-50% vegetation (grassland/shrubland/forest)</li><li>mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) & 20-50% cropland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010",
+          "floods": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined cropland: consists of 3 land use types<ol><li>rainfed cropland</li><li>mosaic cropland - 50-70% cropland & 20-50% vegetation (grassland/shrubland/forest)</li><li>mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) & 20-50% cropland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
         },
         "KEN": {
           "drought": "<p>The land use classes are based on GLOBCOVER Land Cover Classifications.</p><p>Combined cropland: consists of 3 land use types</p><ol>    <li>Rainfed cropland</li>    <li>Mosaic cropland - 50-70% cropland &amp; 20-50% vegetation (grassland/shrubland/forest)</li>    <li>Mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) &amp; 20-50% cropland</li></ol><p><strong>Source link:</strong> &copy; ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: http://due.esrin.esa.int/page_globcover.php.&nbsp;</p><p><strong>Latest updated: </strong>2010</p><p><br></p>",
           "floods": "<p>The land use classes are based on GLOBCOVER Land Cover Classifications.</p><p>Combined cropland: consists of 3 land use types</p><ol>    <li>Rainfed cropland</li>    <li>Mosaic cropland - 50-70% cropland &amp; 20-50% vegetation (grassland/shrubland/forest)</li>    <li>Mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) &amp; 20-50% cropland</li></ol><p><strong>Source link:</strong> &copy; ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: http://due.esrin.esa.int/page_globcover.php.&nbsp;</p><p><strong>Latest updated: </strong>2010</p><p><br></p>"
         },
         "UGA": {
+          "drought": "",
           "floods": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined cropland: consists of 3 land use types<ol><li>rainfed cropland</li><li>mosaic cropland - 50-70% cropland & 20-50% vegetation (grassland/shrubland/forest)</li><li>mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) & 20-50% cropland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
         },
         "ZMB": {
@@ -501,6 +494,7 @@
           "drought": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined cropland: consists of 3 land use types<ol><li>rainfed cropland</li><li>mosaic cropland - 50-70% cropland & 20-50% vegetation (grassland/shrubland/forest)</li><li>mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) & 20-50% cropland</li></ol><br />Source Link Zimbabwe: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
         }
       },
+      "cyclone_risk": { "MWI": { "floods": "TBD" } },
       "dam": {
         "ZWE": {
           "drought": "This layer represents a selection of dams, and their associated reservoirs in Zimbabwe. The selection is made, based on the  Zimbabwe National Water Authority (ZINWA).<br /><br />Source Link Zimbabwe:<ul><li><a href='https://www.zinwa.co.zw/dam-levels/'>https://www.zinwa.co.zw/dam-levels/</a></li></ul>"
@@ -525,9 +519,16 @@
         "KEN": {
           "drought": "The drought vulnerability index is a composite index for the context of exposure to drought and the capacity to anticipate, cope with and recover from the impacts of drought. The National Society and Technical Working group selected the following criteria below:<ul><li>18% Poverty incidence</li><li>15% Gini index</li><li>19% Literacy rates</li><li>15% Access to improved water sources</li><li>14% Access to improved sanitation</li><li>19% Integrated food security phase classification</li></ul><br>For further information please refer to the EAP"
         },
+        "UGA": { "drought": "" },
         "ZWE": {
           "drought": "The drought vulnerability index is a composite index for the context of exposure to drought and the capacity to anticipate, cope with and recover from the impacts of droughts. The ZRCS selected nine main criteria:<ul><li>14% Labor constrained households: 7 %unemployment rate 15+  and 7% economically non-active</li><li>15% Child, women and elderly headed households: 5% Female headed HH , 5% Head of Household (19-), 5% Head of Household (65+)</li><li>14% People with disabilities</li><li>15 % Pregnant and breast-feeding women, and children under five years: 5% pregnant women, 5% breast-feeding women, 5% children under five years</li><li>14 % Severe acute malnutrition</li><li>7% employment agriculture</li><li>7% cattle per km2</li><li>7% HIV prevalence</li><li>7% HIV ART Coverage</li></ul>"
         }
+      },
+      "exposed_pop_65": {
+        "MWI": { "floods": "TBD. This layer is based on UBR data." }
+      },
+      "exposed_pop_u5": {
+        "MWI": { "floods": "TBD. This layer is based on UBR data." }
       },
       "female_head_hh": {
         "UGA": {
@@ -539,6 +540,9 @@
           "floods": "The flood extent layer indicates the inundated area of recurring floods within a return period depending on the EAP (for example 20-years) based on a global hydrological model.<br /><br />Source link: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
         },
         "KEN": {
+          "floods": "The flood extent layer indicates the inundated area of recurring floods within a return period depending on the EAP (for example 20-years) based on a global hydrological model.<br /><br />Source link: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+        },
+        "MWI": {
           "floods": "The flood extent layer indicates the inundated area of recurring floods within a return period depending on the EAP (for example 20-years) based on a global hydrological model.<br /><br />Source link: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
         },
         "PHL": {
@@ -560,6 +564,7 @@
         "KEN": {
           "floods": "<p>The flood vulnerability index is a composite index for the context of exposure to floods and the capacity to anticipate, cope with and recover from the impacts of floods. The National Society and Technical Working group selected the following criteria below:</p><ul>    <li>18.8% age under 5&nbsp;</li> <li>15.4% age over 65</li> <li>18.2% poverty index</li><li>19.3% Gini Index</li><li>12.3% strong wall type</li><li>36.3%travel time to the nearest city</li> <li>16.0% access to improved water sources</li></ul><p>For further information please refer to the EAP</p><p><br></p>"
         },
+        "MWI": { "floods": "" },
         "UGA": {
           "floods": "The disaster vulnerability index is a composite index for the context of exposure to the hazard and the capacity to anticipate, cope with and recover from the impacts of floods. The National Society and Technical Working group selected the following criteria below: (including their weight in the total score)<ul><li>20% Poverty: Poverty incidence</li><li>20% Gender: Female headed household</li><li>10% Age: Population below 8-years</li><li>10% Age: population 65+,</li><li>10 % type of construction: permanent wall type</li><li>10 %type of construction: permanent roof type</li><li>20% Refugees legal status #of displaced person</li></ul><br>For furhter information please refere to the Eap. For source links, see each individual layer."
         }
@@ -571,6 +576,7 @@
         "KEN": {
           "floods": "This layer provides the location where the Global Flood Awareness System (GLoFAS) forecast is used for the trigger. This forecast is often used by the National Governmental Meteorological Services.<br /><br />GloFAS version 3.1 is a global integrated hydro-meteorological forecast- and monitoring system that delivers global ensemble river discharge forecasts (limited up to 5 days ahead in this layer) for the large river basins (greater than 1000 km2). The GloFAS 3.1 is based on the LISFLOOD hydrological model.<br /><br />Methodology presenting the GloFAS probability levels: Methodology presenting the GloFAS probability levels: The ECMWF-ENS meteorological forecast data contains a 51-member ensemble. The 60/70/80% trigger-threshold discharge levels are presented as 'trigger-alert' levels agreed on in the EAP. The probability is the percentage of the 51 ensemble members that predicts that the discharge is above the threshold. The administrative areas in the corresponding country are mapped to a specific GloFAS Station, and as such it is determined which areas are triggered when the station exceeds the trigger threshold value (for more informatie see the EAP).<br /><br />Source Link: <a href='https://www.globalfloods.eu/'>https://www.globalfloods.eu/</a>"
         },
+        "MWI": { "floods": "" },
         "PHL": {
           "floods": "This layer provides the location where the Global Flood Awareness System (GLoFAS) forecast is used for the trigger. This forecast is often used by the National Governmental Meteorological Services.<br /><br />GloFAS version 3.1 is a global integrated hydro-meteorological forecast- and monitoring system that delivers global ensemble river discharge forecasts (limited up to 3 days ahead in this layer) for the large river basins. The GloFAS 3.1 is based on the LISFLOOD hydrological model.<br /><br />Methodology presenting the GloFAS probability levels: Methodology presenting the GloFAS probability levels: The ECMWF-ENS meteorological forecast data contains a 51-member ensemble. The 60/70/80% trigger-threshold discharge levels are presented as 'trigger-alert' levels agreed on in the EAP. The probability is the percentage of the 51 ensemble members that predicts that the discharge is above the threshold. The administrative areas in the corresponding country are mapped to a specific GloFAS Station, and as such it is determined which areas are triggered when the station exceeds the trigger threshold value (for more informatie see the EAP).<br /><br />Source Link: <a href='https://www.globalfloods.eu/'>https://www.globalfloods.eu/</a>"
         },
@@ -583,14 +589,15 @@
       },
       "grassland": {
         "ETH": {
-          "floods": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined grassland; consists of two land-use types.<ol><li>Mosaic forest or shrubland - 50-70% (forest/shrubland & 20-50% grassland</li><li>Mosaic grassland - 50-70% grassland & 20-50% forest or shrubland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010",
-          "drought": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined grassland; consists of two land-use types.<ol><li>Mosaic forest or shrubland - 50-70% (forest/shrubland & 20-50% grassland</li><li>Mosaic grassland - 50-70% grassland & 20-50% forest or shrubland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
+          "drought": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined grassland; consists of two land-use types.<ol><li>Mosaic forest or shrubland - 50-70% (forest/shrubland & 20-50% grassland</li><li>Mosaic grassland - 50-70% grassland & 20-50% forest or shrubland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010",
+          "floods": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined grassland; consists of two land-use types.<ol><li>Mosaic forest or shrubland - 50-70% (forest/shrubland & 20-50% grassland</li><li>Mosaic grassland - 50-70% grassland & 20-50% forest or shrubland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
         },
         "KEN": {
           "drought": "<p>The land use classes are based on GLOBCOVER Land Cover Classifications.</p><p>Combined grassland; consists of two land-use types.</p><ol>    <li>Mosaic forest or shrubland - 50-70% (forest/shrubland &amp; 20-50% grassland</li>    <li>Mosaic grassland - 50-70% grassland &amp; 20-50% forest or shrubland</li></ol><p><strong>Source link</strong>: &copy; ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>.&nbsp;</p><p><strong>Latest updated: </strong>2010</p>",
           "floods": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined grassland; consists of two land-use types.<ol><li>Mosaic forest or shrubland - 50-70% (forest/shrubland & 20-50% grassland</li><li>Mosaic grassland - 50-70% grassland & 20-50% forest or shrubland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
         },
         "UGA": {
+          "drought": "",
           "floods": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined grassland; consists of two land-use types.<ol><li>Mosaic forest or shrubland - 50-70% (forest/shrubland & 20-50% grassland</li><li>Mosaic grassland - 50-70% grassland & 20-50% forest or shrubland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
         },
         "ZMB": {
@@ -602,9 +609,9 @@
       },
       "health_sites": {
         "ETH": {
+          "drought": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>",
           "floods": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>",
-          "malaria": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>",
-          "drought": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>"
+          "malaria": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>"
         },
         "KEN": {
           "floods": "<p>Number of health facilities by type and location, health facility types; hospital and doctors</p><p><strong>Source link</strong>: <a href='https://healthsites.io/'>https://healthsites.io/</a></p>"
@@ -616,27 +623,15 @@
         }
       },
       "Hotspot_General": {
-        "ETH": {
-          "floods": "",
-          "malaria": "",
-          "drought": ""
-        }
+        "ETH": { "drought": "", "floods": "", "malaria": "" }
       },
-      "Hotspot_Health": {
-        "ETH": {
-          "malaria": "<br />Source: "
-        }
-      },
-      "Hotspot_nutrition": {
-        "ETH": {
-          "drought": " "
-        }
-      },
+      "Hotspot_Health": { "ETH": { "malaria": "<br />Source: " } },
+      "Hotspot_nutrition": { "ETH": { "drought": "" } },
       "Hotspot_Water": {
         "ETH": {
+          "drought": " ",
           "floods": "<a href='https://healthsites.io/'>https://healthsites.io/</a>",
-          "malaria": "WASH  need priority class: Hotspot Woredas Classification WASH <a href='http://www.ndrmc.gov.et/'>http://www.ndrmc.gov.et/</a>",
-          "drought": " "
+          "malaria": "WASH  need priority class: Hotspot Woredas Classification WASH <a href='http://www.ndrmc.gov.et/'>http://www.ndrmc.gov.et/</a>"
         }
       },
       "houses_affected": {
@@ -646,8 +641,10 @@
       },
       "IPC_forecast_long": {
         "ETH": {
+          "drought": "",
           "malaria": "IPC long forecast: Most likely food security outcomes -  the medium-term projection <a href='https://fews.net/IPC'>https://fews.net/IPC</a>"
-        }
+        },
+        "UGA": { "drought": "" }
       },
       "IPC_forecast_short": {
         "ETH": {
@@ -679,17 +676,21 @@
           "heavy-rain": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "ETH": {
-          "floods": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
-          "drought": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+          "drought": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
+          "floods": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "KEN": {
           "drought": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>",
+          "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>"
+        },
+        "MWI": {
           "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>"
         },
         "PHL": {
           "floods": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "UGA": {
+          "drought": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
           "floods": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "ZMB": {
@@ -704,17 +705,21 @@
           "heavy-rain": "Number of people exposed is calculated by the population living in the rainfall extent area within the governorates currently triggered. The number of people and the rainfall extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br />Source Rainfall Extent: Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset.<br>The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
         },
         "ETH": {
-          "floods": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].",
-          "drought": "Number of people exposed is calculated by the population living within the districts currently triggered. The number of people data is derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+          "drought": "Number of people exposed is calculated by the population living within the districts currently triggered. The number of people data is derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
+          "floods": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
         },
         "KEN": {
           "drought": "<p>Number of people exposed is calculated by the population living in the county triggered by the exceedance of the droughts alert threshold. The number of people and the drought extent is derived from the below sources.</p><p>Source Links:</p><ul>    <li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;https://www.ciesin.columbia.edu/data/hrsl/</li>    <li>Source Drought Extent based on the SPI3 and VCI3M forecast information: for example, see August 2020 bulletin from Taita Taveta county; http://www.ndma.go.ke/index.php/resource-center/early-warning-reports/send/3-taita-taveta/5771-taita-taveta-august-2020</li></ul>",
+          "floods": "<p>Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.</p><p><strong>Source link:</strong></p><ul>    <li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li>    <li>Source Flood Extent: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].</li></ul><p><br></p>"
+        },
+        "MWI": {
           "floods": "<p>Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.</p><p><strong>Source link:</strong></p><ul>    <li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li>    <li>Source Flood Extent: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].</li></ul><p><br></p>"
         },
         "PHL": {
           "floods": "<p>Number of people exposed is calculated by the population living in the flood extent area within the manucipality currently triggered. The number of people and the flood extent are derived from the below sources.</p><p><strong>Source link:</strong></p><ul><li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li><li>Source Flood Extent: The flood extent maps are generated by the National Operational Assesment of Hazards(NOAH) project.<a href='https://noah.up.edu.ph/'>https://noah.up.edu.ph/</a> The 25-year rain return flood hazard maps show low, medium, and high flood hazards represented as yellow, orange, and red respectively. Flood hazards consider take both the height and velocity of the water into consideration and calculates the hazard levels based on the danger they pose to people and structures. Generally, for an average Filipino with a height of 5’ 6”, areas with flood depths from the knee down can be considered to have low hazard levels. Those with flood depths ranging from the knee to neck are considered to have medium hazard levels, and those covered with floods that are higher than the neck have high hazard levels. However, since the flow velocity is also considered, areas that have shallow but fast-flowing flood waters may have a higher hazard level than that denoted by the height of the flood covering it.</li></ul><p><br></p>"
         },
         "UGA": {
+          "drought": "",
           "floods": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
         },
         "ZMB": {
@@ -729,10 +734,13 @@
           "heavy-rain": "Percentage of people exposed is calculated by the population living in the rainfall extent area within the governorates currently triggered. The number of people and the rainfall extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br />Source Rainfall Extent: Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset.<br>The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
         },
         "ETH": {
-          "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].",
-          "drought": "Percentage of people exposed is calculated by the population living in within the districts currently triggered. The number of people was derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+          "drought": "Percentage of people exposed is calculated by the population living in within the districts currently triggered. The number of people was derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
+          "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
         },
         "KEN": {
+          "floods": "<p>The percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.</p><p><strong>Source Link:</strong></p><ul>    <li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li>    <li>Source Flood Extent: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].</li></ul>"
+        },
+        "MWI": {
           "floods": "<p>The percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.</p><p><strong>Source Link:</strong></p><ul>    <li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li>    <li>Source Flood Extent: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].</li></ul>"
         },
         "PHL": {
@@ -755,9 +763,9 @@
       },
       "population_u5": {
         "ETH": {
+          "drought": "Under age: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates.<br /><br />Source Data: <a href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>",
           "floods": "Under age: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates.<br /><br />Source Data: <a href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>",
-          "malaria": "Under age: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates.<br /><br />Source Data: <a href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>",
-          "drought": "Under age: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates.<br /><br />Source Data: <a href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>"
+          "malaria": "Under age: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates.<br /><br />Source Data: <a href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>"
         }
       },
       "population_u8": {
@@ -775,18 +783,22 @@
           "heavy-rain": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "ETH": {
+          "drought": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
           "floods": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
-          "malaria": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
-          "drought": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+          "malaria": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "KEN": {
           "drought": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>",
+          "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>"
+        },
+        "MWI": {
           "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>"
         },
         "PHL": {
           "floods": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "UGA": {
+          "drought": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>",
           "floods": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
         },
         "ZMB": {
@@ -855,19 +867,21 @@
           "heavy-rain": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Egyptian Red Crescent Society (ERCS). Year: 2020."
         },
         "ETH": {
+          "drought": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Ethiopia Red Cross Society (ERCS). Year: 2020.",
           "floods": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Ethiopia Red Cross Society (ERCS). Year: 2020.",
-          "malaria": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Ethiopia Red Cross Society (ERCS). Year: 2020.",
-          "drought": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Ethiopia Red Cross Society (ERCS). Year: 2020."
+          "malaria": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Ethiopia Red Cross Society (ERCS). Year: 2020."
         },
         "KEN": {
           "drought": "<p>This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.</p><p><strong>Source link:</strong> Kenya Red Cross Society (KRCS).&nbsp;</p><p><strong>Latest updated:</strong> 2020.</p>",
           "floods": "<p>This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.</p><p><strong>Source link:</strong> Kenya Red Cross Society (KRCS).&nbsp;</p><p><strong>Latest updated:</strong> 2020.</p>"
         },
+        "MWI": { "floods": "Data not available yet" },
         "PHL": {
           "dengue": "Data not available yet",
           "floods": "Data not available yet"
         },
         "UGA": {
+          "drought": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Uganda Red Cross Society (URCS). Year: 2020.",
           "floods": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Uganda Red Cross Society (URCS). Year: 2020."
         },
         "ZMB": {
@@ -882,17 +896,13 @@
           "floods": " The rice area map are absed on Philippine Rice Information System (PRISM) data.<br /><br />Source Link: PRISM website: <a href='https://prism.philrice.gov.ph/dataproducts/'>https://prism.philrice.gov.ph/dataproducts/</a> This data is based on the Philippine Rice Information System (PRISM) project which primarily aims to establish a nationwide information system on rice that provide information on rice areas and yield at a particular location and time, and information on factors that are affecting the yield. "
         }
       },
-      "roof_type": {
-        "UGA": {
-          "floods": "<br />"
-        }
-      },
+      "roof_type": { "UGA": { "floods": "<br />" } },
       "small_ruminants": {
-        "ZWE": {
-          "drought": "<br />Source Link: PRISM website: "
-        }
+        "UGA": { "drought": "" },
+        "ZWE": { "drought": "<br />Source Link: PRISM website: " }
       },
       "small_ruminants_exposed": {
+        "UGA": { "drought": "" },
         "ZWE": {
           "drought": "<a href='https://prism.philrice.gov.ph/dataproducts/'>https://prism.philrice.gov.ph/dataproducts/</a> This data is based on the Philippine Rice Information System (PRISM) project which primarily aims to establish a nationwide information system on rice that provide information on rice areas and yield at a particular location and time, and information on factors that are affecting the yield. "
         }
@@ -904,9 +914,9 @@
       },
       "total_idps": {
         "ETH": {
+          "drought": "Total Internally Displaced People (IDPs) DTM Ethiopia National Displacement Report 7_2022",
           "floods": "Total Internally Displaced People (IDPs) DTM Ethiopia National Displacement Report 7_2022",
-          "malaria": "Total Internally Displaced People (IDPs) DTM Ethiopia National Displacement Report 7_2022",
-          "drought": "Total Internally Displaced People (IDPs) DTM Ethiopia National Displacement Report 7_2022"
+          "malaria": "Total Internally Displaced People (IDPs) DTM Ethiopia National Displacement Report 7_2022"
         }
       },
       "travel_time_cities": {
@@ -923,7 +933,8 @@
       "vegetation_condition": {
         "KEN": {
           "drought": "<p>The Vegetation condition  is one of the indicators monitored within the drought early warning system of NDMA as part of the biophysical type of indicator.This layer presents the Vegetation Condition Index VCI3M (3-month averaged VCI) as off . The VCI values return a drought category presented below with the corresponding thresholds.&nbsp;</p><ul>    <li>&gt;= 50 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Vegetation greenness above normal&nbsp;</li>    <li>&gt;= 35 - &lt;50 &nbsp;Normal vegetation greenness</li>    <li>&gt;=20 - &lt;35 &nbsp; Moderate vegetation deficit&nbsp;</li>    <li>&gt;=10 - &lt;20 &nbsp; Severe vegetation deficit&nbsp;</li>    <li>&lt;10 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Extreme vegetation deficit</li></ul><p>Once the VCI3M goes below a threshold of 35, the NDMA triggers a rapid food security assessment and has access to the National Drought Contingency Fund in order to implement its preparedness strategies and contingency plans.&nbsp;</p><p><strong>Source Link:</strong> National monthly Drought Update published by the National Drought Management Authority (NDMA) <a href='https://www.ndma.go.ke/index.php/resource-center/national-drought-bulletin'>https://www.ndma.go.ke/index.php/resource-center/national-drought-bulletin</a></p><p><strong>Latest updated:</strong> month, year</p>"
-        }
+        },
+        "UGA": { "drought": "" }
       },
       "vulnerable_group": {
         "PHL": {
@@ -938,9 +949,7 @@
         }
       },
       "walking_travel_time_to_health": {
-        "ETH": {
-          "malaria": "Ongoing (updated regularly)"
-        }
+        "ETH": { "malaria": "Ongoing (updated regularly)" }
       },
       "wall_type": {
         "UGA": {
@@ -949,13 +958,18 @@
       },
       "waterpoints": {
         "ETH": {
+          "drought": "",
           "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
         },
         "KEN": {
           "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source Link: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
           "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source Link: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
         },
+        "MWI": {
+          "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source Link: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
+        },
         "UGA": {
+          "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source Link: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
           "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
         },
         "ZMB": {
