@@ -1,3 +1,12 @@
+## [0.175.2](https://github.com/rodekruis/IBF-system/compare/v0.175.1...v0.175.2) (2022-08-19)
+
+
+### Bug Fixes
+
+* geoserver layer pointing to mock-output instead of output AB[#14730](https://github.com/rodekruis/IBF-system/issues/14730) ([ed3755f](https://github.com/rodekruis/IBF-system/commit/ed3755fee9aee59639f0524d547d8c0ab971a90a))
+
+
+
 ## [0.175.1](https://github.com/rodekruis/IBF-system/compare/v0.175.0...v0.175.1) (2022-08-19)
 
 
@@ -123,15 +132,6 @@
 
 * replace current btn with text AB[#14642](https://github.com/rodekruis/IBF-system/issues/14642) ([9c5be2d](https://github.com/rodekruis/IBF-system/commit/9c5be2d6d4d31f3aa68f411214fc0f88f4a27420))
 * split eventswitcher AB[#14542](https://github.com/rodekruis/IBF-system/issues/14542) ([6000cef](https://github.com/rodekruis/IBF-system/commit/6000cefd061843d16b15b9135a307790f372eacc))
-
-
-
-## [0.172.1](https://github.com/rodekruis/IBF-system/compare/v0.172.0...v0.172.1) (2022-08-01)
-
-
-### Bug Fixes
-
-* correct mock data to 0-1 values AB[#14657](https://github.com/rodekruis/IBF-system/issues/14657) ([6de1272](https://github.com/rodekruis/IBF-system/commit/6de127226c3ca8b9bf87dd7ff99d681a8fad517a))
 
 
 
