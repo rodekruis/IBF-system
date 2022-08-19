@@ -5,7 +5,7 @@
     "forecastProbability": 0.0,
     "forecastTrigger": 0,
     "forecastReturnPeriod": null,
-    "triggerLevel": 2837
+    "triggerLevel": 5856
   },
   {
     "stationCode": "G2001",
@@ -13,15 +13,7 @@
     "forecastProbability": 0.0,
     "forecastTrigger": 0,
     "forecastReturnPeriod": null,
-    "triggerLevel": 2818
-  },
-  {
-    "stationCode": "G5669",
-    "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
-    "forecastReturnPeriod": null,
-    "triggerLevel": 2661
+    "triggerLevel": 6123
   },
   {
     "stationCode": "G5670",
@@ -29,7 +21,7 @@
     "forecastProbability": 0.0,
     "forecastTrigger": 0,
     "forecastReturnPeriod": null,
-    "triggerLevel": 84
+    "triggerLevel": 4146
   },
   {
     "stationCode": "G5694",
@@ -37,6 +29,6 @@
     "forecastProbability": 0.0,
     "forecastTrigger": 0,
     "forecastReturnPeriod": null,
-    "triggerLevel": 2794
+    "triggerLevel": 28362
   }
 ]
