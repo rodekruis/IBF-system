@@ -10,20 +10,9 @@ Find here the latest changes to the IBF-system. See notes at the bottom.
 
 - All IBF: Trigger notification emails now handle multiple events.
 
-### 13-06-2022 (v0.162.0)
-
-- Philippines Typhoon: Typhoons that have already made landfall will now be shown in the dashboard.
-
-### 10-06-2022 (v0.160.0)
-
-- Philippines Typhoon: Typhoons make landfall but don't reach the trigger threshold will now be shown in the dashboard.
-
-### 2022-05-30 (0.159.0)
+### 30-05-2022 (0.159.0)
 
 - All Droughts: Drought seasons can now be differentiated by region.
-
-### 30-05-2022 (v0.158.3)
-
 - All IBF: Areas in the map that are hovered over or clicked on, are now highlighted via thicker borders, instead of via different color shades.
 - All IBF: Also when hovering over an area, the area name appears in the middle column.
 - Ethiopia Floods: now offers multiple administrative levels.
