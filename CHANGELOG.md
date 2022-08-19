@@ -1,3 +1,14 @@
+## [0.175.1](https://github.com/rodekruis/IBF-system/compare/v0.175.0...v0.175.1) (2022-08-19)
+
+
+### Bug Fixes
+
+* glofas station coordinates AB[#14722](https://github.com/rodekruis/IBF-system/issues/14722) ([b2d76b6](https://github.com/rodekruis/IBF-system/commit/b2d76b62369b2e581cab67cbc7117d3e58fa840c))
+* glofas station coordinates AB[#14722](https://github.com/rodekruis/IBF-system/issues/14722) ([8fba973](https://github.com/rodekruis/IBF-system/commit/8fba9736400258aedc7ca29160eef2104d153904))
+* process mwi floods layers AB[#14735](https://github.com/rodekruis/IBF-system/issues/14735) ([ec53114](https://github.com/rodekruis/IBF-system/commit/ec531149337ef802bc66cc4a2a4fa42df078480e))
+
+
+
 # [0.175.0](https://github.com/rodekruis/IBF-system/compare/v0.174.0...v0.175.0) (2022-08-19)
 
 
@@ -121,21 +132,6 @@
 ### Bug Fixes
 
 * correct mock data to 0-1 values AB[#14657](https://github.com/rodekruis/IBF-system/issues/14657) ([6de1272](https://github.com/rodekruis/IBF-system/commit/6de127226c3ca8b9bf87dd7ff99d681a8fad517a))
-
-
-
-# [0.172.0](https://github.com/rodekruis/IBF-system/compare/v0.171.0...v0.172.0) (2022-08-01)
-
-
-### Bug Fixes
-
-* mention if not available AB[#14617](https://github.com/rodekruis/IBF-system/issues/14617) ([d84587d](https://github.com/rodekruis/IBF-system/commit/d84587dbeca7df6234ae68070452ebbc011c6759))
-
-
-### Features
-
-* change trigger statement to disastertype-specific AB[#14615](https://github.com/rodekruis/IBF-system/issues/14615) ([7adbd12](https://github.com/rodekruis/IBF-system/commit/7adbd12613a9b3dcddf701b3e34b82029bb7329a))
-* get trigger statement by disastertype AB[#14617](https://github.com/rodekruis/IBF-system/issues/14617) ([2544580](https://github.com/rodekruis/IBF-system/commit/25445807f47462d8d3d87859c409c636bfb2b86b))
 
 
 
