@@ -9,11 +9,11 @@
   },
   {
     "leadTime": "3-day",
-    "triggered": false
+    "triggered": true
   },
   {
     "leadTime": "4-day",
-    "triggered": false
+    "triggered": true
   },
   {
     "leadTime": "5-day",

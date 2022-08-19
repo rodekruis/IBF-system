@@ -1197,7 +1197,7 @@
   },
   {
     "placeCode": "MW31002",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "MW31003",
@@ -1217,7 +1217,7 @@
   },
   {
     "placeCode": "MW31007",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "MW31008",
@@ -1257,7 +1257,7 @@
   },
   {
     "placeCode": "MW31105",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "MW31106",
