@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 import { BoundingBox } from '../../shared/geo.model';
 import { UserEntity } from '../user/user.entity';
-import { CountryStatus } from './country-status.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { ApiProperty } from '@nestjs/swagger';
@@ -32,10 +31,6 @@ export class CountryEntity {
   @ApiProperty({ example: 'Uganda' })
   @Column({ unique: true })
   public countryName: string;
-
-  @ApiProperty({ example: true })
-  @Column({ default: CountryStatus.Active })
-  public countryStatus: CountryStatus;
 
   @OneToMany(
     () => CountryDisasterSettingsEntity,
@@ -81,10 +76,6 @@ export class CountryEntity {
   @ApiProperty({ example: new Date() })
   @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
   public created: Date;
-
-  @ApiProperty({ example: new Date() })
-  @Column('json', { nullable: true })
-  public glofasStationInput: JSON;
 
   @ManyToMany(
     (): typeof UserEntity => UserEntity,

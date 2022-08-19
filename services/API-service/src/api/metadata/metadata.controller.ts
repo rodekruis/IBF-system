@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -6,7 +6,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
+import { UserRole } from '../user/user-role.enum';
+import { AddIndicatorsDto } from './dto/add-indicators.dto';
+import { AddLayersDto } from './dto/add-layers.dto';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { LayerMetadataEntity } from './layer-metadata.entity';
 import { MetadataService } from './metadata.service';
@@ -20,6 +24,34 @@ export class MetadataController {
 
   public constructor(metadataService: MetadataService) {
     this.metadataService = metadataService;
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({ summary: 'Adds or updates (if existing) indicators' })
+  @ApiResponse({
+    status: 201,
+    description: 'Added and/or Updated indicators.',
+    type: [IndicatorMetadataEntity],
+  })
+  @Post('indicators')
+  public async addOrUpdateIndicators(
+    @Body() indicators: AddIndicatorsDto,
+  ): Promise<IndicatorMetadataEntity[]> {
+    return await this.metadataService.addOrUpdateIndicators(indicators);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({ summary: 'Adds or updates (if existing) layers' })
+  @ApiResponse({
+    status: 201,
+    description: 'Added and/or Updated layers.',
+    type: [LayerMetadataEntity],
+  })
+  @Post('layers')
+  public async addOrUpdateLayers(
+    @Body() layers: AddLayersDto,
+  ): Promise<LayerMetadataEntity[]> {
+    return await this.metadataService.addOrUpdateLayers(layers);
   }
 
   @ApiOperation({

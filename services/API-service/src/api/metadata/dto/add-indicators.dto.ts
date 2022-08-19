@@ -1,47 +1,46 @@
+import {
+  isBoolean,
+  IsBoolean,
+  IsEnum,
+  IsIn,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterType } from '../../disaster/disaster-type.enum';
 
-@Entity('indicator-metadata')
-export class IndicatorMetadataEntity {
-  @ApiProperty({ example: '6b9b7669-4839-4fdb-9645-9070a27bda86' })
-  @PrimaryGeneratedColumn('uuid')
-  public id: string;
-
+export class IndicatorDto {
   @ApiProperty({ example: process.env.COUNTRIES })
-  @Column()
+  @IsString()
   public countryCodes: string;
 
   @ApiProperty({ example: [{ disasterType: DisasterType.Floods }] })
-  @ManyToMany(
-    (): typeof DisasterEntity => DisasterEntity,
-    (disasterTypes): IndicatorMetadataEntity[] => disasterTypes.indicators,
-  )
-  public disasterTypes: DisasterEntity[];
+  @IsEnum(DisasterType)
+  public disasterTypes: DisasterType[];
 
   @ApiProperty()
-  @Column()
+  @IsString()
   public name: string;
 
   @ApiProperty()
-  @Column()
+  @IsString()
   public label: string;
 
   @ApiProperty({ example: 'logo.svg' })
-  @Column()
+  @IsString()
   public icon: string;
 
   @ApiProperty({ example: true })
-  @Column()
+  @IsBoolean()
   public weightedAvg: boolean;
 
   @ApiProperty({ example: 'total_houses', nullable: true })
-  @Column()
+  @IsString()
   public weightVar: string;
 
   @ApiProperty({ example: 'yes' })
-  @Column()
+  @IsIn(['yes', 'no', 'if-trigger'])
   public active: string;
 
   @ApiProperty({
@@ -53,34 +52,40 @@ export class IndicatorMetadataEntity {
       '5': { label: 'Very High', valueLow: 8, valueHigh: 10 },
     },
   })
-  @Column('json', { nullable: true })
   public colorBreaks: JSON;
 
   @ApiProperty({ example: 'decimal0' })
-  @Column()
+  @IsString()
   public numberFormatMap: string;
 
   @ApiProperty({ example: process.env.COUNTRIES })
-  @Column()
   public aggregateIndicator: string | null;
 
   @ApiProperty({ example: 'decimal0' })
-  @Column()
+  @IsIn(['decimal0', 'decimal2', 'perc'])
   public numberFormatAggregate: string;
 
   @ApiProperty()
-  @Column({ default: 1 })
+  @IsNumber()
   public order: number;
 
   @ApiProperty()
-  @Column({ default: false })
+  @IsBoolean()
   public dynamic: boolean;
 
   @ApiProperty({ example: 'people' })
-  @Column({ nullable: true })
+  @IsString()
   public unit: string;
 
   @ApiProperty()
-  @Column({ default: false })
+  @IsBoolean()
   public lazyLoad: boolean;
+}
+
+export class AddIndicatorsDto {
+  @ApiProperty({
+    example: [{}],
+  })
+  @IsNotEmpty()
+  public indicators: IndicatorDto[];
 }
