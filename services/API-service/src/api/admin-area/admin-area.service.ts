@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
+import { InsertResult, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 import { AdminAreaEntity } from './admin-area.entity';
-import { CountryEntity } from '../country/country.entity';
 import { EventService } from '../event/event.service';
 import { AggregateDataRecord } from 'src/shared/data.model';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
@@ -28,6 +27,45 @@ export class AdminAreaService {
     private helperService: HelperService,
     private eventService: EventService,
   ) {}
+
+  public async addOrUpdateAdminAreas(
+    countryCodeISO3: string,
+    adminLevel: number,
+    adminAreasGeoJson: GeoJson,
+  ) {
+    //delete existing entries for country & adminlevel first
+    await this.adminAreaRepository.delete({
+      countryCodeISO3: countryCodeISO3,
+      adminLevel: adminLevel,
+    });
+
+    // then upload new admin-areas
+    await Promise.all(
+      adminAreasGeoJson.features.map(
+        (area): Promise<InsertResult> => {
+          return this.adminAreaRepository
+            .createQueryBuilder()
+            .insert()
+            .values({
+              countryCodeISO3: countryCodeISO3,
+              adminLevel: adminLevel,
+              name: area.properties[`ADM${adminLevel}_EN`],
+              placeCode: area.properties[`ADM${adminLevel}_PCODE`],
+              placeCodeParent:
+                area.properties[`ADM${adminLevel - 1}_PCODE`] || null,
+              geom: (): string => this.geomFunction(area.geometry.coordinates),
+            })
+            .execute();
+        },
+      ),
+    );
+  }
+
+  private geomFunction(coordinates): string {
+    return `ST_GeomFromGeoJSON( '{ "type": "MultiPolygon", "coordinates": ${JSON.stringify(
+      coordinates,
+    )} }' )`;
+  }
 
   private async getTriggeredPlaceCodes(
     countryCodeISO3: string,

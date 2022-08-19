@@ -4,7 +4,7 @@ Below are the credentials, for you to access the IBF operational dashboard. This
 
 If you experience problems in using the dashboard that please communicate with us via email and we will let you know when the problem can be fixed. 
  
-You can access the IBF dashboard at https://ibf-<country-name>.510.global/login
+You can access the IBF dashboard at https://ibf.510.global/login
  
 With the credentials:
 Username: <username/email>

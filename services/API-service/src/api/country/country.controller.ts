@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -6,8 +6,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Roles } from '../../roles.decorator';
+import { UserRole } from '../user/user-role.enum';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
+import { AddCountriesDto } from './dto/add-countries.dto';
 
 @ApiBearerAuth()
 @ApiTags('country')
@@ -17,6 +20,19 @@ export class CountryController {
 
   public constructor(countryService: CountryService) {
     this.countryService = countryService;
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({ summary: 'Adds or updates (if existing) country' })
+  @ApiResponse({
+    status: 201,
+    description: 'Added and/or Updated country-properties.',
+  })
+  @Post()
+  public async addOrUpdateCountries(
+    @Body() countries: AddCountriesDto,
+  ): Promise<void> {
+    await this.countryService.addOrUpdateCountries(countries);
   }
 
   @ApiOperation({

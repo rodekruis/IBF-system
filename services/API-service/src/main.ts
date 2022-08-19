@@ -8,6 +8,7 @@ import {
   SwaggerCustomOptions,
 } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap(): Promise<void> {
   const appOptions = { cors: true };
@@ -52,6 +53,13 @@ async function bootstrap(): Promise<void> {
   );
   SwaggerModule.setup('/docs', app, document, swaggerCustomOptions);
   app.useGlobalPipes(new ValidationPipe());
+  app.use(bodyParser.json({ limit: '25mb' }));
+  app.use(
+    bodyParser.urlencoded({
+      limit: '25mb',
+      extended: true,
+    }),
+  );
   await app.listen(process.env.PORT || PORT);
 }
 bootstrap();

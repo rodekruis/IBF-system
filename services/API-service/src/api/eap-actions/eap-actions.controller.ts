@@ -27,7 +27,7 @@ export class EapActionsController {
     this.eapActionsService = eapActionsService;
   }
 
-  @Roles(UserRole.DisasterManager)
+  @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Add/update EAP-actions' })
   @ApiResponse({
     status: 201,

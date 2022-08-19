@@ -78,14 +78,14 @@ Scenario: View general trigger information when event already made landfall ('ty
 
 Scenario: View general trigger information with clear-out warning or message
     Given the 'showMonthlyEapActions' is 'true' (currently only for Kenya Droughts)
-    Given 1 or more 'droughtForecastMonths' are provided (October & March, for Kenya Droughts)
-    Given the current month (month of last (mock) pipeline run) is one month before one of the 'droughtForecastMonths' 
+    Given 1 or more 'droughtForecastSeasons' are provided (October & March, for Kenya Droughts)
+    Given the current month (month of last (mock) pipeline run) is one month before one of the 'droughtForecastSeasons' 
     When the user views the 2nd speech bubble
     Then - in addition to the normal information - it mentions a second paragraph
     And it is red-colored and bold
     And it reads that the EAP-actions related to the current trigger will be automatically cleared out after this month
     ------
-    Given - instead - that the current month (month of last (mock) pipeline run) is exactly one of the 'droughtForecastMonths' 
+    Given - instead - that the current month (month of last (mock) pipeline run) is exactly one of the 'droughtForecastSeasons' 
     Then the message reads that the EAP-actions have been automatically cleared out after this month
 
 Scenario: Switch event

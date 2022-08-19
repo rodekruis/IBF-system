@@ -3,7 +3,6 @@
     "countryCodeISO3": "UGA",
     "countryCodeISO2": "UG",
     "countryName": "Uganda",
-    "countryStatus": "active",
     "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
       {
@@ -98,7 +97,6 @@
     "countryCodeISO3": "ZMB",
     "countryCodeISO2": "ZM",
     "countryName": "Zambia",
-    "countryStatus": "active",
     "disasterTypes": ["floods"],
     "countryDisasterSettings": [
       {
@@ -172,7 +170,6 @@
     "countryCodeISO3": "MWI",
     "countryCodeISO2": "MW",
     "countryName": "Malawi",
-    "countryStatus": "active",
     "disasterTypes": ["floods"],
     "countryDisasterSettings": [
       {
@@ -241,7 +238,6 @@
     "countryCodeISO3": "KEN",
     "countryCodeISO2": "KE",
     "countryName": "Kenya",
-    "countryStatus": "active",
     "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
       {
@@ -347,7 +343,6 @@
     "countryCodeISO3": "ETH",
     "countryCodeISO2": "ET",
     "countryName": "Ethiopia",
-    "countryStatus": "active",
     "disasterTypes": ["floods", "malaria", "drought"],
     "countryDisasterSettings": [
       {
@@ -528,7 +523,6 @@
     "countryCodeISO3": "EGY",
     "countryCodeISO2": "EG",
     "countryName": "Egypt",
-    "countryStatus": "active",
     "disasterTypes": ["heavy-rain"],
     "countryDisasterSettings": [
       {
@@ -571,7 +565,6 @@
     "countryCodeISO3": "PHL",
     "countryCodeISO2": "PH",
     "countryName": "Philippines",
-    "countryStatus": "active",
     "disasterTypes": ["dengue", "typhoon", "floods"],
     "countryDisasterSettings": [
       {
@@ -816,7 +809,6 @@
     "countryCodeISO3": "ZWE",
     "countryCodeISO2": "ZW",
     "countryName": "Zimbabwe",
-    "countryStatus": "active",
     "disasterTypes": ["drought"],
     "countryDisasterSettings": [
       {

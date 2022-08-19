@@ -49,14 +49,53 @@ Scenario: Upload/overwrite EAP-actions data
     And it overwrites any known combinations of 'countryCodeISO3', 'disasterType' and 'action'
     And creates new entries for unknown combinations
 
-Scenario: Upload/overwrite admin-area boundary data
-    >> NOT YET POSSIBLE
+Scenario: Add/Update countries and attributes via endpoint
+    Given the role of the user is 'admin'
+    Given the user is using the `/api/country` POST endpoint
+    Given the user copies the full country json object from the repository inside the 'countries' array (or one or more countries)
+    When the user clicks 'Execute'
+    Then this data is uploaded
+    And it overwrites any known countries
+    And creates new entries for unknown countries
+    And it does not delete any countries that are not included in the new set
+
+Scenario: Add/Update indicators and attributes via endpoint
+    Given the role of the user is 'admin'
+    Given the user is using the `/api/metadata/indicators` POST endpoint
+    Given the user copies the full indicator json object from the repository inside the 'indicators' array (or one or more countries)
+    When the user clicks 'Execute'
+    Then this data is uploaded
+    And it overwrites any known indicators
+    And creates new entries for unknown indicators
+    And it does not delete any indicators that are not included in the new set
+
+Scenario: Add/Update layers and attributes via endpoint
+    Given the role of the user is 'admin'
+    Given the user is using the `/api/metadata/layers` POST endpoint
+    Given the user copies the full layer json object from the repository inside the 'layers' array (or one or more countries)
+    When the user clicks 'Execute'
+    Then this data is uploaded
+    And it overwrites any known layers
+    And creates new entries for unknown layers
+    And it does not delete any layers that are not included in the new set
+
+Scenario: Update admin-area boundaries via endpoint
+    Given the role of the user is 'admin'
+    Given the user is using the `/api/admin-areas/geojson/{countryCodeISO3}/{adminLevel}` POST endpoint
+    Then the user fills in the 'adminLevel' and 'countryCodeISO3' text-fields
+    Then the user copies the full modified admin-area JSON object inside the text-area
+    When the user clicks 'Execute'
+    Then this data is uploaded
+    And it deletes all existing admin-areas for the given country and adminLevel
+    And then uploads all new admin-areas in the provided data
+
+Scenario: Update admin-area boundaries for default admin level with existing past trigger events data
+    Given all the same as in previous Scenario
+    Given the 'adminLevel' is the 'defaultAdminLevel' for that country and disasterType
+    Given there is already existing trigger events data in the database on this environment
+    When the user uploads this data
+    Then this will fail because of the relationship between different database tables 
 
 Scenario: Upload/overwrite static raster data
     >> NOT YET POSSIBLE
-
-Scenario: Upload/overwrite layer/indicator attributes
-    >> NOT YET POSSIBLE
-
-
 

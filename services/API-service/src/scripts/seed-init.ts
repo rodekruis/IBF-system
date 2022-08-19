@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
 import { AdminLevel } from '../api/country/admin-level.enum';
-import { CountryStatus } from '../api/country/country-status.enum';
 import { CountryEntity } from '../api/country/country.entity';
 import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
 import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
@@ -67,7 +66,6 @@ export class SeedInit implements InterfaceScript {
       countryCodeISO3: string;
       countryCodeISO2: string;
       countryName: string;
-      countryStatus: string;
       disasterTypes: string[];
       countryDisasterSettings: CountryDisasterSettings[];
       adminRegionLabels: {};
@@ -142,7 +140,6 @@ export class SeedInit implements InterfaceScript {
           countryEntity.countryCodeISO3 = country.countryCodeISO3;
           countryEntity.countryCodeISO2 = country.countryCodeISO2;
           countryEntity.countryName = country.countryName;
-          countryEntity.countryStatus = country.countryStatus as CountryStatus;
           countryEntity.adminRegionLabels = JSON.parse(
             JSON.stringify(country.adminRegionLabels),
           );

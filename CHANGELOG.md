@@ -1,3 +1,56 @@
+# [0.175.0](https://github.com/rodekruis/IBF-system/compare/v0.174.0...v0.175.0) (2022-08-19)
+
+
+### Bug Fixes
+
+* make endpoint work AB[#14659](https://github.com/rodekruis/IBF-system/issues/14659) ([efc848f](https://github.com/rodekruis/IBF-system/commit/efc848ffcf59b4bd9cc2ce31839c1a99f1a7e47c))
+* remove breaking spec files as unused anyway ([a4d72f9](https://github.com/rodekruis/IBF-system/commit/a4d72f9788e2e5b4bac37118801d1a424c175a0a))
+* rename country_codes to camelcase AB[#14659](https://github.com/rodekruis/IBF-system/issues/14659) ([95ee1bf](https://github.com/rodekruis/IBF-system/commit/95ee1bf124e4c85d90561bf06223217e44c4f96c))
+* rm unused columns AB[#14659](https://github.com/rodekruis/IBF-system/issues/14659) ([dcb910b](https://github.com/rodekruis/IBF-system/commit/dcb910b395e1d8826218f865951b7159c9fca39f))
+* set role to admin-only for now AB[#14659](https://github.com/rodekruis/IBF-system/issues/14659) ([2e068f8](https://github.com/rodekruis/IBF-system/commit/2e068f8e67ee8ff891ebc6b559e40af88889c5eb))
+* small changes test scenarios AB[#11599](https://github.com/rodekruis/IBF-system/issues/11599) ([c99f5c3](https://github.com/rodekruis/IBF-system/commit/c99f5c32205220482a6a082efffe121cdc8d2386))
+* update xlsx readme ([eac8fcd](https://github.com/rodekruis/IBF-system/commit/eac8fcdad68e4d71e1543fbb5a87ff74c40e4550))
+
+
+### Features
+
+* endpoint to add/update admin-boundaries AB[#14662](https://github.com/rodekruis/IBF-system/issues/14662) ([d347a43](https://github.com/rodekruis/IBF-system/commit/d347a4397e0ec0b0952814d58e9264234ab5c590))
+* first draft update country endpoint AB[#14659](https://github.com/rodekruis/IBF-system/issues/14659) ([e0fcfaa](https://github.com/rodekruis/IBF-system/commit/e0fcfaab400b13e94794f79d971bbeca4f7e7f16))
+* update layers and indicators via api AB[#14660](https://github.com/rodekruis/IBF-system/issues/14660) ([bc55cdf](https://github.com/rodekruis/IBF-system/commit/bc55cdf70f80943544604fbdaffc6bd28898faae))
+* update test scenarios AB[#11599](https://github.com/rodekruis/IBF-system/issues/11599) ([42d8362](https://github.com/rodekruis/IBF-system/commit/42d8362eb62e0c1122a857b9bf4024f7300f08a9))
+
+
+
+# [0.174.0](https://github.com/rodekruis/IBF-system/compare/v0.173.5...v0.174.0) (2022-08-12)
+
+
+### Bug Fixes
+
+* mock data AB[#14732](https://github.com/rodekruis/IBF-system/issues/14732) ([d36ced2](https://github.com/rodekruis/IBF-system/commit/d36ced20bec11d9bc4d619cbfd4e356985481355))
+* small eventname fix ([d2c5063](https://github.com/rodekruis/IBF-system/commit/d2c506371c47acb551f08373cca78a3e67c68319))
+
+
+### Features
+
+* add UBR layers AB[#14739](https://github.com/rodekruis/IBF-system/issues/14739) ([311ff79](https://github.com/rodekruis/IBF-system/commit/311ff797a8f057a3201e0aff8ea2cc37754f0ea9))
+* eap-actions MWI Floods AB[#14726](https://github.com/rodekruis/IBF-system/issues/14726) ([4aff160](https://github.com/rodekruis/IBF-system/commit/4aff1600e3ad5b6f0184a09d700392dc1703e125))
+* email logo AB[#14722](https://github.com/rodekruis/IBF-system/issues/14722) ([8c7af73](https://github.com/rodekruis/IBF-system/commit/8c7af73889e32d412f82d5a9792b80430a5978fa))
+* initial mock data MWI floods AB[#14732](https://github.com/rodekruis/IBF-system/issues/14732) ([0aa78c1](https://github.com/rodekruis/IBF-system/commit/0aa78c1ed7293890b3bad7eb124c84c6b1e6620e))
+* initial version static layers AB[#14845](https://github.com/rodekruis/IBF-system/issues/14845) ([cacc4ba](https://github.com/rodekruis/IBF-system/commit/cacc4ba7ecbed36c7a11ac3a0d10e2e4f7148ed3))
+* mock data UBR layers AB[#14740](https://github.com/rodekruis/IBF-system/issues/14740) ([d994c95](https://github.com/rodekruis/IBF-system/commit/d994c951dee8c0d64a72b983e6981874460cbf54))
+* set up MWI floods basic dashboard AB[#14722](https://github.com/rodekruis/IBF-system/issues/14722) ([365aa50](https://github.com/rodekruis/IBF-system/commit/365aa5071a267122f9b664aae8271d7888c650db))
+
+
+
+## [0.173.5](https://github.com/rodekruis/IBF-system/compare/v0.173.4...v0.173.5) (2022-08-12)
+
+
+### Bug Fixes
+
+* update Portal URL in template AB[#14844](https://github.com/rodekruis/IBF-system/issues/14844) ([a079f0f](https://github.com/rodekruis/IBF-system/commit/a079f0f5702ffd3bf8db9b3b7dab631981c8f25f))
+
+
+
 ## [0.173.4](https://github.com/rodekruis/IBF-system/compare/v0.173.3...v0.173.4) (2022-08-08)
 
 
@@ -83,54 +136,6 @@
 
 * change trigger statement to disastertype-specific AB[#14615](https://github.com/rodekruis/IBF-system/issues/14615) ([7adbd12](https://github.com/rodekruis/IBF-system/commit/7adbd12613a9b3dcddf701b3e34b82029bb7329a))
 * get trigger statement by disastertype AB[#14617](https://github.com/rodekruis/IBF-system/issues/14617) ([2544580](https://github.com/rodekruis/IBF-system/commit/25445807f47462d8d3d87859c409c636bfb2b86b))
-
-
-
-# [0.171.0](https://github.com/rodekruis/IBF-system/compare/v0.170.0...v0.171.0) (2022-08-01)
-
-
-### Bug Fixes
-
-* clearout message timing AB[#14581](https://github.com/rodekruis/IBF-system/issues/14581) ([40c1309](https://github.com/rodekruis/IBF-system/commit/40c1309f01d9616e2fa96882035e798ead2dfe23))
-* make csv column names more uniform AB[#14566](https://github.com/rodekruis/IBF-system/issues/14566) ([81f9756](https://github.com/rodekruis/IBF-system/commit/81f97567f9e6c4d4249d793a81afa5ef551a3a00))
-* refactor dynamic vs updateable static indicator AB[#14568](https://github.com/rodekruis/IBF-system/issues/14568) ([7f29b2a](https://github.com/rodekruis/IBF-system/commit/7f29b2ac91e7dc42e11c22e1ac8c8af97d930b8d))
-* update eap-link uga drought AB[#14625](https://github.com/rodekruis/IBF-system/issues/14625) ([e955346](https://github.com/rodekruis/IBF-system/commit/e955346ea34c7184f91f27bb576fddf80f70cd8a))
-
-
-### Features
-
-* basic dashboard uga drought AB[#14565](https://github.com/rodekruis/IBF-system/issues/14565) ([367f5ef](https://github.com/rodekruis/IBF-system/commit/367f5efde6298bca27f36702649f2a2dc34d8f83))
-* extend IPC long to UGA AB[#14567](https://github.com/rodekruis/IBF-system/issues/14567) ([95b7030](https://github.com/rodekruis/IBF-system/commit/95b7030b80eca157e9a8384102ba62da866239f0))
-* extend vegetation_contition to UGA AB[#14566](https://github.com/rodekruis/IBF-system/issues/14566) ([cfa7141](https://github.com/rodekruis/IBF-system/commit/cfa71418c22b2a2215cf1fe4abc715380d838170))
-* mock eap-actions UGA drought AB[#14571](https://github.com/rodekruis/IBF-system/issues/14571) ([051a390](https://github.com/rodekruis/IBF-system/commit/051a3904441ea22b9a63ac2128d997d273d72f68))
-
-
-
-# [0.170.0](https://github.com/rodekruis/IBF-system/compare/v0.169.1...v0.170.0) (2022-07-22)
-
-
-### Bug Fixes
-
-* test ([38062c4](https://github.com/rodekruis/IBF-system/commit/38062c4447790380a5e02d3cdf0fb173369849d9))
-* test + prettier AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([8657426](https://github.com/rodekruis/IBF-system/commit/86574263b51edaa96447db53d05e373678d7d1c1))
-
-
-### Features
-
-* add action-result popover AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([e780bfd](https://github.com/rodekruis/IBF-system/commit/e780bfdd4a15bc8523e28cb8b810bd581ff752d8))
-* add action-result popover AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([bb7fe7a](https://github.com/rodekruis/IBF-system/commit/bb7fe7a86e4e826b3c5dfad187620a594942d710))
-* add new popover to shared module AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([98ebe20](https://github.com/rodekruis/IBF-system/commit/98ebe20d39a3c7b9221ac1286b1da8d9d7433b2d))
-* add translatable strings AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([8604794](https://github.com/rodekruis/IBF-system/commit/86047948582d9c8e9df1a92acaccc44ac3efa4ae))
-* remove alerts from chat component AB[#14484](https://github.com/rodekruis/IBF-system/issues/14484) ([e45abc5](https://github.com/rodekruis/IBF-system/commit/e45abc52291cf236781fb6a694e59a057eb95d79))
-
-
-
-## [0.169.1](https://github.com/rodekruis/IBF-system/compare/v0.169.0...v0.169.1) (2022-07-18)
-
-
-### Bug Fixes
-
-* improve eventNoTrigger track AB[#14473](https://github.com/rodekruis/IBF-system/issues/14473) ([e1d67d7](https://github.com/rodekruis/IBF-system/commit/e1d67d7c6e0c2e5e09884c0f256a3f39ccbd34e7))
 
 
 
