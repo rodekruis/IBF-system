@@ -1,3 +1,13 @@
+## [0.175.3](https://github.com/rodekruis/IBF-system/compare/v0.175.2...v0.175.3) (2022-08-19)
+
+
+### Bug Fixes
+
+* remove 1 station AB[#14731](https://github.com/rodekruis/IBF-system/issues/14731) ([381b68b](https://github.com/rodekruis/IBF-system/commit/381b68b05a621840babab24801b584c3e5493222))
+* update mock data mwi floods AB[#14731](https://github.com/rodekruis/IBF-system/issues/14731) ([7c93c10](https://github.com/rodekruis/IBF-system/commit/7c93c10339ac04c55108107708a3381f3753ad13))
+
+
+
 ## [0.175.2](https://github.com/rodekruis/IBF-system/compare/v0.175.1...v0.175.2) (2022-08-19)
 
 
@@ -116,22 +126,6 @@
 * missing date attribute in mock endpoint call AB[#14721](https://github.com/rodekruis/IBF-system/issues/14721) ([2e7b5e2](https://github.com/rodekruis/IBF-system/commit/2e7b5e211fa0d5708454141430d46812150da718))
 * only execute api-call if parameters match AB[#14744](https://github.com/rodekruis/IBF-system/issues/14744) ([8d7e50d](https://github.com/rodekruis/IBF-system/commit/8d7e50ddf87f186ebb1f5c8ae947065888522177))
 * reiterate eventname AB[#14708](https://github.com/rodekruis/IBF-system/issues/14708) ([15ab37f](https://github.com/rodekruis/IBF-system/commit/15ab37f80b557839a58e7802c714aa4db7305dae))
-
-
-
-# [0.173.0](https://github.com/rodekruis/IBF-system/compare/v0.172.1...v0.173.0) (2022-08-05)
-
-
-### Bug Fixes
-
-* switch event before api call AB[#14614](https://github.com/rodekruis/IBF-system/issues/14614) ([1e2696f](https://github.com/rodekruis/IBF-system/commit/1e2696f02fd64b7d13c2927e3f058bcee26145d2))
-* use correct event on timeline click AB[#14614](https://github.com/rodekruis/IBF-system/issues/14614) ([8cfebca](https://github.com/rodekruis/IBF-system/commit/8cfebca27a819135ecbbe16a6fbac7783e4a92e2))
-
-
-### Features
-
-* replace current btn with text AB[#14642](https://github.com/rodekruis/IBF-system/issues/14642) ([9c5be2d](https://github.com/rodekruis/IBF-system/commit/9c5be2d6d4d31f3aa68f411214fc0f88f4a27420))
-* split eventswitcher AB[#14542](https://github.com/rodekruis/IBF-system/issues/14542) ([6000cef](https://github.com/rodekruis/IBF-system/commit/6000cefd061843d16b15b9135a307790f372eacc))
 
 
 
