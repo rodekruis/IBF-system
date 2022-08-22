@@ -494,7 +494,6 @@
           "drought": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined cropland: consists of 3 land use types<ol><li>rainfed cropland</li><li>mosaic cropland - 50-70% cropland & 20-50% vegetation (grassland/shrubland/forest)</li><li>mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) & 20-50% cropland</li></ol><br />Source Link Zimbabwe: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
         }
       },
-      "cyclone_risk": { "MWI": { "floods": "TBD" } },
       "dam": {
         "ZWE": {
           "drought": "This layer represents a selection of dams, and their associated reservoirs in Zimbabwe. The selection is made, based on the  Zimbabwe National Water Authority (ZINWA).<br /><br />Source Link Zimbabwe:<ul><li><a href='https://www.zinwa.co.zw/dam-levels/'>https://www.zinwa.co.zw/dam-levels/</a></li></ul>"
