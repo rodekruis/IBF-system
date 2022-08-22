@@ -1,3 +1,12 @@
+## [0.175.4](https://github.com/rodekruis/IBF-system/compare/v0.175.3...v0.175.4) (2022-08-22)
+
+
+### Bug Fixes
+
+* small update to email template ([908dfa5](https://github.com/rodekruis/IBF-system/commit/908dfa58be5edfa08969d277ed68efaf532c57af))
+
+
+
 ## [0.175.3](https://github.com/rodekruis/IBF-system/compare/v0.175.2...v0.175.3) (2022-08-19)
 
 
@@ -112,20 +121,6 @@
 * mention disastertype in mock interface ([94e9c91](https://github.com/rodekruis/IBF-system/commit/94e9c914f903c473b2f88b80ce3640e2971a1814))
 * trigger statements ETH KEN ([5d9ac53](https://github.com/rodekruis/IBF-system/commit/5d9ac539117c0bf226e1d54f7b7364e760c842f0))
 * trigger statements PHL ([f2f5960](https://github.com/rodekruis/IBF-system/commit/f2f596064dea9009d1e0684b1a1b31234de88d5a))
-
-
-
-## [0.173.1](https://github.com/rodekruis/IBF-system/compare/v0.173.0...v0.173.1) (2022-08-08)
-
-
-### Bug Fixes
-
-* adjust speech bubbles in multi-event AB[#14710](https://github.com/rodekruis/IBF-system/issues/14710) ([dde92a6](https://github.com/rodekruis/IBF-system/commit/dde92a6e72dfa34f2b4659f68abb8961cfc17141))
-* change from-name email AB[#14709](https://github.com/rodekruis/IBF-system/issues/14709) ([6f05e90](https://github.com/rodekruis/IBF-system/commit/6f05e90c8b560c7925865c4aa16df86eed95a542))
-* improve sorting of events in chat-section AB[#14710](https://github.com/rodekruis/IBF-system/issues/14710) ([4678483](https://github.com/rodekruis/IBF-system/commit/4678483663c939a851a67ef35a036b7230b56299))
-* missing date attribute in mock endpoint call AB[#14721](https://github.com/rodekruis/IBF-system/issues/14721) ([2e7b5e2](https://github.com/rodekruis/IBF-system/commit/2e7b5e211fa0d5708454141430d46812150da718))
-* only execute api-call if parameters match AB[#14744](https://github.com/rodekruis/IBF-system/issues/14744) ([8d7e50d](https://github.com/rodekruis/IBF-system/commit/8d7e50ddf87f186ebb1f5c8ae947065888522177))
-* reiterate eventname AB[#14708](https://github.com/rodekruis/IBF-system/issues/14708) ([15ab37f](https://github.com/rodekruis/IBF-system/commit/15ab37f80b557839a58e7802c714aa4db7305dae))
 
 
 
