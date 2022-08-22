@@ -1,8 +1,8 @@
 Dear reader,
  
-Below are the credentials, for you to access the IBF operational dashboard. This is the operational dashboard, which means any observed triggers/alerts are real.
+Below are the credentials for you to access the IBF operational dashboard. This is the live operational dashboard, which means any observed triggers/alerts are real.
 
-If you experience problems in using the dashboard that please communicate with us via email and we will let you know when the problem can be fixed. 
+If you experience problems in using the dashboard, please communicate with us via email and we will let you know when the problem can be fixed. 
  
 You can access the IBF dashboard at https://ibf.510.global/login
  
