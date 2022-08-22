@@ -1,3 +1,13 @@
+## [0.175.5](https://github.com/rodekruis/IBF-system/compare/v0.175.4...v0.175.5) (2022-08-22)
+
+
+### Bug Fixes
+
+* rm cyclone risk for now AB[#14847](https://github.com/rodekruis/IBF-system/issues/14847) ([cde2f3c](https://github.com/rodekruis/IBF-system/commit/cde2f3c2075d8f30f1099482d319f475042a44c2))
+* update flood vulnerability data AB[#14847](https://github.com/rodekruis/IBF-system/issues/14847) ([eabbdc6](https://github.com/rodekruis/IBF-system/commit/eabbdc67508fc86d04fdc061e261cba7d1d23f02))
+
+
+
 ## [0.175.4](https://github.com/rodekruis/IBF-system/compare/v0.175.3...v0.175.4) (2022-08-22)
 
 
@@ -108,19 +118,6 @@
 * handle sticky actions in mock AB[#14576](https://github.com/rodekruis/IBF-system/issues/14576) ([10685ba](https://github.com/rodekruis/IBF-system/commit/10685baf58d2f5efff339af0172276d51b721eee))
 * remove checkStickyDroughtSeason ([b2d34e0](https://github.com/rodekruis/IBF-system/commit/b2d34e0603ca29043bf0876aeaa7d8cdc419257b))
 * update UGA eap-actions AB[#14646](https://github.com/rodekruis/IBF-system/issues/14646) ([facbf11](https://github.com/rodekruis/IBF-system/commit/facbf11d7baaca6837d653de4563f8af406154f3))
-
-
-
-## [0.173.2](https://github.com/rodekruis/IBF-system/compare/v0.173.1...v0.173.2) (2022-08-08)
-
-
-### Bug Fixes
-
-* bug when switching to no-trigger drought AB[#14757](https://github.com/rodekruis/IBF-system/issues/14757) ([9e3353d](https://github.com/rodekruis/IBF-system/commit/9e3353d3fece35e556eea32493c3f615150ce1bf))
-* correctly show multiple no-trigger events AB[#14718](https://github.com/rodekruis/IBF-system/issues/14718) ([25a8d73](https://github.com/rodekruis/IBF-system/commit/25a8d739ddf975b5d92d990e5fc8a10b625861e5))
-* mention disastertype in mock interface ([94e9c91](https://github.com/rodekruis/IBF-system/commit/94e9c914f903c473b2f88b80ce3640e2971a1814))
-* trigger statements ETH KEN ([5d9ac53](https://github.com/rodekruis/IBF-system/commit/5d9ac539117c0bf226e1d54f7b7364e760c842f0))
-* trigger statements PHL ([f2f5960](https://github.com/rodekruis/IBF-system/commit/f2f596064dea9009d1e0684b1a1b31234de88d5a))
 
 
 
