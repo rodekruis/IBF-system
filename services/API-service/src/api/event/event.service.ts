@@ -460,7 +460,9 @@ export class EventService {
         endDate: LessThan(await this.getEndDate(disasterType, cutoffDate)),
       },
     });
-    eventAreas.forEach(area => (area.activeTrigger = false));
+    for await (const area of eventAreas) {
+      area.activeTrigger = false;
+    }
     await this.eventPlaceCodeRepo.save(eventAreas);
   }
 
@@ -656,15 +658,10 @@ export class EventService {
     passedDate?: Date,
   ): Promise<Date> {
     const today = passedDate || new Date();
-    console.log('today: ', today);
     const disasterTypeEntity = await this.disasterTypeRepository.findOne({
       where: { disasterType: disasterType },
       relations: ['leadTimes'],
     });
-    console.log(
-      'disasterTypeEntity: ',
-      disasterTypeEntity.leadTimes[0].leadTimeName,
-    );
     return disasterTypeEntity.leadTimes[0].leadTimeName.includes(
       LeadTimeUnit.month,
     )
