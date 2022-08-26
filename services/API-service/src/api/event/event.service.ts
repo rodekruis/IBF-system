@@ -450,16 +450,26 @@ export class EventService {
     );
     // only set records that are not updated yet in this sequence of pipeline runs (e.g. multiple events in 1 day)
     // after the 1st event this means everything is updated ..
-    // .. and from the 2nd event onwards if will not be set to activeTrigger=false again
+    // .. and from the 2nd event onwards if will not be set to activeTrigger=false again ..
     const cutoffDate = this.helperService.getLast12hourInterval(disasterType);
+    const endDate = await this.getEndDate(disasterType, cutoffDate);
 
+    // .. but only check on endDate if eventName is not null
     const eventAreas = await this.eventPlaceCodeRepo.find({
-      where: {
-        adminArea: { id: In(countryAdminAreaIds) },
-        disasterType: disasterType,
-        endDate: LessThan(await this.getEndDate(disasterType, cutoffDate)),
-      },
+      where: [
+        {
+          adminArea: { id: In(countryAdminAreaIds) },
+          disasterType: disasterType,
+          endDate: LessThan(endDate),
+        },
+        {
+          adminArea: { id: In(countryAdminAreaIds) },
+          disasterType: disasterType,
+          eventName: IsNull(),
+        },
+      ],
     });
+
     for await (const area of eventAreas) {
       area.activeTrigger = false;
     }
