@@ -1,3 +1,12 @@
+## [0.175.9](https://github.com/rodekruis/IBF-system/compare/v0.175.8...v0.175.9) (2022-08-26)
+
+
+### Bug Fixes
+
+* mwi info popups AB[#14737](https://github.com/rodekruis/IBF-system/issues/14737) ([7d720cd](https://github.com/rodekruis/IBF-system/commit/7d720cda81b2b4f471152cdfd182463f6adb3196))
+
+
+
 ## [0.175.8](https://github.com/rodekruis/IBF-system/compare/v0.175.7...v0.175.8) (2022-08-26)
 
 
@@ -94,27 +103,6 @@
 * first draft update country endpoint AB[#14659](https://github.com/rodekruis/IBF-system/issues/14659) ([e0fcfaa](https://github.com/rodekruis/IBF-system/commit/e0fcfaab400b13e94794f79d971bbeca4f7e7f16))
 * update layers and indicators via api AB[#14660](https://github.com/rodekruis/IBF-system/issues/14660) ([bc55cdf](https://github.com/rodekruis/IBF-system/commit/bc55cdf70f80943544604fbdaffc6bd28898faae))
 * update test scenarios AB[#11599](https://github.com/rodekruis/IBF-system/issues/11599) ([42d8362](https://github.com/rodekruis/IBF-system/commit/42d8362eb62e0c1122a857b9bf4024f7300f08a9))
-
-
-
-# [0.174.0](https://github.com/rodekruis/IBF-system/compare/v0.173.5...v0.174.0) (2022-08-12)
-
-
-### Bug Fixes
-
-* mock data AB[#14732](https://github.com/rodekruis/IBF-system/issues/14732) ([d36ced2](https://github.com/rodekruis/IBF-system/commit/d36ced20bec11d9bc4d619cbfd4e356985481355))
-* small eventname fix ([d2c5063](https://github.com/rodekruis/IBF-system/commit/d2c506371c47acb551f08373cca78a3e67c68319))
-
-
-### Features
-
-* add UBR layers AB[#14739](https://github.com/rodekruis/IBF-system/issues/14739) ([311ff79](https://github.com/rodekruis/IBF-system/commit/311ff797a8f057a3201e0aff8ea2cc37754f0ea9))
-* eap-actions MWI Floods AB[#14726](https://github.com/rodekruis/IBF-system/issues/14726) ([4aff160](https://github.com/rodekruis/IBF-system/commit/4aff1600e3ad5b6f0184a09d700392dc1703e125))
-* email logo AB[#14722](https://github.com/rodekruis/IBF-system/issues/14722) ([8c7af73](https://github.com/rodekruis/IBF-system/commit/8c7af73889e32d412f82d5a9792b80430a5978fa))
-* initial mock data MWI floods AB[#14732](https://github.com/rodekruis/IBF-system/issues/14732) ([0aa78c1](https://github.com/rodekruis/IBF-system/commit/0aa78c1ed7293890b3bad7eb124c84c6b1e6620e))
-* initial version static layers AB[#14845](https://github.com/rodekruis/IBF-system/issues/14845) ([cacc4ba](https://github.com/rodekruis/IBF-system/commit/cacc4ba7ecbed36c7a11ac3a0d10e2e4f7148ed3))
-* mock data UBR layers AB[#14740](https://github.com/rodekruis/IBF-system/issues/14740) ([d994c95](https://github.com/rodekruis/IBF-system/commit/d994c951dee8c0d64a72b983e6981874460cbf54))
-* set up MWI floods basic dashboard AB[#14722](https://github.com/rodekruis/IBF-system/issues/14722) ([365aa50](https://github.com/rodekruis/IBF-system/commit/365aa5071a267122f9b664aae8271d7888c650db))
 
 
 
