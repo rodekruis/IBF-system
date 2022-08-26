@@ -1,3 +1,12 @@
+## [0.175.7](https://github.com/rodekruis/IBF-system/compare/v0.175.6...v0.175.7) (2022-08-26)
+
+
+### Bug Fixes
+
+* old-event AB[#15053](https://github.com/rodekruis/IBF-system/issues/15053) ([c1a7e51](https://github.com/rodekruis/IBF-system/commit/c1a7e5176839c5de1a8a02f42482fec783a17666))
+
+
+
 ## [0.175.6](https://github.com/rodekruis/IBF-system/compare/v0.175.5...v0.175.6) (2022-08-26)
 
 
@@ -106,15 +115,6 @@
 ### Bug Fixes
 
 * update Portal URL in template AB[#14844](https://github.com/rodekruis/IBF-system/issues/14844) ([a079f0f](https://github.com/rodekruis/IBF-system/commit/a079f0f5702ffd3bf8db9b3b7dab631981c8f25f))
-
-
-
-## [0.173.4](https://github.com/rodekruis/IBF-system/compare/v0.173.3...v0.173.4) (2022-08-08)
-
-
-### Bug Fixes
-
-* eventName errors AB[#14760](https://github.com/rodekruis/IBF-system/issues/14760) ([218698c](https://github.com/rodekruis/IBF-system/commit/218698c3b90756743854e46232694e07840dd024))
 
 
 
