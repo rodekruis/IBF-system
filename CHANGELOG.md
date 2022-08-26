@@ -1,3 +1,12 @@
+## [0.175.8](https://github.com/rodekruis/IBF-system/compare/v0.175.7...v0.175.8) (2022-08-26)
+
+
+### Bug Fixes
+
+* old events AB[#15053](https://github.com/rodekruis/IBF-system/issues/15053) ([493c598](https://github.com/rodekruis/IBF-system/commit/493c5989d5fe88d695ef594aa1ebe3678ec143fe))
+
+
+
 ## [0.175.7](https://github.com/rodekruis/IBF-system/compare/v0.175.6...v0.175.7) (2022-08-26)
 
 
@@ -106,15 +115,6 @@
 * initial version static layers AB[#14845](https://github.com/rodekruis/IBF-system/issues/14845) ([cacc4ba](https://github.com/rodekruis/IBF-system/commit/cacc4ba7ecbed36c7a11ac3a0d10e2e4f7148ed3))
 * mock data UBR layers AB[#14740](https://github.com/rodekruis/IBF-system/issues/14740) ([d994c95](https://github.com/rodekruis/IBF-system/commit/d994c951dee8c0d64a72b983e6981874460cbf54))
 * set up MWI floods basic dashboard AB[#14722](https://github.com/rodekruis/IBF-system/issues/14722) ([365aa50](https://github.com/rodekruis/IBF-system/commit/365aa5071a267122f9b664aae8271d7888c650db))
-
-
-
-## [0.173.5](https://github.com/rodekruis/IBF-system/compare/v0.173.4...v0.173.5) (2022-08-12)
-
-
-### Bug Fixes
-
-* update Portal URL in template AB[#14844](https://github.com/rodekruis/IBF-system/issues/14844) ([a079f0f](https://github.com/rodekruis/IBF-system/commit/a079f0f5702ffd3bf8db9b3b7dab631981c8f25f))
 
 
 
