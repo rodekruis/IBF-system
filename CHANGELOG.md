@@ -1,3 +1,12 @@
+## [0.175.6](https://github.com/rodekruis/IBF-system/compare/v0.175.5...v0.175.6) (2022-08-26)
+
+
+### Bug Fixes
+
+* mock data ubr layers AB[#14731](https://github.com/rodekruis/IBF-system/issues/14731) ([505af9d](https://github.com/rodekruis/IBF-system/commit/505af9dab0857e51fa189a611b18c6695feb361c))
+
+
+
 ## [0.175.5](https://github.com/rodekruis/IBF-system/compare/v0.175.4...v0.175.5) (2022-08-22)
 
 
@@ -106,18 +115,6 @@
 ### Bug Fixes
 
 * eventName errors AB[#14760](https://github.com/rodekruis/IBF-system/issues/14760) ([218698c](https://github.com/rodekruis/IBF-system/commit/218698c3b90756743854e46232694e07840dd024))
-
-
-
-## [0.173.3](https://github.com/rodekruis/IBF-system/compare/v0.173.2...v0.173.3) (2022-08-08)
-
-
-### Bug Fixes
-
-* handle sticky actions in frontend AB[#14576](https://github.com/rodekruis/IBF-system/issues/14576) ([8577967](https://github.com/rodekruis/IBF-system/commit/8577967a8f761aadb0d58ec8154c1379c64b6ad2))
-* handle sticky actions in mock AB[#14576](https://github.com/rodekruis/IBF-system/issues/14576) ([10685ba](https://github.com/rodekruis/IBF-system/commit/10685baf58d2f5efff339af0172276d51b721eee))
-* remove checkStickyDroughtSeason ([b2d34e0](https://github.com/rodekruis/IBF-system/commit/b2d34e0603ca29043bf0876aeaa7d8cdc419257b))
-* update UGA eap-actions AB[#14646](https://github.com/rodekruis/IBF-system/issues/14646) ([facbf11](https://github.com/rodekruis/IBF-system/commit/facbf11d7baaca6837d653de4563f8af406154f3))
 
 
 
