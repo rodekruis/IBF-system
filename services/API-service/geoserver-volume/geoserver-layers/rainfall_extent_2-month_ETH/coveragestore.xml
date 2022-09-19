@@ -1,6 +1,6 @@
 <coverageStore>
   <id>CoverageStoreInfoImpl-5ef537a5:180cc991e86:-7fcd</id>
-  <name>rainfall_extent_2-month_ETH</name>
+  <name>rainfall_forecast_2-month_ETH</name>
   <type>GeoTIFF</type>
   <enabled>true</enabled>
   <workspace>

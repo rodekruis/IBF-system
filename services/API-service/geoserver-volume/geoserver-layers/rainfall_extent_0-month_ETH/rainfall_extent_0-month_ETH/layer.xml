@@ -1,9 +1,9 @@
 <layer>
-  <name>rainfall_extent_0-month_ETH</name>
+  <name>rainfall_forecast_0-month_ETH</name>
   <id>LayerInfoImpl-5ef537a5:180cc991e86:-7ff4</id>
   <type>RASTER</type>
   <defaultStyle>
-    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
+    <id>StyleInfoImpl-5253576a:183547efa37:-7f65</id>
   </defaultStyle>
   <resource class="coverage">
     <id>CoverageInfoImpl-5ef537a5:180cc991e86:-7ff5</id>
@@ -13,4 +13,5 @@
     <logoHeight>0</logoHeight>
   </attribution>
   <dateCreated>2022-05-16 11:34:25.818 UTC</dateCreated>
+  <dateModified>2022-09-19 11:37:56.460 UTC</dateModified>
 </layer>

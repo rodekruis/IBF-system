@@ -1,11 +1,11 @@
 <coverage>
   <id>CoverageInfoImpl-5ef537a5:180cc991e86:-7ff5</id>
-  <name>rainfall_extent_0-month_ETH</name>
-  <nativeName>rainfall_extent_0-month_ETH</nativeName>
+  <name>rainfall_forecast_0-month_ETH</name>
+  <nativeName>rainfall_forecast_0-month_ETH</nativeName>
   <namespace>
     <id>NamespaceInfoImpl-48cab08a:175ace47603:-7ffa</id>
   </namespace>
-  <title>rainfall_extent_0-month_ETH</title>
+  <title>rainfall_forecast_0-month_ETH</title>
   <description>Generated from GeoTIFF</description>
   <keywords>
     <string>rain_rp_0-month_ETH</string>
@@ -46,7 +46,7 @@
       </directDownloadSettings>
     </entry>
     <entry key="cachingEnabled">false</entry>
-    <entry key="dirName">rainfall_extent_0-month_ETH_rain_rp_0-month_ETH</entry>
+    <entry key="dirName">rainfall_forecast_0-month_ETH_rain_rp_0-month_ETH</entry>
   </metadata>
   <store class="coverageStore">
     <id>CoverageStoreInfoImpl-5ef537a5:180cc991e86:-7ff6</id>
@@ -106,16 +106,16 @@
   </responseSRS>
   <parameters>
     <entry>
+      <string>RescalePixels</string>
+      <boolean>true</boolean>
+    </entry>
+    <entry>
       <string>InputTransparentColor</string>
       <null/>
     </entry>
     <entry>
       <string>SUGGESTED_TILE_SIZE</string>
       <string>512,512</string>
-    </entry>
-    <entry>
-      <string>RescalePixels</string>
-      <boolean>true</boolean>
     </entry>
   </parameters>
   <nativeCoverageName>rain_rp_0-month_ETH</nativeCoverageName>
