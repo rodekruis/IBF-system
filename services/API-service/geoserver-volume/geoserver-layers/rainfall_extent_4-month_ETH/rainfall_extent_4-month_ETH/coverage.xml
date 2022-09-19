@@ -1,11 +1,11 @@
 <coverage>
   <id>CoverageInfoImpl-5ef537a5:180cc991e86:-7fc6</id>
-  <name>rainfall_extent_4-month_ETH</name>
-  <nativeName>rainfall_extent_4-month_ETH</nativeName>
+  <name>rainfall_forecast_4-month_ETH</name>
+  <nativeName>rainfall_forecast_4-month_ETH</nativeName>
   <namespace>
     <id>NamespaceInfoImpl-48cab08a:175ace47603:-7ffa</id>
   </namespace>
-  <title>rainfall_extent_4-month_ETH</title>
+  <title>rainfall_forecast_4-month_ETH</title>
   <description>Generated from GeoTIFF</description>
   <keywords>
     <string>rain_rp_4-month_ETH</string>
@@ -46,7 +46,7 @@
       </directDownloadSettings>
     </entry>
     <entry key="cachingEnabled">false</entry>
-    <entry key="dirName">rainfall_extent_4-month_ETH_rain_rp_4-month_ETH</entry>
+    <entry key="dirName">rainfall_forecast_4-month_ETH_rain_rp_4-month_ETH</entry>
   </metadata>
   <store class="coverageStore">
     <id>CoverageStoreInfoImpl-5ef537a5:180cc991e86:-7fc7</id>
