@@ -8,11 +8,13 @@
       [title]="
         ('aggregates-component.header-title-prefix' | translate) +
         ' ' +
-        getHeaderLabel()
+        getNumberAreasExposed() +
+        ' ' +
+        getLabelAreasExposed()
       "
     >
       <ion-label class="aggregate-header-item-label">
-        {{ getHeaderLabel() }}
+        <span class="aggregate-header-item-number">{{ getNumberAreasExposed() }}</span> {{ getLabelAreasExposed() }}
       </ion-label>
       <ion-button
         slot="end"
