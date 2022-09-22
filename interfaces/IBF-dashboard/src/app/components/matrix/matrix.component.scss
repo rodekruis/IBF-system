@@ -7,25 +7,15 @@
 
   ion-menu {
     --width: 100%;
-    --background: transparent;
 
     ion-content {
-      --background: transparent;
-
       ion-list {
-        background: var(--ion-color-dark-tint);
-
         ion-item {
           --min-height: 32px;
           --inner-padding-end: 0;
-          --background: var(--ion-color-dark-tint);
-          --color: var(--ion-color-light);
-          --border-color: var(--ion-color-light);
-          cursor: pointer;
+          --border-color: var(--ion-color-ibf-no-alert-primary);
 
-          &.layer-active {
-            --background: var(--ion-color-ibf-primary);
-          }
+          cursor: pointer;
 
           ion-row {
             height: 100%;
@@ -36,6 +26,7 @@
             }
 
             .point-layer {
+              background-color: var(--ion-color-ibf-no-alert-tertiary);
               background-repeat: no-repeat;
               background-position: center;
               background-size: contain;
@@ -65,11 +56,7 @@
             }
 
             .layer-control-label-col {
-              border-right: 1px solid var(--ion-color-light);
-
               ion-item {
-                --background: transparent;
-
                 ion-label {
                   text-transform: capitalize;
                   line-height: 1.2;
@@ -79,12 +66,7 @@
               }
             }
 
-            .layer-control-legend-col {
-              border-right: 1px solid var(--ion-color-light);
-            }
-
             .layer-control-info-icon {
-              background: var(--ion-color-ibf-primary);
               border-radius: 5px;
             }
           }
