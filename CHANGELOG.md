@@ -1,3 +1,18 @@
+# [0.178.0](https://github.com/rodekruis/IBF-system/compare/v0.177.0...v0.178.0) (2022-09-23)
+
+
+### Bug Fixes
+
+* up/down expand arrows AB[#15395](https://github.com/rodekruis/IBF-system/issues/15395) ([010be12](https://github.com/rodekruis/IBF-system/commit/010be12f8ec5ef91a0edd481f4d0a58fe917d8d0))
+
+
+### Features
+
+* change colors AB[#15312](https://github.com/rodekruis/IBF-system/issues/15312) ([5d5f42a](https://github.com/rodekruis/IBF-system/commit/5d5f42a14f0b332dcaf7e8a02d5ee9cd56c8a3d4))
+* move indicator left AB[#15302](https://github.com/rodekruis/IBF-system/issues/15302) ([76d1589](https://github.com/rodekruis/IBF-system/commit/76d1589b5ed9263f93c32157cf1bbb1169d51467))
+
+
+
 # [0.177.0](https://github.com/rodekruis/IBF-system/compare/v0.176.1...v0.177.0) (2022-09-23)
 
 
@@ -82,15 +97,6 @@
 
 * rm cyclone risk for now AB[#14847](https://github.com/rodekruis/IBF-system/issues/14847) ([cde2f3c](https://github.com/rodekruis/IBF-system/commit/cde2f3c2075d8f30f1099482d319f475042a44c2))
 * update flood vulnerability data AB[#14847](https://github.com/rodekruis/IBF-system/issues/14847) ([eabbdc6](https://github.com/rodekruis/IBF-system/commit/eabbdc67508fc86d04fdc061e261cba7d1d23f02))
-
-
-
-## [0.175.4](https://github.com/rodekruis/IBF-system/compare/v0.175.3...v0.175.4) (2022-08-22)
-
-
-### Bug Fixes
-
-* small update to email template ([908dfa5](https://github.com/rodekruis/IBF-system/commit/908dfa58be5edfa08969d277ed68efaf532c57af))
 
 
 
