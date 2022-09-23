@@ -1,3 +1,12 @@
+# [0.177.0](https://github.com/rodekruis/IBF-system/compare/v0.176.1...v0.177.0) (2022-09-23)
+
+
+### Features
+
+* freeze table header AB[#15314](https://github.com/rodekruis/IBF-system/issues/15314) ([5d69ff3](https://github.com/rodekruis/IBF-system/commit/5d69ff35a014c9613a033987932a8497bd4cff9c))
+
+
+
 ## [0.176.1](https://github.com/rodekruis/IBF-system/compare/v0.176.0...v0.176.1) (2022-09-23)
 
 
@@ -82,16 +91,6 @@
 ### Bug Fixes
 
 * small update to email template ([908dfa5](https://github.com/rodekruis/IBF-system/commit/908dfa58be5edfa08969d277ed68efaf532c57af))
-
-
-
-## [0.175.3](https://github.com/rodekruis/IBF-system/compare/v0.175.2...v0.175.3) (2022-08-19)
-
-
-### Bug Fixes
-
-* remove 1 station AB[#14731](https://github.com/rodekruis/IBF-system/issues/14731) ([381b68b](https://github.com/rodekruis/IBF-system/commit/381b68b05a621840babab24801b584c3e5493222))
-* update mock data mwi floods AB[#14731](https://github.com/rodekruis/IBF-system/issues/14731) ([7c93c10](https://github.com/rodekruis/IBF-system/commit/7c93c10339ac04c55108107708a3381f3753ad13))
 
 
 
