@@ -209,7 +209,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     );
   }
 
-  public getHeaderLabel() {
+  public getLabelAreasExposed() {
     let headerLabel = this.defaultHeaderLabel;
 
     const placeCode = this.placeCode || this.placeCodeHover;
@@ -222,9 +222,29 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           const adminAreaLabel = this.country.adminRegionLabels[
             this.adminLevelService.adminLevel
           ][areaCount > 1 ? 'plural' : 'singular'];
-          headerLabel = `${areaCount} ${this.exposedPrefix} ${adminAreaLabel}`;
+          headerLabel = `${this.exposedPrefix} ${adminAreaLabel}`;
         } else {
           headerLabel = `${this.allPrefix} ${this.country.countryName}`;
+        }
+      }
+    }
+
+    return headerLabel;
+  }
+
+  public getNumberAreasExposed() {
+    let headerLabel;
+
+    const placeCode = this.placeCode || this.placeCodeHover;
+    if (placeCode) {
+      headerLabel = '';
+    } else {
+      if (this.country) {
+        if (this.eventState?.activeTrigger) {
+          const areaCount = this.aggregatesService.nrTriggeredAreas;
+          headerLabel = `${areaCount}`;
+        } else {
+          headerLabel = '';
         }
       }
     }
