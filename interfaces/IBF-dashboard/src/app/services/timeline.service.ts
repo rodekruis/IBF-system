@@ -131,7 +131,7 @@ export class TimelineService {
     } else {
       this.state.today = DateTime.now();
     }
-    // SIMULATE: change this to simulate different months (only in chat-component)
+    // SIMULATE: change this to simulate different months
     // const addMonthsToCurrentDate = -1;
     // this.state.today = this.state.today.plus({
     //   months: addMonthsToCurrentDate,
@@ -339,6 +339,24 @@ export class TimelineService {
     }
   }
 
+  private shiftYear = (monthNumber: number) => {
+    // Make sure you start counting the year at the beginning of (one of the) seasons, instead of at January
+    // so that 'month > currentMonth' does not break on a season like [12,1,2]
+    const seasonRegions = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastSeasons;
+    let seasonBeginnings = [];
+    for (const region of Object.values(seasonRegions)) {
+      seasonBeginnings.push(
+        Object.values(region)
+          .map((season) => season.rainMonths)
+          .map((month) => month[0]),
+      );
+    }
+    seasonBeginnings = seasonBeginnings.map((s) => s[0]);
+    return (monthNumber + 12 - seasonBeginnings[0]) % 12;
+  };
+
   private getNextForecastMonth(): DateTime {
     let todayLeadTime = this.state.today;
     if (
@@ -353,7 +371,16 @@ export class TimelineService {
 
     let forecastMonthNumbers = [];
     for (const season of this.getRainMonths()) {
-      const filteredSeason = season.filter((month) => month >= currentMonth);
+      let filteredSeason;
+      if (season.includes(currentMonth)) {
+        filteredSeason = season.filter((month) => {
+          const shiftedMonth = this.shiftYear(month);
+          const shiftedCurrentMonth = this.shiftYear(currentMonth);
+          return shiftedMonth >= shiftedCurrentMonth;
+        });
+      } else {
+        filteredSeason = season;
+      }
       forecastMonthNumbers = [...forecastMonthNumbers, ...filteredSeason];
     }
 
@@ -388,7 +415,7 @@ export class TimelineService {
     return DateTime.utc(leadTimeMonth.year, leadTimeMonth.month, 1);
   }
 
-  private getRainMonths = (): [][] => {
+  private getRainMonths = (): number[][] => {
     const rainMonthsKey = 'rainMonths';
     const rainMonths = [];
     for (const area of Object.values(
