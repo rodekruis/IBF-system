@@ -4,9 +4,9 @@
     [class.ion-hide]="hideLayerControlToggleButton"
   >
     <ion-header>
-      <ion-toolbar color="ibf-primary">
+      <ion-toolbar color="ibf-no-alert-primary">
         <ion-buttons slot="end">
-          <ion-icon name="chevron-back-outline"></ion-icon>
+          <ion-icon name="chevron-down-outline"></ion-icon>
         </ion-buttons>
         <ion-title data-test="layers-toggle">Layers</ion-title>
       </ion-toolbar>
@@ -23,33 +23,25 @@
   >
     <ion-menu-toggle menu="layer-control">
       <ion-header>
-        <ion-toolbar color="ibf-primary">
+        <ion-toolbar color="ibf-no-alert-primary">
           <ion-buttons slot="end">
-            <ion-icon name="chevron-forward-outline"></ion-icon>
+            <ion-icon name="chevron-up-outline"></ion-icon>
           </ion-buttons>
           <ion-title>Layers</ion-title>
         </ion-toolbar>
       </ion-header>
     </ion-menu-toggle>
     <ion-content>
-      <ion-list color="dark" class="ion-no-padding">
+      <ion-list class="ion-no-padding">
         <ion-item
           lines="full"
           *ngFor="let layer of getLayersInOrder()"
           [class.ion-hide]="!layer.show"
-          [class.layer-active]="layer.active"
           (click)="toggleLayer(layer)"
           class="ion-no-padding"
           [title]="layer.label"
         >
           <ion-row>
-            <ion-col size="8" class="layer-control-label-col">
-              <ion-item lines="none" class="ion-no-padding">
-                <ion-label class="ion-no-margin" [title]="layer.label">
-                  {{ layer.label }}
-                </ion-label>
-              </ion-item>
-            </ion-col>
             <ion-col
               size="2"
               class="layer-control-legend-col"
@@ -77,20 +69,46 @@
               [class.outline-layer]="
                 layer.name === IbfLayerName.alertThreshold && layer.active
               "
-              [style.background]="layer.active ? layer.legendColor : null"
+              [style.background]="
+                layer.active
+                  ? layer.legendColor
+                  : 'var(--ion-color-ibf-no-alert-tertiary)'
+              "
             ></ion-col>
+            <ion-col size="8" class="layer-control-label-col">
+              <ion-item
+                lines="none"
+                class="ion-no-padding"
+                [color]="layer.active ? 'ibf-no-alert-primary' : 'ibf-white'"
+              >
+                <ion-label class="ion-no-margin" [title]="layer.label">
+                  {{ layer.label }}
+                </ion-label>
+              </ion-item>
+            </ion-col>
             <ion-col
               size="2"
               class="layer-control-info-col ion-align-items-center ion-justify-content-center"
             >
-              <ion-icon
-                name="information-circle"
-                size="large"
-                color="light"
-                class="layer-control-info-icon"
-                (click)="presentPopover($event, layer)"
-                data-test="matrix-icon"
-              ></ion-icon>
+              <ion-item
+                lines="none"
+                class="ion-no-padding"
+                [color]="layer.active ? 'ibf-no-alert-primary' : 'ibf-white'"
+                style="width: 100%"
+              >
+                <ion-icon
+                  [color]="layer.active ? 'ibf-white' : 'ibf-no-alert-primary'"
+                  [name]="
+                    layer.active
+                      ? 'information-circle'
+                      : 'information-circle-outline'
+                  "
+                  size="large"
+                  class="layer-control-info-icon"
+                  (click)="presentPopover($event, layer)"
+                  data-test="matrix-icon"
+                ></ion-icon>
+              </ion-item>
             </ion-col>
           </ion-row>
         </ion-item>
