@@ -1,3 +1,14 @@
+# [0.179.0](https://github.com/rodekruis/IBF-system/compare/v0.178.0...v0.179.0) (2022-09-23)
+
+
+### Features
+
+* resize and move inner icon AB[#15308](https://github.com/rodekruis/IBF-system/issues/15308) ([f25c1d9](https://github.com/rodekruis/IBF-system/commit/f25c1d98d52797fce06e2afae879f99ff4c003bf))
+* update glofas-no icon AB[#15308](https://github.com/rodekruis/IBF-system/issues/15308) AB[#15310](https://github.com/rodekruis/IBF-system/issues/15310) ([069e34e](https://github.com/rodekruis/IBF-system/commit/069e34e06ed1f42ab6fe2aa2c8044b6a9452b833))
+* update popover AB[#15311](https://github.com/rodekruis/IBF-system/issues/15311) ([d778fab](https://github.com/rodekruis/IBF-system/commit/d778fabfe5e0acaba6e40a1e1fe085d00e65c0c0))
+
+
+
 # [0.178.0](https://github.com/rodekruis/IBF-system/compare/v0.177.0...v0.178.0) (2022-09-23)
 
 
@@ -87,16 +98,6 @@
 ### Bug Fixes
 
 * mock data ubr layers AB[#14731](https://github.com/rodekruis/IBF-system/issues/14731) ([505af9d](https://github.com/rodekruis/IBF-system/commit/505af9dab0857e51fa189a611b18c6695feb361c))
-
-
-
-## [0.175.5](https://github.com/rodekruis/IBF-system/compare/v0.175.4...v0.175.5) (2022-08-22)
-
-
-### Bug Fixes
-
-* rm cyclone risk for now AB[#14847](https://github.com/rodekruis/IBF-system/issues/14847) ([cde2f3c](https://github.com/rodekruis/IBF-system/commit/cde2f3c2075d8f30f1099482d319f475042a44c2))
-* update flood vulnerability data AB[#14847](https://github.com/rodekruis/IBF-system/issues/14847) ([eabbdc6](https://github.com/rodekruis/IBF-system/commit/eabbdc67508fc86d04fdc061e261cba7d1d23f02))
 
 
 
