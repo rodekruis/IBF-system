@@ -1,3 +1,12 @@
+## [0.176.1](https://github.com/rodekruis/IBF-system/compare/v0.176.0...v0.176.1) (2022-09-23)
+
+
+### Bug Fixes
+
+* only filter seasons if currently in middle of a season AB[#15392](https://github.com/rodekruis/IBF-system/issues/15392) ([ae0b402](https://github.com/rodekruis/IBF-system/commit/ae0b40266a6efa012cf27dd2a7eada95b0448351))
+
+
+
 # [0.176.0](https://github.com/rodekruis/IBF-system/compare/v0.175.10...v0.176.0) (2022-09-23)
 
 
@@ -83,15 +92,6 @@
 
 * remove 1 station AB[#14731](https://github.com/rodekruis/IBF-system/issues/14731) ([381b68b](https://github.com/rodekruis/IBF-system/commit/381b68b05a621840babab24801b584c3e5493222))
 * update mock data mwi floods AB[#14731](https://github.com/rodekruis/IBF-system/issues/14731) ([7c93c10](https://github.com/rodekruis/IBF-system/commit/7c93c10339ac04c55108107708a3381f3753ad13))
-
-
-
-## [0.175.2](https://github.com/rodekruis/IBF-system/compare/v0.175.1...v0.175.2) (2022-08-19)
-
-
-### Bug Fixes
-
-* geoserver layer pointing to mock-output instead of output AB[#14730](https://github.com/rodekruis/IBF-system/issues/14730) ([ed3755f](https://github.com/rodekruis/IBF-system/commit/ed3755fee9aee59639f0524d547d8c0ab971a90a))
 
 
 
