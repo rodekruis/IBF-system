@@ -1,3 +1,17 @@
+# [0.176.0](https://github.com/rodekruis/IBF-system/compare/v0.175.10...v0.176.0) (2022-09-23)
+
+
+### Bug Fixes
+
+* use standard colors AB[#15313](https://github.com/rodekruis/IBF-system/issues/15313) ([4c9eaf0](https://github.com/rodekruis/IBF-system/commit/4c9eaf02023fa2c3900a6b652f108f834d3c1e2e))
+
+
+### Features
+
+* emphasize nr of exposed areas AB[#15313](https://github.com/rodekruis/IBF-system/issues/15313) ([deae7a3](https://github.com/rodekruis/IBF-system/commit/deae7a32bb33c82e05f65b887f632f33b36e4344))
+
+
+
 ## [0.175.10](https://github.com/rodekruis/IBF-system/compare/v0.175.9...v0.175.10) (2022-09-19)
 
 
@@ -78,17 +92,6 @@
 ### Bug Fixes
 
 * geoserver layer pointing to mock-output instead of output AB[#14730](https://github.com/rodekruis/IBF-system/issues/14730) ([ed3755f](https://github.com/rodekruis/IBF-system/commit/ed3755fee9aee59639f0524d547d8c0ab971a90a))
-
-
-
-## [0.175.1](https://github.com/rodekruis/IBF-system/compare/v0.175.0...v0.175.1) (2022-08-19)
-
-
-### Bug Fixes
-
-* glofas station coordinates AB[#14722](https://github.com/rodekruis/IBF-system/issues/14722) ([b2d76b6](https://github.com/rodekruis/IBF-system/commit/b2d76b62369b2e581cab67cbc7117d3e58fa840c))
-* glofas station coordinates AB[#14722](https://github.com/rodekruis/IBF-system/issues/14722) ([8fba973](https://github.com/rodekruis/IBF-system/commit/8fba9736400258aedc7ca29160eef2104d153904))
-* process mwi floods layers AB[#14735](https://github.com/rodekruis/IBF-system/issues/14735) ([ec53114](https://github.com/rodekruis/IBF-system/commit/ec531149337ef802bc66cc4a2a4fa42df078480e))
 
 
 
