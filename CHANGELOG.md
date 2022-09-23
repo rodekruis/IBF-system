@@ -1,3 +1,35 @@
+## [0.176.1](https://github.com/rodekruis/IBF-system/compare/v0.176.0...v0.176.1) (2022-09-23)
+
+
+### Bug Fixes
+
+* only filter seasons if currently in middle of a season AB[#15392](https://github.com/rodekruis/IBF-system/issues/15392) ([ae0b402](https://github.com/rodekruis/IBF-system/commit/ae0b40266a6efa012cf27dd2a7eada95b0448351))
+
+
+
+# [0.176.0](https://github.com/rodekruis/IBF-system/compare/v0.175.10...v0.176.0) (2022-09-23)
+
+
+### Bug Fixes
+
+* use standard colors AB[#15313](https://github.com/rodekruis/IBF-system/issues/15313) ([4c9eaf0](https://github.com/rodekruis/IBF-system/commit/4c9eaf02023fa2c3900a6b652f108f834d3c1e2e))
+
+
+### Features
+
+* emphasize nr of exposed areas AB[#15313](https://github.com/rodekruis/IBF-system/issues/15313) ([deae7a3](https://github.com/rodekruis/IBF-system/commit/deae7a32bb33c82e05f65b887f632f33b36e4344))
+
+
+
+## [0.175.10](https://github.com/rodekruis/IBF-system/compare/v0.175.9...v0.175.10) (2022-09-19)
+
+
+### Bug Fixes
+
+* rainfall extent style eth drought AB[#15289](https://github.com/rodekruis/IBF-system/issues/15289) ([dde6af6](https://github.com/rodekruis/IBF-system/commit/dde6af62a8eb629a8bb27b7a678fb50df0ec1534))
+
+
+
 ## [0.175.9](https://github.com/rodekruis/IBF-system/compare/v0.175.8...v0.175.9) (2022-08-26)
 
 
@@ -60,49 +92,6 @@
 
 * remove 1 station AB[#14731](https://github.com/rodekruis/IBF-system/issues/14731) ([381b68b](https://github.com/rodekruis/IBF-system/commit/381b68b05a621840babab24801b584c3e5493222))
 * update mock data mwi floods AB[#14731](https://github.com/rodekruis/IBF-system/issues/14731) ([7c93c10](https://github.com/rodekruis/IBF-system/commit/7c93c10339ac04c55108107708a3381f3753ad13))
-
-
-
-## [0.175.2](https://github.com/rodekruis/IBF-system/compare/v0.175.1...v0.175.2) (2022-08-19)
-
-
-### Bug Fixes
-
-* geoserver layer pointing to mock-output instead of output AB[#14730](https://github.com/rodekruis/IBF-system/issues/14730) ([ed3755f](https://github.com/rodekruis/IBF-system/commit/ed3755fee9aee59639f0524d547d8c0ab971a90a))
-
-
-
-## [0.175.1](https://github.com/rodekruis/IBF-system/compare/v0.175.0...v0.175.1) (2022-08-19)
-
-
-### Bug Fixes
-
-* glofas station coordinates AB[#14722](https://github.com/rodekruis/IBF-system/issues/14722) ([b2d76b6](https://github.com/rodekruis/IBF-system/commit/b2d76b62369b2e581cab67cbc7117d3e58fa840c))
-* glofas station coordinates AB[#14722](https://github.com/rodekruis/IBF-system/issues/14722) ([8fba973](https://github.com/rodekruis/IBF-system/commit/8fba9736400258aedc7ca29160eef2104d153904))
-* process mwi floods layers AB[#14735](https://github.com/rodekruis/IBF-system/issues/14735) ([ec53114](https://github.com/rodekruis/IBF-system/commit/ec531149337ef802bc66cc4a2a4fa42df078480e))
-
-
-
-# [0.175.0](https://github.com/rodekruis/IBF-system/compare/v0.174.0...v0.175.0) (2022-08-19)
-
-
-### Bug Fixes
-
-* make endpoint work AB[#14659](https://github.com/rodekruis/IBF-system/issues/14659) ([efc848f](https://github.com/rodekruis/IBF-system/commit/efc848ffcf59b4bd9cc2ce31839c1a99f1a7e47c))
-* remove breaking spec files as unused anyway ([a4d72f9](https://github.com/rodekruis/IBF-system/commit/a4d72f9788e2e5b4bac37118801d1a424c175a0a))
-* rename country_codes to camelcase AB[#14659](https://github.com/rodekruis/IBF-system/issues/14659) ([95ee1bf](https://github.com/rodekruis/IBF-system/commit/95ee1bf124e4c85d90561bf06223217e44c4f96c))
-* rm unused columns AB[#14659](https://github.com/rodekruis/IBF-system/issues/14659) ([dcb910b](https://github.com/rodekruis/IBF-system/commit/dcb910b395e1d8826218f865951b7159c9fca39f))
-* set role to admin-only for now AB[#14659](https://github.com/rodekruis/IBF-system/issues/14659) ([2e068f8](https://github.com/rodekruis/IBF-system/commit/2e068f8e67ee8ff891ebc6b559e40af88889c5eb))
-* small changes test scenarios AB[#11599](https://github.com/rodekruis/IBF-system/issues/11599) ([c99f5c3](https://github.com/rodekruis/IBF-system/commit/c99f5c32205220482a6a082efffe121cdc8d2386))
-* update xlsx readme ([eac8fcd](https://github.com/rodekruis/IBF-system/commit/eac8fcdad68e4d71e1543fbb5a87ff74c40e4550))
-
-
-### Features
-
-* endpoint to add/update admin-boundaries AB[#14662](https://github.com/rodekruis/IBF-system/issues/14662) ([d347a43](https://github.com/rodekruis/IBF-system/commit/d347a4397e0ec0b0952814d58e9264234ab5c590))
-* first draft update country endpoint AB[#14659](https://github.com/rodekruis/IBF-system/issues/14659) ([e0fcfaa](https://github.com/rodekruis/IBF-system/commit/e0fcfaab400b13e94794f79d971bbeca4f7e7f16))
-* update layers and indicators via api AB[#14660](https://github.com/rodekruis/IBF-system/issues/14660) ([bc55cdf](https://github.com/rodekruis/IBF-system/commit/bc55cdf70f80943544604fbdaffc6bd28898faae))
-* update test scenarios AB[#11599](https://github.com/rodekruis/IBF-system/issues/11599) ([42d8362](https://github.com/rodekruis/IBF-system/commit/42d8362eb62e0c1122a857b9bf4024f7300f08a9))
 
 
 

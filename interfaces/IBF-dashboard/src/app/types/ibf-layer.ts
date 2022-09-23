@@ -56,6 +56,7 @@ export enum IbfLayerName {
   waterpoints = 'waterpoints',
   floodExtent = 'flood_extent',
   rainfallExtent = 'rainfall_extent',
+  rainfallForecast = 'rainfall_forecast',
   population = 'population',
   adminRegions = 'adminRegions',
   adminRegions1 = 'adminRegions1',

@@ -865,9 +865,11 @@
       "rainfall_extent": {
         "EGY": {
           "heavy-rain": "Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset.<br><br>The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
-        },
+        }
+      },
+      "rainfall_forecast": {
         "ETH": {
-          "drought": "The rainfall map layer indicates the sesonal forecasting rainfall data for the oods within a return period depending on the EAP (for example 20-years) based on a global hydrological model.<br /><br />Source link: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+          "drought": "The rainfall map layer indicates the seasonal forecasting rainfall data for the floods within a return period depending on the EAP (for example 20-years) based on a global hydrological model.<br /><br />For the legend see <a href='https://www.icpac.net/seasonal-forecast/'>https://www.icpac.net/seasonal-forecast/</a><br /><br />Source link: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
         }
       },
       "red_crescent_branches": {

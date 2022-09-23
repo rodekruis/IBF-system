@@ -740,7 +740,7 @@ export class ScriptsService {
         destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
       } else if (disasterType === DisasterType.Drought) {
         // Use 0-month mock for every lead-time
-        sourceFileName = `rainfall_extent_0-month_${
+        sourceFileName = `rainfall_forecast_0-month_${
           selectedCountry.countryCodeISO3
         }${triggered ? '-triggered' : ''}.tif`;
         destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;

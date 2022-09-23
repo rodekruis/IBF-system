@@ -10,14 +10,24 @@
     "active": "if-trigger"
   },
   {
-    "countryCodes": "EGY,ETH",
-    "disasterTypes": ["heavy-rain", "drought"],
+    "countryCodes": "EGY",
+    "disasterTypes": ["heavy-rain"],
     "name": "rainfall_extent",
     "label": "Rainfall extent",
     "type": "wms",
     "legendColor": "#d7301f",
     "leadTimeDependent": true,
     "active": "yes"
+  },
+  {
+    "countryCodes": "ETH",
+    "disasterTypes": ["drought"],
+    "name": "rainfall_forecast",
+    "label": "Rainfall forecast",
+    "type": "wms",
+    "legendColor": "#ff8d00",
+    "leadTimeDependent": true,
+    "active": "no"
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI",
