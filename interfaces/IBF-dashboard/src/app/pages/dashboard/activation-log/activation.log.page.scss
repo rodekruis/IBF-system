@@ -1,12 +1,25 @@
-.activation-log-container {
-  overflow: auto;
+#table-header {
+  position: fixed;
+  opacity: 1;
+  z-index: 9999;
+  background-color: #fff;
+  width: fit-content;
 }
 
-th,
-td {
+#table-body {
+  margin-top: 48px;
+  width: fit-content;
+}
+
+.table-row {
+  height: 48px;
+}
+
+.table-cell {
   padding: 8px;
   border: 1px solid var(--ion-color-ibf-grey);
   text-align: left;
   word-break: break-all;
   font-size: 10px;
+  width: 7vw;
 }
