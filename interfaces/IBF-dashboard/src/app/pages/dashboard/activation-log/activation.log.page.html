@@ -22,6 +22,14 @@
       id="table-header"
       class="ion-no-padding"
     >
+      <ion-button
+        size="small"
+        color="ibf-primary"
+        class="ion-margin-vertical"
+        (click)="copyToClipboard()"
+      >
+        {{ 'activation-page.copy-to-clipboard' | translate }}
+      </ion-button>
       <ion-row class="table-row">
         <ion-col
           *ngFor="let header of activationLogs['headerData']"
