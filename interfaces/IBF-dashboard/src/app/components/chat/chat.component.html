@@ -220,7 +220,11 @@
           "
         ></p>
         <ul>
-          <li *ngFor="let area of stoppedAreas">
+          <li
+            *ngFor="let area of stoppedAreas"
+            class="clickable-area"
+            (click)="selectArea(area)"
+          >
             <p>
               {{ area.name }} (<span
                 *ngIf="actionIndicatorNumberFormat === 'decimal0'"
