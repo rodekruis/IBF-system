@@ -69,7 +69,7 @@
   },
   "chat-component": {
     "generic": {
-      "revert-selection": "Back to all areas"
+      "revert-selection": "All"
     },
     "floods": {
       "about-button-label": "About Trigger",

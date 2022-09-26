@@ -248,6 +248,18 @@
         [isConnected]="true"
         [isStopped]="true"
       >
+        <ion-button
+          *ngIf="placeCode"
+          (click)="revertAreaSelection()"
+          color="ibf-primary"
+          size="small"
+          class="ion-float-right"
+        >
+          <span class="ion-hide-sm-down">{{
+            'chat-component.generic.revert-selection' | translate
+          }}</span>
+          <ion-icon name="arrow-back" slot="start"></ion-icon>
+        </ion-button>
         <p
           [innerHTML]="
             'chat-component.' + disasterTypeName + '.stopped-event.area'
@@ -260,17 +272,6 @@
                   }
           "
         ></p>
-        <ion-button
-          *ngIf="placeCode"
-          (click)="revertAreaSelection()"
-          color="ibf-primary"
-          expand="block"
-        >
-          <span class="ion-hide-sm-down">{{
-            'chat-component.generic.revert-selection' | translate
-          }}</span>
-          <ion-icon name="arrow-back" slot="start"></ion-icon>
-        </ion-button>
       </app-dialogue-turn>
     </ng-container>
     <app-dialogue-turn
@@ -283,7 +284,8 @@
         *ngIf="placeCode"
         (click)="revertAreaSelection()"
         color="ibf-primary"
-        expand="block"
+        size="small"
+        class="ion-float-right"
       >
         <span class="ion-hide-sm-down">{{
           'chat-component.generic.revert-selection' | translate
