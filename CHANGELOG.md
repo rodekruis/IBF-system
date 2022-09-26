@@ -1,3 +1,17 @@
+# [0.181.0](https://github.com/rodekruis/IBF-system/compare/v0.180.1...v0.181.0) (2022-09-26)
+
+
+### Bug Fixes
+
+* make goal of copying clear AB[#15409](https://github.com/rodekruis/IBF-system/issues/15409) ([bbf46a7](https://github.com/rodekruis/IBF-system/commit/bbf46a737ab87e86f279f41b95eed3537f72db52))
+
+
+### Features
+
+* order activation log by start date desc AB[#15410](https://github.com/rodekruis/IBF-system/issues/15410) ([2535f39](https://github.com/rodekruis/IBF-system/commit/2535f393d4f0d67a9c1e1a1a7f31b0586f28f69e))
+
+
+
 ## [0.180.1](https://github.com/rodekruis/IBF-system/compare/v0.180.0...v0.180.1) (2022-09-26)
 
 
@@ -90,15 +104,6 @@
 ### Bug Fixes
 
 * mwi info popups AB[#14737](https://github.com/rodekruis/IBF-system/issues/14737) ([7d720cd](https://github.com/rodekruis/IBF-system/commit/7d720cda81b2b4f471152cdfd182463f6adb3196))
-
-
-
-## [0.175.8](https://github.com/rodekruis/IBF-system/compare/v0.175.7...v0.175.8) (2022-08-26)
-
-
-### Bug Fixes
-
-* old events AB[#15053](https://github.com/rodekruis/IBF-system/issues/15053) ([493c598](https://github.com/rodekruis/IBF-system/commit/493c5989d5fe88d695ef594aa1ebe3678ec143fe))
 
 
 
