@@ -300,7 +300,8 @@ export class EventService {
       .leftJoin('event.adminArea', 'area')
       .leftJoin('event.disasterType', 'disaster')
       .where({ thresholdReached: true })
-      .orderBy('area."countryCodeISO3"', 'ASC')
+      .orderBy('event."startDate"', 'DESC')
+      .addOrderBy('area."countryCodeISO3"', 'ASC')
       .addOrderBy('event."disasterType"', 'ASC')
       .addOrderBy('area."placeCode"', 'ASC');
 
