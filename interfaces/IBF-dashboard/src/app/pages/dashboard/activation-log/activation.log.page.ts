@@ -96,7 +96,7 @@ export class ActivationLogPage implements OnInit, OnDestroy {
   private async presentToast(message: string, color: string) {
     const toast = await this.toastController.create({
       message,
-      duration: 1500,
+      duration: 5000,
       position: 'top',
       color,
       animated: true,
