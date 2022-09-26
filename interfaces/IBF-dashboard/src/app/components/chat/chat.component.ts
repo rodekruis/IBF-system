@@ -591,4 +591,12 @@ export class ChatComponent implements OnInit, OnDestroy {
       event.firstLeadTime === LeadTime.hour0
     );
   }
+
+  public selectArea(area) {
+    this.placeCodeService.setPlaceCode({
+      countryCodeISO3: this.country.countryCodeISO3,
+      placeCodeName: area.name,
+      placeCode: area.placeCode,
+    });
+  }
 }
