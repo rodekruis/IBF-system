@@ -41,6 +41,7 @@ export class EventService {
   };
 
   public state = this.nullState;
+  public today: DateTime;
 
   public initialEventStateSubject = new BehaviorSubject<EventState>(
     this.nullState,
@@ -139,6 +140,21 @@ export class EventService {
   };
 
   private onEvent = (events) => {
+    this.apiService
+      .getRecentDates(
+        this.country.countryCodeISO3,
+        this.disasterType.disasterType,
+      )
+      .subscribe((date) => this.onRecentDates(date, events));
+  };
+
+  private onRecentDates = (date, events) => {
+    if (date.timestamp || date.date) {
+      this.today = DateTime.fromISO(date.timestamp || date.date);
+    } else {
+      this.today = DateTime.now();
+    }
+
     this.state.events = events;
 
     if (events.length) {
@@ -228,16 +244,15 @@ export class EventService {
       : null;
   };
 
-  public getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit): string {
+  public getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit) {
     const timeUnitsInFuture = Number(LeadTimeTriggerKey[firstKey]);
-    const today = DateTime.now();
     const futureDateTime =
       timeUnit === LeadTimeUnit.month
-        ? today.plus({ months: Number(timeUnitsInFuture) })
+        ? this.today.plus({ months: Number(timeUnitsInFuture) })
         : timeUnit === LeadTimeUnit.day
-        ? today.plus({ days: Number(timeUnitsInFuture) })
+        ? this.today.plus({ days: Number(timeUnitsInFuture) })
         : timeUnit === LeadTimeUnit.hour
-        ? today.plus({ hours: Number(timeUnitsInFuture) })
+        ? this.today.plus({ hours: Number(timeUnitsInFuture) })
         : null;
     const monthString = new Date(
       futureDateTime.year,

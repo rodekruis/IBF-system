@@ -200,12 +200,12 @@ export class MapComponent implements OnDestroy {
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
+
+    this.lastModelRunDate = this.timelineState?.today.toUTC().toString();
   };
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-
-    this.lastModelRunDate = this.timelineState?.today.toUTC().toString();
   };
 
   private onPlaceCodeChange = (): void => {
@@ -810,7 +810,7 @@ export class MapComponent implements OnDestroy {
     const markerTitle = DateTime.fromISO(
       markerProperties.timestampOfTrackpoint,
     ).toFormat('cccc, dd LLLL HH:mm');
-
+    console.log('this.lastModelRunDate: ', this.lastModelRunDate);
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: divIcon({
