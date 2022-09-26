@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
@@ -18,7 +20,7 @@ export class ActivationLogPage implements OnInit, OnDestroy {
   public activationLogs:
     | {
         headerData: string[];
-        rowsData: any[];
+        rowsData: any[][];
       }
     | string;
 
@@ -26,6 +28,8 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     private apiService: ApiService,
     private analyticsService: AnalyticsService,
     private router: Router,
+    private toastController: ToastController,
+    private translate: TranslateService,
   ) {
     const urlParts = this.router.url.split(';');
     if (urlParts.length > 1) {
@@ -63,5 +67,41 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     );
 
     return { headerData, rowsData };
+  }
+
+  public copyToClipboard() {
+    const HEADER_KEY = 'headerData';
+    const ROWS_KEY = 'rowsData';
+    let tsvContent = this.activationLogs[HEADER_KEY].join('\t') + '\n';
+    for (const row of this.activationLogs[ROWS_KEY]) {
+      tsvContent += row.join('\t') + '\n';
+    }
+
+    navigator.clipboard
+      .writeText(tsvContent)
+      .then(() =>
+        this.presentToast(
+          this.translate.instant('activation-page.copy-success'),
+          'ibf-primary',
+        ),
+      )
+      .catch(() =>
+        this.presentToast(
+          this.translate.instant('activation-page.copy-fail'),
+          'alert',
+        ),
+      );
+  }
+
+  private async presentToast(message: string, color: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 1500,
+      position: 'top',
+      color,
+      animated: true,
+    });
+
+    await toast.present();
   }
 }
