@@ -1,3 +1,13 @@
+## [0.180.1](https://github.com/rodekruis/IBF-system/compare/v0.180.0...v0.180.1) (2022-09-26)
+
+
+### Bug Fixes
+
+* calculate landfall-time in chat not on actual now but on last upload time AB[#15400](https://github.com/rodekruis/IBF-system/issues/15400) ([2ef4534](https://github.com/rodekruis/IBF-system/commit/2ef4534ad82508a0063fa5e5ea1a03df2830220f))
+* color trackpoints not on current time but on last run time AB[#15390](https://github.com/rodekruis/IBF-system/issues/15390) ([de8950e](https://github.com/rodekruis/IBF-system/commit/de8950e1e497c170bfb537458d49ab9d63e9a9ff))
+
+
+
 # [0.180.0](https://github.com/rodekruis/IBF-system/compare/v0.179.0...v0.180.0) (2022-09-26)
 
 
@@ -89,15 +99,6 @@
 ### Bug Fixes
 
 * old events AB[#15053](https://github.com/rodekruis/IBF-system/issues/15053) ([493c598](https://github.com/rodekruis/IBF-system/commit/493c5989d5fe88d695ef594aa1ebe3678ec143fe))
-
-
-
-## [0.175.7](https://github.com/rodekruis/IBF-system/compare/v0.175.6...v0.175.7) (2022-08-26)
-
-
-### Bug Fixes
-
-* old-event AB[#15053](https://github.com/rodekruis/IBF-system/issues/15053) ([c1a7e51](https://github.com/rodekruis/IBF-system/commit/c1a7e5176839c5de1a8a02f42482fec783a17666))
 
 
 
