@@ -1,3 +1,12 @@
+# [0.180.0](https://github.com/rodekruis/IBF-system/compare/v0.179.0...v0.180.0) (2022-09-26)
+
+
+### Features
+
+* add copy btn AB[#15397](https://github.com/rodekruis/IBF-system/issues/15397) ([32aa323](https://github.com/rodekruis/IBF-system/commit/32aa323d2a9537764ea714bb389a220799cebf14))
+
+
+
 # [0.179.0](https://github.com/rodekruis/IBF-system/compare/v0.178.0...v0.179.0) (2022-09-23)
 
 
@@ -89,15 +98,6 @@
 ### Bug Fixes
 
 * old-event AB[#15053](https://github.com/rodekruis/IBF-system/issues/15053) ([c1a7e51](https://github.com/rodekruis/IBF-system/commit/c1a7e5176839c5de1a8a02f42482fec783a17666))
-
-
-
-## [0.175.6](https://github.com/rodekruis/IBF-system/compare/v0.175.5...v0.175.6) (2022-08-26)
-
-
-### Bug Fixes
-
-* mock data ubr layers AB[#14731](https://github.com/rodekruis/IBF-system/issues/14731) ([505af9d](https://github.com/rodekruis/IBF-system/commit/505af9dab0857e51fa189a611b18c6695feb361c))
 
 
 
