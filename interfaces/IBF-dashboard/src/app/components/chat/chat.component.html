@@ -175,7 +175,11 @@
           "
         ></p>
         <ul>
-          <li *ngFor="let area of activeAreas" class="clickable-area" (click)="selectArea(area)">
+          <li
+            *ngFor="let area of activeAreas"
+            class="clickable-area"
+            (click)="selectArea(area)"
+          >
             <p>
               {{ area.name }} (<span
                 *ngIf="actionIndicatorNumberFormat === 'decimal0'"
