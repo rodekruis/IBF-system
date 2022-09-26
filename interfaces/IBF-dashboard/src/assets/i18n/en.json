@@ -68,6 +68,9 @@
     "whats-new-description": "To learn what new features have recently been added to the IBF Portal click <a href='{{whatsNewUrl}}' target='_blank'>here</a>."
   },
   "chat-component": {
+    "generic": {
+      "revert-selection": "Back to all areas"
+    },
     "floods": {
       "about-button-label": "About Trigger",
       "warn-label": {

@@ -260,6 +260,15 @@
                   }
           "
         ></p>
+        <ion-button
+          *ngIf="placeCode"
+          (click)="revertAreaSelection()"
+          color="ibf-primary"
+          expand="block"
+        >
+          <span class="ion-hide-sm-down">{{ 'chat-component.generic.revert-selection' | translate}}</span>
+          <ion-icon name="arrow-back" slot="start"></ion-icon>
+        </ion-button>
       </app-dialogue-turn>
     </ng-container>
     <app-dialogue-turn
@@ -268,6 +277,15 @@
       [isConnected]="!isFirst"
       [isTriggered]="true"
     >
+      <ion-button
+        *ngIf="placeCode"
+        (click)="revertAreaSelection()"
+        color="ibf-primary"
+        expand="block"
+      >
+        <span class="ion-hide-sm-down">{{ 'chat-component.generic.revert-selection' | translate}}</span>
+        <ion-icon name="arrow-back" slot="start"></ion-icon>
+      </ion-button>
       <form (submit)="submitEapAction(area.placeCode)">
         <ion-row>
           <ion-col size-lg="2" size-md="2" size-xs="2">
