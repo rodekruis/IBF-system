@@ -6,7 +6,7 @@
   "activation-page": {
     "activation-report": "Open all activations",
     "copy-to-clipboard": "Copy to clipboard",
-    "copy-success": "Activation data was successfully copied to clipboard",
+    "copy-success": "Activation data successfully copied to clipboard. It can be pasted into a spreadsheet.",
     "copy-fail": "There was a problem with copying the activation data"
   },
   "login-page": {
