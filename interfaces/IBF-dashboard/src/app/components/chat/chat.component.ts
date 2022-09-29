@@ -193,6 +193,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     const activeLeadTime = this.timelineState?.timeStepButtons.find(
       (t) => t.value === this.timelineState?.activeLeadTime,
     );
+
+    this.placeCode = placeCode ? placeCode.placeCode : null;
+
     if (placeCode && activeLeadTime.alert) {
       const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
         triggeredArea.placeCode === placeCode.placeCode;
@@ -593,7 +596,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public selectArea(area) {
-    this.placeCode = area.placeCode;
     this.placeCodeService.setPlaceCode({
       countryCodeISO3: this.country.countryCodeISO3,
       placeCodeName: area.name,
@@ -602,7 +604,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public revertAreaSelection() {
-    this.placeCode = null;
     this.placeCodeService.clearPlaceCode();
   }
 }
