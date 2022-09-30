@@ -1,3 +1,25 @@
+# [0.182.0](https://github.com/rodekruis/IBF-system/compare/v0.181.0...v0.182.0) (2022-09-30)
+
+
+### Bug Fixes
+
+* correct ZMB alert_threshold-1 AB[#15422](https://github.com/rodekruis/IBF-system/issues/15422) ([b5c0199](https://github.com/rodekruis/IBF-system/commit/b5c01990b3b9674204b93c27f0cce04b86b68f58))
+* make btn appear on map click AB[#15467](https://github.com/rodekruis/IBF-system/issues/15467) ([100eba1](https://github.com/rodekruis/IBF-system/commit/100eba12889b22a1da574458ce4dfceac7548cb3))
+* make button smaller AB[#15404](https://github.com/rodekruis/IBF-system/issues/15404) ([09a3229](https://github.com/rodekruis/IBF-system/commit/09a32292cbc87cbb24eab4f640695466686dbe8d))
+* make map component listen to placecode change AB[#15402](https://github.com/rodekruis/IBF-system/issues/15402) ([093da2f](https://github.com/rodekruis/IBF-system/commit/093da2f6201e39487b3e17fbfcde27585bade04a))
+* update ux copy for instructions to click in list or map AB[#15403](https://github.com/rodekruis/IBF-system/issues/15403) ([6512bab](https://github.com/rodekruis/IBF-system/commit/6512bab38382550af18473589b0083fbcb4cea64))
+
+
+### Features
+
+* also stopped areas clickable AB[#15402](https://github.com/rodekruis/IBF-system/issues/15402) ([e781d85](https://github.com/rodekruis/IBF-system/commit/e781d850faff6f54496e40b426ddcaf468a63123))
+* btn to revert area selection AB[#15404](https://github.com/rodekruis/IBF-system/issues/15404) ([66c769f](https://github.com/rodekruis/IBF-system/commit/66c769f15b08b3def6c22ae3b2d0fad89ef57028))
+* select area on click AB[#15402](https://github.com/rodekruis/IBF-system/issues/15402) ([dcbae44](https://github.com/rodekruis/IBF-system/commit/dcbae449e528aa49cd576a28e6bf5dd799d20fde))
+* update scenarios AB[#15406](https://github.com/rodekruis/IBF-system/issues/15406) ([0bb124e](https://github.com/rodekruis/IBF-system/commit/0bb124ea4f8f976b5ef716cfcac847628a7562d5))
+* zoom to selected area in map AB[#15405](https://github.com/rodekruis/IBF-system/issues/15405) ([bacebc2](https://github.com/rodekruis/IBF-system/commit/bacebc2dae7c90cdd9c66e3df603a5dc9f7397c7))
+
+
+
 # [0.181.0](https://github.com/rodekruis/IBF-system/compare/v0.180.1...v0.181.0) (2022-09-26)
 
 
@@ -95,15 +117,6 @@
 ### Bug Fixes
 
 * rainfall extent style eth drought AB[#15289](https://github.com/rodekruis/IBF-system/issues/15289) ([dde6af6](https://github.com/rodekruis/IBF-system/commit/dde6af62a8eb629a8bb27b7a678fb50df0ec1534))
-
-
-
-## [0.175.9](https://github.com/rodekruis/IBF-system/compare/v0.175.8...v0.175.9) (2022-08-26)
-
-
-### Bug Fixes
-
-* mwi info popups AB[#14737](https://github.com/rodekruis/IBF-system/issues/14737) ([7d720cd](https://github.com/rodekruis/IBF-system/commit/7d720cda81b2b4f471152cdfd182463f6adb3196))
 
 
 
