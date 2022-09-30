@@ -4,21 +4,29 @@
     color="ibf-secondary"
     data-test="action-title"
   >
-    <ion-col size-lg="8" size-md="8" size-xs="8">
-      <ion-item lines="none" class="component-title-item" color="ibf-secondary">
-        <ion-label>
+    <ion-col size-lg="8" size-md="8" size-xs="8" class="ion-no-padding">
+      <ion-item
+        lines="none"
+        class="component-title-item ion-no-padding ion-no-margin ion-align-items-start"
+        color="ibf-secondary"
+      >
+        <ion-label class="ion-padding-horizontal">
           <strong>
             {{ 'areas-of-focus-summary-component.title' | translate }}
           </strong>
         </ion-label>
       </ion-item>
     </ion-col>
-    <ion-col size-lg="4" size-md="4" size-xs="4">
-      <ion-item lines="none" class="component-title-item" color="ibf-secondary">
+    <ion-col size-lg="4" size-md="4" size-xs="4" class="ion-no-padding">
+      <ion-item
+        lines="none"
+        class="component-title-item ion-no-padding ion-no-margin ion-align-items-end ion-text-center"
+        color="ibf-secondary"
+      >
         <ion-label>
-          <span style="font-size: 10px">
+          <ion-text style="font-size: 10px">
             {{ 'areas-of-focus-summary-component.tasks-title' | translate }}
-          </span>
+          </ion-text>
         </ion-label>
       </ion-item>
     </ion-col>
