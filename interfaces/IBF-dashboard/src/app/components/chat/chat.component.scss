@@ -33,3 +33,10 @@ ion-content {
 ion-checkbox {
   margin-inline-end: 8px !important;
 }
+
+.clickable-area {
+  :hover {
+    font-weight: bold;
+    cursor: pointer;
+  }
+}

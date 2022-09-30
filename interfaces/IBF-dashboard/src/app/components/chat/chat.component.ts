@@ -48,10 +48,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   private timelineState: TimelineState;
   private indicators: Indicator[];
   public otherLeadTimes: string;
+  public placeCode: string;
 
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
-  private promptButtonLabel: string;
 
   private countrySubscription: Subscription;
   private eapActionSubscription: Subscription;
@@ -84,7 +84,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private eapActionsService: EapActionsService,
     public authService: AuthService,
     public eventService: EventService,
-    private placeCodeService: PlaceCodeService,
+    public placeCodeService: PlaceCodeService,
     private disasterTypeService: DisasterTypeService,
     private timelineService: TimelineService,
     private countryService: CountryService,
@@ -193,6 +193,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     const activeLeadTime = this.timelineState?.timeStepButtons.find(
       (t) => t.value === this.timelineState?.activeLeadTime,
     );
+
+    this.placeCode = placeCode ? placeCode.placeCode : null;
+
     if (placeCode && activeLeadTime.alert) {
       const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
         triggeredArea.placeCode === placeCode.placeCode;
@@ -590,5 +593,17 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.disasterTypeName === DisasterTypeKey.typhoon &&
       event.firstLeadTime === LeadTime.hour0
     );
+  }
+
+  public selectArea(area) {
+    this.placeCodeService.setPlaceCode({
+      countryCodeISO3: this.country.countryCodeISO3,
+      placeCodeName: area.name,
+      placeCode: area.placeCode,
+    });
+  }
+
+  public revertAreaSelection() {
+    this.placeCodeService.clearPlaceCode();
   }
 }

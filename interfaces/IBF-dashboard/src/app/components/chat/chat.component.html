@@ -175,7 +175,11 @@
           "
         ></p>
         <ul>
-          <li *ngFor="let area of activeAreas">
+          <li
+            *ngFor="let area of activeAreas"
+            class="clickable-area"
+            (click)="selectArea(area)"
+          >
             <p>
               {{ area.name }} (<span
                 *ngIf="actionIndicatorNumberFormat === 'decimal0'"
@@ -216,7 +220,11 @@
           "
         ></p>
         <ul>
-          <li *ngFor="let area of stoppedAreas">
+          <li
+            *ngFor="let area of stoppedAreas"
+            class="clickable-area"
+            (click)="selectArea(area)"
+          >
             <p>
               {{ area.name }} (<span
                 *ngIf="actionIndicatorNumberFormat === 'decimal0'"
@@ -240,6 +248,18 @@
         [isConnected]="true"
         [isStopped]="true"
       >
+        <ion-button
+          *ngIf="placeCode"
+          (click)="revertAreaSelection()"
+          color="ibf-primary"
+          size="small"
+          class="ion-float-right"
+        >
+          <span class="ion-hide-sm-down">{{
+            'chat-component.generic.revert-selection' | translate
+          }}</span>
+          <ion-icon name="arrow-back" slot="start"></ion-icon>
+        </ion-button>
         <p
           [innerHTML]="
             'chat-component.' + disasterTypeName + '.stopped-event.area'
@@ -260,6 +280,18 @@
       [isConnected]="!isFirst"
       [isTriggered]="true"
     >
+      <ion-button
+        *ngIf="placeCode"
+        (click)="revertAreaSelection()"
+        color="ibf-primary"
+        size="small"
+        class="ion-float-right"
+      >
+        <span class="ion-hide-sm-down">{{
+          'chat-component.generic.revert-selection' | translate
+        }}</span>
+        <ion-icon name="arrow-back" slot="start"></ion-icon>
+      </ion-button>
       <form (submit)="submitEapAction(area.placeCode)">
         <ion-row>
           <ion-col size-lg="2" size-md="2" size-xs="2">
