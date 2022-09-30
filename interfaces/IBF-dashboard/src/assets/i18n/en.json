@@ -60,7 +60,8 @@
     "exposed-subgroups": ""
   },
   "areas-of-focus-summary-component": {
-    "title": "Actions Summary"
+    "title": "Actions Summary",
+    "tasks-title": "Tasks Completed"
   },
   "ibf-guide-component": {
     "title": "IBF Guide",

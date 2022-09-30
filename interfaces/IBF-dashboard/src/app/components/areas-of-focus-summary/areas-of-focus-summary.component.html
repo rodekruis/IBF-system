@@ -4,12 +4,21 @@
     color="ibf-secondary"
     data-test="action-title"
   >
-    <ion-col size="12" size-md>
+    <ion-col size-lg="8" size-md="8" size-xs="8">
       <ion-item lines="none" class="component-title-item" color="ibf-secondary">
         <ion-label>
-          <strong
-            [translate]="'areas-of-focus-summary-component.title'"
-          ></strong>
+          <strong>
+            {{ 'areas-of-focus-summary-component.title' | translate }}
+          </strong>
+        </ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col size-lg="4" size-md="4" size-xs="4">
+      <ion-item lines="none" class="component-title-item" color="ibf-secondary">
+        <ion-label>
+          <span style="font-size: 10px">
+            {{ 'areas-of-focus-summary-component.tasks-title' | translate }}
+          </span>
         </ion-label>
       </ion-item>
     </ion-col>
