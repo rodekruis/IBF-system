@@ -17,7 +17,7 @@
     "triggerStatement": {
       "floods": "The Flood Early Action Protocol will be triggered 3 days before the flood when the forecast of the GloFAS is predicting with more than 70% probability the occurrence of a 1 in 5 years flood (at least), in any of the 4 targeted river basins. Then the corresponding flood extent will be overlayed on the rice crop map to estimate the flood impact in the concerned river basin, allowing the selection of the municipalities where to focus the anticipatory actions (where for instance the predicted impact is more than 50% of crops possibly affected, or between 30-50%)",
       "dengue": "The IBF portal releases an alert up to 2 months ahead when the risk of dengue outbreak in a specific province and correspondingly the expected number of dengue cases satisfy the alert conditions defined by WHO guidelines (see technical note)",
-      "typhoon": "For the Typhoon EAP it is proposed to trigger typhoon Early Actions when the predicted impact (72 hours before landfall) is more than 10% of houses being totally damaged at municipal level, in at least 3 municipalities."
+      "typhoon": "For the Typhoon EAP it is proposed to trigger typhoon Early Actions when the predicted impact (72 hours before landfall) is more than 10% of houses being totally damaged at municipal level, in at least 3 municipalities. Find more detailed info <a href='https://www.google.com'>here</a>."
     },
     "linkSocialMediaType": null,
     "linkSocialMediaUrl": null,
