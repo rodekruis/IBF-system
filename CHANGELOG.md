@@ -1,3 +1,17 @@
+# [0.183.0](https://github.com/rodekruis/IBF-system/compare/v0.182.0...v0.183.0) (2022-10-03)
+
+
+### Bug Fixes
+
+* change bottom bg back to transparent AB[#15493](https://github.com/rodekruis/IBF-system/issues/15493) ([84c3224](https://github.com/rodekruis/IBF-system/commit/84c322420fdbe17d55140df27dc861b8b7770cfd))
+
+
+### Features
+
+* change btn color for stopped bubble AB[#15492](https://github.com/rodekruis/IBF-system/issues/15492) ([1e674a9](https://github.com/rodekruis/IBF-system/commit/1e674a915307d4f9f62d2bd74032161a56a61d44))
+
+
+
 # [0.182.0](https://github.com/rodekruis/IBF-system/compare/v0.181.0...v0.182.0) (2022-09-30)
 
 
@@ -108,15 +122,6 @@
 ### Features
 
 * emphasize nr of exposed areas AB[#15313](https://github.com/rodekruis/IBF-system/issues/15313) ([deae7a3](https://github.com/rodekruis/IBF-system/commit/deae7a32bb33c82e05f65b887f632f33b36e4344))
-
-
-
-## [0.175.10](https://github.com/rodekruis/IBF-system/compare/v0.175.9...v0.175.10) (2022-09-19)
-
-
-### Bug Fixes
-
-* rainfall extent style eth drought AB[#15289](https://github.com/rodekruis/IBF-system/issues/15289) ([dde6af6](https://github.com/rodekruis/IBF-system/commit/dde6af62a8eb629a8bb27b7a678fb50df0ec1534))
 
 
 
