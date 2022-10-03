@@ -189,14 +189,14 @@
 }
 
 .typhoon-track-icon-future {
-  background: var(--ion-color-ibf-primary);
-  border: 1px solid var(--ion-color-ibf-primary-contrast);
+  background: rgba(var(--ion-color-ibf-white-rgb), 0.6);
+  border: 1px dashed var(--ion-color-ibf-primary);
   border-radius: 50%;
 }
 
 .typhoon-track-icon-past {
-  background: var(--ion-color-ibf-no-alert-secondary);
-  border: 1px solid var(--ion-color-ibf-no-alert-primary);
+  background: var(--ion-color-ibf-primary);
+  border: 1px solid var(--ion-color-ibf-primary);
   border-radius: 50%;
 }
 
