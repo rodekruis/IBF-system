@@ -61,7 +61,8 @@
   },
   "areas-of-focus-summary-component": {
     "title": "Actions Summary",
-    "tasks-title": "Tasks Completed"
+    "aof-subtitle": "Area of Focus",
+    "tasks-subtitle": "Tasks Completed"
   },
   "ibf-guide-component": {
     "title": "IBF Guide",
