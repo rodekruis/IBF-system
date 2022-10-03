@@ -29,6 +29,9 @@ export class TriggeredArea {
   @ApiProperty({ example: 'Agago' })
   public name: string;
 
+  @ApiProperty({ example: 'Agago' })
+  public nameParent: string;
+
   @ApiProperty({ example: 100 })
   public actionsValue: number;
 

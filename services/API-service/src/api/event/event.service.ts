@@ -272,6 +272,19 @@ export class EventService {
         area.placeCode,
         eventName === 'no-name' ? null : eventName,
       );
+
+      const parentAdminArea = await this.adminAreaRepository
+        .createQueryBuilder('area')
+        .leftJoin(
+          AdminAreaEntity,
+          'parent',
+          'area."placeCodeParent" = parent."placeCode"',
+        )
+        .select('parent.name AS name')
+        .where('area."placeCode" = :placeCode', { placeCode: area.placeCode })
+        .getRawOne();
+
+      area.nameParent = parentAdminArea.name;
     }
     return triggeredAreas;
   }

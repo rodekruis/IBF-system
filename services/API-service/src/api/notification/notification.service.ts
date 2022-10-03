@@ -558,14 +558,13 @@ export class NotificationService {
     leadTime: LeadTimeEntity,
     eventName: string,
   ): Promise<string> {
-    const adminAreaLabels =
-      country.adminRegionLabels[
-        String(
-          country.countryDisasterSettings.find(
-            s => s.disasterType === disasterType,
-          ).defaultAdminLevel,
-        )
-      ];
+    const adminLevel = country.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).defaultAdminLevel;
+    const adminAreaLabels = country.adminRegionLabels[String(adminLevel)];
+    const adminAreaLabelsParent =
+      country.adminRegionLabels[String(adminLevel - 1)];
+
     const actionUnit = await this.indicatorRepository.findOne({
       name: (await this.getDisaster(disasterType)).actionsUnit,
     });
@@ -588,7 +587,9 @@ export class NotificationService {
       <thead>
           <tr>
               <th align="center">Predicted ${actionUnit.label}</th>
-              <th align="left">${adminAreaLabels.singular}</th>
+              <th align="left">${adminAreaLabels.singular}${
+      adminAreaLabelsParent ? ' (' + adminAreaLabelsParent.singular + ')' : ''
+    }</th>
               <th align="center">Alert Level</th>
           </tr>
       </thead>
@@ -637,7 +638,9 @@ export class NotificationService {
               actionUnitValue,
               actionUnit,
             )}</td>
-            <td align='left'>${area.name}</td>
+            <td align='left'>${area.name}${
+        area.nameParent ? ' (' + area.nameParent + ')' : ''
+      }</td>
             <td align='center'>${alertLevel}</td>
           </tr>`;
       areaTableString = areaTableString + areaTable;
