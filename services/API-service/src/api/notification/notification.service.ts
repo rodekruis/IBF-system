@@ -632,7 +632,6 @@ export class NotificationService {
         leadTime.leadTimeName as LeadTime,
         eventName,
       );
-      const alertLevel = ''; //Leave empty for now, as it is irrelevant any way (always 'Max. alert')
       const areaTable = `<tr class='notification-alerts-table-row'>
             <td align='center'>${this.formatActionUnitValue(
               actionUnitValue,
@@ -641,7 +640,6 @@ export class NotificationService {
             <td align='left'>${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''
       }</td>
-            <td align='center'>${alertLevel}</td>
           </tr>`;
       areaTableString = areaTableString + areaTable;
     }
