@@ -2,6 +2,12 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
+### 03-10-2022 (v0.176.1)
+
+- All IBF: Triggered and stopped areas in the chat are now clickable.\
+  By clicking on them, the area on the map is selected and the map zooms to it.
+- All IBF: The layer overview on the top right of the map has been redesigned.
+
 ### 11-07-2022 (v0.168.0)
 
 - Zimbabwe Drought: Added message to inform user about pipeline update day.
