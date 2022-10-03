@@ -2,7 +2,7 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
-### 03-10-2022 (v0.176.1)
+### 03-10-2022 (v0.183.1)
 
 - All IBF: Triggered and stopped areas in the chat are now clickable.\
   By clicking on them, the area on the map is selected and the map zooms to it.
