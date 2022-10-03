@@ -33,6 +33,6 @@
     "disasterType": "typhoon",
     "label": "typhoon",
     "triggerUnit": "alert_threshold",
-    "actionsUnit": "houses_affected"
+    "actionsUnit": "affected_population"
   }
 ]
