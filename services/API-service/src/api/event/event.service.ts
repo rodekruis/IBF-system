@@ -439,7 +439,7 @@ export class EventService {
     );
 
     // close old events
-    await this.closeEventsAutomatic(countryCodeISO3);
+    await this.closeEventsAutomatic(countryCodeISO3, disasterType);
   }
 
   private async setAllEventsToInactive(
@@ -650,7 +650,10 @@ export class EventService {
     await this.eventPlaceCodeRepo.save(newEventAreas);
   }
 
-  private async closeEventsAutomatic(countryCodeISO3: string) {
+  private async closeEventsAutomatic(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ) {
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
     );
@@ -658,6 +661,7 @@ export class EventService {
       where: {
         endDate: LessThan(new Date()),
         adminArea: In(countryAdminAreaIds),
+        disasterType: disasterType,
       },
     });
     expiredEventAreas.forEach(area => (area.closed = true));
