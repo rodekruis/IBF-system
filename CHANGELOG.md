@@ -1,3 +1,12 @@
+## [0.183.1](https://github.com/rodekruis/IBF-system/compare/v0.183.0...v0.183.1) (2022-10-03)
+
+
+### Bug Fixes
+
+* make close of events disaster-specific AB[#15529](https://github.com/rodekruis/IBF-system/issues/15529) ([99b2a21](https://github.com/rodekruis/IBF-system/commit/99b2a2129a8345197ef448249c5c15ef6668930c))
+
+
+
 # [0.183.0](https://github.com/rodekruis/IBF-system/compare/v0.182.0...v0.183.0) (2022-10-03)
 
 
@@ -108,20 +117,6 @@
 ### Bug Fixes
 
 * only filter seasons if currently in middle of a season AB[#15392](https://github.com/rodekruis/IBF-system/issues/15392) ([ae0b402](https://github.com/rodekruis/IBF-system/commit/ae0b40266a6efa012cf27dd2a7eada95b0448351))
-
-
-
-# [0.176.0](https://github.com/rodekruis/IBF-system/compare/v0.175.10...v0.176.0) (2022-09-23)
-
-
-### Bug Fixes
-
-* use standard colors AB[#15313](https://github.com/rodekruis/IBF-system/issues/15313) ([4c9eaf0](https://github.com/rodekruis/IBF-system/commit/4c9eaf02023fa2c3900a6b652f108f834d3c1e2e))
-
-
-### Features
-
-* emphasize nr of exposed areas AB[#15313](https://github.com/rodekruis/IBF-system/issues/15313) ([deae7a3](https://github.com/rodekruis/IBF-system/commit/deae7a32bb33c82e05f65b887f632f33b36e4344))
 
 
 
