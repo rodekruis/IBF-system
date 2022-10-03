@@ -1,3 +1,20 @@
+# [0.184.0](https://github.com/rodekruis/IBF-system/compare/v0.183.1...v0.184.0) (2022-10-03)
+
+
+### Bug Fixes
+
+* add layer to allowed API input list AB[#15507](https://github.com/rodekruis/IBF-system/issues/15507) ([c32efb7](https://github.com/rodekruis/IBF-system/commit/c32efb7be06e882d44b22b6c5c3d7ef3d6503886))
+* change houses_affected icon to house AB[#15508](https://github.com/rodekruis/IBF-system/issues/15508) ([d2cf3ca](https://github.com/rodekruis/IBF-system/commit/d2cf3cae710064656d8505cb2df531d93bdd9214))
+* improve performance of update events queries AB[#15483](https://github.com/rodekruis/IBF-system/issues/15483) ([286b322](https://github.com/rodekruis/IBF-system/commit/286b322a39b693787fc5787a6cd13e2fdc461b3e))
+
+
+### Features
+
+* add affected population layer AB[#15507](https://github.com/rodekruis/IBF-system/issues/15507) ([bbd5b14](https://github.com/rodekruis/IBF-system/commit/bbd5b1464e58374be4d8fa40252686bc17cb52e8))
+* mock data for affected population AB[#15528](https://github.com/rodekruis/IBF-system/issues/15528) ([17221ea](https://github.com/rodekruis/IBF-system/commit/17221ea72d1930215e2cc8572e15c63bf425eacc))
+
+
+
 ## [0.183.1](https://github.com/rodekruis/IBF-system/compare/v0.183.0...v0.183.1) (2022-10-03)
 
 
@@ -108,15 +125,6 @@
 ### Features
 
 * freeze table header AB[#15314](https://github.com/rodekruis/IBF-system/issues/15314) ([5d69ff3](https://github.com/rodekruis/IBF-system/commit/5d69ff35a014c9613a033987932a8497bd4cff9c))
-
-
-
-## [0.176.1](https://github.com/rodekruis/IBF-system/compare/v0.176.0...v0.176.1) (2022-09-23)
-
-
-### Bug Fixes
-
-* only filter seasons if currently in middle of a season AB[#15392](https://github.com/rodekruis/IBF-system/issues/15392) ([ae0b402](https://github.com/rodekruis/IBF-system/commit/ae0b40266a6efa012cf27dd2a7eada95b0448351))
 
 
 
