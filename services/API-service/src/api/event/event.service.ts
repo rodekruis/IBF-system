@@ -584,7 +584,30 @@ export class EventService {
       },
       relations: ['adminArea'],
     });
+
+    // To optimize performance here ..
+    const idsToUpdateAboveThreshold = [];
+    const idsToUpdateBelowThreshold = [];
+    const endDate = await this.getEndDate(disasterType);
+    unclosedEventAreas.forEach(eventArea => {
+      const affectedArea = affectedAreas.find(
+        area => area.placeCode === eventArea.adminArea.placeCode,
+      );
+      if (affectedArea.triggerValue > 0) {
+        idsToUpdateAboveThreshold.push(eventArea.eventPlaceCodeId);
+      } else {
+        idsToUpdateBelowThreshold.push(eventArea.eventPlaceCodeId);
+      }
+    });
+    // .. first fire one query to update all rows that need thresholdReached = true
+    await this.updateEvents(idsToUpdateAboveThreshold, true, endDate);
+
+    // .. then fire one query to update all rows that need thresholdReached = false
+    await this.updateEvents(idsToUpdateBelowThreshold, false, endDate);
+
+    // .. and lastly fire individual queries to update actionsValue ONLY for rows here it changed
     let affectedArea: AffectedAreaDto;
+    const eventAreasToUpdate = [];
     for await (const unclosedEventArea of unclosedEventAreas) {
       if (
         affectedAreasPlaceCodes.includes(unclosedEventArea.adminArea.placeCode)
@@ -592,13 +615,30 @@ export class EventService {
         affectedArea = affectedAreas.find(
           area => area.placeCode === unclosedEventArea.adminArea.placeCode,
         );
-        unclosedEventArea.activeTrigger = true;
-        unclosedEventArea.thresholdReached = affectedArea.triggerValue > 0;
-        unclosedEventArea.actionsValue = affectedArea.actionsValue;
-        unclosedEventArea.endDate = await this.getEndDate(disasterType);
+        if (unclosedEventArea.actionsValue !== affectedArea.actionsValue) {
+          unclosedEventArea.actionsValue = affectedArea.actionsValue;
+          eventAreasToUpdate.push(unclosedEventArea);
+        }
       }
     }
     await this.eventPlaceCodeRepo.save(unclosedEventAreas);
+  }
+
+  private async updateEvents(
+    eventPlaceCodeIds: string[],
+    aboveThreshold: boolean,
+    endDate: Date,
+  ) {
+    await this.eventPlaceCodeRepo
+      .createQueryBuilder()
+      .update()
+      .set({
+        activeTrigger: true,
+        thresholdReached: aboveThreshold,
+        endDate: endDate,
+      })
+      .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
+      .execute();
   }
 
   private async addNewEventAreas(
