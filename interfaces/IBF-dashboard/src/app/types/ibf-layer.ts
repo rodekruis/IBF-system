@@ -103,6 +103,7 @@ export enum IbfLayerName {
   windspeed = 'windspeed',
   rainfall = 'rainfall',
   housesAffected = 'houses_affected',
+  affectedPopulation = 'affected_population',
   probWithin50Km = 'prob_within_50km',
   droughtPhaseClassification = 'drought_phase_classification',
   vegetationCondition = 'vegetation_condition',
