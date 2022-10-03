@@ -889,7 +889,7 @@
     "disasterTypes": ["typhoon"],
     "name": "houses_affected",
     "label": "% of houses affected",
-    "icon": "Person2-white.svg",
+    "icon": "House-white.svg",
     "weightedAvg": true,
     "active": "if-trigger",
     "colorBreaks": null,
