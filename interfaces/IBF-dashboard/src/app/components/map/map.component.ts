@@ -1,5 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
+import bbox from '@turf/bbox';
+import { containsNumber } from '@turf/invariant';
 import {
   Control,
   divIcon,
@@ -9,6 +11,7 @@ import {
   icon,
   IconOptions,
   LatLng,
+  LatLngBoundsLiteral,
   Layer,
   Map,
   MapOptions,
@@ -210,15 +213,62 @@ export class MapComponent implements OnDestroy {
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
-    if (placeCode) {
-      this.placeCode = placeCode.placeCode;
-    }
+    this.placeCode = placeCode?.placeCode;
+
     this.layers.forEach((layer: IbfLayer): void => {
       if (layer.leafletLayer && 'resetStyle' in layer.leafletLayer) {
         layer.leafletLayer.resetStyle();
       }
     });
+
+    this.zoomToArea();
+
+    // Close all open popups when (going back to) all admin-areas
+    if (!this.placeCode && this.map) {
+      this.map.eachLayer(function (layer) {
+        layer.closePopup();
+      });
+    }
   };
+
+  private zoomToArea() {
+    if (this.mapService.adminLevel) {
+      const adminRegionsLayer = this.layers.find(
+        (layer) =>
+          layer.name ===
+          `${IbfLayerGroup.adminRegions}${this.mapService.adminLevel}`,
+      );
+      if (adminRegionsLayer) {
+        const adminRegionsFiltered = JSON.parse(
+          JSON.stringify(adminRegionsLayer.data),
+        );
+        let zoomExtraOffset: number;
+        if (this.placeCode) {
+          adminRegionsFiltered.features = adminRegionsLayer.data.features.filter(
+            (area) => area.properties.placeCode === this.placeCode,
+          );
+          zoomExtraOffset = 0.5;
+        } else {
+          adminRegionsFiltered.features = adminRegionsLayer.data.features;
+          zoomExtraOffset = 0;
+        }
+        const layerBounds = bbox(adminRegionsFiltered);
+        this.mapService.state.bounds = containsNumber(layerBounds)
+          ? ([
+              [
+                layerBounds[1] - zoomExtraOffset,
+                layerBounds[0] - zoomExtraOffset,
+              ],
+              [
+                layerBounds[3] + zoomExtraOffset,
+                layerBounds[2] + zoomExtraOffset,
+              ],
+            ] as LatLngBoundsLiteral)
+          : this.mapService.state.bounds;
+        this.map.fitBounds(this.mapService.state.bounds);
+      }
+    }
+  }
 
   private triggerWindowResize = () => {
     // Trigger a resize to fill the container-element:
