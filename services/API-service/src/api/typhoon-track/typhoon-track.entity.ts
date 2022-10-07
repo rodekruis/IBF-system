@@ -38,6 +38,12 @@ export class TyphoonTrackEntity {
   public timestampOfTrackpoint: Date;
 
   @Column({ nullable: true })
+  public windspeed: number;
+
+  @Column({ nullable: true })
+  public category: string;
+
+  @Column({ nullable: true })
   public eventName: string;
 
   @ApiProperty({ example: new GeoJson() })
