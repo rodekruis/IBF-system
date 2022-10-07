@@ -590,7 +590,6 @@ export class NotificationService {
               <th align="left">${adminAreaLabels.singular}${
       adminAreaLabelsParent ? ' (' + adminAreaLabelsParent.singular + ')' : ''
     }</th>
-              <th align="center">Alert Level</th>
           </tr>
       </thead>
       <tbody>
