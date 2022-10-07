@@ -101,7 +101,7 @@ export class MapComponent implements OnDestroy {
 
   private closestPointToTyphoon: number;
   private TYPHOON_TRACK_NORMAL_POINT_SIZE = 15;
-  private TYPHOON_TRACK_LATEST_POINT_SIZE = 40;
+  private TYPHOON_TRACK_LATEST_POINT_SIZE = 26;
 
   private osmTileLayer = tileLayer(LEAFLET_MAP_URL_TEMPLATE, {
     attribution: LEAFLET_MAP_ATTRIBUTION,
