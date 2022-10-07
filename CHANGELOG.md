@@ -1,3 +1,21 @@
+# [0.185.0](https://github.com/rodekruis/IBF-system/compare/v0.184.0...v0.185.0) (2022-10-07)
+
+
+### Bug Fixes
+
+* add units to layers AB[#15537](https://github.com/rodekruis/IBF-system/issues/15537) ([6e3b632](https://github.com/rodekruis/IBF-system/commit/6e3b63205aefd5740e621d924d06b89428079f6e))
+* corrections to layer descriptions AB[#15514](https://github.com/rodekruis/IBF-system/issues/15514) ([1979282](https://github.com/rodekruis/IBF-system/commit/1979282fbf5601f3db78d5c3ac2be9acb75d1a3c))
+* explain eap-filtering in layer popup AB[#15514](https://github.com/rodekruis/IBF-system/issues/15514) ([88038e0](https://github.com/rodekruis/IBF-system/commit/88038e09dd88998feba4f38901b8f058169c5f87))
+* not purple if typhoon event below trigger ([5fd47f4](https://github.com/rodekruis/IBF-system/commit/5fd47f49761d1f9b7cfd36be1efdee51c1218522))
+
+
+### Features
+
+* extend mock data trackpoints AB[#15534](https://github.com/rodekruis/IBF-system/issues/15534) ([66abcb1](https://github.com/rodekruis/IBF-system/commit/66abcb112adf71f1733eccd3f7dde9392a7b771c))
+* more attributes on trackpoints AB[#15612](https://github.com/rodekruis/IBF-system/issues/15612) ([7a37e9a](https://github.com/rodekruis/IBF-system/commit/7a37e9a70846c9e791eef22f9818e998a467bb18))
+
+
+
 # [0.184.0](https://github.com/rodekruis/IBF-system/compare/v0.183.1...v0.184.0) (2022-10-03)
 
 
@@ -116,15 +134,6 @@
 
 * change colors AB[#15312](https://github.com/rodekruis/IBF-system/issues/15312) ([5d5f42a](https://github.com/rodekruis/IBF-system/commit/5d5f42a14f0b332dcaf7e8a02d5ee9cd56c8a3d4))
 * move indicator left AB[#15302](https://github.com/rodekruis/IBF-system/issues/15302) ([76d1589](https://github.com/rodekruis/IBF-system/commit/76d1589b5ed9263f93c32157cf1bbb1169d51467))
-
-
-
-# [0.177.0](https://github.com/rodekruis/IBF-system/compare/v0.176.1...v0.177.0) (2022-09-23)
-
-
-### Features
-
-* freeze table header AB[#15314](https://github.com/rodekruis/IBF-system/issues/15314) ([5d69ff3](https://github.com/rodekruis/IBF-system/commit/5d69ff35a014c9613a033987932a8497bd4cff9c))
 
 
 
