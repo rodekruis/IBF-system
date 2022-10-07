@@ -1016,7 +1016,7 @@
       },
       "typhoon_track": {
         "PHL": {
-          "typhoon": "<p>Forecasted track of the Typhoon event. The source for this forecast data is ECMWF.</p><br><p><strong>Legend:</strong></p><ul><li>full color track points show where the typhoon has already passed</li><li>the larger track point with the typhoon icon shows the latest location of the typhoon</li><li>transparent track points show the future predicted path of the typhoon</li></ul>"
+          "typhoon": "<p>Forecasted track of the Typhoon event. The source for this forecast data is ECMWF.</p><br><p><strong>Legend:</strong></p><ul><li>the <strong>larger typhoon icon</strong> track point shows the <strong>latest location</strong> of the typhoon</li><li><strong>full color</strong> track points show where the typhoon has <strong>already passed</strong></li><li><strong>transparent</strong> track points show the future <strong>predicted path</strong> of the typhoon</li></ul>"
         }
       },
       "vegetation_condition": {
