@@ -99,6 +99,10 @@ export class MapComponent implements OnDestroy {
   private manualEventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
 
+  private closestPointToTyphoon: number;
+  private TYPHOON_TRACK_NORMAL_POINT_SIZE = 15;
+  private TYPHOON_TRACK_LATEST_POINT_SIZE = 40;
+
   private osmTileLayer = tileLayer(LEAFLET_MAP_URL_TEMPLATE, {
     attribution: LEAFLET_MAP_ATTRIBUTION,
   });
@@ -456,6 +460,10 @@ export class MapComponent implements OnDestroy {
   private createPointLayer(layer: IbfLayer): GeoJSON | MarkerClusterGroup {
     if (!layer.data) {
       return;
+    }
+
+    if (layer.name === IbfLayerName.typhoonTrack) {
+      this.calculateClosestPointToTyphoon(layer);
     }
     const mapLayer = geoJSON(layer.data, {
       pointToLayer: this.getPointToLayerByLayer(layer.name),
@@ -817,14 +825,40 @@ export class MapComponent implements OnDestroy {
       markerProperties.timestampOfTrackpoint,
     ).toFormat('cccc, dd LLLL HH:mm');
     console.log('this.lastModelRunDate: ', this.lastModelRunDate);
+
+    const markerDateTime = DateTime.fromISO(
+      markerProperties.timestampOfTrackpoint,
+    );
+    const modelDateTime = DateTime.fromISO(this.lastModelRunDate);
+    const isLatest = markerDateTime.equals(
+      DateTime.fromMillis(this.closestPointToTyphoon),
+    );
+
+    let className = 'typhoon-track-icon';
+
+    if (markerDateTime > modelDateTime) {
+      className += ' typhoon-track-icon-future';
+    } else {
+      if (isLatest) {
+        className += ' typhoon-track-icon-latest';
+      } else {
+        className += ' typhoon-track-icon-past';
+      }
+    }
+
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: divIcon({
-        className:
-          DateTime.fromISO(markerProperties.timestampOfTrackpoint) >
-          DateTime.fromISO(this.lastModelRunDate)
-            ? 'typhoon-track-icon-future'
-            : 'typhoon-track-icon-past',
+        className,
+        iconSize: isLatest
+          ? [
+              this.TYPHOON_TRACK_LATEST_POINT_SIZE,
+              this.TYPHOON_TRACK_LATEST_POINT_SIZE,
+            ]
+          : [
+              this.TYPHOON_TRACK_NORMAL_POINT_SIZE,
+              this.TYPHOON_TRACK_NORMAL_POINT_SIZE,
+            ],
       }),
       zIndexOffset: 700,
     });
@@ -1068,5 +1102,17 @@ export class MapComponent implements OnDestroy {
         '</div>',
     );
     return waterpointInfoPopup;
+  }
+
+  private calculateClosestPointToTyphoon(layer: IbfLayer) {
+    const dates = layer.data.features
+      .filter(
+        (f) =>
+          DateTime.fromISO(f.properties.timestampOfTrackpoint) <=
+          DateTime.fromISO(this.lastModelRunDate),
+      )
+      .map((t) => DateTime.fromISO(t.properties.timestampOfTrackpoint));
+
+    this.closestPointToTyphoon = Math.max.apply(null, dates);
   }
 }
