@@ -593,9 +593,13 @@ export class EventService {
       const affectedArea = affectedAreas.find(
         area => area.placeCode === eventArea.adminArea.placeCode,
       );
+      eventArea.activeTrigger = true;
+      eventArea.endDate = endDate;
       if (affectedArea.triggerValue > 0) {
+        eventArea.thresholdReached = true;
         idsToUpdateAboveThreshold.push(eventArea.eventPlaceCodeId);
       } else {
+        eventArea.thresholdReached = false;
         idsToUpdateBelowThreshold.push(eventArea.eventPlaceCodeId);
       }
     });
