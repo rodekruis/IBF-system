@@ -37,6 +37,8 @@ export class TyphoonTrackService {
               date: new Date(),
               timestamp: new Date(),
               timestampOfTrackpoint: trackpoint.timestampOfTrackpoint,
+              windspeed: trackpoint.windspeed,
+              category: trackpoint.category,
               geom: (): string =>
                 `st_asgeojson(st_MakePoint(${trackpoint.lon}, ${trackpoint.lat}))::json`,
             })
@@ -69,7 +71,14 @@ export class TyphoonTrackService {
       DisasterType.Typhoon,
     );
     const typhoonTrackPoints = await this.typhoonTrackRepository.find({
-      select: ['countryCodeISO3', 'leadTime', 'timestampOfTrackpoint', 'geom'],
+      select: [
+        'countryCodeISO3',
+        'leadTime',
+        'timestampOfTrackpoint',
+        'windspeed',
+        'category',
+        'geom',
+      ],
       where: {
         leadTime: leadTime,
         countryCodeISO3: countryCodeISO3,

@@ -1,5 +1,13 @@
-import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+
+export enum TyphoonCategory {
+  TD = 'TD',
+  TS = 'TS',
+  STS = 'STS',
+  TY = 'TY',
+  STY = 'STY',
+}
 
 export class TrackpointDetailsDto {
   @ApiProperty({ example: 90.0 })
@@ -16,4 +24,12 @@ export class TrackpointDetailsDto {
   @IsNotEmpty()
   @IsString()
   public timestampOfTrackpoint: Date;
+
+  @ApiProperty({ example: 100 })
+  @IsNumber()
+  public windspeed: number;
+
+  @ApiProperty({ example: 'TS' })
+  @IsEnum(TyphoonCategory)
+  public category: TyphoonCategory;
 }
