@@ -338,7 +338,7 @@
     "aggregates-section": {
       "affected_population": {
         "PHL": {
-          "typhoon": ""
+          "typhoon": "<p>The number of people affected is calculated based on the predicted number of completely damaged houses, which is derived from the typhoon impact predicting model. To derive a methodology to estimate the number of affected people from a predicted number of completely damaged houses, we performed a log fit between the number of completely damaged houses and the number of affected people for past typhoon events using data derived from DROMIC reports. To estimate potential number of affected population this formula is applied to the predicted number of damaged houses. <p> "
         }
       },
       "cattle_exposed": {
