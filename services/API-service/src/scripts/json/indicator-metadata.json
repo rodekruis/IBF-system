@@ -950,7 +950,8 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "unit": "kph"
   },
   {
     "countryCodes": "PHL",
@@ -967,7 +968,8 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "unit": "mm/day"
   },
   {
     "countryCodes": "KEN",

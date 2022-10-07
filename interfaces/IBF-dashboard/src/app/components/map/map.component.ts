@@ -599,7 +599,9 @@ export class MapComponent implements OnDestroy {
                   activeAggregateLayer.colorProperty
                 ],
             activeAggregateLayer,
-          ))
+          ) +
+          ' ' +
+          activeAggregateLayer.unit)
     );
   }
 
