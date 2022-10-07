@@ -225,7 +225,7 @@ export class MapComponent implements OnDestroy {
 
     // Close all open popups when (going back to) all admin-areas
     if (!this.placeCode && this.map) {
-      this.map.eachLayer(function (layer) {
+      this.map.eachLayer((layer) => {
         layer.closePopup();
       });
     }
