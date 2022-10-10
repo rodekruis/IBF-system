@@ -1,3 +1,12 @@
+## [0.187.1](https://github.com/rodekruis/IBF-system/compare/v0.187.0...v0.187.1) (2022-10-10)
+
+
+### Bug Fixes
+
+* make track points 80% opaque AB[#15634](https://github.com/rodekruis/IBF-system/issues/15634) ([321fa78](https://github.com/rodekruis/IBF-system/commit/321fa7818ce2e1fa7727351bd5086a0e73219ccf))
+
+
+
 # [0.187.0](https://github.com/rodekruis/IBF-system/compare/v0.186.0...v0.187.0) (2022-10-10)
 
 
@@ -133,16 +142,6 @@
 ### Features
 
 * order activation log by start date desc AB[#15410](https://github.com/rodekruis/IBF-system/issues/15410) ([2535f39](https://github.com/rodekruis/IBF-system/commit/2535f393d4f0d67a9c1e1a1a7f31b0586f28f69e))
-
-
-
-## [0.180.1](https://github.com/rodekruis/IBF-system/compare/v0.180.0...v0.180.1) (2022-09-26)
-
-
-### Bug Fixes
-
-* calculate landfall-time in chat not on actual now but on last upload time AB[#15400](https://github.com/rodekruis/IBF-system/issues/15400) ([2ef4534](https://github.com/rodekruis/IBF-system/commit/2ef4534ad82508a0063fa5e5ea1a03df2830220f))
-* color trackpoints not on current time but on last run time AB[#15390](https://github.com/rodekruis/IBF-system/issues/15390) ([de8950e](https://github.com/rodekruis/IBF-system/commit/de8950e1e497c170bfb537458d49ab9d63e9a9ff))
 
 
 
