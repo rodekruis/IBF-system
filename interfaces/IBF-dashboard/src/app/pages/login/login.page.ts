@@ -68,7 +68,7 @@ export class LoginPage implements OnInit {
         pdfUrl: environment.ibfPdfGuideUrl,
       },
       animated: true,
-      cssClass: 'ibf-guide-popover',
+      cssClass: 'ibf-popover ibf-popover-large',
       translucent: true,
       showBackdrop: true,
     });

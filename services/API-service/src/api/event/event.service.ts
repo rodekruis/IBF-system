@@ -272,6 +272,19 @@ export class EventService {
         area.placeCode,
         eventName === 'no-name' ? null : eventName,
       );
+
+      const parentAdminArea = await this.adminAreaRepository
+        .createQueryBuilder('area')
+        .leftJoin(
+          AdminAreaEntity,
+          'parent',
+          'area."placeCodeParent" = parent."placeCode"',
+        )
+        .select('parent.name AS name')
+        .where('area."placeCode" = :placeCode', { placeCode: area.placeCode })
+        .getRawOne();
+
+      area.nameParent = parentAdminArea.name;
     }
     return triggeredAreas;
   }
@@ -593,9 +606,13 @@ export class EventService {
       const affectedArea = affectedAreas.find(
         area => area.placeCode === eventArea.adminArea.placeCode,
       );
+      eventArea.activeTrigger = true;
+      eventArea.endDate = endDate;
       if (affectedArea.triggerValue > 0) {
+        eventArea.thresholdReached = true;
         idsToUpdateAboveThreshold.push(eventArea.eventPlaceCodeId);
       } else {
+        eventArea.thresholdReached = false;
         idsToUpdateBelowThreshold.push(eventArea.eventPlaceCodeId);
       }
     });

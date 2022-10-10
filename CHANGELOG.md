@@ -1,3 +1,74 @@
+## [0.187.1](https://github.com/rodekruis/IBF-system/compare/v0.187.0...v0.187.1) (2022-10-10)
+
+
+### Bug Fixes
+
+* make track points 80% opaque AB[#15634](https://github.com/rodekruis/IBF-system/issues/15634) ([321fa78](https://github.com/rodekruis/IBF-system/commit/321fa7818ce2e1fa7727351bd5086a0e73219ccf))
+
+
+
+# [0.187.0](https://github.com/rodekruis/IBF-system/compare/v0.186.0...v0.187.0) (2022-10-10)
+
+
+### Bug Fixes
+
+* copu text to aggregates AB[#15514](https://github.com/rodekruis/IBF-system/issues/15514) ([9c1a507](https://github.com/rodekruis/IBF-system/commit/9c1a50714b8e7f62cb98b87cd99eb6c803bab0f6))
+* correct classes for login page guide AB[#15619](https://github.com/rodekruis/IBF-system/issues/15619) ([dc1d6aa](https://github.com/rodekruis/IBF-system/commit/dc1d6aad0154110309a381f34285e4f10c0850cb))
+* move trigger statement above table AB[#15504](https://github.com/rodekruis/IBF-system/issues/15504) ([9744a29](https://github.com/rodekruis/IBF-system/commit/9744a29d8208b938796428d1262f0684f7f2684f))
+* remove 'alert level' from email AB[#15539](https://github.com/rodekruis/IBF-system/issues/15539) ([dc2e5b3](https://github.com/rodekruis/IBF-system/commit/dc2e5b353d4ff87fe9b7c738b913f66644142331))
+* remove alert level col header AB[#15539](https://github.com/rodekruis/IBF-system/issues/15539) ([96d8bd8](https://github.com/rodekruis/IBF-system/commit/96d8bd85a580ef51d1df8affef100d12b9126723))
+* update info popups AB[#15512](https://github.com/rodekruis/IBF-system/issues/15512) ([8ba4df7](https://github.com/rodekruis/IBF-system/commit/8ba4df76f0620163c42b417a5d6ff7aba5de0fdd))
+
+
+### Features
+
+* add link to trigger statement AB[#15505](https://github.com/rodekruis/IBF-system/issues/15505) ([a6055fd](https://github.com/rodekruis/IBF-system/commit/a6055fdb865638abb43357287df43fde51b47a42))
+* add new layer icon AB[#15623](https://github.com/rodekruis/IBF-system/issues/15623) ([45b66c1](https://github.com/rodekruis/IBF-system/commit/45b66c1534cf97d30b207ad64c52814b9b576e44))
+* add parent area name to email list (cell + header) AB[#15538](https://github.com/rodekruis/IBF-system/issues/15538) ([97fff75](https://github.com/rodekruis/IBF-system/commit/97fff7585fd789af6a6e7a51caddf59cd25ad9ab))
+* change marker color AB[#15510](https://github.com/rodekruis/IBF-system/issues/15510) ([96aae0b](https://github.com/rodekruis/IBF-system/commit/96aae0b341aaeb764268af42eac60633b071299d))
+* reduce size of current point AB[#15511](https://github.com/rodekruis/IBF-system/issues/15511) ([c0dc4c8](https://github.com/rodekruis/IBF-system/commit/c0dc4c828647ffd0f80d941ef804a9e0c6d977dd))
+* update track style AB[#15510](https://github.com/rodekruis/IBF-system/issues/15510) AB[#15511](https://github.com/rodekruis/IBF-system/issues/15511) ([6f45c0a](https://github.com/rodekruis/IBF-system/commit/6f45c0a4e99fb8e52bd087ed6667fa948b59c580))
+
+
+
+# [0.186.0](https://github.com/rodekruis/IBF-system/compare/v0.185.1...v0.186.0) (2022-10-10)
+
+
+### Features
+
+* add aof title + align left AB[#15520](https://github.com/rodekruis/IBF-system/issues/15520) ([c7091b5](https://github.com/rodekruis/IBF-system/commit/c7091b51f44cc8a3c2896d3c6bb04d0f8054f22e))
+* add tasks title aAB[#10693](https://github.com/rodekruis/IBF-system/issues/10693) ([d0ddbd6](https://github.com/rodekruis/IBF-system/commit/d0ddbd60059157a6c8a6139b7f7d745e5377091a))
+* split titles in 2 levels AB[#15484](https://github.com/rodekruis/IBF-system/issues/15484) ([263d0b9](https://github.com/rodekruis/IBF-system/commit/263d0b9adbe84b3ff7d7447b2333dd2e1f517dae))
+
+
+
+## [0.185.1](https://github.com/rodekruis/IBF-system/compare/v0.185.0...v0.185.1) (2022-10-07)
+
+
+### Bug Fixes
+
+* mistake AB[#15483](https://github.com/rodekruis/IBF-system/issues/15483) ([1b944f5](https://github.com/rodekruis/IBF-system/commit/1b944f58363484560a56c3c75231f2a7c839a4a6))
+
+
+
+# [0.185.0](https://github.com/rodekruis/IBF-system/compare/v0.184.0...v0.185.0) (2022-10-07)
+
+
+### Bug Fixes
+
+* add units to layers AB[#15537](https://github.com/rodekruis/IBF-system/issues/15537) ([6e3b632](https://github.com/rodekruis/IBF-system/commit/6e3b63205aefd5740e621d924d06b89428079f6e))
+* corrections to layer descriptions AB[#15514](https://github.com/rodekruis/IBF-system/issues/15514) ([1979282](https://github.com/rodekruis/IBF-system/commit/1979282fbf5601f3db78d5c3ac2be9acb75d1a3c))
+* explain eap-filtering in layer popup AB[#15514](https://github.com/rodekruis/IBF-system/issues/15514) ([88038e0](https://github.com/rodekruis/IBF-system/commit/88038e09dd88998feba4f38901b8f058169c5f87))
+* not purple if typhoon event below trigger ([5fd47f4](https://github.com/rodekruis/IBF-system/commit/5fd47f49761d1f9b7cfd36be1efdee51c1218522))
+
+
+### Features
+
+* extend mock data trackpoints AB[#15534](https://github.com/rodekruis/IBF-system/issues/15534) ([66abcb1](https://github.com/rodekruis/IBF-system/commit/66abcb112adf71f1733eccd3f7dde9392a7b771c))
+* more attributes on trackpoints AB[#15612](https://github.com/rodekruis/IBF-system/issues/15612) ([7a37e9a](https://github.com/rodekruis/IBF-system/commit/7a37e9a70846c9e791eef22f9818e998a467bb18))
+
+
+
 # [0.184.0](https://github.com/rodekruis/IBF-system/compare/v0.183.1...v0.184.0) (2022-10-03)
 
 
@@ -71,60 +142,6 @@
 ### Features
 
 * order activation log by start date desc AB[#15410](https://github.com/rodekruis/IBF-system/issues/15410) ([2535f39](https://github.com/rodekruis/IBF-system/commit/2535f393d4f0d67a9c1e1a1a7f31b0586f28f69e))
-
-
-
-## [0.180.1](https://github.com/rodekruis/IBF-system/compare/v0.180.0...v0.180.1) (2022-09-26)
-
-
-### Bug Fixes
-
-* calculate landfall-time in chat not on actual now but on last upload time AB[#15400](https://github.com/rodekruis/IBF-system/issues/15400) ([2ef4534](https://github.com/rodekruis/IBF-system/commit/2ef4534ad82508a0063fa5e5ea1a03df2830220f))
-* color trackpoints not on current time but on last run time AB[#15390](https://github.com/rodekruis/IBF-system/issues/15390) ([de8950e](https://github.com/rodekruis/IBF-system/commit/de8950e1e497c170bfb537458d49ab9d63e9a9ff))
-
-
-
-# [0.180.0](https://github.com/rodekruis/IBF-system/compare/v0.179.0...v0.180.0) (2022-09-26)
-
-
-### Features
-
-* add copy btn AB[#15397](https://github.com/rodekruis/IBF-system/issues/15397) ([32aa323](https://github.com/rodekruis/IBF-system/commit/32aa323d2a9537764ea714bb389a220799cebf14))
-
-
-
-# [0.179.0](https://github.com/rodekruis/IBF-system/compare/v0.178.0...v0.179.0) (2022-09-23)
-
-
-### Features
-
-* resize and move inner icon AB[#15308](https://github.com/rodekruis/IBF-system/issues/15308) ([f25c1d9](https://github.com/rodekruis/IBF-system/commit/f25c1d98d52797fce06e2afae879f99ff4c003bf))
-* update glofas-no icon AB[#15308](https://github.com/rodekruis/IBF-system/issues/15308) AB[#15310](https://github.com/rodekruis/IBF-system/issues/15310) ([069e34e](https://github.com/rodekruis/IBF-system/commit/069e34e06ed1f42ab6fe2aa2c8044b6a9452b833))
-* update popover AB[#15311](https://github.com/rodekruis/IBF-system/issues/15311) ([d778fab](https://github.com/rodekruis/IBF-system/commit/d778fabfe5e0acaba6e40a1e1fe085d00e65c0c0))
-
-
-
-# [0.178.0](https://github.com/rodekruis/IBF-system/compare/v0.177.0...v0.178.0) (2022-09-23)
-
-
-### Bug Fixes
-
-* up/down expand arrows AB[#15395](https://github.com/rodekruis/IBF-system/issues/15395) ([010be12](https://github.com/rodekruis/IBF-system/commit/010be12f8ec5ef91a0edd481f4d0a58fe917d8d0))
-
-
-### Features
-
-* change colors AB[#15312](https://github.com/rodekruis/IBF-system/issues/15312) ([5d5f42a](https://github.com/rodekruis/IBF-system/commit/5d5f42a14f0b332dcaf7e8a02d5ee9cd56c8a3d4))
-* move indicator left AB[#15302](https://github.com/rodekruis/IBF-system/issues/15302) ([76d1589](https://github.com/rodekruis/IBF-system/commit/76d1589b5ed9263f93c32157cf1bbb1169d51467))
-
-
-
-# [0.177.0](https://github.com/rodekruis/IBF-system/compare/v0.176.1...v0.177.0) (2022-09-23)
-
-
-### Features
-
-* freeze table header AB[#15314](https://github.com/rodekruis/IBF-system/issues/15314) ([5d69ff3](https://github.com/rodekruis/IBF-system/commit/5d69ff35a014c9613a033987932a8497bd4cff9c))
 
 
 

@@ -188,16 +188,25 @@
   opacity: 0.7 !important;
 }
 
-.typhoon-track-icon-future {
-  background: var(--ion-color-ibf-primary);
-  border: 1px solid var(--ion-color-ibf-primary-contrast);
+.typhoon-track-icon {
+  border-width: 1px;
   border-radius: 50%;
+  border-color: var(--ion-color-ibf-primary);
+}
+
+.typhoon-track-icon-future {
+  border-style: dashed;
+  background: rgba(var(--ion-color-ibf-white-rgb), 0.8);
 }
 
 .typhoon-track-icon-past {
-  background: var(--ion-color-ibf-no-alert-secondary);
-  border: 1px solid var(--ion-color-ibf-no-alert-primary);
-  border-radius: 50%;
+  border-style: solid;
+  background: var(--ion-color-ibf-primary);
+}
+
+.typhoon-track-icon-latest {
+  background: var(--ion-color-ibf-primary)
+    url('/assets/icons/TyphoonHurricaneCyclone_Track.svg') center no-repeat;
 }
 
 .ibf-popover {
