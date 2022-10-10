@@ -48,7 +48,11 @@
     "all-prefix": "All",
     "exposed-subgroups": ""
   },
-  "areas-of-focus-summary-component": { "title": "Actions Summary" },
+  "areas-of-focus-summary-component": {
+    "title": "Actions Summary",
+    "aof-subtitle": "Area of Focus",
+    "tasks-subtitle": "Tasks Completed"
+  },
   "ibf-guide-component": {
     "title": "IBF Guide",
     "video-pdf-description": "To get a quick guide on how this dashboard works you can look at either the video guide below or the PDF manual <a href='{{pdfUrl}}' target='_blank'>here</a>.",
