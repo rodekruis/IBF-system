@@ -1,3 +1,27 @@
+# [0.187.0](https://github.com/rodekruis/IBF-system/compare/v0.186.0...v0.187.0) (2022-10-10)
+
+
+### Bug Fixes
+
+* copu text to aggregates AB[#15514](https://github.com/rodekruis/IBF-system/issues/15514) ([9c1a507](https://github.com/rodekruis/IBF-system/commit/9c1a50714b8e7f62cb98b87cd99eb6c803bab0f6))
+* correct classes for login page guide AB[#15619](https://github.com/rodekruis/IBF-system/issues/15619) ([dc1d6aa](https://github.com/rodekruis/IBF-system/commit/dc1d6aad0154110309a381f34285e4f10c0850cb))
+* move trigger statement above table AB[#15504](https://github.com/rodekruis/IBF-system/issues/15504) ([9744a29](https://github.com/rodekruis/IBF-system/commit/9744a29d8208b938796428d1262f0684f7f2684f))
+* remove 'alert level' from email AB[#15539](https://github.com/rodekruis/IBF-system/issues/15539) ([dc2e5b3](https://github.com/rodekruis/IBF-system/commit/dc2e5b353d4ff87fe9b7c738b913f66644142331))
+* remove alert level col header AB[#15539](https://github.com/rodekruis/IBF-system/issues/15539) ([96d8bd8](https://github.com/rodekruis/IBF-system/commit/96d8bd85a580ef51d1df8affef100d12b9126723))
+* update info popups AB[#15512](https://github.com/rodekruis/IBF-system/issues/15512) ([8ba4df7](https://github.com/rodekruis/IBF-system/commit/8ba4df76f0620163c42b417a5d6ff7aba5de0fdd))
+
+
+### Features
+
+* add link to trigger statement AB[#15505](https://github.com/rodekruis/IBF-system/issues/15505) ([a6055fd](https://github.com/rodekruis/IBF-system/commit/a6055fdb865638abb43357287df43fde51b47a42))
+* add new layer icon AB[#15623](https://github.com/rodekruis/IBF-system/issues/15623) ([45b66c1](https://github.com/rodekruis/IBF-system/commit/45b66c1534cf97d30b207ad64c52814b9b576e44))
+* add parent area name to email list (cell + header) AB[#15538](https://github.com/rodekruis/IBF-system/issues/15538) ([97fff75](https://github.com/rodekruis/IBF-system/commit/97fff7585fd789af6a6e7a51caddf59cd25ad9ab))
+* change marker color AB[#15510](https://github.com/rodekruis/IBF-system/issues/15510) ([96aae0b](https://github.com/rodekruis/IBF-system/commit/96aae0b341aaeb764268af42eac60633b071299d))
+* reduce size of current point AB[#15511](https://github.com/rodekruis/IBF-system/issues/15511) ([c0dc4c8](https://github.com/rodekruis/IBF-system/commit/c0dc4c828647ffd0f80d941ef804a9e0c6d977dd))
+* update track style AB[#15510](https://github.com/rodekruis/IBF-system/issues/15510) AB[#15511](https://github.com/rodekruis/IBF-system/issues/15511) ([6f45c0a](https://github.com/rodekruis/IBF-system/commit/6f45c0a4e99fb8e52bd087ed6667fa948b59c580))
+
+
+
 # [0.186.0](https://github.com/rodekruis/IBF-system/compare/v0.185.1...v0.186.0) (2022-10-10)
 
 
@@ -119,15 +143,6 @@
 
 * calculate landfall-time in chat not on actual now but on last upload time AB[#15400](https://github.com/rodekruis/IBF-system/issues/15400) ([2ef4534](https://github.com/rodekruis/IBF-system/commit/2ef4534ad82508a0063fa5e5ea1a03df2830220f))
 * color trackpoints not on current time but on last run time AB[#15390](https://github.com/rodekruis/IBF-system/issues/15390) ([de8950e](https://github.com/rodekruis/IBF-system/commit/de8950e1e497c170bfb537458d49ab9d63e9a9ff))
-
-
-
-# [0.180.0](https://github.com/rodekruis/IBF-system/compare/v0.179.0...v0.180.0) (2022-09-26)
-
-
-### Features
-
-* add copy btn AB[#15397](https://github.com/rodekruis/IBF-system/issues/15397) ([32aa323](https://github.com/rodekruis/IBF-system/commit/32aa323d2a9537764ea714bb389a220799cebf14))
 
 
 
