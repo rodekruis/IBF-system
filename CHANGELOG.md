@@ -1,3 +1,14 @@
+# [0.186.0](https://github.com/rodekruis/IBF-system/compare/v0.185.1...v0.186.0) (2022-10-10)
+
+
+### Features
+
+* add aof title + align left AB[#15520](https://github.com/rodekruis/IBF-system/issues/15520) ([c7091b5](https://github.com/rodekruis/IBF-system/commit/c7091b51f44cc8a3c2896d3c6bb04d0f8054f22e))
+* add tasks title aAB[#10693](https://github.com/rodekruis/IBF-system/issues/10693) ([d0ddbd6](https://github.com/rodekruis/IBF-system/commit/d0ddbd60059157a6c8a6139b7f7d745e5377091a))
+* split titles in 2 levels AB[#15484](https://github.com/rodekruis/IBF-system/issues/15484) ([263d0b9](https://github.com/rodekruis/IBF-system/commit/263d0b9adbe84b3ff7d7447b2333dd2e1f517dae))
+
+
+
 ## [0.185.1](https://github.com/rodekruis/IBF-system/compare/v0.185.0...v0.185.1) (2022-10-07)
 
 
@@ -117,17 +128,6 @@
 ### Features
 
 * add copy btn AB[#15397](https://github.com/rodekruis/IBF-system/issues/15397) ([32aa323](https://github.com/rodekruis/IBF-system/commit/32aa323d2a9537764ea714bb389a220799cebf14))
-
-
-
-# [0.179.0](https://github.com/rodekruis/IBF-system/compare/v0.178.0...v0.179.0) (2022-09-23)
-
-
-### Features
-
-* resize and move inner icon AB[#15308](https://github.com/rodekruis/IBF-system/issues/15308) ([f25c1d9](https://github.com/rodekruis/IBF-system/commit/f25c1d98d52797fce06e2afae879f99ff4c003bf))
-* update glofas-no icon AB[#15308](https://github.com/rodekruis/IBF-system/issues/15308) AB[#15310](https://github.com/rodekruis/IBF-system/issues/15310) ([069e34e](https://github.com/rodekruis/IBF-system/commit/069e34e06ed1f42ab6fe2aa2c8044b6a9452b833))
-* update popover AB[#15311](https://github.com/rodekruis/IBF-system/issues/15311) ([d778fab](https://github.com/rodekruis/IBF-system/commit/d778fabfe5e0acaba6e40a1e1fe085d00e65c0c0))
 
 
 
