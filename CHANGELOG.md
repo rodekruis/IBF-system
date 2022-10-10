@@ -1,3 +1,12 @@
+## [0.187.2](https://github.com/rodekruis/IBF-system/compare/v0.187.1...v0.187.2) (2022-10-10)
+
+
+### Bug Fixes
+
+* ux copy download link email AB[#15639](https://github.com/rodekruis/IBF-system/issues/15639) ([35f25a5](https://github.com/rodekruis/IBF-system/commit/35f25a5fe74236ea2984e92e02714d953ccb05d7))
+
+
+
 ## [0.187.1](https://github.com/rodekruis/IBF-system/compare/v0.187.0...v0.187.1) (2022-10-10)
 
 
@@ -128,20 +137,6 @@
 * select area on click AB[#15402](https://github.com/rodekruis/IBF-system/issues/15402) ([dcbae44](https://github.com/rodekruis/IBF-system/commit/dcbae449e528aa49cd576a28e6bf5dd799d20fde))
 * update scenarios AB[#15406](https://github.com/rodekruis/IBF-system/issues/15406) ([0bb124e](https://github.com/rodekruis/IBF-system/commit/0bb124ea4f8f976b5ef716cfcac847628a7562d5))
 * zoom to selected area in map AB[#15405](https://github.com/rodekruis/IBF-system/issues/15405) ([bacebc2](https://github.com/rodekruis/IBF-system/commit/bacebc2dae7c90cdd9c66e3df603a5dc9f7397c7))
-
-
-
-# [0.181.0](https://github.com/rodekruis/IBF-system/compare/v0.180.1...v0.181.0) (2022-09-26)
-
-
-### Bug Fixes
-
-* make goal of copying clear AB[#15409](https://github.com/rodekruis/IBF-system/issues/15409) ([bbf46a7](https://github.com/rodekruis/IBF-system/commit/bbf46a737ab87e86f279f41b95eed3537f72db52))
-
-
-### Features
-
-* order activation log by start date desc AB[#15410](https://github.com/rodekruis/IBF-system/issues/15410) ([2535f39](https://github.com/rodekruis/IBF-system/commit/2535f393d4f0d67a9c1e1a1a7f31b0586f28f69e))
 
 
 
