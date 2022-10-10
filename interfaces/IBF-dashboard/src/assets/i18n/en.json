@@ -1080,5 +1080,18 @@
         }
       }
     }
+  },
+  "map-popups": {
+    "PHL": {
+      "typhoon": {
+        "category": {
+          "TD": "Tropical depression",
+          "TS": "Tropical storm",
+          "STS": "Severe tropical storm",
+          "TY": "Typhoon",
+          "ST": "Super typhoon"
+        }
+      }
+    }
   }
 }

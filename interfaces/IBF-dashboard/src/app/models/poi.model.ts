@@ -13,6 +13,8 @@ export class Station {
 
 export class TyphoonTrackPoint {
   timestampOfTrackpoint: string;
+  windspeed: number;
+  category: string;
 }
 export class RedCrossBranch {
   name: string;

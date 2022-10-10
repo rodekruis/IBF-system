@@ -56,7 +56,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
       this.disasterTypesCounter = 0;
       this.disasterTypes = country.disasterTypes;
       this.disasterTypes.sort((a, b) =>
-        a.disasterType > b.disasterType ? 1 : -1,
+        a.disasterType < b.disasterType ? 1 : -1,
       );
       this.disasterTypes.forEach((disasterType) => {
         this.eventService.getTriggerByDisasterType(
