@@ -7,8 +7,11 @@
 
   ion-menu {
     --width: 100%;
+    --background: transparent;
 
     ion-content {
+      --background: transparent;
+
       ion-list {
         ion-item {
           --min-height: 32px;
@@ -57,6 +60,8 @@
 
             .layer-control-label-col {
               ion-item {
+                --background: transparent;
+
                 ion-label {
                   text-transform: capitalize;
                   line-height: 1.2;

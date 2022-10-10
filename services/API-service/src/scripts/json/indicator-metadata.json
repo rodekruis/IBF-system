@@ -41,6 +41,23 @@
     "unit": "people"
   },
   {
+    "countryCodes": "PHL",
+    "disasterTypes": ["typhoon"],
+    "name": "affected_population",
+    "label": "Affected population",
+    "icon": "Affected-population-white.svg",
+    "weightedAvg": false,
+    "active": "if-trigger",
+    "colorBreaks": null,
+    "numberFormatMap": "decimal0",
+    "aggregateIndicator": "PHL",
+    "numberFormatAggregate": "decimal0",
+    "weightvar": null,
+    "order": 1,
+    "dynamic": true,
+    "unit": "people"
+  },
+  {
     "countryCodes": "UGA,ZMB,KEN,ETH,EGY,PHL,MWI",
     "disasterTypes": ["floods", "heavy-rain"],
     "name": "population_affected_percentage",
@@ -889,9 +906,9 @@
     "disasterTypes": ["typhoon"],
     "name": "houses_affected",
     "label": "% of houses affected",
-    "icon": "Person2-white.svg",
+    "icon": "House-white.svg",
     "weightedAvg": true,
-    "active": "if-trigger",
+    "active": "no",
     "colorBreaks": null,
     "numberFormatMap": "perc",
     "aggregateIndicator": "PHL",
@@ -933,7 +950,8 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "unit": "kph"
   },
   {
     "countryCodes": "PHL",
@@ -950,7 +968,8 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "unit": "mm/day"
   },
   {
     "countryCodes": "KEN",

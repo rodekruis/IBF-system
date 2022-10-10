@@ -439,7 +439,7 @@ export class EventService {
     );
 
     // close old events
-    await this.closeEventsAutomatic(countryCodeISO3);
+    await this.closeEventsAutomatic(countryCodeISO3, disasterType);
   }
 
   private async setAllEventsToInactive(
@@ -584,7 +584,34 @@ export class EventService {
       },
       relations: ['adminArea'],
     });
+
+    // To optimize performance here ..
+    const idsToUpdateAboveThreshold = [];
+    const idsToUpdateBelowThreshold = [];
+    const endDate = await this.getEndDate(disasterType);
+    unclosedEventAreas.forEach(eventArea => {
+      const affectedArea = affectedAreas.find(
+        area => area.placeCode === eventArea.adminArea.placeCode,
+      );
+      eventArea.activeTrigger = true;
+      eventArea.endDate = endDate;
+      if (affectedArea.triggerValue > 0) {
+        eventArea.thresholdReached = true;
+        idsToUpdateAboveThreshold.push(eventArea.eventPlaceCodeId);
+      } else {
+        eventArea.thresholdReached = false;
+        idsToUpdateBelowThreshold.push(eventArea.eventPlaceCodeId);
+      }
+    });
+    // .. first fire one query to update all rows that need thresholdReached = true
+    await this.updateEvents(idsToUpdateAboveThreshold, true, endDate);
+
+    // .. then fire one query to update all rows that need thresholdReached = false
+    await this.updateEvents(idsToUpdateBelowThreshold, false, endDate);
+
+    // .. and lastly fire individual queries to update actionsValue ONLY for rows here it changed
     let affectedArea: AffectedAreaDto;
+    const eventAreasToUpdate = [];
     for await (const unclosedEventArea of unclosedEventAreas) {
       if (
         affectedAreasPlaceCodes.includes(unclosedEventArea.adminArea.placeCode)
@@ -592,13 +619,30 @@ export class EventService {
         affectedArea = affectedAreas.find(
           area => area.placeCode === unclosedEventArea.adminArea.placeCode,
         );
-        unclosedEventArea.activeTrigger = true;
-        unclosedEventArea.thresholdReached = affectedArea.triggerValue > 0;
-        unclosedEventArea.actionsValue = affectedArea.actionsValue;
-        unclosedEventArea.endDate = await this.getEndDate(disasterType);
+        if (unclosedEventArea.actionsValue !== affectedArea.actionsValue) {
+          unclosedEventArea.actionsValue = affectedArea.actionsValue;
+          eventAreasToUpdate.push(unclosedEventArea);
+        }
       }
     }
     await this.eventPlaceCodeRepo.save(unclosedEventAreas);
+  }
+
+  private async updateEvents(
+    eventPlaceCodeIds: string[],
+    aboveThreshold: boolean,
+    endDate: Date,
+  ) {
+    await this.eventPlaceCodeRepo
+      .createQueryBuilder()
+      .update()
+      .set({
+        activeTrigger: true,
+        thresholdReached: aboveThreshold,
+        endDate: endDate,
+      })
+      .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
+      .execute();
   }
 
   private async addNewEventAreas(
@@ -650,7 +694,10 @@ export class EventService {
     await this.eventPlaceCodeRepo.save(newEventAreas);
   }
 
-  private async closeEventsAutomatic(countryCodeISO3: string) {
+  private async closeEventsAutomatic(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ) {
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
     );
@@ -658,6 +705,7 @@ export class EventService {
       where: {
         endDate: LessThan(new Date()),
         adminArea: In(countryAdminAreaIds),
+        disasterType: disasterType,
       },
     });
     expiredEventAreas.forEach(area => (area.closed = true));

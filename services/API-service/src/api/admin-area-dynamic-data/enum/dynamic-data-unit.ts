@@ -12,6 +12,7 @@ export enum DynamicIndicator {
   windspeed = 'windspeed',
   rainfall = 'rainfall',
   housesAffected = 'houses_affected',
+  affectedPopulation = 'affected_population',
   probWithin50Km = 'prob_within_50km',
   showAdminArea = 'show_admin_area',
   droughtPhaseClassification = 'drought_phase_classification',

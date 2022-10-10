@@ -116,6 +116,37 @@ Scenario: View overview & further instructions WITH "stopped" areas
     And it mentions the stopped areas in same order as scenario above
     And it mentions instructions that you can click a stopped area in the map
 
+Scenario: Click on area in triggered areas list in chat
+    Given the dashboard is in TRIGGERED state
+    Given the selected "admin level" is the "default admin level"
+    When the user views the 3rd speech bubble
+    And the user clicks on the name of a triggered area
+    Then the map zooms down on the selected area
+    And a new speech bubble appears in the chat section
+    And it is pointed to the right instead of the left
+    And it contains the "admin area" type and name 
+    And it contains the relevant "action unit" type and value (e.g. "Exposed population" or "Potential cases")
+    And it contains a button to go back to the list of all triggered areas
+    And it contains a list of all EAP-actions (same for every area) with "area of focus" name and "action" description
+    And it shows which EAP-actions are already "checked" via the "checkbox"
+    And it contains a disabled "save" button
+    And it contains an enabled "stop trigger/alert" button
+
+Scenario: Click on area in stopped areas list in chat
+    Given the area is "stopped"
+    When the user selects a stopped area from map (see 'Use_map_section.feature')
+    Given the dashboard is in TRIGGERED state
+    Given the selected "admin level" is the "default admin level"
+    When the user views the 4rd speech bubble
+    And the user clicks on the name of an area
+    Then the map zooms down on the selected area
+    And a new speech bubble appears in the chat section
+    And it is grey colorded (as "NON-TRIGGERED") with black border
+    And it mentions the start date of this trigger
+    And the stop date
+    And the user who stopped it
+    And it contains a button to go back to the list of all triggered areas
+
 Scenario: View chat-section after area-selection in map
     Given the area is not "stopped"
     Given EAP-actions are static and not monthly ('showMonthlyEapActions = false')
@@ -125,6 +156,7 @@ Scenario: View chat-section after area-selection in map
     And it is pointed to the right instead of the left
     And it contains the "admin area" type and name 
     And it contains the relevant "action unit" type and value (e.g. "Exposed population" or "Potential cases")
+    And it contains a button to go back to the list of all triggered areas
     And it contains a list of all EAP-actions (same for every area) with "area of focus" name and "action" description
     And it shows which EAP-actions are already "checked" via the "checkbox"
     And it contains a disabled "save" button

@@ -69,6 +69,7 @@ import {
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { breakKey } from '../../models/map.model';
+import { PlaceCode } from '../../models/place-code.model';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { TimelineState } from '../../types/timeline-state';
 import { IbfLayerThreshold } from './../../types/ibf-layer';
@@ -208,7 +209,10 @@ export class MapComponent implements OnDestroy {
     this.eventState = eventState;
   };
 
-  private onPlaceCodeChange = (): void => {
+  private onPlaceCodeChange = (placeCode: PlaceCode): void => {
+    if (placeCode) {
+      this.placeCode = placeCode.placeCode;
+    }
     this.layers.forEach((layer: IbfLayer): void => {
       if (layer.leafletLayer && 'resetStyle' in layer.leafletLayer) {
         layer.leafletLayer.resetStyle();
@@ -595,7 +599,9 @@ export class MapComponent implements OnDestroy {
                   activeAggregateLayer.colorProperty
                 ],
             activeAggregateLayer,
-          ))
+          ) +
+          ' ' +
+          activeAggregateLayer.unit)
     );
   }
 
