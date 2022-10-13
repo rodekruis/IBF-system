@@ -934,7 +934,6 @@ export class MapComponent implements OnDestroy {
     markerInstance.bindPopup(
       this.createMarkerTyphoonTrackPopup(
         dateAndTime,
-        markerProperties.windspeed,
         category,
         coordinate,
         passed,
@@ -1098,7 +1097,6 @@ export class MapComponent implements OnDestroy {
 
   private createMarkerTyphoonTrackPopup(
     dateAndTime: string,
-    speed: number,
     category: string,
     coordinate: string,
     passed: string,
@@ -1114,7 +1112,6 @@ export class MapComponent implements OnDestroy {
         <div style="padding: 8px; display:flex; flex-direction: row; justify-content: space-between;">
         <div>
           <div style="margin-bottom: 8px;">Date and time: <strong>${dateAndTime}</strong></div>
-          <div style="margin-bottom: 8px;">Wind speed (10 minute average): <strong>${speed} kph</strong></div>
           <div>Category: <strong>${category}</strong></div>
         </div>
         <div>
