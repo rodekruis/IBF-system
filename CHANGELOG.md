@@ -1,3 +1,13 @@
+## [0.188.2](https://github.com/rodekruis/IBF-system/compare/v0.188.1...v0.188.2) (2022-10-14)
+
+
+### Bug Fixes
+
+* change tasks to action AB[#15484](https://github.com/rodekruis/IBF-system/issues/15484) ([47dac97](https://github.com/rodekruis/IBF-system/commit/47dac976a6c463932f1e8c02afc776fa4b8685cd))
+* simplify boundaries AB[#15640](https://github.com/rodekruis/IBF-system/issues/15640) ([1a5ad02](https://github.com/rodekruis/IBF-system/commit/1a5ad0237abffcf9f9547214f4d70f575fc9d3cc))
+
+
+
 ## [0.188.1](https://github.com/rodekruis/IBF-system/compare/v0.188.0...v0.188.1) (2022-10-14)
 
 
@@ -121,15 +131,6 @@
 
 * add affected population layer AB[#15507](https://github.com/rodekruis/IBF-system/issues/15507) ([bbd5b14](https://github.com/rodekruis/IBF-system/commit/bbd5b1464e58374be4d8fa40252686bc17cb52e8))
 * mock data for affected population AB[#15528](https://github.com/rodekruis/IBF-system/issues/15528) ([17221ea](https://github.com/rodekruis/IBF-system/commit/17221ea72d1930215e2cc8572e15c63bf425eacc))
-
-
-
-## [0.183.1](https://github.com/rodekruis/IBF-system/compare/v0.183.0...v0.183.1) (2022-10-03)
-
-
-### Bug Fixes
-
-* make close of events disaster-specific AB[#15529](https://github.com/rodekruis/IBF-system/issues/15529) ([99b2a21](https://github.com/rodekruis/IBF-system/commit/99b2a2129a8345197ef448249c5c15ef6668930c))
 
 
 
