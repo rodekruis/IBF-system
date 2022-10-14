@@ -31,7 +31,12 @@
         color="ibf-secondary"
       >
         <ion-label class="areas-of-focus--subtitle">
-          <ion-text style="font-size: 10px">
+          <ion-text
+            style="font-size: 10px"
+            [title]="
+              'areas-of-focus-summary-component.tasks-subtitle' | translate
+            "
+          >
             {{ 'areas-of-focus-summary-component.tasks-subtitle' | translate }}
           </ion-text>
         </ion-label>
