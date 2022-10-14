@@ -1,3 +1,23 @@
+# [0.188.0](https://github.com/rodekruis/IBF-system/compare/v0.187.2...v0.188.0) (2022-10-14)
+
+
+### Bug Fixes
+
+* category + popup AB[#15646](https://github.com/rodekruis/IBF-system/issues/15646) ([fb4476e](https://github.com/rodekruis/IBF-system/commit/fb4476e2fb3af4f7fe019b064776fb120b35e444))
+* category ux copy AB[#15533](https://github.com/rodekruis/IBF-system/issues/15533) ([1a10a0c](https://github.com/rodekruis/IBF-system/commit/1a10a0c98817b00c395b527a5275cdb9ca9179dd))
+* return to normal disaster order ([46b01ba](https://github.com/rodekruis/IBF-system/commit/46b01ba1bc454418de9d2c77f700aecbe32d5818))
+* show admin-popup after zoom AB[#15614](https://github.com/rodekruis/IBF-system/issues/15614) ([be577ba](https://github.com/rodekruis/IBF-system/commit/be577ba4d23ff5000f3a5cb9d85460d61c688838))
+
+
+### Features
+
+* remove windspeed from popup AB[#15646](https://github.com/rodekruis/IBF-system/issues/15646) ([ce48109](https://github.com/rodekruis/IBF-system/commit/ce48109d6911fde9d742ab10774866cd5625b4af))
+* update info popup AB[#15536](https://github.com/rodekruis/IBF-system/issues/15536) ([9dce0ef](https://github.com/rodekruis/IBF-system/commit/9dce0ef9f926c9c6e500152ee0dd88e6822aa3e6))
+* update track popup AB[#15533](https://github.com/rodekruis/IBF-system/issues/15533) ([0cc011c](https://github.com/rodekruis/IBF-system/commit/0cc011c94fc44aa6a1f28c28857ff16facfb2a22))
+* update wind speed copy AB[#15536](https://github.com/rodekruis/IBF-system/issues/15536) ([6363bf5](https://github.com/rodekruis/IBF-system/commit/6363bf55e6d44f3adce8300fb833e0333f70eecf))
+
+
+
 ## [0.187.2](https://github.com/rodekruis/IBF-system/compare/v0.187.1...v0.187.2) (2022-10-10)
 
 
@@ -115,28 +135,6 @@
 ### Features
 
 * change btn color for stopped bubble AB[#15492](https://github.com/rodekruis/IBF-system/issues/15492) ([1e674a9](https://github.com/rodekruis/IBF-system/commit/1e674a915307d4f9f62d2bd74032161a56a61d44))
-
-
-
-# [0.182.0](https://github.com/rodekruis/IBF-system/compare/v0.181.0...v0.182.0) (2022-09-30)
-
-
-### Bug Fixes
-
-* correct ZMB alert_threshold-1 AB[#15422](https://github.com/rodekruis/IBF-system/issues/15422) ([b5c0199](https://github.com/rodekruis/IBF-system/commit/b5c01990b3b9674204b93c27f0cce04b86b68f58))
-* make btn appear on map click AB[#15467](https://github.com/rodekruis/IBF-system/issues/15467) ([100eba1](https://github.com/rodekruis/IBF-system/commit/100eba12889b22a1da574458ce4dfceac7548cb3))
-* make button smaller AB[#15404](https://github.com/rodekruis/IBF-system/issues/15404) ([09a3229](https://github.com/rodekruis/IBF-system/commit/09a32292cbc87cbb24eab4f640695466686dbe8d))
-* make map component listen to placecode change AB[#15402](https://github.com/rodekruis/IBF-system/issues/15402) ([093da2f](https://github.com/rodekruis/IBF-system/commit/093da2f6201e39487b3e17fbfcde27585bade04a))
-* update ux copy for instructions to click in list or map AB[#15403](https://github.com/rodekruis/IBF-system/issues/15403) ([6512bab](https://github.com/rodekruis/IBF-system/commit/6512bab38382550af18473589b0083fbcb4cea64))
-
-
-### Features
-
-* also stopped areas clickable AB[#15402](https://github.com/rodekruis/IBF-system/issues/15402) ([e781d85](https://github.com/rodekruis/IBF-system/commit/e781d850faff6f54496e40b426ddcaf468a63123))
-* btn to revert area selection AB[#15404](https://github.com/rodekruis/IBF-system/issues/15404) ([66c769f](https://github.com/rodekruis/IBF-system/commit/66c769f15b08b3def6c22ae3b2d0fad89ef57028))
-* select area on click AB[#15402](https://github.com/rodekruis/IBF-system/issues/15402) ([dcbae44](https://github.com/rodekruis/IBF-system/commit/dcbae449e528aa49cd576a28e6bf5dd799d20fde))
-* update scenarios AB[#15406](https://github.com/rodekruis/IBF-system/issues/15406) ([0bb124e](https://github.com/rodekruis/IBF-system/commit/0bb124ea4f8f976b5ef716cfcac847628a7562d5))
-* zoom to selected area in map AB[#15405](https://github.com/rodekruis/IBF-system/issues/15405) ([bacebc2](https://github.com/rodekruis/IBF-system/commit/bacebc2dae7c90cdd9c66e3df603a5dc9f7397c7))
 
 
 
