@@ -285,7 +285,7 @@ export class ScriptsService {
       exposureUnits.push(DynamicIndicator.showAdminArea);
       if (typhoonScenario === TyphoonScenario.NoEvent) {
         exposureUnits = [
-          DynamicIndicator.housesAffected,
+          DynamicIndicator.affectedPopulation,
           DynamicIndicator.alertThreshold,
         ];
       }
