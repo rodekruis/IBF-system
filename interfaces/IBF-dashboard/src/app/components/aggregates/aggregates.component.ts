@@ -214,7 +214,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
     const placeCode = this.placeCode || this.placeCodeHover;
     if (placeCode) {
-      headerLabel = placeCode.placeCodeName;
+      headerLabel = `${placeCode.placeCodeName}${
+        placeCode.placeCodeParentName
+          ? ' (' + placeCode.placeCodeParentName + ')'
+          : ''
+      }`;
     } else {
       if (this.country) {
         if (this.eventState?.activeTrigger) {

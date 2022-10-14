@@ -548,8 +548,9 @@ export class MapComponent implements OnDestroy {
     );
     this.placeCodeService.setPlaceCodeHover({
       countryCodeISO3: feature.properties.countryCodeISO3,
-      placeCodeName: feature.properties.name,
       placeCode: feature.properties.placeCode,
+      placeCodeName: feature.properties.name,
+      placeCodeParentName: feature.properties.nameParent,
     });
   };
 
@@ -573,9 +574,10 @@ export class MapComponent implements OnDestroy {
       this.bindPopupAdminRegions(feature, element);
       this.placeCode = feature.properties.placeCode;
       this.placeCodeService.setPlaceCode({
+        placeCode: feature.properties.placeCode,
         countryCodeISO3: feature.properties.countryCodeISO3,
         placeCodeName: feature.properties.name,
-        placeCode: feature.properties.placeCode,
+        placeCodeParentName: feature.properties.nameParent,
       });
     }
   };

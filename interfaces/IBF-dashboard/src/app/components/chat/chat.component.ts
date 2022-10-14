@@ -600,6 +600,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       countryCodeISO3: this.country.countryCodeISO3,
       placeCodeName: area.name,
       placeCode: area.placeCode,
+      placeCodeParentName: area.nameParent,
     });
   }
 
