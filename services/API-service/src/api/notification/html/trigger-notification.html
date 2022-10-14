@@ -24,16 +24,12 @@
         text-align: center;
       }
 
-      .notification-sub-title {
-        vertical-align: top;
-      }
-
       .notification-sub-title-left {
         text-align: left;
       }
 
-      .notification-sub-title-right {
-        text-align: right;
+      .notification-sub-title-center {
+        text-align: center;
       }
 
       .notification-content {
@@ -927,27 +923,32 @@
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td class="notification-sub-title">
-                                        <h3 class="notification-sub-title-left">
+                                      <td
+                                        colspan="2"
+                                      >
+                                        <h3
+                                          class="notification-sub-title-center"
+                                        >
                                           Today: (TODAY)
                                         </h3>
                                       </td>
-                                      <td class="notification-sub-title">
-                                        <h3
-                                          class="notification-sub-title-right"
-                                        >
-                                          <div
-                                            class="notification-lead-date-list-label"
-                                          >
-                                            Lead Time:
-                                          </div>
-                                          <ul
-                                            class="notification-lead-date-list"
-                                          >
-                                            (LEAD-DATE-LIST-SHORT)
-                                          </ul>
-                                        </h3>
-                                      </td>
+                                      <tr>
+                                        <td colspan="2" class="notification-sub-title">
+                                          <h3 class="notification-sub-title-left">
+                                            <div
+                                              class="notification-lead-date-list-label"
+                                            >
+                                              Warnings:
+                                            </div>
+                                            <ul
+                                              class="notification-lead-date-list"
+                                            >
+                                              (LEAD-DATE-LIST-SHORT)
+                                            </ul>
+                                          </h3>
+                                        </td>
+
+                                      </tr>
                                     </tr>
                                   </tbody>
                                 </table>

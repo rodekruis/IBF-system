@@ -7,7 +7,7 @@ import { EventService } from '../event/event.service';
 import fs from 'fs';
 import Mailchimp from 'mailchimp-api-v3';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Long, Repository } from 'typeorm';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
@@ -292,7 +292,11 @@ export class NotificationService {
       },
       {
         replaceKey: this.placeholderToday,
-        replaceValue: new Date().toLocaleDateString(),
+        replaceValue: new Date().toLocaleDateString('default', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+        }),
       },
       {
         replaceKey: '(LEAD-DATE-LIST-SHORT)',
@@ -453,29 +457,45 @@ export class NotificationService {
           );
           if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
             // .. find the right leadtime
-
             const leadTimeFromNow = `${leadTime.leadTimeLabel.split('-')[0]} ${
               leadTime.leadTimeLabel.split('-')[1]
-            }(s)${
-              disasterType === DisasterType.Typhoon
-                ? ' from now to (point closest to) land'
-                : ''
-            }`;
+            }s`;
 
             const zeroHour = leadTime.leadTimeName === '0-hour';
 
-            leadTimeListShort = `${leadTimeListShort}<li>${
-              zeroHour ? this.alreadyReached : leadTimeFromNow
-            }</li>`;
-            leadTimeListLong = `${leadTimeListLong}<li>${
-              event.eventName ? `${event.eventName}: ` : ''
-            }${disasterType === DisasterType.HeavyRain ? 'Estimated ' : ''}${
-              zeroHour ? this.alreadyReached : leadTimeFromNow
-            } ${
-              event.thresholdReached
-                ? ' <strong>(trigger reached)</strong>'
-                : ' (trigger not reached)'
-            }</li>`;
+            const leadTimeString = zeroHour
+              ? this.alreadyReached
+              : leadTimeFromNow;
+
+            const eventName = event.eventName ? `${event.eventName}` : '';
+
+            const triggerStatus = event.thresholdReached
+              ? '<strong>trigger reached</strong>'
+              : 'trigger not reached';
+
+            const dateAndTime = this.getFirstLeadTimeDate(
+              leadTime.leadTimeName,
+            );
+
+            const prefixes = {
+              [DisasterType.HeavyRain]: 'Estimated',
+              [DisasterType.Typhoon]: 'Forecasted to reach',
+              default: '',
+            };
+
+            const longListAdditions = {
+              [DisasterType.Typhoon]: '(point closest to) land',
+              default: '',
+            };
+
+            const prefix = prefixes[disasterType] || prefixes.default;
+
+            const longListAddition =
+              longListAdditions[disasterType] || prefixes.default;
+
+            leadTimeListShort = `${leadTimeListShort}<li>${eventName}: ${dateAndTime} (${leadTimeString})</li>`;
+
+            leadTimeListLong = `${leadTimeListLong}<li>${eventName} - ${triggerStatus}: ${prefix} ${longListAddition} on ${dateAndTime} (${leadTimeString})</li>`;
           }
         }
       }
@@ -671,5 +691,24 @@ export class NotificationService {
       emailHtml = emailHtml.split(entry.replaceKey).join(entry.replaceValue);
     }
     return emailHtml;
+  }
+
+  private getFirstLeadTimeDate(leadTime: string): string {
+    const now = Date.now();
+
+    const [valueString, unit] = leadTime.split('-');
+    const value = Number(valueString);
+
+    const getNewDate = {
+      month: new Date(now).setMonth(new Date(now).getMonth() + value),
+      day: new Date(now).setDate(new Date(now).getDate() + value),
+      hour: new Date(now).setHours(new Date(now).getHours() + value),
+    };
+
+    return new Date(getNewDate[unit]).toLocaleDateString('default', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
   }
 }
