@@ -1112,7 +1112,7 @@ export class MapComponent implements OnDestroy {
         <div style="padding: 8px; display:flex; flex-direction: row; justify-content: space-between;">
         <div>
           <div style="margin-bottom: 8px;">Date and time: <strong>${dateAndTime}</strong></div>
-          <div>Category: <strong>${category}</strong></div>
+          <div>Category (ECWMF): <strong>${category}</strong></div>
         </div>
         <div>
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
