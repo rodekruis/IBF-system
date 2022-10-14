@@ -162,47 +162,7 @@ export class MapService {
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
     this.placeCode = placeCode;
-
-    this.zoomToArea();
   };
-
-  private zoomToArea() {
-    if (this.adminLevel) {
-      const adminRegionsLayer = this.layers.find(
-        (layer) =>
-          layer.name === `${IbfLayerGroup.adminRegions}${this.adminLevel}`,
-      );
-      if (adminRegionsLayer) {
-        const adminRegionsFiltered = JSON.parse(
-          JSON.stringify(adminRegionsLayer.data),
-        );
-        let zoomExtraOffset: number;
-        if (this.placeCode) {
-          adminRegionsFiltered.features = adminRegionsLayer.data.features.filter(
-            (area) => area.properties.placeCode === this.placeCode.placeCode,
-          );
-          zoomExtraOffset = 0.5;
-        } else {
-          adminRegionsFiltered.features = adminRegionsLayer.data.features;
-          zoomExtraOffset = 0;
-        }
-        const layerBounds = bbox(adminRegionsFiltered);
-        this.state.bounds = containsNumber(layerBounds)
-          ? ([
-              [
-                layerBounds[1] - zoomExtraOffset,
-                layerBounds[0] - zoomExtraOffset,
-              ],
-              [
-                layerBounds[3] + zoomExtraOffset,
-                layerBounds[2] + zoomExtraOffset,
-              ],
-            ] as LatLngBoundsLiteral)
-          : this.state.bounds;
-        this.layerSubject.next(adminRegionsLayer);
-      }
-    }
-  }
 
   private onTranslate = (
     translatedStrings: { [key: string]: string } = {},

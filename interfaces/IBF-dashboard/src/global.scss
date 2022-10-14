@@ -111,7 +111,8 @@
 .trigger-popup-no,
 .trigger-popup-min,
 .trigger-popup-med,
-.trigger-popup-max {
+.trigger-popup-max,
+.typhoon-track-popup {
   .leaflet-popup-content-wrapper {
     padding: 0;
 
@@ -138,6 +139,21 @@
 .trigger-popup-max {
   .leaflet-popup-tip {
     background-color: var(--ion-color-ibf-trigger-alert-primary);
+  }
+}
+
+.typhoon-track-popup {
+  a {
+    &.leaflet-popup-close-button {
+      color: var(--ion-color-ibf-white);
+      font-size: 20px;
+      padding-top: 11px;
+      margin-right: 7px;
+    }
+  }
+
+  .leaflet-popup-tip {
+    background-color: var(--ion-color-ibf-primary);
   }
 }
 
