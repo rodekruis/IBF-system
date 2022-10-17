@@ -648,7 +648,11 @@ export class MapComponent implements OnDestroy {
       (feature.properties.placeCode.includes('Disputed')
         ? ' (Disputed borders)'
         : '') +
-      '</strong><br/>' +
+      '</strong>' +
+      (feature.properties.nameParent
+        ? ` (${feature.properties.nameParent})`
+        : '') +
+      '<br/>' +
       (!activeAggregateLayer
         ? ''
         : activeAggregateLayer.label +
