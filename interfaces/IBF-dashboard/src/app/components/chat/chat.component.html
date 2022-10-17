@@ -181,13 +181,14 @@
             (click)="selectArea(area)"
           >
             <p>
-              {{ area.name }} (<span
-                *ngIf="actionIndicatorNumberFormat === 'decimal0'"
-                >{{ area.actionsValue | number: '.0-0' }}</span
+              {{ area.name }}
+              <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
+              <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
+                area.actionsValue | number: '.0-0'
+              }}</span
               ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
                 area.actionsValue | percent: '.0-0'
-              }}</span
-              >)
+              }}</span>
             </p>
           </li>
         </ul>
