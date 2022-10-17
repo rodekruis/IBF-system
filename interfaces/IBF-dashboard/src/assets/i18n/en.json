@@ -90,7 +90,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong> ({{ parentName }})",
         "exposed": "Exposed Population:",
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop trigger",
@@ -108,7 +108,7 @@
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
         "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
-        "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong> ({{ parentName }}) activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "drought": {
@@ -139,7 +139,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong> ({{ parentName }})",
         "exposed": "Exposed Population:",
         "forecast-info": {
           "opening": "Due to the",
@@ -166,7 +166,7 @@
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
         "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
-        "area": "The drought trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "area": "The drought trigger warning for <strong>{{ placeCodeName }}</strong> ({{ parentName }}) activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "typhoon": {
@@ -191,7 +191,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered for typhoon <strong>{{ eventName }}</strong>. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong> ({{ parentName }})",
         "exposed": "Affected population:",
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop trigger",
@@ -209,7 +209,7 @@
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
         "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
-        "area": "The typhoon trigger warning for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "area": "The typhoon trigger warning for <strong>{{ placeCodeName }}</strong> ({{ parentName }}) activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       },
       "event-switcher": {
         "current-event-message": "The portal is currently showing this event.",
@@ -233,7 +233,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong> ({{ parentName }})",
         "exposed": "Exposed Population:",
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop alert",
@@ -251,7 +251,7 @@
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
         "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
-        "area": "The heavy rainfall alert for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "area": "The heavy rainfall alert for <strong>{{ placeCodeName }}</strong> ({{ parentName }}) activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "dengue": {
@@ -271,7 +271,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong> ({{ parentName }})",
         "exposed": "Potential cases: up to",
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop alert",
@@ -289,7 +289,7 @@
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
         "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
-        "area": "The dengue alert for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "area": "The dengue alert for <strong>{{ placeCodeName }}</strong> ({{ parentName }}) activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "malaria": {
@@ -309,7 +309,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
+        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong> ({{ parentName }})",
         "exposed": "Potential cases: up to",
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop alert",
@@ -327,7 +327,7 @@
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
         "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
-        "area": "The malaria alert for <strong>{{ placeCodeName }}</strong> activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "area": "The malaria alert for <strong>{{ placeCodeName }}</strong> ({{ parentName }}) activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "common": {

@@ -227,13 +227,14 @@
             (click)="selectArea(area)"
           >
             <p>
-              {{ area.name }} (<span
-                *ngIf="actionIndicatorNumberFormat === 'decimal0'"
-                >{{ area.actionsValue | number: '.0-0' }}</span
+              {{ area.name }}
+              <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
+              <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
+                area.actionsValue | number: '.0-0'
+              }}</span
               ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
                 area.actionsValue | percent: '.0-0'
-              }}</span
-              >)
+              }}</span>
             </p>
           </li>
         </ul>
@@ -269,7 +270,8 @@
                     placeCodeName: area.name,
                     startDate: area.startDate,
                     stoppedDate: area.stoppedDate,
-                    displayName: area.displayName || 'unknown'
+                    displayName: area.displayName || 'unknown',
+                    parentName: area.nameParent
                   }
           "
         ></p>
@@ -308,7 +310,11 @@
                   disasterTypeName +
                   '.active-event.place-name'
                   | translate
-                    : { adminAreaLabel: adminAreaLabel, placeName: area.name }
+                    : {
+                        adminAreaLabel: adminAreaLabel,
+                        placeName: area.name,
+                        parentName: area.nameParent
+                      }
               "
             ></ion-label
             ><br />
