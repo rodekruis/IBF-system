@@ -56,49 +56,6 @@
         </ion-item>
       </ion-col>
     </ion-row>
-
-    <!-- <ion-item
-      color="ibf-secondary"
-      lines="none"
-      class="aggregate-header-item"
-      data-test="aggregate-title"
-      [title]="
-        ('aggregates-component.header-title-prefix' | translate) +
-        ' ' +
-        getNumberAreasExposed() +
-        ' ' +
-        getLabelAreasExposed()
-      "
-    >
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-label class="aggregate-header-item-label">
-              <span class="aggregate-header-item-number">{{
-                getNumberAreasExposed()
-              }}</span>
-              {{ getLabelAreasExposed().headerLabel }}
-            </ion-label>
-            <ion-label>
-              {{ getLabelAreasExposed().subHeaderLabel }}
-            </ion-label>
-          </ion-col>
-          <ion-col>
-            <ion-button
-              slot="end"
-              fill="clear"
-              *ngIf="placeCode"
-              color="light"
-              class="place-code-reset-button"
-              (click)="clearPlaceCode()"
-            >
-              <ion-icon name="close" slot="icon-only"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item> -->
-
     <div data-test="aggregate-list">
       <ion-row
         *ngFor="let indicator of indicators"
