@@ -211,14 +211,14 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   public getLabelAreasExposed() {
     let headerLabel = this.defaultHeaderLabel;
+    let subHeaderLabel = '';
 
     const placeCode = this.placeCode || this.placeCodeHover;
     if (placeCode) {
-      headerLabel = `${placeCode.placeCodeName}${
-        placeCode.placeCodeParentName
-          ? ' (' + placeCode.placeCodeParentName + ')'
-          : ''
-      }`;
+      headerLabel = placeCode.placeCodeName;
+      if (placeCode.placeCodeParentName) {
+        subHeaderLabel = `(${placeCode.placeCodeParentName})`;
+      }
     } else {
       if (this.country) {
         if (this.eventState?.activeTrigger) {
@@ -233,7 +233,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       }
     }
 
-    return headerLabel;
+    return { headerLabel, subHeaderLabel };
   }
 
   public getNumberAreasExposed() {
