@@ -523,9 +523,7 @@ export class EventService {
       .select('area."placeCode"')
       .addSelect('MAX(area.value) AS "triggerValue"')
       .where(whereFilters)
-      .andWhere('(area.value > 0 OR area."disasterType" = :disasterType)', {
-        disasterType: DisasterType.Typhoon,
-      }) // Also allow value=0 entries for typhoon (= below trigger event)
+      .andWhere('(area.value > 0 OR area."eventName" is not null)') // Also allow value=0 entries with event name (= below trigger event)
       .groupBy('area."placeCode"')
       .getRawMany();
 
@@ -561,9 +559,7 @@ export class EventService {
       .addSelect('MAX(area.value) AS "actionsValue"')
       .addSelect('MAX(area."leadTime") AS "leadTime"')
       .where(whereOptions)
-      .andWhere('(area.value > 0 OR area."disasterType" = :disasterType)', {
-        disasterType: DisasterType.Typhoon,
-      }) // Also allow value=0 entries for typhoon (= below trigger event)
+      .andWhere('(area.value > 0 OR area."eventName" is not null)') // Also allow value=0 entries with event name (= below trigger event)
       .groupBy('area."placeCode"')
       .getRawMany();
 
