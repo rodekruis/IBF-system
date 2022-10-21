@@ -240,9 +240,15 @@ export class EventService {
         'event."startDate"',
         'event."manualStoppedDate" AS "stoppedDate"',
         '"user"."firstName" || \' \' || "user"."lastName" AS "displayName"',
+        'parent.name AS "nameParent"',
       ])
       .leftJoin('event.adminArea', 'area')
       .leftJoin('event.user', 'user')
+      .leftJoin(
+        AdminAreaEntity,
+        'parent',
+        'area."placeCodeParent" = parent."placeCode"',
+      )
       .where({
         closed: false,
         disasterType: disasterType,
@@ -272,19 +278,6 @@ export class EventService {
         area.placeCode,
         eventName === 'no-name' ? null : eventName,
       );
-
-      const parentAdminArea = await this.adminAreaRepository
-        .createQueryBuilder('area')
-        .leftJoin(
-          AdminAreaEntity,
-          'parent',
-          'area."placeCodeParent" = parent."placeCode"',
-        )
-        .select('parent.name AS name')
-        .where('area."placeCode" = :placeCode', { placeCode: area.placeCode })
-        .getRawOne();
-
-      area.nameParent = parentAdminArea.name;
     }
     return triggeredAreas;
   }

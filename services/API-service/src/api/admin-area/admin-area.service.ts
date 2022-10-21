@@ -281,10 +281,16 @@ export class AdminAreaService {
         'dynamic',
         'area.placeCode = dynamic.placeCode',
       )
+      .leftJoin(
+        AdminAreaEntity,
+        'parent',
+        'area."placeCodeParent" = parent."placeCode"',
+      )
       .addSelect([
         `dynamic.value AS ${disaster.actionsUnit}`,
         'dynamic."leadTime"',
         'dynamic."date"',
+        'parent.name AS "nameParent"',
       ])
       .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
       .andWhere('date = :lastTriggeredDate', {
