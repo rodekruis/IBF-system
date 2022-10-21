@@ -467,12 +467,11 @@ export class NotificationService {
               ? this.alreadyReached
               : leadTimeFromNow;
 
-            const eventNameShort = event.eventName
-              ? `${event.eventName}: `
-              : '';
-            const eventNameLong = event.eventName
-              ? `${event.eventName} - `
-              : '';
+            const eventName = event.eventName
+              ? `${event.eventName}`
+              : this.firstCharOfWordsToUpper(
+                  (await this.getDisaster(disasterType)).label,
+                );
 
             const triggerStatus = event.thresholdReached
               ? '<strong>trigger reached</strong>'
@@ -498,9 +497,9 @@ export class NotificationService {
             const longListAddition =
               longListAdditions[disasterType] || prefixes.default;
 
-            leadTimeListShort = `${leadTimeListShort}<li>${eventNameShort}${dateAndTime} (${leadTimeString})</li>`;
+            leadTimeListShort = `${leadTimeListShort}<li>${eventName}: ${dateAndTime} (${leadTimeString})</li>`;
 
-            leadTimeListLong = `${leadTimeListLong}<li>${eventNameLong}${triggerStatus}: ${prefix} ${longListAddition} on ${dateAndTime} (${leadTimeString})</li>`;
+            leadTimeListLong = `${leadTimeListLong}<li>${eventName} - ${triggerStatus}: ${prefix} ${longListAddition} on ${dateAndTime} (${leadTimeString})</li>`;
           }
         }
       }
