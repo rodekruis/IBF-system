@@ -1,3 +1,19 @@
+# [0.189.0](https://github.com/rodekruis/IBF-system/compare/v0.188.4...v0.189.0) (2022-10-21)
+
+
+### Bug Fixes
+
+* correct copy for no event name AB[#15727](https://github.com/rodekruis/IBF-system/issues/15727) ([11f0820](https://github.com/rodekruis/IBF-system/commit/11f0820aed85dbe523e7670bdd5c3335d5ce543a))
+
+
+### Features
+
+* add disastertype on no event name AB[#15727](https://github.com/rodekruis/IBF-system/issues/15727) ([13d6b65](https://github.com/rodekruis/IBF-system/commit/13d6b651a3af9e6a5cef9ba273ddbab70030d339))
+* change mail copy AB[#15727](https://github.com/rodekruis/IBF-system/issues/15727) ([0b695a9](https://github.com/rodekruis/IBF-system/commit/0b695a9baea5a0caa8fa982a37e1c63e4d0b5d9d))
+* refactor copy AB[#15727](https://github.com/rodekruis/IBF-system/issues/15727) ([19468dd](https://github.com/rodekruis/IBF-system/commit/19468ddc7b35a3616405af4db44002e0a728a91a))
+
+
+
 ## [0.188.4](https://github.com/rodekruis/IBF-system/compare/v0.188.3...v0.188.4) (2022-10-21)
 
 
@@ -107,15 +123,6 @@
 * add aof title + align left AB[#15520](https://github.com/rodekruis/IBF-system/issues/15520) ([c7091b5](https://github.com/rodekruis/IBF-system/commit/c7091b51f44cc8a3c2896d3c6bb04d0f8054f22e))
 * add tasks title aAB[#10693](https://github.com/rodekruis/IBF-system/issues/10693) ([d0ddbd6](https://github.com/rodekruis/IBF-system/commit/d0ddbd60059157a6c8a6139b7f7d745e5377091a))
 * split titles in 2 levels AB[#15484](https://github.com/rodekruis/IBF-system/issues/15484) ([263d0b9](https://github.com/rodekruis/IBF-system/commit/263d0b9adbe84b3ff7d7447b2333dd2e1f517dae))
-
-
-
-## [0.185.1](https://github.com/rodekruis/IBF-system/compare/v0.185.0...v0.185.1) (2022-10-07)
-
-
-### Bug Fixes
-
-* mistake AB[#15483](https://github.com/rodekruis/IBF-system/issues/15483) ([1b944f5](https://github.com/rodekruis/IBF-system/commit/1b944f58363484560a56c3c75231f2a7c839a4a6))
 
 
 
