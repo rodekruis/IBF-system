@@ -523,7 +523,9 @@ export class EventService {
       .select('area."placeCode"')
       .addSelect('MAX(area.value) AS "triggerValue"')
       .where(whereFilters)
-      .andWhere('(area.value > 0 OR area."eventName" is not null)') // Also allow value=0 entries that have an event-name (= typhoon below trigger)
+      .andWhere('(area.value > 0 OR area."disasterType" = :disasterType)', {
+        disasterType: DisasterType.Typhoon,
+      }) // Also allow value=0 entries for typhoon (= below trigger event)
       .groupBy('area."placeCode"')
       .getRawMany();
 
@@ -559,7 +561,9 @@ export class EventService {
       .addSelect('MAX(area.value) AS "actionsValue"')
       .addSelect('MAX(area."leadTime") AS "leadTime"')
       .where(whereOptions)
-      .andWhere('(area.value > 0 OR area."eventName" is not null)') // Also allow value=0 entries that have an event-name (= typhoon below trigger)
+      .andWhere('(area.value > 0 OR area."disasterType" = :disasterType)', {
+        disasterType: DisasterType.Typhoon,
+      }) // Also allow value=0 entries for typhoon (= below trigger event)
       .groupBy('area."placeCode"')
       .getRawMany();
 
@@ -584,7 +588,6 @@ export class EventService {
       adminLevel,
       eventName,
     );
-    const affectedAreasPlaceCodes = affectedAreas.map(area => area.placeCode);
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
     );
@@ -606,14 +609,16 @@ export class EventService {
       const affectedArea = affectedAreas.find(
         area => area.placeCode === eventArea.adminArea.placeCode,
       );
-      eventArea.activeTrigger = true;
-      eventArea.endDate = endDate;
-      if (affectedArea.triggerValue > 0) {
-        eventArea.thresholdReached = true;
-        idsToUpdateAboveThreshold.push(eventArea.eventPlaceCodeId);
-      } else {
-        eventArea.thresholdReached = false;
-        idsToUpdateBelowThreshold.push(eventArea.eventPlaceCodeId);
+      if (affectedArea) {
+        eventArea.activeTrigger = true;
+        eventArea.endDate = endDate;
+        if (affectedArea.triggerValue > 0) {
+          eventArea.thresholdReached = true;
+          idsToUpdateAboveThreshold.push(eventArea.eventPlaceCodeId);
+        } else {
+          eventArea.thresholdReached = false;
+          idsToUpdateBelowThreshold.push(eventArea.eventPlaceCodeId);
+        }
       }
     });
     // .. first fire one query to update all rows that need thresholdReached = true
@@ -626,16 +631,15 @@ export class EventService {
     let affectedArea: AffectedAreaDto;
     const eventAreasToUpdate = [];
     for await (const unclosedEventArea of unclosedEventAreas) {
+      affectedArea = affectedAreas.find(
+        area => area.placeCode === unclosedEventArea.adminArea.placeCode,
+      );
       if (
-        affectedAreasPlaceCodes.includes(unclosedEventArea.adminArea.placeCode)
+        affectedArea &&
+        unclosedEventArea.actionsValue !== affectedArea.actionsValue
       ) {
-        affectedArea = affectedAreas.find(
-          area => area.placeCode === unclosedEventArea.adminArea.placeCode,
-        );
-        if (unclosedEventArea.actionsValue !== affectedArea.actionsValue) {
-          unclosedEventArea.actionsValue = affectedArea.actionsValue;
-          eventAreasToUpdate.push(unclosedEventArea);
-        }
+        unclosedEventArea.actionsValue = affectedArea.actionsValue;
+        eventAreasToUpdate.push(unclosedEventArea);
       }
     }
     await this.eventPlaceCodeRepo.save(unclosedEventAreas);
