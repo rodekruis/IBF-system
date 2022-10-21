@@ -271,7 +271,7 @@
                     startDate: area.startDate,
                     stoppedDate: area.stoppedDate,
                     displayName: area.displayName || 'unknown',
-                    parentName: area.nameParent
+                    parentName: getAreaParentString(area)
                   }
           "
         ></p>
@@ -313,7 +313,7 @@
                     : {
                         adminAreaLabel: adminAreaLabel,
                         placeName: area.name,
-                        parentName: area.nameParent
+                        parentName: getAreaParentString(area)
                       }
               "
             ></ion-label

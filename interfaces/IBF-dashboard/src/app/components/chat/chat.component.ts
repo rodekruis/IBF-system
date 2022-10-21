@@ -607,4 +607,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   public revertAreaSelection() {
     this.placeCodeService.clearPlaceCode();
   }
+
+  public getAreaParentString(area): string {
+    if (!area.nameParent) {
+      return '';
+    }
+
+    return ` (${area.nameParent})`;
+  }
 }
