@@ -64,14 +64,14 @@
       "stop-trigger-popup": {
         "eap": {
           "header": "Stop Trigger",
-          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>.",
+          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>. In case of a new event, the area will be triggered again by the IBF-Portal. But within the current event - even if predictions worsen - the trigger for this area will remain stopped.",
           "confirm": "Yes, stop trigger",
           "cancel": "No, keep trigger",
           "failure": "Failed to stop trigger."
         },
         "no-eap": {
           "header": "Stop Alert",
-          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>.",
+          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>. In case of a new event, a new alert for the area will be given by the IBF-Portal. But within the current event - even if predictions worsen - the alert for this area will remain stopped.",
           "confirm": "Yes, stop alert",
           "cancel": "No, keep alert",
           "failure": "Failed to stop alert."
