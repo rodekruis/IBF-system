@@ -661,7 +661,7 @@ export class MapComponent implements OnDestroy {
             activeAggregateLayer,
           ) +
           ' ' +
-          activeAggregateLayer.unit)
+          (activeAggregateLayer.unit || ''))
     );
   }
 
