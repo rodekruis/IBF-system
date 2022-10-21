@@ -457,9 +457,10 @@ export class NotificationService {
           );
           if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
             // .. find the right leadtime
-            const leadTimeFromNow = `${leadTime.leadTimeLabel.split('-')[0]} ${
-              leadTime.leadTimeLabel.split('-')[1]
-            }s`;
+            const [leadTimeValue, leadTimeUnit] = leadTime.leadTimeLabel.split(
+              '-',
+            );
+            const leadTimeFromNow = `${leadTimeValue} ${leadTimeUnit}s`;
 
             const zeroHour = leadTime.leadTimeName === '0-hour';
 
@@ -477,8 +478,10 @@ export class NotificationService {
               ? '<strong>trigger reached</strong>'
               : 'trigger not reached';
 
+            const dateTimePreposition = leadTimeUnit === 'month' ? 'in' : 'on';
             const dateAndTime = this.getFirstLeadTimeDate(
-              leadTime.leadTimeName,
+              Number(leadTimeValue),
+              leadTimeUnit,
             );
 
             const prefixes = {
@@ -499,7 +502,7 @@ export class NotificationService {
 
             leadTimeListShort = `${leadTimeListShort}<li>${eventName}: ${dateAndTime} (${leadTimeString})</li>`;
 
-            leadTimeListLong = `${leadTimeListLong}<li>${eventName} - ${triggerStatus}: ${prefix} ${longListAddition} on ${dateAndTime} (${leadTimeString})</li>`;
+            leadTimeListLong = `${leadTimeListLong}<li>${eventName} - ${triggerStatus}: ${prefix} ${longListAddition} ${dateTimePreposition} ${dateAndTime} (${leadTimeString})</li>`;
           }
         }
       }
@@ -697,11 +700,8 @@ export class NotificationService {
     return emailHtml;
   }
 
-  private getFirstLeadTimeDate(leadTime: string): string {
+  private getFirstLeadTimeDate(value: number, unit: string): string {
     const now = Date.now();
-
-    const [valueString, unit] = leadTime.split('-');
-    const value = Number(valueString);
 
     const getNewDate = {
       month: new Date(now).setMonth(new Date(now).getMonth() + value),
@@ -709,8 +709,11 @@ export class NotificationService {
       hour: new Date(now).setHours(new Date(now).getHours() + value),
     };
 
+    const dayOption: Intl.DateTimeFormatOptions =
+      unit === 'month' ? {} : { day: '2-digit' };
+
     return new Date(getNewDate[unit]).toLocaleDateString('default', {
-      day: '2-digit',
+      ...dayOption,
       month: 'short',
       year: 'numeric',
     });
