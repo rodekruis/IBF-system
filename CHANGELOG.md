@@ -1,3 +1,14 @@
+## [0.188.3](https://github.com/rodekruis/IBF-system/compare/v0.188.2...v0.188.3) (2022-10-21)
+
+
+### Bug Fixes
+
+* only show action summary if trigger event AB[#15832](https://github.com/rodekruis/IBF-system/issues/15832) ([185dac0](https://github.com/rodekruis/IBF-system/commit/185dac07788d307963284b894ebe35718ed520de))
+* only show in unit in map popup if available AB[#15832](https://github.com/rodekruis/IBF-system/issues/15832) ([f63b5bb](https://github.com/rodekruis/IBF-system/commit/f63b5bb6c27a4833d8ac3d8191d49217ded0718c))
+* update track info popup AB[#15832](https://github.com/rodekruis/IBF-system/issues/15832) ([49afe6e](https://github.com/rodekruis/IBF-system/commit/49afe6ea69cd67cdbf3599b986725da7638fab8e))
+
+
+
 ## [0.188.2](https://github.com/rodekruis/IBF-system/compare/v0.188.1...v0.188.2) (2022-10-14)
 
 
@@ -114,23 +125,6 @@
 
 * extend mock data trackpoints AB[#15534](https://github.com/rodekruis/IBF-system/issues/15534) ([66abcb1](https://github.com/rodekruis/IBF-system/commit/66abcb112adf71f1733eccd3f7dde9392a7b771c))
 * more attributes on trackpoints AB[#15612](https://github.com/rodekruis/IBF-system/issues/15612) ([7a37e9a](https://github.com/rodekruis/IBF-system/commit/7a37e9a70846c9e791eef22f9818e998a467bb18))
-
-
-
-# [0.184.0](https://github.com/rodekruis/IBF-system/compare/v0.183.1...v0.184.0) (2022-10-03)
-
-
-### Bug Fixes
-
-* add layer to allowed API input list AB[#15507](https://github.com/rodekruis/IBF-system/issues/15507) ([c32efb7](https://github.com/rodekruis/IBF-system/commit/c32efb7be06e882d44b22b6c5c3d7ef3d6503886))
-* change houses_affected icon to house AB[#15508](https://github.com/rodekruis/IBF-system/issues/15508) ([d2cf3ca](https://github.com/rodekruis/IBF-system/commit/d2cf3cae710064656d8505cb2df531d93bdd9214))
-* improve performance of update events queries AB[#15483](https://github.com/rodekruis/IBF-system/issues/15483) ([286b322](https://github.com/rodekruis/IBF-system/commit/286b322a39b693787fc5787a6cd13e2fdc461b3e))
-
-
-### Features
-
-* add affected population layer AB[#15507](https://github.com/rodekruis/IBF-system/issues/15507) ([bbd5b14](https://github.com/rodekruis/IBF-system/commit/bbd5b1464e58374be4d8fa40252686bc17cb52e8))
-* mock data for affected population AB[#15528](https://github.com/rodekruis/IBF-system/issues/15528) ([17221ea](https://github.com/rodekruis/IBF-system/commit/17221ea72d1930215e2cc8572e15c63bf425eacc))
 
 
 
