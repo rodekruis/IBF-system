@@ -2,7 +2,7 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
-### 21-10-2022 (v0.189.0)
+### 21-10-2022 (v0.189.1)
 
 - IBF Philippines now contains disaster-type Typhoon
 
