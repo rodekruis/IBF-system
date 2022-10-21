@@ -80,14 +80,14 @@
       "reactivate-trigger-popup": {
         "eap": {
           "header": "Reactivate Trigger",
-          "message": "Are you sure? You are about to reactivate the trigger warning in <strong>{{ placeCodeName }}</strong>.",
+          "message": "Are you sure? You are about to reactivate the trigger warning in <strong>{{ placeCodeName }}</strong>. If any actions were already checked off before this area was stopped, they will still be after reactivating.",
           "confirm": "Yes, reactivate trigger",
           "cancel": "No, keep stopped trigger",
           "failure": "Failed to reactivate trigger."
         },
         "no-eap": {
           "header": "Reactivate Alert",
-          "message": "Are you sure? You are about to reactivate the alert in <strong>{{ placeCodeName }}</strong>.",
+          "message": "Are you sure? You are about to reactivate the alert in <strong>{{ placeCodeName }}</strong>. If any actions were already checked off before this area was stopped, they will still be after reactivating.",
           "confirm": "Yes, reactivate alert",
           "cancel": "No, keep stopped alert",
           "failure": "Failed to reactivate alert."
