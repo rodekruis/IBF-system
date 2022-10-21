@@ -1,20 +1,14 @@
 .component-title {
   .component-title-item {
     --inner-padding-end: 0;
-    height: 54px;
-
-    .aggregates--title {
-      margin-top: 5px;
-    }
-
-    .aggregates--subtitle {
-      margin-bottom: 5px;
-    }
+    height: 27px;
   }
 }
 
 .place-code-reset-button {
-  margin-left: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .aggregate-item,
