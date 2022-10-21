@@ -377,6 +377,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
 
     await popover.present();
+
+    popover.onDidDismiss().then(() => {
+      this.eapActionsService.getTriggeredAreasApi();
+    });
   }
 
   public async openToggleTriggerPopup(
