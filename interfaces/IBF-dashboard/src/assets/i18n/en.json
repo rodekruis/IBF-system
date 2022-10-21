@@ -90,7 +90,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong>{{ parentName }}",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:",
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop trigger",
@@ -139,7 +139,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong>{{ parentName }}",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:",
         "forecast-info": {
           "opening": "Due to the",
@@ -191,7 +191,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered for typhoon <strong>{{ eventName }}</strong>. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong>{{ parentName }}",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Affected population:",
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop trigger",
@@ -233,7 +233,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong>{{ parentName }}",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:",
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop alert",
@@ -271,7 +271,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong>{{ parentName }}",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Potential cases: up to",
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop alert",
@@ -309,7 +309,7 @@
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
-        "place-name": "{{ adminAreaLabel }}:<br><strong>{{ placeName }}</strong>{{ parentName }}",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Potential cases: up to",
         "submit-button-label": "Save",
         "stop-trigger-button": "Stop alert",
