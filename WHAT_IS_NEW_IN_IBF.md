@@ -2,6 +2,10 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
+### 21-10-2022 (v0.189.0)
+
+- IBF Philippines now contains disaster-type Typhoon
+
 ### 03-10-2022 (v0.183.1)
 
 - All IBF: Triggered and stopped areas in the chat are now clickable.\
