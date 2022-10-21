@@ -332,7 +332,7 @@ export class ApiService {
     );
   }
 
-  stopTrigger(eventPlaceCodeId: string) {
+  toggleTrigger(eventPlaceCodeId: string) {
     return this.post(
       'event/toggle-stopped-trigger',
       {

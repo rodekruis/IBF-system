@@ -59,7 +59,41 @@
     "whats-new-description": "To learn what new features have recently been added to the IBF Portal click <a href='{{whatsNewUrl}}' target='_blank'>here</a>."
   },
   "chat-component": {
-    "generic": { "revert-selection": "All" },
+    "generic": {
+      "revert-selection": "All",
+      "stop-trigger-popup": {
+        "eap": {
+          "header": "Stop Trigger",
+          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>.",
+          "confirm": "Yes, stop trigger",
+          "cancel": "No, keep trigger",
+          "failure": "Failed to stop trigger."
+        },
+        "no-eap": {
+          "header": "Stop Alert",
+          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>.",
+          "confirm": "Yes, stop alert",
+          "cancel": "No, keep alert",
+          "failure": "Failed to stop alert."
+        }
+      },
+      "reactivate-trigger-popup": {
+        "eap": {
+          "header": "Reactivate Trigger",
+          "message": "Are you sure? You are about to reactivate the trigger warning in <strong>{{ placeCodeName }}</strong>.",
+          "confirm": "Yes, reactivate trigger",
+          "cancel": "No, keep stopped trigger",
+          "failure": "Failed to reactivate trigger."
+        },
+        "no-eap": {
+          "header": "Reactivate Alert",
+          "message": "Are you sure? You are about to reactivate the alert in <strong>{{ placeCodeName }}</strong>.",
+          "confirm": "Yes, reactivate alert",
+          "cancel": "No, keep stopped alert",
+          "failure": "Failed to reactivate alert."
+        }
+      }
+    },
     "floods": {
       "about-button-label": "About Trigger",
       "warn-label": {
@@ -80,17 +114,9 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population:",
         "submit-button-label": "Save",
-        "stop-trigger-button": "Stop trigger",
         "update-success": "EAP action(s) updated in database.",
         "update-failure": "Failed to update EAP action(s) in database.",
-        "prompt-button-label": "OK",
-        "stop-trigger-popup": {
-          "header": "Stop Trigger",
-          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
-          "confirm": "Yes, stop trigger",
-          "cancel": "No, keep trigger",
-          "failure": "Failed to stop trigger."
-        }
+        "prompt-button-label": "OK"
       },
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
@@ -138,17 +164,9 @@
           "actions": "the following <strong>{{ nrActions }}</strong> actions should be taken."
         },
         "submit-button-label": "Save",
-        "stop-trigger-button": "Stop trigger",
         "update-success": "EAP action(s) updated in database.",
         "update-failure": "Failed to update EAP action(s) in database.",
-        "prompt-button-label": "OK",
-        "stop-trigger-popup": {
-          "header": "Stop Trigger",
-          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
-          "confirm": "Yes, stop trigger",
-          "cancel": "No, keep trigger",
-          "failure": "Failed to stop trigger."
-        }
+        "prompt-button-label": "OK"
       },
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
@@ -181,17 +199,9 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Affected population:",
         "submit-button-label": "Save",
-        "stop-trigger-button": "Stop trigger",
         "update-success": "EAP action(s) updated in database.",
         "update-failure": "Failed to update EAP action(s) updated in database.",
-        "prompt-button-label": "OK",
-        "stop-trigger-popup": {
-          "header": "Stop Trigger",
-          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
-          "confirm": "Yes, stop trigger",
-          "cancel": "No, keep trigger",
-          "failure": "Failed to stop trigger."
-        }
+        "prompt-button-label": "OK"
       },
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
@@ -223,17 +233,9 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Exposed Population:",
         "submit-button-label": "Save",
-        "stop-trigger-button": "Stop alert",
         "update-success": "SOP action(s) updated in database.",
         "update-failure": "Failed to update SOP action(s) updated in database.",
-        "prompt-button-label": "OK",
-        "stop-trigger-popup": {
-          "header": "Stop Alert",
-          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
-          "confirm": "Yes, stop alert",
-          "cancel": "No, keep alert",
-          "failure": "Failed to stop alert."
-        }
+        "prompt-button-label": "OK"
       },
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
@@ -261,17 +263,9 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Potential cases: up to",
         "submit-button-label": "Save",
-        "stop-trigger-button": "Stop alert",
         "update-success": "SOP action(s) updated in database.",
         "update-failure": "Failed to update SOP action(s) updated in database.",
-        "prompt-button-label": "OK",
-        "stop-trigger-popup": {
-          "header": "Stop Alert",
-          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
-          "confirm": "Yes, stop alert",
-          "cancel": "No, keep alert",
-          "failure": "Failed to stop alert."
-        }
+        "prompt-button-label": "OK"
       },
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
@@ -299,17 +293,9 @@
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>",
         "exposed": "Potential cases: up to",
         "submit-button-label": "Save",
-        "stop-trigger-button": "Stop alert",
         "update-success": "SOP action(s) updated in database.",
         "update-failure": "Failed to update SOP action(s) updated in database.",
-        "prompt-button-label": "OK",
-        "stop-trigger-popup": {
-          "header": "Stop Alert",
-          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>. This action can not be undone. Are you sure?",
-          "confirm": "Yes, stop alert",
-          "cancel": "No, keep alert",
-          "failure": "Failed to stop alert."
-        }
+        "prompt-button-label": "OK"
       },
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",

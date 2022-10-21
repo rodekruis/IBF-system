@@ -7,18 +7,15 @@
       class="popover-close-button"
     ></ion-icon>
     <ion-card-title>{{
-      'chat-component.' +
-        disasterTypeName +
-        '.active-event.stop-trigger-popup.header' | translate
+      'chat-component.generic.' + stopNode + '.' + eapNode + '.header'
+        | translate
     }}</ion-card-title>
   </ion-card-header>
   <ion-card-content class="ion-padding-top ion-text-center">
     <ion-item lines="none" class="ion-margin-bottom">
       <span
         [innerHTML]="
-          'chat-component.' +
-            disasterTypeName +
-            '.active-event.stop-trigger-popup.message'
+          'chat-component.generic.' + stopNode + '.' + eapNode + '.message'
             | translate: { placeCodeName: placeCodeName }
         "
       >
@@ -31,9 +28,8 @@
           style="text-transform: uppercase"
           (click)="confirm()"
           >{{
-            'chat-component.' +
-              disasterTypeName +
-              '.active-event.stop-trigger-popup.confirm' | translate
+            'chat-component.generic.' + stopNode + '.' + eapNode + '.confirm'
+              | translate
           }}</ion-button
         >
         <ion-button
@@ -42,9 +38,8 @@
           (click)="closePopover()"
         >
           {{
-            'chat-component.' +
-              disasterTypeName +
-              '.active-event.stop-trigger-popup.cancel' | translate
+            'chat-component.generic.' + stopNode + '.' + eapNode + '.cancel'
+              | translate
           }}
         </ion-button>
       </div>
