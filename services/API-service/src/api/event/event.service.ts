@@ -383,7 +383,7 @@ export class EventService {
     return result;
   }
 
-  public async stopTrigger(
+  public async toggleStoppedTrigger(
     userId: string,
     eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
@@ -399,7 +399,7 @@ export class EventService {
       const errors = 'Event placeCode not found';
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
-    eventPlaceCode.stopped = true;
+    eventPlaceCode.stopped = !eventPlaceCode.stopped;
     eventPlaceCode.manualStoppedDate = new Date();
     eventPlaceCode.user = user;
     await this.eventPlaceCodeRepo.save(eventPlaceCode);

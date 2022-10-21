@@ -154,12 +154,15 @@ export class EventController {
     status: 404,
     description: 'No admin-area for this event.',
   })
-  @Post('stop-trigger')
-  public async stopTrigger(
+  @Post('toggle-stopped-trigger')
+  public async toggleStoppedTrigger(
     @UserDecorator('userId') userId: string,
     @Body() eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
-    return await this.eventService.stopTrigger(userId, eventPlaceCodeDto);
+    return await this.eventService.toggleStoppedTrigger(
+      userId,
+      eventPlaceCodeDto,
+    );
   }
 
   @Roles(UserRole.PipelineUser)

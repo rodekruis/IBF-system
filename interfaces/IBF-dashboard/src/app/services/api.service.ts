@@ -334,7 +334,7 @@ export class ApiService {
 
   stopTrigger(eventPlaceCodeId: string) {
     return this.post(
-      'event/stop-trigger',
+      'event/toggle-stopped-trigger',
       {
         eventPlaceCodeId,
       },
