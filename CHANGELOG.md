@@ -1,3 +1,12 @@
+## [0.189.1](https://github.com/rodekruis/IBF-system/compare/v0.189.0...v0.189.1) (2022-10-21)
+
+
+### Bug Fixes
+
+* no events AB[#15894](https://github.com/rodekruis/IBF-system/issues/15894) ([165f0c7](https://github.com/rodekruis/IBF-system/commit/165f0c7e7d87c7ec0e0fbf3ba7bb136a0759cd14))
+
+
+
 # [0.189.0](https://github.com/rodekruis/IBF-system/compare/v0.188.4...v0.189.0) (2022-10-21)
 
 
@@ -112,17 +121,6 @@
 * change marker color AB[#15510](https://github.com/rodekruis/IBF-system/issues/15510) ([96aae0b](https://github.com/rodekruis/IBF-system/commit/96aae0b341aaeb764268af42eac60633b071299d))
 * reduce size of current point AB[#15511](https://github.com/rodekruis/IBF-system/issues/15511) ([c0dc4c8](https://github.com/rodekruis/IBF-system/commit/c0dc4c828647ffd0f80d941ef804a9e0c6d977dd))
 * update track style AB[#15510](https://github.com/rodekruis/IBF-system/issues/15510) AB[#15511](https://github.com/rodekruis/IBF-system/issues/15511) ([6f45c0a](https://github.com/rodekruis/IBF-system/commit/6f45c0a4e99fb8e52bd087ed6667fa948b59c580))
-
-
-
-# [0.186.0](https://github.com/rodekruis/IBF-system/compare/v0.185.1...v0.186.0) (2022-10-10)
-
-
-### Features
-
-* add aof title + align left AB[#15520](https://github.com/rodekruis/IBF-system/issues/15520) ([c7091b5](https://github.com/rodekruis/IBF-system/commit/c7091b51f44cc8a3c2896d3c6bb04d0f8054f22e))
-* add tasks title aAB[#10693](https://github.com/rodekruis/IBF-system/issues/10693) ([d0ddbd6](https://github.com/rodekruis/IBF-system/commit/d0ddbd60059157a6c8a6139b7f7d745e5377091a))
-* split titles in 2 levels AB[#15484](https://github.com/rodekruis/IBF-system/issues/15484) ([263d0b9](https://github.com/rodekruis/IBF-system/commit/263d0b9adbe84b3ff7d7447b2333dd2e1f517dae))
 
 
 
