@@ -1,7 +1,11 @@
 .component-title {
   .component-title-item {
     --inner-padding-end: 0;
-    height: 27px;
+    height: 48px;
+  }
+  .aggregate--title {
+    width: 100%;
+    display: contents;
   }
 }
 

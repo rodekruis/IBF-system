@@ -8,37 +8,37 @@
       <ion-col class="ion-no-padding">
         <ion-item
           lines="none"
-          class="component-title-item ion-no-padding ion-no-margin ion-align-items-start"
-          [ngClass]="
-            getLabelAreasExposed().subHeaderLabel === ''
-              ? 'ion-text-center'
-              : 'ion-text-left'
-          "
+          class="component-title-item ion-no-margin"
           color="ibf-secondary"
         >
-          <ion-label
-            class="aggregates--title ion-no-margin"
-            [ngClass]="
-              getLabelAreasExposed().subHeaderLabel === ''
-                ? 'ion-no-padding'
-                : 'ion-padding-start'
-            "
-            data-test="aggregate-title"
-            [title]="
-              ('aggregates-component.header-title-prefix' | translate) +
-              ' ' +
-              getNumberAreasExposed() +
-              ' ' +
-              getLabelAreasExposed().headerLabel
-            "
-          >
-            <strong>
-              <ion-text color="ibf-primary" style="font-size: 20px">{{
-                getNumberAreasExposed()
-              }}</ion-text>
-              {{ getLabelAreasExposed().headerLabel }}
-            </strong>
-          </ion-label>
+          <ion-col class="ion-no-padding ion-no-margin ion-align-items-center">
+            <ion-label
+              class="aggregates--title ion-no-margin"
+              data-test="aggregate-title"
+              [title]="
+                ('aggregates-component.header-title-prefix' | translate) +
+                ' ' +
+                getNumberAreasExposed() +
+                ' ' +
+                getLabelAreasExposed().headerLabel
+              "
+            >
+              <strong>
+                <ion-text color="ibf-primary" style="font-size: 20px">{{
+                  getNumberAreasExposed()
+                }}</ion-text>
+                {{ getLabelAreasExposed().headerLabel }}
+              </strong>
+            </ion-label>
+            <ion-label
+              *ngIf="getLabelAreasExposed().subHeaderLabel !== ''"
+              class="aggregate--title"
+            >
+              <ion-text style="font-size: 12px">
+                {{ getLabelAreasExposed().subHeaderLabel }}
+              </ion-text>
+            </ion-label>
+          </ion-col>
           <ion-button
             fill="clear"
             *ngIf="placeCode"
@@ -48,19 +48,6 @@
           >
             <ion-icon name="close" slot="icon-only"></ion-icon>
           </ion-button>
-        </ion-item>
-        <ion-item
-          lines="none"
-          class="component-title-item ion-no-padding ion-no-margin ion-align-items-start"
-          color="ibf-secondary"
-        >
-          <ion-label
-            class="aggregates--subtitle ion-no-margin ion-padding-start"
-          >
-            <ion-text style="font-size: 12px">
-              {{ getLabelAreasExposed().subHeaderLabel }}
-            </ion-text>
-          </ion-label>
         </ion-item>
       </ion-col>
     </ion-row>
