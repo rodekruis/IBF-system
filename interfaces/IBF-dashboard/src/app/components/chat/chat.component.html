@@ -275,6 +275,17 @@
                   }
           "
         ></p>
+        <ion-button
+          (click)="openToggleTriggerPopup(area, false)"
+          [disabled]="!area.activeTrigger"
+          color="ibf-no-alert-primary"
+          expand="block"
+          [innerHTML]="
+            'chat-component.generic.reactivate-trigger-popup.' +
+              hasEap() +
+              '.header' | translate
+          "
+        ></ion-button>
       </app-dialogue-turn>
     </ng-container>
     <app-dialogue-turn
@@ -415,14 +426,13 @@
         </ion-row>
       </form>
       <ion-button
-        (click)="openStopTriggerPopup(area)"
+        (click)="openToggleTriggerPopup(area, true)"
         [disabled]="!area.activeTrigger"
         color="ibf-primary"
         expand="block"
         [innerHTML]="
-          'chat-component.' +
-            disasterTypeName +
-            '.active-event.stop-trigger-button' | translate
+          'chat-component.generic.stop-trigger-popup.' + hasEap() + '.header'
+            | translate
         "
       ></ion-button>
     </app-dialogue-turn>

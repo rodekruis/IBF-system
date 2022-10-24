@@ -30,7 +30,7 @@ import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { Indicator } from '../../types/indicator-group';
 import { LeadTime, LeadTimeUnit } from '../../types/lead-time';
 import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
-import { StopTriggerPopoverComponent } from '../stop-trigger-popover/stop-trigger-popover.component';
+import { ToggleTriggerPopoverComponent } from '../toggle-trigger-popover/toggle-trigger-popover.component';
 
 @Component({
   selector: 'app-chat',
@@ -56,7 +56,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
-  private disasterTypeSubscription: Subscription;
+  public disasterTypeSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
@@ -377,18 +377,30 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
 
     await popover.present();
+
+    popover.onDidDismiss().then(() => {
+      this.eapActionsService.getTriggeredAreasApi();
+    });
   }
 
-  public async openStopTriggerPopup(triggeredArea): Promise<void> {
+  public async openToggleTriggerPopup(
+    triggeredArea,
+    stop: boolean,
+  ): Promise<void> {
+    const stopNode = stop ? 'stop-trigger-popup' : 'reactivate-trigger-popup';
+    const eapNode = this.disasterTypeService.hasEap(
+      this.disasterType.disasterType,
+    );
     const popover = await this.popoverController.create({
-      component: StopTriggerPopoverComponent,
+      component: ToggleTriggerPopoverComponent,
       animated: true,
       cssClass: 'ibf-popover ibf-popover-normal',
       translucent: true,
       showBackdrop: true,
       componentProps: {
-        disasterTypeName: this.disasterTypeName,
         placeCodeName: triggeredArea.name,
+        eapNode,
+        stopNode,
       },
     });
 
@@ -404,27 +416,34 @@ export class ChatComponent implements OnInit, OnDestroy {
       }
 
       if (res.role === 'confirm') {
-        this.stopTrigger(
+        this.toggleTrigger(
           triggeredArea.eventPlaceCodeId,
           triggeredArea.placeCode,
+          stopNode,
+          eapNode,
         );
       }
     });
   }
 
-  public stopTrigger(eventPlaceCodeId: string, placeCode: string): void {
+  public toggleTrigger(
+    eventPlaceCodeId: string,
+    placeCode: string,
+    stopNode: string,
+    eapNode: string,
+  ): void {
     this.analyticsService.logEvent(AnalyticsEvent.stopTrigger, {
       page: AnalyticsPage.dashboard,
       isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       placeCode,
     });
-    this.apiService.stopTrigger(eventPlaceCodeId).subscribe({
+    this.apiService.toggleTrigger(eventPlaceCodeId).subscribe({
       next: () => this.reloadEapAndTrigger(),
       error: () =>
         this.actionResult(
           this.translateService.instant(
-            `chat-component.${this.disasterTypeName}.active-event.stop-trigger-popup.failure`,
+            `chat-component.generic.${stopNode}.${eapNode}.failure`,
           ),
         ),
     });
@@ -614,5 +633,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     return ` (${area.nameParent})`;
+  }
+
+  public hasEap(): string {
+    return this.disasterTypeService.hasEap(this.disasterType.disasterType);
   }
 }

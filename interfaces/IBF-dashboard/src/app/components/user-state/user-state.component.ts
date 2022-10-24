@@ -15,7 +15,6 @@ import { EventService } from 'src/app/services/event.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from '../../../environments/environment';
 import { ApiService } from '../../services/api.service';
-import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { ChangePasswordPopoverComponent } from '../change-password-popover/change-password-popover.component';
 
 @Component({
@@ -74,14 +73,9 @@ export class UserStateComponent implements OnInit {
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
     if (this.disasterType) {
-      const eapDisasterTypes = [
-        DisasterTypeKey.floods,
-        DisasterTypeKey.drought,
-        DisasterTypeKey.typhoon,
-      ];
-      const eapNode = eapDisasterTypes.includes(this.disasterType.disasterType)
-        ? 'eap'
-        : 'no-eap';
+      const eapNode = this.disasterTypeService.hasEap(
+        this.disasterType.disasterType,
+      );
       const yesNode = this.disasterType.activeTrigger ? 'yes' : 'no';
 
       this.translateService

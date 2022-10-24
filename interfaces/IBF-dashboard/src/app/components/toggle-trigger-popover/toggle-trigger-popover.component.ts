@@ -2,16 +2,19 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-stop-trigger-popover',
-  templateUrl: './stop-trigger-popover.component.html',
-  styleUrls: ['./stop-trigger-popover.component.scss'],
+  selector: 'app-toggle-trigger-popover',
+  templateUrl: './toggle-trigger-popover.component.html',
+  styleUrls: ['./toggle-trigger-popover.component.scss'],
 })
-export class StopTriggerPopoverComponent implements OnInit {
-  @Input()
-  public disasterTypeName: string;
-
+export class ToggleTriggerPopoverComponent implements OnInit {
   @Input()
   public placeCodeName: string;
+
+  @Input()
+  public eapNode: string;
+
+  @Input()
+  public stopNode: string;
 
   constructor(private popoverController: PopoverController) {}
 
