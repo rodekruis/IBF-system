@@ -221,7 +221,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       }
     } else {
       if (this.country) {
-        if (this.eventState?.activeTrigger) {
+        if (
+          this.eventState?.activeTrigger &&
+          this.country.adminRegionLabels[this.adminLevelService.adminLevel]
+        ) {
           const areaCount = this.aggregatesService.nrTriggeredAreas;
           const adminAreaLabel = this.country.adminRegionLabels[
             this.adminLevelService.adminLevel
