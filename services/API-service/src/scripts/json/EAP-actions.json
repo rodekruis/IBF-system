@@ -294,7 +294,7 @@
       "id": "wash"
     },
     "action": "wash-1",
-    "label": "Distribution of Pure/ Aquatabs and buckets"
+    "label": "Distribute Pure/ Aquatabs and buckets"
   },
   {
     "countryCodeISO3": "MWI",
@@ -303,7 +303,7 @@
       "id": "wash"
     },
     "action": "wash-2",
-    "label": "Distribution of Soap, hygiene and dignity kits"
+    "label": "Distribute soap, hygiene and dignity kits"
   },
   {
     "countryCodeISO3": "MWI",
@@ -312,7 +312,7 @@
       "id": "wash"
     },
     "action": "wash-3",
-    "label": "Protection of critical WASH infrastructure"
+    "label": "Protect critical WASH infrastructure"
   },
   {
     "countryCodeISO3": "MWI",
@@ -321,7 +321,7 @@
       "id": "drr"
     },
     "action": "drr-1",
-    "label": "Early warning messaging"
+    "label": "Send out early warning messages"
   },
   {
     "countryCodeISO3": "MWI",
@@ -330,7 +330,7 @@
       "id": "drr"
     },
     "action": "drr-2",
-    "label": "Assisted Evacuations orders"
+    "label": "Assist with Evacuation orders"
   },
   {
     "countryCodeISO3": "MWI",
@@ -339,7 +339,7 @@
       "id": "drr"
     },
     "action": "drr-3",
-    "label": "Search and Rescue teams deployment"
+    "label": "Deploy Search and Rescue teams"
   },
   {
     "countryCodeISO3": "MWI",
@@ -357,7 +357,7 @@
       "id": "shelter"
     },
     "action": "shelter-1",
-    "label": "Establishment of camps/ Camp management structures"
+    "label": "Establish camps/ Camp management structures"
   },
   {
     "countryCodeISO3": "MWI",
@@ -375,7 +375,7 @@
       "id": "shelter"
     },
     "action": "shelter-3",
-    "label": "Distribution of waterproof bags"
+    "label": "Distribute waterproof bags"
   },
   {
     "countryCodeISO3": "MWI",
@@ -393,7 +393,7 @@
       "id": "livelihood"
     },
     "action": "livelihood-2",
-    "label": "Preposition and distribution of NFI’s"
+    "label": "Preposition and distribute NFI's"
   },
   {
     "countryCodeISO3": "MWI",
@@ -402,7 +402,7 @@
       "id": "livelihood"
     },
     "action": "livelihood-3",
-    "label": "Cash and Voucher Assistance"
+    "label": "Set up Cash and Voucher assistance"
   },
   {
     "countryCodeISO3": "KEN",
