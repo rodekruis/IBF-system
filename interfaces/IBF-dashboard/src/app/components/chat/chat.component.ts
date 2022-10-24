@@ -56,7 +56,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
-  private disasterTypeSubscription: Subscription;
+  public disasterTypeSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
