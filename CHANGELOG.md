@@ -1,3 +1,21 @@
+# [0.193.0](https://github.com/rodekruis/IBF-system/compare/v0.192.0...v0.193.0) (2022-10-24)
+
+
+### Bug Fixes
+
+* test errors AB[#15900](https://github.com/rodekruis/IBF-system/issues/15900) ([7fe3646](https://github.com/rodekruis/IBF-system/commit/7fe364618b648d1fbb08f9653adb8fe409ba7254))
+
+
+### Features
+
+* add sentence in stop trigger popup on new event AB[#15756](https://github.com/rodekruis/IBF-system/issues/15756) ([e905d06](https://github.com/rodekruis/IBF-system/commit/e905d06edf40e66d079040e65f1b72a513beaa45))
+* add sentence on state of actions in reactivate popup AB[#15754](https://github.com/rodekruis/IBF-system/issues/15754) ([255f9b7](https://github.com/rodekruis/IBF-system/commit/255f9b7eccbd14092df84ae7159ee11f55fa5c11))
+* make stop trigger endpoint toggleable AB[#15752](https://github.com/rodekruis/IBF-system/issues/15752) ([4d7fdc1](https://github.com/rodekruis/IBF-system/commit/4d7fdc1461cc0b77631961788214e2025f19a414))
+* reactivate trigger frontend AB[#15753](https://github.com/rodekruis/IBF-system/issues/15753) ([984a049](https://github.com/rodekruis/IBF-system/commit/984a049c1cfa693b2d664c5841be3d6d1c051ff5))
+* refresh after saving eap-action ([3a0204d](https://github.com/rodekruis/IBF-system/commit/3a0204d050142c495b62f3631a86d0234c865e86))
+
+
+
 # [0.192.0](https://github.com/rodekruis/IBF-system/compare/v0.191.0...v0.192.0) (2022-10-24)
 
 
@@ -108,26 +126,6 @@
 ### Bug Fixes
 
 * admin3 area pcodes PHL AB[#15640](https://github.com/rodekruis/IBF-system/issues/15640) ([7f2de76](https://github.com/rodekruis/IBF-system/commit/7f2de76a9b11191ee56e39725d64685eb2032955))
-
-
-
-# [0.188.0](https://github.com/rodekruis/IBF-system/compare/v0.187.2...v0.188.0) (2022-10-14)
-
-
-### Bug Fixes
-
-* category + popup AB[#15646](https://github.com/rodekruis/IBF-system/issues/15646) ([fb4476e](https://github.com/rodekruis/IBF-system/commit/fb4476e2fb3af4f7fe019b064776fb120b35e444))
-* category ux copy AB[#15533](https://github.com/rodekruis/IBF-system/issues/15533) ([1a10a0c](https://github.com/rodekruis/IBF-system/commit/1a10a0c98817b00c395b527a5275cdb9ca9179dd))
-* return to normal disaster order ([46b01ba](https://github.com/rodekruis/IBF-system/commit/46b01ba1bc454418de9d2c77f700aecbe32d5818))
-* show admin-popup after zoom AB[#15614](https://github.com/rodekruis/IBF-system/issues/15614) ([be577ba](https://github.com/rodekruis/IBF-system/commit/be577ba4d23ff5000f3a5cb9d85460d61c688838))
-
-
-### Features
-
-* remove windspeed from popup AB[#15646](https://github.com/rodekruis/IBF-system/issues/15646) ([ce48109](https://github.com/rodekruis/IBF-system/commit/ce48109d6911fde9d742ab10774866cd5625b4af))
-* update info popup AB[#15536](https://github.com/rodekruis/IBF-system/issues/15536) ([9dce0ef](https://github.com/rodekruis/IBF-system/commit/9dce0ef9f926c9c6e500152ee0dd88e6822aa3e6))
-* update track popup AB[#15533](https://github.com/rodekruis/IBF-system/issues/15533) ([0cc011c](https://github.com/rodekruis/IBF-system/commit/0cc011c94fc44aa6a1f28c28857ff16facfb2a22))
-* update wind speed copy AB[#15536](https://github.com/rodekruis/IBF-system/issues/15536) ([6363bf5](https://github.com/rodekruis/IBF-system/commit/6363bf55e6d44f3adce8300fb833e0333f70eecf))
 
 
 
