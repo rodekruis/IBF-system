@@ -879,8 +879,6 @@ export class MapComponent implements OnDestroy {
     markerProperties: TyphoonTrackPoint,
     markerLatLng: LatLng,
   ): Marker {
-    console.log('this.lastModelRunDate: ', this.lastModelRunDate);
-
     const markerDateTime = DateTime.fromISO(
       markerProperties.timestampOfTrackpoint,
     );
@@ -907,18 +905,11 @@ export class MapComponent implements OnDestroy {
       markerProperties.timestampOfTrackpoint,
     ).toFormat('ccc, dd LLLL, HH:mm');
 
-    const lat = `${markerLatLng.lat.toFixed(4)}° ${
-      markerLatLng.lat > 0 ? 'N' : 'S'
-    }`;
-    const lng = `${markerLatLng.lng.toFixed(4)}° ${
-      markerLatLng.lng > 0 ? 'E' : 'W'
-    }`;
-
     const category = this.translate.instant(
       'map-popups.PHL.typhoon.category.' + markerProperties.category,
     );
 
-    const coordinate = `${lat}, ${lng}`;
+    const coordinate = this.formatAsCoordinate(markerLatLng);
 
     const markerInstance = marker(markerLatLng, {
       title: dateAndTime,
@@ -1033,7 +1024,7 @@ export class MapComponent implements OnDestroy {
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT),
     });
     markerInstance.bindPopup(
-      this.createMarkerWaterpointPopup(markerProperties),
+      this.createMarkerWaterpointPopup(markerProperties, markerLatLng),
     );
     markerInstance.on(
       'click',
@@ -1194,24 +1185,30 @@ export class MapComponent implements OnDestroy {
     return branchInfoPopup;
   }
 
-  private createMarkerWaterpointPopup(markerProperties: Waterpoint): string {
-    const waterpointInfoPopup = (
-      '<div style="margin-bottom: 5px">' +
-      '<strong>ID: ' +
-      markerProperties.wpdxId +
-      '</strong>' +
-      '</div>'
-    ).concat(
-      '<div style="margin-bottom: 5px">' +
-        'Waterpoint type: ' +
-        (markerProperties.type ? markerProperties.type : 'unknown') +
-        '</div>',
-      '<div style="margin-bottom: 5px">' +
-        'Report date: ' +
-        markerProperties.reportDate +
-        '</div>',
-    );
-    return waterpointInfoPopup;
+  private formatAsCoordinate(markerLatLng: LatLng) {
+    const lat = `${markerLatLng.lat.toFixed(4)}° ${
+      markerLatLng.lat > 0 ? 'N' : 'S'
+    }`;
+    const lng = `${markerLatLng.lng.toFixed(4)}° ${
+      markerLatLng.lng > 0 ? 'E' : 'W'
+    }`;
+    return `${lat}, ${lng}`;
+  }
+
+  private createMarkerWaterpointPopup(
+    markerProperties: Waterpoint,
+    markerLatLng: LatLng,
+  ): string {
+    return `<div style="margin-bottom: 5px"><strong>ID: ${
+      markerProperties.wpdxId
+    }</strong></div><div style="margin-bottom: 5px">Waterpoint type: ${
+      markerProperties.type || 'unknown'
+    }</div><div style="margin-bottom: 5px">Report date: ${
+      markerProperties.reportDate
+    }</div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
+      markerLatLng,
+    )}
+    </div>`;
   }
 
   private calculateClosestPointToTyphoon(layer: IbfLayer) {
