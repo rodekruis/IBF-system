@@ -1,3 +1,12 @@
+# [0.192.0](https://github.com/rodekruis/IBF-system/compare/v0.191.0...v0.192.0) (2022-10-24)
+
+
+### Features
+
+* add coordinate to waterpoint popup AB[#15757](https://github.com/rodekruis/IBF-system/issues/15757) ([8076f72](https://github.com/rodekruis/IBF-system/commit/8076f72f5e2c6cbab6f22ef909a31eb88962e9d9))
+
+
+
 # [0.191.0](https://github.com/rodekruis/IBF-system/compare/v0.190.0...v0.191.0) (2022-10-24)
 
 
@@ -119,15 +128,6 @@
 * update info popup AB[#15536](https://github.com/rodekruis/IBF-system/issues/15536) ([9dce0ef](https://github.com/rodekruis/IBF-system/commit/9dce0ef9f926c9c6e500152ee0dd88e6822aa3e6))
 * update track popup AB[#15533](https://github.com/rodekruis/IBF-system/issues/15533) ([0cc011c](https://github.com/rodekruis/IBF-system/commit/0cc011c94fc44aa6a1f28c28857ff16facfb2a22))
 * update wind speed copy AB[#15536](https://github.com/rodekruis/IBF-system/issues/15536) ([6363bf5](https://github.com/rodekruis/IBF-system/commit/6363bf55e6d44f3adce8300fb833e0333f70eecf))
-
-
-
-## [0.187.2](https://github.com/rodekruis/IBF-system/compare/v0.187.1...v0.187.2) (2022-10-10)
-
-
-### Bug Fixes
-
-* ux copy download link email AB[#15639](https://github.com/rodekruis/IBF-system/issues/15639) ([35f25a5](https://github.com/rodekruis/IBF-system/commit/35f25a5fe74236ea2984e92e02714d953ccb05d7))
 
 
 
