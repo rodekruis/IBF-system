@@ -399,8 +399,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       showBackdrop: true,
       componentProps: {
         placeCodeName: triggeredArea.name,
-        eapNode: eapNode,
-        stopNode: stopNode,
+        eapNode,
+        stopNode,
       },
     });
 
