@@ -79,17 +79,14 @@ export class AggregatesService {
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
-    this.loadMetadataAndAggregates();
   };
 
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
     this.adminLevel = adminLevel;
-    this.loadMetadataAndAggregates();
   };
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-    this.loadMetadataAndAggregates();
   };
 
   private onTriggeredAreasChange = (triggeredAreas: any[]) => {

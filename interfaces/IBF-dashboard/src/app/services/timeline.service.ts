@@ -69,7 +69,7 @@ export class TimelineService {
 
   private onInitialEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-    if (this.country && this.disasterType) {
+    if (this.country && this.disasterType && this.eventState) {
       this.loadTimeStepButtons();
     }
   };

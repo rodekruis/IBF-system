@@ -142,17 +142,14 @@ export class MapService {
 
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
     this.adminLevel = adminLevel;
-    this.loadCountryLayers();
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
-    this.loadCountryLayers();
   };
 
   private onEventStateChange = (eventState: any) => {
     this.eventState = eventState;
-    this.loadCountryLayers();
   };
 
   private onTriggeredAreasChange = (triggeredAreas: any[]) => {

@@ -74,12 +74,10 @@ export class EapActionsService {
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
-    this.getTriggeredAreasApi();
   };
 
   private onEventStatusChange = (eventState: EventState) => {
     this.eventState = eventState;
-    this.getTriggeredAreasApi();
   };
 
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
