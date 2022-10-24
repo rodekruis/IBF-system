@@ -17,6 +17,10 @@ export class LoginFormComponent {
     password: '',
   };
 
+  public inputType: 'password' | 'text' = 'password';
+  public labelShow = 'Show password';
+  public labelHide = 'Hide password';
+
   constructor(
     private authService: AuthService,
     private popoverController: PopoverController,
@@ -40,5 +44,13 @@ export class LoginFormComponent {
     });
 
     popover.present();
+  }
+
+  isPassword() {
+    return this.inputType === 'password';
+  }
+
+  toggleInputType() {
+    this.inputType = this.isPassword() ? 'text' : 'password';
   }
 }

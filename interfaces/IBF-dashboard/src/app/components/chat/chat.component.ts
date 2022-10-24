@@ -619,10 +619,19 @@ export class ChatComponent implements OnInit, OnDestroy {
       countryCodeISO3: this.country.countryCodeISO3,
       placeCodeName: area.name,
       placeCode: area.placeCode,
+      placeCodeParentName: area.nameParent,
     });
   }
 
   public revertAreaSelection() {
     this.placeCodeService.clearPlaceCode();
+  }
+
+  public getAreaParentString(area): string {
+    if (!area.nameParent) {
+      return '';
+    }
+
+    return ` (${area.nameParent})`;
   }
 }

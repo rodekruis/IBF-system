@@ -1,3 +1,38 @@
+# [0.190.0](https://github.com/rodekruis/IBF-system/compare/v0.189.1...v0.190.0) (2022-10-21)
+
+
+### Bug Fixes
+
+* center title vertically AB[#15777](https://github.com/rodekruis/IBF-system/issues/15777) ([11edd6f](https://github.com/rodekruis/IBF-system/commit/11edd6f691dd124fe7bda519c01f60ba55b34197))
+* no new line for area name AB[#15781](https://github.com/rodekruis/IBF-system/issues/15781) ([dfb13c8](https://github.com/rodekruis/IBF-system/commit/dfb13c85a191feb6506132ed125e5e8b07f769a8))
+* remove comment ([ceaaad3](https://github.com/rodekruis/IBF-system/commit/ceaaad35c233a700c4c8bfd1907f4e3b7efa8269))
+* return empty string if no parent AB[#15781](https://github.com/rodekruis/IBF-system/issues/15781) ([f58ad75](https://github.com/rodekruis/IBF-system/commit/f58ad75d01958333eb5fe2b87f5a0c546913d41b))
+
+
+### Features
+
+* add parent name in middle columnb AB[#15745](https://github.com/rodekruis/IBF-system/issues/15745) ([9d318f0](https://github.com/rodekruis/IBF-system/commit/9d318f044c3fa4e313e02e42ba9f0cef3b2e422d))
+* add parent to chat list AB[#15779](https://github.com/rodekruis/IBF-system/issues/15779) ([afedd66](https://github.com/rodekruis/IBF-system/commit/afedd66a26d4e973381724b6d0537ce4031bb12b))
+* add parent to popup AB[#15780](https://github.com/rodekruis/IBF-system/issues/15780) ([06f3a25](https://github.com/rodekruis/IBF-system/commit/06f3a25a71d3cdc619013eede0f305e28d3428b1))
+* add parent to stopped list and detail AB[#15779](https://github.com/rodekruis/IBF-system/issues/15779) AB[#15781](https://github.com/rodekruis/IBF-system/issues/15781) ([37b0dc3](https://github.com/rodekruis/IBF-system/commit/37b0dc3ab498fc90c5379790025e35c36eb9afca))
+* align aggregates title to design AB[#15777](https://github.com/rodekruis/IBF-system/issues/15777) ([6e9f2dd](https://github.com/rodekruis/IBF-system/commit/6e9f2ddf417decf3dcf37356e3edcbf2df8cceb4))
+* change mwi default adminlevel AB[#15740](https://github.com/rodekruis/IBF-system/issues/15740) ([35f354a](https://github.com/rodekruis/IBF-system/commit/35f354a1bbd6d7c238c7c93dd431af1270417dd7))
+* get parent name in backend AB[#15744](https://github.com/rodekruis/IBF-system/issues/15744) ([1104b7d](https://github.com/rodekruis/IBF-system/commit/1104b7d082d2d07c1adb22121da694a0362581e3))
+* move single line header to center AB[#15777](https://github.com/rodekruis/IBF-system/issues/15777) ([81cf0bf](https://github.com/rodekruis/IBF-system/commit/81cf0bfdf029ddaa566f4b7d02dd829bc2b97cf9))
+* toggle to show password AB[#15743](https://github.com/rodekruis/IBF-system/issues/15743) ([749c45d](https://github.com/rodekruis/IBF-system/commit/749c45dfb71812671c87a7ed0da39afa24887b18))
+* update aof subtitle AB[#15778](https://github.com/rodekruis/IBF-system/issues/15778) ([71a72fd](https://github.com/rodekruis/IBF-system/commit/71a72fd5b9cc1d93f4f77de6607df8dfb1a271f0))
+
+
+
+## [0.189.1](https://github.com/rodekruis/IBF-system/compare/v0.189.0...v0.189.1) (2022-10-21)
+
+
+### Bug Fixes
+
+* no events AB[#15894](https://github.com/rodekruis/IBF-system/issues/15894) ([165f0c7](https://github.com/rodekruis/IBF-system/commit/165f0c7e7d87c7ec0e0fbf3ba7bb136a0759cd14))
+
+
+
 # [0.189.0](https://github.com/rodekruis/IBF-system/compare/v0.188.4...v0.189.0) (2022-10-21)
 
 
@@ -88,41 +123,6 @@
 ### Bug Fixes
 
 * make track points 80% opaque AB[#15634](https://github.com/rodekruis/IBF-system/issues/15634) ([321fa78](https://github.com/rodekruis/IBF-system/commit/321fa7818ce2e1fa7727351bd5086a0e73219ccf))
-
-
-
-# [0.187.0](https://github.com/rodekruis/IBF-system/compare/v0.186.0...v0.187.0) (2022-10-10)
-
-
-### Bug Fixes
-
-* copu text to aggregates AB[#15514](https://github.com/rodekruis/IBF-system/issues/15514) ([9c1a507](https://github.com/rodekruis/IBF-system/commit/9c1a50714b8e7f62cb98b87cd99eb6c803bab0f6))
-* correct classes for login page guide AB[#15619](https://github.com/rodekruis/IBF-system/issues/15619) ([dc1d6aa](https://github.com/rodekruis/IBF-system/commit/dc1d6aad0154110309a381f34285e4f10c0850cb))
-* move trigger statement above table AB[#15504](https://github.com/rodekruis/IBF-system/issues/15504) ([9744a29](https://github.com/rodekruis/IBF-system/commit/9744a29d8208b938796428d1262f0684f7f2684f))
-* remove 'alert level' from email AB[#15539](https://github.com/rodekruis/IBF-system/issues/15539) ([dc2e5b3](https://github.com/rodekruis/IBF-system/commit/dc2e5b353d4ff87fe9b7c738b913f66644142331))
-* remove alert level col header AB[#15539](https://github.com/rodekruis/IBF-system/issues/15539) ([96d8bd8](https://github.com/rodekruis/IBF-system/commit/96d8bd85a580ef51d1df8affef100d12b9126723))
-* update info popups AB[#15512](https://github.com/rodekruis/IBF-system/issues/15512) ([8ba4df7](https://github.com/rodekruis/IBF-system/commit/8ba4df76f0620163c42b417a5d6ff7aba5de0fdd))
-
-
-### Features
-
-* add link to trigger statement AB[#15505](https://github.com/rodekruis/IBF-system/issues/15505) ([a6055fd](https://github.com/rodekruis/IBF-system/commit/a6055fdb865638abb43357287df43fde51b47a42))
-* add new layer icon AB[#15623](https://github.com/rodekruis/IBF-system/issues/15623) ([45b66c1](https://github.com/rodekruis/IBF-system/commit/45b66c1534cf97d30b207ad64c52814b9b576e44))
-* add parent area name to email list (cell + header) AB[#15538](https://github.com/rodekruis/IBF-system/issues/15538) ([97fff75](https://github.com/rodekruis/IBF-system/commit/97fff7585fd789af6a6e7a51caddf59cd25ad9ab))
-* change marker color AB[#15510](https://github.com/rodekruis/IBF-system/issues/15510) ([96aae0b](https://github.com/rodekruis/IBF-system/commit/96aae0b341aaeb764268af42eac60633b071299d))
-* reduce size of current point AB[#15511](https://github.com/rodekruis/IBF-system/issues/15511) ([c0dc4c8](https://github.com/rodekruis/IBF-system/commit/c0dc4c828647ffd0f80d941ef804a9e0c6d977dd))
-* update track style AB[#15510](https://github.com/rodekruis/IBF-system/issues/15510) AB[#15511](https://github.com/rodekruis/IBF-system/issues/15511) ([6f45c0a](https://github.com/rodekruis/IBF-system/commit/6f45c0a4e99fb8e52bd087ed6667fa948b59c580))
-
-
-
-# [0.186.0](https://github.com/rodekruis/IBF-system/compare/v0.185.1...v0.186.0) (2022-10-10)
-
-
-### Features
-
-* add aof title + align left AB[#15520](https://github.com/rodekruis/IBF-system/issues/15520) ([c7091b5](https://github.com/rodekruis/IBF-system/commit/c7091b51f44cc8a3c2896d3c6bb04d0f8054f22e))
-* add tasks title aAB[#10693](https://github.com/rodekruis/IBF-system/issues/10693) ([d0ddbd6](https://github.com/rodekruis/IBF-system/commit/d0ddbd60059157a6c8a6139b7f7d745e5377091a))
-* split titles in 2 levels AB[#15484](https://github.com/rodekruis/IBF-system/issues/15484) ([263d0b9](https://github.com/rodekruis/IBF-system/commit/263d0b9adbe84b3ff7d7447b2333dd2e1f517dae))
 
 
 
