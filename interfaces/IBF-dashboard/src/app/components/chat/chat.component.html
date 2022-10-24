@@ -282,7 +282,7 @@
           expand="block"
           [innerHTML]="
             'chat-component.generic.reactivate-trigger-popup.' +
-              disasterTypeService.hasEap(disasterType.disasterType) +
+              hasEap() +
               '.header' | translate
           "
         ></ion-button>
@@ -431,9 +431,8 @@
         color="ibf-primary"
         expand="block"
         [innerHTML]="
-          'chat-component.generic.stop-trigger-popup.' +
-            disasterTypeService.hasEap(disasterType.disasterType) +
-            '.header' | translate
+          'chat-component.generic.stop-trigger-popup.' + hasEap() + '.header'
+            | translate
         "
       ></ion-button>
     </app-dialogue-turn>

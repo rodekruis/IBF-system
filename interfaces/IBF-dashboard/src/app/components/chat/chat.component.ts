@@ -634,4 +634,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     return ` (${area.nameParent})`;
   }
+
+  public hasEap(): string {
+    return this.disasterTypeService.hasEap(this.disasterType.disasterType);
+  }
 }
