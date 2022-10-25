@@ -81,10 +81,12 @@ export class AdminLevelService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+    this.activeLayerNames = [];
   };
 
   private onInitialEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
+    this.activeLayerNames = [];
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
