@@ -1,3 +1,13 @@
+## [0.193.2](https://github.com/rodekruis/IBF-system/compare/v0.193.1...v0.193.2) (2022-10-28)
+
+
+### Bug Fixes
+
+* remove 1 action + rephrase 1 AB[#15995](https://github.com/rodekruis/IBF-system/issues/15995) ([3fc7a84](https://github.com/rodekruis/IBF-system/commit/3fc7a84f75445a8d87db05c0c0eddc1728b3c953))
+* show absolute coordinates AB[#15996](https://github.com/rodekruis/IBF-system/issues/15996) ([e95cec1](https://github.com/rodekruis/IBF-system/commit/e95cec18539ec7bb9e8de315ce625c8a8bdd38ab))
+
+
+
 ## [0.193.1](https://github.com/rodekruis/IBF-system/compare/v0.193.0...v0.193.1) (2022-10-28)
 
 
@@ -121,16 +131,6 @@
 * only show action summary if trigger event AB[#15832](https://github.com/rodekruis/IBF-system/issues/15832) ([185dac0](https://github.com/rodekruis/IBF-system/commit/185dac07788d307963284b894ebe35718ed520de))
 * only show in unit in map popup if available AB[#15832](https://github.com/rodekruis/IBF-system/issues/15832) ([f63b5bb](https://github.com/rodekruis/IBF-system/commit/f63b5bb6c27a4833d8ac3d8191d49217ded0718c))
 * update track info popup AB[#15832](https://github.com/rodekruis/IBF-system/issues/15832) ([49afe6e](https://github.com/rodekruis/IBF-system/commit/49afe6ea69cd67cdbf3599b986725da7638fab8e))
-
-
-
-## [0.188.2](https://github.com/rodekruis/IBF-system/compare/v0.188.1...v0.188.2) (2022-10-14)
-
-
-### Bug Fixes
-
-* change tasks to action AB[#15484](https://github.com/rodekruis/IBF-system/issues/15484) ([47dac97](https://github.com/rodekruis/IBF-system/commit/47dac976a6c463932f1e8c02afc776fa4b8685cd))
-* simplify boundaries AB[#15640](https://github.com/rodekruis/IBF-system/issues/15640) ([1a5ad02](https://github.com/rodekruis/IBF-system/commit/1a5ad0237abffcf9f9547214f4d70f575fc9d3cc))
 
 
 
