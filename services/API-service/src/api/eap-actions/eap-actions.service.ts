@@ -153,7 +153,9 @@ export class EapActionsService {
         'action."label"',
         'action."disasterType"',
         'action."month"',
+        ':placeCode as "placeCode"',
       ])
+      .setParameter('placeCode', placeCode)
       .addSelect(
         'case when status."actionCheckedId" is null then false else status.status end AS checked',
       )
@@ -172,8 +174,6 @@ export class EapActionsService {
         disasterType: disasterType,
       })
       .getRawMany();
-
-    eapActions.forEach(action => (action['placeCode'] = placeCode));
 
     return eapActions;
   }

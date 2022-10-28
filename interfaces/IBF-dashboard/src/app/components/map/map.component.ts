@@ -1186,10 +1186,10 @@ export class MapComponent implements OnDestroy {
   }
 
   private formatAsCoordinate(markerLatLng: LatLng) {
-    const lat = `${markerLatLng.lat.toFixed(4)}° ${
+    const lat = `${Math.abs(markerLatLng.lat).toFixed(4)}° ${
       markerLatLng.lat > 0 ? 'N' : 'S'
     }`;
-    const lng = `${markerLatLng.lng.toFixed(4)}° ${
+    const lng = `${Math.abs(markerLatLng.lng).toFixed(4)}° ${
       markerLatLng.lng > 0 ? 'E' : 'W'
     }`;
     return `${lat}, ${lng}`;
