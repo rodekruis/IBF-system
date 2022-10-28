@@ -434,40 +434,21 @@ export class MapService {
     });
   }
 
-  private leadTimeMatchesDisaster = (
-    leadTime: LeadTime,
-    disasterType: DisasterType,
-  ) => {
-    return disasterType.leadTimes.map((l) => l.leadTimeName).includes(leadTime);
-  };
-
   private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
-    if (
-      this.country &&
-      this.disasterType &&
-      this.leadTimeMatchesDisaster(
-        this.timelineState.activeLeadTime,
-        this.disasterType,
-      )
-    ) {
-      if (
-        layerActive &&
-        this.checkCountryDisasterTypeMatch(this.country, this.disasterType)
-      ) {
-        this.apiService
-          .getAdminRegions(
-            this.country.countryCodeISO3,
-            this.disasterType.disasterType,
-            this.timelineState.activeLeadTime,
-            adminLevel,
-            this.eventState?.event?.eventName,
-          )
-          .subscribe((adminRegions) =>
-            this.addAdminRegionLayer(adminRegions, adminLevel),
-          );
-      } else {
-        this.addAdminRegionLayer(null, adminLevel);
-      }
+    if (layerActive) {
+      this.apiService
+        .getAdminRegions(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+          this.timelineState.activeLeadTime,
+          adminLevel,
+          this.eventState?.event?.eventName,
+        )
+        .subscribe((adminRegions) =>
+          this.addAdminRegionLayer(adminRegions, adminLevel),
+        );
+    } else {
+      this.addAdminRegionLayer(null, adminLevel);
     }
   }
 
@@ -654,27 +635,7 @@ export class MapService {
       : interactedLayer.show;
   };
 
-  private checkAdminLevelMatchesDisasterType(layer: IbfLayer): boolean {
-    if (layer.group !== IbfLayerGroup.adminRegions) {
-      return true;
-    }
-    const adminLevel = Number(
-      layer.name.substr(layer.name.length - 1),
-    ) as AdminLevel;
-    const settings = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    );
-    if (settings?.adminLevels.includes(adminLevel)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   private updateLayer = (layer: IbfLayer) => (layerData) => {
-    if (!this.checkAdminLevelMatchesDisasterType(layer)) {
-      return;
-    }
     this.addLayer({
       name: layer.name,
       label: layer.label,
@@ -786,10 +747,7 @@ export class MapService {
           this.eventState?.event?.eventName,
         )
         .pipe(shareReplay(1));
-    } else if (
-      layer.name === IbfLayerName.adminRegions &&
-      this.checkCountryDisasterTypeMatch(this.country, this.disasterType)
-    ) {
+    } else if (layer.name === IbfLayerName.adminRegions) {
       layerData = this.apiService
         .getAdminRegions(
           this.country.countryCodeISO3,
@@ -799,10 +757,7 @@ export class MapService {
           this.eventState?.event?.eventName,
         )
         .pipe(shareReplay(1));
-    } else if (
-      layer.group === IbfLayerGroup.adminRegions &&
-      this.checkCountryDisasterTypeMatch(this.country, this.disasterType)
-    ) {
+    } else if (layer.group === IbfLayerGroup.adminRegions) {
       const adminLevel = Number(
         layer.name.substr(layer.name.length - 1),
       ) as AdminLevel;
@@ -834,15 +789,6 @@ export class MapService {
     this.layerDataCache[layerDataCacheKey] = layerData;
     return layerData;
   };
-
-  public checkCountryDisasterTypeMatch(
-    country: Country,
-    disasterType: DisasterType,
-  ): boolean {
-    return !!country.countryDisasterSettings.find(
-      (s) => s.disasterType === disasterType.disasterType,
-    );
-  }
 
   getCombineAdminRegionData(
     countryCodeISO3: string,

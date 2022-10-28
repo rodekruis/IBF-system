@@ -100,13 +100,7 @@ export class AggregatesService {
       this.disasterType &&
       this.eventState &&
       this.timelineState &&
-      this.adminLevel &&
-      ((this.eventState.activeEvent && this.triggeredAreas.length) ||
-        !this.eventState.activeEvent) &&
-      this.mapService.checkCountryDisasterTypeMatch(
-        this.country,
-        this.disasterType,
-      )
+      this.adminLevel
     ) {
       this.apiService
         .getIndicators(

@@ -93,26 +93,26 @@ export class EapActionsService {
       this.timelineState?.activeLeadTime &&
       this.eventState
     ) {
-      if (
-        this.disasterTypeSettings.adminLevels.includes(this.adminLevel) &&
-        this.disasterTypeSettings.activeLeadTimes.includes(
-          this.timelineState?.activeLeadTime,
-        ) &&
-        // if eventName (=typhoon) then event's leadtime must correspond with timeline's leadtime
-        (!this.eventState.event?.eventName ||
-          this.eventState.event?.firstLeadTime ===
-            this.timelineState.activeLeadTime)
-      ) {
-        this.apiService
-          .getTriggeredAreas(
-            this.country.countryCodeISO3,
-            this.disasterType.disasterType,
-            this.adminLevel,
-            this.timelineState.activeLeadTime,
-            this.eventState.event?.eventName,
-          )
-          .subscribe(this.onTriggeredAreas);
-      }
+      // if (
+      //   this.disasterTypeSettings.adminLevels.includes(this.adminLevel) &&
+      //   this.disasterTypeSettings.activeLeadTimes.includes(
+      //     this.timelineState?.activeLeadTime,
+      //   ) &&
+      //   // if eventName (=typhoon) then event's leadtime must correspond with timeline's leadtime
+      //   (!this.eventState.event?.eventName ||
+      //     this.eventState.event?.firstLeadTime ===
+      //       this.timelineState.activeLeadTime)
+      // ) {
+      this.apiService
+        .getTriggeredAreas(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+          this.adminLevel,
+          this.timelineState.activeLeadTime,
+          this.eventState.event?.eventName,
+        )
+        .subscribe(this.onTriggeredAreas);
+      // }
     }
   }
 

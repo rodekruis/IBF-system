@@ -159,7 +159,7 @@ export class TimelineService {
   };
 
   public loadTimeStepButtons(): void {
-    if (this.country && this.disasterType) {
+    if (this.country && this.disasterType && this.eventState) {
       this.apiService
         .getRecentDates(
           this.country.countryCodeISO3,
