@@ -291,37 +291,46 @@
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
     "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-1",
-    "label": "Distribute Pure/ Aquatabs and buckets"
-  },
-  {
-    "countryCodeISO3": "MWI",
-    "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-2",
-    "label": "Distribute soap, hygiene and dignity kits"
-  },
-  {
-    "countryCodeISO3": "MWI",
-    "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-3",
-    "label": "Protect critical WASH infrastructure"
-  },
-  {
-    "countryCodeISO3": "MWI",
-    "disasterType": "floods",
-    "areaOfFocus": {
       "id": "drr"
     },
     "action": "drr-1",
     "label": "Send out early warning messages"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-1",
+    "label": "MPCT - Cash for work for reinforcement of infrastructure"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-2",
+    "label": "Preposition and distribute NFI's"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-3",
+    "label": "Set up Cash and Voucher assistance"
+  },
+  {
+    "countryCodeISO3": "MWI",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "shelter"
+    },
+    "action": "shelter-1",
+    "label": "Establish camps/ Camp management structures"
   },
   {
     "countryCodeISO3": "MWI",
@@ -356,15 +365,6 @@
     "areaOfFocus": {
       "id": "shelter"
     },
-    "action": "shelter-1",
-    "label": "Establish camps/ Camp management structures"
-  },
-  {
-    "countryCodeISO3": "MWI",
-    "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
     "action": "shelter-2",
     "label": "Preposition tents and shelter kits"
   },
@@ -381,28 +381,28 @@
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
     "areaOfFocus": {
-      "id": "livelihood"
+      "id": "wash"
     },
-    "action": "livelihood-1",
-    "label": "MPCT - Cash for work for reinforcement of infrastructure"
+    "action": "wash-1",
+    "label": "Distribute Pure/ Aquatabs and buckets"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
     "areaOfFocus": {
-      "id": "livelihood"
+      "id": "wash"
     },
-    "action": "livelihood-2",
-    "label": "Preposition and distribute NFI's"
+    "action": "wash-2",
+    "label": "Distribute soap, hygiene and dignity kits"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
     "areaOfFocus": {
-      "id": "livelihood"
+      "id": "wash"
     },
-    "action": "livelihood-3",
-    "label": "Set up Cash and Voucher assistance"
+    "action": "wash-3",
+    "label": "Protect critical WASH infrastructure"
   },
   {
     "countryCodeISO3": "KEN",
