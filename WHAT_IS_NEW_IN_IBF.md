@@ -2,8 +2,11 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
-### 21-10-2022 (v0.189.1)
+### 28-10-2022 (v0.193.2)
 
+- All IBF: Password in login-screen can be toggled to see characters
+- All IBF: Name of the parent admin-area added in brackets (e.g. province-name behind the municipality-name)
+- All IBF: Possibility to reactivate stopped trigger
 - IBF Philippines now contains disaster-type Typhoon
 
 ### 03-10-2022 (v0.183.1)
