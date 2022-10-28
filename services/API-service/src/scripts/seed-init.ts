@@ -177,7 +177,7 @@ export class SeedInit implements InterfaceScript {
 
           await countryRepository.save(countryEntity);
 
-          country.countryDisasterSettings.forEach(async disaster => {
+          for await (const disaster of country.countryDisasterSettings) {
             const countryDisasterSettingsEntity = new CountryDisasterSettingsEntity();
             countryDisasterSettingsEntity.country = await countryRepository.findOne(
               {
@@ -220,7 +220,7 @@ export class SeedInit implements InterfaceScript {
               saveResult.countryDisasterSettingsId,
             );
             countryEntity.countryDisasterSettings.push(savedEntity);
-          });
+          }
 
           return countryEntity;
         },
