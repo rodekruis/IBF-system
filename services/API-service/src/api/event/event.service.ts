@@ -272,12 +272,20 @@ export class EventService {
     }
 
     for (const area of triggeredAreas) {
-      area.eapActions = await this.eapActionsService.getActionsWithStatus(
-        countryCodeISO3,
-        disasterType,
-        area.placeCode,
-        eventName === 'no-name' ? null : eventName,
-      );
+      if (
+        triggeredPlaceCodes.length === 0 &&
+        disasterType === DisasterType.Typhoon
+      ) {
+        // Exception to speed up typhoon performance. Works because old-event is switched off for typhoon. Should be refactored better.
+        area.eapActions = [];
+      } else {
+        area.eapActions = await this.eapActionsService.getActionsWithStatus(
+          countryCodeISO3,
+          disasterType,
+          area.placeCode,
+          eventName === 'no-name' ? null : eventName,
+        );
+      }
     }
     return triggeredAreas;
   }
