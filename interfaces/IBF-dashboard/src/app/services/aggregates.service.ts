@@ -79,17 +79,14 @@ export class AggregatesService {
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
-    this.loadMetadataAndAggregates();
   };
 
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
     this.adminLevel = adminLevel;
-    this.loadMetadataAndAggregates();
   };
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-    this.loadMetadataAndAggregates();
   };
 
   private onTriggeredAreasChange = (triggeredAreas: any[]) => {
@@ -103,13 +100,7 @@ export class AggregatesService {
       this.disasterType &&
       this.eventState &&
       this.timelineState &&
-      this.adminLevel &&
-      ((this.eventState.activeEvent && this.triggeredAreas.length) ||
-        !this.eventState.activeEvent) &&
-      this.mapService.checkCountryDisasterTypeMatch(
-        this.country,
-        this.disasterType,
-      )
+      this.adminLevel
     ) {
       this.apiService
         .getIndicators(

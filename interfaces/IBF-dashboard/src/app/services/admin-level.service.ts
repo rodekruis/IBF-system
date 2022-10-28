@@ -2,9 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AdminLevel, AdminLevelLabel } from 'src/app/types/admin-level';
 import { Country, DisasterType } from '../models/country.model';
+import { EventState } from '../types/event-state';
 import { IbfLayerName } from '../types/ibf-layer';
+import { TimelineState } from '../types/timeline-state';
 import { CountryService } from './country.service';
 import { DisasterTypeService } from './disaster-type.service';
+import { EventService } from './event.service';
+import { TimelineService } from './timeline.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +21,12 @@ export class AdminLevelService {
   public adminLevel: AdminLevel;
   public countryAdminLevels: AdminLevel[];
   public adminLevelLabel: AdminLevelLabel = new AdminLevelLabel();
+  public activeLayerNames: IbfLayerName[] = [];
+
   private country: Country;
   private disasterType: DisasterType;
-  public activeLayerNames: IbfLayerName[] = [];
+  private eventState: EventState;
+  private timelineState: TimelineState;
 
   private static loadAdminLevelLabels(country: Country): AdminLevelLabel {
     const adminLevelLabels = {
@@ -48,6 +55,8 @@ export class AdminLevelService {
   constructor(
     private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
+    private eventService: EventService,
+    private timelineService: TimelineService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -56,6 +65,14 @@ export class AdminLevelService {
     this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
+
+    this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onInitialEventStateChange);
+
+    this.timelineService
+      .getTimelineStateSubscription()
+      .subscribe(this.onTimelineStateChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -64,8 +81,22 @@ export class AdminLevelService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+    this.activeLayerNames = [];
+  };
 
-    if (this.country && this.disasterType) {
+  private onInitialEventStateChange = (eventState: EventState) => {
+    this.eventState = eventState;
+    this.activeLayerNames = [];
+  };
+
+  private onTimelineStateChange = (timelineState: TimelineState) => {
+    this.timelineState = timelineState;
+    if (
+      this.country &&
+      this.disasterType &&
+      this.eventState &&
+      this.timelineState
+    ) {
       this.processAdminLevel();
     }
   };
@@ -88,9 +119,6 @@ export class AdminLevelService {
 
   public setAdminLevel(adminLevel: AdminLevel) {
     this.adminLevel = adminLevel;
-    if (this.adminLevel !== this.oldAdminLevel) {
-      this.adminLevelSubject.next(this.adminLevel);
-    }
-    this.oldAdminLevel = this.adminLevel;
+    this.adminLevelSubject.next(this.adminLevel);
   }
 }
