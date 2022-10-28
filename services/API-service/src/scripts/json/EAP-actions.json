@@ -303,7 +303,7 @@
       "id": "livelihood"
     },
     "action": "livelihood-1",
-    "label": "MPCT - Cash for work for reinforcement of infrastructure"
+    "label": "Set up Cash for Work for reinforcement of infrastructure"
   },
   {
     "countryCodeISO3": "MWI",
@@ -367,15 +367,6 @@
     },
     "action": "shelter-2",
     "label": "Preposition tents and shelter kits"
-  },
-  {
-    "countryCodeISO3": "MWI",
-    "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
-    "action": "shelter-3",
-    "label": "Distribute waterproof bags"
   },
   {
     "countryCodeISO3": "MWI",
