@@ -1,3 +1,17 @@
+## [0.193.1](https://github.com/rodekruis/IBF-system/compare/v0.193.0...v0.193.1) (2022-10-28)
+
+
+### Bug Fixes
+
+* fix error in aggregates component AB[#15905](https://github.com/rodekruis/IBF-system/issues/15905) ([8b01cd0](https://github.com/rodekruis/IBF-system/commit/8b01cd0555d9d94f11bae64723acff97ddb4026a))
+* fix order of subscriptions AB[#15905](https://github.com/rodekruis/IBF-system/issues/15905) ([92dfdf8](https://github.com/rodekruis/IBF-system/commit/92dfdf8331aec46c6c269f9e6dfa3ce200f0a063))
+* get rid of now unneeded api-param-alignment checks AB[#15905](https://github.com/rodekruis/IBF-system/issues/15905) ([a5d915b](https://github.com/rodekruis/IBF-system/commit/a5d915b4b421901347a087035be55ff14960eb7f))
+* only get eap-actions if trigger (typhoon-only) AB[#15905](https://github.com/rodekruis/IBF-system/issues/15905) ([da9aff3](https://github.com/rodekruis/IBF-system/commit/da9aff392bde9d3d42b3ea2136c498de3bb3414a))
+* order of MWI eap-actions AB[#15748](https://github.com/rodekruis/IBF-system/issues/15748) ([cd64aa1](https://github.com/rodekruis/IBF-system/commit/cd64aa153c633423065ab6349f92c53c03b9b79e))
+* switching behavior AB[#15905](https://github.com/rodekruis/IBF-system/issues/15905) ([187ddee](https://github.com/rodekruis/IBF-system/commit/187ddee04d1f8e30225b1c5a8edd27b0a028c872))
+
+
+
 # [0.193.0](https://github.com/rodekruis/IBF-system/compare/v0.192.0...v0.193.0) (2022-10-24)
 
 
@@ -117,15 +131,6 @@
 
 * change tasks to action AB[#15484](https://github.com/rodekruis/IBF-system/issues/15484) ([47dac97](https://github.com/rodekruis/IBF-system/commit/47dac976a6c463932f1e8c02afc776fa4b8685cd))
 * simplify boundaries AB[#15640](https://github.com/rodekruis/IBF-system/issues/15640) ([1a5ad02](https://github.com/rodekruis/IBF-system/commit/1a5ad0237abffcf9f9547214f4d70f575fc9d3cc))
-
-
-
-## [0.188.1](https://github.com/rodekruis/IBF-system/compare/v0.188.0...v0.188.1) (2022-10-14)
-
-
-### Bug Fixes
-
-* admin3 area pcodes PHL AB[#15640](https://github.com/rodekruis/IBF-system/issues/15640) ([7f2de76](https://github.com/rodekruis/IBF-system/commit/7f2de76a9b11191ee56e39725d64685eb2032955))
 
 
 
