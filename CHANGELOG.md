@@ -1,3 +1,13 @@
+# [0.194.0](https://github.com/rodekruis/IBF-system/compare/v0.193.2...v0.194.0) (2022-10-31)
+
+
+### Features
+
+* basic dashboard SSD floods AB[#16025](https://github.com/rodekruis/IBF-system/issues/16025) ([a19adf0](https://github.com/rodekruis/IBF-system/commit/a19adf097321397890fb20a4bc236dfc5691d3c9))
+* mock data SSD floods AB[#16028](https://github.com/rodekruis/IBF-system/issues/16028) ([673a996](https://github.com/rodekruis/IBF-system/commit/673a9965f18edfb8f658d250e1a8ae9176e51e77))
+
+
+
 ## [0.193.2](https://github.com/rodekruis/IBF-system/compare/v0.193.1...v0.193.2) (2022-10-28)
 
 
@@ -120,17 +130,6 @@
 ### Bug Fixes
 
 * process alert_threshold correctly AB[#15876](https://github.com/rodekruis/IBF-system/issues/15876) ([842d8ad](https://github.com/rodekruis/IBF-system/commit/842d8ada0526a629f9e5e0c029e572823efa6d65))
-
-
-
-## [0.188.3](https://github.com/rodekruis/IBF-system/compare/v0.188.2...v0.188.3) (2022-10-21)
-
-
-### Bug Fixes
-
-* only show action summary if trigger event AB[#15832](https://github.com/rodekruis/IBF-system/issues/15832) ([185dac0](https://github.com/rodekruis/IBF-system/commit/185dac07788d307963284b894ebe35718ed520de))
-* only show in unit in map popup if available AB[#15832](https://github.com/rodekruis/IBF-system/issues/15832) ([f63b5bb](https://github.com/rodekruis/IBF-system/commit/f63b5bb6c27a4833d8ac3d8191d49217ded0718c))
-* update track info popup AB[#15832](https://github.com/rodekruis/IBF-system/issues/15832) ([49afe6e](https://github.com/rodekruis/IBF-system/commit/49afe6ea69cd67cdbf3599b986725da7638fab8e))
 
 
 
