@@ -1,0 +1,18 @@
+[
+  {
+    "stationCode": "G5100",
+    "forecastLevel": 5882,
+    "forecastProbability": 1,
+    "forecastTrigger": 1,
+    "forecastReturnPeriod": 10,
+    "triggerLevel": 5856
+  },
+  {
+    "stationCode": "G5106",
+    "forecastLevel": 1234,
+    "forecastProbability": 0,
+    "forecastTrigger": 0,
+    "forecastReturnPeriod": null,
+    "triggerLevel": 6123
+  }
+]
