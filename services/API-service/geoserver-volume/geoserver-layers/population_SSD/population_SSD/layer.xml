@@ -1,0 +1,16 @@
+<layer>
+  <name>population_SSD</name>
+  <id>LayerInfoImpl-11935319:1842e457de2:-7ff0</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff4</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-11935319:1842e457de2:-7ff1</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2022-10-31 13:42:36.482 UTC</dateCreated>
+</layer>

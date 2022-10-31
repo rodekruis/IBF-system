@@ -1,6 +1,6 @@
 [
   {
-    "countryCodes": "UGA,ZMB,KEN,ETH,PHL,MWI",
+    "countryCodes": "UGA,ZMB,KEN,ETH,PHL,MWI,SSD",
     "disasterTypes": ["floods"],
     "name": "flood_extent",
     "label": "Flood extent",
@@ -30,7 +30,7 @@
     "active": "no"
   },
   {
-    "countryCodes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI",
+    "countryCodes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI,SSD",
     "disasterTypes": ["floods", "heavy-rain", "drought"],
     "name": "population",
     "label": "Population",
@@ -70,7 +70,7 @@
     "active": "no"
   },
   {
-    "countryCodes": "UGA,ZMB,KEN,ETH,PHL,MWI",
+    "countryCodes": "UGA,ZMB,KEN,ETH,PHL,MWI,SSD",
     "disasterTypes": ["floods"],
     "name": "glofas_stations",
     "label": "Glofas stations",
@@ -88,7 +88,7 @@
     "active": "yes"
   },
   {
-    "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,PHL,MWI",
+    "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,PHL,MWI,SSD",
     "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
     "name": "red_cross_branches",
     "label": "Red Cross branches",
@@ -151,7 +151,7 @@
     "active": "yes"
   },
   {
-    "countryCodes": "UGA,ZMB,PHL,KEN,ETH,MWI",
+    "countryCodes": "UGA,ZMB,PHL,KEN,ETH,MWI,SSD",
     "disasterTypes": ["floods", "dengue", "drought"],
     "name": "adminRegions2",
     "label": "Admin Level 2",
@@ -159,7 +159,7 @@
     "active": "yes"
   },
   {
-    "countryCodes": "ZMB,ETH,UGA,PHL,KEN,MWI",
+    "countryCodes": "ZMB,ETH,UGA,PHL,KEN,MWI,SSD",
     "disasterTypes": ["floods", "malaria", "typhoon", "drought"],
     "name": "adminRegions3",
     "label": "Admin Level 3",

@@ -1801,6 +1801,69 @@
     "label": "Migration preliminary action (dummy)"
   },
   {
+    "countryCodeISO3": "SSD",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "drr-1",
+    "label": "DRR preliminary action (dummy)"
+  },
+  {
+    "countryCodeISO3": "SSD",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "shelter"
+    },
+    "action": "shelter-1",
+    "label": "Shelter preliminary action (dummy)"
+  },
+  {
+    "countryCodeISO3": "SSD",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "livelihood-1",
+    "label": "Livelihood preliminary action (dummy)"
+  },
+  {
+    "countryCodeISO3": "SSD",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "health"
+    },
+    "action": "health-1",
+    "label": "Health preliminary action (dummy)"
+  },
+  {
+    "countryCodeISO3": "SSD",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "wash"
+    },
+    "action": "wash-1",
+    "label": "WASH preliminary action (dummy)"
+  },
+  {
+    "countryCodeISO3": "SSD",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "inclusion"
+    },
+    "action": "inclusion-1",
+    "label": "Inclusion preliminary action (dummy)"
+  },
+  {
+    "countryCodeISO3": "SSD",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "migration"
+    },
+    "action": "migration-1",
+    "label": "Migration preliminary action (dummy)"
+  },
+  {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
     "areaOfFocus": {
