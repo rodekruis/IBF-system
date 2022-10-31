@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { AdminLevel } from '../country/admin-level.enum';
 import { CountryEntity } from '../country/country.entity';
@@ -26,6 +27,7 @@ export class AdminAreaDataEntity {
   })
   public adminLevel: AdminLevel;
 
+  @Index()
   @Column()
   public placeCode: string;
 
