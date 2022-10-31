@@ -1,3 +1,12 @@
+## [0.194.1](https://github.com/rodekruis/IBF-system/compare/v0.194.0...v0.194.1) (2022-10-31)
+
+
+### Bug Fixes
+
+* index on placeCode columns AB[#16022](https://github.com/rodekruis/IBF-system/issues/16022) ([260d9f3](https://github.com/rodekruis/IBF-system/commit/260d9f34088e96826da5e3bdb8eb3b8445333e3d))
+
+
+
 # [0.194.0](https://github.com/rodekruis/IBF-system/compare/v0.193.2...v0.194.0) (2022-10-31)
 
 
@@ -121,15 +130,6 @@
 * add disastertype on no event name AB[#15727](https://github.com/rodekruis/IBF-system/issues/15727) ([13d6b65](https://github.com/rodekruis/IBF-system/commit/13d6b651a3af9e6a5cef9ba273ddbab70030d339))
 * change mail copy AB[#15727](https://github.com/rodekruis/IBF-system/issues/15727) ([0b695a9](https://github.com/rodekruis/IBF-system/commit/0b695a9baea5a0caa8fa982a37e1c63e4d0b5d9d))
 * refactor copy AB[#15727](https://github.com/rodekruis/IBF-system/issues/15727) ([19468dd](https://github.com/rodekruis/IBF-system/commit/19468ddc7b35a3616405af4db44002e0a728a91a))
-
-
-
-## [0.188.4](https://github.com/rodekruis/IBF-system/compare/v0.188.3...v0.188.4) (2022-10-21)
-
-
-### Bug Fixes
-
-* process alert_threshold correctly AB[#15876](https://github.com/rodekruis/IBF-system/issues/15876) ([842d8ad](https://github.com/rodekruis/IBF-system/commit/842d8ada0526a629f9e5e0c029e572823efa6d65))
 
 
 
