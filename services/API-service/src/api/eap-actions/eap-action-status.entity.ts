@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  Index,
+} from 'typeorm';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { UserEntity } from '../user/user.entity';
 import { EapActionEntity } from './eap-action.entity';
@@ -30,6 +36,7 @@ export class EapActionStatusEntity {
   public eventPlaceCode: EventPlaceCodeEntity;
 
   @ApiProperty({ example: '21UGA001001' })
+  @Index()
   @Column()
   public placeCode: string;
 

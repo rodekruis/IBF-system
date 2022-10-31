@@ -6,6 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  Index,
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
@@ -29,6 +30,7 @@ export class AdminAreaEntity {
   public adminLevel: number;
 
   @ApiProperty({ example: '21UGA001001' })
+  @Index()
   @Column({ unique: true })
   public placeCode: string;
 

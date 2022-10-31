@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
@@ -35,6 +36,7 @@ export class AdminAreaDynamicDataEntity {
   @Column({ nullable: true })
   public eventName: string;
 
+  @Index()
   @Column()
   public placeCode: string;
 
