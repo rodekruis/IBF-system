@@ -235,6 +235,74 @@
     }
   },
   {
+    "countryCodeISO3": "SSD",
+    "countryCodeISO2": "SS",
+    "countryName": "South Sudan",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [2, 3],
+        "defaultAdminLevel": 3,
+        "activeLeadTimes": ["7-day"],
+        "eapLink": "https://rodekruis.sharepoint.com/:w:/r/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0cd2cac495841490ca69f208f8417a6df&authkey=AanLvhB0DzhoT7ZJK5oGFGc&expiration=2023-10-30T23%3A00%3A00.000Z&e=Anes64&ovuser=d3ab9790-6ae2-4bd8-aa5e-02864483e7c7%2Cjannisvisser%40redcross.nl&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIyNy8yMjEwMTQwNjMwMCIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "valueLow": 0,
+            "valueHigh": 0.6
+          },
+          "min": {
+            "label": "Met office to monitor",
+            "color": "ibf-yellow",
+            "valueLow": 0.6,
+            "valueHigh": 0.7
+          },
+          "med": {
+            "label": "Alert IFRC / Prep evacuation / Warn communities",
+            "color": "ibf-orange",
+            "valueLow": 0.7,
+            "valueHigh": 0.8
+          },
+          "max": {
+            "label": "Activate EAP",
+            "color": "ibf-trigger-alert-primary",
+            "valueLow": 0.8,
+            "valueHigh": 1.01
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "State",
+        "plural": "States"
+      },
+      "2": {
+        "singular": "County",
+        "plural": "Counties"
+      },
+      "3": {
+        "singular": "Payam",
+        "plural": "Payams"
+      }
+    },
+    "countryLogos": ["MWI-mrcs.png"],
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [35.2980071182, 3.50917],
+          [35.2980071182, 12.2480077571],
+          [23.8869795809, 12.2480077571],
+          [23.8869795809, 3.50917],
+          [35.2980071182, 3.50917]
+        ]
+      ]
+    }
+  },
+  {
     "countryCodeISO3": "KEN",
     "countryCodeISO2": "KE",
     "countryName": "Kenya",

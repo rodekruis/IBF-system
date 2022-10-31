@@ -89,6 +89,16 @@
     "countries": ["MWI"]
   },
   {
+    "email": "southsudan@redcross.nl",
+    "username": "southsudan",
+    "firstName": "South Sudan",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["SSD"]
+  },
+  {
     "email": "demo-user@redcross.nl",
     "username": "demo-user@redcross.nl",
     "firstName": "Demo",

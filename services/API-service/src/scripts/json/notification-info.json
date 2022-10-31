@@ -92,5 +92,16 @@
     "linkSocialMediaUrl": null,
     "linkVideo": "https://bit.ly/IBF-video-Zambia",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zambia-Published.pdf"
+  },
+  {
+    "countryCodeISO3": "SSD",
+    "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/575cc45e-7050-4b2d-d8bc-d1f278e42a66.png",
+    "triggerStatement": {
+      "floods": "Not currently available"
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": "https://bit.ly/IBF-video-Zambia",
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zambia-Published.pdf"
   }
 ]
