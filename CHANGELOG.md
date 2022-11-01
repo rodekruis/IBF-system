@@ -1,3 +1,12 @@
+## [0.194.2](https://github.com/rodekruis/IBF-system/compare/v0.194.1...v0.194.2) (2022-11-01)
+
+
+### Bug Fixes
+
+* simplify geojsons AB[#16022](https://github.com/rodekruis/IBF-system/issues/16022) ([69cfc25](https://github.com/rodekruis/IBF-system/commit/69cfc25d36a4cee1df7e2603f5068ec856e23435))
+
+
+
 ## [0.194.1](https://github.com/rodekruis/IBF-system/compare/v0.194.0...v0.194.1) (2022-10-31)
 
 
@@ -114,22 +123,6 @@
 ### Bug Fixes
 
 * no events AB[#15894](https://github.com/rodekruis/IBF-system/issues/15894) ([165f0c7](https://github.com/rodekruis/IBF-system/commit/165f0c7e7d87c7ec0e0fbf3ba7bb136a0759cd14))
-
-
-
-# [0.189.0](https://github.com/rodekruis/IBF-system/compare/v0.188.4...v0.189.0) (2022-10-21)
-
-
-### Bug Fixes
-
-* correct copy for no event name AB[#15727](https://github.com/rodekruis/IBF-system/issues/15727) ([11f0820](https://github.com/rodekruis/IBF-system/commit/11f0820aed85dbe523e7670bdd5c3335d5ce543a))
-
-
-### Features
-
-* add disastertype on no event name AB[#15727](https://github.com/rodekruis/IBF-system/issues/15727) ([13d6b65](https://github.com/rodekruis/IBF-system/commit/13d6b651a3af9e6a5cef9ba273ddbab70030d339))
-* change mail copy AB[#15727](https://github.com/rodekruis/IBF-system/issues/15727) ([0b695a9](https://github.com/rodekruis/IBF-system/commit/0b695a9baea5a0caa8fa982a37e1c63e4d0b5d9d))
-* refactor copy AB[#15727](https://github.com/rodekruis/IBF-system/issues/15727) ([19468dd](https://github.com/rodekruis/IBF-system/commit/19468ddc7b35a3616405af4db44002e0a728a91a))
 
 
 
