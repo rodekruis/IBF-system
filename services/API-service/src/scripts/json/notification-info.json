@@ -101,6 +101,8 @@
     },
     "linkSocialMediaType": null,
     "linkSocialMediaUrl": null,
+    "useWhatsapp": true,
+    "whatsappMessage": "A trigger warning for floods was activated on [startDate].",
     "linkVideo": "https://bit.ly/IBF-video-Zambia",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zambia-Published.pdf"
   }

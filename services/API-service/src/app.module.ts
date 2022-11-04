@@ -20,6 +20,7 @@ import { RainfallTriggersModule } from './api/rainfall-triggers/rainfall-trigger
 import { NotificationModule } from './api/notification/notification.module';
 import { UserModule } from './api/user/user.module';
 import { TyphoonTrackModule } from './api/typhoon-track/typhoon-track.module';
+import { WhatsappModule } from './api/notification/whatsapp/whatsapp.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { TyphoonTrackModule } from './api/typhoon-track/typhoon-track.module';
     TyphoonTrackModule,
     NotificationModule,
     UserModule,
+    WhatsappModule,
   ],
   controllers: [AppController],
   providers: [],

@@ -16,6 +16,7 @@ import { DisasterEntity } from '../disaster/disaster.entity';
 import { EventSummaryCountry } from '../../shared/data.model';
 import { AdminAreaDataService } from '../admin-area-data/admin-area-data.service';
 import { AdminAreaService } from '../admin-area/admin-area.service';
+import { WhatsappService } from './whatsapp/whatsapp.service';
 
 class ReplaceKeyValue {
   replaceKey: string;
@@ -44,6 +45,7 @@ export class NotificationService {
     private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private readonly adminAreaDataService: AdminAreaDataService,
     private readonly adminAreaService: AdminAreaService,
+    private readonly whatsappService: WhatsappService,
   ) {}
 
   public async send(
@@ -69,8 +71,11 @@ export class NotificationService {
         activeEvents,
       );
       this.sendEmail(emailSubject, emailHtml, countryCodeISO3);
+      if (country.notificationInfo.useWhatsapp) {
+        this.whatsappService.sendTriggerViaWhatsapp(country, activeEvents);
+      }
     } else {
-      console.log('No email sent, as there is no active trigger');
+      console.log('No notifications sent, as there is no active trigger');
     }
   }
 

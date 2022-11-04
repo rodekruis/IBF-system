@@ -11,6 +11,7 @@ import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { AdminAreaDataModule } from '../admin-area-data/admin-area-data.module';
 import { AdminAreaModule } from '../admin-area/admin-area.module';
+import { WhatsappModule } from './whatsapp/whatsapp.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AdminAreaModule } from '../admin-area/admin-area.module';
     AdminAreaDynamicDataModule,
     AdminAreaDataModule,
     AdminAreaModule,
+    WhatsappModule,
   ],
   controllers: [NotificationController],
   providers: [NotificationService],

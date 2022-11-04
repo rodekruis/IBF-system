@@ -24,6 +24,9 @@ export class UserEntity {
   @IsEmail()
   public email: string;
 
+  @Column({ nullable: true })
+  public whatsappNumber: string;
+
   @Column({ unique: true })
   public username: string;
 
