@@ -1,5 +1,5 @@
 <coverageStore>
-  <id>CoverageStoreInfoImpl-11935319:1842e457de2:-7ff6</id>
+  <id>CoverageStoreInfoImpl--3c97612a:1844328bee2:-7ffb</id>
   <name>flood_extent_7-day_SSD</name>
   <description>flood_extent_7-day_SSD</description>
   <type>GeoTIFF</type>
@@ -8,7 +8,6 @@
     <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
   </workspace>
   <__default>false</__default>
-  <dateCreated>2022-10-31 13:41:26.509 UTC</dateCreated>
-  <dateModified>2022-10-31 13:41:28.434 UTC</dateModified>
+  <dateCreated>2022-11-04 15:01:43.566 UTC</dateCreated>
   <url>file:workspaces/ibf-system/ibf-pipeline/output/flood_extents/flood_extent_7-day_SSD.tif</url>
 </coverageStore>

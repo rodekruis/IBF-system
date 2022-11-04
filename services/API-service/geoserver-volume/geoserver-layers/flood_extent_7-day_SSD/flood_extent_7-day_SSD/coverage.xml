@@ -1,5 +1,5 @@
 <coverage>
-  <id>CoverageInfoImpl-11935319:1842e457de2:-7ff4</id>
+  <id>CoverageInfoImpl--3c97612a:1844328bee2:-7ffa</id>
   <name>flood_extent_7-day_SSD</name>
   <nativeName>flood_extent_7-day_SSD</nativeName>
   <namespace>
@@ -23,17 +23,17 @@
   AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
   <srs>EPSG:4326</srs>
   <nativeBoundingBox>
-    <minx>24.152083252</minx>
-    <maxx>35.318749874</maxx>
-    <miny>3.4804168539999996</miny>
-    <maxy>12.218750152</maxy>
+    <minx>24.150833333</minx>
+    <maxx>35.951666667</maxx>
+    <miny>3.488333333</miny>
+    <maxy>12.235833333</maxy>
     <crs>EPSG:4326</crs>
   </nativeBoundingBox>
   <latLonBoundingBox>
-    <minx>24.152083252</minx>
-    <maxx>35.318749874</maxx>
-    <miny>3.4804168539999996</miny>
-    <maxy>12.218750152</maxy>
+    <minx>24.150833333</minx>
+    <maxx>35.951666667</maxx>
+    <miny>3.488333333</miny>
+    <maxy>12.235833333</maxy>
     <crs>EPSG:4326</crs>
   </latLonBoundingBox>
   <projectionPolicy>REPROJECT_TO_DECLARED</projectionPolicy>
@@ -49,7 +49,7 @@
     <entry key="dirName">flood_extent_7-day_SSD_flood_extent_7-day_SSD</entry>
   </metadata>
   <store class="coverageStore">
-    <id>CoverageStoreInfoImpl-11935319:1842e457de2:-7ff6</id>
+    <id>CoverageStoreInfoImpl--3c97612a:1844328bee2:-7ffb</id>
   </store>
   <serviceConfiguration>false</serviceConfiguration>
   <simpleConversionEnabled>false</simpleConversionEnabled>
@@ -57,24 +57,24 @@
   <grid dimension="2">
     <range>
       <low>0 0</low>
-      <high>13400 10486</high>
+      <high>14161 10497</high>
     </range>
     <transform>
-      <scaleX>8.333333299999998E-4</scaleX>
-      <scaleY>-8.333333299637613E-4</scaleY>
+      <scaleX>8.333333333804107E-4</scaleX>
+      <scaleY>-8.333333333333334E-4</scaleY>
       <shearX>0.0</shearX>
       <shearY>0.0</shearY>
-      <translateX>24.152499918665</translateX>
-      <translateY>12.218333485335018</translateY>
+      <translateX>24.151249999666693</translateX>
+      <translateY>12.235416666333334</translateY>
     </transform>
     <crs>EPSG:4326</crs>
   </grid>
   <supportedFormats>
+    <string>GEOTIFF</string>
     <string>GIF</string>
     <string>PNG</string>
     <string>JPEG</string>
     <string>TIFF</string>
-    <string>GEOTIFF</string>
   </supportedFormats>
   <interpolationMethods>
     <string>nearest neighbor</string>
@@ -91,7 +91,7 @@
         <max>inf</max>
       </range>
       <nullValues>
-        <double>-99999.0</double>
+        <double>-3.4028234663852886E38</double>
       </nullValues>
       <dimensionType>
         <name>REAL_32BITS</name>
