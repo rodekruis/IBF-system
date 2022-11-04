@@ -77,7 +77,6 @@ export class AdminAreaDynamicDataService {
         uploadExposure.disasterType,
         uploadExposure.adminLevel,
         uploadExposure.eventName,
-        await this.isThereTrigger(uploadExposure.exposurePlaceCodes),
       );
     }
   }
