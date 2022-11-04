@@ -475,7 +475,7 @@ export class NotificationService {
                 );
 
             const triggerStatus = event.thresholdReached
-              ? '<strong>trigger reached</strong>'
+              ? 'trigger reached'
               : 'trigger not reached';
 
             const dateTimePreposition = leadTimeUnit === 'month' ? 'in' : 'on';
@@ -502,7 +502,7 @@ export class NotificationService {
 
             leadTimeListShort = `${leadTimeListShort}<li>${eventName}: ${dateAndTime} (${leadTimeString})</li>`;
 
-            leadTimeListLong = `${leadTimeListLong}<li>${eventName} - ${triggerStatus}: ${prefix} ${longListAddition} ${dateTimePreposition} ${dateAndTime} (${leadTimeString})</li>`;
+            leadTimeListLong = `${leadTimeListLong}<li>${eventName} - <strong>${triggerStatus}</strong>: ${prefix} ${longListAddition} ${dateTimePreposition} ${dateAndTime} (${leadTimeString})</li>`;
           }
         }
       }
