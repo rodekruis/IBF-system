@@ -4,7 +4,6 @@ import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
 
 import { GlofasStationEntity } from '../api/glofas-station/glofas-station.entity';
-import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { SeedHelper } from './seed-helper';
 import countries from './json/countries.json';
 

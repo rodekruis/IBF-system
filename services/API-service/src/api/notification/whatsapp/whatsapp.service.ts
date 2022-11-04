@@ -19,9 +19,7 @@ export class WhatsappService {
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
 
-  public constructor() {
-    console.log(process.env.TWILIO_SID, process.env.TWILIO_AUTHTOKEN);
-  }
+  public constructor() {}
 
   public async sendWhatsapp(
     message: string,
@@ -35,7 +33,6 @@ export class WhatsappService {
       statusCallback: EXTERNAL_API.whatsAppStatus,
       to: 'whatsapp:' + recipientPhoneNr,
     };
-    console.log('payload: ', payload);
     if (mediaUrl) {
       payload['mediaUrl'] = mediaUrl;
     }
@@ -55,8 +52,7 @@ export class WhatsappService {
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
   ): string {
-    console.log('country: ', country);
-    let baseMessage = country.notificationInfo.whatsappMessage;
+    const baseMessage = country.notificationInfo.whatsappMessage;
     const startDate = activeEvents[0].startDate;
     return baseMessage.replace('[startDate]', startDate);
   }
@@ -71,13 +67,11 @@ export class WhatsappService {
       where: { whatsappNumber: Not(IsNull()) },
       relations: ['countries'],
     });
-    console.log('users: ', users);
     const countryUsers = users.filter(user =>
       user.countries
         .map(c => c.countryCodeISO3)
         .includes(country.countryCodeISO3),
     );
-    console.log('countryUsers: ', countryUsers);
     for (const user of countryUsers) {
       await this.sendWhatsapp(message, user.whatsappNumber);
     }
@@ -120,7 +114,6 @@ export class WhatsappService {
   public async handleIncoming(
     callbackData: TwilioIncomingCallbackDto,
   ): Promise<void> {
-    console.log('callbackData: ', callbackData);
     if (!callbackData.From) {
       throw new HttpException(
         `No "From" address specified.`,
