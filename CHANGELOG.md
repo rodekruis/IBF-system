@@ -1,3 +1,13 @@
+## [0.194.3](https://github.com/rodekruis/IBF-system/compare/v0.194.2...v0.194.3) (2022-11-04)
+
+
+### Bug Fixes
+
+* change mwi layer u5 to u18 AB[#16004](https://github.com/rodekruis/IBF-system/issues/16004) ([a5f3381](https://github.com/rodekruis/IBF-system/commit/a5f3381103078d59a9958c2903cbb3935d5164f6))
+* performance on update existing event areas AB[#16022](https://github.com/rodekruis/IBF-system/issues/16022) ([ad597c9](https://github.com/rodekruis/IBF-system/commit/ad597c9d9feb4cbe1c17e1c80a00ff703cb7a7cb))
+
+
+
 ## [0.194.2](https://github.com/rodekruis/IBF-system/compare/v0.194.1...v0.194.2) (2022-11-01)
 
 
@@ -114,15 +124,6 @@
 * move single line header to center AB[#15777](https://github.com/rodekruis/IBF-system/issues/15777) ([81cf0bf](https://github.com/rodekruis/IBF-system/commit/81cf0bfdf029ddaa566f4b7d02dd829bc2b97cf9))
 * toggle to show password AB[#15743](https://github.com/rodekruis/IBF-system/issues/15743) ([749c45d](https://github.com/rodekruis/IBF-system/commit/749c45dfb71812671c87a7ed0da39afa24887b18))
 * update aof subtitle AB[#15778](https://github.com/rodekruis/IBF-system/issues/15778) ([71a72fd](https://github.com/rodekruis/IBF-system/commit/71a72fd5b9cc1d93f4f77de6607df8dfb1a271f0))
-
-
-
-## [0.189.1](https://github.com/rodekruis/IBF-system/compare/v0.189.0...v0.189.1) (2022-10-21)
-
-
-### Bug Fixes
-
-* no events AB[#15894](https://github.com/rodekruis/IBF-system/issues/15894) ([165f0c7](https://github.com/rodekruis/IBF-system/commit/165f0c7e7d87c7ec0e0fbf3ba7bb136a0759cd14))
 
 
 
