@@ -1,8 +1,6 @@
 {
   "app-name": "IBF-dashboard",
-  "common": {
-    "version": "Version"
-  },
+  "common": { "version": "Version" },
   "activation-page": {
     "activation-report": "Open all activations",
     "copy-to-clipboard": "Copy to clipboard",
@@ -17,10 +15,7 @@
     "note": "NOTE: This dashboard works best in Chrome, Firefox, Safari and Microsoft Edge. The dashboard is not compatible with Internet Explorer.",
     "forgot-password": "Forgot password?",
     "forgot-password-message": "If you forgot your password please send a request to ",
-    "environment-label": {
-      "production": "Live",
-      "stage": "Demo"
-    }
+    "environment-label": { "production": "Live", "stage": "Demo" }
   },
   "dashboard-page": {
     "dev-menu": {
@@ -41,14 +36,8 @@
     },
     "today": "TODAY",
     "triggered-message": {
-      "eap": {
-        "yes": "TRIGGERED",
-        "no": "NON-TRIGGERED"
-      },
-      "no-eap": {
-        "yes": "ALERT",
-        "no": "NO ALERTS"
-      }
+      "eap": { "yes": "TRIGGERED", "no": "NON-TRIGGERED" },
+      "no-eap": { "yes": "ALERT", "no": "NO ALERTS" }
     }
   },
   "aggregates-component": {
@@ -314,11 +303,7 @@
         "area": "The malaria alert for <strong>{{ placeCodeName }}</strong>{{ parentName }} activated on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
-    "common": {
-      "save-action": {
-        "header": "Action Result"
-      }
-    }
+    "common": { "save-action": { "header": "Action Result" } }
   },
   "layer-info-popups": {
     "aggregates-section": {
@@ -334,12 +319,12 @@
       },
       "exposed_pop_65": {
         "MWI": {
-          "floods": "TBD. This layer is based on Unified Beneficiary Registration (UBR) data provided by Department of Economy Planning and Development of Malawi. Data collected and processed in 2022."
+          "floods": "Exposed population over 65. This layer is based on Unified Beneficiary Registration (UBR) data provided by Department of Economy Planning and Development of Malawi. Data collected and processed in 2022."
         }
       },
-      "exposed_pop_u5": {
+      "exposed_pop_u18": {
         "MWI": {
-          "floods": "TBD. This layer is based on Unified Beneficiary Registration (UBR) data provided by Department of Economy Planning and Development of Malawi. Data collected and processed in 2022."
+          "floods": "Exposed population under 18. This layer is based on Unified Beneficiary Registration (UBR) data provided by Department of Economy Planning and Development of Malawi. Data collected and processed in 2022."
         }
       },
       "female_head_hh": {
@@ -460,9 +445,7 @@
         }
       },
       "alert_threshold": {
-        "EGY": {
-          "heavy-rain": "TBD"
-        },
+        "EGY": { "heavy-rain": "TBD" },
         "ETH": {
           "drought": "",
           "floods": "",
@@ -480,29 +463,20 @@
           "floods": "<p>The layer shows each county triggered based on two parameters from the 3-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 50% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the  manucipalities where the False Alarm Ratio (RAR) &gt;0.5</p><p><strong>Source link</strong>: <a href='https://www.globalfloods.eu/'>https://www.globalfloods.eu/</a></p><p><strong>Latest updated:&nbsp;</strong>September 2021</p><p><br></p>",
           "typhoon": "<p>The predicted impact (72 hours before landfall) is more than 10% of houses being totally damaged at municipal level, in at least 3 municipalities. The source for predicted impact is 510 typhoon impact prediction model.<br><br>Only municipalities that are included in the EAP can reach a triggered state. For other municipalities all data - such as predicted impact - is visible in the map, but they will never turn in to a triggered state.</p>"
         },
-        "UGA": {
-          "drought": "",
-          "floods": "TBD"
-        },
-        "ZMB": {
-          "floods": "TBD"
-        },
+        "UGA": { "drought": "", "floods": "TBD" },
+        "ZMB": { "floods": "TBD" },
         "ZWE": {
           "drought": "<p>The layer shows each province in the country with a drought risk at the end of the growing season (April), and as such determine which provinces are triggered when at least one of their districts is expected to face a +/- 6 year return period drought.</p> <p>The drought model is to assess a drought prediction skill of the 3-month running average Ni&ntilde;o 3.4 values and initiates a drought risk when there is a potential negative crop yield anomaly predicted. The model is developed based on the XGBoost algorithm tested and trained with historical ENSO: Seasonal ERSSTv5 and CHIRPS Rainfall data in relation to historical negative crop yield anomalies in April, which is used as drought impact proxy. Loss of crops, livestock loss, and child malnutrition and stunting are indicated by the ZRCS DRM working group and representatives from IFRC, PNS, and Red Cross Climate Centre (RCCC) &nbsp;as targeted drought impact</p><p>Source links:</p><ul><li>ENSO: Seasonal ERSSTv5 (1991-2020 base period) 3-month running average in Ni&ntilde;o 3.4 (5oNorth-5oSouth) (170-120oWest)) <a href='https://www.cpc.ncep.noaa.gov/data/indices/3mth.nino34.91-20.ascii.txt'>https://www.cpc.ncep.noaa.gov/data/indices/3mth.nino34.91-20.ascii.txt</a></li><li>CHIRPS: Rainfall Estimates from Rain Gauge and Satellite Observations | Climate Hazards Center - UC Santa Barbara (<a href='https://www.chc.ucsb.edu/data/chirps'>https://www.chc.ucsb.edu/data/chirps</a>)&nbsp;</li>     <li>Crop Yield data: Izumi, Toshichika (2019): Global dataset of historical yields v1.2 and v1.3 aligned version. PANGAEA, <a href='https://doi.org/10.1594/PANGAEA.909132'>https://doi.org/10.1594/PANGAEA.909132</a>,Supplement to Iizumi, Toshichika; Sakai, T (2020): The global dataset of historical yields for major crops 1981&ndash;2016. Scientific Data, 7(1), <a href='https://doi.org/10.1038/s41597-020-0433-7'>https://doi.org/10.1038/s41597-020-0433-7</a></li> </ul>"
         }
       },
       "cattle": {
-        "UGA": {
-          "drought": ""
-        },
+        "UGA": { "drought": "" },
         "ZWE": {
           "drought": "<p>Livestock numbers cattle exists of the number of cattle multiplied with the Livestock unit (LSU): 1.0 &nbsp;as reference unit to aggregate livestock from various species, which is the grazing equivalent of one adult dairy cow producing 3000 kg of milk annually, without additional concentrated foodstuffs.</p> <p>Source Links :</p> <ul>     <li>Number of cattle mentioned within the 2nd round crop- and livestock assessment report 2020/2021 season. Published: 21st of April 2021.</li>     <li>Source assessment:<br><a data-fr-linked='true' href='https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0'>https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0</a></li>     <li>Source Livestock unit (LSU) <a href='https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)'>&nbsp;https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)</a></li> </ul>"
         }
       },
       "cattle_exposed": {
-        "UGA": {
-          "drought": ""
-        },
+        "UGA": { "drought": "" },
         "ZWE": {
           "drought": "<p>Number of exposed cattle is calculated by the cattle per province within the droughts alert threshold reached area currently triggered. Livestock numbers cattle exists of the number of cattle multiplied with the Livestock unit (LSU): 1.0 as reference unit, which is the grazing equivalent of one adult dairy cow producing 3000 kg of milk annually, without additional concentrated foodstuffs.&nbsp;</p><p>Source Links :</p> <ul>     <li>Number of cattle mentioned within the 2nd round crop- and livestock assessment report 2020/2021 season. Published: 21st of April 2021.</li>     <li>Source assessment:<br><a data-fr-linked='true' href='https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0'>https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0</a></li>     <li>Source Livestock unit (LSU) <a href='https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)'>&nbsp;https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)</a></li> </ul>"
         }
@@ -556,9 +530,7 @@
         "KEN": {
           "drought": "The drought vulnerability index is a composite index for the context of exposure to drought and the capacity to anticipate, cope with and recover from the impacts of drought. The National Society and Technical Working group selected the following criteria below:<ul><li>18% Poverty incidence</li><li>15% Gini index</li><li>19% Literacy rates</li><li>15% Access to improved water sources</li><li>14% Access to improved sanitation</li><li>19% Integrated food security phase classification</li></ul><br>For further information please refer to the EAP"
         },
-        "UGA": {
-          "drought": ""
-        },
+        "UGA": { "drought": "" },
         "ZWE": {
           "drought": "The drought vulnerability index is a composite index for the context of exposure to drought and the capacity to anticipate, cope with and recover from the impacts of droughts. The ZRCS selected nine main criteria:<ul><li>14% Labor constrained households: 7 %unemployment rate 15+  and 7% economically non-active</li><li>15% Child, women and elderly headed households: 5% Female headed HH , 5% Head of Household (19-), 5% Head of Household (65+)</li><li>14% People with disabilities</li><li>15 % Pregnant and breast-feeding women, and children under five years: 5% pregnant women, 5% breast-feeding women, 5% children under five years</li><li>14 % Severe acute malnutrition</li><li>7% employment agriculture</li><li>7% cattle per km2</li><li>7% HIV prevalence</li><li>7% HIV ART Coverage</li></ul>"
         }
@@ -670,22 +642,10 @@
         }
       },
       "Hotspot_General": {
-        "ETH": {
-          "drought": "",
-          "floods": "",
-          "malaria": ""
-        }
+        "ETH": { "drought": "", "floods": "", "malaria": "" }
       },
-      "Hotspot_Health": {
-        "ETH": {
-          "malaria": "<br />Source: "
-        }
-      },
-      "Hotspot_nutrition": {
-        "ETH": {
-          "drought": ""
-        }
-      },
+      "Hotspot_Health": { "ETH": { "malaria": "<br />Source: " } },
+      "Hotspot_nutrition": { "ETH": { "drought": "" } },
       "Hotspot_Water": {
         "ETH": {
           "drought": " ",
@@ -703,9 +663,7 @@
           "drought": "",
           "malaria": "IPC long forecast: Most likely food security outcomes -  the medium-term projection <a href='https://fews.net/IPC'>https://fews.net/IPC</a>"
         },
-        "UGA": {
-          "drought": ""
-        }
+        "UGA": { "drought": "" }
       },
       "IPC_forecast_short": {
         "ETH": {
@@ -938,9 +896,7 @@
           "drought": "<p>This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.</p><p><strong>Source link:</strong> Kenya Red Cross Society (KRCS).&nbsp;</p><p><strong>Latest updated:</strong> 2020.</p>",
           "floods": "<p>This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.</p><p><strong>Source link:</strong> Kenya Red Cross Society (KRCS).&nbsp;</p><p><strong>Latest updated:</strong> 2020.</p>"
         },
-        "MWI": {
-          "floods": "Data not available yet"
-        },
+        "MWI": { "floods": "Data not available yet" },
         "PHL": {
           "dengue": "Data not available yet",
           "floods": "Data not available yet"
@@ -961,23 +917,13 @@
           "floods": " The rice area map are absed on Philippine Rice Information System (PRISM) data.<br /><br />Source Link: PRISM website: <a href='https://prism.philrice.gov.ph/dataproducts/'>https://prism.philrice.gov.ph/dataproducts/</a> This data is based on the Philippine Rice Information System (PRISM) project which primarily aims to establish a nationwide information system on rice that provide information on rice areas and yield at a particular location and time, and information on factors that are affecting the yield. "
         }
       },
-      "roof_type": {
-        "UGA": {
-          "floods": "<br />"
-        }
-      },
+      "roof_type": { "UGA": { "floods": "<br />" } },
       "small_ruminants": {
-        "UGA": {
-          "drought": ""
-        },
-        "ZWE": {
-          "drought": "<br />Source Link: PRISM website: "
-        }
+        "UGA": { "drought": "" },
+        "ZWE": { "drought": "<br />Source Link: PRISM website: " }
       },
       "small_ruminants_exposed": {
-        "UGA": {
-          "drought": ""
-        },
+        "UGA": { "drought": "" },
         "ZWE": {
           "drought": "<a href='https://prism.philrice.gov.ph/dataproducts/'>https://prism.philrice.gov.ph/dataproducts/</a> This data is based on the Philippine Rice Information System (PRISM) project which primarily aims to establish a nationwide information system on rice that provide information on rice areas and yield at a particular location and time, and information on factors that are affecting the yield. "
         }
@@ -1009,9 +955,7 @@
         "KEN": {
           "drought": "<p>The Vegetation condition  is one of the indicators monitored within the drought early warning system of NDMA as part of the biophysical type of indicator.This layer presents the Vegetation Condition Index VCI3M (3-month averaged VCI) as off . The VCI values return a drought category presented below with the corresponding thresholds.&nbsp;</p><ul>    <li>&gt;= 50 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Vegetation greenness above normal&nbsp;</li>    <li>&gt;= 35 - &lt;50 &nbsp;Normal vegetation greenness</li>    <li>&gt;=20 - &lt;35 &nbsp; Moderate vegetation deficit&nbsp;</li>    <li>&gt;=10 - &lt;20 &nbsp; Severe vegetation deficit&nbsp;</li>    <li>&lt;10 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Extreme vegetation deficit</li></ul><p>Once the VCI3M goes below a threshold of 35, the NDMA triggers a rapid food security assessment and has access to the National Drought Contingency Fund in order to implement its preparedness strategies and contingency plans.&nbsp;</p><p><strong>Source Link:</strong> National monthly Drought Update published by the National Drought Management Authority (NDMA) <a href='https://www.ndma.go.ke/index.php/resource-center/national-drought-bulletin'>https://www.ndma.go.ke/index.php/resource-center/national-drought-bulletin</a></p><p><strong>Latest updated:</strong> month, year</p>"
         },
-        "UGA": {
-          "drought": ""
-        }
+        "UGA": { "drought": "" }
       },
       "vulnerable_group": {
         "PHL": {
@@ -1026,9 +970,7 @@
         }
       },
       "walking_travel_time_to_health": {
-        "ETH": {
-          "malaria": "Ongoing (updated regularly)"
-        }
+        "ETH": { "malaria": "Ongoing (updated regularly)" }
       },
       "wall_type": {
         "UGA": {

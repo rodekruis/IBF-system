@@ -228,12 +228,39 @@ export class EventService {
       element => element.placeCode,
     );
 
+    // get actionsValue from admin-area-dynamic-data instead of directly from event-place-code
+    // for performance reasons: now actionsValue in event-place-code does not need to be updated
+    const actionUnit = await this.getActionUnit(disasterType);
+    const actionValuePerPlaceCode = this.adminAreaDynamicDataRepo
+      .createQueryBuilder('dynamic')
+      .select([
+        'dynamic."placeCode"',
+        'dynamic."eventName"',
+        'MAX(dynamic.value) AS "actionsValue"',
+      ])
+      .where('dynamic.indicator = :indicator', { indicator: actionUnit })
+      .andWhere('dynamic.disasterType = :disasterType', {
+        disasterType: disasterType,
+      })
+      .andWhere('dynamic.countryCodeISO3 = :countryCodeISO3', {
+        countryCodeISO3: countryCodeISO3,
+      })
+      .andWhere('dynamic.date = :date', { date: lastTriggeredDate.date })
+      .andWhere('extract(hour from dynamic.timestamp) = :hour', {
+        hour: lastTriggeredDate.timestamp.getHours(),
+      })
+      .groupBy('dynamic."placeCode"')
+      .addGroupBy('dynamic."eventName"');
+    console.log(
+      'actionValuePerPlaceCode.getParameters(): ',
+      actionValuePerPlaceCode.getQueryAndParameters(),
+    );
     const triggeredAreasQuery = this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
-        'event."actionsValue"',
+        'dynamic."actionsValue"',
         'event."eventPlaceCodeId"',
         'event."activeTrigger"',
         'event."stopped"',
@@ -249,6 +276,12 @@ export class EventService {
         'parent',
         'area."placeCodeParent" = parent."placeCode"',
       )
+      .leftJoin(
+        '(' + actionValuePerPlaceCode.getQuery() + ')',
+        'dynamic',
+        `area."placeCode" = dynamic."placeCode" AND coalesce(event."eventName",'no-name') = coalesce(dynamic."eventName",'no-name')`,
+      )
+      .setParameters(actionValuePerPlaceCode.getParameters())
       .where({
         closed: false,
         disasterType: disasterType,
@@ -257,7 +290,7 @@ export class EventService {
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .orderBy('event."actionsValue"', 'DESC');
+      .orderBy('dynamic."actionsValue"', 'DESC');
 
     let triggeredAreas;
 
@@ -431,7 +464,6 @@ export class EventService {
     disasterType: DisasterType,
     adminLevel: number,
     eventName: string,
-    trigger: boolean,
   ): Promise<void> {
     // First set all events to inactive
     await this.setAllEventsToInactive(countryCodeISO3, disasterType);
@@ -624,22 +656,9 @@ export class EventService {
     // .. then fire one query to update all rows that need thresholdReached = false
     await this.updateEvents(idsToUpdateBelowThreshold, false, endDate);
 
-    // .. and lastly fire individual queries to update actionsValue ONLY for rows here it changed
-    let affectedArea: AffectedAreaDto;
-    const eventAreasToUpdate = [];
-    for await (const unclosedEventArea of unclosedEventAreas) {
-      affectedArea = affectedAreas.find(
-        area => area.placeCode === unclosedEventArea.adminArea.placeCode,
-      );
-      if (
-        affectedArea &&
-        unclosedEventArea.actionsValue !== affectedArea.actionsValue
-      ) {
-        unclosedEventArea.actionsValue = affectedArea.actionsValue;
-        eventAreasToUpdate.push(unclosedEventArea);
-      }
-    }
-    await this.eventPlaceCodeRepo.save(unclosedEventAreas);
+    // NOTE: we no longer update actionsValue here, as it was too performance-heavy
+    // 'triggered-areas' gets it instead from 'admin-area-dynamic-data'
+    // 'activation-log' is for now showing the initial actionsValue throughout (this should be corrected)
   }
 
   private async updateEvents(
