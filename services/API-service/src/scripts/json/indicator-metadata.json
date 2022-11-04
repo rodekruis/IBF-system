@@ -201,8 +201,8 @@
   {
     "countryCodes": "MWI",
     "disasterTypes": ["floods"],
-    "name": "exposed_pop_u5",
-    "label": "Exposed population U5",
+    "name": "exposed_pop_u18",
+    "label": "Exposed population U18",
     "icon": "Children-white.svg",
     "weightedAvg": false,
     "active": "no",
