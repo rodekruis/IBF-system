@@ -1,3 +1,12 @@
+## [0.194.5](https://github.com/rodekruis/IBF-system/compare/v0.194.4...v0.194.5) (2022-11-04)
+
+
+### Bug Fixes
+
+* adjust trigger statement + alert threshold popup AB[#16003](https://github.com/rodekruis/IBF-system/issues/16003) ([2f52a7b](https://github.com/rodekruis/IBF-system/commit/2f52a7bc8b06746c9e3d23335ea8601d10a085dd))
+
+
+
 ## [0.194.4](https://github.com/rodekruis/IBF-system/compare/v0.194.3...v0.194.4) (2022-11-04)
 
 
@@ -94,20 +103,6 @@
 ### Features
 
 * add coordinate to waterpoint popup AB[#15757](https://github.com/rodekruis/IBF-system/issues/15757) ([8076f72](https://github.com/rodekruis/IBF-system/commit/8076f72f5e2c6cbab6f22ef909a31eb88962e9d9))
-
-
-
-# [0.191.0](https://github.com/rodekruis/IBF-system/compare/v0.190.0...v0.191.0) (2022-10-24)
-
-
-### Bug Fixes
-
-* small rephrase AB[#15751](https://github.com/rodekruis/IBF-system/issues/15751) ([be99f9e](https://github.com/rodekruis/IBF-system/commit/be99f9e5fae380d2ddf9540011c2e009649dfa16))
-
-
-### Features
-
-* rephrase eap actions AB[#15751](https://github.com/rodekruis/IBF-system/issues/15751) ([1a2c190](https://github.com/rodekruis/IBF-system/commit/1a2c190d4676352738d3784e6c37220f2d882b82))
 
 
 
