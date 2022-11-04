@@ -1,3 +1,12 @@
+## [0.194.6](https://github.com/rodekruis/IBF-system/compare/v0.194.5...v0.194.6) (2022-11-04)
+
+
+### Bug Fixes
+
+* flood extent offset ssd AB[#16116](https://github.com/rodekruis/IBF-system/issues/16116) ([ca819ab](https://github.com/rodekruis/IBF-system/commit/ca819abea459483fff21798d97af83548e7e6b0d))
+
+
+
 ## [0.194.5](https://github.com/rodekruis/IBF-system/compare/v0.194.4...v0.194.5) (2022-11-04)
 
 
@@ -94,15 +103,6 @@
 * make stop trigger endpoint toggleable AB[#15752](https://github.com/rodekruis/IBF-system/issues/15752) ([4d7fdc1](https://github.com/rodekruis/IBF-system/commit/4d7fdc1461cc0b77631961788214e2025f19a414))
 * reactivate trigger frontend AB[#15753](https://github.com/rodekruis/IBF-system/issues/15753) ([984a049](https://github.com/rodekruis/IBF-system/commit/984a049c1cfa693b2d664c5841be3d6d1c051ff5))
 * refresh after saving eap-action ([3a0204d](https://github.com/rodekruis/IBF-system/commit/3a0204d050142c495b62f3631a86d0234c865e86))
-
-
-
-# [0.192.0](https://github.com/rodekruis/IBF-system/compare/v0.191.0...v0.192.0) (2022-10-24)
-
-
-### Features
-
-* add coordinate to waterpoint popup AB[#15757](https://github.com/rodekruis/IBF-system/issues/15757) ([8076f72](https://github.com/rodekruis/IBF-system/commit/8076f72f5e2c6cbab6f22ef909a31eb88962e9d9))
 
 
 
