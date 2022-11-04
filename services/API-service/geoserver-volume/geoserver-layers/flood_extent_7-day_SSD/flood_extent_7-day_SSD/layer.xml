@@ -1,17 +1,16 @@
 <layer>
   <name>flood_extent_7-day_SSD</name>
-  <id>LayerInfoImpl-11935319:1842e457de2:-7ff3</id>
+  <id>LayerInfoImpl--3c97612a:1844328bee2:-7ff9</id>
   <type>RASTER</type>
   <defaultStyle>
     <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
   </defaultStyle>
   <resource class="coverage">
-    <id>CoverageInfoImpl-11935319:1842e457de2:-7ff4</id>
+    <id>CoverageInfoImpl--3c97612a:1844328bee2:-7ffa</id>
   </resource>
   <attribution>
     <logoWidth>0</logoWidth>
     <logoHeight>0</logoHeight>
   </attribution>
-  <dateCreated>2022-10-31 13:41:51.520 UTC</dateCreated>
-  <dateModified>2022-10-31 13:43:32.427 UTC</dateModified>
+  <dateCreated>2022-11-04 15:02:03.369 UTC</dateCreated>
 </layer>
