@@ -1,3 +1,12 @@
+## [0.194.7](https://github.com/rodekruis/IBF-system/compare/v0.194.6...v0.194.7) (2022-11-04)
+
+
+### Bug Fixes
+
+* update mock data AB[#16118](https://github.com/rodekruis/IBF-system/issues/16118) ([1c5f8ab](https://github.com/rodekruis/IBF-system/commit/1c5f8ab067e8450e76809be3fbb5fc71bf031c7b))
+
+
+
 ## [0.194.6](https://github.com/rodekruis/IBF-system/compare/v0.194.5...v0.194.6) (2022-11-04)
 
 
@@ -85,24 +94,6 @@
 * only get eap-actions if trigger (typhoon-only) AB[#15905](https://github.com/rodekruis/IBF-system/issues/15905) ([da9aff3](https://github.com/rodekruis/IBF-system/commit/da9aff392bde9d3d42b3ea2136c498de3bb3414a))
 * order of MWI eap-actions AB[#15748](https://github.com/rodekruis/IBF-system/issues/15748) ([cd64aa1](https://github.com/rodekruis/IBF-system/commit/cd64aa153c633423065ab6349f92c53c03b9b79e))
 * switching behavior AB[#15905](https://github.com/rodekruis/IBF-system/issues/15905) ([187ddee](https://github.com/rodekruis/IBF-system/commit/187ddee04d1f8e30225b1c5a8edd27b0a028c872))
-
-
-
-# [0.193.0](https://github.com/rodekruis/IBF-system/compare/v0.192.0...v0.193.0) (2022-10-24)
-
-
-### Bug Fixes
-
-* test errors AB[#15900](https://github.com/rodekruis/IBF-system/issues/15900) ([7fe3646](https://github.com/rodekruis/IBF-system/commit/7fe364618b648d1fbb08f9653adb8fe409ba7254))
-
-
-### Features
-
-* add sentence in stop trigger popup on new event AB[#15756](https://github.com/rodekruis/IBF-system/issues/15756) ([e905d06](https://github.com/rodekruis/IBF-system/commit/e905d06edf40e66d079040e65f1b72a513beaa45))
-* add sentence on state of actions in reactivate popup AB[#15754](https://github.com/rodekruis/IBF-system/issues/15754) ([255f9b7](https://github.com/rodekruis/IBF-system/commit/255f9b7eccbd14092df84ae7159ee11f55fa5c11))
-* make stop trigger endpoint toggleable AB[#15752](https://github.com/rodekruis/IBF-system/issues/15752) ([4d7fdc1](https://github.com/rodekruis/IBF-system/commit/4d7fdc1461cc0b77631961788214e2025f19a414))
-* reactivate trigger frontend AB[#15753](https://github.com/rodekruis/IBF-system/issues/15753) ([984a049](https://github.com/rodekruis/IBF-system/commit/984a049c1cfa693b2d664c5841be3d6d1c051ff5))
-* refresh after saving eap-action ([3a0204d](https://github.com/rodekruis/IBF-system/commit/3a0204d050142c495b62f3631a86d0234c865e86))
 
 
 
