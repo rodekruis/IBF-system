@@ -1,3 +1,13 @@
+## [0.194.4](https://github.com/rodekruis/IBF-system/compare/v0.194.3...v0.194.4) (2022-11-04)
+
+
+### Bug Fixes
+
+* make below trigger also bold AB[#16107](https://github.com/rodekruis/IBF-system/issues/16107) ([41cf6ac](https://github.com/rodekruis/IBF-system/commit/41cf6ac033f64237516ad9d9613ada657db4245e))
+* replace SSD  correct data AB[#16032](https://github.com/rodekruis/IBF-system/issues/16032) ([97c035a](https://github.com/rodekruis/IBF-system/commit/97c035af6e43c0664aaa9757be72a62ef7cdf8b3))
+
+
+
 ## [0.194.3](https://github.com/rodekruis/IBF-system/compare/v0.194.2...v0.194.3) (2022-11-04)
 
 
@@ -98,32 +108,6 @@
 ### Features
 
 * rephrase eap actions AB[#15751](https://github.com/rodekruis/IBF-system/issues/15751) ([1a2c190](https://github.com/rodekruis/IBF-system/commit/1a2c190d4676352738d3784e6c37220f2d882b82))
-
-
-
-# [0.190.0](https://github.com/rodekruis/IBF-system/compare/v0.189.1...v0.190.0) (2022-10-21)
-
-
-### Bug Fixes
-
-* center title vertically AB[#15777](https://github.com/rodekruis/IBF-system/issues/15777) ([11edd6f](https://github.com/rodekruis/IBF-system/commit/11edd6f691dd124fe7bda519c01f60ba55b34197))
-* no new line for area name AB[#15781](https://github.com/rodekruis/IBF-system/issues/15781) ([dfb13c8](https://github.com/rodekruis/IBF-system/commit/dfb13c85a191feb6506132ed125e5e8b07f769a8))
-* remove comment ([ceaaad3](https://github.com/rodekruis/IBF-system/commit/ceaaad35c233a700c4c8bfd1907f4e3b7efa8269))
-* return empty string if no parent AB[#15781](https://github.com/rodekruis/IBF-system/issues/15781) ([f58ad75](https://github.com/rodekruis/IBF-system/commit/f58ad75d01958333eb5fe2b87f5a0c546913d41b))
-
-
-### Features
-
-* add parent name in middle columnb AB[#15745](https://github.com/rodekruis/IBF-system/issues/15745) ([9d318f0](https://github.com/rodekruis/IBF-system/commit/9d318f044c3fa4e313e02e42ba9f0cef3b2e422d))
-* add parent to chat list AB[#15779](https://github.com/rodekruis/IBF-system/issues/15779) ([afedd66](https://github.com/rodekruis/IBF-system/commit/afedd66a26d4e973381724b6d0537ce4031bb12b))
-* add parent to popup AB[#15780](https://github.com/rodekruis/IBF-system/issues/15780) ([06f3a25](https://github.com/rodekruis/IBF-system/commit/06f3a25a71d3cdc619013eede0f305e28d3428b1))
-* add parent to stopped list and detail AB[#15779](https://github.com/rodekruis/IBF-system/issues/15779) AB[#15781](https://github.com/rodekruis/IBF-system/issues/15781) ([37b0dc3](https://github.com/rodekruis/IBF-system/commit/37b0dc3ab498fc90c5379790025e35c36eb9afca))
-* align aggregates title to design AB[#15777](https://github.com/rodekruis/IBF-system/issues/15777) ([6e9f2dd](https://github.com/rodekruis/IBF-system/commit/6e9f2ddf417decf3dcf37356e3edcbf2df8cceb4))
-* change mwi default adminlevel AB[#15740](https://github.com/rodekruis/IBF-system/issues/15740) ([35f354a](https://github.com/rodekruis/IBF-system/commit/35f354a1bbd6d7c238c7c93dd431af1270417dd7))
-* get parent name in backend AB[#15744](https://github.com/rodekruis/IBF-system/issues/15744) ([1104b7d](https://github.com/rodekruis/IBF-system/commit/1104b7d082d2d07c1adb22121da694a0362581e3))
-* move single line header to center AB[#15777](https://github.com/rodekruis/IBF-system/issues/15777) ([81cf0bf](https://github.com/rodekruis/IBF-system/commit/81cf0bfdf029ddaa566f4b7d02dd829bc2b97cf9))
-* toggle to show password AB[#15743](https://github.com/rodekruis/IBF-system/issues/15743) ([749c45d](https://github.com/rodekruis/IBF-system/commit/749c45dfb71812671c87a7ed0da39afa24887b18))
-* update aof subtitle AB[#15778](https://github.com/rodekruis/IBF-system/issues/15778) ([71a72fd](https://github.com/rodekruis/IBF-system/commit/71a72fd5b9cc1d93f4f77de6607df8dfb1a271f0))
 
 
 
