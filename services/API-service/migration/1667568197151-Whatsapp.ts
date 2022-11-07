@@ -14,7 +14,7 @@ export class Whatsapp1667568197151 implements MigrationInterface {
       `ALTER TABLE "IBF-app"."notification_info" ADD "useWhatsapp" boolean NOT NULL DEFAULT false`,
     );
     await queryRunner.query(
-      `ALTER TABLE "IBF-app"."notification_info" ADD "whatsappMessage" character varying`,
+      `ALTER TABLE "IBF-app"."notification_info" ADD "whatsappMessage" json NOT NULL DEFAULT '{}'`,
     );
   }
 

@@ -6,14 +6,22 @@ import {
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { API_PATHS } from '../../../config';
+import { EventModule } from '../../event/event.module';
 import { UserEntity } from '../../user/user.entity';
+import { LookupModule } from '../lookup/lookup.module';
+import { NotificationContentModule } from '../notification-content/notification-content.module';
 import { AuthMiddlewareTwilio } from './auth.middlewareTwilio';
 import { TwilioMessageEntity } from './twilio.entity';
 import { WhatsappController } from './whatsapp.controller';
 import { WhatsappService } from './whatsapp.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TwilioMessageEntity, UserEntity])],
+  imports: [
+    TypeOrmModule.forFeature([TwilioMessageEntity, UserEntity]),
+    LookupModule,
+    EventModule,
+    NotificationContentModule,
+  ],
   providers: [WhatsappService],
   controllers: [WhatsappController],
   exports: [WhatsappService],

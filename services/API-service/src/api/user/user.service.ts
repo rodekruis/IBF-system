@@ -11,7 +11,7 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { CountryEntity } from '../country/country.entity';
 import { UserRole } from './user-role.enum';
-import { WhatsappService } from '../notification/whatsapp/whatsapp.service';
+import { LookupService } from '../notification/lookup/lookup.service';
 
 @Injectable()
 export class UserService {
@@ -21,7 +21,7 @@ export class UserService {
   private readonly countryRepository: Repository<CountryEntity>;
   private readonly relations: string[] = ['countries'];
 
-  public constructor(private whatsappService: WhatsappService) {}
+  public constructor(private readonly lookupService: LookupService) {}
 
   public async findAll(): Promise<UserEntity[]> {
     return await this.userRepository.find({
@@ -44,7 +44,6 @@ export class UserService {
 
   public async create(dto: CreateUserDto): Promise<UserResponseObject> {
     // check uniqueness of username
-    const password = dto.password;
     let email = dto.email;
     email = email.toLowerCase();
     const user = await this.userRepository.findOne({ where: { email: email } });
@@ -58,7 +57,7 @@ export class UserService {
     }
 
     if (dto.whatsappNumber) {
-      dto.whatsappNumber = await this.whatsappService.lookupAndCorrect(
+      dto.whatsappNumber = await this.lookupService.lookupAndCorrect(
         dto.whatsappNumber,
       );
     }
@@ -67,7 +66,7 @@ export class UserService {
     const newUser = new UserEntity();
     newUser.email = email;
     newUser.username = dto.username;
-    newUser.password = password;
+    newUser.password = dto.password;
     newUser.firstName = dto.firstName;
     newUser.middleName = dto.middleName;
     newUser.lastName = dto.lastName;

@@ -26,6 +26,6 @@ export class NotificationInfoEntity {
   @Column({ default: false })
   public useWhatsapp: boolean;
 
-  @Column({ nullable: true })
-  public whatsappMessage: string;
+  @Column('json', { default: {} })
+  public whatsappMessage: JSON;
 }

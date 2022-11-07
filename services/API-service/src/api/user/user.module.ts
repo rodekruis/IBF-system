@@ -4,12 +4,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 import { CountryEntity } from '../country/country.entity';
-import { WhatsappModule } from '../notification/whatsapp/whatsapp.module';
+import { LookupModule } from '../notification/lookup/lookup.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity, CountryEntity]),
-    WhatsappModule,
+    LookupModule,
   ],
   providers: [UserService],
   controllers: [UserController],

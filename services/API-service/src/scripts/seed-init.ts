@@ -44,7 +44,7 @@ class NotificationInfo {
   linkVideo: string;
   linkPdf: string;
   useWhatsapp?: boolean;
-  whatsappMessage?: string;
+  whatsappMessage?: {};
 }
 
 @Injectable()
@@ -410,8 +410,12 @@ export class SeedInit implements InterfaceScript {
     notificationInfoEntity.linkVideo = notificationInfoCountry.linkVideo;
     notificationInfoEntity.linkPdf = notificationInfoCountry.linkPdf;
     notificationInfoEntity.useWhatsapp = notificationInfoCountry.useWhatsapp;
-    notificationInfoEntity.whatsappMessage =
-      notificationInfoCountry.whatsappMessage;
+    if (notificationInfoCountry.whatsappMessage) {
+      notificationInfoEntity.whatsappMessage = JSON.parse(
+        JSON.stringify(notificationInfoCountry.whatsappMessage),
+      );
+    }
+
     const saveResult = await notificationInfoRepository.save(
       notificationInfoEntity,
     );

@@ -1,10 +1,15 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, IsNull, Not, Repository } from 'typeorm';
+import { IsNull, Not, Repository } from 'typeorm';
 import { EXTERNAL_API } from '../../../config';
 import { EventSummaryCountry } from '../../../shared/data.model';
+import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../../country/country.entity';
+import { DisasterType } from '../../disaster/disaster-type.enum';
+import { EventService } from '../../event/event.service';
 import { UserEntity } from '../../user/user.entity';
+import { LookupService } from '../lookup/lookup.service';
+import { NotificationContentService } from '../notification-content/notification-content.service';
 import { twilioClient } from './twilio.client';
 import {
   TwilioIncomingCallbackDto,
@@ -19,13 +24,19 @@ export class WhatsappService {
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
 
-  public constructor() {}
+  public constructor(
+    private readonly eventService: EventService,
+    private readonly lookupService: LookupService,
+    private readonly notificationContentService: NotificationContentService,
+  ) {}
 
   public async sendTestWhatsapp(
     message: string,
     recipientPhoneNr: string,
   ): Promise<void> {
-    const validatedPhoneNumber = await this.lookupAndCorrect(recipientPhoneNr);
+    const validatedPhoneNumber = await this.lookupService.lookupAndCorrect(
+      recipientPhoneNr,
+    );
     await this.sendWhatsapp(message, validatedPhoneNumber);
   }
 
@@ -56,20 +67,55 @@ export class WhatsappService {
       });
   }
 
-  public configureMessage(
+  public async configureInitialMessage(
     country: CountryEntity,
+    disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
-  ): string {
-    const baseMessage = country.notificationInfo.whatsappMessage;
-    const startDate = activeEvents[0].startDate;
-    return baseMessage.replace('[startDate]', startDate);
+  ): Promise<string> {
+    const event = activeEvents[0];
+
+    const baseMessage = country.notificationInfo.whatsappMessage['initial'];
+    const startDate = event.startDate;
+
+    const triggers = await this.eventService.getTriggerPerLeadtime(
+      country.countryCodeISO3,
+      disasterType,
+      event.eventName,
+    );
+
+    // This code is exactly the same in event.service.ts in front-end. Better to combine in back-end instead.
+    const keys = Object.keys(triggers)
+      .filter(key => Object.values(LeadTime).includes(key as LeadTime))
+      .sort((a, b) =>
+        Number(a.split('-')[0]) > Number(b.split('-')[0]) ? 1 : -1,
+      );
+    let firstKey: string;
+    for (const key of keys) {
+      if (triggers[key] === '1') {
+        firstKey = key;
+        break;
+      }
+    }
+    const leadTime = `${firstKey.split('-').join(' ')}(s)`;
+
+    // This code now assumes certain parameters in data. This is not right.
+    const message = baseMessage
+      .replace('[startDate]', startDate)
+      .replace('[leadTime]', leadTime);
+
+    return message;
   }
 
   public async sendTriggerViaWhatsapp(
     country: CountryEntity,
+    disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
   ) {
-    const message = this.configureMessage(country, activeEvents);
+    const message = await this.configureInitialMessage(
+      country,
+      disasterType,
+      activeEvents,
+    );
 
     const users = await this.userRepository.find({
       where: { whatsappNumber: Not(IsNull()) },
@@ -129,35 +175,82 @@ export class WhatsappService {
       );
     }
     const fromNumber = this.cleanWhatsAppNr(callbackData.From);
-    console.log('fromNumber: ', fromNumber);
-  }
 
-  public async lookupAndCorrect(phoneNumber: string): Promise<string> {
-    try {
-      const updatedPhone = this.sanitizePhoneNrExtra(phoneNumber);
+    // Take first of theoretically multiple users with this number (ignore that edge case for now)
+    const user = await this.userRepository.findOne({
+      where: { whatsappNumber: fromNumber },
+      relations: [
+        'countries',
+        'countries.disasterTypes',
+        'countries.countryDisasterSettings',
+        'countries.countryDisasterSettings.activeLeadTimes',
+        'countries.notificationInfo',
+      ],
+    });
+    if (!user) {
+      // or send generic reply here?
+      throw new HttpException(
+        `Not a known user in IBF-platform.`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
 
-      const lookupResponse = await twilioClient.lookups
-        .phoneNumbers(updatedPhone)
-        .fetch({ type: ['carrier'] });
-      return lookupResponse.phoneNumber.replace(/\D/g, '');
-    } catch (e) {
-      console.log('e: ', e);
-      const errors = `Provided whatsappNumber is not a valid phone number`;
-      throw new HttpException(errors, HttpStatus.BAD_REQUEST);
+    // Assume first of theoretically multiple countries for this user (ignore that edge case for now)
+    const country = user.countries[0];
+    for await (const disasterType of country.disasterTypes) {
+      const message = await this.configureFollowUpMessage(
+        country,
+        disasterType.disasterType,
+      );
+      await this.sendWhatsapp(message, fromNumber);
     }
   }
 
-  private sanitizePhoneNrExtra(phoneNumber: string): string {
-    const sanitizedPhoneNr =
-      phoneNumber.substr(0, 2) == '00'
-        ? phoneNumber.substr(2, phoneNumber.length - 2)
-        : phoneNumber.substr(0, 3) == '+00'
-        ? phoneNumber.substr(3, phoneNumber.length - 3)
-        : phoneNumber.substr(0, 2) == '+0'
-        ? phoneNumber.substr(2, phoneNumber.length - 2)
-        : phoneNumber.substr(0, 1) == '+'
-        ? phoneNumber.substr(1, phoneNumber.length - 1)
-        : phoneNumber;
-    return `+${sanitizedPhoneNr}`;
+  private async configureFollowUpMessage(
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): Promise<string> {
+    // Reuse/reorganize more code below from/within notification.service
+    const events = await this.eventService.getEventSummaryCountry(
+      country.countryCodeISO3,
+      disasterType,
+    );
+    const activeEvents = events.filter(event => event.activeTrigger);
+    const countryDisasterSettings = country.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    );
+    const adminLevel = countryDisasterSettings.defaultAdminLevel;
+
+    const triggeredAreas = await this.eventService.getTriggeredAreas(
+      country.countryCodeISO3,
+      disasterType,
+      countryDisasterSettings.defaultAdminLevel,
+      countryDisasterSettings.activeLeadTimes[0].leadTimeName, // assumes only 1 leadtime..
+      activeEvents[0].eventName,
+    );
+
+    const adminAreaLabel = country.adminRegionLabels[String(adminLevel)][
+      'plural'
+    ].toLowerCase();
+    const actionUnit = await this.notificationContentService.getActionUnit(
+      disasterType,
+    );
+    let areaList = '';
+    for (const area of triggeredAreas) {
+      const row = `* ${area.name}${
+        area.nameParent ? ' (' + area.nameParent + ')' : ''
+      } - ${this.notificationContentService.formatActionUnitValue(
+        area.actionsValue,
+        actionUnit,
+      )}\n`;
+      areaList += row;
+    }
+    const followUpMessage =
+      country.notificationInfo.whatsappMessage['follow-up'];
+    const message = followUpMessage
+      .replace('[nrTriggeredAreas]', triggeredAreas.length)
+      .replace('[adminAreaLabel]', adminAreaLabel)
+      .replace('[areaList]', areaList);
+    return message;
   }
 }

@@ -7,16 +7,14 @@ import { EventService } from '../event/event.service';
 import fs from 'fs';
 import Mailchimp from 'mailchimp-api-v3';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Long, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
 import { EventSummaryCountry } from '../../shared/data.model';
-import { AdminAreaDataService } from '../admin-area-data/admin-area-data.service';
-import { AdminAreaService } from '../admin-area/admin-area.service';
 import { WhatsappService } from './whatsapp/whatsapp.service';
+import { NotificationContentService } from './notification-content/notification-content.service';
 
 class ReplaceKeyValue {
   replaceKey: string;
@@ -25,12 +23,8 @@ class ReplaceKeyValue {
 
 @Injectable()
 export class NotificationService {
-  @InjectRepository(CountryEntity)
-  private readonly countryRepository: Repository<CountryEntity>;
   @InjectRepository(IndicatorMetadataEntity)
   private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
-  @InjectRepository(DisasterEntity)
-  private readonly disasterRepository: Repository<DisasterEntity>;
 
   private placeholderToday = '(TODAY)';
   private fromEmail = process.env.SUPPORT_EMAIL_ADDRESS;
@@ -43,9 +37,8 @@ export class NotificationService {
   public constructor(
     private readonly eventService: EventService,
     private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
-    private readonly adminAreaDataService: AdminAreaDataService,
-    private readonly adminAreaService: AdminAreaService,
     private readonly whatsappService: WhatsappService,
+    private readonly notificationContentService: NotificationContentService,
   ) {}
 
   public async send(
@@ -58,7 +51,9 @@ export class NotificationService {
     );
     const activeEvents = events.filter(event => event.activeTrigger);
     if (activeEvents.length) {
-      const country = await this.getCountryNotificationInfo(countryCodeISO3);
+      const country = await this.notificationContentService.getCountryNotificationInfo(
+        countryCodeISO3,
+      );
       const replaceKeyValues = await this.createReplaceKeyValues(
         country,
         disasterType,
@@ -70,9 +65,13 @@ export class NotificationService {
         disasterType,
         activeEvents,
       );
-      this.sendEmail(emailSubject, emailHtml, countryCodeISO3);
+      // this.sendEmail(emailSubject, emailHtml, countryCodeISO3);
       if (country.notificationInfo.useWhatsapp) {
-        this.whatsappService.sendTriggerViaWhatsapp(country, activeEvents);
+        this.whatsappService.sendTriggerViaWhatsapp(
+          country,
+          disasterType,
+          activeEvents,
+        );
       }
     } else {
       console.log('No notifications sent, as there is no active trigger');
@@ -124,19 +123,19 @@ export class NotificationService {
     disasterType: DisasterType,
     events: EventSummaryCountry[],
   ): Promise<string> {
-    let subject = `${this.firstCharOfWordsToUpper(
-      (await this.getDisaster(disasterType)).label,
+    let subject = `${this.notificationContentService.firstCharOfWordsToUpper(
+      (await this.notificationContentService.getDisaster(disasterType)).label,
     )} Warning: `;
 
-    const triggeredLeadTimes = await this.getLeadTimesAcrossEvents(
+    const triggeredLeadTimes = await this.notificationContentService.getLeadTimesAcrossEvents(
       country.countryCodeISO3,
       disasterType,
       events,
     );
 
-    const actionUnit = await this.indicatorRepository.findOne({
-      name: (await this.getDisaster(disasterType)).actionsUnit,
-    });
+    const actionUnit = await this.notificationContentService.getActionUnit(
+      disasterType,
+    );
     for (const leadTime of country.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
     ).activeLeadTimes) {
@@ -150,7 +149,7 @@ export class NotificationService {
           );
           if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
             // .. find the right leadtime
-            const totalActionUnitValue = await this.getTotalAffectedPerLeadTime(
+            const totalActionUnitValue = await this.notificationContentService.getTotalAffectedPerLeadTime(
               country,
               disasterType,
               leadTime.leadTimeName as LeadTime,
@@ -158,7 +157,7 @@ export class NotificationService {
             );
             const subjectPart = `Estimate of ${
               actionUnit.label
-            }: ${this.formatActionUnitValue(
+            }: ${this.notificationContentService.formatActionUnitValue(
               totalActionUnitValue,
               actionUnit,
             )} (${
@@ -172,109 +171,6 @@ export class NotificationService {
       }
     }
     return subject;
-  }
-
-  private async getTotalAffectedPerLeadTime(
-    country: CountryEntity,
-    disasterType: DisasterType,
-    leadTime: LeadTime,
-    eventName: string,
-  ) {
-    const actionUnit = await this.indicatorRepository.findOne({
-      name: (await this.getDisaster(disasterType)).actionsUnit,
-    });
-    const adminLevel = country.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
-    ).defaultAdminLevel;
-
-    let actionUnitValues = await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
-      country.countryCodeISO3,
-      String(adminLevel),
-      leadTime,
-      actionUnit.name as DynamicIndicator,
-      disasterType,
-      eventName,
-    );
-
-    // Filter on only the areas that are also shown in dashboard, to get same aggregate metric
-    const placeCodesToShow = await this.adminAreaService.getPlaceCodes(
-      country.countryCodeISO3,
-      disasterType,
-      leadTime,
-      adminLevel,
-      eventName,
-    );
-    actionUnitValues = actionUnitValues.filter(row =>
-      placeCodesToShow.includes(row.placeCode),
-    );
-
-    if (!actionUnit.weightedAvg) {
-      // If no weightedAvg, then return early with simple sum
-      return actionUnitValues.reduce(
-        (sum, current) => sum + Number(current.value),
-        0,
-      );
-    } else {
-      const weighingIndicator = actionUnit.weightVar;
-      const weighingIndicatorValues = await this.adminAreaDataService.getAdminAreaData(
-        country.countryCodeISO3,
-        String(adminLevel),
-        weighingIndicator as DynamicIndicator,
-      );
-      weighingIndicatorValues.forEach(row => {
-        row['weight'] = row.value;
-        delete row.value;
-      });
-
-      const mergedValues = [];
-      for (let i = 0; i < actionUnitValues.length; i++) {
-        mergedValues.push({
-          ...actionUnitValues[i],
-          ...weighingIndicatorValues.find(
-            itmInner => itmInner.placeCode === actionUnitValues[i].placeCode,
-          ),
-        });
-      }
-
-      const sumofWeighedValues = mergedValues.reduce(
-        (sum, current) =>
-          sum +
-          (current.weight ? Number(current.weight) : 0) * Number(current.value),
-        0,
-      );
-      const sumOfWeights = mergedValues.reduce(
-        (sum, current) => sum + (current.weight ? Number(current.weight) : 0),
-        0,
-      );
-      return sumofWeighedValues / sumOfWeights;
-    }
-  }
-
-  private async getCountryNotificationInfo(
-    countryCodeISO3,
-  ): Promise<CountryEntity> {
-    const findOneOptions = {
-      countryCodeISO3: countryCodeISO3,
-    };
-    const relations = [
-      'disasterTypes',
-      'disasterTypes.leadTimes',
-      'notificationInfo',
-      'countryDisasterSettings',
-      'countryDisasterSettings.activeLeadTimes',
-    ];
-
-    return await this.countryRepository.findOne(findOneOptions, {
-      relations: relations,
-    });
-  }
-
-  private async getDisaster(
-    disasterType: DisasterType,
-  ): Promise<DisasterEntity> {
-    return await this.disasterRepository.findOne({
-      where: { disasterType: disasterType },
-    });
   }
 
   private async createReplaceKeyValues(
@@ -365,8 +261,9 @@ export class NotificationService {
       },
       {
         replaceKey: '(DISASTER-TYPE)',
-        replaceValue: this.firstCharOfWordsToUpper(
-          (await this.getDisaster(disasterType)).label,
+        replaceValue: this.notificationContentService.firstCharOfWordsToUpper(
+          (await this.notificationContentService.getDisaster(disasterType))
+            .label,
         ),
       },
       {
@@ -429,20 +326,12 @@ export class NotificationService {
     }
   }
 
-  private firstCharOfWordsToUpper(input: string): string {
-    return input
-      .toLowerCase()
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  }
-
   private async getLeadTimeList(
     country: CountryEntity,
     disasterType: DisasterType,
     events: EventSummaryCountry[],
   ): Promise<object> {
-    const triggeredLeadTimes = await this.getLeadTimesAcrossEvents(
+    const triggeredLeadTimes = await this.notificationContentService.getLeadTimesAcrossEvents(
       country.countryCodeISO3,
       disasterType,
       events,
@@ -475,8 +364,12 @@ export class NotificationService {
 
             const eventName = event.eventName
               ? `${event.eventName}`
-              : this.firstCharOfWordsToUpper(
-                  (await this.getDisaster(disasterType)).label,
+              : this.notificationContentService.firstCharOfWordsToUpper(
+                  (
+                    await this.notificationContentService.getDisaster(
+                      disasterType,
+                    )
+                  ).label,
                 );
 
             const triggerStatus = event.thresholdReached
@@ -484,7 +377,7 @@ export class NotificationService {
               : 'trigger not reached';
 
             const dateTimePreposition = leadTimeUnit === 'month' ? 'in' : 'on';
-            const dateAndTime = this.getFirstLeadTimeDate(
+            const dateAndTime = this.notificationContentService.getFirstLeadTimeDate(
               Number(leadTimeValue),
               leadTimeUnit,
             );
@@ -515,29 +408,12 @@ export class NotificationService {
     return { leadTimeListShort, leadTimeListLong };
   }
 
-  private async getLeadTimesAcrossEvents(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    events: EventSummaryCountry[],
-  ) {
-    let triggeredLeadTimes;
-    for await (const event of events) {
-      const newLeadTimes = await this.eventService.getTriggerPerLeadtime(
-        countryCodeISO3,
-        disasterType,
-        event.eventName,
-      );
-      triggeredLeadTimes = { ...triggeredLeadTimes, ...newLeadTimes };
-    }
-    return triggeredLeadTimes;
-  }
-
   private async getTriggerOverviewTables(
     country: CountryEntity,
     disasterType: DisasterType,
     events: EventSummaryCountry[],
   ): Promise<string> {
-    const triggeredLeadTimes = await this.getLeadTimesAcrossEvents(
+    const triggeredLeadTimes = await this.notificationContentService.getLeadTimesAcrossEvents(
       country.countryCodeISO3,
       disasterType,
       events,
@@ -598,7 +474,8 @@ export class NotificationService {
       country.adminRegionLabels[String(adminLevel - 1)];
 
     const actionUnit = await this.indicatorRepository.findOne({
-      name: (await this.getDisaster(disasterType)).actionsUnit,
+      name: (await this.notificationContentService.getDisaster(disasterType))
+        .actionsUnit,
     });
     const leadTimeValue = leadTime.leadTimeName.split('-')[0];
     const leadTimeUnit = leadTime.leadTimeName.split('-')[1];
@@ -654,7 +531,9 @@ export class NotificationService {
       leadTime.leadTimeName,
       eventName,
     );
-    const disaster = await this.getDisaster(disasterType);
+    const disaster = await this.notificationContentService.getDisaster(
+      disasterType,
+    );
     let areaTableString = '';
     for (const area of triggeredAreas) {
       const actionUnitValue = await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
@@ -664,7 +543,7 @@ export class NotificationService {
         eventName,
       );
       const areaTable = `<tr class='notification-alerts-table-row'>
-            <td align='center'>${this.formatActionUnitValue(
+            <td align='center'>${this.notificationContentService.formatActionUnitValue(
               actionUnitValue,
               actionUnit,
             )}</td>
@@ -677,23 +556,6 @@ export class NotificationService {
     return areaTableString;
   }
 
-  private formatActionUnitValue(
-    value: number,
-    actionUnit: IndicatorMetadataEntity,
-  ) {
-    if (value === null) {
-      return null;
-    } else if (actionUnit.numberFormatMap === 'perc') {
-      return Math.round(value * 100).toLocaleString() + '%';
-    } else if (actionUnit.numberFormatMap === 'decimal2') {
-      return (Math.round(value * 100) / 100).toLocaleString();
-    } else if (actionUnit.numberFormatMap === 'decimal0') {
-      return Math.round(value).toLocaleString();
-    } else {
-      return Math.round(value).toLocaleString();
-    }
-  }
-
   private formatEmail(emailKeyValueReplaceList: ReplaceKeyValue[]): string {
     let emailHtml = fs.readFileSync(
       './src/api/notification/html/trigger-notification.html',
@@ -703,24 +565,5 @@ export class NotificationService {
       emailHtml = emailHtml.split(entry.replaceKey).join(entry.replaceValue);
     }
     return emailHtml;
-  }
-
-  private getFirstLeadTimeDate(value: number, unit: string): string {
-    const now = Date.now();
-
-    const getNewDate = {
-      month: new Date(now).setMonth(new Date(now).getMonth() + value),
-      day: new Date(now).setDate(new Date(now).getDate() + value),
-      hour: new Date(now).setHours(new Date(now).getHours() + value),
-    };
-
-    const dayOption: Intl.DateTimeFormatOptions =
-      unit === 'month' ? {} : { day: '2-digit' };
-
-    return new Date(getNewDate[unit]).toLocaleDateString('default', {
-      ...dayOption,
-      month: 'short',
-      year: 'numeric',
-    });
   }
 }
