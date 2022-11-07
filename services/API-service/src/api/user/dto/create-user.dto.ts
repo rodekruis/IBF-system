@@ -70,4 +70,9 @@ export class CreateUserDto {
   @IsNotEmpty()
   @MinLength(4)
   public password: string;
+
+  @ApiProperty({ example: '+31600000000' })
+  @IsString()
+  @IsOptional()
+  public whatsappNumber: string;
 }

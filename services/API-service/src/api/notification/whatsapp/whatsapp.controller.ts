@@ -35,10 +35,9 @@ export class WhatsappController {
   public async sendTestWhatsapp(
     @Body() sendTestWhatsappData: SendTestWhatsappDto,
   ): Promise<void> {
-    return await this.whatsappService.sendWhatsapp(
+    return await this.whatsappService.sendTestWhatsapp(
       sendTestWhatsappData.message,
       sendTestWhatsappData.recipientPhoneNr,
-      null,
     );
   }
 }
