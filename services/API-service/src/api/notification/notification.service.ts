@@ -65,7 +65,7 @@ export class NotificationService {
         disasterType,
         activeEvents,
       );
-      // this.sendEmail(emailSubject, emailHtml, countryCodeISO3);
+      this.sendEmail(emailSubject, emailHtml, countryCodeISO3);
       if (country.notificationInfo.useWhatsapp) {
         this.whatsappService.sendTriggerViaWhatsapp(
           country,

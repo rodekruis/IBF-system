@@ -216,6 +216,11 @@ export class WhatsappService {
       disasterType,
     );
     const activeEvents = events.filter(event => event.activeTrigger);
+
+    if (activeEvents.length === 0) {
+      const message = country.notificationInfo.whatsappMessage['no-trigger'];
+      return message;
+    }
     const countryDisasterSettings = country.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
     );

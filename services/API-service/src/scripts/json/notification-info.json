@@ -104,7 +104,8 @@
     "useWhatsapp": true,
     "whatsappMessage": {
       "initial": "*TRIGGER WARNING*\n\nA trigger warning for floods was activated on [startDate]. It is now [leadTime] away.\n\nTo receive more detailed information reply 'yes' to this message.",
-      "follow-up": "There are [nrTriggeredAreas] [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\nYou can use the map below to assess the situation further.\n\nPlease use the designated WhatsApp group to communicate further about this trigger and follow the local protocol relevant to the areas affected.\n\nLog in to the IBF Portal on your desktop to find more information."
+      "follow-up": "There are [nrTriggeredAreas] [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\nYou can use the map below to assess the situation further.\n\nPlease use the designated WhatsApp group to communicate further about this trigger and follow the local protocol relevant to the areas affected.\n\nLog in to the IBF Portal on your desktop to find more information.",
+      "no-trigger": "There is no trigger at the moment (any more)."
     },
     "linkVideo": "https://bit.ly/IBF-video-Zambia",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zambia-Published.pdf"
