@@ -8,6 +8,7 @@ import fs from 'fs';
 @Injectable()
 export class SeedAdminArea implements InterfaceScript {
   private connection: Connection;
+  private ADMIN_LEVELS = [1, 2, 3, 4];
 
   public constructor(connection: Connection) {
     this.connection = connection;
@@ -33,16 +34,11 @@ export class SeedAdminArea implements InterfaceScript {
     country,
     adminAreaRepository,
   ): Promise<void> {
-    const countryAdminLevels = [];
-    country.countryDisasterSettings.forEach(countryDisaster => {
-      countryDisaster.adminLevels.forEach(adminLevel => {
-        if (!countryAdminLevels.includes(adminLevel)) {
-          countryAdminLevels.push(adminLevel);
-        }
-      });
-    });
-    countryAdminLevels.forEach(async adminLevel => {
+    for (const adminLevel of this.ADMIN_LEVELS) {
       const fileName = `./src/scripts/git-lfs/admin-boundaries/${country.countryCodeISO3}_adm${adminLevel}.json`;
+      if (!fs.existsSync(fileName)) {
+        continue;
+      }
       const adminJsonRaw = fs.readFileSync(fileName, 'utf-8');
       const adminJson = JSON.parse(adminJsonRaw);
       await Promise.all(
@@ -53,7 +49,7 @@ export class SeedAdminArea implements InterfaceScript {
               .insert()
               .values({
                 countryCodeISO3: country.countryCodeISO3,
-                adminLevel: adminLevel,
+                adminLevel,
                 name: area.properties[`ADM${adminLevel}_EN`],
                 placeCode: area.properties[`ADM${adminLevel}_PCODE`],
                 placeCodeParent:
@@ -65,7 +61,7 @@ export class SeedAdminArea implements InterfaceScript {
           },
         ),
       );
-    });
+    }
   }
 
   private geomFunction(coordinates): string {
