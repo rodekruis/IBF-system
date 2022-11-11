@@ -30,21 +30,7 @@
     </div>
     <div class="ion-align-items-center">
       <ion-row class="ion-align-items-center">
-        <ion-button
-          *ngIf="isLoggedIn"
-          type="button"
-          [title]="'Log Out'"
-          [attr.aria-label]="'Log Out'"
-          size="small"
-          fill="solid"
-          color="ibf-primary"
-          (click)="doLogout()"
-          data-test="logout-button"
-        >
-          <span class="ion-hide-sm-down">Log Out</span>
-          <ion-icon name="log-out" slot="end"></ion-icon>
-        </ion-button>
-
+        <app-logos></app-logos>
         <ion-item lines="none">
           <ion-col class="ion-no-padding">
             <ng-container *ngIf="isLoggedIn">
@@ -68,6 +54,20 @@
             </ng-container>
           </ion-col>
         </ion-item>
+        <ion-button
+          *ngIf="isLoggedIn"
+          type="button"
+          [title]="'Log Out'"
+          [attr.aria-label]="'Log Out'"
+          size="small"
+          fill="solid"
+          color="ibf-primary"
+          (click)="doLogout()"
+          data-test="logout-button"
+        >
+          <span class="ion-hide-sm-down">Log Out</span>
+          <ion-icon name="log-out" slot="end"></ion-icon>
+        </ion-button>
       </ion-row>
     </div>
   </ion-row>
