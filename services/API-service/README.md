@@ -99,16 +99,19 @@ Developers use the following process for this.
 
 ## Twilio setup
 
-The first action to activate Twilio is to update the the `.env` file in the root folder with the correct values for:
+### Test sending whatsapp message locally with Twilio WhatsApp sandbox
 
-- `TWILIO_SID`
-- `TWILIO_AUTHTOKEN`
-- `TWILIO_MESSAGING_SID`
-- `TWILIO_WHATSAPP_NUMBER`
+First basic setup:
 
-To be able to send Twilio notification on the local development you then need to install and run [ngrok](https://ngrok.com/) to mock an external API service:
+- In Twilio 'IBF-platform' account, create a subaccount per country.
+- In Twilio Create a messaging service
+- In local .env update from the above
+  - `TWILIO_SID`
+  - `TWILIO_AUTHTOKEN`
+  - `TWILIO_MESSAGING_SID`
+- and update `TWILIO_WHATSAPP_NUMBER` = +14155238886 (the standard Twilio whatsapp sandbox number)
 
-To install and run `ngrok`:
+Use [ngrok](https://ngrok.com/) to mock an external API service:
 
 1. Sign up on [ngrok](https://ngrok.com/) using your GitHub account
 2. [Download](https://ngrok.com/download) the executable
@@ -122,6 +125,7 @@ To install and run `ngrok`:
    - In the `Whatsapp sandbox settings` of the Twilio subaccount (Develop > Messaging > Settings > Whatsapp sandbox settings) as:
      - `<EXTERNAL_API_SERVICE_URL>//api/notifications/whatsapp/incoming` in the `WHEN A MESSAGE COMES IN` field
      - `<EXTERNAL_API_SERVICE_URL>//api/notifications/whatsapp/status` in the `STATUS CALLBACK URL` field
-7. Add you phone number to the WhatsApp sandbox by texting the code provided in the page to the sandbox phone number
-8. Rebuild the service with `docker-compose -d up ibf-api-service`
-9. Test the settings by sending a notification for an active trigger on your local environment via the `/api/notification/send` endpoint
+7. Rebuild the service with `docker-compose -d up ibf-api-service`
+8. Add your whatsapp phone number to the WhatsApp sandbox by texting the code provided in the subaccount to the sandbox phone number
+9. Create a new IBF-user through API with your whatsapp phone number and assigned to the country you are testing for
+10. Send a notification (for a country/disasterType with an active trigger) via the `/api/notification/send` endpoint.
