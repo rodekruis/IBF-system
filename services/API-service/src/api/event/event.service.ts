@@ -251,10 +251,7 @@ export class EventService {
       })
       .groupBy('dynamic."placeCode"')
       .addGroupBy('dynamic."eventName"');
-    console.log(
-      'actionValuePerPlaceCode.getParameters(): ',
-      actionValuePerPlaceCode.getQueryAndParameters(),
-    );
+
     const triggeredAreasQuery = this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
