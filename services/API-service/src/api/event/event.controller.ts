@@ -257,7 +257,7 @@ export class EventController {
       params.disasterType,
       params.eventName,
     );
-    var bufferStream = new stream.PassThrough();
+    const bufferStream = new stream.PassThrough();
     bufferStream.end(Buffer.from(blob, 'binary'));
     response.writeHead(HttpStatus.OK, {
       'Content-Type': 'image/png',
