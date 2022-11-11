@@ -15,6 +15,7 @@ export class TyphoonTrackPoint {
   timestampOfTrackpoint: string;
   windspeed: number;
   category: string;
+  firstLandfall: boolean;
 }
 export class RedCrossBranch {
   name: string;

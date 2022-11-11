@@ -43,6 +43,9 @@ export class TyphoonTrackEntity {
   @Column({ nullable: true })
   public category: string;
 
+  @Column({ default: false })
+  public firstLandfall: boolean;
+
   @Column({ nullable: true })
   public eventName: string;
 

@@ -891,7 +891,11 @@ export class MapComponent implements OnDestroy {
     let passed = '';
 
     if (markerDateTime > modelDateTime) {
-      className += ' typhoon-track-icon-future';
+      if (markerProperties.firstLandfall) {
+        className += ' typhoon-track-icon-future-firstLandfall';
+      } else {
+        className += ' typhoon-track-icon-future';
+      }
     } else {
       passed = '(Passed)';
       if (isLatest) {
@@ -915,15 +919,16 @@ export class MapComponent implements OnDestroy {
       title: dateAndTime,
       icon: divIcon({
         className,
-        iconSize: isLatest
-          ? [
-              this.TYPHOON_TRACK_LATEST_POINT_SIZE,
-              this.TYPHOON_TRACK_LATEST_POINT_SIZE,
-            ]
-          : [
-              this.TYPHOON_TRACK_NORMAL_POINT_SIZE,
-              this.TYPHOON_TRACK_NORMAL_POINT_SIZE,
-            ],
+        iconSize:
+          isLatest || markerProperties.firstLandfall // this is dummy for now, just to give some different viz to the firstLandfall point
+            ? [
+                this.TYPHOON_TRACK_LATEST_POINT_SIZE,
+                this.TYPHOON_TRACK_LATEST_POINT_SIZE,
+              ]
+            : [
+                this.TYPHOON_TRACK_NORMAL_POINT_SIZE,
+                this.TYPHOON_TRACK_NORMAL_POINT_SIZE,
+              ],
       }),
       zIndexOffset: 700,
     });

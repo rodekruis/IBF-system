@@ -39,6 +39,7 @@ export class TyphoonTrackService {
               timestampOfTrackpoint: trackpoint.timestampOfTrackpoint,
               windspeed: trackpoint.windspeed,
               category: trackpoint.category,
+              firstLandfall: trackpoint.firstLandfall,
               geom: (): string =>
                 `st_asgeojson(st_MakePoint(${trackpoint.lon}, ${trackpoint.lat}))::json`,
             })
@@ -77,6 +78,7 @@ export class TyphoonTrackService {
         'timestampOfTrackpoint',
         'windspeed',
         'category',
+        'firstLandfall',
         'geom',
       ],
       where: {

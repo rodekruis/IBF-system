@@ -1,4 +1,10 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum TyphoonCategory {
@@ -32,4 +38,8 @@ export class TrackpointDetailsDto {
   @ApiProperty({ example: 'TS' })
   @IsEnum(TyphoonCategory)
   public category: TyphoonCategory;
+
+  @ApiProperty({ example: false })
+  @IsBoolean()
+  public firstLandfall: boolean;
 }
