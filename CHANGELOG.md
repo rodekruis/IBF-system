@@ -1,3 +1,13 @@
+# [0.195.0](https://github.com/rodekruis/IBF-system/compare/v0.194.8...v0.195.0) (2022-11-11)
+
+
+### Features
+
+* add SSD logos AB[#16029](https://github.com/rodekruis/IBF-system/issues/16029) ([b05b682](https://github.com/rodekruis/IBF-system/commit/b05b68235f10869c08bd764dc1a78244861fa853))
+* move logos before user state AB[#16029](https://github.com/rodekruis/IBF-system/issues/16029) ([0283a45](https://github.com/rodekruis/IBF-system/commit/0283a4587719ed03f0041ff1aa466a6ee650a406))
+
+
+
 ## [0.194.8](https://github.com/rodekruis/IBF-system/compare/v0.194.7...v0.194.8) (2022-11-11)
 
 
@@ -79,16 +89,6 @@
 
 * basic dashboard SSD floods AB[#16025](https://github.com/rodekruis/IBF-system/issues/16025) ([a19adf0](https://github.com/rodekruis/IBF-system/commit/a19adf097321397890fb20a4bc236dfc5691d3c9))
 * mock data SSD floods AB[#16028](https://github.com/rodekruis/IBF-system/issues/16028) ([673a996](https://github.com/rodekruis/IBF-system/commit/673a9965f18edfb8f658d250e1a8ae9176e51e77))
-
-
-
-## [0.193.2](https://github.com/rodekruis/IBF-system/compare/v0.193.1...v0.193.2) (2022-10-28)
-
-
-### Bug Fixes
-
-* remove 1 action + rephrase 1 AB[#15995](https://github.com/rodekruis/IBF-system/issues/15995) ([3fc7a84](https://github.com/rodekruis/IBF-system/commit/3fc7a84f75445a8d87db05c0c0eddc1728b3c953))
-* show absolute coordinates AB[#15996](https://github.com/rodekruis/IBF-system/issues/15996) ([e95cec1](https://github.com/rodekruis/IBF-system/commit/e95cec18539ec7bb9e8de315ce625c8a8bdd38ab))
 
 
 
