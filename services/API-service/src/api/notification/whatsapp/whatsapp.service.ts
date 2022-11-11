@@ -198,24 +198,33 @@ export class WhatsappService {
     // Assume first of theoretically multiple countries for this user (ignore that edge case for now)
     const country = user.countries[0];
     for await (const disasterType of country.disasterTypes) {
+      const events = await this.eventService.getEventSummaryCountry(
+        country.countryCodeISO3,
+        disasterType.disasterType,
+      );
+      const activeEvents = events.filter(event => event.activeTrigger);
       const message = await this.configureFollowUpMessage(
         country,
         disasterType.disasterType,
+        activeEvents,
       );
       await this.sendWhatsapp(message, fromNumber);
+
+      const eventName = activeEvents[0].eventName || 'no-name';
+      await this.sendWhatsapp(
+        '',
+        fromNumber,
+        `${EXTERNAL_API.eventMapImage}/${country.countryCodeISO3}/${disasterType.disasterType}/${eventName}`,
+      );
     }
   }
 
   private async configureFollowUpMessage(
     country: CountryEntity,
     disasterType: DisasterType,
+    activeEvents: EventSummaryCountry[],
   ): Promise<string> {
     // Reuse/reorganize more code below from/within notification.service
-    const events = await this.eventService.getEventSummaryCountry(
-      country.countryCodeISO3,
-      disasterType,
-    );
-    const activeEvents = events.filter(event => event.activeTrigger);
 
     if (activeEvents.length === 0) {
       const message = country.notificationInfo.whatsappMessage['no-trigger'];

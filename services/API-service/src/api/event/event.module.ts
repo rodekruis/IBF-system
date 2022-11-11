@@ -12,6 +12,7 @@ import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { HelperService } from '../../shared/helper.service';
 import { UserEntity } from '../user/user.entity';
+import { EventMapImageEntity } from './event-map-image.entity';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { UserEntity } from '../user/user.entity';
       AdminAreaEntity,
       DisasterEntity,
       UserEntity,
+      EventMapImageEntity,
     ]),
   ],
   controllers: [EventController],

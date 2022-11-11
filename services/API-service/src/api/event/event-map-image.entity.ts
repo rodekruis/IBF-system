@@ -1,0 +1,39 @@
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { CountryEntity } from '../country/country.entity';
+import { DisasterEntity } from '../disaster/disaster.entity';
+
+@Entity('event-map-image')
+export class EventMapImageEntity {
+  @PrimaryGeneratedColumn('uuid')
+  public id: string;
+
+  @Column({ type: 'bytea' })
+  public image: any;
+
+  @ApiProperty({ example: 'SSD' })
+  @ManyToOne((): typeof CountryEntity => CountryEntity)
+  @JoinColumn({
+    name: 'countryCodeISO3',
+    referencedColumnName: 'countryCodeISO3',
+  })
+  public countryCodeISO3: string;
+
+  @ApiProperty({ example: 'floods' })
+  @ManyToOne((): typeof DisasterEntity => DisasterEntity)
+  @JoinColumn({
+    name: 'disasterType',
+    referencedColumnName: 'disasterType',
+  })
+  public disasterType: string;
+
+  @ApiProperty({ example: null })
+  @Column({ nullable: true })
+  public eventName: string;
+}

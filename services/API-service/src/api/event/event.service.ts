@@ -33,6 +33,7 @@ import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { HelperService } from '../../shared/helper.service';
 import { UserEntity } from '../user/user.entity';
+import { EventMapImageEntity } from './event-map-image.entity';
 
 @Injectable()
 export class EventService {
@@ -50,6 +51,8 @@ export class EventService {
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
+  @InjectRepository(EventMapImageEntity)
+  private readonly eventMapImageRepository: Repository<EventMapImageEntity>;
 
   public constructor(
     private countryService: CountryService,
@@ -756,5 +759,55 @@ export class EventService {
     )
       ? new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59)
       : new Date(today.setDate(today.getDate() + 7));
+  }
+
+  public async postEventMapImage(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    eventName: string,
+    imageFileBlob,
+  ): Promise<void> {
+    let eventMapImageEntity = await this.eventMapImageRepository.findOne({
+      where: {
+        countryCodeISO3: countryCodeISO3,
+        disasterType: disasterType,
+        eventName: eventName === 'no-name' ? IsNull() : eventName,
+      },
+    });
+
+    if (!eventMapImageEntity) {
+      eventMapImageEntity = new EventMapImageEntity();
+      eventMapImageEntity.countryCodeISO3 = countryCodeISO3;
+      eventMapImageEntity.disasterType = disasterType;
+      eventMapImageEntity.eventName =
+        eventName === 'no-name' ? null : eventName;
+    }
+
+    eventMapImageEntity.image = imageFileBlob.buffer;
+
+    this.eventMapImageRepository.save(eventMapImageEntity);
+  }
+
+  public async getEventMapImage(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    eventName: string,
+  ): Promise<any> {
+    const eventMapImageEntity = await this.eventMapImageRepository.findOne({
+      where: {
+        countryCodeISO3: countryCodeISO3,
+        disasterType: disasterType,
+        eventName: eventName === 'no-name' ? IsNull() : eventName,
+      },
+    });
+
+    if (!eventMapImageEntity) {
+      throw new HttpException(
+        'Image not found. Please upload an image using POST and try again.',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return eventMapImageEntity.image;
   }
 }

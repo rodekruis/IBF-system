@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { ApiConsumes, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import {
   SendTestWhatsappDto,
   TwilioIncomingCallbackDto,

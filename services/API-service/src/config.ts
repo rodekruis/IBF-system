@@ -8,6 +8,7 @@ export const SCHEME = DEBUG ? 'http' : 'https';
 export const API_PATHS = {
   whatsAppStatus: 'notifications/whatsapp/status',
   whatsAppIncoming: 'notifications/whatsapp/incoming',
+  eventMapImage: 'event/event-map-image',
 };
 const baseApiUrl = process.env.EXTERNAL_API_SERVICE_URL + 'api/';
 const rootUrl =
@@ -19,8 +20,5 @@ export const EXTERNAL_API = {
   rootApi: `${rootUrl}/api`,
   whatsAppStatus: baseApiUrl + API_PATHS.whatsAppStatus,
   whatsAppIncoming: baseApiUrl + API_PATHS.whatsAppIncoming,
+  eventMapImage: baseApiUrl + API_PATHS.eventMapImage,
 };
-
-// Configure Public Twilio Setttings:
-// ---------------------------------------------------------------------------
-export const TWILIO_SANDBOX_WHATSAPP_NUMBER = '+14155238886';
