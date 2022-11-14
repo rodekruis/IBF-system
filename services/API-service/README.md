@@ -96,3 +96,36 @@ Developers use the following process for this.
      - populating stashed changes
      - generating migration-script
    - Keep in mind here that we want to keep migration scripts readable. So do not follow this process only once at the very end, but do it after every demarcated chunk of work.
+
+## Twilio setup
+
+### Test sending whatsapp message locally with Twilio WhatsApp sandbox
+
+First basic setup:
+
+- In Twilio 'IBF-platform' account, create a subaccount per country.
+- In Twilio Create a messaging service
+- In local .env update from the above
+  - `TWILIO_SID`
+  - `TWILIO_AUTHTOKEN`
+  - `TWILIO_MESSAGING_SID`
+- and update `TWILIO_WHATSAPP_NUMBER` = +14155238886 (the standard Twilio whatsapp sandbox number)
+
+Use [ngrok](https://ngrok.com/) to mock an external API service:
+
+1. Sign up on [ngrok](https://ngrok.com/) using your GitHub account
+2. [Download](https://ngrok.com/download) the executable
+3. Add the folder to the system environment variables
+4. Add the `authtoken` using the command provided in the download page\
+   `ngrok config add-authtoken <token>`
+5. Run `ngrok` on port 3000\
+   `ngrok http 3000`
+6. You can find the URL of your API in the `Forwarding` field. Copy this:
+   - As value for the `EXTERNAL_API_SERVICE_URL` field in the `.env` file in the root folder
+   - In the `Whatsapp sandbox settings` of the Twilio subaccount (Develop > Messaging > Settings > Whatsapp sandbox settings) as:
+     - `<EXTERNAL_API_SERVICE_URL>//api/notifications/whatsapp/incoming` in the `WHEN A MESSAGE COMES IN` field
+     - `<EXTERNAL_API_SERVICE_URL>//api/notifications/whatsapp/status` in the `STATUS CALLBACK URL` field
+7. Rebuild the service with `docker-compose -d up ibf-api-service`
+8. Add your whatsapp phone number to the WhatsApp sandbox by texting the code provided in the subaccount to the sandbox phone number
+9. Create a new IBF-user through API with your whatsapp phone number and assigned to the country you are testing for
+10. Send a notification (for a country/disasterType with an active trigger) via the `/api/notification/send` endpoint.

@@ -1,6 +1,5 @@
 import { AdminAreaDynamicDataModule } from './../admin-area-dynamic-data/admin-area-dynamic-data.module';
 import { NotificationInfoEntity } from './notifcation-info.entity';
-import { CountryEntity } from './../country/country.entity';
 import { EventModule } from './../event/event.module';
 import { Module } from '@nestjs/common';
 import { UserModule } from '../user/user.module';
@@ -8,25 +7,20 @@ import { NotificationController } from './notification.controller';
 import { NotificationService } from './notification.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
-import { AdminAreaDataModule } from '../admin-area-data/admin-area-data.module';
-import { AdminAreaModule } from '../admin-area/admin-area.module';
+import { WhatsappModule } from './whatsapp/whatsapp.module';
+import { NotificationContentModule } from './notification-content/notification-content.module';
+import { EmailService } from './email/email.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      CountryEntity,
-      NotificationInfoEntity,
-      IndicatorMetadataEntity,
-      DisasterEntity,
-    ]),
+    TypeOrmModule.forFeature([NotificationInfoEntity, IndicatorMetadataEntity]),
     UserModule,
     EventModule,
     AdminAreaDynamicDataModule,
-    AdminAreaDataModule,
-    AdminAreaModule,
+    WhatsappModule,
+    NotificationContentModule,
   ],
   controllers: [NotificationController],
-  providers: [NotificationService],
+  providers: [NotificationService, EmailService],
 })
 export class NotificationModule {}

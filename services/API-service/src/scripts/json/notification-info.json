@@ -90,8 +90,8 @@
     },
     "linkSocialMediaType": null,
     "linkSocialMediaUrl": null,
-    "linkVideo": "https://bit.ly/IBF-video-Zambia",
-    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zambia-Published.pdf"
+    "linkVideo": "https://bit.ly/IBF-video-Malawi",
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Malawi-Published.pdf"
   },
   {
     "countryCodeISO3": "SSD",
@@ -99,8 +99,16 @@
     "triggerStatement": {
       "floods": "Not currently available"
     },
-    "linkSocialMediaType": null,
-    "linkSocialMediaUrl": null,
+    "linkSocialMediaType": "WhatsApp",
+    "linkSocialMediaUrl": "https://chat.whatsapp.com/G0GXqgiat5J69EQTEKVNec",
+    "useWhatsapp": true,
+    "whatsappMessage": {
+      "initial": "*TRIGGER WARNING*\n\nA trigger warning for floods was activated on *[startDate]*. It is now *[leadTime]* away.\n\nTo receive more detailed information reply 'yes' to this message.",
+      "follow-up": "There are *[nrTriggeredAreas]* [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\nYou can use the map attached to assess the situation. The triggered areas are outlined in red. The potential flood extent is shown in red.\n\nLog in to the IBF Portal on your desktop to find more information.",
+      "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate further about this trigger. Follow the local protocol relevant to the areas affected.",
+      "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below threshold.\n\n",
+      "no-trigger": "There is *no trigger* currently."
+    },
     "linkVideo": "https://bit.ly/IBF-video-Zambia",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zambia-Published.pdf"
   }

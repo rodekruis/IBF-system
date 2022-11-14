@@ -35,6 +35,18 @@ import SeedRedcrossBranches from './seed-redcross-branches';
 import SeedAdminAreaData from './seed-admin-area-data';
 import SeedRainfallData from './seed-rainfall-data';
 
+class NotificationInfo {
+  countryCodeISO3: string;
+  logo: string;
+  triggerStatement: {};
+  linkSocialMediaType: string;
+  linkSocialMediaUrl: string;
+  linkVideo: string;
+  linkPdf: string;
+  useWhatsapp?: boolean;
+  whatsappMessage?: {};
+}
+
 @Injectable()
 export class SeedInit implements InterfaceScript {
   private connection: Connection;
@@ -377,8 +389,8 @@ export class SeedInit implements InterfaceScript {
       NotificationInfoEntity,
     );
     const notificationInfoEntity = new NotificationInfoEntity();
-    const notificationInfoCountry = notificationInfo.find(
-      (notificationInfoEntry): object => {
+    const notificationInfoCountry: NotificationInfo = notificationInfo.find(
+      (notificationInfoEntry): NotificationInfo => {
         if (notificationInfoEntry.countryCodeISO3 === countryCodeISO3) {
           return notificationInfoEntry;
         }
@@ -397,6 +409,13 @@ export class SeedInit implements InterfaceScript {
       notificationInfoCountry.linkSocialMediaUrl;
     notificationInfoEntity.linkVideo = notificationInfoCountry.linkVideo;
     notificationInfoEntity.linkPdf = notificationInfoCountry.linkPdf;
+    notificationInfoEntity.useWhatsapp = notificationInfoCountry.useWhatsapp;
+    if (notificationInfoCountry.whatsappMessage) {
+      notificationInfoEntity.whatsappMessage = JSON.parse(
+        JSON.stringify(notificationInfoCountry.whatsappMessage),
+      );
+    }
+
     const saveResult = await notificationInfoRepository.save(
       notificationInfoEntity,
     );

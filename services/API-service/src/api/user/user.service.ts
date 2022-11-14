@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository, In } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { UserResponseObject } from './user.model';
@@ -11,6 +11,7 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { CountryEntity } from '../country/country.entity';
 import { UserRole } from './user-role.enum';
+import { LookupService } from '../notification/lookup/lookup.service';
 
 @Injectable()
 export class UserService {
@@ -19,6 +20,8 @@ export class UserService {
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
   private readonly relations: string[] = ['countries'];
+
+  public constructor(private readonly lookupService: LookupService) {}
 
   public async findAll(): Promise<UserEntity[]> {
     return await this.userRepository.find({
@@ -41,14 +44,9 @@ export class UserService {
 
   public async create(dto: CreateUserDto): Promise<UserResponseObject> {
     // check uniqueness of username
-    const password = dto.password;
     let email = dto.email;
     email = email.toLowerCase();
-    const qb = await getRepository(UserEntity)
-      .createQueryBuilder('user')
-      .where('user.email = :email', { email });
-
-    const user = await qb.getOne();
+    const user = await this.userRepository.findOne({ where: { email: email } });
 
     if (user) {
       const errors = { email: 'Email must be unique.' };
@@ -58,16 +56,23 @@ export class UserService {
       );
     }
 
+    if (dto.whatsappNumber) {
+      dto.whatsappNumber = await this.lookupService.lookupAndCorrect(
+        dto.whatsappNumber,
+      );
+    }
+
     // create new user
     const newUser = new UserEntity();
     newUser.email = email;
     newUser.username = dto.username;
-    newUser.password = password;
+    newUser.password = dto.password;
     newUser.firstName = dto.firstName;
     newUser.middleName = dto.middleName;
     newUser.lastName = dto.lastName;
     newUser.userRole = dto.role;
     newUser.userStatus = dto.status;
+    newUser.whatsappNumber = dto.whatsappNumber;
     newUser.countries = await this.countryRepository.find({
       where: { countryCodeISO3: In(dto.countryCodesISO3) },
     });

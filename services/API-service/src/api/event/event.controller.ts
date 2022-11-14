@@ -3,9 +3,22 @@ import {
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
 import { EventService } from './event.service';
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
   ApiOperation,
   ApiParam,
   ApiResponse,
@@ -18,9 +31,11 @@ import { DateDto, TriggerPerLeadTimeExampleDto } from './dto/date.dto';
 import { Roles } from '../../roles.decorator';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import stream from 'stream';
+import { Response } from 'express-serve-static-core';
 
 @ApiBearerAuth()
-@UseGuards(RolesGuard)
 @ApiTags('event')
 @Controller('event')
 export class EventController {
@@ -30,6 +45,7 @@ export class EventController {
     this.eventService = eventService;
   }
 
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get summary of active events - if any - for given country and disaster-type',
@@ -52,6 +68,7 @@ export class EventController {
     );
   }
 
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get date of last forecast-data-upload for given country and disaster-type.',
@@ -72,6 +89,7 @@ export class EventController {
     );
   }
 
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get yes/no trigger per lead-time for given country and disaster-type.',
@@ -94,6 +112,7 @@ export class EventController {
     );
   }
 
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get triggered admin-areas for given country, disaster-type and lead-time.',
@@ -122,6 +141,7 @@ export class EventController {
     );
   }
 
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get past and current trigger activation data per admin-area and disaster-type.',
@@ -144,6 +164,7 @@ export class EventController {
     );
   }
 
+  @UseGuards(RolesGuard)
   @Roles(UserRole.DisasterManager)
   @ApiOperation({ summary: 'Stop trigger for given admin-area.' })
   @ApiResponse({
@@ -165,6 +186,7 @@ export class EventController {
     );
   }
 
+  @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
@@ -182,5 +204,64 @@ export class EventController {
     await this.eventService.uploadTriggerPerLeadTime(
       uploadTriggerPerLeadTimeDto,
     );
+  }
+
+  @UseGuards(RolesGuard)
+  @ApiOperation({
+    summary: 'Post event map image (Only .png-files supported)',
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'eventName', required: false, type: 'string' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        image: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @ApiResponse({ status: 200, description: 'Post event map image' })
+  @Post('/event-map-image/:countryCodeISO3/:disasterType/:eventName')
+  @UseInterceptors(FileInterceptor('image'))
+  public async postEventMapImage(
+    @UploadedFile() imageFileBlob,
+    @Param() params,
+  ): Promise<void> {
+    await this.eventService.postEventMapImage(
+      params.countryCodeISO3,
+      params.disasterType,
+      params.eventName,
+      imageFileBlob,
+    );
+  }
+
+  @ApiOperation({
+    summary: 'Get event map image',
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'eventName', required: false, type: 'string' })
+  @ApiResponse({ status: 200, description: 'Get event map image' })
+  @Get('/event-map-image/:countryCodeISO3/:disasterType/:eventName')
+  public async intersolveInstructions(
+    @Res() response: Response,
+    @Param() params,
+  ): Promise<void> {
+    const blob = await this.eventService.getEventMapImage(
+      params.countryCodeISO3,
+      params.disasterType,
+      params.eventName,
+    );
+    const bufferStream = new stream.PassThrough();
+    bufferStream.end(Buffer.from(blob, 'binary'));
+    response.writeHead(HttpStatus.OK, {
+      'Content-Type': 'image/png',
+    });
+    bufferStream.pipe(response);
   }
 }
