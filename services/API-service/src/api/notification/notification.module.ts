@@ -9,6 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { WhatsappModule } from './whatsapp/whatsapp.module';
 import { NotificationContentModule } from './notification-content/notification-content.module';
+import { EmailService } from './email/email.service';
 
 @Module({
   imports: [
@@ -20,6 +21,6 @@ import { NotificationContentModule } from './notification-content/notification-c
     NotificationContentModule,
   ],
   controllers: [NotificationController],
-  providers: [NotificationService],
+  providers: [NotificationService, EmailService],
 })
 export class NotificationModule {}
