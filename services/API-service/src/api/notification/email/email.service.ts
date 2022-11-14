@@ -454,8 +454,8 @@ export class EmailService {
     eventName: string,
   ): string {
     const src = `${
-      process.env.NG_API_URL
-    }event/event-map-image/${countryCodeISO3}/${disasterType}/${eventName ||
+      process.env.EXTERNAL_API_SERVICE_URL
+    }api/event/event-map-image/${countryCodeISO3}/${disasterType}/${eventName ||
       'no-name'}`;
     return src;
   }
