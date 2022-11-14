@@ -540,13 +540,12 @@
       },
       "exposed_pop_65": {
         "MWI": {
-          "floods": "TBD. This layer is based on Unified Beneficiary Registration (UBR) data provided by Department of Economy Planning and Development of Malawi. Data collected and processed in 2022."
+          "floods": "Number of Exposed Population 65+ is calculated by total target population living in the flood extent area within the administrative areas currently triggered. The target population are those living in the households classified as Poor, Poorer, Poorest and whose household head is older than 65 years old.<br><br>Source target population: Unified Beneficiary Registration (UBR). Department of Economy Planning and Development, Malawi. Collected and processed in 2022."
         }
       },
-      "exposed_pop_u18": { "MWI": { "floods": "" } },
-      "exposed_pop_u5": {
+      "exposed_pop_u18": {
         "MWI": {
-          "floods": "TBD. This layer is based on Unified Beneficiary Registration (UBR) data provided by Department of Economy Planning and Development of Malawi. Data collected and processed in 2022."
+          "floods": "Number of Exposed Population U18 is calculated by total target population living in the flood extent area within the administrative areas currently triggered. The target population are those living in the households classified as Poor, Poorer, Poorest and whose household head is below 18 years old.<br><br>Source target population: Unified Beneficiary Registration (UBR). Department of Economy Planning and Development, Malawi. Collected and processed in 2022."
         }
       },
       "female_head_hh": {
