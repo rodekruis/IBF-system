@@ -203,20 +203,58 @@ export class WhatsappService {
         disasterType.disasterType,
       );
       const activeEvents = events.filter(event => event.activeTrigger);
-      const message = await this.configureFollowUpMessage(
+      if (activeEvents.length === 0) {
+        const noTriggerMessage = this.configureNoTriggerMessage(
+          country,
+          events,
+        );
+        await this.sendWhatsapp(noTriggerMessage, fromNumber);
+        return;
+      }
+
+      const eventName = activeEvents[0].eventName || 'no-name';
+      const triggerMessage = await this.configureFollowUpMessage(
         country,
         disasterType.disasterType,
         activeEvents,
       );
-      await this.sendWhatsapp(message, fromNumber);
-
-      const eventName = activeEvents[0].eventName || 'no-name';
       await this.sendWhatsapp(
-        '',
+        triggerMessage,
         fromNumber,
         `${EXTERNAL_API.eventMapImage}/${country.countryCodeISO3}/${disasterType.disasterType}/${eventName}`,
       );
+
+      // Add small delay/sleep to ensure the order in which messages are received
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      const whatsappGroupMessage = this.configureWhatsappGroupMessage(country);
+      await this.sendWhatsapp(whatsappGroupMessage, fromNumber);
     }
+  }
+
+  private configureNoTriggerMessage(
+    country: CountryEntity,
+    events: EventSummaryCountry[],
+  ): string {
+    let message = '';
+    if (events.length > 0) {
+      message += country.notificationInfo.whatsappMessage[
+        'no-trigger-old-event'
+      ].replace('[startDate]', events[0].startDate);
+    }
+    message += country.notificationInfo.whatsappMessage['no-trigger'];
+    return message;
+  }
+
+  private configureWhatsappGroupMessage(country: CountryEntity): string {
+    const baseWhatsappGroupMessage =
+      country.notificationInfo.whatsappMessage['whatsapp-group'];
+    const whatsappGroupLink = country.notificationInfo.linkSocialMediaUrl;
+    const whatsappGroupMessage = baseWhatsappGroupMessage.replace(
+      '[whatsappGroupLink]',
+      whatsappGroupLink,
+    );
+    return whatsappGroupMessage;
   }
 
   private async configureFollowUpMessage(
@@ -224,12 +262,6 @@ export class WhatsappService {
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
   ): Promise<string> {
-    // Reuse/reorganize more code below from/within notification.service
-
-    if (activeEvents.length === 0) {
-      const message = country.notificationInfo.whatsappMessage['no-trigger'];
-      return message;
-    }
     const countryDisasterSettings = country.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
     );
@@ -251,12 +283,12 @@ export class WhatsappService {
     );
     let areaList = '';
     for (const area of triggeredAreas) {
-      const row = `* ${area.name}${
+      const row = `- *${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''
       } - ${this.notificationContentService.formatActionUnitValue(
         area.actionsValue,
         actionUnit,
-      )}\n`;
+      )}*\n`;
       areaList += row;
     }
     const followUpMessage =

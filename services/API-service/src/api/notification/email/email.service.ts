@@ -432,7 +432,7 @@ export class EmailService {
   private getSocialMediaHtml(country: CountryEntity): string {
     if (country.notificationInfo.linkSocialMediaType) {
       return fs.readFileSync(
-        './src/api/notification/html/social-media-link.html',
+        './src/api/notification/email/html/social-media-link.html',
         'utf8',
       );
     } else {
