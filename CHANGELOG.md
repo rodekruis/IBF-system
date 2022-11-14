@@ -1,3 +1,12 @@
+## [0.196.1](https://github.com/rodekruis/IBF-system/compare/v0.196.0...v0.196.1) (2022-11-14)
+
+
+### Bug Fixes
+
+* api url AB[#16233](https://github.com/rodekruis/IBF-system/issues/16233) ([8146ccf](https://github.com/rodekruis/IBF-system/commit/8146ccf86a2f692f29251252e0c6b5186b306ed8))
+
+
+
 # [0.196.0](https://github.com/rodekruis/IBF-system/compare/v0.195.0...v0.196.0) (2022-11-14)
 
 
@@ -98,15 +107,6 @@
 ### Bug Fixes
 
 * simplify geojsons AB[#16022](https://github.com/rodekruis/IBF-system/issues/16022) ([69cfc25](https://github.com/rodekruis/IBF-system/commit/69cfc25d36a4cee1df7e2603f5068ec856e23435))
-
-
-
-## [0.194.1](https://github.com/rodekruis/IBF-system/compare/v0.194.0...v0.194.1) (2022-10-31)
-
-
-### Bug Fixes
-
-* index on placeCode columns AB[#16022](https://github.com/rodekruis/IBF-system/issues/16022) ([260d9f3](https://github.com/rodekruis/IBF-system/commit/260d9f34088e96826da5e3bdb8eb3b8445333e3d))
 
 
 
