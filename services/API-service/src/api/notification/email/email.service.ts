@@ -196,6 +196,14 @@ export class EmailService {
         replaceValue: country.notificationInfo.logo,
       },
       {
+        replaceKey: '(MAP-IMG-SRC)',
+        replaceValue: this.getMapImgSrc(
+          country.countryCodeISO3,
+          disasterType,
+          events[0].eventName,
+        ),
+      },
+      {
         replaceKey: '(TRIGGER-STATEMENT)',
         replaceValue: country.notificationInfo.triggerStatement[disasterType],
       },
@@ -438,6 +446,18 @@ export class EmailService {
     } else {
       return '';
     }
+  }
+
+  private getMapImgSrc(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    eventName: string,
+  ): string {
+    const src = `${
+      process.env.NG_API_URL
+    }event/event-map-image/${countryCodeISO3}/${disasterType}/${eventName ||
+      'no-name'}`;
+    return src;
   }
 
   private async getTableForLeadTime(
