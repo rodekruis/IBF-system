@@ -901,6 +901,10 @@ export class MapComponent implements OnDestroy {
       }
     }
 
+    if (markerProperties.firstLandfall) {
+      className += ' typhoon-track-icon-firstLandfall';
+    }
+
     const dateAndTime = DateTime.fromISO(
       markerProperties.timestampOfTrackpoint,
     ).toFormat('ccc, dd LLLL, HH:mm');

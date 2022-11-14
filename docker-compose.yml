@@ -49,6 +49,7 @@ services:
     networks:
       web-server-network:
       api-network:
+    restart: unless-stopped
 
   ibf-dashboard:
     build:

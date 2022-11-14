@@ -71,8 +71,7 @@
     "numberFormatAggregate": "perc",
     "weightvar": null,
     "order": 1,
-    "dynamic": true,
-    "unit": "people"
+    "dynamic": true
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI,SSD",

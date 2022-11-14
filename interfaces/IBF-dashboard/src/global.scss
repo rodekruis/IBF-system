@@ -215,6 +215,11 @@
   background: rgba(var(--ion-color-ibf-white-rgb), 0.8);
 }
 
+.typhoon-track-icon-firstLandfall {
+  outline: 3px solid var(--ion-color-ibf-primary) !important;
+  outline-offset: 3px;
+}
+
 .typhoon-track-icon-past {
   border-style: solid;
   background: var(--ion-color-ibf-primary);
