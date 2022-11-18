@@ -801,13 +801,6 @@ export class EventService {
       },
     });
 
-    if (!eventMapImageEntity) {
-      throw new HttpException(
-        'Image not found. Please upload an image using POST and try again.',
-        HttpStatus.NOT_FOUND,
-      );
-    }
-
-    return eventMapImageEntity.image;
+    return eventMapImageEntity?.image;
   }
 }
