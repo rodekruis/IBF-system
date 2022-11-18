@@ -49,6 +49,7 @@ services:
       - TWILIO_MESSAGING_SID=${TWILIO_MESSAGING_SID}
       - EXTERNAL_API_SERVICE_URL=${EXTERNAL_API_SERVICE_URL}
       - TWILIO_WHATSAPP_NUMBER=${TWILIO_WHATSAPP_NUMBER}
+      - NG_API_URL=${NG_API_URL}
     volumes:
       - api-root:/home/ibf/api-service
     networks:
