@@ -479,7 +479,7 @@ export class EmailService {
   ): string {
     const src = `${
       process.env.NG_API_URL
-    }event/event-map-image/${countryCodeISO3}/${disasterType}/${eventName ||
+    }/event/event-map-image/${countryCodeISO3}/${disasterType}/${eventName ||
       'no-name'}`;
     return src;
   }
