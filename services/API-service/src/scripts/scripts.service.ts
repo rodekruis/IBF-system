@@ -133,6 +133,15 @@ export class ScriptsService {
     if (mockInput.disasterType === DisasterType.Typhoon) {
       await this.mockTyphoonTrack(selectedCountry, typhoonScenario, eventNr);
     }
+
+    // for now base on SSD, make more generic later
+    if (mockInput.countryCodeISO3 === 'SSD') {
+      await this.mockMapImageFile(
+        selectedCountry.countryCodeISO3,
+        mockInput.disasterType,
+        mockInput.triggered,
+      );
+    }
   }
 
   public async mockTyphoonScenario(mockTyphoonScenario: MockTyphoonScenario) {
@@ -758,5 +767,31 @@ export class ScriptsService {
         disasterType,
       );
     }
+  }
+
+  private async mockMapImageFile(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    triggered: boolean,
+  ) {
+    if (!triggered) {
+      return;
+    }
+
+    const eventName = this.getEventName(disasterType) || 'no-name';
+    const filename = `${countryCodeISO3}_${disasterType}_${eventName}_map-image.png`;
+    const file = fs.readFileSync(
+      `./geoserver-volume/raster-files/mock-output/${filename}`,
+    );
+    const dataObject = {
+      originalname: filename,
+      buffer: file,
+    };
+    await this.eventService.postEventMapImage(
+      countryCodeISO3,
+      disasterType,
+      eventName,
+      dataObject,
+    );
   }
 }
