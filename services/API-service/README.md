@@ -99,7 +99,7 @@ Developers use the following process for this.
 
 ## Twilio setup
 
-### Test sending whatsapp message locally with Twilio WhatsApp sandbox
+### Test sending WhatsApp message from local API with Twilio WhatsApp sandbox
 
 First basic setup:
 
@@ -122,10 +122,23 @@ Use [ngrok](https://ngrok.com/) to mock an external API service:
    `ngrok http 3000`
 6. You can find the URL of your API in the `Forwarding` field. Copy this:
    - As value for the `EXTERNAL_API_SERVICE_URL` field in the `.env` file in the root folder
-   - In the `Whatsapp sandbox settings` of the Twilio subaccount (Develop > Messaging > Settings > Whatsapp sandbox settings) as:
-     - `<EXTERNAL_API_SERVICE_URL>//api/notifications/whatsapp/incoming` in the `WHEN A MESSAGE COMES IN` field
-     - `<EXTERNAL_API_SERVICE_URL>//api/notifications/whatsapp/status` in the `STATUS CALLBACK URL` field
+   - In the `WhatsApp sandbox settings` (go to right subaccount > Develop > Messaging > Settings > Whatsapp sandbox settings) as:
+     - `<EXTERNAL_API_SERVICE_URL>/api/notifications/whatsapp/incoming` in the `WHEN A MESSAGE COMES IN` field
+     - `<EXTERNAL_API_SERVICE_URL>/api/notifications/whatsapp/status` in the `STATUS CALLBACK URL` field
 7. Rebuild the service with `docker-compose -d up ibf-api-service`
-8. Add your whatsapp phone number to the WhatsApp sandbox by texting the code provided in the subaccount to the sandbox phone number
-9. Create a new IBF-user through API with your whatsapp phone number and assigned to the country you are testing for
+8. Add your WhatsApp phone number to the WhatsApp sandbox by texting the code provided in the subaccount to the sandbox phone number
+9. Create a new IBF-user through API with your WhatsApp phone number and assigned to the country you are testing for
 10. Send a notification (for a country/disasterType with an active trigger) via the `/api/notification/send` endpoint.
+11. You should receive the initial message. And upon a reply you should receive the follow-up message. Note that the initial message will arrive anyway, also if you did not set the above callback URLs correctly.
+12. Note that the default for the `WhatsApp sandbox settings` is `ibf-test`. So remember to put it back afterwards.
+
+### Test sending WhatsApp message from test/demo API with Twilio WhatsApp sandbox
+
+1. Ngrok is not needed, instead the `EXTERNAL_API_SERVICE_URL` is simply the server URL itself, e.g. `https://ibf-test.510.global/`.
+2. Set the Twilio callback URLs to the right environment (ibf-test or ibf-demo). If e.g. ibf-test, that would be:
+
+   - In the `WhatsApp sandbox settings` (go to right subaccount > Develop > Messaging > Settings > Whatsapp sandbox settings)
+   - `https://ibf-test.510.global/api/notifications/whatsapp/incoming` in the `WHEN A MESSAGE COMES IN` field
+   - `https://ibf-test.510.global/api/notifications/whatsapp/status` in the `STATUS CALLBACK URL` field
+
+For the rest, follow the same instructions as above to receive initial and follow-up messages.
