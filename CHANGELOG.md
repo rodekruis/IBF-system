@@ -1,3 +1,19 @@
+# [0.198.0](https://github.com/rodekruis/IBF-system/compare/v0.197.0...v0.198.0) (2022-11-18)
+
+
+### Bug Fixes
+
+* api url AB[#16331](https://github.com/rodekruis/IBF-system/issues/16331) ([0dd8c28](https://github.com/rodekruis/IBF-system/commit/0dd8c2870f5747bef6f65d35664c85f7ec0452a2))
+* update map caption AB[#16331](https://github.com/rodekruis/IBF-system/issues/16331) ([1177069](https://github.com/rodekruis/IBF-system/commit/1177069848dc42a603c889b1759a884c15399601))
+
+
+### Features
+
+* include map only if available AB[#16331](https://github.com/rodekruis/IBF-system/issues/16331) ([39d8c68](https://github.com/rodekruis/IBF-system/commit/39d8c683e8d68b47325222fa1149896608af6033))
+* include mock map image AB[#16332](https://github.com/rodekruis/IBF-system/issues/16332) ([cafcd01](https://github.com/rodekruis/IBF-system/commit/cafcd01b0d01fe3b0f021452047f8008483e16ba))
+
+
+
 # [0.197.0](https://github.com/rodekruis/IBF-system/compare/v0.196.1...v0.197.0) (2022-11-18)
 
 
@@ -97,16 +113,6 @@
 
 * make below trigger also bold AB[#16107](https://github.com/rodekruis/IBF-system/issues/16107) ([41cf6ac](https://github.com/rodekruis/IBF-system/commit/41cf6ac033f64237516ad9d9613ada657db4245e))
 * replace SSD  correct data AB[#16032](https://github.com/rodekruis/IBF-system/issues/16032) ([97c035a](https://github.com/rodekruis/IBF-system/commit/97c035af6e43c0664aaa9757be72a62ef7cdf8b3))
-
-
-
-## [0.194.3](https://github.com/rodekruis/IBF-system/compare/v0.194.2...v0.194.3) (2022-11-04)
-
-
-### Bug Fixes
-
-* change mwi layer u5 to u18 AB[#16004](https://github.com/rodekruis/IBF-system/issues/16004) ([a5f3381](https://github.com/rodekruis/IBF-system/commit/a5f3381103078d59a9958c2903cbb3935d5164f6))
-* performance on update existing event areas AB[#16022](https://github.com/rodekruis/IBF-system/issues/16022) ([ad597c9](https://github.com/rodekruis/IBF-system/commit/ad597c9d9feb4cbe1c17e1c80a00ff703cb7a7cb))
 
 
 
