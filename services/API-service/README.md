@@ -99,7 +99,7 @@ Developers use the following process for this.
 
 ## Twilio setup
 
-### Test sending whatsapp message locally with Twilio WhatsApp sandbox
+### Test sending WhatsApp message from local API with Twilio WhatsApp sandbox
 
 First basic setup:
 
@@ -122,10 +122,21 @@ Use [ngrok](https://ngrok.com/) to mock an external API service:
    `ngrok http 3000`
 6. You can find the URL of your API in the `Forwarding` field. Copy this:
    - As value for the `EXTERNAL_API_SERVICE_URL` field in the `.env` file in the root folder
-   - In the `Whatsapp sandbox settings` of the Twilio subaccount (Develop > Messaging > Settings > Whatsapp sandbox settings) as:
+   - In the `WhatsApp sandbox settings` of the Twilio subaccount (Develop > Messaging > Settings > Whatsapp sandbox settings) as:
      - `<EXTERNAL_API_SERVICE_URL>//api/notifications/whatsapp/incoming` in the `WHEN A MESSAGE COMES IN` field
      - `<EXTERNAL_API_SERVICE_URL>//api/notifications/whatsapp/status` in the `STATUS CALLBACK URL` field
 7. Rebuild the service with `docker-compose -d up ibf-api-service`
-8. Add your whatsapp phone number to the WhatsApp sandbox by texting the code provided in the subaccount to the sandbox phone number
-9. Create a new IBF-user through API with your whatsapp phone number and assigned to the country you are testing for
+8. Add your WhatsApp phone number to the WhatsApp sandbox by texting the code provided in the subaccount to the sandbox phone number
+9. Create a new IBF-user through API with your WhatsApp phone number and assigned to the country you are testing for
 10. Send a notification (for a country/disasterType with an active trigger) via the `/api/notification/send` endpoint.
+
+### Test sending WhatsApp message from test-vm API with Twilio WhatsApp sandbox
+
+1. Update the Twilio subaccount settings:
+
+   - In the `WhatsApp sandbox settings` of the Twilio subaccount (Develop > Messaging > Settings > Whatsapp sandbox settings) as:
+   - `https://ibf-test.510.global/api/notifications/whatsapp/incoming` in the `WHEN A MESSAGE COMES IN` field
+   - `https://ibf-test.510.global/api/notifications/whatsapp/status` in the `STATUS CALLBACK URL` field
+
+2. Create a new IBF-user through API with your WhatsApp phone number and assigned to the country you are testing for
+3. Send a notification (for a country/disasterType with an active trigger) via the `/api/notification/send` endpoint
