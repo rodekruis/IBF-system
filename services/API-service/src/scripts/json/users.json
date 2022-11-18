@@ -103,7 +103,7 @@
     "username": "demo-user@redcross.nl",
     "firstName": "Demo",
     "lastName": "User",
-    "userRole": "admin",
+    "userRole": "disaster-manager",
     "password": "ibf-portal",
     "userStatus": "active"
   },
