@@ -239,4 +239,48 @@ export class AdminAreaDynamicDataService {
       throw new HttpException('File not written: ' + e, HttpStatus.NOT_FOUND);
     }
   }
+
+  public async archiveOldDynamicData() {
+    // for now do this only for floods as it is the bulk of the data, and the easiest to handle
+    const maxDateQuery = this.adminAreaDynamicDataRepo
+      .createQueryBuilder()
+      .select([
+        '"countryCodeISO3"',
+        '"disasterType"',
+        '"leadTime"',
+        `coalesce("eventName",'no-name') AS "eventName"`,
+        'MAX("date") AS max_date',
+      ])
+      .groupBy('"countryCodeISO3"')
+      .addGroupBy('"disasterType"')
+      .addGroupBy('"leadTime"')
+      .addGroupBy(`coalesce("eventName",'no-name')`);
+
+    const recordsToDelete = await this.adminAreaDynamicDataRepo
+      .createQueryBuilder('data')
+      .select('data."adminAreaDynamicDataId"')
+      .leftJoin(
+        '(' + maxDateQuery.getQuery() + ')',
+        'max_date',
+        `data."countryCodeISO3" = max_date."countryCodeISO3" AND data."disasterType" = max_date."disasterType" AND data."leadTime" = max_date."leadTime" AND coalesce(data."eventName",'no-name') = coalesce(max_date."eventName",'no-name')`,
+      )
+      .setParameters(maxDateQuery.getParameters())
+      .where('data.date < max_date.max_date')
+      .andWhere('data."disasterType" = :disasterType', {
+        disasterType: DisasterType.Floods,
+      })
+      .getRawMany();
+
+    if (recordsToDelete.length) {
+      const idsToDelete = recordsToDelete.map(id => id.adminAreaDynamicDataId);
+      const deleteResult = await this.adminAreaDynamicDataRepo
+        .createQueryBuilder()
+        .delete()
+        .where('"adminAreaDynamicDataId" IN (:...idsToDelete)', {
+          idsToDelete: idsToDelete,
+        })
+        .execute();
+      console.log(`deleted ${deleteResult.affected} old records`);
+    }
+  }
 }
