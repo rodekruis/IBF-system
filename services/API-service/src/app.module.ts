@@ -21,6 +21,7 @@ import { NotificationModule } from './api/notification/notification.module';
 import { UserModule } from './api/user/user.module';
 import { TyphoonTrackModule } from './api/typhoon-track/typhoon-track.module';
 import { WhatsappModule } from './api/notification/whatsapp/whatsapp.module';
+import { EvacuationCenterModule } from './api/evacuation-center/evacuation-center.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { WhatsappModule } from './api/notification/whatsapp/whatsapp.module';
     NotificationModule,
     UserModule,
     WhatsappModule,
+    EvacuationCenterModule,
   ],
   controllers: [AppController],
   providers: [],
