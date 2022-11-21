@@ -26,12 +26,12 @@
             "label": "No action",
             "color": "ibf-no-alert-primary",
             "valueLow": 0,
-            "valueHigh": 0.8
+            "valueHigh": 0.6
           },
           "max": {
             "label": "Activate EAP",
             "color": "ibf-trigger-alert-primary",
-            "valueLow": 0.8,
+            "valueLow": 0.6,
             "valueHigh": 1.01
           }
         }
