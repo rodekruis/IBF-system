@@ -11,7 +11,6 @@ export class EvacuationCenterDto {
   public evacuationCenterName: string;
 
   @ApiProperty({ example: 0 })
-  @ApiProperty({ example: 0 })
   @IsNotEmpty()
   public lat: number;
 

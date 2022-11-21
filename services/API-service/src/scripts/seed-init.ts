@@ -34,6 +34,7 @@ import { SeedDamData } from './seed-dam-data';
 import SeedRedcrossBranches from './seed-redcross-branches';
 import SeedAdminAreaData from './seed-admin-area-data';
 import SeedRainfallData from './seed-rainfall-data';
+import SeedEvacuationCenterData from './seed-evacuation-center-data';
 
 class NotificationInfo {
   countryCodeISO3: string;
@@ -364,6 +365,11 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed Dam Sites...');
     const seedDamSites = new SeedDamData(this.connection);
     await seedDamSites.run();
+
+    // ***** SEED EVACUATION CENTER DATA *****
+    console.log('Seed Evacuation Centers...');
+    const seedEvacuationSenters = new SeedEvacuationCenterData(this.connection);
+    await seedEvacuationSenters.run();
 
     // ***** SEED INDICATOR DATA PER ADMIN AREA *****
     console.log('Seed Indicator data per admin-area...');
