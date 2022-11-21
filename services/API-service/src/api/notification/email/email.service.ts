@@ -196,16 +196,20 @@ export class EmailService {
         replaceValue: country.notificationInfo.logo,
       },
       {
+        replaceKey: '(TRIGGER-STATEMENT)',
+        replaceValue: country.notificationInfo.triggerStatement[disasterType],
+      },
+      {
+        replaceKey: '(MAP-IMAGE-PART)',
+        replaceValue: await this.getMapImageHtml(country, disasterType, events),
+      },
+      {
         replaceKey: '(MAP-IMG-SRC)',
         replaceValue: this.getMapImgSrc(
           country.countryCodeISO3,
           disasterType,
           events[0].eventName,
         ),
-      },
-      {
-        replaceKey: '(TRIGGER-STATEMENT)',
-        replaceValue: country.notificationInfo.triggerStatement[disasterType],
       },
       {
         replaceKey: '(LINK-DASHBOARD)',
@@ -448,14 +452,34 @@ export class EmailService {
     }
   }
 
+  private async getMapImageHtml(
+    country: CountryEntity,
+    disasterType: DisasterType,
+    events: EventSummaryCountry[],
+  ): Promise<string> {
+    const mapImage = await this.eventService.getEventMapImage(
+      country.countryCodeISO3,
+      disasterType,
+      events[0].eventName || 'no-name',
+    );
+    if (mapImage) {
+      return fs.readFileSync(
+        './src/api/notification/email/html/map-image.html',
+        'utf8',
+      );
+    } else {
+      return '';
+    }
+  }
+
   private getMapImgSrc(
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
   ): string {
     const src = `${
-      process.env.EXTERNAL_API_SERVICE_URL
-    }api/event/event-map-image/${countryCodeISO3}/${disasterType}/${eventName ||
+      process.env.NG_API_URL
+    }/event/event-map-image/${countryCodeISO3}/${disasterType}/${eventName ||
       'no-name'}`;
     return src;
   }

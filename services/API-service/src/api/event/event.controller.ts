@@ -7,6 +7,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
   HttpStatus,
   Param,
   Post,
@@ -248,7 +249,7 @@ export class EventController {
   @ApiParam({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({ status: 200, description: 'Get event map image' })
   @Get('/event-map-image/:countryCodeISO3/:disasterType/:eventName')
-  public async intersolveInstructions(
+  public async getEventMapImage(
     @Res() response: Response,
     @Param() params,
   ): Promise<void> {
@@ -257,6 +258,12 @@ export class EventController {
       params.disasterType,
       params.eventName,
     );
+    if (!blob) {
+      throw new HttpException(
+        'Image not found. Please upload an image using POST and try again.',
+        HttpStatus.NOT_FOUND,
+      );
+    }
     const bufferStream = new stream.PassThrough();
     bufferStream.end(Buffer.from(blob, 'binary'));
     response.writeHead(HttpStatus.OK, {
