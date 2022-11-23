@@ -186,6 +186,7 @@ export class MapService {
   private onLayerChange = (layers: IbfLayerMetadata[]): void => {
     layers.forEach((layer: IbfLayerMetadata) => {
       const layerActive = this.getActiveState(layer);
+
       if (layer.type === IbfLayerType.wms) {
         this.loadWmsLayer(
           layer.name,
@@ -216,6 +217,8 @@ export class MapService {
         this.loadHealthSites(layerActive);
       } else if (layer.name === IbfLayerName.damSites) {
         this.loadDamSites(layerActive);
+      } else if (layer.name === IbfLayerName.evacuationCenters) {
+        this.loadEvacuationCenters(layerActive);
       }
     });
   };
@@ -433,6 +436,36 @@ export class MapService {
       order: 2,
     });
   }
+
+  private loadEvacuationCenters = (layerActive: boolean) => {
+    if (this.country) {
+      if (layerActive) {
+        this.apiService
+          .getEvacuationCenters(this.country.countryCodeISO3)
+          .subscribe((evacuationCenters) => {
+            this.addEvacuationCenters(evacuationCenters);
+          });
+      } else {
+        this.addEvacuationCenters(null);
+      }
+    }
+  };
+
+  private addEvacuationCenters = (evacuationCenters: any) => {
+    this.addLayer({
+      name: IbfLayerName.evacuationCenters,
+      label: IbfLayerLabel.evacuationCenters,
+      type: IbfLayerType.point,
+      description: this.getPopoverText(IbfLayerName.evacuationCenters),
+      active: this.adminLevelService.activeLayerNames.includes(
+        IbfLayerName.evacuationCenters,
+      ),
+      show: true,
+      data: evacuationCenters,
+      viewCenter: false,
+      order: 1,
+    });
+  };
 
   private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
     if (layerActive) {

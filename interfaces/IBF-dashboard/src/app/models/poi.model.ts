@@ -49,3 +49,10 @@ export class DamSite {
   latitude: string;
   longitude: string;
 }
+
+export class EvacuationCenter {
+  evacuationCenterName: string;
+  countryCodeISO3: string;
+  latitude: string;
+  longitude: string;
+}

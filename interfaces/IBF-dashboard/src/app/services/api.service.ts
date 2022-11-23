@@ -170,6 +170,12 @@ export class ApiService {
     return this.get(`waterpoints/${countryCodeISO3}`, false);
   }
 
+  getEvacuationCenters(
+    countryCodeISO3: string,
+  ): Observable<GeoJSON.FeatureCollection> {
+    return this.get(`evacuation-centers/${countryCodeISO3}`, false);
+  }
+
   getRecentDates(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,

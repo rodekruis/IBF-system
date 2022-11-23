@@ -59,6 +59,14 @@ export const LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT: IconOptions = {
   iconRetinaUrl: 'assets/markers/waterpoint.png',
 };
 
+export const LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER: IconOptions = {
+  ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  iconSize: [20, 33],
+  iconAnchor: [10, 33],
+  iconUrl: 'assets/markers/evacuation-center.png',
+  iconRetinaUrl: 'assets/markers/evacuation-center.png',
+};
+
 export const LEAFLET_MAP_OPTIONS: MapOptions = {
   zoom: 5,
   layers: [],

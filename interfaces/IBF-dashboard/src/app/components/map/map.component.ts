@@ -36,6 +36,7 @@ import {
   LEAFLET_MAP_URL_TEMPLATE,
   LEAFLET_MARKER_ICON_OPTIONS_BASE,
   LEAFLET_MARKER_ICON_OPTIONS_DAM,
+  LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
@@ -48,6 +49,7 @@ import {
 } from 'src/app/models/country.model';
 import {
   DamSite,
+  EvacuationCenter,
   HealthSite,
   HealthSiteType,
   RedCrossBranch,
@@ -1038,6 +1040,27 @@ export class MapComponent implements OnDestroy {
     return markerInstance;
   }
 
+  private createMarkerEvacuationCenter(
+    markerProperties: EvacuationCenter,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.evacuationCenterName;
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER),
+    });
+    markerInstance.bindPopup(
+      this.createMarkerEvacuationCenterPopup(markerProperties),
+    );
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.evacuationCenter),
+    );
+
+    return markerInstance;
+  }
+
   private createMarkerStationPopup(markerProperties: Station): string {
     const eapAlertClasses =
       (this.country &&
@@ -1170,6 +1193,18 @@ export class MapComponent implements OnDestroy {
         (Math.round(markerProperties.fullSupply).toLocaleString() || '') +
         ' million m<sup>3</sup></div>',
     );
+    return branchInfoPopup;
+  }
+
+  private createMarkerEvacuationCenterPopup(
+    markerProperties: EvacuationCenter,
+  ): string {
+    const branchInfoPopup =
+      '<div style="margin-bottom: 5px">' +
+      '<strong>Dam: ' +
+      markerProperties.evacuationCenterName +
+      '</strong>' +
+      '</div>';
     return branchInfoPopup;
   }
 
