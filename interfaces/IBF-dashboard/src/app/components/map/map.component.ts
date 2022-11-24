@@ -963,7 +963,7 @@ export class MapComponent implements OnDestroy {
     markerProperties: RedCrossBranch,
     markerLatLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.name;
+    const markerTitle = markerProperties.branchName;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
@@ -1161,7 +1161,7 @@ export class MapComponent implements OnDestroy {
     const branchInfoPopup = (
       '<div style="margin-bottom: 5px">' +
       '<strong>Branch: ' +
-      markerProperties.name +
+      markerProperties.branchName +
       '</strong>' +
       '</div>'
     ).concat(
@@ -1195,7 +1195,8 @@ export class MapComponent implements OnDestroy {
     ).concat(
       '<div style="margin-bottom: 5px">' +
         'Full Supply Capacity: ' +
-        (Math.round(markerProperties.fullSupply).toLocaleString() || '') +
+        (Math.round(markerProperties.fullSupplyCapacity).toLocaleString() ||
+          '') +
         ' million m<sup>3</sup></div>',
     );
     return branchInfoPopup;

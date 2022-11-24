@@ -21,31 +21,29 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
-import { EvacuationCenterService } from './evacuation-center.service';
+import { PointDataService } from './point-data.service';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
-@ApiTags('evacuation-centers')
-@Controller('evacuation-centers')
-export class EvacuationCenterController {
-  private readonly evacuationCenterService: EvacuationCenterService;
-
-  public constructor(evacuationCenterService: EvacuationCenterService) {
-    this.evacuationCenterService = evacuationCenterService;
-  }
+@ApiTags('point-data')
+@Controller('point-data')
+export class PointDataController {
+  public constructor(private readonly pointDataService: PointDataService) {}
 
   @ApiOperation({
     summary: 'Get evacuation center locations and attributes for given country',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
     description: 'Dam locations and attributes for given country.',
     type: GeoJson,
   })
-  @Get(':countryCodeISO3')
-  public async getEvacuationCenters(@Param() params): Promise<GeoJson> {
-    return await this.evacuationCenterService.getEvacuationCentersByCountry(
+  @Get(':pointDataCategory/:countryCodeISO3')
+  public async getPointData(@Param() params): Promise<GeoJson> {
+    return await this.pointDataService.getPointDataByCountry(
+      params.pointDataCategory,
       params.countryCodeISO3,
     );
   }
@@ -62,8 +60,9 @@ export class EvacuationCenterController {
     status: 400,
     description: 'Validation errors in content of CSV',
   })
+  @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @Post('upload/csv/:countryCodeISO3')
+  @Post('upload-csv/:pointDataCategory/:countryCodeISO3')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
@@ -78,11 +77,12 @@ export class EvacuationCenterController {
   })
   @UseInterceptors(FileInterceptor('file'))
   public async uploadCsv(
-    @UploadedFile() evacuationCenterData,
+    @UploadedFile() pointDataData,
     @Param() params,
   ): Promise<void> {
-    await this.evacuationCenterService.uploadCsv(
-      evacuationCenterData,
+    await this.pointDataService.uploadCsv(
+      pointDataData,
+      params.pointDataCategory,
       params.countryCodeISO3,
     );
   }

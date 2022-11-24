@@ -151,29 +151,29 @@ export class ApiService {
   getRedCrossBranches(
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`redcross-branches/${countryCodeISO3}`, false);
+    return this.get(`point-data/red_cross_branches/${countryCodeISO3}`, false);
   }
 
   getHealthSites(
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`health-sites/${countryCodeISO3}`, false);
+    return this.get(`point-data/health_sites/${countryCodeISO3}`, false);
   }
 
   getDamSites(countryCodeISO3: string): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`dam-sites/${countryCodeISO3}`, false);
+    return this.get(`point-data/dams/${countryCodeISO3}`, false);
+  }
+
+  getEvacuationCenters(
+    countryCodeISO3: string,
+  ): Observable<GeoJSON.FeatureCollection> {
+    return this.get(`point-data/evacuation_centers/${countryCodeISO3}`, false);
   }
 
   getWaterPoints(
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {
     return this.get(`waterpoints/${countryCodeISO3}`, false);
-  }
-
-  getEvacuationCenters(
-    countryCodeISO3: string,
-  ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`evacuation-centers/${countryCodeISO3}`, false);
   }
 
   getRecentDates(
