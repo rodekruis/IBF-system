@@ -477,6 +477,11 @@ export class MapComponent implements OnDestroy {
           geoJsonPoint.properties as HealthSite,
           latlng,
         );
+      case IbfLayerName.evacuationCenters:
+        return this.createMarkerEvacuationCenter(
+          geoJsonPoint.properties as EvacuationCenter,
+          latlng,
+        );
       default:
         return this.createMarkerDefault(latlng);
     }
@@ -1051,7 +1056,7 @@ export class MapComponent implements OnDestroy {
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER),
     });
     markerInstance.bindPopup(
-      this.createMarkerEvacuationCenterPopup(markerProperties),
+      this.createMarkerEvacuationCenterPopup(markerProperties, markerLatLng),
     );
     markerInstance.on(
       'click',
@@ -1198,14 +1203,14 @@ export class MapComponent implements OnDestroy {
 
   private createMarkerEvacuationCenterPopup(
     markerProperties: EvacuationCenter,
+    markerLatLng: LatLng,
   ): string {
-    const branchInfoPopup =
-      '<div style="margin-bottom: 5px">' +
-      '<strong>Dam: ' +
-      markerProperties.evacuationCenterName +
-      '</strong>' +
-      '</div>';
-    return branchInfoPopup;
+    return `<div style="margin-bottom: 5px"><strong>Evacuation center: ${
+      markerProperties.evacuationCenterName
+    }</strong></div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
+      markerLatLng,
+    )}
+    </div>`;
   }
 
   private createHealthSitePopup(markerProperties: HealthSite): string {

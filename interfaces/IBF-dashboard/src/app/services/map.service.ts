@@ -765,6 +765,10 @@ export class MapService {
       layerData = this.apiService
         .getDamSites(this.country.countryCodeISO3)
         .pipe(shareReplay(1));
+    } else if (layer.name === IbfLayerName.evacuationCenters) {
+      layerData = this.apiService
+        .getEvacuationCenters(this.country.countryCodeISO3)
+        .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.glofasStations) {
       layerData = this.apiService
         .getStations(
