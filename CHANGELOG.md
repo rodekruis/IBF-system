@@ -1,3 +1,17 @@
+# [0.200.0](https://github.com/rodekruis/IBF-system/compare/v0.199.1...v0.200.0) (2022-11-24)
+
+
+### Bug Fixes
+
+* assign all countries if not specified AB[#16393](https://github.com/rodekruis/IBF-system/issues/16393) ([319e6a1](https://github.com/rodekruis/IBF-system/commit/319e6a187754575926489c44a5aa0285c3777a87))
+
+
+### Features
+
+* make country-switcher available to non-admin multi-country users AB[#16333](https://github.com/rodekruis/IBF-system/issues/16333) ([086008e](https://github.com/rodekruis/IBF-system/commit/086008e8111c210bad99851af985ba88870253c8))
+
+
+
 ## [0.199.1](https://github.com/rodekruis/IBF-system/compare/v0.199.0...v0.199.1) (2022-11-24)
 
 
@@ -104,15 +118,6 @@
 ### Bug Fixes
 
 * update mock data AB[#16118](https://github.com/rodekruis/IBF-system/issues/16118) ([1c5f8ab](https://github.com/rodekruis/IBF-system/commit/1c5f8ab067e8450e76809be3fbb5fc71bf031c7b))
-
-
-
-## [0.194.6](https://github.com/rodekruis/IBF-system/compare/v0.194.5...v0.194.6) (2022-11-04)
-
-
-### Bug Fixes
-
-* flood extent offset ssd AB[#16116](https://github.com/rodekruis/IBF-system/issues/16116) ([ca819ab](https://github.com/rodekruis/IBF-system/commit/ca819abea459483fff21798d97af83548e7e6b0d))
 
 
 
