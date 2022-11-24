@@ -46,7 +46,12 @@ export class SeedHelper {
       for (const entity of entities) {
         const repository = await this.connection.getRepository(entity.name);
         if (repository.metadata.schema === 'IBF-app') {
-          const q = `TRUNCATE TABLE \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
+          let q;
+          if (entity.tableName === 'user') {
+            q = `DELETE FROM \"${repository.metadata.schema}\".\"${entity.tableName}\" WHERE username <> 'dunant'`;
+          } else {
+            q = `TRUNCATE TABLE \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
+          }
           await repository.query(q);
         }
       }

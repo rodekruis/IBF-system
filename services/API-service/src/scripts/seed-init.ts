@@ -249,17 +249,20 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE USERS *****
     console.log('Seed Users...');
+    const userRepository = this.connection.getRepository(UserEntity);
+
     let selectedUsers;
     if (process.env.PRODUCTION_DATA_SERVER === 'yes') {
       selectedUsers = users.filter((user): boolean => {
         return user.userRole === UserRole.Admin;
       });
       selectedUsers[0].password = process.env.ADMIN_PASSWORD;
+    } else if ((await userRepository.find()).length > 0) {
+      selectedUsers = users.filter(user => user.username !== 'dunant');
     } else {
       selectedUsers = users;
     }
 
-    const userRepository = this.connection.getRepository(UserEntity);
     const userEntities = await Promise.all(
       selectedUsers.map(
         async (user): Promise<UserEntity> => {
