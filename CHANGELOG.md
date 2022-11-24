@@ -1,3 +1,13 @@
+## [0.199.1](https://github.com/rodekruis/IBF-system/compare/v0.199.0...v0.199.1) (2022-11-24)
+
+
+### Bug Fixes
+
+* lower eap threshold AB[#16339](https://github.com/rodekruis/IBF-system/issues/16339) ([eac6463](https://github.com/rodekruis/IBF-system/commit/eac6463a585a5fc895d4ddf6391dd3972bbe015a))
+* update for all countries AB[#16339](https://github.com/rodekruis/IBF-system/issues/16339) ([a5ecfac](https://github.com/rodekruis/IBF-system/commit/a5ecfac9e3de2c6c7b7904f17188f2bd6ef2d319))
+
+
+
 # [0.199.0](https://github.com/rodekruis/IBF-system/compare/v0.198.0...v0.199.0) (2022-11-23)
 
 
@@ -103,15 +113,6 @@
 ### Bug Fixes
 
 * flood extent offset ssd AB[#16116](https://github.com/rodekruis/IBF-system/issues/16116) ([ca819ab](https://github.com/rodekruis/IBF-system/commit/ca819abea459483fff21798d97af83548e7e6b0d))
-
-
-
-## [0.194.5](https://github.com/rodekruis/IBF-system/compare/v0.194.4...v0.194.5) (2022-11-04)
-
-
-### Bug Fixes
-
-* adjust trigger statement + alert threshold popup AB[#16003](https://github.com/rodekruis/IBF-system/issues/16003) ([2f52a7b](https://github.com/rodekruis/IBF-system/commit/2f52a7bc8b06746c9e3d23335ea8601d10a085dd))
 
 
 
