@@ -359,7 +359,10 @@ export class ApiService {
     return this.get(
       `event/activation-log${
         countryCodeISO3 && disasterType
-          ? '?country=' + countryCodeISO3 + '&disasterType=' + disasterType
+          ? '?countryCodeISO3=' +
+            countryCodeISO3 +
+            '&disasterType=' +
+            disasterType
           : ''
       }`,
 

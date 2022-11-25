@@ -156,14 +156,14 @@ export class EventController {
       'Past and current trigger activation data per admin-area and disaster-type.',
     type: [ActivationLogDto],
   })
-  @ApiQuery({ name: 'country', required: false, type: 'string' })
+  @ApiQuery({ name: 'countryCodeISO3', required: false, type: 'string' })
   @ApiQuery({ name: 'disasterType', required: false, type: 'string' })
   @Get('activation-log')
   public async getActivationLogData(
     @Query() query,
   ): Promise<ActivationLogDto[]> {
     return await this.eventService.getActivationLogData(
-      query.country,
+      query.countryCodeISO3,
       query.disasterType,
     );
   }
