@@ -78,7 +78,7 @@ export enum IbfLayerName {
   roof_type = 'roof_type',
   covidRisk = 'covid_risk',
   healthSites = 'health_sites',
-  damSites = 'dam',
+  damSites = 'dams',
   alertThreshold = 'alert_threshold',
   potentialCases = 'potential_cases',
   potentialCases65 = 'potential_cases_65',
