@@ -73,21 +73,19 @@ export class PointDataService {
       pointDataCategory: pointDataCategory,
     });
 
-    for await (const point of validatedObjArray) {
+    const dataArray = validatedObjArray.map(point => {
       const pointAttributes = JSON.parse(JSON.stringify(point)); // hack: clone without referencing
       delete pointAttributes['lat'];
       delete pointAttributes['lon'];
-      const dataArray = validatedObjArray.map(point => {
-        return {
-          countryCodeISO3: countryCodeISO3,
-          pointDataCategory: pointDataCategory,
-          attributes: JSON.parse(JSON.stringify(pointAttributes)),
-          geom: (): string =>
-            `st_asgeojson(st_MakePoint(${point.lon}, ${point.lat}))::json`,
-        };
-      });
-      await this.pointDataRepository.save(dataArray);
-    }
+      return {
+        countryCodeISO3: countryCodeISO3,
+        pointDataCategory: pointDataCategory,
+        attributes: JSON.parse(JSON.stringify(pointAttributes)),
+        geom: (): string =>
+          `st_asgeojson(st_MakePoint(${point.lon}, ${point.lat}))::json`,
+      };
+    });
+    await this.pointDataRepository.save(dataArray);
   }
 
   public async uploadCsv(
