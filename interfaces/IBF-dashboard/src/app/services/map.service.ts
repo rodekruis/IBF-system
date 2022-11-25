@@ -207,18 +207,11 @@ export class MapService {
         this.loadStationLayer(layerActive);
       } else if (layer.name === IbfLayerName.typhoonTrack) {
         this.loadTyphoonTrackLayer(layerActive);
-      } else if (layer.name === IbfLayerName.redCrossBranches) {
-        this.loadRedCrossBranchesLayer(layer.label, layerActive);
-      } else if (layer.name === IbfLayerName.redCrescentBranches) {
-        this.loadRedCrossBranchesLayer(layer.label, layerActive);
       } else if (layer.name === IbfLayerName.waterpoints) {
         this.loadWaterPointsLayer(layerActive);
-      } else if (layer.name === IbfLayerName.healthSites) {
-        this.loadHealthSites(layerActive);
-      } else if (layer.name === IbfLayerName.damSites) {
-        this.loadDamSites(layerActive);
-      } else if (layer.name === IbfLayerName.evacuationCenters) {
-        this.loadEvacuationCenters(layerActive);
+      } else if (layer.type === IbfLayerType.point) {
+        // NOTE: any non-standard point layers should be placed above this 'else if'!
+        this.loadPointDataLayer(layer.name, layer.label, layerActive);
       }
     });
   };
@@ -311,97 +304,41 @@ export class MapService {
     });
   };
 
-  private loadRedCrossBranchesLayer = (
+  private loadPointDataLayer = (
+    layerName: IbfLayerName,
     label: IbfLayerLabel,
     layerActive: boolean,
   ) => {
+    layerName =
+      layerName === IbfLayerName.redCrescentBranches
+        ? IbfLayerName.redCrossBranches
+        : layerName;
     if (this.country) {
       if (layerActive) {
         this.apiService
-          .getRedCrossBranches(this.country.countryCodeISO3)
-          .subscribe((redCrossBranches) => {
-            this.addRedCrossBranchesLayer(label, redCrossBranches);
+          .getPointData(this.country.countryCodeISO3, layerName)
+          .subscribe((pointData) => {
+            this.addPointDataLayer(layerName, label, pointData);
           });
       } else {
-        this.addRedCrossBranchesLayer(label, null);
+        this.addPointDataLayer(layerName, label, null);
       }
     }
   };
 
-  private addRedCrossBranchesLayer = (
+  private addPointDataLayer = (
+    layerName: IbfLayerName,
     label: IbfLayerLabel,
-    redCrossBranches: any,
+    pointData: any,
   ) => {
     this.addLayer({
-      name: IbfLayerName.redCrossBranches,
+      name: layerName,
       label,
       type: IbfLayerType.point,
-      description: this.getPopoverText(IbfLayerName.redCrossBranches),
-      active: this.adminLevelService.activeLayerNames.includes(
-        IbfLayerName.redCrossBranches,
-      ),
+      description: this.getPopoverText(layerName),
+      active: this.adminLevelService.activeLayerNames.includes(layerName),
       show: true,
-      data: redCrossBranches,
-      viewCenter: false,
-      order: 1,
-    });
-  };
-
-  private loadDamSites = (layerActive: boolean) => {
-    if (this.country) {
-      if (layerActive) {
-        this.apiService
-          .getDamSites(this.country.countryCodeISO3)
-          .subscribe((damSites) => {
-            this.addDamSites(damSites);
-          });
-      } else {
-        this.addDamSites(null);
-      }
-    }
-  };
-
-  private addDamSites = (damSites: any) => {
-    this.addLayer({
-      name: IbfLayerName.damSites,
-      label: IbfLayerLabel.damSites,
-      type: IbfLayerType.point,
-      description: this.getPopoverText(IbfLayerName.damSites),
-      active: this.adminLevelService.activeLayerNames.includes(
-        IbfLayerName.damSites,
-      ),
-      show: true,
-      data: damSites,
-      viewCenter: false,
-      order: 1,
-    });
-  };
-
-  private loadHealthSites = (layerActive: boolean) => {
-    if (this.country) {
-      if (layerActive) {
-        this.apiService
-          .getHealthSites(this.country.countryCodeISO3)
-          .subscribe((healthSites) => {
-            this.addHealthSites(healthSites);
-          });
-      } else {
-        this.addHealthSites(null);
-      }
-    }
-  };
-
-  private addHealthSites = (healthSites: any) => {
-    this.addLayer({
-      name: IbfLayerName.healthSites,
-      label: IbfLayerLabel.healthSites,
-      type: IbfLayerType.point,
-      description: this.getPopoverText(IbfLayerName.healthSites),
-      active: this.adminLevelService.activeLayerNames.includes(
-        IbfLayerName.healthSites,
-      ),
-      show: true,
-      data: healthSites,
+      data: pointData,
       viewCenter: false,
       order: 1,
     });
@@ -436,36 +373,6 @@ export class MapService {
       order: 2,
     });
   }
-
-  private loadEvacuationCenters = (layerActive: boolean) => {
-    if (this.country) {
-      if (layerActive) {
-        this.apiService
-          .getEvacuationCenters(this.country.countryCodeISO3)
-          .subscribe((evacuationCenters) => {
-            this.addEvacuationCenters(evacuationCenters);
-          });
-      } else {
-        this.addEvacuationCenters(null);
-      }
-    }
-  };
-
-  private addEvacuationCenters = (evacuationCenters: any) => {
-    this.addLayer({
-      name: IbfLayerName.evacuationCenters,
-      label: IbfLayerLabel.evacuationCenters,
-      type: IbfLayerType.point,
-      description: this.getPopoverText(IbfLayerName.evacuationCenters),
-      active: this.adminLevelService.activeLayerNames.includes(
-        IbfLayerName.evacuationCenters,
-      ),
-      show: true,
-      data: evacuationCenters,
-      viewCenter: false,
-      order: 1,
-    });
-  };
 
   private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
     if (layerActive) {
@@ -750,25 +657,6 @@ export class MapService {
       layerData = this.apiService
         .getWaterPoints(this.country.countryCodeISO3)
         .pipe(shareReplay(1));
-    } else if (
-      layer.name === IbfLayerName.redCrossBranches ||
-      layer.name === IbfLayerName.redCrescentBranches
-    ) {
-      layerData = this.apiService
-        .getRedCrossBranches(this.country.countryCodeISO3)
-        .pipe(shareReplay(1));
-    } else if (layer.name === IbfLayerName.healthSites) {
-      layerData = this.apiService
-        .getHealthSites(this.country.countryCodeISO3)
-        .pipe(shareReplay(1));
-    } else if (layer.name === IbfLayerName.damSites) {
-      layerData = this.apiService
-        .getDamSites(this.country.countryCodeISO3)
-        .pipe(shareReplay(1));
-    } else if (layer.name === IbfLayerName.evacuationCenters) {
-      layerData = this.apiService
-        .getEvacuationCenters(this.country.countryCodeISO3)
-        .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.glofasStations) {
       layerData = this.apiService
         .getStations(
@@ -783,6 +671,15 @@ export class MapService {
           this.timelineState.activeLeadTime,
           this.eventState?.event?.eventName,
         )
+        .pipe(shareReplay(1));
+    } else if (layer.type === IbfLayerType.point) {
+      // NOTE: any non-standard point layers should be placed above this 'else if'!
+      const layerName =
+        layer.name === IbfLayerName.redCrescentBranches
+          ? IbfLayerName.redCrossBranches
+          : layer.name;
+      layerData = this.apiService
+        .getPointData(this.country.countryCodeISO3, layerName)
         .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.adminRegions) {
       layerData = this.apiService

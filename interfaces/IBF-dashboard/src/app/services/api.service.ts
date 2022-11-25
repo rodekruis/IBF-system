@@ -10,6 +10,7 @@ import { AdminLevel } from 'src/app/types/admin-level';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { DisasterTypeKey } from '../types/disaster-type-key';
+import { IbfLayerName } from '../types/ibf-layer';
 import { EventSummary } from './event.service';
 
 @Injectable({
@@ -148,26 +149,11 @@ export class ApiService {
     );
   }
 
-  getRedCrossBranches(
+  getPointData(
     countryCodeISO3: string,
+    layerName: IbfLayerName,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`point-data/red_cross_branches/${countryCodeISO3}`, false);
-  }
-
-  getHealthSites(
-    countryCodeISO3: string,
-  ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`point-data/health_sites/${countryCodeISO3}`, false);
-  }
-
-  getDamSites(countryCodeISO3: string): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`point-data/dams/${countryCodeISO3}`, false);
-  }
-
-  getEvacuationCenters(
-    countryCodeISO3: string,
-  ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`point-data/evacuation_centers/${countryCodeISO3}`, false);
+    return this.get(`point-data/${layerName}/${countryCodeISO3}`, false);
   }
 
   getWaterPoints(
