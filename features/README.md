@@ -45,6 +45,10 @@ In practice, the pipeline is often time-scheduled and not manually triggered by 
 
 - [Run pipeline](pipeline-user/Run_pipeline.feature)
 
+### Automatic (scheduled) processes
+
+- [Delete old data](Automatic-processes/Scheduled_processes.feature)
+
 ---
 
 # Theory
