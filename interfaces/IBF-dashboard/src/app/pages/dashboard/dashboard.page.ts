@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 export class DashboardPage implements OnInit {
   public version: string = environment.ibfSystemVersion;
   public isDev = false;
+  public isMultiCountry = false;
   private readonly adminRole = UserRole.Admin;
   public environmentConfiguration = environment.configuration;
 
@@ -31,6 +32,7 @@ export class DashboardPage implements OnInit {
   private onUserChange = (user: User): void => {
     if (user) {
       this.isDev = user.userRole === this.adminRole;
+      this.isMultiCountry = user.countries.length > 1;
     }
   };
 }

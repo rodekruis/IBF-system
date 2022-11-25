@@ -36,6 +36,7 @@ import {
   LEAFLET_MAP_URL_TEMPLATE,
   LEAFLET_MARKER_ICON_OPTIONS_BASE,
   LEAFLET_MARKER_ICON_OPTIONS_DAM,
+  LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
@@ -48,6 +49,7 @@ import {
 } from 'src/app/models/country.model';
 import {
   DamSite,
+  EvacuationCenter,
   HealthSite,
   HealthSiteType,
   RedCrossBranch,
@@ -475,6 +477,11 @@ export class MapComponent implements OnDestroy {
           geoJsonPoint.properties as HealthSite,
           latlng,
         );
+      case IbfLayerName.evacuationCenters:
+        return this.createMarkerEvacuationCenter(
+          geoJsonPoint.properties as EvacuationCenter,
+          latlng,
+        );
       default:
         return this.createMarkerDefault(latlng);
     }
@@ -850,7 +857,6 @@ export class MapComponent implements OnDestroy {
       ) {
         markerIcon = {
           ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-          iconSize: [25, 41],
           iconUrl: 'assets/markers/glofas-' + key + '.png',
           iconRetinaUrl: 'assets/markers/glofas-' + key + '.png',
         };
@@ -956,7 +962,7 @@ export class MapComponent implements OnDestroy {
     markerProperties: RedCrossBranch,
     markerLatLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.name;
+    const markerTitle = markerProperties.branchName;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
@@ -1033,6 +1039,27 @@ export class MapComponent implements OnDestroy {
     markerInstance.on(
       'click',
       this.onMapMarkerClick(AnalyticsEvent.waterPoint),
+    );
+
+    return markerInstance;
+  }
+
+  private createMarkerEvacuationCenter(
+    markerProperties: EvacuationCenter,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.evacuationCenterName;
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER),
+    });
+    markerInstance.bindPopup(
+      this.createMarkerEvacuationCenterPopup(markerProperties, markerLatLng),
+    );
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.evacuationCenter),
     );
 
     return markerInstance;
@@ -1133,7 +1160,7 @@ export class MapComponent implements OnDestroy {
     const branchInfoPopup = (
       '<div style="margin-bottom: 5px">' +
       '<strong>Branch: ' +
-      markerProperties.name +
+      markerProperties.branchName +
       '</strong>' +
       '</div>'
     ).concat(
@@ -1167,10 +1194,23 @@ export class MapComponent implements OnDestroy {
     ).concat(
       '<div style="margin-bottom: 5px">' +
         'Full Supply Capacity: ' +
-        (Math.round(markerProperties.fullSupply).toLocaleString() || '') +
+        (Math.round(markerProperties.fullSupplyCapacity).toLocaleString() ||
+          '') +
         ' million m<sup>3</sup></div>',
     );
     return branchInfoPopup;
+  }
+
+  private createMarkerEvacuationCenterPopup(
+    markerProperties: EvacuationCenter,
+    markerLatLng: LatLng,
+  ): string {
+    return `<div style="margin-bottom: 5px"><strong>Evacuation center: ${
+      markerProperties.evacuationCenterName
+    }</strong></div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
+      markerLatLng,
+    )}
+    </div>`;
   }
 
   private createHealthSitePopup(markerProperties: HealthSite): string {

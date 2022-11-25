@@ -1,3 +1,36 @@
+# [0.200.0](https://github.com/rodekruis/IBF-system/compare/v0.199.1...v0.200.0) (2022-11-24)
+
+
+### Bug Fixes
+
+* assign all countries if not specified AB[#16393](https://github.com/rodekruis/IBF-system/issues/16393) ([319e6a1](https://github.com/rodekruis/IBF-system/commit/319e6a187754575926489c44a5aa0285c3777a87))
+
+
+### Features
+
+* make country-switcher available to non-admin multi-country users AB[#16333](https://github.com/rodekruis/IBF-system/issues/16333) ([086008e](https://github.com/rodekruis/IBF-system/commit/086008e8111c210bad99851af985ba88870253c8))
+
+
+
+## [0.199.1](https://github.com/rodekruis/IBF-system/compare/v0.199.0...v0.199.1) (2022-11-24)
+
+
+### Bug Fixes
+
+* lower eap threshold AB[#16339](https://github.com/rodekruis/IBF-system/issues/16339) ([eac6463](https://github.com/rodekruis/IBF-system/commit/eac6463a585a5fc895d4ddf6391dd3972bbe015a))
+* update for all countries AB[#16339](https://github.com/rodekruis/IBF-system/issues/16339) ([a5ecfac](https://github.com/rodekruis/IBF-system/commit/a5ecfac9e3de2c6c7b7904f17188f2bd6ef2d319))
+
+
+
+# [0.199.0](https://github.com/rodekruis/IBF-system/compare/v0.198.0...v0.199.0) (2022-11-23)
+
+
+### Features
+
+* SSD info popups first setup AB[#16237](https://github.com/rodekruis/IBF-system/issues/16237) ([579e4bc](https://github.com/rodekruis/IBF-system/commit/579e4bcbf7df2a716c54e0421bc524e08933d1c3))
+
+
+
 # [0.198.0](https://github.com/rodekruis/IBF-system/compare/v0.197.0...v0.198.0) (2022-11-18)
 
 
@@ -85,34 +118,6 @@
 ### Bug Fixes
 
 * update mock data AB[#16118](https://github.com/rodekruis/IBF-system/issues/16118) ([1c5f8ab](https://github.com/rodekruis/IBF-system/commit/1c5f8ab067e8450e76809be3fbb5fc71bf031c7b))
-
-
-
-## [0.194.6](https://github.com/rodekruis/IBF-system/compare/v0.194.5...v0.194.6) (2022-11-04)
-
-
-### Bug Fixes
-
-* flood extent offset ssd AB[#16116](https://github.com/rodekruis/IBF-system/issues/16116) ([ca819ab](https://github.com/rodekruis/IBF-system/commit/ca819abea459483fff21798d97af83548e7e6b0d))
-
-
-
-## [0.194.5](https://github.com/rodekruis/IBF-system/compare/v0.194.4...v0.194.5) (2022-11-04)
-
-
-### Bug Fixes
-
-* adjust trigger statement + alert threshold popup AB[#16003](https://github.com/rodekruis/IBF-system/issues/16003) ([2f52a7b](https://github.com/rodekruis/IBF-system/commit/2f52a7bc8b06746c9e3d23335ea8601d10a085dd))
-
-
-
-## [0.194.4](https://github.com/rodekruis/IBF-system/compare/v0.194.3...v0.194.4) (2022-11-04)
-
-
-### Bug Fixes
-
-* make below trigger also bold AB[#16107](https://github.com/rodekruis/IBF-system/issues/16107) ([41cf6ac](https://github.com/rodekruis/IBF-system/commit/41cf6ac033f64237516ad9d9613ada657db4245e))
-* replace SSD  correct data AB[#16032](https://github.com/rodekruis/IBF-system/issues/16032) ([97c035a](https://github.com/rodekruis/IBF-system/commit/97c035af6e43c0664aaa9757be72a62ef7cdf8b3))
 
 
 

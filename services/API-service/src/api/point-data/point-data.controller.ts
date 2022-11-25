@@ -7,6 +7,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -16,43 +17,40 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { RolesGuard } from '../../roles.guard';
-import { DamSiteService } from './dam-site.service';
-import { GeoJson } from '../../shared/geo.model';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { Roles } from '../../roles.decorator';
+import { RolesGuard } from '../../roles.guard';
+import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
+import { PointDataService } from './point-data.service';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
-@ApiTags('dam-sites')
-@Controller('dam-sites')
-export class DamSiteController {
-  private readonly damSiteService: DamSiteService;
-
-  public constructor(damSiteService: DamSiteService) {
-    this.damSiteService = damSiteService;
-  }
+@ApiTags('point-data')
+@Controller('point-data')
+export class PointDataController {
+  public constructor(private readonly pointDataService: PointDataService) {}
 
   @ApiOperation({
-    summary: 'Get dam locations and attributes for given country',
+    summary: 'Get evacuation center locations and attributes for given country',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
     description: 'Dam locations and attributes for given country.',
     type: GeoJson,
   })
-  @Get(':countryCodeISO3')
-  public async getDamSites(@Param() params): Promise<GeoJson> {
-    return await this.damSiteService.getDamSitesByCountry(
+  @Get(':pointDataCategory/:countryCodeISO3')
+  public async getPointData(@Param() params): Promise<GeoJson> {
+    return await this.pointDataService.getPointDataByCountry(
+      params.pointDataCategory,
       params.countryCodeISO3,
     );
   }
 
   @Roles(UserRole.Admin)
   @ApiOperation({
-    summary: 'Upload (and overwrite) dam sites data via CSV',
+    summary: 'Upload (and overwrite) evacuation sites data via CSV',
   })
   @ApiResponse({
     status: 201,
@@ -62,8 +60,9 @@ export class DamSiteController {
     status: 400,
     description: 'Validation errors in content of CSV',
   })
+  @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @Post('upload/csv/:countryCodeISO3')
+  @Post('upload-csv/:pointDataCategory/:countryCodeISO3')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
@@ -78,11 +77,12 @@ export class DamSiteController {
   })
   @UseInterceptors(FileInterceptor('file'))
   public async uploadCsv(
-    @UploadedFile() redCrossBranchData,
+    @UploadedFile() pointDataData,
     @Param() params,
   ): Promise<void> {
-    await this.damSiteService.uploadCsv(
-      redCrossBranchData,
+    await this.pointDataService.uploadCsv(
+      pointDataData,
+      params.pointDataCategory,
       params.countryCodeISO3,
     );
   }

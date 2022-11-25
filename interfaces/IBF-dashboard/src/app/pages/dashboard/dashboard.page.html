@@ -17,6 +17,7 @@
   <ion-content>
     <ion-list color="dark" class="ion-no-padding">
       <ion-item
+        [class.ion-hide]="!isDev"
         href="https://github.com/rodekruis/IBF-system/releases/tag/{{
           version
         }}"
@@ -31,10 +32,11 @@
         class="ion-align-items-center"
       ></app-country-switcher>
       <app-backend-mock-scenario
+        [class.ion-hide]="!isDev"
         class="ion-align-items-center"
       ></app-backend-mock-scenario>
     </ion-list>
-    <ion-list color="dark" class="ion-no-padding">
+    <ion-list color="dark" class="ion-no-padding" [class.ion-hide]="!isDev">
       <ion-item
         href="/activation-log"
         lines="full"
@@ -53,10 +55,13 @@
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-button title="Home" [class.ion-hide]="isDev">
+        <ion-button title="Home" [class.ion-hide]="isDev || isMultiCountry">
           <ion-icon name="apps" slot="icon-only"></ion-icon>
         </ion-button>
-        <ion-menu-toggle menu="dev-control" [class.ion-hide]="!isDev">
+        <ion-menu-toggle
+          menu="dev-control"
+          [class.ion-hide]="!isDev && !isMultiCountry"
+        >
           <ion-button>
             <ion-icon name="apps" slot="icon-only"></ion-icon>
           </ion-button>
