@@ -25,4 +25,5 @@ export enum AnalyticsEvent {
   mapPlaceSelect = 'map-place-select',
   leadTime = 'lead-time',
   stopTrigger = 'stop-trigger',
+  evacuationCenter = 'evacuation-center',
 }

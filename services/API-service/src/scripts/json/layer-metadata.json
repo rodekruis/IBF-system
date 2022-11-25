@@ -99,7 +99,7 @@
   {
     "countryCodes": "ZWE",
     "disasterTypes": ["drought"],
-    "name": "dam",
+    "name": "dams",
     "label": "Dam Sites",
     "type": "point",
     "leadTimeDependent": false,
@@ -173,5 +173,14 @@
     "label": "Admin Level 4",
     "type": "shape",
     "active": "yes"
+  },
+  {
+    "countryCodes": "SSD",
+    "disasterTypes": ["floods"],
+    "name": "evacuation_centers",
+    "label": "Evacuation Centers",
+    "type": "point",
+    "leadTimeDependent": false,
+    "active": "no"
   }
 ]

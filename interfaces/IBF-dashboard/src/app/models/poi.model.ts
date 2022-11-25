@@ -18,7 +18,7 @@ export class TyphoonTrackPoint {
   firstLandfall: boolean;
 }
 export class RedCrossBranch {
-  name: string;
+  branchName: string;
   numberOfVolunteers: number;
   contactPerson: string;
   contactAddress: string;
@@ -45,7 +45,14 @@ export enum HealthSiteType {
 export class DamSite {
   damName: string;
   countryCodeISO3: string;
-  fullSupply: number;
+  fullSupplyCapacity: number;
+  latitude: string;
+  longitude: string;
+}
+
+export class EvacuationCenter {
+  evacuationCenterName: string;
+  countryCodeISO3: string;
   latitude: string;
   longitude: string;
 }
