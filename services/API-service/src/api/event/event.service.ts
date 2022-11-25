@@ -326,45 +326,9 @@ export class EventService {
 
   public async getActivationLogData(
     countryCodeISO3?: string,
-    disasterType?: DisasterType,
+    disasterType?: string,
   ): Promise<ActivationLogDto[]> {
-    let activationLogData: ActivationLogDto[] = [];
-    if (countryCodeISO3 && disasterType) {
-      activationLogData = await this.getActivationLogPerCountryDisasterType(
-        countryCodeISO3,
-        disasterType,
-      );
-    } else {
-      for (const country of await this.countryService.getAllCountries()) {
-        for (const disasterType of country.disasterTypes) {
-          activationLogData = [
-            ...activationLogData,
-            ...(await this.getActivationLogPerCountryDisasterType(
-              country.countryCodeISO3,
-              disasterType.disasterType,
-            )),
-          ];
-        }
-      }
-    }
-    return activationLogData;
-  }
-
-  public async getActivationLogPerCountryDisasterType(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-  ): Promise<ActivationLogDto[]> {
-    const lastTriggeredDate = await this.getRecentDate(
-      countryCodeISO3,
-      disasterType,
-    );
-    const actionUnit = await this.getActionUnit(disasterType);
-    const actionValuePerPlaceCode = this.getActionValuePerPlaceCodeQuery(
-      actionUnit,
-      lastTriggeredDate,
-    );
-
-    const activationLogData = await this.eventPlaceCodeRepo
+    let baseQuery = this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."countryCodeISO3" AS "countryCodeISO3"',
@@ -377,56 +341,34 @@ export class EventService {
         'case when event.stopped = true then event."manualStoppedDate" end as "stopDate"',
         'event.closed as closed',
         'case when event.closed = true then event."endDate" end as "endDate"',
-        `'${actionUnit}' as "exposureIndicator"`,
-        'dynamic."actionsValue" as "exposureValue"',
+        'disaster."actionsUnit" as "exposureIndicator"',
+        'event."actionsValue" as "exposureValue"',
         'event."eventPlaceCodeId" as "databaseId"',
       ])
       .leftJoin('event.adminArea', 'area')
-      .leftJoin(
-        '(' + actionValuePerPlaceCode.getQuery() + ')',
-        'dynamic',
-        `area."placeCode" = dynamic."placeCode" \
-        AND coalesce(event."eventName",'no-name') = coalesce(dynamic."eventName",'no-name') \
-        AND area."countryCodeISO3" = dynamic."countryCodeISO3" \
-        AND event."disasterType" = dynamic."disasterType"`,
-      )
-      .setParameters(actionValuePerPlaceCode.getParameters())
+      .leftJoin('event.disasterType', 'disaster')
       .where({ thresholdReached: true })
       .orderBy('event."startDate"', 'DESC')
       .addOrderBy('area."countryCodeISO3"', 'ASC')
       .addOrderBy('event."disasterType"', 'ASC')
-      .addOrderBy('area."placeCode"', 'ASC')
-      .getRawMany();
+      .addOrderBy('area."placeCode"', 'ASC');
+
+    if (countryCodeISO3 && disasterType) {
+      baseQuery = baseQuery
+        .andWhere('event."disasterType" = :disasterType', {
+          disasterType: disasterType,
+        })
+        .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
+          countryCodeISO3: countryCodeISO3,
+        });
+    }
+    const activationLogData = await baseQuery.getRawMany();
 
     if (!activationLogData.length) {
       return [new ActivationLogDto()];
     }
 
     return activationLogData;
-  }
-
-  private getActionValuePerPlaceCodeQuery(
-    actionUnit: string,
-    lastTriggeredDate,
-  ): SelectQueryBuilder<any> {
-    return this.adminAreaDynamicDataRepo
-      .createQueryBuilder('dynamic')
-      .select([
-        'dynamic."placeCode"',
-        'dynamic."eventName"',
-        'dynamic."disasterType"',
-        'dynamic."countryCodeISO3"',
-        'MAX(dynamic.value) AS "actionsValue"',
-      ])
-      .where('dynamic.indicator = :indicator', { indicator: actionUnit })
-      .andWhere('dynamic.date = :date', { date: lastTriggeredDate.date })
-      .andWhere('extract(hour from dynamic.timestamp) = :hour', {
-        hour: lastTriggeredDate.timestamp.getHours(),
-      })
-      .groupBy('dynamic."placeCode"')
-      .addGroupBy('dynamic."eventName"')
-      .addGroupBy('dynamic."disasterType"')
-      .addGroupBy('dynamic."countryCodeISO3"');
   }
 
   public async getTriggerPerLeadtime(

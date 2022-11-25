@@ -164,7 +164,7 @@ export class EventController {
   ): Promise<ActivationLogDto[]> {
     return await this.eventService.getActivationLogData(
       query.country,
-      query.disasterType as DisasterType,
+      query.disasterType,
     );
   }
 
