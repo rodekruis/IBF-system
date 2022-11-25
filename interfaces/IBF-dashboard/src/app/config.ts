@@ -12,8 +12,8 @@ export const LEAFLET_MAP_ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">Carto</a>';
 
 export const LEAFLET_MARKER_ICON_OPTIONS_BASE: IconOptions = {
-  iconSize: [25, 41],
-  iconAnchor: [13, 41],
+  iconSize: [30, 50],
+  iconAnchor: [15, 50],
   popupAnchor: [0, -30],
   iconUrl: 'assets/markers/glofas-no.svg',
   iconRetinaUrl: 'assets/markers/glofas-no.svg',
@@ -61,8 +61,8 @@ export const LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT: IconOptions = {
 
 export const LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconSize: [20, 33],
-  iconAnchor: [10, 33],
+  iconSize: [30, 50],
+  iconAnchor: [15, 50],
   iconUrl: 'assets/markers/evacuation-center.png',
   iconRetinaUrl: 'assets/markers/evacuation-center.png',
 };

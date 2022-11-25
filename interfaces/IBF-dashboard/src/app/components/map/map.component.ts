@@ -857,7 +857,6 @@ export class MapComponent implements OnDestroy {
       ) {
         markerIcon = {
           ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-          iconSize: [25, 41],
           iconUrl: 'assets/markers/glofas-' + key + '.png',
           iconRetinaUrl: 'assets/markers/glofas-' + key + '.png',
         };
