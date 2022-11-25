@@ -1,3 +1,28 @@
+# [0.201.0](https://github.com/rodekruis/IBF-system/compare/v0.200.0...v0.201.0) (2022-11-25)
+
+
+### Bug Fixes
+
+* bug in updating point data AB[#16397](https://github.com/rodekruis/IBF-system/issues/16397) ([73a65b9](https://github.com/rodekruis/IBF-system/commit/73a65b93b57597225c162b297454bbd5cd10a178))
+* correct column name AB[#16235](https://github.com/rodekruis/IBF-system/issues/16235) ([eab07c2](https://github.com/rodekruis/IBF-system/commit/eab07c29ac477325d7d40efacde58d087ad8fbff))
+* mace icons bigger AB[#16411](https://github.com/rodekruis/IBF-system/issues/16411) ([3012ceb](https://github.com/rodekruis/IBF-system/commit/3012ceb3e223995858a7166e846f27860bfe2e4f))
+* rename dam to dams AB[#16397](https://github.com/rodekruis/IBF-system/issues/16397) ([c16d7fd](https://github.com/rodekruis/IBF-system/commit/c16d7fda3dfd27873cbf806fda715b706353cf36))
+* show markers AB[#16236](https://github.com/rodekruis/IBF-system/issues/16236) ([59986d1](https://github.com/rodekruis/IBF-system/commit/59986d15bf2c590c79d7456489b6ff9554b557f8))
+
+
+### Features
+
+* add centers with mock latlon AB[#16235](https://github.com/rodekruis/IBF-system/issues/16235) ([3913992](https://github.com/rodekruis/IBF-system/commit/39139920bf78b504e1721c904b88fcefd3728298))
+* add new endpoint AB[#16236](https://github.com/rodekruis/IBF-system/issues/16236) ([849d639](https://github.com/rodekruis/IBF-system/commit/849d639a9d274479b342a710d4e2e84f2e5c7f78))
+* add new layer AB[#16236](https://github.com/rodekruis/IBF-system/issues/16236) ([58c689b](https://github.com/rodekruis/IBF-system/commit/58c689b372d5b5f7fbf57d779b29ee8631c5beb2))
+* add seed evacuation centers AB[#16236](https://github.com/rodekruis/IBF-system/issues/16236) ([9789e35](https://github.com/rodekruis/IBF-system/commit/9789e358ccec6745e6eade9a1d57925bd91873af))
+* create marker AB[#16234](https://github.com/rodekruis/IBF-system/issues/16234) ([3586444](https://github.com/rodekruis/IBF-system/commit/358644494f387cec47aa6218da540a98991805d5))
+* create migration AB[#16236](https://github.com/rodekruis/IBF-system/issues/16236) ([7a7bf44](https://github.com/rodekruis/IBF-system/commit/7a7bf4441737102f14ba4d37930d5ac120f743f6))
+* leave dunant-user when reseeding AB[#16399](https://github.com/rodekruis/IBF-system/issues/16399) ([da2985d](https://github.com/rodekruis/IBF-system/commit/da2985d95a4b94388caf9e4343961b39b3364ca0))
+* merge all standard point-data into 1 module/entity/etc. AB[#16397](https://github.com/rodekruis/IBF-system/issues/16397) ([e00abe9](https://github.com/rodekruis/IBF-system/commit/e00abe9d1c019cc4fcd76968a6bebc981662004f))
+
+
+
 # [0.200.0](https://github.com/rodekruis/IBF-system/compare/v0.199.1...v0.200.0) (2022-11-24)
 
 
@@ -109,15 +134,6 @@
 ### Bug Fixes
 
 * show parent with one level enabled AB[#16139](https://github.com/rodekruis/IBF-system/issues/16139) ([2224fcf](https://github.com/rodekruis/IBF-system/commit/2224fcfb977b1254a916a45823d2ffdeac673ba4))
-
-
-
-## [0.194.7](https://github.com/rodekruis/IBF-system/compare/v0.194.6...v0.194.7) (2022-11-04)
-
-
-### Bug Fixes
-
-* update mock data AB[#16118](https://github.com/rodekruis/IBF-system/issues/16118) ([1c5f8ab](https://github.com/rodekruis/IBF-system/commit/1c5f8ab067e8450e76809be3fbb5fc71bf031c7b))
 
 
 
