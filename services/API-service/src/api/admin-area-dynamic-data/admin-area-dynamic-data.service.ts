@@ -240,7 +240,7 @@ export class AdminAreaDynamicDataService {
     }
   }
 
-  public async archiveOldDynamicData() {
+  public async deleteOldDynamicData() {
     // for now do this only for floods as it is the bulk of the data, and the easiest to handle
     const maxDateQuery = this.adminAreaDynamicDataRepo
       .createQueryBuilder()

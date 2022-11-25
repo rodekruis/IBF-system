@@ -10,11 +10,11 @@ export class CronjobService {
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   // @Cron(CronExpression.EVERY_10_SECONDS) //use this one for debugging
-  private async archiveAdminAreaDynamicData(): Promise<void> {
-    console.log('CronjobService - Started: archiveAdminAreaDynamicData');
+  private async deleteOldDynamicData(): Promise<void> {
+    console.log('CronjobService - Started: deleteOldDynamicData');
 
-    await this.adminAreaDynamicDataService.archiveOldDynamicData();
+    await this.adminAreaDynamicDataService.deleteOldDynamicData();
 
-    console.log('CronjobService - Complete: archiveAdminAreaDynamicData');
+    console.log('CronjobService - Complete: deleteOldDynamicData');
   }
 }
