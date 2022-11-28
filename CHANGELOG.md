@@ -1,3 +1,12 @@
+# [0.202.0](https://github.com/rodekruis/IBF-system/compare/v0.201.0...v0.202.0) (2022-11-28)
+
+
+### Features
+
+* add more realistic coordinates AB[#16235](https://github.com/rodekruis/IBF-system/issues/16235) ([dcd2e07](https://github.com/rodekruis/IBF-system/commit/dcd2e07d15706023a7a00cf2e3bf50c0b1e1f456))
+
+
+
 # [0.201.0](https://github.com/rodekruis/IBF-system/compare/v0.200.0...v0.201.0) (2022-11-25)
 
 
@@ -125,15 +134,6 @@
 
 * add SSD logos AB[#16029](https://github.com/rodekruis/IBF-system/issues/16029) ([b05b682](https://github.com/rodekruis/IBF-system/commit/b05b68235f10869c08bd764dc1a78244861fa853))
 * move logos before user state AB[#16029](https://github.com/rodekruis/IBF-system/issues/16029) ([0283a45](https://github.com/rodekruis/IBF-system/commit/0283a4587719ed03f0041ff1aa466a6ee650a406))
-
-
-
-## [0.194.8](https://github.com/rodekruis/IBF-system/compare/v0.194.7...v0.194.8) (2022-11-11)
-
-
-### Bug Fixes
-
-* show parent with one level enabled AB[#16139](https://github.com/rodekruis/IBF-system/issues/16139) ([2224fcf](https://github.com/rodekruis/IBF-system/commit/2224fcfb977b1254a916a45823d2ffdeac673ba4))
 
 
 
