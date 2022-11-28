@@ -12,12 +12,12 @@ export class CronjobService {
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   // @Cron(CronExpression.EVERY_10_SECONDS) //use this one for debugging
-  private async deleteOldDynamicData(): Promise<void> {
+  private async archiveOldDynamicData(): Promise<void> {
     console.log('CronjobService - Started: deleteOldDynamicData');
 
     await this.eventService.updateActionValueOfEvent();
 
-    await this.adminAreaDynamicDataService.deleteOldDynamicData();
+    await this.adminAreaDynamicDataService.archiveOldDynamicData();
 
     console.log('CronjobService - Complete: deleteOldDynamicData');
   }
