@@ -600,17 +600,24 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   };
 
-  public showLandfallText(event: EventSummary) {
-    return (
-      this.disasterTypeName === DisasterTypeKey.typhoon &&
-      event.firstLeadTime !== LeadTime.hour0
-    );
-  }
+  public showTyphoonLandfallText(event: EventSummary) {
+    if (this.disasterTypeName !== DisasterTypeKey.typhoon) {
+      return;
+    }
 
-  public showNoLandfallText(event: EventSummary) {
-    return (
-      this.disasterTypeName === DisasterTypeKey.typhoon &&
-      event.firstLeadTime === LeadTime.hour0
+    const triggerEvent = event.thresholdReached;
+    const passedEvent = event.firstLeadTime === LeadTime.hour0;
+    const landfallEvent = event.typhoonLandfall;
+
+    return this.translateService.instant(
+      `chat-component.typhoon.active-event-${
+        triggerEvent ? 'active' : 'below'
+      }-trigger.${passedEvent ? 'passed-event' : 'upcoming-event'}.${
+        landfallEvent ? 'landfall' : 'no-landfall'
+      }`,
+      {
+        firstLeadTimeDate: event.firstLeadTimeDate,
+      },
     );
   }
 

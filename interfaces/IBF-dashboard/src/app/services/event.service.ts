@@ -9,6 +9,7 @@ import {
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
 import { Country, DisasterType } from '../models/country.model';
+import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { DisasterTypeService } from './disaster-type.service';
 
@@ -23,6 +24,7 @@ export class EventSummary {
   firstLeadTimeLabel?: string;
   firstLeadTimeDate?: string;
   timeUnit?: string;
+  typhoonLandfall?: boolean;
 }
 
 @Injectable({
@@ -242,7 +244,25 @@ export class EventService {
     event.firstLeadTimeDate = firstKey
       ? this.getFirstLeadTimeDate(firstKey, event.timeUnit)
       : null;
+
+    if (this.disasterType.disasterType === DisasterTypeKey.typhoon) {
+      this.getTyphoonLandfallState(event);
+    }
   };
+
+  private getTyphoonLandfallState(event: EventSummary) {
+    this.apiService
+      .getTyphoonTrack(
+        this.country.countryCodeISO3,
+        event.firstLeadTime as LeadTime,
+        event.eventName,
+      )
+      .subscribe((trackpoints) => {
+        event.typhoonLandfall =
+          trackpoints.features.filter((point) => point.properties.firstLandfall)
+            .length > 0;
+      });
+  }
 
   public getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit) {
     const timeUnitsInFuture = Number(LeadTimeTriggerKey[firstKey]);
