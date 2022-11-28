@@ -40,6 +40,7 @@ export class TyphoonTrackService {
               windspeed: trackpoint.windspeed,
               category: trackpoint.category,
               firstLandfall: trackpoint.firstLandfall,
+              closestToLand: trackpoint.closestToLand,
               geom: (): string =>
                 `st_asgeojson(st_MakePoint(${trackpoint.lon}, ${trackpoint.lat}))::json`,
             })
@@ -79,6 +80,7 @@ export class TyphoonTrackService {
         'windspeed',
         'category',
         'firstLandfall',
+        'closestToLand',
         'geom',
       ],
       where: {

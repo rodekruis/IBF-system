@@ -5,7 +5,8 @@
     "timestampOfTrackpoint": "11/12/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 11.3,
@@ -13,7 +14,8 @@
     "timestampOfTrackpoint": "11/12/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 11.65,
@@ -21,7 +23,8 @@
     "timestampOfTrackpoint": "11/12/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 12.0,
@@ -29,7 +32,8 @@
     "timestampOfTrackpoint": "11/13/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 12.31,
@@ -37,7 +41,8 @@
     "timestampOfTrackpoint": "11/13/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 12.6,
@@ -45,7 +50,8 @@
     "timestampOfTrackpoint": "11/13/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 12.92,
@@ -53,7 +59,8 @@
     "timestampOfTrackpoint": "11/13/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 13.2,
@@ -61,7 +68,8 @@
     "timestampOfTrackpoint": "11/14/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 13.39,
@@ -69,7 +77,8 @@
     "timestampOfTrackpoint": "11/14/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 13.5,
@@ -77,7 +86,8 @@
     "timestampOfTrackpoint": "11/14/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 13.55,
@@ -85,7 +95,8 @@
     "timestampOfTrackpoint": "11/14/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 13.6,
@@ -93,7 +104,8 @@
     "timestampOfTrackpoint": "11/15/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 13.74,
@@ -101,7 +113,8 @@
     "timestampOfTrackpoint": "11/15/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 13.9,
@@ -109,7 +122,8 @@
     "timestampOfTrackpoint": "11/15/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 14.05,
@@ -117,7 +131,8 @@
     "timestampOfTrackpoint": "11/15/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 14.2,
@@ -125,7 +140,8 @@
     "timestampOfTrackpoint": "11/16/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 14.35,
@@ -133,7 +149,8 @@
     "timestampOfTrackpoint": "11/16/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 14.5,
@@ -141,7 +158,8 @@
     "timestampOfTrackpoint": "11/16/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 14.65,
@@ -149,7 +167,8 @@
     "timestampOfTrackpoint": "11/16/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 14.8,
@@ -157,7 +176,8 @@
     "timestampOfTrackpoint": "11/17/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 14.95,
@@ -165,7 +185,8 @@
     "timestampOfTrackpoint": "11/17/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 15.1,
@@ -173,7 +194,8 @@
     "timestampOfTrackpoint": "11/17/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 15.24,
@@ -181,7 +203,8 @@
     "timestampOfTrackpoint": "11/17/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 15.4,
@@ -189,7 +212,8 @@
     "timestampOfTrackpoint": "11/18/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 15.58,
@@ -197,7 +221,8 @@
     "timestampOfTrackpoint": "11/18/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 15.8,
@@ -205,7 +230,8 @@
     "timestampOfTrackpoint": "11/18/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 16.09,
@@ -213,7 +239,8 @@
     "timestampOfTrackpoint": "11/18/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 16.4,
@@ -221,7 +248,8 @@
     "timestampOfTrackpoint": "11/19/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 16.65,
@@ -229,7 +257,8 @@
     "timestampOfTrackpoint": "11/19/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 16.9,
@@ -237,7 +266,8 @@
     "timestampOfTrackpoint": "11/19/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 17.19,
@@ -245,7 +275,8 @@
     "timestampOfTrackpoint": "11/19/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 17.4,
@@ -253,7 +284,8 @@
     "timestampOfTrackpoint": "11/20/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": true
   },
   {
     "lat": 17.79,
@@ -261,7 +293,8 @@
     "timestampOfTrackpoint": "11/20/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 18.1,
@@ -269,7 +302,8 @@
     "timestampOfTrackpoint": "11/20/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 18.46,
@@ -277,7 +311,8 @@
     "timestampOfTrackpoint": "11/20/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 18.8,
@@ -285,7 +320,8 @@
     "timestampOfTrackpoint": "11/21/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 19.07,
@@ -293,7 +329,8 @@
     "timestampOfTrackpoint": "11/21/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 19.3,
@@ -301,7 +338,8 @@
     "timestampOfTrackpoint": "11/21/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 19.49,
@@ -309,7 +347,8 @@
     "timestampOfTrackpoint": "11/21/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 19.7,
@@ -317,7 +356,8 @@
     "timestampOfTrackpoint": "11/22/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 19.98,
@@ -325,7 +365,8 @@
     "timestampOfTrackpoint": "11/22/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 20.3,
@@ -333,7 +374,8 @@
     "timestampOfTrackpoint": "11/22/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 20.65,
@@ -341,7 +383,8 @@
     "timestampOfTrackpoint": "11/22/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 21,
@@ -349,7 +392,8 @@
     "timestampOfTrackpoint": "11/23/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 21.31,
@@ -357,7 +401,8 @@
     "timestampOfTrackpoint": "11/23/2021 11:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 21.6,
@@ -365,7 +410,8 @@
     "timestampOfTrackpoint": "11/23/2021 17:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 21.88,
@@ -373,7 +419,8 @@
     "timestampOfTrackpoint": "11/23/2021 23:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 22.2,
@@ -381,13 +428,16 @@
     "timestampOfTrackpoint": "11/24/2021 5:47",
     "windspeed": 75,
     "category": "TS",
-    "firstLandfall": false
+    "firstLandfall": false,
+    "closestToLand": false
   },
   {
     "lat": 22.62,
     "lon": 126.62,
     "timestampOfTrackpoint": "11/24/2021 11:47",
     "windspeed": 75,
-    "category": "TS"
+    "category": "TS",
+    "firstLandfall": false,
+    "closestToLand": false
   }
 ]

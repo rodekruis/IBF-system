@@ -42,4 +42,8 @@ export class TrackpointDetailsDto {
   @ApiProperty({ example: false })
   @IsBoolean()
   public firstLandfall: boolean;
+
+  @ApiProperty({ example: false })
+  @IsBoolean()
+  public closestToLand: boolean;
 }
