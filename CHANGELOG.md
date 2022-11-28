@@ -1,3 +1,22 @@
+# [0.203.0](https://github.com/rodekruis/IBF-system/compare/v0.202.0...v0.203.0) (2022-11-28)
+
+
+### Bug Fixes
+
+* archive instead of delete AB[#16432](https://github.com/rodekruis/IBF-system/issues/16432) ([f0a4768](https://github.com/rodekruis/IBF-system/commit/f0a476800ec39a37dc2b330a2d5361fcdee8205f))
+* get up-to-daet actionsValue in activationlog AB[#16413](https://github.com/rodekruis/IBF-system/issues/16413) ([18719a8](https://github.com/rodekruis/IBF-system/commit/18719a86e4e288f9dbf5a2924396708273652526))
+* rename archive to delete AB[#16335](https://github.com/rodekruis/IBF-system/issues/16335) ([ce0769e](https://github.com/rodekruis/IBF-system/commit/ce0769eb45e38b1d013af0099f88e0331a1cdaf2))
+* revert actionUnit from dynamicData, but keep query-params AB[#16413](https://github.com/rodekruis/IBF-system/issues/16413) ([b91d096](https://github.com/rodekruis/IBF-system/commit/b91d0965c7511faf9d6d1748596b51b400c3a438))
+* update actionValue in event table at midnight AB[#16413](https://github.com/rodekruis/IBF-system/issues/16413) ([e714de1](https://github.com/rodekruis/IBF-system/commit/e714de12aa24ea9275cfc08e46640a179fa3e3dd))
+* update actionValue in event table at midnight AB[#16413](https://github.com/rodekruis/IBF-system/issues/16413) ([d42bef0](https://github.com/rodekruis/IBF-system/commit/d42bef06e23c752a303f21152322ba39b797a973))
+
+
+### Features
+
+* periodically delete old dynamic data AB[#16335](https://github.com/rodekruis/IBF-system/issues/16335) ([cdc5511](https://github.com/rodekruis/IBF-system/commit/cdc55116d1addb6de8e94df8ec63cb6bf6cce447))
+
+
+
 # [0.202.0](https://github.com/rodekruis/IBF-system/compare/v0.201.0...v0.202.0) (2022-11-28)
 
 
@@ -124,16 +143,6 @@
 * set up basic whatsapp flow AB[#14766](https://github.com/rodekruis/IBF-system/issues/14766) ([f57ef52](https://github.com/rodekruis/IBF-system/commit/f57ef526bcc3c833831832a75d9bd56d0511fb92))
 * show first landfall point AB[#16220](https://github.com/rodekruis/IBF-system/issues/16220) AB[#16221](https://github.com/rodekruis/IBF-system/issues/16221) ([6c1f7db](https://github.com/rodekruis/IBF-system/commit/6c1f7dbeb92fb6c4f5de422f85d76a7a326023f6))
 * update info popups AB[#16239](https://github.com/rodekruis/IBF-system/issues/16239) AB[#16250](https://github.com/rodekruis/IBF-system/issues/16250) ([75ba157](https://github.com/rodekruis/IBF-system/commit/75ba157b21cc9553e0f50cf2c7e102b8f4436aae))
-
-
-
-# [0.195.0](https://github.com/rodekruis/IBF-system/compare/v0.194.8...v0.195.0) (2022-11-11)
-
-
-### Features
-
-* add SSD logos AB[#16029](https://github.com/rodekruis/IBF-system/issues/16029) ([b05b682](https://github.com/rodekruis/IBF-system/commit/b05b68235f10869c08bd764dc1a78244861fa853))
-* move logos before user state AB[#16029](https://github.com/rodekruis/IBF-system/issues/16029) ([0283a45](https://github.com/rodekruis/IBF-system/commit/0283a4587719ed03f0041ff1aa466a6ee650a406))
 
 
 
