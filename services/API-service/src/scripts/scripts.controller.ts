@@ -83,6 +83,7 @@ export class MockAll {
 export enum TyphoonScenario {
   NoEvent = 'noEvent',
   EventNoLandfall = 'eventNoLandfall',
+  EventNoLandfallYet = 'eventNoLandfallYet',
   EventNoTrigger = 'eventNoTrigger',
   EventTrigger = 'eventTrigger',
   EventAfterLandfall = 'eventAfterLandfall',

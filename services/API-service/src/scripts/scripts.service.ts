@@ -150,6 +150,7 @@ export class ScriptsService {
         TyphoonScenario.EventTrigger,
         TyphoonScenario.EventAfterLandfall,
         TyphoonScenario.EventNoLandfall,
+        TyphoonScenario.EventNoLandfallYet,
       ].includes(mockTyphoonScenario.scenario)
     ) {
       // Scenario 'eventTrigger' is equal to using the normal mock-endpoint for typhoon with 'triggered = true'
@@ -650,6 +651,8 @@ export class ScriptsService {
     }${eventNr > 1 ? `-eventNr-2` : ''}.json`;
     if (typhoonScenario === TyphoonScenario.EventNoLandfall) {
       trackFileName = `${filePath}/typhoon-track-${selectedCountry.countryCodeISO3}-no-landfall.json`;
+    } else if (typhoonScenario === TyphoonScenario.EventNoLandfallYet) {
+      trackFileName = `${filePath}/typhoon-track-${selectedCountry.countryCodeISO3}-no-landfall-yet.json`;
     }
 
     const trackRaw = fs.readFileSync(trackFileName, 'utf-8');
