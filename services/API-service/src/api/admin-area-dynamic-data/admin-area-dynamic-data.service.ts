@@ -1,7 +1,7 @@
 import { LeadTime, LeadTimeUnit } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { IsNull, MoreThanOrEqual, Repository } from 'typeorm';
+import { Connection, IsNull, MoreThanOrEqual, Repository } from 'typeorm';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
@@ -29,6 +29,7 @@ export class AdminAreaDynamicDataService {
   public constructor(
     private eventService: EventService,
     private helperService: HelperService,
+    private connection: Connection,
   ) {}
 
   public async exposure(
@@ -237,6 +238,83 @@ export class AdminAreaDynamicDataService {
     } catch (e) {
       console.error(e);
       throw new HttpException('File not written: ' + e, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  public async archiveOldDynamicData() {
+    // for now do this only for floods as it is the bulk of the data, and the easiest to handle
+    const maxDateQuery = this.adminAreaDynamicDataRepo
+      .createQueryBuilder()
+      .select([
+        '"countryCodeISO3"',
+        '"disasterType"',
+        '"leadTime"',
+        `coalesce("eventName",'no-name') AS "eventName"`,
+        'MAX("date") AS max_date',
+      ])
+      .groupBy('"countryCodeISO3"')
+      .addGroupBy('"disasterType"')
+      .addGroupBy('"leadTime"')
+      .addGroupBy(`coalesce("eventName",'no-name')`);
+
+    const recordsToDelete = await this.adminAreaDynamicDataRepo
+      .createQueryBuilder('data')
+      .select('data."adminAreaDynamicDataId"')
+      .leftJoin(
+        '(' + maxDateQuery.getQuery() + ')',
+        'max_date',
+        `data."countryCodeISO3" = max_date."countryCodeISO3" AND data."disasterType" = max_date."disasterType" AND data."leadTime" = max_date."leadTime" AND coalesce(data."eventName",'no-name') = coalesce(max_date."eventName",'no-name')`,
+      )
+      .setParameters(maxDateQuery.getParameters())
+      .where('data.date < max_date.max_date')
+      .andWhere('data."disasterType" = :disasterType', {
+        disasterType: DisasterType.Floods,
+      })
+      .getRawMany();
+
+    if (recordsToDelete.length) {
+      const idsToDelete = recordsToDelete.map(id => id.adminAreaDynamicDataId);
+
+      // Move to separate archive-table
+      const repository = this.connection.getRepository(
+        AdminAreaDynamicDataEntity,
+      );
+      const archiveTableExists = (
+        await this.connection.query(
+          `SELECT exists (
+            SELECT FROM information_schema.tables
+              WHERE  table_schema = '${repository.metadata.schema}'
+              AND    table_name   = '${repository.metadata.tableName}-archive'
+              )`,
+        )
+      )[0].exists;
+      if (archiveTableExists) {
+        await this.connection.query(
+          `INSERT INTO "${repository.metadata.schema}"."${repository.metadata.tableName}-archive" \
+          SELECT * 
+          FROM "${repository.metadata.schema}"."${repository.metadata.tableName}" \
+          WHERE cast("adminAreaDynamicDataId" as varchar) = ANY(string_to_array($1,$2))`,
+          [idsToDelete.join(','), ','],
+        );
+      } else {
+        await this.connection.query(
+          `SELECT * 
+          INTO "${repository.metadata.schema}"."${repository.metadata.tableName}-archive" \
+          FROM "${repository.metadata.schema}"."${repository.metadata.tableName}" \
+          WHERE cast("adminAreaDynamicDataId" as varchar) = ANY(string_to_array($1,$2))`,
+          [idsToDelete.join(','), ','],
+        );
+      }
+
+      //Then delete from live table
+      const deleteResult = await this.adminAreaDynamicDataRepo
+        .createQueryBuilder()
+        .delete()
+        .where('"adminAreaDynamicDataId" IN (:...idsToDelete)', {
+          idsToDelete: idsToDelete,
+        })
+        .execute();
+      console.log(`deleted ${deleteResult.affected} old records`);
     }
   }
 }
