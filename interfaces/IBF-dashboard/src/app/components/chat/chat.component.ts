@@ -160,8 +160,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
     this.eventState?.events?.sort((a, b) =>
-      Number(a.firstLeadTime?.split('-')[0]) >
-      Number(b.firstLeadTime?.split('-')[0])
+      a.disasterSpecificProperties?.typhoonNoLandfallYet
+        ? 1
+        : Number(a.firstLeadTime?.split('-')[0]) >
+          Number(b.firstLeadTime?.split('-')[0])
         ? 1
         : a.startDate > b.startDate
         ? 1
