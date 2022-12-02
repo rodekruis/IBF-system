@@ -1,3 +1,12 @@
+## [0.203.2](https://github.com/rodekruis/IBF-system/compare/v0.203.1...v0.203.2) (2022-12-02)
+
+
+### Bug Fixes
+
+* update MWI alert popup + trigger statement AB[#16464](https://github.com/rodekruis/IBF-system/issues/16464) ([e9ec029](https://github.com/rodekruis/IBF-system/commit/e9ec029f6c4c2b8f528a1fc78916c4eafb76ebe6))
+
+
+
 ## [0.203.1](https://github.com/rodekruis/IBF-system/compare/v0.203.0...v0.203.1) (2022-11-30)
 
 
@@ -115,15 +124,6 @@
 ### Features
 
 * add ibf-test to twilio readme AB[#16264](https://github.com/rodekruis/IBF-system/issues/16264) ([fee17d8](https://github.com/rodekruis/IBF-system/commit/fee17d8feceb277c54b3659df05195083109d4f5))
-
-
-
-## [0.196.1](https://github.com/rodekruis/IBF-system/compare/v0.196.0...v0.196.1) (2022-11-14)
-
-
-### Bug Fixes
-
-* api url AB[#16233](https://github.com/rodekruis/IBF-system/issues/16233) ([8146ccf](https://github.com/rodekruis/IBF-system/commit/8146ccf86a2f692f29251252e0c6b5186b306ed8))
 
 
 
