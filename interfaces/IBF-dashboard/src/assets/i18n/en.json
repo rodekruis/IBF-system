@@ -1007,7 +1007,7 @@
       },
       "typhoon_track": {
         "PHL": {
-          "typhoon": "<p>Forecasted track of the Typhoon event. The source for this forecast data is ECMWF.</p><br><p><strong>Trackpoint legend:</strong></p><ul><li><strong>Circle with typhoon icon</strong> shows the latest location of the typhoon</li><li><strong>Circle with additional border</strong> shows the point of first landfall. The calculated time until landfall is based on this point.</li><li><strong>Full color circle</strong> shows where the typhoon has already passed</li><li><strong>Transparent dashed circle</strong> shows the future predicted path of the typhoon</li></ul>"
+          "typhoon": "<p>Forecasted track of the Typhoon event. The source for this forecast data is ECMWF.</p><br><p><strong>Trackpoint legend:</strong></p><ul><li><strong>Circle with typhoon icon</strong> shows the latest location of the typhoon</li><li><strong>Circle with additional border</strong> shows the point of first landfall (or - if no landfall - the point closest to land). The calculated lead time of the event is based on this point.</li><li><strong>Full color circle</strong> shows where the typhoon has already passed</li><li><strong>Transparent dashed circle</strong> shows the future predicted path of the typhoon</li></ul>"
         }
       },
       "vegetation_condition": {
