@@ -107,8 +107,16 @@ export class TimelineService {
           (isUndefinedLeadTime && leadTimeInput.undefined)),
       disabled: !isLeadTimeEnabled && !leadTimeInput.undefined,
       active: false,
+      noEvent: this.isNoEvent(),
     };
   };
+
+  private isNoEvent() {
+    return (
+      this.eventState.events.length === 0 &&
+      this.disasterType.disasterType === DisasterTypeKey.typhoon
+    );
+  }
 
   private onTriggerPerLeadTime = (triggers) => {
     this.triggersAllEvents = { ...this.triggersAllEvents, ...triggers };
@@ -125,6 +133,12 @@ export class TimelineService {
     if (toShowTimeStepButtons.length === 0) {
       toShowTimeStepButtons = this.state.timeStepButtons.filter(
         (timeStepButton) => !timeStepButton.disabled,
+      );
+    }
+    // except if that leads to still empty set: assume this is the typhoon no-event scenario
+    if (toShowTimeStepButtons.length === 0) {
+      toShowTimeStepButtons = this.state.timeStepButtons.filter(
+        (timeStepButton) => timeStepButton.value === LeadTime.hour72,
       );
     }
     // and take first one of this set as active lead-time
@@ -283,6 +297,7 @@ export class TimelineService {
         : -1,
     );
 
+    // Separately add at the end leadtimes that should be conveyed as 'undefined'
     const undefinedLeadTimeEvents = this.eventState.events.filter(
       (e) => e.disasterSpecificProperties?.typhoonNoLandfallYet,
     );
@@ -379,7 +394,7 @@ export class TimelineService {
         ? events
             .filter((e) => !e.disasterSpecificProperties?.typhoonNoLandfallYet)
             .map((e) => e.firstLeadTime)
-        : [LeadTime.hour72];
+        : [];
       return relevantLeadTimes.includes(leadTime);
     } else {
       return true;
