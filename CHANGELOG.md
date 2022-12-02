@@ -1,3 +1,23 @@
+# [0.204.0](https://github.com/rodekruis/IBF-system/compare/v0.203.2...v0.204.0) (2022-12-02)
+
+
+### Bug Fixes
+
+* missing values in csv AB[#16602](https://github.com/rodekruis/IBF-system/issues/16602) ([0345fce](https://github.com/rodekruis/IBF-system/commit/0345fce7ba872db2397deb1dbf6cff5c3dfeffa7))
+* update track layer popup AB[#16444](https://github.com/rodekruis/IBF-system/issues/16444) ([c1b9888](https://github.com/rodekruis/IBF-system/commit/c1b9888ca36653ea84ac385d49548a501920cdcf))
+
+
+### Features
+
+* add closestToLand attribute to track + deduce 'no landfall yet' scenario from it AB[#16423](https://github.com/rodekruis/IBF-system/issues/16423) ([98ca26a](https://github.com/rodekruis/IBF-system/commit/98ca26af7e99a5cf0ed06cf4e160d0978ba2c640))
+* distinguish between 2 no-landfall scenarios in chat AB[#16427](https://github.com/rodekruis/IBF-system/issues/16427) ([f7105b7](https://github.com/rodekruis/IBF-system/commit/f7105b739f2a0ec301e2f6dfe3aec58bbea3bd8b))
+* distinguish landfall vs no-landfall in chat ux copy AB[#16422](https://github.com/rodekruis/IBF-system/issues/16422) ([eda0769](https://github.com/rodekruis/IBF-system/commit/eda0769b588775a62876e964596ba3d47c3ee3ff))
+* separate mock data+scenario for 'no landfall yet' AB[#16427](https://github.com/rodekruis/IBF-system/issues/16427) ([7fda1ff](https://github.com/rodekruis/IBF-system/commit/7fda1ffc8acc15c194e48eaf122d000ccd0a1e92))
+* show no timeline button if no event typhoon AB[#16426](https://github.com/rodekruis/IBF-system/issues/16426) ([8e4e0cc](https://github.com/rodekruis/IBF-system/commit/8e4e0cc557ccdcc0a0d7415858aa72e181b89cb8))
+* show unknown leadtimes at end of timeline AB[#16425](https://github.com/rodekruis/IBF-system/issues/16425) ([09c04ff](https://github.com/rodekruis/IBF-system/commit/09c04ff355a5a11792f14c1eb0d3c62471407a4d))
+
+
+
 ## [0.203.2](https://github.com/rodekruis/IBF-system/compare/v0.203.1...v0.203.2) (2022-12-02)
 
 
@@ -115,15 +135,6 @@
 
 * include map only if available AB[#16331](https://github.com/rodekruis/IBF-system/issues/16331) ([39d8c68](https://github.com/rodekruis/IBF-system/commit/39d8c683e8d68b47325222fa1149896608af6033))
 * include mock map image AB[#16332](https://github.com/rodekruis/IBF-system/issues/16332) ([cafcd01](https://github.com/rodekruis/IBF-system/commit/cafcd01b0d01fe3b0f021452047f8008483e16ba))
-
-
-
-# [0.197.0](https://github.com/rodekruis/IBF-system/compare/v0.196.1...v0.197.0) (2022-11-18)
-
-
-### Features
-
-* add ibf-test to twilio readme AB[#16264](https://github.com/rodekruis/IBF-system/issues/16264) ([fee17d8](https://github.com/rodekruis/IBF-system/commit/fee17d8feceb277c54b3659df05195083109d4f5))
 
 
 
