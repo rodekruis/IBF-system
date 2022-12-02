@@ -160,8 +160,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
     this.eventState?.events?.sort((a, b) =>
-      Number(a.firstLeadTime?.split('-')[0]) >
-      Number(b.firstLeadTime?.split('-')[0])
+      a.disasterSpecificProperties?.typhoonNoLandfallYet
+        ? 1
+        : Number(a.firstLeadTime?.split('-')[0]) >
+          Number(b.firstLeadTime?.split('-')[0])
         ? 1
         : a.startDate > b.startDate
         ? 1
@@ -600,17 +602,30 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   };
 
-  public showLandfallText(event: EventSummary) {
-    return (
-      this.disasterTypeName === DisasterTypeKey.typhoon &&
-      event.firstLeadTime !== LeadTime.hour0
-    );
-  }
+  public showTyphoonLandfallText(event: EventSummary) {
+    if (this.disasterTypeName !== DisasterTypeKey.typhoon) {
+      return;
+    }
 
-  public showNoLandfallText(event: EventSummary) {
-    return (
-      this.disasterTypeName === DisasterTypeKey.typhoon &&
-      event.firstLeadTime === LeadTime.hour0
+    const triggerEvent = event.thresholdReached;
+    const passedEvent = event.firstLeadTime === LeadTime.hour0;
+    const landfallEvent = event.disasterSpecificProperties.typhoonLandfall;
+    const noLandfallYetEvent =
+      event.disasterSpecificProperties.typhoonNoLandfallYet;
+
+    return this.translateService.instant(
+      `chat-component.typhoon.active-event-${
+        triggerEvent ? 'active' : 'below'
+      }-trigger.${passedEvent ? 'passed-event' : 'upcoming-event'}.${
+        noLandfallYetEvent
+          ? 'no-landfall-yet'
+          : landfallEvent
+          ? 'landfall'
+          : 'no-landfall'
+      }`,
+      {
+        firstLeadTimeDate: event.firstLeadTimeDate,
+      },
     );
   }
 

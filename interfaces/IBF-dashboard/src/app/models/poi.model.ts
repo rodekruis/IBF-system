@@ -16,6 +16,7 @@ export class TyphoonTrackPoint {
   windspeed: number;
   category: string;
   firstLandfall: boolean;
+  closestToLand: boolean;
 }
 export class RedCrossBranch {
   branchName: string;

@@ -907,7 +907,7 @@ export class MapComponent implements OnDestroy {
       }
     }
 
-    if (markerProperties.firstLandfall) {
+    if (markerProperties.firstLandfall || markerProperties.closestToLand) {
       className += ' typhoon-track-icon-firstLandfall';
     }
 

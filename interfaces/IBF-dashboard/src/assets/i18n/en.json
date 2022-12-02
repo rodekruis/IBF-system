@@ -183,15 +183,28 @@
         "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> activated."
       },
       "active-event-active-trigger": {
-        "welcome": "A trigger warning for typhoon <strong>{{ eventName }}</strong> was activated on <strong>{{ startDate }}</strong>. ",
-        "landfall": "It is <strong>estimated to reach</strong> (the point closest to) land at <strong>{{ firstLeadTimeDate }}</strong>.<br><br>",
-        "no-landfall": "It has <strong>already reached</strong> (the point closest to) land.<br><br>"
+        "welcome": "A trigger warning for <strong>{{ eventName }}</strong> was activated on {{ startDate }}.",
+        "upcoming-event": {
+          "landfall": "It is estimated to <strong>make landfall</strong> at <strong>{{ firstLeadTimeDate }}</strong>.<br><br>",
+          "no-landfall": "It is currently <strong>not predicted to make landfall</strong>. It is estimated to reach the point closest to land at {{ firstLeadTimeDate }}.<br><br>",
+          "no-landfall-yet": "It is currently <strong>not predicted to make landfall yet</strong>. Keep monitoring the event.<br><br>"
+        },
+        "passed-event": {
+          "landfall": "It has <strong>already made landfall</strong>.<br><br>",
+          "no-landfall": "It has already reached the point closest to land.<br><br>"
+        }
       },
       "active-event-below-trigger": {
-        "welcome": "A warning for typhoon <strong>{{ eventName }}</strong> was activated on <strong>{{ startDate }}</strong>, but it is currently not predicted to reach trigger thresholds. It is estimated to make landfall at <strong>{{ firstLeadTimeDate }}</strong>.<br><br>"
-      },
-      "active-event-no-trigger": {
-        "welcome": "There is <strong>no active trigger</strong> for typhoon <strong>{{ eventName }}</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
+        "welcome": "A warning for <strong>{{ eventName }}</strong> was activated on {{ startDate }}, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
+        "upcoming-event": {
+          "landfall": "It is estimated to make landfall at {{ firstLeadTimeDate }}.<br><br>",
+          "no-landfall": "It is currently not predicted to make landfall. It is estimated to reach the point closest to land at {{ firstLeadTimeDate }}.<br><br>",
+          "no-landfall-yet": "It is currently <strong>not predicted to make landfall yet</strong>. Keep monitoring the event.<br><br>"
+        },
+        "passed-event": {
+          "landfall": "It has already made landfall.<br><br>",
+          "no-landfall": "It has already reached the point closest to land.<br><br>"
+        }
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered for typhoon <strong>{{ eventName }}</strong>. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
@@ -994,7 +1007,7 @@
       },
       "typhoon_track": {
         "PHL": {
-          "typhoon": "<p>Forecasted track of the Typhoon event. The source for this forecast data is ECMWF.</p><br><p><strong>Trackpoint legend:</strong></p><ul><li><strong>Circle with typhoon icon</strong> shows the latest location of the typhoon</li><li><strong>Circle with additional border</strong> shows the point of first landfall. The calculated time until landfall is based on this point.</li><li><strong>Full color circle</strong> shows where the typhoon has already passed</li><li><strong>Transparent dashed circle</strong> shows the future predicted path of the typhoon</li></ul>"
+          "typhoon": "<p>Forecasted track of the Typhoon event. The source for this forecast data is ECMWF.</p><br><p><strong>Trackpoint legend:</strong></p><ul><li><strong>Circle with typhoon icon</strong> shows the latest location of the typhoon</li><li><strong>Circle with additional border</strong> shows the point of first landfall (or - if no landfall - the point closest to land). The calculated lead time of the event is based on this point.</li><li><strong>Full color circle</strong> shows where the typhoon has already passed</li><li><strong>Transparent dashed circle</strong> shows the future predicted path of the typhoon</li></ul>"
         }
       },
       "vegetation_condition": {

@@ -67,23 +67,6 @@
                   }
           "
         ></span>
-        <span
-          *ngIf="showLandfallText(event)"
-          [innerHTML]="
-            'chat-component.typhoon.active-event-active-trigger.landfall'
-              | translate
-                : {
-                    firstLeadTimeDate: event.firstLeadTimeDate
-                  }
-          "
-        ></span>
-        <span
-          *ngIf="showNoLandfallText(event)"
-          [innerHTML]="
-            'chat-component.typhoon.active-event-active-trigger.no-landfall'
-              | translate
-          "
-        ></span>
       </p>
       <p
         *ngIf="event.activeTrigger && otherLeadTimes"
@@ -111,6 +94,11 @@
                   eventName: event.eventName
                 }
         "
+      ></p>
+
+      <p
+        *ngIf="showTyphoonLandfallText(event)"
+        [innerHTML]="showTyphoonLandfallText(event)"
       ></p>
 
       <app-event-switcher [event]="event"></app-event-switcher>
