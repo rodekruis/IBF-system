@@ -15,7 +15,7 @@ import {
   In,
   MoreThan,
   IsNull,
-  SelectQueryBuilder,
+  Connection,
 } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -59,6 +59,7 @@ export class EventService {
     private countryService: CountryService,
     private eapActionsService: EapActionsService,
     private helperService: HelperService,
+    private connection: Connection,
   ) {}
 
   public async getEventSummaryCountry(
@@ -624,9 +625,8 @@ export class EventService {
     // .. then fire one query to update all rows that need thresholdReached = false
     await this.updateEvents(idsToUpdateBelowThreshold, false, endDate);
 
-    // NOTE: we no longer update actionsValue here, as it was too performance-heavy
-    // 'triggered-areas' gets it instead from 'admin-area-dynamic-data'
-    // 'activation-log' is for now showing the initial actionsValue throughout (this should be corrected)
+    // .. lastly we update those records where actionsValue changed
+    await this.updateActionsValue(unclosedEventAreas, affectedAreas);
   }
 
   private async updateEvents(
@@ -644,6 +644,37 @@ export class EventService {
       })
       .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
       .execute();
+  }
+
+  private async updateActionsValue(
+    unclosedEventAreas: EventPlaceCodeEntity[],
+    affectedAreas: AffectedAreaDto[],
+  ) {
+    let affectedArea: AffectedAreaDto;
+    const eventAreasToUpdate = [];
+    for await (const eventArea of unclosedEventAreas) {
+      affectedArea = affectedAreas.find(
+        area => area.placeCode === eventArea.adminArea.placeCode,
+      );
+      if (
+        affectedArea &&
+        eventArea.actionsValue !== affectedArea.actionsValue
+      ) {
+        eventArea.actionsValue = affectedArea.actionsValue;
+        eventAreasToUpdate.push(
+          `('${eventArea.eventPlaceCodeId}',${eventArea.actionsValue})`,
+        );
+      }
+    }
+    const repository = this.connection.getRepository(EventPlaceCodeEntity);
+    const updateQuery = `UPDATE "${repository.metadata.schema}"."${
+      repository.metadata.tableName
+    }" epc \
+    SET "actionsValue" = areas.value \
+    FROM (VALUES ${eventAreasToUpdate.join(',')}) areas(id,value) \
+    WHERE areas.id::uuid = epc."eventPlaceCodeId" \
+    `;
+    await this.connection.query(updateQuery);
   }
 
   private async addNewEventAreas(
@@ -770,62 +801,5 @@ export class EventService {
     });
 
     return eventMapImageEntity?.image;
-  }
-
-  public async updateActionValueOfEvent() {
-    const eventAreasToUpdate = [];
-
-    const activeEvents = await this.eventPlaceCodeRepo
-      .createQueryBuilder('event')
-      .select([
-        'area."countryCodeISO3" as "countryCodeISO3"',
-        'area."adminLevel" as "adminLevel"',
-        'event."disasterType" as "disasterType"',
-        'event."eventName" as "eventName"',
-      ])
-      .leftJoin('event.adminArea', 'area')
-      .where({ closed: false })
-      .groupBy('area."countryCodeISO3"')
-      .addGroupBy('area."adminLevel"')
-      .addGroupBy('event."disasterType"')
-      .addGroupBy('event."eventName"')
-      .getRawMany();
-
-    for await (const event of activeEvents) {
-      const affectedAreas = await this.getAffectedAreas(
-        event.countryCodeISO3,
-        event.disasterType as DisasterType,
-        event.adminLevel,
-        event.eventName,
-      );
-
-      const countryAdminAreaIds = await this.getCountryAdminAreaIds(
-        event.countryCodeISO3,
-      );
-
-      const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
-        where: {
-          closed: false,
-          adminArea: In(countryAdminAreaIds),
-          disasterType: event.disasterType,
-          eventName: event.eventName || IsNull(),
-        },
-        relations: ['adminArea'],
-      });
-      for await (const eventArea of unclosedEventAreas) {
-        const affectedArea = affectedAreas.find(
-          area => area.placeCode === eventArea.adminArea.placeCode,
-        );
-        if (
-          affectedArea &&
-          eventArea.actionsValue !== affectedArea.actionsValue
-        ) {
-          eventArea.actionsValue = affectedArea.actionsValue;
-          eventAreasToUpdate.push(eventArea);
-        }
-      }
-    }
-
-    await this.eventPlaceCodeRepo.save(eventAreasToUpdate);
   }
 }
