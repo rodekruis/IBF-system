@@ -382,6 +382,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     popover.onDidDismiss().then(() => {
       this.eapActionsService.getTriggeredAreasApi();
+      this.placeCodeService.clearPlaceCode();
     });
   }
 
