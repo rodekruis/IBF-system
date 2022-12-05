@@ -204,14 +204,6 @@ export class EmailService {
         replaceValue: await this.getMapImageHtml(country, disasterType, events),
       },
       {
-        replaceKey: '(MAP-IMG-SRC)',
-        replaceValue: this.getMapImgSrc(
-          country.countryCodeISO3,
-          disasterType,
-          events[0].eventName,
-        ),
-      },
-      {
         replaceKey: '(LINK-DASHBOARD)',
         replaceValue: process.env.DASHBOARD_URL,
       },
@@ -457,19 +449,31 @@ export class EmailService {
     disasterType: DisasterType,
     events: EventSummaryCountry[],
   ): Promise<string> {
-    const mapImage = await this.eventService.getEventMapImage(
-      country.countryCodeISO3,
-      disasterType,
-      events[0].eventName || 'no-name',
-    );
-    if (mapImage) {
-      return fs.readFileSync(
-        './src/api/notification/email/html/map-image.html',
-        'utf8',
+    let html = '';
+    for await (const event of events) {
+      const mapImage = await this.eventService.getEventMapImage(
+        country.countryCodeISO3,
+        disasterType,
+        event.eventName || 'no-name',
       );
-    } else {
-      return '';
+      if (mapImage) {
+        let eventHtml = fs.readFileSync(
+          './src/api/notification/email/html/map-image.html',
+          'utf8',
+        );
+        eventHtml = eventHtml.replace(
+          '(MAP-IMG-SRC)',
+          this.getMapImgSrc(
+            country.countryCodeISO3,
+            disasterType,
+            event.eventName,
+          ),
+        );
+        eventHtml = eventHtml.replace('(EVENT-NAME)', event.eventName);
+        html += eventHtml;
+      }
     }
+    return html;
   }
 
   private getMapImgSrc(
