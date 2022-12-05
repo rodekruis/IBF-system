@@ -171,7 +171,7 @@ export class EventService {
         eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
         date: new Date(),
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             uploadTriggerPerLeadTimeDto.disasterType,
           ),
         ),
@@ -221,7 +221,7 @@ export class EventService {
         eventName: eventName === 'no-name' ? IsNull() : eventName,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             disasterType,
             lastTriggeredDate.timestamp,
           ),
@@ -355,7 +355,7 @@ export class EventService {
         countryCodeISO3: countryCodeISO3,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             disasterType,
             lastTriggeredDate.timestamp,
           ),
@@ -466,7 +466,7 @@ export class EventService {
     // only set records that are not updated yet in this sequence of pipeline runs (e.g. multiple events in 1 day)
     // after the 1st event this means everything is updated ..
     // .. and from the 2nd event onwards if will not be set to activeTrigger=false again ..
-    const cutoffDate = this.helperService.getLast12hourInterval(disasterType);
+    const cutoffDate = this.helperService.getLast6hourInterval(disasterType);
     const endDate = await this.getEndDate(disasterType, cutoffDate);
 
     // .. but only check on endDate if eventName is not null
@@ -508,7 +508,7 @@ export class EventService {
       indicator: triggerUnit,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast12hourInterval(
+        this.helperService.getLast6hourInterval(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -541,7 +541,7 @@ export class EventService {
       indicator: actionUnit,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast12hourInterval(
+        this.helperService.getLast6hourInterval(
           disasterType,
           lastTriggeredDate.timestamp,
         ),

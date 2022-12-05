@@ -107,7 +107,7 @@ export class AdminAreaDynamicDataService {
         date: new Date(),
         eventName: uploadExposure.eventName || IsNull(),
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(uploadExposure.disasterType),
+          this.helperService.getLast6hourInterval(uploadExposure.disasterType),
         ),
       });
     } else {
@@ -181,7 +181,7 @@ export class AdminAreaDynamicDataService {
         eventName: eventName === 'no-name' ? IsNull() : eventName,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             disasterType,
             lastTriggeredDate.timestamp,
           ),

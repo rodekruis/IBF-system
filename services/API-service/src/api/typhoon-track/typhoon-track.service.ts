@@ -58,7 +58,7 @@ export class TyphoonTrackService {
       eventName: uploadTyphoonTrack.eventName,
       date: new Date(),
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast12hourInterval(DisasterType.Typhoon),
+        this.helperService.getLast6hourInterval(DisasterType.Typhoon),
       ),
     });
   }
@@ -89,7 +89,7 @@ export class TyphoonTrackService {
         date: lastTriggeredDate.date,
         eventName: eventName,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             DisasterType.Typhoon,
             lastTriggeredDate.timestamp,
           ),
