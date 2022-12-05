@@ -10,6 +10,7 @@ import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { WhatsappModule } from './whatsapp/whatsapp.module';
 import { NotificationContentModule } from './notification-content/notification-content.module';
 import { EmailService } from './email/email.service';
+import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { EmailService } from './email/email.service';
     AdminAreaDynamicDataModule,
     WhatsappModule,
     NotificationContentModule,
+    TyphoonTrackModule,
   ],
   controllers: [NotificationController],
   providers: [NotificationService, EmailService],
