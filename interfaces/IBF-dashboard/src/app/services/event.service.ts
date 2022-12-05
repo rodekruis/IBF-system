@@ -282,7 +282,7 @@ export class EventService {
       ),
     );
     const closestToLandTimestamp = new Date(
-      trackpoints.find((point) => point.closestToLand).timestampOfTrackpoint,
+      trackpoints.find((point) => point.closestToLand)?.timestampOfTrackpoint,
     );
     return maxTimestamp.getTime() === closestToLandTimestamp.getTime();
   }
