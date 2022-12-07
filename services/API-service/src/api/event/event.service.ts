@@ -476,20 +476,30 @@ export class EventService {
         {
           adminArea: { id: In(countryAdminAreaIds) },
           disasterType: disasterType,
+          activeTrigger: true,
           endDate: LessThan(endDate),
         },
         {
           adminArea: { id: In(countryAdminAreaIds) },
           disasterType: disasterType,
+          activeTrigger: true,
           eventName: IsNull(),
         },
       ],
     });
 
-    for await (const area of eventAreas) {
-      area.activeTrigger = false;
+    if (eventAreas.length) {
+      await this.eventPlaceCodeRepo
+        .createQueryBuilder()
+        .update()
+        .set({
+          activeTrigger: false,
+        })
+        .where({
+          eventPlaceCodeId: In(eventAreas.map(area => area.eventPlaceCodeId)),
+        })
+        .execute();
     }
-    await this.eventPlaceCodeRepo.save(eventAreas);
   }
 
   private async getAffectedAreas(
@@ -634,16 +644,18 @@ export class EventService {
     aboveThreshold: boolean,
     endDate: Date,
   ) {
-    await this.eventPlaceCodeRepo
-      .createQueryBuilder()
-      .update()
-      .set({
-        activeTrigger: true,
-        thresholdReached: aboveThreshold,
-        endDate: endDate,
-      })
-      .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
-      .execute();
+    if (eventPlaceCodeIds.length) {
+      await this.eventPlaceCodeRepo
+        .createQueryBuilder()
+        .update()
+        .set({
+          activeTrigger: true,
+          thresholdReached: aboveThreshold,
+          endDate: endDate,
+        })
+        .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
+        .execute();
+    }
   }
 
   private async updateActionsValue(
@@ -666,15 +678,17 @@ export class EventService {
         );
       }
     }
-    const repository = this.connection.getRepository(EventPlaceCodeEntity);
-    const updateQuery = `UPDATE "${repository.metadata.schema}"."${
-      repository.metadata.tableName
-    }" epc \
-    SET "actionsValue" = areas.value \
-    FROM (VALUES ${eventAreasToUpdate.join(',')}) areas(id,value) \
-    WHERE areas.id::uuid = epc."eventPlaceCodeId" \
-    `;
-    await this.connection.query(updateQuery);
+    if (eventAreasToUpdate.length) {
+      const repository = this.connection.getRepository(EventPlaceCodeEntity);
+      const updateQuery = `UPDATE "${repository.metadata.schema}"."${
+        repository.metadata.tableName
+      }" epc \
+      SET "actionsValue" = areas.value \
+      FROM (VALUES ${eventAreasToUpdate.join(',')}) areas(id,value) \
+      WHERE areas.id::uuid = epc."eventPlaceCodeId" \
+      `;
+      await this.connection.query(updateQuery);
+    }
   }
 
   private async addNewEventAreas(
@@ -738,10 +752,24 @@ export class EventService {
         endDate: LessThan(new Date()),
         adminArea: In(countryAdminAreaIds),
         disasterType: disasterType,
+        closed: false,
       },
     });
-    expiredEventAreas.forEach(area => (area.closed = true));
-    await this.eventPlaceCodeRepo.save(expiredEventAreas);
+
+    //Below threshold events can be removed from this table after closing
+    const belowThresholdEvents = expiredEventAreas.filter(
+      a => !a.thresholdReached,
+    );
+    await this.eventPlaceCodeRepo.remove(belowThresholdEvents);
+
+    //For the other ones update 'closed = true'
+    const aboveThresholdEvents = expiredEventAreas.filter(
+      a => a.thresholdReached,
+    );
+    for await (const area of aboveThresholdEvents) {
+      area.closed = true;
+    }
+    await this.eventPlaceCodeRepo.save(aboveThresholdEvents);
   }
 
   private async getEndDate(
