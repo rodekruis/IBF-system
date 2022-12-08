@@ -14,6 +14,9 @@ import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-dat
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { EventSummaryCountry } from '../../../shared/data.model';
 import { NotificationContentService } from './../notification-content/notification-content.service';
+import { TyphoonTrackService } from '../../typhoon-track/typhoon-track.service';
+import { string } from 'yargs';
+import { count } from 'console';
 
 class ReplaceKeyValue {
   replaceKey: string;
@@ -37,6 +40,7 @@ export class EmailService {
     private readonly eventService: EventService,
     private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private readonly notificationContentService: NotificationContentService,
+    private readonly typhoonTrackService: TyphoonTrackService,
   ) {}
 
   private getSegmentId(countryCodeISO3: string): number {
@@ -103,9 +107,10 @@ export class EmailService {
     disasterType: DisasterType,
     events: EventSummaryCountry[],
   ): Promise<string> {
-    let subject = `${this.notificationContentService.firstCharOfWordsToUpper(
+    let subject = '';
+    const disasterWarning = `${this.notificationContentService.firstCharOfWordsToUpper(
       (await this.notificationContentService.getDisaster(disasterType)).label,
-    )} Warning: `;
+    )} Warning:`;
 
     const triggeredLeadTimes = await this.notificationContentService.getLeadTimesAcrossEvents(
       country.countryCodeISO3,
@@ -135,17 +140,27 @@ export class EmailService {
               leadTime.leadTimeName as LeadTime,
               event.eventName,
             );
-            const subjectPart = `Estimate of ${
+            const actionUnitCopy = `Estimate of ${
               actionUnit.label
             }: ${this.notificationContentService.formatActionUnitValue(
               totalActionUnitValue,
               actionUnit,
-            )} (${
+            )}`;
+
+            const eventStatusCopy = `(${
               leadTime.leadTimeName === '0-hour'
-                ? this.alreadyReached
+                ? (
+                    await this.getDisasterSpecificCopy(
+                      disasterType,
+                      country.countryCodeISO3,
+                      leadTime,
+                      event.eventName,
+                    )
+                  ).subjectStatus
                 : leadTime.leadTimeName
-            }) `;
-            subject = subject + subjectPart;
+            })`;
+
+            subject = `${disasterWarning} ${actionUnitCopy} ${eventStatusCopy} `;
           }
         }
       }
@@ -346,13 +361,6 @@ export class EmailService {
             const [leadTimeValue, leadTimeUnit] = leadTime.leadTimeLabel.split(
               '-',
             );
-            const leadTimeFromNow = `${leadTimeValue} ${leadTimeUnit}s`;
-
-            const zeroHour = leadTime.leadTimeName === '0-hour';
-
-            const leadTimeString = zeroHour
-              ? this.alreadyReached
-              : leadTimeFromNow;
 
             const eventName = event.eventName
               ? `${event.eventName}`
@@ -373,26 +381,20 @@ export class EmailService {
               Number(leadTimeValue),
               leadTimeUnit,
             );
+            const disasterSpecificCopy = await this.getDisasterSpecificCopy(
+              disasterType,
+              country.countryCodeISO3,
+              leadTime,
+              event.eventName,
+            );
+            const leadTimeFromNow = `${leadTimeValue} ${leadTimeUnit}s`;
 
-            const prefixes = {
-              [DisasterType.HeavyRain]: 'Estimated',
-              [DisasterType.Typhoon]: 'Forecasted to reach',
-              default: '',
-            };
-
-            const longListAdditions = {
-              [DisasterType.Typhoon]: '(point closest to) land',
-              default: '',
-            };
-
-            const prefix = prefixes[disasterType] || prefixes.default;
-
-            const longListAddition =
-              longListAdditions[disasterType] || prefixes.default;
-
+            const leadTimeString = disasterSpecificCopy.leadTimeString
+              ? disasterSpecificCopy.leadTimeString
+              : leadTimeFromNow;
             leadTimeListShort = `${leadTimeListShort}<li>${eventName}: ${dateAndTime} (${leadTimeString})</li>`;
 
-            leadTimeListLong = `${leadTimeListLong}<li>${eventName} - <strong>${triggerStatus}</strong>: ${prefix} ${longListAddition} ${dateTimePreposition} ${dateAndTime} (${leadTimeString})</li>`;
+            leadTimeListLong = `${leadTimeListLong}<li>${eventName} - <strong>${triggerStatus}</strong>: ${disasterSpecificCopy.eventStatus} ${dateTimePreposition} ${dateAndTime} (${leadTimeString}). ${disasterSpecificCopy.extraInfo}</li>`;
           }
         }
       }
@@ -505,11 +507,17 @@ export class EmailService {
     const leadTimeUnit = leadTime.leadTimeName.split('-')[1];
 
     const zeroHour = leadTime.leadTimeName === '0-hour';
+    const disasterSpecificCopy = this.getDisasterSpecificCopy(
+      disasterType,
+      country.countryCodeISO3,
+      leadTime,
+      eventName,
+    );
 
     const tableForLeadTimeStart = `<div>
       <strong>${
         zeroHour
-          ? this.alreadyReached
+          ? disasterSpecificCopy
           : `Forecast ${
               disasterType === DisasterType.HeavyRain ? 'estimated ' : ''
             }${leadTimeValue} ${leadTimeUnit}(s) from`
@@ -589,5 +597,96 @@ export class EmailService {
       emailHtml = emailHtml.split(entry.replaceKey).join(entry.replaceValue);
     }
     return emailHtml;
+  }
+
+  private async getDisasterSpecificCopy(
+    disasterType: DisasterType,
+    countryCodeISO3: string,
+    leadTime: LeadTimeEntity,
+    eventName: string,
+  ): Promise<{
+    eventStatus: string;
+    extraInfo: string;
+    leadTimeString?: string;
+    subjectStatus?: string;
+  }> {
+    switch (disasterType) {
+      case DisasterType.HeavyRain:
+        return this.getHeavyRainCopy();
+      case DisasterType.Typhoon:
+        return await this.getTyphoonCopy(
+          countryCodeISO3,
+          leadTime.leadTimeName,
+          eventName,
+        );
+      default:
+        return { eventStatus: '', extraInfo: '' };
+    }
+  }
+
+  private getHeavyRainCopy(): {
+    eventStatus: string;
+    extraInfo: string;
+  } {
+    return {
+      eventStatus: 'Estimated',
+      extraInfo: '',
+    };
+  }
+
+  private async getTyphoonCopy(
+    countryCodeISO3: string,
+    leadTime: string,
+    eventName: string,
+  ): Promise<{
+    eventStatus: string;
+    extraInfo: string;
+    leadTimeString: string;
+    subjectStatus: string;
+  }> {
+    const {
+      typhoonLandfall,
+      isTyphoonNoLandfallYet,
+    } = await this.typhoonTrackService.getTyphoonSpecificProperties(
+      countryCodeISO3,
+      leadTime,
+      eventName,
+    );
+
+    let eventStatus = '';
+    let extraInfo = '';
+    let leadTimeString = null;
+    let subjectStatus = null;
+
+    if (leadTime === '0-hour') {
+      if (typhoonLandfall) {
+        eventStatus = 'Has <strong>already made landfall</strong>';
+        leadTimeString = 'Already made landfall';
+        subjectStatus = 'Already made landfall';
+      } else {
+        eventStatus = 'Has already reached the point closest to land';
+        leadTimeString = 'reached the point closest to land';
+        subjectStatus = 'Already reached the point closest to land';
+      }
+    } else {
+      if (isTyphoonNoLandfallYet) {
+        eventStatus =
+          'Currently <strong>not predicted to make landfall yet</strong>';
+        extraInfo = 'Keep monitoring the event.';
+      }
+      if (typhoonLandfall) {
+        eventStatus = 'Estimated to <strong>make landfall</strong>';
+      } else {
+        eventStatus =
+          'Currently <strong>not predicted to make landfall</strong>. It is estimated to reach the point closest to land';
+      }
+    }
+
+    return {
+      eventStatus: eventStatus,
+      extraInfo: extraInfo,
+      leadTimeString,
+      subjectStatus,
+    };
   }
 }
