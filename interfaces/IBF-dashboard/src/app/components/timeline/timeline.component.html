@@ -18,6 +18,7 @@
     data-test="timeline-button"
     [class.active]="timeStepButton.active"
     [class.alert]="timeStepButton.alert && !timeStepButton?.disabled"
+    [class.noEvent]="timeStepButton.noEvent"
     (click)="handleTimeStepButtonClick(timeStepButton.value)"
   >
     <app-date-button

@@ -61,11 +61,15 @@ export class DateButtonComponent implements OnInit, OnDestroy {
     }
     if (this.unit === LeadTimeUnit.hour) {
       if (this.active) {
-        this.displayHour = this.date.toFormat(this.hourFormat);
+        this.displayHour = this.date
+          ? this.date.toFormat(this.hourFormat)
+          : 'Event';
       } else {
         this.displayHour = '';
       }
     }
-    this.displayMonth = this.date.toFormat(this.monthFormat);
+    this.displayMonth = this.date
+      ? this.date.toFormat(this.monthFormat)
+      : 'Future';
   };
 }

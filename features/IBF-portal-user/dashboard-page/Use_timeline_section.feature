@@ -12,8 +12,10 @@ Scenario: View the timeline section with 1 active lead-time in NON-TRIGGERED mod
     And each button contains a mention of month, day and/or time depending on the disaster-type
     And it has one "enabled" and "selected" button, the only "active" lead-time and thus also the "selected" lead-time
     And it varies per country and disaster-type
+        - '3-days' from now for Philippines floods
         - '5-days' from now for Uganda floods
-        - '7-days' from now for Zambia and Ethiopia floods
+        - '6-days' from now for Malawi floods
+        - '7-days' from now for Zambia, Kenya, Ethiopia, South Sudan floods
         - 'Next April' for Zimbabwe droughts (see specific scenario below)
         - 'Calculated time until landfall' for Philippines typhoon (see specific scenario below)
     And because "active" it is in "enabled" mode, slightly darker colored and clickable
@@ -26,6 +28,7 @@ Scenario: View the timeline section with multiple active lead-times in NON-TRIGG
     And they vary per country and disaster-type
         - '3-days', '5-days' and '7-days' from now for Egypt heavy-rain
         - '0-month', '1-month', '2-month' from now for dengue, malaria
+        - Season- and region-based months for Kenya and Ethiopia droughts
     And it has exactly one "selected" button, the "selected lead time"
     And the "selected" lead-time is the most left / earliest of the "active lead times"
 

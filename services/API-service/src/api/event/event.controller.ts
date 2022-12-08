@@ -11,6 +11,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Query,
   Res,
   UploadedFile,
   UseGuards,
@@ -22,6 +23,7 @@ import {
   ApiConsumes,
   ApiOperation,
   ApiParam,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -35,6 +37,7 @@ import { UserDecorator } from '../user/user.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import stream from 'stream';
 import { Response } from 'express-serve-static-core';
+import { DisasterType } from '../disaster/disaster-type.enum';
 
 @ApiBearerAuth()
 @ApiTags('event')
@@ -153,15 +156,15 @@ export class EventController {
       'Past and current trigger activation data per admin-area and disaster-type.',
     type: [ActivationLogDto],
   })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
-  @Get('activation-log/:countryCodeISO3/:disasterType')
+  @ApiQuery({ name: 'countryCodeISO3', required: false, type: 'string' })
+  @ApiQuery({ name: 'disasterType', required: false, type: 'string' })
+  @Get('activation-log')
   public async getActivationLogData(
-    @Param() params,
+    @Query() query,
   ): Promise<ActivationLogDto[]> {
     return await this.eventService.getActivationLogData(
-      params.countryCodeISO3,
-      params.disasterType,
+      query.countryCodeISO3,
+      query.disasterType,
     );
   }
 

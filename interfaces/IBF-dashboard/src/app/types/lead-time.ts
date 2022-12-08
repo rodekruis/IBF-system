@@ -395,3 +395,8 @@ export enum MonthFormats {
   default = 'LLL yyyy',
   typhoon = 'ccc dd LLL',
 }
+
+export class LeadTimeButtonInput {
+  leadTime: LeadTime;
+  undefined: boolean;
+}

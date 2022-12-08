@@ -15,6 +15,7 @@ import {
   In,
   MoreThan,
   IsNull,
+  SelectQueryBuilder,
 } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -231,36 +232,12 @@ export class EventService {
       element => element.placeCode,
     );
 
-    // get actionsValue from admin-area-dynamic-data instead of directly from event-place-code
-    // for performance reasons: now actionsValue in event-place-code does not need to be updated
-    const actionUnit = await this.getActionUnit(disasterType);
-    const actionValuePerPlaceCode = this.adminAreaDynamicDataRepo
-      .createQueryBuilder('dynamic')
-      .select([
-        'dynamic."placeCode"',
-        'dynamic."eventName"',
-        'MAX(dynamic.value) AS "actionsValue"',
-      ])
-      .where('dynamic.indicator = :indicator', { indicator: actionUnit })
-      .andWhere('dynamic.disasterType = :disasterType', {
-        disasterType: disasterType,
-      })
-      .andWhere('dynamic.countryCodeISO3 = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('dynamic.date = :date', { date: lastTriggeredDate.date })
-      .andWhere('extract(hour from dynamic.timestamp) = :hour', {
-        hour: lastTriggeredDate.timestamp.getHours(),
-      })
-      .groupBy('dynamic."placeCode"')
-      .addGroupBy('dynamic."eventName"');
-
     const triggeredAreasQuery = this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
-        'dynamic."actionsValue"',
+        'event."actionsValue"',
         'event."eventPlaceCodeId"',
         'event."activeTrigger"',
         'event."stopped"',
@@ -276,12 +253,6 @@ export class EventService {
         'parent',
         'area."placeCodeParent" = parent."placeCode"',
       )
-      .leftJoin(
-        '(' + actionValuePerPlaceCode.getQuery() + ')',
-        'dynamic',
-        `area."placeCode" = dynamic."placeCode" AND coalesce(event."eventName",'no-name') = coalesce(dynamic."eventName",'no-name')`,
-      )
-      .setParameters(actionValuePerPlaceCode.getParameters())
       .where({
         closed: false,
         disasterType: disasterType,
@@ -290,7 +261,7 @@ export class EventService {
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .orderBy('dynamic."actionsValue"', 'DESC');
+      .orderBy('event."actionsValue"', 'DESC');
 
     let triggeredAreas;
 
@@ -324,10 +295,10 @@ export class EventService {
   }
 
   public async getActivationLogData(
-    countryCodeISO3: string,
-    disasterType: string,
+    countryCodeISO3?: string,
+    disasterType?: string,
   ): Promise<ActivationLogDto[]> {
-    const baseQuery = this.eventPlaceCodeRepo
+    let baseQuery = this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."countryCodeISO3" AS "countryCodeISO3"',
@@ -352,25 +323,22 @@ export class EventService {
       .addOrderBy('event."disasterType"', 'ASC')
       .addOrderBy('area."placeCode"', 'ASC');
 
-    let result;
-    if (countryCodeISO3 === 'all' || disasterType === 'all') {
-      result = await baseQuery.getRawMany();
-    } else {
-      result = await baseQuery
+    if (countryCodeISO3 && disasterType) {
+      baseQuery = baseQuery
         .andWhere('event."disasterType" = :disasterType', {
           disasterType: disasterType,
         })
         .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
           countryCodeISO3: countryCodeISO3,
-        })
-        .getRawMany();
+        });
     }
+    const activationLogData = await baseQuery.getRawMany();
 
-    if (!result.length) {
+    if (!activationLogData.length) {
       return [new ActivationLogDto()];
     }
 
-    return result;
+    return activationLogData;
   }
 
   public async getTriggerPerLeadtime(
@@ -802,5 +770,62 @@ export class EventService {
     });
 
     return eventMapImageEntity?.image;
+  }
+
+  public async updateActionValueOfEvent() {
+    const eventAreasToUpdate = [];
+
+    const activeEvents = await this.eventPlaceCodeRepo
+      .createQueryBuilder('event')
+      .select([
+        'area."countryCodeISO3" as "countryCodeISO3"',
+        'area."adminLevel" as "adminLevel"',
+        'event."disasterType" as "disasterType"',
+        'event."eventName" as "eventName"',
+      ])
+      .leftJoin('event.adminArea', 'area')
+      .where({ closed: false })
+      .groupBy('area."countryCodeISO3"')
+      .addGroupBy('area."adminLevel"')
+      .addGroupBy('event."disasterType"')
+      .addGroupBy('event."eventName"')
+      .getRawMany();
+
+    for await (const event of activeEvents) {
+      const affectedAreas = await this.getAffectedAreas(
+        event.countryCodeISO3,
+        event.disasterType as DisasterType,
+        event.adminLevel,
+        event.eventName,
+      );
+
+      const countryAdminAreaIds = await this.getCountryAdminAreaIds(
+        event.countryCodeISO3,
+      );
+
+      const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
+        where: {
+          closed: false,
+          adminArea: In(countryAdminAreaIds),
+          disasterType: event.disasterType,
+          eventName: event.eventName || IsNull(),
+        },
+        relations: ['adminArea'],
+      });
+      for await (const eventArea of unclosedEventAreas) {
+        const affectedArea = affectedAreas.find(
+          area => area.placeCode === eventArea.adminArea.placeCode,
+        );
+        if (
+          affectedArea &&
+          eventArea.actionsValue !== affectedArea.actionsValue
+        ) {
+          eventArea.actionsValue = affectedArea.actionsValue;
+          eventAreasToUpdate.push(eventArea);
+        }
+      }
+    }
+
+    await this.eventPlaceCodeRepo.save(eventAreasToUpdate);
   }
 }
