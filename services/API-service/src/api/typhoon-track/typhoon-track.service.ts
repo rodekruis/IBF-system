@@ -6,6 +6,7 @@ import { HelperService } from '../../shared/helper.service';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { EventService } from '../event/event.service';
+import { TyphoonSpecificProperties } from './dto/trackpoint-details';
 import { UploadTyphoonTrackDto } from './dto/upload-typhoon-track';
 import { TyphoonTrackEntity } from './typhoon-track.entity';
 
@@ -98,5 +99,62 @@ export class TyphoonTrackService {
     });
 
     return this.helperService.toGeojson(typhoonTrackPoints);
+  }
+
+  public async getTyphoonSpecificProperties(
+    countryCodeISO3: string,
+    leadTime: string,
+    eventName: string,
+  ): Promise<TyphoonSpecificProperties> {
+    const lastTriggeredDate = await this.eventService.getRecentDate(
+      countryCodeISO3,
+      DisasterType.Typhoon,
+    );
+
+    const typhoonTrackPoints = await this.typhoonTrackRepository.find({
+      select: ['timestampOfTrackpoint', 'firstLandfall', 'closestToLand'],
+      where: {
+        leadTime: leadTime,
+        countryCodeISO3: countryCodeISO3,
+        date: lastTriggeredDate.date,
+        eventName: eventName,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast12hourInterval(
+            DisasterType.Typhoon,
+            lastTriggeredDate.timestamp,
+          ),
+        ),
+      },
+    });
+
+    const typhoonLandfall =
+      typhoonTrackPoints.filter(point => point.firstLandfall).length > 0;
+
+    let isTyphoonNoLandfallYet = false;
+
+    if (!typhoonLandfall) {
+      const maxTimestamp = new Date(
+        Math.max.apply(
+          null,
+          typhoonTrackPoints.map(
+            point => new Date(point.timestampOfTrackpoint),
+          ),
+        ),
+      );
+
+      const closestToLandTimestamp = new Date(
+        typhoonTrackPoints.find(
+          point => point.closestToLand,
+        ).timestampOfTrackpoint,
+      );
+
+      isTyphoonNoLandfallYet =
+        maxTimestamp.getTime() === closestToLandTimestamp.getTime();
+    }
+
+    return {
+      typhoonLandfall,
+      isTyphoonNoLandfallYet,
+    };
   }
 }
