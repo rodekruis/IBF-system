@@ -184,25 +184,14 @@
       },
       "active-event-active-trigger": {
         "welcome": "A trigger warning for <strong>{{ eventName }}</strong> was activated on {{ startDate }}.",
+        "welcome-below-trigger": "A warning for <strong>{{ eventName }}</strong> was activated on {{ startDate }}, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
         "upcoming-event": {
-          "landfall": "It is estimated to <strong>make landfall</strong> at <strong>{{ firstLeadTimeDate }}</strong>.<br><br>",
-          "no-landfall": "It is currently <strong>not predicted to make landfall</strong>. It is estimated to reach the point closest to land at {{ firstLeadTimeDate }}.<br><br>",
-          "no-landfall-yet": "It is currently <strong>not predicted to make landfall yet</strong>. Keep monitoring the event.<br><br>"
+          "landfall": "It is estimated to <strong>make landfall</strong> on <strong>{{ firstLeadTimeDate }}</strong>.<br><br>",
+          "no-landfall": "It is estimated to reach the point closest to land on <strong>{{ firstLeadTimeDate }}</strong>. It is <strong>not predicted to make landfall</strong>.<br><br>",
+          "no-landfall-yet": "The <strong>landfall time prediction cannot be determined yet</strong>. Keep monitoring the event.<br><br>"
         },
         "passed-event": {
           "landfall": "It has <strong>already made landfall</strong>.<br><br>",
-          "no-landfall": "It has already reached the point closest to land.<br><br>"
-        }
-      },
-      "active-event-below-trigger": {
-        "welcome": "A warning for <strong>{{ eventName }}</strong> was activated on {{ startDate }}, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
-        "upcoming-event": {
-          "landfall": "It is estimated to make landfall at {{ firstLeadTimeDate }}.<br><br>",
-          "no-landfall": "It is currently not predicted to make landfall. It is estimated to reach the point closest to land at {{ firstLeadTimeDate }}.<br><br>",
-          "no-landfall-yet": "It is currently <strong>not predicted to make landfall yet</strong>. Keep monitoring the event.<br><br>"
-        },
-        "passed-event": {
-          "landfall": "It has already made landfall.<br><br>",
           "no-landfall": "It has already reached the point closest to land.<br><br>"
         }
       },
