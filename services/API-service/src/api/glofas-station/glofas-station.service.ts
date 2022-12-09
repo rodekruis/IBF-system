@@ -36,7 +36,7 @@ export class GlofasStationService {
     countryCodeISO3: string,
     leadTime: LeadTime,
   ): Promise<GeoJson> {
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       DisasterType.Floods,
     );

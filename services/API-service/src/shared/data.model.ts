@@ -48,6 +48,11 @@ export class TriggeredArea {
   public displayName: string;
 }
 
+export class DisasterSpecificProperties {
+  typhoonLandfall?: boolean;
+  typhoonNoLandfallYet?: boolean;
+}
+
 export class EventSummaryCountry {
   @ApiProperty({ example: 'UGA' })
   public countryCodeISO3: string;
@@ -66,4 +71,7 @@ export class EventSummaryCountry {
 
   @ApiProperty({ example: 'Mock typhoon' })
   public eventName: string;
+
+  @ApiProperty({ example: {} })
+  public disasterSpecificProperties: DisasterSpecificProperties;
 }

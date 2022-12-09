@@ -47,8 +47,3 @@ export class TrackpointDetailsDto {
   @IsBoolean()
   public closestToLand: boolean;
 }
-
-export class TyphoonSpecificProperties {
-  public typhoonLandfall: boolean;
-  public isTyphoonNoLandfallYet: boolean;
-}

@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
+import { DisasterSpecificProperties } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster/disaster-type.enum';
-import { EventService } from '../event/event.service';
-import { TyphoonSpecificProperties } from './dto/trackpoint-details';
 import { UploadTyphoonTrackDto } from './dto/upload-typhoon-track';
 import { TyphoonTrackEntity } from './typhoon-track.entity';
 
@@ -15,10 +14,7 @@ export class TyphoonTrackService {
   @InjectRepository(TyphoonTrackEntity)
   private readonly typhoonTrackRepository: Repository<TyphoonTrackEntity>;
 
-  public constructor(
-    private helperService: HelperService,
-    private eventService: EventService,
-  ) {}
+  public constructor(private helperService: HelperService) {}
 
   public async uploadTyphoonTrack(
     uploadTyphoonTrack: UploadTyphoonTrackDto,
@@ -69,7 +65,7 @@ export class TyphoonTrackService {
     leadTime: LeadTime,
     eventName: string,
   ): Promise<GeoJson> {
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       DisasterType.Typhoon,
     );
@@ -103,10 +99,9 @@ export class TyphoonTrackService {
 
   public async getTyphoonSpecificProperties(
     countryCodeISO3: string,
-    leadTime: string,
     eventName: string,
-  ): Promise<TyphoonSpecificProperties> {
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+  ): Promise<DisasterSpecificProperties> {
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       DisasterType.Typhoon,
     );
@@ -114,7 +109,6 @@ export class TyphoonTrackService {
     const typhoonTrackPoints = await this.typhoonTrackRepository.find({
       select: ['timestampOfTrackpoint', 'firstLandfall', 'closestToLand'],
       where: {
-        leadTime: leadTime,
         countryCodeISO3: countryCodeISO3,
         date: lastTriggeredDate.date,
         eventName: eventName,
@@ -130,7 +124,7 @@ export class TyphoonTrackService {
     const typhoonLandfall =
       typhoonTrackPoints.filter(point => point.firstLandfall).length > 0;
 
-    let isTyphoonNoLandfallYet = false;
+    let typhoonNoLandfallYet = false;
 
     if (!typhoonLandfall) {
       const maxTimestamp = new Date(
@@ -148,13 +142,13 @@ export class TyphoonTrackService {
         ).timestampOfTrackpoint,
       );
 
-      isTyphoonNoLandfallYet =
+      typhoonNoLandfallYet =
         maxTimestamp.getTime() === closestToLandTimestamp.getTime();
     }
 
     return {
       typhoonLandfall,
-      isTyphoonNoLandfallYet,
+      typhoonNoLandfallYet,
     };
   }
 }
