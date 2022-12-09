@@ -194,12 +194,11 @@ export class TimelineService {
   public handleTimeStepButtonClick(timeStepButtonValue, noEvent?: boolean) {
     this.state.activeLeadTime = timeStepButtonValue;
     this.state.timeStepButtons.forEach(this.deactivateLeadTimeButton);
-    let btnToActivate = this.state.timeStepButtons.find((btn) =>
+    this.state.timeStepButtons.find((btn) =>
       noEvent
         ? btn.value === timeStepButtonValue
         : btn.value === timeStepButtonValue && !btn.disabled,
-    );
-    btnToActivate.active = true;
+    ).active = true;
 
     this.timelineStateSubject.next(this.state);
   }
