@@ -135,15 +135,12 @@ export class TimelineService {
         (timeStepButton) => !timeStepButton.disabled,
       );
     }
-    // except if that leads to still empty set: assume this is the typhoon no-event scenario
-    if (toShowTimeStepButtons.length === 0) {
-      toShowTimeStepButtons = this.state.timeStepButtons.filter(
-        (timeStepButton) => timeStepButton.value === LeadTime.hour72,
-      );
-    }
     // and take first one of this set as active lead-time
     if (toShowTimeStepButtons.length > 0) {
       this.handleTimeStepButtonClick(toShowTimeStepButtons[0].value);
+    } // except if that leads to still empty set: assume this is the typhoon no-event scenario
+    else if (toShowTimeStepButtons.length === 0) {
+      this.handleTimeStepButtonClick(LeadTime.hour72, true);
     }
   };
 
@@ -194,12 +191,15 @@ export class TimelineService {
   private deactivateLeadTimeButton = (leadTimeButton) =>
     (leadTimeButton.active = false);
 
-  public handleTimeStepButtonClick(timeStepButtonValue) {
+  public handleTimeStepButtonClick(timeStepButtonValue, noEvent?: boolean) {
     this.state.activeLeadTime = timeStepButtonValue;
     this.state.timeStepButtons.forEach(this.deactivateLeadTimeButton);
-    this.state.timeStepButtons.find(
-      (btn) => btn.value === timeStepButtonValue && !btn.disabled,
-    ).active = true;
+    let btnToActivate = this.state.timeStepButtons.find((btn) =>
+      noEvent
+        ? btn.value === timeStepButtonValue
+        : btn.value === timeStepButtonValue && !btn.disabled,
+    );
+    btnToActivate.active = true;
 
     this.timelineStateSubject.next(this.state);
   }
