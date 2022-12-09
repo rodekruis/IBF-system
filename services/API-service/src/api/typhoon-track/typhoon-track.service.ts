@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
+import { DisasterSpecificProperties } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
@@ -135,5 +136,60 @@ export class TyphoonTrackService {
       ),
     };
     return filters;
+  }
+
+  public async getTyphoonSpecificProperties(
+    countryCodeISO3: string,
+    eventName: string,
+  ): Promise<DisasterSpecificProperties> {
+    const lastTriggeredDate = await this.helperService.getRecentDate(
+      countryCodeISO3,
+      DisasterType.Typhoon,
+    );
+
+    const typhoonTrackPoints = await this.typhoonTrackRepository.find({
+      select: ['timestampOfTrackpoint', 'firstLandfall', 'closestToLand'],
+      where: {
+        countryCodeISO3: countryCodeISO3,
+        date: lastTriggeredDate.date,
+        eventName: eventName,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast6hourInterval(
+            DisasterType.Typhoon,
+            lastTriggeredDate.timestamp,
+          ),
+        ),
+      },
+    });
+
+    const typhoonLandfall =
+      typhoonTrackPoints.filter(point => point.firstLandfall).length > 0;
+
+    let typhoonNoLandfallYet = false;
+
+    if (!typhoonLandfall) {
+      const maxTimestamp = new Date(
+        Math.max.apply(
+          null,
+          typhoonTrackPoints.map(
+            point => new Date(point.timestampOfTrackpoint),
+          ),
+        ),
+      );
+
+      const closestToLandTimestamp = new Date(
+        typhoonTrackPoints.find(
+          point => point.closestToLand,
+        ).timestampOfTrackpoint,
+      );
+
+      typhoonNoLandfallYet =
+        maxTimestamp.getTime() === closestToLandTimestamp.getTime();
+    }
+
+    return {
+      typhoonLandfall,
+      typhoonNoLandfallYet,
+    };
   }
 }
