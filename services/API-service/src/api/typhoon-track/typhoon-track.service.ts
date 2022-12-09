@@ -63,13 +63,9 @@ export class TyphoonTrackService {
 
   public async getTyphoonTrack(
     countryCodeISO3: string,
-    leadTime: LeadTime,
     eventName: string,
   ): Promise<GeoJson> {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
-      countryCodeISO3,
-      DisasterType.Typhoon,
-    );
+    const filters = await this.getTrackFilters(countryCodeISO3, eventName);
     const typhoonTrackPoints = await this.typhoonTrackRepository.find({
       select: [
         'countryCodeISO3',
@@ -81,18 +77,7 @@ export class TyphoonTrackService {
         'closestToLand',
         'geom',
       ],
-      where: {
-        leadTime: leadTime,
-        countryCodeISO3: countryCodeISO3,
-        date: lastTriggeredDate.date,
-        eventName: eventName,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            DisasterType.Typhoon,
-            lastTriggeredDate.timestamp,
-          ),
-        ),
-      },
+      where: filters,
     });
 
     return this.helperService.toGeojson(typhoonTrackPoints);
@@ -142,24 +127,10 @@ export class TyphoonTrackService {
     countryCodeISO3: string,
     eventName: string,
   ): Promise<DisasterSpecificProperties> {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
-      countryCodeISO3,
-      DisasterType.Typhoon,
-    );
-
+    const filters = await this.getTrackFilters(countryCodeISO3, eventName);
     const typhoonTrackPoints = await this.typhoonTrackRepository.find({
       select: ['timestampOfTrackpoint', 'firstLandfall', 'closestToLand'],
-      where: {
-        countryCodeISO3: countryCodeISO3,
-        date: lastTriggeredDate.date,
-        eventName: eventName,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            DisasterType.Typhoon,
-            lastTriggeredDate.timestamp,
-          ),
-        ),
-      },
+      where: filters,
     });
 
     const typhoonLandfall =

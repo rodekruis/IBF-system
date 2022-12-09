@@ -140,13 +140,9 @@ export class ApiService {
 
   getTyphoonTrack(
     countryCodeISO3: string,
-    leadTime: LeadTime,
     eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(
-      `typhoon-track/${countryCodeISO3}/${leadTime}/${eventName}`,
-      false,
-    );
+    return this.get(`typhoon-track/${countryCodeISO3}/${eventName}`, false);
   }
 
   getPointData(

@@ -14,9 +14,6 @@ import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-dat
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { EventSummaryCountry } from '../../../shared/data.model';
 import { NotificationContentService } from './../notification-content/notification-content.service';
-import { TyphoonTrackService } from '../../typhoon-track/typhoon-track.service';
-import { string } from 'yargs';
-import { count } from 'console';
 
 class ReplaceKeyValue {
   replaceKey: string;
@@ -38,7 +35,6 @@ export class EmailService {
     private readonly eventService: EventService,
     private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private readonly notificationContentService: NotificationContentService,
-    private readonly typhoonTrackService: TyphoonTrackService,
   ) {}
 
   private getSegmentId(countryCodeISO3: string): number {
@@ -150,9 +146,8 @@ export class EmailService {
                 ? (
                     await this.getDisasterSpecificCopy(
                       disasterType,
-                      country.countryCodeISO3,
                       leadTime,
-                      event.eventName,
+                      event,
                     )
                   ).subjectStatus
                 : leadTime.leadTimeName
@@ -373,9 +368,8 @@ export class EmailService {
             );
             const disasterSpecificCopy = await this.getDisasterSpecificCopy(
               disasterType,
-              country.countryCodeISO3,
               leadTime,
-              event.eventName,
+              event,
             );
             const leadTimeFromNow = `${leadTimeValue} ${leadTimeUnit}s`;
 
@@ -433,7 +427,7 @@ export class EmailService {
               country,
               disasterType,
               leadTime,
-              event.eventName,
+              event,
             );
             leadTimeTables = leadTimeTables + tableForLeadTime;
           }
@@ -502,7 +496,7 @@ export class EmailService {
     country: CountryEntity,
     disasterType: DisasterType,
     leadTime: LeadTimeEntity,
-    eventName: string,
+    event: EventSummaryCountry,
   ): Promise<string> {
     const adminLevel = country.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
@@ -521,9 +515,8 @@ export class EmailService {
     const zeroHour = leadTime.leadTimeName === LeadTime.hour0;
     const disasterSpecificCopy = this.getDisasterSpecificCopy(
       disasterType,
-      country.countryCodeISO3,
       leadTime,
-      eventName,
+      event,
     );
 
     const tableForLeadTimeStart = `<div>
@@ -551,7 +544,7 @@ export class EmailService {
       country,
       disasterType,
       leadTime,
-      eventName,
+      event.eventName,
       actionUnit,
     );
     const tableForLeadTimeEnd = '</tbody></table>';
@@ -613,9 +606,8 @@ export class EmailService {
 
   private async getDisasterSpecificCopy(
     disasterType: DisasterType,
-    countryCodeISO3: string,
     leadTime: LeadTimeEntity,
-    eventName: string,
+    event: EventSummaryCountry,
   ): Promise<{
     eventStatus: string;
     extraInfo: string;
@@ -626,11 +618,7 @@ export class EmailService {
       case DisasterType.HeavyRain:
         return this.getHeavyRainCopy();
       case DisasterType.Typhoon:
-        return await this.getTyphoonCopy(
-          countryCodeISO3,
-          leadTime.leadTimeName,
-          eventName,
-        );
+        return await this.getTyphoonCopy(leadTime.leadTimeName, event);
       default:
         return { eventStatus: '', extraInfo: '' };
     }
@@ -647,9 +635,8 @@ export class EmailService {
   }
 
   private async getTyphoonCopy(
-    countryCodeISO3: string,
     leadTime: string,
-    eventName: string,
+    event: EventSummaryCountry,
   ): Promise<{
     eventStatus: string;
     extraInfo: string;
@@ -659,10 +646,7 @@ export class EmailService {
     const {
       typhoonLandfall,
       typhoonNoLandfallYet,
-    } = await this.typhoonTrackService.getTyphoonSpecificProperties(
-      countryCodeISO3,
-      eventName,
-    );
+    } = event.disasterSpecificProperties;
     let eventStatus = '';
     let extraInfo = '';
     let leadTimeString = null;
