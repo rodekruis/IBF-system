@@ -14,7 +14,7 @@ const baseApiUrl = process.env.EXTERNAL_API_SERVICE_URL + 'api/';
 const rootUrl =
   process.env.NODE_ENV === 'development'
     ? `http://localhost:${PORT}/`
-    : process.env.EXTERNAL_121_SERVICE_URL;
+    : process.env.EXTERNAL_API_SERVICE_URL;
 export const EXTERNAL_API = {
   root: rootUrl,
   rootApi: `${rootUrl}/api`,

@@ -117,7 +117,7 @@ export class AdminAreaService {
         indicator: triggerUnit,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             disasterType,
             lastTriggeredDate.timestamp,
           ),
@@ -204,8 +204,8 @@ export class AdminAreaService {
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
-      .andWhere('timestamp >= :last12hourInterval', {
-        last12hourInterval: this.helperService.getLast12hourInterval(
+      .andWhere('timestamp >= :last6hourInterval', {
+        last6hourInterval: this.helperService.getLast6hourInterval(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -296,8 +296,8 @@ export class AdminAreaService {
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
-      .andWhere('timestamp >= :last12hourInterval', {
-        last12hourInterval: this.helperService.getLast12hourInterval(
+      .andWhere('timestamp >= :last6hourInterval', {
+        last6hourInterval: this.helperService.getLast6hourInterval(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -345,7 +345,7 @@ export class AdminAreaService {
         leadTime: leadTime,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             disasterType,
             lastTriggeredDate.timestamp,
           ),

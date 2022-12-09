@@ -107,7 +107,7 @@ export class AdminAreaDynamicDataService {
         date: new Date(),
         eventName: uploadExposure.eventName || IsNull(),
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(uploadExposure.disasterType),
+          this.helperService.getLast6hourInterval(uploadExposure.disasterType),
         ),
       });
     } else {
@@ -181,7 +181,7 @@ export class AdminAreaDynamicDataService {
         eventName: eventName === 'no-name' ? IsNull() : eventName,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             disasterType,
             lastTriggeredDate.timestamp,
           ),
@@ -243,78 +243,57 @@ export class AdminAreaDynamicDataService {
 
   public async archiveOldDynamicData() {
     // for now do this only for floods as it is the bulk of the data, and the easiest to handle
-    const maxDateQuery = this.adminAreaDynamicDataRepo
+    const maxDate = await this.adminAreaDynamicDataRepo
       .createQueryBuilder()
-      .select([
-        '"countryCodeISO3"',
-        '"disasterType"',
-        '"leadTime"',
-        `coalesce("eventName",'no-name') AS "eventName"`,
-        'MAX("date") AS max_date',
-      ])
+      .select(['"countryCodeISO3"', 'MAX("date") AS max_date'])
       .groupBy('"countryCodeISO3"')
-      .addGroupBy('"disasterType"')
-      .addGroupBy('"leadTime"')
-      .addGroupBy(`coalesce("eventName",'no-name')`);
-
-    const recordsToDelete = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('data')
-      .select('data."adminAreaDynamicDataId"')
-      .leftJoin(
-        '(' + maxDateQuery.getQuery() + ')',
-        'max_date',
-        `data."countryCodeISO3" = max_date."countryCodeISO3" AND data."disasterType" = max_date."disasterType" AND data."leadTime" = max_date."leadTime" AND coalesce(data."eventName",'no-name') = coalesce(max_date."eventName",'no-name')`,
-      )
-      .setParameters(maxDateQuery.getParameters())
-      .where('data.date < max_date.max_date')
-      .andWhere('data."disasterType" = :disasterType', {
-        disasterType: DisasterType.Floods,
-      })
+      .where({ disasterType: DisasterType.Floods })
       .getRawMany();
 
-    if (recordsToDelete.length) {
-      const idsToDelete = recordsToDelete.map(id => id.adminAreaDynamicDataId);
-
-      // Move to separate archive-table
-      const repository = this.connection.getRepository(
-        AdminAreaDynamicDataEntity,
-      );
-      const archiveTableExists = (
-        await this.connection.query(
-          `SELECT exists (
+    // Move to separate archive-table
+    const repository = this.connection.getRepository(
+      AdminAreaDynamicDataEntity,
+    );
+    const archiveTableExists = (
+      await this.connection.query(
+        `SELECT exists (
             SELECT FROM information_schema.tables
               WHERE  table_schema = '${repository.metadata.schema}'
               AND    table_name   = '${repository.metadata.tableName}-archive'
               )`,
-        )
-      )[0].exists;
+      )
+    )[0].exists;
+    for await (const country of maxDate) {
       if (archiveTableExists) {
         await this.connection.query(
           `INSERT INTO "${repository.metadata.schema}"."${repository.metadata.tableName}-archive" \
-          SELECT * 
-          FROM "${repository.metadata.schema}"."${repository.metadata.tableName}" \
-          WHERE cast("adminAreaDynamicDataId" as varchar) = ANY(string_to_array($1,$2))`,
-          [idsToDelete.join(','), ','],
+            SELECT * \
+            FROM "${repository.metadata.schema}"."${repository.metadata.tableName}" \
+            WHERE "disasterType" = $1 \
+            AND "countryCodeISO3" = $2 \
+            AND date < $3`,
+          [DisasterType.Floods, country.countryCodeISO3, country.max_date],
         );
       } else {
         await this.connection.query(
-          `SELECT * 
-          INTO "${repository.metadata.schema}"."${repository.metadata.tableName}-archive" \
-          FROM "${repository.metadata.schema}"."${repository.metadata.tableName}" \
-          WHERE cast("adminAreaDynamicDataId" as varchar) = ANY(string_to_array($1,$2))`,
-          [idsToDelete.join(','), ','],
+          `SELECT * \
+            INTO "${repository.metadata.schema}"."${repository.metadata.tableName}-archive" \
+            FROM "${repository.metadata.schema}"."${repository.metadata.tableName}" \
+            WHERE "disasterType" = $1 \
+            AND "countryCodeISO3" = $2 \
+            AND date < $3`,
+          [DisasterType.Floods, country.countryCodeISO3, country.max_date],
         );
       }
 
-      //Then delete from live table
-      const deleteResult = await this.adminAreaDynamicDataRepo
-        .createQueryBuilder()
-        .delete()
-        .where('"adminAreaDynamicDataId" IN (:...idsToDelete)', {
-          idsToDelete: idsToDelete,
-        })
-        .execute();
-      console.log(`deleted ${deleteResult.affected} old records`);
+      await this.connection.query(
+        `DELETE \
+          FROM "${repository.metadata.schema}"."${repository.metadata.tableName}" \
+          WHERE "disasterType" = $1 \
+          AND "countryCodeISO3" = $2 \
+          AND date < $3`,
+        [DisasterType.Floods, country.countryCodeISO3, country.max_date],
+      );
     }
   }
 }
