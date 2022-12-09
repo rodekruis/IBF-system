@@ -10,7 +10,6 @@ import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { WhatsappModule } from './whatsapp/whatsapp.module';
 import { NotificationContentModule } from './notification-content/notification-content.module';
 import { EmailService } from './email/email.service';
-import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
 
 @Module({
