@@ -9,8 +9,6 @@ import {
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
 import { Country, DisasterType } from '../models/country.model';
-import { TyphoonTrackPoint } from '../models/poi.model';
-import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { DisasterTypeService } from './disaster-type.service';
 
@@ -250,42 +248,7 @@ export class EventService {
     event.firstLeadTimeDate = firstKey
       ? this.getFirstLeadTimeDate(firstKey, event.timeUnit)
       : null;
-
-    if (this.disasterType.disasterType === DisasterTypeKey.typhoon) {
-      this.getTyphoonLandfallState(event);
-    }
   };
-
-  private getTyphoonLandfallState(event: EventSummary) {
-    this.apiService
-      .getTyphoonTrack(
-        this.country.countryCodeISO3,
-        event.firstLeadTime as LeadTime,
-        event.eventName,
-      )
-      .subscribe((trackpoints) => {
-        event.disasterSpecificProperties = new DisasterSpecificProperties();
-        event.disasterSpecificProperties.typhoonLandfall =
-          trackpoints.features.filter((point) => point.properties.firstLandfall)
-            .length > 0;
-        event.disasterSpecificProperties.typhoonNoLandfallYet = this.isTyphoonNoLandfallYet(
-          trackpoints.features.map((f) => f.properties) as TyphoonTrackPoint[],
-        );
-      });
-  }
-
-  private isTyphoonNoLandfallYet(trackpoints: TyphoonTrackPoint[]): boolean {
-    const maxTimestamp = new Date(
-      Math.max.apply(
-        null,
-        trackpoints.map((point) => new Date(point.timestampOfTrackpoint)),
-      ),
-    );
-    const closestToLandTimestamp = new Date(
-      trackpoints.find((point) => point.closestToLand).timestampOfTrackpoint,
-    );
-    return maxTimestamp.getTime() === closestToLandTimestamp.getTime();
-  }
 
   public getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit) {
     const timeUnitsInFuture = Number(LeadTimeTriggerKey[firstKey]);
