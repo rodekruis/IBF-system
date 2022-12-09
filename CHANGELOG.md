@@ -1,3 +1,22 @@
+# [0.205.0](https://github.com/rodekruis/IBF-system/compare/v0.204.0...v0.205.0) (2022-12-09)
+
+
+### Bug Fixes
+
+* clear placecode on eap-action save AB[#16639](https://github.com/rodekruis/IBF-system/issues/16639) ([a77f082](https://github.com/rodekruis/IBF-system/commit/a77f082b63ab8ed596282fb8feaf9ba544e7ccad))
+* rm unnecessary event-switch AB[#16637](https://github.com/rodekruis/IBF-system/issues/16637) ([b3b4ea0](https://github.com/rodekruis/IBF-system/commit/b3b4ea01971e1f7e7673a86eaa54653837d71af2))
+* small tweaks AB[#16428](https://github.com/rodekruis/IBF-system/issues/16428) ([99391d6](https://github.com/rodekruis/IBF-system/commit/99391d657a5c36738355272bb87c39e84dce7431))
+* use typhoon specific properties in eventSummary AB[#16641](https://github.com/rodekruis/IBF-system/issues/16641) ([012d4a9](https://github.com/rodekruis/IBF-system/commit/012d4a9b7053906d7ab52d89b3d130a9d11198c5))
+* ux copy AB[#16744](https://github.com/rodekruis/IBF-system/issues/16744) ([150002f](https://github.com/rodekruis/IBF-system/commit/150002f028d4a268da6663e0da572e29776ef126))
+
+
+### Features
+
+* add typhoon properties to backend AB[#16641](https://github.com/rodekruis/IBF-system/issues/16641) ([ea97707](https://github.com/rodekruis/IBF-system/commit/ea97707c6ed9f786c6436a390550378efc1eef65))
+* align email to typhoon scenarios AB[#16428](https://github.com/rodekruis/IBF-system/issues/16428) ([6da967c](https://github.com/rodekruis/IBF-system/commit/6da967cb252eacc7eba132bf071ad24bc9ec32dd))
+
+
+
 # [0.204.0](https://github.com/rodekruis/IBF-system/compare/v0.203.2...v0.204.0) (2022-12-02)
 
 
@@ -119,22 +138,6 @@
 ### Features
 
 * SSD info popups first setup AB[#16237](https://github.com/rodekruis/IBF-system/issues/16237) ([579e4bc](https://github.com/rodekruis/IBF-system/commit/579e4bcbf7df2a716c54e0421bc524e08933d1c3))
-
-
-
-# [0.198.0](https://github.com/rodekruis/IBF-system/compare/v0.197.0...v0.198.0) (2022-11-18)
-
-
-### Bug Fixes
-
-* api url AB[#16331](https://github.com/rodekruis/IBF-system/issues/16331) ([0dd8c28](https://github.com/rodekruis/IBF-system/commit/0dd8c2870f5747bef6f65d35664c85f7ec0452a2))
-* update map caption AB[#16331](https://github.com/rodekruis/IBF-system/issues/16331) ([1177069](https://github.com/rodekruis/IBF-system/commit/1177069848dc42a603c889b1759a884c15399601))
-
-
-### Features
-
-* include map only if available AB[#16331](https://github.com/rodekruis/IBF-system/issues/16331) ([39d8c68](https://github.com/rodekruis/IBF-system/commit/39d8c683e8d68b47325222fa1149896608af6033))
-* include mock map image AB[#16332](https://github.com/rodekruis/IBF-system/issues/16332) ([cafcd01](https://github.com/rodekruis/IBF-system/commit/cafcd01b0d01fe3b0f021452047f8008483e16ba))
 
 
 

@@ -166,7 +166,7 @@ export class AdminAreaDynamicDataService {
     disasterType: DisasterType,
     eventName: string,
   ): Promise<AdminDataReturnDto[]> {
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );

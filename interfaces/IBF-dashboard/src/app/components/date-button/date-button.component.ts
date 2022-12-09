@@ -63,13 +63,13 @@ export class DateButtonComponent implements OnInit, OnDestroy {
       if (this.active) {
         this.displayHour = this.date
           ? this.date.toFormat(this.hourFormat)
-          : 'Event';
+          : 'Landfall';
       } else {
         this.displayHour = '';
       }
     }
     this.displayMonth = this.date
       ? this.date.toFormat(this.monthFormat)
-      : 'Future';
+      : 'Undetermined';
   };
 }

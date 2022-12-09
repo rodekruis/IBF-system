@@ -13,12 +13,14 @@ import { DisasterEntity } from '../disaster/disaster.entity';
 import { HelperService } from '../../shared/helper.service';
 import { UserEntity } from '../user/user.entity';
 import { EventMapImageEntity } from './event-map-image.entity';
+import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
 
 @Module({
   imports: [
     UserModule,
     CountryModule,
     EapActionsModule,
+    TyphoonTrackModule,
     TypeOrmModule.forFeature([
       EventPlaceCodeEntity,
       TriggerPerLeadTime,

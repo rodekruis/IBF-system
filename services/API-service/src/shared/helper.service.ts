@@ -3,9 +3,14 @@ import { Readable } from 'typeorm/platform/PlatformTools';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { GeoJson, GeoJsonFeature } from './geo.model';
 import csv from 'csv-parser';
+import { DateDto } from '../api/event/dto/date.dto';
+import { Connection } from 'typeorm';
+import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 
 @Injectable()
 export class HelperService {
+  public constructor(private connection: Connection) {}
+
   public toGeojson(rawResult): GeoJson {
     const geoJson: GeoJson = {
       type: 'FeatureCollection',
@@ -66,5 +71,29 @@ export class HelperService {
           resolve(parsedData);
         });
     });
+  }
+
+  public async getRecentDate(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<DateDto> {
+    const triggerPerLeadTimeRepository = this.connection.getRepository(
+      TriggerPerLeadTime,
+    );
+    const result = await triggerPerLeadTimeRepository.findOne({
+      where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
+      order: { timestamp: 'DESC' },
+    });
+    if (result) {
+      return {
+        date: new Date(result.date).toISOString(),
+        timestamp: new Date(result.timestamp),
+      };
+    } else {
+      return {
+        date: null,
+        timestamp: null,
+      };
+    }
   }
 }
