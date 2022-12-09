@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
+import { DisasterSpecificProperties } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster/disaster-type.enum';
-import { EventService } from '../event/event.service';
 import { TyphoonCategory } from './dto/trackpoint-details';
 import { UploadTyphoonTrackDto } from './dto/upload-typhoon-track';
 import { TyphoonTrackEntity } from './typhoon-track.entity';
@@ -15,10 +15,7 @@ export class TyphoonTrackService {
   @InjectRepository(TyphoonTrackEntity)
   private readonly typhoonTrackRepository: Repository<TyphoonTrackEntity>;
 
-  public constructor(
-    private helperService: HelperService,
-    private eventService: EventService,
-  ) {}
+  public constructor(private helperService: HelperService) {}
 
   public async uploadTyphoonTrack(
     uploadTyphoonTrack: UploadTyphoonTrackDto,
@@ -59,7 +56,7 @@ export class TyphoonTrackService {
       eventName: uploadTyphoonTrack.eventName,
       date: new Date(),
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast12hourInterval(DisasterType.Typhoon),
+        this.helperService.getLast6hourInterval(DisasterType.Typhoon),
       ),
     });
   }
@@ -69,7 +66,7 @@ export class TyphoonTrackService {
     leadTime: LeadTime,
     eventName: string,
   ): Promise<GeoJson> {
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       DisasterType.Typhoon,
     );
@@ -90,7 +87,7 @@ export class TyphoonTrackService {
         date: lastTriggeredDate.date,
         eventName: eventName,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             DisasterType.Typhoon,
             lastTriggeredDate.timestamp,
           ),
@@ -123,7 +120,7 @@ export class TyphoonTrackService {
   }
 
   private async getTrackFilters(countryCodeISO3: string, eventName: string) {
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       DisasterType.Typhoon,
     );
@@ -132,12 +129,67 @@ export class TyphoonTrackService {
       date: lastTriggeredDate.date,
       eventName: eventName,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast12hourInterval(
+        this.helperService.getLast6hourInterval(
           DisasterType.Typhoon,
           lastTriggeredDate.timestamp,
         ),
       ),
     };
     return filters;
+  }
+
+  public async getTyphoonSpecificProperties(
+    countryCodeISO3: string,
+    eventName: string,
+  ): Promise<DisasterSpecificProperties> {
+    const lastTriggeredDate = await this.helperService.getRecentDate(
+      countryCodeISO3,
+      DisasterType.Typhoon,
+    );
+
+    const typhoonTrackPoints = await this.typhoonTrackRepository.find({
+      select: ['timestampOfTrackpoint', 'firstLandfall', 'closestToLand'],
+      where: {
+        countryCodeISO3: countryCodeISO3,
+        date: lastTriggeredDate.date,
+        eventName: eventName,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getLast6hourInterval(
+            DisasterType.Typhoon,
+            lastTriggeredDate.timestamp,
+          ),
+        ),
+      },
+    });
+
+    const typhoonLandfall =
+      typhoonTrackPoints.filter(point => point.firstLandfall).length > 0;
+
+    let typhoonNoLandfallYet = false;
+
+    if (!typhoonLandfall) {
+      const maxTimestamp = new Date(
+        Math.max.apply(
+          null,
+          typhoonTrackPoints.map(
+            point => new Date(point.timestampOfTrackpoint),
+          ),
+        ),
+      );
+
+      const closestToLandTimestamp = new Date(
+        typhoonTrackPoints.find(
+          point => point.closestToLand,
+        ).timestampOfTrackpoint,
+      );
+
+      typhoonNoLandfallYet =
+        maxTimestamp.getTime() === closestToLandTimestamp.getTime();
+    }
+
+    return {
+      typhoonLandfall,
+      typhoonNoLandfallYet,
+    };
   }
 }

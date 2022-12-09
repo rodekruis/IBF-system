@@ -15,7 +15,7 @@ import {
   In,
   MoreThan,
   IsNull,
-  SelectQueryBuilder,
+  Connection,
 } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -35,6 +35,7 @@ import { DisasterEntity } from '../disaster/disaster.entity';
 import { HelperService } from '../../shared/helper.service';
 import { UserEntity } from '../user/user.entity';
 import { EventMapImageEntity } from './event-map-image.entity';
+import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 
 @Injectable()
 export class EventService {
@@ -59,6 +60,8 @@ export class EventService {
     private countryService: CountryService,
     private eapActionsService: EapActionsService,
     private helperService: HelperService,
+    private connection: Connection,
+    private typhoonTrackService: TyphoonTrackService,
   ) {}
 
   public async getEventSummaryCountry(
@@ -91,6 +94,15 @@ export class EventService {
         disasterType: disasterType,
       })
       .getRawMany();
+
+    for await (const event of eventSummary) {
+      if (disasterType === DisasterType.Typhoon) {
+        event.disasterSpecificProperties = await this.typhoonTrackService.getTyphoonSpecificProperties(
+          countryCodeISO3,
+          event.eventName,
+        );
+      }
+    }
     return eventSummary;
   }
 
@@ -98,21 +110,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<DateDto> {
-    const result = await this.triggerPerLeadTimeRepository.findOne({
-      where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
-      order: { timestamp: 'DESC' },
-    });
-    if (result) {
-      return {
-        date: new Date(result.date).toISOString(),
-        timestamp: new Date(result.timestamp),
-      };
-    } else {
-      return {
-        date: null,
-        timestamp: null,
-      };
-    }
+    return this.helperService.getRecentDate(countryCodeISO3, disasterType);
   }
 
   public async uploadTriggerPerLeadTime(
@@ -171,7 +169,7 @@ export class EventService {
         eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
         date: new Date(),
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             uploadTriggerPerLeadTimeDto.disasterType,
           ),
         ),
@@ -203,7 +201,7 @@ export class EventService {
     leadTime: string,
     eventName: string,
   ): Promise<TriggeredArea[]> {
-    const lastTriggeredDate = await this.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -221,7 +219,7 @@ export class EventService {
         eventName: eventName === 'no-name' ? IsNull() : eventName,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             disasterType,
             lastTriggeredDate.timestamp,
           ),
@@ -346,7 +344,7 @@ export class EventService {
     disasterType: DisasterType,
     eventName: string,
   ): Promise<object> {
-    const lastTriggeredDate = await this.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -355,7 +353,7 @@ export class EventService {
         countryCodeISO3: countryCodeISO3,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             disasterType,
             lastTriggeredDate.timestamp,
           ),
@@ -466,7 +464,7 @@ export class EventService {
     // only set records that are not updated yet in this sequence of pipeline runs (e.g. multiple events in 1 day)
     // after the 1st event this means everything is updated ..
     // .. and from the 2nd event onwards if will not be set to activeTrigger=false again ..
-    const cutoffDate = this.helperService.getLast12hourInterval(disasterType);
+    const cutoffDate = this.helperService.getLast6hourInterval(disasterType);
     const endDate = await this.getEndDate(disasterType, cutoffDate);
 
     // .. but only check on endDate if eventName is not null
@@ -475,20 +473,30 @@ export class EventService {
         {
           adminArea: { id: In(countryAdminAreaIds) },
           disasterType: disasterType,
+          activeTrigger: true,
           endDate: LessThan(endDate),
         },
         {
           adminArea: { id: In(countryAdminAreaIds) },
           disasterType: disasterType,
+          activeTrigger: true,
           eventName: IsNull(),
         },
       ],
     });
 
-    for await (const area of eventAreas) {
-      area.activeTrigger = false;
+    if (eventAreas.length) {
+      await this.eventPlaceCodeRepo
+        .createQueryBuilder()
+        .update()
+        .set({
+          activeTrigger: false,
+        })
+        .where({
+          eventPlaceCodeId: In(eventAreas.map(area => area.eventPlaceCodeId)),
+        })
+        .execute();
     }
-    await this.eventPlaceCodeRepo.save(eventAreas);
   }
 
   private async getAffectedAreas(
@@ -499,7 +507,7 @@ export class EventService {
   ): Promise<AffectedAreaDto[]> {
     const triggerUnit = await this.getTriggerUnit(disasterType);
 
-    const lastTriggeredDate = await this.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -508,7 +516,7 @@ export class EventService {
       indicator: triggerUnit,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast12hourInterval(
+        this.helperService.getLast6hourInterval(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -541,7 +549,7 @@ export class EventService {
       indicator: actionUnit,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast12hourInterval(
+        this.helperService.getLast6hourInterval(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -624,9 +632,8 @@ export class EventService {
     // .. then fire one query to update all rows that need thresholdReached = false
     await this.updateEvents(idsToUpdateBelowThreshold, false, endDate);
 
-    // NOTE: we no longer update actionsValue here, as it was too performance-heavy
-    // 'triggered-areas' gets it instead from 'admin-area-dynamic-data'
-    // 'activation-log' is for now showing the initial actionsValue throughout (this should be corrected)
+    // .. lastly we update those records where actionsValue changed
+    await this.updateActionsValue(unclosedEventAreas, affectedAreas);
   }
 
   private async updateEvents(
@@ -634,16 +641,51 @@ export class EventService {
     aboveThreshold: boolean,
     endDate: Date,
   ) {
-    await this.eventPlaceCodeRepo
-      .createQueryBuilder()
-      .update()
-      .set({
-        activeTrigger: true,
-        thresholdReached: aboveThreshold,
-        endDate: endDate,
-      })
-      .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
-      .execute();
+    if (eventPlaceCodeIds.length) {
+      await this.eventPlaceCodeRepo
+        .createQueryBuilder()
+        .update()
+        .set({
+          activeTrigger: true,
+          thresholdReached: aboveThreshold,
+          endDate: endDate,
+        })
+        .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
+        .execute();
+    }
+  }
+
+  private async updateActionsValue(
+    unclosedEventAreas: EventPlaceCodeEntity[],
+    affectedAreas: AffectedAreaDto[],
+  ) {
+    let affectedArea: AffectedAreaDto;
+    const eventAreasToUpdate = [];
+    for await (const eventArea of unclosedEventAreas) {
+      affectedArea = affectedAreas.find(
+        area => area.placeCode === eventArea.adminArea.placeCode,
+      );
+      if (
+        affectedArea &&
+        eventArea.actionsValue !== affectedArea.actionsValue
+      ) {
+        eventArea.actionsValue = affectedArea.actionsValue;
+        eventAreasToUpdate.push(
+          `('${eventArea.eventPlaceCodeId}',${eventArea.actionsValue})`,
+        );
+      }
+    }
+    if (eventAreasToUpdate.length) {
+      const repository = this.connection.getRepository(EventPlaceCodeEntity);
+      const updateQuery = `UPDATE "${repository.metadata.schema}"."${
+        repository.metadata.tableName
+      }" epc \
+      SET "actionsValue" = areas.value \
+      FROM (VALUES ${eventAreasToUpdate.join(',')}) areas(id,value) \
+      WHERE areas.id::uuid = epc."eventPlaceCodeId" \
+      `;
+      await this.connection.query(updateQuery);
+    }
   }
 
   private async addNewEventAreas(
@@ -707,10 +749,24 @@ export class EventService {
         endDate: LessThan(new Date()),
         adminArea: In(countryAdminAreaIds),
         disasterType: disasterType,
+        closed: false,
       },
     });
-    expiredEventAreas.forEach(area => (area.closed = true));
-    await this.eventPlaceCodeRepo.save(expiredEventAreas);
+
+    //Below threshold events can be removed from this table after closing
+    const belowThresholdEvents = expiredEventAreas.filter(
+      a => !a.thresholdReached,
+    );
+    await this.eventPlaceCodeRepo.remove(belowThresholdEvents);
+
+    //For the other ones update 'closed = true'
+    const aboveThresholdEvents = expiredEventAreas.filter(
+      a => a.thresholdReached,
+    );
+    for await (const area of aboveThresholdEvents) {
+      area.closed = true;
+    }
+    await this.eventPlaceCodeRepo.save(aboveThresholdEvents);
   }
 
   private async getEndDate(
@@ -770,62 +826,5 @@ export class EventService {
     });
 
     return eventMapImageEntity?.image;
-  }
-
-  public async updateActionValueOfEvent() {
-    const eventAreasToUpdate = [];
-
-    const activeEvents = await this.eventPlaceCodeRepo
-      .createQueryBuilder('event')
-      .select([
-        'area."countryCodeISO3" as "countryCodeISO3"',
-        'area."adminLevel" as "adminLevel"',
-        'event."disasterType" as "disasterType"',
-        'event."eventName" as "eventName"',
-      ])
-      .leftJoin('event.adminArea', 'area')
-      .where({ closed: false })
-      .groupBy('area."countryCodeISO3"')
-      .addGroupBy('area."adminLevel"')
-      .addGroupBy('event."disasterType"')
-      .addGroupBy('event."eventName"')
-      .getRawMany();
-
-    for await (const event of activeEvents) {
-      const affectedAreas = await this.getAffectedAreas(
-        event.countryCodeISO3,
-        event.disasterType as DisasterType,
-        event.adminLevel,
-        event.eventName,
-      );
-
-      const countryAdminAreaIds = await this.getCountryAdminAreaIds(
-        event.countryCodeISO3,
-      );
-
-      const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
-        where: {
-          closed: false,
-          adminArea: In(countryAdminAreaIds),
-          disasterType: event.disasterType,
-          eventName: event.eventName || IsNull(),
-        },
-        relations: ['adminArea'],
-      });
-      for await (const eventArea of unclosedEventAreas) {
-        const affectedArea = affectedAreas.find(
-          area => area.placeCode === eventArea.adminArea.placeCode,
-        );
-        if (
-          affectedArea &&
-          eventArea.actionsValue !== affectedArea.actionsValue
-        ) {
-          eventArea.actionsValue = affectedArea.actionsValue;
-          eventAreasToUpdate.push(eventArea);
-        }
-      }
-    }
-
-    await this.eventPlaceCodeRepo.save(eventAreasToUpdate);
   }
 }

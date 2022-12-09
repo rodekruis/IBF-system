@@ -382,6 +382,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     popover.onDidDismiss().then(() => {
       this.eapActionsService.getTriggeredAreasApi();
+      this.placeCodeService.clearPlaceCode();
     });
   }
 
@@ -614,9 +615,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       event.disasterSpecificProperties.typhoonNoLandfallYet;
 
     return this.translateService.instant(
-      `chat-component.typhoon.active-event-${
-        triggerEvent ? 'active' : 'below'
-      }-trigger.${passedEvent ? 'passed-event' : 'upcoming-event'}.${
+      `chat-component.typhoon.active-event-active-trigger.${
+        passedEvent ? 'passed-event' : 'upcoming-event'
+      }.${
         noLandfallYetEvent
           ? 'no-landfall-yet'
           : landfallEvent

@@ -103,7 +103,7 @@ export class AdminAreaService {
     leadTime: string,
   ): Promise<AdminAreaDynamicDataEntity[]> {
     const triggerUnit = await this.eventService.getTriggerUnit(disasterType);
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -117,7 +117,7 @@ export class AdminAreaService {
         indicator: triggerUnit,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             disasterType,
             lastTriggeredDate.timestamp,
           ),
@@ -183,7 +183,7 @@ export class AdminAreaService {
     }
     const staticIndicators = await staticIndicatorsScript.getRawMany();
 
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -204,8 +204,8 @@ export class AdminAreaService {
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
-      .andWhere('timestamp >= :last12hourInterval', {
-        last12hourInterval: this.helperService.getLast12hourInterval(
+      .andWhere('timestamp >= :last6hourInterval', {
+        last6hourInterval: this.helperService.getLast6hourInterval(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -270,7 +270,7 @@ export class AdminAreaService {
       })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
 
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -296,8 +296,8 @@ export class AdminAreaService {
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
-      .andWhere('timestamp >= :last12hourInterval', {
-        last12hourInterval: this.helperService.getLast12hourInterval(
+      .andWhere('timestamp >= :last6hourInterval', {
+        last6hourInterval: this.helperService.getLast6hourInterval(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -333,7 +333,7 @@ export class AdminAreaService {
     adminLevel: number,
     leadTime: string,
   ) {
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -345,7 +345,7 @@ export class AdminAreaService {
         leadTime: leadTime,
         date: lastTriggeredDate.date,
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast12hourInterval(
+          this.helperService.getLast6hourInterval(
             disasterType,
             lastTriggeredDate.timestamp,
           ),
