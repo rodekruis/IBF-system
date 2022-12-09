@@ -1,3 +1,15 @@
+## [0.205.1](https://github.com/rodekruis/IBF-system/compare/v0.205.0...v0.205.1) (2022-12-09)
+
+
+### Bug Fixes
+
+* improve query setup of event-processing AB[#16684](https://github.com/rodekruis/IBF-system/issues/16684) ([a12ce7c](https://github.com/rodekruis/IBF-system/commit/a12ce7c65f006b486e581ce9d501583b1c13bdca))
+* make archive query simpler AB[#16687](https://github.com/rodekruis/IBF-system/issues/16687) ([c4d920e](https://github.com/rodekruis/IBF-system/commit/c4d920e37354126557d4440236381aaeb6a3ae1f))
+* switch 12-hour to 6-hour interval AB[#16454](https://github.com/rodekruis/IBF-system/issues/16454) ([f5269bf](https://github.com/rodekruis/IBF-system/commit/f5269bf37853beebbb0e542a6aa632d9f925aaaf))
+* update actionsValue on pipeline-upload instead of nightly AB[#16446](https://github.com/rodekruis/IBF-system/issues/16446) ([23c399c](https://github.com/rodekruis/IBF-system/commit/23c399c947cbb826ccf11bbfbe8bfbf843c646b4))
+
+
+
 # [0.205.0](https://github.com/rodekruis/IBF-system/compare/v0.204.0...v0.205.0) (2022-12-09)
 
 
@@ -129,15 +141,6 @@
 
 * lower eap threshold AB[#16339](https://github.com/rodekruis/IBF-system/issues/16339) ([eac6463](https://github.com/rodekruis/IBF-system/commit/eac6463a585a5fc895d4ddf6391dd3972bbe015a))
 * update for all countries AB[#16339](https://github.com/rodekruis/IBF-system/issues/16339) ([a5ecfac](https://github.com/rodekruis/IBF-system/commit/a5ecfac9e3de2c6c7b7904f17188f2bd6ef2d319))
-
-
-
-# [0.199.0](https://github.com/rodekruis/IBF-system/compare/v0.198.0...v0.199.0) (2022-11-23)
-
-
-### Features
-
-* SSD info popups first setup AB[#16237](https://github.com/rodekruis/IBF-system/issues/16237) ([579e4bc](https://github.com/rodekruis/IBF-system/commit/579e4bcbf7df2a716c54e0421bc524e08933d1c3))
 
 
 
