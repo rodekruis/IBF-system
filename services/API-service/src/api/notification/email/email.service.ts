@@ -34,8 +34,6 @@ export class EmailService {
 
   private mailchimp = new Mailchimp(process.env.MC_API);
 
-  private alreadyReached = 'Already reached (the point closest to) land';
-
   public constructor(
     private readonly eventService: EventService,
     private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -148,7 +146,7 @@ export class EmailService {
             )}`;
 
             const eventStatusCopy = `(${
-              leadTime.leadTimeName === '0-hour'
+              leadTime.leadTimeName === LeadTime.hour0
                 ? (
                     await this.getDisasterSpecificCopy(
                       disasterType,
@@ -389,12 +387,22 @@ export class EmailService {
             );
             const leadTimeFromNow = `${leadTimeValue} ${leadTimeUnit}s`;
 
+            // We are hack-misusing 'extraInfo' being filled as a proxy for typhoonNoLandfallYet-boolean
             const leadTimeString = disasterSpecificCopy.leadTimeString
               ? disasterSpecificCopy.leadTimeString
               : leadTimeFromNow;
-            leadTimeListShort = `${leadTimeListShort}<li>${eventName}: ${dateAndTime} (${leadTimeString})</li>`;
-
-            leadTimeListLong = `${leadTimeListLong}<li>${eventName} - <strong>${triggerStatus}</strong>: ${disasterSpecificCopy.eventStatus} ${dateTimePreposition} ${dateAndTime} (${leadTimeString}). ${disasterSpecificCopy.extraInfo}</li>`;
+            leadTimeListShort = `${leadTimeListShort}<li>${eventName}: ${
+              !disasterSpecificCopy.extraInfo
+                ? `${dateAndTime} (${leadTimeString})`
+                : 'No landfall predicted yet'
+            }</li>`;
+            leadTimeListLong = `${leadTimeListLong}<li>${eventName} - <strong>${triggerStatus}</strong>: ${
+              disasterSpecificCopy.eventStatus
+            }${
+              !disasterSpecificCopy.extraInfo
+                ? ` ${dateTimePreposition} ${dateAndTime} (${leadTimeString})`
+                : ''
+            }. ${disasterSpecificCopy.extraInfo}</li>`;
           }
         }
       }
@@ -506,7 +514,7 @@ export class EmailService {
     const leadTimeValue = leadTime.leadTimeName.split('-')[0];
     const leadTimeUnit = leadTime.leadTimeName.split('-')[1];
 
-    const zeroHour = leadTime.leadTimeName === '0-hour';
+    const zeroHour = leadTime.leadTimeName === LeadTime.hour0;
     const disasterSpecificCopy = this.getDisasterSpecificCopy(
       disasterType,
       country.countryCodeISO3,
@@ -646,19 +654,17 @@ export class EmailService {
   }> {
     const {
       typhoonLandfall,
-      isTyphoonNoLandfallYet,
+      typhoonNoLandfallYet,
     } = await this.typhoonTrackService.getTyphoonSpecificProperties(
       countryCodeISO3,
-      leadTime,
       eventName,
     );
-
     let eventStatus = '';
     let extraInfo = '';
     let leadTimeString = null;
     let subjectStatus = null;
 
-    if (leadTime === '0-hour') {
+    if (leadTime === LeadTime.hour0) {
       if (typhoonLandfall) {
         eventStatus = 'Has <strong>already made landfall</strong>';
         leadTimeString = 'Already made landfall';
@@ -669,12 +675,11 @@ export class EmailService {
         subjectStatus = 'Already reached the point closest to land';
       }
     } else {
-      if (isTyphoonNoLandfallYet) {
+      if (typhoonNoLandfallYet) {
         eventStatus =
           'Currently <strong>not predicted to make landfall yet</strong>';
         extraInfo = 'Keep monitoring the event.';
-      }
-      if (typhoonLandfall) {
+      } else if (typhoonLandfall) {
         eventStatus = 'Estimated to <strong>make landfall</strong>';
       } else {
         eventStatus =
