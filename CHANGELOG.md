@@ -1,3 +1,12 @@
+# [0.206.0](https://github.com/rodekruis/IBF-system/compare/v0.205.1...v0.206.0) (2022-12-09)
+
+
+### Features
+
+* only send email for typhoon of high enough category AB[#16457](https://github.com/rodekruis/IBF-system/issues/16457) ([7d647c0](https://github.com/rodekruis/IBF-system/commit/7d647c028a7e60bb4187d85002b0e3578bfae713))
+
+
+
 ## [0.205.1](https://github.com/rodekruis/IBF-system/compare/v0.205.0...v0.205.1) (2022-12-09)
 
 
@@ -131,16 +140,6 @@
 ### Features
 
 * make country-switcher available to non-admin multi-country users AB[#16333](https://github.com/rodekruis/IBF-system/issues/16333) ([086008e](https://github.com/rodekruis/IBF-system/commit/086008e8111c210bad99851af985ba88870253c8))
-
-
-
-## [0.199.1](https://github.com/rodekruis/IBF-system/compare/v0.199.0...v0.199.1) (2022-11-24)
-
-
-### Bug Fixes
-
-* lower eap threshold AB[#16339](https://github.com/rodekruis/IBF-system/issues/16339) ([eac6463](https://github.com/rodekruis/IBF-system/commit/eac6463a585a5fc895d4ddf6391dd3972bbe015a))
-* update for all countries AB[#16339](https://github.com/rodekruis/IBF-system/issues/16339) ([a5ecfac](https://github.com/rodekruis/IBF-system/commit/a5ecfac9e3de2c6c7b7904f17188f2bd6ef2d319))
 
 
 
