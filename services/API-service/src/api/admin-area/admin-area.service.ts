@@ -103,7 +103,7 @@ export class AdminAreaService {
     leadTime: string,
   ): Promise<AdminAreaDynamicDataEntity[]> {
     const triggerUnit = await this.eventService.getTriggerUnit(disasterType);
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -183,7 +183,7 @@ export class AdminAreaService {
     }
     const staticIndicators = await staticIndicatorsScript.getRawMany();
 
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -270,7 +270,7 @@ export class AdminAreaService {
       })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
 
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -333,7 +333,7 @@ export class AdminAreaService {
     adminLevel: number,
     leadTime: string,
   ) {
-    const lastTriggeredDate = await this.eventService.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );

@@ -35,6 +35,7 @@ import { DisasterEntity } from '../disaster/disaster.entity';
 import { HelperService } from '../../shared/helper.service';
 import { UserEntity } from '../user/user.entity';
 import { EventMapImageEntity } from './event-map-image.entity';
+import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 
 @Injectable()
 export class EventService {
@@ -59,6 +60,7 @@ export class EventService {
     private countryService: CountryService,
     private eapActionsService: EapActionsService,
     private helperService: HelperService,
+    private typhoonTrackService: TyphoonTrackService,
   ) {}
 
   public async getEventSummaryCountry(
@@ -91,6 +93,15 @@ export class EventService {
         disasterType: disasterType,
       })
       .getRawMany();
+
+    for await (const event of eventSummary) {
+      if (disasterType === DisasterType.Typhoon) {
+        event.disasterSpecificProperties = await this.typhoonTrackService.getTyphoonSpecificProperties(
+          countryCodeISO3,
+          event.eventName,
+        );
+      }
+    }
     return eventSummary;
   }
 
@@ -98,21 +109,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<DateDto> {
-    const result = await this.triggerPerLeadTimeRepository.findOne({
-      where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
-      order: { timestamp: 'DESC' },
-    });
-    if (result) {
-      return {
-        date: new Date(result.date).toISOString(),
-        timestamp: new Date(result.timestamp),
-      };
-    } else {
-      return {
-        date: null,
-        timestamp: null,
-      };
-    }
+    return this.helperService.getRecentDate(countryCodeISO3, disasterType);
   }
 
   public async uploadTriggerPerLeadTime(
@@ -203,7 +200,7 @@ export class EventService {
     leadTime: string,
     eventName: string,
   ): Promise<TriggeredArea[]> {
-    const lastTriggeredDate = await this.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -346,7 +343,7 @@ export class EventService {
     disasterType: DisasterType,
     eventName: string,
   ): Promise<object> {
-    const lastTriggeredDate = await this.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -499,7 +496,7 @@ export class EventService {
   ): Promise<AffectedAreaDto[]> {
     const triggerUnit = await this.getTriggerUnit(disasterType);
 
-    const lastTriggeredDate = await this.getRecentDate(
+    const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );

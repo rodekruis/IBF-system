@@ -135,15 +135,12 @@ export class TimelineService {
         (timeStepButton) => !timeStepButton.disabled,
       );
     }
-    // except if that leads to still empty set: assume this is the typhoon no-event scenario
-    if (toShowTimeStepButtons.length === 0) {
-      toShowTimeStepButtons = this.state.timeStepButtons.filter(
-        (timeStepButton) => timeStepButton.value === LeadTime.hour72,
-      );
-    }
     // and take first one of this set as active lead-time
     if (toShowTimeStepButtons.length > 0) {
       this.handleTimeStepButtonClick(toShowTimeStepButtons[0].value);
+    } // except if that leads to still empty set: assume this is the typhoon no-event scenario
+    else if (toShowTimeStepButtons.length === 0) {
+      this.handleTimeStepButtonClick(LeadTime.hour72, true);
     }
   };
 
@@ -194,14 +191,13 @@ export class TimelineService {
   private deactivateLeadTimeButton = (leadTimeButton) =>
     (leadTimeButton.active = false);
 
-  private filterLeadTimeButtonByLeadTime = (leadTime) => (leadTimeButton) =>
-    leadTimeButton.value === leadTime;
-
-  public handleTimeStepButtonClick(timeStepButtonValue) {
+  public handleTimeStepButtonClick(timeStepButtonValue, noEvent?: boolean) {
     this.state.activeLeadTime = timeStepButtonValue;
     this.state.timeStepButtons.forEach(this.deactivateLeadTimeButton);
-    this.state.timeStepButtons.find(
-      this.filterLeadTimeButtonByLeadTime(timeStepButtonValue),
+    this.state.timeStepButtons.find((btn) =>
+      noEvent
+        ? btn.value === timeStepButtonValue
+        : btn.value === timeStepButtonValue && !btn.disabled,
     ).active = true;
 
     this.timelineStateSubject.next(this.state);
@@ -312,6 +308,7 @@ export class TimelineService {
   }
 
   private showNonActiveLeadTimes(leadTimes, leadTimeName) {
+    // check if there are no other (hourly) leadtimes for the same day already
     return (
       !leadTimes
         .map((leadTime) => this.getDateFromLeadTime(leadTime))
@@ -351,15 +348,16 @@ export class TimelineService {
         leadTimeMonth <= nextForecastMonthEndOfMonth // hide months beyond next Forecast month
       );
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
-      const events = this.eventState?.events;
-      const relevantLeadTimes = this.eventState?.activeTrigger
-        ? events.map((e) => e.firstLeadTime)
-        : [LeadTime.hour72];
-      const relevantLeadTimesModulo24 = relevantLeadTimes.map(
-        (lt) => Number(LeadTimeTriggerKey[lt]) % 24,
-      );
-      const leadTimeModulo24 = Number(leadTime.split('-')[0]) % 24;
-      return relevantLeadTimesModulo24.includes(leadTimeModulo24);
+      return [
+        LeadTime.hour0,
+        LeadTime.hour24,
+        LeadTime.hour48,
+        LeadTime.hour72,
+        LeadTime.hour96,
+        LeadTime.hour120,
+        LeadTime.hour144,
+        LeadTime.hour168,
+      ].includes(leadTime);
     } else {
       return true;
     }
