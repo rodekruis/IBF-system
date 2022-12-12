@@ -55,11 +55,7 @@ export class EmailService {
       activeEvents,
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
-    const emailSubject = await this.getEmailSubject(
-      country,
-      disasterType,
-      activeEvents,
-    );
+    const emailSubject = `IBF ${disasterType} warning`;
     this.sendEmail(emailSubject, emailHtml, country.countryCodeISO3);
   }
 
@@ -94,71 +90,6 @@ export class EmailService {
       updateBody,
     );
     await this.mailchimp.post(`/campaigns/${createResult.id}/actions/send`);
-  }
-
-  private async getEmailSubject(
-    country: CountryEntity,
-    disasterType: DisasterType,
-    events: EventSummaryCountry[],
-  ): Promise<string> {
-    let subject = '';
-    const disasterWarning = `${this.notificationContentService.firstCharOfWordsToUpper(
-      (await this.notificationContentService.getDisaster(disasterType)).label,
-    )} Warning:`;
-
-    const triggeredLeadTimes = await this.notificationContentService.getLeadTimesAcrossEvents(
-      country.countryCodeISO3,
-      disasterType,
-      events,
-    );
-
-    const actionUnit = await this.notificationContentService.getActionUnit(
-      disasterType,
-    );
-    for (const leadTime of country.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
-    ).activeLeadTimes) {
-      if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
-        for await (const event of events) {
-          // for each event ..
-          const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
-            country.countryCodeISO3,
-            disasterType,
-            event.eventName,
-          );
-          if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
-            // .. find the right leadtime
-            const totalActionUnitValue = await this.notificationContentService.getTotalAffectedPerLeadTime(
-              country,
-              disasterType,
-              leadTime.leadTimeName as LeadTime,
-              event.eventName,
-            );
-            const actionUnitCopy = `Estimate of ${
-              actionUnit.label
-            }: ${this.notificationContentService.formatActionUnitValue(
-              totalActionUnitValue,
-              actionUnit,
-            )}`;
-
-            const eventStatusCopy = `(${
-              leadTime.leadTimeName === LeadTime.hour0
-                ? (
-                    await this.getDisasterSpecificCopy(
-                      disasterType,
-                      leadTime,
-                      event,
-                    )
-                  ).subjectStatus
-                : leadTime.leadTimeName
-            })`;
-
-            subject = `${disasterWarning} ${actionUnitCopy} ${eventStatusCopy} `;
-          }
-        }
-      }
-    }
-    return subject;
   }
 
   private async createReplaceKeyValues(
@@ -612,7 +543,6 @@ export class EmailService {
     eventStatus: string;
     extraInfo: string;
     leadTimeString?: string;
-    subjectStatus?: string;
   }> {
     switch (disasterType) {
       case DisasterType.HeavyRain:
@@ -641,7 +571,6 @@ export class EmailService {
     eventStatus: string;
     extraInfo: string;
     leadTimeString: string;
-    subjectStatus: string;
   }> {
     const {
       typhoonLandfall,
@@ -650,17 +579,14 @@ export class EmailService {
     let eventStatus = '';
     let extraInfo = '';
     let leadTimeString = null;
-    let subjectStatus = null;
 
     if (leadTime === LeadTime.hour0) {
       if (typhoonLandfall) {
         eventStatus = 'Has <strong>already made landfall</strong>';
         leadTimeString = 'Already made landfall';
-        subjectStatus = 'Already made landfall';
       } else {
         eventStatus = 'Has already reached the point closest to land';
         leadTimeString = 'reached the point closest to land';
-        subjectStatus = 'Already reached the point closest to land';
       }
     } else {
       if (typhoonNoLandfallYet) {
@@ -679,7 +605,6 @@ export class EmailService {
       eventStatus: eventStatus,
       extraInfo: extraInfo,
       leadTimeString,
-      subjectStatus,
     };
   }
 }

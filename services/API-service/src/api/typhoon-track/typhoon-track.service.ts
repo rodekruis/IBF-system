@@ -4,7 +4,6 @@ import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
 import { DisasterSpecificProperties } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { TyphoonCategory } from './dto/trackpoint-details';
 import { UploadTyphoonTrackDto } from './dto/upload-typhoon-track';
