@@ -43,6 +43,7 @@ class NotificationInfo {
   linkPdf: string;
   useWhatsapp?: boolean;
   whatsappMessage?: {};
+  externalEarlyActionForm?: string;
 }
 
 @Injectable()
@@ -410,6 +411,8 @@ export class SeedInit implements InterfaceScript {
         JSON.stringify(notificationInfoCountry.whatsappMessage),
       );
     }
+    notificationInfoEntity.externalEarlyActionForm =
+      notificationInfoCountry.externalEarlyActionForm;
 
     const saveResult = await notificationInfoRepository.save(
       notificationInfoEntity,

@@ -4,6 +4,7 @@ import { In, Repository } from 'typeorm';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
+import { NotificationInfoDto } from './dto/notification-info.dto';
 import { AdminLevel } from './admin-level.enum';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryEntity } from './country.entity';
@@ -12,6 +13,7 @@ import {
   CountryDisasterSettingsDto,
   CountryDto,
 } from './dto/add-countries.dto';
+import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 
 @Injectable()
 export class CountryService {
@@ -25,6 +27,10 @@ export class CountryService {
   >;
   @InjectRepository(LeadTimeEntity)
   private readonly leadTimeRepository: Repository<LeadTimeEntity>;
+  @InjectRepository(NotificationInfoEntity)
+  private readonly notificationInfoRepository: Repository<
+    NotificationInfoEntity
+  >;
 
   private readonly relations: string[] = [
     'countryDisasterSettings',
@@ -50,13 +56,16 @@ export class CountryService {
     });
   }
 
-  public async findOne(countryCodeISO3: string): Promise<CountryEntity> {
+  public async findOne(
+    countryCodeISO3: string,
+    relations?: string[],
+  ): Promise<CountryEntity> {
     const findOneOptions = {
       countryCodeISO3: countryCodeISO3,
     };
 
     return await this.countryRepository.findOne(findOneOptions, {
-      relations: this.relations,
+      relations: relations || this.relations,
     });
   }
 
@@ -173,6 +182,66 @@ export class CountryService {
     );
     const savedEntity = await this.countryDisasterSettingsRepository.findOne(
       saveResult.countryDisasterSettingsId,
+    );
+    return savedEntity;
+  }
+
+  public async addOrUpdateNotificationInfo(
+    notificationInfo: NotificationInfoDto[],
+  ): Promise<void> {
+    const countriesToSave = [];
+    for await (const notificationInfoCountry of notificationInfo) {
+      const existingCountry = await this.findOne(
+        notificationInfoCountry.countryCodeISO3,
+        ['notificationInfo'],
+      );
+
+      if (existingCountry.notificationInfo) {
+        existingCountry.notificationInfo = await this.createNotificationInfo(
+          existingCountry.notificationInfo,
+          notificationInfoCountry,
+        );
+        continue;
+      }
+
+      const notificationInfoEntity = new NotificationInfoEntity();
+      existingCountry.notificationInfo = await this.createNotificationInfo(
+        notificationInfoEntity,
+        notificationInfoCountry,
+      );
+      countriesToSave.push(existingCountry);
+    }
+    await this.countryRepository.save(countriesToSave);
+  }
+
+  private async createNotificationInfo(
+    notificationInfoEntity: NotificationInfoEntity,
+    notificationInfoCountry: NotificationInfoDto,
+  ): Promise<NotificationInfoEntity> {
+    notificationInfoEntity.logo = notificationInfoCountry.logo;
+    notificationInfoEntity.triggerStatement = JSON.parse(
+      JSON.stringify(notificationInfoCountry.triggerStatement),
+    );
+    notificationInfoEntity.linkSocialMediaType =
+      notificationInfoCountry.linkSocialMediaType;
+    notificationInfoEntity.linkSocialMediaUrl =
+      notificationInfoCountry.linkSocialMediaUrl;
+    notificationInfoEntity.linkVideo = notificationInfoCountry.linkVideo;
+    notificationInfoEntity.linkPdf = notificationInfoCountry.linkPdf;
+    notificationInfoEntity.useWhatsapp = notificationInfoCountry.useWhatsapp;
+    if (notificationInfoCountry.whatsappMessage) {
+      notificationInfoEntity.whatsappMessage = JSON.parse(
+        JSON.stringify(notificationInfoCountry.whatsappMessage),
+      );
+    }
+    notificationInfoEntity.externalEarlyActionForm =
+      notificationInfoCountry.externalEarlyActionForm;
+
+    const saveResult = await this.notificationInfoRepository.save(
+      notificationInfoEntity,
+    );
+    const savedEntity = await this.notificationInfoRepository.findOne(
+      saveResult.notificationInfoId,
     );
     return savedEntity;
   }

@@ -7,6 +7,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Roles } from '../../roles.decorator';
+import { NotificationInfoDto } from './dto/notification-info.dto';
 import { UserRole } from '../user/user-role.enum';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
@@ -33,6 +34,21 @@ export class CountryController {
     @Body() countries: AddCountriesDto,
   ): Promise<void> {
     await this.countryService.addOrUpdateCountries(countries);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Add/update notification info for given countries',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'notification info added or updated',
+  })
+  @Post('notification-info')
+  public async addOrUpdateNotificationInfo(
+    @Body() notificationInfo: NotificationInfoDto[],
+  ): Promise<void> {
+    await this.countryService.addOrUpdateNotificationInfo(notificationInfo);
   }
 
   @ApiOperation({
