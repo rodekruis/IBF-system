@@ -39,9 +39,11 @@ export class AdminAreaService {
       adminLevel: adminLevel,
     });
 
+    const adminAreas = this.processPreUploadExceptions(adminAreasGeoJson);
+
     // then upload new admin-areas
     await Promise.all(
-      adminAreasGeoJson.features.map(
+      adminAreas.features.map(
         (area): Promise<InsertResult> => {
           return this.adminAreaRepository
             .createQueryBuilder()
@@ -59,6 +61,15 @@ export class AdminAreaService {
         },
       ),
     );
+  }
+
+  private processPreUploadExceptions(adminAreasGeoJson: GeoJson) {
+    for (const adminArea of adminAreasGeoJson.features) {
+      if (adminArea.properties['ADM2_PCODE'] === 'SS0303') {
+        adminArea.properties['ADM2_EN'] = 'Bor South County';
+      }
+    }
+    return adminAreasGeoJson;
   }
 
   private geomFunction(coordinates): string {
