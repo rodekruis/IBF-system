@@ -28,4 +28,7 @@ export class NotificationInfoEntity {
 
   @Column('json', { default: {} })
   public whatsappMessage: JSON;
+
+  @Column({ nullable: true })
+  public externalEarlyActionForm: string;
 }
