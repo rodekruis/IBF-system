@@ -51,7 +51,6 @@ export class TriggeredArea {
 export class DisasterSpecificProperties {
   typhoonLandfall?: boolean;
   typhoonNoLandfallYet?: boolean;
-  landfallTimestamp?: string;
 }
 
 export class EventSummaryCountry {

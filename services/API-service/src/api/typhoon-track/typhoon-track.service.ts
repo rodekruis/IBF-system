@@ -134,26 +134,9 @@ export class TyphoonTrackService {
     const landfallTrackPoint = typhoonTrackPoints.filter(
       point => point.firstLandfall,
     );
-
     const typhoonLandfall = landfallTrackPoint.length > 0;
 
     let typhoonNoLandfallYet = false;
-
-    const getTimeString = (date: Date): string => {
-      const timezone = {
-        PHL: 'PHT',
-        default: 'GMT',
-      };
-
-      return `${date.getHours()}:${date.getMinutes()} (${timezone[
-        countryCodeISO3
-      ] || timezone.default})`;
-    };
-
-    const landfallTimestamp = typhoonLandfall
-      ? getTimeString(landfallTrackPoint[0].timestampOfTrackpoint)
-      : null;
-
     if (!typhoonLandfall) {
       const maxTimestamp = new Date(
         Math.max.apply(
@@ -177,7 +160,6 @@ export class TyphoonTrackService {
     return {
       typhoonLandfall,
       typhoonNoLandfallYet,
-      landfallTimestamp,
     };
   }
 }

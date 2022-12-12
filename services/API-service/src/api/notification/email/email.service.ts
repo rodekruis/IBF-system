@@ -14,6 +14,7 @@ import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-dat
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { EventSummaryCountry } from '../../../shared/data.model';
 import { NotificationContentService } from './../notification-content/notification-content.service';
+import { HelperService } from '../../../shared/helper.service';
 
 class ReplaceKeyValue {
   replaceKey: string;
@@ -35,6 +36,7 @@ export class EmailService {
     private readonly eventService: EventService,
     private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private readonly notificationContentService: NotificationContentService,
+    private readonly helperService: HelperService,
   ) {}
 
   private getSegmentId(countryCodeISO3: string): number {
@@ -314,16 +316,18 @@ export class EmailService {
               : '';
 
             leadTimeListShort = `${leadTimeListShort}<li>${eventName}: ${
-              !disasterSpecificCopy.extraInfo
-                ? `${dateAndTime} (${leadTimeString}${timestamp})`
-                : 'No landfall predicted yet'
+              disasterSpecificCopy.extraInfo ||
+              leadTime.leadTimeName === LeadTime.hour0
+                ? leadTimeString
+                : `${dateAndTime}${timestamp} (${leadTimeString})`
             }</li>`;
             leadTimeListLong = `${leadTimeListLong}<li>${eventName} - <strong>${triggerStatus}</strong>: ${
               disasterSpecificCopy.eventStatus
             }${
-              !disasterSpecificCopy.extraInfo
-                ? ` ${dateTimePreposition} ${dateAndTime} (${leadTimeString}${timestamp})`
-                : ''
+              disasterSpecificCopy.extraInfo ||
+              leadTime.leadTimeName === LeadTime.hour0
+                ? ''
+                : ` ${dateTimePreposition} ${dateAndTime}${timestamp} (${leadTimeString})`
             }. ${disasterSpecificCopy.extraInfo}</li>`;
           }
         }
@@ -582,7 +586,6 @@ export class EmailService {
     const {
       typhoonLandfall,
       typhoonNoLandfallYet,
-      landfallTimestamp,
     } = event.disasterSpecificProperties;
     let eventStatus = '';
     let extraInfo = '';
@@ -599,21 +602,62 @@ export class EmailService {
     } else {
       if (typhoonNoLandfallYet) {
         eventStatus =
-          'Currently <strong>not predicted to make landfall yet</strong>';
+          '<strong>Landfall time prediction cannot be determined yet</strong>';
         extraInfo = 'Keep monitoring the event.';
+        leadTimeString = 'Undetermined landfall';
       } else if (typhoonLandfall) {
         eventStatus = 'Estimated to <strong>make landfall</strong>';
       } else {
         eventStatus =
-          'Currently <strong>not predicted to make landfall</strong>. It is estimated to reach the point closest to land';
+          '<strong>Not predicted to make landfall</strong>. It is estimated to reach the point closest to land';
       }
     }
+
+    const timestampString = await this.getLeadTimeTimestamp(
+      leadTime,
+      event.countryCodeISO3,
+    );
 
     return {
       eventStatus: eventStatus,
       extraInfo: extraInfo,
       leadTimeString,
-      timestamp: landfallTimestamp,
+      timestamp: timestampString,
     };
+  }
+
+  private async getLeadTimeTimestamp(
+    leadTime: string,
+    countryCodeISO3: string,
+  ): Promise<string> {
+    const recentDate = await this.helperService.getRecentDate(
+      countryCodeISO3,
+      DisasterType.Typhoon,
+    );
+    const gmtUploadDate = new Date(recentDate.timestamp);
+    const hours = Number(leadTime.split('-')[0]);
+    const gmtEventDate = new Date(
+      gmtUploadDate.setTime(gmtUploadDate.getTime() + hours * 60 * 60 * 1000),
+    );
+
+    const timezone = {
+      PHL: {
+        label: 'PHT',
+        difference: 8,
+      },
+      default: {
+        label: 'GMT',
+        difference: 0,
+      },
+    };
+
+    const hourDiff =
+      timezone[countryCodeISO3]?.difference || timezone.default.difference;
+    const localEventDate = new Date(
+      gmtEventDate.setTime(gmtEventDate.getTime() + hourDiff * 60 * 60 * 1000),
+    );
+    const timezoneLabel =
+      timezone[countryCodeISO3]?.label || timezone.default.label;
+    return `${localEventDate.getHours()}:00 ${timezoneLabel}`;
   }
 }

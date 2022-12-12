@@ -195,18 +195,6 @@
           "no-landfall": "It has already reached the point closest to land.<br><br>"
         }
       },
-      "active-event-below-trigger": {
-        "welcome": "A warning for <strong>{{ eventName }}</strong> was issued on {{ startDate }}, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
-        "upcoming-event": {
-          "landfall": "It is estimated to make landfall at {{ firstLeadTimeDate }}.<br><br>",
-          "no-landfall": "It is currently not predicted to make landfall. It is estimated to reach the point closest to land at {{ firstLeadTimeDate }}.<br><br>",
-          "no-landfall-yet": "It is currently <strong>not predicted to make landfall yet</strong>. Keep monitoring the event.<br><br>"
-        },
-        "passed-event": {
-          "landfall": "It has already made landfall.<br><br>",
-          "no-landfall": "It has already reached the point closest to land.<br><br>"
-        }
-      },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered for typhoon <strong>{{ eventName }}</strong>. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
         "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
