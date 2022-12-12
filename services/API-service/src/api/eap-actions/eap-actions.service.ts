@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
-import { IsNull, Repository } from 'typeorm';
+import { In, IsNull, Repository } from 'typeorm';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { CheckEapActionDto } from './dto/check-eap-action.dto';
@@ -9,6 +9,7 @@ import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { AddEapActionsDto } from './dto/eap-action.dto';
+import { DisasterType } from '../disaster/disaster-type.enum';
 
 @Injectable()
 export class EapActionsService {
@@ -100,6 +101,57 @@ export class EapActionsService {
 
     const newAction = await this.eapActionStatusRepository.save(action);
     return newAction;
+  }
+
+  public async checkActionExternally(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    eapActions,
+  ): Promise<void> {
+    console.log('eapAction: ', eapActions);
+    const eapActionIds = eapActions['Early_action'].split(' ');
+    const actionIds = await this.eapActionRepository.find({
+      where: {
+        countryCodeISO3: countryCodeISO3,
+        disasterType: disasterType,
+        action: In(eapActionIds),
+      },
+    });
+    if (!actionIds.length) {
+      const errors = 'No actions found';
+      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+    }
+
+    const placeCode = eapActions['placeCode'];
+    const adminArea = await this.adminAreaRepository.findOne({
+      select: ['id'],
+      where: { placeCode: placeCode },
+    });
+
+    // note: the below will not be able to distinguish between different open events (= typhoon only)
+    const eventPlaceCode = await this.eventPlaceCodeRepository.findOne({
+      where: {
+        closed: false,
+        disasterType: disasterType,
+        adminArea: { id: adminArea.id },
+      },
+    });
+
+    if (!eventPlaceCode) {
+      const errors = 'No open event found to check off actions for';
+      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+    }
+
+    for (const actionId of actionIds) {
+      const action = new EapActionStatusEntity();
+      action.status = true;
+      action.placeCode = placeCode;
+      action.eventPlaceCode = eventPlaceCode;
+      action.actionChecked = actionId;
+      // Don't store user for now
+
+      await this.eapActionStatusRepository.save(action);
+    }
   }
 
   public async getAreasOfFocus(): Promise<AreaOfFocusEntity[]> {
