@@ -4,7 +4,6 @@ import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
 import { DisasterSpecificProperties } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { TyphoonCategory } from './dto/trackpoint-details';
 import { UploadTyphoonTrackDto } from './dto/upload-typhoon-track';
@@ -132,11 +131,28 @@ export class TyphoonTrackService {
       select: ['timestampOfTrackpoint', 'firstLandfall', 'closestToLand'],
       where: filters,
     });
+    const landfallTrackPoint = typhoonTrackPoints.filter(
+      point => point.firstLandfall,
+    );
 
-    const typhoonLandfall =
-      typhoonTrackPoints.filter(point => point.firstLandfall).length > 0;
+    const typhoonLandfall = landfallTrackPoint.length > 0;
 
     let typhoonNoLandfallYet = false;
+
+    const getTimeString = (date: Date): string => {
+      const timezone = {
+        PHL: 'PHT',
+        default: 'GMT',
+      };
+
+      return `${date.getHours()}:${date.getMinutes()} (${timezone[
+        countryCodeISO3
+      ] || timezone.default})`;
+    };
+
+    const landfallTimestamp = typhoonLandfall
+      ? getTimeString(landfallTrackPoint[0].timestampOfTrackpoint)
+      : null;
 
     if (!typhoonLandfall) {
       const maxTimestamp = new Date(
@@ -161,6 +177,7 @@ export class TyphoonTrackService {
     return {
       typhoonLandfall,
       typhoonNoLandfallYet,
+      landfallTimestamp,
     };
   }
 }

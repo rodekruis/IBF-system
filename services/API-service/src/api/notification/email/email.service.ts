@@ -60,6 +60,7 @@ export class EmailService {
       disasterType,
       activeEvents,
     );
+
     this.sendEmail(emailSubject, emailHtml, country.countryCodeISO3);
   }
 
@@ -141,15 +142,15 @@ export class EmailService {
               actionUnit,
             )}`;
 
+            const disasterSpecificCopy = await this.getDisasterSpecificCopy(
+              disasterType,
+              leadTime,
+              event,
+            );
+
             const eventStatusCopy = `(${
               leadTime.leadTimeName === LeadTime.hour0
-                ? (
-                    await this.getDisasterSpecificCopy(
-                      disasterType,
-                      leadTime,
-                      event,
-                    )
-                  ).subjectStatus
+                ? `${disasterSpecificCopy.subjectStatus} | ${disasterSpecificCopy.timestamp}`
                 : leadTime.leadTimeName
             })`;
 
@@ -377,16 +378,21 @@ export class EmailService {
             const leadTimeString = disasterSpecificCopy.leadTimeString
               ? disasterSpecificCopy.leadTimeString
               : leadTimeFromNow;
+
+            const timestamp = disasterSpecificCopy.timestamp
+              ? ` | ${disasterSpecificCopy.timestamp}`
+              : '';
+
             leadTimeListShort = `${leadTimeListShort}<li>${eventName}: ${
               !disasterSpecificCopy.extraInfo
-                ? `${dateAndTime} (${leadTimeString})`
+                ? `${dateAndTime} (${leadTimeString}${timestamp})`
                 : 'No landfall predicted yet'
             }</li>`;
             leadTimeListLong = `${leadTimeListLong}<li>${eventName} - <strong>${triggerStatus}</strong>: ${
               disasterSpecificCopy.eventStatus
             }${
               !disasterSpecificCopy.extraInfo
-                ? ` ${dateTimePreposition} ${dateAndTime} (${leadTimeString})`
+                ? ` ${dateTimePreposition} ${dateAndTime} (${leadTimeString}${timestamp})`
                 : ''
             }. ${disasterSpecificCopy.extraInfo}</li>`;
           }
@@ -613,6 +619,7 @@ export class EmailService {
     extraInfo: string;
     leadTimeString?: string;
     subjectStatus?: string;
+    timestamp?: string;
   }> {
     switch (disasterType) {
       case DisasterType.HeavyRain:
@@ -642,10 +649,12 @@ export class EmailService {
     extraInfo: string;
     leadTimeString: string;
     subjectStatus: string;
+    timestamp: string;
   }> {
     const {
       typhoonLandfall,
       typhoonNoLandfallYet,
+      landfallTimestamp,
     } = event.disasterSpecificProperties;
     let eventStatus = '';
     let extraInfo = '';
@@ -680,6 +689,7 @@ export class EmailService {
       extraInfo: extraInfo,
       leadTimeString,
       subjectStatus,
+      timestamp: landfallTimestamp,
     };
   }
 }
