@@ -1,3 +1,12 @@
+# [0.207.0](https://github.com/rodekruis/IBF-system/compare/v0.206.0...v0.207.0) (2022-12-12)
+
+
+### Features
+
+* create endpoint that Kobo can call AB[#16763](https://github.com/rodekruis/IBF-system/issues/16763) ([8710800](https://github.com/rodekruis/IBF-system/commit/8710800c1e47bea54c76bfbafefed3d32e0390a4))
+
+
+
 # [0.206.0](https://github.com/rodekruis/IBF-system/compare/v0.205.1...v0.206.0) (2022-12-09)
 
 
@@ -126,20 +135,6 @@
 * create migration AB[#16236](https://github.com/rodekruis/IBF-system/issues/16236) ([7a7bf44](https://github.com/rodekruis/IBF-system/commit/7a7bf4441737102f14ba4d37930d5ac120f743f6))
 * leave dunant-user when reseeding AB[#16399](https://github.com/rodekruis/IBF-system/issues/16399) ([da2985d](https://github.com/rodekruis/IBF-system/commit/da2985d95a4b94388caf9e4343961b39b3364ca0))
 * merge all standard point-data into 1 module/entity/etc. AB[#16397](https://github.com/rodekruis/IBF-system/issues/16397) ([e00abe9](https://github.com/rodekruis/IBF-system/commit/e00abe9d1c019cc4fcd76968a6bebc981662004f))
-
-
-
-# [0.200.0](https://github.com/rodekruis/IBF-system/compare/v0.199.1...v0.200.0) (2022-11-24)
-
-
-### Bug Fixes
-
-* assign all countries if not specified AB[#16393](https://github.com/rodekruis/IBF-system/issues/16393) ([319e6a1](https://github.com/rodekruis/IBF-system/commit/319e6a187754575926489c44a5aa0285c3777a87))
-
-
-### Features
-
-* make country-switcher available to non-admin multi-country users AB[#16333](https://github.com/rodekruis/IBF-system/issues/16333) ([086008e](https://github.com/rodekruis/IBF-system/commit/086008e8111c210bad99851af985ba88870253c8))
 
 
 
