@@ -142,3 +142,19 @@ Use [ngrok](https://ngrok.com/) to mock an external API service:
    - `https://ibf-test.510.global/api/notifications/whatsapp/status` in the `STATUS CALLBACK URL` field
 
 For the rest, follow the same instructions as above to receive initial and follow-up messages.
+
+## Externally checking off actions via Kobo
+
+1. Create a Kobo-form (e.g. at https://kobonew.ifrc.org/)
+2. Include a multi-select question called `earlyAction`.
+3. Include as answer options the exact EAP-actions for the given country and disasterType as in `EAP-actions.json`
+   - with `label` as question label (e.g. `DRR preliminary action`)
+   - with `action` as XML-value (e.g. `drr-1`)
+4. Under Settings > REST services, click `Register a new service`
+   - Endpoint URL: `https://ibf.510.global/api/eap-actions/check-external/${countryCodeISO3}/${disasterType}
+   - To test this locally you can replace `ibf.510.global` by a local ngrok address
+   - To demo on other environments, replace by respective environment-url, e.g. `ibf-test.510.global`
+   - IMPROVE: Maybe make 2 different versions of form: real/production vs develop/demo
+5. This is currently implemented only for South Sudan floods, which is special because it deals with only 1 admin-area.
+   - Therefore the `placeCode` is specified via one calculated (hidden) question in the form with name `placeCode`, which always has the same value.
+   - In future occurences of this functionality however, the form will have to be adapted to make this question non-hidden (and to be able to iterate the form per placeCode)

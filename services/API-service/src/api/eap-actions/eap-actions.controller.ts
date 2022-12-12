@@ -1,9 +1,10 @@
-import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Param } from '@nestjs/common';
 import { EapActionsService } from './eap-actions.service';
 import { UserDecorator } from '../user/user.decorator';
 import {
   ApiBearerAuth,
   ApiOperation,
+  ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -15,9 +16,9 @@ import { Roles } from '../../roles.decorator';
 import { UserRole } from '../user/user-role.enum';
 import { EapActionEntity } from './eap-action.entity';
 import { AddEapActionsDto } from './dto/eap-action.dto';
+import { DisasterType } from '../disaster/disaster-type.enum';
 
 @ApiBearerAuth()
-@UseGuards(RolesGuard)
 @ApiTags('eap-actions')
 @Controller('eap-actions')
 export class EapActionsController {
@@ -27,6 +28,7 @@ export class EapActionsController {
     this.eapActionsService = eapActionsService;
   }
 
+  @UseGuards(RolesGuard)
   @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Add/update EAP-actions' })
   @ApiResponse({
@@ -41,6 +43,7 @@ export class EapActionsController {
     return await this.eapActionsService.addOrUpdateEapActions(eapActions);
   }
 
+  @UseGuards(RolesGuard)
   @Roles(UserRole.DisasterManager)
   @ApiOperation({ summary: 'Toggle status of EAP-action' })
   @ApiResponse({
@@ -56,6 +59,27 @@ export class EapActionsController {
     return await this.eapActionsService.checkAction(userId, eapAction);
   }
 
+  @ApiOperation({ summary: 'Check off early action from external Kobo-form' })
+  @ApiResponse({
+    status: 201,
+    description: 'Checked off early action.',
+    type: EapActionStatusEntity,
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @Post('check-external/:countryCodeISO3/:disasterType')
+  public async checkActionExternally(
+    @Param() params,
+    @Body() eapActions: any,
+  ): Promise<void> {
+    return await this.eapActionsService.checkActionExternally(
+      params.countryCodeISO3,
+      params.disasterType as DisasterType,
+      eapActions,
+    );
+  }
+
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Get Areas of Focus (categories of EAP-actions)' })
   @ApiResponse({
     status: 200,
