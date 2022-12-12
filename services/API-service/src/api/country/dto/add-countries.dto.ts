@@ -1,14 +1,8 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { OneToMany, Column, ManyToMany, OneToOne, JoinColumn } from 'typeorm';
 import { BoundingBox } from '../../../shared/geo.model';
-import { NotificationInfoEntity } from '../../notification/notifcation-info.entity';
-import { UserEntity } from '../../user/user.entity';
-import { CountryDisasterSettingsEntity } from '../country-disaster.entity';
-import { CountryEntity } from '../country.entity';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { AdminLevel } from '../admin-level.enum';
-import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 
 export class CountryDto {
   @ApiProperty({ example: 'UGA' })
@@ -20,10 +14,7 @@ export class CountryDto {
   @ApiProperty({ example: 'Uganda' })
   public countryName: string;
 
-  @OneToMany(
-    () => CountryDisasterSettingsEntity,
-    (settings): CountryEntity => settings.country,
-  )
+  @ApiProperty()
   public countryDisasterSettings: CountryDisasterSettingsDto[];
 
   @ApiProperty({
@@ -38,7 +29,7 @@ export class CountryDto {
       },
     },
   })
-  public adminRegionLabels: JSON;
+  public adminRegionLabels: {};
 
   @ApiProperty({
     example: ['logo1.svg', 'logo2.png'],
@@ -53,28 +44,13 @@ export class CountryDto {
   })
   public countryBoundingBox: BoundingBox;
 
-  @ApiProperty({ example: new Date() })
-  public created: Date;
-
-  @ManyToMany(
-    (): typeof UserEntity => UserEntity,
-    (user): CountryEntity[] => user.countries,
-  )
-  public users: UserEntity[];
-
   @ApiProperty()
-  public disasterTypes: DisasterType[];
-
-  @OneToOne(() => NotificationInfoEntity, {
-    cascade: true,
-  })
-  @JoinColumn()
-  public notificationInfo: NotificationInfoEntity;
+  public disasterTypes: string[];
 }
 
 export class CountryDisasterSettingsDto {
   @ApiProperty({ example: DisasterType.Floods })
-  public disasterType: DisasterType;
+  public disasterType: string;
 
   @ApiProperty({ example: [1, 2, 3, 4] })
   public adminLevels: AdminLevel[];
@@ -83,19 +59,19 @@ export class CountryDisasterSettingsDto {
   public defaultAdminLevel: AdminLevel;
 
   @ApiProperty()
-  public activeLeadTimes: LeadTime[];
+  public activeLeadTimes: string[];
 
   @ApiProperty({ example: [3, 10] })
-  public droughtForecastSeasons: JSON;
+  public droughtForecastSeasons?: {};
 
   @ApiProperty({ example: false })
-  public droughtEndOfMonthPipeline: boolean;
+  public droughtEndOfMonthPipeline?: boolean;
 
   @ApiProperty({ example: false })
-  public showMonthlyEapActions: boolean;
+  public showMonthlyEapActions?: boolean;
 
   @ApiProperty({ example: {} })
-  public monthlyForecastInfo: JSON;
+  public monthlyForecastInfo?: {};
 
   @ApiProperty({
     example: 'https://docs.google.com',
@@ -118,10 +94,10 @@ export class CountryDisasterSettingsDto {
       },
     },
   })
-  public eapAlertClasses: JSON;
+  public eapAlertClasses?: {};
 
   @ApiProperty({ example: {} })
-  public droughtAreas: JSON;
+  public droughtAreas?: {};
 }
 
 export class AddCountriesDto {

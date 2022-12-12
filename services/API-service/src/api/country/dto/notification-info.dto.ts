@@ -11,7 +11,7 @@ export class NotificationInfoDto {
   public logo: string;
 
   @ApiProperty()
-  public triggerStatement: JSON;
+  public triggerStatement: {};
 
   @ApiProperty()
   @IsString()
@@ -32,14 +32,14 @@ export class NotificationInfoDto {
   @ApiProperty()
   @IsOptional()
   @IsBoolean()
-  public useWhatsapp: boolean;
+  public useWhatsapp?: boolean;
 
   @ApiProperty()
   @IsOptional()
-  public whatsappMessage: JSON;
+  public whatsappMessage?: {};
 
   @ApiProperty()
   @IsOptional()
   @IsString()
-  public externalEarlyActionForm: string;
+  public externalEarlyActionForm?: string;
 }

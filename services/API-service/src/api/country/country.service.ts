@@ -69,8 +69,10 @@ export class CountryService {
     });
   }
 
-  public async addOrUpdateCountries(countries: AddCountriesDto): Promise<void> {
-    const countriesToSave = [];
+  public async addOrUpdateCountries(
+    countries: AddCountriesDto,
+    envDisasterTypes?: string[],
+  ): Promise<void> {
     for await (const country of countries.countries) {
       const existingCountry = await this.countryRepository.findOne({
         where: {
@@ -78,19 +80,28 @@ export class CountryService {
         },
       });
       if (existingCountry) {
-        await this.addOrUpdateCountry(existingCountry, country);
+        await this.addOrUpdateCountry(
+          existingCountry,
+          country,
+          envDisasterTypes as DisasterType[],
+        );
         continue;
       }
 
       const newCountry = new CountryEntity();
       newCountry.countryCodeISO3 = country.countryCodeISO3;
-      await this.addOrUpdateCountry(newCountry, country);
+      await this.addOrUpdateCountry(
+        newCountry,
+        country,
+        envDisasterTypes as DisasterType[],
+      );
     }
   }
 
   private async addOrUpdateCountry(
     countryEntity: CountryEntity,
     country: CountryDto,
+    envDisasterTypes?: DisasterType[],
   ) {
     countryEntity.countryCodeISO2 = country.countryCodeISO2;
     countryEntity.countryName = country.countryName;
@@ -98,11 +109,27 @@ export class CountryService {
       JSON.stringify(country.adminRegionLabels),
     );
     countryEntity.disasterTypes = await this.disasterRepository.find({
-      where: country.disasterTypes.map(
-        (countryDisasterType: DisasterType): object => {
+      where: country.disasterTypes
+        .filter(disasterType => {
+          const envDisasterType = envDisasterTypes.find(
+            d => d.split(':')[0] === disasterType,
+          );
+          if (!envDisasterType) {
+            return false; // Disaster-type not loaded at all in this environment
+          }
+          const countries = envDisasterType.split(':')[1];
+          if (
+            !countries || // Load this disaster-type for all possible countries in this environment
+            countries.split('-').includes(country.countryCodeISO3) // Only load this disaster-type for given countries in this environment
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+        .map((countryDisasterType: string): object => {
           return { disasterType: countryDisasterType };
-        },
-      ),
+        }),
     });
     countryEntity.countryLogos = country.countryLogos;
     countryEntity.countryBoundingBox = JSON.parse(
@@ -214,7 +241,7 @@ export class CountryService {
     await this.countryRepository.save(countriesToSave);
   }
 
-  private async createNotificationInfo(
+  public async createNotificationInfo(
     notificationInfoEntity: NotificationInfoEntity,
     notificationInfoCountry: NotificationInfoDto,
   ): Promise<NotificationInfoEntity> {
