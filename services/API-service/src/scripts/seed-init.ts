@@ -48,11 +48,12 @@ class NotificationInfo {
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
-  private connection: Connection;
   private readonly seedHelper: SeedHelper;
 
-  public constructor(connection: Connection) {
-    this.connection = connection;
+  public constructor(
+    private connection: Connection,
+    private seedAdminArea: SeedAdminArea,
+  ) {
     this.seedHelper = new SeedHelper(connection);
   }
 
@@ -242,8 +243,7 @@ export class SeedInit implements InterfaceScript {
 
     // ***** SEED ADMIN-AREA DATA *****
     console.log('Seed Admin Areas...');
-    const seedAdminArea = new SeedAdminArea(this.connection);
-    await seedAdminArea.run();
+    await this.seedAdminArea.run();
 
     // ***** CREATE USERS *****
     console.log('Seed Users...');

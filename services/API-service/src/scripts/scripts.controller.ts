@@ -119,14 +119,10 @@ export class MockTyphoonScenario {
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
 export class ScriptsController {
-  private connection: Connection;
-
-  private readonly scriptsService: ScriptsService;
-
-  public constructor(connection: Connection, scriptsService: ScriptsService) {
-    this.connection = connection;
-    this.scriptsService = scriptsService;
-  }
+  public constructor(
+    private scriptsService: ScriptsService,
+    private seedInit: SeedInit,
+  ) {}
 
   @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Reset database with original seed data' })
@@ -140,8 +136,7 @@ export class ScriptsController {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
 
-    const seed = new SeedInit(this.connection);
-    await seed.run();
+    await this.seedInit.run();
     return res
       .status(HttpStatus.ACCEPTED)
       .send('Database reset with original seed data.');
