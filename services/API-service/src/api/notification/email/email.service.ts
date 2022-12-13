@@ -405,15 +405,23 @@ export class EmailService {
           './src/api/notification/email/html/map-image.html',
           'utf8',
         );
+        eventHtml = eventHtml
+          .replace(
+            '(MAP-IMG-SRC)',
+            this.getMapImgSrc(
+              country.countryCodeISO3,
+              disasterType,
+              event.eventName,
+            ),
+          )
+          .replace(
+            '(MAP-IMG-DESCRIPTION)',
+            this.getMapImageDescription(disasterType),
+          );
         eventHtml = eventHtml.replace(
-          '(MAP-IMG-SRC)',
-          this.getMapImgSrc(
-            country.countryCodeISO3,
-            disasterType,
-            event.eventName,
-          ),
+          '(EVENT-NAME)',
+          event.eventName ? ` for '${event.eventName}'` : '',
         );
-        eventHtml = eventHtml.replace('(EVENT-NAME)', event.eventName);
         html += eventHtml;
       }
     }
@@ -430,6 +438,17 @@ export class EmailService {
     }/event/event-map-image/${countryCodeISO3}/${disasterType}/${eventName ||
       'no-name'}`;
     return src;
+  }
+
+  private getMapImageDescription(disasterType: DisasterType): string {
+    switch (disasterType) {
+      case DisasterType.Floods:
+        return 'The triggered areas are outlined in purple. The potential flood extent is shown in red.<br>';
+      case DisasterType.Typhoon:
+        return 'The triggered areas are outlined in purple. The predicted typhoon track is shown.<br>';
+      default:
+        return '';
+    }
   }
 
   private async getTableForLeadTime(
