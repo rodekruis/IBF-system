@@ -4,7 +4,7 @@
     "lon": 131.65,
     "timestampOfTrackpoint": "11/12/2021 11:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -13,7 +13,7 @@
     "lon": 131.2,
     "timestampOfTrackpoint": "11/12/2021 17:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -22,7 +22,7 @@
     "lon": 130.69,
     "timestampOfTrackpoint": "11/12/2021 23:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -31,7 +31,7 @@
     "lon": 130.2,
     "timestampOfTrackpoint": "11/13/2021 5:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -40,7 +40,7 @@
     "lon": 129.78,
     "timestampOfTrackpoint": "11/13/2021 11:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -49,7 +49,7 @@
     "lon": 129.4,
     "timestampOfTrackpoint": "11/13/2021 17:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -58,7 +58,7 @@
     "lon": 129.03,
     "timestampOfTrackpoint": "11/13/2021 23:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -67,7 +67,7 @@
     "lon": 128.7,
     "timestampOfTrackpoint": "11/14/2021 5:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -76,7 +76,7 @@
     "lon": 128.43,
     "timestampOfTrackpoint": "11/14/2021 11:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -85,7 +85,7 @@
     "lon": 128.2,
     "timestampOfTrackpoint": "11/14/2021 17:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -94,7 +94,7 @@
     "lon": 127.98,
     "timestampOfTrackpoint": "11/14/2021 23:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -103,7 +103,7 @@
     "lon": 127.8,
     "timestampOfTrackpoint": "11/15/2021 5:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -112,7 +112,7 @@
     "lon": 127.69,
     "timestampOfTrackpoint": "11/15/2021 11:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -121,7 +121,7 @@
     "lon": 127.6,
     "timestampOfTrackpoint": "11/15/2021 17:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -130,7 +130,7 @@
     "lon": 127.3,
     "timestampOfTrackpoint": "11/15/2021 23:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -139,7 +139,7 @@
     "lon": 127.1,
     "timestampOfTrackpoint": "11/16/2021 5:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -148,7 +148,7 @@
     "lon": 126.9,
     "timestampOfTrackpoint": "11/16/2021 11:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -157,7 +157,7 @@
     "lon": 126.5,
     "timestampOfTrackpoint": "11/16/2021 17:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -166,7 +166,7 @@
     "lon": 126.1,
     "timestampOfTrackpoint": "11/16/2021 23:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -175,7 +175,7 @@
     "lon": 125.7,
     "timestampOfTrackpoint": "11/17/2021 5:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -184,7 +184,7 @@
     "lon": 125.3,
     "timestampOfTrackpoint": "11/17/2021 11:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -193,7 +193,7 @@
     "lon": 125.0,
     "timestampOfTrackpoint": "11/17/2021 17:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -202,7 +202,7 @@
     "lon": 124.7,
     "timestampOfTrackpoint": "11/17/2021 23:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -211,7 +211,7 @@
     "lon": 124.4,
     "timestampOfTrackpoint": "11/18/2021 5:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -220,7 +220,7 @@
     "lon": 124.1,
     "timestampOfTrackpoint": "11/18/2021 11:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -229,7 +229,7 @@
     "lon": 124,
     "timestampOfTrackpoint": "11/18/2021 17:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -238,7 +238,7 @@
     "lon": 123.96,
     "timestampOfTrackpoint": "11/18/2021 23:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -247,7 +247,7 @@
     "lon": 123.9,
     "timestampOfTrackpoint": "11/19/2021 5:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -256,7 +256,7 @@
     "lon": 123.77,
     "timestampOfTrackpoint": "11/19/2021 11:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -265,7 +265,7 @@
     "lon": 123.5,
     "timestampOfTrackpoint": "11/19/2021 17:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -274,7 +274,7 @@
     "lon": 123.3,
     "timestampOfTrackpoint": "11/19/2021 23:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": false
   },
@@ -283,7 +283,7 @@
     "lon": 123,
     "timestampOfTrackpoint": "11/20/2021 5:47",
     "windspeed": 75,
-    "category": "TS",
+    "category": "TY",
     "firstLandfall": false,
     "closestToLand": true
   }

@@ -276,7 +276,6 @@ export class MapService {
         this.apiService
           .getTyphoonTrack(
             this.country.countryCodeISO3,
-            this.timelineState.activeLeadTime,
             this.eventState?.event?.eventName,
           )
           .subscribe(this.addTyphoonTrackLayer);
@@ -668,7 +667,6 @@ export class MapService {
       layerData = this.apiService
         .getTyphoonTrack(
           this.country.countryCodeISO3,
-          this.timelineState.activeLeadTime,
           this.eventState?.event?.eventName,
         )
         .pipe(shareReplay(1));
