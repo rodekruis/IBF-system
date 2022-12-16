@@ -2,6 +2,7 @@ import { HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
+import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { UserModule } from '../user/user.module';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryController } from './country.controller';
@@ -17,6 +18,7 @@ import { CountryService } from './country.service';
       DisasterEntity,
       CountryDisasterSettingsEntity,
       LeadTimeEntity,
+      NotificationInfoEntity,
     ]),
   ],
   providers: [CountryService],

@@ -18,6 +18,11 @@ import SeedProd from './seed-prod';
 import { MetadataModule } from '../api/metadata/metadata.module';
 import SeedAdminArea from './seed-admin-area';
 import { AdminAreaModule } from '../api/admin-area/admin-area.module';
+import { CountryModule } from '../api/country/country.module';
+import SeedAdminAreaData from './seed-admin-area-data';
+import SeedPointData from './seed-point-data';
+import SeedGlofasStation from './seed-glofas-station';
+import SeedRainfallData from './seed-rainfall-data';
 
 @Module({
   imports: [
@@ -34,13 +39,23 @@ import { AdminAreaModule } from '../api/admin-area/admin-area.module';
     ]),
     AdminAreaModule,
     AdminAreaDynamicDataModule,
+    CountryModule,
     GlofasStationModule,
     EventModule,
     TyphoonTrackModule,
     UserModule,
     MetadataModule,
   ],
-  providers: [SeedInit, SeedProd, ScriptsService, SeedAdminArea],
+  providers: [
+    SeedInit,
+    SeedProd,
+    ScriptsService,
+    SeedAdminArea,
+    SeedAdminAreaData,
+    SeedPointData,
+    SeedGlofasStation,
+    SeedRainfallData,
+  ],
   controllers: [ScriptsController],
 })
 export class ScriptsModule {}

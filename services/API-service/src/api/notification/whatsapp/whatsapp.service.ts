@@ -254,10 +254,11 @@ export class WhatsappService {
     const baseWhatsappGroupMessage =
       country.notificationInfo.whatsappMessage['whatsapp-group'];
     const whatsappGroupLink = country.notificationInfo.linkSocialMediaUrl;
-    const whatsappGroupMessage = baseWhatsappGroupMessage.replace(
-      '[whatsappGroupLink]',
-      whatsappGroupLink,
-    );
+    const externalActionsForm =
+      country.notificationInfo.externalEarlyActionForm;
+    const whatsappGroupMessage = baseWhatsappGroupMessage
+      .replace('[whatsappGroupLink]', whatsappGroupLink)
+      .replace('[externalActionsForm]', externalActionsForm);
     return whatsappGroupMessage;
   }
 
