@@ -45,7 +45,7 @@ export class SeedPointData implements InterfaceScript {
   }
 
   private async seedCountryRedcrossBranches(country): Promise<void> {
-    const redcrossBranchesFilename = `./src/scripts/git-lfs/redcross-branches/redcross_branches_${country.countryCodeISO3}.csv`;
+    const redcrossBranchesFilename = `./src/scripts/git-lfs/standard-point-layers/redcross_branches_${country.countryCodeISO3}.csv`;
     try {
       const redcrossBranchesData = await this.seedHelper.getCsvData(
         redcrossBranchesFilename,
@@ -75,7 +75,7 @@ export class SeedPointData implements InterfaceScript {
     }
   }
   private async seedCountryHealthSites(country): Promise<void> {
-    const healthSiteFilename = `./src/scripts/git-lfs/health-sites/health_sites_${country.countryCodeISO3}.csv`;
+    const healthSiteFilename = `./src/scripts/git-lfs/standard-point-layers/health_sites_${country.countryCodeISO3}.csv`;
     try {
       const healthSiteData = await this.seedHelper.getCsvData(
         healthSiteFilename,
@@ -103,7 +103,7 @@ export class SeedPointData implements InterfaceScript {
   }
 
   private async seedEvacuationCenterData(country): Promise<void> {
-    const evacuationCenterFileName = `./src/scripts/git-lfs/evacuation-centers/evacuation_centers_${country.countryCodeISO3}.csv`;
+    const evacuationCenterFileName = `./src/scripts/git-lfs/standard-point-layers/evacuation_centers_${country.countryCodeISO3}.csv`;
     try {
       const evacuationCenterData = await this.seedHelper.getCsvData(
         evacuationCenterFileName,
@@ -131,7 +131,7 @@ export class SeedPointData implements InterfaceScript {
   }
 
   private async seedDamSiteData(country): Promise<void> {
-    const damSiteFileName = `./src/scripts/git-lfs/dam-sites/dam_sites_${country.countryCodeISO3}.csv`;
+    const damSiteFileName = `./src/scripts/git-lfs/standard-point-layers/dam_sites_${country.countryCodeISO3}.csv`;
     try {
       const damSiteData = await this.seedHelper.getCsvData(damSiteFileName);
       const damSiteArray = damSiteData.map((dam: DamSiteDto) => {
