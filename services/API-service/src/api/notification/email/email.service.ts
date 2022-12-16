@@ -444,8 +444,6 @@ export class EmailService {
     switch (disasterType) {
       case DisasterType.Floods:
         return 'The triggered areas are outlined in purple. The potential flood extent is shown in red.<br>';
-      case DisasterType.Typhoon:
-        return 'The triggered areas are outlined in purple. The predicted typhoon track is shown.<br>';
       default:
         return '';
     }
