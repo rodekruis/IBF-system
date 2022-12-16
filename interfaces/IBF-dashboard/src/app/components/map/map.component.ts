@@ -736,6 +736,26 @@ export class MapComponent implements OnDestroy {
       Math.min(Math.round((forecastValue / thresholdValue) * 100), 115),
       0,
     );
+
+    const addComma = (n) => Math.round(n).toLocaleString('en-US');
+
+    const forecastBar = `
+    <div style="border-radius:10px;height:20px;background-color:#d4d3d2; width: 100%">
+        <div style="border-radius:10px 0 0 10px;height:20px;width: 80%">
+          <div style="
+            border-radius:10px;
+            height:20px;
+            line-height:20px;
+            background-color:${eapStatusColor};
+            color:${eapStatusColorText};
+            text-align:center;
+            white-space: nowrap;
+            min-width: 15%;
+            width:${triggerWidth}%">${addComma(forecastValue)}</div>
+        </div>
+      </div>
+    `;
+
     const infoPopup = `
       <div style="background-color:${eapStatusColor}; color:${eapStatusColorText}; padding: 5px; margin-bottom: 5px"> \ \
         <strong>${title}
@@ -745,17 +765,11 @@ export class MapComponent implements OnDestroy {
         <div style="margin-bottom:5px"> \
       ${subtitle} \
       </div> \
-      <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
-        <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
-          <div style="border-radius:10px;height:20px;line-height:20px;background-color:${eapStatusColor}; color:${eapStatusColorText}; text-align:center; white-space: nowrap; min-width: 15%; width:${triggerWidth}%">${Math.round(
-      forecastValue,
-    )}</div> \
-        </div> \
-      </div> \
+      ${forecastBar}
     <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
       ${thresholdName}:</div> \
    \
-  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>${Math.round(
+  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>${addComma(
     thresholdValue,
   )}</strong></div></div> \
 </div> \
