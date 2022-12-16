@@ -16,7 +16,6 @@
 * replace activated with issued AB[#16681](https://github.com/rodekruis/IBF-system/issues/16681) ([1404110](https://github.com/rodekruis/IBF-system/commit/1404110ad33243939c40a04e64424850326bcb45))
 
 
-
 # [0.207.0](https://github.com/rodekruis/IBF-system/compare/v0.206.0...v0.207.0) (2022-12-12)
 
 
@@ -129,6 +128,4 @@
 ### Features
 
 * add more realistic coordinates AB[#16235](https://github.com/rodekruis/IBF-system/issues/16235) ([dcd2e07](https://github.com/rodekruis/IBF-system/commit/dcd2e07d15706023a7a00cf2e3bf50c0b1e1f456))
-
-
 
