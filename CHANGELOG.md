@@ -1,3 +1,14 @@
+## [0.208.1](https://github.com/rodekruis/IBF-system/compare/v0.208.0...v0.208.1) (2022-12-16)
+
+
+### Bug Fixes
+
+* facilitate multi-country users AB[#16328](https://github.com/rodekruis/IBF-system/issues/16328) ([c0f3606](https://github.com/rodekruis/IBF-system/commit/c0f36067c0896e551ddda04e59b4d04c61594b7c))
+* include/update map legend in email/whatsapp AB[#16328](https://github.com/rodekruis/IBF-system/issues/16328) ([73d07eb](https://github.com/rodekruis/IBF-system/commit/73d07ebe14d69ae36f8bd3f43773d885f46bf792))
+* remove typhoon map description email AB[#16826](https://github.com/rodekruis/IBF-system/issues/16826) ([be3b41b](https://github.com/rodekruis/IBF-system/commit/be3b41be862f155d47b134aa7635b7c9f1053279))
+
+
+
 # [0.208.0](https://github.com/rodekruis/IBF-system/compare/v0.207.0...v0.208.0) (2022-12-16)
 
 
@@ -14,6 +25,7 @@
 
 * add time of landfall AB[#16678](https://github.com/rodekruis/IBF-system/issues/16678) ([99d230e](https://github.com/rodekruis/IBF-system/commit/99d230ee502998d772c944dd724e5d6bfdcbf5d4))
 * replace activated with issued AB[#16681](https://github.com/rodekruis/IBF-system/issues/16681) ([1404110](https://github.com/rodekruis/IBF-system/commit/1404110ad33243939c40a04e64424850326bcb45))
+
 
 
 # [0.207.0](https://github.com/rodekruis/IBF-system/compare/v0.206.0...v0.207.0) (2022-12-12)
@@ -121,11 +133,4 @@
 * periodically delete old dynamic data AB[#16335](https://github.com/rodekruis/IBF-system/issues/16335) ([cdc5511](https://github.com/rodekruis/IBF-system/commit/cdc55116d1addb6de8e94df8ec63cb6bf6cce447))
 
 
-
-# [0.202.0](https://github.com/rodekruis/IBF-system/compare/v0.201.0...v0.202.0) (2022-11-28)
-
-
-### Features
-
-* add more realistic coordinates AB[#16235](https://github.com/rodekruis/IBF-system/issues/16235) ([dcd2e07](https://github.com/rodekruis/IBF-system/commit/dcd2e07d15706023a7a00cf2e3bf50c0b1e1f456))
 
