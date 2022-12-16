@@ -1,3 +1,14 @@
+## [0.208.3](https://github.com/rodekruis/IBF-system/compare/v0.208.2...v0.208.3) (2022-12-16)
+
+
+### Bug Fixes
+
+* process logos in email AB[#16776](https://github.com/rodekruis/IBF-system/issues/16776) ([b920d3b](https://github.com/rodekruis/IBF-system/commit/b920d3b43d2c7b2b72a43073c35b679e029738a8))
+* update glofas location AB[#16778](https://github.com/rodekruis/IBF-system/issues/16778) ([a91917e](https://github.com/rodekruis/IBF-system/commit/a91917e73d775fc772f3875816807e07040e2e1f))
+* updated layer descriptions + trigger statement AB[#16775](https://github.com/rodekruis/IBF-system/issues/16775) ([931070d](https://github.com/rodekruis/IBF-system/commit/931070d1cac9e61dd4cd853ab0fa5058710a61df))
+
+
+
 ## [0.208.2](https://github.com/rodekruis/IBF-system/compare/v0.208.1...v0.208.2) (2022-12-16)
 
 
@@ -113,15 +124,6 @@
 ### Bug Fixes
 
 * update MWI alert popup + trigger statement AB[#16464](https://github.com/rodekruis/IBF-system/issues/16464) ([e9ec029](https://github.com/rodekruis/IBF-system/commit/e9ec029f6c4c2b8f528a1fc78916c4eafb76ebe6))
-
-
-
-## [0.203.1](https://github.com/rodekruis/IBF-system/compare/v0.203.0...v0.203.1) (2022-11-30)
-
-
-### Bug Fixes
-
-* change leadtime to 6-day AB[#16463](https://github.com/rodekruis/IBF-system/issues/16463) ([704b66d](https://github.com/rodekruis/IBF-system/commit/704b66d1d394b744f0f70de62743bc87aa964afb))
 
 
 
