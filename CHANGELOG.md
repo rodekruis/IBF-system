@@ -1,3 +1,21 @@
+# [0.208.0](https://github.com/rodekruis/IBF-system/compare/v0.207.0...v0.208.0) (2022-12-16)
+
+
+### Bug Fixes
+
+* actionUnit back to houses affected AB[#16679](https://github.com/rodekruis/IBF-system/issues/16679) ([d70e86c](https://github.com/rodekruis/IBF-system/commit/d70e86ced935fb74326051c252b2730344cbcf2e))
+* make map image multi-event AB[#16461](https://github.com/rodekruis/IBF-system/issues/16461) ([55632bf](https://github.com/rodekruis/IBF-system/commit/55632bfd622d18c4c987cbf582424f3f0fd5c994))
+* make subject simpler AB[#16760](https://github.com/rodekruis/IBF-system/issues/16760) ([8180d67](https://github.com/rodekruis/IBF-system/commit/8180d67feac967643476bad994a7d976201b73bd))
+* small refactoring AB[#16457](https://github.com/rodekruis/IBF-system/issues/16457) ([92bfdc5](https://github.com/rodekruis/IBF-system/commit/92bfdc5a4f15a23bc4faaa3ae4b6d1d786a1b24b))
+* timezone in email AB[#16678](https://github.com/rodekruis/IBF-system/issues/16678) ([f5191f8](https://github.com/rodekruis/IBF-system/commit/f5191f8549249f708ed71dd3b7d1f57dc8e95d71))
+
+
+### Features
+
+* add time of landfall AB[#16678](https://github.com/rodekruis/IBF-system/issues/16678) ([99d230e](https://github.com/rodekruis/IBF-system/commit/99d230ee502998d772c944dd724e5d6bfdcbf5d4))
+* replace activated with issued AB[#16681](https://github.com/rodekruis/IBF-system/issues/16681) ([1404110](https://github.com/rodekruis/IBF-system/commit/1404110ad33243939c40a04e64424850326bcb45))
+
+
 # [0.207.0](https://github.com/rodekruis/IBF-system/compare/v0.206.0...v0.207.0) (2022-12-12)
 
 
@@ -110,31 +128,4 @@
 ### Features
 
 * add more realistic coordinates AB[#16235](https://github.com/rodekruis/IBF-system/issues/16235) ([dcd2e07](https://github.com/rodekruis/IBF-system/commit/dcd2e07d15706023a7a00cf2e3bf50c0b1e1f456))
-
-
-
-# [0.201.0](https://github.com/rodekruis/IBF-system/compare/v0.200.0...v0.201.0) (2022-11-25)
-
-
-### Bug Fixes
-
-* bug in updating point data AB[#16397](https://github.com/rodekruis/IBF-system/issues/16397) ([73a65b9](https://github.com/rodekruis/IBF-system/commit/73a65b93b57597225c162b297454bbd5cd10a178))
-* correct column name AB[#16235](https://github.com/rodekruis/IBF-system/issues/16235) ([eab07c2](https://github.com/rodekruis/IBF-system/commit/eab07c29ac477325d7d40efacde58d087ad8fbff))
-* mace icons bigger AB[#16411](https://github.com/rodekruis/IBF-system/issues/16411) ([3012ceb](https://github.com/rodekruis/IBF-system/commit/3012ceb3e223995858a7166e846f27860bfe2e4f))
-* rename dam to dams AB[#16397](https://github.com/rodekruis/IBF-system/issues/16397) ([c16d7fd](https://github.com/rodekruis/IBF-system/commit/c16d7fda3dfd27873cbf806fda715b706353cf36))
-* show markers AB[#16236](https://github.com/rodekruis/IBF-system/issues/16236) ([59986d1](https://github.com/rodekruis/IBF-system/commit/59986d15bf2c590c79d7456489b6ff9554b557f8))
-
-
-### Features
-
-* add centers with mock latlon AB[#16235](https://github.com/rodekruis/IBF-system/issues/16235) ([3913992](https://github.com/rodekruis/IBF-system/commit/39139920bf78b504e1721c904b88fcefd3728298))
-* add new endpoint AB[#16236](https://github.com/rodekruis/IBF-system/issues/16236) ([849d639](https://github.com/rodekruis/IBF-system/commit/849d639a9d274479b342a710d4e2e84f2e5c7f78))
-* add new layer AB[#16236](https://github.com/rodekruis/IBF-system/issues/16236) ([58c689b](https://github.com/rodekruis/IBF-system/commit/58c689b372d5b5f7fbf57d779b29ee8631c5beb2))
-* add seed evacuation centers AB[#16236](https://github.com/rodekruis/IBF-system/issues/16236) ([9789e35](https://github.com/rodekruis/IBF-system/commit/9789e358ccec6745e6eade9a1d57925bd91873af))
-* create marker AB[#16234](https://github.com/rodekruis/IBF-system/issues/16234) ([3586444](https://github.com/rodekruis/IBF-system/commit/358644494f387cec47aa6218da540a98991805d5))
-* create migration AB[#16236](https://github.com/rodekruis/IBF-system/issues/16236) ([7a7bf44](https://github.com/rodekruis/IBF-system/commit/7a7bf4441737102f14ba4d37930d5ac120f743f6))
-* leave dunant-user when reseeding AB[#16399](https://github.com/rodekruis/IBF-system/issues/16399) ([da2985d](https://github.com/rodekruis/IBF-system/commit/da2985d95a4b94388caf9e4343961b39b3364ca0))
-* merge all standard point-data into 1 module/entity/etc. AB[#16397](https://github.com/rodekruis/IBF-system/issues/16397) ([e00abe9](https://github.com/rodekruis/IBF-system/commit/e00abe9d1c019cc4fcd76968a6bebc981662004f))
-
-
 
