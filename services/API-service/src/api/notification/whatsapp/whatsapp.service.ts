@@ -226,7 +226,7 @@ export class WhatsappService {
         );
 
         // Add small delay/sleep to ensure the order in which messages are received
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 5000));
 
         const whatsappGroupMessage = this.configureWhatsappGroupMessage(
           country,
