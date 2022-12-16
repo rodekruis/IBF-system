@@ -14,9 +14,7 @@ import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-dat
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { EventSummaryCountry } from '../../../shared/data.model';
 import { NotificationContentService } from './../notification-content/notification-content.service';
-import { TyphoonTrackService } from '../../typhoon-track/typhoon-track.service';
-import { string } from 'yargs';
-import { count } from 'console';
+import { HelperService } from '../../../shared/helper.service';
 
 class ReplaceKeyValue {
   replaceKey: string;
@@ -38,7 +36,7 @@ export class EmailService {
     private readonly eventService: EventService,
     private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private readonly notificationContentService: NotificationContentService,
-    private readonly typhoonTrackService: TyphoonTrackService,
+    private readonly helperService: HelperService,
   ) {}
 
   private getSegmentId(countryCodeISO3: string): number {
@@ -59,11 +57,7 @@ export class EmailService {
       activeEvents,
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
-    const emailSubject = await this.getEmailSubject(
-      country,
-      disasterType,
-      activeEvents,
-    );
+    const emailSubject = `IBF ${disasterType} warning`;
     this.sendEmail(emailSubject, emailHtml, country.countryCodeISO3);
   }
 
@@ -98,72 +92,6 @@ export class EmailService {
       updateBody,
     );
     await this.mailchimp.post(`/campaigns/${createResult.id}/actions/send`);
-  }
-
-  private async getEmailSubject(
-    country: CountryEntity,
-    disasterType: DisasterType,
-    events: EventSummaryCountry[],
-  ): Promise<string> {
-    let subject = '';
-    const disasterWarning = `${this.notificationContentService.firstCharOfWordsToUpper(
-      (await this.notificationContentService.getDisaster(disasterType)).label,
-    )} Warning:`;
-
-    const triggeredLeadTimes = await this.notificationContentService.getLeadTimesAcrossEvents(
-      country.countryCodeISO3,
-      disasterType,
-      events,
-    );
-
-    const actionUnit = await this.notificationContentService.getActionUnit(
-      disasterType,
-    );
-    for (const leadTime of country.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
-    ).activeLeadTimes) {
-      if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
-        for await (const event of events) {
-          // for each event ..
-          const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
-            country.countryCodeISO3,
-            disasterType,
-            event.eventName,
-          );
-          if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
-            // .. find the right leadtime
-            const totalActionUnitValue = await this.notificationContentService.getTotalAffectedPerLeadTime(
-              country,
-              disasterType,
-              leadTime.leadTimeName as LeadTime,
-              event.eventName,
-            );
-            const actionUnitCopy = `Estimate of ${
-              actionUnit.label
-            }: ${this.notificationContentService.formatActionUnitValue(
-              totalActionUnitValue,
-              actionUnit,
-            )}`;
-
-            const eventStatusCopy = `(${
-              leadTime.leadTimeName === LeadTime.hour0
-                ? (
-                    await this.getDisasterSpecificCopy(
-                      disasterType,
-                      country.countryCodeISO3,
-                      leadTime,
-                      event.eventName,
-                    )
-                  ).subjectStatus
-                : leadTime.leadTimeName
-            })`;
-
-            subject = `${disasterWarning} ${actionUnitCopy} ${eventStatusCopy} `;
-          }
-        }
-      }
-    }
-    return subject;
   }
 
   private async createReplaceKeyValues(
@@ -215,14 +143,6 @@ export class EmailService {
       {
         replaceKey: '(MAP-IMAGE-PART)',
         replaceValue: await this.getMapImageHtml(country, disasterType, events),
-      },
-      {
-        replaceKey: '(MAP-IMG-SRC)',
-        replaceValue: this.getMapImgSrc(
-          country.countryCodeISO3,
-          disasterType,
-          events[0].eventName,
-        ),
       },
       {
         replaceKey: '(LINK-DASHBOARD)',
@@ -381,9 +301,8 @@ export class EmailService {
             );
             const disasterSpecificCopy = await this.getDisasterSpecificCopy(
               disasterType,
-              country.countryCodeISO3,
               leadTime,
-              event.eventName,
+              event,
             );
             const leadTimeFromNow = `${leadTimeValue} ${leadTimeUnit}s`;
 
@@ -391,17 +310,24 @@ export class EmailService {
             const leadTimeString = disasterSpecificCopy.leadTimeString
               ? disasterSpecificCopy.leadTimeString
               : leadTimeFromNow;
+
+            const timestamp = disasterSpecificCopy.timestamp
+              ? ` | ${disasterSpecificCopy.timestamp}`
+              : '';
+
             leadTimeListShort = `${leadTimeListShort}<li>${eventName}: ${
-              !disasterSpecificCopy.extraInfo
-                ? `${dateAndTime} (${leadTimeString})`
-                : 'No landfall predicted yet'
+              disasterSpecificCopy.extraInfo ||
+              leadTime.leadTimeName === LeadTime.hour0
+                ? leadTimeString
+                : `${dateAndTime}${timestamp} (${leadTimeString})`
             }</li>`;
             leadTimeListLong = `${leadTimeListLong}<li>${eventName} - <strong>${triggerStatus}</strong>: ${
               disasterSpecificCopy.eventStatus
             }${
-              !disasterSpecificCopy.extraInfo
-                ? ` ${dateTimePreposition} ${dateAndTime} (${leadTimeString})`
-                : ''
+              disasterSpecificCopy.extraInfo ||
+              leadTime.leadTimeName === LeadTime.hour0
+                ? ''
+                : ` ${dateTimePreposition} ${dateAndTime}${timestamp} (${leadTimeString})`
             }. ${disasterSpecificCopy.extraInfo}</li>`;
           }
         }
@@ -441,7 +367,7 @@ export class EmailService {
               country,
               disasterType,
               leadTime,
-              event.eventName,
+              event,
             );
             leadTimeTables = leadTimeTables + tableForLeadTime;
           }
@@ -467,19 +393,39 @@ export class EmailService {
     disasterType: DisasterType,
     events: EventSummaryCountry[],
   ): Promise<string> {
-    const mapImage = await this.eventService.getEventMapImage(
-      country.countryCodeISO3,
-      disasterType,
-      events[0].eventName || 'no-name',
-    );
-    if (mapImage) {
-      return fs.readFileSync(
-        './src/api/notification/email/html/map-image.html',
-        'utf8',
+    let html = '';
+    for await (const event of events) {
+      const mapImage = await this.eventService.getEventMapImage(
+        country.countryCodeISO3,
+        disasterType,
+        event.eventName || 'no-name',
       );
-    } else {
-      return '';
+      if (mapImage) {
+        let eventHtml = fs.readFileSync(
+          './src/api/notification/email/html/map-image.html',
+          'utf8',
+        );
+        eventHtml = eventHtml
+          .replace(
+            '(MAP-IMG-SRC)',
+            this.getMapImgSrc(
+              country.countryCodeISO3,
+              disasterType,
+              event.eventName,
+            ),
+          )
+          .replace(
+            '(MAP-IMG-DESCRIPTION)',
+            this.getMapImageDescription(disasterType),
+          );
+        eventHtml = eventHtml.replace(
+          '(EVENT-NAME)',
+          event.eventName ? ` for '${event.eventName}'` : '',
+        );
+        html += eventHtml;
+      }
     }
+    return html;
   }
 
   private getMapImgSrc(
@@ -494,11 +440,20 @@ export class EmailService {
     return src;
   }
 
+  private getMapImageDescription(disasterType: DisasterType): string {
+    switch (disasterType) {
+      case DisasterType.Floods:
+        return 'The triggered areas are outlined in purple. The potential flood extent is shown in red.<br>';
+      default:
+        return '';
+    }
+  }
+
   private async getTableForLeadTime(
     country: CountryEntity,
     disasterType: DisasterType,
     leadTime: LeadTimeEntity,
-    eventName: string,
+    event: EventSummaryCountry,
   ): Promise<string> {
     const adminLevel = country.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
@@ -517,9 +472,8 @@ export class EmailService {
     const zeroHour = leadTime.leadTimeName === LeadTime.hour0;
     const disasterSpecificCopy = this.getDisasterSpecificCopy(
       disasterType,
-      country.countryCodeISO3,
       leadTime,
-      eventName,
+      event,
     );
 
     const tableForLeadTimeStart = `<div>
@@ -547,7 +501,7 @@ export class EmailService {
       country,
       disasterType,
       leadTime,
-      eventName,
+      event.eventName,
       actionUnit,
     );
     const tableForLeadTimeEnd = '</tbody></table>';
@@ -609,24 +563,19 @@ export class EmailService {
 
   private async getDisasterSpecificCopy(
     disasterType: DisasterType,
-    countryCodeISO3: string,
     leadTime: LeadTimeEntity,
-    eventName: string,
+    event: EventSummaryCountry,
   ): Promise<{
     eventStatus: string;
     extraInfo: string;
     leadTimeString?: string;
-    subjectStatus?: string;
+    timestamp?: string;
   }> {
     switch (disasterType) {
       case DisasterType.HeavyRain:
         return this.getHeavyRainCopy();
       case DisasterType.Typhoon:
-        return await this.getTyphoonCopy(
-          countryCodeISO3,
-          leadTime.leadTimeName,
-          eventName,
-        );
+        return await this.getTyphoonCopy(leadTime.leadTimeName, event);
       default:
         return { eventStatus: '', extraInfo: '' };
     }
@@ -643,55 +592,89 @@ export class EmailService {
   }
 
   private async getTyphoonCopy(
-    countryCodeISO3: string,
     leadTime: string,
-    eventName: string,
+    event: EventSummaryCountry,
   ): Promise<{
     eventStatus: string;
     extraInfo: string;
     leadTimeString: string;
-    subjectStatus: string;
+    timestamp: string;
   }> {
     const {
       typhoonLandfall,
       typhoonNoLandfallYet,
-    } = await this.typhoonTrackService.getTyphoonSpecificProperties(
-      countryCodeISO3,
-      eventName,
-    );
+    } = event.disasterSpecificProperties;
     let eventStatus = '';
     let extraInfo = '';
     let leadTimeString = null;
-    let subjectStatus = null;
 
     if (leadTime === LeadTime.hour0) {
       if (typhoonLandfall) {
         eventStatus = 'Has <strong>already made landfall</strong>';
         leadTimeString = 'Already made landfall';
-        subjectStatus = 'Already made landfall';
       } else {
         eventStatus = 'Has already reached the point closest to land';
         leadTimeString = 'reached the point closest to land';
-        subjectStatus = 'Already reached the point closest to land';
       }
     } else {
       if (typhoonNoLandfallYet) {
         eventStatus =
-          'Currently <strong>not predicted to make landfall yet</strong>';
+          '<strong>Landfall time prediction cannot be determined yet</strong>';
         extraInfo = 'Keep monitoring the event.';
+        leadTimeString = 'Undetermined landfall';
       } else if (typhoonLandfall) {
         eventStatus = 'Estimated to <strong>make landfall</strong>';
       } else {
         eventStatus =
-          'Currently <strong>not predicted to make landfall</strong>. It is estimated to reach the point closest to land';
+          '<strong>Not predicted to make landfall</strong>. It is estimated to reach the point closest to land';
       }
     }
+
+    const timestampString = await this.getLeadTimeTimestamp(
+      leadTime,
+      event.countryCodeISO3,
+    );
 
     return {
       eventStatus: eventStatus,
       extraInfo: extraInfo,
       leadTimeString,
-      subjectStatus,
+      timestamp: timestampString,
     };
+  }
+
+  private async getLeadTimeTimestamp(
+    leadTime: string,
+    countryCodeISO3: string,
+  ): Promise<string> {
+    const recentDate = await this.helperService.getRecentDate(
+      countryCodeISO3,
+      DisasterType.Typhoon,
+    );
+    const gmtUploadDate = new Date(recentDate.timestamp);
+    const hours = Number(leadTime.split('-')[0]);
+    const gmtEventDate = new Date(
+      gmtUploadDate.setTime(gmtUploadDate.getTime() + hours * 60 * 60 * 1000),
+    );
+
+    const timezone = {
+      PHL: {
+        label: 'PHT',
+        difference: 8,
+      },
+      default: {
+        label: 'GMT',
+        difference: 0,
+      },
+    };
+
+    const hourDiff =
+      timezone[countryCodeISO3]?.difference || timezone.default.difference;
+    const localEventDate = new Date(
+      gmtEventDate.setTime(gmtEventDate.getTime() + hourDiff * 60 * 60 * 1000),
+    );
+    const timezoneLabel =
+      timezone[countryCodeISO3]?.label || timezone.default.label;
+    return `${localEventDate.getHours()}:00 ${timezoneLabel}`;
   }
 }

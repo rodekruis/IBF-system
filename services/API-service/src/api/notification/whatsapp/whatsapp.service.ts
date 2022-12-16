@@ -195,40 +195,44 @@ export class WhatsappService {
       );
     }
 
-    // Assume first of theoretically multiple countries for this user (ignore that edge case for now)
-    const country = user.countries[0];
-    for await (const disasterType of country.disasterTypes) {
-      const events = await this.eventService.getEventSummaryCountry(
-        country.countryCodeISO3,
-        disasterType.disasterType,
-      );
-      const activeEvents = events.filter(event => event.activeTrigger);
-      if (activeEvents.length === 0) {
-        const noTriggerMessage = this.configureNoTriggerMessage(
-          country,
-          events,
+    for await (const country of user.countries.filter(
+      c => c.notificationInfo.useWhatsapp,
+    )) {
+      for await (const disasterType of country.disasterTypes) {
+        const events = await this.eventService.getEventSummaryCountry(
+          country.countryCodeISO3,
+          disasterType.disasterType,
         );
-        await this.sendWhatsapp(noTriggerMessage, fromNumber);
-        return;
+        const activeEvents = events.filter(event => event.activeTrigger);
+        if (activeEvents.length === 0) {
+          const noTriggerMessage = this.configureNoTriggerMessage(
+            country,
+            events,
+          );
+          await this.sendWhatsapp(noTriggerMessage, fromNumber);
+          return;
+        }
+
+        const eventName = activeEvents[0].eventName || 'no-name';
+        const triggerMessage = await this.configureFollowUpMessage(
+          country,
+          disasterType.disasterType,
+          activeEvents,
+        );
+        await this.sendWhatsapp(
+          triggerMessage,
+          fromNumber,
+          `${EXTERNAL_API.eventMapImage}/${country.countryCodeISO3}/${disasterType.disasterType}/${eventName}`,
+        );
+
+        // Add small delay/sleep to ensure the order in which messages are received
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        const whatsappGroupMessage = this.configureWhatsappGroupMessage(
+          country,
+        );
+        await this.sendWhatsapp(whatsappGroupMessage, fromNumber);
       }
-
-      const eventName = activeEvents[0].eventName || 'no-name';
-      const triggerMessage = await this.configureFollowUpMessage(
-        country,
-        disasterType.disasterType,
-        activeEvents,
-      );
-      await this.sendWhatsapp(
-        triggerMessage,
-        fromNumber,
-        `${EXTERNAL_API.eventMapImage}/${country.countryCodeISO3}/${disasterType.disasterType}/${eventName}`,
-      );
-
-      // Add small delay/sleep to ensure the order in which messages are received
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      const whatsappGroupMessage = this.configureWhatsappGroupMessage(country);
-      await this.sendWhatsapp(whatsappGroupMessage, fromNumber);
     }
   }
 

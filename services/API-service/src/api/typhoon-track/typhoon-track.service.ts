@@ -4,7 +4,6 @@ import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
 import { DisasterSpecificProperties } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { TyphoonCategory } from './dto/trackpoint-details';
 import { UploadTyphoonTrackDto } from './dto/upload-typhoon-track';
@@ -63,13 +62,9 @@ export class TyphoonTrackService {
 
   public async getTyphoonTrack(
     countryCodeISO3: string,
-    leadTime: LeadTime,
     eventName: string,
   ): Promise<GeoJson> {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
-      countryCodeISO3,
-      DisasterType.Typhoon,
-    );
+    const filters = await this.getTrackFilters(countryCodeISO3, eventName);
     const typhoonTrackPoints = await this.typhoonTrackRepository.find({
       select: [
         'countryCodeISO3',
@@ -81,18 +76,7 @@ export class TyphoonTrackService {
         'closestToLand',
         'geom',
       ],
-      where: {
-        leadTime: leadTime,
-        countryCodeISO3: countryCodeISO3,
-        date: lastTriggeredDate.date,
-        eventName: eventName,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            DisasterType.Typhoon,
-            lastTriggeredDate.timestamp,
-          ),
-        ),
-      },
+      where: filters,
     });
 
     return this.helperService.toGeojson(typhoonTrackPoints);
@@ -142,31 +126,17 @@ export class TyphoonTrackService {
     countryCodeISO3: string,
     eventName: string,
   ): Promise<DisasterSpecificProperties> {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
-      countryCodeISO3,
-      DisasterType.Typhoon,
-    );
-
+    const filters = await this.getTrackFilters(countryCodeISO3, eventName);
     const typhoonTrackPoints = await this.typhoonTrackRepository.find({
       select: ['timestampOfTrackpoint', 'firstLandfall', 'closestToLand'],
-      where: {
-        countryCodeISO3: countryCodeISO3,
-        date: lastTriggeredDate.date,
-        eventName: eventName,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            DisasterType.Typhoon,
-            lastTriggeredDate.timestamp,
-          ),
-        ),
-      },
+      where: filters,
     });
-
-    const typhoonLandfall =
-      typhoonTrackPoints.filter(point => point.firstLandfall).length > 0;
+    const landfallTrackPoint = typhoonTrackPoints.filter(
+      point => point.firstLandfall,
+    );
+    const typhoonLandfall = landfallTrackPoint.length > 0;
 
     let typhoonNoLandfallYet = false;
-
     if (!typhoonLandfall) {
       const maxTimestamp = new Date(
         Math.max.apply(

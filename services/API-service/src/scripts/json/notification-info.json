@@ -95,16 +95,16 @@
   },
   {
     "countryCodeISO3": "SSD",
-    "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/575cc45e-7050-4b2d-d8bc-d1f278e42a66.png",
+    "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/093cd804-0be0-21f3-c712-f210dd0f7c05.png",
     "triggerStatement": {
-      "floods": "Not currently available"
+      "floods": "A payam is triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 60% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the payams where the False Alarm Ratio > 0.35."
     },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/G0GXqgiat5J69EQTEKVNec",
     "useWhatsapp": true,
     "whatsappMessage": {
       "initial": "*TRIGGER WARNING*\n\nA trigger warning for floods was activated on *[startDate]*. It is now *[leadTime]* away.\n\nTo receive more detailed information reply 'yes' to this message.",
-      "follow-up": "There are *[nrTriggeredAreas]* [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\nYou can use the map attached to assess the situation. The triggered areas are outlined in red. The potential flood extent is shown in red.\n\nLog in to the IBF Portal on your desktop to find more information.",
+      "follow-up": "There are *[nrTriggeredAreas]* [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\nYou can use the map attached to assess the situation. The triggered areas are outlined in purple. The potential flood extent is shown in red.\n\nLog in to the IBF Portal on your desktop to find more information.",
       "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate further about this trigger.\n\nUpdate the early actions that have been done in this form: [externalActionsForm]. Please note that through this form you can only check off actions, but you cannot see which actions have been done already.",
       "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below threshold.\n\n",
       "no-trigger": "There is *no trigger* currently."
