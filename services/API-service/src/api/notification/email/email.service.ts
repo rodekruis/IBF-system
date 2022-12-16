@@ -275,65 +275,76 @@ export class EmailService {
             event.eventName,
           );
           if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
-            // .. find the right leadtime
-            const [leadTimeValue, leadTimeUnit] = leadTime.leadTimeLabel.split(
-              '-',
-            );
-
-            const eventName = event.eventName
-              ? `${event.eventName}`
-              : this.notificationContentService.firstCharOfWordsToUpper(
-                  (
-                    await this.notificationContentService.getDisaster(
-                      disasterType,
-                    )
-                  ).label,
-                );
-
-            const triggerStatus = event.thresholdReached
-              ? 'trigger reached'
-              : 'trigger not reached';
-
-            const dateTimePreposition = leadTimeUnit === 'month' ? 'in' : 'on';
-            const dateAndTime = this.notificationContentService.getFirstLeadTimeDate(
-              Number(leadTimeValue),
-              leadTimeUnit,
-            );
-            const disasterSpecificCopy = await this.getDisasterSpecificCopy(
-              disasterType,
-              leadTime,
-              event,
-            );
-            const leadTimeFromNow = `${leadTimeValue} ${leadTimeUnit}s`;
-
             // We are hack-misusing 'extraInfo' being filled as a proxy for typhoonNoLandfallYet-boolean
-            const leadTimeString = disasterSpecificCopy.leadTimeString
-              ? disasterSpecificCopy.leadTimeString
-              : leadTimeFromNow;
-
-            const timestamp = disasterSpecificCopy.timestamp
-              ? ` | ${disasterSpecificCopy.timestamp}`
-              : '';
-
-            leadTimeListShort = `${leadTimeListShort}<li>${eventName}: ${
-              disasterSpecificCopy.extraInfo ||
-              leadTime.leadTimeName === LeadTime.hour0
-                ? leadTimeString
-                : `${dateAndTime}${timestamp} (${leadTimeString})`
+            leadTimeListShort = `${leadTimeListShort}<li>${
+              (await this.getLeadTimeListEvent(event, disasterType, leadTime))
+                .short
             }</li>`;
-            leadTimeListLong = `${leadTimeListLong}<li>${eventName} - <strong>${triggerStatus}</strong>: ${
-              disasterSpecificCopy.eventStatus
-            }${
-              disasterSpecificCopy.extraInfo ||
-              leadTime.leadTimeName === LeadTime.hour0
-                ? ''
-                : ` ${dateTimePreposition} ${dateAndTime}${timestamp} (${leadTimeString})`
-            }. ${disasterSpecificCopy.extraInfo}</li>`;
+            leadTimeListLong = `${leadTimeListLong}<li>${
+              (await this.getLeadTimeListEvent(event, disasterType, leadTime))
+                .long
+            }</li>`;
           }
         }
       }
     }
     return { leadTimeListShort, leadTimeListLong };
+  }
+
+  private async getLeadTimeListEvent(
+    event: EventSummaryCountry,
+    disasterType: DisasterType,
+    leadTime: any,
+  ) {
+    // .. find the right leadtime
+    const [leadTimeValue, leadTimeUnit] = leadTime.leadTimeLabel.split('-');
+
+    const eventName = event.eventName
+      ? `${event.eventName}`
+      : this.notificationContentService.firstCharOfWordsToUpper(
+          (await this.notificationContentService.getDisaster(disasterType))
+            .label,
+        );
+
+    const triggerStatus = event.thresholdReached
+      ? 'trigger reached'
+      : 'trigger not reached';
+
+    const dateTimePreposition = leadTimeUnit === 'month' ? 'in' : 'on';
+    const dateAndTime = this.notificationContentService.getFirstLeadTimeDate(
+      Number(leadTimeValue),
+      leadTimeUnit,
+    );
+    const disasterSpecificCopy = await this.getDisasterSpecificCopy(
+      disasterType,
+      leadTime,
+      event,
+    );
+    const leadTimeFromNow = `${leadTimeValue} ${leadTimeUnit}s`;
+
+    const leadTimeString = disasterSpecificCopy.leadTimeString
+      ? disasterSpecificCopy.leadTimeString
+      : leadTimeFromNow;
+
+    const timestamp = disasterSpecificCopy.timestamp
+      ? ` | ${disasterSpecificCopy.timestamp}`
+      : '';
+    return {
+      short: `${eventName}: ${
+        disasterSpecificCopy.extraInfo ||
+        leadTime.leadTimeName === LeadTime.hour0
+          ? leadTimeString
+          : `${dateAndTime}${timestamp} (${leadTimeString})`
+      }`,
+      long: `${eventName} - <strong>${triggerStatus}</strong>: ${
+        disasterSpecificCopy.eventStatus
+      }${
+        disasterSpecificCopy.extraInfo ||
+        leadTime.leadTimeName === LeadTime.hour0
+          ? ''
+          : ` ${dateTimePreposition} ${dateAndTime}${timestamp} (${leadTimeString})`
+      }. ${disasterSpecificCopy.extraInfo}`,
+    };
   }
 
   private async getTriggerOverviewTables(
@@ -466,24 +477,11 @@ export class EmailService {
       name: (await this.notificationContentService.getDisaster(disasterType))
         .actionsUnit,
     });
-    const leadTimeValue = leadTime.leadTimeName.split('-')[0];
-    const leadTimeUnit = leadTime.leadTimeName.split('-')[1];
-
-    const zeroHour = leadTime.leadTimeName === LeadTime.hour0;
-    const disasterSpecificCopy = this.getDisasterSpecificCopy(
-      disasterType,
-      leadTime,
-      event,
-    );
 
     const tableForLeadTimeStart = `<div>
       <strong>${
-        zeroHour
-          ? disasterSpecificCopy
-          : `Forecast ${
-              disasterType === DisasterType.HeavyRain ? 'estimated ' : ''
-            }${leadTimeValue} ${leadTimeUnit}(s) from`
-      } today (${this.placeholderToday}):</strong>
+        (await this.getLeadTimeListEvent(event, disasterType, leadTime)).short
+      }</strong>
   </div>
   <table class="notification-alerts-table">
       <caption class="notification-alerts-table-caption">The following table lists all the exposed ${adminAreaLabels.plural.toLowerCase()} in order of ${actionUnit.label.toLowerCase()},</caption>
