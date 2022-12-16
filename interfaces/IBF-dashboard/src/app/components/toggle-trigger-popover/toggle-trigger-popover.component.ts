@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { DisasterTypeKey } from '../../types/disaster-type-key';
 
 @Component({
   selector: 'app-toggle-trigger-popover',
@@ -16,9 +18,21 @@ export class ToggleTriggerPopoverComponent implements OnInit {
   @Input()
   public stopNode: string;
 
-  constructor(private popoverController: PopoverController) {}
+  @Input()
+  public disasterType: DisasterTypeKey;
+
+  constructor(
+    private popoverController: PopoverController,
+    private translateService: TranslateService,
+  ) {}
 
   ngOnInit() {}
+
+  public getDisasterSpecificText(): string {
+    return this.translateService.instant(
+      `chat-component.generic.${this.stopNode}.${this.eapNode}.disaster-specific.${this.disasterType}`,
+    );
+  }
 
   public closePopover(): void {
     this.popoverController.dismiss(null, 'cancel');
