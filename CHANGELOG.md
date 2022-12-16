@@ -1,3 +1,13 @@
+## [0.208.2](https://github.com/rodekruis/IBF-system/compare/v0.208.1...v0.208.2) (2022-12-16)
+
+
+### Bug Fixes
+
+* change bor south county name AB[#16762](https://github.com/rodekruis/IBF-system/issues/16762) ([c2c1042](https://github.com/rodekruis/IBF-system/commit/c2c1042d789919f4b415f6a35efe3d3a3047e5b6))
+* make change in code instead of data AB[#16762](https://github.com/rodekruis/IBF-system/issues/16762) ([2f1586c](https://github.com/rodekruis/IBF-system/commit/2f1586c238512ff43abd1d2580313193778f7b8d))
+
+
+
 ## [0.208.1](https://github.com/rodekruis/IBF-system/compare/v0.208.0...v0.208.1) (2022-12-16)
 
 
@@ -112,25 +122,6 @@
 ### Bug Fixes
 
 * change leadtime to 6-day AB[#16463](https://github.com/rodekruis/IBF-system/issues/16463) ([704b66d](https://github.com/rodekruis/IBF-system/commit/704b66d1d394b744f0f70de62743bc87aa964afb))
-
-
-
-# [0.203.0](https://github.com/rodekruis/IBF-system/compare/v0.202.0...v0.203.0) (2022-11-28)
-
-
-### Bug Fixes
-
-* archive instead of delete AB[#16432](https://github.com/rodekruis/IBF-system/issues/16432) ([f0a4768](https://github.com/rodekruis/IBF-system/commit/f0a476800ec39a37dc2b330a2d5361fcdee8205f))
-* get up-to-daet actionsValue in activationlog AB[#16413](https://github.com/rodekruis/IBF-system/issues/16413) ([18719a8](https://github.com/rodekruis/IBF-system/commit/18719a86e4e288f9dbf5a2924396708273652526))
-* rename archive to delete AB[#16335](https://github.com/rodekruis/IBF-system/issues/16335) ([ce0769e](https://github.com/rodekruis/IBF-system/commit/ce0769eb45e38b1d013af0099f88e0331a1cdaf2))
-* revert actionUnit from dynamicData, but keep query-params AB[#16413](https://github.com/rodekruis/IBF-system/issues/16413) ([b91d096](https://github.com/rodekruis/IBF-system/commit/b91d0965c7511faf9d6d1748596b51b400c3a438))
-* update actionValue in event table at midnight AB[#16413](https://github.com/rodekruis/IBF-system/issues/16413) ([e714de1](https://github.com/rodekruis/IBF-system/commit/e714de12aa24ea9275cfc08e46640a179fa3e3dd))
-* update actionValue in event table at midnight AB[#16413](https://github.com/rodekruis/IBF-system/issues/16413) ([d42bef0](https://github.com/rodekruis/IBF-system/commit/d42bef06e23c752a303f21152322ba39b797a973))
-
-
-### Features
-
-* periodically delete old dynamic data AB[#16335](https://github.com/rodekruis/IBF-system/issues/16335) ([cdc5511](https://github.com/rodekruis/IBF-system/commit/cdc55116d1addb6de8e94df8ec63cb6bf6cce447))
 
 
 
