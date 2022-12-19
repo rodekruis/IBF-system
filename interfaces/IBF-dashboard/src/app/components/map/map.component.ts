@@ -761,7 +761,7 @@ export class MapComponent implements OnDestroy {
         <strong>${title}
       </strong> \
       </div> \
-      <div style="margin-left:5px"> \
+      <div style="margin-left:5px; margin-right: 5px"> \
         <div style="margin-bottom:5px"> \
       ${subtitle} \
       </div> \
@@ -1116,10 +1116,10 @@ export class MapComponent implements OnDestroy {
     }
 
     const leadTime = this.timelineState.activeLeadTime || lastAvailableLeadTime;
-    const subtitle = `${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
+    const subtitle = `${leadTime} forecast of <span title="The amount of water moving down a river at a given time and place" style="text-decoration: underline; text-decoration-style: dotted;">river discharge</span> in m<sup>3</sup>/s \
           ${
             markerProperties.forecastReturnPeriod
-              ? `<br>This corresponds to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years`
+              ? `<br>(Corresponding to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years)`
               : ''
           }`;
 
