@@ -1,3 +1,20 @@
+# [0.210.0](https://github.com/rodekruis/IBF-system/compare/v0.209.1...v0.210.0) (2022-12-19)
+
+
+### Bug Fixes
+
+* change cursor type on hover AB[#16982](https://github.com/rodekruis/IBF-system/issues/16982) ([559b082](https://github.com/rodekruis/IBF-system/commit/559b0825399972b41d6338d30a4eb89b90261b36))
+
+
+### Features
+
+* add comma + change bar bg AB[#16977](https://github.com/rodekruis/IBF-system/issues/16977) AB[#16979](https://github.com/rodekruis/IBF-system/issues/16979) ([a4a6c48](https://github.com/rodekruis/IBF-system/commit/a4a6c485c577bbecfcfb0fff99c2dd789e3dfe37))
+* change copy + add tooltip AB[#16981](https://github.com/rodekruis/IBF-system/issues/16981) AB#A16982 ([c08ca3a](https://github.com/rodekruis/IBF-system/commit/c08ca3a8cfb007e1ef2e52f1323fe554eb93830e)), closes [AB#A16982](https://github.com/AB/issues/A16982)
+* mv label to the right AB[#16980](https://github.com/rodekruis/IBF-system/issues/16980) ([6e07130](https://github.com/rodekruis/IBF-system/commit/6e07130f90c2b89fbee313dac2a22ce34846835d))
+* show bar above/below more clearly AB[#16978](https://github.com/rodekruis/IBF-system/issues/16978) ([b0d40d3](https://github.com/rodekruis/IBF-system/commit/b0d40d3ec010ac38bfca5d4b979749946b33c082))
+
+
+
 ## [0.209.1](https://github.com/rodekruis/IBF-system/compare/v0.209.0...v0.209.1) (2022-12-16)
 
 
@@ -96,25 +113,6 @@
 * make archive query simpler AB[#16687](https://github.com/rodekruis/IBF-system/issues/16687) ([c4d920e](https://github.com/rodekruis/IBF-system/commit/c4d920e37354126557d4440236381aaeb6a3ae1f))
 * switch 12-hour to 6-hour interval AB[#16454](https://github.com/rodekruis/IBF-system/issues/16454) ([f5269bf](https://github.com/rodekruis/IBF-system/commit/f5269bf37853beebbb0e542a6aa632d9f925aaaf))
 * update actionsValue on pipeline-upload instead of nightly AB[#16446](https://github.com/rodekruis/IBF-system/issues/16446) ([23c399c](https://github.com/rodekruis/IBF-system/commit/23c399c947cbb826ccf11bbfbe8bfbf843c646b4))
-
-
-
-# [0.205.0](https://github.com/rodekruis/IBF-system/compare/v0.204.0...v0.205.0) (2022-12-09)
-
-
-### Bug Fixes
-
-* clear placecode on eap-action save AB[#16639](https://github.com/rodekruis/IBF-system/issues/16639) ([a77f082](https://github.com/rodekruis/IBF-system/commit/a77f082b63ab8ed596282fb8feaf9ba544e7ccad))
-* rm unnecessary event-switch AB[#16637](https://github.com/rodekruis/IBF-system/issues/16637) ([b3b4ea0](https://github.com/rodekruis/IBF-system/commit/b3b4ea01971e1f7e7673a86eaa54653837d71af2))
-* small tweaks AB[#16428](https://github.com/rodekruis/IBF-system/issues/16428) ([99391d6](https://github.com/rodekruis/IBF-system/commit/99391d657a5c36738355272bb87c39e84dce7431))
-* use typhoon specific properties in eventSummary AB[#16641](https://github.com/rodekruis/IBF-system/issues/16641) ([012d4a9](https://github.com/rodekruis/IBF-system/commit/012d4a9b7053906d7ab52d89b3d130a9d11198c5))
-* ux copy AB[#16744](https://github.com/rodekruis/IBF-system/issues/16744) ([150002f](https://github.com/rodekruis/IBF-system/commit/150002f028d4a268da6663e0da572e29776ef126))
-
-
-### Features
-
-* add typhoon properties to backend AB[#16641](https://github.com/rodekruis/IBF-system/issues/16641) ([ea97707](https://github.com/rodekruis/IBF-system/commit/ea97707c6ed9f786c6436a390550378efc1eef65))
-* align email to typhoon scenarios AB[#16428](https://github.com/rodekruis/IBF-system/issues/16428) ([6da967c](https://github.com/rodekruis/IBF-system/commit/6da967cb252eacc7eba132bf071ad24bc9ec32dd))
 
 
 
