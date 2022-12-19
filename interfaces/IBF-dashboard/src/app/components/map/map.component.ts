@@ -733,27 +733,18 @@ export class MapComponent implements OnDestroy {
     thresholdName: string,
   ): string {
     const difference = forecastValue - thresholdValue;
-    console.log('=== difference: ', difference);
     const closeMargin = 0.05;
-    console.log('=== closeMargin: ', closeMargin);
     const tooClose = Math.abs(difference) / thresholdValue < closeMargin;
-    console.log('=== tooClose: ', tooClose);
 
     const barValue =
       difference === 0 || !tooClose
         ? forecastValue
         : thresholdValue + Math.sign(difference) * thresholdValue * closeMargin;
-    console.log(
-      '=== Math.sign(difference) * thresholdValue * closeMargin: ',
-      Math.sign(difference) * thresholdValue * closeMargin,
-    );
-    console.log('=== barValue: ', barValue);
 
     const triggerWidth = Math.max(
       Math.min(Math.round((barValue / thresholdValue) * 100), 115),
       0,
     );
-    console.log('=== triggerWidth: ', triggerWidth);
 
     const addComma = (n) => Math.round(n).toLocaleString('en-US');
 
