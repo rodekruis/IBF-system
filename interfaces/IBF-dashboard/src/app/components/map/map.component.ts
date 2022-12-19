@@ -732,30 +732,53 @@ export class MapComponent implements OnDestroy {
     subtitle: string,
     thresholdName: string,
   ): string {
+    const difference = forecastValue - thresholdValue;
+    const closeMargin = 0.05;
+    const tooClose = Math.abs(difference) / thresholdValue < closeMargin;
+
+    const barValue =
+      difference === 0 || !tooClose
+        ? forecastValue
+        : thresholdValue + Math.sign(difference) * thresholdValue * closeMargin;
+
     const triggerWidth = Math.max(
-      Math.min(Math.round((forecastValue / thresholdValue) * 100), 115),
+      Math.min(Math.round((barValue / thresholdValue) * 100), 115),
       0,
     );
+
+    const addComma = (n) => Math.round(n).toLocaleString('en-US');
+
+    const forecastBar = `
+    <div style="border-radius:10px;height:20px;background-color:#d4d3d2; width: 100%">
+        <div style="border-radius:10px 0 0 10px; border-right: dashed; border-right-width: thin;height:20px;width: 80%">
+          <div style="
+            border-radius:10px;
+            height:20px;
+            line-height:20px;
+            background-color:${eapStatusColor};
+            color:${eapStatusColorText};
+            text-align:center;
+            white-space: nowrap;
+            min-width: 15%;
+            width:${triggerWidth}%">${addComma(forecastValue)}</div>
+        </div>
+      </div>
+    `;
+
     const infoPopup = `
       <div style="background-color:${eapStatusColor}; color:${eapStatusColorText}; padding: 5px; margin-bottom: 5px"> \ \
         <strong>${title}
       </strong> \
       </div> \
-      <div style="margin-left:5px"> \
+      <div style="margin-left:5px; margin-right: 5px"> \
         <div style="margin-bottom:5px"> \
       ${subtitle} \
       </div> \
-      <div style="border-radius:10px;height:20px;background-color:grey; width: 100%"> \
-        <div style="border-radius:10px 0 0 10px;height:20px;background-color:#d4d3d2; width: 80%"> \
-          <div style="border-radius:10px;height:20px;line-height:20px;background-color:${eapStatusColor}; color:${eapStatusColorText}; text-align:center; white-space: nowrap; min-width: 15%; width:${triggerWidth}%">${Math.round(
-      forecastValue,
-    )}</div> \
-        </div> \
-      </div> \
-    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
+      ${forecastBar}
+    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px; text-align: right; padding-right: 2px;"> \
       ${thresholdName}:</div> \
    \
-  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>${Math.round(
+  <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>${addComma(
     thresholdValue,
   )}</strong></div></div> \
 </div> \
@@ -1102,10 +1125,10 @@ export class MapComponent implements OnDestroy {
     }
 
     const leadTime = this.timelineState.activeLeadTime || lastAvailableLeadTime;
-    const subtitle = `${leadTime} forecast river discharge (in m<sup>3</sup>/s) \
+    const subtitle = `${leadTime} forecast of <span title="The amount of water moving down a river at a given time and place" style="text-decoration: underline; text-decoration-style: dotted; cursor:default">river discharge</span> in m<sup>3</sup>/s \
           ${
             markerProperties.forecastReturnPeriod
-              ? `<br>This corresponds to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years`
+              ? `<br>(Corresponding to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years)`
               : ''
           }`;
 
