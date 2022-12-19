@@ -61,7 +61,7 @@
     "@nestjs/cli": "^7.5.4",
     "@types/express": "^4.17.14",
     "@types/jest": "^26.0.20",
-    "@types/node": "^12.19.16",
+    "@types/node": "^18.11.17",
     "atob": ">=2.1.0",
     "deep-extend": ">=0.5.1",
     "eslint": "^5.0.0",
