@@ -766,7 +766,7 @@ export class MapComponent implements OnDestroy {
       ${subtitle} \
       </div> \
       ${forecastBar}
-    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px"> \
+    <div style="height:20px;background-color:none; border-right: dashed; border-right-width: thin; float: left; width: 80%; padding-top: 5px; margin-bottom:10px; text-align: right; padding-right: 2px;"> \
       ${thresholdName}:</div> \
    \
   <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px"><strong>${addComma(
