@@ -16,6 +16,13 @@ import { CountryEntity } from '../api/country/country.entity';
 import { TyphoonTrackModule } from '../api/typhoon-track/typhoon-track.module';
 import SeedProd from './seed-prod';
 import { MetadataModule } from '../api/metadata/metadata.module';
+import SeedAdminArea from './seed-admin-area';
+import { AdminAreaModule } from '../api/admin-area/admin-area.module';
+import { CountryModule } from '../api/country/country.module';
+import SeedAdminAreaData from './seed-admin-area-data';
+import SeedPointData from './seed-point-data';
+import SeedGlofasStation from './seed-glofas-station';
+import SeedRainfallData from './seed-rainfall-data';
 
 @Module({
   imports: [
@@ -30,14 +37,25 @@ import { MetadataModule } from '../api/metadata/metadata.module';
       LeadTimeEntity,
       CountryEntity,
     ]),
+    AdminAreaModule,
     AdminAreaDynamicDataModule,
+    CountryModule,
     GlofasStationModule,
     EventModule,
     TyphoonTrackModule,
     UserModule,
     MetadataModule,
   ],
-  providers: [SeedInit, SeedProd, ScriptsService],
+  providers: [
+    SeedInit,
+    SeedProd,
+    ScriptsService,
+    SeedAdminArea,
+    SeedAdminAreaData,
+    SeedPointData,
+    SeedGlofasStation,
+    SeedRainfallData,
+  ],
   controllers: [ScriptsController],
 })
 export class ScriptsModule {}

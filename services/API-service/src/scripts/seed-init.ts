@@ -32,26 +32,22 @@ import { SeedHelper } from './seed-helper';
 import SeedAdminAreaData from './seed-admin-area-data';
 import SeedRainfallData from './seed-rainfall-data';
 import SeedPointData from './seed-point-data';
-
-class NotificationInfo {
-  countryCodeISO3: string;
-  logo: string;
-  triggerStatement: {};
-  linkSocialMediaType: string;
-  linkSocialMediaUrl: string;
-  linkVideo: string;
-  linkPdf: string;
-  useWhatsapp?: boolean;
-  whatsappMessage?: {};
-}
+import { CountryService } from '../api/country/country.service';
+import { NotificationInfoDto } from '../api/country/dto/notification-info.dto';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
-  private connection: Connection;
   private readonly seedHelper: SeedHelper;
 
-  public constructor(connection: Connection) {
-    this.connection = connection;
+  public constructor(
+    private connection: Connection,
+    private seedAdminArea: SeedAdminArea,
+    private seedAdminAreaData: SeedAdminAreaData,
+    private seedGlofasStation: SeedGlofasStation,
+    private seedPointData: SeedPointData,
+    private seedRainfallData: SeedRainfallData,
+    private countryService: CountryService,
+  ) {
     this.seedHelper = new SeedHelper(connection);
   }
 
@@ -71,31 +67,6 @@ export class SeedInit implements InterfaceScript {
         return disasterEntity;
       },
     );
-
-    class Country {
-      countryCodeISO3: string;
-      countryCodeISO2: string;
-      countryName: string;
-      disasterTypes: string[];
-      countryDisasterSettings: CountryDisasterSettings[];
-      adminRegionLabels: {};
-      countryLogos: string[];
-      countryBoundingBox: {};
-    }
-
-    class CountryDisasterSettings {
-      disasterType: string;
-      adminLevels: number[];
-      defaultAdminLevel: number;
-      activeLeadTimes: string[];
-      eapLink: string;
-      eapAlertClasses?: {};
-      droughtForecastSeasons?: {};
-      droughtEndOfMonthPipeline?: boolean;
-      droughtAreas?: {};
-      showMonthlyEapActions?: boolean;
-      monthlyForecastInfo?: {};
-    }
 
     class EapAction {
       countryCodeISO3: string;
@@ -137,112 +108,40 @@ export class SeedInit implements InterfaceScript {
       return envCountries.includes(country.countryCodeISO3);
     });
 
-    const countryRepository = this.connection.getRepository(CountryEntity);
-    const countryDisasterSettingsRepo = this.connection.getRepository(
-      CountryDisasterSettingsEntity,
-    );
     const envDisasterTypes = process.env.DISASTER_TYPES.split(',');
-
-    const countryEntities = await Promise.all(
-      selectedCountries.map(
-        async (country: Country): Promise<CountryEntity> => {
-          const countryEntity = new CountryEntity();
-          countryEntity.countryCodeISO3 = country.countryCodeISO3;
-          countryEntity.countryCodeISO2 = country.countryCodeISO2;
-          countryEntity.countryName = country.countryName;
-          countryEntity.adminRegionLabels = JSON.parse(
-            JSON.stringify(country.adminRegionLabels),
-          );
-          countryEntity.disasterTypes = await disasterRepository.find({
-            where: country.disasterTypes
-              .filter(disasterType => {
-                const envDisasterType = envDisasterTypes.find(
-                  d => d.split(':')[0] === disasterType,
-                );
-                if (!envDisasterType) {
-                  return false; // Disaster-type not loaded at all in this environment
-                }
-                const countries = envDisasterType.split(':')[1];
-                if (
-                  !countries || // Load this disaster-type for all possible countries in this environment
-                  countries.split('-').includes(country.countryCodeISO3) // Only load this disaster-type for given countries in this environment
-                ) {
-                  return true;
-                } else {
-                  return false;
-                }
-              })
-              .map((countryDisasterType: string): object => {
-                return { disasterType: countryDisasterType };
-              }),
-          });
-          countryEntity.countryLogos = country.countryLogos;
-          countryEntity.countryBoundingBox = JSON.parse(
-            JSON.stringify(country.countryBoundingBox),
-          );
-          countryEntity.notificationInfo = await this.createNotificationInfo(
-            country.countryCodeISO3,
-          );
-          countryEntity.countryDisasterSettings = [];
-
-          await countryRepository.save(countryEntity);
-
-          for await (const disaster of country.countryDisasterSettings) {
-            const countryDisasterSettingsEntity = new CountryDisasterSettingsEntity();
-            countryDisasterSettingsEntity.country = await countryRepository.findOne(
-              {
-                where: { countryCodeISO3: country.countryCodeISO3 },
-              },
-            );
-            countryDisasterSettingsEntity.disasterType = disaster.disasterType as DisasterType;
-            countryDisasterSettingsEntity.adminLevels = disaster.adminLevels as AdminLevel[];
-            countryDisasterSettingsEntity.defaultAdminLevel = disaster.defaultAdminLevel as AdminLevel;
-            countryDisasterSettingsEntity.eapLink = disaster.eapLink;
-            countryDisasterSettingsEntity.eapAlertClasses = disaster.eapAlertClasses
-              ? JSON.parse(JSON.stringify([disaster.eapAlertClasses]))[0]
-              : null;
-            countryDisasterSettingsEntity.droughtForecastSeasons = disaster.droughtForecastSeasons
-              ? JSON.parse(JSON.stringify(disaster.droughtForecastSeasons))
-              : null;
-            countryDisasterSettingsEntity.droughtEndOfMonthPipeline =
-              disaster.droughtEndOfMonthPipeline;
-            countryDisasterSettingsEntity.droughtAreas = disaster.droughtAreas
-              ? JSON.parse(JSON.stringify(disaster.droughtAreas))
-              : null;
-            countryDisasterSettingsEntity.showMonthlyEapActions =
-              disaster.showMonthlyEapActions;
-            countryDisasterSettingsEntity.monthlyForecastInfo = disaster.monthlyForecastInfo
-              ? JSON.parse(JSON.stringify(disaster.monthlyForecastInfo))
-              : null;
-            countryDisasterSettingsEntity.activeLeadTimes = await leadTimeRepository.find(
-              {
-                where: disaster.activeLeadTimes.map(
-                  (countryLeadTime: string): object => {
-                    return { leadTimeName: countryLeadTime };
-                  },
-                ),
-              },
-            );
-            const saveResult = await countryDisasterSettingsRepo.save(
-              countryDisasterSettingsEntity,
-            );
-            const savedEntity = await countryDisasterSettingsRepo.findOne(
-              saveResult.countryDisasterSettingsId,
-            );
-            countryEntity.countryDisasterSettings.push(savedEntity);
-          }
-
-          return countryEntity;
-        },
-      ),
+    await this.countryService.addOrUpdateCountries(
+      {
+        countries: selectedCountries,
+      },
+      envDisasterTypes,
     );
+
+    const countryRepository = this.connection.getRepository(CountryEntity);
+    const countryEntities = [];
+    for await (const countryEntity of await countryRepository.find()) {
+      const notificationInfoEntity = new NotificationInfoEntity();
+      const notificationInfoCountry: NotificationInfoDto = notificationInfo.find(
+        (notificationInfoEntry): NotificationInfoDto => {
+          if (
+            notificationInfoEntry.countryCodeISO3 ===
+            countryEntity.countryCodeISO3
+          ) {
+            return notificationInfoEntry;
+          }
+        },
+      );
+      countryEntity.notificationInfo = await this.countryService.createNotificationInfo(
+        notificationInfoEntity,
+        notificationInfoCountry,
+      );
+      countryEntities.push(countryEntity);
+    }
 
     await countryRepository.save(countryEntities);
 
     // ***** SEED ADMIN-AREA DATA *****
     console.log('Seed Admin Areas...');
-    const seedAdminArea = new SeedAdminArea(this.connection);
-    await seedAdminArea.run();
+    await this.seedAdminArea.run();
 
     // ***** CREATE USERS *****
     console.log('Seed Users...');
@@ -357,67 +256,19 @@ export class SeedInit implements InterfaceScript {
 
     // ***** SEED POINT DATA *****
     console.log('Seed point data...');
-    const seedPointData = new SeedPointData(this.connection);
-    await seedPointData.run();
+    await this.seedPointData.run();
 
     // ***** SEED INDICATOR DATA PER ADMIN AREA *****
     console.log('Seed Indicator data per admin-area...');
-    const seedAdminAreaData = new SeedAdminAreaData(this.connection);
-    await seedAdminAreaData.run();
+    await this.seedAdminAreaData.run();
 
     // ***** SEED RAINFALL DATA *****
     console.log('Seed rainfall data...');
-    const seedRainfallData = new SeedRainfallData(this.connection);
-    await seedRainfallData.run();
+    await this.seedRainfallData.run();
 
     // ***** SEED GLOFAS-STATION DATA *****
     console.log('Seed Glofas Stations...');
-    const seedGlofasStation = new SeedGlofasStation(this.connection);
-    await seedGlofasStation.run();
-  }
-
-  private async createNotificationInfo(
-    countryCodeISO3: string,
-  ): Promise<NotificationInfoEntity> {
-    // ***** CREATE NOTIFICATION INFO *****
-    const notificationInfoRepository = this.connection.getRepository(
-      NotificationInfoEntity,
-    );
-    const notificationInfoEntity = new NotificationInfoEntity();
-    const notificationInfoCountry: NotificationInfo = notificationInfo.find(
-      (notificationInfoEntry): NotificationInfo => {
-        if (notificationInfoEntry.countryCodeISO3 === countryCodeISO3) {
-          return notificationInfoEntry;
-        }
-      },
-    );
-    if (!notificationInfoCountry) {
-      return;
-    }
-    notificationInfoEntity.logo = notificationInfoCountry.logo;
-    notificationInfoEntity.triggerStatement = JSON.parse(
-      JSON.stringify(notificationInfoCountry.triggerStatement),
-    );
-    notificationInfoEntity.linkSocialMediaType =
-      notificationInfoCountry.linkSocialMediaType;
-    notificationInfoEntity.linkSocialMediaUrl =
-      notificationInfoCountry.linkSocialMediaUrl;
-    notificationInfoEntity.linkVideo = notificationInfoCountry.linkVideo;
-    notificationInfoEntity.linkPdf = notificationInfoCountry.linkPdf;
-    notificationInfoEntity.useWhatsapp = notificationInfoCountry.useWhatsapp;
-    if (notificationInfoCountry.whatsappMessage) {
-      notificationInfoEntity.whatsappMessage = JSON.parse(
-        JSON.stringify(notificationInfoCountry.whatsappMessage),
-      );
-    }
-
-    const saveResult = await notificationInfoRepository.save(
-      notificationInfoEntity,
-    );
-    const savedEntity = await notificationInfoRepository.findOne(
-      saveResult.notificationInfoId,
-    );
-    return savedEntity;
+    await this.seedGlofasStation.run();
   }
 }
 

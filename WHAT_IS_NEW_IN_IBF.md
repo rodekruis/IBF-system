@@ -2,6 +2,17 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
+### 16-12-2022 (v0.209.1)
+
+- Philippines Typhoon: only events of category Severe Tropical Storm and higher lead to email-notifications
+- Philippines Typhoon: pipeline runs every 6 hours (instead of every 12 hours)
+- Philippines Typhoon: trackpoint of first landfall (or point closest to land) is highlighted
+- Philippines Typhoon: landfall time is included in email
+- Philippines Typhoon: '% of houses affected' is the main exposure variable, instead of 'Affected population' (which is still available as well)
+- Philippines Typhoon: an event map image is included in the email attachment
+- Philippines Typhoon: if no events or if no landfall cannot be determined yet for an event, then no lead-time is communicated
+- Malawi Floods: Lead-time updated to 6 days (instead of 7 days)
+
 ### 28-10-2022 (v0.193.2)
 
 - All IBF: Password in login-screen can be toggled to see characters
