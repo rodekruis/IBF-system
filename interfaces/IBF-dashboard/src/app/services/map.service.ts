@@ -458,7 +458,9 @@ export class MapService {
       colorProperty: indicator.name,
       colorBreaks: indicator.colorBreaks,
       numberFormatMap: indicator.numberFormatMap,
-      legendColor: '#969696',
+      legendColor: this.eventState?.event?.thresholdReached
+        ? this.state.colorGradientTriggered[2]
+        : this.state.colorGradient[2],
       group:
         indicator.name === IbfLayerName.alertThreshold
           ? IbfLayerGroup.outline
