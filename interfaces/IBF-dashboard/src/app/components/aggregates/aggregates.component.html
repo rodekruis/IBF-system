@@ -74,7 +74,10 @@
           </ion-item>
         </ion-col>
         <ion-col size-lg="4" size-md="4" size-xs="4">
-          <ion-item class="aggregate-item-value ion-no-padding" style="--inner-padding-end:4px">
+          <ion-item
+            class="aggregate-item-value ion-no-padding"
+            style="--inner-padding-end: 4px"
+          >
             <ion-label class="ion-text-right" data-test="aggregate-number">
               <span *ngIf="indicator.numberFormatAggregate === 'decimal2'">
                 {{
@@ -115,7 +118,7 @@
           <ion-item
             class="aggregate-item-information-icon ion-no-padding"
             data-test="icon-row"
-            style="--inner-padding-end:0px"
+            style="--inner-padding-end: 0px"
           >
             <ion-label class="ion-text-center">
               <img
