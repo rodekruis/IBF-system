@@ -404,6 +404,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         placeCodeName: triggeredArea.name,
         eapNode,
         stopNode,
+        disasterType: this.disasterType.disasterType,
       },
     });
 

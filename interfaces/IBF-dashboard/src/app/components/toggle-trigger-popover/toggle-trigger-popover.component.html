@@ -16,7 +16,11 @@
       <span
         [innerHTML]="
           'chat-component.generic.' + stopNode + '.' + eapNode + '.message'
-            | translate: { placeCodeName: placeCodeName }
+            | translate
+              : {
+                  placeCodeName: placeCodeName,
+                  disasterSpecificText: getDisasterSpecificText()
+                }
         "
       >
       </span>

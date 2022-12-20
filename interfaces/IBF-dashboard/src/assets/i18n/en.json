@@ -64,14 +64,20 @@
       "stop-trigger-popup": {
         "eap": {
           "header": "Stop Trigger",
-          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>. In case of a new event, the area will be triggered again by the IBF-Portal. But within the current event - even if predictions worsen - the trigger for this area will remain stopped.",
+          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>.<br><br>In case of a new event, the area will be triggered again by the IBF-Portal. But within the current event - even if predictions worsen - the trigger for this area will remain stopped. {{disasterSpecificText}}",
+          "disaster-specific": {
+            "floods": "(An event closes when the forecast stays below threshold for 7 days.)"
+          },
           "confirm": "Yes, stop trigger",
           "cancel": "No, keep trigger",
           "failure": "Failed to stop trigger."
         },
         "no-eap": {
           "header": "Stop Alert",
-          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>. In case of a new event, a new alert for the area will be given by the IBF-Portal. But within the current event - even if predictions worsen - the alert for this area will remain stopped.",
+          "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>.<br><br>In case of a new event, a new alert for the area will be given by the IBF-Portal. But within the current event - even if predictions worsen - the alert for this area will remain stopped. {{disasterSpecificText}}",
+          "disaster-specific": {
+            "heavy-rain": "(An event closes when the forecast stays below threshold for 7 days.)"
+          },
           "confirm": "Yes, stop alert",
           "cancel": "No, keep alert",
           "failure": "Failed to stop alert."
@@ -80,14 +86,14 @@
       "reactivate-trigger-popup": {
         "eap": {
           "header": "Reactivate Trigger",
-          "message": "Are you sure? You are about to reactivate the trigger warning in <strong>{{ placeCodeName }}</strong>. If any actions were already checked off before this area was stopped, they will still be after reactivating.",
+          "message": "Are you sure? You are about to reactivate the trigger warning in <strong>{{ placeCodeName }}</strong>.<br><br>If any actions were already checked off before this area was stopped, they will still be after reactivating.",
           "confirm": "Yes, reactivate trigger",
           "cancel": "No, keep stopped trigger",
           "failure": "Failed to reactivate trigger."
         },
         "no-eap": {
           "header": "Reactivate Alert",
-          "message": "Are you sure? You are about to reactivate the alert in <strong>{{ placeCodeName }}</strong>. If any actions were already checked off before this area was stopped, they will still be after reactivating.",
+          "message": "Are you sure? You are about to reactivate the alert in <strong>{{ placeCodeName }}</strong>.<br><br>If any actions were already checked off before this area was stopped, they will still be after reactivating.",
           "confirm": "Yes, reactivate alert",
           "cancel": "No, keep stopped alert",
           "failure": "Failed to reactivate alert."
@@ -110,7 +116,7 @@
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
-        "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:",
         "submit-button-label": "Save",
@@ -151,7 +157,7 @@
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
-        "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:",
         "forecast-info": {
@@ -197,7 +203,7 @@
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered for typhoon <strong>{{ eventName }}</strong>. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
-        "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Affected population:",
         "submit-button-label": "Save",
@@ -231,7 +237,7 @@
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
-        "instruction": "Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the alert and the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:",
         "submit-button-label": "Save",
@@ -261,7 +267,7 @@
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
-        "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+        "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Potential cases: up to",
         "submit-button-label": "Save",
@@ -291,7 +297,7 @@
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
-        "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area in the list or on the map to monitor, select and send the pre-planned anticipatory actions executed in each area and eventually close the event.",
+        "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Potential cases: up to",
         "submit-button-label": "Save",
