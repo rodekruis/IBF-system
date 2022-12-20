@@ -1,3 +1,17 @@
+## [0.210.1](https://github.com/rodekruis/IBF-system/compare/v0.210.0...v0.210.1) (2022-12-20)
+
+
+### Bug Fixes
+
+* do not mention to close event in chat AB[#16742](https://github.com/rodekruis/IBF-system/issues/16742) ([201cab1](https://github.com/rodekruis/IBF-system/commit/201cab1c9db422033f4c73db5b29bfb3f96ec4ef))
+* explain difference new vs current event AB[#16774](https://github.com/rodekruis/IBF-system/issues/16774) ([45f6ba5](https://github.com/rodekruis/IBF-system/commit/45f6ba50cd4b99e23cc01b394c7d0359fdb373ad))
+* give action summary same padding as aggregates AB[#16770](https://github.com/rodekruis/IBF-system/issues/16770) ([c4bdabf](https://github.com/rodekruis/IBF-system/commit/c4bdabf2807e1d4570adcb94c2fb8fa73529d59a))
+* keep number on one line AB[#16770](https://github.com/rodekruis/IBF-system/issues/16770) ([6145b99](https://github.com/rodekruis/IBF-system/commit/6145b997f8b4a2eb9c5e4664207cfd6e85c874af))
+* make aggregate-layer legend purple if triggered AB[#16985](https://github.com/rodekruis/IBF-system/issues/16985) ([3b82841](https://github.com/rodekruis/IBF-system/commit/3b828416e632f16c2a8944bd0a78aa96e1fb8fcd))
+* optimize prevention of aggregage value on multi-line AB[#16770](https://github.com/rodekruis/IBF-system/issues/16770) ([d6ed2da](https://github.com/rodekruis/IBF-system/commit/d6ed2dafdcb080b98b93f944804e833705ef6a39))
+
+
+
 # [0.210.0](https://github.com/rodekruis/IBF-system/compare/v0.209.1...v0.210.0) (2022-12-19)
 
 
@@ -101,18 +115,6 @@
 ### Features
 
 * only send email for typhoon of high enough category AB[#16457](https://github.com/rodekruis/IBF-system/issues/16457) ([7d647c0](https://github.com/rodekruis/IBF-system/commit/7d647c028a7e60bb4187d85002b0e3578bfae713))
-
-
-
-## [0.205.1](https://github.com/rodekruis/IBF-system/compare/v0.205.0...v0.205.1) (2022-12-09)
-
-
-### Bug Fixes
-
-* improve query setup of event-processing AB[#16684](https://github.com/rodekruis/IBF-system/issues/16684) ([a12ce7c](https://github.com/rodekruis/IBF-system/commit/a12ce7c65f006b486e581ce9d501583b1c13bdca))
-* make archive query simpler AB[#16687](https://github.com/rodekruis/IBF-system/issues/16687) ([c4d920e](https://github.com/rodekruis/IBF-system/commit/c4d920e37354126557d4440236381aaeb6a3ae1f))
-* switch 12-hour to 6-hour interval AB[#16454](https://github.com/rodekruis/IBF-system/issues/16454) ([f5269bf](https://github.com/rodekruis/IBF-system/commit/f5269bf37853beebbb0e542a6aa632d9f925aaaf))
-* update actionsValue on pipeline-upload instead of nightly AB[#16446](https://github.com/rodekruis/IBF-system/issues/16446) ([23c399c](https://github.com/rodekruis/IBF-system/commit/23c399c947cbb826ccf11bbfbe8bfbf843c646b4))
 
 
 
