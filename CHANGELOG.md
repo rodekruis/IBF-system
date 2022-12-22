@@ -1,3 +1,13 @@
+# [0.211.0](https://github.com/rodekruis/IBF-system/compare/v0.210.1...v0.211.0) (2022-12-22)
+
+
+### Features
+
+* update eap actions AB16764 ([aa90c79](https://github.com/rodekruis/IBF-system/commit/aa90c79944d37b012562b540b14b8ff5e1e02e76))
+* update ssd info popups AB[#16775](https://github.com/rodekruis/IBF-system/issues/16775) ([66edbbd](https://github.com/rodekruis/IBF-system/commit/66edbbd6675042a511cf3ed16f1863e8e8ac104e))
+
+
+
 ## [0.210.1](https://github.com/rodekruis/IBF-system/compare/v0.210.0...v0.210.1) (2022-12-20)
 
 
@@ -106,15 +116,6 @@
 ### Features
 
 * create endpoint that Kobo can call AB[#16763](https://github.com/rodekruis/IBF-system/issues/16763) ([8710800](https://github.com/rodekruis/IBF-system/commit/8710800c1e47bea54c76bfbafefed3d32e0390a4))
-
-
-
-# [0.206.0](https://github.com/rodekruis/IBF-system/compare/v0.205.1...v0.206.0) (2022-12-09)
-
-
-### Features
-
-* only send email for typhoon of high enough category AB[#16457](https://github.com/rodekruis/IBF-system/issues/16457) ([7d647c0](https://github.com/rodekruis/IBF-system/commit/7d647c028a7e60bb4187d85002b0e3578bfae713))
 
 
 
