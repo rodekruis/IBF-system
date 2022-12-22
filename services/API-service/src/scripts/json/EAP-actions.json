@@ -1806,8 +1806,44 @@
     "areaOfFocus": {
       "id": "drr"
     },
-    "action": "drr-1",
-    "label": "DRR preliminary action (dummy)"
+    "action": "ssd-drr-01",
+    "label": "Activate the SSRC Emergency Office Center Call number for 24/7 hours for people to call in"
+  },
+  {
+    "countryCodeISO3": "SSD",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "ssd-drr-02",
+    "label": "Prepare National Disaster Response Team (NDRT) bags ready for surge deployment"
+  },
+  {
+    "countryCodeISO3": "SSD",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "ssd-drr-03",
+    "label": "Dissemination of early warning messages to communities at risk of being affected by floods (e.g., through mass media, and through community meetings)"
+  },
+  {
+    "countryCodeISO3": "SSD",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "ssd-drr-04",
+    "label": "Organize pre-disaster meetings with relevant actors including relevant ministries and departments"
+  },
+  {
+    "countryCodeISO3": "SSD",
+    "disasterType": "floods",
+    "areaOfFocus": {
+      "id": "drr"
+    },
+    "action": "ssd-drr-05",
+    "label": "Activation of trained South Sudan Red Cross Volunteers/staff and Community Disaster Response Teams (CDRTs)"
   },
   {
     "countryCodeISO3": "SSD",
@@ -1815,53 +1851,35 @@
     "areaOfFocus": {
       "id": "shelter"
     },
-    "action": "shelter-1",
-    "label": "Shelter preliminary action (dummy)"
+    "action": "ssd-shelter-01",
+    "label": "Engage communities in identification of safe locations for evacuation in case of emergencies"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
     "areaOfFocus": {
-      "id": "livelihood"
+      "id": "shelter"
     },
-    "action": "livelihood-1",
-    "label": "Livelihood preliminary action (dummy)"
+    "action": "ssd-shelter-02",
+    "label": "Support evacuating of communities' at-risk areas"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
     "areaOfFocus": {
-      "id": "health"
+      "id": "shelter"
     },
-    "action": "health-1",
-    "label": "Health preliminary action (dummy)"
+    "action": "ssd-shelter-03",
+    "label": "Preposition of Essential Households Items (e.g., mosquito nets, first aid kits, water purifiers, blankets, etc.) for 3,500 households"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
     "areaOfFocus": {
-      "id": "wash"
+      "id": "drr"
     },
-    "action": "wash-1",
-    "label": "WASH preliminary action (dummy)"
-  },
-  {
-    "countryCodeISO3": "SSD",
-    "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "inclusion"
-    },
-    "action": "inclusion-1",
-    "label": "Inclusion preliminary action (dummy)"
-  },
-  {
-    "countryCodeISO3": "SSD",
-    "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "migration"
-    },
-    "action": "migration-1",
-    "label": "Migration preliminary action (dummy)"
+    "action": "ssd-drr-06",
+    "label": "Participate in stakeholders' coordination meetings with relevant state/National line ministries, and other humanitarian Actors on flood responses"
   },
   {
     "countryCodeISO3": "ZWE",
