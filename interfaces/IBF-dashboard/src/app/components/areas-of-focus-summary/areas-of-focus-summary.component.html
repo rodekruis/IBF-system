@@ -4,7 +4,7 @@
     color="ibf-secondary"
     data-test="action-title"
   >
-    <ion-col size-lg="8" size-md="8" size-xs="8" class="ion-no-padding">
+    <ion-col size-lg="7" size-md="7" size-xs="7" class="ion-no-padding">
       <ion-item
         lines="none"
         class="component-title-item ion-padding-left ion-no-margin ion-align-items-start"
@@ -27,7 +27,7 @@
     <ion-col size-lg="4" size-md="4" size-xs="4" class="ion-no-padding">
       <ion-item
         lines="none"
-        class="component-title-item ion-padding-left ion-no-margin ion-align-items-end"
+        class="component-title-item ion-no-margin ion-align-items-end"
         color="ibf-secondary"
       >
         <ion-label class="areas-of-focus--subtitle">
@@ -42,6 +42,14 @@
         </ion-label>
       </ion-item>
     </ion-col>
+    <ion-col size-lg="1" size-md="1" size-xs="1">
+      <ion-item
+        lines="none"
+        class="component-title-item ion-padding-left ion-no-margin ion-align-items-end"
+        color="ibf-secondary"
+      >
+      </ion-item>
+    </ion-col>
   </ion-row>
   <ion-row
     *ngFor="let areaOfFocus of areasOfFocus"
@@ -49,25 +57,37 @@
     data-test="action-summary-types"
   >
     <ng-container>
-      <ion-col size-lg="8" size-md="8" size-xs="8">
+      <ion-col size-lg="7" size-md="7" size-xs="7">
         <ion-item lines="inset" class="areas-of-focus-item ion-no-padding">
           <ion-thumbnail slot="start" class="areas-of-focus-item-thumbnail">
             <ion-img src="assets/icons/{{ areaOfFocus.icon }}"></ion-img>
           </ion-thumbnail>
-          <ion-label
-            class="areas-of-focus-item-label"
-            [title]="areaOfFocus.description"
-          >
+          <ion-label class="areas-of-focus-item-label">
             {{ areaOfFocus.label }}
           </ion-label>
         </ion-item>
       </ion-col>
       <ion-col size-lg="4" size-md="4" size-xs="4">
-        <ion-item class="areas-of-focus-item-value ion-no-padding">
-          <ion-label class="ion-text-center">
+        <ion-item class="areas-of-focus-item-value" color="ibf-tertiary">
+          <ion-label color="ibf-black">
             <span
               >{{ areaOfFocus.countChecked }} / {{ areaOfFocus.count }}</span
             >
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size-lg="1" size-md="1" size-xs="1">
+        <ion-item
+          class="areas-of-focus-item-information-icon ion-no-padding"
+          data-test="icon-row"
+          style="--inner-padding-end: 0px"
+        >
+          <ion-label>
+            <img
+              class="info-img"
+              src="assets/icons/source-info.svg"
+              (click)="moreInfo(areaOfFocus)"
+            />
           </ion-label>
         </ion-item>
       </ion-col>
