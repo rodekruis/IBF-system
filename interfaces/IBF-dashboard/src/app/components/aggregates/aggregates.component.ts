@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -26,6 +32,9 @@ import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/
   styleUrls: ['./aggregates.component.scss'],
 })
 export class AggregatesComponent implements OnInit, OnDestroy {
+  @Input()
+  public triggerStatus: string;
+
   public indicators: Indicator[] = [];
   public placeCode: PlaceCode;
   public placeCodeHover: PlaceCode;
@@ -206,6 +215,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       indicatorName,
       placeCode ? placeCode.placeCode : null,
       numberFormat,
+      this.triggerStatus,
     );
   }
 
@@ -225,7 +235,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           this.eventState?.activeTrigger &&
           this.country.adminRegionLabels[this.adminLevelService.adminLevel]
         ) {
-          const areaCount = this.aggregatesService.nrTriggeredAreas;
+          const areaCount = this.aggregatesService.nrTriggerActiveAreas;
           const adminAreaLabel = this.country.adminRegionLabels[
             this.adminLevelService.adminLevel
           ][areaCount > 1 ? 'plural' : 'singular'];
@@ -248,7 +258,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     } else {
       if (this.country) {
         if (this.eventState?.activeTrigger) {
-          const areaCount = this.aggregatesService.nrTriggeredAreas;
+          const areaCount = this.aggregatesService.nrTriggerActiveAreas;
           headerLabel = `${areaCount}`;
         } else {
           headerLabel = '';
