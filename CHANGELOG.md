@@ -1,3 +1,12 @@
+## [0.211.1](https://github.com/rodekruis/IBF-system/compare/v0.211.0...v0.211.1) (2023-01-04)
+
+
+### Bug Fixes
+
+* set img width to 600px AB[#16963](https://github.com/rodekruis/IBF-system/issues/16963) ([9aa8b83](https://github.com/rodekruis/IBF-system/commit/9aa8b83fea62133f0878606ed756994bb54b14ca))
+
+
+
 # [0.211.0](https://github.com/rodekruis/IBF-system/compare/v0.210.1...v0.211.0) (2022-12-22)
 
 
@@ -107,15 +116,6 @@
 
 * add time of landfall AB[#16678](https://github.com/rodekruis/IBF-system/issues/16678) ([99d230e](https://github.com/rodekruis/IBF-system/commit/99d230ee502998d772c944dd724e5d6bfdcbf5d4))
 * replace activated with issued AB[#16681](https://github.com/rodekruis/IBF-system/issues/16681) ([1404110](https://github.com/rodekruis/IBF-system/commit/1404110ad33243939c40a04e64424850326bcb45))
-
-
-
-# [0.207.0](https://github.com/rodekruis/IBF-system/compare/v0.206.0...v0.207.0) (2022-12-12)
-
-
-### Features
-
-* create endpoint that Kobo can call AB[#16763](https://github.com/rodekruis/IBF-system/issues/16763) ([8710800](https://github.com/rodekruis/IBF-system/commit/8710800c1e47bea54c76bfbafefed3d32e0390a4))
 
 
 
