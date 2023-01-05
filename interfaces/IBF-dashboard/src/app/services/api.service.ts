@@ -11,6 +11,7 @@ import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 import { DisasterTypeKey } from '../types/disaster-type-key';
 import { IbfLayerName } from '../types/ibf-layer';
+import { TriggeredArea } from '../types/triggered-area';
 import { EventSummary } from './event.service';
 
 @Injectable({
@@ -224,7 +225,7 @@ export class ApiService {
     adminLevel: number,
     leadTime: string,
     eventName: string,
-  ) {
+  ): Observable<TriggeredArea> {
     return this.get(
       `event/triggered-areas/${countryCodeISO3}/${adminLevel}/${disasterType}/${leadTime}/${
         eventName || 'no-name'
