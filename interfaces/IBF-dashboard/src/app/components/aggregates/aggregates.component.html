@@ -24,9 +24,13 @@
               "
             >
               <strong>
-                <ion-text [color]="isActiveAreas() ? 'ibf-primary' : 'ibf-no-alert-primary'" style="font-size: 20px">{{
-                  getNumberAreasExposed()
-                }}</ion-text>
+                <ion-text
+                  [color]="
+                    isActiveAreas() ? 'ibf-primary' : 'ibf-no-alert-primary'
+                  "
+                  style="font-size: 20px"
+                  >{{ getNumberAreasExposed() }}</ion-text
+                >
                 {{ getLabelAreasExposed().headerLabel }}
               </strong>
             </ion-label>
