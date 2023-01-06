@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { User } from 'src/app/models/user/user.model';
 import { environment } from 'src/environments/environment';
+import { ScreenOrientationPopoverComponent } from '../../components/screen-orientation-popover/screen-orientation-popover.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,8 +23,13 @@ export class DashboardPage implements OnInit {
   constructor(
     private authService: AuthService,
     private analyticsService: AnalyticsService,
+    private popoverController: PopoverController,
   ) {
     this.authService.getAuthSubscription().subscribe(this.onUserChange);
+
+    if (screen.orientation.type.includes('portrait')) {
+      this.showScreenOrientationPopover();
+    }
   }
 
   ngOnInit() {
@@ -35,4 +42,16 @@ export class DashboardPage implements OnInit {
       this.isMultiCountry = user.countries.length > 1;
     }
   };
+
+  private async showScreenOrientationPopover() {
+    const popover = await this.popoverController.create({
+      component: ScreenOrientationPopoverComponent,
+      animated: true,
+      cssClass: 'ibf-popover ibf-popover-normal',
+      translucent: true,
+      showBackdrop: true,
+    });
+
+    await popover.present();
+  }
 }

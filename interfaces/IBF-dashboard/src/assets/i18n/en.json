@@ -38,6 +38,11 @@
     "triggered-message": {
       "eap": { "yes": "TRIGGERED", "no": "NON-TRIGGERED" },
       "no-eap": { "yes": "ALERT", "no": "NO ALERTS" }
+    },
+    "screen-orientation": {
+      "title": "IBF Portal - Tablet",
+      "rotate-message": "To use the IBF Portal on a tablet, you must rotate it to landscape (horizontal) view.",
+      "check-lock-message": "If you are unable to do so, please check that the \"Portrait orientation lock\" is turned off."
     }
   },
   "aggregates-component": {

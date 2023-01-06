@@ -31,11 +31,13 @@ import { LogosComponent } from './components/logos/logos.component';
 import { MapControlsComponent } from './components/map-controls/map-controls.component';
 import { MapComponent } from './components/map/map.component';
 import { MatrixComponent } from './components/matrix/matrix.component';
+import { ScreenOrientationPopoverComponent } from './components/screen-orientation-popover/screen-orientation-popover.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { ToggleTriggerPopoverComponent } from './components/toggle-trigger-popover/toggle-trigger-popover.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
 import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-component/backend-mock-scenario.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -77,6 +79,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     DisclaimerToolbarComponent,
     ActionResultPopoverComponent,
     ToggleTriggerPopoverComponent,
+    ScreenOrientationPopoverComponent,
   ],
   exports: [
     LoginFormComponent,
@@ -110,6 +113,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     DisclaimerToolbarComponent,
     ActionResultPopoverComponent,
     ToggleTriggerPopoverComponent,
+    ScreenOrientationPopoverComponent,
   ],
 })
 export class SharedModule {}
