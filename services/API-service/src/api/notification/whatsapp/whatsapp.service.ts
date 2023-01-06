@@ -117,6 +117,19 @@ export class WhatsappService {
       activeEvents,
     );
 
+    await this.sendToUsers(country, message);
+  }
+
+  public async sendTriggerFinishedViaWhatsapp(
+    country: CountryEntity,
+    finishedEvents: EventSummaryCountry[],
+  ) {
+    const message = this.configureNoTriggerMessage(country, finishedEvents);
+
+    await this.sendToUsers(country, message);
+  }
+
+  private async sendToUsers(country: CountryEntity, message: string) {
     const users = await this.userRepository.find({
       where: { whatsappNumber: Not(IsNull()) },
       relations: ['countries'],
@@ -244,7 +257,9 @@ export class WhatsappService {
     if (events.length > 0) {
       message += country.notificationInfo.whatsappMessage[
         'no-trigger-old-event'
-      ].replace('[startDate]', events[0].startDate);
+      ]
+        .replace('[startDate]', events[0].startDate)
+        .replace('[endDate]', events[0].endDate);
     }
     message += country.notificationInfo.whatsappMessage['no-trigger'];
     return message;
