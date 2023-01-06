@@ -382,6 +382,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     popover.onDidDismiss().then(() => {
       this.placeCodeService.setPlaceCode(this.placeCode);
+      this.changedActions = [];
     });
   }
 
