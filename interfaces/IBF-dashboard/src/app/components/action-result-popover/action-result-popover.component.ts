@@ -13,8 +13,11 @@ export class ActionResultPopoverComponent implements OnInit {
   constructor(private popoverController: PopoverController) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.closePopover();
+    setTimeout(async () => {
+      const popover = await this.popoverController.getTop();
+      if (popover) {
+        this.closePopover();
+      }
     }, 5000);
   }
 
