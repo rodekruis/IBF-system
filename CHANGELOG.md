@@ -1,3 +1,19 @@
+# [0.212.0](https://github.com/rodekruis/IBF-system/compare/v0.211.2...v0.212.0) (2023-01-06)
+
+
+### Bug Fixes
+
+* only show disaster-specific copy in stop-popup if present AB[#17152](https://github.com/rodekruis/IBF-system/issues/17152) ([db4fb0e](https://github.com/rodekruis/IBF-system/commit/db4fb0e6ef644e6fd26fb5d7f1d464be329cb104))
+* show count on other admin levels AB[#17150](https://github.com/rodekruis/IBF-system/issues/17150) ([14d2078](https://github.com/rodekruis/IBF-system/commit/14d207824edf7575d6438255df4c16fe52189d21))
+* syntax AB[#17132](https://github.com/rodekruis/IBF-system/issues/17132) ([ba975dc](https://github.com/rodekruis/IBF-system/commit/ba975dc85c6125cb91a7473f5c4ba557b84d74ad))
+
+
+### Features
+
+* hide stopped areas overview if none AB[#17151](https://github.com/rodekruis/IBF-system/issues/17151) ([b3bce80](https://github.com/rodekruis/IBF-system/commit/b3bce80c7916c05740700b5933046f26492d8885))
+
+
+
 ## [0.211.2](https://github.com/rodekruis/IBF-system/compare/v0.211.1...v0.211.2) (2023-01-06)
 
 
@@ -95,17 +111,6 @@
 
 * change bor south county name AB[#16762](https://github.com/rodekruis/IBF-system/issues/16762) ([c2c1042](https://github.com/rodekruis/IBF-system/commit/c2c1042d789919f4b415f6a35efe3d3a3047e5b6))
 * make change in code instead of data AB[#16762](https://github.com/rodekruis/IBF-system/issues/16762) ([2f1586c](https://github.com/rodekruis/IBF-system/commit/2f1586c238512ff43abd1d2580313193778f7b8d))
-
-
-
-## [0.208.1](https://github.com/rodekruis/IBF-system/compare/v0.208.0...v0.208.1) (2022-12-16)
-
-
-### Bug Fixes
-
-* facilitate multi-country users AB[#16328](https://github.com/rodekruis/IBF-system/issues/16328) ([c0f3606](https://github.com/rodekruis/IBF-system/commit/c0f36067c0896e551ddda04e59b4d04c61594b7c))
-* include/update map legend in email/whatsapp AB[#16328](https://github.com/rodekruis/IBF-system/issues/16328) ([73d07eb](https://github.com/rodekruis/IBF-system/commit/73d07ebe14d69ae36f8bd3f43773d885f46bf792))
-* remove typhoon map description email AB[#16826](https://github.com/rodekruis/IBF-system/issues/16826) ([be3b41b](https://github.com/rodekruis/IBF-system/commit/be3b41be862f155d47b134aa7635b7c9f1053279))
 
 
 
