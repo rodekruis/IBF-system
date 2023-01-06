@@ -1,3 +1,21 @@
+# [0.213.0](https://github.com/rodekruis/IBF-system/compare/v0.212.0...v0.213.0) (2023-01-06)
+
+
+### Bug Fixes
+
+* improve save-actions popup AB[#17153](https://github.com/rodekruis/IBF-system/issues/17153) AB[#17154](https://github.com/rodekruis/IBF-system/issues/17154) AB[#17155](https://github.com/rodekruis/IBF-system/issues/17155) ([a57a638](https://github.com/rodekruis/IBF-system/commit/a57a6385022cbd03c3ddd5cf14d816a5d330e435))
+* only close automatically if not already closed AB[#17154](https://github.com/rodekruis/IBF-system/issues/17154) ([ae61eec](https://github.com/rodekruis/IBF-system/commit/ae61eeceb19cbf3eec142846e8c35b3bccb5165e))
+* reset changed actions after save AB[#17156](https://github.com/rodekruis/IBF-system/issues/17156) ([6b6c81f](https://github.com/rodekruis/IBF-system/commit/6b6c81f152b252610d2e6ad7872a468fbce706e9))
+* revert status in frontend if api call fails AB[#17156](https://github.com/rodekruis/IBF-system/issues/17156) ([6cdead3](https://github.com/rodekruis/IBF-system/commit/6cdead3e33066291b7fe346605a7a242562753cf))
+* use TriggeredArea class in chat.component ([4f7fc32](https://github.com/rodekruis/IBF-system/commit/4f7fc320971cc7d57c53741f8d25e337dd2cd4d4))
+
+
+### Features
+
+* stay in area-view after saving actions, but do update action-summary AB[#17156](https://github.com/rodekruis/IBF-system/issues/17156) ([c383f86](https://github.com/rodekruis/IBF-system/commit/c383f86a2704b0475ace91d835351cd87194d812))
+
+
+
 # [0.212.0](https://github.com/rodekruis/IBF-system/compare/v0.211.2...v0.212.0) (2023-01-06)
 
 
@@ -101,16 +119,6 @@
 * process logos in email AB[#16776](https://github.com/rodekruis/IBF-system/issues/16776) ([b920d3b](https://github.com/rodekruis/IBF-system/commit/b920d3b43d2c7b2b72a43073c35b679e029738a8))
 * update glofas location AB[#16778](https://github.com/rodekruis/IBF-system/issues/16778) ([a91917e](https://github.com/rodekruis/IBF-system/commit/a91917e73d775fc772f3875816807e07040e2e1f))
 * updated layer descriptions + trigger statement AB[#16775](https://github.com/rodekruis/IBF-system/issues/16775) ([931070d](https://github.com/rodekruis/IBF-system/commit/931070d1cac9e61dd4cd853ab0fa5058710a61df))
-
-
-
-## [0.208.2](https://github.com/rodekruis/IBF-system/compare/v0.208.1...v0.208.2) (2022-12-16)
-
-
-### Bug Fixes
-
-* change bor south county name AB[#16762](https://github.com/rodekruis/IBF-system/issues/16762) ([c2c1042](https://github.com/rodekruis/IBF-system/commit/c2c1042d789919f4b415f6a35efe3d3a3047e5b6))
-* make change in code instead of data AB[#16762](https://github.com/rodekruis/IBF-system/issues/16762) ([2f1586c](https://github.com/rodekruis/IBF-system/commit/2f1586c238512ff43abd1d2580313193778f7b8d))
 
 
 
