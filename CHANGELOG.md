@@ -1,3 +1,12 @@
+## [0.211.2](https://github.com/rodekruis/IBF-system/compare/v0.211.1...v0.211.2) (2023-01-06)
+
+
+### Bug Fixes
+
+* info popups AB[#16775](https://github.com/rodekruis/IBF-system/issues/16775) ([710d200](https://github.com/rodekruis/IBF-system/commit/710d2000f46f739e5cd294e9e9c7cc8caf2016b2))
+
+
+
 ## [0.211.1](https://github.com/rodekruis/IBF-system/compare/v0.211.0...v0.211.1) (2023-01-04)
 
 
@@ -97,25 +106,6 @@
 * facilitate multi-country users AB[#16328](https://github.com/rodekruis/IBF-system/issues/16328) ([c0f3606](https://github.com/rodekruis/IBF-system/commit/c0f36067c0896e551ddda04e59b4d04c61594b7c))
 * include/update map legend in email/whatsapp AB[#16328](https://github.com/rodekruis/IBF-system/issues/16328) ([73d07eb](https://github.com/rodekruis/IBF-system/commit/73d07ebe14d69ae36f8bd3f43773d885f46bf792))
 * remove typhoon map description email AB[#16826](https://github.com/rodekruis/IBF-system/issues/16826) ([be3b41b](https://github.com/rodekruis/IBF-system/commit/be3b41be862f155d47b134aa7635b7c9f1053279))
-
-
-
-# [0.208.0](https://github.com/rodekruis/IBF-system/compare/v0.207.0...v0.208.0) (2022-12-16)
-
-
-### Bug Fixes
-
-* actionUnit back to houses affected AB[#16679](https://github.com/rodekruis/IBF-system/issues/16679) ([d70e86c](https://github.com/rodekruis/IBF-system/commit/d70e86ced935fb74326051c252b2730344cbcf2e))
-* make map image multi-event AB[#16461](https://github.com/rodekruis/IBF-system/issues/16461) ([55632bf](https://github.com/rodekruis/IBF-system/commit/55632bfd622d18c4c987cbf582424f3f0fd5c994))
-* make subject simpler AB[#16760](https://github.com/rodekruis/IBF-system/issues/16760) ([8180d67](https://github.com/rodekruis/IBF-system/commit/8180d67feac967643476bad994a7d976201b73bd))
-* small refactoring AB[#16457](https://github.com/rodekruis/IBF-system/issues/16457) ([92bfdc5](https://github.com/rodekruis/IBF-system/commit/92bfdc5a4f15a23bc4faaa3ae4b6d1d786a1b24b))
-* timezone in email AB[#16678](https://github.com/rodekruis/IBF-system/issues/16678) ([f5191f8](https://github.com/rodekruis/IBF-system/commit/f5191f8549249f708ed71dd3b7d1f57dc8e95d71))
-
-
-### Features
-
-* add time of landfall AB[#16678](https://github.com/rodekruis/IBF-system/issues/16678) ([99d230e](https://github.com/rodekruis/IBF-system/commit/99d230ee502998d772c944dd724e5d6bfdcbf5d4))
-* replace activated with issued AB[#16681](https://github.com/rodekruis/IBF-system/issues/16681) ([1404110](https://github.com/rodekruis/IBF-system/commit/1404110ad33243939c40a04e64424850326bcb45))
 
 
 
