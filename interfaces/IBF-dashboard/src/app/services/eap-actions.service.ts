@@ -13,6 +13,7 @@ import { EapAction } from '../types/eap-action';
 import { EventState } from '../types/event-state';
 import { LeadTime } from '../types/lead-time';
 import { TimelineState } from '../types/timeline-state';
+import { TriggeredArea } from '../types/triggered-area';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
@@ -23,7 +24,7 @@ import { TimelineService } from './timeline.service';
 })
 export class EapActionsService {
   private triggeredAreaSubject = new BehaviorSubject<any[]>([]);
-  public triggeredAreas: any[];
+  public triggeredAreas: TriggeredArea[];
   private country: Country;
   private disasterType: DisasterType;
   private disasterTypeSettings: CountryDisasterSettings;
@@ -135,7 +136,7 @@ export class EapActionsService {
     this.triggeredAreaSubject.next(this.triggeredAreas);
   };
 
-  getTriggeredAreas(): Observable<any[]> {
+  getTriggeredAreas(): Observable<TriggeredArea[]> {
     return this.triggeredAreaSubject.asObservable();
   }
 

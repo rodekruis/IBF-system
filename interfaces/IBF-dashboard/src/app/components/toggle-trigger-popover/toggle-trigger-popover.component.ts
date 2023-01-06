@@ -29,9 +29,11 @@ export class ToggleTriggerPopoverComponent implements OnInit {
   ngOnInit() {}
 
   public getDisasterSpecificText(): string {
-    return this.translateService.instant(
+    const key = `chat-component.generic.${this.stopNode}.${this.eapNode}.disaster-specific.${this.disasterType}`;
+    const translation = this.translateService.instant(
       `chat-component.generic.${this.stopNode}.${this.eapNode}.disaster-specific.${this.disasterType}`,
     );
+    return key === translation ? '' : translation;
   }
 
   public closePopover(): void {
