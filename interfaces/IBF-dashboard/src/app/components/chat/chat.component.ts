@@ -529,7 +529,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       updateFrequencyUnit === LeadTimeUnit.day
         ? 1
         : updateFrequencyUnit === LeadTimeUnit.hour
-        ? 12
+        ? 6 // This currently only involves PHL typhoon which runs every 6 hours
         : updateFrequencyUnit === LeadTimeUnit.month
         ? 1
         : null;
