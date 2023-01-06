@@ -29,6 +29,7 @@ export class AggregatesService {
   private eventState: EventState;
   public timelineState: TimelineState;
   private adminLevel: AdminLevel;
+  private defaultAdminLevel: AdminLevel;
   public triggeredAreas: any[];
   private AREA_STATUS_KEY = 'areaStatus';
 
@@ -77,6 +78,13 @@ export class AggregatesService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
+    if (!this.country) {
+      return;
+    }
+    this.defaultAdminLevel = this.country.countryDisasterSettings.find(
+      (d) => d.disasterType === disasterType.disasterType,
+    ).defaultAdminLevel;
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -135,13 +143,25 @@ export class AggregatesService {
     const foundIndicator = feature.records.find(
       (a) => a.indicator === indicator.name,
     );
+
+    if (this.adminLevel !== this.defaultAdminLevel) {
+      aggregate[indicator.name] = foundIndicator ? foundIndicator.value : 0;
+
+      aggregate[this.AREA_STATUS_KEY] =
+        aggregate[IbfLayerName.alertThreshold] === 1
+          ? 'trigger-active'
+          : 'non-triggered';
+      return;
+    }
+
     const areaState = this.triggeredAreas.find(
       (area) => area.placeCode === feature.placeCode,
     );
+
     if (!areaState && indicator.dynamic) {
       aggregate[indicator.name] = 0;
     } else if (foundIndicator) {
-      aggregate[indicator.name] = foundIndicator.value;
+      aggregate[indicator.name] = foundIndicator ? foundIndicator.value : 0;
     } else {
       aggregate[indicator.name] = 0;
     }
