@@ -362,8 +362,22 @@ export class ChatComponent implements OnInit, OnDestroy {
         .map(this.checkEAPAction),
     ).subscribe({
       next: () => this.actionResult(this.updateSuccessMessage),
-      error: () => this.actionResult(this.updateFailureMessage),
+      error: () => {
+        this.actionResult(this.updateFailureMessage);
+        this.revertActionStatusIfFailed();
+      },
     });
+  }
+
+  private revertActionStatusIfFailed() {
+    const triggeredArea = this.triggeredAreas.find(
+      (area) => area.placeCode === this.changedActions[0].placeCode,
+    );
+    for (const action of triggeredArea.eapActions) {
+      if (this.changedActions.includes(action)) {
+        action.checked = !action.checked;
+      }
+    }
   }
 
   private async actionResult(resultMessage: string): Promise<void> {
