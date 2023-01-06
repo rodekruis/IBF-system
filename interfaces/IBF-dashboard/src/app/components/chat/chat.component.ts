@@ -29,6 +29,7 @@ import { TimelineService } from '../../services/timeline.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { Indicator } from '../../types/indicator-group';
 import { LeadTime, LeadTimeUnit } from '../../types/lead-time';
+import { TriggeredArea } from '../../types/triggered-area';
 import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
 import { ToggleTriggerPopoverComponent } from '../toggle-trigger-popover/toggle-trigger-popover.component';
 
@@ -38,17 +39,17 @@ import { ToggleTriggerPopoverComponent } from '../toggle-trigger-popover/toggle-
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit, OnDestroy {
-  public triggeredAreas: any[];
-  public activeAreas: any[];
-  public filteredActiveAreas: any[];
-  public stoppedAreas: any[];
-  public filteredStoppedAreas: any[];
+  public triggeredAreas: TriggeredArea[];
+  public activeAreas: TriggeredArea[];
+  public filteredActiveAreas: TriggeredArea[];
+  public stoppedAreas: TriggeredArea[];
+  public filteredStoppedAreas: TriggeredArea[];
   public activeDisasterType: string;
   public eventState: EventState;
   private timelineState: TimelineState;
   private indicators: Indicator[];
   public otherLeadTimes: string;
-  public placeCode: string;
+  public placeCode: PlaceCode;
 
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
@@ -196,7 +197,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       (t) => t.value === this.timelineState?.activeLeadTime,
     );
 
-    this.placeCode = placeCode ? placeCode.placeCode : null;
+    this.placeCode = placeCode;
 
     if (placeCode && activeLeadTime.alert) {
       const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
@@ -249,10 +250,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.getForecastInfo();
 
       this.updateSuccessMessage = this.translateService.instant(
-        `chat-component.${this.disasterTypeName}.active-event.update-success`,
+        `chat-component.common.save-actions.update-success`,
       );
       this.updateFailureMessage = this.translateService.instant(
-        `chat-component.${this.disasterTypeName}.active-event.update-failure`,
+        `chat-component.common.save-actions.update-failure`,
       );
       if (this.disasterType.disasterType === DisasterTypeKey.drought) {
         this.otherLeadTimes = this.timelineState.timeStepButtons
@@ -362,8 +363,22 @@ export class ChatComponent implements OnInit, OnDestroy {
         .map(this.checkEAPAction),
     ).subscribe({
       next: () => this.actionResult(this.updateSuccessMessage),
-      error: () => this.actionResult(this.updateFailureMessage),
+      error: () => {
+        this.actionResult(this.updateFailureMessage);
+        this.revertActionStatusIfFailed();
+      },
     });
+  }
+
+  private revertActionStatusIfFailed() {
+    const triggeredArea = this.triggeredAreas.find(
+      (area) => area.placeCode === this.changedActions[0].placeCode,
+    );
+    for (const action of triggeredArea.eapActions) {
+      if (this.changedActions.includes(action)) {
+        action.checked = !action.checked;
+      }
+    }
   }
 
   private async actionResult(resultMessage: string): Promise<void> {
@@ -381,8 +396,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     await popover.present();
 
     popover.onDidDismiss().then(() => {
-      this.eapActionsService.getTriggeredAreasApi();
-      this.placeCodeService.clearPlaceCode();
+      this.placeCodeService.setPlaceCode(this.placeCode);
+      this.changedActions = [];
     });
   }
 
@@ -447,7 +462,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       error: () =>
         this.actionResult(
           this.translateService.instant(
-            `chat-component.generic.${stopNode}.${eapNode}.failure`,
+            `chat-component.common.${stopNode}.${eapNode}.failure`,
           ),
         ),
     });
