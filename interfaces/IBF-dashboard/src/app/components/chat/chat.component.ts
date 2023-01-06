@@ -249,10 +249,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.getForecastInfo();
 
       this.updateSuccessMessage = this.translateService.instant(
-        `chat-component.${this.disasterTypeName}.active-event.update-success`,
+        `chat-component.common.save-actions.update-success`,
       );
       this.updateFailureMessage = this.translateService.instant(
-        `chat-component.${this.disasterTypeName}.active-event.update-failure`,
+        `chat-component.common.save-actions.update-failure`,
       );
       if (this.disasterType.disasterType === DisasterTypeKey.drought) {
         this.otherLeadTimes = this.timelineState.timeStepButtons
@@ -447,7 +447,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       error: () =>
         this.actionResult(
           this.translateService.instant(
-            `chat-component.generic.${stopNode}.${eapNode}.failure`,
+            `chat-component.common.${stopNode}.${eapNode}.failure`,
           ),
         ),
     });
