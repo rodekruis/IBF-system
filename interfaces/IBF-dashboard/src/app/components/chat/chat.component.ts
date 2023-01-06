@@ -29,6 +29,7 @@ import { TimelineService } from '../../services/timeline.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { Indicator } from '../../types/indicator-group';
 import { LeadTime, LeadTimeUnit } from '../../types/lead-time';
+import { TriggeredArea } from '../../types/triggered-area';
 import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
 import { ToggleTriggerPopoverComponent } from '../toggle-trigger-popover/toggle-trigger-popover.component';
 
@@ -38,11 +39,11 @@ import { ToggleTriggerPopoverComponent } from '../toggle-trigger-popover/toggle-
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit, OnDestroy {
-  public triggeredAreas: any[];
-  public activeAreas: any[];
-  public filteredActiveAreas: any[];
-  public stoppedAreas: any[];
-  public filteredStoppedAreas: any[];
+  public triggeredAreas: TriggeredArea[];
+  public activeAreas: TriggeredArea[];
+  public filteredActiveAreas: TriggeredArea[];
+  public stoppedAreas: TriggeredArea[];
+  public filteredStoppedAreas: TriggeredArea[];
   public activeDisasterType: string;
   public eventState: EventState;
   private timelineState: TimelineState;
