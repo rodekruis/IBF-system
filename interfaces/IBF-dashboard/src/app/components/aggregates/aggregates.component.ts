@@ -134,6 +134,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.translateLayerInfoPopupsSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
+    this.eapActionSubscription.unsubscribe();
+  }
+
+  public shouldShowAggregates() {
+    return this.triggerStatus === 'trigger-active' || this.getAreaCount() > 0;
   }
 
   private onTranslate = (translatedStrings) => {
@@ -253,7 +258,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         ) {
           const adminAreaLabel = this.country.adminRegionLabels[
             this.adminLevelService.adminLevel
-          ][this.getAreaCount() > 1 ? 'plural' : 'singular'];
+          ][this.getAreaCount() === 1 ? 'singular' : 'plural'];
           headerLabel = `${this.exposedPrefix} ${adminAreaLabel}`;
         } else {
           headerLabel = `${this.allPrefix} ${this.country.countryName}`;
