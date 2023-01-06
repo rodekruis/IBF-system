@@ -27,7 +27,7 @@ export class DashboardPage implements OnInit {
   ) {
     this.authService.getAuthSubscription().subscribe(this.onUserChange);
 
-    if (screen.orientation.type.includes('portrait')) {
+    if (this.isTablet() && screen.orientation.type.includes('portrait')) {
       this.showScreenOrientationPopover();
     }
   }
@@ -42,6 +42,12 @@ export class DashboardPage implements OnInit {
       this.isMultiCountry = user.countries.length > 1;
     }
   };
+
+  private isTablet(): boolean {
+    return /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(
+      navigator.userAgent.toLowerCase(),
+    );
+  }
 
   private async showScreenOrientationPopover() {
     const popover = await this.popoverController.create({
