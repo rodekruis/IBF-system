@@ -48,7 +48,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private timelineState: TimelineState;
   private indicators: Indicator[];
   public otherLeadTimes: string;
-  public placeCode: string;
+  public placeCode: PlaceCode;
 
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
@@ -196,7 +196,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       (t) => t.value === this.timelineState?.activeLeadTime,
     );
 
-    this.placeCode = placeCode ? placeCode.placeCode : null;
+    this.placeCode = placeCode;
 
     if (placeCode && activeLeadTime.alert) {
       const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
@@ -381,8 +381,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     await popover.present();
 
     popover.onDidDismiss().then(() => {
-      this.eapActionsService.getTriggeredAreasApi();
-      this.placeCodeService.clearPlaceCode();
+      this.placeCodeService.setPlaceCode(this.placeCode);
     });
   }
 
