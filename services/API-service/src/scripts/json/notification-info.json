@@ -107,8 +107,8 @@
       "follow-up": "There are *[nrTriggeredAreas]* [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\nYou can use the map attached to assess the situation. The triggered areas are outlined in purple. The potential flood extent is shown in red.\n\nLog in to the IBF Portal on your desktop to find more information.",
       "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate further about this trigger.\n\nUpdate the early actions that have been done in this form: [externalActionsForm]. Please note that through this form you can only check off actions, but you cannot see which actions have been done already.",
       "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below threshold.\n\n",
-      "no-trigger": "There is *no trigger* currently.\n\n",
-      "trigger-finished": "Note that the event will only close in the IBF-portal when the forecast stays below threshold for 7 days in a row. Until that time, anticipatory actions can still be monitored in the IBF-portal."
+      "no-trigger": "There is *no trigger* currently.",
+      "trigger-finished": "The event will close in the IBF-portal when the forecast stays below threshold for 7 days in a row. Until that time, anticipatory actions can still be managed in the IBF-portal."
     },
     "externalEarlyActionForm": "https://eenew.ifrc.org/x/o3VEUuQG",
     "linkVideo": "https://bit.ly/IBF-video-Zambia",

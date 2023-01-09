@@ -276,7 +276,6 @@ export class WhatsappService {
         'no-trigger-old-event'
       ].replace('[startDate]', event.startDate);
     }
-    message += country.notificationInfo.whatsappMessage['no-trigger'];
     message += country.notificationInfo.whatsappMessage['trigger-finished'];
     return message;
   }

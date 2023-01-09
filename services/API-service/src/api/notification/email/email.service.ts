@@ -185,25 +185,23 @@ export class EmailService {
       },
       {
         replaceKey: '(ADMIN-AREA-PLURAL)',
-        replaceValue:
-          country.adminRegionLabels[
-            String(
-              country.countryDisasterSettings.find(
-                s => s.disasterType === disasterType,
-              ).defaultAdminLevel,
-            )
-          ].plural,
+        replaceValue: country.adminRegionLabels[
+          String(
+            country.countryDisasterSettings.find(
+              s => s.disasterType === disasterType,
+            ).defaultAdminLevel,
+          )
+        ].plural.toLowerCase(),
       },
       {
         replaceKey: '(ADMIN-AREA-SINGULAR)',
-        replaceValue:
-          country.adminRegionLabels[
-            String(
-              country.countryDisasterSettings.find(
-                s => s.disasterType === disasterType,
-              ).defaultAdminLevel,
-            )
-          ].singular,
+        replaceValue: country.adminRegionLabels[
+          String(
+            country.countryDisasterSettings.find(
+              s => s.disasterType === disasterType,
+            ).defaultAdminLevel,
+          )
+        ].singular.toLowerCase(),
       },
       {
         replaceKey: '(DISASTER-TYPE)',
@@ -337,9 +335,7 @@ export class EmailService {
                         font-weight: bold;
                         color: #0c0c0c;
                         display: inline-block;
-                    " >
-                        here
-                    </a>`;
+                    " >video</a>`;
 
     const linkPdfHTML = `<a href="${pdfLink}"
                         target="_blank"
@@ -352,23 +348,21 @@ export class EmailService {
                         font-weight: bold;
                         color: #0c0c0c;
                         display: inline-block;
-                        "  >
-                        here
-                    </a>`;
+                        "  >PDF</a>`;
     let videoStr = '';
     if (videoLink) {
-      videoStr = 'Video' + linkVideoHTML;
+      videoStr = ' ' + linkVideoHTML;
     }
     let pdfStr = '';
     if (pdfLink) {
-      pdfStr = 'PDF' + linkPdfHTML;
+      pdfStr = ' ' + linkPdfHTML;
     }
-    let andStr = '';
+    let orStr = '';
     if (videoStr && pdfStr) {
-      andStr = 'and';
+      orStr = ' or';
     }
     if (videoStr || pdfStr) {
-      return `See instructions for the dashboard in the form of a ${videoStr} ${andStr} ${pdfStr}`;
+      return `See instructions for the IBF-portal in${videoStr}${orStr}${pdfStr}.`;
     }
   }
 

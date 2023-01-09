@@ -62,11 +62,11 @@ export class NotificationService {
         countryCodeISO3,
       );
 
-      // this.emailService.sendTriggerFinishedEmail(
-      //   country,
-      //   disasterType,
-      //   finishedEvent,
-      // );
+      this.emailService.sendTriggerFinishedEmail(
+        country,
+        disasterType,
+        finishedEvent,
+      );
 
       this.whatsappService.sendTriggerFinishedWhatsapp(country, finishedEvent);
     }
