@@ -1,4 +1,4 @@
-<div *ngIf="shouldShowAggregates()">
+<div *ngIf="showAggregatesSection()">
   <ion-grid class="ion-no-padding">
     <ion-row
       class="component-title"
@@ -45,7 +45,7 @@
           </ion-col>
           <ion-button
             fill="clear"
-            *ngIf="shouldShowPlaceCode(placeCode)"
+            *ngIf="showPlaceCodeView(placeCode)"
             [color]="isActiveAreas() ? 'light' : 'ibf-no-alert-primary'"
             class="place-code-reset-button"
             (click)="clearPlaceCode()"
