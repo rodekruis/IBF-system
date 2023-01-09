@@ -43,7 +43,7 @@
       "mobile": {
         "title": "IBF Portal - Mobile",
         "warning-message": "The IBF Portal is not optimized for mobile devices yet.",
-        "instructions-message": "To take advantage of all of it's feature, please open it on desktop or tablet."
+        "instructions-message": "For optimal use of all the features, please open it on desktop or tablet."
       },
       "tablet": {
         "title": "IBF Portal - Tablet",
