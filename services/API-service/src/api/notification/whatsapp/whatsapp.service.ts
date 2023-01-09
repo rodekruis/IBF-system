@@ -122,9 +122,12 @@ export class WhatsappService {
 
   public async sendTriggerFinishedWhatsapp(
     country: CountryEntity,
-    finishedEvents: EventSummaryCountry[],
+    finishedEvent: EventSummaryCountry,
   ) {
-    const message = this.configureNoTriggerMessage(country, finishedEvents);
+    const message = this.configureTriggerFinishedMessage(
+      country,
+      finishedEvent,
+    );
 
     await this.sendToUsers(country, message);
   }
@@ -257,11 +260,24 @@ export class WhatsappService {
     if (events.length > 0) {
       message += country.notificationInfo.whatsappMessage[
         'no-trigger-old-event'
-      ]
-        .replace('[startDate]', events[0].startDate)
-        .replace('[endDate]', events[0].endDate);
+      ].replace('[startDate]', events[0].startDate);
     }
     message += country.notificationInfo.whatsappMessage['no-trigger'];
+    return message;
+  }
+
+  private configureTriggerFinishedMessage(
+    country: CountryEntity,
+    event: EventSummaryCountry,
+  ): string {
+    let message = '';
+    if (event) {
+      message += country.notificationInfo.whatsappMessage[
+        'no-trigger-old-event'
+      ].replace('[startDate]', event.startDate);
+    }
+    message += country.notificationInfo.whatsappMessage['no-trigger'];
+    message += country.notificationInfo.whatsappMessage['trigger-finished'];
     return message;
   }
 
