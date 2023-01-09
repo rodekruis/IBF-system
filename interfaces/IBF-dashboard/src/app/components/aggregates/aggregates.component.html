@@ -25,9 +25,7 @@
             >
               <strong>
                 <ion-text
-                  [color]="
-                    isActiveAreas() ? 'ibf-primary' : 'ibf-no-alert-primary'
-                  "
+                  [color]="isActiveAreas() ? 'ibf-primary' : 'ibf-black'"
                   style="font-size: 20px"
                   >{{ getNumberAreasExposed() }}</ion-text
                 >
@@ -46,7 +44,7 @@
           <ion-button
             fill="clear"
             *ngIf="showPlaceCodeView(placeCode)"
-            [color]="isActiveAreas() ? 'light' : 'ibf-no-alert-primary'"
+            [color]="isActiveAreas() ? 'light' : 'ibf-black'"
             class="place-code-reset-button"
             (click)="clearPlaceCode()"
           >
