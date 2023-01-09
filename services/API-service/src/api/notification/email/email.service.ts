@@ -64,12 +64,12 @@ export class EmailService {
   public async sendTriggerFinishedEmail(
     country: CountryEntity,
     disasterType: DisasterType,
-    finishedEvents: EventSummaryCountry[],
+    finishedEvent: EventSummaryCountry,
   ): Promise<void> {
     const replaceKeyValues = await this.createReplaceKeyValuesTriggerFinished(
       country,
       disasterType,
-      finishedEvents,
+      finishedEvent,
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
     const emailSubject = `IBF ${disasterType} warning is now below threshold`;
@@ -226,7 +226,7 @@ export class EmailService {
   private async createReplaceKeyValuesTriggerFinished(
     country: CountryEntity,
     disasterType: DisasterType,
-    events: EventSummaryCountry[],
+    event: EventSummaryCountry,
   ): Promise<ReplaceKeyValue[]> {
     const keyValueReplaceList = [
       {
@@ -243,7 +243,7 @@ export class EmailService {
       },
       {
         replaceKey: '(START-DATE)',
-        replaceValue: events[0].startDate,
+        replaceValue: event.startDate,
       },
       {
         replaceKey: '(LINK-DASHBOARD)',

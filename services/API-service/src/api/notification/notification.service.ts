@@ -27,8 +27,8 @@ export class NotificationService {
       disasterType,
     );
 
-    const activeEvents = [];
-    const finishedEvents = [];
+    const activeEvents: EventSummaryCountry[] = [];
+    let finishedEvent: EventSummaryCountry; // This is now for floods only, so can only be 1 event, so not an array
     for await (const event of events) {
       if (
         await this.getNotifiableActiveEvent(
@@ -39,7 +39,7 @@ export class NotificationService {
       ) {
         activeEvents.push(event);
       } else if (this.getFinishedEvent(event, disasterType)) {
-        finishedEvents.push(event);
+        finishedEvent = event;
       }
     }
     if (activeEvents.length) {
@@ -57,18 +57,18 @@ export class NotificationService {
       }
     }
 
-    if (finishedEvents.length > 0) {
+    if (finishedEvent) {
       const country = await this.notificationContentService.getCountryNotificationInfo(
         countryCodeISO3,
       );
 
-      this.emailService.sendTriggerFinishedEmail(
-        country,
-        disasterType,
-        finishedEvents,
-      );
+      // this.emailService.sendTriggerFinishedEmail(
+      //   country,
+      //   disasterType,
+      //   finishedEvent,
+      // );
 
-      this.whatsappService.sendTriggerFinishedWhatsapp(country, finishedEvents);
+      this.whatsappService.sendTriggerFinishedWhatsapp(country, finishedEvent);
     }
   }
 
@@ -88,6 +88,7 @@ export class NotificationService {
         return true;
       }
     }
+    return false;
   }
 
   private async getNotifiableActiveEvent(
