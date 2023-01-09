@@ -32,14 +32,11 @@ export class DashboardPage implements OnInit {
       return;
     }
 
-    this.device = this.isPhone() ? 'mobile' : 'tablet';
-
-    if (
-      this.isPhone() ||
-      (this.isTablet() && screen.orientation.type.includes('portrait'))
-    ) {
-      this.showScreenOrientationPopover();
+    if (this.isTablet() && screen.orientation.type.includes('landscape')) {
+      return;
     }
+
+    this.showScreenOrientationPopover();
   }
 
   ngOnInit() {
@@ -73,7 +70,7 @@ export class DashboardPage implements OnInit {
       translucent: true,
       showBackdrop: true,
       componentProps: {
-        device: this.device,
+        device: this.isPhone() ? 'mobile' : 'tablet',
       },
     });
 
