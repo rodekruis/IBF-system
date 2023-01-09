@@ -19,6 +19,7 @@ export class DashboardPage implements OnInit {
   public isMultiCountry = false;
   private readonly adminRole = UserRole.Admin;
   public environmentConfiguration = environment.configuration;
+  private device = '';
 
   constructor(
     private authService: AuthService,
@@ -27,7 +28,16 @@ export class DashboardPage implements OnInit {
   ) {
     this.authService.getAuthSubscription().subscribe(this.onUserChange);
 
-    if (this.isTablet() && screen.orientation.type.includes('portrait')) {
+    if (!this.isPhone() && !this.isTablet()) {
+      return;
+    }
+
+    this.device = this.isPhone() ? 'mobile' : 'tablet';
+
+    if (
+      this.isPhone() ||
+      (this.isTablet() && screen.orientation.type.includes('portrait'))
+    ) {
       this.showScreenOrientationPopover();
     }
   }
@@ -49,13 +59,22 @@ export class DashboardPage implements OnInit {
     );
   }
 
+  private isPhone(): boolean {
+    return /android.+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
+      navigator.userAgent.toLowerCase(),
+    );
+  }
+
   private async showScreenOrientationPopover() {
     const popover = await this.popoverController.create({
       component: ScreenOrientationPopoverComponent,
       animated: true,
-      cssClass: 'ibf-popover ibf-popover-normal',
+      cssClass: `ibf-popover ${this.isTablet() ? 'ibf-popover-normal' : ''}`,
       translucent: true,
       showBackdrop: true,
+      componentProps: {
+        device: this.device,
+      },
     });
 
     await popover.present();

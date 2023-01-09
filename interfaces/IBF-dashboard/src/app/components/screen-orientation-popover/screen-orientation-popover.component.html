@@ -1,7 +1,7 @@
 <ion-card class="popover-window-card">
   <ion-card-header color="ibf-primary">
     <ion-card-title>{{
-      'dashboard-page.screen-orientation.title' | translate
+      'dashboard-page.screen-orientation.' + device + '.title' | translate
     }}</ion-card-title>
   </ion-card-header>
   <ion-card-content class="ion-padding-top ion-text-center">
@@ -9,12 +9,15 @@
       <ion-col>
         <ion-label class="ion-margin-bottom ion-text-wrap">
           <strong>{{
-            'dashboard-page.screen-orientation.rotate-message' | translate
+            'dashboard-page.screen-orientation.' + device + '.warning-message'
+              | translate
           }}</strong>
         </ion-label>
         <ion-label class="ion-text-wrap">
           {{
-            'dashboard-page.screen-orientation.check-lock-message' | translate
+            'dashboard-page.screen-orientation.' +
+              device +
+              '.instructions-message' | translate
           }}
         </ion-label>
       </ion-col>

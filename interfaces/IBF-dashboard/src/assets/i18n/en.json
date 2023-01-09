@@ -40,9 +40,16 @@
       "no-eap": { "yes": "ALERT", "no": "NO ALERTS" }
     },
     "screen-orientation": {
-      "title": "IBF Portal - Tablet",
-      "rotate-message": "To use the IBF Portal on a tablet, you must rotate it to landscape (horizontal) view.",
-      "check-lock-message": "If you are unable to do so, please check that the \"Portrait orientation lock\" is turned off."
+      "mobile": {
+        "title": "IBF Portal - Mobile",
+        "warning-message": "The IBF Portal is not optimized for mobile devices yet.",
+        "instructions-message": "To take advantage of all of it's feature, please open it on desktop or tablet."
+      },
+      "tablet": {
+        "title": "IBF Portal - Tablet",
+        "warning-message": "To use the IBF Portal on a tablet, you must rotate it to landscape (horizontal) view.",
+        "instructions-message": "If you are unable to do so, please check that the \"Portrait orientation lock\" is turned off."
+      }
     }
   },
   "aggregates-component": {
