@@ -18,7 +18,7 @@ export class ActionResultPopoverComponent implements OnInit {
       if (popover) {
         this.closePopover();
       }
-    }, 5000);
+    }, 10000);
   }
 
   public closePopover(): void {
