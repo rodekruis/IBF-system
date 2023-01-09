@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -18,6 +24,8 @@ import { EventState } from 'src/app/types/event-state';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { DisasterTypeService } from '../../services/disaster-type.service';
+import { EapActionsService } from '../../services/eap-actions.service';
+import { TriggeredArea } from '../../types/triggered-area';
 import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
 
 @Component({
@@ -26,6 +34,9 @@ import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/
   styleUrls: ['./aggregates.component.scss'],
 })
 export class AggregatesComponent implements OnInit, OnDestroy {
+  @Input()
+  public triggerStatus: string;
+
   public indicators: Indicator[] = [];
   public placeCode: PlaceCode;
   public placeCodeHover: PlaceCode;
@@ -34,7 +45,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private aggregateComponentTranslateNode = 'aggregates-component';
   private defaultHeaderLabelTranslateNode = 'default-header-label';
   private exposedPrefixTranslateNode = 'exposed-prefix';
+  private stoppedPrefixTranslateNode = 'stopped-prefix';
   private allPrefixTranslateNode = 'all-prefix';
+  private triggeredPlaceCodes: string[] = [];
+  public aggregatesPlaceCodes: string[] = [];
 
   private defaultHeaderLabel: string;
   private exposedPrefix: string;
@@ -52,6 +66,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private translateLayerInfoPopupsSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
+  private eapActionSubscription: Subscription;
 
   constructor(
     private countryService: CountryService,
@@ -64,15 +79,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
     private analyticsService: AnalyticsService,
+    private eapActionsService: EapActionsService,
   ) {
-    this.translateSubscription = this.translateService
-      .get(this.aggregateComponentTranslateNode)
-      .subscribe(this.onTranslate);
-
-    this.translateLayerInfoPopupsSubscription = this.translateService
-      .get('layer-info-popups.aggregates-section')
-      .subscribe(this.onTranslateLayerInfoPopups);
-
     this.initialEventStateSubscription = this.eventService
       .getInitialEventStateSubscription()
       .subscribe(this.onEventStateChange);
@@ -102,6 +110,18 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.indicatorSubscription = this.aggregatesService
       .getIndicators()
       .subscribe(this.onIndicatorChange);
+
+    this.translateSubscription = this.translateService
+      .get(this.aggregateComponentTranslateNode)
+      .subscribe(this.onTranslate);
+
+    this.translateLayerInfoPopupsSubscription = this.translateService
+      .get('layer-info-popups.aggregates-section')
+      .subscribe(this.onTranslateLayerInfoPopups);
+
+    this.eapActionSubscription = this.eapActionsService
+      .getTriggeredAreas()
+      .subscribe(this.onTriggeredAreasChange);
   }
 
   ngOnDestroy() {
@@ -114,12 +134,22 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.translateLayerInfoPopupsSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
+    this.eapActionSubscription.unsubscribe();
+  }
+
+  public shouldShowAggregates() {
+    return this.triggerStatus === 'trigger-active' || this.getAreaCount() > 0;
   }
 
   private onTranslate = (translatedStrings) => {
     this.defaultHeaderLabel =
       translatedStrings[this.defaultHeaderLabelTranslateNode];
-    this.exposedPrefix = translatedStrings[this.exposedPrefixTranslateNode];
+    this.exposedPrefix =
+      translatedStrings[
+        this.isActiveAreas()
+          ? this.exposedPrefixTranslateNode
+          : this.stoppedPrefixTranslateNode
+      ];
     this.allPrefix = translatedStrings[this.allPrefixTranslateNode];
   };
 
@@ -214,6 +244,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       indicatorName,
       placeCode ? placeCode.placeCode : null,
       numberFormat,
+      this.triggerStatus,
     );
   }
 
@@ -222,7 +253,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     let subHeaderLabel = '';
 
     const placeCode = this.placeCode || this.placeCodeHover;
-    if (placeCode) {
+    if (this.shouldShowPlaceCode(placeCode)) {
       headerLabel = placeCode.placeCodeName;
       if (placeCode.placeCodeParentName) {
         subHeaderLabel = `(${placeCode.placeCodeParentName})`;
@@ -233,10 +264,9 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           this.eventState?.activeTrigger &&
           this.country.adminRegionLabels[this.adminLevelService.adminLevel]
         ) {
-          const areaCount = this.aggregatesService.nrTriggeredAreas;
           const adminAreaLabel = this.country.adminRegionLabels[
             this.adminLevelService.adminLevel
-          ][areaCount > 1 ? 'plural' : 'singular'];
+          ][this.getAreaCount() === 1 ? 'singular' : 'plural'];
           headerLabel = `${this.exposedPrefix} ${adminAreaLabel}`;
         } else {
           headerLabel = `${this.allPrefix} ${this.country.countryName}`;
@@ -251,13 +281,12 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     let headerLabel;
 
     const placeCode = this.placeCode || this.placeCodeHover;
-    if (placeCode) {
+    if (this.shouldShowPlaceCode(placeCode)) {
       headerLabel = '';
     } else {
       if (this.country) {
         if (this.eventState?.activeTrigger) {
-          const areaCount = this.aggregatesService.nrTriggeredAreas;
-          headerLabel = `${areaCount}`;
+          headerLabel = `${this.getAreaCount()}`;
         } else {
           headerLabel = '';
         }
@@ -267,7 +296,47 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return headerLabel;
   }
 
+  public shouldShowPlaceCode(placeCode: PlaceCode): boolean {
+    return (
+      placeCode &&
+      (this.isCorrectStatusPlaceCode(placeCode) ||
+        this.isNonTriggeredPlaceCode(placeCode))
+    );
+  }
+
+  private isNonTriggeredPlaceCode(placeCode: PlaceCode): boolean {
+    return (
+      this.isActiveAreas() &&
+      !this.triggeredPlaceCodes.includes(placeCode.placeCode)
+    );
+  }
+
+  private isCorrectStatusPlaceCode(placeCode: PlaceCode): boolean {
+    return this.aggregatesPlaceCodes.includes(placeCode.placeCode);
+  }
+
   public clearPlaceCode() {
     this.placeCodeService.clearPlaceCode();
   }
+
+  public isActiveAreas(): boolean {
+    return this.triggerStatus === 'trigger-active' ? true : false;
+  }
+  private getAreaCount(): number {
+    return this.isActiveAreas()
+      ? this.aggregatesService.nrTriggerActiveAreas
+      : this.aggregatesService.nrTriggerStoppedAreas;
+  }
+
+  private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
+    if (!triggeredAreas) {
+      this.triggeredPlaceCodes = [];
+    }
+    this.triggeredPlaceCodes = triggeredAreas.map((a) => a.placeCode);
+    let filtered = [];
+    this.isActiveAreas()
+      ? (filtered = triggeredAreas.filter((a) => !a.stopped))
+      : (filtered = triggeredAreas.filter((a) => a.stopped));
+    this.aggregatesPlaceCodes = filtered.map((a) => a.placeCode);
+  };
 }

@@ -246,7 +246,7 @@
           class="ion-float-right"
         >
           <span class="ion-hide-sm-down">{{
-            'chat-component.generic.revert-selection' | translate
+            'chat-component.common.revert-selection' | translate
           }}</span>
           <ion-icon name="arrow-back" slot="start"></ion-icon>
         </ion-button>
@@ -269,7 +269,7 @@
           color="ibf-no-alert-primary"
           expand="block"
           [innerHTML]="
-            'chat-component.generic.reactivate-trigger-popup.' +
+            'chat-component.common.reactivate-trigger-popup.' +
               hasEap() +
               '.header' | translate
           "
@@ -290,7 +290,7 @@
         class="ion-float-right"
       >
         <span class="ion-hide-sm-down">{{
-          'chat-component.generic.revert-selection' | translate
+          'chat-component.common.revert-selection' | translate
         }}</span>
         <ion-icon name="arrow-back" slot="start"></ion-icon>
       </ion-button>
@@ -406,9 +406,8 @@
             expand="block"
             class="submit-button"
             [innerHTML]="
-              'chat-component.' +
-                disasterTypeName +
-                '.active-event.submit-button-label' | translate
+              'chat-component.common.save-actions.submit-button-label'
+                | translate
             "
           ></ion-button>
         </ion-row>
@@ -419,7 +418,7 @@
         color="ibf-primary"
         expand="block"
         [innerHTML]="
-          'chat-component.generic.stop-trigger-popup.' + hasEap() + '.header'
+          'chat-component.common.stop-trigger-popup.' + hasEap() + '.header'
             | translate
         "
       ></ion-button>

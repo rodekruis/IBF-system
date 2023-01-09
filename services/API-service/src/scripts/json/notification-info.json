@@ -97,7 +97,7 @@
     "countryCodeISO3": "SSD",
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/093cd804-0be0-21f3-c712-f210dd0f7c05.png",
     "triggerStatement": {
-      "floods": "A payam is triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 60% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the payams where the False Alarm Ratio > 0.35."
+      "floods": "Triggered areas (payams) are those in which the trigger threshold has been reached. The threshold is defined by two parameters from the 7-days GloFAS forecast: the return period of the forecasted flood and the probability of occurrence, these are updated on a daily basis. The trigger is issued when GloFAS forecasts an occurrence with a probability of at least 60% of a 5 year return period flood in the next 7 days. The GloFAS  will not trigger in areas where the False Alarm Ratio (FAR) &gt; 0.35."
     },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/G0GXqgiat5J69EQTEKVNec",

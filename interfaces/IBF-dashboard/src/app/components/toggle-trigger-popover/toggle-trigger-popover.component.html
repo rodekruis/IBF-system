@@ -7,7 +7,7 @@
       class="popover-close-button"
     ></ion-icon>
     <ion-card-title>{{
-      'chat-component.generic.' + stopNode + '.' + eapNode + '.header'
+      'chat-component.common.' + stopNode + '.' + eapNode + '.header'
         | translate
     }}</ion-card-title>
   </ion-card-header>
@@ -15,7 +15,7 @@
     <ion-item lines="none" class="ion-margin-bottom">
       <span
         [innerHTML]="
-          'chat-component.generic.' + stopNode + '.' + eapNode + '.message'
+          'chat-component.common.' + stopNode + '.' + eapNode + '.message'
             | translate
               : {
                   placeCodeName: placeCodeName,
@@ -32,7 +32,7 @@
           style="text-transform: uppercase"
           (click)="confirm()"
           >{{
-            'chat-component.generic.' + stopNode + '.' + eapNode + '.confirm'
+            'chat-component.common.' + stopNode + '.' + eapNode + '.confirm'
               | translate
           }}</ion-button
         >
@@ -42,7 +42,7 @@
           (click)="closePopover()"
         >
           {{
-            'chat-component.generic.' + stopNode + '.' + eapNode + '.cancel'
+            'chat-component.common.' + stopNode + '.' + eapNode + '.cancel'
               | translate
           }}
         </ion-button>
