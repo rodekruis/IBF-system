@@ -19,7 +19,6 @@ export class DashboardPage implements OnInit {
   public isMultiCountry = false;
   private readonly adminRole = UserRole.Admin;
   public environmentConfiguration = environment.configuration;
-  private device = '';
 
   constructor(
     private authService: AuthService,
