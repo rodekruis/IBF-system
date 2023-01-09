@@ -46,14 +46,10 @@ export class NotificationService {
       const country = await this.notificationContentService.getCountryNotificationInfo(
         countryCodeISO3,
       );
-      this.emailService.prepareAndSendEmail(
-        country,
-        disasterType,
-        activeEvents,
-      );
+      this.emailService.sendTriggerEmail(country, disasterType, activeEvents);
 
       if (country.notificationInfo.useWhatsapp) {
-        this.whatsappService.sendTriggerViaWhatsapp(
+        this.whatsappService.sendTriggerWhatsapp(
           country,
           disasterType,
           activeEvents,
@@ -65,10 +61,14 @@ export class NotificationService {
       const country = await this.notificationContentService.getCountryNotificationInfo(
         countryCodeISO3,
       );
-      this.whatsappService.sendTriggerFinishedViaWhatsapp(
+
+      this.emailService.sendTriggerFinishedEmail(
         country,
+        disasterType,
         finishedEvents,
       );
+
+      this.whatsappService.sendTriggerFinishedWhatsapp(country, finishedEvents);
     }
   }
 

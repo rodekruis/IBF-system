@@ -106,7 +106,7 @@ export class WhatsappService {
     return message;
   }
 
-  public async sendTriggerViaWhatsapp(
+  public async sendTriggerWhatsapp(
     country: CountryEntity,
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
@@ -120,7 +120,7 @@ export class WhatsappService {
     await this.sendToUsers(country, message);
   }
 
-  public async sendTriggerFinishedViaWhatsapp(
+  public async sendTriggerFinishedWhatsapp(
     country: CountryEntity,
     finishedEvents: EventSummaryCountry[],
   ) {
