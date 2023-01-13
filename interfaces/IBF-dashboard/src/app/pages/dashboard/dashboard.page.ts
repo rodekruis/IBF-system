@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { User } from 'src/app/models/user/user.model';
 import { environment } from 'src/environments/environment';
+import { ScreenOrientationPopoverComponent } from '../../components/screen-orientation-popover/screen-orientation-popover.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,8 +23,19 @@ export class DashboardPage implements OnInit {
   constructor(
     private authService: AuthService,
     private analyticsService: AnalyticsService,
+    private popoverController: PopoverController,
   ) {
     this.authService.getAuthSubscription().subscribe(this.onUserChange);
+
+    if (!this.isPhone() && !this.isTablet()) {
+      return;
+    }
+
+    if (this.isTablet() && screen.orientation.type.includes('landscape')) {
+      return;
+    }
+
+    this.showScreenOrientationPopover();
   }
 
   ngOnInit() {
@@ -35,4 +48,31 @@ export class DashboardPage implements OnInit {
       this.isMultiCountry = user.countries.length > 1;
     }
   };
+
+  private isTablet(): boolean {
+    return /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(
+      navigator.userAgent.toLowerCase(),
+    );
+  }
+
+  private isPhone(): boolean {
+    return /android.+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
+      navigator.userAgent.toLowerCase(),
+    );
+  }
+
+  private async showScreenOrientationPopover() {
+    const popover = await this.popoverController.create({
+      component: ScreenOrientationPopoverComponent,
+      animated: true,
+      cssClass: `ibf-popover ${this.isTablet() ? 'ibf-popover-normal' : ''}`,
+      translucent: true,
+      showBackdrop: true,
+      componentProps: {
+        device: this.isPhone() ? 'mobile' : 'tablet',
+      },
+    });
+
+    await popover.present();
+  }
 }

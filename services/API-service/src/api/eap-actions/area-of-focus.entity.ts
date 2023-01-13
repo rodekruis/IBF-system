@@ -12,6 +12,10 @@ export class AreaOfFocusEntity {
   @Column()
   public label: string;
 
+  @ApiProperty({ example: 'Shelter description' })
+  @Column({ nullable: true })
+  public description: string;
+
   @ApiProperty({ example: 'Shelter.svg' })
   @Column()
   public icon: string;

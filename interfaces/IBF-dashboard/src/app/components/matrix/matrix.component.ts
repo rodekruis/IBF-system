@@ -40,6 +40,10 @@ export class MatrixComponent implements OnDestroy {
       .subscribe(this.onLayerChange);
   }
 
+  ngOnDestroy() {
+    this.layerSubscription.unsubscribe();
+  }
+
   private onLayerChange = (newLayer) => {
     if (newLayer) {
       const newLayerIndex = this.layers.findIndex(
@@ -63,7 +67,11 @@ export class MatrixComponent implements OnDestroy {
     const popover = await this.popoverController.create({
       component: LayerControlInfoPopoverComponent,
       animated: true,
-      cssClass: 'ibf-popover ibf-popover-normal',
+      cssClass: `ibf-popover ibf-popover-normal ${
+        this.eventService.state.event?.thresholdReached
+          ? 'trigger-alert'
+          : 'no-alert'
+      }`,
       translucent: true,
       showBackdrop: true,
       componentProps: { layer },
@@ -79,10 +87,6 @@ export class MatrixComponent implements OnDestroy {
     });
 
     popover.present();
-  }
-
-  ngOnDestroy() {
-    this.layerSubscription.unsubscribe();
   }
 
   public toggleLayer(layer: IbfLayer): void {

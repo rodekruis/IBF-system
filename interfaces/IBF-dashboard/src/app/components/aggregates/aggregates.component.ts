@@ -168,6 +168,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.disasterType = disasterType;
   };
 
+  private onEventStateChange = (eventState: EventState) => {
+    this.eventState = eventState;
+  };
+
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
     this.placeCode = placeCode;
     this.changeDetectorRef.detectChanges();
@@ -190,7 +194,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     const popover = await this.popoverController.create({
       component: LayerControlInfoPopoverComponent,
       animated: true,
-      cssClass: 'ibf-popover ibf-popover-normal',
+      cssClass: `ibf-popover ibf-popover-normal ${
+        this.eventService.state.event?.thresholdReached
+          ? 'trigger-alert'
+          : 'no-alert'
+      }`,
       translucent: true,
       showBackdrop: true,
       componentProps: {
@@ -317,10 +325,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public clearPlaceCode() {
     this.placeCodeService.clearPlaceCode();
   }
-
-  private onEventStateChange = (eventState: EventState) => {
-    this.eventState = eventState;
-  };
 
   public isActiveAreas(): boolean {
     return this.triggerStatus === 'trigger-active' ? true : false;
