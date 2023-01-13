@@ -12,7 +12,7 @@
     "welcome": "Hello! Welcome to IBF.",
     "instruction": "This chat will guide you through the system. You will find it to the left of the screen. Please login below.",
     "video": "Click for the IBF Guide.",
-    "note": "NOTE: This dashboard works best in Chrome, Firefox, Safari and Microsoft Edge. The dashboard is not compatible with Internet Explorer.",
+    "note": "NOTE: This portal works best on desktop or tablet using Chrome, Firefox, Safari and Microsoft Edge.<br>The portal is not compatible with Internet Explorer.<br>The portal is not optimized for mobile phones yet.",
     "forgot-password": "Forgot password?",
     "forgot-password-message": "If you forgot your password please send a request to ",
     "environment-label": { "production": "Live", "stage": "Demo" }
@@ -38,6 +38,18 @@
     "triggered-message": {
       "eap": { "yes": "TRIGGERED", "no": "NON-TRIGGERED" },
       "no-eap": { "yes": "ALERT", "no": "NO ALERTS" }
+    },
+    "screen-orientation": {
+      "mobile": {
+        "title": "IBF Portal - Mobile Phones",
+        "warning-message": "The IBF Portal is not optimized for mobile phones yet.",
+        "instructions-message": "For optimal use of all the features, please open it on desktop or tablet."
+      },
+      "tablet": {
+        "title": "IBF Portal - Tablet",
+        "warning-message": "To use the IBF Portal on a tablet, you must rotate it to landscape (horizontal) view.",
+        "instructions-message": "If you are unable to do so, please check that the \"Portrait orientation lock\" is turned off."
+      }
     }
   },
   "aggregates-component": {
