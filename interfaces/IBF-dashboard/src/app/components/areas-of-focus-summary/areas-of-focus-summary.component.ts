@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -6,6 +7,9 @@ import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EventState } from 'src/app/types/event-state';
+import { AnalyticsEvent, AnalyticsPage } from '../../analytics/analytics.enum';
+import { AnalyticsService } from '../../analytics/analytics.service';
+import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
 
 @Component({
   selector: 'app-areas-of-focus-summary',
@@ -29,6 +33,8 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private changeDetectorRef: ChangeDetectorRef,
+    private popoverController: PopoverController,
+    private analyticsService: AnalyticsService,
   ) {}
 
   ngOnInit() {
@@ -120,4 +126,36 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
   };
+
+  public async moreInfo(areaOfFocus: any): Promise<void> {
+    const { id, label, description } = areaOfFocus;
+
+    const popover = await this.popoverController.create({
+      component: LayerControlInfoPopoverComponent,
+      animated: true,
+      cssClass: `ibf-popover ibf-popover-normal ${
+        this.eventService.state.event?.thresholdReached
+          ? 'trigger-alert'
+          : 'no-alert'
+      }`,
+      translucent: true,
+      showBackdrop: true,
+      componentProps: {
+        layer: {
+          label,
+          description,
+        },
+      },
+    });
+
+    this.analyticsService.logEvent(AnalyticsEvent.aggregateInformation, {
+      indicator: id,
+      page: AnalyticsPage.dashboard,
+      isActiveEvent: this.eventService.state.activeEvent,
+      isActiveTrigger: this.eventService.state.activeTrigger,
+      component: this.constructor.name,
+    });
+
+    popover.present();
+  }
 }

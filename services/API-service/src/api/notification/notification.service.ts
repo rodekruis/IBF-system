@@ -68,7 +68,12 @@ export class NotificationService {
         finishedEvent,
       );
 
-      this.whatsappService.sendTriggerFinishedWhatsapp(country, finishedEvent);
+      if (country.notificationInfo.useWhatsapp) {
+        this.whatsappService.sendTriggerFinishedWhatsapp(
+          country,
+          finishedEvent,
+        );
+      }
     }
   }
 
