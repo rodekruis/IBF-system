@@ -53,12 +53,19 @@ This is the repository for the IBF-system. It includes a.o.:
 
 5. (Only if connecting local setup to remote database): Whitelist your machine IP at the database server
 
+### Using npm commands
+
+From root run
+
+- npm run start:services
+- npm run start:interface
+
 ### Using Docker
 
 ```
 docker-compose -f docker-compose.yml up -d # for production
 
-docker-compose up -d # for development
+docker-compose up -d # for development (NOTE: this does not start the ibf-dashboard!)
 
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d # for development (same as previous line)
 
@@ -83,7 +90,6 @@ For IBF-dashboard
 Suggestion: load everything through Docker, except IBF-dashboard. This has the benefit that changes in front-end code are immediately reflected, instead of having to rebuild.
 
 - `docker-compose up -d`
-- `docker-compose stop ibf-dashboard`
 - `cd interfaces/IBF-dashboard`
 - `npm start`
 

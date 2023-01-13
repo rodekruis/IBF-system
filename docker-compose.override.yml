@@ -17,13 +17,7 @@ services:
       - api-network
 
   ibf-dashboard:
-    command: ['npm', 'run', 'start']
-    environment:
-      - NG_CONFIGURATION=development
-    ports:
-      - 4200:4200
-    volumes:
-      - ./interfaces/IBF-dashboard:/home/node/app
+    entrypoint: ['echo', 'Service ibf-dashboard disabled']
 
   ibf-geoserver:
     ports:
