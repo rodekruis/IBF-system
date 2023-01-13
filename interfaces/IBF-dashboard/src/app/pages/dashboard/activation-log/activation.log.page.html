@@ -22,14 +22,22 @@
       id="table-header"
       class="ion-no-padding"
     >
-      <ion-button
-        size="small"
-        color="ibf-primary"
-        class="ion-margin-vertical"
-        (click)="copyToClipboard()"
-      >
-        {{ 'activation-page.copy-to-clipboard' | translate }}
-      </ion-button>
+      <ion-row *ngIf="activationLogs['headerData']">
+        <ion-col class="explanation" size="9">
+          <p>{{ 'activation-page.page-explanation' | translate }}</p>
+          <p>{{ 'activation-page.copy-instructions' | translate }}</p>
+        </ion-col>
+        <ion-col class="ion-text-right" size="3">
+          <ion-button
+            size="small"
+            color="ibf-primary"
+            class="ion-margin-vertical"
+            (click)="copyToClipboard()"
+          >
+            {{ 'activation-page.copy-to-clipboard' | translate }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
       <ion-row class="table-row">
         <ion-col
           *ngFor="let header of activationLogs['headerData']"
@@ -41,9 +49,13 @@
         </ion-col>
       </ion-row>
     </div>
-    <div *ngIf="activationLogs['rowsData']" id="table-body">
+    <div
+      *ngIf="activationLogs['rowsData']"
+      id="table-body"
+      class="ion-margin-bottom"
+    >
       <ion-row *ngFor="let row of activationLogs['rowsData']" class="table-row">
-        <ion-col class="table-cell" *ngFor="let data of row">
+        <ion-col class="table-cell table-body-cell" *ngFor="let data of row">
           <ion-text>{{ data }}</ion-text>
         </ion-col>
       </ion-row>
