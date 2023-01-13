@@ -46,18 +46,33 @@ export class EmailService {
     return Number(segments.find(s => s[0] === countryCodeISO3)[1]);
   }
 
-  public async prepareAndSendEmail(
+  public async sendTriggerEmail(
     country: CountryEntity,
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
   ): Promise<void> {
-    const replaceKeyValues = await this.createReplaceKeyValues(
+    const replaceKeyValues = await this.createReplaceKeyValuesTrigger(
       country,
       disasterType,
       activeEvents,
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
     const emailSubject = `IBF ${disasterType} warning`;
+    this.sendEmail(emailSubject, emailHtml, country.countryCodeISO3);
+  }
+
+  public async sendTriggerFinishedEmail(
+    country: CountryEntity,
+    disasterType: DisasterType,
+    finishedEvent: EventSummaryCountry,
+  ): Promise<void> {
+    const replaceKeyValues = await this.createReplaceKeyValuesTriggerFinished(
+      country,
+      disasterType,
+      finishedEvent,
+    );
+    const emailHtml = this.formatEmail(replaceKeyValues);
+    const emailSubject = `IBF ${disasterType} warning is now below threshold`;
     this.sendEmail(emailSubject, emailHtml, country.countryCodeISO3);
   }
 
@@ -94,12 +109,24 @@ export class EmailService {
     await this.mailchimp.post(`/campaigns/${createResult.id}/actions/send`);
   }
 
-  private async createReplaceKeyValues(
+  private async createReplaceKeyValuesTrigger(
     country: CountryEntity,
     disasterType: DisasterType,
     events: EventSummaryCountry[],
   ): Promise<ReplaceKeyValue[]> {
-    const emailKeyValueReplaceList = [
+    const keyValueReplaceList = [
+      {
+        replaceKey: '(EMAIL-BODY)',
+        replaceValue: this.getEmailBody(false),
+      },
+      {
+        replaceKey: '(HEADER-EVENT-OVERVIEW)',
+        replaceValue: await this.getHeaderEventOverview(
+          country,
+          disasterType,
+          events,
+        ),
+      },
       {
         replaceKey: '(SOCIAL-MEDIA-PART)',
         replaceValue: this.getSocialMediaHtml(country),
@@ -119,12 +146,6 @@ export class EmailService {
           month: 'short',
           year: 'numeric',
         }),
-      },
-      {
-        replaceKey: '(LEAD-DATE-LIST-SHORT)',
-        replaceValue: (
-          await this.getLeadTimeList(country, disasterType, events)
-        )['leadTimeListShort'],
       },
       {
         replaceKey: '(LEAD-DATE-LIST-LONG)',
@@ -164,25 +185,23 @@ export class EmailService {
       },
       {
         replaceKey: '(ADMIN-AREA-PLURAL)',
-        replaceValue:
-          country.adminRegionLabels[
-            String(
-              country.countryDisasterSettings.find(
-                s => s.disasterType === disasterType,
-              ).defaultAdminLevel,
-            )
-          ].plural,
+        replaceValue: country.adminRegionLabels[
+          String(
+            country.countryDisasterSettings.find(
+              s => s.disasterType === disasterType,
+            ).defaultAdminLevel,
+          )
+        ].plural.toLowerCase(),
       },
       {
         replaceKey: '(ADMIN-AREA-SINGULAR)',
-        replaceValue:
-          country.adminRegionLabels[
-            String(
-              country.countryDisasterSettings.find(
-                s => s.disasterType === disasterType,
-              ).defaultAdminLevel,
-            )
-          ].singular,
+        replaceValue: country.adminRegionLabels[
+          String(
+            country.countryDisasterSettings.find(
+              s => s.disasterType === disasterType,
+            ).defaultAdminLevel,
+          )
+        ].singular.toLowerCase(),
       },
       {
         replaceKey: '(DISASTER-TYPE)',
@@ -199,7 +218,107 @@ export class EmailService {
         ),
       },
     ];
-    return emailKeyValueReplaceList;
+    return keyValueReplaceList;
+  }
+
+  private async createReplaceKeyValuesTriggerFinished(
+    country: CountryEntity,
+    disasterType: DisasterType,
+    event: EventSummaryCountry,
+  ): Promise<ReplaceKeyValue[]> {
+    const keyValueReplaceList = [
+      {
+        replaceKey: '(EMAIL-BODY)',
+        replaceValue: this.getEmailBody(true),
+      },
+      {
+        replaceKey: '(HEADER-EVENT-OVERVIEW)',
+        replaceValue: '',
+      },
+      {
+        replaceKey: '(IMG-LOGO)',
+        replaceValue: country.notificationInfo.logo,
+      },
+      {
+        replaceKey: '(START-DATE)',
+        replaceValue: event.startDate,
+      },
+      {
+        replaceKey: '(LINK-DASHBOARD)',
+        replaceValue: process.env.DASHBOARD_URL,
+      },
+      {
+        replaceKey: '(SOCIAL-MEDIA-PART)',
+        replaceValue: this.getSocialMediaHtml(country),
+      },
+      {
+        replaceKey: '(LINK-EAP-SOP)',
+        replaceValue: country.countryDisasterSettings.find(
+          s => s.disasterType === disasterType,
+        ).eapLink,
+      },
+      {
+        replaceKey: '(SOCIAL-MEDIA-LINK)',
+        replaceValue: country.notificationInfo.linkSocialMediaUrl,
+      },
+      {
+        replaceKey: '(SOCIAL-MEDIA-TYPE)',
+        replaceValue: country.notificationInfo.linkSocialMediaType,
+      },
+      {
+        replaceKey: '(VIDEO-PDF-LINKS)',
+        replaceValue: this.getVideoPdfLinks(
+          country.notificationInfo.linkVideo,
+          country.notificationInfo.linkPdf,
+        ),
+      },
+      {
+        replaceKey: '(DISASTER-TYPE)',
+        replaceValue: this.notificationContentService.firstCharOfWordsToUpper(
+          (await this.notificationContentService.getDisaster(disasterType))
+            .label,
+        ),
+      },
+      {
+        replaceKey: this.placeholderToday,
+        replaceValue: new Date().toLocaleDateString('default', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+        }),
+      },
+    ];
+    return keyValueReplaceList;
+  }
+
+  private getEmailBody(triggerFinished: boolean): string {
+    if (triggerFinished) {
+      return fs.readFileSync(
+        './src/api/notification/email/html/trigger-finished.html',
+        'utf8',
+      );
+    } else {
+      return fs.readFileSync(
+        './src/api/notification/email/html/trigger-notification.html',
+        'utf8',
+      );
+    }
+  }
+
+  private async getHeaderEventOverview(
+    country: CountryEntity,
+    disasterType: DisasterType,
+    activeEvents: EventSummaryCountry[],
+  ): Promise<string> {
+    const leadTimeListShort = (
+      await this.getLeadTimeList(country, disasterType, activeEvents)
+    )['leadTimeListShort'];
+    return fs
+      .readFileSync(
+        './src/api/notification/email/html/header-event-overview.html',
+        'utf8',
+      )
+      .replace('(LEAD-DATE-LIST-SHORT)', leadTimeListShort);
   }
 
   private getVideoPdfLinks(videoLink: string, pdfLink: string) {
@@ -216,9 +335,7 @@ export class EmailService {
                         font-weight: bold;
                         color: #0c0c0c;
                         display: inline-block;
-                    " >
-                        here
-                    </a>`;
+                    " >video</a>`;
 
     const linkPdfHTML = `<a href="${pdfLink}"
                         target="_blank"
@@ -231,23 +348,21 @@ export class EmailService {
                         font-weight: bold;
                         color: #0c0c0c;
                         display: inline-block;
-                        "  >
-                        here
-                    </a>`;
+                        "  >PDF</a>`;
     let videoStr = '';
     if (videoLink) {
-      videoStr = 'Video' + linkVideoHTML;
+      videoStr = ' ' + linkVideoHTML;
     }
     let pdfStr = '';
     if (pdfLink) {
-      pdfStr = 'PDF' + linkPdfHTML;
+      pdfStr = ' ' + linkPdfHTML;
     }
-    let andStr = '';
+    let orStr = '';
     if (videoStr && pdfStr) {
-      andStr = 'and';
+      orStr = ' or';
     }
     if (videoStr || pdfStr) {
-      return `See instructions for the dashboard in the form of a ${videoStr} ${andStr} ${pdfStr}`;
+      return `See instructions for the IBF-portal in${videoStr}${orStr}${pdfStr}.`;
     }
   }
 
@@ -550,7 +665,7 @@ export class EmailService {
 
   private formatEmail(emailKeyValueReplaceList: ReplaceKeyValue[]): string {
     let emailHtml = fs.readFileSync(
-      './src/api/notification/email/html/trigger-notification.html',
+      './src/api/notification/email/html/base.html',
       'utf8',
     );
     for (const entry of emailKeyValueReplaceList) {

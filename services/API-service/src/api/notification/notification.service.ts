@@ -27,40 +27,71 @@ export class NotificationService {
       disasterType,
     );
 
-    const activeEvents = [];
+    const activeEvents: EventSummaryCountry[] = [];
+    let finishedEvent: EventSummaryCountry; // This is now for floods only, so can only be 1 event, so not an array
     for await (const event of events) {
       if (
-        await this.shouldSendNotification(event, disasterType, countryCodeISO3)
+        await this.getNotifiableActiveEvent(
+          event,
+          disasterType,
+          countryCodeISO3,
+        )
       ) {
         activeEvents.push(event);
+      } else if (this.getFinishedEvent(event, disasterType)) {
+        finishedEvent = event;
       }
     }
-
     if (activeEvents.length) {
       const country = await this.notificationContentService.getCountryNotificationInfo(
         countryCodeISO3,
       );
-      this.emailService.prepareAndSendEmail(
-        country,
-        disasterType,
-        activeEvents,
-      );
+      this.emailService.sendTriggerEmail(country, disasterType, activeEvents);
 
       if (country.notificationInfo.useWhatsapp) {
-        this.whatsappService.sendTriggerViaWhatsapp(
+        this.whatsappService.sendTriggerWhatsapp(
           country,
           disasterType,
           activeEvents,
         );
       }
-    } else {
-      console.log(
-        'No notifications sent, as there is no event that satifies notification thresholds',
+    }
+
+    if (finishedEvent) {
+      const country = await this.notificationContentService.getCountryNotificationInfo(
+        countryCodeISO3,
       );
+
+      this.emailService.sendTriggerFinishedEmail(
+        country,
+        disasterType,
+        finishedEvent,
+      );
+
+      this.whatsappService.sendTriggerFinishedWhatsapp(country, finishedEvent);
     }
   }
 
-  private async shouldSendNotification(
+  private getFinishedEvent(
+    event: EventSummaryCountry,
+    disasterType: DisasterType,
+  ) {
+    // For now only do this for floods
+    if (disasterType === DisasterType.Floods) {
+      const date = new Date();
+      const yesterdayActiveDate = new Date(date.setDate(date.getDate() + 6)); // determine yesterday still active events by endDate lying (7 - 1) days in the future
+      if (
+        !event.activeTrigger &&
+        new Date(event.endDate) >=
+          new Date(yesterdayActiveDate.setHours(0, 0, 0, 0))
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private async getNotifiableActiveEvent(
     event: EventSummaryCountry,
     disasterType: DisasterType,
     countryCodeISO3: string,
