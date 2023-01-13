@@ -29,8 +29,11 @@
                   style="font-size: 20px"
                   >{{ getNumberAreasExposed() }}</ion-text
                 >
-                {{ getLabelAreasExposed().headerLabel
-                }}<span
+                <span style="color: var(--ion-color-ibf-black)">
+                  {{ getLabelAreasExposed().headerLabel }}
+                </span>
+                <span
+                  style="color: var(--ion-color-ibf-black)"
                   *ngIf="!isActiveAreas() && (placeCode || placeCodeHover)"
                   >{{ ' '
                   }}{{
