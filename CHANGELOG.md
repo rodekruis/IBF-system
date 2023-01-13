@@ -1,3 +1,22 @@
+# [0.214.0](https://github.com/rodekruis/IBF-system/compare/v0.213.0...v0.214.0) (2023-01-13)
+
+
+### Bug Fixes
+
+* remove unused variable AB[#17166](https://github.com/rodekruis/IBF-system/issues/17166) ([a5bf93f](https://github.com/rodekruis/IBF-system/commit/a5bf93f7ab52b92dc7af9e2de5093259d05c2447))
+
+
+### Features
+
+* add check for mobile AB[#17166](https://github.com/rodekruis/IBF-system/issues/17166) ([483b616](https://github.com/rodekruis/IBF-system/commit/483b61639b451e5c1f23498f4cd0f5d1fdc79067))
+* add check for tablet AB[#17168](https://github.com/rodekruis/IBF-system/issues/17168) ([8edbc07](https://github.com/rodekruis/IBF-system/commit/8edbc0772598da14c88ca85c82a0e0e83c19df37))
+* add popup if landscape AB[#17157](https://github.com/rodekruis/IBF-system/issues/17157) ([871f1fa](https://github.com/rodekruis/IBF-system/commit/871f1facce586b32ced66710c910d111fc693ff0))
+* refactor code AB[#17166](https://github.com/rodekruis/IBF-system/issues/17166) ([07ab01b](https://github.com/rodekruis/IBF-system/commit/07ab01b8eafff350755946bbc3d2b590e4ee6865))
+* specify "phones" for mobile AB[#17166](https://github.com/rodekruis/IBF-system/issues/17166) AB[#17189](https://github.com/rodekruis/IBF-system/issues/17189) ([7a7383c](https://github.com/rodekruis/IBF-system/commit/7a7383cd8c28618e1e6b14b3632e9086b188abd6))
+* update mobile copy AB[#17183](https://github.com/rodekruis/IBF-system/issues/17183) ([01430af](https://github.com/rodekruis/IBF-system/commit/01430af2c40d9f7e8691f331f8174901d8706947))
+
+
+
 # [0.213.0](https://github.com/rodekruis/IBF-system/compare/v0.212.0...v0.213.0) (2023-01-06)
 
 
@@ -108,17 +127,6 @@
 
 * include kobo-form in whatsapp AB[#16766](https://github.com/rodekruis/IBF-system/issues/16766) ([f74adbb](https://github.com/rodekruis/IBF-system/commit/f74adbb457f811502978476a8a1277699129b380))
 * update notification-info via endpoint AB[#16766](https://github.com/rodekruis/IBF-system/issues/16766) ([f38a2b3](https://github.com/rodekruis/IBF-system/commit/f38a2b37d31dfb68f2163ef63cf7ad6ab87b6bb8))
-
-
-
-## [0.208.3](https://github.com/rodekruis/IBF-system/compare/v0.208.2...v0.208.3) (2022-12-16)
-
-
-### Bug Fixes
-
-* process logos in email AB[#16776](https://github.com/rodekruis/IBF-system/issues/16776) ([b920d3b](https://github.com/rodekruis/IBF-system/commit/b920d3b43d2c7b2b72a43073c35b679e029738a8))
-* update glofas location AB[#16778](https://github.com/rodekruis/IBF-system/issues/16778) ([a91917e](https://github.com/rodekruis/IBF-system/commit/a91917e73d775fc772f3875816807e07040e2e1f))
-* updated layer descriptions + trigger statement AB[#16775](https://github.com/rodekruis/IBF-system/issues/16775) ([931070d](https://github.com/rodekruis/IBF-system/commit/931070d1cac9e61dd4cd853ab0fa5058710a61df))
 
 
 
