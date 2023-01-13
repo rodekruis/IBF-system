@@ -34,4 +34,8 @@ export class UploadTriggerPerLeadTimeDto {
   @ValidateNested()
   @Type(() => TriggerPerLeadTimeDto)
   public triggersPerLeadTime: TriggerPerLeadTimeDto[];
+
+  @ApiProperty({ example: new Date() })
+  @IsOptional()
+  public date: Date;
 }

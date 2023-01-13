@@ -45,8 +45,8 @@ export class AdminAreaDynamicDataService {
       area.value = exposurePlaceCode.amount;
       area.adminLevel = uploadExposure.adminLevel;
       area.placeCode = exposurePlaceCode.placeCode;
-      area.date = new Date();
-      area.timestamp = new Date();
+      area.date = uploadExposure.date || new Date();
+      area.timestamp = uploadExposure.date || new Date();
       area.countryCodeISO3 = uploadExposure.countryCodeISO3;
       area.leadTime = uploadExposure.leadTime;
       area.disasterType = uploadExposure.disasterType;
@@ -86,7 +86,7 @@ export class AdminAreaDynamicDataService {
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
     if (uploadExposure.leadTime.includes(LeadTimeUnit.month)) {
-      const date = new Date();
+      const date = uploadExposure.date || new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       await this.adminAreaDynamicDataRepo.delete({
         indicator: uploadExposure.dynamicIndicator,
@@ -104,10 +104,13 @@ export class AdminAreaDynamicDataService {
         countryCodeISO3: uploadExposure.countryCodeISO3,
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
-        date: new Date(),
+        date: uploadExposure.date || new Date(),
         eventName: uploadExposure.eventName || IsNull(),
         timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(uploadExposure.disasterType),
+          this.helperService.getLast6hourInterval(
+            uploadExposure.disasterType,
+            uploadExposure.date,
+          ),
         ),
       });
     } else {
@@ -118,7 +121,7 @@ export class AdminAreaDynamicDataService {
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
         eventName: uploadExposure.eventName || IsNull(),
-        date: new Date(),
+        date: uploadExposure.date || new Date(),
       });
     }
   }
@@ -142,6 +145,7 @@ export class AdminAreaDynamicDataService {
         thresholdReached: trigger && !eventBelowTrigger,
       },
     ];
+    uploadTriggerPerLeadTimeDto.date = uploadExposure.date || new Date();
     await this.eventService.uploadTriggerPerLeadTime(
       uploadTriggerPerLeadTimeDto,
     );

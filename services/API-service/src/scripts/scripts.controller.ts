@@ -78,6 +78,10 @@ export class MockAll {
   @ApiProperty()
   @IsNotEmpty()
   public readonly triggered: boolean;
+
+  @ApiProperty({ example: new Date() })
+  @IsOptional()
+  public readonly date: Date;
 }
 
 export enum TyphoonScenario {
@@ -112,6 +116,10 @@ export class MockTyphoonScenario {
   @ApiProperty({ example: true })
   @IsNotEmpty()
   public readonly removeEvents: boolean;
+
+  @ApiProperty({ example: new Date() })
+  @IsOptional()
+  public readonly date: Date;
 }
 
 @Controller('scripts')

@@ -1,4 +1,10 @@
-import { IsArray, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { Type } from 'class-transformer';
@@ -24,4 +30,8 @@ export class UploadTyphoonTrackDto {
   @ValidateNested()
   @Type(() => TrackpointDetailsDto)
   public trackpointDetails: TrackpointDetailsDto[];
+
+  @ApiProperty({ example: new Date() })
+  @IsOptional()
+  public readonly date: Date;
 }

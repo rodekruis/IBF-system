@@ -117,13 +117,13 @@ export class EventService {
     uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ): Promise<void> {
     const triggersPerLeadTime: TriggerPerLeadTime[] = [];
-    const timestamp = new Date();
+    const timestamp = uploadTriggerPerLeadTimeDto.date || new Date();
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
       // Delete existing entries in case of a re-run of the pipeline for some reason
       await this.deleteDuplicates(uploadTriggerPerLeadTimeDto, leadTime);
 
       const triggerPerLeadTime = new TriggerPerLeadTime();
-      triggerPerLeadTime.date = new Date();
+      triggerPerLeadTime.date = uploadTriggerPerLeadTimeDto.date || new Date();
       triggerPerLeadTime.timestamp = timestamp;
       triggerPerLeadTime.countryCodeISO3 =
         uploadTriggerPerLeadTimeDto.countryCodeISO3;
@@ -152,7 +152,7 @@ export class EventService {
       s => s.disasterType === uploadTriggerPerLeadTimeDto.disasterType,
     ).activeLeadTimes[0].leadTimeName;
     if (leadTime.includes(LeadTimeUnit.month)) {
-      const date = new Date();
+      const date = uploadTriggerPerLeadTimeDto.date || new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       await this.triggerPerLeadTimeRepository.delete({
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
@@ -167,10 +167,11 @@ export class EventService {
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
-        date: new Date(),
+        date: uploadTriggerPerLeadTimeDto.date || new Date(),
         timestamp: MoreThanOrEqual(
           this.helperService.getLast6hourInterval(
             uploadTriggerPerLeadTimeDto.disasterType,
+            uploadTriggerPerLeadTimeDto.date,
           ),
         ),
       });
@@ -180,7 +181,7 @@ export class EventService {
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
-        date: new Date(),
+        date: uploadTriggerPerLeadTimeDto.date || new Date(),
       });
     }
   }
