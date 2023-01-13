@@ -1,55 +1,57 @@
-version: "3.8"
+version: '3.8'
 
 services:
-    ibf-api-service:
-        command: ["npm", "run", "start:dev"]
-        environment:
-            - NODE_ENV=development
-        volumes:
-            - ./services/API-service:/home/ibf/api-service
-        ports:
-            - 3000:3000
-        depends_on:
-            - ibf-local-db
-        networks:
-            - web-server-network
-            - api-network
+  ibf-api-service:
+    command: ['npm', 'run', 'start:dev']
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - 'api_service_node_modules:/home/ibf/api-service/node_modules'
+      - ./services/API-service:/home/ibf/api-service
+    ports:
+      - 3000:3000
+    depends_on:
+      - ibf-local-db
+    networks:
+      - web-server-network
+      - api-network
 
-    ibf-dashboard:
-        command: ["npm", "run", "start"]
-        environment:
-            - NG_CONFIGURATION=development
-        ports:
-            - 4200:4200
-        volumes:
-            - ./interfaces/IBF-dashboard:/home/node/app
+  ibf-dashboard:
+    command: ['npm', 'run', 'start']
+    environment:
+      - NG_CONFIGURATION=development
+    ports:
+      - 4200:4200
+    volumes:
+      - ./interfaces/IBF-dashboard:/home/node/app
 
-    ibf-geoserver:
-        ports:
-            - 8081:8080
-        volumes:
-            - ./services/API-service/geoserver-volume/raster-files:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
-            - ./services/API-service/geoserver-volume/geoserver-layers:/opt/geoserver/data_dir/workspaces/ibf-system
+  ibf-geoserver:
+    ports:
+      - 8081:8080
+    volumes:
+      - ./services/API-service/geoserver-volume/raster-files:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
+      - ./services/API-service/geoserver-volume/geoserver-layers:/opt/geoserver/data_dir/workspaces/ibf-system
 
-    nginx:
-        volumes:
-            - ./nginx/conf.d:/etc/nginx/user.conf.d
-            - ./nginx/letsencrypt:/etc/letsencrypt
+  nginx:
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/user.conf.d
+      - ./nginx/letsencrypt:/etc/letsencrypt
 
-    ibf-local-db:
-        image: postgis/postgis
-        environment:
-            - POSTGRES_USER=${DB_USERNAME}
-            - POSTGRES_PASSWORD=${DB_PASSWORD}
-            - POSTGRES_DB=${DB_DATABASE}
-        volumes:
-            - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-            - ibf-local-db-data:/var/lib/postgresql/data
-        ports:
-            - 5437:5432
-        networks:
-            - api-network
-        restart: unless-stopped
+  ibf-local-db:
+    image: postgis/postgis
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ibf-local-db-data:/var/lib/postgresql/data
+    ports:
+      - 5437:5432
+    networks:
+      - api-network
+    restart: unless-stopped
 
 volumes:
-    ibf-local-db-data:
+  ibf-local-db-data:
+  api_service_node_modules:

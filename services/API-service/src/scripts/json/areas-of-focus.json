@@ -2,36 +2,43 @@
   {
     "id": "drr",
     "label": "Disaster Risk Reduction",
+    "description": "Disaster Risk Reduction description",
     "icon": "Shelter.svg"
   },
   {
     "id": "shelter",
     "label": "Shelter",
+    "description": "Shelter description",
     "icon": "Shelter.svg"
   },
   {
     "id": "livelihood",
     "label": "Livelihoods & Basic Needs",
+    "description": "Livelihoods & Basic Needs description",
     "icon": "Livelihood.svg"
   },
   {
     "id": "health",
     "label": "Health",
+    "description": "Health description",
     "icon": "Health.svg"
   },
   {
     "id": "wash",
     "label": "WASH",
+    "description": "WASH description",
     "icon": "Water-Sanitation-and-Hygiene.svg"
   },
   {
     "id": "inclusion",
-    "label": "Inclusion, Gender & Protection",
+    "label": "Protection, Gender and Inclusion",
+    "description": "Inclusion, Gender & Protection description",
     "icon": "Gender.svg"
   },
   {
     "id": "migration",
     "label": "Migration",
+    "description": "Migration description",
     "icon": "Internally-displaced.svg"
   }
 ]

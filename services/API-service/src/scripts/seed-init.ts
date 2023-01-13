@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
-import { AdminLevel } from '../api/country/admin-level.enum';
 import { CountryEntity } from '../api/country/country.entity';
 import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
 import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
@@ -14,7 +13,6 @@ import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { DisasterEntity } from '../api/disaster/disaster.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
-import { CountryDisasterSettingsEntity } from '../api/country/country-disaster.entity';
 
 import leadTimes from './json/lead-times.json';
 import notificationInfo from './json/notification-info.json';
@@ -67,15 +65,6 @@ export class SeedInit implements InterfaceScript {
         return disasterEntity;
       },
     );
-
-    class EapAction {
-      countryCodeISO3: string;
-      disasterType: string;
-      areaOfFocus: {};
-      action: string;
-      label: string;
-      month?: {};
-    }
 
     await disasterRepository.save(disasterEntities);
 
@@ -202,6 +191,14 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE EAP ACTIONS *****
     console.log('Seed EAP Actions...');
+    class EapAction {
+      countryCodeISO3: string;
+      disasterType: string;
+      areaOfFocus: {};
+      action: string;
+      label: string;
+      month?: {};
+    }
     const filteredActions: EapAction[] = eapActions.filter(
       (action: EapAction): boolean => {
         return envCountries.includes(action.countryCodeISO3);

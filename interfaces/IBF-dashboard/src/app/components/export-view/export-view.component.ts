@@ -24,7 +24,11 @@ export class ExportViewComponent {
     const popover = await this.popoverController.create({
       component: ExportViewPopoverComponent,
       animated: true,
-      cssClass: 'ibf-export-view-popover',
+      cssClass: `ibf-popover ibf-popover-normal ${
+        this.eventService.state.event?.thresholdReached
+          ? 'trigger-alert'
+          : 'no-alert'
+      }`,
       translucent: true,
       showBackdrop: true,
     });
