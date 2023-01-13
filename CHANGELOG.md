@@ -1,3 +1,29 @@
+# [0.216.0](https://github.com/rodekruis/IBF-system/compare/v0.215.0...v0.216.0) (2023-01-13)
+
+
+### Bug Fixes
+
+* change column widhts AB[#17005](https://github.com/rodekruis/IBF-system/issues/17005) ([e397fbc](https://github.com/rodekruis/IBF-system/commit/e397fbc42c084ca1d667efc1a0a555f11ee4942d))
+* change title color to black AB[#17198](https://github.com/rodekruis/IBF-system/issues/17198) ([b17914b](https://github.com/rodekruis/IBF-system/commit/b17914b668905b0b45b583800ce14ae3ab1f7915))
+* close save popup after 10s AB[#17188](https://github.com/rodekruis/IBF-system/issues/17188) ([b9780f2](https://github.com/rodekruis/IBF-system/commit/b9780f206919e301a842ef2d40bf1fbd970a94e7))
+* give popups right header color depending on trigger mode AB[#17006](https://github.com/rodekruis/IBF-system/issues/17006) ([ecb6d5f](https://github.com/rodekruis/IBF-system/commit/ecb6d5f9c18b4997c356e6eba4a1c49eb46105a2))
+* make api-service compilation faster (trick from 121) ([4486b53](https://github.com/rodekruis/IBF-system/commit/4486b53d72c2ae8d6d699b87523687f517abce9b))
+* only do whatsapp if set ([fe84b62](https://github.com/rodekruis/IBF-system/commit/fe84b622c931040263459643ec0ffffc7c6c6391))
+* update stale-date rule typhoon to 6-hr ([190b37f](https://github.com/rodekruis/IBF-system/commit/190b37f430586cd8a6f5970124ec26b7c5e9e679))
+
+
+### Features
+
+*  aof + inclusion labels AB[#17179](https://github.com/rodekruis/IBF-system/issues/17179) AB[#17180](https://github.com/rodekruis/IBF-system/issues/17180) ([922ca96](https://github.com/rodekruis/IBF-system/commit/922ca961e25c679e503a406def531dabb09f4e2e))
+* add area-of-focus description in backend AB[#17001](https://github.com/rodekruis/IBF-system/issues/17001) ([7c279bd](https://github.com/rodekruis/IBF-system/commit/7c279bd40977dc6f03013cac8fdf97eba9bb26fb))
+* align to design AB[#17091](https://github.com/rodekruis/IBF-system/issues/17091) ([e9bb1c7](https://github.com/rodekruis/IBF-system/commit/e9bb1c7ff0151d1bc88649bfd343a72abb13155c))
+* change stopped title to black AB[#17186](https://github.com/rodekruis/IBF-system/issues/17186) ([52b8524](https://github.com/rodekruis/IBF-system/commit/52b8524a241064ea00a030d382e1a9c3372d34e7))
+* show "(stopped)" for stopped areas ([87a85c0](https://github.com/rodekruis/IBF-system/commit/87a85c0f027cac94b490e62b6ac49198f6df665d))
+* show aof-description in frontend AB[#17000](https://github.com/rodekruis/IBF-system/issues/17000) ([9b4203b](https://github.com/rodekruis/IBF-system/commit/9b4203b9728754121cdf3e3feafc1c842de77c8f))
+* show only placecode view on click or hover AB[#17186](https://github.com/rodekruis/IBF-system/issues/17186) ([cb5e2f5](https://github.com/rodekruis/IBF-system/commit/cb5e2f5aadde779165a2a70ef9950f7e62a6ca77))
+
+
+
 # [0.215.0](https://github.com/rodekruis/IBF-system/compare/v0.214.0...v0.215.0) (2023-01-13)
 
 
@@ -127,16 +153,6 @@
 * change copy + add tooltip AB[#16981](https://github.com/rodekruis/IBF-system/issues/16981) AB#A16982 ([c08ca3a](https://github.com/rodekruis/IBF-system/commit/c08ca3a8cfb007e1ef2e52f1323fe554eb93830e)), closes [AB#A16982](https://github.com/AB/issues/A16982)
 * mv label to the right AB[#16980](https://github.com/rodekruis/IBF-system/issues/16980) ([6e07130](https://github.com/rodekruis/IBF-system/commit/6e07130f90c2b89fbee313dac2a22ce34846835d))
 * show bar above/below more clearly AB[#16978](https://github.com/rodekruis/IBF-system/issues/16978) ([b0d40d3](https://github.com/rodekruis/IBF-system/commit/b0d40d3ec010ac38bfca5d4b979749946b33c082))
-
-
-
-## [0.209.1](https://github.com/rodekruis/IBF-system/compare/v0.209.0...v0.209.1) (2022-12-16)
-
-
-### Bug Fixes
-
-* increase pause between 2 whatsapp messages AB[#16983](https://github.com/rodekruis/IBF-system/issues/16983) ([d34fe4d](https://github.com/rodekruis/IBF-system/commit/d34fe4d0602b40175ac5cee58c597d7fe73030b7))
-* leadtimes in email AB[#16984](https://github.com/rodekruis/IBF-system/issues/16984) ([e111f29](https://github.com/rodekruis/IBF-system/commit/e111f292bca486aca5d068953675d210ac29c412))
 
 
 
