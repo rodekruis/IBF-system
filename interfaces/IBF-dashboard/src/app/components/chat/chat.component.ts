@@ -624,11 +624,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const triggerEvent = event.thresholdReached;
     const passedEvent = event.firstLeadTime === LeadTime.hour0;
-    const landfallEvent = event.disasterSpecificProperties.typhoonLandfall;
+    const landfallEvent = event.disasterSpecificProperties?.typhoonLandfall;
     const noLandfallYetEvent =
-      event.disasterSpecificProperties.typhoonNoLandfallYet;
+      event.disasterSpecificProperties?.typhoonNoLandfallYet;
 
     return this.translateService.instant(
       `chat-component.typhoon.active-event-active-trigger.${

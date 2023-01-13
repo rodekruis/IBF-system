@@ -106,7 +106,7 @@ export class WhatsappService {
     return message;
   }
 
-  public async sendTriggerViaWhatsapp(
+  public async sendTriggerWhatsapp(
     country: CountryEntity,
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
@@ -117,6 +117,22 @@ export class WhatsappService {
       activeEvents,
     );
 
+    await this.sendToUsers(country, message);
+  }
+
+  public async sendTriggerFinishedWhatsapp(
+    country: CountryEntity,
+    finishedEvent: EventSummaryCountry,
+  ) {
+    const message = this.configureTriggerFinishedMessage(
+      country,
+      finishedEvent,
+    );
+
+    await this.sendToUsers(country, message);
+  }
+
+  private async sendToUsers(country: CountryEntity, message: string) {
     const users = await this.userRepository.find({
       where: { whatsappNumber: Not(IsNull()) },
       relations: ['countries'],
@@ -247,6 +263,20 @@ export class WhatsappService {
       ].replace('[startDate]', events[0].startDate);
     }
     message += country.notificationInfo.whatsappMessage['no-trigger'];
+    return message;
+  }
+
+  private configureTriggerFinishedMessage(
+    country: CountryEntity,
+    event: EventSummaryCountry,
+  ): string {
+    let message = '';
+    if (event) {
+      message += country.notificationInfo.whatsappMessage[
+        'no-trigger-old-event'
+      ].replace('[startDate]', event.startDate);
+    }
+    message += country.notificationInfo.whatsappMessage['trigger-finished'];
     return message;
   }
 
