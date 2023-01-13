@@ -29,7 +29,14 @@
                   style="font-size: 20px"
                   >{{ getNumberAreasExposed() }}</ion-text
                 >
-                {{ getLabelAreasExposed().headerLabel }}
+                {{ getLabelAreasExposed().headerLabel
+                }}<span
+                  *ngIf="!isActiveAreas() && (placeCode || placeCodeHover)"
+                  >{{ ' '
+                  }}{{
+                    'aggregates-component.stopped-placecode' | translate
+                  }}</span
+                >
               </strong>
             </ion-label>
             <ion-label

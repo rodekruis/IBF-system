@@ -47,7 +47,8 @@
     "exposed-prefix": "Exposed",
     "stopped-prefix": "Manually stopped",
     "all-prefix": "All",
-    "exposed-subgroups": ""
+    "exposed-subgroups": "",
+    "stopped-placecode": "(stopped)"
   },
   "areas-of-focus-summary-component": {
     "title": "Actions Summary",
