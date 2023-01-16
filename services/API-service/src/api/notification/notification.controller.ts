@@ -14,7 +14,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
-import { SendEmailDto } from './email/dto/send-email.dto';
+import { SendNotificationDto } from './dto/send-notification.dto';
 import { Roles } from '../../roles.decorator';
 import { UserRole } from '../user/user-role.enum';
 
@@ -41,10 +41,13 @@ export class NotificationController {
   @Post('send')
   @ApiConsumes()
   @UseInterceptors()
-  public async exposure(@Body() sendEmailDto: SendEmailDto): Promise<void> {
+  public async exposure(
+    @Body() sendNotification: SendNotificationDto,
+  ): Promise<void> {
     await this.notificationService.send(
-      sendEmailDto.countryCodeISO3,
-      sendEmailDto.disasterType,
+      sendNotification.countryCodeISO3,
+      sendNotification.disasterType,
+      sendNotification.date,
     );
   }
 }

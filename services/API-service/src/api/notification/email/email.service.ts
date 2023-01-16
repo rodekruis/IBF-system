@@ -50,11 +50,13 @@ export class EmailService {
     country: CountryEntity,
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
+    date?: Date,
   ): Promise<void> {
     const replaceKeyValues = await this.createReplaceKeyValuesTrigger(
       country,
       disasterType,
       activeEvents,
+      date ? new Date(date) : new Date(),
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
     const emailSubject = `IBF ${disasterType} warning`;
@@ -65,11 +67,13 @@ export class EmailService {
     country: CountryEntity,
     disasterType: DisasterType,
     finishedEvent: EventSummaryCountry,
+    date?: Date,
   ): Promise<void> {
     const replaceKeyValues = await this.createReplaceKeyValuesTriggerFinished(
       country,
       disasterType,
       finishedEvent,
+      date ? new Date(date) : new Date(),
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
     const emailSubject = `IBF ${disasterType} warning is now below threshold`;
@@ -113,6 +117,7 @@ export class EmailService {
     country: CountryEntity,
     disasterType: DisasterType,
     events: EventSummaryCountry[],
+    date: Date,
   ): Promise<ReplaceKeyValue[]> {
     const keyValueReplaceList = [
       {
@@ -137,11 +142,12 @@ export class EmailService {
           country,
           disasterType,
           events,
+          date,
         ),
       },
       {
         replaceKey: this.placeholderToday,
-        replaceValue: new Date().toLocaleDateString('default', {
+        replaceValue: date.toLocaleDateString('default', {
           day: '2-digit',
           month: 'short',
           year: 'numeric',
@@ -150,7 +156,7 @@ export class EmailService {
       {
         replaceKey: '(LEAD-DATE-LIST-LONG)',
         replaceValue: (
-          await this.getLeadTimeList(country, disasterType, events)
+          await this.getLeadTimeList(country, disasterType, events, date)
         )['leadTimeListLong'],
       },
       {
@@ -225,6 +231,7 @@ export class EmailService {
     country: CountryEntity,
     disasterType: DisasterType,
     event: EventSummaryCountry,
+    date: Date,
   ): Promise<ReplaceKeyValue[]> {
     const keyValueReplaceList = [
       {
@@ -281,7 +288,7 @@ export class EmailService {
       },
       {
         replaceKey: this.placeholderToday,
-        replaceValue: new Date().toLocaleDateString('default', {
+        replaceValue: date.toLocaleDateString('default', {
           day: '2-digit',
           month: 'short',
           year: 'numeric',
@@ -370,6 +377,7 @@ export class EmailService {
     country: CountryEntity,
     disasterType: DisasterType,
     events: EventSummaryCountry[],
+    date?: Date,
   ): Promise<object> {
     const triggeredLeadTimes = await this.notificationContentService.getLeadTimesAcrossEvents(
       country.countryCodeISO3,
@@ -392,12 +400,24 @@ export class EmailService {
           if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
             // We are hack-misusing 'extraInfo' being filled as a proxy for typhoonNoLandfallYet-boolean
             leadTimeListShort = `${leadTimeListShort}<li>${
-              (await this.getLeadTimeListEvent(event, disasterType, leadTime))
-                .short
+              (
+                await this.getLeadTimeListEvent(
+                  event,
+                  disasterType,
+                  leadTime,
+                  date,
+                )
+              ).short
             }</li>`;
             leadTimeListLong = `${leadTimeListLong}<li>${
-              (await this.getLeadTimeListEvent(event, disasterType, leadTime))
-                .long
+              (
+                await this.getLeadTimeListEvent(
+                  event,
+                  disasterType,
+                  leadTime,
+                  date,
+                )
+              ).long
             }</li>`;
           }
         }
@@ -410,6 +430,7 @@ export class EmailService {
     event: EventSummaryCountry,
     disasterType: DisasterType,
     leadTime: any,
+    date: Date,
   ) {
     // .. find the right leadtime
     const [leadTimeValue, leadTimeUnit] = leadTime.leadTimeLabel.split('-');
@@ -429,6 +450,7 @@ export class EmailService {
     const dateAndTime = this.notificationContentService.getFirstLeadTimeDate(
       Number(leadTimeValue),
       leadTimeUnit,
+      date,
     );
     const disasterSpecificCopy = await this.getDisasterSpecificCopy(
       disasterType,
@@ -466,6 +488,7 @@ export class EmailService {
     country: CountryEntity,
     disasterType: DisasterType,
     events: EventSummaryCountry[],
+    date: Date,
   ): Promise<string> {
     const triggeredLeadTimes = await this.notificationContentService.getLeadTimesAcrossEvents(
       country.countryCodeISO3,
@@ -494,6 +517,7 @@ export class EmailService {
               disasterType,
               leadTime,
               event,
+              date,
             );
             leadTimeTables = leadTimeTables + tableForLeadTime;
           }
@@ -580,6 +604,7 @@ export class EmailService {
     disasterType: DisasterType,
     leadTime: LeadTimeEntity,
     event: EventSummaryCountry,
+    date: Date,
   ): Promise<string> {
     const adminLevel = country.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
@@ -595,7 +620,8 @@ export class EmailService {
 
     const tableForLeadTimeStart = `<div>
       <strong>${
-        (await this.getLeadTimeListEvent(event, disasterType, leadTime)).short
+        (await this.getLeadTimeListEvent(event, disasterType, leadTime, date))
+          .short
       }</strong>
   </div>
   <table class="notification-alerts-table">

@@ -21,6 +21,7 @@ export class NotificationService {
   public async send(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    date?: Date,
   ): Promise<void> {
     const events = await this.eventService.getEventSummaryCountry(
       countryCodeISO3,
@@ -38,7 +39,7 @@ export class NotificationService {
         )
       ) {
         activeEvents.push(event);
-      } else if (this.getFinishedEvent(event, disasterType)) {
+      } else if (this.getFinishedEvent(event, disasterType, date)) {
         finishedEvent = event;
       }
     }
@@ -46,7 +47,12 @@ export class NotificationService {
       const country = await this.notificationContentService.getCountryNotificationInfo(
         countryCodeISO3,
       );
-      this.emailService.sendTriggerEmail(country, disasterType, activeEvents);
+      this.emailService.sendTriggerEmail(
+        country,
+        disasterType,
+        activeEvents,
+        date,
+      );
 
       if (country.notificationInfo.useWhatsapp) {
         this.whatsappService.sendTriggerWhatsapp(
@@ -66,6 +72,7 @@ export class NotificationService {
         country,
         disasterType,
         finishedEvent,
+        date,
       );
 
       if (country.notificationInfo.useWhatsapp) {
@@ -80,10 +87,11 @@ export class NotificationService {
   private getFinishedEvent(
     event: EventSummaryCountry,
     disasterType: DisasterType,
+    uploadDate?: Date,
   ) {
     // For now only do this for floods
     if (disasterType === DisasterType.Floods) {
-      const date = new Date();
+      const date = uploadDate ? new Date(uploadDate) : new Date();
       const yesterdayActiveDate = new Date(date.setDate(date.getDate() + 6)); // determine yesterday still active events by endDate lying (7 - 1) days in the future
       if (
         !event.activeTrigger &&
