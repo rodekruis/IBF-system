@@ -1,3 +1,12 @@
+# [0.217.0](https://github.com/rodekruis/IBF-system/compare/v0.216.0...v0.217.0) (2023-01-16)
+
+
+### Features
+
+* add real descriptions to sectors AB[#17002](https://github.com/rodekruis/IBF-system/issues/17002) ([4e09242](https://github.com/rodekruis/IBF-system/commit/4e09242083840db7d18b0481b8145e69c60cd8f5))
+
+
+
 # [0.216.0](https://github.com/rodekruis/IBF-system/compare/v0.215.0...v0.216.0) (2023-01-13)
 
 
@@ -136,23 +145,6 @@
 * keep number on one line AB[#16770](https://github.com/rodekruis/IBF-system/issues/16770) ([6145b99](https://github.com/rodekruis/IBF-system/commit/6145b997f8b4a2eb9c5e4664207cfd6e85c874af))
 * make aggregate-layer legend purple if triggered AB[#16985](https://github.com/rodekruis/IBF-system/issues/16985) ([3b82841](https://github.com/rodekruis/IBF-system/commit/3b828416e632f16c2a8944bd0a78aa96e1fb8fcd))
 * optimize prevention of aggregage value on multi-line AB[#16770](https://github.com/rodekruis/IBF-system/issues/16770) ([d6ed2da](https://github.com/rodekruis/IBF-system/commit/d6ed2dafdcb080b98b93f944804e833705ef6a39))
-
-
-
-# [0.210.0](https://github.com/rodekruis/IBF-system/compare/v0.209.1...v0.210.0) (2022-12-19)
-
-
-### Bug Fixes
-
-* change cursor type on hover AB[#16982](https://github.com/rodekruis/IBF-system/issues/16982) ([559b082](https://github.com/rodekruis/IBF-system/commit/559b0825399972b41d6338d30a4eb89b90261b36))
-
-
-### Features
-
-* add comma + change bar bg AB[#16977](https://github.com/rodekruis/IBF-system/issues/16977) AB[#16979](https://github.com/rodekruis/IBF-system/issues/16979) ([a4a6c48](https://github.com/rodekruis/IBF-system/commit/a4a6c485c577bbecfcfb0fff99c2dd789e3dfe37))
-* change copy + add tooltip AB[#16981](https://github.com/rodekruis/IBF-system/issues/16981) AB#A16982 ([c08ca3a](https://github.com/rodekruis/IBF-system/commit/c08ca3a8cfb007e1ef2e52f1323fe554eb93830e)), closes [AB#A16982](https://github.com/AB/issues/A16982)
-* mv label to the right AB[#16980](https://github.com/rodekruis/IBF-system/issues/16980) ([6e07130](https://github.com/rodekruis/IBF-system/commit/6e07130f90c2b89fbee313dac2a22ce34846835d))
-* show bar above/below more clearly AB[#16978](https://github.com/rodekruis/IBF-system/issues/16978) ([b0d40d3](https://github.com/rodekruis/IBF-system/commit/b0d40d3ec010ac38bfca5d4b979749946b33c082))
 
 
 
