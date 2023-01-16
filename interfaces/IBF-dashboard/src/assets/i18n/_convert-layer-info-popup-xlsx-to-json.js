@@ -22,6 +22,9 @@ for (z in worksheet) {
   if (col === 'S') {
     var value = worksheet[z].v;
     value = value.replace(/(\r\n|\n|\r)/gm, ''); // Remove linebreaks
+    // Enforce that links always open in new tab
+    value = value.replace(`target='_blank'`, '');
+    value = value.replace('<a ', `<a target='_blank'`);
     data += value;
   }
 }
