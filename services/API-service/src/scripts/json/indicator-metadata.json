@@ -170,7 +170,7 @@
     "disasterTypes": ["floods"],
     "name": "female_head_hh",
     "label": "Female-headed household",
-    "icon": "Person2-white.svg",
+    "icon": "Female.svg",
     "weightedAvg": true,
     "active": "no",
     "colorBreaks": null,
