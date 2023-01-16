@@ -1,3 +1,13 @@
+## [0.218.1](https://github.com/rodekruis/IBF-system/compare/v0.218.0...v0.218.1) (2023-01-16)
+
+
+### Bug Fixes
+
+* also reset placecode for leadtime/event switch AB[#17342](https://github.com/rodekruis/IBF-system/issues/17342) ([04c6b15](https://github.com/rodekruis/IBF-system/commit/04c6b1550b3d092c06242fa9ef4370bb6068abc3))
+* reset placeCode on disaster switch AB[#17337](https://github.com/rodekruis/IBF-system/issues/17337) ([94b44ac](https://github.com/rodekruis/IBF-system/commit/94b44accaf04de32946075f01da3cb7bdfbc7d37))
+
+
+
 # [0.218.0](https://github.com/rodekruis/IBF-system/compare/v0.217.0...v0.218.0) (2023-01-16)
 
 
@@ -135,16 +145,6 @@
 ### Bug Fixes
 
 * set img width to 600px AB[#16963](https://github.com/rodekruis/IBF-system/issues/16963) ([9aa8b83](https://github.com/rodekruis/IBF-system/commit/9aa8b83fea62133f0878606ed756994bb54b14ca))
-
-
-
-# [0.211.0](https://github.com/rodekruis/IBF-system/compare/v0.210.1...v0.211.0) (2022-12-22)
-
-
-### Features
-
-* update eap actions AB16764 ([aa90c79](https://github.com/rodekruis/IBF-system/commit/aa90c79944d37b012562b540b14b8ff5e1e02e76))
-* update ssd info popups AB[#16775](https://github.com/rodekruis/IBF-system/issues/16775) ([66edbbd](https://github.com/rodekruis/IBF-system/commit/66edbbd6675042a511cf3ed16f1863e8e8ac104e))
 
 
 
