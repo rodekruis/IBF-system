@@ -16,6 +16,7 @@ import { EventState } from '../types/event-state';
 import { TimelineState } from '../types/timeline-state';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
+import { PlaceCodeService } from './place-code.service';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +41,7 @@ export class TimelineService {
     private disasterTypeService: DisasterTypeService,
     private eventService: EventService,
     private apiService: ApiService,
+    private placeCodeService: PlaceCodeService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -192,6 +194,8 @@ export class TimelineService {
     (leadTimeButton.active = false);
 
   public handleTimeStepButtonClick(timeStepButtonValue, noEvent?: boolean) {
+    this.placeCodeService.clearPlaceCode();
+    this.placeCodeService.clearPlaceCodeHover();
     this.state.activeLeadTime = timeStepButtonValue;
     this.state.timeStepButtons.forEach(this.deactivateLeadTimeButton);
     this.state.timeStepButtons.find((btn) =>
