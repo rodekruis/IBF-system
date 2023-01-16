@@ -9,7 +9,7 @@ export const DEBOUNCE_TIME_LOADER = 500;
 export const LEAFLET_MAP_URL_TEMPLATE =
   'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png';
 export const LEAFLET_MAP_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">Carto</a>';
+  '&copy; <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a target="_blank" href="https://carto.com/attributions">Carto</a>';
 
 export const LEAFLET_MARKER_ICON_OPTIONS_BASE: IconOptions = {
   iconSize: [30, 50],
