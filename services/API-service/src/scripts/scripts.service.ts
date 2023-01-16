@@ -94,12 +94,14 @@ export class ScriptsService {
       }
     });
 
+    const date = mockInput.date ? new Date(mockInput.date) : new Date();
+
     await this.mockExposure(
       selectedCountry,
       mockInput.disasterType,
       mockInput.triggered,
       eventNr,
-      new Date(mockInput.date),
+      date,
       typhoonScenario,
     );
 
@@ -108,13 +110,14 @@ export class ScriptsService {
         selectedCountry,
         mockInput.disasterType,
         mockInput.triggered,
+        date,
       );
       await this.mockTriggerPerLeadTime(
         selectedCountry,
         mockInput.disasterType,
         mockInput.triggered,
         eventNr,
-        new Date(mockInput.date),
+        date,
       );
     }
 
@@ -136,7 +139,7 @@ export class ScriptsService {
         selectedCountry,
         typhoonScenario,
         eventNr,
-        new Date(mockInput.date),
+        date,
       );
     }
 
@@ -696,6 +699,7 @@ export class ScriptsService {
     selectedCountry,
     disasterType: DisasterType,
     triggered: boolean,
+    date: Date,
   ) {
     const stationsFileName = `./src/api/glofas-station/dto/example/glofas-stations-${
       selectedCountry.countryCodeISO3
@@ -713,6 +717,7 @@ export class ScriptsService {
         countryCodeISO3: selectedCountry.countryCodeISO3,
         stationForecasts: stations,
         leadTime: activeLeadTime as LeadTime,
+        date,
       });
     }
   }
@@ -791,6 +796,7 @@ export class ScriptsService {
     if (!triggered) {
       return;
     }
+    console.log(`Seeding event map image country: ${countryCodeISO3}`);
 
     const eventName = this.getEventName(disasterType) || 'no-name';
     const filename = `${countryCodeISO3}_${disasterType}_${eventName}_map-image.png`;

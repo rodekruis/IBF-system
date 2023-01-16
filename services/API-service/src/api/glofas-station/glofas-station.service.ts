@@ -82,13 +82,13 @@ export class GlofasStationService {
       await this.glofasStationForecastRepository.delete({
         glofasStation: glofasStation,
         leadTime: uploadTriggerPerStation.leadTime,
-        date: new Date(),
+        date: uploadTriggerPerStation.date || new Date(),
       });
 
       const stationForecast = new GlofasStationForecastEntity();
       stationForecast.glofasStation = glofasStation;
       stationForecast.leadTime = uploadTriggerPerStation.leadTime;
-      stationForecast.date = new Date();
+      stationForecast.date = uploadTriggerPerStation.date || new Date();
       stationForecast.forecastLevel = station.forecastLevel;
       stationForecast.forecastProbability = station.forecastProbability;
       stationForecast.forecastTrigger = station.forecastTrigger;

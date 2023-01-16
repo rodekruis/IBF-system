@@ -56,5 +56,5 @@ export class UploadAdminAreaDynamicDataDto {
 
   @ApiProperty({ example: new Date() })
   @IsOptional()
-  public readonly date: Date;
+  public date: Date;
 }

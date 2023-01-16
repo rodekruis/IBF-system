@@ -1,4 +1,10 @@
-import { IsArray, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { Type } from 'class-transformer';
@@ -15,6 +21,10 @@ export class UploadTriggerPerStationDto {
   @IsNotEmpty()
   @IsString()
   public leadTime: LeadTime;
+
+  @ApiProperty({ example: new Date() })
+  @IsOptional()
+  public date: Date;
 
   @ApiProperty({ example: stations })
   @IsArray()

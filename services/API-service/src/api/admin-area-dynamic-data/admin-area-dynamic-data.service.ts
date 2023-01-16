@@ -35,6 +35,11 @@ export class AdminAreaDynamicDataService {
   public async exposure(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
+    uploadExposure.date = this.helperService.setDayToLastDayOfMonth(
+      uploadExposure.date,
+      uploadExposure.leadTime,
+    );
+
     // Delete existing entries in case of a re-run of the pipeline for some reason
     await this.deleteDynamicDuplicates(uploadExposure);
 

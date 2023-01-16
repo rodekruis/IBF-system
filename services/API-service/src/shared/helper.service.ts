@@ -6,6 +6,10 @@ import csv from 'csv-parser';
 import { DateDto } from '../api/event/dto/date.dto';
 import { Connection } from 'typeorm';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
+import {
+  LeadTime,
+  LeadTimeUnit,
+} from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 
 @Injectable()
 export class HelperService {
@@ -55,6 +59,16 @@ export class HelperService {
       lastInterval.setHours(0, 0, 0, 0);
     }
     return lastInterval;
+  }
+
+  public setDayToLastDayOfMonth(date: Date, leadTime: LeadTime): Date {
+    if (date && leadTime.split('-')[1] === LeadTimeUnit.month) {
+      if (date.getMonth() !== new Date().getMonth()) {
+        // if month-of-upload is different (typically larger) than month, set day to last day of month
+        date = new Date(date.getFullYear(), date.getMonth() + 1, 0, 0, 0, 0);
+      }
+    }
+    return date;
   }
 
   public async csvBufferToArray(buffer): Promise<object[]> {
