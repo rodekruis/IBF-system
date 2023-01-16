@@ -6,6 +6,7 @@ import { EventService } from 'src/app/services/event.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { Country, DisasterType } from '../../models/country.model';
 import { CountryService } from '../../services/country.service';
+import { PlaceCodeService } from '../../services/place-code.service';
 
 @Component({
   selector: 'app-disaster-type',
@@ -24,6 +25,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
     public disasterTypeService: DisasterTypeService,
     private countryService: CountryService,
     public eventService: EventService,
+    private placeCodeService: PlaceCodeService,
   ) {}
 
   ngOnInit() {
@@ -69,6 +71,8 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   };
 
   public switchDisasterType(disasterType: DisasterType): void {
+    this.placeCodeService.clearPlaceCode();
+    this.placeCodeService.clearPlaceCodeHover();
     this.disasterTypeService.setDisasterType(disasterType);
     this.selectedDisasterType = disasterType.disasterType;
   }
