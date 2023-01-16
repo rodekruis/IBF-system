@@ -1,3 +1,17 @@
+# [0.219.0](https://github.com/rodekruis/IBF-system/compare/v0.218.1...v0.219.0) (2023-01-16)
+
+
+### Bug Fixes
+
+* open leaflet attribution in new tabs AB[#17346](https://github.com/rodekruis/IBF-system/issues/17346) ([4ee7232](https://github.com/rodekruis/IBF-system/commit/4ee7232e8f6b398dd6c58bba2f4f10fabbc9aa96))
+
+
+### Features
+
+* enforce links open in new tab AB[#17345](https://github.com/rodekruis/IBF-system/issues/17345) ([fcdf62e](https://github.com/rodekruis/IBF-system/commit/fcdf62e0471d07238607fb55a8ac716ba9945b8f))
+
+
+
 ## [0.218.1](https://github.com/rodekruis/IBF-system/compare/v0.218.0...v0.218.1) (2023-01-16)
 
 
@@ -136,15 +150,6 @@
 ### Bug Fixes
 
 * info popups AB[#16775](https://github.com/rodekruis/IBF-system/issues/16775) ([710d200](https://github.com/rodekruis/IBF-system/commit/710d2000f46f739e5cd294e9e9c7cc8caf2016b2))
-
-
-
-## [0.211.1](https://github.com/rodekruis/IBF-system/compare/v0.211.0...v0.211.1) (2023-01-04)
-
-
-### Bug Fixes
-
-* set img width to 600px AB[#16963](https://github.com/rodekruis/IBF-system/issues/16963) ([9aa8b83](https://github.com/rodekruis/IBF-system/commit/9aa8b83fea62133f0878606ed756994bb54b14ca))
 
 
 
