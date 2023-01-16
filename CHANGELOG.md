@@ -1,3 +1,17 @@
+# [0.218.0](https://github.com/rodekruis/IBF-system/compare/v0.217.0...v0.218.0) (2023-01-16)
+
+
+### Bug Fixes
+
+* activation log explanation AB[#17320](https://github.com/rodekruis/IBF-system/issues/17320) ([1a8cbfb](https://github.com/rodekruis/IBF-system/commit/1a8cbfb71fbf690c3cb0caec386aec6f889cb904))
+
+
+### Features
+
+* add explanation + css improvements AB[#17314](https://github.com/rodekruis/IBF-system/issues/17314) ([5d3f9c1](https://github.com/rodekruis/IBF-system/commit/5d3f9c1aa9893a09d8cb9538a83bf9323ec016d3))
+
+
+
 # [0.217.0](https://github.com/rodekruis/IBF-system/compare/v0.216.0...v0.217.0) (2023-01-16)
 
 
@@ -131,20 +145,6 @@
 
 * update eap actions AB16764 ([aa90c79](https://github.com/rodekruis/IBF-system/commit/aa90c79944d37b012562b540b14b8ff5e1e02e76))
 * update ssd info popups AB[#16775](https://github.com/rodekruis/IBF-system/issues/16775) ([66edbbd](https://github.com/rodekruis/IBF-system/commit/66edbbd6675042a511cf3ed16f1863e8e8ac104e))
-
-
-
-## [0.210.1](https://github.com/rodekruis/IBF-system/compare/v0.210.0...v0.210.1) (2022-12-20)
-
-
-### Bug Fixes
-
-* do not mention to close event in chat AB[#16742](https://github.com/rodekruis/IBF-system/issues/16742) ([201cab1](https://github.com/rodekruis/IBF-system/commit/201cab1c9db422033f4c73db5b29bfb3f96ec4ef))
-* explain difference new vs current event AB[#16774](https://github.com/rodekruis/IBF-system/issues/16774) ([45f6ba5](https://github.com/rodekruis/IBF-system/commit/45f6ba50cd4b99e23cc01b394c7d0359fdb373ad))
-* give action summary same padding as aggregates AB[#16770](https://github.com/rodekruis/IBF-system/issues/16770) ([c4bdabf](https://github.com/rodekruis/IBF-system/commit/c4bdabf2807e1d4570adcb94c2fb8fa73529d59a))
-* keep number on one line AB[#16770](https://github.com/rodekruis/IBF-system/issues/16770) ([6145b99](https://github.com/rodekruis/IBF-system/commit/6145b997f8b4a2eb9c5e4664207cfd6e85c874af))
-* make aggregate-layer legend purple if triggered AB[#16985](https://github.com/rodekruis/IBF-system/issues/16985) ([3b82841](https://github.com/rodekruis/IBF-system/commit/3b828416e632f16c2a8944bd0a78aa96e1fb8fcd))
-* optimize prevention of aggregage value on multi-line AB[#16770](https://github.com/rodekruis/IBF-system/issues/16770) ([d6ed2da](https://github.com/rodekruis/IBF-system/commit/d6ed2dafdcb080b98b93f944804e833705ef6a39))
 
 
 
