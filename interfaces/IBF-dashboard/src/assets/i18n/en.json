@@ -5,7 +5,10 @@
     "activation-report": "Open all activations",
     "copy-to-clipboard": "Copy to clipboard",
     "copy-success": "Activation data successfully copied to clipboard. It can be pasted into a spreadsheet.",
-    "copy-fail": "There was a problem with copying the activation data"
+    "copy-fail": "There was a problem with copying the activation data",
+    "page-title": "Activation log",
+    "page-explanation": "This table shows all historical activations, every time the IBF-portal was triggered. There is one row per triggered area.",
+    "copy-instructions": "Activation data can be copied into a spreadsheet by clicking on the \"Copy to clipboard\" button on the right."
   },
   "login-page": {
     "title": "Login",
