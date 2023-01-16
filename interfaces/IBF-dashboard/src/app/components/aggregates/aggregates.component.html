@@ -1,4 +1,4 @@
-<div *ngIf="shouldShowAggregates()">
+<div *ngIf="showAggregatesSection()">
   <ion-grid class="ion-no-padding">
     <ion-row
       class="component-title"
@@ -25,13 +25,21 @@
             >
               <strong>
                 <ion-text
-                  [color]="
-                    isActiveAreas() ? 'ibf-primary' : 'ibf-no-alert-primary'
-                  "
+                  [color]="isActiveAreas() ? 'ibf-primary' : 'ibf-black'"
                   style="font-size: 20px"
                   >{{ getNumberAreasExposed() }}</ion-text
                 >
-                {{ getLabelAreasExposed().headerLabel }}
+                <span style="color: var(--ion-color-ibf-black)">
+                  {{ getLabelAreasExposed().headerLabel }}
+                </span>
+                <span
+                  style="color: var(--ion-color-ibf-black)"
+                  *ngIf="!isActiveAreas() && (placeCode || placeCodeHover)"
+                  >{{ ' '
+                  }}{{
+                    'aggregates-component.stopped-placecode' | translate
+                  }}</span
+                >
               </strong>
             </ion-label>
             <ion-label
@@ -45,8 +53,8 @@
           </ion-col>
           <ion-button
             fill="clear"
-            *ngIf="shouldShowPlaceCode(placeCode)"
-            [color]="isActiveAreas() ? 'light' : 'ibf-no-alert-primary'"
+            *ngIf="showPlaceCodeView(placeCode)"
+            [color]="isActiveAreas() ? 'light' : 'ibf-black'"
             class="place-code-reset-button"
             (click)="clearPlaceCode()"
           >

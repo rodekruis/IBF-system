@@ -137,8 +137,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.eapActionSubscription.unsubscribe();
   }
 
-  public shouldShowAggregates() {
-    return this.triggerStatus === 'trigger-active' || this.getAreaCount() > 0;
+  public showAggregatesSection() {
+    if (this.placeCode || this.placeCodeHover) {
+      return this.showPlaceCodeView(this.placeCode || this.placeCodeHover);
+    }
+    return this.showNationalView();
   }
 
   private onTranslate = (translatedStrings) => {
@@ -253,7 +256,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     let subHeaderLabel = '';
 
     const placeCode = this.placeCode || this.placeCodeHover;
-    if (this.shouldShowPlaceCode(placeCode)) {
+    if (this.showPlaceCodeView(placeCode)) {
       headerLabel = placeCode.placeCodeName;
       if (placeCode.placeCodeParentName) {
         subHeaderLabel = `(${placeCode.placeCodeParentName})`;
@@ -281,7 +284,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     let headerLabel;
 
     const placeCode = this.placeCode || this.placeCodeHover;
-    if (this.shouldShowPlaceCode(placeCode)) {
+    if (this.showPlaceCodeView(placeCode)) {
       headerLabel = '';
     } else {
       if (this.country) {
@@ -296,12 +299,16 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return headerLabel;
   }
 
-  public shouldShowPlaceCode(placeCode: PlaceCode): boolean {
+  public showPlaceCodeView(placeCode: PlaceCode): boolean {
     return (
       placeCode &&
       (this.isCorrectStatusPlaceCode(placeCode) ||
         this.isNonTriggeredPlaceCode(placeCode))
     );
+  }
+
+  private showNationalView(): boolean {
+    return this.triggerStatus === 'trigger-active' || this.getAreaCount() > 0;
   }
 
   private isNonTriggeredPlaceCode(placeCode: PlaceCode): boolean {
