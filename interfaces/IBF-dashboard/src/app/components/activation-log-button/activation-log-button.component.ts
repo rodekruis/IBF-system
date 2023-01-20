@@ -44,7 +44,7 @@ export class ActivationLogButtonComponent implements OnDestroy {
 
   public goToPage() {
     const url = this.router.serializeUrl(
-      this.router.createUrlTree([`/activation-log`], {
+      this.router.createUrlTree([`/log`], {
         queryParams: {
           countryCodeISO3: this.country.countryCodeISO3,
           disasterType: this.disasterType.disasterType,
@@ -52,5 +52,15 @@ export class ActivationLogButtonComponent implements OnDestroy {
       }),
     );
     window.open(url, '_blank');
+  }
+
+  public getEapKey(): string {
+    if (!this.disasterType) {
+      return 'trigger';
+    }
+    return this.disasterTypeService.hasEap(this.disasterType.disasterType) ===
+      'eap'
+      ? 'trigger'
+      : 'alert';
   }
 }

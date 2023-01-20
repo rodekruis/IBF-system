@@ -9,7 +9,7 @@ const routes: Routes = [
     component: DashboardPage,
   },
   {
-    path: 'activation-log',
+    path: 'log',
     component: ActivationLogPage,
   },
 ];

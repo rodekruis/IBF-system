@@ -19,9 +19,20 @@
     >
       <ion-row *ngIf="activationLogs['headerData']">
         <ion-col class="explanation" size="9">
-          <h4>{{ 'activation-page.page-title' | translate }}</h4>
-          <p>{{ 'activation-page.page-explanation' | translate }}</p>
-          <p>{{ 'activation-page.copy-instructions' | translate }}</p>
+          <h4>
+            {{ 'activation-page.' + getEapKey() + '.page-title' | translate }}
+          </h4>
+          <p>
+            {{
+              'activation-page.' + getEapKey() + '.page-explanation' | translate
+            }}
+          </p>
+          <p>
+            {{
+              'activation-page.' + getEapKey() + '.copy-instructions'
+                | translate
+            }}
+          </p>
         </ion-col>
         <ion-col class="ion-text-right" size="3">
           <ion-button

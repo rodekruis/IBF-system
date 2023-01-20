@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { ApiService } from 'src/app/services/api.service';
+import { DisasterTypeService } from '../../../services/disaster-type.service';
 import { DisasterTypeKey } from '../../../types/disaster-type-key';
 
 @Component({
@@ -30,6 +31,7 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private toastController: ToastController,
     private translate: TranslateService,
+    private disasterTypeService: DisasterTypeService,
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.countryCodeISO3 = params.countryCodeISO3;
@@ -80,13 +82,17 @@ export class ActivationLogPage implements OnInit, OnDestroy {
       .writeText(tsvContent)
       .then(() =>
         this.presentToast(
-          this.translate.instant('activation-page.copy-success'),
+          this.translate.instant(
+            'activation-page.' + this.getEapKey() + '.copy-success',
+          ),
           'ibf-primary',
         ),
       )
       .catch(() =>
         this.presentToast(
-          this.translate.instant('activation-page.copy-fail'),
+          this.translate.instant(
+            'activation-page.' + this.getEapKey() + '.copy-fail',
+          ),
           'alert',
         ),
       );
@@ -102,5 +108,14 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     });
 
     await toast.present();
+  }
+
+  public getEapKey(): string {
+    if (!this.disasterType) {
+      return 'trigger';
+    }
+    return this.disasterTypeService.hasEap(this.disasterType) === 'eap'
+      ? 'trigger'
+      : 'alert';
   }
 }
