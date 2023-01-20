@@ -1,3 +1,18 @@
+# [0.221.0](https://github.com/rodekruis/IBF-system/compare/v0.220.0...v0.221.0) (2023-01-20)
+
+
+### Bug Fixes
+
+* default to last day of month for monthly pipelines + other fixes AB[#17204](https://github.com/rodekruis/IBF-system/issues/17204) ([b826406](https://github.com/rodekruis/IBF-system/commit/b82640661f2fe6be5b435d7ae99921c4646e00e1))
+
+
+### Features
+
+* include+process date in all pipeline/mock endpoints AB[#17201](https://github.com/rodekruis/IBF-system/issues/17201) ([81be9cd](https://github.com/rodekruis/IBF-system/commit/81be9cd0f7300ab1951b04b2cc368e17e71ba48b))
+* use date-attribute in send-endpoint as well AB[#17341](https://github.com/rodekruis/IBF-system/issues/17341) ([90201c6](https://github.com/rodekruis/IBF-system/commit/90201c667c6a8f186193b524f20e24c9517cae4c))
+
+
+
 # [0.220.0](https://github.com/rodekruis/IBF-system/compare/v0.219.0...v0.220.0) (2023-01-20)
 
 
@@ -141,22 +156,6 @@
 ### Features
 
 * stay in area-view after saving actions, but do update action-summary AB[#17156](https://github.com/rodekruis/IBF-system/issues/17156) ([c383f86](https://github.com/rodekruis/IBF-system/commit/c383f86a2704b0475ace91d835351cd87194d812))
-
-
-
-# [0.212.0](https://github.com/rodekruis/IBF-system/compare/v0.211.2...v0.212.0) (2023-01-06)
-
-
-### Bug Fixes
-
-* only show disaster-specific copy in stop-popup if present AB[#17152](https://github.com/rodekruis/IBF-system/issues/17152) ([db4fb0e](https://github.com/rodekruis/IBF-system/commit/db4fb0e6ef644e6fd26fb5d7f1d464be329cb104))
-* show count on other admin levels AB[#17150](https://github.com/rodekruis/IBF-system/issues/17150) ([14d2078](https://github.com/rodekruis/IBF-system/commit/14d207824edf7575d6438255df4c16fe52189d21))
-* syntax AB[#17132](https://github.com/rodekruis/IBF-system/issues/17132) ([ba975dc](https://github.com/rodekruis/IBF-system/commit/ba975dc85c6125cb91a7473f5c4ba557b84d74ad))
-
-
-### Features
-
-* hide stopped areas overview if none AB[#17151](https://github.com/rodekruis/IBF-system/issues/17151) ([b3bce80](https://github.com/rodekruis/IBF-system/commit/b3bce80c7916c05740700b5933046f26492d8885))
 
 
 
