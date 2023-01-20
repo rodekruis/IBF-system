@@ -1,3 +1,13 @@
+## [0.221.1](https://github.com/rodekruis/IBF-system/compare/v0.221.0...v0.221.1) (2023-01-20)
+
+
+### Bug Fixes
+
+* change url + handle trigger/alert AB[#17418](https://github.com/rodekruis/IBF-system/issues/17418) ([366f674](https://github.com/rodekruis/IBF-system/commit/366f6741edf908e397707197eb2e753de2d5c256))
+* country in trigger log header AB[#17427](https://github.com/rodekruis/IBF-system/issues/17427) ([5be750b](https://github.com/rodekruis/IBF-system/commit/5be750b4ede05a14061da7cbe8881ea1b6990f7e))
+
+
+
 # [0.221.0](https://github.com/rodekruis/IBF-system/compare/v0.220.0...v0.221.0) (2023-01-20)
 
 
@@ -138,24 +148,6 @@
 * refactor code AB[#17166](https://github.com/rodekruis/IBF-system/issues/17166) ([07ab01b](https://github.com/rodekruis/IBF-system/commit/07ab01b8eafff350755946bbc3d2b590e4ee6865))
 * specify "phones" for mobile AB[#17166](https://github.com/rodekruis/IBF-system/issues/17166) AB[#17189](https://github.com/rodekruis/IBF-system/issues/17189) ([7a7383c](https://github.com/rodekruis/IBF-system/commit/7a7383cd8c28618e1e6b14b3632e9086b188abd6))
 * update mobile copy AB[#17183](https://github.com/rodekruis/IBF-system/issues/17183) ([01430af](https://github.com/rodekruis/IBF-system/commit/01430af2c40d9f7e8691f331f8174901d8706947))
-
-
-
-# [0.213.0](https://github.com/rodekruis/IBF-system/compare/v0.212.0...v0.213.0) (2023-01-06)
-
-
-### Bug Fixes
-
-* improve save-actions popup AB[#17153](https://github.com/rodekruis/IBF-system/issues/17153) AB[#17154](https://github.com/rodekruis/IBF-system/issues/17154) AB[#17155](https://github.com/rodekruis/IBF-system/issues/17155) ([a57a638](https://github.com/rodekruis/IBF-system/commit/a57a6385022cbd03c3ddd5cf14d816a5d330e435))
-* only close automatically if not already closed AB[#17154](https://github.com/rodekruis/IBF-system/issues/17154) ([ae61eec](https://github.com/rodekruis/IBF-system/commit/ae61eeceb19cbf3eec142846e8c35b3bccb5165e))
-* reset changed actions after save AB[#17156](https://github.com/rodekruis/IBF-system/issues/17156) ([6b6c81f](https://github.com/rodekruis/IBF-system/commit/6b6c81f152b252610d2e6ad7872a468fbce706e9))
-* revert status in frontend if api call fails AB[#17156](https://github.com/rodekruis/IBF-system/issues/17156) ([6cdead3](https://github.com/rodekruis/IBF-system/commit/6cdead3e33066291b7fe346605a7a242562753cf))
-* use TriggeredArea class in chat.component ([4f7fc32](https://github.com/rodekruis/IBF-system/commit/4f7fc320971cc7d57c53741f8d25e337dd2cd4d4))
-
-
-### Features
-
-* stay in area-view after saving actions, but do update action-summary AB[#17156](https://github.com/rodekruis/IBF-system/issues/17156) ([c383f86](https://github.com/rodekruis/IBF-system/commit/c383f86a2704b0475ace91d835351cd87194d812))
 
 
 
