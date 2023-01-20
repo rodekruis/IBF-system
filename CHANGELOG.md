@@ -1,3 +1,19 @@
+# [0.220.0](https://github.com/rodekruis/IBF-system/compare/v0.219.0...v0.220.0) (2023-01-20)
+
+
+### Bug Fixes
+
+* add drr icon AB[#17344](https://github.com/rodekruis/IBF-system/issues/17344) ([2532af7](https://github.com/rodekruis/IBF-system/commit/2532af7c113ec5b3507662a793dc79131223f254))
+* change color of livestock AB[#17340](https://github.com/rodekruis/IBF-system/issues/17340) ([71a2146](https://github.com/rodekruis/IBF-system/commit/71a214639864148b8286e3f6146255effebcba76))
+* separate female icon AB[#17344](https://github.com/rodekruis/IBF-system/issues/17344) ([f4c21a7](https://github.com/rodekruis/IBF-system/commit/f4c21a7f7b8d2ba0ceffca8abf7ee8fe4f2d4c95))
+
+
+### Features
+
+* change icon color AB[#15786](https://github.com/rodekruis/IBF-system/issues/15786) ([5613ebb](https://github.com/rodekruis/IBF-system/commit/5613ebbca49a7ba5b4f33fe7505828177052d19c))
+
+
+
 # [0.219.0](https://github.com/rodekruis/IBF-system/compare/v0.218.1...v0.219.0) (2023-01-16)
 
 
@@ -141,15 +157,6 @@
 ### Features
 
 * hide stopped areas overview if none AB[#17151](https://github.com/rodekruis/IBF-system/issues/17151) ([b3bce80](https://github.com/rodekruis/IBF-system/commit/b3bce80c7916c05740700b5933046f26492d8885))
-
-
-
-## [0.211.2](https://github.com/rodekruis/IBF-system/compare/v0.211.1...v0.211.2) (2023-01-06)
-
-
-### Bug Fixes
-
-* info popups AB[#16775](https://github.com/rodekruis/IBF-system/issues/16775) ([710d200](https://github.com/rodekruis/IBF-system/commit/710d2000f46f739e5cd294e9e9c7cc8caf2016b2))
 
 
 
