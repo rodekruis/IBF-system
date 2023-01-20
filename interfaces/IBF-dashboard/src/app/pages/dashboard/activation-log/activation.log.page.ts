@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -27,15 +27,14 @@ export class ActivationLogPage implements OnInit, OnDestroy {
   constructor(
     private apiService: ApiService,
     private analyticsService: AnalyticsService,
-    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private toastController: ToastController,
     private translate: TranslateService,
   ) {
-    const urlParts = this.router.url.split(';');
-    if (urlParts.length > 1) {
-      this.countryCodeISO3 = urlParts[1].split('=')[1];
-      this.disasterType = urlParts[2].split('=')[1] as DisasterTypeKey;
-    }
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.countryCodeISO3 = params.countryCodeISO3;
+      this.disasterType = params.disasterType as DisasterTypeKey;
+    });
   }
 
   ngOnInit() {
