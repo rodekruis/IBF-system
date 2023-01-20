@@ -57,7 +57,7 @@ export class ScriptsService {
           disasterType: disasterType.disasterType,
           triggered: mockAllInput.triggered,
           removeEvents: true,
-          date: new Date(),
+          date: mockAllInput.date || new Date(),
         });
       }
     }
@@ -94,12 +94,14 @@ export class ScriptsService {
       }
     });
 
+    const date = mockInput.date ? new Date(mockInput.date) : new Date();
+
     await this.mockExposure(
       selectedCountry,
       mockInput.disasterType,
       mockInput.triggered,
       eventNr,
-      new Date(mockInput.date),
+      date,
       typhoonScenario,
     );
 
@@ -108,12 +110,14 @@ export class ScriptsService {
         selectedCountry,
         mockInput.disasterType,
         mockInput.triggered,
+        date,
       );
       await this.mockTriggerPerLeadTime(
         selectedCountry,
         mockInput.disasterType,
         mockInput.triggered,
         eventNr,
+        date,
       );
     }
 
@@ -131,7 +135,12 @@ export class ScriptsService {
     }
 
     if (mockInput.disasterType === DisasterType.Typhoon) {
-      await this.mockTyphoonTrack(selectedCountry, typhoonScenario, eventNr);
+      await this.mockTyphoonTrack(
+        selectedCountry,
+        typhoonScenario,
+        eventNr,
+        date,
+      );
     }
 
     // for now base on SSD, make more generic later
@@ -161,7 +170,7 @@ export class ScriptsService {
           triggered: true,
           removeEvents: mockTyphoonScenario.removeEvents,
           secret: mockTyphoonScenario.secret,
-          date: new Date(),
+          date: mockTyphoonScenario.date || new Date(),
         },
         mockTyphoonScenario.eventNr,
         mockTyphoonScenario.scenario,
@@ -178,7 +187,7 @@ export class ScriptsService {
           triggered: false,
           removeEvents: mockTyphoonScenario.removeEvents,
           secret: mockTyphoonScenario.secret,
-          date: new Date(),
+          date: mockTyphoonScenario.date || new Date(),
         },
         mockTyphoonScenario.eventNr,
         mockTyphoonScenario.scenario,
@@ -193,7 +202,7 @@ export class ScriptsService {
           triggered: true,
           removeEvents: mockTyphoonScenario.removeEvents,
           secret: mockTyphoonScenario.secret,
-          date: new Date(),
+          date: mockTyphoonScenario.date || new Date(),
         },
         mockTyphoonScenario.eventNr,
         TyphoonScenario.EventAfterLandfall,
@@ -267,6 +276,7 @@ export class ScriptsService {
               eventNr,
               typhoonScenario,
             ),
+            date,
           });
         }
       }
@@ -644,6 +654,7 @@ export class ScriptsService {
     selectedCountry,
     typhoonScenario: TyphoonScenario,
     eventNr = 1,
+    date: Date,
   ) {
     const filePath = './src/api/typhoon-track/dto/example';
     let trackFileName = `${filePath}/typhoon-track-${
@@ -662,7 +673,7 @@ export class ScriptsService {
     // Make sure that the moment of landfall lies just ahead
     let i = typhoonScenario === TyphoonScenario.EventAfterLandfall ? -29 : -23;
     for (const trackpoint of track) {
-      const now = new Date();
+      const now = date || new Date();
       trackpoint.timestampOfTrackpoint = new Date(
         now.getTime() + i * (1000 * 60 * 60 * 6),
       );
@@ -680,6 +691,7 @@ export class ScriptsService {
       eventName: this.getEventName(DisasterType.Typhoon, eventNr),
       trackpointDetails:
         typhoonScenario === TyphoonScenario.NoEvent ? [] : track,
+      date,
     });
   }
 
@@ -687,6 +699,7 @@ export class ScriptsService {
     selectedCountry,
     disasterType: DisasterType,
     triggered: boolean,
+    date: Date,
   ) {
     const stationsFileName = `./src/api/glofas-station/dto/example/glofas-stations-${
       selectedCountry.countryCodeISO3
@@ -704,6 +717,7 @@ export class ScriptsService {
         countryCodeISO3: selectedCountry.countryCodeISO3,
         stationForecasts: stations,
         leadTime: activeLeadTime as LeadTime,
+        date,
       });
     }
   }
@@ -713,6 +727,7 @@ export class ScriptsService {
     disasterType: DisasterType,
     triggered: boolean,
     eventNr = 1,
+    date: Date,
   ) {
     const triggersFileName = `./src/api/event/dto/example/triggers-per-leadtime-${
       selectedCountry.countryCodeISO3
@@ -725,6 +740,7 @@ export class ScriptsService {
       triggersPerLeadTime: triggers,
       disasterType: disasterType,
       eventName: this.getEventName(disasterType, eventNr),
+      date,
     });
   }
 
@@ -780,6 +796,7 @@ export class ScriptsService {
     if (!triggered) {
       return;
     }
+    console.log(`Seeding event map image country: ${countryCodeISO3}`);
 
     const eventName = this.getEventName(disasterType) || 'no-name';
     const filename = `${countryCodeISO3}_${disasterType}_${eventName}_map-image.png`;

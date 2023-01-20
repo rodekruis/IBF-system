@@ -31,8 +31,8 @@ export class TyphoonTrackService {
               countryCodeISO3: uploadTyphoonTrack.countryCodeISO3,
               leadTime: uploadTyphoonTrack.leadTime,
               eventName: uploadTyphoonTrack.eventName,
-              date: new Date(),
-              timestamp: new Date(),
+              date: uploadTyphoonTrack.date || new Date(),
+              timestamp: uploadTyphoonTrack.date || new Date(),
               timestampOfTrackpoint: trackpoint.timestampOfTrackpoint,
               windspeed: trackpoint.windspeed,
               category: trackpoint.category,
@@ -53,9 +53,12 @@ export class TyphoonTrackService {
     await this.typhoonTrackRepository.delete({
       countryCodeISO3: uploadTyphoonTrack.countryCodeISO3,
       eventName: uploadTyphoonTrack.eventName,
-      date: new Date(),
+      date: uploadTyphoonTrack.date || new Date(),
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast6hourInterval(DisasterType.Typhoon),
+        this.helperService.getLast6hourInterval(
+          DisasterType.Typhoon,
+          uploadTyphoonTrack.date,
+        ),
       ),
     });
   }

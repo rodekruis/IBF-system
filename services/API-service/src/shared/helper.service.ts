@@ -6,6 +6,10 @@ import csv from 'csv-parser';
 import { DateDto } from '../api/event/dto/date.dto';
 import { Connection } from 'typeorm';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
+import {
+  LeadTime,
+  LeadTimeUnit,
+} from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 
 @Injectable()
 export class HelperService {
@@ -36,7 +40,7 @@ export class HelperService {
   ): Date {
     // This function was made to accomodate 'typhoon' setting where upload-frequency is '6 hours'
     // This means that endpoint cannot only check on date = lastTriggeredDate.date, but should also check on the right 6-hour interval
-    // However to be able to use this function generically also for other disasterTypes (freq '1 day'), it returns last 24-hour interval (midnight)
+    // To be able to use this function also for other disasterTypes (freq '1 day'), it returns last 24-hour interval (midnight)
     const date = triggeredDate || new Date();
     const lastInterval = new Date(date);
     if (disasterType === DisasterType.Typhoon) {
@@ -55,6 +59,16 @@ export class HelperService {
       lastInterval.setHours(0, 0, 0, 0);
     }
     return lastInterval;
+  }
+
+  public setDayToLastDayOfMonth(date: Date, leadTime: LeadTime): Date {
+    if (date && leadTime.split('-')[1] === LeadTimeUnit.month) {
+      if (date.getMonth() !== new Date().getMonth()) {
+        // if month-of-upload is different (typically larger) than month, set day to last day of month
+        date = new Date(date.getFullYear(), date.getMonth() + 1, 0, 0, 0, 0);
+      }
+    }
+    return date;
   }
 
   public async csvBufferToArray(buffer): Promise<object[]> {

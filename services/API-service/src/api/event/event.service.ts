@@ -116,14 +116,18 @@ export class EventService {
   public async uploadTriggerPerLeadTime(
     uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ): Promise<void> {
+    uploadTriggerPerLeadTimeDto.date = this.helperService.setDayToLastDayOfMonth(
+      uploadTriggerPerLeadTimeDto.date,
+      uploadTriggerPerLeadTimeDto.triggersPerLeadTime[0].leadTime,
+    );
     const triggersPerLeadTime: TriggerPerLeadTime[] = [];
-    const timestamp = new Date();
+    const timestamp = uploadTriggerPerLeadTimeDto.date || new Date();
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
       // Delete existing entries in case of a re-run of the pipeline for some reason
       await this.deleteDuplicates(uploadTriggerPerLeadTimeDto, leadTime);
 
       const triggerPerLeadTime = new TriggerPerLeadTime();
-      triggerPerLeadTime.date = new Date();
+      triggerPerLeadTime.date = uploadTriggerPerLeadTimeDto.date || new Date();
       triggerPerLeadTime.timestamp = timestamp;
       triggerPerLeadTime.countryCodeISO3 =
         uploadTriggerPerLeadTimeDto.countryCodeISO3;
@@ -152,7 +156,7 @@ export class EventService {
       s => s.disasterType === uploadTriggerPerLeadTimeDto.disasterType,
     ).activeLeadTimes[0].leadTimeName;
     if (leadTime.includes(LeadTimeUnit.month)) {
-      const date = new Date();
+      const date = uploadTriggerPerLeadTimeDto.date || new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       await this.triggerPerLeadTimeRepository.delete({
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
@@ -167,10 +171,11 @@ export class EventService {
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
-        date: new Date(),
+        date: uploadTriggerPerLeadTimeDto.date || new Date(),
         timestamp: MoreThanOrEqual(
           this.helperService.getLast6hourInterval(
             uploadTriggerPerLeadTimeDto.disasterType,
+            uploadTriggerPerLeadTimeDto.date,
           ),
         ),
       });
@@ -180,7 +185,7 @@ export class EventService {
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
-        date: new Date(),
+        date: uploadTriggerPerLeadTimeDto.date || new Date(),
       });
     }
   }
@@ -609,7 +614,8 @@ export class EventService {
     // To optimize performance here ..
     const idsToUpdateAboveThreshold = [];
     const idsToUpdateBelowThreshold = [];
-    const endDate = await this.getEndDate(disasterType);
+    const uploadDate = await this.getRecentDate(countryCodeISO3, disasterType);
+    const endDate = await this.getEndDate(disasterType, uploadDate.timestamp);
     unclosedEventAreas.forEach(eventArea => {
       const affectedArea = affectedAreas.find(
         area => area.placeCode === eventArea.adminArea.placeCode,
@@ -715,6 +721,10 @@ export class EventService {
       })
     ).map(area => area.adminArea.placeCode);
     const newEventAreas: EventPlaceCodeEntity[] = [];
+    const startDate = await this.helperService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
     for await (const area of affectedAreas) {
       if (!existingUnclosedEventAreas.includes(area.placeCode)) {
         const adminArea = await this.adminAreaRepository.findOne({
@@ -725,8 +735,11 @@ export class EventService {
         eventArea.eventName = eventName;
         eventArea.thresholdReached = area.triggerValue > 0;
         eventArea.actionsValue = +area.actionsValue;
-        eventArea.startDate = new Date();
-        eventArea.endDate = await this.getEndDate(disasterType);
+        eventArea.startDate = startDate.timestamp;
+        eventArea.endDate = await this.getEndDate(
+          disasterType,
+          startDate.timestamp,
+        );
         eventArea.activeTrigger = true;
         eventArea.stopped = false;
         eventArea.manualStoppedDate = null;
@@ -744,9 +757,13 @@ export class EventService {
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
     );
+    const uploadDate = await this.helperService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
     const expiredEventAreas = await this.eventPlaceCodeRepo.find({
       where: {
-        endDate: LessThan(new Date()),
+        endDate: LessThan(uploadDate.timestamp),
         adminArea: In(countryAdminAreaIds),
         disasterType: disasterType,
         closed: false,
@@ -771,9 +788,10 @@ export class EventService {
 
   private async getEndDate(
     disasterType: DisasterType,
-    passedDate?: Date,
+    passedDate: Date,
   ): Promise<Date> {
-    const today = passedDate || new Date();
+    const today = new Date(JSON.parse(JSON.stringify(passedDate)));
+
     const disasterTypeEntity = await this.disasterTypeRepository.findOne({
       where: { disasterType: disasterType },
       relations: ['leadTimes'],

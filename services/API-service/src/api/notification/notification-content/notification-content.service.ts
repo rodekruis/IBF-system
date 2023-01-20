@@ -183,8 +183,12 @@ export class NotificationContentService {
     }
   }
 
-  public getFirstLeadTimeDate(value: number, unit: string): string {
-    const now = Date.now();
+  public getFirstLeadTimeDate(
+    value: number,
+    unit: string,
+    date?: Date,
+  ): string {
+    const now = date || new Date();
 
     const getNewDate = {
       month: new Date(now).setMonth(new Date(now).getMonth() + value),

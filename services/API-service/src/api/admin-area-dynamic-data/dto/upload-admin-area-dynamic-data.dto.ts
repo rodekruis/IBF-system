@@ -53,4 +53,8 @@ export class UploadAdminAreaDynamicDataDto {
   @IsOptional()
   @IsString()
   public eventName: string;
+
+  @ApiProperty({ example: new Date() })
+  @IsOptional()
+  public date: Date;
 }
