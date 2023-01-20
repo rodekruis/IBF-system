@@ -2,13 +2,22 @@
   "app-name": "IBF-dashboard",
   "common": { "version": "Version" },
   "activation-page": {
-    "activation-report": "Open all activations",
+    "activation-report": "Open all triggers",
     "copy-to-clipboard": "Copy to clipboard",
-    "copy-success": "Activation data successfully copied to clipboard. It can be pasted into a spreadsheet.",
-    "copy-fail": "There was a problem with copying the activation data",
-    "page-title": "Activation log",
-    "page-explanation": "This table shows all historical activations, every time the IBF-portal was triggered. There is one row per triggered area.",
-    "copy-instructions": "Activation data can be copied into a spreadsheet by clicking on the \"Copy to clipboard\" button on the right."
+    "trigger": {
+      "copy-success": "Trigger data successfully copied to clipboard. It can be pasted into a spreadsheet.",
+      "copy-fail": "There was a problem with copying the trigger data",
+      "page-title": "Trigger log",
+      "page-explanation": "This table shows all historical triggers of the IBF-portal. There is one row per triggered area.",
+      "copy-instructions": "Trigger data can be copied into a spreadsheet by clicking on the \"Copy to clipboard\" button on the right."
+    },
+    "alert": {
+      "copy-success": "Alert data successfully copied to clipboard. It can be pasted into a spreadsheet.",
+      "copy-fail": "There was a problem with copying the alert data",
+      "page-title": "Alert log",
+      "page-explanation": "This table shows all historical alerts of the IBF-portal. There is one row per alerted area.",
+      "copy-instructions": "Alert data can be copied into a spreadsheet by clicking on the \"Copy to clipboard\" button on the right."
+    }
   },
   "login-page": {
     "title": "Login",

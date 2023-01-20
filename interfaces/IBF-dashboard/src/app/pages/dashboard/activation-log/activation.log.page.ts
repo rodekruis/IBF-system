@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { ApiService } from 'src/app/services/api.service';
+import { DisasterTypeService } from '../../../services/disaster-type.service';
 import { DisasterTypeKey } from '../../../types/disaster-type-key';
 
 @Component({
@@ -27,15 +28,15 @@ export class ActivationLogPage implements OnInit, OnDestroy {
   constructor(
     private apiService: ApiService,
     private analyticsService: AnalyticsService,
-    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private toastController: ToastController,
     private translate: TranslateService,
+    private disasterTypeService: DisasterTypeService,
   ) {
-    const urlParts = this.router.url.split(';');
-    if (urlParts.length > 1) {
-      this.countryCodeISO3 = urlParts[1].split('=')[1];
-      this.disasterType = urlParts[2].split('=')[1] as DisasterTypeKey;
-    }
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.countryCodeISO3 = params.countryCodeISO3;
+      this.disasterType = params.disasterType as DisasterTypeKey;
+    });
   }
 
   ngOnInit() {
@@ -81,13 +82,17 @@ export class ActivationLogPage implements OnInit, OnDestroy {
       .writeText(tsvContent)
       .then(() =>
         this.presentToast(
-          this.translate.instant('activation-page.copy-success'),
+          this.translate.instant(
+            'activation-page.' + this.getEapKey() + '.copy-success',
+          ),
           'ibf-primary',
         ),
       )
       .catch(() =>
         this.presentToast(
-          this.translate.instant('activation-page.copy-fail'),
+          this.translate.instant(
+            'activation-page.' + this.getEapKey() + '.copy-fail',
+          ),
           'alert',
         ),
       );
@@ -103,5 +108,14 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     });
 
     await toast.present();
+  }
+
+  public getEapKey(): string {
+    if (!this.disasterType) {
+      return 'trigger';
+    }
+    return this.disasterTypeService.hasEap(this.disasterType) === 'eap'
+      ? 'trigger'
+      : 'alert';
   }
 }

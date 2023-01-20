@@ -10,14 +10,21 @@
               }
       "
     ></p>
-    <app-about-btn
-      [btnLabel]="
-        'chat-component.' + disasterTypeName + '.about-button-label' | translate
-      "
-    ></app-about-btn>
-    <app-ibf-guide-button></app-ibf-guide-button>
-    <app-activation-log-button></app-activation-log-button>
-    <app-export-view></app-export-view>
+    <ion-col>
+      <ion-row>
+        <app-about-btn
+          [btnLabel]="
+            'chat-component.' + disasterTypeName + '.about-button-label'
+              | translate
+          "
+        ></app-about-btn>
+        <app-ibf-guide-button></app-ibf-guide-button>
+      </ion-row>
+      <ion-row>
+        <app-activation-log-button></app-activation-log-button>
+        <app-export-view></app-export-view>
+      </ion-row>
+    </ion-col>
   </app-dialogue-turn>
 
   <!-- No event -->

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
@@ -15,8 +16,18 @@ export class CountryService {
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
+    private activatedRoute: ActivatedRoute,
   ) {
-    this.authService.getAuthSubscription().subscribe(this.onUserChange);
+    this.activatedRoute.queryParams.subscribe((params) => {
+      if (params.countryCodeISO3) {
+        this.apiService.getCountries().subscribe((countries) => {
+          this.countries = countries;
+          this.selectCountry(params.countryCodeISO3);
+        });
+      } else {
+        this.authService.getAuthSubscription().subscribe(this.onUserChange);
+      }
+    });
   }
 
   private onUserChange = (user: User) => {

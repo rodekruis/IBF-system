@@ -1,10 +1,14 @@
 <ion-button
   type="button"
-  tite="Activation Log"
-  attr.aria-label="Activation Log"
+  [title]="'activation-page.' + getEapKey() + '.page-title' | translate"
+  [attr.aria-label]="
+    'activation-page.' + getEapKey() + '.page-title' | translate
+  "
   size="small"
   color="ibf-primary"
   (click)="goToPage()"
 >
-  <span class="ion-hide-sm-down">Activation Log</span>
+  <span class="ion-hide-sm-down">{{
+    'activation-page.' + getEapKey() + '.page-title' | translate
+  }}</span>
 </ion-button>
