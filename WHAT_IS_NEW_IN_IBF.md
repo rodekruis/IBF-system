@@ -2,6 +2,17 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
+### 20-01-2023 (v0.221.1)
+
+- IBF Floods: notifications are sent now also on the 1st day the forecast is below trigger again
+- All IBF: Changed name 'activation log' to 'trigger/alert' log + add explanation
+- All IBF: Hyperlinks in popups are always opened in a new tab
+- All IBF: In the action summary, 'areas of focus' are now called 'sectors' and an info-button with explanation is added for each.
+- All IBF: Icons in middle column (exposed area overview + action-summary) are updated
+- All IBF: If opened from mobile device then a popup explains that IBF-portal is not optimized for mobile phones yet. If opened from a table, a popup explains that the user should switch to landscape mode.
+- All IBF: After checking an EAP-action, the portal stays in area view instead of returning to national view.
+- All IBF: If there is at least 1 area for which the trigger is manually stopped, then a 'stopped area overview' appears in the middle column, below the 'exposed area overview'
+
 ### 16-12-2022 (v0.209.1)
 
 - Philippines Typhoon: only events of category Severe Tropical Storm and higher lead to email-notifications
