@@ -3,6 +3,11 @@
     *ngFor="let disasterType of disasterTypes"
     data-test="disaster-type-button"
     class="disaster-type-button-container"
+    [attr.data-test]="
+      isSelectedDisaster(disasterType.disasterType)
+        ? 'selected-disaster-' + disasterType.disasterType
+        : ''
+    "
   >
     <ion-icon
       *ngIf="!isLoading()"
@@ -12,7 +17,9 @@
         getButtonSvg(disasterType.disasterType, disasterType.activeTrigger)
       "
       slot="start"
-      data-test="selected-disaster"
+      [attr.data-test]="
+        isSelectedDisaster(disasterType.disasterType) ? 'selected-disaster' : ''
+      "
     >
     </ion-icon>
     <ion-spinner
