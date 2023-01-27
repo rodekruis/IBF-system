@@ -125,7 +125,7 @@ export class PointDataService {
       dto.lon = row.lon;
       const result = await validate(dto);
       if (result.length > 0) {
-        const errorObj = { lineNunber: i + 1, validationError: result };
+        const errorObj = { lineNumber: i + 1, validationError: result };
         errors.push(errorObj);
       }
       validatatedArray.push(dto);
