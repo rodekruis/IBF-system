@@ -15,6 +15,7 @@ export class IbfLayerMetadata {
   active: string;
   legendColor: string;
   leadTimeDependent: boolean;
+  description: JSON;
 }
 
 export class IbfLayer {

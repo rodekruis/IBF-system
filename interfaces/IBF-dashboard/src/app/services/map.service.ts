@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
@@ -79,7 +78,6 @@ export class MapService {
   public adminLevel: AdminLevel;
   public triggeredAreas: any[];
 
-  private popoverTexts: { [key: string]: string } = {};
   private country: Country;
   private disasterType: DisasterType;
   private placeCode: PlaceCode;
@@ -91,7 +89,6 @@ export class MapService {
     private apiService: ApiService,
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
-    private translateService: TranslateService,
     private disasterTypeService: DisasterTypeService,
     private eapActionsService: EapActionsService,
   ) {
@@ -114,10 +111,6 @@ export class MapService {
     this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
-
-    this.translateService
-      .get('layer-info-popups.layers-section')
-      .subscribe(this.onTranslate);
 
     this.eventService
       .getInitialEventStateSubscription()
@@ -161,26 +154,19 @@ export class MapService {
     this.placeCode = placeCode;
   };
 
-  private onTranslate = (
-    translatedStrings: { [key: string]: string } = {},
-  ): void => {
-    this.popoverTexts = translatedStrings;
-  };
-
-  private getPopoverText(indicatorName: IbfLayerName): string {
-    let popoverText = '';
+  private getPopoverText(indicator: IbfLayerMetadata | Indicator): string {
     if (
-      this.popoverTexts[indicatorName] &&
-      this.popoverTexts[indicatorName][this.country.countryCodeISO3] &&
-      this.popoverTexts[indicatorName][this.country.countryCodeISO3][
+      indicator.description &&
+      indicator.description[this.country.countryCodeISO3] &&
+      indicator.description[this.country.countryCodeISO3][
         this.disasterType.disasterType
       ]
     ) {
-      popoverText = this.popoverTexts[indicatorName][
-        this.country.countryCodeISO3
-      ][this.disasterType.disasterType];
+      return indicator.description[this.country.countryCodeISO3][
+        this.disasterType.disasterType
+      ];
     }
-    return popoverText;
+    return '';
   }
 
   private onLayerChange = (layers: IbfLayerMetadata[]): void => {
@@ -188,13 +174,7 @@ export class MapService {
       const layerActive = this.getActiveState(layer);
 
       if (layer.type === IbfLayerType.wms) {
-        this.loadWmsLayer(
-          layer.name,
-          layer.label,
-          layerActive,
-          layer.leadTimeDependent ? this.timelineState.activeLeadTime : null,
-          layer.legendColor,
-        );
+        this.loadWmsLayer(layer, layerActive);
       } else if (layer.name === IbfLayerName.adminRegions1) {
         this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel1);
       } else if (layer.name === IbfLayerName.adminRegions2) {
@@ -204,14 +184,14 @@ export class MapService {
       } else if (layer.name === IbfLayerName.adminRegions4) {
         this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel4);
       } else if (layer.name === IbfLayerName.glofasStations) {
-        this.loadStationLayer(layerActive);
+        this.loadStationLayer(layer, layerActive);
       } else if (layer.name === IbfLayerName.typhoonTrack) {
-        this.loadTyphoonTrackLayer(layerActive);
+        this.loadTyphoonTrackLayer(layer, layerActive);
       } else if (layer.name === IbfLayerName.waterpoints) {
-        this.loadWaterPointsLayer(layerActive);
+        this.loadWaterPointsLayer(layer, layerActive);
       } else if (layer.type === IbfLayerType.point) {
         // NOTE: any non-standard point layers should be placed above this 'else if'!
-        this.loadPointDataLayer(layer.name, layer.label, layerActive);
+        this.loadPointDataLayer(layer, layerActive);
       }
     });
   };
@@ -237,7 +217,7 @@ export class MapService {
     }
   }
 
-  private loadStationLayer(layerActive: boolean) {
+  private loadStationLayer(layer: IbfLayerMetadata, layerActive: boolean) {
     if (this.country) {
       if (layerActive) {
         this.apiService
@@ -245,19 +225,19 @@ export class MapService {
             this.country.countryCodeISO3,
             this.timelineState.activeLeadTime,
           )
-          .subscribe(this.addStationLayer);
+          .subscribe((stationData) => this.addStationLayer(layer, stationData));
       } else {
-        this.addStationLayer(null);
+        this.addStationLayer(layer, null);
       }
     }
   }
 
-  private addStationLayer = (stations: any) => {
+  private addStationLayer = (layer: IbfLayerMetadata, stations: any) => {
     this.addLayer({
       name: IbfLayerName.glofasStations,
       label: IbfLayerLabel.glofasStations,
       type: IbfLayerType.point,
-      description: this.getPopoverText(IbfLayerName.glofasStations),
+      description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(
             IbfLayerName.glofasStations,
@@ -270,7 +250,7 @@ export class MapService {
     });
   };
 
-  private loadTyphoonTrackLayer(layerActive: boolean) {
+  private loadTyphoonTrackLayer(layer: IbfLayerMetadata, layerActive: boolean) {
     if (this.country) {
       if (layerActive) {
         this.apiService
@@ -278,19 +258,24 @@ export class MapService {
             this.country.countryCodeISO3,
             this.eventState?.event?.eventName,
           )
-          .subscribe(this.addTyphoonTrackLayer);
+          .subscribe((trackData) =>
+            this.addTyphoonTrackLayer(layer, trackData),
+          );
       } else {
-        this.addTyphoonTrackLayer(null);
+        this.addTyphoonTrackLayer(layer, null);
       }
     }
   }
 
-  private addTyphoonTrackLayer = (typhoonTrack: any) => {
+  private addTyphoonTrackLayer = (
+    layer: IbfLayerMetadata,
+    typhoonTrack: any,
+  ) => {
     this.addLayer({
       name: IbfLayerName.typhoonTrack,
       label: IbfLayerLabel.typhoonTrack,
       type: IbfLayerType.point,
-      description: this.getPopoverText(IbfLayerName.typhoonTrack),
+      description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(
             IbfLayerName.typhoonTrack,
@@ -304,37 +289,36 @@ export class MapService {
   };
 
   private loadPointDataLayer = (
-    layerName: IbfLayerName,
-    label: IbfLayerLabel,
+    layer: IbfLayerMetadata,
     layerActive: boolean,
   ) => {
-    layerName =
-      layerName === IbfLayerName.redCrescentBranches
+    const layerName =
+      layer.name === IbfLayerName.redCrescentBranches
         ? IbfLayerName.redCrossBranches
-        : layerName;
+        : layer.name;
     if (this.country) {
       if (layerActive) {
         this.apiService
           .getPointData(this.country.countryCodeISO3, layerName)
           .subscribe((pointData) => {
-            this.addPointDataLayer(layerName, label, pointData);
+            this.addPointDataLayer(layer, layerName, pointData);
           });
       } else {
-        this.addPointDataLayer(layerName, label, null);
+        this.addPointDataLayer(layer, layerName, null);
       }
     }
   };
 
   private addPointDataLayer = (
+    layer: IbfLayerMetadata,
     layerName: IbfLayerName,
-    label: IbfLayerLabel,
     pointData: any,
   ) => {
     this.addLayer({
       name: layerName,
-      label,
+      label: layer.label,
       type: IbfLayerType.point,
-      description: this.getPopoverText(layerName),
+      description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.includes(layerName),
       show: true,
       data: pointData,
@@ -343,26 +327,29 @@ export class MapService {
     });
   };
 
-  private loadWaterPointsLayer = (layerActive: boolean) => {
+  private loadWaterPointsLayer = (
+    layer: IbfLayerMetadata,
+    layerActive: boolean,
+  ) => {
     if (this.country) {
       if (layerActive) {
         this.apiService
           .getWaterPoints(this.country.countryCodeISO3)
           .subscribe((waterPoints) => {
-            this.addWaterPointsLayer(waterPoints);
+            this.addWaterPointsLayer(layer, waterPoints);
           });
       } else {
-        this.addWaterPointsLayer(null);
+        this.addWaterPointsLayer(layer, null);
       }
     }
   };
 
-  private addWaterPointsLayer(waterPoints: any) {
+  private addWaterPointsLayer(layer: IbfLayerMetadata, waterPoints: any) {
     this.addLayer({
       name: IbfLayerName.waterpoints,
       label: IbfLayerLabel.waterpoints,
       type: IbfLayerType.point,
-      description: this.getPopoverText(IbfLayerName.waterpoints),
+      description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.includes(
         IbfLayerName.waterpoints,
       ),
@@ -449,7 +436,7 @@ export class MapService {
       name: indicator.name,
       label: indicator.label,
       type: IbfLayerType.shape,
-      description: this.getPopoverText(indicator.name),
+      description: this.getPopoverText(indicator),
       active,
       show: true,
       data: adminRegions,
@@ -478,27 +465,25 @@ export class MapService {
   };
 
   private loadWmsLayer(
-    layerName: IbfLayerName,
-    layerLabel: IbfLayerLabel,
+    layer: IbfLayerMetadata,
     active: boolean,
     leadTime?: LeadTime,
-    legendColor?: string,
   ) {
     if (this.country) {
       this.addLayer({
-        name: layerName,
-        label: layerLabel,
+        name: layer.name,
+        label: layer.label,
         type: IbfLayerType.wms,
-        description: this.getPopoverText(layerName),
+        description: this.getPopoverText(layer),
         active,
         show: true,
         viewCenter: false,
         data: null,
-        legendColor,
+        legendColor: layer.legendColor,
         order: 10,
         wms: {
           url: environment.geoserverUrl,
-          name: `ibf-system:${layerName}_${leadTime ? leadTime + '_' : ''}${
+          name: `ibf-system:${layer.name}_${leadTime ? leadTime + '_' : ''}${
             this.country.countryCodeISO3
           }`,
           format: 'image/png',
