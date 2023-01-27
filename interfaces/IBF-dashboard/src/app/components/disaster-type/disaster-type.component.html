@@ -6,6 +6,7 @@
     <ion-icon
       (click)="switchDisasterType(disasterType)"
       class="disaster-type-button"
+      [ngClass]="disasterType?.activeTrigger ? 'triggered' : ''"
       data-test="disaster-type-button"
       [src]="
         getButtonSvg(disasterType.disasterType, disasterType.activeTrigger)

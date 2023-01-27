@@ -42,7 +42,7 @@ const testCountry = ({ iso3Code, email }) => {
           timelineTest(i, iso3Code);
         }
       });
-
+      cy.waitForLogoutButton();
       cy.get(selectors.logOut).click();
     });
   });
