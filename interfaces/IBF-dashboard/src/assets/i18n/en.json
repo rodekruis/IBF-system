@@ -1083,7 +1083,7 @@
           "TS": "Tropical storm",
           "STS": "Severe tropical storm",
           "TY": "Typhoon",
-          "ST": "Super typhoon"
+          "STY": "Super typhoon"
         }
       }
     }

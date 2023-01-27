@@ -5,9 +5,6 @@ Cypress.Commands.add('timelineTest', (countryName) => {
 
   cy.get(selectors.disasterType.disasterTypeButtons).then((buttons) => {
     for (let index = 0; index < buttons.length; index++) {
-      if (countryName === 'PHILIPPINES' && index === 2) {
-        return;
-      }
       if (index > 0) {
         cy.get(selectors.disasterType.disasterTypeButtons).eq(index).click();
       }
@@ -32,6 +29,6 @@ Cypress.Commands.add('timelineTest', (countryName) => {
       );
     }
   });
-
+  cy.waitForLogoutButton();
   cy.get(selectors.logOut).click();
 });

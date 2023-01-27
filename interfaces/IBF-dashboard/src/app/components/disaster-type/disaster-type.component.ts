@@ -16,8 +16,7 @@ import { PlaceCodeService } from '../../services/place-code.service';
 export class DisasterTypeComponent implements OnInit, OnDestroy {
   public disasterTypesCounter = 0;
   public disasterTypes: DisasterType[] = [];
-  public disasterTypeMap = DISASTER_TYPES_SVG_MAP;
-  public selectedDisasterType: DisasterTypeKey;
+  private selectedDisasterType: DisasterTypeKey;
 
   private countrySubscription: Subscription;
 
@@ -75,5 +74,19 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
     this.placeCodeService.clearPlaceCodeHover();
     this.disasterTypeService.setDisasterType(disasterType);
     this.selectedDisasterType = disasterType.disasterType;
+  }
+
+  public isSelectedDisaster(disasterType: string): boolean {
+    return this.selectedDisasterType === disasterType;
+  }
+
+  public getButtonSvg(
+    disasterType: DisasterTypeKey,
+    triggered: boolean,
+  ): string {
+    const buttonStatus = `${
+      this.isSelectedDisaster(disasterType) ? 'selected' : 'nonSelected'
+    }${triggered ? '' : 'Non'}Triggered`;
+    return DISASTER_TYPES_SVG_MAP[disasterType][buttonStatus];
   }
 }
