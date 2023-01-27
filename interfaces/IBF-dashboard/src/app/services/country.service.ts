@@ -20,7 +20,7 @@ export class CountryService {
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
       if (params.countryCodeISO3) {
-        this.apiService.getCountries().subscribe((countries) => {
+        this.apiService.getCountries(null, true).subscribe((countries) => {
           this.countries = countries;
           this.selectCountry(params.countryCodeISO3);
         });
@@ -43,7 +43,7 @@ export class CountryService {
   }
 
   public getAllCountries(): Observable<Country[]> {
-    return this.apiService.getCountries();
+    return this.apiService.getCountries(null, true);
   }
 
   getCountrySubscription = (): Observable<Country> => {
