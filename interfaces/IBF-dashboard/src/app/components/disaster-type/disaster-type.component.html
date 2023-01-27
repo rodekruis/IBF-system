@@ -1,36 +1,20 @@
 <ion-row>
   <div
     *ngFor="let disasterType of disasterTypes"
-    data-test="disaster-type-button"
     class="disaster-type-button-container"
-    [attr.data-test]="
-      isSelectedDisaster(disasterType.disasterType)
-        ? 'selected-disaster-' + disasterType.disasterType
-        : ''
-    "
   >
     <ion-icon
-      *ngIf="!isLoading()"
-      (click)="!isLoading() && switchDisasterType(disasterType)"
+      (click)="switchDisasterType(disasterType)"
       class="disaster-type-button"
+      data-test="disaster-type-button"
       [src]="
         getButtonSvg(disasterType.disasterType, disasterType.activeTrigger)
       "
       slot="start"
-      [attr.data-test]="
+      [attr.data-test-selected]="
         isSelectedDisaster(disasterType.disasterType) ? 'selected-disaster' : ''
       "
     >
     </ion-icon>
-    <ion-spinner
-      *ngIf="isLoading()"
-      class="disaster-type-button"
-      name="circles"
-      [color]="
-        disasterType.activeTrigger
-          ? 'ibf-trigger-alert-primary'
-          : 'ibf-no-alert-primary'
-      "
-    ></ion-spinner>
   </div>
 </ion-row>

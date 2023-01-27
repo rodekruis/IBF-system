@@ -6,7 +6,6 @@ import { EventService } from 'src/app/services/event.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { Country, DisasterType } from '../../models/country.model';
 import { CountryService } from '../../services/country.service';
-import { LoaderService } from '../../services/loader.service';
 import { PlaceCodeService } from '../../services/place-code.service';
 
 @Component({
@@ -18,30 +17,24 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   public disasterTypesCounter = 0;
   public disasterTypes: DisasterType[] = [];
   private selectedDisasterType: DisasterTypeKey;
-  private loading = false;
 
   private countrySubscription: Subscription;
-  private loaderSubscription: Subscription;
 
   constructor(
     public disasterTypeService: DisasterTypeService,
     private countryService: CountryService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
-    private loaderService: LoaderService,
   ) {}
 
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
-
-    this.loaderService.getLoaderSubscription().subscribe(this.onLoaderChange);
   }
 
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
-    this.loaderSubscription.unsubscribe();
   }
 
   private onGetDisasterTypeActiveTrigger = (country) => () => {
@@ -76,19 +69,11 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
     }
   };
 
-  private onLoaderChange = (loading: boolean) => {
-    this.loading = loading;
-  };
-
   public switchDisasterType(disasterType: DisasterType): void {
     this.placeCodeService.clearPlaceCode();
     this.placeCodeService.clearPlaceCodeHover();
     this.disasterTypeService.setDisasterType(disasterType);
     this.selectedDisasterType = disasterType.disasterType;
-  }
-
-  public isLoading(): boolean {
-    return this.loading;
   }
 
   public isSelectedDisaster(disasterType: string): boolean {
