@@ -1,3 +1,15 @@
+# [0.222.0](https://github.com/rodekruis/IBF-system/compare/v0.221.2...v0.222.0) (2023-01-30)
+
+
+### Features
+
+* move layer descriptions to data instead of code AB[#17452](https://github.com/rodekruis/IBF-system/issues/17452) ([e8a7957](https://github.com/rodekruis/IBF-system/commit/e8a79573a79bb0b9b4830dfcde46e3dbcf461586))
+* seed admin area data via service AB[#17455](https://github.com/rodekruis/IBF-system/issues/17455) ([b8712db](https://github.com/rodekruis/IBF-system/commit/b8712db090c6746805d6a049660652750c992ade))
+* seed point data via service AB[#17455](https://github.com/rodekruis/IBF-system/issues/17455) ([be5de61](https://github.com/rodekruis/IBF-system/commit/be5de612b4a9f2a25b592fea0ffc343adc09b7c9))
+* update glofas stations via API AB[#17454](https://github.com/rodekruis/IBF-system/issues/17454) ([037a18c](https://github.com/rodekruis/IBF-system/commit/037a18ca74977b3f8f64604778c9ff6359ab8be7))
+
+
+
 ## [0.221.2](https://github.com/rodekruis/IBF-system/compare/v0.221.1...v0.221.2) (2023-01-27)
 
 
@@ -123,26 +135,6 @@
 * show "(stopped)" for stopped areas ([87a85c0](https://github.com/rodekruis/IBF-system/commit/87a85c0f027cac94b490e62b6ac49198f6df665d))
 * show aof-description in frontend AB[#17000](https://github.com/rodekruis/IBF-system/issues/17000) ([9b4203b](https://github.com/rodekruis/IBF-system/commit/9b4203b9728754121cdf3e3feafc1c842de77c8f))
 * show only placecode view on click or hover AB[#17186](https://github.com/rodekruis/IBF-system/issues/17186) ([cb5e2f5](https://github.com/rodekruis/IBF-system/commit/cb5e2f5aadde779165a2a70ef9950f7e62a6ca77))
-
-
-
-# [0.215.0](https://github.com/rodekruis/IBF-system/compare/v0.214.0...v0.215.0) (2023-01-13)
-
-
-### Bug Fixes
-
-* only allow 1 finished event as it's floods only AB[#17162](https://github.com/rodekruis/IBF-system/issues/17162) ([af626ac](https://github.com/rodekruis/IBF-system/commit/af626aca38716b0ce1edcff669be87391e9929a2))
-* switch from typhoon to other disaster-type can fail AB[#17287](https://github.com/rodekruis/IBF-system/issues/17287) ([4ffb772](https://github.com/rodekruis/IBF-system/commit/4ffb77294fd1e5399106ffbe8212bb6a424ec810))
-* update ssd pdf link AB[#16625](https://github.com/rodekruis/IBF-system/issues/16625) ([91e7cf9](https://github.com/rodekruis/IBF-system/commit/91e7cf92a364a2eda4fc421a3d938e71b0dd30ad))
-* update ux copy AB[#17165](https://github.com/rodekruis/IBF-system/issues/17165) ([417331d](https://github.com/rodekruis/IBF-system/commit/417331d1891ce7dd8b2c6f1c2235f83a6e56dd3a))
-* update ux copy AB[#17182](https://github.com/rodekruis/IBF-system/issues/17182) ([22c3e46](https://github.com/rodekruis/IBF-system/commit/22c3e468ab8ad473fb962e179ed1262ff67fbfae))
-
-
-### Features
-
-* message content for finished event AB[#17160](https://github.com/rodekruis/IBF-system/issues/17160) ([c9a2bfd](https://github.com/rodekruis/IBF-system/commit/c9a2bfdc8b54e5b58f2d0731ef14ae8595c8cf21))
-* send below trigger email AB[#17162](https://github.com/rodekruis/IBF-system/issues/17162) ([297b6f2](https://github.com/rodekruis/IBF-system/commit/297b6f23b81b7c16fed627249bfb07a4dd0131b0))
-* send notification if event is finished AB[#17159](https://github.com/rodekruis/IBF-system/issues/17159) ([c879e06](https://github.com/rodekruis/IBF-system/commit/c879e0673e78859f5eab05510c0ab6940eb5de38))
 
 
 
