@@ -69,34 +69,13 @@ export class WhatsappService {
 
   public async configureInitialMessage(
     country: CountryEntity,
-    disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
   ): Promise<string> {
     const event = activeEvents[0];
 
     const baseMessage = country.notificationInfo.whatsappMessage['initial'];
     const startDate = event.startDate;
-
-    const triggers = await this.eventService.getTriggerPerLeadtime(
-      country.countryCodeISO3,
-      disasterType,
-      event.eventName,
-    );
-
-    // This code is exactly the same in event.service.ts in front-end. Better to combine in back-end instead.
-    const keys = Object.keys(triggers)
-      .filter(key => Object.values(LeadTime).includes(key as LeadTime))
-      .sort((a, b) =>
-        Number(a.split('-')[0]) > Number(b.split('-')[0]) ? 1 : -1,
-      );
-    let firstKey: string;
-    for (const key of keys) {
-      if (triggers[key] === '1') {
-        firstKey = key;
-        break;
-      }
-    }
-    const leadTime = `${firstKey.split('-').join(' ')}(s)`;
+    const leadTime = `${event.firstLeadTime.split('-').join(' ')}(s)`;
 
     // This code now assumes certain parameters in data. This is not right.
     const message = baseMessage
@@ -108,14 +87,9 @@ export class WhatsappService {
 
   public async sendTriggerWhatsapp(
     country: CountryEntity,
-    disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
   ) {
-    const message = await this.configureInitialMessage(
-      country,
-      disasterType,
-      activeEvents,
-    );
+    const message = await this.configureInitialMessage(country, activeEvents);
 
     await this.sendToUsers(country, message);
   }
