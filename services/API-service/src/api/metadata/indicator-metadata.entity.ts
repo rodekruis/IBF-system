@@ -83,4 +83,9 @@ export class IndicatorMetadataEntity {
   @ApiProperty()
   @Column({ default: false })
   public lazyLoad: boolean;
+
+  @Column('json', {
+    default: {},
+  })
+  public description: JSON;
 }

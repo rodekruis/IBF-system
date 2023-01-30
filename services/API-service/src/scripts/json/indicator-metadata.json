@@ -21,7 +21,38 @@
     "weightvar": null,
     "order": 0,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "EGY": { "heavy-rain": "Not currently available" },
+      "ETH": {
+        "drought": "Not currently available",
+        "floods": "Not currently available",
+        "malaria": "An alert is released when two conditions are simultaneously the relative number of malaria cases is anomalous accordance to WHO guidelines, by comparing it to its monthly averages, the second condition is that the absolute number of malaria cases is high and thus likely to require humanitarian intervention."
+      },
+      "KEN": {
+        "drought": "<p>The layer shows each county within the Northern and Eastern Livelihood zones trigged based on two parameters; the 3-month average Vegetation Condition Index (VCI3M) and the 3-month Standardised Precipitation Index (SPI3). An alert is given, if the VCI value drops below 30% with at least a 33% chance of exceedance. &nbsp;VCI is supplemented by the SPI Forecast from KMD with a threshold value below -0.98 and a 30% probability of exceedance. The lead-time of the forecast is up to 12 weeks.&nbsp;</p><p>Source links:&nbsp;</p><p>Kenya Meteorological Department (KMD), &nbsp;Regional Centre for Mapping of Resources for Development (RCMRD), and TAMSAT ALERT (University of Reading)</p><p>For further information please refer to the EAP</p>",
+        "floods": "<p>The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) &gt; 0.5.</p><p><strong>Source link</strong>: <a target='_blank' href='https://www.globalfloods.eu/'>https://www.globalfloods.eu/</a></p><p><strong>Latest updated:&nbsp;</strong>September 2021</p><p><br></p>"
+      },
+      "MWI": {
+        "floods": "<p>The layer shows each administrative area triggered based on two parameters from the 6-days GloFAS forecast on a daily basis at 10:35 CET: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 60% probability of occurrence of a 5 year return period flood within the next 6 days. The GloFAS flood forecast triggers except in the Traditional Areas where the False Alarm Ratio (FAR) exceeds the predetermined maximum value which is 0.5.</p><p><br></p><p>Source link: <a target='_blank' href='https://www.globalfloods.eu/'>https://www.globalfloods.eu/</a>&nbsp;</p><p><br></p><p>Latest updated: August 2022</p>"
+      },
+      "PHL": {
+        "dengue": "Administrative divisions that reached alert threshold, in terms of number of potential cases. <br /><br /> See definition at: <a target='_blank' href='https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/Forms/AllItems.aspx?id=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments%2FIBF%5Fdengue%5Ftechnical%5Fnote%2Epdf&parent=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments&p=true&originalPath=aHR0cHM6Ly9yb2Rla3J1aXMuc2hhcmVwb2ludC5jb20vc2l0ZXMvNTEwLUNSQVZLLTUxMC9fbGF5b3V0cy8xNS9ndWVzdGFjY2Vzcy5hc3B4P2RvY2lkPTBmOTI0OWIzNWRhNGQ0YzBhOTg1YjMzMzkzZmMzODhkZiZhdXRoa2V5PUFRU0xubmFmR0YtTTJ0MUNHSWcwaGRBJmV4cGlyYXRpb249MjAyMi0wNi0xNFQyMiUzYTAwJTNhMDAuMDAwWiZydGltZT1TS016R0dzeDJVZw'> link to technical documentation</a>",
+        "floods": "<p>The layer shows each county triggered based on two parameters from the 3-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 50% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the  manucipalities where the False Alarm Ratio (RAR) &gt;0.5</p><p><strong>Source link</strong>: <a target='_blank' href='https://www.globalfloods.eu/'>https://www.globalfloods.eu/</a></p><p><strong>Latest updated:&nbsp;</strong>September 2021</p><p><br></p>",
+        "typhoon": "<p>The predicted impact (72 hours before landfall) is more than 10% of houses being totally damaged at municipal level, in at least 3 municipalities. The source for predicted impact is 510 typhoon impact prediction model.<br><br>Only municipalities that are included in the EAP can reach a triggered state. For other municipalities all data - such as predicted impact - is visible in the map, but they will never turn in to a triggered state.</p>"
+      },
+      "SSD": {
+        "floods": "This layer shows the areas (payams) in which the trigger threshold has been reached. These areas are outlined in red on the map. The threshold is defined by two parameters from the 7-days GloFAS forecast: the return period of the forecasted flood and the probability of occurrence, these are updated on a daily basis. The trigger is issued when GloFAS forecasts an occurrence with a probability of at least 60% of a 5 year return period flood in the next 7 days. The GloFAS  will not trigger in areas where the False Alarm Ratio (FAR) &gt; 0.35.<br><br><strong>Alert threshold source</strong>: <a target='_blank' href='https://www.globalfloods.eu/'>https://www.globalfloods.eu/</a><br><strong>Latest updated:&nbsp;</strong>September 2021"
+      },
+      "UGA": {
+        "drought": "Not currently available",
+        "floods": "Not currently available"
+      },
+      "ZMB": { "floods": "Not currently available" },
+      "ZWE": {
+        "drought": "<p>The layer shows each province in the country with a drought risk at the end of the growing season (April), and as such determine which provinces are triggered when at least one of their districts is expected to face a +/- 6 year return period drought.</p> <p>The drought model is to assess a drought prediction skill of the 3-month running average Ni&ntilde;o 3.4 values and initiates a drought risk when there is a potential negative crop yield anomaly predicted. The model is developed based on the XGBoost algorithm tested and trained with historical ENSO: Seasonal ERSSTv5 and CHIRPS Rainfall data in relation to historical negative crop yield anomalies in April, which is used as drought impact proxy. Loss of crops, livestock loss, and child malnutrition and stunting are indicated by the ZRCS DRM working group and representatives from IFRC, PNS, and Red Cross Climate Centre (RCCC) &nbsp;as targeted drought impact</p><p>Source links:</p><ul><li>ENSO: Seasonal ERSSTv5 (1991-2020 base period) 3-month running average in Ni&ntilde;o 3.4 (5oNorth-5oSouth) (170-120oWest)) <a target='_blank' href='https://www.cpc.ncep.noaa.gov/data/indices/3mth.nino34.91-20.ascii.txt'>https://www.cpc.ncep.noaa.gov/data/indices/3mth.nino34.91-20.ascii.txt</a></li><li>CHIRPS: Rainfall Estimates from Rain Gauge and Satellite Observations | Climate Hazards Center - UC Santa Barbara (<a target='_blank' href='https://www.chc.ucsb.edu/data/chirps'>https://www.chc.ucsb.edu/data/chirps</a>)&nbsp;</li>     <li>Crop Yield data: Izumi, Toshichika (2019): Global dataset of historical yields v1.2 and v1.3 aligned version. PANGAEA, <a target='_blank' href='https://doi.org/10.1594/PANGAEA.909132'>https://doi.org/10.1594/PANGAEA.909132</a>,Supplement to Iizumi, Toshichika; Sakai, T (2020): The global dataset of historical yields for major crops 1981&ndash;2016. Scientific Data, 7(1), <a target='_blank' href='https://doi.org/10.1038/s41597-020-0433-7'>https://doi.org/10.1038/s41597-020-0433-7</a></li> </ul>"
+      }
+    }
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI,SSD",
@@ -38,7 +69,39 @@
     "weightvar": null,
     "order": 1,
     "dynamic": true,
-    "unit": "people"
+    "unit": "people",
+    "description": {
+      "EGY": {
+        "heavy-rain": "Number of people exposed is calculated by the population living in the rainfall extent area within the governorates currently triggered. The number of people and the rainfall extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br />Source Rainfall Extent: Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset.<br>The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
+      },
+      "ETH": {
+        "drought": "Number of people exposed is calculated by the population living within the districts currently triggered. The number of people data is derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
+        "floods": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "KEN": {
+        "drought": "<p>Number of people exposed is calculated by the population living in the county triggered by the exceedance of the droughts alert threshold. The number of people and the drought extent is derived from the below sources.</p><p>Source Links:</p><ul>    <li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;https://www.ciesin.columbia.edu/data/hrsl/</li>    <li>Source Drought Extent based on the SPI3 and VCI3M forecast information: for example, see August 2020 bulletin from Taita Taveta county; http://www.ndma.go.ke/index.php/resource-center/early-warning-reports/send/3-taita-taveta/5771-taita-taveta-august-2020</li></ul>",
+        "floods": "<p>Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.</p><p><strong>Source link:</strong></p><ul>    <li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li>    <li>Source Flood Extent: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].</li></ul><p><br></p>"
+      },
+      "MWI": {
+        "floods": "<p>Number of people exposed is calculated by the population living in the flood extent area within the administrative areas currently triggered. The number of people and the flood extent are derived from the below sources.</p><p><strong>Source link:</strong></p><ul>    <li>Source (Population Data): peanutButter: An R package to produce rapid-response gridded population estimates from building footprints, version 1.0.0 version 1.0.0. Accessed 15-08-2022. WorldPop, University of Southampton. 2021. &nbsp;<a target='_blank' href='https://apps.worldpop.org/peanutButter/'>https://apps.worldpop.org/peanutButter/</a></li>    <li>Source Flood Extent: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].</li></ul><p><br></p>"
+      },
+      "PHL": {
+        "floods": "<p>Number of people exposed is calculated by the population living in the flood extent area within the manucipality currently triggered. The number of people and the flood extent are derived from the below sources.</p><p><strong>Source link:</strong></p><ul><li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li><li>Source Flood Extent: The flood extent maps are generated by the National Operational Assesment of Hazards(NOAH) project.<a target='_blank' href='https://noah.up.edu.ph/'>https://noah.up.edu.ph/</a> The 25-year rain return flood hazard maps show low, medium, and high flood hazards represented as yellow, orange, and red respectively. Flood hazards consider take both the height and velocity of the water into consideration and calculates the hazard levels based on the danger they pose to people and structures. Generally, for an average Filipino with a height of 5’ 6”, areas with flood depths from the knee down can be considered to have low hazard levels. Those with flood depths ranging from the knee to neck are considered to have medium hazard levels, and those covered with floods that are higher than the neck have high hazard levels. However, since the flow velocity is also considered, areas that have shallow but fast-flowing flood waters may have a higher hazard level than that denoted by the height of the flood covering it.</li></ul><p><br></p>"
+      },
+      "SSD": {
+        "floods": "This layer shows the exposed population by number in the triggered areas, It is visualised in shades of purple that are represented in the legend on the bottom left corner of the map when the layer is selected. The number of people exposed reflects the number of people living in the potential flood extent of the triggered selected area.<br><br><strong>Population data source</strong>: WorldPop (<a target='_blank' href='www.worldpop.org'>www.worldpop.org</a> - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018).<br><strong>Flood extent source</strong>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "UGA": {
+        "drought": "Not currently available",
+        "floods": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "ZMB": {
+        "floods": "Number of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "ZWE": {
+        "drought": "<p>Number of people exposed is calculated by the population living in the droughts alert threshold reached area within the district currently triggered. The number of people and the drought extent is derived from the below sources.</p> <p>Source links:</p><ul><li>Population Data: Worldpop <a target='_blank' href='https://www.worldpop.org/'>https://www.worldpop.org/</a></li><li>Drought alert threshold reached: ENSO: Seasonal ERSSTv5 (1991-2020 base period) 3-month running average in Ni&ntilde;o 3.4 (5oNorth-5oSouth) (170-120oWest)). <a target='_blank' href='https://www.cpc.ncep.noaa.gov/data/indices/3mth.nino34.91-20.ascii.txt'>https://www.cpc.ncep.noaa.gov/data/indices/3mth.nino34.91-20.ascii.txt</a> and CHIRPS: Rainfall Estimates from Rain Gauge and Satellite Observations | Climate Hazards Center - UC Santa Barbara (<a target='_blank' href='https://www.chc.ucsb.edu/data/chirps'>https://www.chc.ucsb.edu/data/chirps</a>)&nbsp;</li><li>Crop Yield data: Izumi, Toshichika (2019): Global dataset of historical yields v1.2 and v1.3 aligned version. PANGAEA, <a target='_blank' href='https://doi.org/10.1594/PANGAEA.909132'>https://doi.org/10.1594/PANGAEA.909132</a>,Supplement to Iizumi, Toshichika; Sakai, T (2020): The global dataset of historical yields for major crops 1981&ndash;2016. Scientific Data, 7(1), <a target='_blank' href='https://doi.org/10.1038/s41597-020-0433-7'>https://doi.org/10.1038/s41597-020-0433-7</a></li></ul><p><br></p>"
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -55,7 +118,12 @@
     "weightvar": null,
     "order": 1,
     "dynamic": true,
-    "unit": "people"
+    "unit": "people",
+    "description": {
+      "PHL": {
+        "typhoon": "<p>The number of people affected is calculated based on the predicted number of completely damaged houses, which is derived from the typhoon impact predicting model. To derive a methodology to estimate the number of affected people from a predicted number of completely damaged houses, we performed a log fit between the number of completely damaged houses and the number of affected people for past typhoon events using data derived from DROMIC reports. To estimate potential number of affected population this formula is applied to the predicted number of damaged houses. <p> "
+      }
+    }
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,EGY,PHL,MWI,SSD",
@@ -71,7 +139,34 @@
     "numberFormatAggregate": "perc",
     "weightvar": null,
     "order": 1,
-    "dynamic": true
+    "dynamic": true,
+    "description": {
+      "EGY": {
+        "heavy-rain": "Percentage of people exposed is calculated by the population living in the rainfall extent area within the governorates currently triggered. The number of people and the rainfall extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br />Source Rainfall Extent: Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset.<br>The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
+      },
+      "ETH": {
+        "drought": "Percentage of people exposed is calculated by the population living in within the districts currently triggered. The number of people was derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "KEN": {
+        "floods": "<p>The percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.</p><p><strong>Source Link:</strong></p><ul>    <li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li>    <li>Source Flood Extent: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].</li></ul>"
+      },
+      "MWI": {
+        "floods": "<p>The percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.</p><p><strong>Source Link:</strong></p><ul>    <li>Source (Population Data): peanutButter: An R package to produce rapid-response gridded population estimates from building footprints, version 1.0.0 version 1.0.0. Accessed 15-08-2022. WorldPop, University of Southampton. 2021. &nbsp;<a target='_blank' href='https://apps.worldpop.org/peanutButter/'>https://apps.worldpop.org/peanutButter/</a></li>    <li>Source (Flood Extent): Flood hazard map of the World - 10-year return period. European Commission, Joint Research Centre (JRC). 2016. <a target='_blank' href='https://data.jrc.ec.europa.eu/dataset/jrc-floods-floodmapgl_rp10y-tif'>Flood hazard map of the World - 10-year return period - European Commission (europa.eu)</a>.</li></ul>"
+      },
+      "PHL": {
+        "floods": "<p>The percentage of people exposed is calculated by the population living in the flood extent area within the manucipality currently triggered. The number of people and the flood extent are derived from the below sources.</p><p><strong>Source link:</strong></p><ul><li>Source (Population Data): High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></li><li>Source Flood Extent: The flood extent maps are generated by the National Operational Assesment of Hazards(NOAH) project.<a target='_blank' href='https://noah.up.edu.ph/'>https://noah.up.edu.ph/</a> The 25-year rain return flood hazard maps show low, medium, and high flood hazards represented as yellow, orange, and red respectively. Flood hazards consider take both the height and velocity of the water into consideration and calculates the hazard levels based on the danger they pose to people and structures. Generally, for an average Filipino with a height of 5’ 6”, areas with flood depths from the knee down can be considered to have low hazard levels. Those with flood depths ranging from the knee to neck are considered to have medium hazard levels, and those covered with floods that are higher than the neck have high hazard levels. However, since the flow velocity is also considered, areas that have shallow but fast-flowing flood waters may have a higher hazard level than that denoted by the height of the flood covering it.</li></ul><p><br></p>"
+      },
+      "SSD": {
+        "floods": "This layer shows the exposed population by percentage in the triggered areas, It is visualised in shades of purple that are represented in the legend on the bottom left corner of the map when the layer is selected. The percentage of people exposed is the proportion of the exposed population  In the triggered area out of the total population of the triggered area.<br><br><strong>Population data source</strong>: WorldPop (<a target='_blank' href='www.worldpop.org'>www.worldpop.org</a> - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018).<br><strong>Flood extent source</strong>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "UGA": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "ZMB": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br /><b>Source Flood Extent</b>: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      }
+    }
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI,SSD",
@@ -88,7 +183,40 @@
     "weightvar": null,
     "order": 2,
     "dynamic": false,
-    "unit": "people"
+    "unit": "people",
+    "description": {
+      "EGY": {
+        "heavy-rain": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+      },
+      "ETH": {
+        "drought": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
+        "floods": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
+        "malaria": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+      },
+      "KEN": {
+        "drought": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>",
+        "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>"
+      },
+      "MWI": {
+        "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> peanutButter: An R package to produce rapid-response gridded population estimates from building footprints, version 1.0.0 version 1.0.0. Accessed 15-08-2022. WorldPop, University of Southampton. 2021. &nbsp;<a target='_blank' href='https://apps.worldpop.org/peanutButter/'>https://apps.worldpop.org/peanutButter/</a></p>"
+      },
+      "PHL": {
+        "floods": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+      },
+      "SSD": {
+        "floods": "This layer shows the total population in the triggered areas, It is visualised in shades of purple that are represented in the legend on the bottom left corner of the map when the layer is selected.The population data is aggregated from the administrative areas.<br><br> <strong>Population data source</strong>: WorldPop (<a target='_blank' href='www.worldpop.org'>www.worldpop.org</a> - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018)."
+      },
+      "UGA": {
+        "drought": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>",
+        "floods": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+      },
+      "ZMB": {
+        "floods": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+      },
+      "ZWE": {
+        "drought": "Population data is aggregated per administrative area, from the following original source: Worldpop data:<ul><li><a target='_blank' href='https://www.worldpop.org/'>https://www.worldpop.org/</a>Estimates of total number of people per grid square broken down by gender and age groupings.</li><li>Accessed 07-2020 The mapping approach is Pezzulo, C. et al. Sub-national mapping of population pyramids and dependency ratios in Africa and Asia. Sci. Data 4:170089 doi:10.1038/sdata.2017.89 (2017)</li></ul>"
+      }
+    }
   },
   {
     "countryCodes": "PHL,ETH",
@@ -105,7 +233,15 @@
     "weightvar": null,
     "order": 1,
     "dynamic": true,
-    "unit": "cases"
+    "unit": "cases",
+    "description": {
+      "ETH": {
+        "malaria": "Potential number of cases are calculated with the assumtion of a rough proportionality between malaria mosquito enviromental suitability and malaria risk. Then estimating a time lag between optimal malaria mosquito environmental conditions and the peak in number of malaria cases."
+      },
+      "PHL": {
+        "dengue": "Number of potential dengue cases, based on dengue risk and demographic data. <br /><br />Source demographic data: <a target='_blank' href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      }
+    }
   },
   {
     "countryCodes": "UGA,KEN,MWI",
@@ -116,38 +252,29 @@
     "weightedAvg": true,
     "active": "no",
     "colorBreaks": {
-      "1": {
-        "label": "Very Low",
-        "valueLow": 0,
-        "valueHigh": 2
-      },
-      "2": {
-        "label": "Low",
-        "valueLow": 2,
-        "valueHigh": 4
-      },
-      "3": {
-        "label": "Average",
-        "valueLow": 4,
-        "valueHigh": 6
-      },
-      "4": {
-        "label": "High",
-        "valueLow": 6,
-        "valueHigh": 8
-      },
-      "5": {
-        "label": "Very High",
-        "valueLow": 8,
-        "valueHigh": 10
-      }
+      "1": { "label": "Very Low", "valueLow": 0, "valueHigh": 2 },
+      "2": { "label": "Low", "valueLow": 2, "valueHigh": 4 },
+      "3": { "label": "Average", "valueLow": 4, "valueHigh": 6 },
+      "4": { "label": "High", "valueLow": 6, "valueHigh": 8 },
+      "5": { "label": "Very High", "valueLow": 8, "valueHigh": 10 }
     },
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
     "numberFormatAggregate": "",
     "weightvar": null,
     "order": 3,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "KEN": {
+        "floods": "<p>The flood vulnerability index is a composite index for the context of exposure to floods and the capacity to anticipate, cope with and recover from the impacts of floods. The National Society and Technical Working group selected the following criteria below:</p><ul>    <li>18.8% age under 5&nbsp;</li> <li>15.4% age over 65</li> <li>18.2% poverty index</li><li>19.3% Gini Index</li><li>12.3% strong wall type</li><li>36.3%travel time to the nearest city</li> <li>16.0% access to improved water sources</li></ul><p>For further information please refer to the EAP</p><p><br></p>"
+      },
+      "MWI": {
+        "floods": "The flood vulnerability index is a composite index for the context of exposure to the hazard and the capacity to anticipate, cope with and recover from the impacts of floods. The vulnerability index is selected with the following criteria below: (including their weight in the total score)<ul><li>20% Flood physical exposure. </li><li> 20% Poverty: Poverty incidence </li><li>20% Gender: Female headed household </li><li>20% Age: Population below 5 years </li><li>20 % Disability: People with disability</li></ul>."
+      },
+      "UGA": {
+        "floods": "The disaster vulnerability index is a composite index for the context of exposure to the hazard and the capacity to anticipate, cope with and recover from the impacts of floods. The National Society and Technical Working group selected the following criteria below: (including their weight in the total score)<ul><li>20% Poverty: Poverty incidence</li><li>20% Gender: Female headed household</li><li>10% Age: Population below 8-years</li><li>10% Age: population 65+,</li><li>10 % type of construction: permanent wall type</li><li>10 %type of construction: permanent roof type</li><li>20% Refugees legal status #of displaced person</li></ul><br>For further information please refer to the EAP. For source links, see each individual layer."
+      }
+    }
   },
   {
     "countryCodes": "UGA",
@@ -163,7 +290,12 @@
     "numberFormatAggregate": "",
     "weightvar": null,
     "order": 4,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "UGA": {
+        "floods": "Poverty Incidence is defined by the Multidiemensional Poverty Index and a $2 a day threshold. The layer gives an estimate of people living in poverty.<br /><br />Source: Tatem AJ, Gething PW, Bhatt S, Weiss D and Pezzulo C (2013) Pilot high resolution poverty maps, University of Southampton/Oxford. DOI: 10.5258/SOTON/WP00285. Year: 2010"
+      }
+    }
   },
   {
     "countryCodes": "UGA",
@@ -179,7 +311,12 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 4,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "UGA": {
+        "floods": "Percentage of people living in female headed households.<br /><br />Source Data: <a target='_blank' href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014."
+      }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -195,7 +332,14 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 4,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "ETH": {
+        "drought": "Under age: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates.<br /><br />Source Data: <a target='_blank' href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>",
+        "floods": "Under age: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates.<br /><br />Source Data: <a target='_blank' href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>",
+        "malaria": "Under age: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates.<br /><br />Source Data: <a target='_blank' href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>"
+      }
+    }
   },
   {
     "countryCodes": "MWI",
@@ -211,7 +355,12 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 2,
-    "dynamic": true
+    "dynamic": true,
+    "description": {
+      "MWI": {
+        "floods": "Number of Exposed Population U18 is calculated by total target population living in the flood extent area within the administrative areas currently triggered. The target population are those living in the households classified as Poor, Poorer, Poorest and whose household head is below 18 years old.<br><br>Source target population: Unified Beneficiary Registration (UBR). Department of Economy Planning and Development, Malawi. Collected and processed in 2022."
+      }
+    }
   },
   {
     "countryCodes": "MWI",
@@ -227,7 +376,12 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 2,
-    "dynamic": true
+    "dynamic": true,
+    "description": {
+      "MWI": {
+        "floods": "Number of Exposed Population 65+ is calculated by total target population living in the flood extent area within the administrative areas currently triggered. The target population are those living in the households classified as Poor, Poorer, Poorest and whose household head is older than 65 years old.<br><br>Source target population: Unified Beneficiary Registration (UBR). Department of Economy Planning and Development, Malawi. Collected and processed in 2022."
+      }
+    }
   },
   {
     "countryCodes": "UGA",
@@ -243,7 +397,12 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 4,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "UGA": {
+        "floods": "Percentage of people under 8 years old.<br /><br />Source Data: <a target='_blank' href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014."
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -259,7 +418,12 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 4,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "PHL": {
+        "dengue": "Percentage of people under 9 years of age. <br /><br />Source demographic data: <a target='_blank' href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      }
+    }
   },
   {
     "countryCodes": "UGA",
@@ -275,7 +439,15 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 4,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "PHL": {
+        "dengue": "Percentage of people over 65 years of age. <br /><br />Source demographic data: <a target='_blank' href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      },
+      "UGA": {
+        "floods": "Percentage of people over 65 years old.<br /><br />Source Data: <a target='_blank' href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014."
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -291,7 +463,15 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 4,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "PHL": {
+        "dengue": "Percentage of people over 65 years of age. <br /><br />Source demographic data: <a target='_blank' href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      },
+      "UGA": {
+        "floods": "Percentage of people over 65 years old.<br /><br />Source Data: <a target='_blank' href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014."
+      }
+    }
   },
   {
     "countryCodes": "UGA",
@@ -307,7 +487,12 @@
     "numberFormatAggregate": "",
     "weightvar": null,
     "order": 4,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "UGA": {
+        "floods": "Percentage of households with permanent wall materials; percentage of buildings with (partly) concrete or brick walls.<br /><br />Source link: <a target='_blank' href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf.</a> Year: 2014."
+      }
+    }
   },
   {
     "countryCodes": "UGA",
@@ -323,7 +508,8 @@
     "numberFormatAggregate": "",
     "weightvar": null,
     "order": 4,
-    "dynamic": false
+    "dynamic": false,
+    "description": { "UGA": { "floods": "Not currently available" } }
   },
   {
     "countryCodes": "UGA",
@@ -340,7 +526,12 @@
     "weightvar": null,
     "order": 3,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "UGA": {
+        "floods": "The COVID-19 Risk Index is a composite index for the context of exposure, vulnerability to COVID and the capacity to anticipate, cope with and recover from the impacts of COVID-19 (a higher percentage indicates a higher risk to COVID-19). The National Society  selected the following criteria below:<br /><br />Exposure<ul><li>population / km2</li></ul>Vulnerability<ul><li>% population 65+</li><li>% poverty incidence</li></ul>Lack of Coping Capacity<ul><li>% with no toilet facility</li><li>% access to safe drinking water</li><li>% illiterate</li><li>% with mobile access</li><li>% with internet access</li><li>% received remittances</li><li>HIV: incidence per 100</li><li>MALARIA: Plasmodium Falciparum incidence per 1000</li><li>% households which consume less than two meals per day</li><li># healh facilities per person</li><li>% with a health facility within 5 km</li></ul><br/>Source link: <a target='_blank' href='https://nlrc.maps.arcgis.com/apps/opsdashboard/index.html#/9ca9f0f452b04046b8594a74c31f0c3b'>https://nlrc.maps.arcgis.com/apps/opsdashboard/index.html#/9ca9f0f452b04046b8594a74c31f0c3b</a>."
+      }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -357,7 +548,12 @@
     "weightvar": null,
     "order": 4,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "ETH": {
+        "malaria": "Malaria risk:Spatial limits of Plasmodium vivax malaria transmission (0-none 2- high)  <a target='_blank' href='https://malariaatlas.org/'>https://malariaatlas.org/</a>"
+      }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -374,7 +570,12 @@
     "weightvar": null,
     "order": 4,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "ETH": {
+        "malaria": "Malaria suitability:Temperature suitability index for Plasmodium vivax transmission, 2010 <a target='_blank' href='https://malariaatlas.org/research-project/accessibility-to-healthcare/'>https://malariaatlas.org/research-project/accessibility-to-healthcare/</a>"
+      }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -391,7 +592,14 @@
     "weightvar": null,
     "order": 4,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "ETH": {
+        "drought": "Total Internally Displaced People (IDPs) DTM Ethiopia National Displacement Report 7_2022",
+        "floods": "Total Internally Displaced People (IDPs) DTM Ethiopia National Displacement Report 7_2022",
+        "malaria": "Total Internally Displaced People (IDPs) DTM Ethiopia National Displacement Report 7_2022"
+      }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -408,7 +616,12 @@
     "weightvar": null,
     "order": 4,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "ETH": {
+        "malaria": "Access to Health with vehicle: Estimated travel time (minutes) to the nearest healthcare facility, with motorized vehicle <a target='_blank' href='https://malariaatlas.org/research-project/accessibility-to-healthcare/'>https://malariaatlas.org/research-project/accessibility-to-healthcare/</a>"
+      }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -425,7 +638,8 @@
     "weightvar": null,
     "order": 4,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": { "ETH": { "malaria": "Ongoing (updated regularly)" } }
   },
   {
     "countryCodes": "ETH",
@@ -442,7 +656,13 @@
     "weightvar": null,
     "order": 4,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "ETH": {
+        "floods": "Predicted travel time (minutes) to nearest city <a target='_blank' href='https://malariaatlas.org/research-project/accessibility-to-healthcare/'>https://malariaatlas.org/research-project/accessibility-to-healthcare/</a>",
+        "malaria": "Predicted travel time (minutes) to nearest city <a target='_blank' href='https://malariaatlas.org/research-project/accessibility-to-healthcare/'>https://malariaatlas.org/research-project/accessibility-to-healthcare/</a>"
+      }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -453,31 +673,11 @@
     "weightedAvg": true,
     "active": "no",
     "colorBreaks": {
-      "1": {
-        "label": "Minimal",
-        "valueLow": 1,
-        "valueHigh": 1
-      },
-      "2": {
-        "label": "Stressed",
-        "valueLow": 2,
-        "valueHigh": 2
-      },
-      "3": {
-        "label": "Crisis",
-        "valueLow": 3,
-        "valueHigh": 3
-      },
-      "4": {
-        "label": "Emergency",
-        "valueLow": 4,
-        "valueHigh": 4
-      },
-      "5": {
-        "label": "Famine",
-        "valueLow": 5,
-        "valueHigh": 5
-      }
+      "1": { "label": "Minimal", "valueLow": 1, "valueHigh": 1 },
+      "2": { "label": "Stressed", "valueLow": 2, "valueHigh": 2 },
+      "3": { "label": "Crisis", "valueLow": 3, "valueHigh": 3 },
+      "4": { "label": "Emergency", "valueLow": 4, "valueHigh": 4 },
+      "5": { "label": "Famine", "valueLow": 5, "valueHigh": 5 }
     },
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
@@ -485,7 +685,12 @@
     "weightvar": null,
     "order": 3,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "ETH": {
+        "floods": "IPC short forecast: Most likely food security outcomes - the near-term projection  <a target='_blank' href='https://fews.net/IPC'>https://fews.net/IPC</a>"
+      }
+    }
   },
   {
     "countryCodes": "ETH,UGA",
@@ -496,31 +701,11 @@
     "weightedAvg": true,
     "active": "no",
     "colorBreaks": {
-      "1": {
-        "label": "Minimal",
-        "valueLow": 1,
-        "valueHigh": 1
-      },
-      "2": {
-        "label": "Stressed",
-        "valueLow": 2,
-        "valueHigh": 2
-      },
-      "3": {
-        "label": "Crisis",
-        "valueLow": 3,
-        "valueHigh": 3
-      },
-      "4": {
-        "label": "Emergency",
-        "valueLow": 4,
-        "valueHigh": 4
-      },
-      "5": {
-        "label": "Famine",
-        "valueLow": 5,
-        "valueHigh": 5
-      }
+      "1": { "label": "Minimal", "valueLow": 1, "valueHigh": 1 },
+      "2": { "label": "Stressed", "valueLow": 2, "valueHigh": 2 },
+      "3": { "label": "Crisis", "valueLow": 3, "valueHigh": 3 },
+      "4": { "label": "Emergency", "valueLow": 4, "valueHigh": 4 },
+      "5": { "label": "Famine", "valueLow": 5, "valueHigh": 5 }
     },
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
@@ -528,7 +713,14 @@
     "weightvar": null,
     "order": 3,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "ETH": {
+        "drought": "Not currently available",
+        "malaria": "IPC long forecast: Most likely food security outcomes -  the medium-term projection <a target='_blank' href='https://fews.net/IPC'>https://fews.net/IPC</a>"
+      },
+      "UGA": { "drought": "Not currently available" }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -539,26 +731,10 @@
     "weightedAvg": true,
     "active": "no",
     "colorBreaks": {
-      "1": {
-        "label": "No priority",
-        "valueLow": 0.1,
-        "valueHigh": 0.1
-      },
-      "2": {
-        "label": "Priority 1",
-        "valueLow": 1,
-        "valueHigh": 1
-      },
-      "3": {
-        "label": "Priority 2",
-        "valueLow": 2,
-        "valueHigh": 2
-      },
-      "4": {
-        "label": "Priority 3",
-        "valueLow": 3,
-        "valueHigh": 3
-      }
+      "1": { "label": "No priority", "valueLow": 0.1, "valueHigh": 0.1 },
+      "2": { "label": "Priority 1", "valueLow": 1, "valueHigh": 1 },
+      "3": { "label": "Priority 2", "valueLow": 2, "valueHigh": 2 },
+      "4": { "label": "Priority 3", "valueLow": 3, "valueHigh": 3 }
     },
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
@@ -566,7 +742,14 @@
     "weightvar": null,
     "order": 3,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "ETH": {
+        "drought": "Area of Concern or Hotspot is defined as: an area or population affected by any undesirable events or situations that have an immediate or in the near future direct bearing on food, livelihood and nutrition insecurity and require immediate attention or intervention that could be assessments, close monitoring or appropriate food or non-food response (related to water, human health, education, seed, livestock health and feed)",
+        "floods": "Area of Concern or Hotspot is defined as: an area or population affected by any undesirable events or situations that have an immediate or in the near future direct bearing on food, livelihood and nutrition insecurity and require immediate attention or intervention that could be assessments, close monitoring or appropriate food or non-food response (related to water, human health, education, seed, livestock health and feed)",
+        "malaria": "Area of Concern or Hotspot is defined as: an area or population affected by any undesirable events or situations that have an immediate or in the near future direct bearing on food, livelihood and nutrition insecurity and require immediate attention or intervention that could be assessments, close monitoring or appropriate food or non-food response (related to water, human health, education, seed, livestock health and feed)"
+      }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -577,26 +760,10 @@
     "weightedAvg": true,
     "active": "no",
     "colorBreaks": {
-      "1": {
-        "label": "No priority",
-        "valueLow": 0.1,
-        "valueHigh": 0.1
-      },
-      "2": {
-        "label": "Priority 1",
-        "valueLow": 1,
-        "valueHigh": 1
-      },
-      "3": {
-        "label": "Priority 2",
-        "valueLow": 2,
-        "valueHigh": 2
-      },
-      "4": {
-        "label": "Priority 3",
-        "valueLow": 3,
-        "valueHigh": 3
-      }
+      "1": { "label": "No priority", "valueLow": 0.1, "valueHigh": 0.1 },
+      "2": { "label": "Priority 1", "valueLow": 1, "valueHigh": 1 },
+      "3": { "label": "Priority 2", "valueLow": 2, "valueHigh": 2 },
+      "4": { "label": "Priority 3", "valueLow": 3, "valueHigh": 3 }
     },
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
@@ -604,7 +771,14 @@
     "weightvar": null,
     "order": 3,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "ETH": {
+        "drought": "Area of Concern or Hotspot for Water is defined as: an area or population affected by any undesirable events or situations that have an immediate or in the near future direct bearing on WASH and require immediate attention or intervention that could be assessments, close monitoring or appropriate food or non-food response",
+        "floods": "Area of Concern or Hotspot for Water is defined as: an area or population affected by any undesirable events or situations that have an immediate or in the near future direct bearing on WASH and require immediate attention or intervention that could be assessments, close monitoring or appropriate food or non-food response",
+        "malaria": "Area of Concern or Hotspot for Water is defined as: an area or population affected by any undesirable events or situations that have an immediate or in the near future direct bearing on WASH and require immediate attention or intervention that could be assessments, close monitoring or appropriate food or non-food response"
+      }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -615,26 +789,10 @@
     "weightedAvg": true,
     "active": "no",
     "colorBreaks": {
-      "1": {
-        "label": "No priority",
-        "valueLow": 0.1,
-        "valueHigh": 0.1
-      },
-      "2": {
-        "label": "Priority 1",
-        "valueLow": 1,
-        "valueHigh": 1
-      },
-      "3": {
-        "label": "Priority 2",
-        "valueLow": 2,
-        "valueHigh": 2
-      },
-      "4": {
-        "label": "Priority 3",
-        "valueLow": 3,
-        "valueHigh": 3
-      }
+      "1": { "label": "No priority", "valueLow": 0.1, "valueHigh": 0.1 },
+      "2": { "label": "Priority 1", "valueLow": 1, "valueHigh": 1 },
+      "3": { "label": "Priority 2", "valueLow": 2, "valueHigh": 2 },
+      "4": { "label": "Priority 3", "valueLow": 3, "valueHigh": 3 }
     },
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
@@ -642,7 +800,12 @@
     "weightvar": null,
     "order": 3,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "ETH": {
+        "malaria": "Area of Concern or Hotspot for health is defined as: an area or population affected by any undesirable events or situations that have an immediate or in the near future direct bearing on health and require immediate attention or intervention that could be assessments, close monitoring or appropriate food or non-food response"
+      }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -653,26 +816,10 @@
     "weightedAvg": true,
     "active": "no",
     "colorBreaks": {
-      "1": {
-        "label": "No priority",
-        "valueLow": 0.1,
-        "valueHigh": 0.1
-      },
-      "2": {
-        "label": "Priority 1",
-        "valueLow": 1,
-        "valueHigh": 1
-      },
-      "3": {
-        "label": "Priority 2",
-        "valueLow": 2,
-        "valueHigh": 2
-      },
-      "4": {
-        "label": "Priority 3",
-        "valueLow": 3,
-        "valueHigh": 3
-      }
+      "1": { "label": "No priority", "valueLow": 0.1, "valueHigh": 0.1 },
+      "2": { "label": "Priority 1", "valueLow": 1, "valueHigh": 1 },
+      "3": { "label": "Priority 2", "valueLow": 2, "valueHigh": 2 },
+      "4": { "label": "Priority 3", "valueLow": 3, "valueHigh": 3 }
     },
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
@@ -680,7 +827,12 @@
     "weightvar": null,
     "order": 3,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "ETH": {
+        "drought": "Area of Concern or Hotspot for nutrition is defined as: an area or population affected by any undesirable events or situations that have an immediate or in the near future direct bearing on nutrition insecurity and require immediate attention or intervention that could be assessments, close monitoring or appropriate food or non-food response"
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -697,7 +849,12 @@
     "weightvar": null,
     "order": 4,
     "dynamic": false,
-    "unit": "cases"
+    "unit": "cases",
+    "description": {
+      "PHL": {
+        "dengue": "Number of dengue cases per administrative division per year. <br /><br />Source: <a target='_blank' href='https://doh.gov.ph/statistics'>https://doh.gov.ph/statistics/</a>"
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -714,7 +871,13 @@
     "weightvar": null,
     "order": 4,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "PHL": {
+        "floods": "Pantawid Pamilya Beneficiary_Households by Municipality. Data source DSWD, NATIONAL HOUSEHOLD TARGETING OFFICE. <br /><br />Source Link: HDX : <a target='_blank' href='https://data.humdata.org/showcase/philippines-pre-disaster-indicators-dashboard'>https://data.humdata.org/showcase/philippines-pre-disaster-indicators-dashboard</a> This dataset has been generated by combining PSGC and 4Ps data from DSWDOngoing (updated regularly)",
+        "typhoon": "<p>calculated based on the Pantawid Pamilya Beneficiary Households by Municipality.The source for this data is DSWD, NATIONAL HOUSEHOLD TARGETING OFFICE</p>"
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -731,7 +894,13 @@
     "weightvar": null,
     "order": 4,
     "dynamic": false,
-    "lazyLoad": false
+    "lazyLoad": false,
+    "description": {
+      "PHL": {
+        "floods": "Roof and Wall types by Municipality. Data source DSWD, NATIONAL HOUSEHOLD TARGETING OFFICE. <br /><br />Source Link: HDX : <a target='_blank' href='https://data.humdata.org/showcase/philippines-pre-disaster-indicators-dashboard'>https://data.humdata.org/showcase/philippines-pre-disaster-indicators-dashboard</a> This dataset has been generated by combining PSGC and 4Ps data from DSWDOngoing (updated regularly)",
+        "typhoon": "<a target='_blank' href='https://data.humdata.org/showcase/philippines-pre-disaster-indicators-dashboard'>https://data.humdata.org/showcase/philippines-pre-disaster-indicators-dashboard</a> This dataset has been generated by combining PSGC and 4Ps data from DSWD."
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -748,7 +917,12 @@
     "weightVar": null,
     "order": -99,
     "dynamic": false,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "PHL": {
+        "typhoon": "<p>Total Number of Housing units in each Municipality</p>"
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -765,7 +939,12 @@
     "weightvar": null,
     "order": 4,
     "dynamic": false,
-    "unit": "incidence"
+    "unit": "incidence",
+    "description": {
+      "PHL": {
+        "dengue": "Number of dengue cases per 10.000.000 people per administrative division per year. <br /><br />Source: <a target='_blank' href='https://doh.gov.ph/statistics'>https://doh.gov.ph/statistics/</a>"
+      }
+    }
   },
   {
     "countryCodes": "ZWE,UGA",
@@ -781,7 +960,13 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 3,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "UGA": { "drought": "Not currently available" },
+      "ZWE": {
+        "drought": "Number of exposed small ruminants (sheep and goats) is calculated by the small ruminants per province within the droughts alert threshold reached area currently triggered. Livestock numbers small ruminants exists of the number of small ruminants multiplied with the Livestock unit (LSU): 0.1 to aggregate livestock from various species  (as reference unit 1.0, which is the grazing equivalent of one adult dairy cow producing 3000 kg of milk annually, without additional concentrated foodstuffs).<br/><br/><b>Source Links:</b><br/>Number of small ruminants (sheep and goats) mentioned within the 2nd round crop- and livestock assessment report 2020/2021 season. Published: 21st of April 2021Source assessment:<a target='_blank' href='https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0'>https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0</a>."
+      }
+    }
   },
   {
     "countryCodes": "ZWE,UGA",
@@ -797,7 +982,13 @@
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
     "order": 3,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "UGA": { "drought": "Not currently available" },
+      "ZWE": {
+        "drought": "<p>Livestock numbers cattle exists of the number of cattle multiplied with the Livestock unit (LSU): 1.0 &nbsp;as reference unit to aggregate livestock from various species, which is the grazing equivalent of one adult dairy cow producing 3000 kg of milk annually, without additional concentrated foodstuffs.</p> <p>Source Links :</p> <ul>     <li>Number of cattle mentioned within the 2nd round crop- and livestock assessment report 2020/2021 season. Published: 21st of April 2021.</li>     <li>Source assessment:<br><a target='_blank' data-fr-linked='true' href='https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0'>https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0</a></li>     <li>Source Livestock unit (LSU) <a target='_blank' href='https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)'>&nbsp;https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)</a></li> </ul>"
+      }
+    }
   },
   {
     "countryCodes": "ZWE,KEN,UGA",
@@ -813,7 +1004,16 @@
     "numberFormatAggregate": "decimal2",
     "weightvar": null,
     "order": 3,
-    "dynamic": false
+    "dynamic": false,
+    "description": {
+      "KEN": {
+        "drought": "The drought vulnerability index is a composite index for the context of exposure to drought and the capacity to anticipate, cope with and recover from the impacts of drought. The National Society and Technical Working group selected the following criteria below:<ul><li>18% Poverty incidence</li><li>15% Gini index</li><li>19% Literacy rates</li><li>15% Access to improved water sources</li><li>14% Access to improved sanitation</li><li>19% Integrated food security phase classification</li></ul><br>For further information please refer to the EAP"
+      },
+      "UGA": { "drought": "Not currently available" },
+      "ZWE": {
+        "drought": "The drought vulnerability index is a composite index for the context of exposure to drought and the capacity to anticipate, cope with and recover from the impacts of droughts. The ZRCS selected nine main criteria:<ul><li>14% Labor constrained households: 7 %unemployment rate 15+  and 7% economically non-active</li><li>15% Child, women and elderly headed households: 5% Female headed HH , 5% Head of Household (19-), 5% Head of Household (65+)</li><li>14% People with disabilities</li><li>15 % Pregnant and breast-feeding women, and children under five years: 5% pregnant women, 5% breast-feeding women, 5% children under five years</li><li>14 % Severe acute malnutrition</li><li>7% employment agriculture</li><li>7% cattle per km2</li><li>7% HIV prevalence</li><li>7% HIV ART Coverage</li></ul>"
+      }
+    }
   },
   {
     "countryCodes": "ETH",
@@ -830,7 +1030,12 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "ETH": {
+        "malaria": "Potential cases under 5. Vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates.<br /><br />Source Data: <a target='_blank' href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>"
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -847,7 +1052,12 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "PHL": {
+        "dengue": "Number of potential dengue cases among children under 9 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a target='_blank' href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      }
+    }
   },
   {
     "countryCodes": "PHL,ETH",
@@ -864,7 +1074,15 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "ETH": {
+        "malaria": "Elderly: vulnerable population group Ethiopia: High Resolution Population Density Maps + Demographic Estimates <a target='_blank' href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates</a>"
+      },
+      "PHL": {
+        "dengue": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data. <br /><br />Source demographic data: <a target='_blank' href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>https://data.humdata.org/dataset/philippines-pre-disaster-indicators/</a>"
+      }
+    }
   },
   {
     "countryCodes": "ZWE,UGA",
@@ -881,7 +1099,13 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "UGA": { "drought": "Not currently available" },
+      "ZWE": {
+        "drought": "<p>Number of exposed cattle is calculated by the cattle per province within the droughts alert threshold reached area currently triggered. Livestock numbers cattle exists of the number of cattle multiplied with the Livestock unit (LSU): 1.0 as reference unit, which is the grazing equivalent of one adult dairy cow producing 3000 kg of milk annually, without additional concentrated foodstuffs.&nbsp;</p><p>Source Links :</p> <ul>     <li>Number of cattle mentioned within the 2nd round crop- and livestock assessment report 2020/2021 season. Published: 21st of April 2021.</li>     <li>Source assessment:<br><a target='_blank' data-fr-linked='true' href='https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0'>https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0</a></li>     <li>Source Livestock unit (LSU) <a target='_blank' href='https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)'>&nbsp;https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Livestock_unit_(LSU)</a></li> </ul>"
+      }
+    }
   },
   {
     "countryCodes": "ZWE,UGA",
@@ -898,7 +1122,13 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "UGA": { "drought": "Not currently available" },
+      "ZWE": {
+        "drought": "Number of exposed small ruminants (sheep and goats) is calculated by the small ruminants per province within the droughts alert threshold reached area currently triggered. Livestock numbers small ruminants exists of the number of small ruminants multiplied with the Livestock unit (LSU): 0.1 to aggregate livestock from various species  (as reference unit 1.0, which is the grazing equivalent of one adult dairy cow producing 3000 kg of milk annually, without additional concentrated foodstuffs).<br/><br/><b>Source Links:</b><br/>Number of small ruminants (sheep and goats) mentioned within the 2nd round crop- and livestock assessment report 2020/2021 season. Published: 21st of April 2021Source assessment:<a target='_blank' href='https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0'>https://fscluster.org/zimbabwe/document/second-round-crop-and-livestock-0</a>."
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -915,7 +1145,12 @@
     "weightVar": "total_houses",
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "PHL": {
+        "typhoon": "<p>Total Number of completely  damaged houses as predicted by 510 typhoon impact prediction model</p>"
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -932,7 +1167,12 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "PHL": {
+        "typhoon": "<p>Probability for a Municipality being with in 50km of the forecasted typhoon track. Source for Typhoon forecast is ECMWF</p>"
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -950,7 +1190,12 @@
     "order": 2,
     "dynamic": true,
     "lazyLoad": true,
-    "unit": "kph"
+    "unit": "kph",
+    "description": {
+      "PHL": {
+        "typhoon": "<p>Forecasted 1 minute average maximum wind speed in kilometers per hour for each municipality during the duration of the typhoon event. The source for this forecast data is ECMWF.</p>"
+      }
+    }
   },
   {
     "countryCodes": "PHL",
@@ -968,7 +1213,12 @@
     "order": 2,
     "dynamic": true,
     "lazyLoad": true,
-    "unit": "mm/day"
+    "unit": "mm/day",
+    "description": {
+      "PHL": {
+        "typhoon": "<p>24 Hour Precipitation Total extracted from forecast issued by The Weather Prediction Center (WPC) of National Atmospheric Administration, NOAA.</p>"
+      }
+    }
   },
   {
     "countryCodes": "KEN",
@@ -979,31 +1229,11 @@
     "weightedAvg": false,
     "active": "no",
     "colorBreaks": {
-      "1": {
-        "label": "Normal",
-        "valueLow": 1,
-        "valueHigh": 1
-      },
-      "2": {
-        "label": "Alert",
-        "valueLow": 2,
-        "valueHigh": 2
-      },
-      "3": {
-        "label": "Alarm",
-        "valueLow": 3,
-        "valueHigh": 3
-      },
-      "4": {
-        "label": "Emergency",
-        "valueLow": 4,
-        "valueHigh": 4
-      },
-      "5": {
-        "label": "Recovery",
-        "valueLow": 5,
-        "valueHigh": 5
-      }
+      "1": { "label": "Normal", "valueLow": 1, "valueHigh": 1 },
+      "2": { "label": "Alert", "valueLow": 2, "valueHigh": 2 },
+      "3": { "label": "Alarm", "valueLow": 3, "valueHigh": 3 },
+      "4": { "label": "Emergency", "valueLow": 4, "valueHigh": 4 },
+      "5": { "label": "Recovery", "valueLow": 5, "valueHigh": 5 }
     },
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
@@ -1011,7 +1241,12 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "KEN": {
+        "drought": "<p>The Drought Phase Condition identifies a combined analysis from four indicator groups (biophysical, production, access, and utilization type of indicators) that determine the particular drought phase that helps to guide the most appropriate response for that stage in the drought cycle. The drought phase classification is expressed into four drought classess.&nbsp;</p><ul>    <li>Normal: Environmental indicators show no unusual fluctuation&nbsp;</li>    <li>Alert: environmental indicators fluctuate outside expected seasonal ranges&nbsp;</li>    <li>Alarm: Environmental and production indicators fluctuate outside seasonal ranges</li>    <li>Recovery: Environmental indicators return to seasonal norms&nbsp;</li></ul><p><strong>Source link:</strong> National monthly drought update published by the National Drought Management Authority (NDM) <a target='_blank' href='https://www.ndma.go.ke/index.php/resource-center/national-drought-bulletin'>https://www.ndma.go.ke/index.php/resource-center/national-drought-bulletin</a></p><p>Field monitors collect data in a number of sentinel sites across 23 arid and semi-arid counties. This collected data is complemented by information from other sources, such as Household data collection, community key informants questionnaires, observations, and additional satellite data. For all indicators, the current value is compared with the long-term average for the time of year in order to establish whether it falls within seasonal norms</p><p><strong>Latest updated:</strong> month, year</p><p><br></p>"
+      }
+    }
   },
   {
     "countryCodes": "KEN,UGA",
@@ -1022,11 +1257,7 @@
     "weightedAvg": false,
     "active": "no",
     "colorBreaks": {
-      "1": {
-        "label": "Extreme",
-        "valueLow": 1,
-        "valueHigh": 1
-      },
+      "1": { "label": "Extreme", "valueLow": 1, "valueHigh": 1 },
       "2": {
         "label": "Severe vegetation deficit",
         "valueLow": 2,
@@ -1054,7 +1285,13 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "KEN": {
+        "drought": "<p>The Vegetation condition  is one of the indicators monitored within the drought early warning system of NDMA as part of the biophysical type of indicator.This layer presents the Vegetation Condition Index VCI3M (3-month averaged VCI) as off . The VCI values return a drought category presented below with the corresponding thresholds.&nbsp;</p><ul>    <li>&gt;= 50 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Vegetation greenness above normal&nbsp;</li>    <li>&gt;= 35 - &lt;50 &nbsp;Normal vegetation greenness</li>    <li>&gt;=20 - &lt;35 &nbsp; Moderate vegetation deficit&nbsp;</li>    <li>&gt;=10 - &lt;20 &nbsp; Severe vegetation deficit&nbsp;</li>    <li>&lt;10 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Extreme vegetation deficit</li></ul><p>Once the VCI3M goes below a threshold of 35, the NDMA triggers a rapid food security assessment and has access to the National Drought Contingency Fund in order to implement its preparedness strategies and contingency plans.&nbsp;</p><p><strong>Source Link:</strong> National monthly Drought Update published by the National Drought Management Authority (NDMA) <a target='_blank' href='https://www.ndma.go.ke/index.php/resource-center/national-drought-bulletin'>https://www.ndma.go.ke/index.php/resource-center/national-drought-bulletin</a></p><p><strong>Latest updated:</strong> month, year</p>"
+      },
+      "UGA": { "drought": "Not currently available" }
+    }
   },
   {
     "countryCodes": "KEN",
@@ -1065,21 +1302,9 @@
     "weightedAvg": false,
     "active": "no",
     "colorBreaks": {
-      "1": {
-        "label": "Poor",
-        "valueLow": 1,
-        "valueHigh": 1
-      },
-      "2": {
-        "label": "Fair",
-        "valueLow": 2,
-        "valueHigh": 2
-      },
-      "3": {
-        "label": "Good",
-        "valueLow": 3,
-        "valueHigh": 3
-      }
+      "1": { "label": "Poor", "valueLow": 1, "valueHigh": 1 },
+      "2": { "label": "Fair", "valueLow": 2, "valueHigh": 2 },
+      "3": { "label": "Good", "valueLow": 3, "valueHigh": 3 }
     },
     "numberFormatMap": "decimal2",
     "aggregateIndicator": "",
@@ -1087,6 +1312,11 @@
     "weightvar": null,
     "order": 2,
     "dynamic": true,
-    "lazyLoad": true
+    "lazyLoad": true,
+    "description": {
+      "KEN": {
+        "drought": "<p>Livestock body condition is one of the indicators monitored within the drought early warning system of NDMA as part of the production type of indicator. This layer presents the livestock body condition expressed as a score to describe the relative fatness of the herd. The score is ranging from extremely thin to extremely obese on a nine-point scale. The areas that are evaluated are the backbone, ribs, hips, pin bones, tailhead, and brisket</p><p><br></p><p>Source link: National monthly Drought Update published by the National Drought Management Authority (NDMA) <a target='_blank' href='https://www.ndma.go.ke/index.php/resource-center/national-drought-bulletin'>https://www.ndma.go.ke/index.php/resource-center/national-drought-bulletin</a>&nbsp;</p><p>Latest updated: every month</p>"
+      }
+    }
   }
 ]

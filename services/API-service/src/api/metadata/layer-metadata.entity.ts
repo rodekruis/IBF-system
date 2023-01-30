@@ -46,4 +46,9 @@ export class LayerMetadataEntity {
   @Column()
   @IsIn(['no', 'yes', 'if-trigger'])
   public active: string;
+
+  @Column('json', {
+    default: {},
+  })
+  public description: JSON;
 }

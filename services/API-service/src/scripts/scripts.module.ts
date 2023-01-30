@@ -23,6 +23,8 @@ import SeedAdminAreaData from './seed-admin-area-data';
 import SeedPointData from './seed-point-data';
 import SeedGlofasStation from './seed-glofas-station';
 import SeedRainfallData from './seed-rainfall-data';
+import { PointDataModule } from '../api/point-data/point-data.module';
+import { AdminAreaDataModule } from '../api/admin-area-data/admin-area-data.module';
 
 @Module({
   imports: [
@@ -45,6 +47,8 @@ import SeedRainfallData from './seed-rainfall-data';
     TyphoonTrackModule,
     UserModule,
     MetadataModule,
+    PointDataModule,
+    AdminAreaDataModule,
   ],
   providers: [
     SeedInit,

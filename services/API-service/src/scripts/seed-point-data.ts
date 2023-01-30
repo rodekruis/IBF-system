@@ -3,29 +3,22 @@ import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
 import { SeedHelper } from './seed-helper';
 import countries from './json/countries.json';
-import {
-  PointDataEntity,
-  PointDataEnum,
-} from '../api/point-data/point-data.entity';
-import { EvacuationCenterDto } from '../api/point-data/dto/upload-evacuation-centers.dto';
-import { DamSiteDto } from '../api/point-data/dto/upload-dam-sites.dto';
-import { HealthSiteDto } from '../api/point-data/dto/upload-health-sites.dto';
-import { RedCrossBranchDto } from '../api/point-data/dto/upload-red-cross-branch.dto';
+import { PointDataEnum } from '../api/point-data/point-data.entity';
+import { PointDataService } from '../api/point-data/point-data.service';
 
 @Injectable()
 export class SeedPointData implements InterfaceScript {
-  private connection: Connection;
   private readonly seedHelper: SeedHelper;
-  private pointDataRepository;
 
-  public constructor(connection: Connection) {
-    this.connection = connection;
+  public constructor(
+    private pointDataService: PointDataService,
+    connection: Connection,
+  ) {
     this.seedHelper = new SeedHelper(connection);
   }
 
   public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
-    this.pointDataRepository = this.connection.getRepository(PointDataEntity);
 
     await Promise.all(
       countries.map(
@@ -50,26 +43,16 @@ export class SeedPointData implements InterfaceScript {
       const redcrossBranchesData = await this.seedHelper.getCsvData(
         redcrossBranchesFilename,
       );
-      const redcrossBranchesArray = redcrossBranchesData.map(
-        (branch: RedCrossBranchDto) => {
-          return {
-            countryCodeISO3: country.countryCodeISO3,
-            pointDataCategory: PointDataEnum.redCrossBranches,
-            attributes: JSON.parse(
-              JSON.stringify({
-                branchName: branch.branchName,
-                numberOfVolunteers: branch.numberOfVolunteers,
-                contactPerson: branch.contactPerson,
-                contactAddress: branch.contactAddress,
-                contactNumber: branch.contactNumber,
-              }),
-            ),
-            geom: (): string =>
-              `st_asgeojson(st_MakePoint(${branch.lon}, ${branch.lat}))::json`,
-          };
-        },
+
+      const validatedData = await this.pointDataService.validateArray(
+        PointDataEnum.redCrossBranches,
+        redcrossBranchesData,
       );
-      await this.pointDataRepository.save(redcrossBranchesArray);
+      await this.pointDataService.uploadJson(
+        PointDataEnum.redCrossBranches,
+        country.countryCodeISO3,
+        validatedData,
+      );
     } catch {
       return Promise.resolve();
     }
@@ -80,23 +63,16 @@ export class SeedPointData implements InterfaceScript {
       const healthSiteData = await this.seedHelper.getCsvData(
         healthSiteFilename,
       );
-      const healthSiteArray = healthSiteData.map(
-        (healthSite: HealthSiteDto) => {
-          return {
-            countryCodeISO3: country.countryCodeISO3,
-            pointDataCategory: PointDataEnum.healthSites,
-            attributes: JSON.parse(
-              JSON.stringify({
-                name: healthSite['name'] || '-',
-                type: healthSite['type'] || '-',
-              }),
-            ),
-            geom: (): string =>
-              `st_asgeojson(st_MakePoint(${healthSite.lon}, ${healthSite.lat}))::json`,
-          };
-        },
+
+      const validatedData = await this.pointDataService.validateArray(
+        PointDataEnum.healthSites,
+        healthSiteData,
       );
-      await this.pointDataRepository.save(healthSiteArray);
+      await this.pointDataService.uploadJson(
+        PointDataEnum.healthSites,
+        country.countryCodeISO3,
+        validatedData,
+      );
     } catch {
       return Promise.resolve();
     }
@@ -108,23 +84,15 @@ export class SeedPointData implements InterfaceScript {
       const evacuationCenterData = await this.seedHelper.getCsvData(
         evacuationCenterFileName,
       );
-      const evacuationCenterArray = evacuationCenterData.map(
-        (evacuationCenter: EvacuationCenterDto) => {
-          return {
-            countryCodeISO3: country.countryCodeISO3,
-            pointDataCategory: PointDataEnum.evacuationCenters,
-            attributes: JSON.parse(
-              JSON.stringify({
-                evacuationCenterName: evacuationCenter.evacuationCenterName,
-              }),
-            ),
-            geom: (): string =>
-              `st_asgeojson(st_MakePoint(${evacuationCenter.lon}, ${evacuationCenter.lat}))::json`,
-          };
-        },
+      const validatedData = await this.pointDataService.validateArray(
+        PointDataEnum.evacuationCenters,
+        evacuationCenterData,
       );
-
-      await this.pointDataRepository.save(evacuationCenterArray);
+      await this.pointDataService.uploadJson(
+        PointDataEnum.evacuationCenters,
+        country.countryCodeISO3,
+        validatedData,
+      );
     } catch {
       return Promise.resolve();
     }
@@ -134,22 +102,16 @@ export class SeedPointData implements InterfaceScript {
     const damSiteFileName = `./src/scripts/git-lfs/standard-point-layers/dam_sites_${country.countryCodeISO3}.csv`;
     try {
       const damSiteData = await this.seedHelper.getCsvData(damSiteFileName);
-      const damSiteArray = damSiteData.map((dam: DamSiteDto) => {
-        return {
-          countryCodeISO3: country.countryCodeISO3,
-          pointDataCategory: PointDataEnum.dams,
-          attributes: JSON.parse(
-            JSON.stringify({
-              damName: dam.damName,
-              fullSupplyCapacity: dam.fullSupplyCapacity,
-            }),
-          ),
-          geom: (): string =>
-            `st_asgeojson(st_MakePoint(${dam.lon}, ${dam.lat}))::json`,
-        };
-      });
 
-      await this.pointDataRepository.save(damSiteArray);
+      const validatedData = await this.pointDataService.validateArray(
+        PointDataEnum.dams,
+        damSiteData,
+      );
+      await this.pointDataService.uploadJson(
+        PointDataEnum.dams,
+        country.countryCodeISO3,
+        validatedData,
+      );
     } catch {
       return Promise.resolve();
     }
