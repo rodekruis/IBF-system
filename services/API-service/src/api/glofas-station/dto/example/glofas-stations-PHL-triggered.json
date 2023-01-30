@@ -2,80 +2,70 @@
   {
     "stationCode": "G1966",
     "forecastLevel": 18627.4509803922,
-    "forecastProbability": 1,
-    "forecastTrigger": 1,
+    "eapAlertClass": "max",
     "forecastReturnPeriod": 20,
     "triggerLevel": 522
   },
   {
     "stationCode": "G1967",
     "forecastLevel": 11176.4705882353,
-    "forecastProbability": 1,
-    "forecastTrigger": 1,
+    "eapAlertClass": "max",
     "forecastReturnPeriod": 20,
     "triggerLevel": 556
   },
   {
     "stationCode": "G1969",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 4000
   },
   {
     "stationCode": "G1970",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 4000
   },
   {
     "stationCode": "G4608",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 4000
   },
   {
     "stationCode": "G4611",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 4000
   },
   {
     "stationCode": "G4630",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 4000
   },
   {
     "stationCode": "G4945",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 4000
   },
   {
     "stationCode": "G5368",
     "forecastLevel": 0,
-    "forecastProbability": 0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 4000
   },
   {
     "stationCode": "G5369",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 4000
   }

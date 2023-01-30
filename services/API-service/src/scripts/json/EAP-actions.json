@@ -1741,19 +1741,10 @@
     "countryCodeISO3": "PHL",
     "disasterType": "floods",
     "areaOfFocus": {
-      "id": "drr"
+      "id": "livelihood"
     },
-    "action": "drr-1",
-    "label": "DRR preliminary action (dummy)"
-  },
-  {
-    "countryCodeISO3": "PHL",
-    "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
-    "action": "shelter-1",
-    "label": "Shelter preliminary action (dummy)"
+    "action": "livelihood-1",
+    "label": "Harvest crops and fish early"
   },
   {
     "countryCodeISO3": "PHL",
@@ -1761,44 +1752,17 @@
     "areaOfFocus": {
       "id": "livelihood"
     },
-    "action": "livelihood-1",
-    "label": "Livelihood preliminary action (dummy)"
+    "action": "livelihood-2",
+    "label": "Evacuate livestock and assets"
   },
   {
     "countryCodeISO3": "PHL",
     "disasterType": "floods",
     "areaOfFocus": {
-      "id": "health"
+      "id": "livelihood"
     },
-    "action": "health-1",
-    "label": "Health preliminary action (dummy)"
-  },
-  {
-    "countryCodeISO3": "PHL",
-    "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-1",
-    "label": "WASH preliminary action (dummy)"
-  },
-  {
-    "countryCodeISO3": "PHL",
-    "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "inclusion"
-    },
-    "action": "inclusion-1",
-    "label": "Inclusion preliminary action (dummy)"
-  },
-  {
-    "countryCodeISO3": "PHL",
-    "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "migration"
-    },
-    "action": "migration-1",
-    "label": "Migration preliminary action (dummy)"
+    "action": "livelihood-3",
+    "label": "Relocate small businesses"
   },
   {
     "countryCodeISO3": "SSD",
