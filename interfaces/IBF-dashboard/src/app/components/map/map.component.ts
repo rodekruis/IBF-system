@@ -865,27 +865,12 @@ export class MapComponent implements OnDestroy {
     let markerIcon: IconOptions;
     let className: string;
 
-    const eapAlertClasses =
-      (this.country &&
-        this.country.countryDisasterSettings.find(
-          (s) => s.disasterType === this.disasterType.disasterType,
-        ).eapAlertClasses) ||
-      ({} as EapAlertClasses);
-
-    const glofasProbability = markerProperties.forecastProbability;
-    Object.keys(eapAlertClasses).forEach((key) => {
-      if (
-        glofasProbability >= eapAlertClasses[key].valueLow &&
-        glofasProbability < eapAlertClasses[key].valueHigh
-      ) {
-        markerIcon = {
-          ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-          iconUrl: 'assets/markers/glofas-' + key + '.png',
-          iconRetinaUrl: 'assets/markers/glofas-' + key + '.png',
-        };
-        className = 'trigger-popup-' + key;
-      }
-    });
+    markerIcon = {
+      ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+      iconUrl: `assets/markers/glofas-${markerProperties.eapAlertClass}.png`,
+      iconRetinaUrl: `assets/markers/glofas-${markerProperties.eapAlertClass}.png`,
+    };
+    className = `trigger-popup-${markerProperties.eapAlertClass}`;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
@@ -1095,21 +1080,12 @@ export class MapComponent implements OnDestroy {
           (s) => s.disasterType === this.disasterType.disasterType,
         ).eapAlertClasses) ||
       ({} as EapAlertClasses);
-    const glofasProbability = markerProperties.forecastProbability;
 
-    let eapStatusText: string;
-    let eapStatusColor: string;
-    let eapStatusColorText: string;
-    Object.keys(eapAlertClasses).forEach((key) => {
-      if (
-        glofasProbability >= eapAlertClasses[key].valueLow &&
-        glofasProbability < eapAlertClasses[key].valueHigh
-      ) {
-        eapStatusText = eapAlertClasses[key].label;
-        eapStatusColor = `var(--ion-color-${eapAlertClasses[key].color})`;
-        eapStatusColorText = `var(--ion-color-${eapAlertClasses[key].color}-contrast)`;
-      }
-    });
+    const eapAlertClass = eapAlertClasses[markerProperties.eapAlertClass];
+
+    const eapStatusText = eapAlertClass.label;
+    const eapStatusColor = `var(--ion-color-${eapAlertClass.color})`;
+    const eapStatusColorText = `var(--ion-color-${eapAlertClass.color}-contrast)`;
 
     const title =
       markerProperties.stationCode +
