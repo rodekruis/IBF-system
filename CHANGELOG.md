@@ -1,3 +1,29 @@
+# [0.222.0](https://github.com/rodekruis/IBF-system/compare/v0.221.2...v0.222.0) (2023-01-30)
+
+
+### Features
+
+* move layer descriptions to data instead of code AB[#17452](https://github.com/rodekruis/IBF-system/issues/17452) ([e8a7957](https://github.com/rodekruis/IBF-system/commit/e8a79573a79bb0b9b4830dfcde46e3dbcf461586))
+* seed admin area data via service AB[#17455](https://github.com/rodekruis/IBF-system/issues/17455) ([b8712db](https://github.com/rodekruis/IBF-system/commit/b8712db090c6746805d6a049660652750c992ade))
+* seed point data via service AB[#17455](https://github.com/rodekruis/IBF-system/issues/17455) ([be5de61](https://github.com/rodekruis/IBF-system/commit/be5de612b4a9f2a25b592fea0ffc343adc09b7c9))
+* update glofas stations via API AB[#17454](https://github.com/rodekruis/IBF-system/issues/17454) ([037a18c](https://github.com/rodekruis/IBF-system/commit/037a18ca74977b3f8f64604778c9ff6359ab8be7))
+
+
+
+## [0.221.2](https://github.com/rodekruis/IBF-system/compare/v0.221.1...v0.221.2) (2023-01-27)
+
+
+### Bug Fixes
+
+* add non clickable spinner on loading AB[#17459](https://github.com/rodekruis/IBF-system/issues/17459) ([81d2f3d](https://github.com/rodekruis/IBF-system/commit/81d2f3d7cc6876346b6d671c47cb26733be9000a))
+* change typhoon back + correct en.json AB[#17588](https://github.com/rodekruis/IBF-system/issues/17588) ([7a2ec2e](https://github.com/rodekruis/IBF-system/commit/7a2ec2e34eddb7cfd19ce4393f76e4365b0cce2d))
+* correct mock typhoon category AB[#17588](https://github.com/rodekruis/IBF-system/issues/17588) ([0b832e4](https://github.com/rodekruis/IBF-system/commit/0b832e454ecbbca1862264a5abb1ce00bf0a2a46))
+* data-test + css cleanup AB[#17459](https://github.com/rodekruis/IBF-system/issues/17459) ([ecf5ddb](https://github.com/rodekruis/IBF-system/commit/ecf5ddb7fb28b9594e17934f8c87abf26010270f))
+* update tests + enable typhoon test AB[#17590](https://github.com/rodekruis/IBF-system/issues/17590) ([dcde991](https://github.com/rodekruis/IBF-system/commit/dcde9915a526d45e3b6d7a4f81df16c0bb9c5184))
+* use general spinner + fix cypress AB[#17459](https://github.com/rodekruis/IBF-system/issues/17459) AB[#17590](https://github.com/rodekruis/IBF-system/issues/17590) ([c298635](https://github.com/rodekruis/IBF-system/commit/c298635988e51444a19237e341b234bbe432be3d))
+
+
+
 ## [0.221.1](https://github.com/rodekruis/IBF-system/compare/v0.221.0...v0.221.1) (2023-01-20)
 
 
@@ -109,45 +135,6 @@
 * show "(stopped)" for stopped areas ([87a85c0](https://github.com/rodekruis/IBF-system/commit/87a85c0f027cac94b490e62b6ac49198f6df665d))
 * show aof-description in frontend AB[#17000](https://github.com/rodekruis/IBF-system/issues/17000) ([9b4203b](https://github.com/rodekruis/IBF-system/commit/9b4203b9728754121cdf3e3feafc1c842de77c8f))
 * show only placecode view on click or hover AB[#17186](https://github.com/rodekruis/IBF-system/issues/17186) ([cb5e2f5](https://github.com/rodekruis/IBF-system/commit/cb5e2f5aadde779165a2a70ef9950f7e62a6ca77))
-
-
-
-# [0.215.0](https://github.com/rodekruis/IBF-system/compare/v0.214.0...v0.215.0) (2023-01-13)
-
-
-### Bug Fixes
-
-* only allow 1 finished event as it's floods only AB[#17162](https://github.com/rodekruis/IBF-system/issues/17162) ([af626ac](https://github.com/rodekruis/IBF-system/commit/af626aca38716b0ce1edcff669be87391e9929a2))
-* switch from typhoon to other disaster-type can fail AB[#17287](https://github.com/rodekruis/IBF-system/issues/17287) ([4ffb772](https://github.com/rodekruis/IBF-system/commit/4ffb77294fd1e5399106ffbe8212bb6a424ec810))
-* update ssd pdf link AB[#16625](https://github.com/rodekruis/IBF-system/issues/16625) ([91e7cf9](https://github.com/rodekruis/IBF-system/commit/91e7cf92a364a2eda4fc421a3d938e71b0dd30ad))
-* update ux copy AB[#17165](https://github.com/rodekruis/IBF-system/issues/17165) ([417331d](https://github.com/rodekruis/IBF-system/commit/417331d1891ce7dd8b2c6f1c2235f83a6e56dd3a))
-* update ux copy AB[#17182](https://github.com/rodekruis/IBF-system/issues/17182) ([22c3e46](https://github.com/rodekruis/IBF-system/commit/22c3e468ab8ad473fb962e179ed1262ff67fbfae))
-
-
-### Features
-
-* message content for finished event AB[#17160](https://github.com/rodekruis/IBF-system/issues/17160) ([c9a2bfd](https://github.com/rodekruis/IBF-system/commit/c9a2bfdc8b54e5b58f2d0731ef14ae8595c8cf21))
-* send below trigger email AB[#17162](https://github.com/rodekruis/IBF-system/issues/17162) ([297b6f2](https://github.com/rodekruis/IBF-system/commit/297b6f23b81b7c16fed627249bfb07a4dd0131b0))
-* send notification if event is finished AB[#17159](https://github.com/rodekruis/IBF-system/issues/17159) ([c879e06](https://github.com/rodekruis/IBF-system/commit/c879e0673e78859f5eab05510c0ab6940eb5de38))
-
-
-
-# [0.214.0](https://github.com/rodekruis/IBF-system/compare/v0.213.0...v0.214.0) (2023-01-13)
-
-
-### Bug Fixes
-
-* remove unused variable AB[#17166](https://github.com/rodekruis/IBF-system/issues/17166) ([a5bf93f](https://github.com/rodekruis/IBF-system/commit/a5bf93f7ab52b92dc7af9e2de5093259d05c2447))
-
-
-### Features
-
-* add check for mobile AB[#17166](https://github.com/rodekruis/IBF-system/issues/17166) ([483b616](https://github.com/rodekruis/IBF-system/commit/483b61639b451e5c1f23498f4cd0f5d1fdc79067))
-* add check for tablet AB[#17168](https://github.com/rodekruis/IBF-system/issues/17168) ([8edbc07](https://github.com/rodekruis/IBF-system/commit/8edbc0772598da14c88ca85c82a0e0e83c19df37))
-* add popup if landscape AB[#17157](https://github.com/rodekruis/IBF-system/issues/17157) ([871f1fa](https://github.com/rodekruis/IBF-system/commit/871f1facce586b32ced66710c910d111fc693ff0))
-* refactor code AB[#17166](https://github.com/rodekruis/IBF-system/issues/17166) ([07ab01b](https://github.com/rodekruis/IBF-system/commit/07ab01b8eafff350755946bbc3d2b590e4ee6865))
-* specify "phones" for mobile AB[#17166](https://github.com/rodekruis/IBF-system/issues/17166) AB[#17189](https://github.com/rodekruis/IBF-system/issues/17189) ([7a7383c](https://github.com/rodekruis/IBF-system/commit/7a7383cd8c28618e1e6b14b3632e9086b188abd6))
-* update mobile copy AB[#17183](https://github.com/rodekruis/IBF-system/issues/17183) ([01430af](https://github.com/rodekruis/IBF-system/commit/01430af2c40d9f7e8691f331f8174901d8706947))
 
 
 

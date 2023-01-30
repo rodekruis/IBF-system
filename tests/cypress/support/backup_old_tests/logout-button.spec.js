@@ -8,10 +8,11 @@ describe('Logout Button', () => {
   });
 
   it('loads', () => {
-    cy.get(selectors.logOut).should('be.visible').should('not.be.disabled');
+    cy.waitForLogoutButton();
   });
 
   it('logs out', () => {
+    cy.waitForLogoutButton();
     cy.get(selectors.logOut).click();
     cy.url().should((url) => {
       expect(url).to.match(

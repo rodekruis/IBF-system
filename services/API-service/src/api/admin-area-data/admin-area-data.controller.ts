@@ -23,7 +23,7 @@ import { RolesGuard } from '../../roles.guard';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaDataService } from './admin-area-data.service';
-import { UploadAdminAreaDataJsonDto } from './dto/upload-admin-area-data.dto';
+import { UploadAdminAreaDataDto } from './dto/upload-admin-area-data.dto';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -64,23 +64,6 @@ export class AdminAreaDataController {
   @UseInterceptors(FileInterceptor('file'))
   public async uploadCsv(@UploadedFile() adminAreaData): Promise<void> {
     await this.adminAreaDataService.uploadCsv(adminAreaData);
-  }
-
-  @Roles(UserRole.Admin)
-  @ApiOperation({
-    summary: 'Upload (and overwrite) static admin-area data via JSON',
-  })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded static admin-area data',
-  })
-  @Post('upload/json')
-  @ApiConsumes()
-  @UseInterceptors()
-  public async uploadJson(
-    @Body() dataPlaceCode: UploadAdminAreaDataJsonDto,
-  ): Promise<void> {
-    await this.adminAreaDataService.uploadJson(dataPlaceCode);
   }
 
   @ApiOperation({

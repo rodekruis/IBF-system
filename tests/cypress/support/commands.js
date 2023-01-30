@@ -2,10 +2,16 @@ import constants from './constants';
 import selectors from './selectors';
 import 'cypress-wait-until';
 
-Cypress.Commands.add('waitForRequests', () => {
-  cy.intercept({ method: 'GET', url: '**' }).as('getHttp');
-  cy.wait('@getHttp', { timeout: 10000 });
-});
+Cypress.Commands.add('waitForRequests', () =>
+  cy.get(selectors.loader, { timeout: 20000 }).should('not.exist'),
+);
+
+Cypress.Commands.add('waitForLogoutButton', () =>
+  cy
+    .get(selectors.logOut, { timeout: 10000 })
+    .should('be.visible')
+    .should('not.be.disabled'),
+);
 
 // Contains a list of custom Commands
 Cypress.Commands.add('login', (countryEmail) => {
@@ -25,8 +31,7 @@ Cypress.Commands.add('login', (countryEmail) => {
     });
 
   cy.visit(constants.dashboardPagePath);
-  cy.waitForRequests();
-  cy.waitUntil(() => Cypress.$(selectors.loader).length === 0); // https://github.com/NoriSte/cypress-wait-until/issues/75#issuecomment-572685623
+  cy.waitForRequests(); // https://github.com/NoriSte/cypress-wait-until/issues/75#issuecomment-572685623
 });
 /* close all popup windows */
 Cypress.Commands.add('closeAllTabs', () => {

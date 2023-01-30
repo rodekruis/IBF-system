@@ -2,27 +2,23 @@ import { DisasterType } from './../api/disaster/disaster-type.enum';
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
 import { Connection } from 'typeorm';
-
-import { GlofasStationEntity } from '../api/glofas-station/glofas-station.entity';
 import { SeedHelper } from './seed-helper';
 import countries from './json/countries.json';
+import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
 
 @Injectable()
 export class SeedGlofasStation implements InterfaceScript {
-  private connection: Connection;
   private readonly seedHelper: SeedHelper;
-  private glofasStationRepository;
 
-  public constructor(connection: Connection) {
-    this.connection = connection;
+  public constructor(
+    private glofasStationService: GlofasStationService,
+    connection: Connection,
+  ) {
     this.seedHelper = new SeedHelper(connection);
   }
 
   public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
-    this.glofasStationRepository = this.connection.getRepository(
-      GlofasStationEntity,
-    );
 
     await Promise.all(
       countries.map(
@@ -46,24 +42,13 @@ export class SeedGlofasStation implements InterfaceScript {
       glofasStationDataFileName,
     );
 
-    await Promise.all(
-      glofasStationData.map(
-        (station): Promise<void> => {
-          return this.glofasStationRepository
-            .createQueryBuilder()
-            .insert()
-            .values({
-              countryCodeISO3: country.countryCodeISO3,
-              stationCode: station['station_code'],
-              stationName: station['station_name'],
-              lat: station['lat'],
-              lon: station['lon'],
-              geom: (): string =>
-                `st_asgeojson(st_MakePoint(${station['lon']}, ${station['lat']}))::json`,
-            })
-            .execute();
-        },
-      ),
+    const validatedData = await this.glofasStationService.validateArray(
+      glofasStationData,
+    );
+
+    await this.glofasStationService.uploadJson(
+      country.countryCodeISO3,
+      validatedData,
     );
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -46,7 +46,7 @@ export class ApiService {
     return headers;
   }
 
-  get(path: string, anonymous: boolean = true): Observable<any> {
+  get(path: string, anonymous: boolean = true, params = null): Observable<any> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
     this.log(`ApiService GET: ${security} ${url}`);
@@ -54,6 +54,7 @@ export class ApiService {
     return this.http
       .get(url, {
         headers: this.createHeaders(anonymous),
+        params,
       })
       .pipe(
         tap((response) =>
@@ -115,12 +116,22 @@ export class ApiService {
     });
   }
 
-  getCountries(countryCodesISO3?: string): Observable<Country[]> {
-    const path = countryCodesISO3 ? `country/${countryCodesISO3}` : 'country';
-    return this.get(path, false).pipe(
+  getCountries(
+    countryCodesISO3?: string,
+    minimalInfo?: boolean,
+  ): Observable<Country[]> {
+    const path = 'country';
+    let params = new HttpParams();
+    if (countryCodesISO3) {
+      params = params.append('countryCodesISO3', countryCodesISO3);
+    }
+    if (minimalInfo) {
+      params = params.append('minimalInfo', String(minimalInfo));
+    }
+    return this.get(path, false, params).pipe(
       map((countries) => {
         return countries.map((country) => {
-          country.countryDisasterSettings.map((disaster) => {
+          country.countryDisasterSettings?.map((disaster) => {
             disaster.activeLeadTimes = disaster.activeLeadTimes.map(
               (leadTime) => leadTime.leadTimeName,
             );

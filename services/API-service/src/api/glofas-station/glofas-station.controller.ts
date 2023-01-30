@@ -1,6 +1,18 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
   ApiOperation,
   ApiParam,
   ApiResponse,
@@ -80,6 +92,44 @@ export class GlofasStationController {
   ): Promise<GlofasStationForecastEntity[]> {
     return await this.glofasStationService.uploadTriggerDataPerStation(
       uploadTriggerPerStation,
+    );
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary:
+      'Upload (and overwrite) via CSV Glofas station locations and attributes for given country',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded Glofas station locations and attributes',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Validation errors in content of CSV',
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Post('upload-csv/:countryCodeISO3')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  public async uploadCsv(
+    @UploadedFile() glofasStationData,
+    @Param() params,
+  ): Promise<void> {
+    await this.glofasStationService.uploadCsv(
+      glofasStationData,
+      params.countryCodeISO3,
     );
   }
 }

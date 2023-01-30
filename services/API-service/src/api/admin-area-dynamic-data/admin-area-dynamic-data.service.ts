@@ -1,7 +1,7 @@
 import { LeadTime, LeadTimeUnit } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Connection, IsNull, MoreThanOrEqual, Repository } from 'typeorm';
+import { Connection, In, IsNull, MoreThanOrEqual, Repository } from 'typeorm';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
@@ -251,12 +251,23 @@ export class AdminAreaDynamicDataService {
   }
 
   public async archiveOldDynamicData() {
-    // for now do this only for floods as it is the bulk of the data, and the easiest to handle
+    // for now do this only for daily/hourly disaster-types as it is the bulk of the data, and the easiest to handle
     const maxDate = await this.adminAreaDynamicDataRepo
       .createQueryBuilder()
-      .select(['"countryCodeISO3"', 'MAX("date") AS max_date'])
+      .select([
+        '"countryCodeISO3"',
+        '"disasterType"',
+        'MAX("date") AS max_date',
+      ])
       .groupBy('"countryCodeISO3"')
-      .where({ disasterType: DisasterType.Floods })
+      .addGroupBy('"disasterType"')
+      .where({
+        disasterType: In([
+          DisasterType.Floods,
+          DisasterType.Typhoon,
+          DisasterType.HeavyRain,
+        ]),
+      })
       .getRawMany();
 
     // Move to separate archive-table
@@ -272,7 +283,7 @@ export class AdminAreaDynamicDataService {
               )`,
       )
     )[0].exists;
-    for await (const country of maxDate) {
+    for await (const item of maxDate) {
       if (archiveTableExists) {
         await this.connection.query(
           `INSERT INTO "${repository.metadata.schema}"."${repository.metadata.tableName}-archive" \
@@ -281,7 +292,7 @@ export class AdminAreaDynamicDataService {
             WHERE "disasterType" = $1 \
             AND "countryCodeISO3" = $2 \
             AND date < $3`,
-          [DisasterType.Floods, country.countryCodeISO3, country.max_date],
+          [item.disasterType, item.countryCodeISO3, item.max_date],
         );
       } else {
         await this.connection.query(
@@ -291,7 +302,7 @@ export class AdminAreaDynamicDataService {
             WHERE "disasterType" = $1 \
             AND "countryCodeISO3" = $2 \
             AND date < $3`,
-          [DisasterType.Floods, country.countryCodeISO3, country.max_date],
+          [item.disasterType, item.countryCodeISO3, item.max_date],
         );
       }
 
@@ -301,7 +312,7 @@ export class AdminAreaDynamicDataService {
           WHERE "disasterType" = $1 \
           AND "countryCodeISO3" = $2 \
           AND date < $3`,
-        [DisasterType.Floods, country.countryCodeISO3, country.max_date],
+        [item.disasterType, item.countryCodeISO3, item.max_date],
       );
     }
   }

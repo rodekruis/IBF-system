@@ -1,11 +1,11 @@
-admin1Name_en,placeCode,indicator,value
-Bulawayo,ZW10,small_ruminants,0
-Harare,ZW19,small_ruminants,0
-Manicaland,ZW11,small_ruminants,66223.9
-Mashonaland Central,ZW12,small_ruminants,48897.6
-Mashonaland East,ZW13,small_ruminants,29396.5
-Mashonaland West,ZW14,small_ruminants,43480.8
-Masvingo,ZW18,small_ruminants,76663.7
-Matabeleland North,ZW15,small_ruminants,54578
-Matabeleland South,ZW16,small_ruminants,88453.8
-Midlands,ZW17,small_ruminants,59567.4
+admin1Name_en,placeCode,indicator,value,countryCodeISO3,adminLevel
+Bulawayo,ZW10,small_ruminants,0,ZWE,1
+Harare,ZW19,small_ruminants,0,ZWE,1
+Manicaland,ZW11,small_ruminants,66223.9,ZWE,1
+Mashonaland Central,ZW12,small_ruminants,48897.6,ZWE,1
+Mashonaland East,ZW13,small_ruminants,29396.5,ZWE,1
+Mashonaland West,ZW14,small_ruminants,43480.8,ZWE,1
+Masvingo,ZW18,small_ruminants,76663.7,ZWE,1
+Matabeleland North,ZW15,small_ruminants,54578,ZWE,1
+Matabeleland South,ZW16,small_ruminants,88453.8,ZWE,1
+Midlands,ZW17,small_ruminants,59567.4,ZWE,1

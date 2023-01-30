@@ -31,13 +31,15 @@ export class PointDataController {
   public constructor(private readonly pointDataService: PointDataService) {}
 
   @ApiOperation({
-    summary: 'Get evacuation center locations and attributes for given country',
+    summary:
+      'Get point data locations and attributes for given country and point data layer',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
-    description: 'Dam locations and attributes for given country.',
+    description:
+      'Retrieved point data locations and attributes for given country and point data layer',
     type: GeoJson,
   })
   @Get(':pointDataCategory/:countryCodeISO3')
@@ -50,11 +52,12 @@ export class PointDataController {
 
   @Roles(UserRole.Admin)
   @ApiOperation({
-    summary: 'Upload (and overwrite) evacuation sites data via CSV',
+    summary:
+      'Upload (and overwrite) via CSV point data locations and attributes for given country and point data layer',
   })
   @ApiResponse({
     status: 201,
-    description: 'Uploaded dam sites data',
+    description: 'Uploaded point data locations and attributes',
   })
   @ApiResponse({
     status: 400,

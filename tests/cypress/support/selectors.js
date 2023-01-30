@@ -1,6 +1,6 @@
 export default {
   disasterType: {
-    selected: "[data-test='selected-disaster']",
+    selected: "[data-test-selected='selected-disaster']",
     disasterTypeButtons: '[data-test=disaster-type-button]',
   },
   timeline: {

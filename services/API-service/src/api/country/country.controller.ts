@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
-  ApiParam,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -52,29 +52,20 @@ export class CountryController {
   }
 
   @ApiOperation({
-    summary: 'Get all countries including their attributes',
+    summary: 'Get countries including their attributes by list of countryCodes',
   })
+  @ApiQuery({ name: 'countryCodesISO3', required: false, type: 'string' })
+  @ApiQuery({ name: 'minimalInfo', required: false, type: 'boolean' })
   @ApiResponse({
     status: 200,
     description: 'Available countries including their attributes.',
     type: [CountryEntity],
   })
   @Get()
-  public async getAllCountries(): Promise<CountryEntity[]> {
-    return await this.countryService.getAllCountries();
-  }
-
-  @ApiOperation({
-    summary: 'Get countries including their attributes by list of countryCodes',
-  })
-  @ApiParam({ name: 'countryCodesISO3', required: false, type: 'string' })
-  @ApiResponse({
-    status: 200,
-    description: 'Available countries including their attributes.',
-    type: [CountryEntity],
-  })
-  @Get(':countryCodesISO3')
-  public async getCountries(@Param() params): Promise<CountryEntity[]> {
-    return await this.countryService.getCountries(params?.countryCodesISO3);
+  public async getCountries(@Query() query): Promise<CountryEntity[]> {
+    return await this.countryService.getCountries(
+      query.countryCodesISO3,
+      query.minimalInfo === 'true',
+    );
   }
 }

@@ -53,7 +53,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private defaultHeaderLabel: string;
   private exposedPrefix: string;
   private allPrefix: string;
-  private popoverTexts: { [key: string]: string } = {};
 
   private eventState: EventState;
 
@@ -63,7 +62,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private placeCodeSubscription: Subscription;
   private placeCodeHoverSubscription: Subscription;
   private translateSubscription: Subscription;
-  private translateLayerInfoPopupsSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
   private eapActionSubscription: Subscription;
@@ -115,10 +113,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       .get(this.aggregateComponentTranslateNode)
       .subscribe(this.onTranslate);
 
-    this.translateLayerInfoPopupsSubscription = this.translateService
-      .get('layer-info-popups.aggregates-section')
-      .subscribe(this.onTranslateLayerInfoPopups);
-
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
       .subscribe(this.onTriggeredAreasChange);
@@ -131,7 +125,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.placeCodeSubscription.unsubscribe();
     this.placeCodeHoverSubscription.unsubscribe();
     this.translateSubscription.unsubscribe();
-    this.translateLayerInfoPopupsSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
     this.eapActionSubscription.unsubscribe();
@@ -154,10 +147,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           : this.stoppedPrefixTranslateNode
       ];
     this.allPrefix = translatedStrings[this.allPrefixTranslateNode];
-  };
-
-  private onTranslateLayerInfoPopups = (translatedStrings) => {
-    this.popoverTexts = translatedStrings;
   };
 
   private onCountryChange = (country: Country) => {
@@ -204,7 +193,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       componentProps: {
         layer: {
           label: indicator.label,
-          description: this.getPopoverText(indicator.name),
+          description: this.getPopoverText(indicator),
         },
       },
     });
@@ -220,20 +209,19 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     popover.present();
   }
 
-  private getPopoverText(indicatorName: IbfLayerName): string {
-    let popoverText = '';
+  private getPopoverText(indicator: Indicator): string {
     if (
-      this.popoverTexts[indicatorName] &&
-      this.popoverTexts[indicatorName][this.country.countryCodeISO3] &&
-      this.popoverTexts[indicatorName][this.country.countryCodeISO3][
+      indicator.description &&
+      indicator.description[this.country.countryCodeISO3] &&
+      indicator.description[this.country.countryCodeISO3][
         this.disasterType.disasterType
       ]
     ) {
-      popoverText = this.popoverTexts[indicatorName][
-        this.country.countryCodeISO3
-      ][this.disasterType.disasterType];
+      return indicator.description[this.country.countryCodeISO3][
+        this.disasterType.disasterType
+      ];
     }
-    return popoverText;
+    return '';
   }
 
   public getAggregate(

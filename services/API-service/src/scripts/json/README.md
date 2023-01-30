@@ -6,7 +6,7 @@
 - SW-DEV is responsible for keeping this up to date
 - This involves all entries from `indicator-metadata.json` and all 'point' and 'wms' layers from `layer-metadata.json`
 - To update the `layer-popup-info.xlsx` follow these instructions:
-  - from [interfaces\IBF-dashboard\src\assets\i18n](interfaces\IBF-dashboard\src\assets\i18n) folder run `node _add-info-popup-xlsx-columns.js`
+  - from [services\API-service\src\scripts\json](services\API-service\src\scripts\json) folder run `node _add-info-popup-xlsx-columns.js`
     - if first time, install 'xlsx'-package: `npm i xlsx`
   - open the newly created `new-lines.csv` file with a text editor and copy the content
   - open `layer-popup-info.xlsx` and unprotect it (under Review > Unprotect sheet)
@@ -52,7 +52,7 @@
 
 - SW-DEV checks out PR locally
 - runs script to convert XLSX into JSON
-  - go to right (this) folder: `cd ./src/assets/i18n`
+  - go to right (this) folder: `cd services\API-service\src\scripts\json`
   - if first time, install 'xlsx'-package: `npm i xlsx`
   - `node _convert-layer-info-popup-xlsx-to-json.js`
 - check if dashboard runs without errors

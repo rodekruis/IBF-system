@@ -1,42 +1,21 @@
-<div class="containerDiv">
+<ion-row>
   <div
     *ngFor="let disasterType of disasterTypes"
-    (click)="switchDisasterType(disasterType)"
-    data-test="disaster-type-button"
-    [ngClass]="{ active: disasterType.disasterType === selectedDisasterType }"
-    class="containerOne"
+    class="disaster-type-button-container"
   >
-    <div
-      *ngIf="disasterType.disasterType === selectedDisasterType"
-      [attr.data-test]="'selected-disaster-' + disasterType.disasterType"
+    <ion-icon
+      (click)="switchDisasterType(disasterType)"
+      class="disaster-type-button"
+      [ngClass]="disasterType?.activeTrigger ? 'triggered' : ''"
+      data-test="disaster-type-button"
+      [src]="
+        getButtonSvg(disasterType.disasterType, disasterType.activeTrigger)
+      "
+      slot="start"
+      [attr.data-test-selected]="
+        isSelectedDisaster(disasterType.disasterType) ? 'selected-disaster' : ''
+      "
     >
-      <ion-icon
-        class="ibf"
-        [src]="
-          disasterType.activeTrigger
-            ? disasterTypeMap[disasterType.disasterType].selectedTriggered
-            : disasterTypeMap[disasterType.disasterType].selectedNonTriggered
-        "
-        slot="start"
-        class="containerTwo"
-        data-test="selected-disaster"
-        [class.triggered]="disasterType.activeTrigger"
-      >
-      </ion-icon>
-    </div>
-
-    <div *ngIf="disasterType.disasterType !== selectedDisasterType">
-      <ion-icon
-        class="ibf"
-        [src]="
-          disasterType.activeTrigger
-            ? disasterTypeMap[disasterType.disasterType].nonSelectedTriggered
-            : disasterTypeMap[disasterType.disasterType].nonSelectedNonTriggered
-        "
-        slot="start"
-        class="containerTwo"
-      >
-      </ion-icon>
-    </div>
+    </ion-icon>
   </div>
-</div>
+</ion-row>
