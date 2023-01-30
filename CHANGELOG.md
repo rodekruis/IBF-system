@@ -1,3 +1,12 @@
+## [0.223.1](https://github.com/rodekruis/IBF-system/compare/v0.223.0...v0.223.1) (2023-01-30)
+
+
+### Bug Fixes
+
+* update mock data for eapAlertClass AB[#17607](https://github.com/rodekruis/IBF-system/issues/17607) ([7a30841](https://github.com/rodekruis/IBF-system/commit/7a30841adcbba8a097d7b89ab6a1ad4523b941cb))
+
+
+
 # [0.223.0](https://github.com/rodekruis/IBF-system/compare/v0.222.0...v0.223.0) (2023-01-30)
 
 
@@ -114,15 +123,6 @@
 ### Features
 
 * add explanation + css improvements AB[#17314](https://github.com/rodekruis/IBF-system/issues/17314) ([5d3f9c1](https://github.com/rodekruis/IBF-system/commit/5d3f9c1aa9893a09d8cb9538a83bf9323ec016d3))
-
-
-
-# [0.217.0](https://github.com/rodekruis/IBF-system/compare/v0.216.0...v0.217.0) (2023-01-16)
-
-
-### Features
-
-* add real descriptions to sectors AB[#17002](https://github.com/rodekruis/IBF-system/issues/17002) ([4e09242](https://github.com/rodekruis/IBF-system/commit/4e09242083840db7d18b0481b8145e69c60cd8f5))
 
 
 
