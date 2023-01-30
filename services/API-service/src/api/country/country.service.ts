@@ -40,20 +40,21 @@ export class CountryService {
     'notificationInfo',
   ];
 
-  public async getAllCountries(): Promise<CountryEntity[]> {
-    return await this.countryRepository.find({
-      relations: this.relations,
-    });
-  }
-
   public async getCountries(
     countryCodesISO3?: string,
+    minimalInfo?: boolean,
   ): Promise<CountryEntity[]> {
-    const countryCodes = countryCodesISO3.split(',');
-    return await this.countryRepository.find({
-      where: { countryCodeISO3: In(countryCodes) },
-      relations: this.relations,
-    });
+    if (countryCodesISO3) {
+      const countryCodes = countryCodesISO3.split(',');
+      return await this.countryRepository.find({
+        where: { countryCodeISO3: In(countryCodes) },
+        relations: minimalInfo ? ['disasterTypes'] : this.relations,
+      });
+    } else {
+      return await this.countryRepository.find({
+        relations: minimalInfo ? ['disasterTypes'] : this.relations,
+      });
+    }
   }
 
   public async findOne(
