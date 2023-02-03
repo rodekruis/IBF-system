@@ -1,3 +1,12 @@
+## [0.223.2](https://github.com/rodekruis/IBF-system/compare/v0.223.1...v0.223.2) (2023-02-03)
+
+
+### Bug Fixes
+
+* use non-triggered gradient for old event AB[#17650](https://github.com/rodekruis/IBF-system/issues/17650) ([6247c0a](https://github.com/rodekruis/IBF-system/commit/6247c0aa2e2a548c7f0ecbe11a4e2cfb58e8997f))
+
+
+
 ## [0.223.1](https://github.com/rodekruis/IBF-system/compare/v0.223.0...v0.223.1) (2023-01-30)
 
 
@@ -109,20 +118,6 @@
 
 * also reset placecode for leadtime/event switch AB[#17342](https://github.com/rodekruis/IBF-system/issues/17342) ([04c6b15](https://github.com/rodekruis/IBF-system/commit/04c6b1550b3d092c06242fa9ef4370bb6068abc3))
 * reset placeCode on disaster switch AB[#17337](https://github.com/rodekruis/IBF-system/issues/17337) ([94b44ac](https://github.com/rodekruis/IBF-system/commit/94b44accaf04de32946075f01da3cb7bdfbc7d37))
-
-
-
-# [0.218.0](https://github.com/rodekruis/IBF-system/compare/v0.217.0...v0.218.0) (2023-01-16)
-
-
-### Bug Fixes
-
-* activation log explanation AB[#17320](https://github.com/rodekruis/IBF-system/issues/17320) ([1a8cbfb](https://github.com/rodekruis/IBF-system/commit/1a8cbfb71fbf690c3cb0caec386aec6f889cb904))
-
-
-### Features
-
-* add explanation + css improvements AB[#17314](https://github.com/rodekruis/IBF-system/issues/17314) ([5d3f9c1](https://github.com/rodekruis/IBF-system/commit/5d3f9c1aa9893a09d8cb9538a83bf9323ec016d3))
 
 
 
