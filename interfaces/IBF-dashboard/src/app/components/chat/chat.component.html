@@ -301,81 +301,82 @@
         }}</span>
         <ion-icon name="arrow-back" slot="start"></ion-icon>
       </ion-button>
-      <form (submit)="submitEapAction(area.placeCode)">
-        <ion-row>
-          <ion-col size-lg="2" size-md="2" size-xs="2">
-            <ion-img
-              src="assets/icons/Alert_Chat_Black.svg"
-              class="chat-icon"
-            ></ion-img>
-          </ion-col>
-          <ion-col size-lg="10" size-md="10" size-xs="10">
-            <ion-label
+      <ion-row>
+        <ion-col size-lg="2" size-md="2" size-xs="2">
+          <ion-img
+            src="assets/icons/Alert_Chat_Black.svg"
+            class="chat-icon"
+          ></ion-img>
+        </ion-col>
+        <ion-col size-lg="10" size-md="10" size-xs="10">
+          <ion-label
+            [innerHTML]="
+              'chat-component.' + disasterTypeName + '.active-event.place-name'
+                | translate
+                  : {
+                      adminAreaLabel: adminAreaLabel,
+                      placeName: area.name,
+                      parentName: getAreaParentString(area)
+                    }
+            "
+          ></ion-label
+          ><br />
+          <ion-note size="small">
+            <span
               [innerHTML]="
-                'chat-component.' +
-                  disasterTypeName +
-                  '.active-event.place-name'
+                'chat-component.' + disasterTypeName + '.active-event.exposed'
                   | translate
-                    : {
-                        adminAreaLabel: adminAreaLabel,
-                        placeName: area.name,
-                        parentName: getAreaParentString(area)
-                      }
               "
-            ></ion-label
-            ><br />
-            <ion-note size="small">
-              <span
-                [innerHTML]="
-                  'chat-component.' + disasterTypeName + '.active-event.exposed'
-                    | translate
-                "
-              ></span>
-              <strong
-                ><span *ngIf="actionIndicatorNumberFormat === 'decimal0'">
-                  {{ area.actionsValue | number: '.0-0' }}
-                </span>
-                <span *ngIf="actionIndicatorNumberFormat === 'perc'">
-                  {{ area.actionsValue | percent: '.0-0' }}</span
-                >
-              </strong>
-            </ion-note>
-            <br />
-            <div
-              *ngIf="disasterTypeSettings?.showMonthlyEapActions"
-              class="ion-margin-bottom"
-            >
-              <ng-container
-                *ngIf="forecastInfo && country?.countryCodeISO3 === 'KEN'"
+            ></span>
+            <strong
+              ><span *ngIf="actionIndicatorNumberFormat === 'decimal0'">
+                {{ area.actionsValue | number: '.0-0' }}
+              </span>
+              <span *ngIf="actionIndicatorNumberFormat === 'perc'">
+                {{ area.actionsValue | percent: '.0-0' }}</span
               >
-                <ion-note size="small" *ngIf="area?.eapActions as actions">
-                  <span *ngIf="forecastInfo?.length"
-                    >{{
-                      'chat-component.drought.active-event.forecast-info.opening'
+            </strong>
+          </ion-note>
+          <br />
+          <div
+            *ngIf="disasterTypeSettings?.showMonthlyEapActions"
+            class="ion-margin-bottom"
+          >
+            <ng-container
+              *ngIf="forecastInfo && country?.countryCodeISO3 === 'KEN'"
+            >
+              <ion-note size="small" *ngIf="area?.eapActions as actions">
+                <span *ngIf="forecastInfo?.length"
+                  >{{
+                    'chat-component.drought.active-event.forecast-info.opening'
+                      | translate
+                  }}
+                </span>
+
+                <span *ngFor="let forecast of forecastInfo; last as isLast">
+                  <strong>{{ forecast }}</strong
+                  ><span *ngIf="!isLast">
+                    {{
+                      'chat-component.drought.active-event.forecast-info.and'
                         | translate
                     }}
                   </span>
-
-                  <span *ngFor="let forecast of forecastInfo; last as isLast">
-                    <strong>{{ forecast }}</strong
-                    ><span *ngIf="!isLast">
-                      {{
-                        'chat-component.drought.active-event.forecast-info.and'
-                          | translate
-                      }}
-                    </span>
-                  </span>
-                  {{ ' ' }}
-                  <span
-                    [innerHTML]="
-                      getNumberOfActions(actions.length, forecastInfo?.length)
-                    "
-                  ></span>
-                </ion-note>
-              </ng-container>
-            </div>
-          </ion-col>
-        </ion-row>
+                </span>
+                {{ ' ' }}
+                <span
+                  [innerHTML]="
+                    getNumberOfActions(actions.length, forecastInfo?.length)
+                  "
+                ></span>
+              </ion-note>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <form
+        *ngIf="area.eapActions.length"
+        (submit)="submitEapAction(area.placeCode)"
+      >
         <ion-list class="background-light">
           <ion-item
             *ngFor="let action of area.eapActions"
