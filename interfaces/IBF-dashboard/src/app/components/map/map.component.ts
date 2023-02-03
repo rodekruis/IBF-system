@@ -868,7 +868,7 @@ export class MapComponent implements OnDestroy {
     markerIcon = {
       ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
       iconUrl: `assets/markers/glofas-station-${markerProperties.eapAlertClass}-trigger.svg`,
-      iconRetinaUrl: `assets/markers/glofas-station-${markerProperties.eapAlertClass}-trigger.png`,
+      iconRetinaUrl: `assets/markers/glofas-station-${markerProperties.eapAlertClass}-trigger.svg`,
     };
     className = `trigger-popup-${markerProperties.eapAlertClass}`;
 
