@@ -34,6 +34,16 @@ export class LayerDto {
   @ApiProperty({ example: 'no' })
   @IsIn(['no', 'yes', 'if-trigger'])
   public active: string;
+
+  @ApiProperty({
+    example: {
+      EGY: {
+        'heavy-rain':
+          'This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Egyptian Red Crescent Society (ERCS). Year: 2020.',
+      },
+    },
+  })
+  public description: JSON;
 }
 
 export class AddLayersDto {

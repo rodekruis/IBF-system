@@ -71,6 +71,9 @@ export class MetadataService {
     indicatorEntity.dynamic = indicator.dynamic;
     indicatorEntity.unit = indicator.unit;
     indicatorEntity.lazyLoad = indicator.lazyLoad;
+    indicatorEntity.description = JSON.parse(
+      JSON.stringify(indicator.description || {}),
+    );
 
     return indicatorEntity;
   }
@@ -116,6 +119,9 @@ export class MetadataService {
     layerEntity.legendColor = layer.legendColor;
     layerEntity.leadTimeDependent = layer.leadTimeDependent;
     layerEntity.active = layer.active;
+    layerEntity.description = JSON.parse(
+      JSON.stringify(layer.description || {}),
+    );
 
     return layerEntity;
   }
