@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { Geometry } from './geo.model';
 
 export class AdminAreaRecord {
@@ -71,6 +72,9 @@ export class EventSummaryCountry {
 
   @ApiProperty({ example: 'Mock typhoon' })
   public eventName: string;
+
+  @ApiProperty({ example: LeadTime.day7 })
+  public firstLeadTime: LeadTime;
 
   @ApiProperty({ example: {} })
   public disasterSpecificProperties: DisasterSpecificProperties;

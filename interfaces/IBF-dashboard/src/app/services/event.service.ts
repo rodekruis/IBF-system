@@ -3,11 +3,7 @@ import { DateTime } from 'luxon';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import {
-  LeadTime,
-  LeadTimeTriggerKey,
-  LeadTimeUnit,
-} from 'src/app/types/lead-time';
+import { LeadTimeTriggerKey, LeadTimeUnit } from 'src/app/types/lead-time';
 import { Country, DisasterType } from '../models/country.model';
 import { EventState } from '../types/event-state';
 import { DisasterTypeService } from './disaster-type.service';
@@ -171,7 +167,12 @@ export class EventService {
         if (event.endDate) {
           event.endDate = this.endDateToLastTriggerDate(event.endDate);
         }
-        this.getFirstTriggerDate(event);
+        event.firstLeadTimeLabel = LeadTimeTriggerKey[event.firstLeadTime];
+        event.timeUnit = event.firstLeadTime?.split('-')[1];
+
+        event.firstLeadTimeDate = event.firstLeadTime
+          ? this.getFirstLeadTimeDate(event.firstLeadTime, event.timeUnit)
+          : null;
       }
     }
 
@@ -204,50 +205,6 @@ export class EventService {
         dashboardElement.classList.add('no-alert');
       }
     }
-  };
-
-  private getFirstTriggerDate(event) {
-    if (this.country && this.disasterType) {
-      this.apiService
-        .getTriggerPerLeadTime(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-          event.eventName,
-        )
-        .subscribe((response) =>
-          this.onTriggerPerLeadTime(response, event.eventName),
-        );
-    }
-  }
-
-  private onTriggerPerLeadTime = (timesteps, eventName) => {
-    let firstKey = null;
-    if (timesteps) {
-      Object.keys(timesteps)
-        .filter((key) => Object.values(LeadTime).includes(key as LeadTime))
-        .sort((a, b) =>
-          Number(LeadTimeTriggerKey[a]) > Number(LeadTimeTriggerKey[b])
-            ? 1
-            : -1,
-        )
-        .forEach((key) => {
-          if (timesteps[key] === '1') {
-            firstKey = !firstKey ? key : firstKey;
-          }
-        });
-    }
-
-    const event =
-      this.state.events.find((e) => e.eventName === eventName) ||
-      this.state.events[0];
-
-    event.firstLeadTime = firstKey;
-    event.firstLeadTimeLabel = LeadTimeTriggerKey[firstKey];
-    event.timeUnit = firstKey?.split('-')[1];
-
-    event.firstLeadTimeDate = firstKey
-      ? this.getFirstLeadTimeDate(firstKey, event.timeUnit)
-      : null;
   };
 
   public getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit) {

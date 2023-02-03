@@ -96,6 +96,11 @@ export class EventService {
       .getRawMany();
 
     for await (const event of eventSummary) {
+      event.firstLeadTime = await this.getFirstLeadTime(
+        countryCodeISO3,
+        disasterType,
+        event.eventName,
+      );
       if (disasterType === DisasterType.Typhoon) {
         event.disasterSpecificProperties = await this.typhoonTrackService.getTyphoonSpecificProperties(
           countryCodeISO3,
@@ -342,6 +347,32 @@ export class EventService {
     }
 
     return activationLogData;
+  }
+
+  private async getFirstLeadTime(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    eventName: string,
+  ) {
+    const timesteps = await this.getTriggerPerLeadtime(
+      countryCodeISO3,
+      disasterType,
+      eventName,
+    );
+    let firstKey = null;
+    if (timesteps) {
+      Object.keys(timesteps)
+        .filter(key => Object.values(LeadTime).includes(key as LeadTime))
+        .sort((a, b) =>
+          Number(a.split('-')[0]) > Number(b.split('-')[0]) ? 1 : -1,
+        )
+        .forEach(key => {
+          if (timesteps[key] === '1') {
+            firstKey = !firstKey ? key : firstKey;
+          }
+        });
+    }
+    return firstKey;
   }
 
   public async getTriggerPerLeadtime(
