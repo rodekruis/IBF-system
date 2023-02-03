@@ -29,31 +29,34 @@
             }
 
             .point-layer {
-              background-color: var(--ion-color-ibf-no-alert-tertiary);
+              background-color: var(--ion-color-ibf-no-alert-primary);
               background-repeat: no-repeat;
               background-position: center;
               background-size: contain;
+              padding: 4px;
+              background-origin: content-box;
             }
+
             .glofas-layer {
-              background-image: url('../../../assets/markers/glofas-no.png');
+              background-image: url('../../../assets/markers/trigger-icon.svg');
             }
             .typhoon-track-layer {
               background-image: url('../../../assets/markers/typhoon-track.png');
             }
             .red-cross-layer {
-              background-image: url('../../../assets/markers/red-cross.png');
+              background-image: url('../../../assets/markers/red-cross-icon.svg');
             }
             .dam-layer {
-              background-image: url('../../../assets/markers/dam.png');
+              background-image: url('../../../assets/markers/dam-icon.svg');
             }
             .waterpoint-layer {
-              background-image: url('../../../assets/markers/waterpoint.png');
+              background-image: url('../../../assets/markers/water-point-icon.svg');
             }
             .health-layer {
-              background-image: url('../../../assets/markers/health-facility.png');
+              background-image: url('../../../assets/markers/health-center-icon.svg');
             }
             .evacuation-center-layer {
-              background-image: url('../../../assets/markers/evacuation-center.png');
+              background-image: url('../../../assets/markers/evacuation-center-icon.svg');
             }
             .outline-layer {
               border: solid;

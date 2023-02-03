@@ -12,59 +12,47 @@ export const LEAFLET_MAP_ATTRIBUTION =
   '&copy; <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a target="_blank" href="https://carto.com/attributions">Carto</a>';
 
 export const LEAFLET_MARKER_ICON_OPTIONS_BASE: IconOptions = {
-  iconSize: [30, 50],
-  iconAnchor: [15, 50],
-  popupAnchor: [0, -30],
-  iconUrl: 'assets/markers/glofas-no.svg',
-  iconRetinaUrl: 'assets/markers/glofas-no.svg',
+  iconSize: [28, 42],
+  iconAnchor: [24, 42],
+  popupAnchor: [0, -28],
+  iconUrl: 'assets/markers/glofas-station-default-marker.svg',
+  iconRetinaUrl: 'assets/markers/glofas-station-default-marker.svg',
 };
 
 export const LEAFLET_MARKER_ICON_OPTIONS_DAM: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconSize: [20, 33],
-  iconAnchor: [10, 33],
-  iconUrl: 'assets/markers/dam.png',
-  iconRetinaUrl: 'assets/markers/dam.png',
+  iconUrl: 'assets/markers/dam-marker.svg',
+  iconRetinaUrl: 'assets/markers/dam-marker.svg',
 };
 
 export const LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconSize: [20, 33],
-  iconAnchor: [10, 33],
-  iconUrl: 'assets/markers/red-cross.png',
-  iconRetinaUrl: 'assets/markers/red-cross.png',
+  iconUrl: 'assets/markers/red-cross-marker.svg',
+  iconRetinaUrl: 'assets/markers/red-cross-marker.svg',
 };
 
 export const LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconSize: [33, 33],
-  iconAnchor: [17, 33],
-  iconUrl: 'assets/markers/health-facility.png',
-  iconRetinaUrl: 'assets/markers/health-facility.png',
+  iconUrl: 'assets/markers/health-center-marker.svg',
+  iconRetinaUrl: 'assets/markers/health-center-marker.svg',
 };
 
 export const LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconSize: [33, 33],
-  iconAnchor: [17, 33],
-  iconUrl: 'assets/markers/health-point-marker_hospital.png',
-  iconRetinaUrl: 'assets/markers/health-point-marker_hospital.png',
+  iconUrl: 'assets/markers/health-center-marker.svg',
+  iconRetinaUrl: 'assets/markers/health-center-marker.svg',
 };
 
 export const LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconSize: [20, 33],
-  iconAnchor: [10, 33],
-  iconUrl: 'assets/markers/waterpoint.png',
-  iconRetinaUrl: 'assets/markers/waterpoint.png',
+  iconUrl: 'assets/markers/water-point-marker.svg',
+  iconRetinaUrl: 'assets/markers/water-point-marker.svg',
 };
 
 export const LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconSize: [30, 50],
-  iconAnchor: [15, 50],
-  iconUrl: 'assets/markers/evacuation-center.png',
-  iconRetinaUrl: 'assets/markers/evacuation-center.png',
+  iconUrl: 'assets/markers/evacuation-center-marker.svg',
+  iconRetinaUrl: 'assets/markers/evacuation-center-marker.svg',
 };
 
 export const LEAFLET_MAP_OPTIONS: MapOptions = {
