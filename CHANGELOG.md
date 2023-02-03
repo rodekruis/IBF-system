@@ -1,3 +1,18 @@
+# [0.224.0](https://github.com/rodekruis/IBF-system/compare/v0.223.2...v0.224.0) (2023-02-03)
+
+
+### Bug Fixes
+
+* make all markers same size + min-marker-issue AB[#17461](https://github.com/rodekruis/IBF-system/issues/17461) ([5d5d108](https://github.com/rodekruis/IBF-system/commit/5d5d108596658ab6c3d609fdea51009f448c4e75))
+* markers AB[#17461](https://github.com/rodekruis/IBF-system/issues/17461) ([31a00fc](https://github.com/rodekruis/IBF-system/commit/31a00fc9a8ce7433291d89f88302081bbecb6537))
+
+
+### Features
+
+* update icons + markers AB[#17461](https://github.com/rodekruis/IBF-system/issues/17461) AB[#17462](https://github.com/rodekruis/IBF-system/issues/17462) ([228b98d](https://github.com/rodekruis/IBF-system/commit/228b98dd8bfbbd1e14766b2a21863cdde468e7fb))
+
+
+
 ## [0.223.2](https://github.com/rodekruis/IBF-system/compare/v0.223.1...v0.223.2) (2023-02-03)
 
 
@@ -108,16 +123,6 @@
 ### Features
 
 * enforce links open in new tab AB[#17345](https://github.com/rodekruis/IBF-system/issues/17345) ([fcdf62e](https://github.com/rodekruis/IBF-system/commit/fcdf62e0471d07238607fb55a8ac716ba9945b8f))
-
-
-
-## [0.218.1](https://github.com/rodekruis/IBF-system/compare/v0.218.0...v0.218.1) (2023-01-16)
-
-
-### Bug Fixes
-
-* also reset placecode for leadtime/event switch AB[#17342](https://github.com/rodekruis/IBF-system/issues/17342) ([04c6b15](https://github.com/rodekruis/IBF-system/commit/04c6b1550b3d092c06242fa9ef4370bb6068abc3))
-* reset placeCode on disaster switch AB[#17337](https://github.com/rodekruis/IBF-system/issues/17337) ([94b44ac](https://github.com/rodekruis/IBF-system/commit/94b44accaf04de32946075f01da3cb7bdfbc7d37))
 
 
 
