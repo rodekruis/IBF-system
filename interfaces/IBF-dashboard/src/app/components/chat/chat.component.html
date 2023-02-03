@@ -373,11 +373,15 @@
           </div>
         </ion-col>
       </ion-row>
-      <p *ngIf="area.eapActions.length">
-        {{ 'chat-component.common.save-actions.no-actions' | translate }}
-      </p>
+      <ion-item *ngIf="!area.eapActions.length" class="background-light">
+        <ion-label class="ion-text-wrap">
+          {{
+            'chat-component.common.save-actions.no-actions' | translate
+          }}</ion-label
+        ></ion-item
+      >
       <form
-        *ngIf="!area.eapActions.length"
+        *ngIf="area.eapActions.length"
         (submit)="submitEapAction(area.placeCode)"
       >
         <ion-list class="background-light">
