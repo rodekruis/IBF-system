@@ -37,16 +37,16 @@ export const LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH: IconOptions = {
 
 export const LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconSize: [33, 33],
-  iconAnchor: [17, 33],
+  iconSize: [20, 33],
+  iconAnchor: [10, 33],
   iconUrl: 'assets/markers/health-center-marker.svg',
   iconRetinaUrl: 'assets/markers/health-center-marker.svg',
 };
 
 export const LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconSize: [33, 33],
-  iconAnchor: [17, 33],
+  iconSize: [20, 33],
+  iconAnchor: [10, 33],
   iconUrl: 'assets/markers/health-center-marker.svg',
   iconRetinaUrl: 'assets/markers/health-center-marker.svg',
 };
@@ -61,8 +61,8 @@ export const LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT: IconOptions = {
 
 export const LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconSize: [30, 50],
-  iconAnchor: [15, 50],
+  iconSize: [20, 33],
+  iconAnchor: [10, 33],
   iconUrl: 'assets/markers/evacuation-center-marker.svg',
   iconRetinaUrl: 'assets/markers/evacuation-center-marker.svg',
 };
