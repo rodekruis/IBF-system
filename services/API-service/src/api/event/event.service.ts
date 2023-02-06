@@ -170,7 +170,10 @@ export class EventService {
         eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
         date: MoreThanOrEqual(firstDayOfMonth),
       });
-    } else if (leadTime.includes(LeadTimeUnit.hour)) {
+    } else if (
+      leadTime.includes(LeadTimeUnit.hour) &&
+      uploadTriggerPerLeadTimeDto.disasterType === DisasterType.Typhoon
+    ) {
       // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
       await this.triggerPerLeadTimeRepository.delete({
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
