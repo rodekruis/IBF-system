@@ -1,3 +1,12 @@
+## [0.224.1](https://github.com/rodekruis/IBF-system/compare/v0.224.0...v0.224.1) (2023-02-06)
+
+
+### Bug Fixes
+
+* glofas stations info popups AB[#17708](https://github.com/rodekruis/IBF-system/issues/17708) ([79b4c45](https://github.com/rodekruis/IBF-system/commit/79b4c452be1da334a193178fc14dbd4874b3ce4e))
+
+
+
 # [0.224.0](https://github.com/rodekruis/IBF-system/compare/v0.223.2...v0.224.0) (2023-02-03)
 
 
@@ -109,20 +118,6 @@
 ### Features
 
 * change icon color AB[#15786](https://github.com/rodekruis/IBF-system/issues/15786) ([5613ebb](https://github.com/rodekruis/IBF-system/commit/5613ebbca49a7ba5b4f33fe7505828177052d19c))
-
-
-
-# [0.219.0](https://github.com/rodekruis/IBF-system/compare/v0.218.1...v0.219.0) (2023-01-16)
-
-
-### Bug Fixes
-
-* open leaflet attribution in new tabs AB[#17346](https://github.com/rodekruis/IBF-system/issues/17346) ([4ee7232](https://github.com/rodekruis/IBF-system/commit/4ee7232e8f6b398dd6c58bba2f4f10fabbc9aa96))
-
-
-### Features
-
-* enforce links open in new tab AB[#17345](https://github.com/rodekruis/IBF-system/issues/17345) ([fcdf62e](https://github.com/rodekruis/IBF-system/commit/fcdf62e0471d07238607fb55a8ac716ba9945b8f))
 
 
 
