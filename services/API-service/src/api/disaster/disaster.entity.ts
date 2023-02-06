@@ -12,6 +12,7 @@ import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../metadata/layer-metadata.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import { UserEntity } from '../user/user.entity';
 
 @Entity('disaster')
 export class DisasterEntity {
@@ -64,4 +65,10 @@ export class DisasterEntity {
   )
   @JoinTable()
   public layers: LayerMetadataEntity[];
+
+  @ManyToMany(
+    (): typeof UserEntity => UserEntity,
+    (user): DisasterEntity[] => user.disasterTypes,
+  )
+  public users: UserEntity[];
 }

@@ -5,10 +5,11 @@ import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 import { CountryEntity } from '../country/country.entity';
 import { LookupModule } from '../notification/lookup/lookup.module';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity, CountryEntity]),
+    TypeOrmModule.forFeature([UserEntity, CountryEntity, DisasterEntity]),
     LookupModule,
   ],
   providers: [UserService],
