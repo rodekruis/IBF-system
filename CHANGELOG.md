@@ -1,3 +1,12 @@
+## [0.224.2](https://github.com/rodekruis/IBF-system/compare/v0.224.1...v0.224.2) (2023-02-06)
+
+
+### Bug Fixes
+
+* activeTrigger crash AB[#17766](https://github.com/rodekruis/IBF-system/issues/17766) ([f5d7249](https://github.com/rodekruis/IBF-system/commit/f5d7249ade63e4e1ab2fcf2f9bd56e3899ebb7fd))
+
+
+
 ## [0.224.1](https://github.com/rodekruis/IBF-system/compare/v0.224.0...v0.224.1) (2023-02-06)
 
 
@@ -102,22 +111,6 @@
 
 * include+process date in all pipeline/mock endpoints AB[#17201](https://github.com/rodekruis/IBF-system/issues/17201) ([81be9cd](https://github.com/rodekruis/IBF-system/commit/81be9cd0f7300ab1951b04b2cc368e17e71ba48b))
 * use date-attribute in send-endpoint as well AB[#17341](https://github.com/rodekruis/IBF-system/issues/17341) ([90201c6](https://github.com/rodekruis/IBF-system/commit/90201c667c6a8f186193b524f20e24c9517cae4c))
-
-
-
-# [0.220.0](https://github.com/rodekruis/IBF-system/compare/v0.219.0...v0.220.0) (2023-01-20)
-
-
-### Bug Fixes
-
-* add drr icon AB[#17344](https://github.com/rodekruis/IBF-system/issues/17344) ([2532af7](https://github.com/rodekruis/IBF-system/commit/2532af7c113ec5b3507662a793dc79131223f254))
-* change color of livestock AB[#17340](https://github.com/rodekruis/IBF-system/issues/17340) ([71a2146](https://github.com/rodekruis/IBF-system/commit/71a214639864148b8286e3f6146255effebcba76))
-* separate female icon AB[#17344](https://github.com/rodekruis/IBF-system/issues/17344) ([f4c21a7](https://github.com/rodekruis/IBF-system/commit/f4c21a7f7b8d2ba0ceffca8abf7ee8fe4f2d4c95))
-
-
-### Features
-
-* change icon color AB[#15786](https://github.com/rodekruis/IBF-system/issues/15786) ([5613ebb](https://github.com/rodekruis/IBF-system/commit/5613ebbca49a7ba5b4f33fe7505828177052d19c))
 
 
 
