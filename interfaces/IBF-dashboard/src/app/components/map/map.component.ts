@@ -1083,9 +1083,9 @@ export class MapComponent implements OnDestroy {
 
     const eapAlertClass = eapAlertClasses[markerProperties.eapAlertClass];
 
-    const eapStatusText = eapAlertClass.label;
-    const eapStatusColor = `var(--ion-color-${eapAlertClass.color})`;
-    const eapStatusColorText = `var(--ion-color-${eapAlertClass.color}-contrast)`;
+    const eapStatusText = eapAlertClass?.label;
+    const eapStatusColor = `var(--ion-color-${eapAlertClass?.color})`;
+    const eapStatusColorText = `var(--ion-color-${eapAlertClass?.color}-contrast)`;
 
     const title =
       markerProperties.stationCode +
