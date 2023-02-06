@@ -1,10 +1,4 @@
-import {
-  IsIn,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class GlofasStationForecastDto {
@@ -18,10 +12,15 @@ export class GlofasStationForecastDto {
   @IsNumber()
   public forecastLevel: string;
 
-  @ApiProperty({ example: 1 })
+  @ApiProperty({ example: 0 })
   @IsNotEmpty()
-  @IsIn(['no', 'min', 'med', 'max'])
-  public eapAlertClass: string;
+  @IsNumber()
+  public forecastProbability: string;
+
+  @ApiProperty({ example: 0 })
+  @IsNotEmpty()
+  @IsNumber()
+  public forecastTrigger: number;
 
   @ApiProperty({ example: 10 })
   @IsNumber()

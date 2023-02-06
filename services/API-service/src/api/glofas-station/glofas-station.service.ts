@@ -7,10 +7,8 @@ import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
 import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
 import { HelperService } from '../../shared/helper.service';
+import { EventService } from '../event/event.service';
 import { DisasterType } from '../disaster/disaster-type.enum';
-import { CountryEntity } from '../country/country.entity';
-import { validate } from 'class-validator';
-import { UploadStationDto } from './dto/upload-station.dto';
 
 @Injectable()
 export class GlofasStationService {
@@ -20,10 +18,11 @@ export class GlofasStationService {
   private readonly glofasStationForecastRepository: Repository<
     GlofasStationForecastEntity
   >;
-  @InjectRepository(CountryEntity)
-  private readonly countryRepository: Repository<CountryEntity>;
 
-  public constructor(private readonly helperService: HelperService) {}
+  public constructor(
+    private readonly helperService: HelperService,
+    private readonly eventService: EventService,
+  ) {}
 
   public async getStationsByCountry(
     countryCodeISO3: string,
@@ -50,7 +49,8 @@ export class GlofasStationService {
         '"stationName"',
         'geom',
         'forecast."forecastLevel" AS "forecastLevel"',
-        'forecast."eapAlertClass" AS "eapAlertClass"',
+        'forecast."forecastTrigger" AS "forecastTrigger"',
+        'forecast."forecastProbability" AS "forecastProbability"',
         'forecast."forecastReturnPeriod" AS "forecastReturnPeriod"',
         'forecast."triggerLevel" AS "triggerLevel"',
       ])
@@ -69,35 +69,9 @@ export class GlofasStationService {
     return this.helperService.toGeojson(stationForecasts);
   }
 
-  private async validateEapAlertClass(
-    uploadTriggerPerStation: UploadTriggerPerStationDto,
-  ) {
-    const countrySettings = (
-      await this.countryRepository.findOne({
-        where: { countryCodeISO3: uploadTriggerPerStation.countryCodeISO3 },
-        relations: ['countryDisasterSettings'],
-      })
-    ).countryDisasterSettings.find(d => d.disasterType === DisasterType.Floods);
-
-    for await (const station of uploadTriggerPerStation.stationForecasts) {
-      if (
-        !Object.keys(countrySettings.eapAlertClasses).includes(
-          station.eapAlertClass,
-        )
-      ) {
-        throw new HttpException(
-          'Data contains eapAlertClass that is not available for this country',
-          HttpStatus.BAD_REQUEST,
-        );
-      }
-    }
-  }
-
   public async uploadTriggerDataPerStation(
     uploadTriggerPerStation: UploadTriggerPerStationDto,
   ): Promise<GlofasStationForecastEntity[]> {
-    await this.validateEapAlertClass(uploadTriggerPerStation);
-
     const stationForecasts: GlofasStationForecastEntity[] = [];
     for await (const station of uploadTriggerPerStation.stationForecasts) {
       const glofasStation = await this.glofasStationRepository.findOne({
@@ -116,7 +90,8 @@ export class GlofasStationService {
       stationForecast.leadTime = uploadTriggerPerStation.leadTime;
       stationForecast.date = uploadTriggerPerStation.date || new Date();
       stationForecast.forecastLevel = station.forecastLevel;
-      stationForecast.eapAlertClass = station.eapAlertClass;
+      stationForecast.forecastProbability = station.forecastProbability;
+      stationForecast.forecastTrigger = station.forecastTrigger;
       stationForecast.forecastReturnPeriod = station.forecastReturnPeriod;
       stationForecast.triggerLevel = station.triggerLevel;
       stationForecasts.push(stationForecast);

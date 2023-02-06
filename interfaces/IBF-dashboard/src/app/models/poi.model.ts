@@ -6,7 +6,8 @@ export class Station {
   typhoonTrackCode: string;
   triggerLevel: number;
   forecastLevel: number;
-  eapAlertClass: string;
+  forecastTrigger: number;
+  forecastProbability: number;
   forecastReturnPeriod: number;
 }
 
