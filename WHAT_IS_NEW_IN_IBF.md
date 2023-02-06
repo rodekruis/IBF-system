@@ -2,6 +2,13 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
+### 06-02-2023 (v0.224.1)
+
+- All IBF: Point layer markers have better readable icons both in map and in layer-overview
+- All IBF: A loading spinner shows until the dashboard is done loading, which prevents clicking too soon on something else.
+- All IBF: Login page loads faster
+- All IBF: Layer descriptions can more easily be updated (when for exampe a mistake is spotted)
+
 ### 20-01-2023 (v0.221.1)
 
 - IBF Floods: Notifications are sent now also on the 1st day the forecast is below trigger again.
