@@ -754,7 +754,7 @@ export class MapService {
         for (const area of adminRegions?.features || []) {
           const foundAdmDynamicEntry = admDynamicData.find(
             (admDynamicEntry): number => {
-              if (area.properties.placeCode === admDynamicEntry.placeCode) {
+              if (area.properties?.placeCode === admDynamicEntry.placeCode) {
                 return admDynamicEntry;
               }
             },

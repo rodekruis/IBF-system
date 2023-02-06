@@ -252,12 +252,12 @@ export class MapComponent implements OnDestroy {
         );
         let zoomExtraOffset: number;
         if (this.placeCode) {
-          adminRegionsFiltered.features = adminRegionsLayer.data.features.filter(
-            (area) => area.properties.placeCode === this.placeCode,
+          adminRegionsFiltered.features = adminRegionsLayer.data?.features.filter(
+            (area) => area?.properties?.placeCode === this.placeCode,
           );
           zoomExtraOffset = 0.5;
         } else {
-          adminRegionsFiltered.features = adminRegionsLayer.data.features;
+          adminRegionsFiltered.features = adminRegionsLayer.data?.features;
           zoomExtraOffset = 0;
         }
         const layerBounds = bbox(adminRegionsFiltered);
@@ -373,8 +373,8 @@ export class MapComponent implements OnDestroy {
           `<div><b>${layer.label}</b>` +
           (layer.unit ? ' (' + layer.unit + ')' : '');
 
-        const noDataEntryFound = layer.data.features.find(
-          (f) => f.properties.indicators[layer.name] === null,
+        const noDataEntryFound = layer.data?.features.find(
+          (f) => f.properties?.indicators[layer.name] === null,
         );
         if (noDataEntryFound) {
           div.innerHTML += `</div><i style="background:${this.mapService.state.noDataColor}"></i> No data<br>`;
@@ -646,8 +646,8 @@ export class MapComponent implements OnDestroy {
     activeAggregateLayer: IbfLayer,
     feature,
   ): string {
-    feature = activeAggregateLayer.data.features.find(
-      (f) => f.properties.placeCode === feature.properties.placeCode,
+    feature = activeAggregateLayer.data?.features.find(
+      (f) => f.properties?.placeCode === feature.properties.placeCode,
     );
     return (
       '<strong>' +
@@ -695,7 +695,7 @@ export class MapComponent implements OnDestroy {
     if (this.country) {
       const leadTimes = this.country.countryDisasterSettings.find(
         (s) => s.disasterType === this.disasterType.disasterType,
-      ).activeLeadTimes;
+      )?.activeLeadTimes;
       lastAvailableLeadTime = leadTimes[leadTimes.length - 1];
     }
 
@@ -1078,7 +1078,7 @@ export class MapComponent implements OnDestroy {
       (this.country &&
         this.country.countryDisasterSettings.find(
           (s) => s.disasterType === this.disasterType.disasterType,
-        ).eapAlertClasses) ||
+        )?.eapAlertClasses) ||
       ({} as EapAlertClasses);
 
     const eapAlertClass = eapAlertClasses[markerProperties.eapAlertClass];
@@ -1096,7 +1096,7 @@ export class MapComponent implements OnDestroy {
     if (this.country) {
       const leadTimes = this.country.countryDisasterSettings.find(
         (s) => s.disasterType === this.disasterType.disasterType,
-      ).activeLeadTimes;
+      )?.activeLeadTimes;
       lastAvailableLeadTime = leadTimes[leadTimes.length - 1];
     }
 
@@ -1255,13 +1255,13 @@ export class MapComponent implements OnDestroy {
   }
 
   private calculateClosestPointToTyphoon(layer: IbfLayer) {
-    const dates = layer.data.features
+    const dates = layer.data?.features
       .filter(
         (f) =>
-          DateTime.fromISO(f.properties.timestampOfTrackpoint) <=
+          DateTime.fromISO(f.properties?.timestampOfTrackpoint) <=
           DateTime.fromISO(this.lastModelRunDate),
       )
-      .map((t) => DateTime.fromISO(t.properties.timestampOfTrackpoint));
+      .map((t) => DateTime.fromISO(t.properties?.timestampOfTrackpoint));
 
     this.closestPointToTyphoon = Math.max.apply(null, dates);
   }
