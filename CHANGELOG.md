@@ -1,3 +1,17 @@
+## [0.224.5](https://github.com/rodekruis/IBF-system/compare/v0.224.4...v0.224.5) (2023-02-06)
+
+
+### Bug Fixes
+
+* manual revert of code in line with other changes AB[#17775](https://github.com/rodekruis/IBF-system/issues/17775) ([d74a53a](https://github.com/rodekruis/IBF-system/commit/d74a53aade42c8c3f86280ea7d85f1b7df1c29fd))
+
+
+### Reverts
+
+* Revert "fix: update mock data for eapAlertClass AB#17607" ([09fc0bc](https://github.com/rodekruis/IBF-system/commit/09fc0bc6ca3a491d9eec2a461f40f0d96aa6e1bc)), closes [AB#17607](https://github.com/AB/issues/17607)
+
+
+
 ## [0.224.4](https://github.com/rodekruis/IBF-system/compare/v0.224.3...v0.224.4) (2023-02-06)
 
 
@@ -90,20 +104,6 @@
 * seed admin area data via service AB[#17455](https://github.com/rodekruis/IBF-system/issues/17455) ([b8712db](https://github.com/rodekruis/IBF-system/commit/b8712db090c6746805d6a049660652750c992ade))
 * seed point data via service AB[#17455](https://github.com/rodekruis/IBF-system/issues/17455) ([be5de61](https://github.com/rodekruis/IBF-system/commit/be5de612b4a9f2a25b592fea0ffc343adc09b7c9))
 * update glofas stations via API AB[#17454](https://github.com/rodekruis/IBF-system/issues/17454) ([037a18c](https://github.com/rodekruis/IBF-system/commit/037a18ca74977b3f8f64604778c9ff6359ab8be7))
-
-
-
-## [0.221.2](https://github.com/rodekruis/IBF-system/compare/v0.221.1...v0.221.2) (2023-01-27)
-
-
-### Bug Fixes
-
-* add non clickable spinner on loading AB[#17459](https://github.com/rodekruis/IBF-system/issues/17459) ([81d2f3d](https://github.com/rodekruis/IBF-system/commit/81d2f3d7cc6876346b6d671c47cb26733be9000a))
-* change typhoon back + correct en.json AB[#17588](https://github.com/rodekruis/IBF-system/issues/17588) ([7a2ec2e](https://github.com/rodekruis/IBF-system/commit/7a2ec2e34eddb7cfd19ce4393f76e4365b0cce2d))
-* correct mock typhoon category AB[#17588](https://github.com/rodekruis/IBF-system/issues/17588) ([0b832e4](https://github.com/rodekruis/IBF-system/commit/0b832e454ecbbca1862264a5abb1ce00bf0a2a46))
-* data-test + css cleanup AB[#17459](https://github.com/rodekruis/IBF-system/issues/17459) ([ecf5ddb](https://github.com/rodekruis/IBF-system/commit/ecf5ddb7fb28b9594e17934f8c87abf26010270f))
-* update tests + enable typhoon test AB[#17590](https://github.com/rodekruis/IBF-system/issues/17590) ([dcde991](https://github.com/rodekruis/IBF-system/commit/dcde9915a526d45e3b6d7a4f81df16c0bb9c5184))
-* use general spinner + fix cypress AB[#17459](https://github.com/rodekruis/IBF-system/issues/17459) AB[#17590](https://github.com/rodekruis/IBF-system/issues/17590) ([c298635](https://github.com/rodekruis/IBF-system/commit/c298635988e51444a19237e341b234bbe432be3d))
 
 
 
