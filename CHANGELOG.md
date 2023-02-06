@@ -1,3 +1,12 @@
+## [0.224.4](https://github.com/rodekruis/IBF-system/compare/v0.224.3...v0.224.4) (2023-02-06)
+
+
+### Bug Fixes
+
+* add safe navigation operators AB[#17766](https://github.com/rodekruis/IBF-system/issues/17766) ([febcb95](https://github.com/rodekruis/IBF-system/commit/febcb95e20181037123d47b368c7dd98dfc64493))
+
+
+
 ## [0.224.3](https://github.com/rodekruis/IBF-system/compare/v0.224.2...v0.224.3) (2023-02-06)
 
 
@@ -95,16 +104,6 @@
 * data-test + css cleanup AB[#17459](https://github.com/rodekruis/IBF-system/issues/17459) ([ecf5ddb](https://github.com/rodekruis/IBF-system/commit/ecf5ddb7fb28b9594e17934f8c87abf26010270f))
 * update tests + enable typhoon test AB[#17590](https://github.com/rodekruis/IBF-system/issues/17590) ([dcde991](https://github.com/rodekruis/IBF-system/commit/dcde9915a526d45e3b6d7a4f81df16c0bb9c5184))
 * use general spinner + fix cypress AB[#17459](https://github.com/rodekruis/IBF-system/issues/17459) AB[#17590](https://github.com/rodekruis/IBF-system/issues/17590) ([c298635](https://github.com/rodekruis/IBF-system/commit/c298635988e51444a19237e341b234bbe432be3d))
-
-
-
-## [0.221.1](https://github.com/rodekruis/IBF-system/compare/v0.221.0...v0.221.1) (2023-01-20)
-
-
-### Bug Fixes
-
-* change url + handle trigger/alert AB[#17418](https://github.com/rodekruis/IBF-system/issues/17418) ([366f674](https://github.com/rodekruis/IBF-system/commit/366f6741edf908e397707197eb2e753de2d5c256))
-* country in trigger log header AB[#17427](https://github.com/rodekruis/IBF-system/issues/17427) ([5be750b](https://github.com/rodekruis/IBF-system/commit/5be750b4ede05a14061da7cbe8881ea1b6990f7e))
 
 
 
