@@ -1,3 +1,12 @@
+## [0.224.3](https://github.com/rodekruis/IBF-system/compare/v0.224.2...v0.224.3) (2023-02-06)
+
+
+### Bug Fixes
+
+* eapAlertClass crash AB[#17766](https://github.com/rodekruis/IBF-system/issues/17766) ([4d5dd2f](https://github.com/rodekruis/IBF-system/commit/4d5dd2fe5af5d5a6a2ab9e4b240e9d637bd6a016))
+
+
+
 ## [0.224.2](https://github.com/rodekruis/IBF-system/compare/v0.224.1...v0.224.2) (2023-02-06)
 
 
@@ -96,21 +105,6 @@
 
 * change url + handle trigger/alert AB[#17418](https://github.com/rodekruis/IBF-system/issues/17418) ([366f674](https://github.com/rodekruis/IBF-system/commit/366f6741edf908e397707197eb2e753de2d5c256))
 * country in trigger log header AB[#17427](https://github.com/rodekruis/IBF-system/issues/17427) ([5be750b](https://github.com/rodekruis/IBF-system/commit/5be750b4ede05a14061da7cbe8881ea1b6990f7e))
-
-
-
-# [0.221.0](https://github.com/rodekruis/IBF-system/compare/v0.220.0...v0.221.0) (2023-01-20)
-
-
-### Bug Fixes
-
-* default to last day of month for monthly pipelines + other fixes AB[#17204](https://github.com/rodekruis/IBF-system/issues/17204) ([b826406](https://github.com/rodekruis/IBF-system/commit/b82640661f2fe6be5b435d7ae99921c4646e00e1))
-
-
-### Features
-
-* include+process date in all pipeline/mock endpoints AB[#17201](https://github.com/rodekruis/IBF-system/issues/17201) ([81be9cd](https://github.com/rodekruis/IBF-system/commit/81be9cd0f7300ab1951b04b2cc368e17e71ba48b))
-* use date-attribute in send-endpoint as well AB[#17341](https://github.com/rodekruis/IBF-system/issues/17341) ([90201c6](https://github.com/rodekruis/IBF-system/commit/90201c667c6a8f186193b524f20e24c9517cae4c))
 
 
 
