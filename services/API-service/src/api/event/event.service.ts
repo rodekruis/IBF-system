@@ -85,7 +85,7 @@ export class EventService {
       })
       .andWhere(
         // in case of 'typhoon' filter also on activeTrigger = true, thereby disabling old-event scenario
-        '(event."disasterType" <> \'typhoon\' OR (event."disasterType" = \'typhoon\' AND event."activeTrigger" = true))',
+        "(event.\"disasterType\" NOT IN ('typhoon','flash-floods') OR (event.\"disasterType\" IN ('typhoon','flash-floods') AND event.\"activeTrigger\" = true))",
       )
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
