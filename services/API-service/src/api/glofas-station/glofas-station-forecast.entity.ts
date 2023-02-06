@@ -36,9 +36,14 @@ export class GlofasStationForecastEntity {
   @Column({ type: 'double precision' })
   public forecastLevel: string;
 
-  @ApiProperty({ example: 'no' })
+  @ApiProperty({ example: 1 })
+  @Column({ type: 'double precision', nullable: true })
+  public forecastProbability: string;
+
+  @ApiProperty({ example: 1 })
   @Column({ nullable: true })
-  public eapAlertClass: string;
+  @IsIn([0, 1])
+  public forecastTrigger: number;
 
   @ApiProperty({ example: 10 })
   @Column({ nullable: true })

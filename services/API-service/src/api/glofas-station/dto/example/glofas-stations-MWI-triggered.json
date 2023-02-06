@@ -2,28 +2,32 @@
   {
     "stationCode": "G1724",
     "forecastLevel": 5882,
-    "eapAlertClass": "max",
+    "forecastProbability": 1,
+    "forecastTrigger": 1,
     "forecastReturnPeriod": 10,
     "triggerLevel": 5856
   },
   {
     "stationCode": "G2001",
     "forecastLevel": 6863,
-    "eapAlertClass": "max",
+    "forecastProbability": 1,
+    "forecastTrigger": 1,
     "forecastReturnPeriod": 10,
     "triggerLevel": 6123
   },
   {
     "stationCode": "G5670",
     "forecastLevel": 4314,
-    "eapAlertClass": "max",
+    "forecastProbability": 1,
+    "forecastTrigger": 1,
     "forecastReturnPeriod": 10,
     "triggerLevel": 4146
   },
   {
     "stationCode": "G5694",
     "forecastLevel": 2941,
-    "eapAlertClass": "no",
+    "forecastProbability": 0.0,
+    "forecastTrigger": 0,
     "forecastReturnPeriod": null,
     "triggerLevel": 28362
   }

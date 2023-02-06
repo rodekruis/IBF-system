@@ -18,10 +18,10 @@ export class GlofasStationForecastDto {
   @IsNumber()
   public forecastLevel: string;
 
-  @ApiProperty({ example: 1 })
+  @ApiProperty({ example: 0 })
   @IsNotEmpty()
-  @IsIn(['no', 'min', 'med', 'max'])
-  public eapAlertClass: string;
+  @IsNumber()
+  public forecastProbability: string;
 
   @ApiProperty({ example: 10 })
   @IsNumber()

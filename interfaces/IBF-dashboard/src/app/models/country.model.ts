@@ -49,6 +49,8 @@ export class EapAlertClasses {
 export class EapAlertClass {
   label: string;
   color: string;
+  valueLow: number;
+  valueHigh: number;
 }
 
 export class AdminRegionLabels {
