@@ -445,7 +445,7 @@ export class MapService {
       colorBreaks: indicator.colorBreaks,
       numberFormatMap: indicator.numberFormatMap,
       legendColor:
-        this.eventState.event.activeTrigger &&
+        this.eventState?.event?.activeTrigger &&
         this.eventState?.event?.thresholdReached
           ? this.state.colorGradientTriggered[2]
           : this.state.colorGradient[2],
@@ -777,7 +777,7 @@ export class MapService {
   ): string => {
     let adminRegionFillColor = this.state.defaultColor;
     const currentColorGradient =
-      this.eventState.event.activeTrigger &&
+      this.eventState?.event?.activeTrigger &&
       this.eventState?.event?.thresholdReached
         ? this.state.colorGradientTriggered
         : this.state.colorGradient;
