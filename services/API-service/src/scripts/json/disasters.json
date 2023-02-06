@@ -34,5 +34,11 @@
     "label": "typhoon",
     "triggerUnit": "alert_threshold",
     "actionsUnit": "houses_affected"
+  },
+  {
+    "disasterType": "flash-floods",
+    "label": "flash floods",
+    "triggerUnit": "alert_threshold",
+    "actionsUnit": "population_affected"
   }
 ]

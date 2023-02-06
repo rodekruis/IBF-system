@@ -7,7 +7,8 @@
       "drought",
       "typhoon",
       "floods",
-      "heavy-rain"
+      "heavy-rain",
+      "flash-floods"
     ],
     "name": "alert_threshold",
     "label": "Alert Threshold Reached",
@@ -56,7 +57,7 @@
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI,SSD",
-    "disasterTypes": ["floods", "heavy-rain", "drought"],
+    "disasterTypes": ["floods", "heavy-rain", "drought", "flash-floods"],
     "name": "population_affected",
     "label": "Exposed population",
     "icon": "Affected-population-white.svg",

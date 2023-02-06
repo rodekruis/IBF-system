@@ -158,7 +158,7 @@
     "countryCodeISO3": "MWI",
     "countryCodeISO2": "MW",
     "countryName": "Malawi",
-    "disasterTypes": ["floods"],
+    "disasterTypes": ["floods", "flash-floods"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -176,6 +176,13 @@
             "color": "ibf-trigger-alert-primary"
           }
         }
+      },
+      {
+        "disasterType": "flash-floods",
+        "adminLevels": [3],
+        "defaultAdminLevel": 3,
+        "activeLeadTimes": ["1-hour", "2-hour", "4-hour", "12-hour", "24-hour"],
+        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=035b1d36a17c94db1855152253a141227&authkey=AePN7DrtvirE98a6YfPlDLM&expiration=2023-08-09T22%3A00%3A00.000Z&e=6YZPE0"
       }
     ],
     "adminRegionLabels": {
