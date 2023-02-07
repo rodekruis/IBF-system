@@ -1,3 +1,12 @@
+## [0.224.6](https://github.com/rodekruis/IBF-system/compare/v0.224.5...v0.224.6) (2023-02-07)
+
+
+### Bug Fixes
+
+* date type issue AB[#17417](https://github.com/rodekruis/IBF-system/issues/17417) ([5d78a9b](https://github.com/rodekruis/IBF-system/commit/5d78a9bb68c77bb0ee7124eebc1ccfe7023bd4b8))
+
+
+
 ## [0.224.5](https://github.com/rodekruis/IBF-system/compare/v0.224.4...v0.224.5) (2023-02-06)
 
 
@@ -92,18 +101,6 @@
 ### Features
 
 * load minimal version of coutry endpoint on login page AB[#17466](https://github.com/rodekruis/IBF-system/issues/17466) ([aa1d485](https://github.com/rodekruis/IBF-system/commit/aa1d485a9a95245b81774ca458f35c01c36b6057))
-
-
-
-# [0.222.0](https://github.com/rodekruis/IBF-system/compare/v0.221.2...v0.222.0) (2023-01-30)
-
-
-### Features
-
-* move layer descriptions to data instead of code AB[#17452](https://github.com/rodekruis/IBF-system/issues/17452) ([e8a7957](https://github.com/rodekruis/IBF-system/commit/e8a79573a79bb0b9b4830dfcde46e3dbcf461586))
-* seed admin area data via service AB[#17455](https://github.com/rodekruis/IBF-system/issues/17455) ([b8712db](https://github.com/rodekruis/IBF-system/commit/b8712db090c6746805d6a049660652750c992ade))
-* seed point data via service AB[#17455](https://github.com/rodekruis/IBF-system/issues/17455) ([be5de61](https://github.com/rodekruis/IBF-system/commit/be5de612b4a9f2a25b592fea0ffc343adc09b7c9))
-* update glofas stations via API AB[#17454](https://github.com/rodekruis/IBF-system/issues/17454) ([037a18c](https://github.com/rodekruis/IBF-system/commit/037a18ca74977b3f8f64604778c9ff6359ab8be7))
 
 
 
