@@ -1,3 +1,12 @@
+## [0.224.9](https://github.com/rodekruis/IBF-system/compare/v0.224.8...v0.224.9) (2023-02-10)
+
+
+### Bug Fixes
+
+* flood extent not showing AB[#17899](https://github.com/rodekruis/IBF-system/issues/17899) ([bb41574](https://github.com/rodekruis/IBF-system/commit/bb41574c4261bba4b77e04fbf126423ab366ba9f))
+
+
+
 ## [0.224.8](https://github.com/rodekruis/IBF-system/compare/v0.224.7...v0.224.8) (2023-02-10)
 
 
@@ -87,15 +96,6 @@
 ### Features
 
 * update icons + markers AB[#17461](https://github.com/rodekruis/IBF-system/issues/17461) AB[#17462](https://github.com/rodekruis/IBF-system/issues/17462) ([228b98d](https://github.com/rodekruis/IBF-system/commit/228b98dd8bfbbd1e14766b2a21863cdde468e7fb))
-
-
-
-## [0.223.2](https://github.com/rodekruis/IBF-system/compare/v0.223.1...v0.223.2) (2023-02-03)
-
-
-### Bug Fixes
-
-* use non-triggered gradient for old event AB[#17650](https://github.com/rodekruis/IBF-system/issues/17650) ([6247c0a](https://github.com/rodekruis/IBF-system/commit/6247c0aa2e2a548c7f0ecbe11a4e2cfb58e8997f))
 
 
 
