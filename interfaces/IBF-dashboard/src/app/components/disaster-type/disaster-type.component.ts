@@ -4,7 +4,9 @@ import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { AuthService } from '../../auth/auth.service';
 import { Country, DisasterType } from '../../models/country.model';
+import { User } from '../../models/user/user.model';
 import { CountryService } from '../../services/country.service';
 import { PlaceCodeService } from '../../services/place-code.service';
 
@@ -19,28 +21,73 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   private selectedDisasterType: DisasterTypeKey;
 
   private countrySubscription: Subscription;
+  private authSubscription: Subscription;
+
+  private user: User;
+  private country: Country;
 
   constructor(
     public disasterTypeService: DisasterTypeService,
     private countryService: CountryService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
+
+    this.authSubscription = this.authService
+      .getAuthSubscription()
+      .subscribe(this.onUserChange);
   }
 
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
+    this.authSubscription.unsubscribe();
   }
 
-  private onGetDisasterTypeActiveTrigger = (country) => () => {
+  private onUserChange = (user: User) => {
+    this.user = user;
+    if (this.user && this.country) {
+      this.setupDisasterTypes(this.user, this.country);
+    }
+  };
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+    if (this.user && this.country) {
+      this.setupDisasterTypes(this.user, this.country);
+    }
+  };
+
+  private setupDisasterTypes = (user: User, country: Country) => {
+    if (country) {
+      this.disasterTypesCounter = 0;
+      this.disasterTypes = country.disasterTypes.filter((d) =>
+        user.disasterTypes.includes(d.disasterType),
+      );
+      this.disasterTypes.sort((a, b) =>
+        a.disasterType > b.disasterType ? 1 : -1,
+      );
+      this.disasterTypes.forEach((disasterType) => {
+        this.eventService.getTriggerByDisasterType(
+          country.countryCodeISO3,
+          disasterType,
+          this.onGetDisasterTypeActiveTrigger(this.disasterTypes),
+        );
+      });
+    }
+  };
+
+  private onGetDisasterTypeActiveTrigger = (
+    disasterTypes: DisasterType[],
+  ) => () => {
     this.disasterTypesCounter++;
-    if (this.disasterTypesCounter === country.disasterTypes.length) {
-      const activeDisasterType = country.disasterTypes.find(
+    if (this.disasterTypesCounter === disasterTypes.length) {
+      const activeDisasterType = disasterTypes.find(
         ({ activeTrigger }) => activeTrigger,
       );
 
@@ -49,23 +96,6 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
         : this.disasterTypes[0];
       this.selectedDisasterType = disasterType.disasterType as DisasterTypeKey;
       this.disasterTypeService.setDisasterType(disasterType);
-    }
-  };
-
-  private onCountryChange = (country: Country) => {
-    if (country) {
-      this.disasterTypesCounter = 0;
-      this.disasterTypes = country.disasterTypes;
-      this.disasterTypes.sort((a, b) =>
-        a.disasterType > b.disasterType ? 1 : -1,
-      );
-      this.disasterTypes.forEach((disasterType) => {
-        this.eventService.getTriggerByDisasterType(
-          country.countryCodeISO3,
-          disasterType,
-          this.onGetDisasterTypeActiveTrigger(country),
-        );
-      });
     }
   };
 

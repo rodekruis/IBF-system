@@ -12,6 +12,7 @@ export class User {
   public userRole: UserRole;
   public userStatus: UserStatus;
   public countries: string[];
+  public disasterTypes: string[];
   public exp: number;
   public iat: number;
 }

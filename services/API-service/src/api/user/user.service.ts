@@ -12,6 +12,7 @@ import jwt from 'jsonwebtoken';
 import { CountryEntity } from '../country/country.entity';
 import { UserRole } from './user-role.enum';
 import { LookupService } from '../notification/lookup/lookup.service';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Injectable()
 export class UserService {
@@ -19,7 +20,10 @@ export class UserService {
   private readonly userRepository: Repository<UserEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
-  private readonly relations: string[] = ['countries'];
+  @InjectRepository(DisasterEntity)
+  private readonly disasterRepository: Repository<DisasterEntity>;
+
+  private readonly relations: string[] = ['countries', 'disasterTypes'];
 
   public constructor(private readonly lookupService: LookupService) {}
 
@@ -75,6 +79,9 @@ export class UserService {
     newUser.whatsappNumber = dto.whatsappNumber;
     newUser.countries = await this.countryRepository.find({
       where: { countryCodeISO3: In(dto.countryCodesISO3) },
+    });
+    newUser.disasterTypes = await this.disasterRepository.find({
+      where: { disasterType: In(dto.disasterTypes) },
     });
 
     const errors = await validate(newUser);
@@ -146,7 +153,7 @@ export class UserService {
     return this.buildUserRO(updateUser);
   }
 
-  public generateJWT(user: UserEntity): string {
+  public async generateJWT(user: UserEntity): Promise<string> {
     const today = new Date();
     const exp = new Date(today);
     exp.setDate(today.getDate() + 60);
@@ -164,6 +171,11 @@ export class UserService {
         countries: user.countries.map(
           (countryEntity): string => countryEntity.countryCodeISO3,
         ),
+        disasterTypes: user.disasterTypes.length
+          ? user.disasterTypes.map(
+              (disasterEntity): string => disasterEntity.disasterType,
+            )
+          : (await this.disasterRepository.find()).map(d => d.disasterType),
         exp: exp.getTime() / 1000,
       },
       process.env.SECRET,
@@ -172,10 +184,10 @@ export class UserService {
     return result;
   }
 
-  private buildUserRO(user: UserEntity): UserResponseObject {
+  private async buildUserRO(user: UserEntity): Promise<UserResponseObject> {
     const userRO = {
       email: user.email,
-      token: this.generateJWT(user),
+      token: await this.generateJWT(user),
       userRole: user.userRole,
     };
 
