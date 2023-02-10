@@ -500,7 +500,14 @@ export class EventService {
     // only set records that are not updated yet in this sequence of pipeline runs (e.g. multiple events in 1 day)
     // after the 1st event this means everything is updated ..
     // .. and from the 2nd event onwards if will not be set to activeTrigger=false again ..
-    const cutoffDate = this.helperService.getLast6hourInterval(disasterType);
+    const recentDate = await this.helperService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
+    const cutoffDate = this.helperService.getLast6hourInterval(
+      disasterType,
+      recentDate.timestamp,
+    );
     const endDate = await this.getEndDate(disasterType, cutoffDate);
 
     // .. but only check on endDate if eventName is not null
