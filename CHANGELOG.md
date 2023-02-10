@@ -1,3 +1,12 @@
+## [0.224.7](https://github.com/rodekruis/IBF-system/compare/v0.224.6...v0.224.7) (2023-02-10)
+
+
+### Bug Fixes
+
+* keep migration-script + new one to re-revert AB[#17889](https://github.com/rodekruis/IBF-system/issues/17889) ([fdb1920](https://github.com/rodekruis/IBF-system/commit/fdb1920adaa95dc0fd6462dd801feefc3722d5f5))
+
+
+
 ## [0.224.6](https://github.com/rodekruis/IBF-system/compare/v0.224.5...v0.224.6) (2023-02-07)
 
 
@@ -87,20 +96,6 @@
 ### Bug Fixes
 
 * update mock data for eapAlertClass AB[#17607](https://github.com/rodekruis/IBF-system/issues/17607) ([7a30841](https://github.com/rodekruis/IBF-system/commit/7a30841adcbba8a097d7b89ab6a1ad4523b941cb))
-
-
-
-# [0.223.0](https://github.com/rodekruis/IBF-system/compare/v0.222.0...v0.223.0) (2023-01-30)
-
-
-### Bug Fixes
-
-* extend nightly archiving to typhoon and heavy-rain AB[#17465](https://github.com/rodekruis/IBF-system/issues/17465) ([599ae62](https://github.com/rodekruis/IBF-system/commit/599ae62089d66ca916061c1c1acd951fae29bd7f))
-
-
-### Features
-
-* load minimal version of coutry endpoint on login page AB[#17466](https://github.com/rodekruis/IBF-system/issues/17466) ([aa1d485](https://github.com/rodekruis/IBF-system/commit/aa1d485a9a95245b81774ca458f35c01c36b6057))
 
 
 
