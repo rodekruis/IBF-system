@@ -1,3 +1,12 @@
+## [0.224.8](https://github.com/rodekruis/IBF-system/compare/v0.224.7...v0.224.8) (2023-02-10)
+
+
+### Bug Fixes
+
+* typhoon multi-event date issue AB[#17895](https://github.com/rodekruis/IBF-system/issues/17895) ([9da32ff](https://github.com/rodekruis/IBF-system/commit/9da32ff000ac1ee5e43d1eb57c339803a0ffbdd2))
+
+
+
 ## [0.224.7](https://github.com/rodekruis/IBF-system/compare/v0.224.6...v0.224.7) (2023-02-10)
 
 
@@ -87,15 +96,6 @@
 ### Bug Fixes
 
 * use non-triggered gradient for old event AB[#17650](https://github.com/rodekruis/IBF-system/issues/17650) ([6247c0a](https://github.com/rodekruis/IBF-system/commit/6247c0aa2e2a548c7f0ecbe11a4e2cfb58e8997f))
-
-
-
-## [0.223.1](https://github.com/rodekruis/IBF-system/compare/v0.223.0...v0.223.1) (2023-01-30)
-
-
-### Bug Fixes
-
-* update mock data for eapAlertClass AB[#17607](https://github.com/rodekruis/IBF-system/issues/17607) ([7a30841](https://github.com/rodekruis/IBF-system/commit/7a30841adcbba8a097d7b89ab6a1ad4523b941cb))
 
 
 
