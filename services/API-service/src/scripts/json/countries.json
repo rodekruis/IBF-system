@@ -14,15 +14,11 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary",
-            "valueLow": 0,
-            "valueHigh": 0.6
+            "color": "ibf-no-alert-primary"
           },
           "max": {
             "label": "Activate EAP",
-            "color": "ibf-trigger-alert-primary",
-            "valueLow": 0.6,
-            "valueHigh": 1.01
+            "color": "ibf-trigger-alert-primary"
           }
         }
       },
@@ -108,27 +104,19 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary",
-            "valueLow": 0,
-            "valueHigh": 0.6
+            "color": "ibf-no-alert-primary"
           },
           "min": {
             "label": "Met office to monitor",
-            "color": "ibf-yellow",
-            "valueLow": 0.6,
-            "valueHigh": 0.7
+            "color": "ibf-yellow"
           },
           "med": {
             "label": "Alert IFRC / Prep evacuation / Warn communities",
-            "color": "ibf-orange",
-            "valueLow": 0.7,
-            "valueHigh": 0.8
+            "color": "ibf-orange"
           },
           "max": {
             "label": "Activate EAP",
-            "color": "ibf-trigger-alert-primary",
-            "valueLow": 0.8,
-            "valueHigh": 1.01
+            "color": "ibf-trigger-alert-primary"
           }
         }
       }
@@ -181,15 +169,11 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary",
-            "valueLow": 0,
-            "valueHigh": 0.6
+            "color": "ibf-no-alert-primary"
           },
           "max": {
             "label": "Activate EAP",
-            "color": "ibf-trigger-alert-primary",
-            "valueLow": 0.6,
-            "valueHigh": 1.01
+            "color": "ibf-trigger-alert-primary"
           }
         }
       }
@@ -237,15 +221,11 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary",
-            "valueLow": 0,
-            "valueHigh": 0.6
+            "color": "ibf-no-alert-primary"
           },
           "max": {
             "label": "Activate EAP",
-            "color": "ibf-trigger-alert-primary",
-            "valueLow": 0.6,
-            "valueHigh": 1.01
+            "color": "ibf-trigger-alert-primary"
           }
         }
       }
@@ -293,15 +273,11 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary",
-            "valueLow": 0,
-            "valueHigh": 0.6
+            "color": "ibf-no-alert-primary"
           },
           "max": {
             "label": "Activate EAP",
-            "color": "ibf-trigger-alert-primary",
-            "valueLow": 0.6,
-            "valueHigh": 1.01
+            "color": "ibf-trigger-alert-primary"
           }
         }
       },
@@ -398,15 +374,11 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary",
-            "valueLow": 0,
-            "valueHigh": 0.6
+            "color": "ibf-no-alert-primary"
           },
           "max": {
             "label": "Activate EAP",
-            "color": "ibf-trigger-alert-primary",
-            "valueLow": 0.6,
-            "valueHigh": 1.01
+            "color": "ibf-trigger-alert-primary"
           }
         }
       },
@@ -804,15 +776,11 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary",
-            "valueLow": 0,
-            "valueHigh": 0.6
+            "color": "ibf-no-alert-primary"
           },
           "max": {
             "label": "Activate EAP",
-            "color": "ibf-trigger-alert-primary",
-            "valueLow": 0.6,
-            "valueHigh": 1.01
+            "color": "ibf-trigger-alert-primary"
           }
         }
       }
