@@ -590,9 +590,7 @@ export class MapService {
       order: layer.order,
       unit: layer.unit,
       dynamic: layer.dynamic,
-      show: this.adminLevelService.activeLayerNames.length
-        ? this.adminLevelService.activeLayerNames.includes(layer.name)
-        : layer.show,
+      show: layer.show,
     });
   };
 
