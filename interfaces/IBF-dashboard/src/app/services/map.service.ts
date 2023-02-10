@@ -174,7 +174,11 @@ export class MapService {
       const layerActive = this.getActiveState(layer);
 
       if (layer.type === IbfLayerType.wms) {
-        this.loadWmsLayer(layer, layerActive);
+        this.loadWmsLayer(
+          layer,
+          layerActive,
+          layer.leadTimeDependent ? this.timelineState.activeLeadTime : null,
+        );
       } else if (layer.name === IbfLayerName.adminRegions1) {
         this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel1);
       } else if (layer.name === IbfLayerName.adminRegions2) {
