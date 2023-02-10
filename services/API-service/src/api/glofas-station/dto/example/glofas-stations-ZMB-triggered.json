@@ -2,160 +2,140 @@
   {
     "stationCode": "G1264",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1265",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1269",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1271",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1294",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1312",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1319",
     "forecastLevel": 1372.5490196078,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": 2,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1320",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1323",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1328",
     "forecastLevel": 8823.5294117647,
-    "forecastProbability": 0.9803921569,
-    "forecastTrigger": 1,
+    "eapAlertClass": "max",
     "forecastReturnPeriod": 20,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1329",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1338",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1340",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1344",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1351",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1352",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1353",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1361",
     "forecastLevel": 7843.137254902,
-    "forecastProbability": 0.9803921569,
-    "forecastTrigger": 1,
+    "eapAlertClass": "max",
     "forecastReturnPeriod": 10,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G1373",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   },
   {
     "stationCode": "G5696",
     "forecastLevel": 0.0,
-    "forecastProbability": 0.0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 2534
   }

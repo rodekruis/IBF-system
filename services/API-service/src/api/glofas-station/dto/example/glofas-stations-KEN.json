@@ -2,24 +2,21 @@
   {
     "stationCode": "G5142",
     "forecastLevel": 0,
-    "forecastProbability": 0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 500
   },
   {
     "stationCode": "G5195",
     "forecastLevel": 0,
-    "forecastProbability": 0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 500
   },
   {
     "stationCode": "G5305",
     "forecastLevel": 0,
-    "forecastProbability": 0,
-    "forecastTrigger": 0,
+    "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 500
   }
