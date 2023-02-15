@@ -288,6 +288,160 @@
     "label": "Identify the potential sanitation facilities at the evacuation centres. Pre-position and distribution of soap and 20 litre water storage containers."
   },
   {
+    "countryCodeISO3": "ZMB",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zmb-drought-01",
+    "label": "Beneficiary identification and Registration",
+    "month": {
+      "National": {
+        "firstSeason": 10
+      }
+    }
+  },
+  {
+    "countryCodeISO3": "ZMB",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zmb-drought-02",
+    "label": "Distribution of Drought Tolerant Seed",
+    "month": {
+      "National": {
+        "firstSeason": 11
+      }
+    }
+  },
+  {
+    "countryCodeISO3": "ZMB",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zmb-drought-03",
+    "label": "Purchase of dipping and dosing chemicals",
+    "month": {
+      "National": {
+        "firstSeason": 11
+      }
+    }
+  },
+  {
+    "countryCodeISO3": "ZMB",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zmb-drought-04",
+    "label": "Manning of dipping tanks and community mobilisation",
+    "month": {
+      "National": {
+        "firstSeason": 12
+      }
+    }
+  },
+  {
+    "countryCodeISO3": "ZMB",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zmb-drought-05",
+    "label": "Identification of Boreholes",
+    "month": {
+      "National": {
+        "firstSeason": 4
+      }
+    }
+  },
+  {
+    "countryCodeISO3": "ZMB",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zmb-drought-06",
+    "label": "Repair and rehabilitation of Boreholes",
+    "month": {
+      "National": {
+        "firstSeason": 5
+      }
+    }
+  },
+  {
+    "countryCodeISO3": "ZMB",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zmb-drought-07",
+    "label": "Beneficiary identification and Registration",
+    "month": {
+      "National": {
+        "firstSeason": 3
+      }
+    }
+  },
+  {
+    "countryCodeISO3": "ZMB",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zmb-drought-08",
+    "label": "Confirm minimum expenditure basket",
+    "month": {
+      "National": {
+        "firstSeason": 4
+      }
+    }
+  },
+  {
+    "countryCodeISO3": "ZMB",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zmb-drought-09",
+    "label": "Initiate Framework Contracts",
+    "month": {
+      "National": {
+        "firstSeason": 5
+      }
+    }
+  },
+  {
+    "countryCodeISO3": "ZMB",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zmb-drought-10",
+    "label": "Supplementary feeding to target schools",
+    "month": {
+      "National": {
+        "firstSeason": 7
+      }
+    }
+  },
+  {
+    "countryCodeISO3": "ZMB",
+    "disasterType": "drought",
+    "areaOfFocus": {
+      "id": "livelihood"
+    },
+    "action": "zmb-drought-11",
+    "label": "MPCT to target households",
+    "month": {
+      "National": {
+        "firstSeason": 7
+      }
+    }
+  },
+  {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
     "areaOfFocus": {

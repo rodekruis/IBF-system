@@ -93,7 +93,7 @@
     "countryCodeISO3": "ZMB",
     "countryCodeISO2": "ZM",
     "countryName": "Zambia",
-    "disasterTypes": ["floods"],
+    "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -119,6 +119,35 @@
             "color": "ibf-trigger-alert-primary"
           }
         }
+      },
+      {
+        "disasterType": "drought",
+        "adminLevels": [1],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-month",
+          "1-month",
+          "2-month",
+          "3-month",
+          "4-month",
+          "5-month",
+          "6-month",
+          "7-month",
+          "8-month",
+          "9-month",
+          "10-month",
+          "11-month"
+        ],
+        "droughtForecastSeasons": {
+          "National": {
+            "firstSeason": {
+              "rainMonths": [10, 11, 12, 1, 2, 3],
+              "actionMonths": [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
+            }
+          }
+        },
+        "showMonthlyEapActions": true,
+        "eapLink": "https://zambiaredcrosssociety-my.sharepoint.com/:w:/r/personal/wina_wina_redcross_org_zm/_layouts/15/Doc.aspx?sourcedoc=%7BA97A5C40-159E-45A9-A236-B0545E6A7734%7D&file=DROUGHT%20EAP%202021%20-SEPT%20Draft%202%20-Irene.docx&action=default&mobileredirect=true"
       }
     ],
     "adminRegionLabels": {
