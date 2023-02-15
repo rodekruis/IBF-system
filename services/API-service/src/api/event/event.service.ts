@@ -85,7 +85,7 @@ export class EventService {
       })
       .andWhere(
         // in case of 'typhoon' filter also on activeTrigger = true, thereby disabling old-event scenario
-        '(event."disasterType" <> \'typhoon\' OR (event."disasterType" = \'typhoon\' AND event."activeTrigger" = true))',
+        "(event.\"disasterType\" NOT IN ('typhoon','flash-floods') OR (event.\"disasterType\" IN ('typhoon','flash-floods') AND event.\"activeTrigger\" = true))",
       )
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
@@ -170,7 +170,10 @@ export class EventService {
         eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
         date: MoreThanOrEqual(firstDayOfMonth),
       });
-    } else if (leadTime.includes(LeadTimeUnit.hour)) {
+    } else if (
+      leadTime.includes(LeadTimeUnit.hour) &&
+      uploadTriggerPerLeadTimeDto.disasterType === DisasterType.Typhoon
+    ) {
       // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
       await this.triggerPerLeadTimeRepository.delete({
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,

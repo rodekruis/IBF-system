@@ -5,4 +5,5 @@ export enum DisasterType {
   Malaria = 'malaria',
   Drought = 'drought',
   Typhoon = 'typhoon',
+  FlashFloods = 'flash-floods',
 }

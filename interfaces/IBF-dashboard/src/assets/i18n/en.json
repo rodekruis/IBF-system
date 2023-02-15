@@ -86,6 +86,9 @@
   },
   "chat-component": {
     "common": {
+      "warn-label": {
+        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
+      },
       "revert-selection": "All",
       "save-actions": {
         "submit-button-label": "Save",
@@ -136,9 +139,6 @@
     },
     "floods": {
       "about-button-label": "About Trigger",
-      "warn-label": {
-        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
-      },
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> issued."
       },
@@ -160,11 +160,31 @@
         "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
+    "flash-floods": {
+      "about-button-label": "About Trigger",
+      "no-event-no-trigger": {
+        "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> issued."
+      },
+      "active-event-active-trigger": {
+        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
+      },
+      "active-event-no-trigger": {
+        "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
+      },
+      "active-event": {
+        "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
+        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions (if applicable) of each area.",
+        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
+        "exposed": "Exposed Population:"
+      },
+      "stopped-event": {
+        "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
+        "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
+        "area": "The flash floods trigger warning for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+      }
+    },
     "drought": {
       "about-button-label": "About Trigger",
-      "warn-label": {
-        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
-      },
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> issued."
       },
@@ -208,9 +228,6 @@
     },
     "typhoon": {
       "about-button-label": "About Trigger",
-      "warn-label": {
-        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
-      },
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> issued."
       },
@@ -245,9 +262,6 @@
     },
     "heavy-rain": {
       "about-button-label": "About Alert",
-      "warn-label": {
-        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
-      },
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country. You can turn other layers on and off. There is currently <strong>no alert</strong> issued."
       },
@@ -271,9 +285,6 @@
     },
     "dengue": {
       "about-button-label": "About Dengue Alerts",
-      "warn-label": {
-        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
-      },
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for dengue issued."
       },
@@ -297,9 +308,6 @@
     },
     "malaria": {
       "about-button-label": "About Malaria Alerts",
-      "warn-label": {
-        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>."
-      },
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
       },

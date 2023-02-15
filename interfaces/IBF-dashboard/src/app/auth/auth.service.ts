@@ -81,8 +81,8 @@ export class AuthService implements OnDestroy {
       userRole: decodedToken.userRole,
       userStatus: decodedToken.userStatus,
       countries: decodedToken.countries,
+      disasterTypes: decodedToken.disasterTypes,
     };
-
     this.userRole = user.userRole;
 
     return user;

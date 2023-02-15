@@ -69,6 +69,16 @@ export const DISASTER_TYPES_SVG_MAP = {
       '/assets/icons/Flood_Not Selected_Non Triggered.svg',
     disabled: '/assets/icons/Flood_Disabled.svg',
   },
+  [DisasterTypeKey.flashFloods]: {
+    selectedTriggered: '/assets/icons/Flash Floods_Selected_Triggered.svg',
+    selectedNonTriggered:
+      '/assets/icons/Flash Floods_Selected_Non Triggered.svg',
+    nonSelectedTriggered:
+      '/assets/icons/Flash Floods_Not Selected_Triggered.svg',
+    nonSelectedNonTriggered:
+      '/assets/icons/Flash Floods_Not Selected_Non Triggered.svg',
+    disabled: '/assets/icons/Flash Floods_Disabled.svg',
+  },
   [DisasterTypeKey.malaria]: {
     selectedTriggered: '/assets/icons/Malaria_Selected_Triggered.svg',
     selectedNonTriggered: '/assets/icons/Malaria_Selected_Non Triggered.svg',

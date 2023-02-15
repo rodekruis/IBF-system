@@ -102,7 +102,10 @@ export class AdminAreaDynamicDataService {
         eventName: uploadExposure.eventName || IsNull(),
         date: MoreThanOrEqual(firstDayOfMonth),
       });
-    } else if (uploadExposure.leadTime.includes(LeadTimeUnit.hour)) {
+    } else if (
+      uploadExposure.leadTime.includes(LeadTimeUnit.hour) &&
+      uploadExposure.disasterType === DisasterType.Typhoon
+    ) {
       // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
       await this.adminAreaDynamicDataRepo.delete({
         indicator: uploadExposure.dynamicIndicator,

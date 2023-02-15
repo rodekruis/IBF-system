@@ -89,6 +89,18 @@
     "countries": ["MWI"]
   },
   {
+    "email": "malawi-flash-floods@redcross.nl",
+    "username": "malawi-flash-floods",
+    "firstName": "Malawi",
+    "middleName": "Flash Floods",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["MWI"],
+    "disasterTypes": ["flash-floods"]
+  },
+  {
     "email": "southsudan@redcross.nl",
     "username": "southsudan",
     "firstName": "South Sudan",

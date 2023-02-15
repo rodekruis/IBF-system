@@ -227,7 +227,14 @@
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,PHL,MWI,SSD",
-    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
+    "disasterTypes": [
+      "floods",
+      "heavy-rain",
+      "dengue",
+      "malaria",
+      "drought",
+      "flash-floods"
+    ],
     "name": "red_cross_branches",
     "label": "Red Cross branches",
     "type": "point",
@@ -282,7 +289,7 @@
   },
   {
     "countryCodes": "EGY",
-    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria"],
+    "disasterTypes": ["heavy-rain"],
     "name": "red_crescent_branches",
     "label": "Red Crescent branches",
     "type": "point",
@@ -295,7 +302,7 @@
     }
   },
   {
-    "countryCodes": "PHL,ETH,KEN,PHL",
+    "countryCodes": "PHL,ETH,KEN",
     "disasterTypes": ["floods", "dengue", "malaria", "typhoon"],
     "name": "health_sites",
     "label": "Health Sites",
@@ -320,7 +327,7 @@
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,MWI",
-    "disasterTypes": ["floods", "drought"],
+    "disasterTypes": ["floods", "drought", "flash-floods"],
     "name": "waterpoints",
     "label": "Waterpoints",
     "type": "point",
@@ -383,7 +390,13 @@
   },
   {
     "countryCodes": "ZMB,ETH,UGA,PHL,KEN,MWI,SSD",
-    "disasterTypes": ["floods", "malaria", "typhoon", "drought"],
+    "disasterTypes": [
+      "floods",
+      "malaria",
+      "typhoon",
+      "drought",
+      "flash-floods"
+    ],
     "name": "adminRegions3",
     "label": "Admin Level 3",
     "type": "shape",
