@@ -42,4 +42,7 @@ export class NotificationInfoDto {
   @IsOptional()
   @IsString()
   public externalEarlyActionForm?: string;
+
+  @ApiProperty()
+  public mailSegment: {};
 }

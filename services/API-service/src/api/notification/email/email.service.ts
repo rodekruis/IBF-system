@@ -39,11 +39,19 @@ export class EmailService {
     private readonly helperService: HelperService,
   ) {}
 
-  private getSegmentId(countryCodeISO3: string): number {
-    const segments = process.env.MC_SEGMENTS.split(',').map(segment =>
-      segment.split(':'),
-    );
-    return Number(segments.find(s => s[0] === countryCodeISO3)[1]);
+  private async getSegmentId(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<number> {
+    const notificationInfo = (
+      await this.notificationContentService.getCountryNotificationInfo(
+        countryCodeISO3,
+      )
+    ).notificationInfo;
+    if (!notificationInfo || !notificationInfo.mailSegment[disasterType]) {
+      return null;
+    }
+    return notificationInfo.mailSegment[disasterType];
   }
 
   public async sendTriggerEmail(
@@ -60,7 +68,12 @@ export class EmailService {
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
     const emailSubject = `IBF ${disasterType} warning`;
-    this.sendEmail(emailSubject, emailHtml, country.countryCodeISO3);
+    this.sendEmail(
+      emailSubject,
+      emailHtml,
+      country.countryCodeISO3,
+      disasterType,
+    );
   }
 
   public async sendTriggerFinishedEmail(
@@ -77,13 +90,19 @@ export class EmailService {
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
     const emailSubject = `IBF ${disasterType} warning is now below threshold`;
-    this.sendEmail(emailSubject, emailHtml, country.countryCodeISO3);
+    this.sendEmail(
+      emailSubject,
+      emailHtml,
+      country.countryCodeISO3,
+      disasterType,
+    );
   }
 
   private async sendEmail(
     subject: string,
     emailHtml: string,
     countryCodeISO3: string,
+    disasterType: DisasterType,
   ): Promise<void> {
     const campaignBody = {
       settings: {
@@ -96,7 +115,10 @@ export class EmailService {
       recipients: {
         list_id: process.env.MC_LIST_ID,
         segment_opts: {
-          saved_segment_id: this.getSegmentId(countryCodeISO3),
+          saved_segment_id: await this.getSegmentId(
+            countryCodeISO3,
+            disasterType,
+          ),
         },
       },
       type: 'regular',
