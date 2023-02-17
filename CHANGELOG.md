@@ -1,3 +1,13 @@
+# [0.226.0](https://github.com/rodekruis/IBF-system/compare/v0.225.1...v0.226.0) (2023-02-17)
+
+
+### Features
+
+* add segments to notification-info AB[#17724](https://github.com/rodekruis/IBF-system/issues/17724) ([66f2aa9](https://github.com/rodekruis/IBF-system/commit/66f2aa94e9fe5cc001e8fe5f4752601890b72563))
+* add test segments to mock data AB[#17724](https://github.com/rodekruis/IBF-system/issues/17724) ([d8f7ebc](https://github.com/rodekruis/IBF-system/commit/d8f7ebc9e3dea12c399c4016d28436138fa5e780))
+
+
+
 ## [0.225.1](https://github.com/rodekruis/IBF-system/compare/v0.225.0...v0.225.1) (2023-02-17)
 
 
@@ -100,15 +110,6 @@
 ### Bug Fixes
 
 * eapAlertClass crash AB[#17766](https://github.com/rodekruis/IBF-system/issues/17766) ([4d5dd2f](https://github.com/rodekruis/IBF-system/commit/4d5dd2fe5af5d5a6a2ab9e4b240e9d637bd6a016))
-
-
-
-## [0.224.2](https://github.com/rodekruis/IBF-system/compare/v0.224.1...v0.224.2) (2023-02-06)
-
-
-### Bug Fixes
-
-* activeTrigger crash AB[#17766](https://github.com/rodekruis/IBF-system/issues/17766) ([f5d7249](https://github.com/rodekruis/IBF-system/commit/f5d7249ade63e4e1ab2fcf2f9bd56e3899ebb7fd))
 
 
 
