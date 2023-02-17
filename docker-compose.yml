@@ -23,7 +23,6 @@ services:
       context: ./services/API-service
       args:
         - NODE_ENV=${NODE_ENV}
-    image: rodekruis/ibf-api-service
     environment:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - DB_TYPE=${DB_TYPE}
@@ -89,6 +88,7 @@ services:
       - ibf-dashboard-root:/home/node/app/www
     networks:
       web-server-network:
+
 
   ibf-geoserver:
     image: kartoza/geoserver
