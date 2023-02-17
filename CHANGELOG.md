@@ -1,3 +1,12 @@
+## [0.226.1](https://github.com/rodekruis/IBF-system/compare/v0.226.0...v0.226.1) (2023-02-17)
+
+
+### Bug Fixes
+
+* flash-floods segment AB[#17724](https://github.com/rodekruis/IBF-system/issues/17724) ([c2adb7a](https://github.com/rodekruis/IBF-system/commit/c2adb7aff620f4e7215c60652ab460ab427e8594))
+
+
+
 # [0.226.0](https://github.com/rodekruis/IBF-system/compare/v0.225.1...v0.226.0) (2023-02-17)
 
 
@@ -101,15 +110,6 @@
 ### Bug Fixes
 
 * add safe navigation operators AB[#17766](https://github.com/rodekruis/IBF-system/issues/17766) ([febcb95](https://github.com/rodekruis/IBF-system/commit/febcb95e20181037123d47b368c7dd98dfc64493))
-
-
-
-## [0.224.3](https://github.com/rodekruis/IBF-system/compare/v0.224.2...v0.224.3) (2023-02-06)
-
-
-### Bug Fixes
-
-* eapAlertClass crash AB[#17766](https://github.com/rodekruis/IBF-system/issues/17766) ([4d5dd2f](https://github.com/rodekruis/IBF-system/commit/4d5dd2fe5af5d5a6a2ab9e4b240e9d637bd6a016))
 
 
 
