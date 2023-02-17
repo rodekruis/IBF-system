@@ -13,6 +13,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { UserRole } from '../user-role.enum';
 import { UserStatus } from '../user-status.enum';
 import countries from '../../../scripts/json/countries.json';
+import disasterTypes from '../../../scripts/json/disasters.json';
 
 const userRoleArray = Object.values(UserRole).map(item => String(item));
 
@@ -57,6 +58,14 @@ export class CreateUserDto {
   @IsArray()
   @ArrayNotEmpty()
   public countryCodesISO3: string[];
+
+  @ApiProperty({
+    example: disasterTypes.map(c => c.disasterType),
+    default: [],
+  })
+  @IsArray()
+  @ArrayNotEmpty()
+  public disasterTypes: string[];
 
   @ApiProperty({
     example: UserStatus.Active,

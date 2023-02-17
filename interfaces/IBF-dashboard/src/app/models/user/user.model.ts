@@ -10,5 +10,6 @@ export class User {
   lastName: string;
   userRole: UserRole;
   countries: string[];
+  disasterTypes: string[];
   userStatus: UserStatus;
 }

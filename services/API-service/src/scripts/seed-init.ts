@@ -173,6 +173,17 @@ export class SeedInit implements InterfaceScript {
                   };
                 }),
               });
+          userEntity.disasterTypes = !user.disasterTypes
+            ? []
+            : await disasterRepository.find({
+                where: user.disasterTypes.map(
+                  (disasterType: string): object => {
+                    return {
+                      disasterType: disasterType,
+                    };
+                  },
+                ),
+              });
           userEntity.userStatus = user.userStatus as UserStatus;
           userEntity.password = user.password;
           return userEntity;

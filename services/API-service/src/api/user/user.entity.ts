@@ -14,6 +14,7 @@ import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { UserRole } from './user-role.enum';
 import { UserStatus } from './user-status.enum';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
+import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -58,6 +59,23 @@ export class UserEntity {
     },
   })
   public countries: CountryEntity[];
+
+  @ManyToMany(
+    (): typeof DisasterEntity => DisasterEntity,
+    (disasterType): UserEntity[] => disasterType.users,
+  )
+  @JoinTable({
+    name: 'user_disaster_types',
+    joinColumn: {
+      name: 'user',
+      referencedColumnName: 'email',
+    },
+    inverseJoinColumn: {
+      name: 'disasterType',
+      referencedColumnName: 'disasterType',
+    },
+  })
+  public disasterTypes: DisasterEntity[];
 
   @Column({ default: UserStatus.Active })
   public userStatus: UserStatus;

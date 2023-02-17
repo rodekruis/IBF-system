@@ -147,7 +147,7 @@ export class MapService {
 
   private onTriggeredAreasChange = (triggeredAreas: any[]) => {
     this.triggeredAreas = triggeredAreas;
-    this.loadCountryLayers();
+    this.loadLayers();
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
@@ -200,13 +200,9 @@ export class MapService {
     });
   };
 
-  private async loadCountryLayers() {
-    this.layers.forEach((layer) => {
-      this.hideLayer(layer);
-    });
-    this.layers
-      .filter((layer) => layer.group === IbfLayerGroup.adminRegions)
-      .forEach(this.deactivateLayer);
+  private async loadLayers() {
+    this.layers = [];
+    this.layerSubject.next(null);
 
     if (
       this.country &&
@@ -463,11 +459,12 @@ export class MapService {
     });
   }
 
-  private filterAggregateLayers = (layer: IbfLayer): boolean =>
-    layer.group === IbfLayerGroup.aggregates;
+  private filterNonAggregateLayers = (layer: IbfLayer): boolean =>
+    layer.group !== IbfLayerGroup.aggregates &&
+    layer.group !== IbfLayerGroup.outline;
 
-  public hideAggregateLayers = (): void => {
-    this.layers.filter(this.filterAggregateLayers).forEach(this.hideLayer);
+  public removeAggregateLayers = (): void => {
+    this.layers = this.layers.filter(this.filterNonAggregateLayers);
   };
 
   private loadWmsLayer(
@@ -590,35 +587,13 @@ export class MapService {
       order: layer.order,
       unit: layer.unit,
       dynamic: layer.dynamic,
-      show: this.adminLevelService.activeLayerNames.length
-        ? this.adminLevelService.activeLayerNames.includes(layer.name)
-        : layer.show,
+      show: layer.show,
     });
   };
 
   public toggleLayer = (layer: IbfLayer): void => {
     layer.active = !layer.active;
     this.adminLevelService.activeLayerNames = [];
-    this.updateLayers(layer);
-  };
-
-  public activateLayer = (layer: IbfLayer): void => {
-    layer.active = true;
-    this.updateLayers(layer);
-  };
-
-  public deactivateLayer = (layer: IbfLayer): void => {
-    layer.active = false;
-    this.updateLayers(layer);
-  };
-
-  public showLayer = (layer: IbfLayer): void => {
-    layer.show = true;
-    this.updateLayers(layer);
-  };
-
-  public hideLayer = (layer: IbfLayer): void => {
-    layer.show = false;
     this.updateLayers(layer);
   };
 

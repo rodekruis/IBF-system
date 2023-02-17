@@ -124,7 +124,7 @@ export class AggregatesService {
 
   private onIndicatorChange = (indicators) => {
     this.indicators = indicators;
-    this.mapService.hideAggregateLayers();
+    this.mapService.removeAggregateLayers();
     this.indicators.forEach((indicator) =>
       this.mapService.loadAggregateLayer(indicator),
     );

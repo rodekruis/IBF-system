@@ -607,6 +607,12 @@ export class ScriptsService {
           }
         }
       }
+    } else if (disasterType === DisasterType.FlashFloods) {
+      if (activeLeadTime !== LeadTime.hour12) {
+        for (const pcodeData of copyOfExposureUnit) {
+          pcodeData.amount = 0;
+        }
+      }
     }
     return copyOfExposureUnit;
   }

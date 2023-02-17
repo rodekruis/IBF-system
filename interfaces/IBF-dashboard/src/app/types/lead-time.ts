@@ -394,6 +394,7 @@ export enum DateFormats {
 export enum MonthFormats {
   default = 'LLL yyyy',
   typhoon = 'ccc dd LLL',
+  'flash-floods' = 'ccc dd LLL',
 }
 
 export class LeadTimeButtonInput {
