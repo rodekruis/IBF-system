@@ -103,7 +103,7 @@ export class CountryService {
     countryEntity: CountryEntity,
     country: CountryDto,
     envDisasterTypes?: DisasterType[],
-  ) {
+  ): Promise<void> {
     countryEntity.countryCodeISO2 = country.countryCodeISO2;
     countryEntity.countryName = country.countryName;
     countryEntity.adminRegionLabels = JSON.parse(
@@ -176,7 +176,7 @@ export class CountryService {
   private async addOrUpdateDisaster(
     countryDisasterSettingsEntity: CountryDisasterSettingsEntity,
     disaster: CountryDisasterSettingsDto,
-  ) {
+  ): Promise<CountryDisasterSettingsEntity> {
     countryDisasterSettingsEntity.adminLevels = disaster.adminLevels as AdminLevel[];
     countryDisasterSettingsEntity.defaultAdminLevel = disaster.defaultAdminLevel as AdminLevel;
     countryDisasterSettingsEntity.eapLink = disaster.eapLink;
@@ -264,6 +264,9 @@ export class CountryService {
     }
     notificationInfoEntity.externalEarlyActionForm =
       notificationInfoCountry.externalEarlyActionForm;
+    notificationInfoEntity.mailSegment = JSON.parse(
+      JSON.stringify(notificationInfoCountry.mailSegment),
+    );
 
     const saveResult = await this.notificationInfoRepository.save(
       notificationInfoEntity,
