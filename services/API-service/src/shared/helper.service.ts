@@ -58,7 +58,7 @@ export class HelperService {
   }
 
   public setDayToLastDayOfMonth(date: Date, leadTime: LeadTime): Date {
-    date = new Date(date);
+    date = date ? new Date(date) : new Date();
     if (date && leadTime.split('-')[1] === LeadTimeUnit.month) {
       if (date.getMonth() !== new Date().getMonth()) {
         // if month-of-upload is different (typically larger) than month, set day to last day of month
