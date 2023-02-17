@@ -2,6 +2,10 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
+### 17-02-2023 (v0.226.1)
+
+- All IBF: Bug fixed where not always all layers were showing correctly
+
 ### 06-02-2023 (v0.224.1)
 
 - All IBF: Point layer markers have better readable icons both in map and in layer-overview
