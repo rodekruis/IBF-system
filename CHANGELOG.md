@@ -1,3 +1,12 @@
+## [0.226.3](https://github.com/rodekruis/IBF-system/compare/v0.226.2...v0.226.3) (2023-02-17)
+
+
+### Bug Fixes
+
+* disabled flash-floods icon AB[#17988](https://github.com/rodekruis/IBF-system/issues/17988) ([e8fac7e](https://github.com/rodekruis/IBF-system/commit/e8fac7e2f1eb3d195f23c769c5e16575be671c6a))
+
+
+
 ## [0.226.2](https://github.com/rodekruis/IBF-system/compare/v0.226.1...v0.226.2) (2023-02-17)
 
 
@@ -97,20 +106,6 @@
 ### Bug Fixes
 
 * date type issue AB[#17417](https://github.com/rodekruis/IBF-system/issues/17417) ([5d78a9b](https://github.com/rodekruis/IBF-system/commit/5d78a9bb68c77bb0ee7124eebc1ccfe7023bd4b8))
-
-
-
-## [0.224.5](https://github.com/rodekruis/IBF-system/compare/v0.224.4...v0.224.5) (2023-02-06)
-
-
-### Bug Fixes
-
-* manual revert of code in line with other changes AB[#17775](https://github.com/rodekruis/IBF-system/issues/17775) ([d74a53a](https://github.com/rodekruis/IBF-system/commit/d74a53aade42c8c3f86280ea7d85f1b7df1c29fd))
-
-
-### Reverts
-
-* Revert "fix: update mock data for eapAlertClass AB#17607" ([09fc0bc](https://github.com/rodekruis/IBF-system/commit/09fc0bc6ca3a491d9eec2a461f40f0d96aa6e1bc)), closes [AB#17607](https://github.com/AB/issues/17607)
 
 
 
