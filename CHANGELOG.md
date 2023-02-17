@@ -1,3 +1,13 @@
+## [0.225.1](https://github.com/rodekruis/IBF-system/compare/v0.225.0...v0.225.1) (2023-02-17)
+
+
+### Bug Fixes
+
+* layer-show not dependent on activeLayerNames AB[#17719](https://github.com/rodekruis/IBF-system/issues/17719) ([dfa1ee3](https://github.com/rodekruis/IBF-system/commit/dfa1ee3434891e3904beea859df8f070bb4c1189))
+* remove layers instead of hiding when switching AB[#17901](https://github.com/rodekruis/IBF-system/issues/17901) ([bb5e55a](https://github.com/rodekruis/IBF-system/commit/bb5e55accfbb196ded3482b92623a3dd7f04a906))
+
+
+
 # [0.225.0](https://github.com/rodekruis/IBF-system/compare/v0.224.9...v0.225.0) (2023-02-15)
 
 
@@ -99,15 +109,6 @@
 ### Bug Fixes
 
 * activeTrigger crash AB[#17766](https://github.com/rodekruis/IBF-system/issues/17766) ([f5d7249](https://github.com/rodekruis/IBF-system/commit/f5d7249ade63e4e1ab2fcf2f9bd56e3899ebb7fd))
-
-
-
-## [0.224.1](https://github.com/rodekruis/IBF-system/compare/v0.224.0...v0.224.1) (2023-02-06)
-
-
-### Bug Fixes
-
-* glofas stations info popups AB[#17708](https://github.com/rodekruis/IBF-system/issues/17708) ([79b4c45](https://github.com/rodekruis/IBF-system/commit/79b4c452be1da334a193178fc14dbd4874b3ce4e))
 
 
 
