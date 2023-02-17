@@ -1,3 +1,13 @@
+## [0.226.2](https://github.com/rodekruis/IBF-system/compare/v0.226.1...v0.226.2) (2023-02-17)
+
+
+### Bug Fixes
+
+* rm docker-compose cached image ([6c1f5bc](https://github.com/rodekruis/IBF-system/commit/6c1f5bcc3da048ee329aac2bdb49397e60c19cab))
+* set date to optional AB[#17967](https://github.com/rodekruis/IBF-system/issues/17967) ([ee89000](https://github.com/rodekruis/IBF-system/commit/ee890008cfee8103e6c360f2fd8bbbf838a65664))
+
+
+
 ## [0.226.1](https://github.com/rodekruis/IBF-system/compare/v0.226.0...v0.226.1) (2023-02-17)
 
 
@@ -101,15 +111,6 @@
 ### Reverts
 
 * Revert "fix: update mock data for eapAlertClass AB#17607" ([09fc0bc](https://github.com/rodekruis/IBF-system/commit/09fc0bc6ca3a491d9eec2a461f40f0d96aa6e1bc)), closes [AB#17607](https://github.com/AB/issues/17607)
-
-
-
-## [0.224.4](https://github.com/rodekruis/IBF-system/compare/v0.224.3...v0.224.4) (2023-02-06)
-
-
-### Bug Fixes
-
-* add safe navigation operators AB[#17766](https://github.com/rodekruis/IBF-system/issues/17766) ([febcb95](https://github.com/rodekruis/IBF-system/commit/febcb95e20181037123d47b368c7dd98dfc64493))
 
 
 
