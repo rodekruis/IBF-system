@@ -121,7 +121,8 @@
     "linkVideo": "https://bit.ly/IBF-video-Malawi",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Malawi-Published.pdf",
     "mailSegment": {
-      "floods": 2163966
+      "floods": 2163966,
+      "flash-floods": 2525790
     }
   },
   {
