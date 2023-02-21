@@ -36,7 +36,7 @@ export class SeedAdminAreaData implements InterfaceScript {
         const validatedData = await this.adminAreaDataService.validateArray(
           populationData,
         );
-        await this.adminAreaDataService.uploadJson(
+        await this.adminAreaDataService.prepareAndUpload(
           validatedData.filter(
             (populationRecord: AdminAreaDataRecord) =>
               populationRecord.value >= 0,
@@ -118,7 +118,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       const validatedData = await this.adminAreaDataService.validateArray(
         adminAreaData,
       );
-      await this.adminAreaDataService.uploadJson(validatedData);
+      await this.adminAreaDataService.prepareAndUpload(validatedData);
     }
   }
 }
