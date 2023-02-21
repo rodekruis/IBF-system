@@ -1,3 +1,12 @@
+## [0.226.4](https://github.com/rodekruis/IBF-system/compare/v0.226.3...v0.226.4) (2023-02-21)
+
+
+### Bug Fixes
+
+* put back json update endpoint AB[#18019](https://github.com/rodekruis/IBF-system/issues/18019) ([daaf0ba](https://github.com/rodekruis/IBF-system/commit/daaf0ba83151d0133fac27ac2147a348ba823889))
+
+
+
 ## [0.226.3](https://github.com/rodekruis/IBF-system/compare/v0.226.2...v0.226.3) (2023-02-17)
 
 
@@ -97,15 +106,6 @@
 ### Bug Fixes
 
 * keep migration-script + new one to re-revert AB[#17889](https://github.com/rodekruis/IBF-system/issues/17889) ([fdb1920](https://github.com/rodekruis/IBF-system/commit/fdb1920adaa95dc0fd6462dd801feefc3722d5f5))
-
-
-
-## [0.224.6](https://github.com/rodekruis/IBF-system/compare/v0.224.5...v0.224.6) (2023-02-07)
-
-
-### Bug Fixes
-
-* date type issue AB[#17417](https://github.com/rodekruis/IBF-system/issues/17417) ([5d78a9b](https://github.com/rodekruis/IBF-system/commit/5d78a9bb68c77bb0ee7124eebc1ccfe7023bd4b8))
 
 
 
