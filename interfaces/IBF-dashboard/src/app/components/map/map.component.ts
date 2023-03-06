@@ -346,12 +346,12 @@ export class MapComponent implements OnDestroy {
   };
 
   public addLegend(map, colors, colorThreshold, layer: IbfLayer) {
-    for (const legend of Object.keys(this.legends)) {
-      map.removeControl(this.legends[legend]);
-      this.legends = {};
-    }
-
     if (layer.active) {
+      for (const legend of Object.keys(this.legends)) {
+        map.removeControl(this.legends[legend]);
+      }
+      this.legends = {};
+
       this.legends[layer.name] = new Control();
       this.legends[layer.name].setPosition('bottomleft');
       this.legends[layer.name].onAdd = () => {
