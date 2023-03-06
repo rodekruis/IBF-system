@@ -1,3 +1,18 @@
+# [0.227.0](https://github.com/rodekruis/IBF-system/compare/v0.226.4...v0.227.0) (2023-03-06)
+
+
+### Bug Fixes
+
+* remove static/dynamic layers AB[#18180](https://github.com/rodekruis/IBF-system/issues/18180) AB[#18184](https://github.com/rodekruis/IBF-system/issues/18184) ([d898cde](https://github.com/rodekruis/IBF-system/commit/d898cde6e0168d6246a5ab8b93e2b1fccea8e9af))
+* rm mock/seed data removed layers AB[#18180](https://github.com/rodekruis/IBF-system/issues/18180) AB[#18184](https://github.com/rodekruis/IBF-system/issues/18184) ([9e54e82](https://github.com/rodekruis/IBF-system/commit/9e54e82d6b3040d493273ef06fac324ed45dc4d9))
+
+
+### Features
+
+* add rainfall extent AB[#18180](https://github.com/rodekruis/IBF-system/issues/18180) ([724aa70](https://github.com/rodekruis/IBF-system/commit/724aa706064c7cbd4452e4fc73903ba99d065cea))
+
+
+
 ## [0.226.4](https://github.com/rodekruis/IBF-system/compare/v0.226.3...v0.226.4) (2023-02-21)
 
 
@@ -97,15 +112,6 @@
 ### Bug Fixes
 
 * typhoon multi-event date issue AB[#17895](https://github.com/rodekruis/IBF-system/issues/17895) ([9da32ff](https://github.com/rodekruis/IBF-system/commit/9da32ff000ac1ee5e43d1eb57c339803a0ffbdd2))
-
-
-
-## [0.224.7](https://github.com/rodekruis/IBF-system/compare/v0.224.6...v0.224.7) (2023-02-10)
-
-
-### Bug Fixes
-
-* keep migration-script + new one to re-revert AB[#17889](https://github.com/rodekruis/IBF-system/issues/17889) ([fdb1920](https://github.com/rodekruis/IBF-system/commit/fdb1920adaa95dc0fd6462dd801feefc3722d5f5))
 
 
 
