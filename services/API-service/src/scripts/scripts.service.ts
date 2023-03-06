@@ -124,8 +124,7 @@ export class ScriptsService {
     if (
       mockInput.disasterType === DisasterType.Floods ||
       mockInput.disasterType === DisasterType.HeavyRain ||
-      (mockInput.disasterType === DisasterType.Drought &&
-        selectedCountry.countryCodeISO3 === 'ETH')
+      mockInput.disasterType === DisasterType.Drought
     ) {
       await this.mockRasterFile(
         selectedCountry,
@@ -780,9 +779,16 @@ export class ScriptsService {
         destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
       }
 
-      const file = fs.readFileSync(
-        `./geoserver-volume/raster-files/mock-output/${sourceFileName}`,
-      );
+      let file;
+      try {
+        file = fs.readFileSync(
+          `./geoserver-volume/raster-files/mock-output/${sourceFileName}`,
+        );
+      } catch (error) {
+        console.log(`ERROR: ${sourceFileName} not found.`);
+        return;
+      }
+
       const dataObject = {
         originalname: destFileName,
         buffer: file,

@@ -1,0 +1,119 @@
+<coverage>
+  <id>CoverageInfoImpl--3d121cec:186b67c2071:-7ff4</id>
+  <name>rainfall_forecast_0-month_UGA</name>
+  <nativeName>rainfall_forecast_0-month_UGA</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl-48cab08a:175ace47603:-7ffa</id>
+  </namespace>
+  <title>rainfall_forecast_0-month_UGA</title>
+  <description>Generated from GeoTIFF</description>
+  <keywords>
+    <string>rain_rp_0-month_UGA</string>
+    <string>WCS</string>
+    <string>GeoTIFF</string>
+  </keywords>
+  <nativeCRS class="org.geotools.referencing.crs.DefaultEngineeringCRS">LOCAL_CS[&quot;Wildcard 2D cartesian plane in metric unit&quot;, 
+  LOCAL_DATUM[&quot;Unknown&quot;, 0], 
+  UNIT[&quot;m&quot;, 1.0], 
+  AXIS[&quot;x&quot;, EAST], 
+  AXIS[&quot;y&quot;, NORTH], 
+  AUTHORITY[&quot;EPSG&quot;,&quot;404000&quot;]]</nativeCRS>
+  <srs>EPSG:404000</srs>
+  <nativeBoundingBox>
+    <minx>29.573476946</minx>
+    <maxx>35.001254767</maxx>
+    <miny>-1.4774213390000002</miny>
+    <maxy>4.228134262</maxy>
+    <crs class="org.geotools.referencing.crs.DefaultEngineeringCRS">EPSG:404000</crs>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>29.573476946</minx>
+    <maxx>35.001254767</maxx>
+    <miny>-1.4774213390000002</miny>
+    <maxy>4.228134262</maxy>
+    <crs>EPSG:4326</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>REPROJECT_TO_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <metadata>
+    <entry key="DirectDownload.Key">
+      <directDownloadSettings>
+        <directDownloadEnabled>false</directDownloadEnabled>
+        <maxDownloadSize>0</maxDownloadSize>
+      </directDownloadSettings>
+    </entry>
+    <entry key="cachingEnabled">false</entry>
+    <entry key="dirName">rainfall_forecast_0-month_UGA_rain_rp_0-month_UGA</entry>
+  </metadata>
+  <store class="coverageStore">
+    <id>CoverageStoreInfoImpl--3d121cec:186b67c2071:-7ff6</id>
+  </store>
+  <serviceConfiguration>false</serviceConfiguration>
+  <simpleConversionEnabled>false</simpleConversionEnabled>
+  <nativeFormat>GeoTIFF</nativeFormat>
+  <grid dimension="2">
+    <range>
+      <low>0 0</low>
+      <high>1954 2054</high>
+    </range>
+    <transform>
+      <scaleX>0.0027777777998976455</scaleX>
+      <scaleY>-0.0027777777999026293</scaleY>
+      <shearX>0.0</shearX>
+      <shearY>0.0</shearY>
+      <translateX>29.57486583489995</translateX>
+      <translateY>4.226745373100049</translateY>
+    </transform>
+    <crs>EPSG:404000</crs>
+  </grid>
+  <supportedFormats>
+    <string>GIF</string>
+    <string>PNG</string>
+    <string>JPEG</string>
+    <string>TIFF</string>
+    <string>GEOTIFF</string>
+  </supportedFormats>
+  <interpolationMethods>
+    <string>nearest neighbor</string>
+    <string>bilinear</string>
+    <string>bicubic</string>
+  </interpolationMethods>
+  <defaultInterpolationMethod>nearest neighbor</defaultInterpolationMethod>
+  <dimensions>
+    <coverageDimension>
+      <name>GRAY_INDEX</name>
+      <description>GridSampleDimension[-Infinity,Infinity]</description>
+      <range>
+        <min>-inf</min>
+        <max>inf</max>
+      </range>
+      <nullValues>
+        <double>0.0</double>
+      </nullValues>
+      <dimensionType>
+        <name>REAL_32BITS</name>
+      </dimensionType>
+    </coverageDimension>
+  </dimensions>
+  <requestSRS>
+    <string>EPSG:404000</string>
+  </requestSRS>
+  <responseSRS>
+    <string>EPSG:404000</string>
+  </responseSRS>
+  <parameters>
+    <entry>
+      <string>InputTransparentColor</string>
+      <null/>
+    </entry>
+    <entry>
+      <string>SUGGESTED_TILE_SIZE</string>
+      <string>512,512</string>
+    </entry>
+    <entry>
+      <string>RescalePixels</string>
+      <boolean>true</boolean>
+    </entry>
+  </parameters>
+  <nativeCoverageName>rain_rp_0-month_UGA</nativeCoverageName>
+</coverage>

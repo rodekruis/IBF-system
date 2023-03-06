@@ -1,0 +1,13 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl-5ef537a5:180cc991e86:-7fb8</id>
+  <name>rainfall_forecast_10-month_ETH</name>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2022-05-16 12:00:32.122 UTC</dateCreated>
+  <dateModified>2023-03-06 10:35:44.463 UTC</dateModified>
+  <url>file:workspaces/ibf-system/ibf-pipeline/output/rainfall_extents/rain_rp_10-month_ETH.tif</url>
+</coverageStore>

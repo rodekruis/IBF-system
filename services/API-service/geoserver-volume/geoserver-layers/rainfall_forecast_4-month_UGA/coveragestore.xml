@@ -1,0 +1,14 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl-3cc32da6:186b69504e0:-7fe4</id>
+  <name>rainfall_forecast_4-month_UGA</name>
+  <description>rainfall_forecast_4-month_UGA</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2023-03-06 11:33:36.570 UTC</dateCreated>
+  <dateModified>2023-03-06 11:45:01.199 UTC</dateModified>
+  <url>file:workspaces/ibf-system/ibf-pipeline/output/rainfall_extents/rain_rp_0-month_UGA.tif</url>
+</coverageStore>
