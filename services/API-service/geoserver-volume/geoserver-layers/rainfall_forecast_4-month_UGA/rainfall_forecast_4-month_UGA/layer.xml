@@ -1,0 +1,17 @@
+<layer>
+  <name>rainfall_forecast_4-month_UGA</name>
+  <id>LayerInfoImpl-3cc32da6:186b69504e0:-7fe2</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-5253576a:183547efa37:-7f65</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-3cc32da6:186b69504e0:-7fe3</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2023-03-06 11:33:43.23 UTC</dateCreated>
+  <dateModified>2023-03-06 11:43:01.368 UTC</dateModified>
+</layer>

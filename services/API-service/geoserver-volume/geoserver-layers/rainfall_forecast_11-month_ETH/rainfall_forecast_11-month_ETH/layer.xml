@@ -1,0 +1,17 @@
+<layer>
+  <name>rainfall_forecast_11-month_ETH</name>
+  <id>LayerInfoImpl-5ef537a5:180cc991e86:-7fb3</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-5253576a:183547efa37:-7f65</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-5ef537a5:180cc991e86:-7fb4</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2022-05-16 12:01:15.958 UTC</dateCreated>
+  <dateModified>2023-03-06 10:36:04.182 UTC</dateModified>
+</layer>

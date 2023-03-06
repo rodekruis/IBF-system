@@ -48,7 +48,7 @@
     }
   },
   {
-    "countryCodes": "ETH",
+    "countryCodes": "ETH,UGA",
     "disasterTypes": ["drought"],
     "name": "rainfall_forecast",
     "label": "Rainfall forecast",
