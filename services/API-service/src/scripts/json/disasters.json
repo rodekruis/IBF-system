@@ -3,42 +3,49 @@
     "disasterType": "floods",
     "label": "floods",
     "triggerUnit": "alert_threshold",
-    "actionsUnit": "population_affected"
+    "actionsUnit": "population_affected",
+    "showOnlyTriggeredAreas": true
   },
   {
     "disasterType": "heavy-rain",
     "label": "heavy rainfall",
     "triggerUnit": "alert_threshold",
-    "actionsUnit": "population_affected"
+    "actionsUnit": "population_affected",
+    "showOnlyTriggeredAreas": true
   },
   {
     "disasterType": "dengue",
     "label": "dengue",
     "triggerUnit": "alert_threshold",
-    "actionsUnit": "potential_cases"
+    "actionsUnit": "potential_cases",
+    "showOnlyTriggeredAreas": false
   },
   {
     "disasterType": "malaria",
     "label": "malaria",
     "triggerUnit": "alert_threshold",
-    "actionsUnit": "potential_cases"
+    "actionsUnit": "potential_cases",
+    "showOnlyTriggeredAreas": false
   },
   {
     "disasterType": "drought",
     "label": "drought",
     "triggerUnit": "alert_threshold",
-    "actionsUnit": "population_affected"
+    "actionsUnit": "population_affected",
+    "showOnlyTriggeredAreas": true
   },
   {
     "disasterType": "typhoon",
     "label": "typhoon",
     "triggerUnit": "alert_threshold",
-    "actionsUnit": "houses_affected"
+    "actionsUnit": "houses_affected",
+    "showOnlyTriggeredAreas": false
   },
   {
     "disasterType": "flash-floods",
     "label": "flash floods",
     "triggerUnit": "alert_threshold",
-    "actionsUnit": "population_affected"
+    "actionsUnit": "population_affected",
+    "showOnlyTriggeredAreas": true
   }
 ]

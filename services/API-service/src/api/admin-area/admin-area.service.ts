@@ -144,8 +144,10 @@ export class AdminAreaService {
     adminLevel: number,
     eventName: string,
   ) {
-    // For these disaster-types show only triggered areas. For others show all.
-    if ([DisasterType.Floods, DisasterType.HeavyRain].includes(disasterType)) {
+    const disasterTypeEntity = await this.disasterTypeRepository.findOne({
+      where: { disasterType: disasterType },
+    });
+    if (disasterTypeEntity.showOnlyTriggeredAreas) {
       return await this.getTriggeredPlaceCodes(
         countryCodeISO3,
         disasterType,

@@ -36,6 +36,10 @@ export class DisasterEntity {
   @Column({ default: 'population_affected' })
   public actionsUnit: string;
 
+  @ApiProperty({ example: false })
+  @Column({ default: false })
+  public showOnlyTriggeredAreas: boolean;
+
   @ApiProperty({ example: [{ countryCodeISO3: 'UGA' }] })
   @ManyToMany(
     (): typeof CountryEntity => CountryEntity,
