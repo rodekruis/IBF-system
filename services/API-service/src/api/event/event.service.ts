@@ -84,8 +84,8 @@ export class EventService {
         closed: false,
       })
       .andWhere(
-        // for 'typhoon'/'flash-floods' filter also on activeTrigger = true, thereby disabling old-event scenario
-        "(event.\"disasterType\" NOT IN ('typhoon','flash-floods') OR (event.\"disasterType\" IN ('typhoon','flash-floods') AND event.\"activeTrigger\" = true))",
+        // for typhoon/flash-floods filter also on activeTrigger = true, thereby disabling old-event scenario
+        `(event."disasterType" NOT IN ('typhoon','flash-floods') OR (event."disasterType" IN ('typhoon','flash-floods') AND event."activeTrigger" = true))`,
       )
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
@@ -578,7 +578,9 @@ export class EventService {
       .select('area."placeCode"')
       .addSelect('MAX(area.value) AS "triggerValue"')
       .where(whereFilters)
-      .andWhere('(area.value > 0 OR area."eventName" is not null)') // Also allow value=0 entries with event name (= below trigger event)
+      .andWhere(
+        `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" = 'typhoon'))`,
+      ) // Also allow value=0 entries with typhoon event name (= below trigger event)
       .groupBy('area."placeCode"')
       .getRawMany();
 

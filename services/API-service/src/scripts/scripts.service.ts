@@ -256,17 +256,20 @@ export class ScriptsService {
           typhoonScenario,
         );
 
-        // For every lead-time .. (repeat the same data for every lead-time)
-        for (const activeLeadTime of this.getLeadTimes(
-          selectedCountry,
+        // For every drought-region (returns 1 empty array-element if not drought)
+        for (const droughtRegion of this.getDroughtRegions(
           disasterType,
-          eventNr,
-          typhoonScenario,
-          date,
+          selectedCountry,
+          triggered,
         )) {
-          for (const droughtRegion of this.getDroughtRegions(
-            disasterType,
+          // For every lead-time .. (repeat the same data for every lead-time)
+          for (const activeLeadTime of this.getLeadTimes(
             selectedCountry,
+            disasterType,
+            eventNr,
+            typhoonScenario,
+            date,
+            droughtRegion,
             triggered,
           )) {
             // Upload mock exposure data
@@ -373,6 +376,8 @@ export class ScriptsService {
     eventNr: number,
     typhoonScenario: TyphoonScenario,
     date: Date,
+    droughtRegion: string,
+    triggered: boolean,
   ) {
     const leadTimes = selectedCountry.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
@@ -384,6 +389,8 @@ export class ScriptsService {
         disasterType,
         eventNr,
         date,
+        droughtRegion,
+        triggered,
         typhoonScenario,
       ),
     );
@@ -435,6 +442,8 @@ export class ScriptsService {
     disasterType: DisasterType,
     eventNr = 1,
     date: Date,
+    droughtRegion: string,
+    triggered: boolean,
     typhoonScenario?: TyphoonScenario,
   ) {
     if (disasterType === DisasterType.Drought) {
@@ -443,6 +452,8 @@ export class ScriptsService {
         leadTime,
         disasterType,
         date,
+        droughtRegion,
+        triggered,
       );
     } else if (disasterType === DisasterType.Typhoon) {
       return leadTime === this.getTyphoonLeadTime(eventNr, typhoonScenario);
@@ -488,7 +499,9 @@ export class ScriptsService {
     leadTime: string,
     disasterType: DisasterType,
     date: Date,
-  ) {
+    droughtRegion: string,
+    triggered: boolean,
+  ): boolean {
     const {
       currentYear,
       currentUTCMonth,
@@ -504,14 +517,16 @@ export class ScriptsService {
 
     let useLeadTimeForMock = false;
     for (const area of Object.keys(forecastSeasonAreas)) {
-      useLeadTimeForMock = this.useLeadTimeForMock(
-        forecastSeasonAreas[area],
-        leadTime,
-        leadTimeMonthFirstDay,
-        currentUTCMonth,
-        currentYear,
-      );
-      if (useLeadTimeForMock) break;
+      if (area === droughtRegion || !triggered) {
+        useLeadTimeForMock = this.useLeadTimeForMock(
+          forecastSeasonAreas[area],
+          leadTime,
+          leadTimeMonthFirstDay,
+          currentUTCMonth,
+          currentYear,
+        );
+        if (useLeadTimeForMock) break;
+      }
     }
     return useLeadTimeForMock;
   }

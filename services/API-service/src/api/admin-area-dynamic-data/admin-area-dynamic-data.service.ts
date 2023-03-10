@@ -139,7 +139,10 @@ export class AdminAreaDynamicDataService {
   ): Promise<void> {
     const trigger = this.isThereTrigger(uploadExposure.exposurePlaceCodes);
 
-    const eventBelowTrigger = !trigger && !!uploadExposure.eventName;
+    const eventBelowTrigger =
+      !trigger &&
+      !!uploadExposure.eventName &&
+      uploadExposure.disasterType === DisasterType.Typhoon;
 
     const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
     uploadTriggerPerLeadTimeDto.countryCodeISO3 =
