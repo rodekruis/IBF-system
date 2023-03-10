@@ -19,7 +19,9 @@
     [class.active]="timeStepButton.active"
     [class.alert]="timeStepButton.alert && !timeStepButton?.disabled"
     [class.noEvent]="timeStepButton.noEvent"
-    (click)="handleTimeStepButtonClick(timeStepButton.value, timeStepButton.eventName)"
+    (click)="
+      handleTimeStepButtonClick(timeStepButton.value, timeStepButton.eventName)
+    "
   >
     <app-date-button
       [date]="timeStepButton.date"
