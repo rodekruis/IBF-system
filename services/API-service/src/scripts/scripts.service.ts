@@ -32,6 +32,7 @@ export class ScriptsService {
   private readonly countryRepo: Repository<CountryEntity>;
 
   private rainMonthsKey = 'rainMonths';
+  private nationalDroughtRegion = 'National';
 
   public constructor(
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -431,7 +432,10 @@ export class ScriptsService {
       } else {
         return `Mock typhoon ${eventNr}`;
       }
-    } else if (disasterType === DisasterType.Drought) {
+    } else if (
+      disasterType === DisasterType.Drought &&
+      droughtRegion !== this.nationalDroughtRegion
+    ) {
       return `${droughtRegion}_${leadTime}`;
     } else {
       return null;
@@ -645,7 +649,7 @@ export class ScriptsService {
         for (const pcodeData of copyOfExposureUnit) {
           pcodeData.amount = 0;
         }
-      } else if (droughtRegion !== 'National') {
+      } else if (droughtRegion !== this.nationalDroughtRegion) {
         // Hard-code that only areas of right region are triggered per selected leadtime
         const areas = this.getDroughtAreasPerRegion(
           selectedCountry,
@@ -712,6 +716,19 @@ export class ScriptsService {
                   triggeredAreas = [...triggeredAreas, ...['ET0201']];
                 } else if (region === 'Southern') {
                   triggeredAreas = [...triggeredAreas, ...['ET0508']];
+                }
+                break;
+              case 'UGA':
+                if (region === 'Western') {
+                  triggeredAreas = [
+                    ...triggeredAreas,
+                    ...['21UGA004001', '21UGA004002'],
+                  ];
+                } else if (region === 'Northern') {
+                  triggeredAreas = [
+                    ...triggeredAreas,
+                    ...['21UGA008003', '21UGA008004'],
+                  ];
                 }
                 break;
               default:
