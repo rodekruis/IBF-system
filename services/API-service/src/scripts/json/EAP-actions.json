@@ -101,91 +101,177 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-1",
-    "label": "DRR preliminary action",
+    "areaOfFocus": { "id": "drr" },
+    "action": "uga-drr-1",
+    "label": "Early warning information and tailored advisories (when to plant, micro gardening)",
     "month": {
-      "National": {
-        "firstSeason": 4,
-        "secondSeason": 9
-      }
+      "Northern": { "firstSeason": 2 },
+      "Western": { "firstSeason": 1, "secondSeason": 7 }
     }
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
-    "action": "shelter-1",
-    "label": "Shelter preliminary action",
+    "areaOfFocus": { "id": "drr" },
+    "action": "uga-drr-2",
+    "label": "Peer education for behaviour change communication",
     "month": {
-      "National": {
-        "firstSeason": 5,
-        "secondSeason": 10
-      }
+      "Northern": { "firstSeason": 2 },
+      "Western": { "firstSeason": 1, "secondSeason": 7 }
     }
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
-    "action": "livelihood-1",
-    "label": "Livelihood preliminary action",
+    "areaOfFocus": { "id": "inclusion" },
+    "action": "uga-inclusion-1",
+    "label": "Sensitization/awareness raising on PGI + MHM kits",
     "month": {
-      "National": {
-        "firstSeason": 6,
-        "secondSeason": 11
-      }
+      "Northern": { "firstSeason": 2 },
+      "Western": { "firstSeason": 1, "secondSeason": 7 }
     }
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "health"
-    },
-    "action": "health-1",
-    "label": "Health preliminary action",
+    "areaOfFocus": { "id": "wash" },
+    "action": "uga-wash-1",
+    "label": "Orientation of water user committees",
     "month": {
-      "National": {
-        "firstSeason": 4,
-        "secondSeason": 9
-      }
+      "Northern": { "firstSeason": 2 },
+      "Western": { "firstSeason": 1, "secondSeason": 7 }
     }
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
-    "action": "wash-1",
-    "label": "WASH preliminary action",
+    "areaOfFocus": { "id": "livelihood" },
+    "action": "uga-livelihood-1",
+    "label": "Demonstration of appropriate storage facilities and post harvest handling",
     "month": {
-      "National": {
-        "firstSeason": 5,
-        "secondSeason": 10
-      }
+      "Northern": { "firstSeason": 3 },
+      "Western": { "firstSeason": 2, "secondSeason": 8 }
     }
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "inclusion"
-    },
-    "action": "inclusion-1",
-    "label": "Inclusion preliminary action",
+    "areaOfFocus": { "id": "wash" },
+    "action": "uga-wash-2",
+    "label": "Training on bore hole repairs and maintenance",
     "month": {
-      "National": {
-        "firstSeason": 6,
-        "secondSeason": 11
-      }
+      "Northern": { "firstSeason": 3 },
+      "Western": { "firstSeason": 2, "secondSeason": 8 }
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": { "id": "livelihood" },
+    "action": "uga-livelihood-2",
+    "label": "Provision and distribution of improved seed varieties/planting materials",
+    "month": {
+      "Northern": { "firstSeason": 3 },
+      "Western": { "firstSeason": 2, "secondSeason": 8 }
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": { "id": "wash" },
+    "action": "uga-wash-3",
+    "label": "Providing of water storage vessels",
+    "month": {
+      "Northern": { "firstSeason": 3 },
+      "Western": { "firstSeason": 2, "secondSeason": 8 }
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": { "id": "inclusion" },
+    "action": "uga-inclusion-2",
+    "label": "Apprenticeship training for girls and boys for income diversification (weaving, sowing, crafts)",
+    "month": {
+      "Northern": { "firstSeason": 3 },
+      "Western": { "firstSeason": 2, "secondSeason": 8 }
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": { "id": "livelihood" },
+    "action": "uga-livelihood-3",
+    "label": "Massive vaccination of animals",
+    "month": {
+      "Northern": { "firstSeason": 3 },
+      "Western": { "firstSeason": 2, "secondSeason": 8 }
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": { "id": "livelihood" },
+    "action": "uga-livelihood-4",
+    "label": "Preparing and storage of fodder/hay/foliage",
+    "month": {
+      "Northern": { "firstSeason": 3 },
+      "Western": { "firstSeason": 2, "secondSeason": 8 }
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": { "id": "livelihood" },
+    "action": "uga-livelihood-5",
+    "label": "Food procurement for food assistance and shcool feeding",
+    "month": {
+      "Northern": { "firstSeason": 7 },
+      "Western": { "firstSeason": null, "secondSeason": null }
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": { "id": "livelihood" },
+    "action": "uga-livelihood-6",
+    "label": "Food assistance as per trigger calendar at the end of the seasons (possibly in collaboration with WFP on PGI conditions)",
+    "month": {
+      "Northern": { "firstSeason": 10 },
+      "Western": { "firstSeason": null, "secondSeason": null }
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": { "id": "livelihood" },
+    "action": "uga-livelihood-7",
+    "label": "School feeding programme for primary schools",
+    "month": {
+      "Northern": { "firstSeason": 10 },
+      "Western": { "firstSeason": null, "secondSeason": null }
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": { "id": "inclusion" },
+    "action": "uga-inclusion-3",
+    "label": "Sensitization/awareness raising on PGI + MHM kits",
+    "month": {
+      "Northern": { "firstSeason": 10 },
+      "Western": { "firstSeason": null, "secondSeason": null }
+    }
+  },
+  {
+    "countryCodeISO3": "UGA",
+    "disasterType": "drought",
+    "areaOfFocus": { "id": "livelihood" },
+    "action": "uga-livelihood-8",
+    "label": "Provision and distribution of improved seed varieties/planting materials for the new season ahead",
+    "month": {
+      "Northern": { "firstSeason": 10 },
+      "Western": { "firstSeason": null, "secondSeason": null }
     }
   },
   {
