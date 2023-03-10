@@ -2,7 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { InsertResult, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
+import {
+  InsertResult,
+  IsNull,
+  MoreThan,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
 import { AdminAreaEntity } from './admin-area.entity';
 import { EventService } from '../event/event.service';
 import { AggregateDataRecord } from 'src/shared/data.model';
@@ -101,6 +107,7 @@ export class AdminAreaService {
           disasterType,
           adminLevel,
           leadTime,
+          eventName,
         )
       ).map((triggeredArea): string => triggeredArea.placeCode);
     }
@@ -112,6 +119,7 @@ export class AdminAreaService {
     disasterType: DisasterType,
     adminLevel: number,
     leadTime: string,
+    eventName: string,
   ): Promise<AdminAreaDynamicDataEntity[]> {
     const triggerUnit = await this.eventService.getTriggerUnit(disasterType);
     const lastTriggeredDate = await this.helperService.getRecentDate(
@@ -133,6 +141,7 @@ export class AdminAreaService {
             lastTriggeredDate.timestamp,
           ),
         ),
+        eventName: eventName === 'no-name' ? IsNull() : eventName,
       },
     });
   }
