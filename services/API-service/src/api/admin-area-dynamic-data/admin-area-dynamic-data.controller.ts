@@ -10,6 +10,7 @@ import {
   ApiParam,
   ApiBody,
   ApiResponse,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { RolesGuard } from '../../roles.guard';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
@@ -18,6 +19,7 @@ import { DisasterType } from '../disaster/disaster-type.enum';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Roles } from '../../roles.decorator';
 import { UserRole } from '../user/user-role.enum';
+import { Query } from '@nestjs/common/decorators';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -57,18 +59,17 @@ export class AdminAreaDynamicDataController {
   @ApiParam({ name: 'leadTime', required: true, type: 'string' })
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
-  @ApiParam({ name: 'eventName', required: true, type: 'string' })
+  @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
       'Dynamic admin-area data for given indicator, country, disaster-type and lead-time.',
     type: [AdminDataReturnDto],
   })
-  @Get(
-    ':countryCodeISO3/:adminLevel/:leadTime/:indicator/:disasterType/:eventName',
-  )
+  @Get(':countryCodeISO3/:adminLevel/:leadTime/:indicator/:disasterType')
   public async getAdminAreaDynamicData(
     @Param() params,
+    @Query() query,
   ): Promise<AdminDataReturnDto[]> {
     return await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
       params.countryCodeISO3,
@@ -76,7 +77,7 @@ export class AdminAreaDynamicDataController {
       params.leadTime,
       params.indicator as DynamicIndicator,
       params.disasterType as DisasterType,
-      params.eventName,
+      query.eventName,
     );
   }
 

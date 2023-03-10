@@ -116,7 +116,6 @@ export class AggregatesService {
         .getIndicators(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.eventState.event?.eventName,
         )
         .subscribe(this.onIndicatorChange);
     }

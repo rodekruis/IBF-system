@@ -185,23 +185,26 @@ export class AdminAreaDynamicDataService {
       countryCodeISO3,
       disasterType,
     );
+    const whereFilters = {
+      countryCodeISO3: countryCodeISO3,
+      adminLevel: Number(adminLevel),
+      leadTime: leadTime,
+      indicator: indicator,
+      disasterType: disasterType,
+      date: lastTriggeredDate.date,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getLast6hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
+      ),
+    };
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
+    }
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
-      .where({
-        countryCodeISO3: countryCodeISO3,
-        adminLevel: Number(adminLevel),
-        leadTime: leadTime,
-        indicator: indicator,
-        disasterType: disasterType,
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
-        date: lastTriggeredDate.date,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            disasterType,
-            lastTriggeredDate.timestamp,
-          ),
-        ),
-      })
+      .where(whereFilters)
       .select(['dynamic.value AS value', 'dynamic.placeCode AS "placeCode"'])
       .orderBy('dynamic.date', 'DESC')
       .execute();

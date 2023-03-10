@@ -60,14 +60,13 @@ export class MetadataController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
-  @ApiParam({ name: 'eventName', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
       'Rainfall trigger levels per coordinate and lead-time for given country.',
     type: [IndicatorMetadataEntity],
   })
-  @Get('indicators/:countryCodeISO3/:disasterType/:eventName')
+  @Get('indicators/:countryCodeISO3/:disasterType')
   public async getIndicators(
     @Param() params,
   ): Promise<IndicatorMetadataEntity[]> {

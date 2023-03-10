@@ -613,7 +613,7 @@ export class ScriptsService {
     date: Date,
     droughtRegion?: string,
   ): any[] {
-    const copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
+    let copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
     // This only returns something different for dengue/malaria exposure-units
     if ([DisasterType.Dengue, DisasterType.Malaria].includes(disasterType)) {
       for (const pcodeData of copyOfExposureUnit) {
@@ -658,17 +658,18 @@ export class ScriptsService {
           date,
           droughtRegion,
         );
-        for (const pcodeData of copyOfExposureUnit) {
-          if (areas.includes(pcodeData.placeCode)) {
-            if (exposureUnit === DynamicIndicator.alertThreshold) {
-              pcodeData.amount = 1;
-            } else if (exposureUnit === DynamicIndicator.populationAffected) {
-              pcodeData.amount = 1000;
-            }
-          } else {
-            pcodeData.amount = 0;
-          }
-        }
+        const amountFactor =
+          exposureUnit === DynamicIndicator.alertThreshold
+            ? 1
+            : exposureUnit === DynamicIndicator.populationAffected
+            ? 1000
+            : null;
+        copyOfExposureUnit = areas.map(area => {
+          return {
+            placeCode: area.placeCode,
+            amount: area.triggered ? amountFactor : 0,
+          };
+        });
       }
     } else if (disasterType === DisasterType.FlashFloods) {
       if (activeLeadTime !== LeadTime.hour12) {
@@ -686,10 +687,15 @@ export class ScriptsService {
     leadTime: LeadTime,
     date: Date,
     droughtRegion: string,
-  ): string[] {
-    const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
+  ): { placeCode: string; triggered: boolean }[] {
+    const forecastSeasonData = selectedCountry.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
-    ).droughtForecastSeasons;
+    );
+    const forecastSeasonAreas = forecastSeasonData.droughtForecastSeasons;
+    const droughtRegionAreas = selectedCountry.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).droughtAreas;
+
     const {
       currentUTCMonth,
       leadTimeMonthFirstDay,
@@ -699,41 +705,43 @@ export class ScriptsService {
       selectedCountry,
     );
     const month = leadTimeMonthFirstDay.getMonth() + 1;
-    let triggeredAreas = [];
 
-    for (const region of Object.keys(forecastSeasonAreas)) {
-      if (region === droughtRegion) {
-        for (const season of Object.values(forecastSeasonAreas[region])) {
-          const filteredSeason = season[this.rainMonthsKey].filter(
-            seasonMonth => seasonMonth >= currentUTCMonth + 1,
-          );
-          if (filteredSeason[0] === month) {
-            switch (selectedCountry.countryCodeISO3) {
-              case 'ETH':
-                if (region === 'Belg') {
-                  triggeredAreas = [...triggeredAreas, ...['ET0721']];
-                } else if (region === 'Northern') {
-                  triggeredAreas = [...triggeredAreas, ...['ET0201']];
-                } else if (region === 'Southern') {
-                  triggeredAreas = [...triggeredAreas, ...['ET0508']];
-                }
-                break;
-              case 'UGA':
-                if (region === 'Western') {
-                  triggeredAreas = [
-                    ...triggeredAreas,
-                    ...['21UGA004001', '21UGA004002'],
-                  ];
-                } else if (region === 'Northern') {
-                  triggeredAreas = [
-                    ...triggeredAreas,
-                    ...['21UGA008003', '21UGA008004'],
-                  ];
-                }
-                break;
-              default:
+    let triggeredAreas = droughtRegionAreas[droughtRegion].map(placeCode => {
+      return { placeCode: placeCode, triggered: false };
+    });
+    for (const season of Object.values(forecastSeasonAreas[droughtRegion])) {
+      const filteredSeason = season[this.rainMonthsKey].filter(
+        seasonMonth => seasonMonth >= currentUTCMonth + 1,
+      );
+      if (filteredSeason[0] === month) {
+        switch (selectedCountry.countryCodeISO3) {
+          case 'ETH':
+            if (droughtRegion === 'Belg') {
+              triggeredAreas.find(a =>
+                ['ET0721'].includes(a.placeCode),
+              ).triggered = true;
+            } else if (droughtRegion === 'Northern') {
+              triggeredAreas.find(a =>
+                ['ET0201'].includes(a.placeCode),
+              ).triggered = true;
+            } else if (droughtRegion === 'Southern') {
+              triggeredAreas.find(a =>
+                ['ET0508'].includes(a.placeCode),
+              ).triggered = true;
             }
-          }
+            break;
+          case 'UGA':
+            if (droughtRegion === 'Western') {
+              triggeredAreas.find(a =>
+                ['21UGA004001', '21UGA004002'].includes(a.placeCode),
+              ).triggered = true;
+            } else if (droughtRegion === 'Northern') {
+              triggeredAreas.find(a =>
+                ['21UGA008003', '21UGA008004'].includes(a.placeCode),
+              ).triggered = true;
+            }
+            break;
+          default:
         }
       }
     }

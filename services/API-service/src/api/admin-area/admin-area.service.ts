@@ -126,23 +126,26 @@ export class AdminAreaService {
       countryCodeISO3,
       disasterType,
     );
-    return await this.adminAreaDynamicDataRepo.find({
-      where: {
-        countryCodeISO3: countryCodeISO3,
-        disasterType: disasterType,
-        adminLevel: adminLevel,
-        leadTime: leadTime,
-        value: MoreThan(0),
-        indicator: triggerUnit,
-        date: lastTriggeredDate.date,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            disasterType,
-            lastTriggeredDate.timestamp,
-          ),
+    const whereFilters = {
+      countryCodeISO3: countryCodeISO3,
+      disasterType: disasterType,
+      adminLevel: adminLevel,
+      leadTime: leadTime,
+      value: MoreThan(0),
+      indicator: triggerUnit,
+      date: lastTriggeredDate.date,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getLast6hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
         ),
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
-      },
+      ),
+    };
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
+    }
+    return await this.adminAreaDynamicDataRepo.find({
+      where: whereFilters,
     });
   }
 
