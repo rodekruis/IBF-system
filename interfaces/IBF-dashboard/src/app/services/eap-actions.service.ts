@@ -168,8 +168,11 @@ export class EapActionsService {
       monthOfSelectedLeadTime,
     );
 
-    const currentActionSeasonMonths = this.disasterTypeSettings
-      .droughtForecastSeasons[region][this.currentRainSeasonName].actionMonths;
+    const currentActionSeasonMonths = this.currentRainSeasonName
+      ? this.disasterTypeSettings.droughtForecastSeasons[region][
+          this.currentRainSeasonName
+        ].actionMonths
+      : [];
 
     const actionMonthInCurrentActionSeasonMonths = (action: EapAction) =>
       currentActionSeasonMonths.includes(
