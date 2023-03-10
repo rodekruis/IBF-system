@@ -19,13 +19,14 @@
     [class.active]="timeStepButton.active"
     [class.alert]="timeStepButton.alert && !timeStepButton?.disabled"
     [class.noEvent]="timeStepButton.noEvent"
-    (click)="handleTimeStepButtonClick(timeStepButton.value)"
+    (click)="handleTimeStepButtonClick(timeStepButton.value, timeStepButton.eventName)"
   >
     <app-date-button
       [date]="timeStepButton.date"
       [unit]="timeStepButton.unit"
       [active]="!timeStepButton.disabled"
       [todayButton]="false"
+      [eventName]="timeStepButton.eventName"
     ></app-date-button>
   </ion-button>
 </ion-item>

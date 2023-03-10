@@ -33,7 +33,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
     this.timelineStateSubscription.unsubscribe();
   }
 
-  handleTimeStepButtonClick(leadTime: LeadTime) {
+  handleTimeStepButtonClick(leadTime: LeadTime, eventName: string) {
     this.analyticsService.logEvent(AnalyticsEvent.leadTime, {
       page: AnalyticsPage.dashboard,
       leadTime,
@@ -46,14 +46,17 @@ export class TimelineComponent implements OnInit, OnDestroy {
     if (this.eventService.state.events.length > 1) {
       // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
       const clickedEvent = this.eventService.state.events.find(
-        (e) =>
-          e.firstLeadTime === leadTime &&
-          e.eventName !== this.eventService.state.event.eventName,
+        (e) => e.firstLeadTime === leadTime && e.eventName === eventName,
       );
       this.eventService.switchEvent(clickedEvent.eventName);
+      this.timelineService.handleTimeStepButtonClick(
+        leadTime,
+        clickedEvent.eventName,
+      );
+    } else {
+      // if single event, then just switch lead-time
+      this.timelineService.handleTimeStepButtonClick(leadTime);
     }
-
-    this.timelineService.handleTimeStepButtonClick(leadTime);
   }
 
   private onTimelineStateChange = (timelineState: TimelineState) => {

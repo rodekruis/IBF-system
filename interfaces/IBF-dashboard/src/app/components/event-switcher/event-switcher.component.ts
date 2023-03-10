@@ -6,6 +6,7 @@ import { TimelineState } from 'src/app/types/timeline-state';
 import { DisasterType } from '../../models/country.model';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { TimelineService } from '../../services/timeline.service';
+import { LeadTime } from '../../types/lead-time';
 
 @Component({
   selector: 'app-event-switcher',
@@ -77,9 +78,17 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
     if (timelineState.activeLeadTime) {
-      this.selectedEventName = this.eventState?.events.find(
-        (e) => e.firstLeadTime === timelineState.activeLeadTime,
-      )?.eventName;
+      // first get eventName directly ..
+      this.selectedEventName = timelineState.timeStepButtons.find(
+        (t) => t.active,
+      ).eventName;
+      // .. if not available, find based on leadTime
+      if (!this.selectedEventName) {
+        this.selectedEventName = this.eventState?.events.find(
+          (e) => e.firstLeadTime === timelineState.activeLeadTime,
+        )?.eventName;
+      }
+
       if (this.eventState.events.length > 1) {
         // Only trigger event-switch if there are multiple events
         this.eventService.switchEvent(this.selectedEventName);
@@ -94,10 +103,10 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
       // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
       this.eventService.switchEvent(event.eventName);
 
-      if (event.firstLeadTime !== this.timelineState.activeLeadTime) {
-        // Only do this, when leadtime actually changes (so not for typhoon case with 2 events with same leadtime)
-        this.timelineService.handleTimeStepButtonClick(event.firstLeadTime);
-      }
+      this.timelineService.handleTimeStepButtonClick(
+        event.firstLeadTime as LeadTime,
+        event.eventName,
+      );
     }
   }
 

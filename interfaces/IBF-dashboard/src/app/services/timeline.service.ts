@@ -110,6 +110,7 @@ export class TimelineService {
       disabled: !isLeadTimeEnabled && !leadTimeInput.undefined,
       active: false,
       noEvent: this.isNoEvent(),
+      eventName: leadTimeInput.eventName,
     };
   };
 
@@ -142,7 +143,7 @@ export class TimelineService {
       this.handleTimeStepButtonClick(toShowTimeStepButtons[0].value);
     } // except if that leads to still empty set: assume this is the typhoon no-event scenario
     else if (toShowTimeStepButtons.length === 0) {
-      this.handleTimeStepButtonClick(LeadTime.hour72, true);
+      this.handleTimeStepButtonClick(LeadTime.hour72, null, true);
     }
   };
 
@@ -193,7 +194,11 @@ export class TimelineService {
   private deactivateLeadTimeButton = (leadTimeButton) =>
     (leadTimeButton.active = false);
 
-  public handleTimeStepButtonClick(timeStepButtonValue, noEvent?: boolean) {
+  public handleTimeStepButtonClick(
+    timeStepButtonValue: LeadTime,
+    eventName?: string,
+    noEvent?: boolean,
+  ) {
     this.placeCodeService.clearPlaceCode();
     this.placeCodeService.clearPlaceCodeHover();
     this.state.activeLeadTime = timeStepButtonValue;
@@ -201,6 +206,10 @@ export class TimelineService {
     this.state.timeStepButtons.find((btn) =>
       noEvent
         ? btn.value === timeStepButtonValue
+        : eventName
+        ? btn.value === timeStepButtonValue &&
+          !btn.disabled &&
+          btn.eventName === eventName
         : btn.value === timeStepButtonValue && !btn.disabled,
     ).active = true;
 
@@ -262,10 +271,16 @@ export class TimelineService {
           .indexOf(leadTime.leadTimeName) === -1 &&
         this.isLeadTimeEnabled(leadTime.leadTimeName)
       ) {
-        visibleLeadTimes.push({
-          leadTime: leadTime.leadTimeName,
-          undefined: false,
-        });
+        // add separate events with same lead-time, separately
+        for (const event of this.eventState?.events
+          .filter((e) => e.firstLeadTime === leadTime.leadTimeName)
+          .sort((a, b) => (a.eventName < b.eventName ? 1 : -1))) {
+          visibleLeadTimes.push({
+            leadTime: leadTime.leadTimeName,
+            eventName: event.eventName,
+            undefined: false,
+          });
+        }
       }
     }
     for (const leadTime of this.disasterType.leadTimes) {
@@ -285,6 +300,7 @@ export class TimelineService {
       ) {
         visibleLeadTimes.push({
           leadTime: leadTime.leadTimeName,
+          eventName: null,
           undefined: false,
         });
       }
@@ -304,6 +320,7 @@ export class TimelineService {
     for (const event of undefinedLeadTimeEvents) {
       visibleLeadTimes.push({
         leadTime: event.firstLeadTime as LeadTime,
+        eventName: null,
         undefined: true,
       });
     }

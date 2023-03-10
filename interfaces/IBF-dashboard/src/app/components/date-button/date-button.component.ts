@@ -20,6 +20,7 @@ export class DateButtonComponent implements OnInit, OnDestroy {
   @Input() unit = LeadTimeUnit.day;
   @Input() active: boolean;
   @Input() todayButton: boolean;
+  @Input() eventName: string | null;
 
   private dateFormat = '';
   private monthFormat = '';
@@ -71,5 +72,10 @@ export class DateButtonComponent implements OnInit, OnDestroy {
     this.displayMonth = this.date
       ? this.date.toFormat(this.monthFormat)
       : 'Undetermined';
+
+    // TO DO: remove this. Put in for now just to be able to distinguish timeline-buttons per event.
+    if (this.eventName && this.unit === LeadTimeUnit.month) {
+      this.displayHour = this.eventName;
+    }
   };
 }

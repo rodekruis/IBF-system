@@ -297,6 +297,7 @@ export class ScriptsService {
                 eventNr,
                 typhoonScenario,
                 droughtRegion,
+                activeLeadTime,
               ),
               date,
             });
@@ -422,6 +423,7 @@ export class ScriptsService {
     eventNr = 1,
     typhoonScenario?: TyphoonScenario,
     droughtRegion?: string,
+    leadTime?: LeadTime,
   ): string {
     if (disasterType === DisasterType.Typhoon) {
       if (typhoonScenario === TyphoonScenario.NoEvent) {
@@ -430,7 +432,7 @@ export class ScriptsService {
         return `Mock typhoon ${eventNr}`;
       }
     } else if (disasterType === DisasterType.Drought) {
-      return droughtRegion;
+      return `${droughtRegion}_${leadTime}`;
     } else {
       return null;
     }
