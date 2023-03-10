@@ -176,9 +176,9 @@ export class AdminAreaDynamicDataService {
   public async getAdminAreaDynamicData(
     countryCodeISO3: string,
     adminLevel: string,
-    leadTime: LeadTime,
     indicator: DynamicIndicator,
     disasterType: DisasterType,
+    leadTime: LeadTime,
     eventName: string,
   ): Promise<AdminDataReturnDto[]> {
     const lastTriggeredDate = await this.helperService.getRecentDate(
@@ -188,7 +188,6 @@ export class AdminAreaDynamicDataService {
     const whereFilters = {
       countryCodeISO3: countryCodeISO3,
       adminLevel: Number(adminLevel),
-      leadTime: leadTime,
       indicator: indicator,
       disasterType: disasterType,
       date: lastTriggeredDate.date,
@@ -201,6 +200,9 @@ export class AdminAreaDynamicDataService {
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
+    }
+    if (leadTime) {
+      whereFilters['leadTime'] = leadTime;
     }
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')

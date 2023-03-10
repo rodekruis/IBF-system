@@ -80,7 +80,7 @@ export class AdminAreaController {
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiParam({ name: 'leadTime', required: false, type: 'string' })
+  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
@@ -88,7 +88,7 @@ export class AdminAreaController {
       '(Relevant) admin-areas boundaries and attributes for given country, disater-type and lead-time',
     type: GeoJson,
   })
-  @Get(':countryCodeISO3/:disasterType/:adminLevel/:leadTime?')
+  @Get(':countryCodeISO3/:disasterType/:adminLevel')
   public async getAdminAreas(
     @Param() params,
     @Query() query,
@@ -96,8 +96,8 @@ export class AdminAreaController {
     return await this.adminAreaService.getAdminAreas(
       params.countryCodeISO3,
       params.disasterType,
-      params.leadTime,
       params.adminLevel,
+      query.leadTime,
       query.eventName,
     );
   }
@@ -109,7 +109,7 @@ export class AdminAreaController {
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiParam({ name: 'leadTime', required: false, type: 'string' })
+  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
@@ -117,7 +117,7 @@ export class AdminAreaController {
       'Static and dynamic data per admin-area and indicator for given country, disaster-type, leadTime',
     type: [AggregateDataRecord],
   })
-  @Get('aggregates/:countryCodeISO3/:disasterType/:adminLevel/:leadTime?')
+  @Get('aggregates/:countryCodeISO3/:disasterType/:adminLevel')
   public async getAggregatesData(
     @Param() params,
     @Query() query,
@@ -125,8 +125,8 @@ export class AdminAreaController {
     return await this.adminAreaService.getAggregatesData(
       params.countryCodeISO3,
       params.disasterType,
-      params.leadTime,
       params.adminLevel,
+      query.leadTime,
       query.eventName,
     );
   }

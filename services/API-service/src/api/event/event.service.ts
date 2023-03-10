@@ -223,7 +223,6 @@ export class EventService {
     const whereFiltersDynamicData = {
       indicator: triggerUnit,
       value: MoreThan(0),
-      leadTime: leadTime,
       adminLevel: adminLevel,
       disasterType: disasterType,
       countryCodeISO3: countryCodeISO3,
@@ -237,6 +236,9 @@ export class EventService {
     };
     if (eventName) {
       whereFiltersDynamicData['eventName'] = eventName;
+    }
+    if (leadTime) {
+      whereFiltersDynamicData['leadTime'] = leadTime;
     }
     const triggeredAreasRaw = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')

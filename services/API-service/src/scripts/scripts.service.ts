@@ -706,7 +706,7 @@ export class ScriptsService {
     );
     const month = leadTimeMonthFirstDay.getMonth() + 1;
 
-    let triggeredAreas = droughtRegionAreas[droughtRegion].map(placeCode => {
+    const triggeredAreas = droughtRegionAreas[droughtRegion].map(placeCode => {
       return { placeCode: placeCode, triggered: false };
     });
     for (const season of Object.values(forecastSeasonAreas[droughtRegion])) {

@@ -17,6 +17,7 @@ import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 
 @Injectable()
 export class AdminAreaService {
@@ -91,13 +92,25 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
   ) {
-    const trigger = (
-      await this.eventService.getTriggerPerLeadtime(
-        countryCodeISO3,
-        disasterType,
-        eventName,
-      )
-    )[leadTime];
+    const triggersPerLeadTime = await this.eventService.getTriggerPerLeadtime(
+      countryCodeISO3,
+      disasterType,
+      eventName,
+    );
+    let trigger;
+    if (leadTime) {
+      trigger = triggersPerLeadTime[leadTime];
+    } else {
+      const leadTimeKeys = Object.keys(triggersPerLeadTime).filter(key =>
+        Object.values(LeadTime).includes(key as LeadTime),
+      );
+      for (const key of leadTimeKeys) {
+        if (triggersPerLeadTime[key] === '1') {
+          trigger = '1';
+          break;
+        }
+      }
+    }
 
     let placeCodes = [];
     if (parseInt(trigger) === 1) {
@@ -130,7 +143,6 @@ export class AdminAreaService {
       countryCodeISO3: countryCodeISO3,
       disasterType: disasterType,
       adminLevel: adminLevel,
-      leadTime: leadTime,
       value: MoreThan(0),
       indicator: triggerUnit,
       date: lastTriggeredDate.date,
@@ -143,6 +155,9 @@ export class AdminAreaService {
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
+    }
+    if (leadTime) {
+      whereFilters['leadTime'] = leadTime;
     }
     return await this.adminAreaDynamicDataRepo.find({
       where: whereFilters,
@@ -180,8 +195,8 @@ export class AdminAreaService {
   public async getAggregatesData(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    leadTime: string,
     adminLevel: number,
+    leadTime: string,
     eventName: string,
   ): Promise<AggregateDataRecord[]> {
     const placeCodes = await this.getPlaceCodes(
@@ -225,7 +240,6 @@ export class AdminAreaService {
       .where('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
@@ -239,6 +253,13 @@ export class AdminAreaService {
         disasterType: disasterType,
       })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
+
+    if (leadTime) {
+      dynamicIndicatorsScript.andWhere('dynamic."leadTime" = :leadTime', {
+        leadTime: leadTime,
+      });
+    }
+
     if (placeCodes.length) {
       dynamicIndicatorsScript = dynamicIndicatorsScript.andWhere(
         'area."placeCode" IN (:...placeCodes)',
@@ -277,8 +298,8 @@ export class AdminAreaService {
   public async getAdminAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    leadTime: string,
     adminLevel: number,
+    leadTime: string,
     eventName: string,
   ): Promise<GeoJson> {
     const disaster = await this.getDisasterType(disasterType);
@@ -317,7 +338,6 @@ export class AdminAreaService {
         'dynamic."date"',
         'parent.name AS "nameParent"',
       ])
-      .andWhere('dynamic."leadTime" = :leadTime', { leadTime: leadTime })
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
@@ -333,6 +353,11 @@ export class AdminAreaService {
       .andWhere('dynamic."indicator" = :indicator', {
         indicator: disaster.actionsUnit,
       });
+    if (leadTime) {
+      adminAreasScript.andWhere('dynamic."leadTime" = :leadTime', {
+        leadTime: leadTime,
+      });
+    }
 
     const placeCodes = await this.getPlaceCodes(
       countryCodeISO3,
@@ -362,22 +387,26 @@ export class AdminAreaService {
       countryCodeISO3,
       disasterType,
     );
-    const adminAreasToShow = await this.adminAreaDynamicDataRepo.find({
-      where: {
-        countryCodeISO3: countryCodeISO3,
-        disasterType: disasterType,
-        adminLevel: adminLevel,
-        leadTime: leadTime,
-        date: lastTriggeredDate.date,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            disasterType,
-            lastTriggeredDate.timestamp,
-          ),
+    const whereFilters = {
+      countryCodeISO3: countryCodeISO3,
+      disasterType: disasterType,
+      adminLevel: adminLevel,
+      date: lastTriggeredDate.date,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getLast6hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
         ),
-        indicator: DynamicIndicator.showAdminArea,
-        value: 1,
-      },
+      ),
+      indicator: DynamicIndicator.showAdminArea,
+      value: 1,
+    };
+    if (leadTime) {
+      whereFilters['leadTime'] = leadTime;
+    }
+
+    const adminAreasToShow = await this.adminAreaDynamicDataRepo.find({
+      where: whereFilters,
     });
     return adminAreasToShow.map(area => area.placeCode);
   }

@@ -214,8 +214,11 @@ export class ApiService {
     if (eventName) {
       params = params.append('eventName', eventName);
     }
+    if (leadTime) {
+      params = params.append('leadTime', leadTime);
+    }
     return this.get(
-      `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}/${leadTime}`,
+      `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}`,
       false,
       params,
     );
@@ -232,8 +235,11 @@ export class ApiService {
     if (eventName) {
       params = params.append('eventName', eventName);
     }
+    if (leadTime) {
+      params = params.append('leadTime', leadTime);
+    }
     return this.get(
-      `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}/${leadTime}`,
+      `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}`,
       false,
       params,
     );
@@ -250,8 +256,11 @@ export class ApiService {
     if (eventName) {
       params = params.append('eventName', eventName);
     }
+    if (leadTime) {
+      params = params.append('leadTime', leadTime);
+    }
     return this.get(
-      `event/triggered-areas/${countryCodeISO3}/${adminLevel}/${disasterType}/${leadTime}`,
+      `event/triggered-areas/${countryCodeISO3}/${adminLevel}/${disasterType}`,
       false,
       params,
     );
@@ -301,8 +310,11 @@ export class ApiService {
     if (eventName) {
       params = params.append('eventName', eventName);
     }
+    if (leadTime) {
+      params = params.append('leadTime', leadTime);
+    }
     return this.get(
-      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${leadTime}/${indicator}/${disasterType}`,
+      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${indicator}/${disasterType}`,
       false,
       params,
     );

@@ -91,7 +91,7 @@ export class EapActionsService {
       this.country &&
       this.disasterType &&
       this.adminLevel &&
-      this.timelineState?.activeLeadTime &&
+      this.timelineState &&
       this.eventState
     ) {
       this.apiService
@@ -111,28 +111,30 @@ export class EapActionsService {
     this.triggeredAreas.sort((a, b) =>
       a.actionsValue > b.actionsValue ? -1 : 1,
     );
-    this.triggeredAreas.forEach((area) => {
-      this.formatDates(area);
-      this.filterEapActionsByMonth(area);
-      area.eapActions.forEach((action) => {
-        if (Object.keys(action.month).length) {
-          Object.defineProperty(action, 'monthLong', {
-            value: {},
-          });
-          for (const region of Object.keys(action.month)) {
-            Object.defineProperty(action.monthLong, region, {
-              value: DateTime.utc(
-                2022, // year does not matter, this is just about converting month-number to month-name
-                action.month[region][this.currentRainSeasonName],
-                1,
-              ).monthLong,
+    if (this.getActiveLeadtime()) {
+      this.triggeredAreas.forEach((area) => {
+        this.formatDates(area);
+        this.filterEapActionsByMonth(area);
+        area.eapActions.forEach((action) => {
+          if (Object.keys(action.month).length) {
+            Object.defineProperty(action, 'monthLong', {
+              value: {},
             });
+            for (const region of Object.keys(action.month)) {
+              Object.defineProperty(action.monthLong, region, {
+                value: DateTime.utc(
+                  2022, // year does not matter, this is just about converting month-number to month-name
+                  action.month[region][this.currentRainSeasonName],
+                  1,
+                ).monthLong,
+              });
+            }
+          } else {
+            action.month = null;
           }
-        } else {
-          action.month = null;
-        }
+        });
       });
-    });
+    }
     this.triggeredAreaSubject.next(this.triggeredAreas);
   };
 

@@ -126,7 +126,7 @@ export class EventController {
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiParam({ name: 'leadTime', required: true, type: 'string' })
+  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
@@ -134,7 +134,7 @@ export class EventController {
       'Triggered admin-areas for given country, disaster-type and lead-time.',
     type: [TriggeredArea],
   })
-  @Get('triggered-areas/:countryCodeISO3/:adminLevel/:disasterType/:leadTime')
+  @Get('triggered-areas/:countryCodeISO3/:adminLevel/:disasterType')
   public async getTriggeredAreas(
     @Param() params,
     @Query() query,
@@ -143,7 +143,7 @@ export class EventController {
       params.countryCodeISO3,
       params.disasterType,
       params.adminLevel,
-      params.leadTime,
+      query.leadTime,
       query.eventName,
     );
   }

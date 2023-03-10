@@ -140,7 +140,7 @@ export class TimelineService {
     }
     // and take first one of this set as active lead-time
     if (toShowTimeStepButtons.length > 0) {
-      this.handleTimeStepButtonClick(toShowTimeStepButtons[0].value);
+      this.handleTimeStepButtonClick(null, null);
     } // except if that leads to still empty set: assume this is the typhoon no-event scenario
     else if (toShowTimeStepButtons.length === 0) {
       this.handleTimeStepButtonClick(LeadTime.hour72, null, true);
@@ -201,9 +201,10 @@ export class TimelineService {
   ) {
     this.placeCodeService.clearPlaceCode();
     this.placeCodeService.clearPlaceCodeHover();
+
     this.state.activeLeadTime = timeStepButtonValue;
     this.state.timeStepButtons.forEach(this.deactivateLeadTimeButton);
-    this.state.timeStepButtons.find((btn) =>
+    const btnToActivate = this.state.timeStepButtons.find((btn) =>
       noEvent
         ? btn.value === timeStepButtonValue
         : eventName
@@ -211,7 +212,10 @@ export class TimelineService {
           !btn.disabled &&
           btn.eventName === eventName
         : btn.value === timeStepButtonValue && !btn.disabled,
-    ).active = true;
+    );
+    if (btnToActivate) {
+      btnToActivate.active = true;
+    }
 
     this.timelineStateSubject.next(this.state);
   }

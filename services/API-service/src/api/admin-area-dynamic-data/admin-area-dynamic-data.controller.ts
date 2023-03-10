@@ -56,9 +56,9 @@ export class AdminAreaDynamicDataController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiParam({ name: 'leadTime', required: true, type: 'string' })
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
@@ -66,7 +66,7 @@ export class AdminAreaDynamicDataController {
       'Dynamic admin-area data for given indicator, country, disaster-type and lead-time.',
     type: [AdminDataReturnDto],
   })
-  @Get(':countryCodeISO3/:adminLevel/:leadTime/:indicator/:disasterType')
+  @Get(':countryCodeISO3/:adminLevel/:indicator/:disasterType')
   public async getAdminAreaDynamicData(
     @Param() params,
     @Query() query,
@@ -74,9 +74,9 @@ export class AdminAreaDynamicDataController {
     return await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
       params.countryCodeISO3,
       params.adminLevel,
-      params.leadTime,
       params.indicator as DynamicIndicator,
       params.disasterType as DisasterType,
+      query.leadTime,
       query.eventName,
     );
   }

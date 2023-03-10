@@ -181,7 +181,8 @@ export class EventService {
       events[0] &&
       this.state.events.filter((e: EventSummary) => e.activeTrigger).length > 0;
     this.state.thresholdReached = events[0];
-    this.setEventInitially(events[0]);
+    // this.setEventInitially(events[0]);
+    this.setEventInitially(null);
 
     this.setAlertState();
   };
