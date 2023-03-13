@@ -210,7 +210,8 @@ export class EventService {
           months: Number(event.firstLeadTime.split('-')[0]),
         }).month;
         for (const season of Object.values(seasons[seasonRegion])) {
-          const seasonMonths = season['rainMonths'];
+          const rainMonthsKey = 'rainMonths';
+          const seasonMonths = season[rainMonthsKey];
           if (seasonMonths.includes(leadTimeMonth)) {
             const endMonth = seasonMonths[seasonMonths.length - 1];
             const duration = endMonth - leadTimeMonth + 1;
