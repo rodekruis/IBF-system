@@ -73,7 +73,7 @@ export class EventService {
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.resetState();
     this.disasterType = disasterType;
-    this.getTrigger();
+    this.getEvents();
   };
 
   public switchEvent(eventName: string) {
@@ -87,12 +87,16 @@ export class EventService {
 
   public setEventInitially(event: EventSummary) {
     this.state.event = event;
+    this.state.activeTrigger = this.setOverallActiveTrigger();
+    this.state.thresholdReached = this.setOverallThresholdReached();
     this.initialEventStateSubject.next(this.state);
     this.setAlertState();
   }
 
   public setEventManually(event: EventSummary) {
     this.state.event = event;
+    this.state.activeTrigger = this.setOverallActiveTrigger();
+    this.state.thresholdReached = this.setOverallThresholdReached();
     this.manualEventStateSubject.next(this.state);
     this.setAlertState();
   }
@@ -109,14 +113,14 @@ export class EventService {
     this.state = this.nullState;
   }
 
-  public getTrigger() {
+  public getEvents() {
     if (this.country && this.disasterType) {
       this.apiService
         .getEventsSummary(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
         )
-        .subscribe(this.onEvent);
+        .subscribe(this.onEvents);
     }
   }
 
@@ -141,7 +145,7 @@ export class EventService {
     callback(disasterType);
   };
 
-  private onEvent = (events) => {
+  private onEvents = (events) => {
     this.apiService
       .getRecentDates(
         this.country.countryCodeISO3,
@@ -176,13 +180,11 @@ export class EventService {
       }
     }
 
-    this.state.activeEvent = !!events[0];
-    this.state.activeTrigger =
-      events[0] &&
-      this.state.events.filter((e: EventSummary) => e.activeTrigger).length > 0;
-    this.state.thresholdReached = events[0];
-    // this.setEventInitially(events[0]);
-    this.setEventInitially(null);
+    if (events.length === 1) {
+      this.setEventInitially(events[0]);
+    } else {
+      this.setEventInitially(null);
+    }
 
     this.setAlertState();
   };
@@ -195,10 +197,7 @@ export class EventService {
   private setAlertState = () => {
     const dashboardElement = document.getElementById('ibf-dashboard-interface');
     if (dashboardElement) {
-      if (
-        this.state.event?.activeTrigger &&
-        this.state.event?.thresholdReached
-      ) {
+      if (this.state.activeTrigger && this.state.thresholdReached) {
         dashboardElement.classList.remove('no-alert');
         dashboardElement.classList.add('trigger-alert');
       } else {
@@ -234,4 +233,19 @@ export class EventService {
   }
 
   public isOldEvent = () => this.state.activeEvent && !this.state.activeTrigger;
+
+  private setOverallActiveTrigger() {
+    return (
+      this.state.event?.activeTrigger ||
+      this.state.events?.filter((e: EventSummary) => e.activeTrigger).length > 0
+    );
+  }
+
+  private setOverallThresholdReached() {
+    return (
+      this.state.event?.thresholdReached ||
+      this.state.events?.filter((e: EventSummary) => e.thresholdReached)
+        .length > 0
+    );
+  }
 }

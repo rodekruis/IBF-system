@@ -99,7 +99,16 @@ export class AdminAreaDynamicDataService {
         leadTime: uploadExposure.leadTime,
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
-        eventName: uploadExposure.eventName || IsNull(),
+        eventName: uploadExposure.eventName || IsNull(), // delete the given event-name ..
+        date: MoreThanOrEqual(firstDayOfMonth),
+      });
+      await this.adminAreaDynamicDataRepo.delete({
+        indicator: uploadExposure.dynamicIndicator,
+        countryCodeISO3: uploadExposure.countryCodeISO3,
+        leadTime: uploadExposure.leadTime,
+        adminLevel: uploadExposure.adminLevel,
+        disasterType: uploadExposure.disasterType,
+        eventName: IsNull(), // .. but also the empty event-names (TO DO: check this better!)
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else if (

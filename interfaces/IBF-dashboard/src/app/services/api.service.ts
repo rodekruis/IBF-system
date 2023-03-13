@@ -227,8 +227,8 @@ export class ApiService {
   getAggregatesData(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
-    leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
+    leadTime: string,
     eventName: string,
   ): Observable<any> {
     let params = new HttpParams();

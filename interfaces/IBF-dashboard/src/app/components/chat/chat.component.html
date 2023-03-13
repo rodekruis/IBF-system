@@ -29,7 +29,7 @@
 
   <!-- No event -->
   <app-dialogue-turn
-    *ngIf="!eventState?.activeEvent && !eventState?.activeTrigger"
+    *ngIf="!eventState?.activeTrigger"
     isConnected="true"
   >
     <p
@@ -48,7 +48,7 @@
     ></p>
   </app-dialogue-turn>
   <!-- Active event -->
-  <ng-container *ngIf="eventState?.activeEvent && eventState?.activeTrigger">
+  <ng-container *ngIf="eventState?.activeTrigger">
     <app-dialogue-turn
       *ngFor="let event of eventState?.events"
       [isTriggered]="event.thresholdReached"
@@ -70,7 +70,7 @@
                     timeUnit: event.timeUnit,
                     disasterTypeLabel: disasterTypeLabel,
                     firstLeadTimeDate: event.firstLeadTimeDate,
-                    eventName: event.eventName
+                    eventName: event.eventName || disasterTypeLabel
                   }
           "
         ></span>
@@ -133,7 +133,7 @@
   </app-dialogue-turn>
 
   <ng-container
-    *ngIf="eventState?.activeEvent && eventState?.event?.thresholdReached"
+    *ngIf="eventState?.event?.thresholdReached"
   >
     <ng-container *ngIf="eventState?.activeTrigger">
       <app-dialogue-turn

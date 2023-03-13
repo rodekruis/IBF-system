@@ -273,9 +273,19 @@ export class ScriptsService {
             droughtRegion,
             triggered,
           )) {
+            const eventName = this.getEventName(
+              disasterType,
+              eventNr,
+              typhoonScenario,
+              droughtRegion,
+              activeLeadTime,
+              selectedCountry,
+              date,
+              triggered,
+            );
             // Upload mock exposure data
             console.log(
-              `Seeding exposure for country: ${selectedCountry.countryCodeISO3} for disasterType: ${disasterType} for adminLevel: ${adminLevel} for leadtime: ${activeLeadTime} for unit: ${unit} `,
+              `Seeding exposure for country: ${selectedCountry.countryCodeISO3} for disasterType: ${disasterType} for adminLevel: ${adminLevel} for leadtime: ${activeLeadTime} for unit: ${unit} for eventName: ${eventName} `,
             );
             await this.adminAreaDynamicDataService.exposure({
               countryCodeISO3: selectedCountry.countryCodeISO3,
@@ -293,13 +303,7 @@ export class ScriptsService {
               dynamicIndicator: unit,
               adminLevel: adminLevel,
               disasterType: disasterType,
-              eventName: this.getEventName(
-                disasterType,
-                eventNr,
-                typhoonScenario,
-                droughtRegion,
-                activeLeadTime,
-              ),
+              eventName: eventName,
               date,
             });
           }
@@ -425,6 +429,9 @@ export class ScriptsService {
     typhoonScenario?: TyphoonScenario,
     droughtRegion?: string,
     leadTime?: LeadTime,
+    selectedCountry?: any,
+    date?: Date,
+    triggered?: boolean,
   ): string {
     if (disasterType === DisasterType.Typhoon) {
       if (typhoonScenario === TyphoonScenario.NoEvent) {
@@ -434,9 +441,25 @@ export class ScriptsService {
       }
     } else if (
       disasterType === DisasterType.Drought &&
-      droughtRegion !== this.nationalDroughtRegion
+      droughtRegion !== this.nationalDroughtRegion &&
+      triggered
     ) {
-      return `${droughtRegion}_${leadTime}`;
+      const seasons = selectedCountry.countryDisasterSettings.find(
+        s => s.disasterType === DisasterType.Drought,
+      ).droughtForecastSeasons[droughtRegion];
+      const {
+        currentYear,
+        currentUTCMonth,
+        leadTimeMonthFirstDay,
+      } = this.getCurrentMonthInfoDrought(leadTime, date, selectedCountry);
+
+      for (const seasonKey of Object.keys(seasons)) {
+        for (const month of seasons[seasonKey][this.rainMonthsKey]) {
+          if (month === leadTimeMonthFirstDay.getMonth() + 1) {
+            return `${droughtRegion}_${date.getFullYear()}_${seasonKey}`;
+          }
+        }
+      }
     } else {
       return null;
     }
@@ -508,15 +531,6 @@ export class ScriptsService {
     droughtRegion: string,
     triggered: boolean,
   ): boolean {
-    const {
-      currentYear,
-      currentUTCMonth,
-      leadTimeMonthFirstDay,
-    } = this.getCurrentMonthInfoDrought(
-      leadTime as LeadTime,
-      date,
-      selectedCountry,
-    );
     const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
     ).droughtForecastSeasons;
@@ -527,9 +541,8 @@ export class ScriptsService {
         useLeadTimeForMock = this.useLeadTimeForMock(
           forecastSeasonAreas[area],
           leadTime,
-          leadTimeMonthFirstDay,
-          currentUTCMonth,
-          currentYear,
+          date,
+          selectedCountry,
         );
         if (useLeadTimeForMock) break;
       }
@@ -540,12 +553,20 @@ export class ScriptsService {
   private useLeadTimeForMock(
     forecastSeasons,
     leadTime: string,
-    leadTimeMonthFirstDay: Date,
-    currentUTCMonth: number,
-    currentYear: number,
+    date: Date,
+    selectedCountry: any,
   ) {
-    // If current month is one of the months in the seasons, always use '0-month' and return early ..
+    const {
+      currentYear,
+      currentUTCMonth,
+      leadTimeMonthFirstDay,
+    } = this.getCurrentMonthInfoDrought(
+      leadTime as LeadTime,
+      date,
+      selectedCountry,
+    );
 
+    // If current month is one of the months in the seasons, always use '0-month' and return early ..
     if (leadTime === LeadTime.month0) {
       for (const season of Object.values(forecastSeasons)) {
         for (const month of season[this.rainMonthsKey]) {
@@ -645,10 +666,9 @@ export class ScriptsService {
       }
     } else if (disasterType === DisasterType.Drought && triggered) {
       if (Number(activeLeadTime.split('-')[0]) > 3) {
+        copyOfExposureUnit = [];
         // Hard-code lead-times of more then 3 months to non-trigger
-        for (const pcodeData of copyOfExposureUnit) {
-          pcodeData.amount = 0;
-        }
+        // TO DO: will this work in non-triggered?
       } else if (droughtRegion !== this.nationalDroughtRegion) {
         // Hard-code that only areas of right region are triggered per selected leadtime
         const areas = this.getDroughtAreasPerRegion(
@@ -714,35 +734,30 @@ export class ScriptsService {
         seasonMonth => seasonMonth >= currentUTCMonth + 1,
       );
       if (filteredSeason[0] === month) {
+        let placeCodes = [];
         switch (selectedCountry.countryCodeISO3) {
           case 'ETH':
             if (droughtRegion === 'Belg') {
-              triggeredAreas.find(a =>
-                ['ET0721'].includes(a.placeCode),
-              ).triggered = true;
+              placeCodes = ['ET0721'];
             } else if (droughtRegion === 'Northern') {
-              triggeredAreas.find(a =>
-                ['ET0201'].includes(a.placeCode),
-              ).triggered = true;
+              placeCodes = ['ET0201'];
             } else if (droughtRegion === 'Southern') {
-              triggeredAreas.find(a =>
-                ['ET0508'].includes(a.placeCode),
-              ).triggered = true;
+              placeCodes = ['ET0508'];
             }
             break;
           case 'UGA':
             if (droughtRegion === 'Western') {
-              triggeredAreas.find(a =>
-                ['21UGA004001', '21UGA004002'].includes(a.placeCode),
-              ).triggered = true;
+              placeCodes = ['21UGA004001', '21UGA004002'];
             } else if (droughtRegion === 'Northern') {
-              triggeredAreas.find(a =>
-                ['21UGA008003', '21UGA008004'].includes(a.placeCode),
-              ).triggered = true;
+              placeCodes = ['21UGA008003', '21UGA008004'];
             }
             break;
           default:
         }
+
+        triggeredAreas
+          .filter(a => placeCodes.includes(a.placeCode))
+          .forEach(a => (a.triggered = true));
       }
     }
     return triggeredAreas;

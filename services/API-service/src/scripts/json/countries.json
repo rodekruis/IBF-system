@@ -24,7 +24,7 @@
       },
       {
         "disasterType": "drought",
-        "adminLevels": [1, 2, 3, 4],
+        "adminLevels": [2],
         "defaultAdminLevel": 2,
         "activeLeadTimes": [
           "0-month",
@@ -42,17 +42,17 @@
         ],
         "droughtForecastSeasons": {
           "Northern": {
-            "firstSeason": {
+            "1": {
               "rainMonths": [4, 5, 6, 7, 8, 9, 10],
               "actionMonths": [2, 3, 4, 5, 6, 7, 8, 9, 10]
             }
           },
           "Western": {
-            "firstSeason": {
+            "1": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [1, 2, 3, 4, 5]
             },
-            "secondSeason": {
+            "2": {
               "rainMonths": [9, 10, 11],
               "actionMonths": [7, 8, 9, 10, 11]
             }
@@ -218,7 +218,7 @@
         ],
         "droughtForecastSeasons": {
           "National": {
-            "firstSeason": {
+            "1": {
               "rainMonths": [10, 11, 12, 1, 2, 3],
               "actionMonths": [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
             }
@@ -415,11 +415,11 @@
         ],
         "droughtForecastSeasons": {
           "National": {
-            "firstSeason": {
+            "1": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [12, 1, 2, 3, 4, 5]
             },
-            "secondSeason": {
+            "2": {
               "rainMonths": [10, 11, 12],
               "actionMonths": [6, 7, 8, 9, 10, 11, 12]
             }
@@ -523,31 +523,31 @@
         ],
         "droughtForecastSeasons": {
           "Belg": {
-            "firstSeason": {
+            "1": {
               "rainMonths": [2, 3, 4, 5],
               "actionMonths": [10, 11, 12, 1, 2, 3, 4, 5]
             },
-            "secondSeason": {
+            "2": {
               "rainMonths": [6, 7, 8, 9],
               "actionMonths": [5, 6, 7, 8, 9]
             }
           },
           "Northern": {
-            "firstSeason": {
+            "1": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [10, 11, 12, 1, 2, 3, 4, 5]
             },
-            "secondSeason": {
+            "2": {
               "rainMonths": [7, 8, 9],
               "actionMonths": [6, 7, 8, 9]
             }
           },
           "Southern": {
-            "firstSeason": {
+            "1": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [1, 2, 3, 4, 5]
             },
-            "secondSeason": {
+            "2": {
               "rainMonths": [10, 11, 12],
               "actionMonths": [6, 7, 8, 9, 10, 11, 12]
             }
@@ -957,7 +957,7 @@
         ],
         "droughtForecastSeasons": {
           "National": {
-            "firstSeason": {
+            "1": {
               "rainMonths": [4, 5, 6, 7, 8],
               "actionMonths": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8]
             }

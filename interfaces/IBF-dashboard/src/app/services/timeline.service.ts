@@ -140,7 +140,11 @@ export class TimelineService {
     }
     // and take first one of this set as active lead-time
     if (toShowTimeStepButtons.length > 0) {
-      this.handleTimeStepButtonClick(null, null);
+      if (this.eventState.events?.length > 1 && !this.eventState.event) {
+        this.handleTimeStepButtonClick(null, null);
+      } else {
+        this.handleTimeStepButtonClick(toShowTimeStepButtons[0].value);
+      }
     } // except if that leads to still empty set: assume this is the typhoon no-event scenario
     else if (toShowTimeStepButtons.length === 0) {
       this.handleTimeStepButtonClick(LeadTime.hour72, null, true);

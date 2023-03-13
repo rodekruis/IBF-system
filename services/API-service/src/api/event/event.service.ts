@@ -167,8 +167,15 @@ export class EventService {
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
-        eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
         date: MoreThanOrEqual(firstDayOfMonth),
+        eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(), // delete the given event-name ..
+      });
+      await this.triggerPerLeadTimeRepository.delete({
+        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
+        leadTime: selectedLeadTime.leadTime as LeadTime,
+        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
+        date: MoreThanOrEqual(firstDayOfMonth),
+        eventName: IsNull(), // .. but also the empty event-names (TO DO: check this better!)
       });
     } else if (
       leadTime.includes(LeadTimeUnit.hour) &&
