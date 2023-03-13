@@ -157,18 +157,40 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.setupChatText();
   };
 
+  private leadTimeToNumber(leadTime: string) {
+    return Number(leadTime?.split('-')[0]);
+  }
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-    this.eventState?.events?.sort((a, b) =>
-      a.disasterSpecificProperties?.typhoonNoLandfallYet
+    this.eventState?.events?.sort((a, b) => {
+      const aNoLandfallYet = a.disasterSpecificProperties?.typhoonNoLandfallYet
         ? 1
-        : Number(a.firstLeadTime?.split('-')[0]) >
-          Number(b.firstLeadTime?.split('-')[0])
+        : 0;
+      const bNoLandfallYet = b.disasterSpecificProperties?.typhoonNoLandfallYet
         ? 1
-        : a.startDate > b.startDate
-        ? 1
-        : -1,
-    );
+        : 0;
+      if (aNoLandfallYet !== bNoLandfallYet) {
+        return aNoLandfallYet - bNoLandfallYet;
+      } else if (
+        this.leadTimeToNumber(a.firstLeadTime) >
+        this.leadTimeToNumber(b.firstLeadTime)
+      ) {
+        return 1;
+      } else if (
+        this.leadTimeToNumber(a.firstLeadTime) ===
+        this.leadTimeToNumber(b.firstLeadTime)
+      ) {
+        if (a.startDate > b.startDate) {
+          return 1;
+        } else if (a.startDate === b.startDate) {
+          if (a.eventName > b.eventName) {
+            return 1;
+          }
+        }
+      } else {
+        return -1;
+      }
+    });
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {

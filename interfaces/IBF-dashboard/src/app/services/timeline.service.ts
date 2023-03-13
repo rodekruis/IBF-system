@@ -288,7 +288,17 @@ export class TimelineService {
         // add separate events with same lead-time, separately
         for (const event of this.eventState?.events
           .filter((e) => e.firstLeadTime === leadTime.leadTimeName)
-          .sort((a, b) => (a.eventName < b.eventName ? 1 : -1))) {
+          .sort((a, b) => {
+            if (a.startDate > b.startDate) {
+              return -1;
+            } else if (a.startDate === b.startDate) {
+              if (a.eventName > b.eventName) {
+                return -1;
+              }
+            } else {
+              return 1;
+            }
+          })) {
           visibleLeadTimes.push({
             leadTime: leadTime.leadTimeName,
             eventName: event.eventName,
