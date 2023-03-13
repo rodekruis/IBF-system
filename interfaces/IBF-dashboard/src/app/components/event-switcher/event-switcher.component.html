@@ -11,8 +11,9 @@
       size="small"
       (click)="switchEvent(event)"
       [innerHtml]="
-      'chat-component.' + disasterTypeName + '.event-switcher.current-event-message'
-        | translate
+        'chat-component.' +
+          disasterTypeName +
+          '.event-switcher.current-event-message' | translate
       "
     >
     </ion-button>
@@ -27,11 +28,13 @@
       size="small"
       (click)="switchEvent(event)"
       [innerHtml]="
-      'chat-component.' + disasterTypeName + '.event-switcher.switch-event-button'
-        | translate
-          : {
-              eventName: event.eventName
-            }
+        'chat-component.' +
+          disasterTypeName +
+          '.event-switcher.switch-event-button'
+          | translate
+            : {
+                eventName: event.eventName
+              }
       "
     >
     </ion-button>
