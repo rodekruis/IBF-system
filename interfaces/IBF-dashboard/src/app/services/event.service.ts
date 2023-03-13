@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { LeadTimeTriggerKey, LeadTimeUnit } from 'src/app/types/lead-time';
 import { Country, DisasterType } from '../models/country.model';
+import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { DisasterTypeService } from './disaster-type.service';
 
@@ -190,6 +191,9 @@ export class EventService {
 
     if (events.length === 1) {
       this.setEventInitially(events[0]);
+    } else if (this.disasterType.disasterType === DisasterTypeKey.typhoon) {
+      // exception: make typhoon still load 1st event by default
+      this.setEventInitially(events[0]);
     } else {
       this.setEventInitially(null);
     }
@@ -198,6 +202,9 @@ export class EventService {
   };
 
   private getEventDuration(event: EventSummary) {
+    if (this.disasterType.disasterType !== DisasterTypeKey.drought) {
+      return;
+    }
     const seasons = this.country.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType.disasterType,
     ).droughtForecastSeasons;

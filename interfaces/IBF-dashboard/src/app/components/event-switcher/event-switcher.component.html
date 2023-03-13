@@ -1,7 +1,18 @@
 <div *ngIf="multipleActiveEvents()">
+  <div *ngIf="event.eventName === selectedEventName && !showLessButton()">
+    <p>
+      <strong
+        [innerHtml]="
+          'chat-component.' +
+            disasterTypeName +
+            '.event-switcher.current-event-message' | translate
+        "
+      ></strong>
+    </p>
+  </div>
   <div class="containerDiv">
     <ion-button
-      *ngIf="event.eventName === selectedEventName"
+      *ngIf="event.eventName === selectedEventName && showLessButton()"
       class="ibf event-switch-button"
       [class.triggered]="event.thresholdReached"
       [class.selected]="event.eventName === selectedEventName"

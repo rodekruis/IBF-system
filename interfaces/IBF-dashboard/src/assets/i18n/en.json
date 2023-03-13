@@ -259,7 +259,7 @@
         "area": "The typhoon trigger warning for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       },
       "event-switcher": {
-        "current-event-message": "See less",
+        "current-event-message": "The portal is currently showing this event.",
         "switch-event-button": "Show {{eventName}}"
       }
     },

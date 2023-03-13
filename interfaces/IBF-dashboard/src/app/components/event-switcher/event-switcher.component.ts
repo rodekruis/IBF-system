@@ -6,6 +6,7 @@ import { TimelineState } from 'src/app/types/timeline-state';
 import { DisasterType } from '../../models/country.model';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { TimelineService } from '../../services/timeline.service';
+import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { LeadTime } from '../../types/lead-time';
 
 @Component({
@@ -94,6 +95,10 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
       }
     }
   };
+
+  public showLessButton() {
+    return this.disasterTypeName !== DisasterTypeKey.typhoon;
+  }
 
   public switchEvent(event: EventSummary): void {
     if (this.selectedEventName === event.eventName) {
