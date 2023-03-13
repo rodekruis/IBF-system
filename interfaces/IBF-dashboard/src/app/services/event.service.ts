@@ -85,7 +85,11 @@ export class EventService {
     this.setEventManually(event);
   }
 
-  public setEventInitially(event: EventSummary) {
+  public resetEvents() {
+    this.setEventInitially(null);
+  }
+
+  private setEventInitially(event: EventSummary) {
     this.state.event = event;
     this.state.activeTrigger = this.setOverallActiveTrigger();
     this.state.thresholdReached = this.setOverallThresholdReached();
@@ -111,6 +115,7 @@ export class EventService {
 
   private resetState() {
     this.state = this.nullState;
+    this.resetEvents();
   }
 
   public getEvents() {

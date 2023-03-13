@@ -61,14 +61,20 @@ export class TimelineService {
   }
 
   private onCountryChange = (country: Country) => {
-    this.triggersAllEvents = null;
+    this.resetState();
     this.country = country;
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
-    this.triggersAllEvents = null;
+    this.resetState();
     this.disasterType = disasterType;
   };
+
+  private resetState() {
+    this.triggersAllEvents = null;
+    this.eventState = null;
+    this.state = this.startingState;
+  }
 
   private onInitialEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;

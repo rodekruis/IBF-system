@@ -17,7 +17,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   public selectedEventName: string;
   public eventState: EventState;
   public timelineState: TimelineState;
-  public c;
+  public disasterTypeName: string;
 
   private disasterTypeSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
@@ -60,6 +60,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
+    this.selectedEventName = this.eventState?.event?.eventName;
   };
 
   public multipleActiveEvents() {
@@ -70,9 +71,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   }
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
-    if (disasterType?.disasterType) {
-      this.selectedEventName = this.eventState?.event?.eventName;
-    }
+    this.disasterTypeName = disasterType.disasterType;
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -97,6 +96,11 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   };
 
   public switchEvent(event: EventSummary): void {
+    if (this.selectedEventName === event.eventName) {
+      this.eventService.resetEvents();
+      return;
+    }
+
     this.selectedEventName = event.eventName;
 
     if (this.timelineState.timeStepButtons?.length) {
