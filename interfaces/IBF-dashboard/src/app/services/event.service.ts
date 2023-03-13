@@ -97,7 +97,7 @@ export class EventService {
     this.setAlertState();
   }
 
-  public setEventManually(event: EventSummary) {
+  private setEventManually(event: EventSummary) {
     this.state.event = event;
     this.state.activeTrigger = this.setOverallActiveTrigger();
     this.state.thresholdReached = this.setOverallThresholdReached();

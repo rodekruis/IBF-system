@@ -573,19 +573,37 @@ export class MapComponent implements OnDestroy {
       component: this.constructor.name,
     });
 
-    if (feature.properties.placeCode === this.placeCode) {
-      element.unbindPopup();
-      this.placeCode = null;
-      this.placeCodeService.clearPlaceCode();
-    } else {
-      this.bindPopupAdminRegions(feature, element);
-      this.placeCode = feature.properties.placeCode;
-      this.placeCodeService.setPlaceCode({
-        placeCode: feature.properties.placeCode,
-        countryCodeISO3: feature.properties.countryCodeISO3,
-        placeCodeName: feature.properties.name,
-        placeCodeParentName: feature.properties.nameParent,
-      });
+    // if click in overview-mode
+    if (!this.eventState.event) {
+      // go to event-mode, but don't set placeCode
+      if (feature.properties.eventName) {
+        const event = this.eventState?.events?.find(
+          (e) => e.eventName === feature.properties.eventName,
+        );
+        this.timelineService.handleTimeStepButtonClick(
+          event.firstLeadTime as LeadTime,
+          event.eventName,
+        );
+        // this.eventService.switchEvent(feature.properties.eventName); // TO DO: can this go?
+      }
+    } else if (this.eventState.event) {
+      // in in event-mode, then set placeCode
+      if (feature.properties.placeCode === this.placeCode) {
+        element.unbindPopup();
+        this.placeCode = null;
+        this.placeCodeService.clearPlaceCode();
+      } else {
+        this.bindPopupAdminRegions(feature, element);
+        this.placeCode = feature.properties.placeCode;
+        this.placeCodeService.setPlaceCode({
+          placeCode: feature.properties.placeCode,
+          countryCodeISO3: feature.properties.countryCodeISO3,
+          placeCodeName: feature.properties.name,
+          placeCodeParentName: feature.properties.nameParent,
+        });
+        if (feature.properties.eventName) {
+        }
+      }
     }
   };
 

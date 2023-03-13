@@ -337,6 +337,7 @@ export class AdminAreaService {
         'dynamic."leadTime"',
         'dynamic."date"',
         'parent.name AS "nameParent"',
+        'dynamic."eventName"',
       ])
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
