@@ -240,17 +240,16 @@ export class EventService {
   public isOldEvent = () => this.state.activeEvent && !this.state.activeTrigger;
 
   private setOverallActiveTrigger() {
-    return (
-      this.state.event?.activeTrigger ||
-      this.state.events?.filter((e: EventSummary) => e.activeTrigger).length > 0
-    );
+    return this.state.event
+      ? this.state.event.activeTrigger
+      : this.state.events?.filter((e: EventSummary) => e.activeTrigger).length >
+          0;
   }
 
   private setOverallThresholdReached() {
-    return (
-      this.state.event?.thresholdReached ||
-      this.state.events?.filter((e: EventSummary) => e.thresholdReached)
-        .length > 0
-    );
+    return this.state.event
+      ? this.state.event.thresholdReached
+      : this.state.events?.filter((e: EventSummary) => e.thresholdReached)
+          .length > 0;
   }
 }
