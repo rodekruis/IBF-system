@@ -28,10 +28,7 @@
   </app-dialogue-turn>
 
   <!-- No event -->
-  <app-dialogue-turn
-    *ngIf="!eventState?.activeTrigger"
-    isConnected="true"
-  >
+  <app-dialogue-turn *ngIf="!eventState?.activeTrigger" isConnected="true">
     <p
       [innerHTML]="
         'chat-component.' + disasterTypeName + '.no-event-no-trigger.welcome'
@@ -132,9 +129,7 @@
     ></p>
   </app-dialogue-turn>
 
-  <ng-container
-    *ngIf="eventState?.event?.thresholdReached"
-  >
+  <ng-container *ngIf="eventState?.event?.thresholdReached">
     <ng-container *ngIf="eventState?.activeTrigger">
       <app-dialogue-turn
         *ngIf="
