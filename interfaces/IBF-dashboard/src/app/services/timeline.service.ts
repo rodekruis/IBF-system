@@ -306,6 +306,7 @@ export class TimelineService {
             leadTime: leadTime.leadTimeName,
             eventName: event.eventName,
             undefined: false,
+            duration: event.duration,
           });
         }
       }
@@ -323,6 +324,7 @@ export class TimelineService {
         this.filterVisibleLeadTimePerDisasterType(
           this.disasterType,
           leadTime.leadTimeName,
+          visibleLeadTimes,
         )
       ) {
         visibleLeadTimes.push({
@@ -385,9 +387,24 @@ export class TimelineService {
   private filterVisibleLeadTimePerDisasterType(
     disasterType: DisasterType,
     leadTime: LeadTime,
+    activeLeadTimes: LeadTimeButtonInput[],
   ): boolean {
     if (disasterType.disasterType === DisasterTypeKey.drought) {
       if (this.checkRegionalDroughtSeason()) {
+        // hide months that are already covered in the duration of a preceding event/lead-time button
+        for (const activeLeadTime of activeLeadTimes) {
+          const startLeadTimeNumber = Number(
+            LeadTimeTriggerKey[activeLeadTime.leadTime],
+          );
+          const endLeadTimeNumber =
+            startLeadTimeNumber + activeLeadTime.duration;
+          if (
+            Number(LeadTimeTriggerKey[leadTime]) < endLeadTimeNumber &&
+            Number(LeadTimeTriggerKey[leadTime]) >= startLeadTimeNumber
+          ) {
+            return false;
+          }
+        }
         return true;
       }
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);
