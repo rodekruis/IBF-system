@@ -1,8 +1,5 @@
 <ion-row>
-  <div
-    *ngFor="let disasterType of disasterTypes"
-    class="disaster-type-button-container"
-  >
+  <div *ngFor="let disasterType of disasterTypes">
     <ion-icon
       (click)="switchDisasterType(disasterType)"
       class="disaster-type-button"
