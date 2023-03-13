@@ -154,7 +154,11 @@ export class ApiService {
     countryCodeISO3: string,
     eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`typhoon-track/${countryCodeISO3}/${eventName}`, false);
+    let params = new HttpParams();
+    if (eventName) {
+      params = params.append('eventName', eventName);
+    }
+    return this.get(`typhoon-track/${countryCodeISO3}`, false, params);
   }
 
   getPointData(

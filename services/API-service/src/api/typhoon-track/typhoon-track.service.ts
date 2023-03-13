@@ -114,7 +114,6 @@ export class TyphoonTrackService {
     const filters = {
       countryCodeISO3: countryCodeISO3,
       date: lastTriggeredDate.date,
-      eventName: eventName,
       timestamp: MoreThanOrEqual(
         this.helperService.getLast6hourInterval(
           DisasterType.Typhoon,
@@ -122,6 +121,9 @@ export class TyphoonTrackService {
         ),
       ),
     };
+    if (eventName) {
+      filters['eventName'] = eventName;
+    }
     return filters;
   }
 
