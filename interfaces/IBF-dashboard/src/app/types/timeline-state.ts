@@ -16,4 +16,5 @@ export class TimeStepButton {
   active: boolean;
   noEvent: boolean;
   eventName: string;
+  duration?: number;
 }

@@ -117,6 +117,9 @@ export class TimelineService {
       active: false,
       noEvent: this.isNoEvent(),
       eventName: leadTimeInput.eventName,
+      duration: this.eventState.events.find(
+        (e) => e.eventName === leadTimeInput.eventName,
+      )?.duration,
     };
   };
 

@@ -19,6 +19,7 @@ export class EventSummary {
   firstLeadTimeLabel?: string;
   firstLeadTimeDate?: string;
   timeUnit?: string;
+  duration?: number;
   disasterSpecificProperties: DisasterSpecificProperties;
 }
 
@@ -182,6 +183,8 @@ export class EventService {
         event.firstLeadTimeDate = event.firstLeadTime
           ? this.getFirstLeadTimeDate(event.firstLeadTime, event.timeUnit)
           : null;
+
+        event.duration = this.getEventDuration(event);
       }
     }
 
@@ -193,6 +196,30 @@ export class EventService {
 
     this.setAlertState();
   };
+
+  private getEventDuration(event: EventSummary) {
+    const seasons = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastSeasons;
+    for (const seasonRegion of Object.keys(seasons)) {
+      if (event.eventName?.includes(seasonRegion)) {
+        const leadTimeMonth = DateTime.fromFormat(
+          event.endDate,
+          'cccc, dd LLLL',
+        ).plus({
+          months: Number(event.firstLeadTime.split('-')[0]),
+        }).month;
+        for (const season of Object.values(seasons[seasonRegion])) {
+          const seasonMonths = season['rainMonths'];
+          if (seasonMonths.includes(leadTimeMonth)) {
+            const endMonth = seasonMonths[seasonMonths.length - 1];
+            const duration = endMonth - leadTimeMonth + 1;
+            return duration;
+          }
+        }
+      }
+    }
+  }
 
   private endDateToLastTriggerDate(endDate: string): string {
     const originalEndDate = DateTime.fromFormat(endDate, 'yyyy-LL-dd');
