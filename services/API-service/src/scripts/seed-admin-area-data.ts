@@ -61,8 +61,6 @@ export class SeedAdminAreaData implements InterfaceScript {
       const fileNames = [
         'flood_vulnerability_UGA.csv',
         'covid_risk_UGA.csv',
-        'ruminants_UGA.csv',
-        'cattle_UGA.csv',
         'drought_vulnerability_UGA.csv',
         'IPC_forecast_long_UGA.csv',
       ];
