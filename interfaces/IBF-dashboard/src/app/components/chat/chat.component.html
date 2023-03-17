@@ -29,9 +29,7 @@
 
   <!-- No event -->
   <app-event-speech-bubble
-    *ngIf="
-    !eventState?.activeTrigger
-      "
+    *ngIf="!eventState?.activeTrigger"
     [type]="'no-event'"
     [event]="null"
     [selectedEvent]="eventState?.event?.eventName"
@@ -46,19 +44,15 @@
     [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
   ></app-event-speech-bubble>
 
-
   <!-- Active event -->
   <ng-container *ngIf="eventState?.activeTrigger">
-    <ng-container
-      *ngFor="let event of eventState?.events"
-      >
-
+    <ng-container *ngFor="let event of eventState?.events">
       <app-event-speech-bubble
         *ngIf="
-            activeAreas.length &&
-            filteredStoppedAreas.length === 0 &&
-            filteredActiveAreas.length === 0
-          "
+          activeAreas.length &&
+          filteredStoppedAreas.length === 0 &&
+          filteredActiveAreas.length === 0
+        "
         [type]="'active'"
         [event]="event"
         [selectedEvent]="eventState?.event?.eventName"
@@ -75,10 +69,10 @@
 
       <app-event-speech-bubble
         *ngIf="
-            stoppedAreas.length &&
-            filteredStoppedAreas.length === 0 &&
-            filteredActiveAreas.length === 0
-          "
+          stoppedAreas.length &&
+          filteredStoppedAreas.length === 0 &&
+          filteredActiveAreas.length === 0
+        "
         [type]="'stopped'"
         [event]="event"
         [selectedEvent]="eventState?.event?.eventName"
@@ -92,16 +86,12 @@
         [actionIndicatorLabel]="actionIndicatorLabel"
         [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
       ></app-event-speech-bubble>
-
     </ng-container>
-
   </ng-container>
 
   <!-- Old event -->
   <app-event-speech-bubble
-    *ngIf="
-        eventService.isOldEvent()
-      "
+    *ngIf="eventService.isOldEvent()"
     [type]="'old'"
     [event]="eventState?.event"
     [selectedEvent]="eventState?.event?.eventName"

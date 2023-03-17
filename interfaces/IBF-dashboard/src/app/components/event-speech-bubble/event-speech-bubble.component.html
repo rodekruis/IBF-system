@@ -29,10 +29,6 @@
 
   <p *ngIf="typhoonLandfallText" [innerHTML]="typhoonLandfallText"></p>
 
-  <ng-container *ngIf="event">
-    <app-event-switcher [event]="event"></app-event-switcher>
-  </ng-container>
-
   <p *ngIf="forecastInfo && countryCodeISO3 === 'ZWE'">
     {{ forecastInfo }}
   </p>
@@ -83,6 +79,10 @@
       "
     ></p>
   </ng-container>
+
+  <ng-container *ngIf="event">
+    <app-event-switcher [event]="event"></app-event-switcher>
+  </ng-container>
 </app-dialogue-turn>
 
 <app-dialogue-turn
@@ -112,10 +112,6 @@
     {{ forecastInfo }}
   </p>
 
-  <ng-container *ngIf="event">
-    <app-event-switcher [event]="event"></app-event-switcher>
-  </ng-container>
-
   <p *ngIf="forecastInfo && countryCodeISO3 === 'ZWE'">
     {{ forecastInfo }}
   </p>
@@ -129,52 +125,53 @@
   <!-- =================================== -->
 
   <ng-container *ngIf="event.eventName === selectedEvent">
+    <p
+      [innerHTML]="
+        'chat-component.' + disasterTypeName + '.stopped-event.overview'
+          | translate
+            : {
+                nrStoppedAreas: areas.length,
+                adminAreaLabelPlural: adminAreaLabelPlural,
+                eventName: selectedEvent,
+                actionIndicator: actionIndicatorLabel
+              }
+      "
+    ></p>
+    <ul>
+      <li
+        *ngFor="let area of areas"
+        class="clickable-area"
+        (click)="selectArea(area)"
+      >
+        <p>
+          {{ area.name }}
+          <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
+          <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
+            area.actionsValue | number: '.0-0'
+          }}</span
+          ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
+            area.actionsValue | percent: '.0-0'
+          }}</span>
+        </p>
+      </li>
+    </ul>
+    <p
+      [translate]="
+        'chat-component.' + disasterTypeName + '.stopped-event.instruction'
+          | translate
+      "
+    ></p>
+  </ng-container>
 
-      <p
-        [innerHTML]="
-          'chat-component.' + disasterTypeName + '.stopped-event.overview'
-            | translate
-              : {
-                  nrStoppedAreas: areas.length,
-                  adminAreaLabelPlural: adminAreaLabelPlural,
-                  eventName: selectedEvent,
-                  actionIndicator: actionIndicatorLabel
-                }
-        "
-      ></p>
-      <ul>
-        <li
-          *ngFor="let area of areas"
-          class="clickable-area"
-          (click)="selectArea(area)"
-        >
-          <p>
-            {{ area.name }}
-            <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
-            <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
-              area.actionsValue | number: '.0-0'
-            }}</span
-            ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
-              area.actionsValue | percent: '.0-0'
-            }}</span>
-          </p>
-        </li>
-      </ul>
-      <p
-        [translate]="
-          'chat-component.' + disasterTypeName + '.stopped-event.instruction'
-            | translate
-        "
-      ></p>
-    </ng-container>
+  <ng-container *ngIf="event">
+    <app-event-switcher [event]="event"></app-event-switcher>
+  </ng-container>
 </app-dialogue-turn>
 
 <app-dialogue-turn *ngIf="type === 'old'" isConnected="true">
   <p
     [innerHTML]="
-      'chat-component.' +
-        disasterTypeName +
-        '.active-event-no-trigger.welcome'
+      'chat-component.' + disasterTypeName + '.active-event-no-trigger.welcome'
         | translate
           : {
               name: displayName,

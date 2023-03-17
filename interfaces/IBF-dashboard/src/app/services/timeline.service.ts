@@ -343,7 +343,7 @@ export class TimelineService {
       for (const event of undefinedLeadTimeEvents) {
         visibleLeadTimes.push({
           leadTime: event.firstLeadTime as LeadTime,
-          eventName: null,
+          eventName: event.eventName,
           undefined: true,
         });
       }
