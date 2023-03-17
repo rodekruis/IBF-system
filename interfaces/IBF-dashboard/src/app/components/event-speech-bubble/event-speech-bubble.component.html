@@ -3,7 +3,7 @@
   isConnected="true"
   [isTriggered]="event.thresholdReached"
   [isNotTriggered]="!event.thresholdReached"
-  [isSelected]="event.eventName === selectedEvent"
+  [isSelected]="eventBubbleIsSelected(event.eventName)"
   isConnected="true"
 >
   <p *ngIf="event.activeTrigger && event.thresholdReached">

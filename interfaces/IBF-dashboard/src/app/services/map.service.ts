@@ -471,7 +471,10 @@ export class MapService {
     active: boolean,
     leadTime?: LeadTime,
   ) {
-    if (this.country) {
+    const events = this.eventState.event
+      ? [this.eventState.event]
+      : this.eventState.events;
+    for (const event of events) {
       this.addLayer({
         name: layer.name,
         label: layer.label,
@@ -485,9 +488,9 @@ export class MapService {
         order: 10,
         wms: {
           url: environment.geoserverUrl,
-          name: `ibf-system:${layer.name}_${leadTime ? leadTime + '_' : ''}${
-            this.country.countryCodeISO3
-          }`,
+          name: `ibf-system:${layer.name}_${
+            leadTime && event.firstLeadTime ? event.firstLeadTime + '_' : ''
+          }${this.country.countryCodeISO3}`,
           format: 'image/png',
           version: '1.1.0',
           attribution: '510 Global',

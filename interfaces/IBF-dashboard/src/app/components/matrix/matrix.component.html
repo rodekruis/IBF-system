@@ -66,11 +66,14 @@
               [class.health-layer]="
                 layer.name === IbfLayerName.healthSites && layer.active
               "
+              [class.evacuation-center-layer]="
+                layer.name === IbfLayerName.evacuationCenters && layer.active
+              "
               [class.outline-layer]="
                 layer.name === IbfLayerName.alertThreshold && layer.active
               "
-              [class.evacuation-center-layer]="
-                layer.name === IbfLayerName.evacuationCenters && layer.active
+              [class.aggregate-layer]="
+                layer.group === IbfLayerGroup.aggregates && layer.active
               "
               [style.background]="
                 layer.active

@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
-import { EventSummary } from '../../services/event.service';
+import { PlaceCode } from '../../models/place-code.model';
+import { EventService, EventSummary } from '../../services/event.service';
 import { PlaceCodeService } from '../../services/place-code.service';
+import { TimelineService } from '../../services/timeline.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { TriggeredArea } from '../../types/triggered-area';
 
@@ -54,15 +57,29 @@ export class EventSpeechBubbleComponent implements OnInit {
 
   public isStopped: boolean;
 
+  private placeCodeHoverSubscription: Subscription;
+  public placeCodeHover: PlaceCode;
+
   constructor(
     private authService: AuthService,
     private placeCodeService: PlaceCodeService,
+    private eventService: EventService,
+    private timelineService: TimelineService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
     if (this.authService.displayName) {
       this.displayName = this.authService.displayName;
     }
+
+    this.placeCodeHoverSubscription = this.placeCodeService
+      .getPlaceCodeHoverSubscription()
+      .subscribe(this.onPlaceCodeHoverChange);
+  }
+
+  ngOnDestroy() {
+    this.placeCodeHoverSubscription.unsubscribe();
   }
 
   public selectArea(area) {
@@ -72,5 +89,35 @@ export class EventSpeechBubbleComponent implements OnInit {
       placeCode: area.placeCode,
       placeCodeParentName: area.nameParent,
     });
+  }
+
+  private onPlaceCodeHoverChange = (placeCodeHover: PlaceCode) => {
+    this.placeCodeHover = placeCodeHover;
+    if (!this.eventService.state?.event) {
+      if (this.placeCodeHover) {
+        const btn = this.timelineService.state?.timeStepButtons?.find(
+          (t) => t.eventName === this.placeCodeHover.eventName,
+        );
+        if (btn) {
+          btn.active = true;
+        }
+
+        this.changeDetectorRef.detectChanges();
+      } else {
+        if (this.timelineService.state?.timeStepButtons) {
+          for (const btn of this.timelineService.state.timeStepButtons) {
+            btn.active = false;
+          }
+          this.changeDetectorRef.detectChanges();
+        }
+      }
+    }
+  };
+
+  public eventBubbleIsSelected(eventName: string) {
+    return (
+      eventName === this.eventService.state?.event?.eventName ||
+      eventName === this.placeCodeHover?.eventName
+    );
   }
 }
