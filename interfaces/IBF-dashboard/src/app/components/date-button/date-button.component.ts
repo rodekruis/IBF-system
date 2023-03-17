@@ -74,7 +74,6 @@ export class DateButtonComponent implements OnInit, OnDestroy {
       ? this.date.toFormat(this.monthFormat)
       : 'Undetermined';
 
-    console.log('this.duration: ', this.duration);
     // TO DO: remove this. Put in for now just to be able to distinguish timeline-buttons per event.
     if (this.eventName && this.duration && this.unit === LeadTimeUnit.month) {
       this.displayHour = `Duration ${this.duration} months`;

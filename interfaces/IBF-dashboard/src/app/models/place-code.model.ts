@@ -3,4 +3,5 @@ export class PlaceCode {
   placeCode: string;
   placeCodeName: string;
   placeCodeParentName: string;
+  eventName?: string;
 }

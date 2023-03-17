@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -9,6 +9,8 @@ import { EventService } from 'src/app/services/event.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
+import { PlaceCode } from '../../models/place-code.model';
+import { PlaceCodeService } from '../../services/place-code.service';
 
 @Component({
   selector: 'app-timeline',
@@ -17,20 +19,32 @@ import { TimelineState } from 'src/app/types/timeline-state';
 })
 export class TimelineComponent implements OnInit, OnDestroy {
   private timelineStateSubscription: Subscription;
+  private placeCodeHoverSubscription: Subscription;
+
   public timelineState: TimelineState;
+  public placeCodeHover: PlaceCode;
 
   constructor(
     public timelineService: TimelineService,
     private analyticsService: AnalyticsService,
     private eventService: EventService,
+    private placeCodeService: PlaceCodeService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
+
   ngOnInit(): void {
     this.timelineStateSubscription = this.timelineService
       .getTimelineStateSubscription()
       .subscribe(this.onTimelineStateChange);
+
+    this.placeCodeHoverSubscription = this.placeCodeService
+      .getPlaceCodeHoverSubscription()
+      .subscribe(this.onPlaceCodeHoverChange);
   }
+
   ngOnDestroy(): void {
     this.timelineStateSubscription.unsubscribe();
+    this.placeCodeHoverSubscription.unsubscribe();
   }
 
   handleTimeStepButtonClick(leadTime: LeadTime, eventName: string) {
@@ -61,5 +75,28 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
+  };
+
+  private onPlaceCodeHoverChange = (placeCode: PlaceCode) => {
+    this.placeCodeHover = placeCode;
+    if (!this.eventService.state.event) {
+      if (this.placeCodeHover) {
+        const btn = this.timelineState?.timeStepButtons?.find(
+          (t) => t.eventName === placeCode.eventName,
+        );
+        if (btn) {
+          btn.active = true;
+        }
+
+        this.changeDetectorRef.detectChanges();
+      } else {
+        if (this.timelineState?.timeStepButtons) {
+          for (const btn of this.timelineState.timeStepButtons) {
+            btn.active = false;
+          }
+          this.changeDetectorRef.detectChanges();
+        }
+      }
+    }
   };
 }

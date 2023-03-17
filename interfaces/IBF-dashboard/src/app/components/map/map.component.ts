@@ -558,6 +558,7 @@ export class MapComponent implements OnDestroy {
       placeCode: feature.properties.placeCode,
       placeCodeName: feature.properties.name,
       placeCodeParentName: feature.properties.nameParent,
+      eventName: feature.properties.eventName,
     });
   };
 
