@@ -92,13 +92,20 @@
             <div style="margin-left: 8px">
               <app-disaster-type></app-disaster-type>
             </div>
-            <div style="margin-left: 8px">
-              <ion-text style="font-size: 16px"
+            <div
+              style="
+                margin-left: 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+              "
+            >
+              <ion-text style="font-size: 18px"
                 ><strong>{{
                   getJSDate((timelineState | async).today) | date: 'd LLL y'
                 }}</strong></ion-text
-              ><br />
-              <ion-text style="font-size: 11px">{{
+              >
+              <ion-text style="font-size: 12px">{{
                 getJSDate((timelineState | async).today) | date: 'EEEE, H:mm z'
               }}</ion-text>
             </div>
