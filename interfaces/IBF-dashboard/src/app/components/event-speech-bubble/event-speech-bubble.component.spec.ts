@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { EventSpeechBubbleComponent } from './event-speech-bubble.component';
 
@@ -10,7 +12,11 @@ describe('EventSpeechBubbleComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [EventSpeechBubbleComponent],
-        imports: [IonicModule.forRoot()],
+        imports: [
+          IonicModule.forRoot(),
+          HttpClientTestingModule,
+          RouterTestingModule,
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(EventSpeechBubbleComponent);
