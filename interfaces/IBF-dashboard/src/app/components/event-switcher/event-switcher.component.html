@@ -1,5 +1,6 @@
 <div *ngIf="multipleActiveEvents()">
   <div *ngIf="event?.eventName === selectedEventName && !showLessButton()">
+    <br/>
     <p>
       <strong
         [innerHtml]="
@@ -13,41 +14,45 @@
   <div class="containerDiv">
     <ion-button
       *ngIf="event?.eventName === selectedEventName && showLessButton()"
-      class="ibf event-switch-button"
-      [class.triggered]="event?.thresholdReached"
+      class="ibf"
       [class.selected]="event?.eventName === selectedEventName"
       shape="block"
       slot="start"
       [color]="getColor(event)"
       size="small"
       (click)="switchEvent(event)"
-      [innerHtml]="
-        'chat-component.' +
-          disasterTypeName +
-          '.event-switcher.current-event-message' | translate
-      "
     >
+      <span
+        [innerHtml]="
+          'chat-component.' +
+            disasterTypeName +
+            '.event-switcher.current-event-message' | translate
+        "
+      ></span>
+      <ion-icon name="arrow-back" slot="start"></ion-icon>
     </ion-button>
     <ion-button
       *ngIf="event?.eventName !== selectedEventName"
       class="ibf event-switch-button"
-      [class.triggered]="event?.thresholdReached"
       [class.selected]="event?.eventName === selectedEventName"
       shape="block"
       slot="start"
       [color]="getColor(event)"
       size="small"
       (click)="switchEvent(event)"
-      [innerHtml]="
-        'chat-component.' +
-          disasterTypeName +
-          '.event-switcher.switch-event-button'
-          | translate
-            : {
-                eventName: event?.eventName
-              }
-      "
     >
+      <span
+        [innerHtml]="
+          'chat-component.' +
+            disasterTypeName +
+            '.event-switcher.switch-event-button'
+            | translate
+              : {
+                  eventName: event?.eventName
+                }
+        "
+      ></span>
+      <ion-icon name="arrow-forward" slot="end"></ion-icon>
     </ion-button>
   </div>
 </div>

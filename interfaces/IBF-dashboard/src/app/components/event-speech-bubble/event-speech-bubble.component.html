@@ -6,7 +6,7 @@
   [isSelected]="eventBubbleIsSelected(event.eventName)"
   isConnected="true"
 >
-  <p *ngIf="event.activeTrigger && event.thresholdReached">
+  <p *ngIf="event.activeTrigger">
     <span
       [innerHTML]="
         'chat-component.' +

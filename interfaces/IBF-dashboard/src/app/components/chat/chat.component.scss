@@ -21,22 +21,8 @@ ion-content {
   }
 }
 
-.action-label {
-  font-size: small;
-}
-
-.clear-out-message {
-  color: var(--ion-color-danger);
-  font-weight: bold;
-}
 
 ion-checkbox {
   margin-inline-end: 8px !important;
 }
 
-.clickable-area {
-  :hover {
-    font-weight: bold;
-    cursor: pointer;
-  }
-}

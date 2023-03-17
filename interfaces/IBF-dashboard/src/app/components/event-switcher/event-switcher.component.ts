@@ -121,7 +121,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
 
   public getColor(event: EventSummary): string {
     return event.thresholdReached
-      ? 'ibf-trigger-alert-secondary'
-      : 'ibf-no-alert-secondary';
+      ? 'ibf-trigger-alert-primary'
+      : 'ibf-no-alert-primary';
   }
 }
