@@ -52,7 +52,10 @@
 </ion-menu>
 
 <div id="ibf-dashboard-interface" class="ibf-dashboard-interface">
-  <ion-header class="ion-no-border">
+  <ion-header
+    class="ion-no-border"
+    style="border-bottom: 1px solid var(--ion-color-ibf-no-alert-primary)"
+  >
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-button title="Home" [class.ion-hide]="isDev || isMultiCountry">
@@ -83,43 +86,22 @@
           class="ibf-dashboard-left-column ion-no-padding"
         >
           <ion-row
-            class="component-title ion-justify-content-start ion-align-items-start"
+            class="component-title ion-justify-content-start ion-align-items-center"
             data-test="dashboard-title"
           >
-            <ion-col class="ion-no-padding" class="shadow">
-              <ion-item
-                lines="none"
-                class="component-title-item"
-                color="ibf-white"
-              >
-                <ion-button
-                  slot="start"
-                  class="ion-no-margin ion-no-padding"
-                  color="ibf-white"
-                >
-                  <app-disaster-type></app-disaster-type>
-                </ion-button>
-                <ion-button
-                  slot="end"
-                  class="today-button ion-no-margin"
-                  [disabled]="true"
-                  color="ibf-white"
-                >
-                  <span
-                    class="today"
-                    [translate]="'dashboard-page.today'"
-                  ></span>
-                </ion-button>
-                <ion-button
-                  slot="end"
-                  class="today-date-button ion-no-margin ion-no-padding"
-                  [disabled]="true"
-                  color="ibf-primary"
-                >
-                  <app-date-button [todayButton]="true"></app-date-button>
-                </ion-button>
-              </ion-item>
-            </ion-col>
+            <div style="margin-left: 8px">
+              <app-disaster-type></app-disaster-type>
+            </div>
+            <div style="margin-left: 8px">
+              <ion-text style="font-size: 16px"
+                ><strong>{{
+                  getJSDate((timelineState | async).today) | date: 'd LLL y'
+                }}</strong></ion-text
+              ><br />
+              <ion-text style="font-size: 11px">{{
+                getJSDate((timelineState | async).today) | date: 'EEEE, H:mm z'
+              }}</ion-text>
+            </div>
           </ion-row>
           <ion-row class="component-content">
             <ion-col class="ion-no-padding">

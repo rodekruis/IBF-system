@@ -46,7 +46,6 @@
         "alert-error-no-secret": "Reset secret cannot be empty."
       }
     },
-    "today": "TODAY",
     "triggered-message": {
       "eap": { "yes": "TRIGGERED", "no": "NON-TRIGGERED" },
       "no-eap": { "yes": "ALERT", "no": "NO ALERTS" }
