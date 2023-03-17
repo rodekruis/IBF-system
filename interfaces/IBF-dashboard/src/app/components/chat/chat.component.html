@@ -28,202 +28,96 @@
   </app-dialogue-turn>
 
   <!-- No event -->
-  <app-dialogue-turn *ngIf="!eventState?.activeTrigger" isConnected="true">
-    <p
-      [innerHTML]="
-        'chat-component.' + disasterTypeName + '.no-event-no-trigger.welcome'
-          | translate
-            : {
-                name: authService.displayName
-              }
+  <app-event-speech-bubble
+    *ngIf="
+    !eventState?.activeTrigger
       "
-    ></p>
-    <p
-      class="clear-out-message"
-      *ngIf="!!clearOutMessage"
-      [innerHTML]="clearOutMessage"
-    ></p>
-  </app-dialogue-turn>
+    [type]="'no-event'"
+    [event]="null"
+    [selectedEvent]="eventState?.event?.eventName"
+    [disasterTypeLabel]="disasterType.label"
+    [disasterTypeName]="disasterType.disasterType"
+    [typhoonLandfallText]="showTyphoonLandfallText(null)"
+    [clearOutMessage]="clearOutMessage"
+    [countryCodeISO3]="country?.countryCodeISO3"
+    [areas]="stoppedAreas"
+    [adminAreaLabelPlural]="adminAreaLabelPlural"
+    [actionIndicatorLabel]="actionIndicatorLabel"
+    [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+  ></app-event-speech-bubble>
+
+
   <!-- Active event -->
   <ng-container *ngIf="eventState?.activeTrigger">
-    <app-dialogue-turn
+    <ng-container
       *ngFor="let event of eventState?.events"
-      [isTriggered]="event.thresholdReached"
-      [isNotTriggered]="!event.thresholdReached"
-      [isSelected]="event.eventName === eventState?.event?.eventName"
-      isConnected="true"
-    >
-      <p *ngIf="event.activeTrigger && event.thresholdReached">
-        <span
-          [innerHTML]="
-            'chat-component.' +
-              disasterTypeName +
-              '.active-event-active-trigger.welcome'
-              | translate
-                : {
-                    name: authService.displayName,
-                    startDate: event.startDate,
-                    leadTime: event.firstLeadTimeLabel,
-                    timeUnit: event.timeUnit,
-                    disasterTypeLabel: disasterTypeLabel,
-                    firstLeadTimeDate: event.firstLeadTimeDate,
-                    eventName: event.eventName || disasterTypeLabel,
-                    duration: event.duration
-                  }
+      >
+
+      <app-event-speech-bubble
+        *ngIf="
+            activeAreas.length &&
+            filteredStoppedAreas.length === 0 &&
+            filteredActiveAreas.length === 0
           "
-        ></span>
-      </p>
+        [type]="'active'"
+        [event]="event"
+        [selectedEvent]="eventState?.event?.eventName"
+        [disasterTypeLabel]="disasterType.label"
+        [disasterTypeName]="disasterType.disasterType"
+        [typhoonLandfallText]="showTyphoonLandfallText(event)"
+        [clearOutMessage]="clearOutMessage"
+        [countryCodeISO3]="country?.countryCodeISO3"
+        [areas]="activeAreas"
+        [adminAreaLabelPlural]="adminAreaLabelPlural"
+        [actionIndicatorLabel]="actionIndicatorLabel"
+        [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+      ></app-event-speech-bubble>
 
-      <p
-        *ngIf="event.activeTrigger && !event.thresholdReached"
-        [innerHTML]="
-          'chat-component.' +
-            disasterTypeName +
-            '.active-event-active-trigger.welcome-below-trigger'
-            | translate
-              : {
-                  startDate: event.startDate,
-                  firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName: event.eventName
-                }
-        "
-      ></p>
+      <app-event-speech-bubble
+        *ngIf="
+            stoppedAreas.length &&
+            filteredStoppedAreas.length === 0 &&
+            filteredActiveAreas.length === 0
+          "
+        [type]="'stopped'"
+        [event]="event"
+        [selectedEvent]="eventState?.event?.eventName"
+        [disasterTypeLabel]="disasterType.label"
+        [disasterTypeName]="disasterType.disasterType"
+        [typhoonLandfallText]="showTyphoonLandfallText(event)"
+        [clearOutMessage]="clearOutMessage"
+        [countryCodeISO3]="country?.countryCodeISO3"
+        [areas]="stoppedAreas"
+        [adminAreaLabelPlural]="adminAreaLabelPlural"
+        [actionIndicatorLabel]="actionIndicatorLabel"
+        [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+      ></app-event-speech-bubble>
 
-      <p
-        *ngIf="showTyphoonLandfallText(event)"
-        [innerHTML]="showTyphoonLandfallText(event)"
-      ></p>
+    </ng-container>
 
-      <app-event-switcher [event]="event"></app-event-switcher>
-
-      <p *ngIf="forecastInfo && country?.countryCodeISO3 === 'ZWE'">
-        {{ forecastInfo }}
-      </p>
-
-      <p
-        class="clear-out-message"
-        *ngIf="!!clearOutMessage"
-        [innerHTML]="clearOutMessage"
-      ></p>
-    </app-dialogue-turn>
   </ng-container>
+
   <!-- Old event -->
-  <app-dialogue-turn *ngIf="eventService.isOldEvent()" isConnected="true">
-    <p
-      [innerHTML]="
-        'chat-component.' +
-          disasterTypeName +
-          '.active-event-no-trigger.welcome'
-          | translate
-            : {
-                name: authService.displayName,
-                startDate: eventState?.event.startDate,
-                endDate: eventState?.event.endDate,
-                eventName: eventState?.event.eventName
-              }
+  <app-event-speech-bubble
+    *ngIf="
+        eventService.isOldEvent()
       "
-    ></p>
-    <p
-      class="clear-out-message"
-      *ngIf="!!clearOutMessage"
-      [innerHTML]="clearOutMessage"
-    ></p>
-  </app-dialogue-turn>
+    [type]="'old'"
+    [event]="eventState?.event"
+    [selectedEvent]="eventState?.event?.eventName"
+    [disasterTypeLabel]="disasterType.label"
+    [disasterTypeName]="disasterType.disasterType"
+    [typhoonLandfallText]="showTyphoonLandfallText(eventState?.event)"
+    [clearOutMessage]="clearOutMessage"
+    [countryCodeISO3]="country?.countryCodeISO3"
+    [areas]="stoppedAreas"
+    [adminAreaLabelPlural]="adminAreaLabelPlural"
+    [actionIndicatorLabel]="actionIndicatorLabel"
+    [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+  ></app-event-speech-bubble>
 
   <ng-container *ngIf="eventState?.event?.thresholdReached">
     <ng-container *ngIf="eventState?.activeTrigger">
-      <app-dialogue-turn
-        *ngIf="
-          activeAreas.length &&
-          filteredStoppedAreas.length === 0 &&
-          filteredActiveAreas.length === 0
-        "
-        isConnected="true"
-        [isTriggered]="true"
-      >
-        <p
-          [innerHTML]="
-            'chat-component.' + disasterTypeName + '.active-event.overview'
-              | translate
-                : {
-                    nrTriggeredAreas: activeAreas.length,
-                    adminAreaLabelPlural: adminAreaLabelPlural,
-                    eventName: eventState?.event?.eventName,
-                    actionIndicator: actionIndicatorLabel
-                  }
-          "
-        ></p>
-        <ul>
-          <li
-            *ngFor="let area of activeAreas"
-            class="clickable-area"
-            (click)="selectArea(area)"
-          >
-            <p>
-              {{ area.name }}
-              <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
-              <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
-                area.actionsValue | number: '.0-0'
-              }}</span
-              ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
-                area.actionsValue | percent: '.0-0'
-              }}</span>
-            </p>
-          </li>
-        </ul>
-        <p
-          [translate]="
-            'chat-component.' + disasterTypeName + '.active-event.instruction'
-              | translate
-          "
-        ></p>
-      </app-dialogue-turn>
-      <app-dialogue-turn
-        *ngIf="
-          stoppedAreas.length &&
-          filteredStoppedAreas.length === 0 &&
-          filteredActiveAreas.length === 0
-        "
-        isConnected="true"
-        [isStopped]="true"
-      >
-        <p
-          [innerHTML]="
-            'chat-component.' + disasterTypeName + '.stopped-event.overview'
-              | translate
-                : {
-                    nrStoppedAreas: stoppedAreas.length,
-                    adminAreaLabelPlural: adminAreaLabelPlural,
-                    eventName: eventState?.event?.eventName,
-                    actionIndicator: actionIndicatorLabel
-                  }
-          "
-        ></p>
-        <ul>
-          <li
-            *ngFor="let area of stoppedAreas"
-            class="clickable-area"
-            (click)="selectArea(area)"
-          >
-            <p>
-              {{ area.name }}
-              <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
-              <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
-                area.actionsValue | number: '.0-0'
-              }}</span
-              ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
-                area.actionsValue | percent: '.0-0'
-              }}</span>
-            </p>
-          </li>
-        </ul>
-        <p
-          [translate]="
-            'chat-component.' + disasterTypeName + '.stopped-event.instruction'
-              | translate
-          "
-        ></p>
-      </app-dialogue-turn>
       <app-dialogue-turn
         *ngFor="let area of filteredStoppedAreas; first as isFirst"
         [isConnected]="true"
