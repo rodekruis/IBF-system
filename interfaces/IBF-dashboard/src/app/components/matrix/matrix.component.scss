@@ -62,6 +62,12 @@
               border: solid;
               border-color: var(--ion-color-ibf-outline-red) !important;
               border-width: 3px !important;
+              background: #2c3136;
+            }
+            .aggregate-layer {
+              background-image: url('../../../assets/icons/Legend_aggregate_layer.svg');
+              background-position: center center;
+              background-origin: content-box;
             }
 
             .layer-control-label-col {
