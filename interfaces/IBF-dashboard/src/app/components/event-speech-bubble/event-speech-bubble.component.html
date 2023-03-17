@@ -57,7 +57,8 @@
   <!-- =================================== -->
 
   <ng-container *ngIf="event.eventName === selectedEvent">
-    <p *ngIf="type === 'active'"
+    <p
+      *ngIf="type === 'active'"
       [innerHTML]="
         'chat-component.' + disasterTypeName + '.active-event.overview'
           | translate
@@ -69,7 +70,8 @@
               }
       "
     ></p>
-    <p  *ngIf="type === 'stopped'"
+    <p
+      *ngIf="type === 'stopped'"
       [innerHTML]="
         'chat-component.' + disasterTypeName + '.stopped-event.overview'
           | translate
@@ -99,13 +101,15 @@
         </p>
       </li>
     </ul>
-    <p *ngIf="type === 'active'"
+    <p
+      *ngIf="type === 'active'"
       [translate]="
         'chat-component.' + disasterTypeName + '.active-event.instruction'
           | translate
       "
     ></p>
-    <p *ngIf="type === 'stopped'"
+    <p
+      *ngIf="type === 'stopped'"
       [translate]="
         'chat-component.' + disasterTypeName + '.stopped-event.instruction'
           | translate
@@ -124,7 +128,6 @@
   isStopped="true"
   isConnected="true"
 >
-
   <ng-container>
     <p
       [innerHTML]="
