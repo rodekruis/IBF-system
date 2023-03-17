@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { PlaceCode } from '../../models/place-code.model';
@@ -13,7 +19,7 @@ import { TriggeredArea } from '../../types/triggered-area';
   templateUrl: './event-speech-bubble.component.html',
   styleUrls: ['./event-speech-bubble.component.scss'],
 })
-export class EventSpeechBubbleComponent implements OnInit {
+export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
   @Input()
   public type: string;
 
