@@ -74,8 +74,10 @@ export class DateButtonComponent implements OnInit, OnDestroy {
       ? this.date.toFormat(this.monthFormat)
       : 'Undetermined';
 
-    // TO DO: remove this. Put in for now just to be able to distinguish timeline-buttons per event.
+    // TO DO: refactor how this whole component works
     if (this.eventName && this.duration && this.unit === LeadTimeUnit.month) {
+      const endMonthDate = this.date.plus({ months: this.duration });
+      this.displayMonth = `${this.date.monthShort}-${endMonthDate.monthShort} ${this.date.year}`;
       this.displayHour = `Duration ${this.duration} months`;
     }
   };
