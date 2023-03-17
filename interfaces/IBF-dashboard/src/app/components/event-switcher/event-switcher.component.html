@@ -1,5 +1,5 @@
 <div *ngIf="multipleActiveEvents()">
-  <div *ngIf="event.eventName === selectedEventName && !showLessButton()">
+  <div *ngIf="event?.eventName === selectedEventName && !showLessButton()">
     <p>
       <strong
         [innerHtml]="
@@ -12,10 +12,10 @@
   </div>
   <div class="containerDiv">
     <ion-button
-      *ngIf="event.eventName === selectedEventName && showLessButton()"
+      *ngIf="event?.eventName === selectedEventName && showLessButton()"
       class="ibf event-switch-button"
-      [class.triggered]="event.thresholdReached"
-      [class.selected]="event.eventName === selectedEventName"
+      [class.triggered]="event?.thresholdReached"
+      [class.selected]="event?.eventName === selectedEventName"
       shape="block"
       slot="start"
       [color]="getColor(event)"
@@ -29,10 +29,10 @@
     >
     </ion-button>
     <ion-button
-      *ngIf="event.eventName !== selectedEventName"
+      *ngIf="event?.eventName !== selectedEventName"
       class="ibf event-switch-button"
-      [class.triggered]="event.thresholdReached"
-      [class.selected]="event.eventName === selectedEventName"
+      [class.triggered]="event?.thresholdReached"
+      [class.selected]="event?.eventName === selectedEventName"
       shape="block"
       slot="start"
       [color]="getColor(event)"
@@ -44,7 +44,7 @@
           '.event-switcher.switch-event-button'
           | translate
             : {
-                eventName: event.eventName
+                eventName: event?.eventName
               }
       "
     >

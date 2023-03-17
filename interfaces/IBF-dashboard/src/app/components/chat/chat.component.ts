@@ -49,7 +49,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   private timelineState: TimelineState;
   private indicators: Indicator[];
   public placeCode: PlaceCode;
-  public placeCodeHover: PlaceCode;
 
   private updateSuccessMessage: string;
   private updateFailureMessage: string;
@@ -57,7 +56,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
-  private placeCodeHoverSubscription: Subscription;
   public disasterTypeSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
@@ -111,10 +109,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
 
-    this.placeCodeHoverSubscription = this.placeCodeService
-      .getPlaceCodeHoverSubscription()
-      .subscribe(this.onPlaceCodeHoverChange);
-
     this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
@@ -140,7 +134,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.countrySubscription.unsubscribe();
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
-    this.placeCodeHoverSubscription.unsubscribe();
     this.disasterTypeSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
@@ -164,40 +157,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.setupChatText();
   };
 
-  private leadTimeToNumber(leadTime: string) {
-    return Number(leadTime?.split('-')[0]);
-  }
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-    this.eventState?.events?.sort((a, b) => {
-      const aNoLandfallYet = a.disasterSpecificProperties?.typhoonNoLandfallYet
-        ? 1
-        : 0;
-      const bNoLandfallYet = b.disasterSpecificProperties?.typhoonNoLandfallYet
-        ? 1
-        : 0;
-      if (aNoLandfallYet !== bNoLandfallYet) {
-        return aNoLandfallYet - bNoLandfallYet;
-      } else if (
-        this.leadTimeToNumber(a.firstLeadTime) >
-        this.leadTimeToNumber(b.firstLeadTime)
-      ) {
-        return 1;
-      } else if (
-        this.leadTimeToNumber(a.firstLeadTime) ===
-        this.leadTimeToNumber(b.firstLeadTime)
-      ) {
-        if (a.startDate > b.startDate) {
-          return 1;
-        } else if (a.startDate === b.startDate) {
-          if (a.eventName > b.eventName) {
-            return 1;
-          }
-        }
-      } else {
-        return -1;
-      }
-    });
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -242,36 +203,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
     this.changeDetectorRef.detectChanges();
   };
-
-  private onPlaceCodeHoverChange = (placeCodeHover: PlaceCode) => {
-    this.placeCodeHover = placeCodeHover;
-    if (!this.eventState?.event) {
-      if (this.placeCodeHover) {
-        const btn = this.timelineState?.timeStepButtons?.find(
-          (t) => t.eventName === this.placeCodeHover.eventName,
-        );
-        if (btn) {
-          btn.active = true;
-        }
-
-        this.changeDetectorRef.detectChanges();
-      } else {
-        if (this.timelineState?.timeStepButtons) {
-          for (const btn of this.timelineState.timeStepButtons) {
-            btn.active = false;
-          }
-          this.changeDetectorRef.detectChanges();
-        }
-      }
-    }
-  };
-
-  public eventBubbleIsSelected(eventName: string) {
-    return (
-      eventName === this.eventState?.event?.eventName ||
-      eventName === this.placeCodeHover?.eventName
-    );
-  }
 
   private setDefaultFilteredAreas = () => {
     if (this.eventService.isOldEvent()) {

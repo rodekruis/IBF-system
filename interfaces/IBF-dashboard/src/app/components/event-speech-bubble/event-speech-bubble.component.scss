@@ -1,0 +1,42 @@
+app-dialogue-turn {
+  p,
+  ion-label,
+  ion-note {
+    font-size: 12px;
+  }
+
+  .background-light {
+    ion-item {
+      --background: none;
+    }
+  }
+
+  .chat-icon {
+    width: 1.5rem;
+    padding: 1px;
+  }
+
+  .submit-button {
+    flex-basis: 100%;
+  }
+}
+
+.action-label {
+  font-size: small;
+}
+
+.clear-out-message {
+  color: var(--ion-color-danger);
+  font-weight: bold;
+}
+
+ion-checkbox {
+  margin-inline-end: 8px !important;
+}
+
+.clickable-area {
+  :hover {
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
