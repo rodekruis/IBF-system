@@ -1,3 +1,19 @@
+# [0.228.0](https://github.com/rodekruis/IBF-system/compare/v0.227.0...v0.228.0) (2023-03-17)
+
+
+### Bug Fixes
+
+* legend bug AB[#18179](https://github.com/rodekruis/IBF-system/issues/18179) ([28c1ab0](https://github.com/rodekruis/IBF-system/commit/28c1ab085633f05a77e0f412dbfc861cfcfaa705))
+* limit height of bar AB[#18192](https://github.com/rodekruis/IBF-system/issues/18192) ([bebb52c](https://github.com/rodekruis/IBF-system/commit/bebb52c6c51482fbf30639388e31ab8c4870273d))
+* rm legend if no aggregates active AB[#18179](https://github.com/rodekruis/IBF-system/issues/18179) ([084a5a0](https://github.com/rodekruis/IBF-system/commit/084a5a01eb72ac1d1fe262540fe36a7278384264))
+
+
+### Features
+
+* update today's date in header AB[#18133](https://github.com/rodekruis/IBF-system/issues/18133) ([58a4e13](https://github.com/rodekruis/IBF-system/commit/58a4e13d0db9966ab1124c4f527b927e4bb0a8ba))
+
+
+
 # [0.227.0](https://github.com/rodekruis/IBF-system/compare/v0.226.4...v0.227.0) (2023-03-06)
 
 
@@ -103,15 +119,6 @@
 ### Bug Fixes
 
 * flood extent not showing AB[#17899](https://github.com/rodekruis/IBF-system/issues/17899) ([bb41574](https://github.com/rodekruis/IBF-system/commit/bb41574c4261bba4b77e04fbf126423ab366ba9f))
-
-
-
-## [0.224.8](https://github.com/rodekruis/IBF-system/compare/v0.224.7...v0.224.8) (2023-02-10)
-
-
-### Bug Fixes
-
-* typhoon multi-event date issue AB[#17895](https://github.com/rodekruis/IBF-system/issues/17895) ([9da32ff](https://github.com/rodekruis/IBF-system/commit/9da32ff000ac1ee5e43d1eb57c339803a0ffbdd2))
 
 
 
