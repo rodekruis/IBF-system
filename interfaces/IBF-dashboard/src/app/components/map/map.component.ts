@@ -345,55 +345,56 @@ export class MapComponent implements OnDestroy {
     }
   };
 
-  public addLegend(map, colors, colorThreshold, layer: IbfLayer) {
+  public addLegend(colors, colorThreshold, layer: IbfLayer) {
+    this.removeLegend();
+
+    this.legends[layer.name] = new Control();
+    this.legends[layer.name].setPosition('bottomleft');
+    this.legends[layer.name].onAdd = () => {
+      const div = DomUtil.create('div', 'info legend');
+      const grades = Object.values(colorThreshold);
+      let labels;
+      if (layer.colorBreaks) {
+        labels = Object.values(layer.colorBreaks).map(
+          (colorBreak) => colorBreak.label,
+        );
+      }
+      const getColor = this.getFeatureColorByColorsAndColorThresholds(
+        colors,
+        colorThreshold,
+      );
+
+      const getLabel = this.getLabel(grades, layer, labels);
+
+      div.innerHTML +=
+        `<div><b>${layer.label}</b>` +
+        (layer.unit ? ' (' + layer.unit + ')' : '');
+
+      const noDataEntryFound = layer.data?.features.find(
+        (f) => f.properties?.indicators[layer.name] === null,
+      );
+      if (noDataEntryFound) {
+        div.innerHTML += `</div><i style="background:${this.mapService.state.noDataColor}"></i> No data<br>`;
+      }
+
+      for (let i = 0; i < grades.length; i++) {
+        if (grades[i] !== null && (i === 0 || grades[i] > grades[i - 1])) {
+          div.innerHTML += `<i style="background:${getColor(
+            grades[i + 1],
+          )}"></i> ${getLabel(i)}`;
+        }
+      }
+
+      return div;
+    };
+    this.legends[layer.name].addTo(this.map);
+  }
+
+  private removeLegend() {
     for (const legend of Object.keys(this.legends)) {
-      map.removeControl(this.legends[legend]);
-      this.legends = {};
+      this.map.removeControl(this.legends[legend]);
     }
-
-    if (layer.active) {
-      this.legends[layer.name] = new Control();
-      this.legends[layer.name].setPosition('bottomleft');
-      this.legends[layer.name].onAdd = () => {
-        const div = DomUtil.create('div', 'info legend');
-        const grades = Object.values(colorThreshold);
-        let labels;
-        if (layer.colorBreaks) {
-          labels = Object.values(layer.colorBreaks).map(
-            (colorBreak) => colorBreak.label,
-          );
-        }
-        const getColor = this.getFeatureColorByColorsAndColorThresholds(
-          colors,
-          colorThreshold,
-        );
-
-        const getLabel = this.getLabel(grades, layer, labels);
-
-        div.innerHTML +=
-          `<div><b>${layer.label}</b>` +
-          (layer.unit ? ' (' + layer.unit + ')' : '');
-
-        const noDataEntryFound = layer.data?.features.find(
-          (f) => f.properties?.indicators[layer.name] === null,
-        );
-        if (noDataEntryFound) {
-          div.innerHTML += `</div><i style="background:${this.mapService.state.noDataColor}"></i> No data<br>`;
-        }
-
-        for (let i = 0; i < grades.length; i++) {
-          if (grades[i] !== null && (i === 0 || grades[i] > grades[i - 1])) {
-            div.innerHTML += `<i style="background:${getColor(
-              grades[i + 1],
-            )}"></i> ${getLabel(i)}`;
-          }
-        }
-
-        return div;
-      };
-
-      this.legends[layer.name].addTo(map);
-    }
+    this.legends = {};
   }
 
   onMapReady(map: Map) {
@@ -426,10 +427,19 @@ export class MapComponent implements OnDestroy {
       );
 
       if (
-        layer.group !== IbfLayerGroup.adminRegions &&
-        layer.group !== IbfLayerGroup.outline
+        this.layers.filter(
+          (l) => l.group === IbfLayerGroup.aggregates && l.active,
+        ).length === 0
       ) {
-        this.addLegend(this.map, colors, colorThreshold, layer);
+        this.removeLegend();
+      }
+
+      if (
+        layer.group !== IbfLayerGroup.adminRegions &&
+        layer.group !== IbfLayerGroup.outline &&
+        layer.active
+      ) {
+        this.addLegend(colors, colorThreshold, layer);
       }
     }
 
