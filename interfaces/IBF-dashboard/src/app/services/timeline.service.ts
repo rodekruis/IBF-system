@@ -72,7 +72,7 @@ export class TimelineService {
 
   private resetState() {
     this.triggersAllEvents = null;
-    this.eventState = null;
+    this.eventState = this.eventService.nullState;
     this.state = this.startingState;
   }
 
@@ -289,25 +289,18 @@ export class TimelineService {
         this.isLeadTimeEnabled(leadTime.leadTimeName)
       ) {
         // add separate events with same lead-time, separately
-        for (const event of this.eventState?.events
-          .filter((e) => e.firstLeadTime === leadTime.leadTimeName)
-          .sort((a, b) => {
-            if (a.startDate > b.startDate) {
-              return -1;
-            } else if (a.startDate === b.startDate) {
-              if (a.eventName > b.eventName) {
-                return -1;
-              }
-            } else {
-              return 1;
-            }
-          })) {
-          visibleLeadTimes.push({
-            leadTime: leadTime.leadTimeName,
-            eventName: event.eventName,
-            undefined: false,
-            duration: event.duration,
-          });
+        const filteredEvents = this.eventState.events.filter(
+          (e) => e.firstLeadTime === leadTime.leadTimeName,
+        );
+        if (filteredEvents) {
+          for (const event of filteredEvents.reverse()) {
+            visibleLeadTimes.push({
+              leadTime: leadTime.leadTimeName,
+              eventName: event.eventName,
+              undefined: false,
+              duration: event.duration,
+            });
+          }
         }
       }
     }
@@ -343,15 +336,17 @@ export class TimelineService {
     );
 
     // Separately add at the end leadtimes that should be conveyed as 'undefined'
-    const undefinedLeadTimeEvents = this.eventState.events.filter(
+    const undefinedLeadTimeEvents = this.eventState?.events.filter(
       (e) => e.disasterSpecificProperties?.typhoonNoLandfallYet,
     );
-    for (const event of undefinedLeadTimeEvents) {
-      visibleLeadTimes.push({
-        leadTime: event.firstLeadTime as LeadTime,
-        eventName: null,
-        undefined: true,
-      });
+    if (undefinedLeadTimeEvents) {
+      for (const event of undefinedLeadTimeEvents) {
+        visibleLeadTimes.push({
+          leadTime: event.firstLeadTime as LeadTime,
+          eventName: null,
+          undefined: true,
+        });
+      }
     }
 
     return visibleLeadTimes;
@@ -399,7 +394,7 @@ export class TimelineService {
           const endLeadTimeNumber =
             startLeadTimeNumber + activeLeadTime.duration;
           if (
-            Number(LeadTimeTriggerKey[leadTime]) < endLeadTimeNumber &&
+            Number(LeadTimeTriggerKey[leadTime]) <= endLeadTimeNumber &&
             Number(LeadTimeTriggerKey[leadTime]) >= startLeadTimeNumber
           ) {
             return false;

@@ -36,7 +36,7 @@ export class EventService {
   private country: Country;
   private disasterType: DisasterType;
 
-  private nullState = {
+  public nullState = {
     events: null,
     event: null,
     activeEvent: null,
@@ -189,6 +189,8 @@ export class EventService {
       }
     }
 
+    this.sortEvents();
+
     if (events.length === 1) {
       this.setEventInitially(events[0]);
     } else if (this.disasterType.disasterType === DisasterTypeKey.typhoon) {
@@ -200,6 +202,42 @@ export class EventService {
 
     this.setAlertState();
   };
+
+  private sortEvents() {
+    this.state.events?.sort((a, b) => {
+      const aNoLandfallYet = a.disasterSpecificProperties?.typhoonNoLandfallYet
+        ? 1
+        : 0;
+      const bNoLandfallYet = b.disasterSpecificProperties?.typhoonNoLandfallYet
+        ? 1
+        : 0;
+      if (aNoLandfallYet !== bNoLandfallYet) {
+        return aNoLandfallYet - bNoLandfallYet;
+      } else if (
+        this.leadTimeToNumber(a.firstLeadTime) >
+        this.leadTimeToNumber(b.firstLeadTime)
+      ) {
+        return 1;
+      } else if (
+        this.leadTimeToNumber(a.firstLeadTime) ===
+        this.leadTimeToNumber(b.firstLeadTime)
+      ) {
+        if (a.startDate > b.startDate) {
+          return 1;
+        } else if (a.startDate === b.startDate) {
+          if (a.eventName > b.eventName) {
+            return 1;
+          }
+        }
+      } else {
+        return -1;
+      }
+    });
+  }
+
+  private leadTimeToNumber(leadTime: string) {
+    return Number(leadTime?.split('-')[0]);
+  }
 
   private getEventDuration(event: EventSummary) {
     if (this.disasterType.disasterType !== DisasterTypeKey.drought) {
