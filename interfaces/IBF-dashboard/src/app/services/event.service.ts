@@ -310,7 +310,7 @@ export class EventService {
     }
   }
 
-  public isOldEvent = () => this.state.activeEvent && !this.state.activeTrigger;
+  public isOldEvent = () => this.state.event && !this.state.activeTrigger;
 
   private setOverallActiveTrigger() {
     return this.state.event

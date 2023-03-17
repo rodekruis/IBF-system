@@ -6,7 +6,7 @@
   [isSelected]="eventBubbleIsSelected(event.eventName)"
   isConnected="true"
 >
-  <p *ngIf="event.activeTrigger">
+  <p *ngIf="event.activeTrigger && event.thresholdReached">
     <span
       [innerHTML]="
         'chat-component.' +
@@ -27,6 +27,21 @@
     ></span>
   </p>
 
+  <p
+    *ngIf="event.activeTrigger && !event.thresholdReached"
+    [innerHTML]="
+      'chat-component.' +
+        disasterTypeName +
+        '.active-event-active-trigger.welcome-below-trigger'
+        | translate
+          : {
+              startDate: event.startDate,
+              firstLeadTimeDate: event.firstLeadTimeDate,
+              eventName: event.eventName
+            }
+    "
+  ></p>
+
   <p *ngIf="typhoonLandfallText" [innerHTML]="typhoonLandfallText"></p>
 
   <p *ngIf="forecastInfo && countryCodeISO3 === 'ZWE'">
@@ -42,12 +57,24 @@
   <!-- =================================== -->
 
   <ng-container *ngIf="event.eventName === selectedEvent">
-    <p
+    <p *ngIf="type === 'active'"
       [innerHTML]="
         'chat-component.' + disasterTypeName + '.active-event.overview'
           | translate
             : {
                 nrTriggeredAreas: areas.length,
+                adminAreaLabelPlural: adminAreaLabelPlural,
+                eventName: selectedEvent,
+                actionIndicator: actionIndicatorLabel
+              }
+      "
+    ></p>
+    <p  *ngIf="type === 'stopped'"
+      [innerHTML]="
+        'chat-component.' + disasterTypeName + '.stopped-event.overview'
+          | translate
+            : {
+                nrStoppedAreas: areas.length,
                 adminAreaLabelPlural: adminAreaLabelPlural,
                 eventName: selectedEvent,
                 actionIndicator: actionIndicatorLabel
@@ -72,9 +99,15 @@
         </p>
       </li>
     </ul>
-    <p
+    <p *ngIf="type === 'active'"
       [translate]="
         'chat-component.' + disasterTypeName + '.active-event.instruction'
+          | translate
+      "
+    ></p>
+    <p *ngIf="type === 'stopped'"
+      [translate]="
+        'chat-component.' + disasterTypeName + '.stopped-event.instruction'
           | translate
       "
     ></p>
@@ -86,45 +119,13 @@
 </app-dialogue-turn>
 
 <app-dialogue-turn
-  *ngIf="type === 'stopped'"
+  *ngIf="type === 'stopped' && event.eventName === selectedEvent"
   isConnected="true"
   isStopped="true"
   isConnected="true"
 >
-  <p
-    *ngIf="event.activeTrigger && !event.thresholdReached"
-    [innerHTML]="
-      'chat-component.' +
-        disasterTypeName +
-        '.active-event-active-trigger.welcome-below-trigger'
-        | translate
-          : {
-              startDate: event.startDate,
-              firstLeadTimeDate: event.firstLeadTimeDate,
-              eventName: event.eventName
-            }
-    "
-  ></p>
 
-  <p *ngIf="typhoonLandfallText" [innerHTML]="typhoonLandfallText"></p>
-
-  <p *ngIf="forecastInfo && countryCodeISO3 === 'ZWE'">
-    {{ forecastInfo }}
-  </p>
-
-  <p *ngIf="forecastInfo && countryCodeISO3 === 'ZWE'">
-    {{ forecastInfo }}
-  </p>
-
-  <p
-    class="clear-out-message"
-    *ngIf="!!clearOutMessage"
-    [innerHTML]="clearOutMessage"
-  ></p>
-
-  <!-- =================================== -->
-
-  <ng-container *ngIf="event.eventName === selectedEvent">
+  <ng-container>
     <p
       [innerHTML]="
         'chat-component.' + disasterTypeName + '.stopped-event.overview'
@@ -161,10 +162,6 @@
           | translate
       "
     ></p>
-  </ng-container>
-
-  <ng-container *ngIf="event">
-    <app-event-switcher [event]="event"></app-event-switcher>
   </ng-container>
 </app-dialogue-turn>
 
