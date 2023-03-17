@@ -1,3 +1,14 @@
+## [0.228.1](https://github.com/rodekruis/IBF-system/compare/v0.228.0...v0.228.1) (2023-03-17)
+
+
+### Bug Fixes
+
+* reduce height from 38 to 33 px AB[#18192](https://github.com/rodekruis/IBF-system/issues/18192) ([2058199](https://github.com/rodekruis/IBF-system/commit/2058199fb5c30127a5117d12a3d2a94cedbc4ad1))
+* rm br to fix height problem AB[#18192](https://github.com/rodekruis/IBF-system/issues/18192) ([c4e322f](https://github.com/rodekruis/IBF-system/commit/c4e322f775390df4bbc5436b6c8134cfb9c7c257))
+* set font-size back AB[#18192](https://github.com/rodekruis/IBF-system/issues/18192) ([a9a40d4](https://github.com/rodekruis/IBF-system/commit/a9a40d45e8db5728ebb7a9c86b75fa382c58c398))
+
+
+
 # [0.228.0](https://github.com/rodekruis/IBF-system/compare/v0.227.0...v0.228.0) (2023-03-17)
 
 
@@ -110,15 +121,6 @@
 * set disaster-types per user AB[#17721](https://github.com/rodekruis/IBF-system/issues/17721) ([ad37118](https://github.com/rodekruis/IBF-system/commit/ad37118f6fa90b8223ca5d1d235959e23c1b35df))
 * set up basic flash floods portal AB[#17728](https://github.com/rodekruis/IBF-system/issues/17728) ([185ae57](https://github.com/rodekruis/IBF-system/commit/185ae5764a1efe40ba8ec018502b046af0bcee7c))
 * set up basic ZMB drought portal AB[#17727](https://github.com/rodekruis/IBF-system/issues/17727) ([9132a5a](https://github.com/rodekruis/IBF-system/commit/9132a5a6e7065d0875eb20116135d48327bc0b0e))
-
-
-
-## [0.224.9](https://github.com/rodekruis/IBF-system/compare/v0.224.8...v0.224.9) (2023-02-10)
-
-
-### Bug Fixes
-
-* flood extent not showing AB[#17899](https://github.com/rodekruis/IBF-system/issues/17899) ([bb41574](https://github.com/rodekruis/IBF-system/commit/bb41574c4261bba4b77e04fbf126423ab366ba9f))
 
 
 
