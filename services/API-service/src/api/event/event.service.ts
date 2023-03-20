@@ -511,7 +511,7 @@ export class EventService {
     );
 
     // close old events
-    await this.closeEventsAutomatic(countryCodeISO3, disasterType);
+    await this.closeEventsAutomatic(countryCodeISO3, disasterType, eventName);
   }
 
   private async setAllEventsToInactive(
@@ -817,6 +817,7 @@ export class EventService {
   private async closeEventsAutomatic(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    eventName: string,
   ) {
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
@@ -825,13 +826,17 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
+    const whereFilters = {
+      endDate: LessThan(uploadDate.timestamp),
+      adminArea: In(countryAdminAreaIds),
+      disasterType: disasterType,
+      closed: false,
+    };
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
+    }
     const expiredEventAreas = await this.eventPlaceCodeRepo.find({
-      where: {
-        endDate: LessThan(uploadDate.timestamp),
-        adminArea: In(countryAdminAreaIds),
-        disasterType: disasterType,
-        closed: false,
-      },
+      where: whereFilters,
     });
 
     //Below threshold events can be removed from this table after closing
