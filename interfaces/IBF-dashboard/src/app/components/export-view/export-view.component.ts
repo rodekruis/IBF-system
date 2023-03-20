@@ -35,7 +35,6 @@ export class ExportViewComponent {
 
     this.analyticsService.logEvent(AnalyticsEvent.exportView, {
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });

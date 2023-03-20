@@ -40,7 +40,6 @@ export class EventService {
   public nullState = {
     events: null,
     event: null,
-    activeEvent: null,
     thresholdReached: null,
     activeTrigger: null,
   };

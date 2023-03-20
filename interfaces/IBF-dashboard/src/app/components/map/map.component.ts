@@ -581,7 +581,6 @@ export class MapComponent implements OnDestroy {
     this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
       placeCode: feature.properties.placeCode,
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });
@@ -872,7 +871,6 @@ export class MapComponent implements OnDestroy {
   private onMapMarkerClick = (analyticsEvent) => (): void => {
     this.analyticsService.logEvent(analyticsEvent, {
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });

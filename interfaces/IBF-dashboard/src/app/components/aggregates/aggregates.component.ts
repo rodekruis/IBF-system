@@ -201,7 +201,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.analyticsService.logEvent(AnalyticsEvent.aggregateInformation, {
       indicator: indicator.name,
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });
