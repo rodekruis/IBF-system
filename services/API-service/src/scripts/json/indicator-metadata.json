@@ -992,7 +992,7 @@
     }
   },
   {
-    "countryCodes": "ZWE,KEN,UGA",
+    "countryCodes": "ZWE,KEN",
     "disasterTypes": ["drought"],
     "name": "drought_vulnerability_index",
     "label": "Drought vulnerability index",
@@ -1010,10 +1010,28 @@
       "KEN": {
         "drought": "The drought vulnerability index is a composite index for the context of exposure to drought and the capacity to anticipate, cope with and recover from the impacts of drought. The National Society and Technical Working group selected the following criteria below:<ul><li>18% Poverty incidence</li><li>15% Gini index</li><li>19% Literacy rates</li><li>15% Access to improved water sources</li><li>14% Access to improved sanitation</li><li>19% Integrated food security phase classification</li></ul><br>For further information please refer to the EAP"
       },
-      "UGA": { "drought": "Not currently available" },
       "ZWE": {
         "drought": "The drought vulnerability index is a composite index for the context of exposure to drought and the capacity to anticipate, cope with and recover from the impacts of droughts. The ZRCS selected nine main criteria:<ul><li>14% Labor constrained households: 7 %unemployment rate 15+  and 7% economically non-active</li><li>15% Child, women and elderly headed households: 5% Female headed HH , 5% Head of Household (19-), 5% Head of Household (65+)</li><li>14% People with disabilities</li><li>15 % Pregnant and breast-feeding women, and children under five years: 5% pregnant women, 5% breast-feeding women, 5% children under five years</li><li>14 % Severe acute malnutrition</li><li>7% employment agriculture</li><li>7% cattle per km2</li><li>7% HIV prevalence</li><li>7% HIV ART Coverage</li></ul>"
       }
+    }
+  },
+  {
+    "countryCodes": "UGA",
+    "disasterTypes": ["drought"],
+    "name": "vulnerability_index",
+    "label": "Vulnerability index",
+    "icon": "",
+    "weightedAvg": true,
+    "active": "no",
+    "colorBreaks": null,
+    "numberFormatMap": "decimal2",
+    "aggregateIndicator": "",
+    "numberFormatAggregate": "decimal2",
+    "weightvar": null,
+    "order": 3,
+    "dynamic": false,
+    "description": {
+      "UGA": { "drought": "Not currently available" }
     }
   },
   {
