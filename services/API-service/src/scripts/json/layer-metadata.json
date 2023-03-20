@@ -97,7 +97,8 @@
       },
       "UGA": {
         "drought": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.<a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
-        "floods": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+        "floods": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
+        "heavy-rain": ""
       },
       "ZMB": {
         "drought": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
@@ -272,7 +273,8 @@
       },
       "UGA": {
         "drought": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Uganda Red Cross Society (URCS). Year: 2020.",
-        "floods": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Uganda Red Cross Society (URCS). Year: 2020."
+        "floods": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Uganda Red Cross Society (URCS). Year: 2020.",
+        "heavy-rain": ""
       },
       "ZMB": {
         "drought": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Zambia Red Cross Society (ZRCS). Year: 2020.",
@@ -337,7 +339,7 @@
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,MWI",
-    "disasterTypes": ["floods", "drought", "flash-floods"],
+    "disasterTypes": ["floods", "drought", "flash-floods", "heavy-rain"],
     "name": "waterpoints",
     "label": "Waterpoints",
     "type": "point",
@@ -358,7 +360,8 @@
       },
       "UGA": {
         "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source Link: <a target='_blank' href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
-        "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source: <a target='_blank' href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
+        "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source: <a target='_blank' href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
+        "heavy-rain": ""
       },
       "ZMB": {
         "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source: <a target='_blank' href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
@@ -394,7 +397,7 @@
   },
   {
     "countryCodes": "UGA,ZMB,PHL,KEN,ETH,MWI,SSD",
-    "disasterTypes": ["floods", "dengue", "drought"],
+    "disasterTypes": ["floods", "dengue", "drought", "heavy-rain"],
     "name": "adminRegions2",
     "label": "Admin Level 2",
     "type": "shape",
@@ -407,7 +410,8 @@
       "malaria",
       "typhoon",
       "drought",
-      "flash-floods"
+      "flash-floods",
+      "heavy-rain"
     ],
     "name": "adminRegions3",
     "label": "Admin Level 3",
@@ -416,7 +420,7 @@
   },
   {
     "countryCodes": "UGA",
-    "disasterTypes": ["floods", "drought"],
+    "disasterTypes": ["floods", "drought", "heavy-rain"],
     "name": "adminRegions4",
     "label": "Admin Level 4",
     "type": "shape",
