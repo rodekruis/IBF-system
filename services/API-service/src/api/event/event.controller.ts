@@ -65,7 +65,7 @@ export class EventController {
   public async getEventSummaryCountry(
     @Param() params,
   ): Promise<EventSummaryCountry[]> {
-    return await this.eventService.getEventSummaryCountry(
+    return await this.eventService.getEventSummary(
       params.countryCodeISO3,
       params.disasterType,
     );

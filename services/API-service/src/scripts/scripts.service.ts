@@ -468,17 +468,17 @@ export class ScriptsService {
     } else if (
       disasterType === DisasterType.Drought &&
       // droughtRegion !== this.nationalDroughtRegion &&
-      ['UGA', 'ETH', 'KEN'].includes(selectedCountry.countryCodeISO3) && // exclude ZWE for now
+      ['UGA', 'ETH', 'KEN'].includes(selectedCountry.countryCodeISO3) && // exclude ZWE for now this way
       triggered
     ) {
       const seasons = selectedCountry.countryDisasterSettings.find(
         s => s.disasterType === DisasterType.Drought,
       ).droughtForecastSeasons[droughtRegion];
-      const {
-        currentYear,
-        currentUTCMonth,
-        leadTimeMonthFirstDay,
-      } = this.getCurrentMonthInfoDrought(leadTime, date, selectedCountry);
+      const leadTimeMonthFirstDay = this.getCurrentMonthInfoDrought(
+        leadTime,
+        date,
+        selectedCountry,
+      ).leadTimeMonthFirstDay;
 
       for (const seasonKey of Object.keys(seasons)) {
         for (const month of seasons[seasonKey][this.rainMonthsKey]) {

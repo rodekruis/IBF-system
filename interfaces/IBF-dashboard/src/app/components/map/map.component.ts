@@ -260,20 +260,22 @@ export class MapComponent implements OnDestroy {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features;
           zoomExtraOffset = 0;
         }
-        const layerBounds = bbox(adminRegionsFiltered);
-        this.mapService.state.bounds = containsNumber(layerBounds)
-          ? ([
-              [
-                layerBounds[1] - zoomExtraOffset,
-                layerBounds[0] - zoomExtraOffset,
-              ],
-              [
-                layerBounds[3] + zoomExtraOffset,
-                layerBounds[2] + zoomExtraOffset,
-              ],
-            ] as LatLngBoundsLiteral)
-          : this.mapService.state.bounds;
-        this.map.fitBounds(this.mapService.state.bounds);
+        if (adminRegionsFiltered.features.length) {
+          const layerBounds = bbox(adminRegionsFiltered);
+          this.mapService.state.bounds = containsNumber(layerBounds)
+            ? ([
+                [
+                  layerBounds[1] - zoomExtraOffset,
+                  layerBounds[0] - zoomExtraOffset,
+                ],
+                [
+                  layerBounds[3] + zoomExtraOffset,
+                  layerBounds[2] + zoomExtraOffset,
+                ],
+              ] as LatLngBoundsLiteral)
+            : this.mapService.state.bounds;
+          this.map.fitBounds(this.mapService.state.bounds);
+        }
       }
     }
   }

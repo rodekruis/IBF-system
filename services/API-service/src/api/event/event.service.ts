@@ -64,10 +64,11 @@ export class EventService {
     private typhoonTrackService: TyphoonTrackService,
   ) {}
 
-  public async getEventSummaryCountry(
+  public async getEventSummary(
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<EventSummaryCountry[]> {
+    const recentDate = await this.getRecentDate(countryCodeISO3, disasterType);
     const eventSummary = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select(['area."countryCodeISO3"', 'event."eventName"'])
@@ -83,6 +84,7 @@ export class EventService {
       .where('closed = :closed', {
         closed: false,
       })
+      .andWhere('"endDate" >= :date', { date: recentDate.date })
       .andWhere(
         // for typhoon/flash-floods filter also on activeTrigger = true, thereby disabling old-event scenario
         `(event."disasterType" NOT IN ('typhoon','flash-floods') OR (event."disasterType" IN ('typhoon','flash-floods') AND event."activeTrigger" = true))`,

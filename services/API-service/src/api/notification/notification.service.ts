@@ -23,7 +23,7 @@ export class NotificationService {
     disasterType: DisasterType,
     date?: Date,
   ): Promise<void> {
-    const events = await this.eventService.getEventSummaryCountry(
+    const events = await this.eventService.getEventSummary(
       countryCodeISO3,
       disasterType,
     );

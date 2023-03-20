@@ -13,6 +13,7 @@ export class EventSummary {
   countryCodeISO3: string;
   startDate: string;
   endDate: string;
+  endDateLabel: string;
   thresholdReached: boolean;
   activeTrigger: boolean;
   eventName: string;
@@ -176,7 +177,13 @@ export class EventService {
           'cccc, dd LLLL',
         );
         if (event.endDate) {
-          event.endDate = this.endDateToLastTriggerDate(event.endDate);
+          event.endDate = DateTime.fromFormat(event.endDate, 'yyyy-LL-dd')
+            .minus({ days: 7 })
+            .toFormat('yyyy-LL-dd');
+          event.endDateLabel = DateTime.fromFormat(
+            event.endDate,
+            'yyyy-LL-dd',
+          ).toFormat('cccc, dd LLLL');
         }
         event.firstLeadTimeLabel = LeadTimeTriggerKey[event.firstLeadTime];
         event.timeUnit = event.firstLeadTime?.split('-')[1];
@@ -260,9 +267,9 @@ export class EventService {
       if (event.eventName?.toLowerCase().includes(seasonRegion.toLowerCase())) {
         const leadTimeMonth = DateTime.fromFormat(
           event.endDate,
-          'cccc, dd LLLL',
+          'yyyy-LL-dd',
         ).plus({
-          months: Number(event.firstLeadTime.split('-')[0]),
+          months: Number(LeadTimeTriggerKey[event.firstLeadTime]),
         }).month;
         for (const season of Object.values(seasons[seasonRegion])) {
           const rainMonthsKey = 'rainMonths';
@@ -275,11 +282,6 @@ export class EventService {
         }
       }
     }
-  }
-
-  private endDateToLastTriggerDate(endDate: string): string {
-    const originalEndDate = DateTime.fromFormat(endDate, 'yyyy-LL-dd');
-    return originalEndDate.minus({ days: 7 }).toFormat('cccc, dd LLLL');
   }
 
   private setAlertState = () => {
