@@ -8,6 +8,7 @@
 >
   <p *ngIf="event.activeTrigger && event.thresholdReached">
     <span
+      *ngIf="!event.duration"
       [innerHTML]="
         'chat-component.' +
           disasterTypeName +
@@ -25,13 +26,21 @@
               }
       "
     ></span>
-    <span *ngIf="event.duration"
+    <span
+      *ngIf="event.duration"
       [innerHTML]="
         'chat-component.' +
           disasterTypeName +
-          '.active-event-active-trigger.duration'
+          '.active-event-active-trigger.welcome-duration'
           | translate
             : {
+                name: displayName,
+                startDate: event.startDate,
+                leadTime: event.firstLeadTimeLabel,
+                timeUnit: event.timeUnit,
+                disasterTypeLabel: disasterTypeLabel,
+                firstLeadTimeDate: event.firstLeadTimeDate,
+                eventName: event.eventName || disasterTypeLabel,
                 duration: event.duration
               }
       "
