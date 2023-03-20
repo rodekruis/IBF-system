@@ -58,25 +58,11 @@
 
   <ng-container *ngIf="event.eventName === selectedEvent">
     <p
-      *ngIf="type === 'active'"
       [innerHTML]="
         'chat-component.' + disasterTypeName + '.active-event.overview'
           | translate
             : {
                 nrTriggeredAreas: areas.length,
-                adminAreaLabelPlural: adminAreaLabelPlural,
-                eventName: selectedEvent,
-                actionIndicator: actionIndicatorLabel
-              }
-      "
-    ></p>
-    <p
-      *ngIf="type === 'stopped'"
-      [innerHTML]="
-        'chat-component.' + disasterTypeName + '.stopped-event.overview'
-          | translate
-            : {
-                nrStoppedAreas: areas.length,
                 adminAreaLabelPlural: adminAreaLabelPlural,
                 eventName: selectedEvent,
                 actionIndicator: actionIndicatorLabel
@@ -102,16 +88,8 @@
       </li>
     </ul>
     <p
-      *ngIf="type === 'active'"
       [translate]="
         'chat-component.' + disasterTypeName + '.active-event.instruction'
-          | translate
-      "
-    ></p>
-    <p
-      *ngIf="type === 'stopped'"
-      [translate]="
-        'chat-component.' + disasterTypeName + '.stopped-event.instruction'
           | translate
       "
     ></p>
