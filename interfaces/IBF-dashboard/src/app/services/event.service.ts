@@ -222,12 +222,22 @@ export class EventService {
         this.leadTimeToNumber(a.firstLeadTime) ===
         this.leadTimeToNumber(b.firstLeadTime)
       ) {
-        if (a.startDate > b.startDate) {
+        if (a.duration > b.duration) {
           return 1;
-        } else if (a.startDate === b.startDate) {
-          if (a.eventName > b.eventName) {
+        } else if (a.duration === b.duration) {
+          if (a.startDate > b.startDate) {
             return 1;
+          } else if (a.startDate === b.startDate) {
+            if (a.eventName > b.eventName) {
+              return 1;
+            } else {
+              return -1;
+            }
+          } else {
+            return -1;
           }
+        } else {
+          return -1;
         }
       } else {
         return -1;

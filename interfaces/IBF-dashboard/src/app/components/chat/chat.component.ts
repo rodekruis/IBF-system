@@ -71,7 +71,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterTypeName: string;
   public actionIndicatorLabel: string;
   public actionIndicatorNumberFormat: string;
-  public clearOutMessage: string;
   public forecastInfo: string[];
   public country: Country;
   public disasterType: DisasterType;
@@ -235,7 +234,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
       this.actionIndicatorLabel = actionIndicator?.label.toLowerCase();
       this.actionIndicatorNumberFormat = actionIndicator?.numberFormatMap;
-      this.clearOutMessage = this.getClearOutMessage();
       this.getForecastInfo();
 
       this.updateSuccessMessage = this.translateService.instant(
@@ -453,8 +451,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.placeCodeService.clearPlaceCode();
   }
 
-  public getClearOutMessage() {
-    if (!this.disasterTypeSettings.showMonthlyEapActions) {
+  public getClearOutMessage(event: EventSummary) {
+    if (!this.disasterTypeSettings?.showMonthlyEapActions) {
       return;
     }
 
@@ -466,12 +464,17 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     let forecastMonthNumbers = [];
     for (const area of forecastAreas) {
-      for (const season of Object.keys(droughtForecastSeasons[area])) {
-        const rainMonths = droughtForecastSeasons[area][season].rainMonths;
-        forecastMonthNumbers = [
-          ...forecastMonthNumbers,
-          rainMonths[rainMonths.length - 1],
-        ];
+      if (
+        !event?.eventName ||
+        event.eventName.toLowerCase().includes(area.toLowerCase())
+      ) {
+        for (const season of Object.keys(droughtForecastSeasons[area])) {
+          const rainMonths = droughtForecastSeasons[area][season].rainMonths;
+          forecastMonthNumbers = [
+            ...forecastMonthNumbers,
+            rainMonths[rainMonths.length - 1],
+          ];
+        }
       }
     }
 
