@@ -56,7 +56,9 @@
 
   <!-- =================================== -->
 
-  <ng-container *ngIf="event.eventName === selectedEvent && event.thresholdReached">
+  <ng-container
+    *ngIf="event.eventName === selectedEvent && event.thresholdReached"
+  >
     <p
       [innerHTML]="
         'chat-component.' + disasterTypeName + '.active-event.overview'
