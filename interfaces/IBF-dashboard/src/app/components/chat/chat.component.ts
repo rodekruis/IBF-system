@@ -28,7 +28,11 @@ import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { Indicator } from '../../types/indicator-group';
-import { LeadTime, LeadTimeUnit } from '../../types/lead-time';
+import {
+  LeadTime,
+  LeadTimeTriggerKey,
+  LeadTimeUnit,
+} from '../../types/lead-time';
 import { TriggeredArea } from '../../types/triggered-area';
 import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
 import { ToggleTriggerPopoverComponent } from '../toggle-trigger-popover/toggle-trigger-popover.component';
@@ -462,22 +466,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     const forecastAreas = Object.keys(droughtForecastSeasons);
 
-    let forecastMonthNumbers = [];
-    for (const area of forecastAreas) {
-      if (
-        !event?.eventName ||
-        event.eventName.toLowerCase().includes(area.toLowerCase())
-      ) {
-        for (const season of Object.keys(droughtForecastSeasons[area])) {
-          const rainMonths = droughtForecastSeasons[area][season].rainMonths;
-          forecastMonthNumbers = [
-            ...forecastMonthNumbers,
-            rainMonths[rainMonths.length - 1],
-          ];
-        }
-      }
-    }
-
     const droughtEndOfMonthPipeline = this.country.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType.disasterType,
     ).droughtEndOfMonthPipeline;
@@ -487,6 +475,26 @@ export class ChatComponent implements OnInit, OnDestroy {
     const nextMonth = currentMonth.plus({
       months: 1,
     });
+
+    let forecastMonthNumbers = [];
+    for (const area of forecastAreas) {
+      if (
+        !event?.eventName ||
+        event.eventName.toLowerCase().includes(area.toLowerCase())
+      ) {
+        for (const season of Object.keys(droughtForecastSeasons[area])) {
+          const rainMonths = droughtForecastSeasons[area][season].rainMonths;
+          const finalMonth = rainMonths[rainMonths.length - 1];
+          if (
+            currentMonth.month +
+              Number(LeadTimeTriggerKey[event?.firstLeadTime]) <=
+            finalMonth
+          ) {
+            forecastMonthNumbers.push(finalMonth);
+          }
+        }
+      }
+    }
 
     let translateKey;
     if (Object.values(forecastAreas).length === 1) {

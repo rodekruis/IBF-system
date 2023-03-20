@@ -72,6 +72,7 @@ export class AdminAreaDynamicDataService {
 
     if (
       disasterType.triggerUnit === uploadExposure.dynamicIndicator &&
+      uploadExposure.exposurePlaceCodes.length > 0 &&
       country.countryDisasterSettings.find(
         s => s.disasterType === uploadExposure.disasterType,
       ).defaultAdminLevel === uploadExposure.adminLevel
