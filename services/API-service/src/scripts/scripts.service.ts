@@ -21,11 +21,19 @@ import { CountryEntity } from '../api/country/country.entity';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { MetadataService } from '../api/metadata/metadata.service';
 import { AdminLevel } from '../api/country/admin-level.enum';
+import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
+import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 
 @Injectable()
 export class ScriptsService {
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
+  @InjectRepository(TriggerPerLeadTime)
+  private readonly triggerPerLeadTimeRepo: Repository<TriggerPerLeadTime>;
+  @InjectRepository(AdminAreaDynamicDataEntity)
+  private readonly adminAreaDynamicDataRepo: Repository<
+    AdminAreaDynamicDataEntity
+  >;
   @InjectRepository(EapActionStatusEntity)
   private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
   @InjectRepository(CountryEntity)
@@ -85,6 +93,16 @@ export class ScriptsService {
             eventName: this.getEventName(mockInput.disasterType, eventNr),
           },
         });
+        await this.triggerPerLeadTimeRepo.delete({
+          countryCodeISO3: mockInput.countryCodeISO3,
+          disasterType: mockInput.disasterType,
+          eventName: this.getEventName(mockInput.disasterType, eventNr),
+        });
+        await this.adminAreaDynamicDataRepo.delete({
+          countryCodeISO3: mockInput.countryCodeISO3,
+          disasterType: mockInput.disasterType,
+          eventName: this.getEventName(mockInput.disasterType, eventNr),
+        });
       } else {
         // this split makes sure that for drought all eventNames are removed
         allCountryEvents = await this.eventPlaceCodeRepo.find({
@@ -93,6 +111,14 @@ export class ScriptsService {
             adminArea: In(countryAdminAreaIds),
             disasterType: mockInput.disasterType,
           },
+        });
+        await this.triggerPerLeadTimeRepo.delete({
+          countryCodeISO3: mockInput.countryCodeISO3,
+          disasterType: mockInput.disasterType,
+        });
+        await this.adminAreaDynamicDataRepo.delete({
+          countryCodeISO3: mockInput.countryCodeISO3,
+          disasterType: mockInput.disasterType,
         });
       }
 
@@ -441,7 +467,8 @@ export class ScriptsService {
       }
     } else if (
       disasterType === DisasterType.Drought &&
-      droughtRegion !== this.nationalDroughtRegion &&
+      // droughtRegion !== this.nationalDroughtRegion &&
+      ['UGA', 'ETH', 'KEN'].includes(selectedCountry.countryCodeISO3) && // exclude ZWE for now
       triggered
     ) {
       const seasons = selectedCountry.countryDisasterSettings.find(
@@ -746,9 +773,9 @@ export class ScriptsService {
             }
             break;
           case 'UGA':
-            if (droughtRegion === 'Western') {
+            if (droughtRegion === 'Central') {
               placeCodes = ['21UGA004001', '21UGA004002'];
-            } else if (droughtRegion === 'Northern') {
+            } else if (droughtRegion === 'Karamoja') {
               placeCodes = ['21UGA008003', '21UGA008004'];
             }
             break;

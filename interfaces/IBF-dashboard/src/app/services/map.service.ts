@@ -174,11 +174,7 @@ export class MapService {
       const layerActive = this.getActiveState(layer);
 
       if (layer.type === IbfLayerType.wms) {
-        this.loadWmsLayer(
-          layer,
-          layerActive,
-          layer.leadTimeDependent ? this.timelineState.activeLeadTime : null,
-        );
+        this.loadWmsLayer(layer, layerActive, layer.leadTimeDependent);
       } else if (layer.name === IbfLayerName.adminRegions1) {
         this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel1);
       } else if (layer.name === IbfLayerName.adminRegions2) {
@@ -469,12 +465,17 @@ export class MapService {
   private loadWmsLayer(
     layer: IbfLayerMetadata,
     active: boolean,
-    leadTime?: LeadTime,
+    leadTimeDependent?: boolean,
   ) {
     const events = this.eventState.event
       ? [this.eventState.event]
       : this.eventState.events;
     for (const event of events) {
+      const leadTime = !leadTimeDependent
+        ? null
+        : !this.eventState.event
+        ? event.firstLeadTime
+        : this.timelineState.activeLeadTime;
       this.addLayer({
         name: layer.name,
         label: layer.label,
@@ -488,9 +489,9 @@ export class MapService {
         order: 10,
         wms: {
           url: environment.geoserverUrl,
-          name: `ibf-system:${layer.name}_${
-            leadTime && event.firstLeadTime ? event.firstLeadTime + '_' : ''
-          }${this.country.countryCodeISO3}`,
+          name: `ibf-system:${layer.name}_${leadTime ? `${leadTime}_` : ''}${
+            this.country.countryCodeISO3
+          }`,
           format: 'image/png',
           version: '1.1.0',
           attribution: '510 Global',
@@ -535,7 +536,10 @@ export class MapService {
     layer: IbfLayer,
     interactedLayer: IbfLayer,
   ): boolean => {
-    if (layer.group === IbfLayerGroup.outline) {
+    if (
+      layer.group === IbfLayerGroup.outline &&
+      this.eventState?.activeTrigger
+    ) {
       return true;
     }
     const isActiveDefined = interactedLayer.active != null;

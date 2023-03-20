@@ -247,7 +247,7 @@ export class EventService {
       (s) => s.disasterType === this.disasterType.disasterType,
     ).droughtForecastSeasons;
     for (const seasonRegion of Object.keys(seasons)) {
-      if (event.eventName?.includes(seasonRegion)) {
+      if (event.eventName?.toLowerCase().includes(seasonRegion.toLowerCase())) {
         const leadTimeMonth = DateTime.fromFormat(
           event.endDate,
           'cccc, dd LLLL',

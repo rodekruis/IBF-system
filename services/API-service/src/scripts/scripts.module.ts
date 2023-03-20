@@ -25,6 +25,8 @@ import SeedGlofasStation from './seed-glofas-station';
 import SeedRainfallData from './seed-rainfall-data';
 import { PointDataModule } from '../api/point-data/point-data.module';
 import { AdminAreaDataModule } from '../api/admin-area-data/admin-area-data.module';
+import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
+import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 
 @Module({
   imports: [
@@ -38,6 +40,8 @@ import { AdminAreaDataModule } from '../api/admin-area-data/admin-area-data.modu
       AdminAreaEntity,
       LeadTimeEntity,
       CountryEntity,
+      TriggerPerLeadTime,
+      AdminAreaDynamicDataEntity,
     ]),
     AdminAreaModule,
     AdminAreaDynamicDataModule,
