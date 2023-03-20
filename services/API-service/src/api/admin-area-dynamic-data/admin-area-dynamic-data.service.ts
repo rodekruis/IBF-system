@@ -99,7 +99,16 @@ export class AdminAreaDynamicDataService {
         leadTime: uploadExposure.leadTime,
         adminLevel: uploadExposure.adminLevel,
         disasterType: uploadExposure.disasterType,
-        eventName: uploadExposure.eventName || IsNull(),
+        eventName: uploadExposure.eventName || IsNull(), // delete the given event-name ..
+        date: MoreThanOrEqual(firstDayOfMonth),
+      });
+      await this.adminAreaDynamicDataRepo.delete({
+        indicator: uploadExposure.dynamicIndicator,
+        countryCodeISO3: uploadExposure.countryCodeISO3,
+        leadTime: uploadExposure.leadTime,
+        adminLevel: uploadExposure.adminLevel,
+        disasterType: uploadExposure.disasterType,
+        eventName: IsNull(), // .. but also the empty event-names (TO DO: check this better!)
         date: MoreThanOrEqual(firstDayOfMonth),
       });
     } else if (
@@ -139,7 +148,10 @@ export class AdminAreaDynamicDataService {
   ): Promise<void> {
     const trigger = this.isThereTrigger(uploadExposure.exposurePlaceCodes);
 
-    const eventBelowTrigger = !trigger && !!uploadExposure.eventName;
+    const eventBelowTrigger =
+      !trigger &&
+      !!uploadExposure.eventName &&
+      uploadExposure.disasterType === DisasterType.Typhoon;
 
     const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
     uploadTriggerPerLeadTimeDto.countryCodeISO3 =
@@ -173,32 +185,37 @@ export class AdminAreaDynamicDataService {
   public async getAdminAreaDynamicData(
     countryCodeISO3: string,
     adminLevel: string,
-    leadTime: LeadTime,
     indicator: DynamicIndicator,
     disasterType: DisasterType,
+    leadTime: LeadTime,
     eventName: string,
   ): Promise<AdminDataReturnDto[]> {
     const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
+    const whereFilters = {
+      countryCodeISO3: countryCodeISO3,
+      adminLevel: Number(adminLevel),
+      indicator: indicator,
+      disasterType: disasterType,
+      date: lastTriggeredDate.date,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getLast6hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
+      ),
+    };
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
+    }
+    if (leadTime) {
+      whereFilters['leadTime'] = leadTime;
+    }
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
-      .where({
-        countryCodeISO3: countryCodeISO3,
-        adminLevel: Number(adminLevel),
-        leadTime: leadTime,
-        indicator: indicator,
-        disasterType: disasterType,
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
-        date: lastTriggeredDate.date,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            disasterType,
-            lastTriggeredDate.timestamp,
-          ),
-        ),
-      })
+      .where(whereFilters)
       .select(['dynamic.value AS value', 'dynamic.placeCode AS "placeCode"'])
       .orderBy('dynamic.date', 'DESC')
       .execute();

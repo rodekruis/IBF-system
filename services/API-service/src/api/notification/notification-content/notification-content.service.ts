@@ -46,9 +46,9 @@ export class NotificationContentService {
     let actionUnitValues = await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
       country.countryCodeISO3,
       String(adminLevel),
-      leadTime,
       actionUnit.name as DynamicIndicator,
       disasterType,
+      leadTime,
       eventName,
     );
 

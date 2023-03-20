@@ -61,14 +61,20 @@ export class TimelineService {
   }
 
   private onCountryChange = (country: Country) => {
-    this.triggersAllEvents = null;
+    this.resetState();
     this.country = country;
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
-    this.triggersAllEvents = null;
+    this.resetState();
     this.disasterType = disasterType;
   };
+
+  private resetState() {
+    this.triggersAllEvents = null;
+    this.eventState = this.eventService.nullState;
+    this.state = this.startingState;
+  }
 
   private onInitialEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
@@ -110,6 +116,10 @@ export class TimelineService {
       disabled: !isLeadTimeEnabled && !leadTimeInput.undefined,
       active: false,
       noEvent: this.isNoEvent(),
+      eventName: leadTimeInput.eventName,
+      duration: this.eventState.events.find(
+        (e) => e.eventName === leadTimeInput.eventName,
+      )?.duration,
     };
   };
 
@@ -139,10 +149,14 @@ export class TimelineService {
     }
     // and take first one of this set as active lead-time
     if (toShowTimeStepButtons.length > 0) {
-      this.handleTimeStepButtonClick(toShowTimeStepButtons[0].value);
+      if (this.eventState.events?.length > 1 && !this.eventState.event) {
+        this.handleTimeStepButtonClick(null, null);
+      } else {
+        this.handleTimeStepButtonClick(toShowTimeStepButtons[0].value);
+      }
     } // except if that leads to still empty set: assume this is the typhoon no-event scenario
     else if (toShowTimeStepButtons.length === 0) {
-      this.handleTimeStepButtonClick(LeadTime.hour72, true);
+      this.handleTimeStepButtonClick(LeadTime.hour72, null, true);
     }
   };
 
@@ -193,16 +207,28 @@ export class TimelineService {
   private deactivateLeadTimeButton = (leadTimeButton) =>
     (leadTimeButton.active = false);
 
-  public handleTimeStepButtonClick(timeStepButtonValue, noEvent?: boolean) {
+  public handleTimeStepButtonClick(
+    timeStepButtonValue: LeadTime,
+    eventName?: string,
+    noEvent?: boolean,
+  ) {
     this.placeCodeService.clearPlaceCode();
     this.placeCodeService.clearPlaceCodeHover();
+
     this.state.activeLeadTime = timeStepButtonValue;
     this.state.timeStepButtons.forEach(this.deactivateLeadTimeButton);
-    this.state.timeStepButtons.find((btn) =>
+    const btnToActivate = this.state.timeStepButtons.find((btn) =>
       noEvent
         ? btn.value === timeStepButtonValue
+        : eventName
+        ? btn.value === timeStepButtonValue &&
+          !btn.disabled &&
+          btn.eventName === eventName
         : btn.value === timeStepButtonValue && !btn.disabled,
-    ).active = true;
+    );
+    if (btnToActivate) {
+      btnToActivate.active = true;
+    }
 
     this.timelineStateSubject.next(this.state);
   }
@@ -262,10 +288,20 @@ export class TimelineService {
           .indexOf(leadTime.leadTimeName) === -1 &&
         this.isLeadTimeEnabled(leadTime.leadTimeName)
       ) {
-        visibleLeadTimes.push({
-          leadTime: leadTime.leadTimeName,
-          undefined: false,
-        });
+        // add separate events with same lead-time, separately
+        const filteredEvents = this.eventState.events.filter(
+          (e) => e.firstLeadTime === leadTime.leadTimeName,
+        );
+        if (filteredEvents) {
+          for (const event of filteredEvents.reverse()) {
+            visibleLeadTimes.push({
+              leadTime: leadTime.leadTimeName,
+              eventName: event.eventName,
+              undefined: false,
+              duration: event.duration,
+            });
+          }
+        }
       }
     }
     for (const leadTime of this.disasterType.leadTimes) {
@@ -281,10 +317,12 @@ export class TimelineService {
         this.filterVisibleLeadTimePerDisasterType(
           this.disasterType,
           leadTime.leadTimeName,
+          visibleLeadTimes,
         )
       ) {
         visibleLeadTimes.push({
           leadTime: leadTime.leadTimeName,
+          eventName: null,
           undefined: false,
         });
       }
@@ -298,14 +336,17 @@ export class TimelineService {
     );
 
     // Separately add at the end leadtimes that should be conveyed as 'undefined'
-    const undefinedLeadTimeEvents = this.eventState.events.filter(
+    const undefinedLeadTimeEvents = this.eventState?.events.filter(
       (e) => e.disasterSpecificProperties?.typhoonNoLandfallYet,
     );
-    for (const event of undefinedLeadTimeEvents) {
-      visibleLeadTimes.push({
-        leadTime: event.firstLeadTime as LeadTime,
-        undefined: true,
-      });
+    if (undefinedLeadTimeEvents) {
+      for (const event of undefinedLeadTimeEvents) {
+        visibleLeadTimes.push({
+          leadTime: event.firstLeadTime as LeadTime,
+          eventName: event.eventName,
+          undefined: true,
+        });
+      }
     }
 
     return visibleLeadTimes;
@@ -341,9 +382,24 @@ export class TimelineService {
   private filterVisibleLeadTimePerDisasterType(
     disasterType: DisasterType,
     leadTime: LeadTime,
+    activeLeadTimes: LeadTimeButtonInput[],
   ): boolean {
     if (disasterType.disasterType === DisasterTypeKey.drought) {
       if (this.checkRegionalDroughtSeason()) {
+        // hide months that are already covered in the duration of a preceding event/lead-time button
+        for (const activeLeadTime of activeLeadTimes) {
+          const startLeadTimeNumber = Number(
+            LeadTimeTriggerKey[activeLeadTime.leadTime],
+          );
+          const endLeadTimeNumber =
+            startLeadTimeNumber + activeLeadTime.duration;
+          if (
+            Number(LeadTimeTriggerKey[leadTime]) <= endLeadTimeNumber &&
+            Number(LeadTimeTriggerKey[leadTime]) >= startLeadTimeNumber
+          ) {
+            return false;
+          }
+        }
         return true;
       }
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);

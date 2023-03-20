@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { LeadTimeTriggerKey, LeadTimeUnit } from 'src/app/types/lead-time';
 import { Country, DisasterType } from '../models/country.model';
+import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { DisasterTypeService } from './disaster-type.service';
 
@@ -19,6 +20,7 @@ export class EventSummary {
   firstLeadTimeLabel?: string;
   firstLeadTimeDate?: string;
   timeUnit?: string;
+  duration?: number;
   disasterSpecificProperties: DisasterSpecificProperties;
 }
 
@@ -34,7 +36,7 @@ export class EventService {
   private country: Country;
   private disasterType: DisasterType;
 
-  private nullState = {
+  public nullState = {
     events: null,
     event: null,
     activeEvent: null,
@@ -73,7 +75,7 @@ export class EventService {
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.resetState();
     this.disasterType = disasterType;
-    this.getTrigger();
+    this.getEvents();
   };
 
   public switchEvent(eventName: string) {
@@ -85,14 +87,22 @@ export class EventService {
     this.setEventManually(event);
   }
 
-  public setEventInitially(event: EventSummary) {
+  public resetEvents() {
+    this.setEventInitially(null);
+  }
+
+  private setEventInitially(event: EventSummary) {
     this.state.event = event;
+    this.state.activeTrigger = this.setOverallActiveTrigger();
+    this.state.thresholdReached = this.setOverallThresholdReached();
     this.initialEventStateSubject.next(this.state);
     this.setAlertState();
   }
 
-  public setEventManually(event: EventSummary) {
+  private setEventManually(event: EventSummary) {
     this.state.event = event;
+    this.state.activeTrigger = this.setOverallActiveTrigger();
+    this.state.thresholdReached = this.setOverallThresholdReached();
     this.manualEventStateSubject.next(this.state);
     this.setAlertState();
   }
@@ -107,16 +117,17 @@ export class EventService {
 
   private resetState() {
     this.state = this.nullState;
+    this.resetEvents();
   }
 
-  public getTrigger() {
+  public getEvents() {
     if (this.country && this.disasterType) {
       this.apiService
         .getEventsSummary(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
         )
-        .subscribe(this.onEvent);
+        .subscribe(this.onEvents);
     }
   }
 
@@ -141,7 +152,7 @@ export class EventService {
     callback(disasterType);
   };
 
-  private onEvent = (events) => {
+  private onEvents = (events) => {
     this.apiService
       .getRecentDates(
         this.country.countryCodeISO3,
@@ -173,18 +184,88 @@ export class EventService {
         event.firstLeadTimeDate = event.firstLeadTime
           ? this.getFirstLeadTimeDate(event.firstLeadTime, event.timeUnit)
           : null;
+
+        event.duration = this.getEventDuration(event);
       }
     }
 
-    this.state.activeEvent = !!events[0];
-    this.state.activeTrigger =
-      events[0] &&
-      this.state.events.filter((e: EventSummary) => e.activeTrigger).length > 0;
-    this.state.thresholdReached = events[0];
-    this.setEventInitially(events[0]);
+    this.sortEvents();
+
+    if (events.length === 1) {
+      this.setEventInitially(events[0]);
+    } else if (this.disasterType.disasterType === DisasterTypeKey.typhoon) {
+      // exception: make typhoon still load 1st event by default
+      this.setEventInitially(events[0]);
+    } else {
+      this.setEventInitially(null);
+    }
 
     this.setAlertState();
   };
+
+  private sortEvents() {
+    this.state.events?.sort((a, b) => {
+      const aNoLandfallYet = a.disasterSpecificProperties?.typhoonNoLandfallYet
+        ? 1
+        : 0;
+      const bNoLandfallYet = b.disasterSpecificProperties?.typhoonNoLandfallYet
+        ? 1
+        : 0;
+      if (aNoLandfallYet !== bNoLandfallYet) {
+        return aNoLandfallYet - bNoLandfallYet;
+      } else if (
+        this.leadTimeToNumber(a.firstLeadTime) >
+        this.leadTimeToNumber(b.firstLeadTime)
+      ) {
+        return 1;
+      } else if (
+        this.leadTimeToNumber(a.firstLeadTime) ===
+        this.leadTimeToNumber(b.firstLeadTime)
+      ) {
+        if (a.startDate > b.startDate) {
+          return 1;
+        } else if (a.startDate === b.startDate) {
+          if (a.eventName > b.eventName) {
+            return 1;
+          }
+        }
+      } else {
+        return -1;
+      }
+    });
+  }
+
+  private leadTimeToNumber(leadTime: string) {
+    return Number(leadTime?.split('-')[0]);
+  }
+
+  private getEventDuration(event: EventSummary) {
+    if (this.disasterType.disasterType !== DisasterTypeKey.drought) {
+      return;
+    }
+    const seasons = this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    ).droughtForecastSeasons;
+    for (const seasonRegion of Object.keys(seasons)) {
+      if (event.eventName?.includes(seasonRegion)) {
+        const leadTimeMonth = DateTime.fromFormat(
+          event.endDate,
+          'cccc, dd LLLL',
+        ).plus({
+          months: Number(event.firstLeadTime.split('-')[0]),
+        }).month;
+        for (const season of Object.values(seasons[seasonRegion])) {
+          const rainMonthsKey = 'rainMonths';
+          const seasonMonths = season[rainMonthsKey];
+          if (seasonMonths.includes(leadTimeMonth)) {
+            const endMonth = seasonMonths[seasonMonths.length - 1];
+            const duration = endMonth - leadTimeMonth + 1;
+            return duration;
+          }
+        }
+      }
+    }
+  }
 
   private endDateToLastTriggerDate(endDate: string): string {
     const originalEndDate = DateTime.fromFormat(endDate, 'yyyy-LL-dd');
@@ -194,10 +275,7 @@ export class EventService {
   private setAlertState = () => {
     const dashboardElement = document.getElementById('ibf-dashboard-interface');
     if (dashboardElement) {
-      if (
-        this.state.event?.activeTrigger &&
-        this.state.event?.thresholdReached
-      ) {
+      if (this.state.activeTrigger && this.state.thresholdReached) {
         dashboardElement.classList.remove('no-alert');
         dashboardElement.classList.add('trigger-alert');
       } else {
@@ -232,5 +310,19 @@ export class EventService {
     }
   }
 
-  public isOldEvent = () => this.state.activeEvent && !this.state.activeTrigger;
+  public isOldEvent = () => this.state.event && !this.state.activeTrigger;
+
+  private setOverallActiveTrigger() {
+    return this.state.event
+      ? this.state.event.activeTrigger
+      : this.state.events?.filter((e: EventSummary) => e.activeTrigger).length >
+          0;
+  }
+
+  private setOverallThresholdReached() {
+    return this.state.event
+      ? this.state.event.thresholdReached
+      : this.state.events?.filter((e: EventSummary) => e.thresholdReached)
+          .length > 0;
+  }
 }

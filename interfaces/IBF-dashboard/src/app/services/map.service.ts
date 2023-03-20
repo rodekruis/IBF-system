@@ -400,15 +400,15 @@ export class MapService {
         ? this.adminLevelService.activeLayerNames.includes(indicator.name)
         : this.getActiveState(indicator);
 
-      if (layerActive && this.timelineState.activeLeadTime) {
+      if (layerActive && this.timelineState) {
         this.getCombineAdminRegionData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
           this.adminLevel,
-          this.timelineState.activeLeadTime,
           indicator.name,
-          this.eventState?.event?.eventName,
           indicator.dynamic,
+          this.timelineState.activeLeadTime,
+          this.eventState?.event?.eventName,
         ).subscribe((adminRegions) => {
           this.addAggregateLayer(indicator, adminRegions, layerActive);
         });
@@ -445,8 +445,7 @@ export class MapService {
       colorBreaks: indicator.colorBreaks,
       numberFormatMap: indicator.numberFormatMap,
       legendColor:
-        this.eventState?.event?.activeTrigger &&
-        this.eventState?.event?.thresholdReached
+        this.eventState.activeTrigger && this.eventState.thresholdReached
           ? this.state.colorGradientTriggered[2]
           : this.state.colorGradient[2],
       group:
@@ -472,7 +471,10 @@ export class MapService {
     active: boolean,
     leadTime?: LeadTime,
   ) {
-    if (this.country) {
+    const events = this.eventState.event
+      ? [this.eventState.event]
+      : this.eventState.events;
+    for (const event of events) {
       this.addLayer({
         name: layer.name,
         label: layer.label,
@@ -486,9 +488,9 @@ export class MapService {
         order: 10,
         wms: {
           url: environment.geoserverUrl,
-          name: `ibf-system:${layer.name}_${leadTime ? leadTime + '_' : ''}${
-            this.country.countryCodeISO3
-          }`,
+          name: `ibf-system:${layer.name}_${
+            leadTime && event.firstLeadTime ? event.firstLeadTime + '_' : ''
+          }${this.country.countryCodeISO3}`,
           format: 'image/png',
           version: '1.1.0',
           attribution: '510 Global',
@@ -678,10 +680,10 @@ export class MapService {
         this.country.countryCodeISO3,
         this.disasterType.disasterType,
         this.adminLevel,
-        this.timelineState.activeLeadTime,
         layer.name,
-        this.eventState?.event?.eventName,
         layer.dynamic,
+        this.timelineState.activeLeadTime,
+        this.eventState?.event?.eventName,
       ).pipe(shareReplay(1));
     } else {
       layerData = of(null);
@@ -694,10 +696,10 @@ export class MapService {
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
     adminLevel: AdminLevel,
-    leadTime: LeadTime,
     layerName: IbfLayerName,
-    eventName: string,
     dynamic: boolean,
+    leadTime: LeadTime,
+    eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
     // Do api request to get data layer
     let admDynamicDataObs: Observable<any>;
@@ -756,8 +758,7 @@ export class MapService {
   ): string => {
     let adminRegionFillColor = this.state.defaultColor;
     const currentColorGradient =
-      this.eventState?.event?.activeTrigger &&
-      this.eventState?.event?.thresholdReached
+      this.eventState.activeTrigger && this.eventState.thresholdReached
         ? this.state.colorGradientTriggered
         : this.state.colorGradient;
 

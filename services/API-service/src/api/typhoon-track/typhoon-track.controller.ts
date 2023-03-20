@@ -1,8 +1,17 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -47,18 +56,21 @@ export class TyphoonTrackController {
     summary: 'Get Typhoon track data for given country and leadtime',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'eventName', required: true, type: 'string' })
+  @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
       'Typhoon track data for given country and leadtime in GEOJSON format.',
     type: GeoJson,
   })
-  @Get(':countryCodeISO3/:eventName')
-  public async getTyphoonTrack(@Param() params): Promise<GeoJson> {
+  @Get(':countryCodeISO3')
+  public async getTyphoonTrack(
+    @Param() params,
+    @Query() query,
+  ): Promise<GeoJson> {
     return await this.typhoonTrackService.getTyphoonTrack(
       params.countryCodeISO3,
-      params.eventName,
+      query.eventName,
     );
   }
 }

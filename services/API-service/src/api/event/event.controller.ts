@@ -37,7 +37,6 @@ import { UserDecorator } from '../user/user.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import stream from 'stream';
 import { Response } from 'express-serve-static-core';
-import { DisasterType } from '../disaster/disaster-type.enum';
 
 @ApiBearerAuth()
 @ApiTags('event')
@@ -100,19 +99,22 @@ export class EventController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
-  @ApiParam({ name: 'eventName', required: true, type: 'string' })
+  @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
       'Yes/no trigger per lead-time for given country and disaster-type.',
     type: TriggerPerLeadTimeExampleDto,
   })
-  @Get('triggers/:countryCodeISO3/:disasterType/:eventName')
-  public async getTriggerPerLeadtime(@Param() params): Promise<object> {
+  @Get('triggers/:countryCodeISO3/:disasterType')
+  public async getTriggerPerLeadtime(
+    @Param() params,
+    @Query() query,
+  ): Promise<object> {
     return await this.eventService.getTriggerPerLeadtime(
       params.countryCodeISO3,
       params.disasterType,
-      params.eventName,
+      query.eventName,
     );
   }
 
@@ -124,24 +126,25 @@ export class EventController {
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiParam({ name: 'leadTime', required: true, type: 'string' })
-  @ApiParam({ name: 'eventName', required: true, type: 'string' })
+  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
+  @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
       'Triggered admin-areas for given country, disaster-type and lead-time.',
     type: [TriggeredArea],
   })
-  @Get(
-    'triggered-areas/:countryCodeISO3/:adminLevel/:disasterType/:leadTime/:eventName',
-  )
-  public async getTriggeredAreas(@Param() params): Promise<TriggeredArea[]> {
+  @Get('triggered-areas/:countryCodeISO3/:adminLevel/:disasterType')
+  public async getTriggeredAreas(
+    @Param() params,
+    @Query() query,
+  ): Promise<TriggeredArea[]> {
     return await this.eventService.getTriggeredAreas(
       params.countryCodeISO3,
       params.disasterType,
       params.adminLevel,
-      params.leadTime,
-      params.eventName,
+      query.leadTime,
+      query.eventName,
     );
   }
 

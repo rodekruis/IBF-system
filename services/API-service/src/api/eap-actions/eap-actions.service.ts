@@ -168,13 +168,15 @@ export class EapActionsService {
       .createQueryBuilder('status')
       .select(['status."actionCheckedId"', 'status."placeCode"'])
       .leftJoin('status.eventPlaceCode', 'event')
-      .where('coalesce(event."eventName",\'null\') = :eventName', {
-        eventName: eventName || 'null',
-      })
-      .andWhere('event.closed = false')
+      .where('event.closed = false')
       .groupBy('status."actionCheckedId"')
       .addGroupBy('status."placeCode"')
       .addSelect(['MAX(status.timestamp) AS "max_timestamp"']);
+    if (eventName) {
+      mostRecentStatePerAction.andWhere('event."eventName" = :eventName', {
+        eventName: eventName,
+      });
+    }
 
     const eapActionsStates = this.eapActionStatusRepository
       .createQueryBuilder('status')
@@ -191,10 +193,12 @@ export class EapActionsService {
       .setParameters(mostRecentStatePerAction.getParameters())
       .leftJoin('status.eventPlaceCode', 'event')
       .where('status.timestamp = recent.max_timestamp')
-      .andWhere('coalesce(event."eventName",\'null\') = :eventName', {
-        eventName: eventName || 'null',
-      })
       .andWhere('event.closed = false');
+    if (eventName) {
+      eapActionsStates.andWhere('event."eventName" = :eventName', {
+        eventName: eventName,
+      });
+    }
 
     const eapActions = await this.eapActionRepository
       .createQueryBuilder('action')

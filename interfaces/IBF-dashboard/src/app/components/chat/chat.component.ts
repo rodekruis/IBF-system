@@ -48,7 +48,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   public eventState: EventState;
   private timelineState: TimelineState;
   private indicators: Indicator[];
-  public otherLeadTimes: string;
   public placeCode: PlaceCode;
 
   private updateSuccessMessage: string;
@@ -160,16 +159,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-    this.eventState?.events?.sort((a, b) =>
-      a.disasterSpecificProperties?.typhoonNoLandfallYet
-        ? 1
-        : Number(a.firstLeadTime?.split('-')[0]) >
-          Number(b.firstLeadTime?.split('-')[0])
-        ? 1
-        : a.startDate > b.startDate
-        ? 1
-        : -1,
-    );
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -255,16 +244,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.updateFailureMessage = this.translateService.instant(
         `chat-component.common.save-actions.update-failure`,
       );
-      if (this.disasterType.disasterType === DisasterTypeKey.drought) {
-        this.otherLeadTimes = this.timelineState.timeStepButtons
-          .filter(
-            (b) => b.alert && b.value !== this.eventState.event.firstLeadTime,
-          )
-          .map((b) =>
-            this.eventService.getFirstLeadTimeDate(b.value, LeadTimeUnit.month),
-          )
-          .join(' and ');
-      }
 
       this.setLastModelRunDate(this.disasterType);
 
@@ -470,7 +449,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private reloadEapAndTrigger() {
     this.eapActionsService.getTriggeredAreasApi();
-    this.eventService.getTrigger();
+    this.eventService.getEvents();
     this.placeCodeService.clearPlaceCode();
   }
 

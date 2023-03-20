@@ -154,7 +154,11 @@ export class ApiService {
     countryCodeISO3: string,
     eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`typhoon-track/${countryCodeISO3}/${eventName}`, false);
+    let params = new HttpParams();
+    if (eventName) {
+      params = params.append('eventName', eventName);
+    }
+    return this.get(`typhoon-track/${countryCodeISO3}`, false, params);
   }
 
   getPointData(
@@ -185,11 +189,14 @@ export class ApiService {
     disasterType: DisasterTypeKey,
     eventName: string,
   ): Observable<CountryTriggers> {
+    let params = new HttpParams();
+    if (eventName) {
+      params = params.append('eventName', eventName);
+    }
     return this.get(
-      `event/triggers/${countryCodeISO3}/${disasterType}/${
-        eventName || 'no-name'
-      }`,
+      `event/triggers/${countryCodeISO3}/${disasterType}`,
       false,
+      params,
     );
   }
 
@@ -207,26 +214,38 @@ export class ApiService {
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
     eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
+    let params = new HttpParams();
+    if (eventName) {
+      params = params.append('eventName', eventName);
+    }
+    if (leadTime) {
+      params = params.append('leadTime', leadTime);
+    }
     return this.get(
-      `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}/${leadTime}/${
-        eventName || 'no-name'
-      }`,
+      `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}`,
       false,
+      params,
     );
   }
 
   getAggregatesData(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
-    leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
+    leadTime: string,
     eventName: string,
   ): Observable<any> {
+    let params = new HttpParams();
+    if (eventName) {
+      params = params.append('eventName', eventName);
+    }
+    if (leadTime) {
+      params = params.append('leadTime', leadTime);
+    }
     return this.get(
-      `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}/${leadTime}/${
-        eventName || 'no-name'
-      }`,
+      `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}`,
       false,
+      params,
     );
   }
 
@@ -237,23 +256,23 @@ export class ApiService {
     leadTime: string,
     eventName: string,
   ): Observable<TriggeredArea> {
+    let params = new HttpParams();
+    if (eventName) {
+      params = params.append('eventName', eventName);
+    }
+    if (leadTime) {
+      params = params.append('leadTime', leadTime);
+    }
     return this.get(
-      `event/triggered-areas/${countryCodeISO3}/${adminLevel}/${disasterType}/${leadTime}/${
-        eventName || 'no-name'
-      }`,
+      `event/triggered-areas/${countryCodeISO3}/${adminLevel}/${disasterType}`,
       false,
+      params,
     );
   }
 
-  getIndicators(
-    countryCodeISO3: string,
-    disasterType: DisasterTypeKey,
-    eventName: string,
-  ) {
+  getIndicators(countryCodeISO3: string, disasterType: DisasterTypeKey) {
     return this.get(
-      `metadata/indicators/${countryCodeISO3}/${disasterType}/${
-        eventName || 'no-name'
-      }`,
+      `metadata/indicators/${countryCodeISO3}/${disasterType}`,
       false,
     );
   }
@@ -291,11 +310,17 @@ export class ApiService {
     disasterType: DisasterTypeKey,
     eventName: string,
   ) {
+    let params = new HttpParams();
+    if (eventName) {
+      params = params.append('eventName', eventName);
+    }
+    if (leadTime) {
+      params = params.append('leadTime', leadTime);
+    }
     return this.get(
-      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${leadTime}/${indicator}/${disasterType}/${
-        eventName || 'no-name'
-      }`,
+      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${indicator}/${disasterType}`,
       false,
+      params,
     );
   }
 

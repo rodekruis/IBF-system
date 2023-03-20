@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { AreaOfFocusEntity } from '../area-of-focus.entity';
+import { DisasterType } from '../../disaster/disaster-type.enum';
 
 class EapActionDto {
   @ApiProperty({ example: 'UGA' })
@@ -8,7 +9,7 @@ class EapActionDto {
   @IsString()
   public countryCodeISO3: string;
 
-  @ApiProperty({ example: 'floods' })
+  @ApiProperty({ example: DisasterType.Floods })
   @IsNotEmpty()
   @IsString()
   public disasterType: string;
@@ -36,7 +37,7 @@ export class AddEapActionsDto {
     example: [
       {
         countryCodeISO3: 'UGA',
-        disasterType: 'floods',
+        disasterType: DisasterType.Floods,
         action: 'drr-1',
         areaOfFocus: { id: 'drr' },
         label: 'DRR dummy action',

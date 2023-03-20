@@ -7,6 +7,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
+import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Entity('event-map-image')
@@ -25,7 +26,7 @@ export class EventMapImageEntity {
   })
   public countryCodeISO3: string;
 
-  @ApiProperty({ example: 'floods' })
+  @ApiProperty({ example: DisasterType.Floods })
   @ManyToOne((): typeof DisasterEntity => DisasterEntity)
   @JoinColumn({
     name: 'disasterType',

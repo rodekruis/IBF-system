@@ -1,0 +1,32 @@
+app-dialogue-turn {
+  p,
+  ion-label,
+  ion-note {
+    font-size: 12px;
+  }
+
+  .submit-button {
+    flex-basis: 100%;
+  }
+}
+
+.action-label {
+  font-size: small;
+}
+
+.clear-out-message {
+  color: var(--ion-color-danger);
+  font-weight: bold;
+}
+
+ion-checkbox {
+  margin-inline-end: 8px !important;
+}
+
+.clickable-area {
+  text-decoration: underline;
+  :hover {
+    font-weight: bold;
+    cursor: pointer;
+  }
+}

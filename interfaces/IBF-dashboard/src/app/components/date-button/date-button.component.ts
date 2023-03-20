@@ -20,6 +20,8 @@ export class DateButtonComponent implements OnInit, OnDestroy {
   @Input() unit = LeadTimeUnit.day;
   @Input() active: boolean;
   @Input() todayButton: boolean;
+  @Input() eventName: string | null;
+  @Input() duration: number | null;
 
   private dateFormat = '';
   private monthFormat = '';
@@ -71,5 +73,12 @@ export class DateButtonComponent implements OnInit, OnDestroy {
     this.displayMonth = this.date
       ? this.date.toFormat(this.monthFormat)
       : 'Undetermined';
+
+    // TO DO: refactor how this whole component works
+    if (this.eventName && this.duration && this.unit === LeadTimeUnit.month) {
+      const endMonthDate = this.date.plus({ months: this.duration });
+      this.displayMonth = `${this.date.monthShort}-${endMonthDate.monthShort} ${this.date.year}`;
+      this.displayHour = `Duration ${this.duration} months`;
+    }
   };
 }

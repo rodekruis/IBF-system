@@ -399,5 +399,7 @@ export enum MonthFormats {
 
 export class LeadTimeButtonInput {
   leadTime: LeadTime;
+  eventName: string;
   undefined: boolean;
+  duration?: number;
 }

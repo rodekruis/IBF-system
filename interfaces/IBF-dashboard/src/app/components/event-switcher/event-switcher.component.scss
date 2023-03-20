@@ -12,36 +12,7 @@ p {
   text-align: center;
   padding: 0.7em 1.4em;
 }
-.containerOne {
-  justify-content: space-between;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  padding: 0.7em 1.4em;
-}
-.containerTwo {
-  display: block;
-  margin: 0px 2px 0px 2px;
-  height: 32px;
-  width: 32px;
-  cursor: pointer;
-}
-.containerThree {
-  padding: 5px;
-  display: block;
-}
-
-.event-switch-button {
-  --border-width: 1px;
-  --border-style: solid;
-}
 
 .selected {
   font-weight: 700;
-  --border-width: 2px;
-}
-
-.triggered {
-  --border-color: var(--ion-color-ibf-outline-red) !important;
 }

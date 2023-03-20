@@ -116,7 +116,6 @@ export class AggregatesService {
         .getIndicators(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.eventState.event?.eventName,
         )
         .subscribe(this.onIndicatorChange);
     }
@@ -191,7 +190,7 @@ export class AggregatesService {
     if (
       this.country &&
       this.disasterType &&
-      this.timelineState.activeLeadTime &&
+      this.timelineState &&
       this.adminLevel &&
       this.eventState
     ) {
@@ -199,8 +198,8 @@ export class AggregatesService {
         .getAggregatesData(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.timelineState.activeLeadTime,
           this.adminLevel,
+          this.timelineState.activeLeadTime,
           this.eventState.event?.eventName,
         )
         .subscribe(this.onAggregateData);

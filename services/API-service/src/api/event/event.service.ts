@@ -84,8 +84,8 @@ export class EventService {
         closed: false,
       })
       .andWhere(
-        // in case of 'typhoon' filter also on activeTrigger = true, thereby disabling old-event scenario
-        "(event.\"disasterType\" NOT IN ('typhoon','flash-floods') OR (event.\"disasterType\" IN ('typhoon','flash-floods') AND event.\"activeTrigger\" = true))",
+        // for typhoon/flash-floods filter also on activeTrigger = true, thereby disabling old-event scenario
+        `(event."disasterType" NOT IN ('typhoon','flash-floods') OR (event."disasterType" IN ('typhoon','flash-floods') AND event."activeTrigger" = true))`,
       )
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
@@ -167,8 +167,15 @@ export class EventService {
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
-        eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
         date: MoreThanOrEqual(firstDayOfMonth),
+        eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(), // delete the given event-name ..
+      });
+      await this.triggerPerLeadTimeRepository.delete({
+        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
+        leadTime: selectedLeadTime.leadTime as LeadTime,
+        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
+        date: MoreThanOrEqual(firstDayOfMonth),
+        eventName: IsNull(), // .. but also the empty event-names (TO DO: check this better!)
       });
     } else if (
       leadTime.includes(LeadTimeUnit.hour) &&
@@ -219,30 +226,43 @@ export class EventService {
       disasterType,
     );
     const triggerUnit = await this.getTriggerUnit(disasterType);
+
+    const whereFiltersDynamicData = {
+      indicator: triggerUnit,
+      value: MoreThan(0),
+      adminLevel: adminLevel,
+      disasterType: disasterType,
+      countryCodeISO3: countryCodeISO3,
+      date: lastTriggeredDate.date,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getLast6hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
+      ),
+    };
+    if (eventName) {
+      whereFiltersDynamicData['eventName'] = eventName;
+    }
+    if (leadTime) {
+      whereFiltersDynamicData['leadTime'] = leadTime;
+    }
     const triggeredAreasRaw = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .select(['dynamic.placeCode AS "placeCode"'])
-      .where({
-        indicator: triggerUnit,
-        value: MoreThan(0),
-        leadTime: leadTime,
-        adminLevel: adminLevel,
-        disasterType: disasterType,
-        countryCodeISO3: countryCodeISO3,
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
-        date: lastTriggeredDate.date,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            disasterType,
-            lastTriggeredDate.timestamp,
-          ),
-        ),
-      })
+      .where(whereFiltersDynamicData)
       .execute();
     const triggeredPlaceCodes = triggeredAreasRaw.map(
       element => element.placeCode,
     );
 
+    const whereFiltersEvent = {
+      closed: false,
+      disasterType: disasterType,
+    };
+    if (eventName) {
+      whereFiltersEvent['eventName'] = eventName;
+    }
     const triggeredAreasQuery = this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
@@ -264,11 +284,7 @@ export class EventService {
         'parent',
         'area."placeCodeParent" = parent."placeCode"',
       )
-      .where({
-        closed: false,
-        disasterType: disasterType,
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
-      })
+      .where(whereFiltersEvent)
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
@@ -298,7 +314,7 @@ export class EventService {
           countryCodeISO3,
           disasterType,
           area.placeCode,
-          eventName === 'no-name' ? null : eventName,
+          eventName,
         );
       }
     }
@@ -387,20 +403,25 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const triggersPerLeadTime = await this.triggerPerLeadTimeRepository.find({
-      where: {
-        countryCodeISO3: countryCodeISO3,
-        date: lastTriggeredDate.date,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            disasterType,
-            lastTriggeredDate.timestamp,
-          ),
+    const whereFilters = {
+      countryCodeISO3: countryCodeISO3,
+      date: lastTriggeredDate.date,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getLast6hourInterval(
+          disasterType,
+          lastTriggeredDate.timestamp,
         ),
-        disasterType: disasterType,
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
-      },
+      ),
+      disasterType: disasterType,
+    };
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
+    }
+
+    const triggersPerLeadTime = await this.triggerPerLeadTimeRepository.find({
+      where: whereFilters,
     });
+
     if (triggersPerLeadTime.length === 0) {
       return;
     }
@@ -578,7 +599,9 @@ export class EventService {
       .select('area."placeCode"')
       .addSelect('MAX(area.value) AS "triggerValue"')
       .where(whereFilters)
-      .andWhere('(area.value > 0 OR area."eventName" is not null)') // Also allow value=0 entries with event name (= below trigger event)
+      .andWhere(
+        `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" = 'typhoon'))`,
+      ) // Also allow value=0 entries with typhoon event name (= below trigger event)
       .groupBy('area."placeCode"')
       .getRawMany();
 
