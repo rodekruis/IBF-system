@@ -165,20 +165,16 @@ export class EventService {
     if (leadTime.includes(LeadTimeUnit.month)) {
       const date = uploadTriggerPerLeadTimeDto.date || new Date();
       const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-      await this.triggerPerLeadTimeRepository.delete({
+      const deleteFilters = {
         countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
         leadTime: selectedLeadTime.leadTime as LeadTime,
         disasterType: uploadTriggerPerLeadTimeDto.disasterType,
         date: MoreThanOrEqual(firstDayOfMonth),
-        eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(), // delete the given event-name ..
-      });
-      await this.triggerPerLeadTimeRepository.delete({
-        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
-        leadTime: selectedLeadTime.leadTime as LeadTime,
-        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
-        date: MoreThanOrEqual(firstDayOfMonth),
-        eventName: IsNull(), // .. but also the empty event-names (TO DO: check this better!)
-      });
+      };
+      if (uploadTriggerPerLeadTimeDto.eventName) {
+        deleteFilters['eventName'] = uploadTriggerPerLeadTimeDto.eventName;
+      }
+      await this.triggerPerLeadTimeRepository.delete(deleteFilters);
     } else if (
       leadTime.includes(LeadTimeUnit.hour) &&
       uploadTriggerPerLeadTimeDto.disasterType === DisasterType.Typhoon
@@ -204,6 +200,73 @@ export class EventService {
         eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
         date: uploadTriggerPerLeadTimeDto.date || new Date(),
       });
+    }
+  }
+
+  private async deleteDuplicateEvents(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    eventName: string,
+    date: Date,
+  ): Promise<void> {
+    const disasterTypeEntity = await this.disasterTypeRepository.findOne({
+      where: { disasterType: disasterType },
+      relations: ['leadTimes'],
+    });
+    const leadTimeUnit = disasterTypeEntity.leadTimes[0].leadTimeName.split(
+      '-',
+    )[1] as LeadTimeUnit;
+    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
+      countryCodeISO3,
+    );
+
+    if (leadTimeUnit === LeadTimeUnit.month) {
+      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      const deleteFilters = {
+        adminArea: In(countryAdminAreaIds),
+        disasterType: disasterType,
+        startDate: MoreThanOrEqual(firstDayOfMonth),
+      };
+      if (eventName) {
+        deleteFilters['eventName'] = eventName;
+      }
+      const eventAreasToDelete = await this.eventPlaceCodeRepo.find({
+        where: deleteFilters,
+      });
+      await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
+    } else if (
+      leadTimeUnit === LeadTimeUnit.hour &&
+      disasterType === DisasterType.Typhoon
+    ) {
+      const deleteFilters = {
+        adminArea: In(countryAdminAreaIds),
+        disasterType: disasterType,
+        startDate: MoreThanOrEqual(
+          this.helperService.getLast6hourInterval(disasterType, date),
+        ),
+      };
+      if (eventName) {
+        deleteFilters['eventName'] = eventName;
+      }
+      const eventAreasToDelete = await this.eventPlaceCodeRepo.find({
+        where: deleteFilters,
+      });
+      await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
+    } else {
+      const deleteFilters = {
+        adminArea: In(countryAdminAreaIds),
+        disasterType: disasterType,
+        startDate: MoreThanOrEqual(
+          this.helperService.getLast6hourInterval(disasterType, date),
+        ),
+      };
+      if (eventName) {
+        deleteFilters['eventName'] = eventName;
+      }
+      const eventAreasToDelete = await this.eventPlaceCodeRepo.find({
+        where: deleteFilters,
+      });
+      await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
     }
   }
 
@@ -492,8 +555,17 @@ export class EventService {
     disasterType: DisasterType,
     adminLevel: number,
     eventName: string,
+    date: Date,
   ): Promise<void> {
-    // First set all events to inactive
+    // First delete duplicate events for upload within same time-block
+    await this.deleteDuplicateEvents(
+      countryCodeISO3,
+      disasterType,
+      eventName,
+      date,
+    );
+
+    // Then set all events to inactive
     await this.setAllEventsToInactive(countryCodeISO3, disasterType);
 
     // update active ones to true + update population and end_date
