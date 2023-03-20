@@ -695,7 +695,6 @@ export class ScriptsService {
       if (Number(activeLeadTime.split('-')[0]) > 3) {
         copyOfExposureUnit = [];
         // Hard-code lead-times of more then 3 months to non-trigger
-        // TO DO: will this work in non-triggered?
       } else if (droughtRegion !== this.nationalDroughtRegion) {
         // Hard-code that only areas of right region are triggered per selected leadtime
         const areas = this.getDroughtAreasPerRegion(

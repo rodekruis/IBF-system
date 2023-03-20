@@ -597,7 +597,7 @@ export class MapComponent implements OnDestroy {
           event.firstLeadTime as LeadTime,
           event.eventName,
         );
-        // this.eventService.switchEvent(feature.properties.eventName); // TO DO: can this go?
+        this.eventService.switchEvent(feature.properties.eventName);
       }
     } else if (this.eventState.event) {
       // in in event-mode, then set placeCode

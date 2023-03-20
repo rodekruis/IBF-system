@@ -287,7 +287,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       eapAction: action,
       eapActionStatus: checkbox,
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });
@@ -329,7 +328,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
       placeCode,
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });
@@ -434,7 +432,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   ): void {
     this.analyticsService.logEvent(AnalyticsEvent.stopTrigger, {
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       placeCode,
     });
@@ -476,7 +473,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       months: 1,
     });
 
-    let forecastMonthNumbers = [];
+    const forecastMonthNumbers = [];
     for (const area of forecastAreas) {
       if (
         !event?.eventName ||

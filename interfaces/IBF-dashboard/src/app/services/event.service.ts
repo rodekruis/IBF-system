@@ -202,7 +202,9 @@ export class EventService {
       this.setEventInitially(events[0]);
     } else if (this.disasterType.disasterType === DisasterTypeKey.typhoon) {
       // exception: make typhoon still load 1st event by default
-      this.setEventInitially(events[0]);
+      const triggerEvents = events.filter((e) => e.thresholdReached);
+      const eventToLoad = triggerEvents ? triggerEvents[0] : events[0];
+      this.setEventInitially(eventToLoad);
     } else {
       this.setEventInitially(null);
     }
