@@ -25,6 +25,17 @@
               }
       "
     ></span>
+    <span *ngIf="event.duration"
+      [innerHTML]="
+        'chat-component.' +
+          disasterTypeName +
+          '.active-event-active-trigger.duration'
+          | translate
+            : {
+                duration: event.duration
+              }
+      "
+    ></span>
   </p>
 
   <p

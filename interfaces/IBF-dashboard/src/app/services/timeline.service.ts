@@ -385,28 +385,20 @@ export class TimelineService {
     activeLeadTimes: LeadTimeButtonInput[],
   ): boolean {
     if (disasterType.disasterType === DisasterTypeKey.drought) {
-      if (this.checkRegionalDroughtSeason()) {
-        // hide months that are already covered in the duration of a preceding event/lead-time button
-        for (const activeLeadTime of activeLeadTimes) {
-          const startLeadTimeNumber = Number(
-            LeadTimeTriggerKey[activeLeadTime.leadTime],
-          );
-          const endLeadTimeNumber =
-            startLeadTimeNumber + activeLeadTime.duration;
-          if (
-            Number(LeadTimeTriggerKey[leadTime]) <= endLeadTimeNumber &&
-            Number(LeadTimeTriggerKey[leadTime]) >= startLeadTimeNumber
-          ) {
-            return false;
-          }
+      // hide months that are already covered in the duration of a preceding event/lead-time button
+      for (const activeLeadTime of activeLeadTimes) {
+        const startLeadTimeNumber = Number(
+          LeadTimeTriggerKey[activeLeadTime.leadTime],
+        );
+        const endLeadTimeNumber = startLeadTimeNumber + activeLeadTime.duration;
+        if (
+          Number(LeadTimeTriggerKey[leadTime]) <= endLeadTimeNumber &&
+          Number(LeadTimeTriggerKey[leadTime]) >= startLeadTimeNumber
+        ) {
+          return false;
         }
-        return true;
       }
-      const leadTimeMonth = this.getLeadTimeMonth(leadTime);
-      const nextForecastMonthEndOfMonth = this.getNextForecastMonth();
-      return (
-        leadTimeMonth <= nextForecastMonthEndOfMonth // hide months beyond next Forecast month
-      );
+      return true;
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       return [
         LeadTime.hour0,

@@ -535,7 +535,10 @@ export class MapService {
     layer: IbfLayer,
     interactedLayer: IbfLayer,
   ): boolean => {
-    if (layer.group === IbfLayerGroup.outline) {
+    if (
+      layer.group === IbfLayerGroup.outline &&
+      this.eventState?.activeTrigger
+    ) {
       return true;
     }
     const isActiveDefined = interactedLayer.active != null;
