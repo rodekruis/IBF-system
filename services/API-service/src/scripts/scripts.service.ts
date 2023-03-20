@@ -773,9 +773,9 @@ export class ScriptsService {
             }
             break;
           case 'UGA':
-            if (droughtRegion === 'Western') {
+            if (droughtRegion === 'Central') {
               placeCodes = ['21UGA004001', '21UGA004002'];
-            } else if (droughtRegion === 'Northern') {
+            } else if (droughtRegion === 'Karamoja') {
               placeCodes = ['21UGA008003', '21UGA008004'];
             }
             break;

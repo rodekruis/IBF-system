@@ -41,13 +41,13 @@
           "11-month"
         ],
         "droughtForecastSeasons": {
-          "Northern": {
+          "Karamoja": {
             "1": {
               "rainMonths": [4, 5, 6, 7, 8, 9, 10],
               "actionMonths": [2, 3, 4, 5, 6, 7, 8, 9, 10]
             }
           },
-          "Western": {
+          "Central": {
             "1": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [1, 2, 3, 4, 5]
@@ -59,7 +59,7 @@
           }
         },
         "droughtAreas": {
-          "Northern": [
+          "Karamoja": [
             "21UGA001001",
             "21UGA001002",
             "21UGA001003",
@@ -95,7 +95,7 @@
             "21UGA015008",
             "21UGA015009"
           ],
-          "Western": [
+          "Central": [
             "21UGA002001",
             "21UGA002002",
             "21UGA002003",
