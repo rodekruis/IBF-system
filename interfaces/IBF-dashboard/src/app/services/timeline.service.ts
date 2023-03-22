@@ -246,11 +246,7 @@ export class TimelineService {
     } else if (leadTime.includes(LeadTimeUnit.hour)) {
       return this.state.today.plus({ hours: Number(triggerKey) });
     } else if (leadTime.includes(LeadTimeUnit.month)) {
-      if (
-        this.country.countryDisasterSettings.find(
-          (s) => s.disasterType === this.disasterType.disasterType,
-        ).droughtEndOfMonthPipeline
-      ) {
+      if (this.getCountryDisasterAttribute('droughtEndOfMonthPipeline')) {
         return this.state.today.plus({ months: Number(triggerKey) + 1 });
       }
       return this.state.today.plus({ months: Number(triggerKey) });
@@ -259,9 +255,7 @@ export class TimelineService {
 
   private isLeadTimeEnabled(leadTime: LeadTime): boolean {
     const leadTimes = this.country
-      ? this.country.countryDisasterSettings.find(
-          (s) => s.disasterType === this.disasterType.disasterType,
-        ).activeLeadTimes
+      ? this.getCountryDisasterAttribute('activeLeadTimes')
       : [];
     const leadTimeIndex = leadTimes.indexOf(leadTime);
 
@@ -373,9 +367,9 @@ export class TimelineService {
   }
 
   private checkRegionalDroughtSeason() {
-    const forecastSeasonAreas = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtForecastSeasons;
+    const forecastSeasonAreas = this.getCountryDisasterAttribute(
+      'droughtForecastSeasons',
+    );
     return Object.values(forecastSeasonAreas).length > 1;
   }
 
@@ -410,6 +404,12 @@ export class TimelineService {
         LeadTime.hour144,
         LeadTime.hour168,
       ].includes(leadTime);
+    } else if (disasterType.disasterType === DisasterTypeKey.heavyRain) {
+      const countryLeadTimes = this.getCountryDisasterAttribute(
+        'activeLeadTimes',
+      );
+      const maxLeadTime = countryLeadTimes[countryLeadTimes.length - 1];
+      return leadTime > maxLeadTime ? false : true;
     } else {
       return true;
     }
@@ -454,9 +454,9 @@ export class TimelineService {
   private shiftYear = (monthNumber: number) => {
     // Make sure you start counting the year at the beginning of (one of the) seasons, instead of at January
     // so that 'month > currentMonth' does not break on a season like [12,1,2]
-    const seasonRegions = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtForecastSeasons;
+    const seasonRegions = this.getCountryDisasterAttribute(
+      'droughtForecastSeasons',
+    );
     let seasonBeginnings = [];
     for (const region of Object.values(seasonRegions)) {
       seasonBeginnings.push(
@@ -471,11 +471,7 @@ export class TimelineService {
 
   private getNextForecastMonth(): DateTime {
     let todayLeadTime = this.state.today;
-    if (
-      this.country.countryDisasterSettings.find(
-        (s) => s.disasterType === this.disasterType.disasterType,
-      ).droughtEndOfMonthPipeline
-    ) {
+    if (this.getCountryDisasterAttribute('droughtEndOfMonthPipeline')) {
       todayLeadTime = this.state.today.plus({ month: 1 });
     }
     const currentYear = todayLeadTime.year;
@@ -513,14 +509,16 @@ export class TimelineService {
     return DateTime.utc(nextForecastMonthYear, forecastMonthNumber, 1);
   }
 
+  private getCountryDisasterAttribute(attribute) {
+    return this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    )[attribute];
+  }
+
   private getLeadTimeMonth(leadTime: LeadTime): DateTime {
     const addMonths =
       Number(LeadTimeTriggerKey[leadTime]) +
-      (this.country.countryDisasterSettings.find(
-        (s) => s.disasterType === this.disasterType.disasterType,
-      ).droughtEndOfMonthPipeline
-        ? 1
-        : 0);
+      (this.getCountryDisasterAttribute('droughtEndOfMonthPipeline') ? 1 : 0);
     const leadTimeMonth = this.state.today.plus({
       month: addMonths,
     });
@@ -531,9 +529,7 @@ export class TimelineService {
     const rainMonthsKey = 'rainMonths';
     const rainMonths = [];
     for (const area of Object.values(
-      this.country.countryDisasterSettings.find(
-        (s) => s.disasterType === this.disasterType.disasterType,
-      ).droughtForecastSeasons,
+      this.getCountryDisasterAttribute('droughtForecastSeasons'),
     )) {
       for (const season of Object.values(area)) {
         rainMonths.push(season[rainMonthsKey]);

@@ -3,7 +3,7 @@
     "countryCodeISO3": "UGA",
     "countryCodeISO2": "UG",
     "countryName": "Uganda",
-    "disasterTypes": ["floods", "drought"],
+    "disasterTypes": ["floods", "drought", "heavy-rain"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -195,6 +195,13 @@
         "droughtEndOfMonthPipeline": false,
         "showMonthlyEapActions": true,
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0db9ce391f633443aae619a2a0e974904&authkey=AV-9MdWarHQlelBjlbQdaoA&expiration=2023-07-31T22%3a00%3a00.000Z"
+      },
+      {
+        "disasterType": "heavy-rain",
+        "adminLevels": [2, 3, 4],
+        "defaultAdminLevel": 2,
+        "activeLeadTimes": ["1-day", "2-day", "3-day"],
+        "eapLink": ""
       }
     ],
     "adminRegionLabels": {

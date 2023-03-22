@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
+const fs = require('fs');
 const XLSX = require('xlsx');
 
 const indicatorMetadata = require('../../../../../services/API-service/src/scripts/json/indicator-metadata.json');
@@ -12,8 +12,8 @@ const xlsxFileName = 'layer-popup-info.xlsx';
 const csvFileName = 'new-lines.csv';
 const sheetName = 'data';
 
-let workbook = XLSX.readFile(path + xlsxFileName);
-let worksheet = workbook.Sheets[sheetName];
+const workbook = XLSX.readFile(path + xlsxFileName);
+const worksheet = workbook.Sheets[sheetName];
 
 const sectionNames = {
   generalIndicator: 'layers-section',
@@ -28,9 +28,9 @@ const headers = {
   D: 'disasterType',
 };
 
-let existingDataInXLSX = [];
-let indicatorsFromJSON = [];
-let indicatorsToAdd = [];
+const existingDataInXLSX = [];
+const indicatorsFromJSON = [];
+const indicatorsToAdd = [];
 
 const populateIndicators = () => {
   indicatorMetadata.forEach(indicator => {
@@ -86,8 +86,8 @@ const populateExistingDataInXLSX = () => {
         break;
       }
     }
-    let col = cell.substring(0, cellNumberPos);
-    let row = Number(cell.substring(cellNumberPos));
+    const col = cell.substring(0, cellNumberPos);
+    const row = Number(cell.substring(cellNumberPos));
 
     if (!columnsToCheck.includes(col)) {
       continue;

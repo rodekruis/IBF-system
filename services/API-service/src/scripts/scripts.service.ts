@@ -904,7 +904,11 @@ export class ScriptsService {
         sourceFileName = `rainfall_extent_3-day_${
           selectedCountry.countryCodeISO3
         }${triggered ? '-triggered' : ''}.tif`;
-        destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+        if (selectedCountry.countryCodeISO3 === 'EGY') {
+          destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+        } else if (selectedCountry.countryCodeISO3 === 'UGA') {
+          destFileName = `rainfall_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+        }
       } else if (disasterType === DisasterType.Drought) {
         // Use 0-month mock for every lead-time
         sourceFileName = `rainfall_forecast_0-month_${
