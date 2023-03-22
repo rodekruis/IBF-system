@@ -77,23 +77,6 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
-    if (timelineState.activeLeadTime) {
-      // first get eventName directly ..
-      this.selectedEventName = timelineState.timeStepButtons.find(
-        (t) => t.active,
-      ).eventName;
-      // .. if not available, find based on leadTime
-      if (!this.selectedEventName) {
-        this.selectedEventName = this.eventState?.events.find(
-          (e) => e.firstLeadTime === timelineState.activeLeadTime,
-        )?.eventName;
-      }
-
-      if (this.eventState.events.length > 1) {
-        // Only trigger event-switch if there are multiple events
-        this.eventService.switchEvent(this.selectedEventName);
-      }
-    }
   };
 
   public showLessButton() {

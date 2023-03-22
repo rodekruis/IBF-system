@@ -13,6 +13,7 @@ export class EventSummary {
   countryCodeISO3: string;
   startDate: string;
   endDate: string;
+  endDateLabel: string;
   thresholdReached: boolean;
   activeTrigger: boolean;
   eventName: string;
@@ -39,7 +40,6 @@ export class EventService {
   public nullState = {
     events: null,
     event: null,
-    activeEvent: null,
     thresholdReached: null,
     activeTrigger: null,
   };
@@ -176,7 +176,13 @@ export class EventService {
           'cccc, dd LLLL',
         );
         if (event.endDate) {
-          event.endDate = this.endDateToLastTriggerDate(event.endDate);
+          event.endDate = DateTime.fromFormat(event.endDate, 'yyyy-LL-dd')
+            .minus({ days: 7 })
+            .toFormat('yyyy-LL-dd');
+          event.endDateLabel = DateTime.fromFormat(
+            event.endDate,
+            'yyyy-LL-dd',
+          ).toFormat('cccc, dd LLLL');
         }
         event.firstLeadTimeLabel = LeadTimeTriggerKey[event.firstLeadTime];
         event.timeUnit = event.firstLeadTime?.split('-')[1];
@@ -195,7 +201,9 @@ export class EventService {
       this.setEventInitially(events[0]);
     } else if (this.disasterType.disasterType === DisasterTypeKey.typhoon) {
       // exception: make typhoon still load 1st event by default
-      this.setEventInitially(events[0]);
+      const triggerEvents = events.filter((e) => e.thresholdReached);
+      const eventToLoad = triggerEvents ? triggerEvents[0] : events[0];
+      this.setEventInitially(eventToLoad);
     } else {
       this.setEventInitially(null);
     }
@@ -222,12 +230,22 @@ export class EventService {
         this.leadTimeToNumber(a.firstLeadTime) ===
         this.leadTimeToNumber(b.firstLeadTime)
       ) {
-        if (a.startDate > b.startDate) {
+        if (a.duration > b.duration) {
           return 1;
-        } else if (a.startDate === b.startDate) {
-          if (a.eventName > b.eventName) {
+        } else if (a.duration === b.duration) {
+          if (a.startDate > b.startDate) {
             return 1;
+          } else if (a.startDate === b.startDate) {
+            if (a.eventName > b.eventName) {
+              return 1;
+            } else {
+              return -1;
+            }
+          } else {
+            return -1;
           }
+        } else {
+          return -1;
         }
       } else {
         return -1;
@@ -250,9 +268,9 @@ export class EventService {
       if (event.eventName?.toLowerCase().includes(seasonRegion.toLowerCase())) {
         const leadTimeMonth = DateTime.fromFormat(
           event.endDate,
-          'cccc, dd LLLL',
+          'yyyy-LL-dd',
         ).plus({
-          months: Number(event.firstLeadTime.split('-')[0]),
+          months: Number(LeadTimeTriggerKey[event.firstLeadTime]),
         }).month;
         for (const season of Object.values(seasons[seasonRegion])) {
           const rainMonthsKey = 'rainMonths';
@@ -265,11 +283,6 @@ export class EventService {
         }
       }
     }
-  }
-
-  private endDateToLastTriggerDate(endDate: string): string {
-    const originalEndDate = DateTime.fromFormat(endDate, 'yyyy-LL-dd');
-    return originalEndDate.minus({ days: 7 }).toFormat('cccc, dd LLLL');
   }
 
   private setAlertState = () => {

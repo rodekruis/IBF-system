@@ -468,17 +468,17 @@ export class ScriptsService {
     } else if (
       disasterType === DisasterType.Drought &&
       // droughtRegion !== this.nationalDroughtRegion &&
-      ['UGA', 'ETH', 'KEN'].includes(selectedCountry.countryCodeISO3) && // exclude ZWE for now
+      ['UGA', 'ETH', 'KEN'].includes(selectedCountry.countryCodeISO3) && // exclude ZWE for now this way
       triggered
     ) {
       const seasons = selectedCountry.countryDisasterSettings.find(
         s => s.disasterType === DisasterType.Drought,
       ).droughtForecastSeasons[droughtRegion];
-      const {
-        currentYear,
-        currentUTCMonth,
-        leadTimeMonthFirstDay,
-      } = this.getCurrentMonthInfoDrought(leadTime, date, selectedCountry);
+      const leadTimeMonthFirstDay = this.getCurrentMonthInfoDrought(
+        leadTime,
+        date,
+        selectedCountry,
+      ).leadTimeMonthFirstDay;
 
       for (const seasonKey of Object.keys(seasons)) {
         for (const month of seasons[seasonKey][this.rainMonthsKey]) {
@@ -695,7 +695,6 @@ export class ScriptsService {
       if (Number(activeLeadTime.split('-')[0]) > 3) {
         copyOfExposureUnit = [];
         // Hard-code lead-times of more then 3 months to non-trigger
-        // TO DO: will this work in non-triggered?
       } else if (droughtRegion !== this.nationalDroughtRegion) {
         // Hard-code that only areas of right region are triggered per selected leadtime
         const areas = this.getDroughtAreasPerRegion(

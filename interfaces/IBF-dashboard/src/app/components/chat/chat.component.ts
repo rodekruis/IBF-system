@@ -28,7 +28,11 @@ import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { Indicator } from '../../types/indicator-group';
-import { LeadTime, LeadTimeUnit } from '../../types/lead-time';
+import {
+  LeadTime,
+  LeadTimeTriggerKey,
+  LeadTimeUnit,
+} from '../../types/lead-time';
 import { TriggeredArea } from '../../types/triggered-area';
 import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
 import { ToggleTriggerPopoverComponent } from '../toggle-trigger-popover/toggle-trigger-popover.component';
@@ -71,7 +75,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterTypeName: string;
   public actionIndicatorLabel: string;
   public actionIndicatorNumberFormat: string;
-  public clearOutMessage: string;
   public forecastInfo: string[];
   public country: Country;
   public disasterType: DisasterType;
@@ -235,7 +238,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
       this.actionIndicatorLabel = actionIndicator?.label.toLowerCase();
       this.actionIndicatorNumberFormat = actionIndicator?.numberFormatMap;
-      this.clearOutMessage = this.getClearOutMessage();
       this.getForecastInfo();
 
       this.updateSuccessMessage = this.translateService.instant(
@@ -285,7 +287,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       eapAction: action,
       eapActionStatus: checkbox,
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });
@@ -327,7 +328,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
       placeCode,
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });
@@ -432,7 +432,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   ): void {
     this.analyticsService.logEvent(AnalyticsEvent.stopTrigger, {
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       placeCode,
     });
@@ -453,8 +452,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.placeCodeService.clearPlaceCode();
   }
 
-  public getClearOutMessage() {
-    if (!this.disasterTypeSettings.showMonthlyEapActions) {
+  public getClearOutMessage(event: EventSummary) {
+    if (!this.disasterTypeSettings?.showMonthlyEapActions) {
       return;
     }
 
@@ -463,17 +462,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     ).droughtForecastSeasons;
 
     const forecastAreas = Object.keys(droughtForecastSeasons);
-
-    let forecastMonthNumbers = [];
-    for (const area of forecastAreas) {
-      for (const season of Object.keys(droughtForecastSeasons[area])) {
-        const rainMonths = droughtForecastSeasons[area][season].rainMonths;
-        forecastMonthNumbers = [
-          ...forecastMonthNumbers,
-          rainMonths[rainMonths.length - 1],
-        ];
-      }
-    }
 
     const droughtEndOfMonthPipeline = this.country.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType.disasterType,
@@ -484,6 +472,26 @@ export class ChatComponent implements OnInit, OnDestroy {
     const nextMonth = currentMonth.plus({
       months: 1,
     });
+
+    const forecastMonthNumbers = [];
+    for (const area of forecastAreas) {
+      if (
+        !event?.eventName ||
+        event.eventName.toLowerCase().includes(area.toLowerCase())
+      ) {
+        for (const season of Object.keys(droughtForecastSeasons[area])) {
+          const rainMonths = droughtForecastSeasons[area][season].rainMonths;
+          const finalMonth = rainMonths[rainMonths.length - 1];
+          if (
+            currentMonth.month +
+              Number(LeadTimeTriggerKey[event?.firstLeadTime]) <=
+            finalMonth
+          ) {
+            forecastMonthNumbers.push(finalMonth);
+          }
+        }
+      }
+    }
 
     let translateKey;
     if (Object.values(forecastAreas).length === 1) {

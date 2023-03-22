@@ -260,20 +260,22 @@ export class MapComponent implements OnDestroy {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features;
           zoomExtraOffset = 0;
         }
-        const layerBounds = bbox(adminRegionsFiltered);
-        this.mapService.state.bounds = containsNumber(layerBounds)
-          ? ([
-              [
-                layerBounds[1] - zoomExtraOffset,
-                layerBounds[0] - zoomExtraOffset,
-              ],
-              [
-                layerBounds[3] + zoomExtraOffset,
-                layerBounds[2] + zoomExtraOffset,
-              ],
-            ] as LatLngBoundsLiteral)
-          : this.mapService.state.bounds;
-        this.map.fitBounds(this.mapService.state.bounds);
+        if (adminRegionsFiltered.features.length) {
+          const layerBounds = bbox(adminRegionsFiltered);
+          this.mapService.state.bounds = containsNumber(layerBounds)
+            ? ([
+                [
+                  layerBounds[1] - zoomExtraOffset,
+                  layerBounds[0] - zoomExtraOffset,
+                ],
+                [
+                  layerBounds[3] + zoomExtraOffset,
+                  layerBounds[2] + zoomExtraOffset,
+                ],
+              ] as LatLngBoundsLiteral)
+            : this.mapService.state.bounds;
+          this.map.fitBounds(this.mapService.state.bounds);
+        }
       }
     }
   }
@@ -579,7 +581,6 @@ export class MapComponent implements OnDestroy {
     this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
       placeCode: feature.properties.placeCode,
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });
@@ -595,7 +596,7 @@ export class MapComponent implements OnDestroy {
           event.firstLeadTime as LeadTime,
           event.eventName,
         );
-        // this.eventService.switchEvent(feature.properties.eventName); // TO DO: can this go?
+        this.eventService.switchEvent(feature.properties.eventName);
       }
     } else if (this.eventState.event) {
       // in in event-mode, then set placeCode
@@ -870,7 +871,6 @@ export class MapComponent implements OnDestroy {
   private onMapMarkerClick = (analyticsEvent) => (): void => {
     this.analyticsService.logEvent(analyticsEvent, {
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });

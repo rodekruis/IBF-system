@@ -457,12 +457,13 @@ export class EmailService {
     // .. find the right leadtime
     const [leadTimeValue, leadTimeUnit] = leadTime.leadTimeLabel.split('-');
 
-    const eventName = event.eventName
-      ? `${event.eventName}`
-      : this.notificationContentService.firstCharOfWordsToUpper(
-          (await this.notificationContentService.getDisaster(disasterType))
-            .label,
-        );
+    const eventName =
+      event.eventName && disasterType === DisasterType.Typhoon
+        ? `${event.eventName}`
+        : this.notificationContentService.firstCharOfWordsToUpper(
+            (await this.notificationContentService.getDisaster(disasterType))
+              .label,
+          );
 
     const triggerStatus = event.thresholdReached
       ? 'trigger reached'

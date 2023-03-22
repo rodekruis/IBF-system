@@ -55,7 +55,6 @@ export class AboutBtnComponent implements OnDestroy {
   public btnAction() {
     this.analyticsService.logEvent(AnalyticsEvent.aboutTrigger, {
       page: AnalyticsPage.dashboard,
-      isActiveEvent: this.eventService.state.activeEvent,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
     });

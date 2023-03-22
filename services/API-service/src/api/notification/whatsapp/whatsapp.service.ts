@@ -189,7 +189,7 @@ export class WhatsappService {
       c => c.notificationInfo.useWhatsapp,
     )) {
       for await (const disasterType of country.disasterTypes) {
-        const events = await this.eventService.getEventSummaryCountry(
+        const events = await this.eventService.getEventSummary(
           country.countryCodeISO3,
           disasterType.disasterType,
         );

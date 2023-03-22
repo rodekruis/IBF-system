@@ -74,10 +74,14 @@ export class DateButtonComponent implements OnInit, OnDestroy {
       ? this.date.toFormat(this.monthFormat)
       : 'Undetermined';
 
-    // TO DO: refactor how this whole component works
     if (this.eventName && this.duration && this.unit === LeadTimeUnit.month) {
-      const endMonthDate = this.date.plus({ months: this.duration });
-      this.displayMonth = `${this.date.monthShort}-${endMonthDate.monthShort} ${this.date.year}`;
+      const endMonthDate = this.date.plus({ months: this.duration - 1 });
+      let displayMonth = this.date.monthShort;
+      if (this.duration > 1) {
+        displayMonth = `${displayMonth}-${endMonthDate.monthShort}`;
+      }
+      this.displayMonth = `${displayMonth} ${endMonthDate.year}`;
+
       this.displayHour = `Duration ${this.duration} months`;
     }
   };
