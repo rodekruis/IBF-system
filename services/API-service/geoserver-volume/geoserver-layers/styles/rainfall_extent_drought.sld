@@ -10,7 +10,7 @@ http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd" version="1.0.0">
            <RasterSymbolizer>
              <Opacity>0.5</Opacity>
              <ColorMap type="intervals" extended="true">
-               <ColorMapEntry color="#000000" quantity="0" opacity="0"/>
+               <ColorMapEntry color="#000000" quantity="10" opacity="0"/>
                <ColorMapEntry color="#ffff7f" quantity="10" />
                <ColorMapEntry color="#ffe200" quantity="20" />
                <ColorMapEntry color="#ffaa00" quantity="30" />
