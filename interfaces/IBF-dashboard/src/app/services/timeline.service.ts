@@ -410,6 +410,12 @@ export class TimelineService {
         LeadTime.hour144,
         LeadTime.hour168,
       ].includes(leadTime);
+    } else if (disasterType.disasterType === DisasterTypeKey.heavyRain) {
+      const activeLeadTimes = this.getCountryDisasterAttribute(
+        'activeLeadTimes',
+      );
+      const maxLeadTime = activeLeadTimes[activeLeadTimes.length - 1];
+      return leadTime > maxLeadTime ? false : true;
     } else {
       return true;
     }
@@ -511,6 +517,12 @@ export class TimelineService {
     const nextForecastMonthYear =
       currentMonth > forecastMonthNumber ? currentYear + 1 : currentYear;
     return DateTime.utc(nextForecastMonthYear, forecastMonthNumber, 1);
+  }
+
+  private getCountryDisasterAttribute(attribute) {
+    return this.country.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    )[attribute];
   }
 
   private getLeadTimeMonth(leadTime: LeadTime): DateTime {
