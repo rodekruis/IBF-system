@@ -1,3 +1,12 @@
+## [0.231.1](https://github.com/rodekruis/IBF-system/compare/v0.231.0...v0.231.1) (2023-03-22)
+
+
+### Bug Fixes
+
+* make lowest rainfall class transparent AB[#18190](https://github.com/rodekruis/IBF-system/issues/18190) ([08421eb](https://github.com/rodekruis/IBF-system/commit/08421eb10afc628011a09d648306410dcde496e3))
+
+
+
 # [0.231.0](https://github.com/rodekruis/IBF-system/compare/v0.230.0...v0.231.0) (2023-03-22)
 
 
@@ -159,15 +168,6 @@
 
 * rm docker-compose cached image ([6c1f5bc](https://github.com/rodekruis/IBF-system/commit/6c1f5bcc3da048ee329aac2bdb49397e60c19cab))
 * set date to optional AB[#17967](https://github.com/rodekruis/IBF-system/issues/17967) ([ee89000](https://github.com/rodekruis/IBF-system/commit/ee890008cfee8103e6c360f2fd8bbbf838a65664))
-
-
-
-## [0.226.1](https://github.com/rodekruis/IBF-system/compare/v0.226.0...v0.226.1) (2023-02-17)
-
-
-### Bug Fixes
-
-* flash-floods segment AB[#17724](https://github.com/rodekruis/IBF-system/issues/17724) ([c2adb7a](https://github.com/rodekruis/IBF-system/commit/c2adb7aff620f4e7215c60652ab460ab427e8594))
 
 
 
