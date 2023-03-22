@@ -33,7 +33,7 @@
     }
   },
   {
-    "countryCodes": "EGY",
+    "countryCodes": "EGY,UGA",
     "disasterTypes": ["heavy-rain"],
     "name": "rainfall_extent",
     "label": "Rainfall extent",

@@ -1,0 +1,13 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl--1f579a87:187031f4366:-7f99</id>
+  <name>rainfall_extent_1-day_UGA</name>
+  <description>rainfall_extent_1-day_UGA</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2023-03-21 07:52:59.74 UTC</dateCreated>
+  <url>file:workspaces/ibf-system/ibf-pipeline/output/rainfall_extents/rainfall_extent_1-day_UGA.tif</url>
+</coverageStore>
