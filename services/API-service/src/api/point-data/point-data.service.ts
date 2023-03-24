@@ -153,6 +153,8 @@ export class PointDataService {
       communityNotification['For_what_type_of_dis_t_to_report_an_alert'];
     notification.description = communityNotification['What_is_observed'];
     notification.uploadTime = communityNotification['_submission_time'];
+    notification.photoUrl =
+      communityNotification['_attachments'][0]['download_url'];
     notification.lat = communityNotification['_geolocation'][0];
     notification.lon = communityNotification['_geolocation'][1];
 

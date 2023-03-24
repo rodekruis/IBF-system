@@ -19,6 +19,9 @@ export class CommunityNotificationDto {
   @ApiProperty({ example: new Date() })
   public uploadTime: Date = undefined;
 
+  @ApiProperty({ example: 'https://www.url-of-photo.com' })
+  public photoUrl: string = undefined;
+
   @ApiProperty({ example: 0 })
   @IsNotEmpty()
   public lat: number;
