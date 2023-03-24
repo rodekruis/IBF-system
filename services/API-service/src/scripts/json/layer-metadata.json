@@ -338,6 +338,16 @@
     }
   },
   {
+    "countryCodes": "UGA",
+    "disasterTypes": ["heavy-rain"],
+    "name": "community_notifications",
+    "label": "Community notifications",
+    "type": "point",
+    "leadTimeDependent": false,
+    "active": "no",
+    "description": {}
+  },
+  {
     "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,MWI",
     "disasterTypes": ["floods", "drought", "flash-floods", "heavy-rain"],
     "name": "waterpoints",
