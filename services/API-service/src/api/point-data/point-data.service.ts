@@ -69,7 +69,7 @@ export class PointDataService {
     pointDataCategory: PointDataEnum,
     countryCodeISO3: string,
     validatedObjArray: any,
-    deleteExisting: boolean = true,
+    deleteExisting = true,
   ) {
     // Delete existing entries
     if (deleteExisting) {

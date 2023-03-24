@@ -56,3 +56,10 @@ export class EvacuationCenter {
   latitude: string;
   longitude: string;
 }
+export class CommunityNotification {
+  public nameVolunteer: string;
+  public nameVillage: string;
+  public description: string;
+  public type: string;
+  public uploadTime: Date;
+}

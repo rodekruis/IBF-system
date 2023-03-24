@@ -55,6 +55,12 @@ export const LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER: IconOptions = {
   iconRetinaUrl: 'assets/markers/evacuation-center-marker.svg',
 };
 
+export const LEAFLET_MARKER_ICON_OPTIONS_COMMUNITY_NOTIFICATION: IconOptions = {
+  ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  iconUrl: 'assets/markers/evacuation-center-marker.svg',
+  iconRetinaUrl: 'assets/markers/evacuation-center-marker.svg',
+};
+
 export const LEAFLET_MAP_OPTIONS: MapOptions = {
   zoom: 5,
   layers: [],
