@@ -343,7 +343,7 @@ export class PointMarkerService {
       : 'var(--ion-color-ibf-no-alert-primary-contrast)';
     const title = feature.properties.name;
 
-    let lastAvailableLeadTime: LeadTime = leadTimes[leadTimes.length - 1];
+    const lastAvailableLeadTime: LeadTime = leadTimes[leadTimes.length - 1];
 
     const timeUnit = lastAvailableLeadTime.split('-')[1];
 
