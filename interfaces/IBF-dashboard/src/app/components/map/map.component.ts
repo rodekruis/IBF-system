@@ -637,7 +637,7 @@ export class MapComponent implements OnDestroy {
           const leadTimes = this.country?.countryDisasterSettings.find(
             (s) => s.disasterType === this.disasterType?.disasterType,
           )?.activeLeadTimes;
-          popup = this.pointMarkerService.createThresHoldPopupAdminRegions(
+          popup = this.createThresHoldPopupAdminRegions(
             activeAggregateLayer,
             feature,
             thresholdValue,
@@ -672,6 +672,45 @@ export class MapComponent implements OnDestroy {
         break;
     }
     return adminRegionLayerPane;
+  }
+
+  public createThresHoldPopupAdminRegions(
+    layer: IbfLayer,
+    feature,
+    thresholdValue: number,
+    leadTimes: LeadTime[],
+  ): string {
+    const properties = 'properties';
+    const forecastValue = feature[properties][layer.colorProperty];
+    const featureTriggered = forecastValue > thresholdValue;
+    const headerTextColor = featureTriggered
+      ? 'var(--ion-color-ibf-trigger-alert-primary-contrast)'
+      : 'var(--ion-color-ibf-no-alert-primary-contrast)';
+    const title = feature.properties.name;
+
+    const lastAvailableLeadTime: LeadTime = leadTimes[leadTimes.length - 1];
+
+    const timeUnit = lastAvailableLeadTime.split('-')[1];
+
+    const subtitle = `${layer.label} for current ${timeUnit} selected`;
+    const eapStatusColor = featureTriggered
+      ? 'var(--ion-color-ibf-trigger-alert-primary)'
+      : 'var(--ion-color-ibf-no-alert-primary)';
+    const eapStatusText = featureTriggered
+      ? 'ACTIVATE EARLY ACTIONS'
+      : 'No action';
+    const thresholdName = 'Alert threshold';
+
+    return this.pointMarkerService.createThresholdPopup(
+      headerTextColor,
+      title,
+      eapStatusColor,
+      eapStatusText,
+      forecastValue,
+      thresholdValue,
+      subtitle,
+      thresholdName,
+    );
   }
 
   private createDefaultPopupAdminRegions(

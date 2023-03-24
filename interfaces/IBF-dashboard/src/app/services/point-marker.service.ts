@@ -1,4 +1,9 @@
-import { Injectable } from '@angular/core';
+import {
+  ApplicationRef,
+  ComponentFactoryResolver,
+  Injectable,
+  Injector,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { divIcon, icon, IconOptions, LatLng, Marker, marker } from 'leaflet';
 import { DateTime } from 'luxon';
@@ -25,14 +30,13 @@ import {
 } from 'src/app/models/poi.model';
 import { AnalyticsEvent, AnalyticsPage } from '../analytics/analytics.enum';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { CustomPopupComponent } from '../components/custom-popup/custom-popup.component';
 import {
   CountryDisasterSettings,
   EapAlertClasses,
 } from '../models/country.model';
-import { IbfLayer } from '../types/ibf-layer';
 import { LeadTime } from '../types/lead-time';
 import { EventService } from './event.service';
-import { MapService } from './map.service';
 
 @Injectable({
   providedIn: 'root',
@@ -43,27 +47,27 @@ export class PointMarkerService {
 
   constructor(
     private eventService: EventService,
-    private mapService: MapService,
     private analyticsService: AnalyticsService,
     private translate: TranslateService,
+    private injector: Injector,
+    private applicationRef: ApplicationRef,
+    private componentFactoryResolver: ComponentFactoryResolver,
   ) {}
 
   public createMarkerCommunityNotification(
     markerProperties: CommunityNotification,
     markerLatLng: LatLng,
   ) {
+    if (markerProperties.dismissed) {
+      return;
+    }
     const markerTitle = markerProperties.nameVillage;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_COMMUNITY_NOTIFICATION),
     });
-    markerInstance.bindPopup(
-      this.createMarkerCommunityNotificationsPopup(
-        markerProperties,
-        markerLatLng,
-      ),
-    );
+    markerInstance.bindPopup(this.renderPopUpHTML(markerProperties));
     markerInstance.on(
       'click',
       this.onMapMarkerClick(AnalyticsEvent.communityNotification),
@@ -72,16 +76,15 @@ export class PointMarkerService {
     return markerInstance;
   }
 
-  private createMarkerCommunityNotificationsPopup(
-    markerProperties: CommunityNotification,
-    markerLatLng: LatLng,
-  ): string {
-    return `<div style="margin-bottom: 5px"><strong>Evacuation center: ${
-      markerProperties.nameVillage
-    }</strong></div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
-      markerLatLng,
-    )}
-    </div>`;
+  private renderPopUpHTML(popupData): HTMLElement {
+    const popup = document.createElement('popup-component');
+    const factory = this.componentFactoryResolver.resolveComponentFactory(
+      CustomPopupComponent,
+    );
+    const popupComponentRef = factory.create(this.injector, [], popup);
+    this.applicationRef.attachView(popupComponentRef.hostView);
+    popupComponentRef.instance.markerProperties = popupData;
+    return popup;
   }
 
   private formatAsCoordinate(markerLatLng: LatLng) {
@@ -329,46 +332,7 @@ export class PointMarkerService {
     return markerInstance;
   }
 
-  public createThresHoldPopupAdminRegions(
-    layer: IbfLayer,
-    feature,
-    thresholdValue: number,
-    leadTimes: LeadTime[],
-  ): string {
-    const properties = 'properties';
-    const forecastValue = feature[properties][layer.colorProperty];
-    const featureTriggered = forecastValue > thresholdValue;
-    const headerTextColor = featureTriggered
-      ? 'var(--ion-color-ibf-trigger-alert-primary-contrast)'
-      : 'var(--ion-color-ibf-no-alert-primary-contrast)';
-    const title = feature.properties.name;
-
-    const lastAvailableLeadTime: LeadTime = leadTimes[leadTimes.length - 1];
-
-    const timeUnit = lastAvailableLeadTime.split('-')[1];
-
-    const subtitle = `${layer.label} for current ${timeUnit} selected`;
-    const eapStatusColor = featureTriggered
-      ? 'var(--ion-color-ibf-trigger-alert-primary)'
-      : 'var(--ion-color-ibf-no-alert-primary)';
-    const eapStatusText = featureTriggered
-      ? 'ACTIVATE EARLY ACTIONS'
-      : 'No action';
-    const thresholdName = 'Alert threshold';
-
-    return this.createThresholdPopup(
-      headerTextColor,
-      title,
-      eapStatusColor,
-      eapStatusText,
-      forecastValue,
-      thresholdValue,
-      subtitle,
-      thresholdName,
-    );
-  }
-
-  private createThresholdPopup(
+  public createThresholdPopup(
     eapStatusColorText: string,
     title: string,
     eapStatusColor: string,

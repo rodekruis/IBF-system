@@ -1,0 +1,16 @@
+<div style="margin-bottom: 5px; font-size: 14px">
+  <strong>Community notification</strong>
+</div>
+<div><strong>Sent on:</strong> {{ formattedDate }}</div>
+<div><strong>Type of hazard:</strong> {{ markerProperties?.type }}</div>
+<div><strong>Name of village:</strong> {{ markerProperties?.nameVillage }}</div>
+<div>
+  <strong>What is observed:</strong> {{ markerProperties?.description }}
+</div>
+<div>
+  <strong>Sent by (volunteer):</strong> {{ markerProperties?.nameVolunteer }}
+</div>
+<ion-button
+  (click)="dismissCommunityNotification(markerProperties?.pointDataId)"
+  >Dismiss notification</ion-button
+>

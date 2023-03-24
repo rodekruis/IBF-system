@@ -344,7 +344,7 @@
     "label": "Community notifications",
     "type": "point",
     "leadTimeDependent": false,
-    "active": "no",
+    "active": "yes",
     "description": {}
   },
   {

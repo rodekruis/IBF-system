@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -106,6 +107,20 @@ export class PointDataController {
     return await this.pointDataService.uploadCommunityNotification(
       params.countryCodeISO3,
       communityNotification,
+    );
+  }
+
+  @UseGuards(RolesGuard)
+  @ApiOperation({ summary: 'Dismiss community notification' })
+  @ApiResponse({
+    status: 201,
+    description: 'Dismissed community notification.',
+  })
+  @ApiParam({ name: 'pointDataId', required: true, type: 'string' })
+  @Put('community-notification/:pointDataId')
+  public async dismissCommunityNotification(@Param() params): Promise<void> {
+    return await this.pointDataService.dismissCommunityNotification(
+      params.pointDataId,
     );
   }
 }

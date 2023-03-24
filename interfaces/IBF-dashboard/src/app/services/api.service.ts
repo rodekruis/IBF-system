@@ -92,6 +92,27 @@ export class ApiService {
       );
   }
 
+  put(path: string, body: object, anonymous: boolean = false): Observable<any> {
+    const url = `${environment.apiUrl}/${path}`;
+    const security = this.showSecurity(anonymous);
+    this.log(`ApiService PUT: ${security} ${url}`, body);
+
+    return this.http
+      .put(url, body, {
+        headers: this.createHeaders(anonymous),
+      })
+      .pipe(
+        tap((response) =>
+          this.log(
+            `ApiService PUT: ${security} ${url}:`,
+            body,
+            '\nResponse:',
+            response,
+          ),
+        ),
+      );
+  }
+
   /////////////////////////////////////////////////////////////////////////////
   // API-endpoints:
   /////////////////////////////////////////////////////////////////////////////
@@ -398,7 +419,14 @@ export class ApiService {
             disasterType
           : ''
       }`,
+      false,
+    );
+  }
 
+  dismissCommunityNotification(pointDataId: string) {
+    return this.put(
+      `point-data/community-notification/${pointDataId}`,
+      {},
       false,
     );
   }

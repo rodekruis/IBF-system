@@ -22,6 +22,8 @@ export class CommunityNotificationDto {
   @ApiProperty({ example: 'https://www.url-of-photo.com' })
   public photoUrl: string = undefined;
 
+  public dismissed = false;
+
   @ApiProperty({ example: 0 })
   @IsNotEmpty()
   public lat: number;

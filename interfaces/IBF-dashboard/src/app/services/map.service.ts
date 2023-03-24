@@ -315,7 +315,9 @@ export class MapService {
       label: layer.label,
       type: IbfLayerType.point,
       description: this.getPopoverText(layer),
-      active: this.adminLevelService.activeLayerNames.includes(layerName),
+      active: this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(layerName)
+        : this.getActiveState(layer),
       show: true,
       data: pointData,
       viewCenter: false,

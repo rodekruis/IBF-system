@@ -61,5 +61,7 @@ export class CommunityNotification {
   public nameVillage: string;
   public description: string;
   public type: string;
-  public uploadTime: Date;
+  public uploadTime: string;
+  public dismissed: boolean;
+  public pointDataId: string;
 }
