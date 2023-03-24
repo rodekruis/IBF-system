@@ -30,7 +30,7 @@ import {
 } from 'src/app/models/poi.model';
 import { AnalyticsEvent, AnalyticsPage } from '../analytics/analytics.enum';
 import { AnalyticsService } from '../analytics/analytics.service';
-import { CustomPopupComponent } from '../components/custom-popup/custom-popup.component';
+import { CommunityNotificationPopupComponent } from '../components/community-notification-popup/community-notification-popup.component';
 import {
   CountryDisasterSettings,
   EapAlertClasses,
@@ -67,7 +67,9 @@ export class PointMarkerService {
       title: markerTitle,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_COMMUNITY_NOTIFICATION),
     });
-    markerInstance.bindPopup(this.renderPopUpHTML(markerProperties));
+    markerInstance.bindPopup(this.renderPopUpHTML(markerProperties), {
+      minWidth: 220,
+    });
     markerInstance.on(
       'click',
       this.onMapMarkerClick(AnalyticsEvent.communityNotification),
@@ -79,7 +81,7 @@ export class PointMarkerService {
   private renderPopUpHTML(popupData): HTMLElement {
     const popup = document.createElement('popup-component');
     const factory = this.componentFactoryResolver.resolveComponentFactory(
-      CustomPopupComponent,
+      CommunityNotificationPopupComponent,
     );
     const popupComponentRef = factory.create(this.injector, [], popup);
     this.applicationRef.attachView(popupComponentRef.hostView);

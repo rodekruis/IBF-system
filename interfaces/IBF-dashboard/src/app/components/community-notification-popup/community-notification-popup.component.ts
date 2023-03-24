@@ -1,17 +1,18 @@
 import { Component, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 import { CommunityNotification } from '../../models/poi.model';
 import { ApiService } from '../../services/api.service';
+import { EventService } from '../../services/event.service';
 import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
+import { CommunityNotificationPhotoPopup } from '../community-notification-photo-popup/community-notification-photo-popup.component';
 
 @Component({
-  selector: 'app-custom-popup',
-  templateUrl: './custom-popup.component.html',
-  styleUrls: ['./custom-popup.component.scss'],
+  selector: 'app-community-notification-popup',
+  templateUrl: './community-notification-popup.component.html',
+  styleUrls: ['./community-notification-popup.component.scss'],
 })
-export class CustomPopupComponent {
+export class CommunityNotificationPopupComponent {
   @Input() markerProperties: CommunityNotification;
 
   public formattedDate: string;
@@ -19,13 +20,32 @@ export class CustomPopupComponent {
   constructor(
     private popoverController: PopoverController,
     private apiService: ApiService,
-    private translateService: TranslateService,
+    private eventService: EventService,
   ) {}
 
   ngOnInit() {
     this.formattedDate = DateTime.fromISO(
       this.markerProperties?.uploadTime,
     ).toFormat('d LLLL y, H:mm');
+  }
+
+  public async openImagePopup(url: string) {
+    const popover = await this.popoverController.create({
+      component: CommunityNotificationPhotoPopup,
+      animated: true,
+      cssClass: `ibf-popover ibf-popover-normal ${
+        this.eventService.state.event?.thresholdReached
+          ? 'trigger-alert'
+          : 'no-alert'
+      }`,
+      translucent: true,
+      showBackdrop: true,
+      componentProps: {
+        url,
+      },
+    });
+
+    popover.present();
   }
 
   public dismissCommunityNotification(pointDataId: string) {

@@ -11,6 +11,19 @@
   <strong>Sent by (volunteer):</strong> {{ markerProperties?.nameVolunteer }}
 </div>
 <ion-button
+  *ngIf="markerProperties?.photoUrl"
+  type="button"
+  color="ibf-primary"
+  shape="round"
+  (click)="openImagePopup(markerProperties?.photoUrl)"
+  >See attached photo
+  <ion-icon slot="start" name="image"></ion-icon>
+</ion-button>
+<ion-button
+  type="button"
+  color="ibf-primary"
+  shape="round"
+  fill="outline"
   (click)="dismissCommunityNotification(markerProperties?.pointDataId)"
   >Dismiss notification</ion-button
 >

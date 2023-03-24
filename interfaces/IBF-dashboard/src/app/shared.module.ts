@@ -14,8 +14,9 @@ import { AggregatesComponent } from './components/aggregates/aggregates.componen
 import { AreasOfFocusSummaryComponent } from './components/areas-of-focus-summary/areas-of-focus-summary.component';
 import { ChangePasswordPopoverComponent } from './components/change-password-popover/change-password-popover.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { CommunityNotificationPhotoPopup } from './components/community-notification-photo-popup/community-notification-photo-popup.component';
+import { CommunityNotificationPopupComponent } from './components/community-notification-popup/community-notification-popup.component';
 import { CountrySwitcherComponent } from './components/country-switcher/country-switcher.component';
-import { CustomPopupComponent } from './components/custom-popup/custom-popup.component';
 import { DateButtonComponent } from './components/date-button/date-button.component';
 import { DialogueTurnComponent } from './components/dialogue-turn/dialogue-turn.component';
 import { DisasterTypeComponent } from './components/disaster-type/disaster-type.component';
@@ -60,7 +61,8 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ChangePasswordPopoverComponent,
     ChatComponent,
     CountrySwitcherComponent,
-    CustomPopupComponent,
+    CommunityNotificationPopupComponent,
+    CommunityNotificationPhotoPopup,
     DateButtonComponent,
     DialogueTurnComponent,
     DisasterTypeComponent,
@@ -95,7 +97,8 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ChangePasswordPopoverComponent,
     ChatComponent,
     CountrySwitcherComponent,
-    CustomPopupComponent,
+    CommunityNotificationPopupComponent,
+    CommunityNotificationPhotoPopup,
     DateButtonComponent,
     DialogueTurnComponent,
     DisasterTypeComponent,
