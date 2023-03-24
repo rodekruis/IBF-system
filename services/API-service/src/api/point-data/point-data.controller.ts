@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
@@ -24,12 +25,12 @@ import { UserRole } from '../user/user-role.enum';
 import { PointDataService } from './point-data.service';
 
 @ApiBearerAuth()
-@UseGuards(RolesGuard)
 @ApiTags('point-data')
 @Controller('point-data')
 export class PointDataController {
   public constructor(private readonly pointDataService: PointDataService) {}
 
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get point data locations and attributes for given country and point data layer',
@@ -50,6 +51,7 @@ export class PointDataController {
     );
   }
 
+  @UseGuards(RolesGuard)
   @Roles(UserRole.Admin)
   @ApiOperation({
     summary:
@@ -87,6 +89,23 @@ export class PointDataController {
       pointDataData,
       params.pointDataCategory,
       params.countryCodeISO3,
+    );
+  }
+
+  @ApiOperation({ summary: 'Upload community notification' })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded community notification.',
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @Post('community-notification/:countryCodeISO3')
+  public async uploadCommunityNotification(
+    @Param() params,
+    @Body() communityNotification: any,
+  ): Promise<void> {
+    return await this.pointDataService.uploadCommunityNotification(
+      params.countryCodeISO3,
+      communityNotification,
     );
   }
 }

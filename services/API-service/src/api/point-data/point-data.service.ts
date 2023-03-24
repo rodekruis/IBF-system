@@ -9,6 +9,7 @@ import { PointDataEntity, PointDataEnum } from './point-data.entity';
 import { DamSiteDto } from './dto/upload-dam-sites.dto';
 import { HealthSiteDto } from './dto/upload-health-sites.dto';
 import { RedCrossBranchDto } from './dto/upload-red-cross-branch.dto';
+import { CommunityNotificationDto } from './dto/upload-community-notifications.dto';
 
 @Injectable()
 export class PointDataService {
@@ -54,6 +55,8 @@ export class PointDataService {
         return new HealthSiteDto();
       case PointDataEnum.redCrossBranches:
         return new RedCrossBranchDto();
+      case PointDataEnum.communityNotifications:
+        return new CommunityNotificationDto();
       default:
         throw new HttpException(
           'Not a known point layer',
@@ -66,12 +69,15 @@ export class PointDataService {
     pointDataCategory: PointDataEnum,
     countryCodeISO3: string,
     validatedObjArray: any,
+    deleteExisting: boolean = true,
   ) {
     // Delete existing entries
-    await this.pointDataRepository.delete({
-      countryCodeISO3: countryCodeISO3,
-      pointDataCategory: pointDataCategory,
-    });
+    if (deleteExisting) {
+      await this.pointDataRepository.delete({
+        countryCodeISO3: countryCodeISO3,
+        pointDataCategory: pointDataCategory,
+      });
+    }
 
     const dataArray = validatedObjArray.map(point => {
       const pointAttributes = JSON.parse(JSON.stringify(point)); // hack: clone without referencing
@@ -134,5 +140,27 @@ export class PointDataService {
       throw new HttpException(errors, HttpStatus.BAD_REQUEST);
     }
     return validatatedArray;
+  }
+
+  public async uploadCommunityNotification(
+    countryCodeISO3: string,
+    communityNotification: any,
+  ): Promise<void> {
+    const notification = new CommunityNotificationDto();
+    notification.nameVolunteer = communityNotification['Name_of_the_volunteer'];
+    notification.nameVillage = communityNotification['Name_of_the_village'];
+    notification.type =
+      communityNotification['For_what_type_of_dis_t_to_report_an_alert'];
+    notification.description = communityNotification['What_is_observed'];
+    notification.uploadTime = communityNotification['_submission_time'];
+    notification.lat = communityNotification['_geolocation'][0];
+    notification.lon = communityNotification['_geolocation'][1];
+
+    await this.uploadJson(
+      PointDataEnum.communityNotifications,
+      countryCodeISO3,
+      [notification],
+      false,
+    );
   }
 }
