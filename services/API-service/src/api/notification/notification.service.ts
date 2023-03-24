@@ -55,7 +55,11 @@ export class NotificationService {
       );
 
       if (country.notificationInfo.useWhatsapp) {
-        this.whatsappService.sendTriggerWhatsapp(country, activeEvents);
+        this.whatsappService.sendTriggerWhatsapp(
+          country,
+          activeEvents,
+          disasterType,
+        );
       }
     }
 
@@ -75,6 +79,7 @@ export class NotificationService {
         this.whatsappService.sendTriggerFinishedWhatsapp(
           country,
           finishedEvent,
+          disasterType,
         );
       }
     }

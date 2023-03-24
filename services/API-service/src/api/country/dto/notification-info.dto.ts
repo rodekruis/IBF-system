@@ -1,4 +1,4 @@
-import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class NotificationInfoDto {
@@ -31,8 +31,7 @@ export class NotificationInfoDto {
 
   @ApiProperty()
   @IsOptional()
-  @IsBoolean()
-  public useWhatsapp?: boolean;
+  public useWhatsapp?: {};
 
   @ApiProperty()
   @IsOptional()

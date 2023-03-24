@@ -70,10 +70,12 @@ export class WhatsappService {
   public async configureInitialMessage(
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
+    disasterType: DisasterType,
   ): Promise<string> {
     const event = activeEvents[0];
 
-    const baseMessage = country.notificationInfo.whatsappMessage['initial'];
+    const baseMessage =
+      country.notificationInfo.whatsappMessage[disasterType]['initial'];
     const startDate = event.startDate;
     const leadTime = `${event.firstLeadTime.split('-').join(' ')}(s)`;
 
@@ -88,8 +90,13 @@ export class WhatsappService {
   public async sendTriggerWhatsapp(
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
+    disasterType: DisasterType,
   ) {
-    const message = await this.configureInitialMessage(country, activeEvents);
+    const message = await this.configureInitialMessage(
+      country,
+      activeEvents,
+      disasterType,
+    );
 
     await this.sendToUsers(country, message);
   }
@@ -97,10 +104,12 @@ export class WhatsappService {
   public async sendTriggerFinishedWhatsapp(
     country: CountryEntity,
     finishedEvent: EventSummaryCountry,
+    disasterType: DisasterType,
   ) {
     const message = this.configureTriggerFinishedMessage(
       country,
       finishedEvent,
+      disasterType,
     );
 
     await this.sendToUsers(country, message);
@@ -175,6 +184,7 @@ export class WhatsappService {
         'countries.countryDisasterSettings',
         'countries.countryDisasterSettings.activeLeadTimes',
         'countries.notificationInfo',
+        'disasterTypes',
       ],
     });
     if (!user) {
@@ -188,7 +198,14 @@ export class WhatsappService {
     for await (const country of user.countries.filter(
       c => c.notificationInfo.useWhatsapp,
     )) {
-      for await (const disasterType of country.disasterTypes) {
+      for await (const disasterType of user.disasterTypes) {
+        if (
+          country.notificationInfo.useWhatsapp[disasterType.disasterType] ===
+          'false'
+        ) {
+          continue;
+        }
+
         const events = await this.eventService.getEventSummary(
           country.countryCodeISO3,
           disasterType.disasterType,
@@ -198,6 +215,7 @@ export class WhatsappService {
           const noTriggerMessage = this.configureNoTriggerMessage(
             country,
             events,
+            disasterType.disasterType,
           );
           await this.sendWhatsapp(noTriggerMessage, fromNumber);
           return;
@@ -220,6 +238,7 @@ export class WhatsappService {
 
         const whatsappGroupMessage = this.configureWhatsappGroupMessage(
           country,
+          disasterType.disasterType,
         );
         await this.sendWhatsapp(whatsappGroupMessage, fromNumber);
       }
@@ -229,34 +248,43 @@ export class WhatsappService {
   private configureNoTriggerMessage(
     country: CountryEntity,
     events: EventSummaryCountry[],
+    disasterType: DisasterType,
   ): string {
     let message = '';
     if (events.length > 0) {
-      message += country.notificationInfo.whatsappMessage[
+      message += country.notificationInfo.whatsappMessage[disasterType][
         'no-trigger-old-event'
       ].replace('[startDate]', events[0].startDate);
     }
-    message += country.notificationInfo.whatsappMessage['no-trigger'];
+    message +=
+      country.notificationInfo.whatsappMessage[disasterType]['no-trigger'];
     return message;
   }
 
   private configureTriggerFinishedMessage(
     country: CountryEntity,
     event: EventSummaryCountry,
+    disasterType: DisasterType,
   ): string {
     let message = '';
     if (event) {
-      message += country.notificationInfo.whatsappMessage[
+      message += country.notificationInfo.whatsappMessage[disasterType][
         'no-trigger-old-event'
       ].replace('[startDate]', event.startDate);
     }
-    message += country.notificationInfo.whatsappMessage['trigger-finished'];
+    message +=
+      country.notificationInfo.whatsappMessage[disasterType][
+        'trigger-finished'
+      ];
     return message;
   }
 
-  private configureWhatsappGroupMessage(country: CountryEntity): string {
+  private configureWhatsappGroupMessage(
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): string {
     const baseWhatsappGroupMessage =
-      country.notificationInfo.whatsappMessage['whatsapp-group'];
+      country.notificationInfo.whatsappMessage[disasterType]['whatsapp-group'];
     const whatsappGroupLink = country.notificationInfo.linkSocialMediaUrl;
     const externalActionsForm =
       country.notificationInfo.externalEarlyActionForm;
@@ -300,8 +328,9 @@ export class WhatsappService {
       )}*\n`;
       areaList += row;
     }
+
     const followUpMessage =
-      country.notificationInfo.whatsappMessage['follow-up'];
+      country.notificationInfo.whatsappMessage[disasterType]['follow-up'];
     const message = followUpMessage
       .replace('[nrTriggeredAreas]', triggeredAreas.length)
       .replace('[adminAreaLabel]', adminAreaLabel)

@@ -256,7 +256,11 @@ export class CountryService {
       notificationInfoCountry.linkSocialMediaUrl;
     notificationInfoEntity.linkVideo = notificationInfoCountry.linkVideo;
     notificationInfoEntity.linkPdf = notificationInfoCountry.linkPdf;
-    notificationInfoEntity.useWhatsapp = notificationInfoCountry.useWhatsapp;
+    if (notificationInfoCountry.useWhatsapp) {
+      notificationInfoEntity.useWhatsapp = JSON.parse(
+        JSON.stringify(notificationInfoCountry.useWhatsapp),
+      );
+    }
     if (notificationInfoCountry.whatsappMessage) {
       notificationInfoEntity.whatsappMessage = JSON.parse(
         JSON.stringify(notificationInfoCountry.whatsappMessage),
