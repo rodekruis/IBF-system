@@ -8,7 +8,7 @@ import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import { EventService } from 'src/app/services/event.service';
+import { EventService, EventSummary } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import {
@@ -471,11 +471,13 @@ export class MapService {
   ) {
     const events = this.eventState.event
       ? [this.eventState.event]
-      : this.eventState.events;
+      : this.eventState.events.length > 0
+      ? this.eventState.events
+      : [new EventSummary()];
     for (const event of events) {
       const leadTime = !leadTimeDependent
         ? null
-        : !this.eventState.event
+        : !this.eventState.event && event.firstLeadTime
         ? event.firstLeadTime
         : this.timelineState.activeLeadTime;
       this.addLayer({
