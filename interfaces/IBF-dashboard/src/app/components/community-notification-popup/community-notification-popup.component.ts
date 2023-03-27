@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { DateTime } from 'luxon';
 import { CommunityNotification } from '../../models/poi.model';
@@ -12,7 +12,7 @@ import { CommunityNotificationPhotoPopup } from '../community-notification-photo
   templateUrl: './community-notification-popup.component.html',
   styleUrls: ['./community-notification-popup.component.scss'],
 })
-export class CommunityNotificationPopupComponent {
+export class CommunityNotificationPopupComponent implements OnInit {
   @Input() markerProperties: CommunityNotification;
 
   public formattedDate: string;
