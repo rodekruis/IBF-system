@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, Not, Repository } from 'typeorm';
 import { EXTERNAL_API } from '../../../config';
 import { EventSummaryCountry } from '../../../shared/data.model';
-import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterType } from '../../disaster/disaster-type.enum';
+import { EventMapImageEntity } from '../../event/event-map-image.entity';
 import { EventService } from '../../event/event.service';
 import { UserEntity } from '../../user/user.entity';
 import { LookupService } from '../lookup/lookup.service';
@@ -23,6 +23,8 @@ export class WhatsappService {
   private readonly twilioMessageRepository: Repository<TwilioMessageEntity>;
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
+  @InjectRepository(EventMapImageEntity)
+  private readonly eventMapImageRepository: Repository<EventMapImageEntity>;
 
   public constructor(
     private readonly eventService: EventService,
@@ -195,17 +197,10 @@ export class WhatsappService {
       );
     }
 
-    for await (const country of user.countries.filter(
-      c => c.notificationInfo.useWhatsapp,
-    )) {
-      for await (const disasterType of user.disasterTypes) {
-        if (
-          country.notificationInfo.useWhatsapp[disasterType.disasterType] ===
-          'false'
-        ) {
-          continue;
-        }
-
+    for await (const country of user.countries) {
+      for await (const disasterType of user.disasterTypes.filter(
+        d => country.notificationInfo.useWhatsapp[d.disasterType],
+      )) {
         const events = await this.eventService.getEventSummary(
           country.countryCodeISO3,
           disasterType.disasterType,
@@ -221,19 +216,31 @@ export class WhatsappService {
           return;
         }
 
-        const eventName = activeEvents[0].eventName || 'no-name';
         const triggerMessage = await this.configureFollowUpMessage(
           country,
           disasterType.disasterType,
           activeEvents,
         );
+        const eventName = activeEvents[0].eventName;
+        const eventMapImageEntity = await this.eventMapImageRepository.findOne({
+          where: {
+            countryCodeISO3: country.countryCodeISO3,
+            disasterType: disasterType,
+            eventName: !eventName ? IsNull() : eventName,
+          },
+        });
+
         await this.sendWhatsapp(
           triggerMessage,
           fromNumber,
-          `${EXTERNAL_API.eventMapImage}/${country.countryCodeISO3}/${disasterType.disasterType}/${eventName}`,
+          eventMapImageEntity
+            ? `${EXTERNAL_API.eventMapImage}/${country.countryCodeISO3}/${
+                disasterType.disasterType
+              }/${eventName || 'no-name'}`
+            : null,
         );
 
-        // Add small delay/sleep to ensure the order in which messages are received
+        // Add small delay to ensure the order in which messages are received
         await new Promise(resolve => setTimeout(resolve, 5000));
 
         const whatsappGroupMessage = this.configureWhatsappGroupMessage(

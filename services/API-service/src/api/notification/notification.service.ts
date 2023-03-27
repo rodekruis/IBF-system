@@ -54,7 +54,7 @@ export class NotificationService {
         date,
       );
 
-      if (country.notificationInfo.useWhatsapp) {
+      if (country.notificationInfo.useWhatsapp[disasterType]) {
         this.whatsappService.sendTriggerWhatsapp(
           country,
           activeEvents,
@@ -75,7 +75,7 @@ export class NotificationService {
         date,
       );
 
-      if (country.notificationInfo.useWhatsapp) {
+      if (country.notificationInfo.useWhatsapp[disasterType]) {
         this.whatsappService.sendTriggerFinishedWhatsapp(
           country,
           finishedEvent,
