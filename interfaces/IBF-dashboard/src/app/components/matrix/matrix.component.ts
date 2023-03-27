@@ -31,7 +31,7 @@ export class MatrixComponent implements OnDestroy {
 
   constructor(
     private analyticsService: AnalyticsService,
-    private eventService: EventService,
+    public eventService: EventService,
     private mapService: MapService,
     private popoverController: PopoverController,
     private menuController: MenuController,

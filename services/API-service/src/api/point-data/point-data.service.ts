@@ -9,6 +9,7 @@ import { PointDataEntity, PointDataEnum } from './point-data.entity';
 import { DamSiteDto } from './dto/upload-dam-sites.dto';
 import { HealthSiteDto } from './dto/upload-health-sites.dto';
 import { RedCrossBranchDto } from './dto/upload-red-cross-branch.dto';
+import { CommunityNotificationDto } from './dto/upload-community-notifications.dto';
 
 @Injectable()
 export class PointDataService {
@@ -32,6 +33,7 @@ export class PointDataService {
       attribute => `point.attributes->'${attribute}' AS "${attribute}"`,
     );
     selectColumns.push('geom');
+    selectColumns.push('"pointDataId"');
 
     const pointData = await this.pointDataRepository
       .createQueryBuilder('point')
@@ -54,6 +56,8 @@ export class PointDataService {
         return new HealthSiteDto();
       case PointDataEnum.redCrossBranches:
         return new RedCrossBranchDto();
+      case PointDataEnum.communityNotifications:
+        return new CommunityNotificationDto();
       default:
         throw new HttpException(
           'Not a known point layer',
@@ -66,12 +70,15 @@ export class PointDataService {
     pointDataCategory: PointDataEnum,
     countryCodeISO3: string,
     validatedObjArray: any,
+    deleteExisting = true,
   ) {
     // Delete existing entries
-    await this.pointDataRepository.delete({
-      countryCodeISO3: countryCodeISO3,
-      pointDataCategory: pointDataCategory,
-    });
+    if (deleteExisting) {
+      await this.pointDataRepository.delete({
+        countryCodeISO3: countryCodeISO3,
+        pointDataCategory: pointDataCategory,
+      });
+    }
 
     const dataArray = validatedObjArray.map(point => {
       const pointAttributes = JSON.parse(JSON.stringify(point)); // hack: clone without referencing
@@ -134,5 +141,46 @@ export class PointDataService {
       throw new HttpException(errors, HttpStatus.BAD_REQUEST);
     }
     return validatatedArray;
+  }
+
+  public async dismissCommunityNotification(pointDataId: string) {
+    const notification = await this.pointDataRepository.findOne({
+      where: { pointDataId: pointDataId },
+    });
+    if (!notification) {
+      throw new HttpException(
+        { error: 'point not found' },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    notification.attributes['dismissed'] = true;
+    await this.pointDataRepository.save(notification);
+  }
+
+  public async uploadCommunityNotification(
+    countryCodeISO3: string,
+    communityNotification: any,
+  ): Promise<void> {
+    const notification = new CommunityNotificationDto();
+    notification.nameVolunteer = communityNotification['nameVolunteer'];
+    notification.nameVillage = communityNotification['nameVillage'];
+    notification.type = communityNotification['disasterType'];
+    notification.description = communityNotification['description'];
+    notification.uploadTime = communityNotification['end'];
+    try {
+      notification.photoUrl =
+        communityNotification['_attachments'][0]['download_url'];
+    } catch (e) {
+      notification.photoUrl = null;
+    }
+    notification.lat = communityNotification['_geolocation'][0];
+    notification.lon = communityNotification['_geolocation'][1];
+
+    await this.uploadJson(
+      PointDataEnum.communityNotifications,
+      countryCodeISO3,
+      [notification],
+      false,
+    );
   }
 }

@@ -44,7 +44,8 @@
     "description": {
       "EGY": {
         "heavy-rain": "Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset.<br><br>The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
-      }
+      },
+      "UGA": { "drought": "Not currently available" }
     }
   },
   {
@@ -58,9 +59,6 @@
     "active": "no",
     "description": {
       "ETH": {
-        "drought": "The rainfall map layer indicates the seasonal forecasting rainfall data for the floods within a return period depending on the EAP (for example 20-years) based on a global hydrological model.<br /><br />For the legend see <a target='_blank' href='https://www.icpac.net/seasonal-forecast/'>https://www.icpac.net/seasonal-forecast/</a><br /><br />Source link: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
-      },
-      "UGA": {
         "drought": "The rainfall map layer indicates the seasonal forecasting rainfall data for the floods within a return period depending on the EAP (for example 20-years) based on a global hydrological model.<br /><br />For the legend see <a target='_blank' href='https://www.icpac.net/seasonal-forecast/'>https://www.icpac.net/seasonal-forecast/</a><br /><br />Source link: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
       }
     }
@@ -334,6 +332,20 @@
         "dengue": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a target='_blank' href='https://healthsites.io/'>https://healthsites.io/<a/>",
         "floods": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a target='_blank' href='https://healthsites.io/'>https://healthsites.io/</a>",
         "typhoon": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a target='_blank' href='https://healthsites.io/'>https://healthsites.io/</a>"
+      }
+    }
+  },
+  {
+    "countryCodes": "UGA",
+    "disasterTypes": ["heavy-rain"],
+    "name": "community_notifications",
+    "label": "Community notifications",
+    "type": "point",
+    "leadTimeDependent": false,
+    "active": "yes",
+    "description": {
+      "UGA": {
+        "heavy-rain": "Community notifications are sent via volunteers that have direct contact with the community. They assess the information and fill in the details in a digital form.<br><br>The notifications are visualized as drop pins with a bell icon on the map.<br><br><strong>What to do?</strong> Click on the drop pin to open it and see the information attached to it. Some notifications contain photos.<br><br>The pins on the map will stay on the map until manually deleted. Make sure to delete irrelevant and old notifications."
       }
     }
   },

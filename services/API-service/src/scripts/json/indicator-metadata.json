@@ -138,7 +138,7 @@
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,EGY,PHL,MWI,SSD",
-    "disasterTypes": ["floods", "heavy-rain"],
+    "disasterTypes": ["floods"],
     "name": "population_affected_percentage",
     "label": "% of Total Population",
     "icon": "Affected-population-white.svg",

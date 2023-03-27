@@ -58,16 +58,22 @@
             .evacuation-center-layer {
               background-image: url('../../../assets/markers/evacuation-center-icon.svg');
             }
+            .community-notification-layer {
+              background-image: url('../../../assets/markers/community-notification-icon.svg');
+            }
             .outline-layer {
               border: solid;
               border-color: var(--ion-color-ibf-outline-red) !important;
               border-width: 3px !important;
               background: #2c3136 !important;
             }
-            .aggregate-layer {
-              background-image: url('../../../assets/icons/Legend_aggregate_layer.svg') !important;
-              background-position: center center;
-              background-origin: content-box;
+            .aggregate-layer-triggered {
+              background-image: url('../../../assets/icons/Legend_aggregate_layer-triggered.svg') !important;
+              background-size: cover !important;
+            }
+            .aggregate-layer-non-triggered {
+              background-image: url('../../../assets/icons/Legend_aggregate_layer-non-triggered.svg') !important;
+              background-size: cover !important;
             }
 
             .layer-control-label-col {

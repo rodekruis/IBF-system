@@ -5,6 +5,7 @@ export enum PointDataEnum {
   dams = 'dams',
   healthSites = 'health_sites',
   redCrossBranches = 'red_cross_branches',
+  communityNotifications = 'community_notifications',
 }
 
 @Entity('point-data')

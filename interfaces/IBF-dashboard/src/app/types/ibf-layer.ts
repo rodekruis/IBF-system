@@ -110,6 +110,7 @@ export enum IbfLayerName {
   vegetationCondition = 'vegetation_condition',
   livestockBodyCondition = 'livestock_body_condition',
   evacuationCenters = 'evacuation_centers',
+  communityNotifications = 'community_notifications',
 }
 
 export enum IbfLayerLabel {
