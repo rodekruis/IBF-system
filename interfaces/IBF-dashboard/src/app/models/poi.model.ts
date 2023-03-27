@@ -64,4 +64,5 @@ export class CommunityNotification {
   public uploadTime: string;
   public dismissed: boolean;
   public pointDataId: string;
+  public photoUrl: string;
 }
