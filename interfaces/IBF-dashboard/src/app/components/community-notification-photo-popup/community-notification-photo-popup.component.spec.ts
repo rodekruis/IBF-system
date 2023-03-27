@@ -2,20 +2,22 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
-import { CommunityNotificationPhotoPopup } from './community-notification-photo-popup.component';
+import { CommunityNotificationPhotoPopupComponent } from './community-notification-photo-popup.component';
 
-describe('CommunityNotificationPhotoPopup', () => {
-  let component: CommunityNotificationPhotoPopup;
-  let fixture: ComponentFixture<CommunityNotificationPhotoPopup>;
+describe('CommunityNotificationPhotoPopupComponent', () => {
+  let component: CommunityNotificationPhotoPopupComponent;
+  let fixture: ComponentFixture<CommunityNotificationPhotoPopupComponent>;
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [CommunityNotificationPhotoPopup],
+        declarations: [CommunityNotificationPhotoPopupComponent],
         imports: [IonicModule, HttpClientTestingModule, RouterTestingModule],
       }).compileComponents();
 
-      fixture = TestBed.createComponent(CommunityNotificationPhotoPopup);
+      fixture = TestBed.createComponent(
+        CommunityNotificationPhotoPopupComponent,
+      );
       component = fixture.componentInstance;
       fixture.detectChanges();
     }),

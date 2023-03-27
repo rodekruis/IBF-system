@@ -5,7 +5,7 @@ import { CommunityNotification } from '../../models/poi.model';
 import { ApiService } from '../../services/api.service';
 import { EventService } from '../../services/event.service';
 import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
-import { CommunityNotificationPhotoPopup } from '../community-notification-photo-popup/community-notification-photo-popup.component';
+import { CommunityNotificationPhotoPopupComponent } from '../community-notification-photo-popup/community-notification-photo-popup.component';
 
 @Component({
   selector: 'app-community-notification-popup',
@@ -31,7 +31,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
 
   public async openImagePopup(url: string) {
     const popover = await this.popoverController.create({
-      component: CommunityNotificationPhotoPopup,
+      component: CommunityNotificationPhotoPopupComponent,
       animated: true,
       cssClass: `ibf-popover ibf-popover-normal ${
         this.eventService.state.event?.thresholdReached
