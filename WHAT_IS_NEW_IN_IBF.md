@@ -2,6 +2,15 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
+### 31-03-2023
+
+- IBF Drought: When there are multiple events simultaneously, the portal loads first in 'overview'-mode, showing all events. From there an event can be selected in either chat-section, or timeline, or map.
+- All IBF: Information in the chat-section is now combined into 1 speech bubble per event, instead of 2.
+- All IBF: The last model update date is conveyed more clearly in the top-left.
+- All IBF: The legend of admin-area-layers shows a purple or grey gradient now instead of just 1 shade of purple or grey.
+- IBF Drought Uganda: this disaster-type is added to IBF
+- IBF Heavy-rain Uganda: this disaster-type is added to IBF (focus on Kasese district only)
+
 ### 17-02-2023 (v0.226.1)
 
 - All IBF: Bug fixed where not always all layers were showing correctly
