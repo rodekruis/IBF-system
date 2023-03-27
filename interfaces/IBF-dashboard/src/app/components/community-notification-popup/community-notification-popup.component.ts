@@ -29,7 +29,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
     ).toFormat('d LLLL y, H:mm');
   }
 
-  public async openImagePopup(url: string) {
+  public async openPhotoPopup(url: string) {
     const popover = await this.popoverController.create({
       component: CommunityNotificationPhotoPopupComponent,
       animated: true,

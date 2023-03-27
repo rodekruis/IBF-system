@@ -344,6 +344,17 @@
           "STY": "Super typhoon"
         }
       }
+    },
+    "community-notification": {
+      "title": "Community notification",
+      "date": "<strong>Sent on:</strong> {{ formattedDate }}",
+      "hazard-type": "<strong>Type of hazard:</strong> {{ type }}",
+      "village-name": "<strong>Name of village:</strong> {{ nameVillage }}",
+      "description": "<strong>What is observed:</strong> {{ description }}",
+      "volunteer": "<strong>Sent by (volunteer):</strong> {{ nameVolunteer }}",
+      "photo": "See attached photo",
+      "no-photo": "There is no attached photo",
+      "delete": "Delete notification"
     }
   }
 }
