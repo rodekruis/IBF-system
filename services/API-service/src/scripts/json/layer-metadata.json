@@ -98,7 +98,7 @@
       "UGA": {
         "drought": "This layer shows the population. It is visualised in grey on the map. Population source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.<a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
         "floods": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
-        "heavy-rain": ""
+        "heavy-rain": "This layer shows the population. It is visualised in grey on the map. Population source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.<a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
       },
       "ZMB": {
         "drought": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
@@ -274,7 +274,7 @@
       "UGA": {
         "drought": "This layer represents the locations of the local branches. It is visualised as drop pins with a Red Cross icon. The source of this data comes from the National Society and may need updating.<br /><br />Source link: Uganda Red Cross Society (URCS). Year: 2020.",
         "floods": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Uganda Red Cross Society (URCS). Year: 2020.",
-        "heavy-rain": ""
+        "heavy-rain": "This layer represents the locations of the local branches. It is visualised as drop pins with a Red Cross icon. The source of this data comes from the National Society and may need updating.<br /><br />Source link: Uganda Red Cross Society (URCS). Year: 2020."
       },
       "ZMB": {
         "drought": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Zambia Red Cross Society (ZRCS). Year: 2020.",
@@ -338,6 +338,20 @@
     }
   },
   {
+    "countryCodes": "UGA",
+    "disasterTypes": ["heavy-rain"],
+    "name": "community_notifications",
+    "label": "Community notifications",
+    "type": "point",
+    "leadTimeDependent": false,
+    "active": "yes",
+    "description": {
+      "UGA": {
+        "heavy-rain": "Community notifications are sent via volunteers that have direct contact with the community. They assess the information and fill in the details in a digital form.<br><br>The notifications are visualized as drop pins with a bell icon on the map.<br><br><strong>What to do?</strong> Click on the drop pin to open it and see the information attached to it. Some notifications contain photos.<br><br>The pins on the map will stay on the map until manually deleted. Make sure to delete irrelevant and old notifications.<br><br><strong>All sent notifications including deleted ones</strong>: https://kobonew.ifrc.org/api/v2/assets/aRa2musHL2hAxERkDHHLmi/export-settings/esL8MBFTLa6RS5XXNbdHcnN/data.xlsx."
+      }
+    }
+  },
+  {
     "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,MWI",
     "disasterTypes": ["floods", "drought", "flash-floods", "heavy-rain"],
     "name": "waterpoints",
@@ -361,7 +375,7 @@
       "UGA": {
         "drought": "This layer represents the locations of the water points. They are visualised as drop pins with a water drop on the map. You can click on each pin drop to find the number and location of the waterpoint. These are the functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Waterpoints source: <a target='_blank' href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
         "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source: <a target='_blank' href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
-        "heavy-rain": ""
+        "heavy-rain": "This layer represents the locations of the water points. They are visualised as drop pins with a water drop on the map. You can click on each pin drop to find the number and location of the waterpoint. These are the functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Waterpoints source: <a target='_blank' href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
       },
       "ZMB": {
         "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br /><br />Source: <a target='_blank' href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",

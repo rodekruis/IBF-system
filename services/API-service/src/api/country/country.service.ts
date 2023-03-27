@@ -112,21 +112,24 @@ export class CountryService {
     countryEntity.disasterTypes = await this.disasterRepository.find({
       where: country.disasterTypes
         .filter(disasterType => {
-          const envDisasterType = envDisasterTypes.find(
-            d => d.split(':')[0] === disasterType,
-          );
-          if (!envDisasterType) {
-            return false; // Disaster-type not loaded at all in this environment
+          if (envDisasterTypes) {
+            const envDisasterType = envDisasterTypes.find(
+              d => d.split(':')[0] === disasterType,
+            );
+            if (!envDisasterType) {
+              return false; // Disaster-type not loaded at all in this environment
+            }
+            const countries = envDisasterType.split(':')[1];
+            if (
+              !countries || // Load this disaster-type for all possible countries in this environment
+              countries.split('-').includes(country.countryCodeISO3) // Only load this disaster-type for given countries in this environment
+            ) {
+              return true;
+            } else {
+              return false;
+            }
           }
-          const countries = envDisasterType.split(':')[1];
-          if (
-            !countries || // Load this disaster-type for all possible countries in this environment
-            countries.split('-').includes(country.countryCodeISO3) // Only load this disaster-type for given countries in this environment
-          ) {
-            return true;
-          } else {
-            return false;
-          }
+          return true;
         })
         .map((countryDisasterType: string): object => {
           return { disasterType: countryDisasterType };
@@ -256,7 +259,11 @@ export class CountryService {
       notificationInfoCountry.linkSocialMediaUrl;
     notificationInfoEntity.linkVideo = notificationInfoCountry.linkVideo;
     notificationInfoEntity.linkPdf = notificationInfoCountry.linkPdf;
-    notificationInfoEntity.useWhatsapp = notificationInfoCountry.useWhatsapp;
+    if (notificationInfoCountry.useWhatsapp) {
+      notificationInfoEntity.useWhatsapp = JSON.parse(
+        JSON.stringify(notificationInfoCountry.useWhatsapp),
+      );
+    }
     if (notificationInfoCountry.whatsappMessage) {
       notificationInfoEntity.whatsappMessage = JSON.parse(
         JSON.stringify(notificationInfoCountry.whatsappMessage),

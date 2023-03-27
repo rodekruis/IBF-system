@@ -1,16 +1,16 @@
 <layer>
   <name>rainfall_extent_2-day_UGA</name>
-  <id>LayerInfoImpl--1f579a87:187031f4366:-7f9a</id>
+  <id>LayerInfoImpl--5bbc5c1d:187229e47cf:-7f7b</id>
   <type>RASTER</type>
   <defaultStyle>
     <id>StyleInfoImpl-5253576a:183547efa37:-7f65</id>
   </defaultStyle>
   <resource class="coverage">
-    <id>CoverageInfoImpl--1f579a87:187031f4366:-7f9b</id>
+    <id>CoverageInfoImpl--5bbc5c1d:187229e47cf:-7f7c</id>
   </resource>
   <attribution>
     <logoWidth>0</logoWidth>
     <logoHeight>0</logoHeight>
   </attribution>
-  <dateCreated>2023-03-21 07:52:36.739 UTC</dateCreated>
+  <dateCreated>2023-03-27 10:35:37.396 UTC</dateCreated>
 </layer>

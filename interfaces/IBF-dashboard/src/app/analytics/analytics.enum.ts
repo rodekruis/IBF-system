@@ -26,4 +26,5 @@ export enum AnalyticsEvent {
   leadTime = 'lead-time',
   stopTrigger = 'stop-trigger',
   evacuationCenter = 'evacuation-center',
+  communityNotification = 'community-notification',
 }

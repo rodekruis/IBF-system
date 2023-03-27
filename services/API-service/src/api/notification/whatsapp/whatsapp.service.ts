@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, Not, Repository } from 'typeorm';
 import { EXTERNAL_API } from '../../../config';
 import { EventSummaryCountry } from '../../../shared/data.model';
-import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterType } from '../../disaster/disaster-type.enum';
+import { EventMapImageEntity } from '../../event/event-map-image.entity';
 import { EventService } from '../../event/event.service';
 import { UserEntity } from '../../user/user.entity';
 import { LookupService } from '../lookup/lookup.service';
@@ -23,6 +23,8 @@ export class WhatsappService {
   private readonly twilioMessageRepository: Repository<TwilioMessageEntity>;
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
+  @InjectRepository(EventMapImageEntity)
+  private readonly eventMapImageRepository: Repository<EventMapImageEntity>;
 
   public constructor(
     private readonly eventService: EventService,
@@ -70,10 +72,12 @@ export class WhatsappService {
   public async configureInitialMessage(
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
+    disasterType: DisasterType,
   ): Promise<string> {
     const event = activeEvents[0];
 
-    const baseMessage = country.notificationInfo.whatsappMessage['initial'];
+    const baseMessage =
+      country.notificationInfo.whatsappMessage[disasterType]['initial'];
     const startDate = event.startDate;
     const leadTime = `${event.firstLeadTime.split('-').join(' ')}(s)`;
 
@@ -88,8 +92,13 @@ export class WhatsappService {
   public async sendTriggerWhatsapp(
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
+    disasterType: DisasterType,
   ) {
-    const message = await this.configureInitialMessage(country, activeEvents);
+    const message = await this.configureInitialMessage(
+      country,
+      activeEvents,
+      disasterType,
+    );
 
     await this.sendToUsers(country, message);
   }
@@ -97,10 +106,12 @@ export class WhatsappService {
   public async sendTriggerFinishedWhatsapp(
     country: CountryEntity,
     finishedEvent: EventSummaryCountry,
+    disasterType: DisasterType,
   ) {
     const message = this.configureTriggerFinishedMessage(
       country,
       finishedEvent,
+      disasterType,
     );
 
     await this.sendToUsers(country, message);
@@ -175,6 +186,7 @@ export class WhatsappService {
         'countries.countryDisasterSettings',
         'countries.countryDisasterSettings.activeLeadTimes',
         'countries.notificationInfo',
+        'disasterTypes',
       ],
     });
     if (!user) {
@@ -185,10 +197,10 @@ export class WhatsappService {
       );
     }
 
-    for await (const country of user.countries.filter(
-      c => c.notificationInfo.useWhatsapp,
-    )) {
-      for await (const disasterType of country.disasterTypes) {
+    for await (const country of user.countries) {
+      for await (const disasterType of user.disasterTypes.filter(
+        d => country.notificationInfo.useWhatsapp[d.disasterType],
+      )) {
         const events = await this.eventService.getEventSummary(
           country.countryCodeISO3,
           disasterType.disasterType,
@@ -198,28 +210,42 @@ export class WhatsappService {
           const noTriggerMessage = this.configureNoTriggerMessage(
             country,
             events,
+            disasterType.disasterType,
           );
           await this.sendWhatsapp(noTriggerMessage, fromNumber);
           return;
         }
 
-        const eventName = activeEvents[0].eventName || 'no-name';
         const triggerMessage = await this.configureFollowUpMessage(
           country,
           disasterType.disasterType,
           activeEvents,
         );
+        const eventName = activeEvents[0].eventName;
+        const eventMapImageEntity = await this.eventMapImageRepository.findOne({
+          where: {
+            countryCodeISO3: country.countryCodeISO3,
+            disasterType: disasterType,
+            eventName: !eventName ? IsNull() : eventName,
+          },
+        });
+
         await this.sendWhatsapp(
           triggerMessage,
           fromNumber,
-          `${EXTERNAL_API.eventMapImage}/${country.countryCodeISO3}/${disasterType.disasterType}/${eventName}`,
+          eventMapImageEntity
+            ? `${EXTERNAL_API.eventMapImage}/${country.countryCodeISO3}/${
+                disasterType.disasterType
+              }/${eventName || 'no-name'}`
+            : null,
         );
 
-        // Add small delay/sleep to ensure the order in which messages are received
+        // Add small delay to ensure the order in which messages are received
         await new Promise(resolve => setTimeout(resolve, 5000));
 
         const whatsappGroupMessage = this.configureWhatsappGroupMessage(
           country,
+          disasterType.disasterType,
         );
         await this.sendWhatsapp(whatsappGroupMessage, fromNumber);
       }
@@ -229,34 +255,43 @@ export class WhatsappService {
   private configureNoTriggerMessage(
     country: CountryEntity,
     events: EventSummaryCountry[],
+    disasterType: DisasterType,
   ): string {
     let message = '';
     if (events.length > 0) {
-      message += country.notificationInfo.whatsappMessage[
+      message += country.notificationInfo.whatsappMessage[disasterType][
         'no-trigger-old-event'
       ].replace('[startDate]', events[0].startDate);
     }
-    message += country.notificationInfo.whatsappMessage['no-trigger'];
+    message +=
+      country.notificationInfo.whatsappMessage[disasterType]['no-trigger'];
     return message;
   }
 
   private configureTriggerFinishedMessage(
     country: CountryEntity,
     event: EventSummaryCountry,
+    disasterType: DisasterType,
   ): string {
     let message = '';
     if (event) {
-      message += country.notificationInfo.whatsappMessage[
+      message += country.notificationInfo.whatsappMessage[disasterType][
         'no-trigger-old-event'
       ].replace('[startDate]', event.startDate);
     }
-    message += country.notificationInfo.whatsappMessage['trigger-finished'];
+    message +=
+      country.notificationInfo.whatsappMessage[disasterType][
+        'trigger-finished'
+      ];
     return message;
   }
 
-  private configureWhatsappGroupMessage(country: CountryEntity): string {
+  private configureWhatsappGroupMessage(
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): string {
     const baseWhatsappGroupMessage =
-      country.notificationInfo.whatsappMessage['whatsapp-group'];
+      country.notificationInfo.whatsappMessage[disasterType]['whatsapp-group'];
     const whatsappGroupLink = country.notificationInfo.linkSocialMediaUrl;
     const externalActionsForm =
       country.notificationInfo.externalEarlyActionForm;
@@ -300,8 +335,9 @@ export class WhatsappService {
       )}*\n`;
       areaList += row;
     }
+
     const followUpMessage =
-      country.notificationInfo.whatsappMessage['follow-up'];
+      country.notificationInfo.whatsappMessage[disasterType]['follow-up'];
     const message = followUpMessage
       .replace('[nrTriggeredAreas]', triggeredAreas.length)
       .replace('[adminAreaLabel]', adminAreaLabel)

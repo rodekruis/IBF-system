@@ -69,11 +69,22 @@
               [class.evacuation-center-layer]="
                 layer.name === IbfLayerName.evacuationCenters && layer.active
               "
+              [class.community-notification-layer]="
+                layer.name === IbfLayerName.communityNotifications &&
+                layer.active
+              "
               [class.outline-layer]="
                 layer.name === IbfLayerName.alertThreshold && layer.active
               "
-              [class.aggregate-layer]="
-                layer.group === IbfLayerGroup.aggregates && layer.active
+              [class.aggregate-layer-triggered]="
+                layer.group === IbfLayerGroup.aggregates &&
+                layer.active &&
+                eventService.state.thresholdReached
+              "
+              [class.aggregate-layer-non-triggered]="
+                layer.group === IbfLayerGroup.aggregates &&
+                layer.active &&
+                !eventService.state.thresholdReached
               "
               [style.background]="
                 layer.active

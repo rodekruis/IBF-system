@@ -1,3 +1,45 @@
+# [0.233.0](https://github.com/rodekruis/IBF-system/compare/v0.232.0...v0.233.0) (2023-03-27)
+
+
+### Bug Fixes
+
+* bell icon AB[#18551](https://github.com/rodekruis/IBF-system/issues/18551) ([eeda8fa](https://github.com/rodekruis/IBF-system/commit/eeda8fa12c6cf45931e2d485668a852d4c0b3add))
+* grey gradient in legend for non-triggered AB[#18418](https://github.com/rodekruis/IBF-system/issues/18418) ([38a9dcb](https://github.com/rodekruis/IBF-system/commit/38a9dcb90828de9ba59dd9460ff78ab1b7410ed6))
+* info popup AB[#18549](https://github.com/rodekruis/IBF-system/issues/18549) ([facbf4d](https://github.com/rodekruis/IBF-system/commit/facbf4dfd33d64a9190f12484b39a7a4696c4df4))
+* lint ([8d9b2b6](https://github.com/rodekruis/IBF-system/commit/8d9b2b6a0de3ed469c013ab5e8c8d81d05761f52))
+* remove pop aff perc AB[#18542](https://github.com/rodekruis/IBF-system/issues/18542) ([cf62f37](https://github.com/rodekruis/IBF-system/commit/cf62f37afa7b51e032038b8f7ab7cc9044611aa5))
+* timeline buttons ([667f0ec](https://github.com/rodekruis/IBF-system/commit/667f0ec8a179b7e0290f6d83e666caa30500fb7c))
+* update mock data + fix wms-layers if non-triggered AB[#18471](https://github.com/rodekruis/IBF-system/issues/18471) ([c8a27da](https://github.com/rodekruis/IBF-system/commit/c8a27dae815d402d9b095152ab20a0f30fffe5d7))
+* upload all areas in mock AB[#18414](https://github.com/rodekruis/IBF-system/issues/18414) ([3c14ba3](https://github.com/rodekruis/IBF-system/commit/3c14ba317ae339bef73d78d875022c3bd7c64b0a))
+
+
+### Features
+
+* added eap-link AB[#18571](https://github.com/rodekruis/IBF-system/issues/18571) ([c36c147](https://github.com/rodekruis/IBF-system/commit/c36c14778fc47a1fc1b01b7dfcbd62e6ac208f44))
+* basic popup + dismiss AB[#18479](https://github.com/rodekruis/IBF-system/issues/18479) AB[#18480](https://github.com/rodekruis/IBF-system/issues/18480) ([c07480c](https://github.com/rodekruis/IBF-system/commit/c07480c687269735463e0d810581f1e77d1ea93f))
+* community notifications layer AB[#18478](https://github.com/rodekruis/IBF-system/issues/18478) ([1d362ba](https://github.com/rodekruis/IBF-system/commit/1d362ba10d8ba35cc9dc1846b3b46bdcebc66471))
+* endpoint for kobo to call AB[#18477](https://github.com/rodekruis/IBF-system/issues/18477) ([e34d328](https://github.com/rodekruis/IBF-system/commit/e34d328f3e71a4094d8f16ab5f21484c5e505b63))
+* photo popup AB[#18550](https://github.com/rodekruis/IBF-system/issues/18550) ([e78a0c4](https://github.com/rodekruis/IBF-system/commit/e78a0c46f5aa05c7256af3c06c049830b12aaaac))
+* show notification + refactor all marker functionality in separate service AB[#18478](https://github.com/rodekruis/IBF-system/issues/18478) ([5637d01](https://github.com/rodekruis/IBF-system/commit/5637d0104cd7f34c40592439a17b80bd55f7b32a))
+* store photo url AB[#18477](https://github.com/rodekruis/IBF-system/issues/18477) ([8668d3d](https://github.com/rodekruis/IBF-system/commit/8668d3dac084495dcc46c8e6b1e17e3d24d6aa4d))
+
+
+
+# [0.232.0](https://github.com/rodekruis/IBF-system/compare/v0.231.1...v0.232.0) (2023-03-27)
+
+
+### Bug Fixes
+
+* only admin-level 3 AB[#18570](https://github.com/rodekruis/IBF-system/issues/18570) ([f72232d](https://github.com/rodekruis/IBF-system/commit/f72232de95ec61d9a60a5d42f02b69d3a856b401))
+* whatsapp flow AB[#18473](https://github.com/rodekruis/IBF-system/issues/18473) ([22b10df](https://github.com/rodekruis/IBF-system/commit/22b10dfcdeeac385921864ebaaf69c8a0bf5c944))
+
+
+### Features
+
+* set up UGA WhatsApp flow AB[#18473](https://github.com/rodekruis/IBF-system/issues/18473) ([80e3de9](https://github.com/rodekruis/IBF-system/commit/80e3de9e68b405bd0f0eb91f64947a5d054f9232))
+
+
+
 ## [0.231.1](https://github.com/rodekruis/IBF-system/compare/v0.231.0...v0.231.1) (2023-03-22)
 
 
@@ -149,25 +191,6 @@
 ### Bug Fixes
 
 * put back json update endpoint AB[#18019](https://github.com/rodekruis/IBF-system/issues/18019) ([daaf0ba](https://github.com/rodekruis/IBF-system/commit/daaf0ba83151d0133fac27ac2147a348ba823889))
-
-
-
-## [0.226.3](https://github.com/rodekruis/IBF-system/compare/v0.226.2...v0.226.3) (2023-02-17)
-
-
-### Bug Fixes
-
-* disabled flash-floods icon AB[#17988](https://github.com/rodekruis/IBF-system/issues/17988) ([e8fac7e](https://github.com/rodekruis/IBF-system/commit/e8fac7e2f1eb3d195f23c769c5e16575be671c6a))
-
-
-
-## [0.226.2](https://github.com/rodekruis/IBF-system/compare/v0.226.1...v0.226.2) (2023-02-17)
-
-
-### Bug Fixes
-
-* rm docker-compose cached image ([6c1f5bc](https://github.com/rodekruis/IBF-system/commit/6c1f5bcc3da048ee329aac2bdb49397e60c19cab))
-* set date to optional AB[#17967](https://github.com/rodekruis/IBF-system/issues/17967) ([ee89000](https://github.com/rodekruis/IBF-system/commit/ee890008cfee8103e6c360f2fd8bbbf838a65664))
 
 
 

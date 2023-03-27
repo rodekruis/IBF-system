@@ -1,5 +1,5 @@
 <coverage>
-  <id>CoverageInfoImpl--1f579a87:187031f4366:-7f98</id>
+  <id>CoverageInfoImpl--5bbc5c1d:187229e47cf:-7ffa</id>
   <name>rainfall_extent_1-day_UGA</name>
   <nativeName>rainfall_extent_1-day_UGA</nativeName>
   <namespace>
@@ -23,17 +23,17 @@
   AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
   <srs>EPSG:4326</srs>
   <nativeBoundingBox>
-    <minx>29.75</minx>
-    <maxx>34.75</maxx>
-    <miny>-1.25</miny>
-    <maxy>2.75</maxy>
+    <minx>29.648870337</minx>
+    <maxx>30.348870337</maxx>
+    <miny>-0.266524516</miny>
+    <maxy>0.533475484</maxy>
     <crs>EPSG:4326</crs>
   </nativeBoundingBox>
   <latLonBoundingBox>
-    <minx>29.75</minx>
-    <maxx>34.75</maxx>
-    <miny>-1.25</miny>
-    <maxy>2.75</maxy>
+    <minx>29.648870337</minx>
+    <maxx>30.348870337</maxx>
+    <miny>-0.266524516</miny>
+    <maxy>0.533475484</maxy>
     <crs>EPSG:4326</crs>
   </latLonBoundingBox>
   <projectionPolicy>REPROJECT_TO_DECLARED</projectionPolicy>
@@ -49,7 +49,7 @@
     <entry key="dirName">rainfall_extent_1-day_UGA_rainfall_extent_1-day_UGA</entry>
   </metadata>
   <store class="coverageStore">
-    <id>CoverageStoreInfoImpl--1f579a87:187031f4366:-7f99</id>
+    <id>CoverageStoreInfoImpl--5bbc5c1d:187229e47cf:-7ffb</id>
   </store>
   <serviceConfiguration>false</serviceConfiguration>
   <simpleConversionEnabled>false</simpleConversionEnabled>
@@ -57,24 +57,24 @@
   <grid dimension="2">
     <range>
       <low>0 0</low>
-      <high>10 8</high>
+      <high>7 8</high>
     </range>
     <transform>
-      <scaleX>0.5</scaleX>
-      <scaleY>-0.5</scaleY>
+      <scaleX>0.09999999999999964</scaleX>
+      <scaleY>0.09999999999999999</scaleY>
       <shearX>0.0</shearX>
       <shearY>0.0</shearY>
-      <translateX>30.0</translateX>
-      <translateY>2.5</translateY>
+      <translateX>29.698870337000002</translateX>
+      <translateY>-0.216524516</translateY>
     </transform>
     <crs>EPSG:4326</crs>
   </grid>
   <supportedFormats>
-    <string>GEOTIFF</string>
     <string>GIF</string>
     <string>PNG</string>
     <string>JPEG</string>
     <string>TIFF</string>
+    <string>GEOTIFF</string>
   </supportedFormats>
   <interpolationMethods>
     <string>nearest neighbor</string>
