@@ -1,3 +1,18 @@
+# [0.232.0](https://github.com/rodekruis/IBF-system/compare/v0.231.1...v0.232.0) (2023-03-27)
+
+
+### Bug Fixes
+
+* only admin-level 3 AB[#18570](https://github.com/rodekruis/IBF-system/issues/18570) ([f72232d](https://github.com/rodekruis/IBF-system/commit/f72232de95ec61d9a60a5d42f02b69d3a856b401))
+* whatsapp flow AB[#18473](https://github.com/rodekruis/IBF-system/issues/18473) ([22b10df](https://github.com/rodekruis/IBF-system/commit/22b10dfcdeeac385921864ebaaf69c8a0bf5c944))
+
+
+### Features
+
+* set up UGA WhatsApp flow AB[#18473](https://github.com/rodekruis/IBF-system/issues/18473) ([80e3de9](https://github.com/rodekruis/IBF-system/commit/80e3de9e68b405bd0f0eb91f64947a5d054f9232))
+
+
+
 ## [0.231.1](https://github.com/rodekruis/IBF-system/compare/v0.231.0...v0.231.1) (2023-03-22)
 
 
@@ -158,16 +173,6 @@
 ### Bug Fixes
 
 * disabled flash-floods icon AB[#17988](https://github.com/rodekruis/IBF-system/issues/17988) ([e8fac7e](https://github.com/rodekruis/IBF-system/commit/e8fac7e2f1eb3d195f23c769c5e16575be671c6a))
-
-
-
-## [0.226.2](https://github.com/rodekruis/IBF-system/compare/v0.226.1...v0.226.2) (2023-02-17)
-
-
-### Bug Fixes
-
-* rm docker-compose cached image ([6c1f5bc](https://github.com/rodekruis/IBF-system/commit/6c1f5bcc3da048ee329aac2bdb49397e60c19cab))
-* set date to optional AB[#17967](https://github.com/rodekruis/IBF-system/issues/17967) ([ee89000](https://github.com/rodekruis/IBF-system/commit/ee890008cfee8103e6c360f2fd8bbbf838a65664))
 
 
 
