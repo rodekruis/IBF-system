@@ -198,8 +198,8 @@
       },
       {
         "disasterType": "heavy-rain",
-        "adminLevels": [2, 3, 4],
-        "defaultAdminLevel": 2,
+        "adminLevels": [3],
+        "defaultAdminLevel": 3,
         "activeLeadTimes": ["1-day", "2-day", "3-day"],
         "eapLink": ""
       }
