@@ -23,8 +23,8 @@ export class NotificationInfoEntity {
   @Column({ nullable: true })
   public linkPdf: string;
 
-  @Column({ default: false })
-  public useWhatsapp: boolean;
+  @Column('json', { default: {}, nullable: true })
+  public useWhatsapp: JSON;
 
   @Column('json', { default: {} })
   public whatsappMessage: JSON;
