@@ -4,15 +4,31 @@
     "logo": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c44cb471-0595-454d-aad6-d1050553315f.png",
     "triggerStatement": {
       "floods": "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>",
-      "drought": "Not currently available"
+      "drought": "Not currently available",
+      "heavy-rain": "Not currently available"
     },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Jt7jMX3BydCD07MFExLUUs/",
+    "useWhatsapp": {
+      "floods": false,
+      "drought": false,
+      "heavy-rain": true
+    },
+    "whatsappMessage": {
+      "heavy-rain": {
+        "initial": "*TRIGGER WARNING*\n\nA trigger warning for heavy rain was activated on *[startDate]*. It is now *[leadTime]* away.\n\nTo receive more detailed information reply 'yes' to this message.",
+        "follow-up": "There are *[nrTriggeredAreas]* [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\n\nLog in to the IBF Portal on your desktop to find more information.",
+        "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate further about this trigger.",
+        "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below threshold.\n\n",
+        "no-trigger": "There is *no trigger* currently."
+      }
+    },
     "linkVideo": "https://bit.ly/IBF-video-Uganda",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Uganda-Published.pdf",
     "mailSegment": {
       "drought": 102274,
-      "floods": 2525654
+      "floods": 2525654,
+      "heavy-rain": 2539574
     }
   },
   {
@@ -133,14 +149,18 @@
     },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/G0GXqgiat5J69EQTEKVNec",
-    "useWhatsapp": true,
+    "useWhatsapp": {
+      "floods": true
+    },
     "whatsappMessage": {
-      "initial": "*TRIGGER WARNING*\n\nA trigger warning for floods was activated on *[startDate]*. It is now *[leadTime]* away.\n\nTo receive more detailed information reply 'yes' to this message.",
-      "follow-up": "There are *[nrTriggeredAreas]* [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\nYou can use the map attached to assess the situation. The triggered areas are outlined in purple. The potential flood extent is shown in red.\n\nLog in to the IBF Portal on your desktop to find more information.",
-      "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate further about this trigger.\n\nUpdate the early actions that have been done in this form: [externalActionsForm]. Please note that through this form you can only check off actions, but you cannot see which actions have been done already.",
-      "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below threshold.\n\n",
-      "no-trigger": "There is *no trigger* currently.",
-      "trigger-finished": "The event will close in the IBF-portal when the forecast stays below threshold for 7 days in a row. Until that time, anticipatory actions can still be managed in the IBF-portal."
+      "floods": {
+        "initial": "*TRIGGER WARNING*\n\nA trigger warning for floods was activated on *[startDate]*. It is now *[leadTime]* away.\n\nTo receive more detailed information reply 'yes' to this message.",
+        "follow-up": "There are *[nrTriggeredAreas]* [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\nYou can use the map attached to assess the situation. The triggered areas are outlined in purple. The potential flood extent is shown in red.\n\nLog in to the IBF Portal on your desktop to find more information.",
+        "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate further about this trigger.\n\nUpdate the early actions that have been done in this form: [externalActionsForm]. Please note that through this form you can only check off actions, but you cannot see which actions have been done already.",
+        "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below threshold.\n\n",
+        "no-trigger": "There is *no trigger* currently.",
+        "trigger-finished": "The event will close in the IBF-portal when the forecast stays below threshold for 7 days in a row. Until that time, anticipatory actions can still be managed in the IBF-portal."
+      }
     },
     "externalEarlyActionForm": "https://eenew.ifrc.org/x/o3VEUuQG",
     "linkVideo": "https://bit.ly/IBF-video-SouthSudan",

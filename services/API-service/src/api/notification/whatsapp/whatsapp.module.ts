@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { API_PATHS } from '../../../config';
+import { EventMapImageEntity } from '../../event/event-map-image.entity';
 import { EventModule } from '../../event/event.module';
 import { UserEntity } from '../../user/user.entity';
 import { LookupModule } from '../lookup/lookup.module';
@@ -17,7 +18,11 @@ import { WhatsappService } from './whatsapp.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([TwilioMessageEntity, UserEntity]),
+    TypeOrmModule.forFeature([
+      TwilioMessageEntity,
+      UserEntity,
+      EventMapImageEntity,
+    ]),
     LookupModule,
     EventModule,
     NotificationContentModule,
