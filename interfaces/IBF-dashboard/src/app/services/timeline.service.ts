@@ -407,7 +407,7 @@ export class TimelineService {
     } else if (disasterType.disasterType === DisasterTypeKey.heavyRain) {
       const countryLeadTimes = this.getCountryDisasterAttribute(
         'activeLeadTimes',
-      );
+      ).sort((a, b) => (a > b ? 1 : -1));
       const maxLeadTime = countryLeadTimes[countryLeadTimes.length - 1];
       return leadTime > maxLeadTime ? false : true;
     } else {
