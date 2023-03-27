@@ -1,31 +1,36 @@
-<div style="margin-bottom: 5px; font-size: 14px">
+<div class="community-notification-title">
   <strong>{{ 'map-popups.community-notification.title' | translate }}</strong>
 </div>
 <div
+  class="community-notification-info"
   [innerHTML]="
     'map-popups.community-notification.date'
       | translate: { formattedDate: formattedDate }
   "
 ></div>
 <div
+  class="community-notification-info"
   [innerHTML]="
     'map-popups.community-notification.hazard-type'
       | translate: { type: markerProperties?.type }
   "
 ></div>
 <div
+  class="community-notification-info"
   [innerHTML]="
     'map-popups.community-notification.village-name'
       | translate: { nameVillage: markerProperties?.nameVillage }
   "
 ></div>
 <div
+  class="community-notification-info"
   [innerHTML]="
     'map-popups.community-notification.description'
       | translate: { description: markerProperties?.description }
   "
 ></div>
 <div
+  class="community-notification-info"
   [innerHTML]="
     'map-popups.community-notification.volunteer'
       | translate: { nameVolunteer: markerProperties?.nameVolunteer }
@@ -33,6 +38,7 @@
 ></div>
 <ion-button
   *ngIf="markerProperties?.photoUrl"
+  class="community-notification-button"
   [disabled]="!markerProperties?.photoUrl"
   type="button"
   color="ibf-primary"
@@ -41,14 +47,15 @@
   >{{ 'map-popups.community-notification.photo' | translate }}
   <ion-icon slot="start" name="image"></ion-icon>
 </ion-button>
-<div>
+<div *ngIf="!markerProperties?.photoUrl" class="community-notification-info">
   <strong>{{
     'map-popups.community-notification.no-photo' | translate
   }}</strong>
 </div>
 <ion-button
+  class="community-notification-button"
   type="button"
-  color="ibf-primary"
+  color="danger"
   shape="round"
   fill="outline"
   (click)="dismissCommunityNotification(markerProperties?.pointDataId)"

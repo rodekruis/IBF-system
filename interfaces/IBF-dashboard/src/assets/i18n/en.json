@@ -354,7 +354,10 @@
       "volunteer": "<strong>Sent by (volunteer):</strong> {{ nameVolunteer }}",
       "photo": "See attached photo",
       "no-photo": "There is no attached photo",
-      "delete": "Delete notification"
+      "delete": "Delete notification",
+      "delete-question": "Are you sure you want to delete the notification?",
+      "delete-cancel": "Cancel",
+      "delete-confirm": "Confirm"
     }
   }
 }
