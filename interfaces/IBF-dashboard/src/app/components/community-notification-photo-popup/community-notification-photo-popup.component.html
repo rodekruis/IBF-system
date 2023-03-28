@@ -6,10 +6,12 @@
       (click)="closePopover()"
       class="popover-close-button"
     ></ion-icon>
-    <ion-card-title [innerHTML]="
-    'map-popups.community-notification.photo-popup.title'
-      | translate: { formattedDate: formattedDate }
-  "></ion-card-title>
+    <ion-card-title
+      [innerHTML]="
+        'map-popups.community-notification.photo-popup.title'
+          | translate: { formattedDate: formattedDate }
+      "
+    ></ion-card-title>
   </ion-card-header>
   <ion-card-content class="ion-padding-top">
     <img src="{{ url }}" />
