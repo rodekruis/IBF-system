@@ -1,3 +1,14 @@
+## [0.233.2](https://github.com/rodekruis/IBF-system/compare/v0.233.1...v0.233.2) (2023-03-28)
+
+
+### Bug Fixes
+
+* color of popup headers ([c24adbb](https://github.com/rodekruis/IBF-system/commit/c24adbbe27380815e0b7f1471dba3637f37fdd60))
+* kobo link in info popup AB[#18547](https://github.com/rodekruis/IBF-system/issues/18547) ([1876fc0](https://github.com/rodekruis/IBF-system/commit/1876fc01b9e441fa7a84fec3db94cd80b91bf597))
+* uga drought trigger statement AB[#18419](https://github.com/rodekruis/IBF-system/issues/18419) ([7988cd6](https://github.com/rodekruis/IBF-system/commit/7988cd67cd9c2c6c0ed32af968f5a7cd0a4a094a))
+
+
+
 ## [0.233.1](https://github.com/rodekruis/IBF-system/compare/v0.233.0...v0.233.1) (2023-03-27)
 
 
@@ -176,21 +187,6 @@
 ### Features
 
 * update today's date in header AB[#18133](https://github.com/rodekruis/IBF-system/issues/18133) ([58a4e13](https://github.com/rodekruis/IBF-system/commit/58a4e13d0db9966ab1124c4f527b927e4bb0a8ba))
-
-
-
-# [0.227.0](https://github.com/rodekruis/IBF-system/compare/v0.226.4...v0.227.0) (2023-03-06)
-
-
-### Bug Fixes
-
-* remove static/dynamic layers AB[#18180](https://github.com/rodekruis/IBF-system/issues/18180) AB[#18184](https://github.com/rodekruis/IBF-system/issues/18184) ([d898cde](https://github.com/rodekruis/IBF-system/commit/d898cde6e0168d6246a5ab8b93e2b1fccea8e9af))
-* rm mock/seed data removed layers AB[#18180](https://github.com/rodekruis/IBF-system/issues/18180) AB[#18184](https://github.com/rodekruis/IBF-system/issues/18184) ([9e54e82](https://github.com/rodekruis/IBF-system/commit/9e54e82d6b3040d493273ef06fac324ed45dc4d9))
-
-
-### Features
-
-* add rainfall extent AB[#18180](https://github.com/rodekruis/IBF-system/issues/18180) ([724aa70](https://github.com/rodekruis/IBF-system/commit/724aa706064c7cbd4452e4fc73903ba99d065cea))
 
 
 
