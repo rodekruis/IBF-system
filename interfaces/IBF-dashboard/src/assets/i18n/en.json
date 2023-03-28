@@ -357,7 +357,10 @@
       "delete": "Delete notification",
       "delete-question": "Are you sure you want to delete the notification?",
       "delete-cancel": "Cancel",
-      "delete-confirm": "Confirm"
+      "delete-confirm": "Confirm",
+      "photo-popup": {
+        "title": "Community notification - photo"
+      }
     }
   }
 }
