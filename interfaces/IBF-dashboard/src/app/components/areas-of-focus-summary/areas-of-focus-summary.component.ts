@@ -134,9 +134,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       component: LayerControlInfoPopoverComponent,
       animated: true,
       cssClass: `ibf-popover ibf-popover-normal ${
-        this.eventService.state.event?.thresholdReached
-          ? 'trigger-alert'
-          : 'no-alert'
+        this.eventService.state.thresholdReached ? 'trigger-alert' : 'no-alert'
       }`,
       translucent: true,
       showBackdrop: true,
