@@ -1,3 +1,12 @@
+## [0.233.1](https://github.com/rodekruis/IBF-system/compare/v0.233.0...v0.233.1) (2023-03-27)
+
+
+### Bug Fixes
+
+* trigger statement uga drought AB[#18419](https://github.com/rodekruis/IBF-system/issues/18419) ([b0e951a](https://github.com/rodekruis/IBF-system/commit/b0e951aca16d15522f43cedc05bd391c8f1413d8))
+
+
+
 # [0.233.0](https://github.com/rodekruis/IBF-system/compare/v0.232.0...v0.233.0) (2023-03-27)
 
 
@@ -182,15 +191,6 @@
 ### Features
 
 * add rainfall extent AB[#18180](https://github.com/rodekruis/IBF-system/issues/18180) ([724aa70](https://github.com/rodekruis/IBF-system/commit/724aa706064c7cbd4452e4fc73903ba99d065cea))
-
-
-
-## [0.226.4](https://github.com/rodekruis/IBF-system/compare/v0.226.3...v0.226.4) (2023-02-21)
-
-
-### Bug Fixes
-
-* put back json update endpoint AB[#18019](https://github.com/rodekruis/IBF-system/issues/18019) ([daaf0ba](https://github.com/rodekruis/IBF-system/commit/daaf0ba83151d0133fac27ac2147a348ba823889))
 
 
 
