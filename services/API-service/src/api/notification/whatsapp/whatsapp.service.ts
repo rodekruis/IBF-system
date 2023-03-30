@@ -344,4 +344,37 @@ export class WhatsappService {
       .replace('[areaList]', areaList);
     return message;
   }
+
+  public async sendCommunityNotification(
+    countryCodeISO3: string,
+  ): Promise<void> {
+    //hardcoding country and disaster type until we'll make this more generic
+    if (countryCodeISO3 !== 'UGA') {
+      return;
+    }
+
+    const disasterType = DisasterType.HeavyRain;
+
+    const messageKey = 'community-notification';
+
+    const users = await this.userRepository.find({
+      where: { whatsappNumber: Not(IsNull()) },
+      relations: ['countries', 'countries.notificationInfo', 'disasterTypes'],
+    });
+
+    for (const user of users) {
+      if (
+        !user.countries.some(c => c.countryCodeISO3 === countryCodeISO3) ||
+        !user.disasterTypes.some(d => d.disasterType === disasterType)
+      ) {
+        continue;
+      }
+
+      const message = user.countries.find(
+        c => c.countryCodeISO3 === countryCodeISO3,
+      ).notificationInfo.whatsappMessage[disasterType][messageKey];
+
+      this.sendWhatsapp(message, user.whatsappNumber);
+    }
+  }
 }
