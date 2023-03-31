@@ -41,7 +41,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
     const popover = await this.popoverController.create({
       component: CommunityNotificationPhotoPopupComponent,
       animated: true,
-      cssClass: `ibf-popover ibf-popover-normal ${
+      cssClass: `ibf-popover ibf-popover-large ${
         this.eventService.state.thresholdReached ? 'trigger-alert' : 'no-alert'
       }`,
       translucent: true,
