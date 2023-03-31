@@ -347,7 +347,7 @@
     "active": "yes",
     "description": {
       "UGA": {
-        "heavy-rain": "Community notifications are sent via volunteers that have direct contact with the community. They assess the information and fill in the details in a digital form.<br><br>The notifications are visualized as drop pins with a bell icon on the map.<br><br><strong>What to do?</strong> Click on the drop pin to open it and see the information attached to it. Some notifications contain photos.<br><br>The pins on the map will stay on the map until manually deleted. Make sure to delete irrelevant and old notifications.<br><br><strong>All sent notifications including deleted ones</strong>: https://kobonew.ifrc.org/api/v2/assets/aRa2musHL2hAxERkDHHLmi/export-settings/esL8MBFTLa6RS5XXNbdHcnN/data.xlsx."
+        "heavy-rain": "Community notifications are sent via volunteers that have direct contact with the community. They assess the information and fill in the details in a digital form.<br><br>The notifications are visualized as drop pins with a bell icon on the map.<br><br><strong>What to do?</strong> Click on the drop pin to open it and see the information attached to it. Some notifications contain photos.<br><br>The pins on the map will stay on the map until manually deleted. Make sure to delete irrelevant and old notifications.<br><br><strong>All sent notifications including deleted ones</strong>: <a target='_blank'href='https://kobonew.ifrc.org/api/v2/assets/aRa2musHL2hAxERkDHHLmi/export-settings/esL8MBFTLa6RS5XXNbdHcnN/data.xlsx'>https://kobonew.ifrc.org/api/v2/assets/aRa2musHL2hAxERkDHHLmi/export-settings/esL8MBFTLa6RS5XXNbdHcnN/data.xlsx</a>"
       }
     }
   },

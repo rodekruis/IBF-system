@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { AlertController, PopoverController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 import { CommunityNotification } from '../../models/poi.model';
 import { ApiService } from '../../services/api.service';
@@ -17,10 +18,17 @@ export class CommunityNotificationPopupComponent implements OnInit {
 
   public formattedDate: string;
 
+  private alertDismissRole = {
+    cancel: 'cancel',
+    confirm: 'confirm',
+  };
+
   constructor(
     private popoverController: PopoverController,
+    private alertController: AlertController,
     private apiService: ApiService,
     private eventService: EventService,
+    private translate: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -29,14 +37,12 @@ export class CommunityNotificationPopupComponent implements OnInit {
     ).toFormat('d LLLL y, H:mm');
   }
 
-  public async openImagePopup(url: string) {
+  public async openPhotoPopup(url: string) {
     const popover = await this.popoverController.create({
       component: CommunityNotificationPhotoPopupComponent,
       animated: true,
       cssClass: `ibf-popover ibf-popover-normal ${
-        this.eventService.state.event?.thresholdReached
-          ? 'trigger-alert'
-          : 'no-alert'
+        this.eventService.state.thresholdReached ? 'trigger-alert' : 'no-alert'
       }`,
       translucent: true,
       showBackdrop: true,
@@ -48,7 +54,38 @@ export class CommunityNotificationPopupComponent implements OnInit {
     popover.present();
   }
 
-  public dismissCommunityNotification(pointDataId: string) {
+  public async dismissCommunityNotification(pointDataId: string) {
+    const alert = await this.alertController.create({
+      header: this.translate.instant(
+        'map-popups.community-notification.delete',
+      ),
+      message: this.translate.instant(
+        'map-popups.community-notification.delete-question',
+      ),
+      buttons: [
+        {
+          text: this.translate.instant(
+            'map-popups.community-notification.delete-cancel',
+          ),
+          role: this.alertDismissRole.cancel,
+        },
+        {
+          text: this.translate.instant(
+            'map-popups.community-notification.delete-confirm',
+          ),
+          role: this.alertDismissRole.confirm,
+        },
+      ],
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+
+    if (!role || role !== this.alertDismissRole.confirm) {
+      return;
+    }
+
     this.apiService.dismissCommunityNotification(pointDataId).subscribe({
       next: () => this.actionResult('Dismissing notification succeeded'),
       error: () => this.actionResult('Dismissing notification failed'),

@@ -1,3 +1,29 @@
+# [0.234.0](https://github.com/rodekruis/IBF-system/compare/v0.233.2...v0.234.0) (2023-03-28)
+
+
+### Bug Fixes
+
+* change image to photo + move to en.json AB[#18591](https://github.com/rodekruis/IBF-system/issues/18591) ([6f44312](https://github.com/rodekruis/IBF-system/commit/6f443129acacbde85ab557414ba8cafb855a56a2))
+* update copy + move to en.json AB[#18591](https://github.com/rodekruis/IBF-system/issues/18591) ([bc7c649](https://github.com/rodekruis/IBF-system/commit/bc7c649a66d7e422102376cd5ba301fab48ec27b))
+
+
+### Features
+
+* add confim alert on cancel AB[#18591](https://github.com/rodekruis/IBF-system/issues/18591) ([13fa743](https://github.com/rodekruis/IBF-system/commit/13fa7433ef29bf2f2922ce7982a549cb3b65ad1e))
+
+
+
+## [0.233.2](https://github.com/rodekruis/IBF-system/compare/v0.233.1...v0.233.2) (2023-03-28)
+
+
+### Bug Fixes
+
+* color of popup headers ([c24adbb](https://github.com/rodekruis/IBF-system/commit/c24adbbe27380815e0b7f1471dba3637f37fdd60))
+* kobo link in info popup AB[#18547](https://github.com/rodekruis/IBF-system/issues/18547) ([1876fc0](https://github.com/rodekruis/IBF-system/commit/1876fc01b9e441fa7a84fec3db94cd80b91bf597))
+* uga drought trigger statement AB[#18419](https://github.com/rodekruis/IBF-system/issues/18419) ([7988cd6](https://github.com/rodekruis/IBF-system/commit/7988cd67cd9c2c6c0ed32af968f5a7cd0a4a094a))
+
+
+
 ## [0.233.1](https://github.com/rodekruis/IBF-system/compare/v0.233.0...v0.233.1) (2023-03-27)
 
 
@@ -160,37 +186,6 @@
 * reduce height from 38 to 33 px AB[#18192](https://github.com/rodekruis/IBF-system/issues/18192) ([2058199](https://github.com/rodekruis/IBF-system/commit/2058199fb5c30127a5117d12a3d2a94cedbc4ad1))
 * rm br to fix height problem AB[#18192](https://github.com/rodekruis/IBF-system/issues/18192) ([c4e322f](https://github.com/rodekruis/IBF-system/commit/c4e322f775390df4bbc5436b6c8134cfb9c7c257))
 * set font-size back AB[#18192](https://github.com/rodekruis/IBF-system/issues/18192) ([a9a40d4](https://github.com/rodekruis/IBF-system/commit/a9a40d45e8db5728ebb7a9c86b75fa382c58c398))
-
-
-
-# [0.228.0](https://github.com/rodekruis/IBF-system/compare/v0.227.0...v0.228.0) (2023-03-17)
-
-
-### Bug Fixes
-
-* legend bug AB[#18179](https://github.com/rodekruis/IBF-system/issues/18179) ([28c1ab0](https://github.com/rodekruis/IBF-system/commit/28c1ab085633f05a77e0f412dbfc861cfcfaa705))
-* limit height of bar AB[#18192](https://github.com/rodekruis/IBF-system/issues/18192) ([bebb52c](https://github.com/rodekruis/IBF-system/commit/bebb52c6c51482fbf30639388e31ab8c4870273d))
-* rm legend if no aggregates active AB[#18179](https://github.com/rodekruis/IBF-system/issues/18179) ([084a5a0](https://github.com/rodekruis/IBF-system/commit/084a5a01eb72ac1d1fe262540fe36a7278384264))
-
-
-### Features
-
-* update today's date in header AB[#18133](https://github.com/rodekruis/IBF-system/issues/18133) ([58a4e13](https://github.com/rodekruis/IBF-system/commit/58a4e13d0db9966ab1124c4f527b927e4bb0a8ba))
-
-
-
-# [0.227.0](https://github.com/rodekruis/IBF-system/compare/v0.226.4...v0.227.0) (2023-03-06)
-
-
-### Bug Fixes
-
-* remove static/dynamic layers AB[#18180](https://github.com/rodekruis/IBF-system/issues/18180) AB[#18184](https://github.com/rodekruis/IBF-system/issues/18184) ([d898cde](https://github.com/rodekruis/IBF-system/commit/d898cde6e0168d6246a5ab8b93e2b1fccea8e9af))
-* rm mock/seed data removed layers AB[#18180](https://github.com/rodekruis/IBF-system/issues/18180) AB[#18184](https://github.com/rodekruis/IBF-system/issues/18184) ([9e54e82](https://github.com/rodekruis/IBF-system/commit/9e54e82d6b3040d493273ef06fac324ed45dc4d9))
-
-
-### Features
-
-* add rainfall extent AB[#18180](https://github.com/rodekruis/IBF-system/issues/18180) ([724aa70](https://github.com/rodekruis/IBF-system/commit/724aa706064c7cbd4452e4fc73903ba99d065cea))
 
 
 

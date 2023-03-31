@@ -6,7 +6,9 @@
       (click)="closePopover()"
       class="popover-close-button"
     ></ion-icon>
-    <ion-card-title>Community notification - image</ion-card-title>
+    <ion-card-title
+      [innerHTML]="'map-popups.community-notification.photo-popup.title'"
+    ></ion-card-title>
   </ion-card-header>
   <ion-card-content class="ion-padding-top">
     <img src="{{ url }}" />
