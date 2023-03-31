@@ -386,7 +386,7 @@ export class TimelineService {
         );
         const endLeadTimeNumber = startLeadTimeNumber + activeLeadTime.duration;
         if (
-          Number(LeadTimeTriggerKey[leadTime]) <= endLeadTimeNumber &&
+          Number(LeadTimeTriggerKey[leadTime]) < endLeadTimeNumber &&
           Number(LeadTimeTriggerKey[leadTime]) >= startLeadTimeNumber
         ) {
           return false;
