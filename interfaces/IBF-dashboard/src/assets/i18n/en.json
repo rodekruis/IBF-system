@@ -358,6 +358,8 @@
       "delete-question": "Are you sure you want to delete the notification?",
       "delete-cancel": "Cancel",
       "delete-confirm": "Confirm",
+      "delete-successs": "Deleting notification succeeded",
+      "delete-fail": "Deleting notification failed",
       "photo-popup": {
         "title": "Community notification - photo"
       }
