@@ -8,7 +8,7 @@ import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import { EventService, EventSummary } from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import {
@@ -469,41 +469,40 @@ export class MapService {
     active: boolean,
     leadTimeDependent?: boolean,
   ) {
-    const events = this.eventState.event
-      ? [this.eventState.event]
-      : this.eventState.events.length > 0
-      ? this.eventState.events
-      : [new EventSummary()];
-    for (const event of events) {
-      const leadTime = !leadTimeDependent
-        ? null
-        : !this.eventState.event && event.firstLeadTime
-        ? event.firstLeadTime
-        : this.timelineState.activeLeadTime;
-      this.addLayer({
-        name: layer.name,
-        label: layer.label,
-        type: IbfLayerType.wms,
-        description: this.getPopoverText(layer),
-        active,
-        show: true,
-        viewCenter: false,
-        data: null,
-        legendColor: layer.legendColor,
-        order: 10,
-        wms: {
-          url: environment.geoserverUrl,
-          name: `ibf-system:${layer.name}_${leadTime ? `${leadTime}_` : ''}${
-            this.country.countryCodeISO3
-          }`,
-          format: 'image/png',
-          version: '1.1.0',
-          attribution: '510 Global',
-          crs: CRS.EPSG4326,
-          transparent: true,
-        } as IbfLayerWMS,
-      });
+    if (
+      leadTimeDependent &&
+      !this.eventState.event &&
+      this.eventState.events.length
+    ) {
+      // don't show wms-layers in overview-mode of multi-event
+      return;
     }
+    const leadTime = !leadTimeDependent
+      ? null
+      : this.timelineState.activeLeadTime;
+    this.addLayer({
+      name: layer.name,
+      label: layer.label,
+      type: IbfLayerType.wms,
+      description: this.getPopoverText(layer),
+      active,
+      show: true,
+      viewCenter: false,
+      data: null,
+      legendColor: layer.legendColor,
+      order: 10,
+      wms: {
+        url: environment.geoserverUrl,
+        name: `ibf-system:${layer.name}_${leadTime ? `${leadTime}_` : ''}${
+          this.country.countryCodeISO3
+        }`,
+        format: 'image/png',
+        version: '1.1.0',
+        attribution: '510 Global',
+        crs: CRS.EPSG4326,
+        transparent: true,
+      } as IbfLayerWMS,
+    });
   }
 
   private addLayer(layer: IbfLayer): void {
