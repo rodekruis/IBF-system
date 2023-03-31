@@ -151,10 +151,29 @@ For the rest, follow the same instructions as above to receive initial and follo
    - with `label` as question label (e.g. `DRR preliminary action`)
    - with `action` as XML-value (e.g. `drr-1`)
 4. Under Settings > REST services, click `Register a new service`
-   - Endpoint URL: `https://ibf.510.global/api/eap-actions/check-external/${countryCodeISO3}/${disasterType}
+   - Endpoint URL: `https://ibf.510.global/api/eap-actions/check-external/${countryCodeISO3}/${disasterType}`
    - To test this locally you can replace `ibf.510.global` by a local ngrok address
    - To demo on other environments, replace by respective environment-url, e.g. `ibf-test.510.global`
    - IMPROVE: Maybe make 2 different versions of form: real/production vs develop/demo
 5. This is currently implemented only for South Sudan floods, which is special because it deals with only 1 admin-area.
    - Therefore the `placeCode` is specified via one calculated (hidden) question in the form with name `placeCode`, which always has the same value.
    - In future occurences of this functionality however, the form will have to be adapted to make this question non-hidden (and to be able to iterate the form per placeCode)
+
+## Externally push community notifications via Kobo
+
+1. Create a Kobo-form (e.g. at https://kobonew.ifrc.org/)
+2. Include the following question:
+
+   - Name of the volunteer - `text` - mandatory
+   - Name of the village - `text` - optional
+   - Type of disaster - `select_one` - optional
+   - Description - `text` - mandatory
+   - Location - `geopoint` - mandatory
+   - Photo - `image` - optional
+   - Consent - `select_one` - mandatory
+
+3. Under Settings > REST services click `Register a new service`
+
+   - Endpoint URL: `https://ibf.510.global/api/point-data/community-notification/${countryCodeISO3}`
+   - To test this locally you can replace `ibf.510.global` by a local ngrok address
+   - To demo on other environments, replace by respective environment-url, e.g. `ibf-test.510.global`
