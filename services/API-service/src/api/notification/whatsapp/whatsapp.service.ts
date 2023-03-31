@@ -25,6 +25,8 @@ export class WhatsappService {
   private readonly userRepository: Repository<UserEntity>;
   @InjectRepository(EventMapImageEntity)
   private readonly eventMapImageRepository: Repository<EventMapImageEntity>;
+  @InjectRepository(CountryEntity)
+  private readonly countryRepository: Repository<CountryEntity>;
 
   public constructor(
     private readonly eventService: EventService,
@@ -100,7 +102,7 @@ export class WhatsappService {
       disasterType,
     );
 
-    await this.sendToUsers(country, message);
+    await this.sendToUsers(country, disasterType, message);
   }
 
   public async sendTriggerFinishedWhatsapp(
@@ -114,20 +116,27 @@ export class WhatsappService {
       disasterType,
     );
 
-    await this.sendToUsers(country, message);
+    await this.sendToUsers(country, disasterType, message);
   }
 
-  private async sendToUsers(country: CountryEntity, message: string) {
+  private async sendToUsers(
+    country: CountryEntity,
+    disasterType: DisasterType,
+    message: string,
+  ) {
     const users = await this.userRepository.find({
       where: { whatsappNumber: Not(IsNull()) },
-      relations: ['countries'],
+      relations: ['countries', 'disasterTypes'],
     });
-    const countryUsers = users.filter(user =>
-      user.countries
-        .map(c => c.countryCodeISO3)
-        .includes(country.countryCodeISO3),
-    );
-    for (const user of countryUsers) {
+
+    for (const user of users) {
+      if (
+        !this.isCountryEnabledForUser(user, country.countryCodeISO3) ||
+        !this.isDisasterEnabledForUser(user, disasterType)
+      ) {
+        continue;
+      }
+
       await this.sendWhatsapp(message, user.whatsappNumber);
     }
   }
@@ -343,5 +352,49 @@ export class WhatsappService {
       .replace('[adminAreaLabel]', adminAreaLabel)
       .replace('[areaList]', areaList);
     return message;
+  }
+
+  public async sendCommunityNotification(
+    countryCodeISO3: string,
+  ): Promise<void> {
+    //hardcoding country and disaster type until we'll make this more generic
+    if (countryCodeISO3 !== 'UGA') {
+      return;
+    }
+
+    const disasterType = DisasterType.HeavyRain;
+
+    const messageKey = 'community-notification';
+
+    const country = await this.countryRepository.findOne({
+      where: { countryCodeISO3: countryCodeISO3 },
+      relations: ['notificationInfo'],
+    });
+
+    let message: string;
+
+    try {
+      message =
+        country.notificationInfo.whatsappMessage[disasterType][messageKey];
+    } catch (error) {
+      console.log('Message not found in notificationInfo.', error);
+      return;
+    }
+
+    this.sendToUsers(country, disasterType, message);
+  }
+
+  private isCountryEnabledForUser(
+    user: UserEntity,
+    countryCodeISO3: string,
+  ): boolean {
+    return user.countries.some(c => c.countryCodeISO3 === countryCodeISO3);
+  }
+
+  private isDisasterEnabledForUser(
+    user: UserEntity,
+    disasterType: DisasterType,
+  ): boolean {
+    return user.disasterTypes.some(d => d.disasterType === disasterType);
   }
 }

@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { API_PATHS } from '../../../config';
+import { CountryEntity } from '../../country/country.entity';
 import { EventMapImageEntity } from '../../event/event-map-image.entity';
 import { EventModule } from '../../event/event.module';
 import { UserEntity } from '../../user/user.entity';
@@ -22,6 +23,7 @@ import { WhatsappService } from './whatsapp.service';
       TwilioMessageEntity,
       UserEntity,
       EventMapImageEntity,
+      CountryEntity,
     ]),
     LookupModule,
     EventModule,

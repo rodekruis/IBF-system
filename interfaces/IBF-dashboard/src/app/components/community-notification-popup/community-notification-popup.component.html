@@ -5,35 +5,35 @@
   class="community-notification-info"
   [innerHTML]="
     'map-popups.community-notification.date'
-      | translate: { formattedDate: formattedDate }
+      | translate: { formattedDate: formattedDate || '' }
   "
 ></div>
 <div
   class="community-notification-info"
   [innerHTML]="
     'map-popups.community-notification.hazard-type'
-      | translate: { type: markerProperties?.type }
+      | translate: { type: markerProperties?.type || '' }
   "
 ></div>
 <div
   class="community-notification-info"
   [innerHTML]="
     'map-popups.community-notification.village-name'
-      | translate: { nameVillage: markerProperties?.nameVillage }
+      | translate: { nameVillage: markerProperties?.nameVillage || '' }
   "
 ></div>
 <div
   class="community-notification-info"
   [innerHTML]="
     'map-popups.community-notification.description'
-      | translate: { description: markerProperties?.description }
+      | translate: { description: markerProperties?.description || '' }
   "
 ></div>
 <div
   class="community-notification-info"
   [innerHTML]="
     'map-popups.community-notification.volunteer'
-      | translate: { nameVolunteer: markerProperties?.nameVolunteer }
+      | translate: { nameVolunteer: markerProperties?.nameVolunteer || '' }
   "
 ></div>
 <ion-button

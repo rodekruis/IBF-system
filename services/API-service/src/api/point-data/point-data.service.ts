@@ -10,13 +10,17 @@ import { DamSiteDto } from './dto/upload-dam-sites.dto';
 import { HealthSiteDto } from './dto/upload-health-sites.dto';
 import { RedCrossBranchDto } from './dto/upload-red-cross-branch.dto';
 import { CommunityNotificationDto } from './dto/upload-community-notifications.dto';
+import { WhatsappService } from '../notification/whatsapp/whatsapp.service';
 
 @Injectable()
 export class PointDataService {
   @InjectRepository(PointDataEntity)
   private readonly pointDataRepository: Repository<PointDataEntity>;
 
-  public constructor(private readonly helperService: HelperService) {}
+  public constructor(
+    private readonly helperService: HelperService,
+    private readonly whatsappService: WhatsappService,
+  ) {}
 
   public async getPointDataByCountry(
     pointDataCategory: PointDataEnum,
@@ -182,5 +186,7 @@ export class PointDataService {
       [notification],
       false,
     );
+
+    await this.whatsappService.sendCommunityNotification(countryCodeISO3);
   }
 }
