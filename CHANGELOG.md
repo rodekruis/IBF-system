@@ -1,3 +1,19 @@
+# [0.235.0](https://github.com/rodekruis/IBF-system/compare/v0.234.0...v0.235.0) (2023-03-31)
+
+
+### Bug Fixes
+
+* add word-wrap to notification popup AB[#18637](https://github.com/rodekruis/IBF-system/issues/18637) ([991bec8](https://github.com/rodekruis/IBF-system/commit/991bec82e6660522f5f5e6eeabc01ee0b0058133))
+* rm link to excel from whatsapp msg AB[#18635](https://github.com/rodekruis/IBF-system/issues/18635) ([146aaf3](https://github.com/rodekruis/IBF-system/commit/146aaf3dc53eec31fd54cd9febb9636b1e661b0d))
+
+
+### Features
+
+* refactor AB[#18645](https://github.com/rodekruis/IBF-system/issues/18645) ([fbe48a4](https://github.com/rodekruis/IBF-system/commit/fbe48a49e8c7e464eb44aa8b36db00a5f6d546a0))
+* send msg on community notification AB[#18635](https://github.com/rodekruis/IBF-system/issues/18635) ([f7498a4](https://github.com/rodekruis/IBF-system/commit/f7498a40376423453ea8a2d6caf7aa3f2e8ad91a))
+
+
+
 # [0.234.0](https://github.com/rodekruis/IBF-system/compare/v0.233.2...v0.234.0) (2023-03-28)
 
 
@@ -175,17 +191,6 @@
 * show only triggered areas + refactor AB[#18200](https://github.com/rodekruis/IBF-system/issues/18200) ([29d434e](https://github.com/rodekruis/IBF-system/commit/29d434e0e6b3b729b2b855a6f715e8b161fc2097))
 * update legend for outline+aggregate layers AB[#18195](https://github.com/rodekruis/IBF-system/issues/18195) ([cab8d2c](https://github.com/rodekruis/IBF-system/commit/cab8d2c860b33ae208e8ab88455c2247b49ecdf2))
 * update UGA drought regions/actions AB[#18187](https://github.com/rodekruis/IBF-system/issues/18187) ([a661472](https://github.com/rodekruis/IBF-system/commit/a661472c0a209d0c00a2a0d212dffdaed091e94b))
-
-
-
-## [0.228.1](https://github.com/rodekruis/IBF-system/compare/v0.228.0...v0.228.1) (2023-03-17)
-
-
-### Bug Fixes
-
-* reduce height from 38 to 33 px AB[#18192](https://github.com/rodekruis/IBF-system/issues/18192) ([2058199](https://github.com/rodekruis/IBF-system/commit/2058199fb5c30127a5117d12a3d2a94cedbc4ad1))
-* rm br to fix height problem AB[#18192](https://github.com/rodekruis/IBF-system/issues/18192) ([c4e322f](https://github.com/rodekruis/IBF-system/commit/c4e322f775390df4bbc5436b6c8134cfb9c7c257))
-* set font-size back AB[#18192](https://github.com/rodekruis/IBF-system/issues/18192) ([a9a40d4](https://github.com/rodekruis/IBF-system/commit/a9a40d45e8db5728ebb7a9c86b75fa382c58c398))
 
 
 

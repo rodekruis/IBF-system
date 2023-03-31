@@ -20,7 +20,8 @@
         "follow-up": "There are *[nrTriggeredAreas]* [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\n\nLog in to the IBF Portal on your desktop to find more information.",
         "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate further about this trigger.",
         "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below threshold.\n\n",
-        "no-trigger": "There is *no trigger* currently."
+        "no-trigger": "There is *no trigger* currently.",
+        "community-notification": "A new community notification has been received. Go to the IBF portal to see the details of the notification."
       }
     },
     "linkVideo": "https://bit.ly/IBF-video-Uganda",
