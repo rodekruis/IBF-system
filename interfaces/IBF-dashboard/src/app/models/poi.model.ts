@@ -56,6 +56,20 @@ export class EvacuationCenter {
   latitude: string;
   longitude: string;
 }
+
+export class School {
+  name: string;
+  type: string;
+  latitude: string;
+  longitude: string;
+}
+
+export class WaterpointInternal {
+  name: string;
+  type: string;
+  latitude: string;
+  longitude: string;
+}
 export class CommunityNotification {
   public nameVolunteer: string;
   public nameVillage: string;

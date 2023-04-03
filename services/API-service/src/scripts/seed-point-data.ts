@@ -24,10 +24,12 @@ export class SeedPointData implements InterfaceScript {
       countries.map(
         (country): Promise<void> => {
           if (envCountries.includes(country.countryCodeISO3)) {
-            this.seedCountryRedcrossBranches(country);
-            this.seedCountryHealthSites(country);
-            this.seedEvacuationCenterData(country);
-            this.seedDamSiteData(country);
+            this.seedPointData(PointDataEnum.redCrossBranches, country);
+            this.seedPointData(PointDataEnum.healthSites, country);
+            this.seedPointData(PointDataEnum.evacuationCenters, country);
+            this.seedPointData(PointDataEnum.dams, country);
+            this.seedPointData(PointDataEnum.schools, country);
+            this.seedPointData(PointDataEnum.waterpointsInternal, country);
             return;
           } else {
             return Promise.resolve();
@@ -37,78 +39,20 @@ export class SeedPointData implements InterfaceScript {
     );
   }
 
-  private async seedCountryRedcrossBranches(country): Promise<void> {
-    const redcrossBranchesFilename = `./src/scripts/git-lfs/standard-point-layers/redcross_branches_${country.countryCodeISO3}.csv`;
+  private async seedPointData(
+    pointDataCategory: PointDataEnum,
+    country,
+  ): Promise<void> {
+    const filename = `./src/scripts/git-lfs/standard-point-layers/${pointDataCategory}_${country.countryCodeISO3}.csv`;
     try {
-      const redcrossBranchesData = await this.seedHelper.getCsvData(
-        redcrossBranchesFilename,
-      );
+      const data = await this.seedHelper.getCsvData(filename);
 
       const validatedData = await this.pointDataService.validateArray(
-        PointDataEnum.redCrossBranches,
-        redcrossBranchesData,
+        pointDataCategory,
+        data,
       );
       await this.pointDataService.uploadJson(
-        PointDataEnum.redCrossBranches,
-        country.countryCodeISO3,
-        validatedData,
-      );
-    } catch {
-      return Promise.resolve();
-    }
-  }
-  private async seedCountryHealthSites(country): Promise<void> {
-    const healthSiteFilename = `./src/scripts/git-lfs/standard-point-layers/health_sites_${country.countryCodeISO3}.csv`;
-    try {
-      const healthSiteData = await this.seedHelper.getCsvData(
-        healthSiteFilename,
-      );
-
-      const validatedData = await this.pointDataService.validateArray(
-        PointDataEnum.healthSites,
-        healthSiteData,
-      );
-      await this.pointDataService.uploadJson(
-        PointDataEnum.healthSites,
-        country.countryCodeISO3,
-        validatedData,
-      );
-    } catch {
-      return Promise.resolve();
-    }
-  }
-
-  private async seedEvacuationCenterData(country): Promise<void> {
-    const evacuationCenterFileName = `./src/scripts/git-lfs/standard-point-layers/evacuation_centers_${country.countryCodeISO3}.csv`;
-    try {
-      const evacuationCenterData = await this.seedHelper.getCsvData(
-        evacuationCenterFileName,
-      );
-      const validatedData = await this.pointDataService.validateArray(
-        PointDataEnum.evacuationCenters,
-        evacuationCenterData,
-      );
-      await this.pointDataService.uploadJson(
-        PointDataEnum.evacuationCenters,
-        country.countryCodeISO3,
-        validatedData,
-      );
-    } catch {
-      return Promise.resolve();
-    }
-  }
-
-  private async seedDamSiteData(country): Promise<void> {
-    const damSiteFileName = `./src/scripts/git-lfs/standard-point-layers/dam_sites_${country.countryCodeISO3}.csv`;
-    try {
-      const damSiteData = await this.seedHelper.getCsvData(damSiteFileName);
-
-      const validatedData = await this.pointDataService.validateArray(
-        PointDataEnum.dams,
-        damSiteData,
-      );
-      await this.pointDataService.uploadJson(
-        PointDataEnum.dams,
+        pointDataCategory,
         country.countryCodeISO3,
         validatedData,
       );

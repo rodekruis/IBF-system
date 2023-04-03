@@ -38,9 +38,11 @@ import {
   EvacuationCenter,
   HealthSite,
   RedCrossBranch,
+  School,
   Station,
   TyphoonTrackPoint,
   Waterpoint,
+  WaterpointInternal,
 } from 'src/app/models/poi.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -485,6 +487,16 @@ export class MapComponent implements OnDestroy {
       case IbfLayerName.evacuationCenters:
         return this.pointMarkerService.createMarkerEvacuationCenter(
           geoJsonPoint.properties as EvacuationCenter,
+          latlng,
+        );
+      case IbfLayerName.schools:
+        return this.pointMarkerService.createMarkerSchool(
+          geoJsonPoint.properties as School,
+          latlng,
+        );
+      case IbfLayerName.waterpointsInternal:
+        return this.pointMarkerService.createMarkerWaterpointInternal(
+          geoJsonPoint.properties as WaterpointInternal,
           latlng,
         );
       case IbfLayerName.communityNotifications:

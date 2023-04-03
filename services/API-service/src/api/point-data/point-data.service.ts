@@ -11,6 +11,8 @@ import { HealthSiteDto } from './dto/upload-health-sites.dto';
 import { RedCrossBranchDto } from './dto/upload-red-cross-branch.dto';
 import { CommunityNotificationDto } from './dto/upload-community-notifications.dto';
 import { WhatsappService } from '../notification/whatsapp/whatsapp.service';
+import { SchoolDto } from './dto/upload-schools.dto';
+import { WaterpointDto } from './dto/upload-waterpoint.dto';
 
 @Injectable()
 export class PointDataService {
@@ -62,6 +64,10 @@ export class PointDataService {
         return new RedCrossBranchDto();
       case PointDataEnum.communityNotifications:
         return new CommunityNotificationDto();
+      case PointDataEnum.schools:
+        return new SchoolDto();
+      case PointDataEnum.waterpointsInternal:
+        return new WaterpointDto();
       default:
         throw new HttpException(
           'Not a known point layer',

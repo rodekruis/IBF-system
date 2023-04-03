@@ -314,8 +314,8 @@
     }
   },
   {
-    "countryCodes": "PHL,ETH,KEN",
-    "disasterTypes": ["floods", "dengue", "malaria", "typhoon"],
+    "countryCodes": "PHL,ETH,KEN,MWI",
+    "disasterTypes": ["floods", "dengue", "malaria", "typhoon", "flash-floods"],
     "name": "health_sites",
     "label": "Health Sites",
     "type": "point",
@@ -353,7 +353,7 @@
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,MWI",
-    "disasterTypes": ["floods", "drought", "flash-floods", "heavy-rain"],
+    "disasterTypes": ["floods", "drought", "heavy-rain"],
     "name": "waterpoints",
     "label": "Waterpoints",
     "type": "point",
@@ -453,5 +453,25 @@
         "floods": "This layer shows the evacuation centres that can be used by the communities in case of a flood. They are shown as drop pins with an icon of a house with arrows pointing at it.<br><br><strong>Evacuation centres source</strong>: South Sudan Red Cross Society (2022)."
       }
     }
+  },
+  {
+    "countryCodes": "MWI",
+    "disasterTypes": ["flash-floods"],
+    "name": "schools",
+    "label": "Schools",
+    "type": "point",
+    "leadTimeDependent": false,
+    "active": "no",
+    "description": {}
+  },
+  {
+    "countryCodes": "MWI",
+    "disasterTypes": ["flash-floods"],
+    "name": "waterpoints_internal",
+    "label": "Waterpoints",
+    "type": "point",
+    "leadTimeDependent": false,
+    "active": "no",
+    "description": {}
   }
 ]

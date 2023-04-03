@@ -13,7 +13,6 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_DAM,
   LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
-  LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
 } from 'src/app/config';
@@ -22,11 +21,12 @@ import {
   DamSite,
   EvacuationCenter,
   HealthSite,
-  HealthSiteType,
   RedCrossBranch,
+  School,
   Station,
   TyphoonTrackPoint,
   Waterpoint,
+  WaterpointInternal,
 } from 'src/app/models/poi.model';
 import { AnalyticsEvent, AnalyticsPage } from '../analytics/analytics.enum';
 import { AnalyticsService } from '../analytics/analytics.service';
@@ -268,19 +268,11 @@ export class PointMarkerService {
   ): Marker {
     const markerTitle = markerProperties.name;
 
-    let markerInstance;
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT),
+    });
 
-    if (markerProperties.type === HealthSiteType.hospital) {
-      markerInstance = marker(markerLatLng, {
-        title: markerTitle,
-        icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL),
-      });
-    } else if (markerProperties.type === HealthSiteType.clinic) {
-      markerInstance = marker(markerLatLng, {
-        title: markerTitle,
-        icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT),
-      });
-    }
     if (markerInstance) {
       markerInstance.bindPopup(this.createHealthSitePopup(markerProperties));
       markerInstance.on(
@@ -325,6 +317,48 @@ export class PointMarkerService {
     });
     markerInstance.bindPopup(
       this.createMarkerEvacuationCenterPopup(markerProperties, markerLatLng),
+    );
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.evacuationCenter),
+    );
+
+    return markerInstance;
+  }
+
+  public createMarkerSchool(
+    markerProperties: School,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.name;
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER),
+    });
+    markerInstance.bindPopup(
+      this.createMarkerSchoolPopup(markerProperties, markerLatLng),
+    );
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.evacuationCenter),
+    );
+
+    return markerInstance;
+  }
+
+  public createMarkerWaterpointInternal(
+    markerProperties: WaterpointInternal,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.name;
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT),
+    });
+    markerInstance.bindPopup(
+      this.createMarkerWaterpointInternalPopup(markerProperties, markerLatLng),
     );
     markerInstance.on(
       'click',
@@ -528,6 +562,30 @@ export class PointMarkerService {
   ): string {
     return `<div style="margin-bottom: 5px"><strong>Evacuation center: ${
       markerProperties.evacuationCenterName
+    }</strong></div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
+      markerLatLng,
+    )}
+    </div>`;
+  }
+
+  private createMarkerSchoolPopup(
+    markerProperties: School,
+    markerLatLng: LatLng,
+  ): string {
+    return `<div style="margin-bottom: 5px"><strong>Name: ${
+      markerProperties.name
+    }</strong></div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
+      markerLatLng,
+    )}
+    </div>`;
+  }
+
+  private createMarkerWaterpointInternalPopup(
+    markerProperties: WaterpointInternal,
+    markerLatLng: LatLng,
+  ): string {
+    return `<div style="margin-bottom: 5px"><strong>Name: ${
+      markerProperties.name
     }</strong></div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
       markerLatLng,
     )}
