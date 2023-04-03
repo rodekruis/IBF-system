@@ -86,6 +86,10 @@
                 layer.active &&
                 !eventService.state.thresholdReached
               "
+              [class.raster-layer-raifall-forecast]="
+                layer.name === IbfLayerName.rainfallForecast &&
+                layer.active
+              "
               [style.background]="
                 layer.active
                   ? layer.legendColor

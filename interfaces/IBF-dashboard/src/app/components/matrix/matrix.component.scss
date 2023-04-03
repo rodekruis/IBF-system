@@ -69,11 +69,15 @@
             }
             .aggregate-layer-triggered {
               background-image: url('../../../assets/icons/Legend_aggregate_layer-triggered.svg') !important;
-              background-size: cover !important;
+              background-size: contain !important;
             }
             .aggregate-layer-non-triggered {
               background-image: url('../../../assets/icons/Legend_aggregate_layer-non-triggered.svg') !important;
-              background-size: cover !important;
+              background-size: contain !important;
+            }
+            .raster-layer-raifall-forecast {
+              background-image: url('../../../assets/icons/Legend_raster_layer_rainfall_forecast.svg') !important;
+              background-size: contain !important;
             }
 
             .layer-control-label-col {
