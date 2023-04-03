@@ -41,7 +41,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
     const popover = await this.popoverController.create({
       component: CommunityNotificationPhotoPopupComponent,
       animated: true,
-      cssClass: `ibf-popover ibf-popover-normal ${
+      cssClass: `ibf-popover ibf-popover-large ${
         this.eventService.state.thresholdReached ? 'trigger-alert' : 'no-alert'
       }`,
       translucent: true,
@@ -87,8 +87,18 @@ export class CommunityNotificationPopupComponent implements OnInit {
     }
 
     this.apiService.dismissCommunityNotification(pointDataId).subscribe({
-      next: () => this.actionResult('Dismissing notification succeeded'),
-      error: () => this.actionResult('Dismissing notification failed'),
+      next: () =>
+        this.actionResult(
+          this.translate.instant(
+            'map-popups.community-notification.delete-successs',
+          ),
+        ),
+      error: () =>
+        this.actionResult(
+          this.translate.instant(
+            'map-popups.community-notification.delete-fail',
+          ),
+        ),
     });
   }
 
