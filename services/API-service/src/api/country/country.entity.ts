@@ -56,13 +56,15 @@ export class CountryEntity {
   public adminRegionLabels: JSON;
 
   @ApiProperty({
-    example: ['logo1.svg', 'logo2.png'],
+    example: {
+      drought: ['logo1.svg', 'logo2.png'],
+      floods: ['logo3.svg', 'logo4.png'],
+    },
   })
-  @Column('text', {
-    array: true,
-    default: (): string => 'array[]::text[]',
+  @Column('json', {
+    default: {},
   })
-  public countryLogos: string[];
+  public countryLogos: JSON;
 
   @ApiProperty({
     example: {
