@@ -183,7 +183,7 @@ export class EmailService {
       },
       {
         replaceKey: '(IMG-LOGO)',
-        replaceValue: country.notificationInfo.logo,
+        replaceValue: country.notificationInfo.logo[disasterType],
       },
       {
         replaceKey: '(TRIGGER-STATEMENT)',
@@ -266,7 +266,7 @@ export class EmailService {
       },
       {
         replaceKey: '(IMG-LOGO)',
-        replaceValue: country.notificationInfo.logo,
+        replaceValue: country.notificationInfo.logo[disasterType],
       },
       {
         replaceKey: '(START-DATE)',
