@@ -1,3 +1,9 @@
-<ng-container *ngFor="let logo of logos">
+<ng-container
+  *ngFor="
+    let logo of (country | async)?.countryLogos[
+      (disasterType | async)?.disasterType
+    ]
+  "
+>
   <img data-test="logo-image" src="assets/logos/{{ logo }}" />
 </ng-container>

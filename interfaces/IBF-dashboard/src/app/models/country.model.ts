@@ -6,7 +6,7 @@ export class Country {
   countryDisasterSettings: CountryDisasterSettings[];
   countryName: string;
   adminRegionLabels: AdminRegionLabels;
-  countryLogos: string[];
+  countryLogos: {};
   disasterTypes: DisasterType[];
   notificationInfo: NotificationInfo;
 }
