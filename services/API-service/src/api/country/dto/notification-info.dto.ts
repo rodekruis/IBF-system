@@ -7,8 +7,7 @@ export class NotificationInfoDto {
   public countryCodeISO3: string;
 
   @ApiProperty()
-  @IsString()
-  public logo: string;
+  public logo: {};
 
   @ApiProperty()
   public triggerStatement: {};
