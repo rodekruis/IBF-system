@@ -37,7 +37,7 @@
   },
   {
     "placeCode": "MW10203",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "MW10204",
@@ -53,11 +53,11 @@
   },
   {
     "placeCode": "MW10220",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "MW10301",
-    "amount": 1
+    "amount": 0
   },
   {
     "placeCode": "MW10302",
@@ -113,7 +113,7 @@
   },
   {
     "placeCode": "MW10401",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "MW10402",
@@ -157,7 +157,7 @@
   },
   {
     "placeCode": "MW10420",
-    "amount": 0
+    "amount": 1
   },
   {
     "placeCode": "MW10501",
