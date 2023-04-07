@@ -147,7 +147,7 @@ export class AdminAreaService {
       indicator: triggerUnit,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast6hourInterval(
+        this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -244,7 +244,7 @@ export class AdminAreaService {
         lastTriggeredDate: lastTriggeredDate.date,
       })
       .andWhere('timestamp >= :last6hourInterval', {
-        last6hourInterval: this.helperService.getLast6hourInterval(
+        last6hourInterval: this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -343,7 +343,7 @@ export class AdminAreaService {
         lastTriggeredDate: lastTriggeredDate.date,
       })
       .andWhere('timestamp >= :last6hourInterval', {
-        last6hourInterval: this.helperService.getLast6hourInterval(
+        last6hourInterval: this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -394,7 +394,7 @@ export class AdminAreaService {
       adminLevel: adminLevel,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast6hourInterval(
+        this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),

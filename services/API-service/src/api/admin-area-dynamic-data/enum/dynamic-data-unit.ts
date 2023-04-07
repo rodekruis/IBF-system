@@ -19,7 +19,12 @@ export enum DynamicIndicator {
   vegetationCondition = 'vegetation_condition',
   livestockBodyCondition = 'livestock_body_condition',
   exposedPopU18 = 'exposed_pop_u18',
-  exposedPop65 = 'exposed_pop_65',
+  nrAffectedBuildings = 'nr_affected_buildings',
+  nrAffectedRoads = 'nr_affected_roads',
+  nrAffectedSchools = 'nr_affected_schools',
+  nrAffectedClinics = 'nr_affected_clinics',
+  nrAffectedWaterpoints = 'nr_affected_waterpoints',
+  damageEstimation = 'damage_estimation',
 }
 
 export enum UpdateableStaticIndicator {
