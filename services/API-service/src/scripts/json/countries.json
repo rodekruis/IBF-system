@@ -389,7 +389,7 @@
     },
     "countryLogos": {
       "floods": ["MWI-mrcs.png", "ZWE-DanishRedCross.png"],
-      "flash-floods": ["MWI-mrcs.png", "ZWE-DanishRedCross.png"]
+      "flash-floods": ["MWI-unicef.png"]
     },
     "countryBoundingBox": {
       "type": "Polygon",

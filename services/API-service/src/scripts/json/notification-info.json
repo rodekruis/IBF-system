@@ -151,7 +151,7 @@
     "countryCodeISO3": "MWI",
     "logo": {
       "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/575cc45e-7050-4b2d-d8bc-d1f278e42a66.png",
-      "flash-floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/575cc45e-7050-4b2d-d8bc-d1f278e42a66.png"
+      "flash-floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/323521fe-1d32-e374-7143-a2eda3e04524.png"
     },
     "triggerStatement": {
       "floods": "An administrative area is triggered based on two parameters from the 6-days GloFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 60% probability of occurrence of a 5 year return period flood within the next 6 days. The GloFAS flood forecast triggers except in the Traditional Areas where the False Alarm Ratio (FAR) exceeds the predetermined maximum value which is 0.5.",
