@@ -396,7 +396,7 @@ export class TimelineService {
         ].includes(leadTime) &&
         // .. except if already one present for that day
         !activeLeadTimes
-          .map((leadTime) => this.getDateFromLeadTime(leadTime.leadTime))
+          .map((lt) => this.getDateFromLeadTime(lt.leadTime))
           .includes(this.getDateFromLeadTime(leadTime))
       );
     } else if (disasterType.disasterType === DisasterTypeKey.heavyRain) {
