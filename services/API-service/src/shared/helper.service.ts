@@ -35,7 +35,7 @@ export class HelperService {
   }
 
   public getUploadCutoffMoment(disasterType: DisasterType, date: Date): Date {
-    let lastInterval = new Date(date);
+    const lastInterval = new Date(date);
     if (
       [
         DisasterType.Dengue,
