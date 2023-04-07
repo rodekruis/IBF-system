@@ -243,7 +243,9 @@ export class AdminAreaDynamicDataService {
     disasterType: DisasterType,
   ): Promise<void> {
     let subfolder: string;
-    if (disasterType === DisasterType.Floods) {
+    if (
+      [DisasterType.Floods, DisasterType.FlashFloods].includes(disasterType)
+    ) {
       subfolder = 'flood_extents';
     } else if (
       [DisasterType.HeavyRain, DisasterType.Drought].includes(disasterType)

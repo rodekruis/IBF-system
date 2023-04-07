@@ -1,7 +1,7 @@
 [
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,PHL,MWI,SSD",
-    "disasterTypes": ["floods"],
+    "disasterTypes": ["floods", "flash-floods"],
     "name": "flood_extent",
     "label": "Flood extent",
     "type": "wms",

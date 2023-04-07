@@ -165,9 +165,12 @@ export class ScriptsService {
     }
 
     if (
-      mockInput.disasterType === DisasterType.Floods ||
-      mockInput.disasterType === DisasterType.HeavyRain ||
-      mockInput.disasterType === DisasterType.Drought
+      [
+        DisasterType.Floods,
+        DisasterType.HeavyRain,
+        DisasterType.Drought,
+        DisasterType.FlashFloods,
+      ].includes(mockInput.disasterType)
     ) {
       await this.mockRasterFile(
         selectedCountry,
@@ -939,6 +942,10 @@ export class ScriptsService {
           selectedCountry.countryCodeISO3
         }${triggered ? '-triggered' : ''}.tif`;
         destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+      } else if (disasterType === DisasterType.FlashFloods) {
+        // Use 0-month mock for every lead-time
+        sourceFileName = `flood_extent_1-hour_${selectedCountry.countryCodeISO3}.tif`;
+        destFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
       }
 
       let file;

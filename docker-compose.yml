@@ -89,9 +89,10 @@ services:
     networks:
       web-server-network:
 
-
   ibf-geoserver:
     image: kartoza/geoserver
+    environment:
+      - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD}
     volumes:
       - api-geoserver-files:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
       - api-geoserver-workspace:/opt/geoserver/data_dir/workspaces/ibf-system
