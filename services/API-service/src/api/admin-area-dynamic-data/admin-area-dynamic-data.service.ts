@@ -92,51 +92,27 @@ export class AdminAreaDynamicDataService {
   private async deleteDynamicDuplicates(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
-    if (uploadExposure.leadTime.includes(LeadTimeUnit.month)) {
-      const date = uploadExposure.date || new Date();
-      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-      const deleteFilters = {
-        indicator: uploadExposure.dynamicIndicator,
-        countryCodeISO3: uploadExposure.countryCodeISO3,
-        leadTime: uploadExposure.leadTime,
-        adminLevel: uploadExposure.adminLevel,
-        disasterType: uploadExposure.disasterType,
-        date: MoreThanOrEqual(firstDayOfMonth),
-      };
-      if (uploadExposure.eventName) {
-        deleteFilters['eventName'] = uploadExposure.eventName;
-      }
-      await this.adminAreaDynamicDataRepo.delete(deleteFilters);
-    } else if (
-      uploadExposure.leadTime.includes(LeadTimeUnit.hour) &&
-      uploadExposure.disasterType === DisasterType.Typhoon
-    ) {
-      // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
-      await this.adminAreaDynamicDataRepo.delete({
-        indicator: uploadExposure.dynamicIndicator,
-        countryCodeISO3: uploadExposure.countryCodeISO3,
-        adminLevel: uploadExposure.adminLevel,
-        disasterType: uploadExposure.disasterType,
-        date: uploadExposure.date || new Date(),
-        eventName: uploadExposure.eventName || IsNull(),
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            uploadExposure.disasterType,
-            uploadExposure.date,
-          ),
+    const deleteFilters = {
+      indicator: uploadExposure.dynamicIndicator,
+      countryCodeISO3: uploadExposure.countryCodeISO3,
+      adminLevel: uploadExposure.adminLevel,
+      disasterType: uploadExposure.disasterType,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getUploadCutoffMoment(
+          uploadExposure.disasterType,
+          uploadExposure.date,
         ),
-      });
-    } else {
-      await this.adminAreaDynamicDataRepo.delete({
-        indicator: uploadExposure.dynamicIndicator,
-        countryCodeISO3: uploadExposure.countryCodeISO3,
-        leadTime: uploadExposure.leadTime,
-        adminLevel: uploadExposure.adminLevel,
-        disasterType: uploadExposure.disasterType,
-        eventName: uploadExposure.eventName || IsNull(),
-        date: uploadExposure.date || new Date(),
-      });
+      ),
+    };
+    if (uploadExposure.eventName) {
+      deleteFilters['eventName'] = uploadExposure.eventName;
     }
+    // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
+    if (uploadExposure.disasterType !== DisasterType.Typhoon) {
+      deleteFilters['leadTime'] = uploadExposure.leadTime as LeadTime;
+    }
+
+    await this.adminAreaDynamicDataRepo.delete(deleteFilters);
   }
 
   private async insertTrigger(
@@ -197,7 +173,7 @@ export class AdminAreaDynamicDataService {
       disasterType: disasterType,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast6hourInterval(
+        this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),

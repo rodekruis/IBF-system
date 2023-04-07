@@ -156,51 +156,25 @@ export class EventService {
     uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
     selectedLeadTime: TriggerPerLeadTimeDto,
   ): Promise<void> {
-    const country = await this.countryService.findOne(
-      uploadTriggerPerLeadTimeDto.countryCodeISO3,
-    );
-    const leadTime = country.countryDisasterSettings.find(
-      s => s.disasterType === uploadTriggerPerLeadTimeDto.disasterType,
-    ).activeLeadTimes[0].leadTimeName;
-    if (leadTime.includes(LeadTimeUnit.month)) {
-      const date = uploadTriggerPerLeadTimeDto.date || new Date();
-      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-      const deleteFilters = {
-        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
-        leadTime: selectedLeadTime.leadTime as LeadTime,
-        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
-        date: MoreThanOrEqual(firstDayOfMonth),
-      };
-      if (uploadTriggerPerLeadTimeDto.eventName) {
-        deleteFilters['eventName'] = uploadTriggerPerLeadTimeDto.eventName;
-      }
-      await this.triggerPerLeadTimeRepository.delete(deleteFilters);
-    } else if (
-      leadTime.includes(LeadTimeUnit.hour) &&
-      uploadTriggerPerLeadTimeDto.disasterType === DisasterType.Typhoon
-    ) {
-      // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
-      await this.triggerPerLeadTimeRepository.delete({
-        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
-        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
-        eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
-        date: uploadTriggerPerLeadTimeDto.date || new Date(),
-        timestamp: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(
-            uploadTriggerPerLeadTimeDto.disasterType,
-            uploadTriggerPerLeadTimeDto.date,
-          ),
+    const deleteFilters = {
+      countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
+      leadTime: selectedLeadTime.leadTime as LeadTime,
+      disasterType: uploadTriggerPerLeadTimeDto.disasterType,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getUploadCutoffMoment(
+          uploadTriggerPerLeadTimeDto.disasterType,
+          uploadTriggerPerLeadTimeDto.date,
         ),
-      });
-    } else {
-      await this.triggerPerLeadTimeRepository.delete({
-        countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
-        leadTime: selectedLeadTime.leadTime as LeadTime,
-        disasterType: uploadTriggerPerLeadTimeDto.disasterType,
-        eventName: uploadTriggerPerLeadTimeDto.eventName || IsNull(),
-        date: uploadTriggerPerLeadTimeDto.date || new Date(),
-      });
+      ),
+    };
+    if (uploadTriggerPerLeadTimeDto.eventName) {
+      deleteFilters['eventName'] = uploadTriggerPerLeadTimeDto.eventName;
     }
+    // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
+    if (uploadTriggerPerLeadTimeDto.disasterType !== DisasterType.Typhoon) {
+      deleteFilters['leadTime'] = selectedLeadTime.leadTime as LeadTime;
+    }
+    await this.triggerPerLeadTimeRepository.delete(deleteFilters);
   }
 
   private async deleteDuplicateEvents(
@@ -209,65 +183,23 @@ export class EventService {
     eventName: string,
     date: Date,
   ): Promise<void> {
-    const disasterTypeEntity = await this.disasterTypeRepository.findOne({
-      where: { disasterType: disasterType },
-      relations: ['leadTimes'],
-    });
-    const leadTimeUnit = disasterTypeEntity.leadTimes[0].leadTimeName.split(
-      '-',
-    )[1] as LeadTimeUnit;
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
     );
-
-    if (leadTimeUnit === LeadTimeUnit.month) {
-      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-      const deleteFilters = {
-        adminArea: In(countryAdminAreaIds),
-        disasterType: disasterType,
-        startDate: MoreThanOrEqual(firstDayOfMonth),
-      };
-      if (eventName) {
-        deleteFilters['eventName'] = eventName;
-      }
-      const eventAreasToDelete = await this.eventPlaceCodeRepo.find({
-        where: deleteFilters,
-      });
-      await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
-    } else if (
-      leadTimeUnit === LeadTimeUnit.hour &&
-      disasterType === DisasterType.Typhoon
-    ) {
-      const deleteFilters = {
-        adminArea: In(countryAdminAreaIds),
-        disasterType: disasterType,
-        startDate: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(disasterType, date),
-        ),
-      };
-      if (eventName) {
-        deleteFilters['eventName'] = eventName;
-      }
-      const eventAreasToDelete = await this.eventPlaceCodeRepo.find({
-        where: deleteFilters,
-      });
-      await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
-    } else {
-      const deleteFilters = {
-        adminArea: In(countryAdminAreaIds),
-        disasterType: disasterType,
-        startDate: MoreThanOrEqual(
-          this.helperService.getLast6hourInterval(disasterType, date),
-        ),
-      };
-      if (eventName) {
-        deleteFilters['eventName'] = eventName;
-      }
-      const eventAreasToDelete = await this.eventPlaceCodeRepo.find({
-        where: deleteFilters,
-      });
-      await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
+    const deleteFilters = {
+      adminArea: In(countryAdminAreaIds),
+      disasterType: disasterType,
+      startDate: MoreThanOrEqual(
+        this.helperService.getUploadCutoffMoment(disasterType, date),
+      ),
+    };
+    if (eventName) {
+      deleteFilters['eventName'] = eventName;
     }
+    const eventAreasToDelete = await this.eventPlaceCodeRepo.find({
+      where: deleteFilters,
+    });
+    await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
   }
 
   public async getTriggerUnit(disasterType: DisasterType): Promise<string> {
@@ -300,7 +232,7 @@ export class EventService {
       countryCodeISO3: countryCodeISO3,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast6hourInterval(
+        this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -472,7 +404,7 @@ export class EventService {
       countryCodeISO3: countryCodeISO3,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast6hourInterval(
+        this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -602,13 +534,13 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const cutoffDate = this.helperService.getLast6hourInterval(
+    const cutoffDate = this.helperService.getUploadCutoffMoment(
       disasterType,
       recentDate.timestamp,
     );
     const endDate = await this.getEndDate(disasterType, cutoffDate);
 
-    // .. but only check on endDate if eventName is not null
+    // .. but only check on endDate if eventName is not null > I cannot remember why..
     const eventAreas = await this.eventPlaceCodeRepo.find({
       where: [
         {
@@ -657,7 +589,7 @@ export class EventService {
       indicator: triggerUnit,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast6hourInterval(
+        this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
@@ -692,7 +624,7 @@ export class EventService {
       indicator: actionUnit,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast6hourInterval(
+        this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),

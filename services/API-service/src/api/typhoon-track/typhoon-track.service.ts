@@ -55,7 +55,7 @@ export class TyphoonTrackService {
       eventName: uploadTyphoonTrack.eventName,
       date: uploadTyphoonTrack.date || new Date(),
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast6hourInterval(
+        this.helperService.getUploadCutoffMoment(
           DisasterType.Typhoon,
           uploadTyphoonTrack.date,
         ),
@@ -115,7 +115,7 @@ export class TyphoonTrackService {
       countryCodeISO3: countryCodeISO3,
       date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
-        this.helperService.getLast6hourInterval(
+        this.helperService.getUploadCutoffMoment(
           DisasterType.Typhoon,
           lastTriggeredDate.timestamp,
         ),

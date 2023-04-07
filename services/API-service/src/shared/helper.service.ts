@@ -34,12 +34,24 @@ export class HelperService {
     return geoJson;
   }
 
-  public getLast6hourInterval(disasterType: DisasterType, date: Date): Date {
-    // This function was made to accomodate 'typhoon' setting where upload-frequency is '6 hours'
-    // This means that endpoint cannot only check on date = lastTriggeredDate.date, but should also check on the right 6-hour interval
-    // To be able to use this function also for other disasterTypes (freq '1 day'), it returns last 24-hour interval (midnight)
-    const lastInterval = new Date(date);
-    if (disasterType === DisasterType.Typhoon) {
+  public getUploadCutoffMoment(disasterType: DisasterType, date: Date): Date {
+    let lastInterval = new Date(date);
+    if (
+      [
+        DisasterType.Dengue,
+        DisasterType.Malaria,
+        DisasterType.Drought,
+      ].includes(disasterType)
+    ) {
+      // monthly pipeline
+      lastInterval.setDate(1);
+      lastInterval.setHours(0, 0, 0, 0);
+    } else if (
+      [DisasterType.Floods, DisasterType.HeavyRain].includes(disasterType)
+    ) {
+      // daily pipeline
+      lastInterval.setHours(0, 0, 0, 0);
+    } else if (disasterType === DisasterType.Typhoon) {
       // The update frequency is 6 hours, so dividing up in four 6-hour intervals
       if (date.getHours() >= 18) {
         lastInterval.setHours(18, 0, 0, 0);
@@ -50,9 +62,9 @@ export class HelperService {
       } else {
         lastInterval.setHours(0, 0, 0, 0);
       }
-    } else {
-      // If other disaster-type set to 'midnight'
-      lastInterval.setHours(0, 0, 0, 0);
+    } else if (disasterType === DisasterType.FlashFloods) {
+      // hourly pipeline
+      lastInterval.setHours(date.getHours(), 0, 0, 0);
     }
     return lastInterval;
   }
