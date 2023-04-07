@@ -1,7 +1,7 @@
 [
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,PHL,MWI,SSD",
-    "disasterTypes": ["floods"],
+    "disasterTypes": ["floods", "flash-floods"],
     "name": "flood_extent",
     "label": "Flood extent",
     "type": "wms",
@@ -44,6 +44,9 @@
     "description": {
       "EGY": {
         "heavy-rain": "Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset.<br><br>The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
+      },
+      "UGA": {
+        "heavy-rain": "<p>The rainfall extent layer is a dynamic layer that updates every time the model runs (once a day).<br>It’s visualised as squares on the map in a gradient of yellow (low) to red (high) depending on the intensity.</p><p>The layer shows the amount of forecasted 1-day cumulative precipitation over the area of interest.</p><p>The rainfall forecast is sourced from the European Centre for Medium-Range Weather Forecasts (ECMWF) through the Norwegian Meteorological Institute API (METNO).<br>This is a global model that provides weather forecasts up to 3 days in advance, with a granularity of 1 hour.</p>"
       }
     }
   },

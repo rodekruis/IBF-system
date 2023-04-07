@@ -112,7 +112,7 @@
   {
     "leadTimeName": "3-hour",
     "leadTimeLabel": "3-hour",
-    "disasterTypes": ["typhoon"]
+    "disasterTypes": ["typhoon", "flash-floods"]
   },
   {
     "leadTimeName": "4-hour",
@@ -122,12 +122,12 @@
   {
     "leadTimeName": "5-hour",
     "leadTimeLabel": "5-hour",
-    "disasterTypes": ["typhoon"]
+    "disasterTypes": ["typhoon", "flash-floods"]
   },
   {
     "leadTimeName": "6-hour",
     "leadTimeLabel": "6-hour",
-    "disasterTypes": ["typhoon"]
+    "disasterTypes": ["typhoon", "flash-floods"]
   },
   {
     "leadTimeName": "7-hour",
@@ -157,7 +157,7 @@
   {
     "leadTimeName": "12-hour",
     "leadTimeLabel": "12-hour",
-    "disasterTypes": ["typhoon", "flash-floods"]
+    "disasterTypes": ["typhoon"]
   },
   {
     "leadTimeName": "13-hour",
@@ -217,7 +217,7 @@
   {
     "leadTimeName": "24-hour",
     "leadTimeLabel": "24-hour",
-    "disasterTypes": ["typhoon", "flash-floods"]
+    "disasterTypes": ["typhoon"]
   },
   {
     "leadTimeName": "25-hour",

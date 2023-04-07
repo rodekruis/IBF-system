@@ -528,13 +528,9 @@ export class ChatComponent implements OnInit, OnDestroy {
         ? 'months'
         : null;
     const durationUnitValue =
-      updateFrequencyUnit === LeadTimeUnit.day
-        ? 1
-        : updateFrequencyUnit === LeadTimeUnit.hour
-        ? 6 // This currently only involves PHL typhoon which runs every 6 hours
-        : updateFrequencyUnit === LeadTimeUnit.month
-        ? 1
-        : null;
+      disasterType.disasterType === DisasterTypeKey.typhoon
+        ? 6 // 6-hourly pipeline
+        : 1; // in all other cases it is 1-hourly/1-daily/1-monthly;
 
     const nowDate = DateTime.now();
     const diff = nowDate

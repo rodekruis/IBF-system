@@ -301,13 +301,11 @@ export class TimelineService {
     for (const leadTime of this.disasterType.leadTimes) {
       // .. and then all other lead-times
       if (
+        // skip already added leadTimes
         visibleLeadTimes
           .map((lt) => lt.leadTime)
           .indexOf(leadTime.leadTimeName) === -1 &&
-        this.showNonActiveLeadTimes(
-          visibleLeadTimes.map((lt) => lt.leadTime),
-          leadTime.leadTimeName,
-        ) &&
+        // and decide for others to show or not
         this.filterVisibleLeadTimePerDisasterType(
           this.disasterType,
           leadTime.leadTimeName,
@@ -344,16 +342,6 @@ export class TimelineService {
     }
 
     return visibleLeadTimes;
-  }
-
-  private showNonActiveLeadTimes(leadTimes, leadTimeName) {
-    // check if there are no other (hourly) leadtimes for the same day already
-    return (
-      !leadTimes
-        .map((leadTime) => this.getDateFromLeadTime(leadTime))
-        .includes(this.getDateFromLeadTime(leadTimeName)) ||
-      this.isLeadTimeEnabled(leadTimeName)
-    );
   }
 
   private getDateFromLeadTime(leadTime) {
@@ -394,22 +382,31 @@ export class TimelineService {
       }
       return true;
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
-      return [
-        LeadTime.hour0,
-        LeadTime.hour24,
-        LeadTime.hour48,
-        LeadTime.hour72,
-        LeadTime.hour96,
-        LeadTime.hour120,
-        LeadTime.hour144,
-        LeadTime.hour168,
-      ].includes(leadTime);
+      // show 1 button per day ..
+      return (
+        [
+          LeadTime.hour0,
+          LeadTime.hour24,
+          LeadTime.hour48,
+          LeadTime.hour72,
+          LeadTime.hour96,
+          LeadTime.hour120,
+          LeadTime.hour144,
+          LeadTime.hour168,
+        ].includes(leadTime) &&
+        // .. except if already one present for that day
+        !activeLeadTimes
+          .map((lt) => this.getDateFromLeadTime(lt.leadTime))
+          .includes(this.getDateFromLeadTime(leadTime))
+      );
     } else if (disasterType.disasterType === DisasterTypeKey.heavyRain) {
       const countryLeadTimes = this.getCountryDisasterAttribute(
         'activeLeadTimes',
       ).sort((a, b) => (a > b ? 1 : -1));
       const maxLeadTime = countryLeadTimes[countryLeadTimes.length - 1];
       return leadTime > maxLeadTime ? false : true;
+    } else if (disasterType.disasterType === DisasterTypeKey.flashFloods) {
+      return this.getCountryDisasterAttribute('activeLeadTimes');
     } else {
       return true;
     }
@@ -440,6 +437,17 @@ export class TimelineService {
       }
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       const events = this.eventState?.events;
+      const relevantLeadTimes = this.eventState?.activeTrigger
+        ? events
+            .filter((e) => !e.disasterSpecificProperties?.typhoonNoLandfallYet)
+            .map((e) => e.firstLeadTime)
+        : [];
+      return relevantLeadTimes.includes(leadTime);
+    } else if (disasterType.disasterType === DisasterTypeKey.flashFloods) {
+      const events = this.eventState?.events;
+      if (!events.length) {
+        return leadTime === LeadTime.hour1;
+      }
       const relevantLeadTimes = this.eventState?.activeTrigger
         ? events
             .filter((e) => !e.disasterSpecificProperties?.typhoonNoLandfallYet)
