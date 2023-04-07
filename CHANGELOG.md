@@ -1,3 +1,13 @@
+# [0.237.0](https://github.com/rodekruis/IBF-system/compare/v0.236.0...v0.237.0) (2023-04-07)
+
+
+### Features
+
+* update population_affected AB[#18566](https://github.com/rodekruis/IBF-system/issues/18566) ([8c5bd3d](https://github.com/rodekruis/IBF-system/commit/8c5bd3d6532e45f5243b8c9358003d8143eacac5))
+* update UGA heavy-rain info popups AB[#18566](https://github.com/rodekruis/IBF-system/issues/18566) ([c0be8ec](https://github.com/rodekruis/IBF-system/commit/c0be8ec9eb5ee307a6d8afa4044560f4b02fb85d))
+
+
+
 # [0.236.0](https://github.com/rodekruis/IBF-system/compare/v0.235.1...v0.236.0) (2023-04-03)
 
 
@@ -122,32 +132,6 @@
 ### Bug Fixes
 
 * make lowest rainfall class transparent AB[#18190](https://github.com/rodekruis/IBF-system/issues/18190) ([08421eb](https://github.com/rodekruis/IBF-system/commit/08421eb10afc628011a09d648306410dcde496e3))
-
-
-
-# [0.231.0](https://github.com/rodekruis/IBF-system/compare/v0.230.0...v0.231.0) (2023-03-22)
-
-
-### Bug Fixes
-
-* clearout messag per event + order by duration AB[#18383](https://github.com/rodekruis/IBF-system/issues/18383) ([255eb15](https://github.com/rodekruis/IBF-system/commit/255eb15d2c48be945e1265c769554c412c31815a))
-* close events by eventname AB[#18383](https://github.com/rodekruis/IBF-system/issues/18383) ([e2fe269](https://github.com/rodekruis/IBF-system/commit/e2fe269da7c2ea346ed522216bdba3b3bdbdabc9))
-* correctly process events in sequences AB[#18439](https://github.com/rodekruis/IBF-system/issues/18439) ([cfa6719](https://github.com/rodekruis/IBF-system/commit/cfa671967e325c66867799abcbbc569926657360))
-* hide timeline buttons + remove unneeded data AB[#18414](https://github.com/rodekruis/IBF-system/issues/18414) ([52541ba](https://github.com/rodekruis/IBF-system/commit/52541ba37269c92efb306baac312b3ae7c93081b))
-* refactor AB[#18414](https://github.com/rodekruis/IBF-system/issues/18414) ([31b4a73](https://github.com/rodekruis/IBF-system/commit/31b4a736061b49a3ad6869f9505af8df2abb4521))
-* remove activeEvent unused property AB[#18383](https://github.com/rodekruis/IBF-system/issues/18383) ([7e8c8f7](https://github.com/rodekruis/IBF-system/commit/7e8c8f7db49e3d00e97b352496af4da7f4bc562b))
-* update rainfall classes AB[#18190](https://github.com/rodekruis/IBF-system/issues/18190) ([1f6570a](https://github.com/rodekruis/IBF-system/commit/1f6570a7b0c9d1a02b1c81c2ab99a3381fcb466a))
-* various AB[#18383](https://github.com/rodekruis/IBF-system/issues/18383) ([f83b1e5](https://github.com/rodekruis/IBF-system/commit/f83b1e578e547caec526cbee8602ae53c80d30c2))
-* various testing issues AB[#18383](https://github.com/rodekruis/IBF-system/issues/18383) ([e199577](https://github.com/rodekruis/IBF-system/commit/e1995773b773dc113bde39240c3cd9bee7547d46))
-* various testing issues AB[#18383](https://github.com/rodekruis/IBF-system/issues/18383) ([9f004ec](https://github.com/rodekruis/IBF-system/commit/9f004ecf3f20e28cc94282c7451e2a5b3204a17a))
-
-
-### Features
-
-* add heavy-rain to UGA AB[#18414](https://github.com/rodekruis/IBF-system/issues/18414) ([5f91eba](https://github.com/rodekruis/IBF-system/commit/5f91eba19f8e454e4326b6e27f10426b4bb793ff))
-* add mock data AB[#18416](https://github.com/rodekruis/IBF-system/issues/18416) ([15d28ba](https://github.com/rodekruis/IBF-system/commit/15d28bace485e01950e6fedf17df03efb36d427c))
-* add rc branches + waterpoints AB[#18417](https://github.com/rodekruis/IBF-system/issues/18417) ([f7a0a2b](https://github.com/rodekruis/IBF-system/commit/f7a0a2bab917c81be5552085f4c3b3cfeb4436a8))
-* enable rainfall raster AB[#18441](https://github.com/rodekruis/IBF-system/issues/18441) ([f79956b](https://github.com/rodekruis/IBF-system/commit/f79956b87d14919d9201ef00a9ea309042847934))
 
 
 
