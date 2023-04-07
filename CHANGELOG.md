@@ -1,3 +1,19 @@
+# [0.238.0](https://github.com/rodekruis/IBF-system/compare/v0.237.0...v0.238.0) (2023-04-07)
+
+
+### Bug Fixes
+
+* allow new layers in API AB[#18660](https://github.com/rodekruis/IBF-system/issues/18660) ([187f24a](https://github.com/rodekruis/IBF-system/commit/187f24a49354b2e5714dfe26509636e47c4e063e))
+* hourly pipeline frequency + refactor AB[#18796](https://github.com/rodekruis/IBF-system/issues/18796) ([8cb2ad4](https://github.com/rodekruis/IBF-system/commit/8cb2ad42e4dc4a980d44924b46fe9cb18eb7198d))
+
+
+### Features
+
+* new layers + mock data + facilitate multi-event AB[#18660](https://github.com/rodekruis/IBF-system/issues/18660) ([ce16d3d](https://github.com/rodekruis/IBF-system/commit/ce16d3d753302dc5616018b1dca033a01c7cdd1b))
+* show flood inundation raster AB[#18795](https://github.com/rodekruis/IBF-system/issues/18795) ([e271f7e](https://github.com/rodekruis/IBF-system/commit/e271f7efa79307e8c9a1c5dfb6a172229ae481e7))
+
+
+
 # [0.237.0](https://github.com/rodekruis/IBF-system/compare/v0.236.0...v0.237.0) (2023-04-07)
 
 
@@ -123,15 +139,6 @@
 ### Features
 
 * set up UGA WhatsApp flow AB[#18473](https://github.com/rodekruis/IBF-system/issues/18473) ([80e3de9](https://github.com/rodekruis/IBF-system/commit/80e3de9e68b405bd0f0eb91f64947a5d054f9232))
-
-
-
-## [0.231.1](https://github.com/rodekruis/IBF-system/compare/v0.231.0...v0.231.1) (2023-03-22)
-
-
-### Bug Fixes
-
-* make lowest rainfall class transparent AB[#18190](https://github.com/rodekruis/IBF-system/issues/18190) ([08421eb](https://github.com/rodekruis/IBF-system/commit/08421eb10afc628011a09d648306410dcde496e3))
 
 
 
