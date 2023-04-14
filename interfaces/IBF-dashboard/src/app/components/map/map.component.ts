@@ -549,7 +549,12 @@ export class MapComponent implements OnDestroy {
     const mapLayer = geoJSON(layer.data, {
       pointToLayer: this.getPointToLayerByLayer(layer.name),
     });
-    if (layer.name === IbfLayerName.waterpoints) {
+
+    if (
+      [IbfLayerName.waterpoints, IbfLayerName.waterpointsInternal].includes(
+        layer.name,
+      )
+    ) {
       const waterPointClusterLayer = markerClusterGroup({
         iconCreateFunction: this.getIconCreateFunction,
         maxClusterRadius: 50,

@@ -295,7 +295,11 @@ export class MapService {
     if (this.country) {
       if (layerActive) {
         this.apiService
-          .getPointData(this.country.countryCodeISO3, layerName)
+          .getPointData(
+            this.country.countryCodeISO3,
+            layerName,
+            this.timelineState.activeLeadTime,
+          )
           .subscribe((pointData) => {
             this.addPointDataLayer(layer, layerName, pointData);
           });
@@ -654,7 +658,11 @@ export class MapService {
           ? IbfLayerName.redCrossBranches
           : layer.name;
       layerData = this.apiService
-        .getPointData(this.country.countryCodeISO3, layerName)
+        .getPointData(
+          this.country.countryCodeISO3,
+          layerName,
+          this.timelineState.activeLeadTime,
+        )
         .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.adminRegions) {
       layerData = this.apiService

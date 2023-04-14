@@ -140,7 +140,7 @@ export class PointDataService {
           `st_asgeojson(st_MakePoint(${point.lon}, ${point.lat}))::json`,
       };
     });
-    await this.pointDataRepository.save(dataArray);
+    await this.pointDataRepository.save(dataArray, { chunk: 100 });
   }
 
   public async uploadCsv(

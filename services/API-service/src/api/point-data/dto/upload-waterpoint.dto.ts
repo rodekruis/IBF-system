@@ -1,10 +1,14 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class WaterpointDto {
   @ApiProperty({ example: 'name' })
   @IsString()
   public name: string = undefined;
+
+  @ApiProperty({ example: 'description' })
+  @IsString()
+  public description: string = undefined;
 
   @ApiProperty({ example: 'type' })
   @IsString()

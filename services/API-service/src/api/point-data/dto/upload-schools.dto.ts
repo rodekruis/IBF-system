@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class SchoolDto {
@@ -6,9 +6,9 @@ export class SchoolDto {
   @IsString()
   public name: string = undefined;
 
-  @ApiProperty({ example: 'type' })
+  @ApiProperty({ example: 'amenity' })
   @IsString()
-  public type: string = undefined;
+  public amenity: string = undefined;
 
   @ApiProperty({ example: 1234 })
   public fid: number = undefined;

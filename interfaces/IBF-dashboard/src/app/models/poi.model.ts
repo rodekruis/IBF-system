@@ -35,6 +35,7 @@ export class Waterpoint {
 export class HealthSite {
   name: string;
   type: string;
+  exposed: boolean;
 }
 
 export enum HealthSiteType {
@@ -60,15 +61,13 @@ export class EvacuationCenter {
 export class School {
   name: string;
   type: string;
-  latitude: string;
-  longitude: string;
+  exposed: boolean;
 }
 
 export class WaterpointInternal {
   name: string;
   type: string;
-  latitude: string;
-  longitude: string;
+  exposed: boolean;
 }
 export class CommunityNotification {
   public nameVolunteer: string;
