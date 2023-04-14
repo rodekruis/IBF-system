@@ -53,18 +53,18 @@ export class HelperService {
       lastInterval.setHours(0, 0, 0, 0);
     } else if (disasterType === DisasterType.Typhoon) {
       // The update frequency is 6 hours, so dividing up in four 6-hour intervals
-      if (date.getHours() >= 18) {
+      if (lastInterval.getHours() >= 18) {
         lastInterval.setHours(18, 0, 0, 0);
-      } else if (date.getHours() >= 12) {
+      } else if (lastInterval.getHours() >= 12) {
         lastInterval.setHours(12, 0, 0, 0);
-      } else if (date.getHours() >= 6) {
+      } else if (lastInterval.getHours() >= 6) {
         lastInterval.setHours(6, 0, 0, 0);
       } else {
         lastInterval.setHours(0, 0, 0, 0);
       }
     } else if (disasterType === DisasterType.FlashFloods) {
       // hourly pipeline
-      lastInterval.setHours(date.getHours(), 0, 0, 0);
+      lastInterval.setHours(lastInterval.getHours(), 0, 0, 0);
     }
     return lastInterval;
   }

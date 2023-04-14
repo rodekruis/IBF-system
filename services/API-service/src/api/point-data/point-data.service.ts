@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { validate } from 'class-validator';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { Repository } from 'typeorm';
+import { MoreThanOrEqual, Repository } from 'typeorm';
 import { EvacuationCenterDto } from './dto/upload-evacuation-centers.dto';
 import { PointDataEntity, PointDataEnum } from './point-data.entity';
 import { DamSiteDto } from './dto/upload-dam-sites.dto';
@@ -13,11 +13,19 @@ import { CommunityNotificationDto } from './dto/upload-community-notifications.d
 import { WhatsappService } from '../notification/whatsapp/whatsapp.service';
 import { SchoolDto } from './dto/upload-schools.dto';
 import { WaterpointDto } from './dto/upload-waterpoint.dto';
+import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
+import { PointDataDynamicStatusEntity } from './point-data-dynamic-status.entity';
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import { DisasterType } from '../disaster/disaster-type.enum';
 
 @Injectable()
 export class PointDataService {
   @InjectRepository(PointDataEntity)
   private readonly pointDataRepository: Repository<PointDataEntity>;
+  @InjectRepository(PointDataDynamicStatusEntity)
+  private readonly pointDataDynamicStatusRepo: Repository<
+    PointDataDynamicStatusEntity
+  >;
 
   public constructor(
     private readonly helperService: HelperService,
@@ -27,6 +35,7 @@ export class PointDataService {
   public async getPointDataByCountry(
     pointDataCategory: PointDataEnum,
     countryCodeISO3: string,
+    leadTime?: LeadTime,
   ): Promise<GeoJson> {
     const attributes = [];
     const dto = this.getDtoPerPointDataCategory(pointDataCategory);
@@ -41,14 +50,42 @@ export class PointDataService {
     selectColumns.push('geom');
     selectColumns.push('"pointDataId"');
 
-    const pointData = await this.pointDataRepository
+    const pointDataQuery = this.pointDataRepository
       .createQueryBuilder('point')
       .select(selectColumns)
       .where({
         pointDataCategory: pointDataCategory,
         countryCodeISO3: countryCodeISO3,
-      })
-      .getRawMany();
+      });
+
+    if (leadTime) {
+      const disasterType = DisasterType.FlashFloods; // hard-code for now
+      const recentDate = await this.helperService.getRecentDate(
+        countryCodeISO3,
+        disasterType,
+      );
+      pointDataQuery
+        .leftJoin(
+          PointDataDynamicStatusEntity,
+          'status',
+          'point."pointDataId" = status."referenceId"',
+        )
+        .andWhere(
+          'status."leadTime" IS NULL OR status."leadTime" = :leadTime',
+          { leadTime: leadTime },
+        )
+        .andWhere(
+          'status."timestamp" IS NULL OR status.timestamp >= :cutoffTime',
+          {
+            cutoffTime: this.helperService.getUploadCutoffMoment(
+              disasterType,
+              recentDate.timestamp,
+            ),
+          },
+        )
+        .addSelect('COALESCE(status.exposed,FALSE) as "exposed"');
+    }
+    const pointData = await pointDataQuery.getRawMany();
     return this.helperService.toGeojson(pointData);
   }
 
@@ -96,6 +133,7 @@ export class PointDataService {
       delete pointAttributes['lon'];
       return {
         countryCodeISO3: countryCodeISO3,
+        referenceId: point.fid || null,
         pointDataCategory: pointDataCategory,
         attributes: JSON.parse(JSON.stringify(pointAttributes)),
         geom: (): string =>
@@ -194,5 +232,40 @@ export class PointDataService {
     );
 
     await this.whatsappService.sendCommunityNotification(countryCodeISO3);
+  }
+
+  public async uploadAssetExposureStatus(
+    assetFids: UploadAssetExposureStatusDto,
+  ) {
+    const assetForecasts: PointDataDynamicStatusEntity[] = [];
+    for (const fid of assetFids.exposedFids) {
+      const asset = await this.pointDataRepository.findOne({
+        where: {
+          referenceId: fid,
+          pointDataCategory: assetFids.pointDataCategory,
+          countryCodeISO3: assetFids.countryCodeISO3,
+        },
+      });
+
+      // Delete existing entries with same date, leadTime and countryCodeISO3 and stationCode
+      await this.pointDataDynamicStatusRepo.delete({
+        pointData: asset,
+        leadTime: assetFids.leadTime,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getUploadCutoffMoment(
+            assetFids.disasterType,
+            assetFids.date || new Date(),
+          ),
+        ),
+      });
+
+      const assetForecast = new PointDataDynamicStatusEntity();
+      assetForecast.pointData = asset;
+      assetForecast.leadTime = assetFids.leadTime;
+      assetForecast.timestamp = assetFids.date || new Date();
+      assetForecast.exposed = true;
+      assetForecasts.push(assetForecast);
+    }
+    await this.pointDataDynamicStatusRepo.save(assetForecasts);
   }
 }

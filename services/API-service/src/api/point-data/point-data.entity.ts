@@ -21,6 +21,9 @@ export class PointDataEntity {
   @Column()
   public pointDataCategory: PointDataEnum;
 
+  @Column({ nullable: true })
+  public referenceId: number;
+
   @Column('json', { default: {} })
   public attributes: JSON;
 

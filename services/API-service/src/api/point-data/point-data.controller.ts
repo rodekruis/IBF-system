@@ -5,6 +5,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -16,6 +17,7 @@ import {
   ApiConsumes,
   ApiOperation,
   ApiParam,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -24,6 +26,7 @@ import { RolesGuard } from '../../roles.guard';
 import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
 import { PointDataService } from './point-data.service';
+import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
 
 @ApiBearerAuth()
 @ApiTags('point-data')
@@ -38,6 +41,7 @@ export class PointDataController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
+  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
@@ -45,10 +49,11 @@ export class PointDataController {
     type: GeoJson,
   })
   @Get(':pointDataCategory/:countryCodeISO3')
-  public async getPointData(@Param() params): Promise<GeoJson> {
+  public async getPointData(@Param() params, @Query() query): Promise<GeoJson> {
     return await this.pointDataService.getPointDataByCountry(
       params.pointDataCategory,
       params.countryCodeISO3,
+      query.leadTime,
     );
   }
 
@@ -122,5 +127,18 @@ export class PointDataController {
     return await this.pointDataService.dismissCommunityNotification(
       params.pointDataId,
     );
+  }
+
+  @UseGuards(RolesGuard)
+  @ApiOperation({ summary: 'Upload asset exposure status' })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded asset exposure status.',
+  })
+  @Post('exposure-status')
+  public async uploadAssetExposureStatus(
+    @Body() assetFids: UploadAssetExposureStatusDto,
+  ): Promise<void> {
+    return await this.pointDataService.uploadAssetExposureStatus(assetFids);
   }
 }
