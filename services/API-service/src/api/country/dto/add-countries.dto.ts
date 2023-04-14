@@ -32,9 +32,12 @@ export class CountryDto {
   public adminRegionLabels: {};
 
   @ApiProperty({
-    example: ['logo1.svg', 'logo2.png'],
+    example: {
+      drought: ['logo1.svg', 'logo2.png'],
+      floods: ['logo3.svg', 'logo4.png'],
+    },
   })
-  public countryLogos: string[];
+  public countryLogos: {};
 
   @ApiProperty({
     example: {

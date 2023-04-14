@@ -222,7 +222,11 @@
         "plural": "Sub-Counties"
       }
     },
-    "countryLogos": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"],
+    "countryLogos": {
+      "floods": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"],
+      "drought": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"],
+      "heavy-rain": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"]
+    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
@@ -311,12 +315,20 @@
         "plural": "Wards"
       }
     },
-    "countryLogos": [
-      "ZMB-warma.png",
-      "ZMB-government.svg",
-      "ZMB-zrcs.png",
-      "ZMB-dmmu.jpeg"
-    ],
+    "countryLogos": {
+      "floods": [
+        "ZMB-warma.png",
+        "ZMB-government.svg",
+        "ZMB-zrcs.png",
+        "ZMB-dmmu.jpeg"
+      ],
+      "drought": [
+        "ZMB-warma.png",
+        "ZMB-government.svg",
+        "ZMB-zrcs.png",
+        "ZMB-dmmu.jpeg"
+      ]
+    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
@@ -382,7 +394,10 @@
         "plural": "Traditional Authorities"
       }
     },
-    "countryLogos": ["MWI-mrcs.png", "ZWE-DanishRedCross.png"],
+    "countryLogos": {
+      "floods": ["MWI-mrcs.png", "ZWE-DanishRedCross.png"],
+      "flash-floods": ["MWI-unicef.png"]
+    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
@@ -434,7 +449,9 @@
         "plural": "Payams"
       }
     },
-    "countryLogos": ["SSD-SSRC.png", "ZWE-DanishRedCross.png", "SSD-ECHO.jpg"],
+    "countryLogos": {
+      "floods": ["SSD-SSRC.png", "ZWE-DanishRedCross.png", "SSD-ECHO.jpg"]
+    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
@@ -535,7 +552,10 @@
         "plural": "Wards"
       }
     },
-    "countryLogos": ["KEN-krcs.png"],
+    "countryLogos": {
+      "floods": ["KEN-krcs.png"],
+      "drought": ["KEN-krcs.png"]
+    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
@@ -711,7 +731,11 @@
         "plural": "Woredas"
       }
     },
-    "countryLogos": ["ETH-ercs.png"],
+    "countryLogos": {
+      "floods": ["ETH-ercs.png"],
+      "malaria": ["ETH-ercs.png"],
+      "drought": ["ETH-ercs.png"]
+    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
@@ -753,7 +777,7 @@
         "plural": "Districts"
       }
     },
-    "countryLogos": ["EGY-ercs.png"],
+    "countryLogos": { "heavy-rain": ["EGY-ercs.png"] },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
@@ -993,7 +1017,11 @@
         "plural": "Barangays"
       }
     },
-    "countryLogos": ["PHL-prc.jpg"],
+    "countryLogos": {
+      "dengue": ["PHL-prc.jpg"],
+      "typhoon": ["PHL-prc.jpg"],
+      "floods": ["PHL-prc.jpg"]
+    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [
@@ -1060,11 +1088,13 @@
         "plural": "Wards"
       }
     },
-    "countryLogos": [
-      "ZWE-ZRCS.png",
-      "ZWE-DanishRedCross.png",
-      "ZWE-FinnishRedCross.jpg"
-    ],
+    "countryLogos": {
+      "drought": [
+        "ZWE-ZRCS.png",
+        "ZWE-DanishRedCross.png",
+        "ZWE-FinnishRedCross.jpg"
+      ]
+    },
     "countryBoundingBox": {
       "type": "Polygon",
       "coordinates": [

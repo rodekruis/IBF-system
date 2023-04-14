@@ -135,7 +135,9 @@ export class CountryService {
           return { disasterType: countryDisasterType };
         }),
     });
-    countryEntity.countryLogos = country.countryLogos;
+    countryEntity.countryLogos = JSON.parse(
+      JSON.stringify(country.countryLogos),
+    );
     countryEntity.countryBoundingBox = JSON.parse(
       JSON.stringify(country.countryBoundingBox),
     );
@@ -249,7 +251,9 @@ export class CountryService {
     notificationInfoEntity: NotificationInfoEntity,
     notificationInfoCountry: NotificationInfoDto,
   ): Promise<NotificationInfoEntity> {
-    notificationInfoEntity.logo = notificationInfoCountry.logo;
+    notificationInfoEntity.logo = JSON.parse(
+      JSON.stringify(notificationInfoCountry.logo),
+    );
     notificationInfoEntity.triggerStatement = JSON.parse(
       JSON.stringify(notificationInfoCountry.triggerStatement),
     );

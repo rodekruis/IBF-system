@@ -1,32 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Country } from 'src/app/models/country.model';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Country, DisasterType } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from '../../services/disaster-type.service';
 
 @Component({
   selector: 'app-logos',
   templateUrl: './logos.component.html',
   styleUrls: ['./logos.component.scss'],
 })
-export class LogosComponent implements OnInit, OnDestroy {
-  private countrySubscription: Subscription;
-  public logos: string[] = [];
+export class LogosComponent implements OnInit {
+  public country: Observable<Country>;
+  public disasterType: Observable<DisasterType>;
 
-  constructor(private countryService: CountryService) {}
+  constructor(
+    private countryService: CountryService,
+    private disasterTypeService: DisasterTypeService,
+  ) {}
 
   ngOnInit() {
-    this.countrySubscription = this.countryService
-      .getCountrySubscription()
-      .subscribe(this.onCountryChange);
+    this.country = this.countryService.getCountrySubscription();
+    this.disasterType = this.disasterTypeService.getDisasterTypeSubscription();
   }
-
-  ngOnDestroy() {
-    this.countrySubscription.unsubscribe();
-  }
-
-  private onCountryChange = (country: Country) => {
-    if (country) {
-      this.logos = country.countryLogos;
-    }
-  };
 }
