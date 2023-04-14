@@ -464,8 +464,7 @@
     "label": "Schools",
     "type": "point",
     "leadTimeDependent": false,
-    "active": "no",
-    "description": {}
+    "active": "no"
   },
   {
     "countryCodes": "MWI",
@@ -474,7 +473,6 @@
     "label": "Waterpoints",
     "type": "point",
     "leadTimeDependent": false,
-    "active": "no",
-    "description": {}
+    "active": "no"
   }
 ]
