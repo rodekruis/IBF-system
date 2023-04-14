@@ -71,11 +71,11 @@ export class PointDataService {
           'point."pointDataId" = status."referenceId"',
         )
         .andWhere(
-          'status."leadTime" IS NULL OR status."leadTime" = :leadTime',
+          '(status."leadTime" IS NULL OR status."leadTime" = :leadTime)',
           { leadTime: leadTime },
         )
         .andWhere(
-          'status."timestamp" IS NULL OR status.timestamp >= :cutoffTime',
+          '(status."timestamp" IS NULL OR status.timestamp >= :cutoffTime)',
           {
             cutoffTime: this.helperService.getUploadCutoffMoment(
               disasterType,
