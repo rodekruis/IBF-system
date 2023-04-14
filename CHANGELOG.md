@@ -1,3 +1,17 @@
+# [0.239.0](https://github.com/rodekruis/IBF-system/compare/v0.238.0...v0.239.0) (2023-04-14)
+
+
+### Features
+
+* split logos for MWI AB[#18768](https://github.com/rodekruis/IBF-system/issues/18768) ([17994cf](https://github.com/rodekruis/IBF-system/commit/17994cf96a99746fa87935de118a8d80f4466cea))
+* update country entity AB[#18764](https://github.com/rodekruis/IBF-system/issues/18764) ([3b28c6b](https://github.com/rodekruis/IBF-system/commit/3b28c6b092065fdf89da1ac50d7ced14bea84733))
+* update email AB[#18767](https://github.com/rodekruis/IBF-system/issues/18767) ([4e81e18](https://github.com/rodekruis/IBF-system/commit/4e81e18849273f1fac690d192314ca685577c05c))
+* update logos component AB[#18766](https://github.com/rodekruis/IBF-system/issues/18766) ([79b8e05](https://github.com/rodekruis/IBF-system/commit/79b8e05543d32b230501d73f45535e05590c7b07))
+* update notification info entity AB[#18770](https://github.com/rodekruis/IBF-system/issues/18770) ([18c73ea](https://github.com/rodekruis/IBF-system/commit/18c73ea9aa5fb2ad89b2ab52c052d0a385bac032))
+* update seed scritps AB[#18765](https://github.com/rodekruis/IBF-system/issues/18765) ([3fc757d](https://github.com/rodekruis/IBF-system/commit/3fc757dca5847dbc285f58aafa10967313cf8c3d))
+
+
+
 # [0.238.0](https://github.com/rodekruis/IBF-system/compare/v0.237.0...v0.238.0) (2023-04-07)
 
 
@@ -124,21 +138,6 @@
 * photo popup AB[#18550](https://github.com/rodekruis/IBF-system/issues/18550) ([e78a0c4](https://github.com/rodekruis/IBF-system/commit/e78a0c46f5aa05c7256af3c06c049830b12aaaac))
 * show notification + refactor all marker functionality in separate service AB[#18478](https://github.com/rodekruis/IBF-system/issues/18478) ([5637d01](https://github.com/rodekruis/IBF-system/commit/5637d0104cd7f34c40592439a17b80bd55f7b32a))
 * store photo url AB[#18477](https://github.com/rodekruis/IBF-system/issues/18477) ([8668d3d](https://github.com/rodekruis/IBF-system/commit/8668d3dac084495dcc46c8e6b1e17e3d24d6aa4d))
-
-
-
-# [0.232.0](https://github.com/rodekruis/IBF-system/compare/v0.231.1...v0.232.0) (2023-03-27)
-
-
-### Bug Fixes
-
-* only admin-level 3 AB[#18570](https://github.com/rodekruis/IBF-system/issues/18570) ([f72232d](https://github.com/rodekruis/IBF-system/commit/f72232de95ec61d9a60a5d42f02b69d3a856b401))
-* whatsapp flow AB[#18473](https://github.com/rodekruis/IBF-system/issues/18473) ([22b10df](https://github.com/rodekruis/IBF-system/commit/22b10dfcdeeac385921864ebaaf69c8a0bf5c944))
-
-
-### Features
-
-* set up UGA WhatsApp flow AB[#18473](https://github.com/rodekruis/IBF-system/issues/18473) ([80e3de9](https://github.com/rodekruis/IBF-system/commit/80e3de9e68b405bd0f0eb91f64947a5d054f9232))
 
 
 
