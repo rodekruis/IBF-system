@@ -139,7 +139,7 @@
     "floods": {
       "about-button-label": "About Trigger",
       "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> issued."
+        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
         "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
@@ -162,7 +162,7 @@
     "flash-floods": {
       "about-button-label": "About Trigger",
       "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> issued."
+        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
         "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
@@ -189,7 +189,7 @@
     "drought": {
       "about-button-label": "About Trigger",
       "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> issued."
+        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
         "welcome": "A {{ disasterTypeLabel }} trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
@@ -236,7 +236,7 @@
     "typhoon": {
       "about-button-label": "About Trigger",
       "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn other layers on and off. There are currently <strong>no triggers</strong> issued."
+        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
         "welcome": "A trigger warning for <strong>{{ eventName }}</strong> was issued on {{ startDate }}.",
@@ -270,7 +270,7 @@
     "heavy-rain": {
       "about-button-label": "About Alert",
       "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn other layers on and off. There is currently <strong>no alert</strong> issued."
+        "welcome": "To your right is the map of your country. You can turn data layers on and off. There is currently <strong>no alert</strong> issued."
       },
       "active-event-active-trigger": {
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
@@ -293,7 +293,7 @@
     "dengue": {
       "about-button-label": "About Dengue Alerts",
       "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for dengue issued."
+        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for dengue issued."
       },
       "active-event-active-trigger": {
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
@@ -316,7 +316,7 @@
     "malaria": {
       "about-button-label": "About Malaria Alerts",
       "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country, where you can turn layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
+        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
       },
       "active-event-active-trigger": {
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
