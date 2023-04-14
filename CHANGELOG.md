@@ -1,3 +1,27 @@
+# [0.240.0](https://github.com/rodekruis/IBF-system/compare/v0.239.0...v0.240.0) (2023-04-14)
+
+
+### Bug Fixes
+
+* prettier AB[#18777](https://github.com/rodekruis/IBF-system/issues/18777) ([6d59814](https://github.com/rodekruis/IBF-system/commit/6d598141bd8abf323501008dbe77d0b6d10690cf))
+* revert svg files back to hex codes AB[#18797](https://github.com/rodekruis/IBF-system/issues/18797) ([10477d4](https://github.com/rodekruis/IBF-system/commit/10477d4a4f71685b32c726592091aa8d263dcc9c))
+* use brighter red for danger AB[#18777](https://github.com/rodekruis/IBF-system/issues/18777) ([c26be67](https://github.com/rodekruis/IBF-system/commit/c26be67024e5ff893b079efb17cea5bf0fbc3349))
+
+
+### Features
+
+* align frontend AB[#18777](https://github.com/rodekruis/IBF-system/issues/18777) ([c383d6b](https://github.com/rodekruis/IBF-system/commit/c383d6ba1b50baba7039bfaca0093e80f2f05713))
+* create new colors AB[#18775](https://github.com/rodekruis/IBF-system/issues/18775) ([7cccc92](https://github.com/rodekruis/IBF-system/commit/7cccc9286ca2f0bbf7c3d963bd337f3961c04d3b))
+* move ibf base colors AB[#18776](https://github.com/rodekruis/IBF-system/issues/18776) ([e1df63e](https://github.com/rodekruis/IBF-system/commit/e1df63e3d57a30ec6aa43f703a3d7c1c51614aea))
+* remove unused AB[#18776](https://github.com/rodekruis/IBF-system/issues/18776) ([f4ee67e](https://github.com/rodekruis/IBF-system/commit/f4ee67ea1a052d454f4506118054a04faf53b01d))
+* update login page AB[#18777](https://github.com/rodekruis/IBF-system/issues/18777) ([05a3f0b](https://github.com/rodekruis/IBF-system/commit/05a3f0b2efb319f5d4a115cd6472cc2e47b4df63))
+* update secondary colors AB[#18777](https://github.com/rodekruis/IBF-system/issues/18777) ([724288c](https://github.com/rodekruis/IBF-system/commit/724288cddc1185fa82152ac9f71b30fce7534de3))
+* update svg files AB[#18777](https://github.com/rodekruis/IBF-system/issues/18777) ([f14bbed](https://github.com/rodekruis/IBF-system/commit/f14bbed91dc8011a988215a333000d28e3406d35))
+* update triggered map gradient AB[#18783](https://github.com/rodekruis/IBF-system/issues/18783) ([1840ace](https://github.com/rodekruis/IBF-system/commit/1840ace896a43a02d034842b46ca600bde40b2b6))
+* update waterpoint cluster color AB[#18777](https://github.com/rodekruis/IBF-system/issues/18777) ([23c5026](https://github.com/rodekruis/IBF-system/commit/23c5026806ce3c1ddbc081703b46322795140739))
+
+
+
 # [0.239.0](https://github.com/rodekruis/IBF-system/compare/v0.238.0...v0.239.0) (2023-04-14)
 
 
@@ -111,33 +135,6 @@
 ### Bug Fixes
 
 * trigger statement uga drought AB[#18419](https://github.com/rodekruis/IBF-system/issues/18419) ([b0e951a](https://github.com/rodekruis/IBF-system/commit/b0e951aca16d15522f43cedc05bd391c8f1413d8))
-
-
-
-# [0.233.0](https://github.com/rodekruis/IBF-system/compare/v0.232.0...v0.233.0) (2023-03-27)
-
-
-### Bug Fixes
-
-* bell icon AB[#18551](https://github.com/rodekruis/IBF-system/issues/18551) ([eeda8fa](https://github.com/rodekruis/IBF-system/commit/eeda8fa12c6cf45931e2d485668a852d4c0b3add))
-* grey gradient in legend for non-triggered AB[#18418](https://github.com/rodekruis/IBF-system/issues/18418) ([38a9dcb](https://github.com/rodekruis/IBF-system/commit/38a9dcb90828de9ba59dd9460ff78ab1b7410ed6))
-* info popup AB[#18549](https://github.com/rodekruis/IBF-system/issues/18549) ([facbf4d](https://github.com/rodekruis/IBF-system/commit/facbf4dfd33d64a9190f12484b39a7a4696c4df4))
-* lint ([8d9b2b6](https://github.com/rodekruis/IBF-system/commit/8d9b2b6a0de3ed469c013ab5e8c8d81d05761f52))
-* remove pop aff perc AB[#18542](https://github.com/rodekruis/IBF-system/issues/18542) ([cf62f37](https://github.com/rodekruis/IBF-system/commit/cf62f37afa7b51e032038b8f7ab7cc9044611aa5))
-* timeline buttons ([667f0ec](https://github.com/rodekruis/IBF-system/commit/667f0ec8a179b7e0290f6d83e666caa30500fb7c))
-* update mock data + fix wms-layers if non-triggered AB[#18471](https://github.com/rodekruis/IBF-system/issues/18471) ([c8a27da](https://github.com/rodekruis/IBF-system/commit/c8a27dae815d402d9b095152ab20a0f30fffe5d7))
-* upload all areas in mock AB[#18414](https://github.com/rodekruis/IBF-system/issues/18414) ([3c14ba3](https://github.com/rodekruis/IBF-system/commit/3c14ba317ae339bef73d78d875022c3bd7c64b0a))
-
-
-### Features
-
-* added eap-link AB[#18571](https://github.com/rodekruis/IBF-system/issues/18571) ([c36c147](https://github.com/rodekruis/IBF-system/commit/c36c14778fc47a1fc1b01b7dfcbd62e6ac208f44))
-* basic popup + dismiss AB[#18479](https://github.com/rodekruis/IBF-system/issues/18479) AB[#18480](https://github.com/rodekruis/IBF-system/issues/18480) ([c07480c](https://github.com/rodekruis/IBF-system/commit/c07480c687269735463e0d810581f1e77d1ea93f))
-* community notifications layer AB[#18478](https://github.com/rodekruis/IBF-system/issues/18478) ([1d362ba](https://github.com/rodekruis/IBF-system/commit/1d362ba10d8ba35cc9dc1846b3b46bdcebc66471))
-* endpoint for kobo to call AB[#18477](https://github.com/rodekruis/IBF-system/issues/18477) ([e34d328](https://github.com/rodekruis/IBF-system/commit/e34d328f3e71a4094d8f16ab5f21484c5e505b63))
-* photo popup AB[#18550](https://github.com/rodekruis/IBF-system/issues/18550) ([e78a0c4](https://github.com/rodekruis/IBF-system/commit/e78a0c46f5aa05c7256af3c06c049830b12aaaac))
-* show notification + refactor all marker functionality in separate service AB[#18478](https://github.com/rodekruis/IBF-system/issues/18478) ([5637d01](https://github.com/rodekruis/IBF-system/commit/5637d0104cd7f34c40592439a17b80bd55f7b32a))
-* store photo url AB[#18477](https://github.com/rodekruis/IBF-system/issues/18477) ([8668d3d](https://github.com/rodekruis/IBF-system/commit/8668d3dac084495dcc46c8e6b1e17e3d24d6aa4d))
 
 
 
