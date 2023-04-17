@@ -943,9 +943,12 @@ export class ScriptsService {
         }${triggered ? '-triggered' : ''}.tif`;
         destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
       } else if (disasterType === DisasterType.FlashFloods) {
-        // Use 0-month mock for every lead-time
-        sourceFileName = `flood_extent_1-hour_${selectedCountry.countryCodeISO3}.tif`;
-        destFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+        if (leadTime === LeadTime.hour2 || leadTime === LeadTime.hour4) {
+          sourceFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
+        } else {
+          continue;
+        }
+        destFileName = sourceFileName;
       }
 
       let file;
