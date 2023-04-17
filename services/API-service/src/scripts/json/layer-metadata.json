@@ -483,5 +483,14 @@
     "type": "line",
     "leadTimeDependent": false,
     "active": "no"
+  },
+  {
+    "countryCodes": "MWI",
+    "disasterTypes": ["flash-floods"],
+    "name": "buildings",
+    "label": "Buildings",
+    "type": "line",
+    "leadTimeDependent": false,
+    "active": "no"
   }
 ]

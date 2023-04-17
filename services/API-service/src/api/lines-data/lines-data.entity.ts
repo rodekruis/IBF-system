@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 export enum LinesDataEnum {
   roads = 'roads',
+  buildings = 'buildings',
 }
 
 @Entity('lines-data')

@@ -10,6 +10,7 @@ import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status
 import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster/disaster-type.enum';
+import { BuildingDto } from './dto/upload-buildings.dto';
 
 @Injectable()
 export class LinesDataService {
@@ -83,6 +84,8 @@ export class LinesDataService {
     switch (linesDataCategory) {
       case LinesDataEnum.roads:
         return new RoadDto();
+      case LinesDataEnum.buildings:
+        return new BuildingDto();
       default:
         throw new HttpException(
           'Not a known lines layer',
