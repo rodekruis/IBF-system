@@ -45,6 +45,7 @@ export enum IbfLayerThreshold {
 
 export enum IbfLayerType {
   point = 'point',
+  line = 'line',
   shape = 'shape',
   wms = 'wms',
 }
@@ -113,6 +114,7 @@ export enum IbfLayerName {
   communityNotifications = 'community_notifications',
   schools = 'schools',
   waterpointsInternal = 'waterpoints_internal',
+  roads = 'roads',
 }
 
 export enum IbfLayerLabel {
@@ -174,4 +176,5 @@ export enum LeafletPane {
   wmsPane = 'ibf-wms',
   popupPane = 'popup',
   outline = 'outline',
+  lines = 'lines',
 }

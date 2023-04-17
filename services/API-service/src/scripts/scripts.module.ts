@@ -27,6 +27,8 @@ import { PointDataModule } from '../api/point-data/point-data.module';
 import { AdminAreaDataModule } from '../api/admin-area-data/admin-area-data.module';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { LinesDataModule } from '../api/lines-data/lines-data.module';
+import SeedLineData from './seed-line-data';
 
 @Module({
   imports: [
@@ -52,6 +54,7 @@ import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin
     UserModule,
     MetadataModule,
     PointDataModule,
+    LinesDataModule,
     AdminAreaDataModule,
   ],
   providers: [
@@ -61,6 +64,7 @@ import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin
     SeedAdminArea,
     SeedAdminAreaData,
     SeedPointData,
+    SeedLineData,
     SeedGlofasStation,
     SeedRainfallData,
   ],

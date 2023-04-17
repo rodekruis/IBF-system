@@ -21,6 +21,7 @@ import { WhatsappModule } from './api/notification/whatsapp/whatsapp.module';
 import { CronjobModule } from './cronjob/cronjob.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { PointDataModule } from './api/point-data/point-data.module';
+import { LinesDataModule } from './api/lines-data/lines-data.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { PointDataModule } from './api/point-data/point-data.module';
     CronjobModule,
     ScheduleModule.forRoot(),
     PointDataModule,
+    LinesDataModule,
   ],
   controllers: [AppController],
   providers: [],

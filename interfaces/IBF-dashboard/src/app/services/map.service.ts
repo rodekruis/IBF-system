@@ -192,6 +192,9 @@ export class MapService {
       } else if (layer.type === IbfLayerType.point) {
         // NOTE: any non-standard point layers should be placed above this 'else if'!
         this.loadPointDataLayer(layer, layerActive);
+      } else if (layer.type === IbfLayerType.line) {
+        // NOTE: any non-standard point layers should be placed above this 'else if'!
+        this.loadLineDataLayer(layer, layerActive);
       }
     });
   };
@@ -324,6 +327,51 @@ export class MapService {
         : this.getActiveState(layer),
       show: true,
       data: pointData,
+      viewCenter: false,
+      order: 1,
+    });
+  };
+
+  private loadLineDataLayer = (
+    layer: IbfLayerMetadata,
+    layerActive: boolean,
+  ) => {
+    const layerName =
+      layer.name === IbfLayerName.redCrescentBranches
+        ? IbfLayerName.redCrossBranches
+        : layer.name;
+    if (this.country) {
+      if (layerActive) {
+        this.apiService
+          .getLinesData(
+            this.country.countryCodeISO3,
+            layerName,
+            this.timelineState.activeLeadTime,
+          )
+          .subscribe((linesData) => {
+            this.addLineDataLayer(layer, layerName, linesData);
+          });
+      } else {
+        this.addLineDataLayer(layer, layerName, null);
+      }
+    }
+  };
+
+  private addLineDataLayer = (
+    layer: IbfLayerMetadata,
+    layerName: IbfLayerName,
+    linesData: any,
+  ) => {
+    this.addLayer({
+      name: layerName,
+      label: layer.label,
+      type: IbfLayerType.line,
+      description: this.getPopoverText(layer),
+      active: this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(layerName)
+        : this.getActiveState(layer),
+      show: true,
+      data: linesData,
       viewCenter: false,
       order: 1,
     });
@@ -664,6 +712,14 @@ export class MapService {
           this.timelineState.activeLeadTime,
         )
         .pipe(shareReplay(1));
+    } else if (layer.type === IbfLayerType.line) {
+      layerData = this.apiService
+        .getLinesData(
+          this.country.countryCodeISO3,
+          layer.name,
+          this.timelineState.activeLeadTime,
+        )
+        .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.adminRegions) {
       layerData = this.apiService
         .getAdminRegions(
@@ -945,6 +1001,17 @@ export class MapService {
         color,
         fillOpacity,
         weight,
+      };
+    };
+  };
+
+  // TO DO: this is just some dummy settings for now
+  public setLineLayerStyle = () => {
+    return (line) => {
+      return {
+        color: line.properties.exposed ? 'red' : 'green',
+        weight: 1,
+        opacity: 0.7,
       };
     };
   };

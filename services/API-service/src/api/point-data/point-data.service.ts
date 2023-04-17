@@ -59,7 +59,7 @@ export class PointDataService {
       });
 
     if (leadTime) {
-      const disasterType = DisasterType.FlashFloods; // hard-code for now
+      const disasterType = DisasterType.FlashFloods; // TO DO: hard-code for now
       const recentDate = await this.helperService.getRecentDate(
         countryCodeISO3,
         disasterType,
@@ -168,11 +168,9 @@ export class PointDataService {
     const errors = [];
     const validatatedArray = [];
     for (const [i, row] of csvArray.entries()) {
-      const attributes = [];
       const dto = this.getDtoPerPointDataCategory(pointDataCategory);
       for (const attribute in dto) {
         if (dto.hasOwnProperty(attribute)) {
-          attributes.push(attribute);
           dto[attribute] = row[attribute];
         }
       }
