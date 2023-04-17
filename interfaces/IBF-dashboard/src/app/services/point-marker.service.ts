@@ -14,6 +14,7 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
+  LEAFLET_MARKER_ICON_OPTIONS_SCHOOL,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
 } from 'src/app/config';
 import {
@@ -334,7 +335,7 @@ export class PointMarkerService {
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER),
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_SCHOOL),
     });
     markerInstance.bindPopup(
       this.createMarkerSchoolPopup(markerProperties, markerLatLng),

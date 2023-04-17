@@ -49,6 +49,12 @@ export const LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER: IconOptions = {
   iconRetinaUrl: 'assets/markers/evacuation-center-marker.svg',
 };
 
+export const LEAFLET_MARKER_ICON_OPTIONS_SCHOOL: IconOptions = {
+  ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  iconUrl: 'assets/markers/school-marker.svg',
+  iconRetinaUrl: 'assets/markers/school-marker.svg',
+};
+
 export const LEAFLET_MARKER_ICON_OPTIONS_COMMUNITY_NOTIFICATION: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
   iconUrl: 'assets/markers/community-notification-marker.svg',
