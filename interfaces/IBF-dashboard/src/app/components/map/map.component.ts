@@ -563,7 +563,10 @@ export class MapComponent implements OnDestroy {
       return waterPointClusterLayer;
     }
 
-    if (layer.name === IbfLayerName.healthSites) {
+    if (
+      layer.name === IbfLayerName.healthSites &&
+      layer.data.features.length > 1000 // TO DO: ugly filter to differentiate between countries
+    ) {
       const healthSiteClusterLayer = markerClusterGroup({
         iconCreateFunction: this.getIconCreateFunction,
         maxClusterRadius: 10,
