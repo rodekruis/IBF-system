@@ -246,6 +246,9 @@ export class PointDataService {
           countryCodeISO3: assetFids.countryCodeISO3,
         },
       });
+      if (!asset) {
+        continue;
+      }
 
       // Delete existing entries with same date, leadTime and countryCodeISO3 and stationCode
       await this.pointDataDynamicStatusRepo.delete({
