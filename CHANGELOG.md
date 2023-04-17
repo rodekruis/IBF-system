@@ -1,3 +1,23 @@
+# [0.241.0](https://github.com/rodekruis/IBF-system/compare/v0.240.0...v0.241.0) (2023-04-17)
+
+
+### Bug Fixes
+
+* bounding box AB[#18795](https://github.com/rodekruis/IBF-system/issues/18795) ([cc537c5](https://github.com/rodekruis/IBF-system/commit/cc537c5c37912f45e6d29e0563755c6228b6be23))
+* broken link IPC long AB[#18814](https://github.com/rodekruis/IBF-system/issues/18814) ([103e4c9](https://github.com/rodekruis/IBF-system/commit/103e4c99d4aca214ec64e13d90f000b4947861e5))
+* change ux copy no trigger AB[#17817](https://github.com/rodekruis/IBF-system/issues/17817) ([35aaeb8](https://github.com/rodekruis/IBF-system/commit/35aaeb841dc78222a2c147904e8462b18d449d77))
+* correct seed data + prep for visualizing in map AB[#18679](https://github.com/rodekruis/IBF-system/issues/18679) AB[#18695](https://github.com/rodekruis/IBF-system/issues/18695) ([0722955](https://github.com/rodekruis/IBF-system/commit/0722955a48fc762f01d5fa03e8aafeda5d56ce64))
+* query AB[#18695](https://github.com/rodekruis/IBF-system/issues/18695) ([c48f478](https://github.com/rodekruis/IBF-system/commit/c48f478911beb6594ec63c3b3196edfdb77e10c7))
+* skip unknown assets AB[#18920](https://github.com/rodekruis/IBF-system/issues/18920) ([7d7fcf5](https://github.com/rodekruis/IBF-system/commit/7d7fcf5e9b346b36d32f3dd7f33e56b9982dcba2))
+
+
+### Features
+
+* post and get asset exposure status AB[#18695](https://github.com/rodekruis/IBF-system/issues/18695) ([ce7c8a9](https://github.com/rodekruis/IBF-system/commit/ce7c8a9e1141d09a60e9e4915031891633126482))
+* seed point layers AB[#18693](https://github.com/rodekruis/IBF-system/issues/18693) ([4758dfb](https://github.com/rodekruis/IBF-system/commit/4758dfbce9cc17abad5b7431d6df5e6c50d94fc5))
+
+
+
 # [0.240.0](https://github.com/rodekruis/IBF-system/compare/v0.239.0...v0.240.0) (2023-04-14)
 
 
@@ -126,15 +146,6 @@
 * color of popup headers ([c24adbb](https://github.com/rodekruis/IBF-system/commit/c24adbbe27380815e0b7f1471dba3637f37fdd60))
 * kobo link in info popup AB[#18547](https://github.com/rodekruis/IBF-system/issues/18547) ([1876fc0](https://github.com/rodekruis/IBF-system/commit/1876fc01b9e441fa7a84fec3db94cd80b91bf597))
 * uga drought trigger statement AB[#18419](https://github.com/rodekruis/IBF-system/issues/18419) ([7988cd6](https://github.com/rodekruis/IBF-system/commit/7988cd67cd9c2c6c0ed32af968f5a7cd0a4a094a))
-
-
-
-## [0.233.1](https://github.com/rodekruis/IBF-system/compare/v0.233.0...v0.233.1) (2023-03-27)
-
-
-### Bug Fixes
-
-* trigger statement uga drought AB[#18419](https://github.com/rodekruis/IBF-system/issues/18419) ([b0e951a](https://github.com/rodekruis/IBF-system/commit/b0e951aca16d15522f43cedc05bd391c8f1413d8))
 
 
 
