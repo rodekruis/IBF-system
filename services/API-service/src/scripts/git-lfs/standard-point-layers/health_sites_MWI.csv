@@ -1,0 +1,143 @@
+lon,lat,fid,id,ADDRESS,name,OWNERSHIP,ROAD_ACCES,type
+33.92438203,-9.940606036,620,,,-,,,-
+33.92635764,-9.938750283,622,,,-,,,-
+33.59389079,-11.89861174,235,11,"Private Bag 47
+Mzimba",Mzimba BLM,BLM,Tarmac,Clinic
+33.85547058,-11.02250094,241,18,"Private Bag 93
+Rumphi",Rumphi BLM,BLM,Tarmac Good,Clinic
+33.5891909,-12.26210874,39,0000000000000000019f,"Private Bag 7
+Champhira
+M",Ehehleni,MOHP,Earth Fair,Dispensary
+33.89772056,-11.42316901,40,000000000000000001a0,"P.O. Box 70
+Ekwendeni",Ekwaiweni,MOHP,Earth Poor,Dispensary
+34.16667124,-10.59167152,1,000000000000000000b1,,Khondowe,MOHP,,Dispensary
+33.94000176,-11.53258197,27,000000000000000000c4,"P.O. Box 14
+Mzuzu",Lusangazi,MOHP,Tarmac,Dispensary
+33.89621784,-11.48532888,33,136,"Private Bag 6
+Mzuzu",Matuli,LG,Earth Fair,Dispensary
+33.55600181,-11.75789143,2,237,,Mazamba,MOHP,,Dispensary
+33.48616783,-12.23435976,259,231,"P.O. Box 164
+Embangweni",Vibangalala,MOHP,Earth Poor,Dispensary
+33.91139217,-9.95500107,599,000000000000000000a1,"Private Bag 1
+Karonga",Karonga,MOHP,Tarmac,District Hospital
+33.58428143,-11.89808111,616,000000000000000001f8,"P.O. Box 131
+Mzimba",Mzimba,MOHP,Tarmac,District Hospital
+33.85416852,-11.01971847,617,0000000000000000021b,"P.O. Box 225
+Rumphi",Rumphi,MOHP,Earth Fair,District Hospital
+33.44802914,-11.6783589,465,151,"P.O. Box 25
+Bulala
+Euthin",Bulala,MOHP,Earth Fair,Health Centre
+34.1702519,-10.59782954,553,239,"P.O. Bwengu
+Mzimba",Bwengu,MOHP/LG,Tarmac Good,Health Centre
+33.80064147,-11.84342145,449,0000000000000000011f,"P.O. Chikangawa
+Mzimba",Chikangawa,Forestry,Tarmac,Health Centre
+33.82306183,-11.19749836,75,0000000000000000023a,"P.O. Box 42
+Chitimba",Chitimba,MOHP/LG,Earth Good,Health Centre
+33.99121899,-11.31289098,493,0000000000000000018f,"P.O. Box 6
+Choma",Choma,MOHP,Earth Poor,Health Centre
+33.82497033,-11.44427839,171,000000000000000001a1,"P.O. Box 133
+Ekwendeni",Emsizini,MOHP,Earth Fair,Health Centre
+33.91639082,-11.0636094,207,238,"Private Bag 7
+Endindeni",Endindeni,MOHP/CHAM,Earth Poor,Health Centre
+33.88582814,-11.18000085,347,35,"P.A. Enukweni
+P.O. Ekwend",Enukweni,Cham,Tarmac,Health Centre
+33.4192501,-11.45836024,172,000000000000000001a2,"P.O. Box 46
+Euthini",Euthini,MOHP,Earth Fair,Health Centre
+33.63380867,-11.4573614,80,0000000000000000024e,"P.O. Box 32
+Chikwawa",Gaga,MOHP/LG,Gravel,Health Centre
+33.68652862,-12.27818826,173,000000000000000001aa,"P.O. Box 42
+Champhira
+Mzi",Hoho,MOHP,Earth Fair,Health Centre
+34.16139167,-10.73055914,174,000000000000000001ad,"Private Bag 11
+PA Chiweta",Jalawe,MOHP,Earth Good,Health Centre
+33.54752952,-12.35208002,501,000000000000000001ae,"P.O. Box 43
+Champhira",Jenda,MOHP,Tarmac,Health Centre
+33.52580924,-11.30864146,112,53,"Private Bag 85
+Mpherembe",Kabwafu,MOHP,Earth Fair,Health Centre
+33.33368887,-12.20402895,109,0000000000000000003e,P.O. Quacha,Kalikumbi,Cham,Earth Poor,Health Centre
+33.35924844,-11.83678185,363,61,"P.O. Box 153
+Mzimba",Kamteteka,MOHP,Earth Fair,Health Centre
+33.78889174,-11.10305906,364,62,"P.O. Box 42
+Engucwini",Kamwe,MOHP,Earth Poor,Health Centre
+33.87027925,-9.873609099,51,000000000000000000a5,"P.O. Box 55
+Karonga",Kasoba,MOHP,Earth Fair,Health Centre
+33.67291944,-11.38903013,565,255,"P.O. Box 11
+Lumbadzi",Lumbadzi,MOHP/LG,Tarmac,Health Centre
+33.68569031,-11.76436159,375,0000000000000000007a,"P.O. Box 20055
+Luwinga",Lunjika,Cham,Earth Poor,Health Centre
+33.95588954,-10.99686111,208,0000000000000000023e,"Private Bag 1
+Karonga",Lupembe,MOHP/LG,Fair,Health Centre
+33.71956164,-12.11342002,286,256,"Private Bag Luvwere
+P O K",Luvwere,MOHP/LG,Earth Road,Health Centre
+33.29456026,-11.53894065,567,258,"P.O. Box 121
+Luwelezi",Luwerezi,MOHP/LG,Earth Poor,Health Centre
+34.19257862,-10.68360926,377,0000000000000000007d,"P.A. Chiweta
+PO Chitimba",Luwuchi,Cham,Earth Fair,Health Centre
+34.02714151,-10.90778165,76,0000000000000000023f,"P.A. Luzi
+PO Rumphi",Luzi,MOHP/LG,Earth Fair,Health Centre
+33.42996978,-12.24625218,378,0000000000000000007e,"P.O. Box 22
+Mabiri
+Embang",Mabiri,Cham,Earth Good,Health Centre
+33.49999996,-11.22889044,177,000000000000000001b4,"Private Bag 55
+Mpherembe",Malidade,MOHP,Earth Fair,Health Centre
+33.43944091,-11.94000112,178,000000000000000001b8,"P.O. Box 20
+Manyamula
+Mzi",Manyamula,MOHP,Earth Fair,Health Centre
+33.37118991,-11.35761131,182,000000000000000001bf,"P.O. Box 22
+Mbalachanda",Mbalachanda,MOHP,Earth Fair,Health Centre
+33.46685992,-12.05110854,123,0000000000000000008e,C/O Embangweni Hospital,Mhalaunda,Cham,Earth Poor,Health Centre
+34.19488843,-10.76431007,124,97,"P.O. Box 7
+Mlowe",Mlowe,Cham,Earth Fair,Health Centre
+33.61463899,-11.28819202,572,262,"P.O. Box 103
+Mulanje",Mpala,MOHP/LG,Earth Fair,Health Centre
+33.81499978,-9.960561569,190,1.00E+02,"P.A. Mpata
+Karonga",Mpata,MOHP,Earth Bad,Health Centre
+34.07294094,-11.00606024,191,1.00E+06,"P.A. Mphompha
+PO Rumphi",Mphompha,MOHP,Earth Fair,Health Centre
+33.54880928,-11.49735953,193,000000000000000001ec,"P.O. Box 140
+Euthini",Mtende,MOHP,Earth Fair,Health Centre
+33.74594168,-11.39674884,521,000000000000000001f0,"P.O. Box 31
+Mtwalo",Mtwalo,MOHP,Earth Fair,Health Centre
+33.56521877,-11.6123107,482,0000000000000000017b,P.O. Muloza,Muloza Heath centre,MOHP/LG,Earth Fair,Health Centre
+33.57889038,-10.94389145,194,000000000000000001f5,"P.O. Box 15
+Mwazisi
+Rumph",Mwazisi,MOHP,Earth Fair,Health Centre
+33.643748,-10.34906075,209,240,"P.O. Box 19
+Mzokoto",Mzokoto,MOHP/LG,Earth Good,Health Centre
+33.69950014,-11.52468936,409,000000000000000000ce,"P.O. Box 75
+Kafukule",Njuyu,MOHP,Earth Poor,Health Centre
+33.91446895,-11.22208139,268,000000000000000000d4,"P.O. Box 50
+Ekwendeni",Nkhuyukuyu,MOHP,Earth Poor,Health Centre
+33.98803074,-10.91789043,146,106,"P.O. Box 27
+Mzokoto
+Rumph",Nthenje,Cham,Earth Poor,Health Centre
+33.87306173,-11.02278187,356,0000000000000000004c,"P.O. Box 15
+Rumphi",St Patricks,Cham,Earth Fair,Health Centre
+33.5761079,-11.17646924,74,0000000000000000022b,"P.O. Box 40
+Mpherembe
+Mzi",Thunduwike,MOHP,Earth Poor,Health Centre
+33.61388986,-9.893059697,551,233,"Private Bag 10
+Karonga",Wiliro,MOHP,Gravel Fair,Health Centre
+33.88366993,-11.3717199,298,33,"P.O. Box 19
+Ekwendeni",Ekwendeni,Cham,Tarmac,Hospital
+33.47605905,-12.13686151,299,34,"P.O. Box 7
+Embangweni",Embangweni,Cham,Earth Poor,Hospital
+33.94000176,-9.932170473,16,000000000000000000a2,"Private Bag 1
+Karonga",Karonga old,MOHP,Tarmac,Hospital
+34.11096815,-10.60417038,306,73,"P.O. Box 5
+Livingstonia",Livingstonia,Cham,Earth Poor,Hospital
+33.43367083,-11.42764149,311,000000000000000000f1,"P.O. Box 3
+Euthini",Mzambazi,Cham,Earth Fair,Hospital
+33.7430611,-10.97861001,218,0000000000000000014b,"P.O. Box 43
+Bolero
+Rumphi",Bolero,MOHP,Earth Fair,Rural Hospital
+33.31278014,-12.04083031,220,0000000000000000019e,"P.A. Mbelwa
+Endingeni",Edingeni,MOHP,Earth Fair,Rural Hospital
+33.98778103,-10.06610849,594,0000000000000000023d,"P.O. Box 27
+Katumbi
+Rumph",Katowo,MOHP/LG,Earth Fair,Rural Hospital
+33.99750187,-10.86666874,589,000000000000000001ca,"P.O. Box 21
+Phwamphwa
+Rum",Mhuju,MOHP,Gravel Fair,Rural Hospital
+33.92448127,-9.940330942,621,,,Banja La Mtsogolo Clinic,,,-
+33.92446367,-9.940067415,229,,,Maneno Private Clinic,,,-

@@ -6,6 +6,8 @@ export enum PointDataEnum {
   healthSites = 'health_sites',
   redCrossBranches = 'red_cross_branches',
   communityNotifications = 'community_notifications',
+  schools = 'schools',
+  waterpointsInternal = 'waterpoints_internal',
 }
 
 @Entity('point-data')
@@ -18,6 +20,9 @@ export class PointDataEntity {
 
   @Column()
   public pointDataCategory: PointDataEnum;
+
+  @Column({ nullable: true })
+  public referenceId: number;
 
   @Column('json', { default: {} })
   public attributes: JSON;

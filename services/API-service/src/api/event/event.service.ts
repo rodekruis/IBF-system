@@ -158,7 +158,6 @@ export class EventService {
   ): Promise<void> {
     const deleteFilters = {
       countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
-      leadTime: selectedLeadTime.leadTime as LeadTime,
       disasterType: uploadTriggerPerLeadTimeDto.disasterType,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(

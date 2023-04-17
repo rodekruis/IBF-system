@@ -37,12 +37,6 @@ export const LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT: IconOptions = {
   iconRetinaUrl: 'assets/markers/health-center-marker.svg',
 };
 
-export const LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_HOSPITAL: IconOptions = {
-  ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconUrl: 'assets/markers/health-center-marker.svg',
-  iconRetinaUrl: 'assets/markers/health-center-marker.svg',
-};
-
 export const LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
   iconUrl: 'assets/markers/water-point-marker.svg',

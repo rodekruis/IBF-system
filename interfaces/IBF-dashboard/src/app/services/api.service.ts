@@ -185,8 +185,17 @@ export class ApiService {
   getPointData(
     countryCodeISO3: string,
     layerName: IbfLayerName,
+    leadTime?: LeadTime,
   ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`point-data/${layerName}/${countryCodeISO3}`, false);
+    let params = new HttpParams();
+    if (leadTime) {
+      params = params.append('leadTime', leadTime);
+    }
+    return this.get(
+      `point-data/${layerName}/${countryCodeISO3}`,
+      false,
+      params,
+    );
   }
 
   getWaterPoints(

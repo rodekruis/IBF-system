@@ -1,19 +1,16 @@
+import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class HealthSiteDto {
+export class SchoolDto {
   @ApiProperty({ example: 'name' })
-  @IsNotEmpty()
   @IsString()
   public name: string = undefined;
 
-  @ApiProperty({ example: 'hospital' })
-  @IsNotEmpty()
+  @ApiProperty({ example: 'amenity' })
   @IsString()
-  public type: string = undefined;
+  public amenity: string = undefined;
 
   @ApiProperty({ example: 1234 })
-  @IsOptional()
   public fid: number = undefined;
 
   @ApiProperty({ example: 0 })
