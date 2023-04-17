@@ -1,3 +1,20 @@
+# [0.242.0](https://github.com/rodekruis/IBF-system/compare/v0.241.0...v0.242.0) (2023-04-17)
+
+
+### Bug Fixes
+
+* filter only major roads AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([f34fad3](https://github.com/rodekruis/IBF-system/commit/f34fad3730ab9d93dc41a30005e7e4d6bd9c7acb))
+* make health sites non-cluster AB[#18893](https://github.com/rodekruis/IBF-system/issues/18893) ([b053030](https://github.com/rodekruis/IBF-system/commit/b053030f393a60e6edde94cec4dedc9622c455cd))
+* school icon AB[#18893](https://github.com/rodekruis/IBF-system/issues/18893) ([875d136](https://github.com/rodekruis/IBF-system/commit/875d1365164ee243e9eae78c05ec4d8a22307282))
+* update mock flood extent AB[#18906](https://github.com/rodekruis/IBF-system/issues/18906) ([e2c2dfb](https://github.com/rodekruis/IBF-system/commit/e2c2dfb9c4ac3ea96a191764c5f28b36ce30a102))
+
+
+### Features
+
+* set up roads layer dynamic AB[#18922](https://github.com/rodekruis/IBF-system/issues/18922) ([e0bea0e](https://github.com/rodekruis/IBF-system/commit/e0bea0ee0e417eac98e829d807fcf014eb0156d9))
+
+
+
 # [0.241.0](https://github.com/rodekruis/IBF-system/compare/v0.240.0...v0.241.0) (2023-04-17)
 
 
@@ -135,17 +152,6 @@
 ### Features
 
 * add confim alert on cancel AB[#18591](https://github.com/rodekruis/IBF-system/issues/18591) ([13fa743](https://github.com/rodekruis/IBF-system/commit/13fa7433ef29bf2f2922ce7982a549cb3b65ad1e))
-
-
-
-## [0.233.2](https://github.com/rodekruis/IBF-system/compare/v0.233.1...v0.233.2) (2023-03-28)
-
-
-### Bug Fixes
-
-* color of popup headers ([c24adbb](https://github.com/rodekruis/IBF-system/commit/c24adbbe27380815e0b7f1471dba3637f37fdd60))
-* kobo link in info popup AB[#18547](https://github.com/rodekruis/IBF-system/issues/18547) ([1876fc0](https://github.com/rodekruis/IBF-system/commit/1876fc01b9e441fa7a84fec3db94cd80b91bf597))
-* uga drought trigger statement AB[#18419](https://github.com/rodekruis/IBF-system/issues/18419) ([7988cd6](https://github.com/rodekruis/IBF-system/commit/7988cd67cd9c2c6c0ed32af968f5a7cd0a4a094a))
 
 
 
