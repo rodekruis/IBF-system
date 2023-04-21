@@ -1,3 +1,20 @@
+# [0.243.0](https://github.com/rodekruis/IBF-system/compare/v0.242.0...v0.243.0) (2023-04-21)
+
+
+### Bug Fixes
+
+* revert 'get lines via api' code AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([b1e8d55](https://github.com/rodekruis/IBF-system/commit/b1e8d550e8fb56b2826537c4b48d3130d5ae290a))
+* set lines style for roads AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([e4860b4](https://github.com/rodekruis/IBF-system/commit/e4860b49a6e21b3fa1ae65f4cb021d6f2ef915c0))
+
+
+### Features
+
+* mock exposed assets AB[#18929](https://github.com/rodekruis/IBF-system/issues/18929) ([4feceeb](https://github.com/rodekruis/IBF-system/commit/4feceeb4822fa1fa5bb72306b789633e38449a47))
+* serve roads/buildings as wms AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([d956f88](https://github.com/rodekruis/IBF-system/commit/d956f880c5ab6dc551628b8ba2e1a9ce193f2d5d))
+* show buildings AB[#18923](https://github.com/rodekruis/IBF-system/issues/18923) ([715472e](https://github.com/rodekruis/IBF-system/commit/715472eb4ed6801acbf115cf47cc9b80c5b1c603))
+
+
+
 # [0.242.0](https://github.com/rodekruis/IBF-system/compare/v0.241.0...v0.242.0) (2023-04-17)
 
 
@@ -137,21 +154,6 @@
 
 * refactor AB[#18645](https://github.com/rodekruis/IBF-system/issues/18645) ([fbe48a4](https://github.com/rodekruis/IBF-system/commit/fbe48a49e8c7e464eb44aa8b36db00a5f6d546a0))
 * send msg on community notification AB[#18635](https://github.com/rodekruis/IBF-system/issues/18635) ([f7498a4](https://github.com/rodekruis/IBF-system/commit/f7498a40376423453ea8a2d6caf7aa3f2e8ad91a))
-
-
-
-# [0.234.0](https://github.com/rodekruis/IBF-system/compare/v0.233.2...v0.234.0) (2023-03-28)
-
-
-### Bug Fixes
-
-* change image to photo + move to en.json AB[#18591](https://github.com/rodekruis/IBF-system/issues/18591) ([6f44312](https://github.com/rodekruis/IBF-system/commit/6f443129acacbde85ab557414ba8cafb855a56a2))
-* update copy + move to en.json AB[#18591](https://github.com/rodekruis/IBF-system/issues/18591) ([bc7c649](https://github.com/rodekruis/IBF-system/commit/bc7c649a66d7e422102376cd5ba301fab48ec27b))
-
-
-### Features
-
-* add confim alert on cancel AB[#18591](https://github.com/rodekruis/IBF-system/issues/18591) ([13fa743](https://github.com/rodekruis/IBF-system/commit/13fa7433ef29bf2f2922ce7982a549cb3b65ad1e))
 
 
 
