@@ -1,11 +1,8 @@
 import {
   Body,
   Controller,
-  Get,
   Param,
   Post,
-  Put,
-  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -17,13 +14,11 @@ import {
   ApiConsumes,
   ApiOperation,
   ApiParam,
-  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
-import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
 import { LinesDataService } from './lines-data.service';
 import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
@@ -33,29 +28,6 @@ import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status
 @Controller('lines-data')
 export class LinesDataController {
   public constructor(private readonly linesDataService: LinesDataService) {}
-
-  @UseGuards(RolesGuard)
-  @ApiOperation({
-    summary:
-      'Get lines data locations and attributes for given country and lines data layer',
-  })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'linesDataCategory', required: true, type: 'string' })
-  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
-  @ApiResponse({
-    status: 200,
-    description:
-      'Retrieved lines data locations and attributes for given country and lines data layer',
-    type: GeoJson,
-  })
-  @Get(':linesDataCategory/:countryCodeISO3')
-  public async getLinesData(@Param() params, @Query() query): Promise<GeoJson> {
-    return await this.linesDataService.getLinesDataByCountry(
-      params.linesDataCategory,
-      params.countryCodeISO3,
-      query.leadTime,
-    );
-  }
 
   @UseGuards(RolesGuard)
   @Roles(UserRole.Admin)
