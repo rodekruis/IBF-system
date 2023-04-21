@@ -480,8 +480,8 @@
     "disasterTypes": ["flash-floods"],
     "name": "roads",
     "label": "Roads",
-    "type": "line",
-    "leadTimeDependent": false,
+    "type": "wms",
+    "leadTimeDependent": true,
     "active": "no"
   },
   {
@@ -489,8 +489,8 @@
     "disasterTypes": ["flash-floods"],
     "name": "buildings",
     "label": "Buildings",
-    "type": "line",
-    "leadTimeDependent": false,
+    "type": "wms",
+    "leadTimeDependent": true,
     "active": "no"
   }
 ]

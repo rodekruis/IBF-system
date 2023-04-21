@@ -22,6 +22,6 @@ export class LinesDataEntity {
   @Column('json', { default: {} })
   public attributes: JSON;
 
-  @Column('json', { nullable: true })
-  public geom: JSON;
+  @Column('geometry', { nullable: true })
+  public geom: string;
 }

@@ -45,7 +45,10 @@ export class SeedHelper {
     try {
       for (const entity of entities) {
         const repository = await this.connection.getRepository(entity.name);
-        if (repository.metadata.schema === 'IBF-app') {
+        if (
+          repository.metadata.schema === 'IBF-app' &&
+          entity.tableType !== 'view'
+        ) {
           let q;
           if (entity.tableName === 'user') {
             q = `DELETE FROM \"${repository.metadata.schema}\".\"${entity.tableName}\" WHERE username <> 'dunant'`;

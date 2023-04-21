@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class LinesLayers1681719777746 implements MigrationInterface {
-  name = 'LinesLayers1681719777746';
+export class LinesDataGeom1682071888678 implements MigrationInterface {
+  name = 'LinesDataGeom1682071888678';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "IBF-app"."lines-data" ("linesDataId" uuid NOT NULL DEFAULT uuid_generate_v4(), "countryCodeISO3" character varying NOT NULL, "linesDataCategory" character varying NOT NULL, "referenceId" integer, "attributes" json NOT NULL DEFAULT '{}', "geom" json, CONSTRAINT "PK_b001b6db8db313fa0299da7d212" PRIMARY KEY ("linesDataId"))`,
+      `CREATE TABLE "IBF-app"."lines-data" ("linesDataId" uuid NOT NULL DEFAULT uuid_generate_v4(), "countryCodeISO3" character varying NOT NULL, "linesDataCategory" character varying NOT NULL, "referenceId" integer, "attributes" json NOT NULL DEFAULT '{}', "geom" geometry, CONSTRAINT "PK_b001b6db8db313fa0299da7d212" PRIMARY KEY ("linesDataId"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "IBF-app"."lines-data-dynamic-status" ("linesDataDynamicStatusId" uuid NOT NULL DEFAULT uuid_generate_v4(), "referenceId" uuid NOT NULL, "timestamp" TIMESTAMP NOT NULL, "exposed" boolean NOT NULL, "leadTime" character varying, CONSTRAINT "PK_1273835fad6885829248279bf13" PRIMARY KEY ("linesDataDynamicStatusId"))`,
