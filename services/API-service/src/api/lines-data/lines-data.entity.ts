@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 export enum LinesDataEnum {
   roads = 'roads',
+  buildings = 'buildings',
 }
 
 @Entity('lines-data')
@@ -21,6 +22,6 @@ export class LinesDataEntity {
   @Column('json', { default: {} })
   public attributes: JSON;
 
-  @Column('json', { nullable: true })
-  public geom: JSON;
+  @Column('geometry', { nullable: true })
+  public geom: string;
 }

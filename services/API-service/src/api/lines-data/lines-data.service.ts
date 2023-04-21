@@ -1,15 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { validate } from 'class-validator';
-import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { MoreThanOrEqual, Repository } from 'typeorm';
 import { LinesDataEntity, LinesDataEnum } from './lines-data.entity';
 import { RoadDto } from './dto/upload-roads.dto';
-import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
+import { UploadLinesExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
 import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { DisasterType } from '../disaster/disaster-type.enum';
+import { BuildingDto } from './dto/upload-buildings.dto';
 
 @Injectable()
 export class LinesDataService {
@@ -22,67 +19,12 @@ export class LinesDataService {
 
   public constructor(private readonly helperService: HelperService) {}
 
-  public async getLinesDataByCountry(
-    linesDataCategory: LinesDataEnum,
-    countryCodeISO3: string,
-    leadTime?: LeadTime,
-  ): Promise<GeoJson> {
-    const attributes = [];
-    const dto = this.getDtoPerLinesDataCategory(linesDataCategory);
-    for (const attribute in dto) {
-      if (dto.hasOwnProperty(attribute)) {
-        attributes.push(attribute);
-      }
-    }
-    const selectColumns = attributes.map(
-      attribute => `line.attributes->'${attribute}' AS "${attribute}"`,
-    );
-    selectColumns.push('geom');
-    selectColumns.push('"linesDataId"');
-
-    const linesDataQuery = this.linesDataRepository
-      .createQueryBuilder('line')
-      .select(selectColumns)
-      .where({
-        linesDataCategory: linesDataCategory,
-        countryCodeISO3: countryCodeISO3,
-      });
-
-    if (leadTime) {
-      const disasterType = DisasterType.FlashFloods; // TO DO: hard-code for now
-      const recentDate = await this.helperService.getRecentDate(
-        countryCodeISO3,
-        disasterType,
-      );
-      linesDataQuery
-        .leftJoin(
-          LinesDataDynamicStatusEntity,
-          'status',
-          'line."linesDataId" = status."referenceId"',
-        )
-        .andWhere(
-          '(status."leadTime" IS NULL OR status."leadTime" = :leadTime)',
-          { leadTime: leadTime },
-        )
-        .andWhere(
-          '(status."timestamp" IS NULL OR status.timestamp >= :cutoffTime)',
-          {
-            cutoffTime: this.helperService.getUploadCutoffMoment(
-              disasterType,
-              recentDate.timestamp,
-            ),
-          },
-        )
-        .addSelect('COALESCE(status.exposed,FALSE) as "exposed"');
-    }
-    const linesData = await linesDataQuery.getRawMany();
-    return this.helperService.toGeojson(linesData);
-  }
-
   private getDtoPerLinesDataCategory(linesDataCategory: LinesDataEnum): any {
     switch (linesDataCategory) {
       case LinesDataEnum.roads:
         return new RoadDto();
+      case LinesDataEnum.buildings:
+        return new BuildingDto();
       default:
         throw new HttpException(
           'Not a known lines layer',
@@ -113,7 +55,7 @@ export class LinesDataService {
         referenceId: line.fid || null,
         linesDataCategory: linesDataCategory,
         attributes: JSON.parse(JSON.stringify(pointAttributes)),
-        geom: (): string => `ST_GeomFromText('${line.wkt}')::json`,
+        geom: (): string => `ST_GeomFromText('${line.wkt}')`,
       };
     });
     await this.linesDataRepository.save(dataArray, { chunk: 100 });
@@ -165,7 +107,7 @@ export class LinesDataService {
   }
 
   public async uploadAssetExposureStatus(
-    assetFids: UploadAssetExposureStatusDto,
+    assetFids: UploadLinesExposureStatusDto,
   ) {
     const assetForecasts: LinesDataDynamicStatusEntity[] = [];
     for (const fid of assetFids.exposedFids) {

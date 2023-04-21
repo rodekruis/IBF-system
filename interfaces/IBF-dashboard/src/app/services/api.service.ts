@@ -198,22 +198,6 @@ export class ApiService {
     );
   }
 
-  getLinesData(
-    countryCodeISO3: string,
-    layerName: IbfLayerName,
-    leadTime?: LeadTime,
-  ): Observable<GeoJSON.FeatureCollection> {
-    let params = new HttpParams();
-    if (leadTime) {
-      params = params.append('leadTime', leadTime);
-    }
-    return this.get(
-      `lines-data/${layerName}/${countryCodeISO3}`,
-      false,
-      params,
-    );
-  }
-
   getWaterPoints(
     countryCodeISO3: string,
   ): Observable<GeoJSON.FeatureCollection> {

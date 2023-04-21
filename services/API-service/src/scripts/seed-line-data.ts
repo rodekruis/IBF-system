@@ -25,6 +25,7 @@ export class SeedLineData implements InterfaceScript {
         (country): Promise<void> => {
           if (envCountries.includes(country.countryCodeISO3)) {
             this.seedLineData(LinesDataEnum.roads, country);
+            this.seedLineData(LinesDataEnum.buildings, country);
             return;
           } else {
             return Promise.resolve();

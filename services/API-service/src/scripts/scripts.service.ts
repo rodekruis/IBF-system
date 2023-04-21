@@ -24,6 +24,9 @@ import { AdminLevel } from '../api/country/admin-level.enum';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
+import { LinesDataService } from '../api/lines-data/lines-data.service';
+import { UploadLinesExposureStatusDto } from '../api/lines-data/dto/upload-asset-exposure-status.dto';
+import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
 
 @Injectable()
 export class ScriptsService {
@@ -51,6 +54,7 @@ export class ScriptsService {
     private typhoonTrackService: TyphoonTrackService,
     private eventService: EventService,
     private metadataService: MetadataService,
+    private linesDataService: LinesDataService,
   ) {}
 
   public async mockAll(mockAllInput: MockAll) {
@@ -177,6 +181,10 @@ export class ScriptsService {
         mockInput.disasterType,
         mockInput.triggered,
       );
+    }
+
+    if (mockInput.disasterType === DisasterType.FlashFloods) {
+      await this.mockEsposedAssets(selectedCountry.countryCodeISO3, date);
     }
 
     if (mockInput.disasterType === DisasterType.Typhoon) {
@@ -908,6 +916,41 @@ export class ScriptsService {
       eventName: this.getEventName(disasterType, eventNr),
       date,
     });
+  }
+
+  private async mockEsposedAssets(countryCodeISO3: string, date: Date) {
+    if (countryCodeISO3 !== 'MWI') {
+      return;
+    }
+    for (const assetType of Object.keys(LinesDataEnum)) {
+      for (const leadTime of [LeadTime.hour2, LeadTime.hour4]) {
+        const payload = new UploadLinesExposureStatusDto();
+        payload.countryCodeISO3 = countryCodeISO3;
+        payload.disasterType = DisasterType.FlashFloods;
+        payload.linesDataCategory = assetType as LinesDataEnum;
+        payload.leadTime = leadTime;
+        payload.date = date || new Date();
+        if (assetType === LinesDataEnum.roads && leadTime === LeadTime.hour4) {
+          payload.exposedFids = ['210949', '1588'];
+        } else if (
+          assetType === LinesDataEnum.roads &&
+          leadTime === LeadTime.hour2
+        ) {
+          payload.exposedFids = ['53221', '259691'];
+        } else if (
+          assetType === LinesDataEnum.buildings &&
+          leadTime === LeadTime.hour4
+        ) {
+          payload.exposedFids = ['972757', '972755'];
+        } else if (
+          assetType === LinesDataEnum.buildings &&
+          leadTime === LeadTime.hour2
+        ) {
+          payload.exposedFids = ['167049', '1779084'];
+        }
+        await this.linesDataService.uploadAssetExposureStatus(payload);
+      }
+    }
   }
 
   private async mockRasterFile(

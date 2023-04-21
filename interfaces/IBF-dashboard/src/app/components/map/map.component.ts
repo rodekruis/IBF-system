@@ -391,17 +391,12 @@ export class MapComponent implements OnDestroy {
     this.map.createPane(LeafletPane.outline);
     this.map.getPane(LeafletPane.outline).style.zIndex = '570';
     this.map.createPane(LeafletPane.aggregatePane);
-    this.map.createPane(LeafletPane.lines);
     this.triggerWindowResize();
   }
 
   private createLayer(layer: IbfLayer): IbfLayer {
     if (layer.type === IbfLayerType.point) {
       layer.leafletLayer = this.createPointLayer(layer);
-    }
-
-    if (layer.type === IbfLayerType.line) {
-      layer.leafletLayer = this.createLineLayer(layer);
     }
 
     if (layer.type === IbfLayerType.shape) {
@@ -580,18 +575,6 @@ export class MapComponent implements OnDestroy {
       return healthSiteClusterLayer;
     }
     return mapLayer;
-  }
-
-  private createLineLayer(layer: IbfLayer): GeoJSON {
-    if (!layer.data) {
-      return;
-    }
-
-    return geoJSON(layer.data, {
-      pane: LeafletPane.lines,
-      style: this.mapService.setLineLayerStyle(),
-      interactive: false,
-    });
   }
 
   private onAdminRegionMouseOver = (feature) => (event): void => {
