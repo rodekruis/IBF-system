@@ -10,7 +10,7 @@ import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { LinesDataEnum } from '../lines-data.entity';
 
-export class UploadAssetExposureStatusDto {
+export class UploadLinesExposureStatusDto {
   @ApiProperty({ example: ['123', '234'] })
   @IsArray()
   public exposedFids: string[];

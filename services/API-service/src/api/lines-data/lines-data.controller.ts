@@ -21,7 +21,7 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { UserRole } from '../user/user-role.enum';
 import { LinesDataService } from './lines-data.service';
-import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
+import { UploadLinesExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
 
 @ApiBearerAuth()
 @ApiTags('lines-data')
@@ -78,7 +78,7 @@ export class LinesDataController {
   })
   @Post('exposure-status')
   public async uploadAssetExposureStatus(
-    @Body() assetFids: UploadAssetExposureStatusDto,
+    @Body() assetFids: UploadLinesExposureStatusDto,
   ): Promise<void> {
     return await this.linesDataService.uploadAssetExposureStatus(assetFids);
   }

@@ -4,7 +4,7 @@ import { HelperService } from '../../shared/helper.service';
 import { MoreThanOrEqual, Repository } from 'typeorm';
 import { LinesDataEntity, LinesDataEnum } from './lines-data.entity';
 import { RoadDto } from './dto/upload-roads.dto';
-import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
+import { UploadLinesExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
 import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 import { BuildingDto } from './dto/upload-buildings.dto';
 
@@ -107,7 +107,7 @@ export class LinesDataService {
   }
 
   public async uploadAssetExposureStatus(
-    assetFids: UploadAssetExposureStatusDto,
+    assetFids: UploadLinesExposureStatusDto,
   ) {
     const assetForecasts: LinesDataDynamicStatusEntity[] = [];
     for (const fid of assetFids.exposedFids) {
