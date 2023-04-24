@@ -16,9 +16,15 @@ export class LinesDataGeom1682071888678 implements MigrationInterface {
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."lines-data-dynamic-status" ADD CONSTRAINT "FK_7809876cae5bd4cae47851c2105" FOREIGN KEY ("leadTime") REFERENCES "IBF-app"."lead-time"("leadTimeName") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
+    await queryRunner.query(
+      `CREATE INDEX "IDX_f61bb4749d5419c6613e52ada4" ON "IBF-app"."lines-data" USING GiST ("geom") `,
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `DROP INDEX "IBF-app"."IDX_f61bb4749d5419c6613e52ada4"`,
+    );
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."lines-data-dynamic-status" DROP CONSTRAINT "FK_7809876cae5bd4cae47851c2105"`,
     );

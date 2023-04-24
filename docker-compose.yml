@@ -93,9 +93,11 @@ services:
     image: kartoza/geoserver
     environment:
       - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD}
+      - JAVA_OPTS="-DALLOW_ENV_PARAMETRIZATION=true"
     volumes:
       - api-geoserver-files:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
       - api-geoserver-workspace:/opt/geoserver/data_dir/workspaces/ibf-system
+      - ./.env:/opt/geoserver/data_dir/geoserver-environment.properties
     networks:
       web-server-network:
       api-network:
