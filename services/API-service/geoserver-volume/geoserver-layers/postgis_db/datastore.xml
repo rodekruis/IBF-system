@@ -14,8 +14,8 @@
     <entry key="encode functions">true</entry>
     <entry key="Batch insert size">1</entry>
     <entry key="preparedStatements">false</entry>
-    <entry key="database">ibf</entry>
-    <entry key="host">ibf-local-db</entry>
+    <entry key="database">${DB_DATABASE}</entry>
+    <entry key="host">${DB_HOST}</entry>
     <entry key="Loose bbox">true</entry>
     <entry key="SSL mode">DISABLE</entry>
     <entry key="Estimated extends">true</entry>
@@ -26,15 +26,15 @@
     <entry key="Connection timeout">20</entry>
     <entry key="create database">false</entry>
     <entry key="Method used to simplify geometries">FAST</entry>
-    <entry key="port">5432</entry>
-    <entry key="passwd">crypt1:Ekd7etUUVBqjX9Lv4O4wtw==</entry>
+    <entry key="port">${DB_PORT}</entry>
+    <entry key="passwd">${DB_PASSWORD}</entry>
     <entry key="min connections">1</entry>
     <entry key="dbtype">postgis</entry>
     <entry key="namespace">ibf-system</entry>
     <entry key="max connections">10</entry>
     <entry key="Evictor tests per run">3</entry>
     <entry key="Test while idle">true</entry>
-    <entry key="user">ibf</entry>
+    <entry key="user">${DB_USERNAME}</entry>
     <entry key="Max connection idle time">300</entry>
   </connectionParameters>
   <__default>false</__default>
