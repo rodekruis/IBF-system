@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+
 module.exports = {
   type: process.env.DB_TYPE,
   host: process.env.DB_HOST,
@@ -16,4 +18,10 @@ module.exports = {
   cli: {
     migrationsDir: 'migration',
   },
+  ssl:
+    process.env.NODE_ENV === 'development'
+      ? null
+      : {
+          ca: fs.readFileSync('cert/DigiCertGlobalRootCA.crt.pem').toString(),
+        },
 };

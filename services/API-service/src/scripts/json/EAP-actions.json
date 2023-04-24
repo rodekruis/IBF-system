@@ -180,7 +180,7 @@
     "disasterType": "drought",
     "areaOfFocus": { "id": "wash" },
     "action": "uga-wash-3",
-    "label": "Providing of water storage vessels",
+    "label": "Provide water storage vessels",
     "month": {
       "Karamoja": { "1": 3 },
       "Central": { "1": 2, "2": 8 }

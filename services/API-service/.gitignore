@@ -29,3 +29,6 @@ npm-debug.log*
 # Raster-files
 geoserver-volume/raster-files/*
 !geoserver-volume/raster-files/README.md
+
+# certificates
+cert/
