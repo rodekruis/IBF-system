@@ -1,4 +1,4 @@
-import fs from 'fs';
+import * as fs from 'fs';
 
 module.exports = {
   type: process.env.DB_TYPE,
