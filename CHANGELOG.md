@@ -1,3 +1,12 @@
+## [0.243.2](https://github.com/rodekruis/IBF-system/compare/v0.243.1...v0.243.2) (2023-04-24)
+
+
+### Bug Fixes
+
+* postgis connection env specific AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([c494ee2](https://github.com/rodekruis/IBF-system/commit/c494ee2481490737ff36c7ec49a49649e420ae52))
+
+
+
 ## [0.243.1](https://github.com/rodekruis/IBF-system/compare/v0.243.0...v0.243.1) (2023-04-24)
 
 
@@ -131,22 +140,6 @@
 ### Features
 
 * what's new IBF AB[#17985](https://github.com/rodekruis/IBF-system/issues/17985) ([610d42f](https://github.com/rodekruis/IBF-system/commit/610d42f34fae999e346e1030be44c5a80e5ed330))
-
-
-
-## [0.235.1](https://github.com/rodekruis/IBF-system/compare/v0.235.0...v0.235.1) (2023-04-03)
-
-
-### Bug Fixes
-
-* add translate pipe to title AB[#18651](https://github.com/rodekruis/IBF-system/issues/18651) ([909e876](https://github.com/rodekruis/IBF-system/commit/909e87633d68147aa29d88149f9653fefbc695a3))
-* align picture to center AB[#18655](https://github.com/rodekruis/IBF-system/issues/18655) ([de35af6](https://github.com/rodekruis/IBF-system/commit/de35af6ce138943c816904dd14f42067ae81d696))
-* info popups vulnerability + rainfall forecast AB[#18652](https://github.com/rodekruis/IBF-system/issues/18652) ([28b8216](https://github.com/rodekruis/IBF-system/commit/28b8216adb2e3c7d17b2c4ecea0c5ae55f8f695e))
-* make delete result translatable AB[#18651](https://github.com/rodekruis/IBF-system/issues/18651) ([5c6a909](https://github.com/rodekruis/IBF-system/commit/5c6a9091302d59199dcd39acfd2efa7c79f877af))
-* omit leadtime-dependent wms-layesr in overview-mode AB[#18653](https://github.com/rodekruis/IBF-system/issues/18653) ([cb8dee6](https://github.com/rodekruis/IBF-system/commit/cb8dee61741741e0d84b5f6af0c705787ec5ae38))
-* popup size + btn color AB[#18655](https://github.com/rodekruis/IBF-system/issues/18655) AB[#18656](https://github.com/rodekruis/IBF-system/issues/18656) ([d980714](https://github.com/rodekruis/IBF-system/commit/d980714eafc4c4fe22ef53892bf441a70106fc6c))
-* show november AB[#18654](https://github.com/rodekruis/IBF-system/issues/18654) ([49514c3](https://github.com/rodekruis/IBF-system/commit/49514c33716ca057b96f99e0ff55fb6ed60030e4))
-* yellow-red gradient for legend of rainfall forecast AB[#18678](https://github.com/rodekruis/IBF-system/issues/18678) ([7e4a4c4](https://github.com/rodekruis/IBF-system/commit/7e4a4c44da447e4634f45421cf2ce161af43be68))
 
 
 
