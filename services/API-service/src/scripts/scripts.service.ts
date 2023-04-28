@@ -27,6 +27,9 @@ import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { LinesDataService } from '../api/lines-data/lines-data.service';
 import { UploadLinesExposureStatusDto } from '../api/lines-data/dto/upload-asset-exposure-status.dto';
 import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
+import { PointDataEnum } from '../api/point-data/point-data.entity';
+import { UploadAssetExposureStatusDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
+import { PointDataService } from '../api/point-data/point-data.service';
 
 @Injectable()
 export class ScriptsService {
@@ -55,6 +58,7 @@ export class ScriptsService {
     private eventService: EventService,
     private metadataService: MetadataService,
     private linesDataService: LinesDataService,
+    private pointDataService: PointDataService,
   ) {}
 
   public async mockAll(mockAllInput: MockAll) {
@@ -922,33 +926,62 @@ export class ScriptsService {
     if (countryCodeISO3 !== 'MWI') {
       return;
     }
-    for (const assetType of Object.keys(LinesDataEnum)) {
-      for (const leadTime of [LeadTime.hour2, LeadTime.hour4]) {
+    const pointDataCategories = [
+      PointDataEnum.healthSites,
+      PointDataEnum.schools,
+      PointDataEnum.waterpointsInternal,
+    ];
+    for (const leadTime of [LeadTime.hour2, LeadTime.hour4]) {
+      for (const assetType of Object.keys(LinesDataEnum)) {
         const payload = new UploadLinesExposureStatusDto();
         payload.countryCodeISO3 = countryCodeISO3;
         payload.disasterType = DisasterType.FlashFloods;
         payload.linesDataCategory = assetType as LinesDataEnum;
         payload.leadTime = leadTime;
         payload.date = date || new Date();
-        if (assetType === LinesDataEnum.roads && leadTime === LeadTime.hour4) {
-          payload.exposedFids = ['210949', '1588'];
-        } else if (
-          assetType === LinesDataEnum.roads &&
+        if (assetType === LinesDataEnum.roads) {
           leadTime === LeadTime.hour2
-        ) {
-          payload.exposedFids = ['53221', '259691'];
-        } else if (
-          assetType === LinesDataEnum.buildings &&
-          leadTime === LeadTime.hour4
-        ) {
-          payload.exposedFids = ['972757', '972755'];
-        } else if (
-          assetType === LinesDataEnum.buildings &&
+            ? (payload.exposedFids = ['53221', '259691'])
+            : leadTime === LeadTime.hour4
+            ? (payload.exposedFids = ['210949', '1588'])
+            : [];
+        } else if (assetType === LinesDataEnum.buildings) {
           leadTime === LeadTime.hour2
-        ) {
-          payload.exposedFids = ['167049', '1779084'];
+            ? (payload.exposedFids = ['167049', '1779084'])
+            : leadTime === LeadTime.hour4
+            ? (payload.exposedFids = ['972757', '972755'])
+            : [];
         }
         await this.linesDataService.uploadAssetExposureStatus(payload);
+      }
+
+      for (const pointAssetType of pointDataCategories) {
+        const payload = new UploadAssetExposureStatusDto();
+        payload.countryCodeISO3 = countryCodeISO3;
+        payload.disasterType = DisasterType.FlashFloods;
+        payload.pointDataCategory = pointAssetType;
+        payload.leadTime = leadTime;
+        payload.date = date || new Date();
+        if (pointAssetType === PointDataEnum.healthSites) {
+          leadTime === LeadTime.hour2
+            ? (payload.exposedFids = ['241', '617'])
+            : leadTime === LeadTime.hour4
+            ? (payload.exposedFids = ['190', '599'])
+            : [];
+        } else if (pointAssetType === PointDataEnum.schools) {
+          leadTime === LeadTime.hour2
+            ? (payload.exposedFids = ['130', '206'])
+            : leadTime === LeadTime.hour4
+            ? (payload.exposedFids = ['147', '166'])
+            : [];
+        } else if (pointAssetType === PointDataEnum.waterpointsInternal) {
+          leadTime === LeadTime.hour2
+            ? (payload.exposedFids = ['25010', '25512'])
+            : leadTime === LeadTime.hour4
+            ? (payload.exposedFids = ['6146', '25777'])
+            : [];
+        }
+        await this.pointDataService.uploadAssetExposureStatus(payload);
       }
     }
   }

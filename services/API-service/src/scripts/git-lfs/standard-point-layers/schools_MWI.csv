@@ -3,9 +3,9 @@ lon,lat,fid,name,amenity
 34.1811127,-10.6149311,87,Thekero School,school
 33.8868949,-9.9552446,108,Chaminade Secondary School,school
 33.9298061,-9.9409548,109,-,-
-33.6099485,-11.957595,111,Kazomba CDSS,
+33.6099485,-11.957595,111,Kazomba CDSS,-
 33.6096521,-11.9549657,112,School Grounds,school
-33.6104601,-11.9551074,113,Kazomba Primary School,
+33.6104601,-11.9551074,113,Kazomba Primary School,-
 33.8589349,-11.0225863,130,Roscher Youth Development Centre,school
 33.936899,-10.0208562,142,Chisalankhanga,school
 33.9308171,-10.0051139,143,Mwenilondo CDSS,school
@@ -19,7 +19,7 @@ lon,lat,fid,name,amenity
 33.8827417,-9.948636,166,Karonga School for the Deaf,school
 33.9329002,-9.9369024,167,Lulindo Primary School,school
 33.9075882,-9.9557918,185,Maghemo Secondary School,school
-33.855867,-10.9940664,206,,school
+33.855867,-10.9940664,206,-,school
 33.858167,-11.4769535,207,Enyazini CDSS,school
 33.8619113,-9.8498347,213,MZINGA PRIMARY SCHOOL,school
 34.1450127,-10.7392249,234,Sanglio Primary School,school
