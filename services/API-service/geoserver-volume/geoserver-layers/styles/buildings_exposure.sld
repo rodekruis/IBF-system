@@ -32,10 +32,11 @@
           <!-- like a linesymbolizer but with a fill too -->
           <PolygonSymbolizer>
             <Fill>
-              <CssParameter name="fill">#FF0000</CssParameter>
+              <CssParameter name="fill">#c21e4d</CssParameter>
+              <CssParameter name="fill-opacity">0.2</CssParameter>
             </Fill>
             <Stroke>
-              <CssParameter name="stroke">#000000</CssParameter>
+              <CssParameter name="stroke">#c21e4d</CssParameter>
               <CssParameter name="stroke-width">0.1</CssParameter>
             </Stroke>
           </PolygonSymbolizer>
@@ -54,10 +55,11 @@
           <!-- like a linesymbolizer but with a fill too -->
           <PolygonSymbolizer>
             <Fill>
-              <CssParameter name="fill">#00FF00</CssParameter>
+              <CssParameter name="fill">#3e8262</CssParameter>
+              <CssParameter name="fill-opacity">0.2</CssParameter>
             </Fill>
             <Stroke>
-              <CssParameter name="stroke">#000000</CssParameter>
+              <CssParameter name="stroke">#3e8262</CssParameter>
               <CssParameter name="stroke-width">0.1</CssParameter>
             </Stroke>
           </PolygonSymbolizer>
