@@ -19,11 +19,13 @@ ion-button {
   &.alert {
     border: 1px solid var(--ion-color-ibf-outline-red) !important;
     border-width: 2px;
+    --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 
   &.alert.active {
     border: 2px solid var(--ion-color-ibf-outline-red) !important;
     border-width: 2px;
+    --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 
   &.active.noEvent {
