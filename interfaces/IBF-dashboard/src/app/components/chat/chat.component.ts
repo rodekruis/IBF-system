@@ -607,7 +607,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   public showTyphoonLandfallText(event: EventSummary) {
-    if (this.disasterTypeName !== DisasterTypeKey.typhoon) {
+    if (this.disasterTypeName !== DisasterTypeKey.typhoon || !event) {
       return;
     }
 
