@@ -61,7 +61,7 @@
                 layer.name === IbfLayerName.damSites && layer.active
               "
               [class.waterpoint-layer]="
-                layer.name === IbfLayerName.waterpoints && layer.active
+                (layer.name === IbfLayerName.waterpoints || layer.name === IbfLayerName.waterpointsInternal) && layer.active
               "
               [class.health-layer]="
                 layer.name === IbfLayerName.healthSites && layer.active
