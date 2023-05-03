@@ -79,7 +79,7 @@
   --ion-color-ibf-orange-shade: #fcb50c;
   --ion-color-ibf-orange-tint: #fcb50c;
 
-  --ion-color-ibf-outline-red: #c22400;
+  --ion-color-ibf-outline-red: var(--fiveten-error-500);
 
   --ion-color-danger: var(--fiveten-error-500);
   --ion-color-danger-rgb: var(--fiveten-error-500-rgb);

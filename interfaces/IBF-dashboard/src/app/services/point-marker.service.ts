@@ -13,9 +13,12 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_DAM,
   LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
+  LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_EXPOSED,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
   LEAFLET_MARKER_ICON_OPTIONS_SCHOOL,
+  LEAFLET_MARKER_ICON_OPTIONS_SCHOOL_EXPOSED,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
+  LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED,
 } from 'src/app/config';
 import {
   CommunityNotification,
@@ -271,7 +274,11 @@ export class PointMarkerService {
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT),
+      icon: icon(
+        markerProperties.exposed
+          ? LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_EXPOSED
+          : LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
+      ),
     });
 
     if (markerInstance) {
@@ -335,7 +342,11 @@ export class PointMarkerService {
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_SCHOOL),
+      icon: icon(
+        markerProperties.exposed
+          ? LEAFLET_MARKER_ICON_OPTIONS_SCHOOL_EXPOSED
+          : LEAFLET_MARKER_ICON_OPTIONS_SCHOOL,
+      ),
     });
     markerInstance.bindPopup(
       this.createMarkerSchoolPopup(markerProperties, markerLatLng),
@@ -356,7 +367,11 @@ export class PointMarkerService {
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT),
+      icon: icon(
+        markerProperties.exposed
+          ? LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED
+          : LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
+      ),
     });
     markerInstance.bindPopup(
       this.createMarkerWaterpointInternalPopup(markerProperties, markerLatLng),

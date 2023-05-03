@@ -32,8 +32,8 @@
           <!-- like a linesymbolizer but with a fill too -->
           <LineSymbolizer>
             <Stroke>
-              <CssParameter name="stroke">#FF0000</CssParameter>
-              <CssParameter name="stroke-width">0.1</CssParameter>
+              <CssParameter name="stroke">#ff0000</CssParameter>
+              <CssParameter name="stroke-width">0.4</CssParameter>
             </Stroke>
           </LineSymbolizer>
         </Rule>
@@ -51,8 +51,8 @@
           <!-- like a linesymbolizer but with a fill too -->
           <LineSymbolizer>
             <Stroke>
-              <CssParameter name="stroke">#00FF00</CssParameter>
-              <CssParameter name="stroke-width">0.1</CssParameter>
+              <CssParameter name="stroke">#00ff00</CssParameter>
+              <CssParameter name="stroke-width">0.4</CssParameter>
             </Stroke>
           </LineSymbolizer>
         </Rule>

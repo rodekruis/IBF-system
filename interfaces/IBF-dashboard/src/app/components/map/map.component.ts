@@ -511,24 +511,31 @@ export class MapComponent implements OnDestroy {
 
   private getIconCreateFunction = (cluster) => {
     const clusterSize = cluster.getChildCount();
+
+    const exposedClass = cluster
+      .getAllChildMarkers()
+      .some((marker) => marker.feature.properties.exposed)
+      ? ' exposed'
+      : '';
+
     let size: number;
     let className: string;
     switch (true) {
       case clusterSize <= 10:
         size = 30;
-        className = 'waterpoint-cluster-10';
+        className = `waterpoint-cluster-10${exposedClass}`;
         break;
       case clusterSize < 100:
         size = 40;
-        className = 'waterpoint-cluster-100';
+        className = `waterpoint-cluster-100${exposedClass}`;
         break;
       case clusterSize < 1000:
         size = 60;
-        className = 'waterpoint-cluster-1000';
+        className = `waterpoint-cluster-1000${exposedClass}`;
         break;
       default:
         size = 80;
-        className = 'waterpoint-cluster-10000';
+        className = `waterpoint-cluster-10000${exposedClass}`;
         break;
     }
     return divIcon({

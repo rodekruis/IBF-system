@@ -37,10 +37,22 @@ export const LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT: IconOptions = {
   iconRetinaUrl: 'assets/markers/health-center-marker.svg',
 };
 
+export const LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_EXPOSED: IconOptions = {
+  ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  iconUrl: 'assets/markers/health-center-marker-exposed.svg',
+  iconRetinaUrl: 'assets/markers/health-center-marker-exposed.svg',
+};
+
 export const LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
   iconUrl: 'assets/markers/water-point-marker.svg',
   iconRetinaUrl: 'assets/markers/water-point-marker.svg',
+};
+
+export const LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED: IconOptions = {
+  ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  iconUrl: 'assets/markers/water-point-marker-exposed.svg',
+  iconRetinaUrl: 'assets/markers/water-point-marker-exposed.svg',
 };
 
 export const LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER: IconOptions = {
@@ -53,6 +65,12 @@ export const LEAFLET_MARKER_ICON_OPTIONS_SCHOOL: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
   iconUrl: 'assets/markers/school-marker.svg',
   iconRetinaUrl: 'assets/markers/school-marker.svg',
+};
+
+export const LEAFLET_MARKER_ICON_OPTIONS_SCHOOL_EXPOSED: IconOptions = {
+  ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  iconUrl: 'assets/markers/school-marker-exposed.svg',
+  iconRetinaUrl: 'assets/markers/school-marker-exposed.svg',
 };
 
 export const LEAFLET_MARKER_ICON_OPTIONS_COMMUNITY_NOTIFICATION: IconOptions = {
