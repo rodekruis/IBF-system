@@ -1,3 +1,20 @@
+# [0.245.0](https://github.com/rodekruis/IBF-system/compare/v0.244.1...v0.245.0) (2023-05-03)
+
+
+### Bug Fixes
+
+* adjust misc colors AB[#18700](https://github.com/rodekruis/IBF-system/issues/18700) ([11c92f8](https://github.com/rodekruis/IBF-system/commit/11c92f85903a3cb1200cdef38b72c451d5c6ca66))
+* waterpoint icon in legend AB[#19191](https://github.com/rodekruis/IBF-system/issues/19191) ([fd08db9](https://github.com/rodekruis/IBF-system/commit/fd08db96ceb6187e9f21ef545e33f016d1e34023))
+
+
+### Features
+
+* split markers based on exposure AB[#19191](https://github.com/rodekruis/IBF-system/issues/19191) ([cf5a317](https://github.com/rodekruis/IBF-system/commit/cf5a317428623a71d31b637f13c3d64ccc7ba4ac))
+* update geoserver layers AB[#18700](https://github.com/rodekruis/IBF-system/issues/18700) ([d0921f4](https://github.com/rodekruis/IBF-system/commit/d0921f42372144bfacdef8e81c77fd225c13b499))
+* update markers AB[#18700](https://github.com/rodekruis/IBF-system/issues/18700) ([e3ff776](https://github.com/rodekruis/IBF-system/commit/e3ff776f93f1662334d0e44ccb04eac159bf15f7))
+
+
+
 ## [0.244.1](https://github.com/rodekruis/IBF-system/compare/v0.244.0...v0.244.1) (2023-05-01)
 
 
@@ -124,20 +141,6 @@
 * update svg files AB[#18777](https://github.com/rodekruis/IBF-system/issues/18777) ([f14bbed](https://github.com/rodekruis/IBF-system/commit/f14bbed91dc8011a988215a333000d28e3406d35))
 * update triggered map gradient AB[#18783](https://github.com/rodekruis/IBF-system/issues/18783) ([1840ace](https://github.com/rodekruis/IBF-system/commit/1840ace896a43a02d034842b46ca600bde40b2b6))
 * update waterpoint cluster color AB[#18777](https://github.com/rodekruis/IBF-system/issues/18777) ([23c5026](https://github.com/rodekruis/IBF-system/commit/23c5026806ce3c1ddbc081703b46322795140739))
-
-
-
-# [0.239.0](https://github.com/rodekruis/IBF-system/compare/v0.238.0...v0.239.0) (2023-04-14)
-
-
-### Features
-
-* split logos for MWI AB[#18768](https://github.com/rodekruis/IBF-system/issues/18768) ([17994cf](https://github.com/rodekruis/IBF-system/commit/17994cf96a99746fa87935de118a8d80f4466cea))
-* update country entity AB[#18764](https://github.com/rodekruis/IBF-system/issues/18764) ([3b28c6b](https://github.com/rodekruis/IBF-system/commit/3b28c6b092065fdf89da1ac50d7ced14bea84733))
-* update email AB[#18767](https://github.com/rodekruis/IBF-system/issues/18767) ([4e81e18](https://github.com/rodekruis/IBF-system/commit/4e81e18849273f1fac690d192314ca685577c05c))
-* update logos component AB[#18766](https://github.com/rodekruis/IBF-system/issues/18766) ([79b8e05](https://github.com/rodekruis/IBF-system/commit/79b8e05543d32b230501d73f45535e05590c7b07))
-* update notification info entity AB[#18770](https://github.com/rodekruis/IBF-system/issues/18770) ([18c73ea](https://github.com/rodekruis/IBF-system/commit/18c73ea9aa5fb2ad89b2ab52c052d0a385bac032))
-* update seed scritps AB[#18765](https://github.com/rodekruis/IBF-system/issues/18765) ([3fc757d](https://github.com/rodekruis/IBF-system/commit/3fc757dca5847dbc285f58aafa10967313cf8c3d))
 
 
 
