@@ -124,11 +124,23 @@
   <!-- =================================== -->
 
   <ng-container
-    *ngIf="event.eventName === selectedEvent && event.thresholdReached"
+    *ngIf="event.eventName === selectedEvent && event.activeTrigger"
   >
-    <p
+    <p *ngIf="event.thresholdReached"
       [innerHTML]="
         'chat-component.' + disasterTypeName + '.active-event.overview'
+          | translate
+            : {
+                nrTriggeredAreas: areas.length,
+                adminAreaLabelPlural: adminAreaLabelPlural,
+                eventName: selectedEvent,
+                actionIndicator: actionIndicatorLabel
+              }
+      "
+    ></p>
+    <p *ngIf="!event.thresholdReached"
+      [innerHTML]="
+        'chat-component.' + disasterTypeName + '.active-event.overview-below-trigger'
           | translate
             : {
                 nrTriggeredAreas: areas.length,
@@ -156,7 +168,7 @@
         </p>
       </li>
     </ul>
-    <p
+    <p *ngIf="event.thresholdReached"
       [translate]="
         'chat-component.' + disasterTypeName + '.active-event.instruction'
           | translate
