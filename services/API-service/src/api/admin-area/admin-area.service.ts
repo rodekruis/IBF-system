@@ -342,8 +342,8 @@ export class AdminAreaService {
       .andWhere('date = :lastTriggeredDate', {
         lastTriggeredDate: lastTriggeredDate.date,
       })
-      .andWhere('timestamp >= :last6hourInterval', {
-        last6hourInterval: this.helperService.getUploadCutoffMoment(
+      .andWhere('timestamp >= :cutoffMoment', {
+        cutoffMoment: this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
