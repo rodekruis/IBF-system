@@ -8,6 +8,7 @@ import {
   MonthFormats,
 } from 'src/app/types/lead-time';
 import { TimelineService } from '../../services/timeline.service';
+import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { TimelineState } from '../../types/timeline-state';
 
 @Component({
@@ -53,17 +54,20 @@ export class DateButtonComponent implements OnInit, OnDestroy {
     if (this.todayButton) {
       this.date = timelineState.today;
     }
+    const disasterType = this.disasterTypeService?.disasterType?.disasterType;
 
-    this.dateFormat =
-      DateFormats[this.disasterTypeService?.disasterType?.disasterType] ||
-      DateFormats.default;
-    this.monthFormat =
-      MonthFormats[this.disasterTypeService?.disasterType?.disasterType] ||
-      MonthFormats.default;
-    if (this.unit === LeadTimeUnit.day) {
+    this.dateFormat = DateFormats[disasterType] || DateFormats.default;
+    this.monthFormat = MonthFormats[disasterType] || MonthFormats.default;
+    if (
+      this.unit === LeadTimeUnit.day ||
+      disasterType === DisasterTypeKey.flashFloods
+    ) {
       this.displayDate = this.date.toFormat(this.dateFormat);
     }
-    if (this.unit === LeadTimeUnit.hour) {
+    if (
+      this.unit === LeadTimeUnit.hour &&
+      disasterType !== DisasterTypeKey.flashFloods
+    ) {
       if (this.active) {
         this.displayHour = this.date
           ? this.date.toFormat(this.hourFormat)
