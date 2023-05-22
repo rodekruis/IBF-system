@@ -605,8 +605,8 @@ export class EventService {
       .addSelect('MAX(area.value) AS "triggerValue"')
       .where(whereFilters)
       .andWhere(
-        `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" = 'typhoon'))`,
-      ) // Also allow value=0 entries with typhoon event name (= below trigger event)
+        `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" IN ('flash-floods','typhoon')))`,
+      ) // Also allow value=0 entries with typhoon/flash-floods and event name (= below trigger event)
       .groupBy('area."placeCode"')
       .getRawMany();
 

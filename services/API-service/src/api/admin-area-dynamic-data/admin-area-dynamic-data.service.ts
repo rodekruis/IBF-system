@@ -123,7 +123,9 @@ export class AdminAreaDynamicDataService {
     const eventBelowTrigger =
       !trigger &&
       !!uploadExposure.eventName &&
-      uploadExposure.disasterType === DisasterType.Typhoon;
+      [DisasterType.Typhoon, DisasterType.FlashFloods].includes(
+        uploadExposure.disasterType,
+      );
 
     const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
     uploadTriggerPerLeadTimeDto.countryCodeISO3 =
