@@ -183,8 +183,8 @@
         "area": "The flash floods trigger warning for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       },
       "event-switcher": {
-        "current-event-message": "Collapse {{eventName}} event",
-        "switch-event-button": "Show {{eventName}} event"
+        "current-event-message": "Back to national view",
+        "switch-event-button": "Show prediction"
       }
     },
     "drought": {
@@ -230,8 +230,8 @@
         "area": "The drought trigger warning for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       },
       "event-switcher": {
-        "current-event-message": "Collapse regional view",
-        "switch-event-button": "Expand regional view"
+        "current-event-message": "Back to national view",
+        "switch-event-button": "Show prediction"
       }
     },
     "typhoon": {
@@ -265,7 +265,7 @@
       },
       "event-switcher": {
         "current-event-message": "The portal is currently showing this event.",
-        "switch-event-button": "Show {{eventName}}"
+        "switch-event-button": "Show prediction"
       }
     },
     "heavy-rain": {
