@@ -1,4 +1,4 @@
-<span>
+<span class="date-text">
   <div *ngIf="displayDate">
     <span class="date">{{ displayDate }}</span>
     <br />
@@ -9,3 +9,15 @@
     <br />
   </div>
 </span>
+<ion-icon
+  *ngIf="alert && thresholdReached"
+  class="warning-icon"
+  src="/assets/icons/Alert_Title_Purple.svg"
+  slot="end"
+></ion-icon>
+<ion-icon
+  *ngIf="alert && !thresholdReached"
+  class="warning-icon"
+  src="/assets/icons/Alert_Title_Navy.svg"
+  slot="end"
+></ion-icon>

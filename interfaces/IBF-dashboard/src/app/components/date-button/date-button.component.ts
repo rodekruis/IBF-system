@@ -19,6 +19,8 @@ export class DateButtonComponent implements OnInit, OnDestroy {
   @Input() date = DateTime.now();
   @Input() unit = LeadTimeUnit.day;
   @Input() active: boolean;
+  @Input() alert: boolean;
+  @Input() thresholdReached: boolean;
   @Input() todayButton: boolean;
   @Input() eventName: string | null;
   @Input() duration: number | null;

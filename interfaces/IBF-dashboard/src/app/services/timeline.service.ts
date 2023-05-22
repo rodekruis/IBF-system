@@ -102,17 +102,20 @@ export class TimelineService {
       .map((e) => e.firstLeadTime)
       .includes(leadTime);
     const triggerKey = LeadTimeTriggerKey[leadTime];
+    const alert =
+      this.triggersAllEvents &&
+      this.triggersAllEvents[leadTime] &&
+      this.triggersAllEvents[leadTime] === '1' &&
+      (!isUndefinedLeadTime ||
+        (isUndefinedLeadTime && leadTimeInput.undefined));
+
     this.state.timeStepButtons[index] = {
       date: this.getLeadTimeDate(leadTime, triggerKey, leadTimeInput.undefined),
       unit: leadTime.split('-')[1] as LeadTimeUnit,
       value: leadTime,
-      alert:
-        this.triggersAllEvents &&
-        this.triggersAllEvents[leadTime] &&
-        this.triggersAllEvents[leadTime] === '1' &&
-        this.triggersAllEvents[`${leadTime}-thresholdReached`] === '1' &&
-        (!isUndefinedLeadTime ||
-          (isUndefinedLeadTime && leadTimeInput.undefined)),
+      alert: alert,
+      thresholdReached:
+        alert && this.triggersAllEvents[`${leadTime}-thresholdReached`] === '1',
       disabled: !isLeadTimeEnabled && !leadTimeInput.undefined,
       active: false,
       noEvent: this.isNoEvent(),
