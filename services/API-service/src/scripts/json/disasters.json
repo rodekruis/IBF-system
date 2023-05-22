@@ -46,6 +46,6 @@
     "label": "flash floods",
     "triggerUnit": "alert_threshold",
     "actionsUnit": "population_affected",
-    "showOnlyTriggeredAreas": true
+    "showOnlyTriggeredAreas": false
   }
 ]
