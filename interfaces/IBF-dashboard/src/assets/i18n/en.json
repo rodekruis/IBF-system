@@ -142,6 +142,7 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
+        "header": "Trigger: {{ disasterTypeLabel }}",
         "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
       },
       "active-event-no-trigger": {
@@ -165,11 +166,10 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
+        "header": "Trigger: {{ eventName }} at {{firstLeadTimeDate}}",
+        "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
         "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away.",
-        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on {{ startDate }}, but it is currently <strong>not predicted to reach trigger thresholds</strong>."
-      },
-      "active-event-no-trigger": {
-        "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
+        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on {{ startDate }}, but it can currently not be predicted to reach trigger thresholds yet. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
@@ -193,6 +193,7 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
+        "header": "Trigger: {{ eventName }} at {{firstLeadTimeDate}}",
         "welcome": "A {{ disasterTypeLabel }} trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
         "welcome-duration": "A {{ disasterTypeLabel }} trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
       },
@@ -240,6 +241,8 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
+        "header": "Trigger: {{ eventName }} at {{firstLeadTimeDate}}",
+        "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
         "welcome": "A trigger warning for <strong>{{ eventName }}</strong> was issued on {{ startDate }}.",
         "welcome-below-trigger": "A warning for <strong>{{ eventName }}</strong> was issued on {{ startDate }}, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
         "upcoming-event": {
@@ -274,6 +277,7 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There is currently <strong>no alert</strong> issued."
       },
       "active-event-active-trigger": {
+        "header": "Alert: {{ disasterTypeLabel }}",
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
       },
       "active-event-no-trigger": {
@@ -297,6 +301,7 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for dengue issued."
       },
       "active-event-active-trigger": {
+        "header": "Alert: {{ disasterTypeLabel }}",
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
       },
       "active-event-no-trigger": {
@@ -320,6 +325,7 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
       },
       "active-event-active-trigger": {
+        "header": "Alert: {{ disasterTypeLabel }}",
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
       },
       "active-event-no-trigger": {

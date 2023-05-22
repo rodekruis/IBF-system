@@ -6,62 +6,108 @@
   [isSelected]="eventBubbleIsSelected(event.eventName)"
   isConnected="true"
 >
-  <p *ngIf="event.activeTrigger && event.thresholdReached">
-    <span
-      *ngIf="!event.duration"
-      [innerHTML]="
-        'chat-component.' +
-          disasterTypeName +
-          '.active-event-active-trigger.welcome'
-          | translate
-            : {
-                name: displayName,
-                startDate: event.startDate,
-                leadTime: event.firstLeadTimeLabel,
-                timeUnit: event.timeUnit,
-                disasterTypeLabel: disasterTypeLabel,
-                firstLeadTimeDate: event.firstLeadTimeDate,
-                eventName: event.eventName || disasterTypeLabel,
-                duration: event.duration
-              }
-      "
-    ></span>
-    <span
-      *ngIf="event.duration"
-      [innerHTML]="
-        'chat-component.' +
-          disasterTypeName +
-          '.active-event-active-trigger.welcome-duration'
-          | translate
-            : {
-                name: displayName,
-                startDate: event.startDate,
-                leadTime: event.firstLeadTimeLabel,
-                timeUnit: event.timeUnit,
-                disasterTypeLabel: disasterTypeLabel,
-                firstLeadTimeDate: event.firstLeadTimeDate,
-                eventName: event.eventName || disasterTypeLabel,
-                duration: event.duration
-              }
-      "
-    ></span>
-  </p>
+  <ng-container *ngIf="event.activeTrigger && event.thresholdReached">
+    <span>
+      <ion-icon
+        class="warning-icon"
+        src="/assets/icons/Alert_Title_Purple.svg"
+        slot="start"
+      ></ion-icon>
+      <p
+        class="event-header"
+        [innerHTML]="
+          'chat-component.' +
+            disasterTypeName +
+            '.active-event-active-trigger.header'
+            | translate
+              : {
+                  firstLeadTimeDate: event.firstLeadTimeDate,
+                  eventName: event.eventName,
+                  disasterTypeLabel: disasterTypeLabel
+                }
+        "
+      ></p>
+    </span>
+    <p>
+      <span
+        *ngIf="!event.duration"
+        [innerHTML]="
+          'chat-component.' +
+            disasterTypeName +
+            '.active-event-active-trigger.welcome'
+            | translate
+              : {
+                  name: displayName,
+                  startDate: event.startDate,
+                  leadTime: event.firstLeadTimeLabel,
+                  timeUnit: event.timeUnit,
+                  disasterTypeLabel: disasterTypeLabel,
+                  firstLeadTimeDate: event.firstLeadTimeDate,
+                  eventName: event.eventName || disasterTypeLabel,
+                  duration: event.duration
+                }
+        "
+      ></span>
+      <span
+        *ngIf="event.duration"
+        [innerHTML]="
+          'chat-component.' +
+            disasterTypeName +
+            '.active-event-active-trigger.welcome-duration'
+            | translate
+              : {
+                  name: displayName,
+                  startDate: event.startDate,
+                  leadTime: event.firstLeadTimeLabel,
+                  timeUnit: event.timeUnit,
+                  disasterTypeLabel: disasterTypeLabel,
+                  firstLeadTimeDate: event.firstLeadTimeDate,
+                  eventName: event.eventName || disasterTypeLabel,
+                  duration: event.duration
+                }
+        "
+      ></span>
+    </p>
+  </ng-container>
 
-  <p
-    *ngIf="event.activeTrigger && !event.thresholdReached"
-    [innerHTML]="
-      'chat-component.' +
-        disasterTypeName +
-        '.active-event-active-trigger.welcome-below-trigger'
-        | translate
-          : {
-              startDate: event.startDate,
-              firstLeadTimeDate: event.firstLeadTimeDate,
-              eventName: event.eventName,
-              disasterTypeLabel: disasterTypeLabel
-            }
-    "
-  ></p>
+  <ng-container *ngIf="event.activeTrigger && !event.thresholdReached">
+    <span>
+      <ion-icon
+        class="warning-icon"
+        src="/assets/icons/Alert_Title_Navy.svg"
+        slot="start"
+      ></ion-icon>
+      <p
+        class="event-header"
+        [innerHTML]="
+          'chat-component.' +
+            disasterTypeName +
+            '.active-event-active-trigger.header-below-trigger'
+            | translate
+              : {
+                  firstLeadTimeDate: event.firstLeadTimeDate,
+                  eventName: event.eventName
+                }
+        "
+      ></p>
+    </span>
+    <p
+      [innerHTML]="
+        'chat-component.' +
+          disasterTypeName +
+          '.active-event-active-trigger.welcome-below-trigger'
+          | translate
+            : {
+                startDate: event.startDate,
+                firstLeadTimeDate: event.firstLeadTimeDate,
+                eventName: event.eventName,
+                leadTime: event.firstLeadTimeLabel,
+                timeUnit: event.timeUnit,
+                disasterTypeLabel: disasterTypeLabel
+              }
+      "
+    ></p>
+  </ng-container>
 
   <p *ngIf="typhoonLandfallText" [innerHTML]="typhoonLandfallText"></p>
 
