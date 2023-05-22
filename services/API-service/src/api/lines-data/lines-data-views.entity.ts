@@ -134,6 +134,46 @@ export class BuildingsHour6 {}
         'status',
         'line."linesDataId" = status."referenceId"',
       )
+      .where(`line."linesDataCategory" = '${LinesDataEnum.buildings}'`)
+      .andWhere(
+        `(status."leadTime" IS NULL OR status."leadTime" = '${LeadTime.hour24}')`,
+      )
+      .addSelect('COALESCE(status.exposed,FALSE) as "exposed"')
+      .orderBy('status.timestamp', 'DESC'),
+})
+export class BuildingsHour24 {}
+
+@ViewEntity({
+  expression: () =>
+    getConnection()
+      .createQueryBuilder()
+      .select(['line."referenceId",line.geom'])
+      .from(LinesDataEntity, 'line')
+      .leftJoin(
+        LinesDataDynamicStatusEntity,
+        'status',
+        'line."linesDataId" = status."referenceId"',
+      )
+      .where(`line."linesDataCategory" = '${LinesDataEnum.buildings}'`)
+      .andWhere(
+        `(status."leadTime" IS NULL OR status."leadTime" = '${LeadTime.hour48}')`,
+      )
+      .addSelect('COALESCE(status.exposed,FALSE) as "exposed"')
+      .orderBy('status.timestamp', 'DESC'),
+})
+export class BuildingsHour48 {}
+
+@ViewEntity({
+  expression: () =>
+    getConnection()
+      .createQueryBuilder()
+      .select(['line."referenceId",line.geom'])
+      .from(LinesDataEntity, 'line')
+      .leftJoin(
+        LinesDataDynamicStatusEntity,
+        'status',
+        'line."linesDataId" = status."referenceId"',
+      )
       .where(`line."linesDataCategory" = '${LinesDataEnum.roads}'`)
       .andWhere(
         `(status."leadTime" IS NULL OR status."leadTime" = '${LeadTime.hour1}')`,
@@ -242,3 +282,43 @@ export class RoadsHour5 {}
       .orderBy('status.timestamp', 'DESC'),
 })
 export class RoadsHour6 {}
+
+@ViewEntity({
+  expression: () =>
+    getConnection()
+      .createQueryBuilder()
+      .select(['line."referenceId",line.geom'])
+      .from(LinesDataEntity, 'line')
+      .leftJoin(
+        LinesDataDynamicStatusEntity,
+        'status',
+        'line."linesDataId" = status."referenceId"',
+      )
+      .where(`line."linesDataCategory" = '${LinesDataEnum.roads}'`)
+      .andWhere(
+        `(status."leadTime" IS NULL OR status."leadTime" = '${LeadTime.hour24}')`,
+      )
+      .addSelect('COALESCE(status.exposed,FALSE) as "exposed"')
+      .orderBy('status.timestamp', 'DESC'),
+})
+export class RoadsHour24 {}
+
+@ViewEntity({
+  expression: () =>
+    getConnection()
+      .createQueryBuilder()
+      .select(['line."referenceId",line.geom'])
+      .from(LinesDataEntity, 'line')
+      .leftJoin(
+        LinesDataDynamicStatusEntity,
+        'status',
+        'line."linesDataId" = status."referenceId"',
+      )
+      .where(`line."linesDataCategory" = '${LinesDataEnum.roads}'`)
+      .andWhere(
+        `(status."leadTime" IS NULL OR status."leadTime" = '${LeadTime.hour48}')`,
+      )
+      .addSelect('COALESCE(status.exposed,FALSE) as "exposed"')
+      .orderBy('status.timestamp', 'DESC'),
+})
+export class RoadsHour48 {}

@@ -85,6 +85,30 @@ export class AssetViews1682320403485 implements MigrationInterface {
       ],
     );
     await queryRunner.query(
+      `CREATE VIEW "IBF-app"."buildings_hour24" AS SELECT line."referenceId",line.geom, COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = 'buildings' AND (status."leadTime" IS NULL OR status."leadTime" = '6-hour') ORDER BY "status"."timestamp" DESC`,
+    );
+    await queryRunner.query(
+      `INSERT INTO "IBF-app"."typeorm_metadata"("type", "schema", "name", "value") VALUES ($1, $2, $3, $4)`,
+      [
+        'VIEW',
+        'IBF-app',
+        'buildings_hour24',
+        'SELECT line."referenceId",line.geom, COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = \'buildings\' AND (status."leadTime" IS NULL OR status."leadTime" = \'6-hour\') ORDER BY "status"."timestamp" DESC',
+      ],
+    );
+    await queryRunner.query(
+      `CREATE VIEW "IBF-app"."buildings_hour48" AS SELECT line."referenceId",line.geom, COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = 'buildings' AND (status."leadTime" IS NULL OR status."leadTime" = '6-hour') ORDER BY "status"."timestamp" DESC`,
+    );
+    await queryRunner.query(
+      `INSERT INTO "IBF-app"."typeorm_metadata"("type", "schema", "name", "value") VALUES ($1, $2, $3, $4)`,
+      [
+        'VIEW',
+        'IBF-app',
+        'buildings_hour48',
+        'SELECT line."referenceId",line.geom, COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = \'buildings\' AND (status."leadTime" IS NULL OR status."leadTime" = \'6-hour\') ORDER BY "status"."timestamp" DESC',
+      ],
+    );
+    await queryRunner.query(
       `CREATE VIEW "IBF-app"."roads_hour1" AS SELECT line."referenceId",line.geom, COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = 'roads' AND (status."leadTime" IS NULL OR status."leadTime" = '1-hour') ORDER BY "status"."timestamp" DESC`,
     );
     await queryRunner.query(
@@ -156,9 +180,43 @@ export class AssetViews1682320403485 implements MigrationInterface {
         'SELECT line."referenceId",line.geom, COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = \'roads\' AND (status."leadTime" IS NULL OR status."leadTime" = \'6-hour\') ORDER BY "status"."timestamp" DESC',
       ],
     );
+    await queryRunner.query(
+      `CREATE VIEW "IBF-app"."roads_hour24" AS SELECT line."referenceId",line.geom, COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = 'roads' AND (status."leadTime" IS NULL OR status."leadTime" = '6-hour') ORDER BY "status"."timestamp" DESC`,
+    );
+    await queryRunner.query(
+      `INSERT INTO "IBF-app"."typeorm_metadata"("type", "schema", "name", "value") VALUES ($1, $2, $3, $4)`,
+      [
+        'VIEW',
+        'IBF-app',
+        'roads_hour24',
+        'SELECT line."referenceId",line.geom, COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = \'roads\' AND (status."leadTime" IS NULL OR status."leadTime" = \'6-hour\') ORDER BY "status"."timestamp" DESC',
+      ],
+    );
+    await queryRunner.query(
+      `CREATE VIEW "IBF-app"."roads_hour48" AS SELECT line."referenceId",line.geom, COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = 'roads' AND (status."leadTime" IS NULL OR status."leadTime" = '6-hour') ORDER BY "status"."timestamp" DESC`,
+    );
+    await queryRunner.query(
+      `INSERT INTO "IBF-app"."typeorm_metadata"("type", "schema", "name", "value") VALUES ($1, $2, $3, $4)`,
+      [
+        'VIEW',
+        'IBF-app',
+        'roads_hour48',
+        'SELECT line."referenceId",line.geom, COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = \'roads\' AND (status."leadTime" IS NULL OR status."leadTime" = \'6-hour\') ORDER BY "status"."timestamp" DESC',
+      ],
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `DELETE FROM "IBF-app"."typeorm_metadata" WHERE "type" = 'VIEW' AND "schema" = $1 AND "name" = $2`,
+      ['IBF-app', 'roads_hour48'],
+    );
+    await queryRunner.query(`DROP VIEW "IBF-app"."roads_hour48"`);
+    await queryRunner.query(
+      `DELETE FROM "IBF-app"."typeorm_metadata" WHERE "type" = 'VIEW' AND "schema" = $1 AND "name" = $2`,
+      ['IBF-app', 'roads_hour24'],
+    );
+    await queryRunner.query(`DROP VIEW "IBF-app"."roads_hour24"`);
     await queryRunner.query(
       `DELETE FROM "IBF-app"."typeorm_metadata" WHERE "type" = 'VIEW' AND "schema" = $1 AND "name" = $2`,
       ['IBF-app', 'roads_hour6'],
@@ -192,6 +250,16 @@ export class AssetViews1682320403485 implements MigrationInterface {
     await queryRunner.query(
       `DELETE FROM "IBF-app"."typeorm_metadata" WHERE "type" = 'VIEW' AND "schema" = $1 AND "name" = $2`,
       ['IBF-app', 'buildings_hour6'],
+    );
+    await queryRunner.query(`DROP VIEW "IBF-app"."buildings_hour48"`);
+    await queryRunner.query(
+      `DELETE FROM "IBF-app"."typeorm_metadata" WHERE "type" = 'VIEW' AND "schema" = $1 AND "name" = $2`,
+      ['IBF-app', 'buildings_hour48'],
+    );
+    await queryRunner.query(`DROP VIEW "IBF-app"."buildings_hour24"`);
+    await queryRunner.query(
+      `DELETE FROM "IBF-app"."typeorm_metadata" WHERE "type" = 'VIEW' AND "schema" = $1 AND "name" = $2`,
+      ['IBF-app', 'buildings_hour24'],
     );
     await queryRunner.query(`DROP VIEW "IBF-app"."buildings_hour6"`);
     await queryRunner.query(

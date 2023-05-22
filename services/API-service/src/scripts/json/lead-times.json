@@ -217,7 +217,7 @@
   {
     "leadTimeName": "24-hour",
     "leadTimeLabel": "24-hour",
-    "disasterTypes": ["typhoon"]
+    "disasterTypes": ["typhoon", "flash-floods"]
   },
   {
     "leadTimeName": "25-hour",
@@ -337,7 +337,7 @@
   {
     "leadTimeName": "48-hour",
     "leadTimeLabel": "48-hour",
-    "disasterTypes": ["typhoon"]
+    "disasterTypes": ["typhoon", "flash-floods"]
   },
   {
     "leadTimeName": "49-hour",
