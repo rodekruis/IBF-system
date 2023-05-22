@@ -12,44 +12,19 @@
           [color]="isActiveAreas() ? 'ibf-secondary' : 'ibf-no-alert-tertiary'"
         >
           <ion-col class="ion-no-padding ion-no-margin ion-align-items-center">
-            <ion-label
-              color="ibf-black"
-              class="aggregates--title ion-no-margin"
-              data-test="aggregate-title"
-              [title]="
-                ('aggregates-component.header-title-prefix' | translate) +
-                ' ' +
-                getNumberAreasExposed() +
-                ' ' +
-                getLabelAreasExposed().headerLabel
-              "
+            <ion-label color="ibf-black"
+              ><ion-text
+                ><strong>{{
+                  getLabelAreasExposed().headerLabel
+                }}</strong></ion-text
+              ></ion-label
             >
-              <strong>
-                <ion-text style="font-size: 20px">{{
-                  getNumberAreasExposed()
-                }}</ion-text>
-                <span style="color: var(--ion-color-ibf-black)">
-                  {{ getLabelAreasExposed().headerLabel }}
-                </span>
-                <span
-                  style="color: var(--ion-color-ibf-black)"
-                  *ngIf="!isActiveAreas() && (placeCode || placeCodeHover)"
-                  >{{ ' '
-                  }}{{
-                    'aggregates-component.stopped-placecode' | translate
-                  }}</span
-                >
-              </strong>
-            </ion-label>
-            <ion-label
-              *ngIf="getLabelAreasExposed().subHeaderLabel !== ''"
-              class="aggregate--title"
-            >
-              <ion-text style="font-size: 12px">
-                {{ getLabelAreasExposed().subHeaderLabel }}
-              </ion-text>
-            </ion-label>
-          </ion-col>
+            <ion-label color="ibf-black"
+              ><ion-text
+                [innerHTML]="getLabelAreasExposed().subHeaderLabel"
+              ></ion-text
+            ></ion-label> </ion-col
+          >`
           <ion-button
             fill="clear"
             *ngIf="showPlaceCodeView(placeCode)"
