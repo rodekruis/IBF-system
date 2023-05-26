@@ -9,7 +9,7 @@
         <ion-item
           lines="none"
           class="component-title-item ion-no-margin"
-          [color]="isActiveAreas() ? 'ibf-secondary' : 'ibf-no-alert-tertiary'"
+          [color]="isActiveAreas() ? 'ibf-secondary' : 'ibf-no-alert-secondary'"
         >
           <ion-col class="ion-no-padding ion-no-margin ion-align-items-center">
             <ion-label color="ibf-black"
@@ -44,12 +44,8 @@
         color="ibf-white"
       >
         <ion-col size-lg="7" size-md="7" size-xs="7">
-          <ion-item lines="inset" class="aggregate-item ion-no-padding">
-            <ion-thumbnail
-              slot="start"
-              class="aggregate-item-thumbnail"
-              color="ibf-tertiary"
-            >
+          <ion-item class="aggregate-item ion-no-padding" color="ibf-white">
+            <ion-thumbnail slot="start" class="aggregate-item-thumbnail">
               <ion-img src="assets/icons/{{ indicator.icon }}"></ion-img>
             </ion-thumbnail>
             <ion-label class="aggregate-item-label" [title]="indicator.label">
@@ -63,6 +59,7 @@
           <ion-item
             class="aggregate-item-value ion-no-padding"
             style="--inner-padding-end: 4px"
+            color="ibf-white"
           >
             <ion-label class="ion-text-right" data-test="aggregate-number">
               <span *ngIf="indicator.numberFormatAggregate === 'decimal2'">
@@ -105,6 +102,7 @@
             class="aggregate-item-information-icon ion-no-padding"
             data-test="icon-row"
             style="--inner-padding-end: 0px"
+            color="ibf-white"
           >
             <ion-label>
               <img

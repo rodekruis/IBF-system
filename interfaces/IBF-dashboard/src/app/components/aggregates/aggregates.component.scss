@@ -26,12 +26,13 @@
   --inner-padding-end: 0;
 
   .aggregate-item-thumbnail {
-    background: var(--ion-color-ibf-tertiary);
-    border: 0.2rem solid var(--ion-color-ibf-tertiary);
+    background: var(--fiveten-neutral-100);
+    border: 0.2rem solid var(--fiveten-neutral-100);
     width: 2rem;
     height: 2rem;
     align-self: start;
     margin: 0px !important;
+    padding: 2px;
 
     ion-img {
       object-fit: contain;
