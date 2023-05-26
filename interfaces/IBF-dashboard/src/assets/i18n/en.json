@@ -143,7 +143,7 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
-        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
@@ -166,7 +166,7 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
-        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
@@ -193,8 +193,8 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
-        "welcome": "A {{ disasterTypeLabel }} trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
-        "welcome-duration": "A {{ disasterTypeLabel }} trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
+        "welcome-duration": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
