@@ -132,32 +132,32 @@
   {
     "leadTimeName": "7-hour",
     "leadTimeLabel": "7-hour",
-    "disasterTypes": ["typhoon"]
+    "disasterTypes": ["typhoon", "flash-floods"]
   },
   {
     "leadTimeName": "8-hour",
     "leadTimeLabel": "8-hour",
-    "disasterTypes": ["typhoon"]
+    "disasterTypes": ["typhoon", "flash-floods"]
   },
   {
     "leadTimeName": "9-hour",
     "leadTimeLabel": "9-hour",
-    "disasterTypes": ["typhoon"]
+    "disasterTypes": ["typhoon", "flash-floods"]
   },
   {
     "leadTimeName": "10-hour",
     "leadTimeLabel": "10-hour",
-    "disasterTypes": ["typhoon"]
+    "disasterTypes": ["typhoon", "flash-floods"]
   },
   {
     "leadTimeName": "11-hour",
     "leadTimeLabel": "11-hour",
-    "disasterTypes": ["typhoon"]
+    "disasterTypes": ["typhoon", "flash-floods"]
   },
   {
     "leadTimeName": "12-hour",
     "leadTimeLabel": "12-hour",
-    "disasterTypes": ["typhoon"]
+    "disasterTypes": ["typhoon", "flash-floods"]
   },
   {
     "leadTimeName": "13-hour",
