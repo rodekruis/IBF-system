@@ -264,10 +264,14 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       this.exposedPrefix
     } ${this.adminAreaLabel()}`;
 
+    const parentName = this.placeCodeParentName()
+      ? ` (${this.placeCodeParentName()})`
+      : '';
+
     const subHeader = {
       [MapView.national]: areaCountString,
       [MapView.event]: areaCountString,
-      [MapView.adminArea]: `${this.placeCodeName()} (${this.placeCodeParentName()})`,
+      [MapView.adminArea]: `${this.placeCodeName()}${parentName}`,
     };
 
     return {
