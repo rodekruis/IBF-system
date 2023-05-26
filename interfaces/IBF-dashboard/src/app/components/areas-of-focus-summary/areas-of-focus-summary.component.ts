@@ -27,8 +27,6 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   public trigger: boolean;
   public eventState: EventState;
 
-  public showActionSummary: boolean;
-
   constructor(
     private eapActionsService: EapActionsService,
     private apiService: ApiService,
