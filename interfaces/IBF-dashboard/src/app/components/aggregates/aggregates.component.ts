@@ -241,31 +241,51 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     );
   }
 
-  public getLabelAreasExposed() {
+  public getAggregatesHeader() {
+    const disasterTypeLabel = `${this.disasterType?.label
+      ?.charAt(0)
+      .toUpperCase()}${this.disasterType?.label?.substring(1)}`;
+
+    const eventString = `${disasterTypeLabel}${
+      this.getEventNameString() ? ': ' + this.getEventNameString() : ''
+    }`;
+
     const header = {
       [MapView.national]: `${
         this.country?.countryName
       } - ${this.translateService.instant(
         'aggregates-component.national-view',
       )}`,
-      [MapView.event]: this.eventState?.event?.eventName,
-      [MapView.adminArea]: this.placeCodeParentName(),
+      [MapView.event]: eventString,
+      [MapView.adminArea]: eventString,
     };
 
+    const areaCountString = `<strong>${this.getAreaCount()}</strong> ${
+      this.exposedPrefix
+    } ${this.adminAreaLabel()}`;
+
     const subHeader = {
-      [MapView.national]: `<strong>${this.getAreaCount()}</strong> ${
-        this.exposedPrefix
-      } ${this.adminAreaLabel()}`,
-      [MapView.event]: `<strong>${this.getAreaCount()}</strong> ${
-        this.exposedPrefix
-      } ${this.adminAreaLabel()}`,
-      [MapView.adminArea]: `${this.placeCodeName()}`,
+      [MapView.national]: areaCountString,
+      [MapView.event]: areaCountString,
+      [MapView.adminArea]: `${this.placeCodeName()} (${this.placeCodeParentName()})`,
     };
 
     return {
       headerLabel: header[this.getMapView()],
       subHeaderLabel: subHeader[this.getMapView()],
     };
+  }
+
+  private getEventNameString(): string {
+    if (this.placeCode) {
+      return this.placeCode.eventName;
+    }
+
+    if (this.placeCodeHover) {
+      return this.placeCodeHover.eventName;
+    }
+
+    return this.eventState?.event?.eventName;
   }
 
   private adminAreaLabel() {
