@@ -163,6 +163,14 @@
       color: var(--ion-color-ibf-no-alert-primary) !important;
     }
   }
+
+  &.is-selected {
+    .dialogue-turn--content {
+      ion-card {
+        border: var(--ion-color-ibf-no-alert-primary) solid 2px;
+      }
+    }
+  }
 }
 
 .dialogue-turn.is-triggered {
