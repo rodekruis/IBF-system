@@ -42,17 +42,17 @@
         ],
         "droughtForecastSeasons": {
           "Karamoja": {
-            "1": {
+            "Karamoja": {
               "rainMonths": [4, 5, 6, 7, 8, 9, 10],
               "actionMonths": [2, 3, 4, 5, 6, 7, 8, 9, 10]
             }
           },
           "Central": {
-            "1": {
+            "MAM": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [1, 2, 3, 4, 5]
             },
-            "2": {
+            "OND": {
               "rainMonths": [9, 10, 11],
               "actionMonths": [7, 8, 9, 10, 11]
             }
@@ -516,11 +516,11 @@
         ],
         "droughtForecastSeasons": {
           "National": {
-            "1": {
+            "MAM": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [12, 1, 2, 3, 4, 5]
             },
-            "2": {
+            "OND": {
               "rainMonths": [10, 11, 12],
               "actionMonths": [6, 7, 8, 9, 10, 11, 12]
             }
@@ -627,31 +627,31 @@
         ],
         "droughtForecastSeasons": {
           "Belg": {
-            "1": {
+            "Belg MAM": {
               "rainMonths": [2, 3, 4, 5],
               "actionMonths": [10, 11, 12, 1, 2, 3, 4, 5]
             },
-            "2": {
+            "Belg OND": {
               "rainMonths": [6, 7, 8, 9],
               "actionMonths": [5, 6, 7, 8, 9]
             }
           },
           "Northern": {
-            "1": {
+            "Northern MAM": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [10, 11, 12, 1, 2, 3, 4, 5]
             },
-            "2": {
+            "Northern OND": {
               "rainMonths": [7, 8, 9],
               "actionMonths": [6, 7, 8, 9]
             }
           },
           "Southern": {
-            "1": {
+            "Southern MAM": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [1, 2, 3, 4, 5]
             },
-            "2": {
+            "Southern OND": {
               "rainMonths": [10, 11, 12],
               "actionMonths": [6, 7, 8, 9, 10, 11, 12]
             }

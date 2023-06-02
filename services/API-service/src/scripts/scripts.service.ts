@@ -500,7 +500,7 @@ export class ScriptsService {
       for (const seasonKey of Object.keys(seasons)) {
         for (const month of seasons[seasonKey][this.rainMonthsKey]) {
           if (month === leadTimeMonthFirstDay.getMonth() + 1) {
-            return `${eventRegion}_${date.getFullYear()}_${seasonKey}`;
+            return `${seasonKey}_${eventRegion}`;
           }
         }
       }

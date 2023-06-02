@@ -94,6 +94,7 @@ export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
       placeCodeName: area.name,
       placeCode: area.placeCode,
       placeCodeParentName: area.nameParent,
+      eventName: this.event?.eventName || null,
     });
   }
 

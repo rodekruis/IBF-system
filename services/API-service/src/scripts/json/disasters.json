@@ -1,7 +1,7 @@
 [
   {
     "disasterType": "floods",
-    "label": "floods",
+    "label": "flood",
     "triggerUnit": "alert_threshold",
     "actionsUnit": "population_affected",
     "showOnlyTriggeredAreas": true
@@ -43,7 +43,7 @@
   },
   {
     "disasterType": "flash-floods",
-    "label": "flash floods",
+    "label": "flash flood",
     "triggerUnit": "alert_threshold",
     "actionsUnit": "population_affected",
     "showOnlyTriggeredAreas": false

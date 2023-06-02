@@ -71,7 +71,8 @@
     "stopped-prefix": "Manually stopped",
     "all-prefix": "All",
     "exposed-subgroups": "",
-    "stopped-placecode": "(stopped)"
+    "stopped-placecode": "(stopped)",
+    "national-view": "National View"
   },
   "areas-of-focus-summary-component": {
     "title": "Actions Summary",
@@ -143,7 +144,7 @@
       },
       "active-event-active-trigger": {
         "header": "Trigger: {{ disasterTypeLabel }}",
-        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
@@ -168,7 +169,7 @@
       "active-event-active-trigger": {
         "header": "Trigger: {{ eventName }} at {{firstLeadTimeDate}}",
         "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
-        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away.",
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away.",
         "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>, but it can currently not be predicted to reach trigger thresholds yet. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
       },
       "active-event": {
@@ -184,8 +185,8 @@
         "area": "The flash floods trigger warning for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       },
       "event-switcher": {
-        "current-event-message": "Collapse {{eventName}} event",
-        "switch-event-button": "Show {{eventName}} event"
+        "current-event-message": "Back to national view",
+        "switch-event-button": "Show prediction"
       }
     },
     "drought": {
@@ -195,8 +196,8 @@
       },
       "active-event-active-trigger": {
         "header": "Trigger: {{ eventName }} in {{firstLeadTimeDate}}",
-        "welcome": "A {{ disasterTypeLabel }} trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
-        "welcome-duration": "A {{ disasterTypeLabel }} trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
+        "welcome-duration": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
@@ -232,8 +233,8 @@
         "area": "The drought trigger warning for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       },
       "event-switcher": {
-        "current-event-message": "Collapse regional view",
-        "switch-event-button": "Expand regional view"
+        "current-event-message": "Back to national view",
+        "switch-event-button": "Show prediction"
       }
     },
     "typhoon": {
@@ -270,7 +271,7 @@
       },
       "event-switcher": {
         "current-event-message": "The portal is currently showing this event.",
-        "switch-event-button": "Show {{eventName}}"
+        "switch-event-button": "Show prediction"
       }
     },
     "heavy-rain": {

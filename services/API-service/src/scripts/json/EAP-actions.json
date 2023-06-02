@@ -105,8 +105,8 @@
     "action": "uga-drr-1",
     "label": "Early warning information and tailored advisories (when to plant, micro gardening)",
     "month": {
-      "Karamoja": { "1": 2 },
-      "Central": { "1": 1, "2": 7 }
+      "Karamoja": { "Karamoja": 2 },
+      "Central": { "MAM": 1, "OND": 7 }
     }
   },
   {
@@ -116,8 +116,8 @@
     "action": "uga-drr-2",
     "label": "Peer education for behaviour change communication",
     "month": {
-      "Karamoja": { "1": 2 },
-      "Central": { "1": 1, "2": 7 }
+      "Karamoja": { "Karamoja": 2 },
+      "Central": { "MAM": 1, "OND": 7 }
     }
   },
   {
@@ -127,8 +127,8 @@
     "action": "uga-inclusion-1",
     "label": "Sensitization/awareness raising on PGI + MHM kits",
     "month": {
-      "Karamoja": { "1": 2 },
-      "Central": { "1": 1, "2": 7 }
+      "Karamoja": { "Karamoja": 2 },
+      "Central": { "MAM": 1, "OND": 7 }
     }
   },
   {
@@ -138,8 +138,8 @@
     "action": "uga-wash-1",
     "label": "Orientation of water user committees",
     "month": {
-      "Karamoja": { "1": 2 },
-      "Central": { "1": 1, "2": 7 }
+      "Karamoja": { "Karamoja": 2 },
+      "Central": { "MAM": 1, "OND": 7 }
     }
   },
   {
@@ -149,8 +149,8 @@
     "action": "uga-livelihood-1",
     "label": "Demonstration of appropriate storage facilities and post harvest handling",
     "month": {
-      "Karamoja": { "1": 3 },
-      "Central": { "1": 2, "2": 8 }
+      "Karamoja": { "Karamoja": 3 },
+      "Central": { "MAM": 2, "OND": 8 }
     }
   },
   {
@@ -160,8 +160,8 @@
     "action": "uga-wash-2",
     "label": "Training on bore hole repairs and maintenance",
     "month": {
-      "Karamoja": { "1": 3 },
-      "Central": { "1": 2, "2": 8 }
+      "Karamoja": { "Karamoja": 3 },
+      "Central": { "MAM": 2, "OND": 8 }
     }
   },
   {
@@ -171,8 +171,8 @@
     "action": "uga-livelihood-2",
     "label": "Provision and distribution of improved seed varieties/planting materials",
     "month": {
-      "Karamoja": { "1": 3 },
-      "Central": { "1": 2, "2": 8 }
+      "Karamoja": { "Karamoja": 3 },
+      "Central": { "MAM": 2, "OND": 8 }
     }
   },
   {
@@ -182,8 +182,8 @@
     "action": "uga-wash-3",
     "label": "Provide water storage vessels",
     "month": {
-      "Karamoja": { "1": 3 },
-      "Central": { "1": 2, "2": 8 }
+      "Karamoja": { "Karamoja": 3 },
+      "Central": { "MAM": 2, "OND": 8 }
     }
   },
   {
@@ -193,8 +193,8 @@
     "action": "uga-inclusion-2",
     "label": "Apprenticeship training for girls and boys for income diversification (weaving, sowing, crafts)",
     "month": {
-      "Karamoja": { "1": 3 },
-      "Central": { "1": 2, "2": 8 }
+      "Karamoja": { "Karamoja": 3 },
+      "Central": { "MAM": 2, "OND": 8 }
     }
   },
   {
@@ -204,8 +204,8 @@
     "action": "uga-livelihood-3",
     "label": "Massive vaccination of animals",
     "month": {
-      "Karamoja": { "1": 3 },
-      "Central": { "1": 2, "2": 8 }
+      "Karamoja": { "Karamoja": 3 },
+      "Central": { "MAM": 2, "OND": 8 }
     }
   },
   {
@@ -215,8 +215,8 @@
     "action": "uga-livelihood-4",
     "label": "Preparing and storage of fodder/hay/foliage",
     "month": {
-      "Karamoja": { "1": 3 },
-      "Central": { "1": 2, "2": 8 }
+      "Karamoja": { "Karamoja": 3 },
+      "Central": { "MAM": 2, "OND": 8 }
     }
   },
   {
@@ -226,8 +226,8 @@
     "action": "uga-livelihood-5",
     "label": "Food procurement for food assistance and shcool feeding",
     "month": {
-      "Karamoja": { "1": 7 },
-      "Central": { "1": null, "2": null }
+      "Karamoja": { "Karamoja": 7 },
+      "Central": { "MAM": null, "OND": null }
     }
   },
   {
@@ -237,8 +237,8 @@
     "action": "uga-livelihood-6",
     "label": "Food assistance as per trigger calendar at the end of the seasons (possibly in collaboration with WFP on PGI conditions)",
     "month": {
-      "Karamoja": { "1": 10 },
-      "Central": { "1": null, "2": null }
+      "Karamoja": { "Karamoja": 10 },
+      "Central": { "MAM": null, "OND": null }
     }
   },
   {
@@ -248,8 +248,8 @@
     "action": "uga-livelihood-7",
     "label": "School feeding programme for primary schools",
     "month": {
-      "Karamoja": { "1": 10 },
-      "Central": { "1": null, "2": null }
+      "Karamoja": { "Karamoja": 10 },
+      "Central": { "MAM": null, "OND": null }
     }
   },
   {
@@ -259,8 +259,8 @@
     "action": "uga-inclusion-3",
     "label": "Sensitization/awareness raising on PGI + MHM kits",
     "month": {
-      "Karamoja": { "1": 10 },
-      "Central": { "1": null, "2": null }
+      "Karamoja": { "Karamoja": 10 },
+      "Central": { "MAM": null, "OND": null }
     }
   },
   {
@@ -270,8 +270,8 @@
     "action": "uga-livelihood-8",
     "label": "Provision and distribution of improved seed varieties/planting materials for the new season ahead",
     "month": {
-      "Karamoja": { "1": 10 },
-      "Central": { "1": null, "2": null }
+      "Karamoja": { "Karamoja": 10 },
+      "Central": { "MAM": null, "OND": null }
     }
   },
   {
@@ -726,8 +726,8 @@
     "label": "Market analysis",
     "month": {
       "National": {
-        "1": 1,
-        "2": 7
+        "MAM": 1,
+        "OND": 7
       }
     }
   },
@@ -741,8 +741,8 @@
     "label": "Pre-agreement with suppliers on procurement",
     "month": {
       "National": {
-        "1": 2,
-        "2": 7
+        "MAM": 2,
+        "OND": 7
       }
     }
   },
@@ -756,8 +756,8 @@
     "label": "Preparatory activities for cash for water",
     "month": {
       "National": {
-        "1": 1,
-        "2": 7
+        "MAM": 1,
+        "OND": 7
       }
     }
   },
@@ -771,8 +771,8 @@
     "label": "CVA or Market-based intervention",
     "month": {
       "National": {
-        "1": 2,
-        "2": 8
+        "MAM": 2,
+        "OND": 8
       }
     }
   },
@@ -786,8 +786,8 @@
     "label": "Cash for water",
     "month": {
       "National": {
-        "1": 1,
-        "2": 8
+        "MAM": 1,
+        "OND": 8
       }
     }
   },
@@ -801,8 +801,8 @@
     "label": "Disseminating early warning information",
     "month": {
       "National": {
-        "1": 2,
-        "2": 9
+        "MAM": 2,
+        "OND": 9
       }
     }
   },
@@ -816,8 +816,8 @@
     "label": "Rangeland management",
     "month": {
       "National": {
-        "1": 2,
-        "2": 9
+        "MAM": 2,
+        "OND": 9
       }
     }
   },
@@ -831,8 +831,8 @@
     "label": "Distribute pasture seed",
     "month": {
       "National": {
-        "1": 2,
-        "2": 9
+        "MAM": 2,
+        "OND": 9
       }
     }
   },
@@ -846,8 +846,8 @@
     "label": "Advocation pasture management",
     "month": {
       "National": {
-        "1": 2,
-        "2": 9
+        "MAM": 2,
+        "OND": 9
       }
     }
   },
@@ -861,8 +861,8 @@
     "label": "Installation of mass water storage tanks",
     "month": {
       "National": {
-        "1": 9,
-        "2": 2
+        "MAM": 9,
+        "OND": 2
       }
     }
   },
@@ -876,8 +876,8 @@
     "label": "Rapid assessment of water facilities",
     "month": {
       "National": {
-        "1": 2,
-        "2": 9
+        "MAM": 2,
+        "OND": 9
       }
     }
   },
@@ -891,8 +891,8 @@
     "label": "Destilting of water pans, repair of earth dams",
     "month": {
       "National": {
-        "1": 2,
-        "2": 9
+        "MAM": 2,
+        "OND": 9
       }
     }
   },
@@ -906,8 +906,8 @@
     "label": "Prioritize key/critical water facilities",
     "month": {
       "National": {
-        "1": 3,
-        "2": 10
+        "MAM": 3,
+        "OND": 10
       }
     }
   },
@@ -1074,16 +1074,16 @@
     "label": "A1. Rehabilitation of critical water facilities (boreholes, shallow wells, hand-dug wells with",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 6
+        "Belg MAM": 2,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1097,16 +1097,16 @@
     "label": "A2. Demarcate and preserve drought time water sources (boreholes, birkas, ponds etc.)",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1120,16 +1120,16 @@
     "label": "A3. Promote water preservation and wise utilization techniques",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1143,16 +1143,16 @@
     "label": "A4. Introduce water preservation and wise utilization techniques",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 6
+        "Belg MAM": 2,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": 2,
-        "2": 7
+        "Northern MAM": 2,
+        "Northern OND": 7
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1166,16 +1166,16 @@
     "label": "A5. Engage the WSH sector - Water treatment",
     "month": {
       "Belg": {
-        "1": 3,
-        "2": 7
+        "Belg MAM": 3,
+        "Belg OND": 7
       },
       "Northern": {
-        "1": 2,
-        "2": 7
+        "Northern MAM": 2,
+        "Northern OND": 7
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1189,16 +1189,16 @@
     "label": "A6. Awareness creation",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1212,16 +1212,16 @@
     "label": "A7. Conflict negotiation",
     "month": {
       "Belg": {
-        "1": 3,
-        "2": 7
+        "Belg MAM": 3,
+        "Belg OND": 7
       },
       "Northern": {
-        "1": 2,
-        "2": 7
+        "Northern MAM": 2,
+        "Northern OND": 7
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1235,16 +1235,16 @@
     "label": "A8. Pre-position of relevant medicines (for malaria, water-borne diseases, first aid equipment, mosquito nets)",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 6
+        "Belg MAM": 2,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": 2,
-        "2": 6
+        "Northern MAM": 2,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1258,16 +1258,16 @@
     "label": "A9. Promote awareness on water born disease control (such as cholera), use of mosquito net, basic sanitation (latrine, hand washing, drinking water treatment etc.)",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1281,16 +1281,16 @@
     "label": "A10. Support water harvesting in schools/other social service providers",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 6
+        "Belg MAM": 2,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": 2,
-        "2": 6
+        "Northern MAM": 2,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1304,16 +1304,16 @@
     "label": "A11. Training for Red Cross local staff, DAS, health extensions, local leaders",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1327,16 +1327,16 @@
     "label": "A12. Cleaning and de-silting of water sources - river, springs, wells to avoid mosquitoes breeding in stagnant water",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 6
+        "Belg MAM": 2,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": 2,
-        "2": 7
+        "Northern MAM": 2,
+        "Northern OND": 7
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1350,16 +1350,16 @@
     "label": "B1. Promote food saving",
     "month": {
       "Belg": {
-        "1": 3,
-        "2": 6
+        "Belg MAM": 3,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": 2,
-        "2": 6
+        "Northern MAM": 2,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1373,16 +1373,16 @@
     "label": "B2. Promote planting of short maturing and drought tolerant vegetable and crop varieties",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": null,
-        "2": 6
+        "Northern MAM": null,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 2
+        "Southern MAM": 9,
+        "Southern OND": 2
       }
     }
   },
@@ -1396,16 +1396,16 @@
     "label": "B3. Preposition short maturing, drought tolerant vegetable, healty and nutritious crop and vegetable varieties",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": null,
-        "2": 6
+        "Northern MAM": null,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1419,16 +1419,16 @@
     "label": "B4. Provide and distribute short maturing, drought tolerant vegetable, healty and nutritious crop and vegetable varieties",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 6
+        "Belg MAM": 2,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": null,
-        "2": 7
+        "Northern MAM": null,
+        "Northern OND": 7
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1442,16 +1442,16 @@
     "label": "B5. Promote safe usage of alternative foods (wild foods, fishing, hunting etc.)",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 5
+        "Belg MAM": 2,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 2,
-        "2": 6
+        "Northern MAM": 2,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1465,16 +1465,16 @@
     "label": "B6, Water harvesting on the farmland + soil moisture conservation",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 6
+        "Belg MAM": 2,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": 2,
-        "2": 6
+        "Northern MAM": 2,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1488,16 +1488,16 @@
     "label": "B7. Asset protection intervention, through cash for work / food for work",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 6
+        "Belg MAM": 2,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": 3,
-        "2": 7
+        "Northern MAM": 3,
+        "Northern OND": 7
       },
       "Southern": {
-        "1": 10,
-        "2": 3
+        "Southern MAM": 10,
+        "Southern OND": 3
       }
     }
   },
@@ -1511,16 +1511,16 @@
     "label": "B8. Providing improved storage materials/equipment (triple bag, metal silo) to reduce post harvest losses",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 6
+        "Belg MAM": 2,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": null,
-        "2": 6
+        "Northern MAM": null,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1534,16 +1534,16 @@
     "label": "B9. Training for Red Cross local staff, DAS, health extensions, local leaders",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": null,
-        "2": 1
+        "Southern MAM": null,
+        "Southern OND": 1
       }
     }
   },
@@ -1557,16 +1557,16 @@
     "label": "B10. Training selected women on screening of early malnutrition signs and symptoms to refer to health centers",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1580,16 +1580,16 @@
     "label": "B11. Awareness creation for target communities",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1603,16 +1603,16 @@
     "label": "C1. Vaccination",
     "month": {
       "Belg": {
-        "1": 3,
-        "2": 6
+        "Belg MAM": 3,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": 2,
-        "2": 7
+        "Northern MAM": 2,
+        "Northern OND": 7
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1626,16 +1626,16 @@
     "label": "C2. Pre-stocking of vet medicines and equipment",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 5
+        "Belg MAM": 2,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1649,16 +1649,16 @@
     "label": "C3. Provide short maturing forage seed/planting for livestock and cash for abimal feed production",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 6
+        "Belg MAM": 2,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": null,
-        "2": 6
+        "Northern MAM": null,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": null,
-        "2": 2
+        "Southern MAM": null,
+        "Southern OND": 2
       }
     }
   },
@@ -1672,16 +1672,16 @@
     "label": "C4. Engage cooperatives, private investors in provision of animal feed and contract signing",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 6
+        "Belg MAM": 2,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": 2,
-        "2": 7
+        "Northern MAM": 2,
+        "Northern OND": 7
       },
       "Southern": {
-        "1": 9,
-        "2": 2
+        "Southern MAM": 9,
+        "Southern OND": 2
       }
     }
   },
@@ -1695,16 +1695,16 @@
     "label": "C5. Provide cash/in kind for animal feed",
     "month": {
       "Belg": {
-        "1": 4,
-        "2": 7
+        "Belg MAM": 4,
+        "Belg OND": 7
       },
       "Northern": {
-        "1": 3,
-        "2": 8
+        "Northern MAM": 3,
+        "Northern OND": 8
       },
       "Southern": {
-        "1": 10,
-        "2": 3
+        "Southern MAM": 10,
+        "Southern OND": 3
       }
     }
   },
@@ -1718,16 +1718,16 @@
     "label": "C6. Promote systematic destocking (together with marketing)",
     "month": {
       "Belg": {
-        "1": 3,
-        "2": 7
+        "Belg MAM": 3,
+        "Belg OND": 7
       },
       "Northern": {
-        "1": 3,
-        "2": 8
+        "Northern MAM": 3,
+        "Northern OND": 8
       },
       "Southern": {
-        "1": 11,
-        "2": 3
+        "Southern MAM": 11,
+        "Southern OND": 3
       }
     }
   },
@@ -1741,16 +1741,16 @@
     "label": "C7. Promote systematic migration with livestock to other pasture and water available areas (herd splitting like browsers can stay behind a bit longer) whenever it is applicable",
     "month": {
       "Belg": {
-        "1": 4,
-        "2": 7
+        "Belg MAM": 4,
+        "Belg OND": 7
       },
       "Northern": {
-        "1": 4,
-        "2": 8
+        "Northern MAM": 4,
+        "Northern OND": 8
       },
       "Southern": {
-        "1": 11,
-        "2": 3
+        "Southern MAM": 11,
+        "Southern OND": 3
       }
     }
   },
@@ -1764,16 +1764,16 @@
     "label": "C8. Conflict resolution or negotiation of resource sharing",
     "month": {
       "Belg": {
-        "1": 3,
-        "2": 6
+        "Belg MAM": 3,
+        "Belg OND": 6
       },
       "Northern": {
-        "1": 3,
-        "2": 7
+        "Northern MAM": 3,
+        "Northern OND": 7
       },
       "Southern": {
-        "1": 10,
-        "2": 2
+        "Southern MAM": 10,
+        "Southern OND": 2
       }
     }
   },
@@ -1787,16 +1787,16 @@
     "label": "C9. Introduce temporary slaughter houses (communities also can make dry meat-qwanta) whenever it is applicable",
     "month": {
       "Belg": {
-        "1": 5,
-        "2": 8
+        "Belg MAM": 5,
+        "Belg OND": 8
       },
       "Northern": {
-        "1": 5,
-        "2": 9
+        "Northern MAM": 5,
+        "Northern OND": 9
       },
       "Southern": {
-        "1": 12,
-        "2": 5
+        "Southern MAM": 12,
+        "Southern OND": 5
       }
     }
   },
@@ -1810,16 +1810,16 @@
     "label": "C10. Promoting area closure (rangeland management)",
     "month": {
       "Belg": {
-        "1": 2,
-        "2": 5
+        "Belg MAM": 2,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1833,16 +1833,16 @@
     "label": "C11. Training for Red Cross local staff, DAS, health extension, local leaders",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },
@@ -1856,16 +1856,16 @@
     "label": "C12. Awareness creation",
     "month": {
       "Belg": {
-        "1": 1,
-        "2": 5
+        "Belg MAM": 1,
+        "Belg OND": 5
       },
       "Northern": {
-        "1": 1,
-        "2": 6
+        "Northern MAM": 1,
+        "Northern OND": 6
       },
       "Southern": {
-        "1": 9,
-        "2": 1
+        "Southern MAM": 9,
+        "Southern OND": 1
       }
     }
   },

@@ -6,11 +6,7 @@
         [innerHtml]="
           'chat-component.' +
             disasterTypeName +
-            '.event-switcher.current-event-message'
-            | translate
-              : {
-                  eventName: event?.eventName
-                }
+            '.event-switcher.current-event-message' | translate
         "
       ></strong>
     </p>
@@ -53,11 +49,7 @@
         [innerHtml]="
           'chat-component.' +
             disasterTypeName +
-            '.event-switcher.switch-event-button'
-            | translate
-              : {
-                  eventName: event?.eventName
-                }
+            '.event-switcher.switch-event-button' | translate
         "
       ></span>
       <ion-icon name="arrow-forward" slot="end"></ion-icon>
