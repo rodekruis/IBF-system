@@ -282,14 +282,14 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private getEventNameString(): string {
     if (this.placeCode) {
-      return this.placeCode.eventName;
+      return this.placeCode.eventName.split('_')[0];
     }
 
     if (this.placeCodeHover) {
-      return this.placeCodeHover.eventName;
+      return this.placeCodeHover.eventName.split('_')[0];
     }
 
-    return this.eventState?.event?.eventName;
+    return this.eventState?.event?.eventName.split('_')[0];
   }
 
   private adminAreaLabel() {
