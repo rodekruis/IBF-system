@@ -26,6 +26,7 @@ export class DisasterTypeService {
       DisasterTypeKey.floods,
       DisasterTypeKey.drought,
       DisasterTypeKey.typhoon,
+      DisasterTypeKey.flashFloods,
     ];
     return eapDisasterTypes.includes(disasterType) ? 'eap' : 'no-eap';
   }

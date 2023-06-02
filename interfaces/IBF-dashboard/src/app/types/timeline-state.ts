@@ -12,6 +12,7 @@ export class TimeStepButton {
   unit: LeadTimeUnit;
   value: LeadTime;
   alert: boolean;
+  thresholdReached: boolean;
   disabled: boolean;
   active: boolean;
   noEvent: boolean;

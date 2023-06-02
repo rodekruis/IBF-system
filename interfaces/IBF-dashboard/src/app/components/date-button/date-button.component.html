@@ -1,11 +1,23 @@
-<span>
-  <div *ngIf="displayDate">
-    <span class="date">{{ displayDate }}</span>
+<span class="date-text">
+  <div *ngIf="firstLine">
+    <span class="first-line">{{ firstLine }}</span>
     <br />
   </div>
-  <span class="month">{{ displayMonth }}</span>
-  <div *ngIf="displayHour">
-    <span class="hour">{{ displayHour }}</span>
+  <span class="second-line">{{ secondLine }}</span>
+  <div *ngIf="thirdLine">
+    <span class="third-line">{{ thirdLine }}</span>
     <br />
   </div>
 </span>
+<ion-icon
+  *ngIf="alert && thresholdReached"
+  class="warning-icon"
+  src="/assets/icons/Alert_Title_Purple.svg"
+  slot="end"
+></ion-icon>
+<ion-icon
+  *ngIf="alert && !thresholdReached"
+  class="warning-icon"
+  src="/assets/icons/Alert_Title_Navy.svg"
+  slot="end"
+></ion-icon>

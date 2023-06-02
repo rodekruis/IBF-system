@@ -1,4 +1,4 @@
-<ng-container *ngIf="eventState?.thresholdReached">
+<ng-container *ngIf="eventState?.thresholdReached && showAreasOfFocusSummary()">
   <ion-row
     class="component-title"
     color="ibf-secondary"
@@ -6,7 +6,6 @@
   >
     <ion-col size-lg="8" size-md="8" size-xs="8" class="ion-no-padding">
       <ion-item
-        lines="none"
         class="component-title-item ion-padding-left ion-no-margin ion-align-items-start"
         color="ibf-secondary"
       >
@@ -55,11 +54,16 @@
   <ion-row
     *ngFor="let areaOfFocus of areasOfFocus"
     class="ion-no-padding"
+    style="margin-bottom: 1px"
     data-test="action-summary-types"
   >
     <ng-container>
       <ion-col size-lg="8" size-md="8" size-xs="8">
-        <ion-item lines="inset" class="areas-of-focus-item ion-no-padding">
+        <ion-item
+          lines="none"
+          class="areas-of-focus-item ion-no-padding"
+          color="ibf-white"
+        >
           <ion-thumbnail slot="start" class="areas-of-focus-item-thumbnail">
             <ion-img src="assets/icons/{{ areaOfFocus.icon }}"></ion-img>
           </ion-thumbnail>
@@ -69,7 +73,7 @@
         </ion-item>
       </ion-col>
       <ion-col size-lg="3" size-md="3" size-xs="3">
-        <ion-item class="areas-of-focus-item-value" color="ibf-tertiary">
+        <ion-item lines="none" class="areas-of-focus-item-value">
           <ion-label color="ibf-black">
             <span
               >{{ areaOfFocus.countChecked }} / {{ areaOfFocus.count }}</span
@@ -79,9 +83,11 @@
       </ion-col>
       <ion-col size-lg="1" size-md="1" size-xs="1">
         <ion-item
+          lines="none"
           class="areas-of-focus-item-information-icon ion-no-padding"
           data-test="icon-row"
           style="--inner-padding-end: 0px"
+          color="ibf-white"
         >
           <ion-label>
             <img

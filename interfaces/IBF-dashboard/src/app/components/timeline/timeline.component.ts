@@ -10,7 +10,9 @@ import { TimelineService } from 'src/app/services/timeline.service';
 import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
 import { PlaceCode } from '../../models/place-code.model';
+import { DisasterTypeService } from '../../services/disaster-type.service';
 import { PlaceCodeService } from '../../services/place-code.service';
+import { DisasterTypeKey } from '../../types/disaster-type-key';
 
 @Component({
   selector: 'app-timeline',
@@ -28,6 +30,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
     public timelineService: TimelineService,
     private analyticsService: AnalyticsService,
     private eventService: EventService,
+    private disasterTypeService: DisasterTypeService,
     private placeCodeService: PlaceCodeService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {}
@@ -77,8 +80,12 @@ export class TimelineComponent implements OnInit, OnDestroy {
   };
 
   private onPlaceCodeHoverChange = (placeCode: PlaceCode) => {
-    this.placeCodeHover = placeCode;
-    if (!this.eventService.state.event) {
+    if (
+      !this.eventService.state.event &&
+      this.disasterTypeService?.disasterType?.disasterType !==
+        DisasterTypeKey.flashFloods
+    ) {
+      this.placeCodeHover = placeCode;
       if (this.placeCodeHover) {
         const btn = this.timelineState?.timeStepButtons?.find(
           (t) => t.eventName === placeCode.eventName,

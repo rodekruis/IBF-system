@@ -27,7 +27,6 @@ import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.d
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
-import { CountryService } from '../country/country.service';
 import { DateDto } from './dto/date.dto';
 import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
 import { DisasterType } from '../disaster/disaster-type.enum';
@@ -57,7 +56,6 @@ export class EventService {
   private readonly eventMapImageRepository: Repository<EventMapImageEntity>;
 
   public constructor(
-    private countryService: CountryService,
     private eapActionsService: EapActionsService,
     private helperService: HelperService,
     private connection: Connection,
@@ -605,8 +603,8 @@ export class EventService {
       .addSelect('MAX(area.value) AS "triggerValue"')
       .where(whereFilters)
       .andWhere(
-        `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" = 'typhoon'))`,
-      ) // Also allow value=0 entries with typhoon event name (= below trigger event)
+        `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" IN ('flash-floods','typhoon')))`,
+      ) // Also allow value=0 entries with typhoon/flash-floods and event name (= below trigger event)
       .groupBy('area."placeCode"')
       .getRawMany();
 

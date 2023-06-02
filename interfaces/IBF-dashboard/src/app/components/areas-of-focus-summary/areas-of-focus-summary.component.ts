@@ -75,6 +75,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       const filteredAreas = this.triggeredAreas.filter(
         filterTriggeredAreasByPlaceCode,
       );
+
       this.calculateEAPActionStatus(filteredAreas);
     } else {
       this.calculateEAPActionStatus(this.triggeredAreas);
@@ -154,5 +155,18 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     });
 
     popover.present();
+  }
+
+  public showAreasOfFocusSummary(): boolean {
+    let show = false;
+
+    for (const area of this.triggeredAreas) {
+      if (area.eapActions.length > 0) {
+        show = true;
+        break;
+      }
+    }
+
+    return show;
   }
 }

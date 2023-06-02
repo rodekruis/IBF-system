@@ -96,23 +96,28 @@ export class TimelineService {
     index: number,
   ): void => {
     const leadTime = leadTimeInput.leadTime;
-    const isLeadTimeEnabled = this.isLeadTimeEnabled(leadTime);
+    const isLeadTimeEnabled =
+      this.isLeadTimeEnabled(leadTime) &&
+      this.disasterType.disasterType !== DisasterTypeKey.flashFloods;
     const isUndefinedLeadTime = this.eventState.events
       .filter((e) => e.disasterSpecificProperties?.typhoonNoLandfallYet)
       .map((e) => e.firstLeadTime)
       .includes(leadTime);
     const triggerKey = LeadTimeTriggerKey[leadTime];
+    const alert =
+      this.triggersAllEvents &&
+      this.triggersAllEvents[leadTime] &&
+      this.triggersAllEvents[leadTime] === '1' &&
+      (!isUndefinedLeadTime ||
+        (isUndefinedLeadTime && leadTimeInput.undefined));
+
     this.state.timeStepButtons[index] = {
       date: this.getLeadTimeDate(leadTime, triggerKey, leadTimeInput.undefined),
       unit: leadTime.split('-')[1] as LeadTimeUnit,
       value: leadTime,
-      alert:
-        this.triggersAllEvents &&
-        this.triggersAllEvents[leadTime] &&
-        this.triggersAllEvents[leadTime] === '1' &&
-        this.triggersAllEvents[`${leadTime}-thresholdReached`] === '1' &&
-        (!isUndefinedLeadTime ||
-          (isUndefinedLeadTime && leadTimeInput.undefined)),
+      alert,
+      thresholdReached:
+        alert && this.triggersAllEvents[`${leadTime}-thresholdReached`] === '1',
       disabled: !isLeadTimeEnabled && !leadTimeInput.undefined,
       active: false,
       noEvent: this.isNoEvent(),
@@ -154,9 +159,17 @@ export class TimelineService {
       } else {
         this.handleTimeStepButtonClick(toShowTimeStepButtons[0].value);
       }
-    } // except if that leads to still empty set: assume this is the typhoon no-event scenario
+    } // except if that leads to still empty set:
     else if (toShowTimeStepButtons.length === 0) {
-      this.handleTimeStepButtonClick(LeadTime.hour72, null, true);
+      // assume this is the typhoon no-event scenario
+      if (this.disasterType.disasterType === DisasterTypeKey.typhoon) {
+        this.handleTimeStepButtonClick(LeadTime.hour72, null, true);
+      } else if (
+        // or the flash-floods scenario where all buttons are disabled
+        this.disasterType.disasterType === DisasterTypeKey.flashFloods
+      ) {
+        this.handleTimeStepButtonClick(null, null);
+      }
     }
   };
 
@@ -253,11 +266,24 @@ export class TimelineService {
     }
   }
 
-  private isLeadTimeEnabled(leadTime: LeadTime): boolean {
+  private isLeadTimeEnabled(
+    leadTime: LeadTime,
+    previouslyAddedLeadTimes?: LeadTimeButtonInput[],
+  ): boolean {
     const leadTimes = this.country
       ? this.getCountryDisasterAttribute('activeLeadTimes')
       : [];
     const leadTimeIndex = leadTimes.indexOf(leadTime);
+
+    // for flash-floods keep only 1 lead-time per day
+    if (
+      previouslyAddedLeadTimes
+        ?.map((lt) => this.getDateFromLeadTime(lt.leadTime))
+        .includes(this.getDateFromLeadTime(leadTime)) &&
+      this.disasterType.disasterType === DisasterTypeKey.flashFloods
+    ) {
+      return false;
+    }
 
     const leadTimeAvailable =
       leadTimeIndex >= 0 &&
@@ -280,7 +306,7 @@ export class TimelineService {
         visibleLeadTimes
           .map((lt) => lt.leadTime)
           .indexOf(leadTime.leadTimeName) === -1 &&
-        this.isLeadTimeEnabled(leadTime.leadTimeName)
+        this.isLeadTimeEnabled(leadTime.leadTimeName, visibleLeadTimes)
       ) {
         // add separate events with same lead-time, separately
         const filteredEvents = this.eventState.events.filter(
@@ -406,7 +432,14 @@ export class TimelineService {
       const maxLeadTime = countryLeadTimes[countryLeadTimes.length - 1];
       return leadTime > maxLeadTime ? false : true;
     } else if (disasterType.disasterType === DisasterTypeKey.flashFloods) {
-      return this.getCountryDisasterAttribute('activeLeadTimes');
+      // show 1 button per day ..
+      return (
+        [LeadTime.hour1, LeadTime.hour24, LeadTime.hour48].includes(leadTime) &&
+        // .. except if already one present for that day
+        !activeLeadTimes
+          .map((lt) => this.getDateFromLeadTime(lt.leadTime))
+          .includes(this.getDateFromLeadTime(leadTime))
+      );
     } else {
       return true;
     }
@@ -449,9 +482,7 @@ export class TimelineService {
         return leadTime === LeadTime.hour1;
       }
       const relevantLeadTimes = this.eventState?.activeTrigger
-        ? events
-            .filter((e) => !e.disasterSpecificProperties?.typhoonNoLandfallYet)
-            .map((e) => e.firstLeadTime)
+        ? events.map((e) => e.firstLeadTime)
         : [];
       return relevantLeadTimes.includes(leadTime);
     } else {

@@ -58,7 +58,7 @@ export class MapService {
       [-20, -20],
       [20, 20],
     ] as LatLngBoundsLiteral,
-    colorGradient: ['#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252'],
+    colorGradient: ['#F2F5FD', '#D6E0FA', '#A0B6EB', '#3D66B4', '#0E357B'],
     colorGradientTriggered: [
       '#F3F0FF',
       '#C8BAF5',
@@ -66,7 +66,9 @@ export class MapService {
       '#7B59E2',
       '#4F22D7',
     ],
-    defaultColor: '#969696',
+    defaultFillColor: '#A0B6EB',
+    strokeColor: '#969696',
+    colorStopped: '#d9d9d9',
     noDataColor: '#fcf2d4',
     transparentColor: 'transparent',
     defaultFillOpacity: 0.8,
@@ -771,7 +773,7 @@ export class MapService {
     colorThreshold,
     placeCode: string,
   ): string => {
-    let adminRegionFillColor = this.state.defaultColor;
+    let adminRegionFillColor = this.state.defaultFillColor;
     const currentColorGradient =
       this.eventState.activeTrigger && this.eventState.thresholdReached
         ? this.state.colorGradientTriggered
@@ -783,7 +785,7 @@ export class MapService {
 
     switch (true) {
       case areaState?.stopped:
-        adminRegionFillColor = this.state.colorGradient[0];
+        adminRegionFillColor = this.state.colorStopped;
         break;
       case colorPropertyValue === null:
         adminRegionFillColor = this.state.noDataColor;
@@ -808,7 +810,7 @@ export class MapService {
         adminRegionFillColor = currentColorGradient[4];
         break;
       default:
-        adminRegionFillColor = this.state.defaultColor;
+        adminRegionFillColor = this.state.defaultFillColor;
     }
 
     return adminRegionFillColor;
@@ -870,7 +872,7 @@ export class MapService {
   getAdminRegionColor = (layer: IbfLayer, placeCode: string): string => {
     let color =
       layer.group === IbfLayerGroup.adminRegions
-        ? this.state.defaultColor
+        ? this.state.strokeColor
         : this.state.transparentColor;
 
     if (this.placeCode) {

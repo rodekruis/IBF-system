@@ -637,9 +637,8 @@ export class MapComponent implements OnDestroy {
           countryCodeISO3: feature.properties.countryCodeISO3,
           placeCodeName: feature.properties.name,
           placeCodeParentName: feature.properties.nameParent,
+          eventName: feature.properties.eventName,
         });
-        if (feature.properties.eventName) {
-        }
       }
     }
   };

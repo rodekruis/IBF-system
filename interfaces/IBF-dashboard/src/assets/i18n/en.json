@@ -71,7 +71,8 @@
     "stopped-prefix": "Manually stopped",
     "all-prefix": "All",
     "exposed-subgroups": "",
-    "stopped-placecode": "(stopped)"
+    "stopped-placecode": "(stopped)",
+    "national-view": "National View"
   },
   "areas-of-focus-summary-component": {
     "title": "Actions Summary",
@@ -142,7 +143,8 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
-        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
+        "header": "Trigger: {{ disasterTypeLabel }}",
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
@@ -165,13 +167,14 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
-        "welcome": "A trigger warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
-      },
-      "active-event-no-trigger": {
-        "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
+        "header": "Trigger: {{ eventName }} at {{firstLeadTimeDate}}",
+        "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away.",
+        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>, but it can currently not be predicted to reach trigger thresholds yet. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
+        "overview-below-trigger": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
         "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions (if applicable) of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:"
@@ -182,8 +185,8 @@
         "area": "The flash floods trigger warning for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       },
       "event-switcher": {
-        "current-event-message": "Collapse {{eventName}} event",
-        "switch-event-button": "Show {{eventName}} event"
+        "current-event-message": "Back to national view",
+        "switch-event-button": "Show prediction"
       }
     },
     "drought": {
@@ -192,8 +195,9 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
-        "welcome": "A {{ disasterTypeLabel }} trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
-        "welcome-duration": "A {{ disasterTypeLabel }} trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
+        "header": "Trigger: {{ eventName }} in {{firstLeadTimeDate}}",
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
+        "welcome-duration": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
@@ -229,8 +233,8 @@
         "area": "The drought trigger warning for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       },
       "event-switcher": {
-        "current-event-message": "Collapse regional view",
-        "switch-event-button": "Expand regional view"
+        "current-event-message": "Back to national view",
+        "switch-event-button": "Show prediction"
       }
     },
     "typhoon": {
@@ -239,6 +243,8 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
+        "header": "Trigger: {{ eventName }} at {{firstLeadTimeDate}}",
+        "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
         "welcome": "A trigger warning for <strong>{{ eventName }}</strong> was issued on {{ startDate }}.",
         "welcome-below-trigger": "A warning for <strong>{{ eventName }}</strong> was issued on {{ startDate }}, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
         "upcoming-event": {
@@ -253,6 +259,7 @@
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered for typhoon <strong>{{ eventName }}</strong>. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
+        "overview-below-trigger": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} exposed for typhoon <strong>{{ eventName }}</strong>. They are listed below in order of {{ actionIndicator}}.",
         "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Affected population:"
@@ -264,7 +271,7 @@
       },
       "event-switcher": {
         "current-event-message": "The portal is currently showing this event.",
-        "switch-event-button": "Show {{eventName}}"
+        "switch-event-button": "Show prediction"
       }
     },
     "heavy-rain": {
@@ -273,6 +280,7 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There is currently <strong>no alert</strong> issued."
       },
       "active-event-active-trigger": {
+        "header": "Alert: {{ disasterTypeLabel }}",
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
       },
       "active-event-no-trigger": {
@@ -296,6 +304,7 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for dengue issued."
       },
       "active-event-active-trigger": {
+        "header": "Alert: {{ disasterTypeLabel }}",
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
       },
       "active-event-no-trigger": {
@@ -319,6 +328,7 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
       },
       "active-event-active-trigger": {
+        "header": "Alert: {{ disasterTypeLabel }}",
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
       },
       "active-event-no-trigger": {

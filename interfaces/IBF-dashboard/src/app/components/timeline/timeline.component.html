@@ -10,14 +10,14 @@
     expand="full"
     disabled="{{ timeStepButton.disabled }}"
     color="{{
-      timeStepButton.alert
+      timeStepButton.thresholdReached
         ? 'ibf-trigger-alert-secondary'
         : 'ibf-no-alert-tertiary'
     }}"
     fill="solid"
     data-test="timeline-button"
     [class.active]="timeStepButton.active"
-    [class.alert]="timeStepButton.alert && !timeStepButton?.disabled"
+    [class.alert]="timeStepButton.thresholdReached && !timeStepButton?.disabled"
     [class.noEvent]="timeStepButton.noEvent"
     (click)="
       handleTimeStepButtonClick(timeStepButton.value, timeStepButton.eventName)
@@ -25,9 +25,9 @@
   >
     <app-date-button
       [date]="timeStepButton.date"
-      [unit]="timeStepButton.unit"
       [active]="!timeStepButton.disabled"
-      [todayButton]="false"
+      [alert]="timeStepButton.alert"
+      [thresholdReached]="timeStepButton.thresholdReached"
       [eventName]="timeStepButton.eventName"
       [duration]="timeStepButton.duration"
     ></app-date-button>

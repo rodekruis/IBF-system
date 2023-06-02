@@ -500,7 +500,7 @@ export class ScriptsService {
       for (const seasonKey of Object.keys(seasons)) {
         for (const month of seasons[seasonKey][this.rainMonthsKey]) {
           if (month === leadTimeMonthFirstDay.getMonth() + 1) {
-            return `${eventRegion}_${date.getFullYear()}_${seasonKey}`;
+            return `${seasonKey}_${eventRegion}`;
           }
         }
       }
@@ -739,12 +739,14 @@ export class ScriptsService {
     } else if (disasterType === DisasterType.FlashFloods && triggered) {
       if (
         (eventRegion === 'Rumphi' && activeLeadTime === LeadTime.hour2) ||
-        (eventRegion === 'Karonga' && activeLeadTime === LeadTime.hour4)
+        (eventRegion === 'Karonga' && activeLeadTime === LeadTime.hour24)
       ) {
         // loop from the end so index stays correct during splicing
         for (let i = copyOfExposureUnit.length - 1; i >= 0; i--) {
-          // for (const [index, pcodeData] of copyOfExposureUnit.entries()) {
-          if (copyOfExposureUnit[i].amount > 0) {
+          if (
+            copyOfExposureUnit[i].amount > 0 ||
+            [LeadTime.hour24, LeadTime.hour48].includes(activeLeadTime)
+          ) {
             const adminArea = await this.adminAreaRepo.findOne({
               where: { placeCode: copyOfExposureUnit[i].placeCode },
             });
@@ -804,6 +806,8 @@ export class ScriptsService {
           case 'ETH':
             if (droughtRegion === 'Belg') {
               placeCodes = ['ET0721'];
+            } else if (droughtRegion === 'Meher') {
+              placeCodes = ['ET0101'];
             } else if (droughtRegion === 'Northern') {
               placeCodes = ['ET0201'];
             } else if (droughtRegion === 'Southern') {
@@ -931,7 +935,7 @@ export class ScriptsService {
       PointDataEnum.schools,
       PointDataEnum.waterpointsInternal,
     ];
-    for (const leadTime of [LeadTime.hour2, LeadTime.hour4]) {
+    for (const leadTime of [LeadTime.hour2, LeadTime.hour24]) {
       for (const assetType of Object.keys(LinesDataEnum)) {
         const payload = new UploadLinesExposureStatusDto();
         payload.countryCodeISO3 = countryCodeISO3;
@@ -942,13 +946,13 @@ export class ScriptsService {
         if (assetType === LinesDataEnum.roads) {
           leadTime === LeadTime.hour2
             ? (payload.exposedFids = ['53221', '259691'])
-            : leadTime === LeadTime.hour4
+            : leadTime === LeadTime.hour24
             ? (payload.exposedFids = ['210949', '1588'])
             : [];
         } else if (assetType === LinesDataEnum.buildings) {
           leadTime === LeadTime.hour2
             ? (payload.exposedFids = ['167049', '1779084'])
-            : leadTime === LeadTime.hour4
+            : leadTime === LeadTime.hour24
             ? (payload.exposedFids = ['972757', '972755'])
             : [];
         }
@@ -965,19 +969,19 @@ export class ScriptsService {
         if (pointAssetType === PointDataEnum.healthSites) {
           leadTime === LeadTime.hour2
             ? (payload.exposedFids = ['241', '617'])
-            : leadTime === LeadTime.hour4
+            : leadTime === LeadTime.hour24
             ? (payload.exposedFids = ['190', '599'])
             : [];
         } else if (pointAssetType === PointDataEnum.schools) {
           leadTime === LeadTime.hour2
             ? (payload.exposedFids = ['130', '206'])
-            : leadTime === LeadTime.hour4
+            : leadTime === LeadTime.hour24
             ? (payload.exposedFids = ['147', '166'])
             : [];
         } else if (pointAssetType === PointDataEnum.waterpointsInternal) {
           leadTime === LeadTime.hour2
             ? (payload.exposedFids = ['25010', '25512'])
-            : leadTime === LeadTime.hour4
+            : leadTime === LeadTime.hour24
             ? (payload.exposedFids = ['6146', '25777'])
             : [];
         }
@@ -1019,7 +1023,7 @@ export class ScriptsService {
         }${triggered ? '-triggered' : ''}.tif`;
         destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
       } else if (disasterType === DisasterType.FlashFloods) {
-        if (leadTime === LeadTime.hour2 || leadTime === LeadTime.hour4) {
+        if (leadTime === LeadTime.hour2 || leadTime === LeadTime.hour24) {
           sourceFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
         } else {
           continue;

@@ -42,17 +42,17 @@
         ],
         "droughtForecastSeasons": {
           "Karamoja": {
-            "1": {
+            "Karamoja": {
               "rainMonths": [4, 5, 6, 7, 8, 9, 10],
               "actionMonths": [2, 3, 4, 5, 6, 7, 8, 9, 10]
             }
           },
           "Central": {
-            "1": {
+            "MAM": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [1, 2, 3, 4, 5]
             },
-            "2": {
+            "OND": {
               "rainMonths": [9, 10, 11],
               "actionMonths": [7, 8, 9, 10, 11]
             }
@@ -375,7 +375,15 @@
           "3-hour",
           "4-hour",
           "5-hour",
-          "6-hour"
+          "6-hour",
+          "7-hour",
+          "8-hour",
+          "9-hour",
+          "10-hour",
+          "11-hour",
+          "12-hour",
+          "24-hour",
+          "48-hour"
         ],
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=035b1d36a17c94db1855152253a141227&authkey=AePN7DrtvirE98a6YfPlDLM&expiration=2023-08-09T22%3A00%3A00.000Z&e=6YZPE0"
       }
@@ -396,7 +404,7 @@
     },
     "countryLogos": {
       "floods": ["MWI-mrcs.png", "ZWE-DanishRedCross.png"],
-      "flash-floods": ["MWI-unicef.png"]
+      "flash-floods": ["MWI-government.jpeg"]
     },
     "countryBoundingBox": {
       "type": "Polygon",
@@ -508,11 +516,11 @@
         ],
         "droughtForecastSeasons": {
           "National": {
-            "1": {
+            "MAM": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [12, 1, 2, 3, 4, 5]
             },
-            "2": {
+            "OND": {
               "rainMonths": [10, 11, 12],
               "actionMonths": [6, 7, 8, 9, 10, 11, 12]
             }
@@ -619,31 +627,37 @@
         ],
         "droughtForecastSeasons": {
           "Belg": {
-            "1": {
+            "Belg MAM": {
               "rainMonths": [2, 3, 4, 5],
               "actionMonths": [10, 11, 12, 1, 2, 3, 4, 5]
             },
-            "2": {
+            "Belg JAS": {
+              "rainMonths": [6, 7, 8, 9],
+              "actionMonths": [5, 6, 7, 8, 9]
+            }
+          },
+          "Meher": {
+            "Meher JAS": {
               "rainMonths": [6, 7, 8, 9],
               "actionMonths": [5, 6, 7, 8, 9]
             }
           },
           "Northern": {
-            "1": {
+            "Northern MAM": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [10, 11, 12, 1, 2, 3, 4, 5]
             },
-            "2": {
+            "Northern JAS": {
               "rainMonths": [7, 8, 9],
               "actionMonths": [6, 7, 8, 9]
             }
           },
           "Southern": {
-            "1": {
+            "Southern MAM": {
               "rainMonths": [3, 4, 5],
               "actionMonths": [1, 2, 3, 4, 5]
             },
-            "2": {
+            "Southern OND": {
               "rainMonths": [10, 11, 12],
               "actionMonths": [6, 7, 8, 9, 10, 11, 12]
             }
@@ -683,6 +697,44 @@
             "ET0724",
             "ET1301",
             "ET1600"
+          ],
+          "Meher": [
+            "ET0101",
+            "ET0102",
+            "ET0105",
+            "ET0301",
+            "ET0302",
+            "ET0306",
+            "ET0307",
+            "ET0308",
+            "ET0309",
+            "ET0311",
+            "ET0312",
+            "ET0401",
+            "ET0402",
+            "ET0403",
+            "ET0404",
+            "ET0405",
+            "ET0413",
+            "ET0416",
+            "ET0418",
+            "ET0419",
+            "ET0420",
+            "ET0602",
+            "ET0603",
+            "ET0604",
+            "ET0605",
+            "ET0708",
+            "ET0709",
+            "ET0711",
+            "ET0716",
+            "ET0718",
+            "ET0719",
+            "ET1201",
+            "ET1202",
+            "ET1203",
+            "ET1204",
+            "ET1401"
           ],
           "Northern": [
             "ET0103",

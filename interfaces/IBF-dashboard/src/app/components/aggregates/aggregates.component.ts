@@ -28,6 +28,11 @@ import { EapActionsService } from '../../services/eap-actions.service';
 import { TriggeredArea } from '../../types/triggered-area';
 import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
 
+enum MapView {
+  national = 'national',
+  event = 'event',
+  adminArea = 'admin-area',
+}
 @Component({
   selector: 'app-aggregates',
   templateUrl: './aggregates.component.html',
@@ -54,7 +59,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private exposedPrefix: string;
   private allPrefix: string;
 
-  private eventState: EventState;
+  public eventState: EventState;
 
   private indicatorSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -236,33 +241,93 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     );
   }
 
-  public getLabelAreasExposed() {
-    let headerLabel = this.defaultHeaderLabel;
-    let subHeaderLabel = '';
+  public getAggregatesHeader() {
+    const disasterTypeLabel = `${this.disasterType?.label
+      ?.charAt(0)
+      .toUpperCase()}${this.disasterType?.label?.substring(1)}`;
 
-    const placeCode = this.placeCode || this.placeCodeHover;
-    if (this.showPlaceCodeView(placeCode)) {
-      headerLabel = placeCode.placeCodeName;
-      if (placeCode.placeCodeParentName) {
-        subHeaderLabel = `(${placeCode.placeCodeParentName})`;
-      }
-    } else {
-      if (this.country) {
-        if (
-          this.eventState?.activeTrigger &&
-          this.country.adminRegionLabels[this.adminLevelService.adminLevel]
-        ) {
-          const adminAreaLabel = this.country.adminRegionLabels[
-            this.adminLevelService.adminLevel
-          ][this.getAreaCount() === 1 ? 'singular' : 'plural'];
-          headerLabel = `${this.exposedPrefix} ${adminAreaLabel}`;
-        } else {
-          headerLabel = `${this.allPrefix} ${this.country.countryName}`;
-        }
-      }
+    const eventString = `${disasterTypeLabel}${
+      this.getEventNameString() ? ': ' + this.getEventNameString() : ''
+    }`;
+
+    const header = {
+      [MapView.national]: `${
+        this.country?.countryName
+      } - ${this.translateService.instant(
+        'aggregates-component.national-view',
+      )}`,
+      [MapView.event]: eventString,
+      [MapView.adminArea]: eventString,
+    };
+
+    const areaCountString = `<strong>${this.getAreaCount()}</strong> ${
+      this.exposedPrefix
+    } ${this.adminAreaLabel()}`;
+
+    const parentName = this.placeCodeParentName()
+      ? ` (${this.placeCodeParentName()})`
+      : '';
+
+    const subHeader = {
+      [MapView.national]: areaCountString,
+      [MapView.event]: areaCountString,
+      [MapView.adminArea]: `${this.placeCodeName()}${parentName}`,
+    };
+
+    return {
+      headerLabel: header[this.getMapView()],
+      subHeaderLabel: subHeader[this.getMapView()],
+    };
+  }
+
+  private getEventNameString(): string {
+    if (this.placeCode) {
+      return this.placeCode.eventName?.split('_')[0];
     }
 
-    return { headerLabel, subHeaderLabel };
+    if (this.placeCodeHover) {
+      return this.placeCodeHover.eventName?.split('_')[0];
+    }
+
+    return this.eventState?.event?.eventName?.split('_')[0];
+  }
+
+  private adminAreaLabel() {
+    if (
+      !this.country ||
+      !this.country.adminRegionLabels ||
+      !this.adminLevelService ||
+      !this.adminLevelService.adminLevel
+    ) {
+      return '';
+    }
+    return this.country.adminRegionLabels[this.adminLevelService.adminLevel][
+      this.getAreaCount() === 1 ? 'singular' : 'plural'
+    ];
+  }
+
+  private placeCodeParentName(): string {
+    if (this.placeCode) {
+      return this.placeCode.placeCodeParentName;
+    }
+
+    if (this.placeCodeHover) {
+      return this.placeCodeHover.placeCodeParentName;
+    }
+
+    return '';
+  }
+
+  private placeCodeName(): string {
+    if (this.placeCode) {
+      return this.placeCode.placeCodeName;
+    }
+
+    if (this.placeCodeHover) {
+      return this.placeCodeHover.placeCodeName;
+    }
+
+    return '';
   }
 
   public getNumberAreasExposed() {
@@ -331,4 +396,36 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       : (filtered = triggeredAreas.filter((a) => a.stopped));
     this.aggregatesPlaceCodes = filtered.map((a) => a.placeCode);
   };
+
+  public getMapView(): MapView {
+    if (!this.eventState?.event && this.placeCodeHover) {
+      return MapView.adminArea;
+    }
+
+    if (!this.eventState || !this.eventState.event) {
+      return MapView.national;
+    }
+
+    if (this.eventState.event && !this.placeCode && !this.placeCodeHover) {
+      return this.eventHasName() ? MapView.event : MapView.national;
+    }
+
+    if (this.placeCode || this.placeCodeHover) {
+      return MapView.adminArea;
+    }
+
+    return MapView.national;
+  }
+
+  public eventHasName(): boolean {
+    if (
+      !this.eventState ||
+      !this.eventState.event ||
+      !this.eventState.event.eventName
+    ) {
+      return false;
+    }
+
+    return true;
+  }
 }
