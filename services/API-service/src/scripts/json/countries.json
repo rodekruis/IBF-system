@@ -631,7 +631,13 @@
               "rainMonths": [2, 3, 4, 5],
               "actionMonths": [10, 11, 12, 1, 2, 3, 4, 5]
             },
-            "Belg OND": {
+            "Belg JAS": {
+              "rainMonths": [6, 7, 8, 9],
+              "actionMonths": [5, 6, 7, 8, 9]
+            }
+          },
+          "Meher": {
+            "Meher JAS": {
               "rainMonths": [6, 7, 8, 9],
               "actionMonths": [5, 6, 7, 8, 9]
             }
@@ -641,7 +647,7 @@
               "rainMonths": [3, 4, 5],
               "actionMonths": [10, 11, 12, 1, 2, 3, 4, 5]
             },
-            "Northern OND": {
+            "Northern JAS": {
               "rainMonths": [7, 8, 9],
               "actionMonths": [6, 7, 8, 9]
             }
@@ -691,6 +697,44 @@
             "ET0724",
             "ET1301",
             "ET1600"
+          ],
+          "Meher": [
+            "ET0101",
+            "ET0102",
+            "ET0105",
+            "ET0301",
+            "ET0302",
+            "ET0306",
+            "ET0307",
+            "ET0308",
+            "ET0309",
+            "ET0311",
+            "ET0312",
+            "ET0401",
+            "ET0402",
+            "ET0403",
+            "ET0404",
+            "ET0405",
+            "ET0413",
+            "ET0416",
+            "ET0418",
+            "ET0419",
+            "ET0420",
+            "ET0602",
+            "ET0603",
+            "ET0604",
+            "ET0605",
+            "ET0708",
+            "ET0709",
+            "ET0711",
+            "ET0716",
+            "ET0718",
+            "ET0719",
+            "ET1201",
+            "ET1202",
+            "ET1203",
+            "ET1204",
+            "ET1401"
           ],
           "Northern": [
             "ET0103",
