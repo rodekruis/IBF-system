@@ -1,11 +1,11 @@
 <span class="date-text">
-  <div *ngIf="displayDate">
-    <span class="date">{{ displayDate }}</span>
+  <div *ngIf="firstLine">
+    <span class="first-line">{{ firstLine }}</span>
     <br />
   </div>
-  <span class="month">{{ displayMonth }}</span>
-  <div *ngIf="displayHour">
-    <span class="hour">{{ displayHour }}</span>
+  <span class="second-line">{{ secondLine }}</span>
+  <div *ngIf="thirdLine">
+    <span class="third-line">{{ thirdLine }}</span>
     <br />
   </div>
 </span>
