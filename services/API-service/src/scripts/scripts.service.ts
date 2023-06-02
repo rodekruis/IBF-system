@@ -806,6 +806,8 @@ export class ScriptsService {
           case 'ETH':
             if (droughtRegion === 'Belg') {
               placeCodes = ['ET0721'];
+            } else if (droughtRegion === 'Meher') {
+              placeCodes = ['ET0101'];
             } else if (droughtRegion === 'Northern') {
               placeCodes = ['ET0201'];
             } else if (droughtRegion === 'Southern') {
