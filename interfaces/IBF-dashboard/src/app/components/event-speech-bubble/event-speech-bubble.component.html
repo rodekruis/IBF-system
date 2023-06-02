@@ -22,7 +22,7 @@
             | translate
               : {
                   firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName: event.eventName,
+                  eventName: event.eventName.split('_')[0],
                   disasterTypeLabel: disasterTypeLabel
                 }
         "
@@ -43,7 +43,7 @@
                   timeUnit: event.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
                   firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName: event.eventName || disasterTypeLabel,
+                  eventName: event.eventName.split('_')[0] || disasterTypeLabel,
                   duration: event.duration
                 }
         "
@@ -62,7 +62,7 @@
                   timeUnit: event.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
                   firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName: event.eventName || disasterTypeLabel,
+                  eventName: event.eventName.split('_')[0] || disasterTypeLabel,
                   duration: event.duration
                 }
         "
@@ -86,7 +86,7 @@
             | translate
               : {
                   firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName: event.eventName
+                  eventName: event.eventName.split('_')[0]
                 }
         "
       ></p>
@@ -100,7 +100,7 @@
             : {
                 startDate: event.startDate,
                 firstLeadTimeDate: event.firstLeadTimeDate,
-                eventName: event.eventName,
+                eventName: event.eventName.split('_')[0],
                 leadTime: event.firstLeadTimeLabel,
                 timeUnit: event.timeUnit,
                 disasterTypeLabel: disasterTypeLabel
@@ -134,7 +134,7 @@
             : {
                 nrTriggeredAreas: areas.length,
                 adminAreaLabelPlural: adminAreaLabelPlural,
-                eventName: selectedEvent,
+                eventName: selectedEvent.split('_')[0],
                 actionIndicator: actionIndicatorLabel
               }
       "
@@ -149,7 +149,7 @@
             : {
                 nrTriggeredAreas: areas.length,
                 adminAreaLabelPlural: adminAreaLabelPlural,
-                eventName: selectedEvent,
+                eventName: selectedEvent.split('_')[0],
                 actionIndicator: actionIndicatorLabel
               }
       "
@@ -200,7 +200,7 @@
             : {
                 nrStoppedAreas: areas.length,
                 adminAreaLabelPlural: adminAreaLabelPlural,
-                eventName: selectedEvent,
+                eventName: selectedEvent.split('_')[0],
                 actionIndicator: actionIndicatorLabel
               }
       "
@@ -241,7 +241,7 @@
               name: displayName,
               startDate: event.startDate,
               endDate: event.endDateLabel,
-              eventName: event.eventName
+              eventName: event.eventName.split('_')[0]
             }
     "
   ></p>
