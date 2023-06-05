@@ -14,6 +14,7 @@ import { LoaderInterceptorService } from 'src/app/services/loader.interceptor.se
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { StoreModule } from '@ngrx/store';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -42,6 +43,7 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    StoreModule.forRoot({}, {}),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
