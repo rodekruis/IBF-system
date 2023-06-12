@@ -824,7 +824,6 @@ export class MapComponent implements OnDestroy {
       viewparams: layerWMS.viewparams,
     };
     return tileLayer.wms(layerWMS.url, wmsOptions);
-    });
   }
 
   private calculateClosestPointToTyphoon(layer: IbfLayer) {
