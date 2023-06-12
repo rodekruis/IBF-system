@@ -365,7 +365,7 @@ export class MapService {
   }
 
   private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
-    if (layerActive) {
+    if (layerActive && adminLevel === this.adminLevel) {
       this.apiService
         .getAdminRegions(
           this.country.countryCodeISO3,
