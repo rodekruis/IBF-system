@@ -1,3 +1,12 @@
+## [0.246.1](https://github.com/rodekruis/IBF-system/compare/v0.246.0...v0.246.1) (2023-06-12)
+
+
+### Bug Fixes
+
+* ion-select popover in chrome AB[#19770](https://github.com/rodekruis/IBF-system/issues/19770) ([1db6303](https://github.com/rodekruis/IBF-system/commit/1db6303d11bba7bbd9ff398be37928ff3ef39b4b))
+
+
+
 # [0.246.0](https://github.com/rodekruis/IBF-system/compare/v0.245.0...v0.246.0) (2023-06-02)
 
 
@@ -141,26 +150,6 @@
 ### Features
 
 * set up roads layer dynamic AB[#18922](https://github.com/rodekruis/IBF-system/issues/18922) ([e0bea0e](https://github.com/rodekruis/IBF-system/commit/e0bea0ee0e417eac98e829d807fcf014eb0156d9))
-
-
-
-# [0.241.0](https://github.com/rodekruis/IBF-system/compare/v0.240.0...v0.241.0) (2023-04-17)
-
-
-### Bug Fixes
-
-* bounding box AB[#18795](https://github.com/rodekruis/IBF-system/issues/18795) ([cc537c5](https://github.com/rodekruis/IBF-system/commit/cc537c5c37912f45e6d29e0563755c6228b6be23))
-* broken link IPC long AB[#18814](https://github.com/rodekruis/IBF-system/issues/18814) ([103e4c9](https://github.com/rodekruis/IBF-system/commit/103e4c99d4aca214ec64e13d90f000b4947861e5))
-* change ux copy no trigger AB[#17817](https://github.com/rodekruis/IBF-system/issues/17817) ([35aaeb8](https://github.com/rodekruis/IBF-system/commit/35aaeb841dc78222a2c147904e8462b18d449d77))
-* correct seed data + prep for visualizing in map AB[#18679](https://github.com/rodekruis/IBF-system/issues/18679) AB[#18695](https://github.com/rodekruis/IBF-system/issues/18695) ([0722955](https://github.com/rodekruis/IBF-system/commit/0722955a48fc762f01d5fa03e8aafeda5d56ce64))
-* query AB[#18695](https://github.com/rodekruis/IBF-system/issues/18695) ([c48f478](https://github.com/rodekruis/IBF-system/commit/c48f478911beb6594ec63c3b3196edfdb77e10c7))
-* skip unknown assets AB[#18920](https://github.com/rodekruis/IBF-system/issues/18920) ([7d7fcf5](https://github.com/rodekruis/IBF-system/commit/7d7fcf5e9b346b36d32f3dd7f33e56b9982dcba2))
-
-
-### Features
-
-* post and get asset exposure status AB[#18695](https://github.com/rodekruis/IBF-system/issues/18695) ([ce7c8a9](https://github.com/rodekruis/IBF-system/commit/ce7c8a9e1141d09a60e9e4915031891633126482))
-* seed point layers AB[#18693](https://github.com/rodekruis/IBF-system/issues/18693) ([4758dfb](https://github.com/rodekruis/IBF-system/commit/4758dfbce9cc17abad5b7431d6df5e6c50d94fc5))
 
 
 
