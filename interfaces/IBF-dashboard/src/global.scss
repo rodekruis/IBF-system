@@ -274,3 +274,17 @@ input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
 }
+
+[popover].popover-viewport {
+  display: initial;
+  position: initial;
+  margin: initial;
+  border: initial;
+  background: initial;
+  padding: initial;
+  width: initial;
+  height: initial;
+  overflow: initial;
+  inset: initial;
+  color: initial;
+}
