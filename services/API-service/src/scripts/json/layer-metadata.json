@@ -481,7 +481,7 @@
     "name": "roads",
     "label": "Roads",
     "type": "wms",
-    "leadTimeDependent": true,
+    "leadTimeDependent": false,
     "active": "no"
   },
   {
@@ -490,7 +490,7 @@
     "name": "buildings",
     "label": "Buildings",
     "type": "wms",
-    "leadTimeDependent": true,
+    "leadTimeDependent": false,
     "active": "no"
   }
 ]

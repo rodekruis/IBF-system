@@ -813,7 +813,7 @@ export class MapComponent implements OnDestroy {
     if (!layerWMS) {
       return;
     }
-    return tileLayer.wms(layerWMS.url, {
+    const wmsOptions = {
       pane: LeafletPane.wmsPane,
       layers: layerWMS.name,
       format: layerWMS.format,
@@ -821,6 +821,9 @@ export class MapComponent implements OnDestroy {
       attribution: layerWMS.attribution,
       crs: layerWMS.crs,
       transparent: layerWMS.transparent,
+      viewparams: layerWMS.viewparams,
+    };
+    return tileLayer.wms(layerWMS.url, wmsOptions);
     });
   }
 

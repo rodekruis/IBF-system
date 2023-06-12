@@ -1,17 +1,17 @@
 <layer>
-  <name>buildings_5-hour_MWI</name>
-  <id>LayerInfoImpl-7d380d0:187a34f65f1:-7fff</id>
+  <name>buildings_MWI</name>
+  <id>LayerInfoImpl-4d07a048:1888a8ac250:-7f72</id>
   <type>VECTOR</type>
   <defaultStyle>
     <id>StyleInfoImpl-7d380d0:187a3886a48:-7189</id>
   </defaultStyle>
   <resource class="featureType">
-    <id>FeatureTypeInfoImpl-7d380d0:187a34f65f1:-7ff1</id>
+    <id>FeatureTypeInfoImpl-4d07a048:1888a8ac250:-7f73</id>
   </resource>
   <attribution>
     <logoWidth>0</logoWidth>
     <logoHeight>0</logoHeight>
   </attribution>
-  <dateCreated>2023-04-21 11:00:43.225 UTC</dateCreated>
-  <dateModified>2023-04-21 11:36:38.99 UTC</dateModified>
+  <dateCreated>2023-06-05 08:28:08.247 UTC</dateCreated>
+  <dateModified>2023-06-05 12:06:12.75 UTC</dateModified>
 </layer>
