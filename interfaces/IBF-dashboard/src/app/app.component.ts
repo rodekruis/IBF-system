@@ -1,8 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Platform } from '@ionic/angular';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LoaderService } from 'src/app/services/loader.service';
+import { DashboardState, LoadCountries } from './store';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +20,7 @@ export class AppComponent implements OnDestroy {
     private platform: Platform,
     private loaderService: LoaderService,
     private translateService: TranslateService,
+    private store: Store<DashboardState>,
   ) {
     this.initializeApp();
     this.loaderSubscription = this.loaderService
@@ -33,6 +36,7 @@ export class AppComponent implements OnDestroy {
     this.translateService.setDefaultLang(this.defaultLanguage);
     this.translateService.use(this.defaultLanguage);
     this.platform.ready().then(() => {});
+    this.store.dispatch(new LoadCountries());
   }
 
   ngOnDestroy() {

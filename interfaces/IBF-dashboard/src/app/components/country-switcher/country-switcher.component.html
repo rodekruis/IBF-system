@@ -7,7 +7,7 @@
     [value]="country ? country.countryCodeISO3 : null"
   >
     <ion-select-option
-      *ngFor="let country of countryService.countries"
+      *ngFor="let country of (countries$ | async)"
       value="{{ country.countryCodeISO3 }}"
     >
       {{ country.countryName }}

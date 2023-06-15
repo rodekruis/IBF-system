@@ -8,13 +8,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LoaderInterceptorService } from 'src/app/services/loader.interceptor.service';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
+import { effects, reducers } from './store/index';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -43,7 +45,9 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(reducers),
+    StoreModule.forFeature('dashboard', reducers),
+    EffectsModule.forRoot(effects),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

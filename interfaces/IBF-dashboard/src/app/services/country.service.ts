@@ -42,7 +42,10 @@ export class CountryService {
       .subscribe(this.onCountriesByUser(user));
   }
 
-  public getAllCountries(): Observable<Country[]> {
+  public getAllCountries(fromngrx: boolean = false): Observable<Country[]> {
+    if (fromngrx) {
+      console.warn('\n\n=== This was a call from NgRx');
+    }
     return this.apiService.getCountries(null, true);
   }
 
