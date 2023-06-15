@@ -1,3 +1,17 @@
+# [0.247.0](https://github.com/rodekruis/IBF-system/compare/v0.246.1...v0.247.0) (2023-06-15)
+
+
+### Bug Fixes
+
+* middle column icons AB[#19594](https://github.com/rodekruis/IBF-system/issues/19594) ([601d851](https://github.com/rodekruis/IBF-system/commit/601d851995344633c987f318d814e230b73ba632))
+
+
+### Features
+
+* update mock data AB[#19772](https://github.com/rodekruis/IBF-system/issues/19772) ([25b8b7b](https://github.com/rodekruis/IBF-system/commit/25b8b7bbf6c7df4f168b6297b2ab3a5789890906))
+
+
+
 ## [0.246.1](https://github.com/rodekruis/IBF-system/compare/v0.246.0...v0.246.1) (2023-06-12)
 
 
@@ -133,23 +147,6 @@
 * mock exposed assets AB[#18929](https://github.com/rodekruis/IBF-system/issues/18929) ([4feceeb](https://github.com/rodekruis/IBF-system/commit/4feceeb4822fa1fa5bb72306b789633e38449a47))
 * serve roads/buildings as wms AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([d956f88](https://github.com/rodekruis/IBF-system/commit/d956f880c5ab6dc551628b8ba2e1a9ce193f2d5d))
 * show buildings AB[#18923](https://github.com/rodekruis/IBF-system/issues/18923) ([715472e](https://github.com/rodekruis/IBF-system/commit/715472eb4ed6801acbf115cf47cc9b80c5b1c603))
-
-
-
-# [0.242.0](https://github.com/rodekruis/IBF-system/compare/v0.241.0...v0.242.0) (2023-04-17)
-
-
-### Bug Fixes
-
-* filter only major roads AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([f34fad3](https://github.com/rodekruis/IBF-system/commit/f34fad3730ab9d93dc41a30005e7e4d6bd9c7acb))
-* make health sites non-cluster AB[#18893](https://github.com/rodekruis/IBF-system/issues/18893) ([b053030](https://github.com/rodekruis/IBF-system/commit/b053030f393a60e6edde94cec4dedc9622c455cd))
-* school icon AB[#18893](https://github.com/rodekruis/IBF-system/issues/18893) ([875d136](https://github.com/rodekruis/IBF-system/commit/875d1365164ee243e9eae78c05ec4d8a22307282))
-* update mock flood extent AB[#18906](https://github.com/rodekruis/IBF-system/issues/18906) ([e2c2dfb](https://github.com/rodekruis/IBF-system/commit/e2c2dfb9c4ac3ea96a191764c5f28b36ce30a102))
-
-
-### Features
-
-* set up roads layer dynamic AB[#18922](https://github.com/rodekruis/IBF-system/issues/18922) ([e0bea0e](https://github.com/rodekruis/IBF-system/commit/e0bea0ee0e417eac98e829d807fcf014eb0156d9))
 
 
 
