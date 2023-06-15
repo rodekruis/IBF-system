@@ -1,3 +1,12 @@
+## [0.247.1](https://github.com/rodekruis/IBF-system/compare/v0.247.0...v0.247.1) (2023-06-15)
+
+
+### Bug Fixes
+
+* only load current admin-level AB[#19786](https://github.com/rodekruis/IBF-system/issues/19786) ([0f4a433](https://github.com/rodekruis/IBF-system/commit/0f4a433b89058f4e051b4a697dd821ade6e8f00d))
+
+
+
 # [0.247.0](https://github.com/rodekruis/IBF-system/compare/v0.246.1...v0.247.0) (2023-06-15)
 
 
@@ -130,23 +139,6 @@
 ### Bug Fixes
 
 * create typeorm_metadata table AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([85c3b14](https://github.com/rodekruis/IBF-system/commit/85c3b144afa3889bd5b6c09d1c71667c614e147b))
-
-
-
-# [0.243.0](https://github.com/rodekruis/IBF-system/compare/v0.242.0...v0.243.0) (2023-04-21)
-
-
-### Bug Fixes
-
-* revert 'get lines via api' code AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([b1e8d55](https://github.com/rodekruis/IBF-system/commit/b1e8d550e8fb56b2826537c4b48d3130d5ae290a))
-* set lines style for roads AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([e4860b4](https://github.com/rodekruis/IBF-system/commit/e4860b49a6e21b3fa1ae65f4cb021d6f2ef915c0))
-
-
-### Features
-
-* mock exposed assets AB[#18929](https://github.com/rodekruis/IBF-system/issues/18929) ([4feceeb](https://github.com/rodekruis/IBF-system/commit/4feceeb4822fa1fa5bb72306b789633e38449a47))
-* serve roads/buildings as wms AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([d956f88](https://github.com/rodekruis/IBF-system/commit/d956f880c5ab6dc551628b8ba2e1a9ce193f2d5d))
-* show buildings AB[#18923](https://github.com/rodekruis/IBF-system/issues/18923) ([715472e](https://github.com/rodekruis/IBF-system/commit/715472eb4ed6801acbf115cf47cc9b80c5b1c603))
 
 
 
