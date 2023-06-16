@@ -23,9 +23,10 @@ export function reducer(state = initialState, action: Action): CountriesState {
       };
     }
     case fromCountries.LOAD_COUNTRIES_SUCCESS: {
+      const payloadString = 'payload';
       return {
         ...state,
-        data: action['payload'],
+        data: action[payloadString],
         loading: false,
         loaded: true,
       };
