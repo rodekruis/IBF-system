@@ -144,10 +144,12 @@ export class AggregatesService {
     );
 
     if (this.adminLevel !== this.defaultAdminLevel) {
-      aggregate[indicator.name] = foundIndicator ? foundIndicator.value : 0;
+      if (foundIndicator) {
+        aggregate[indicator.name] = foundIndicator.value;
+      }
 
       aggregate[this.AREA_STATUS_KEY] =
-        aggregate[IbfLayerName.alertThreshold] === 1
+        aggregate[indicator.name] !== undefined && this.eventState.activeTrigger
           ? 'trigger-active'
           : 'non-triggered';
       return;
@@ -157,22 +159,20 @@ export class AggregatesService {
       (area) => area.placeCode === feature.placeCode,
     );
 
-    if (!areaState && indicator.dynamic) {
-      aggregate[indicator.name] = 0;
-    } else if (foundIndicator) {
-      aggregate[indicator.name] = foundIndicator ? foundIndicator.value : 0;
-    } else {
-      aggregate[indicator.name] = 0;
+    if (foundIndicator) {
+      aggregate[indicator.name] = foundIndicator.value;
     }
 
-    if (!areaState) {
-      aggregate[this.AREA_STATUS_KEY] = 'non-triggered';
+    if (aggregate[this.AREA_STATUS_KEY]) {
       return;
     }
 
-    aggregate[this.AREA_STATUS_KEY] = areaState.stopped
+    aggregate[this.AREA_STATUS_KEY] = areaState?.stopped
       ? 'trigger-stopped'
-      : 'trigger-active';
+      : // the below relies on the fact that aggregate[indicator.name] is filled above only if available, which is in turn only if trigger/warned (from API)
+      aggregate[indicator.name] !== undefined && this.eventState.activeTrigger
+      ? 'trigger-active'
+      : 'non-triggered';
   };
 
   private onEachPlaceCode = (feature) => {
@@ -292,7 +292,7 @@ export class AggregatesService {
       const indicatorWeight = weightedAverage
         ? aggregate[weighingIndicator]
         : 1;
-      indicatorValue = indicatorWeight * aggregate[indicator];
+      indicatorValue = indicatorWeight * (aggregate[indicator] || 0);
     }
 
     return accumulator + indicatorValue;
