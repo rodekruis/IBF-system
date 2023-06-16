@@ -507,6 +507,7 @@ export class MapService {
         attribution: '510 Global',
         crs: CRS.EPSG4326,
         transparent: true,
+        viewparams: `leadTime:${this.timelineState.activeLeadTime}`,
       } as IbfLayerWMS,
     });
   }

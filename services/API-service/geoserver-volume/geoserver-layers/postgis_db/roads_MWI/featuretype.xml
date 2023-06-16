@@ -1,14 +1,14 @@
 <featureType>
-  <id>FeatureTypeInfoImpl-7d380d0:187a34f65f1:-7fg3</id>
-  <name>roads_8-hour_MWI</name>
-  <nativeName>roads_hour8</nativeName>
+  <id>FeatureTypeInfoImpl-1161de98:188ae67f76f:-7ffc</id>
+  <name>roads_MWI</name>
+  <nativeName>roads_MWI</nativeName>
   <namespace>
     <id>NamespaceInfoImpl-48cab08a:175ace47603:-7ffa</id>
   </namespace>
-  <title>roads_8-hour_MWI</title>
+  <title>roads_MWI</title>
   <keywords>
     <string>features</string>
-    <string>roads_hour8</string>
+    <string>roads_MWI</string>
   </keywords>
   <srs>EPSG:404000</srs>
   <nativeBoundingBox>
@@ -27,6 +27,24 @@
   <projectionPolicy>FORCE_DECLARED</projectionPolicy>
   <enabled>true</enabled>
   <metadata>
+    <entry key="JDBC_VIRTUAL_TABLE">
+      <virtualTable>
+        <name>roads_MWI</name>
+        <sql>SELECT * FROM &quot;IBF-app&quot;.roads_exposure_per_lead_time WHERE &quot;leadTime&quot; IS NULL OR &quot;leadTime&quot; = &apos;%leadTime%&apos;
+</sql>
+        <escapeSql>false</escapeSql>
+        <geometry>
+          <name>geom</name>
+          <type>Geometry</type>
+          <srid>-1</srid>
+        </geometry>
+        <parameter>
+          <name>leadTime</name>
+          <defaultValue>2-hour</defaultValue>
+          <regexpValidator>^[\w\d\s-]+$</regexpValidator>
+        </parameter>
+      </virtualTable>
+    </entry>
     <entry key="cachingEnabled">false</entry>
   </metadata>
   <store class="dataStore">

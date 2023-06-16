@@ -146,6 +146,7 @@ export class IbfLayerWMS {
   attribution: string;
   crs?: CRS;
   transparent: boolean;
+  viewparams?: string;
 }
 
 export enum IbfLayerGroup {

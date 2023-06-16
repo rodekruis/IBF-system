@@ -1,0 +1,17 @@
+<layer>
+  <name>admin-area</name>
+  <id>LayerInfoImpl-4d07a048:1888b7f27fb:33df</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-6169d483:1875ba92894:-7ffc</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-4d07a048:1888b7f27fb:33de</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2023-06-05 12:35:13.175 UTC</dateCreated>
+  <dateModified>2023-06-05 12:35:25.71 UTC</dateModified>
+</layer>

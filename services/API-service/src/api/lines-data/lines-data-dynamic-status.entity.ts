@@ -5,6 +5,7 @@ import {
   Column,
   JoinColumn,
   ManyToOne,
+  Index,
 } from 'typeorm';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
@@ -24,11 +25,13 @@ export class LinesDataDynamicStatusEntity {
 
   @ApiProperty({ example: new Date() })
   @Column({ type: 'timestamp' })
+  @Index()
   public timestamp: Date;
 
   @ApiProperty({ example: LeadTime.hour1 })
   @ManyToOne((): typeof LeadTimeEntity => LeadTimeEntity)
   @JoinColumn({ name: 'leadTime', referencedColumnName: 'leadTimeName' })
+  @Index()
   public leadTime: string;
 
   @ApiProperty({ example: true })
