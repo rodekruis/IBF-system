@@ -106,61 +106,16 @@
     [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
   ></app-event-speech-bubble>
 
-  <ng-container *ngIf="eventState?.event?.thresholdReached">
-    <ng-container *ngIf="eventState?.activeTrigger">
-      <app-dialogue-turn
-        *ngFor="let area of filteredStoppedAreas; first as isFirst"
-        [isConnected]="true"
-        [isStopped]="true"
-      >
-        <ion-button
-          *ngIf="placeCode"
-          (click)="revertAreaSelection()"
-          color="ibf-no-alert-primary"
-          size="small"
-          class="ion-float-right"
-        >
-          <span class="ion-hide-sm-down">{{
-            'chat-component.common.revert-selection' | translate
-          }}</span>
-          <ion-icon name="arrow-back" slot="start"></ion-icon>
-        </ion-button>
-        <p
-          [innerHTML]="
-            'chat-component.' + disasterTypeName + '.stopped-event.area'
-              | translate
-                : {
-                    placeCodeName: area.name,
-                    startDate: area.startDate,
-                    stoppedDate: area.stoppedDate,
-                    displayName: area.displayName || 'unknown',
-                    parentName: getAreaParentString(area)
-                  }
-          "
-        ></p>
-        <ion-button
-          (click)="openToggleTriggerPopup(area, false)"
-          [disabled]="!area.activeTrigger"
-          color="ibf-no-alert-primary"
-          expand="block"
-          [innerHTML]="
-            'chat-component.common.reactivate-trigger-popup.' +
-              hasEap() +
-              '.header' | translate
-          "
-        ></ion-button>
-      </app-dialogue-turn>
-    </ng-container>
+  <ng-container *ngIf="eventState?.activeTrigger">
     <app-dialogue-turn
-      actor="self"
-      *ngFor="let area of filteredActiveAreas; first as isFirst"
-      [isConnected]="!isFirst"
-      [isTriggered]="true"
+      *ngFor="let area of filteredStoppedAreas; first as isFirst"
+      [isConnected]="true"
+      [isStopped]="true"
     >
       <ion-button
         *ngIf="placeCode"
         (click)="revertAreaSelection()"
-        color="ibf-primary"
+        color="ibf-no-alert-primary"
         size="small"
         class="ion-float-right"
       >
@@ -169,78 +124,124 @@
         }}</span>
         <ion-icon name="arrow-back" slot="start"></ion-icon>
       </ion-button>
-      <ion-row>
-        <ion-col size-lg="2" size-md="2" size-xs="2">
-          <ion-img
-            src="assets/icons/Alert_Chat_Black.svg"
-            class="chat-icon"
-          ></ion-img>
-        </ion-col>
-        <ion-col size-lg="10" size-md="10" size-xs="10">
-          <ion-label
+      <p
+        [innerHTML]="
+          'chat-component.' + disasterTypeName + '.stopped-event.area'
+            | translate
+              : {
+                  placeCodeName: area.name,
+                  startDate: area.startDate,
+                  stoppedDate: area.stoppedDate,
+                  displayName: area.displayName || 'unknown',
+                  parentName: getAreaParentString(area)
+                }
+        "
+      ></p>
+      <ion-button
+        (click)="openToggleTriggerPopup(area, false)"
+        [disabled]="!area.activeTrigger"
+        color="ibf-no-alert-primary"
+        expand="block"
+        [innerHTML]="
+          'chat-component.common.reactivate-trigger-popup.' +
+            hasEap() +
+            '.header' | translate
+        "
+      ></ion-button>
+    </app-dialogue-turn>
+  </ng-container>
+  <app-dialogue-turn
+    actor="self"
+    *ngFor="let area of filteredActiveAreas; first as isFirst"
+    [isConnected]="!isFirst"
+    [isTriggered]="eventState?.event?.thresholdReached"
+  >
+    <ion-button
+      *ngIf="placeCode"
+      (click)="revertAreaSelection()"
+      color="ibf-primary"
+      size="small"
+      class="ion-float-right"
+    >
+      <span class="ion-hide-sm-down">{{
+        'chat-component.common.revert-selection' | translate
+      }}</span>
+      <ion-icon name="arrow-back" slot="start"></ion-icon>
+    </ion-button>
+    <ion-row>
+      <ion-col size-lg="2" size-md="2" size-xs="2">
+        <ion-img
+          src="assets/icons/Alert_Chat_Black.svg"
+          class="chat-icon"
+        ></ion-img>
+      </ion-col>
+      <ion-col size-lg="10" size-md="10" size-xs="10">
+        <ion-label
+          [innerHTML]="
+            'chat-component.' + disasterTypeName + '.active-event.place-name'
+              | translate
+                : {
+                    adminAreaLabel: adminAreaLabel,
+                    placeName: area.name,
+                    parentName: getAreaParentString(area)
+                  }
+          "
+        ></ion-label
+        ><br />
+        <ion-note size="small">
+          <span
             [innerHTML]="
-              'chat-component.' + disasterTypeName + '.active-event.place-name'
+              'chat-component.' + disasterTypeName + '.active-event.exposed'
                 | translate
-                  : {
-                      adminAreaLabel: adminAreaLabel,
-                      placeName: area.name,
-                      parentName: getAreaParentString(area)
-                    }
             "
-          ></ion-label
-          ><br />
-          <ion-note size="small">
-            <span
-              [innerHTML]="
-                'chat-component.' + disasterTypeName + '.active-event.exposed'
-                  | translate
-              "
-            ></span>
-            <strong
-              ><span *ngIf="actionIndicatorNumberFormat === 'decimal0'">
-                {{ area.actionsValue | number: '.0-0' }}
-              </span>
-              <span *ngIf="actionIndicatorNumberFormat === 'perc'">
-                {{ area.actionsValue | percent: '.0-0' }}</span
-              >
-            </strong>
-          </ion-note>
-          <br />
-          <div
-            *ngIf="disasterTypeSettings?.showMonthlyEapActions"
-            class="ion-margin-bottom"
-          >
-            <ng-container
-              *ngIf="forecastInfo && country?.countryCodeISO3 === 'KEN'"
+          ></span>
+          <strong
+            ><span *ngIf="actionIndicatorNumberFormat === 'decimal0'">
+              {{ area.actionsValue | number: '.0-0' }}
+            </span>
+            <span *ngIf="actionIndicatorNumberFormat === 'perc'">
+              {{ area.actionsValue | percent: '.0-0' }}</span
             >
-              <ion-note size="small" *ngIf="area?.eapActions as actions">
-                <span *ngIf="forecastInfo?.length"
-                  >{{
-                    'chat-component.drought.active-event.forecast-info.opening'
+          </strong>
+        </ion-note>
+        <br />
+        <div
+          *ngIf="disasterTypeSettings?.showMonthlyEapActions"
+          class="ion-margin-bottom"
+        >
+          <ng-container
+            *ngIf="forecastInfo && country?.countryCodeISO3 === 'KEN'"
+          >
+            <ion-note size="small" *ngIf="area?.eapActions as actions">
+              <span *ngIf="forecastInfo?.length"
+                >{{
+                  'chat-component.drought.active-event.forecast-info.opening'
+                    | translate
+                }}
+              </span>
+
+              <span *ngFor="let forecast of forecastInfo; last as isLast">
+                <strong>{{ forecast }}</strong
+                ><span *ngIf="!isLast">
+                  {{
+                    'chat-component.drought.active-event.forecast-info.and'
                       | translate
                   }}
                 </span>
+              </span>
+              {{ ' ' }}
+              <span
+                [innerHTML]="
+                  getNumberOfActions(actions.length, forecastInfo?.length)
+                "
+              ></span>
+            </ion-note>
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
 
-                <span *ngFor="let forecast of forecastInfo; last as isLast">
-                  <strong>{{ forecast }}</strong
-                  ><span *ngIf="!isLast">
-                    {{
-                      'chat-component.drought.active-event.forecast-info.and'
-                        | translate
-                    }}
-                  </span>
-                </span>
-                {{ ' ' }}
-                <span
-                  [innerHTML]="
-                    getNumberOfActions(actions.length, forecastInfo?.length)
-                  "
-                ></span>
-              </ion-note>
-            </ng-container>
-          </div>
-        </ion-col>
-      </ion-row>
+    <ng-container *ngIf="eventState?.event?.thresholdReached">
       <ion-item *ngIf="!area.eapActions.length" class="background-light">
         <ion-label class="ion-text-wrap">
           {{
@@ -305,6 +306,6 @@
             | translate
         "
       ></ion-button>
-    </app-dialogue-turn>
-  </ng-container>
+    </ng-container>
+  </app-dialogue-turn>
 </ion-content>
