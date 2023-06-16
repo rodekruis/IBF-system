@@ -1,8 +1,10 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Platform } from '@ionic/angular';
+import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppComponent } from './app.component';
+import { reducers } from './store/index';
 
 describe('AppComponent', () => {
   let platformReadySpy;
@@ -17,7 +19,7 @@ describe('AppComponent', () => {
 
       TestBed.configureTestingModule({
         declarations: [AppComponent],
-        imports: [TranslateModule.forRoot()],
+        imports: [TranslateModule.forRoot(), StoreModule.forRoot(reducers)],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         providers: [{ provide: Platform, useValue: platformSpy }],
       }).compileComponents();

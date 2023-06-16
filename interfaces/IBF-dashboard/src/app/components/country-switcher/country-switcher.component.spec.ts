@@ -2,7 +2,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
+import { StoreModule } from '@ngrx/store';
 import { CountryService } from 'src/app/services/country.service';
+import { reducers } from '../../store/index';
 import { CountrySwitcherComponent } from './country-switcher.component';
 
 describe('CountrySwitcherComponent', () => {
@@ -13,7 +15,12 @@ describe('CountrySwitcherComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [CountrySwitcherComponent],
-        imports: [IonicModule, HttpClientTestingModule, RouterTestingModule],
+        imports: [
+          IonicModule,
+          HttpClientTestingModule,
+          RouterTestingModule,
+          StoreModule.forRoot(reducers),
+        ],
         providers: [{ provide: CountryService }],
       }).compileComponents();
 
