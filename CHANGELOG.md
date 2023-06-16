@@ -1,3 +1,15 @@
+## [0.247.3](https://github.com/rodekruis/IBF-system/compare/v0.247.2...v0.247.3) (2023-06-16)
+
+
+### Bug Fixes
+
+* aggregate numbers should also include warning event AB[#19835](https://github.com/rodekruis/IBF-system/issues/19835) ([86646d5](https://github.com/rodekruis/IBF-system/commit/86646d5c6fdcdeade820d3e78dc545b52280be35))
+* area-selection in warning event AB[#19848](https://github.com/rodekruis/IBF-system/issues/19848) ([92d158e](https://github.com/rodekruis/IBF-system/commit/92d158eeec58cc71a79c3d7555a29c18bd087a2d))
+* change icons to design system black AB[#19849](https://github.com/rodekruis/IBF-system/issues/19849) ([7c18657](https://github.com/rodekruis/IBF-system/commit/7c186575e5a6cb38e43904e4275d156aac73cb36))
+* icons navy to black AB[#19849](https://github.com/rodekruis/IBF-system/issues/19849) ([af43ba2](https://github.com/rodekruis/IBF-system/commit/af43ba2ef873eaea9d40b1c3adcaa2aae39e8925))
+
+
+
 ## [0.247.2](https://github.com/rodekruis/IBF-system/compare/v0.247.1...v0.247.2) (2023-06-16)
 
 
@@ -131,15 +143,6 @@
 
 * import fs AB[#19023](https://github.com/rodekruis/IBF-system/issues/19023) ([6166c31](https://github.com/rodekruis/IBF-system/commit/6166c31aacd723340b6d1c641b768bd5ffcc558c))
 * ssl flex server AB[#19023](https://github.com/rodekruis/IBF-system/issues/19023) ([c107fa7](https://github.com/rodekruis/IBF-system/commit/c107fa7cdfc472660fdc03c93b654fda6514b30c))
-
-
-
-## [0.243.2](https://github.com/rodekruis/IBF-system/compare/v0.243.1...v0.243.2) (2023-04-24)
-
-
-### Bug Fixes
-
-* postgis connection env specific AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([c494ee2](https://github.com/rodekruis/IBF-system/commit/c494ee2481490737ff36c7ec49a49649e420ae52))
 
 
 
