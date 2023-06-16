@@ -169,7 +169,8 @@ export class AggregatesService {
 
     aggregate[this.AREA_STATUS_KEY] = areaState?.stopped
       ? 'trigger-stopped'
-      : // the below relies on the fact that aggregate[indicator.name] is filled above only if available, which is in turn only if trigger/warned (from API)
+      : // the below relies on the fact that aggregate[indicator.name] is filled ..
+      // .. above only if available, which is in turn only if trigger/warned (from API)
       aggregate[indicator.name] !== undefined && this.eventState.activeTrigger
       ? 'trigger-active'
       : 'non-triggered';
