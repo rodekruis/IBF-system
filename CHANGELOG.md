@@ -1,3 +1,13 @@
+## [0.247.2](https://github.com/rodekruis/IBF-system/compare/v0.247.1...v0.247.2) (2023-06-16)
+
+
+### Bug Fixes
+
+* forgot to commit AB[#19704](https://github.com/rodekruis/IBF-system/issues/19704) ([0a346d3](https://github.com/rodekruis/IBF-system/commit/0a346d3dd153c6b2a45eca91699305bbc65c4640))
+* reorganize buildings and roads views AB[#19704](https://github.com/rodekruis/IBF-system/issues/19704) ([85d73fe](https://github.com/rodekruis/IBF-system/commit/85d73fe3928e5a73a0cc110b8e0c827b3239a828))
+
+
+
 ## [0.247.1](https://github.com/rodekruis/IBF-system/compare/v0.247.0...v0.247.1) (2023-06-15)
 
 
@@ -130,15 +140,6 @@
 ### Bug Fixes
 
 * postgis connection env specific AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([c494ee2](https://github.com/rodekruis/IBF-system/commit/c494ee2481490737ff36c7ec49a49649e420ae52))
-
-
-
-## [0.243.1](https://github.com/rodekruis/IBF-system/compare/v0.243.0...v0.243.1) (2023-04-24)
-
-
-### Bug Fixes
-
-* create typeorm_metadata table AB[#18927](https://github.com/rodekruis/IBF-system/issues/18927) ([85c3b14](https://github.com/rodekruis/IBF-system/commit/85c3b144afa3889bd5b6c09d1c71667c614e147b))
 
 
 
