@@ -87,7 +87,6 @@ export class SeedInit implements InterfaceScript {
         async (leadTime): Promise<LeadTimeEntity> => {
           const leadTimeEntity = new LeadTimeEntity();
           leadTimeEntity.leadTimeName = leadTime.leadTimeName;
-          leadTimeEntity.leadTimeLabel = leadTime.leadTimeLabel;
           return leadTimeEntity;
         },
       ),

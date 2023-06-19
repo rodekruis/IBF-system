@@ -73,10 +73,3 @@ export class DisasterType {
   triggerUnit: string;
   activeTrigger: boolean;
 }
-
-class LeadTimeEntity {
-  leadTimeName: LeadTime;
-  leadTimeLabel: string;
-  countries: Country[];
-  disasterTypes: DisasterType[];
-}

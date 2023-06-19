@@ -13,9 +13,15 @@ export class DisasterLeadTimes1687170347754 implements MigrationInterface {
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."disaster" ADD "maxLeadTime" character varying`,
     );
+    await queryRunner.query(
+      `ALTER TABLE "IBF-app"."lead-time" DROP COLUMN "leadTimeLabel"`,
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE "IBF-app"."lead-time" ADD "leadTimeLabel" character varying NOT NULL`,
+    );
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."disaster" DROP COLUMN "maxLeadTime"`,
     );
