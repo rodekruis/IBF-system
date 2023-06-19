@@ -318,7 +318,7 @@ export class TimelineService {
         if (filteredEvents) {
           for (const event of filteredEvents.reverse()) {
             visibleLeadTimes.push({
-              leadTime: leadTime,
+              leadTime,
               eventName: event.eventName,
               undefined: false,
               duration: event.duration,
@@ -340,7 +340,7 @@ export class TimelineService {
         )
       ) {
         visibleLeadTimes.push({
-          leadTime: leadTime,
+          leadTime,
           eventName: null,
           undefined: false,
         });
