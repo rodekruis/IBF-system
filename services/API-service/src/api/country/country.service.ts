@@ -79,6 +79,7 @@ export class CountryService {
         where: {
           countryCodeISO3: country.countryCodeISO3,
         },
+        relations: ['countryDisasterSettings'],
       });
       if (existingCountry) {
         await this.addOrUpdateCountry(
@@ -141,18 +142,14 @@ export class CountryService {
     countryEntity.countryBoundingBox = JSON.parse(
       JSON.stringify(country.countryBoundingBox),
     );
-    countryEntity.countryDisasterSettings = [];
+    countryEntity.countryDisasterSettings =
+      countryEntity.countryDisasterSettings || [];
 
     await this.countryRepository.save(countryEntity);
 
     for await (const disaster of country.countryDisasterSettings) {
-      const existingDisaster = await this.countryDisasterSettingsRepository.findOne(
-        {
-          where: {
-            country: country,
-            disasterType: disaster.disasterType,
-          },
-        },
+      const existingDisaster = countryEntity.countryDisasterSettings.find(
+        d => d.disasterType === disaster.disasterType,
       );
       if (existingDisaster) {
         const savedDisaster = await this.addOrUpdateDisaster(
