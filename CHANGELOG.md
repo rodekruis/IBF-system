@@ -1,3 +1,12 @@
+## [0.247.4](https://github.com/rodekruis/IBF-system/compare/v0.247.3...v0.247.4) (2023-06-19)
+
+
+### Bug Fixes
+
+* remove old settings upon update AB[#19858](https://github.com/rodekruis/IBF-system/issues/19858) ([85cb0e0](https://github.com/rodekruis/IBF-system/commit/85cb0e08cc77ea46d391ea74029c7a16940eafaa))
+
+
+
 ## [0.247.3](https://github.com/rodekruis/IBF-system/compare/v0.247.2...v0.247.3) (2023-06-16)
 
 
@@ -133,16 +142,6 @@
 ### Features
 
 * upload mocked point assets AB[#19170](https://github.com/rodekruis/IBF-system/issues/19170) ([8f4e085](https://github.com/rodekruis/IBF-system/commit/8f4e0857a6fd4095b9b109dc15c2037a755f224c))
-
-
-
-## [0.243.3](https://github.com/rodekruis/IBF-system/compare/v0.243.2...v0.243.3) (2023-04-24)
-
-
-### Bug Fixes
-
-* import fs AB[#19023](https://github.com/rodekruis/IBF-system/issues/19023) ([6166c31](https://github.com/rodekruis/IBF-system/commit/6166c31aacd723340b6d1c641b768bd5ffcc558c))
-* ssl flex server AB[#19023](https://github.com/rodekruis/IBF-system/issues/19023) ([c107fa7](https://github.com/rodekruis/IBF-system/commit/c107fa7cdfc472660fdc03c93b654fda6514b30c))
 
 
 
