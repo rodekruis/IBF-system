@@ -1,3 +1,12 @@
+## [0.247.6](https://github.com/rodekruis/IBF-system/compare/v0.247.5...v0.247.6) (2023-06-19)
+
+
+### Bug Fixes
+
+* correct earlier PR AB[#19862](https://github.com/rodekruis/IBF-system/issues/19862) ([e9cfbaa](https://github.com/rodekruis/IBF-system/commit/e9cfbaa5428bce58e46767fcfdb2d6e4220f25bf))
+
+
+
 ## [0.247.5](https://github.com/rodekruis/IBF-system/compare/v0.247.4...v0.247.5) (2023-06-19)
 
 
@@ -129,15 +138,6 @@
 * split markers based on exposure AB[#19191](https://github.com/rodekruis/IBF-system/issues/19191) ([cf5a317](https://github.com/rodekruis/IBF-system/commit/cf5a317428623a71d31b637f13c3d64ccc7ba4ac))
 * update geoserver layers AB[#18700](https://github.com/rodekruis/IBF-system/issues/18700) ([d0921f4](https://github.com/rodekruis/IBF-system/commit/d0921f42372144bfacdef8e81c77fd225c13b499))
 * update markers AB[#18700](https://github.com/rodekruis/IBF-system/issues/18700) ([e3ff776](https://github.com/rodekruis/IBF-system/commit/e3ff776f93f1662334d0e44ccb04eac159bf15f7))
-
-
-
-## [0.244.1](https://github.com/rodekruis/IBF-system/compare/v0.244.0...v0.244.1) (2023-05-01)
-
-
-### Bug Fixes
-
-* typhoon no-event AB[#19182](https://github.com/rodekruis/IBF-system/issues/19182) ([1ee3ec7](https://github.com/rodekruis/IBF-system/commit/1ee3ec7005a4a3691da5dac74802681cba84834a))
 
 
 
