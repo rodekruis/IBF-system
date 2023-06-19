@@ -2,6 +2,11 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
+### 02-06-2023 (v0.246.0)
+
+- IBF Drought & Typhoon: The event name is shown more clearly in the chat and aggregates sections.
+- All IBF: The timeline is redesigned and shows warning icons for triggered lead times.
+
 ### 03-04-2023 (v0.235.1)
 
 - IBF Drought: When there are multiple events simultaneously, the portal loads first in 'overview'-mode, showing all events. From there an event can be selected in either chat-section, or timeline, or map.
