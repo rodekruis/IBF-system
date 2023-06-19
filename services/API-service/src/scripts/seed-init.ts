@@ -33,6 +33,10 @@ import SeedPointData from './seed-point-data';
 import { CountryService } from '../api/country/country.service';
 import { NotificationInfoDto } from '../api/country/dto/notification-info.dto';
 import SeedLineData from './seed-line-data';
+import {
+  LeadTime,
+  LeadTimeUnit,
+} from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -65,6 +69,9 @@ export class SeedInit implements InterfaceScript {
         disasterEntity.triggerUnit = disaster.triggerUnit;
         disasterEntity.actionsUnit = disaster.actionsUnit;
         disasterEntity.showOnlyTriggeredAreas = disaster.showOnlyTriggeredAreas;
+        disasterEntity.leadTimeUnit = disaster.leadTimeUnit as LeadTimeUnit;
+        disasterEntity.minLeadTime = disaster.minLeadTime as LeadTime;
+        disasterEntity.maxLeadTime = disaster.maxLeadTime as LeadTime;
         return disasterEntity;
       },
     );
@@ -81,11 +88,6 @@ export class SeedInit implements InterfaceScript {
           const leadTimeEntity = new LeadTimeEntity();
           leadTimeEntity.leadTimeName = leadTime.leadTimeName;
           leadTimeEntity.leadTimeLabel = leadTime.leadTimeLabel;
-          leadTimeEntity.disasterTypes = await disasterRepository.find({
-            where: leadTime.disasterTypes.map((diasterType: string): object => {
-              return { disasterType: diasterType };
-            }),
-          });
           return leadTimeEntity;
         },
       ),

@@ -20,10 +20,4 @@ export class LeadTimeEntity {
 
   @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
   public created: Date;
-
-  @ManyToMany(
-    (): typeof DisasterEntity => DisasterEntity,
-    (disasterType): LeadTimeEntity[] => disasterType.leadTimes,
-  )
-  public disasterTypes: DisasterEntity[];
 }

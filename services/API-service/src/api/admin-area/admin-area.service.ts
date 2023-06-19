@@ -275,7 +275,6 @@ export class AdminAreaService {
   ): Promise<DisasterEntity> {
     return await this.disasterTypeRepository.findOne({
       where: { disasterType: disasterType },
-      relations: ['leadTimes'],
     });
   }
 

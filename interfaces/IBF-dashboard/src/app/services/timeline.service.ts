@@ -294,28 +294,31 @@ export class TimelineService {
 
   private getVisibleLeadTimes() {
     const visibleLeadTimes: LeadTimeButtonInput[] = [];
-    this.disasterType.leadTimes.sort((a, b) =>
-      Number(LeadTimeTriggerKey[a.leadTimeName]) >
-      Number(LeadTimeTriggerKey[b.leadTimeName])
-        ? 1
-        : -1,
-    );
-    for (const leadTime of this.disasterType.leadTimes) {
+    const disasterLeadTimes = [];
+    let disasterLeadTime = this.disasterType.minLeadTime;
+    const maxLeadTime = Number(this.disasterType.maxLeadTime.split('-')[0]);
+    while (Number(disasterLeadTime.split('-')[0]) <= maxLeadTime) {
+      disasterLeadTimes.push(disasterLeadTime);
+      disasterLeadTime = disasterLeadTime.replace(
+        disasterLeadTime.split('-')[0],
+        String(Number(disasterLeadTime.split('-')[0]) + 1),
+      ) as LeadTime;
+    }
+
+    for (const leadTime of disasterLeadTimes) {
       // Push first only active lead-times ..
       if (
-        visibleLeadTimes
-          .map((lt) => lt.leadTime)
-          .indexOf(leadTime.leadTimeName) === -1 &&
-        this.isLeadTimeEnabled(leadTime.leadTimeName, visibleLeadTimes)
+        visibleLeadTimes.map((lt) => lt.leadTime).indexOf(leadTime) === -1 &&
+        this.isLeadTimeEnabled(leadTime, visibleLeadTimes)
       ) {
         // add separate events with same lead-time, separately
         const filteredEvents = this.eventState.events.filter(
-          (e) => e.firstLeadTime === leadTime.leadTimeName,
+          (e) => e.firstLeadTime === leadTime,
         );
         if (filteredEvents) {
           for (const event of filteredEvents.reverse()) {
             visibleLeadTimes.push({
-              leadTime: leadTime.leadTimeName,
+              leadTime: leadTime,
               eventName: event.eventName,
               undefined: false,
               duration: event.duration,
@@ -324,22 +327,20 @@ export class TimelineService {
         }
       }
     }
-    for (const leadTime of this.disasterType.leadTimes) {
+    for (const leadTime of disasterLeadTimes) {
       // .. and then all other lead-times
       if (
         // skip already added leadTimes
-        visibleLeadTimes
-          .map((lt) => lt.leadTime)
-          .indexOf(leadTime.leadTimeName) === -1 &&
+        visibleLeadTimes.map((lt) => lt.leadTime).indexOf(leadTime) === -1 &&
         // and decide for others to show or not
         this.filterVisibleLeadTimePerDisasterType(
           this.disasterType,
-          leadTime.leadTimeName,
+          leadTime,
           visibleLeadTimes,
         )
       ) {
         visibleLeadTimes.push({
-          leadTime: leadTime.leadTimeName,
+          leadTime: leadTime,
           eventName: null,
           undefined: false,
         });

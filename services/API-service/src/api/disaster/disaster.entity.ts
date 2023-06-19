@@ -11,7 +11,10 @@ import { DisasterType } from './disaster-type.enum';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../metadata/layer-metadata.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import {
+  LeadTime,
+  LeadTimeUnit,
+} from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { UserEntity } from '../user/user.entity';
 
 @Entity('disaster')
@@ -48,13 +51,17 @@ export class DisasterEntity {
   @JoinTable()
   public countries: CountryEntity[];
 
-  @ApiProperty({ example: [{ leadTimeName: LeadTime.day7 }] })
-  @ManyToMany(
-    (): typeof LeadTimeEntity => LeadTimeEntity,
-    (leadTime): DisasterEntity[] => leadTime.disasterTypes,
-  )
-  @JoinTable()
-  public leadTimes: LeadTimeEntity[];
+  @ApiProperty({ example: LeadTimeUnit.day })
+  @Column({ nullable: true })
+  public leadTimeUnit: LeadTimeUnit;
+
+  @ApiProperty({ example: LeadTime.day1 })
+  @Column({ nullable: true })
+  public minLeadTime: LeadTime;
+
+  @ApiProperty({ example: LeadTime.day7 })
+  @Column({ nullable: true })
+  public maxLeadTime: LeadTime;
 
   @ManyToMany(
     (): typeof IndicatorMetadataEntity => IndicatorMetadataEntity,
