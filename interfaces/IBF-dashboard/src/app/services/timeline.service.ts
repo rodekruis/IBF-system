@@ -131,9 +131,7 @@ export class TimelineService {
   private isNoEvent() {
     return (
       this.eventState.events.length === 0 &&
-      [DisasterTypeKey.typhoon, DisasterTypeKey.flashFloods].includes(
-        this.disasterType.disasterType,
-      )
+      this.disasterType.disasterType === DisasterTypeKey.typhoon
     );
   }
 
@@ -170,7 +168,10 @@ export class TimelineService {
         // or the flash-floods scenario where all buttons are disabled
         this.disasterType.disasterType === DisasterTypeKey.flashFloods
       ) {
-        this.handleTimeStepButtonClick(LeadTime.hour1, null, true);
+        this.handleTimeStepButtonClick(
+          this.eventState.activeTrigger ? null : LeadTime.hour1,
+          null,
+        );
       }
     }
   };
@@ -264,8 +265,6 @@ export class TimelineService {
       if (this.getCountryDisasterAttribute('droughtEndOfMonthPipeline')) {
         return this.state.today.plus({ months: Number(triggerKey) + 1 });
       }
-      console.log('this.state.today: ', this.state.today);
-      console.log('triggerKey: ', triggerKey);
       return this.state.today.plus({ months: Number(triggerKey) });
     }
   }
