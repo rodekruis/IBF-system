@@ -47,7 +47,7 @@
     "showOnlyTriggeredAreas": true,
     "leadTimeUnit": "month",
     "minLeadTime": "0-month",
-    "maxLeadTime": "12-month"
+    "maxLeadTime": "11-month"
   },
   {
     "disasterType": "typhoon",
