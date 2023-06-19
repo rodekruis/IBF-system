@@ -3,11 +3,9 @@
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
 ### 02-06-2023 (v0.246.0)
-- All IBF: The event name, if present, is shown in the aggregates header.
-- IBF Malawi Flash-flood: Events below threshold are shown as warnings.
 
-### 03-05-2023 (v0.245.0)
-- All IBF: Map markers are now colored different based on exposure
+- IBF Drought & Typhoon: The event name is shown more clearly in the chat and aggregates sections.
+- All IBF: The timeline is redesigned and shows warning icons for triggered lead times.
 
 ### 03-04-2023 (v0.235.1)
 
