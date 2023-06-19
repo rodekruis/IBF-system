@@ -114,7 +114,6 @@ export class NotificationContentService {
     };
     const relations = [
       'disasterTypes',
-      'disasterTypes.leadTimes',
       'notificationInfo',
       'countryDisasterSettings',
       'countryDisasterSettings.activeLeadTimes',

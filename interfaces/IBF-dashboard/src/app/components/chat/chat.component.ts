@@ -517,16 +517,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
     const percentageOvertimeAllowed = 0.1; // 10%
 
-    const updateFrequencyUnit = disasterType.leadTimes[0].leadTimeName.split(
-      '-',
-    )[1] as LeadTimeUnit;
-
     const durationUnit =
-      updateFrequencyUnit === LeadTimeUnit.day
+      disasterType.leadTimeUnit === LeadTimeUnit.day
         ? 'days'
-        : updateFrequencyUnit === LeadTimeUnit.hour
+        : disasterType.leadTimeUnit === LeadTimeUnit.hour
         ? 'hours'
-        : updateFrequencyUnit === LeadTimeUnit.month
+        : disasterType.leadTimeUnit === LeadTimeUnit.month
         ? 'months'
         : null;
     const durationUnitValue =
