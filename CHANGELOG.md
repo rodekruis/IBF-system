@@ -1,3 +1,13 @@
+## [0.247.5](https://github.com/rodekruis/IBF-system/compare/v0.247.4...v0.247.5) (2023-06-19)
+
+
+### Bug Fixes
+
+* mistake AB[#19780](https://github.com/rodekruis/IBF-system/issues/19780) ([dd4c97e](https://github.com/rodekruis/IBF-system/commit/dd4c97e5d456702cf724e2fa186197a1ad060970))
+* remove unused leadTimeLabel AB[#19780](https://github.com/rodekruis/IBF-system/issues/19780) ([d3e8c50](https://github.com/rodekruis/IBF-system/commit/d3e8c500985e71aab9caa7921af31ecfc1429db6))
+
+
+
 ## [0.247.4](https://github.com/rodekruis/IBF-system/compare/v0.247.3...v0.247.4) (2023-06-19)
 
 
@@ -128,20 +138,6 @@
 ### Bug Fixes
 
 * typhoon no-event AB[#19182](https://github.com/rodekruis/IBF-system/issues/19182) ([1ee3ec7](https://github.com/rodekruis/IBF-system/commit/1ee3ec7005a4a3691da5dac74802681cba84834a))
-
-
-
-# [0.244.0](https://github.com/rodekruis/IBF-system/compare/v0.243.3...v0.244.0) (2023-04-28)
-
-
-### Bug Fixes
-
-* fix geoserver version AB[#19104](https://github.com/rodekruis/IBF-system/issues/19104) ([b1589b5](https://github.com/rodekruis/IBF-system/commit/b1589b5017a711c6b9ab2ed946ea1e2b2adec31d))
-
-
-### Features
-
-* upload mocked point assets AB[#19170](https://github.com/rodekruis/IBF-system/issues/19170) ([8f4e085](https://github.com/rodekruis/IBF-system/commit/8f4e0857a6fd4095b9b109dc15c2037a755f224c))
 
 
 
