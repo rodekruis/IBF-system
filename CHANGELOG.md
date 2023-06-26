@@ -1,3 +1,12 @@
+# [0.248.0](https://github.com/rodekruis/IBF-system/compare/v0.247.6...v0.248.0) (2023-06-26)
+
+
+### Features
+
+* gzip api responses AB[#19925](https://github.com/rodekruis/IBF-system/issues/19925) ([a37af3e](https://github.com/rodekruis/IBF-system/commit/a37af3ea7fd72b4706280ad056c9b6349b7a8082))
+
+
+
 ## [0.247.6](https://github.com/rodekruis/IBF-system/compare/v0.247.5...v0.247.6) (2023-06-19)
 
 
@@ -121,23 +130,6 @@
 * update en.json AB[#19424](https://github.com/rodekruis/IBF-system/issues/19424) ([8414734](https://github.com/rodekruis/IBF-system/commit/84147346100e1eef1e5e12245d658d1c6a41c059))
 * update middle column bg AB[#19455](https://github.com/rodekruis/IBF-system/issues/19455) ([0d1684c](https://github.com/rodekruis/IBF-system/commit/0d1684c20c8db2345b4bb654f8b9ff092d63539a))
 * update switch btn copy AB[#19425](https://github.com/rodekruis/IBF-system/issues/19425) ([56582fc](https://github.com/rodekruis/IBF-system/commit/56582fc19cc5a7edadeb9a3e72c587a47c80fa50))
-
-
-
-# [0.245.0](https://github.com/rodekruis/IBF-system/compare/v0.244.1...v0.245.0) (2023-05-03)
-
-
-### Bug Fixes
-
-* adjust misc colors AB[#18700](https://github.com/rodekruis/IBF-system/issues/18700) ([11c92f8](https://github.com/rodekruis/IBF-system/commit/11c92f85903a3cb1200cdef38b72c451d5c6ca66))
-* waterpoint icon in legend AB[#19191](https://github.com/rodekruis/IBF-system/issues/19191) ([fd08db9](https://github.com/rodekruis/IBF-system/commit/fd08db96ceb6187e9f21ef545e33f016d1e34023))
-
-
-### Features
-
-* split markers based on exposure AB[#19191](https://github.com/rodekruis/IBF-system/issues/19191) ([cf5a317](https://github.com/rodekruis/IBF-system/commit/cf5a317428623a71d31b637f13c3d64ccc7ba4ac))
-* update geoserver layers AB[#18700](https://github.com/rodekruis/IBF-system/issues/18700) ([d0921f4](https://github.com/rodekruis/IBF-system/commit/d0921f42372144bfacdef8e81c77fd225c13b499))
-* update markers AB[#18700](https://github.com/rodekruis/IBF-system/issues/18700) ([e3ff776](https://github.com/rodekruis/IBF-system/commit/e3ff776f93f1662334d0e44ccb04eac159bf15f7))
 
 
 
