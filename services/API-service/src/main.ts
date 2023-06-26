@@ -9,6 +9,7 @@ import {
 } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import * as bodyParser from 'body-parser';
+const compression = require('compression');
 
 async function bootstrap(): Promise<void> {
   const appOptions = { cors: true };
@@ -60,6 +61,7 @@ async function bootstrap(): Promise<void> {
       extended: true,
     }),
   );
+  app.use(compression());
   await app.listen(process.env.PORT || PORT);
 }
 bootstrap();
