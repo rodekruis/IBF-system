@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { PreloadedLayersService } from 'src/app/services/preloaded-layers.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import {
   IbfLayer,
@@ -40,6 +41,7 @@ import { EapActionsService } from './eap-actions.service';
 export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
   public layers = [] as IbfLayer[];
+  private preloadedLayers: IbfLayer[] = [];
   public selectedOutlineColor = {
     triggered: '#737373',
     nonTriggered: 'var(--ion-color-ibf-no-alert-primary)',
@@ -93,6 +95,7 @@ export class MapService {
     private placeCodeService: PlaceCodeService,
     private disasterTypeService: DisasterTypeService,
     private eapActionsService: EapActionsService,
+    private preloadedLayersService: PreloadedLayersService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -125,6 +128,10 @@ export class MapService {
     this.eapActionsService
       .getTriggeredAreas()
       .subscribe(this.onTriggeredAreasChange);
+
+    this.preloadedLayersService
+      .getPreloadedLayers()
+      .subscribe(this.addPreloadedLayers);
   }
 
   private onCountryChange = (country: Country): void => {
@@ -190,7 +197,13 @@ export class MapService {
       } else if (layer.name === IbfLayerName.typhoonTrack) {
         this.loadTyphoonTrackLayer(layer, layerActive);
       } else if (layer.name === IbfLayerName.waterpoints) {
-        this.loadWaterPointsLayer(layer, layerActive);
+        // this.loadWaterPointsLayer(layer, layerActive);
+        this.addWaterPointsLayer(layer, null);
+        this.preloadedLayersService.preloadLayer(
+          layer,
+          this.country,
+          this.disasterType,
+        );
       } else if (layer.type === IbfLayerType.point) {
         // NOTE: any non-standard point layers should be placed above this 'else if'!
         this.loadPointDataLayer(layer, layerActive);
@@ -349,6 +362,7 @@ export class MapService {
   };
 
   private addWaterPointsLayer(layer: IbfLayerMetadata, waterPoints: any) {
+    const isLoading = waterPoints ? false : true;
     this.addLayer({
       name: IbfLayerName.waterpoints,
       label: IbfLayerLabel.waterpoints,
@@ -361,6 +375,7 @@ export class MapService {
       data: waterPoints,
       viewCenter: false,
       order: 2,
+      isLoading,
     });
   }
 
@@ -1025,4 +1040,24 @@ export class MapService {
       };
     }
   };
+
+  private addPreloadedLayers = (preloadedLayers: IbfLayer[]) => {
+    this.preloadedLayers = preloadedLayers;
+    if (!this.layers) {
+      return;
+    }
+    console.log('=== this.layers: ');
+
+    for (const pL of this.preloadedLayers) {
+      const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineState.activeLeadTime}_${this.adminLevel}_${pL.name}`;
+      const layer = this.layers.find((l) => l.name === pL.name);
+      console.log('=== layer.name: ', layer.name);
+      layer.data = pL.data;
+      layer.isLoading = false;
+    }
+  };
+
+  private isLayerPreloaded(layerName): boolean {
+    return this.preloadedLayers.some((l) => l.name === layerName);
+  }
 }

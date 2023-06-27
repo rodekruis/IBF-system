@@ -37,6 +37,7 @@ export class IbfLayer {
   legendColor?: string;
   group?: IbfLayerGroup;
   dynamic?: boolean;
+  isLoading?: boolean = false;
 }
 
 export enum IbfLayerThreshold {
