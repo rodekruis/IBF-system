@@ -1046,12 +1046,9 @@ export class MapService {
     if (!this.layers) {
       return;
     }
-    console.log('=== this.layers: ');
 
     for (const pL of this.preloadedLayers) {
-      const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineState.activeLeadTime}_${this.adminLevel}_${pL.name}`;
       const layer = this.layers.find((l) => l.name === pL.name);
-      console.log('=== layer.name: ', layer.name);
       layer.data = pL.data;
       layer.isLoading = false;
     }
