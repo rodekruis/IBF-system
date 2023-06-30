@@ -866,11 +866,8 @@ export class EventService {
 
     const disasterTypeEntity = await this.disasterTypeRepository.findOne({
       where: { disasterType: disasterType },
-      relations: ['leadTimes'],
     });
-    return disasterTypeEntity.leadTimes[0].leadTimeName.includes(
-      LeadTimeUnit.month,
-    )
+    return disasterTypeEntity.leadTimeUnit === LeadTimeUnit.month
       ? new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59)
       : new Date(today.setDate(today.getDate() + 7));
   }

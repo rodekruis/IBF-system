@@ -1,6 +1,6 @@
 import { AdminLevel } from 'src/app/types/admin-level';
 import { DisasterTypeKey } from './../types/disaster-type-key';
-import { LeadTime } from './../types/lead-time';
+import { LeadTime, LeadTimeUnit } from './../types/lead-time';
 export class Country {
   countryCodeISO3: string;
   countryDisasterSettings: CountryDisasterSettings[];
@@ -66,15 +66,10 @@ export class AdminRegionLabel {
 export class DisasterType {
   disasterType: DisasterTypeKey;
   label: string;
-  leadTimes: LeadTimeEntity[];
+  leadTimeUnit: LeadTimeUnit;
+  minLeadTime: LeadTime;
+  maxLeadTime: LeadTime;
   actionsUnit: string;
   triggerUnit: string;
   activeTrigger: boolean;
-}
-
-class LeadTimeEntity {
-  leadTimeName: LeadTime;
-  leadTimeLabel: string;
-  countries: Country[];
-  disasterTypes: DisasterType[];
 }

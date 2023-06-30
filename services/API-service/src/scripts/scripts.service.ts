@@ -532,6 +532,8 @@ export class ScriptsService {
       );
     } else if (disasterType === DisasterType.Typhoon) {
       return leadTime === this.getTyphoonLeadTime(eventNr, typhoonScenario);
+    } else if (disasterType === DisasterType.FlashFloods) {
+      return this.useFlashFloodsLeadTime(leadTime as LeadTime, triggered);
     } else {
       return true;
     }
@@ -667,6 +669,17 @@ export class ScriptsService {
       return LeadTime.hour114;
     } else {
       return `${114 + eventNr}-hour` as LeadTime;
+    }
+  }
+
+  private useFlashFloodsLeadTime(
+    leadTime: LeadTime,
+    triggered: boolean,
+  ): boolean {
+    if (triggered) {
+      return [LeadTime.hour2, LeadTime.hour24].includes(leadTime);
+    } else {
+      return leadTime === LeadTime.hour1;
     }
   }
 

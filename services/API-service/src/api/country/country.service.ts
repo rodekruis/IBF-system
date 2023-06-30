@@ -36,7 +36,6 @@ export class CountryService {
     'countryDisasterSettings',
     'countryDisasterSettings.activeLeadTimes',
     'disasterTypes',
-    'disasterTypes.leadTimes',
     'notificationInfo',
   ];
 

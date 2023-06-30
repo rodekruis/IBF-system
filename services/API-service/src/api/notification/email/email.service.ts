@@ -455,7 +455,7 @@ export class EmailService {
     date: Date,
   ) {
     // .. find the right leadtime
-    const [leadTimeValue, leadTimeUnit] = leadTime.leadTimeLabel.split('-');
+    const [leadTimeValue, leadTimeUnit] = leadTime.leadTimeName.split('-');
 
     const eventName =
       event.eventName && disasterType === DisasterType.Typhoon
