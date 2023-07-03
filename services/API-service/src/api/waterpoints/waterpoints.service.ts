@@ -40,7 +40,7 @@ export class WaterpointsService {
       `?$where=water_source is not null` +
       ` AND water_source !='Lake'` +
       ` AND within_polygon(geocoded_column, '${countryWkt.right}')` +
-      `&$limit=100000` +
+      `&$limit=200000` +
       `&status_id=Yes` +
       `&country_id=${country.countryCodeISO2}`;
 
