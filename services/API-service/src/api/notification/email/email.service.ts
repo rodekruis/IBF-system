@@ -67,7 +67,7 @@ export class EmailService {
       date ? new Date(date) : new Date(),
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
-    const emailSubject = `IBF ${disasterType} warning`;
+    const emailSubject = `IBF ${disasterType} notification`;
     this.sendEmail(
       emailSubject,
       emailHtml,
@@ -89,7 +89,7 @@ export class EmailService {
       date ? new Date(date) : new Date(),
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
-    const emailSubject = `IBF ${disasterType} warning is now below threshold`;
+    const emailSubject = `IBF ${disasterType} trigger is now below threshold`;
     this.sendEmail(
       emailSubject,
       emailHtml,
@@ -244,6 +244,12 @@ export class EmailService {
           country.notificationInfo.linkVideo,
           country.notificationInfo.linkPdf,
         ),
+      },
+      {
+        replaceKey: '(EXPOSURE-UNIT)',
+        replaceValue: (
+          await this.getActionsUnit(disasterType)
+        ).label.toLocaleLowerCase(),
       },
     ];
     return keyValueReplaceList;
@@ -457,17 +463,16 @@ export class EmailService {
     // .. find the right leadtime
     const [leadTimeValue, leadTimeUnit] = leadTime.leadTimeName.split('-');
 
-    const eventName =
-      event.eventName && disasterType === DisasterType.Typhoon
-        ? `${event.eventName}`
-        : this.notificationContentService.firstCharOfWordsToUpper(
-            (await this.notificationContentService.getDisaster(disasterType))
-              .label,
-          );
+    const eventName = event.eventName
+      ? `${event.eventName.split('_')[0]}`
+      : this.notificationContentService.firstCharOfWordsToUpper(
+          (await this.notificationContentService.getDisaster(disasterType))
+            .label,
+        );
 
     const triggerStatus = event.thresholdReached
-      ? 'trigger reached'
-      : 'trigger not reached';
+      ? 'Trigger (threshold reached)'
+      : 'Warning (threshold not reached)';
 
     const dateTimePreposition = leadTimeUnit === 'month' ? 'in' : 'on';
     const dateAndTime = this.notificationContentService.getFirstLeadTimeDate(
@@ -530,10 +535,7 @@ export class EmailService {
             disasterType,
             event.eventName,
           );
-          if (
-            triggeredLeadTimes[leadTime.leadTimeName] === '1' &&
-            event.thresholdReached // Only show table if trigger reached
-          ) {
+          if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
             // .. find the right leadtime
             const tableForLeadTime = await this.getTableForLeadTime(
               country,
@@ -622,6 +624,15 @@ export class EmailService {
     }
   }
 
+  private async getActionsUnit(
+    disasterType: DisasterType,
+  ): Promise<IndicatorMetadataEntity> {
+    return await this.indicatorRepository.findOne({
+      name: (await this.notificationContentService.getDisaster(disasterType))
+        .actionsUnit,
+    });
+  }
+
   private async getTableForLeadTime(
     country: CountryEntity,
     disasterType: DisasterType,
@@ -636,10 +647,7 @@ export class EmailService {
     const adminAreaLabelsParent =
       country.adminRegionLabels[String(adminLevel - 1)];
 
-    const actionUnit = await this.indicatorRepository.findOne({
-      name: (await this.notificationContentService.getDisaster(disasterType))
-        .actionsUnit,
-    });
+    const actionsUnit = await this.getActionsUnit(disasterType);
 
     const tableForLeadTimeStart = `<div>
       <strong>${
@@ -648,13 +656,13 @@ export class EmailService {
       }</strong>
   </div>
   <table class="notification-alerts-table">
-      <caption class="notification-alerts-table-caption">The following table lists all the exposed ${adminAreaLabels.plural.toLowerCase()} in order of ${actionUnit.label.toLowerCase()},</caption>
+      <caption class="notification-alerts-table-caption">This table lists the exposed ${adminAreaLabels.plural.toLowerCase()} in order of ${actionsUnit.label.toLowerCase()}:</caption>
       <thead>
           <tr>
-              <th align="center">Predicted ${actionUnit.label}</th>
               <th align="left">${adminAreaLabels.singular}${
       adminAreaLabelsParent ? ' (' + adminAreaLabelsParent.singular + ')' : ''
     }</th>
+    <th align="center">Predicted ${actionsUnit.label}</th>
           </tr>
       </thead>
       <tbody>
@@ -664,9 +672,9 @@ export class EmailService {
       disasterType,
       leadTime,
       event.eventName,
-      actionUnit,
+      actionsUnit,
     );
-    const tableForLeadTimeEnd = '</tbody></table>';
+    const tableForLeadTimeEnd = '</tbody></table><br/><br/>';
     const tableForLeadTime =
       tableForLeadTimeStart + tableForLeadTimeMiddle + tableForLeadTimeEnd;
     return tableForLeadTime;
@@ -677,7 +685,7 @@ export class EmailService {
     disasterType: DisasterType,
     leadTime: LeadTimeEntity,
     eventName: string,
-    actionUnit: IndicatorMetadataEntity,
+    actionsUnit: IndicatorMetadataEntity,
   ): Promise<string> {
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
@@ -692,20 +700,20 @@ export class EmailService {
     );
     let areaTableString = '';
     for (const area of triggeredAreas) {
-      const actionUnitValue = await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
+      const actionsUnitValue = await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
         disaster.actionsUnit as DynamicIndicator,
         area.placeCode,
         leadTime.leadTimeName as LeadTime,
         eventName,
       );
       const areaTable = `<tr class='notification-alerts-table-row'>
-            <td align='center'>${this.notificationContentService.formatActionUnitValue(
-              actionUnitValue,
-              actionUnit,
-            )}</td>
-            <td align='left'>${area.name}${
+      <td align='left'>${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''
       }</td>
+            <td align='center'>${this.notificationContentService.formatActionUnitValue(
+              actionsUnitValue,
+              actionsUnit,
+            )}</td>
           </tr>`;
       areaTableString = areaTableString + areaTable;
     }
@@ -738,6 +746,8 @@ export class EmailService {
         return this.getHeavyRainCopy();
       case DisasterType.Typhoon:
         return await this.getTyphoonCopy(leadTime.leadTimeName, event);
+      case DisasterType.FlashFloods:
+        return await this.getFlashFloodsCopy(leadTime.leadTimeName, event);
       default:
         return { eventStatus: '', extraInfo: '' };
     }
@@ -795,6 +805,7 @@ export class EmailService {
     const timestampString = await this.getLeadTimeTimestamp(
       leadTime,
       event.countryCodeISO3,
+      DisasterType.Typhoon,
     );
 
     return {
@@ -805,13 +816,34 @@ export class EmailService {
     };
   }
 
+  private async getFlashFloodsCopy(
+    leadTime: string,
+    event: EventSummaryCountry,
+  ): Promise<{
+    eventStatus: string;
+    extraInfo: string;
+    timestamp: string;
+  }> {
+    const timestampString = await this.getLeadTimeTimestamp(
+      leadTime,
+      event.countryCodeISO3,
+      DisasterType.FlashFloods,
+    );
+    return {
+      eventStatus: '',
+      extraInfo: '',
+      timestamp: timestampString,
+    };
+  }
+
   private async getLeadTimeTimestamp(
     leadTime: string,
     countryCodeISO3: string,
+    disasterType: DisasterType,
   ): Promise<string> {
     const recentDate = await this.helperService.getRecentDate(
       countryCodeISO3,
-      DisasterType.Typhoon,
+      disasterType,
     );
     const gmtUploadDate = new Date(recentDate.timestamp);
     const hours = Number(leadTime.split('-')[0]);
@@ -823,6 +855,10 @@ export class EmailService {
       PHL: {
         label: 'PHT',
         difference: 8,
+      },
+      MWI: {
+        label: 'CAT',
+        difference: 2,
       },
       default: {
         label: 'GMT',

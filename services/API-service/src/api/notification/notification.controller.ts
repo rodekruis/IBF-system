@@ -34,9 +34,9 @@ export class NotificationController {
       'Send notification (e-mail and/or whatsapp) about disaster to recipients for given country and disaster-type. (Used at the end of various IBF pipelines)',
   })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description:
-      'notification request sent (e-mails/whatsapps sent only if there is an active event)',
+      'Notification request sent (actual e-mails/whatsapps sent only if there is an active event)',
   })
   @Post('send')
   @ApiConsumes()

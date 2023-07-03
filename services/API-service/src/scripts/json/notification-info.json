@@ -157,8 +157,8 @@
       "floods": "An administrative area is triggered based on two parameters from the 6-days GloFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 60% probability of occurrence of a 5 year return period flood within the next 6 days. The GloFAS flood forecast triggers except in the Traditional Areas where the False Alarm Ratio (FAR) exceeds the predetermined maximum value which is 0.5.",
       "flash-floods": "TBD"
     },
-    "linkSocialMediaType": null,
-    "linkSocialMediaUrl": null,
+    "linkSocialMediaType": "WhatsApp",
+    "linkSocialMediaUrl": "https://chat.whatsapp.com/",
     "linkVideo": "https://bit.ly/IBF-video-Malawi",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Malawi-Published.pdf",
     "mailSegment": {
