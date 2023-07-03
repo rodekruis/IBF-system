@@ -40,9 +40,12 @@
           (click)="toggleLayer(layer)"
           class="ion-no-padding"
           [title]="layer.label"
+          [disabled]="layer.isLoading"
         >
           <ion-row>
+            <ion-spinner *ngIf="layer.isLoading"></ion-spinner>
             <ion-col
+              *ngIf="!layer.isLoading"
               size="2"
               class="layer-control-legend-col"
               [class.point-layer]="

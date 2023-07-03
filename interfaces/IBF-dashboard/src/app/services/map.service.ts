@@ -190,7 +190,7 @@ export class MapService {
       } else if (layer.name === IbfLayerName.typhoonTrack) {
         this.loadTyphoonTrackLayer(layer, layerActive);
       } else if (layer.name === IbfLayerName.waterpoints) {
-        this.loadWaterPointsLayer(layer, layerActive);
+        this.loadWaterPointsLayer(layer);
       } else if (layer.type === IbfLayerType.point) {
         // NOTE: any non-standard point layers should be placed above this 'else if'!
         this.loadPointDataLayer(layer, layerActive);
@@ -331,24 +331,23 @@ export class MapService {
     });
   };
 
-  private loadWaterPointsLayer = (
-    layer: IbfLayerMetadata,
-    layerActive: boolean,
-  ) => {
-    if (this.country) {
-      if (layerActive) {
-        this.apiService
-          .getWaterPoints(this.country.countryCodeISO3)
-          .subscribe((waterPoints) => {
-            this.addWaterPointsLayer(layer, waterPoints);
-          });
-      } else {
-        this.addWaterPointsLayer(layer, null);
-      }
+  private loadWaterPointsLayer = (layer: IbfLayerMetadata) => {
+    const layerDataCacheKey = this.getLayerDataCacheKey(layer.name);
+    if (this.layerDataCache[layerDataCacheKey]) {
+      this.addWaterPointsLayer(layer, this.layerDataCache[layerDataCacheKey]);
+    } else {
+      this.addWaterPointsLayer(layer, null);
+      this.apiService
+        .getWaterPoints(this.country.countryCodeISO3)
+        .subscribe((waterPoints) => {
+          this.addWaterPointsLayer(layer, waterPoints);
+          this.layerDataCache[layerDataCacheKey] = waterPoints;
+        });
     }
   };
 
   private addWaterPointsLayer(layer: IbfLayerMetadata, waterPoints: any) {
+    const isLoading = waterPoints ? false : true;
     this.addLayer({
       name: IbfLayerName.waterpoints,
       label: IbfLayerLabel.waterpoints,
@@ -361,6 +360,7 @@ export class MapService {
       data: waterPoints,
       viewCenter: false,
       order: 2,
+      isLoading,
     });
   }
 
@@ -613,27 +613,39 @@ export class MapService {
     this.updateLayers(layer);
   };
 
+  private getLayerDataCacheKey(layerName: IbfLayerName): string {
+    if (layerName === IbfLayerName.waterpoints) {
+      return `${this.country.countryCodeISO3}_${layerName}`;
+    } else {
+      return `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineState.activeLeadTime}_${this.adminLevel}_${layerName}`;
+    }
+  }
+
   private updateLayers = (newLayer: IbfLayer): void => {
     this.layers.forEach((layer: IbfLayer): void => {
-      let layerObservable: Observable<GeoJSON.FeatureCollection> = of({
-        type: 'FeatureCollection',
-        features: [],
-      });
-      const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineState.activeLeadTime}_${this.adminLevel}_${layer.name}`;
-      layer.active = this.isLayerActive(layer, newLayer);
-      layer.show = this.isLayerShown(layer, newLayer);
-      if (this.layerDataCache[layerDataCacheKey]) {
-        layerObservable = this.layerDataCache[layerDataCacheKey];
-      } else if (layer.active) {
-        layerObservable = this.getLayerData(layer, layerDataCacheKey);
+      if (
+        layer.name === newLayer.name ||
+        layer.group === IbfLayerGroup.aggregates ||
+        layer.group === IbfLayerGroup.outline
+      ) {
+        const layerDataCacheKey = this.getLayerDataCacheKey(layer.name);
+        layer.active = this.isLayerActive(layer, newLayer);
+        layer.show = this.isLayerShown(layer, newLayer);
+        if (this.layerDataCache[layerDataCacheKey]) {
+          const layerData = this.layerDataCache[layerDataCacheKey];
+          this.updateLayer(layer)(layerData);
+        } else if (layer.active) {
+          this.getLayerData(layer).subscribe((layerDataResponse) => {
+            this.layerDataCache[layerDataCacheKey] = layerDataResponse;
+            this.updateLayer(layer)(layerDataResponse);
+          });
+        }
       }
-      layerObservable.subscribe(this.updateLayer(layer));
     });
   };
 
   private getLayerData = (
     layer: IbfLayer,
-    layerDataCacheKey: string,
   ): Observable<GeoJSON.FeatureCollection> => {
     let layerData: Observable<GeoJSON.FeatureCollection>;
     if (layer.name === IbfLayerName.waterpoints) {
@@ -706,7 +718,6 @@ export class MapService {
     } else {
       layerData = of(null);
     }
-    this.layerDataCache[layerDataCacheKey] = layerData;
     return layerData;
   };
 
@@ -738,13 +749,10 @@ export class MapService {
       );
     }
     // Get the geometry from the admin region (this should re-use the cache if that is already loaded)
+    // TO DO: I'm convinced this is not working as intended and does not re-use cache and does unneeded /admin-area calls
     const adminRegionsLayer = new IbfLayer();
     adminRegionsLayer.name = IbfLayerName.adminRegions;
-    const layerDataCacheKey = `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineState.activeLeadTime}_${this.adminLevel}_${adminRegionsLayer.name}`;
-    const adminRegionsObs = this.getLayerData(
-      adminRegionsLayer,
-      layerDataCacheKey,
-    );
+    const adminRegionsObs = this.getLayerData(adminRegionsLayer);
 
     // Combine results
     return zip(admDynamicDataObs, adminRegionsObs).pipe(
