@@ -355,7 +355,7 @@
     }
   },
   {
-    "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,MWI",
+    "countryCodes": "ZMB,KEN,ETH,ZWE",
     "disasterTypes": ["floods", "drought", "heavy-rain"],
     "name": "waterpoints",
     "label": "Waterpoints",
