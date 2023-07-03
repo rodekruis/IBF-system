@@ -1,3 +1,12 @@
+## [0.250.1](https://github.com/rodekruis/IBF-system/compare/v0.250.0...v0.250.1) (2023-07-03)
+
+
+### Bug Fixes
+
+* switch off waterpoints UGA/MWI AB[#20019](https://github.com/rodekruis/IBF-system/issues/20019) ([fd564eb](https://github.com/rodekruis/IBF-system/commit/fd564ebe6aa1505cfd0299f159f03f4e0cb3b832))
+
+
+
 # [0.250.0](https://github.com/rodekruis/IBF-system/compare/v0.249.0...v0.250.0) (2023-07-03)
 
 
@@ -92,20 +101,6 @@
 ### Bug Fixes
 
 * only load current admin-level AB[#19786](https://github.com/rodekruis/IBF-system/issues/19786) ([0f4a433](https://github.com/rodekruis/IBF-system/commit/0f4a433b89058f4e051b4a697dd821ade6e8f00d))
-
-
-
-# [0.247.0](https://github.com/rodekruis/IBF-system/compare/v0.246.1...v0.247.0) (2023-06-15)
-
-
-### Bug Fixes
-
-* middle column icons AB[#19594](https://github.com/rodekruis/IBF-system/issues/19594) ([601d851](https://github.com/rodekruis/IBF-system/commit/601d851995344633c987f318d814e230b73ba632))
-
-
-### Features
-
-* update mock data AB[#19772](https://github.com/rodekruis/IBF-system/issues/19772) ([25b8b7b](https://github.com/rodekruis/IBF-system/commit/25b8b7bbf6c7df4f168b6297b2ab3a5789890906))
 
 
 
