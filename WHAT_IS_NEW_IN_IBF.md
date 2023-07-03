@@ -2,6 +2,10 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
+### 03-07-2023 (v0.250.1)
+
+- All IBF: various performance/speed improvements.
+
 ### 02-06-2023 (v0.246.0)
 
 - IBF Drought & Typhoon: The event name is shown more clearly in the chat and aggregates sections.
