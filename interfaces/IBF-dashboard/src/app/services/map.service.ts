@@ -628,17 +628,16 @@ export class MapService {
         layer.group === IbfLayerGroup.aggregates ||
         layer.group === IbfLayerGroup.outline
       ) {
-        let layerData;
         const layerDataCacheKey = this.getLayerDataCacheKey(layer.name);
         layer.active = this.isLayerActive(layer, newLayer);
         layer.show = this.isLayerShown(layer, newLayer);
         if (this.layerDataCache[layerDataCacheKey]) {
-          layerData = this.layerDataCache[layerDataCacheKey];
+          const layerData = this.layerDataCache[layerDataCacheKey];
           this.updateLayer(layer)(layerData);
         } else if (layer.active) {
-          this.getLayerData(layer).subscribe((layerData) => {
-            this.layerDataCache[layerDataCacheKey] = layerData;
-            this.updateLayer(layer)(layerData);
+          this.getLayerData(layer).subscribe((layerDataResponse) => {
+            this.layerDataCache[layerDataCacheKey] = layerDataResponse;
+            this.updateLayer(layer)(layerDataResponse);
           });
         }
       }
