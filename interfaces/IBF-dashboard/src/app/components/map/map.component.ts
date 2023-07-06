@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
@@ -73,7 +73,7 @@ import { IbfLayerThreshold } from './../../types/ibf-layer';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnDestroy {
+export class MapComponent implements AfterViewInit, OnDestroy {
   private map: Map;
   public layers: IbfLayer[] = [];
   private placeCode: string;
@@ -84,7 +84,11 @@ export class MapComponent implements OnDestroy {
   public timelineState: TimelineState;
   private closestPointToTyphoon: number;
 
-  public legends: { [key: string]: Control } = {};
+  public legend: Control;
+  private legendDiv: HTMLElement;
+  private legendDivTitle = `<div style='margin-bottom: 8px'><strong>Map Legend</strong></div>`;
+  // public legends: { [key: string]: Control } = {};
+  private legends: string[] = [];
 
   private layerSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -147,6 +151,11 @@ export class MapComponent implements OnDestroy {
       .getTimelineStateSubscription()
       .subscribe(this.onTimelineStateChange);
   }
+  ngAfterViewInit(): void {
+    if (this.map) {
+      this.initLegend();
+    }
+  }
 
   ngOnDestroy() {
     this.layerSubscription.unsubscribe();
@@ -185,6 +194,8 @@ export class MapComponent implements OnDestroy {
     this.addToLayersControl();
 
     this.triggerWindowResize();
+
+    this.updateLegend();
   };
 
   private onCountryChange = (country: Country) => {
@@ -332,56 +343,98 @@ export class MapComponent implements OnDestroy {
     }
   };
 
-  public addLegend(colors, colorThreshold, layer: IbfLayer) {
-    this.removeLegend();
-
-    this.legends[layer.name] = new Control();
-    this.legends[layer.name].setPosition('bottomleft');
-    this.legends[layer.name].onAdd = () => {
-      const div = DomUtil.create('div', 'info legend');
-      const grades = Object.values(colorThreshold);
-      let labels;
-      if (layer.colorBreaks) {
-        labels = Object.values(layer.colorBreaks).map(
-          (colorBreak) => colorBreak.label,
-        );
-      }
-      const getColor = this.getFeatureColorByColorsAndColorThresholds(
-        colors,
-        colorThreshold,
-      );
-
-      const getLabel = this.getLabel(grades, layer, labels);
-
-      div.innerHTML +=
-        `<div><b>${layer.label}</b>` +
-        (layer.unit ? ' (' + layer.unit + ')' : '');
-
-      const noDataEntryFound = layer.data?.features.find(
-        (f) => f.properties?.indicators[layer.name] === null,
-      );
-      if (noDataEntryFound) {
-        div.innerHTML += `</div><i style="background:${this.mapService.state.noDataColor}"></i> No data<br>`;
-      }
-
-      for (let i = 0; i < grades.length; i++) {
-        if (grades[i] !== null && (i === 0 || grades[i] > grades[i - 1])) {
-          div.innerHTML += `<i style="background:${getColor(
-            grades[i + 1],
-          )}"></i> ${getLabel(i)}`;
-        }
-      }
-
-      return div;
+  private initLegend() {
+    this.legend = new Control();
+    this.legend.setPosition('bottomleft');
+    this.legend.onAdd = () => {
+      this.legendDiv = DomUtil.create('div', 'info legend');
+      this.legendDiv.innerHTML += this.legendDivTitle;
+      return this.legendDiv;
     };
-    this.legends[layer.name].addTo(this.map);
+
+    this.legend.addTo(this.map);
   }
 
-  private removeLegend() {
-    for (const legend of Object.keys(this.legends)) {
-      this.map.removeControl(this.legends[legend]);
+  private updateLegend() {
+    if (!this.legendDiv) {
+      return;
     }
-    this.legends = {};
+
+    const layersToShow = this.layers.filter(
+      (l) => l.active && l.group !== IbfLayerGroup.adminRegions,
+    );
+
+    this.legendDiv.innerHTML = this.legendDivTitle;
+    for (const layer of layersToShow) {
+      let element = ``;
+      switch (layer.type) {
+        case IbfLayerType.point:
+          element = this.getPointLegendString(layer);
+          break;
+        case IbfLayerType.shape:
+          element = this.getShapeLegendString(layer);
+          break;
+        default:
+          element = `<p id='legend-${layer.name}'>${layer.label}</p>`;
+          break;
+      }
+
+      this.legendDiv.innerHTML += element;
+    }
+  }
+
+  private getPointLegendString(layer: IbfLayer): string {
+    const iconURLPrefix = 'assets/markers/';
+    const layerIcon = {
+      [IbfLayerName.glofasStations]: 'trigger-icon.svg',
+      [IbfLayerName.typhoonTrack]: 'typhoon-track.png',
+      [IbfLayerName.redCrossBranches]: 'red-cross-icon.svg',
+      [IbfLayerName.damSites]: 'dam-icon.svg',
+      [IbfLayerName.waterpoints]: 'water-point-icon.svg',
+      [IbfLayerName.healthSites]: 'health-center-icon.svg',
+      [IbfLayerName.evacuationCenters]: 'evacuation-center-icon.svg',
+      [IbfLayerName.schools]: 'school-icon.svg',
+      [IbfLayerName.communityNotifications]: 'community-notification-icon.svg',
+    };
+    return `<ion-row style='padding: 4px' class='ion-align-items-center' id='legend-${
+      layer.name
+    }'><img height='16px' style='margin-right: 4px' src='${iconURLPrefix}${
+      layerIcon[layer.name]
+    }' /><ion-label>${layer.label}</ion-label> </ion-row>`;
+  }
+
+  private getShapeLegendString(layer: IbfLayer): string {
+    // const colors =
+    //     this.eventState?.activeTrigger && this.eventState?.thresholdReached
+    //       ? this.mapService.state.colorGradientTriggered
+    //       : this.mapService.state.colorGradient;
+    //   const colorThreshold = this.mapService.getColorThreshold(
+    //     layer.data,
+    //     layer.colorProperty,
+    //     layer.colorBreaks,
+    //   );
+
+    //   const grades = Object.values(colorThreshold);
+    //   let labels;
+    //   if (layer.colorBreaks) {
+    //     labels = Object.values(layer.colorBreaks).map(
+    //       (colorBreak) => colorBreak.label,
+    //     );
+    //   }
+    //   const getColor = this.getFeatureColorByColorsAndColorThresholds(
+    //     colors,
+    //     colorThreshold,
+    //   );
+
+    // return `<p id='legend-${layer.name}'><strong>${layer.label}</strong></p>
+    // <div>
+    // <img height='16px' style='margin-right: 4px' src='${iconURLPrefix}${
+    //   layerIcon[layer.name]
+    // }' /><ion-label>${layer.label}</ion-label> </ion-row>
+    // </div>
+    // `;
+
+    return `<p id='legend-${layer.name}'>${layer.label}</p>`;
   }
 
   onMapReady(map: Map) {
@@ -411,22 +464,6 @@ export class MapComponent implements OnDestroy {
         layer.colorProperty,
         layer.colorBreaks,
       );
-
-      if (
-        this.layers.filter(
-          (l) => l.group === IbfLayerGroup.aggregates && l.active,
-        ).length === 0
-      ) {
-        this.removeLegend();
-      }
-
-      if (
-        layer.group !== IbfLayerGroup.adminRegions &&
-        layer.group !== IbfLayerGroup.outline &&
-        layer.active
-      ) {
-        this.addLegend(colors, colorThreshold, layer);
-      }
     }
 
     if (layer.type === IbfLayerType.wms) {

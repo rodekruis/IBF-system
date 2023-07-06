@@ -235,6 +235,7 @@ export class MapService {
       name: IbfLayerName.glofasStations,
       label: IbfLayerLabel.glofasStations,
       type: IbfLayerType.point,
+      group: IbfLayerGroup.point,
       description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(
@@ -273,6 +274,7 @@ export class MapService {
       name: IbfLayerName.typhoonTrack,
       label: IbfLayerLabel.typhoonTrack,
       type: IbfLayerType.point,
+      group: IbfLayerGroup.point,
       description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(
@@ -320,6 +322,7 @@ export class MapService {
       name: layerName,
       label: layer.label,
       type: IbfLayerType.point,
+      group: IbfLayerGroup.point,
       description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(layerName)
@@ -352,6 +355,7 @@ export class MapService {
       name: IbfLayerName.waterpoints,
       label: IbfLayerLabel.waterpoints,
       type: IbfLayerType.point,
+      group: IbfLayerGroup.point,
       description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.includes(
         IbfLayerName.waterpoints,
@@ -490,6 +494,7 @@ export class MapService {
       name: layer.name,
       label: layer.label,
       type: IbfLayerType.wms,
+      group: IbfLayerGroup.wms,
       description: this.getPopoverText(layer),
       active,
       show: true,

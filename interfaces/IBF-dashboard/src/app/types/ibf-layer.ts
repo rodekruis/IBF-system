@@ -154,6 +154,8 @@ export enum IbfLayerGroup {
   aggregates = 'aggregates',
   outline = 'outline',
   adminRegions = 'adminRegions',
+  point = 'point',
+  wms = 'wms',
 }
 
 export class ColorBreaks {
