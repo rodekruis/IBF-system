@@ -33,7 +33,7 @@
           <PolygonSymbolizer>
             <Fill>
               <CssParameter name="fill">#c21e4d</CssParameter>
-              <CssParameter name="fill-opacity">0.2</CssParameter>
+              <CssParameter name="fill-opacity">1</CssParameter>
             </Fill>
             <Stroke>
               <CssParameter name="stroke">#c21e4d</CssParameter>
@@ -56,7 +56,7 @@
           <PolygonSymbolizer>
             <Fill>
               <CssParameter name="fill">#3e8262</CssParameter>
-              <CssParameter name="fill-opacity">0.2</CssParameter>
+              <CssParameter name="fill-opacity">1</CssParameter>
             </Fill>
             <Stroke>
               <CssParameter name="stroke">#3e8262</CssParameter>

@@ -389,7 +389,6 @@ export class MapComponent implements OnDestroy {
     this.map.createPane(LeafletPane.wmsPane);
     this.map.createPane(LeafletPane.adminBoundaryPane);
     this.map.createPane(LeafletPane.outline);
-    this.map.getPane(LeafletPane.outline).style.zIndex = '570';
     this.map.createPane(LeafletPane.aggregatePane);
     this.triggerWindowResize();
   }
