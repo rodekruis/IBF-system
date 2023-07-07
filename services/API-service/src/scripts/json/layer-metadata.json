@@ -237,14 +237,7 @@
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,PHL,MWI,SSD",
-    "disasterTypes": [
-      "floods",
-      "heavy-rain",
-      "dengue",
-      "malaria",
-      "drought",
-      "flash-floods"
-    ],
+    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
     "name": "red_cross_branches",
     "label": "Red Cross branches",
     "type": "point",
