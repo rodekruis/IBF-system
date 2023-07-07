@@ -6,7 +6,6 @@ import {
   Control,
   divIcon,
   DomUtil,
-  featureGroup,
   geoJSON,
   GeoJSON,
   LatLng,
@@ -20,7 +19,6 @@ import {
   point,
   tileLayer,
 } from 'leaflet';
-import * as whatever from 'leaflet.featuregroup.subgroup';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import {
@@ -121,8 +119,6 @@ export class MapComponent implements OnDestroy {
     private apiService: ApiService,
     private pointMarkerService: PointMarkerService,
   ) {
-    whatever;
-
     this.layerSubscription = this.mapService
       .getLayerSubscription()
       .subscribe(this.onLayerChange);
@@ -569,32 +565,7 @@ export class MapComponent implements OnDestroy {
         iconCreateFunction: this.getIconCreateFunction,
         maxClusterRadius: 50,
       });
-      const exposedLayerData = JSON.parse(JSON.stringify(layer.data));
-      exposedLayerData.features = exposedLayerData.features.filter(
-        (f) => f.properties.exposed,
-      );
-      const mapLayerExposed = geoJSON(exposedLayerData, {
-        pointToLayer: this.getPointToLayerByLayer(layer.name),
-      });
-
-      const exposed = featureGroup.subGroup(waterPointClusterLayer, [
-        mapLayerExposed,
-      ]);
-
-      const nonExposedLayerData = JSON.parse(JSON.stringify(layer.data));
-      nonExposedLayerData.features = nonExposedLayerData.features.filter(
-        (f) => !f.properties.exposed,
-      );
-      const mapLayerNotExposed = geoJSON(nonExposedLayerData, {
-        pointToLayer: this.getPointToLayerByLayer(layer.name),
-      });
-
-      const notExposed = featureGroup.subGroup(waterPointClusterLayer, [
-        mapLayerNotExposed,
-      ]);
-
-      waterPointClusterLayer.addLayer(exposed);
-      waterPointClusterLayer.addLayer(notExposed);
+      waterPointClusterLayer.addLayer(mapLayer);
       return waterPointClusterLayer;
     }
 
