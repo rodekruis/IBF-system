@@ -164,6 +164,20 @@
     "mailSegment": {
       "floods": 2163966,
       "flash-floods": 2525790
+    },
+    "useWhatsapp": {
+      "flash-floods": true,
+      "floods": false
+    },
+    "whatsappMessage": {
+      "flash-floods": {
+        "initial": "*IBF NOTIFICATION*\n\n*[nrEvents]* IBF flash floods notifications are issued. The first one is now *[leadTimeFirstEvent](s)* away.\n\nTo receive more detailed information reply 'yes' to this message.",
+        "follow-up": "An IBF notification has been issued for\n[eventList]\nLog in to the IBF Portal on your desktop to find more information.",
+        "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate further about this trigger.\n\nUpdate the early actions that have been done in this form: [externalActionsForm]. Please note that through this form you can only check off actions, but you cannot see which actions have been done already.",
+        "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below threshold.\n\n",
+        "no-trigger": "There is *no trigger* currently.",
+        "trigger-finished": "The event will close in the IBF-portal when the forecast stays below threshold for 7 days in a row. Until that time, anticipatory actions can still be managed in the IBF-portal."
+      }
     }
   },
   {

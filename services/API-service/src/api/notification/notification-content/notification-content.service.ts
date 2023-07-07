@@ -13,6 +13,7 @@ import { DisasterEntity } from '../../disaster/disaster.entity';
 import { EventSummaryCountry } from '../../../shared/data.model';
 import { AdminAreaDataService } from '../../admin-area-data/admin-area-data.service';
 import { AdminAreaService } from '../../admin-area/admin-area.service';
+import { HelperService } from '../../../shared/helper.service';
 
 @Injectable()
 export class NotificationContentService {
@@ -28,6 +29,7 @@ export class NotificationContentService {
     private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private readonly adminAreaDataService: AdminAreaDataService,
     private readonly adminAreaService: AdminAreaService,
+    private readonly helperService: HelperService,
   ) {}
 
   public async getTotalAffectedPerLeadTime(
@@ -165,6 +167,17 @@ export class NotificationContentService {
     });
   }
 
+  public async getFormattedEventName(
+    event: EventSummaryCountry,
+    disasterType: DisasterType,
+  ) {
+    return event.eventName
+      ? `${event.eventName.split('_')[0]}`
+      : this.firstCharOfWordsToUpper(
+          (await this.getDisaster(disasterType)).label,
+        );
+  }
+
   public formatActionUnitValue(
     value: number,
     actionUnit: IndicatorMetadataEntity,
@@ -203,5 +216,197 @@ export class NotificationContentService {
       month: 'short',
       year: 'numeric',
     });
+  }
+
+  public async getLeadTimeListEvent(
+    event: EventSummaryCountry,
+    disasterType: DisasterType,
+    leadTime: LeadTime,
+    date: Date,
+  ) {
+    const [leadTimeValue, leadTimeUnit] = leadTime.split('-');
+    const eventName = await this.getFormattedEventName(event, disasterType);
+    const triggerStatus = event.thresholdReached
+      ? 'Trigger (threshold reached)'
+      : 'Warning (threshold not reached)';
+    const dateTimePreposition = leadTimeUnit === 'month' ? 'in' : 'on';
+    const dateAndTime = this.getFirstLeadTimeDate(
+      Number(leadTimeValue),
+      leadTimeUnit,
+      date,
+    );
+    const disasterSpecificCopy = await this.getDisasterSpecificCopy(
+      disasterType,
+      leadTime,
+      event,
+    );
+    const leadTimeFromNow = `${leadTimeValue} ${leadTimeUnit}s`;
+
+    const leadTimeString = disasterSpecificCopy.leadTimeString
+      ? disasterSpecificCopy.leadTimeString
+      : leadTimeFromNow;
+
+    const timestamp = disasterSpecificCopy.timestamp
+      ? ` | ${disasterSpecificCopy.timestamp}`
+      : '';
+    return {
+      short: `${eventName}: ${
+        disasterSpecificCopy.extraInfo || leadTime === LeadTime.hour0
+          ? leadTimeString
+          : `${dateAndTime}${timestamp} (${leadTimeString} from now)`
+      }`,
+      long: `${eventName} <strong>${triggerStatus}</strong>: ${
+        disasterSpecificCopy.eventStatus
+      }${
+        disasterSpecificCopy.extraInfo || leadTime === LeadTime.hour0
+          ? ''
+          : ` ${dateTimePreposition} ${dateAndTime}${timestamp} (${leadTimeString} from now)`
+      }. ${disasterSpecificCopy.extraInfo}`,
+    };
+  }
+
+  private async getDisasterSpecificCopy(
+    disasterType: DisasterType,
+    leadTime: LeadTime,
+    event: EventSummaryCountry,
+  ): Promise<{
+    eventStatus: string;
+    extraInfo: string;
+    leadTimeString?: string;
+    timestamp?: string;
+  }> {
+    switch (disasterType) {
+      case DisasterType.HeavyRain:
+        return this.getHeavyRainCopy();
+      case DisasterType.Typhoon:
+        return await this.getTyphoonCopy(leadTime, event);
+      case DisasterType.FlashFloods:
+        return await this.getFlashFloodsCopy(leadTime, event);
+      default:
+        return { eventStatus: '', extraInfo: '' };
+    }
+  }
+
+  private getHeavyRainCopy(): {
+    eventStatus: string;
+    extraInfo: string;
+  } {
+    return {
+      eventStatus: 'Estimated',
+      extraInfo: '',
+    };
+  }
+
+  private async getTyphoonCopy(
+    leadTime: LeadTime,
+    event: EventSummaryCountry,
+  ): Promise<{
+    eventStatus: string;
+    extraInfo: string;
+    leadTimeString: string;
+    timestamp: string;
+  }> {
+    const {
+      typhoonLandfall,
+      typhoonNoLandfallYet,
+    } = event.disasterSpecificProperties;
+    let eventStatus = '';
+    let extraInfo = '';
+    let leadTimeString = null;
+
+    if (leadTime === LeadTime.hour0) {
+      if (typhoonLandfall) {
+        eventStatus = 'Has <strong>already made landfall</strong>';
+        leadTimeString = 'Already made landfall';
+      } else {
+        eventStatus = 'Has already reached the point closest to land';
+        leadTimeString = 'reached the point closest to land';
+      }
+    } else {
+      if (typhoonNoLandfallYet) {
+        eventStatus =
+          '<strong>Landfall time prediction cannot be determined yet</strong>';
+        extraInfo = 'Keep monitoring the event.';
+        leadTimeString = 'Undetermined landfall';
+      } else if (typhoonLandfall) {
+        eventStatus = 'Estimated to <strong>make landfall</strong>';
+      } else {
+        eventStatus =
+          '<strong>Not predicted to make landfall</strong>. It is estimated to reach the point closest to land';
+      }
+    }
+
+    const timestampString = await this.getLeadTimeTimestamp(
+      leadTime,
+      event.countryCodeISO3,
+      DisasterType.Typhoon,
+    );
+
+    return {
+      eventStatus: eventStatus,
+      extraInfo: extraInfo,
+      leadTimeString,
+      timestamp: timestampString,
+    };
+  }
+
+  private async getFlashFloodsCopy(
+    leadTime: LeadTime,
+    event: EventSummaryCountry,
+  ): Promise<{
+    eventStatus: string;
+    extraInfo: string;
+    timestamp: string;
+  }> {
+    const timestampString = await this.getLeadTimeTimestamp(
+      leadTime,
+      event.countryCodeISO3,
+      DisasterType.FlashFloods,
+    );
+    return {
+      eventStatus: '',
+      extraInfo: '',
+      timestamp: timestampString,
+    };
+  }
+
+  public async getLeadTimeTimestamp(
+    leadTime: LeadTime,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<string> {
+    const recentDate = await this.helperService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
+    const gmtUploadDate = new Date(recentDate.timestamp);
+    const hours = Number(leadTime.split('-')[0]);
+    const gmtEventDate = new Date(
+      gmtUploadDate.setTime(gmtUploadDate.getTime() + hours * 60 * 60 * 1000),
+    );
+
+    const timezone = {
+      PHL: {
+        label: 'PHT',
+        difference: 8,
+      },
+      MWI: {
+        label: 'CAT',
+        difference: 2,
+      },
+      default: {
+        label: 'GMT',
+        difference: 0,
+      },
+    };
+
+    const hourDiff =
+      timezone[countryCodeISO3]?.difference || timezone.default.difference;
+    const localEventDate = new Date(
+      gmtEventDate.setTime(gmtEventDate.getTime() + hourDiff * 60 * 60 * 1000),
+    );
+    const timezoneLabel =
+      timezone[countryCodeISO3]?.label || timezone.default.label;
+    return `${localEventDate.getHours()}:00 ${timezoneLabel}`;
   }
 }

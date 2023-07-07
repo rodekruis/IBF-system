@@ -24,6 +24,6 @@ import { HelperService } from '../../shared/helper.service';
     TyphoonTrackModule,
   ],
   controllers: [NotificationController],
-  providers: [NotificationService, EmailService, HelperService],
+  providers: [NotificationService, EmailService],
 })
 export class NotificationModule {}

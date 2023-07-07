@@ -6,15 +6,12 @@ import { Injectable } from '@nestjs/common';
 import { EventService } from '../../event/event.service';
 import fs from 'fs';
 import Mailchimp from 'mailchimp-api-v3';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { EventSummaryCountry } from '../../../shared/data.model';
 import { NotificationContentService } from './../notification-content/notification-content.service';
-import { HelperService } from '../../../shared/helper.service';
 
 class ReplaceKeyValue {
   replaceKey: string;
@@ -23,9 +20,6 @@ class ReplaceKeyValue {
 
 @Injectable()
 export class EmailService {
-  @InjectRepository(IndicatorMetadataEntity)
-  private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
-
   private placeholderToday = '(TODAY)';
   private fromEmail = process.env.SUPPORT_EMAIL_ADDRESS;
   private fromEmailName = 'IBF portal';
@@ -36,7 +30,6 @@ export class EmailService {
     private readonly eventService: EventService,
     private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private readonly notificationContentService: NotificationContentService,
-    private readonly helperService: HelperService,
   ) {}
 
   private async getSegmentId(
@@ -152,6 +145,7 @@ export class EmailService {
           country,
           disasterType,
           events,
+          date,
         ),
       },
       {
@@ -248,7 +242,7 @@ export class EmailService {
       {
         replaceKey: '(EXPOSURE-UNIT)',
         replaceValue: (
-          await this.getActionsUnit(disasterType)
+          await this.notificationContentService.getActionUnit(disasterType)
         ).label.toLocaleLowerCase(),
       },
     ];
@@ -344,9 +338,10 @@ export class EmailService {
     country: CountryEntity,
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
+    date?: Date,
   ): Promise<string> {
     const leadTimeListShort = (
-      await this.getLeadTimeList(country, disasterType, activeEvents)
+      await this.getLeadTimeList(country, disasterType, activeEvents, date)
     )['leadTimeListShort'];
     return fs
       .readFileSync(
@@ -429,20 +424,20 @@ export class EmailService {
             // We are hack-misusing 'extraInfo' being filled as a proxy for typhoonNoLandfallYet-boolean
             leadTimeListShort = `${leadTimeListShort}<li>${
               (
-                await this.getLeadTimeListEvent(
+                await this.notificationContentService.getLeadTimeListEvent(
                   event,
                   disasterType,
-                  leadTime,
+                  leadTime.leadTimeName as LeadTime,
                   date,
                 )
               ).short
             }</li>`;
             leadTimeListLong = `${leadTimeListLong}<li>${
               (
-                await this.getLeadTimeListEvent(
+                await this.notificationContentService.getLeadTimeListEvent(
                   event,
                   disasterType,
-                  leadTime,
+                  leadTime.leadTimeName as LeadTime,
                   date,
                 )
               ).long
@@ -452,64 +447,6 @@ export class EmailService {
       }
     }
     return { leadTimeListShort, leadTimeListLong };
-  }
-
-  private async getLeadTimeListEvent(
-    event: EventSummaryCountry,
-    disasterType: DisasterType,
-    leadTime: any,
-    date: Date,
-  ) {
-    // .. find the right leadtime
-    const [leadTimeValue, leadTimeUnit] = leadTime.leadTimeName.split('-');
-
-    const eventName = event.eventName
-      ? `${event.eventName.split('_')[0]}`
-      : this.notificationContentService.firstCharOfWordsToUpper(
-          (await this.notificationContentService.getDisaster(disasterType))
-            .label,
-        );
-
-    const triggerStatus = event.thresholdReached
-      ? 'Trigger (threshold reached)'
-      : 'Warning (threshold not reached)';
-
-    const dateTimePreposition = leadTimeUnit === 'month' ? 'in' : 'on';
-    const dateAndTime = this.notificationContentService.getFirstLeadTimeDate(
-      Number(leadTimeValue),
-      leadTimeUnit,
-      date,
-    );
-    const disasterSpecificCopy = await this.getDisasterSpecificCopy(
-      disasterType,
-      leadTime,
-      event,
-    );
-    const leadTimeFromNow = `${leadTimeValue} ${leadTimeUnit}s`;
-
-    const leadTimeString = disasterSpecificCopy.leadTimeString
-      ? disasterSpecificCopy.leadTimeString
-      : leadTimeFromNow;
-
-    const timestamp = disasterSpecificCopy.timestamp
-      ? ` | ${disasterSpecificCopy.timestamp}`
-      : '';
-    return {
-      short: `${eventName}: ${
-        disasterSpecificCopy.extraInfo ||
-        leadTime.leadTimeName === LeadTime.hour0
-          ? leadTimeString
-          : `${dateAndTime}${timestamp} (${leadTimeString})`
-      }`,
-      long: `${eventName} - <strong>${triggerStatus}</strong>: ${
-        disasterSpecificCopy.eventStatus
-      }${
-        disasterSpecificCopy.extraInfo ||
-        leadTime.leadTimeName === LeadTime.hour0
-          ? ''
-          : ` ${dateTimePreposition} ${dateAndTime}${timestamp} (${leadTimeString})`
-      }. ${disasterSpecificCopy.extraInfo}`,
-    };
   }
 
   private async getTriggerOverviewTables(
@@ -624,15 +561,6 @@ export class EmailService {
     }
   }
 
-  private async getActionsUnit(
-    disasterType: DisasterType,
-  ): Promise<IndicatorMetadataEntity> {
-    return await this.indicatorRepository.findOne({
-      name: (await this.notificationContentService.getDisaster(disasterType))
-        .actionsUnit,
-    });
-  }
-
   private async getTableForLeadTime(
     country: CountryEntity,
     disasterType: DisasterType,
@@ -647,12 +575,20 @@ export class EmailService {
     const adminAreaLabelsParent =
       country.adminRegionLabels[String(adminLevel - 1)];
 
-    const actionsUnit = await this.getActionsUnit(disasterType);
+    const actionsUnit = await this.notificationContentService.getActionUnit(
+      disasterType,
+    );
 
     const tableForLeadTimeStart = `<div>
       <strong>${
-        (await this.getLeadTimeListEvent(event, disasterType, leadTime, date))
-          .short
+        (
+          await this.notificationContentService.getLeadTimeListEvent(
+            event,
+            disasterType,
+            leadTime.leadTimeName as LeadTime,
+            date,
+          )
+        ).short
       }</strong>
   </div>
   <table class="notification-alerts-table">
@@ -729,150 +665,5 @@ export class EmailService {
       emailHtml = emailHtml.split(entry.replaceKey).join(entry.replaceValue);
     }
     return emailHtml;
-  }
-
-  private async getDisasterSpecificCopy(
-    disasterType: DisasterType,
-    leadTime: LeadTimeEntity,
-    event: EventSummaryCountry,
-  ): Promise<{
-    eventStatus: string;
-    extraInfo: string;
-    leadTimeString?: string;
-    timestamp?: string;
-  }> {
-    switch (disasterType) {
-      case DisasterType.HeavyRain:
-        return this.getHeavyRainCopy();
-      case DisasterType.Typhoon:
-        return await this.getTyphoonCopy(leadTime.leadTimeName, event);
-      case DisasterType.FlashFloods:
-        return await this.getFlashFloodsCopy(leadTime.leadTimeName, event);
-      default:
-        return { eventStatus: '', extraInfo: '' };
-    }
-  }
-
-  private getHeavyRainCopy(): {
-    eventStatus: string;
-    extraInfo: string;
-  } {
-    return {
-      eventStatus: 'Estimated',
-      extraInfo: '',
-    };
-  }
-
-  private async getTyphoonCopy(
-    leadTime: string,
-    event: EventSummaryCountry,
-  ): Promise<{
-    eventStatus: string;
-    extraInfo: string;
-    leadTimeString: string;
-    timestamp: string;
-  }> {
-    const {
-      typhoonLandfall,
-      typhoonNoLandfallYet,
-    } = event.disasterSpecificProperties;
-    let eventStatus = '';
-    let extraInfo = '';
-    let leadTimeString = null;
-
-    if (leadTime === LeadTime.hour0) {
-      if (typhoonLandfall) {
-        eventStatus = 'Has <strong>already made landfall</strong>';
-        leadTimeString = 'Already made landfall';
-      } else {
-        eventStatus = 'Has already reached the point closest to land';
-        leadTimeString = 'reached the point closest to land';
-      }
-    } else {
-      if (typhoonNoLandfallYet) {
-        eventStatus =
-          '<strong>Landfall time prediction cannot be determined yet</strong>';
-        extraInfo = 'Keep monitoring the event.';
-        leadTimeString = 'Undetermined landfall';
-      } else if (typhoonLandfall) {
-        eventStatus = 'Estimated to <strong>make landfall</strong>';
-      } else {
-        eventStatus =
-          '<strong>Not predicted to make landfall</strong>. It is estimated to reach the point closest to land';
-      }
-    }
-
-    const timestampString = await this.getLeadTimeTimestamp(
-      leadTime,
-      event.countryCodeISO3,
-      DisasterType.Typhoon,
-    );
-
-    return {
-      eventStatus: eventStatus,
-      extraInfo: extraInfo,
-      leadTimeString,
-      timestamp: timestampString,
-    };
-  }
-
-  private async getFlashFloodsCopy(
-    leadTime: string,
-    event: EventSummaryCountry,
-  ): Promise<{
-    eventStatus: string;
-    extraInfo: string;
-    timestamp: string;
-  }> {
-    const timestampString = await this.getLeadTimeTimestamp(
-      leadTime,
-      event.countryCodeISO3,
-      DisasterType.FlashFloods,
-    );
-    return {
-      eventStatus: '',
-      extraInfo: '',
-      timestamp: timestampString,
-    };
-  }
-
-  private async getLeadTimeTimestamp(
-    leadTime: string,
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-  ): Promise<string> {
-    const recentDate = await this.helperService.getRecentDate(
-      countryCodeISO3,
-      disasterType,
-    );
-    const gmtUploadDate = new Date(recentDate.timestamp);
-    const hours = Number(leadTime.split('-')[0]);
-    const gmtEventDate = new Date(
-      gmtUploadDate.setTime(gmtUploadDate.getTime() + hours * 60 * 60 * 1000),
-    );
-
-    const timezone = {
-      PHL: {
-        label: 'PHT',
-        difference: 8,
-      },
-      MWI: {
-        label: 'CAT',
-        difference: 2,
-      },
-      default: {
-        label: 'GMT',
-        difference: 0,
-      },
-    };
-
-    const hourDiff =
-      timezone[countryCodeISO3]?.difference || timezone.default.difference;
-    const localEventDate = new Date(
-      gmtEventDate.setTime(gmtEventDate.getTime() + hourDiff * 60 * 60 * 1000),
-    );
-    const timezoneLabel =
-      timezone[countryCodeISO3]?.label || timezone.default.label;
-    return `${localEventDate.getHours()}:00 ${timezoneLabel}`;
   }
 }

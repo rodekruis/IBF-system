@@ -71,22 +71,22 @@ export class WhatsappService {
       });
   }
 
-  public async configureInitialMessage(
+  private async configureInitialMessage(
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
     disasterType: DisasterType,
   ): Promise<string> {
-    const event = activeEvents[0];
-
     const baseMessage =
       country.notificationInfo.whatsappMessage[disasterType]['initial'];
-    const startDate = event.startDate;
-    const leadTime = `${event.firstLeadTime.split('-').join(' ')}(s)`;
+
+    activeEvents.sort((a, b) => (a.firstLeadTime > b.firstLeadTime ? 1 : -1));
+    const nrEvents = activeEvents.length;
+    const leadTimeFirstEvent = activeEvents[0].firstLeadTime;
 
     // This code now assumes certain parameters in data. This is not right.
     const message = baseMessage
-      .replace('[startDate]', startDate)
-      .replace('[leadTime]', leadTime);
+      .replace('[nrEvents]', nrEvents)
+      .replace('[leadTimeFirstEvent]', leadTimeFirstEvent);
 
     return message;
   }
@@ -103,6 +103,9 @@ export class WhatsappService {
     );
 
     await this.sendToUsers(country, disasterType, message);
+
+    // Add small delay to ensure the order in which messages are received
+    await new Promise(resolve => setTimeout(resolve, 1000));
   }
 
   public async sendTriggerFinishedWhatsapp(
@@ -214,7 +217,9 @@ export class WhatsappService {
           country.countryCodeISO3,
           disasterType.disasterType,
         );
-        const activeEvents = events.filter(event => event.activeTrigger);
+        const activeEvents = events
+          .filter(event => event.activeTrigger)
+          .sort((a, b) => (a.firstLeadTime > b.firstLeadTime ? 1 : -1));
         if (activeEvents.length === 0) {
           const noTriggerMessage = this.configureNoTriggerMessage(
             country,
@@ -315,42 +320,58 @@ export class WhatsappService {
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
   ): Promise<string> {
-    const countryDisasterSettings = country.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
-    );
-    const adminLevel = countryDisasterSettings.defaultAdminLevel;
+    // TO DO: these changes are aimed at flash-floods but will break existing implementations
+    // const countryDisasterSettings = country.countryDisasterSettings.find(
+    //   s => s.disasterType === disasterType,
+    // );
+    // const adminLevel = countryDisasterSettings.defaultAdminLevel;
 
-    const triggeredAreas = await this.eventService.getTriggeredAreas(
-      country.countryCodeISO3,
-      disasterType,
-      countryDisasterSettings.defaultAdminLevel,
-      countryDisasterSettings.activeLeadTimes[0].leadTimeName, // assumes only 1 leadtime..
-      activeEvents[0].eventName,
-    );
+    let eventList = '';
+    for await (const event of activeEvents) {
+      const eventString = await this.notificationContentService.getLeadTimeListEvent(
+        event,
+        disasterType,
+        event.firstLeadTime,
+        new Date(),
+      );
+      const row = `- ${eventString.long
+        .replace('<strong>', '*')
+        .replace('</strong>', '*')}\n`;
 
-    const adminAreaLabel = country.adminRegionLabels[String(adminLevel)][
-      'plural'
-    ].toLowerCase();
-    const actionUnit = await this.notificationContentService.getActionUnit(
-      disasterType,
-    );
-    let areaList = '';
-    for (const area of triggeredAreas) {
-      const row = `- *${area.name}${
-        area.nameParent ? ' (' + area.nameParent + ')' : ''
-      } - ${this.notificationContentService.formatActionUnitValue(
-        area.actionsValue,
-        actionUnit,
-      )}*\n`;
-      areaList += row;
+      eventList += row;
     }
+
+    // const triggeredAreas = await this.eventService.getTriggeredAreas(
+    //   country.countryCodeISO3,
+    //   disasterType,
+    //   countryDisasterSettings.defaultAdminLevel,
+    //   countryDisasterSettings.activeLeadTimes[0].leadTimeName, // assumes only 1 leadtime..
+    //   activeEvents[0].eventName,
+    // );
+
+    // const adminAreaLabel = country.adminRegionLabels[String(adminLevel)][
+    //   'plural'
+    // ].toLowerCase();
+    // const actionUnit = await this.notificationContentService.getActionUnit(
+    //   disasterType,
+    // );
+    // let areaList = '';
+    // for (const area of triggeredAreas) {
+    //   const row = `- *${area.name}${
+    //     area.nameParent ? ' (' + area.nameParent + ')' : ''
+    //   } - ${this.notificationContentService.formatActionUnitValue(
+    //     area.actionsValue,
+    //     actionUnit,
+    //   )}*\n`;
+    //   areaList += row;
+    // }
 
     const followUpMessage =
       country.notificationInfo.whatsappMessage[disasterType]['follow-up'];
     const message = followUpMessage
-      .replace('[nrTriggeredAreas]', triggeredAreas.length)
-      .replace('[adminAreaLabel]', adminAreaLabel)
-      .replace('[areaList]', areaList);
+      // .replace('[nrTriggeredAreas]', triggeredAreas.length)
+      // .replace('[adminAreaLabel]', adminAreaLabel)
+      .replace('[eventList]', eventList);
     return message;
   }
 
