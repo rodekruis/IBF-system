@@ -16,17 +16,21 @@ const getViewQuery = (type: LinesDataEnum) => {
       .leftJoin(
         subquery => {
           return subquery
-            .select('MAX(timestamp) as max_timestamp')
-            .from(LinesDataEntity, 'line')
+            .select([
+              'status."leadTime" as "leadTime"',
+              'MAX(timestamp) as max_timestamp',
+            ])
+            .from(LinesDataDynamicStatusEntity, 'status')
             .leftJoin(
-              LinesDataDynamicStatusEntity,
-              'status',
+              LinesDataEntity,
+              'line',
               'line."linesDataId" = status."referenceId"',
             )
-            .where(`line."linesDataCategory" = '${type}'`);
+            .where(`line."linesDataCategory" = '${type}'`)
+            .groupBy('status."leadTime"');
         },
         'max_timestamp',
-        '1=1',
+        'status."leadTime" = max_timestamp."leadTime"',
       )
       .where(`line."linesDataCategory" = '${type}'`)
       .andWhere(
