@@ -488,7 +488,7 @@ export class MapService {
       order: 10,
       wms: {
         url: environment.geoserverUrl,
-        leadTimeDependent: leadTimeDependent,
+        leadTimeDependent,
         format: 'image/png',
         version: '1.1.0',
         attribution: '510 Global',
