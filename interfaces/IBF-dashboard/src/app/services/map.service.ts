@@ -475,17 +475,6 @@ export class MapService {
     active: boolean,
     leadTimeDependent?: boolean,
   ) {
-    if (
-      leadTimeDependent &&
-      !this.eventState.event &&
-      this.eventState.events.length
-    ) {
-      // don't show wms-layers in overview-mode of multi-event
-      return;
-    }
-    const leadTime = !leadTimeDependent
-      ? null
-      : this.timelineState.activeLeadTime;
     this.addLayer({
       name: layer.name,
       label: layer.label,
@@ -499,9 +488,7 @@ export class MapService {
       order: 10,
       wms: {
         url: environment.geoserverUrl,
-        name: `ibf-system:${layer.name}_${leadTime ? `${leadTime}_` : ''}${
-          this.country.countryCodeISO3
-        }`,
+        leadTimeDependent: leadTimeDependent,
         format: 'image/png',
         version: '1.1.0',
         attribution: '510 Global',

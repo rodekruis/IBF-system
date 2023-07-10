@@ -46,7 +46,7 @@ import {
 } from 'src/app/models/poi.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import { EventService } from 'src/app/services/event.service';
+import { EventService, EventSummary } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
@@ -56,7 +56,6 @@ import {
   IbfLayerGroup,
   IbfLayerName,
   IbfLayerType,
-  IbfLayerWMS,
   LeafletPane,
 } from 'src/app/types/ibf-layer';
 import { NumberFormat } from 'src/app/types/indicator-group';
@@ -157,9 +156,6 @@ export class MapComponent implements OnDestroy {
     this.manualEventStateSubscription.unsubscribe();
     this.timelineStateSubscription.unsubscribe();
   }
-
-  private filterLayerByLayerName = (newLayer) => (layer) =>
-    layer.name === newLayer.name;
 
   private onLayerChange = (newLayer) => {
     if (newLayer) {
@@ -430,7 +426,7 @@ export class MapComponent implements OnDestroy {
     }
 
     if (layer.type === IbfLayerType.wms) {
-      layer.leafletLayer = this.createWmsLayer(layer.wms);
+      layer.leafletLayer = this.createWmsLayer(layer);
       this.layers.push(layer);
     }
 
@@ -834,21 +830,42 @@ export class MapComponent implements OnDestroy {
     return adminRegionsLayer;
   }
 
-  private createWmsLayer(layerWMS: IbfLayerWMS): Layer {
-    if (!layerWMS) {
+  private createWmsLayer(layer: IbfLayer): Layer {
+    if (!layer.wms) {
       return;
+    }
+    const layerNames = [];
+    const events = this.eventState.event
+      ? [this.eventState.event]
+      : this.eventState.events.length > 0
+      ? this.eventState.events
+      : [new EventSummary()];
+
+    for (const event of events) {
+      const leadTime = !layer.wms.leadTimeDependent
+        ? null
+        : !this.eventState.event && event.firstLeadTime
+        ? event.firstLeadTime
+        : this.timelineState.activeLeadTime;
+
+      const name = `ibf-system:${layer.name}_${leadTime ? `${leadTime}_` : ''}${
+        this.country.countryCodeISO3
+      }`;
+      if (!layerNames.includes(name)) {
+        layerNames.push(name);
+      }
     }
     const wmsOptions = {
       pane: LeafletPane.wmsPane,
-      layers: layerWMS.name,
-      format: layerWMS.format,
-      version: layerWMS.version,
-      attribution: layerWMS.attribution,
-      crs: layerWMS.crs,
-      transparent: layerWMS.transparent,
-      viewparams: layerWMS.viewparams,
+      layers: layerNames.join(','),
+      format: layer.wms.format,
+      version: layer.wms.version,
+      attribution: layer.wms.attribution,
+      crs: layer.wms.crs,
+      transparent: layer.wms.transparent,
+      viewparams: layer.wms.viewparams,
     };
-    return tileLayer.wms(layerWMS.url, wmsOptions);
+    return tileLayer.wms(layer.wms.url, wmsOptions);
   }
 
   private calculateClosestPointToTyphoon(layer: IbfLayer) {

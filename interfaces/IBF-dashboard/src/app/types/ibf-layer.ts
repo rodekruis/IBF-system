@@ -148,6 +148,7 @@ export class IbfLayerWMS {
   crs?: CRS;
   transparent: boolean;
   viewparams?: string;
+  leadTimeDependent: boolean;
 }
 
 export enum IbfLayerGroup {
