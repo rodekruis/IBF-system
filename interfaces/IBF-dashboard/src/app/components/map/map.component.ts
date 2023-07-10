@@ -449,7 +449,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     let element = '<div style="padding: 4px">';
     element +=
       `<strong>${layer.label}` +
-      (layer.unit ? ' (' + layer.unit + ')</strong>' : '');
+      (layer.unit ? ' (' + layer.unit + ')' : '') +
+      '</strong>';
 
     const noDataEntryFound = layer.data?.features.find(
       (f) => f.properties?.indicators[layer.name] === null,
