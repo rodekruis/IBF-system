@@ -163,18 +163,10 @@ export class MapComponent implements OnDestroy {
 
   private onLayerChange = (newLayer) => {
     if (newLayer) {
-      const newLayerIndex = this.layers.findIndex(
-        this.filterLayerByLayerName(newLayer),
-      );
       newLayer =
         newLayer.data || newLayer.type === IbfLayerType.wms
           ? this.createLayer(newLayer)
           : newLayer;
-      if (newLayerIndex >= 0) {
-        this.layers.splice(newLayerIndex, 1, newLayer);
-      } else {
-        this.layers.push(newLayer);
-      }
 
       if (newLayer.viewCenter) {
         this.map.fitBounds(this.mapService.state.bounds);
@@ -394,12 +386,21 @@ export class MapComponent implements OnDestroy {
   }
 
   private createLayer(layer: IbfLayer): IbfLayer {
+    this.layers = this.layers.filter((l) => l.name !== layer.name);
+
     if (layer.type === IbfLayerType.point) {
-      layer.leafletLayer = this.createPointLayer(layer);
+      const pointLayers = this.createPointLayer(layer);
+
+      for (const pointLayer of pointLayers) {
+        const extraLayer = { ...layer };
+        extraLayer.leafletLayer = pointLayer;
+        this.layers.push(extraLayer);
+      }
     }
 
     if (layer.type === IbfLayerType.shape) {
       layer.leafletLayer = this.createAdminRegionsLayer(layer);
+      this.layers.push(layer);
 
       const colors =
         this.eventState?.activeTrigger && this.eventState?.thresholdReached
@@ -430,6 +431,7 @@ export class MapComponent implements OnDestroy {
 
     if (layer.type === IbfLayerType.wms) {
       layer.leafletLayer = this.createWmsLayer(layer.wms);
+      this.layers.push(layer);
     }
 
     return layer;
@@ -544,7 +546,7 @@ export class MapComponent implements OnDestroy {
     });
   };
 
-  private createPointLayer(layer: IbfLayer): GeoJSON | MarkerClusterGroup {
+  private createPointLayer(layer: IbfLayer): GeoJSON[] | MarkerClusterGroup[] {
     if (!layer.data) {
       return;
     }
@@ -561,12 +563,36 @@ export class MapComponent implements OnDestroy {
         layer.name,
       )
     ) {
-      const waterPointClusterLayer = markerClusterGroup({
+      // construct exposed marker clusters
+      const exposedWaterPointClusterLayer = markerClusterGroup({
         iconCreateFunction: this.getIconCreateFunction,
         maxClusterRadius: 50,
       });
-      waterPointClusterLayer.addLayer(mapLayer);
-      return waterPointClusterLayer;
+      const exposedLayerData = JSON.parse(JSON.stringify(layer.data));
+      exposedLayerData.features = exposedLayerData.features.filter(
+        (f) => f.properties.exposed,
+      );
+      const mapLayerExposed = geoJSON(exposedLayerData, {
+        pointToLayer: this.getPointToLayerByLayer(layer.name),
+      });
+      exposedWaterPointClusterLayer.addLayer(mapLayerExposed);
+
+      // construct not-exposed marker clusters
+      const notExposedWaterPointClusterLayer = markerClusterGroup({
+        iconCreateFunction: this.getIconCreateFunction,
+        maxClusterRadius: 50,
+      });
+      const nonExposedLayerData = JSON.parse(JSON.stringify(layer.data));
+      nonExposedLayerData.features = nonExposedLayerData.features.filter(
+        (f) => !f.properties.exposed,
+      );
+      const mapLayerNotExposed = geoJSON(nonExposedLayerData, {
+        pointToLayer: this.getPointToLayerByLayer(layer.name),
+      });
+      notExposedWaterPointClusterLayer.addLayer(mapLayerNotExposed);
+
+      // return both
+      return [exposedWaterPointClusterLayer, notExposedWaterPointClusterLayer];
     }
 
     if (
@@ -578,9 +604,9 @@ export class MapComponent implements OnDestroy {
         maxClusterRadius: 10,
       });
       healthSiteClusterLayer.addLayer(mapLayer);
-      return healthSiteClusterLayer;
+      return [healthSiteClusterLayer];
     }
-    return mapLayer;
+    return [mapLayer];
   }
 
   private onAdminRegionMouseOver = (feature) => (event): void => {
