@@ -360,9 +360,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       return;
     }
 
-    const layersToShow = this.layers.filter(
-      (l) => l.active && l.group !== IbfLayerGroup.adminRegions,
-    );
+    const layersToShow = this.layers
+      .filter((l) => l.active && l.group !== IbfLayerGroup.adminRegions)
+      .sort((layer1, layer2) => layer1.order - layer2.order);
 
     this.legendDiv.innerHTML = this.legendDivTitle;
     for (const layer of layersToShow) {
@@ -396,45 +396,71 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       [IbfLayerName.schools]: 'school-icon.svg',
       [IbfLayerName.communityNotifications]: 'community-notification-icon.svg',
     };
-    return `<ion-row style='padding: 4px' class='ion-align-items-center' id='legend-${
-      layer.name
-    }'><img height='16px' style='margin-right: 4px' src='${iconURLPrefix}${
+    return `<ion-row style='padding: 4px' class='ion-align-items-center'><img height='16px' style='margin-right: 4px' src='${iconURLPrefix}${
       layerIcon[layer.name]
     }' /><ion-label>${layer.label}</ion-label> </ion-row>`;
   }
 
   private getShapeLegendString(layer: IbfLayer): string {
-    // const colors =
-    //     this.eventState?.activeTrigger && this.eventState?.thresholdReached
-    //       ? this.mapService.state.colorGradientTriggered
-    //       : this.mapService.state.colorGradient;
-    //   const colorThreshold = this.mapService.getColorThreshold(
-    //     layer.data,
-    //     layer.colorProperty,
-    //     layer.colorBreaks,
-    //   );
+    if (layer.name === IbfLayerName.alertThreshold) {
+      return `<ion-row style='padding: 4px'><div style="width: 16px; height: 16px; border:2px solid red; margin-right: 4px"></div><ion-label>${layer.label}</ion-label></ion-row>`;
+    }
 
-    //   const grades = Object.values(colorThreshold);
-    //   let labels;
-    //   if (layer.colorBreaks) {
-    //     labels = Object.values(layer.colorBreaks).map(
-    //       (colorBreak) => colorBreak.label,
-    //     );
-    //   }
-    //   const getColor = this.getFeatureColorByColorsAndColorThresholds(
-    //     colors,
-    //     colorThreshold,
-    //   );
+    if (!layer.data) {
+      return '';
+    }
 
-    // return `<p id='legend-${layer.name}'><strong>${layer.label}</strong></p>
-    // <div>
-    // <img height='16px' style='margin-right: 4px' src='${iconURLPrefix}${
-    //   layerIcon[layer.name]
-    // }' /><ion-label>${layer.label}</ion-label> </ion-row>
-    // </div>
-    // `;
+    const colorThreshold = this.mapService.getColorThreshold(
+      layer.data,
+      layer.colorProperty,
+      layer.colorBreaks,
+    );
 
-    return `<p id='legend-${layer.name}'>${layer.label}</p>`;
+    const grades = Object.values(colorThreshold);
+    let labels;
+    if (layer.colorBreaks) {
+      labels = Object.values(layer.colorBreaks).map(
+        (colorBreak) => colorBreak.label,
+      );
+    }
+
+    const colors =
+      this.eventState?.activeTrigger && this.eventState?.thresholdReached
+        ? this.mapService.state.colorGradientTriggered
+        : this.mapService.state.colorGradient;
+
+    const getColor = this.getFeatureColorByColorsAndColorThresholds(
+      colors,
+      colorThreshold,
+    );
+
+    const getLabel = this.getLabel(grades, layer, labels);
+
+    let element = '<div style="padding: 4px">';
+    element +=
+      `<strong>${layer.label}` +
+      (layer.unit ? ' (' + layer.unit + ')</strong>' : '');
+
+    const noDataEntryFound = layer.data?.features.find(
+      (f) => f.properties?.indicators[layer.name] === null,
+    );
+    element += `<div style='margin-top: 8px'>`;
+    if (noDataEntryFound) {
+      element += `<i style="background:${this.mapService.state.noDataColor}"></i> No data<br>`;
+    }
+
+    for (let i = 0; i < grades.length; i++) {
+      if (grades[i] !== null && (i === 0 || grades[i] > grades[i - 1])) {
+        element += `<i style="background:${getColor(
+          grades[i + 1],
+        )}"></i> ${getLabel(i)}`;
+      }
+    }
+    element += `</div>`;
+
+    element += '</div>';
+
+    return element;
   }
 
   onMapReady(map: Map) {
