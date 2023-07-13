@@ -289,7 +289,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     } else if (layer.numberFormatMap === NumberFormat.decimal2) {
       return (Math.round(d * 100) / 100).toLocaleString();
     } else if (layer.numberFormatMap === NumberFormat.decimal0) {
-      return Math.round(d).toLocaleString();
+      if (d > 10000000) {
+        return Math.round(d / 1000000).toLocaleString() + 'M';
+      } else if (d > 1000000) {
+        return (Math.round(d / 100000) / 10).toLocaleString() + 'M';
+      } else if (d > 10000) {
+        return Math.round(d / 1000).toLocaleString() + 'k';
+      } else if (d > 1000) {
+        return (Math.round(d / 100) / 10).toLocaleString() + 'k';
+      } else {
+        return Math.round(d).toLocaleString();
+      }
     } else {
       return Math.round(d).toLocaleString();
     }
@@ -439,7 +449,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     let element = '<div style="padding: 4px">';
     element +=
       `<strong>${layer.label}` +
-      (layer.unit ? ' (' + layer.unit + ')</strong>' : '');
+      (layer.unit ? ' (' + layer.unit + ')' : '') +
+      '</strong>';
 
     const noDataEntryFound = layer.data?.features.find(
       (f) => f.properties?.indicators[layer.name] === null,
