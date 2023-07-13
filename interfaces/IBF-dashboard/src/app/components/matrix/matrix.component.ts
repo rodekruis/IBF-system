@@ -45,7 +45,11 @@ export class MatrixComponent implements OnDestroy {
     this.layerSubscription.unsubscribe();
   }
 
-  private onLayerChange = (newLayer) => {
+  private onLayerChange = (newLayer: IbfLayer) => {
+    if (newLayer && newLayer.name === 'alert_threshold') {
+      return;
+    }
+
     if (newLayer) {
       const newLayerIndex = this.layers.findIndex(
         (layer) => layer.name === newLayer.name,
@@ -108,10 +112,31 @@ export class MatrixComponent implements OnDestroy {
   private sortLayers = (a: IbfLayer, b: IbfLayer) =>
     a.order > b.order ? 1 : a.order === b.order ? 0 : -1;
 
-  getLayersInOrder(): IbfLayer[] {
+  getLayersInOrder(): { check: IbfLayer[]; radio: IbfLayer[] } {
     // Filter out layers with negative order-value (quick hack)
-    return this.layers
+    const check = this.layers
+      .filter((l) => this.isCheckBox(l.group))
       .filter((layer) => layer.order >= 0)
       .sort(this.sortLayers);
+    const radio = this.layers
+      .filter((l) => this.isRadioButton(l.group))
+      .filter((layer) => layer.order >= 0)
+      .sort(this.sortLayers);
+
+    return { check, radio };
+  }
+
+  public isCheckBox(layerGroup: IbfLayerGroup): boolean {
+    return [IbfLayerGroup.point, IbfLayerGroup.wms].includes(layerGroup);
+  }
+
+  public isRadioButton(layerGroup: IbfLayerGroup): boolean {
+    return [IbfLayerGroup.aggregates, IbfLayerGroup.outline].includes(
+      layerGroup,
+    );
+  }
+
+  public getActiveRadioLayer(): IbfLayer {
+    return this.getLayersInOrder().radio.find((l) => l.active);
   }
 }
