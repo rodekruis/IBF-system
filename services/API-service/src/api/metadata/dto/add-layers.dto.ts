@@ -23,9 +23,15 @@ export class LayerDto {
   @IsIn(['wms', 'poi', 'shape'])
   public type: string;
 
-  @ApiProperty({ example: '#be9600' })
-  @IsString()
-  public legendColor: string;
+  @ApiProperty({
+    example: {
+      EGY: {
+        type: 'square',
+        value: ['#d7301f'],
+      },
+    },
+  })
+  public legendColor: JSON;
 
   @ApiProperty({ example: false })
   @IsBoolean()
