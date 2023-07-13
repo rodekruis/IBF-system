@@ -204,11 +204,11 @@
     "label": "Grassland",
     "type": "wms",
     "legendColor": {
-      "ETH": { "type": "square", "value": ["be9600"] },
-      "KEN": { "type": "square", "value": ["be9600"] },
-      "UGA": { "type": "square", "value": ["be9600"] },
-      "ZMB": { "type": "square", "value": ["be9600"] },
-      "ZWE": { "type": "square", "value": ["be9600"] }
+      "ETH": { "type": "square", "value": ["#be9600"] },
+      "KEN": { "type": "square", "value": ["#be9600"] },
+      "UGA": { "type": "square", "value": ["#be9600"] },
+      "ZMB": { "type": "square", "value": ["#be9600"] },
+      "ZWE": { "type": "square", "value": ["#be9600"] }
     },
     "leadTimeDependent": false,
     "active": "no",
