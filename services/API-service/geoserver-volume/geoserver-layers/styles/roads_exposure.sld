@@ -28,10 +28,16 @@
                 <ogc:PropertyName>exposed</ogc:PropertyName>
                 <ogc:Literal>true</ogc:Literal>
               </ogc:PropertyIsEqualTo>
-              <ogc:PropertyIsEqualTo>
-                <ogc:PropertyName>highway</ogc:PropertyName>
-                <ogc:Literal>primary</ogc:Literal>
-              </ogc:PropertyIsEqualTo>
+              <ogc:Or>
+                <ogc:PropertyIsEqualTo>
+                  <ogc:PropertyName>highway</ogc:PropertyName>
+                  <ogc:Literal>primary</ogc:Literal>
+                </ogc:PropertyIsEqualTo>
+                <ogc:PropertyIsEqualTo>
+                  <ogc:PropertyName>highway</ogc:PropertyName>
+                  <ogc:Literal>trunk</ogc:Literal>
+                </ogc:PropertyIsEqualTo>
+              </ogc:Or>
             </ogc:And>
           </ogc:Filter>
 
@@ -50,14 +56,18 @@
           <Title>Exposed secondary</Title>
           <ogc:Filter>
             <ogc:And>
-            <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>exposed</ogc:PropertyName>
-              <ogc:Literal>true</ogc:Literal>
-            </ogc:PropertyIsEqualTo>
-            <ogc:PropertyIsNotEqualTo>
-              <ogc:PropertyName>highway</ogc:PropertyName>
-              <ogc:Literal>primary</ogc:Literal>
-            </ogc:PropertyIsNotEqualTo>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>exposed</ogc:PropertyName>
+                <ogc:Literal>true</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+              <ogc:PropertyIsNotEqualTo>
+                <ogc:PropertyName>highway</ogc:PropertyName>
+                <ogc:Literal>primary</ogc:Literal>
+              </ogc:PropertyIsNotEqualTo>
+              <ogc:PropertyIsNotEqualTo>
+                <ogc:PropertyName>highway</ogc:PropertyName>
+                <ogc:Literal>trunk</ogc:Literal>
+              </ogc:PropertyIsNotEqualTo>
             </ogc:And>
           </ogc:Filter>
 
@@ -76,14 +86,20 @@
           <Title>Not Exposed primary</Title>
           <ogc:Filter>
             <ogc:And>
-            <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>exposed</ogc:PropertyName>
-              <ogc:Literal>false</ogc:Literal>
-            </ogc:PropertyIsEqualTo>
-            <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>highway</ogc:PropertyName>
-              <ogc:Literal>primary</ogc:Literal>
-            </ogc:PropertyIsEqualTo>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>exposed</ogc:PropertyName>
+                <ogc:Literal>false</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+              <ogc:Or>
+                <ogc:PropertyIsEqualTo>
+                  <ogc:PropertyName>highway</ogc:PropertyName>
+                  <ogc:Literal>primary</ogc:Literal>
+                </ogc:PropertyIsEqualTo>
+                <ogc:PropertyIsEqualTo>
+                  <ogc:PropertyName>highway</ogc:PropertyName>
+                  <ogc:Literal>trunk</ogc:Literal>
+                </ogc:PropertyIsEqualTo>
+              </ogc:Or>
             </ogc:And>
           </ogc:Filter>
 
@@ -102,14 +118,18 @@
           <Title>Not Exposed secondary</Title>
           <ogc:Filter>
             <ogc:And>
-            <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>exposed</ogc:PropertyName>
-              <ogc:Literal>false</ogc:Literal>
-            </ogc:PropertyIsEqualTo>
-            <ogc:PropertyIsNotEqualTo>
-              <ogc:PropertyName>highway</ogc:PropertyName>
-              <ogc:Literal>primary</ogc:Literal>
-            </ogc:PropertyIsNotEqualTo>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>exposed</ogc:PropertyName>
+                <ogc:Literal>false</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+              <ogc:PropertyIsNotEqualTo>
+                <ogc:PropertyName>highway</ogc:PropertyName>
+                <ogc:Literal>primary</ogc:Literal>
+              </ogc:PropertyIsNotEqualTo>
+              <ogc:PropertyIsNotEqualTo>
+                <ogc:PropertyName>highway</ogc:PropertyName>
+                <ogc:Literal>trunk</ogc:Literal>
+              </ogc:PropertyIsNotEqualTo>
             </ogc:And>
           </ogc:Filter>
 
