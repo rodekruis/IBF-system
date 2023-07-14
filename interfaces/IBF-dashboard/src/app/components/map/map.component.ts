@@ -47,6 +47,7 @@ import {
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
+import { MapLegendService } from 'src/app/services/map-legend.service';
 import { MapService } from 'src/app/services/map.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
@@ -86,9 +87,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   public legend: Control;
   private legendDiv: HTMLElement;
-  private legendDivTitle = `<div style='margin-bottom: 8px'><strong>Map Legend</strong></div>`;
-  // public legends: { [key: string]: Control } = {};
-  private legends: string[] = [];
 
   private layerSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -122,6 +120,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private analyticsService: AnalyticsService,
     private apiService: ApiService,
     private pointMarkerService: PointMarkerService,
+    private mapLegendService: MapLegendService,
   ) {
     this.layerSubscription = this.mapService
       .getLayerSubscription()
@@ -358,7 +357,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.legend.setPosition('bottomleft');
     this.legend.onAdd = () => {
       this.legendDiv = DomUtil.create('div', 'info legend');
-      this.legendDiv.innerHTML += this.legendDivTitle;
+      this.legendDiv.innerHTML += this.mapLegendService.getLegendTitle();
       return this.legendDiv;
     };
 
@@ -374,15 +373,18 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       .filter((l) => l.active && l.group !== IbfLayerGroup.adminRegions)
       .sort((layer1, layer2) => layer1.order - layer2.order);
 
-    this.legendDiv.innerHTML = this.legendDivTitle;
+    this.legendDiv.innerHTML = this.mapLegendService.getLegendTitle();
     for (const layer of layersToShow) {
       let element = ``;
       switch (layer.type) {
         case IbfLayerType.point:
-          element = this.getPointLegendString(layer);
+          element = this.mapLegendService.getPointLegendString(layer);
           break;
         case IbfLayerType.shape:
-          element = this.getShapeLegendString(layer);
+          element = this.mapLegendService.getShapeLegendString(layer);
+          break;
+        case IbfLayerType.wms:
+          element = this.mapLegendService.getWmsLegendString(layer);
           break;
         default:
           element = `<p id='legend-${layer.name}'>${layer.label}</p>`;
@@ -391,87 +393,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
       this.legendDiv.innerHTML += element;
     }
-  }
-
-  private getPointLegendString(layer: IbfLayer): string {
-    const iconURLPrefix = 'assets/markers/';
-    const layerIcon = {
-      [IbfLayerName.glofasStations]: 'trigger-icon.svg',
-      [IbfLayerName.typhoonTrack]: 'typhoon-track.png',
-      [IbfLayerName.redCrossBranches]: 'red-cross-icon.svg',
-      [IbfLayerName.damSites]: 'dam-icon.svg',
-      [IbfLayerName.waterpoints]: 'water-point-icon.svg',
-      [IbfLayerName.healthSites]: 'health-center-icon.svg',
-      [IbfLayerName.evacuationCenters]: 'evacuation-center-icon.svg',
-      [IbfLayerName.schools]: 'school-icon.svg',
-      [IbfLayerName.communityNotifications]: 'community-notification-icon.svg',
-    };
-    return `<ion-row style='padding: 4px' class='ion-align-items-center'><img height='16px' style='margin-right: 4px' src='${iconURLPrefix}${
-      layerIcon[layer.name]
-    }' /><ion-label>${layer.label}</ion-label> </ion-row>`;
-  }
-
-  private getShapeLegendString(layer: IbfLayer): string {
-    if (layer.name === IbfLayerName.alertThreshold) {
-      return `<ion-row style='padding: 4px'><div style="width: 16px; height: 16px; border:2px solid red; margin-right: 4px"></div><ion-label>${layer.label}</ion-label></ion-row>`;
-    }
-
-    if (!layer.data) {
-      return '';
-    }
-
-    const colorThreshold = this.mapService.getColorThreshold(
-      layer.data,
-      layer.colorProperty,
-      layer.colorBreaks,
-    );
-
-    const grades = Object.values(colorThreshold);
-    let labels;
-    if (layer.colorBreaks) {
-      labels = Object.values(layer.colorBreaks).map(
-        (colorBreak) => colorBreak.label,
-      );
-    }
-
-    const colors =
-      this.eventState?.activeTrigger && this.eventState?.thresholdReached
-        ? this.mapService.state.colorGradientTriggered
-        : this.mapService.state.colorGradient;
-
-    const getColor = this.getFeatureColorByColorsAndColorThresholds(
-      colors,
-      colorThreshold,
-    );
-
-    const getLabel = this.getLabel(grades, layer, labels);
-
-    let element = '<div style="padding: 4px">';
-    element +=
-      `<strong>${layer.label}` +
-      (layer.unit ? ' (' + layer.unit + ')' : '') +
-      '</strong>';
-
-    const noDataEntryFound = layer.data?.features.find(
-      (f) => f.properties?.indicators[layer.name] === null,
-    );
-    element += `<div style='margin-top: 8px'>`;
-    if (noDataEntryFound) {
-      element += `<i style="background:${this.mapService.state.noDataColor}"></i> No data<br>`;
-    }
-
-    for (let i = 0; i < grades.length; i++) {
-      if (grades[i] !== null && (i === 0 || grades[i] > grades[i - 1])) {
-        element += `<i style="background:${getColor(
-          grades[i + 1],
-        )}"></i> ${getLabel(i)}`;
-      }
-    }
-    element += `</div>`;
-
-    element += '</div>';
-
-    return element;
   }
 
   onMapReady(map: Map) {
