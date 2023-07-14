@@ -35,7 +35,7 @@ export class AssetViewsJoinByTimestamp1688740150607
       ],
     );
     await queryRunner.query(
-      `CREATE VIEW "IBF-app"."roads_exposure_per_lead_time" AS SELECT line."referenceId",line.geom, status."leadTime", COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId"  LEFT JOIN (SELECT status."leadTime" as "leadTime", MAX(timestamp) as max_timestamp FROM "IBF-app"."lines-data-dynamic-status" "status" LEFT JOIN "IBF-app"."lines-data" "line" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = 'roads' GROUP BY status."leadTime") "max_timestamp" ON status."leadTime" = max_timestamp."leadTime" WHERE line."linesDataCategory" = 'roads' AND ("status"."timestamp" = max_timestamp.max_timestamp OR "status"."timestamp" IS NULL)`,
+      `CREATE VIEW "IBF-app"."roads_exposure_per_lead_time" AS SELECT line."referenceId",line.geom, line.attributes->>'highway' as "highway", status."leadTime", COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId"  LEFT JOIN (SELECT status."leadTime" as "leadTime", MAX(timestamp) as max_timestamp FROM "IBF-app"."lines-data-dynamic-status" "status" LEFT JOIN "IBF-app"."lines-data" "line" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = 'roads' GROUP BY status."leadTime") "max_timestamp" ON status."leadTime" = max_timestamp."leadTime" WHERE line."linesDataCategory" = 'roads' AND ("status"."timestamp" = max_timestamp.max_timestamp OR "status"."timestamp" IS NULL)`,
     );
     await queryRunner.query(
       `INSERT INTO "IBF-app"."typeorm_metadata"("type", "schema", "name", "value") VALUES ($1, $2, $3, $4)`,
@@ -43,7 +43,7 @@ export class AssetViewsJoinByTimestamp1688740150607
         'VIEW',
         'IBF-app',
         'roads_exposure_per_lead_time',
-        'SELECT line."referenceId",line.geom, status."leadTime", COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId"  LEFT JOIN (SELECT status."leadTime" as "leadTime", MAX(timestamp) as max_timestamp FROM "IBF-app"."lines-data-dynamic-status" "status" LEFT JOIN "IBF-app"."lines-data" "line" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = \'roads\' GROUP BY status."leadTime") "max_timestamp" ON status."leadTime" = max_timestamp."leadTime" WHERE line."linesDataCategory" = \'roads\' AND ("status"."timestamp" = max_timestamp.max_timestamp OR "status"."timestamp" IS NULL)',
+        `SELECT line."referenceId",line.geom, line.attributes->>'highway' as "highway", status."leadTime", COALESCE("status"."exposed",FALSE) as "exposed" FROM "IBF-app"."lines-data" "line" LEFT JOIN "IBF-app"."lines-data-dynamic-status" "status" ON line."linesDataId" = status."referenceId"  LEFT JOIN (SELECT status."leadTime" as "leadTime", MAX(timestamp) as max_timestamp FROM "IBF-app"."lines-data-dynamic-status" "status" LEFT JOIN "IBF-app"."lines-data" "line" ON line."linesDataId" = status."referenceId" WHERE line."linesDataCategory" = \'roads\' GROUP BY status."leadTime") "max_timestamp" ON status."leadTime" = max_timestamp."leadTime" WHERE line."linesDataCategory" = \'roads\' AND ("status"."timestamp" = max_timestamp.max_timestamp OR "status"."timestamp" IS NULL)`,
       ],
     );
   }

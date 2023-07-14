@@ -6,7 +6,13 @@ const getViewQuery = (type: LinesDataEnum) => {
   return () =>
     getConnection()
       .createQueryBuilder()
-      .select(['line."referenceId",line.geom'])
+      .select([
+        `line."referenceId",line.geom${
+          type === LinesDataEnum.roads
+            ? `line.attributes->>'highway' as "roadType"`
+            : ''
+        }`,
+      ])
       .from(LinesDataEntity, 'line')
       .leftJoin(
         LinesDataDynamicStatusEntity,
