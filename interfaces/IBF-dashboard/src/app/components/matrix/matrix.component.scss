@@ -14,6 +14,9 @@
     }
   }
 
+  ion-menu::part(backdrop) {
+    background: transparent;
+  }
   ion-menu-toggle {
     cursor: pointer;
 
@@ -23,6 +26,8 @@
   }
   ion-row {
     min-height: 36px;
+    border: 1px solid var(--ion-color-ibf-no-alert-primary);
+    border-top: none;
   }
 
   ion-item {
@@ -35,15 +40,35 @@
     --inner-padding-start: 0;
     --inner-padding-end: 0;
 
-    ion-checkbox {
-      --border-color: var(--ion-color-ibf-no-alert-primary);
-      --border-color-checked: var(--ion-color-ibf-no-alert-primary);
-      --background-checked: var(--ion-color-ibf-no-alert-primary);
-    }
+    .matrix-toggler {
+      width: 18px;
+      height: 18px;
+      background-color: #fff;
+      border: 2px solid var(--ion-color-ibf-no-alert-primary);
+      cursor: pointer;
 
-    ion-radio {
-      --color: var(--ion-color-ibf-no-alert-primary);
-      --color-checked: var(--ion-color-ibf-no-alert-primary);
+      &.matrix-check {
+        border-radius: 2px;
+      }
+
+      &.matrix-radio {
+        border-radius: 50%;
+      }
+
+      .matrix-check-mark {
+        width: 16px;
+        height: 16px;
+        background-color: var(--ion-color-ibf-no-alert-primary);
+        stroke: #fff;
+        stroke-width: 4px;
+      }
+      .matrix-radio-circle {
+        width: 14px;
+        height: 14px;
+        background-color: var(--ion-color-ibf-no-alert-primary);
+        border: 2px solid #fff;
+        border-radius: 50%;
+      }
     }
 
     ion-label {
@@ -51,6 +76,10 @@
       font-size: 16px;
     }
 
+    .info-button {
+      --background-hover: #fff;
+      --ripple-color: #fff;
+    }
     .info-icon {
       font-size: 24px;
 

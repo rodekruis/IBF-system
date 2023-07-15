@@ -101,6 +101,7 @@ export class MatrixComponent implements OnDestroy {
     });
 
     this.mapService.toggleLayer(layer);
+    console.log('=== layer: ', layer.name, layer.active);
   }
 
   public async isLayerControlMenuOpen(): Promise<void> {
@@ -112,18 +113,11 @@ export class MatrixComponent implements OnDestroy {
   private sortLayers = (a: IbfLayer, b: IbfLayer) =>
     a.order > b.order ? 1 : a.order === b.order ? 0 : -1;
 
-  getLayersInOrder(): { check: IbfLayer[]; radio: IbfLayer[] } {
+  getLayersInOrder(): IbfLayer[] {
     // Filter out layers with negative order-value (quick hack)
-    const check = this.layers
-      .filter((l) => this.isCheckBox(l.group))
+    return this.layers
       .filter((layer) => layer.order >= 0)
       .sort(this.sortLayers);
-    const radio = this.layers
-      .filter((l) => this.isRadioButton(l.group))
-      .filter((layer) => layer.order >= 0)
-      .sort(this.sortLayers);
-
-    return { check, radio };
   }
 
   public isCheckBox(layerGroup: IbfLayerGroup): boolean {
@@ -134,9 +128,5 @@ export class MatrixComponent implements OnDestroy {
     return [IbfLayerGroup.aggregates, IbfLayerGroup.outline].includes(
       layerGroup,
     );
-  }
-
-  public getActiveRadioLayer(): IbfLayer {
-    return this.getLayersInOrder().radio.find((l) => l.active);
   }
 }

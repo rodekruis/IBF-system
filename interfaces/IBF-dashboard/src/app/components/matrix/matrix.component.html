@@ -34,18 +34,32 @@
     <ion-content>
       <ion-list class="ion-no-padding">
         <ion-row
-          *ngFor="let layer of getLayersInOrder().check"
+          *ngFor="let layer of getLayersInOrder()"
           class="ion-justify-content-between ion-nowrap"
         >
-          <ion-item lines="full">
+          <ion-item lines="none">
             <ion-spinner *ngIf="layer.isLoading"></ion-spinner>
-            <ion-checkbox
+            <div
               *ngIf="!layer.isLoading"
-              [checked]="layer.active"
               (click)="toggleLayer(layer)"
-              class="ion-no-margin"
+              class="matrix-toggler ion-no-margin"
+              [class.matrix-check]="isCheckBox(layer.group)"
+              [class.matrix-radio]="isRadioButton(layer.group)"
               slot="start"
-            ></ion-checkbox>
+            >
+              <svg
+                *ngIf="isCheckBox(layer.group) && layer.active"
+                class="matrix-check-mark"
+                viewBox="-4 -4 35 35"
+                part="container"
+              >
+                <path d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+              </svg>
+              <div
+                *ngIf="isRadioButton(layer.group) && layer.active"
+                class="matrix-radio-circle"
+              ></div>
+            </div>
             <ion-label
               class="ion-text-wrap ion-no-margin"
               [title]="layer.label"
@@ -56,7 +70,7 @@
             <ion-button
               slot="end"
               fill="clear"
-              class="ion-no-margin"
+              class="ion-no-margin info-button"
               (click)="presentPopover($event, layer)"
             >
               <ion-icon
@@ -68,43 +82,6 @@
             </ion-button>
           </ion-item>
         </ion-row>
-        <ion-radio-group [value]="getActiveRadioLayer()">
-          <ion-row
-            *ngFor="let layer of getLayersInOrder().radio"
-            class="ion-justify-content-between ion-nowrap"
-          >
-            <ion-item lines="full">
-              <ion-spinner *ngIf="layer.isLoading"></ion-spinner>
-              <ion-radio
-                *ngIf="!layer.isLoading"
-                (click)="toggleLayer(layer)"
-                class="ion-no-margin menu-radio-button"
-                slot="start"
-                [value]="layer"
-              ></ion-radio>
-              <ion-label
-                class="ion-text-wrap ion-no-margin"
-                [title]="layer.label"
-                style="margin-left: 8px"
-              >
-                {{ layer.label }}
-              </ion-label>
-              <ion-button
-                slot="end"
-                fill="clear"
-                class="ion-no-margin"
-                (click)="presentPopover($event, layer)"
-              >
-                <ion-icon
-                  color="ibf-no-alert-primary"
-                  name="information-circle-outline"
-                  data-test="matrix-icon"
-                  class="info-icon"
-                ></ion-icon>
-              </ion-button>
-            </ion-item>
-          </ion-row>
-        </ion-radio-group>
       </ion-list>
     </ion-content>
   </ion-menu>
