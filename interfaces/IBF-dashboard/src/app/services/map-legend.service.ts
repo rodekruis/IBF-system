@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Country, DisasterType } from '../models/country.model';
 import { breakKey } from '../models/map.model';
@@ -14,7 +14,7 @@ import { MapService } from './map.service';
 @Injectable({
   providedIn: 'root',
 })
-export class MapLegendService implements OnDestroy {
+export class MapLegendService {
   private legendDivTitle = `<div style='margin-bottom: 8px'><strong>Map Legend</strong></div>`;
 
   public eventState: EventState;
@@ -28,7 +28,7 @@ export class MapLegendService implements OnDestroy {
 
   layerIconURLPrefix = 'assets/markers/';
   private layerIcon = {
-    [IbfLayerName.glofasStations]: 'glofas-station-no-trigger',
+    [IbfLayerName.glofasStations]: 'glofas-station-no-trigger.svg',
     [IbfLayerName.typhoonTrack]: 'typhoon-track.png',
     [IbfLayerName.redCrossBranches]: 'red-cross-marker.svg',
     [IbfLayerName.damSites]: 'dam-marker.svg',
@@ -63,19 +63,16 @@ export class MapLegendService implements OnDestroy {
       .subscribe(this.onDisasterTypeChange);
   }
 
-  ngOnDestroy() {
-    this.initialEventStateSubscription.unsubscribe();
-    this.manualEventStateSubscription.unsubscribe();
-    this.countrySubscription.unsubscribe();
-    this.disasterTypeSubscription.unsubscribe();
-  }
-
   public getLegendTitle(): string {
     return this.legendDivTitle;
   }
 
   public getPointLegendString(layer: IbfLayer): string {
-    return `<ion-row style='padding: 4px'><div style='height: 24px; width: 16px; margin-right: 4px'><img src='${
+    // hardcoded exception to center vertically typhoon icon
+    const paddingTop =
+      layer.name === IbfLayerName.typhoonTrack ? '; padding-top: 3px' : '';
+
+    return `<ion-row style='padding: 4px '><div style='height: 24px; width: 16px; margin-right: 4px${paddingTop}'><img src='${
       this.layerIconURLPrefix
     }${
       this.layerIcon[layer.name]

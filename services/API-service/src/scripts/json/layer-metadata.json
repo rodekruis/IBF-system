@@ -563,7 +563,7 @@
     "legendColor": {
       "MWI": {
         "type": "exposure-line",
-        "value": ["#ff0000", "#00ff00"]
+        "value": ["#E80C0C", "#33A02C"]
       }
     }
   },
@@ -578,7 +578,7 @@
     "legendColor": {
       "MWI": {
         "type": "exposure-square",
-        "value": ["#c21e4d", "#3e8262"]
+        "value": ["#C70000", "#33A02C"]
       }
     }
   }
