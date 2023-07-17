@@ -12,9 +12,15 @@
     ion-content {
       --background: transparent;
     }
+
+    ion-content::part(scroll), ion-content::part(background) {
+      height: max-content;
+    }
+
   }
 
   ion-menu::part(backdrop) {
+    display: none;
     background: transparent;
   }
   ion-menu-toggle {
