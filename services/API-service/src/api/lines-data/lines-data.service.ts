@@ -109,6 +109,8 @@ export class LinesDataService {
   public async uploadAssetExposureStatus(
     assetFids: UploadLinesExposureStatusDto,
   ) {
+    // Make sure all assets within one upload have the same timestamp, to make sure the asset exposure views work correctly
+    assetFids.date = assetFids.date || new Date();
     const assetForecasts: LinesDataDynamicStatusEntity[] = [];
     for (const fid of assetFids.exposedFids) {
       const asset = await this.linesDataRepository.findOne({
@@ -129,7 +131,7 @@ export class LinesDataService {
         timestamp: MoreThanOrEqual(
           this.helperService.getUploadCutoffMoment(
             assetFids.disasterType,
-            assetFids.date || new Date(),
+            assetFids.date,
           ),
         ),
       });
@@ -137,7 +139,7 @@ export class LinesDataService {
       const assetForecast = new LinesDataDynamicStatusEntity();
       assetForecast.linesData = asset;
       assetForecast.leadTime = assetFids.leadTime;
-      assetForecast.timestamp = assetFids.date || new Date();
+      assetForecast.timestamp = assetFids.date;
       assetForecast.exposed = true;
       assetForecasts.push(assetForecast);
     }
