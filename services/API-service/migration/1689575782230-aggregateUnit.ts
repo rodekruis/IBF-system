@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class aggregateUnit1689575782230 implements MigrationInterface {
+export class AggregateUnit1689575782230 implements MigrationInterface {
   name = 'aggregateUnit1689575782230';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
