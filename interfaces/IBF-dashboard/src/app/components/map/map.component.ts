@@ -62,7 +62,6 @@ import {
 } from 'src/app/types/ibf-layer';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
-import { breakKey } from '../../models/map.model';
 import { PlaceCode } from '../../models/place-code.model';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { PointMarkerService } from '../../services/point-marker.service';
@@ -303,54 +302,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       return Math.round(d).toLocaleString();
     }
   }
-
-  private getFeatureColorByColorsAndColorThresholds = (
-    colors,
-    colorThreshold,
-  ) => (feature) => {
-    return feature <= colorThreshold[breakKey.break1] ||
-      !colorThreshold[breakKey.break1]
-      ? colors[0]
-      : feature <= colorThreshold[breakKey.break2] ||
-        !colorThreshold[breakKey.break2]
-      ? colors[1]
-      : feature <= colorThreshold[breakKey.break3] ||
-        !colorThreshold[breakKey.break3]
-      ? colors[2]
-      : feature <= colorThreshold[breakKey.break4] ||
-        !colorThreshold[breakKey.break4]
-      ? colors[3]
-      : colors[4];
-  };
-
-  private getLabel = (grades, layer, labels) => (i) => {
-    const label = labels ? '  -  ' + labels[i] : '';
-    if (layer.colorBreaks) {
-      const valueLow = layer.colorBreaks && layer.colorBreaks[i + 1]?.valueLow;
-      const valueHigh =
-        layer.colorBreaks && layer.colorBreaks[i + 1]?.valueHigh;
-      if (valueLow === valueHigh) {
-        return this.numberFormat(valueHigh, layer) + label + '<br/>';
-      } else {
-        return (
-          this.numberFormat(valueLow, layer) +
-          '&ndash;' +
-          this.numberFormat(valueHigh, layer) +
-          label +
-          '<br/>'
-        );
-      }
-    } else {
-      const number1 = this.numberFormat(grades[i], layer);
-      const number2 = this.numberFormat(grades[i + 1], layer);
-      return (
-        number1 +
-        (typeof grades[i + 1] !== 'undefined' ? '&ndash;' + number2 : '+') +
-        label +
-        '<br/>'
-      );
-    }
-  };
 
   private initLegend() {
     this.legend = new Control();
