@@ -419,35 +419,38 @@ export class MapService {
       return;
     }
 
+    Object.keys(this.aggregatesToExclude).includes(
+      this.country.countryCodeISO3,
+    );
+
     if (
-      this.aggregatesToExclude[this.country.countryCodeISO3][
+      !this.aggregatesToExclude[this.country.countryCodeISO3] ||
+      !this.aggregatesToExclude[this.country.countryCodeISO3][
         this.disasterType.disasterType
-      ] &&
-      this.aggregatesToExclude[this.country.countryCodeISO3][
+      ] ||
+      !this.aggregatesToExclude[this.country.countryCodeISO3][
         this.disasterType.disasterType
       ].includes(indicator.name)
     ) {
-      return;
-    }
+      const layerActive = this.adminLevelService.activeLayerNames.length
+        ? this.adminLevelService.activeLayerNames.includes(indicator.name)
+        : this.getActiveState(indicator);
 
-    const layerActive = this.adminLevelService.activeLayerNames.length
-      ? this.adminLevelService.activeLayerNames.includes(indicator.name)
-      : this.getActiveState(indicator);
-
-    if (layerActive && this.timelineState) {
-      this.getCombineAdminRegionData(
-        this.country.countryCodeISO3,
-        this.disasterType.disasterType,
-        this.adminLevel,
-        indicator.name,
-        indicator.dynamic,
-        this.timelineState.activeLeadTime,
-        this.eventState?.event?.eventName,
-      ).subscribe((adminRegions) => {
-        this.addAggregateLayer(indicator, adminRegions, layerActive);
-      });
-    } else {
-      this.addAggregateLayer(indicator, null, layerActive);
+      if (layerActive && this.timelineState) {
+        this.getCombineAdminRegionData(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+          this.adminLevel,
+          indicator.name,
+          indicator.dynamic,
+          this.timelineState.activeLeadTime,
+          this.eventState?.event?.eventName,
+        ).subscribe((adminRegions) => {
+          this.addAggregateLayer(indicator, adminRegions, layerActive);
+        });
+      } else {
+        this.addAggregateLayer(indicator, null, layerActive);
+      }
     }
   }
 
