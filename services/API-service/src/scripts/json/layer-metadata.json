@@ -50,6 +50,18 @@
       "EGY": {
         "type": "square",
         "value": ["#d7301f"]
+      },
+      "UGA": {
+        "type": "gradient",
+        "value": [
+          "#ffff7f",
+          "#ffe200",
+          "#ffaa00",
+          "#ff8d00",
+          "#ff7100",
+          "#ff3800",
+          "#ff0000"
+        ]
       }
     },
     "leadTimeDependent": true,

@@ -142,7 +142,6 @@ export class MapLegendService implements OnDestroy {
   }
 
   public getWmsLegendString(layer: IbfLayer): string {
-    console.log('=== layer: ', layer);
     let element = '<div style="padding: 4px">';
     const typeKey = 'type';
     let legendType = layer.legendColor[this.country.countryCodeISO3][typeKey];
