@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { MapLegendService } from './map-legend.service';
 
 describe('MapLegendService', () => {
