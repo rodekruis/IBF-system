@@ -1267,7 +1267,8 @@
     "order": 2,
     "dynamic": true,
     "lazyLoad": true,
-    "unit": "$"
+    "unit": "MWK",
+    "aggregateUnit": "MWK"
   },
   {
     "countryCodes": "MWI",
@@ -1285,7 +1286,8 @@
     "order": 2,
     "dynamic": true,
     "lazyLoad": true,
-    "unit": "nr. of roads"
+    "unit": "km",
+    "aggregateUnit": "km"
   },
   {
     "countryCodes": "MWI",
@@ -1303,13 +1305,13 @@
     "order": 2,
     "dynamic": true,
     "lazyLoad": true,
-    "unit": "nr. of schools"
+    "unit": "schools"
   },
   {
     "countryCodes": "MWI",
     "disasterTypes": ["flash-floods"],
     "name": "nr_affected_clinics",
-    "label": "Affected clinics",
+    "label": "Affected health sites",
     "icon": "Clinics_affected.svg",
     "weightedAvg": false,
     "active": "no",
@@ -1321,7 +1323,7 @@
     "order": 2,
     "dynamic": true,
     "lazyLoad": true,
-    "unit": "nr. of clinics"
+    "unit": "health sites"
   },
   {
     "countryCodes": "MWI",
@@ -1339,7 +1341,7 @@
     "order": 2,
     "dynamic": true,
     "lazyLoad": true,
-    "unit": "nr. of waterpoints"
+    "unit": "waterpoints"
   },
   {
     "countryCodes": "MWI",
@@ -1357,7 +1359,7 @@
     "order": 2,
     "dynamic": true,
     "lazyLoad": true,
-    "unit": "nr. of buildings"
+    "unit": "buildings"
   },
   {
     "countryCodes": "KEN",
