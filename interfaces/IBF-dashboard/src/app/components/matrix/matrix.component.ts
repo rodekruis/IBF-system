@@ -101,7 +101,6 @@ export class MatrixComponent implements OnDestroy {
     });
 
     this.mapService.toggleLayer(layer);
-    console.log('=== layer: ', layer.name, layer.active);
   }
 
   public async isLayerControlMenuOpen(): Promise<void> {
