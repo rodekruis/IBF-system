@@ -26,6 +26,20 @@ export class MapLegendService implements OnDestroy {
   private countrySubscription: Subscription;
   private disasterTypeSubscription: Subscription;
 
+  layerIconURLPrefix = 'assets/markers/';
+  private layerIcon = {
+    [IbfLayerName.glofasStations]: 'glofas-station-no-trigger',
+    [IbfLayerName.typhoonTrack]: 'typhoon-track.png',
+    [IbfLayerName.redCrossBranches]: 'red-cross-marker.svg',
+    [IbfLayerName.damSites]: 'dam-marker.svg',
+    [IbfLayerName.waterpoints]: 'water-point-marker.svg',
+    [IbfLayerName.waterpointsInternal]: 'water-point-marker.svg',
+    [IbfLayerName.healthSites]: 'health-center-marker.svg',
+    [IbfLayerName.evacuationCenters]: 'evacuation-center-marker.svg',
+    [IbfLayerName.schools]: 'school-marker.svg',
+    [IbfLayerName.communityNotifications]: 'community-notification-marker.svg',
+  };
+
   constructor(
     private mapService: MapService,
     private eventService: EventService,
@@ -61,21 +75,13 @@ export class MapLegendService implements OnDestroy {
   }
 
   public getPointLegendString(layer: IbfLayer): string {
-    const iconURLPrefix = 'assets/markers/';
-    const layerIcon = {
-      [IbfLayerName.glofasStations]: 'trigger-icon.svg',
-      [IbfLayerName.typhoonTrack]: 'typhoon-track.png',
-      [IbfLayerName.redCrossBranches]: 'red-cross-icon.svg',
-      [IbfLayerName.damSites]: 'dam-icon.svg',
-      [IbfLayerName.waterpoints]: 'water-point-icon.svg',
-      [IbfLayerName.healthSites]: 'health-center-icon.svg',
-      [IbfLayerName.evacuationCenters]: 'evacuation-center-icon.svg',
-      [IbfLayerName.schools]: 'school-icon.svg',
-      [IbfLayerName.communityNotifications]: 'community-notification-icon.svg',
-    };
-    return `<ion-row style='padding: 4px' class='ion-align-items-center'><img height='16px' style='margin-right: 4px' src='${iconURLPrefix}${
-      layerIcon[layer.name]
-    }' /><ion-label>${layer.label}</ion-label> </ion-row>`;
+    return `<ion-row style='padding: 4px'><div style='height: 24px; width: 16px; margin-right: 4px'><img src='${
+      this.layerIconURLPrefix
+    }${
+      this.layerIcon[layer.name]
+    }' /></div><ion-label style='padding-top: 2px'>${
+      layer.label
+    }</ion-label> </ion-row>`;
   }
 
   public getShapeLegendString(layer: IbfLayer): string {
